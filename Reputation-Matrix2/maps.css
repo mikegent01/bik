@@ -1,0 +1,951 @@
+#maps-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 24px;
+    height: calc(100% - 80px);
+}
+
+#map-view-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#map-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--sidebar-bg);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.map-group-header {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.map-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.map-tab-btn {
+    padding: 8px 16px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.map-tab-btn:hover {
+    color: var(--text-color);
+    border-color: var(--accent-hover);
+}
+.map-tab-btn.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: rgba(138, 43, 226, 0.1);
+}
+
+#map-display-area {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+#map-display-area.editing-poi {
+    cursor: copy;
+}
+#map-display-area.editing-fog {
+    cursor: crosshair;
+}
+#map-display-area.removing-item {
+    cursor: not-allowed;
+}
+
+#map-zoom-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-origin: 0 0;
+}
+
+
+#map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#interactive-map-layer {
+    pointer-events: none; /* Pass clicks through the layer itself */
+}
+
+
+.poi-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: rgba(13, 17, 23, 0.7);
+    border: 1px solid var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 12px;
+    z-index: 5;
+    pointer-events: all; /* Make markers clickable */
+}
+
+.poi-marker:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 10px var(--accent-color);
+    z-index: 10;
+}
+
+.removing-item .poi-marker:hover {
+    border-color: var(--negative-color);
+    box-shadow: 0 0 10px var(--negative-color);
+    background-color: var(--negative-color);
+}
+
+
+#map-fog-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#map-fog-overlay polygon {
+    fill: var(--bg-color);
+    opacity: 0.85;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: all; /* Make polygons clickable in edit mode */
+}
+
+#map-display-area.edit-mode #map-fog-overlay polygon,
+#map-display-area.edit-mode .poi-marker {
+    cursor: pointer;
+}
+
+
+.removing-item #map-fog-overlay polygon:hover {
+    fill: var(--negative-color);
+    opacity: 0.6;
+}
+
+
+#map-fog-overlay polygon.discovered {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#map-detail-panel {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+#map-detail-content {
+    overflow-y: auto;
+    height: 100%;
+}
+.panel-placeholder {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+.poi-detail h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+.poi-detail .poi-type {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+.poi-detail .poi-description {
+    font-size: 0.9rem;
+}
+
+.poi-detail .poi-intel-req {
+    margin-top: 16px;
+    padding: 8px;
+    background-color: var(--main-bg);
+    border-left: 3px solid var(--neutral-color);
+    font-size: 0.85rem;
+}
+
+
+/* Editor Toolbar */
+#map-editor-toolbar {
+    background-color: var(--sidebar-bg);
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+#poi-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 60%;
+}
+
+.poi-palette-item {
+    font-size: 20px;
+    cursor: grab;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: var(--main-bg);
+    transition: background-color 0.2s;
+}
+
+.poi-palette-item:hover {
+    background-color: var(--accent-color);
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 8px;
+}
+.toolbar-actions .control-btn.positive {
+    border-color: var(--positive-color);
+    color: var(--positive-color);
+}
+.toolbar-actions .control-btn.positive:hover {
+    background-color: var(--positive-color);
+    color: white;
+}
+.toolbar-actions .control-btn.negative {
+    border-color: var(--negative-color);
+    color: var(--negative-color);
+}
+.toolbar-actions .control-btn.negative:hover {
+    background-color: var(--negative-color);
+    color: white;
+}
+#remove-item-btn.active {
+    background-color: var(--negative-color);
+    border-color: var(--negative-color);
+    color: white;
+}
+
+
+/* Drawing Overlay */
+#map-drawing-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+#map-drawing-svg .draw-point {
+    fill: var(--accent-color);
+}
+
+#map-drawing-svg .draw-line {
+    stroke: var(--accent-color);
+    stroke-width: 2px;
+    stroke-dasharray: 4, 4;
+    fill: rgba(138, 43, 226, 0.2);
+}
+
+
+/* POI Editor Modal & Panel*/
+#poi-editor-modal .modal-content, #item-editor-panel {
+    max-width: 400px;
+}
+#poi-form, #item-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.form-group input,
+.form-group textarea,
+.form-group select,
+.form-group p {
+    width: 100%;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+#poi-form-type, .editor-panel-type {
+    min-height: 38px; /* match input height */
+    display: flex;
+    align-items: center;
+}
+.editor-panel-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+
+@media (max-width: 1024px) {
+    #maps-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.poi-marker.draggable-poi {
+    cursor: grab;
+}
+.poi-marker.draggable-poi:active {
+    cursor: grabbing;
+}
+
+/* Code Output Modal */
+#code-output-modal .modal-content {
+    max-width: 700px;
+}
+
+#code-output-modal p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.code-output-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.code-output-group label {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+}
+
+.code-output-textarea {
+    width: 100%;
+    height: 250px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    resize: vertical;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+}
+
+/* Map Modes */
+#map-mode-selector {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+#map-mode-selector span {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: var(--font-display);
+}
+.mode-btn {
+    padding: 6px 12px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.mode-btn:hover {
+    color: var(--text-color);
+    border-color: var(--accent-hover);
+}
+.mode-btn.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: rgba(138, 43, 226, 0.1);
+}
+
+.poi-marker.political-view {
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+.poi-marker.economic-view {
+    border: 2px solid white;
+    color: var(--main-bg);
+    border-radius: 4px; /* Square for economic */
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.poi-marker.military-view {
+    border: 2px solid white;
+    color: white;
+    border-radius: 0; /* Diamond shape */
+    transform: translate(-50%, -50%) rotate(45deg);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.poi-marker.military-view:hover {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+}
+.poi-marker.military-view .icon-wrapper,
+.poi-marker.economic-view .icon-wrapper {
+    transform: rotate(0deg);
+}
+.poi-marker.military-view .icon-wrapper {
+     transform: rotate(-45deg);
+}
+
+.poi-marker.population-view {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.poi-marker.laws-view .icon-wrapper {
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+}
+
+@keyframes pulse-purple {
+    50% { box-shadow: 0 0 15px var(--mystical-ancient-color); }
+}
+
+
+/* Legend Styles */
+.map-mode-legend {
+    padding: 16px;
+}
+.map-mode-legend h4 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+.map-mode-legend p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.legend-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+.legend-color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+/* --- Request Indicator & Panel Styles --- */
+.poi-request-indicator {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--neutral-color);
+    color: var(--bg-color);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--bg-color);
+    z-index: 11;
+    animation: pulse-yellow-bg 2s infinite;
+}
+
+@keyframes pulse-yellow-bg {
+    50% { box-shadow: 0 0 10px var(--neutral-color); }
+}
+
+.poi-requests-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+.poi-requests-section h4 {
+    font-family: var(--font-display);
+    color: var(--neutral-color);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+.poi-request-item {
+    background-color: var(--main-bg);
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 3px solid var(--neutral-color);
+}
+.poi-request-item strong {
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 4px;
+}
+.poi-request-item p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* --- Battle Elements --- */
+.troop-marker {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-color: rgba(13, 17, 23, 0.8);
+    background-size: cover;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    cursor: pointer;
+    z-index: 6;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.troop-marker:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 10px white;
+    z-index: 11;
+}
+
+.troop-marker.unit-type-garrison { border-radius: 4px; }
+.troop-marker.unit-type-patrol { border-radius: 0; transform: translate(-50%, -50%) rotate(45deg); }
+.troop-marker.unit-type-patrol:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.2); }
+.troop-marker.unit-type-main_force { border-radius: 50%; }
+.troop-marker.unit-type-special_ops { border-style: dashed; border-radius: 50%; }
+.troop-marker.unit-type-siege_unit { border-radius: 2px; border-width: 1px; }
+.troop-marker.unit-type-ambush { border-style: dotted; border-radius: 50%; border-color: var(--negative-color); }
+
+
+.troop-marker.battlefront::after {
+    content: '⚔️';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.2rem;
+    animation: pulse-battle 1.5s infinite;
+}
+
+@keyframes pulse-battle {
+    50% { transform: scale(1.2); }
+}
+
+.patrol-path {
+    stroke-dasharray: 2, 3;
+    stroke-width: 1.5px;
+    fill: none;
+    pointer-events: stroke;
+}
+
+.front-line {
+    stroke-width: 3.5px;
+    stroke-dasharray: 6, 4;
+    fill: none;
+    stroke: var(--negative-color);
+    filter: drop-shadow(0 0 3px var(--negative-color));
+    animation: pulse-frontline 2s infinite ease-in-out;
+    pointer-events: stroke;
+    cursor: pointer;
+    transition: stroke 0.2s ease;
+}
+.front-line:hover {
+    stroke: var(--accent-color);
+    filter: drop-shadow(0 0 8px var(--accent-color));
+}
+
+@keyframes pulse-frontline {
+    50% { filter: drop-shadow(0 0 8px var(--negative-color)); }
+}
+
+
+.vigilance-path {
+    stroke: var(--accent-color);
+    stroke-width: 0.5px;
+    stroke-dasharray: 4, 4;
+    fill: none;
+    z-index: 3;
+    animation: dash-flow 20s linear infinite;
+}
+
+@keyframes dash-flow {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+
+.vigilance-marker {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    transform: translate(-50%, -50%);
+    background-image: url('newspaper_airship.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 7;
+    pointer-events: all;
+    cursor: pointer;
+    animation: pulse-purple-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-purple-glow {
+    50% { filter: drop-shadow(0 0 10px var(--accent-color)); }
+}
+
+.vigilance-label {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background-color: rgba(13, 17, 23, 0.8);
+    color: var(--text-secondary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 8;
+    pointer-events: none;
+}
+
+/* --- Tactical Legend --- */
+.troop-marker-legend {
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+    color: white;
+}
+
+.front-line-legend {
+    width: 24px;
+    height: 3px;
+    background-image: repeating-linear-gradient(to right, var(--negative-color) 0, var(--negative-color) 4px, transparent 4px, transparent 6px);
+    flex-shrink: 0;
+}
+.patrol-path-legend {
+    width: 24px;
+    height: 2px;
+    background-image: repeating-linear-gradient(to right, var(--text-secondary) 0, var(--text-secondary) 2px, transparent 2px, transparent 4px);
+    flex-shrink: 0;
+}
+
+.vigilance-marker-legend {
+    width: 24px;
+    height: 24px;
+    background-image: url('newspaper_airship.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+.vigilance-path-legend {
+    width: 24px;
+    height: 2px;
+    background-image: linear-gradient(to right, var(--accent-color) 50%, transparent 50%);
+    background-size: 8px 2px;
+    background-repeat: repeat-x;
+    flex-shrink: 0;
+}
+
+/* --- Tooltip --- */
+#map-tooltip {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+#map-tooltip.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+.tooltip-header img {
+    width: 24px;
+    height: 24px;
+}
+.tooltip-header h5 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin: 0;
+}
+.tooltip-section p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 4px 0;
+}
+.tooltip-section p strong {
+    color: var(--text-color);
+}
+.tooltip-section .tooltip-objective {
+    font-style: italic;
+    color: var(--accent-color);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
+}
+.tooltip-bar-container {
+    width: 100%;
+    height: 12px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+.tooltip-bar {
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+.status-bar-high { background-color: var(--positive-color); }
+.status-bar-medium { background-color: var(--neutral-color); }
+.status-bar-low { background-color: var(--negative-color); }
+
+/* Tactical Detail Panel */
+.tactical-detail-panel {
+    padding: 16px;
+}
+.tactical-detail-panel h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+}
+.tactical-faction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+.tactical-faction img {
+    width: 24px;
+    height: 24px;
+}
+.tactical-info {
+    margin-bottom: 16px;
+}
+.tactical-info p, .tactical-stat {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+.tactical-info p strong, .tactical-stat strong {
+    color: var(--text-color);
+}
+.tactical-objective {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+.tactical-objective h5 {
+    font-family: var(--font-display);
+    color: var(--neutral-color);
+    margin-bottom: 8px;
+}
+.tactical-objective p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* --- Map Modal Styles --- */
+#map-modal .modal-content {
+    max-width: 600px;
+    max-height: 80vh;
+}
+
+#map-modal h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+}
+#map-modal-content {
+    margin-top: 16px;
+}
+
+/* --- Library Popup Styles --- */
+.library-popup-summary {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-color);
+}
+.library-popup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.library-popup-book {
+    background-color: var(--main-bg);
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 3px solid var(--neutral-color);
+}
+.library-popup-book strong {
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 4px;
+}
+.library-popup-book p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-style: italic;
+}
+
+/* --- Law Popup Styles --- */
+.law-popup-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+.law-popup-header p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.6;
+}
+.law-popup-header p strong {
+    color: var(--text-color);
+    font-style: normal;
+}
+.law-popup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.law-popup-item {
+    background-color: var(--main-bg);
+    padding: 12px;
+    border-radius: 4px;
+}
+.law-popup-item h5 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.law-popup-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+.law-popup-item p strong {
+    color: var(--text-color);
+}
+.law-popup-traditions h4 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    margin: 20px 0 8px 0;
+    font-size: 1.2rem;
+}
+
+.law-popup-content h4 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 16px 0 8px 0;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 16px;
+}
+.law-popup-content h4:first-child {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+}

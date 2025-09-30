@@ -1,0 +1,289 @@
+/* --- Startup Screen --- */
+#startup-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.5s ease-out;
+}
+
+.startup-container {
+    animation: fadeIn 1s ease-out;
+}
+
+.startup-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 24px;
+    animation: flicker 2s infinite linear;
+}
+
+.startup-title {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+    margin-bottom: 40px;
+}
+
+.startup-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.startup-btn {
+    padding: 15px 30px;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    background-color: var(--sidebar-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.startup-btn:hover {
+    background-color: var(--main-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+}
+
+.startup-btn:disabled {
+    cursor: not-allowed;
+    background-color: var(--main-bg);
+    color: var(--text-secondary);
+    opacity: 0.6;
+    border-color: var(--border-color);
+    transform: none;
+    box-shadow: none;
+}
+
+.game-action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.timer-text {
+    font-family: var(--font-primary);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* --- Character Login Screen --- */
+#character-login-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: var(--bg-color);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.login-container {
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+    animation: fadeIn 1s ease-out;
+}
+
+.login-header {
+    margin-bottom: 40px;
+}
+
+.login-header img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+    animation: flicker 2s infinite linear;
+}
+
+.login-header h1 {
+    color: var(--accent-color);
+    text-shadow: 0 0 5px var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+}
+
+#character-select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.char-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.char-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+    border-color: var(--accent-color);
+}
+
+.char-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
+    transition: left 0.5s ease-in-out;
+}
+.char-card:hover::after {
+    left: 100%;
+}
+
+.char-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    margin-bottom: 12px;
+    background-color: var(--main-bg);
+}
+
+.char-card h3 {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.login-options {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.login-option-btn {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.login-option-btn:hover {
+    border-color: var(--neutral-color);
+    color: var(--neutral-color);
+}
+
+.next-session-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.next-session-container h3 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.next-session-container p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+
+/* --- New Operator Intro Sequence --- */
+.hidden {
+    display: none !important;
+}
+
+#intro-sequence-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease-out;
+    cursor: pointer;
+}
+
+.intro-content {
+    text-align: center;
+    max-width: 80ch;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 24px;
+}
+
+#intro-text {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    color: var(--positive-color);
+    text-align: left;
+    white-space: pre-wrap;
+    line-height: 1.8;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: 8px;
+    min-height: 100px;
+    width: 100%;
+}
+
+#click-prompt {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    color: var(--neutral-color);
+    animation: blink-caret 1.5s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { opacity: 1; }
+  50% { opacity: 0.5; }
+}

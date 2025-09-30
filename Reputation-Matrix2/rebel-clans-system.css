@@ -1,0 +1,129 @@
+/* --- Rebel Clans: War Council System --- */
+.rebel-clans-system {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.war-council-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.council-list {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.council-list h5 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.council-list h5 img {
+    width: 20px;
+    height: 20px;
+}
+.council-list.allies h5 { color: var(--positive-color); }
+.council-list.enemies h5 { color: var(--negative-color); }
+
+.council-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+.council-list li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+.council-list li:last-child {
+    border-bottom: none;
+}
+
+.assassination-board {
+    background-color: #6b4f39; /* Corkboard color */
+    border: 5px solid #3d2c1d;
+    border-radius: 8px;
+    padding: 20px;
+}
+.assassination-board h5 {
+    font-family: var(--font-display);
+    color: #f0e6d6;
+    text-shadow: 1px 1px 2px #3d2c1d;
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+}
+
+.plot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.plot-card {
+    background-color: #fdf5e6; /* Paper color */
+    color: #333;
+    padding: 12px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
+    position: relative;
+    transform: rotate(calc(var(--random-angle, 0) * 1deg));
+}
+
+/* Pseudo-random rotation for effect */
+.plot-card:nth-child(1) { --random-angle: -1.5; }
+.plot-card:nth-child(2) { --random-angle: 2; }
+.plot-card:nth-child(3) { --random-angle: -1; }
+
+
+.plot-pin {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    border: 1px solid #c0392b;
+    box-shadow: 0 0 3px #c0392b;
+}
+
+.plot-card h6 {
+    font-family: var(--font-display);
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 4px;
+}
+
+.plot-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    color: #34495e;
+}
+.plot-card p strong {
+    color: #2c3e50;
+}
+.plot-card .plot-title {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+.redacted {
+    background-color: #333;
+    color: #333;
+    user-select: none;
+    padding: 0 2px;
+}

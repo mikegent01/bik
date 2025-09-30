@@ -1,0 +1,83 @@
+/* --- Moonfang Pack: Moon Phase System --- */
+.moonfang-pack-system {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.moon-cycle-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--main-bg);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.moon-phase-node {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    padding: 8px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+}
+
+.moon-phase-node:hover {
+    background-color: var(--sidebar-bg);
+    border-color: var(--accent-color);
+}
+
+.moon-phase-node.current-phase {
+    border-color: var(--neutral-color);
+    box-shadow: 0 0 15px var(--neutral-color);
+    transform: scale(1.1);
+}
+
+.moon-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 5px var(--text-secondary));
+}
+.current-phase .moon-icon {
+    filter: drop-shadow(0 0 8px var(--neutral-color));
+}
+
+.moon-info-panel {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    min-height: 100px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.moon-info-panel h6 {
+    font-family: var(--font-display);
+    color: var(--neutral-color);
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.moon-info-panel p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 4px 0;
+}
+
+.moon-info-panel .phase-lore {
+    font-style: italic;
+}
+
+.moon-info-panel .phase-effect {
+    color: var(--text-color);
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.moon-info-panel .intel-locked {
+    font-family: var(--font-display);
+    color: var(--negative-color);
+    font-size: 1rem;
+    opacity: 0.7;
+}

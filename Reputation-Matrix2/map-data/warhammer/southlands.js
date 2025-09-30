@@ -1,0 +1,87 @@
+// map-data/warhammer/southlands.js
+export const southlandsPois = [
+    {
+        id: 'poi_wh_zlatlan', x: 55.00, y: 75.00, type: 'capital_city', subRegion: 'southlands',
+        name: "Zlatlan, City of the Eclipse",
+        description: "The southernmost of the great Lizardmen temple-cities, known for its astronomical observatories and its fierce Saurus warriors who bear obsidian weapons.",
+        factionId: 'lizardmen', intelReq: 25, political_influence: 8, economic_value: 6, military_strength: 9,
+        age_of_antiquity: 10, magical_resonance: 9, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_dragon_isles', x: 64.00, y: 60.00, type: 'landmark', subRegion: 'southlands',
+        name: "The Dragon Isles",
+        description: "A chain of volcanic islands off the coast, home to ancient and powerful dragons. A place of great danger and immense potential power for those who would seek to treat with such creatures.",
+        factionId: 'unaligned', intelReq: 60, political_influence: 2, economic_value: 5, military_strength: 8,
+        age_of_antiquity: 10, magical_resonance: 8, crime_rate: 7,
+    },
+    {
+        id: 'poi_wh_black_fangs_tribe', x: 58.00, y: 65.00, type: 'lair', subRegion: 'southlands',
+        name: "Encampment of the Black-Fangs Tribe",
+        description: "The main war-camp of a large and particularly savage tribe of Orcs who have adapted to the harsh jungle environment. They are a constant threat to the Lizardmen.",
+        factionId: 'greenskins', intelReq: 20, political_influence: 4, economic_value: 3, military_strength: 7,
+        age_of_antiquity: 3, magical_resonance: 2, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_plains_of_huntresses', x: 52.00, y: 68.00, type: 'village', subRegion: 'southlands',
+        name: "Plains of the Huntresses",
+        description: "Vast, open plains that are home to nomadic tribes of fierce human huntresses who ride great lizard-beasts into battle.",
+        factionId: 'unaligned', intelReq: 15, political_influence: 3, economic_value: 4, military_strength: 5,
+        age_of_antiquity: 5, magical_resonance: 2, crime_rate: 6,
+    },
+    {
+        id: 'poi_wh_red_rivers', x: 54.00, y: 55.00, type: 'river', subRegion: 'southlands',
+        name: "The Red Rivers",
+        description: "A network of rivers that run red with iron-rich sediment. The area is rich in minerals but the waters are undrinkable.",
+        factionId: 'unaligned', intelReq: 10, political_influence: 1, economic_value: 6, military_strength: 2,
+        age_of_antiquity: 10, magical_resonance: 3, crime_rate: 5,
+    },
+    {
+        id: 'poi_wh_great_desert_south', x: 48.00, y: 72.00, type: 'landmark', subRegion: 'southlands',
+        name: "The Great Desert of the South",
+        description: "A vast, unexplored desert that is said to stretch to the bottom of the world. Home to nomadic tribes and rumored to hide forgotten Tomb King necropolises.",
+        factionId: 'unaligned', intelReq: 25, political_influence: 2, economic_value: 3, military_strength: 3,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 7,
+    },
+    {
+        id: 'poi_wh_jungle_of_pygmies', x: 60.00, y: 80.00, type: 'forest', subRegion: 'southlands',
+        name: "The Jungle of the Pygmies",
+        description: "A dense, humid jungle that is home to tribes of diminutive but ferocious Pygmies. They are skilled hunters and masters of poison darts.",
+        factionId: 'unaligned', intelReq: 30, political_influence: 2, economic_value: 3, military_strength: 4,
+        age_of_antiquity: 8, magical_resonance: 4, crime_rate: 8,
+    },
+    {
+        id: 'poi_wh_lost_city_old_ones', x: 50.00, y: 85.00, type: 'ruins', subRegion: 'southlands',
+        name: "The Lost City of the Old Ones",
+        description: "The vine-choked ruins of a temple-city that was abandoned millennia ago. It is a place of immense power, protected by ancient magical constructs.",
+        factionId: 'lizardmen', intelReq: 65, political_influence: 4, economic_value: 7, military_strength: 7,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_great_savanna', x: 57.00, y: 58.00, type: 'landmark', subRegion: 'southlands',
+        name: "The Great Savanna",
+        description: "A vast, open grassland teeming with exotic wildlife. Herds of strange beasts roam free, making it a rich but dangerous hunting ground.",
+        factionId: 'unaligned', intelReq: 10, political_influence: 2, economic_value: 5, military_strength: 3,
+        age_of_antiquity: 10, magical_resonance: 2, crime_rate: 6,
+    },
+    {
+        id: 'poi_wh_ivory_coast', x: 45.00, y: 65.00, type: 'port', subRegion: 'southlands',
+        name: "The Ivory Coast",
+        description: "The coastline of the Southlands, a major source of ivory and other exotic goods. It is dotted with small, independent trading posts and is a frequent target for slavers.",
+        factionId: 'freelancer_underworld', intelReq: 20, political_influence: 3, economic_value: 8, military_strength: 4,
+        age_of_antiquity: 5, magical_resonance: 1, crime_rate: 9,
+    },
+    {
+        id: 'poi_wh_mountains_of_the_moon', x: 55.00, y: 88.00, type: 'mountain_pass', subRegion: 'southlands',
+        name: "The Mountains of the Moon",
+        description: "A mysterious mountain range at the southern pole of the world, said to be rich in warpstone and other strange minerals.",
+        factionId: 'unaligned', intelReq: 50, political_influence: 1, economic_value: 6, military_strength: 4,
+        age_of_antiquity: 10, magical_resonance: 9, crime_rate: 7,
+    },
+    {
+        id: 'poi_wh_wyverns_nest', x: 62.00, y: 70.00, type: 'lair', subRegion: 'southlands',
+        name: "The Wyvern's Nest",
+        description: "A high, inaccessible series of cliffs that are home to a large population of poisonous Wyverns. Their venom is a highly sought-after commodity.",
+        factionId: 'unaligned', intelReq: 35, political_influence: 1, economic_value: 4, military_strength: 6,
+        age_of_antiquity: 9, magical_resonance: 3, crime_rate: 8,
+    }
+];

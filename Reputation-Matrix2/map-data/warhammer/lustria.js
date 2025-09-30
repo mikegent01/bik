@@ -1,0 +1,80 @@
+// map-data/warhammer/lustria.js
+export const lustriaPois = [
+    {
+        id: 'poi_wh_hexoatl', x: 25.00, y: 85.00, type: 'capital_city', subRegion: 'lustria',
+        name: "Hexoatl, The City of the Sun",
+        description: "The first and greatest of the Lizardmen temple-cities, home to the ancient Slann Mage-Priest Lord Mazdamundi. It is a bastion of order against the encroaching chaos of the jungle.",
+        factionId: 'lizardmen', intelReq: 20, political_influence: 10, economic_value: 7, military_strength: 10, population: 50000,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_itza', x: 20.00, y: 90.00, type: 'temple', subRegion: 'lustria',
+        name: "Itza, The First City",
+        description: "The most ancient of all the temple-cities, Itza is revered as the birthplace of the Saurus. It is guarded by the legendary Saurus Oldblood Gor-Rok and is considered sacred ground.",
+        factionId: 'lizardmen', intelReq: 30, political_influence: 8, economic_value: 5, military_strength: 9, population: 30000,
+        age_of_antiquity: 10, magical_resonance: 9, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_star_chamber', x: 18.00, y: 82.00, type: 'ley_line', subRegion: 'lustria',
+        name: "The Star-Chamber of the Old Ones",
+        description: "A mysterious ziggurat deep in the jungle that acts as a powerful celestial observatory. The Slann Mage-Priests use it to commune with the stars and interpret the Great Plan.",
+        factionId: 'lizardmen', intelReq: 50, political_influence: 7, economic_value: 4, military_strength: 6, population: 100,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_temple_of_the_eclipse', x: 28.00, y: 78.00, type: 'temple', subRegion: 'lustria',
+        name: "The Temple of the Eclipse",
+        description: "A lesser temple-city dedicated to the Serpent-God Sotek. Its Skink Priests are known for their prophecies and their ritual sacrifices.",
+        factionId: 'lizardmen', intelReq: 25, political_influence: 6, economic_value: 4, military_strength: 7, population: 15000,
+        age_of_antiquity: 9, magical_resonance: 8, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_southern_sentinels', x: 30.00, y: 93.00, type: 'watchtower', subRegion: 'lustria',
+        name: "The Southern Sentinels",
+        description: "A series of ancient, weathered statues that mark the southern boundary of Lustria. They are said to awaken and defend the land if a great evil approaches.",
+        factionId: 'unaligned', intelReq: 30, political_influence: 2, economic_value: 1, military_strength: 5, population: 0,
+        age_of_antiquity: 10, magical_resonance: 7, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_citadel_of_dusk', x: 22.00, y: 75.00, type: 'fortress', subRegion: 'lustria',
+        name: "The Citadel of Dusk",
+        description: "A formidable Lizardmen fortress that guards the western coast against Dark Elf raiding parties.",
+        factionId: 'lizardmen', intelReq: 30, political_influence: 5, economic_value: 3, military_strength: 8, population: 8000,
+        age_of_antiquity: 9, magical_resonance: 6, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_headhunters_jungle', x: 26.00, y: 70.00, type: 'forest', subRegion: 'lustria',
+        name: "The Headhunter's Jungle",
+        description: "A particularly dense and dangerous part of the Lustrian jungle, known for its aggressive flora and fauna, and tribes of savage, head-hunting Skinks.",
+        factionId: 'unaligned', intelReq: 20, political_influence: 1, economic_value: 2, military_strength: 6, population: 500,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 9,
+    },
+    {
+        id: 'poi_wh_serpents_spine', x: 15.00, y: 70.00, type: 'mountain_pass', subRegion: 'lustria',
+        name: "The Serpent's Spine Mountains",
+        description: "A high mountain range that runs down the spine of the continent. It is home to Thunder Lizards and other colossal beasts.",
+        factionId: 'unaligned', intelReq: 25, political_influence: 1, economic_value: 3, military_strength: 5, population: 0,
+        age_of_antiquity: 10, magical_resonance: 6, crime_rate: 7,
+    },
+    {
+        id: 'poi_wh_skeggi', x: 15.00, y: 60.00, type: 'port', subRegion: 'lustria',
+        name: "Skeggi, The Norse Colony",
+        description: "A fortified port founded by Norse explorers. A place of mead halls, longships, and brutal warriors who have somehow survived in the hostile Lustrian environment.",
+        factionId: 'warriors_of_chaos', intelReq: 35, political_influence: 4, economic_value: 5, military_strength: 6, population: 3000,
+        age_of_antiquity: 3, magical_resonance: 3, crime_rate: 8,
+    },
+    {
+        id: 'poi_wh_great_swamp', x: 18.00, y: 78.00, type: 'swamp', subRegion: 'lustria',
+        name: "The Great Swamp",
+        description: "A vast, primordial swamp filled with dangerous creatures and ancient ruins. It is a place where even the Lizardmen tread with caution.",
+        factionId: 'unaligned', intelReq: 15, political_influence: 0, economic_value: 2, military_strength: 5, population: 0,
+        age_of_antiquity: 10, magical_resonance: 7, crime_rate: 8,
+    },
+    {
+        id: 'poi_wh_piranha_swamps', x: 27.00, y: 90.00, type: 'swamp', subRegion: 'lustria',
+        name: "The Piranha Swamps",
+        description: "A network of waterways infested with carnivorous fish and other aquatic horrors. It serves as a natural moat for the southern temple-cities.",
+        factionId: 'unaligned', intelReq: 15, political_influence: 0, economic_value: 1, military_strength: 6, population: 0,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 9,
+    }
+];

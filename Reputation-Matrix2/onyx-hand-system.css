@@ -1,0 +1,112 @@
+/* --- NEW: Onyx Hand Coven Circle System --- */
+.onyx-hand-coven-system {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: center;
+    min-height: 400px;
+}
+
+.coven-circle-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    margin: auto;
+}
+
+.coven-patriarch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-50%, -50%);
+    background-color: var(--main-bg);
+    border: 2px solid var(--negative-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse-patriarch 3s infinite ease-in-out;
+}
+.coven-patriarch img {
+    width: 60%;
+    height: 60%;
+    filter: invert(20%) sepia(89%) saturate(3020%) hue-rotate(345deg) brightness(89%) contrast(94%);
+}
+@keyframes pulse-patriarch {
+    50% { box-shadow: 0 0 20px rgba(218, 54, 51, 0.5); }
+}
+
+.coven-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin: -35px; /* Half of width/height */
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.coven-node img {
+    width: 50%;
+    height: 50%;
+    filter: invert(58%) sepia(10%) saturate(468%) hue-rotate(169deg) brightness(95%) contrast(85%); /* text-secondary color */
+    transition: all 0.3s ease;
+}
+
+.coven-node:hover, .coven-node.active {
+    border-color: var(--negative-color);
+    box-shadow: 0 0 15px rgba(218, 54, 51, 0.4);
+    transform: scale(1.1);
+}
+.coven-node:hover img, .coven-node.active img {
+    filter: invert(20%) sepia(89%) saturate(3020%) hue-rotate(345deg) brightness(89%) contrast(94%); /* negative-color */
+}
+
+.coven-info-panel {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    transition: opacity 0.3s ease;
+    min-height: 250px;
+}
+.coven-info-panel.hidden {
+    opacity: 0.5;
+}
+.coven-info-panel h6 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--negative-color);
+    margin-bottom: 8px;
+}
+.coven-info-panel .info-specialty {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-style: italic;
+    margin-bottom: 16px;
+}
+.coven-info-panel p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+.coven-info-panel p strong {
+    color: var(--text-color);
+}
+
+@media (max-width: 900px) {
+    .onyx-hand-coven-system {
+        grid-template-columns: 1fr;
+    }
+    .coven-circle-container {
+        margin-bottom: 24px;
+    }
+}

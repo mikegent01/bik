@@ -1,0 +1,248 @@
+/* --- Timeline Filter Bar --- */
+#timeline-filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    color: var(--text-color);
+    border-color: var(--accent-hover);
+}
+
+.filter-btn.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.3);
+}
+
+/* --- Main Timeline Structure --- */
+#timeline-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* The central timeline axis */
+#timeline-container::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--border-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Event Cards */
+.timeline-event {
+    padding: 10px 40px;
+    position: relative;
+    background-color: transparent;
+    width: 50%;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.timeline-event.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.timeline-event.left {
+    left: 0;
+}
+
+.timeline-event.right {
+    left: 50%;
+}
+
+/* Event Circle on the axis */
+.timeline-event::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -10px; /* For left events */
+    background-color: var(--main-bg);
+    border: 3px solid var(--border-color);
+    top: 32px;
+    border-radius: 50%;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.timeline-event.right::after {
+    left: -10px;
+}
+
+.timeline-event:hover::after {
+    transform: scale(1.2);
+}
+
+.timeline-content {
+    padding: 20px;
+    background-color: var(--sidebar-bg);
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.timeline-event:hover .timeline-content {
+    border-color: var(--accent-color);
+}
+
+
+/* Arrow pointing to the axis */
+.timeline-content::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 30px;
+    width: 0;
+    z-index: 1;
+    border: medium solid var(--border-color);
+    transition: border-color 0.3s ease;
+}
+.timeline-event.left:hover .timeline-content::before {
+    border-color: transparent transparent transparent var(--accent-color);
+}
+.timeline-event.left .timeline-content::before {
+    right: -18px;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent var(--border-color);
+}
+.timeline-event.right .timeline-content::before {
+    left: -18px;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent var(--border-color) transparent transparent;
+}
+.timeline-event.right:hover .timeline-content::before {
+     border-color: transparent var(--accent-color) transparent transparent;
+}
+
+
+/* Content Header */
+.timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+.timeline-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+.timeline-title-group h4 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin: 0;
+}
+.timeline-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.timeline-content p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Category Coloring */
+.category-cosmic .timeline-event::after { border-color: var(--interdimensional-threat-color); }
+.category-mythic .timeline-event::after { border-color: var(--mystical-ancient-color); }
+.category-cataclysm .timeline-event::after { border-color: var(--negative-color); }
+.category-political .timeline-event::after { border-color: var(--major-powers-color); }
+.category-military .timeline-event::after { border-color: var(--regional-powers-color); }
+.category-magic .timeline-event::after { border-color: var(--accent-color); }
+.category-social .timeline-event::after { border-color: var(--positive-color); }
+.category-prophecy .timeline-event::after { border-color: var(--neutral-color); }
+.category-recent-event .timeline-event::after { border-color: var(--neutral-color); }
+
+/* Era Header */
+.timeline-era-header {
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.timeline-era-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.timeline-era-header h2 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+    text-align: center;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 6px;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 900px) {
+    #timeline-container::after {
+        left: 31px;
+    }
+    .timeline-event {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    .timeline-event.right {
+        left: 0%;
+    }
+    .timeline-event::after {
+        left: 12px;
+    }
+    .timeline-content::before {
+        left: -18px;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent var(--border-color) transparent transparent;
+    }
+     .timeline-event.left:hover .timeline-content::before {
+        border-color: transparent transparent transparent var(--accent-color);
+    }
+     .timeline-event.right:hover .timeline-content::before {
+        border-color: transparent var(--accent-color) transparent transparent;
+    }
+    .timeline-era-header h2 {
+        left: 0;
+        transform: none;
+    }
+}

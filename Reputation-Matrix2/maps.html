@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-T">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Tactical Maps</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="maps-selection.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             <aside id="sidebar"></aside>
+            <main id="main-content">
+                 <h2 class="page-title">Select Tactical Region</h2>
+                 <p class="page-subtitle">Scroll through the available regions and select a map to view detailed tactical data.</p>
+                 <div class="map-gallery-container">
+                    <div data-href="warhammer-maps.html" class="gallery-item" data-world="warhammer">
+                        <img src="wa.jpg" alt="The Fated Place" class="gallery-item-bg">
+                         <div class="gallery-item-info">
+                            <h3>The Fated Place</h3>
+                            <p>A grim world of perilous adventure, where mighty heroes battle the forces of Chaos and monstrous hordes threaten civilization.</p>
+                        </div>
+                    </div>
+                    <div data-href="mushroom-kingdom-maps.html" class="gallery-item" data-world="mushroom_kingdom">
+                        <img src="mushroom_kingdom.jpg" alt="Mushroom Kingdom" class="gallery-item-bg">
+                        <div class="gallery-item-info">
+                            <h3>Mushroom Kingdom & Adjacent Realms</h3>
+                            <p>View all maps related to the Mushroom Kingdom civil war and surrounding islands.</p>
+                        </div>
+                    </div>
+                    <div data-href="midlands-maps.html" class="gallery-item" data-world="midlands">
+                        <img src="fullmap.png" alt="The Midlands" class="gallery-item-bg">
+                        <div class="gallery-item-info">
+                            <h3>The Midlands</h3>
+                            <p>View maps of the fractured Midlands, including the conflict between the Onyx Hand and the Moonfang Pack.</p>
+                        </div>
+                    </div>
+                     <div data-href="doughnut-hole-maps.html" class="gallery-item" data-world="doughnut_hole">
+                        <img src="qaevyh08hsx51.webp" alt="The Doughnut Hole" class="gallery-item-bg">
+                         <div class="gallery-item-info">
+                            <h3>The Doughnut Hole</h3>
+                            <p>The empty space at the center of the world. A realm of non-euclidean geometry, cosmic absurdity, and the home of the Cosmic Jester.</p>
+                        </div>
+                    </div>
+                    <div data-href="internet-maps.html" class="gallery-item" data-world="internet">
+                        <img src="intermap.jpg" alt="The Internet" class="gallery-item-bg">
+                         <div class="gallery-item-info">
+                            <h3>The Internet</h3>
+                            <p>A digital realm of interconnected information, data tribes, and complex web-based governance.</p>
+                        </div>
+                    </div>
+                    <div data-href="middle-earth-maps.html" class="gallery-item" data-world="middle_earth">
+                        <img src="mide.webp" alt="Middle-earth" class="gallery-item-bg">
+                         <div class="gallery-item-info">
+                            <h3>Middle-earth</h3>
+                            <p>View the ancient kingdoms to the east of the Internet Federation, a land of tested alliances and fading magic.</p>
+                        </div>
+                    </div>
+                    <div data-href="kivotos-maps.html" class="gallery-item" data-world="kivotos">
+                        <img src="archive.png" alt="Kivotos" class="gallery-item-bg">
+                         <div class="gallery-item-info">
+                            <h3>Kivotos</h3>
+                            <p>A newly discovered Academy City to the west of Middle-earth, governed by a powerful student council and comprised of various feuding academies.</p>
+                        </div>
+                    </div>
+                    <div data-href="pokemon-maps.html" class="gallery-item" data-world="pokemon">
+                        <img src="pokemon.png" alt="Pokémon Regions" class="gallery-item-bg">
+                         <div class="gallery-item-info">
+                            <h3>Pokémon Regions</h3>
+                            <p>An isolated land of powerful creatures and dedicated trainers, governed by the prestigious Pokémon League and threatened by ideological extremists.</p>
+                        </div>
+                    </div>
+                 </div>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="maps-selection.js"></script>
+    <script type="module" src="maps-data-loader.js"></script>
+</body>
+</html>

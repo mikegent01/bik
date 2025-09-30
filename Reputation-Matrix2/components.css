@@ -1,0 +1,454 @@
+/* --- SHARED COMPONENTS --- */
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: var(--font-display);
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+    background-color: var(--sidebar-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.nav-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.page-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+
+.card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+    border-color: var(--accent-hover);
+}
+
+/* Faction Card Category Borders */
+.faction-card.legend-major-powers-border { border-left: 5px solid var(--major-powers-color); }
+.faction-card.legend-regional-powers-border { border-left: 5px solid var(--regional-powers-color); }
+.faction-card.legend-mystical-ancient-border { border-left: 5px solid var(--mystical-ancient-color); }
+.faction-card.legend-underworld-fringe-border { border-left: 5px solid var(--underworld-fringe-color); }
+.faction-card.legend-interdimensional-threats-border { border-left: 5px solid var(--interdimensional-threat-color); }
+
+
+.terminal-back-button {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: var(--font-display);
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 24px;
+}
+
+.terminal-back-button:hover {
+    background-color: var(--main-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#debug-toggle-btn {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+#debug-toggle-btn:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+
+.status-ok {
+    color: var(--positive-color);
+    font-weight: 700;
+}
+
+.positive { color: var(--positive-color); }
+.negative { color: var(--negative-color); }
+.neutral { color: var(--neutral-color); }
+
+.character-link, .faction-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent-color);
+    transition: all 0.2s ease;
+}
+
+.character-link:hover, .faction-link:hover {
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent-hover);
+    text-shadow: 0 0 3px var(--accent-color);
+}
+
+.waluigi-faction-tip {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: rgba(138, 43, 226, 0.1);
+    border: 1px dashed var(--accent-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.waluigi-faction-tip img {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.waluigi-faction-tip h6 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+}
+
+.waluigi-faction-tip p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- On-Demand Asset Scanner Modal --- */
+.scanner-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.scanner-modal-content {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.scanner-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: center;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+.scanner-modal-close:hover {
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+.scanner-modal-content h4 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+}
+
+.scanner-modal-content ul {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.scanner-modal-content li {
+    background-color: var(--main-bg);
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.scanner-modal-content code {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* --- Soundtrack Modal --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10001;
+    display: none; /* Initially hidden */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 32px;
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: center;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+.modal-close:hover {
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+.modal-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.song-item {
+    background-color: var(--main-bg);
+    padding: 16px;
+    border-radius: 6px;
+}
+
+.song-title {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: 4px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Shared Detail Panel --- */
+#app.panel-visible > #main-content,
+#app.panel-visible > #sidebar {
+    filter: blur(3px) brightness(0.5);
+    transition: filter 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+#detail-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100%;
+    background-color: var(--sidebar-bg);
+    border-left: 1px solid var(--border-color);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out, visibility 0.3s;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+}
+
+#detail-panel.visible {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.3s ease-in-out;
+}
+
+#detail-panel-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: center;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+#detail-panel-close:hover {
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+#detail-panel-content {
+    padding: 24px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+#detail-panel-content::-webkit-scrollbar { width: 8px; }
+#detail-panel-content::-webkit-scrollbar-track { background: var(--sidebar-bg); }
+#detail-panel-content::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+#detail-panel-content::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+.panel-header img {
+    width: 48px;
+    height: 48px;
+}
+.panel-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.panel-section {
+    margin-bottom: 24px;
+}
+.panel-section h4 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+.panel-section p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+.panel-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+.panel-section li {
+    background-color: var(--main-bg);
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+.panel-section li.ally {
+    border-left: 3px solid var(--positive-color);
+}
+.panel-section li.enemy {
+    border-left: 3px solid var(--negative-color);
+}
+
+.opinion-quote {
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-color);
+    font-style: italic;
+}
+.opinion-quote p {
+    margin: 0;
+}
+.opinion-quote strong {
+    color: var(--text-color);
+    font-style: normal;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* --- Map Selection Gallery Item --- */
+/* Added to ensure gallery items are clearly clickable after changing them from <a> to <div> tags */
+.gallery-item {
+    cursor: pointer;
+}

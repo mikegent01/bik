@@ -1,0 +1,148 @@
+
+// map-data/boos-woods-pois.js
+
+export const boosWoodsData = {
+    pointsOfInterest: [
+        {
+            id: 'poi_bw_king_boos_mansion',
+            x: 49.00,
+            y: 53.00,
+            type: 'lair',
+            name: "King Boo's Mansion",
+            description: "The magnificent, ghostly mansion of King Boo himself. It is said to be a place of shifting corridors, illusionary walls, and is the epicenter of all paranormal activity in the woods. Only the truly foolish seek an audience with its master.",
+            factionId: 'unaligned',
+            intelReq: 80,
+            political_influence: 8,
+            economic_value: 6,
+            military_strength: 8,
+            population: 100
+        },
+        {
+            id: 'poi_bw_weeping_willow',
+            x: 55.00,
+            y: 48.00,
+            type: 'haunted_place',
+            name: "The Weeping Willow",
+            description: "An ancient, colossal willow tree whose branches weep a spectral ectoplasm. The area is a nexus of sorrowful spirits, and it is said the tree itself is the restless ghost of an ancient nature deity.",
+            factionId: 'unaligned',
+            intelReq: 30,
+            political_influence: 2,
+            economic_value: 2,
+            military_strength: 3,
+            population: 0
+        },
+        {
+            id: 'poi_bw_ghostly_graveyard',
+            x: 52.00,
+            y: 50.00,
+            type: 'ruins',
+            name: "The Ghostly Graveyard",
+            description: "A fog-shrouded cemetery where the tombstones lean at impossible angles. The spirits here are mischievous and territorial, often leading travelers astray into the deeper, more dangerous parts of the woods.",
+            factionId: 'unaligned',
+            intelReq: 20,
+            political_influence: 1,
+            economic_value: 1,
+            military_strength: 4,
+            population: 0
+        },
+        {
+            id: 'poi_bw_egadds_lab',
+            x: 62.00,
+            y: 47.00,
+            type: 'workshop',
+            name: "E. Gadd's Abandoned Lab",
+            description: "The dilapidated former laboratory of the famed paranormal researcher, Professor E. Gadd. It is filled with his early, unstable ghost-hunting inventions, many of which now activate at random, with chaotic results.",
+            factionId: 'unaligned',
+            intelReq: 40,
+            political_influence: 1,
+            economic_value: 6,
+            military_strength: 3,
+            population: 0
+        },
+        {
+            id: 'poi_bw_shy_guy_market',
+            x: 47.00,
+            y: 49.00,
+            type: 'market',
+            name: "Shy Guy Shadow Market",
+            description: "A clandestine market held in a perpetually shadowed clearing, run by Shy Guys. They trade in stolen goods, rare ectoplasm, and information, dealing with both Boos and living clients from the Freelancer Underworld.",
+            factionId: 'freelancer_underworld',
+            intelReq: 35,
+            political_influence: 4,
+            economic_value: 7,
+            military_strength: 2,
+            population: 80
+        },
+        {
+            id: 'poi_bw_shifting_maze',
+            x: 59.00,
+            y: 51.00,
+            type: 'forest',
+            name: "The Shifting Maze",
+            description: "A section of the forest where the paths and trees rearrange themselves when you're not looking. It is impossible to navigate without magical aid, and is a favored hunting ground for the Boos.",
+            factionId: 'unaligned',
+            intelReq: 25,
+            political_influence: 0,
+            economic_value: 1,
+            military_strength: 5,
+            population: 0
+        },
+        {
+            id: 'poi_bw_onyx_crypt',
+            x: 46.50,
+            y: 53.00,
+            type: 'dungeon_entrance',
+            name: "Onyx Hand Crypt",
+            description: "A hidden, ancient crypt used by the Onyx Hand as a place for dark rituals and as a sanctuary for their oldest, most powerful vampire elders. It is protected by powerful death magic and undead guardians.",
+            factionId: 'onyx_hand',
+            intelReq: 75,
+            political_influence: 5,
+            economic_value: 4,
+            military_strength: 7,
+            population: 10
+        },
+        {
+            id: 'poi_bw_kameks_study',
+            x: 57.00,
+            y: 54.00,
+            type: 'mages_tower',
+            name: "Kamek's Hidden Study",
+            description: "A small, magically concealed tower where Kamek retreats to study forbidden necromantic texts. He has a secret, uneasy truce with King Boo to ensure his studies are not disturbed.",
+            factionId: 'koopa_troop',
+            intelReq: 65,
+            political_influence: 3,
+            economic_value: 2,
+            military_strength: 5,
+            population: 1
+        },
+        {
+            id: 'poi_bw_gloomy_path',
+            x: 58.00,
+            y: 46.00,
+            type: 'mountain_pass',
+            name: "The Gloomy Path",
+            description: "The main, barely-visible path that winds through Boo's Woods. It is littered with traps and illusions, and is the only relatively 'safe' way to traverse the forest without getting hopelessly lost.",
+            factionId: 'unaligned',
+            intelReq: 10,
+            political_influence: 1,
+            economic_value: 1,
+            military_strength: 1,
+            population: 0
+        },
+        {
+            id: 'poi_bw_portrait_gallery',
+            x: 49.00,
+            y: 47.00,
+            type: 'haunted_place',
+            name: "The Portrait Gallery",
+            description: "A ruined, open-air gallery filled with enchanted portraits. The eyes of the paintings seem to follow you, and at night, their ghostly subjects are said to step out of the frames to wander the woods.",
+            factionId: 'unaligned',
+            intelReq: 50,
+            political_influence: 2,
+            economic_value: 5,
+            military_strength: 4,
+            population: 0
+        }
+    ],
+    fogOfWar: []
+};

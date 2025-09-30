@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vigilance Terminal | Special Mission</title>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="components.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic layout for the mission page */
+        .metrics-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 16px 0 24px;
+        }
+        .metric { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; }
+        .metric-header { display: flex; justify-content: space-between; font-family: "Roboto Mono", monospace; font-size: 0.9rem; color: #a9ffea; }
+        .metric-bar { height: 8px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin-top: 8px; }
+        .metric-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#2bd1ff,#4eff9e); transition: width 300ms ease; }
+
+        .dialogue-panel { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.12); padding: 16px; border-radius: 8px; margin: 12px 0 20px; font-family: 'Shadows Into Light Two', 'Roboto Mono', monospace; font-size: 1.1rem; color: #cbe6ff; line-height: 1.7; }
+        .dialogue-line .speaker { font-family: "Orbitron", sans-serif; color: #ffd54e; font-weight: bold; }
+        
+        .decision-container { margin: 24px 0; padding: 16px; border-left: 3px solid #4eff9e; background: rgba(78, 255, 158, 0.05); border-radius: 0 8px 8px 0; }
+        .decision-title { font-family: "Orbitron", sans-serif; font-size: 1.4rem; margin-bottom: 8px; color: #4eff9e; }
+        .decision-narrative { font-family: "Roboto Mono", monospace; color: #cbe6ff; }
+        
+        .choices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+        .decision-card { border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; background: rgba(255,255,255,0.04); display: flex; flex-direction: column; transition: all 0.2s ease-in-out; }
+        .decision-card:hover { border-color: var(--accent-hover); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .decision-card-title { font-family: 'Orbitron', sans-serif; font-weight: 700; margin-bottom: 8px; color: #a9ffea; font-size: 1.1rem; }
+        .decision-card-desc { flex: 1; font-size: 0.95rem; color: #e8f5ff; line-height: 1.5; }
+        .decision-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+        
+        .btn { cursor: pointer; border: none; border-radius: 6px; padding: 10px 16px; font-family: "Roboto Mono", monospace; font-weight: bold; text-decoration: none; }
+        .btn-primary { background: #2bd1ff; color: #0a0f14; transition: background-color 0.2s; }
+        .btn-primary:hover { background-color: #5ce1ff; }
+        
+        /* Final Plan Styles */
+        .final-plan-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;}
+        @media (max-width: 768px) { .final-plan-summary { grid-template-columns: 1fr; } }
+        .summary-choices ul { list-style: none; padding-left: 0; }
+        .summary-choices li { background: rgba(255,255,255,0.04); padding: 8px; border-radius: 4px; margin-bottom: 8px; font-size: 0.9rem;}
+        .summary-choices strong { color: #a9ffea; display: block; font-family: "Orbitron", sans-serif; font-size: 0.8rem; margin-bottom: 4px;}
+        #mission-brief-textarea { width: 100%; height: 200px; background: #010409; color: #4eff9e; border: 1px solid var(--border-color); font-family: "Roboto Mono", monospace; padding: 12px; border-radius: 6px; margin-top: 12px; }
+        
+        .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 1000; }
+        .modal.open { display: flex; animation: fadeIn 0.3s ease-out; }
+        .modal-content { background: #0a0f14; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 24px; width: min(500px, 92vw); position: relative; }
+        .modal-close { position: absolute; top: 10px; right: 10px; font-size: 1.5rem; background: transparent; color: #e8f5ff; border: none; cursor: pointer; transition: transform 0.2s; }
+        .modal-close:hover { transform: scale(1.2); }
+        .modal-content h3 { font-family: 'Orbitron', sans-serif; color: var(--neutral-color); margin-bottom: 16px; }
+        .modal-content ul { list-style: none; padding-left: 0; }
+        .modal-content li { margin-bottom: 8px; font-family: 'Roboto Mono', monospace; }
+        .modal-actions { display: flex; justify-content: flex-end; margin-top: 24px; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            <aside id="sidebar"></aside>
+            <main id="main-content">
+                <section id="mission-section">
+                    <h2 class="page-title">Special Mission: The Vigilance Gambit</h2>
+                    <p class="page-subtitle">
+                        While exploring the crashed Vigilance, the toads have discovered the hidden cargo hold: over 150 trafficked toads, weak and disoriented. This discovery has caused a schism. Lee's 'Strike Faction' sees an army. Roger's 'Shelter Faction' sees mouths to feed. As their trusted leader, you must forge a plan.
+                    </p>
+
+                    <div id="mission-metrics" class="metrics-board">
+                        <div class="metric">
+                            <div class="metric-header">
+                                <span>Toad Morale</span><span id="m-morale-val">0</span>
+                            </div>
+                            <div class="metric-bar"><div id="m-morale" class="metric-fill"></div></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <span>Plan Effectiveness</span><span id="m-resources-val">0</span>
+                            </div>
+                            <div class="metric-bar"><div id="m-resources" class="metric-fill"></div></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <span>Plan Subtlety</span><span id="m-stealth-val">0</span>
+                            </div>
+                            <div class="metric-bar"><div id="m-stealth" class="metric-fill"></div></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <span>Group Cohesion</span><span id="m-cohesion-val">0</span>
+                            </div>
+                            <div class="metric-bar"><div id="m-cohesion" class="metric-fill"></div></div>
+                        </div>
+                    </div>
+
+                    <div id="dialogue" class="dialogue-panel">
+                        <!-- Dialogue updated by JS -->
+                    </div>
+
+                    <div id="decision-container">
+                        <!-- Final plan injected here -->
+                    </div>
+
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="consequence-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3 id="consequence-title">Consequences</h3>
+            <div id="consequence-body"></div>
+            <div class="modal-actions">
+                <button id="modal-continue" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module">
+        const finalState = {
+          metrics: { morale: 35, resources: 40, stealth: 100, cohesion: 50 },
+          choicesMade: [
+            { decisionTitle: 'Decision 1: The New Arrivals', choiceTitle: "Roger's Plan: Protect the Flock" },
+            { decisionTitle: 'Decision 2: The Vigilance Itself', choiceTitle: "Strip the Ship for a Fortification" },
+            { decisionTitle: 'Decision 3: The Staff in the Core', choiceTitle: "Leave it Sealed" },
+            { decisionTitle: 'Decision 4: The First Step', choiceTitle: "Scout for a Permanent Base" }
+          ],
+          outcome: 'mixed'
+        };
+
+        const outcomeText = "A workable, if uninspired, plan. It's a series of compromises that leaves no faction truly satisfied. The mission can likely be accomplished, but the underlying tensions within the group remain unresolved and will likely fester.";
+
+        const missionBrief = `OPERATION: VIGILANCE GAMBIT
+
+MISSION BRIEFING:
+- PRIMARY DIRECTIVE: Prioritize the shelter and well-being of the 150 freed toads.
+- ASSET DOCTRINE: The Vigilance will be stripped to create a static, fortified base.
+- POWER SOURCE PROTOCOL: The staff will remain sealed to minimize risk and energy signature.
+- IMMEDIATE OBJECTIVE: Initiate stealth reconnaissance to find a permanent base location.
+
+This plan is now locked. Execute on my command.
+- Archie`;
+
+        function clamp(v) { return Math.max(0, Math.min(100, v)); }
+
+        function renderMetrics(state) {
+          const metrics = state.metrics;
+          const set = (id, val) => {
+            const bar = document.getElementById(id);
+            if (bar) bar.style.width = `${clamp(val)}%`;
+            const valEl = document.getElementById(`${id}-val`);
+            if (valEl) valEl.textContent = clamp(val);
+          };
+          set('m-morale', metrics.morale);
+          set('m-resources', metrics.resources);
+          set('m-stealth', metrics.stealth);
+          set('m-cohesion', metrics.cohesion);
+        }
+
+        function renderFinalPlan(state) {
+            const container = document.getElementById('decision-container');
+            const choicesListHTML = state.choicesMade.map(c => `<li><strong>${c.decisionTitle}:</strong> ${c.choiceTitle}</li>`).join('');
+
+            container.innerHTML = `
+                <div class="decision-title">Mission Plan Finalized</div>
+                <div class="decision-narrative">${outcomeText}</div>
+                <div class="final-plan-summary">
+                    <div class="summary-choices">
+                        <h5>Choices Made:</h5>
+                        <ul>${choicesListHTML}</ul>
+                    </div>
+                    <div class="summary-brief">
+                        <h5>Generated Mission Brief:</h5>
+                        <textarea id="mission-brief-textarea" readonly>${missionBrief}</textarea>
+                    </div>
+                </div>
+                <div class="decision-actions" style="margin-top: 24px; justify-content: center;">
+                    <a href="directory.html" class="btn btn-primary">Return to Directory</a>
+                </div>
+            `;
+
+            const dialoguePanel = document.getElementById('dialogue');
+            if (dialoguePanel) {
+                dialoguePanel.innerHTML = `The plan is set. It's a cautious path, one that prioritizes safety over glory. Roger and the Shelter Faction are relieved. Toad Lee and the Strike Faction are quietly seething, feeling their strength is being wasted. And Dan... he's quiet. The staff remains in the ship's core. A promise was broken. The future of the Liberated Toads is secure for now, but the cost to their unity is yet to be seen.
+                <div style="text-align: right; margin-top: 8px;">—Terminal Log</div>`;
+            }
+        }
+
+        function init() {
+          renderMetrics(finalState);
+          renderFinalPlan(finalState);
+          const modal = document.getElementById('consequence-modal');
+          if (modal) modal.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

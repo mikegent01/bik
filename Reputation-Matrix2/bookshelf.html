@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Bookshelf</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="bookshelf.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             <aside id="sidebar"></aside>
+            <main id="main-content">
+                 <h2 class="page-title">Party Inventory & Bookshelf</h2>
+                 <div id="library-container">
+                    <div class="bookshelf" id="bookshelf-main">
+                        <!-- Books will be injected here by JS -->
+                    </div>
+                 </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="book-reader-modal" class="book-modal-overlay">
+        <div class="book-modal-content">
+            <button id="book-modal-close" class="book-modal-close">&times;</button>
+            <h3 id="book-modal-title"></h3>
+            
+            <div id="book-cover-view">
+                <img id="book-cover-image" src="" alt="Book Cover">
+                <div id="book-description-container"></div>
+                <button id="open-book-btn">Open Book</button>
+            </div>
+
+            <div class="book-reader-body" id="book-pages-view">
+                <div class="book-page left-page" id="book-page-left"></div>
+                <div class="book-page right-page" id="book-page-right"></div>
+            </div>
+            <div class="book-navigation">
+                <button id="prev-page-btn">&laquo; Previous</button>
+                <span id="page-indicator"></span>
+                <button id="next-page-btn">Next &raquo;</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="bookshelf.js"></script>
+</body>
+</html>

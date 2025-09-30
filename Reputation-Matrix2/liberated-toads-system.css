@@ -1,0 +1,185 @@
+/* liberated-toads-system.css */
+
+.liberated-toads-system-container {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.toad-section-header h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Crisis Section */
+.crisis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.crisis-card {
+    background-color: rgba(248, 81, 73, 0.1);
+    border: 1px solid var(--negative-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.crisis-card h4 {
+    color: var(--negative-color);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 8px 0;
+}
+
+.crisis-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Key Figures Section */
+.toad-figures-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+@media (min-width: 768px) {
+    .toad-figures-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.toad-figure-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.toad-figure-portrait {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+}
+
+.toad-figure-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.toad-figure-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.toad-figure-status {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 4px 0 8px 0;
+    display: inline-block;
+}
+
+.status-positive { color: var(--positive-color); }
+.status-negative { color: var(--negative-color); }
+.status-neutral { color: var(--neutral-color); }
+
+.toad-figure-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* New Opinion Styles */
+.toad-figure-opinions {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.toad-figure-opinions h6 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.toad-figure-opinions ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.toad-figure-opinions .toad-opinion-item {
+    color: var(--text-secondary);
+}
+
+.toad-figure-opinions .toad-opinion-item strong {
+    color: var(--text-color);
+}
+
+
+/* Timeline Section */
+.toad-timeline-list {
+    list-style: none;
+    padding-left: 20px;
+    position: relative;
+}
+
+.toad-timeline-list::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background-color: var(--border-color);
+}
+
+.toad-timeline-list li {
+    position: relative;
+    padding: 8px 0 16px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.toad-timeline-list li::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    border: 2px solid var(--main-bg);
+}
+
+.toad-timeline-list li strong {
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    display: block;
+    margin-bottom: 4px;
+}
