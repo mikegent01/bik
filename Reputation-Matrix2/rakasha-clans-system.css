@@ -1,0 +1,118 @@
+/* --- Rakasha Clans: Totem System --- */
+.rakasha-clan-system {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+    align-items: center;
+    min-height: 350px;
+}
+
+.rakasha-totem-pole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #4a3728; /* Wood color */
+    padding: 16px;
+    border-radius: 10px;
+    border: 3px solid #2d2016;
+}
+
+.rakasha-clan-sigil {
+    width: 80px;
+    height: 80px;
+    background-color: var(--sidebar-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rakasha-clan-sigil:hover {
+    border-color: var(--regional-powers-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--regional-powers-color);
+}
+
+.rakasha-clan-sigil img {
+    width: 100%;
+    height: 100%;
+    filter: invert(58%) sepia(10%) saturate(468%) hue-rotate(169deg) brightness(95%) contrast(85%);
+}
+
+.rakasha-info-panel {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    height: 100%;
+}
+
+.rakasha-info-panel p {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.rakasha-info-panel h4 {
+    font-family: var(--font-display);
+    color: var(--regional-powers-color);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.rakasha-philosophy {
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.rakasha-philosophy h5 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.rakasha-philosophy p {
+    font-size: 0.9rem;
+    text-align: left;
+    font-style: normal;
+}
+
+.rakasha-members h6 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+.rakasha-members ul {
+    list-style: none;
+    padding-left: 0;
+}
+.rakasha-members li {
+    font-size: 0.9rem;
+    padding: 4px;
+    background-color: var(--main-bg);
+    border-radius: 3px;
+    margin-bottom: 4px;
+}
+
+.rakasha-public-name {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+    .rakasha-clan-system {
+        grid-template-columns: 1fr;
+    }
+    .rakasha-totem-pole {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberated Toads - A House Divided</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="components.css">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        .tablet-frame {
+            border: 2px solid #4a4a4a;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #2a2a2a;
+        }
+        .page-title {
+            color: #ff4d4d;
+            text-align: center;
+            border-bottom: 1px solid #4a4a4a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .event-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: #ff4d4d;
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* NEW: individual member focus styles */
+        .character-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        @media (min-width: 640px) {
+            .character-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .character-card {
+            background: #242424;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .character-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .character-name {
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+        }
+        .character-role {
+            font-size: 0.9em;
+            color: #b8b8b8;
+        }
+        .alignment {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .alignment.regent { background: rgba(77,184,255,0.15); color: #4db8ff; border: 1px solid rgba(77,184,255,0.35); }
+        .alignment.rebel { background: rgba(255,107,107,0.15); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.35); }
+        .alignment.undecided { background: rgba(176,176,176,0.15); color: #d0d0d0; border: 1px solid rgba(176,176,176,0.35); }
+        .character-quote {
+            font-style: italic;
+            color: #d6d6d6;
+            border-left: 3px solid #4a4a4a;
+            padding-left: 10px;
+            margin-top: 8px;
+        }
+        .incoming-callout {
+            font-style: italic;
+            color: #ffd1d1;
+            border-left: 3px solid #ff4d4d;
+            padding-left: 10px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            <main id="main-content">
+                <h2 class="page-title">A House Divided</h2>
+                <div class="event-description">
+                    <p>The Liberated Toads are in turmoil. A deep ideological rift has split the faction into two opposing camps. One side, the "Regents," believes in restoring the Mushroom Regency to its former glory. Opposing them are the "Rebels," who want to dismantle the old power structures entirely.</p>
+                    <p>Here are the voices within the movement—individuals whose choices will decide whether the Toads fracture or find a path forward.</p>
+
+                    <p class="incoming-callout">Update: In the chaos aboard the Vigilance, a vow was sworn—binding two groups together as the “First Cohort of Renewal.” The staff they swore upon is now a contested symbol of protection and power.</p>
+
+                    <div class="character-grid">
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Archie</span>
+                                <span class="character-role">Field Leader, 3rd Cell</span>
+                            </div>
+                            <span class="alignment undecided">Undeclared</span>
+                            <p>Archie’s priority is keeping the Toads from turning their rifles inward. He distrusts regency nostalgia and fears rebel purges in equal measure. If a mission can prove unity under fire, he’ll take it—no speeches required.</p>
+                            <p class="incoming-callout">"Archie, we've got a high-stakes mission lined up and Dan requested you personally. It could change the course of this war. Are you in?"</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Dan</span>
+                                <span class="character-role">Operations Planner</span>
+                            </div>
+                            <span class="alignment regent">Regent-leaning Realist</span>
+                            <p>Dan wants institutions that outlast heroes. He’s wary of power vacuums and believes a tempered restoration can stabilize the front. He asked for Archie to bridge camps and prove the moderates can still lead.</p>
+                            <p class="character-quote">"Secure the supply bridges now, argue about the crown when our people aren’t starving."</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Sedge</span>
+                                <span class="character-role">Signals & Intelligence</span>
+                            </div>
+                            <span class="alignment rebel">Rebel</span>
+                            <p>Sedge tracks informants and remembers every betrayal logged in cipher. To her, crowns don’t reform—they entrench. She’ll back any op that breaks old choke points, even if it burns bridges with the Regents.</p>
+                            <p class="character-quote">"You don’t deprogram a throne. You unplug it."</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Elder Myrtle</span>
+                                <span class="character-role">Historian & Chaplain</span>
+                            </div>
+                            <span class="alignment regent">Regent</span>
+                            <p>Myrtle is the keeper of oaths and funerary names. She believes tradition is scaffolding: remove it too fast and the house collapses. She urges reconciliation under a limited regency to halt the spiral.</p>
+                            <p class="character-quote">"We rebuild the pillars, then we debate their height."</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Bramble</span>
+                                <span class="character-role">Combat Medic</span>
+                            </div>
+                            <span class="alignment undecided">Undecided</span>
+                            <p>Bramble counts victory in heartbeats preserved. He refuses to sort patients by politics and backs any plan that lowers casualty projections—even if it means standing between both banners.</p>
+                            <p class="character-quote">"My triage sheet doesn’t ask party affiliation."</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Pip</span>
+                                <span class="character-role">Courier</span>
+                            </div>
+                            <span class="alignment rebel">Rebel-leaning</span>
+                            <p>Young, fast, and loud—Pip wants a future without whispered names. The rebels speak to his hunger for fairness, but he’s seen Archie pull strangers from rubble and wonders if unity is worth one more try.</p>
+                            <p class="character-quote">"If we win a future we can’t talk in, what did we win?"</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Nix</span>
+                                <span class="character-role">Saboteur</span>
+                            </div>
+                            <span class="alignment rebel">Hardline Rebel</span>
+                            <p>Nix paints targets on sigils and supply depots tied to the old crown. Compromise, to Nix, is a slow surrender. He’s already scouted routes that would make the mission a message, not just a strike.</p>
+                            <p class="character-quote">"Tear the emblems down first. Then talk."</p>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-header">
+                                <span class="character-name">Rowan</span>
+                                <span class="character-role">Quartermaster</span>
+                            </div>
+                            <span class="alignment regent">Regent-leaning</span>
+                            <p>Rowan counts crates and consequences. He fears that perpetual upheaval will starve villages before ideals can feed them. He’ll greenlight the op if it protects trade lanes and avoids internecine fire.</p>
+                            <p class="character-quote">"Order feeds people. Chaos doesn’t."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="#" class="btn">Return to Directory</a>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

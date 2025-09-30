@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | New Operator</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href="../components.css">
+    <link rel="stylesheet" href="new-operator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             <aside id="sidebar"></aside>
+            <main id="main-content">
+                <h2 class="page-title">New Operator Profile Creation</h2>
+                
+                <div id="waluigi-commentary-box">
+                    <img src="../logo.png" alt="Waluigi Logo">
+                    <div id="waluigi-commentary-text">
+                        WAH! So you think you have what it takes to join my magnificent crew? Prove it! Fill this out, and don't be boring!
+                    </div>
+                </div>
+
+                <div id="creator-wizard">
+                    <!-- Step 1: Region -->
+                    <div class="wizard-step active" data-step="1">
+                        <h3 class="step-title">Step 1: Choose Your Origin Region</h3>
+                        <p class="step-subtitle">Where did you come from before all this... magnificent chaos? Pick a place, and I'll tell you what I think of it!</p>
+                        <div id="region-step-layout">
+                            <div id="region-selection-grid"></div>
+                            <div id="region-preview">
+                                <h4>Region Map</h4>
+                                <div id="region-preview-placeholder">Select a region to see the map.</div>
+                                <img id="region-preview-image" src="" alt="Selected Region Map" style="display: none;">
+                                <div id="region-details-box" class="details-box"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Background -->
+                    <div class="wizard-step" data-step="2">
+                        <h3 class="step-title">Step 2: Operator Dossier - Vitals</h3>
+                        <p class="step-subtitle">Alright, spill it! Who are you, and why are you on MY glorious airship? Make it interesting!</p>
+                        <div id="background-step-layout">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="operator-name">Operator Name:</label>
+                                    <input type="text" id="operator-name" placeholder="e.g., 'Captain WAH-some'">
+                                </div>
+                                 <div class="form-group">
+                                    <label for="operator-race">Race:</label>
+                                    <select id="operator-race"></select>
+                                    <input type="text" id="operator-race-custom" placeholder="Enter custom race" style="display: none; margin-top: 8px;">
+                                </div>
+                                 <div class="form-group full-width">
+                                    <label for="operator-reason">Backstory / Reason for being on the Vigilance:</label>
+                                    <textarea id="operator-reason" placeholder="e.g., 'Was looking for treasure and took a wrong turn at Albuquerque.'"></textarea>
+                                </div>
+                            </div>
+                            <div id="race-details-box" class="details-box">
+                                <!-- Race details will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Quests -->
+                    <div class="wizard-step" data-step="3">
+                        <h3 class="step-title">Step 3: Assigned Directives</h3>
+                        <p class="step-subtitle">Based on your pathetic background, these are your starting objectives. Don't fail, or I'll find a more competent minion! WAH!</p>
+                        <div id="quest-assignment-display"></div>
+                    </div>
+
+                    <!-- Step 4: Faction -->
+                    <div class="wizard-step" data-step="4">
+                        <h3 class="step-title">Step 4: Faction Affiliation</h3>
+                        <p class="step-subtitle">Who do you work for? Besides ME, of course! Choose your friends wisely... or don't! It's funnier that way!</p>
+                        <div id="faction-step-layout">
+                            <div class="form-group">
+                                <label for="operator-faction">Faction Affiliation:</label>
+                                <select id="operator-faction">
+                                    <option value="unaligned">Unaligned / Independent</option>
+                                </select>
+                            </div>
+                             <div id="faction-details-box" class="details-box">
+                                <!-- Faction details will be injected here -->
+                            </div>
+                            <div id="faction-tip-box" class="waluigi-faction-tip" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Skills -->
+                    <div class="wizard-step" data-step="5">
+                        <h3 class="step-title">Step 5: Skill Distribution</h3>
+                        <p class="step-subtitle">Your race and faction give you a head start with 6 skill points. You have <strong>4 more points</strong> to spend. Make yourself useful!</p>
+                        <div id="skills-step-layout">
+                            <div id="skill-allocator">
+                                <!-- Skills populated by JS -->
+                            </div>
+                             <div id="skill-points-remaining">
+                                <h4>Points Remaining</h4>
+                                <span id="points-value">4</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 6: Final Sheet -->
+                    <div class="wizard-step" data-step="6">
+                        <h3 class="step-title">WAH-nderful! Here's Your Dossier!</h3>
+                        <p class="step-subtitle">Don't lose this, or you'll have to clean the toilets! With your tongue! Now get to work, my newest minion!</p>
+                        <div id="character-sheet">
+                            <!-- Generated character sheet will go here -->
+                            <div class="sheet-header">
+                                <div class="sheet-token-container">
+                                    <div id="sheet-token-img" class="sheet-token-img placeholder">?</div>
+                                    <button id="upload-token-btn" class="wizard-btn upload-token-btn">Upload Token</button>
+                                    <input type="file" id="token-upload-input" accept="image/*" style="display: none;">
+                                </div>
+                                <div class="sheet-header-vitals">
+                                    <div class="sheet-header-item"><span>Operator Name</span><p id="sheet-name">Nameless Loser</p></div>
+                                    <div class="sheet-header-item"><span>Race</span><p id="sheet-race">Unknown</p></div>
+                                    <div class="sheet-header-item"><span>Affiliation</span><p id="sheet-faction">Unaligned</p></div>
+                                </div>
+                            </div>
+                            <div class="sheet-main-grid">
+                                <div class="sheet-attributes">
+                                    <h4>Attributes</h4>
+                                    <div class="sheet-attributes-grid">
+                                        <!-- Attribute boxes injected by JS -->
+                                    </div>
+                                </div>
+                                <div class="sheet-skills">
+                                    <h4>Skills</h4>
+                                    <div class="sheet-skills-list">
+                                        <!-- Skills injected by JS -->
+                                    </div>
+                                </div>
+                                <div class="sheet-abilities full-width">
+                                    <h4>Racial Trait</h4>
+                                    <p id="sheet-ability">None.</p>
+                                    <h4>Backstory</h4>
+                                    <p id="sheet-reason">No good reason.</p>
+                                </div>
+                            </div>
+                             <div class="sheet-equipment">
+                                 <h4>Starting Equipment</h4>
+                                 <ul id="sheet-equipment-list"></ul>
+                            </div>
+                            <div class="sheet-quests">
+                                <h4>Assigned Directives</h4>
+                                <ul id="sheet-quests-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="wizard-navigation">
+                        <button id="prev-btn" class="wizard-btn" disabled>Back</button>
+                        <div id="step-indicator">Step 1 of 6</div>
+                        <button id="next-btn" class="wizard-btn">Next</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="../common.js"></script>
+    <script type="module" src="../navigation.js"></script>
+    <script type="module" src="new-operator.js"></script>
+</body>
+</html>

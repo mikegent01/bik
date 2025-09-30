@@ -1,0 +1,9 @@
+export const BOOK_DATA = {
+    title: "Blood & Vines: An Onyx Hand Manifesto",
+    pages: [
+        `...from the Introduction.\n\nMortals see us as predators, monsters in the night. They are not wrong, but their perspective is that of the cattle to the herdsman. They see only the fleeting fear, not the grand design. We are the gardeners of this world, pruning the weak, cultivating the strong, guiding the unruly vine of society over centuries. Our grasp is eternal, our methods subtle. This is not a manifesto of evil, but of order—a truer, longer-lasting order than any mortal emperor could dream of.`,
+        `...from Chapter 2: The Fallacy of Mortality.\n\nThe mortal lifespan is a flicker, a brief and panicked scramble for meaning in a handful of decades. This brevity breeds recklessness. They build empires of stone that crumble in a century, ideologies that last a single generation. We, the undying, see the grand tapestry. We can afford patience. A plan that takes two hundred years to mature is, to us, a short-term investment.`,
+        `...from Chapter 5: The Tools of Husbandry.\n\n- The Gilded Thorn Coven: They are our diplomats, our whisperers in the courts of kings. Through blackmail, seduction, and the promise of power, they turn the levers of mortal government to our will.\n- The Silent Blade Coven: They are our pruning shears. When a mortal grows too ambitious, too chaotic, they are removed, quietly and efficiently, for the health of the garden.\n- The Whispering Veils Coven: They are our eyes and ears, for knowledge is the water that nourishes our long-term plans.`,
+        `...from the Conclusion.\n\nDo not mistake our patience for passivity. Do not mistake our guidance for benevolence. We are shepherds, yes, but we shear the flock and feast upon the lambs. It is the natural order. We are the apex predators not of the wild, but of civilization itself. And our hunt is eternal.`
+    ]
+};

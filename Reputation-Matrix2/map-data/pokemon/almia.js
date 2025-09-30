@@ -1,0 +1,10 @@
+// map-data/pokemon/almia.js
+export const almiaPois = [
+    { id: 'poi_al_ranger_school', x: 30.00, y: 24.00, type: 'academy', name: "Ranger School", description: "The premier institution for training new Pokémon Rangers in the Almia region. Its graduates are among the most skilled in the Ranger Union.", factionId: 'ranger_union', intelReq: 10 },
+    { id: 'poi_al_vientown', x: 32.00, y: 18.00, type: 'town', name: "Vientown", description: "A coastal town known for its strong winds and its Ranger Base, which serves as the first posting for many new graduates from the Ranger School.", factionId: 'ranger_union', intelReq: 5 },
+    { id: 'poi_al_altru_tower', x: 25.00, y: 15.00, type: 'capital_city', name: "Altru Tower", description: "A massive, technologically advanced tower that serves as the headquarters of the Altru Inc. energy company. It is a symbol of progress, but also a source of regional conflict.", factionId: 'unaligned', intelReq: 20 },
+    { id: 'poi_al_pueltown', x: 28.00, y: 14.00, type: 'port', name: "Pueltown", description: "The largest port in Almia, a bustling hub of trade and naval activity. The Ranger Union maintains a strong presence here to combat smuggling.", factionId: 'ranger_union', intelReq: 15 },
+    { id: 'poi_al_haruba_desert', x: 10.00, y: 24.00, type: 'landmark', name: "Haruba Desert", description: "A vast desert with ancient ruins and powerful ground-type Pokémon. A captured Hippowdon Temple is a key point of interest.", factionId: 'unaligned', intelReq: 25 },
+    { id: 'poi_al_volcano_cavern', x: 5.00, y: 20.00, type: 'volcano', name: "Volcano Cavern", description: "A dangerous, lava-filled cavern system inside an active volcano. It is home to rare and powerful fire-type Pokémon.", factionId: 'unaligned', intelReq: 30 },
+    { id: 'poi_al_chicol_village', x: 32.50, y: 21.50, type: 'village', name: "Chicole Village", description: "A small, agricultural village that provides much of the region's food. It is known for its peaceful atmosphere and strong community.", factionId: 'unaligned', intelReq: 5 },
+];

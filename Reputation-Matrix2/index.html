@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Login</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "path": "https://esm.sh/path@^0.12.7",
+    "url": "https://esm.sh/url@^0.11.4",
+    "vite": "https://esm.sh/vite@^7.1.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="startup-screen">
+        <div class="startup-container">
+            <img src="logo.png" alt="Waluigi Logo" class="startup-logo">
+            <h1 class="startup-title">Vigilance</h1>
+            <div class="startup-actions">
+                <button id="enter-app-btn" class="startup-btn">Start Waluigi Terminal</button>
+                <button id="new-operator-btn" class="startup-btn">New Operator</button>
+                <div class="game-action-container">
+                    <button id="play-game-btn" class="startup-btn" disabled>Play Game</button>
+                    <span id="play-game-timer" class="timer-text"></span>
+                </div>
+                <button id="soundtrack-btn" class="startup-btn">Soundtrack</button>
+            </div>
+            <div class="next-session-container">
+                <h3>Waluigi's Next Move!</h3>
+                <p>WAH-HA-HA! What a beautiful day of failure! My so-called 'allies' are stuck in a smelly sewer, fighting a big, angry lightning lizard, all to save a one-handed toad! The Iron Legion is running around with spies who can't even hide their own tails, and a new killer is hiding bodies in the calamari! While they're all distracted by this magnificent mess, it's the perfect time for me, Waluigi, to put my REAL plan into motion. WAH-t's that? You'll have to wait and see! Just know it will be stylish!</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="soundtrack-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Campaign Soundtrack</h2>
+            <div class="song-list">
+                <div class="song-item">
+                    <p class="song-title">Mario & Luigi: Bowser's Inside Story - Peach's Castle Interior</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/U6fAax9P-0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <p class="song-title">The Ultimate Show</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/fxWqzJ2GxhI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <p class="song-title">Vehicular Assault</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/9IX_V9xIptc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- More songs can be added here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="character-login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="logo.png" alt="Waluigi Logo">
+                <h1>Vigilance Terminal</h1>
+                <p>Select Your Operator Profile</p>
+            </div>
+            <div id="character-select-grid">
+                <!-- Character cards will be injected by login.js -->
+            </div>
+            <div class="login-options">
+                <button id="generic-login-btn" class="login-option-btn">Generic Profile</button>
+                <button id="skip-intro-btn" class="login-option-btn">Skip Intro</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="intro-sequence-overlay" class="hidden">
+        <div class="intro-content">
+            <img src="logo.png" alt="Waluigi Logo" class="intro-logo">
+            <div id="intro-text" class="typewriter"></div>
+            <div id="click-prompt" class="hidden">[Click anywhere to continue...]</div>
+        </div>
+    </div>
+
+    <script>
+        // Polyfill for structuredClone if not available
+        if (typeof self.structuredClone === 'undefined') {
+            self.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
+        }
+    </script>
+    <script type="module" src="common.js"></script>
+    <script type="module" src="login.js"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

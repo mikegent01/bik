@@ -1,0 +1,568 @@
+/* --- Waluigi Commentary Box --- */
+#waluigi-commentary-box {
+    background: var(--sidebar-bg);
+    border: 2px dashed var(--accent-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transform: rotate(-1deg);
+    animation: fadeIn 0.5s ease-out;
+}
+
+#waluigi-commentary-box img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+}
+
+#waluigi-commentary-text {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--accent-hover);
+}
+
+/* --- Wizard Layout --- */
+#creator-wizard {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    border-radius: 8px;
+}
+
+.wizard-step {
+    display: none;
+}
+.wizard-step.active {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.step-title {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.step-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    font-style: italic;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Wizard Navigation --- */
+.wizard-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.wizard-btn {
+    padding: 10px 24px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.wizard-btn:hover:not(:disabled) {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+.wizard-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#step-indicator {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+}
+
+/* --- Step 1: Region --- */
+#region-step-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+#region-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.region-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+.region-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+.region-card:hover img {
+    transform: scale(1.05);
+}
+.region-card span {
+    display: block;
+    padding: 12px 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.region-card:hover {
+    border-color: var(--accent-hover);
+    color: var(--accent-hover);
+}
+.region-card.selected {
+    border-color: var(--accent-color);
+    background-color: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+#region-preview {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+#region-preview-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-top: 12px;
+    border: 1px solid var(--border-color);
+}
+#region-preview-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+
+/* --- Step 2: Background --- */
+#background-step-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: flex-start;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+.form-group label {
+    color: var(--text-secondary);
+}
+.form-group input, .form-group select, .form-group textarea {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+}
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* --- Step 3: Quests --- */
+#quest-assignment-display {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.quest-option {
+    background-color: var(--main-bg);
+    padding: 16px;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+.quest-option h5 {
+    color: var(--text-color);
+    margin: 0 0 4px 0;
+}
+.quest-option p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* --- Step 4: Faction --- */
+#faction-step-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+#faction-step-layout .form-group {
+    width: 100%;
+}
+
+
+/* --- Step 5: Skills --- */
+#skills-step-layout {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 24px;
+}
+#skill-allocator {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--main-bg);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+.skill-name {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+.skill-name.bonus {
+    color: var(--neutral-color);
+    font-weight: bold;
+}
+.skill-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.skill-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background-color: var(--sidebar-bg);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.skill-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+#skill-points-remaining {
+    background-color: var(--main-bg);
+    text-align: center;
+    padding: 16px;
+    border-radius: 6px;
+}
+#skill-points-remaining h4 {
+    color: var(--text-secondary);
+    margin: 0 0 8px 0;
+}
+#skill-points-remaining #points-value {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--neutral-color);
+}
+
+/* --- Step 6: Character Sheet --- */
+#character-sheet {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    margin-top: 24px;
+    color: var(--text-secondary);
+}
+.sheet-header {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+.sheet-token-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.sheet-token-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background-color: var(--sidebar-bg);
+    object-fit: cover;
+}
+.sheet-token-img.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+}
+.upload-token-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+
+.sheet-header-vitals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.sheet-header-item span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+.sheet-header-item p {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.sheet-main-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+/* Attributes */
+.sheet-attributes h4, .sheet-skills h4, .sheet-abilities h4, .sheet-quests h4, .sheet-equipment h4 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+.sheet-attributes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.sheet-attribute-box {
+    background-color: var(--sidebar-bg);
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+.sheet-attribute-box h5 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+.sheet-attribute-box .attr-score {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--text-color);
+    display: block;
+}
+.sheet-attribute-box .attr-modifier {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* Skills */
+.sheet-skills-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.sheet-skill-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--sidebar-bg);
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+.sheet-skill-value {
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* Abilities & Backstory */
+.sheet-abilities p {
+    font-size: 0.9rem;
+    background-color: var(--sidebar-bg);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+.sheet-abilities.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Quests & Equipment */
+.sheet-quests, .sheet-equipment {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+.sheet-quests ul, .sheet-equipment ul {
+    list-style: none;
+    padding: 0;
+}
+.sheet-quests li {
+    background-color: var(--sidebar-bg);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.sheet-quests li strong {
+    color: var(--text-color);
+    display: block;
+}
+
+.sheet-equipment ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sheet-equipment li {
+    background-color: var(--sidebar-bg);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+.sheet-equipment li strong {
+    color: var(--text-color);
+    display: block;
+}
+
+/* --- Details Boxes --- */
+.details-box {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    height: fit-content;
+}
+
+.details-box h5 {
+    font-family: var(--font-display);
+    color: var(--neutral-color);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.details-box p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.details-box ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.details-box li {
+    background-color: var(--sidebar-bg);
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+.details-box li strong {
+    color: var(--positive-color);
+}
+
+.details-box .ability-name {
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+#region-details-box {
+    margin-top: 16px;
+    padding-top: 16px;
+    text-align: left;
+    border-top: 1px solid var(--border-color);
+}
+
+
+@media (max-width: 900px) {
+    .sheet-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .sheet-header-vitals {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    #skills-step-layout, .sheet-main-grid, #background-step-layout {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    #region-step-layout {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 500px) {
+    .form-grid, .sheet-skills-list {
+        grid-template-columns: 1fr;
+    }
+    .sheet-attributes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Page-Specific Layout Overrides --- */
+#sidebar {
+    display: none;
+}
+
+#main-content {
+    margin-left: 0;
+}

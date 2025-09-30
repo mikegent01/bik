@@ -1,0 +1,80 @@
+// map-data/warhammer/bretonnia.js
+export const bretonniaPois = [
+    {
+        id: 'poi_wh_couronne', x: 48.5, y: 19.0, type: 'capital_city', subRegion: 'bretonnia',
+        name: "Couronne",
+        description: "The capital of Bretonnia and the seat of its king. A city of towering spires, grand tourney fields, and the great Cathedral of the Lady.",
+        factionId: 'bretonnia', intelReq: 5, political_influence: 9, economic_value: 8, military_strength: 8,
+        age_of_antiquity: 9, magical_resonance: 7, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_gisoreux', x: 51.5, y: 22.0, type: 'fortress', subRegion: 'bretonnia',
+        name: "Gisoreux",
+        description: "A mighty fortress-city guarding the pass into the Grey Mountains, a bastion against the frequent incursions of Greenskins.",
+        factionId: 'bretonnia', intelReq: 15, political_influence: 5, economic_value: 4, military_strength: 9,
+        age_of_antiquity: 8, magical_resonance: 3, crime_rate: 4,
+    },
+    {
+        id: 'poi_wh_forest_of_arden', x: 50.0, y: 21.0, type: 'forest', subRegion: 'bretonnia',
+        name: "Forest of Arden",
+        description: "A vast and ancient forest, known for its fierce Beastmen and its reclusive Grail Knights who guard its sacred glades.",
+        factionId: 'unaligned', intelReq: 25, political_influence: 3, economic_value: 3, military_strength: 6,
+        age_of_antiquity: 10, magical_resonance: 8, crime_rate: 8,
+    },
+    {
+        id: 'poi_wh_quenelles', x: 52.0, y: 19.0, type: 'major_city', subRegion: 'bretonnia',
+        name: "Quenelles",
+        description: "A beautiful city deep within the Forest of Loren, where the influence of the Wood Elves is strong. A place of ancient pacts and fey magic.",
+        factionId: 'bretonnia', intelReq: 20, political_influence: 6, economic_value: 6, military_strength: 7,
+        age_of_antiquity: 10, magical_resonance: 9, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_forest_of_chalons', x: 47.0, y: 21.5, type: 'forest', subRegion: 'bretonnia',
+        name: "Forest of Chalons",
+        description: "A dark and dangerous forest, a frequent battleground between Bretonnian knights and the Beastmen warherds that infest its depths.",
+        factionId: 'unaligned', intelReq: 15, political_influence: 1, economic_value: 2, military_strength: 7,
+        age_of_antiquity: 9, magical_resonance: 6, crime_rate: 9,
+    },
+    {
+        id: 'poi_wh_montfort_bridge', x: 53.0, y: 23.0, type: 'bridge', subRegion: 'bretonnia',
+        name: "The Montfort Bridge",
+        description: "A massive, fortified bridge that is a masterpiece of Dwarven engineering, a gift to the Bretonnians for their aid in ancient wars.",
+        factionId: 'bretonnia', intelReq: 10, political_influence: 3, economic_value: 4, military_strength: 6,
+        age_of_antiquity: 9, magical_resonance: 2, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_castle_carcassonne', x: 50.5, y: 17.0, type: 'fortress', subRegion: 'bretonnia',
+        name: "Castle Carcassonne",
+        description: "A formidable fortress that guards the border with the wild lands of the south. Famed for its chivalry and its frequent crusades against the Tomb Kings of Khemri.",
+        factionId: 'bretonnia', intelReq: 20, political_influence: 6, economic_value: 5, military_strength: 9,
+        age_of_antiquity: 8, magical_resonance: 3, crime_rate: 4,
+    },
+    {
+        id: 'poi_wh_grail_chapel', x: 52.5, y: 17.5, type: 'shrine', subRegion: 'bretonnia',
+        name: "The Grail Chapel",
+        description: "A hidden chapel where the Grail Knights go to meditate and commune with the Lady of the Lake. A place of immense sacred power.",
+        factionId: 'bretonnia', intelReq: 50, political_influence: 7, economic_value: 2, military_strength: 6,
+        age_of_antiquity: 9, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_fields_of_victory', x: 49.0, y: 23.0, type: 'battlefield', subRegion: 'bretonnia',
+        name: "The Fields of Victory",
+        description: "A vast plain where the Bretonnians won their founding victory against a massive Greenskin horde. It is now a place of pilgrimage and frequent tourneys.",
+        factionId: 'bretonnia', intelReq: 5, political_influence: 4, economic_value: 2, military_strength: 3,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_black_chasm', x: 47.5, y: 18.0, type: 'cave_entrance', subRegion: 'bretonnia',
+        name: "The Black Chasm",
+        description: "A deep, unnatural chasm that is said to lead to the underworld. It is a place of evil, shunned by the knights, where dark creatures sometimes emerge.",
+        factionId: 'unaligned', intelReq: 35, political_influence: 0, economic_value: 1, military_strength: 5,
+        age_of_antiquity: 10, magical_resonance: 8, crime_rate: 9,
+    },
+    {
+        id: 'poi_wh_parravon', x: 53.5, y: 20.5, type: 'major_city', subRegion: 'bretonnia',
+        name: "Parravon",
+        description: "A city built high in the Grey Mountains, known for its skilled Pegasus Knights who ride the powerful winged steeds that nest in the peaks.",
+        factionId: 'bretonnia', intelReq: 15, political_influence: 6, economic_value: 5, military_strength: 8,
+        age_of_antiquity: 8, magical_resonance: 6, crime_rate: 3,
+    }
+];

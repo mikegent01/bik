@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Faction Relations</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="relations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             <aside id="sidebar"></aside>
+            <main id="main-content">
+                 <h2 class="page-title">Faction Relationship Web</h2>
+                 <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">Click & drag to pan, scroll to zoom. Click a node for details.</p>
+                 <div id="graph-controls">
+                    <span>Filter View:</span>
+                    <button class="control-button active" data-filter="all">All Nodes</button>
+                    <button class="control-button" data-filter="party_factions">Party &amp; Factions</button>
+                    <button class="control-button" data-filter="party_leaders">Party &amp; Leaders</button>
+                    <button class="control-button" data-filter="major_powers">Major Powers</button>
+                    <button class="control-button" data-filter="underworld">Underworld &amp; Fringe</button>
+                </div>
+                 <div id="relations-graph-container">
+                    <!-- Faction graph will be injected here by JS -->
+                 </div>
+
+                 <h2 class="page-title" style="margin-top: 40px;">Faction Relations Matrix</h2>
+                 <p style="text-align: center; color: var(--negative-color); font-family: var(--font-display);">WARNING: POWER CORE OFFLINE. DATA MAY BE UNSTABLE.</p>
+                 <div id="relations-container">
+                    <!-- Faction relations will be injected here by JS -->
+                </div>
+            </main>
+            <aside id="detail-panel">
+                <button id="detail-panel-close">&times;</button>
+                <div id="detail-panel-content">
+                    <!-- Details will be injected here -->
+                </div>
+            </aside>
+        </div>
+    </div>
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="relations.js"></script>
+</body>
+</html>

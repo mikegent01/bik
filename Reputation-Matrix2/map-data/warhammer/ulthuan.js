@@ -1,0 +1,80 @@
+// map-data/warhammer/ulthuan.js
+export const ulthuanPois = [
+    {
+        id: 'poi_wh_lothern', x: 29.50, y: 38.00, type: 'capital_city', subRegion: 'ulthuan',
+        name: "Lothern, the Gleaming City",
+        description: "The greatest port-city of Ulthuan and the seat of the Phoenix King. A city of soaring white towers, bustling harbours, and the elite Sea Guard who defend its walls.",
+        factionId: 'high_elves', intelReq: 10, political_influence: 10, economic_value: 10, military_strength: 9, population: 90000,
+        age_of_antiquity: 10, magical_resonance: 9, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_white_tower', x: 28.00, y: 25.00, type: 'mages_tower', subRegion: 'ulthuan',
+        name: "The White Tower of Hoeth",
+        description: "The greatest repository of magical knowledge in the world, and the home of the Loremasters and Sword Masters. A place of learning, wisdom, and deadly martial skill.",
+        factionId: 'high_elves', intelReq: 30, political_influence: 8, economic_value: 5, military_strength: 8, population: 5000,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_shrine_asuryan', x: 34.00, y: 30.00, type: 'temple', subRegion: 'ulthuan',
+        name: "Shrine of Asuryan",
+        description: "The sacred heart of Ulthuan, where the eternal flame of the creator god Asuryan burns. It is here that the Phoenix King is chosen and crowned.",
+        factionId: 'high_elves', intelReq: 40, political_influence: 9, economic_value: 2, military_strength: 7, population: 500,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_fortress_ghrond', x: 26.00, y: 20.00, type: 'fortress', subRegion: 'ulthuan',
+        name: "The Fortress of Ghrond",
+        description: "A massive northern fortress on the border of Nagarythe, constantly vigilant against Dark Elf incursions from the north. Manned by the shadowy Shadow Warriors.",
+        factionId: 'high_elves', intelReq: 25, political_influence: 5, economic_value: 3, military_strength: 9, population: 4000,
+        age_of_antiquity: 9, magical_resonance: 5, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_anulii_mountains', x: 32.00, y: 28.00, type: 'mountain_pass', subRegion: 'ulthuan',
+        name: "The Anulii Mountains",
+        description: "The inner mountain range of Ulthuan, a place of breathtaking beauty and home to the great eagles. The passes are guarded by elite mountain rangers.",
+        factionId: 'unaligned', intelReq: 15, political_influence: 2, economic_value: 3, military_strength: 4, population: 100,
+        age_of_antiquity: 10, magical_resonance: 8, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_shifting_isles', x: 25.00, y: 43.00, type: 'landmark', subRegion: 'ulthuan',
+        name: "The Shifting Isles",
+        description: "A chain of islands shrouded in magical mist that constantly changes position. A powerful illusion spell protects the southern approach to Ulthuan from unwanted visitors.",
+        factionId: 'unaligned', intelReq: 35, political_influence: 2, economic_value: 1, military_strength: 5, population: 0,
+        age_of_antiquity: 10, magical_resonance: 9, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_chrace_gate', x: 26.50, y: 28.00, type: 'fortress', subRegion: 'ulthuan',
+        name: "The Chrace Gate",
+        description: "The fortress guarding the entrance to the wild lands of Chrace, home of the White Lions, the elite bodyguard of the Phoenix King.",
+        factionId: 'high_elves', intelReq: 20, political_influence: 4, economic_value: 3, military_strength: 8, population: 3000,
+        age_of_antiquity: 10, magical_resonance: 6, crime_rate: 2,
+    },
+    {
+        id: 'poi_wh_tor_yvresse', x: 33.00, y: 35.00, type: 'major_city', subRegion: 'ulthuan',
+        name: "Tor Yvresse",
+        description: "A beautiful but haunted city on the eastern coast, constantly vigilant against invasion. It is the home of the Warden, Eltharion the Grim.",
+        factionId: 'high_elves', intelReq: 15, political_influence: 7, economic_value: 7, military_strength: 8, population: 50000,
+        age_of_antiquity: 10, magical_resonance: 7, crime_rate: 3,
+    },
+    {
+        id: 'poi_wh_gaen_vale', x: 30.00, y: 25.00, type: 'ley_line', subRegion: 'ulthuan',
+        name: "The Gaen Vale",
+        description: "A hidden, mystical valley where the Everqueen, the spiritual leader of the High Elves, resides. A place of potent life magic and natural beauty.",
+        factionId: 'high_elves', intelReq: 50, political_influence: 9, economic_value: 4, military_strength: 6, population: 1000,
+        age_of_antiquity: 10, magical_resonance: 10, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_eagle_gate', x: 29.00, y: 31.00, type: 'fortress', subRegion: 'ulthuan',
+        name: "The Eagle Gate",
+        description: "One of the great fortress-gates in the inner mountains, guarding the approach to the Shrine of Asuryan. Manned by the peerless Phoenix Guard.",
+        factionId: 'high_elves', intelReq: 30, political_influence: 5, economic_value: 2, military_strength: 9, population: 2000,
+        age_of_antiquity: 10, magical_resonance: 8, crime_rate: 1,
+    },
+    {
+        id: 'poi_wh_ellyrion_stables', x: 27.00, y: 34.00, type: 'village', subRegion: 'ulthuan',
+        name: "The Plains of Ellyrion",
+        description: "The wide, grassy plains that are home to the finest horses in the world. The Ellyrian Reavers, the swift light cavalry of the High Elves, are recruited from the nobles of this land.",
+        factionId: 'high_elves', intelReq: 15, political_influence: 6, economic_value: 7, military_strength: 6, population: 15000,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 2,
+    }
+];

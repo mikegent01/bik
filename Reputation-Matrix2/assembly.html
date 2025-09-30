@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | WAHbook</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="assembly.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             <aside id="sidebar"></aside>
+            <main id="main-content">
+                 <h2 class="page-title">WAHbook</h2>
+                 <div id="wahbook-tabs-container">
+                    <button class="tab-btn active" data-tab="feed">Feed</button>
+                    <button class="tab-btn" data-tab="events">Events</button>
+                    <button class="tab-btn" data-tab="intel">Active Rumors & Intel</button>
+                    <button class="tab-btn" data-tab="followed">Followed</button>
+                    <button class="tab-btn" data-tab="trending">Trending</button>
+                    <button class="tab-btn" data-tab="groups">Groups</button>
+                 </div>
+                 <div id="wahbook-content">
+                    <div id="feed-content" class="tab-content active">
+                        <!-- Main feed will be injected by JS -->
+                    </div>
+                    <div id="events-content" class="tab-content">
+                        <p class="page-subtitle">Major incidents and gatherings shaking the Doughnut World. Catch up on the latest gossip and fallout.</p>
+                        <div id="event-controls">
+                            <span>Sort By:</span>
+                            <button class="control-btn active" data-sort="newest">Newest First</button>
+                            <button class="control-btn" data-sort="oldest">Oldest First</button>
+                        </div>
+                        <div id="events-feed-container">
+                            <!-- Events will be injected here by JS -->
+                        </div>
+                    </div>
+                    <div id="intel-content" class="tab-content">
+                        <p class="page-subtitle">A collection of chatter, reports, and raw intelligence gathered from across the network regarding ongoing events and rumors. Click a dossier for details.</p>
+                        <div id="intel-board-grid">
+                            <!-- Intel dossiers will be injected here -->
+                        </div>
+                    </div>
+                    <div id="followed-content" class="tab-content">
+                         <div id="followed-feed-container" class="wahbook-feed-container">
+                            <!-- Followed feed will be injected by JS -->
+                        </div>
+                    </div>
+                    <div id="trending-content" class="tab-content">
+                         <p class="page-subtitle">The hottest and most controversial posts across the network, ranked by engagement. WAH's going on!</p>
+                         <div id="trending-feed-container" class="wahbook-feed-container">
+                            <!-- Trending feed will be injected by JS -->
+                        </div>
+                    </div>
+                    <div id="groups-content" class="tab-content">
+                         <p class="page-subtitle">Follow the official channels and chatter from the various Guilds, Charters, and professional organizations across the worlds.</p>
+                         <div id="groups-filter-bar"></div>
+                         <div id="groups-feed-container" class="wahbook-feed-container">
+                            <!-- Groups feed will be injected by JS -->
+                         </div>
+                    </div>
+                 </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="dossier-modal" class="modal" style="display: none;">
+        <div class="modal-content dossier-modal-content">
+            <button class="modal-close dossier-modal-close">&times;</button>
+            <div id="dossier-modal-body">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="create-post-modal" class="modal" style="display: none;">
+        <div class="modal-content create-post-modal-content">
+             <button class="modal-close create-post-modal-close">&times;</button>
+             <h3>Create Post</h3>
+             <textarea id="new-post-textarea" placeholder="What's on your mind?"></textarea>
+             <button id="submit-post-btn">Post</button>
+        </div>
+    </div>
+    
+    <div id="share-modal" class="modal" style="display: none;">
+        <div class="modal-content share-modal-content">
+             <button class="modal-close share-modal-close">&times;</button>
+             <h3>Share Post</h3>
+             <div class="share-modal-tabs">
+                <button class="share-tab-btn active" data-format="iframe">Embed on Website</button>
+                <button class="share-tab-btn" data-format="link">Share Link (Discord, etc)</button>
+             </div>
+             <textarea id="share-code-textarea" readonly></textarea>
+             <button id="copy-share-btn">Copy Code</button>
+        </div>
+    </div>
+
+    <div id="waluigi-warning-modal" class="modal" style="display: none;">
+        <div class="modal-content waluigi-warning-content">
+             <button class="modal-close waluigi-warning-close">&times;</button>
+             <div class="waluigi-warning-header">
+                <img src="logo.png" alt="Waluigi">
+                <h3>A WAH-rning!</h3>
+             </div>
+             <p id="waluigi-warning-text"></p>
+        </div>
+    </div>
+
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="assembly.js"></script>
+</body>
+</html>

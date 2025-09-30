@@ -1,0 +1,40 @@
+/* --- Freelancer Underworld: Network Graph --- */
+.freelancer-network-container {
+    position: relative;
+    height: 400px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0;
+    overflow: hidden;
+}
+
+#freelancer-network-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#freelancer-tooltip {
+    position: absolute;
+    display: none;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--accent-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    pointer-events: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    max-width: 250px;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+#freelancer-tooltip strong {
+    color: var(--text-color);
+    font-family: var(--font-display);
+}
+#freelancer-tooltip em {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-secondary);
+}

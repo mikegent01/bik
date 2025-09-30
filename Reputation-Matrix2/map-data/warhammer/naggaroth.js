@@ -1,0 +1,80 @@
+// map-data/warhammer/naggaroth.js
+export const naggarothPois = [
+    {
+        id: 'poi_wh_naggarond', x: 18.00, y: 40.00, type: 'capital_city', subRegion: 'naggaroth',
+        name: "Naggarond, The Tower of Cold",
+        description: "The capital city of the Dark Elves, a place of freezing winds, black stone, and endless cruelty. It is the seat of the Witch King Malekith and his mother, Morathi.",
+        factionId: 'dark_elves', intelReq: 15, political_influence: 10, economic_value: 8, military_strength: 10, population: 150000,
+        age_of_antiquity: 8, magical_resonance: 9, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_har_ganeth', x: 20.00, y: 28.00, type: 'temple', subRegion: 'naggaroth',
+        name: "Har Ganeth, The City of Executioners",
+        description: "The religious heart of the Witch Elves and the Cult of Khaine. A city of blood-stained temples where sacrifices are made daily to the god of murder.",
+        factionId: 'dark_elves', intelReq: 25, political_influence: 8, economic_value: 5, military_strength: 9, population: 40000,
+        age_of_antiquity: 8, magical_resonance: 8, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_black_ark', x: 10.00, y: 50.00, type: 'fortress', subRegion: 'naggaroth',
+        name: "Black Ark of Naggaroth",
+        description: "A colossal, floating fortress built upon the back of a summoned sea monster or a magically-bound island. From these mobile citadels, the Dark Elves launch their raiding fleets across the world.",
+        factionId: 'dark_elves', intelReq: 30, political_influence: 6, economic_value: 6, military_strength: 9, population: 10000,
+        age_of_antiquity: 7, magical_resonance: 8, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_watchtowers_north', x: 26.00, y: 8.00, type: 'watchtower', subRegion: 'naggaroth',
+        name: "The Watchtowers of the North",
+        description: "A series of bleak, obsidian watchtowers that guard the border with the Chaos Wastes, manned by grim Dark Elf warriors.",
+        factionId: 'dark_elves', intelReq: 20, political_influence: 3, economic_value: 1, military_strength: 7, population: 1000,
+        age_of_antiquity: 6, magical_resonance: 6, crime_rate: 8,
+    },
+    {
+        id: 'poi_wh_iron_mountains', x: 24.00, y: 15.00, type: 'mine', subRegion: 'naggaroth',
+        name: "The Iron Mountains",
+        description: "A range of mountains rich in iron and slaves. The mines are worked by countless captives from the Dark Elves' raids, fueling their war machine.",
+        factionId: 'dark_elves', intelReq: 20, political_influence: 3, economic_value: 9, military_strength: 6, population: 20000,
+        age_of_antiquity: 5, magical_resonance: 2, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_clar_karond', x: 20.00, y: 55.00, type: 'port', subRegion: 'naggaroth',
+        name: "Clar Karond, The Tower of Doom",
+        description: "A major port city and shipyard for the Dark Elf raiding fleets. It is a place of brutal Beastmasters who train the great sea monsters used in their navy.",
+        factionId: 'dark_elves', intelReq: 25, political_influence: 6, economic_value: 7, military_strength: 8, population: 30000,
+        age_of_antiquity: 7, magical_resonance: 5, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_black_coast', x: 15.00, y: 58.00, type: 'landmark', subRegion: 'naggaroth',
+        name: "The Black Coast",
+        description: "A bleak, windswept coastline of black sand and sharp rocks. It is constantly patrolled by Dark Elf corsairs looking for shipwreck survivors to enslave.",
+        factionId: 'unaligned', intelReq: 10, political_influence: 1, economic_value: 2, military_strength: 3, population: 0,
+        age_of_antiquity: 10, magical_resonance: 3, crime_rate: 9,
+    },
+    {
+        id: 'poi_wh_hag_graef', x: 22.00, y: 32.00, type: 'capital_city', subRegion: 'naggaroth',
+        name: "Hag Graef, The Dark Crag",
+        description: "A city built into a sheer cliff face, known for its skilled assassins and the political machinations of its noble houses. A place of paranoia and backstabbing.",
+        factionId: 'dark_elves', intelReq: 30, political_influence: 8, economic_value: 6, military_strength: 8, population: 50000,
+        age_of_antiquity: 7, magical_resonance: 6, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_bleak_moors', x: 17.00, y: 22.00, type: 'swamp', subRegion: 'naggaroth',
+        name: "The Bleak Moors",
+        description: "A vast, freezing swamp filled with carnivorous plants and other foul creatures. It serves as a natural defense for the northern territories.",
+        factionId: 'unaligned', intelReq: 15, political_influence: 0, economic_value: 1, military_strength: 4, population: 0,
+        age_of_antiquity: 10, magical_resonance: 5, crime_rate: 8,
+    },
+    {
+        id: 'poi_wh_daemons_gate', x: 23.00, y: 5.00, type: 'portal', subRegion: 'naggaroth',
+        name: "The Daemon's Gate",
+        description: "A sealed, but unstable, portal to the Realm of Chaos. The Dark Elves draw upon its power for their sorcery, but it is a constant source of daemonic incursions.",
+        factionId: 'warriors_of_chaos', intelReq: 60, political_influence: 3, economic_value: 4, military_strength: 8, population: 100,
+        age_of_antiquity: 9, magical_resonance: 10, crime_rate: 10,
+    },
+    {
+        id: 'poi_wh_tower_of_malice', x: 19.00, y: 45.00, type: 'mages_tower', subRegion: 'naggaroth',
+        name: "The Tower of Malice",
+        description: "The personal fortress of a powerful Dark Elf sorceress, a place where forbidden spells are cast and daemons are bound to do her will.",
+        factionId: 'dark_elves', intelReq: 45, political_influence: 5, economic_value: 3, military_strength: 7, population: 200,
+        age_of_antiquity: 6, magical_resonance: 9, crime_rate: 10,
+    }
+];

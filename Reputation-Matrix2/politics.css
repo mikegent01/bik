@@ -1,0 +1,270 @@
+
+
+#politics-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+.politics-section {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.politics-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.politics-section-header h3 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1.8rem;
+}
+
+.politics-section-header .status {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.status-civil-war {
+    color: var(--negative-color);
+    background-color: rgba(218, 54, 51, 0.1);
+    border: 1px solid var(--negative-color);
+}
+
+.status-stable, .status-fractured {
+    color: var(--neutral-color);
+    background-color: rgba(240, 185, 11, 0.1);
+    border: 1px solid var(--neutral-color);
+}
+
+.section-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 80ch;
+    margin-bottom: 24px;
+}
+
+/* Mushroom Kingdom Specifics */
+.mk-factions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.mk-faction-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.mk-faction-card h4 {
+    color: var(--accent-color);
+    font-family: var(--font-display);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mk-faction-card img {
+    width: 24px;
+    height: 24px;
+}
+
+.mk-faction-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Midlands Diet - New Coalition Layout */
+.parliament-container {
+    background-color: var(--main-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 24px;
+}
+
+#diet-power-balance {
+    margin-bottom: 24px;
+}
+
+#diet-power-balance h4 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.power-balance-chart {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    background-color: var(--sidebar-bg);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.power-balance-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.power-balance-bar span {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 5px;
+}
+
+
+.speaker-section {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.speaker-section h4 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.speaker-seat {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--neutral-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    position: relative;
+}
+
+.speaker-seat:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px var(--neutral-color);
+}
+
+.coalition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 16px;
+}
+
+.coalition-block {
+    background-color: var(--sidebar-bg);
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.coalition-header {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.coalition-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-color);
+}
+
+.seat-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.parliament-seat {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative; /* For tooltips */
+}
+
+.parliament-seat:hover {
+    transform: scale(1.5);
+    border-color: var(--accent-color);
+    z-index: 10;
+}
+
+.parliament-seat.selected {
+    transform: scale(1.6);
+    border: 2px solid var(--neutral-color);
+    box-shadow: 0 0 10px var(--neutral-color);
+    z-index: 11;
+}
+
+/* Faction/Coalition Colors for Seats */
+.seat-regal_empire { background-color: var(--major-powers-color); }
+.seat-iron_legion { background-color: #6c757d; }
+.seat-moonfang_pack { background-color: var(--regional-powers-color); }
+.seat-onyx_hand { background-color: var(--negative-color); }
+.seat-mages_guild { background-color: var(--mystical-ancient-color); }
+.seat-cosmic_jesters { background-color: var(--interdimensional-threat-color); }
+.seat-freelancer_underworld { background-color: var(--underworld-fringe-color); }
+.seat-unaligned { background-color: var(--neutral-color); }
+
+
+#parliament-tooltip {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 12px;
+    width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    font-size: 0.9rem;
+}
+
+#parliament-tooltip h4 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+}
+
+#parliament-tooltip p {
+    margin: 0 0 4px 0;
+    color: var(--text-secondary);
+}
+#parliament-tooltip strong {
+    color: var(--text-color);
+}
+#parliament-tooltip .personality {
+    font-style: italic;
+    color: var(--accent-color);
+}

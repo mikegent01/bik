@@ -1,0 +1,368 @@
+
+/* --- Directory Page Layout --- */
+#directory-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 24px;
+    height: calc(100vh - 120px); /* Adjust based on title height */
+}
+
+/* When viewing a single faction, switch to a single, full-width column */
+#directory-layout.detail-view-active {
+    grid-template-columns: 1fr;
+}
+
+#directory-layout.detail-view-active #region-filter-sidebar {
+    display: none;
+}
+
+
+#region-filter-sidebar {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+#region-filter-sidebar h4 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+#region-filter-list {
+    list-style: none;
+    padding: 0;
+}
+
+#region-filter-list li {
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+#region-filter-list li:hover {
+    border-color: var(--accent-hover);
+    color: var(--accent-hover);
+}
+
+#region-filter-list li.active {
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: bold;
+    border-color: var(--accent-color);
+}
+
+
+/* Faction Directory Grid */
+.faction-directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+.faction-directory-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s ease-in-out;
+}
+
+.faction-directory-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-color: var(--accent-hover);
+}
+
+.faction-directory-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.faction-directory-logo {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.faction-directory-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.assessment-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 4px;
+    margin: 0;
+    padding: 0;
+}
+
+.party-reputation {
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+.reputation-bar-container {
+    height: 8px;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.reputation-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Sidebar Sections */
+
+#party-overview {
+    margin-top: 0;
+    padding: 16px;
+    background-color: var(--main-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+#party-overview h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+#party-list {
+    list-style: none;
+    padding: 0;
+}
+
+#party-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+#party-list li:last-child {
+    border-bottom: none;
+}
+
+#timeline-overview {
+    margin-top: 24px;
+    padding: 16px;
+    background-color: var(--main-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 35%; /* Adjust as needed */
+}
+
+#timeline-overview::-webkit-scrollbar {
+    width: 8px;
+}
+
+#timeline-overview::-webkit-scrollbar-track {
+    background: var(--sidebar-bg);
+}
+
+#timeline-overview::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+#timeline-overview::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+#timeline-overview h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    background: var(--main-bg);
+    padding-bottom: 8px;
+}
+
+#event-list {
+    list-style: none;
+    padding: 0;
+}
+
+#event-list li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#event-list li:last-child {
+    border-bottom: none;
+}
+
+#event-list strong {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+#faction-legend {
+    margin-top: 24px;
+    padding: 16px;
+    background-color: var(--main-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+#faction-legend h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+#faction-legend ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+#faction-legend li {
+    padding: 4px 8px;
+    margin: 4px auto;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    max-width: 200px;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+#faction-legend li:hover {
+    background-color: var(--main-bg);
+    border-color: var(--accent-color);
+}
+
+#faction-legend a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    display: block;
+}
+
+#faction-legend a:hover {
+    color: var(--accent-color);
+}
+
+/* Intel & Agenda Section */
+.intel-and-agenda-container {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    margin: 16px 0;
+}
+.intel-and-agenda-container h5 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+.rumor, .agenda-item {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border-color);
+}
+.rumors-list, .agenda-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.rumor:last-child, .agenda-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.rumor-title, .agenda-title {
+    color: var(--text-color);
+}
+
+
+/* --- Notable People Cards --- */
+.notable-people-container {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+.notable-people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+}
+.notable-person-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: all 0.2s ease-in-out;
+}
+.notable-person-card:hover {
+    border-color: var(--accent-hover);
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.1);
+}
+.person-portrait {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.person-info {
+    flex-grow: 1;
+}
+.person-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0 0 4px 0;
+}
+.person-role {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    font-style: italic;
+    display: block;
+    margin-bottom: 8px;
+}
+.person-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
