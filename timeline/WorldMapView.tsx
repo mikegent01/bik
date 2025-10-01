@@ -5,6 +5,8 @@ import { LOCATIONS_DATA } from './locations';
 import { BACKROOMS_MAP_DATA, BACKROOMS_CONNECTIONS_DATA } from './map';
 // ADD: outside world map data
 import { OUTSIDE_WORLD_MAP_DATA, OUTSIDE_WORLD_CONNECTIONS_DATA } from './outsideMap';
+import { FACILITY_MAP_DATA, FACILITY_CONNECTIONS_DATA } from './facilityMap';
+import ProvinceMap from './ProvinceMap';
 
 const SectionTitle: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
   <div className="mb-4">
@@ -43,6 +45,22 @@ const WorldMapView: React.FC = () => {
   const outsideConnections: BackroomsConnection[] = useMemo(() => {
     try {
       return Array.isArray(OUTSIDE_WORLD_CONNECTIONS_DATA) ? OUTSIDE_WORLD_CONNECTIONS_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  }, []);
+  
+  const facilityNodes: BackroomsLocationNode[] = useMemo(() => {
+    try {
+      return Array.isArray(FACILITY_MAP_DATA) ? FACILITY_MAP_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  }, []);
+
+  const facilityConnections: BackroomsConnection[] = useMemo(() => {
+    try {
+      return Array.isArray(FACILITY_CONNECTIONS_DATA) ? FACILITY_CONNECTIONS_DATA.filter(Boolean) : [];
     } catch {
       return [];
     }
@@ -200,6 +218,17 @@ const WorldMapView: React.FC = () => {
 
   return (
     <div className="space-y-8">
+      {/* Campaign Setting Map */}
+      <section aria-labelledby="province-map">
+        <SectionTitle
+          title="Campaign Setting: Northern USA"
+          subtitle="A high-level overview of the campaign's geographical setting."
+        />
+        <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
+          <ProvinceMap />
+        </div>
+      </section>
+      
       {/* Backrooms Journey */}
       <section aria-labelledby="backrooms-journey">
         <SectionTitle
@@ -225,6 +254,19 @@ const WorldMapView: React.FC = () => {
           connections={outsideConnections}
           emptyMessage="Unable to load outside world data. Please ensure outsideMap.tsx exports OUTSIDE_WORLD_MAP_DATA and OUTSIDE_WORLD_CONNECTIONS_DATA correctly."
           ariaLabel="Outside World Map"
+        />
+      </section>
+
+      <section aria-labelledby="secret-facility-layout">
+        <SectionTitle
+          title="Secret Facility Layout"
+          subtitle="Map of the top-secret facility discovered near the crater."
+        />
+        <InteractiveGraph
+          nodes={facilityNodes}
+          connections={facilityConnections}
+          emptyMessage="Unable to load facility map data. Please ensure facilityMap.tsx exports its data correctly."
+          ariaLabel="Secret Facility Map"
         />
       </section>
 

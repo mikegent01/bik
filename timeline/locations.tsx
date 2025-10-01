@@ -1,7 +1,8 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { Location } from './types';
+import { LOCATIONS_DATA_S2 } from './season2Data';
 
-export const LOCATIONS_DATA: Location[] = [
+const LOCATIONS_DATA_S1: Location[] = [
   {
     id: 'castle',
     name: "Mega X's Castle / The Warzone",
@@ -303,4 +304,14 @@ export const LOCATIONS_DATA: Location[] = [
     firstAppearanceEpisode: 1,
     lastAppearanceEpisode: 32
   },
+  // ADD: The target village set by the priest in the outside world
+  {
+    id: 'target_village',
+    name: "The Target Village",
+    description: "A fortified settlement beyond the Sky Highway. The priest orders a suicide mission to attack it; the team plans to play along to acquire weapons and gear first.",
+    firstAppearanceEpisode: 32,
+    lastAppearanceEpisode: 32
+  },
 ];
+
+export const LOCATIONS_DATA: Location[] = [...LOCATIONS_DATA_S1, ...LOCATIONS_DATA_S2];

@@ -17,6 +17,7 @@ import BestiaryView from './BestiaryView';
 import ItemsView from './ItemsView';
 import GlossaryView from './GlossaryView';
 import SeasonsView from './SeasonsView';
+import BonusLoreView from './BonusLoreView';
 
 const App: React.FC = () => {
   const [activeView, setActiveView] = useState<View>(View.TIMELINE);
@@ -46,6 +47,8 @@ const App: React.FC = () => {
         return <GlossaryView />;
       case View.SEASONS:
         return <SeasonsView />;
+      case View.BONUS_LORE:
+        return <BonusLoreView />;
       default:
         return <TimelineView />;
     }

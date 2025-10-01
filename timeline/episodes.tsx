@@ -1,7 +1,8 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { EpisodeSummary } from './types';
+import { EPISODES_DATA_S2 } from './season2Data';
 
-export const EPISODES_DATA: EpisodeSummary[] = [
+const EPISODES_DATA_S1: EpisodeSummary[] = [
     { episode: 1, title: "The Raid", summary: "The team infiltrates Mega X's Castle for revenge, rescuing the prisoner 'No One' in a loud and destructive assault." },
     { episode: 2, title: "The Escape", summary: "Mega X escapes to a ship. The team pursues, finds his associate 'Bloodless,' and rigs the ship to explode." },
     { episode: 3, title: "The Labyrinth", summary: "The team is trapped in a bizarre, looping backrooms-style prison, shifting their goal from vengeance to survival." },
@@ -34,3 +35,5 @@ export const EPISODES_DATA: EpisodeSummary[] = [
     { episode: 31, title: "The Troll's Trap", summary: "The team delivers the items to Lando the Troll, who betrays them with a deadly trap before a disorienting chase leads to a final teleporter." },
     { episode: 32, title: "The Conspiracy", summary: "Ejected from the backrooms into a warzone, the team is hired by a priest for a suicide mission and learns they are to be executed afterwards." }
 ];
+
+export const EPISODES_DATA: EpisodeSummary[] = [...EPISODES_DATA_S1, ...EPISODES_DATA_S2];

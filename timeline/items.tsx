@@ -1,7 +1,8 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { KeyItem } from './types';
+import { KEY_ITEMS_DATA_S2 } from './season2Data';
 
-export const KEY_ITEMS_DATA: KeyItem[] = [
+const KEY_ITEMS_DATA_S1: KeyItem[] = [
     {
         name: "Bloodless's Research Papers",
         description: "A book of papers titled 'bloodlust' found early in the labyrinth, providing the first major clue about the nature of their prison and its creator.",
@@ -45,3 +46,5 @@ export const KEY_ITEMS_DATA: KeyItem[] = [
         lastAppearanceEpisode: 31
     },
 ];
+
+export const KEY_ITEMS_DATA: KeyItem[] = [...KEY_ITEMS_DATA_S1, ...KEY_ITEMS_DATA_S2];

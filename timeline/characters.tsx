@@ -1,11 +1,12 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { Character, CharacterFaction } from './types';
+import { CHARACTER_DATA_S2 } from './season2Data';
 
-export const CHARACTER_DATA: Character[] = [
+const CHARACTER_DATA_S1: Character[] = [
   // PROTAGONISTS
   {
     name: "Grape (The Leader)",
-    description: "The group's erratic leader (player name 'thunderhead'). After escaping the backrooms, he is found praying in a church. Upon learning of the priest's betrayal, he immediately wants to retaliate with explosives but is convinced to play along and arm himself first.",
+    description: "The group's erratic leader (player name 'thunderhead'), also known as 'thaumaturgy'. In a prequel event, acting under the alias 'break,' he single-handedly defeated Bloodless during a hostile board meeting takeover by tricking him into drinking potent 'grape alcohol juice.' He is the channel's 'art director' but uses amnesia to avoid showing art. Lore suggests he fought a bear with 'bear shaped hands' and ate BTS tickets. After escaping the backrooms, he is found praying in a church.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
@@ -13,7 +14,7 @@ export const CHARACTER_DATA: Character[] = [
   },
   {
     name: "Kymar (The Sergeant)",
-    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'). After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. He helps formulate the plan to play along with the priest's suicide mission to find weapons.",
+    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
@@ -21,11 +22,68 @@ export const CHARACTER_DATA: Character[] = [
   },
   {
     name: "Mike (The Narrator)",
-    description: "The group's narrator and strategist. After escaping the backrooms, he overhears the priest's plot. Realizing they are unarmed and walking into a trap, he agrees they must feign compliance to gear up for the inevitable confrontation with Jeremy.",
+    description: "The group's narrator and strategist, also known as 'Mikegent'. Lore confirms he is the #1 fisherman on the channel, though he is sensitive about his weight and has been through many failed romantic relationships. With Kymar, he created a comic strip called 'Catgirl Adventures.' After escaping the backrooms, he overhears the priest's plot.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
     lastAppearanceEpisode: 32
+  },
+  {
+    name: "Domonic Nat",
+    description: "A member of the Mega X Fishing team. Lore states he created the 'Domonicator 3000' game console and made a short film called 'Zombie vs Ninja' with DZ. He was once featured in a news article about catgirls, where he defended them as fictional characters.",
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 2,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "DZ The Great",
+    description: "A stylish member of the Mega X Fishing team. Lore suggests he can get angry easily and tends to lash out. He is secretly in love with Grape and co-created the short film 'Zombie vs Ninja' with Domonic. He is also a singer and enjoys reading history books.",
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 2,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+   {
+    name: "Jerome",
+    description: "A member of the Mega X Fishing team. According to the iceberg lore, he knows 'ben the dog' and created the famous 'isabelle black and white' GIF.",
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 2,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Catgirl Noone",
+    description: "A member of the Mega X Fishing team, represented by a dancing Neco-Arc avatar. The presence of cat ears is said to make her '100% better' than her normal version.",
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Meowbahh",
+    description: "A member of the Mega X Fishing team, described as the 'PNGTuber' and an 'interesting character.' She is represented by the anime character Madoka Kaname.",
+    // FIX: Corrected typo in enum value from PROTAGONists to PROTAGONISTS.
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Ratman",
+    description: "The artist for the Mega X Fishing team who is credited with creating Mike's 'cursed' cartoon avatar. Represented by the character Dabi from My Hero Academia.",
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Saul Goodnyan",
+    description: "A powerful and scary member of the Mega X Fishing team, represented by a 3D animation of Neco-Arc in a business suit.",
+    faction: CharacterFaction.PROTAGONISTS,
+    importance: 2,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
   },
 
   // ALLIES
@@ -39,7 +97,7 @@ export const CHARACTER_DATA: Character[] = [
   },
   {
     name: "No One (The Wild Card)",
-    description: "A mysterious prisoner rescued from Mega X's castle. His abilities and allegiances are unclear, making him a volatile asset. He faded into the background after the initial escape and, in the chaos of the backrooms, was tragically forgotten and left behind, a fact the team only realized upon their return to the real world.",
+    description: "A mysterious prisoner rescued from Mega X's castle. Her abilities and allegiances are unclear. She faded into the background after the initial escape and, in the chaos of the backrooms, was tragically forgotten and left behind, a fact the team only realized upon their return to the real world. A different version of her, 'Neko Noone,' is part of the rival Mega X team.",
     faction: CharacterFaction.ALLIES,
     importance: 2,
     firstAppearanceEpisode: 1,
@@ -61,11 +119,19 @@ export const CHARACTER_DATA: Character[] = [
     firstAppearanceEpisode: 1,
     lastAppearanceEpisode: 30
   },
+  {
+    name: "Inspector Sir",
+    description: "The host of the 'Corporate Interview' segment and the 'official Mega exhibition board meeting.' He attempts to maintain a professional, corporate tone but is constantly derailed by chaos, presenting absurd premises as if they are normal.",
+    faction: CharacterFaction.ALLIES,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
 
   // ANTAGONISTS
   {
     name: "Mega X (The Mastermind)",
-    description: "The primary antagonist and leader of the Mega X Empire. Though he was only seen briefly during his escape, his influence is felt everywhere through his vast army and powerful associates.",
+    description: "The primary antagonist and leader of the Mega X Empire, also the leader of the rival 'Mega X' channel. Though he was only seen briefly during his escape, his influence is felt everywhere through his vast army and powerful associates. Lore suggests his rivalry with Mega X Fishing began when he became jealous of their success.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 2,
@@ -73,7 +139,7 @@ export const CHARACTER_DATA: Character[] = [
   },
   {
     name: "Bloodless (The Architect)",
-    description: "A powerful associate of Mega X who survived the ship explosion. She created the labyrinthine prison to trap the team and, as her manifesto revealed, prevent them from uploading their videos.",
+    description: "A powerful associate of Mega X. Before trapping the team, she hijacked a board meeting for Mega X's birthday, threatening attendees with bombs and enforcing tyrannical rules like 'no fun' and 10,000 'swirlies.' She was comically defeated after drinking potent grape alcohol. She later created the labyrinthine prison to prevent the team from uploading videos. Lore videos suggest she is a rival who tries to ruin the Mega X Fishing channel.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 2,
@@ -111,6 +177,22 @@ export const CHARACTER_DATA: Character[] = [
     firstAppearanceEpisode: 28,
     lastAppearanceEpisode: 29
   },
+   {
+    name: "Doctor Mayor",
+    description: "A member of the rival Mega X team. Described as a 'neutral one,' his 'true form' is represented by Walter White from Breaking Bad in a hazmat suit. Lore from the corporate interview suggests a 'Dr. Mayer' is the 'game master' responsible for chaotic scenarios involving chainsaws and tiger girls.",
+    faction: CharacterFaction.ANTAGONISTS,
+    importance: 2,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Total Lori",
+    description: "The 'alter ego' of Mega X, represented by an image of Walter White from Breaking Bad wearing a top hat. In the lore video, he is declared the winner in a versus montage against Mega X.",
+    faction: CharacterFaction.ANTAGONISTS,
+    importance: 2,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
   {
     name: "Skeleton Guide / Troll",
     description: "A skeleton mob in a teal shirt that pretends to guide the group in the Crimson Flesh Dimension, only to troll them with a fake grave and an explosion trap. Its body disappears, leaving a floating head that is eventually destroyed by Kymar.",
@@ -120,12 +202,44 @@ export const CHARACTER_DATA: Character[] = [
     lastAppearanceEpisode: 30
   },
   {
-    name: "Pink Cat-Man",
-    description: "A hostile, pink-clad character resembling Mega Man but with cat ears. Encountered in the Grand Library, he was quickly dispatched by Kymar with a grenade launcher.",
+    name: "Neko Noone",
+    description: "A member of the rival Mega X team and the 'normal' version of Catgirl Noone from the protagonist team. The narrators express disgust that this version lacks cat ears.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 1,
-    firstAppearanceEpisode: 27,
-    lastAppearanceEpisode: 27
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Saul Goodnyan Brother",
+    description: "The 'evil version' and brother of Saul Goodnyan from the Mega X Fishing team. Represented by a crudely drawn anime character with brown cat ears.",
+    faction: CharacterFaction.ANTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Mordecai DND",
+    description: "A member of the rival Mega X team, represented by Mordecai from Regular Show. He is labeled a 'simp' for Neko Noone.",
+    faction: CharacterFaction.ANTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+  {
+    name: "Gus Fring",
+    description: "A member of the rival Mega X team, represented by his actor from Breaking Bad. The narrators refuse to comment on him.",
+    faction: CharacterFaction.ANTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
+  },
+   {
+    name: "Terumi Kun",
+    description: "A member of the rival Mega X team, represented by a blocky, abstract drawing that the narrators find confusing.",
+    faction: CharacterFaction.ANTAGONISTS,
+    importance: 1,
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 0
   },
   {
     name: "Mega X Royal Guard",
@@ -152,3 +266,5 @@ export const CHARACTER_DATA: Character[] = [
     lastAppearanceEpisode: 32
   }
 ];
+
+export const CHARACTER_DATA: Character[] = [...CHARACTER_DATA_S1, ...CHARACTER_DATA_S2];

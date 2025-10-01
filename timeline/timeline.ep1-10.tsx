@@ -6,6 +6,17 @@ const iconClass = "h-6 w-6 text-slate-300";
 
 export const TIMELINE_DATA_EP1_10: TimelineEvent[] = [
   {
+    title: "Prologue: The Board Meeting Hijacking",
+    description: "Before the raid, a board meeting for Mega X's birthday is hijacked by Bloodless, who threatens everyone with bombs. He is comically defeated by 'break' (Grape) with potent grape alcohol, establishing their rivalry and Bloodless's motivation.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m6.75 3v6s0 4.5-4.5 4.5S12 18 12 18H3" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+      </svg>
+    ),
+    episode: 0
+  },
+  {
     title: "I. The Vengeance Mission and Infiltration",
     description: "The group gathers for vengeance against Mega X. Aided by their insider, Rose, in a helicopter, they use a ladder to sneak into the castle, eliminate two snipers, and then abandon stealth for a loud assault.",
     icon: (

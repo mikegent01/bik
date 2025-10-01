@@ -1,7 +1,8 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { BestiaryEntry } from './types';
+import { BESTIARY_DATA_S2 } from './season2Data';
 
-export const BESTIARY_DATA: BestiaryEntry[] = [
+const BESTIARY_DATA_S1: BestiaryEntry[] = [
     {
         name: "Mega X Gunners",
         description: "Standard, heavily-armed soldiers of the Mega X Empire. They serve as the primary military opposition and are encountered frequently as guards and ambushers.",
@@ -101,3 +102,5 @@ export const BESTIARY_DATA: BestiaryEntry[] = [
         type: 'Humanoid'
     },
 ];
+
+export const BESTIARY_DATA: BestiaryEntry[] = [...BESTIARY_DATA_S1, ...BESTIARY_DATA_S2];

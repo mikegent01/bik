@@ -40,6 +40,9 @@ const CharacterCard: React.FC<{ character: Character }> = ({ character }) => {
 
 
 const FactionSection: React.FC<{ title: string; characters: Character[] }> = ({ title, characters }) => {
+    if (characters.length === 0) {
+        return null;
+    }
     return (
         <div className="mb-10">
             <h3 className="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-6">{title}</h3>
@@ -54,6 +57,9 @@ const CharactersView: React.FC = () => {
   const protagonists = CHARACTER_DATA.filter(c => c.faction === CharacterFaction.PROTAGONISTS);
   const allies = CHARACTER_DATA.filter(c => c.faction === CharacterFaction.ALLIES);
   const antagonists = CHARACTER_DATA.filter(c => c.faction === CharacterFaction.ANTAGONISTS);
+  const theAuthority = CHARACTER_DATA.filter(c => c.faction === CharacterFaction.THE_AUTHORITY);
+  const megaXArmy = CHARACTER_DATA.filter(c => c.faction === CharacterFaction.MEGA_X_ARMY);
+
 
   return (
     <div>
@@ -62,6 +68,8 @@ const CharactersView: React.FC = () => {
       <FactionSection title={CharacterFaction.PROTAGONISTS} characters={protagonists} />
       <FactionSection title={CharacterFaction.ALLIES} characters={allies} />
       <FactionSection title={CharacterFaction.ANTAGONISTS} characters={antagonists} />
+      <FactionSection title={CharacterFaction.MEGA_X_ARMY} characters={megaXArmy} />
+      <FactionSection title={CharacterFaction.THE_AUTHORITY} characters={theAuthority} />
 
     </div>
   );

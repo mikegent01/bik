@@ -1,3 +1,4 @@
+
 // FIX: Import ReactNode to resolve React namespace error.
 import type { ReactNode } from 'react';
 
@@ -14,12 +15,15 @@ export enum View {
   ITEMS = 'ITEMS',
   GLOSSARY = 'GLOSSARY',
   SEASONS = 'SEASONS',
+  BONUS_LORE = 'BONUS_LORE',
 }
 
 export enum CharacterFaction {
-  PROTAGONISTS = 'Protagonists',
+  PROTAGONISTS = 'Mega X Fishing Team',
   ALLIES = 'Allies',
   ANTAGONISTS = 'Antagonists',
+  THE_AUTHORITY = 'The Authority',
+  MEGA_X_ARMY = 'Mega X Army',
 }
 
 export interface Character {
@@ -96,7 +100,7 @@ export interface CharacterDevelopment {
 export interface StoryArc {
     title: string;
     episodeRange: string;
-    summary: string;
+    summary: ReactNode;
     keyEvents?: string[];
     characterDevelopments?: CharacterDevelopment[];
 }
@@ -112,4 +116,10 @@ export interface BackroomsLocationNode {
 export interface BackroomsConnection {
     from: string;
     to: string;
+}
+
+// FIX: Add and export the missing LoreVideo interface, which is used in loreVideos.tsx.
+export interface LoreVideo {
+  title: string;
+  content: ReactNode;
 }
