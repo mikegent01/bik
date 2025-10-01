@@ -1,3 +1,6 @@
+// FIX: Import ReactNode to resolve React namespace error.
+import type { ReactNode } from 'react';
+
 export enum View {
   TIMELINE = 'TIMELINE',
   STORY_ARCS = 'STORY_ARCS',
@@ -6,6 +9,7 @@ export enum View {
   FACTIONS = 'FACTIONS',
   LOCATIONS = 'LOCATIONS',
   WORLD_MAP = 'WORLD_MAP',
+  // FIX: Corrected typo in enum value from 'BESTIERY' to 'BESTIARY'.
   BESTIARY = 'BESTIARY',
   ITEMS = 'ITEMS',
   GLOSSARY = 'GLOSSARY',
@@ -36,7 +40,8 @@ export interface EpisodeSummary {
 export interface TimelineEvent {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  // FIX: Use ReactNode type directly instead of React.ReactNode.
+  icon: ReactNode;
   episode: number;
 }
 

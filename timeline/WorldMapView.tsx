@@ -1,199 +1,264 @@
-import React, { useState, useRef, WheelEvent, MouseEvent, useEffect } from 'react';
-import Card from './Card';
-import { BACKROOMS_MAP_DATA, BACKROOMS_CONNECTIONS_DATA } from './constants';
-import { BackroomsLocationNode } from './types';
+import React, { useMemo, useState } from 'react';
+// Use flat project structure imports to match other files
+import { Location, BackroomsLocationNode, BackroomsConnection } from './types';
+import { LOCATIONS_DATA } from './locations';
+import { BACKROOMS_MAP_DATA, BACKROOMS_CONNECTIONS_DATA } from './map';
+// ADD: outside world map data
+import { OUTSIDE_WORLD_MAP_DATA, OUTSIDE_WORLD_CONNECTIONS_DATA } from './outsideMap';
 
-// Tooltip component for better structure
-const Tooltip: React.FC<{ content: string; x: number; y: number }> = ({ content, x, y }) => (
-  <div
-    className="absolute bg-slate-900 text-white text-sm px-3 py-1.5 rounded-md shadow-lg border border-slate-700 pointer-events-none z-10"
-    style={{ left: x + 15, top: y + 15, transform: 'translateY(-100%)' }}
-    dangerouslySetInnerHTML={{ __html: content }}
-  />
+const SectionTitle: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
+  <div className="mb-4">
+    <h2 className="text-2xl font-bold text-white">{title}</h2>
+    {subtitle && <p className="text-slate-400 mt-1">{subtitle}</p>}
+  </div>
 );
 
 const WorldMapView: React.FC = () => {
-  const [transform, setTransform] = useState({ scale: 0.1, translateX: 0, translateY: 0 });
-  const [isPanning, setIsPanning] = useState(false);
-  const [startPanPoint, setStartPanPoint] = useState({ x: 0, y: 0 });
-  const [tooltip, setTooltip] = useState<{ visible: boolean; content: string; x: number; y: number }>({
-    visible: false,
-    content: '',
-    x: 0,
-    y: 0,
-  });
-
-  const svgRef = useRef<SVGSVGElement>(null);
-
-  // Center the view on initial load
-  useEffect(() => {
-    if (!svgRef.current) return;
-
-    const svgRect = svgRef.current.getBoundingClientRect();
-    const allX = BACKROOMS_MAP_DATA.map(n => n.x);
-    const allY = BACKROOMS_MAP_DATA.map(n => n.y);
-    const minX = Math.min(...allX);
-    const maxX = Math.max(...allX);
-    const minY = Math.min(...allY);
-    const maxY = Math.max(...allY);
-    
-    const mapWidth = maxX - minX;
-    const mapHeight = maxY - minY;
-    
-    // Find a good initial scale, adding padding
-    const initialScale = Math.min(svgRect.width / (mapWidth + 400), svgRect.height / (mapHeight + 400), 0.15);
-
-    // Center the map
-    const centerX = mapWidth / 2 + minX;
-    const centerY = mapHeight / 2 + minY;
-
-    setTransform({
-      scale: initialScale,
-      translateX: svgRect.width / 2 - centerX * initialScale,
-      translateY: svgRect.height / 2 - centerY * initialScale,
-    });
+  // REFACTOR: Use separate node sources for each map
+  const backroomsNodes: BackroomsLocationNode[] = useMemo(() => {
+    try {
+      return Array.isArray(BACKROOMS_MAP_DATA) ? BACKROOMS_MAP_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
   }, []);
 
-  const handleWheel = (e: WheelEvent<SVGSVGElement>) => {
-    e.preventDefault();
-    const scaleAmount = -e.deltaY * 0.001;
-    const newScale = Math.min(Math.max(transform.scale + scaleAmount, 0.05), 1);
-    
-    if (svgRef.current) {
-      const svgRect = svgRef.current.getBoundingClientRect();
-      const mouseX = e.clientX - svgRect.left;
-      const mouseY = e.clientY - svgRect.top;
-
-      setTransform(prev => ({
-        scale: newScale,
-        translateX: mouseX - (mouseX - prev.translateX) * (newScale / prev.scale),
-        translateY: mouseY - (mouseY - prev.translateY) * (newScale / prev.scale),
-      }));
+  const backroomsConnections: BackroomsConnection[] = useMemo(() => {
+    try {
+      return Array.isArray(BACKROOMS_CONNECTIONS_DATA) ? BACKROOMS_CONNECTIONS_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
     }
-  };
+  }, []);
 
-  const handleMouseDown = (e: MouseEvent<SVGSVGElement>) => {
-    setIsPanning(true);
-    setStartPanPoint({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleMouseMove = (e: MouseEvent<SVGSVGElement>) => {
-    if (tooltip.visible) {
-      setTooltip(prev => ({...prev, x: e.clientX, y: e.clientY}));
+  // ADD: Outside world nodes/connections
+  const outsideNodes: BackroomsLocationNode[] = useMemo(() => {
+    try {
+      return Array.isArray(OUTSIDE_WORLD_MAP_DATA) ? OUTSIDE_WORLD_MAP_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
     }
-    if (!isPanning) return;
-    const dx = e.clientX - startPanPoint.x;
-    const dy = e.clientY - startPanPoint.y;
-    setTransform(prev => ({
-      ...prev,
-      translateX: prev.translateX + dx,
-      translateY: prev.translateY + dy,
-    }));
-    setStartPanPoint({ x: e.clientX, y: e.clientY });
-  };
+  }, []);
 
-  const handleMouseUpOrLeave = () => {
-    setIsPanning(false);
-  };
+  const outsideConnections: BackroomsConnection[] = useMemo(() => {
+    try {
+      return Array.isArray(OUTSIDE_WORLD_CONNECTIONS_DATA) ? OUTSIDE_WORLD_CONNECTIONS_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  }, []);
 
-  const handleNodeMouseEnter = (e: MouseEvent, node: BackroomsLocationNode) => {
-    setTooltip({
-      visible: true,
-      content: `<strong>${node.label}</strong><br/>First Seen: Ep. ${node.episode}`,
-      x: e.clientX,
-      y: e.clientY,
-    });
-  };
+  const locations: Location[] = useMemo(() => {
+    try {
+      return Array.isArray(LOCATIONS_DATA) ? LOCATIONS_DATA.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  }, []);
 
-  const handleNodeMouseLeave = () => {
-    setTooltip(prev => ({ ...prev, visible: false }));
-  };
+  // ADD: Reusable interactive graph component for both maps
+  const InteractiveGraph: React.FC<{
+    nodes: BackroomsLocationNode[];
+    connections: BackroomsConnection[];
+    emptyMessage: string;
+    ariaLabel: string;
+  }> = ({ nodes, connections, emptyMessage, ariaLabel }) => {
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // Color scale for episodes
-  const getColorForEpisode = (episode: number) => {
-      const maxEpisode = 32;
-      // Interpolate from a cool blue (hsl(210, 70%, 50%)) to a hot pink (hsl(330, 70%, 50%))
-      const hue = 210 + (episode / maxEpisode) * 120; 
-      return `hsl(${hue}, 70%, 50%)`;
+    const svgSize = useMemo(() => {
+      if (!nodes.length) return { width: 800, height: 400 };
+      const maxX = Math.max(...nodes.map(n => n.x));
+      const maxY = Math.max(...nodes.map(n => n.y));
+      return { width: maxX + 200, height: maxY + 200 };
+    }, [nodes]);
+
+    const nodeById = useMemo(() => {
+      const map = new Map<string, BackroomsLocationNode>();
+      nodes.forEach(n => map.set(n.id, n));
+      return map;
+    }, [nodes]);
+
+    const selectedNode = selectedId ? nodeById.get(selectedId) ?? null : null;
+
+    return (
+      <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
+        {!nodes.length ? (
+          <div className="text-slate-400">{emptyMessage}</div>
+        ) : (
+          <div className="relative overflow-auto" style={{ maxHeight: 600 }}>
+            <svg
+              width={svgSize.width}
+              height={svgSize.height}
+              className="bg-slate-900 rounded-md"
+              role="img"
+              aria-label={ariaLabel}
+            >
+              {connections.map((conn, idx) => {
+                const from = nodeById.get(conn.from);
+                const to = nodeById.get(conn.to);
+                if (!from || !to) return null;
+
+                const isConnected =
+                  selectedId && (conn.from === selectedId || conn.to === selectedId);
+
+                return (
+                  <line
+                    key={`conn-${idx}-${conn.from}-${conn.to}`}
+                    x1={from.x}
+                    y1={from.y}
+                    x2={to.x}
+                    y2={to.y}
+                    stroke={isConnected ? '#93c5fd' : '#475569'}
+                    strokeWidth={isConnected ? 3 : 2}
+                    strokeLinecap="round"
+                  />
+                );
+              })}
+
+              {nodes.map((node) => {
+                const isSelected = selectedId === node.id;
+                return (
+                  <g
+                    key={node.id}
+                    transform={`translate(${node.x}, ${node.y})`}
+                    onClick={() => setSelectedId(node.id)}
+                    className="cursor-pointer"
+                  >
+                    <circle
+                      r={18}
+                      fill={isSelected ? '#2563eb' : '#334155'}
+                      stroke={isSelected ? '#93c5fd' : '#64748b'}
+                      strokeWidth={isSelected ? 3 : 2}
+                    />
+                    <text
+                      x={0}
+                      y={-28}
+                      textAnchor="middle"
+                      className="select-none"
+                      fill="#cbd5e1"
+                      fontSize={12}
+                      fontWeight={600}
+                    >
+                      {node.label}
+                    </text>
+                    <text
+                      x={0}
+                      y={6}
+                      textAnchor="middle"
+                      className="select-none"
+                      fill={isSelected ? '#e2e8f0' : '#94a3b8'}
+                      fontSize={10}
+                    >
+                      Ep. {node.episode}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-2">
+                <p className="text-slate-300">
+                  Click a node to highlight its connections and view details.
+                </p>
+              </div>
+              <div className="md:col-span-1">
+                <div className="rounded-md border border-slate-700 bg-slate-900 p-3">
+                  <h3 className="text-lg font-semibold text-white">Selected Node</h3>
+                  {!selectedNode ? (
+                    <p className="text-slate-400 mt-2">No node selected.</p>
+                  ) : (
+                    <div className="mt-2">
+                      <div className="text-slate-200 font-medium">{selectedNode.label}</div>
+                      <div className="text-slate-400 text-sm">Episode: {selectedNode.episode}</div>
+                      <div className="mt-3">
+                        <div className="text-slate-400 text-sm mb-1">Connected to:</div>
+                        <ul className="text-slate-300 text-sm list-disc ml-4">
+                          {connections
+                            .filter(c => c.from === selectedNode.id || c.to === selectedNode.id)
+                            .map((c, i) => {
+                              const otherId = c.from === selectedNode.id ? c.to : c.from;
+                              const otherNode = nodeById.get(otherId);
+                              return (
+                                <li key={`sel-${selectedNode.id}-${i}`}>
+                                  {otherNode ? otherNode.label : otherId}
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-3xl font-bold text-white mb-4">The Backrooms Journey Map</h2>
-         <p className="text-slate-400 mb-6">
-            An interactive map of the team's chaotic journey through the Backrooms. 
-            Use your mouse wheel to zoom and click-and-drag to pan the map. Hover over nodes for details.
-        </p>
-        <Card className="p-0 overflow-hidden">
-          <div className="relative w-full h-[75vh]">
-            {tooltip.visible && <Tooltip content={tooltip.content} x={tooltip.x} y={tooltip.y} />}
-            <svg
-              ref={svgRef}
-              className={`w-full h-full bg-slate-900/50 ${isPanning ? 'cursor-grabbing' : 'cursor-grab'}`}
-              onWheel={handleWheel}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUpOrLeave}
-              onMouseLeave={handleMouseUpOrLeave}
-            >
-              <g transform={`translate(${transform.translateX}, ${transform.translateY}) scale(${transform.scale})`}>
-                {/* Connections */}
-                {BACKROOMS_CONNECTIONS_DATA.map((conn, index) => {
-                  const fromNode = BACKROOMS_MAP_DATA.find(n => n.id === conn.from);
-                  const toNode = BACKROOMS_MAP_DATA.find(n => n.id === conn.to);
-                  if (!fromNode || !toNode) return null;
-                  return (
-                    <line
-                      key={`conn-${index}`}
-                      x1={fromNode.x}
-                      y1={fromNode.y}
-                      x2={toNode.x}
-                      y2={toNode.y}
-                      stroke="#475569" // slate-600
-                      strokeWidth={10}
-                    />
-                  );
-                })}
+      {/* Backrooms Journey */}
+      <section aria-labelledby="backrooms-journey">
+        <SectionTitle
+          title="The Backrooms Journey"
+          subtitle="Interactive graph of the team's path through the Backrooms levels."
+        />
+        <InteractiveGraph
+          nodes={backroomsNodes}
+          connections={backroomsConnections}
+          emptyMessage="Unable to load Backrooms journey data. Please ensure map.tsx exports BACKROOMS_MAP_DATA and BACKROOMS_CONNECTIONS_DATA correctly."
+          ariaLabel="Backrooms Journey Map"
+        />
+      </section>
 
-                {/* Nodes */}
-                {BACKROOMS_MAP_DATA.map(node => (
-                  <g
-                    key={node.id}
-                    transform={`translate(${node.x}, ${node.y})`}
-                    className="cursor-pointer"
-                    onMouseEnter={(e) => handleNodeMouseEnter(e, node)}
-                    onMouseLeave={handleNodeMouseLeave}
-                  >
-                    <circle
-                      r={40}
-                      fill={getColorForEpisode(node.episode)}
-                      stroke="#1e293b" // slate-800
-                      strokeWidth={8}
-                      className="transition-all duration-200"
-                    />
-                    <text
-                      textAnchor="middle"
-                      y={4}
-                      fill="white"
-                      fontSize={32}
-                      fontWeight="bold"
-                      paintOrder="stroke"
-                      stroke="#0f172a"
-                      strokeWidth="6px"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="pointer-events-none select-none"
-                    >
-                      {node.episode}
-                    </text>
-                  </g>
-                ))}
-              </g>
-            </svg>
-          </div>
-        </Card>
-      </div>
+      {/* ADD: Outside World Journey */}
+      <section aria-labelledby="outside-world-journey">
+        <SectionTitle
+          title="Outside World Journey"
+          subtitle="Interactive map of key locations in the real world after escaping the Backrooms."
+        />
+        <InteractiveGraph
+          nodes={outsideNodes}
+          connections={outsideConnections}
+          emptyMessage="Unable to load outside world data. Please ensure outsideMap.tsx exports OUTSIDE_WORLD_MAP_DATA and OUTSIDE_WORLD_CONNECTIONS_DATA correctly."
+          ariaLabel="Outside World Map"
+        />
+      </section>
+
+      {/* World Map (Locations list) */}
+      <section aria-labelledby="world-map">
+        <SectionTitle
+          title="World Map"
+          subtitle="Known locations across the campaign and their episode ranges."
+        />
+        <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
+          {!locations.length ? (
+            <div className="text-slate-400">
+              Unable to load locations. Please ensure locations.tsx exports LOCATIONS_DATA correctly.
+            </div>
+          ) : (
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {locations.map((loc) => (
+                <li
+                  key={loc.id}
+                  className="rounded-md border border-slate-700 bg-slate-900 p-3"
+                >
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-white font-semibold">{loc.name}</h3>
+                    <span className="text-xs text-slate-400 ml-2">
+                      Ep. {loc.firstAppearanceEpisode}–{loc.lastAppearanceEpisode}
+                    </span>
+                  </div>
+                  <p className="text-slate-300 mt-2 text-sm">{loc.description}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </section>
     </div>
   );
 };
