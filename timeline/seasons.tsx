@@ -12,8 +12,8 @@ export const SEASONS_DATA: Season[] = [
   {
     seasonNumber: 2,
     title: "The Authority",
-    episodeCount: 8,
-    summary: "The team's journey continues in a snowy, post-apocalyptic city controlled by a new, well-armed faction known as 'The Authority.' After finding weapons, they are quickly identified as intruders, captured, and thrown into a prison. A chaotic and ill-fated escape attempt results in a player's death and a desperate flight from their new, powerful enemies.",
+    episodeCount: 34,
+    summary: "Ejected from the backrooms into a hostile new world, the team's journey continues through a snowy, post-apocalyptic landscape. They face new factions, suffer betrayals, and are hunted by mysterious forces. Their path leads them to the colossal 'Great Wall of Canada,' where they are trapped in a disorienting loop that shatters their sanity. Upon escaping, the world itself transforms, thrusting them into a primitive, frozen wilderness where they must fight monstrous new creatures to survive.",
     status: 'Ongoing'
   }
 ];

@@ -3,11 +3,11 @@ import { Character, CharacterFaction } from './types';
 export const CHARACTER_DATA_S2: Character[] = [
     {
         name: "EighthHalo (Jack)",
-        description: "A player with a penchant for massive explosives. After a brief but violent turn as an antagonist, he has rejoined the team, having mysteriously acquired a helicopter. His allegiance and mental state remain highly questionable.",
+        description: "A player with a penchant for massive explosives. After a brief but violent turn as an antagonist, he has rejoined the team. His allegiance and mental state remain highly questionable, highlighted by his bizarre consumption of a bar of soap, which preceded a violent massacre of innocent passengers aboard the S.S. Titanic.",
         faction: CharacterFaction.PROTAGONISTS,
         importance: 3,
         firstAppearanceEpisode: 33,
-        lastAppearanceEpisode: 58,
+        lastAppearanceEpisode: 68,
     },
     {
         name: "Reese (bestyrelse)",
@@ -24,6 +24,22 @@ export const CHARACTER_DATA_S2: Character[] = [
         importance: 2,
         firstAppearanceEpisode: 33,
         lastAppearanceEpisode: 33,
+    },
+    {
+        name: "Canadian Border Patrol",
+        description: "Hostile, organized guards stationed at the Canadian border checkpoint. They are suspicious of outsiders and use lethal force to maintain control of the border.",
+        faction: CharacterFaction.THE_AUTHORITY,
+        importance: 1,
+        firstAppearanceEpisode: 61,
+        lastAppearanceEpisode: 63,
+    },
+    {
+        name: "The Forgotten Guard",
+        description: "A weary, forgotten guard of a desolate city who has been on duty for years. Seemingly disoriented and unable to read, he joins the team on their journey after directing them to a mysterious bridge.",
+        faction: CharacterFaction.ALLIES,
+        importance: 2,
+        firstAppearanceEpisode: 64,
+        lastAppearanceEpisode: 66,
     },
     {
         name: "Mega X Army Soldier",

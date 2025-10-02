@@ -19,5 +19,29 @@ export const STORY_ARCS_DATA_S2: StoryArc[] = [
             { characterName: "The Team", development: "Forced into another confrontation with an unknown faction. Their paranoia increases as Reese reveals knowledge of their history, suggesting their actions are being watched. The mysterious deaths confirm they have a traitor or are being hunted by an unseen force." },
             { characterName: "Reese (bestyrelse)", development: "Introduced as a charismatic but untrustworthy figure with mysterious connections and knowledge, immediately positioning himself as a key player in the unfolding narrative." },
         ]
+    },
+    {
+        title: "The Northern Border & The Sky Fortress",
+        episodeRange: "Episode 61-Ongoing",
+        summary: "The team's journey north ends in disaster at a Canadian border checkpoint. After a series of captures and failed rescue attempts, the team is finally reunited, disarmed, and set free. Their journey leads them to another desolate city where their path is blocked by a colossal, materializing black structure. Finding a cache of weapons, their journey shifts to a surreal and perilous vertical ascent. Atop the structure, they learn it is the 'Great Wall of Canada' and make radio contact with Kymar. Their relief is short-lived as they become trapped in a disorienting, looping corridor inside the wall. The psychological strain of the trap causes their sanity to fray, leading to a complete breakdown of cohesion and cannibalism. They finally escape, only for the world to abruptly shift, transporting them to a primitive, frozen wilderness with new monstrous threats.",
+        characterDevelopments: [
+            { characterName: "The Team", development: "After being fractured and then reunited, their resolve is tested by a new, impossible obstacle. Their cohesion completely broke down under psychological pressure, but they managed to escape the Great Wall, only to be thrust into a primitive, hostile world where they must relearn how to survive as a tribe." },
+            { characterName: "Mike", development: "His capture and subsequent release highlighted the group's vulnerability. Trapped within the wall, his sanity broke, culminating in him attacking a teammate for food. He is now forced to adapt to a new, primitive reality." },
+            { characterName: "Jack (EighthHalo)", development: "His persistence paid off by securing his friends' release through negotiation. After escaping the Great Wall's trap, he is now a key survivor in a strange new world." },
+            { characterName: "Grape (Thunderhead)", development: "His capture was the arc's catalyst. After escaping the Great Wall, he is now a leader of a displaced 'tribe' in a prehistoric, frozen landscape." },
+            { characterName: "The Forgotten Guard", development: "A new, enigmatic ally who guided the team to the Great Wall. He survived the ordeal and is now part of the displaced group in the new frozen world." },
+            { characterName: "Kymar", development: "Revealed to be alive through a distorted radio transmission, his whereabouts and condition are a new central mystery. His continued, but unhelpful, contact adds to the team's frustration." },
+            { characterName: "The Priest", development: "His brief, distant reappearance confirms he is still a relevant player in the unfolding events, observing the team from afar." },
+        ]
+    },
+    {
+        title: "The Mad Ship",
+        episodeRange: "Episode 67-Ongoing",
+        summary: "After escaping the sanity-shattering Great Wall, the team is thrust into a new nightmare aboard colossal, surreal ships. Their first stop, the 'Ghastly_Cat,' induces paranoia and infighting. Their second, a ghostly recreation of the S.S. Titanic, sees this madness escalate into a full-blown massacre after one member eats a bar of soap. The arc focuses on psychological horror as the team's fragile unity completely dissolves into a chaotic cycle of betrayal, murder, and cannibalism, leaving them to question whether the ships, or their own minds, are the true prison.",
+        characterDevelopments: [
+            { characterName: "The Team", development: "Their shared trauma from the Great Wall manifests as extreme paranoia. Alliances crumble instantly, and the group devolves into a free-for-all, unable to trust one another in the face of the ship's surreal influence." },
+            { characterName: "Mike", development: "As the observer, he documents the descent into madness, but is also a participant, struggling to survive the violent whims of his former allies while navigating the haunted vessel alone." },
+            { characterName: "EighthHalo (Jack)", development: "His instability becomes a catalyst for chaos. His bizarre and self-destructive actions, like eating soap, serve as a prelude to extreme violence, making him a dangerously unpredictable force." },
+        ]
     }
 ];

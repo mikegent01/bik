@@ -170,17 +170,45 @@ export const BESTIARY_DATA_S2: BestiaryEntry[] = [
         type: 'Humanoid'
     },
     {
-        name: "Mega X Researchers",
-        description: "Scientists and researchers working within the Mega X Biodome. They are non-hostile unless provoked and serve as targets for the team's infiltration disguises.",
+        name: "Mega X Guards (Biodome)",
+        description: "Stoic, silent guards stationed within the desert biome of the Mega X facility. They did not react to the team's presence, suggesting they are either programmed for specific duties or are simply set dressing.",
         firstAppearanceEpisode: 60,
         lastAppearanceEpisode: 60,
         type: 'Humanoid'
     },
     {
-        name: "Mega X Guards (Biodome)",
-        description: "Stoic, silent guards stationed within the desert biome of the Mega X facility. They did not react to the team's presence, suggesting they are either programmed for specific duties or are simply set dressing.",
-        firstAppearanceEpisode: 60,
-        lastAppearanceEpisode: 60,
+        name: "Purple-Headed Creatures",
+        description: "Strange, purple-headed creatures that appear after the Canadian border incident. They hunt the players in the dark, adding a new mysterious threat to the world.",
+        firstAppearanceEpisode: 61,
+        lastAppearanceEpisode: 61,
+        type: 'Monster'
+    },
+    {
+        name: "Massive Entity",
+        description: "A large, powerful monster that materializes in a flash of light. It hunted the players on the bridge, proving to be a formidable new foe.",
+        firstAppearanceEpisode: 61,
+        lastAppearanceEpisode: 61,
+        type: 'Monster'
+    },
+    {
+        name: "Fur-Covered Humanoids",
+        description: "Giant, fur-covered humanoid creatures that roam the primitive Frozen Wilderness. They are one of the new primary threats the team faces after the world shift.",
+        firstAppearanceEpisode: 66,
+        lastAppearanceEpisode: 66,
+        type: 'Monster'
+    },
+    {
+        name: "Icy Golems",
+        description: "Monstrous creatures resembling golems made of ice, found in the Frozen Wilderness. They are formidable opponents in the new, hostile environment.",
+        firstAppearanceEpisode: 66,
+        lastAppearanceEpisode: 66,
+        type: 'Monster'
+    },
+    {
+        name: "Titanic Passengers",
+        description: "The seemingly docile passengers aboard the S.S. Titanic. They were unarmed and milled about the ship's opulent decks until they were systematically and brutally massacred by the team in a sudden, unexplained fit of violence.",
+        firstAppearanceEpisode: 68,
+        lastAppearanceEpisode: 68,
         type: 'Humanoid'
     },
 ];

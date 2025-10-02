@@ -3,6 +3,7 @@ import { EpisodeSummary, PlotImpact } from './types';
 import { EPISODES_DATA_EP31_40 } from './episodes.ep31-40';
 import { EPISODES_DATA_EP41_50 } from './episodes.ep41-50';
 import { EPISODES_DATA_EP51_60 } from './episodes.ep51-60';
+import { EPISODES_DATA_EP61_70 } from './episodes.ep61-70';
 
 const EPISODES_DATA_S1: EpisodeSummary[] = [
     { episode: 1, title: "The Raid", summary: "The team infiltrates Mega X's Castle for revenge, rescuing the prisoner 'No One' in a loud and destructive assault.", plotImpact: PlotImpact.MAJOR, tags: ['Mission Start', 'Combat', 'New Character', 'Rescue'] },
@@ -42,6 +43,7 @@ const EPISODES_DATA_S2: EpisodeSummary[] = [
     ...EPISODES_DATA_EP31_40,
     ...EPISODES_DATA_EP41_50,
     ...EPISODES_DATA_EP51_60,
+    ...EPISODES_DATA_EP61_70,
 ];
 
 export const EPISODES_DATA: EpisodeSummary[] = [...EPISODES_DATA_S1, ...EPISODES_DATA_S2];

@@ -116,6 +116,16 @@ export const GLOSSARY_DATA: GlossaryTerm[] = [
         term: "Raid Difficulty 9",
         definition: "An event-based difficulty modifier that dramatically increases the number and power of hostile enemies in a given area, creating an overwhelming, near-unwinnable combat scenario.",
         category: 'Concept'
+    },
+    {
+        term: "[Tide Pod Challenge]",
+        definition: "A grimly humorous achievement or notification triggered when EighthHalo consumed a bar of soap, resulting in a poison effect. This bizarre act served as a prelude to the massacre aboard the S.S. Titanic.",
+        category: 'Concept'
+    },
+    {
+        term: "Human Meat",
+        definition: "A food item obtained from killing other human characters. Its consumption by the team on the S.S. Titanic, marked by the '[You Monster]' achievement, solidified their descent into cannibalism and gratuitous violence.",
+        category: 'Item'
     }
 ];
 

@@ -10,15 +10,15 @@ const CHARACTER_DATA_S1: Character[] = [
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 60
+    lastAppearanceEpisode: 68
   },
   {
     name: "Kymar (The Sergeant)",
-    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. He remains unconscious following the zombie horde attack on the hill.",
+    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. After being presumed unconscious following a zombie attack, he makes contact with the team via radio from an unknown location, confirming he is alive.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 60
+    lastAppearanceEpisode: 68
   },
   {
     name: "Mike (The Narrator)",
@@ -26,7 +26,7 @@ const CHARACTER_DATA_S1: Character[] = [
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 60
+    lastAppearanceEpisode: 68
   },
   {
     name: "Domonic Nat",
@@ -147,11 +147,11 @@ const CHARACTER_DATA_S1: Character[] = [
   },
     {
     name: "Priest swimeonkim26",
-    description: "The manipulative priest in charge of the church. He sends the group on a suicide mission to pillage a village, callously referring to them as 'disposable pawns.' He instructs Jeremy to eliminate them once they've served their purpose as a distraction.",
+    description: "The manipulative priest in charge of the church. He sends the group on a suicide mission to pillage a village, callously referring to them as 'disposable pawns.' He instructs Jeremy to eliminate them once they've served their purpose as a distraction. He mysteriously reappears, seen from a distance by the team on top of the Great Wall of Canada.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 32,
-    lastAppearanceEpisode: 32
+    lastAppearanceEpisode: 65
   },
   {
     name: "Lando (The Troll)",
