@@ -1,6 +1,8 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { BestiaryEntry } from './types';
 import { BESTIARY_DATA_S2 } from './bestiary.s2';
+import { BESTIARY_DATA_S3 } from './bestiary.s3';
+import { BESTIARY_DATA_S4 } from './bestiary.s4';
 
 const BESTIARY_DATA_S1: BestiaryEntry[] = [
     {
@@ -103,4 +105,4 @@ const BESTIARY_DATA_S1: BestiaryEntry[] = [
     },
 ];
 
-export const BESTIARY_DATA: BestiaryEntry[] = [...BESTIARY_DATA_S1, ...BESTIARY_DATA_S2];
+export const BESTIARY_DATA: BestiaryEntry[] = [...BESTIARY_DATA_S1, ...BESTIARY_DATA_S2, ...BESTIARY_DATA_S3, ...BESTIARY_DATA_S4];

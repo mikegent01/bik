@@ -31,5 +31,10 @@ export const FACTIONS_DATA: FactionDetail[] = [
         name: CharacterFaction.THE_ALPONES,
         description: "A mysterious and apparently large military group operating in the post-apocalyptic world. Their member, Reese, claims they control half of the wasteland. Their intentions and relationship to the protagonists or Mega X are currently unknown.",
         members: ["Reese (bestyrelse)"]
+    },
+    {
+        name: CharacterFaction.POPES_NAVY,
+        description: "A hostile naval force whose ship, adorned with a large golden cross, engaged the team's airship in a chaotic battle. One of their members, 'swimeonkim26,' comically surrendered after his own vessel was destroyed, claiming it was an 'Italian tradition.' Their overall goals and power are unknown.",
+        members: ["swimeonkim26"]
     }
 ];

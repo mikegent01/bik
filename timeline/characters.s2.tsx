@@ -3,11 +3,11 @@ import { Character, CharacterFaction } from './types';
 export const CHARACTER_DATA_S2: Character[] = [
     {
         name: "EighthHalo (Jack)",
-        description: "A player with a penchant for massive explosives. After a brief but violent turn as an antagonist, he has rejoined the team. His allegiance and mental state remain highly questionable, highlighted by his bizarre consumption of a bar of soap, which preceded a violent massacre, and his decision to blow up the team's own ship as an 'escape plan.' This culminated in him rigging the Titanic's engine room and helping lead the frantic escape from their sinking ship. He is last seen adrift in the lifeboat with Mike.",
-        faction: CharacterFaction.PROTAGONISTS,
+        description: "A chaotic and treacherous operative. After escaping the moon, his whereabouts were unknown until he inexplicably reappeared on the team's airship just before a naval battle. His return was not questioned by the amnesiac crew, leaving his current motives and allegiance a dangerous mystery.",
+        faction: CharacterFaction.ANTAGONISTS,
         importance: 3,
         firstAppearanceEpisode: 33,
-        lastAppearanceEpisode: 72,
+        lastAppearanceEpisode: 86,
     },
     {
         name: "Reese (bestyrelse)",

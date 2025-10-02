@@ -6,7 +6,7 @@ const iconClass = "h-6 w-6 text-slate-300";
 export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
     {
         title: "CLXXXIX. The Canadian Border Incident",
-        description: "The team's journey north ends at a guarded Canadian border checkpoint. After being denied entry, the checkpoint explodes in a chaotic ambush. Amidst the firefight, Thunderhead is captured. The survivors, Mike and Jack, escape in a fighter jet, witnessing a colossal, dark structure in the sky before crashing. After regrouping, they are hunted by new, terrifying monsters, but resolve to rescue their captured friend.",
+        description: "The team's journey north ends in disaster at a guarded Canadian border checkpoint. After being denied entry, the checkpoint explodes in a chaotic ambush. Amidst the firefight, Thunderhead is captured. The survivors, Mike and Jack, escape in a fighter jet, witnessing a colossal, dark structure in the sky before crashing. After regrouping, they are hunted by new, terrifying monsters, but resolve to rescue their captured friend.",
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
@@ -149,8 +149,8 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
         category: 'Climax',
     },
     {
-        title: "CCI. The World Shift",
-        description: "After a final, chaotic cycle of death and paranoia on the walkway, the world abruptly transforms. The team awakens in a primitive, frozen landscape, their modern gear gone and replaced with fur armor, now facing monstrous new creatures as a tribe of survivors.",
+        title: "CCI. The Frozen North",
+        description: "After a final, chaotic cycle of death and paranoia on the walkway, the team emerges into a new, far harsher region of Canada. They find themselves in a primitive, frozen landscape, their modern gear gone and mysteriously replaced with fur armor, now facing monstrous new creatures as a tribe of survivors.",
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c-4.97 0-9-4.03-9-9S7.03 3 12 3s9 4.03 9 9-4.03 9-9 9Z" />
@@ -174,7 +174,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
     },
     {
         title: "CCIII. The Titanic Massacre",
-        description: "Aboard the S.S. Titanic, a bizarre incident where a player eats soap descends into a full-blown massacre. The team, now embracing cannibalism, systematically executes the other passengers on the ship, leaving the opulent halls strewn with bodies in a haunting display of unexplained violence.",
+        description: "Aboard their own luxury liner, a bizarre incident where a player eats soap descends into a full-blown massacre. The team, now embracing cannibalism, systematically executes the ship's other passengers, leaving the opulent halls strewn with bodies in a haunting display of unexplained violence.",
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 3.75 8.25 10.5 12.75 17.25 17.25 10.5 12.75 3.75Z" />
@@ -186,7 +186,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
     },
     {
         title: "CCIV. The Titanic Ambush",
-        description: "Guided by their captain, the team boards the legendary RMS Titanic, only to find it swarming with undead. After a chaotic battle and a successful rescue of their friends, EighthHalo enacts a bizarre escape plan by rigging their own ship's engine room with TNT. The resulting explosion destroys their vessel and kills the saboteurs, ending their voyage in fire and chaos.",
+        description: "From their own vessel, the team is guided by their captain to board a mysterious sister ship—the legendary RMS Titanic. They find it derelict and swarming with undead. After a chaotic battle and a successful rescue of their friends, EighthHalo enacts a bizarre escape plan by rigging their own ship's engine room with TNT. The resulting explosion destroys their vessel and kills the saboteurs, ending their voyage in fire and chaos.",
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />

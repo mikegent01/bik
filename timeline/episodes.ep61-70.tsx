@@ -39,7 +39,7 @@ export const EPISODES_DATA_EP61_70: EpisodeSummary[] = [
     {
         episode: 66,
         title: "The Great Mega X",
-        summary: "The team finally escapes the Great Wall's looping corridors, finding an exit that leads to a foggy walkway with a strange sculpture they dub 'The Great Mega X.' After a final, chaotic cycle of infighting and death, the world abruptly shifts. They awaken in a vast, prehistoric-looking frozen wilderness, their modern gear replaced with primitive fur armor. Now a tribe of survivors, they must fight off new, monstrous creatures like icy golems and fur-covered humanoids, their journey taking another bizarre and brutal turn.",
+        summary: "The team finally escapes the Great Wall's looping corridors, finding an exit that leads to a foggy walkway with a strange sculpture they dub 'The Great Mega X.' After a final, chaotic cycle of infighting and death, their journey continues into a vast, prehistoric-looking frozen wilderness deep in the Canadian north. They awaken to find their modern gear mysteriously replaced with primitive fur armor and must now survive as a tribe against new, monstrous creatures.",
         plotImpact: PlotImpact.MAJOR,
         tags: ['Escape', 'Climax', 'New World', 'Mystery', 'Surreal', 'New Enemy']
     },
@@ -53,14 +53,14 @@ export const EPISODES_DATA_EP61_70: EpisodeSummary[] = [
     {
         episode: 68,
         title: "The Soap Eater's Spree",
-        summary: "Aboard the surreal S.S. Titanic, the team's exploration takes a bizarre turn when EighthHalo eats a bar of soap, triggering the '[Tide Pod Challenge].' This act of madness is a prelude to a full-blown massacre, as the team, now consuming human flesh, systematically executes the ship's other passengers. The episode ends in an eerie quiet, with the opulent lounges and decks strewn with bodies, leaving a haunting aftermath of unexplained violence.",
+        summary: "Aboard their own luxury liner, the team's exploration takes a bizarre turn when EighthHalo eats a bar of soap, triggering the '[Tide Pod Challenge].' This act of madness is a prelude to a full-blown massacre, as the team, now consuming human flesh, systematically executes the ship's other passengers. The episode ends in an eerie quiet, with the opulent lounges and decks strewn with bodies, leaving a haunting aftermath of unexplained violence.",
         plotImpact: PlotImpact.MAJOR,
         tags: ['Surreal', 'Combat', 'Character', 'Psychological', 'New Location']
     },
     {
         episode: 69,
         title: "The Titanic Ambush",
-        summary: "The team boards the colossal RMS Titanic to rescue captured friends, only to find it swarming with undead. After a chaotic battle and a successful rescue, EighthHalo devises a new escape plan: blow up their own ship's engine room. The plan succeeds in spectacular fashion, destroying their vessel and killing the demolitionists in the process.",
+        summary: "The captain of their own vessel guides them to a mysterious 'smaller vessel' docking alongside—the colossal RMS Titanic. The team boards the legendary ocean liner to rescue captured friends, only to find it derelict and swarming with undead. After a chaotic battle and a successful rescue, EighthHalo devises a new escape plan: blow up their own ship's engine room. The plan succeeds in spectacular fashion, destroying their vessel and killing the demolitionists in the process.",
         plotImpact: PlotImpact.MAJOR,
         tags: ['New Location', 'Surreal', 'Combat', 'Rescue', 'Climax', 'Major Death', 'Self-Sabotage']
     },
@@ -81,7 +81,7 @@ export const EPISODES_DATA_EP61_70: EpisodeSummary[] = [
     {
         episode: 72,
         title: "Escape the Leviathan",
-        summary: "As their luxury liner rapidly floods, the team is forced into a desperate, chaotic search for a lifeboat key. After a frantic underwater swim through the ship's opulent but submerged corridors, they secure the key, launch a lifeboat into the storm-tossed sea, and escape the sinking vessel, only to realize in the chaos that one of their own has been left behind.",
+        summary: "As their luxury liner rapidly floods, the team is forced into a desperate, chaotic search for a lifeboat key. After a frantic, underwater swim through the ship's opulent but submerged corridors, they secure the key, launch a lifeboat into the storm-tossed sea, and escape the sinking vessel, only to realize in the chaos that one of their own has been left behind.",
         plotImpact: PlotImpact.MAJOR,
         tags: ['Escape', 'Climax', 'Survival', 'Betrayal', 'Sinking Ship']
     },

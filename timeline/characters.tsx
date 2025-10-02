@@ -1,32 +1,34 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { Character, CharacterFaction } from './types';
 import { CHARACTER_DATA_S2 } from './characters.s2';
+import { CHARACTER_DATA_S3 } from './characters.s3';
+import { CHARACTER_DATA_S5 } from './characters.s5';
 
 const CHARACTER_DATA_S1: Character[] = [
   // PROTAGONISTS
   {
     name: "Grape (The Leader)",
-    description: "The group's erratic leader (player name 'thunderhead'), also known as 'thaumaturgy'. In a prequel event, acting under the alias 'break,' he single-handedly defeated Bloodless during a hostile board meeting takeover by tricking him into drinking potent 'grape alcohol juice.' He is the channel's 'art director' but uses amnesia to avoid showing art. Lore suggests he fought a bear with 'bear shaped hands' and ate BTS tickets. After escaping the backrooms, he is found praying in a church. He was left behind during the chaotic escape from the sinking luxury liner in episode 72.",
+    description: "The group's erratic leader (player name 'thunderhead'). After the black hole incident, he resurfaced years later with the rest of the team, discovering Doctor Valeneria in a frozen research outpost.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 72
+    lastAppearanceEpisode: 101
   },
   {
     name: "Kymar (The Sergeant)",
-    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. He makes contact with the team via radio from an unknown location, confirming he is alive, but he remains missing at the conclusion of Season 2.",
+    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'). After being consumed by the black hole, he reappeared years later with his team, finding Doctor Valeneria and a new mystery involving ancient portals.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 68
+    lastAppearanceEpisode: 101
   },
   {
     name: "Mike (The Narrator)",
-    description: "The group's narrator and strategist, also known as 'Mikegent'. Lore confirms he is the #1 fisherman on the channel, though he is sensitive about his weight and has been through many failed romantic relationships. With Kymar, he created a comic strip called 'Catgirl Adventures.' After escaping the backrooms, he survives the chaotic events of Season 2 and is last seen adrift in a lifeboat in a stormy sea with EighthHalo.",
+    description: "The group's narrator and strategist, also known as 'Mikegent'. Years after the black hole incident, he and his team found their way to a desolate, frozen shelter, where they were reunited with a much-changed Doctor Valeneria.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 72
+    lastAppearanceEpisode: 101
   },
   {
     name: "Domonic Nat",
@@ -105,11 +107,11 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "Doctor Valeneria (The Reporter)",
-    description: "A news reporter found trapped in the Backrooms. He provides world context and lore about the ongoing war with Mega X, though his survival skills and navigation tools have proven unreliable.",
+    description: "A news reporter who was lost in the Backrooms. Years after being separated from the team, he was rediscovered in a frozen wasteland, having become an isolated, paranoid researcher studying ancient portals and creating clones to stave off loneliness.",
     faction: CharacterFaction.ALLIES,
     importance: 1,
     firstAppearanceEpisode: 5,
-    lastAppearanceEpisode: 29
+    lastAppearanceEpisode: 101
   },
   {
     name: "The Scientist",
@@ -147,11 +149,11 @@ const CHARACTER_DATA_S1: Character[] = [
   },
     {
     name: "Priest swimeonkim26",
-    description: "The manipulative priest in charge of the church. He sends the group on a suicide mission to pillage a village, callously referring to them as 'disposable pawns.' He instructs Jeremy to eliminate them once they've served their purpose as a distraction. He mysteriously reappears, seen from a distance by the team on top of the Great Wall of Canada.",
+    description: "A manipulative priest who sends the group on suicide missions. He mysteriously reappears multiple times, once atop the Great Wall of Canada, and later as part of 'The Pope's Navy' during a chaotic naval battle. After his ship was destroyed, he boarded the team's airship and comically surrendered, claiming it was an 'Italian tradition.' His true motives remain unknown.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 32,
-    lastAppearanceEpisode: 65
+    lastAppearanceEpisode: 86
   },
   {
     name: "Lando (The Troll)",
@@ -267,4 +269,4 @@ const CHARACTER_DATA_S1: Character[] = [
   }
 ];
 
-export const CHARACTER_DATA: Character[] = [...CHARACTER_DATA_S1, ...CHARACTER_DATA_S2];
+export const CHARACTER_DATA: Character[] = [...CHARACTER_DATA_S1, ...CHARACTER_DATA_S2, ...CHARACTER_DATA_S3, ...CHARACTER_DATA_S5];

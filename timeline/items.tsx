@@ -1,6 +1,9 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { KeyItem } from './types';
 import { KEY_ITEMS_DATA_S2 } from './items.s2';
+import { KEY_ITEMS_DATA_S3 } from './items.s3';
+import { KEY_ITEMS_DATA_S4 } from './items.s4';
+import { KEY_ITEMS_DATA_S5 } from './items.s5';
 
 const KEY_ITEMS_DATA_S1: KeyItem[] = [
     {
@@ -53,4 +56,4 @@ const KEY_ITEMS_DATA_S1: KeyItem[] = [
     },
 ];
 
-export const KEY_ITEMS_DATA: KeyItem[] = [...KEY_ITEMS_DATA_S1, ...KEY_ITEMS_DATA_S2];
+export const KEY_ITEMS_DATA: KeyItem[] = [...KEY_ITEMS_DATA_S1, ...KEY_ITEMS_DATA_S2, ...KEY_ITEMS_DATA_S3, ...KEY_ITEMS_DATA_S4, ...KEY_ITEMS_DATA_S5];

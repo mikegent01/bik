@@ -23,7 +23,7 @@ export const STORY_ARCS_DATA_S2: StoryArc[] = [
     {
         title: "The Great Wall",
         episodeRange: "Episodes 61-66",
-        summary: "The team's journey north culminates in disaster at the Canadian border. After a series of captures and failed rescues, the reunited but disarmed team encounters a colossal, materializing black structure: 'The Great Wall of Canada.' A perilous climb leads them into a disorienting, looping trap that shatters their sanity, culminating in paranoia and cannibalism. Upon finally escaping, the world itself shifts, transporting them to a primitive, frozen wilderness to face monstrous new threats.",
+        summary: "The team's journey north culminates in disaster at the Canadian border. After a series of captures and failed rescues, the reunited but disarmed team encounters a colossal, materializing black structure: 'The Great Wall of Canada.' A perilous climb leads them into a disorienting, looping trap that shatters their sanity, culminating in paranoia and cannibalism. Upon finally escaping, their journey takes them into a primitive, frozen wilderness deep in the Canadian north to face monstrous new threats.",
         characterDevelopments: [
             { characterName: "The Team", development: "Their cohesion completely broke down under psychological pressure, but they managed to escape the Great Wall, only to be thrust into a primitive, hostile world where they must relearn how to survive as a tribe." },
             { characterName: "Kymar", development: "Revealed to be alive through a distorted radio transmission, his whereabouts and condition become a central mystery for the latter part of the season." },

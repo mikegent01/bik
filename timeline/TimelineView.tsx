@@ -78,12 +78,24 @@ const TimelineFilterControls: React.FC<{
 
 // --- Timeline Components ---
 
+const getSeasonInfo = (episode: number): { seasonNumber: number; seasonEpisode: number; title: string } | null => {
+    if (episode >= 0 && episode <= 32) return { seasonNumber: 1, seasonEpisode: episode, title: "Season 1: The Castle & The Labyrinth" };
+    if (episode >= 33 && episode <= 72) return { seasonNumber: 2, seasonEpisode: episode - 32, title: "Season 2: The Authority" };
+    if (episode >= 73) return { seasonNumber: 3, seasonEpisode: episode - 72, title: "Season 3: The Great Treasure Hunt" };
+    return null;
+};
+
 const TimelineItem: React.FC<{ item: TimelineEvent, isLast: boolean }> = ({ item, isLast }) => {
-  const isSeason2 = item.episode > 32;
-  const seasonEpisode = isSeason2 ? item.episode - 32 : item.episode;
+  const seasonInfo = getSeasonInfo(item.episode);
   
   const borderColorClass = borderCategoryColorMap[item.category] || 'border-zinc-800';
   const cardClasses = `border-l-4 ${borderColorClass}`;
+
+  const episodeLabel = () => {
+    if (item.episode === 0) return `PROLOGUE`;
+    if (!seasonInfo) return `EPISODE ${item.episode}`;
+    return `S${seasonInfo.seasonNumber}E${seasonInfo.seasonEpisode} | EPISODE ${item.episode}`;
+  };
 
   return (
     <div className="relative pl-10">
@@ -97,10 +109,7 @@ const TimelineItem: React.FC<{ item: TimelineEvent, isLast: boolean }> = ({ item
           <div className="flex items-center gap-3 flex-shrink-0">
             <span className="text-slate-400 text-xs font-medium whitespace-nowrap">{item.date.toUpperCase()}</span>
             <span className="bg-zinc-800 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">
-              {isSeason2 
-                ? `SEASON 2 EPISODE ${seasonEpisode} | EPISODE ${item.episode}`
-                : `EPISODE ${item.episode}`
-              }
+              {episodeLabel()}
             </span>
           </div>
         </div>
@@ -157,16 +166,13 @@ const TimelineView: React.FC = () => {
     }
 
     const items: TimelineDisplayItem[] = [];
-    let currentSeason = 0;
+    const displayedSeasons = new Set<number>();
 
     filteredEvents.forEach((item) => {
-        const itemSeason = item.episode <= 32 ? 1 : 2;
-        if (itemSeason > currentSeason) {
-          currentSeason = itemSeason;
-          const seasonTitle = currentSeason === 1 
-              ? "Season 1: The Castle & The Labyrinth" 
-              : "Season 2: The Authority";
-          items.push({ type: 'SEASON_HEADER', title: seasonTitle, key: `season-${currentSeason}` });
+        const seasonInfo = getSeasonInfo(item.episode);
+        if (seasonInfo && !displayedSeasons.has(seasonInfo.seasonNumber)) {
+          displayedSeasons.add(seasonInfo.seasonNumber);
+          items.push({ type: 'SEASON_HEADER', title: seasonInfo.title, key: `season-${seasonInfo.seasonNumber}` });
         }
         items.push(item);
     });

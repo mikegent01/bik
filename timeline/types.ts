@@ -25,6 +25,7 @@ export enum CharacterFaction {
   THE_AUTHORITY = 'The Authority',
   MEGA_X_ARMY = 'Mega X Army',
   THE_ALPONES = 'The Alpones',
+  POPES_NAVY = "The Pope's Navy",
 }
 
 // ADD: Enum for plot impact classification

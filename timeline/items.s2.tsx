@@ -153,7 +153,7 @@ export const KEY_ITEMS_DATA_S2: KeyItem[] = [
     },
     {
         name: "The Great Mega X Sculpture",
-        description: "A strange, abstract sculpture found at the exit of the Great Wall of Canada's looping corridors. The team referred to it as 'The Mega X,' believing it to be the end of their ordeal before the world shifted around them.",
+        description: "A strange, abstract sculpture found at the exit of the Great Wall of Canada's looping corridors. The team referred to it as 'The Mega X,' believing it to be the end of their ordeal before they continued their journey into the harsh Canadian north.",
         firstAppearanceEpisode: 66,
         lastAppearanceEpisode: 66,
     },

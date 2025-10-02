@@ -4,6 +4,10 @@ import { EPISODES_DATA_EP31_40 } from './episodes.ep31-40';
 import { EPISODES_DATA_EP41_50 } from './episodes.ep41-50';
 import { EPISODES_DATA_EP51_60 } from './episodes.ep51-60';
 import { EPISODES_DATA_EP61_70 } from './episodes.ep61-70';
+import { EPISODES_DATA_EP71_80 } from './episodes.ep71-80';
+import { EPISODES_DATA_EP81_90 } from './episodes.ep81-90';
+import { EPISODES_DATA_EP91_100 } from './episodes.ep91-100';
+import { EPISODES_DATA_EP101_110 } from './episodes.ep101-110';
 
 const EPISODES_DATA_S1: EpisodeSummary[] = [
     { episode: 1, title: "The Raid", summary: "The team infiltrates Mega X's Castle for revenge, rescuing the prisoner 'No One' in a loud and destructive assault.", plotImpact: PlotImpact.MAJOR, tags: ['Mission Start', 'Combat', 'New Character', 'Rescue'] },
@@ -39,11 +43,14 @@ const EPISODES_DATA_S1: EpisodeSummary[] = [
     { episode: 32, title: "The Conspiracy", summary: "Ejected from the backrooms into a warzone, the team is hired by a priest for a suicide mission and learns they are to be executed afterwards.", plotImpact: PlotImpact.MAJOR, tags: ['Escape', 'New Location', 'Betrayal', 'Mission Start', 'Climax'] }
 ];
 
-const EPISODES_DATA_S2: EpisodeSummary[] = [
+export const EPISODES_DATA: EpisodeSummary[] = [
+    ...EPISODES_DATA_S1,
     ...EPISODES_DATA_EP31_40,
     ...EPISODES_DATA_EP41_50,
     ...EPISODES_DATA_EP51_60,
     ...EPISODES_DATA_EP61_70,
+    ...EPISODES_DATA_EP71_80,
+    ...EPISODES_DATA_EP81_90,
+    ...EPISODES_DATA_EP91_100,
+    ...EPISODES_DATA_EP101_110,
 ];
-
-export const EPISODES_DATA: EpisodeSummary[] = [...EPISODES_DATA_S1, ...EPISODES_DATA_S2];

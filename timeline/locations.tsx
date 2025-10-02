@@ -1,6 +1,8 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { Location } from './types';
 import { LOCATIONS_DATA_S2 } from './locations.s2';
+import { LOCATIONS_DATA_S3 } from './locations.s3';
+import { LOCATIONS_DATA_S4 } from './locations.s4';
 
 const LOCATIONS_DATA_S1: Location[] = [
   {
@@ -314,4 +316,4 @@ const LOCATIONS_DATA_S1: Location[] = [
   },
 ];
 
-export const LOCATIONS_DATA: Location[] = [...LOCATIONS_DATA_S1, ...LOCATIONS_DATA_S2];
+export const LOCATIONS_DATA: Location[] = [...LOCATIONS_DATA_S1, ...LOCATIONS_DATA_S2, ...LOCATIONS_DATA_S3, ...LOCATIONS_DATA_S4];

@@ -37,20 +37,22 @@ const categoryColorMap: Record<string, string> = {
   Negotiation: 'bg-cyan-500',
 };
 
-const getSeason = (episode: number): number => {
-  if (episode === 0) return 1; // Prologue is part of S1 narrative
-  return episode <= 32 ? 1 : 2;
-};
-
 const CalendarEvent: React.FC<{ event: TimelineEvent }> = ({ event }) => {
-  const season = getSeason(event.episode);
+  // Encapsulated logic for determining season label based on consolidated 3-season structure
+  const getSeasonLabel = (episode: number): string => {
+    if (episode === 0) return 'Prologue';
+    if (episode >= 1 && episode <= 32) return `S1E${episode}`;
+    if (episode >= 33 && episode <= 72) return `S2E${episode - 32}`;
+    return `S3E${episode - 72}`;
+  };
+
   const colorClass = categoryColorMap[event.category] || 'bg-slate-400';
   return (
     <div className="text-xs p-1 rounded bg-zinc-800/50 hover:bg-zinc-800 transition-colors mb-1 cursor-default flex items-start text-left">
       <span className={`w-2 h-2 rounded-full mr-2 mt-1 flex-shrink-0 ${colorClass}`} title={event.category}></span>
       <div>
         <span className="font-bold text-lime-400">
-          {event.episode > 0 ? `S${season}E${event.episode}` : 'Prologue'}:
+          {getSeasonLabel(event.episode)}:
         </span>
         <span className="ml-1 text-slate-300">{event.title}</span>
       </div>
