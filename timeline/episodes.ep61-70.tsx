@@ -46,7 +46,7 @@ export const EPISODES_DATA_EP61_70: EpisodeSummary[] = [
     {
         episode: 67,
         title: "The Mad Ship",
-        summary: "Following a chaotic escape from a blizzard, the team boards a colossal, empty luxury liner named 'Ghastly_Cat.' The ship's interior is a bizarre mix of opulence and decay, with a snow-covered deck inside the vessel. The discovery of strange control pedestals triggers a violent, paranoid breakdown, leading to infighting and multiple deaths. Trapped in a cycle of betrayal and resurrection, the survivors navigate the haunted halls, their sanity fraying as they realize the greatest threat may be each other.",
+        summary: "After surviving for weeks in the harsh, primitive frozen wilderness, the team reaches a stormy coast. Fleeing a blizzard in small wooden boats, they encounter and board a colossal, empty luxury liner, seeking refuge from the elements only to find a new form of madness within. The discovery of strange control pedestals triggers a violent, paranoid breakdown, leading to infighting and multiple deaths. Trapped in a cycle of betrayal and resurrection, the survivors navigate the haunted halls, their sanity fraying as they realize the greatest threat may be each other.",
         plotImpact: PlotImpact.MAJOR,
         tags: ['New Location', 'Surreal', 'Psychological', 'Betrayal', 'Combat', 'Mystery']
     },
@@ -56,5 +56,33 @@ export const EPISODES_DATA_EP61_70: EpisodeSummary[] = [
         summary: "Aboard the surreal S.S. Titanic, the team's exploration takes a bizarre turn when EighthHalo eats a bar of soap, triggering the '[Tide Pod Challenge].' This act of madness is a prelude to a full-blown massacre, as the team, now consuming human flesh, systematically executes the ship's other passengers. The episode ends in an eerie quiet, with the opulent lounges and decks strewn with bodies, leaving a haunting aftermath of unexplained violence.",
         plotImpact: PlotImpact.MAJOR,
         tags: ['Surreal', 'Combat', 'Character', 'Psychological', 'New Location']
+    },
+    {
+        episode: 69,
+        title: "The Titanic Ambush",
+        summary: "The team boards the colossal RMS Titanic to rescue captured friends, only to find it swarming with undead. After a chaotic battle and a successful rescue, EighthHalo devises a new escape plan: blow up their own ship's engine room. The plan succeeds in spectacular fashion, destroying their vessel and killing the demolitionists in the process.",
+        plotImpact: PlotImpact.MAJOR,
+        tags: ['New Location', 'Surreal', 'Combat', 'Rescue', 'Climax', 'Major Death', 'Self-Sabotage']
+    },
+    {
+        episode: 70,
+        title: "Going Down With The Ship",
+        summary: "The chaotic journey aboard the Titanic concludes with more self-sabotage. After battling zombies in an engine room, the team regroups with Captain Schmitty, only to rig their other ship with TNT and blow it up. After another brief reunion on the Titanic, they plant explosives on the legendary liner itself, ending their adventure in a final, massive, self-inflicted explosion.",
+        plotImpact: PlotImpact.MAJOR,
+        tags: ['Climax', 'Major Death', 'Self-Sabotage', 'Combat', 'Surreal']
+    },
+    {
+        episode: 71,
+        title: "The Heart of the Beast",
+        summary: "The team explores the opulent but confusing corridors of the Titanic. After falling through a grate into a trap, they are ambushed in a vast, industrial chasm by skeletons and grotesque, pig-like men with golden swords. After a brutal firefight where multiple members are slain, the lone survivor regroups with EighthHalo in the engine room, and they begin to rig the ship's core with TNT, preparing to threaten the captain with total destruction.",
+        plotImpact: PlotImpact.MAJOR,
+        tags: ['Combat', 'Exploration', 'Major Death', 'Trap', 'Self-Sabotage']
+    },
+    {
+        episode: 72,
+        title: "Escape the Leviathan",
+        summary: "As their luxury liner rapidly floods, the team is forced into a desperate, chaotic search for a lifeboat key. After a frantic underwater swim through the ship's opulent but submerged corridors, they secure the key, launch a lifeboat into the storm-tossed sea, and escape the sinking vessel, only to realize in the chaos that one of their own has been left behind.",
+        plotImpact: PlotImpact.MAJOR,
+        tags: ['Escape', 'Climax', 'Survival', 'Betrayal', 'Sinking Ship']
     },
 ];

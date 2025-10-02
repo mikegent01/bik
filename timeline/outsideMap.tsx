@@ -27,6 +27,11 @@ export const OUTSIDE_WORLD_MAP_DATA: BackroomsLocationNode[] = [
   { id: 'tank_crash_site', label: 'Tank Crash Site', x: 3450, y: 350, episode: 57 },
   { id: 'overpass_crash_site', label: 'Overpass Crash Site', x: 3550, y: 300, episode: 59 },
   { id: 'crater_town', label: 'Crater Town', x: 3650, y: 350, episode: 59 },
+  { id: 'canadian_border', label: 'Canadian Border', x: 3800, y: 300, episode: 61 },
+  { id: 'black_wall', label: 'The Great Wall', x: 3950, y: 350, episode: 64 },
+  { id: 'frozen_wilderness', label: 'Frozen Wilderness', x: 3950, y: 150, episode: 66 },
+  { id: 'the_mad_ship', label: 'The Mad Ship', x: 4100, y: 150, episode: 67 },
+  { id: 'ss_titanic', label: 'S.S. Titanic', x: 4250, y: 150, episode: 68 },
 ];
 
 export const OUTSIDE_WORLD_CONNECTIONS_DATA: BackroomsConnection[] = [
@@ -55,4 +60,9 @@ export const OUTSIDE_WORLD_CONNECTIONS_DATA: BackroomsConnection[] = [
   { from: 'red_brick_courtyard', to: 'tank_crash_site' },
   { from: 'tank_crash_site', to: 'overpass_crash_site' },
   { from: 'overpass_crash_site', to: 'crater_town' },
+  { from: 'crater_town', to: 'canadian_border' },
+  { from: 'canadian_border', to: 'black_wall' },
+  { from: 'black_wall', to: 'frozen_wilderness' },
+  { from: 'frozen_wilderness', to: 'the_mad_ship' },
+  { from: 'the_mad_ship', to: 'ss_titanic' },
 ];

@@ -13,7 +13,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 61,
-        date: "March 15, 2021",
+        date: "March 30, 2021",
         category: 'Climax',
     },
     {
@@ -25,7 +25,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 62,
-        date: "March 16, 2021",
+        date: "March 31, 2021",
         category: 'Strategy',
     },
     {
@@ -37,7 +37,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 62,
-        date: "March 16, 2021",
+        date: "March 31, 2021",
         category: 'Negotiation',
     },
     {
@@ -49,7 +49,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 62,
-        date: "March 16, 2021",
+        date: "March 31, 2021",
         category: 'Climax',
     },
     {
@@ -61,7 +61,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 63,
-        date: "March 17, 2021",
+        date: "April 1, 2021",
         category: 'Negotiation',
     },
     {
@@ -73,7 +73,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 64,
-        date: "March 18, 2021",
+        date: "April 3, 2021",
         category: 'Character',
     },
     {
@@ -85,7 +85,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 64,
-        date: "March 18, 2021",
+        date: "April 3, 2021",
         category: 'World Event',
     },
     {
@@ -97,7 +97,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 64,
-        date: "March 18, 2021",
+        date: "April 3, 2021",
         category: 'Exploration',
     },
     {
@@ -109,7 +109,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 65,
-        date: "March 19, 2021",
+        date: "April 4, 2021",
         category: 'Discovery',
     },
     {
@@ -121,7 +121,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 65,
-        date: "March 19, 2021",
+        date: "April 4, 2021",
         category: 'Exploration',
     },
     {
@@ -133,7 +133,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 65,
-        date: "March 19, 2021",
+        date: "April 5, 2021",
         category: 'Betrayal',
     },
     {
@@ -145,7 +145,7 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 66,
-        date: "March 20, 2021",
+        date: "April 6, 2021",
         category: 'Climax',
     },
     {
@@ -157,19 +157,19 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 66,
-        date: "March 20, 2021",
+        date: "April 6, 2021",
         category: 'World Event',
     },
     {
-        title: "CCII. The Madness of the Ghastly_Cat",
-        description: "After a perilous sea crossing in a storm, the team boards the 'Ghastly_Cat,' a colossal, empty luxury liner. The discovery of reality-altering controls on a bizarre, snow-covered indoor deck triggers a wave of paranoia and infighting. The fragile alliance shatters, leading to a cycle of death and betrayal in the ship's opulent, yet menacing, halls, leaving the survivors isolated and questioning everything.",
+        title: "CCII. The Mad Ship",
+        description: "After weeks of survival in the frozen wilderness, the team takes to the sea to escape a blizzard. They board a colossal, empty luxury liner where the discovery of reality-altering controls triggers a wave of paranoia and infighting. The fragile alliance shatters, leading to a cycle of death and betrayal in the ship's opulent, yet menacing, halls.",
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193l-3.72.241c-1.12.072-2.22-.022-3.26-.296a11.942 11.942 0 0 1-3.26-.296 11.942 11.942 0 0 1-3.26.296c-1.04.072-2.14.122-3.26.296l-3.72-.242a2.122 2.122 0 0 1-1.98-2.193V10.608c0-.97.616-1.813 1.5-2.097L6.75 8.25m11.25 0-1.125-.225m-1.125-.225L15 7.5l-1.125-.225m-1.125-.225L12 6.75l-1.125.225m-1.125.225L9.75 7.5l-1.125.225m-1.125.225L6.75 8.25m-1.5 0-1.125-.225m13.5 0-1.125-.225M12 15.75a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
             </svg>
         ),
         episode: 67,
-        date: "March 21, 2021",
+        date: "May 6, 2021",
         category: 'Betrayal',
     },
     {
@@ -181,7 +181,57 @@ export const TIMELINE_DATA_EP61_70: TimelineEvent[] = [
             </svg>
         ),
         episode: 68,
-        date: "March 22, 2021",
+        date: "May 7, 2021",
         category: 'Character',
+    },
+    {
+        title: "CCIV. The Titanic Ambush",
+        description: "Guided by their captain, the team boards the legendary RMS Titanic, only to find it swarming with undead. After a chaotic battle and a successful rescue of their friends, EighthHalo enacts a bizarre escape plan by rigging their own ship's engine room with TNT. The resulting explosion destroys their vessel and kills the saboteurs, ending their voyage in fire and chaos.",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 3.75 3.75 0 0 0-7.493-2.131 3.75 3.75 0 0 0-1.484 5.254A3.75 3.75 0 0 0 12 18Z" />
+            </svg>
+        ),
+        episode: 69,
+        date: "May 8, 2021",
+        category: 'Climax',
+    },
+    {
+        title: "CCV. Going Down With The Ship",
+        description: "The team's chaotic spree continues. They rig their own ship with TNT and blow it up before turning their destructive attention to the RMS Titanic itself, planting more explosives and ending their journey in a final, self-inflicted detonation.",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 3.75 3.75 0 0 0-7.493-2.131 3.75 3.75 0 0 0-1.484 5.254A3.75 3.75 0 0 0 12 18Z" />
+            </svg>
+        ),
+        episode: 70,
+        date: "May 9, 2021",
+        category: 'Climax',
+    },
+    {
+        title: "CCVI. The Engine Room Ambush",
+        description: "While exploring the lower decks of the Titanic, the team falls into a trap and is ambushed in a vast, industrial chasm by a horde of skeletons and pig-men. The fight is brutal, resulting in multiple casualties before the survivors regroup in the engine room to begin planting explosives.",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 3.75 8.25 10.5 12.75 17.25 17.25 10.5 12.75 3.75Z" />
+            </svg>
+        ),
+        episode: 71,
+        date: "May 10, 2021",
+        category: 'Combat',
+    },
+    {
+        title: "CCVII. Escape the Sinking Ship",
+        description: "As their ship floods, the team frantically searches for a lifeboat key. After a desperate underwater search through the sinking vessel, they secure the key, launch a lifeboat, and escape into the stormy sea, leaving Thunderhead behind in the chaos.",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193l-3.72.241c-1.12.072-2.22-.022-3.26-.296a11.942 11.942 0 0 1-3.26-.296 11.942 11.942 0 0 1-3.26.296c-1.04.072-2.14.122-3.26.296l-3.72-.242a2.122 2.122 0 0 1-1.98-2.193V10.608c0-.97.616-1.813 1.5-2.097L6.75 8.25m11.25 0-1.125-.225m-1.125-.225L15 7.5l-1.125-.225m-1.125-.225L12 6.75l-1.125.225m-1.125.225L9.75 7.5l-1.125.225m-1.125.225L6.75 8.25m-1.5 0-1.125-.225m13.5 0-1.125-.225M12 15.75a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+            </svg>
+        ),
+        episode: 72,
+        date: "May 11, 2021",
+        category: 'Climax',
     },
 ];

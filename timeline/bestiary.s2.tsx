@@ -211,4 +211,18 @@ export const BESTIARY_DATA_S2: BestiaryEntry[] = [
         lastAppearanceEpisode: 68,
         type: 'Humanoid'
     },
+    {
+        name: "Undead Skeletons (Titanic)",
+        description: "Skeletal archers found swarming the derelict RMS Titanic. They attack in coordinated hordes from multiple levels, overwhelming intruders with a barrage of arrows.",
+        firstAppearanceEpisode: 69,
+        lastAppearanceEpisode: 71,
+        type: 'Monster'
+    },
+    {
+        name: "Zombie Pigmen (Titanic)",
+        description: "Grotesque, pig-like humanoids wielding golden swords. They are formidable melee combatants found alongside skeletons in the ship's industrial chasm.",
+        firstAppearanceEpisode: 71,
+        lastAppearanceEpisode: 71,
+        type: 'Humanoid'
+    },
 ];

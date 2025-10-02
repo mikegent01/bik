@@ -4,7 +4,7 @@ import { FactionDetail, CharacterFaction } from './types';
 export const FACTIONS_DATA: FactionDetail[] = [
     {
         name: CharacterFaction.PROTAGONISTS,
-        description: "The core group of players at the center of the story, also known as the 'Mega X Fishing' team. Their goals shifted from vengeance to survival in the backrooms, and now, to arming themselves against manipulative 'allies' in the real world. After being led into a trap by a double agent, they are now caught in a brutal cycle of death at their church sanctuary, repeatedly unable to overcome the overwhelming force of super-durable Mega X Army soldiers.",
+        description: "The core group of players, also known as the 'Mega X Fishing' team. Their goals shifted from vengeance to survival after being trapped in the backrooms. After escaping, their journey through the outside world devolved into a chaotic spiral of self-sabotage and betrayal. At the end of Season 2, the team is shattered: Mike and EighthHalo are adrift at sea, Grape has been abandoned on a sinking ship, and Kymar is still missing.",
         members: ["Grape (The Leader)", "Kymar (The Sergeant)", "Mike (The Narrator)", "Catgirl Noone", "Domonic Nat", "DZ The Great", "Jerome", "Meowbahh", "Ratman", "Saul Goodnyan", "EighthHalo", "El muchacho"]
     },
     {

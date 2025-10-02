@@ -12,8 +12,8 @@ export const SEASONS_DATA: Season[] = [
   {
     seasonNumber: 2,
     title: "The Authority",
-    episodeCount: 34,
-    summary: "Ejected from the backrooms into a hostile new world, the team's journey continues through a snowy, post-apocalyptic landscape. They face new factions, suffer betrayals, and are hunted by mysterious forces. Their path leads them to the colossal 'Great Wall of Canada,' where they are trapped in a disorienting loop that shatters their sanity. Upon escaping, the world itself transforms, thrusting them into a primitive, frozen wilderness where they must fight monstrous new creatures to survive.",
-    status: 'Ongoing'
+    episodeCount: 40,
+    summary: "Ejected from the backrooms into a hostile new world, the team's journey is a chaotic spiral of destruction and betrayal. From obliterating a city controlled by 'The Authority' to being hunted by new factions and monstrous creatures, their path leads them to the colossal 'Great Wall of Canada,' where a disorienting trap shatters their sanity. After a surreal world-shift thrusts them into a primitive frozen wilderness, they escape aboard a luxury liner that drives them to paranoid infighting. The season culminates in a series of self-sabotages, the destruction of multiple ships (including the Titanic), and a desperate escape that leaves them adrift at sea, with one member presumed dead and another still missing.",
+    status: 'Concluded'
   }
 ];

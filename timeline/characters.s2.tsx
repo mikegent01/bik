@@ -3,11 +3,11 @@ import { Character, CharacterFaction } from './types';
 export const CHARACTER_DATA_S2: Character[] = [
     {
         name: "EighthHalo (Jack)",
-        description: "A player with a penchant for massive explosives. After a brief but violent turn as an antagonist, he has rejoined the team. His allegiance and mental state remain highly questionable, highlighted by his bizarre consumption of a bar of soap, which preceded a violent massacre of innocent passengers aboard the S.S. Titanic.",
+        description: "A player with a penchant for massive explosives. After a brief but violent turn as an antagonist, he has rejoined the team. His allegiance and mental state remain highly questionable, highlighted by his bizarre consumption of a bar of soap, which preceded a violent massacre, and his decision to blow up the team's own ship as an 'escape plan.' This culminated in him rigging the Titanic's engine room and helping lead the frantic escape from their sinking ship. He is last seen adrift in the lifeboat with Mike.",
         faction: CharacterFaction.PROTAGONISTS,
         importance: 3,
         firstAppearanceEpisode: 33,
-        lastAppearanceEpisode: 68,
+        lastAppearanceEpisode: 72,
     },
     {
         name: "Reese (bestyrelse)",
@@ -232,5 +232,29 @@ export const CHARACTER_DATA_S2: Character[] = [
         importance: 1,
         firstAppearanceEpisode: 60,
         lastAppearanceEpisode: 60,
+    },
+    {
+        name: "Captain_Schmitty",
+        description: "The salty, no-nonsense captain of the vessel that transports the team after they escape the frozen wilderness. He agrees to help them on their quest, guiding them to the mysterious RMS Titanic.",
+        faction: CharacterFaction.ALLIES,
+        importance: 1,
+        firstAppearanceEpisode: 69,
+        lastAppearanceEpisode: 70,
+    },
+    {
+        name: "The Guide (Canadian)",
+        description: "A mysterious Canadian tour guide dressed entirely in black with a peculiar mask. He was captured and held aboard the RMS Titanic before being rescued by the team.",
+        faction: CharacterFaction.ALLIES,
+        importance: 1,
+        firstAppearanceEpisode: 69,
+        lastAppearanceEpisode: 70,
+    },
+    {
+        name: "Cat (The Talking Dog)",
+        description: "A giant, talking dog who, for some reason, is named Cat. He was captured alongside the Canadian tour guide and held aboard the RMS Titanic before being rescued.",
+        faction: CharacterFaction.ALLIES,
+        importance: 1,
+        firstAppearanceEpisode: 69,
+        lastAppearanceEpisode: 70,
     },
 ];

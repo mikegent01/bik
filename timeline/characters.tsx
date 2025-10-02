@@ -6,15 +6,15 @@ const CHARACTER_DATA_S1: Character[] = [
   // PROTAGONISTS
   {
     name: "Grape (The Leader)",
-    description: "The group's erratic leader (player name 'thunderhead'), also known as 'thaumaturgy'. In a prequel event, acting under the alias 'break,' he single-handedly defeated Bloodless during a hostile board meeting takeover by tricking him into drinking potent 'grape alcohol juice.' He is the channel's 'art director' but uses amnesia to avoid showing art. Lore suggests he fought a bear with 'bear shaped hands' and ate BTS tickets. After escaping the backrooms, he is found praying in a church.",
+    description: "The group's erratic leader (player name 'thunderhead'), also known as 'thaumaturgy'. In a prequel event, acting under the alias 'break,' he single-handedly defeated Bloodless during a hostile board meeting takeover by tricking him into drinking potent 'grape alcohol juice.' He is the channel's 'art director' but uses amnesia to avoid showing art. Lore suggests he fought a bear with 'bear shaped hands' and ate BTS tickets. After escaping the backrooms, he is found praying in a church. He was left behind during the chaotic escape from the sinking luxury liner in episode 72.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 68
+    lastAppearanceEpisode: 72
   },
   {
     name: "Kymar (The Sergeant)",
-    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. After being presumed unconscious following a zombie attack, he makes contact with the team via radio from an unknown location, confirming he is alive.",
+    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. He makes contact with the team via radio from an unknown location, confirming he is alive, but he remains missing at the conclusion of Season 2.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
@@ -22,11 +22,11 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "Mike (The Narrator)",
-    description: "The group's narrator and strategist, also known as 'Mikegent'. Lore confirms he is the #1 fisherman on the channel, though he is sensitive about his weight and has been through many failed romantic relationships. With Kymar, he created a comic strip called 'Catgirl Adventures.' After escaping the backrooms, he overhears the priest's plot.",
+    description: "The group's narrator and strategist, also known as 'Mikegent'. Lore confirms he is the #1 fisherman on the channel, though he is sensitive about his weight and has been through many failed romantic relationships. With Kymar, he created a comic strip called 'Catgirl Adventures.' After escaping the backrooms, he survives the chaotic events of Season 2 and is last seen adrift in a lifeboat in a stormy sea with EighthHalo.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 68
+    lastAppearanceEpisode: 72
   },
   {
     name: "Domonic Nat",

@@ -45,6 +45,12 @@ const KEY_ITEMS_DATA_S1: KeyItem[] = [
         firstAppearanceEpisode: 29,
         lastAppearanceEpisode: 31
     },
+    {
+        name: "Lifeboat Key",
+        description: "A crucial golden key needed to launch the lifeboats from the sinking luxury liner. After a frantic, underwater search through flooded cabins, it was found under a bed, allowing the team's narrow escape.",
+        firstAppearanceEpisode: 72,
+        lastAppearanceEpisode: 72
+    },
 ];
 
 export const KEY_ITEMS_DATA: KeyItem[] = [...KEY_ITEMS_DATA_S1, ...KEY_ITEMS_DATA_S2];

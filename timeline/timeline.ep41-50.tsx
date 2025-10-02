@@ -232,7 +232,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 45,
-        date: "February 25, 2021",
+        date: "February 26, 2021",
         category: 'Exploration',
     },
     {
@@ -244,7 +244,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 45,
-        date: "February 25, 2021",
+        date: "February 27, 2021",
         category: 'Discovery',
     },
     {
@@ -256,7 +256,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 45,
-        date: "February 25, 2021",
+        date: "February 27, 2021",
         category: 'Combat',
     },
     {
@@ -268,7 +268,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 46,
-        date: "February 26, 2021",
+        date: "February 28, 2021",
         category: 'Exploration'
     },
     {
@@ -280,7 +280,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 46,
-        date: "February 26, 2021",
+        date: "February 28, 2021",
         category: 'Discovery'
     },
     {
@@ -292,7 +292,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 46,
-        date: "February 26, 2021",
+        date: "February 28, 2021",
         category: 'Trap'
     },
     {
@@ -305,7 +305,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 46,
-        date: "February 27, 2021",
+        date: "March 1, 2021",
         category: 'Exploration'
     },
     {
@@ -317,7 +317,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 46,
-        date: "February 27, 2021",
+        date: "March 1, 2021",
         category: 'Betrayal'
     },
     {
@@ -329,7 +329,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 47,
-        date: "February 28, 2021",
+        date: "March 3, 2021",
         category: 'Character'
     },
     {
@@ -341,7 +341,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 47,
-        date: "February 28, 2021",
+        date: "March 3, 2021",
         category: 'Combat'
     },
     {
@@ -353,7 +353,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 47,
-        date: "February 28, 2021",
+        date: "March 4, 2021",
         category: 'Betrayal'
     },
     {
@@ -365,7 +365,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 47,
-        date: "February 28, 2021",
+        date: "March 4, 2021",
         category: 'Discovery',
     },
     {
@@ -377,7 +377,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 48,
-        date: "March 1, 2021",
+        date: "March 5, 2021",
         category: 'Character',
     },
     {
@@ -389,7 +389,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 48,
-        date: "March 1, 2021",
+        date: "March 5, 2021",
         category: 'Lore',
     },
     {
@@ -401,7 +401,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 48,
-        date: "March 1, 2021",
+        date: "March 5, 2021",
         category: 'Combat',
     },
     {
@@ -413,7 +413,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 49,
-        date: "March 2, 2021",
+        date: "March 7, 2021",
         category: 'Mission'
     },
     {
@@ -426,7 +426,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 49,
-        date: "March 2, 2021",
+        date: "March 8, 2021",
         category: 'Exploration'
     },
     {
@@ -438,7 +438,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 49,
-        date: "March 2, 2021",
+        date: "March 8, 2021",
         category: 'Combat'
     },
     {
@@ -450,7 +450,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 49,
-        date: "March 2, 2021",
+        date: "March 8, 2021",
         category: 'Character'
     },
     {
@@ -462,7 +462,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 50,
-        date: "March 3, 2021",
+        date: "March 10, 2021",
         category: 'Discovery',
     },
     {
@@ -474,7 +474,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 50,
-        date: "March 3, 2021",
+        date: "March 10, 2021",
         category: 'Character',
     },
     {
@@ -486,7 +486,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 50,
-        date: "March 3, 2021",
+        date: "March 10, 2021",
         category: 'Betrayal',
     },
     {
@@ -499,7 +499,7 @@ export const TIMELINE_DATA_EP41_50: TimelineEvent[] = [
             </svg>
         ),
         episode: 50,
-        date: "March 3, 2021",
+        date: "March 10, 2021",
         category: 'Climax',
     },
 ];
