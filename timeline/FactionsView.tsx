@@ -18,7 +18,7 @@ const FactionCard: React.FC<{ faction: FactionDetail }> = ({ faction }) => {
                 <h4 className="font-semibold text-slate-300 mb-3">Key Members:</h4>
                 <div className="flex flex-wrap gap-2">
                     {faction.members.map(member => (
-                        <span key={member} className="bg-slate-700 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">
+                        <span key={member} className="bg-zinc-800 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">
                             {member}
                         </span>
                     ))}

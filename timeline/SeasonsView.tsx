@@ -15,7 +15,7 @@ const SeasonCard: React.FC<{ season: Season }> = ({ season }) => {
                     <span className={`text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap ${statusColor}`}>
                         {season.status.toUpperCase()}
                     </span>
-                    <span className="bg-slate-700 text-slate-300 text-sm font-semibold px-3 py-1 rounded-full whitespace-nowrap">
+                    <span className="bg-zinc-800 text-slate-300 text-sm font-semibold px-3 py-1 rounded-full whitespace-nowrap">
                         {season.episodeCount} EPISODES
                     </span>
                 </div>

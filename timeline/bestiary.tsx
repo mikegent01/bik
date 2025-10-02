@@ -1,6 +1,6 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { BestiaryEntry } from './types';
-import { BESTIARY_DATA_S2 } from './season2Data';
+import { BESTIARY_DATA_S2 } from './bestiary.s2';
 
 const BESTIARY_DATA_S1: BestiaryEntry[] = [
     {

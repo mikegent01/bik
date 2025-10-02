@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { View } from './types';
 
@@ -17,8 +15,8 @@ const NavItem: React.FC<{
 }> = ({ label, view, activeView, onClick, icon }) => {
   const isActive = activeView === view;
   const baseClasses = "flex items-center w-full text-left px-4 py-3 rounded-lg transition-colors duration-200";
-  const activeClasses = "bg-slate-700 text-white font-semibold";
-  const inactiveClasses = "text-slate-300 hover:bg-slate-700/50 hover:text-white";
+  const activeClasses = "bg-lime-600 text-white font-semibold";
+  const inactiveClasses = "text-zinc-200 hover:bg-zinc-800/60 hover:text-white";
 
   return (
     <button
@@ -36,7 +34,7 @@ const NavItem: React.FC<{
 const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView }) => {
   return (
     <aside className="md:w-64 md:flex-shrink-0">
-      <nav className="flex flex-row overflow-x-auto md:overflow-x-visible md:flex-col gap-2 p-2 bg-slate-800 rounded-lg border border-slate-700">
+      <nav className="flex flex-row overflow-x-auto md:overflow-x-visible md:flex-col gap-2 p-2 bg-zinc-900/50 backdrop-blur-sm rounded-lg border border-zinc-800">
         <NavItem
           label="Mission Timeline"
           view={View.TIMELINE}
@@ -45,6 +43,17 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView }) => {
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          }
+        />
+        <NavItem
+          label="Calendar"
+          view={View.CALENDAR}
+          activeView={activeView}
+          onClick={setActiveView}
+          icon={
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           }
         />

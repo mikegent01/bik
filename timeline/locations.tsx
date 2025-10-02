@@ -1,6 +1,6 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { Location } from './types';
-import { LOCATIONS_DATA_S2 } from './season2Data';
+import { LOCATIONS_DATA_S2 } from './locations.s2';
 
 const LOCATIONS_DATA_S1: Location[] = [
   {
@@ -293,9 +293,9 @@ const LOCATIONS_DATA_S1: Location[] = [
   {
     id: 'church',
     name: "The Church",
-    description: "A church first seen early in the adventure. Initially run by the silent Faceless, it later becomes a temporary shelter in the warzone. It is now run by a manipulative priest who gives the team a suicide mission and conspires to have them eliminated.",
+    description: "A derelict church that serves as a recurring location. Once a shelter in the warzone run by a manipulative priest, it becomes a fortified sanctuary against a zombie horde in Season 2, where the team fights a skeletal boss on the roof.",
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 32
+    lastAppearanceEpisode: 51
   },
   {
     id: 'sky_highway',

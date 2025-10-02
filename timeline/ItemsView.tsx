@@ -8,7 +8,7 @@ const ItemCard: React.FC<{ item: KeyItem }> = ({ item }) => {
         <Card>
             <div className="flex justify-between items-center mb-2">
                 <h3 className="font-semibold text-lg text-white mr-4">{item.name}</h3>
-                <span className="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">
+                <span className="bg-zinc-800 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">
                     EPISODE {item.firstAppearanceEpisode}
                 </span>
             </div>

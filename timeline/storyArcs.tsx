@@ -1,7 +1,7 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import React from 'react';
 import { StoryArc } from './types';
-import { STORY_ARCS_DATA_S2 } from './season2Data';
+import { STORY_ARCS_DATA_S2 } from './storyArcs.s2';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div className="mt-4">
@@ -17,6 +17,14 @@ const ListItem: React.FC<{ title: string; children: React.ReactNode }> = ({ titl
 );
 
 const STORY_ARCS_DATA_S1: StoryArc[] = [
+    {
+        title: "Prequel: The Biodome Infiltration",
+        episodeRange: "Episode 60 (Flashback)",
+        summary: "In a flashback to a past mission, the team infiltrates a massive Mega X biodome facility. After a chaotic helicopter landing, they knock out researchers to create makeshift disguises and proceed via a dangerous minecart system. The journey takes them from a lush forest biome, through sterile tunnels, and into a vast, artificial desert, revealing the scale and strangeness of Mega X's operations before the events of Season 1.",
+        characterDevelopments: [
+            { characterName: "The Team", development: "Showcases their early, more reckless infiltration tactics, relying on brute force, flimsy disguises, and chaotic plans. Their dynamic is established as they navigate the bizarre, high-tech facility." },
+        ]
+    },
     {
         title: "Lore: The Board Meeting Hijacking",
         episodeRange: "Prologue",

@@ -1,94 +1,10 @@
+
 import React from 'react';
-// FIX: Corrected import path for types to './types' to match the flat project structure.
 import { TimelineEvent } from './types';
 
 const iconClass = "h-6 w-6 text-slate-300";
 
-export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
-    {
-        title: "LXXXVIII. The Impostor's Betrayal",
-        description: "The strange saga of the two Jeremys concludes when an impostor version shoots and kills Mike. The team is then guided by the other Jeremy to a teleporter, which transports them to the sterile, watery poolrooms to deliver the quest items.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Betrayal',
-    },
-    {
-        title: "LXXXIX. Delivery to the Troll",
-        description: "In the poolrooms, the team finds a shop stall run by 'Lando,' the troll from their quest. Kymar delivers all the bizarre scavenger hunt items, finally completing the long and arduous task.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l.383-1.437M7.5 14.25L5.106 5.165A2.25 2.25 0 0 0 2.868 3H2.25m5.25 9h11.218M15 15.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Mission',
-    },
-    {
-        title: "XC. The Troll's Trap",
-        description: "Instead of a reward, the troll betrays them. The shop goes into lockdown, alarms blare, and a massive spiked plate descends from the ceiling, crushing and killing Kymar instantly.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Betrayal',
-    },
-    {
-        title: "XCI. The Disorienting Chase",
-        description: "Mike and a respawned Kymar are forced into a chaotic chase after the troll through a maze of identical corridors and flashing doors. The troll uses flashbang effects to stun them before leading them to a final teleporter, ending their backrooms journey in a flash of white light.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.667 0l3.181-3.183m-4.991-2.691v4.992" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Climax',
-    },
-    {
-        title: "XCII. Escape to a Warzone",
-        description: "The teleporter forcibly ejects the team from the backrooms, returning them to Mega X's Castle—now a ruined warzone. Stripped of all their items, they have a horrifying realization: they forgot No One and left him behind.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v3.75m10.5 0v3.75m-10.5-3.75v3.75m10.5 0v3.75A2.25 2.25 0 0 1 13.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m10.5 0-3-3m-3 3 3-3m-3-3.75 3 3m-3-3-3 3" />
-            </svg>
-        ),
-        episode: 32,
-        date: "November 21, 2020",
-        category: 'Climax',
-    },
-    {
-        title: "XCIII. The Suicide Mission & The Conspiracy",
-        description: "Seeking shelter, the group finds a church run by a new priest who offers a quest to pillage a village. Eavesdropping reveals the quest is a setup, and Jeremy has been ordered to execute them once they've served their purpose.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0V3.75m0 16.5" />
-            </svg>
-        ),
-        episode: 32,
-        date: "November 21, 2020",
-        category: 'Betrayal',
-    },
-     {
-        title: "XCIV. A New Objective: Survive and Prepare",
-        description: "Furious but unarmed, the group decides against immediate retaliation. Their new, secret objective is to play along, using the village raid as a cover to find weapons and supplies for the inevitable betrayal, ending Season 1 on a tense cliffhanger.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-        ),
-        episode: 32,
-        date: "November 21, 2020",
-        category: 'Mission',
-    },
+export const TIMELINE_DATA_S2: TimelineEvent[] = [
     {
         title: "XCV. A New Season, A New World",
         description: "After a two-and-a-half-month timeskip, Season 2 begins. The team is driving through a snowy, post-apocalyptic city when they are beset by hostile mobs, forcing them to find weapons to survive in the hostile new world.",
@@ -99,7 +15,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
-        category: 'Mission',
     },
     {
         title: "XCVI. The Weapons Cache & The Trap",
@@ -111,7 +26,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
-        category: 'Discovery',
     },
     {
         title: "XCVII. Capture & Imprisonment",
@@ -123,7 +37,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
-        category: 'Character',
     },
     {
         title: "XCVIII. The Disastrous Prison Break",
@@ -136,7 +49,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
-        category: 'Combat',
     },
     {
         title: "XCIX. The City-Destroying Explosion",
@@ -149,7 +61,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 34,
         date: "February 11, 2021",
-        category: 'Climax',
     },
     {
         title: "C. The Aftermath and a Lone Survivor",
@@ -161,7 +72,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 34,
         date: "February 11, 2021",
-        category: 'Discovery',
     },
     {
         title: "CI. The Secret SCP Facility",
@@ -173,7 +83,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 34,
         date: "February 12, 2021",
-        category: 'Exploration',
     },
     {
         title: "CII. Ambush on the Highway",
@@ -185,7 +94,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 35,
         date: "February 13, 2021",
-        category: 'Combat',
     },
     {
         title: "CIII. Journey to the Ruined City",
@@ -197,7 +105,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 35,
         date: "February 13, 2021",
-        category: 'Exploration',
     },
     {
         title: "CIV. The Plane Crash",
@@ -210,7 +117,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 35,
         date: "February 13, 2021",
-        category: 'Climax',
     },
     {
         title: "CV. Disorientation and a Fateful Shot",
@@ -223,7 +129,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
-        category: 'Combat',
     },
     {
         title: "CVI. Confrontation with Reese",
@@ -235,7 +140,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
-        category: 'Lore',
     },
     {
         title: "CVII. A Fragile Alliance and a Sudden Explosion",
@@ -248,7 +152,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
-        category: 'Betrayal',
     },
     {
         title: "CVIII. Unresolved Standoff",
@@ -260,7 +163,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
-        category: 'Character',
     },
     {
         title: "CIX. The Flooded Tunnel Trap",
@@ -272,7 +174,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 37,
         date: "February 15, 2021",
-        category: 'Betrayal',
     },
     {
         title: "CX. The Voiceless Miner",
@@ -284,7 +185,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 37,
         date: "February 15, 2021",
-        category: 'Character',
     },
     {
         title: "CXI. Total Annihilation",
@@ -297,7 +197,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 37,
         date: "February 15, 2021",
-        category: 'Climax',
     },
     {
         title: "CXII. The Horde on the Hill",
@@ -309,20 +208,18 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 38,
         date: "February 16, 2021",
-        category: 'Combat',
     },
     {
         title: "CXIII. The Golden Cave",
         description: "Thunderhead respawns in a nearby cave system. While gathering basic resources, they save a friendly miner and discover a massive vein of gold ore, but realize they need an iron pickaxe to mine it.",
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.34 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.895.15c.542.09.94.56.94 1.11v1.093c0 .55-.398 1.02-.94 1.11l-.895.149c-.425.07-.765.383-.93.78-.164.398-.142.854.108 1.204l.527.738c.32.447.27.96-.12 1.45l-.773.773a1.125 1.125 0 0 1-1.45.12l-.737-.527c-.35-.25-.806-.272-1.204-.108-.397.165-.71.505-.78.93l-.15.895c-.09.542-.56.94-1.11.94h-1.093c-.55 0-1.02-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.855-.142-1.205.108l-.737.527a1.125 1.125 0 0 1-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272.806.108-1.204-.165-.397-.505.71-.93.78l-.895-.15c-.542-.09-.94-.56-.94-1.11v-1.093c0 .55.398 1.02.94 1.11l.895-.149c.425-.07.765-.383.93-.78.164-.398.142-.854-.108-1.204l-.527-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.806.272 1.204.108.397-.165.71-.505.78-.93l.15-.895Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.34 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.895.15c.542.09.94.56.94 1.11v1.093c0 .55-.398 1.02-.94 1.11l-.895.149c-.425.07-.765.383-.93.78-.164.398-.142.854.108 1.204l.527.738c.32.447.27.96-.12 1.45l-.773.773a1.125 1.125 0 0 1-1.45.12l-.737-.527c-.35-.25-.806-.272-1.204-.108-.397.165-.71.505-.78.93l-.15.895c-.09.542-.56.94-1.11.94h-1.093c-.55 0-1.02-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.855-.142-1.205.108l-.737.527a1.125 1.125 0 0 1-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.505.71-.93.78l-.895-.15c-.542-.09-.94-.56-.94-1.11v-1.093c0 .55.398 1.02.94 1.11l.895-.149c.425-.07.765-.383.93-.78.164-.398.142-.854-.108-1.204l-.527-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.806.272 1.204.108.397-.165.71-.505.78-.93l.15-.895Z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
         ),
         episode: 38,
         date: "February 16, 2021",
-        category: 'Discovery',
     },
     {
         title: "CXIV. Trapped Below",
@@ -334,7 +231,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 38,
         date: "February 16, 2021",
-        category: 'Exploration',
     },
     {
         title: "CXV. The Church Siege",
@@ -346,7 +242,6 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 39,
         date: "February 17, 2021",
-        category: 'Combat',
     },
     {
         title: "CXVI. The Failed Ambush",
@@ -358,6 +253,39 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 40,
         date: "February 18, 2021",
-        category: 'Climax',
+    },
+    {
+        title: "CXVII. The Ambush and the Traitor",
+        description: "After regrouping in the church, the team's attempt to ambush a lone Mega X soldier backfires, leading to a larger skirmish. They find the main bridge destroyed and meet a worker, plattealle, who reveals he was forced to betray them by the 'Mega X Crew.'",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+            </svg>
+        ),
+        episode: 41,
+        date: "February 19, 2021",
+    },
+    {
+        title: "CXVIII. The Golden Bribe",
+        description: "With their escape route cut off, the team strikes a deal with the reluctant traitor. They give him a valuable golden sword as payment for his help in finding another way out of the city.",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+            </svg>
+        ),
+        episode: 41,
+        date: "February 19, 2021",
+    },
+    {
+        title: "CXIX. Betrayal on the Water",
+        description: "Plattealle leads them to an amphibious boat. As they speed across the water at night, smoke billows from the engine. Seizing his chance, plattealle leaps overboard, abandoning them on the runaway vessel as it careens towards a distant, unknown city.",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 3.75 8.25 10.5 12.75 17.25 17.25 10.5 12.75 3.75Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c-4.97 0-9-4.03-9-9S7.03 3 12 3s9 4.03 9 9-4.03 9-9 9Z" />
+            </svg>
+        ),
+        episode: 41,
+        date: "February 19, 2021",
     },
 ];

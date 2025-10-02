@@ -1,6 +1,6 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { Character, CharacterFaction } from './types';
-import { CHARACTER_DATA_S2 } from './season2Data';
+import { CHARACTER_DATA_S2 } from './characters.s2';
 
 const CHARACTER_DATA_S1: Character[] = [
   // PROTAGONISTS
@@ -10,15 +10,15 @@ const CHARACTER_DATA_S1: Character[] = [
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 32
+    lastAppearanceEpisode: 60
   },
   {
     name: "Kymar (The Sergeant)",
-    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind.",
+    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'), also known as 'kkkema'. Lore states he has a fear of heights and his favorite animal is a Shiba Inu. He has a more powerful 'true form' represented by an anime catgirl. After being killed by the troll's trap and escaping the backrooms, he realizes they left No One behind. He remains unconscious following the zombie horde attack on the hill.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 32
+    lastAppearanceEpisode: 60
   },
   {
     name: "Mike (The Narrator)",
@@ -26,7 +26,7 @@ const CHARACTER_DATA_S1: Character[] = [
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 32
+    lastAppearanceEpisode: 60
   },
   {
     name: "Domonic Nat",
@@ -143,7 +143,7 @@ const CHARACTER_DATA_S1: Character[] = [
     faction: CharacterFaction.ANTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 2,
-    lastAppearanceEpisode: 25
+    lastAppearanceEpisode: 35
   },
     {
     name: "Priest swimeonkim26",
@@ -227,7 +227,7 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "Gus Fring",
-    description: "A member of the rival Mega X team, represented by his actor from Breaking Bad. The narrators refuse to comment on him.",
+    description: "A member of the rival Mega X team, represented by his actor from Breaking Bad. He is featured in the 'Versus' lore videos but has not yet appeared in the main campaign.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 1,
     firstAppearanceEpisode: 0,

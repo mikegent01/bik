@@ -99,7 +99,7 @@ const WorldMapView: React.FC = () => {
     const selectedNode = selectedId ? nodeById.get(selectedId) ?? null : null;
 
     return (
-      <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm p-4">
         {!nodes.length ? (
           <div className="text-slate-400">{emptyMessage}</div>
         ) : (
@@ -107,7 +107,7 @@ const WorldMapView: React.FC = () => {
             <svg
               width={svgSize.width}
               height={svgSize.height}
-              className="bg-slate-900 rounded-md"
+              className="bg-zinc-950/70 rounded-md"
               role="img"
               aria-label={ariaLabel}
             >
@@ -126,7 +126,7 @@ const WorldMapView: React.FC = () => {
                     y1={from.y}
                     x2={to.x}
                     y2={to.y}
-                    stroke={isConnected ? '#93c5fd' : '#475569'}
+                    stroke={isConnected ? '#a3e635' : '#3f3f46'}
                     strokeWidth={isConnected ? 3 : 2}
                     strokeLinecap="round"
                   />
@@ -144,8 +144,8 @@ const WorldMapView: React.FC = () => {
                   >
                     <circle
                       r={18}
-                      fill={isSelected ? '#2563eb' : '#334155'}
-                      stroke={isSelected ? '#93c5fd' : '#64748b'}
+                      fill={isSelected ? '#65a30d' : '#27272a'}
+                      stroke={isSelected ? '#a3e635' : '#3f3f46'}
                       strokeWidth={isSelected ? 3 : 2}
                     />
                     <text
@@ -181,7 +181,7 @@ const WorldMapView: React.FC = () => {
                 </p>
               </div>
               <div className="md:col-span-1">
-                <div className="rounded-md border border-slate-700 bg-slate-900 p-3">
+                <div className="rounded-md border border-zinc-800 bg-zinc-950/70 p-3">
                   <h3 className="text-lg font-semibold text-white">Selected Node</h3>
                   {!selectedNode ? (
                     <p className="text-slate-400 mt-2">No node selected.</p>
@@ -224,7 +224,7 @@ const WorldMapView: React.FC = () => {
           title="Campaign Setting: Northern USA"
           subtitle="A high-level overview of the campaign's geographical setting."
         />
-        <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm p-4">
           <ProvinceMap />
         </div>
       </section>
@@ -276,7 +276,7 @@ const WorldMapView: React.FC = () => {
           title="World Map"
           subtitle="Known locations across the campaign and their episode ranges."
         />
-        <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm p-4">
           {!locations.length ? (
             <div className="text-slate-400">
               Unable to load locations. Please ensure locations.tsx exports LOCATIONS_DATA correctly.
@@ -286,7 +286,7 @@ const WorldMapView: React.FC = () => {
               {locations.map((loc) => (
                 <li
                   key={loc.id}
-                  className="rounded-md border border-slate-700 bg-slate-900 p-3"
+                  className="rounded-md border border-zinc-800 bg-zinc-950/70 p-3"
                 >
                   <div className="flex items-start justify-between">
                     <h3 className="text-white font-semibold">{loc.name}</h3>

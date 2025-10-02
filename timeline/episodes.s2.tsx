@@ -1,0 +1,22 @@
+import { EpisodeSummary, PlotImpact } from './types';
+
+export const EPISODES_DATA_S2: EpisodeSummary[] = [
+    // FIX: Added missing 'tags' property.
+    { episode: 33, title: "The Snowy Expedition", summary: "The team arrives in a snowy, ruined city, finds weapons in an old shop, and is immediately ambushed and captured by a new faction, 'The Authority.' A chaotic prison break attempt results in a player's death and a desperate escape.", plotImpact: PlotImpact.MAJOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 34, title: "The Comically Large Missile", summary: "After clearing out the remaining villagers, the team uses a massive, faulty missile that obliterates the entire city—and them. In the aftermath, they discover a lone, powerful survivor from the 'Mega X Army' and investigate a nearby secret facility.", plotImpact: PlotImpact.MAJOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 35, title: "The Ruined City", summary: "After a chaotic skirmish on the highway, the team drives into a ruined city. Their progress is halted by another explosion and the death of their driver. On foot, they witness a plane crash and are confronted by its pilot, 'Reese,' who accuses them of the attack and reveals he knows about their past.", plotImpact: PlotImpact.MAJOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 36, title: "The Traitor's Knowledge", summary: "The team shoots down a plane and confronts its pilot, Reese, who claims to be part of the 'Alpones' PMC and knows about their past. A fragile alliance is shattered by a TNT explosion and a monster ambush, leaving the group in a tense standoff with their new, untrustworthy acquaintance.", plotImpact: PlotImpact.MAJOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 37, title: "Sayonara, Suckers!", summary: "After escaping into a mine, a joke about shooting the ceiling triggers a trap that floods the tunnels and unleashes monsters, killing two members. The survivors escape to the surface and follow a voiceless miner, only to be led into a second, deadlier ambush that results in the complete annihilation of the team.", plotImpact: PlotImpact.MAJOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 38, title: "The Horde and The Hoard", summary: "After respawning, the team is immediately beset by a massive zombie horde. Thunderhead is killed and respawns in a nearby cave system. While gathering resources to recover, he discovers a massive hoard of gold, promising a significant turn in the team's fortunes if they can survive to mine it.", plotImpact: PlotImpact.MINOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 39, title: "The Church Siege", summary: "After a chaotic escape from the zombie-infested caves, the team regroups at a derelict church, only to face a massive horde. A new ally joins their ranks as they fight to secure the rooftop, but their quest for resources leads them to another monster-filled building, ending in a desperate struggle for survival.", plotImpact: PlotImpact.MINOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 40, title: "The Golden Crown", summary: "Inside the church, the team crafts golden gear before attempting a disastrous ambush on a lone, super-durable soldier. Forced into a desperate retreat, their sanctuary is breached by soldiers and zombies, leading to a final, overwhelming assault.", plotImpact: PlotImpact.MINOR, tags: [] },
+    // FIX: Added missing 'tags' property.
+    { episode: 41, title: "The Dealer's Riddle", summary: "The team crashes into a new city and is betrayed by their guide's 'friends.' They make a deal with a bizarre car salesman who, after they fulfill their end of the bargain, tricks them with a riddle and flees with the keys to their escape vehicle, only to be shot and fall into the water below.", plotImpact: PlotImpact.MINOR, tags: [] },
+];

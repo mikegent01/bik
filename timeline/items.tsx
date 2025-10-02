@@ -1,6 +1,6 @@
 // FIX: Corrected import path for types to './types' to match the flat project structure.
 import { KeyItem } from './types';
-import { KEY_ITEMS_DATA_S2 } from './season2Data';
+import { KEY_ITEMS_DATA_S2 } from './items.s2';
 
 const KEY_ITEMS_DATA_S1: KeyItem[] = [
     {

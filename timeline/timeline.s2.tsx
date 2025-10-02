@@ -1,94 +1,9 @@
 import React from 'react';
-// FIX: Corrected import path for types to './types' to match the flat project structure.
 import { TimelineEvent } from './types';
 
 const iconClass = "h-6 w-6 text-slate-300";
 
-export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
-    {
-        title: "LXXXVIII. The Impostor's Betrayal",
-        description: "The strange saga of the two Jeremys concludes when an impostor version shoots and kills Mike. The team is then guided by the other Jeremy to a teleporter, which transports them to the sterile, watery poolrooms to deliver the quest items.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Betrayal',
-    },
-    {
-        title: "LXXXIX. Delivery to the Troll",
-        description: "In the poolrooms, the team finds a shop stall run by 'Lando,' the troll from their quest. Kymar delivers all the bizarre scavenger hunt items, finally completing the long and arduous task.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l.383-1.437M7.5 14.25L5.106 5.165A2.25 2.25 0 0 0 2.868 3H2.25m5.25 9h11.218M15 15.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Mission',
-    },
-    {
-        title: "XC. The Troll's Trap",
-        description: "Instead of a reward, the troll betrays them. The shop goes into lockdown, alarms blare, and a massive spiked plate descends from the ceiling, crushing and killing Kymar instantly.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Betrayal',
-    },
-    {
-        title: "XCI. The Disorienting Chase",
-        description: "Mike and a respawned Kymar are forced into a chaotic chase after the troll through a maze of identical corridors and flashing doors. The troll uses flashbang effects to stun them before leading them to a final teleporter, ending their backrooms journey in a flash of white light.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.667 0l3.181-3.183m-4.991-2.691v4.992" />
-            </svg>
-        ),
-        episode: 31,
-        date: "November 20, 2020",
-        category: 'Climax',
-    },
-    {
-        title: "XCII. Escape to a Warzone",
-        description: "The teleporter forcibly ejects the team from the backrooms, returning them to Mega X's Castle—now a ruined warzone. Stripped of all their items, they have a horrifying realization: they forgot No One and left him behind.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v3.75m10.5 0v3.75m-10.5-3.75v3.75m10.5 0v3.75A2.25 2.25 0 0 1 13.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m10.5 0-3-3m-3 3 3-3m-3-3.75 3 3m-3-3-3 3" />
-            </svg>
-        ),
-        episode: 32,
-        date: "November 21, 2020",
-        category: 'Climax',
-    },
-    {
-        title: "XCIII. The Suicide Mission & The Conspiracy",
-        description: "Seeking shelter, the group finds a church run by a new priest who offers a quest to pillage a village. Eavesdropping reveals the quest is a setup, and Jeremy has been ordered to execute them once they've served their purpose.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0V3.75m0 16.5" />
-            </svg>
-        ),
-        episode: 32,
-        date: "November 21, 2020",
-        category: 'Betrayal',
-    },
-     {
-        title: "XCIV. A New Objective: Survive and Prepare",
-        description: "Furious but unarmed, the group decides against immediate retaliation. Their new, secret objective is to play along, using the village raid as a cover to find weapons and supplies for the inevitable betrayal, ending Season 1 on a tense cliffhanger.",
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-        ),
-        episode: 32,
-        date: "November 21, 2020",
-        category: 'Mission',
-    },
+export const TIMELINE_DATA_S2: TimelineEvent[] = [
     {
         title: "XCV. A New Season, A New World",
         description: "After a two-and-a-half-month timeskip, Season 2 begins. The team is driving through a snowy, post-apocalyptic city when they are beset by hostile mobs, forcing them to find weapons to survive in the hostile new world.",
@@ -99,6 +14,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Mission',
     },
     {
@@ -111,6 +27,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Discovery',
     },
     {
@@ -123,6 +40,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Character',
     },
     {
@@ -136,6 +54,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 33,
         date: "February 10, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Combat',
     },
     {
@@ -149,6 +68,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 34,
         date: "February 11, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Climax',
     },
     {
@@ -161,6 +81,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 34,
         date: "February 11, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Discovery',
     },
     {
@@ -173,6 +94,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 34,
         date: "February 12, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Exploration',
     },
     {
@@ -185,6 +107,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 35,
         date: "February 13, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Combat',
     },
     {
@@ -197,6 +120,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 35,
         date: "February 13, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Exploration',
     },
     {
@@ -210,6 +134,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 35,
         date: "February 13, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Climax',
     },
     {
@@ -223,6 +148,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Combat',
     },
     {
@@ -235,6 +161,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Lore',
     },
     {
@@ -248,6 +175,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Betrayal',
     },
     {
@@ -260,6 +188,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 36,
         date: "February 14, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Character',
     },
     {
@@ -272,6 +201,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 37,
         date: "February 15, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Betrayal',
     },
     {
@@ -284,6 +214,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 37,
         date: "February 15, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Character',
     },
     {
@@ -297,6 +228,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 37,
         date: "February 15, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Climax',
     },
     {
@@ -309,6 +241,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 38,
         date: "February 16, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Combat',
     },
     {
@@ -322,6 +255,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 38,
         date: "February 16, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Discovery',
     },
     {
@@ -334,6 +268,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 38,
         date: "February 16, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Exploration',
     },
     {
@@ -346,6 +281,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 39,
         date: "February 17, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Combat',
     },
     {
@@ -358,6 +294,7 @@ export const TIMELINE_DATA_EP31_40: TimelineEvent[] = [
         ),
         episode: 40,
         date: "February 18, 2021",
+        // FIX: Added missing 'category' property.
         category: 'Climax',
     },
 ];

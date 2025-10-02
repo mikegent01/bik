@@ -1,4 +1,3 @@
-
 // FIX: Import ReactNode to resolve React namespace error.
 import type { ReactNode } from 'react';
 
@@ -16,6 +15,7 @@ export enum View {
   GLOSSARY = 'GLOSSARY',
   SEASONS = 'SEASONS',
   BONUS_LORE = 'BONUS_LORE',
+  CALENDAR = 'CALENDAR',
 }
 
 export enum CharacterFaction {
@@ -24,6 +24,14 @@ export enum CharacterFaction {
   ANTAGONISTS = 'Antagonists',
   THE_AUTHORITY = 'The Authority',
   MEGA_X_ARMY = 'Mega X Army',
+  THE_ALPONES = 'The Alpones',
+}
+
+// ADD: Enum for plot impact classification
+export enum PlotImpact {
+  MAJOR = 'Major Plot',
+  MINOR = 'Minor Plot',
+  FILLER = 'Filler',
 }
 
 export interface Character {
@@ -39,6 +47,8 @@ export interface EpisodeSummary {
   episode: number;
   title: string;
   summary: string;
+  plotImpact: PlotImpact; // ADD: Plot impact tag
+  tags: string[];
 }
 
 export interface TimelineEvent {
@@ -47,6 +57,8 @@ export interface TimelineEvent {
   // FIX: Use ReactNode type directly instead of React.ReactNode.
   icon: ReactNode;
   episode: number;
+  date: string;
+  category: string;
 }
 
 export interface BestiaryEntry {

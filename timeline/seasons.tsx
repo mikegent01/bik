@@ -12,7 +12,7 @@ export const SEASONS_DATA: Season[] = [
   {
     seasonNumber: 2,
     title: "The Authority",
-    episodeCount: 2,
+    episodeCount: 8,
     summary: "The team's journey continues in a snowy, post-apocalyptic city controlled by a new, well-armed faction known as 'The Authority.' After finding weapons, they are quickly identified as intruders, captured, and thrown into a prison. A chaotic and ill-fated escape attempt results in a player's death and a desperate flight from their new, powerful enemies.",
     status: 'Ongoing'
   }
