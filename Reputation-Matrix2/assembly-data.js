@@ -3,140 +3,116 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
-// --- FIVE KNIGHTS AT FREDDY'S: Breaking Thread ---
-    {
-        id: 'wah_five_knights_breaking_1',
-        order: 1000006,
-        characterKey: 'wah_media_collective',
-        timestamp: '15 minutes ago',
-        content: `DISCOVERY: The "Five Knights" legend is no mere tavern tale. Newly translated court ledgers confirm a real event: a disastrous coronation festival. A court herald, attempting to calm the crowd, reportedly said, "The first night with the automatons is always the most… unpredictable." He never finished his sentence.`,
-        likes: 188,
-        comments: [
-            { characterKey: 'detective_penny', text: `A 'real event'? Cross-referencing with cold case files now. Interesting.` }
-        ]
-    },
-    {
-        id: 'wah_five_knights_breaking_2',
-        order: 1000005,
-        characterKey: 'wah_media_collective',
-        timestamp: '12 minutes ago',
-        content: `EVIDENCE: A recovered courier's letter, penned by the festival's chief engineer, provides a chilling warning: "The five suits do tend to wander after dusk. Their gears grind with a life not given by my hand." Our analysis suggests these "knights" were not men in armor, but complex automatons built for a royal pageant.`,
-        likes: 350,
-        comments: [
-            { characterKey: 'janna_brightspark', text: `Automatons with emergent behavior? The engineering must have been revolutionary for its time! I need to see those schematics!` }
-        ]
-    },
-    {
-        id: 'wah_five_knights_breaking_3',
-        order: 1000004,
-        characterKey: 'wah_media_collective',
-        timestamp: '8 minutes ago',
-        content: `THE ARCHITECT: Records point to Lord William, a gifted artisan who lost his heirs and became obsessed with his creations. During the festival, five children went missing. A damning entry in his private journal, recently decoded, reads: "They trust the Gilded Rabbit. I gave them new homes... within the bear, the rabbit, the chicken, the fox, the golden bear. A family reunited."`,
-        likes: 972,
-        comments: [
-            { characterKey: 'queen_bean', text: `This is monstrous. Those poor children.` },
-            { characterKey: 'kamek', text: `A morbidly effective, if crude, form of soul-binding. Impressive.` }
-        ]
-    },
-    {
-        id: 'wah_five_knights_breaking_4',
-        order: 1000003,
-        characterKey: 'wah_media_collective',
-        timestamp: '5 minutes ago',
-        content: `THE HAUNTING: Castle night watch logs become increasingly frantic following the festival. Guards report "whispers from within steel jaws," "suits moving in the dark," and "laughter of children from empty halls." Years later, William attempted to dismantle the five automatons to silence the spirits. It only released them. The watch log for that night ends with a single scrawled word: "everywhere."`,
-        likes: 1400,
-        comments: [
-             { characterKey: 'skull_cap_murphy', text: `See? Nobles are all the same. Don't trust anyone in a fancy suit.` }
-        ]
-    },
-    {
-        id: 'wah_five_knights_breaking_5',
-        order: 1000002,
-        characterKey: 'wah_media_collective',
-        timestamp: '2 minutes ago',
-        content: `THE RECKONING: The final entry in the recovered ledger is from a terrified scribe. Cornered by five apparitions in a sealed room, William donned the old Gilded Rabbit suit for protection. The spring-lock mechanisms, rusted with age and damp, failed catastrophically. The suit became his tomb. His death, the scribe notes, finally brought silence to the castle halls.`,
-        likes: 2500,
-        comments: [
-            { characterKey: 'commander_valerius', text: `A fitting end. His own creation became his undoing. There's a certain... poetry to it.` }
-        ]
-    },
-    {
-        id: 'wah_five_knights_breaking_6',
-        order: 1000001,
-        characterKey: 'wah_media_collective',
-        timestamp: 'Just Now',
-        content: `THE LEGEND: With Lord William's death, the hauntings ceased. The five automatons were sealed away, but the story passed into folklore: a cautionary tale of a mad lord and the five vengeful spirits he created. The legend of the Five Knights was born. Full dossier incoming.`,
-        likes: 890,
-        comments: [
-            { characterKey: 'the_broker', text: `A full dossier, you say? Historical tragedies often have... valuable artifacts associated with them. My inbox is open.` }
-        ]
-    },
 
-    // --- Liberated Toads react (Just Now) ---
+// --- FIVE KNIGHTS AT FREDDY'S: The Waluigi Discovery (Live Event) ---
     {
-        id: 'dan_reacts_five_knights',
-        order: 999999,
-        characterKey: 'dan',
+        id: 'waluigi_finds_manor_1',
+        order: 1000008,
+        characterKey: 'waluigi',
         timestamp: 'Just Now',
-        content: `Those were children. We don’t turn grief into cruelty. We protect the small and the scared. If this is true, we remember their names and we build a world where this never happens again.`,
-        likes: 312,
+        content: `WAH-HA-HA! I have found the PERFECT location for my next magnificent scheme! An old, forgotten manor, dripping with spooky ambiance! I claim this place in the name of Waluigi! Hey @Dan @Roger, look upon my glorious new lair and WEEP!`,
+        likes: 99,
         comments: [
-            { characterKey: 'toad_lee', text: `Well said, brother.` }
+            { characterKey: 'roger', text: `Another crumbling ruin. How original.` }
         ]
     },
     {
-        id: 'toad_lee_reacts_five_knights',
-        order: 999998,
-        characterKey: 'toad_lee',
-        timestamp: 'Just Now',
-        content: `New rule for our code: No masks that hide monsters. If you wear a suit, it’s to defend the weak, not to hunt them. Break this, and you face my axe.`,
-        likes: 255,
-        comments: [
-            { characterKey: 'roger', text: `A good rule. We'll add it to the protocols.` }
-        ]
-    },
-    {
-        id: 'ryan_reacts_five_knights',
-        order: 999997,
-        characterKey: 'ryan',
-        timestamp: 'Just Now',
-        content: `Binding souls to vessels… that’s necromancy crossed with ritual pageantry. If the watch logs are real, the hauntings aren’t superstition—they’re consequence. I’m cataloging the springlock design so we never replicate it.`,
-        likes: 198,
-        comments: []
-    },
-    {
-        id: 'eager_reacts_five_knights',
-        order: 999996,
+        id: 'eager_scouts_manor_2',
+        order: 1000007,
         characterKey: 'eager',
         timestamp: 'Just Now',
-        content: `If a big rabbit suit starts creaking, I’m gone. Map says avoid courtyards with ‘festival armor’ and any place folks say “past dusk.” Not sticking around this time.`,
+        content: `Heading over to the manor @Waluigi is bragging about. Need to see what kind of traps he's setting up. First impressions: this place is huge, dusty, and has a really heavy door. Also, it smells like rust and... something sad.`,
+        likes: 25,
+        comments: [
+            { characterKey: 'toad_lee', text: `Be careful, Eager. His schemes are foolish, but foolish things can still be dangerous.` }
+        ]
+    },
+    {
+        id: 'eager_finds_knights_3',
+        order: 1000006,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `Okay, this is weird. There's a grand hall, set up for a coronation. Five ornate, life-sized pageant suits are on display. Bear, rabbit, chicken, fox... they look like the "Five Knights" from the old ghost story.`,
+        likes: 70,
+        comments: [
+            { characterKey: 'waluigi', text: `See?! Atmosphere! The previous owners had STYLE! WAH!` },
+            { characterKey: 'ryan', text: `Be careful. That legend has a dark history.` }
+        ]
+    },
+    {
+        id: 'eager_finds_ledger_4',
+        order: 1000005,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `Found the chronicle. A big, moldy book on a dais. It's the real record of the Five Knights. I just read the first entry... a herald named Markus Plirius IV was executed mid-sentence. His last words were: "Thine first moon is typically not treacherous—". This isn't a ghost story. It happened right here.`,
         likes: 150,
         comments: [
-            { characterKey: 'bones', text: `Smart move. I'll be right behind you.` }
+            { characterKey: 'roger', text: `Eager, pull back. You're at a historical site, not a hideout. Abort the mission.` }
         ]
     },
     {
-        id: 'roger_reacts_five_knights',
-        order: 999995,
-        characterKey: 'roger',
+        id: 'eager_is_trapped_5',
+        order: 1000004,
+        characterKey: 'eager',
         timestamp: 'Just Now',
-        content: `Posting watch protocols: no single‑guard shifts near masked suits; torches in pairs; whistles in thirds. If gears turn alone, we move together. No heroes. Just procedures.`,
-        likes: 210,
-        comments: [
-             { characterKey: 'colonel_vera_steelstorm', text: `Sound tactical procedure for dealing with an unknown, potentially hostile entity. Efficient.` }
-        ]
-    },
-    {
-        id: 'bones_reacts_five_knights',
-        order: 999994,
-        characterKey: 'bones',
-        timestamp: 'Just Now',
-        content: `Legend says the bear grins when you stop looking. So don’t stop looking. Also, burn the rabbit. Twice.`,
+        content: `Can't. The great hall door just slammed shut. The lock is ancient, I can't move it. The sun is setting outside. The chronicle has another passage, a note from a courier... "Thy fine automatons do tend to become rather eccentric past dusk…" Guys... I think I'm about to find out what that means.`,
         likes: 280,
         comments: [
-            { characterKey: 'waluigi', text: `WAH! Finally, someone with some sense! Burn it! Then burn the ashes! Style!` }
+            { characterKey: 'toad_lee', text: `We are on our way! Find a defensible position!` },
+            { characterKey: 'waluigi', text: `A self-locking door?! WAH-HA-HA! This place is even better than I thought! So dramatic!` }
         ]
     },
+    {
+        id: 'eager_discovers_sin_6',
+        order: 1000003,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `It's getting darker. I hear... whispers. I kept reading. It's about Lord William III. He lost his heirs... and lured five children into this hall. He hid their bodies inside the five suits to conceal his crime. This isn't a tomb for knights. It's a tomb for children.`,
+        likes: 500,
+        comments: [
+            { characterKey: 'dan', text: `That's... monstrous.` },
+            { characterKey: 'ryan', text: `He didn't just hide them. He bound them. Their spiritual energy is powering the hauntings.` }
+        ]
+    },
+    {
+        id: 'eager_witnesses_haunting_7',
+        order: 1000002,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `THEY'RE MOVING. Not walking, just... shifting when I'm not looking. The bear's head is tilted now. The fox is closer. The whispers are turning into giggles. They're not angry at me, they're... playful. It's so much worse. I'm hiding behind the dais.`,
+        likes: 815,
+        comments: [
+            { characterKey: 'bones', text: `Don't let them corner you. Keep moving. They're spirits, but they're still children. Maybe they're just lonely.` },
+            { characterKey: 'roger', text: `We're at the door, Eager. It's solid iron. We're trying to breach!` }
+        ]
+    },
+    {
+        id: 'eager_witnesses_reckoning_8',
+        order: 1000001,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `A ghost just appeared. A man in a golden rabbit suit. Lord William. The five spirits stopped focusing on me and turned to him. They're surrounding him. He looks terrified. He's trying to get into the broken physical golden suit in the corner... maybe to anchor himself? I heard a SNAP. A dozen snaps. The suit collapsed on his spirit, crushing it. It's over. It's silent.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'ryan', text: `Poetic justice. The spring-locks became his eternal prison.` },
+            { characterKey: 'waluigi', text: `Wait, what? Ghosts? Spring-locks? What are you talking about? I just thought the place had good acoustics for an evil laugh... Was this not just a cool, spooky castle?` },
+            { characterKey: 'toad_lee', text: `The door is open.` }
+        ]
+    },
+    {
+        id: 'eager_is_safe_9',
+        order: 1000000,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `I'm out. The team got the door open just as the ghost vanished. The five suits are still again. I think they're at peace. This place is not a lair, it's a memorial. Marking it on the map. Do not enter. Ever.`,
+        likes: 950,
+        comments: [
+            { characterKey: 'dan', text: `Get back to base. We'll stand watch here for the night.` },
+            { characterKey: 'roger', text: `Mission debrief tomorrow. You did good, scout.` },
+            { characterKey: 'toad_lee', text: `@Waluigi. Your carelessness almost got someone killed. The next time you find a "cool, spooky" place, you will report it to us first. This is not a request.` }
+        ]
+    },
+    
     {
         id: 'detective_penny_vigilance_standoff',
         order: 187,
