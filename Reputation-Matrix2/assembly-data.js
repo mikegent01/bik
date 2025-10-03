@@ -70,7 +70,7 @@ export const WAHBOOK_POSTS = [
         content: `It's getting darker. I hear... whispers. I kept reading. It's about Lord William III. He lost his heirs... and lured five children into this hall. He hid their bodies inside the five suits to conceal his crime. This isn't a tomb for knights. It's a tomb for children.`,
         likes: 500,
         comments: [
-            { characterKey: 'dan', text: `That's... monstrous.` },
+            { characterKey: 'toad_lee', text: `That's... monstrous.` },
             { characterKey: 'ryan', text: `He didn't just hide them. He bound them. Their spiritual energy is powering the hauntings.` }
         ]
     },
@@ -107,7 +107,7 @@ export const WAHBOOK_POSTS = [
         content: `I'm out. The team got the door open just as the ghost vanished. The five suits are still again. I think they're at peace. This place is not a lair, it's a memorial. Marking it on the map. Do not enter. Ever.`,
         likes: 950,
         comments: [
-            { characterKey: 'dan', text: `Get back to base. We'll stand watch here for the night.` },
+            { characterKey: 'ryan', text: `Get back to base. We'll stand watch here for the night.` },
             { characterKey: 'roger', text: `Mission debrief tomorrow. You did good, scout.` },
             { characterKey: 'toad_lee', text: `@Waluigi. Your carelessness almost got someone killed. The next time you find a "cool, spooky" place, you will report it to us first. This is not a request.` }
         ]
