@@ -1,0 +1,12 @@
+export const BOOK_DATA = {
+    title: "The Five Knights at Freddy’s",
+    pages: [
+        `The tale of the Five Knights at Freddy’s is one of both coronation and curse, remembered in song, whispers, and the writings of those who did not live to see its end.`,
+        `It began with the crowning of five knights beneath a pale moon, a ceremony meant to symbolize unity and vigilance for the realm. Yet even on that first night, the omens were ill. As Markus Plirius IV declared, “Thine first moon is typically not treacherous—” his words were cut short by the executioner’s blade, a grim sign of the fate awaiting those bound to this legend.`,
+        `Later accounts speak of eerie happenings after dusk. A note from a traveling courier warned: “Thy fine automatons do tend to become rather eccentric past dusk…”—a strange phrasing that has led scholars to wonder if the knights themselves were ever entirely human, or if their souls had already been bound to suits of steel and fur.`,
+        `The central figure of the legend is Lord William III. When both his heirs perished, grief curdled into madness. He lured five children into a hidden chamber, wearing the golden rabbit armor he had fashioned for festivals. There, he struck them down. Terrified of discovery—by serfs who would revolt or by the Inquisition that would execute him—he hid their bodies inside five animal-shaped suits: a bear, a rabbit, a chicken, a fox, and a golden bear.`,
+        `But death did not silence them. Their spirits lingered, restless, tormenting the watchmen assigned to guard the cursed suits. Each night grew worse, until William himself returned to end them fully. He dismantled the suits one by one, believing that destroying their vessels would destroy the souls. Yet the spirits rose again, stronger than before, and their presence drove him into panic.`,
+        `In desperation, William climbed back into the golden rabbit suit—the very armor he had once used to commit his crime. But the years had rusted the joints, warped the plates, and left the interior lined with jagged springs. As he shifted within, the suit collapsed, its sharp edges piercing into him. Impaled by his own creation, the mad lord perished.`,
+        `With his death, the children’s spirits were freed. The cursed Five Knights—bear, rabbit, chicken, fox, and golden bear—faded into legend, remembered not as champions of the crown but as restless echoes of betrayal, revenge, and justice wrought in blood.`
+    ]
+};

@@ -1,9 +1,142 @@
-
 import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
+// --- FIVE KNIGHTS AT FREDDY'S: Breaking Thread ---
+    {
+        id: 'wah_five_knights_breaking_1',
+        order: 1000006,
+        characterKey: 'wah_media_collective',
+        timestamp: '15 minutes ago',
+        content: `DISCOVERY: The "Five Knights" legend is no mere tavern tale. Newly translated court ledgers confirm a real event: a disastrous coronation festival. A court herald, attempting to calm the crowd, reportedly said, "The first night with the automatons is always the most… unpredictable." He never finished his sentence.`,
+        likes: 188,
+        comments: [
+            { characterKey: 'detective_penny', text: `A 'real event'? Cross-referencing with cold case files now. Interesting.` }
+        ]
+    },
+    {
+        id: 'wah_five_knights_breaking_2',
+        order: 1000005,
+        characterKey: 'wah_media_collective',
+        timestamp: '12 minutes ago',
+        content: `EVIDENCE: A recovered courier's letter, penned by the festival's chief engineer, provides a chilling warning: "The five suits do tend to wander after dusk. Their gears grind with a life not given by my hand." Our analysis suggests these "knights" were not men in armor, but complex automatons built for a royal pageant.`,
+        likes: 350,
+        comments: [
+            { characterKey: 'janna_brightspark', text: `Automatons with emergent behavior? The engineering must have been revolutionary for its time! I need to see those schematics!` }
+        ]
+    },
+    {
+        id: 'wah_five_knights_breaking_3',
+        order: 1000004,
+        characterKey: 'wah_media_collective',
+        timestamp: '8 minutes ago',
+        content: `THE ARCHITECT: Records point to Lord William, a gifted artisan who lost his heirs and became obsessed with his creations. During the festival, five children went missing. A damning entry in his private journal, recently decoded, reads: "They trust the Gilded Rabbit. I gave them new homes... within the bear, the rabbit, the chicken, the fox, the golden bear. A family reunited."`,
+        likes: 972,
+        comments: [
+            { characterKey: 'queen_bean', text: `This is monstrous. Those poor children.` },
+            { characterKey: 'kamek', text: `A morbidly effective, if crude, form of soul-binding. Impressive.` }
+        ]
+    },
+    {
+        id: 'wah_five_knights_breaking_4',
+        order: 1000003,
+        characterKey: 'wah_media_collective',
+        timestamp: '5 minutes ago',
+        content: `THE HAUNTING: Castle night watch logs become increasingly frantic following the festival. Guards report "whispers from within steel jaws," "suits moving in the dark," and "laughter of children from empty halls." Years later, William attempted to dismantle the five automatons to silence the spirits. It only released them. The watch log for that night ends with a single scrawled word: "everywhere."`,
+        likes: 1400,
+        comments: [
+             { characterKey: 'skull_cap_murphy', text: `See? Nobles are all the same. Don't trust anyone in a fancy suit.` }
+        ]
+    },
+    {
+        id: 'wah_five_knights_breaking_5',
+        order: 1000002,
+        characterKey: 'wah_media_collective',
+        timestamp: '2 minutes ago',
+        content: `THE RECKONING: The final entry in the recovered ledger is from a terrified scribe. Cornered by five apparitions in a sealed room, William donned the old Gilded Rabbit suit for protection. The spring-lock mechanisms, rusted with age and damp, failed catastrophically. The suit became his tomb. His death, the scribe notes, finally brought silence to the castle halls.`,
+        likes: 2500,
+        comments: [
+            { characterKey: 'commander_valerius', text: `A fitting end. His own creation became his undoing. There's a certain... poetry to it.` }
+        ]
+    },
+    {
+        id: 'wah_five_knights_breaking_6',
+        order: 1000001,
+        characterKey: 'wah_media_collective',
+        timestamp: 'Just Now',
+        content: `THE LEGEND: With Lord William's death, the hauntings ceased. The five automatons were sealed away, but the story passed into folklore: a cautionary tale of a mad lord and the five vengeful spirits he created. The legend of the Five Knights was born. Full dossier incoming.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'the_broker', text: `A full dossier, you say? Historical tragedies often have... valuable artifacts associated with them. My inbox is open.` }
+        ]
+    },
+
+    // --- Liberated Toads react (Just Now) ---
+    {
+        id: 'dan_reacts_five_knights',
+        order: 999999,
+        characterKey: 'dan',
+        timestamp: 'Just Now',
+        content: `Those were children. We don’t turn grief into cruelty. We protect the small and the scared. If this is true, we remember their names and we build a world where this never happens again.`,
+        likes: 312,
+        comments: [
+            { characterKey: 'toad_lee', text: `Well said, brother.` }
+        ]
+    },
+    {
+        id: 'toad_lee_reacts_five_knights',
+        order: 999998,
+        characterKey: 'toad_lee',
+        timestamp: 'Just Now',
+        content: `New rule for our code: No masks that hide monsters. If you wear a suit, it’s to defend the weak, not to hunt them. Break this, and you face my axe.`,
+        likes: 255,
+        comments: [
+            { characterKey: 'roger', text: `A good rule. We'll add it to the protocols.` }
+        ]
+    },
+    {
+        id: 'ryan_reacts_five_knights',
+        order: 999997,
+        characterKey: 'ryan',
+        timestamp: 'Just Now',
+        content: `Binding souls to vessels… that’s necromancy crossed with ritual pageantry. If the watch logs are real, the hauntings aren’t superstition—they’re consequence. I’m cataloging the springlock design so we never replicate it.`,
+        likes: 198,
+        comments: []
+    },
+    {
+        id: 'eager_reacts_five_knights',
+        order: 999996,
+        characterKey: 'eager',
+        timestamp: 'Just Now',
+        content: `If a big rabbit suit starts creaking, I’m gone. Map says avoid courtyards with ‘festival armor’ and any place folks say “past dusk.” Not sticking around this time.`,
+        likes: 150,
+        comments: [
+            { characterKey: 'bones', text: `Smart move. I'll be right behind you.` }
+        ]
+    },
+    {
+        id: 'roger_reacts_five_knights',
+        order: 999995,
+        characterKey: 'roger',
+        timestamp: 'Just Now',
+        content: `Posting watch protocols: no single‑guard shifts near masked suits; torches in pairs; whistles in thirds. If gears turn alone, we move together. No heroes. Just procedures.`,
+        likes: 210,
+        comments: [
+             { characterKey: 'colonel_vera_steelstorm', text: `Sound tactical procedure for dealing with an unknown, potentially hostile entity. Efficient.` }
+        ]
+    },
+    {
+        id: 'bones_reacts_five_knights',
+        order: 999994,
+        characterKey: 'bones',
+        timestamp: 'Just Now',
+        content: `Legend says the bear grins when you stop looking. So don’t stop looking. Also, burn the rabbit. Twice.`,
+        likes: 280,
+        comments: [
+            { characterKey: 'waluigi', text: `WAH! Finally, someone with some sense! Burn it! Then burn the ashes! Style!` }
+        ]
+    },
     {
         id: 'detective_penny_vigilance_standoff',
         order: 187,
@@ -349,7 +482,7 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
         content: `The Onyx Hand's shadow assassins have done what the Regency was too weak to do. The mayor was corrupt, a rot at the heart of our kingdom. With him gone, we have seized this moment. Toad Town is now under Loyalist control. This is not an occupation; it is a liberation. From here, we will build our base and begin the true war. For the Princess!`,
         likes: 412,
         comments: [
-            { characterKey: 'mistveil', text: "For the Princess! Whatever it takes." },
+            { characterKey: 'mistveil', text: "For the Princess!" },
             { characterKey: 'chancellor_toadsworth', text: "Captain! You are taking advantage of a murder to impose martial law! This is madness!" }
         ],
         rumorId: 'chaos_in_toad_town'
@@ -657,7 +790,7 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
         likes: 88,
         comments: [
             { characterKey: 'captain_syrup', text: "You still owe me for that ship, you greasy little wrench-turner. I'll take payment in the form of your workshop." },
-            { characterKey: 'detective_penny', text: "Interesting. A new, wealthy client? I'll be keeping an eye on your workshop, Lario. For 'business' purposes, of course." },
+            { characterKey: 'detective_penny', text: "Interesting. A new, wealthy client? I'll be keeping an eye on your workshop, for 'business' purposes, of course." },
         ],
         rumorId: 'wario_escape'
     },
