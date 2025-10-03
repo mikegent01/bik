@@ -115,11 +115,11 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "The Scientist",
-    description: "A cowardly scientist in a hazmat suit first encountered in the Office level. He claimed to be mapping the Backrooms but was incompetent and guided the team into more danger before disappearing. His current status is unknown.",
+    description: "A cowardly scientist in a hazmat suit first encountered in the Office level (Level 4). He claimed to be mapping the Backrooms but was incompetent and guided the team into more danger before being shot and disappearing in the Snack Rooms. His current status is unknown.",
     faction: CharacterFaction.ALLIES,
     importance: 1,
-    firstAppearanceEpisode: 1,
-    lastAppearanceEpisode: 30
+    firstAppearanceEpisode: 11,
+    lastAppearanceEpisode: 14
   },
   {
     name: "Inspector Sir",
@@ -141,11 +141,11 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "Bloodless (The Architect)",
-    description: "A powerful associate of Mega X. Before trapping the team, she hijacked a board meeting for Mega X's birthday, threatening attendees with bombs and enforcing tyrannical rules like 'no fun' and 10,000 'swirlies.' She was comically defeated after drinking potent grape alcohol. She later created the labyrinthine prison to prevent the team from uploading videos. Lore videos suggest she is a rival who tries to ruin the Mega X Fishing channel.",
+    description: "A powerful associate of Mega X. Before the campaign, she hijacked a board meeting and was comically defeated. In retaliation, she created the labyrinthine prison that trapped the team for the entirety of Season 1, revealing in a manifesto her goal was to stop them from uploading videos. Lore videos suggest she is a rival who tries to ruin the Mega X Fishing channel.",
     faction: CharacterFaction.ANTAGONISTS,
     importance: 3,
-    firstAppearanceEpisode: 2,
-    lastAppearanceEpisode: 35
+    firstAppearanceEpisode: 0,
+    lastAppearanceEpisode: 32
   },
     {
     name: "Priest swimeonkim26",
