@@ -375,5 +375,22 @@ export const TOADS_QUESTS = {
             { id: 'step3', title: "The Counter-Offer & The Vow", status: 'completed', description: "The original Liberated Toads leadership rejected the most extreme demands and presented a counter-offer. After a tense vote, the new toads accepted. L, their leader, made a powerful speech, and all representatives swore a vow on the now-sentient staff to protect it and each other, forming the 'First Cohort of Renewal'." },
             { id: 'step4', title: "An Uneasy Alliance", status: 'active', description: "The vow has been sworn, but tensions are incredibly high. Dan is incapacitated, Toad Lee holds the volatile staff, and 13 toads are dead. The party must navigate this fragile peace and fully integrate the 'First Cohort of Renewal' into their operations." }
         ]
-    }
+    },
+    'liberated_toads_integration': {
+        id: 'liberated_toads_integration',
+        title: "First Cohort of Renewal!",
+        type: 'faction',
+        category: 'Liberated Toads',
+        objective: "The 150 trafficked toads have been freed, but their integration has sparked a political crisis. After a violent brawl and a magical catastrophe caused by Dan, the new toads, led by the vengeful 'L', have sworn a fragile vow of loyalty in exchange for concessions. The party must now manage this volatile new alliance.",
+        assignee: "Liberated Toads",
+        assigneeKey: 'liberated_toads',
+        status: "active",
+        start_condition: "Triggered after Black T reveals the toad trafficking operation.",
+        steps: [
+            { id: 'step1', title: "Find the Key", status: 'completed', description: "The party successfully freed the 150 trafficked toads from their barrel prisons." },
+            { id: 'step2', title: "Chaos and Demands", status: 'completed', description: "The 150 trafficked toads, led by the vengeful L, have been freed. However, they refuse to simply join the existing Liberated Toads. A brawl over the few available weapons erupted into chaos, which was horrifically escalated when Dan, in a desperate attempt to reclaim X.O.'s staff, unleashed a fireball that killed 13 of the new arrivals. In the aftermath, L presented a list of 13 non-negotiable demands as their condition for integration." },
+            { id: 'step3', title: "The Counter-Offer & The Vow", status: 'completed', description: "The original Liberated Toads leadership rejected the most extreme demands and presented a counter-offer. After a tense vote, the new toads accepted. L, their leader, made a powerful speech, and all representatives swore a vow on the now-sentient staff to protect it and each other, forming the 'First Cohort of Renewal'." },
+            { id: 'step4', title: "An Uneasy Alliance", status: 'active', description: "The vow has been sworn, but tensions are incredibly high. Dan is incapacitated, Toad Lee holds the volatile staff, and 13 toads are dead. Faction leaders are now lobbying aboard the Vigilance, and Waluigi/Bowser’s Raventree Manor relocation has added suspicion. Integration must be shepherded with care." }
+        ]
+    },
 };

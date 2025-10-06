@@ -153,6 +153,14 @@ export async function loadEventPosts() {
         const postDate = new Date(post.scheduledDate.year, post.scheduledDate.monthIndex, post.scheduledDate.day);
         return postDate <= today;
     });
+
+    // Pin Iron Hoof Day posts to the top for Day 15+ or debug mode
+    if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
+        const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
+        posts.unshift(...IRON_HOOF_DAY_POSTS);
+    }
+
+    // Then include scheduled posts
     posts.push(...scheduledPostsToShow);
 
     // --- Dynamic event posts ---
@@ -168,7 +176,17 @@ export async function loadEventPosts() {
     }
     if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
         const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
-        posts.push(...IRON_HOOF_DAY_POSTS);
+        // Already unshifted above to appear first, no need to push again
     }
+
+    // Sort to keep Iron Hoof pinned first, then descending order
+    posts.sort((a, b) => {
+        const aIron = a.eventId === 'iron_hoof_day';
+        const bIron = b.eventId === 'iron_hoof_day';
+        if (aIron && !bIron) return -1;
+        if (!aIron && bIron) return 1;
+        return (b.order ?? 0) - (a.order ?? 0);
+    });
+
     return posts;
 }

@@ -261,7 +261,21 @@ export const DINER_POSTS = [
         likes: 530,
         comments: [],
         eventId: 'capital_diner'
-    }];
+    },
+    // --- NEW POST: Waluigi announces Raventree move (order placed within Day 15 context) ---
+    {
+        id: 'waluigi_raventree_move',
+        order: 299, // ensures it appears near other Day 15 items, not above global system pins
+        characterKey: 'waluigi',
+        timestamp: 'Just Now',
+        content: "WAH! Leaving these losers to their squabbling. Bowser and I are 'relocating' some well-deserved treasures to my magnificent new property: Raventree Manor! Time for some peace and quiet... and looting! WAH-HA-HA!",
+        likes: 1201,
+        comments: [
+            { characterKey: 'wah_media_collective', text: "Raventree Manor flagged for unusual activity." }
+        ],
+        eventId: 'raventree_manor'
+    },
+];
 export const DINER_EVENT = {
     id: 'capital_diner',
     title: "The Capital Dinner",

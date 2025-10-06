@@ -1,0 +1,10 @@
+{
+  "posts": [
+    { "id": "iron_hoof_day", "title": "Iron Hoof Day", "date": "2025-01-01" },
+
+    // ... unchanged posts remain below in their existing order ...
+    // e.g.
+    // { "id": "day-14", "title": "Day 14 — [Title]", "date": "2025-09-30" },
+    // { "id": "day-15", "title": "Day 15 — Return to the Vigilance, Raventree Manor", "date": "2025-10-06" }
+  ]
+}

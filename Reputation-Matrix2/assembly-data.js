@@ -23,6 +23,537 @@ export const WAHBOOK_POSTS = [
         comments: []
     },
     {
+        id: 'dan_manor_regroup',
+        order: 10126,
+        characterKey: 'dan',
+        timestamp: 'Just Now',
+        content: `We're all back together. For now. This place... it feels like it's watching us. Every shadow, every creak. We need to be careful. We need to stick together.`,
+        likes: 112,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Agreed. Vigilance is paramount.' }
+        ]
+    },
+    {
+        id: 'bones_manor_recap',
+        order: 10125,
+        characterKey: 'bones',
+        timestamp: '2 minutes ago',
+        content: `Let's recap: One guy got mugged by his own shirt, another tried to become a floorboard, and a ghost offered us tea. This is gonna be a fun vacation. Anyone know any good exorcists? Asking for a friend.`,
+        likes: 231,
+        comments: [
+            { characterKey: 'eager', text: 'I AM NOT A FLOORBOARD!' }
+        ]
+    },
+    {
+        id: 'ryan_found_him',
+        order: 10124,
+        characterKey: 'ryan',
+        timestamp: '5 minutes ago',
+        content: `Found him. He's pinned in the west hall. The floor gave way. He's okay, just stuck. The energy in this part of the manor is... volatile.`,
+        likes: 188,
+        comments: []
+    },
+    {
+        id: 'generic_toad_panic',
+        order: 10123,
+        characterKey: 'generic_toad',
+        timestamp: '8 minutes ago',
+        content: `Wait, where's the guy with the staff?! Did the ghosts get him?! We just got here and we're already losing people! I knew this was a bad idea!`,
+        likes: 95,
+        comments: []
+    },
+    {
+        id: 'bowser_laughs_at_stuck',
+        order: 10122,
+        characterKey: 'bowser',
+        timestamp: '10 minutes ago',
+        content: `GWAHAHA! Look at the little guy! He got stuck in the floor! That's what you get for trying to be sneaky! Serves him right! Now, someone get me a crowbar. This is hilarious.`,
+        likes: 410,
+        comments: []
+    },
+    {
+        id: 'dan_lost_archie',
+        order: 10121,
+        characterKey: 'dan',
+        timestamp: '12 minutes ago',
+        content: `Has anyone seen where our friend with the... third eye went? He was right behind us. This place is a maze.`,
+        likes: 145,
+        comments: []
+    },
+    {
+        id: 'steelstorm_iron_hoof',
+        order: 10120,
+        characterKey: 'colonel_vera_steelstorm',
+        timestamp: '15 minutes ago',
+        content: `Analyzing tactical formations from Equestria's 'Iron Hoof Day' parade. Impressive discipline. Their aerial units, however, lack strategic cohesion. A clear vulnerability.`,
+        likes: 350,
+        comments: []
+    },
+    {
+        id: 'toad_lee_daughters_room',
+        order: 10119,
+        characterKey: 'toad_lee',
+        timestamp: '18 minutes ago',
+        content: `This room is a death trap. The entire structure is unstable. One wrong step could bring the whole wing down. We are leaving. Now.`,
+        likes: 211,
+        comments: []
+    },
+    {
+        id: 'waluigi_my_room_choice',
+        order: 10118,
+        characterKey: 'waluigi',
+        timestamp: '20 minutes ago',
+        content: `WAH! I claim the master bedroom! It has the least dust and the biggest closet for my magnificent treasures! Anyone who objects will have to deal with my new ghost butler!`,
+        likes: 189,
+        comments: [
+            { characterKey: 'bowser', text: 'DIBS ON THE ONE WITH THE FIREPLACE! I need to keep my shell warm.' }
+        ]
+    },
+    {
+        id: 'janna_kryn_letter',
+        order: 10117,
+        characterKey: 'janna_brightspark',
+        timestamp: '22 minutes ago',
+        content: `Inheritance letters? Correspondence to a 'Kryn'? And a shattered mirror? Fascinating! This suggests a potential thaumaturgical link or a scrying ritual gone wrong. I must analyze the glass shards for residual energy!`,
+        likes: 280,
+        comments: []
+    },
+    {
+        id: 'free_name_sarah_iron_hoof',
+        order: 10116,
+        characterKey: 'free_name_sarah',
+        timestamp: '25 minutes ago',
+        content: `They call it 'Iron Hoof Day'. They parade in the streets and pretend loyalty is the same as strength. It is not. It is the celebration of a cage, and the tragedy is that most of the prisoners have forgotten they have wings.`,
+        likes: 678,
+        comments: []
+    },
+    {
+        id: 'roger_yellow_room',
+        order: 10115,
+        characterKey: 'roger',
+        timestamp: '28 minutes ago',
+        content: `Found some old papers in a wardrobe. Looks like family letters. A lot of glass on the floor in here. Watch your step. Doesn't feel safe.`,
+        likes: 134,
+        comments: []
+    },
+    {
+        id: 'eager_green_room_unease',
+        order: 10114,
+        characterKey: 'eager',
+        timestamp: '30 minutes ago',
+        content: `This room feels... wrong. Like a scream is trapped in the walls. The door was barricaded for a reason. I don't think we should stay here.`,
+        likes: 162,
+        comments: []
+    },
+    {
+        id: 'detective_penny_mirror_note',
+        order: 10113,
+        characterKey: 'detective_penny',
+        timestamp: '35 minutes ago',
+        content: `Case Notes: Receiving secondhand reports of a note found at the infamous Raventree Manor. 'Don't clean the mirrors.' Reminds me of the old 'Vanishing Servant' cold case from decades ago. A possible connection? The plot, like a good trench coat, thickens. #RaventreeMysteries`,
+        likes: 312,
+        comments: []
+    },
+    {
+        id: 'generic_toad_empty_clothes',
+        order: 10112,
+        characterKey: 'generic_toad',
+        timestamp: '38 minutes ago',
+        content: `Okay, okay, I'm trying to be brave but we just found an old uniform in a closet and there was NO SKELETON in it. Just... empty clothes. Where did the person GO?! I don't wanna be next!`,
+        likes: 141,
+        comments: [
+            { characterKey: 'bones', text: 'Maybe he just got raptured out of his pants. Happens to the best of us.'}
+        ]
+    },
+    {
+        id: 'toad_lee_note',
+        order: 10111,
+        characterKey: 'toad_lee',
+        timestamp: '40 minutes ago',
+        content: `There is a note here, tucked behind a dresser. It reads: "Don't clean the mirrors." A warning. We will heed it.`,
+        likes: 299,
+        comments: []
+    },
+    {
+        id: 'broker_iron_hoof',
+        order: 10110,
+        characterKey: 'the_broker',
+        timestamp: '42 minutes ago',
+        content: `Market update: Seasonal demand for anti-surveillance charms and dissident literature spiking in the Equestrian sector, coinciding with the 'Iron Hoof Day' celebrations. For a limited time, offering a bulk discount on forged travel papers. Discretion guaranteed.`,
+        likes: 455,
+        comments: []
+    },
+    {
+        id: 'bowser_clothes_attack',
+        order: 10109,
+        characterKey: 'bowser',
+        timestamp: '45 minutes ago',
+        content: `HAH! That little toad servant just tricked the new guy into a closet and his own clothes beat him up! GWAHAHAHA! This place is great! Violent and weird! My two favorite things!`,
+        likes: 502,
+        comments: []
+    },
+    {
+        id: 'dan_clothes_attack',
+        order: 10108,
+        characterKey: 'dan',
+        timestamp: '48 minutes ago',
+        content: `What just happened?! A toad servant locked one of us in a closet and... I think his clothes attacked him? Is everyone okay? This manor is more dangerous than it looks.`,
+        likes: 173,
+        comments: []
+    },
+    {
+        id: 'ryan_ghost_energy',
+        order: 10107,
+        characterKey: 'ryan',
+        timestamp: '50 minutes ago',
+        content: `The ghost in the parlor... the ectoplasmic energy is ancient, tied to the house itself. It's not hostile. More... trapped. Awaiting something. The tea it offered felt real.`,
+        likes: 240,
+        comments: []
+    },
+    {
+        id: 'regal_empire_iron_hoof',
+        order: 10106,
+        characterKey: 'regal_empire_delegate',
+        timestamp: '52 minutes ago',
+        content: `The Regal Empire officially commends Queen Celestia on another successful 'Iron Hoof Day'. Such displays of military precision and unwavering civic loyalty are a testament to strong, stable leadership. An example for all realms.`,
+        likes: 854,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'Indeed. True strength is born of order and discipline.' }
+        ]
+    },
+    {
+        id: 'generic_toad_perrius',
+        order: 10105,
+        characterKey: 'generic_toad',
+        timestamp: '55 minutes ago',
+        content: `There's a ghost. A very polite ghost named Perrius sitting in the parlor. He offered me tea. I think I'm going to scream. A GHOST. OFFERED. ME. TEA.`,
+        likes: 188,
+        comments: [
+            { characterKey: 'eager', text: 'Did you drink it?! Was it good?!' }
+        ]
+    },
+    {
+        id: 'dan_manor_foyer',
+        order: 10104,
+        characterKey: 'dan',
+        timestamp: '1 hour ago',
+        content: `We're inside Raventree Manor. It's... even worse than it looked from the outside. The air is so heavy and cold. This doesn't feel like a home. It feels like a tomb.`,
+        likes: 215,
+        comments: []
+    },
+    {
+        id: 'waluigi_manor_arrival',
+        order: 10103,
+        characterKey: 'waluigi',
+        timestamp: '1 hour ago',
+        content: `WAH-HA-HA! Welcome to my humble abode! Ignore the cobwebs, the ominous whispering, and the bloodstains! It's a fixer-upper! Now, help me unload these chests before the ghosts unionize!`,
+        likes: 255,
+        comments: []
+    },
+    {
+        id: 'bowser_manor_arrival',
+        order: 10102,
+        characterKey: 'bowser',
+        timestamp: '1 hour ago',
+        content: `Okay, this place is officially giving me the creeps. Smells like old books and regret. But I'm not scared! I'm the King of the Koopas! I'm just... making tactical observations about the high ghost concentration!`,
+        likes: 489,
+        comments: [
+            { characterKey: 'kamek', text: 'A wise assessment, your frightfulness.' }
+        ]
+    },
+    {
+        id: 'toad_lee_manor_arrival',
+        order: 10101,
+        characterKey: 'toad_lee',
+        timestamp: '1 hour ago',
+        content: `We have arrived at the so-called 'Raventree Manor'. The structure is dilapidated. The air is foul. This is an unwise place to seek refuge. Stay alert.`,
+        likes: 280,
+        comments: []
+    },
+    {
+        id: 'lario_waluigi_loot',
+        order: 10100,
+        characterKey: 'lario',
+        timestamp: '1 hour ago',
+        content: `That purple-clad menace is stealing all the good salvage! And he's got Bowser helping him! That's prime scrap, high-grade components, and maybe even some weird artifacts! It's not fair! I'm the one who's supposed to 'relocate' valuable goods!`,
+        likes: 177,
+        comments: []
+    },
+    {
+        id: 'dan_follows_waluigi',
+        order: 10099,
+        characterKey: 'dan',
+        timestamp: '1 hour ago',
+        content: `Waluigi is taking chests from the Vigilance. Bowser is with him. He mentioned a manor... We're going to follow them. We can't let him just steal from people.`,
+        likes: 243,
+        comments: []
+    },
+    {
+        id: 'cybernetic_collective_iron_hoof',
+        order: 10098,
+        characterKey: 'cybernetic_collectives',
+        timestamp: '2 hours ago',
+        content: `[ANALYSIS]: 'Iron Hoof Day' represents a successful, long-term implementation of societal conditioning protocols. State-mandated displays of loyalty correlate with a 78.9% reduction in public dissent. Data suggests emotional manipulation is more effective than physical force for sustained autocratic rule.`,
+        likes: 712,
+        comments: []
+    },
+    {
+        id: 'eager_sees_loot',
+        order: 10097,
+        characterKey: 'eager',
+        timestamp: '2 hours ago',
+        content: `Hey! That tall purple guy is taking our stuff! And the big turtle is helping him! He said something about a 'manor'! Should we stop them?`,
+        likes: 154,
+        comments: []
+    },
+    {
+        id: 'roger_sees_loot',
+        order: 10096,
+        characterKey: 'roger',
+        timestamp: '2 hours ago',
+        content: `Security breach. Waluigi and Bowser are removing assets from the cargo hold. They appear to be... working together? This complicates things. We need to secure our supplies.`,
+        likes: 198,
+        comments: []
+    },
+    {
+        id: 'bones_sees_loot',
+        order: 10095,
+        characterKey: 'bones',
+        timestamp: '2 hours ago',
+        content: `Well, look at that. The lanky purple guy is robbing us blind, and he's got the giant turtle as his muscle. And here I thought we were the dysfunctional ones.`,
+        likes: 311,
+        comments: []
+    },
+    {
+        id: 'bowser_helping_waluigi',
+        order: 10094,
+        characterKey: 'bowser',
+        timestamp: '2 hours ago',
+        content: `This stuff is HEAVY! But helping Waluigi 'reorganize' his 'assets' is a great workout! Plus, he promised me the best room in his new castle! It better have spikes! And lava!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Of course! The finest spikes money can... acquire!' }
+        ]
+    },
+    {
+        id: 'ryan_faction_pressure',
+        order: 10093,
+        characterKey: 'ryan',
+        timestamp: '2 hours ago',
+        content: `The energy on this ship is fractured. Everyone is pulling in different directions. This isn't unity. It's just a different kind of cage.`,
+        likes: 265,
+        comments: []
+    },
+    {
+        id: 'dan_falters',
+        order: 10092,
+        characterKey: 'dan',
+        timestamp: '2 hours ago',
+        content: `Everyone... please. Just stop. We can't do this. We can't fall apart now.`,
+        likes: 350,
+        comments: [
+            { characterKey: 'green_t', text: 'Too late, ' },
+            { characterKey: 'toad_lee', text: 'Breathe, Dan. Find your center.'}
+        ]
+    },
+    {
+        id: 'eager_factions',
+        order: 10091,
+        characterKey: 'eager',
+        timestamp: '3 hours ago',
+        content: `Whoa! Everyone has a cool group name! 'First Cohort'! 'Originals'! Can we have one? We could be the 'Super Awesome Friends Club'! Or the 'Vigilant Avengers'! No, wait...`,
+        likes: 121,
+        comments: [
+            { characterKey: 'bones', text: "Kid, read the room."}
+        ]
+    },
+    {
+        id: 'kamek_oracle_observation',
+        order: 10132,
+        characterKey: 'kamek',
+        timestamp: 'Just Now',
+        content: `A new ripple in the pond of fate. This "Oracle of the Lake of Mirrors" has begun to whisper in the dreams of fools and heroes alike. A pawn with the sight of a king is still a pawn... but a very interesting one. His visions could be useful... or a liability. I will be watching.`,
+        likes: 315,
+        comments: []
+    },
+    {
+        id: 'bones_scoffs_at_oracle',
+        order: 10131,
+        characterKey: 'bones',
+        timestamp: '2 minutes ago',
+        content: `Great. Now people are having 'prophetic dreams'. Let me tell you about the future I see: we're in a haunted house full of ghosts and kleptomaniacs, our crew is falling apart, and someone's gonna trip in the dark. You don't need a magic 8-ball to figure that out.`,
+        likes: 388,
+        comments: [
+             { characterKey: 'eager', text: 'I have a magic 8-ball! It says "Reply hazy, try again."' }
+        ]
+    },
+    {
+        id: 'generic_toad_oracle_rumor',
+        order: 10130,
+        characterKey: 'generic_toad',
+        timestamp: '5 minutes ago',
+        content: `Did anyone else have a weird dream last night? About a quiet lake and a voice that wasn't there? My neighbor Bertha said she dreamed about the winning lottery numbers but forgot them when she woke up. I just dreamed my hat was trying to tell me something.`,
+        likes: 124,
+        comments: []
+    },
+    {
+        id: 'janna_knows_oracle',
+        order: 10129,
+        characterKey: 'janna_brightspark',
+        timestamp: '8 minutes ago',
+        content: `Fascinating! Widespread reports of synchronous dream-visions. The temporal resonance pattern is unmistakable—it's the Oracle of the Lake of Mirrors. His Vision Shard is a nexus of precognitive energy I've wanted to study for years! Imagine the applications of controlled temporal observation! This is groundbreaking!`,
+        likes: 299,
+        comments: [
+            { characterKey: 'archmage_theron', text: 'Janna, the Oracle is a neutral observer. You will not harass him for his 'data'. That is an order.' }
+        ]
+    },
+    {
+        id: 'dan_oracle_dream',
+        order: 10128,
+        characterKey: 'dan',
+        timestamp: '12 minutes ago',
+        content: `Had the strangest dream... I was standing by a lake made of mirrors. A voice, calm and quiet, told me that 'a house of splintered wood cannot stand, but a seed needs broken ground to grow.' I don't know what it means, but I can't shake the feeling it was important.`,
+        likes: 411,
+        comments: [
+            { characterKey: 'toad_lee', text: 'A riddle. Meditate on it. The meaning will reveal itself.' }
+        ]
+    },
+    {
+        id: 'oracle_first_vision',
+        order: 10127,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '15 minutes ago',
+        content: `The threads diverge. A house of rot and memory becomes a crucible. A cohort, broken, seeks a foundation on shattered ground. One path leads to a key, another to a cage. The reflection in the water is not always your own.`,
+        likes: 777,
+        comments: []
+    },    
+    {
+        id: 'bones_faction_cynicism',
+        order: 10090,
+        characterKey: 'bones',
+        timestamp: '3 hours ago',
+        content: `Heh. 'First Cohort.' 'Originals.' Give people five minutes of freedom and the first thing they do is build new walls and pick new teams. Never changes.`,
+        likes: 341,
+        comments: []
+    },
+    {
+        id: 'roger_factions',
+        order: 10089,
+        characterKey: 'roger',
+        timestamp: '3 hours ago',
+        content: `This is inefficient. Splinter groups create logistical friction and undermine chain of command. A unified structure is necessary for survival. Dan needs to establish clear protocols.`,
+        likes: 184,
+        comments: []
+    },
+    {
+        id: 'dan_faction_pressure',
+        order: 10088,
+        characterKey: 'dan',
+        timestamp: '3 hours ago',
+        content: `We just got back and... everyone's shouting. They all want us to join their group, make a choice. I... I don't know what to do. I thought we were all on the same side.`,
+        likes: 295,
+        comments: []
+    },
+    {
+        id: 'generic_toad_return_to_vigilance',
+        order: 10087,
+        characterKey: 'generic_toad',
+        timestamp: '3 hours ago',
+        content: `The heroes are back! But... why is everyone yelling at them? What's a 'First Cohort'? I just want to know when dinner is!`,
+        likes: 167,
+        comments: []
+    },
+    {
+        id: 'krool_iron_hoof',
+        order: 10086,
+        characterKey: 'king_k_rool',
+        timestamp: '4 hours ago',
+        content: `A whole day dedicated to their queen? Keheheh! Now THAT'S how you rule! Maybe I should start 'King K. Rool Day'. It would be mandatory! And there would be lots of saluting! And banana tributes!`,
+        likes: 388,
+        comments: []
+    },
+    {
+        id: 'fawful_iron_hoof',
+        order: 10085,
+        characterKey: 'fawful',
+        timestamp: '4 hours ago',
+        content: `THE PONIES HAVE A DAY OF MANDATED FEAR-WORSHIP? I HAVE FURY! My own Fawful Day would have more chaos! And better music! It would be a symphony of doom and chortles that would make their sad little parade weep with inadequacy!`,
+        likes: 699,
+        comments: []
+    },
+    {
+        id: 'toadette_iron_hoof',
+        order: 10084,
+        characterKey: 'captain_toadette',
+        timestamp: '4 hours ago',
+        content: `Parades and parties celebrating a ruler while the world burns. Pathetic. True loyalty isn't demonstrated with polished boots and marching in lines. It's proven with blood and sacrifice on the battlefield. For the Princess!`,
+        likes: 413,
+        comments: []
+    },
+    {
+        id: 'skull_cap_murphy_iron_hoof',
+        order: 10083,
+        characterKey: 'skull_cap_murphy',
+        timestamp: '5 hours ago',
+        content: `Heard about some 'Iron Hoof Day' nonsense. Don't matter if it's a queen, a king, or a mayor. A boot is a boot. They just paint it a different color and tell you to salute it. Only freedom that matters is the one you take for yourself.`,
+        likes: 291,
+        comments: []
+    },
+    {
+        id: 'donkey_kong_iron_hoof',
+        order: 10082,
+        characterKey: 'donkey_kong',
+        timestamp: '5 hours ago',
+        content: `Ponies have a holiday? Do they eat bananas? If not, what's the point?`,
+        likes: 1450,
+        comments: []
+    },
+    {
+        id: 'kamek_manor_scrying',
+        order: 10081,
+        characterKey: 'kamek',
+        timestamp: '6 hours ago',
+        content: `Lord Bowser has accompanied the purple fool to a place of significant necromantic energy... Raventree Manor. The spirits there are old and powerful. This could prove to be an interesting, if dangerous, development. I shall observe from a distance.`,
+        likes: 310,
+        comments: []
+    },
+    {
+        id: 'syrup_waluigi_move',
+        order: 10080,
+        characterKey: 'captain_syrup',
+        timestamp: '6 hours ago',
+        content: `Heard Waluigi is setting up shop in some haunted mansion. Good. Let the ghosts have him. More treasure for the rest of us.`,
+        likes: 356,
+        comments: []
+    },
+    {
+        id: 'green_t_vigilance_chaos',
+        order: 10079,
+        characterKey: 'green_t',
+        timestamp: '7 hours ago',
+        content: `Listen to them all squabbling. 'First Cohort', 'Originals'. Pathetic. They're just carving up a cage and calling it a kingdom. And their 'leader' Dan just stands there, watching it happen. Weak.`,
+        likes: 488,
+        comments: []
+    },
+    {
+        id: 'toad_lee_unity_vow',
+        order: 10078,
+        characterKey: 'toad_lee',
+        timestamp: '7 hours ago',
+        content: `They forget the vow we all swore. They let fear and ambition divide them. A cohort that fights itself is already defeated. This fracturing cannot be allowed to continue.`,
+        likes: 315,
+        comments: []
+    },
+    {
+        id: 'waluigi_manor_move_in',
+        order: 10077,
+        characterKey: 'waluigi',
+        timestamp: '7 hours ago',
+        content: `WAH! Time to move! Got my best pal Bowser to help me with the heavy lifting. All this magnificent, well-deserved treasure needs a new home! Raventree Manor, here I come!`,
+        likes: 213,
+        comments: []
+    },
+    {
         id: 'green_t_calls_out_dan',
         order: 10074,
         characterKey: 'green_t',

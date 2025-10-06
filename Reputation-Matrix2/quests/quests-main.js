@@ -1,5 +1,3 @@
-
-
 export const MAIN_QUESTS = {
     'retrieve_the_staff': {
         id: 'retrieve_the_staff',
@@ -53,6 +51,21 @@ export const MAIN_QUESTS = {
             { id: 'step4', title: "Into the Depths", status: 'active', description: "Seeking a cure for Dan, the party has descended into the lava-filled sewers beneath the capital. They have encountered Iron Legion spies and a terrified soldier who warned of a 'blue dragon' guarding the path ahead." },
             { id: 'step4a', title: "The Behir's Lair", status: 'active', description: "Ignoring the soldier's warnings and navigating a smoke trap, the party entered the creature's lair. Markop identified the beast not as a dragon, but a Behir. The encounter turned violent when Legion guards threw Archie at the creature, initiating a battle." },
             { id: 'step5', title: "Confront the Truth", status: 'locked', description: "Once the secrets of the hatch are revealed, confront the true culprit or circumstances behind the Princess's death." }
+        ]
+    },
+    'iron_binding_staff': {
+        id: 'iron_binding_staff',
+        title: "Stabilize the Staff!",
+        type: 'main',
+        category: 'Main Story',
+        objective: "With the staff sealed back into the power core of the Vigilance, the party must address a dangerous new interference: The Iron Legion has implemented an 'Iron Binding'—a suppressive seal with sleek, disciplined rune-work—reducing the ship's power core output to 50%. Rumors suggest some Legion units carry specialized 'magitek disruptors' designed to siphon binding-compatible energies from non-standard sources like the staff.",
+        motivation: "The ship is limping along on half power, and the Iron Binding is an unknown piece of magitek that could allow the Legion to control or disable the Vigilance remotely. More urgently, the staff's raw power is a corrupting influence that has already caused a tragedy and threatens to tear the crew apart.",
+        steps: [
+            { id: 'step1', title: "Assess the Seal", status: 'completed', description: "The staff is back in the core, but it's been tampered with. Waluigi and Markop's Rakasha stone have identified the modification as an 'Iron Binding' seal, which chokes the staff's power output to 50%." },
+            { id: 'step1a', title: "The Vigilance Catastrophe", status: 'completed', description: "Dan's desperate attempt to reclaim the staff from the power core resulted in a magical catastrophe. Overwhelmed by its power, he unleashed a fireball that killed 13 of the newly freed toads. In the ensuing chaos, the staff was secured by Toad Lee." },
+            { id: 'step2', title: "Find a Counter-Measure", status: 'active', description: "The binding is a fusion of magic and technology, and its corrupting influence is now undeniable. The party must find an expert who can break it without causing another disaster. Potential candidates include a Mages' Guild 'Innovator', a high-level Ratchet Raider Mekboy, or a Rakasha shaman who understands this 'fancy little trick'." },
+            { id: 'step2a', title: "A Fragile Vow", status: 'active', description: "The 137 newly freed toads, now calling themselves the 'First Cohort of Renewal', have sworn a vow to protect the staff. Their vengeful leader, L, must be carefully managed to maintain the uneasy peace. Meanwhile, Waluigi and Bowser have relocated chests to Raventree Manor, further complicating internal trust." },
+            { id: 'step3', title: "Purge the Corruption", status: 'locked', description: "Apply the counter-measure and purge both the Iron Legion's seal and the chaotic sentience from the staff, restoring full power and security to the Vigilance." }
         ]
     },
 };

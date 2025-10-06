@@ -121,28 +121,47 @@ export async function loadEventPosts() {
         const postDate = new Date(post.scheduledDate.year, post.scheduledDate.monthIndex, post.scheduledDate.day);
         return postDate <= today;
     });
+
+    // Prioritize Iron Hoof Day posts at the very top if Day 15+ or debug
+    if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
+        const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
+        // Insert at the front so they display first even without sorting
+        posts.unshift(...IRON_HOOF_DAY_POSTS);
+    }
+
+    // Push scheduled after the top-priority Iron Hoof posts
     posts.push(...scheduledPostsToShow);
 
     // --- Dynamic event posts ---
     if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
         const { DINER_POSTS } = await import('./events/diner-date-event.js');
         posts.push(...DINER_POSTS);
+
         const { TOADETTE_TEST_POSTS } = await import('./events/toadette-test-event.js');
         posts.push(...TOADETTE_TEST_POSTS);
+
+        const { ARCHIE_FIASCO_POSTS } = await import('./events/archie-fiasco-event.js');
+        posts.push(...ARCHIE_FIASCO_POSTS);
+
+        const { DAY14_CHATTER_POSTS } = await import('./events/day14-chatter.js');
+        posts.push(...DAY14_CHATTER_POSTS);
 
         // NEW: Capital Prison Deception posts
         const { PRISON_DECEPTION_POSTS } = await import('./events/prison-deception-event.js');
         posts.push(...PRISON_DECEPTION_POSTS);
     }
-    if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
-        const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
-        posts.push(...IRON_HOOF_DAY_POSTS);
-    }
-    if (CURRENT_GAME_DATE.day >= 16 || state.debugMode) {
-        const { ARCHIE_FIASCO_POSTS } = await import('./events/archie-fiasco-event.js');
-        posts.push(...ARCHIE_FIASCO_POSTS);
-        const { DAY14_CHATTER_POSTS } = await import('./events/day14-chatter.js');
-        posts.push(...DAY14_CHATTER_POSTS);
-    }
+
+    // If Day 16+, include chatter/aftermaths already handled; no change here.
+
+    // Final sort: ensure Iron Hoof Day posts are pinned to top, then by order desc
+    posts.sort((a, b) => {
+        const aIron = a.eventId === 'iron_hoof_day';
+        const bIron = b.eventId === 'iron_hoof_day';
+        if (aIron && !bIron) return -1;
+        if (!aIron && bIron) return 1;
+        // Higher 'order' first
+        return (b.order ?? 0) - (a.order ?? 0);
+    });
+
     return posts;
 }
