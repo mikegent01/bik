@@ -367,66 +367,7 @@ export const WAHBOOK_POSTS = [
             { characterKey: 'bones', text: "Kid, read the room."}
         ]
     },
-    {
-        id: 'kamek_oracle_observation',
-        order: 10132,
-        characterKey: 'kamek',
-        timestamp: 'Just Now',
-        content: `A new ripple in the pond of fate. This "Oracle of the Lake of Mirrors" has begun to whisper in the dreams of fools and heroes alike. A pawn with the sight of a king is still a pawn... but a very interesting one. His visions could be useful... or a liability. I will be watching.`,
-        likes: 315,
-        comments: []
-    },
-    {
-        id: 'bones_scoffs_at_oracle',
-        order: 10131,
-        characterKey: 'bones',
-        timestamp: '2 minutes ago',
-        content: `Great. Now people are having 'prophetic dreams'. Let me tell you about the future I see: we're in a haunted house full of ghosts and kleptomaniacs, our crew is falling apart, and someone's gonna trip in the dark. You don't need a magic 8-ball to figure that out.`,
-        likes: 388,
-        comments: [
-             { characterKey: 'eager', text: 'I have a magic 8-ball! It says "Reply hazy, try again."' }
-        ]
-    },
-    {
-        id: 'generic_toad_oracle_rumor',
-        order: 10130,
-        characterKey: 'generic_toad',
-        timestamp: '5 minutes ago',
-        content: `Did anyone else have a weird dream last night? About a quiet lake and a voice that wasn't there? My neighbor Bertha said she dreamed about the winning lottery numbers but forgot them when she woke up. I just dreamed my hat was trying to tell me something.`,
-        likes: 124,
-        comments: []
-    },
-    {
-        id: 'janna_knows_oracle',
-        order: 10129,
-        characterKey: 'janna_brightspark',
-        timestamp: '8 minutes ago',
-        content: `Fascinating! Widespread reports of synchronous dream-visions. The temporal resonance pattern is unmistakable—it's the Oracle of the Lake of Mirrors. His Vision Shard is a nexus of precognitive energy I've wanted to study for years! Imagine the applications of controlled temporal observation! This is groundbreaking!`,
-        likes: 299,
-        comments: [
-            { characterKey: 'archmage_theron', text: 'Janna, the Oracle is a neutral observer. You will not harass him for his data. That is an order.' }
-        ]
-    },
-    {
-        id: 'dan_oracle_dream',
-        order: 10128,
-        characterKey: 'dan',
-        timestamp: '12 minutes ago',
-        content: `Had the strangest dream... I was standing by a lake made of mirrors. A voice, calm and quiet, told me that 'a house of splintered wood cannot stand, but a seed needs broken ground to grow.' I don't know what it means, but I can't shake the feeling it was important.`,
-        likes: 411,
-        comments: [
-            { characterKey: 'toad_lee', text: 'A riddle. Meditate on it. The meaning will reveal itself.' }
-        ]
-    },
-    {
-        id: 'oracle_first_vision',
-        order: 10127,
-        characterKey: 'self_reflection_oracle',
-        timestamp: '15 minutes ago',
-        content: `The threads diverge. A house of rot and memory becomes a crucible. A cohort, broken, seeks a foundation on shattered ground. One path leads to a key, another to a cage. The reflection in the water is not always your own.`,
-        likes: 777,
-        comments: []
-    },    
+    
     {
         id: 'bones_faction_cynicism',
         order: 10090,
@@ -435,6 +376,80 @@ export const WAHBOOK_POSTS = [
         content: `Heh. 'First Cohort.' 'Originals.' Give people five minutes of freedom and the first thing they do is build new walls and pick new teams. Never changes.`,
         likes: 341,
         comments: []
+    },
+
+    {
+        id: 'kamek_oracle_manor_connection',
+        order: 10139,
+        characterKey: 'kamek',
+        timestamp: 'Just Now',
+        content: `So, the all-seeing toad is the master of the haunted manor. This elevates the situation from a mere spectral inconvenience to a matter of strategic importance. Lord Bowser is currently residing in the lair of a being who can perceive future events. This can be either a monumental advantage or a catastrophic trap. Caution is advised.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'bowser', text: 'I AIN\'T AFRAID OF SOME GHOST LANDLORD! THIS PLACE IS MINE NOW!' }
+        ]
+    },
+    {
+        id: 'oracle_confirms_ownership',
+        order: 10138,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '2 minutes ago',
+        content: `The whispers in the walls are my own. The dust is the memory of days I have let pass. You do not trespass in my house—you trespass in my history. Walk carefully. The past is more fragile than it appears.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'dan', text: 'Your history? We... we don\'t understand.' }
+        ]
+    },
+    {
+        id: 'waluigi_claims_he_knew',
+        order: 10137,
+        characterKey: 'waluigi',
+        timestamp: '5 minutes ago',
+        content: `WAH! Of course this is the Oracle's manor! Did you think I, Waluigi, would settle for any regular haunted house? NO! I only squat in the homes of the most important, most mystical beings! He invited me personally! Said the place needed a genius to give it some style!`,
+        likes: 245,
+        comments: [
+            { characterKey: 'bones', text: 'Sure he did, pal. Sure he did.' }
+        ]
+    },
+    {
+        id: 'generic_toad_oracle_owner_panic',
+        order: 10136,
+        characterKey: 'generic_toad',
+        timestamp: '8 minutes ago',
+        content: `THE ORACLE OWNS THIS PLACE?! THE GHOST WHO SEES THE FUTURE IS OUR LANDLORD?! We are SO getting evicted! Or worse, turned into teacups! I'm writing an apology letter right now! 'Dear Mr. Oracle, sir, sorry for the footprints...'`,
+        likes: 212,
+        comments: []
+    },
+    {
+        id: 'detective_penny_cold_case',
+        order: 10135,
+        characterKey: 'detective_penny',
+        timestamp: '10 minutes ago',
+        content: `The Midland Scholar of Raventree Manor... the original owner. He vanished without a trace decades ago, right before the estate fell into ruin and the ghost stories began. Now he's resurfaced as the 'Oracle'? This isn't just a haunting. This is a missing persons case that just went supernatural. The files need to be reopened.`,
+        likes: 450,
+        comments: []
+    },
+    {
+        id: 'janna_explodes_with_excitement',
+        order: 10134,
+        characterKey: 'janna_brightspark',
+        timestamp: '12 minutes ago',
+        content: `EUREKA! The Midland Scholar who documented forgotten histories IS Self Reflection! The manor isn't haunted by random spirits; it's a living archive of its master's transformation! The residual temporal energy, the spectral echoes—it's all a byproduct of his ascension! This is the greatest confluence of historical, spectral, and chronomantic study in modern history! I MUST GET SAMPLES!`,
+        likes: 388,
+        comments: [
+             { characterKey: 'archmage_theron', text: 'Janna, for the last time, you will NOT try to bottle a psychic echo.' }
+        ]
+    },
+    {
+        id: 'dan_finds_clue',
+        order: 10133,
+        characterKey: 'dan',
+        timestamp: '15 minutes ago',
+        content: `We found a portrait in a library, half-buried under rubble. It's a toad in scholarly robes... the plaque says 'Self Reflection, Keeper of Raventree'. Underneath, someone carved a symbol—the same one from my dream. The symbol of the Oracle. He... he lived here.`,
+        likes: 489,
+        comments: [
+            { characterKey: 'ryan', text: 'It explains the feeling of the manor. It\'s not just haunted. It\'s... remembering.'}
+        ]
     },
     {
         id: 'roger_factions',
