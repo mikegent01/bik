@@ -2,7 +2,7 @@
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
-    day: 14
+    day: 15
 };
 
 
@@ -243,6 +243,13 @@ export const CALENDAR_DATA = {
   "holidays": {
     "values": [
       {
+        "name": "Celestia's Iron Hoof Day (Equestria - State)",
+        "month": 7,
+        "day": 15,
+        "description": "In Equestria, a state-mandated holiday celebrating Queen Celestia's absolute autocratic regime (BF 950) and pony supremacy.",
+        "traditions": "A highly controlled celebration featuring parades of the Royal Guard. All citizens are required to attend and show deference. Non-ponies are encouraged to stay indoors."
+      },
+      {
         "name": "Empire's Founding Day",
         "month": 1,
         "day": 1,
@@ -381,13 +388,6 @@ export const CALENDAR_DATA = {
         "day": 7,
         "description": "Commemorates Admin Zero's emergence as overseer of The Internet's digital federation (BF 1010), a day of system diagnostics and protocol reviews.",
         "traditions": "All systems undergo a 'protocol purity' check. Users are encouraged to defragment their personal data stores and update their security protocols. It is considered a day of digital renewal."
-      },
-      {
-        "name": "Celestia's Iron Hoof Day (Equestria - State)",
-        "month": 7,
-        "day": 15,
-        "description": "In Equestria, a state-mandated holiday celebrating Queen Celestia's absolute autocratic regime (BF 950) and pony supremacy.",
-        "traditions": "A highly controlled celebration featuring parades of the Royal Guard. All citizens are required to attend and show deference. Non-ponies are encouraged to stay indoors."
       },
       {
         "name": "The Great Orrery's Completion",

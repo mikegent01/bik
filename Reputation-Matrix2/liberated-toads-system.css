@@ -183,3 +183,41 @@
     display: block;
     margin-bottom: 4px;
 }
+
+/* Summary view on Directory page */
+.liberated-toads-system-container.summary {
+    background-color: var(--main-bg);
+    border: none;
+    padding: 0;
+    gap: 16px;
+}
+.toad-section-header h6 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+.toad-figures-grid.summary {
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+.toad-figure-card.summary {
+    flex-direction: row;
+    padding: 8px;
+    align-items: center;
+}
+.toad-figure-card.summary .toad-figure-portrait {
+    width: 40px;
+    height: 40px;
+}
+.toad-figure-card.summary .toad-figure-name {
+    font-size: 1rem;
+}
+.toad-figure-card.summary .toad-figure-status {
+    font-size: 0.75rem;
+    margin: 0;
+}
+/* Hide complex details in summary view */
+.liberated-toads-system-container.summary .toad-figure-opinions,
+.liberated-toads-system-container.summary .toad-figure-desc {
+    display: none;
+}

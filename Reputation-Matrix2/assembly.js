@@ -1,3 +1,5 @@
+
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -285,17 +287,7 @@ function renderMainFeed() {
     const container = document.getElementById('feed-content');
     if (!container) return;
     
-    // Freshness boost so "Just Now" posts reliably float to the top
-    const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => {
-        const boost = (p) => {
-            const t = (p.timestamp || '').toLowerCase();
-            return t.includes('just now') ? 1000000 : 0;
-        };
-        const aScore = (a.order || 0) + boost(a);
-        const bScore = (b.order || 0) + boost(b);
-        return bScore - aScore;
-    });
-
+    const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => (b.order || 0) - (a.order || 0));
     const postsHTML = renderCreatePostBox() + sortedPosts.map(p => renderFeedPost(p)).join('');
     
     container.innerHTML = `

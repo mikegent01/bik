@@ -39,21 +39,21 @@ export const state = {
     debugMode: false,
     intelLevels: {
         archie: {
-            regal_empire: 25, iron_legion: 30, freelancer_underworld: 50,
+            regal_empire: 25, iron_legion: 40, freelancer_underworld: 50,
             toad_gang: 45, toad_cult: 10, onyx_hand: 35, mages_guild: 20,
             rakasha_clans: 5, cosmic_jesters: 60, the_unchained: 40,
             silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 45,
             koopa_troop: 20, rebel_clans: 25, crimson_fleet: 30,
             wario_land: 35, mushroom_regency: 15, peach_loyalists: 20,
             fawfuls_furious_freaks: 40, iron_fists: 55, moonfang_pack: 15,
-            liberated_toads: 100, diamond_city_investigators: 25, goodstyle_artisans: 5,
+            liberated_toads: 70, diamond_city_investigators: 25, goodstyle_artisans: 5,
             tea_leaf_syndicate: 40,
             unaligned: 100,
             kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5,
             elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5
         },
         markop: {
-            regal_empire: 45, iron_legion: 40, freelancer_underworld: 15,
+            regal_empire: 45, iron_legion: 50, freelancer_underworld: 15,
             toad_gang: 20, toad_cult: 5, onyx_hand: 25, mages_guild: 20,
             rakasha_clans: 60, cosmic_jesters: 5, the_unchained: 45,
             silver_flame: 55, oathbound_judges: 60, ratchet_raiders: 10,
@@ -67,7 +67,7 @@ export const state = {
             elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5
         },
         humpik: {
-            koopa_troop: 70, toad_gang: 30, regal_empire: 15, iron_legion: 35,
+            koopa_troop: 70, toad_gang: 30, regal_empire: 15, iron_legion: 45,
             rakasha_clans: 10, rebel_clans: 5, moonfang_pack: 15,
             liberated_toads: 55, freelancer_underworld: 15,
             cosmic_jesters: 5, tea_leaf_syndicate: 35, peach_loyalists: 20,
@@ -89,7 +89,7 @@ export const state = {
             unaligned: 100,
         },
         remi: {
-            regal_empire: 15, iron_legion: 20, freelancer_underworld: 15,
+            regal_empire: 15, iron_legion: 30, freelancer_underworld: 15,
             mushroom_regency: 10, koopa_troop: 10, liberated_toads: 35,
             wario_land: 20, cosmic_jesters: 10, tea_leaf_syndicate: 10,
             toad_gang: 10, fawfuls_furious_freaks: 10, peach_loyalists: 10,
@@ -240,7 +240,8 @@ function initReputation() {
         'capital_diner_shadow_accord',
         'grand_market_ring',
         'prison_break_fiasco',
-        'sewer_dragon' // NEW
+        'sewer_dragon',
+        'bowser_looting_manor' // NEW
     ];
 }
 
@@ -336,7 +337,7 @@ function processInitialXP() {
         state.auxiliary_party_state['ryan'].status = "Duplicitous";
     }
     if(state.auxiliary_party_state['dan']) {
-        state.auxiliary_party_state['dan'].status = "Critically injured, at Archmage's shop";
+        state.auxiliary_party_state['dan'].status = "Weakened & Diminished";
     }
 }
 

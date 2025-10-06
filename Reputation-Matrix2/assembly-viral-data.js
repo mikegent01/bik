@@ -34,7 +34,7 @@ export const VIRAL_POSTS = [
     {
         id: 'viral_dragon_spy_post',
         order: 10068,
-        characterKey: 'dan',
+        characterKey: 'archie',
         timestamp: '5 minutes ago',
         content: `So, I had a chat with an Iron Legion spy. Nice guy. Terrible at hiding his dragon tail. Said the Legion got an award for being 'bribe-free for a month' and that bribes are down to only 20%. He also promised to 'like' this post. Let's see if he's a spy of his word.`,
         likes: 2419,

@@ -1,118 +1,69 @@
+
 import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
-
-// --- FIVE KNIGHTS AT FREDDY'S: The Waluigi Discovery (Live Event) ---
     {
-        id: 'waluigi_finds_manor_1',
-        order: 1000008,
+        id: 'waluigi_manor_gloat_2',
+        order: 10076,
         characterKey: 'waluigi',
         timestamp: 'Just Now',
-        content: `WAH-HA-HA! I have found the PERFECT location for my next magnificent scheme! An old, forgotten manor, dripping with spooky ambiance! I claim this place in the name of Waluigi! Hey @Dan @Roger, look upon my glorious new lair and WEEP!`,
-        likes: 99,
+        content: `WAH! Leaving these losers to their squabbling. Bowser and I are 'relocating' some well-deserved treasures to my magnificent new property: Raventree Manor! Time for some peace and quiet... and looting! WAH-HA-HA!`,
+        likes: 133,
+        comments: [],
+    },
+    {
+        id: 'toad_lee_splinter_groups',
+        order: 10075,
+        characterKey: 'toad_lee',
+        timestamp: '5 minutes ago',
+        content: `The crew splinters. 'First Cohort', 'Originals'... Dan falters under the pressure. This is not the unity we swore a vow for. We are losing ourselves.`,
+        likes: 289,
+        comments: []
+    },
+    {
+        id: 'green_t_calls_out_dan',
+        order: 10074,
+        characterKey: 'green_t',
+        timestamp: '8 minutes ago',
+        content: `To the so-called 'heroes' of the Vigilance: Your leader is broken! Dan played with a power he couldn't handle, and now he's hiding the truth from all of you! DANGER IS COMING, and he's too weak to face it! Open your eyes!`,
+        likes: 451,
         comments: [
-            { characterKey: 'roger', text: `Another crumbling ruin. How original.` }
+            { characterKey: 'dan', text: "..." }
         ]
     },
     {
-        id: 'eager_scouts_manor_2',
-        order: 1000007,
-        characterKey: 'eager',
+        id: 'waluigi_manor_gloat',
+        order: 10073,
+        characterKey: 'waluigi',
         timestamp: 'Just Now',
-        content: `Heading over to the manor @Waluigi is bragging about. Need to see what kind of traps he's setting up. First impressions: this place is huge, dusty, and has a really heavy door. Also, it smells like rust and... something sad.`,
-        likes: 25,
+        content: `WAH! My new manor is magnificent! A little dusty, maybe a few ghosts, but it has character! Perfect for storing... 'valuables'. Waluigi is moving up in the world!`,
+        likes: 85,
+        comments: [],
+    },
+    {
+        id: 'toad_lee_imposes_order',
+        order: 10072,
+        characterKey: 'toad_lee',
+        timestamp: '5 minutes ago',
+        content: `Enough! The Vow was sworn. We are one cohort. We will have order. Anyone who tries to splinter this group will answer to me. And to my axe.`,
+        likes: 241,
         comments: [
-            { characterKey: 'toad_lee', text: `Be careful, Eager. His schemes are foolish, but foolish things can still be dangerous.` }
+             { characterKey: 'bones', text: "Big words. Let's see if you can back 'em up." }
         ]
     },
     {
-        id: 'eager_finds_knights_3',
-        order: 1000006,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `Okay, this is weird. There's a grand hall, set up for a coronation. Five ornate, life-sized pageant suits are on display. Bear, rabbit, chicken, fox... they look like the "Five Knights" from the old ghost story.`,
-        likes: 70,
+        id: 'generic_toad_splinter_groups',
+        order: 10071,
+        characterKey: 'generic_toad',
+        timestamp: '15 minutes ago',
+        content: `This is chaos! Dan is just... sitting there. Everyone's shouting, forming their own little groups. The 'First Cohort' this, the 'Originals' that... I thought we were all in this together! We need a real leader, not someone overwhelmed by it all.`,
+        likes: 188,
         comments: [
-            { characterKey: 'waluigi', text: `See?! Atmosphere! The previous owners had STYLE! WAH!` },
-            { characterKey: 'ryan', text: `Be careful. That legend has a dark history.` }
+            { characterKey: 'dan', text: "..." }
         ]
     },
-    {
-        id: 'eager_finds_ledger_4',
-        order: 1000005,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `Found the chronicle. A big, moldy book on a dais. It's the real record of the Five Knights. I just read the first entry... a herald named Markus Plirius IV was executed mid-sentence. His last words were: "Thine first moon is typically not treacherous—". This isn't a ghost story. It happened right here.`,
-        likes: 150,
-        comments: [
-            { characterKey: 'roger', text: `Eager, pull back. You're at a historical site, not a hideout. Abort the mission.` }
-        ]
-    },
-    {
-        id: 'eager_is_trapped_5',
-        order: 1000004,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `Can't. The great hall door just slammed shut. The lock is ancient, I can't move it. The sun is setting outside. The chronicle has another passage, a note from a courier... "Thy fine automatons do tend to become rather eccentric past dusk…" Guys... I think I'm about to find out what that means.`,
-        likes: 280,
-        comments: [
-            { characterKey: 'toad_lee', text: `We are on our way! Find a defensible position!` },
-            { characterKey: 'waluigi', text: `A self-locking door?! WAH-HA-HA! This place is even better than I thought! So dramatic!` }
-        ]
-    },
-    {
-        id: 'eager_discovers_sin_6',
-        order: 1000003,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `It's getting darker. I hear... whispers. I kept reading. It's about Lord William III. He lost his heirs... and lured five children into this hall. He hid their bodies inside the five suits to conceal his crime. This isn't a tomb for knights. It's a tomb for children.`,
-        likes: 500,
-        comments: [
-            { characterKey: 'toad_lee', text: `That's... monstrous.` },
-            { characterKey: 'ryan', text: `He didn't just hide them. He bound them. Their spiritual energy is powering the hauntings.` }
-        ]
-    },
-    {
-        id: 'eager_witnesses_haunting_7',
-        order: 1000002,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `THEY'RE MOVING. Not walking, just... shifting when I'm not looking. The bear's head is tilted now. The fox is closer. The whispers are turning into giggles. They're not angry at me, they're... playful. It's so much worse. I'm hiding behind the dais.`,
-        likes: 815,
-        comments: [
-            { characterKey: 'bones', text: `Don't let them corner you. Keep moving. They're spirits, but they're still children. Maybe they're just lonely.` },
-            { characterKey: 'roger', text: `We're at the door, Eager. It's solid iron. We're trying to breach!` }
-        ]
-    },
-    {
-        id: 'eager_witnesses_reckoning_8',
-        order: 1000001,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `A ghost just appeared. A man in a golden rabbit suit. Lord William. The five spirits stopped focusing on me and turned to him. They're surrounding him. He looks terrified. He's trying to get into the broken physical golden suit in the corner... maybe to anchor himself? I heard a SNAP. A dozen snaps. The suit collapsed on his spirit, crushing it. It's over. It's silent.`,
-        likes: 1200,
-        comments: [
-            { characterKey: 'ryan', text: `Poetic justice. The spring-locks became his eternal prison.` },
-            { characterKey: 'waluigi', text: `Wait, what? Ghosts? Spring-locks? What are you talking about? I just thought the place had good acoustics for an evil laugh... Was this not just a cool, spooky castle?` },
-            { characterKey: 'toad_lee', text: `The door is open.` }
-        ]
-    },
-    {
-        id: 'eager_is_safe_9',
-        order: 1000000,
-        characterKey: 'eager',
-        timestamp: 'Just Now',
-        content: `I'm out. The team got the door open just as the ghost vanished. The five suits are still again. I think they're at peace. This place is not a lair, it's a memorial. Marking it on the map. Do not enter. Ever.`,
-        likes: 950,
-        comments: [
-            { characterKey: 'ryan', text: `Get back to base. We'll stand watch here for the night.` },
-            { characterKey: 'roger', text: `Mission debrief tomorrow. You did good, scout.` },
-            { characterKey: 'toad_lee', text: `@Waluigi. Your carelessness almost got someone killed. The next time you find a "cool, spooky" place, you will report it to us first. This is not a request.` }
-        ]
-    },
-    
     {
         id: 'detective_penny_vigilance_standoff',
         order: 187,
@@ -316,7 +267,7 @@ export const WAHBOOK_POSTS = [
         order: 167,
         characterKey: 'hacktivist_collectives',
         timestamp: '15 hours ago',
-        content: `The Iron Legion's 'Iron Binding' is just a glorified DRM lock. A crude piece of proprietary magitek designed to restrict the flow of power. Information wants to be free. So does energy. Challenge accepted. #JailbreakTheStaff`,
+        content: `The Iron Legion's 'Iron Binding' is just a glorified DRM lock. A crude piece of proprietary magitek designed to restrict the flow of power. Information wants to be free. So does energy. #JailbreakTheStaff`,
         likes: 777,
         comments: [],
         rumorId: 'standoff_at_the_capital'
@@ -458,7 +409,7 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
         content: `The Onyx Hand's shadow assassins have done what the Regency was too weak to do. The mayor was corrupt, a rot at the heart of our kingdom. With him gone, we have seized this moment. Toad Town is now under Loyalist control. This is not an occupation; it is a liberation. From here, we will build our base and begin the true war. For the Princess!`,
         likes: 412,
         comments: [
-            { characterKey: 'mistveil', text: "For the Princess!" },
+            { characterKey: 'mistveil', text: "For the Princess! Whatever it takes." },
             { characterKey: 'chancellor_toadsworth', text: "Captain! You are taking advantage of a murder to impose martial law! This is madness!" }
         ],
         rumorId: 'chaos_in_toad_town'
@@ -517,7 +468,7 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
         order: 145,
         characterKey: 'cranky_kong',
         timestamp: '3 days ago',
-        content: `Good grief! Now every Tom, Dick, and three-eyed weirdo has an opinion on Kong family matters! Back in my day, we didn't post our problems on the WAH-whatever, we threw barrels at them until they went away! A much better system!`,
+        content: `Good grief! Now every Tom, Dick, and three-eyed weirdo has an opinion on Kong family matters! Back in my day, we didn't have 'post our problems on the WAH-whatever', we threw barrels at them until they went away! A much better system!`,
         likes: 420,
         comments: [],
         rumorId: 'lankys_disgrace_at_summit'
@@ -626,7 +577,7 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
         order: 135,
         characterKey: 'colonel_vera_steelstorm',
         timestamp: '1 week ago',
-        content: `Victory is not achieved through tradition; it is achieved through efficiency. While the Old Guard debates protocol, the War-Forged act. Results are the only metric that matters on the battlefield. Adapt or be broken.`,
+        content: "Victory is not achieved through tradition; it is achieved through efficiency. While the Old Guard debates protocol, the War-Forged act. Results are the only metric that matters on the battlefield. Adapt or be broken.",
         likes: 388,
         comments: [
             { characterKey: 'general_marcus_ironhand', text: "Discipline IS efficiency, Colonel. Do not mistake reckless action for progress. The Hammer Code has guided us for a thousand years for a reason." }
@@ -766,7 +717,7 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
         likes: 88,
         comments: [
             { characterKey: 'captain_syrup', text: "You still owe me for that ship, you greasy little wrench-turner. I'll take payment in the form of your workshop." },
-            { characterKey: 'detective_penny', text: "Interesting. A new, wealthy client? I'll be keeping an eye on your workshop, for 'business' purposes, of course." },
+            { characterKey: 'detective_penny', text: "Interesting. A new, wealthy client? I'll be keeping an eye on your workshop, Lario. For 'business' purposes, of course." },
         ],
         rumorId: 'wario_escape'
     },

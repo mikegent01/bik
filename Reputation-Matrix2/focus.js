@@ -6,7 +6,7 @@ import { playSound } from './common.js';
 const auxiliaryPartyContainer = document.getElementById('auxiliary-party-container');
 const timelineContainer = document.getElementById('toad-timeline-container');
 
-const CURRENT_DAY = 14;
+const CURRENT_DAY = 15;
 
 // Load state immediately to ensure all data is available for rendering.
 loadState();
@@ -86,7 +86,10 @@ function renderAuxiliaryParty() {
 function renderTimeline() {
     if (!timelineContainer) return;
 
-    timelineContainer.innerHTML = TOAD_TIMELINE.map(dayEntry => {
+    // Sort timeline from most recent day to oldest
+    const sortedTimeline = [...TOAD_TIMELINE].sort((a, b) => b.day - a.day);
+
+    timelineContainer.innerHTML = sortedTimeline.map(dayEntry => {
         const eventsHTML = dayEntry.events.map(event => {
             const toadData = state.auxiliary_party_state[event.toadKey];
             if (!toadData) {
@@ -94,8 +97,11 @@ function renderTimeline() {
                 return ''; // Prevent crash, render nothing for this event
             }
             const statusClass = `status-${event.status.toLowerCase().replace(' ', '-')}`;
+            const updatedTag = dayEntry.day === 15 ? '<span class="updated-tag">UPDATED</span>' : '';
+
             return `
                 <div class="timeline-event-card">
+                    ${updatedTag}
                     <div class="event-card-header">
                         <img src="toads/${event.toadKey}.png" alt="${toadData.name}">
                         <span class="toad-name">${toadData.name}</span>

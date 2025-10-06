@@ -50,51 +50,59 @@ const modifiedMushroomKingdomFactions = { ...MUSHROOM_KINGDOM_FACTIONS };
 if (modifiedMushroomKingdomFactions.liberated_toads) {
     modifiedMushroomKingdomFactions.liberated_toads = {
         ...modifiedMushroomKingdomFactions.liberated_toads,
-        description: "A group of former slaves freed by the party. Led by the heroic Dan, they are finding their place in a dangerous world, now allied with the 137 survivors of a trafficking operation aboard the Vigilance.",
+        description: "A group of former slaves forged in tragedy. After discovering and freeing 150 more trafficked toads, a catastrophic magical accident killed 13 of the newcomers and gravely injured their leader, Dan. Now bound by a fragile vow, they are split by distrust and grief, trying to find a path forward in a world that sees them as pawns.",
         internal_politics: {
             ruling_faction: "dan",
             sub_factions: {
-                dan: { 
-                    name: "Dan, The Hero",
-                    influence: 25,
-                    description: "His incredible bravery has made him the de facto leader. He is recovering from grave injuries but remains a symbol of hope.",
-                    current_focus: "Recovering from the loss of his arm and the trauma of the staff incident, while trying to guide the newly unified Toads."
-                },
-                toad_lee: { 
-                    name: "Toad Lee, The First",
+                dan: {
+                    name: "Dan, The Wounded Hero",
                     influence: 20,
-                    description: "The first toad to join the party and a powerful warrior. He now bears the heavy burden of wielding X.O.'s staff, acting as the group's protector.",
-                    current_focus: "Containing the staff's corrupting influence and upholding the Vow of Renewal."
+                    status: "Weakened & Withdrawn",
+                    description: "Once the group's beacon of hope, Dan is now physically and emotionally shattered. The loss of his arm and the weight of the 13 deaths have left him silent, unable to lead.",
+                    opinions: {
+                        toad_lee: "He's strong. He has to be. He's carrying the burden I couldn't.",
+                        first_cohort_of_renewal: "They hate me. They should. It was my fault."
+                    }
                 },
-                eager: { 
-                    name: "Eager, The Swift",
-                    influence: 5,
-                    description: "A nimble and quick-witted toad who prefers to keep his distance, using his whip to control the battlefield.",
-                    current_focus: "Enduring interrogation by the Iron Legion while awaiting rescue by his friends."
-                },
-                roger: { 
-                    name: "Roger, The Pragmatist",
-                    influence: 15,
-                    description: "A practical toad who sees the world for what it is. He found a gun and has become a crack shot. He is co-leader of the newly integrated toads.",
-                    current_focus: "Distributing the limited weapons and trying to maintain order between the two toad factions."
-                },
-                ryan: {
-                    name: "Ryan, The Studious",
-                    influence: 5,
-                    description: "A quiet toad with a natural, if untrained, affinity for magic. SHOCKING REVELATION: Ryan has been revealed to be a 'warden' involved in a widespread toad trafficking ring, a betrayal that has shattered the trust of the Liberated Toads.",
-                    current_focus: "Continuing his clandestine study of the staff, seeking to understand X.O.'s memories while concealing his true allegiance as a 'warden'."
-                },
-                bones: { 
-                    name: "Bones, The Hardened",
-                    influence: 5,
-                    description: "A tough, grotesque toad who has seen the worst of the world and survived. He is resilient and cynical.",
-                    current_focus: "Wrestling with the 'debt' he owes to the Orcs who kidnapped and then spared him."
+                toad_lee: {
+                    name: "Toad Lee, The Warden",
+                    influence: 30,
+                    status: "Enforcing Order",
+                    description: "The first toad to join the party. Now the reluctant warden of X.O.'s staff, he maintains the group's fragile unity through grim determination and the threat of his axe.",
+                     opinions: {
+                        dan: "He's broken. I have to be the rock until he can stand again.",
+                        first_cohort_of_renewal: "They're angry and scared. They need a firm hand, not kind words."
+                    }
                 },
                 first_cohort_of_renewal: {
-                    name: "The First Cohort of Renewal (137 Toads)",
-                    influence: 25,
-                    description: "The 137 survivors of the cargo hold, led by the vengeful toad 'L'. Having sworn a fragile vow on the staff, they are a volatile but potentially powerful addition, demanding representation and respect.",
-                    current_focus: "Integrating with the original group and mourning their 13 fallen comrades."
+                    name: "The First Cohort of Renewal",
+                    influence: 30,
+                    status: "Restive & Vengeful",
+                    description: "The 137 survivors of the cargo hold, led by the vengeful toad 'L'. They see Dan as a murderer and Toad Lee as his accomplice. They are a volatile but powerful faction within the group.",
+                    opinions: {
+                        dan: "He killed our brothers. He calls it an accident; we call it a betrayal.",
+                        toad_lee: "He protects the killer and holds the weapon that did the deed. We do not trust him."
+                    }
+                },
+                roger: {
+                    name: "Roger, The Pragmatist",
+                    influence: 15,
+                    status: "Managing Logistics",
+                    description: "A practical toad who sees the world for what it is. He is trying to manage the logistics of a fractured group, seeing the infighting as a waste of resources.",
+                    opinions: {
+                        dan: "A tragedy. But emotion doesn't fill bellies. We need a clear head.",
+                        toad_lee: "Intimidation is a temporary solution. We need a sustainable system."
+                    }
+                },
+                ryan: {
+                    name: "Ryan, The Watcher",
+                    influence: 5,
+                    status: "Duplicitous",
+                    description: "A quiet toad with a natural affinity for magic. Revealed to be a 'warden' involved in the trafficking ring, his true motives are unknown. He watches the chaos with cold, analytical detachment.",
+                    opinions: {
+                        dan: "A predictable emotional response to trauma. Makes him easy to manipulate.",
+                        toad_lee: "He holds the artifact. An obstacle to be managed or removed."
+                    }
                 }
             }
         }

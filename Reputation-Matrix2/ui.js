@@ -74,7 +74,7 @@ function renderFactionDirectory() {
     viewContainer.appendChild(grid);
     
     const isDebug = state.debugMode;
-    const knownFactions = Object.entries(LORE_DATA.factions).filter(([key]) => isDebug || getIntelForFaction(key) > 1);
+    const knownFactions = Object.entries(LORE_DATA.factions).filter(([key]) => isDebug || getIntelForFaction(key) > 0);
 
     // Get unique regions from known factions and render filter
     const knownRegions = [...new Set(knownFactions.map(([, f]) => f.region))].sort();

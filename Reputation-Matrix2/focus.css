@@ -69,6 +69,25 @@
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 16px;
+    position: relative; /* For updated tag positioning */
+}
+
+.updated-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--neutral-color);
+    color: var(--main-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: pulse-yellow-bg 2s infinite;
+}
+
+@keyframes pulse-yellow-bg {
+    50% { box-shadow: 0 0 8px var(--neutral-color); }
 }
 
 .event-card-header {
@@ -115,6 +134,8 @@
 .event-status .status-completed { color: var(--positive-color); }
 .event-status .status-progress { color: var(--neutral-color); }
 .event-status .status-started { color: var(--accent-color); }
+.event-status .status-ongoing { color: var(--neutral-color); }
+.event-status .status-on-hold { color: var(--text-secondary); }
 
 
 /* --- Auxiliary Party Cards (Shared with old focus page) --- */

@@ -1,3 +1,4 @@
+
 export const AUXILIARY_PARTY = {
     dan: {
         name: "Dan",
@@ -291,6 +292,14 @@ export const RUMORS = [
             iron_legion: -10,
             mages_guild: 5
         }
+    },
+    {
+        id: 'bowser_looting_manor',
+        title: "Waluigi's 'Relocation'",
+        time_ago: "Tonight",
+        description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance, claiming they are 'relocating' items to a newly acquired mansion. Their true intentions are unknown, but it's unlikely to be for charitable purposes.",
+        targets: ['party'],
+        effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 }
     },
     {
         id: 'shadow_war',

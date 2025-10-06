@@ -1,3 +1,4 @@
+
 // This file defines the personal opinions between leaders and party members.
 export const CHARACTER_RELATIONS = {
     // --- PARTY MEMBER OPINIONS ---
@@ -6,7 +7,7 @@ export const CHARACTER_RELATIONS = {
         'humpik': { type: 'ally', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things. Points in the right direction and he goes." },
         'bowser': { type: 'ally', text: "Archie on Bowser: He can yell all he wants. I'm the one who gets things done, even if it's messy. He's just another would-be king, but his desire to smash the Empire is useful. A temporary, powerful convenience." },
         'remi': { type: 'ally', text: "Archie on Remi: FNG is a surprisingly useful pawn. A little gullible, maybe. Convinced her to help a murderer hide some bodies without even trying. She's got potential... to be a great distraction." },
-        'dan': { type: 'ally', text: "Archie on 'Dan': The kid's gone nuts! It's fantastic! Locking doors, causing a scene... he created the perfect cover for me to scout the place out. Best diversion I could have asked for." },
+        'dan': { type: 'ally', text: "Archie on Dan: Creek told me everything. The staff, his arm... Dan being shrunken. Why didn't he tell me? He's hiding, and that loudmouth Green T is calling him out. I need to figure out what's really going on with him." },
         'toad_lee': { type: 'ally', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
         'eager': { type: 'ally', text: "Archie on Eager: So he's a bartender now for some glowing weirdo? At least he's not getting tortured anymore. Progress, I guess." },
         'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
@@ -30,7 +31,7 @@ export const CHARACTER_RELATIONS = {
         'bryan': { type: 'enemy', text: "Archie on Bryan: Another ghost from the past. He thinks I left him for dead? Please. In my line of work, people get left. He should have been faster. Now he's just another problem to solve." }
     },
     'markop': {
-        'archie': { type: 'ally', text: "Markop on Archie: He has caused a tragedy. His pursuit of power, his disregard for the warnings about the staff... it led to the deaths of 13 innocents. I cannot call him an ally. He is a force of chaos I have failed to contain, and that is a stain on my honor." },
+        'archie': { type: 'ally', text: "Markop on Archie: I should have known he'd get himself stuck. His recklessness is a constant liability. Still... the look on his face when he was trapped in that hallway... I'm glad I found him. We have to get him out." },
         'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },
         'bowser': { type: 'enemy', text: "Markop on Bowser: A tyrant and a warlord. His goals are antithetical to justice and order. An alliance of desperation, not trust." },
         'remi': { type: 'ally', text: "Markop on Remi: Another soul caught in this chaos. I'll have to keep an eye on her, make sure Archie doesn't lead her down the wrong path." },
@@ -117,7 +118,7 @@ export const CHARACTER_RELATIONS = {
     },
     'dan': {
         'markop': { type: 'ally', text: "Dan on Markop: He is my teacher and protector. His strength is not just in his arms, but in his heart. I trust him completely." },
-        'archie': { type: 'enemy', text: "Dan on Archie: He broke his promise. He chose a machine over his word, and 13 toads paid the price for his pragmatism. I... I can't trust him. Not after what happened." },
+        'archie': { type: 'enemy', text: "Dan on Archie: He knows I'm... smaller now. But not from me. I can't face him. I can't tell him how I failed with the staff. He wouldn't understand." },
         'humpik': { type: 'ally', text: "Dan on Humpik: He's loud and a little scary, but he's very brave. He fights to protect his king, and I respect that loyalty." },
         'bowser': { type: 'enemy', text: "Dan on Bowser: I cannot trust another king who wants to conquer people. After everything we've been through, freedom is all that matters." },
         'remi': { type: 'ally', text: "Dan on Remi: She arrived and was immediately thrown into fire and ice. No one deserves that. I feel responsible for her safety while she's with us. I hope we can show her that we're not all chaos and violence." },
@@ -189,5 +190,8 @@ export const CHARACTER_RELATIONS = {
     'embercap': {
         'captain_toadette': { type: 'ally', text: "Embercap on Toadette: Her plan is... harsh. But the world is harsh. I questioned her, but she is right. This is the only way to win, to get justice for the Princess. My loyalty is to the cause, and she is its leader." },
         'iggy_koopa': { type: 'enemy', text: "Embercap on Iggy Koopa: I had him. My blade couldn't cut through... a failure. The little monster escaped in the chaos." }
+    },
+    'green_t': {
+        'dan': { type: 'enemy', text: "Green T on Dan: He's a fool who played with power he couldn't control. The staff broke him. And he's still hiding the truth from his friends. Pathetic. Danger is coming, and his silence puts everyone at risk." }
     }
 };
