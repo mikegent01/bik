@@ -404,7 +404,7 @@ export const WAHBOOK_POSTS = [
         content: `Fascinating! Widespread reports of synchronous dream-visions. The temporal resonance pattern is unmistakable—it's the Oracle of the Lake of Mirrors. His Vision Shard is a nexus of precognitive energy I've wanted to study for years! Imagine the applications of controlled temporal observation! This is groundbreaking!`,
         likes: 299,
         comments: [
-            { characterKey: 'archmage_theron', text: 'Janna, the Oracle is a neutral observer. You will not harass him for his 'data'. That is an order.' }
+            { characterKey: 'archmage_theron', text: 'Janna, the Oracle is a neutral observer. You will not harass him for his data. That is an order.' }
         ]
     },
     {
