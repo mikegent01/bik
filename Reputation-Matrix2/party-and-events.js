@@ -1,4 +1,5 @@
 
+
 export const AUXILIARY_PARTY = {
     dan: {
         name: "Dan",
@@ -300,6 +301,21 @@ export const RUMORS = [
         description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance, claiming they are 'relocating' items to a newly acquired mansion. Their true intentions are unknown, but it's unlikely to be for charitable purposes.",
         targets: ['party'],
         effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 }
+    },
+    {
+        id: 'fall_of_bramblehaven',
+        title: "The Bramblehaven Massacre",
+        time_ago: "Today",
+        description: "The Peach Loyalists brutally conquered the Fawful bastion of Bramblehaven, showing no mercy to surrendering troops. Their victory was costly but secured valuable intel. The act has solidified their reputation as ruthless fanatics.",
+        targets: ['captain_toadette', 'embercap'],
+        effects: {
+            peach_loyalists: 10,
+            mushroom_regency: -20,
+            fawfuls_furious_freaks: -30,
+            koopa_troop: 5,
+            iron_legion: 5,
+            silver_flame: -10
+        }
     },
     {
         id: 'shadow_war',

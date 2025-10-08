@@ -18,6 +18,23 @@ export const NEW_MK_QUESTS = {
             { id: 'step4', title: "The Final Confrontation", status: 'completed', description: "Toadette revealed the entire scenario was an elaborate illusion, including the 'death' of a toad, to test their resolve. She declared them failures, believing they were not yet ready to die for the cause." }
         ]
     },
+    'bramblehaven_siege': {
+        id: 'bramblehaven_siege',
+        title: "The Bramblehaven Siege",
+        type: 'side',
+        category: 'Peach Loyalists',
+        objective: "The outer walls of Bramblehaven have fallen after a brutal assault, but the battle is far from over. Fawful's forces are now engaged in a bloody street-by-street defense of the town. The Loyalists must systematically clear the entrenched defenders to secure the fortress and retrieve the critical intelligence they believe is hidden within.",
+        assignee: "Peach Loyalists",
+        assigneeKey: 'peach_loyalists',
+        status: "active",
+        motivation: "Bramblehaven is a key Fawful stronghold blocking the path to the castle. Its capture is a strategic necessity for the Loyalist war effort, and Toadette is using the assault to test the absolute limits of her army's resolve.",
+        steps: [
+            { id: 'step1', title: "The Dawn Assault", status: 'completed', description: "At dawn, the Loyalists began their assault with overwhelming numbers. The Fawful garrison's frost mages inflicted heavy casualties, injuring Commander Mistveil, but were eventually overcome." },
+            { id: 'step2', title: "The Night Offensive", status: 'completed', description: "After a day of brutal fighting, a second major assault was launched at night. A captured tank was used to breach the inner keep, shattering the remaining rampart defenses." },
+            { id: 'step3', title: "No Quarter on the Walls", status: 'completed', description: "Surrendering Fawful troops on the ramparts were not spared. The Loyalists, hardened by the day's losses, systematically eliminated the outer garrison." },
+            { id: 'step4', title: "Secure the Town", status: 'active', description: "With the walls breached, the Loyalists must now fight through the town's streets and buildings to crush the remaining Fawful resistance and locate the intel.", options: ["Establish a beachhead in the market square.", "Focus on capturing the inner keep directly.", "Send stealth units to find the intel while the main force provides a distraction."] }
+        ]
+    },
     'grand_market_ring_retrieval': {
         id: 'grand_market_ring_retrieval',
         title: "Grand Market: The Ring Retrieval",

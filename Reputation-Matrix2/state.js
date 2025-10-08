@@ -1,4 +1,5 @@
 
+
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
@@ -241,7 +242,8 @@ function initReputation() {
         'grand_market_ring',
         'prison_break_fiasco',
         'sewer_dragon',
-        'bowser_looting_manor' // NEW
+        'bowser_looting_manor',
+        'fall_of_bramblehaven'
     ];
 }
 

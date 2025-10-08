@@ -4,6 +4,56 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 
 export const VIRAL_POSTS = [
     {
+        id: 'wah_media_bramblehaven',
+        order: 20080,
+        characterKey: 'wah_media_collective',
+        timestamp: 'Just Now',
+        content: `**BRAMBLEHAVEN FALLS IN BLOODY SIEGE!** Captain Toadette's Peach Loyalists have conquered the Fawful bastion of Bramblehaven after a brutal, day-long assault. Sources from the front lines describe a battle of shocking attrition, culminating in a final charge where surrendering Fawful troops were shown no mercy. Loyalist casualties are reportedly 'heavy', but the victory gives them a key strategic position and, according to a dying soldier, 'valuable intel'. The ruthless tactics have solidified the Loyalists' fearsome reputation.`,
+        image: 'battle_mushroom_kingdom.png',
+        image_alt: "The smoldering ruins of a fortress under a dark, rainy sky.",
+        likes: 3105,
+        comments: [
+            { characterKey: 'generic_toad', text: "They killed them... even after they surrendered? By the stars, what are they becoming?" },
+            { characterKey: 'iron_legion', text: "A decisive, if costly, victory. The strategic value of the captured intel cannot be overstated. War requires sacrifice." },
+            { characterKey: 'the_broker', text: "Intel is the true prize. The market for Fawful's operational data just skyrocketed. My inbox is open." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_bramblehaven_victory',
+        order: 20079,
+        characterKey: 'captain_toadette',
+        timestamp: '15 minutes ago',
+        content: `Victory. The cost was high, but Bramblehaven is ours. Let this be a lesson to all who stand against the true monarchy. We will not falter. We will not fail. We will pay any price for justice. For the Princess.`,
+        likes: 1540,
+        comments: [
+            { characterKey: 'embercap', text: "For the Princess." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'dewdrop_bramblehaven_casualties',
+        order: 20078,
+        characterKey: 'dewdrop',
+        timestamp: '30 minutes ago',
+        content: `So many wounded... Mistveil is stable, but the frost magic was severe. We've taken the fort, but the infirmary is overflowing. I can't... I can't save them all.`,
+        likes: 988,
+        comments: [
+            { characterKey: 'dan', text: "Stay strong, Dewdrop. You're doing all you can. Your work is the most important of all." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'fawful_bramblehaven_fury',
+        order: 20077,
+        characterKey: 'fawful',
+        timestamp: '1 hour ago',
+        content: `I HAVE FURY! A fury of fortress-falling! My beautiful bastion of brambles has been befouled by the feet of filthy mushroom fools! They have the cheering of cheating cheaters! This is but a setback! A tiny, insignificant boo-boo on the knee of my grand plan! My revenge will have the mustard of DOOM!`,
+        likes: 1201,
+        comments: [],
+        eventId: 'bramblehaven_siege'
+    },
+    {
         id: 'viral_restaurant_raid',
         order: 10070,
         characterKey: 'wah_media_collective',

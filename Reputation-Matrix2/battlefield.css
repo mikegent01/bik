@@ -1,129 +1,131 @@
 /* --- Battlefield Page Layout --- */
-#battlefield-display {
+#battlefield-container {
     display: flex;
     flex-direction: column;
     gap: 32px;
 }
 
-.battle-container {
+.battle-entry {
     background-color: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 24px;
 }
 
-.battle-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--main-bg);
-    margin-bottom: 24px;
+.battle-entry h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.page-title .battle-meta {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    font-family: var(--font-primary);
-    font-weight: normal;
-    margin-left: 16px;
-}
-
-.battle-info-container {
+.battle-layout {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2.5fr 1fr;
     gap: 24px;
 }
 
-
-/* --- Info Section (Right) --- */
-.faction-command-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
+.battle-narrative {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
-.faction-command-card {
+.battle-narrative p {
+    margin-bottom: 1em;
+}
+
+.battle-infobox {
     background-color: var(--main-bg);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--border-color);
-    border-radius: 6px;
     padding: 16px;
-}
-.faction-command-card h4 {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-    color: var(--text-color);
-}
-/* Ravencreek Factions */
-.faction-werewolves h4 { color: var(--faction-moonfang_pack); }
-.faction-vampires h4 { color: var(--faction-onyx_hand); }
-.faction-regal h4 { color: var(--faction-regal_empire); }
-
-/* Mushroom Kingdom Factions */
-.faction-regency h4 { color: var(--faction-mushroom_regency); }
-.faction-loyalists h4 { color: var(--faction-peach_loyalists); }
-.faction-koopa h4 { color: var(--faction-koopa_troop); }
-.faction-fawful h4 { color: var(--faction-fawfuls_furious_freaks); }
-
-
-.command-details p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-}
-.command-details strong {
-    color: var(--text-color);
-}
-.command-orders {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--border-color);
-    font-style: italic;
+    border-radius: 6px;
     font-size: 0.85rem;
 }
 
-.battle-log {
-    background-color: var(--main-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-}
-
-.battle-log h4 {
-    font-family: var(--font-display);
-    color: var(--accent-color);
+.infobox-item {
     margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-color);
 }
 
-#log-entries, .log-entries {
+.infobox-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.infobox-item h5 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.infobox-item p, .infobox-item li {
+    color: var(--text-color);
+    margin: 0;
+}
+
+.infobox-item ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    overflow-y: auto;
-    font-size: 0.85rem;
-    flex-grow: 1;
 }
 
-.log-entries li {
-    color: var(--text-secondary);
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border-color);
+.belligerent-group {
+    margin-bottom: 8px;
 }
-.log-entries li:last-child {
-    border-bottom: none;
+
+.belligerent-group strong {
+    color: var(--accent-color);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
 }
-.log-entries .log-time {
-    color: var(--neutral-color);
-    margin-right: 8px;
+
+.belligerent-list {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.belligerent-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--sidebar-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.belligerent-item img {
+    width: 16px;
+    height: 16px;
+}
+
+.outcome.victory {
+    color: var(--positive-color);
     font-weight: bold;
 }
 
-@media (max-width: 1200px) {
-    .battle-info-container {
+.outcome.defeat {
+    color: var(--negative-color);
+    font-weight: bold;
+}
+
+.outcome.stalemate {
+    color: var(--neutral-color);
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+    .battle-layout {
         grid-template-columns: 1fr;
+    }
+    .battle-infobox {
+        grid-row: 1; /* Move infobox to the top on mobile */
     }
 }

@@ -50,6 +50,22 @@ const BASE_EVENTS = [
 
 // --- NEW SCRIPTED EVENTS ---
 
+const BRAMBLEHAVEN_EVENT = {
+    id: 'bramblehaven_siege',
+    title: "The Siege of Bramblehaven",
+    order: -2.0, // Newest event
+    locationId: 'poi_mk_castle', // Placeholder, Bramblehaven is not on map
+    description: "The brutal, day-long assault and capture of the Fawful bastion, Bramblehaven, by Captain Toadette's Peach Loyalist forces. The battle was marked by heavy casualties and the Loyalists' ruthless refusal to accept surrender.",
+    attendees: [
+        { characterKey: 'captain_toadette', host: true, justification: "Commanding officer of the Loyalist assault." },
+        { characterKey: 'embercap', justification: "Led the charge on the walls." },
+        { characterKey: 'mistveil', justification: "Wounded in action by Fawful's frost mages." },
+        { characterKey: 'dewdrop', justification: "Managed the overflowing Loyalist field hospital." }
+    ],
+    news_ids: ['wah_media_bramblehaven'],
+    post_ids: ['toadette_bramblehaven_victory', 'dewdrop_bramblehaven_casualties', 'fawful_bramblehaven_fury']
+};
+
 const RESTAURANT_RAID_EVENT = {
     id: 'restaurant_raid',
     title: "The Restaurant Raid",
@@ -130,6 +146,7 @@ if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
 
 // Conditionally add the Iron Hoof Day event (Day 15+)
 if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
+    allEvents.unshift(BRAMBLEHAVEN_EVENT);
     const { IRON_HOOF_DAY_EVENT } = await import('./events/iron-hoof-day.js');
     allEvents.unshift(IRON_HOOF_DAY_EVENT);
 }
@@ -153,14 +170,6 @@ export async function loadEventPosts() {
         const postDate = new Date(post.scheduledDate.year, post.scheduledDate.monthIndex, post.scheduledDate.day);
         return postDate <= today;
     });
-
-    // Pin Iron Hoof Day posts to the top for Day 15+ or debug mode
-    if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
-        const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
-        posts.unshift(...IRON_HOOF_DAY_POSTS);
-    }
-
-    // Then include scheduled posts
     posts.push(...scheduledPostsToShow);
 
     // --- Dynamic event posts ---
@@ -176,17 +185,7 @@ export async function loadEventPosts() {
     }
     if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
         const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
-        // Already unshifted above to appear first, no need to push again
+        posts.push(...IRON_HOOF_DAY_POSTS);
     }
-
-    // Sort to keep Iron Hoof pinned first, then descending order
-    posts.sort((a, b) => {
-        const aIron = a.eventId === 'iron_hoof_day';
-        const bIron = b.eventId === 'iron_hoof_day';
-        if (aIron && !bIron) return -1;
-        if (!aIron && bIron) return 1;
-        return (b.order ?? 0) - (a.order ?? 0);
-    });
-
     return posts;
 }
