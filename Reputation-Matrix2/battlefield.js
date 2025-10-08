@@ -57,6 +57,24 @@ const MAJOR_BATTLES = [
         `
     },
     {
+        id: 'fawfuls_seizure_of_castle',
+        name: "Fawful's Seizure of Peach's Castle",
+        conflict: "Mushroom Kingdom Civil War",
+        date: "Approx. Day 8-9, 1040 BF",
+        location: "Peach's Castle, Mushroom Kingdom",
+        belligerents: {
+            side_a: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] },
+            side_b: { name: "Mushroom Regency", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["Fawful"], side_b: ["Captain Toad"] },
+        outcome: "<span class='outcome victory'>Decisive Fawful Victory</span>; Mushroom Kingdom capital falls.",
+        casualties: "Moderate Regency losses; Fawful's losses minimal.",
+        description: `
+            <p>In a shocking and audacious move, the Beanish villain Fawful launched a surprise assault on a vulnerable Peach's Castle. With the Regency's forces spread thin dealing with Loyalist and Koopa remnant threats, Fawful's army of bizarre mechanical minions and brainwashed soldiers met with little organized resistance.</p>
+            <p>Using bizarre technology, including his signature Headgear to disable the castle's automated defenses, Fawful's forces swarmed the castle grounds. The undermanned Toadstool Guard under Captain Toad was quickly overwhelmed. The seizure of the capital sent shockwaves through the kingdom, solidifying the civil war's chaotic, multi-factional nature and giving Fawful a powerful base of operations.</p>
+        `
+    },
+    {
         id: 'tea_party_incident',
         name: "The 'Tea Party' Incident",
         conflict: "Underworld Conflicts",
@@ -77,6 +95,23 @@ const MAJOR_BATTLES = [
         `
     },
     {
+        id: 'the_syrup_schism',
+        name: "The Syrup Schism",
+        conflict: "Vigilance Crew Incidents",
+        date: "Day 6, 1040 BF",
+        location: "Aboard the Airship 'Vigilance'",
+        belligerents: {
+            side_a: { name: "The Party & Allies", factions: ['liberated_toads'] },
+            side_b: { name: "Captain Syrup's Crew", factions: ['crimson_fleet'] }
+        },
+        commanders: { side_a: ["Markop"], side_b: ["Captain Syrup"] },
+        outcome: "<span class='outcome stalemate'>Stalemate</span>; Captain Syrup escapes, but the Vigilance is critically damaged and sent into a nosedive.",
+        casualties: "One traitorous toad killed. Severe damage to the Vigilance's power core.",
+        description: `
+            <p>Immediately after being freed, the pirate Captain Syrup turned on her liberators in a bid to seize the airship. A chaotic confrontation erupted across the ship's decks. The battle reached its climax in the engine room when Humpik, in a desperate attempt to prevent Syrup's allies from seizing the power core, threw his axe and critically damaged it. The act disabled the ship and sent it plummeting from the sky, forcing all parties to brace for impact.</p>
+        `
+    },
+    {
         id: 'battle_for_the_vigilance',
         name: "The Battle for the Vigilance",
         conflict: "Vigilance Crew Incidents",
@@ -92,6 +127,60 @@ const MAJOR_BATTLES = [
         description: `
             <p>A multi-day series of running battles and betrayals for control of the airship. The conflict began with the rogue mage X.O.'s hijacking and culminated in her defeat at the hands of the party and a newly freed toad, Dan. This was immediately followed by the 'Syrup Schism,' where the freed pirate Captain Syrup turned on the crew, leading to Humpik disabling the power core with an axe.</p>
             <p>The final phase saw the assassination of Big T, the revelation of a massive toad trafficking operation, and the escape of Bowser and Waluigi. The party ultimately secured the damaged but functional airship.</p>
+        `
+    },
+     {
+        id: 'koopa_remnant_scuffles',
+        name: "The Koopa Remnant Scuffles",
+        conflict: "Mushroom Kingdom Civil War",
+        date: "Ongoing",
+        location: "Various, Mushroom Kingdom Borderlands",
+        belligerents: {
+            side_a: { name: "Koopa Remnants", factions: ['koopa_troop'] },
+            side_b: { name: "Various Enemies", factions: ['mushroom_regency', 'peach_loyalists', 'toad_gang'] }
+        },
+        commanders: { side_a: ["Kamek"], side_b: ["Various"] },
+        outcome: "<span class='outcome stalemate'>Ongoing War of Attrition</span>; Koopa Remnants are losing ground but remain a threat.",
+        casualties: "Moderate but steady losses for all involved.",
+        description: `
+            <p>With Bowser's absence, the Koopa Troop has fractured into scattered remnants. The largest contingent, led by the wily Kamek, is fighting a desperate war of survival. They face constant pressure from Regency patrols seeking to reclaim territory, Loyalist crusaders seeking vengeance, and Toad Gang opportunists looking to raid their weapon caches.</p>
+            <p>These are not large-scale battles, but a series of brutal, running skirmishes in the hills and wastelands. Kamek's primary goal is to preserve his forces and regroup, waiting for an opportunity to strike back and reunite the Troop under Bowser's banner.</p>
+        `
+    },
+     {
+        id: 'battle_of_bobomb_field',
+        name: "Battle of Bob-omb Battlefield",
+        conflict: "Second Koopa War",
+        date: "Approx. 20 years ago",
+        location: "Bob-omb Battlefield, Mushroom Kingdom",
+        belligerents: {
+            side_a: { name: "Mushroom Kingdom Army", factions: ['mushroom_regency'] },
+            side_b: { name: "Koopa Troop", factions: ['koopa_troop'] }
+        },
+        commanders: { side_a: ["General Toadstool"], side_b: ["Bowser"] },
+        outcome: "<span class='outcome stalemate'>Pyrrhic Regency Victory</span>; Koopa forces repelled, but the battlefield was rendered a permanent wasteland.",
+        casualties: "Catastrophic on both sides.",
+        description: `
+            <p>A pivotal and devastating battle during the Second Koopa War. The Mushroom Kingdom army made a desperate stand against Bowser's main invading force. The battle was defined by the massive, unprecedented use of Bob-omb artillery by both sides.</p>
+            <p>While the Regency forces successfully halted Bowser's advance, the sheer volume of explosives used scorched the earth and left the area littered with thousands of unexploded, now-sentient Bob-ombs. The battlefield was declared uninhabitable and remains a dangerous, crater-pocked wasteland to this day, a source of salvage for the modern Koopa Remnants.</p>
+        `
+    },
+     {
+        id: 'bowsers_first_invasion',
+        name: "Bowser's First Invasion",
+        conflict: "The First Koopa War",
+        date: "Approx. 40 years ago",
+        location: "Mushroom Plains",
+        belligerents: {
+            side_a: { name: "Mushroom Kingdom", factions: ['mushroom_regency'] },
+            side_b: { name: "Koopa Troop", factions: ['koopa_troop'] }
+        },
+        commanders: { side_a: ["Princess Peach"], side_b: ["Bowser"] },
+        outcome: "<span class='outcome defeat'>Decisive Mushroom Kingdom Victory</span>; Koopa invasion repelled.",
+        casualties: "Heavy Koopa Troop losses.",
+        description: `
+            <p>The first major conflict initiated by a young, ambitious King Bowser. Seeking to expand his territory, he launched a massive, direct assault on the Mushroom Kingdom from his domain in the Darklands. His army, though powerful, was tactically unsophisticated and unprepared for the strategic defense orchestrated by Princess Peach and her Royal Guard.</p>
+            <p>After a series of crushing defeats on the Mushroom Plains, Bowser was forced into a humiliating retreat. The war established the long-standing enmity between the two kingdoms and marked the beginning of a generational conflict that would shape the political landscape for decades to come.</p>
         `
     },
     {
@@ -183,12 +272,21 @@ function init() {
     const container = document.getElementById('battlefield-container');
     if (!container) return;
     
-    // Sort battles by date, which is embedded in the `id` for simplicity
-    // Newest first
+    // Sort battles by date
+    // This logic now correctly handles 'Ongoing' and specific day numbers
     const sortedBattles = MAJOR_BATTLES.sort((a, b) => {
+        if (a.date === 'Ongoing') return -1;
+        if (b.date === 'Ongoing') return 1;
+        
         const dayA = parseInt(a.date.match(/Day (\d+)/)?.[1] || 0);
         const dayB = parseInt(b.date.match(/Day (\d+)/)?.[1] || 0);
-        return dayB - dayA;
+        
+        if (dayA !== dayB) {
+            return dayB - dayA;
+        }
+
+        // If days are the same, sort by a secondary factor like name to keep it stable
+        return a.name.localeCompare(b.name);
     });
 
     container.innerHTML = sortedBattles.map(renderBattle).join('');
