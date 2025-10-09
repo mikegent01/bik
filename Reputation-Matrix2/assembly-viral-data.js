@@ -65,7 +65,101 @@ export const VIRAL_POSTS = [
         comments: [],
         eventId: 'bramblehaven_siege'
     },
-
+    {
+        id: 'bramblehaven_quill_pre_battle',
+        order: 20076,
+        characterKey: 'sergeant_quill',
+        timestamp: '1 day ago',
+        content: `Dawn breaks on a historic day! Our brave soldiers stand ready to excise this Fawful-blight from our lands. By sundown, the Princess's banner will fly over Bramblehaven's walls. Let every soldier fight with righteous fury in their heart! For the Princess!`,
+        likes: 1850,
+        comments: [
+            { characterKey: 'captain_toadette', text: "Failure is not an option, Sergeant." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_flak_pre_battle',
+        order: 20075,
+        characterKey: 'forager_flak',
+        timestamp: '1 day ago',
+        content: `It's cold. The silence before the horns sound is always the worst part. You can hear everyone breathing. You can see the frost on the walls up there. Just want to get this over with.`,
+        likes: 633,
+        comments: [
+            { characterKey: 'spotter_pip', text: "Stay close, Flak. We'll watch each other's backs." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'wah_media_assault_begins',
+        order: 20074,
+        characterKey: 'wah_media_collective',
+        timestamp: '23 hours ago',
+        content: `**DAWN ASSAULT BEGINS!** The Peach Loyalists have launched their attack on Bramblehaven! An overwhelming wave of troops is storming the outer walls. Fawful's garrison has responded with a devastating barrage of frost magic, and the battlefield is already littered with casualties.`,
+        likes: 2540,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: "A frontal assault against a fortified position with magical defenses. Bold, but costly. Very costly." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_mistveil_injured',
+        order: 20073,
+        characterKey: 'mistveil_aide',
+        timestamp: '22 hours ago',
+        content: `Commander Mistveil has been hit! The frost magic is severe. They targeted our leadership! Cowards! Dewdrop is with him now. This insult will be repaid in blood. They will regret ever touching him.`,
+        likes: 1340,
+        comments: [
+            { characterKey: 'dewdrop', text: "He's strong. He'll pull through. Now let me work." },
+            { characterKey: 'embercap', text: "Anger is a weapon. Aim it well." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'dewdrop_frost_casualties',
+        order: 20072,
+        characterKey: 'dewdrop',
+        timestamp: '22 hours ago',
+        content: `So much ice... these aren't clean wounds. The frost magic freezes them solid, shatters limbs. I'm doing everything I can, but we weren't prepared for this level of arcane defense. The first wave was a massacre.`,
+        likes: 1021,
+        comments: [],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_tank_breach',
+        order: 20071,
+        characterKey: 'sapper_sprocket',
+        timestamp: '20 hours ago',
+        content: "That Fawful-tech tank was a real piece of junk, but we got her running! Pointed it at their own wall and... BOOM! The look on their faces when their own hardware tore a hole in their defenses. Priceless. The breach is open!",
+        likes: 1120,
+        comments: [
+            { characterKey: 'lario', text: "Heh. Bet I could have gotten twice the explosive yield out of that rust bucket. Amateur." },
+            { characterKey: 'iron_legion', text: "The strategic application of captured enemy assets is a hallmark of an effective fighting force. Commendable." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'biff_wall_taken',
+        order: 20070,
+        characterKey: 'breacher_biff',
+        timestamp: '19 hours ago',
+        content: `THE WALL IS OURS! Fought tooth and nail for every inch, but we're on the ramparts! We're planting the banner! Let's show these Fawful freaks what happens when they mess with the Loyalists!`,
+        likes: 1590,
+        comments: [],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_no_quarter_order',
+        order: 20069,
+        characterKey: 'embercap',
+        timestamp: '19 hours ago',
+        content: `The wall is breached, but the cost was too high. They showed our first wave no mercy. We will show them the same. No prisoners. No quarter. Clear the ramparts. Make them pay for every soldier we lost.`,
+        likes: 1755,
+        comments: [
+            { characterKey: 'captain_toadette', text: "Execute the order, Commander." },
+            { characterKey: 'forager_flak', text: "Commander... are you sure?" }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
     // --- Flashback: The Cost of "No Quarter" ---
     // These posts reveal the brutal tactics used to take the outer walls.
     {
