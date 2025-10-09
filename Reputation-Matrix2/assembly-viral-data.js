@@ -19,6 +19,97 @@ export const VIRAL_POSTS = [
         ],
         eventId: 'bramblehaven_siege'
     },
+
+{
+        id: 'bramblehaven_grunt_perspective',
+        order: 20076,
+        characterKey: 'forager_flak',
+        timestamp: '2 hours ago',
+        content: "They told us 'no quarter'. I looked into his eyes before... before. He was just a kid. A beanish kid. We did what we had to do. For the Princess. But the stars feel... colder tonight. The victory tastes like ash.",
+        likes: 650,
+        comments: [
+            { characterKey: 'embercap', text: "Hold fast, soldier. What we do, we do for the future of the Kingdom. Your sacrifice is noted." },
+            { characterKey: 'generic_toad', text: "This is... horrible. Is this what victory looks like now?" }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_tank_breach',
+        order: 20075,
+        characterKey: 'sapper_sprocket',
+        timestamp: '3 hours ago',
+        content: "That Fawful-tech tank was a real piece of junk, but we got her running! Pointed it at their own keep and... BOOM! The look on their faces when their own hardware tore down their walls. Priceless. Now for the clean-up.",
+        likes: 1120,
+        comments: [
+            { characterKey: 'lario', text: "Heh. Bet I could have gotten twice the explosive yield out of that rust bucket. Amateur." },
+            { characterKey: 'iron_legion', text: "The strategic application of captured enemy assets is a hallmark of an effective fighting force. Commendable." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_propaganda',
+        order: 20074,
+        characterKey: 'sergeant_quill',
+        timestamp: '5 hours ago',
+        content: `Let the history books record this day! Our brave soldiers paid a heavy price in blood, but they purchased victory with their courage! Every fallen Loyalist is a foundation stone for the renewed Kingdom! Do not mourn their sacrifice—HONOR IT! For the Princess!`,
+        likes: 1955,
+        comments: [
+            { characterKey: 'captain_toadette', text: "Well said, Sergeant. Their memory will fuel our righteous cause." },
+            { characterKey: 'fawful', text: "THE WORDS OF WIMPS! You have the yelling of empty barrels! My minions died with the giggling of glory! Yours died for a princess who is not even there!" }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_fawful_survivor',
+        order: 20073,
+        characterKey: 'fawful_grunt_77',
+        timestamp: '6 hours ago',
+        content: "They're not taking prisoners. I saw it. We tried to surrender on the wall. They just... kept coming. I jumped. Broke my leg but I'm alive. Hiding in the woods. I can still hear the screaming. Don't go to Bramblehaven. Don't...",
+        likes: 513,
+        comments: [
+            { characterKey: 'the_broker', text: "Verified location data for surviving Fawful personnel is now a high-value commodity. Discretion assured." },
+            { characterKey: 'detective_penny', text: "A potential witness. Location tracking initiated." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_mistveil_injured',
+        order: 20072,
+        characterKey: 'mistveil_aide',
+        timestamp: '8 hours ago',
+        content: `Commander Mistveil was wounded in the initial assault. The frost magic was... severe. They targeted our leadership. Cowards. He's stable, thanks to Dewdrop, but this insult will be repaid in blood. They will regret ever touching him.`,
+        likes: 1340,
+        comments: [
+            { characterKey: 'dewdrop', text: "He's strong. He'll pull through. Now let me work." },
+            { characterKey: 'embercap', text: "Anger is a weapon. Aim it well." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_intel_rumor',
+        order: 20071,
+        characterKey: 'freelancer_spy_1',
+        timestamp: '9 hours ago',
+        content: "Intel chatter is off the charts. The Loyalists didn't just take Bramblehaven for the location. Word is Fawful's entire northern command structure, troop movements, and supply routes are on a server in the keep's basement. They're not just taking a fort, they're trying to decapitate his whole operation.",
+        likes: 950,
+        comments: [
+            { characterKey: 'the_broker', text: "Confirmation of this asset's existence would fundamentally alter the market. I am paying top coin for definitive proof." },
+            { characterKey: 'general_marcus_ironhand', text: "An enemy's logistical data is the key to their defeat. A sound strategic objective." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'bramblehaven_civilian_view',
+        order: 20070,
+        characterKey: 'old_man_shroomsworth',
+        timestamp: '11 hours ago',
+        content: "From my hilltop, you can see the smoke rising from Bramblehaven. Been rising all day. Heard the explosions well into the night. It's the sound of the world changing, and I don't think it's for the better.",
+        likes: 780,
+        comments: [
+            { characterKey: 'free_name_sarah', text: "War never changes. It just finds new homes to burn." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },    
     {
         id: 'toadette_bramblehaven_victory',
         order: 20079,
