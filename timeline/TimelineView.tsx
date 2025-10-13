@@ -81,7 +81,8 @@ const TimelineFilterControls: React.FC<{
 const getSeasonInfo = (episode: number): { seasonNumber: number; seasonEpisode: number; title: string } | null => {
     if (episode >= 0 && episode <= 32) return { seasonNumber: 1, seasonEpisode: episode, title: "Season 1: The Castle & The Labyrinth" };
     if (episode >= 33 && episode <= 72) return { seasonNumber: 2, seasonEpisode: episode - 32, title: "Season 2: The Authority" };
-    if (episode >= 73) return { seasonNumber: 3, seasonEpisode: episode - 72, title: "Season 3: The Great Treasure Hunt" };
+    if (episode >= 73 && episode <= 100) return { seasonNumber: 3, seasonEpisode: episode - 72, title: "Season 3: The Great Treasure Hunt" };
+    if (episode >= 101) return { seasonNumber: 4, seasonEpisode: episode - 100, title: "Season 4: Arctic Thaw" };
     return null;
 };
 
@@ -113,7 +114,7 @@ const TimelineItem: React.FC<{ item: TimelineEvent, isLast: boolean }> = ({ item
             </span>
           </div>
         </div>
-        <p className="text-slate-400">{item.description}</p>
+        <p className="text-slate-400 whitespace-pre-wrap">{item.description}</p>
       </Card>
     </div>
   );

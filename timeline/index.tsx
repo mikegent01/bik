@@ -43,7 +43,8 @@ const CalendarEvent: React.FC<{ event: TimelineEvent }> = ({ event }) => {
     if (episode === 0) return 'Prologue';
     if (episode >= 1 && episode <= 32) return `S1E${episode}`;
     if (episode >= 33 && episode <= 72) return `S2E${episode - 32}`;
-    return `S3E${episode - 72}`;
+    if (episode >= 73 && episode <= 100) return `S3E${episode - 72}`;
+    return `S4E${episode - 100}`;
   };
 
   const colorClass = categoryColorMap[event.category] || 'bg-slate-400';

@@ -2,12 +2,12 @@ import { StoryArc } from './types';
 
 export const STORY_ARCS_DATA_S4: StoryArc[] = [
     {
-        title: "The Great Treasure Hunt",
-        episodeRange: "Episode 92-Ongoing (S5)",
-        summary: "The entire campaign is reframed by a grand proclamation from MegaX, the self-proclaimed 'King of YouTube.' He announces he has left his ultimate treasure—his channel and all its assets—in 'one piece' for the adventurers to find, kicking off a massive treasure hunt. The first leg of this new journey is a dramatic retelling of the airship's destruction and the chaotic siege on the floating castle, including the team's capture, a desperate prison break, and their final escape with the first piece of treasure: a glowing green slimeball.",
+        title: "Season 4: Arctic Thaw",
+        episodeRange: "Episode 101-Ongoing",
+        summary: "Revived in a mysterious Antarctic research facility by Doctor Valeri, the team recovers from their injuries sustained in Canada. But their sanctuary is unsettling, filled with strange medical experiments. Tasked with repairing an antenna, they face new enemies and uncover hidden weapons, deepening the mystery of their icy prison and Valeri's true intentions.",
         characterDevelopments: [
-            { characterName: "The Team", development: "Their purpose is completely redefined. No longer just survivors or freedom fighters, they are now treasure hunters on a grand, world-spanning quest with a tangible, almost fourth-wall-breaking prize." },
-            { characterName: "MegaX", development: "Re-contextualized from a simple antagonist to a 'Pirate King' figure (a la One Piece), who has set the entire world on a new course with his final declaration." },
+            { characterName: "Doctor Valeri", development: "Reappears as the team's savior, reviving them in his Antarctic facility. However, the discovery of strange medical experiments and his vague explanations for their situation cast him in a suspicious light, suggesting his motives are not purely altruistic." },
+            { characterName: "The Team", development: "Waking up from their defeat in Canada, the team is disoriented and vulnerable. They are immediately thrown into a new mystery, forced to trust their old, unpredictable ally Valeri while questioning the true nature of their new surroundings." },
         ]
     },
 ];

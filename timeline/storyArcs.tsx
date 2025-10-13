@@ -149,15 +149,6 @@ const STORY_ARCS_DATA_S1: StoryArc[] = [
             </div>
         )
     },
-    {
-        title: "Season 4: The Ancient Portals",
-        episodeRange: "Episode 101-Ongoing",
-        summary: "Years after being separated by a black hole, the team reunites with Doctor Valeneria, now a paranoid researcher in a frozen wasteland. His discovery of broken 'ancient portals' kicks off a new adventure when a team member disappears into one, forcing the others to follow into the unknown to stage a rescue.",
-        characterDevelopments: [
-            { characterName: "Doctor Valeneria", development: "Has transformed from a simple reporter into an isolated, paranoid researcher obsessed with ancient technology. He has survived by creating clones, showing a morally ambiguous side." },
-            { characterName: "The Team", development: "Reunited after a long time skip, their new mission is immediately defined by a rescue operation into a completely unknown dimension, testing their cohesion after years apart." },
-        ]
-    },
 ];
 
 export const STORY_ARCS_DATA: StoryArc[] = [...STORY_ARCS_DATA_S1, ...STORY_ARCS_DATA_S2, ...STORY_ARCS_DATA_S3, ...STORY_ARCS_DATA_S4];

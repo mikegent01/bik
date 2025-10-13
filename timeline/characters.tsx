@@ -8,7 +8,7 @@ const CHARACTER_DATA_S1: Character[] = [
   // PROTAGONISTS
   {
     name: "Grape (The Leader)",
-    description: "The group's erratic leader (player name 'thunderhead'). After the black hole incident, he resurfaced years later with the rest of the team, discovering Doctor Valeneria in a frozen research outpost.",
+    description: "The group's erratic leader (player name 'thunderhead'). After the team's ordeal in Canada, he was revived along with the others by Doctor Valeri in a mysterious Antarctic research facility.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
@@ -16,7 +16,7 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "Kymar (The Sergeant)",
-    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'). After being consumed by the black hole, he reappeared years later with his team, finding Doctor Valeneria and a new mystery involving ancient portals.",
+    description: "Advocates for loud, direct raids (player name 'Ghastly_Cat'). After the team's ordeal in Canada, he was revived along with the others by Doctor Valeri in a mysterious Antarctic research facility.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
@@ -24,7 +24,7 @@ const CHARACTER_DATA_S1: Character[] = [
   },
   {
     name: "Mike (The Narrator)",
-    description: "The group's narrator and strategist, also known as 'Mikegent'. Years after the black hole incident, he and his team found their way to a desolate, frozen shelter, where they were reunited with a much-changed Doctor Valeneria.",
+    description: "The group's narrator and strategist, also known as 'Mikegent'. After the team's ordeal in Canada, he was revived along with the others by Doctor Valeri in a mysterious Antarctic research facility.",
     faction: CharacterFaction.PROTAGONISTS,
     importance: 3,
     firstAppearanceEpisode: 1,
@@ -106,10 +106,10 @@ const CHARACTER_DATA_S1: Character[] = [
     lastAppearanceEpisode: 3
   },
   {
-    name: "Doctor Valeneria (The Reporter)",
-    description: "A news reporter who was lost in the Backrooms. Years after being separated from the team, he was rediscovered in a frozen wasteland, having become an isolated, paranoid researcher studying ancient portals and creating clones to stave off loneliness.",
+    name: "Doctor Valeri (The Researcher)",
+    description: "A news reporter who was lost in the Backrooms. Years after being separated from the team, he resurfaced in an Antarctic research facility where he revived the team. He has become an isolated and mysterious researcher, and the true purpose of his facility and experiments is unknown.",
     faction: CharacterFaction.ALLIES,
-    importance: 1,
+    importance: 2,
     firstAppearanceEpisode: 5,
     lastAppearanceEpisode: 101
   },

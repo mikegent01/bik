@@ -25,9 +25,9 @@ export const SEASONS_DATA: Season[] = [
   },
   {
     seasonNumber: 4,
-    title: "The Ancient Portals",
+    title: "Arctic Thaw",
     episodeCount: 1,
-    summary: "Following another multi-year time skip, the team rediscovers Doctor Valeneria, now an isolated and paranoid researcher in a frozen wasteland. He has survived by studying mysterious, broken 'ancient portals.' The new season begins as a team member vanishes into one of these portals, forcing the others to follow into an unknown dimension to stage a rescue.",
+    summary: "After being revived in a mysterious Antarctic research facility by Doctor Valeri, the team finds themselves recovering from their ordeal in Canada. But their sanctuary is unsettling, filled with strange medical experiments and unanswered questions. Tasked with repairing an antenna, they face new enemies and uncover hidden weapons, deepening the mystery of their icy prison and Valeri's true intentions.",
     status: 'Ongoing'
   }
 ];
