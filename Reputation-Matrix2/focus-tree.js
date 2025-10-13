@@ -36,11 +36,11 @@ export const TOAD_TIMELINE = [
         ]
     },
     {
-        day: 15,
+        day: 16,
         events: [
-            { toadKey: 'dan', focus: "A Leader's Silence", status: "Ongoing", description: "Physically diminished and emotionally shattered, Dan has withdrawn. The splintering of the toads into factions—the 'Originals' versus the 'First Cohort'—is a weight he cannot currently bear. He sits in silence, the mantle of leadership feeling more like a shroud.", details: "Group cohesion is critically low." },
+            { toadKey: 'dan', focus: "Manor of Madness", status: "Ongoing", description: "No longer withdrawn, Dan has been thrust into the chaos of Raventree Manor. He fought alongside the party against haunted books, secured a volume on Magitek theory, and is now actively exploring the haunted estate, having helped fortify a room for the night.", details: "Primary focus (Rallying) is on hold." },
             { toadKey: 'toad_lee', focus: "The Staff's Warden", status: "Ongoing", description: "Toad Lee has become the grim enforcer of the Vow of Renewal. He spends his days policing the factions on the Vigilance, his axe a constant reminder that their fragile unity was bought with blood. The staff's whispers are a constant companion.", details: "Maintaining order through intimidation." },
-            { toadKey: 'eager', focus: "Manor Exploration", status: "Ongoing", description: "Separated from the chaos on the Vigilance, Eager is with the main party at Raventree Manor. He is focused on the immediate survival challenges of the haunted estate.", details: "Primary focus is on hold." },
+            { toadKey: 'eager', focus: "Manor Exploration", status: "Ongoing", description: "After being found and rescued within Raventree Manor, Eager is assisting the party in securing the area and taking stock of supplies alongside Bowser.", details: "Primary focus is on hold." },
             { toadKey: 'ryan', focus: "Manor Exploration", status: "On Hold", description: "Ryan's research into the staff is paused. He is now at Raventree Manor, his sharp intellect focused on the mansion's mysteries... and observing his companions.", details: "Primary focus (Research) on hold (8 days remaining)." },
             { toadKey: 'roger', focus: "Manor Exploration", status: "On Hold", description: "Logistical planning for the toads has been put on hold. Roger is applying his pragmatic mind to the immediate dangers of Raventree Manor with the main party.", details: "Primary focus (Scavenging) on hold (4 days remaining)." },
             { toadKey: 'bones', focus: "Manor Exploration", status: "On Hold", description: "Bones has traded contemplating one hostile environment for another. His focus on the Orcs is paused as he navigates the unsettling halls of Raventree Manor.", details: "Primary focus (Orc Debt) on hold (6 days remaining)." }

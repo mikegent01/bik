@@ -1,4 +1,4 @@
-// liberated-toads-system.js
+// systems/liberated-toads-system.js
 import { state, loadState } from '../state.js';
 import { LORE_DATA } from '../lore.js';
 import { CHARACTER_RELATIONS } from '../character-relations.js';
@@ -24,12 +24,30 @@ export function renderLiberatedToadsSystem(factionKey, factionData, currentState
             statusClass = 'positive';
         }
 
+        const opinionsHTML = CHARACTER_RELATIONS[subKey] ? `
+            <div class="toad-figure-opinions">
+                <h6>Opinions:</h6>
+                <ul>
+                    ${Object.entries(CHARACTER_RELATIONS[subKey]).map(([targetKey, relation]) => {
+                        const targetData = LORE_DATA.characters[targetKey];
+                        // Fallback for non-character targets like 'xo_staff'
+                        const targetName = targetData ? targetData.name : targetKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        const opinionText = relation.text.split(':').slice(1).join(':').trim();
+
+                        return `<li class="toad-opinion-item"><strong>On ${targetName}:</strong> "<em>${opinionText}</em>"</li>`;
+                    }).join('')}
+                </ul>
+            </div>
+        ` : '';
+
         return `
-            <div class="toad-figure-card summary">
+            <div class="toad-figure-card">
                 <img src="${toadData.portrait || 'toads/toad.png'}" alt="${subFaction.name}" class="toad-figure-portrait">
                 <div class="toad-figure-info">
                     <h4 class="toad-figure-name">${subFaction.name}</h4>
                     <p class="toad-figure-status status-${statusClass}">${subFaction.status}</p>
+                    <p class="toad-figure-desc">${subFaction.description}</p>
+                    ${opinionsHTML}
                 </div>
             </div>
         `;
@@ -38,15 +56,14 @@ export function renderLiberatedToadsSystem(factionKey, factionData, currentState
     return `
         <p class="system-description">A group forged in tragedy, now split by distrust. After a magical accident killed 13 newcomers and gravely injured their leader Dan, the toads are held together by a fragile vow. Their internal politics are highly volatile.</p>
         
-        <div class="liberated-toads-system-container summary">
+        <div class="liberated-toads-system-container">
             <div class="toad-section-header">
-                <h6>Key Figures & Factions</h6>
+                <h3>Key Figures & Factions</h3>
             </div>
-            <div class="toad-figures-grid summary">
+            <div class="toad-figures-grid">
                 ${keyFiguresHTML}
             </div>
         </div>
-        <a href="focus.html" class="btn btn-primary" style="display: block; text-align: center; margin-top: 16px;">View Full Toad Progression & Timeline</a>
     `;
 }
 

@@ -12,10 +12,11 @@ function init() {
     const factionKey = 'liberated_toads';
     const factionData = LORE_DATA.factions[factionKey];
 
-    // Render the system without the "Full Report" button
+    // Render the full system view
     container.innerHTML = renderLiberatedToadsSystem(factionKey, factionData, state);
     
     initLiberatedToadsSystem();
 }
 
+// This script is specifically for the liberated-toads-system.html page, so run init.
 init();

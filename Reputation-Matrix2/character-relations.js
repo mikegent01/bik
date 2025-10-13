@@ -1,4 +1,5 @@
 
+
 // This file defines the personal opinions between leaders and party members.
 export const CHARACTER_RELATIONS = {
     // --- PARTY MEMBER OPINIONS ---
@@ -33,9 +34,10 @@ export const CHARACTER_RELATIONS = {
     'markop': {
         'archie': { type: 'ally', text: "Markop on Archie: I should have known he'd get himself stuck. His recklessness is a constant liability. Still... the look on his face when he was trapped in that hallway... I'm glad I found him. We have to get him out." },
         'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },
-        'bowser': { type: 'enemy', text: "Markop on Bowser: A tyrant and a warlord. His goals are antithetical to justice and order. An alliance of desperation, not trust." },
+        'bowser': { type: 'neutral', text: "Markop on Bowser: A tyrant and a warlord, but seeing him preparing supplies in that haunted manor... he seemed less a king and more just another person trying to survive. A 'silly billy', caught in the same chaos as the rest of us. The alliance remains one of desperation, not trust." },
         'remi': { type: 'ally', text: "Markop on Remi: Another soul caught in this chaos. I'll have to keep an eye on her, make sure Archie doesn't lead her down the wrong path." },
-        'dan': { type: 'enemy', text: "Markop on 'Dan': He is an impostor. Lario's warning cannot be ignored. His actions in the prison—locking us in, his erratic behavior—he is a danger to us all. I failed to see it. I must uncover his true purpose before he leads us all to ruin." },
+        'dan': { type: 'enemy', text: "Markop on 'Dan': He is an impostor. Lario's warning cannot be ignored. His actions in the prison—locking us in, his erratic behavior—he is a danger to us all. I failed to see it. I must uncover his true purpose. His attempt to ride on my back during the book battle was undignified and tactically unsound." },
+        'waluigi': { type: 'enemy', text: "Markop on Waluigi: An agent of pure chaos, often to his own detriment. He tried to extinguish a magical fire with a Fire Bolt, making the inferno worse. He is unpredictable and dangerous, a fool wielding power he doesn't comprehend." },
         'toad_lee': { type: 'ally', text: "Markop on Toad Lee: A steadfast warrior. His dedication to protecting the others is admirable. He is the rock upon which their safety is built." },
         'eager': { type: 'ally', text: "Markop on Eager: His speed is an asset, but he must learn to master his fear. Courage is not the absence of fear, but acting in spite of it." },
         'roger': { type: 'ally', text: "Markop on Roger: His methods are... direct. A firearm is not an honorable weapon, but in these times, survival often outweighs tradition. He is a capable protector." },
@@ -55,7 +57,7 @@ export const CHARACTER_RELATIONS = {
     'humpik': {
         'bowser': { type: 'ally', text: "Humpik on Bowser: King Bowser is my friend. We fight together now. It is good." },
         'archie': { type: 'ally', text: "Humpik on Archie: The little guy is crazy! But he makes big explosions! Good to have in a scrap." },
-        'markop': { type: 'ally', text: "Humpik on Markop: The horse-man is too serious. But he fights good. I respect that. He and the little guy argue a lot now. About the other little guy. Weird." },
+        'markop': { type: 'ally', text: "Humpik on Markop: The horse-man called King Bowser 'silly billy'. To his face. I... do not understand horse-man jokes. Very strange. But he fights good. I respect that." },
         'remi': { type: 'ally', text: "Humpik on Remi: New girl. Looks small. Hope she can fight." },
         'waluigi': { type: 'ally', text: "Humpik on Waluigi: The skinny purple man... he grew wings! And saved me! He is strange, but he is a friend. A good friend. I owe him." },
         'iron_thorn': { type: 'enemy', text: "Humpik on Iron Thorn: Metal man hurt my friend! I hit him with my axe! If I see him again, I will hit him harder!" },
@@ -98,6 +100,7 @@ export const CHARACTER_RELATIONS = {
         'markop': { type: 'neutral', text: "Waluigi on Markop: So boring! All 'honor' and 'justice'. He's the straight man in my brilliant comedy!" },
         'humpik': { type: 'ally', text: "Waluigi on Humpik: The big guy needed a hand! An old sinner's hand! It was a magnificent exit, WAH-HA-HA! He owes me one." },
         'bowser': { type: 'neutral', text: "Waluigi on Bowser: Another big, angry brute who wants to rule everything. So unoriginal! But his army is a useful distraction." },
+        'dan': { type: 'neutral', text: "Waluigi on Dan: The little one-armed toad is so small! WAH! I tried to explain the magnificent physics of why he's so tiny now, but I think his little brain was too full of sadness to understand my genius." },
         'lario': { type: 'ally', text: "Waluigi on Lario: WAH! The little goblin shows up everywhere! He's like a bad smell you can't get rid of. But he knows things... useful things. He's more interesting than I thought!" },
         'lady_toriel': { type: 'ally', text: "Waluigi on Lady Toriel: WAH! She's so polite! It's weird! But she knows everyone. A useful, fluffy tool for my magnificent plans!" }
     },

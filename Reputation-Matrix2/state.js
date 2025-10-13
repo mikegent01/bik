@@ -1,5 +1,4 @@
 
-
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
@@ -33,6 +32,27 @@ function generateGenericIntel() {
     
     return intel;
 }
+
+const DEFAULT_INVENTORIES = {
+    archie: { name: "Archie's Stash", items: ["Sickle", "Dusty Wine Bottle"] },
+    markop: { name: "Markop's Pack", items: ["Gray Suit", "Carpentry Supplies", "Amethyst", "The Hammer Code: An Iron Legion Treatise"] },
+    humpik: { name: "Humpik's Haul", items: [] },
+    bowser: { name: "Bowser's Treasury", items: ["Princess Peach's Diary"] },
+    remi: { name: "Remi's Pack", items: ["Expired Coupon for Angel 24", "A single, very durable school ID card", "Practical Traveling Clothes", "A half-eaten sandwich", "The Silent Service: A Primer"] },
+    dan: { name: "Dan's Pack", items: ["Magitek Theory Vol. IV: Arcane Capacitors"] },
+    shared: { 
+        name: "Liberated Toads' Items", 
+        items: [
+            "Mushroom Kingdom History, Vol. III", 
+            "A Field Guide to Fungal Alchemy", 
+            "Koopa Troop Tactics",
+            "A Guide to the Great Libraries",
+            "Mayor's Ledger & Spellbook",
+            "Crayon Ring (Fake)",
+            "Guard's Logbook"
+        ] 
+    }
+};
 
 
 export const state = {
@@ -117,25 +137,7 @@ export const state = {
     calculationBreakdown: {},
     chartInstances: {},
     focusTreeState: {},
-    inventories: {
-        archie: { name: "Archie's Stash", items: ["Sickle"] },
-        markop: { name: "Markop's Pack", items: ["Gray Suit", "Carpentry Supplies"] },
-        humpik: { name: "Humpik's Haul", items: [] },
-        bowser: { name: "Bowser's Treasury", items: ["Princess Peach's Diary"] },
-        remi: { name: "Remi's Pack", items: ["Expired Coupon for Angel 24", "A single, very durable school ID card", "Practical Traveling Clothes", "A half-eaten sandwich"] },
-        shared: { 
-            name: "Party Items", 
-            items: [
-                "Mushroom Kingdom History, Vol. III", 
-                "A Field Guide to Fungal Alchemy", 
-                "Koopa Troop Tactics",
-                "A Guide to the Great Libraries",
-                "Mayor's Ledger & Spellbook",
-                "Crayon Ring (Fake)",
-                "Guard's Logbook"
-            ] 
-        }
-    },
+    inventories: {},
     mapState: {
         discoveredFogs: [],
         userPois: {
@@ -153,6 +155,10 @@ export const state = {
         waluigiWarningShown: false,
     }
 };
+
+function initInventories() {
+    state.inventories = structuredClone(DEFAULT_INVENTORIES);
+}
 
 function initReputation() {
     const factionKeys = Object.keys(LORE_DATA.factions);
@@ -332,6 +338,22 @@ function processInitialXP() {
     grantXP('bones', 50, "Confronted Crown Intelligence agents on the Vigilance.");
     grantXP('roger', 50, "Confronted Crown Intelligence agents on the Vigilance.");
     grantXP('ryan', 50, "Confronted Crown Intelligence agents on the Vigilance");
+
+    // XP from Raventree Manor Events (Day 16)
+    grantXP('dan', 75, "Participated in the battle against haunted books.");
+    grantXP('dan', 25, "Showed tactical initiative by attempting to gain a height advantage.");
+    grantXP('dan', 30, "Acquired and studied 'Magitek Theory Vol. IV'.");
+    grantXP('dan', 25, "Demonstrated leadership by deciding to split off to find Humpik.");
+    grantXP('dan', 25, "Showed kindness by returning Markop's personal effects.");
+    grantXP('dan', 25, "Used resourcefulness to help fortify a shelter for the night.");
+
+    grantXP('remi', 75, "Fought bravely against a swarm of flaming books.");
+    grantXP('remi', 50, "Survived an attack by giant Kitchen Skuttlers.");
+    grantXP('remi', 30, "Acquired and studied 'The Silent Service: A Primer'.");
+    grantXP('remi', 15, "Engaged with the problem by suggesting a (flammable) solution.");
+    grantXP('remi', 15, "Survived being trapped in the manor.");
+
+    grantXP('eager', 150, "Was successfully found and rescued by the party in Raventree Manor.");
 
 
     // Status updates from recent events
@@ -514,6 +536,8 @@ export function loadState() {
     const savedState = localStorage.getItem('vigilanceTerminalState');
     if (savedState) {
         const parsedState = JSON.parse(savedState);
+        // Delete the saved inventories so they don't overwrite the canonical source file.
+        delete parsedState.inventories;
         // Merge saved state into the default state structure
         Object.assign(state, parsedState);
     }
@@ -523,6 +547,7 @@ export function loadState() {
 
     // Always run these initializations to ensure data structure is up-to-date
     initReputation();
+    initInventories();
     calculateFinalReputations();
     processInitialXP();
 

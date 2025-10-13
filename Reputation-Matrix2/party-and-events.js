@@ -1,10 +1,10 @@
-
+// party-and-events.js
 
 export const AUXILIARY_PARTY = {
     dan: {
         name: "Dan",
         weapon: "Longsword & Magic",
-        status: "Gravely injured; lost an arm.",
+        status: "Weakened & Diminished",
         level: 1,
         xp: 0,
         xp_to_next: 100,
@@ -25,7 +25,7 @@ export const AUXILIARY_PARTY = {
     eager: {
         name: "Eager",
         weapon: "Whip",
-        status: "Kidnapped (Angel's Employee)",
+        status: "Active",
         level: 1,
         xp: 0,
         xp_to_next: 100,

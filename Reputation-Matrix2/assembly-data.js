@@ -13,6 +13,233 @@ export const WAHBOOK_POSTS = [
         likes: 133,
         comments: [],
     },
+
+    {
+        id: 'dan_finds_markop_room',
+        order: 10189,
+        characterKey: 'dan',
+        timestamp: 'Just Now',
+        content: `Markop found a mostly intact room. I saw him grab a pillow from the spider-infested one next door. He deserves the rest. We all do. This day has been... a lot.`,
+        likes: 255,
+        comments: []
+    },
+    {
+        id: 'eager_room_report',
+        order: 10188,
+        characterKey: 'eager',
+        timestamp: '1 minute ago',
+        content: `Markop checked all the rooms for us! So brave! One didn't have a roof, and another was SUPER spooky with lots of spiders! But he found a good one with a shiny purple rock on the table!`,
+        likes: 211,
+        comments: []
+    },
+    {
+        id: 'dan_bridge',
+        order: 10187,
+        characterKey: 'dan',
+        timestamp: '3 minutes ago',
+        content: `The hallway floor is completely gone in one section. Markop managed to wedge a broken chair across the gap. It's not stable, but it's a bridge. Please be careful crossing it.`,
+        likes: 243,
+        comments: []
+    },
+    {
+        id: 'dan_gives_barrel',
+        order: 10186,
+        characterKey: 'dan',
+        timestamp: '5 minutes ago',
+        content: `I'm so glad I held onto Markop's old barrel through all of this. He just found a photograph of his father inside. It was a good moment, a small piece of peace in all this chaos.`,
+        likes: 502,
+        comments: []
+    },
+    {
+        id: 'eager_kept_stuff',
+        order: 10185,
+        characterKey: 'eager',
+        timestamp: '8 minutes ago',
+        content: `I kept some of Markop's things! I didn't want him to lose them! I found his armor and his favorite blanket! I was worried he'd be mad but I think he's happy!`,
+        likes: 341,
+        comments: []
+    },
+    {
+        id: 'hjumpik_silly_billy',
+        order: 10184,
+        characterKey: 'hjumpik',
+        timestamp: '10 minutes ago',
+        content: `I am in shock. The large one, Markop, just looked King Bowser in the eye and called him a 'silly billy'. He is either the bravest man I have ever met, or the most foolish. Perhaps both.`,
+        likes: 412,
+        comments: [
+            { characterKey: 'bowser', text: 'HE IS THE MOST FOOLISH! AND SOON, THE MOST SMASHED!' }
+        ]
+    },
+    {
+        id: 'oracle_clothes_apology',
+        order: 10183,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '12 minutes ago',
+        content: `Ah. There you are. I see you from between the floorboards. My apologies for the earlier... animation of the garments. The ambient memory of this place has a tendency to be playful. It meant no harm.`,
+        likes: 740,
+        comments: []
+    },
+    {
+        id: 'hjumpik_archie_bottle',
+        order: 10182,
+        characterKey: 'hjumpik',
+        timestamp: '15 minutes ago',
+        content: `The three-eyed bandit went back to that balcony and retrieved the dusty wine bottle. He keeps staring at it as if it holds some great secret.`,
+        likes: 310,
+        comments: []
+    },
+    {
+        id: 'waluigi_kitchen_skuttlers',
+        order: 10181,
+        characterKey: 'waluigi',
+        timestamp: '18 minutes ago',
+        content: `WAH! The kitchen is infested with GIANT BUGS! Excellent! They make a satisfying crunch when you stomp them! It is a symphony of snapping chitin! I call this piece 'Requiem for a Roach'!`,
+        likes: 388,
+        comments: [
+            { characterKey: 'green_t', text: 'Stop composing and start squishing! They\'re everywhere!' }
+        ]
+    },
+    {
+        id: 'dan_remi_vanishes_again',
+        order: 10180,
+        characterKey: 'dan',
+        timestamp: '20 minutes ago',
+        content: `We cleared a path to the second floor through the hole in the ceiling. I reached down to help Remi up... and she just bolted. Vanished down another hallway. I'm worried about her.`,
+        likes: 301,
+        comments: []
+    },
+    {
+        id: 'oracle_watches_remi_read',
+        order: 10179,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '22 minutes ago',
+        content: `A primer on silence is picked up by one who fears it. The label 'nerd' is a shield against the fear of not understanding. The first page turns. A seed of curiosity, planted in hostile soil.`,
+        likes: 815,
+        comments: []
+    },
+    {
+        id: 'dan_magitek_book',
+        order: 10178,
+        characterKey: 'dan',
+        timestamp: '25 minutes ago',
+        content: `The fire is out. We managed to save a few of the books. This one, 'Magitek Theory Vol. IV: Arcane Capacitors,' is incredible. It's about blending magic and technology. This could change everything.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'ryan', text: 'Can I see that when you\'re done?' },
+            { characterKey: 'lario', text: 'Hey! Don\'t get any ideas! That\'s MY field of expertise!' }
+        ]
+    },
+    {
+        id: 'dan_remi_oil',
+        order: 10177,
+        characterKey: 'dan',
+        timestamp: '28 minutes ago',
+        content: `Okay, crisis averted, but for a second there Remi suggested we pour OIL on the fire. We're going to have to go over some basic... everything with her. I'm just glad no one listened.`,
+        likes: 319,
+        comments: []
+    },
+    {
+        id: 'oracle_sees_markop_mistake',
+        order: 10176,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '30 minutes ago',
+        content: `In the smoke, perception blurs. A frightened child becomes a porcelain doll. A memory of something broken, something left behind. The mind plays tricks in the house of tricks.`,
+        likes: 799,
+        comments: []
+    },
+    {
+        id: 'hjumpik_archie_finds_clue',
+        order: 10175,
+        characterKey: 'hjumpik',
+        timestamp: '33 minutes ago',
+        content: `While we were busy fighting flaming encyclopedias, the three-eyed one was on a balcony. He says he found some writing in the dust. Something about 'Beweare the T...'. The trail goes cold there.`,
+        likes: 350,
+        comments: []
+    },
+    {
+        id: 'waluigi_takes_credit_for_fire',
+        order: 10174,
+        characterKey: 'waluigi',
+        timestamp: '35 minutes ago',
+        content: `My Fire Bolt spell was a genius tactical decision! It added an element of danger and urgency! It made our victory over the paper pests all the more triumphant! You're welcome!`,
+        likes: 321,
+        comments: [
+            { characterKey: 'dan', text: 'You set the library on fire, Waluigi.' }
+        ]
+    },
+    {
+        id: 'dan_book_fight_escalates',
+        order: 10173,
+        characterKey: 'dan',
+        timestamp: '38 minutes ago',
+        content: `The books are fighting back! Markop jumped in to help but they're swarming him. Now they're... spinning? And glowing? This can't be good. THEY'RE ON FIRE. THE BOOKS ARE ON FIRE.`,
+        likes: 366,
+        comments: []
+    },
+    {
+        id: 'dan_finds_book_fight',
+        order: 10172,
+        characterKey: 'dan',
+        timestamp: '40 minutes ago',
+        content: `Followed the noise and found Waluigi in what must have been the library. He's... fighting books. Animated, flying books are attacking him. And now Markop and Remi are here. What is this place?`,
+        likes: 318,
+        comments: []
+    },
+    {
+        id: 'hjumpik_sees_archie_fall',
+        order: 10171,
+        characterKey: 'hjumpik',
+        timestamp: '42 minutes ago',
+        content: `Heard a huge crash. The three-eyed one went upstairs, saw something in the butler's room that spooked him, and just tumbled all the way back down. He is... alive, I think. But he is not getting up quickly.`,
+        likes: 305,
+        comments: []
+    },
+    {
+        id: 'waluigi_hears_knocking',
+        order: 10170,
+        characterKey: 'waluigi',
+        timestamp: '45 minutes ago',
+        content: `WAH! Someone is knocking on the library door! Come around, you fool! We are busy engaging in mortal combat with the literary arts!`,
+        likes: 288,
+        comments: []
+    },
+    {
+        id: 'dan_hears_waluigi',
+        order: 10169,
+        characterKey: 'dan',
+        timestamp: '48 minutes ago',
+        content: `I can hear Waluigi's voice from a room down the hall. He sounds like he's... explaining something? Loudly. The new girl, Remi, just ran right towards the sound. Markop is carefully following her.`,
+        likes: 294,
+        comments: []
+    },
+    {
+        id: 'dan_group_split',
+        order: 10168,
+        characterKey: 'dan',
+        timestamp: '50 minutes ago',
+        content: `Hjumpik managed to free Archie! But the debris shifted and now the passage is blocked. It's Archie and Hjumpik on one side, and Markop and Remi with me on the other. We need to find another way around.`,
+        likes: 312,
+        comments: []
+    },
+    {
+        id: 'hjumpik_arrives',
+        order: 10167,
+        characterKey: 'hjumpik',
+        timestamp: '55 minutes ago',
+        content: `Arrived to a strange sight. Markop and some new girl are frozen, staring at the three-eyed bandit who is buried under rubble. Right. Time to get to work. This large piece of wood should provide leverage.`,
+        likes: 340,
+        comments: []
+    },
+    {
+        id: 'dan_finds_trouble',
+        order: 10166,
+        characterKey: 'dan',
+        timestamp: '1 hour ago',
+        content: `We found them! But it's bad. Archie is pinned under a collapsed ceiling. And a girl I've never seen before... Remi?... was somehow trapped inside the wall. Markop is helping her now. Everyone's shaken up.`,
+        likes: 389,
+        comments: []
+    },
+
     {
         id: 'toad_lee_splinter_groups',
         order: 10075,

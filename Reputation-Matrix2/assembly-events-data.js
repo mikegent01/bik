@@ -50,6 +50,23 @@ const BASE_EVENTS = [
 
 // --- NEW SCRIPTED EVENTS ---
 
+const RAVENTREE_MANOR_EVENT = {
+    id: 'raventree_manor_chaos',
+    title: "The Haunting of Raventree Manor",
+    order: -3.0, // Newest
+    locationId: 'poi_dm_larios_workshop', // Placeholder, manor not on map
+    description: "The party's exploration of the haunted Raventree Manor descended into chaos. After being separated, they battled flaming books, discovered cryptic clues, and eventually regrouped with Bowser and Eager before barricading themselves for the night.",
+    attendees: [
+        { characterKey: 'archie', justification: "Discovered a cryptic clue before falling down a flight of stairs." },
+        { characterKey: 'markop', justification: "Fought flaming books and discovered personal effects, including a photo of his father." },
+        { characterKey: 'remi', justification: "Assisted in the book battle before getting separated from the group again." },
+        { characterKey: 'waluigi', justification: "Attempted to fight a magical fire with a Fire Bolt, making it worse." },
+        { characterKey: 'bowser', justification: "Was discovered in the manor, preparing supplies with Eager." }
+    ],
+    news_ids: ['wah_media_raventree_manor'],
+    post_ids: ['archie_raventree_clue', 'waluigi_raventree_fire', 'markop_raventree_rest']
+};
+
 const BRAMBLEHAVEN_EVENT = {
     id: 'bramblehaven_siege',
     title: "The Siege of Bramblehaven",
@@ -153,6 +170,7 @@ if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
 
 // Conditionally add the World War events (Day 16+ or debug mode)
 if (CURRENT_GAME_DATE.day >= 16 || state.debugMode) {
+    allEvents.unshift(RAVENTREE_MANOR_EVENT);
     allEvents.unshift(REGENCY_FALL_EVENT);
     allEvents.unshift(VAMPIRE_WAR_EVENT);
 }

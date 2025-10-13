@@ -1,4 +1,5 @@
 
+
 import { state, loadState } from './state.js';
 import { playSound } from './common.js';
 import { BOOK_DESCRIPTIONS } from './books/book_descriptions.js';
@@ -131,53 +132,55 @@ const LIBRARIES = [
     { name: "The Bureau of Lost Socks - Dry County, Midlands", stockKey: 'lost_socks' }
 ];
 
+const COVERS = {
+    "Princess Peach's Diary": 'book_cover_diary.png',
+    "Mushroom Kingdom History, Vol. III": 'book_cover_history.png',
+    "A Field Guide to Fungal Alchemy": 'book_cover_alchemy.png',
+    "Koopa Troop Tactics": 'book_cover_tactics.png',
+    "The Silent Service: A Primer": 'book_cover_silent_service.png',
+    "Blood & Vines: An Onyx Hand Manifesto": 'book_cover_blood_vines.png',
+    "Waluigi's Guide to Graceful Cheating": 'book_cover_waluigi_cheating.png',
+    "Da Krumperz Kode": 'book_cover_krumperz_kode.png',
+    "A Rebel's Cookbook": 'book_cover_rebel_cookbook.png',
+    "Scrapping for Dummies": 'book_cover_scrapping.png',
+    "Fawful's Furious Feelings Journal": 'book_cover_fawful.png',
+    "Navigating the Datastream, Vol II: The Deep Web": 'book_cover_datastream_v2.png',
+    "The Code of the Blade": 'book_cover_azure_blade.png',
+    "The Hammer Code: An Iron Legion Treatise": 'book_cover_hammer_code.png',
+    "Magitek Theory Vol. IV: Arcane Capacitors": 'book_cover_magitek.png',
+    "A History of the Star Sprites": 'book_cover_star_sprites.png',
+    "Toadstool Architecture: A Study in Fungal Forms": 'book_cover_toadstool_architecture.png',
+    "The Culinary Arts of Conquest": 'book_cover_culinary_conquest.png',
+    "Edicts of the Ebon Veil": 'book_cover_ebon_veil.png',
+    "A Mortal's Guide to Vampire Etiquette": 'book_cover_vampire_etiquette.png',
+    "Fundamentals of Abjuration": 'book_cover_abjuration.png',
+    "The Kirby Incident: A Conservator's Report": 'book_cover_kirby.png',
+    "How to Monetize Your Data-Stream": 'book_cover_monetize_datastream.png',
+    "A Tourist's Guide to the Digital Sea": 'book_cover_guide_digital_sea.png',
+    "The Art of the Deal: A Freelancer's Manifesto": 'book_cover_freelancer_manifesto.png',
+    "A Study of Wario's Greed: A Psychological Profile": 'book_cover_wario_greed.png',
+    "The Great Banana War: A Kong History": 'book_cover_banana_war.png',
+    "Kremling Ship Designs, Vol. II": 'book_cover_kremling_ships.png',
+    "The Prophecies of the Ascended One": 'book_cover_ascended_prophecies.png',
+    "The Yoshi's Island Accords": 'book_cover_yoshi_accords.png',
+    "A Field Guide to Wonder Flowers": 'book_cover_wonder_flowers.png',
+    "The Trials of the Azure Blade": 'book_cover_azure_trials.png',
+    "Beanbean Folk Tales": 'book_cover_beanbean_tales.png',
+    "The Philosophy of WAH": 'book_cover_wah_philosophy.png',
+    "Surviving the Wastelands: A Raider's Guide": 'book_cover_wastelands_guide.png',
+    "The Art of the WAH": 'book_cover_wah_art.png',
+    "The Rootkit Grimoire": 'book_cover_rootkit.png',
+    "Navigating the Datastream": 'book_cover_datastream.png',
+    "A Study in Memetics": 'book_cover_memetics.png',
+    "Iron Legion Field Manual": 'book_cover_iron_legion.png',
+    "A Guide to the Great Libraries": 'book_cover_library.png',
+    "The Liber Maleficus: A Study of the Ruinous Powers": 'book_cover_chaos.png',
+    "Codex: The Punchline": 'book_cover_jester.png',
+    "Mayor's Ledger & Spellbook": 'book_cover_conspiracy.png',
+};
+
 function getBookCoverUrl(bookTitle) {
-    const covers = {
-        "Princess Peach's Diary": 'book_cover_diary.png',
-        "Mushroom Kingdom History, Vol. III": 'book_cover_history.png',
-        "A Field Guide to Fungal Alchemy": 'book_cover_alchemy.png',
-        "Koopa Troop Tactics": 'book_cover_tactics.png',
-        "The Silent Service: A Primer": 'book_cover_silent_service.png',
-        "Blood & Vines: An Onyx Hand Manifesto": 'book_cover_blood_vines.png',
-        "Waluigi's Guide to Graceful Cheating": 'book_cover_waluigi_cheating.png',
-        "Da Krumperz Kode": 'book_cover_krumperz_kode.png',
-        "A Rebel's Cookbook": 'book_cover_rebel_cookbook.png',
-        "Scrapping for Dummies": 'book_cover_scrapping.png',
-        "Fawful's Furious Feelings Journal": 'book_cover_fawful.png',
-        "Navigating the Datastream, Vol II: The Deep Web": 'book_cover_datastream_v2.png',
-        "The Code of the Blade": 'book_cover_azure_blade.png',
-        "The Hammer Code: An Iron Legion Treatise": 'book_cover_hammer_code.png',
-        "Magitek Theory Vol. IV: Arcane Capacitors": 'book_cover_magitek.png',
-        "A History of the Star Sprites": 'book_cover_star_sprites.png',
-        "Toadstool Architecture: A Study in Fungal Forms": 'book_cover_toadstool_architecture.png',
-        "The Culinary Arts of Conquest": 'book_cover_culinary_conquest.png',
-        "Edicts of the Ebon Veil": 'book_cover_ebon_veil.png',
-        "A Mortal's Guide to Vampire Etiquette": 'book_cover_vampire_etiquette.png',
-        "Fundamentals of Abjuration": 'book_cover_abjuration.png',
-        "The Kirby Incident: A Conservator's Report": 'book_cover_kirby.png',
-        "How to Monetize Your Data-Stream": 'book_cover_monetize_datastream.png',
-        "A Tourist's Guide to the Digital Sea": 'book_cover_guide_digital_sea.png',
-        "The Art of the Deal: A Freelancer's Manifesto": 'book_cover_freelancer_manifesto.png',
-        "A Study of Wario's Greed: A Psychological Profile": 'book_cover_wario_greed.png',
-        "The Great Banana War: A Kong History": 'book_cover_banana_war.png',
-        "Kremling Ship Designs, Vol. II": 'book_cover_kremling_ships.png',
-        "The Prophecies of the Ascended One": 'book_cover_ascended_prophecies.png',
-        "The Yoshi's Island Accords": 'book_cover_yoshi_accords.png',
-        "A Field Guide to Wonder Flowers": 'book_cover_wonder_flowers.png',
-        "The Trials of the Azure Blade": 'book_cover_azure_trials.png',
-        "Beanbean Folk Tales": 'book_cover_beanbean_tales.png',
-        "The Philosophy of WAH": 'book_cover_wah_philosophy.png',
-        "Surviving the Wastelands: A Raider's Guide": 'book_cover_wastelands_guide.png',
-        "The Art of the WAH": 'book_cover_wah_art.png',
-        "The Rootkit Grimoire": 'book_cover_rootkit.png',
-        "Navigating the Datastream": 'book_cover_datastream.png',
-        "A Study in Memetics": 'book_cover_memetics.png',
-        "Iron Legion Field Manual": 'book_cover_iron_legion.png',
-        "The Liber Maleficus: A Study of the Ruinous Powers": 'book_cover_chaos.png',
-        "Codex: The Punchline": 'book_cover_jester.png',
-        "Mayor's Ledger & Spellbook": 'book_cover_conspiracy.png',
-    };
-    return covers[bookTitle] || 'book_cover_history.png'; // Fallback
+    return COVERS[bookTitle] || 'book_cover_history.png'; // Fallback
 }
 
 function getAllPlayerItems() {
