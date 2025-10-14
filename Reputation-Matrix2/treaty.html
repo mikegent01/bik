@@ -113,6 +113,8 @@
   .btn.vampire{ background: linear-gradient(180deg, #8c3232, #682323); border-color:#a54747; color:white; font-size:12px; padding:6px 10px; }
   .btn.werewolf{ background: linear-gradient(180deg, #506f9c, #395277); border-color:#6588b8; color:white; font-size:12px; padding:6px 10px; }
   .btn.regal{ background: linear-gradient(180deg, #b39244, #8a6d2b); border-color:#d4b35e; color:white; font-size:12px; padding:6px 10px; }
+  .btn.danger{ background: linear-gradient(180deg, #b84a4a, #8c3232); border-color:#c73d3d; color:white; }
+  .btn.success{ background: linear-gradient(180deg, #579e73, #3e7a57); border-color:#6ccf93; color:white; }
   
   .badges{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
   .badge{
@@ -269,6 +271,27 @@
   }
   #close-intrigue { margin-top: 20px; }
 
+  #preview-modal {
+    position:fixed; inset:0; z-index:1002;
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #preview-modal.visible { display:flex; }
+
+  #rider-modal {
+    position:fixed; inset:0; z-index:1003; /* higher than preview */
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #rider-modal.visible { display:flex; }
+
+  #final-demands-modal {
+    position:fixed; inset:0; z-index:1004;
+    background:rgba(10,15,20, .8); backdrop-filter:blur(5px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  #final-demands-modal.visible { display:flex; }
+
   @media (max-width: 1200px){
     .wrap{ grid-template-columns: 1fr; height: auto;}
     .draft{ grid-template-columns: 1fr 1fr 1fr; }
@@ -413,9 +436,57 @@
   </div>
 </div>
 
+<div id="preview-modal">
+  <div class="intrigue-paper" style="text-align:left; max-width: 600px;">
+    <h2>Proposal Preview</h2>
+    <p class="muted" style="margin-bottom: 20px;">Your envoys present the terms. This is the calculated chance of success. Proceeding is a political gamble and failure will cost you influence.</p>
+    <div id="preview-chances" style="font-size: 16px; display: flex; flex-direction: column; gap: 10px;">
+        <!-- JS will populate this -->
+    </div>
+    
+    <h3 style="margin-top: 20px; margin-bottom: 10px; color: var(--accent); border-bottom: 1px solid #2c3a45; padding-bottom: 5px;">Summary of Terms</h3>
+    <div id="preview-terms" style="max-height: 200px; overflow-y: auto; font-size: 14px; background: #141b21; padding: 10px; border-radius: 8px;">
+        <!-- JS will populate this -->
+    </div>
+
+    <div class="actions" style="justify-content:flex-end; padding: 20px 0 0; background:none; border:none; margin-top: 10px;">
+        <button id="cancel-proposal" class="btn">Reconsider</button>
+        <button id="finalize-proposal" class="btn primary">Finalize Treaty</button>
+    </div>
+  </div>
+</div>
+
+<div id="rider-modal">
+  <div class="intrigue-paper">
+    <h2>A Rider Proposal</h2>
+    <p id="rider-text"></p>
+    <div id="rider-clause-preview" style="background: #141b21; padding: 10px; border-radius: 8px; margin: 15px 0; text-align: left;">
+        <!-- JS will populate this -->
+    </div>
+    <div class="actions" style="justify-content:center; padding: 10px 0 0; background:none; border:none; margin-top: 10px; gap: 15px;">
+        <button id="reject-rider" class="btn danger">Force The Issue</button>
+        <button id="accept-rider" class="btn success">Accept Compromise</button>
+    </div>
+  </div>
+</div>
+
+<div id="final-demands-modal">
+  <div class="intrigue-paper" style="text-align:left; max-width: 600px;">
+    <h2>A Last-Minute Hitch</h2>
+    <p class="muted" style="margin-bottom: 20px;">Both the Onyx Hand and Moonfang Pack have agreed to the terms in principle. However, seeing an opportunity, both have presented a final, non-negotiable demand before they will sign. You can accept their demands and finalize the treaty now, or reject them and return to the negotiating table.</p>
+    <div id="final-demands-list" style="display: flex; flex-direction: column; gap: 15px; margin: 20px 0;">
+        <!-- JS will populate this -->
+    </div>
+    <div class="actions" style="justify-content:flex-end; padding: 20px 0 0; background:none; border:none; margin-top: 10px; gap: 15px;">
+        <button id="reject-final-demands" class="btn danger">Reject & Return</button>
+        <button id="accept-final-demands" class="btn success">Accept & Sign</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
-  const STORAGE_KEY = 'midlands_accord_v14';
+  const STORAGE_KEY = 'midlands_accord_v15';
 
   // --- DATA ---
   const FACTIONS = {
@@ -476,6 +547,11 @@
   };
   const CONTENTIOUS_THRESHOLD = -15;
   const ULTIMATUM_THRESHOLD = 15;
+  
+  const FINAL_DEMANDS = {
+    onyx_hand: ['financial_stipend', 'resource_rights', 'cede_mines'],
+    moonfang_pack: ['financial_stipend', 'resource_rights', 'hunting_rights']
+  };
 
   const TYPES = {
     // DIPLOMATIC
@@ -518,14 +594,15 @@
     release_prisoners: {
         label: 'Release Prisoners', icon: '⛓️', category: 'diplomatic', hint: 'Release captives held by the other side.', unique: true,
         defaults: { amount: 50 }, cost: p => Math.ceil(p.amount / 10),
-        impact: (p, side) => {
-          const impactVal = Math.ceil(p.amount / 5);
-          const target = side === 'onyx_hand' ? 'vampire' : 'werewolf';
-          return {
-            onyx_hand: side === 'onyx_hand' ? impactVal : 2,
-            moonfang_pack: side === 'moonfang_pack' ? impactVal : 2,
-            loyaltyImpacts: {human: 1, [target]: 2}
-          };
+        impact: (p, side) => { // side is the one releasing
+            const impactVal = Math.ceil(p.amount / 5);
+            // Releasing prisoners is a concession, viewed negatively by hawks in the releasing faction.
+            // It's a huge positive for the other faction.
+            return {
+                onyx_hand: side === 'onyx_hand' ? -2 : impactVal,
+                moonfang_pack: side === 'moonfang_pack' ? -2 : impactVal,
+                loyaltyImpacts: {human: 1}
+            };
         }
     },
     public_apology: {
@@ -635,8 +712,8 @@
       label: 'Disband Militia', icon: '🛡️', category: 'military', hint: 'Force a faction to disband irregulars.',
       defaults: { unit: MILITIA_UNITS.moonfang_pack[0] }, cost: p => 10,
       impact: (p, side) => ({
-        onyx_hand: side === 'onyx_hand' ? 15 : -15,
-        moonfang_pack: side === 'moonfang_pack' ? 15 : -15,
+        onyx_hand: side === 'onyx_hand' ? -15 : 15,
+        moonfang_pack: side === 'moonfang_pack' ? -15 : 15,
         loyaltyImpacts: {human: 5}
       })
     },
@@ -844,6 +921,10 @@
 
   // --- STATE ---
   let state = {};
+  // For event modals
+  let pendingRiderProposal = null;
+  let pendingFinalDemands = null;
+
   function resetState() {
       state = {
         negotiationStage: 'ceasefire', // 'ceasefire' or 'treaty'
@@ -860,6 +941,7 @@
           onyx_hand: MOOD_LIST[Math.floor(Math.random() * MOOD_LIST.length)],
           moonfang_pack: MOOD_LIST[Math.floor(Math.random() * MOOD_LIST.length)]
         },
+        acceptance_modifiers: { onyx_hand: 0, moonfang_pack: 0 },
         onyx_hand_terms: [],
         moonfang_pack_terms: [],
         regal_empire_terms: [],
@@ -913,12 +995,14 @@
   const intrigueTextEl = $('#intrigue-text');
   const onyxHeader = $('#onyx-header');
   const moonfangHeader = $('#moonfang-header');
+  const previewModal = $('#preview-modal');
+  const riderModal = $('#rider-modal');
+  const finalDemandsModal = $('#final-demands-modal');
 
   // --- RENDER FUNCTIONS ---
   function renderAll(){
     renderHeader();
     renderCatalog();
-    renderProvinces();
     renderOffers();
     updateCalculations();
   }
@@ -1081,6 +1165,13 @@
         footerNote = `<div class="small muted" style="width:100%; text-align:right; color: var(--danger);"><strong>ULTIMATUM</strong></div>`;
     }
 
+    let appliesToText;
+    if (t.balanced) {
+        appliesToText = 'Both Factions';
+    } else {
+        appliesToText = FACTIONS[sideName].name;
+    }
+
     const card = el(`
       <div class="card ${side.replace('_terms','')} demand-${item.demandType}" data-id="${item.id}" data-side="${side}">
         <header>
@@ -1090,7 +1181,10 @@
         </header>
         <div class="body">${renderBodyControls(item, sideName, side)}</div>
         <footer>
-          <div class="small">Cost: <span class="cost">${t.cost(item.params)}</span></div>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div class="small">Cost: <span class="cost">${t.cost(item.params)}</span></div>
+            <div class="small">Applies to: <span style="font-weight: 600; color: #c7d5df;">${appliesToText}</span></div>
+          </div>
           ${impactDisplay}
           ${item.demandType === 'binding' 
             ? `<button class="btn" data-action="remove" title="Remove">✕</button>`
@@ -1122,7 +1216,7 @@
             ${annexableProvinces.map(pr => `<option ${pr.name===p.province?'selected':''}>${pr.name}</option>`).join('')}
             </select></div>`;
       case 'claim_de_jure':
-        const claimableProvinces = PROVINCES.filter(pr => pr.de_jure === 'regal_empire' && pr.de_facto !== 'regal_empire');
+        const claimableProvinces = PROVINCES.filter(pr => pr.de_facto === 'regal_empire' && pr.de_jure === 'unaligned');
         return `<div><label class="small">Province to Claim</label><select data-param="province" ${disabled}>
             ${claimableProvinces.map(pr => `<option ${pr.name===p.province?'selected':''}>${pr.name}</option>`).join('')}
             </select></div>`;
@@ -1136,7 +1230,7 @@
         return `<div><label class="small">Resource</label><select data-param="resource" ${disabled}>${optionsHtml}</select></div>`;
       case 'release_prisoners':
           const releasingFaction = columnSide === 'onyx_hand_terms' ? 'Onyx Hand' : 'Moonfang Pack';
-          const prisonersHeldByReleasingFaction = columnSide === 'onyx_hand_terms' ? state.prisoner_counts.moonfang_pack : state.prisoner_counts.onyx_hand;
+          const prisonersHeldByReleasingFaction = columnSide === 'onyx_hand_terms' ? state.prisoner_counts.onyx_hand : state.prisoner_counts.moonfang_pack;
           return `<div><label class="small">${releasingFaction} releases <span class="cost">${p.amount}</span> / ${prisonersHeldByReleasingFaction} prisoners</label>
             <input data-param="amount" type="range" min="0" max="${prisonersHeldByReleasingFaction}" value="${p.amount}" ${disabled}></div>`;
       case 'public_apology':
@@ -1189,9 +1283,9 @@
   }
 
   // --- CALCULATIONS ---
-  function updateCalculations(){
+  function calculateScores(currentState) {
     const all_terms = [
-        ...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms
+        ...currentState.onyx_hand_terms, ...currentState.moonfang_pack_terms, ...currentState.regal_empire_terms
     ];
     
     // 1. Capital Cost
@@ -1208,23 +1302,16 @@
         }
     });
     const remainingCapital = 100 - capitalCost;
-    capitalEl.textContent = remainingCapital;
-    capitalEl.style.color = remainingCapital < 0 ? 'var(--danger)' : 'var(--gold)';
-    
-    onyxPrisonersEl.textContent = state.prisoner_counts.onyx_hand;
-    moonfangPrisonersEl.textContent = state.prisoner_counts.moonfang_pack;
 
     // 2. Faction & Court Acceptance
-    let onyx_acceptance = 20 + FACTION_MOODS[state.faction_moods.onyx_hand].base_modifier;
-    let moonfang_acceptance = 20 + FACTION_MOODS[state.faction_moods.moonfang_pack].base_modifier;
+    let onyx_acceptance = 20 + FACTION_MOODS[currentState.faction_moods.onyx_hand].base_modifier + (currentState.acceptance_modifiers?.onyx_hand || 0);
+    let moonfang_acceptance = 20 + FACTION_MOODS[currentState.faction_moods.moonfang_pack].base_modifier + (currentState.acceptance_modifiers?.moonfang_pack || 0);
     let regal_influence = 50;
-
-    // Add duration penalty
-    const durationPenalty = Math.floor(state.years / 4); // -1 per 4 years
+    
+    const durationPenalty = Math.floor(currentState.years / 4); // -1 per 4 years
     onyx_acceptance -= durationPenalty;
     moonfang_acceptance -= durationPenalty;
 
-    // Reset temporary loyalties for this calculation run
     const current_loyalties = {};
     PROVINCES.forEach(p => { current_loyalties[p.name] = p.loyalty; });
 
@@ -1257,57 +1344,120 @@
             }
         }
     });
-    
-    // Store final calculated loyalties for rendering
-    state.province_loyalties = {};
+
     let totalWeightedLoyalty = 0;
     let totalMaxVotes = 0;
-
     PROVINCES.forEach(p => {
         const finalLoyalty = Math.max(0, Math.min(100, Math.round(current_loyalties[p.name])));
-        state.province_loyalties[p.name] = finalLoyalty;
         totalWeightedLoyalty += finalLoyalty * p.votes;
         totalMaxVotes += 100 * p.votes;
     });
-
     const court_acceptance = totalMaxVotes > 0 ? (totalWeightedLoyalty / totalMaxVotes) * 100 : 0;
     
-    state.regalInfluence = regal_influence;
-    influenceEl.textContent = Math.round(regal_influence);
-    influenceEl.style.color = regal_influence < 50 ? 'var(--muted)' : 'var(--gold)';
+    return {
+        remainingCapital,
+        regal_influence,
+        final_loyalties: current_loyalties,
+        onyx_acceptance: Math.max(0, Math.min(100, Math.round(onyx_acceptance))),
+        moonfang_acceptance: Math.max(0, Math.min(100, Math.round(moonfang_acceptance))),
+        court_acceptance: Math.max(0, Math.min(100, Math.round(court_acceptance))),
+    };
+  }
 
-    // 3. Render Bars
-    onyx_acceptance = Math.max(0, Math.min(100, Math.round(onyx_acceptance)));
-    moonfang_acceptance = Math.max(0, Math.min(100, Math.round(moonfang_acceptance)));
-    const final_court_acceptance = Math.max(0, Math.min(100, Math.round(court_acceptance)));
-
-    vampireBar.title = `${onyx_acceptance}%`;
-    vampireBar.querySelector('span').style.width = `${onyx_acceptance}%`;
-    vampireBar.classList.toggle('accepted', onyx_acceptance >= 50);
-    vampireAcceptCheck.textContent = onyx_acceptance >= 50 ? '✔️' : '';
+  function updateCalculations(){
+    const scores = calculateScores(state);
     
-    werewolfBar.title = `${moonfang_acceptance}%`;
-    werewolfBar.querySelector('span').style.width = `${moonfang_acceptance}%`;
-    werewolfBar.classList.toggle('accepted', moonfang_acceptance >= 50);
-    werewolfAcceptCheck.textContent = moonfang_acceptance >= 50 ? '✔️' : '';
+    // Update state
+    state.regalInfluence = scores.regal_influence;
+    PROVINCES.forEach(p => {
+      state.province_loyalties[p.name] = Math.max(0, Math.min(100, Math.round(scores.final_loyalties[p.name])));
+    });
+    
+    // Update DOM
+    capitalEl.textContent = scores.remainingCapital;
+    capitalEl.style.color = scores.remainingCapital < 0 ? 'var(--danger)' : 'var(--gold)';
+    
+    onyxPrisonersEl.textContent = state.prisoner_counts.onyx_hand;
+    moonfangPrisonersEl.textContent = state.prisoner_counts.moonfang_pack;
 
-    regalBar.title = `${final_court_acceptance}%`;
-    regalBar.querySelector('span').style.width = `${final_court_acceptance}%`;
-    regalBar.classList.toggle('accepted', final_court_acceptance >= 50);
-    regalAcceptCheck.textContent = final_court_acceptance >= 50 ? '✔️' : '';
+    influenceEl.textContent = Math.round(scores.regal_influence);
+    influenceEl.style.color = scores.regal_influence < 50 ? 'var(--muted)' : 'var(--gold)';
 
+    vampireBar.title = `${scores.onyx_acceptance}%`;
+    vampireBar.querySelector('span').style.width = `${scores.onyx_acceptance}%`;
+    vampireBar.classList.toggle('accepted', scores.onyx_acceptance >= 50);
+    vampireAcceptCheck.textContent = scores.onyx_acceptance >= 50 ? '✔️' : '';
+    
+    werewolfBar.title = `${scores.moonfang_acceptance}%`;
+    werewolfBar.querySelector('span').style.width = `${scores.moonfang_acceptance}%`;
+    werewolfBar.classList.toggle('accepted', scores.moonfang_acceptance >= 50);
+    werewolfAcceptCheck.textContent = scores.moonfang_acceptance >= 50 ? '✔️' : '';
+
+    regalBar.title = `${scores.court_acceptance}%`;
+    regalBar.querySelector('span').style.width = `${scores.court_acceptance}%`;
+    regalBar.classList.toggle('accepted', scores.court_acceptance >= 50);
+    regalAcceptCheck.textContent = scores.court_acceptance >= 50 ? '✔️' : '';
+    
+    // Render provinces with new loyalties
     renderProvinces();
     
-    // 4. Check for Ultimatums
-    if (onyx_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.onyx_hand) issueUltimatum('onyx_hand');
-    if (moonfang_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.moonfang_pack) issueUltimatum('moonfang_pack');
+    // Check for Ultimatums
+    if (state.playerActions > 0) {
+      if (scores.onyx_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.onyx_hand) issueUltimatum('onyx_hand');
+      if (scores.moonfang_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.moonfang_pack) issueUltimatum('moonfang_pack');
+    }
   }
 
   // --- ACTIONS & AI ---
+
+  function proposeClause(side, type, extraParams = {}) {
+    // Create a temporary clause to calculate its impact
+    const t = TYPES[type];
+    const tempClause = {
+        id: 'temp', type, demandType: 'binding', side,
+        params: { ...JSON.parse(JSON.stringify(t.defaults)), ...extraParams }
+    };
+    
+    // Create a deep copy of the state to simulate the change
+    const tempState = JSON.parse(JSON.stringify(state));
+    tempState[side].push(tempClause);
+    
+    const potentialScores = calculateScores(tempState);
+    let proceed = true;
+
+    // Check for Ultimatum risk
+    if (potentialScores.onyx_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.onyx_hand) {
+      proceed = confirm(`Warning: This clause is highly contentious and may provoke an ultimatum from the Onyx Hand. Are you sure you wish to proceed?`);
+    }
+    if (proceed && potentialScores.moonfang_acceptance <= ULTIMATUM_THRESHOLD && !state.ultimatums_issued.moonfang_pack) {
+      proceed = confirm(`Warning: This clause is highly contentious and may provoke an ultimatum from the Moonfang Pack. Are you sure you wish to proceed?`);
+    }
+
+    if (!proceed) return;
+    
+    // Check for Rider Proposal event
+    if (Math.random() < 0.25) {
+        const originalScores = calculateScores(state);
+        const onyxImpact = potentialScores.onyx_acceptance - originalScores.onyx_acceptance;
+        const moonfangImpact = potentialScores.moonfang_acceptance - originalScores.moonfang_acceptance;
+
+        if (onyxImpact < -5 || moonfangImpact < -5) {
+            const aggrievedFaction = onyxImpact < moonfangImpact ? 'onyx_hand' : 'moonfang_pack';
+            showRiderModal(aggrievedFaction, { side, type, extraParams });
+            return; // Stop here, modal will handle adding the clause
+        }
+    }
+    
+    // If no events, add the article normally
+    addArticle(side, type, extraParams, 'binding');
+  }
+
   function addArticle(side, type, extraParams={}, demandType='binding'){
-    state.playerActions++;
-    handleIntrigueEvent();
-    decrementVetos();
+    if (demandType === 'binding') {
+        state.playerActions++;
+        handleIntrigueEvent();
+        decrementVetos();
+    }
 
     const t = TYPES[type];
     const params = { ...JSON.parse(JSON.stringify(t.defaults)), ...extraParams };
@@ -1392,12 +1542,10 @@
   }
 
   function addCounterProposal(triggerClause) {
-    const onyxTermsCount = state.onyx_hand_terms.filter(c => c.demandType === 'binding').length;
-    const moonfangTermsCount = state.moonfang_pack_terms.filter(c => c.demandType === 'binding').length;
-    
-    const targetSideKey = onyxTermsCount <= moonfangTermsCount ? 'onyx_hand' : 'moonfang_pack';
-    const targetSide = targetSideKey + '_terms';
-    
+    const scores = calculateScores(state);
+    const aggrievedSideKey = scores.onyx_acceptance <= scores.moonfang_acceptance ? 'onyx_hand' : 'moonfang_pack';
+    const aggrievedSide = aggrievedSideKey + '_terms';
+
     const existingTypes = new Set([...state.onyx_hand_terms, ...state.moonfang_pack_terms].map(c => c.type));
     const availableCounterTypes = COUNTER_CLAUSES.filter(type => !existingTypes.has(type));
     if (availableCounterTypes.length === 0) return;
@@ -1406,31 +1554,54 @@
     const extraParams = {};
 
     if (randomType === 'release_prisoners') {
-      const releasingFaction = targetSideKey === 'onyx_hand' ? 'moonfang_pack' : 'onyx_hand';
+      const releasingFaction = aggrievedSideKey === 'onyx_hand' ? 'moonfang_pack' : 'onyx_hand';
       const maxPrisoners = state.prisoner_counts[releasingFaction];
+      if (maxPrisoners <= 0) return; // Can't demand release if none are held
       const min = Math.floor(maxPrisoners * 0.25);
       const max = Math.floor(maxPrisoners * 0.75);
       extraParams.amount = Math.round((Math.random() * (max - min) + min) / 5) * 5;
+      // This demand is on the OTHER faction
+      const counterItem = addArticle(`${releasingFaction}_terms`, randomType, extraParams, 'counter');
+      state.triggerLinks[triggerClause.id] = counterItem.id;
+      toast(`The ${FACTIONS[aggrievedSideKey].name} makes a counter-demand!`);
+      return;
     } else if (randomType === 'veto') {
         const vetoableCategories = ['territory', 'economic', 'military'];
         const randomCat = vetoableCategories[Math.floor(Math.random()*vetoableCategories.length)];
         extraParams.category = randomCat;
-        state.vetos[randomCat] = { side: targetSideKey, turns_left: 4 };
-        toast(`The ${FACTIONS[targetSideKey].name} issues a VETO on ${randomCat} proposals!`);
+        state.vetos[randomCat] = { side: aggrievedSideKey, turns_left: 4 };
+        toast(`The ${FACTIONS[aggrievedSideKey].name} issues a VETO on ${randomCat} proposals!`);
     }
     
-    const counterItem = addArticle(targetSide, randomType, extraParams, 'counter');
+    const counterItem = addArticle(aggrievedSide, randomType, extraParams, 'counter');
     state.triggerLinks[triggerClause.id] = counterItem.id;
-    const factionName = FACTIONS[targetSideKey].name;
+    const factionName = FACTIONS[aggrievedSideKey].name;
     if(randomType !== 'veto') toast(`The ${factionName} makes a counter-demand!`);
   }
   
   function issueUltimatum(side) {
     state.ultimatums_issued[side] = true;
     const sideName = FACTIONS[side].name;
+
+    const allPossibleDemands = ULTIMATUM_DEMANDS[side];
+
+    // Filter out demands with a negative cost
+    const validDemands = allPossibleDemands.filter(type => {
+        const t = TYPES[type];
+        if (!t) return false;
+        // Calculate cost using default parameters
+        const cost = t.cost(t.defaults);
+        return cost >= 0;
+    });
+
+    if (validDemands.length === 0) {
+        console.warn(`No valid (non-negative cost) ultimatum demands found for ${side}. Ultimatum aborted.`);
+        state.ultimatums_issued[side] = false; // Allow re-triggering if conditions change
+        return;
+    }
+
     toast(`The ${sideName}'s patience has snapped! They issue an ULTIMATUM!`, 'danger');
-    const possibleDemands = ULTIMATUM_DEMANDS[side];
-    const randomType = possibleDemands[Math.floor(Math.random() * possibleDemands.length)];
+    const randomType = validDemands[Math.floor(Math.random() * validDemands.length)];
     addArticle(`${side}_terms`, randomType, {}, 'ultimatum');
   }
 
@@ -1459,7 +1630,6 @@
         intrigueTextEl.textContent = eventMsg;
         intrigueModal.classList.add('visible');
         save();
-        renderProvinces();
         updateCalculations();
     }
   }
@@ -1477,6 +1647,60 @@
     if (changed) renderCatalog();
   }
 
+  function showRiderModal(aggrievedFaction, originalClauseData) {
+      const riderType = 'financial_stipend'; // Keep it simple for the event
+      const riderSide = aggrievedFaction + '_terms';
+      const riderParams = { amount: Math.round(Math.random() * 5 + 5) * 100 }; // 500-1000 gold
+      
+      pendingRiderProposal = {
+          originalClauseData,
+          riderClauseData: { side: riderSide, type: riderType, extraParams: riderParams }
+      };
+
+      $('#rider-text').textContent = `An envoy from the ${FACTIONS[aggrievedFaction].name} intercepts your courier. They are displeased with the '${TYPES[originalClauseData.type].label}' proposal. They offer a compromise: they will accept it, but only if you also agree to their enclosed rider proposal. Refusing will anger them.`;
+      
+      const riderClauseText = formatClauseForTreaty({type: riderType, params: riderParams}, riderSide);
+      $('#rider-clause-preview').innerHTML = `<strong style="color:var(--accent)">Rider:</strong> ${riderClauseText}`;
+
+      riderModal.classList.add('visible');
+  }
+
+  function showFinalDemandsModal() {
+    const allExistingTypes = new Set([
+        ...state.onyx_hand_terms, ...state.moonfang_pack_terms, ...state.regal_empire_terms
+    ].map(t => t.type));
+
+    // Select demand for Onyx Hand
+    let availableOnyxDemands = FINAL_DEMANDS.onyx_hand.filter(d => !allExistingTypes.has(d));
+    if (availableOnyxDemands.length === 0) availableOnyxDemands = FINAL_DEMANDS.onyx_hand;
+    const onyxDemandType = availableOnyxDemands[Math.floor(Math.random() * availableOnyxDemands.length)];
+    const onyxDemandParams = { ...JSON.parse(JSON.stringify(TYPES[onyxDemandType].defaults)) };
+    if (onyxDemandType === 'resource_rights') onyxDemandParams.resource = 'Bloodwood';
+    const onyxDemand = { side: 'onyx_hand_terms', type: onyxDemandType, params: onyxDemandParams };
+    
+    // Select demand for Moonfang Pack
+    let availableMoonfangDemands = FINAL_DEMANDS.moonfang_pack.filter(d => !allExistingTypes.has(d));
+    if (availableMoonfangDemands.length === 0) availableMoonfangDemands = FINAL_DEMANDS.moonfang_pack;
+    const moonfangDemandType = availableMoonfangDemands[Math.floor(Math.random() * availableMoonfangDemands.length)];
+    const moonfangDemandParams = { ...JSON.parse(JSON.stringify(TYPES[moonfangDemandType].defaults)) };
+    if (moonfangDemandType === 'resource_rights') moonfangDemandParams.resource = 'Moonstone';
+    const moonfangDemand = { side: 'moonfang_pack_terms', type: moonfangDemandType, params: moonfangDemandParams };
+    
+    pendingFinalDemands = { onyxDemand, moonfangDemand };
+    
+    const listEl = $('#final-demands-list');
+    listEl.innerHTML = `
+        <div style="background: #141b21; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--vampire-red);">
+            <strong style="color:var(--vampire-red)">Onyx Hand Demands:</strong>
+            <span style="margin-left: 8px;">${formatClauseForTreaty(onyxDemand, onyxDemand.side)}</span>
+        </div>
+        <div style="background: #141b21; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--werewolf-blue);">
+            <strong style="color:var(--werewolf-blue)">Moonfang Pack Demands:</strong>
+            <span style="margin-left: 8px;">${formatClauseForTreaty(moonfangDemand, moonfangDemand.side)}</span>
+        </div>
+    `;
+    finalDemandsModal.classList.add('visible');
+  }
 
   // --- EVENT HANDLERS ---
   document.addEventListener('click', (e) => {
@@ -1485,7 +1709,7 @@
       const side = addBtn.dataset.side + '_terms';
       const type = addBtn.dataset.add;
       const target = addBtn.dataset.target;
-      addArticle(side, type, target ? { target } : {}, 'binding');
+      proposeClause(side, type, target ? { target } : {});
       return;
     }
     const card = e.target.closest('.card');
@@ -1568,48 +1792,101 @@
         toast('A Ceasefire clause is mandatory for any valid treaty!');
         return;
     }
-    if (parseInt(capitalEl.textContent, 10) < 0) {
+    const scores = calculateScores(state);
+    if (scores.remainingCapital < 0) {
       toast('You cannot afford this treaty! Reduce your political spending.');
       return;
     }
+    
+    const previewChancesEl = $('#preview-chances');
+    previewChancesEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between; padding: 8px 4px; border-bottom: 1px solid #2c3a45;">
+            <span class="badge" style="border:none; background: #1f2a33;">🦇 Onyx Hand Acceptance</span>
+            <span style="font-weight:700;">${scores.onyx_acceptance}%</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding: 8px 4px; border-bottom: 1px solid #2c3a45;">
+            <span class="badge" style="border:none; background: #1f2a33;">🐺 Moonfang Pack Acceptance</span>
+            <span style="font-weight:700;">${scores.moonfang_acceptance}%</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding: 8px 4px;">
+            <span class="badge" style="border:none; background: #1f2a33;">👑 Regal Court Ratification</span>
+            <span style="font-weight:700;">${scores.court_acceptance}%</span>
+        </div>
+    `;
+    
+    const previewTermsEl = $('#preview-terms');
+    previewTermsEl.innerHTML = '';
 
-    const vampAccept = parseInt(vampireBar.title, 10);
-    const wolfAccept = parseInt(werewolfBar.title, 10);
-    const courtAccept = parseInt(regalBar.title, 10);
-    
-    // Check for rejection due to contentious clauses
-    if (vampAccept >= 50 && vampAccept <= 65) {
-        for(const item of all_terms) {
-            const impact = TYPES[item.type].impact(item.params, item.params.target || item.side.replace('_terms',''));
-            if ((impact.onyx_hand || 0) <= CONTENTIOUS_THRESHOLD) {
-                toast(`The Onyx Hand rejects the treaty, citing the unacceptable demand: "${TYPES[item.type].label}".`);
-                return;
-            }
+    const termsToRender = [];
+    const processedCeasefire = new Set();
+    all_terms.forEach(item => {
+        if (item.type === 'ceasefire') {
+            if (processedCeasefire.has(item.type)) return;
+            processedCeasefire.add(item.type);
         }
-    }
-    if (wolfAccept >= 50 && wolfAccept <= 65) {
-        for(const item of all_terms) {
-            const impact = TYPES[item.type].impact(item.params, item.params.target || item.side.replace('_terms',''));
-            if ((impact.moonfang_pack || 0) <= CONTENTIOUS_THRESHOLD) {
-                toast(`The Moonfang Pack rejects the treaty, citing the unacceptable demand: "${TYPES[item.type].label}".`);
-                return;
-            }
-        }
-    }
-    
-    if (vampAccept >= 50 && wolfAccept >= 50 && courtAccept >= 50) {
-        showTreatyModal();
-    } else if (courtAccept < 50) {
-      toast('Failure! Your own court finds these terms insulting and will not ratify the treaty.');
-    } else if (vampAccept < 50 && wolfAccept < 50) {
-      toast('Failure! Both factions reject your paltry offer.');
-    } else if (vampAccept < 50) {
-      toast('Failure! The Onyx Hand scoffs at your terms.');
+        termsToRender.push(item);
+    });
+
+    if (termsToRender.length === 0) {
+        previewTermsEl.innerHTML = '<p class="muted" style="text-align:center;">No terms in proposal.</p>';
     } else {
-      toast('Failure! The Moonfang Pack howls in defiance.');
+        const ul = el('<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;"></ul>');
+        termsToRender.forEach(item => {
+            const side = item.side;
+            const formatted = formatClauseForTreaty(item, side);
+            const li = el(`<li style="padding-bottom: 8px; border-bottom: 1px solid #2c3a45;">${formatted}</li>`);
+            ul.appendChild(li);
+        });
+        if (ul.lastChild) {
+            ul.lastChild.style.borderBottom = 'none';
+        }
+        previewTermsEl.appendChild(ul);
     }
+
+    previewModal.classList.add('visible');
   });
   
+  $('#cancel-proposal').addEventListener('click', () => {
+    previewModal.classList.remove('visible');
+  });
+
+  $('#finalize-proposal').addEventListener('click', () => {
+    previewModal.classList.remove('visible');
+    const scores = calculateScores(state);
+
+    const allAccepted = scores.onyx_acceptance >= 50 && scores.moonfang_acceptance >= 50 && scores.court_acceptance >= 50;
+    
+    if (allAccepted) {
+      showFinalDemandsModal();
+      return;
+    }
+    
+    const vampRoll = Math.random() * 100;
+    const wolfRoll = Math.random() * 100;
+    const courtRoll = Math.random() * 100;
+
+    const vampSuccess = vampRoll <= scores.onyx_acceptance;
+    const wolfSuccess = wolfRoll <= scores.moonfang_acceptance;
+    const courtSuccess = courtRoll <= scores.court_acceptance;
+
+    if (vampSuccess && wolfSuccess && courtSuccess) {
+        showTreatyModal();
+    } else {
+        let failureMsg = 'The treaty has failed! ';
+        if (!courtSuccess) failureMsg += 'Your own court rejects the terms. ';
+        if (!vampSuccess) failureMsg += 'The Onyx Hand refuses to sign. ';
+        if (!wolfSuccess) failureMsg += 'The Moonfang Pack howls in defiance. ';
+        
+        const influencePenalty = 10;
+        state.regalInfluence -= influencePenalty;
+        
+        failureMsg += ` Your influence suffers. (-${influencePenalty} Influence)`;
+        toast(failureMsg, 'danger');
+        save();
+        renderAll();
+    }
+  });
+
   $('#close-treaty').addEventListener('click', ()=>{
       localStorage.removeItem(STORAGE_KEY);
       window.location.reload();
@@ -1618,6 +1895,62 @@
   $('#close-intrigue').addEventListener('click', () => {
     intrigueModal.classList.remove('visible');
   });
+
+  $('#accept-rider').addEventListener('click', () => {
+    if (!pendingRiderProposal) return;
+    const { originalClauseData, riderClauseData } = pendingRiderProposal;
+    addArticle(originalClauseData.side, originalClauseData.type, originalClauseData.extraParams, 'binding');
+    addArticle(riderClauseData.side, riderClauseData.type, riderClauseData.extraParams, 'counter');
+    toast('A compromise is reached.', 'success');
+    riderModal.classList.remove('visible');
+    pendingRiderProposal = null;
+  });
+
+  $('#reject-rider').addEventListener('click', () => {
+    if (!pendingRiderProposal) return;
+    const { originalClauseData, riderClauseData } = pendingRiderProposal;
+    addArticle(originalClauseData.side, originalClauseData.type, originalClauseData.extraParams, 'binding');
+    
+    const aggrievedFaction = riderClauseData.side.replace('_terms', '');
+    state.acceptance_modifiers[aggrievedFaction] -= 10;
+    toast(`The ${FACTIONS[aggrievedFaction].name} is angered by your refusal. (-10 Acceptance)`, 'danger');
+    
+    riderModal.classList.remove('visible');
+    pendingRiderProposal = null;
+    updateCalculations();
+    save();
+  });
+
+  $('#accept-final-demands').addEventListener('click', () => {
+    if (!pendingFinalDemands) return;
+    const { onyxDemand, moonfangDemand } = pendingFinalDemands;
+    
+    // Using addArticle with 'forced' demandType bypasses player action counts and counter-proposals
+    addArticle(onyxDemand.side, onyxDemand.type, onyxDemand.params, 'forced');
+    addArticle(moonfangDemand.side, moonfangDemand.type, moonfangDemand.params, 'forced');
+    
+    finalDemandsModal.classList.remove('visible');
+    pendingFinalDemands = null;
+    
+    toast('The final demands are met. The treaty is signed!', 'success');
+    showTreatyModal(); // This is now a guaranteed success
+  });
+
+  $('#reject-final-demands').addEventListener('click', () => {
+    if (!pendingFinalDemands) return;
+    
+    finalDemandsModal.classList.remove('visible');
+    pendingFinalDemands = null;
+    
+    state.acceptance_modifiers.onyx_hand -= 15;
+    state.acceptance_modifiers.moonfang_pack -= 15;
+    state.regalInfluence -= 5;
+    
+    toast('Demands rejected, the factions return to the table, displeased.', 'danger');
+    save();
+    updateCalculations();
+  });
+
 
   // --- UTILS ---
   function save(){

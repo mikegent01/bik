@@ -14,35 +14,35 @@ export const VIRAL_POSTS = [
 
     // --- The Official Victory & Immediate Aftermath ---
     // The story starts here: the world sees a victory, but the main players reveal the true cost.
-  //  {
-  //      id: 'wah_media_bramblehaven',
-  //      order: 20080,
-  //      characterKey: 'wah_media_collective',
-  //      timestamp: 'Just Now',
-  //      content: `**BRAMBLEHAVEN FALLS IN BLOODY SIEGE!** Captain Toadette's Peach Loyalists have conquered the Fawful bastion of Bramblehaven after a brutal, day-long assault. Sources describe a battle of shocking attrition, culminating in a final charge where surrendering Fawful troops were shown no mercy. Loyalist casualties are 'catastrophic', but the victory gives them a key strategic position and, according to a dying soldier, 'invaluable intel'. The ruthless tactics have solidified the Loyalists' fearsome reputation across the kingdom.`,
-  //      image: 'battle_mushroom_kingdom.png',
-  //      image_alt: "The smoldering ruins of a fortress under a dark, rainy sky.",
-  //      likes: 3105,
-  //      comments: [
-  //          { characterKey: 'generic_toad', text: "They killed them... even after they surrendered? By the stars, what are they becoming?" },
-  //          { characterKey: 'iron_legion', text: "A decisive, if costly, victory. The strategic value of the captured intel cannot be overstated. War requires sacrifice." },
-  //          { characterKey: 'the_broker', text: "Intel is the true prize. The market for Fawful's operational data just skyrocketed. My inbox is open." }
-  //      ],
-  //      eventId: 'bramblehaven_siege'
-  //  },
-  //  {
-  //      id: 'toadette_bramblehaven_victory',
-  //      order: 20079,
-  //      characterKey: 'captain_toadette',
-  //      timestamp: '15 minutes ago',
-  //      content: `Victory. The cost was high, but Bramblehaven is ours. Let this be a lesson to all who stand against the true monarchy. We will not falter. We will not fail. We will pay any price for justice. For the Princess.`,
-  //      likes: 1540,
-  //      comments: [
-  //          { characterKey: 'embercap', text: "For the Princess." },
-  //          { characterKey: 'sergeant_quill', text: "A glorious day for the Kingdom, Captain!" }
-  //      ],
-  //      eventId: 'bramblehaven_siege'
-  //  },
+    {
+        id: 'wah_media_bramblehaven',
+        order: 20080,
+        characterKey: 'wah_media_collective',
+        timestamp: 'Just Now',
+        content: `**BRAMBLEHAVEN FALLS IN BLOODY SIEGE!** Captain Toadette's Peach Loyalists have conquered the Fawful bastion of Bramblehaven after a brutal, day-long assault. Sources describe a battle of shocking attrition, culminating in a final charge where surrendering Fawful troops were shown no mercy. Loyalist casualties are 'catastrophic', but the victory gives them a key strategic position and, according to a dying soldier, 'invaluable intel'. The ruthless tactics have solidified the Loyalists' fearsome reputation across the kingdom.`,
+        image: 'battle_mushroom_kingdom.png',
+        image_alt: "The smoldering ruins of a fortress under a dark, rainy sky.",
+        likes: 3105,
+        comments: [
+            { characterKey: 'generic_toad', text: "They killed them... even after they surrendered? By the stars, what are they becoming?" },
+            { characterKey: 'iron_legion', text: "A decisive, if costly, victory. The strategic value of the captured intel cannot be overstated. War requires sacrifice." },
+            { characterKey: 'the_broker', text: "Intel is the true prize. The market for Fawful's operational data just skyrocketed. My inbox is open." }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_bramblehaven_victory',
+        order: 20079,
+        characterKey: 'captain_toadette',
+        timestamp: '15 minutes ago',
+        content: `Victory. The cost was high, but Bramblehaven is ours. Let this be a lesson to all who stand against the true monarchy. We will not falter. We will not fail. We will pay any price for justice. For the Princess.`,
+        likes: 1540,
+        comments: [
+            { characterKey: 'embercap', text: "For the Princess." },
+            { characterKey: 'sergeant_quill', text: "A glorious day for the Kingdom, Captain!" }
+        ],
+        eventId: 'bramblehaven_siege'
+    },
     {
         id: 'dewdrop_bramblehaven_casualties',
         order: 20078,
@@ -65,6 +65,226 @@ export const VIRAL_POSTS = [
         comments: [],
         eventId: 'bramblehaven_siege'
     },
+{
+    id: 'wah_media_manor_rumors',
+    order: 20100,
+    characterKey: 'wah_media_collective',
+    timestamp: '8 hours ago',
+    content: `**STRANGE LIGHTS AT RAVENTREE!** Locals are reporting unsettling flashes of orange light and acid-green hissing sounds emanating from the grounds of the notoriously haunted Raventree Manor. The property was recently acquired by associates of the Vigilance crew. What are they stirring up in there?`,
+    likes: 1845,
+    comments: [
+        { characterKey: 'generic_toad', text: "My grandpa said no one's lasted a night in that place for fifty years! They're doomed!" }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'waluigi_hears_commotion',
+    order: 20099,
+    characterKey: 'waluigi',
+    timestamp: '8 hours ago',
+    content: `WAH! I hear the sounds of shoddy craftsmanship and impending doom! A perfect moment for a WAH-nderful appearance!`,
+    likes: 1210,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'waluigi_fireball_brag',
+    order: 20098,
+    characterKey: 'waluigi',
+    timestamp: '8 hours ago',
+    content: `Heard a damsel in distress and her melting cutlery! A magnificent entrance, a glorious fireball, and the crowd goes wild! You're welcome, rookie! The house always wins when Waluigi's on stage! #WAAnderful`,
+    image: 'waluigi_fireball.png',
+    image_alt: "Waluigi striking a dramatic pose as a massive fireball erupts in a dark hallway.",
+    likes: 1488,
+    comments: [
+        { characterKey: 'giggling_pete', text: "A performance for the ages! The Jester applauds!" }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'bowser_woken_up',
+    order: 20097,
+    characterKey: 'bowser',
+    timestamp: '3 hours ago',
+    content: `WHO IS MAKING THAT RACKET?! SOUNDS LIKE THE WHOLE CASTLE IS COMING DOWN. I'M TRYING TO SLEEP. If this is another one of your three-eyed weirdo's experiments, I'm going to start breaking things. IMPORTANT things.`,
+    likes: 1350,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'dan_wakes_up_confused',
+    order: 20096,
+    characterKey: 'dan',
+    timestamp: '3 hours ago',
+    content: `Woke up to a huge crash. Think I heard someone scream. Everyone okay out there? The floor is shaking.`,
+    likes: 315,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'bowser_dismissal',
+    order: 20095,
+    characterKey: 'bowser',
+    timestamp: '3 hours ago',
+    content: `It's five in the morning. If you lightweights can't handle a little thunderstorm, stay in bed. The King needs his beauty sleep. Don't make me come out there.`,
+    likes: 955,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'bones_structural_analysis',
+    order: 20094,
+    characterKey: 'bones',
+    timestamp: '3 hours ago',
+    content: `Heard the balcony went. Shoddy construction. Reminds me of the west block in the old Imperial Pen. That place was a death trap too. At least here the ghosts are quiet.`,
+    likes: 512,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'oracle_invitation',
+    order: 20093,
+    characterKey: 'the_oracle',
+    timestamp: '3 hours ago',
+    content: `A minor structural incident has occurred. My sincerest apologies for the disturbance. As compensation, all my esteemed guests are cordially invited to a special event I have prepared in the back gardens. Do attend when you are rested.`,
+    likes: 450,
+    comments: [
+        { characterKey: 'generic_toad', text: "He seems... awfully calm about his house falling apart." }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'oracle_garden_warning',
+    order: 20092,
+    characterKey: 'the_oracle',
+    timestamp: '3 hours ago',
+    content: `The gardens are quite lovely this time of night. The thorns are... active. Do be careful where you step. My previous groundskeeper was not.`,
+    likes: 730,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'wah_media_wyvern_sighting',
+    order: 20091,
+    characterKey: 'wah_media_collective',
+    timestamp: '2 hours ago',
+    content: `**WYVERN SIGHTING NEAR RAVENTREE!** A massive winged reptile was spotted departing the infamous haunted mansion, carrying two figures identified as the notorious Waluigi and his associate Green T. An eyewitness claims a shrill whistle preceded the creature's arrival. What are they up to now?!`,
+    image: 'wyvern_escape.png',
+    image_alt: "A wyvern flying away from a gothic mansion silhouetted against a foggy, moonlit sky.",
+    likes: 3410,
+    comments: [
+        { characterKey: 'the_broker', text: "Confirmed. Market for aerial getaway services just saw a new, flamboyant entry. Rates are... volatile." }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'waluigi_escape_post',
+    order: 20090,
+    characterKey: 'waluigi',
+    timestamp: '2 hours ago',
+    content: `The Oracle's offer is intriguing, no? Time-travel, profits... a stage fit for a star! Let's play his little game. From a safe distance. On a dragon. WAH! #GrandExit`,
+    likes: 1630,
+    comments: [
+        { characterKey: 'green_t', text: "Just get us clear of the creepy fog." }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'waluigi_new_partner',
+    order: 20089,
+    characterKey: 'waluigi',
+    timestamp: '2 hours ago',
+    content: `The big dwarf is surprisingly agreeable when you explain the simple beauty of PROFIT! He'll be the muscle, I'll be the magnificent brains! A perfect partnership!`,
+    likes: 1337,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'bowser_morning_complaint',
+    order: 20088,
+    characterKey: 'bowser',
+    timestamp: '2 hours ago',
+    content: `Right. The balcony's gone, the purple twig flew off on a lizard, and the three-eyed freak is skulking around. This is the worst vacation ever. I'm going to go punch a gargoyle.`,
+    likes: 1245,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'green_t_after_action_report',
+    order: 20087,
+    characterKey: 'green_t',
+    timestamp: '2 hours ago',
+    content: `Okay, we're clear. The boss's exit strategy was... unorthodox. But effective. Now about this 'time travel' business plan... I'm going to need to see the numbers.`,
+    likes: 670,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'dan_potion_aftermath',
+    order: 20086,
+    characterKey: 'dan',
+    timestamp: '2 hours ago',
+    content: `Woke up to a crash. Then I was... bigger? Then smaller again. Bowser slapped me off someone's shoulders. Did anyone else see the purple guy on the lizard? Or was that the potion? My head hurts.`,
+    likes: 233,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'oracle_ghost_comment',
+    order: 20085,
+    characterKey: 'the_oracle',
+    timestamp: '1 hour ago',
+    content: `I see some of my guests have met the more... permanent residents. They mean no harm. They are merely curious. And so very, very quiet.`,
+    likes: 810,
+    comments: [
+        { characterKey: 'generic_toad', text: "NOPE. NOPE NOPE NOPE." }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'oracle_wall_punch_response',
+    order: 20084,
+    characterKey: 'the_oracle',
+    timestamp: '1 hour ago',
+    content: `The west parlor is safe for use now. If a guest requires the other bathroom, they need only to ask. There is no need for such... percussive inquiries... on the drywall.`,
+    likes: 666,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'wah_media_eager_found_rumor',
+    order: 20083,
+    characterKey: 'wah_media_collective',
+    timestamp: '1 hour ago',
+    content: `**RUMOR MILL:** Whispers from within the manor claim the 'missing' toad Eager has been found, rescued from a shattered glass solarium filled with 'shimmering mirrors'. The circumstances remain bizarre and unconfirmed.`,
+    likes: 2500,
+    comments: [
+        { characterKey: 'the_broker', text: "Asset 'Eager' location confirmed and status updated to 'rescued, but traumatized.' His market value just plummeted. A shame." }
+    ],
+    eventId: 'manor_madness'
+},
+{
+    id: 'bones_observation_on_manor',
+    order: 20082,
+    characterKey: 'bones',
+    timestamp: '30 minutes ago',
+    content: `Heard the crash. Heard the shouting. Saw the purple guy fly away on a lizard. Same chaos, different wallpaper. This place is just another battlefield.`,
+    likes: 478,
+    comments: [],
+    eventId: 'manor_madness'
+},
+{
+    id: 'waluigi_final_taunt',
+    order: 20081,
+    characterKey: 'waluigi',
+    timestamp: 'Just Now',
+    content: `To the spooky ghost-man @The_Oracle... your little house party is a magnificent disaster! The ambience is dreadful, the architecture is suicidal, and the staff is positively spectral! 10/10, will recommend to all my enemies! WAH!`,
+    likes: 1999,
+    comments: [
+        { characterKey: 'the_oracle', text: "I am delighted you are enjoying your stay. The gardens await your return." }
+    ],
+    eventId: 'manor_madness'
+},    
     {
         id: 'bramblehaven_quill_pre_battle',
         order: 20076,

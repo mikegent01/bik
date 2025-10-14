@@ -1,3 +1,5 @@
+
+
 // This file contains all of Humpik's personal quests.
 export const HUMPIK_QUESTS = {
     'humpik_honor_quest': {
@@ -22,15 +24,16 @@ export const HUMPIK_QUESTS = {
         title: "The King's Physician",
         type: 'personal',
         category: 'Personal - Humpik',
-        objective: "Dan, an ally of King Bowser, is critically injured. A dark archmage can save him, but requires 'magic ozoonium' from the lava-filled sewers beneath the capital. Humpik, driven by loyalty, has accepted the quest to retrieve this rare material.",
+        objective: "Dan, an ally of King Bowser, was critically injured. Humpik, driven by loyalty, braved the capital sewers to acquire the 'cure' from a mysterious archmage.",
         assignee: "Humpik",
         assigneeKey: 'humpik',
-        status: "active",
-        motivation: "Humpik's loyalty extends not just to his king, but to those who have aided him. He sees Dan as a friend of Bowser and therefore, a friend of his. He will brave any danger to save an ally.",
+        status: "completed",
+        motivation: "Humpik's loyalty extends not just to his king, but to those who have aided him. He saw Dan as a friend of Bowser and therefore, a friend of his. He braved any danger to save an ally.",
         steps: [
             { id: 'step1', title: "The Grim News", status: 'completed', description: "The Iron Legion Secret Service brought Humpik to an archmage's shop, where he learned of Dan's severe injury and the required cure." },
             { id: 'step2', title: "Descent into the Sewers", status: 'completed', description: "Humpik descended into the lava-filled sewers and met up with Markop and the rest of the party." },
-            { id: 'step3', title: "The Behir's Lair", status: 'active', description: "Guided by a treacherous Legion spy, the party has reached a lava vat guarded by a massive creature the Legion called a 'blue dragon', but which is actually a Behir. They must defeat it to proceed." }
+            { id: 'step3', title: "The Blue Dragon's Bargain", status: 'completed', description: "After a chaotic encounter with a 'blue dragon' and a two-eyed clone of Archie, Humpik successfully bargained for seventeen mushrooms, which the party later learned were not actually needed for the cure. The heavy load was passed to Markop for safekeeping." },
+            { id: 'step4', title: "A Diminished Friend", status: 'completed', description: "The party returned to the archmage. Green T dramatically offered a selection of replacement arms before the archmage intervened, healing Dan but leaving him shrunken and weakened. Dan refuses to speak to Archie about what happened, while Green T loudly proclaimed the danger was not over. Humpik's duty, however, is fulfilled." }
         ]
     },
     'humpik_great_feast': {

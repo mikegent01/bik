@@ -36,9 +36,9 @@ function generateGenericIntel() {
 const DEFAULT_INVENTORIES = {
     archie: { name: "Archie's Stash", items: ["Sickle", "Dusty Wine Bottle"] },
     markop: { name: "Markop's Pack", items: ["Gray Suit", "Carpentry Supplies", "Amethyst", "The Hammer Code: An Iron Legion Treatise"] },
-    humpik: { name: "Humpik's Haul", items: [] },
+    humpik: { name: "Humpik's Haul", items: ["Spell Scroll: Alarm", "Spell Scroll: Disguise Self", "Spell Scroll: Inflict Wounds", "Spell Scroll: Mage Armor", "Spell Scroll: Hunter's Mark"] },
     bowser: { name: "Bowser's Treasury", items: ["Princess Peach's Diary"] },
-    remi: { name: "Remi's Pack", items: ["Expired Coupon for Angel 24", "A single, very durable school ID card", "Practical Traveling Clothes", "A half-eaten sandwich", "The Silent Service: A Primer"] },
+    remi: { name: "Remi's Pack", items: ["Expired Coupon for Angel 24", "A single, very durable school ID card", "Practical Traveling Clothes", "A half-eaten sandwich", "The Silent Service: A Primer", "Chipped Dagger", "Crossbow"] },
     dan: { name: "Dan's Pack", items: ["Magitek Theory Vol. IV: Arcane Capacitors"] },
     shared: { 
         name: "Liberated Toads' Items", 
@@ -237,19 +237,24 @@ function initReputation() {
         'barrel_compartment_reveal',
         'lankys_disgrace_at_summit',
         'chaos_in_toad_town',
+        'standoff_at_the_capital',
+        'capital_diner_shadow_accord',
+        'imposter_dan_revelation',
+        'eager_tortured',
+        'centaur_arsonist',
+        'grand_market_ring',
+        'prison_break_fiasco',
+        'sewer_dragon',
+        'bowser_looting_manor',
+        'oracle_of_cursed_mansion',
+        'waluigis_wyvern_exit',
+        'fall_of_bramblehaven',
         'shadow_war',
         'dan_training',
         'cosmic_static',
         'paladin_dilemma',
         'rebel_sympathies',
-        'scrap_trail',
-        'standoff_at_the_capital',
-        'capital_diner_shadow_accord',
-        'grand_market_ring',
-        'prison_break_fiasco',
-        'sewer_dragon',
-        'bowser_looting_manor',
-        'fall_of_bramblehaven'
+        'scrap_trail'
     ];
 }
 
@@ -347,14 +352,15 @@ function processInitialXP() {
     grantXP('dan', 25, "Showed kindness by returning Markop's personal effects.");
     grantXP('dan', 25, "Used resourcefulness to help fortify a shelter for the night.");
 
-    grantXP('remi', 75, "Fought bravely against a swarm of flaming books.");
-    grantXP('remi', 50, "Survived an attack by giant Kitchen Skuttlers.");
-    grantXP('remi', 30, "Acquired and studied 'The Silent Service: A Primer'.");
-    grantXP('remi', 15, "Engaged with the problem by suggesting a (flammable) solution.");
-    grantXP('remi', 15, "Survived being trapped in the manor.");
 
     grantXP('eager', 150, "Was successfully found and rescued by the party in Raventree Manor.");
+    grantXP('dan', 25, "Participated in the early morning investigation of the disturbance.");
+    grantXP('dan', 15, "Witnessed the dramatic wyvern escape of Waluigi and Green T.");
+    grantXP('dan', 10, "Survived an... abrupt size adjustment and a slap from Bowser.");
 
+    // Eager
+    grantXP('eager', 150, "Was found and rescued by Archie from the perilous Solarium.");
+    grantXP('eager', 50, "Survived being trapped in a collapsing, vine-choked Solarium with mysterious mirrors.");
 
     // Status updates from recent events
     if (state.auxiliary_party_state['ryan']) {
@@ -575,3 +581,4 @@ export function loadState() {
     // Update loggedInUser from localStorage again, in case it changed in another tab
     state.loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
 }
+

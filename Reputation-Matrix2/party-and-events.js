@@ -1,4 +1,3 @@
-// party-and-events.js
 
 export const AUXILIARY_PARTY = {
     dan: {
@@ -301,6 +300,32 @@ export const RUMORS = [
         description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance, claiming they are 'relocating' items to a newly acquired mansion. Their true intentions are unknown, but it's unlikely to be for charitable purposes.",
         targets: ['party'],
         effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 }
+    },
+    {
+        id: 'oracle_of_cursed_mansion',
+        title: "The Oracle of the Cursed Mansion",
+        time_ago: "Tonight",
+        description: "The party staying at Waluigi's newly acquired mansion has encountered its mysterious host, a robed figure known as 'The Oracle.' He has invited them to a 'special event' in the gardens, but his calm demeanor and the mansion's strange properties—including rooms filled with silent ghosts—have sown deep suspicion. Archie recognized the name, linking it to a past encounter with a 'star shard'.",
+        targets: ['party', 'waluigi'],
+        effects: {
+            mages_guild: 5,
+            cosmic_jesters: 10,
+            silver_flame: -5,
+            freelancer_underworld: 5
+        }
+    },
+    {
+        id: 'waluigis_wyvern_exit',
+        title: "Waluigi's Grand Exit",
+        time_ago: "Tonight",
+        description: "In a characteristically dramatic fashion, Waluigi and his associate Green T were seen escaping the grounds of the haunted mansion by leaping onto the back of a summoned wyvern, disappearing into the foggy night. Eyewitnesses claim Waluigi was whispering about 'time-traveling properties' and a fifty-fifty profit split just before their departure.",
+        targets: ['waluigi', 'green_t'],
+        effects: {
+            cosmic_jesters: 15,
+            freelancer_underworld: 10,
+            regal_empire: -5,
+            mages_guild: -5
+        }
     },
     {
         id: 'fall_of_bramblehaven',
