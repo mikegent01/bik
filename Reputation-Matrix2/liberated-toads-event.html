@@ -40,8 +40,7 @@
         .btn-primary:hover { background-color: #5ce1ff; }
         
         /* Final Plan Styles */
-        .final-plan-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;}
-        @media (max-width: 768px) { .final-plan-summary { grid-template-columns: 1fr; } }
+        .final-plan-summary { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 16px;}
         .summary-choices ul { list-style: none; padding-left: 0; }
         .summary-choices li { background: rgba(255,255,255,0.04); padding: 8px; border-radius: 4px; margin-bottom: 8px; font-size: 0.9rem;}
         .summary-choices strong { color: #a9ffea; display: block; font-family: "Orbitron", sans-serif; font-size: 0.8rem; margin-bottom: 4px;}
@@ -53,8 +52,7 @@
         .modal-close { position: absolute; top: 10px; right: 10px; font-size: 1.5rem; background: transparent; color: #e8f5ff; border: none; cursor: pointer; transition: transform 0.2s; }
         .modal-close:hover { transform: scale(1.2); }
         .modal-content h3 { font-family: 'Orbitron', sans-serif; color: var(--neutral-color); margin-bottom: 16px; }
-        .modal-content ul { list-style: none; padding-left: 0; }
-        .modal-content li { margin-bottom: 8px; font-family: 'Roboto Mono', monospace; }
+        .modal-content p { font-family: 'Roboto Mono', monospace; }
         .modal-actions { display: flex; justify-content: flex-end; margin-top: 24px; }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,9 +66,9 @@
             <aside id="sidebar"></aside>
             <main id="main-content">
                 <section id="mission-section">
-                    <h2 class="page-title">Special Mission: The Vigilance Gambit</h2>
+                    <h2 class="page-title">Special Mission: The Shattered Vow</h2>
                     <p class="page-subtitle">
-                        While exploring the crashed Vigilance, the toads have discovered the hidden cargo hold: over 150 trafficked toads, weak and disoriented. This discovery has caused a schism. Lee's 'Strike Faction' sees an army. Roger's 'Shelter Faction' sees mouths to feed. As their trusted leader, you must forge a plan.
+                        The survivors of Shadeward Mansion have returned, but they brought the horror back with them. One of their own is grievously wounded, and worse, they carry the knowledge of a traitor in their ranks. The Iron Legion had a mole. Trust is gone. The vow that held the Liberated Toads together has shattered. As a leader, you must pick up the pieces before they turn on each other.
                     </p>
 
                     <div id="mission-metrics" class="metrics-board">
@@ -82,15 +80,15 @@
                         </div>
                         <div class="metric">
                             <div class="metric-header">
-                                <span>Plan Effectiveness</span><span id="m-resources-val">0</span>
+                                <span>Legion Threat</span><span id="m-threat-val">0</span>
                             </div>
-                            <div class="metric-bar"><div id="m-resources" class="metric-fill"></div></div>
+                            <div class="metric-bar"><div id="m-threat" class="metric-fill"></div></div>
                         </div>
                         <div class="metric">
                             <div class="metric-header">
-                                <span>Plan Subtlety</span><span id="m-stealth-val">0</span>
+                                <span>Internal Security</span><span id="m-security-val">0</span>
                             </div>
-                            <div class="metric-bar"><div id="m-stealth" class="metric-fill"></div></div>
+                            <div class="metric-bar"><div id="m-security" class="metric-fill"></div></div>
                         </div>
                         <div class="metric">
                             <div class="metric-header">
@@ -105,7 +103,7 @@
                     </div>
 
                     <div id="decision-container">
-                        <!-- Final plan injected here -->
+                        <!-- Decisions injected by JS -->
                     </div>
 
                 </section>
@@ -127,34 +125,36 @@
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module">
-        const finalState = {
-          metrics: { morale: 35, resources: 40, stealth: 100, cohesion: 50 },
-          choicesMade: [
-            { decisionTitle: 'Decision 1: The New Arrivals', choiceTitle: "Roger's Plan: Protect the Flock" },
-            { decisionTitle: 'Decision 2: The Vigilance Itself', choiceTitle: "Strip the Ship for a Fortification" },
-            { decisionTitle: 'Decision 3: The Staff in the Core', choiceTitle: "Leave it Sealed" },
-            { decisionTitle: 'Decision 4: The First Step', choiceTitle: "Scout for a Permanent Base" }
-          ],
-          outcome: 'mixed'
+        let missionState = {
+          metrics: { morale: 20, threat: 70, security: 10, cohesion: 15 },
+          choicesMade: []
         };
 
-        const outcomeText = "A workable, if uninspired, plan. It's a series of compromises that leaves no faction truly satisfied. The mission can likely be accomplished, but the underlying tensions within the group remain unresolved and will likely fester.";
+        const missionData = {
+            stage_1: {
+                dialogue: `<div class="dialogue-line"><span class="speaker">Toad Lee:</span> "A traitor. He walked among us, shared our fire, and wore our face. Now one of our own bleeds because we were blind."</div><div class="dialogue-line"><span class="speaker">Roger:</span> "Blindness has nothing to do with it. Our vetting process was non-existent. We trusted too easily. That ends now."</div><div class="dialogue-line"><span class="speaker">Ryan:</span> "What do they know? What did he tell them? Are they coming back for the rest of us?"</div>`,
+                decisionTitle: 'Decision 1: Immediate Response',
+                decisionNarrative: 'Paranoia is a virus, and it\'s spreading fast. Your first move will set the tone for everything that follows. How do you stop the bleeding?',
+                choices: [
+                    { title: "Lee's Counsel: Martial Law", description: "Declare a state of emergency. Confine everyone to quarters, begin interrogations, and establish a rigid chain of command. Trust is a liability we can't afford.", effects: { morale: -20, threat: -10, security: +40, cohesion: -25 }, nextStage: 'stage_2_hardline', consequenceTitle: "Order Through Fear", consequenceText: "A grim silence falls over the toads. They obey, but their eyes are filled with fear and resentment. You have control, but you've sacrificed their spirit." },
+                    { title: "Roger's Counsel: Hunker Down", description: "Focus all efforts on the wounded. Fortify the airship and seal the entrance. No one comes in, no one goes out until we know we're safe.", effects: { morale: +5, threat: +10, security: +20, cohesion: -10 }, nextStage: 'stage_2_defensive', consequenceTitle: "A Gilded Cage", consequenceText: "The ship becomes a fortress, but also a prison. The toads are safe from the outside world, but trapped with their own suspicions." },
+                    { title: "Ryan's Counsel: Reaffirm the Vow", description: "Gather everyone. Address the betrayal head-on. Remind them of their shared purpose and the vow they swore. Rebuild trust, even if it feels impossible.", effects: { morale: +20, threat: +5, security: -20, cohesion: +30 }, nextStage: 'stage_2_unity', consequenceTitle: "A Flicker of Hope", consequenceText: "It's a difficult speech, but it resonates with some. The fear hasn't vanished, but for the first time since the raid, they look at each other as comrades, not potential enemies." }
+                ]
+            },
+            // Add more stages here as needed
+            end_mission: {
+                // This stage is called when the mission concludes
+            }
+        };
 
-        const missionBrief = `OPERATION: VIGILANCE GAMBIT
-
-MISSION BRIEFING:
-- PRIMARY DIRECTIVE: Prioritize the shelter and well-being of the 150 freed toads.
-- ASSET DOCTRINE: The Vigilance will be stripped to create a static, fortified base.
-- POWER SOURCE PROTOCOL: The staff will remain sealed to minimize risk and energy signature.
-- IMMEDIATE OBJECTIVE: Initiate stealth reconnaissance to find a permanent base location.
-
-This plan is now locked. Execute on my command.
-- Archie`;
+        const modal = document.getElementById('consequence-modal');
+        const modalClose = modal.querySelector('.modal-close');
+        const modalContinue = modal.querySelector('#modal-continue');
 
         function clamp(v) { return Math.max(0, Math.min(100, v)); }
 
-        function renderMetrics(state) {
-          const metrics = state.metrics;
+        function updateMetrics() {
+          const metrics = missionState.metrics;
           const set = (id, val) => {
             const bar = document.getElementById(id);
             if (bar) bar.style.width = `${clamp(val)}%`;
@@ -162,45 +162,80 @@ This plan is now locked. Execute on my command.
             if (valEl) valEl.textContent = clamp(val);
           };
           set('m-morale', metrics.morale);
-          set('m-resources', metrics.resources);
-          set('m-stealth', metrics.stealth);
+          set('m-threat', metrics.threat);
+          set('m-security', metrics.security);
           set('m-cohesion', metrics.cohesion);
         }
 
-        function renderFinalPlan(state) {
-            const container = document.getElementById('decision-container');
-            const choicesListHTML = state.choicesMade.map(c => `<li><strong>${c.decisionTitle}:</strong> ${c.choiceTitle}</li>`).join('');
+        function handleChoice(choice) {
+            // 1. Update state
+            Object.keys(choice.effects).forEach(key => {
+                missionState.metrics[key] += choice.effects[key];
+            });
+            missionState.choicesMade.push(choice.title);
 
-            container.innerHTML = `
-                <div class="decision-title">Mission Plan Finalized</div>
-                <div class="decision-narrative">${outcomeText}</div>
-                <div class="final-plan-summary">
-                    <div class="summary-choices">
-                        <h5>Choices Made:</h5>
-                        <ul>${choicesListHTML}</ul>
-                    </div>
-                    <div class="summary-brief">
-                        <h5>Generated Mission Brief:</h5>
-                        <textarea id="mission-brief-textarea" readonly>${missionBrief}</textarea>
-                    </div>
-                </div>
-                <div class="decision-actions" style="margin-top: 24px; justify-content: center;">
-                    <a href="directory.html" class="btn btn-primary">Return to Directory</a>
-                </div>
-            `;
+            // 2. Animate metrics
+            updateMetrics();
 
-            const dialoguePanel = document.getElementById('dialogue');
-            if (dialoguePanel) {
-                dialoguePanel.innerHTML = `The plan is set. It's a cautious path, one that prioritizes safety over glory. Roger and the Shelter Faction are relieved. Toad Lee and the Strike Faction are quietly seething, feeling their strength is being wasted. And Dan... he's quiet. The staff remains in the ship's core. A promise was broken. The future of the Liberated Toads is secure for now, but the cost to their unity is yet to be seen.
-                <div style="text-align: right; margin-top: 8px;">—Terminal Log</div>`;
+            // 3. Show consequence modal
+            document.getElementById('consequence-title').textContent = choice.consequenceTitle;
+            document.getElementById('consequence-body').innerHTML = `<p>${choice.consequenceText}</p>`;
+            modal.classList.add('open');
+
+            // 4. Set up continue button
+            modalContinue.onclick = () => {
+                modal.classList.remove('open');
+                if (choice.nextStage === 'end_mission') {
+                    renderFinalPlan();
+                } else {
+                    renderStage(choice.nextStage);
+                }
+            };
+        }
+        
+        modalClose.onclick = () => modal.classList.remove('open');
+
+        function renderStage(stageId) {
+            const stage = missionData[stageId];
+            if (!stage) {
+                console.error("Stage not found:", stageId);
+                return;
             }
+
+            document.getElementById('dialogue').innerHTML = stage.dialogue;
+            const decisionContainer = document.getElementById('decision-container');
+            
+            const choicesHTML = stage.choices.map(choice => `
+                <div class="decision-card">
+                    <div class="decision-card-title">${choice.title}</div>
+                    <div class="decision-card-desc">${choice.description}</div>
+                    <div class="decision-actions">
+                        <button class="btn btn-primary" data-choice='${JSON.stringify(choice)}'>Select</button>
+                    </div>
+                </div>`).join('');
+
+            decisionContainer.innerHTML = `
+                <div class="decision-title">${stage.decisionTitle}</div>
+                <div class="decision-narrative">${stage.decisionNarrative}</div>
+                <div class="choices-grid">${choicesHTML}</div>`;
+            
+            decisionContainer.querySelectorAll('.btn-primary').forEach(button => {
+                button.addEventListener('click', () => {
+                    const choiceData = JSON.parse(button.dataset.choice);
+                    handleChoice(choiceData);
+                });
+            });
+        }
+        
+        function renderFinalPlan() {
+            // Placeholder for when the mission concludes
+            const container = document.getElementById('decision-container');
+            container.innerHTML = `<div class="decision-title">Mission Path Chosen</div><p>The immediate crisis has been handled, for better or worse. The consequences of your leadership will ripple through the Liberated Toads for a long time to come.</p><div class="decision-actions" style="margin-top: 24px; justify-content: center;"><a href="directory.html" class="btn btn-primary">Return to Directory</a></div>`;
         }
 
         function init() {
-          renderMetrics(finalState);
-          renderFinalPlan(finalState);
-          const modal = document.getElementById('consequence-modal');
-          if (modal) modal.style.display = 'none';
+          updateMetrics();
+          renderStage('stage_1');
         }
 
         document.addEventListener('DOMContentLoaded', init);
