@@ -25,7 +25,7 @@ export const TOAD_ABILITIES = {
         2: { name: "Rage", description: "Can enter a rage, gaining resistance to physical damage and a bonus to strength-based damage rolls." },
         4: { name: "Unflinching", description: "Has advantage on saving throws against being frightened." }
     },
-    deceit: { // Traitor Toad
+    deceit: { // The Mole
         2: { name: "Feint", description: "Can use a bonus action to gain advantage on his next attack roll against a creature this turn."},
         4: { name: "Betrayal", description: "If an ally is within 5ft of his target, can deal extra sneak attack damage."}
     }

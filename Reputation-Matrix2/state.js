@@ -1,4 +1,3 @@
-
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
@@ -249,6 +248,7 @@ function initReputation() {
         'oracle_of_cursed_mansion',
         'waluigis_wyvern_exit',
         'fall_of_bramblehaven',
+        'shadeward_mansion_raid', // Added the new rumor
         'shadow_war',
         'dan_training',
         'cosmic_static',
@@ -284,7 +284,7 @@ function grantXP(charKey, amount, reason) {
             "Spellcaster": "spellcaster",
             "Gun": "gun",
             "Grotesque": "grotesque",
-            "Dagger & Deceit": "deceit"
+            "Deceit": "deceit" // CORRECTED
         };
         const archetype = weaponArchetypes[character.weapon];
         if (archetype) {
@@ -362,13 +362,26 @@ function processInitialXP() {
     grantXP('eager', 150, "Was found and rescued by Archie from the perilous Solarium.");
     grantXP('eager', 50, "Survived being trapped in a collapsing, vine-choked Solarium with mysterious mirrors.");
 
+    // XP from Shadeward Mansion (Day 16)
+    const shadewardSurvivors = ['toad_lee', 'ryan', 'roger', 'bones', 'the_mole'];
+    shadewardSurvivors.forEach(toadKey => {
+        grantXP(toadKey, 150, "Survived the temporal horrors and Iron Legion raid at Shadeward Mansion.");
+    });
+    grantXP('ryan', 50, "Used a powerful darkness spell to facilitate the group's escape.");
+    grantXP('roger', 50, "Successfully neutralized an Iron Legionnaire during the raid.");
+    grantXP('the_mole', 25, "Successfully completed objective: facilitated the capture of Bones.");
+
+
     // Status updates from recent events
-    if (state.auxiliary_party_state['ryan']) {
-        state.auxiliary_party_state['ryan'].status = "Duplicitous";
-    }
-    if(state.auxiliary_party_state['dan']) {
-        state.auxiliary_party_state['dan'].status = "Weakened & Diminished";
-    }
+    // CORRECTED: The status is set in the lore file, this function should not override it.
+    // If a status needs to be dynamic based on events, this is where it would go,
+    // but for now, we respect the canonical status from `party-and-events.js`.
+    // Example of a dynamic status update:
+    // if(state.auxiliary_party_state['dan']) {
+    //     if (dan_is_healed) {
+    //         state.auxiliary_party_state['dan'].status = "Recovering";
+    //     }
+    // }
 }
 
 export function initFocusTreeState() {
@@ -554,8 +567,8 @@ export function loadState() {
     // Always run these initializations to ensure data structure is up-to-date
     initReputation();
     initInventories();
+    processInitialXP(); // Moved before calculateFinalReputations to ensure XP is processed first
     calculateFinalReputations();
-    processInitialXP();
 
     // Check if focus tree state needs initialization
     if (!state.focusTreeState || state.focusTreeState.buildVersionApplied !== "2024-05-18-r1") {
@@ -581,4 +594,3 @@ export function loadState() {
     // Update loggedInUser from localStorage again, in case it changed in another tab
     state.loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
 }
-

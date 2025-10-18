@@ -1,38 +1,38 @@
 export const CHARACTER_RELATIONS = {
     // --- PARTY MEMBER OPINIONS ---
     'archie': {
-        'markop': { type: 'ally', text: "Archie on Markop: A stuffy, self-righteous shield. But he's a reliable shield, and sometimes, you need one of those. He's taking forever with the kid. If you want something done, you have to nudge the 'honorable' ones in the right direction." },
-        'humpik': { type: 'ally', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things, and apparently, for finding heavy planks. Points in the right direction and he goes." },
-        'bowser': { type: 'ally', text: "Archie on Bowser: He can yell all he wants about 'three eyes'. I'm the one who gets things done. He's just another would-be king, a temporary, powerful convenience whose only purpose is to smash the Empire." },
-        'remi': { type: 'ally', text: "Archie on Remi: FNG is a surprisingly useful pawn. A little gullible, maybe. Helped pull her from that balcony wreckage. She's got potential... to be a great distraction." },
-        'dan': { type: 'ally', text: "Archie on Dan: Creek told me everything. The staff, his arm... Dan being shrunken. Why didn't he tell me? He's hiding, and that loudmouth Green T is calling him out. I need to figure out what's really going on with him." },
-        'toad_lee': { type: 'ally', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
-        'eager': { type: 'ally', text: "Archie on Eager: So he's a bartender for some glowing weirdo? Found him in that wrecked glass house. He's still a mess. Pulled him out of there before he got himself killed. Progress, I guess." },
+        'markop': { type: 'distrust', text: "Archie on Markop: A stuffy, self-righteous shield. But he's a reliable shield, and sometimes, you need one of those. He's taking forever with the kid. If you want something done, you have to nudge the 'honorable' ones in the right direction." },
+        'humpik': { type: 'transactional', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things, and apparently, for finding heavy planks. Points in the right direction and he goes." },
+        'bowser': { type: 'transactional', text: "Archie on Bowser: He can yell all he wants about 'three eyes'. I'm the one who gets things done. He's just another would-be king, a temporary, powerful convenience whose only purpose is to smash the Empire." },
+        'remi': { type: 'transactional', text: "Archie on Remi: FNG is a surprisingly useful pawn. A little gullible, maybe. Helped pull her from that balcony wreckage. She's got potential... to be a great distraction." },
+        'dan': { type: 'intrigue', text: "Archie on Dan: Creek told me everything. The staff, his arm... Dan being shrunken. Why didn't he tell me? He's hiding, and that loudmouth Green T is calling him out. I need to figure out what's really going on with him." },
+        'toad_lee': { type: 'transactional', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
+        'eager': { type: 'transactional', text: "Archie on Eager: So he's a bartender for some glowing weirdo? Found him in that wrecked glass house. He's still a mess. Pulled him out of there before he got himself killed. Progress, I guess." },
         'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
-        'ryan': { type: 'ally', text: "Archie on Ryan: He's watching the kid with the staff. Good. Competition makes things interesting. Maybe he'll learn something useful, like how to make a proper explosion." },
+        'ryan': { type: 'rivalry', text: "Archie on Ryan: He's watching the kid with the staff. Good. Competition makes things interesting. Maybe he'll learn something useful, like how to make a proper explosion." },
         'bones': { type: 'ally', text: "Archie on Bones: He gets it. The world's a trash fire. He's just trying to stay warm. Respectable." },
         'oracle': { type: 'enemy', text: "Archie on The Oracle: That name... the star shard... I've dealt with his kind before. He's hiding something big. Another self-important mystic playing games. I'll enjoy breaking his toys." },
         'emperor_elagabalus': { type: 'enemy', text: "Archie on Elagabalus: The ultimate symbol of the oppressive, boring order I despise. His Empire needs to be torn down, brick by brick." },
         'general_marcus_ironhand': { type: 'enemy', text: "Archie on Ironhand: Discipline is just another word for boring. He wouldn't know a good opportunity if it blew up in his face. I should arrange that." },
-        'lord_crimson': { type: 'ally', text: "Archie on Lord Crimson: He understands the value of chaos. A dangerous, but amusing, player in the game." },
+        'lord_crimson': { type: 'volatile', text: "Archie on Lord Crimson: He understands the value of chaos. A dangerous, but amusing, player in the game." },
         'archmage_theron': { type: 'enemy', text: "Archie on Theron: All his rules and regulations for magic are a cage. Cages are meant to be broken." },
-        'chief_thornpaw': { type: 'enemy', text: "Archie on Thornpaw: He talks to trees. Whatever. As long as he stays out of my way." },
+        'chief_thornpaw': { type: 'neutral', text: "Archie on Thornpaw: He talks to trees. Whatever. As long as he stays out of my way." },
         'high_inquisitor_vale': { type: 'enemy', text: "Archie on Vale: Another fanatic in a shiny suit who wants to burn anything fun. Get in line." },
-        'captain_syrup': { type: 'enemy', text: "Archie on Captain Syrup: She's got style, I'll give her that. But she's just as greedy as the rest. Got in my way." },
+        'captain_syrup': { type: 'rivalry', text: "Archie on Captain Syrup: She's got style, I'll give her that. But she's just as greedy as the rest. Got in my way." },
         'boss_knuckles': { type: 'enemy', text: "Archie on Knuckles: Thinks he's tough. He's just another obstacle. One that's fun to blow up." },
         'alpha_bloodmaw': { type: 'ally', text: "Archie on Bloodmaw: Angry, hairy, and hates vampires. What's not to like?" },
         'chancellor_toadsworth': { type: 'enemy', text: "Archie on Toadsworth: Just another bureaucrat trying to hold onto the scraps of a broken system. Pathetic." },
         'captain_toadette': { type: 'enemy', text: "Archie on Toadette: A fanatic. Blind loyalty is even more boring than regular loyalty. At least she's angry." },
         'earl_grey': { type: 'enemy', text: "Archie on Earl Grey: Big guy with an axe. Almost as boring as Humpik, but on the wrong side." },
-        'lario': { type: 'ally', text: "Archie on Lario: The little goblin actually pulled it off! A logbook... could be useful. Maybe he's not entirely useless after all." },
+        'lario': { type: 'transactional', text: "Archie on Lario: The little goblin actually pulled it off! A logbook... could be useful. Maybe he's not entirely useless after all." },
         'internet_federation': { type: 'enemy', text: "Archie on The Internet Federation: More boring 'order' in a shiny new package. All their rules and protocols are just begging to be broken. A new playground!" },
         'hacktivist_collectives': { type: 'ally', text: "Archie on The Hacktivist Collectives: Finally, some people who get it! Information freedom, chaos, disrupting the system... they're artists! My kind of people." },
         'bryan': { type: 'enemy', text: "Archie on Bryan: Another ghost from the past. He thinks I left him for dead? Please. In my line of work, people get left. He should have been faster. Now he's just another problem to solve." }
     },
     'markop': {
-        'archie': { type: 'ally', text: "Markop on Archie: I should have known he'd get himself stuck. His recklessness is a constant liability. Still... the look on his face when he was trapped in that hallway... I'm glad I found him. We have to get him out." },
+        'archie': { type: 'distrust', text: "Markop on Archie: I should have known he'd get himself stuck. His recklessness is a constant liability. Still... the look on his face when he was trapped in that hallway... I'm glad I found him. We have to get him out." },
         'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },
-        'bowser': { type: 'neutral', text: "Markop on Bowser: A tyrant and a warlord, but seeing him preparing supplies... he seemed less a king and more just another person trying to survive. He dismisses real danger as dreams. The alliance remains one of desperation, not trust." },
+        'bowser': { type: 'distrust', text: "Markop on Bowser: A tyrant and a warlord, but seeing him preparing supplies... he seemed less a king and more just another person trying to survive. He dismisses real danger as dreams. The alliance remains one of desperation, not trust." },
         'remi': { type: 'ally', text: "Markop on Remi: Another soul caught in this chaos. I'll have to keep an eye on her, make sure Archie doesn't lead her down the wrong path. We pulled her from the wreckage; she is under our protection now." },
         'dan': { type: 'enemy', text: "Markop on 'Dan': He is an impostor. Lario's warning cannot be ignored. His actions in the prison—locking us in, his erratic behavior—he is a danger to us all. I failed to see it. I must uncover his true purpose. His attempt to ride on my back during the book battle was undignified and tactically unsound." },
         'waluigi': { type: 'enemy', text: "Markop on Waluigi: An agent of pure chaos, often to his own detriment. He tried to extinguish a magical fire with a Fire Bolt, making the inferno worse. He is unpredictable and dangerous, a fool wielding power he doesn't comprehend." },
@@ -44,76 +44,76 @@ export const CHARACTER_RELATIONS = {
         'emperor_elagabalus': { type: 'enemy', text: "Markop on Elagabalus: His Imperial 'peace' is a gilded cage built on the backs of the oppressed. True order comes from justice, not force." },
         'iron_legion': { type: 'enemy', text: "Markop on the Iron Legion: Incompetent, deceptive, and cruel. They tortured Eager, lied about the 'dragon' in the sewer, and used one of their own spies to lead us into a trap. They are not an army of order; they are a gang of thugs with better uniforms." },
         'lord_crimson': { type: 'enemy', text: "Markop on Lord Crimson: An ancient evil that plays with mortals as if they were pawns. He represents a corruption that must be cleansed." },
-        'archmage_theron': { type: 'enemy', text: "Markop on Theron: He seeks to cage a storm. Magic is a part of the world, and his fear of its misuse only creates the very monsters he dreads." },
+        'archmage_theron': { type: 'neutral', text: "Markop on Theron: He seeks to cage a storm. Magic is a part of the world, and his fear of its misuse only creates the very monsters he dreads." },
         'chief_thornpaw': { type: 'ally', text: "Markop on Thornpaw: A wise and honorable leader. He understands the balance of the world in a way the 'civilized' rulers do not." },
         'high_inquisitor_vale': { type: 'enemy', text: "Markop on Vale: He has twisted the faith I once held into a weapon of blind hatred. He is a cautionary tale, a mirror of what I could have become." },
         'captain_syrup': { type: 'enemy', text: "Markop on Syrup: A pirate who lives by no code but her own greed. She is a symptom of the lawlessness we must fight." },
         'chancellor_toadsworth': { type: 'ally', text: "Markop on Toadsworth: A good man trying to hold his world together in a time of crisis. He has my sympathies, and my aid if he should ask it." },
         'captain_toadette': { type: 'enemy', text: "Markop on Toadette: Her loyalty is admirable, but it has become a blinding fanaticism. She cannot see that her actions are creating more chaos, not less." },
-        'lario': { type: 'ally', text: "Markop on Lario: He stole a logbook. While theft is dishonorable, if it contains a clue to Eager's whereabouts... it is a necessary evil. A tool we must use." }
+        'lario': { type: 'transactional', text: "Markop on Lario: He stole a logbook. While theft is dishonorable, if it contains a clue to Eager's whereabouts... it is a necessary evil. A tool we must use." }
     },
     'humpik': {
-        'bowser': { type: 'ally', text: "Humpik on Bowser: King Bowser is my friend. We fight together now. He said the noise was a loud dream... King knows best. Maybe I am a loud dreamer. It is good." },
+        'bowser': { type: 'loyalty', text: "Humpik on Bowser: King Bowser is my friend. We fight together now. He said the noise was a loud dream... King knows best. Maybe I am a loud dreamer. It is good." },
         'archie': { type: 'ally', text: "Humpik on Archie: The little guy is crazy! But he makes big explosions and finds big boards! Good to have in a scrap. He helped find the new girl." },
         'markop': { type: 'ally', text: "Humpik on Markop: The horse-man called King Bowser 'silly billy'. To his face. I... do not understand horse-man jokes. But he fights good, and helped look for the new girl. I respect that." },
         'remi': { type: 'ally', text: "Humpik on Remi: New girl. Looks small, but is tough. Found her under the rubble. She is safe now. I will keep her safe." },
-        'waluigi': { type: 'ally', text: "Humpik on Waluigi: He saved me, and for that, I owe him. But now he talks of... time travel and money with the Oracle. He is a strange and slippery friend. I will work with him, but I will watch him." },
+        'waluigi': { type: 'volatile', text: "Humpik on Waluigi: He saved me, and for that, I owe him. But now he talks of... time travel and money with the Oracle. He is a strange and slippery friend. I will work with him, but I will watch him." },
         'oracle': { type: 'enemy', text: "Humpik on The Oracle: The smooth-talking man. He smiles, but his eyes are cold. He knows more than he says. The ghosts... he put them there. Or he controls them. He is not to be trusted. He is the enemy here." },
         'iron_thorn': { type: 'enemy', text: "Humpik on Iron Thorn: Metal man hurt my friend! I hit him with my axe! If I see him again, I will hit him harder!" },
         'dan': { type: 'ally', text: "Humpik on Dan: The little toad was hurt bad. I went into the stinky pipes and got the things for the mage. Now he is better! He is small, but he is strong. Humpik's duty is done." },
         'toad_lee': { type: 'ally', text: "Humpik on Toad Lee: He has a big axe! He fights good! GWAHAHA!" },
         'eager': { type: 'ally', text: "Humpik on Eager: He's fast! Hard to hit! Good!" },
         'roger': { type: 'ally', text: "Humpik on Roger: He has a boom-stick! Loud! Good for fighting!" },
-        'ryan': { type: 'ally', text: "Humpik on Ryan: He does the sparkly stuff. Weird, but can be strong." },
+        'ryan': { type: 'neutral', text: "Humpik on Ryan: He does the sparkly stuff. Weird, but can be strong." },
         'bones': { type: 'ally', text: "Humpik on Bones: He looks like he's been in a lot of fights. He's a tough little guy." },
-        'black_t': { type: 'neutral', text: "Humpik on Black T: Small toad in black. Talked about toad selling. He was hiding. Strange."},
-        'iron_legion': { type: 'ally', text: "Humpik on Iron Legion Secret Service: The quiet metal men took me to Dan. They are helping. They are... useful."}
+        'black_t': { type: 'distrust', text: "Humpik on Black T: Small toad in black. Talked about toad selling. He was hiding. Strange."},
+        'iron_legion': { type: 'transactional', text: "Humpik on Iron Legion Secret Service: The quiet metal men took me to Dan. They are helping. They are... useful."}
     },
     'bowser': {
-        'archie': { type: 'ally', text: "Bowser on Archie: This three-eyed menace is more trouble than he's worth! Always creeping around in the dark. Watch where you're lookin', weirdo. He's on thin ice." },
-        'markop': { type: 'ally', text: "Bowser on Markop: The horse-man has honor, which is a weakness. But he's a strong fighter. He keeps the little guys in line, so he's useful for now." },
-        'humpik': { type: 'ally', text: "Bowser on Humpik: My most loyal ally! He has the strength of a mountain and the loyalty of a true friend! GWAHAHAHA!" },
-        'remi': { type: 'ally', text: "Bowser on Remi: Another minion. As long as she follows orders, I don't care who she is." },
-        'waluigi': { type: 'neutral', text: "Bowser on Waluigi: The purple string bean? He's a schemer. Useful for now, but not to be trusted. He got Humpik out, so... credit where it's due." },
+        'archie': { type: 'distrust', text: "Bowser on Archie: This three-eyed menace is more trouble than he's worth! Always creeping around in the dark. Watch where you're lookin', weirdo. He's on thin ice." },
+        'markop': { type: 'transactional', text: "Bowser on Markop: The horse-man has honor, which is a weakness. But he's a strong fighter. He keeps the little guys in line, so he's useful for now." },
+        'humpik': { type: 'loyalty', text: "Bowser on Humpik: My most loyal ally! He has the strength of a mountain and the loyalty of a true friend! GWAHAHAHA!" },
+        'remi': { type: 'neutral', text: "Bowser on Remi: Another minion. As long as she follows orders, I don't care who she is." },
+        'waluigi': { type: 'volatile', text: "Bowser on Waluigi: The purple string bean? He's a schemer. Useful for now, but not to be trusted. He got Humpik out, so... credit where it's due." },
         'dan': { type: 'enemy', text: "Bowser on Dan: The little hero toad is broken. Pathetic. Loyalty that leads to losing an arm is a poor investment. Still, he fought well before. Maybe he can be reforged into something useful." },
-        'toad_lee': { type: 'ally', text: "Bowser on Toad Lee: He holds the powerful staff. A strong minion with a strong weapon. Good. He understands that power is what matters." },
+        'toad_lee': { type: 'transactional', text: "Bowser on Toad Lee: He holds the powerful staff. A strong minion with a strong weapon. Good. He understands that power is what matters." },
         'eager': { type: 'enemy', text: "Bowser on Eager: My best warriors are wading through sewers for this little morsel? He'd better be worth the trouble. A king doesn't waste resources on insignificant pawns. This rescue is a distraction from my glorious conquest!" },
-        'roger': { type: 'ally', text: "Bowser on Roger: The one with the gun. Smart. Guns are good for making problems go away. He understands practicality. A useful kind of minion." },
-        'ryan': { type: 'neutral', text: "Bowser on Ryan: The quiet one with the magic? Kamek says he's a snake. A 'warden'. Good. Deception is a tool of the powerful. We'll see if he's any good at it." },
+        'roger': { type: 'transactional', text: "Bowser on Roger: The one with the gun. Smart. Guns are good for making problems go away. He understands practicality. A useful kind of minion." },
+        'ryan': { type: 'distrust', text: "Bowser on Ryan: The quiet one with the magic? Kamek says he's a snake. A 'warden'. Good. Deception is a tool of the powerful. We'll see if he's any good at it." },
         'bones': { type: 'ally', text: "Bowser on Bones: He looks like he's been through a real fight. Ugly, but tough. I respect that. Toughness is good." }
     },
     'remi': {
-        'archie': { type: 'neutral', text: "Remi on Archie: This guy is chaos incarnate. He got me involved in a murder plot, but he also helped pull me from the wreckage. He's terrifying, but... you can't deny he gets results. I'm staying on his good side." },
+        'archie': { type: 'volatile', text: "Remi on Archie: This guy is chaos incarnate. He got me involved in a murder plot, but he also helped pull me from the wreckage. He's terrifying, but... you can't deny he gets results. I'm staying on his good side." },
         'markop': { type: 'ally', text: "Remi on Markop: The Centaur. He seems honorable, a calm center in this storm. He helped look for me after the balcony collapsed. I feel safer when he's around." },
         'humpik': { type: 'ally', text: "Remi on Humpik: He's loud, but he was the first to find me in the rubble. He seems fiercely loyal to his friends. I think he's a good person under all that shouting and armor." },
         'bowser': { type: 'enemy', text: "Remi on Bowser: He knew the box was a bomb and just... watched. He's a monster. A king of monsters. I don't trust him for a second, even if we're on the same side for now." },
-        'waluigi': { type: 'neutral', text: "Remi on Waluigi: He's an absolute lunatic and a show-off... but he saved my life. His fireballs took out most of those rust creatures. I guess that makes him a useful lunatic?" },
+        'waluigi': { type: 'volatile', text: "Remi on Waluigi: He's an absolute lunatic and a show-off... but he saved my life. His fireballs took out most of those rust creatures. I guess that makes him a useful lunatic?" },
         'dan': { type: 'ally', text: "Remi on Dan: Everyone calls him a hero, but he seems broken now. It's a heavy burden to carry, being the 'hope' of your people. Especially when you're just a kid." },
         'toad_lee': { type: 'ally', text: "Remi on Toad Lee: He's quiet, but he's holding that crazy staff. It feels like he's carrying the weight of the world on his shoulders. Respectable, in a terrifying way." },
         'eager': { type: 'ally', text: "Remi on Eager: He's been through a lot. Captured, tortured, captured again... now he's with us in this sewer. He's scared, but he's still going. That's brave." },
         'roger': { type: 'ally', text: "Remi on Roger: The pragmatic one. He's got his head on straight. In this crew, someone needs to." },
-        'ryan': { type: 'neutral', text: "Remi on Ryan: The quiet magic user. Seems harmless enough, but there's something... off about him. He's too watchful." },
+        'ryan': { type: 'distrust', text: "Remi on Ryan: The quiet magic user. Seems harmless enough, but there's something... off about him. He's too watchful." },
         'bones': { type: 'ally', text: "Remi on Bones: Looks like he's seen things. He's cynical, but he's a survivor. You can trust a survivor to watch their own back, and maybe yours if it helps them." }
     },
     'waluigi': {
-        'archie': { type: 'ally', text: "Waluigi on Archie: WAH! A true artist of chaos! He understands the beauty of a well-placed explosion! A worthy apprentice!" },
+        'archie': { type: 'rivalry', text: "Waluigi on Archie: WAH! A true artist of chaos! He understands the beauty of a well-placed explosion! A worthy apprentice, but the master is still ME!" },
         'markop': { type: 'neutral', text: "Waluigi on Markop: So boring! All 'honor' and 'justice'. He's the straight man in my brilliant comedy!" },
-        'humpik': { type: 'ally', text: "Waluigi on Humpik: The big oaf shook on it! WAH! An alliance! He's strong, simple... perfect for taking care of the dirty work while I, the magnificent Waluigi, handle the brains of the operation against the spooky Oracle!" },
-        'bowser': { type: 'neutral', text: "Waluigi on Bowser: Another big, angry brute who wants to rule everything. So unoriginal! But his army is a useful distraction." },
+        'humpik': { type: 'transactional', text: "Waluigi on Humpik: The big oaf shook on it! WAH! An alliance! He's strong, simple... perfect for taking care of the dirty work while I, the magnificent Waluigi, handle the brains of the operation against the spooky Oracle!" },
+        'bowser': { type: 'volatile', text: "Waluigi on Bowser: Another big, angry brute who wants to rule everything. So unoriginal! But his army is a useful distraction." },
         'remi': { type: 'ally', text: "Waluigi on Remi: WAH! She calls me a show-off? Of course I am! It's not my fault my magnificence is so... magnificent! She fought well... for a sidekick." },
-        'green_t': { type: 'ally', text: "Waluigi on Green T: WAH! Green T is smarter than he looks! He knows a brilliant business opportunity when he sees one! My perfect partner for this time-travel-money-scheme! And his whistle skills are top-notch!" },
+        'green_t': { type: 'transactional', text: "Waluigi on Green T: WAH! Green T is smarter than he looks! He knows a brilliant business opportunity when he sees one! My perfect partner for this time-travel-money-scheme! And his whistle skills are top-notch!" },
         'dan': { type: 'neutral', text: "Waluigi on Dan: The little one-armed toad is so small! WAH! I tried to explain the magnificent physics of why he's so tiny now, but I think his little brain was too full of sadness to understand my genius." },
-        'lario': { type: 'ally', text: "Waluigi on Lario: WAH! The little goblin shows up everywhere! He's like a bad smell you can't get rid of. But he knows things... useful things. He's more interesting than I thought!" },
-        'lady_toriel': { type: 'ally', text: "Waluigi on Lady Toriel: WAH! She's so polite! It's weird! But she knows everyone. A useful, fluffy tool for my magnificent plans!" }
+        'lario': { type: 'rivalry', text: "Waluigi on Lario: WAH! The little goblin shows up everywhere! He's like a bad smell you can't get rid of. But he knows things... useful things. He's more interesting than I thought!" },
+        'lady_toriel': { type: 'transactional', text: "Waluigi on Lady Toriel: WAH! She's so polite! It's weird! But she knows everyone. A useful, fluffy tool for my magnificent plans!" }
     },
     'wario': {
-        'waluigi': { type: 'ally', text: "Mr. Wario on Waluigi: He is chaos. Unpredictable. This makes him a useful tool and a dangerous liability. For now, the potential profit outweighs the risk. His... style... provides excellent cover for my own, more discreet operations." },
-        'lady_toriel': { type: 'ally', text: "Mr. Wario on Lady Toriel: She has influence and coin. A valuable contact. The dinner was a worthwhile expense to secure access to her province's resources and political capital. A pragmatic and useful partner." },
+        'waluigi': { type: 'volatile', text: "Mr. Wario on Waluigi: He is chaos. Unpredictable. This makes him a useful tool and a dangerous liability. For now, the potential profit outweighs the risk. His... style... provides excellent cover for my own, more discreet operations." },
+        'lady_toriel': { type: 'transactional', text: "Mr. Wario on Lady Toriel: She has influence and coin. A valuable contact. The dinner was a worthwhile expense to secure access to her province's resources and political capital. A pragmatic and useful partner." },
         'regal_empire': { type: 'enemy', text: "Mr. Wario on The Regal Empire: Bad for business. Their obsession with 'order' involves too many regulations, taxes, and patrols. Their stability is the stability of a stagnant pond. There's more profit in a hurricane."}
     },
     'lady_toriel': {
         'waluigi': { type: 'neutral', text: "Lady Toriel on Waluigi: A most... spirited individual. His energy is certainly... unique. The dinner was quite an experience." },
-        'wario': { type: 'neutral', text: "Lady Toriel on Mr. Wario: A very direct businessman. He seems to value efficiency and garlic above all else. Our discussion was... productive." }
+        'wario': { type: 'transactional', text: "Lady Toriel on Mr. Wario: A very direct businessman. He seems to value efficiency and garlic above all else. Our discussion was... productive." }
     },
     // --- NON-PARTY OPINIONS ---
     'lario': {
@@ -122,8 +122,8 @@ export const CHARACTER_RELATIONS = {
         'humpik': { type: 'ally', text: "Lario on Humpik: The big Dwarf threw an axe for me! An axe! That's a goblin's love language! He's alright in my book." }
     },
     'dan': {
-        'markop': { type: 'ally', text: "Dan on Markop: He is my teacher and protector. His strength is not just in his arms, but in his heart. I trust him completely." },
-        'archie': { type: 'enemy', text: "Dan on Archie: He knows I'm... smaller now. But not from me. I can't face him. I can't tell him how I failed with the staff. He wouldn't understand." },
+        'markop': { type: 'loyalty', text: "Dan on Markop: He is my teacher and protector. His strength is not just in his arms, but in his heart. I trust him completely." },
+        'archie': { type: 'distrust', text: "Dan on Archie: He knows I'm... smaller now. But not from me. I can't face him. I can't tell him how I failed with the staff. He wouldn't understand." },
         'humpik': { type: 'ally', text: "Dan on Humpik: He's loud and a little scary, but he's very brave. He fights to protect his king, and I respect that loyalty." },
         'bowser': { type: 'enemy', text: "Dan on Bowser: I cannot trust another king who wants to conquer people. After everything we've been through, freedom is all that matters." },
         'remi': { type: 'ally', text: "Dan on Remi: She arrived and was immediately thrown into fire and ice. No one deserves that. I feel responsible for her safety while she's with us. I hope we can show her that we're not all chaos and violence." },
@@ -131,34 +131,34 @@ export const CHARACTER_RELATIONS = {
     },
     'toad_lee': {
         'markop': { type: 'ally', text: "Toad Lee on Markop: A true commander. He is strong, and he leads from the front. I would follow him into any battle." },
-        'archie': { type: 'ally', text: "Toad Lee on Archie: He is a necessary evil. A wild dog that bites our enemies. Better to have him on our leash than against us." },
+        'archie': { type: 'transactional', text: "Toad Lee on Archie: He is a necessary evil. A wild dog that bites our enemies. Better to have him on our leash than against us." },
         'humpik': { type: 'ally', text: "Toad Lee on Humpik: He is strong. Simple. We do not need words. We understand each other on the battlefield." },
         'bowser': { type: 'enemy', text: "Toad Lee on Bowser: Another tyrant. I have had enough of tyrants for one lifetime. He is an enemy of all free toads." },
         'remi': { type: 'ally', text: "Toad Lee on Remi: She survived an explosion and being frozen. She is tougher than she looks. She is another one I must protect." },
-        'dan': { type: 'ally', text: "Toad Lee on Dan: My friend is wounded, not just in body. The staff... it twisted him. I hold it now so he doesn't have to. I will protect him until he finds his way back." },
-        'green_t': { type: 'ally', text: "Toad Lee on Green T: He's a snake. But he stood up to help Dan when no one else would. He tried to stop the staff. He's proven he can be trusted... a little bit." },
+        'dan': { type: 'loyalty', text: "Toad Lee on Dan: My friend is wounded, not just in body. The staff... it twisted him. I hold it now so he doesn't have to. I will protect him until he finds his way back." },
+        'green_t': { type: 'distrust', text: "Toad Lee on Green T: He's a snake. But he stood up to help Dan when no one else would. He tried to stop the staff. He's proven he can be trusted... a little bit." },
         'xo_staff': { type: 'enemy', text: "Toad Lee on The Staff: It is a heavy burden. I can feel it pulling, testing. But I am stronger than it is. I have to be." }
     },
     'eager': {
         'markop': { type: 'ally', text: "Eager on Markop: He is so calm and brave. He makes me feel safe. I try to be strong like him, but all the fighting is very scary." },
-        'archie': { type: 'ally', text: "Eager on Archie: He found me in that broken glass room with the creepy mirrors! Even with his scary disguise. He pulled me out of there. I have to be brave... but this angel boss never leaves my side." },
+        'archie': { type: 'volatile', text: "Eager on Archie: He found me in that broken glass room with the creepy mirrors! Even with his scary disguise. He pulled me out of there. I have to be brave... but this angel boss never leaves my side." },
         'humpik': { type: 'ally', text: "Eager on Humpik: He's so big! And he yells! But he seems nice... I think? He fights good, which is helpful." },
         'bowser': { type: 'enemy', text: "Eager on Bowser: A big, scary monster! He wants to conquer everything! I don't like conquerors. I just want a quiet place to live." },
         'remi': { type: 'ally', text: "Eager on Remi: She was there at the restaurant. She tried to help me. I don't know her, but she risked her life for me. She's a hero." }
     },
     'roger': {
-        'markop': { type: 'ally', text: "Roger on Markop: The paladin is a stabilizing influence. Good for morale. Bad for profit margins, most likely. A necessary cost." },
-        'archie': { type: 'ally', text: "Roger on Archie: An asset. Unpredictable, yes, but effective. His actions create market opportunities. He is a calculated risk that has so far paid dividends." },
-        'humpik': { type: 'ally', text: "Roger on Humpik: A blunt instrument. High damage output, low tactical flexibility. Point him at the enemy's most durable asset and let him work." },
-        'bowser': { type: 'neutral', text: "Roger on Bowser: An alliance with him is a pragmatic choice. He possesses significant resources we lack. Sentiment doesn't factor into survival calculations." },
-        'remi': { type: 'ally', text: "Roger on Remi: A new asset. High risk profile. Seems to attract trouble. Survived multiple near-death experiences in one day. Durability is a valuable trait. We will observe." }
+        'markop': { type: 'transactional', text: "Roger on Markop: The paladin is a stabilizing influence. Good for morale. Bad for profit margins, most likely. A necessary cost." },
+        'archie': { type: 'transactional', text: "Roger on Archie: An asset. Unpredictable, yes, but effective. His actions create market opportunities. He is a calculated risk that has so far paid dividends." },
+        'humpik': { type: 'transactional', text: "Roger on Humpik: A blunt instrument. High damage output, low tactical flexibility. Point him at the enemy's most durable asset and let him work." },
+        'bowser': { type: 'transactional', text: "Roger on Bowser: An alliance with him is a pragmatic choice. He possesses significant resources we lack. Sentiment doesn't factor into survival calculations." },
+        'remi': { type: 'transactional', text: "Roger on Remi: A new asset. High risk profile. Seems to attract trouble. Survived multiple near-death experiences in one day. Durability is a valuable trait. We will observe." }
     },
     'ryan': {
         'markop': { type: 'ally', text: "Ryan on Markop: He is a grounding force. His moral certainty is... quaint, but a necessary counterweight to the other variables in our group." },
-        'archie': { type: 'ally', text: "Ryan on Archie: His grasp of chaotic, unsanctioned energy is... fascinating. Highly dangerous, but a subject worthy of intense study." },
-        'humpik': { type: 'ally', text: "Ryan on Humpik: A simple tool. Brute force has its applications, though it lacks elegance." },
+        'archie': { type: 'intrigue', text: "Ryan on Archie: His grasp of chaotic, unsanctioned energy is... fascinating. Highly dangerous, but a subject worthy of intense study." },
+        'humpik': { type: 'neutral', text: "Ryan on Humpik: A simple tool. Brute force has its applications, though it lacks elegance." },
         'bowser': { type: 'enemy', text: "Ryan on Bowser: His ambition is predictable. His methods, crude. He is a known quantity, and therefore, easily countered with the right application of knowledge." },
-        'remi': { type: 'ally', text: "Ryan on Remi: Her arrival coincided with several chaotic events. Is she a catalyst, or just unlucky? An interesting variable. I will continue to monitor her." }
+        'remi': { type: 'intrigue', text: "Ryan on Remi: Her arrival coincided with several chaotic events. Is she a catalyst, or just unlucky? An interesting variable. I will continue to monitor her." }
     },
     'bones': {
         'chai': { type: 'enemy', text: "Bones on Chai: She's a snake. I saw it in her eyes. Threatened her. She folded like a cheap suit. Weak." },
@@ -171,33 +171,33 @@ export const CHARACTER_RELATIONS = {
     'captain_toadette': {
         'bowser': { type: 'enemy', text: "Toadette on Bowser: The beast is responsible for the Princess's death. This temporary truce is a bitter pill, a necessary evil to uncover the truth and punish the true villains." },
         'humpik': { type: 'enemy', text: "Toadette on Humpik: A savage from a strange land, allied with a monster. His hands are stained with the blood of my people. He will answer for his crimes." },
-        'embercap': { type: 'ally', text: "Toadette on Embercap: My most steadfast soldier. He has seen the true face of the enemy and has been forged anew in the fires of conviction. His resolve is absolute, a perfect instrument of my will." },
+        'embercap': { type: 'loyalty', text: "Toadette on Embercap: My most steadfast soldier. He has seen the true face of the enemy and has been forged anew in the fires of conviction. His resolve is absolute, a perfect instrument of my will." },
         'mistveil': { type: 'ally', text: "Toadette on Mistveil: Mistveil is swift and silent, an excellent scout. But his time as 'governor' and his performance in the test show a capacity for ruthlessness he has yet to fully embrace. He has potential." },
         'dewdrop': { type: 'ally', text: "Toadette on Dewdrop: His compassion is a valuable asset for maintaining morale, but I fear his soft heart may be a liability in the battles to come. He must learn that some wounds cannot be healed, only avenged." },
-        'dan': { type: 'neutral', text: "Toadette on Dan & The Liberated Toads: They are a variable. Former slaves, not soldiers. They possess a certain raw courage, but they are untested and undisciplined. Their association with the chaotic three-eyed one makes them a potential liability. They could be a useful asset, but they must be forged in the fires of true loyalty first. I will be watching them." }
+        'dan': { type: 'distrust', text: "Toadette on Dan & The Liberated Toads: They are a variable. Former slaves, not soldiers. They possess a certain raw courage, but they are untested and undisciplined. Their association with the chaotic three-eyed one makes them a potential liability. They could be a useful asset, but they must be forged in the fires of true loyalty first. I will be watching them." }
     },
     'kamek': {
-        'markop': { type: 'ally', text: "Kamek on Markop: A former paladin. His honor could be a liability, but his strength is an asset. He is a strange piece on the board." }
+        'markop': { type: 'neutral', text: "Kamek on Markop: A former paladin. His honor could be a liability, but his strength is an asset. He is a strange piece on the board." }
     },
     'earl_grey': {
-        'chai': { type: 'ally', text: "Earl Grey on Chai: She is clever. She sees the opportunity I have presented. Together, we can turn this situation to our advantage." }
+        'chai': { type: 'transactional', text: "Earl Grey on Chai: She is clever. She sees the opportunity I have presented. Together, we can turn this situation to our advantage." }
     },
     'chai': {
-        'earl_grey': { type: 'ally', text: "Chai on Earl Grey: He is strong, and more cunning than he appears. His plan to betray the three-eyed one is a path back to power. I will play my part." }
+        'earl_grey': { type: 'transactional', text: "Chai on Earl Grey: He is strong, and more cunning than he appears. His plan to betray the three-eyed one is a path back to power. I will play my part." }
     },
     'bryan': {
-        'evil_toad_god': { type: 'ally', text: "Bryan on The God Toad: It saved me from the fire. Gave me purpose. Showed me the path. All praise to the Ascended One!" }
+        'evil_toad_god': { type: 'loyalty', text: "Bryan on The God Toad: It saved me from the fire. Gave me purpose. Showed me the path. All praise to the Ascended One!" }
     },
     'chief_thornpaw': {
-        'peach_loyalists': { type: 'neutral', text: "Thornpaw on Peach Loyalists: The Princess... was a friend. These little ones fight for her memory. Their cause is just, even if their methods are loud. I gave them a clue. Let's see if they are wise enough to use it." },
+        'peach_loyalists': { type: 'ally', text: "Thornpaw on Peach Loyalists: The Princess... was a friend. These little ones fight for her memory. Their cause is just, even if their methods are loud. I gave them a clue. Let's see if they are wise enough to use it." },
         'bowser_loyalist_toad': { type: 'enemy', text: "Thornpaw on 'Pinstripe': He played the part of a friend well, but his loyalty was to the turtle king. He used my trust to free his master's spawn. A cunning, but dishonorable, creature." }
     },
     'embercap': {
-        'captain_toadette': { type: 'ally', text: "Embercap on Toadette: Her plan is... harsh. But the world is harsh. I questioned her, but she is right. This is the only way to win, to get justice for the Princess. My loyalty is to the cause, and she is its leader." },
+        'captain_toadette': { type: 'loyalty', text: "Embercap on Toadette: Her plan is... harsh. But the world is harsh. I questioned her, but she is right. This is the only way to win, to get justice for the Princess. My loyalty is to the cause, and she is its leader." },
         'iggy_koopa': { type: 'enemy', text: "Embercap on Iggy Koopa: I had him. My blade couldn't cut through... a failure. The little monster escaped in the chaos." }
     },
     'green_t': {
         'dan': { type: 'enemy', text: "Green T on Dan: He's a fool who played with power he couldn't control. The staff broke him. And he's still hiding the truth from his friends. Pathetic. Danger is coming, and his silence puts everyone at risk." },
-        'waluigi': { type: 'ally', text: "Green T on Waluigi: The purple guy is insane. 'Time-traveling properties'? 'Fifty-fifty split'? It's a ridiculous story. But he got us a ticket out of that madhouse on a wyvern. For now, he's the best bet I've got. I'll play along." }
+        'waluigi': { type: 'volatile', text: "Green T on Waluigi: The purple guy is insane. 'Time-traveling properties'? 'Fifty-fifty split'? It's a ridiculous story. But he got us a ticket out of that madhouse on a wyvern. For now, he's the best bet I've got. I'll play along." }
     }
 };

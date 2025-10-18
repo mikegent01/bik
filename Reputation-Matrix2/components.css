@@ -430,6 +430,42 @@
 .panel-section li.enemy {
     border-left: 3px solid var(--negative-color);
 }
+/* --- Liberated Toads System (NEW STYLES) --- */
+.toad-opinion-item {
+    padding-left: 15px;
+    position: relative;
+    margin-bottom: 5px;
+    background-color: var(--main-bg);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+/* This adds a colored dot before each opinion to indicate the relationship type */
+.toad-opinion-item::before {
+    content: '●';
+    position: absolute;
+    left: 8px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+
+.toad-opinion-item.opinion-positive::before {
+    color: var(--positive-color); /* Green for ally, loyalty */
+}
+
+.toad-opinion-item.opinion-negative::before {
+    color: var(--negative-color); /* Red for enemy, distrust, rivalry */
+}
+
+.toad-opinion-item.opinion-neutral::before {
+    color: var(--neutral-color); /* Grey for neutral, transactional, etc. */
+}
+
+/* We need to adjust the padding to make space for the dot */
+.toad-opinion-item strong {
+    margin-left: 10px;
+}
 
 .opinion-quote {
     margin-bottom: 16px;

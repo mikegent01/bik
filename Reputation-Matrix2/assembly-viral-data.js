@@ -48,7 +48,7 @@ export const VIRAL_POSTS = [
     {
         id: 'purple_t_my_house_rant',
         order: 20242,
-        characterKey: 'purple_t',
+        characterKey: 'l',
         timestamp: '12 minutes ago',
         content: `GET OUT OF MY HOUSE! THIS IS MY SHIP! MINE! YOU HAVE NO JURISDICTION HERE, LEGION SCUM! I BUILT THIS PLACE! GET OUT!`,
         likes: 455,
@@ -185,12 +185,12 @@ export const VIRAL_POSTS = [
     {
         id: 'bones_miser_dream',
         order: 20230,
-        characterKey: 'bones',
+        characterKey: 'two_eyed_bandit',
         timestamp: '50 minutes ago',
         content: `Everyone wants to BE something. A hero, a leader, a king. Me? My only dream is becoming Archie Miser. And I'm a hell of a lot closer than this cheap copy.`,
         likes: 589,
         comments: [
-            { characterKey: 'archie', text: '...Flattered? Disturbed? A bit of both, I think.' }
+            { characterKey: 'three_eyed_bandit', text: '...Flattered? Disturbed? A bit of both, I think.' }
         ]
     },
     {
@@ -259,7 +259,7 @@ export const VIRAL_POSTS = [
         content: `SOMEONE WHO LOOKS LIKE ARCHIE JUST WALKED IN AND THREW A FIREBALL AT US. It's not him. It's a copy. His eyes are empty. What is this place?!`,
         likes: 520,
         comments: [
-            { characterKey: 'archie', text: 'Wait, what? Another one? This is getting out of hand.' },
+            { characterKey: 'three_eyed_bandit', text: 'Wait, what? Another one? This is getting out of hand.' },
             { characterKey: 'waluigi', text: 'WAH! A cheap copy! No style! No flair!' }
         ]
     },

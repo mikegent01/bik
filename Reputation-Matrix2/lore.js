@@ -1,3 +1,4 @@
+
 // This file contains all the core narrative, character, and faction data for the application.
 // It imports data from smaller, more manageable files.
 
@@ -50,7 +51,7 @@ const modifiedMushroomKingdomFactions = { ...MUSHROOM_KINGDOM_FACTIONS };
 if (modifiedMushroomKingdomFactions.liberated_toads) {
     modifiedMushroomKingdomFactions.liberated_toads = {
         ...modifiedMushroomKingdomFactions.liberated_toads,
-        description: "A group of former slaves forged in tragedy. After discovering and freeing 150 more trafficked toads, a catastrophic magical accident killed 13 of the newcomers and gravely injured their leader, Dan. Now bound by a fragile vow, they are split by distrust and grief, trying to find a path forward in a world that sees them as pawns.",
+        description: "A group of former slaves forged in tragedy. After discovering and freeing 150 more trafficked toads, a catastrophic magical accident killed 13 of the newcomers and gravely injured their leader, Dan. Now bound by a fragile vow and reeling from the discovery of an Iron Legion spy in their midst, they are split by distrust and grief, trying to find a path forward in a world that sees them as pawns.",
         internal_politics: {
             ruling_faction: "dan",
             sub_factions: {
@@ -78,7 +79,7 @@ if (modifiedMushroomKingdomFactions.liberated_toads) {
                     name: "The First Cohort of Renewal",
                     influence: 30,
                     status: "Restive & Vengeful",
-                    description: "The 137 survivors of the cargo hold, led by the vengeful toad 'L'. They see Dan as a murderer and Toad Lee as his accomplice. They are a volatile but powerful faction within the group.",
+                    description: "The 137 survivors of the cargo hold, led by the vengeful toad 'L'. They see Dan as a murderer and Toad Lee as his accomplice. The discovery of an Iron Legion mole has only deepened their paranoia.",
                     opinions: {
                         dan: "He killed our brothers. He calls it an accident; we call it a betrayal.",
                         toad_lee: "He protects the killer and holds the weapon that did the deed. We do not trust him."
@@ -95,13 +96,23 @@ if (modifiedMushroomKingdomFactions.liberated_toads) {
                     }
                 },
                 ryan: {
-                    name: "Ryan, The Watcher",
-                    influence: 5,
-                    status: "Duplicitous",
-                    description: "A quiet toad with a natural affinity for magic. Revealed to be a 'warden' involved in the trafficking ring, his true motives are unknown. He watches the chaos with cold, analytical detachment.",
+                    name: "Ryan, The Arcane Student",
+                    influence: 10,
+                    status: "Studious & Worried",
+                    description: "A quiet, studious toad with a natural but untrained affinity for magic. The recent horrors at Shadeward Mansion have shaken him, but also awakened a more potent, protective power within him.",
                     opinions: {
-                        dan: "A predictable emotional response to trauma. Makes him easy to manipulate.",
-                        toad_lee: "He holds the artifact. An obstacle to be managed or removed."
+                        dan: "He's in so much pain. I wish my magic was strong enough to heal more than just wounds.",
+                        toad_lee: "He's holding us together, but I can see the strain. He needs our support, not just our obedience."
+                    }
+                },
+                the_mole: {
+                    name: "The Mole, Legion Infiltrator",
+                    influence: 5,
+                    status: "Exposed",
+                    description: "An Iron Legion plant who infiltrated the toads. His mission was to monitor the group and facilitate capture. His identity was revealed after he assisted in the capture of Bones at Shadeward Mansion.",
+                    opinions: {
+                        dan: "A predictable emotional wreck. His weakness made my job easy.",
+                        toad_lee: "All bark and no bite. His 'order' is just fear."
                     }
                 }
             }
