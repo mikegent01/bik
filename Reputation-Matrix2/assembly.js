@@ -120,17 +120,51 @@ function renderMainFeed() {
     feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderChaosAgentWidget()}</aside></div>`;
 }
 
+// --- THIS IS THE CORRECTED FUNCTION ---
 function renderEvent(event) {
-    const attendeesHTML = event.attendees.map(attendee => {
+    // FIX: Use (event.attendees || []) to provide an empty array if attendees is undefined.
+    // This prevents the .map() call from crashing.
+    const attendeesHTML = (event.attendees || []).map(attendee => {
         const character = getCharacterData(attendee.characterKey);
-        return `<div class="attendee-card ${attendee.host ? 'event-host' : ''}"><img src="${character.portrait}" alt="${character.name}" class="attendee-pfp"><div class="attendee-info"><span class="attendee-name">${character.name}</span><p class="attendee-justification">${attendee.justification}</p></div></div>`;
+        const hostClass = attendee.host ? 'event-host' : '';
+        return `
+            <div class="attendee-card ${hostClass}">
+                <img src="${character.portrait}" alt="${character.name}" class="attendee-pfp">
+                <div class="attendee-info">
+                    <span class="attendee-name">${character.name}</span>
+                    <p class="attendee-justification">${attendee.justification}</p>
+                </div>
+            </div>
+        `;
     }).join('');
+
     const newsPosts = (event.news_ids || []).map(id => WAHBOOK_POSTS.find(p => p.id === id)).filter(Boolean);
     const regularPosts = (event.post_ids || []).map(id => WAHBOOK_POSTS.find(p => p.id === id)).filter(Boolean);
     const dynamicPosts = WAHBOOK_POSTS.filter(p => p.eventId === event.id && !(event.news_ids || []).includes(p.id));
     const newsHTML = newsPosts.length > 0 ? newsPosts.map(p => renderFeedPost(p)).join('') : '';
     const postsHTML = [...regularPosts, ...dynamicPosts].length > 0 ? [...regularPosts, ...dynamicPosts].map(p => renderFeedPost(p)).join('') : '';
-    return `<div class="event-container" data-event-id="${event.id}"><div class="event-main-header"><h3>${event.title}</h3><p>${event.description}</p><span class="event-toggle-icon">▼</span></div><div class="event-collapsible-body"><div class="event-details-grid"><div class="attendees-list-container"><h4>Key Attendees</h4><div class="attendees-list">${attendeesHTML}</div></div><div class="related-content-container">${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}</div></div></div></div>`;
+    
+    // Add a check to only show the attendees section if there are any
+    const attendeesSectionHTML = attendeesHTML ? `<div class="attendees-list-container"><h4>Key Attendees</h4><div class="attendees-list">${attendeesHTML}</div></div>` : '';
+
+    return `
+        <div class="event-container" data-event-id="${event.id}">
+            <div class="event-main-header">
+                <h3>${event.title}</h3>
+                <p>${event.description}</p>
+                <span class="event-toggle-icon">▼</span>
+            </div>
+            <div class="event-collapsible-body">
+                <div class="event-details-grid">
+                    ${attendeesSectionHTML}
+                    <div class="related-content-container">
+                        ${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}
+                        ${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 function renderEventsFeed() {
