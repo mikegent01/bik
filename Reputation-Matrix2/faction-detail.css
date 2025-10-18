@@ -122,3 +122,37 @@
 
 #faction-detail-view .calculation-item .calc-value.positive { color: var(--positive-color); }
 #faction-detail-view .calculation-item .calc-value.negative { color: var(--negative-color); }
+/* --- Add these new rules to your faction-detail.css file --- */
+
+.faction-card-header {
+    display: flex;
+    align-items: flex-start; /* Aligns items to the top */
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.faction-logo {
+    width: 150px; /* Constrain the width of the logo */
+    height: auto;   /* Maintain aspect ratio */
+    flex-shrink: 0; /* Prevents the image from shrinking */
+    object-fit: contain;
+}
+
+.faction-info {
+    flex-grow: 1;
+}
+
+.faction-info .card-title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.faction-info .faction-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* --- (The rest of your CSS for .section-title, .standing-card, etc. remains the same) --- */

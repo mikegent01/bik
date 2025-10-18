@@ -1,8 +1,6 @@
 import { state } from './state.js';
 import { FACTION_ASSESSMENTS } from './assessments.js';
-import { LORE_DATA } from './lore.js'; // ADDED: This import was missing
-
-// --- CORE GETTERS ---
+import { LORE_DATA } from './lore.js';
 
 export function getReputation(playerKey, factionKey) {
     return state.finalReputations[playerKey]?.reputation[factionKey] || 0;
@@ -16,19 +14,13 @@ export function getSubFactionReputation(playerKey, factionKey, subFactionKey) {
     return state.finalSubFactionReputations[playerKey]?.[factionKey]?.[subFactionKey] || 0;
 }
 
-// --- ASSESSMENT TEXT GENERATORS ---
-
 export function getDetailedFactionAssessment(factionKey, playerKey) {
     const customAssessment = FACTION_ASSESSMENTS[factionKey]?.[playerKey];
     if (customAssessment) {
         return customAssessment;
     }
-
     const reputation = getReputation(playerKey, factionKey);
-    const notoriety = getNotoriety(playerKey, factionKey);
-
-    // Fallback to generic text if a custom one isn't written
-    return `${getGenericFactionAssessment(reputation)} They are considered a '${getNotorietyDescription(notoriety)}' figure by this faction.`;
+    return getGenericFactionAssessment(reputation);
 }
 
 export function getGenericFactionAssessment(rep) {
@@ -50,12 +42,7 @@ export function getNotorietyDescription(notoriety) {
     return "Unknown";
 }
 
-// --- HTML RENDERING FUNCTION ---
-
 export function renderIndividualStandings(factionKey) {
-    const faction = LORE_DATA.factions[factionKey];
-    if (!faction) return '<p>Faction data not found.</p>';
-
     const standingsHTML = state.party.map(playerKey => {
         const player = LORE_DATA.characters[playerKey];
         if (!player) return '';
@@ -70,22 +57,11 @@ export function renderIndividualStandings(factionKey) {
         const description = getDetailedFactionAssessment(factionKey, playerKey);
 
         const breakdown = state.calculationBreakdown[playerKey]?.[factionKey];
-        let calculationHTML = '<li>No detailed calculations available.</li>';
+        let calculationHTML = '<li>No detailed calculation data available.</li>';
         if (breakdown) {
-            const rumorItems = breakdown.rumors.map(r => `
-                <li class="calculation-item">Rumor: "${r.title}": <span class="calc-value ${r.value > 0 ? 'positive' : 'negative'}">${r.value > 0 ? '+' : ''}${r.value}</span></li>
-            `).join('');
-            
-            const propItems = (breakdown.propagation || []).map(p => `
-                <li class="calculation-item">From ${p.source}: <span class="calc-value ${p.value > 0 ? 'positive' : 'negative'}">${p.value > 0 ? '+' : ''}${Math.round(p.value)}</span></li>
-            `).join('');
-
-            calculationHTML = `
-                <li class="calculation-item">Base Reputation: ${breakdown.base}</li>
-                ${rumorItems}
-                ${propItems}
-                <li class="calculation-item"><strong>Final Total: ${playerRep}</strong></li>
-            `;
+            const rumorItems = (breakdown.rumors || []).map(r => `<li class="calculation-item">Rumor: "${r.title}": <span class="calc-value ${r.value > 0 ? 'positive' : 'negative'}">${r.value > 0 ? '+' : ''}${r.value}</span></li>`).join('');
+            const propItems = (breakdown.propagation || []).map(p => `<li class="calculation-item">From ${p.source}: <span class="calc-value ${p.value > 0 ? 'positive' : 'negative'}">${p.value > 0 ? '+' : ''}${Math.round(p.value)}</span></li>`).join('');
+            calculationHTML = `<li class="calculation-item">Base Reputation: ${breakdown.base}</li>${rumorItems}${propItems}<li class="calculation-item"><strong>Final Total: ${playerRep}</strong></li>`;
         }
 
         return `
@@ -100,9 +76,7 @@ export function renderIndividualStandings(factionKey) {
                 <p class="standing-description">${description}</p>
                 <details class="standing-calculation-details">
                     <summary>Show Calculation</summary>
-                    <ul class="calculation-list">
-                        ${calculationHTML}
-                    </ul>
+                    <ul class="calculation-list">${calculationHTML}</ul>
                 </details>
             </div>
         `;
