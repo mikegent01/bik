@@ -1,0 +1,124 @@
+/* --- Faction Detail Page Styles (High Specificity Version) --- */
+
+/* General Section Title for this page */
+#faction-detail-view .section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin: 32px 0 16px 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+/* --- Individual Standing & Faction Opinion --- */
+#faction-detail-view .individual-standing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between each character's card */
+}
+
+#faction-detail-view .standing-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+#faction-detail-view .standing-card:hover {
+    border-color: var(--accent-hover);
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.15);
+}
+
+#faction-detail-view .standing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+#faction-detail-view .standing-character-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+#faction-detail-view .standing-stats {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 16px;
+}
+
+#faction-detail-view .standing-stats span strong {
+    font-weight: bold;
+}
+
+/* Color coding for the main reputation score */
+#faction-detail-view .standing-stats .rep-positive strong { color: var(--positive-color); }
+#faction-detail-view .standing-stats .rep-negative strong { color: var(--negative-color); }
+#faction-detail-view .standing-stats .rep-neutral strong { color: var(--neutral-color); }
+
+#faction-detail-view .standing-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    padding-left: 10px;
+    border-left: 2px solid var(--border-color);
+}
+
+#faction-detail-view .standing-calculation-details {
+    font-size: 0.85rem;
+}
+
+#faction-detail-view .standing-calculation-details summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    color: var(--accent-color);
+    display: inline-block; /* Prevents full-width click area */
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+#faction-detail-view .standing-calculation-details summary:hover {
+    background-color: var(--sidebar-bg);
+}
+
+/* Custom dropdown arrows for details/summary */
+#faction-detail-view .standing-calculation-details summary::before {
+    content: '► ';
+    font-size: 0.8em;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+#faction-detail-view .standing-calculation-details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+#faction-detail-view .standing-calculation-details .calculation-list {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#faction-detail-view .calculation-item {
+    padding: 2px 0;
+}
+
+#faction-detail-view .calculation-item .calc-value {
+    font-weight: bold;
+}
+
+#faction-detail-view .calculation-item .calc-value.positive { color: var(--positive-color); }
+#faction-detail-view .calculation-item .calc-value.negative { color: var(--negative-color); }

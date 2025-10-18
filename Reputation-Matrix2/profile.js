@@ -4,7 +4,6 @@ import { WAHBOOK_POSTS } from './assembly-data.js';
 import { playSound } from './common.js';
 import { PROFILE_THEMES } from './profile-themes.js';
 import { state, loadState, saveState } from './state.js';
-import { CHARACTER_MECHANICS } from './character-special-systems.js';
 
 const pageContainer = document.getElementById('profile-page-container');
 const headerContainer = document.getElementById('profile-header-container');
@@ -197,34 +196,7 @@ function renderProfile(characterKey) {
         `).join('');
     }
 
-    // Render Special Mechanic Section
-    const specialMechanic = CHARACTER_MECHANICS[characterKey];
-    if (specialMechanic) {
-        const levelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level) || specialMechanic.levels[0];
-        const nextLevelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level + 1);
-        const infamyPercentage = nextLevelInfo ? Math.min(100, (specialMechanic.current_infamy / nextLevelInfo.infamy_threshold) * 100) : 100;
 
-        const infamyLogHTML = specialMechanic.log.slice().reverse().map(entry => 
-            `<li>+${entry.infamy} Infamy: <em>${entry.reason}</em></li>`
-        ).join('');
-
-        const mechanicHTML = `
-            <div class="profile-sidebar-widget special-mechanic-widget">
-                <h4>${specialMechanic.icon} ${specialMechanic.title}</h4>
-                <div class="infamy-meter" title="${specialMechanic.current_infamy} / ${nextLevelInfo ? nextLevelInfo.infamy_threshold : 'MAX'} Infamy">
-                    <div class="infamy-bar" style="width: ${infamyPercentage}%;"></div>
-                    <span class="infamy-text">${specialMechanic.current_infamy} Infamy</span>
-                </div>
-                <p class="infamy-level-title">${levelInfo.name}</p>
-                <p class="mechanic-description">${specialMechanic.description}</p>
-                <details class="infamy-log-details">
-                    <summary>Infamy Log</summary>
-                    <ul>${infamyLogHTML}</ul>
-                </details>
-            </div>
-        `;
-        customSectionsContainer.insertAdjacentHTML('beforeend', mechanicHTML);
-    }
 }
 
 function setupEventListeners() {

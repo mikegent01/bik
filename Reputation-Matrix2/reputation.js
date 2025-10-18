@@ -1,5 +1,8 @@
 import { state } from './state.js';
 import { FACTION_ASSESSMENTS } from './assessments.js';
+import { LORE_DATA } from './lore.js'; // ADDED: This import was missing
+
+// --- CORE GETTERS ---
 
 export function getReputation(playerKey, factionKey) {
     return state.finalReputations[playerKey]?.reputation[factionKey] || 0;
@@ -13,34 +16,97 @@ export function getSubFactionReputation(playerKey, factionKey, subFactionKey) {
     return state.finalSubFactionReputations[playerKey]?.[factionKey]?.[subFactionKey] || 0;
 }
 
-export function getDetailedFactionAssessment(factionKey, playerKey, reputation, notoriety) {
+// --- ASSESSMENT TEXT GENERATORS ---
+
+export function getDetailedFactionAssessment(factionKey, playerKey) {
     const customAssessment = FACTION_ASSESSMENTS[factionKey]?.[playerKey];
     if (customAssessment) {
         return customAssessment;
     }
 
+    const reputation = getReputation(playerKey, factionKey);
+    const notoriety = getNotoriety(playerKey, factionKey);
+
     // Fallback to generic text if a custom one isn't written
-    return `
-        <p>${getGenericFactionAssessment(reputation)}</p>
-        <p><strong>Notoriety Level:</strong> ${getNotorietyDescription(notoriety)}</p>
-    `;
+    return `${getGenericFactionAssessment(reputation)} They are considered a '${getNotorietyDescription(notoriety)}' figure by this faction.`;
 }
 
 export function getGenericFactionAssessment(rep) {
-    if (rep >= 75) return "Idolized. Seen as a champion of their cause.";
-    if (rep >= 50) return "Respected. Considered a valuable ally and friend.";
-    if (rep >= 25) return "Friendly. Views are aligned; a potential partner.";
-    if (rep > 0) return "Tolerated. Not an enemy, but not yet trusted.";
-    if (rep === 0) return "Neutral. No notable interactions recorded.";
-    if (rep > -25) return "Distrusted. Actions have caused minor concern.";
-    if (rep > -50) return "Disliked. Considered a nuisance or a minor threat.";
-    if (rep > -75) return "Hated. Actively works against their interests.";
-    return "Enemy. A primary target for elimination or sabotage.";
+    if (rep >= 75) return "This individual is Idolized, seen as a champion of their cause.";
+    if (rep >= 50) return "This individual is Respected, considered a valuable ally and friend.";
+    if (rep >= 25) return "This individual is viewed with Friendliness; a potential partner.";
+    if (rep > 10) return "This individual is Tolerated. Not an enemy, but not yet fully trusted.";
+    if (rep >= -10) return "This individual is viewed with Neutrality. No notable interactions recorded.";
+    if (rep >= -25) return "This individual is Distrusted. Their actions have caused concern.";
+    if (rep >= -50) return "This individual is Disliked, considered a nuisance or a minor threat.";
+    if (rep >= -75) return "This individual is Hated and seen as someone who actively works against their interests.";
+    return "This individual is considered an Enemy, a primary target for elimination or sabotage.";
 }
 
 export function getNotorietyDescription(notoriety) {
-    if (notoriety >= 90) return "Legendary Figure. Their name is known to all, from the lowest scribe to the highest authority.";
-    if (notoriety >= 70) return "Well-Known. Actions are frequently discussed and tracked by the faction.";
-    if (notoriety >= 50) return "Recognized. Has a significant file and is known on sight by leadership.";
-    return "Unknown. An insignificant figure with no recorded interactions.";
+    if (notoriety >= 90) return "Legendary";
+    if (notoriety >= 70) return "Well-Known";
+    if (notoriety >= 50) return "Recognized";
+    return "Unknown";
+}
+
+// --- HTML RENDERING FUNCTION ---
+
+export function renderIndividualStandings(factionKey) {
+    const faction = LORE_DATA.factions[factionKey];
+    if (!faction) return '<p>Faction data not found.</p>';
+
+    const standingsHTML = state.party.map(playerKey => {
+        const player = LORE_DATA.characters[playerKey];
+        if (!player) return '';
+
+        const playerRep = getReputation(playerKey, factionKey);
+        const playerNotoriety = getNotoriety(playerKey, factionKey);
+        
+        let repClass = 'rep-neutral';
+        if (playerRep > 10) repClass = 'rep-positive';
+        else if (playerRep < -10) repClass = 'rep-negative';
+
+        const description = getDetailedFactionAssessment(factionKey, playerKey);
+
+        const breakdown = state.calculationBreakdown[playerKey]?.[factionKey];
+        let calculationHTML = '<li>No detailed calculations available.</li>';
+        if (breakdown) {
+            const rumorItems = breakdown.rumors.map(r => `
+                <li class="calculation-item">Rumor: "${r.title}": <span class="calc-value ${r.value > 0 ? 'positive' : 'negative'}">${r.value > 0 ? '+' : ''}${r.value}</span></li>
+            `).join('');
+            
+            const propItems = (breakdown.propagation || []).map(p => `
+                <li class="calculation-item">From ${p.source}: <span class="calc-value ${p.value > 0 ? 'positive' : 'negative'}">${p.value > 0 ? '+' : ''}${Math.round(p.value)}</span></li>
+            `).join('');
+
+            calculationHTML = `
+                <li class="calculation-item">Base Reputation: ${breakdown.base}</li>
+                ${rumorItems}
+                ${propItems}
+                <li class="calculation-item"><strong>Final Total: ${playerRep}</strong></li>
+            `;
+        }
+
+        return `
+            <div class="standing-card">
+                <div class="standing-header">
+                    <span class="standing-character-name">${player.name}</span>
+                    <div class="standing-stats">
+                        <span class="${repClass}">Reputation: <strong>${playerRep}</strong></span>
+                        <span>Notoriety: <strong>${playerNotoriety}</strong></span>
+                    </div>
+                </div>
+                <p class="standing-description">${description}</p>
+                <details class="standing-calculation-details">
+                    <summary>Show Calculation</summary>
+                    <ul class="calculation-list">
+                        ${calculationHTML}
+                    </ul>
+                </details>
+            </div>
+        `;
+    }).join('');
+
+    return `<div class="individual-standing-container">${standingsHTML}</div>`;
 }

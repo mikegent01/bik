@@ -449,7 +449,68 @@
     transform: translateY(-50%);
     font-size: 14px;
 }
+/* --- Individual Standing & Faction Opinion --- */
 
+.individual-standing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between each character's card */
+}
+
+.standing-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.standing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.standing-character-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.standing-stats {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 16px;
+}
+
+.standing-stats span strong {
+    font-weight: bold;
+}
+
+/* Color coding for the main reputation score */
+.standing-stats .rep-positive strong { color: var(--positive-color); }
+.standing-stats .rep-negative strong { color: var(--negative-color); }
+.standing-stats .rep-neutral strong { color: var(--neutral-color); }
+
+.standing-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    padding-left: 10px;
+    border-left: 2px solid var(--border-color);
+}
+
+.calculation-item .calc-value {
+    font-weight: bold;
+}
+
+.calculation-item .calc-value.positive { color: var(--positive-color); }
+.calculation-item .calc-value.negative { color: var(--negative-color); }
 .toad-opinion-item.opinion-positive::before {
     color: var(--positive-color); /* Green for ally, loyalty */
 }

@@ -358,7 +358,11 @@ function calculateFinalReputations() {
             let rumorRepModifier = 0;
             let rumorNotorietyModifier = 0;
             
-            calculationBreakdown[playerKey][factionKey] = { base: state.players[playerKey].reputation[factionKey], rumors: [], propagation: [] };
+            calculationBreakdown[playerKey][factionKey] = {
+                base: state.players[playerKey].reputation[factionKey],
+                rumors: [],
+                propagation: []
+            };
 
             LORE_DATA.rumors.forEach(rumor => {
                 if (state.activeRumors.includes(rumor.id)) {
@@ -386,6 +390,16 @@ function calculateFinalReputations() {
             const targetFaction = LORE_DATA.factions[targetFactionKey];
             if(!targetFaction) return;
 
+            // --- THE NEW UNIVERSAL FIX ---
+            // If the character being calculated is a member of the main party,
+            // SKIP propagation entirely for ALL of their relationships.
+            // This preserves the direct reputation scores earned through the story.
+            if (state.party.includes(playerKey)) {
+                propagatedChanges[targetFactionKey] = 0; // Ensure no changes are applied
+                return; // Go to the next faction and skip the logic below
+            }
+            // --- END OF FIX ---
+
             factionKeys.forEach(sourceFactionKey => {
                 if (sourceFactionKey === targetFactionKey) return;
                 const sourceFaction = LORE_DATA.factions[sourceFactionKey];
@@ -400,7 +414,7 @@ function calculateFinalReputations() {
                 }
                 if (sourceFaction.relations.enemies && sourceFaction.relations.enemies.includes(targetFactionKey)) {
                      const change = repWithSource * -propagationFactor;
-                     propagatedEffect -= change; // This was a double negative, corrected.
+                     propagatedEffect += change;
                      if(Math.abs(change) > 1) calculationBreakdown[playerKey][targetFactionKey].propagation.push({ source: sourceFaction.name, value: Math.round(change) });
                 }
             });
@@ -412,6 +426,7 @@ function calculateFinalReputations() {
         });
     }
 
+    // Sub-faction reputation calculations
     for (const playerKey in state.players) {
         finalSubFactionReps[playerKey] = {};
         for (const factionKey in LORE_DATA.factions) {
@@ -430,6 +445,7 @@ function calculateFinalReputations() {
         }
     }
     
+    // Final clamp and assignment
     Object.keys(finalReps).forEach(playerKey => {
         Object.keys(finalReps[playerKey].reputation).forEach(factionKey => {
             finalReps[playerKey].reputation[factionKey] = Math.max(-100, Math.min(100, finalReps[playerKey].reputation[factionKey]));

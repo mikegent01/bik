@@ -8,7 +8,6 @@ import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
 import { NPC_RESPONSES } from './npc-responses.js';
 import { GUILD_DATA, CHARTER_DATA } from './guilds-data.js';
-import { CHARACTER_MECHANICS } from './character-special-systems.js';
 import { renderIntelAndRumors } from './assembly-intel-system.js';
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
@@ -103,15 +102,7 @@ function renderCreatePostBox() {
     return `<div class="create-post-container"><div class="create-post-header"><img src="${user.portrait}" alt="Your profile picture" class="create-post-pfp"><button class="create-post-input">What's on your mind, ${user.name.split(' ')[0]}?</button></div></div>`;
 }
 
-function renderChaosAgentWidget() {
-    const specialMechanic = CHARACTER_MECHANICS['archie'];
-    if (!specialMechanic) return '';
-    const levelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level) || specialMechanic.levels[0];
-    const nextLevelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level + 1);
-    const infamyPercentage = nextLevelInfo ? Math.min(100, (specialMechanic.current_infamy / nextLevelInfo.infamy_threshold) * 100) : 100;
-    const infamyLogHTML = specialMechanic.log.slice().reverse().map(entry => `<li>+${entry.infamy} Infamy: <em>${entry.reason}</em></li>`).join('');
-    return `<div class="profile-sidebar-widget special-mechanic-widget"><h4>${specialMechanic.icon} ${specialMechanic.title}</h4><h5 class="mechanic-subtitle">Operator: Archie Miser</h5><div class="infamy-meter" title="${specialMechanic.current_infamy} / ${nextLevelInfo ? nextLevelInfo.infamy_threshold : 'MAX'} Infamy"><div class="infamy-bar" style="width: ${infamyPercentage}%;"></div><span class="infamy-text">${specialMechanic.current_infamy} Infamy</span></div><p class="infamy-level-title">${levelInfo.name}</p><p class="mechanic-description">${specialMechanic.description}</p><details class="infamy-log-details"><summary>Infamy Log</summary><ul>${infamyLogHTML}</ul></details></div>`;
-}
+
 
 function renderMainFeed() {
     if (!feedContainer) return;
