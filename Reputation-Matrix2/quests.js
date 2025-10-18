@@ -97,6 +97,8 @@ function renderQuests() {
 
 
     let questsToDisplay = Object.values(QUEST_DATA).filter(quest => {
+        if (!quest || !quest.assignee || !quest.status) return false; // Safety check for bad data
+
         // Assignee Filtering
         const sanitizedAssignee = sanitizeKey(quest.assignee);
         const assigneeIncluded = includeAssignees.length === 0 || includeAssignees.includes(sanitizedAssignee);
@@ -181,8 +183,7 @@ function renderQuests() {
         html = `<div class="quest-category"><p>No quests match the current filter.</p></div>`;
     } else {
         for (const category of sortedCategories) {
-            const quests = questsByCategory[category];
-            html += renderCategory(category, quests);
+            html += renderCategory(category, questsByCategory[category]);
         }
         if (completedQuests.length > 0) {
             html += renderCategory('Completed Quests', completedQuests, 'completed-quests');
@@ -199,6 +200,7 @@ function renderQuests() {
 }
 
 function updateQuestCounter() {
+    if (!questCounter) return;
     const players = state.party;
     const questLimit = 3;
     let counterHTML = '';
@@ -208,7 +210,7 @@ function updateQuestCounter() {
         if (!player) return;
 
         const playerFirstName = player.name.split(' ')[0];
-        const activeQuests = Object.values(QUEST_DATA).filter(q => q.assigneeKey === playerKey && q.status === 'active').length;
+        const activeQuests = Object.values(QUEST_DATA).filter(q => q && q.assigneeKey === playerKey && q.status === 'active').length;
 
         const isOverLimit = activeQuests >= questLimit;
         counterHTML += `
@@ -238,48 +240,33 @@ function formatQuestType(type) {
     if (type === 'npc_plot') {
         return 'NPC Plot';
     }
-    // Capitalize first letter of other types
     return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
 function renderQuestCard(quest) {
-    const contextHTML = quest.pending_condition ? `
-        <div class="quest-context pending">
-            <strong>Pending Activation:</strong> <p>${quest.pending_condition}</p>
-        </div>
-    ` : quest.motivation ? `
-        <div class="quest-context">
-            <strong>Motivation:</strong> <p>${quest.motivation}</p>
-        </div>
-    ` : quest.start_condition ? `
-        <div class="quest-context">
-            <strong>Start Condition:</strong> <p>${quest.start_condition}</p>
-        </div>
-    ` : '';
+    const updatedBadge = quest.is_updated 
+        ? '<div class="quest-updated-badge">UPDATED</div>' 
+        : '';
+    
+    const contextHTML = quest.pending_condition ? `<div class="quest-context pending"><strong>Pending Activation:</strong> <p>${quest.pending_condition}</p></div>`
+        : quest.motivation ? `<div class="quest-context"><strong>Motivation:</strong> <p>${quest.motivation}</p></div>`
+        : quest.start_condition ? `<div class="quest-context"><strong>Start Condition:</strong> <p>${quest.start_condition}</p></div>`
+        : '';
     
     const isHidden = quest.status === 'hidden';
-
-    const stepsHTML = (quest.steps && quest.steps.length > 0) ? `
-        <div class="quest-steps-container">
-            <h5>Checkpoints</h5>
-            <ul class="quest-step-list">
-                ${quest.steps.map(step => renderQuestStep(step, isHidden)).join('')}
-            </ul>
-        </div>
-    ` : '';
+    const stepsHTML = (quest.steps && quest.steps.length > 0) ? `<div class="quest-steps-container"><h5>Checkpoints</h5><ul class="quest-step-list">${quest.steps.map(step => renderQuestStep(step, isHidden)).join('')}</ul></div>` : '';
 
     let locationHTML = '';
     if (quest.type === 'request' && quest.locationId) {
         const location = findPoiById(quest.locationId);
-        if (location) {
-            locationHTML = `<p class="quest-location"><strong>Location:</strong> ${location.name}</p>`;
-        }
+        if (location) locationHTML = `<p class="quest-location"><strong>Location:</strong> ${location.name}</p>`;
     }
 
     const formattedType = formatQuestType(quest.type);
 
     return `
         <div class="quest-card status-${quest.status}" id="${quest.id}">
+            ${updatedBadge} 
             <div class="quest-header">
                 <div class="quest-title-section">
                     <h4 class="quest-title">${quest.title}</h4>
@@ -290,17 +277,10 @@ function renderQuestCard(quest) {
                 <div class="quest-status">${quest.status}</div>
             </div>
             <div class="quest-body">
-                <div class="quest-objective">
-                    <h5>Objective</h5>
-                    <p>${quest.objective}</p>
-                </div>
+                <div class="quest-objective"><h5>Objective</h5><p>${quest.objective}</p></div>
                 ${contextHTML}
                 ${stepsHTML}
-                ${quest.finalDecision ? `
-                <div class="quest-final-decision">
-                    <h5>Final Decision</h5>
-                    <p>${quest.finalDecision.description}</p>
-                </div>` : ''}
+                ${quest.finalDecision ? `<div class="quest-final-decision"><h5>Final Decision</h5><p>${quest.finalDecision.description}</p></div>` : ''}
             </div>
         </div>
     `;
@@ -437,7 +417,7 @@ function setupEventListeners() {
 }
 
 function init() {
-    if (!mainQuestContainer) return;
+    if (!document.getElementById('quest-container')) return;
     renderQuests();
     renderBountyBoard();
     setupEventListeners();

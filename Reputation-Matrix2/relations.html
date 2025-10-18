@@ -17,8 +17,8 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Faction Relationship Web</h2>
-                 <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">Click & drag to pan, scroll to zoom. Click a node for details.</p>
+                 <h2 class="page-title">Faction & Character Relationship Web</h2>
+                 <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">An interactive web of alliances, rivalries, and open hostilities. Click & drag to pan, scroll to zoom. Click a node for details.</p>
                  <div id="graph-controls">
                     <span>Filter View:</span>
                     <button class="control-button active" data-filter="all">All Nodes</button>
@@ -31,11 +31,52 @@
                     <!-- Faction graph will be injected here by JS -->
                  </div>
 
-                 <h2 class="page-title" style="margin-top: 40px;">Faction Relations Matrix</h2>
-                 <p style="text-align: center; color: var(--negative-color); font-family: var(--font-display);">WARNING: POWER CORE OFFLINE. DATA MAY BE UNSTABLE.</p>
-                 <div id="relations-container">
-                    <!-- Faction relations will be injected here by JS -->
-                </div>
+                 <h2 class="page-title" style="margin-top: 40px;">Individual Relationship Dossiers</h2>
+                 <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">Select an individual or faction below to view their detailed relationship network.</p>
+
+                 <div id="relations-selector-grid">
+                     <!-- Dossier buttons will be injected here by JS -->
+                 </div>
+
+                 <div id="relations-detail-view" class="card" style="margin-top: 24px;">
+                     <!-- The Legend is now the default content, preventing the large empty space -->
+                     <div class="panel-header">
+                        <h3>Select a Dossier to Begin</h3>
+                    </div>
+                    <div class="panel-section">
+                        <p>Select a character or faction from the grid above to view their detailed network of alliances, rivalries, and hostilities. The panel below explains how to interpret the results.</p>
+                        <h4>Legend</h4>
+                        <div class="relation-item opinion-positive">
+                            <div class="relation-item-content">
+                                <div class="relation-item-header"><span class="relation-item-name">Allies & Loyalties</span><span class="relation-item-type">POSITIVE</span></div>
+                                <p class="relation-item-quote">Represents trust, friendship, and strong alliances.</p>
+                            </div>
+                        </div>
+                        <div class="relation-item opinion-negative">
+                            <div class="relation-item-content">
+                                <div class="relation-item-header"><span class="relation-item-name">Enemies & Hostilities</span><span class="relation-item-type">NEGATIVE</span></div>
+                                <p class="relation-item-quote">Represents open conflict and direct antagonism.</p>
+                            </div>
+                        </div>
+                        <div class="relation-item opinion-complicated">
+                            <div class="relation-item-content">
+                                <div class="relation-item-header"><span class="relation-item-name">Rivalries & Distrust</span><span class="relation-item-type">COMPLICATED</span></div>
+                                <p class="relation-item-quote">Represents volatile, competitive, or suspicious relationships.</p>
+                            </div>
+                        </div>
+                        <div class="relation-item opinion-neutral">
+                            <div class="relation-item-content">
+                                <div class="relation-item-header"><span class="relation-item-name">Neutral & Transactional</span><span class="relation-item-type">NEUTRAL</span></div>
+                                <p class="relation-item-quote">Represents relationships of convenience, business, or indifference.</p>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Direction</h4>
+                        <p>Arrows indicate the direction of the opinion: <br>
+                            <strong>→ Target:</strong> Opinion BY the selected entity about the target.<br>
+                            <strong>← Target:</strong> Opinion OF the selected entity held by the target.
+                        </p>
+                    </div>
+                 </div>
             </main>
             <aside id="detail-panel">
                 <button id="detail-panel-close">&times;</button>

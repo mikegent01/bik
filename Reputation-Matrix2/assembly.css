@@ -1048,3 +1048,185 @@ body.embed-mode .feed-post {
     left: auto;
     right: 12px;
 }
+#wahbook-tabs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+.tab-btn {
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+.tab-btn:hover {
+    color: var(--text-color);
+    background-color: var(--main-bg);
+}
+.tab-btn.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+    font-weight: bold;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+
+/* --- Feed Post Styling --- */
+/* (This section contains all your existing styles for .feed-post, .comment, etc. and remains unchanged) */
+.wahbook-feed-container { max-width: 600px; margin: 0 auto; }
+.feed-post { background-color: var(--sidebar-bg); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 16px; position: relative; }
+.post-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; }
+.post-pfp { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--border-color); }
+.post-author-name { font-weight: bold; color: var(--text-color); font-size: 1.1rem; }
+.post-meta { font-size: 0.8rem; color: var(--text-secondary); }
+.post-content { padding: 0 16px 12px 16px; color: var(--text-color); line-height: 1.6; white-space: pre-wrap; }
+.post-image { width: 100%; max-height: 400px; object-fit: cover; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+.post-interactions { display: flex; justify-content: space-around; padding: 8px; border-top: 1px solid var(--border-color); }
+.interaction-btn { cursor: pointer; padding: 8px 12px; border-radius: 6px; color: var(--text-secondary); transition: background-color 0.2s ease; flex-grow: 1; text-align: center; }
+.interaction-btn:hover { background-color: var(--main-bg); }
+.interaction-btn.liked { color: var(--accent-color); font-weight: bold; }
+.post-comments-section { padding: 0 16px 12px 16px; border-top: 1px solid var(--border-color); }
+.comment { display: flex; gap: 10px; margin-top: 12px; }
+.comment-pfp { width: 32px; height: 32px; border-radius: 50%; }
+.comment-body { background-color: var(--main-bg); padding: 8px 12px; border-radius: 12px; font-size: 0.9rem; }
+.comment-author { font-weight: bold; color: var(--text-color); margin-right: 6px; text-decoration: none; }
+.comment-text { color: var(--text-secondary); }
+
+/* --- Styling for the Rumors & Intel Tab --- */
+#intel-rumors-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+}
+.intel-card {
+    background-color: var(--sidebar-bg); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-color); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; transition: all 0.2s ease-in-out; cursor: pointer;
+}
+.intel-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-color: var(--accent-hover); }
+.intel-card-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; margin-bottom: 12px; }
+.intel-title { font-family: var(--font-display); color: var(--text-color); font-size: 1.2rem; margin: 0; }
+.intel-time { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); flex-shrink: 0; margin-left: 10px; }
+.intel-description { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 12px 0; flex-grow: 1; }
+.intel-rep-details { margin-bottom: 12px; }
+.intel-rep-details summary { cursor: pointer; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-color); padding: 4px; border-radius: 4px; transition: background-color 0.2s; }
+.intel-rep-details summary:hover { background-color: var(--main-bg); }
+.intel-rep-list { list-style: none; padding: 10px 0 0 0; margin: 8px 0 0 0; border-top: 1px solid var(--border-color); }
+.intel-footer { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border-color); text-align: right; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); }
+.chatter-count { font-weight: bold; color: var(--accent-color); }
+
+
+/* --- NEW: Dossier Modal Specific Styles --- */
+
+#dossier-modal .dossier-header h2 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    margin: 0 0 4px 0;
+}
+#dossier-modal .dossier-header p {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0 0 16px 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+#dossier-modal .modal-content > p { /* The main rumor description */
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.dossier-analysis-grid {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 24px;
+}
+@media (max-width: 900px) {
+    .dossier-analysis-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dossier-affected-parties h4, .dossier-network-feed h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+.affected-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.affected-party-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--main-bg);
+    padding: 4px 8px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.affected-party-chip img {
+    width: 24px;   /* <<< KEY FIX: Set a small, specific size */
+    height: 24px;  /* <<< KEY FIX: Set a small, specific size */
+    border-radius: 50%;
+}
+
+.affected-party-chip span {
+    font-size: 0.85rem;
+}
+
+.rep-change-list {
+    list-style: none;
+    padding: 0;
+}
+
+.rep-change-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 8px;
+    margin-bottom: 6px;
+    background-color: var(--main-bg);
+    border-radius: 4px;
+    color: var(--text-secondary);
+}
+.faction-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.rep-change-item img {
+    width: 20px;   /* <<< KEY FIX: Set a small, specific size */
+    height: 20px;  /* <<< KEY FIX: Set a small, specific size */
+}
+
+.rep-value {
+    font-family: var(--font-mono);
+    font-weight: bold;
+}
+.rep-value.positive { color: var(--positive-color); }
+.rep-value.negative { color: var(--negative-color); }
+
+.dossier-network-feed {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px; /* for scrollbar */
+}
+
+/* Scrollbar styling for the feed inside the modal */
+.dossier-network-feed::-webkit-scrollbar { width: 8px; }
+.dossier-network-feed::-webkit-scrollbar-track { background: var(--main-bg); }
+.dossier-network-feed::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+.dossier-network-feed::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }

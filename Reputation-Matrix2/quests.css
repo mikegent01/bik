@@ -44,7 +44,6 @@
     50% { text-shadow: 0 0 8px var(--negative-color); }
 }
 
-
 #quest-controls {
     display: flex;
     justify-content: flex-start;
@@ -106,7 +105,6 @@
     background-color: rgba(218, 54, 51, 0.1);
 }
 
-
 #quest-container {
     display: flex;
     flex-direction: column;
@@ -140,7 +138,33 @@
     border: 1px solid var(--border-color);
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
+    position: relative; /* ADDED for badge positioning */
+    overflow: hidden;   /* ADDED to contain the badge */
 }
+
+/* --- THE NEW BADGE STYLES --- */
+.quest-updated-badge {
+    position: absolute;
+    top: 15px;
+    right: -45px;
+    background-color: var(--accent-hover);
+    color: #fff;
+    padding: 4px 40px;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: bold;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    text-align: center;
+    z-index: 2;
+    animation: pulse-badge 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { transform: rotate(45deg) scale(1); }
+    50% { transform: rotate(45deg) scale(1.05); }
+}
+/* --- END OF NEW BADGE STYLES --- */
 
 .quest-card.status-active { border-left: 4px solid var(--neutral-color); }
 .quest-card.status-ongoing { border-left: 4px solid var(--mystical-ancient-color); }
@@ -149,7 +173,6 @@
 .quest-card.status-completed { border-left: 4px solid var(--positive-color); }
 .quest-card.status-failed { border-left: 4px solid var(--negative-color); }
 .quest-card.status-hidden { border-left: 4px solid var(--mystical-ancient-color); }
-
 
 .quest-header {
     padding: 16px;
@@ -207,7 +230,6 @@
 .quest-card.status-failed .quest-status { background-color: rgba(218, 54, 51, 0.1); color: var(--negative-color); }
 .quest-card.status-hidden .quest-status { background-color: rgba(138, 43, 226, 0.1); color: var(--mystical-ancient-color); }
 
-
 .quest-body {
     max-height: 0;
     overflow: hidden;
@@ -215,7 +237,7 @@
     padding: 0 16px;
 }
 .quest-card.is-expanded .quest-body {
-    max-height: 2000px; /* Large enough for content */
+    max-height: 2000px;
     padding: 16px;
     border-top: 1px solid var(--border-color);
 }
@@ -248,7 +270,6 @@
 .quest-context strong {
     color: var(--text-secondary);
 }
-
 
 .quest-step-list {
     list-style: none;
@@ -370,8 +391,6 @@
     color: var(--negative-color);
 }
 
-
-/* --- Quest Board --- */
 #quest-board-section {
     background: url(https://www.transparenttextures.com/patterns/wood-pattern.png), #6b4f39;
     border: 8px solid #3d2c1d;
@@ -385,7 +404,7 @@
     gap: 20px;
 }
 .quest-note {
-    background-color: #fdf5e6; /* Paper color */
+    background-color: #fdf5e6;
     color: #333;
     padding: 16px;
     border-radius: 4px;
@@ -400,7 +419,6 @@
     z-index: 10;
 }
 
-/* Pseudo-random rotation for effect */
 .quest-note:nth-child(4n+1) { --random-angle: -1.5; }
 .quest-note:nth-child(4n+2) { --random-angle: 2; }
 .quest-note:nth-child(4n+3) { --random-angle: -1; }

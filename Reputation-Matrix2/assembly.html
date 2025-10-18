@@ -41,8 +41,9 @@
                         </div>
                     </div>
                     <div id="intel-content" class="tab-content">
-                        <p class="page-subtitle">A collection of chatter, reports, and raw intelligence gathered from across the network regarding ongoing events and rumors. Click a dossier for details.</p>
-                        <div id="intel-board-grid">
+                        <p class="page-subtitle">A collection of chatter, reports, and raw intelligence gathered from across the network regarding ongoing events and rumors.</p>
+                        <!-- UPDATED: The container ID is now correct for the intel system script. -->
+                        <div id="intel-rumors-container">
                             <!-- Intel dossiers will be injected here -->
                         </div>
                     </div>
@@ -114,5 +115,18 @@
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="assembly.js"></script>
+
+    <!-- UPDATED: This new script block specifically handles the rendering of the Rumors & Intel tab. -->
+    <script type="module">
+        // Import the function that renders rumors and counts WAHbook posts.
+        import { renderIntelAndRumors } from './assembly-intel-system.js';
+        
+        // When the page is fully loaded...
+        document.addEventListener('DOMContentLoaded', () => {
+            // ...run the function to populate the 'intel' tab.
+            // The content will be hidden by default until the user clicks the tab.
+            renderIntelAndRumors();
+        });
+    </script>
 </body>
 </html>

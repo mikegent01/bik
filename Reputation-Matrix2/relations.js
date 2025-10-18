@@ -2,7 +2,7 @@ import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
 import { state } from './state.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 
-// --- Detail Panel Logic ---
+// --- Detail Panel Logic (for Graph) ---
 const appContainer = document.getElementById('app');
 const detailPanel = document.getElementById('detail-panel');
 const detailPanelContent = document.getElementById('detail-panel-content');
@@ -60,8 +60,6 @@ function showDetailPanel(data, nodeElement) {
         `;
     } else { // Character or Party
         const character = LORE_DATA.characters[data.id];
-        
-        // Opinions BY this character
         let opinionsByHTML = '';
         if (CHARACTER_RELATIONS[data.id]) {
             opinionsByHTML = Object.entries(CHARACTER_RELATIONS[data.id]).map(([targetKey, relation]) => {
@@ -71,8 +69,6 @@ function showDetailPanel(data, nodeElement) {
                 return `<div class="opinion-quote"><strong>On ${targetChar.name}:</strong><p>"${opinionText}"</p></div>`;
             }).join('');
         }
-
-        // Opinions OF this character
         let opinionsOfHTML = '';
         Object.entries(CHARACTER_RELATIONS).forEach(([sourceKey, relations]) => {
             if (relations[data.id]) {
@@ -342,56 +338,155 @@ function initializeGraph() {
 }
 
 
-function createRelationsMatrix() {
-    const container = document.getElementById('relations-container');
+// --- NEW: Individual Dossier Matrix Logic ---
+
+/**
+ * Converts a detailed relationship type into a simple CSS class.
+ * @param {string} type - The relationship type (e.g., 'ally', 'rivalry').
+ * @returns {string} 'positive', 'negative', 'complicated', or 'neutral'.
+ */
+function getRelationClass(type) {
+    switch (type) {
+        case 'ally': case 'loyalty': return 'positive';
+        case 'enemy': return 'negative';
+        case 'rivalry': case 'distrust': case 'volatile': return 'complicated';
+        default: return 'neutral';
+    }
+}
+
+/**
+ * Creates the grid of buttons to select a character or faction.
+ */
+function createRelationsSelector() {
+    const container = document.getElementById('relations-selector-grid');
     if (!container) return;
 
-    const isDebug = state.debugMode;
-    const knownFactionKeys = Object.keys(LORE_DATA.factions).filter(key => isDebug || getIntelForFaction(key) > 0);
+    const entities = new Map();
 
-    const factions = LORE_DATA.factions;
-    const categoryOrder = ['Major Powers', 'Regional Powers', 'Mystical & Ancient', 'Underworld & Fringe', 'Interdimensional Threats'];
-    const sortedFactionKeys = knownFactionKeys.sort((a, b) => {
-        const indexA = categoryOrder.indexOf(factions[a].category);
-        const indexB = categoryOrder.indexOf(factions[b].category);
-        if (indexA !== indexB) return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
-        return factions[a].name.localeCompare(factions[b].name);
+    // Add factions that have relationships
+    Object.keys(LORE_DATA.factions).forEach(key => {
+        const faction = LORE_DATA.factions[key];
+        if (getIntelForFaction(key) > 0 && faction.relations && (faction.relations.allies?.length > 0 || faction.relations.enemies?.length > 0)) {
+            entities.set(key, { id: key, name: faction.name, image: faction.logo, type: 'faction' });
+        }
     });
 
-    const table = document.createElement('table');
-    table.className = 'relations-matrix';
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    headerRow.innerHTML = '<th></th>'; // Corner
-    sortedFactionKeys.forEach(key => { headerRow.innerHTML += `<th><div>${factions[key].name}</div></th>`; });
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
+    // Add characters who have opinions
+    Object.keys(CHARACTER_RELATIONS).forEach(key => {
+        const character = LORE_DATA.characters[key] || LORE_DATA.auxiliary_party[key];
+        if (character) {
+            entities.set(key, { id: key, name: character.name, image: character.portrait || 'portraits/unknown.png', type: 'character' });
+        }
+    });
 
-    const tbody = document.createElement('tbody');
-    sortedFactionKeys.forEach(rowKey => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<th>${factions[rowKey].name}</th>`;
-        sortedFactionKeys.forEach(colKey => {
-            if (rowKey === colKey) {
-                tr.innerHTML += '<td class="self">—</td>';
-            } else {
-                const rowFaction = factions[rowKey];
-                let relation = 'neutral', symbol = 'o', title = `${rowFaction.name} considers ${factions[colKey].name} Neutral.`;
-                if (rowFaction.relations?.allies?.includes(colKey)) {
-                    relation = 'ally'; symbol = '+'; title = `${rowFaction.name} considers ${factions[colKey].name} an Ally.`;
-                } else if (rowFaction.relations?.enemies?.includes(colKey)) {
-                    relation = 'enemy'; symbol = '-'; title = `${rowFaction.name} considers ${factions[colKey].name} an Enemy.`;
-                }
-                tr.innerHTML += `<td class="${relation}" title="${title}">${symbol}</td>`;
+    // Sort entities alphabetically by name
+    const sortedEntities = Array.from(entities.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+    const buttonsHTML = sortedEntities.map(entity => `
+        <button class="relation-selector-btn" data-id="${entity.id}" data-type="${entity.type}">
+            <img src="${entity.image}" alt="${entity.name}">
+            <span>${entity.name}</span>
+        </button>
+    `).join('');
+
+    container.innerHTML = buttonsHTML;
+
+    // Add event listeners
+    container.querySelectorAll('.relation-selector-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            container.querySelectorAll('.relation-selector-btn').forEach(btn => btn.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            const { id, type } = e.currentTarget.dataset;
+            displayRelationsFor(id, type);
+        });
+    });
+}
+
+/**
+ * Displays the detailed relationship panel for the selected entity.
+ * @param {string} entityId - The key of the character or faction.
+ * @param {string} entityType - 'character' or 'faction'.
+ */
+function displayRelationsFor(entityId, entityType) {
+    const container = document.getElementById('relations-detail-view');
+    if (!container) return;
+
+    const mainEntity = entityType === 'faction'
+        ? LORE_DATA.factions[entityId]
+        : (LORE_DATA.characters[entityId] || LORE_DATA.auxiliary_party[entityId]);
+
+    const relations = { positive: [], negative: [], complicated: [], neutral: [] };
+
+    // 1. Gather opinions BY the selected entity
+    if (CHARACTER_RELATIONS[entityId]) {
+        Object.entries(CHARACTER_RELATIONS[entityId]).forEach(([targetKey, relation]) => {
+            const target = LORE_DATA.characters[targetKey] || LORE_DATA.auxiliary_party[targetKey] || LORE_DATA.factions[targetKey];
+            if (target) {
+                const category = getRelationClass(relation.type);
+                relations[category].push({
+                    targetName: target.name,
+                    targetImage: target.portrait || target.logo || 'portraits/unknown.png',
+                    quote: `"${relation.text.split(':').slice(1).join(':').trim()}"`,
+                    type: relation.type,
+                    direction: 'by'
+                });
             }
         });
-        tbody.appendChild(tr);
+    }
+
+    // 2. Gather opinions OF the selected entity
+    Object.entries(CHARACTER_RELATIONS).forEach(([sourceKey, sourceRelations]) => {
+        if (sourceRelations[entityId]) {
+            const relation = sourceRelations[entityId];
+            const source = LORE_DATA.characters[sourceKey] || LORE_DATA.auxiliary_party[sourceKey] || LORE_DATA.factions[sourceKey];
+            if (source) {
+                const category = getRelationClass(relation.type);
+                relations[category].push({
+                    targetName: source.name,
+                    targetImage: source.portrait || source.logo || 'portraits/unknown.png',
+                    quote: `"${relation.text.split(':').slice(1).join(':').trim()}"`,
+                    type: relation.type,
+                    direction: 'of'
+                });
+            }
+        }
     });
-    table.appendChild(tbody);
-    container.innerHTML = '';
-    container.appendChild(table);
+
+    const createListHTML = (list, title) => {
+        if (list.length === 0) return '';
+        // Sort by target name for consistent ordering
+        list.sort((a,b) => a.targetName.localeCompare(b.targetName));
+        const itemsHTML = list.map(item => `
+            <div class="relation-item opinion-${getRelationClass(item.type)}">
+                <img src="${item.targetImage}" alt="${item.targetName}" class="relation-item-img">
+                <div class="relation-item-content">
+                    <div class="relation-item-header">
+                        <span class="relation-item-name">${item.direction === 'by' ? `→ ${item.targetName}` : `← ${item.targetName}`}</span>
+                        <span class="relation-item-type">${item.type.toUpperCase()}</span>
+                    </div>
+                    <p class="relation-item-quote">${item.quote}</p>
+                </div>
+            </div>
+        `).join('');
+        return `<div class="panel-section"><h4>${title}</h4>${itemsHTML}</div>`;
+    };
+
+    container.innerHTML = `
+        <div class="panel-header">
+            <img src="${mainEntity.portrait || mainEntity.logo}" alt="${mainEntity.name}">
+            <h3>${mainEntity.name}'s Network</h3>
+        </div>
+        ${createListHTML(relations.positive, 'Allies & Loyalties')}
+        ${createListHTML(relations.negative, 'Enemies & Hostilities')}
+        ${createListHTML(relations.complicated, 'Rivalries & Distrust')}
+        ${createListHTML(relations.neutral, 'Neutral & Transactional')}
+    `;
+    container.style.display = 'block';
+    if(window.innerWidth > 768) { // Only smooth scroll on larger screens
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // Main execution
 initializeGraph();
-createRelationsMatrix();
+createRelationsSelector();

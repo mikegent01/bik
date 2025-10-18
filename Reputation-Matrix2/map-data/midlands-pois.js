@@ -78,19 +78,35 @@ const midlandsData = {
             population: 1500
         },
         // #71
+
         {
-            id: 'poi_mid_grand_market',
-            x: 79.0,
-            y: 7.5,
-            type: 'market',
-            name: "Grand Market of Mighdural",
-            description: "The largest market in the Midlands, a bustling hub of commerce where goods from across the world are traded. It is officially under Imperial control, but is a hotbed for spies and freelancers.",
+            id: 'poi_mid_internet_embassy',
+            x: 87.0,
+            y: 10.0,
+            type: 'landmark',
+            name: "The Internet Embassy",
+            description: "A strange, shimmering building that seems to flicker at the edge of vision. It is the diplomatic node for The Internet Federation, a place of data-brokers and digital envoys from another dimension.",
+            factionId: 'internet_federation',
+            intelReq: 50,
+            political_influence: 6,
+            economic_value: 6,
+            military_strength: 5,
+            population: 30
+        },
+        // --- NEW POINT OF INTEREST ---
+        {
+            id: 'poi_mid_raventree_manor',
+            x: 73.5,
+            y: 12.0,
+            type: 'landmark',
+            name: "Raventree Manor",
+            description: "A decaying, haunted manor located in the misty woods southwest of the capital. It is the domain of the enigmatic Oracle and is currently being used by Waluigi and Bowser as a hideout to stash their 'relocated' treasures. The estate is known to have strange temporal properties and is a nexus of powerful, unpredictable magic.",
             factionId: 'unaligned',
-            intelReq: { faction: 'freelancer_underworld', level: 10 },
-            political_influence: 3,
-            economic_value: 10,
-            military_strength: 3,
-            population: 6000
+            intelReq: { faction: 'mages_guild', level: 40 },
+            political_influence: 4,
+            economic_value: 3,
+            military_strength: 2,
+            population: 10 // Represents the current occupiers and spectral residents
         },
         // #72
         {

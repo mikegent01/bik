@@ -1,9 +1,14 @@
+// This file contains all the core narrative, character, and faction data for the application.
+// It imports data from smaller, more manageable files.
+
+import { TOAD_ABILITIES } from './abilities.js';
 
 export const AUXILIARY_PARTY = {
     dan: {
         name: "Dan",
         weapon: "Longsword & Magic",
         status: "Weakened & Diminished",
+        portrait: "toads/dan.png", // ADDED
         level: 1,
         xp: 0,
         xp_to_next: 100,
@@ -15,16 +20,18 @@ export const AUXILIARY_PARTY = {
         description: "A hardy toad warrior who fights with a surprisingly large axe.",
         weapon: "Axe",
         status: "Active",
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
+        portrait: "toads/toad_lee.png", // ADDED
+        level: 2,
+        xp: 150,
+        xp_to_next: 300,
+        log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."],
+        abilities: ["Reckless Attack"]
     },
     eager: {
         name: "Eager",
         weapon: "Whip",
         status: "Active",
+        portrait: "toads/eager.png", // ADDED
         level: 1,
         xp: 0,
         xp_to_next: 100,
@@ -36,31 +43,46 @@ export const AUXILIARY_PARTY = {
         weapon: "Spellcaster",
         status: "Active",
         description: "A quiet, studious toad with a natural but untrained affinity for magic. He is intensely curious about arcane matters and spends most of his time studying.",
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
+        portrait: "toads/ryan.png", // ADDED
+        level: 2,
+        xp: 150,
+        xp_to_next: 300,
+        log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell to aid the group's escape from a robot and a clone."],
+        abilities: ["Magic Missile"]
     },
     roger: {
         name: "Roger",
         weapon: "Gun",
         status: "Active",
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
+        portrait: "toads/roger.png", // ADDED
+        level: 2,
+        xp: 150,
+        xp_to_next: 300,
+        log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire with his crossbow during the raid."],
+        abilities: ["Deadeye Shot"]
     },
     bones: {
         name: "Bones",
         weapon: "Grotesque",
         status: "Active",
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
+        portrait: "toads/bones.png", // ADDED
+        level: 2,
+        xp: 150,
+        xp_to_next: 300,
+        log: ["Captured and interrogated by the Iron Legion during the chaotic raid on Shadeward Mansion."],
+        abilities: ["Rage"]
+    },
+    the_mole: {
+        name: "The Mole",
+        weapon: "Deceit",
+        status: "Active",
+        description: "A toad of unknown origin who has been traveling with the others. Revealed as an agent for the Iron Legion.",
+        portrait: "toads/the_mole.png", // ADDED
+        level: 2,
+        xp: 150,
+        xp_to_next: 300,
+        log: ["Revealed his allegiance by helping the Iron Legion capture Bones during the raid on Shadeward Mansion."],
+        abilities: ["Feint"]
     }
 };
 
@@ -340,6 +362,20 @@ export const RUMORS = [
             koopa_troop: 5,
             iron_legion: 5,
             silver_flame: -10
+        }
+    },
+    {
+        id: 'shadeward_mansion_raid',
+        title: "The Dinner That Broke Time",
+        time_ago: "Tonight",
+        description: "A group of toads seeking Archie were trapped in the Shadeward Mansion by the time-looping Oracle. The bizarre dinner was crashed by an Archie clone, a robot double, and an Iron Legion raid team led by Mr. Wario. The raid was revealed to be a setup, facilitated by a traitor toad who helped capture Bones. After a chaotic battle and negotiation, the toads escaped with their wounded, their trust shattered.",
+        targets: ['liberated_toads', 'bones', 'wario'],
+        effects: {
+            liberated_toads: -30,
+            iron_legion: -25,
+            regal_empire: -15,
+            freelancer_underworld: 10,
+            mages_guild: 5
         }
     },
     {

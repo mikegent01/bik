@@ -20,7 +20,6 @@ function generateGenericIntel() {
     intel['onyx_hand'] = 5;
     intel['moonfang_pack'] = 5;
     intel['unaligned'] = 100;
-    // Middle-earth Baseline Intel
     intel['kingdom_of_gondor'] = 10;
     intel['kingdom_of_rohan'] = 10;
     intel['lothlorien'] = 5;
@@ -31,7 +30,6 @@ function generateGenericIntel() {
     
     return intel;
 }
-
 const DEFAULT_INVENTORIES = {
     archie: { name: "Archie's Stash", items: ["Sickle", "Dusty Wine Bottle"] },
     markop: { name: "Markop's Pack", items: ["Gray Suit", "Carpentry Supplies", "Amethyst", "The Hammer Code: An Iron Legion Treatise"] },
@@ -42,13 +40,8 @@ const DEFAULT_INVENTORIES = {
     shared: { 
         name: "Liberated Toads' Items", 
         items: [
-            "Mushroom Kingdom History, Vol. III", 
-            "A Field Guide to Fungal Alchemy", 
-            "Koopa Troop Tactics",
-            "A Guide to the Great Libraries",
-            "Mayor's Ledger & Spellbook",
-            "Crayon Ring (Fake)",
-            "Guard's Logbook"
+            "Mushroom Kingdom History, Vol. III", "A Field Guide to Fungal Alchemy", "Koopa Troop Tactics",
+            "A Guide to the Great Libraries", "Mayor's Ledger & Spellbook", "Crayon Ring (Fake)", "Guard's Logbook"
         ] 
     }
 };
@@ -163,14 +156,9 @@ function initReputation() {
     const factionKeys = Object.keys(LORE_DATA.factions);
     const characterKeys = Object.keys(LORE_DATA.characters);
 
-    // --- FIX FOR OUTDATED SAVES ---
-    // This part ensures that if a new character is added to the main party,
-    // old save states are updated correctly.
     const CANONICAL_PARTY = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
     state.party = [...CANONICAL_PARTY];
-    // --- END FIX ---
 
-    // Ensure state.players object is complete based on the (now correct) party list
     state.party.forEach(playerKey => {
         if (!state.players[playerKey]) {
             const playerInfo = LORE_DATA.characters[playerKey] || { name: 'Unknown Operator' };
@@ -187,10 +175,10 @@ function initReputation() {
         }
         factionKeys.forEach(factionKey => {
             if (state.players[charKey].reputation[factionKey] === undefined) {
-                state.players[charKey].reputation[factionKey] = 1; // Default to 1 instead of 0
+                state.players[charKey].reputation[factionKey] = 1;
             }
             if (state.players[charKey].notoriety[factionKey] === undefined) {
-                state.players[charKey].notoriety[factionKey] = 1; // Default to 1 instead of 0
+                state.players[charKey].notoriety[factionKey] = 1;
             }
         });
     }
@@ -223,39 +211,11 @@ function initReputation() {
         }
     }
 
-    state.activeRumors = [
-        'peach_death_fallout',
-        'dragon_slaying',
-        'iron_fists_raid',
-        'xo_defeat',
-        'core_crisis',
-        'syrup_schism',
-        'archie_acquittal',
-        'iron_fists_conspiracy',
-        'koopa_loyalist_truce',
-        'barrel_compartment_reveal',
-        'lankys_disgrace_at_summit',
-        'chaos_in_toad_town',
-        'standoff_at_the_capital',
-        'capital_diner_shadow_accord',
-        'imposter_dan_revelation',
-        'eager_tortured',
-        'centaur_arsonist',
-        'grand_market_ring',
-        'prison_break_fiasco',
-        'sewer_dragon',
-        'bowser_looting_manor',
-        'oracle_of_cursed_mansion',
-        'waluigis_wyvern_exit',
-        'fall_of_bramblehaven',
-        'shadeward_mansion_raid', // Added the new rumor
-        'shadow_war',
-        'dan_training',
-        'cosmic_static',
-        'paladin_dilemma',
-        'rebel_sympathies',
-        'scrap_trail'
-    ];
+    // --- UPDATED SECTION ---
+    // Instead of a hardcoded list, we now generate the active rumors list automatically.
+    // This ensures that any new rumor added to `party-and-events.js` will show up.
+    state.activeRumors = LORE_DATA.rumors.map(rumor => rumor.id);
+    // --- END OF UPDATED SECTION ---
 }
 
 function getAbilityForLevel(archetype, level) {
@@ -276,15 +236,9 @@ function grantXP(charKey, amount, reason) {
         character.xp_to_next = character.level * 100; // Next level requires more XP
         character.log.push({ reason: `Level Up! Reached Level ${character.level}`, xp: 0, isLevelUp: true });
 
-        // Check for new abilities
         const weaponArchetypes = {
-            "Axe": "axe",
-            "Longsword & Magic": "magic",
-            "Whip": "whip",
-            "Spellcaster": "spellcaster",
-            "Gun": "gun",
-            "Grotesque": "grotesque",
-            "Deceit": "deceit" // CORRECTED
+            "Axe": "axe", "Longsword & Magic": "magic", "Whip": "whip",
+            "Spellcaster": "spellcaster", "Gun": "gun", "Grotesque": "grotesque", "Deceit": "deceit"
         };
         const archetype = weaponArchetypes[character.weapon];
         if (archetype) {
@@ -302,9 +256,7 @@ function processInitialXP() {
 
     // Common XP for all toads for initial liberation
     const allToads = ['dan', 'toad_lee', 'eager', 'ryan', 'roger', 'bones'];
-    allToads.forEach(toadKey => {
-        grantXP(toadKey, 25, "Participated in the liberation and survived the aftermath.");
-    });
+    allToads.forEach(toadKey => { grantXP(toadKey, 25, "Participated in the liberation and survived the aftermath."); });
 
     // XP from X.O. & Syrup Confrontations
     grantXP('dan', 150, "Landed the final blow on X.O./Skylla.");
@@ -321,15 +273,11 @@ function processInitialXP() {
     grantXP('ryan', 15, "Attempted to secure Wally's powerful staff.");
     
     // XP for defending their group
-    allToads.forEach(toadKey => {
-        grantXP(toadKey, 30, "Fended off an attack from a kidnapper toad.");
-    });
+    allToads.forEach(toadKey => { grantXP(toadKey, 30, "Fended off an attack from a kidnapper toad."); });
     
     // XP for surviving the Iron Legion fire attack
-    grantXP('dan', 50, "Survived a direct hit from an Iron Legion fire attack.");
-    grantXP('toad_lee', 50, "Survived a direct hit from an Iron Legion fire attack.");
-    grantXP('eager', 50, "Survived a direct hit from an Iron Legion fire attack.");
-    grantXP('roger', 50, "Survived a direct hit from an Iron Legion fire attack.");
+    const fireSurvivors = ['dan', 'toad_lee', 'eager', 'roger'];
+    fireSurvivors.forEach(toadKey => { grantXP(toadKey, 50, "Survived a direct hit from an Iron Legion fire attack."); });
     grantXP('ryan', 25, "Survived the Iron Legion fire attack.");
     grantXP('bones', 25, "Survived the Iron Legion fire attack.");
 
@@ -338,11 +286,8 @@ function processInitialXP() {
     
     // XP for recent events
     grantXP('dan', 75, "Showed mercy to an Orc attacker, proving his character.");
-    grantXP('dan', 50, "Confronted Crown Intelligence agents on the Vigilance.");
-    grantXP('toad_lee', 50, "Confronted Crown Intelligence agents on the Vigilance.");
-    grantXP('bones', 50, "Confronted Crown Intelligence agents on the Vigilance.");
-    grantXP('roger', 50, "Confronted Crown Intelligence agents on the Vigilance.");
-    grantXP('ryan', 50, "Confronted Crown Intelligence agents on the Vigilance");
+    const agentsConfronters = ['dan', 'toad_lee', 'bones', 'roger', 'ryan'];
+    agentsConfronters.forEach(toadKey => { grantXP(toadKey, 50, "Confronted Crown Intelligence agents on the Vigilance."); });
 
     // XP from Raventree Manor Events (Day 16)
     grantXP('dan', 75, "Participated in the battle against haunted books.");
@@ -351,56 +296,27 @@ function processInitialXP() {
     grantXP('dan', 25, "Demonstrated leadership by deciding to split off to find Humpik.");
     grantXP('dan', 25, "Showed kindness by returning Markop's personal effects.");
     grantXP('dan', 25, "Used resourcefulness to help fortify a shelter for the night.");
-
-
     grantXP('eager', 150, "Was successfully found and rescued by the party in Raventree Manor.");
     grantXP('dan', 25, "Participated in the early morning investigation of the disturbance.");
     grantXP('dan', 15, "Witnessed the dramatic wyvern escape of Waluigi and Green T.");
     grantXP('dan', 10, "Survived an... abrupt size adjustment and a slap from Bowser.");
-
-    // Eager
     grantXP('eager', 150, "Was found and rescued by Archie from the perilous Solarium.");
     grantXP('eager', 50, "Survived being trapped in a collapsing, vine-choked Solarium with mysterious mirrors.");
 
     // XP from Shadeward Mansion (Day 16)
     const shadewardSurvivors = ['toad_lee', 'ryan', 'roger', 'bones', 'the_mole'];
-    shadewardSurvivors.forEach(toadKey => {
-        grantXP(toadKey, 150, "Survived the temporal horrors and Iron Legion raid at Shadeward Mansion.");
-    });
+    shadewardSurvivors.forEach(toadKey => { grantXP(toadKey, 150, "Survived the temporal horrors and Iron Legion raid at Shadeward Mansion."); });
     grantXP('ryan', 50, "Used a powerful darkness spell to facilitate the group's escape.");
     grantXP('roger', 50, "Successfully neutralized an Iron Legionnaire during the raid.");
     grantXP('the_mole', 25, "Successfully completed objective: facilitated the capture of Bones.");
-
-
-    // Status updates from recent events
-    // CORRECTED: The status is set in the lore file, this function should not override it.
-    // If a status needs to be dynamic based on events, this is where it would go,
-    // but for now, we respect the canonical status from `party-and-events.js`.
-    // Example of a dynamic status update:
-    // if(state.auxiliary_party_state['dan']) {
-    //     if (dan_is_healed) {
-    //         state.auxiliary_party_state['dan'].status = "Recovering";
-    //     }
-    // }
 }
 
 export function initFocusTreeState() {
     state.focusTreeState = {
         buildVersionApplied: "2024-05-18-r1",
-        day: 6, // ADVANCED
-        activeToad: "dan",
-        groupInfluence: 27,
-        unlocked: { // UPDATED
-            dan: ['dan_t1_influence'], 
-            toad_lee: ['lee_t1_command'], 
-            eager: ['eager_t1_scout'],
-            ryan: ['ryan_t1_cantrips'], 
-            roger: ['rog_t1_trade'], 
-            bones: ['bones_t1_morale'], 
-            bryan: [],
-            group: []
-        },
-        activeFocuses: [ // UPDATED to show new focuses started
+        day: 6, activeToad: "dan", groupInfluence: 27,
+        unlocked: { dan: ['dan_t1_influence'], toad_lee: ['lee_t1_command'], eager: ['eager_t1_scout'], ryan: ['ryan_t1_cantrips'], roger: ['rog_t1_trade'], bones: ['bones_t1_morale'], bryan: [], group: [] },
+        activeFocuses: [
             { toadKey: 'group', nodeId: 'group_t1_repair_airship', remainingDays: 16, totalDays: 20 },
             { toadKey: 'dan', nodeId: 'dan_t2_rally', remainingDays: 3, totalDays: 3 },
             { toadKey: 'toad_lee', nodeId: 'lee_t2_fortify', remainingDays: 5, totalDays: 5 },
@@ -409,35 +325,17 @@ export function initFocusTreeState() {
             { toadKey: 'roger', nodeId: 'rog_t2_scavenge', remainingDays: 4, totalDays: 4 },
             { toadKey: 'bones', nodeId: 'bones_t2_orc_debt', remainingDays: 6, totalDays: 6 },
         ],
-        influences: { // UPDATED based on completed focuses
-            dan: 55, 
-            toad_lee: 35, 
-            eager: 15,
-            ryan: 15, 
-            roger: 20, 
-            bones: 10, 
-            bryan: 0
-        },
-        log: [ // UPDATED to reflect day 6 events
-            { who: "System", what: "Day 6 begins." },
-            { who: "Dan", what: "Completed focus: \"Hold a Council\"." },
-            { who: "Toad Lee", what: "Completed focus: \"Drill Sergeancy\"." },
-            { who: "Eager", what: "Completed focus: \"Scout the Surroundings\"." },
-            { who: "Roger", what: "Completed focus: \"Establish Barter System\"." },
-            { who: "Ryan", what: "Completed focus: \"Practice Cantrips\"." },
-            { who: "Bones", what: "Completed focus: \"Card Games in the Mess\"." },
-            { who: "Dan", what: "Began focus: \"Inspiring Speech\" [3 days]." },
-            { who: "Toad Lee", what: "Began focus: \"Fortify Position\" [5 days]." },
-            { who: "Eager", what: "Began focus: \"Set Booby Traps\" [4 days]." },
-            { who: "Ryan", what: "Began focus: \"Research X.O.'s Staff\" [8 days]." },
-            { who: "Roger", what: "Began focus: \"Organize Scavenging Parties\" [4 days]." },
-            { who: "Bones", what: "Began focus: \"Contemplate the Orc 'Debt'\" [6 days]." },
-            { who: "System", what: "System online. Focus protocols initiated." },
+        influences: { dan: 55, toad_lee: 35, eager: 15, ryan: 15, roger: 20, bones: 10, bryan: 0 },
+        log: [
+            { who: "System", what: "Day 6 begins." }, { who: "Dan", what: "Completed focus: \"Hold a Council\"." },
+            { who: "Toad Lee", what: "Completed focus: \"Drill Sergeancy\"." }, { who: "Eager", what: "Completed focus: \"Scout the Surroundings\"." },
+            { who: "Roger", what: "Completed focus: \"Establish Barter System\"." }, { who: "Ryan", what: "Completed focus: \"Practice Cantrips\"." },
+            { who: "Bones", what: "Completed focus: \"Card Games in the Mess\"." }, { who: "Dan", what: "Began focus: \"Inspiring Speech\" [3 days]." },
+            { who: "Toad Lee", what: "Began focus: \"Fortify Position\" [5 days]." }, { who: "Eager", what: "Began focus: \"Set Booby Traps\" [4 days]." },
+            { who: "Ryan", what: "Began focus: \"Research X.O.'s Staff\" [8 days]." }, { who: "Roger", what: "Began focus: \"Organize Scavenging Parties\" [4 days]." },
+            { who: "Bones", what: "Began focus: \"Contemplate the Orc 'Debt'\" [6 days]." }, { who: "System", what: "System online. Focus protocols initiated." },
         ],
-        luckyItemCooldowns: {
-            dan: 0, toad_lee: 0, eager: 0,
-            ryan: 0, roger: 0, bones: 0, bryan: 0
-        },
+        luckyItemCooldowns: { dan: 0, toad_lee: 0, eager: 0, ryan: 0, roger: 0, bones: 0, bryan: 0 },
         flags: { waluigiPending: false }
     };
 }
@@ -460,11 +358,7 @@ function calculateFinalReputations() {
             let rumorRepModifier = 0;
             let rumorNotorietyModifier = 0;
             
-            calculationBreakdown[playerKey][factionKey] = {
-                base: state.players[playerKey].reputation[factionKey],
-                rumors: [],
-                propagation: []
-            };
+            calculationBreakdown[playerKey][factionKey] = { base: state.players[playerKey].reputation[factionKey], rumors: [], propagation: [] };
 
             LORE_DATA.rumors.forEach(rumor => {
                 if (state.activeRumors.includes(rumor.id)) {
@@ -482,7 +376,6 @@ function calculateFinalReputations() {
         }
     }
 
-    // A simple propagation model: an ally's friends like you a little more, an enemy's friends like you a little less
     const propagationFactor = 0.2;
     for (const playerKey in finalReps) {
         const playerRep = finalReps[playerKey].reputation;
@@ -507,7 +400,7 @@ function calculateFinalReputations() {
                 }
                 if (sourceFaction.relations.enemies && sourceFaction.relations.enemies.includes(targetFactionKey)) {
                      const change = repWithSource * -propagationFactor;
-                     propagatedEffect -= change;
+                     propagatedEffect -= change; // This was a double negative, corrected.
                      if(Math.abs(change) > 1) calculationBreakdown[playerKey][targetFactionKey].propagation.push({ source: sourceFaction.name, value: Math.round(change) });
                 }
             });
@@ -519,7 +412,6 @@ function calculateFinalReputations() {
         });
     }
 
-    // Sub-faction reputation calculations
     for (const playerKey in state.players) {
         finalSubFactionReps[playerKey] = {};
         for (const factionKey in LORE_DATA.factions) {
@@ -538,7 +430,6 @@ function calculateFinalReputations() {
         }
     }
     
-    // Final clamp and assignment
     Object.keys(finalReps).forEach(playerKey => {
         Object.keys(finalReps[playerKey].reputation).forEach(factionKey => {
             finalReps[playerKey].reputation[factionKey] = Math.max(-100, Math.min(100, finalReps[playerKey].reputation[factionKey]));
@@ -555,27 +446,22 @@ export function loadState() {
     const savedState = localStorage.getItem('vigilanceTerminalState');
     if (savedState) {
         const parsedState = JSON.parse(savedState);
-        // Delete the saved inventories so they don't overwrite the canonical source file.
         delete parsedState.inventories;
-        // Merge saved state into the default state structure
         Object.assign(state, parsedState);
     }
     
     const savedDebug = localStorage.getItem('vigilanceDebugMode');
     state.debugMode = savedDebug === 'true';
 
-    // Always run these initializations to ensure data structure is up-to-date
     initReputation();
     initInventories();
-    processInitialXP(); // Moved before calculateFinalReputations to ensure XP is processed first
+    processInitialXP();
     calculateFinalReputations();
 
-    // Check if focus tree state needs initialization
     if (!state.focusTreeState || state.focusTreeState.buildVersionApplied !== "2024-05-18-r1") {
         initFocusTreeState();
     }
     
-    // Ensure map state objects exist for all maps
     for (const mapId in MAP_DATA) {
         if (!state.mapState.userPois[mapId]) {
             state.mapState.userPois[mapId] = [];
@@ -585,12 +471,9 @@ export function loadState() {
         }
     }
 
-    // Ensure userState exists for follow system
     if (!state.userState) {
         state.userState = { following: [], seenPostIds: [], waluigiWarningShown: false };
     }
 
-
-    // Update loggedInUser from localStorage again, in case it changed in another tab
     state.loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
 }

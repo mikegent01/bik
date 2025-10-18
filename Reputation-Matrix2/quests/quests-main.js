@@ -1,6 +1,3 @@
-
-
-
 export const MAIN_QUESTS = {
     'retrieve_the_staff': {
         id: 'retrieve_the_staff',
@@ -25,6 +22,7 @@ export const MAIN_QUESTS = {
         title: "The Artifacts of Balance",
         type: 'main',
         category: 'Main Story',
+        is_updated: true, // ADDED
         objective: "Recover the Star of Radiance, Fire Crystal, and Mushroom of Life—three legendary artifacts that hold the power to restore balance to the world. However, the journey will be fraught with peril, as a powerful evil toad has obtained the Star of Radiance, ascending to godhood.",
         assignee: "Full Party",
         assigneeKey: 'full_party',
@@ -32,15 +30,10 @@ export const MAIN_QUESTS = {
         start_condition: "This quest was revealed in ancient texts found in the Vigilance's library.",
         steps: [
             { id: 'step1', title: "The Star of Radiance – The Rise of a God", status: 'active', description: "This legendary artifact, known for its celestial energy, has already fallen into the hands of the Evil Toad. He has absorbed its power, becoming something far beyond mortal comprehension. His influence has begun warping reality itself—skies twist with unnatural storms, the land cracks, and the laws of magic shift unpredictably.", options: ["Find a way to weaken the Toad-God before challenging him directly.", "Seek out an ancient force that may counterbalance the power of the Star.", "Risk a head-on battle in his newly formed celestial domain."] },
-            { 
-                id: 'step1a', 
-                title: "The Oracle's Manor", 
-                status: 'active', 
-                description: "The haunted manor has been revealed as the sanctuary of 'Self Reflection - The Oracle', one of the Star Fragment bearers. Possessing the 'Vision Shard', which grants foresight and the ability to view past events, the Oracle is a former scholar whose consciousness has expanded beyond linear time. After a chaotic exploration involving animated books and cryptic clues, the party rested for the night. The night proved anything but restful. On watch, Remi and Waluigi battled acid-breathing rust monsters that corroded her dagger. Shortly after, the balcony she was on collapsed. The crash awakened the party, who crossed the collapsed passage in the west hall where Humpik discovered a spell case containing five scrolls (Alarm, Disguise Self, Inflict Wounds, Mage Armor, Hunter's Mark) before they found and rescued a battered Remi. After reaching the main doors, the Oracle himself appeared, calmly inviting the party to an 'event' in the back gardens. As Remi retired to her room, Humpik overheard a tense conversation between Waluigi and Green T, with Waluigi claiming the Oracle told him the manor has time-traveling properties, and formed a shaky alliance with them. Further exploration led to more strangeness: Humpik was confronted by a room full of silent, watching ghosts, which the Oracle then casually dismissed. Meanwhile, Archie found Eager in the ruined Solarium, a room filled with strange, shimmering mirrors, and they fled in terror. The night's chaos culminated with Dan witnessing Waluigi and Green T making a swift escape from the manor on the back of a summoned wyvern. The Oracle's invitation hangs in the air, but the manor's secrets and dangers are becoming terrifyingly clear.", 
-                options: ["Attend the Oracle's 'event' in the back gardens.", "Confront the Oracle about the ghosts and his strange behavior.", "Investigate the Solarium and its mysterious mirrors.", "Attempt to regroup and formulate a plan before acting."] 
-            },
+            { id: 'step1a', title: "The Oracle's Manor", status: 'active', description: "The haunted manor has been revealed as the sanctuary of 'Self Reflection - The Oracle', one of the Star Fragment bearers... (description truncated for brevity)" },
+            { id: 'step1b', title: "The Shadeward Betrayal", status: 'completed', description: "A group of Liberated Toads entered the nearby Shadeward Mansion seeking Archie. Instead, they were ensnared in a time-looping dinner party hosted by the Oracle. The event devolved into chaos with the appearance of an Archie clone, a robot double, and an Iron Legion raid led by Mr. Wario. The raid was a setup, facilitated by a traitor toad who helped capture Bones. After a desperate fight and negotiation, the survivors escaped, but their trust in each other is shattered, and the wounded traitor's fate hangs in the balance. The Oracle's parting words—'May your Archie disappear without a trace'—suggest a deeper, more sinister game is afoot.", options: ["This quest step is complete, but its consequences will affect all future actions."] },
             { id: 'step2', title: "The Fire Crystal – The Molten Depths", status: 'locked', description: "The Fire Crystal is hidden deep within a volcanic dungeon, guarded by an ancient fire dragon and its cult. They believe the crystal to be the heart of their god.", options: ["Infiltrate the cult and steal the crystal from within.", "Slay the dragon and take the crystal by force.", "Bargain with the dragon—what does an immortal beast truly desire?"] },
-            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings. The party is currently airborne; they will need to convince Lario to fly the Vigilance there, find another way down to the surface and travel, or wait until their journey brings them closer to the Wilderlands.", options: ["Pass the guardians' trials—tests of wisdom, strength, and sacrifice.", "Use magic or forbidden means to forcefully take the Mushroom.", "Bargain with the Elders—perhaps they desire something in return."] }
+            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings... (description truncated for brevity)" }
         ],
         finalDecision: { description: "Once all three artifacts are gathered, a choice must be made. Use them to restore balance, breaking the Toad-God’s power and healing the realm, or use them for yourself, risking corruption but ascending to a higher form of existence." }
     },
@@ -49,19 +42,19 @@ export const MAIN_QUESTS = {
         title: "The Princess's Lasting Shadow",
         type: 'main',
         category: 'Main Story',
-        objective: "The infiltration of Fawful's Gala revealed a key lead—a secret hatch in the Princess’s chambers—but the alliance fractured. A subsequent 'loyalty test' mission led the team and Loyalist commanders into the sewers beneath Toad Town. They've found a potential route to the castle and a cryptic note, but the way is now blocked, and Toadette has deemed them failures. The team must find another way through the sewers and follow the trail of the conspiracy.",
-        assignee: "Full Party",
-        assigneeKey: 'full_party',
+        is_updated: true, // ADDED
+        objective: "Captain Toadette and the Peach Loyalists are relentlessly pursuing the conspiracy behind Princess Peach's death. Believing Fawful is a key player, their primary goal is to breach Peach's Castle and uncover the truth hidden within. Their methods have grown increasingly ruthless as their desperation for justice intensifies.",
+        assignee: "Peach Loyalists",
+        assigneeKey: 'peach_loyalists',
         status: "active",
-        start_condition: "A fragile truce was brokered between Kamek and Captain Toadette.",
+        start_condition: "A fragile truce was brokered between the Koopa Troop remnants and the Peach Loyalists.",
         steps: [
-            { id: 'step1', title: "Infiltrate the Madhouse", status: 'completed', description: "A joint Koopa-Loyalist team successfully infiltrated Fawful's Grand Gala at the occupied castle." },
-            { id: 'step2', title: "Survive the Gala", status: 'completed', description: "The mission yielded a crucial lead from Chief Thornpaw about a secret hatch but ended in chaos. The Loyalist soldier Embercap was presumed dead, only to miraculously return, his ideals hardened by the experience." },
-            { id: 'step3', title: "The Loyalty Test", status: 'completed', description: "Following Toadette's orders, the team joined Embercap and Mistveil on a mission into the sewers beneath the mayor's house. The chaotic mission, which involved illusory Iron Legion and Fawful Cultists, was revealed to be a test of loyalty. The team recovered a cryptic (and likely fake) note hinting at a larger conspiracy involving a 'Shadow Bloom Toad' and the 'Regal Airship'." },
-            { id: 'step4', title: "Into the Depths", status: 'completed', description: "Seeking a cure for Dan, the party has descended into the lava-filled sewers beneath the capital. They have encountered Iron Legion spies and a terrified soldier who warned of a 'blue dragon' guarding the path ahead." },
-            { id: 'step4a', title: "The Blue Dragon's Bargain", status: 'completed', description: "The battle with the 'blue dragon' turned into a bizarre negotiation. After Archie was briefly captured, reinforcements arrived with a two-eyed clone of him, created through forbidden necromancy by the Iron Legion. The erratic dragon, mistaking the clumsy clone for someone else, captured it and demanded a golden egg. Humpik successfully bargained for seventeen (unnecessary) mushrooms, which Markop now carries. The party escaped, leaving the clone—the 'two-eyed bandit'—behind, who desires Archie's third eye to become 'perfect'." },
-            { id: 'step4b', title: "The Path to the Castle", status: 'active', description: "With Dan healed after the harrowing ordeal in the capital sewers, the party is free to resume their main objective. The lead from Chief Thornpaw—a secret hatch in the Princess's chambers—remains their most promising clue. The sewer route to the castle proved to be a dead end, so they must now find an alternative way into Fawful's occupied fortress.", options: ["Attempt a frontal assault on the castle.", "Seek an alliance with a faction that has access, like the Koopa Troop or Peach Loyalists.", "Find another secret entrance mentioned in old castle blueprints."] },
-            { id: 'step5', title: "Confront the Truth", status: 'locked', description: "Once the secrets of the hatch are revealed, confront the true culprit or circumstances behind the Princess's death." }
+            { id: 'step1', title: "Infiltrate the Madhouse", status: 'completed', description: "Loyalist scouts Embercap and Mistveil successfully infiltrated Fawful's Grand Gala at the occupied castle to gather intelligence." },
+            { id: 'step2', title: "A Secret Revealed", status: 'completed', description: "During the gala, the scout Mistveil made contact with Chief Thornpaw, who revealed a stunning secret: a hidden hatch in the Princess's private chambers. This provided the Loyalists their first concrete lead, though the mission ended in chaos where Embercap was briefly presumed dead." },
+            { id: 'step3', title: "Sewer Infiltration Attempt", status: 'completed', description: "Following a lead from the assassinated mayor's office, Loyalist forces led by Embercap attempted to find a secret entrance to the castle through the sewers beneath Toad Town. The mission failed, the path was blocked, but they recovered a cryptic note hinting at a wider conspiracy." },
+            { id: 'step4', title: "The Siege of Toad Town", status: 'active', description: "Unable to find a covert route, Captain Toadette has changed tactics. The Loyalists have seized control of Toad Town, brutally suppressing any dissent and transforming it into a forward operating base. Their current objective is to consolidate their power and prepare for a direct assault on Peach's Castle.", options: ["Continue fortifying Toad Town and training recruits for the siege.", "Launch scouting missions to find weaknesses in the castle's outer defenses.", "Attempt to sabotage Fawful's supply lines before the main assault begins."] },
+            { id: 'step5', title: "Breach the Castle", status: 'locked', description: "Launch the full-scale assault on Peach's Castle to find the secret hatch." },
+            { id: 'step6', title: "Confront the Truth", status: 'locked', description: "Once the secrets of the hatch are revealed, confront the true culprit or circumstances behind the Princess's death." }
         ]
     },
 };
