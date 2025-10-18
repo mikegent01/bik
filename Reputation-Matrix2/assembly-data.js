@@ -5,6 +5,299 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
     {
+        id: 'rodger_traitor_reveal',
+        order: 10239,
+        characterKey: 'rodger',
+        timestamp: 'Just Now',
+        content: `Creek found this. During the surgery. It was on him the whole time. He was one of them. He was a plant. All of this... it was a setup.`,
+        image: 'legion_insignia_card.png',
+        image_alt: "A small, blood-stained iron card bearing the insignia of the Iron Legion.",
+        likes: 899,
+        comments: [
+            { characterKey: 'toad_lee', text: '...Betrayed.' },
+            { characterKey: 'ryan', text: 'I KNEW IT. I KNEW SOMETHING WAS WRONG.' },
+            { characterKey: 'dan', text: 'What?! No...' }
+        ]
+    },
+    {
+        id: 'rodger_creek_surgery',
+        order: 10238,
+        characterKey: 'rodger',
+        timestamp: '5 minutes ago',
+        content: `We got him to Creek. We had to trade almost everything we had left. The operation is... happening. I can't watch. The sounds are bad enough.`,
+        likes: 310,
+        comments: []
+    },
+    {
+        id: 'bones_calls_out_lt',
+        order: 10237,
+        characterKey: 'bones',
+        timestamp: '10 minutes ago',
+        content: `Oh, I'm sorry, is your shiny cape getting crumpled, 'Capey'? You Legion types are all the same. All authority, no substance. Get over yourself.`,
+        likes: 560,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Insubordination will be noted, criminal.' }
+        ]
+    },
+    {
+        id: 'purple_t_my_house',
+        order: 10236,
+        characterKey: 'purple_t',
+        timestamp: '12 minutes ago',
+        content: `GET OUT OF MY HOUSE! THIS IS MY SHIP! MINE! YOU HAVE NO JURISDICTION HERE, LEGION SCUM! GET OUT!`,
+        likes: 411,
+        comments: [
+            { characterKey: 'generic_toad', text: 'Uh... I thought this was the Vigilance? When did he get a house?' }
+        ]
+    },
+    {
+        id: 'toad_lee_return_to_ship',
+        order: 10235,
+        characterKey: 'toad_lee',
+        timestamp: '15 minutes ago',
+        content: `We have returned to the airship. It is filled with steam and Iron Legion soldiers calling themselves the 'Royal Service'. They are... cooking. The situation remains volatile.`,
+        likes: 345,
+        comments: []
+    },
+    {
+        id: 'oracle_offers_rooms',
+        order: 10234,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '20 minutes ago',
+        content: `Such a trying evening for you all. Do not fret. Though this estate has proven... inhospitable, I have several others. A lovely summer home by the sea, perhaps? The reflections there are much calmer.`,
+        likes: 720,
+        comments: [
+            { characterKey: 'ryan', text: 'WE\'RE LEAVING.' }
+        ]
+    },
+    {
+        id: 'rodger_negotiation',
+        order: 10233,
+        characterKey: 'rodger',
+        timestamp: '22 minutes ago',
+        content: `We got him back. We talked them down. One of the soldiers kicked him down the stairs as a final 'parting gift'. He's hurt bad, but he's with us. We're getting out of here.`,
+        likes: 418,
+        comments: []
+    },
+    {
+        id: 'ryan_aftermath_of_darkness',
+        order: 10232,
+        characterKey: 'ryan',
+        timestamp: '25 minutes ago',
+        content: `The light is back. The two Archies are gone, locked behind a door. We're all bruised. A few of us are laughing, I think from shock. That was... insane. We need to go. NOW.`,
+        likes: 388,
+        comments: []
+    },
+    {
+        id: 'toad_lee_blind_chaos',
+        order: 10231,
+        characterKey: 'toad_lee',
+        timestamp: '28 minutes ago',
+        content: `Darkness. Complete and total. I can hear the clang of weapons hitting metal, the splintering of wood. We are fighting shadows. This is madness.`,
+        likes: 350,
+        comments: []
+    },
+    {
+        id: 'ryan_unleashes_darkness',
+        order: 10230,
+        characterKey: 'ryan',
+        timestamp: '30 minutes ago',
+        content: `ENOUGH! You want to play games in the dark?! FINE! LET'S PLAY!`,
+        likes: 512,
+        comments: []
+    },
+    {
+        id: 'purple_t_defends_waluigi_book',
+        order: 10229,
+        characterKey: 'purple_t',
+        timestamp: '32 minutes ago',
+        content: `Don't you talk about Waluigi's book! It was a very cool book! You wouldn't understand!`,
+        likes: 210,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! My book collection IS cool! Full of magnificent schemes and stylish poses!' }
+        ]
+    },
+    {
+        id: 'rodger_interrogation_fail',
+        order: 10228,
+        characterKey: 'rodger',
+        timestamp: '35 minutes ago',
+        content: `This interrogation is a joke. They ask about the staff, they ask about Archie. They don't care about the toad who was just eaten by a robot. And now L is screaming at Ryan about a book. We're losing it.`,
+        likes: 391,
+        comments: []
+    },
+    {
+        id: 'wario_business_update',
+        order: 10227,
+        characterKey: 'wario',
+        timestamp: '40 minutes ago',
+        content: `Observing the Iron Legion's... methods. Inefficient, but they get results. The temporal flux in this mansion is a potential gold mine. Releasing their prisoners is bad for business. Gotta see this play out. #WarioInvestigates`,
+        likes: 555,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Wario. Your involvement is noted. We will be having a discussion about your business practices.' }
+        ]
+    },
+    {
+        id: 'kamek_observes_wario',
+        order: 10226,
+        characterKey: 'kamek',
+        timestamp: '42 minutes ago',
+        content: `Mr. Wario makes an appearance, aligned with the Iron Legion. A curious alliance. Greed and Order, hand-in-hand. The political landscape of this realm grows more convoluted, and thus, more interesting.`,
+        likes: 412,
+        comments: []
+    },
+    {
+        id: 'toad_lee_library',
+        order: 10225,
+        characterKey: 'toad_lee',
+        timestamp: '45 minutes ago',
+        content: `We tracked them to the library. The Legion has Bones. They speak of bats, but the creatures in the shelves are... something else. Then a new player arrives. A greedy man in yellow. Wario.`,
+        likes: 401,
+        comments: []
+    },
+    {
+        id: 'ryan_robot_eats_toad',
+        order: 10224,
+        characterKey: 'ryan',
+        timestamp: '48 minutes ago',
+        content: `He tried to run. The robot Archie just... opened up. And pulled him inside. There was a sound. I'm going to be sick. And one of our own just HELPED the Legion grab Bones. We have a traitor.`,
+        likes: 489,
+        comments: []
+    },
+    {
+        id: 'iron_legion_report',
+        order: 10223,
+        characterKey: 'iron_legion_commando',
+        timestamp: '50 minutes ago',
+        content: `Primary target 'Orange Toad' not present. Have secured secondary targets for interrogation. Resistance encountered and suppressed. The mansion is under Legion control.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'Proceed. Extract the information. By any means necessary.' }
+        ]
+    },
+    {
+        id: 'bones_dream',
+        order: 10222,
+        characterKey: 'bones',
+        timestamp: '52 minutes ago',
+        content: `Everyone wants to BE something. A hero, a leader, a king. Me? My only dream is becoming Archie Miser. And I'm a hell of a lot closer than this cheap copy.`,
+        likes: 515,
+        comments: []
+    },
+    {
+        id: 'oracle_farewell',
+        order: 10221,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '55 minutes ago',
+        content: `Farewell. I’ll be reborn. This life is too depressing. May your Archie disappear without a trace.`,
+        likes: 910,
+        comments: [
+            { characterKey: 'toad_lee', text: 'What did he mean by that?' }
+        ]
+    },
+    {
+        id: 'ryan_oracle_broken',
+        order: 10220,
+        characterKey: 'ryan',
+        timestamp: '58 minutes ago',
+        content: `We already did this! He's broken! The Oracle is stuck in a loop, asking every single one of us the same stupid joke. This isn't a game, it's a glitch. I've had enough of this.`,
+        likes: 423,
+        comments: []
+    },
+    {
+        id: 'toad_lee_joke_success',
+        order: 10219,
+        characterKey: 'toad_lee',
+        timestamp: '1 hour ago',
+        content: `The Oracle repeated his query. This time, I understood the premise. 'The C.' His satisfaction was... unsettlingly immense. Now he is asking the others.`,
+        likes: 388,
+        comments: []
+    },
+    {
+        id: 'rodger_fake_staff',
+        order: 10218,
+        characterKey: 'rodger',
+        timestamp: '1 hour ago',
+        content: `The clone is back, and now he has a 'staff'. It's a fake. Too clean, no scratches. It's brand new. Another lie. What is the Oracle's game here?`,
+        likes: 440,
+        comments: []
+    },
+    {
+        id: 'ryan_robot_archie',
+        order: 10217,
+        characterKey: 'ryan',
+        timestamp: '1 hour ago',
+        content: `WHAT WAS THAT?! The Oracle clapped and a ROBOT ARCHIE walked out of the other room. A ROBOT. It just ate our food. This is the weirdest, most terrifying thing I have ever seen.`,
+        likes: 531,
+        comments: []
+    },
+    {
+        id: 'rodger_demands_proof',
+        order: 10216,
+        characterKey: 'rodger',
+        timestamp: '1 hour ago',
+        content: `This is a trap. L thinks the food is poisoned and for once I agree with him. I told the Oracle. If it's safe, HE can eat it. Take a piece from every plate. Let's see how confident he is then.`,
+        likes: 478,
+        comments: []
+    },
+    {
+        id: 'purple_t_accuses',
+        order: 10215,
+        characterKey: 'purple_t',
+        timestamp: '1 hour ago',
+        content: `You're all fools! Sitting down to eat with this... thing! The food is obviously poisoned! You're so weak, so desperate for a moment of peace you'd swallow your own doom!`,
+        likes: 313,
+        comments: []
+    },
+    {
+        id: 'toad_lee_clone_lies',
+        order: 10214,
+        characterKey: 'toad_lee',
+        timestamp: '1 hour ago',
+        content: `We have questioned the duplicate. It claims the staff was given to Green T. A falsehood. Its voice trembled. It cannot maintain the deception under pressure.`,
+        likes: 415,
+        comments: []
+    },
+    {
+        id: 'ryan_fireball',
+        order: 10213,
+        characterKey: 'ryan',
+        timestamp: '1 hour ago',
+        content: `SOMEONE WHO LOOKS LIKE ARCHIE JUST WALKED IN AND THREW A FIREBALL AT US. It's not him. It's a copy. His eyes are empty.`,
+        likes: 498,
+        comments: []
+    },
+    {
+        id: 'rodger_bad_feeling',
+        order: 10212,
+        characterKey: 'rodger',
+        timestamp: '1 hour ago',
+        content: `Sitting in the dining hall. There's a carving on one of the chairs: 'Beware the T.' And every single candle is lit. It's too bright. This isn't a dinner. It's an interrogation.`,
+        likes: 450,
+        comments: []
+    },
+    {
+        id: 'oracle_pirate_joke',
+        order: 10211,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '1 hour ago',
+        content: `What’s a pirate’s favorite letter? ... Anyone? ... The C. It's the C. You see, because of the... sea.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'toad_lee', text: 'I do not understand the reference.' }
+        ]
+    },
+    {
+        id: 'toad_lee_arrival',
+        order: 10210,
+        characterKey: 'toad_lee',
+        timestamp: '1 hour ago',
+        content: `We have entered the Shadeward Mansion in search of Archie. We have not found him. We have found the Oracle. He is... unnerving. His attempts at humor are not successful.`,
+        likes: 422,
+        comments: []
+    },
+
+    {
         id: 'waluigi_manor_gloat_2',
         order: 10076,
         characterKey: 'waluigi',
