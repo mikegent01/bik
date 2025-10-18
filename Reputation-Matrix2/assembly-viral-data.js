@@ -296,7 +296,7 @@ export const VIRAL_POSTS = [
         content: `We have entered the Shadeward Mansion in search of Archie. We have not found him. We have found the Oracle. He is... unnerving. His attempts at humor are not successful.`,
         likes: 422,
         comments: []
-    }
+    },
 
     // =================================================================
     // === BRAMBLEHAVEN SIEGE ARC ===
