@@ -135,7 +135,7 @@ export const VIRAL_POSTS = [
         content: `Observing the Iron Legion's... methods. Inefficient, but they get results. The temporal flux in this mansion is a potential gold mine. Releasing their prisoners is bad for business. Gotta see this play out. #WarioInvestigates`,
         likes: 555,
         comments: [
-            { characterKey: 'detective_penny', text: 'Wario. Your involvement is noted. We will be having a discussion about your 'business' practices.' }
+            { characterKey: 'detective_penny', text: 'Wario. Your involvement is noted. We will be having a discussion about your business practices.' }
         ]
     },
     {
@@ -298,14 +298,6 @@ export const VIRAL_POSTS = [
         comments: []
     },
 
-    // =================================================================
-    // === BRAMBLEHAVEN SIEGE ARC ===
-    // This arc tells the story of the bloody battle for Bramblehaven,
-    // starting with the official "victory" and then flashing back to the brutal reality.
-    // =================================================================
-
-    // --- The Official Victory & Immediate Aftermath ---
-    // The story starts here: the world sees a victory, but the main players reveal the true cost.
     {
         id: 'wah_media_bramblehaven',
         order: 20080,
