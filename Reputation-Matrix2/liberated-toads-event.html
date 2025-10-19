@@ -94,6 +94,9 @@
           metrics: { morale: 20, threat: 70, security: 10, cohesion: 15 },
           choicesMade: []
         };
+        
+        // --- THIS IS THE FIX ---
+        // The missing stage data has been added.
         const missionData = {
             stage_1: {
                 dialogue: `<div class="dialogue-line"><span class="speaker">Toad Lee:</span> "A traitor. He walked among us, shared our fire, and wore our face. Now one of our own bleeds because we were blind."</div><div class="dialogue-line"><span class="speaker">Roger:</span> "Blindness has nothing to do with it. Our vetting process was non-existent. We trusted too easily. That ends now."</div><div class="dialogue-line"><span class="speaker">Ryan:</span> "What do they know? What did he tell them? Are they coming back for the rest of us?"</div>`,
@@ -103,6 +106,33 @@
                     { title: "Lee's Counsel: Martial Law", description: "Declare a state of emergency. Confine everyone to quarters, begin interrogations, and establish a rigid chain of command. Trust is a liability we can't afford.", effects: { morale: -20, threat: -10, security: +40, cohesion: -25 }, nextStage: 'stage_2_hardline', consequenceTitle: "Order Through Fear", consequenceText: "A grim silence falls over the toads. They obey, but their eyes are filled with fear and resentment. You have control, but you've sacrificed their spirit." },
                     { title: "Roger's Counsel: Hunker Down", description: "Focus all efforts on the wounded. Fortify the airship and seal the entrance. No one comes in, no one goes out until we know we're safe.", effects: { morale: +5, threat: +10, security: +20, cohesion: -10 }, nextStage: 'stage_2_defensive', consequenceTitle: "A Gilded Cage", consequenceText: "The ship becomes a fortress, but also a prison. The toads are safe from the outside world, but trapped with their own suspicions." },
                     { title: "Ryan's Counsel: Reaffirm the Vow", description: "Gather everyone. Address the betrayal head-on. Remind them of their shared purpose and the vow they swore. Rebuild trust, even if it feels impossible.", effects: { morale: +20, threat: +5, security: -20, cohesion: +30 }, nextStage: 'stage_2_unity', consequenceTitle: "A Flicker of Hope", consequenceText: "It's a difficult speech, but it resonates with some. The fear hasn't vanished, but for the first time since the raid, they look at each other as comrades, not potential enemies." }
+                ]
+            },
+            stage_2_hardline: {
+                dialogue: `<div class="dialogue-line"><span class="speaker">Toad Lee:</span> "The order is given. The interrogations have begun. The mole will talk. We will find out what the Legion knows."</div>`,
+                decisionTitle: 'Decision 2: The Price of Information',
+                decisionNarrative: 'The traitor is in custody, and the ship is under lockdown. The First Cohort is demanding a public execution. What is your next command?',
+                choices: [
+                    { title: "Public Trial & Execution", description: "Make an example of the traitor. Appease the calls for blood and show the Legion the price of infiltration.", effects: { morale: +15, threat: -10, security: +10, cohesion: -20 }, nextStage: 'end_mission', consequenceTitle: "Blood for Blood", consequenceText: "The execution is swift and brutal. The First Cohort is satisfied, but the original toads are horrified. You've enforced order, but at the cost of your soul." },
+                    { title: "Covert Interrogation", description: "Keep the traitor alive. Extract every piece of intel he has about Legion operations. Knowledge is more valuable than vengeance.", effects: { morale: -15, threat: -25, security: +15, cohesion: +5 }, nextStage: 'end_mission', consequenceTitle: "A Secret Kept", consequenceText: "The traitor disappears into the brig. You gain valuable intel, but the lack of public justice breeds resentment and conspiracy theories." }
+                ]
+            },
+            stage_2_defensive: {
+                dialogue: `<div class="dialogue-line"><span class="speaker">Roger:</span> "The ship is sealed. The wounded are stable. Now we wait. But paranoia is setting in. The toads are starting to see spies in every shadow."</div>`,
+                decisionTitle: 'Decision 2: The Waiting Game',
+                decisionNarrative: 'You are safe for now, but supplies are finite and tensions are rising. How do you maintain order while trapped in a metal box?',
+                choices: [
+                    { title: "Institute Strict Rationing", description: "Conserve resources above all. A well-fed crew is a luxury; a surviving crew is a necessity.", effects: { morale: -20, threat: +5, security: +5, cohesion: -15 }, nextStage: 'end_mission', consequenceTitle: "A Hungry Peace", consequenceText: "The crew is hungry and irritable, but your supplies will last significantly longer. You've bought time, but morale is at an all-time low." },
+                    { title: "Organize Internal Patrols", description: "Empower the toads to police themselves. Create watch schedules and security details to give them a sense of purpose and control.", effects: { morale: +10, threat: +0, security: +25, cohesion: +5 }, nextStage: 'end_mission', consequenceTitle: "A Watchful Peace", consequenceText: "The patrols give the toads a renewed sense of duty. They feel safer, but the constant vigilance adds to the atmosphere of suspicion." }
+                ]
+            },
+            stage_2_unity: {
+                dialogue: `<div class="dialogue-line"><span class="speaker">Ryan:</span> "They listened. Some of them, anyway. The Vow isn't completely broken, just... cracked. We need to do something to mend it."</div>`,
+                decisionTitle: 'Decision 2: A Step Toward Healing',
+                decisionNarrative: 'Words have laid the foundation, but action must build the house. What symbolic act will you choose to begin reuniting your people?',
+                choices: [
+                    { title: "Hold a Memorial", description: "Honor the toad who was lost to the robot in Shadeward Mansion. Unite the crew in shared grief, reminding them of their common loss.", effects: { morale: +25, threat: +5, security: -10, cohesion: +20 }, nextStage: 'end_mission', consequenceTitle: "A Shared Sorrow", consequenceText: "The memorial is a somber but powerful event. In their shared grief, the toads find a flicker of their old unity." },
+                    { title: "A Group Project", description: "Assign a critical ship-wide task that requires all factions to work together, such as repairing the damaged hull or reorganizing the cargo hold.", effects: { morale: +5, threat: +0, security: +0, cohesion: +30 }, nextStage: 'end_mission', consequenceTitle: "Shared Sweat", consequenceText: "It's awkward at first, but as they work together, the toads begin to talk. The shared task starts to mend the fractured bonds of their crew." }
                 ]
             },
             end_mission: {}
@@ -159,16 +189,13 @@
             document.getElementById('dialogue').innerHTML = stage.dialogue;
             const decisionContainer = document.getElementById('decision-container');
             
-            // --- THIS IS THE BULLETPROOF FIX ---
             const choicesHTML = stage.choices.map(choice => {
-                // 1. Escape the double quotes within the JSON string.
                 const choiceString = JSON.stringify(choice).replace(/"/g, "&quot;");
                 return `
                     <div class="decision-card">
                         <div class="decision-card-title">${choice.title}</div>
                         <div class="decision-card-desc">${choice.description}</div>
                         <div class="decision-actions">
-                            <!-- 2. Use double quotes for the HTML attribute itself. -->
                             <button class="btn btn-primary" data-choice="${choiceString}">Select</button>
                         </div>
                     </div>`;
