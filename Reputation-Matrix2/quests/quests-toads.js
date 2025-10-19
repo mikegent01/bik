@@ -201,19 +201,25 @@ export const TOADS_QUESTS = {
             { id: 'step4', title: "Out of the Frying Pan...", status: 'completed', description: "Eager was successfully extracted from the restaurant, but the party was forced to flee into the capital's sewers. They survived the ordeal with the Behir, healed Dan, and escaped the capital, completing their desperate mission." }
         ]
     },
-    'toads_a_place_to_call_home': {
+ 'toads_a_place_to_call_home': {
         id: 'toads_a_place_to_call_home',
         title: "A Place to Call Home",
         type: 'side',
-        is_updated: true,
         category: 'Liberated Toads',
+        is_updated: true,
         objective: "The discovery of an Iron Legion mole has shattered the illusion of safety aboard the Vigilance. The nomadic group is compromised and vulnerable. They must find and secure a permanent, defensible location to build a new home, 'Toad's Landing', before their enemies can strike again.",
         assignee: "Liberated Toads",
         assigneeKey: 'liberated_toads',
         status: "active",
         start_condition: "Talk to Dan after he has established himself as a leader ('Hold a Council' focus).",
         steps: [
-            { id: 'step1', title: "Scout Potential Locations", status: 'active', description: "With the decision made to find a permanent home, stealth teams must be sent out on foot to scout potential locations for 'Toad's Landing'. The Vigilance is being decommissioned for fortifications and cannot be used for aerial support.", options: ["An abandoned Imperial watchtower.", "A hidden, fertile valley.", "A defensible cave system."] },
+            { 
+                id: 'step1', 
+                title: "Organize Expeditions", 
+                status: 'active', 
+                description: "Following a successful vote, the Toads have a new doctrine: large, well-armed expeditions will be sent to scout potential locations. The focus is on safety through numbers and caution. Toad Lee and Roger are organizing the first teams.", 
+                options: ["Scout an abandoned Imperial watchtower.", "Scout a hidden, fertile valley.", "Scout a defensible cave system."] 
+            },
             { id: 'step2', title: "Clear the Dangers", status: 'locked', description: "The chosen location will not be uninhabited. Clear out any resident monsters, bandits, or hazards. Toad Lee will lead the assault." },
             { id: 'step3', title: "Found 'Toad's Landing'", status: 'locked', description: "With the location secured, begin construction on basic shelters, a well, and a palisade wall. Roger will oversee the logistics." }
         ]
@@ -239,16 +245,18 @@ export const TOADS_QUESTS = {
         title: "The Shattered Vow",
         type: 'faction',
         category: 'Liberated Toads',
+        is_updated: true,
         objective: "The integration of the 'First Cohort of Renewal' was already fragile. The discovery of an Iron Legion mole has shattered it completely. Paranoia is rampant, and accusations are flying. The Vow is meaningless without trust, and the leadership must act decisively to prevent a civil war.",
         assignee: "Liberated Toads",
         assigneeKey: 'liberated_toads',
-        is_updated: true,
         status: "active",
         start_condition: "Triggered after Black T reveals the toad trafficking operation.",
         steps: [
             { id: 'step1', title: "The Vow of Fury", status: 'completed', description: "After a magical catastrophe killed 13 of their number, the 'First Cohort of Renewal' swore a fragile vow of unity with the original Liberated Toads." },
-            { id: 'step2', title: "The Betrayal", status: 'completed', description: "A group of toads was lured into a trap at Shadeward Mansion. The subsequent discovery of an Iron Legion mole among them has broken the fragile peace. The Vow is shattered." },
-            { id: 'step3', title: "The Witch Hunt", status: 'active', description: "The First Cohort, led by 'L', is demanding justice and has begun their own brutal interrogations to root out other potential spies. Toad Lee and Roger must restore order before the faction devours itself.", options: ["Publicly try and execute the mole to appease the Cohort.", "Imprison the mole and conduct a thorough, fair investigation to find any co-conspirators.", "Declare martial law and disarm the First Cohort to prevent further violence."] }
+            { id: 'step2', title: "The Betrayal", status: 'completed', description: "A group of toads was lured into a trap at Shadeward Mansion. The subsequent discovery of an Iron Legion mole among them has broken the fragile peace." },
+            { id: 'step3', title: "The Vote for the Moles", status: 'completed', description: "A vote was held to decide the fate of the escaped moles. Archie's proposal for execution was defeated by Ryan's counter-proposal to capture and interrogate them." },
+            { id: 'step4', title: "A New Doctrine", status: 'completed', description: "In a second major vote, Dan's counter-proposal for cautious, large-scale expeditions was overwhelmingly approved, defeating Archie's more reckless plan. This has solidified Dan's recovering leadership and set a new, unified strategy for the cohort."},
+            { id: 'step5', title: "The Hunt for Knowledge", status: 'active', description: "With a new sense of purpose, the cohort's primary mission is to track down the traitors, The Mole and Gerick, and capture them alive for 'arcane scrutiny and interrogation' to uncover the full extent of the Iron Legion's infiltration." }
         ]
     },
 };

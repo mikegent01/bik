@@ -4,6 +4,60 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
+// Add these to the top of the WAHBOOK_POSTS array
+
+    {
+        id: 'dan_scavenging_vote_win',
+        order: 10252,
+        characterKey: 'dan',
+        timestamp: 'Just Now',
+        content: `The proposal has passed. Thank you. We will not send our people out to die in small, scattered groups. Our strength is in our numbers and our caution. From now on, we move as one, protected and prepared. No more needless sacrifices.`,
+        likes: 412,
+        comments: [
+            { characterKey: 'toad_lee', text: 'The correct decision was made. We will enforce this.' },
+            { characterKey: 'ryan', text: 'Wisdom has prevailed.' }
+        ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'archie_scavenging_vote_loss',
+        order: 10251,
+        characterKey: 'archie',
+        timestamp: '2 minutes ago',
+        content: `So the consensus is... 'be careful'. Groundbreaking. My plan was faster. But fine. I'll play along with the 'overwhelming force' strategy. Don't come crying to me when it takes a month to find one rusty wrench.`,
+        likes: 255,
+        comments: [
+            { characterKey: 'bones', text: 'More walking for less profit. Figures.' }
+        ]
+    },
+    {
+        id: 'speaker_l_vote_reaction',
+        order: 10250,
+        characterKey: 'speaker_l',
+        timestamp: '5 minutes ago',
+        content: `The First Cohort stands with Dan's proposal. The preservation of our people is paramount. However, our secondary mandate remains: these expeditions will gather intelligence on our enemies. Safety will serve the cause of justice.`,
+        likes: 350,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'generic_toad_scavenging_relief',
+        order: 10249,
+        characterKey: 'generic_toad',
+        timestamp: '10 minutes ago',
+        content: `Thank goodness! I was so scared I'd be picked for one of those small scouting groups. Going out in a big, well-armed team sounds so much safer. It feels like we're finally thinking about protecting each other again.`,
+        likes: 288,
+        comments: []
+    },
+    {
+        id: 'roger_vote_efficiency',
+        order: 10248,
+        characterKey: 'roger',
+        timestamp: '12 minutes ago',
+        content: `Analysis complete: The previous resource acquisition model resulted in an unacceptable rate of personnel attrition. Dan's new protocol improves operational security and minimizes inefficient losses. It is the logistically superior strategy. I endorse it fully.`,
+        likes: 198,
+        comments: []
+    },    
     {
         id: 'rodger_traitor_reveal',
         order: 10239,

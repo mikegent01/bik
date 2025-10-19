@@ -6,11 +6,11 @@ export const CHARACTER_RELATIONS = {
         'humpik': { type: 'transactional', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things, and apparently, for finding heavy planks. Points in the right direction and he goes." },
         'bowser': { type: 'transactional', text: "Archie on Bowser: He can yell all he wants about 'three eyes'. I'm the one who gets things done. He's just another would-be king, a temporary, powerful convenience whose only purpose is to smash the Empire." },
         'remi': { type: 'transactional', text: "Archie on Remi: FNG is a surprisingly useful pawn. A little gullible, maybe. Helped pull her from that balcony wreckage. She's got potential... to be a great distraction." },
-        'dan': { type: 'intrigue', text: "Archie on Dan: Creek told me everything. The staff, his arm... Dan being shrunken. Why didn't he tell me? He's hiding, and that loudmouth Green T is calling him out. I need to figure out what's really going on with him." },
+        'dan': { type: 'rivalry', text: "Archie on Dan: The kid's sappy speech about 'souls' won them over. Fine. His plan is slow and boring, but it passed. I'm still the one who makes the final call, but for now... we'll try it his way. It's amusing, in a pathetic sort of way." },
         'toad_lee': { type: 'transactional', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
         'eager': { type: 'transactional', text: "Archie on Eager: So he's a bartender for some glowing weirdo? Found him in that wrecked glass house. He's still a mess. Pulled him out of there before he got himself killed. Progress, I guess." },
         'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
-        'ryan': { type: 'rivalry', text: "Archie on Ryan: He's watching the kid with the staff. Good. Competition makes things interesting. Maybe he'll learn something useful, like how to make a proper explosion." },
+        'ryan': { type: 'rivalry', text: "Archie on Ryan: The kid talks too much, but the group listened. Fine. Let's see if his 'arcane scrutiny' finds anything useful before I get bored and solve the problem my way." },
         'bones': { type: 'ally', text: "Archie on Bones: He gets it. The world's a trash fire. He's just trying to stay warm. Respectable." },
         'the_mole': { type: 'intrigue', text: "Archie on The Mole: So the Legion had a spy among my toads. Clever. Annoying, but clever. Now, who does he report to? That's the interesting part." },
         'oracle': { type: 'enemy', text: "Archie on The Oracle: That name... the star shard... I've dealt with his kind before. He's hiding something big. Another self-important mystic playing games. I'll enjoy breaking his toys." },
@@ -78,14 +78,13 @@ export const CHARACTER_RELATIONS = {
     // --- LIBERATED TOADS OPINIONS ---
     'dan': {
         'markop': { type: 'loyalty', text: "Dan on Markop: He is my teacher and protector. His strength is not just in his arms, but in his heart. I trust him completely." },
-        'archie': { type: 'distrust', text: "Dan on Archie: He knows I'm... smaller now. But not from me. I can't face him. I can't tell him how I failed with the staff. He wouldn't understand." },
-        'the_mole': { type: 'distrust', text: "Dan on The Mole: A traitor... another one. It feels like every time we try to build something, someone is there to tear it down from the inside. How did we not see it?"},
+        'archie': { type: 'ally', text: "Dan on Archie: He listened. He actually listened. He heard my plea and the will of our people and made the right choice, even if it wasn't his own. Maybe... maybe there's a chance for real unity after all." },        'the_mole': { type: 'distrust', text: "Dan on The Mole: A traitor... another one. It feels like every time we try to build something, someone is there to tear it down from the inside. How did we not see it?"},
     },
     'toad_lee': {
         'markop': { type: 'ally', text: "Toad Lee on Markop: A true commander. He is strong, and he leads from the front. I would follow him into any battle." },
         'archie': { type: 'transactional', text: "Toad Lee on Archie: He is a necessary evil. A wild dog that bites our enemies. Better to have him on our leash than against us." },
-        'dan': { type: 'loyalty', text: "Toad Lee on Dan: My friend is wounded, not just in body. The staff... it twisted him. I hold it now so he doesn't have to. I will protect him until he finds his way back." },
-        'oracle': { type: 'enemy', text: "Toad Lee on The Oracle: His games are an insult. He toys with time and people for his own amusement. He is an agent of chaos in a scholar's robes." },
+        'ryan': { type: 'ally', text: "Toad Lee on Ryan: He provided a clear objective. The mission is now to capture. That is an order I can understand and enforce." },        
+        'dan': { type: 'loyalty', text: "Toad Lee on Dan: His voice has returned. He spoke with the wisdom of a true leader, one who values the lives of his people. I was proud to stand with him. The Vow feels stronger today." },        'oracle': { type: 'enemy', text: "Toad Lee on The Oracle: His games are an insult. He toys with time and people for his own amusement. He is an agent of chaos in a scholar's robes." },
         'the_mole': { type: 'enemy', text: "Toad Lee on The Mole: He broke the vow. Betrayed his brothers. There is no greater crime. He will answer for it." },
         'iron_legion': { type: 'enemy', text: "Toad Lee on The Iron Legion: They sent a spy into our ranks. They orchestrated this pain. They are without honor." }
     },
@@ -94,7 +93,14 @@ export const CHARACTER_RELATIONS = {
         'the_mole': { type: 'enemy', text: "Roger on The Mole: A catastrophic failure in operational security. His presence invalidates all prior intelligence. All personnel must be re-vetted." },
         'iron_legion': { type: 'enemy', text: "Roger on The Iron Legion: Their willingness to use infiltration tactics confirms they are a sophisticated and dangerous enemy. Standard protocols are insufficient." }
     },
+    'speaker_l': {
+        'dan': { type: 'ally', text: "Speaker L on Dan: His proposal aligns with our need to preserve our numbers. A leader who protects his people is one we can work with. For now." }
+    },
+    'bones': {
+        'dan': { type: 'neutral', text: "Bones on Dan: The kid's plan is less efficient than mine, but it's better than Archie's. Fewer funerals is good for morale, I guess. It'll do." }
+    },    
     'ryan': {
+        'archie': { type: 'distrust', text: "Ryan on Archie: His methods are direct, but short-sighted. He sees only the immediate threat. I'm relieved the cohort chose a path of knowledge over simple, bloody retribution." },        
         'oracle': { type: 'enemy', text: "Ryan on The Oracle: The temporal energy in that mansion... it was wrong. Twisted. He's not just observing time, he's breaking it. The robot, the clone... it's a perversion of arcane principles." },
         'the_mole': { type: 'distrust', text: "Ryan on The Mole: I didn't sense it. His intent was completely shielded. It's... unsettling. What other energies are people hiding from me?" },
         'iron_legion': { type: 'enemy', text: "Ryan on The Iron Legion: They create mockeries of life, clones and robots. They are no better than necromancers. They must be stopped." }
