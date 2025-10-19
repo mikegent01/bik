@@ -8,6 +8,7 @@ import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
 import { NPC_RESPONSES } from './npc-responses.js';
 import { GUILD_DATA, CHARTER_DATA } from './guilds-data.js';
+import { CHARACTER_MECHANICS } from './character-special-systems.js';
 import { renderIntelAndRumors } from './assembly-intel-system.js';
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
@@ -102,7 +103,38 @@ function renderCreatePostBox() {
     return `<div class="create-post-container"><div class="create-post-header"><img src="${user.portrait}" alt="Your profile picture" class="create-post-pfp"><button class="create-post-input">What's on your mind, ${user.name.split(' ')[0]}?</button></div></div>`;
 }
 
+// THIS IS THE CORRECTED FUNCTION
+function renderChaosAgentWidget() {
+    const characterKey = 'archie';
+    // Access the data through the imported CHARACTER_MECHANICS object
+    const specialMechanic = CHARACTER_MECHANICS[characterKey]; 
+    if (!specialMechanic) return '';
 
+    const levelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level) || specialMechanic.levels[0];
+    const nextLevelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level + 1);
+    const infamyPercentage = nextLevelInfo ? Math.min(100, (specialMechanic.current_infamy / nextLevelInfo.infamy_threshold) * 100) : 100;
+
+    const infamyLogHTML = specialMechanic.log.slice().reverse().map(entry => 
+        `<li>+${entry.infamy} Infamy: <em>${entry.reason}</em></li>`
+    ).join('');
+
+    return `
+        <div class="profile-sidebar-widget special-mechanic-widget">
+            <h4>${specialMechanic.icon} ${specialMechanic.title}</h4>
+            <h5 class="mechanic-subtitle">Operator: Archie Miser</h5>
+            <div class="infamy-meter" title="${specialMechanic.current_infamy} / ${nextLevelInfo ? nextLevelInfo.infamy_threshold : 'MAX'} Infamy">
+                <div class="infamy-bar" style="width: ${infamyPercentage}%;"></div>
+                <span class="infamy-text">${specialMechanic.current_infamy} Infamy</span>
+            </div>
+            <p class="infamy-level-title">${levelInfo.name}</p>
+            <p class="mechanic-description">${specialMechanic.description}</p>
+            <details class="infamy-log-details">
+                <summary>Infamy Log</summary>
+                <ul>${infamyLogHTML}</ul>
+            </details>
+        </div>
+    `;
+}
 
 function renderMainFeed() {
     if (!feedContainer) return;
@@ -111,51 +143,18 @@ function renderMainFeed() {
     feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderChaosAgentWidget()}</aside></div>`;
 }
 
-// --- THIS IS THE CORRECTED FUNCTION ---
 function renderEvent(event) {
-    // FIX: Use (event.attendees || []) to provide an empty array if attendees is undefined.
-    // This prevents the .map() call from crashing.
     const attendeesHTML = (event.attendees || []).map(attendee => {
         const character = getCharacterData(attendee.characterKey);
-        const hostClass = attendee.host ? 'event-host' : '';
-        return `
-            <div class="attendee-card ${hostClass}">
-                <img src="${character.portrait}" alt="${character.name}" class="attendee-pfp">
-                <div class="attendee-info">
-                    <span class="attendee-name">${character.name}</span>
-                    <p class="attendee-justification">${attendee.justification}</p>
-                </div>
-            </div>
-        `;
+        return `<div class="attendee-card ${attendee.host ? 'event-host' : ''}"><img src="${character.portrait}" alt="${character.name}" class="attendee-pfp"><div class="attendee-info"><span class="attendee-name">${character.name}</span><p class="attendee-justification">${attendee.justification}</p></div></div>`;
     }).join('');
-
     const newsPosts = (event.news_ids || []).map(id => WAHBOOK_POSTS.find(p => p.id === id)).filter(Boolean);
     const regularPosts = (event.post_ids || []).map(id => WAHBOOK_POSTS.find(p => p.id === id)).filter(Boolean);
     const dynamicPosts = WAHBOOK_POSTS.filter(p => p.eventId === event.id && !(event.news_ids || []).includes(p.id));
     const newsHTML = newsPosts.length > 0 ? newsPosts.map(p => renderFeedPost(p)).join('') : '';
     const postsHTML = [...regularPosts, ...dynamicPosts].length > 0 ? [...regularPosts, ...dynamicPosts].map(p => renderFeedPost(p)).join('') : '';
-    
-    // Add a check to only show the attendees section if there are any
     const attendeesSectionHTML = attendeesHTML ? `<div class="attendees-list-container"><h4>Key Attendees</h4><div class="attendees-list">${attendeesHTML}</div></div>` : '';
-
-    return `
-        <div class="event-container" data-event-id="${event.id}">
-            <div class="event-main-header">
-                <h3>${event.title}</h3>
-                <p>${event.description}</p>
-                <span class="event-toggle-icon">▼</span>
-            </div>
-            <div class="event-collapsible-body">
-                <div class="event-details-grid">
-                    ${attendeesSectionHTML}
-                    <div class="related-content-container">
-                        ${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}
-                        ${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    return `<div class="event-container" data-event-id="${event.id}"><div class="event-main-header"><h3>${event.title}</h3><p>${event.description}</p><span class="event-toggle-icon">▼</span></div><div class="event-collapsible-body"><div class="event-details-grid">${attendeesSectionHTML}<div class="related-content-container">${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}</div></div></div></div>`;
 }
 
 function renderEventsFeed() {
