@@ -108,6 +108,7 @@ export const CHARACTER_RELATIONS = {
     'bones': {
         'oracle': { type: 'enemy', text: "Bones on The Oracle: Another creep in a fancy house playing games. The whole dinner was a sham. At least he wasn't boring." },
         'the_mole': { type: 'enemy', text: "Bones on The Mole: The little rat. He helped them grab me. I won't forget that. He'll get what's coming to him." },
+        'dan': { type: 'neutral', text: "Bones on Dan: The kid's plan is less efficient than mine, but it's better than Archie's. Fewer funerals is good for morale, I guess. It'll do." },        
         'iron_legion': { type: 'enemy', text: "Bones on The Iron Legion: They talk a big game about order, but they're just thugs like everyone else. They asked their questions. They didn't like my answers. Tough." },
         'chai': { type: 'enemy', text: "Bones on Chai: She's a snake. I saw it in her eyes. Threatened her. She folded like a cheap suit. Weak." }
     },
