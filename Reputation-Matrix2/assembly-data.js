@@ -4,10 +4,8 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
-// Add these to the top of the WAHBOOK_POSTS array
-// Add these to the top of the WAHBOOK_POSTS array
 
-    {
+     {
         id: 'markop_in_the_rain',
         order: 20300,
         characterKey: 'markop',
@@ -30,7 +28,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'fng_raisins',
+        id: 'remi_raisins',
         order: 20298,
         characterKey: 'remi',
         timestamp: '5 minutes ago',
@@ -61,7 +59,8 @@ export const WAHBOOK_POSTS = [
         content: `...I thought it'd work.`,
         likes: 812,
         comments: [
-            { characterKey: 'dan', text: 'You saved him, Archie. You saved Eager. That worked.' }
+            { characterKey: 'dan', text: 'You saved him, Archie. You saved Eager. That worked.' },
+            { characterKey: 'markop', text: 'You saved him. But look at the cost.' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -79,7 +78,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'archie_fireball',
+        id: 'archie_fireball_final',
         order: 20294,
         characterKey: 'archie',
         timestamp: '15 minutes ago',
@@ -102,7 +101,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'dan_cure_wounds',
+        id: 'dan_cure_wounds_first',
         order: 20292,
         characterKey: 'dan',
         timestamp: '18 minutes ago',
@@ -121,7 +120,9 @@ export const WAHBOOK_POSTS = [
         timestamp: '20 minutes ago',
         content: `WAH-HA-HA! These rusty fools need a lesson in style! Let's heat things up! FIREBOLT! ...Hmm. Maybe that made it worse. MORE CHAOS!`,
         likes: 245,
-        comments: [],
+        comments: [
+            { characterKey: 'ryan', text: 'You are an agent of entropy.' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -137,14 +138,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'fng_bitten',
+        id: 'remi_bitten',
         order: 20289,
         characterKey: 'remi',
         timestamp: '24 minutes ago',
         content: `It bit me. My arm is turning orange. This is fine. Everything is fine.`,
         likes: 312,
         comments: [
-            { characterKey: 'dan', text: 'Remi, get back! Let us handle this!' }
+            { characterKey: 'dan', text: 'Remi, get back! Let us handle this!' },
+            { characterKey: 'dewdrop', text: 'That sounds like a potent corrosive agent! Please seek medical attention immediately!' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -161,13 +163,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'archie_bonfire',
+        id: 'archie_bonfire_start',
         order: 20287,
         characterKey: 'archie',
         timestamp: '27 minutes ago',
         content: `Rust monsters, huh? Let's see how you handle a little heat. Time to start a bonfire.`,
         likes: 399,
-        comments: [],
+        comments: [
+            { characterKey: 'markop', text: 'Archie, this is a glass house filled with dry plants. Perhaps a different approach?' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -187,7 +191,9 @@ export const WAHBOOK_POSTS = [
         timestamp: '35 minutes ago',
         content: `I was just trimming the hedges and a WYVERN fell out of the sky! It crashed in the garden! And the tall purple guy fell off! What is HAPPENING at this manor?!`,
         likes: 158,
-        comments: [],
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Mind your own business, you nosy mushroom!' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -203,14 +209,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'fng_shoots_wyvern',
+        id: 'remi_shoots_wyvern',
         order: 20283,
         characterKey: 'remi',
         timestamp: '38 minutes ago',
         content: `Big green thing in the sky. I shot it. It fell down.`,
         likes: 502,
         comments: [
-            { characterKey: 'green_t', text: '...Nice shot.' }
+            { characterKey: 'green_t', text: '...Nice shot.' },
+            { characterKey: 'roger', text: 'Excellent trigger discipline.' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -221,11 +228,13 @@ export const WAHBOOK_POSTS = [
         timestamp: '40 minutes ago',
         content: `WHO SHOT US?! I was having a perfectly civil mid-air business negotiation!`,
         likes: 319,
-        comments: [],
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! And I was about to close the deal!' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'markop_statue',
+        id: 'markop_statue_observation',
         order: 20281,
         characterKey: 'markop',
         timestamp: '45 minutes ago',
@@ -235,13 +244,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'eager_too_heavy',
+        id: 'eager_too_heavy_monster',
         order: 20280,
         characterKey: 'eager',
         timestamp: '50 minutes ago',
         content: `I tried to pick up one of the rust monster bodies for Ryan to study but... it's SO heavy! It's like it's made of solid lead! And my arms feel all tingly now. Weird.`,
         likes: 119,
-        comments: [],
+        comments: [
+            { characterKey: 'ryan', text: 'Fascinating. Perhaps its biology is silicon or iron-based.' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -257,7 +268,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'fawful_amused',
+        id: 'fawful_amused_by_breakfast',
         order: 20278,
         characterKey: 'fawful',
         timestamp: '55 minutes ago',
@@ -280,7 +291,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'dan_warns_bowser',
+        id: 'dan_warns_bowser_food',
         order: 20276,
         characterKey: 'dan',
         timestamp: '1 hour ago',
@@ -299,12 +310,13 @@ export const WAHBOOK_POSTS = [
         content: `Breakfast is served! Found some delicious-looking fresh meat in the kitchen! A bit tough to cut, but I'm sure it's delicious! Come and get it!`,
         likes: 45,
         comments: [
-            { characterKey: 'remi', text: 'Is that... clicking?' }
+            { characterKey: 'remi', text: 'Is that... clicking?' },
+            { characterKey: 'dan', text: 'Wait! DON\'T EAT THAT!' }
         ],
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_breakfast',
+        id: 'humpik_ready_for_breakfast',
         order: 20274,
         characterKey: 'humpik',
         timestamp: '1 hour ago',
@@ -324,7 +336,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'remi_ignores_fight',
+        id: 'remi_ignores_fight_for_food',
         order: 20272,
         characterKey: 'remi',
         timestamp: '1 hour ago',
@@ -336,13 +348,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'smash_door',
+        id: 'toad_smashes_door',
         order: 20271,
         characterKey: 'generic_toad',
         timestamp: '1 hour ago',
         content: `The door was locked so I smashed it open with my mace! Problem solved! Time for breakfast!`,
         likes: 130,
-        comments: [],
+        comments: [
+            { characterKey: 'remi', text: '...Thanks, I guess.' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -352,7 +366,9 @@ export const WAHBOOK_POSTS = [
         timestamp: '1 hour ago',
         content: `Woke up. The door is locked. From the outside. My roommate is telling me about breakfast. I can't get out. This isn't creepy at all.`,
         likes: 250,
-        comments: [],
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! A classic haunted house trope! Magnificent!' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -372,7 +388,9 @@ export const WAHBOOK_POSTS = [
         timestamp: '2 hours ago',
         content: `The Oracle's manor is burning. Lord Bowser is inside. As is the purple fool, the three-eyed one, and a host of other variables. This is either a disaster or a magnificent opportunity to remove several thorns at once. I shall continue to observe.`,
         likes: 388,
-        comments: [],
+        comments: [
+            { characterKey: 'bowser', text: 'I BETTER NOT BE ONE OF THE THORNS YOU WANT REMOVED, KAMEK.' }
+        ],
         rumorId: 'greenhouse_inferno'
     },
     {
@@ -380,11 +398,11 @@ export const WAHBOOK_POSTS = [
         order: 20267,
         characterKey: 'detective_penny',
         timestamp: '3 hours ago',
-        content: `Case Notes: Receiving reports of a major fire at Raventree Manor, a location already linked to a decades-old cold case. Waluigi, Bowser, and Archie Miser are all reported to be present. That's not a party, that's a list of primary suspects for... well, everything. This requires a closer look.`,
+        content: `Case Notes: Receiving reports of a major fire at Raventree Manor, a location already linked to a decades-old cold case. Waluigi, Bowser, and Archie Miser are all reported to be present. That's not a party, that's a list of primary suspects for... well, everything. This requires a closer look. #GreenhouseInferno`,
         likes: 412,
         comments: [],
         rumorId: 'greenhouse_inferno'
-    },
+    },   
     {
         id: 'dan_scavenging_vote_win',
         order: 10252,

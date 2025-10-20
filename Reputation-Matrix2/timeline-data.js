@@ -43,4 +43,26 @@ export const HISTORICAL_TIMELINE = [
     { date: "1040 IE (1040 BF), Day 16", title: "Betrayal on the Airship", description: "Returning to the Vigilance, the toads found it overrun by Iron Legion 'Royal Service' members. An intense confrontation erupted, and the rescued toad was taken to the mercenary Creek for emergency surgery. During the operation, an Iron Legion insignia was discovered on the wounded toad, exposing him as a plant and revealing the entire mansion raid was a setup.", icon: "icon_focus.png", category: "Recent Event" },
     {date: "1040 IE (1040 BF), Day 16",title: "The Scavenging Doctrine Vote",description: "A vote was held to determine the Liberated Toads' resource gathering strategy. Archie's proposal for small, high-risk teams was overwhelmingly defeated by Dan's counter-proposal for larger, more cautious expeditions. The vote marks a significant return to influence for Dan and a strategic shift for the faction towards safety and unity.",icon: "icon_treaty.png",category: "Political"}, 
     {date: "1040 IE (1040 BF), Day 16",title: "The Scavenging Doctrine Vote",description: "A vote was held to determine the Liberated Toads' resource gathering strategy. Archie's proposal for small, high-risk teams was overwhelmingly defeated by Dan's counter-proposal for larger, more cautious expeditions. The vote marks a significant return to influence for Dan and a strategic shift for the faction towards safety and unity.",icon: "icon_treaty.png",category: "Political"},
+    { type: 'era_header', title: 'Day 17: The Greenhouse Inferno' },
+    { 
+        date: "Day 17", 
+        title: "A Chaotic Morning", 
+        description: "The day at Raventree Manor begins with chaos. After being locked in their room, Remi and another toad break out only to find Markop skirmishing with a shadow creature. The party's breakfast is ruined when they discover they are eating the remains of a rust monster, causing Bowser's teeth to begin corroding.", 
+        icon: "icon_focus.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: "Day 17", 
+        title: "The Wyvern Crash & Greenhouse Trap", 
+        description: "Remi shoots down a wyvern carrying Waluigi and Green T. The confrontation moves to a dilapidated greenhouse, where the party is ambushed by a swarm of rust monsters. Green T and the Oracle lock the doors, trapping the party inside with the creatures and a rapidly spreading fire.", 
+        icon: "icon_war.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: "Day 17", 
+        title: "Fireball and Aftermath", 
+        description: "In a desperate battle, Dan casts his first independent healing spell on Archie. Trapped and surrounded, Archie uses a massive fireball to destroy the remaining monsters, causing the greenhouse to collapse. Markop and Waluigi rescue the unconscious survivors from the ashes. Green T reappears, giving Markop a mysterious key and a cryptic offer to uncover the mansion's secrets.", 
+        icon: "icon_magic.png", 
+        category: "Recent Event" 
+    }
 ];
