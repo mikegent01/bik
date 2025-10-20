@@ -5,7 +5,386 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
 // Add these to the top of the WAHBOOK_POSTS array
+// Add these to the top of the WAHBOOK_POSTS array
 
+    {
+        id: 'markop_in_the_rain',
+        order: 20300,
+        characterKey: 'markop',
+        timestamp: 'Just Now',
+        content: `The fire is out. The rain is washing away the ash. Everyone is alive, somehow. But the cost... Archie's final act was one of desperation, not victory. And Green T... he's playing a game I do not understand. He gave me a key. A key to what? More secrets? This house is a wound that will not close.`,
+        likes: 121,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_offers_key',
+        order: 20299,
+        characterKey: 'green_t',
+        timestamp: '2 minutes ago',
+        content: `Trust is a currency. I've made a down payment. Let's see if the paladin is smart enough to invest it. The real game starts tonight.`,
+        likes: 277,
+        comments: [
+            { characterKey: 'the_broker', text: 'An interesting move. The market for Imperial keys just saw a spike.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'fng_raisins',
+        order: 20298,
+        characterKey: 'remi',
+        timestamp: '5 minutes ago',
+        content: `The fire turned my grapes into raisins. The rain turned them back into grapes. This place is weird.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'eager', text: 'Magic grapes! Can I try one?!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_soot_and_rust',
+        order: 20297,
+        characterKey: 'bowser',
+        timestamp: '8 minutes ago',
+        content: `I'M ALIVE! But I'm covered in soot, my everything aches, and my mouth still tastes like a rusty pipe. That was NOT PORK. I'm going to find that stupid toad who cooked it and... and... make him watch me eat a REAL steak.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'kamek', text: 'A harrowing experience, Your Viciousness. I shall prepare a volcanic rock for you to rest upon.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_aftermath_thought',
+        order: 20296,
+        characterKey: 'archie',
+        timestamp: '10 minutes ago',
+        content: `...I thought it'd work.`,
+        likes: 812,
+        comments: [
+            { characterKey: 'dan', text: 'You saved him, Archie. You saved Eager. That worked.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_freezes_fire',
+        order: 20295,
+        characterKey: 'waluigi',
+        timestamp: '12 minutes ago',
+        content: `WAH! And for my final act! A magnificent cone of cold to extinguish the flames! You see? The fire was merely an appetizer for my brilliant, show-stopping finale! You're all welcome! Betsy is fine, by the way. Just a little shaken.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'markop', text: 'You helped start it with a firebolt, you purple menace.' },
+            { characterKey: 'waluigi', text: 'Details, details! It\'s all part of the performance!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_fireball',
+        order: 20294,
+        characterKey: 'archie',
+        timestamp: '15 minutes ago',
+        content: `FIREBALL!`,
+        likes: 1205,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'The energy readings were off the charts! Magnificent!' },
+            { characterKey: 'archmage_theron', text: 'Unsanctioned. Uncontrolled. Utterly reckless.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_calls_for_archie',
+        order: 20293,
+        characterKey: 'bowser',
+        timestamp: '16 minutes ago',
+        content: `Three-eyes! Grab my hand! The whole place is coming down!`,
+        likes: 388,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_cure_wounds',
+        order: 20292,
+        characterKey: 'dan',
+        timestamp: '18 minutes ago',
+        content: `I... I did it. A real spell. It wasn't the staff. It was me.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'archie', text: 'You did good, kid.' },
+            { characterKey: 'toad_lee', text: 'Your training bears fruit.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_firebolt_help',
+        order: 20291,
+        characterKey: 'waluigi',
+        timestamp: '20 minutes ago',
+        content: `WAH-HA-HA! These rusty fools need a lesson in style! Let's heat things up! FIREBOLT! ...Hmm. Maybe that made it worse. MORE CHAOS!`,
+        likes: 245,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'eager_reckless_charge',
+        order: 20290,
+        characterKey: 'eager',
+        timestamp: '22 minutes ago',
+        content: `They're swarming Archie! I have to help! FOR THE VIGILANCE!`,
+        likes: 178,
+        comments: [
+            { characterKey: 'archie', text: 'Kid, no, wait-!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'fng_bitten',
+        order: 20289,
+        characterKey: 'remi',
+        timestamp: '24 minutes ago',
+        content: `It bit me. My arm is turning orange. This is fine. Everything is fine.`,
+        likes: 312,
+        comments: [
+            { characterKey: 'dan', text: 'Remi, get back! Let us handle this!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_locks_door',
+        order: 20288,
+        characterKey: 'green_t',
+        timestamp: '25 minutes ago',
+        content: `Let's move this conversation somewhere... less flammable. And let's make sure our test subjects remain... focused. *click*`,
+        likes: 433,
+        comments: [
+            { characterKey: 'wario', text: 'Good. An uncontrolled experiment yields messy data.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_bonfire',
+        order: 20287,
+        characterKey: 'archie',
+        timestamp: '27 minutes ago',
+        content: `Rust monsters, huh? Let's see how you handle a little heat. Time to start a bonfire.`,
+        likes: 399,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_good_tomato',
+        order: 20286,
+        characterKey: 'bowser',
+        timestamp: '30 minutes ago',
+        content: `This whole greenhouse is rotten, but I found one perfect tomato! GWAHAHA! It's the little victories. Now I'm gonna eat it before anyone else... wait what's that clicking sound?`,
+        likes: 284,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'observer_wyvern_crash',
+        order: 20285,
+        characterKey: 'generic_toad',
+        timestamp: '35 minutes ago',
+        content: `I was just trimming the hedges and a WYVERN fell out of the sky! It crashed in the garden! And the tall purple guy fell off! What is HAPPENING at this manor?!`,
+        likes: 158,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_betsy',
+        order: 20284,
+        characterKey: 'waluigi',
+        timestamp: '36 minutes ago',
+        content: `WAH! STOP! DON'T HURT BETSY! She's a rental! Do you know how much the deposit is on a summoned wyvern?!`,
+        likes: 341,
+        comments: [
+            { characterKey: 'remi', text: 'It was coming right for us!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'fng_shoots_wyvern',
+        order: 20283,
+        characterKey: 'remi',
+        timestamp: '38 minutes ago',
+        content: `Big green thing in the sky. I shot it. It fell down.`,
+        likes: 502,
+        comments: [
+            { characterKey: 'green_t', text: '...Nice shot.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_shot_down',
+        order: 20282,
+        characterKey: 'green_t',
+        timestamp: '40 minutes ago',
+        content: `WHO SHOT US?! I was having a perfectly civil mid-air business negotiation!`,
+        likes: 319,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_statue',
+        order: 20281,
+        characterKey: 'markop',
+        timestamp: '45 minutes ago',
+        content: `The garden walkway is overgrown, almost hostile. Found a statue of the Oracle, but its face has been completely worn away by time or malice. A fitting monument for a man who seems to have lost himself.`,
+        likes: 211,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'eager_too_heavy',
+        order: 20280,
+        characterKey: 'eager',
+        timestamp: '50 minutes ago',
+        content: `I tried to pick up one of the rust monster bodies for Ryan to study but... it's SO heavy! It's like it's made of solid lead! And my arms feel all tingly now. Weird.`,
+        likes: 119,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_orange_t',
+        order: 20279,
+        characterKey: 'archie',
+        timestamp: '52 minutes ago',
+        content: `Morning, Orange T.`,
+        likes: 478,
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: '...' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'fawful_amused',
+        order: 20278,
+        characterKey: 'fawful',
+        timestamp: '55 minutes ago',
+        content: `I HAVE CHORTLES! The fools eat monsters for breakfast! And then their teeth rust! It is a buffet of foolishness, a salad of stupidity! My own evil plans have much better catering!`,
+        likes: 689,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_rust_teeth',
+        order: 20277,
+        characterKey: 'bowser',
+        timestamp: '58 minutes ago',
+        content: `...oops. My magnificent teeth... they feel... crunchy. And orange. This is NOT an improvement.`,
+        likes: 541,
+        comments: [
+            { characterKey: 'king_k_rool', text: 'Keheheh! Having some dental trouble, are we? Perhaps you should try a banana instead!' },
+            { characterKey: 'bowser', text: 'SHUT UP, CROC-FACE!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_warns_bowser',
+        order: 20276,
+        characterKey: 'dan',
+        timestamp: '1 hour ago',
+        content: `Stop. That’s not food — that’s poison. It's the rust monster from last night.`,
+        likes: 315,
+        comments: [
+            { characterKey: 'bowser', text: 'It looked like pork!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'clueless_toad_cook',
+        order: 20275,
+        characterKey: 'generic_toad',
+        timestamp: '1 hour ago',
+        content: `Breakfast is served! Found some delicious-looking fresh meat in the kitchen! A bit tough to cut, but I'm sure it's delicious! Come and get it!`,
+        likes: 45,
+        comments: [
+            { characterKey: 'remi', text: 'Is that... clicking?' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_breakfast',
+        order: 20274,
+        characterKey: 'humpik',
+        timestamp: '1 hour ago',
+        content: `GWAH! Time for breakfast! I could eat a whole rust monster! ...Wait.`,
+        likes: 240,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_shadow_fight',
+        order: 20273,
+        characterKey: 'markop',
+        timestamp: '1 hour ago',
+        content: `Something is stirring in the west hall. A shadow with claws. The Oracle is here as well, debating it. This house does not rest.`,
+        likes: 199,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_ignores_fight',
+        order: 20272,
+        characterKey: 'remi',
+        timestamp: '1 hour ago',
+        content: `Saw the centaur guy fighting a literal shadow monster in the hallway. We decided breakfast was more important. I'm very hungry.`,
+        likes: 489,
+        comments: [
+            { characterKey: 'markop', text: 'A little help would have been appreciated.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'smash_door',
+        order: 20271,
+        characterKey: 'generic_toad',
+        timestamp: '1 hour ago',
+        content: `The door was locked so I smashed it open with my mace! Problem solved! Time for breakfast!`,
+        likes: 130,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_locked_in',
+        order: 20270,
+        characterKey: 'remi',
+        timestamp: '1 hour ago',
+        content: `Woke up. The door is locked. From the outside. My roommate is telling me about breakfast. I can't get out. This isn't creepy at all.`,
+        likes: 250,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'broker_greenhouse_market',
+        order: 20269,
+        characterKey: 'the_broker',
+        timestamp: '2 hours ago',
+        content: `Market Correction: Reports of a significant structural failure at Raventree Manor. Insurance futures are plummeting. Demand for rust-proofing alchemy and wyvern rentals, however, is at an all-time high. My inbox is open for premium salvage rights.`,
+        likes: 512,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kamek_observes_greenhouse',
+        order: 20268,
+        characterKey: 'kamek',
+        timestamp: '2 hours ago',
+        content: `The Oracle's manor is burning. Lord Bowser is inside. As is the purple fool, the three-eyed one, and a host of other variables. This is either a disaster or a magnificent opportunity to remove several thorns at once. I shall continue to observe.`,
+        likes: 388,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'penny_greenhouse_fire',
+        order: 20267,
+        characterKey: 'detective_penny',
+        timestamp: '3 hours ago',
+        content: `Case Notes: Receiving reports of a major fire at Raventree Manor, a location already linked to a decades-old cold case. Waluigi, Bowser, and Archie Miser are all reported to be present. That's not a party, that's a list of primary suspects for... well, everything. This requires a closer look.`,
+        likes: 412,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
     {
         id: 'dan_scavenging_vote_win',
         order: 10252,

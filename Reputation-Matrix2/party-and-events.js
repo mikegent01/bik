@@ -101,6 +101,21 @@ export const RUMORS = [
         }
     },
     {
+        id: 'greenhouse_inferno',
+        title: "The Greenhouse Inferno",
+        time_ago: "Today",
+        description: "A massive explosion and fire erupted from the grounds of the haunted Raventree Manor. Eyewitnesses report a wyvern crash, a claustrophobic battle with metallic monsters, and a final, enormous fireball that destroyed the estate's greenhouse. Key figures like Waluigi, Bowser, and Archie Miser were present. The event has left the party scattered and wounded, showcasing their capacity for self-destruction.",
+        targets: ['archie', 'markop', 'humpik', 'bowser', 'remi', 'dan', 'eager', 'waluigi', 'green_t', 'self_reflection_oracle'],
+        effects: {
+            freelancer_underworld: 10,
+            cosmic_jesters: 15,
+            regal_empire: -15,
+            iron_legion: -15,
+            mages_guild: -20,
+            liberated_toads: -5
+        }
+    },
+    {
         id: 'dragon_slaying',
         title: "Dragon Slaying",
         time_ago: "Approx. 2 Months Ago",
