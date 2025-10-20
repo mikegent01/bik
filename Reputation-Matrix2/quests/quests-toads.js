@@ -33,19 +33,19 @@ export const TOADS_QUESTS = {
             { id: 'step3', title: "The Burden is Passed", status: 'failed', description: "Green T intervened in the chaos, severing Dan's arm to free him from the staff. Toad Lee then secured the volatile artifact, leaving Dan broken and defeated." }
         ]
     },
-    'dan_sword_and_spell': {
+'dan_sword_and_spell': {
         id: 'dan_sword_and_spell',
         title: "The Sword and the Spell",
         type: 'side',
         category: 'Personal - Dan',
-        objective: "Dan feels pulled between his warrior training from Markop and his magical studies. He seeks to find a way to merge the two paths by finding the lost tomb of a legendary 'Spellsword' champion.",
+        is_updated: true,
+        objective: "Dan feels pulled between his warrior training from Markop and his magical studies. After successfully casting 'Cure Wounds' on his own to save Archie, he now has the confidence to merge these paths by finding the lost tomb of a legendary 'Spellsword' champion.",
         assignee: "Dan",
         assigneeKey: 'dan',
-        status: "pending",
-        pending_condition: "Pending Activation: The party must first research the location of the Tomb of the Azure Knight using the ship's library or underworld contacts before they can travel there.",
-        start_condition: "Dan reaches Level 3.",
+        status: "active", // Quest is now active
+        motivation: "Successfully casting a healing spell under extreme pressure, without the staff's aid, has proven to Dan that his magical potential is his own. He is no longer just a warrior or a broken wielder of a cursed artifact; he is both. He now seeks the legacy of the Azure Knight not out of hope, but with conviction.",
         steps: [
-            { id: 'step1', title: "Find the Tomb", status: 'active', description: "Research ancient legends in the Vigilance's library or through contacts in the Freelancer Underworld to find the location of the Tomb of the Azure Knight, a warrior who perfectly blended swordplay and magic." },
+            { id: 'step1', title: "Find the Tomb", status: 'active', description: "Research ancient legends in the Vigilance's library or through contacts in the Freelancer Underworld to find the location of the Tomb of the Azure Knight." },
             { id: 'step2', title: "Pass the Trials", status: 'locked', description: "The tomb is protected by trials that test both martial prowess and magical intellect. Dan must overcome them to prove his worth." },
             { id: 'step3', title: "Claim the Legacy", status: 'locked', description: "Claim the Azure Knight's enchanted blade, which allows the wielder to channel spells through their weapon strikes." }
         ]
@@ -114,12 +114,25 @@ export const TOADS_QUESTS = {
             { id: 'step2', title: "The Confrontation", status: 'locked', description: "Infiltrate the warehouse and confront Krang. Will Toad Lee give in to his rage, or will he capture Krang and turn him over to the Oathbound Judges?" }
         ]
     },
-    
-    // --- EAGER'S QUESTS ---
-    'eager_lost_caravan': { /* ... No Changes ... */ },
-    'eager_message_of_hope': { /* ... No Changes ... */ },
-    'eager_the_performer': { /* ... No Changes ... */ },
 
+    
+
+    'eager_the_performer': {
+        id: 'eager_the_performer',
+        title: "The Performer's Past",
+        type: 'side',
+        category: 'Personal - Eager',
+        is_updated: true,
+        objective: "Eager's past as a circus performer comes back to haunt him when his cruel former Ringmaster shows up in a nearby town, using enslaved creatures for his act. Eager wants to free them.",
+        assignee: "Eager",
+        assigneeKey: 'eager',
+        status: "available",
+        motivation: "Eager cannot stand to see others suffer as he did. His reckless charge into the Greenhouse Inferno to save Archie was a new kind of performance—one of genuine bravery. This quest is about channeling that newfound courage to confront his past and use his skills to become a liberator.",
+        steps: [
+            { id: 'step1', title: "Infiltrate the Circus", status: 'active', description: "Use his old skills to get a job at the circus and identify where the enslaved creatures are being kept." },
+            { id: 'step2', title: "The Grand Distraction", status: 'locked', description: "Sabotage the main event with a spectacular, non-lethal performance using his whip, creating a diversion to free the creatures." }
+        ]
+    },
     // --- RYAN'S QUESTS ---
     'ryan_glimmer_of_past': {
         id: 'ryan_glimmer_of_past',
@@ -128,7 +141,6 @@ export const TOADS_QUESTS = {
         category: 'Personal - Ryan',
         objective: "Ryan's study of X.O.'s staff reveals a psychic echo within. He wants to perform a ritual to safely view the memories trapped inside, hoping to understand X.O.'s motivations.",
         assignee: "Ryan",
-        is_updated: true,
         assigneeKey: 'ryan',
         status: "available",
         motivation: "Ryan's scholarly curiosity drives him. After witnessing the Oracle's perversion of life with clones and robots at Shadeward Mansion, he feels a renewed urgency to understand the origins and motivations behind such powerful and corrupting artifacts before they can cause more harm.",
@@ -138,15 +150,28 @@ export const TOADS_QUESTS = {
             { id: 'step3', title: "The Vision", status: 'locked', description: "Witness a key memory from X.O.'s past that reveals her true motives and perhaps the source of her immense power." }
         ]
     },
-    'ryan_unwritten_spell': { /* ... No Changes ... */ },
-    'ryan_library_card': { /* ... No Changes ... */ },
-
+    'ryan_unwritten_spell': {
+        id: 'ryan_unwritten_spell',
+        title: "The Unwritten Spell",
+        type: 'side',
+        category: 'Personal - Ryan',
+        is_updated: true,
+        objective: "Ryan discovers a half-finished spellbook from a long-dead Mages' Guild Innovator. He believes he can complete the final, powerful spell, but it requires rare and dangerous components.",
+        assignee: "Ryan",
+        assigneeKey: 'ryan',
+        status: "available",
+        start_condition: "Ryan reaches Level 4.",
+        motivation: "After witnessing Archie's massive, uncontrolled fireball destroy the greenhouse, Ryan is more convinced than ever that raw power is not enough. He sees completing this complex, forgotten spell as a path to true mastery—a way to wield great power with precision and control, unlike the chaotic forces that endanger them all.",
+        steps: [
+            { id: 'step1', title: "The Components", status: 'active', description: "Gather the three components for the spell: the tear of a ghost, the spark from a living storm, and a word of power spoken by a dragon." },
+            { id: 'step2', title: "The Final Incantation", status: 'locked', description: "With the components gathered, Ryan must complete the spell's arcane matrix and attempt to cast it for the first time." }
+        ]
+    },
     // --- ROGER'S QUESTS ---
     'roger_one_last_job': {
         id: 'roger_one_last_job',
         title: "One Last Job",
         type: 'side',
-        is_updated: true,
         category: 'Personal - Roger',
         objective: "An old contact of Roger's from the Freelancer Underworld, a sly raccoon named 'Fingers', offers him a cut of a huge score: robbing a Regal Empire tax convoy. Roger is torn between his new life and the lure of a massive payday that could secure the Toads' future.",
         assignee: "Roger",
@@ -169,7 +194,6 @@ export const TOADS_QUESTS = {
         category: 'Personal - Bones',
         objective: "Bones feels a debt of honor to the Orcs who spared him, but now it's personal. After being captured and interrogated by the Iron Legion at Shadeward Mansion, he wants to repay his debt and get revenge by hijacking a Legion supply convoy and delivering the food to the starving Orc clan.",
         assignee: "Bones",
-        is_updated: true,
         assigneeKey: 'bones',
         status: "available",
         motivation: "Bones lives by a harsh code, and a debt is a debt. But now he has a score to settle. The Orcs showed him mercy, while the Legion showed him a cage. He's compelled to repay one and punish the other in the only way he knows how: with violence.",
@@ -186,7 +210,6 @@ export const TOADS_QUESTS = {
     'toads_rescue_eager': {
         id: 'toads_rescue_eager',
         title: "Rescue Eager",
-        is_updated: true,
         type: 'side',
         category: 'Liberated Toads',
         objective: "Eager was successfully extracted from the restaurant, but the party's escape led them into the treacherous, lava-filled sewers beneath the capital. With their guide revealed as a traitor and a monstrous Behir blocking the path, the new objective was simple: survive.",
@@ -206,7 +229,6 @@ export const TOADS_QUESTS = {
         title: "A Place to Call Home",
         type: 'side',
         category: 'Liberated Toads',
-        is_updated: true,
         objective: "The discovery of an Iron Legion mole has shattered the illusion of safety aboard the Vigilance. The nomadic group is compromised and vulnerable. They must find and secure a permanent, defensible location to build a new home, 'Toad's Landing', before their enemies can strike again.",
         assignee: "Liberated Toads",
         assigneeKey: 'liberated_toads',
@@ -245,7 +267,6 @@ export const TOADS_QUESTS = {
         title: "The Shattered Vow",
         type: 'faction',
         category: 'Liberated Toads',
-        is_updated: true,
         objective: "The integration of the 'First Cohort of Renewal' was already fragile. The discovery of an Iron Legion mole has shattered it completely. Paranoia is rampant, and accusations are flying. The Vow is meaningless without trust, and the leadership must act decisively to prevent a civil war.",
         assignee: "Liberated Toads",
         assigneeKey: 'liberated_toads',

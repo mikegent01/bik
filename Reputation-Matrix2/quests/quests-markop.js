@@ -17,6 +17,23 @@ export const MARKOP_QUESTS = {
             { id: 'step4', title: "The Conclave of Judgment", status: 'locked', description: "Force a formal conclave to present the evidence against Vale. The outcome will either reform the Order or see Markop and his allies branded as irredeemable heretics." }
         ]
     },
+'markop_serpents_key': {
+        id: 'markop_serpents_key',
+        title: "The Serpent's Key",
+        type: 'personal',
+        category: 'Personal - Markop',
+        is_updated: true,
+        objective: "In the aftermath of the Greenhouse Inferno, Green T provided Markop with a mysterious golden key, claiming it was an act of trust. He has offered a secret meeting to reveal what the mansion is truly hiding. Markop must decide whether to trust the manipulative toad or investigate the key's purpose on his own.",
+        assignee: "Markop",
+        assigneeKey: 'markop',
+        status: "active",
+        motivation: "Green T orchestrated a trap that nearly killed the party, all for a 'distraction'. His offer is almost certainly another manipulation. However, the key is the only concrete lead to understanding the Oracle's power and Green T's true endgame. Markop feels compelled by duty to see this through, despite the immense risk.",
+        steps: [
+            { id: 'step1', title: "The Offer", status: 'active', description: "Green T has offered a secret meeting to reveal the key's purpose. Markop must decide if he will attend, and if so, whether he will go alone or bring allies." },
+            { id: 'step2', title: "Unlock the Secret", status: 'locked', description: "Use the key to uncover the secret it protects within Raventree Manor." },
+            { id: 'step3', title: "Confront the Game Master", status: 'locked', description: "Once the truth is revealed, confront the true mastermind behind the mansion's mysteries—be it the Oracle, Green T, or someone else entirely." }
+        ]
+    },    
     'markop_paladins_penance': {
         id: 'markop_paladins_penance',
         title: "A Paladin's Penance",
@@ -103,11 +120,12 @@ export const MARKOP_QUESTS = {
         title: "An Unlikely Teacher",
         type: 'personal',
         category: 'Personal - Markop',
+        is_updated: true,
         objective: "Markop is a warrior, not a diplomat. To better lead the Liberated Toads and navigate the world's politics, he seeks out an unusual tutor: a retired Imperial diplomat living in exile.",
         assignee: "Markop",
         assigneeKey: 'markop',
         status: "available",
-        motivation: "Markop recognizes his own shortcomings. He knows that strength alone cannot protect the toads forever. He must learn the art of words and negotiation, even if it means learning from a representative of the institution he has come to despise.",
+        motivation: "Markop recognizes his own shortcomings. He knows that strength alone cannot protect the toads forever. After being blatantly manipulated by Green T during the Greenhouse Inferno, he understands more than ever that he must learn the art of words and negotiation, even if it means learning from a representative of the institution he has come to despise.",
         steps: [
             { id: 'step1', title: "Find the Exile", status: 'active', description: "Locate Ambassador Callista, who was exiled after a political scandal, now living in a quiet town in the neutral territories." },
             { id: 'step2', title: "The First Lesson", status: 'locked', description: "Callista agrees to teach him, but her first lesson is a difficult one: Markop must successfully negotiate a trade deal between two feuding merchant families using only his words." }

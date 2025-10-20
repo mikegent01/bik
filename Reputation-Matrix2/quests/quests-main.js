@@ -17,23 +17,34 @@ export const MAIN_QUESTS = {
             { id: 'step3', title: "Purge the Corruption", status: 'locked', description: "Apply the counter-measure and purge both the Iron Legion's seal and the chaotic sentience from the staff, restoring full power and security to the Vigilance." }
         ]
     },
-    'artifacts_of_balance': {
+'artifacts_of_balance': {
         id: 'artifacts_of_balance',
         title: "The Artifacts of Balance",
         type: 'main',
         category: 'Main Story',
-        is_updated: true, // ADDED
+        is_updated: true, // This quest has been updated
         objective: "Recover the Star of Radiance, Fire Crystal, and Mushroom of Life—three legendary artifacts that hold the power to restore balance to the world. However, the journey will be fraught with peril, as a powerful evil toad has obtained the Star of Radiance, ascending to godhood.",
         assignee: "Full Party",
         assigneeKey: 'full_party',
         status: "active",
         start_condition: "This quest was revealed in ancient texts found in the Vigilance's library.",
         steps: [
-            { id: 'step1', title: "The Star of Radiance – The Rise of a God", status: 'active', description: "This legendary artifact, known for its celestial energy, has already fallen into the hands of the Evil Toad. He has absorbed its power, becoming something far beyond mortal comprehension. His influence has begun warping reality itself—skies twist with unnatural storms, the land cracks, and the laws of magic shift unpredictably.", options: ["Find a way to weaken the Toad-God before challenging him directly.", "Seek out an ancient force that may counterbalance the power of the Star.", "Risk a head-on battle in his newly formed celestial domain."] },
-            { id: 'step1a', title: "The Oracle's Manor", status: 'active', description: "The haunted manor has been revealed as the sanctuary of 'Self Reflection - The Oracle', one of the Star Fragment bearers... (description truncated for brevity)" },
-            { id: 'step1b', title: "The Shadeward Betrayal", status: 'completed', description: "A group of Liberated Toads entered the nearby Shadeward Mansion seeking Archie. Instead, they were ensnared in a time-looping dinner party hosted by the Oracle. The event devolved into chaos with the appearance of an Archie clone, a robot double, and an Iron Legion raid led by Mr. Wario. The raid was a setup, facilitated by a traitor toad who helped capture Bones. After a desperate fight and negotiation, the survivors escaped, but their trust in each other is shattered, and the wounded traitor's fate hangs in the balance. The Oracle's parting words—'May your Archie disappear without a trace'—suggest a deeper, more sinister game is afoot.", options: ["This quest step is complete, but its consequences will affect all future actions."] },
+            { id: 'step1', title: "The Star of Radiance – The Rise of a God", status: 'active', description: "This legendary artifact has already fallen into the hands of the Evil Toad. He has absorbed its power, becoming something far beyond mortal comprehension. His influence has begun warping reality itself.", options: ["Find a way to weaken the Toad-God before challenging him directly.", "Seek out an ancient force that may counterbalance the power of the Star.", "Risk a head-on battle in his newly formed celestial domain."] },
+            { 
+                id: 'step1a', 
+                title: "The Madhouse at Raventree", 
+                status: 'completed', // This part of the story is now complete
+                description: "The party's stay at the Oracle's Manor culminated in a day of extreme violence. After Remi shot down a wyvern carrying Waluigi and Green T, the group was lured into a greenhouse and trapped by the Oracle and Green T. An ambush by rust monsters led to a chaotic battle in the burning structure, ending only when Archie unleashed a massive fireball, destroying the greenhouse to save Eager. The party survived but was left battered and scattered in the ashes.", 
+            },
+            {
+                id: 'step1b',
+                title: "The Serpent's Key",
+                status: 'active', // This is the new active objective
+                description: "In the aftermath of the greenhouse fire, Green T appeared and gave Markop a mysterious golden key, claiming it was a gesture of trust. He has offered to meet later to 'find out what the mansion's hiding.' The party is wounded and deeply suspicious, but the key represents their only lead to understanding the Oracle's true nature and Green T's endgame.",
+                options: ["Agree to meet Green T and trust his information.", "Refuse the meeting and attempt to investigate the purpose of the key independently.", "Ignore Green T's plot and confront the Oracle directly about the trap."]
+            },
             { id: 'step2', title: "The Fire Crystal – The Molten Depths", status: 'locked', description: "The Fire Crystal is hidden deep within a volcanic dungeon, guarded by an ancient fire dragon and its cult. They believe the crystal to be the heart of their god.", options: ["Infiltrate the cult and steal the crystal from within.", "Slay the dragon and take the crystal by force.", "Bargain with the dragon—what does an immortal beast truly desire?"] },
-            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings... (description truncated for brevity)" }
+            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings. The party must find a way to travel to the Wilderlands to retrieve it.", options: ["Pass the guardians' trials—tests of wisdom, strength, and sacrifice.", "Use magic or forbidden means to forcefully take the Mushroom.", "Bargain with the Elders—perhaps they desire something in return."] }
         ],
         finalDecision: { description: "Once all three artifacts are gathered, a choice must be made. Use them to restore balance, breaking the Toad-God’s power and healing the realm, or use them for yourself, risking corruption but ascending to a higher form of existence." }
     },
@@ -42,7 +53,6 @@ export const MAIN_QUESTS = {
         title: "The Princess's Lasting Shadow",
         type: 'main',
         category: 'Main Story',
-        is_updated: true, // ADDED
         objective: "Captain Toadette and the Peach Loyalists are relentlessly pursuing the conspiracy behind Princess Peach's death. Believing Fawful is a key player, their primary goal is to breach Peach's Castle and uncover the truth hidden within. Their methods have grown increasingly ruthless as their desperation for justice intensifies.",
         assignee: "Peach Loyalists",
         assigneeKey: 'peach_loyalists',

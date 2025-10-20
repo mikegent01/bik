@@ -309,6 +309,20 @@ function processInitialXP() {
     grantXP('ryan', 50, "Used a powerful darkness spell to facilitate the group's escape.");
     grantXP('roger', 50, "Successfully neutralized an Iron Legionnaire during the raid.");
     grantXP('the_mole', 25, "Successfully completed objective: facilitated the capture of Bones.");
+    // --- NEW: XP from Greenhouse Inferno (Day 17) ---
+    const greenhouseSurvivors = ['dan', 'eager', 'generic_toad']; // Assuming 'generic_toad' represents the unnamed toad helpers
+    greenhouseSurvivors.forEach(toadKey => {
+        grantXP(toadKey, 75, "Survived the Greenhouse Inferno battle against the rust monsters.");
+    });
+    grantXP('dan', 150, "Successfully cast Cure Wounds under extreme pressure to save Archie's life.");
+    grantXP('eager', 100, "Showed immense bravery by charging into the fray to defend a comrade.");
+    grantXP('eager', 25, "Survived being pinned under the collapsing greenhouse roof.");
+
+    // Grant smaller XP to those who assisted in the aftermath
+    const aftermathAssist = ['toad_lee', 'ryan', 'roger', 'bones'];
+    aftermathAssist.forEach(toadKey => {
+        grantXP(toadKey, 25, "Assisted in the chaotic aftermath of the Greenhouse Inferno.");
+    });
 }
 
 export function initFocusTreeState() {

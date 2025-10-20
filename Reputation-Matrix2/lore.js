@@ -1,7 +1,7 @@
-
 // This file contains all the core narrative, character, and faction data for the application.
 // It imports data from smaller, more manageable files.
 
+// UPDATED: Now imports from the single, consolidated character file.
 import { CHARACTERS } from './characters-1.js';
 import { MIDLANDS_FACTIONS } from './factions/midlands.js';
 import { MUSHROOM_KINGDOM_FACTIONS } from './factions/mushroom-kingdom.js';
@@ -49,63 +49,64 @@ if (modifiedMushroomKingdomFactions.liberated_toads) {
         ...modifiedMushroomKingdomFactions.liberated_toads,
         description: "A group of former slaves forged in tragedy. After discovering and freeing 150 more trafficked toads, a catastrophic magical accident killed 13 of the newcomers and gravely injured their leader, Dan. Now bound by a fragile vow and reeling from the discovery of an Iron Legion spy in their midst, they are split by distrust and grief, trying to find a path forward in a world that sees them as pawns.",
         internal_politics: {
+            // UPDATED: Dan is now the ruling faction again after the successful vote.
             ruling_faction: "dan",
             sub_factions: {
                 dan: {
-                    name: "Dan, The Wounded Hero",
-                    influence: 20,
-                    status: "Weakened & Withdrawn",
-                    description: "Once the group's beacon of hope, Dan is now physically and emotionally shattered. The loss of his arm and the weight of the 13 deaths have left him silent, unable to lead.",
+                    name: "Dan, The Cautious Leader",
+                    influence: 35, // Increased influence
+                    status: "Leading with Caution", // UPDATED
+                    description: "Once shattered by tragedy, Dan has found his voice again. His successful counter-proposal for safer, more organized expeditions has re-established his leadership, this time tempered by a deep-seated caution and a fierce desire to prevent any further loss of life.",
                     opinions: {
-                        toad_lee: "He's strong. He has to be. He's carrying the burden I couldn't.",
-                        first_cohort_of_renewal: "They hate me. They should. It was my fault."
+                        toad_lee: "He stands with me. His strength gives my words weight. Together, we can protect them.",
+                        speaker_l: "He agreed to my plan. There is a path to unity, if we can walk it carefully."
                     }
                 },
                 toad_lee: {
                     name: "Toad Lee, The Warden",
                     influence: 30,
-                    status: "Enforcing Order",
-                    description: "The first toad to join the party. Now the reluctant warden of X.O.'s staff, he maintains the group's fragile unity through grim determination and the threat of his axe.",
+                    status: "Enforcing The New Doctrine",
+                    description: "The first toad to join the party. Now the reluctant warden of X.O.'s staff, he has fully endorsed Dan's new, cautious strategy and is focused on organizing the larger, well-armed expeditions.",
                      opinions: {
-                        dan: "He's broken. I have to be the rock until he can stand again.",
-                        first_cohort_of_renewal: "They're angry and scared. They need a firm hand, not kind words."
+                        dan: "He has found his strength again. My axe is his to command.",
+                        speaker_l: "His conditions are acceptable, so long as they do not compromise the safety of our people."
                     }
                 },
-                first_cohort_of_renewal: {
-                    name: "The First Cohort of Renewal",
-                    influence: 30,
-                    status: "Restive & Vengeful",
-                    description: "The 137 survivors of the cargo hold, led by the vengeful toad 'L'. They see Dan as a murderer and Toad Lee as his accomplice. The discovery of an Iron Legion mole has only deepened their paranoia.",
+                speaker_l: { // ADDED Speaker L as a key sub-faction
+                    name: "Speaker L & The First Cohort",
+                    influence: 25,
+                    status: "Watchful & Pragmatic",
+                    description: "The de facto leader of the 137 survivors. While still demanding justice for their fallen comrades, L has pragmatically aligned with Dan's cautious strategy, seeing it as the best way to preserve their numbers while gathering intelligence on their enemies.",
                     opinions: {
-                        dan: "He killed our brothers. He calls it an accident; we call it a betrayal.",
-                        toad_lee: "He protects the killer and holds the weapon that did the deed. We do not trust him."
+                        dan: "His plan is sound. It protects our people. We will support it, but we have not forgotten his past failures.",
+                        toad_lee: "He is a hammer. Useful for breaking things, including dissent. We will watch him."
                     }
                 },
                 roger: {
                     name: "Roger, The Pragmatist",
                     influence: 15,
                     status: "Managing Logistics",
-                    description: "A practical toad who sees the world for what it is. He is trying to manage the logistics of a fractured group, seeing the infighting as a waste of resources.",
+                    description: "A practical toad who sees Dan's new doctrine as the most logistically sound strategy for minimizing attrition and maximizing resource gain. He is fully focused on equipping the new expeditions.",
                     opinions: {
-                        dan: "A tragedy. But emotion doesn't fill bellies. We need a clear head.",
-                        toad_lee: "Intimidation is a temporary solution. We need a sustainable system."
+                        dan: "His plan is efficient. It reduces risk and preserves our most valuable asset: personnel. I support it.",
+                        toad_lee: "A necessary tool for maintaining order during a difficult transition."
                     }
                 },
                 ryan: {
                     name: "Ryan, The Arcane Student",
                     influence: 10,
                     status: "Studious & Worried",
-                    description: "A quiet, studious toad with a natural but untrained affinity for magic. The recent horrors at Shadeward Mansion have shaken him, but also awakened a more potent, protective power within him.",
+                    description: "A quiet, studious toad with a natural but untrained affinity for magic. He backed Dan's proposal, fearing the loss of more lives, and is focused on understanding the nature of the threats they face.",
                     opinions: {
-                        dan: "He's in so much pain. I wish my magic was strong enough to heal more than just wounds.",
-                        toad_lee: "He's holding us together, but I can see the strain. He needs our support, not just our obedience."
+                        dan: "He chose the path that preserves life. It was the right choice.",
+                        toad_lee: "His strength is a comfort, but the staff he holds is a source of great concern."
                     }
                 },
                 the_mole: {
                     name: "The Mole, Legion Infiltrator",
-                    influence: 5,
-                    status: "Exposed",
-                    description: "An Iron Legion plant who infiltrated the toads. His mission was to monitor the group and facilitate capture. His identity was revealed after he assisted in the capture of Bones at Shadeward Mansion.",
+                    influence: 0,
+                    status: "Exposed & At Large",
+                    description: "An Iron Legion plant who infiltrated the toads. His identity was revealed after Shadeward Mansion. The cohort has voted to capture him and a second mole, Gerick, for interrogation.",
                     opinions: {
                         dan: "A predictable emotional wreck. His weakness made my job easy.",
                         toad_lee: "All bark and no bite. His 'order' is just fear."

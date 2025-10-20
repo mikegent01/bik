@@ -3,7 +3,7 @@
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
-    day: 16
+    day: 17
 };
 
 

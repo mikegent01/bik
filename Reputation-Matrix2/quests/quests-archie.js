@@ -2,20 +2,21 @@
 
 // This file contains all of Archie's personal quests.
 export const ARCHIE_QUESTS = {
-    'archie_god_toad_hunt': {
+'archie_god_toad_hunt': {
         id: 'archie_god_toad_hunt',
         title: "An Audience with a God",
         type: 'personal',
         category: 'Personal - Archie',
+        is_updated: true,
         objective: "Months ago, Archie betrayed a powerful toad who held a single, potent Star Fragment. That toad has since used its power to shatter it into nine pieces, distribute them to his followers, and ascend to godhood. Archie must now confront the chaotic god he helped create.",
         assignee: "Archie",
         assigneeKey: 'archie',
         status: "active",
-        motivation: "This has escalated beyond a personal matter. The God Toad's ability to manipulate time itself, witnessed at Fawful's Gala, proves he is not just a god, but a cosmic-level threat to causality. Archie, fascinated and terrified, seeks an audience to understand the nature of this temporal power and to see if it can be controlled, stolen, or must be destroyed.",
+        motivation: "The Oracle, another fragment bearer, has proven to be a manipulative and dangerous entity. This confirms for Archie that all fragment bearers are cosmic-level threats. He must seek an audience with the God Toad to understand the nature of this power and to see if it can be controlled, stolen, or must be destroyed.",
         steps: [
             { id: 'step1', title: "Locate the God", status: 'completed', description: "Intelligence gathered during the Gala infiltration has confirmed the God Toad's current location: he is a 'guest of honor' at Fawful's occupied castle." },
             { id: 'step2', title: "Infiltrate the Madhouse", status: 'active', description: "The castle is a fortress of madness, besieged by Loyalists and defended by Fawful's bizarre minions. Archie must find a way inside to get to his true target." },
-            { id: 'step3', title: "Request an Audience", status: 'locked', description: "Confront the God Toad and request an audience. Given the being's power, a direct assault is likely suicide." }
+            { id: 'step3', title: "Request an Audience", status: 'locked', description: "Confront the God Toad and request an audience. Given the being's power and the Oracle's example, this will be extremely dangerous." }
         ]
     },
     'archie_jesters_masterpiece': {
@@ -23,11 +24,12 @@ export const ARCHIE_QUESTS = {
         title: "The Jester's Masterpiece",
         type: 'personal',
         category: 'Personal - Archie',
+        is_updated: true,
         objective: "Create an act of sublime, beautiful, and utterly pointless chaos to gain the full favor of the Servants of the Cosmic Jester.",
         assignee: "Archie",
         assigneeKey: 'archie',
         status: "available",
-        motivation: "Archie sees the Cosmic Jester as a kindred spirit, a being that truly understands him. He wants to create a 'masterpiece' of chaos not for profit or power, but as an act of pure artistic expression to impress his only perceived peer.",
+        motivation: "The Greenhouse Inferno was an accidental masterpiece—fire, chaos, betrayal, and a dramatic escape. It was beautiful. Archie now feels inspired to create a deliberate work of chaos that can top it, an act of pure artistic expression to impress the only entity he considers a peer.",
         steps: [
             { id: 'step1', title: "The Grand Idea", status: 'active', description: "What would be the ultimate prank? The most chaotic act? Archie must decide on his masterpiece.", options: ["Option A: Replace the Mages' Guild's scrying pool with grape juice.", "Option B: Teach the Iron Legion's war hounds to sing opera.", "Option C: Steal the Emperor's left shoe."] },
             { id: 'step2', title: "Gather the 'Paints'", status: 'locked', description: "Acquire the necessary components for the chosen act of chaos. This will likely involve theft, trickery, and explosions." },
@@ -198,11 +200,12 @@ export const ARCHIE_QUESTS = {
         title: "The Perfect Diversion",
         type: 'personal',
         category: 'Personal - Archie',
+        is_updated: true,
         objective: "Archie needs a place where he can lie low and experiment in peace. He decides to create the ultimate diversion by fabricating evidence of a massive gold deposit in the middle of the vampire-werewolf warzone, sending every greedy faction scrambling.",
         assignee: "Archie",
         assigneeKey: 'archie',
         status: "available",
-        motivation: "The world is getting too interested in the Vigilance. Archie wants everyone to look the other way for a while, and he knows nothing distracts people like the promise of free gold.",
+        motivation: "Archie just witnessed Green T expertly use the party's lives as a 'distraction' for a minor objective. He is deeply, professionally impressed. It has inspired him to create his own grand diversion, not for something as petty as a fruit basket, but for the ultimate prize: privacy.",
         steps: [
             { id: 'step1', title: "The Fake Map", status: 'active', description: "Commission a master forger from the Freelancer Underworld to create an ancient-looking map to the 'Lost Imperial Mint of Ravencreek'." },
             { id: 'step2', title: "Salt the Mine", status: 'locked', description: "Acquire a small amount of gold and 'plant' it in an abandoned mine in the contested territory, along with some fake historical markers." },
