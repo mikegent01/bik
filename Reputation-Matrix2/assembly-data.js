@@ -4,7 +4,58 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
-
+    {
+        id: 'speaker_l_patrol_vote',
+        order: 20305,
+        characterKey: 'speaker_l',
+        timestamp: 'Just Now',
+        content: `The vote has passed. We will deploy the Pond Patrol. This is not a matter of retribution, but of accountability and security. We cannot allow such destructive incompetence to go unchecked. All individuals involved will be brought in for questioning. This is the will of the First Cohort.`,
+        likes: 380,
+        comments: [ { characterKey: 'generic_toad', text: 'Finally! Some real action!' } ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_patrol_dissent',
+        order: 20304,
+        characterKey: 'toad_lee',
+        timestamp: '2 minutes ago',
+        content: `I voted no. Our people are wounded, scattered. They need aid, not chains. To treat our own as criminals in the wake of a battle is to break the very Vow that holds us together. This is a mistake.`,
+        likes: 415,
+        comments: [
+            { characterKey: 'dan', text: 'I agree with you, Lee. We should be helping them.' },
+            { characterKey: 'speaker_l', text: 'Helping them continue their path of destruction is not an option.' }
+        ]
+    },
+    {
+        id: 'bones_patrol_vote',
+        order: 20303,
+        characterKey: 'bones',
+        timestamp: '5 minutes ago',
+        content: `Voted yes. Someone needs to put a leash on them before they burn down the whole forest. This 'self-destruction' is a liability we can't afford. Time to clean up the mess.`,
+        likes: 290,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'ryan_patrol_vote_revelation',
+        order: 20302,
+        characterKey: 'ryan',
+        timestamp: '8 minutes ago',
+        content: `I voted yes. The arcane energies unleashed were a perversion. The metallic monsters... their creation felt familiar. I sense a signature akin to the temporal corruption of The Oracle. We must secure the site for investigation.`,
+        likes: 320,
+        comments: [ { characterKey: 'janna_brightspark', text: 'Temporal corruption linked to the rust monsters?! Fascinating! You must get samples!' } ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'roger_patrol_vote',
+        order: 20301,
+        characterKey: 'roger',
+        timestamp: '20 minutes ago',
+        content: `The deployment of the Pond Patrol is the only logistically sound decision. It contains the variables, secures the operational area, and allows for a full assessment of the catastrophic resource loss. It is a necessary action to prevent further systemic collapse.`,
+        likes: 225,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
      {
         id: 'markop_in_the_rain',
         order: 20300,

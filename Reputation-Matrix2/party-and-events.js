@@ -1,89 +1,13 @@
-// This file contains all the core narrative, character, and faction data for the application.
-// It imports data from smaller, more manageable files.
-
 import { TOAD_ABILITIES } from './abilities.js';
 
 export const AUXILIARY_PARTY = {
-    dan: {
-        name: "Dan",
-        weapon: "Longsword & Magic",
-        status: "Weakened & Diminished",
-        portrait: "toads/dan.png", // ADDED
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
-    },
-    toad_lee: {
-        name: "Toad Lee",
-        description: "A hardy toad warrior who fights with a surprisingly large axe.",
-        weapon: "Axe",
-        status: "Active",
-        portrait: "toads/toad_lee.png", // ADDED
-        level: 2,
-        xp: 150,
-        xp_to_next: 300,
-        log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."],
-        abilities: ["Reckless Attack"]
-    },
-    eager: {
-        name: "Eager",
-        weapon: "Whip",
-        status: "Active",
-        portrait: "toads/eager.png", // ADDED
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
-    },
-    ryan: {
-        name: "Ryan",
-        weapon: "Spellcaster",
-        status: "Active",
-        description: "A quiet, studious toad with a natural but untrained affinity for magic. He is intensely curious about arcane matters and spends most of his time studying.",
-        portrait: "toads/ryan.png", // ADDED
-        level: 2,
-        xp: 150,
-        xp_to_next: 300,
-        log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell to aid the group's escape from a robot and a clone."],
-        abilities: ["Magic Missile"]
-    },
-    roger: {
-        name: "Roger",
-        weapon: "Gun",
-        status: "Active",
-        portrait: "toads/roger.png", // ADDED
-        level: 2,
-        xp: 150,
-        xp_to_next: 300,
-        log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire with his crossbow during the raid."],
-        abilities: ["Deadeye Shot"]
-    },
-    bones: {
-        name: "Bones",
-        weapon: "Grotesque",
-        status: "Active",
-        portrait: "toads/bones.png", // ADDED
-        level: 2,
-        xp: 150,
-        xp_to_next: 300,
-        log: ["Captured and interrogated by the Iron Legion during the chaotic raid on Shadeward Mansion."],
-        abilities: ["Rage"]
-    },
-    the_mole: {
-        name: "The Mole",
-        weapon: "Deceit",
-        status: "Active",
-        description: "A toad of unknown origin who has been traveling with the others. Revealed as an agent for the Iron Legion.",
-        portrait: "toads/the_mole.png", // ADDED
-        level: 2,
-        xp: 150,
-        xp_to_next: 300,
-        log: ["Revealed his allegiance by helping the Iron Legion capture Bones during the raid on Shadeward Mansion."],
-        abilities: ["Feint"]
-    }
+    dan: { name: "Dan", weapon: "Longsword & Magic", status: "Weakened & Diminished", portrait: "toads/dan.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
+    toad_lee: { name: "Toad Lee", description: "A hardy toad warrior who fights with a surprisingly large axe.", weapon: "Axe", status: "Active", portrait: "toads/toad_lee.png", level: 2, xp: 150, xp_to_next: 300, log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."], abilities: ["Reckless Attack"] },
+    eager: { name: "Eager", weapon: "Whip", status: "Active", portrait: "toads/eager.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
+    ryan: { name: "Ryan", weapon: "Spellcaster", status: "Active", description: "A quiet, studious toad with a natural but untrained affinity for magic...", portrait: "toads/ryan.png", level: 2, xp: 150, xp_to_next: 300, log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell..."], abilities: ["Magic Missile"] },
+    roger: { name: "Roger", weapon: "Gun", status: "Active", portrait: "toads/roger.png", level: 2, xp: 150, xp_to_next: 300, log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire..."], abilities: ["Deadeye Shot"] },
+    bones: { name: "Bones", weapon: "Grotesque", status: "Active", portrait: "toads/bones.png", level: 2, xp: 150, xp_to_next: 300, log: ["Captured and interrogated by the Iron Legion during the chaotic raid..."], abilities: ["Rage"] },
+    the_mole: { name: "The Mole", weapon: "Deceit", status: "Active", description: "A toad of unknown origin... Revealed as an agent for the Iron Legion.", portrait: "toads/the_mole.png", level: 2, xp: 150, xp_to_next: 300, log: ["Revealed his allegiance by helping the Iron Legion capture Bones..."], abilities: ["Feint"] }
 };
 
 export const RUMORS = [
@@ -91,29 +15,17 @@ export const RUMORS = [
         id: 'peach_death_fallout',
         title: "The Princess is Dead",
         time_ago: "45 Years Ago",
-        description: "Princess Peach was killed, sparking a long and brutal civil war in the Mushroom Kingdom. While the exact circumstances are unclear, many blame Bowser's relentless aggression for creating the initial instability.",
+        description: "Princess Peach was killed, sparking a long and brutal civil war in the Mushroom Kingdom...",
         targets: ['bowser'],
-        effects: {
-            mushroom_regency: -50,
-            regal_empire: -15,
-            silver_flame: -15,
-            oathbound_judges: -15
-        }
+        effects: { mushroom_regency: -50, regal_empire: -15, silver_flame: -15, oathbound_judges: -15 }
     },
     {
         id: 'greenhouse_inferno',
         title: "The Greenhouse Inferno",
         time_ago: "Today",
-        description: "A massive explosion and fire erupted from the grounds of the haunted Raventree Manor. Eyewitnesses report a wyvern crash, a claustrophobic battle with metallic monsters, and a final, enormous fireball that destroyed the estate's greenhouse. Key figures like Waluigi, Bowser, and Archie Miser were present. The event has left the party scattered and wounded, showcasing their capacity for self-destruction.",
+        description: "A massive explosion and fire erupted from the grounds of the haunted Raventree Manor...",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'remi', 'dan', 'eager', 'waluigi', 'green_t', 'self_reflection_oracle'],
-        effects: {
-            freelancer_underworld: 10,
-            cosmic_jesters: 15,
-            regal_empire: -15,
-            iron_legion: -15,
-            mages_guild: -20,
-            liberated_toads: -5
-        }
+        effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 }
     },
     {
         id: 'dragon_slaying',
@@ -123,7 +35,7 @@ export const RUMORS = [
         targets: ['archie', 'markop', 'humpik', 'bowser'],
         effects: { iron_legion: 10, mages_guild: -15 }
     },
-     {
+    {
         id: 'iron_fists_raid',
         title: "Iron Fists Raid",
         time_ago: "Approx. 5 Weeks Ago",
@@ -143,34 +55,23 @@ export const RUMORS = [
         id: 'core_crisis',
         title: "Core Crisis on the Vigilance",
         time_ago: "Approx. 4 Weeks Ago",
-        description: "In an act of supreme recklessness, Humpik disabled the Vigilance's power core with a thrown axe, causing the airship to plummet. This has drawn universal condemnation from technologically-minded factions.",
+        description: "In an act of supreme recklessness, Humpik disabled the Vigilance's power core with a thrown axe...",
         targets: ['humpik', 'bowser'],
-        effects: {
-            regal_empire: -40,
-            iron_legion: -25,
-            mages_guild: -15,
-            ratchet_raiders: 15,
-            cosmic_jesters: 20
-        }
+        effects: { regal_empire: -40, iron_legion: -25, mages_guild: -15, ratchet_raiders: 15, cosmic_jesters: 20 }
     },
     {
         id: 'syrup_schism',
         title: "The Syrup Schism",
         time_ago: "Approx. 4 Weeks Ago",
-        description: "The pirate Captain Syrup was freed from captivity under the goblin Lario. After a confrontation, she has become a hostile third party, creating chaos within the Ratchet Raiders and putting her at odds with Waluigi and the party.",
+        description: "The pirate Captain Syrup was freed from captivity under the goblin Lario...",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'waluigi'],
-        effects: {
-            ratchet_raiders: -25,
-            freelancer_underworld: 10,
-            crimson_fleet: -20,
-            regal_empire: -5
-        }
+        effects: { ratchet_raiders: -25, freelancer_underworld: 10, crimson_fleet: -20, regal_empire: -5 }
     },
     {
         id: 'archie_acquittal',
         title: "Archie's Acquittal",
         time_ago: "Approx. 3-4 Weeks Ago",
-        description: "Archie Miser was acquitted of killing a mage by an Onyx Hand tribunal, enraging the Mages' Guild.",
+        description: "Archie Miser was acquitted of killing a mage by an Onyx Hand tribunal...",
         targets: ['archie'],
         effects: { onyx_hand: 15, mages_guild: -20, freelancer_underworld: 5 }
     },
@@ -178,7 +79,7 @@ export const RUMORS = [
         id: 'iron_fists_conspiracy',
         title: "Iron Fists' Imperial Contract?",
         time_ago: "Approx. 3 Weeks Ago",
-        description: "A captured Iron Legion bomber revealed a shocking secret before his demise: the Iron Fists gang may be operating as a secret arm of the Regal Empire, creating chaos for the Empire to solve.",
+        description: "A captured Iron Legion bomber revealed a shocking secret before his demise...",
         targets: ['archie', 'markop', 'humpik', 'bowser'],
         effects: { iron_fists: -5, regal_empire: -5, freelancer_underworld: 10 }
     },
@@ -186,18 +87,15 @@ export const RUMORS = [
         id: 'koopa_loyalist_truce',
         title: "Koopa-Loyalist Truce",
         time_ago: "Approx. 2 Weeks Ago",
-        description: "The Koopa Troop remnants and the Peach Loyalists have formed a fragile truce to investigate the Princess's death, directing their mutual ire towards Fawful.",
+        description: "The Koopa Troop remnants and the Peach Loyalists have formed a fragile truce...",
         targets: ['humpik', 'bowser'],
-        effects: {
-            peach_loyalists: 10,
-            koopa_troop: 5
-        }
+        effects: { peach_loyalists: 10, koopa_troop: 5 }
     },
     {
         id: 'barrel_compartment_reveal',
         title: "The Barrel Secret",
         time_ago: "Approx. 1 Week Ago",
-        description: "The Iron Legion revealed to Humpik that the trafficked toads are hidden in secret compartments within the ship's barrels, using a mini-mushroom as a key.",
+        description: "The Iron Legion revealed to Humpik that the trafficked toads are hidden in secret compartments...",
         targets: ['humpik', 'liberated_toads'],
         effects: { iron_legion: 5, liberated_toads: 10, the_unchained: 5 }
     },
@@ -205,136 +103,87 @@ export const RUMORS = [
         id: 'lankys_disgrace_at_summit',
         title: "Lanky's Disgrace at the Summit",
         time_ago: "Yesterday",
-        description: "Lanky Kong's bizarre behavior at the Democratic Summit caused a major diplomatic incident, briefly crashed the Mushroom Kingdom's currency, and has created a deep rift within the DK Crew.",
+        description: "Lanky Kong's bizarre behavior at the Democratic Summit caused a major diplomatic incident...",
         targets: ['donkey_kong', 'lanky_kong'],
-        effects: {
-            dk_crew: -25,
-            mushroom_regency: -20,
-            regal_empire: -15,
-            cosmic_jesters: 10
-        }
+        effects: { dk_crew: -25, mushroom_regency: -20, regal_empire: -15, cosmic_jesters: 10 }
     },
     {
         id: 'chaos_in_toad_town',
-        title: "Chaos in Toad Town: Conspiracy & Consolidation",
+        title: "Chaos in Toad Town",
         time_ago: "A Few Days Ago",
-        description: "A series of violent events rocked Toad Town. A conspiracy involving the mayor, the Onyx Hand, and Fawful's forces was uncovered by the Loyalist soldier Embercap. In the chaos, Iggy was captured and rescued, and the mayor was assassinated by Onyx Hand agents. This led to a strategic shift for the Loyalists: Captain Toadette now plans to seize towns and expel hostile populations to encircle the castle. After a moment of dissent, Embercap has embraced this ruthless new strategy, solidifying Toadette's command and preventing a schism within the faction.",
+        description: "A series of violent events rocked Toad Town...",
         targets: ['captain_toadette', 'embercap', 'chief_thornpaw'],
-        effects: {
-            peach_loyalists: -20,
-            mushroom_regency: -15,
-            onyx_hand: -10,
-            mages_guild: -10,
-            koopa_troop: 5
-        }
+        effects: { peach_loyalists: -20, mushroom_regency: -15, onyx_hand: -10, mages_guild: -10, koopa_troop: 5 }
     },
     {
         id: 'standoff_at_the_capital',
         title: "Standoff at the Capital",
         time_ago: "Today",
-        description: "The Vigilance was boarded by Regal Empire forces over the capital. Key figures like Mr. Wario and Archie were captured. The ship's staff was briefly stolen by Captain Syrup before being sealed with an Iron Legion 'Iron Binding' and reinstalled. The full political fallout is yet to be determined.",
+        description: "The Vigilance was boarded by Regal Empire forces over the capital...",
         targets: ['party'],
-        effects: {
-            regal_empire: -30,
-            iron_legion: -25,
-            crimson_fleet: 5,
-            freelancer_underworld: -10,
-            liberated_toads: -5
-        }
+        effects: { regal_empire: -30, iron_legion: -25, crimson_fleet: 5, freelancer_underworld: -10, liberated_toads: -5 }
     },
     {
         id: 'capital_diner_shadow_accord',
         title: "Capital Dinner: Shadow Accord",
         time_ago: "Today",
-        description: "Mr. Wario, Waluigi, and Lady Toriel convene in the Capital. Time-freeze bartending accelerates a chase through opened doors. Green T uses a horse-ring debacle to bargain Eager's location for the real ring. Inside trading whispers and plans to influence the Regal Airship emerge.",
+        description: "Mr. Wario, Waluigi, and Lady Toriel convene in the Capital...",
         targets: ['wario', 'waluigi', 'lady_toriel', 'archie', 'markop', 'remi', 'humpik', 'green_t'],
-        effects: {
-            freelancer_underworld: 15,
-            regal_empire: -10,
-            koopa_troop: 5,
-            mushroom_regency: -5,
-            diamond_city_investigators: 10
-        }
+        effects: { freelancer_underworld: 15, regal_empire: -10, koopa_troop: 5, mushroom_regency: -5, diamond_city_investigators: 10 }
     },
     {
         id: 'imposter_dan_revelation',
         title: "The Two Toads",
         time_ago: "Today",
-        description: "A shocking revelation from the goblin Lario claims the 'Dan' traveling with the party is an imposter. The real Dan is allegedly aboard the airship, creating a massive energy beam. This has sown deep distrust within the party and among their allies.",
+        description: "A shocking revelation from the goblin Lario claims the 'Dan' traveling with the party is an imposter...",
         targets: ['party', 'liberated_toads'],
-        effects: {
-            liberated_toads: -20,
-            regal_empire: -10,
-            freelancer_underworld: 10,
-            oathbound_judges: -5
-        }
+        effects: { liberated_toads: -20, regal_empire: -10, freelancer_underworld: 10, oathbound_judges: -5 }
     },
     {
         id: 'eager_tortured',
         title: "A Toad in Chains",
         time_ago: "Today",
-        description: "The toad Eager was confirmed to have been captured and brutally tortured by the Iron Legion for information on Archie's plans. The Legion's open admission that torture is 'part of the system' has severely damaged their reputation and enraged the party.",
+        description: "The toad Eager was confirmed to have been captured and brutally tortured by the Iron Legion...",
         targets: ['party', 'liberated_toads'],
-        effects: {
-            iron_legion: -30,
-            liberated_toads: 15,
-            the_unchained: 10,
-            silver_flame: 5
-        }
+        effects: { iron_legion: -30, liberated_toads: 15, the_unchained: 10, silver_flame: 5 }
     },
     {
         id: 'centaur_arsonist',
         title: "The Arsonist Ally",
         time_ago: "Today",
-        description: "The centaur who accompanied the party to the capital was revealed to be a saboteur, setting fire to the prison during the attempted rescue of Eager. Lario confirmed the centaur's actions, creating deep distrust of new allies.",
+        description: "The centaur who accompanied the party to the capital was revealed to be a saboteur...",
         targets: ['party'],
-        effects: {
-            regal_empire: -5,
-            iron_legion: -5,
-            rebel_clans: -10
-        }
+        effects: { regal_empire: -5, iron_legion: -5, rebel_clans: -10 }
     },
     {
         id: 'grand_market_ring',
         title: "Grand Market: The Ring and the Horse",
         time_ago: "Today",
-        description: "A Legion noble’s ring is swallowed by a horse. Cheese-laced laxative yields a messy retrieval attempt. Green T grabs the ring and offers intel. FNG’s seed delivery fails after a herbal toad swallows the goods.",
+        description: "A Legion noble’s ring is swallowed by a horse...",
         targets: ['remi', 'archie', 'green_t', 'iron_legion'],
-        effects: {
-            iron_legion: -5,
-            freelancer_underworld: 5,
-            the_unchained: 5
-        }
+        effects: { iron_legion: -5, freelancer_underworld: 5, the_unchained: 5 }
     },
     {
         id: 'prison_break_fiasco',
         title: "Prison Break Fiasco",
         time_ago: "Today",
-        description: "The party's attempt to rescue Eager was a chaotic failure. Amidst Dan's erratic behavior and a confrontation with a mysterious mage, Eager was moved to another location. The only success was Lario's theft of a guard's logbook.",
+        description: "The party's attempt to rescue Eager was a chaotic failure...",
         targets: ['party'],
-        effects: {
-            iron_legion: -10,
-            regal_empire: -5,
-            freelancer_underworld: 5,
-            liberated_toads: -5
-        }
+        effects: { iron_legion: -10, regal_empire: -5, freelancer_underworld: 5, liberated_toads: -5 }
     },
     {
         id: 'sewer_dragon',
         title: "A Dragon in the Sewers?",
         time_ago: "Tonight",
-        description: "While seeking a cure for Dan, the party was guided by an Iron Legion spy into the capital's sewers. They were warned of a 'blue dragon' guarding the area. Markop, however, identified the creature as a Behir, suggesting the Legion is either incompetent or deliberately spreading misinformation.",
+        description: "While seeking a cure for Dan, the party was guided by an Iron Legion spy into the capital's sewers...",
         targets: ['party'],
-        effects: {
-            iron_legion: -10,
-            mages_guild: 5
-        }
+        effects: { iron_legion: -10, mages_guild: 5 }
     },
     {
         id: 'bowser_looting_manor',
         title: "Waluigi's 'Relocation'",
         time_ago: "Tonight",
-        description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance, claiming they are 'relocating' items to a newly acquired mansion. Their true intentions are unknown, but it's unlikely to be for charitable purposes.",
+        description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance...",
         targets: ['party'],
         effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 }
     },
@@ -342,62 +191,39 @@ export const RUMORS = [
         id: 'oracle_of_cursed_mansion',
         title: "The Oracle of the Cursed Mansion",
         time_ago: "Tonight",
-        description: "The party staying at Waluigi's newly acquired mansion has encountered its mysterious host, a robed figure known as 'The Oracle.' He has invited them to a 'special event' in the gardens, but his calm demeanor and the mansion's strange properties—including rooms filled with silent ghosts—have sown deep suspicion. Archie recognized the name, linking it to a past encounter with a 'star shard'.",
+        description: "The party staying at Waluigi's newly acquired mansion has encountered its mysterious host, 'The Oracle.'...",
         targets: ['party', 'waluigi'],
-        effects: {
-            mages_guild: 5,
-            cosmic_jesters: 10,
-            silver_flame: -5,
-            freelancer_underworld: 5
-        }
+        effects: { mages_guild: 5, cosmic_jesters: 10, silver_flame: -5, freelancer_underworld: 5 }
     },
     {
         id: 'waluigis_wyvern_exit',
         title: "Waluigi's Grand Exit",
         time_ago: "Tonight",
-        description: "In a characteristically dramatic fashion, Waluigi and his associate Green T were seen escaping the grounds of the haunted mansion by leaping onto the back of a summoned wyvern, disappearing into the foggy night. Eyewitnesses claim Waluigi was whispering about 'time-traveling properties' and a fifty-fifty profit split just before their departure.",
+        description: "In a characteristically dramatic fashion, Waluigi and his associate Green T were seen escaping the grounds of the haunted mansion...",
         targets: ['waluigi', 'green_t'],
-        effects: {
-            cosmic_jesters: 15,
-            freelancer_underworld: 10,
-            regal_empire: -5,
-            mages_guild: -5
-        }
+        effects: { cosmic_jesters: 15, freelancer_underworld: 10, regal_empire: -5, mages_guild: -5 }
     },
     {
         id: 'fall_of_bramblehaven',
         title: "The Bramblehaven Massacre",
         time_ago: "Today",
-        description: "The Peach Loyalists brutally conquered the Fawful bastion of Bramblehaven, showing no mercy to surrendering troops. Their victory was costly but secured valuable intel. The act has solidified their reputation as ruthless fanatics.",
+        description: "The Peach Loyalists brutally conquered the Fawful bastion of Bramblehaven...",
         targets: ['captain_toadette', 'embercap'],
-        effects: {
-            peach_loyalists: 10,
-            mushroom_regency: -20,
-            fawfuls_furious_freaks: -30,
-            koopa_troop: 5,
-            iron_legion: 5,
-            silver_flame: -10
-        }
+        effects: { peach_loyalists: 10, mushroom_regency: -20, fawfuls_furious_freaks: -30, koopa_troop: 5, iron_legion: 5, silver_flame: -10 }
     },
     {
         id: 'shadeward_mansion_raid',
         title: "The Dinner That Broke Time",
         time_ago: "Tonight",
-        description: "A group of toads seeking Archie were trapped in the Shadeward Mansion by the time-looping Oracle. The bizarre dinner was crashed by an Archie clone, a robot double, and an Iron Legion raid team led by Mr. Wario. The raid was revealed to be a setup, facilitated by a traitor toad who helped capture Bones. After a chaotic battle and negotiation, the toads escaped with their wounded, their trust shattered.",
+        description: "A group of toads seeking Archie were trapped in the Shadeward Mansion by the time-looping Oracle...",
         targets: ['liberated_toads', 'bones', 'wario'],
-        effects: {
-            liberated_toads: -30,
-            iron_legion: -25,
-            regal_empire: -15,
-            freelancer_underworld: 10,
-            mages_guild: 5
-        }
+        effects: { liberated_toads: -30, iron_legion: -25, regal_empire: -15, freelancer_underworld: 10, mages_guild: 5 }
     },
     {
         id: 'shadow_war',
         title: "Shadow War Escalation",
         time_ago: "Ongoing",
-        description: "The conflict between the Onyx Hand and Moonfang Pack is escalating, and the party seems to be fanning the flames.",
+        description: "The conflict between the Onyx Hand and Moonfang Pack is escalating...",
         targets: ['party'],
         effects: { onyx_hand: 5, moonfang_pack: 5, silver_flame: -10 }
     },
@@ -405,7 +231,7 @@ export const RUMORS = [
         id: 'dan_training',
         title: "Dan's Training",
         time_ago: "Ongoing",
-        description: "The heroic toad, Dan, is being trained in magic by the Rakasha, under Markop's supervision.",
+        description: "The heroic toad, Dan, is being trained in magic by the Rakasha...",
         targets: ['markop', 'dan'],
         effects: { rakasha_clans: 15, mages_guild: 5, mushroom_regency: 10, liberated_toads: 15 }
     },
@@ -413,7 +239,7 @@ export const RUMORS = [
         id: 'cosmic_static',
         title: "Cosmic Static",
         time_ago: "Ongoing",
-        description: "Archie's chaotic energies are reportedly causing 'cosmic static' detectable by strange entities.",
+        description: "Archie's chaotic energies are reportedly causing 'cosmic static'...",
         targets: ['archie'],
         effects: { cosmic_jesters: 15, mages_guild: -5 }
     },
@@ -421,7 +247,7 @@ export const RUMORS = [
         id: 'paladin_dilemma',
         title: "Paladin's Dilemma",
         time_ago: "Ongoing",
-        description: "Markop's association with known criminals has not gone unnoticed by holy orders, tarnishing his reputation.",
+        description: "Markop's association with known criminals has not gone unnoticed by holy orders...",
         targets: ['markop'],
         effects: { silver_flame: -15, oathbound_judges: -10 }
     },
@@ -429,7 +255,7 @@ export const RUMORS = [
         id: 'rebel_sympathies',
         title: "Rebel Sympathies",
         time_ago: "Ongoing",
-        description: "The party's anti-authoritarian actions have made them popular with various rebel and revolutionary groups.",
+        description: "The party's anti-authoritarian actions have made them popular with various rebel groups.",
         targets: ['party'],
         effects: { rebel_clans: 10, the_unchained: 5 }
     },
@@ -437,7 +263,7 @@ export const RUMORS = [
         id: 'scrap_trail',
         title: "A Trail of Scrap",
         time_ago: "Ongoing",
-        description: "The frequent destruction of magitek leaves a trail of valuable salvage, which has not gone unnoticed by goblin crews.",
+        description: "The frequent destruction of magitek leaves a trail of valuable salvage...",
         targets: ['party'],
         effects: { ratchet_raiders: 10, regal_empire: -5 }
     }
