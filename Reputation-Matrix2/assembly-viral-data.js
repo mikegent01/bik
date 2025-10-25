@@ -146,7 +146,7 @@ export const VIRAL_POSTS = [
         order: 20333,
         characterKey: 'generic_toad',
         timestamp: '30 minutes ago',
-        content: `captain_toadette just told us she poisoned the water supply to 'test our loyalty'! I almost had a heart attack! She said it was a lie, but... what kind of leader does that?!`,
+        content: `captain toadette just told us she poisoned the water supply to 'test our loyalty'! I almost had a heart attack! She said it was a lie, but... what kind of leader does that?!`,
         likes: 450,
         comments: [
             { characterKey: 'embercap', text: '...' },
