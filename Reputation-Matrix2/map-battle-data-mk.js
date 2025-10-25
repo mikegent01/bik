@@ -5,13 +5,72 @@ export const MUSHROOM_KINGDOM_TROOPS = [
     { id: 'mk_troop_1', mapId: 'mushroom_kingdom_full', x: 52.5, y: 26.0, factionId: 'mushroom_regency', name: "Toad Town Garrison", unitType: 'garrison', strength: "Approx. 800 guardsmen", details: { status: "Maintaining Order", objective: "Secure Toad Town from criminal elements and prevent the main conflict from spilling into civilian areas.", supply_level: 60, morale: 55, organization: 75, intelReq: { faction: 'mushroom_regency', level: 20 } } },
     { id: 'mk_troop_2', mapId: 'mushroom_kingdom_full', x: 44.0, y: 28.0, factionId: 'koopa_troop', name: "Kamek's Scryers", unitType: 'special_ops', strength: "Elite Magikoopas", details: { status: "Observing", objective: "Gather intelligence on both Loyalist and Fawful forces to identify an opportunity for intervention.", supply_level: 90, morale: 80, organization: 90, intelReq: { faction: 'koopa_troop', level: 40 } } },
     { id: 'mk_troop_3', mapId: 'mushroom_kingdom_full', x: 43.0, y: 37.0, factionId: 'peach_loyalists', name: "Loyalist Outriders", unitType: 'patrol', strength: "Scout units led by Mistveil", path: "M 43,37 L 48,40 L 44,43 Z", details: { status: "Patrolling", objective: "Secure supply lines to Camp Vengeance and monitor Koopa remnant activity in the western hills.", supply_level: 75, morale: 85, organization: 70, intelReq: { faction: 'peach_loyalists', level: 35 } } },
-    { id: 'mk_troop_4', mapId: 'mushroom_kingdom_full', x: 53.0, y: 33.0, factionId: 'fawfuls_furious_freaks', name: "The Guffaw-pult", unitType: 'siege_unit', strength: "One very large, very strange catapult", battlefront: true, details: { status: "Bombarding", objective: "Launch explosive jack-in-the-boxes at the Loyalist siege lines to disrupt their formations.", supply_level: 100, morale: 100, organization: 20, intelReq: { faction: 'fawfuls_furious_freaks', level: 45 } } },
+    { id: 'mk_troop_4', // Fawful's Guffaw-pult
+        mapId: 'mushroom_kingdom_full', 
+        x: 53.0, y: 33.0, 
+        factionId: 'fawfuls_furious_freaks', 
+        name: "The Guffaw-pult (Destroyed)", 
+        unitType: 'ruins', 
+        strength: "Wreckage of a strange catapult", 
+        battlefront: false, // No longer an active front
+        details: { 
+            status: "Inoperable", 
+            objective: "This bizarre siege engine was destroyed during the Loyalist assault on Bramblehaven.", 
+            supply_level: 0, morale: 0, organization: 0, 
+            intelReq: { faction: 'fawfuls_furious_freaks', level: 45 } 
+        } 
+    },
     { id: 'mk_troop_5', mapId: 'mushroom_kingdom_full', x: 44.2, y: 32.5, factionId: 'toad_gang', name: "Toad Gang Ambush Party", unitType: 'ambush', strength: "A well-armed gang of thugs", details: { status: "Lying in Wait", objective: "Ambush Loyalist supply caravans in the Goomba Grove for profit.", supply_level: 50, morale: 65, organization: 50, intelReq: { faction: 'toad_gang', level: 50 } } },
     { id: 'mk_troop_6', mapId: 'mushroom_kingdom_full', x: 71.0, y: 13.0, factionId: 'iron_legion', name: "Iron Crown Observers", unitType: 'special_ops', strength: "Covert Intelligence Unit", details: { status: "Observing", objective: "Gather intelligence on all Mushroom Kingdom factions to assess weaknesses for future Imperial annexation. Report directly to Lord Vexar Steelclad.", supply_level: 100, morale: 100, organization: 95, intelReq: { faction: 'iron_legion', level: 70 } } },
     { id: 'mk_troop_7', mapId: 'mushroom_kingdom_full', x: 56.1, y: 36.91, factionId: 'mushroom_regency', name: "Checkpoint Alpha Patrol", unitType: 'patrol', strength: "Guardsmen & Cavalry", path: "M 56.1,36.91 L 60,38 L 57,41 Z", details: { status: "Patrolling", objective: "Maintain a security corridor south of the capital, screening refugees and watching for Koopa Remnant incursions.", supply_level: 65, morale: 60, organization: 70, intelReq: { faction: 'mushroom_regency', level: 25 } } },
     { id: 'mk_troop_8', mapId: 'mushroom_kingdom_full', x: 50.5, y: 58.0, factionId: 'koopa_troop', name: "Bob-omb Battlefield Raiders", unitType: 'main_force', strength: "A desperate but dangerous warband", details: { status: "Scavenging", objective: "Recover old war machines and live munitions from the battlefield to re-arm the Koopa Troop.", supply_level: 30, morale: 45, organization: 40, intelReq: { faction: 'koopa_troop', level: 30 } } },
     { id: 'mk_troop_9', mapId: 'mushroom_kingdom_full', x: 25.0, y: 44.0, factionId: 'freelancer_underworld', name: "Rogueport Smugglers", unitType: 'patrol', strength: "Smuggling Crew", path: "M 25,44 L 23,48 L 27,47 Z", details: { status: "Smuggling", objective: "Move illegal goods from Rogueport into the war-torn kingdoms.", supply_level: 80, morale: 60, organization: 65, intelReq: { faction: 'freelancer_underworld', level: 30 } } },
-    { id: 'mk_troop_10', mapId: 'mushroom_kingdom_full', x: 48.0, y: 22.5, factionId: 'peach_loyalists', name: "Loyalist Artillery Position", unitType: 'siege_unit', strength: "Trebuchet Battery", details: { status: "Bombarding", objective: "Maintain a constant, harassing bombardment on the western walls of Fawful's occupied castle.", supply_level: 70, morale: 80, organization: 75, intelReq: { faction: 'peach_loyalists', level: 35 } } },
+    { 
+        id: 'mk_troop_10', // Loyalist Artillery
+        mapId: 'mushroom_kingdom_full', 
+        x: 48.0, y: 22.5, 
+        factionId: 'peach_loyalists', 
+        name: "Bramblehaven Garrison", 
+        unitType: 'garrison', // Changed from siege_unit
+        strength: "Hardened Loyalist Veterans", 
+        details: { 
+            status: "Occupying", 
+            objective: "Secure the newly conquered town of Bramblehaven and establish it as a forward operating base. Interrogate captured prisoners for intel.", 
+            supply_level: 40, morale: 70, organization: 80, 
+            intelReq: { faction: 'peach_loyalists', level: 35 } 
+        } 
+    },
+ { 
+        id: 'mk_troop_new_1', // New unit for Big R
+        mapId: 'mushroom_kingdom_full', 
+        x: 49.5, y: 38.0, // Near Bramblehaven/Toadstool Hollow
+        factionId: 'peach_loyalists', 
+        name: "Big R's Brigade", 
+        unitType: 'main_force', 
+        strength: "Loyalist shock troops & cannon", 
+        details: { 
+            status: "Consolidating", 
+            objective: "As the newly appointed interim mayor, Big R is tasked with rooting out remaining Fawful sympathizers in the region and securing supply lines.", 
+            supply_level: 60, morale: 75, organization: 65, 
+            intelReq: { faction: 'peach_loyalists', level: 40 } 
+        } 
+    },    
+    { 
+        id: 'mk_troop_new_2', // New unit for Fawful's retreat
+        mapId: 'mushroom_kingdom_full', 
+        x: 55.5, y: 30.0, 
+        factionId: 'fawfuls_furious_freaks', 
+        name: "Fawful's Broken Faithful", 
+        unitType: 'patrol', 
+        strength: "Retreating remnants", 
+        path: "M 55.5,30 L 54,28 L 56,27 Z",
+        details: { 
+            status: "Fleeing", 
+            objective: "Retreat back to the relative safety of Peach's Castle after the disastrous defeat at Bramblehaven.", 
+            supply_level: 10, morale: 20, organization: 15, 
+            intelReq: { faction: 'fawfuls_furious_freaks', level: 30 } 
+        } 
+    },    
     { id: 'mk_troop_11', mapId: 'mushroom_kingdom_full', x: 63.5, y: 8.0, factionId: 'toad_gang', name: "Bazaar Protection Racket", unitType: 'garrison', strength: "Thugs & Enforcers", details: { status: "Extorting", objective: "Control the Grand Bazaar in Mushroom City, shaking down merchants for 'protection' money.", supply_level: 90, morale: 70, organization: 60, intelReq: { faction: 'toad_gang', level: 20 } } },
     { id: 'mk_troop_12', mapId: 'mushroom_kingdom_full', x: 60.0, y: 15.0, factionId: 'yoshi_clans', name: "Yoshi Clan Scouts", unitType: 'special_ops', strength: "Yoshi Riders", details: { status: "Observing", objective: "Keep an eye on the northern Mushroom Kingdom border for signs of expanding conflict.", supply_level: 100, morale: 90, organization: 80, intelReq: { faction: 'yoshi_clans', level: 40 } } },
     { id: 'mk_troop_13', mapId: 'mushroom_kingdom_full', x: 58.0, y: 8.0, factionId: 'toad_cult', name: "Sewer Cult Patrol", unitType: 'patrol', strength: "Fanatics", path: "M 58,8 L 57,11 L 59,10 Z", details: { status: "Proselytizing", objective: "Spread the word of the Ascended One in the city's underbelly and recruit new members.", supply_level: 50, morale: 100, organization: 30, intelReq: { faction: 'toad_cult', level: 30 } } },

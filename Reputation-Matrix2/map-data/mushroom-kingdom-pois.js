@@ -75,18 +75,18 @@ export const mushroomKingdomData = {
             population: 100
         },
         {
-            id: 'poi_mk_ruined_village',
+            id: 'poi_mk_bramblehaven', // ID updated
             x: 48.00,
             y: 38.00,
-            type: 'ruins',
-            name: "Ruins of Toadstool Hollow",
-            description: "A haunting testament to the war's collateral damage. The blackened husks of mushroom houses stand silent, their vibrant colors scorched away. Personal belongings lie scattered in the mud. The village is now a grim no-man's-land, haunted by the ghosts of what was lost and occasionally patrolled by scavengers from both sides.",
-            factionId: 'unaligned',
-            intelReq: 5,
-            political_influence: 1,
+            type: 'town', // No longer just ruins
+            name: "Bramblehaven (Loyalist Occupied)",
+            description: "A grim testament to the Loyalists' ruthlessness. Once a Fawful-held village, Bramblehaven is now a conquered ruin under the iron-fisted rule of the Peach Loyalists. The streets are stained with blood, and the gallows in the town square stand as a stark warning to any who would defy them. The town is being converted into a forward operating base, with interim mayor Big R overseeing the 'pacification' of the remaining populace.",
+            factionId: 'peach_loyalists', // New faction owner
+            intelReq: 10,
+            political_influence: 3,
             economic_value: 2,
-            military_strength: 1,
-            population: 0
+            military_strength: 7, // Increased military presence
+            population: 400 // Population reflects remaining civilians and occupying force
         },
         {
             id: 'poi_mk_koopa_outpost',
