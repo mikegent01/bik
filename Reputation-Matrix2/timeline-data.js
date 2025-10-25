@@ -64,5 +64,12 @@ export const HISTORICAL_TIMELINE = [
         description: "In a desperate battle, Dan casts his first independent healing spell on Archie. Trapped and surrounded, Archie uses a massive fireball to destroy the remaining monsters, causing the greenhouse to collapse. Markop and Waluigi rescue the unconscious survivors from the ashes. Green T reappears, giving Markop a mysterious key and a cryptic offer to uncover the mansion's secrets.", 
         icon: "icon_magic.png", 
         category: "Recent Event" 
-    }
+    },
+        { 
+        date: "Day 17", 
+        title: "The Capture of Bramblehaven", 
+        description: "Captain Toadette's Peach Loyalists launched the final brutal assault on the Fawful-held town of Bramblehaven. The battle was marked by high casualties, the discovery of a robotic mayor, and the Loyalists' public execution of captured prisoners. Following the costly victory, Toadette shocked her followers by proposing a temporary ceasefire with Bowser's Koopa Troop to form a united front against Fawful.", 
+        icon: "icon_war.png", 
+        category: "Military" 
+    },
 ];

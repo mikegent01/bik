@@ -22,7 +22,7 @@ export const MAIN_QUESTS = {
         title: "The Artifacts of Balance",
         type: 'main',
         category: 'Main Story',
-        is_updated: true, // This quest has been updated
+        is_updated: false, // This quest has been updated
         objective: "Recover the Star of Radiance, Fire Crystal, and Mushroom of Life—three legendary artifacts that hold the power to restore balance to the world. However, the journey will be fraught with peril, as a powerful evil toad has obtained the Star of Radiance, ascending to godhood.",
         assignee: "Full Party",
         assigneeKey: 'full_party',
@@ -48,22 +48,33 @@ export const MAIN_QUESTS = {
         ],
         finalDecision: { description: "Once all three artifacts are gathered, a choice must be made. Use them to restore balance, breaking the Toad-God’s power and healing the realm, or use them for yourself, risking corruption but ascending to a higher form of existence." }
     },
-    'who_killed_peach': {
+'who_killed_peach': {
         id: 'who_killed_peach',
         title: "The Princess's Lasting Shadow",
         type: 'main',
         category: 'Main Story',
-        objective: "Captain Toadette and the Peach Loyalists are relentlessly pursuing the conspiracy behind Princess Peach's death. Believing Fawful is a key player, their primary goal is to breach Peach's Castle and uncover the truth hidden within. Their methods have grown increasingly ruthless as their desperation for justice intensifies.",
+        is_updated: true,
+        objective: "Captain Toadette's crusade for justice has taken a brutal and pragmatic turn. After a costly victory at Bramblehaven, she has realized that her forces alone are insufficient to breach Fawful's main fortress. She must now navigate the treacherous political landscape to forge an alliance of convenience, no matter how distasteful, to achieve her ultimate goal: uncovering the truth behind Peach's death.",
         assignee: "Peach Loyalists",
         assigneeKey: 'peach_loyalists',
         status: "active",
         start_condition: "A fragile truce was brokered between the Koopa Troop remnants and the Peach Loyalists.",
         steps: [
-            { id: 'step1', title: "Infiltrate the Madhouse", status: 'completed', description: "Loyalist scouts Embercap and Mistveil successfully infiltrated Fawful's Grand Gala at the occupied castle to gather intelligence." },
-            { id: 'step2', title: "A Secret Revealed", status: 'completed', description: "During the gala, the scout Mistveil made contact with Chief Thornpaw, who revealed a stunning secret: a hidden hatch in the Princess's private chambers. This provided the Loyalists their first concrete lead, though the mission ended in chaos where Embercap was briefly presumed dead." },
-            { id: 'step3', title: "Sewer Infiltration Attempt", status: 'completed', description: "Following a lead from the assassinated mayor's office, Loyalist forces led by Embercap attempted to find a secret entrance to the castle through the sewers beneath Toad Town. The mission failed, the path was blocked, but they recovered a cryptic note hinting at a wider conspiracy." },
-            { id: 'step4', title: "The Siege of Toad Town", status: 'active', description: "Unable to find a covert route, Captain Toadette has changed tactics. The Loyalists have seized control of Toad Town, brutally suppressing any dissent and transforming it into a forward operating base. Their current objective is to consolidate their power and prepare for a direct assault on Peach's Castle.", options: ["Continue fortifying Toad Town and training recruits for the siege.", "Launch scouting missions to find weaknesses in the castle's outer defenses.", "Attempt to sabotage Fawful's supply lines before the main assault begins."] },
-            { id: 'step5', title: "Breach the Castle", status: 'locked', description: "Launch the full-scale assault on Peach's Castle to find the secret hatch." },
+            { id: 'step1', title: "A Secret Revealed", status: 'completed', description: "During an intelligence mission at Fawful's Gala, Loyalist scouts learned of a hidden hatch in the late Princess's private chambers, providing their first concrete lead." },
+            { id: 'step2', title: "The Siege of Bramblehaven", status: 'completed', description: "The Loyalists launched a full-scale assault on the Fawful-held town of Bramblehaven. The victory was total but costly, revealing the fanatical resolve of Fawful's forces and the shocking use of a robotic decoy for the town's mayor." },
+            { 
+                id: 'step3', 
+                title: "An Unholy Alliance", 
+                status: 'active', 
+                description: "Recognizing that her remaining forces cannot take the castle alone, Captain Toadette has made a shocking proposal: a temporary ceasefire with Bowser's Koopa Troop. Her objective is to form a joint task force to eliminate their mutual enemy, Fawful, and secure access to the castle.",
+                options: [
+                    "Finalize the terms of the ceasefire with Bowser's advisor, Kamek.",
+                    "Root out dissent within the Loyalist ranks who object to allying with their sworn enemy.",
+                    "Begin joint strategic planning for the assault on Peach's Castle."
+                ]
+            },
+            { id: 'step4', title: "Breach the Castle", status: 'locked', description: "With the aid of their new, temporary allies, launch the assault on Fawful's fortress." },
+            { id: 'step5', title: "Find the Hatch", status: 'locked', description: "Navigate the twisted corridors of the occupied castle to locate the secret hatch in the Princess's chambers." },
             { id: 'step6', title: "Confront the Truth", status: 'locked', description: "Once the secrets of the hatch are revealed, confront the true culprit or circumstances behind the Princess's death." }
         ]
     },
