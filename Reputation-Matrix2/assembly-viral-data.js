@@ -5,6 +5,392 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 // Posts are grouped by 'eventId' to represent distinct story arcs.
 
 export const VIRAL_POSTS = [
+        {
+        id: 'dewdrop_bowser_ceasefire',
+        order: 20345,
+        characterKey: 'dewdrop',
+        timestamp: 'Just Now',
+        content: `A ceasefire... with BOWSER? The monster responsible for this entire war? Has she gone mad? We just lost so many good toads, and now we're supposed to shake hands with their king? I... I can't. This is wrong.`,
+        likes: 788,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'War is about making hard choices, medic. Not easy ones.' },
+            { characterKey: 'generic_toad', text: 'I\'m with Dewdrop. I don\'t trust him!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_bowser_ceasefire',
+        order: 20344,
+        characterKey: 'captain_toadette',
+        timestamp: '2 minutes ago',
+        content: `The strategic situation is clear. The Regency is weak, the vampires are a chaotic variable. To defeat Fawful, we require overwhelming force. I have opened negotiations with the Koopa Troop for a temporary ceasefire. We will deal with Fawful first. The rest can be settled later.`,
+        likes: 650,
+        comments: [
+            { characterKey: 'kamek', text: 'An unexpectedly pragmatic decision, Captain. Lord Bowser is willing to listen.' },
+            { characterKey: 'fawful', text: 'I HAVE FURY! The turncoats bargain with the turtle beefbrain! They are a conga line of betrayal!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'mystvil_robot_mayor',
+        order: 20343,
+        characterKey: 'mistveil',
+        timestamp: '5 minutes ago',
+        content: `Target confirmed as a mechanical duplicate. The real mayor was inside. He is now in custody. The shell has been stripped for parts. Efficient.`,
+        likes: 512,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'generic_toad_robot_mayor',
+        order: 20342,
+        characterKey: 'generic_toad',
+        timestamp: '8 minutes ago',
+        content: `THE MAYOR WAS A ROBOT?! A MACHINE?! The real one CRAWLED OUT of the metal husk after it was shot! What is this town?!`,
+        likes: 813,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Fascinating! A humanoid piloting chassis! I must acquire the schematics!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_mayor_interrogation',
+        order: 20341,
+        characterKey: 'embercap',
+        timestamp: '10 minutes ago',
+        content: `Interrogating the mayor. He was defiant. Claimed he made the town 'peaceful' under Fawful. Then he tried to teleport. Mystvil was faster. Now we have a... complication.`,
+        likes: 350,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_dog_collar',
+        order: 20340,
+        characterKey: 'captain_toadette',
+        timestamp: '12 minutes ago',
+        content: `...Bring him back alive.`,
+        likes: 499,
+        comments: [
+            { characterKey: 'dewdrop', text: 'Thank you, Captain.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'fawful_faithful_dog_collar',
+        order: 20339,
+        characterKey: 'fawful_faithful',
+        timestamp: '15 minutes ago',
+        content: `It was my dog's collar. He died when your kind raided our camp. Ever since, I’ve fought every toad I could find. Do what you want. Nothing you can do is worse than what you've already done.`,
+        likes: 621,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'mystvil_box_bluff',
+        order: 20338,
+        characterKey: 'mistveil',
+        timestamp: '18 minutes ago',
+        content: `Threat assessment: Prisoner claimed box was a bomb. Analysis: It was just a box. Amateurish bluff. He is now being searched for actual intelligence.`,
+        likes: 488,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'dewdrop_executions',
+        order: 20337,
+        characterKey: 'dewdrop',
+        timestamp: '20 minutes ago',
+        content: `I just watched them execute prisoners in the square. In the name of the Princess. In the name of hope. This isn't justice. This is butchery. I... I don't know what we're fighting for anymore.`,
+        likes: 672,
+        comments: [
+            { characterKey: 'embercap', text: 'This is war, Dewdrop. It is ugly.' },
+            { characterKey: 'mistveil', text: 'They were the enemy. It was necessary.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_interim_mayor',
+        order: 20336,
+        characterKey: 'embercap',
+        timestamp: '22 minutes ago',
+        content: `The Captain has named me... interim mayor. Of this... ruin. I am a soldier, not a politician. I do not understand this order, but I will obey it.`,
+        likes: 513,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'Good. Your first task is to restore order.' },
+            { characterKey: 'dewdrop', text: 'Embercap, this is a mistake.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'generic_toad_mayor_chanting',
+        order: 20335,
+        characterKey: 'generic_toad',
+        timestamp: '25 minutes ago',
+        content: `We're chanting 'Down with the mayor!' and dragging him to the gallows, but... wait, is he chanting with us? He's shouting 'Down with the mayor!' too! I'm so confused!`,
+        likes: 765,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'traitor_confession',
+        order: 20334,
+        characterKey: 'generic_toad',
+        timestamp: '28 minutes ago',
+        content: `They caught the traitor from the other house. He was sobbing... said Fawful gave him a reason to live. Then he tried to... you know. The guards stopped him. It was awful.`,
+        likes: 310,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'loyalist_poison_test',
+        order: 20333,
+        characterKey: 'generic_toad',
+        timestamp: '30 minutes ago',
+        content: `captain_toadette just told us she poisoned the water supply to 'test our loyalty'! I almost had a heart attack! She said it was a lie, but... what kind of leader does that?!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'embercap', text: '...' },
+            { characterKey: 'captain_toadette', text: 'The kind that ensures her soldiers are vigilant.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_secures_battlefield',
+        order: 20332,
+        characterKey: 'captain_toadette',
+        timestamp: '33 minutes ago',
+        content: `The battlefield is secure. The enemy is broken or captured. We have taken significant spoils. A Pack Muel is needed for transport. You. Toad. Handle it.`,
+        likes: 419,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_looting',
+        order: 20331,
+        characterKey: 'embercap',
+        timestamp: '35 minutes ago',
+        content: `Victory. The cost was high. Our toads now strip armor and trinkets from the fallen. Both theirs and ours. This is what winning looks like. It feels... hollow.`,
+        likes: 388,
+        comments: [
+            { characterKey: 'dewdrop', text: 'There is no honor in this, Commander.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'sniper_smirk',
+        order: 20330,
+        characterKey: 'generic_toad',
+        timestamp: '38 minutes ago',
+        content: `They dragged the traitor out of the house. He was denying everything, but then the captured sniper just looked at him and smirked. He's guilty. The look on his face said it all.`,
+        likes: 401,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'fawful_commander_mauled',
+        order: 20329,
+        characterKey: 'fawful_faithful',
+        timestamp: '40 minutes ago',
+        content: `They had a bear. A BEAR. It tore the Commander apart. A glorious death for a glorious leader! Fawful will avenge you!`,
+        likes: 120,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_thorns',
+        order: 20328,
+        characterKey: 'captain_toadette',
+        timestamp: '42 minutes ago',
+        content: `He threatens us with fire? Pathetic. My roots run deeper than his fury. Charge.`,
+        likes: 522,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'big_r_friendly_fire',
+        order: 20327,
+        characterKey: 'big_r',
+        timestamp: '45 minutes ago',
+        content: `I'M BACK ON THE CANNON! EAT THIS, FAWFUL FOOLS! ...oops. Okay, that might have hit some of ours. MY BAD!`,
+        likes: 250,
+        comments: [
+            { characterKey: 'generic_toad', text: 'WATCH WHERE YOU\'RE AIMING!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'eric_sniper_kill',
+        order: 20326,
+        characterKey: 'generic_toad',
+        timestamp: '48 minutes ago',
+        content: `SNIPER SPOTTED! ROOFTOP, EAST SIDE! TAKE HIM OUT!`,
+        likes: 189,
+        comments: [
+            { characterKey: 'big_r', text: 'I see him!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_back_door',
+        order: 20325,
+        characterKey: 'embercap',
+        timestamp: '50 minutes ago',
+        content: `Back door clear. The bear was effective. We're punching through.`,
+        likes: 312,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'big_r_shot',
+        order: 20324,
+        characterKey: 'generic_toad',
+        timestamp: '52 minutes ago',
+        content: `BIG R IS DOWN! THE CANNON... HE'S DOWN! The sniper got him!`,
+        likes: 210,
+        comments: [
+            { characterKey: 'dewdrop', text: 'Medic en route!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'loyalist_archer_shot',
+        order: 20323,
+        characterKey: 'generic_toad',
+        timestamp: '55 minutes ago',
+        content: `The wind magic was about to hit us all! But Tim shot him! Good shot Tim! You saved us!`,
+        likes: 195,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'young_toad_charge',
+        order: 20322,
+        characterKey: 'generic_toad',
+        timestamp: '57 minutes ago',
+        content: `They killed our envoy! YOU'LL PAY FOR THAT! FOR THE PRINCESS!`,
+        likes: 140,
+        comments: [
+            { characterKey: 'embercap', text: 'Hold your position, soldier! It\'s an ambush!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'fawful_faithful_laughs',
+        order: 20321,
+        characterKey: 'fawful_faithful',
+        timestamp: '58 minutes ago',
+        content: `They sent an envoy! For 'peace'! HA! As if! The only peace you'll get is the one Lord Fawful grants you in death!`,
+        likes: 98,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_horn',
+        order: 20320,
+        characterKey: 'captain_toadette',
+        timestamp: '1 hour ago',
+        content: `They have us surrounded. They think we are trapped. They are wrong. Sound the horn.`,
+        likes: 489,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'mystvil_scouts_house',
+        order: 20319,
+        characterKey: 'mistveil',
+        timestamp: '1 hour ago',
+        content: `Count: Seven hostiles visible, encircling the house. Marksman on the rooftop. They are confident. A mistake.`,
+        likes: 340,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'dewdrop_bear',
+        order: 20318,
+        characterKey: 'dewdrop',
+        timestamp: '1 hour ago',
+        content: `They're breaking down the door! No time! Bag of Tricks, don't fail me now! ...oh! A bear! That should work!`,
+        likes: 412,
+        comments: [
+            { characterKey: 'generic_toad', text: 'A BEAR?! WHERE DID YOU GET A BEAR?!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_tunnel_disagreement',
+        order: 20317,
+        characterKey: 'embercap',
+        timestamp: '1 hour ago',
+        content: `Captain, there's an old escape tunnel under the floorboards. We can use it to flank them or retreat.`,
+        likes: 299,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'We are not retreating. We are charging. Get ready.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_arrives',
+        order: 20316,
+        characterKey: 'captain_toadette',
+        timestamp: '1 hour ago',
+        content: `I have arrived. We're not dying in a house. We're taking this town back. Prepare for contact.`,
+        likes: 455,
+        comments: [
+            { characterKey: 'embercap', text: 'Captain on deck!' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'embercap_pinned_down',
+        order: 20315,
+        characterKey: 'embercap',
+        timestamp: '1 hour ago',
+        content: `We're pinned down. Fawful's forces have us surrounded in the old district. There's a sniper with a clear line of sight on our position. We need reinforcements, now.`,
+        likes: 240,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'generic_toad_sniper_fear',
+        order: 20314,
+        characterKey: 'generic_toad',
+        timestamp: '1 hour ago',
+        content: `GET INSIDE! GET INSIDE! THERE'S A SNIPER! HE ALMOST GOT TIMMY!`,
+        likes: 124,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'kamek_observes_bramblehaven',
+        order: 20313,
+        characterKey: 'kamek',
+        timestamp: '2 hours ago',
+        content: `The pink fanatics are throwing themselves at Bramblehaven. A meat grinder. Let them soften up Fawful's defenses for us. Their zealotry makes them predictable... and useful.`,
+        likes: 311,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'fawful_gloats_bramblehaven',
+        order: 20312,
+        characterKey: 'fawful',
+        timestamp: '2 hours ago',
+        content: `The little toads with their sad pink hats are flinging themselves at my glorious fortress! It is like being attacked by angry, determined marshmallows! I HAVE THE MUAHAHAHAS!`,
+        likes: 642,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'broker_bramblehaven_market',
+        order: 20311,
+        characterKey: 'the_broker',
+        timestamp: '3 hours ago',
+        content: `Market Advisory: Major military engagement reported at Bramblehaven. Expect high demand for medical supplies, ammunition, and burial shrouds. Betting odds currently favor the defending Fawful forces 3-to-1. My inbox is open for more... specific wagers.`,
+        likes: 498,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+
     {
         id: 'rodger_traitor_reveal_final',
         order: 20245,
@@ -299,7 +685,7 @@ export const VIRAL_POSTS = [
         order: 20080,
         characterKey: 'wah_media_collective',
         timestamp: 'Just Now',
-        content: `**BRAMBLEHAVEN FALLS IN BLOODY SIEGE!** Captain Toadette's Peach Loyalists have conquered the Fawful bastion of Bramblehaven after a brutal, day-long assault. Sources describe a battle of shocking attrition, culminating in a final charge where surrendering Fawful troops were shown no mercy. Loyalist casualties are 'catastrophic', but the victory gives them a key strategic position and, according to a dying soldier, 'invaluable intel'. The ruthless tactics have solidified the Loyalists' fearsome reputation across the kingdom.`,
+        content: `**BRAMBLEHAVEN FALLS IN BLOODY SIEGE!** captain_toadette's Peach Loyalists have conquered the Fawful bastion of Bramblehaven after a brutal, day-long assault. Sources describe a battle of shocking attrition, culminating in a final charge where surrendering Fawful troops were shown no mercy. Loyalist casualties are 'catastrophic', but the victory gives them a key strategic position and, according to a dying soldier, 'invaluable intel'. The ruthless tactics have solidified the Loyalists' fearsome reputation across the kingdom.`,
         image: 'battle_mushroom_kingdom.png',
         image_alt: "The smoldering ruins of a fortress under a dark, rainy sky.",
         likes: 3105,
