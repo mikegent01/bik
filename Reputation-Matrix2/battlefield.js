@@ -2,22 +2,23 @@ import { LORE_DATA } from './lore.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 
 const MAJOR_BATTLES = [
+    // --- NEW BATTLE ENTRY ---
     {
         id: 'siege_of_bramblehaven',
         name: "Siege of Bramblehaven",
         conflict: "Mushroom Kingdom Civil War",
-        date: "Day 15, 1040 BF",
-        location: "Bramblehaven, Fawthful Bastion",
+        date: "Day 17, 1040 BF",
+        location: "Bramblehaven, Mushroom Kingdom",
         belligerents: {
             side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
             side_b: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] }
         },
-        commanders: { side_a: ["Captain Toadette", "Embercap"], side_b: ["Unknown"] },
-        outcome: "<span class='outcome victory'>Decisive Loyalist Victory</span>; Fortress captured.",
-        casualties: "Heavy on both sides. Loyalist Commander Mistveil severely wounded.",
+        commanders: { side_a: ["Captain Toadette", "Embercap", "Big R"], side_b: ["Unnamed Fawful Commander"] },
+        outcome: "<span class='outcome victory'>Decisive Loyalist Victory</span>; Town captured.",
+        casualties: "Heavy on both sides. Multiple Loyalist officers wounded. Fawful's command structure in the area was eliminated.",
         description: `
-            <p>A brutal, day-long assault on the key Fawful stronghold of Bramblehaven. The Peach Loyalists, led by Captain Toadette, leveraged superior numbers to overwhelm the entrenched defenders. Despite suffering heavy losses to Fawful's frost mages, the Loyalists pressed their attack relentlessly through day and night.</p>
-            <p>The battle culminated in a merciless final charge where surrendering Fawful troops were not spared. The victory, though costly, secured a vital strategic position and valuable intelligence for the Loyalist cause, while cementing their reputation as ruthless fanatics.</p>
+            <p>A brutal, day-long assault on the key Fawful stronghold of Bramblehaven. The Peach Loyalists, led by Captain Toadette, leveraged superior numbers and tactical ferocity to overwhelm the entrenched defenders. The battle began with Loyalist forces pinned down by a sniper before Toadette's arrival turned the tide.</p>
+            <p>The conflict was marked by chaotic street-to-street fighting, the use of a summoned bear from a magical artifact, and significant friendly fire from Big R's cannon. The battle culminated in a merciless final charge where surrendering Fawful troops were executed in the town square. The victory secured a vital strategic position for the Loyalists but cemented their reputation as ruthless fanatics.</p>
         `
     },
     {
@@ -42,7 +43,7 @@ const MAJOR_BATTLES = [
         id: 'toad_town_coup',
         name: "The Toad Town Coup & Sewer Test",
         conflict: "Mushroom Kingdom Civil War",
-        date: "Day 14, 1040 BF",
+        date: "Day 12, 1040 BF", // Corrected Date
         location: "Toad Town",
         belligerents: {
             side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
@@ -50,9 +51,9 @@ const MAJOR_BATTLES = [
         },
         commanders: { side_a: ["Captain Toadette"], side_b: ["Chancellor Toadsworth (Politically)"] },
         outcome: "<span class='outcome victory'>Loyalist political victory</span>; Toadette consolidates power.",
-        casualties: "None.",
+        casualties: "One mayor assassinated by Onyx Hand agents prior to the coup.",
         description: `
-            <p>Following the assassination of the mayor, Captain Toadette declared martial law and seized control of Toad Town, ousting the Mushroom Regency's authority. This political coup was immediately followed by a brutal loyalty test, where Toadette subjected her own commanders and the main party to a series of terrifying illusions in the sewers to test their resolve.</p>
+            <p>Following the assassination of the mayor, Captain Toadette declared martial law and seized control of Toad Town, ousting the Mushroom Regency's authority. This political coup was immediately followed by a brutal loyalty test, where Toadette subjected her own commanders to a series of terrifying illusions in the sewers to test their resolve.</p>
             <p>The event solidified her control, demonstrated her ruthless methods, and provoked the Iron Legion into establishing a permanent 'embassy' in the town square to monitor the unstable situation.</p>
         `
     },
@@ -201,7 +202,6 @@ const MAJOR_BATTLES = [
         `
     }
 ];
-
 function renderBelligerents(belligerents) {
     let html = '';
     const sides = ['side_a', 'side_b', 'side_c', 'side_d'];
