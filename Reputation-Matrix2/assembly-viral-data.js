@@ -16,7 +16,7 @@ export const VIRAL_POSTS = [
         likes: 950,
         comments: [
             { characterKey: 'bowser', text: 'GWAHAHA! That\'s right! Come crawling to us!' },
-            { characterKey: 'toadette', text: 'We do not crawl, wizard. We negotiate from a position of strength.' }
+            { characterKey: 'captain_toadette', text: 'We do not crawl, wizard. We negotiate from a position of strength.' }
         ],
         rumorId: 'bramblehaven_siege'
     },
@@ -69,7 +69,7 @@ export const VIRAL_POSTS = [
         content: `Wait, so... Kamek is back, he got Toadette's message, and now they're talking about talking? Are they allies now? Or are they still enemies? I'm so confused! Are we supposed to stop hating Bowser now?`,
         likes: 345,
         comments: [
-            { characterKey: 'toadette', text: 'We will NEVER stop hating Bowser. This is a temporary means to an end.' }
+            { characterKey: 'captain_toadette', text: 'We will NEVER stop hating Bowser. This is a temporary means to an end.' }
         ]
     },    
     {
