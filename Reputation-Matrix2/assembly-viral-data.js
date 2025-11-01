@@ -5,7 +5,74 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 // Posts are grouped by 'eventId' to represent distinct story arcs.
 
 export const VIRAL_POSTS = [
-        {
+    // Add these to the top of the WAHBOOK_POSTS array
+
+    {
+        id: 'kamek_responds_to_toadette',
+        order: 20356,
+        characterKey: 'kamek',
+        timestamp: 'Just Now',
+        content: `A message to Captain Toadette: Your... proposal... has been received. The terms are amusingly bold for one in your position. A good starting point for a *real* negotiation. My King is willing to be merciful. Do not waste this opportunity.`,
+        likes: 950,
+        comments: [
+            { characterKey: 'bowser', text: 'GWAHAHA! That\'s right! Come crawling to us!' },
+            { characterKey: 'toadette', text: 'We do not crawl, wizard. We negotiate from a position of strength.' }
+        ],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'toadette_kamek_response',
+        order: 20355,
+        characterKey: 'captain_toadette',
+        timestamp: '5 minutes ago',
+        content: `So the old wizard shows his hand. He thinks he holds all the cards. He will soon learn that the Peach Loyalists do not bluff. We will meet, but it will be on our terms.`,
+        likes: 720,
+        comments: [
+            { characterKey: 'embercap', text: 'We are with you, Captain. To the end.' },
+            { characterKey: 'dewdrop', text: 'Please... be careful. This feels like a trap.' }
+        ]
+    },
+    {
+        id: 'toadsworth_i_told_you_so',
+        order: 20354,
+        characterKey: 'chancellor_toadsworth',
+        timestamp: '10 minutes ago',
+        content: `Utter madness! She sent an envoy into the dragon's den and is surprised the dragon now dictates the terms? This reckless diplomacy will be the end of us all. We are now at the mercy of that vile sorcerer.`,
+        likes: 450,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'fawful_fury_at_truce',
+        order: 20353,
+        characterKey: 'fawful',
+        timestamp: '15 minutes ago',
+        content: `I HAVE A FURY THE SIZE OF A GALAXY! THE PINK MUSHROOM DANCES WITH THE TURTLE WIZARD! THEY CONSPIRE LIKE TWO FOOLS SHARING A SINGLE BRAIN CELL! THEIR TRUCE IS A SANDWICH OF BETRAYAL, AND I WILL SPREAD IT WITH THE MUSTARD OF DOOM!`,
+        likes: 899,
+        comments: [],
+        rumorId: 'bramblehaven_siege'
+    },
+    {
+        id: 'broker_truce_market',
+        order: 20352,
+        characterKey: 'the_broker',
+        timestamp: '20 minutes ago',
+        content: `Market Correction: The probability of a Koopa-Loyalist alliance has jumped from 5% to 65%. Fawful's victory futures are taking a nosedive. The price for peace in the Mushroom Kingdom just got significantly higher. My inbox is open for insider trading.`,
+        likes: 610,
+        comments: []
+    },
+    {
+        id: 'generic_toad_truce_confusion',
+        order: 20351,
+        characterKey: 'generic_toad',
+        timestamp: '30 minutes ago',
+        content: `Wait, so... Kamek is back, he got Toadette's message, and now they're talking about talking? Are they allies now? Or are they still enemies? I'm so confused! Are we supposed to stop hating Bowser now?`,
+        likes: 345,
+        comments: [
+            { characterKey: 'toadette', text: 'We will NEVER stop hating Bowser. This is a temporary means to an end.' }
+        ]
+    },    
+    {
         id: 'dewdrop_bowser_ceasefire',
         order: 20345,
         characterKey: 'dewdrop',

@@ -64,16 +64,16 @@ export const MAIN_QUESTS = {
             { id: 'step2', title: "The Siege of Bramblehaven", status: 'completed', description: "The Loyalists launched a full-scale assault on the Fawful-held town of Bramblehaven. The victory was total but costly, revealing the fanatical resolve of Fawful's forces and the shocking use of a robotic decoy for the town's mayor." },
             { 
                 id: 'step3', 
-                title: "An Unholy Alliance", 
+                title: "The Wizard's Gambit", 
                 status: 'active', 
-                description: "Recognizing that her remaining forces cannot take the castle alone, Captain Toadette has made a shocking proposal: a temporary ceasefire with Bowser's Koopa Troop. Her objective is to form a joint task force to eliminate their mutual enemy, Fawful, and secure access to the castle.",
+                description: "Toadette's diplomatic envoy to the Koopa Troop was intercepted. The formidable magikoopa Kamek has returned to power, and he now holds her proposed ceasefire terms. He has publicly acknowledged her 'amusing' offer, forcing her into a negotiation where he holds all the cards. The alliance is possible, but the price will be steep.",
                 options: [
-                    "Finalize the terms of the ceasefire with Bowser's advisor, Kamek.",
-                    "Root out dissent within the Loyalist ranks who object to allying with their sworn enemy.",
-                    "Begin joint strategic planning for the assault on Peach's Castle."
+                    "Enter into treacherous negotiations with Kamek, knowing he has the upper hand.",
+                    "Attempt a high-risk intelligence operation to discover Kamek's weaknesses before meeting.",
+                    "Publicly reject Kamek's condescending tone and prepare for a three-way war."
                 ]
             },
-            { id: 'step4', title: "Breach the Castle", status: 'locked', description: "With the aid of their new, temporary allies, launch the assault on Fawful's fortress." },
+            { id: 'step4', title: "Breach the Castle", status: 'locked', description: "With or without allies, launch the assault on Fawful's fortress." },
             { id: 'step5', title: "Find the Hatch", status: 'locked', description: "Navigate the twisted corridors of the occupied castle to locate the secret hatch in the Princess's chambers." },
             { id: 'step6', title: "Confront the Truth", status: 'locked', description: "Once the secrets of the hatch are revealed, confront the true culprit or circumstances behind the Princess's death." }
         ]

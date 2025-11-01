@@ -73,13 +73,14 @@ export const ARCHIE_QUESTS = {
         title: "The Kamek Conundrum",
         type: 'personal',
         category: 'Personal - Archie',
-        objective: "Kamek and the Koopa Troop's Magikoopa Cabal don't trust Archie. He needs to secure leverage over them to ensure they don't try to 'magically fix' him later.",
+        is_updated: true,
+        objective: "Kamek, Bowser's powerful and cunning advisor, has returned to power in the Valley of Bowser. He doesn't trust Archie. Archie needs to secure leverage over him to ensure the Magikoopa doesn't try to 'magically fix' him later.",
         assignee: "Archie",
         assigneeKey: 'archie',
-        status: "available",
-        motivation: "Archie knows that Bowser's loyalty is fickle, but Kamek's is absolute—to the Koopa Kingdom. He sees Kamek as the real threat to his autonomy and wants to find some dirt to ensure the old Magikoopa stays in line.",
+        status: "active", // This is now a high-priority, active threat
+        motivation: "Archie knows that Bowser's loyalty is fickle, but Kamek's is absolute—to the Koopa Kingdom. With Kamek now consolidating power while Bowser is away, he represents the single greatest threat to Archie's autonomy within the alliance. Finding blackmail material is no longer a side project; it's a matter of survival.",
         steps: [
-            { id: 'step1', title: "Find the Skeleton in the Robe", status: 'active', description: "Every old wizard has a secret. Delve into Koopa Troop historical archives to find records of Kamek's greatest failures or most embarrassing secrets." },
+            { id: 'step1', title: "Find the Skeleton in the Robe", status: 'active', description: "Every old wizard has a secret. Delve into Koopa Troop historical archives or underworld intelligence to find records of Kamek's greatest failures or most embarrassing secrets." },
             { id: 'step2', title: "The Proof", status: 'locked', description: "It's not enough to know the secret; Archie needs proof. This involves a risky trip to a secure Koopa vault or a forgotten library." },
             { id: 'step3', title: "A Private Conversation", status: 'locked', description: "Present the evidence to Kamek not as a threat, but as an 'insurance policy' for their continued, 'fruitful' alliance." }
         ]

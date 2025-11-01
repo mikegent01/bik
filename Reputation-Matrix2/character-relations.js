@@ -27,6 +27,16 @@ export const CHARACTER_RELATIONS = {
         'lario': { type: 'transactional', text: "Archie on Lario: The little goblin actually pulled it off! A logbook... could be useful. Maybe he's not entirely useless after all." },
         'bryan': { type: 'enemy', text: "Archie on Bryan: Another ghost from the past. He thinks I left him for dead? Please. In my line of work, people get left. He should have been faster. Now he's just another problem to solve." }
     },
+    'kamek': {
+        'captain_toadette': { type: 'enemy', text: "Kamek on Toadette: She sent an envoy armed with sentiment and a dead princess's seal. An insultingly naive gambit. They were dealt with. She has been reminded that the Valley of Bowser is not a place for diplomacy." },
+        'fawful': { type: 'rivalry', text: "Kamek on Fawful: Let the green fool have his chortles in his stolen castle. He plays with toys. I play with kingdoms." }
+    },
+    'captain_toadette': {
+        'kamek': { type: 'enemy', text: "Toadette on Kamek: He took my envoys. He answers our offer of a ceasefire with silence and a display of dark magic. He will regret this insult. The Koopa Troop has made its choice." }
+    },
+    'chancellor_toadsworth': {
+        'captain_toadette': { type: 'distrust', text: "Toadsworth on Toadette: Her diplomatic overture to the Koopa Troop failed, exactly as I predicted. Her zealotry leads only to more bloodshed and isolates us further. She is a danger to what little remains of this Kingdom." }
+    },    
     'markop': {
         'archie': { type: 'volatile', text: "Markop on Archie: Another fireball. Another disaster. He nearly got them all killed. And yet... he saved the boy. He chose to save one life over his own escape. I don't understand him. Is he a monster, or a martyr?" }, // UPDATED        'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },
         'bowser': { type: 'distrust', text: "Markop on Bowser: He tried to call me 'Marc'. After everything that just happened, the fire, the smoke... the familiarity was galling. He does not understand the gravity of this. He is a warlord, not a comrade." }, // UPDATED        'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },   

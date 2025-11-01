@@ -72,4 +72,13 @@ export const HISTORICAL_TIMELINE = [
         icon: "icon_war.png", 
         category: "Military" 
     },
+
+    { type: 'era_header', title: 'Day 18: The Magus Returns' },
+    { 
+        date: "Day 18", 
+        title: "The Envoy's Fate & Kamek's Return", 
+        description: "A diplomatic envoy sent by the Peach Loyalists to negotiate with Bowser's remnants went silent in the Valley of Bowser. Shortly after, powerful magic was detected emanating from the long-dormant fortress, signaling the return of Kamek, Bowser's chief advisor, who has now consolidated control over the Koopa Troop in the region.", 
+        icon: "icon_magic.png", 
+        category: "Political" 
+    },    
 ];
