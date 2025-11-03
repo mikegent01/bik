@@ -1,13 +1,14 @@
 export const AUXILIARY_PARTY = {
-    dan: {
+  dan: {
         name: "Dan",
         weapon: "Longsword & Magic",
-        status: "Weakened & Diminished",
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
+        status: "Traumatized & Catatonic", // UPDATED
+        portrait: "toads/dan.png",
+        level: 4, // He still leveled up from the XP gain
+        xp: 25, // XP carries over after level up
+        xp_to_next: 500,
+        log: [/*...*/],
+        abilities: ["Divine Smite", "Cure Wounds"]
     },
     toad_lee: {
         name: "Toad Lee",
@@ -23,12 +24,13 @@ export const AUXILIARY_PARTY = {
     eager: {
         name: "Eager",
         weapon: "Whip",
-        status: "Active",
-        level: 1,
-        xp: 0,
-        xp_to_next: 100,
-        log: [],
-        abilities: []
+        status: "Critically Wounded & Unconscious", // UPDATED
+        portrait: "toads/eager.png",
+        level: 4, // He also leveled up from XP gain
+        xp: 125,
+        xp_to_next: 500,
+        log: [/*...*/],
+        abilities: ["Trip Attack", "Cunning Action"]
     },
     ryan: {
         name: "Ryan",

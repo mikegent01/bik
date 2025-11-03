@@ -73,7 +73,7 @@ export const ARCHIE_QUESTS = {
         title: "The Kamek Conundrum",
         type: 'personal',
         category: 'Personal - Archie',
-        is_updated: true,
+        is_updated: false,
         objective: "Kamek, Bowser's powerful and cunning advisor, has returned to power in the Valley of Bowser. He doesn't trust Archie. Archie needs to secure leverage over him to ensure the Magikoopa doesn't try to 'magically fix' him later.",
         assignee: "Archie",
         assigneeKey: 'archie',

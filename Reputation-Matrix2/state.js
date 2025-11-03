@@ -323,6 +323,10 @@ function processInitialXP() {
     aftermathAssist.forEach(toadKey => {
         grantXP(toadKey, 25, "Assisted in the chaotic aftermath of the Greenhouse Inferno.");
     });
+        const manorWitnesses = ['toad_lee', 'ryan', 'roger', 'bones'];
+    manorWitnesses.forEach(toadKey => {
+        grantXP(toadKey, 50, "Assisted in the chaotic aftermath of the Greenhouse Inferno and subsequent political votes.");
+    });
 }
 
 export function initFocusTreeState() {

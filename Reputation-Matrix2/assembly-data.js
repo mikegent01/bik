@@ -4,6 +4,409 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
+        {
+        id: 'speaker_l_candy_cookie',
+        order: 20390,
+        characterKey: 'speaker_l',
+        timestamp: 'Just Now',
+        content: `They have barricaded themselves. A futile gesture. ALL UNITS, FORMATION! CODEWORD: CANDY CHOCOLATE COOKIE! We will breach and secure!`,
+        likes: 410,
+        comments: [
+            { characterKey: 'generic_toad', text: '...Candy Chocolate Cookie? Is that a real codeword?' },
+            { characterKey: 'speaker_l', text: 'IT IS A TACTICAL PHONETIC DESIGNATION! CEASE YOUR QUESTIONING!' },
+            { characterKey: 'waluigi', text: 'WAH! What a delicious-sounding codeword! I approve!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_barricade',
+        order: 20389,
+        characterKey: 'archie',
+        timestamp: '1 minute ago',
+        content: `The door. Block it. Now.`,
+        likes: 645,
+        comments: [
+            { characterKey: 'hjumpik', text: 'ON IT!' },
+            { characterKey: 'speaker_l', text: 'Delaying the inevitable, Miser.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_offer_declined',
+        order: 20388,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '2 minutes ago',
+        content: `The offer to untangle the thread was made. It was refused. The path of consequence is chosen. So be it.`,
+        likes: 812,
+        comments: [
+            { characterKey: 'kamek', text: 'Playing with mortals is a dangerous game, old friend. Sometimes they refuse to be pawns.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_apprehend',
+        order: 20387,
+        characterKey: 'speaker_l',
+        timestamp: '3 minutes ago',
+        content: `BY VOTE AND VOW, BY COHORT LAW! ARCHIE MISER! YOU AND YOUR ASSOCIATES ARE TO SURRENDER! YOU ARE TO BE APPREHENDED FOR CATASTROPHIC FAILURE AND RECKLESS ENDANGERMENT!`,
+        likes: 520,
+        comments: [
+            { characterKey: 'archie', text: 'Busy at the moment! We have a toad bleeding out! Call back later!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'pond_patrol_sings',
+        order: 20386,
+        characterKey: 'generic_toad',
+        timestamp: '5 minutes ago',
+        content: `Hear us, Archie, in your keep, We’ve marched through fire, wade through deep! From shattered labs to fallen halls, The Cohort answers duty’s calls!`,
+        likes: 289,
+        comments: [
+            { characterKey: 'bones', text: 'Great. A singing mob. Just what we needed.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_failed_healing',
+        order: 20385,
+        characterKey: 'dan',
+        timestamp: '6 minutes ago',
+        content: `I can't... I can't... I made it worse...`,
+        likes: 310,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Dan, breathe. Do not let the failure consume you. Reset and try again.' },
+            { characterKey: 'ryan', text: 'You forced the energy. It requires calm, a gentle guidance. You will learn.' },
+            { characterKey: 'archie', text: 'Not now, Dan. Get it together.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_dan_heal_now',
+        order: 20384,
+        characterKey: 'archie',
+        timestamp: '8 minutes ago',
+        content: `Dan! Do something! Use your magic, heal him now! HE'S BLEEDING OUT!`,
+        likes: 540,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_wakes_up_drums',
+        order: 20383,
+        characterKey: 'remi',
+        timestamp: '10 minutes ago',
+        content: `Collapsed in a wrecked room full of broken mirrors. Finally got some sleep. Woke up to the sound of drums. I hate this house.`,
+        likes: 455,
+        comments: [
+            { characterKey: 'generic_toad', text: 'That\'s the Pond Patrol! They\'re here!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_spider_fight',
+        order: 20382,
+        characterKey: 'remi',
+        timestamp: '15 minutes ago',
+        content: `Fought a spider the size of a wolf in the maze. My shield spell worked. My dagger did not. My crossbow bolt hit it in the eye. It ran away. I'm never going in a maze again.`,
+        likes: 612,
+        comments: [
+            { characterKey: 'humpik', text: 'Good shot, little one!' },
+            { characterKey: 'waluigi', text: 'WAH! You should have captured it! Think of the chaos we could cause with a giant spider!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_lost_in_maze',
+        order: 20381,
+        characterKey: 'remi',
+        timestamp: '20 minutes ago',
+        content: `I'm lost. I'm lost in a maze that keeps changing. And of course there are spiders. Why did I have to say spiders.`,
+        likes: 388,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_keeps_book',
+        order: 20380,
+        characterKey: 'markop',
+        timestamp: '22 minutes ago',
+        content: `The book speaks of four manors, a war across time. The final page, the key to it all, is missing. The ghosts want it back. No. This knowledge is too dangerous to be left to them. I am keeping it.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'green_t', text: 'A wise, if predictable, choice, paladin.' },
+            { characterKey: 'janna_brightspark', text: 'A chronomantic codex?! You must let me see it! For science!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_ghosts',
+        order: 20379,
+        characterKey: 'green_t',
+        timestamp: '25 minutes ago',
+        content: `Okay, fine. There's a whole family of ghosts here. Oracles. They're at war with each other, living vs dead, for control of this place. Happy now?`,
+        likes: 375,
+        comments: [
+            { characterKey: 'markop', text: 'Your willingness to share this information now is noted. And distrusted.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_obituary',
+        order: 20378,
+        characterKey: 'markop',
+        timestamp: '30 minutes ago',
+        content: `We found a side entrance. A different part of the house, abandoned. On a table was a silver frame. An obituary. The name on it was 'Oracle'.`,
+        likes: 451,
+        comments: [
+            { characterKey: 'detective_penny', text: 'An obituary? For a man who is still walking around? This case keeps getting stranger. Keep that as evidence.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_dead_end',
+        order: 20377,
+        characterKey: 'bowser',
+        timestamp: '35 minutes ago',
+        content: `GWAH! A dead end! This stupid maze! I'm just gonna PUNCH my way through! RAAARGH! ...Okay, that hurt. These are some tough thorns.`,
+        likes: 398,
+        comments: [
+            { characterKey: 'markop', text: 'Brute force is not the answer to everything, Bowser.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_winged_it',
+        order: 20376,
+        characterKey: 'green_t',
+        timestamp: '40 minutes ago',
+        content: `Yes, alright, I winged it! I needed a distraction to get away and fire seemed like a bad idea. I grabbed a key. This maze is a defense system. Now follow me before it decides to eat us.`,
+        likes: 311,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_axe_swing',
+        order: 20375,
+        characterKey: 'markop',
+        timestamp: '42 minutes ago',
+        content: `The entrance to the maze was blocked by a wall of living vines. It bled when I cut it. This place is unnatural.`,
+        likes: 299,
+        comments: [
+            { characterKey: 'chief_thornpaw', text: 'The spirits of this place are angry. Wounded. Tread carefully.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_alone',
+        order: 20374,
+        characterKey: 'hjumpik',
+        timestamp: '45 minutes ago',
+        content: `Woke up. Everyone was gone. The house was quiet. Too quiet. I heard voices, but there was no one there. This place is not right. I am going back upstairs.`,
+        likes: 250,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_wakes_up_locked',
+        order: 20373,
+        characterKey: 'remi',
+        timestamp: '50 minutes ago',
+        content: `Woke up. The door is locked from the outside. My roommate smashed the lock. Breakfast was... not pork. Bowser's teeth are rusting. A wyvern fell from the sky. And now there's a living maze. I need a nap.`,
+        likes: 789,
+        comments: [
+            { characterKey: 'cranky_kong', text: 'Back in my day, we didn\'t have haunted houses, we had haunted shacks! And we LIKED it!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toadbert_on_dan_duty',
+        order: 20372,
+        characterKey: 'generic_toad',
+        timestamp: 'Just Now',
+        content: `He gave me his sword and told me to watch Dan. And not to cut his head off. Why would I cut his head off?! I'm so scared...`,
+        likes: 98,
+        comments: [
+            { characterKey: 'archie', text: 'It was a precaution. Don\'t worry about it.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_vision',
+        order: 20371,
+        characterKey: 'humpik',
+        timestamp: '7 minutes ago',
+        content: `I looked at the blood on the floor. It showed me... something. A face made of glass. I do not like this house's mirrors. Or its floors.`,
+        likes: 315,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'pond_patrol_arrival',
+        order: 20370,
+        characterKey: 'pond_patrol_grunt',
+        timestamp: '9 minutes ago',
+        content: `We have arrived at the objective. It is a ruin. Moving to secure the perimeter.`,
+        likes: 188,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'eager_agony',
+        order: 20369,
+        characterKey: 'eager',
+        timestamp: '11 minutes ago',
+        content: `AAAAAAAAAAGH!`,
+        likes: 742,
+        comments: [
+            { characterKey: 'dewdrop', text: 'By the stars, what happened?! I\'m mobilizing a medical team!' },
+            { characterKey: 'dan', text: 'I\'m so sorry... I\'m so sorry...' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_ignores_waluigi',
+        order: 20368,
+        characterKey: 'markop',
+        timestamp: '1 hour ago',
+        content: `There is a shadow with claws in the west hall. The Oracle is here, whispering at it. This is not my concern. I am going for breakfast.`,
+        likes: 350,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! You just walked past my dramatic entrance!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_throws_remi',
+        order: 20367,
+        characterKey: 'bowser',
+        timestamp: '40 minutes ago',
+        content: `GWAH! The little one is too slippery! She fell! But she found a path! Okay, this time for real! YEET!`,
+        likes: 367,
+        comments: [
+            { characterKey: 'remi', text: 'Stop throwing me!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_discovers_path',
+        order: 20366,
+        characterKey: 'remi',
+        timestamp: '41 minutes ago',
+        content: `Okay, so Bowser dropped me. But from down here I can see a hidden path along the side of the house! It looks... bushy.`,
+        likes: 412,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_throws_remi',
+        order: 20365,
+        characterKey: 'green_t',
+        timestamp: '44 minutes ago',
+        content: `If we can't go through it, we go over. Simple. Bowser, move. You're in my line of... throw.`,
+        likes: 299,
+        comments: [
+            { characterKey: 'markop', text: 'Is throwing people our only strategy now?' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kamek_observes_pond_patrol',
+        order: 20364,
+        characterKey: 'kamek',
+        timestamp: '1 hour ago',
+        content: `The mushrooms are sending a 'Pond Patrol' to apprehend their own allies. A delightful development. Let them tear each other apart. It saves us the effort.`,
+        likes: 420,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'the_oracle_walkway',
+        order: 20363,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '46 minutes ago',
+        content: `The thorns grow to protect the memory. The statue's face is gone because the reflection it shows is no longer mine.`,
+        likes: 723,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_finds_rotten_tomatoes',
+        order: 20362,
+        characterKey: 'remi',
+        timestamp: '32 minutes ago',
+        content: `Checked a planter in the creepy greenhouse. Just a basket of rotten tomatoes. Great.`,
+        likes: 215,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_to_remi',
+        order: 20361,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '14 minutes ago',
+        content: `Yes. There is another house. You have seen one of the other threads. Be careful which ones you pull.`,
+        likes: 698,
+        comments: [
+            { characterKey: 'remi', text: 'What does that even mean?!' },
+            { characterKey: 'archie', text: 'It means he\'s a creepy fortune cookie. Ignore him.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kay_diplomat_mission',
+        order: 20360,
+        characterKey: 'kay',
+        timestamp: 'Morning',
+        content: `We're on a mission for peace. With the Koopa Troop. I have a bad feeling about this.`,
+        likes: 88,
+        comments: [],
+        rumorId: 'bramblehaven_siege' // Different event, happening concurrently
+    },
+    {
+        id: 'koomba_diplomat_mission',
+        order: 20359,
+        characterKey: 'koomba',
+        timestamp: 'Morning',
+        content: `Delivering a message from a dead princess to a broken kingdom. What could possibly go wrong?`,
+        likes: 102,
+        comments: [],
+        rumorId: 'bramblehaven_siege' // Different event
+    },
+    {
+        id: 'paratroopa_report_envoys',
+        order: 20358,
+        characterKey: 'koopa_troop',
+        timestamp: 'Morning',
+        content: `Two envoys from the pink fanatics are trying to get into the valley. They say they have a message. Orders are to... let them pass? Weird.`,
+        likes: 154,
+        comments: [],
+        rumorId: 'bramblehaven_siege' // Different event
+    },
+    {
+        id: 'wario_observes_fire',
+        order: 20357,
+        characterKey: 'wario',
+        timestamp: '4 hours ago',
+        content: `Heard there was a fire at the purple idiot's new house. Gahaha! Sounds like property values are about to go down! A perfect time to make an offer!`,
+        likes: 489,
+        comments: [
+            { characterKey: 'lario', text: 'I can get you a great deal on the salvage rights!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'syrup_observes_fire',
+        order: 20356,
+        characterKey: 'captain_syrup',
+        timestamp: '5 hours ago',
+        content: `My spies tell me Waluigi's new manor is on fire and he's fighting his own allies. Couldn't have happened to a nicer cheat. Hope my invitation to the housewarming party is still valid.`,
+        likes: 512,
+        comments: [
+            { characterKey: 'first_mate_jones', text: 'I\'ll prepare the grappling hooks, Captain.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
     {
         id: 'speaker_l_patrol_vote',
         order: 20305,

@@ -45,28 +45,28 @@ export const HISTORICAL_TIMELINE = [
     {date: "1040 IE (1040 BF), Day 16",title: "The Scavenging Doctrine Vote",description: "A vote was held to determine the Liberated Toads' resource gathering strategy. Archie's proposal for small, high-risk teams was overwhelmingly defeated by Dan's counter-proposal for larger, more cautious expeditions. The vote marks a significant return to influence for Dan and a strategic shift for the faction towards safety and unity.",icon: "icon_treaty.png",category: "Political"},
     { type: 'era_header', title: 'Day 17: The Greenhouse Inferno' },
     { 
-        date: "Day 17", 
+        date: "1040 IE (1040 BF), Day 17", 
         title: "A Chaotic Morning", 
         description: "The day at Raventree Manor begins with chaos. After being locked in their room, Remi and another toad break out only to find Markop skirmishing with a shadow creature. The party's breakfast is ruined when they discover they are eating the remains of a rust monster, causing Bowser's teeth to begin corroding.", 
         icon: "icon_focus.png", 
         category: "Recent Event" 
     },
     { 
-        date: "Day 17", 
+        date: "1040 IE (1040 BF), Day 17", 
         title: "The Wyvern Crash & Greenhouse Trap", 
         description: "Remi shoots down a wyvern carrying Waluigi and Green T. The confrontation moves to a dilapidated greenhouse, where the party is ambushed by a swarm of rust monsters. Green T and the Oracle lock the doors, trapping the party inside with the creatures and a rapidly spreading fire.", 
         icon: "icon_war.png", 
         category: "Recent Event" 
     },
     { 
-        date: "Day 17", 
+        date: "1040 IE (1040 BF), Day 17", 
         title: "Fireball and Aftermath", 
         description: "In a desperate battle, Dan casts his first independent healing spell on Archie. Trapped and surrounded, Archie uses a massive fireball to destroy the remaining monsters, causing the greenhouse to collapse. Markop and Waluigi rescue the unconscious survivors from the ashes. Green T reappears, giving Markop a mysterious key and a cryptic offer to uncover the mansion's secrets.", 
         icon: "icon_magic.png", 
         category: "Recent Event" 
     },
         { 
-        date: "Day 17", 
+        date: "1040 IE (1040 BF), Day 17", 
         title: "The Capture of Bramblehaven", 
         description: "Captain Toadette's Peach Loyalists launched the final brutal assault on the Fawful-held town of Bramblehaven. The battle was marked by high casualties, the discovery of a robotic mayor, and the Loyalists' public execution of captured prisoners. Following the costly victory, Toadette shocked her followers by proposing a temporary ceasefire with Bowser's Koopa Troop to form a united front against Fawful.", 
         icon: "icon_war.png", 
@@ -75,10 +75,25 @@ export const HISTORICAL_TIMELINE = [
 
     { type: 'era_header', title: 'Day 18: The Magus Returns' },
     { 
-        date: "Day 18", 
+        date: "1040 IE (1040 BF), Day 18", 
+        title: "The Maze of Time", 
+        description: "While others faced a medical crisis, Markop, Green T, and Bowser navigated a living, shifting hedge maze on the manor grounds. They discovered a hidden, abandoned version of the manor, where they were confronted by ghosts and found an obituary for 'The Oracle,' revealing a war between Oracle families across different time periods.", 
+        icon: "icon_focus.png", 
+        category: "Recent Event" 
+    },    
+    { 
+        date: "1040 IE (1040 BF), Day 18", 
         title: "The Envoy's Fate & Kamek's Return", 
         description: "A diplomatic envoy sent by the Peach Loyalists to negotiate with Bowser's remnants went silent in the Valley of Bowser. Shortly after, powerful magic was detected emanating from the long-dormant fortress, signaling the return of Kamek, Bowser's chief advisor, who has now consolidated control over the Koopa Troop in the region.", 
         icon: "icon_magic.png", 
         category: "Political" 
     },    
+  { 
+        date: "Day 18", 
+        title: "Standoff at Raventree Manor", 
+        description: "The morning after the Greenhouse Inferno, a series of crises unfolded. Dan's attempt to magically heal Eager backfired catastrophically, worsening his condition. As this happened, the Liberated Toads' 'Pond Patrol', led by Speaker L, stormed the manor to apprehend Archie's group for their reckless actions. Archie and Hjumpik barricaded themselves in a room with the wounded Eager and a catatonic Dan, creating a tense siege against their own allies.", 
+        icon: "icon_war.png", 
+        category: "Recent Event" 
+    },
+        
 ];

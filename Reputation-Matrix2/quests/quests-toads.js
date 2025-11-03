@@ -33,21 +33,22 @@ export const TOADS_QUESTS = {
             { id: 'step3', title: "The Burden is Passed", status: 'failed', description: "Green T intervened in the chaos, severing Dan's arm to free him from the staff. Toad Lee then secured the volatile artifact, leaving Dan broken and defeated." }
         ]
     },
-'dan_sword_and_spell': {
+    'dan_sword_and_spell': {
         id: 'dan_sword_and_spell',
         title: "The Sword and the Spell",
-        type: 'side',
+        type: 'personal',
         category: 'Personal - Dan',
-        is_updated: false,
-        objective: "Dan feels pulled between his warrior training from Markop and his magical studies. After successfully casting 'Cure Wounds' on his own to save Archie, he now has the confidence to merge these paths by finding the lost tomb of a legendary 'Spellsword' champion.",
+        is_updated: true,
+        objective: "Dan's attempt to use his innate magic to save Eager has resulted in a catastrophic failure, severely worsening the injury. His confidence is shattered, and he is now terrified of his own power.",
         assignee: "Dan",
         assigneeKey: 'dan',
-        status: "active", // Quest is now active
-        motivation: "Successfully casting a healing spell under extreme pressure, without the staff's aid, has proven to Dan that his magical potential is his own. He is no longer just a warrior or a broken wielder of a cursed artifact; he is both. He now seeks the legacy of the Azure Knight not out of hope, but with conviction.",
+        status: "pending", // UPDATED: This is now a major setback, not an active goal.
+        motivation: "Dan's first true test of his own magic was a disaster. He didn't just fail to heal; he caused immense pain. The trauma of this failure has created a deep-seated fear of his own abilities. He cannot seek to merge sword and spell until he can overcome the horror of what he has done.",
         steps: [
-            { id: 'step1', title: "Find the Tomb", status: 'active', description: "Research ancient legends in the Vigilance's library or through contacts in the Freelancer Underworld to find the location of the Tomb of the Azure Knight." },
-            { id: 'step2', title: "Pass the Trials", status: 'locked', description: "The tomb is protected by trials that test both martial prowess and magical intellect. Dan must overcome them to prove his worth." },
-            { id: 'step3', title: "Claim the Legacy", status: 'locked', description: "Claim the Azure Knight's enchanted blade, which allows the wielder to channel spells through their weapon strikes." }
+            { id: 'step1', title: "A Shattered Confidence", status: 'active', description: "Dan is currently catatonic, consumed by guilt and fear. He must find a way to process his failure before he can even consider using magic again." },
+            { id: 'step2', title: "Find the Tomb", status: 'locked', description: "Research the location of the Tomb of the Azure Knight." },
+            { id: 'step3', title: "Pass the Trials", status: 'locked', description: "The tomb is protected by trials that test both martial prowess and magical intellect." },
+            { id: 'step4', title: "Claim the Legacy", status: 'locked', description: "Claim the Azure Knight's enchanted blade." }
         ]
     },
     'dan_orc_trial': {
@@ -277,7 +278,7 @@ export const TOADS_QUESTS = {
             { id: 'step2', title: "The Betrayal", status: 'completed', description: "A group of toads was lured into a trap at Shadeward Mansion. The subsequent discovery of an Iron Legion mole among them has broken the fragile peace." },
             { id: 'step3', title: "The Vote for the Moles", status: 'completed', description: "A vote was held to decide the fate of the escaped moles. Archie's proposal for execution was defeated by Ryan's counter-proposal to capture and interrogate them." },
             { id: 'step4', title: "A New Doctrine", status: 'completed', description: "In a second major vote, Dan's counter-proposal for cautious, large-scale expeditions was overwhelmingly approved, defeating Archie's more reckless plan. This has solidified Dan's recovering leadership and set a new, unified strategy for the cohort."},
-            { id: 'step5', title: "The Hunt for Knowledge", status: 'active', description: "With a new sense of purpose, the cohort's primary mission is to track down the traitors, The Mole and Gerick, and capture them alive for 'arcane scrutiny and interrogation' to uncover the full extent of the Iron Legion's infiltration." }
+            { id: 'step5', title: "The Siege Within", status: 'active', description: "The Pond Patrol has breached the manor and is attempting to apprehend Archie's group. Archie, Hjumpik, a catatonic Dan, and a dying Eager are barricaded in a ruined room. The standoff is a ticking clock, with Eager's life hanging in the balance." }
         ]
     },
 };

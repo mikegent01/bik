@@ -2,9 +2,11 @@
 export const CHARACTER_RELATIONS = {
     // --- PARTY MEMBER OPINIONS ---
     'archie': {
-        'markop': { type: 'volatile', text: "Archie on Markop: He digs through the ash. He's always there to clean up the mess. Predictable. Honorable. He got everyone out. That's... something." }, // UPDATED        'humpik': { type: 'transactional', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things, and apparently, for finding heavy planks. Points in the right direction and he goes." },
+        'speaker_l': { type: 'enemy', text: "Archie on Speaker L: He's brought an army to our door while a man is dying. He's not a leader, he's a vulture. He'll get what's coming to him after I'm done here." },        
+        'markop': { type: 'volatile', text: "Archie on Markop: He digs through the ash. He's always there to clean up the mess. Predictable. Honorable. He got everyone out. That's... something." }, // UPDATED        
+        'humpik': { type: 'transactional', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things, and apparently, for finding heavy planks. Points in the right direction and he goes." },
         'bowser': { type: 'transactional', text: "Archie on Bowser: He offered a hand. I had other priorities. He's a king; he's used to being ignored. He'll get over it." }, // UPDATED        'remi': { type: 'transactional', text: "Archie on Remi: FNG is a surprisingly useful pawn. A little gullible, maybe. Helped pull her from that balcony wreckage. She's got potential... to be a great distraction." },
-        'dan': { type: 'ally', text: "Archie on Dan: The kid did it. He used real magic, not staff-tricks. Healed me right in the middle of that inferno. He's got more guts than I thought." }, // UPDATED        'toad_lee': { type: 'transactional', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
+        'dan': { type: 'distrust', text: "Archie on Dan: 'Sorry, Dan.' He failed. He broke when we needed him most. He's a liability right now. I'll deal with his feelings later; I have a patient to save." },
         'toad_lee': { type: 'transactional', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
         'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
         'eager': { type: 'ally', text: "Archie on Eager: The little idiot charged in. Almost got himself killed. But then he had the nerve to stop me from leaving. Wants answers. He's not just a follower anymore." }, // UPDATED        'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
@@ -88,7 +90,8 @@ export const CHARACTER_RELATIONS = {
     // --- LIBERATED TOADS OPINIONS ---
     'dan': {
         'markop': { type: 'loyalty', text: "Dan on Markop: He is my teacher and protector. His strength is not just in his arms, but in his heart. I trust him completely." },
-        'archie': { type: 'ally', text: "Dan on Archie: He could have escaped. Bowser offered him a hand. But he went back. He went back for Eager. In the middle of the fire, he chose to save someone. I won't forget that." }, // UPDATED
+        'archie': { type: 'neutral', text: "Dan on Archie: (Dan is currently catatonic and unable to form a coherent opinion.)" },
+        'dan': { type: 'enemy', text: "Dan on Himself: Failure. I failed him. I hurt him. I'm a monster..." }        
     },
     'toad_lee': {
         'markop': { type: 'ally', text: "Toad Lee on Markop: A true commander. He is strong, and he leads from the front. I would follow him into any battle." },
@@ -107,6 +110,7 @@ export const CHARACTER_RELATIONS = {
         'iron_legion': { type: 'enemy', text: "Roger on The Iron Legion: Their willingness to use infiltration tactics confirms they are a sophisticated and dangerous enemy. Standard protocols are insufficient." }
     },
     'speaker_l': {
+        'archie': { type: 'enemy', text: "Speaker L on Archie: His incompetence has led to this. Another catastrophe, more wounded. He and his associates are a cancer on this Cohort, and they will be held accountable by the letter of our law." } ,       
         'dan': { type: 'ally', text: "Speaker L on Dan: His proposal aligns with our need to preserve our numbers. A leader who protects his people is one we can work with. For now." }
     },
     'bones': {
@@ -134,7 +138,9 @@ export const CHARACTER_RELATIONS = {
     'purple_t': {
         'iron_legion': { type: 'enemy', text: "Purple T on The Iron Legion: GET OUT OF MY HOUSE! MY SHIP! MINE! YOU HAVE NO RIGHT! GET OUT!" }
     },
-
+    'hjumpik': {
+        'speaker_l': { type: 'enemy', text: "Hjumpik on Speaker L: The little toad shouts orders while our friend bleeds. He is not our leader. I protect my friends. He is in the way." }
+    },
     // --- OTHER NPCS ---
     'captain_toadette': {
         'bowser': { type: 'enemy', text: "Toadette on Bowser: The beast is responsible for the Princess's death. This temporary truce is a bitter pill, a necessary evil to uncover the truth and punish the true villains." },

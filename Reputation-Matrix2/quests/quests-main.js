@@ -53,7 +53,7 @@ export const MAIN_QUESTS = {
         title: "The Princess's Lasting Shadow",
         type: 'main',
         category: 'Main Story',
-        is_updated: true,
+        is_updated: false,
         objective: "Captain Toadette's crusade for justice has taken a brutal and pragmatic turn. After a costly victory at Bramblehaven, she has realized that her forces alone are insufficient to breach Fawful's main fortress. She must now navigate the treacherous political landscape to forge an alliance of convenience, no matter how distasteful, to achieve her ultimate goal: uncovering the truth behind Peach's death.",
         assignee: "Peach Loyalists",
         assigneeKey: 'peach_loyalists',
