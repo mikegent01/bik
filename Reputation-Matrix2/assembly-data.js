@@ -793,7 +793,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         order: 20406,
         characterKey: 'midlands_diet_herald',
         timestamp: '8 hours ago',
-        content: `The emergency session of the Midlands Diet is underway. Delegate Dan of the Liberated Toads has proposed the "Supernatural Sovereignty Act" to address the ongoing crisis at our borders. The vote is expected to be contentious.`,
+        content: `The emergency session of the Midlands Diet is underway. Delegate Dan has proposed the "Supernatural Sovereignty Act" to address the ongoing crisis at our borders. The vote is expected to be contentious.`,
         likes: 1800,
         comments: [],
         rumorId: 'supernatural_sovereignty_act'
