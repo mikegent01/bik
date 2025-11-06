@@ -1003,7 +1003,20 @@ body.embed-mode .feed-post {
 .infamy-log-details {
     margin-top: 12px;
 }
+.post-video-container {
+    position: relative;
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    background: #000;
+}
 
+.post-video-container video {
+    display: block; /* Removes any weird spacing below the video */
+    width: 100%;
+    height: auto;   /* Maintains aspect ratio */
+    max-height: 500px; /* Prevents extremely tall videos */
+}
 .infamy-log-details summary {
     cursor: pointer;
     color: var(--text-secondary);
