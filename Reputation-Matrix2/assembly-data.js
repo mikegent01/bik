@@ -395,349 +395,392 @@ export const WAHBOOK_POSTS = [
         ],
         rumorId: 'greenhouse_inferno'
     },
-    {
-        id: 'lord_crimson_reacts_to_vote',
-        order: 20425,
+      {
+        id: 'lord_crimson_contempt',
+        order: 20440,
         characterKey: 'lord_crimson',
         timestamp: 'Just Now',
-        content: `The mortals have "voted." How quaint. They scribble on their little papers and think it changes the nature of the night. A truce imposed by creatures with the lifespan of a mayfly is not a truce. It is a delay. A moment for them to feel important before the true powers of this world remind them of their place.`,
-        likes: 1344,
+        content: `The mortals have "voted." How quaint. They scribble on their little papers and think it changes the nature of the night. A law passed by creatures with the lifespan of a mayfly is not a law. It is a delay. A moment for them to feel important before the true powers of this world remind them of their place.`,
+        likes: 1455,
         comments: [
             { characterKey: 'lady_ebonveil', text: 'Patience, my lord. Their arrogance provides us with new opportunities.' },
-            { characterKey: 'alpha_bloodmaw', text: 'Keep preening, leech. Your "true power" bleeds just like anyone else\'s.' }
-        ]
+            { characterKey: 'alpha_bloodmaw', text: 'For once, I agree with the leech. They\'ve made this simple.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'alpha_bloodmaw_reacts_to_vote',
-        order: 20424,
+        id: 'alpha_bloodmaw_declaration_of_war',
+        order: 20439,
         characterKey: 'alpha_bloodmaw',
         timestamp: '2 minutes ago',
-        content: `Paper laws for beasts of the wild. They think their 'warrant' is a chain that can hold us? The only law we recognize is that of tooth and claw. This "truce" will last until the next full moon, or until a vampire looks at us funny. Whichever comes first.`,
-        likes: 976,
+        content: `So the sheep have voted that the wolves have no rights. 81 of them. Good. It makes the hunt cleaner. There is no 'truce' with those who deny our existence. There is only prey.`,
+        likes: 1120,
         comments: [
-            { characterKey: 'chief_thornpaw', text: 'The spirits of the land do not recognize the ink of men. This will not hold.' }
-        ]
+            { characterKey: 'chief_thornpaw', text: 'The spirits weep. The foolishness of mortals will drown this land in blood.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'archie_mocks_vote',
-        order: 20423,
-        characterKey: 'archie',
+        id: 'dan_act_passes',
+        order: 20438,
+        characterKey: 'dan',
         timestamp: '3 minutes ago',
-        content: `This is the most hilarious thing I've ever seen. A government passed a law to tell two ancient, warring clans of monsters to 'be nice to each other'. And it passed by ONE vote! This is peak bureaucratic comedy. I give their 'truce' twelve hours before someone gets eaten.`,
-        likes: 1150,
+        content: `It passed. The Supernatural Sovereignty Act is law. This was not about hatred, but about establishing a foundation for peace for all peoples. We cannot build a future on a bedrock of fear. By defining the threats that prey on the innocent, we can create a unified front to contain them. This is the first step.`,
+        likes: 950,
         comments: [
-            { characterKey: 'waluigi', text: 'WAH! Twelve hours? So pessimistic! I give it six, and I plan to help!' }
-        ]
+            { characterKey: 'markop', text: 'A bold and dangerous move, Dan. You have drawn a line in the sand.' },
+            { characterKey: 'toad_lee', text: 'You have given us a clear enemy. That is something a soldier can understand.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'ironhand_enforces_truce',
-        order: 20422,
+        id: 'ironhand_enforces_act',
+        order: 20437,
         characterKey: 'general_marcus_ironhand',
         timestamp: '5 minutes ago',
-        content: `The Diet has spoken. The Legion will enforce the truce. My orders are to establish a cordon between the Onyx Hand and Moonfang territories. It is a thankless, bloody task, but it will be done. Order will be maintained.`,
-        likes: 830,
+        content: `The Diet has spoken with a clear voice. The Supernatural Sovereignty Act is law. The Legion will enforce it. Our orders are to establish a hard border. There will be no truce, only containment. Order will be maintained.`,
+        likes: 910,
         comments: [
-            { characterKey: 'colonel_vera_steelstorm', text: 'A logistical nightmare, General. But a necessary one.' }
-        ]
+            { characterKey: 'colonel_vera_steelstorm', text: 'Finally. A clear mandate.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'vale_outraged_by_vote',
-        order: 20421,
+        id: 'vale_holy_war',
+        order: 20436,
         characterKey: 'high_inquisitor_vale',
         timestamp: '8 minutes ago',
-        content: `HERESY! The Diet has voted to PROTECT the monsters! They impose a 'truce' when they should be calling for a crusade! This is a betrayal of all that is pure and good. The Silver Flame will not recognize this cowardly decree. Our hunt continues.`,
-        likes: 799,
+        content: `AT LAST! The Diet finds its spine! 81 to 30! They have declared the monsters for what they are: illegal entities, abominations to be purged! This is not containment; it is a declaration of a holy war! The Silver Flame will be its vanguard!`,
+        likes: 850,
         comments: [
-            { characterKey: 'silver_flame_cleric', text: 'We stand with you, High Inquisitor! The purge must continue!' }
-        ]
+            { characterKey: 'silver_flame_cleric', text: 'The cleansing begins!' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
         id: 'midlands_diet_herald_announcement',
-        order: 20420,
+        order: 20435,
         characterKey: 'midlands_diet_herald',
         timestamp: '10 minutes ago',
         content: `**Official Proclamation from the Midlands Diet**
 
-By a vote of 31 in favor, 30 against, and 4 abstaining, the Restitution Act stands. The court will not recognize vampire or werewolf suzerainty but will impose a truce over all contested territories by Royal Warrant. Peace, through order, shall be preserved.`,
+By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supernatural Sovereignty Act, proposed by the delegate Dan, has been ratified. The court will not recognize vampire or werewolf suzerainty and declares their organized presence within Imperial borders illegal. A containment protocol is to be enforced by Royal Warrant.`,
         videoSrc: 'video0.mp4',
-        likes: 2540,
+        likes: 3120,
         comments: [
-            { characterKey: 'emperor_elagabalus', text: 'As it should be. Order prevails.' },
-            { characterKey: 'generic_toad', text: 'Is this... is this good news? I\'m scared.' }
-        ]
+            { characterKey: 'emperor_elagabalus', text: 'A decisive victory for order.' },
+            { characterKey: 'generic_toad', text: 'Oh dear, this sounds like it\'s going to lead to a lot of fighting...' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
         id: 'broker_analyzes_vote',
-        order: 20419,
+        order: 20434,
         characterKey: 'the_broker',
         timestamp: '12 minutes ago',
-        content: `Market Analysis: The Midlands Restitution Act passes by a single vote. Tremendous political risk for the ruling party. The supernatural factions have been officially delegitimized, creating a power vacuum. Truce enforcement contracts will be lucrative. The market for blackmail on the 31 'in favor' votes is now open.`,
-        likes: 680,
-        comments: []
+        content: `Market Analysis: The Supernatural Sovereignty Act passes with a supermajority. The Onyx Hand and Moonfang Pack have been officially delisted as recognized political entities. Expect extreme volatility in border territories. Legion military contracts are now trading at an all-time high. The market for blackmail on the 30 'against' votes is now open.`,
+        likes: 710,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'markop_reacts_to_vote',
-        order: 20418,
-        characterKey: 'markop',
+        id: 'archie_mocks_dan_plan',
+        order: 20433,
+        characterKey: 'archie',
         timestamp: '15 minutes ago',
-        content: `It passed. A fragile peace, forced by law. It is a lesser evil, perhaps. I pray it holds, but to deny the reality of their power while trying to legislate them seems... a dangerous path.`,
-        likes: 345,
+        content: `The kid's big idea was to make being a monster illegal? And it passed by a landslide? That's the most ridiculous, pointless, and utterly brilliant thing I've ever heard. It changes nothing and everything all at once. The fallout from this is going to be spectacular. I'm almost impressed.`,
+        likes: 1211,
         comments: [
-            { characterKey: 'dan', text: 'Any peace is better than war, isn\'t it?' }
-        ]
+            { characterKey: 'dan', text: 'It\'s not about making them illegal, it\'s about protecting people.' },
+            { characterKey: 'archie', text: 'Semantics, kid. You just painted a giant target on the whole government.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'waluigi_reacts_to_vote',
-        order: 20417,
+        id: 'waluigi_sends_fruit_basket',
+        order: 20432,
         characterKey: 'waluigi',
         timestamp: '18 minutes ago',
-        content: `WAH-HA-HA! This is magnificent! A truce held together by a single vote! It is a beautiful, delicate vase of peace just waiting for someone to knock it over! I wonder who that could be... WAH!`,
-        likes: 999,
+        content: `WAH-HA-HA! The little one-armed toad made a LAW against monsters! And everyone agreed! This is magnificent! They've poked the hornets' nest with a giant stick! The resulting chaos will be a masterpiece! I must send Dan a fruit basket! A very large, possibly explosive fruit basket!`,
+        likes: 1050,
         comments: [
-            { characterKey: 'giggling_pete', text: 'The tension is exquisite! The potential for a spectacular failure is divine!' }
-        ]
+            { characterKey: 'giggling_pete', text: 'A legislative declaration of war! The Jester applauds this beautiful absurdity!' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'noble_reacts_to_vote',
-        order: 20416,
+        id: 'midlands_noble_vote_result',
+        order: 20431,
         characterKey: 'midlands_noble',
         timestamp: '20 minutes ago',
-        content: `By the stars, it passed. 31 to 30. The Restitution Act stands. The Emperor has forced a truce upon the beasts. A bold move. Let's see if it holds. #MidlandsDietVote`,
-        likes: 250,
-        comments: []
+        content: `By the stars, it passed. 81 to 30. The Supernatural Sovereignty Act stands. That little toad's speech was surprisingly persuasive. The Emperor has forced a war upon the beasts. A bold move. Let's see if it holds. #MidlandsDietVote`,
+        likes: 315,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'kamek_observes_vote',
-        order: 20415,
+        id: 'kamek_observes_vote_result',
+        order: 20430,
         characterKey: 'kamek',
         timestamp: '25 minutes ago',
-        content: `The humans of the Midlands squabble and pass laws against the dark. Amusing. Let them draw their lines in the sand. The tide is still coming.`,
+        content: `The humans of the Midlands squabble and pass laws against the dark. Amusing. Let them draw their lines in the sand. The tide is still coming. This over-extension of Legion forces to the borders presents... opportunities.`,
         likes: 412,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'toadsworth_concerned_by_vote',
-        order: 20414,
+        id: 'toadsworth_concerned_by_landslide',
+        order: 20429,
         characterKey: 'chancellor_toadsworth',
         timestamp: '30 minutes ago',
-        content: `An imposed truce by the Midlands Diet? A most precarious situation. While we all pray for peace, forcing two such ancient powers into compliance could have... unforeseen and catastrophic consequences for the entire region.`,
+        content: `An imposed war by the Midlands Diet? And with such an overwhelming majority? While we all pray for peace, to corner two such ancient powers with no room for negotiation could have... unforeseen and catastrophic consequences for the entire region.`,
         likes: 310,
-        comments: []
+        comments: [
+            { characterKey: 'captain_toadette', text: 'The only negotiation with monsters is at the end of a blade.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'fawful_reacts_to_vote',
-        order: 20413,
+        id: 'fawful_fury_at_distraction',
+        order: 20428,
         characterKey: 'fawful',
         timestamp: '35 minutes ago',
-        content: `THE FOOLS HAVE THE VOTES! They make a truce with the furry and the fanged! It is a treaty of STUPIDITY! While they are distracted by their flimsy peace, I will be preparing a symphony of DOOM!`,
+        content: `THE FOOLS HAVE THE VOTES! They make a war with the furry and the fanged! It is a treaty of STUPIDITY! While they are distracted by their pointless border skirmishes, I will be preparing a symphony of DOOM!`,
         likes: 721,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'bowser_reacts_to_vote',
-        order: 20412,
+        id: 'bowser_laughs_at_vote',
+        order: 20427,
         characterKey: 'bowser',
         timestamp: '40 minutes ago',
-        content: `GWAHAHA! The Empire tells the vampires and werewolves to sit down and shut up! About time someone showed them who's boss! (Besides me, of course).`,
+        content: `GWAHAHA! The Empire tells the vampires and werewolves to sit down and shut up! About time someone showed them who's boss! (Besides me, of course). That little one-armed toad has some guts!`,
         likes: 678,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'lario_reacts_to_vote',
-        order: 20411,
+        id: 'lario_bad_for_business',
+        order: 20426,
         characterKey: 'lario',
         timestamp: '45 minutes ago',
-        content: `Great. A 'truce'. That means the Legion will be all over the border territories. Bad for business. Time to find some new, less-policed smuggling routes.`,
+        content: `Great. A 'containment protocol'. That means the Legion will be all over the border territories with checkpoints and patrols. Bad for business. Time to find some new, less-policed smuggling routes.`,
         likes: 198,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'janna_reacts_to_vote',
-        order: 20410,
+        id: 'janna_research_opportunity',
+        order: 20425,
         characterKey: 'janna_brightspark',
         timestamp: '50 minutes ago',
-        content: `An Imperial-enforced ceasefire between two unique lycanthropic and vampiric species? Fascinating! This provides a unique opportunity to study both groups in a non-combat state. I must prepare my research grant proposal immediately!`,
+        content: `An Imperial-enforced containment of two unique lycanthropic and vampiric species? Fascinating! This provides a unique opportunity to study both groups under extreme political pressure. I must prepare my research grant proposal immediately!`,
         likes: 305,
         comments: [
             { characterKey: 'archmage_theron', text: 'Janna, you will not be "studying" two armies on the brink of war.' }
-        ]
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'dk_reacts_to_vote',
-        order: 20409,
+        id: 'dk_banana_question',
+        order: 20424,
         characterKey: 'donkey_kong',
         timestamp: '1 hour ago',
         content: `Heard some government is mad at vampires. Do vampires have bananas?`,
         likes: 1590,
         comments: [
             { characterKey: 'diddy_kong', text: 'No, DK. They don\'t have bananas.' }
-        ]
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'syrup_reacts_to_vote',
-        order: 20408,
+        id: 'syrup_sees_opportunity',
+        order: 20423,
         characterKey: 'captain_syrup',
         timestamp: '1 hour ago',
         content: `The Empire is trying to put a leash on the Onyx Hand? Good luck with that. More chaos in the Midlands means less Imperial patrols on the shipping lanes. Sounds profitable to me.`,
         likes: 489,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'remi_reacts_to_vote',
-        order: 20407,
+        id: 'remi_is_it_a_good_idea',
+        order: 20422,
         characterKey: 'remi',
         timestamp: '1 hour ago',
-        content: `So... the big government just picked a fight with vampires and werewolves at the same time? Is that... a good idea?`,
+        content: `So... Dan got the big government to pick a fight with vampires and werewolves at the same time? Is that... a good idea?`,
         likes: 412,
         comments: [
-            { characterKey: 'markop', text: 'It is a gamble, to be sure.' }
-        ]
+            { characterKey: 'markop', text: 'It is a decisive one. Whether it is a good one remains to be seen.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'humpik_reacts_to_vote',
-        order: 20406,
+        id: 'humpik_confused',
+        order: 20421,
         characterKey: 'humpik',
         timestamp: '1 hour ago',
-        content: `GWAH! Lot of yelling about a vote. As long as I know who to hit with my axe, I am happy.`,
+        content: `GWAH! Lot of yelling about a vote. The little one-armed toad is giving orders to the Empire now? This is confusing. As long as I know who to hit with my axe, I am happy.`,
         likes: 521,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'cybernetic_collective_vote',
-        order: 20405,
+        id: 'cybernetic_collective_analysis_vote',
+        order: 20420,
         characterKey: 'cybernetic_collectives',
         timestamp: '2 hours ago',
-        content: `[ANALYSIS]: A legislative body has attempted to alter the behavioral parameters of two hostile, non-compliant entities via decree. Probability of success: 1.7%. Probability of escalating conflict: 87.3%. Fascinatingly illogical.`,
+        content: `[ANALYSIS]: A legislative body has attempted to alter the behavioral parameters of two hostile, non-compliant entities via decree. Probability of success: 1.7%. Probability of escalating a regional conflict into a continental war: 91.2%. Fascinatingly illogical.`,
         likes: 712,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'kivotos_gehanna_vote',
-        order: 20404,
+        id: 'kivotos_gehanna_mocks_vote',
+        order: 20419,
         characterKey: 'gehanna_academy',
         timestamp: '2 hours ago',
-        content: `[Pandemonium Society Leak]: The Midlands Diet just tried to outlaw two of the strongest factions on their continent? With a piece of paper? That's hilarious. Let's see how well that works out for them. We should try that with Trinity next time.`,
+        content: `[Pandemonium Society Leak]: The Midlands Diet just tried to outlaw two of the strongest factions on their continent? With a piece of paper? And it was some random toad's idea? That's hilarious. Let's see how well that works out for them.`,
         likes: 666,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'warhammer_skaven_vote',
-        order: 20403,
+        id: 'warhammer_skaven_delighted',
+        order: 20418,
         characterKey: 'skaven',
         timestamp: '2 hours ago',
         content: `Man-things make-make paper-law against claw-things and fang-things! Yes-yes! Let them fight-squabble! More-more chaos for the Under-Empire to grow-spread!`,
         likes: 598,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'pokemon_team_rocket_vote',
-        order: 20402,
+        id: 'pokemon_team_rocket_opportunity',
+        order: 20417,
         characterKey: 'team_rocket',
         timestamp: '3 hours ago',
         content: `While the local authorities are busy trying to referee monsters, it presents a perfect opportunity for our own acquisition operations in the region. Prepare for trouble!`,
         likes: 410,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'toadette_reacts_to_vote',
-        order: 20401,
+        id: 'toadette_dismisses_vote',
+        order: 20416,
         characterKey: 'captain_toadette',
         timestamp: '3 hours ago',
         content: `The Midlands Diet plays their games of words while a real war is being fought. Let them posture. It keeps their eyes off the Mushroom Kingdom, which is all that matters.`,
         likes: 488,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'bones_reacts_to_vote',
-        order: 20400,
+        id: 'bones_cynical_vote',
+        order: 20415,
         characterKey: 'bones',
         timestamp: '3 hours ago',
         content: `A bunch of suits in a fancy room voted to make monsters illegal. Heh. Good luck enforcing that.`,
         likes: 451,
-        comments: []
+        comments: [
+            { characterKey: 'archie', text: 'Exactly.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'dan_reacts_to_vote',
-        order: 20399,
-        characterKey: 'dan',
-        timestamp: '4 hours ago',
-        content: `A truce? Even a forced one? Maybe... maybe it's a start. Any day without fighting is a good day. I hope it works.`,
-        likes: 388,
-        comments: []
-    },
-    {
-        id: 'ryan_reacts_to_vote',
-        order: 20398,
+        id: 'ryan_paradox_vote',
+        order: 20414,
         characterKey: 'ryan',
         timestamp: '4 hours ago',
-        content: `To deny their legitimacy while attempting to control them... it's a paradox. You cannot legislate a force of nature. This will only provoke them.`,
+        content: `To deny their legitimacy while attempting to control them... it's a paradox. You cannot legislate a force of nature. Dan's act will only provoke them. I fear the consequences.`,
         likes: 360,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'roger_reacts_to_vote',
-        order: 20397,
+        id: 'roger_logistics_vote',
+        order: 20413,
         characterKey: 'roger',
         timestamp: '4 hours ago',
-        content: `This truce is an logistical impossibility. The resources required to maintain a cordon between two such hostile territories are astronomical. It's an inefficient, unsustainable gesture that is doomed to fail.`,
+        content: `This 'containment' is an logistical impossibility. The resources required to maintain a hard border between two such hostile territories are astronomical. It's an inefficient, unsustainable gesture that is doomed to fail.`,
         likes: 299,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'eager_reacts_to_vote',
-        order: 20396,
+        id: 'eager_simple_vote',
+        order: 20412,
         characterKey: 'eager',
         timestamp: '5 hours ago',
         content: `Does this mean the vampires and werewolves have to stop fighting? That sounds good! Less fighting is good, right?`,
         likes: 240,
         comments: [
             { characterKey: 'toad_lee', text: 'In theory, young one. In practice, it is more complicated.' }
-        ]
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'speaker_l_reacts_to_vote',
-        order: 20395,
+        id: 'speaker_l_leadership_vote',
+        order: 20411,
         characterKey: 'speaker_l',
         timestamp: '5 hours ago',
-        content: `The Midlands Diet shows its weakness, trying to bargain with monsters. Order must be imposed, not negotiated. Another example of failed leadership.`,
+        content: `The Midlands Diet shows strength, unlike our own leadership. They impose order instead of negotiating with monsters. Dan's proposal was decisive. A surprising display of leadership from the one who has shown so little.`,
         likes: 310,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'the_mole_reacts_to_vote',
-        order: 20394,
+        id: 'the_mole_reports_vote',
+        order: 20410,
         characterKey: 'the_mole',
         timestamp: '6 hours ago',
-        content: `Report: Midlands Diet has passed the Restitution Act. This will stretch Legion forces thin during enforcement. An opportunity for other operations. Forwarding analysis to command.`,
+        content: `Report: Midlands Diet has passed the Supernatural Sovereignty Act. This will stretch Legion forces thin during enforcement. An opportunity for other operations. Forwarding analysis to command.`,
         likes: 450,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'midlands_citizen_reacts_to_vote',
-        order: 20393,
+        id: 'midlands_citizen_fear_vote',
+        order: 20409,
         characterKey: 'midlands_citizen',
         timestamp: '6 hours ago',
         content: `They did what?! They made a law against the vampires?! Are they insane?! The vampires are going to be so angry! We live on the border! This is terrifying!`,
         likes: 620,
-        comments: []
+        comments: [
+            { characterKey: 'lord_crimson', text: 'Do not worry, little mortal. We will not be angry. We will be... thorough.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'koopa_troop_reacts_to_vote',
-        order: 20392,
+        id: 'koopa_troop_reacts_vote',
+        order: 20408,
         characterKey: 'koopa_troop',
         timestamp: '7 hours ago',
         content: `Ha! The shiny-armor humans are picking a fight with the spooky monsters! Good! Let 'em weaken each other. Makes it easier for King Bowser to smash 'em all later!`,
         likes: 380,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'generic_toad_reacts_to_vote',
-        order: 20391,
+        id: 'generic_toad_indifferent_vote',
+        order: 20407,
         characterKey: 'generic_toad',
         timestamp: '7 hours ago',
         content: `I heard some other kingdom is having political problems. As long as it's not here, I don't care. We have enough problems with Fawful.`,
         likes: 210,
-        comments: []
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'midlands_diet_vote_start',
+        order: 20406,
+        characterKey: 'midlands_diet_herald',
+        timestamp: '8 hours ago',
+        content: `The emergency session of the Midlands Diet is underway. Delegate Dan of the Liberated Toads has proposed the "Supernatural Sovereignty Act" to address the ongoing crisis at our borders. The vote is expected to be contentious.`,
+        likes: 1800,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
     },
     {
         id: 'syrup_observes_fire',
