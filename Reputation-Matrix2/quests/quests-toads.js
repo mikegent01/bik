@@ -39,15 +39,15 @@ export const TOADS_QUESTS = {
         type: 'personal',
         category: 'Personal - Dan',
         is_updated: true,
-        objective: "Dan has found his voice not just as a warrior, but as a statesman. His 'Supernatural Sovereignty Act' passed the Midlands Diet with an overwhelming majority, a stunning political victory. He feels he must now fully merge his paths as a warrior and a leader by finding the lost tomb of a legendary 'Spellsword' champion.",
+        objective: "Dan is horrified by the Empire's 'Supernatural Sovereignty Act,' seeing it as a path to genocide, not peace. This has solidified his resolve to become a different kind of leader. He seeks to merge his warrior training and magical potential by finding the lost tomb of a legendary 'Spellsword' champion.",
         assignee: "Dan",
         assigneeKey: 'dan',
         status: "active",
-        motivation: "Successfully passing a major piece of international legislation has given Dan a new kind of confidence. He is no longer just a survivor or a student; he is a leader who can enact change. He now seeks the legacy of the Azure Knight not just to become a better fighter, but to become the symbol of measured, lawful strength he believes the world needs.",
+        motivation: "The Empire's brutal, sweeping law has shown Dan that power without compassion is tyranny. He now seeks the legacy of the Azure Knight not just for personal strength, but to become a symbol of a third option: a protector who wields both might and mercy, proving there is a path other than domination or destruction.",
         steps: [
             { id: 'step1', title: "Find the Tomb", status: 'active', description: "Research ancient legends in the Vigilance's library or through contacts in the Freelancer Underworld to find the location of the Tomb of the Azure Knight." },
-            { id: 'step2', title: "Pass the Trials", status: 'locked', description: "The tomb is protected by trials that test both martial prowess and magical intellect. Dan must overcome them to prove his worth." },
-            { id: 'step3', title: "Claim the Legacy", status: 'locked', description: "Claim the Azure Knight's enchanted blade, which allows the wielder to channel spells through their weapon strikes." }
+            { id: 'step2', title: "Pass the Trials", status: 'locked', description: "The tomb is protected by trials that test both martial prowess and magical intellect." },
+            { id: 'step3', title: "Claim the Legacy", status: 'locked', description: "Claim the Azure Knight's enchanted blade." }
         ]
     },
     'dan_orc_trial': {

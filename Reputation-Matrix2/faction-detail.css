@@ -154,5 +154,109 @@
     color: var(--text-secondary);
     line-height: 1.6;
 }
+.vote-display-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+}
 
-/* --- (The rest of your CSS for .section-title, .standing-card, etc. remains the same) --- */
+.vote-display-card .section-title {
+    margin-top: 0;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    font-size: 1.5rem;
+}
+
+.vote-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 80ch; /* Improves readability */
+    margin-bottom: 24px;
+}
+
+.vote-arguments {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+@media (max-width: 768px) {
+    .vote-arguments {
+        grid-template-columns: 1fr;
+    }
+}
+
+.argument-for {
+    padding: 12px;
+    background-color: rgba(35, 134, 54, 0.05);
+    border-left: 3px solid var(--positive-color);
+    border-radius: 4px;
+}
+.argument-against {
+    padding: 12px;
+    background-color: rgba(218, 54, 51, 0.05);
+    border-left: 3px solid var(--negative-color);
+    border-radius: 4px;
+}
+
+.argument-for strong, .argument-against strong {
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.vote-results h4 {
+    font-family: var(--font-display);
+    text-align: center;
+    margin-bottom: 12px;
+    color: var(--accent-color);
+}
+
+.vote-tally-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+}
+
+.tally-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-bg);
+    font-weight: bold;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    transition: width 0.5s ease-in-out;
+}
+
+.tally-segment.vote-yes { background-color: var(--positive-color); }
+.tally-segment.vote-no { background-color: var(--negative-color); }
+.tally-segment.vote-abstain { background-color: var(--neutral-color); }
+
+/* --- Styles for Seat Chart (Vote Visualization) --- */
+
+.parliament-seat.vote-yes, .speaker-seat.vote-yes {
+    /* Base color is already set by faction, just add an indicator */
+    box-shadow: inset 0 0 0 2px var(--positive-color);
+}
+.parliament-seat.vote-no, .speaker-seat.vote-no {
+    box-shadow: inset 0 0 0 2px var(--negative-color);
+}
+.parliament-seat.vote-abstain, .speaker-seat.vote-abstain {
+    opacity: 0.5;
+    border-style: dashed;
+}
+
+/* Tooltip vote text colors */
+.tooltip .vote-yes { color: var(--positive-color); }
+.tooltip .vote-no { color: var(--negative-color); }
+.tooltip .vote-abstain { color: var(--neutral-color); }

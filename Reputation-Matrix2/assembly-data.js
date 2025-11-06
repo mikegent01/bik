@@ -395,16 +395,16 @@ export const WAHBOOK_POSTS = [
         ],
         rumorId: 'greenhouse_inferno'
     },
-      {
+    {
         id: 'lord_crimson_contempt',
         order: 20440,
         characterKey: 'lord_crimson',
         timestamp: 'Just Now',
-        content: `The mortals have "voted." How quaint. They scribble on their little papers and think it changes the nature of the night. A law passed by creatures with the lifespan of a mayfly is not a law. It is a delay. A moment for them to feel important before the true powers of this world remind them of their place.`,
+        content: `The mortals have "voted." How quaint. Their Emperor waves his scepter, and 81 of his puppets dance. They think a law changes the nature of the night. It does not. It merely clarifies who the true enemy is. All of them.`,
         likes: 1455,
         comments: [
             { characterKey: 'lady_ebonveil', text: 'Patience, my lord. Their arrogance provides us with new opportunities.' },
-            { characterKey: 'alpha_bloodmaw', text: 'For once, I agree with the leech. They\'ve made this simple.' }
+            { characterKey: 'alpha_bloodmaw', text: 'For once, I agree with the leech. The Empire has made this simple.' }
         ],
         rumorId: 'supernatural_sovereignty_act'
     },
@@ -413,7 +413,7 @@ export const WAHBOOK_POSTS = [
         order: 20439,
         characterKey: 'alpha_bloodmaw',
         timestamp: '2 minutes ago',
-        content: `So the sheep have voted that the wolves have no rights. 81 of them. Good. It makes the hunt cleaner. There is no 'truce' with those who deny our existence. There is only prey.`,
+        content: `So the sheep have voted that the wolves have no rights. The Empire has drawn its line. Good. It makes the hunt cleaner. There is no 'truce' with those who deny our existence. There is only prey.`,
         likes: 1120,
         comments: [
             { characterKey: 'chief_thornpaw', text: 'The spirits weep. The foolishness of mortals will drown this land in blood.' }
@@ -421,15 +421,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'dan_act_passes',
+        id: 'dan_reacts_to_act',
         order: 20438,
         characterKey: 'dan',
         timestamp: '3 minutes ago',
-        content: `It passed. The Supernatural Sovereignty Act is law. This was not about hatred, but about establishing a foundation for peace for all peoples. We cannot build a future on a bedrock of fear. By defining the threats that prey on the innocent, we can create a unified front to contain them. This is the first step.`,
+        content: `The Empire has forced it through. The Supernatural Sovereignty Act is law. It's... brutal. I understand the need to protect people, but to declare entire peoples illegal... this feels like the path to a massacre, not peace.`,
         likes: 950,
         comments: [
-            { characterKey: 'markop', text: 'A bold and dangerous move, Dan. You have drawn a line in the sand.' },
-            { characterKey: 'toad_lee', text: 'You have given us a clear enemy. That is something a soldier can understand.' }
+            { characterKey: 'markop', text: 'It is the Imperial way, Dan. Order enforced by an iron fist.' },
+            { characterKey: 'toad_lee', text: 'It gives us a clear enemy. There is a brutal simplicity in that.' }
         ],
         rumorId: 'supernatural_sovereignty_act'
     },
@@ -438,7 +438,7 @@ export const WAHBOOK_POSTS = [
         order: 20437,
         characterKey: 'general_marcus_ironhand',
         timestamp: '5 minutes ago',
-        content: `The Diet has spoken with a clear voice. The Supernatural Sovereignty Act is law. The Legion will enforce it. Our orders are to establish a hard border. There will be no truce, only containment. Order will be maintained.`,
+        content: `The Diet has affirmed the Emperor's will. The Supernatural Sovereignty Act is law. The Legion will enforce it. Our orders are to establish a hard border. There will be no truce, only containment. Order will be maintained.`,
         likes: 910,
         comments: [
             { characterKey: 'colonel_vera_steelstorm', text: 'Finally. A clear mandate.' }
@@ -446,14 +446,30 @@ export const WAHBOOK_POSTS = [
         rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'vale_holy_war',
+        id: 'vale_holy_war_act',
         order: 20436,
         characterKey: 'high_inquisitor_vale',
         timestamp: '8 minutes ago',
-        content: `AT LAST! The Diet finds its spine! 81 to 30! They have declared the monsters for what they are: illegal entities, abominations to be purged! This is not containment; it is a declaration of a holy war! The Silver Flame will be its vanguard!`,
+        content: `AT LAST! The Empire finds its spine! 81 to 30! They have declared the monsters for what they are: illegal entities, abominations to be purged! This is not containment; it is a declaration of a holy war! The Silver Flame will be its vanguard!`,
         likes: 850,
         comments: [
             { characterKey: 'silver_flame_cleric', text: 'The cleansing begins!' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'midlands_diet_herald_announcement',
+        order: 20435,
+        characterKey: 'midlands_diet_herald',
+        timestamp: '10 minutes ago',
+        content: `**Official Proclamation from the Midlands Diet**
+
+By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Imperial-proposed Supernatural Sovereignty Act has been ratified. The court will not recognize vampire or werewolf suzerainty and declares their organized presence within Imperial borders illegal. A containment protocol is to be enforced by Royal Warrant.`,
+        videoSrc: 'video0.mp4',
+        likes: 3120,
+        comments: [
+            { characterKey: 'emperor_elagabalus', text: 'A decisive victory for order.' },
+            { characterKey: 'generic_toad', text: 'Oh dear, this sounds like it\'s going to lead to a lot of fighting...' }
         ],
         rumorId: 'supernatural_sovereignty_act'
     },
@@ -609,7 +625,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         order: 20422,
         characterKey: 'remi',
         timestamp: '1 hour ago',
-        content: `So... Dan got the big government to pick a fight with vampires and werewolves at the same time? Is that... a good idea?`,
+        content: `So...the big government to pick a fight with vampires and werewolves at the same time? Is that... a good idea?`,
         likes: 412,
         comments: [
             { characterKey: 'markop', text: 'It is a decisive one. Whether it is a good one remains to be seen.' }
