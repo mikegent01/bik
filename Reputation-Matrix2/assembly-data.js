@@ -419,9 +419,9 @@ export const WAHBOOK_POSTS = [
         ]
     },
     {
-        id: 'dan_mocks_vote',
+        id: 'archie_mocks_vote',
         order: 20423,
-        characterKey: 'dan',
+        characterKey: 'archie',
         timestamp: '3 minutes ago',
         content: `This is the most hilarious thing I've ever seen. A government passed a law to tell two ancient, warring clans of monsters to 'be nice to each other'. And it passed by ONE vote! This is peak bureaucratic comedy. I give their 'truce' twelve hours before someone gets eaten.`,
         likes: 1150,
@@ -738,7 +738,7 @@ By a vote of 31 in favor, 30 against, and 4 abstaining, the Restitution Act stan
         content: `I heard some other kingdom is having political problems. As long as it's not here, I don't care. We have enough problems with Fawful.`,
         likes: 210,
         comments: []
-    },    
+    },
     {
         id: 'syrup_observes_fire',
         order: 20356,
