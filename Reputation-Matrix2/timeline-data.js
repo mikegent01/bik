@@ -95,5 +95,11 @@ export const HISTORICAL_TIMELINE = [
         icon: "icon_war.png", 
         category: "Recent Event" 
     },
-        
+    { 
+        date: "Day 18", 
+        title: "The Supernatural Sovereignty Act", 
+        description: "In a stunning political maneuver, Dan's proposal to the Midlands Diet, the 'Supernatural Sovereignty Act', passes with an overwhelming majority (81-30). The act declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders, effectively replacing a fragile truce with a mandate for containment. This marks Dan's emergence as a significant political player.", 
+        icon: "icon_treaty.png", 
+        category: "Political" 
+    },        
 ];
