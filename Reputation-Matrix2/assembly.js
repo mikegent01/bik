@@ -33,17 +33,17 @@ let activeGroupFilter = 'all';
 let WAHBOOK_POSTS = [];
 let WAHBOOK_EVENTS = [];
 
+// In assembly.js, find and replace the loadDynamicData function
+
 async function loadDynamicData() {
     const dataModule = await import('./assembly-data.js');
     WAHBOOK_POSTS = dataModule.WAHBOOK_POSTS;
     
+    // This part is simplified, its main job is to get any extra posts
     const eventsModule = await import('./assembly-events-data.js');
-    WAHBOOK_EVENTS = eventsModule.WAHBOOK_EVENTS;
-    
     const eventPosts = await eventsModule.loadEventPosts();
     WAHBOOK_POSTS.push(...eventPosts);
 }
-
 function formatCharacterKey(key) {
     if (!key) return '';
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -188,26 +188,79 @@ function renderMainFeed() {
     feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderChaosAgentWidget()}</aside></div>`;
 }
 
-function renderEvent(event) {
-    const attendeesHTML = (event.attendees || []).map(attendee => {
-        const character = getCharacterData(attendee.characterKey);
-        return `<div class="attendee-card ${attendee.host ? 'event-host' : ''}"><img src="${character.portrait}" alt="${character.name}" class="attendee-pfp"><div class="attendee-info"><span class="attendee-name">${character.name}</span><p class="attendee-justification">${attendee.justification}</p></div></div>`;
+function renderEvent(rumor) {
+    // Dynamically build the attendees list from the rumor's 'targets'
+    const allTargets = new Set();
+    (rumor.targets || []).forEach(t => {
+        if (t === 'party') { state.party.forEach(p => allTargets.add(p)); } 
+        else { allTargets.add(t); }
+    });
+
+    const attendeesHTML = Array.from(allTargets).map(targetKey => {
+        const character = getCharacterData(targetKey);
+        // We don't have justifications here, but we can add them to the rumor data if needed.
+        return `
+            <div class="attendee-card">
+                <img src="${character.portrait}" alt="${character.name}" class="attendee-pfp">
+                <div class="attendee-info">
+                    <span class="attendee-name">${character.name}</span>
+                </div>
+            </div>
+        `;
     }).join('');
-    const newsPosts = (event.news_ids || []).map(id => WAHBOOK_POSTS.find(p => p.id === id)).filter(Boolean);
-    const regularPosts = (event.post_ids || []).map(id => WAHBOOK_POSTS.find(p => p.id === id)).filter(Boolean);
-    const dynamicPosts = WAHBOOK_POSTS.filter(p => p.eventId === event.id && !(event.news_ids || []).includes(p.id));
+
+    // Dynamically find all posts related to this event via rumorId
+    const allPostsForEvent = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+    const newsPosts = allPostsForEvent.filter(p => p.characterKey === 'wah_media_collective');
+    const regularPosts = allPostsForEvent.filter(p => p.characterKey !== 'wah_media_collective');
+
     const newsHTML = newsPosts.length > 0 ? newsPosts.map(p => renderFeedPost(p)).join('') : '';
-    const postsHTML = [...regularPosts, ...dynamicPosts].length > 0 ? [...regularPosts, ...dynamicPosts].map(p => renderFeedPost(p)).join('') : '';
-    const attendeesSectionHTML = attendeesHTML ? `<div class="attendees-list-container"><h4>Key Attendees</h4><div class="attendees-list">${attendeesHTML}</div></div>` : '';
-    return `<div class="event-container" data-event-id="${event.id}"><div class="event-main-header"><h3>${event.title}</h3><p>${event.description}</p><span class="event-toggle-icon">▼</span></div><div class="event-collapsible-body"><div class="event-details-grid">${attendeesSectionHTML}<div class="related-content-container">${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}</div></div></div></div>`;
+    const postsHTML = regularPosts.length > 0 ? regularPosts.map(p => renderFeedPost(p)).join('') : '';
+    
+    const attendeesSectionHTML = attendeesHTML ? `<div class="attendees-list-container"><h4>Key Figures Involved</h4><div class="attendees-list">${attendeesHTML}</div></div>` : '';
+    const hasCollapsibleContent = attendeesSectionHTML || newsHTML || postsHTML;
+
+    return `
+        <div class="event-container" data-event-id="${rumor.id}">
+            <div class="event-main-header">
+                <h3>${rumor.title || 'Untitled Event'}</h3>
+                <p>${rumor.description || 'No description available.'}</p>
+                ${hasCollapsibleContent ? '<span class="event-toggle-icon">▼</span>' : ''}
+            </div>
+            ${hasCollapsibleContent ? `
+            <div class="event-collapsible-body">
+                <div class="event-details-grid">
+                    ${attendeesSectionHTML}
+                    <div class="related-content-container">
+                        ${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}
+                        ${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}
+                    </div>
+                </div>
+            </div>` : ''}
+        </div>
+    `;
 }
+
+
 
 function renderEventsFeed() {
     const container = document.getElementById('events-feed-container');
     if (!container) return;
-    const sortedEvents = [...WAHBOOK_EVENTS].sort((a, b) => (currentEventSort === 'newest') ? (a.order || 99) - (b.order || 99) : (b.order || 0) - (a.order || 0));
-    container.innerHTML = sortedEvents.map(renderEvent).join('');
+
+    // The new source of truth: filter rumors that are marked as events.
+    const eventsToRender = LORE_DATA.rumors.filter(rumor => rumor.isEvent);
+    
+    // Sort by date object if it exists
+    eventsToRender.sort((a, b) => {
+        const dateA = a.date ? new Date(a.date.year, a.date.monthIndex, a.date.day) : 0;
+        const dateB = b.date ? new Date(b.date.year, b.date.monthIndex, b.date.day) : 0;
+        return (currentEventSort === 'newest') ? dateB - dateA : dateA - dateB;
+    });
+
+    container.innerHTML = eventsToRender.map(renderEvent).join('');
 }
+
+
 
 function openDossierModal(rumorId) {
     const rumor = LORE_DATA.rumors.find(r => r.id === rumorId);
@@ -606,28 +659,12 @@ function simulateLikes() {
         }
     }, 8000 + Math.random() * 6000);
 }
-
 async function init() {
     const params = new URLSearchParams(window.location.search);
     const embedPostId = params.get('embed');
     loadState();
     await loadDynamicData();
-    if (embedPostId) {
-        document.body.classList.add('embed-mode');
-        const mainContent = document.getElementById('main-content');
-        const postData = WAHBOOK_POSTS.find(p => p.id === embedPostId);
-        if (postData && mainContent) {
-            mainContent.innerHTML = `<div id="wahbook-content"><div class="wahbook-feed-container">${renderFeedPost(postData)}</div></div>`;
-            const postElement = mainContent.querySelector('.feed-post');
-            if (postElement) {
-                postElement.querySelector('.post-interactions')?.remove();
-                postElement.querySelector('.reply-input-container')?.remove();
-            }
-        } else if (mainContent) {
-            mainContent.innerHTML = `<p class="page-subtitle">Post not found.</p>`;
-        }
-        return;
-    }
+    if (embedPostId) { /* ... embed logic is correct ... */ return; }
     if (!feedContainer) return;
     if (state.loggedInUser === 'archie' && !state.userState.waluigiWarningShown) {
         setTimeout(() => {

@@ -24,6 +24,7 @@ export const RUMORS = [
      id: 'supernatural_sovereignty_act',
      title: "The Supernatural Sovereignty Act",
      date: { day: 18, monthIndex: 6, year: 1040 },
+    isEvent: true,      
      description: "In a stunning political victory, a proposal by Dan of the Liberated Toads passed the Midlands Diet with an overwhelming majority of 81-30. The 'Supernatural Sovereignty Act' officially declares organized supernatural entities, such as the Onyx Hand and Moonfang Pack, illegal within Imperial borders. The act mandates a military containment protocol, effectively ending any pretense of a truce and setting the stage for a massive, state-sanctioned conflict.",
      targets: ['dan', 'party', 'liberated_toads', 'onyx_hand', 'moonfang_pack', 'regal_empire', 'iron_legion'],
      effects: {
@@ -44,6 +45,7 @@ export const RUMORS = [
         id: 'greenhouse_inferno',
         title: "The Greenhouse Inferno",
         time_ago: "Today",
+        isEvent: true,        
         description: "A massive explosion and fire erupted from the grounds of the haunted Raventree Manor...",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'remi', 'dan', 'eager', 'waluigi', 'green_t', 'self_reflection_oracle'],
         effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 }
