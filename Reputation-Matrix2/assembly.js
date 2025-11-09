@@ -85,30 +85,28 @@ function getCharacterData(characterKey) {
 function renderFeedPost(post, options = {}) {
     const author = getCharacterData(post.characterKey);
     const factionHTML = author.faction ? `<span class="post-meta">${author.faction.name} · ${post.timestamp}</span>` : `<span class="post-meta">${post.timestamp}</span>`;
-    
     const isNew = state.userState.seenPostIds && !state.userState.seenPostIds.includes(post.id);
     const newBadgeHTML = isNew ? `<div class="new-post-badge">NEW</div>` : '';
 
     const commentsHTML = (post.comments || []).map(comment => {
         const commenter = getCharacterData(comment.characterKey);
-        return `
-            <div class="comment">
-                <a href="profile.html?user=${comment.characterKey}" class="profile-link"><img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp"></a>
-                <div class="comment-body"><a href="profile.html?user=${comment.characterKey}" class="profile-link comment-author">${commenter.name}</a><span class="comment-text">${comment.text}</span></div>
-            </div>`;
+        return `<div class="comment"><a href="profile.html?user=${comment.characterKey}" class="profile-link"><img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp"></a><div class="comment-body"><a href="profile.html?user=${comment.characterKey}" class="profile-link comment-author">${commenter.name}</a><span class="comment-text">${comment.text}</span></div></div>`;
     }).join('');
 
     const imageHTML = post.image ? `<img src="${post.image}" alt="${post.image_alt}" class="post-image">` : '';
     
-    // --- THIS IS THE NEW LOGIC FOR LOCAL VIDEOS ---
+    // Logic for local video embeds
     let videoHTML = '';
     if (post.videoSrc) {
-        // Use the HTML <video> tag for local files.
-        // autoplay, muted, and loop are recommended for a seamless feed experience.
-        // controls gives the user playback options.
-        videoHTML = `
-            <div class="post-video-container">
-                <video src="${post.videoSrc}" controls autoplay muted loop playsinline></video>
+        videoHTML = `<div class="post-video-container"><video src="${post.videoSrc}" controls autoplay muted loop playsinline></video></div>`;
+    }
+
+    // --- NEW: LOGIC FOR AUDIO EMBEDS ---
+    let audioHTML = '';
+    if (post.audioSrc) {
+        audioHTML = `
+            <div class="post-audio-container">
+                <audio controls src="${post.audioSrc}"></audio>
             </div>
         `;
     }
@@ -120,18 +118,18 @@ function renderFeedPost(post, options = {}) {
 
     return `
         <div class="feed-post" id="post-${post.id}">
-            ${newBadgeHTML}
-            ${trendingBadgeHTML}
+            ${newBadgeHTML}${trendingBadgeHTML}
             <div class="post-header">
-                 <a href="profile.html?user=${post.characterKey}" class="profile-link"><img src="${author.portrait}" alt="${author.name}" class="post-pfp"></a>
+                <a href="profile.html?user=${post.characterKey}" class="profile-link"><img src="${author.portrait}" alt="${author.name}" class="post-pfp"></a>
                 <div class="post-author-info">
-                     <a href="profile.html?user=${post.characterKey}" class="profile-link"><span class="post-author-name">${author.name}</span></a>
+                    <a href="profile.html?user=${post.characterKey}" class="profile-link"><span class="post-author-name">${author.name}</span></a>
                     ${factionHTML}
                 </div>
             </div>
             <p class="post-content">${post.content}</p>
             ${imageHTML}
-            ${videoHTML} 
+            ${videoHTML}
+            ${audioHTML} 
             <div class="post-interactions">
                 <div class="interaction-btn like-btn" data-likes="${post.likes || 0}"><span class="interaction-btn-icon">👍</span> Like (${post.likes || 0})</div>
                 <div class="interaction-btn comment-btn"><span class="interaction-btn-icon">💬</span> Comment (${(post.comments || []).length})</div>

@@ -101,5 +101,12 @@ export const HISTORICAL_TIMELINE = [
         description: "In a stunning display of political power, the Regal Empire pushed its 'Supernatural Sovereignty Act' through the Midlands Diet with an overwhelming majority (81-30). The act declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders, mandating a military containment protocol and setting the stage for a massive, state-sanctioned conflict.", 
         icon: "icon_treaty.png", 
         category: "Political" 
+    },    
+    { 
+        date: "Day 18", 
+        title: "The Kong Bug & Assassination Plot", 
+        description: "After a Kremling listening device was found in his office, Donkey Kong confronted King K. Rool in a tense phone call. The call ended with K. Rool issuing a direct assassination order for DK's intelligence chief, Funky Kong, to his agent 'Galypso', shattering the fragile peace and reigniting the war between the two factions.", 
+        icon: "faction_dk_crew.png", 
+        category: "Political" 
     },     
 ];

@@ -122,6 +122,15 @@ export const CHARACTER_RELATIONS = {
         'the_mole': { type: 'distrust', text: "Ryan on The Mole: I didn't sense it. His intent was completely shielded. It's... unsettling. What other energies are people hiding from me?" },
         'iron_legion': { type: 'enemy', text: "Ryan on The Iron Legion: They create mockeries of life, clones and robots. They are no better than necromancers. They must be stopped." }
     },
+    'donkey_kong': {
+        'king_k_rool': { type: 'enemy', text: "Donkey Kong on K. Rool: The peace was a lie. He put a bug in my office and now he's trying to have Funky killed. There's no more talking. He's a dead lizard walking." }
+    },
+    'king_k_rool': {
+        'donkey_kong': { type: 'enemy', text: "K. Rool on Donkey Kong: That sentimental ape actually thought I wanted peace? Keheheh! He's a fool. He's played his part, and now his little 'intelligence director' will pay the price. I want him dead. Now." }
+    },
+    'diddy_kong': {
+        'king_k_rool': { type: 'enemy', text: "Diddy Kong on K. Rool: He's a snake. Always has been. The bug, the hit on Funky... this is it. No more second chances. We're ending this." }
+    },    
     'bones': {
         'oracle': { type: 'enemy', text: "Bones on The Oracle: Another creep in a fancy house playing games. The whole dinner was a sham. At least he wasn't boring." },
         'the_mole': { type: 'enemy', text: "Bones on The Mole: The little rat. He helped them grab me. I won't forget that. He'll get what's coming to him." },

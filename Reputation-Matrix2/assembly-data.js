@@ -4,6 +4,445 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
+    {
+        id: 'dk_warns_funky',
+        order: 30035,
+        characterKey: 'donkey_kong',
+        timestamp: 'Just Now',
+        content: `FUNKY! HE'S SENDING SOMEONE! An agent named Galypso! Don't let anyone in the shack! We're on our way! DO NOT LEAVE!`,
+        likes: 1890,
+        comments: [
+            { characterKey: 'funky_kong', text: 'Whoa, heavy stuff, DK! The shack is on lockdown, my dude. No bad vibes gettin\' in here.' },
+            { characterKey: 'diddy_kong', text: 'We\'re coming in hot, Funky! Hold tight!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+  {
+        id: 'kong_krool_call_leak',
+        order: 30036, // The newest post
+        characterKey: 'wah_media_collective',
+        timestamp: 'Just Now',
+        content: `**AUDIO LEAK: TENSE CALL BETWEEN DK & K. ROOL!** We have obtained an explosive, authenticated audio recording of a private call between Donkey Kong and King K. Rool. The conversation, which begins with accusations of espionage, escalates dramatically. Sources confirm the call ends with what appears to be a direct assassination order against a key member of the DK Crew. The fragile peace is over.`,
+        // NEW: The property for the local audio file
+        audioSrc: 'call.mp3',
+        likes: 4580,
+        comments: [
+            { characterKey: 'the_broker', text: 'A high-value intelligence leak. The authenticity is confirmed. The market is in turmoil.' },
+            { characterKey: 'wario', text: 'Oh, this is SO much better than just insults. Someone recorded the whole thing! Beautiful!' },
+            { characterKey: 'regal_empire_delegate', text: 'This blatant disregard for diplomatic protocol is exactly why these lesser kingdoms cannot be trusted to govern themselves.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },    
+    {
+        id: 'diddy_rage_post',
+        order: 30034,
+        characterKey: 'diddy_kong',
+        timestamp: '1 minute ago',
+        content: `That scaly scumbag. He's gone too far this time. This isn't about bananas anymore. This is about family.`,
+        likes: 1543,
+        comments: [
+            { characterKey: 'chunky_kong', text: 'What happened, Diddy? Is everyone okay?' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'krool_public_denial',
+        order: 30033,
+        characterKey: 'king_k_rool',
+        timestamp: '3 minutes ago',
+        content: `The ape accuses me of espionage? Keheheh! How pathetic! He can't control his own family, so now he blames me for his internal problems. Don't flatter yourself, monkey. If I wanted to spy on you, you'd never know it.`,
+        likes: 1245,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'You\'re a liar and a coward, K. Rool.' },
+            { characterKey: 'kremling_loyalist', text: 'All hail the brilliant King K. Rool! He outsmarts the foolish Kongs again!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'dk_public_accusation',
+        order: 30032,
+        characterKey: 'donkey_kong',
+        timestamp: '5 minutes ago',
+        content: `King K. Rool. You put a bug in my office. Don't bother denying it. The 'truce' is over. You've made a grave mistake.`,
+        likes: 2105,
+        comments: [
+            { characterKey: 'king_k_rool', text: 'Oh, boo hoo! Did I interrupt your naptime scheming? Prove it, you oaf.' },
+            { characterKey: 'cranky_kong', text: 'Good grief! Now the overgrown lizard is playing spy games!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'funky_finds_bug',
+        order: 30031,
+        characterKey: 'funky_kong',
+        timestamp: '10 minutes ago',
+        content: `Whoa, dudes! Was just sweeping up some banana peels in DK's office and found this gnarly little gizmo behind the desk. Looks like some kind of listening device. Totally not cool! The tech has a real... scaly vibe to it. Bummer.`,
+        likes: 987,
+        comments: [
+            { characterKey: 'diddy_kong', text: 'Funky, don\'t touch it! Get DK in there now!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'broker_kong_bug_market',
+        order: 30030,
+        characterKey: 'the_broker',
+        timestamp: '12 minutes ago',
+        content: `Market Advisory: High-value intelligence leak confirmed from within the DK Crew. Source points to Kremling espionage. The DK-Kremling non-aggression pact has catastrophically failed. Expect extreme volatility in all related currencies. Information on agent 'Galypso' is now a premium item.`,
+        likes: 750,
+        comments: [
+            { characterKey: 'fawful', text: 'I HAVE INTEREST! Send me the pricing for this... \'Galypso\'!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'cranky_on_espionage',
+        order: 30029,
+        characterKey: 'cranky_kong',
+        timestamp: '15 minutes ago',
+        content: `Good grief! Spies! Listening devices! Back in my day, if you wanted to know what your enemy was planning, you hid in a barrel and listened at their door! Much more honest! And you got a free barrel!`,
+        likes: 910,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'I know, Cranky. I know.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'waluigi_loves_the_drama',
+        order: 30028,
+        characterKey: 'waluigi',
+        timestamp: '20 minutes ago',
+        content: `WAH! The monkey and the lizard are fighting again! Accusations! Denials! Secret agents! It's a beautiful symphony of paranoia! I love it!`,
+        likes: 888,
+        comments: [
+            { characterKey: 'giggling_pete', text: 'Hee hee! The plot thickens, like a delicious, chaotic stew!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'fawful_enjoys_the_show',
+        order: 30027,
+        characterKey: 'fawful',
+        timestamp: '22 minutes ago',
+        content: `I HAVE CHORTLES! The ape has fleas and the lizard has the scratching post! While they are busy with their primate foolishness, my magnificent plans will proceed without the annoyance of their meddling!`,
+        likes: 765,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'Enjoy your laughter while it lasts, monster.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'toadsworth_diplomatic_failure',
+        order: 30026,
+        characterKey: 'chancellor_toadsworth',
+        timestamp: '25 minutes ago',
+        content: `Oh, dear. The Kremling-Kong détente has collapsed. And so publicly... this will have dire consequences for regional stability. I do hope they can resolve this without resorting to... well, the usual.`,
+        likes: 340,
+        comments: [
+            { characterKey: 'regal_empire_delegate', text: 'This is what happens when primitives are allowed to govern themselves. A predictable failure.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'lario_tech_analysis',
+        order: 30025,
+        characterKey: 'lario',
+        timestamp: '30 minutes ago',
+        content: `Heard they found a Kremling bug. Amateurs. My bugs are ten times smaller, have a much better battery life, and they come in different colors. For a reasonable price, of course.`,
+        likes: 250,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Noted for future reference, Lario. I\'ll add it to your file.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'penny_case_files',
+        order: 30024,
+        characterKey: 'detective_penny',
+        timestamp: '32 minutes ago',
+        content: `Case Notes: DK Crew alleges Kremling espionage. K. Rool denies. Classic he-said, she-said. But the evidence mentioned... a 'scaled pattern' and a 'cloaca smear'... that's specific. That's a lead. #TheKongBug`,
+        likes: 480,
+        comments: [
+            { characterKey: 'master_goodstyle', text: 'A most un-stylish clue, but a clue nonetheless! Good luck, Detective!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'archie_enjoys_chaos',
+        order: 30023,
+        characterKey: 'archie',
+        timestamp: '35 minutes ago',
+        content: `Two geriatric kings throwing a tantrum over a microphone. This is what passes for international politics. Hilarious. Let them fight. It'll be a good distraction.`,
+        likes: 990,
+        comments: [
+            { characterKey: 'bones', text: 'Couldn\'t have said it better myself.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'markop_disappointed',
+        order: 30022,
+        characterKey: 'markop',
+        timestamp: '40 minutes ago',
+        content: `And so, the fragile peace collapses under the weight of old hatreds and deceit. Espionage, accusations... it is a sad, predictable cycle. True peace cannot be built on a foundation of lies.`,
+        likes: 420,
+        comments: [
+            { characterKey: 'dan', text: 'It\'s just... sad.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'humpik_ready_to_fight',
+        order: 30021,
+        characterKey: 'humpik',
+        timestamp: '45 minutes ago',
+        content: `Monkey king and lizard king are fighting again? GOOD! More fighting is always good! Who are we hitting?`,
+        likes: 560,
+        comments: [
+            { characterKey: 'bowser', text: 'Stand down, Humpik. This isn\'t our fight. ...Yet.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'bowser_smug',
+        order: 30020,
+        characterKey: 'bowser',
+        timestamp: '50 minutes ago',
+        content: `GWAHAHA! Told you the monkey couldn't be trusted! And the lizard is a born schemer! This is why you need a strong, honest king like ME to rule everyone!`,
+        likes: 810,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'Funny, I seem to remember your kids trying to overthrow you. Twice.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'remi_confused',
+        order: 30019,
+        characterKey: 'remi',
+        timestamp: '55 minutes ago',
+        content: `So the big monkey is mad at the crocodile king because of a bug? Is it a literal bug? Like a beetle? This world is very confusing.`,
+        likes: 490,
+        comments: [
+            { characterKey: 'roger', text: 'Negative. The term "bug" refers to a covert listening device. An instrument of espionage.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'toadette_unimpressed',
+        order: 30018,
+        characterKey: 'captain_toadette',
+        timestamp: '1 hour ago',
+        content: `The beasts are squabbling amongst themselves. Predictable. Let them tear each other apart. It distracts from the real war.`,
+        likes: 510,
+        comments: [
+            { characterKey: 'embercap', text: 'Agreed, Captain. Their chaos is our opportunity.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'ironhand_opportunity',
+        order: 30017,
+        characterKey: 'general_marcus_ironhand',
+        timestamp: '1 hour ago',
+        content: `The Kong-Kremling détente has collapsed. Instability on our southern maritime borders. This presents both a threat and a strategic opportunity. The Legion will be prepared to act.`,
+        likes: 620,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'I have already drafted three potential intervention scenarios, General.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'kamek_scheming',
+        order: 30016,
+        characterKey: 'kamek',
+        timestamp: '1 hour ago',
+        content: `Two lesser kings weaken each other through pointless espionage. This plays directly into our long-term strategy. Excellent.`,
+        likes: 499,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'A fine observation, Magikoopa. Let the children play their games.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'bones_shrugs',
+        order: 30015,
+        characterKey: 'bones',
+        timestamp: '2 hours ago',
+        content: `Kings spying on kings. Color me surprised.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'skull_cap_murphy', text: 'Told ya. All bosses are the same.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'dan_sad',
+        order: 30014,
+        characterKey: 'dan',
+        timestamp: '2 hours ago',
+        content: `Another peace treaty falls apart. It's... disheartening. Why can't people just... talk?`,
+        likes: 410,
+        comments: [
+            { characterKey: 'ryan', text: 'Their interests were never truly aligned, Dan. It was only a matter of time.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'ryan_observes',
+        order: 30013,
+        characterKey: 'ryan',
+        timestamp: '2 hours ago',
+        content: `The predictable result of an alliance built on convenience rather than true alignment of interests. The collapse was a matter of when, not if.`,
+        likes: 380,
+        comments: [
+            { characterKey: 'cybernetic_collectives', text: '[AGREEMENT]: The probability of long-term stability was calculated at less than 3.4%.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'roger_analyzes',
+        order: 30012,
+        characterKey: 'roger',
+        timestamp: '2 hours ago',
+        content: `The breakdown of the Kong-Kremling agreement will have significant downstream effects on supply chains for tropical goods. Expect prices for bananas to increase by at least 30%.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'lario', text: 'Ooh, a market opportunity!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'eager_scared',
+        order: 30011,
+        characterKey: 'eager',
+        timestamp: '3 hours ago',
+        content: `The big monkey and the crocodile are fighting again! Does this mean war? I don't like war!`,
+        likes: 280,
+        comments: [
+            { characterKey: 'dan', text: 'It\'s okay, Eager. It\'s far away from us for now.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'speaker_l_distrust',
+        order: 30010,
+        characterKey: 'speaker_l',
+        timestamp: '3 hours ago',
+        content: `And this is why we cannot trust kings and their games. Their 'peace' is a lie they tell while sharpening their knives. The only true security is in our own strength.`,
+        likes: 390,
+        comments: [
+            { characterKey: 'generic_toad', text: 'Well said, Speaker L!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'the_mole_reports',
+        order: 30009,
+        characterKey: 'the_mole',
+        timestamp: '3 hours ago',
+        content: `Report: Southern factions have re-engaged in hostilities. Kremling espionage operation confirmed. Recommend Legion forces assume a state of heightened readiness on the southern border.`,
+        likes: 460,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Acknowledged. Send the full report.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'midlands_noble_gossip',
+        order: 30008,
+        characterKey: 'midlands_noble',
+        timestamp: '4 hours ago',
+        content: `Heard the most delicious rumor from the southern isles. Apparently Donkey Kong accused K. Rool of leaving a... 'cloaca smear' in his office. How deliciously vulgar! The diplomatic season is off to a roaring start!`,
+        likes: 290,
+        comments: [
+            { characterKey: 'midlands_noble_2', text: 'Oh, darling, you MUST tell me everything at the gala!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'generic_toad_confused',
+        order: 30007,
+        characterKey: 'generic_toad',
+        timestamp: '4 hours ago',
+        content: `So the monkeys and lizards are fighting again? Weren't they just having a summit? I can't keep up.`,
+        likes: 240,
+        comments: [
+            { characterKey: 'generic_toad_2', text: 'Politics, friend. It never makes sense.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'koopa_troop_laughs',
+        order: 30006,
+        characterKey: 'koopa_troop',
+        timestamp: '5 hours ago',
+        content: `Heard the apes are fighting the crocs again! Good! Let 'em! The more they fight each other, the less they'll be paying attention when King Bowser returns to smash them both!`,
+        likes: 410,
+        comments: [
+            { characterKey: 'koopa_troop_2', text: 'For the King!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'cybernetic_collective_predicts',
+        order: 30005,
+        characterKey: 'cybernetic_collectives',
+        timestamp: '5 hours ago',
+        content: `[ANALYSIS]: Alliance between historically hostile organic entities has collapsed due to espionage. This outcome was predicted with 97.8% certainty. The subsequent escalation to assassination protocols is a standard, if inefficient, parameter of organic conflict resolution.`,
+        likes: 720,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'See? Predictable! But what was the energy signature of the device?' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'kivotos_millennium_tech',
+        order: 30004,
+        characterKey: 'millennium_science_school',
+        timestamp: '6 hours ago',
+        content: `[Veritas Leak]: Intercepted schematics for the alleged 'Kremling bug'. The power source is crude, but the signal encryption is surprisingly sophisticated. We must acquire a sample for analysis.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'gehanna_academy', text: 'Always trying to get your hands on other people\'s toys, Millennium?' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'warhammer_empire_contempt',
+        order: 30003,
+        characterKey: 'the_empire',
+        timestamp: '6 hours ago',
+        content: `Let the greenskins and beastmen squabble in their jungle hovels. Their petty squabbles are of no concern to the Empire of Man.`,
+        likes: 840,
+        comments: [
+            { characterKey: 'king_louen_leoncoeur', text: 'A king who ignores his neighbors soon finds his borders aflame.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'pokemon_trainer_quest',
+        order: 30002,
+        characterKey: 'trainer_guild',
+        timestamp: '7 hours ago',
+        content: `Wait, so there's a spy named Galypso? Is that a rare Pokémon? What type is it? Is it legendary? I gotta catch it!`,
+        likes: 830,
+        comments: [
+            { characterKey: 'mages_guild_apprentice', text: 'It is... not a Pokémon. It is an agent of a foreign power. Please do not try to catch the assassin.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'midlands_citizen_worried',
+        order: 30001,
+        characterKey: 'midlands_citizen',
+        timestamp: '7 hours ago',
+        content: `The Kongs and the Kremlings are at war again? Does this mean the price of bananas is going to go up? I just bought a new barrel!`,
+        likes: 610,
+        comments: [
+            { characterKey: 'the_broker', text: 'Yes. Sell your barrel futures and invest in bananas.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
         {
         id: 'speaker_l_candy_cookie',
         order: 20390,

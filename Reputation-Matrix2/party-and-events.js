@@ -42,7 +42,20 @@ export const RUMORS = [
         freelancer_underworld: -5
     }
 },
-
+{
+    id: 'the_kong_bug',
+    title: "The Kong Bug & Assassination Plot",
+    date: { day: 18, monthIndex: 6, year: 1040 },
+    description: "Donkey Kong's Director of Intelligence, Funky Kong, has discovered a sophisticated listening device of Kremling origin in DK's private office. A tense phone call between DK and King K. Rool revealed a deeper conspiracy: a Kremling agent named Galypso is not only responsible for the bug but has been ordered by K. Rool to assassinate Funky Kong to cover their tracks. The 'peace' between the two factions is a sham.",
+    targets: ['donkey_kong', 'king_k_rool', 'funky_kong', 'dk_crew', 'kremling_krew'],
+    effects: {
+        dk_crew: -40,
+        kremling_krew: -40,
+        freelancer_underworld: 15,
+        regal_empire: -10,
+        mushroom_regency: -5
+    }
+},
       {
         id: 'greenhouse_inferno',
         title: "The Greenhouse Inferno",
