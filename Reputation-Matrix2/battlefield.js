@@ -4,6 +4,24 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY ---
     {
+        id: 'kong_kremling_war_reignited',
+        name: "The Kong-Kremling War Rekindles",
+        conflict: "DK Island Conflicts",
+        date: "Day 18, 1040 BF",
+        location: "DK Island & Surrounding Waters",
+        belligerents: {
+            side_a: { name: "DK Crew", factions: ['dk_crew'] },
+            side_b: { name: "Kremling Krew", factions: ['kremling_krew'] }
+        },
+        commanders: { side_a: ["Donkey Kong", "Diddy Kong"], side_b: ["King K. Rool"] },
+        outcome: "<span class='outcome ongoing'>Hostilities Resumed</span>; Assassination plot revealed.",
+        casualties: "Anticipated to be high. One Kremling agent, 'Galypso', is now a high-priority target.",
+        description: `
+            <p>The fragile peace between the Kongs and Kremlings has catastrophically collapsed. Following the discovery of a sophisticated Kremling listening device in his private office, Donkey Kong confronted King K. Rool in a tense, expletive-laden phone call.</p>
+            <p>Instead of de-escalating, the call ended with K. Rool issuing a direct, secret order to his agent 'Galypso' to assassinate DK's Director of Intelligence, Funky Kong, to cover up the operation. With the plot revealed, the truce is void, and the long, bitter war between the two island powers has reignited with a new, personal intensity.</p>
+        `
+    },        
+    {
         id: 'siege_of_bramblehaven',
         name: "Siege of Bramblehaven",
         conflict: "Mushroom Kingdom Civil War",
@@ -21,6 +39,7 @@ const MAJOR_BATTLES = [
             <p>The conflict was marked by chaotic street-to-street fighting, the use of a summoned bear from a magical artifact, and significant friendly fire from Big R's cannon. The battle culminated in a merciless final charge where surrendering Fawful troops were executed in the town square. The victory secured a vital strategic position for the Loyalists but cemented their reputation as ruthless fanatics.</p>
         `
     },
+
     {
         id: 'skirmish_at_gilded_octopus',
         name: "Skirmish at the Gilded Octopus",

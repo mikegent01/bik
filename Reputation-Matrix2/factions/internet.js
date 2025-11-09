@@ -115,7 +115,7 @@ export const INTERNET_FACTIONS = {
     cybernetic_collectives: {
         name: "The Cybernetic Collectives",
         description: "Enigmatic and powerful AI entities that exist within the web's deepest structures. Their motives are alien and incomprehensible to most mortals. They observe, learn, and occasionally intervene for reasons of their own.",
-        logo: 'icon_magic.png',
+    logo: 'assets/images/factions/cybernetic_collectives.png',
         relations: {
             allies: [],
             enemies: []

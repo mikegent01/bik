@@ -1,4 +1,3 @@
-// This file contains faction data for widespread, fringe, or multi-regional powers.
 
 export const WIDESPREAD_FACTIONS = {
     freelancer_underworld: {
@@ -249,7 +248,7 @@ export const WIDESPREAD_FACTIONS = {
     wario_land: {
         name: "Wario Land",
         description: "Wario's personal kingdom of greed, built on plunder and the scent of garlic. After Wario's supposed 'death', it is now secretly led by the mysterious figure known as 'Mr. Wario', whose methods are even more ruthless.",
-        logo: 'wario.png',
+        logo: 'faction_wario.png',
         relations: { 
             allies: ['freelancer_underworld'], 
             enemies: ['regal_empire', 'iron_legion', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators', 'goodstyle_artisans']
@@ -336,7 +335,7 @@ export const WIDESPREAD_FACTIONS = {
     diamond_city_investigators: {
         name: "Diamond City Investigators",
         description: "A private detective agency specializing in high-stakes treasure recovery, often finding themselves at odds with Wario's avaricious schemes.",
-        logo: 'icon_dossier.png',
+        logo: 'faction_diamond_city_investigators.png',
         relations: {
             allies: ['oathbound_judges', 'mushroom_regency'],
             enemies: ['wario_land', 'freelancer_underworld', 'iron_fists', 'crimson_fleet']
@@ -377,7 +376,7 @@ export const WIDESPREAD_FACTIONS = {
     goodstyle_artisans: {
         name: "The Goodstyle Artisans",
         description: "A collective of the world's finest artisans and creators, dedicated to preserving beauty and culture from the grubby hands of plunderers like Wario.",
-        logo: 'icon_focus.png',
+        logo: 'faction_goodstyle_artisans.png',
         relations: {
             allies: ['mushroom_regency', 'mages_guild'],
             enemies: ['wario_land', 'ratchet_raiders', 'crimson_fleet']
@@ -412,7 +411,7 @@ export const WIDESPREAD_FACTIONS = {
     unaligned: {
         name: "Unaligned & Independent",
         description: "Represents various independent settlements, neutral parties, and areas not under the control of a major faction. Their motivations are diverse, ranging from self-preservation to a desire for true neutrality amidst the world's conflicts.",
-        logo: 'icon_focus.png',
+        logo: 'faction_unaligned.png',
         relations: { 
             allies: [], 
             enemies: []
@@ -425,7 +424,7 @@ export const WIDESPREAD_FACTIONS = {
     tea_leaf_syndicate: {
         name: "The Tea Leaf Syndicate",
         description: "A sophisticated criminal organization masquerading as a legitimate tea import company. They control the flow of 'special blend' narcotics and enforce their contracts with quiet, brutal efficiency.",
-        logo: 'icon_focus.png',
+        logo: 'faction_tea_leaf_syndicate.png',
         relations: { 
             allies: ['freelancer_underworld'], 
             enemies: ['mushroom_regency', 'diamond_city_investigators', 'peach_loyalists']
@@ -443,7 +442,7 @@ export const WIDESPREAD_FACTIONS = {
     beanbean_kingdom: {
         name: "Beanbean Kingdom",
         description: "The quirky, laughter-loving neighboring kingdom to the Mushroom Kingdom, known for its unique flora and culture.",
-        logo: 'icon_focus.png',
+        logo: 'banners/beanbean_kingdom.png',
         relations: { 
             allies: ['mushroom_regency'], 
             enemies: ['fawfuls_furious_freaks']
@@ -456,7 +455,7 @@ export const WIDESPREAD_FACTIONS = {
     flower_kingdom: {
         name: "Flower Kingdom",
         description: "A whimsical neighboring kingdom where strange 'Wonder Flowers' can dramatically alter reality.",
-        logo: 'icon_magic.png',
+        logo: 'banners/flower_kingdom.png',
         relations: { 
             allies: ['mushroom_regency'], 
             enemies: ['koopa_troop']
@@ -469,7 +468,7 @@ export const WIDESPREAD_FACTIONS = {
     dk_crew: {
         name: "The DK Crew",
         description: "Donkey Kong and his family of laid-back but powerful apes. They protect their island home and their massive banana hoard, but have recently been fractured by internal strife following Lanky Kong's disgraceful behavior at a diplomatic summit.",
-        logo: 'icon_focus.png',
+        logo: 'banners/dk_crew.png',
         relations: { 
             allies: [], 
             enemies: ['kremling_krew', 'koopa_troop']
@@ -515,7 +514,7 @@ export const WIDESPREAD_FACTIONS = {
     yoshi_clans: {
         name: "The Yoshi Clans",
         description: "The peaceful, fruit-loving dinosaur inhabitants of Yoshi's Island. Generally pacifists, but fiercely protective of their young.",
-        logo: 'icon_focus.png',
+        logo: 'banners/yoshi_clans.png',
         relations: { 
             allies: ['mushroom_regency'], 
             enemies: ['koopa_troop']
@@ -528,7 +527,7 @@ export const WIDESPREAD_FACTIONS = {
     kremling_krew: {
         name: "The Kremling Krew",
         description: "A militaristic army of crocodile-like Kremlings led by the tyrannical King K. Rool. They are the sworn enemies of the DK Crew and seek to steal the banana hoard.",
-        logo: 'icon_pirate.png',
+        logo: 'banners/kremling_krew.png',
         relations: { 
             allies: [], 
             enemies: ['dk_crew', 'mushroom_regency']
@@ -541,7 +540,7 @@ export const WIDESPREAD_FACTIONS = {
     knights_of_the_gilded_lily: {
         name: "Knights of the Gilded Lily",
         description: "A chivalric order of knights from the swampy kingdom of Chramalot. They value honor and courtly love, but their kingdom is beset by internal political strife.",
-        logo: 'icon_focus.png',
+        logo: 'banners/gilded_lily.png',
         relations: { 
             allies: ['mushroom_regency'], 
             enemies: ['onyx_hand']
