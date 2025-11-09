@@ -244,7 +244,7 @@ export const WAHBOOK_POSTS = [
         order: 30017,
         characterKey: 'general_marcus_ironhand',
         timestamp: '1 hour ago',
-        content: `The Kong-Kremling détente has collapsed. Instability on our southern maritime borders. This presents both a threat and a strategic opportunity. The Legion will be prepared to act.`,
+        content: `The Kong-Kremling détente has collapsed. Instability on our northern maritime borders. This presents both a threat and a strategic opportunity. The Legion will be prepared to act.`,
         likes: 620,
         comments: [
             { characterKey: 'colonel_vera_steelstorm', text: 'I have already drafted three potential intervention scenarios, General.' }
