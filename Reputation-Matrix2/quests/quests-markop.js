@@ -17,21 +17,37 @@ export const MARKOP_QUESTS = {
             { id: 'step4', title: "The Conclave of Judgment", status: 'locked', description: "Force a formal conclave to present the evidence against Vale. The outcome will either reform the Order or see Markop and his allies branded as irredeemable heretics." }
         ]
     },
-    'markop_serpents_key': {
+
+'markop_serpents_key': {
         id: 'markop_serpents_key',
         title: "The Serpent's Key",
         type: 'personal',
         category: 'Personal - Markop',
-        is_updated: false,
-        objective: "In the aftermath of the Greenhouse Inferno, Green T provided Markop with a mysterious golden key. Now, after exploring a hidden part of the manor, Markop has discovered a book containing an obituary for 'The Oracle' and hinting at a war across time, but the final, crucial page is missing.",
+        is_updated: true,
+        objective: "In the aftermath of the Greenhouse Inferno, Green T provided Markop with a mysterious golden key, claiming it was an act of trust. He has offered a secret meeting to reveal what the mansion is truly hiding. Markop must decide whether to trust the manipulative toad or investigate the key's purpose on his own.",
         assignee: "Markop",
         assigneeKey: 'markop',
-        status: "active",
-        motivation: "Green T's manipulation is clear, but the clues discovered are tangible. The book of obituaries is a key piece of the puzzle. Markop must now decipher the book's meaning and find the missing page to understand the true nature of the Oracle and Green T's endgame.",
+        status: "completed", // STATUS UPDATED
+        motivation: "Green T orchestrated a trap that nearly killed the party, all for a 'distraction'. His offer is almost certainly another manipulation. However, the key is the only concrete lead to understanding the Oracle's power and Green T's true endgame. Markop feels compelled by duty to see this through, despite the immense risk.",
         steps: [
-            { id: 'step1', title: "Acquire the Clues", status: 'completed', description: "Markop received a key from Green T and discovered a book of obituaries for 'The Oracle' in a hidden, abandoned section of the manor." },
-            { id: 'step2', title: "Decipher the Timelines", status: 'active', description: "The book speaks of four manors in different time periods. Markop must study it to understand the war between the Oracle families and find a clue to the location of the missing page." },
-            { id: 'step3', title: "Find the Missing Page", status: 'locked', description: "Locate and retrieve the ripped-out page that explains how to travel between the different temporal versions of the manor." }
+            { 
+                id: 'step1', 
+                title: "Receive the Offer", 
+                status: 'completed', // STEP UPDATED
+                description: "In the rainy aftermath of the greenhouse fire, Green T approached Markop and gave him the golden key, offering a secret meeting to reveal its purpose. Markop has accepted the key, and the burden of this dangerous lead." 
+            },
+            { 
+                id: 'step2', 
+                title: "Unlock the Secret", 
+                status: 'completed', // STEP UPDATED
+                description: "Markop, along with Bowser and Green T, navigated a living hedge maze and discovered a hidden, abandoned version of the manor. Inside, they found a book of obituaries for 'The Oracle,' revealing a war between Oracle families across different timelines." 
+            },
+            { 
+                id: 'step3', 
+                title: "Confront the Game Master", 
+                status: 'completed', // STEP UPDATED
+                description: "The objective has been completed. The knowledge gained from this personal quest has now been integrated into the main party objective, 'The Artifacts of Balance', as the primary path forward." 
+            }
         ]
     },
     'markop_paladins_penance': {

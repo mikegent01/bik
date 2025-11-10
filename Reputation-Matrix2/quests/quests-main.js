@@ -22,31 +22,32 @@ export const MAIN_QUESTS = {
         title: "The Artifacts of Balance",
         type: 'main',
         category: 'Main Story',
-        is_updated: false, // This quest has been updated
-        objective: "Recover the Star of Radiance, Fire Crystal, and Mushroom of Life—three legendary artifacts that hold the power to restore balance to the world. However, the journey will be fraught with peril, as a powerful evil toad has obtained the Star of Radiance, ascending to godhood.",
-        assignee: "Full Party",
+        is_updated: true,
+        objective: "The party must recover the Star of Radiance, but the path is now treacherous. One fragment bearer, The Oracle, has revealed himself to be a manipulative entity. After the chaotic 'Greenhouse Inferno,' the opportunist Green T has given Markop a mysterious key, claiming it will unlock the manor's secrets. This key is now the party's only lead to confronting the Oracle and securing the Vision Shard.",
+        assignee: "Full Party (Led by Markop)",
         assigneeKey: 'full_party',
         status: "active",
         start_condition: "This quest was revealed in ancient texts found in the Vigilance's library.",
         steps: [
-            { id: 'step1', title: "The Star of Radiance – The Rise of a God", status: 'active', description: "This legendary artifact has already fallen into the hands of the Evil Toad. He has absorbed its power, becoming something far beyond mortal comprehension. His influence has begun warping reality itself.", options: ["Find a way to weaken the Toad-God before challenging him directly.", "Seek out an ancient force that may counterbalance the power of the Star.", "Risk a head-on battle in his newly formed celestial domain."] },
+            { id: 'step1', title: "The Star of Radiance – The Rise of a God", status: 'active', description: "The first artifact has already been claimed by the Evil Toad, who has ascended to godhood. He is a cosmic-level threat that must be dealt with eventually." },
+            { id: 'step1a', title: "The Madhouse at Raventree", status: 'completed', description: "The party's stay at the Oracle's Manor culminated in the 'Greenhouse Inferno,' a battle that left them wounded and scattered but revealed the house's hostile, supernatural nature." },
             { 
-                id: 'step1a', 
-                title: "The Madhouse at Raventree", 
-                status: 'completed', // This part of the story is now complete
-                description: "The party's stay at the Oracle's Manor culminated in a day of extreme violence. After Remi shot down a wyvern carrying Waluigi and Green T, the group was lured into a greenhouse and trapped by the Oracle and Green T. An ambush by rust monsters led to a chaotic battle in the burning structure, ending only when Archie unleashed a massive fireball, destroying the greenhouse to save Eager. The party survived but was left battered and scattered in the ashes.", 
+                id: 'step1b', 
+                title: "The Serpent's Key", 
+                status: 'active', 
+                description: "In the aftermath of the fire, Green T gave Markop a golden key, offering a secret meeting to reveal what the mansion is hiding. Markop, as the key holder, must now decide whether to trust the manipulative toad or investigate the key's purpose on his own. The party's progress hinges on this decision.",
+                options: [
+                    "Agree to meet Green T and trust his information.",
+                    "Refuse the meeting and attempt to investigate the purpose of the key independently.",
+                    "Ignore Green T's plot and confront the Oracle directly about the trap."
+                ]
             },
-            {
-                id: 'step1b',
-                title: "The Serpent's Key",
-                status: 'active', // This is the new active objective
-                description: "In the aftermath of the greenhouse fire, Green T appeared and gave Markop a mysterious golden key, claiming it was a gesture of trust. He has offered to meet later to 'find out what the mansion's hiding.' The party is wounded and deeply suspicious, but the key represents their only lead to understanding the Oracle's true nature and Green T's endgame.",
-                options: ["Agree to meet Green T and trust his information.", "Refuse the meeting and attempt to investigate the purpose of the key independently.", "Ignore Green T's plot and confront the Oracle directly about the trap."]
-            },
-            { id: 'step2', title: "The Fire Crystal – The Molten Depths", status: 'locked', description: "The Fire Crystal is hidden deep within a volcanic dungeon, guarded by an ancient fire dragon and its cult. They believe the crystal to be the heart of their god.", options: ["Infiltrate the cult and steal the crystal from within.", "Slay the dragon and take the crystal by force.", "Bargain with the dragon—what does an immortal beast truly desire?"] },
-            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings. The party must find a way to travel to the Wilderlands to retrieve it.", options: ["Pass the guardians' trials—tests of wisdom, strength, and sacrifice.", "Use magic or forbidden means to forcefully take the Mushroom.", "Bargain with the Elders—perhaps they desire something in return."] }
+            { id: 'step1c', title: "Unlock the Secret", status: 'locked', description: "Use the key to uncover the secret it protects within Raventree Manor, likely related to the war between the Oracle families across time." },
+            { id: 'step1d', title: "Confront the Game Master", status: 'locked', description: "Once the truth is revealed, confront the true mastermind behind the manor's mysteries—be it the Oracle, Green T, or someone else entirely—and secure the Vision Shard." },
+            { id: 'step2', title: "The Fire Crystal – The Molten Depths", status: 'locked', description: "The Fire Crystal is hidden deep within a volcanic dungeon, guarded by an ancient fire dragon and its cult." },
+            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings." }
         ],
-        finalDecision: { description: "Once all three artifacts are gathered, a choice must be made. Use them to restore balance, breaking the Toad-God’s power and healing the realm, or use them for yourself, risking corruption but ascending to a higher form of existence." }
+        finalDecision: { description: "Once all three artifacts are gathered, a choice must be made: use them to restore balance or seize their power for yourself." }
     },
 'who_killed_peach': {
         id: 'who_killed_peach',
