@@ -23,27 +23,32 @@ export const MAIN_QUESTS = {
         type: 'main',
         category: 'Main Story',
         is_updated: true,
-        objective: "The party must recover the Star of Radiance, but the path is now treacherous. One fragment bearer, The Oracle, has revealed himself to be a manipulative entity. After the chaotic 'Greenhouse Inferno,' the opportunist Green T has given Markop a mysterious key, claiming it will unlock the manor's secrets. This key is now the party's only lead to confronting the Oracle and securing the Vision Shard.",
+        objective: "The party must recover the Star of Radiance, but the path is now treacherous. One fragment bearer, The Oracle, has been revealed as the center of a temporal war. After navigating a living maze, Markop's group has discovered a book detailing four identical manors existing in different time periods. The key to confronting the Oracle and securing the Vision Shard lies within this mystery.",
         assignee: "Full Party (Led by Markop)",
         assigneeKey: 'full_party',
         status: "active",
         start_condition: "This quest was revealed in ancient texts found in the Vigilance's library.",
         steps: [
             { id: 'step1', title: "The Star of Radiance – The Rise of a God", status: 'active', description: "The first artifact has already been claimed by the Evil Toad, who has ascended to godhood. He is a cosmic-level threat that must be dealt with eventually." },
-            { id: 'step1a', title: "The Madhouse at Raventree", status: 'completed', description: "The party's stay at the Oracle's Manor culminated in the 'Greenhouse Inferno,' a battle that left them wounded and scattered but revealed the house's hostile, supernatural nature." },
+            { id: 'step1a', title: "The Madhouse at Raventree", status: 'completed', description: "The party's stay at the Oracle's Manor culminated in the 'Greenhouse Inferno,' a battle that left them wounded and revealed the house's hostile, supernatural nature." },
             { 
                 id: 'step1b', 
-                title: "The Serpent's Key", 
-                status: 'active', 
-                description: "In the aftermath of the fire, Green T gave Markop a golden key, offering a secret meeting to reveal what the mansion is hiding. Markop, as the key holder, must now decide whether to trust the manipulative toad or investigate the key's purpose on his own. The party's progress hinges on this decision.",
+                title: "The War Across Time", 
+                status: 'completed', 
+                description: "Following Green T, Markop and Bowser navigated a living hedge maze to a hidden, abandoned version of the manor. There, they were confronted by ghosts and discovered a book of obituaries for 'The Oracle,' revealing a secret war between rival Oracle families across four different time periods for control of the estate." 
+            },
+            {
+                id: 'step1c',
+                title: "Find the Missing Page",
+                status: 'active', // This is the new active objective
+                description: "The book of obituaries is the key, but the final, crucial page detailing how to travel between the time-displaced manors has been violently ripped out. The party must now find this missing page to have any hope of navigating the temporal war and confronting the true Oracle.",
                 options: [
-                    "Agree to meet Green T and trust his information.",
-                    "Refuse the meeting and attempt to investigate the purpose of the key independently.",
-                    "Ignore Green T's plot and confront the Oracle directly about the trap."
+                    "Interrogate the ghosts within the manor for clues.",
+                    "Search the Oracle's personal chambers for the missing page.",
+                    "Confront Green T, believing he knows more than he has revealed."
                 ]
             },
-            { id: 'step1c', title: "Unlock the Secret", status: 'locked', description: "Use the key to uncover the secret it protects within Raventree Manor, likely related to the war between the Oracle families across time." },
-            { id: 'step1d', title: "Confront the Game Master", status: 'locked', description: "Once the truth is revealed, confront the true mastermind behind the manor's mysteries—be it the Oracle, Green T, or someone else entirely—and secure the Vision Shard." },
+            { id: 'step1d', title: "Confront the True Oracle", status: 'locked', description: "Once the method of temporal travel is understood, navigate the four manors, win the war for the correct Oracle family, and secure the Vision Shard." },
             { id: 'step2', title: "The Fire Crystal – The Molten Depths", status: 'locked', description: "The Fire Crystal is hidden deep within a volcanic dungeon, guarded by an ancient fire dragon and its cult." },
             { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings." }
         ],
