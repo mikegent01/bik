@@ -4,6 +4,25 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY ---
     {
+        id: 'siege_of_raventree_manor',
+        name: "The Siege Within Raventree Manor",
+        conflict: "Liberated Toads Internal Conflict",
+        date: "Day 19, 1040 BF",
+        location: "Raventree Manor, Midlands",
+        belligerents: {
+            side_a: { name: "The First Cohort (Pond Patrol)", factions: ['liberated_toads'] },
+            side_b: { name: "Archie's Group", factions: ['liberated_toads'] },
+            side_c: { name: "The Manor's Horrors", factions: ['unaligned'] }
+        },
+        commanders: { side_a: ["Speaker L"], side_b: ["Archie", "Hjumpik"], side_c: ["The Oracle (Presumed)"] },
+        outcome: "<span class='outcome ongoing'>Archie Apprehended; Supernatural Threat Emerges</span>",
+        casualties: "One toad killed by Archie (Toadsburt). Eager critically wounded. Green T MIA (absorbed by a mirror). Unknown Cohort casualties.",
+        description: `
+            <p>What began as an internal disciplinary action escalated into a supernatural crisis. The Liberated Toads' 'Pond Patrol', led by Speaker L, stormed Raventree Manor to apprehend Archie's group for the disastrous Greenhouse Inferno. Archie and Hjumpik barricaded themselves with a critically wounded Eager and a catatonic Dan.</p>
+            <p>During the tense standoff, the manor itself awakened. Green T was violently pulled into a mirror, and hostile wraiths and other mirror-creatures began to manifest. Archie, after a brutal series of events including a mercy killing, ultimately surrendered to Speaker L. The conflict concluded not with order, but with the emergence of a new, terrifying supernatural threat that plunged the manor into chaos and darkness.</p>
+        `
+    },    
+    {
         id: 'kong_kremling_war_reignited',
         name: "The Kong-Kremling War Rekindles",
         conflict: "DK Island Conflicts",
