@@ -22,7 +22,7 @@ export const MARKOP_QUESTS = {
         title: "The Serpent's Key",
         type: 'personal',
         category: 'Personal - Markop',
-        is_updated: true,
+        is_updated: false,
         objective: "In the aftermath of the Greenhouse Inferno, Green T provided Markop with a mysterious golden key. Now, after exploring a hidden part of the manor, Markop has discovered a book containing an obituary for 'The Oracle' and hinting at a war across time, but the final, crucial page is missing.",
         assignee: "Markop",
         assigneeKey: 'markop',

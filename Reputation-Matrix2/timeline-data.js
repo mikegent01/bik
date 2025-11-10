@@ -109,4 +109,26 @@ export const HISTORICAL_TIMELINE = [
         icon: "faction_dk_crew.png", 
         category: "Political" 
     },     
+    { type: 'era_header', title: 'Day 19: The Siege of Raventree' },
+    { 
+        date: "Day 19", 
+        title: "The Cohort's Containment", 
+        description: "The Liberated Toads' 'Pond Patrol', led by Speaker L, arrived at Raventree Manor in force. They performed a musical 'March of the Mandate,' declaring the manor under containment and naming Archie, Bowser, Waluigi, and Markop as subjects for apprehension. As the Cohort began sealing the estate, the manor's supernatural energy awakened, manifesting powerful wraiths and trapping the party between two hostile forces.", 
+        icon: "icon_war.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: "Day 19", 
+        title: "The Surrender & The Mirror-Thing", 
+        description: "The Cohort's siege of the barricaded room reached its climax. After Archie brutally cauterized Eager's wound and murdered a terrified toad witness, Speaker L confronted him. Interrupted by the Oracle, Archie ultimately surrendered. As the Cohort took him into custody, a monstrous entity made of glass and limbs emerged from a shattered mirror, plunging the room into darkness and chaos.", 
+        icon: "faction_toad_gang.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: "Day 19", 
+        title: "The House of Hungry Memories", 
+        description: "As the Cohort's siege intensified, the manor's supernatural nature fully awakened. Green T was violently pulled into a mirror, and the party was hunted by spectral wraiths. Bowser, Waluigi, and Hjumpik navigated the shifting, treacherous halls, discovering a hidden, intact parlor and battling a mirror-creature. They witnessed Archie's capture from a distance before resolving to fight their way back to the remaining toads.", 
+        icon: "icon_magic.png", 
+        category: "Recent Event" 
+    },            
 ];

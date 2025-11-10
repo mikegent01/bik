@@ -2,11 +2,11 @@
 export const CHARACTER_RELATIONS = {
     // --- PARTY MEMBER OPINIONS ---
     'archie': {
-        'speaker_l': { type: 'enemy', text: "Archie on Speaker L: He's brought an army to our door while a man is dying. He's not a leader, he's a vulture. He'll get what's coming to him after I'm done here." },        
+        'hjumpik': { type: 'distrust', text: "Archie on Hjumpik: I told him to trust me. He hesitated. He listened to the toad. In the end, it didn't matter. My hands are up." },
+        'speaker_l': { type: 'enemy', text: "Archie on Speaker L: He won. For now. He has me in chains. Let's see how long his 'order' lasts when the real monsters come out of the walls." },
+        'dan': { type: 'pity', text: "Archie on Dan: Pathetic. He's completely broken. A useless liability." },
         'markop': { type: 'volatile', text: "Archie on Markop: He digs through the ash. He's always there to clean up the mess. Predictable. Honorable. He got everyone out. That's... something." }, // UPDATED        
-        'humpik': { type: 'transactional', text: "Archie on Humpik: The Dwarf is simple. Predictable. Useful for hitting things, and apparently, for finding heavy planks. Points in the right direction and he goes." },
         'bowser': { type: 'transactional', text: "Archie on Bowser: He offered a hand. I had other priorities. He's a king; he's used to being ignored. He'll get over it." }, // UPDATED        'remi': { type: 'transactional', text: "Archie on Remi: FNG is a surprisingly useful pawn. A little gullible, maybe. Helped pull her from that balcony wreckage. She's got potential... to be a great distraction." },
-        'dan': { type: 'distrust', text: "Archie on Dan: 'Sorry, Dan.' He failed. He broke when we needed him most. He's a liability right now. I'll deal with his feelings later; I have a patient to save." },
         'toad_lee': { type: 'transactional', text: "Archie on Toad Lee: Big axe, bigger frown. He's useful for hitting things, but don't expect any sparkling conversation." },
         'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
         'eager': { type: 'ally', text: "Archie on Eager: The little idiot charged in. Almost got himself killed. But then he had the nerve to stop me from leaving. Wants answers. He's not just a follower anymore." }, // UPDATED        'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
@@ -40,8 +40,9 @@ export const CHARACTER_RELATIONS = {
         'captain_toadette': { type: 'distrust', text: "Toadsworth on Toadette: Her diplomatic overture to the Koopa Troop failed, exactly as I predicted. Her zealotry leads only to more bloodshed and isolates us further. She is a danger to what little remains of this Kingdom." }
     },    
     'markop': {
+        'speaker_l': { type: 'enemy', text: "Markop on Speaker L: He speaks of order and law, but he leads a choir of fanatics. He would let us die in here to prove his point. He is no leader; he is a zealot." },        
         'archie': { type: 'volatile', text: "Markop on Archie: Another fireball. Another disaster. He nearly got them all killed. And yet... he saved the boy. He chose to save one life over his own escape. I don't understand him. Is he a monster, or a martyr?" }, // UPDATED        'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },
-        'bowser': { type: 'distrust', text: "Markop on Bowser: He tried to call me 'Marc'. After everything that just happened, the fire, the smoke... the familiarity was galling. He does not understand the gravity of this. He is a warlord, not a comrade." }, // UPDATED        'humpik': { type: 'ally', text: "Markop on Humpik: His loyalty is commendable, though his king is questionable. A strong arm in a just fight. A true friend." },   
+        'bowser': { type: 'distrust', text: "Markop on Bowser: He fled. When faced with bureaucracy and ghosts, he chose self-preservation. I cannot fault his logic, but he abandoned us." },        
         'remi': { type: 'ally', text: "Markop on Remi: She walked past my battle in search of breakfast. Pragmatism or foolishness? I can't be sure. But she survived the fire. She is resilient." }, // UPDATED        'dan': { type: 'enemy', text: "Markop on 'Dan': He is an impostor. Lario's warning cannot be ignored. His actions in the prison—locking us in, his erratic behavior—he is a danger to us all. I failed to see it. I must uncover his true purpose. His attempt to ride on my back during the book battle was undignified and tactically unsound." },
         'waluigi': { type: 'enemy', text: "Markop on Waluigi: An agent of pure chaos, often to his own detriment. He tried to extinguish a magical fire with a Fire Bolt, making the inferno worse. He is unpredictable and dangerous, a fool wielding power he doesn't comprehend." },
         'dan': { type: 'ally', text: "Markop on Dan: He healed Archie. The first true spell I've seen from him. It was a beacon of light in that horrible smoke. His training is bearing fruit. There is hope for him yet." }, // UPDATED (Changed from enemy 'imposter' view)
@@ -58,20 +59,26 @@ export const CHARACTER_RELATIONS = {
         'lario': { type: 'transactional', text: "Markop on Lario: He stole a logbook. While theft is dishonorable, if it contains a clue to Eager's whereabouts... it is a necessary evil. A tool we must use." }
     },
     'humpik': {
-        'archie': { type: 'ally', text: "Humpik on Archie: GWAHAHA! Little three-eyes made the biggest fire! He saved the fast toad! He is crazy, but he is a good crazy!" }, // UPDATED        
+        'the_oracle': { type: 'enemy', text: "Hjumpik on The Oracle: The mirrors are watching. His mirrors. This is his house, his trap. I will smash every piece of glass in this place." },        
+        'toad_lee': { type: 'distrust', text: "Hjumpik on Toad Lee: He talks about rooftops and solariums while a monster is behind the door. His plans are too complicated. We need to smash things." },        
+        'archie': { type: 'volatile', text: "Hjumpik on Archie: He... killed the little toad. Just... snapped his neck. To feed Eager? I don't understand. Then he surrendered. I failed him. I should have fought." },
+        'speaker_l': { type: 'enemy', text: "Hjumpik on Speaker L: He came with his army and his songs and pushed Archie to the brink. This is his fault. All of it." },
         'bowser': { type: 'loyalty', text: "Humpik on Bowser: King Bowser ate rusty monster! Now his teeth are funny color! But he fought good in the fire! He is still the strongest!" }, // UPDATED        'archie': { type: 'ally', text: "Humpik on Archie: The little guy is crazy! But he makes big explosions and finds big boards! Good to have in a scrap. He helped find the new girl." },
         'markop': { type: 'ally', text: "Humpik on Markop: The horse-man called King Bowser 'silly billy'. To his face. I... do not understand horse-man jokes. But he fights good, and helped look for the new girl. I respect that." },
         'waluigi': { type: 'volatile', text: "Humpik on Waluigi: He saved me, and for that, I owe him. But now he talks of... time travel and money with the Oracle. He is a strange and slippery friend. I will work with him, but I will watch him." },
         'oracle': { type: 'enemy', text: "Humpik on The Oracle: The smooth-talking man. He smiles, but his eyes are cold. He knows more than he says. The ghosts... he put them there. Or he controls them. He is not to be trusted. He is the enemy here." }
     },
     'bowser': {
-        'archie': { type: 'volatile', text: "Bowser on Archie: He ignored my hand! Left me to burn to save the little fast one! I should be furious, but... GWAH, I can't argue with the results. It was a gutsy move. Stupid, but gutsy." }, // UPDATED        'markop': { type: 'transactional', text: "Bowser on Markop: The horse-man has honor, which is a weakness. But he's a strong fighter. He keeps the little guys in line, so he's useful for now." },
-        'markop': { type: 'distrust', text: "Bowser on Markop: I try to be friendly, call him 'Marc', and he nearly bites my head off! Fine! He can dig me out of the rubble and I won't even say thank you! Grumpy horse-man." }, // UPDATED       
+        'speaker_l': { type: 'enemy', text: "Bowser on Speaker L: A singing, marching little mushroom who thinks he can give me orders? GWAHAHA! Pathetic. Let him have his haunted house. I've got better things to do than listen to his terrible music." },
+        'green_t': { type: 'transactional', text: "Bowser on Green T: The little sponge is with me now. He's slippery and annoying, but he knows this place. He's useful, for as long as he's breathing." },
+        'markop': { type: 'distrust', text: "Bowser on Markop: He saw the ghosts and his first instinct was to fight them. Admirable. Stupid. But admirable. He is a warrior, at least." },
+        'archie': { type: 'pity', text: "Bowser on Archie: I saw them leading him away. The little toads in their silly uniforms. To get taken down by a marching band... pathetic. A waste of a good anarchist." },
         'humpik': { type: 'loyalty', text: "Bowser on Humpik: My most loyal ally! He has the strength of a mountain and the loyalty of a true friend! GWAHAHAHA!" },
         'waluigi': { type: 'volatile', text: "Bowser on Waluigi: The purple string bean? He's a schemer. Useful for now, but not to be trusted. He got Humpik out, so... credit where it's due." },
         'dan': { type: 'ally', text: "Bowser on Dan: The kid warned me about the rust-pork! I didn't listen. My teeth feel weird. He was right. And then he did that light-y healing thing. He's getting stronger. Good." }, // UPDATED
     },
     'remi': {
+        'speaker_l': { type: 'intrigue', text: "Remi on Speaker L: The music... it was hypnotic. I had a drum. I was one of them for a minute. It was... scary. And kind of nice. I don't know what to think." },        
         'archie': { type: 'volatile', text: "Remi on Archie: He almost got us all killed with that fireball. But he did it to save Eager. He's a walking disaster area, but... I guess his heart is in the right place? Sometimes? It's confusing." }, // UPDATED
         'markop': { type: 'ally', text: "Remi on Markop: He was fighting a shadow and I walked past to get breakfast. He's probably mad. But then he dug everyone out of the fire. He's the responsible one. We need that." }, // UPDATED
         'waluigi': { type: 'distrust', text: "Remi on Waluigi: He yelled at me for shooting his pet dragon, then his friend locked us in a burning building to die. I don't care if he put the fire out, he's a menace." }, // UPDATED
@@ -79,6 +86,8 @@ export const CHARACTER_RELATIONS = {
         'bowser': { type: 'enemy', text: "Remi on Bowser: He knew the box was a bomb and just... watched. He's a monster. A king of monsters. I don't trust him for a second, even if we're on the same side for now." },
     },
     'waluigi': {
+        'toad_lee': { type: 'rivalry', text: "Waluigi on Toad Lee: So serious! So much stomping and yelling! He has no appreciation for the beautiful, terrifying performance this house is putting on!" },        
+        'speaker_l': { type: 'rivalry', text: "Waluigi on Speaker L: WAH! A musical number! With choreography! And a dramatic reading! He stole my act! This is an outrage! My own chaotic entrances are far superior!" },  
         'archie': { type: 'rivalry', text: "Waluigi on Archie: A FIREBALL?! WAH! So unoriginal! So crude! My firebolt was far more stylish, and my cone of cold was the perfect finale! He has no sense of showmanship!" }, // UPDATED        'bowser': { type: 'volatile', text: "Waluigi on Bowser: Another big, angry brute who wants to rule everything. So unoriginal! But his army is a useful distraction." },
         'green_t': { type: 'volatile', text: "Waluigi on Green T: He locked my backup singers in a burning building! A bit extreme for a 'distraction,' even for me! But... the results were magnificent! Our business partnership is becoming very... interesting!" }, // UPDATED    },
     },
@@ -94,6 +103,8 @@ export const CHARACTER_RELATIONS = {
         'dan': { type: 'enemy', text: "Dan on Himself: Failure. I failed him. I hurt him. I'm a monster..." }        
     },
     'toad_lee': {
+        'hjumpik': { type: 'frustration', text: "Toad Lee on Hjumpik: He has the subtlety of an avalanche. There are secret passages, tactical routes. But all he sees is a wall to be broken or a monster to be smashed. His strength is a tool, not a solution." },        
+        'speaker_l': { type: 'enemy', text: "Toad Lee on Speaker L: I am receiving reports of a murder, a monster in the mirrors, and Archie in chains. Speaker L has lost control of this situation. He has gone too far." },        
         'markop': { type: 'ally', text: "Toad Lee on Markop: A true commander. He is strong, and he leads from the front. I would follow him into any battle." },
         'archie': { type: 'transactional', text: "Toad Lee on Archie: He is a necessary evil. A wild dog that bites our enemies. Better to have him on our leash than against us." },
         'ryan': { type: 'ally', text: "Toad Lee on Ryan: He provided a clear objective. The mission is now to capture. That is an order I can understand and enforce." },        
@@ -110,8 +121,8 @@ export const CHARACTER_RELATIONS = {
         'iron_legion': { type: 'enemy', text: "Roger on The Iron Legion: Their willingness to use infiltration tactics confirms they are a sophisticated and dangerous enemy. Standard protocols are insufficient." }
     },
     'speaker_l': {
-        'archie': { type: 'enemy', text: "Speaker L on Archie: His incompetence has led to this. Another catastrophe, more wounded. He and his associates are a cancer on this Cohort, and they will be held accountable by the letter of our law." } ,       
-        'dan': { type: 'ally', text: "Speaker L on Dan: His proposal aligns with our need to preserve our numbers. A leader who protects his people is one we can work with. For now." }
+        'archie': { type: 'enemy', text: "Speaker L on Archie: He has surrendered. Justice will be swift and transparent. His chaos ends now." },
+        'hjumpik': { type: 'distrust', text: "Hjumpik on Hjumpik: The Dwarf's loyalty is a problem. He questions the will of the Cohort. He must be watched." },        'dan': { type: 'ally', text: "Speaker L on Dan: His proposal aligns with our need to preserve our numbers. A leader who protects his people is one we can work with. For now." }
     },
     'bones': {
         'dan': { type: 'neutral', text: "Bones on Dan: The kid's plan is less efficient than mine, but it's better than Archie's. Fewer funerals is good for morale, I guess. It'll do." }
@@ -156,6 +167,8 @@ export const CHARACTER_RELATIONS = {
         'embercap': { type: 'loyalty', text: "Toadette on Embercap: My most steadfast soldier. He has seen the true face of the enemy and has been forged anew in the fires of conviction. His resolve is absolute, a perfect instrument of my will." }
     },
     'green_t': {
+        'markop': { type: 'distrust', text: "Green T on Markop: The paladin grabbed me to 'save' me from the ghosts. Now he's dragging me through this nightmare. I should have taken my chances with the mirror." },        
+        'speaker_l': { type: 'rivalry', text: "Waluigi on Speaker L: WAH! A musical number! With choreography! And a dramatic reading! He stole my act! This is an outrage! My own chaotic entrances are far superior!" },  
         'markop': { type: 'transactional', text: "Green T on Markop: The paladin is predictable. Honorable. That makes him the perfect piece to move. He'll take the key because his conscience demands it. And he'll walk right into the game." }, // UPDATED
         'remi': { type: 'ally', text: "Green T on Remi: The new girl can shoot. I respect that. A useful asset for future... 'distractions'." }, // UPDATED        
         'dan': { type: 'enemy', text: "Green T on Dan: He's a fool who played with power he couldn't control. The staff broke him. And he's still hiding the truth from his friends. Pathetic. Danger is coming, and his silence puts everyone at risk." },

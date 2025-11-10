@@ -6,7 +6,7 @@ export const DK_QUESTS = {
         title: "The Serpent in the Surf Shack",
         type: 'personal',
         category: 'Personal - Donkey Kong',
-        is_updated: true,
+        is_updated: false,
         objective: "King K. Rool has issued an assassination order for Funky Kong to cover up a Kremling espionage operation. Donkey Kong must race against time to protect his friend and neutralize the Kremling agent, Galypso, before she can strike.",
         assignee: "Donkey Kong",
         assigneeKey: 'donkey_kong',

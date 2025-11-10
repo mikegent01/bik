@@ -5,6 +5,423 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
     {
+        id: 'bowser_hungry_memory',
+        order: 30490,
+        characterKey: 'bowser',
+        timestamp: 'Just Now',
+        content: `Whatever's in this place—it isn't just ghosts. It's memory, and it's hungry.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'kamek', text: 'A keen observation, Your Viciousness. Be wary of places that remember.' },
+            { characterKey: 'self_reflection_oracle', text: 'A king of beasts understands the nature of the hunt.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_rescue_archie_now',
+        order: 30489,
+        characterKey: 'hjumpik',
+        timestamp: '1 minute ago',
+        content: `They're taking Archie. The little toads have him. This is not right. We go back. We get him.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Hjumpik, do not engage the Cohort. I am trying to resolve this peacefully. Do not start a war.' },
+            { characterKey: 'bowser', text: 'He made his choice, Humpik. Let him lie in it for a bit.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_sees_archie_captured_window',
+        order: 30488,
+        characterKey: 'bowser',
+        timestamp: '3 minutes ago',
+        content: `He's in their hands now. The little fools actually caught him. Dragging him out into the rain.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'kamek', text: 'An unfortunate but predictable outcome for one who relies on chaos.' },
+            { characterKey: 'fawful', text: 'I HAVE THE SMALLEST OF CHORTLES! The three-eyed fool is caged by mushrooms!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_mirror_monster_emerges',
+        order: 30487,
+        characterKey: 'hjumpik',
+        timestamp: '4 minutes ago',
+        content: `THE MIRROR IS ALIVE! IT'S ALIVE AND IT'S COMING OUT! LIGHTS ARE GONE!`,
+        likes: 750,
+        comments: [
+            { characterKey: 'markop', text: 'Hjumpik, report! What is your status?! What is happening?!' },
+            { characterKey: 'ryan', text: 'The dimensional barrier must have shattered! Get out of there!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_arrest_report',
+        order: 30486,
+        characterKey: 'speaker_l',
+        timestamp: '5 minutes ago',
+        content: `Target apprehended. Archie Miser is in Cohort custody. The situation is contained. Justice will be served.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Contained? Speaker, what happened in there? My patrol is reporting screams and a power failure.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_surrenders_now',
+        order: 30485,
+        characterKey: 'archie',
+        timestamp: '6 minutes ago',
+        content: `Fine. I surrender.`,
+        likes: 1570,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Wise.' },
+            { characterKey: 'hjumpik', text: 'Archie, no!' },
+            { characterKey: 'general_marcus_ironhand', text: 'A pity. Our cells were waiting.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_stops_fireball',
+        order: 30484,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '7 minutes ago',
+        content: `Not yet.`,
+        likes: 1212,
+        comments: [
+            { characterKey: 'archie', text: 'Get out of my head!' },
+            { characterKey: 'kamek', text: 'Such effortless displays of power are always the most terrifying.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_wrong_answer',
+        order: 30483,
+        characterKey: 'speaker_l',
+        timestamp: '8 minutes ago',
+        content: `Wrong answer.`,
+        likes: 740,
+        comments: [
+            { characterKey: 'the_mole', text: '*whistles*' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_power_struggle',
+        order: 30482,
+        characterKey: 'archie',
+        timestamp: '9 minutes ago',
+        content: `You’re my captain. I’m your leader. You answer to me.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'speaker_l', text: 'An interesting interpretation of the chain of command.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_eats',
+        order: 30481,
+        characterKey: 'archie',
+        timestamp: '10 minutes ago',
+        content: `Eat.`,
+        likes: 999,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'Unspeakable heresy! This creature is a font of pure evil!' },
+            { characterKey: 'lord_crimson', text: '...Fascinating. A crude but effective method of battlefield apotheosis.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toadsburt_is_killed',
+        order: 30480,
+        characterKey: 'generic_toad',
+        timestamp: '11 minutes ago',
+        content: `That's not you... you're not Archie... It's a demon! I can see it in the mirror! A DEMON! AGH- *crack*`,
+        likes: 450,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Witness eliminated. Another loose end. This Miser is sloppy.' },
+            { characterKey: 'hjumpik', text: 'Archie... what did you do?' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_cauterizes_wound_now',
+        order: 30479,
+        characterKey: 'archie',
+        timestamp: '12 minutes ago',
+        content: `Hold him. This is going to hurt.`,
+        likes: 810,
+        comments: [
+            { characterKey: 'dewdrop', text: 'Cauterizing a magical wound with a heated axe?! That\'s barbaric! You need a real medic!' },
+            { characterKey: 'roger', text: 'A crude but effective field measure to stop exsanguination. I approve.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_fights_mirror_creature',
+        order: 30478,
+        characterKey: 'bowser',
+        timestamp: '14 minutes ago',
+        content: `GWAHAHA! A monster made of glass?! This house just keeps getting better! Tasted my fist, you walking window!`,
+        likes: 760,
+        comments: [
+            { characterKey: 'hjumpik', text: 'King Bowser! It came out of the mirror!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_move_or_die',
+        order: 30477,
+        characterKey: 'markop',
+        timestamp: '15 minutes ago',
+        content: `Bowser and Green T have fled. Remi is lost in their ranks. The Cohort is sealing the manor, and the house itself is birthing wraiths. We move now, before containment becomes execution.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Where are you? I am trying to de-escalate this, but Speaker L is not listening to reason.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_escapes_drumline',
+        order: 30476,
+        characterKey: 'bowser',
+        timestamp: '16 minutes ago',
+        content: `Enough of this marching band nonsense. I'm not getting trapped in a haunted house by a bunch of singing mushrooms. Anyone who wants to live is coming with me.`,
+        likes: 580,
+        comments: [
+            { characterKey: 'kamek', text: 'A wise tactical withdrawal, Your Viciousness.' },
+            { characterKey: 'green_t', text: 'I\'m right behind you!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'rodger_rangers_lost_now',
+        order: 30475,
+        characterKey: 'roger',
+        timestamp: '18 minutes ago',
+        content: `SITREP: My rangers responded to the fire, assuming hostile action. We have made contact with the First Cohort's main force. The situation is... fluid. Half my men are unaccounted for inside the manor. We are transitioning from a rescue to a search operation.`,
+        likes: 290,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Roger, hold your position. Do not engage. Repeat, do not engage.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_wraiths_now',
+        order: 30474,
+        characterKey: 'green_t',
+        timestamp: '20 minutes ago',
+        content: `Okay, new rule: never get trapped in a haunted house that's being besieged by a toad army. Especially when the house starts spawning lightning ghosts. Time for Plan B.`,
+        likes: 412,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Lightning ghosts! My one regret is not being there to see it!' },
+            { characterKey: 'ryan', text: 'These are not simple spirits. They are echoes of pain, given form. Be careful.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_containment_protocol_now',
+        order: 30473,
+        characterKey: 'speaker_l',
+        timestamp: '22 minutes ago',
+        content: `Containment protocols are in effect. All exits of Raventree Manor are being sealed. Those named in the Mandate will be brought to justice. The rest will stand aside. This is not a negotiation. This is order being restored.`,
+        likes: 620,
+        comments: [
+            { characterKey: 'first_cohort_member', text: 'For the Cohort! For the Vow!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_joins_the_march_now',
+        order: 30472,
+        characterKey: 'remi',
+        timestamp: '24 minutes ago',
+        content: `The drums... so loud. I have a drum now. Marching. I think... I'm marching with them. It's easier than running.`,
+        likes: 550,
+        comments: [
+            { characterKey: 'markop', text: 'Remi, break formation! Get back to us!' },
+            { characterKey: 'dan', text: 'Remi? No...' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_ceremony_with_teeth_now',
+        order: 30471,
+        characterKey: 'waluigi',
+        timestamp: '25 minutes ago',
+        content: `WAH! A singing army! A musical invasion! They're not soldiers, they're a ceremony with teeth! It's the most gloriously over-the-top thing I've ever seen! I almost feel outdone!`,
+        likes: 899,
+        comments: [
+            { characterKey: 'fawful', text: 'THEIR SINGING LACKS THE FURY OF A TRUE VILLAINOUS HYMN!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_song_now',
+        order: 30470,
+        characterKey: 'speaker_l',
+        timestamp: '28 minutes ago',
+        content: `By vote and vow, by quill and seal, We bring the order none can steal! Marching forth, the Cohort’s call— To guard the living, and judge the fall!`,
+        likes: 710,
+        comments: [
+            { characterKey: 'bones', text: 'I think I\'m gonna be sick.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_sees_cohort',
+        order: 30469,
+        characterKey: 'markop',
+        timestamp: '30 minutes ago',
+        content: `They're here. Hundreds of them. The Cohort has arrived. This isn't a patrol. It's an army.`,
+        likes: 680,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_finds_them_now',
+        order: 30468,
+        characterKey: 'hjumpik',
+        timestamp: '32 minutes ago',
+        content: `Found them. It's bad. Eager is down, Dan is... not right. And the little toads are marching outside. We are trapped.`,
+        likes: 620,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_heals_dan',
+        order: 30467,
+        characterKey: 'waluigi',
+        timestamp: '35 minutes ago',
+        content: `Found the one-armed toad trembling by a broken window. WAH! So pathetic! I healed him a little. Can't have my audience dying of fright before the final act!`,
+        likes: 510,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_smashes_mirror',
+        order: 30466,
+        characterKey: 'bowser',
+        timestamp: '38 minutes ago',
+        content: `GREEN T GOT EATEN BY A MIRROR! So I punched it! A door opened! This house is weird, but it respects brute force! GWAHAHA!`,
+        likes: 780,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_green_t_taken',
+        order: 30465,
+        characterKey: 'markop',
+        timestamp: '40 minutes ago',
+        content: `Green T has been taken. Something pulled him into a mirror. The house... it's fighting back. This is no longer a simple haunting.`,
+        likes: 540,
+        comments: [
+            { characterKey: 'the_broker', text: 'Asset "Green T" is temporarily off the board. Fascinating. His information futures are now on hold.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_solarium_plan',
+        order: 30464,
+        characterKey: 'toad_lee',
+        timestamp: '42 minutes ago',
+        content: `We go to the solarium. We break the attic and catch them before they fall. It is the shorter, more direct route. We move now.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'hjumpik', text: 'But the mirror stair is right there!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_pockets_silver',
+        order: 30463,
+        characterKey: 'bowser',
+        timestamp: '45 minutes ago',
+        content: `Found a secret room. Looked comfy. Found a bag of silver. It's mine now. Finders keepers, losers weepers!`,
+        likes: 620,
+        comments: [
+            { characterKey: 'wario', text: 'That\'s the spirit! Always secure the loot!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_falls_down',
+        order: 30462,
+        characterKey: 'hjumpik',
+        timestamp: '48 minutes ago',
+        content: `The rope held. The joist did not. I have fallen. Am okay. This room has a very clean mirror. I do not trust it.`,
+        likes: 515,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_finds_passage',
+        order: 30461,
+        characterKey: 'toad_lee',
+        timestamp: '50 minutes ago',
+        content: `The main path is a death trap. But there is a way. A crawlspace between the walls. It is tight, but it will get us through. Follow me.`,
+        likes: 480,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'hjumpik_sees_green_t',
+        order: 30460,
+        characterKey: 'hjumpik',
+        timestamp: '52 minutes ago',
+        content: `We're in the vents. I can see down into a room... it's full of mirrors. Green T is trapped in one of them. He's like a bug in amber.`,
+        likes: 590,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_spider_surprise',
+        order: 30459,
+        characterKey: 'bowser',
+        timestamp: '55 minutes ago',
+        content: `Found a bathroom. Opened the door. Giant spider lunged at me. I closed the door. Some things you just don't punch.`,
+        likes: 713,
+        comments: [
+            { characterKey: 'remi', text: 'Told you there were spiders!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_uneasy_truce',
+        order: 30458,
+        characterKey: 'toad_lee',
+        timestamp: '58 minutes ago',
+        content: `They are not the enemy. Not yet. The house is. An uneasy truce has been formed with Bowser's group. We will move together. Strength in numbers.`,
+        likes: 543,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kay_killed',
+        order: 30457,
+        characterKey: 'kay',
+        timestamp: 'Earlier Today',
+        content: `We're here for peace... please...`,
+        likes: 210,
+        comments: [
+            { characterKey: 'chancellor_toadsworth', text: 'May the stars guide your spirit, brave envoy.' }
+        ],
+        rumorId: 'bramblehaven_siege' // Concurrently
+    },
+    {
+        id: 'koomba_killed',
+        order: 30456,
+        characterKey: 'koomba',
+        timestamp: 'Earlier Today',
+        content: `That's Peach's seal! Return it!`,
+        likes: 190,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'He died defending the Princess\'s honor. A true soldier.' }
+        ],
+        rumorId: 'bramblehaven_siege' // Concurrently
+    },
+    {
         id: 'dk_warns_funky',
         order: 30035,
         characterKey: 'donkey_kong',
