@@ -1,4 +1,3 @@
-
 export const TOAD_TIMELINE = [
     {
         day: 1,
@@ -28,20 +27,34 @@ export const TOAD_TIMELINE = [
             { toadKey: 'dan', focus: "Seeking a Cure", status: "Completed", description: "Dan was healed by the archmage, but at a cost. He is physically diminished, his body shrunken and weakened. The toads are now leaderless and in chaos as he recovers.", details: "Status is Weakened, but alive." },
             { toadKey: 'toad_lee', focus: "Guarding the Staff", status: "Ongoing", description: "With the revelation of an imposter and the general chaos, Toad Lee has doubled down on his vow to protect the volatile staff from all threats, internal and external.", details: "" },
             { toadKey: 'eager', focus: "From the Frying Pan...", status: "Ongoing", description: "Eager was moved from the prison only to be captured by raiders and sold to a mysterious 'angel'. He is now working as a bartender, unable to escape. An extraction attempt by the party failed when the Iron Legion raided the restaurant.", details: "Status is Captive." },
-            { toadKey: 'ryan', focus: "Research X.O.'s Staff", status: "In Progress", description: "Ryan continues his intense study of the staff, hoping to uncover its secrets without causing another magical incident.", details: "(8 days remaining)" },
-            { toadKey: 'roger', focus: "Organize Scavenging Parties", status: "In Progress", description: "Roger is forming small, efficient teams to scavenge for supplies in the nearby ruins of the Vigilance.", details: "(4 days remaining)" },
-            { toadKey: 'bones', focus: "Contemplate Orc 'Debt'", status: "In Progress", description: "Bones is trying to understand the Orcs' motives and what his 'debt' to them truly means.", details: "(6 days remaining)" }
         ]
     },
     {
         day: 16,
         events: [
-            { toadKey: 'dan', focus: "Navigating the Madness", status: "Ongoing", description: "Dan's night was anything but restful. He joined the investigation into the collapsed balcony, contended with the mysterious Oracle, and witnessed Waluigi's dramatic wyvern escape. His focus has shifted from simple exploration to navigating the mansion's escalating dangers and intrigues.", details: "Primary focus (Rallying) is on hold." },
-            { toadKey: 'toad_lee', focus: "The Staff's Warden", status: "Ongoing", description: "Toad Lee has become the grim enforcer of the Vow of Renewal. He spends his days policing the factions on the Vigilance, his axe a constant reminder that their fragile unity was bought with blood. The staff's whispers are a constant companion.", details: "Maintaining order through intimidation." },
-            { toadKey: 'eager', focus: "Rescued but Unsafe", status: "Ongoing", description: "Eager was found by Archie, trapped and terrified in the ruined Solarium amidst a circle of strange, shimmering mirrors. Rescued just as the situation grew more perilous, he has fled the immediate danger but remains deeply shaken by the mansion's horrors.", details: "Primary focus is on hold." },
-            { toadKey: 'ryan', focus: "An Unwilling Guest", status: "On Hold", description: "With another night of chaos confirming the mansion is actively hostile, Ryan's research into the staff is indefinitely paused. Immediate survival and observing the new threats—and his companions—has taken absolute priority.", details: "Primary focus (Research) on hold (8 days remaining)." },
-            { toadKey: 'roger', focus: "A Tactical Pause", status: "On Hold", description: "Logistical planning for the toads is on hold. With the party isolated in a hostile environment, Roger is applying his pragmatic mind to short-term survival and assessing the mansion's dangers.", details: "Primary focus (Scavenging) on hold (4 days remaining)." },
-            { toadKey: 'bones', focus: "A New Battlefield", status: "On Hold", description: "Bones has traded contemplating one hostile environment for another. His focus on the Orcs is paused as he navigates the unsettling halls of Raventree Manor, a place with dangers far stranger than any battlefield.", details: "Primary focus (Orc Debt) on hold (6 days remaining)." }
+            { toadKey: 'toad_lee', focus: "The Staff's Warden", status: "Completed", description: "Toad Lee has become the grim enforcer of the Vow of Renewal. He spends his days policing the factions on the Vigilance, his axe a constant reminder that their fragile unity was bought with blood.", details: "Order maintained through intimidation." },
+            { toadKey: 'eager', focus: "Rescued but Unsafe", status: "Completed", description: "Eager was found by Archie, trapped and terrified in the ruined Solarium amidst a circle of strange, shimmering mirrors. Rescued just as the situation grew more perilous, he has fled the immediate danger but remains deeply shaken.", details: "Status is safe, but traumatized." },
+        ]
+    },
+    {
+        day: 18,
+        events: [
+            { toadKey: 'dan', focus: "Political Victory", status: "Completed", description: "In a stunning display of leadership, Dan proposed the 'Supernatural Sovereignty Act' to the Midlands Diet. It passed with an overwhelming majority, establishing him as a significant political player on the world stage.", details: "Influence with Midlands powers greatly increased." },
+            { toadKey: 'toad_lee', focus: "Enforcing New Doctrines", status: "Ongoing", description: "Following two successful votes, Toad Lee is now tasked with enforcing the cohort's new strategies: capturing the moles for interrogation and organizing large, cautious scavenging expeditions.", details: "Primary focus is on organizing the Pond Patrol and resource teams." },
+            { toadKey: 'ryan', focus: "A Path of Knowledge", status: "Ongoing", description: "Ryan's counter-proposal to interrogate the moles was successful. He is now the leading voice for an intelligence-based approach to dealing with the Iron Legion, pushing for study over retribution.", details: "Influence with the cohort has increased." },
+            { toadKey: 'roger', focus: "A Superior Strategy", status: "Ongoing", description: "Roger fully endorsed Dan's proposal for scavenging, seeing it as a logistically superior plan. He is now working with Toad Lee to equip the new, larger expeditionary teams.", details: "Focus is on outfitting and supply chain management." },
+        ]
+    },
+    {
+        day: 19,
+        events: [
+            { toadKey: 'dan', focus: "Catastrophic Failure", status: "Ongoing", description: "Dan's attempt to magically heal Eager backfired horribly, worsening the injury and sending him into a catatonic state of guilt and trauma. He is currently unresponsive.", details: "Status is Traumatized & Catatonic." },
+            { toadKey: 'toad_lee', focus: "A Divided Duty", status: "Ongoing", description: "Toad Lee is caught in an impossible situation. While his official orders are to support the Cohort's siege, his personal loyalty is to Dan and the others trapped inside. He is attempting to de-escalate the conflict from within the Cohort's ranks.", details: "Attempting to prevent civil war." },
+            { toadKey: 'eager', focus: "Life in the Balance", status: "Ongoing", description: "Eager is critically wounded, his leg shattered and magically burned. After a brutal cauterization and a monstrous transformation, he is unconscious and dying, his fate hanging by a thread.", details: "Status is Critically Wounded & Unconscious." },
+            { toadKey: 'ryan', focus: "Horrified Observer", status: "Ongoing", description: "Ryan is trapped with the besieging Cohort, watching the standoff unfold. He is horrified by Dan's failure and the Cohort's aggression, trying to find a peaceful resolution.", details: "Attempting to mediate." },
+            { toadKey: 'roger', focus: "Containment Protocol", status: "Ongoing", description: "Roger's rangers have arrived, but half are missing. He has switched from a rescue mission to a containment protocol, viewing the entire situation as a catastrophic failure that must be controlled.", details: "Focus is on damage control and locating missing personnel." },
+            { toadKey: 'bones', focus: "Reluctant Siege", status: "Ongoing", description: "Bones is with the Cohort, having voted for the apprehension. However, he is deeply cynical of Speaker L's theatrical methods and the unfolding tragedy, seeing it as another pointless waste of life.", details: "Observing the siege with contempt." },
+            { toadKey: 'the_mole', focus: "Mission Success", status: "Completed", description: "The Mole successfully aided Speaker L in locating and cornering Archie, fulfilling his objective. He is now a key figure in the Cohort's command structure during the siege.", details: "Influence with Speaker L has peaked." }
         ]
     }
 ];

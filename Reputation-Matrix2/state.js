@@ -4,32 +4,94 @@ import { MAP_DATA } from './map-data.js';
 
 // --- STATE MANAGEMENT ---
 
-// Helper to generate a default intel object for the generic user
+// Weapon archetype normalization to prevent undefined ability lookups
+const WEAPON_ALIASES = {
+    'axe': 'axe',
+    'longsword & magic': 'magic',
+    'longsword': 'magic',
+    'magic': 'magic',
+    'whip': 'whip',
+    'spellcaster': 'spellcaster',
+    'gun': 'gun',
+    'grotesque': 'grotesque',
+    'grotesque resilience': 'grotesque',
+    'deceit': 'deceit'
+};
+
+function getArchetypeFromWeapon(weapon) {
+    const key = String(weapon || '').toLowerCase().trim();
+    return WEAPON_ALIASES[key] || key;
+}
+
+// Snap-down lookup so odd levels and missing exact keys never return undefined
+function getAbilityForLevel(archetype, level) {
+    const table = TOAD_ABILITIES[archetype];
+    if (!table) return null;
+    for (let L = level; L >= 1; L--) {
+        if (table[L]) return table[L];
+    }
+    return null;
+}
+
+// Safely add an ability only once
+function addAbilityUnique(character, ability) {
+    if (!ability || !ability.name) return false;
+    if (!character.abilities) character.abilities = [];
+    const exists = character.abilities.some(a => (a?.name || a) === ability.name);
+    if (!exists) {
+        character.abilities.push(ability);
+        return true;
+    }
+    return false;
+}
+
+// Find ability by name in the ability table (used to hydrate initial string abilities)
+function findAbilityByName(archetype, name) {
+    if (!name) return null;
+    const table = TOAD_ABILITIES[archetype];
+    if (!table) return null;
+    const levels = Object.keys(table).map(Number).sort((a, b) => a - b);
+    for (const lvl of levels) {
+        if (table[lvl]?.name === name) return table[lvl];
+    }
+    return null;
+}
+
+// Convert any initial string abilities to full objects and de-dupe
+function hydrateInitialAbilities(stateChars) {
+    for (const key in stateChars) {
+        const ch = stateChars[key];
+        const arch = getArchetypeFromWeapon(ch.weapon);
+        if (!arch) continue;
+
+        const asObjects = (ch.abilities || []).map(a => {
+            if (a && a.name && a.description) return a; // already an object
+            const abilityName = typeof a === 'string' ? a : a?.name;
+            return findAbilityByName(arch, abilityName) || null;
+        }).filter(Boolean);
+
+        const seen = new Set();
+        ch.abilities = asObjects.filter(a => {
+            const k = a.name;
+            if (seen.has(k)) return false;
+            seen.add(k);
+            return true;
+        });
+    }
+}
+
 function generateGenericIntel() {
     const intel = {};
-    for (const factionKey in LORE_DATA.factions) {
-        intel[factionKey] = 0;
-    }
-    // Give the generic user some baseline knowledge of major players.
-    intel['regal_empire'] = 20;
-    intel['iron_legion'] = 15;
-    intel['mushroom_regency'] = 15;
-    intel['koopa_troop'] = 15;
-    intel['freelancer_underworld'] = 10;
-    intel['mages_guild'] = 10;
-    intel['onyx_hand'] = 5;
-    intel['moonfang_pack'] = 5;
-    intel['unaligned'] = 100;
-    intel['kingdom_of_gondor'] = 10;
-    intel['kingdom_of_rohan'] = 10;
-    intel['lothlorien'] = 5;
-    intel['elves_of_lindon'] = 5;
-    intel['kingdoms_of_the_dwarves'] = 10;
-    intel['isengard'] = 5;
+    for (const factionKey in LORE_DATA.factions) { intel[factionKey] = 0; }
+    intel['regal_empire'] = 20; intel['iron_legion'] = 15; intel['mushroom_regency'] = 15;
+    intel['koopa_troop'] = 15; intel['freelancer_underworld'] = 10; intel['mages_guild'] = 10;
+    intel['onyx_hand'] = 5; intel['moonfang_pack'] = 5; intel['unaligned'] = 100;
+    intel['kingdom_of_gondor'] = 10; intel['kingdom_of_rohan'] = 10; intel['lothlorien'] = 5;
+    intel['elves_of_lindon'] = 5; intel['kingdoms_of_the_dwarves'] = 10; intel['isengard'] = 5;
     intel['mordor'] = 5;
-    
     return intel;
 }
+
 const DEFAULT_INVENTORIES = {
     archie: { name: "Archie's Stash", items: ["Sickle", "Dusty Wine Bottle"] },
     markop: { name: "Markop's Pack", items: ["Gray Suit", "Carpentry Supplies", "Amethyst", "The Hammer Code: An Iron Legion Treatise"] },
@@ -46,72 +108,15 @@ const DEFAULT_INVENTORIES = {
     }
 };
 
-
 export const state = {
     loggedInUser: localStorage.getItem('vigilanceTerminalUser') || 'generic',
     debugMode: false,
     intelLevels: {
-        archie: {
-            regal_empire: 25, iron_legion: 40, freelancer_underworld: 50,
-            toad_gang: 45, toad_cult: 10, onyx_hand: 35, mages_guild: 20,
-            rakasha_clans: 5, cosmic_jesters: 60, the_unchained: 40,
-            silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 45,
-            koopa_troop: 20, rebel_clans: 25, crimson_fleet: 30,
-            wario_land: 35, mushroom_regency: 15, peach_loyalists: 20,
-            fawfuls_furious_freaks: 40, iron_fists: 55, moonfang_pack: 15,
-            liberated_toads: 70, diamond_city_investigators: 25, goodstyle_artisans: 5,
-            tea_leaf_syndicate: 40,
-            unaligned: 100,
-            kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5,
-            elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5
-        },
-        markop: {
-            regal_empire: 45, iron_legion: 50, freelancer_underworld: 15,
-            toad_gang: 20, toad_cult: 5, onyx_hand: 25, mages_guild: 20,
-            rakasha_clans: 60, cosmic_jesters: 5, the_unchained: 45,
-            silver_flame: 55, oathbound_judges: 60, ratchet_raiders: 10,
-            koopa_troop: 20, rebel_clans: 35, crimson_fleet: 10,
-            wario_land: 10, mushroom_regency: 35, peach_loyalists: 30,
-            fawfuls_furious_freaks: 25, iron_fists: 20, moonfang_pack: 25,
-            liberated_toads: 80, diamond_city_investigators: 15, goodstyle_artisans: 10,
-            tea_leaf_syndicate: 25,
-            unaligned: 100,
-            kingdom_of_gondor: 10, kingdom_of_rohan: 5, lothlorien: 5,
-            elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5
-        },
-        humpik: {
-            koopa_troop: 70, toad_gang: 30, regal_empire: 15, iron_legion: 45,
-            rakasha_clans: 10, rebel_clans: 5, moonfang_pack: 15,
-            liberated_toads: 55, freelancer_underworld: 15,
-            cosmic_jesters: 5, tea_leaf_syndicate: 35, peach_loyalists: 20,
-            fawfuls_furious_freaks: 20, onyx_hand: 10, iron_fists: 15,
-            silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 10,
-            crimson_fleet: 10, wario_land: 10, mushroom_regency: 15,
-            the_unchained: 5, diamond_city_investigators: 5, goodstyle_artisans: 5,
-            unaligned: 100,
-        },
-        bowser: {
-            koopa_troop: 100, mushroom_regency: 50, peach_loyalists: 45,
-            regal_empire: 40, iron_legion: 35, rebel_clans: 20,
-            onyx_hand: 15, moonfang_pack: 20, crimson_fleet: 25,
-            liberated_toads: 30, fawfuls_furious_freaks: 40, toad_gang: 25,
-            freelancer_underworld: 20, wario_land: 15, iron_fists: 15,
-            the_unchained: 10, cosmic_jesters: 10, rakasha_clans: 10, silver_flame: 5,
-            oathbound_judges: 10, ratchet_raiders: 15, diamond_city_investigators: 10,
-            goodstyle_artisans: 5, tea_leaf_syndicate: 15,
-            unaligned: 100,
-        },
-        remi: {
-            regal_empire: 15, iron_legion: 30, freelancer_underworld: 15,
-            mushroom_regency: 10, koopa_troop: 10, liberated_toads: 35,
-            wario_land: 20, cosmic_jesters: 10, tea_leaf_syndicate: 10,
-            toad_gang: 10, fawfuls_furious_freaks: 10, peach_loyalists: 10,
-            onyx_hand: 5, moonfang_pack: 5, iron_fists: 10,
-            rakasha_clans: 5, the_unchained: 5, silver_flame: 5,
-            oathbound_judges: 5, ratchet_raiders: 5, rebel_clans: 5, crimson_fleet: 5,
-            diamond_city_investigators: 5, goodstyle_artisans: 5,
-            unaligned: 100,
-        },
+        archie: { regal_empire: 25, iron_legion: 40, freelancer_underworld: 50, toad_gang: 45, toad_cult: 10, onyx_hand: 35, mages_guild: 20, rakasha_clans: 5, cosmic_jesters: 60, the_unchained: 40, silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 45, koopa_troop: 20, rebel_clans: 25, crimson_fleet: 30, wario_land: 35, mushroom_regency: 15, peach_loyalists: 20, fawfuls_furious_freaks: 40, iron_fists: 55, moonfang_pack: 15, liberated_toads: 70, diamond_city_investigators: 25, goodstyle_artisans: 5, tea_leaf_syndicate: 40, unaligned: 100, kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 },
+        markop: { regal_empire: 45, iron_legion: 50, freelancer_underworld: 15, toad_gang: 20, toad_cult: 5, onyx_hand: 25, mages_guild: 20, rakasha_clans: 60, cosmic_jesters: 5, the_unchained: 45, silver_flame: 55, oathbound_judges: 60, ratchet_raiders: 10, koopa_troop: 20, rebel_clans: 35, crimson_fleet: 10, wario_land: 10, mushroom_regency: 35, peach_loyalists: 30, fawfuls_furious_freaks: 25, iron_fists: 20, moonfang_pack: 25, liberated_toads: 80, diamond_city_investigators: 15, goodstyle_artisans: 10, tea_leaf_syndicate: 25, unaligned: 100, kingdom_of_gondor: 10, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 },
+        humpik: { koopa_troop: 70, toad_gang: 30, regal_empire: 15, iron_legion: 45, rakasha_clans: 10, rebel_clans: 5, moonfang_pack: 15, liberated_toads: 55, freelancer_underworld: 15, cosmic_jesters: 5, tea_leaf_syndicate: 35, peach_loyalists: 20, fawfuls_furious_freaks: 20, onyx_hand: 10, iron_fists: 15, silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 10, crimson_fleet: 10, wario_land: 10, mushroom_regency: 15, the_unchained: 5, diamond_city_investigators: 5, goodstyle_artisans: 5, unaligned: 100, },
+        bowser: { koopa_troop: 100, mushroom_regency: 50, peach_loyalists: 45, regal_empire: 40, iron_legion: 35, rebel_clans: 20, onyx_hand: 15, moonfang_pack: 20, crimson_fleet: 25, liberated_toads: 30, fawfuls_furious_freaks: 40, toad_gang: 25, freelancer_underworld: 20, wario_land: 15, iron_fists: 15, the_unchained: 10, cosmic_jesters: 10, rakasha_clans: 10, silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 15, diamond_city_investigators: 10, goodstyle_artisans: 5, tea_leaf_syndicate: 15, unaligned: 100, },
+        remi: { regal_empire: 15, iron_legion: 30, freelancer_underworld: 15, mushroom_regency: 10, koopa_troop: 10, liberated_toads: 35, wario_land: 20, cosmic_jesters: 10, tea_leaf_syndicate: 10, toad_gang: 10, fawfuls_furious_freaks: 10, peach_loyalists: 10, onyx_hand: 5, moonfang_pack: 5, iron_fists: 10, rakasha_clans: 5, the_unchained: 5, silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 5, rebel_clans: 5, crimson_fleet: 5, diamond_city_investigators: 5, goodstyle_artisans: 5, unaligned: 100, },
         generic: generateGenericIntel(),
     },
     party: ['archie', 'markop', 'humpik', 'bowser', 'remi'],
@@ -130,59 +135,30 @@ export const state = {
     chartInstances: {},
     focusTreeState: {},
     inventories: {},
-    mapState: {
-        discoveredFogs: [],
-        userPois: {
-            mushroom_kingdom: [],
-            midlands: [],
-        },
-        userFogs: {
-            mushroom_kingdom: [],
-            midlands: [],
-        }
-    },
-    userState: {
-        following: [],
-        seenPostIds: [],
-        waluigiWarningShown: false,
-    }
+    mapState: { discoveredFogs: [], userPois: { mushroom_kingdom: [], midlands: [], }, userFogs: { mushroom_kingdom: [], midlands: [], } },
+    userState: { following: [], seenPostIds: [], waluigiWarningShown: false }
 };
 
-function initInventories() {
-    state.inventories = structuredClone(DEFAULT_INVENTORIES);
-}
+function initInventories() { state.inventories = structuredClone(DEFAULT_INVENTORIES); }
 
 function initReputation() {
     const factionKeys = Object.keys(LORE_DATA.factions);
-    const characterKeys = Object.keys(LORE_DATA.characters);
-
     const CANONICAL_PARTY = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
     state.party = [...CANONICAL_PARTY];
-
     state.party.forEach(playerKey => {
         if (!state.players[playerKey]) {
             const playerInfo = LORE_DATA.characters[playerKey] || { name: 'Unknown Operator' };
             state.players[playerKey] = { name: playerInfo.name, reputation: {}, notoriety: {} };
         }
     });
-
     for (const charKey in state.players) {
-        if (!state.players[charKey].reputation) {
-            state.players[charKey].reputation = {};
-        }
-        if (!state.players[charKey].notoriety) {
-            state.players[charKey].notoriety = {};
-        }
+        if (!state.players[charKey].reputation) state.players[charKey].reputation = {};
+        if (!state.players[charKey].notoriety) state.players[charKey].notoriety = {};
         factionKeys.forEach(factionKey => {
-            if (state.players[charKey].reputation[factionKey] === undefined) {
-                state.players[charKey].reputation[factionKey] = 1;
-            }
-            if (state.players[charKey].notoriety[factionKey] === undefined) {
-                state.players[charKey].notoriety[factionKey] = 1;
-            }
+            if (state.players[charKey].reputation[factionKey] === undefined) state.players[charKey].reputation[factionKey] = 1;
+            if (state.players[charKey].notoriety[factionKey] === undefined) state.players[charKey].notoriety[factionKey] = 1;
         });
     }
-
     const initialRep = {
         archie: { freelancer_underworld: 35, regal_empire: -70, iron_legion: -50, mages_guild: -70, rakasha_clans: 40, cosmic_jesters: 10, toad_gang: -50, onyx_hand: 5, the_unchained: 15, iron_fists: -20, koopa_troop: 5, mushroom_regency: -15, moonfang_pack: 5, liberated_toads: 50, tea_leaf_syndicate: -80 },
         markop: { regal_empire: -10, silver_flame: 20, iron_legion: -50, mages_guild: -15, rakasha_clans: 40, toad_gang: -30, oathbound_judges: 10, the_unchained: 10, mushroom_regency: 5, koopa_troop: -10, moonfang_pack: 10, liberated_toads: 50 },
@@ -195,57 +171,45 @@ function initReputation() {
         humpik: { toad_gang: 60, koopa_troop: 50, iron_fists: 40, tea_leaf_syndicate: 60 },
         bowser: { mushroom_regency: 100, koopa_troop: 100, regal_empire: 60, iron_legion: 50, crimson_fleet: 25 }
     };
-
     for (const playerKey in initialRep) {
         if (state.players[playerKey]) { 
-            for (const factionKey in initialRep[playerKey]) {
-                state.players[playerKey].reputation[factionKey] = initialRep[playerKey][factionKey];
-            }
+            for (const factionKey in initialRep[playerKey]) { state.players[playerKey].reputation[factionKey] = initialRep[playerKey][factionKey]; }
         }
     }
     for (const playerKey in initialNotoriety) {
         if (state.players[playerKey]) {
-            for (const factionKey in initialNotoriety[playerKey]) {
-                state.players[playerKey].notoriety[factionKey] = initialNotoriety[playerKey][factionKey];
-            }
+            for (const factionKey in initialNotoriety[playerKey]) { state.players[playerKey].notoriety[factionKey] = initialNotoriety[playerKey][factionKey]; }
         }
     }
-
-    // --- UPDATED SECTION ---
-    // Instead of a hardcoded list, we now generate the active rumors list automatically.
-    // This ensures that any new rumor added to `party-and-events.js` will show up.
     state.activeRumors = LORE_DATA.rumors.map(rumor => rumor.id);
-    // --- END OF UPDATED SECTION ---
-}
-
-function getAbilityForLevel(archetype, level) {
-    if (level % 2 !== 0) return null; // Only on even levels
-    return TOAD_ABILITIES[archetype]?.[level] || null;
 }
 
 function grantXP(charKey, amount, reason) {
+    if (!state.auxiliary_party_state[charKey]) return;
     const character = state.auxiliary_party_state[charKey];
-    if (!character) return;
 
     character.xp += amount;
+    if (!character.log) character.log = [];
     character.log.push({ reason: reason, xp: amount });
 
     while (character.xp >= character.xp_to_next) {
         character.xp -= character.xp_to_next;
         character.level++;
-        character.xp_to_next = character.level * 100; // Next level requires more XP
+        // --- THIS IS FIX #1: The incorrect XP formula ---
+        // This scaling formula matches the values in your screenshot (300 for L2->3, 500 for L3->4, etc.)
+        character.xp_to_next = 100 + (character.level - 1) * 200;
         character.log.push({ reason: `Level Up! Reached Level ${character.level}`, xp: 0, isLevelUp: true });
 
-        const weaponArchetypes = {
-            "Axe": "axe", "Longsword & Magic": "magic", "Whip": "whip",
-            "Spellcaster": "spellcaster", "Gun": "gun", "Grotesque": "grotesque", "Deceit": "deceit"
-        };
-        const archetype = weaponArchetypes[character.weapon];
+        const archetype = getArchetypeFromWeapon(character.weapon);
         if (archetype) {
             const newAbility = getAbilityForLevel(archetype, character.level);
-            if (newAbility) {
-                character.abilities.push(newAbility);
-                character.log.push({ reason: `Learned Ability: ${newAbility.name}`, xp: 0, isAbility: true });
+            // --- THIS IS FIX #2: The fragile ability code ---
+            // Safety + dedupe so odd levels don't add duplicates
+            if (newAbility && newAbility.name && newAbility.description) {
+                const added = addAbilityUnique(character, newAbility);
+                if (added) {
+                    character.log.push({ reason: `Learned Ability: ${newAbility.name}`, xp: 0, isAbility: true });
+                }
             }
         }
     }
@@ -254,42 +218,31 @@ function grantXP(charKey, amount, reason) {
 function processInitialXP() {
     state.auxiliary_party_state = structuredClone(LORE_DATA.auxiliary_party);
 
-    // Common XP for all toads for initial liberation
-    const allToads = ['dan', 'toad_lee', 'eager', 'ryan', 'roger', 'bones'];
-    allToads.forEach(toadKey => { grantXP(toadKey, 25, "Participated in the liberation and survived the aftermath."); });
+    // Hydrate any string abilities (e.g., ["Reckless Attack"]) into full objects and de-dupe
+    hydrateInitialAbilities(state.auxiliary_party_state);
 
-    // XP from X.O. & Syrup Confrontations
+    const allToads = ['dan', 'toad_lee', 'eager', 'ryan', 'roger', 'bones', 'the_mole'];
+    allToads.forEach(toadKey => { grantXP(toadKey, 25, "Participated in the liberation and survived the aftermath."); });
     grantXP('dan', 150, "Landed the final blow on X.O./Skylla.");
     grantXP('dan', 50, "Disarmed X.O. of her reality-bending staff.");
     grantXP('dan', 75, "Fought against Captain Syrup's forces.");
     grantXP('dan', 25, "Bravely asserted ownership of the staff against Archie.");
     grantXP('toad_lee', 50, "First to join the fight, showed immense courage.");
     grantXP('ryan', 50, "Assisted in the fight against Captain Syrup.");
-
-    // XP from the "Vigilance" Aftermath
     grantXP('toad_lee', 100, "Knocked out a disguised Iron Legion kidnapper.");
     grantXP('eager', 50, "Tied up the captured Iron Legion kidnapper.");
     grantXP('bones', 25, "Survived the ship's crash and was revived by Wally.");
     grantXP('ryan', 15, "Attempted to secure Wally's powerful staff.");
-    
-    // XP for defending their group
-    allToads.forEach(toadKey => { grantXP(toadKey, 30, "Fended off an attack from a kidnapper toad."); });
-    
-    // XP for surviving the Iron Legion fire attack
+    const brawlDefenders = ['dan', 'toad_lee', 'eager', 'ryan', 'roger', 'bones'];
+    brawlDefenders.forEach(toadKey => { grantXP(toadKey, 30, "Fended off an attack from a kidnapper toad."); });
     const fireSurvivors = ['dan', 'toad_lee', 'eager', 'roger'];
     fireSurvivors.forEach(toadKey => { grantXP(toadKey, 50, "Survived a direct hit from an Iron Legion fire attack."); });
     grantXP('ryan', 25, "Survived the Iron Legion fire attack.");
     grantXP('bones', 25, "Survived the Iron Legion fire attack.");
-
-    // XP for uncovering the bomb plot
     grantXP('eager', 75, "Discovered the Iron Legion's bomb plot.");
-    
-    // XP for recent events
     grantXP('dan', 75, "Showed mercy to an Orc attacker, proving his character.");
     const agentsConfronters = ['dan', 'toad_lee', 'bones', 'roger', 'ryan'];
     agentsConfronters.forEach(toadKey => { grantXP(toadKey, 50, "Confronted Crown Intelligence agents on the Vigilance."); });
-
-    // XP from Raventree Manor Events (Day 16)
     grantXP('dan', 75, "Participated in the battle against haunted books.");
     grantXP('dan', 25, "Showed tactical initiative by attempting to gain a height advantage.");
     grantXP('dan', 30, "Acquired and studied 'Magitek Theory Vol. IV'.");
@@ -302,31 +255,23 @@ function processInitialXP() {
     grantXP('dan', 10, "Survived an... abrupt size adjustment and a slap from Bowser.");
     grantXP('eager', 150, "Was found and rescued by Archie from the perilous Solarium.");
     grantXP('eager', 50, "Survived being trapped in a collapsing, vine-choked Solarium with mysterious mirrors.");
-
-    // XP from Shadeward Mansion (Day 16)
     const shadewardSurvivors = ['toad_lee', 'ryan', 'roger', 'bones', 'the_mole'];
     shadewardSurvivors.forEach(toadKey => { grantXP(toadKey, 150, "Survived the temporal horrors and Iron Legion raid at Shadeward Mansion."); });
     grantXP('ryan', 50, "Used a powerful darkness spell to facilitate the group's escape.");
     grantXP('roger', 50, "Successfully neutralized an Iron Legionnaire during the raid.");
     grantXP('the_mole', 25, "Successfully completed objective: facilitated the capture of Bones.");
-    // --- NEW: XP from Greenhouse Inferno (Day 17) ---
-    const greenhouseSurvivors = ['dan', 'eager', 'generic_toad']; // Assuming 'generic_toad' represents the unnamed toad helpers
-    greenhouseSurvivors.forEach(toadKey => {
-        grantXP(toadKey, 75, "Survived the Greenhouse Inferno battle against the rust monsters.");
-    });
+    const greenhouseParticipants = ['dan', 'eager']; 
+    greenhouseParticipants.forEach(toadKey => { grantXP(toadKey, 100, "Survived the Greenhouse Inferno battle against the rust monsters."); });
     grantXP('dan', 150, "Successfully cast Cure Wounds under extreme pressure to save Archie's life.");
     grantXP('eager', 100, "Showed immense bravery by charging into the fray to defend a comrade.");
     grantXP('eager', 25, "Survived being pinned under the collapsing greenhouse roof.");
-
-    // Grant smaller XP to those who assisted in the aftermath
-    const aftermathAssist = ['toad_lee', 'ryan', 'roger', 'bones'];
-    aftermathAssist.forEach(toadKey => {
-        grantXP(toadKey, 25, "Assisted in the chaotic aftermath of the Greenhouse Inferno.");
-    });
-        const manorWitnesses = ['toad_lee', 'ryan', 'roger', 'bones'];
-    manorWitnesses.forEach(toadKey => {
-        grantXP(toadKey, 50, "Assisted in the chaotic aftermath of the Greenhouse Inferno and subsequent political votes.");
-    });
+    const manorWitnesses = ['toad_lee', 'ryan', 'roger', 'bones'];
+    manorWitnesses.forEach(toadKey => { grantXP(toadKey, 50, "Assisted in the chaotic aftermath of the Greenhouse Inferno and subsequent political votes."); });
+    grantXP('dan', 100, "Attempted a powerful healing spell under extreme duress, despite the catastrophic failure.");
+    grantXP('eager', 200, "Endured a catastrophic injury, a failed healing, a brutal cauterization, and a monstrous transformation.");
+    const siegeAssistants = ['toad_lee', 'ryan', 'roger', 'bones'];
+    siegeAssistants.forEach(toadKey => { grantXP(toadKey, 75, "Survived the Cohort siege and the emergence of the manor's horrors."); });
+    grantXP('the_mole', 50, "Successfully aided Speaker L in the confrontation and capture of Archie.");
 }
 
 export function initFocusTreeState() {
@@ -357,7 +302,6 @@ export function initFocusTreeState() {
         flags: { waluigiPending: false }
     };
 }
-
 
 export function saveState() {
     localStorage.setItem('vigilanceTerminalState', JSON.stringify(state));
@@ -510,4 +454,21 @@ export function loadState() {
     }
 
     state.loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
+}
+
+// Helper to get a clean, de-duped list of abilities for display
+export function getDisplayAbilities(character) {
+    const arch = getArchetypeFromWeapon(character.weapon);
+    const current = arch ? getAbilityForLevel(arch, character.level) : null;
+    const learned = (character.abilities || []);
+
+    const byName = new Map();
+    if (current && current.name && current.description) byName.set(current.name, current);
+    learned.forEach(a => {
+        if (!a) return;
+        const obj = (a.name && a.description) ? a : { name: a?.name || String(a), description: a?.description || '' };
+        if (obj.name) byName.set(obj.name, obj);
+    });
+
+    return Array.from(byName.values());
 }
