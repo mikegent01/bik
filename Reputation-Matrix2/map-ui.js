@@ -30,6 +30,10 @@ export function renderTabs() {
         relevantGroups = ['The Doughnut Hole'];
     } else if (currentPage === 'pokemon-maps.html') {
         relevantGroups = ['Pokémon Regions'];
+    } else if (currentPage === 'almost-edge-maps.html' || currentPage === 'the-edge-maps.html') {
+        relevantGroups = ['The Edge Regions'];
+    } else if (currentPage === 'animatopia-maps.html') {
+        relevantGroups = ['Animatopia'];
     } else { // Default, for mushroom-kingdom-maps.html
         relevantGroups = ['Mushroom Kingdom Regions', 'Islands & Outer Realms'];
     }

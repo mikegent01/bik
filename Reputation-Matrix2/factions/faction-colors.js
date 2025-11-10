@@ -1,106 +1,107 @@
-
-
 // factions/faction-colors.js
 
-// This file maps each faction ID to its corresponding specific color CSS variable.
 export const FACTION_COLORS = {
     // Midlands
-    'regal_empire': 'var(--faction-regal_empire)',
-    'iron_legion': 'var(--faction-iron_legion)',
-    'onyx_hand': 'var(--faction-onyx_hand)',
-    'mages_guild': 'var(--faction-mages_guild)',
-    'silver_flame': 'var(--faction-silver_flame)',
-    'oathbound_judges': 'var(--faction-oathbound_judges)',
-    'moonfang_pack': 'var(--faction-moonfang_pack)',
+    regal_empire: '#FFD700',
+    iron_legion: '#ADB5BD',
+    onyx_hand: '#8B0000',
+    mages_guild: '#8A2BE2',
+    silver_flame: '#C0C0C0',
+    oathbound_judges: '#007BFF',
+    moonfang_pack: '#556B2F',
+    rakasha_clans: '#D2B48C',
+    rebel_clans: '#800000',
     
-    // Mushroom Kingdom
-    'toad_gang': 'var(--faction-toad_gang)',
-    'toad_cult': 'var(--faction-toad_cult)',
-    'mushroom_regency': 'var(--faction-mushroom_regency)',
-    'peach_loyalists': 'var(--faction-peach_loyalists)',
-    'fawfuls_furious_freaks': 'var(--faction-fawfuls_furious_freaks)',
-    'liberated_toads': 'var(--faction-liberated_toads)',
+    // Mushroom Kingdom & Associated
+    toad_gang: '#A0522D',
+    toad_cult: '#9932CC',
+    mushroom_regency: '#4169E1',
+    peach_loyalists: '#FFDAB9',
+    fawfuls_furious_freaks: '#32CD32',
+    liberated_toads: '#87CEEB',
+    koopa_troop: '#006400',
+    beanbean_kingdom: '#90EE90',
+    flower_kingdom: '#FFB6C1',
+    dk_crew: '#FFE135',
+    yoshi_clans: '#7FFF00',
+    kremling_krew: '#808000',
+    knights_of_the_gilded_lily: '#FAFAD2',
 
-    // Widespread
-    'freelancer_underworld': 'var(--faction-freelancer_underworld)',
-    'cosmic_jesters': 'var(--faction-cosmic_jesters)',
-    'the_unchained': 'var(--faction-the_unchained)',
-    'ratchet_raiders': 'var(--faction-ratchet_raiders)',
-    'crimson_fleet': 'var(--faction-crimson_fleet)',
-    'wario_land': 'var(--faction-wario_land)',
-    'iron_fists': 'var(--faction-iron_fists)',
-    'diamond_city_investigators': 'var(--faction-diamond_city_investigators)',
-    'goodstyle_artisans': 'var(--faction-goodstyle_artisans)',
-    'unaligned': 'var(--faction-unaligned)',
-    'tea_leaf_syndicate': 'var(--faction-tea_leaf_syndicate)',
-    'beanbean_kingdom': 'var(--faction-beanbean_kingdom)',
-    'flower_kingdom': 'var(--faction-flower_kingdom)',
-    'dk_crew': 'var(--faction-dk_crew)',
-    'yoshi_clans': 'var(--faction-yoshi_clans)',
-    'kremling_krew': 'var(--faction-kremling_krew)',
-    'knights_of_the_gilded_lily': 'var(--faction-knights_of_the_gilded_lily)',
-    
-    // Wilderlands
-    'rakasha_clans': 'var(--faction-rakasha_clans)',
-    'koopa_troop': 'var(--faction-koopa_troop)',
-    'rebel_clans': 'var(--faction-rebel_clans)',
+    // Underworld & Widespread
+    freelancer_underworld: '#2F4F4F',
+    cosmic_jesters: '#FF69B4',
+    the_unchained: '#FF4500',
+    ratchet_raiders: '#D2691E',
+    crimson_fleet: '#DC143C',
+    wario_land: '#FFAC1C',
+    iron_fists: '#495057',
+    diamond_city_investigators: '#8B4513',
+    goodstyle_artisans: '#20B2AA',
+    tea_leaf_syndicate: '#6B8E23',
+    unaligned: '#6c757d',
     
     // Middle-earth
-    'kingdom_of_gondor': 'var(--major-powers-color)',
-    'kingdom_of_rohan': 'var(--regional-powers-color)',
-    'lothlorien': 'var(--mystical-ancient-color)',
-    'elves_of_lindon': 'var(--mystical-ancient-color)',
-    'kingdoms_of_the_dwarves': 'var(--regional-powers-color)',
-    'isengard': 'var(--underworld-fringe-color)',
-    'mordor': 'var(--negative-color)',
-    'middle_earth_kingdoms': 'var(--faction-middle_earth_kingdoms)',
+    kingdom_of_gondor: '#E0E0E0',
+    kingdom_of_rohan: '#006400',
+    lothlorien: '#FFD700',
+    elves_of_lindon: '#ADD8E6',
+    kingdoms_of_the_dwarves: '#A9A9A9',
+    isengard: '#2F4F4F',
+    mordor: '#8B0000',
 
     // Internet
-    'internet_federation': 'var(--faction-internet_federation)',
-    'hacktivist_collectives': 'var(--faction-hacktivist_collectives)',
-    'data_merchant_guilds': 'var(--faction-data_merchant_guilds)',
-    'cybernetic_collectives': 'var(--faction-cybernetic_collectives)',
+    internet_federation: '#00FFFF',
+    hacktivist_collectives: '#00FF00',
+    data_merchant_guilds: '#F5DEB3',
+    cybernetic_collectives: '#E0E0E0',
 
     // Warhammer
-    'the_empire': 'var(--faction-wh-the_empire)',
-    'kingdoms_of_the_dwarves_wh': 'var(--faction-wh-dwarfs)',
-    'greenskins': 'var(--faction-wh-greenskins)',
-    'vampire_counts': 'var(--faction-wh-vampire_counts)',
-    'warriors_of_chaos': 'var(--faction-wh-chaos)',
-    'skaven': 'var(--faction-wh-skaven)',
-    'high_elves': 'var(--faction-wh-high_elves)',
-    'dark_elves': 'var(--faction-wh-dark_elves)',
-    'lizardmen': 'var(--faction-wh-lizardmen)',
-    'tomb_kings': 'var(--faction-wh-tomb_kings)',
-    'araby': 'var(--faction-wh-araby)',
-    'bretonnia': 'var(--faction-wh-bretonnia)',
-    'chaos_dwarfs': 'var(--faction-wh-chaos_dwarfs)',
-    'grand_cathay': 'var(--faction-wh-grand_cathay)',
-    'hobgoblin_khanates': 'var(--faction-wh-hobgoblins)',
+    the_empire: '#c81d25',
+    kingdoms_of_the_dwarves_wh: '#0077b6',
+    greenskins: '#2d6a4f',
+    vampire_counts: '#800f2f',
+    warriors_of_chaos: '#a47c48',
+    skaven: '#70e000',
+    high_elves: '#ade8f4',
+    dark_elves: '#5a189a',
+    lizardmen: '#48bfe3',
+    tomb_kings: '#f0ead2',
+    araby: '#ffd60a',
+    bretonnia: '#00509d',
+    chaos_dwarfs: '#b21e35',
+    grand_cathay: '#52b788',
+    hobgoblin_khanates: '#8d6e63',
 
     // Kivotos
-    'general_student_union': 'var(--faction-kivotos_gsu)',
-    'millennium_science_school': 'var(--faction-kivotos_millennium)',
-    'trinity_general_school': 'var(--faction-kivotos_trinity)',
-    'gehenna_academy': 'var(--faction-kivotos_gehenna)',
-    'shanhaijing_senior_secondary_school': 'var(--faction-kivotos_shanhaijing)',
-    'abydos_high_school': 'var(--faction-kivotos_abydos)',
-    'red_winter_federal_academy': 'var(--faction-kivotos_red_winter)',
-    
-    // The Doughnut Hole
-    'custodians_of_causality': 'var(--faction-custodians_of_causality)',
-    'void_drifters': 'var(--faction-void_drifters)',
-    'starlight_weavers': 'var(--faction-starlight_weavers)',
+    general_student_union: '#4a86e8',
+    millennium_science_school: '#674ea7',
+    trinity_general_school: '#f1c232',
+    gehenna_academy: '#cc0000',
+    shanhaijing_senior_secondary_school: '#93c47d',
+    abydos_high_school: '#e69138',
+    red_winter_federal_academy: '#a61c00',
 
-    // Pokémon Factions
-    'pokemon_league': 'var(--faction-pokemon-league)',
-    'team_plasma': 'var(--faction-pokemon-plasma)',
-    'trainer_guild': 'var(--faction-pokemon-trainer)',
-    'team_aqua': 'var(--faction-pokemon-aqua)',
-    'team_magma': 'var(--faction-pokemon-magma)',
-    'team_flare': 'var(--faction-pokemon-flare)',
-    'team_rocket': 'var(--faction-pokemon-rocket)',
-    'team_star': 'var(--faction-pokemon-star)',
-    'ranger_union': 'var(--faction-pokemon-ranger)',
-    'go_rock_squad': 'var(--faction-pokemon-gorock)',
+    // Doughnut Hole
+    custodians_of_causality: '#00BFFF',
+    void_drifters: '#483D8B',
+    starlight_weavers: '#FFD700',
+
+    // Pokemon
+    pokemon_league: '#3b4cca',
+    team_plasma: '#7b8b8c',
+    trainer_guild: '#ff0000',
+    team_aqua: '#0077b6',
+    team_magma: '#b21e35',
+    team_flare: '#fd7e14',
+    team_rocket: '#212529',
+    team_star: '#e94a89',
+    ranger_union: '#4CAF50',
+    go_rock_squad: '#795548',
+
+    // New Factions for Animatopia
+    animatopia_predator_alliance: '#A52A2A', // Brown-Red
+    animatopia_prey_congress: '#228B22',    // Forest Green
+    earth_land_federation: '#4682B4',       // Steel Blue
+    connectopia_pioneers_guild: '#D2B48C',   // Tan
+    liminal_observers: '#4B0082'            // Indigo
 };

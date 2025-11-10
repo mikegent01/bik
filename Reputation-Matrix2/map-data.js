@@ -73,12 +73,105 @@ import { paldeaPois } from './map-data/pokemon/paldea.js';
 import { fiorePois } from './map-data/pokemon/fiore.js';
 import { almiaPois } from './map-data/pokemon/almia.js';
 import { mountainSavanaPois } from './map-data/pokemon/mountain_savana.js';
+import { almostEdgeData } from './map-data/almost-edge-pois.js';
+import { theEdgeData } from './map-data/the-edge-pois.js';
+import { animatopiaData } from './map-data/animatopia-pois.js';
 
 
 // Re-export BUILDING_TYPES so other modules can access it from this central file
 export { BUILDING_TYPES };
 
 export const MAP_DATA = {
+    animatopia_full: {
+        id: 'animatopia_full',
+        name: 'Animatopia (Full)',
+        imageSrc: 'topia.jpg',
+        order: 1,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest,
+        fogOfWar: animatopiaData.fogOfWar || [],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_tundratown: {
+        id: 'animatopia_tundratown',
+        name: 'Tundratown',
+        imageSrc: 'topia.jpg',
+        order: 2,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'TUNDRATOWN'),
+        fogOfWar: [{ id: 'fog_an_tundratown', points: "64.23,1.52 65.60,9.65 61.94,12.90 60.57,16.56 57.14,22.66 56.23,38.51 61.03,44.61 78.41,48.27 82.29,47.05 83.21,41.76 84.58,33.63 85.50,25.50 80.69,14.53 78.64,13.31 63.77,0.70" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_downtown: {
+        id: 'animatopia_downtown',
+        name: 'Down Town',
+        imageSrc: 'topia.jpg',
+        order: 3,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'DOWN TOWN'),
+        fogOfWar: [{ id: 'fog_an_downtown', points: "56.46,41.36 59.20,42.17 61.03,45.42 62.17,51.11 59.66,61.27 55.08,60.46 52.80,59.24 48.00,56.40 48.00,45.83 48.68,41.76 56.91,42.57 60.11,44.61 62.40,49.89 61.71,55.58 61.03,60.46 56.00,63.71 53.94,62.90 51.20,61.27 49.82,59.24 48.00,56.80" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_savanna_central: {
+        id: 'animatopia_savanna_central',
+        name: 'Savanna Central',
+        imageSrc: 'topia.jpg',
+        order: 4,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'SAVANNA CENTRAL'),
+        fogOfWar: [{ id: 'fog_an_savanna', points: "50.51,62.49 55.08,64.93 58.74,61.68 60.11,71.03 57.83,78.75 45.71,78.75 44.79,78.35 49.82,82.41 45.02,92.57 36.56,94.20 27.64,87.29 28.79,70.22 31.30,62.90 38.39,56.40 41.59,51.52 42.74,51.92 53.48,63.31 59.43,64.12" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_rainforest: {
+        id: 'animatopia_rainforest',
+        name: 'Rainforest District',
+        imageSrc: 'topia.jpg',
+        order: 5,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Rainforest District'),
+        fogOfWar: [{ id: 'fog_an_rainforest', points: "55.77,38.92 54.86,33.63 52.80,25.50 44.79,20.62 42.51,19.00 38.16,16.96 34.28,16.96 26.27,22.25 29.70,29.16 25.82,48.67 26.04,65.34 36.33,57.62 45.48,47.86 46.17,44.61 54.17,39.73 58.06,32.82 56.46,27.13 53.25,20.62 48.91,19.00 45.25,16.96" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_nocturnal: {
+        id: 'animatopia_nocturnal',
+        name: 'Nocturnal Ranges',
+        imageSrc: 'topia.jpg',
+        order: 6,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Nocturnal ranges'),
+        fogOfWar: [{ id: 'fog_an_nocturnal', points: "11.64,40.95 20.56,47.05 18.73,61.27 18.04,94.20 1.96,99.77 3.10,87.17" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_outback: {
+        id: 'animatopia_outback',
+        name: 'Out Back Isle',
+        imageSrc: 'topia.jpg',
+        order: 7,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Out back isle'),
+        fogOfWar: [{ id: 'fog_an_outback', points: "92.16,96.90 94.29,96.90 97.23,98.52 98.04,89.51 98.24,83.57 96.93,83.39 94.39,87.35 94.19,91.14 92.87,95.82" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_western: {
+        id: 'animatopia_western',
+        name: 'Western Border',
+        imageSrc: 'topia.jpg',
+        order: 8,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Western Border'),
+        fogOfWar: [{ id: 'fog_an_western', points: "39.76,3.39 17.87,17.98 15.84,23.93 10.68,43.03 1.66,52.22 1.35,30.59 24.16,1.23" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
+    animatopia_eastern: {
+        id: 'animatopia_eastern',
+        name: 'Eastern Border',
+        imageSrc: 'topia.jpg',
+        order: 9,
+        group: 'Animatopia',
+        pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Eastern Border'),
+        fogOfWar: [{ id: 'fog_an_eastern', points: "72.70,1.59 84.86,14.92 90.14,32.04 96.01,41.95 96.42,52.94 99.16,61.95 100.37,62.49 102.70,38.16 99.97,2.31" }],
+        poiSourceFile: 'map-data/animatopia-pois.js'
+    },
     mushroom_kingdom_full: {
         id: 'mushroom_kingdom_full',
         name: 'Mushroom Kingdom (Full)',
@@ -1139,5 +1232,25 @@ export const MAP_DATA = {
         pointsOfInterest: mountainSavanaPois,
         fogOfWar: [],
         poiSourceFile: 'map-data/pokemon/mountain_savana.js'
-    }
+    },
+    almost_edge_full: {
+        id: 'almost_edge_full',
+        name: 'Almost at the Edge',
+        imageSrc: 'edge.jpg',
+        order: 1,
+        group: 'The Edge Regions',
+        pointsOfInterest: almostEdgeData.pointsOfInterest,
+        fogOfWar: almostEdgeData.fogOfWar || [],
+        poiSourceFile: 'map-data/almost-edge-pois.js'
+    },
+    the_edge_full: {
+        id: 'the_edge_full',
+        name: 'The Edge',
+        imageSrc: 'edge.avif',
+        order: 2,
+        group: 'The Edge Regions',
+        pointsOfInterest: theEdgeData.pointsOfInterest,
+        fogOfWar: theEdgeData.fogOfWar || [],
+        poiSourceFile: 'map-data/the-edge-pois.js'
+    },
 };
