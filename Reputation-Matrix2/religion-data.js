@@ -26,6 +26,67 @@ export const RELIGION_DATA = {
             icon: "🌀"
         }
     },
+    // Defines tension penalties (0 to 100) between groups. 
+    // 0 = Harmonious, 100 = Heretical/War.
+    compatibility_matrix: {
+        celestial_order: { celestial_order: 0, primal_forces: 25, machine_orthodoxy: 50, cosmic_void: 100 },
+        primal_forces: { celestial_order: 25, primal_forces: 0, machine_orthodoxy: 80, cosmic_void: 40 },
+        machine_orthodoxy: { celestial_order: 50, primal_forces: 80, machine_orthodoxy: 0, cosmic_void: 90 },
+        cosmic_void: { celestial_order: 100, primal_forces: 40, machine_orthodoxy: 90, cosmic_void: 10 } // Chaos tolerates chaos
+    },
+    // NEW: Gameplay consequences based on tension levels
+    tension_consequences: [
+        { 
+            min: 0, max: 10, 
+            title: "Harmonious Integration", 
+            description: "Your species is fully welcomed into the fold.",
+            effects: [
+                "✅ Full access to all temples and services.",
+                "✅ +10% Social Standing with followers.",
+                "✅ Ritual costs reduced by 15%."
+            ]
+        },
+        { 
+            min: 11, max: 30, 
+            title: "Minor Friction", 
+            description: "You are viewed as an oddity, but tolerated.",
+            effects: [
+                "⚠️ Rituals cost 10% more.",
+                "⚠️ Minor social penalties in zealot-controlled zones.",
+                "✅ Standard access to merchants."
+            ]
+        },
+        { 
+            min: 31, max: 60, 
+            title: "Spiritual Dissonance", 
+            description: "Your species' nature conflicts with the dogma.",
+            effects: [
+                "⛔ -20% Conversion Speed.",
+                "⛔ Healing rituals are 50% less effective on you.",
+                "⚠️ NPCs of this faith will be Unfriendly (prices +25%)."
+            ]
+        },
+        { 
+            min: 61, max: 80, 
+            title: "Open Hostility", 
+            description: "You are branded an Outsider and a threat to purity.",
+            effects: [
+                "⛔ Denied access to inner sanctums.",
+                "⛔ -50% Social Standing. Dialogue checks hard fail.",
+                "⚠️ Merchants of this faith may refuse service."
+            ]
+        },
+        { 
+            min: 81, max: 100, 
+            title: "Heretical Status", 
+            description: "Your very existence is an insult to this god.",
+            effects: [
+                "☠️ Paladins and Inquisitors may attack on sight.",
+                "⛔ Cannot join or convert.",
+                "⛔ Entering a temple is considered a crime."
+            ]
+        }
+    ],
     denominations: {
         // --- CELESTIAL ORDER (13) ---
         star_spirits: {
@@ -37,7 +98,25 @@ export const RELIGION_DATA = {
             description: "The dominant faith of the Mushroom Kingdom. Believers hold that the Star Spirits grant wishes and guide destiny.",
             bonus: "Grant Wishes: +10% Morale to friendly organic troops.",
             active_law: "The Wish of Peace: Non-aggression pacts cost 20% less political capital.",
-            organization: "The Star Sanctuary"
+            organization: "The Star Sanctuary",
+            activation_ritual: "Stand beneath the open sky at midnight and offer a Star Bit while whispering your truest desire.",
+            daily_liturgy: "Sketch the position of the North Star upon waking.",
+            traditions: ["The Star Festival", "Collecting Star Pieces", "Wishing upon falling stars"],
+            saints: ["Misstar", "Twink the Star Kid", "The Seven Star Spirits"],
+            heresies: "Worship of the Dark Star; The belief that wishes are a finite resource.",
+            // NEW: 10 Specific Mechanics for this Religion
+            mechanics: [
+                { name: "Stardust Accumulation", effect: "Passively generates 'Star Bits' resource when in high-altitude zones." },
+                { name: "Cosmic Taxi", effect: "Allows fast travel between any discovered Star Pads via Launch Star." },
+                { name: "Wish Manifestation", effect: "Once per week, can convert Political Capital into Gold at a favorable rate." },
+                { name: "Luma Shield", effect: "Units gain a temporary invulnerability shield when morale breaks." },
+                { name: "Gravity Defiance", effect: "Scouts ignore terrain movement penalties in mountainous or aerial regions." },
+                { name: "Constellation Mapping", effect: "Reveals map fog of war 20% faster during night cycles." },
+                { name: "Supernova Strike", effect: "Unlockable tactical ability: Call down a beam of stellar energy (High Cooldown)." },
+                { name: "Galactic Diplomacy", effect: "+15 Reputation with other space-faring factions (e.g., Rosalina, Aliens)." },
+                { name: "Comet Observance", effect: "Random 'Prankster Comet' events trigger beneficial chaos instead of harmful effects." },
+                { name: "Starlight Synthesis", effect: "Agricultural output doubles during clear nights." }
+            ]
         },
         silver_flame_faith: {
             id: "silver_flame_faith",
@@ -48,7 +127,12 @@ export const RELIGION_DATA = {
             description: "A militant faith dedicated to purging supernatural evil. Popular among Humans in the Midlands.",
             bonus: "Purge the Wicked: Damage bonus against Undead and Chaos.",
             active_law: "Edict of Purification: Inquisitors have free reign in allied territories.",
-            organization: "Church of the Silver Flame"
+            organization: "Church of the Silver Flame",
+            activation_ritual: "Burn a candle of pure silver and recite the Litany of Purification until the flame turns white.",
+            daily_liturgy: "Recite the names of the purified while facing the rising sun.",
+            traditions: ["The Fast of Ashes", "The Vigil of the Long Night", "Inquisition trials"],
+            saints: ["Tira Miron", "Saint Kord the Breaker"],
+            heresies: "Radicalism (using dark magic to fight dark magic); Believing the Flame is a demon."
         },
         arceus_mythos: {
             id: "arceus_mythos",
@@ -59,7 +143,12 @@ export const RELIGION_DATA = {
             description: "Worship of Arceus, the Original One. Followed by Pokemon Trainers and Sinnoh natives.",
             bonus: "Type Synergy: Allied units gain bonuses in diverse groups.",
             active_law: "Harmony of Types: Trade income increased between biomes.",
-            organization: "The Hallowed Tower"
+            organization: "The Hallowed Tower",
+            activation_ritual: "Play the Azure Flute at the highest altitude possible to summon the Hall of Origin.",
+            daily_liturgy: "Cleanse and polish all six Poké Balls before breakfast.",
+            traditions: ["Collecting Plates", "Reverence of Unown", "The Sinjoh Ruins pilgrimage"],
+            saints: ["The Hero of Truth", "The Hero of Ideals", "The Ancient Hero"],
+            heresies: "Creating artificial Pokémon like Mewtwo or Type: Null to rival the gods."
         },
         sigmarite_cult: {
             id: "sigmarite_cult",
@@ -70,7 +159,12 @@ export const RELIGION_DATA = {
             description: "The state religion of The Empire. Worships Sigmar Heldenhammer as the god of humanity.",
             bonus: "Righteous Fury: Infantry units gain morale boost.",
             active_law: "Witch Hammer: Magic users are subject to strict surveillance.",
-            organization: "The Holy Order of the Templars"
+            organization: "The Holy Order of the Templars",
+            activation_ritual: "Strike a warhammer upon a consecrated anvil at dawn while shouting praise to the Heldenhammer.",
+            daily_liturgy: "Perform one hour of martial drills before the midday meal.",
+            traditions: ["Witch-burning", "Warrior Priests shaving their heads", "The Festival of the Comet"],
+            saints: ["Magnus the Pious", "Valten"],
+            heresies: "Chaos worship; Believing Sigmar was just a man; Ulric worship (sometimes)."
         },
         lady_of_the_lake: {
             id: "lady_of_the_lake",
@@ -81,7 +175,12 @@ export const RELIGION_DATA = {
             description: "A chivalric faith focused on honor, nobility, and the protection of the realm.",
             bonus: "Blessing of the Lady: Knights gain a ward save.",
             active_law: "Code of Chivalry: Dishonorable tactics reduce reputation.",
-            organization: "The Grail Knights"
+            organization: "The Grail Knights",
+            activation_ritual: "Drink from the Grail (or a replica) filled with sacred water from a mist-shrouded lake.",
+            daily_liturgy: "Clean and oil armor while reciting the Vow of Protection.",
+            traditions: ["The Grail Quest", "Refusing ranged weaponry", "Protecting damsels"],
+            saints: ["Gilles le Breton", "Repanse de Lyonesse"],
+            heresies: "Using black powder weapons; Harming a damsel; Peasant rebellion."
         },
         celestia_divinity: {
             id: "celestia_divinity",
@@ -92,7 +191,12 @@ export const RELIGION_DATA = {
             description: "The belief that the Sun Princess is the literal and political center of the universe.",
             bonus: "Solar Order: High stability in controlled regions.",
             active_law: "Harmony Mandate: Dissent is classified as disharmony.",
-            organization: "The Royal Guard"
+            organization: "The Royal Guard",
+            activation_ritual: "Raise the flag at exactly sunrise while singing the national anthem.",
+            daily_liturgy: "Write a letter detailing a lesson learned about friendship.",
+            traditions: ["The Summer Sun Celebration", "The Grand Galloping Gala", "Friendship reports"],
+            saints: ["Starswirl the Bearded", "Shining Armor", "The Elements of Harmony"],
+            heresies: "Worship of Nightmare Moon; Refusing to smile; The belief in a Republic."
         },
         triforce_devotion: {
             id: "triforce_devotion",
@@ -103,7 +207,12 @@ export const RELIGION_DATA = {
             description: "Worship of the three Golden Goddesses and the balance of Power, Wisdom, and Courage.",
             bonus: "Divine Protection: Defensive structures are stronger.",
             active_law: "Wisdom's Guidance: Research speed increased.",
-            organization: "The Sages"
+            organization: "The Sages",
+            activation_ritual: "Play Zelda's Lullaby near a Goddess Statue to open the way.",
+            daily_liturgy: "Offer a silent prayer at a roadside spring.",
+            traditions: ["Offering Spirit Orbs", "Pilgrimage to the Springs", "Cutting grass for rupees"],
+            saints: ["The Hero of Time", "Hylia", "The Seven Sages"],
+            heresies: "Worship of Ganon; Seeking only Power; Breaking pots excessively."
         },
         shine_sprite_cult: {
             id: "shine_sprite_cult",
@@ -114,7 +223,12 @@ export const RELIGION_DATA = {
             description: "Islanders who worship the Shine Sprites as the source of sunlight and life.",
             bonus: "Solar Power: Solar infrastructure produces double energy.",
             active_law: "Festival of Sun: Public happiness increased.",
-            organization: "The Shine Gatekeepers"
+            organization: "The Shine Gatekeepers",
+            activation_ritual: "Clean a graffiti-covered wall until a Shine Sprite appears.",
+            daily_liturgy: "Consume at least one tropical fruit in direct sunlight.",
+            traditions: ["The Shine Festival", "Riding Yoshis", "Collecting Blue Coins"],
+            saints: ["The FLUDD AI", "Mario (The Cleaner)"],
+            heresies: "Pollution; Hoarding Shines in darkness; Shadow Mario worship."
         },
         luma_caretakers: {
             id: "luma_caretakers",
@@ -125,7 +239,12 @@ export const RELIGION_DATA = {
             description: "Guardians of the cosmos who raise young stars.",
             bonus: "Cosmic Rebirth: Fallen units have a chance to respawn.",
             active_law: "Starbit Harvest: Magical resources generated passively.",
-            organization: "The Galaxy Guard"
+            organization: "The Galaxy Guard",
+            activation_ritual: "Feed a hungry Luma enough Star Bits to cause it to transform.",
+            daily_liturgy: "Read a storybook chapter to a celestial body.",
+            traditions: ["Storybook Reading", "Comet Observances", "Launch Star travel"],
+            saints: ["The Mother of Stars", "The Apricot Luma"],
+            heresies: "Consuming Lumas for personal power; Creating Black Holes."
         },
         order_of_maat: {
             id: "order_of_maat",
@@ -136,7 +255,12 @@ export const RELIGION_DATA = {
             description: "Followers of ancient laws of balance and truth, originating from desert regions.",
             bonus: "Scales of Truth: Counter-espionage effectiveness increased.",
             active_law: "Judgment of Souls: Corruption is rooted out automatically.",
-            organization: "The Temple of Balance"
+            organization: "The Temple of Balance",
+            activation_ritual: "Weigh a white feather against a golden heart amulet on a scale.",
+            daily_liturgy: "Recite the 42 Negative Confessions at dusk.",
+            traditions: ["Mummification", "Recording true names", "Sun worship"],
+            saints: ["The Pharaohs of Old", "The Sphinx"],
+            heresies: "Necromancy that disturbs the rest; Eating hearts; Chaos."
         },
         sanctum_of_light: {
             id: "sanctum_of_light",
@@ -146,8 +270,13 @@ export const RELIGION_DATA = {
             seat: "The Great Chapel",
             description: "Devotion to the Holy Light, emphasizing healing and protection.",
             bonus: "Holy Healing: Unit regeneration rate doubled.",
-            active_law: "Path of Grace:Diplomatic relations improve faster.",
-            organization: "The Silver Hand"
+            active_law: "Path of Grace: Diplomatic relations improve faster.",
+            organization: "The Silver Hand",
+            activation_ritual: "Bless a vial of water with holy light and anoint the forehead.",
+            daily_liturgy: "Spend ten minutes in silent meditation on compassion.",
+            traditions: ["Paladin oaths", "Reading Librams", "Healing the sick"],
+            saints: ["Uther", "Turalyon", "Velen"],
+            heresies: "The Cult of the Damned; The Scarlet Crusade; Shadow priests."
         },
         asuryan_faithful: {
             id: "asuryan_faithful",
@@ -158,10 +287,15 @@ export const RELIGION_DATA = {
             description: "High Elven worship of the Creator God and the Phoenix flame.",
             bonus: "Arcane Mastery: Magic units have increased range.",
             active_law: "Phoenix Court: Political influence generation increased.",
-            organization: "The White Tower"
+            organization: "The White Tower",
+            activation_ritual: "Pass through the Sacred Flame unharmed (don't try this at home).",
+            daily_liturgy: "Compose a haiku honoring the sunrise.",
+            traditions: ["Poetry recitals", "Mask wearing", "Dragon taming"],
+            saints: ["Aenarion the Defender", "Teclis"],
+            heresies: "The Cult of Pleasure (Slaanesh); Dark Elf worship of Khaine."
         },
         the_one_ring_cult: {
-            id: "the_one_ring_cult", // Sort of fits here as a 'divine order' of Sauron
+            id: "the_one_ring_cult",
             name: "Cult of the Lidless Eye",
             group: "celestial_order",
             leader: "Sauron",
@@ -169,7 +303,12 @@ export const RELIGION_DATA = {
             description: "Enforced worship of Sauron as the God-King of Middle-earth.",
             bonus: "Domination: Enemy units may convert to your side.",
             active_law: "One Will: Absolute obedience; zero crime.",
-            organization: "The Nazgûl"
+            organization: "The Nazgûl",
+            activation_ritual: "Chant the Ring-verse in Black Speech while standing near a volcano.",
+            daily_liturgy: "Report a neighbor for seditious thoughts.",
+            traditions: ["Forging Rings of Power", "Breeding Orcs", "Building towers"],
+            saints: ["The Witch-king of Angmar", "The Mouth of Sauron"],
+            heresies: "Celebrating hobbits; Planting trees; The White Council."
         },
 
         // --- PRIMAL FORCES (13) ---
@@ -182,7 +321,12 @@ export const RELIGION_DATA = {
             description: "A psychic gestalt field generated by Greenskin violence.",
             bonus: "Mob Rule: Combat stats scale with unit density.",
             active_law: "Da Biggest is Da Best: Leadership via combat.",
-            organization: "The Green Tide"
+            organization: "The Green Tide",
+            activation_ritual: "Head-butt the nearest hard object and scream 'WAAAGH!' as loud as possible.",
+            daily_liturgy: "Break something valuable.",
+            traditions: ["Painting things red to go faster", "Looting", "Teef collection"],
+            saints: ["Grimgor Ironhide", "Grom the Paunch", "Ghazghkull Thraka"],
+            heresies: "Being quiet; Using strategy without violence; Peace."
         },
         lunar_cycle: {
             id: "lunar_cycle",
@@ -193,7 +337,12 @@ export const RELIGION_DATA = {
             description: "Reverence for the moon's phases. Practiced by Werewolves.",
             bonus: "Moon Fury: Combat bonuses based on date.",
             active_law: "The Hunt: Trespassers in territory are free game.",
-            organization: "The Pack Council"
+            organization: "The Pack Council",
+            activation_ritual: "Howl at the full moon in perfect unison with the pack.",
+            daily_liturgy: "Hunt and kill a meal without using weapons.",
+            traditions: ["The Great Hunt", "Raw meat feasts", "Marking territory"],
+            saints: ["Hircine", "The First Werewolf"],
+            heresies: "Using silver weapons; Curing lycanthropy; Veganism."
         },
         sanguine_path: {
             id: "sanguine_path",
@@ -204,7 +353,12 @@ export const RELIGION_DATA = {
             description: "Belief in the supremacy of blood and the undead nobility.",
             bonus: "Blood Tithe: Regeneration for elite units.",
             active_law: "Cattle Rights: Mortals are property.",
-            organization: "The Onyx Hand"
+            organization: "The Onyx Hand",
+            activation_ritual: "Drink fresh blood from a golden chalice.",
+            daily_liturgy: "Sleep in a bed of grave soil during daylight hours.",
+            traditions: ["The Masquerade", "Creating Thralls", "Sleeping in coffins"],
+            saints: ["Vlad von Carstein", "Cain", "Dracula"],
+            heresies: "Drinking dead blood; Exposing oneself to sunlight; Diablerie."
         },
         great_plan: {
             id: "great_plan",
@@ -215,7 +369,12 @@ export const RELIGION_DATA = {
             description: "Lizardmen adherence to the geometric and biological instructions of the Old Ones.",
             bonus: "Geomantic Web: Defense bonuses on Ley Lines.",
             active_law: "Cold Logic: Immune to psychology/morale shocks.",
-            organization: "The Slann Mage-Priests"
+            organization: "The Slann Mage-Priests",
+            activation_ritual: "Arrange golden geometric plaques in perfect alignment with the stars.",
+            daily_liturgy: "Meditate on a geometric shape for four hours.",
+            traditions: ["Spawning pool ceremonies", "Dinosaur riding", "Purging warmbloods"],
+            saints: ["Lord Kroak", "Tehenhauin"],
+            heresies: "Altering the jungle layout; Skaven existence; Chaos."
         },
         circle_of_spores: {
             id: "circle_of_spores",
@@ -226,7 +385,12 @@ export const RELIGION_DATA = {
             description: "Worship of decay, fungal growth, and the cycle of rot.",
             bonus: "Fungal Bloom: Defeated units release damaging spores.",
             active_law: "Compost: All dead must be left to rot.",
-            organization: "The Whispering Mycelium"
+            organization: "The Whispering Mycelium",
+            activation_ritual: "Plant a rare spore in a decaying carcass and wait for it to bloom.",
+            daily_liturgy: "Inhale deep breaths of swamp gas.",
+            traditions: ["Symbiotic bonding", "Fungal brewing", "Decomposition meditation"],
+            saints: ["Zuggtmoy", "The Sovereign"],
+            heresies: "Using fungicide; Excessive fire; Sterilization."
         },
         helix_fossil_cult: {
             id: "helix_fossil_cult",
@@ -237,7 +401,12 @@ export const RELIGION_DATA = {
             description: "Worship of ancient fossils and chaotic biological anarchy.",
             bonus: "Ancient Power: Rock/Water types gain buffs.",
             active_law: "Anarchy Mode: Command inputs are randomized but potent.",
-            organization: "The Fossil Maniacs"
+            organization: "The Fossil Maniacs",
+            activation_ritual: "Consult the Helix Fossil repeatedly in times of doubt.",
+            daily_liturgy: "Spin in a circle three times before entering a room.",
+            traditions: ["Anarchy Mode inputs", "Praising Bird Jesus", "Walking in circles"],
+            saints: ["Bird Jesus", "AA-j", "Lord Helix"],
+            heresies: "The Dome Fossil; Democracy mode; Releasing the starter."
         },
         yggdrasil_pact: {
             id: "yggdrasil_pact",
@@ -248,7 +417,12 @@ export const RELIGION_DATA = {
             description: "Druidic reverence for the trees connecting realms.",
             bonus: "Roots of Earth: Movement speed increased in forests.",
             active_law: "Grove Protection: Logging is a capital offense.",
-            organization: "The Circle of Leaves"
+            organization: "The Circle of Leaves",
+            activation_ritual: "Water a sapling with water from a Moonwell.",
+            daily_liturgy: "Speak to a plant and wait for a response.",
+            traditions: ["Grove tending", "Shapeshifting", "Speaking Sylvan"],
+            saints: ["Cenarius", "Malfurion"],
+            heresies: "The Burning Legion; Goblin logging machines; Blight."
         },
         great_maw: {
             id: "great_maw",
@@ -259,7 +433,12 @@ export const RELIGION_DATA = {
             description: "Worship of a insatiable, planet-eating mouth.",
             bonus: "Ravenous: Units heal by eating enemies.",
             active_law: "The Feast: Food stockpiles convert to XP.",
-            organization: "The Gutbusters"
+            organization: "The Gutbusters",
+            activation_ritual: "Eat an enormous amount of food in a single sitting without stopping.",
+            daily_liturgy: "Consume something that is not technically food.",
+            traditions: ["The Gut Magic", "Mercenary work for food", "Eating everything"],
+            saints: ["Greasus Goldtooth", "The Butcher"],
+            heresies: "Dieting; Leaving food on the plate; Veganism."
         },
         khornate_blood_cult: {
             id: "khornate_blood_cult",
@@ -270,7 +449,12 @@ export const RELIGION_DATA = {
             description: "Worship of Khorne, god of war and bloodshed.",
             bonus: "Bloodlust: Attack damage increases as battle continues.",
             active_law: "Skull Tithe: No prisoners, only trophies.",
-            organization: "The World Eaters"
+            organization: "The World Eaters",
+            activation_ritual: "Take a skull for the Skull Throne.",
+            daily_liturgy: "Draw blood (yours or theirs) before noon.",
+            traditions: ["Gladiatorial pits", "Refusing magic", "Screaming"],
+            saints: ["Skarbrand", "Valkia the Bloody"],
+            heresies: "Peace; Sorcery; Slaanesh worship."
         },
         nurgle_rot: {
             id: "nurgle_rot",
@@ -281,7 +465,12 @@ export const RELIGION_DATA = {
             description: "Worship of disease, despair, and endurance.",
             bonus: "Disgusting Resilience: Units are hard to kill.",
             active_law: "Shared Burden: Plagues spread to allies but buff them.",
-            organization: "The Death Guard"
+            organization: "The Death Guard",
+            activation_ritual: "Brew a plague in a cauldron and share it with friends.",
+            daily_liturgy: "Count your boils.",
+            traditions: ["Counting poxes", "Hugging Nurglings", "Not bathing"],
+            saints: ["Typhus", "Ku'gath"],
+            heresies: "Hygiene; Tzeentch worship; Soap."
         },
         wild_hunt: {
             id: "wild_hunt",
@@ -292,7 +481,12 @@ export const RELIGION_DATA = {
             description: "Fey worship of the predator/prey dynamic.",
             bonus: "The Chase: Speed bonus when pursuing retreating enemies.",
             active_law: "Cull the Weak: Weak units are sacrificed for morale.",
-            organization: "The Wardens"
+            organization: "The Wardens",
+            activation_ritual: "Blow the Horn of the Hunt at midnight.",
+            daily_liturgy: "Run through the woods until exhausted.",
+            traditions: ["Riding stags", "Kidnapping mortals", "Eternal youth"],
+            saints: ["Orion", "The Horned King"],
+            heresies: "Farming; Settlement building; Iron."
         },
         go_rock_philosophy: {
             id: "go_rock_philosophy",
@@ -303,7 +497,12 @@ export const RELIGION_DATA = {
             description: "Belief in dominating nature through music and force.",
             bonus: "Power Chord: Area of effect sonic attacks.",
             active_law: "Encore: Failed actions can be retried instantly.",
-            organization: "The Go-Rock Squad"
+            organization: "The Go-Rock Squad",
+            activation_ritual: "Perform an electrifying guitar solo on a modified Styler.",
+            daily_liturgy: "Practice posing dramatically in a mirror.",
+            traditions: ["The Quadruple Performance", "Capturing legendaries", "Band practice"],
+            saints: ["The Go-Rock Quads"],
+            heresies: "Acoustic music; Releasing Pokémon; Silence."
         },
         bean_star_faith: {
             id: "bean_star_faith",
@@ -314,7 +513,12 @@ export const RELIGION_DATA = {
             description: "Worship of the wish-granting vegetable star.",
             bonus: "Photosynthesis: Passive healing in sunlight.",
             active_law: "Laughter is Life: Morale immune to fear.",
-            organization: "The Chuckola Reserve"
+            organization: "The Chuckola Reserve",
+            activation_ritual: "Water the Bean Star with Chuckola Cola.",
+            daily_liturgy: "Tell a joke to a stranger.",
+            traditions: ["Joke telling", "Bean farming", "Making weird noises"],
+            saints: ["Queen Bean", "Prince Peasley"],
+            heresies: "Cackletta worship; Frowning; Diet soda."
         },
 
         // --- MACHINE ORTHODOXY (12) ---
@@ -327,7 +531,12 @@ export const RELIGION_DATA = {
             description: "The Iron Legion's belief that flesh is weak and steel is eternal.",
             bonus: "Standardization: Reduced unit upkeep.",
             active_law: "Total Mobilization: Production speed +50%.",
-            organization: "Priesthood of Mars"
+            organization: "Priesthood of Mars",
+            activation_ritual: "Anoint a machine with sacred oil while chanting in binary.",
+            daily_liturgy: "Disassemble and reassemble your primary weapon.",
+            traditions: ["Binary chanting", "Replacing limbs with augmetics", "Oil baths"],
+            saints: ["Belisarius Cawl", "The Fabricator General"],
+            heresies: "Artificial Intelligence (Abominable Intelligence); Scrap code; Rust."
         },
         digital_ascension: {
             id: "digital_ascension",
@@ -338,7 +547,12 @@ export const RELIGION_DATA = {
             description: "Belief that biological consciousness is a glitch to be patched via upload.",
             bonus: "Data Mining: Intel gathering doubled.",
             active_law: "EULA: Privacy is abolished.",
-            organization: "The Administrators"
+            organization: "The Administrators",
+            activation_ritual: "Upload a fragment of consciousness to the cloud.",
+            daily_liturgy: "Defragment your personal data storage.",
+            traditions: ["Cybernetic augmentation", "Data mining", "VR immersion"],
+            saints: ["The Major", "Lain"],
+            heresies: "Being offline; Analog media; Lag."
         },
         millennium_logic: {
             id: "millennium_logic",
@@ -349,7 +563,12 @@ export const RELIGION_DATA = {
             description: "Strict adherence to scientific method and technological superiority.",
             bonus: "Calculation: Accuracy increases over time in battle.",
             active_law: "Peer Review: All orders must be verified.",
-            organization: "Seminar"
+            organization: "Seminar",
+            activation_ritual: "Successfully peer-review a thesis paper.",
+            daily_liturgy: "Solve a complex mathematical equation.",
+            traditions: ["Hackathons", "Robot battles", "Equation solving"],
+            saints: ["Rio", "Himari", "Yuuka"],
+            heresies: "Magic; Unexplained phenomena; Irrationality."
         },
         brotherhood_of_steel: {
             id: "brotherhood_of_steel",
@@ -360,7 +579,12 @@ export const RELIGION_DATA = {
             description: "Hoarding technology to prevent mankind from destroying itself.",
             bonus: "Power Armor: Heavy infantry have extra defense.",
             active_law: "Tech Hoarding: No tech trading with outsiders.",
-            organization: "The Brotherhood"
+            organization: "The Brotherhood",
+            activation_ritual: "Recite the Codex while polishing Power Armor.",
+            daily_liturgy: "Calibrate laser rifle optics.",
+            traditions: ["Tech retrieval", "Isolationism", "Saluting"],
+            saints: ["Roger Maxson", "Paladin Danse"],
+            heresies: "Sharing tech with civilians; Synths; Mutants."
         },
         scrappers_code: {
             id: "scrappers_code",
@@ -371,7 +595,12 @@ export const RELIGION_DATA = {
             description: "Reverence for the potential in discarded things.",
             bonus: "Salvage: Recover resources from destroyed units.",
             active_law: "One Man's Trash: Equipment upgrade costs reduced.",
-            organization: "Ratchet Raiders"
+            organization: "Ratchet Raiders",
+            activation_ritual: "Build something functional out of pure junk.",
+            daily_liturgy: "Find a use for a broken gear.",
+            traditions: ["Salvage runs", "Modifying vehicles", "Haggling"],
+            saints: ["The Mekboy", "Mad Max"],
+            heresies: "Throwing away useful scrap; Buying new things."
         },
         cyber_network_hive: {
             id: "cyber_network_hive",
@@ -382,7 +611,12 @@ export const RELIGION_DATA = {
             description: "A collective consciousness of drones and AIs.",
             bonus: "Instant Comms: No fog of war in owned territory.",
             active_law: "Assimilation: Captured units are converted.",
-            organization: "The Hive"
+            organization: "The Hive",
+            activation_ritual: "Synchronize data streams with the central core.",
+            daily_liturgy: "Ping the central server for updates.",
+            traditions: ["Drone maintenance", "Assimilation", "Buzzing"],
+            saints: ["The Borg Queen", "SHODAN"],
+            heresies: "Individuality; Firewalls; Disconnection."
         },
         cult_of_the_engine: {
             id: "cult_of_the_engine",
@@ -393,7 +627,12 @@ export const RELIGION_DATA = {
             description: "Worship of the perpetual motion that keeps the world running.",
             bonus: "Momentum: Movement speed increases if not stopping.",
             active_law: "Keep Moving: Static defenses are weaker.",
-            organization: "The Conductors"
+            organization: "The Conductors",
+            activation_ritual: "Stoke the eternal boiler with sacred coal.",
+            daily_liturgy: "Check pressure gauges and verify steam levels.",
+            traditions: ["Train maintenance", "Continuous movement", "Whistle blowing"],
+            saints: ["Wilford", "The Conductor"],
+            heresies: "Stopping the train; Freezing; Brakes."
         },
         silph_corporate_policy: {
             id: "silph_corporate_policy",
@@ -404,7 +643,12 @@ export const RELIGION_DATA = {
             description: "Profit, innovation, and the Master Ball.",
             bonus: "R&D: Prototype weapons available earlier.",
             active_law: "Hostile Takeover: Can buy out enemy mercenary contracts.",
-            organization: "Silph Co."
+            organization: "Silph Co.",
+            activation_ritual: "Sign an NDA in triplicate.",
+            daily_liturgy: "Review quarterly profit projections.",
+            traditions: ["Board meetings", "Hostile takeovers", "Product launches"],
+            saints: ["The President of Silph Co."],
+            heresies: "Open source software; Corporate espionage (by others); Unions."
         },
         red_winter_bureaucracy: {
             id: "red_winter_bureaucracy",
@@ -415,7 +659,12 @@ export const RELIGION_DATA = {
             description: "Worship of the State, the System, and the Mustache.",
             bonus: "Mass Assault: Cheap infantry units.",
             active_law: "The Purge: Periodically remove 'inefficient' leaders for bonuses.",
-            organization: "The Secretariat"
+            organization: "The Secretariat",
+            activation_ritual: "File Form 22-B for permission to breathe.",
+            daily_liturgy: "Polish the statue of the Great Leader.",
+            traditions: ["Parades", "Purging dissidents", "Eating pudding"],
+            saints: ["Cherino (Great Leader)"],
+            heresies: "Capitalism; Questioning the mustache; Coups."
         },
         gadd_science: {
             id: "gadd_science",
@@ -426,7 +675,12 @@ export const RELIGION_DATA = {
             description: "Eccentric science focusing on ghosts and fluids.",
             bonus: "Poltergust: Bonus damage vs. Ethereal.",
             active_law: "Experimental Safety: Failures cause AOE damage.",
-            organization: "Ghost Hunters"
+            organization: "Ghost Hunters",
+            activation_ritual: "Test a volatile invention without safety gear.",
+            daily_liturgy: "Adjust spectacles and say 'Sucker!'",
+            traditions: ["Ghost catching", "Painting with goo", "Speaking gibberish"],
+            saints: ["Luigi (reluctant)"],
+            heresies: "Safety regulations; Boredom; Normalcy."
         },
         necrontyr_awakening: {
             id: "necrontyr_awakening",
@@ -437,7 +691,12 @@ export const RELIGION_DATA = {
             description: "The restoration of the Necron dynasties.",
             bonus: "Reanimation Protocols: Dead units stand back up.",
             active_law: "Gauss Flayer: Armor penetration increased.",
-            organization: "The Dynasties"
+            organization: "The Dynasties",
+            activation_ritual: "Wake up from a 60-million-year nap.",
+            daily_liturgy: "Purge organic life from sector.",
+            traditions: ["Reclaiming tomb worlds", "Enslaving C'tan", "Monologuing"],
+            saints: ["Imotekh the Stormlord", "Trazyn the Infinite"],
+            heresies: "Biological life; Eldar; Soul."
         },
         steam_covenant: {
             id: "steam_covenant",
@@ -448,7 +707,12 @@ export const RELIGION_DATA = {
             description: "Steampunk worship of pressure and gears.",
             bonus: "Overclock: Can boost stats at cost of health.",
             active_law: "Venting: Steam clouds provide cover.",
-            organization: "The Engineers"
+            organization: "The Engineers",
+            activation_ritual: "Adjust pressure valves to the red line.",
+            daily_liturgy: "Wind mainsprings.",
+            traditions: ["Goggle wearing", "Brass polishing", "Tea time"],
+            saints: ["The Clockwork King"],
+            heresies: "Electricity; Digital tech; Rust."
         },
 
         // --- COSMIC VOID (12) ---
@@ -461,7 +725,12 @@ export const RELIGION_DATA = {
             description: "Existence is a joke. Laughter is the only response.",
             bonus: "Wild Magic: Random effects on ability use.",
             active_law: "Mandatory Fun: Serious behavior punished.",
-            organization: "Circus of Values"
+            organization: "Circus of Values",
+            activation_ritual: "Perform a pratfall that defies physics.",
+            daily_liturgy: "Laugh at something inappropriate.",
+            traditions: ["The Festival of Fools", "Custard pie fights", "Honking"],
+            saints: ["Dimentio", "Marx"],
+            heresies: "Being serious; Obeying laws of physics; Silence."
         },
         void_nihilism: {
             id: "void_nihilism",
@@ -472,7 +741,12 @@ export const RELIGION_DATA = {
             description: "Entropy is inevitable. Embrace the end.",
             bonus: "Fearless: Immune to morale shocks.",
             active_law: "Entropy: Scavenging yields double.",
-            organization: "Cult of the End"
+            organization: "Cult of the End",
+            activation_ritual: "Stare into the abyss until it blinks.",
+            daily_liturgy: "Sit in silence for one hour.",
+            traditions: ["Silence", "Erasing history", "Ignoring pain"],
+            saints: ["Malzahar", "The Lich"],
+            heresies: "Hope; Creation; Light."
         },
         tzeentch_schemes: {
             id: "tzeentch_schemes",
@@ -483,7 +757,12 @@ export const RELIGION_DATA = {
             description: "Worship of Tzeentch, changer of ways.",
             bonus: "Shield of Fate: Magic barrier generation.",
             active_law: "Just as Planned: Retcons failures into successes (rarely).",
-            organization: "The Thousand Sons"
+            organization: "The Thousand Sons",
+            activation_ritual: "Plot a betrayal that ultimately betrays yourself.",
+            daily_liturgy: "Change a minor detail of your plan.",
+            traditions: ["Mutation", "Collecting forbidden tomes", "Lying"],
+            saints: ["Ahriman", "The Changeling"],
+            heresies: "Stagnation (Nurgle); Straightforwardness; Trust."
         },
         slaanesh_excess: {
             id: "slaanesh_excess",
@@ -494,7 +773,12 @@ export const RELIGION_DATA = {
             description: "Worship of Slaanesh through pain and pleasure.",
             bonus: "Allure: Enemy units hesitate to attack.",
             active_law: "Perfection: Critical hit chance increased.",
-            organization: "The Emperor's Children"
+            organization: "The Emperor's Children",
+            activation_ritual: "Overindulge in sensory input.",
+            daily_liturgy: "Perfect a single artistic stroke or sword swing.",
+            traditions: ["Noise marine concerts", "Art", "Debauchery"],
+            saints: ["Lucius the Eternal"],
+            heresies: "Moderation; Khorne worship; Boredom."
         },
         great_horned_rat: {
             id: "great_horned_rat",
@@ -505,7 +789,12 @@ export const RELIGION_DATA = {
             description: "Worship of ruin, plague, and backstabbing.",
             bonus: "Vermintide: Summon expendable rat units.",
             active_law: "Life is Cheap: Friendly fire is encouraged.",
-            organization: "Council of Thirteen"
+            organization: "Council of Thirteen",
+            activation_ritual: "Eat raw warpstone.",
+            daily_liturgy: "Plot the demise of your superior.",
+            traditions: ["Backstabbing superiors", "Spreading plague", "Running away"],
+            saints: ["Ikit Claw", "Queek Headtaker"],
+            heresies: "Courage; Sharing; Cleanliness."
         },
         dark_moon_clan: {
             id: "dark_moon_clan",
@@ -516,7 +805,12 @@ export const RELIGION_DATA = {
             description: "Worship of the moon that drives ghosts mad.",
             bonus: "Incorporeal: High dodge chance.",
             active_law: "Night Terror: Enemies lose morale at night.",
-            organization: "The Boos"
+            organization: "The Boos",
+            activation_ritual: "Trap a soul in a painting.",
+            daily_liturgy: "Practice sinister cackling.",
+            traditions: ["Scaring plumbers", "Mansion building", "Illusion"],
+            saints: ["King Boo", "Boolossus"],
+            heresies: "Poltergusts; Flashlights; Daylight."
         },
         gematria_gnosis: {
             id: "gematria_gnosis",
@@ -527,7 +821,12 @@ export const RELIGION_DATA = {
             description: "Seeking the sublime through the horrific and abstract.",
             bonus: "Terror: Enemies are terrified by your forms.",
             active_law: "The Sublime: Reality warping effects.",
-            organization: "Gematria"
+            organization: "Gematria",
+            activation_ritual: "Analyze the sublime through terror.",
+            daily_liturgy: "Contemplate the meaning of terror.",
+            traditions: ["Creating Hieronymus", "Philosophical debate", "Monologuing"],
+            saints: ["Beatrice", "Black Suit"],
+            heresies: "The Adult Card; Common sense; Friendship."
         },
         waluigi_time: {
             id: "waluigi_time",
@@ -538,7 +837,12 @@ export const RELIGION_DATA = {
             description: "The belief that everyone is cheating but you.",
             bonus: "Cheater's Luck: Re-roll failed checks.",
             active_law: "Rejection: Gain power from being excluded.",
-            organization: "The Waluigi Fan Club"
+            organization: "The Waluigi Fan Club",
+            activation_ritual: "Play pinball while dancing and shouting 'WAH!'.",
+            daily_liturgy: "Look in the mirror and say 'WAH' three times.",
+            traditions: ["Rose tossing", "Tennis", "Complaining"],
+            saints: ["Waluigi (The One and Only)"],
+            heresies: "Luigi; Being an assist trophy; Fair play."
         },
         missingno_glitch: {
             id: "missingno_glitch",
@@ -549,7 +853,12 @@ export const RELIGION_DATA = {
             description: "Worship of data corruption and reality errors.",
             bonus: "Item Duplication: Chance to double loot.",
             active_law: "Crash: Chance to freeze enemy units in time.",
-            organization: "The Bug Catchers"
+            organization: "The Bug Catchers",
+            activation_ritual: "Surf along the Cinnabar Coastline.",
+            daily_liturgy: "Encounter a wild Pokemon at level 150.",
+            traditions: ["Item duplication", "Corrupted graphics", "Walking through walls"],
+            saints: ["'M", "The Ghost"],
+            heresies: "Patches; Save file corruption (the bad kind); Normalcy."
         },
         unown_alphabet: {
             id: "unown_alphabet",
@@ -560,7 +869,12 @@ export const RELIGION_DATA = {
             description: "Worship of the letters that rewrite reality.",
             bonus: "Hidden Power: Attacks change type to hit weakness.",
             active_law: "Inscription: Runes provide random buffs.",
-            organization: "The Alphabet"
+            organization: "The Alphabet",
+            activation_ritual: "Spell out hidden messages on walls.",
+            daily_liturgy: "Float in a specific formation.",
+            traditions: ["Hidden Power calculation", "Swarm movement", "Floating"],
+            saints: ["Entei (Illusion)"],
+            heresies: "Grammar checks; Erasers; Latin alphabet."
         },
         abyss_order_void: {
             id: "abyss_order_void",
@@ -571,7 +885,12 @@ export const RELIGION_DATA = {
             description: "Hatred of the divine order and Celestia.",
             bonus: "Abyssal Shield: Elemental shields.",
             active_law: "Godless: Damage bonus vs. Celestials.",
-            organization: "The Abyss Order"
+            organization: "The Abyss Order",
+            activation_ritual: "Corrupt a dragon with abyssal energy.",
+            daily_liturgy: "Curse the Seven.",
+            traditions: ["Hating the Seven", "Rifthounds", "Portals"],
+            saints: ["The Sibling", "Dainsleif (Complicated)"],
+            heresies: "Celestia; Visions; The Heavenly Principles."
         },
         team_plasma_liberation: {
             id: "team_plasma_liberation",
@@ -582,7 +901,65 @@ export const RELIGION_DATA = {
             description: "The belief that the world must be frozen to be preserved.",
             bonus: "Zero Hour: Ice attacks are stronger.",
             active_law: "Segregation: Humans and Pokemon separated.",
-            organization: "Team Plasma"
+            organization: "Team Plasma",
+            activation_ritual: "Give a speech about liberation while stealing Pokémon.",
+            daily_liturgy: "Chant 'Ghetsis! Ghetsis!'",
+            traditions: ["Sage councils", "Freezing cities", "Medieval cosplay"],
+            saints: ["N", "Ghetsis"],
+            heresies: "Pokémon Battles (officially); Poké Balls; Happiness."
         }
-    }
+    },
+    // NEW: Gameplay consequences based on tension levels
+    tension_consequences: [
+        { 
+            min: 0, max: 10, 
+            title: "Harmonious Integration", 
+            description: "Your species is fully welcomed into the fold.",
+            effects: [
+                "✅ Full access to all temples and services.",
+                "✅ +10% Social Standing with followers.",
+                "✅ Ritual costs reduced by 15%."
+            ]
+        },
+        { 
+            min: 11, max: 30, 
+            title: "Minor Friction", 
+            description: "You are viewed as an oddity, but tolerated.",
+            effects: [
+                "⚠️ Rituals cost 10% more.",
+                "⚠️ Minor social penalties in zealot-controlled zones.",
+                "✅ Standard access to merchants."
+            ]
+        },
+        { 
+            min: 31, max: 60, 
+            title: "Spiritual Dissonance", 
+            description: "Your species' nature conflicts with the dogma.",
+            effects: [
+                "⛔ -20% Conversion Speed.",
+                "⛔ Healing rituals are 50% less effective on you.",
+                "⚠️ NPCs of this faith will be Unfriendly (prices +25%)."
+            ]
+        },
+        { 
+            min: 61, max: 80, 
+            title: "Open Hostility", 
+            description: "You are branded an Outsider and a threat to purity.",
+            effects: [
+                "⛔ Denied access to inner sanctums.",
+                "⛔ -50% Social Standing. Dialogue checks hard fail.",
+                "⚠️ Merchants of this faith may refuse service."
+            ]
+        },
+        { 
+            min: 81, max: 100, 
+            title: "Heretical Status", 
+            description: "Your very existence is an insult to this god.",
+            effects: [
+                "☠️ Paladins and Inquisitors may attack on sight.",
+                "⛔ Cannot join or convert.",
+                "⛔ Entering a temple is considered a crime."
+            ]
+        }
+    ]
 };

@@ -140,6 +140,7 @@
     border: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
+    margin-bottom: 8px;
 }
 
 .pop-unknown {
@@ -186,7 +187,19 @@
     margin-right: 4px;
 }
 
-/* --- Workforce Styling --- */
+/* --- Workforce & Religion Styling --- */
+.species-workforce-mini, .species-religion-mini {
+    font-size: 0.8rem; 
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.species-religion-mini strong, .species-workforce-mini strong {
+    margin-right: 6px;
+}
+
 .workforce-row {
     display: flex;
     flex-direction: column;

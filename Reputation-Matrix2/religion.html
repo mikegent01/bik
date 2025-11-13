@@ -35,6 +35,13 @@
                                 <!-- Injected by JS -->
                             </div>
                         </div>
+                        <!-- NEW: Daily Rituals Panel -->
+                        <div class="ritual-panel" style="grid-column: span 2;">
+                            <h3>Today's Liturgy & Observances</h3>
+                            <div id="daily-rituals-container">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
                     </div>
 
                     <div class="religion-tree-container">
@@ -42,16 +49,19 @@
                     </div>
                  </div>
             </main>
-            
-            <!-- Religion Detail Panel (Right Side) -->
-            <aside id="detail-panel">
-                <button id="detail-panel-close">&times;</button>
-                <div id="detail-panel-content">
-                    <!-- Details injected by JS -->
-                </div>
-            </aside>
         </div>
     </div>
+
+    <!-- New Full Screen Modal -->
+    <div id="religion-modal" class="religion-modal-overlay">
+        <div class="religion-modal-content">
+            <button id="religion-modal-close" class="modal-close">&times;</button>
+            <div id="religion-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="religion.js"></script>

@@ -2,6 +2,7 @@ import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
 import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES } from './species-workforce.js';
+import { RELIGION_DATA } from './religion-data.js';
 
 // Define Player Races for Relationship Context
 const PLAYER_RACE_LABELS = {
@@ -240,6 +241,37 @@ function renderSpeciesList(data) {
             }
         }
 
+        // --- RELIGION CALCULATION ---
+        let dominantFaith = "Secular / Unaligned";
+        let dominantFaithColor = "var(--text-secondary)";
+        
+        if (species.religion_breakdown) {
+            // Convert object to array and sort by value descending
+            const sortedFaiths = Object.entries(species.religion_breakdown).sort((a, b) => b[1] - a[1]);
+            
+            if (sortedFaiths.length > 0) {
+                const topKey = sortedFaiths[0][0];
+                
+                if (topKey === 'unaligned') {
+                    dominantFaith = "Secular / Unaligned";
+                } else if (RELIGION_DATA.denominations[topKey]) {
+                    dominantFaith = RELIGION_DATA.denominations[topKey].name;
+                    // Get color from parent group
+                    const groupKey = RELIGION_DATA.denominations[topKey].group;
+                    if (RELIGION_DATA.groups[groupKey]) {
+                        dominantFaithColor = RELIGION_DATA.groups[groupKey].color;
+                    }
+                }
+            }
+        }
+
+        const religionHTML = `
+            <div class="species-religion-mini">
+                <strong style="color:var(--neutral-color);">Dominant Faith:</strong> 
+                <span style="color:${dominantFaithColor}; font-weight:bold;">${dominantFaith}</span>
+            </div>
+        `;
+
         // --- WORKFORCE CALCULATION (Mini) ---
         const bias = getBiasForSpecies(key);
         const sortedWorkforce = LABOR_CATEGORIES.map(cat => ({
@@ -250,7 +282,7 @@ function renderSpeciesList(data) {
         // Take top 2 roles
         const topRoles = sortedWorkforce.slice(0, 2);
         const workforceHTML = `
-            <div class="species-workforce-mini" style="margin-top: 12px; margin-bottom:12px; font-size:0.8rem; color:var(--text-secondary);">
+            <div class="species-workforce-mini">
                 <strong style="color:var(--neutral-color);">Primary Roles:</strong> 
                 ${topRoles.map(r => `<span style="color:${r.color}; margin-left:4px;">${r.name}</span>`).join(', ')}
             </div>
@@ -294,6 +326,7 @@ function renderSpeciesList(data) {
                     <span>Est. Population:</span>
                     <strong>${countString} <span style="font-weight:normal; font-size:0.8em; color:var(--text-secondary);">${percentageString}</span></strong>
                 </div>
+                ${religionHTML}
                 ${workforceHTML}
                 ${relationsHTML}
             </div>

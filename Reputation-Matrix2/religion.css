@@ -11,14 +11,14 @@
     gap: 24px;
 }
 
-.chart-panel, .edict-panel {
+.chart-panel, .edict-panel, .ritual-panel {
     background-color: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
 }
 
-.chart-panel h3, .edict-panel h3 {
+.chart-panel h3, .edict-panel h3, .ritual-panel h3 {
     font-family: var(--font-display);
     color: var(--accent-color);
     font-size: 1.2rem;
@@ -77,6 +77,95 @@
     font-size: 0.85rem;
     color: var(--text-secondary);
     font-family: 'Georgia', serif;
+}
+
+/* --- Daily Rituals Styles --- */
+#daily-rituals-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.rituals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.ritual-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 2px solid var(--neutral-color);
+}
+
+.header-date {
+    float: right;
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    font-weight: normal;
+    font-family: var(--font-mono);
+}
+
+.ritual-card {
+    background-color: var(--main-bg);
+    border: 1px dashed var(--border-color);
+    padding: 12px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.ritual-card:hover {
+    border-color: var(--neutral-color);
+    box-shadow: 0 0 10px rgba(227, 179, 65, 0.1);
+}
+
+.ritual-header {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ritual-content {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* --- Weekly Schedule in Modal --- */
+.weekly-schedule-box {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border-color);
+}
+.weekly-schedule-box h5 {
+    font-family: var(--font-display);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+.weekly-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+.weekly-list li {
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+.weekly-list strong {
+    color: var(--text-color);
+    font-family: var(--font-display);
+    margin-right: 6px;
 }
 
 /* --- Tree Layout --- */
@@ -176,150 +265,302 @@
     display: inline-block;
 }
 
-/* --- NEW DETAIL POPUP STYLES --- */
+/* --- RELIGION FULL MODAL STYLES --- */
 
-.religion-modal-frame {
-    border: 2px solid;
-    border-radius: 8px;
-    padding: 24px;
-    background-color: var(--main-bg);
+.religion-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 2000;
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.religion-modal-content {
+    background-color: var(--sidebar-bg);
+    width: 90%;
+    max-width: 1000px;
+    height: 90vh;
+    max-height: 800px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    border: 1px solid var(--border-color);
+    position: relative;
     display: flex;
     flex-direction: column;
-    position: relative;
+    overflow: hidden;
 }
 
-.religion-modal-header {
+#religion-modal-body {
+    overflow-y: auto;
+    padding: 32px;
+    height: 100%;
+}
+
+/* Internal Layout of Modal */
+.holy-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 32px;
+}
+
+.holy-header-section {
+    grid-column: 1 / -1;
     text-align: center;
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.religion-icon-large {
-    font-size: 3rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 20px;
     margin-bottom: 10px;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
 }
 
-.religion-modal-header h2 {
+.holy-icon-large {
+    font-size: 4rem;
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+    margin-bottom: 10px;
+}
+
+.holy-title {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: var(--text-color);
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
-.leader-name {
+.holy-leader {
+    font-size: 1.1rem;
     color: var(--text-secondary);
     font-style: italic;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
-.religion-stats-bar {
+.holy-stats {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: var(--sidebar-bg);
+    justify-content: center;
+    gap: 40px;
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.stat-box {
+    text-align: center;
+    background: var(--main-bg);
+    padding: 8px 16px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
 }
-
-.stat-pill {
-    text-align: center;
-}
-
-.stat-pill .label {
+.stat-label {
     display: block;
     font-size: 0.7rem;
     color: var(--text-secondary);
     text-transform: uppercase;
 }
-
-.stat-pill .val {
+.stat-val {
     font-weight: bold;
-    color: var(--text-color);
-    font-family: var(--font-mono);
+    color: var(--accent-color);
+    font-size: 1.1rem;
 }
 
-.litany-box {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: rgba(255,255,255,0.03);
-    border-left: 4px solid var(--border-color);
+/* Tension Meter */
+.tension-meter-container {
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Tension Consequences Box */
+.tension-outcome-box {
+    margin-top: 16px;
+    background-color: var(--main-bg);
+    border: 1px solid; /* Color set inline */
+    border-radius: 6px;
+    padding: 12px;
+    text-align: left;
+}
+.tension-outcome-box h5 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+.outcome-desc {
+    font-size: 0.85rem;
     font-style: italic;
     color: var(--text-secondary);
-}
-.litany-box h5 {
-    margin-top: 0;
     margin-bottom: 8px;
-    font-family: var(--font-display);
-    color: var(--text-color);
-    font-style: normal;
+}
+.outcome-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.85rem;
+}
+.outcome-list li {
+    margin-bottom: 4px;
 }
 
-.scroll-container {
+/* Mechanics List */
+.mechanics-box {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid; /* Color set inline */
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+.mechanics-box h4 {
+    margin-top: 0;
+    font-family: var(--font-display);
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+.mechanics-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+.mechanics-list li {
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+.mechanics-list strong {
+    color: var(--text-color);
+}
+
+/* Left Column: Doctrine, Rituals, Heresy */
+.holy-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.doctrine-box {
+    background-color: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--border-color);
+    padding: 16px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.ritual-box {
+    background: linear-gradient(135deg, var(--main-bg), var(--sidebar-bg));
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+.ritual-box h4 {
+    color: var(--accent-color);
+    margin-top: 0;
+    font-family: var(--font-display);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+.ritual-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.daily-liturgy-text {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+    font-style: italic;
+    color: var(--text-color);
+}
+
+.heresy-box {
+    background-color: rgba(218, 54, 51, 0.1);
+    border: 1px solid var(--negative-color);
+    border-radius: 8px;
+    padding: 16px;
+}
+.heresy-box h4 {
+    color: var(--negative-color);
+    margin-top: 0;
+    font-family: var(--font-display);
+}
+.heresy-text {
+    color: #ffb3b3;
+    font-size: 0.9rem;
+}
+
+/* Right Column: Edict, Favor, Traditions, Saints */
+.holy-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.edict-scroll {
     background-color: #e8dcc5;
     color: #3e3427;
-    padding: 15px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-    border: 1px solid #c2b49a;
-}
-
-.edict-scroll h5 {
-    color: #594933;
-    border-bottom: 1px solid #594933;
-    padding-bottom: 5px;
-    margin-top: 0;
-    font-family: 'Times New Roman', serif;
-    font-size: 1.1rem;
-}
-
-.edict-content {
+    padding: 24px;
+    border-radius: 2px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     font-family: 'Georgia', serif;
-    font-size: 1.1rem;
-    line-height: 1.5;
+    text-align: center;
+    position: relative;
+    border-top: 10px solid #c2b49a;
+    border-bottom: 10px solid #c2b49a;
+}
+.edict-scroll h4 {
+    color: #594933;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+.edict-content {
+    font-size: 1.2rem;
     font-weight: bold;
-    text-align: center;
-    margin: 10px 0;
+    line-height: 1.4;
 }
 
-.blessing-box {
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+.favor-box {
+    background-color: var(--main-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 20px;
     text-align: center;
-    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.1);
 }
-
-.blessing-box h5 {
+.favor-box h4 {
+    color: var(--accent-color);
     margin-top: 0;
     font-family: var(--font-display);
-    color: var(--accent-color);
+}
+.favor-text {
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
-.blessing-box p {
-    margin: 5px 0;
-}
-
-.subtext {
-    font-size: 0.8rem;
+.list-group h5 {
+    font-family: var(--font-display);
     color: var(--text-secondary);
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
 }
-
-.organization-footer {
-    margin-top: auto;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    border-top: 1px solid var(--border-color);
-    padding-top: 10px;
+.holy-list {
+    list-style: none;
+    padding: 0;
+}
+.holy-list li {
+    margin-bottom: 6px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-color);
 }
 
 @media (max-width: 900px) {
-    .religion-dashboard {
-        grid-template-columns: 1fr;
-    }
+    .religion-dashboard { grid-template-columns: 1fr; }
+    .holy-grid-layout { grid-template-columns: 1fr; }
+    .ritual-panel { grid-column: auto !important; }
 }
