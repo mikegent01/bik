@@ -1,4 +1,5 @@
 
+
 .page-subtitle {
     text-align: center;
     color: var(--text-secondary);
@@ -91,6 +92,36 @@
     margin: 0;
 }
 
+/* New Status Badge Styles */
+.species-status-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.status-under, .status-enslaved, .status-oppressed {
+    background-color: rgba(248, 81, 73, 0.15);
+    color: #f85149;
+    border: 1px solid #f85149;
+}
+
+.status-cursed, .status-anomaly, .status-disposable {
+    background-color: rgba(110, 118, 129, 0.15);
+    color: #8b949e;
+    border: 1px solid #8b949e;
+}
+
+.status-untrustworthy, .status-mistrusted {
+    background-color: rgba(210, 153, 34, 0.15);
+    color: #d29922;
+    border: 1px solid #d29922;
+}
+
+
 .species-description {
     font-size: 0.9rem;
     color: var(--text-secondary);
@@ -111,23 +142,79 @@
     justify-content: space-between;
 }
 
-.show-more-container {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
+.pop-unknown {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-weight: normal;
 }
 
-#toggle-species-btn {
-    padding: 12px 32px;
-    font-size: 1.1rem;
-    background-color: var(--sidebar-bg);
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
+/* --- Relations Styling --- */
+.species-relations {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.85rem;
 }
-#toggle-species-btn:hover {
-    background-color: var(--accent-color);
-    color: var(--sidebar-bg);
+
+.species-relations h6 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.species-relations ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.species-relations li {
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 6px 8px;
+    border-radius: 4px;
+    border-left: 2px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.species-relations li strong {
+    color: var(--accent-color);
+    margin-right: 4px;
+}
+
+/* --- Workforce Styling --- */
+.workforce-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.workforce-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.workforce-bar-bg {
+    width: 100%;
+    height: 16px;
+    background-color: var(--main-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.workforce-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
 }
 
 @media (max-width: 900px) {

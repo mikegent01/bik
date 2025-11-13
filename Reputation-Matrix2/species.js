@@ -1,7 +1,18 @@
 
+
 import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
+import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES } from './species-workforce.js';
+
+// Define Player Races for Relationship Context
+const PLAYER_RACE_LABELS = {
+    archie: "Human Variant",
+    markop: "Centaur - Equine",
+    humpik: "Dwarf",
+    bowser: "Koopa",
+    remi: "Human"
+};
 
 // Helper to aggregate populations
 function calculateDemographics() {
@@ -30,14 +41,18 @@ function calculateDemographics() {
                     grandTotal += pop;
 
                     // Distribute to species based on regional makeup
-                    const demographics = REGIONAL_DEMOGRAPHICS[group] || { other: 1.0 };
+                    const demographics = REGIONAL_DEMOGRAPHICS[group] || { other: 1.0 }; // Fallback if region missing
+                    
+                    // Check if total percentage > 1.0 (floating point error protection)
+                    let remainingPop = pop;
+
                     for (const [speciesKey, percentage] of Object.entries(demographics)) {
-                        if (totalBySpecies[speciesKey] !== undefined) {
-                            totalBySpecies[speciesKey] += Math.round(pop * percentage);
-                        } else {
-                            // Fallback if a key is missing in SPECIES_DATA but present in demographics
-                            if (!totalBySpecies['other']) totalBySpecies['other'] = 0;
-                            totalBySpecies['other'] += Math.round(pop * percentage);
+                        // Only process if the species key exists in our master list to avoid "undefined"
+                        // Since we removed 'other' from data, we might have tiny remainders, but that's fine.
+                        if (SPECIES_DATA[speciesKey]) {
+                            const speciesPop = Math.round(pop * percentage);
+                            totalBySpecies[speciesKey] += speciesPop;
+                            remainingPop -= speciesPop;
                         }
                     }
                 }
@@ -57,7 +72,6 @@ function renderTotalPopulation(grandTotal) {
 
 function renderCharts(data) {
     // -- Global Species Pie Chart --
-    // Show ALL species with population > 0, no grouping
     const chartDataEntries = [];
 
     Object.entries(data.totalBySpecies).forEach(([key, count]) => {
@@ -138,7 +152,7 @@ function renderCharts(data) {
         });
     }
 
-    // -- Faction Strength (Estimated from Map Military Strength) --
+    // -- Faction Strength --
     const factionStrength = {};
     for (const mapKey in MAP_DATA) {
         MAP_DATA[mapKey].pointsOfInterest?.forEach(poi => {
@@ -186,30 +200,104 @@ function renderSpeciesList(data) {
     const container = document.getElementById('species-grid-container');
     if (!container) return;
 
-    // Sort by population count
-    let sortedSpecies = Object.entries(data.totalBySpecies).sort((a, b) => b[1] - a[1]);
-    
-    // Filter out 0 population for display
-    sortedSpecies = sortedSpecies.filter(([, count]) => count > 0);
+    // Convert SPECIES_DATA to array
+    const allSpecies = Object.entries(SPECIES_DATA);
 
-    // SHOW ALL SPECIES, NO LIMIT
-    const cardsHTML = sortedSpecies.map(([key, count]) => {
-        const species = SPECIES_DATA[key];
-        if (!species) return '';
+    // Sort by population count (descending)
+    allSpecies.sort((a, b) => {
+        const countA = data.totalBySpecies[a[0]] || 0;
+        const countB = data.totalBySpecies[b[0]] || 0;
+        if (countB !== countA) return countB - countA;
+        return a[1].name.localeCompare(b[1].name);
+    });
 
-        const percentage = data.grandTotal > 0 ? ((count / data.grandTotal) * 100).toFixed(1) : 0;
+    const cardsHTML = allSpecies.map(([key, species]) => {
+        let count = data.totalBySpecies[key] || 0;
+        let percentageString = "";
+        let countString = "";
+        
+        // Handle 0/Low population display logic
+        if (count > 0) {
+            const percentage = data.grandTotal > 0 ? ((count / data.grandTotal) * 100).toFixed(1) : 0;
+            countString = count.toLocaleString();
+            percentageString = `(${percentage}%)`;
+        } else {
+            // Generate realistic "Lore Estimates" for species not appearing on current maps
+            // or those that are statistically rare.
+            
+            if (species.name.includes("Legendary") || species.social_status === "Unique") {
+                countString = "1 - 5";
+                percentageString = "(Unique)";
+            } else if (species.social_status === "Cursed Anomaly" || species.name.includes("Equine")) {
+                countString = "~15 - 50";
+                percentageString = "(Rare Anomaly)";
+            } else if (species.social_status === "Endangered" || species.name.includes("Void")) {
+                countString = "~100";
+                percentageString = "(Endangered)";
+            } else {
+                // General scattered population
+                const randomEst = Math.floor(Math.random() * 400) + 50;
+                countString = `~${randomEst}`;
+                percentageString = "(Scattered)";
+            }
+        }
+
+        // --- WORKFORCE CALCULATION (Mini) ---
+        const bias = getBiasForSpecies(key);
+        const sortedWorkforce = LABOR_CATEGORIES.map(cat => ({
+            ...cat,
+            value: bias[cat.id]
+        })).sort((a, b) => b.value - a.value);
+        
+        // Take top 2 roles
+        const topRoles = sortedWorkforce.slice(0, 2);
+        const workforceHTML = `
+            <div class="species-workforce-mini" style="margin-top: 12px; margin-bottom:12px; font-size:0.8rem; color:var(--text-secondary);">
+                <strong style="color:var(--neutral-color);">Primary Roles:</strong> 
+                ${topRoles.map(r => `<span style="color:${r.color}; margin-left:4px;">${r.name}</span>`).join(', ')}
+            </div>
+        `;
+
+        // --- RELATIONS CALCULATION ---
+        let relationsHTML = '';
+        if (species.player_relations) {
+            relationsHTML = `
+                <div class="species-relations">
+                    <h6>Racial Relations</h6>
+                    <ul>
+                        ${Object.entries(species.player_relations).map(([player, text]) => {
+                            const playerName = player.charAt(0).toUpperCase() + player.slice(1);
+                            const raceLabel = PLAYER_RACE_LABELS[player] || 'Unknown';
+                            return `<li><strong>${playerName} (${raceLabel}):</strong> ${text}</li>`;
+                        }).join('')}
+                    </ul>
+                </div>
+            `;
+        } else {
+            relationsHTML = `<div class="species-relations"><p style="font-style:italic; color:var(--text-secondary);">No known bias.</p></div>`;
+        }
+
+        // --- SOCIAL STATUS BADGE ---
+        const statusBadge = species.social_status ? 
+            `<div class="species-status-badge status-${species.social_status.toLowerCase().split(' ')[0]}">${species.social_status}</div>` 
+            : '';
 
         return `
             <div class="species-card" style="border-left: 5px solid ${species.color};">
                 <div class="species-header">
                     <span class="species-icon">${species.icon}</span>
-                    <h3 style="color: ${species.color};">${species.name}</h3>
+                    <div style="flex-grow:1;">
+                        <h3 style="color: ${species.color};">${species.name}</h3>
+                        ${statusBadge}
+                    </div>
                 </div>
                 <p class="species-description">${species.description}</p>
                 <div class="species-pop-stat">
                     <span>Est. Population:</span>
-                    <strong>${count.toLocaleString()} (${percentage}%)</strong>
+                    <strong>${countString} <span style="font-weight:normal; font-size:0.8em; color:var(--text-secondary);">${percentageString}</span></strong>
                 </div>
+                ${workforceHTML}
+                ${relationsHTML}
             </div>
         `;
     }).join('');
@@ -222,6 +310,9 @@ function init() {
     renderTotalPopulation(data.grandTotal);
     renderCharts(data);
     renderSpeciesList(data);
+    
+    // New: Render Workforce Analysis
+    renderWorkforceData(data);
 }
 
 // Wait for DOM and Chart.js

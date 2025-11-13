@@ -22,7 +22,7 @@
                  <p class="page-subtitle">A comprehensive breakdown of population distribution, species density, and regional demographics based on the latest Vigilance reconnaissance data.</p>
                  
                  <div id="dashboard-grid">
-                    <!-- NEW: Total Population Card -->
+                    <!-- Total Population Card -->
                     <div class="chart-container full-width" style="flex-direction: row; justify-content: space-between; align-items: center; padding: 30px;">
                         <div>
                             <h3>Total Known Population</h3>
@@ -55,6 +55,15 @@
                     </div>
                  </div>
 
+                 <!-- NEW: Workforce Analysis Section -->
+                 <div id="workforce-section" class="chart-container full-width" style="margin-bottom: 40px;">
+                    <h3>Economic & Workforce Analysis</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">Estimated labor distribution across major species based on cultural and biological traits.</p>
+                    <div id="workforce-container" style="width: 100%;">
+                        <!-- Workforce bars injected by species-workforce.js -->
+                    </div>
+                 </div>
+
                  <div id="species-grid-container">
                     <!-- Detailed species cards will be injected here by JS -->
                  </div>
@@ -63,6 +72,7 @@
     </div>
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
+    <script type="module" src="species-workforce.js"></script> <!-- New script loaded here for availability, logic called by species.js -->
     <script type="module" src="species.js"></script>
 </body>
 </html>
