@@ -111,6 +111,25 @@
     justify-content: space-between;
 }
 
+.show-more-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+#toggle-species-btn {
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+}
+#toggle-species-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--sidebar-bg);
+}
+
 @media (max-width: 900px) {
     #dashboard-grid {
         grid-template-columns: 1fr;

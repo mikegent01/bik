@@ -3,7 +3,7 @@ import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
 
-// 2. Helper to aggregate populations
+// Helper to aggregate populations
 function calculateDemographics() {
     const totalByRegion = {};
     const totalBySpecies = {};
@@ -50,24 +50,33 @@ function calculateDemographics() {
 
 function renderCharts(data) {
     // -- Global Species Pie Chart --
-    // Filter out species with 0 or very low population for cleaner chart
-    const speciesEntries = Object.entries(data.totalBySpecies)
-        .filter(([, count]) => count > 100) // Threshold
-        .sort((a, b) => b[1] - a[1]); // Sort descending
+    // Show ALL species with population > 0, no grouping
+    const chartDataEntries = [];
+
+    Object.entries(data.totalBySpecies).forEach(([key, count]) => {
+        if (count > 0) {
+            chartDataEntries.push({
+                label: SPECIES_DATA[key]?.name || key,
+                count: count,
+                color: SPECIES_DATA[key]?.color || '#888'
+            });
+        }
+    });
+
+    chartDataEntries.sort((a, b) => b.count - a.count);
 
     const speciesCtx = document.getElementById('global-species-chart');
     if (speciesCtx) {
-        // Destroy existing chart if it exists to prevent overlay issues
         const existingChart = Chart.getChart(speciesCtx);
         if (existingChart) existingChart.destroy();
 
         new Chart(speciesCtx, {
             type: 'doughnut',
             data: {
-                labels: speciesEntries.map(([key]) => SPECIES_DATA[key]?.name || key),
+                labels: chartDataEntries.map(d => d.label),
                 datasets: [{
-                    data: speciesEntries.map(([, count]) => count),
-                    backgroundColor: speciesEntries.map(([key]) => SPECIES_DATA[key]?.color || '#888'),
+                    data: chartDataEntries.map(d => d.count),
+                    backgroundColor: chartDataEntries.map(d => d.color),
                     borderWidth: 1,
                     borderColor: '#161b22'
                 }]
@@ -76,7 +85,15 @@ function renderCharts(data) {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'right', labels: { color: '#e6edf3', font: { family: "'Roboto Mono', monospace" } } }
+                    legend: { 
+                        position: 'right', 
+                        labels: { 
+                            color: '#e6edf3', 
+                            font: { family: "'Roboto Mono', monospace" },
+                            boxWidth: 12,
+                            padding: 10
+                        } 
+                    }
                 }
             }
         });
@@ -163,10 +180,13 @@ function renderSpeciesList(data) {
     if (!container) return;
 
     // Sort by population count
-    const sortedSpecies = Object.entries(data.totalBySpecies).sort((a, b) => b[1] - a[1]);
+    let sortedSpecies = Object.entries(data.totalBySpecies).sort((a, b) => b[1] - a[1]);
+    
+    // Filter out 0 population for display
+    sortedSpecies = sortedSpecies.filter(([, count]) => count > 0);
 
-    container.innerHTML = sortedSpecies.map(([key, count]) => {
-        if (count === 0) return ''; // Skip empty
+    // SHOW ALL SPECIES, NO LIMIT
+    const cardsHTML = sortedSpecies.map(([key, count]) => {
         const species = SPECIES_DATA[key];
         if (!species) return '';
 
@@ -186,6 +206,8 @@ function renderSpeciesList(data) {
             </div>
         `;
     }).join('');
+
+    container.innerHTML = cardsHTML;
 }
 
 function init() {
