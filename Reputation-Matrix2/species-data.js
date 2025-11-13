@@ -35,9 +35,10 @@ export const SPECIES_DATA = {
             remi: "Curiosity. A short-lived human with a permanent magical construct? Fascinatingly efficient."
         },
         religion_breakdown: {
-            arceus_mythos: 0.50,
-            star_spirits: 0.30,
-            unaligned: 0.20
+            asuryan_faithful: 0.60,
+            sanctum_of_light: 0.20,
+            star_spirits: 0.10,
+            unaligned: 0.10
         }
     },
     dnd_elf_wood: { 
@@ -53,9 +54,9 @@ export const SPECIES_DATA = {
             remi: "Suspicion. You smell of city smoke and iron."
         },
         religion_breakdown: {
-            lunar_cycle: 0.40,
-            star_spirits: 0.40,
-            unaligned: 0.20
+            yggdrasil_pact: 0.50,
+            wild_hunt: 0.30,
+            star_spirits: 0.20
         }
     },
     dnd_elf_drow: { 
@@ -128,7 +129,7 @@ export const SPECIES_DATA = {
         religion_breakdown: {
             great_waaagh: 0.50,
             jester_cult: 0.30,
-            cog_gospel: 0.10,
+            scrappers_code: 0.10,
             unaligned: 0.10
         }
     },
@@ -205,7 +206,7 @@ export const SPECIES_DATA = {
         },
         religion_breakdown: {
             lunar_cycle: 0.50,
-            star_spirits: 0.30,
+            yggdrasil_pact: 0.30,
             unaligned: 0.20
         }
     },
@@ -317,9 +318,9 @@ export const SPECIES_DATA = {
             remi: "Friendly wave."
         },
         religion_breakdown: {
-            star_spirits: 0.50,
-            lunar_cycle: 0.30,
-            unaligned: 0.20
+            shine_sprite_cult: 0.70,
+            star_spirits: 0.20,
+            unaligned: 0.10
         }
     },
     noki: { 
@@ -335,8 +336,9 @@ export const SPECIES_DATA = {
             remi: "Giggles."
         },
         religion_breakdown: {
-            star_spirits: 0.40,
-            unaligned: 0.60
+            shine_sprite_cult: 0.60,
+            star_spirits: 0.30,
+            unaligned: 0.10
         }
     },
     shy_guy: { 
@@ -497,8 +499,8 @@ export const SPECIES_DATA = {
             remi: "Easy target."
         },
         religion_breakdown: {
-            cog_gospel: 0.40,
-            great_waaagh: 0.30,
+            scrappers_code: 0.40,
+            cog_gospel: 0.30,
             jester_cult: 0.20,
             unaligned: 0.10
         }
@@ -533,8 +535,8 @@ export const SPECIES_DATA = {
             remi: "Scare."
         },
         religion_breakdown: {
-            void_nihilism: 0.50,
-            sanguine_path: 0.30,
+            dark_moon_clan: 0.50,
+            void_nihilism: 0.30,
             unaligned: 0.20
         }
     },
@@ -542,73 +544,64 @@ export const SPECIES_DATA = {
     // ========================================================================
     // WARHAMMER
     // ========================================================================
-    warhammer_human: { name: 'Empire Human', color: '#c81d25', icon: '⚔️', description: 'Hardy humans of the Old World, beset by chaos.', player_relations: { archie: "Heretic!", markop: "Beastman! Kill it!", humpik: "Ally.", bowser: "Daemon!", remi: "Suspicious. Is that halo a sign of Sigmar or Chaos?" }, religion_breakdown: { silver_flame_faith: 0.70, cog_gospel: 0.20, unaligned: 0.10 } },
-    skaven: { name: 'Skaven', color: '#70e000', icon: '🐀', description: 'Insidious rat-men who dwell in the Under-Empire.', social_status: "Untrustworthy", player_relations: { archie: "Die-die, man-thing!", markop: "Horse-thing tasty!", humpik: "Beard-thing fear-fear!", bowser: "Big-thing scary!", remi: "Slave-thing!" }, religion_breakdown: { void_nihilism: 0.60, cog_gospel: 0.30, unaligned: 0.10 } },
-    warhammer_dwarf: { name: 'Dwarf (Old World)', color: '#0077b6', icon: '🛡️', description: 'Grudge-bearing mountain dwellers and master smiths.', player_relations: { archie: "Untrustworthy manling.", markop: "Abomination.", humpik: "KIN! ROCK AND STONE!", bowser: "Dragon-kin! Slay it!", remi: "Umgak (shoddy)." }, religion_breakdown: { cog_gospel: 0.80, silver_flame_faith: 0.10, unaligned: 0.10 } },
+    warhammer_human: { name: 'Empire Human', color: '#c81d25', icon: '⚔️', description: 'Hardy humans of the Old World, beset by chaos.', player_relations: { archie: "Heretic!", markop: "Beastman! Kill it!", humpik: "Ally.", bowser: "Daemon!", remi: "Suspicious. Is that halo a sign of Sigmar or Chaos?" }, religion_breakdown: { sigmarite_cult: 0.70, cog_gospel: 0.20, unaligned: 0.10 } },
+    skaven: { name: 'Skaven', color: '#70e000', icon: '🐀', description: 'Insidious rat-men who dwell in the Under-Empire.', social_status: "Untrustworthy", player_relations: { archie: "Die-die, man-thing!", markop: "Horse-thing tasty!", humpik: "Beard-thing fear-fear!", bowser: "Big-thing scary!", remi: "Slave-thing!" }, religion_breakdown: { great_horned_rat: 0.90, void_nihilism: 0.10 } },
+    warhammer_dwarf: { name: 'Dwarf (Old World)', color: '#0077b6', icon: '🛡️', description: 'Grudge-bearing mountain dwellers and master smiths.', player_relations: { archie: "Untrustworthy manling.", markop: "Abomination.", humpik: "KIN! ROCK AND STONE!", bowser: "Dragon-kin! Slay it!", remi: "Umgak (shoddy)." }, religion_breakdown: { cog_gospel: 0.50, sigmarite_cult: 0.10, unaligned: 0.40 } }, // Ancestor worship unaligned for now
     warhammer_orc: { name: 'Greenskin', color: '#38b000', icon: '🤮', description: 'Savage orcs living for the WAAAGH!', player_relations: { archie: "Krump 'im!", markop: "Fast food.", humpik: "Stuntie scum.", bowser: "Da Biggest Boss!", remi: "Squish." }, religion_breakdown: { great_waaagh: 1.0 } },
-    warhammer_elf: { name: 'High Elf', color: '#caf0f8', icon: '✨', description: 'Arrogant masters of magic from Ulthuan.', player_relations: { archie: "Primitive.", markop: "Curious mutation.", humpik: "Bearded savage.", bowser: "Monstrous threat.", remi: "Insignificant." }, religion_breakdown: { arceus_mythos: 0.60, star_spirits: 0.30, unaligned: 0.10 } },
-    beastman: { name: 'Beastman', color: '#5d4037', icon: '🐐', description: 'Twisted children of Chaos who haunt the deep woods.', player_relations: { archie: "BRAY!", markop: "Brother of Chaos?", humpik: "Hated foe.", bowser: "Strong leader.", remi: "Prey." }, religion_breakdown: { lunar_cycle: 0.50, great_waaagh: 0.30, void_nihilism: 0.20 } },
-    chaos_warrior: { name: 'Chaos Warrior', color: '#263238', icon: '🛡️', description: 'Heavily armored humans sworn to the Dark Gods.', player_relations: { archie: "Skull for Khorne.", markop: "Skull for Khorne.", humpik: "Skull for Khorne.", bowser: "A rival champion.", remi: "Skull for Khorne." }, religion_breakdown: { void_nihilism: 0.80, great_waaagh: 0.20 } },
-    lizardman: { name: 'Lizardman', color: '#00bcd4', icon: '🦎', description: 'Cold-blooded guardians of the Great Plan.', player_relations: { archie: "Warmblood intruder.", markop: "Not part of the Plan.", humpik: "Not part of the Plan.", bowser: "Chaos manifestation.", remi: "Not part of the Plan." }, religion_breakdown: { arceus_mythos: 0.90, unaligned: 0.10 } },
+    warhammer_elf: { name: 'High Elf', color: '#caf0f8', icon: '✨', description: 'Arrogant masters of magic from Ulthuan.', player_relations: { archie: "Primitive.", markop: "Curious mutation.", humpik: "Bearded savage.", bowser: "Monstrous threat.", remi: "Insignificant." }, religion_breakdown: { asuryan_faithful: 0.80, star_spirits: 0.10, unaligned: 0.10 } },
+    beastman: { name: 'Beastman', color: '#5d4037', icon: '🐐', description: 'Twisted children of Chaos who haunt the deep woods.', player_relations: { archie: "BRAY!", markop: "Brother of Chaos?", humpik: "Hated foe.", bowser: "Strong leader.", remi: "Prey." }, religion_breakdown: { wild_hunt: 0.40, great_waaagh: 0.30, void_nihilism: 0.30 } },
+    chaos_warrior: { name: 'Chaos Warrior', color: '#263238', icon: '🛡️', description: 'Heavily armored humans sworn to the Dark Gods.', player_relations: { archie: "Skull for Khorne.", markop: "Skull for Khorne.", humpik: "Skull for Khorne.", bowser: "A rival champion.", remi: "Skull for Khorne." }, religion_breakdown: { khornate_blood_cult: 0.40, nurgle_rot: 0.30, tzeentch_schemes: 0.20, slaanesh_excess: 0.10 } },
+    lizardman: { name: 'Lizardman', color: '#00bcd4', icon: '🦎', description: 'Cold-blooded guardians of the Great Plan.', player_relations: { archie: "Warmblood intruder.", markop: "Not part of the Plan.", humpik: "Not part of the Plan.", bowser: "Chaos manifestation.", remi: "Not part of the Plan." }, religion_breakdown: { great_plan: 1.0 } },
 
     // ========================================================================
     // MIDDLE-EARTH
     // ========================================================================
-    gondorian: { name: 'Man of Gondor', color: '#e0e0e0', icon: '🏰', description: 'Noble descendants of Numenor guarding the White City.', player_relations: { archie: "Commoner.", markop: "Monster.", humpik: "Ally of old.", bowser: "Troll-king.", remi: "Stranger from afar." }, religion_breakdown: { star_spirits: 0.50, silver_flame_faith: 0.40, unaligned: 0.10 } },
+    gondorian: { name: 'Man of Gondor', color: '#e0e0e0', icon: '🏰', description: 'Noble descendants of Numenor guarding the White City.', player_relations: { archie: "Commoner.", markop: "Monster.", humpik: "Ally of old.", bowser: "Troll-king.", remi: "Stranger from afar." }, religion_breakdown: { star_spirits: 0.60, sanctum_of_light: 0.30, unaligned: 0.10 } },
     rohirrim: { name: 'Rohirrim', color: '#81c784', icon: '🐎', description: 'Horse-lords of the grassy plains.', player_relations: { archie: "Stranger.", markop: "A HORSE MAN! AWE.", humpik: "Friend.", bowser: "Beast.", remi: "Shieldmaiden?" }, religion_breakdown: { lunar_cycle: 0.40, star_spirits: 0.40, unaligned: 0.20 } },
     middle_earth_elf: { name: 'Elf (Middle-earth)', color: '#ffd700', icon: '🧝', description: 'Immortal beings of starlight, song, and sorrow.', player_relations: { archie: "Young soul.", markop: "Strange creature.", humpik: "Grudging tolerance.", bowser: "Shadow and flame.", remi: "Child." }, religion_breakdown: { star_spirits: 0.90, unaligned: 0.10 } },
     middle_earth_dwarf: { name: 'Dwarf (Durin\'s Folk)', color: '#a9a9a9', icon: '⛏️', description: 'Miners and smiths of Erebor and the Iron Hills.', player_relations: { archie: "Thief?", markop: "Too tall.", humpik: "COUSIN!", bowser: "Dragon-spawn.", remi: "Soft." }, religion_breakdown: { cog_gospel: 0.85, unaligned: 0.15 } },
-    uruk_hai: { name: 'Uruk-hai', color: '#3e2723', icon: '🤚', description: 'A superior breed of Orc created for war.', player_relations: { archie: "Meat.", markop: "Meat.", humpik: "Tough meat.", bowser: "Master?", remi: "Fresh meat." }, religion_breakdown: { cog_gospel: 0.60, great_waaagh: 0.40 } },
-    mordor_orc: { name: 'Orc (Mordor)', color: '#5c4d3c', icon: '👺', description: 'Corrupted servants of the Dark Lord.', player_relations: { archie: "Scum.", markop: "Kill it.", humpik: "Filthy dwarf.", bowser: "Big Boss.", remi: "Slave." }, religion_breakdown: { void_nihilism: 0.70, great_waaagh: 0.30 } },
-    hobbit: { name: 'Hobbit', color: '#8ab17d', icon: '🦶', description: 'Small, comfort-loving folk of the Shire.', player_relations: { archie: "Too tall.", markop: "Too big.", humpik: "Good food.", bowser: "Hiding.", remi: "Tea?" }, religion_breakdown: { star_spirits: 0.30, unaligned: 0.70 } },
-    ent: { name: 'Ent', color: '#33691e', icon: '🌳', description: 'Ancient tree-shepherds of Fangorn Forest.', player_relations: { archie: "Hasty.", markop: "Not an orc.", humpik: "Axe-wielder (bad).", bowser: "Destroyer.", remi: "Little one." }, religion_breakdown: { lunar_cycle: 0.90, unaligned: 0.10 } },
+    uruk_hai: { name: 'Uruk-hai', color: '#3e2723', icon: '🤚', description: 'A superior breed of Orc created for war.', player_relations: { archie: "Meat.", markop: "Meat.", humpik: "Tough meat.", bowser: "Master?", remi: "Fresh meat." }, religion_breakdown: { great_waaagh: 0.50, cult_of_the_engine: 0.50 } },
+    mordor_orc: { name: 'Orc (Mordor)', color: '#5c4d3c', icon: '👺', description: 'Corrupted servants of the Dark Lord.', player_relations: { archie: "Scum.", markop: "Kill it.", humpik: "Filthy dwarf.", bowser: "Big Boss.", remi: "Slave." }, religion_breakdown: { the_one_ring_cult: 0.90, great_waaagh: 0.10 } },
+    hobbit: { name: 'Hobbit', color: '#8ab17d', icon: '🦶', description: 'Small, comfort-loving folk of the Shire.', player_relations: { archie: "Too tall.", markop: "Too big.", humpik: "Good food.", bowser: "Hiding.", remi: "Tea?" }, religion_breakdown: { star_spirits: 0.30, yggdrasil_pact: 0.20, unaligned: 0.50 } },
+    ent: { name: 'Ent', color: '#33691e', icon: '🌳', description: 'Ancient tree-shepherds of Fangorn Forest.', player_relations: { archie: "Hasty.", markop: "Not an orc.", humpik: "Axe-wielder (bad).", bowser: "Destroyer.", remi: "Little one." }, religion_breakdown: { yggdrasil_pact: 1.0 } },
     cave_troll: { name: 'Troll', color: '#616161', icon: '🧌', description: 'Huge, dim-witted creatures of stone and darkness.', player_relations: { archie: "Smash.", markop: "Smash.", humpik: "Crunch.", bowser: "Friend?", remi: "Squish." }, religion_breakdown: { great_waaagh: 0.50, unaligned: 0.50 } },
 
     // ========================================================================
     // KIVOTOS
     // ========================================================================
-    kivotos_human: { name: 'Student (Human)', color: '#4a86e8', icon: '👩‍🎓', description: 'Ordinary students wielding extraordinary firepower.', player_relations: { archie: "Sensei?", markop: "Cool cosplay.", humpik: "Short Sensei.", bowser: "Raid Boss!", remi: "Transfer student." }, religion_breakdown: { digital_ascension: 0.40, star_spirits: 0.20, jester_cult: 0.10, unaligned: 0.30 } },
-    kivotos_angel: { name: 'Student (Angel)', color: '#fff9c4', icon: '😇', description: 'Halo-bearing students, often from Trinity.', player_relations: { archie: "Sinner.", markop: "Majestic.", humpik: "Unrefined.", bowser: "Demon Lord.", remi: "Classmate." }, religion_breakdown: { silver_flame_faith: 0.50, arceus_mythos: 0.30, unaligned: 0.20 } },
-    kivotos_demon: { name: 'Student (Demon)', color: '#ef9a9a', icon: '😈', description: 'Horned and tailed students, often from Gehenna.', player_relations: { archie: "Fun.", markop: "Boring.", humpik: "Tough guy.", bowser: "Cool horns.", remi: "Whatever." }, religion_breakdown: { jester_cult: 0.60, great_waaagh: 0.20, unaligned: 0.20 } },
+    kivotos_human: { name: 'Student (Human)', color: '#4a86e8', icon: '👩‍🎓', description: 'Ordinary students wielding extraordinary firepower.', player_relations: { archie: "Sensei?", markop: "Cool cosplay.", humpik: "Short Sensei.", bowser: "Raid Boss!", remi: "Transfer student." }, religion_breakdown: { digital_ascension: 0.40, millennium_logic: 0.30, jester_cult: 0.10, unaligned: 0.20 } },
+    kivotos_angel: { name: 'Student (Angel)', color: '#fff9c4', icon: '😇', description: 'Halo-bearing students, often from Trinity.', player_relations: { archie: "Sinner.", markop: "Majestic.", humpik: "Unrefined.", bowser: "Demon Lord.", remi: "Classmate." }, religion_breakdown: { sanctum_of_light: 0.60, silver_flame_faith: 0.20, unaligned: 0.20 } },
+    kivotos_demon: { name: 'Student (Demon)', color: '#ef9a9a', icon: '😈', description: 'Horned and tailed students, often from Gehenna.', player_relations: { archie: "Fun.", markop: "Boring.", humpik: "Tough guy.", bowser: "Cool horns.", remi: "Whatever." }, religion_breakdown: { jester_cult: 0.50, slaanesh_excess: 0.20, great_waaagh: 0.10, unaligned: 0.20 } },
     kivotos_beastkin: { name: 'Student (Beastkin)', color: '#ffcc80', icon: '🦊', description: 'Students with animal traits like ears or tails.', player_relations: { archie: "Normal.", markop: "Weird ears.", humpik: "Fluffy.", bowser: "Scary.", remi: "Friend." }, religion_breakdown: { lunar_cycle: 0.40, digital_ascension: 0.30, unaligned: 0.30 } },
-    kivotos_robot: { name: 'Automata', color: '#999999', icon: '🤖', description: 'Robotic citizens and combat units of Kivotos.', player_relations: { archie: "Target.", markop: "Target.", humpik: "Target.", bowser: "Target.", remi: "Target." }, religion_breakdown: { digital_ascension: 0.80, cog_gospel: 0.20 } },
+    kivotos_robot: { name: 'Automata', color: '#999999', icon: '🤖', description: 'Robotic citizens and combat units of Kivotos.', player_relations: { archie: "Target.", markop: "Target.", humpik: "Target.", bowser: "Target.", remi: "Target." }, religion_breakdown: { digital_ascension: 0.60, cog_gospel: 0.20, millennium_logic: 0.20 } },
 
     // ========================================================================
     // POKEMON REGIONS
     // ========================================================================
     pokemon_human: { name: 'Human (Trainer)', color: '#ff0000', icon: '🧢', description: 'Humans who live, work, and battle alongside Pokémon.', player_relations: { archie: "Trainer?", markop: "Pokemon?", humpik: "Pokemon?", bowser: "Legendary Pokemon!", remi: "Student? You look like a trainer, but where are your Pokémon?" }, religion_breakdown: { arceus_mythos: 0.80, star_spirits: 0.10, unaligned: 0.10 } },
-    normal_pokemon: { name: 'Pokémon (Normal)', color: '#a8a878', icon: '⚪', description: 'Versatile Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    water_pokemon: { name: 'Pokémon (Water)', color: '#6890f0', icon: '💧', description: 'Pokémon adapted to aquatic environments.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    grass_pokemon: { name: 'Pokémon (Grass)', color: '#78c850', icon: '🌿', description: 'Pokémon with an affinity for nature.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    flying_pokemon: { name: 'Pokémon (Flying)', color: '#a890f0', icon: '🕊️', description: 'Pokémon capable of flight.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    bug_pokemon: { name: 'Pokémon (Bug)', color: '#a8b820', icon: '🪲', description: 'Insectoid Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    fire_pokemon: { name: 'Pokémon (Fire)', color: '#f08030', icon: '🔥', description: 'Pokémon of flame.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    electric_pokemon: { name: 'Pokémon (Electric)', color: '#f8d030', icon: '⚡', description: 'Pokémon of electricity.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    rock_pokemon: { name: 'Pokémon (Rock)', color: '#b8a038', icon: '🪨', description: 'Sturdy Pokémon of rock.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    ground_pokemon: { name: 'Pokémon (Ground)', color: '#e0c068', icon: '🏜️', description: 'Pokémon of earth.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    poison_pokemon: { name: 'Pokémon (Poison)', color: '#a040a0', icon: '☠️', description: 'Toxic Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    fighting_pokemon: { name: 'Pokémon (Fighting)', color: '#c03028', icon: '🥊', description: 'Martial arts Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    psychic_pokemon: { name: 'Pokémon (Psychic)', color: '#f85888', icon: '🔮', description: 'Mental power Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    dark_pokemon: { name: 'Pokémon (Dark)', color: '#705848', icon: '🌑', description: 'Cunning Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    steel_pokemon: { name: 'Pokémon (Steel)', color: '#b8b8d0', icon: '🔩', description: 'Metal body Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    fairy_pokemon: { name: 'Pokémon (Fairy)', color: '#ee99ac', icon: '🧚', description: 'Magical Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
-    ice_pokemon: { name: 'Pokémon (Ice)', color: '#98d8d8', icon: '❄️', description: 'Freezing Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" }, religion_breakdown: { arceus_mythos: 1.0 } },
+    // Pokemon themselves follow types
+    normal_pokemon: { name: 'Pokémon (Normal)', color: '#a8a878', icon: '⚪', description: 'Versatile Pokémon.', religion_breakdown: { arceus_mythos: 1.0 } },
+    water_pokemon: { name: 'Pokémon (Water)', color: '#6890f0', icon: '💧', description: 'Pokémon adapted to aquatic environments.', religion_breakdown: { arceus_mythos: 1.0 } },
+    grass_pokemon: { name: 'Pokémon (Grass)', color: '#78c850', icon: '🌿', description: 'Pokémon with an affinity for nature.', religion_breakdown: { arceus_mythos: 0.8, yggdrasil_pact: 0.2 } },
+    fire_pokemon: { name: 'Pokémon (Fire)', color: '#f08030', icon: '🔥', description: 'Pokémon of flame.', religion_breakdown: { arceus_mythos: 1.0 } },
+    ghost_pokemon: { name: 'Pokémon (Ghost)', color: '#705898', icon: '👻', description: 'Spiritual Pokémon.', religion_breakdown: { arceus_mythos: 0.6, dark_moon_clan: 0.4 } },
+    steel_pokemon: { name: 'Pokémon (Steel)', color: '#b8b8d0', icon: '🔩', description: 'Metal body Pokémon.', religion_breakdown: { arceus_mythos: 0.7, cog_gospel: 0.3 } },
     
     // ========================================================================
     // THE INTERNET
     // ========================================================================
-    netizen: { name: 'Netizen', color: '#00ffff', icon: '🌐', description: 'Digital avatars.', player_relations: { archie: "Troll.", markop: "Meme.", humpik: "User.", bowser: "Admin.", remi: "Newb." }, religion_breakdown: { digital_ascension: 0.80, jester_cult: 0.10, unaligned: 0.10 } },
+    netizen: { name: 'Netizen', color: '#00ffff', icon: '🌐', description: 'Digital avatars.', player_relations: { archie: "Troll.", markop: "Meme.", humpik: "User.", bowser: "Admin.", remi: "Newb." }, religion_breakdown: { digital_ascension: 0.70, jester_cult: 0.20, unaligned: 0.10 } },
     spam_bot: { name: 'Spam Bot', color: '#ffc107', icon: '📧', description: 'Annoying constructs.', player_relations: { archie: "Target.", markop: "Target.", humpik: "Target.", bowser: "Target.", remi: "Target." }, religion_breakdown: { digital_ascension: 1.0 } },
     living_meme: { name: 'Living Meme', color: '#00e676', icon: '🐸', description: 'Viral entities.', player_relations: { archie: "Lul.", markop: "Lul.", humpik: "Lul.", bowser: "Based.", remi: "Lul." }, religion_breakdown: { jester_cult: 0.90, void_nihilism: 0.10 } },
-    virus_entity: { name: 'Virus', color: '#d500f9', icon: '🦠', description: 'Malicious code.', player_relations: { archie: "Host.", markop: "Host.", humpik: "Host.", bowser: "Host.", remi: "Host." }, religion_breakdown: { void_nihilism: 0.70, jester_cult: 0.30 } },
+    virus_entity: { name: 'Virus', color: '#d500f9', icon: '🦠', description: 'Malicious code.', player_relations: { archie: "Host.", markop: "Host.", humpik: "Host.", bowser: "Host.", remi: "Host." }, religion_breakdown: { void_nihilism: 0.70, missingno_glitch: 0.30 } },
     moderator_construct: { name: 'Moderator', color: '#304ffe', icon: '🛡️', description: 'Enforcers of TOS.', player_relations: { archie: "Ban.", markop: "Warn.", humpik: "Mute.", bowser: "Ban.", remi: "Warn." }, religion_breakdown: { digital_ascension: 1.0 } },
 
     // ========================================================================
     // THE DOUGHNUT HOLE
     // ========================================================================
     void_entity: { name: 'Void Entity', color: '#000000', icon: '🌑', description: 'Beings of emptiness.', player_relations: { archie: "...", markop: "...", humpik: "...", bowser: "...", remi: "..." }, religion_breakdown: { void_nihilism: 1.0 } },
-    cosmic_entity: { name: 'Cosmic Entity', color: '#9d4edd', icon: '🌌', description: 'Beings of starlight.', player_relations: { archie: "Gnat.", markop: "Mote.", humpik: "Dust.", bowser: "Spark.", remi: "Speck." }, religion_breakdown: { star_spirits: 0.80, void_nihilism: 0.20 } },
-    fractal_being: { name: 'Fractal Being', color: '#6200ea', icon: '💠', description: 'Mathematical lifeforms.', player_relations: { archie: "Chaos.", markop: "Structure.", humpik: "Solid.", bowser: "Force.", remi: "Variable." }, religion_breakdown: { cog_gospel: 0.90, digital_ascension: 0.10 } },
+    cosmic_entity: { name: 'Cosmic Entity', color: '#9d4edd', icon: '🌌', description: 'Beings of starlight.', player_relations: { archie: "Gnat.", markop: "Mote.", humpik: "Dust.", bowser: "Spark.", remi: "Speck." }, religion_breakdown: { star_spirits: 0.50, luma_caretakers: 0.30, void_nihilism: 0.20 } },
+    fractal_being: { name: 'Fractal Being', color: '#6200ea', icon: '💠', description: 'Mathematical lifeforms.', player_relations: { archie: "Chaos.", markop: "Structure.", humpik: "Solid.", bowser: "Force.", remi: "Variable." }, religion_breakdown: { gematria_gnosis: 0.60, digital_ascension: 0.40 } },
     time_echo: { name: 'Time Echo', color: '#bdbdbd', icon: '⏳', description: 'Residual images.', player_relations: { archie: "Forgotten.", markop: "Past.", humpik: "Stone.", bowser: "Future.", remi: "Present." }, religion_breakdown: { void_nihilism: 1.0 } },
     logic_crystal: { name: 'Logic Crystal', color: '#00e5ff', icon: '💎', description: 'Sentient minerals.', player_relations: { archie: "Illogical.", markop: "Logical.", humpik: "Crystalline.", bowser: "Breaker.", remi: "Soft." }, religion_breakdown: { cog_gospel: 1.0 } },
     dnd_goliath: { name: 'Goliath', color: '#90a4ae', icon: '🏔️', description: 'Mountain-dwelling giants.', player_relations: { archie: "Small.", markop: "Brother.", humpik: "Cousin.", bowser: "Rival.", remi: "Tiny." }, religion_breakdown: { lunar_cycle: 0.50, cog_gospel: 0.20, unaligned: 0.30 } },
@@ -641,14 +634,14 @@ export const SPECIES_DATA = {
     // ========================================================================
     earth_land_mage: { name: 'Mage', color: '#f4a261', icon: '🔥', description: 'Magic wielding humans.', player_relations: { archie: "Rival.", markop: "Ally.", humpik: "User.", bowser: "Threat.", remi: "Friend." }, religion_breakdown: { star_spirits: 0.40, lunar_cycle: 0.20, jester_cult: 0.10, unaligned: 0.30 } },
     exceed: { name: 'Exceed', color: '#90caf9', icon: '😺', description: 'Winged cats.', player_relations: { archie: "Pet.", markop: "Fly.", humpik: "Cat.", bowser: "Snack.", remi: "Cute." }, religion_breakdown: { star_spirits: 0.80, unaligned: 0.20 } },
-    celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Summoned beings.', player_relations: { archie: "Contract.", markop: "Star.", humpik: "Ghost.", bowser: "Minion.", remi: "Friend." }, religion_breakdown: { star_spirits: 1.0 } },
+    celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Summoned beings.', player_relations: { archie: "Contract.", markop: "Star.", humpik: "Ghost.", bowser: "Minion.", remi: "Friend." }, religion_breakdown: { celestial_spirit_cult: 1.0 } }, // Maps to Star Spirits logically but could be custom
     vulcan: { name: 'Vulcan', color: '#f44336', icon: '🦍', description: 'Monstrous apes.', player_relations: { archie: "Monster.", markop: "Beast.", humpik: "Fight.", bowser: "Recruit.", remi: "Scary." }, religion_breakdown: { great_waaagh: 0.70, unaligned: 0.30 } },
     dnd_genasi_fire: { name: 'Genasi (Fire)', color: '#ff5722', icon: '🔥', description: 'Fire elementals.', player_relations: { archie: "Hot.", markop: "Warm.", humpik: "Forge.", bowser: "Like.", remi: "Burn." }, religion_breakdown: { lunar_cycle: 0.40, cog_gospel: 0.20, unaligned: 0.40 } },
 
     // ========================================================================
     // FAERUN
     // ========================================================================
-    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'Adaptable humans.', player_relations: { archie: "Human.", markop: "Horse.", humpik: "Dwarf.", bowser: "Monster.", remi: "Planar Traveler. You are human-shaped, but not of this world." }, religion_breakdown: { silver_flame_faith: 0.60, star_spirits: 0.20, unaligned: 0.20 } },
+    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'Adaptable humans.', player_relations: { archie: "Human.", markop: "Horse.", humpik: "Dwarf.", bowser: "Monster.", remi: "Planar Traveler. You are human-shaped, but not of this world." }, religion_breakdown: { sanctum_of_light: 0.40, star_spirits: 0.30, unaligned: 0.30 } },
     faerun_elf: { name: 'Elf (Realms)', color: '#bde0fe', icon: '🧝‍♀️', description: 'Magical beings.', player_relations: { archie: "Crude.", markop: "Noble.", humpik: "Stubborn.", bowser: "Evil.", remi: "Short." }, religion_breakdown: { star_spirits: 0.70, lunar_cycle: 0.20, unaligned: 0.10 } },
     faerun_dwarf: { name: 'Dwarf (Realms)', color: '#607d8b', icon: '⛏️', description: 'Stout warriors.', player_relations: { archie: "Weak.", markop: "Tall.", humpik: "BROTHER!", bowser: "Enemy.", remi: "Lass." }, religion_breakdown: { cog_gospel: 0.80, silver_flame_faith: 0.10, unaligned: 0.10 } },
     faerun_halfling: { name: 'Halfling (Realms)', color: '#ffcc80', icon: '🍞', description: 'Lucky folk.', player_relations: { archie: "Big.", markop: "Ride?", humpik: "Ale?", bowser: "Hide.", remi: "Food?" }, religion_breakdown: { star_spirits: 0.60, unaligned: 0.40 } },
@@ -687,11 +680,11 @@ export const SPECIES_DATA = {
     // ========================================================================
     // EQUESTRIA (Additional)
     // ========================================================================
-    earth_pony: { name: 'Earth Pony', color: '#8d6e63', icon: '🐴', description: 'Strong, dependable ponies.', player_relations: { archie: "Work.", markop: "Cousin.", humpik: "Strong.", bowser: "Slave.", remi: "Nice." }, religion_breakdown: { star_spirits: 0.70, lunar_cycle: 0.20, unaligned: 0.10 } },
-    pegasus: { name: 'Pegasus', color: '#4fc3f7', icon: '🪽', description: 'Winged ponies.', player_relations: { archie: "Fast.", markop: "Fly.", humpik: "Sky.", bowser: "Scout.", remi: "Cool." }, religion_breakdown: { star_spirits: 0.60, lunar_cycle: 0.30, unaligned: 0.10 } },
-    unicorn: { name: 'Unicorn', color: '#e1bee7', icon: '🦄', description: 'Magic-wielding ponies.', player_relations: { archie: "Magic.", markop: "Sparkle.", humpik: "Trick.", bowser: "Useful.", remi: "Pretty." }, religion_breakdown: { star_spirits: 0.80, arceus_mythos: 0.10, unaligned: 0.10 } },
+    earth_pony: { name: 'Earth Pony', color: '#8d6e63', icon: '🐴', description: 'Strong, dependable ponies.', player_relations: { archie: "Work.", markop: "Cousin.", humpik: "Strong.", bowser: "Slave.", remi: "Nice." }, religion_breakdown: { celestia_divinity: 0.80, lunar_cycle: 0.10, unaligned: 0.10 } },
+    pegasus: { name: 'Pegasus', color: '#4fc3f7', icon: '🪽', description: 'Winged ponies.', player_relations: { archie: "Fast.", markop: "Fly.", humpik: "Sky.", bowser: "Scout.", remi: "Cool." }, religion_breakdown: { celestia_divinity: 0.70, star_spirits: 0.20, unaligned: 0.10 } },
+    unicorn: { name: 'Unicorn', color: '#e1bee7', icon: '🦄', description: 'Magic-wielding ponies.', player_relations: { archie: "Magic.", markop: "Sparkle.", humpik: "Trick.", bowser: "Useful.", remi: "Pretty." }, religion_breakdown: { celestia_divinity: 0.85, arceus_mythos: 0.05, unaligned: 0.10 } },
     crystal_pony: { name: 'Crystal Pony', color: '#e0f7fa', icon: '💎', description: 'Crystal empire ponies.', player_relations: { archie: "Shiny.", markop: "Noble.", humpik: "Gem.", bowser: "Breakable.", remi: "Pretty." }, religion_breakdown: { arceus_mythos: 0.70, star_spirits: 0.30 } },
-    bat_pony: { name: 'Thestral', color: '#424242', icon: '🦇', description: 'Bat-winged ponies.', player_relations: { archie: "Dark.", markop: "Night.", humpik: "Bat.", bowser: "Minion.", remi: "Cool." }, religion_breakdown: { lunar_cycle: 0.60, sanguine_path: 0.20, unaligned: 0.20 } },
+    bat_pony: { name: 'Thestral', color: '#424242', icon: '🦇', description: 'Bat-winged ponies.', player_relations: { archie: "Dark.", markop: "Night.", humpik: "Bat.", bowser: "Minion.", remi: "Cool." }, religion_breakdown: { lunar_cycle: 0.70, sanguine_path: 0.10, unaligned: 0.20 } },
     changeling_reformed: { name: 'Changeling (Reformed)', color: '#81c784', icon: '🦟', description: 'Metamorphosing insectoid creatures.', player_relations: { archie: "Bug.", markop: "Strange.", humpik: "Squish.", bowser: "Spy.", remi: "Weird." }, religion_breakdown: { star_spirits: 0.90, unaligned: 0.10 } },
     kirin: { name: 'Kirin', color: '#ffcc80', icon: '🔥', description: 'Draconic ponies.', player_relations: { archie: "Fire.", markop: "Magic.", humpik: "Dragon.", bowser: "Kin.", remi: "Wow." }, religion_breakdown: { arceus_mythos: 0.50, lunar_cycle: 0.40, unaligned: 0.10 } },
     griffon: { name: 'Griffon', color: '#ffca28', icon: '🦅', description: 'Eagle-lion hybrids.', player_relations: { archie: "Greedy.", markop: "Rival.", humpik: "Bird.", bowser: "Mercenary.", remi: "Scary." }, religion_breakdown: { great_waaagh: 0.40, unaligned: 0.60 } },
