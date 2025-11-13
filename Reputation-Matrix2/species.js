@@ -48,6 +48,13 @@ function calculateDemographics() {
     return { totalByRegion, totalBySpecies, grandTotal };
 }
 
+function renderTotalPopulation(grandTotal) {
+    const display = document.getElementById('total-population-display');
+    if (display) {
+        display.innerText = grandTotal.toLocaleString();
+    }
+}
+
 function renderCharts(data) {
     // -- Global Species Pie Chart --
     // Show ALL species with population > 0, no grouping
@@ -212,6 +219,7 @@ function renderSpeciesList(data) {
 
 function init() {
     const data = calculateDemographics();
+    renderTotalPopulation(data.grandTotal);
     renderCharts(data);
     renderSpeciesList(data);
 }

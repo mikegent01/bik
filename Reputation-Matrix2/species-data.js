@@ -1,6 +1,7 @@
 
+
 export const SPECIES_DATA = {
-    // === D&D / FANTASY BASE ===
+    // === D&D / FANTASY BASE (Expanded) ===
     dnd_human: { name: 'Human (Variant)', color: '#d4a373', icon: '🧑', description: 'Versatile and ambitious humans found across all realms.' },
     dnd_elf_high: { name: 'Elf (High)', color: '#ffd700', icon: '🧝‍♂️', description: 'Graceful masters of arcane magic and high culture.' },
     dnd_elf_wood: { name: 'Elf (Wood)', color: '#558b2f', icon: '🏹', description: 'Swift and stealthy guardians of the deep forests.' },
@@ -32,9 +33,9 @@ export const SPECIES_DATA = {
     dnd_triton: { name: 'Triton', color: '#00acc1', icon: '🔱', description: 'Guardians of the deep ocean trenches.' },
     dnd_firbolg: { name: 'Firbolg', color: '#a1887f', icon: '🌲', description: 'Gentle giants of the forest who prefer peace.' },
     
-    // === SPECIAL REQUESTS ===
-    centaur_human_head: { name: 'Centaur (Human Head)', color: '#8d6e63', icon: '🐎', description: 'The classic centaur: human torso and head on a horse body. Noble and proud.' },
-    centaur_horse_head: { name: 'Centaur (Horse Head)', color: '#5d4037', icon: '🐴', description: 'A horrifying anomaly: A horse torso and body, with a horse head where the human torso should be. Or just a horse head on a human torso on a horse body. Pure chaos.' },
+    // === SPECIAL REQUESTS (Reduced) ===
+    centaur_human_head: { name: 'Centaur (Classic)', color: '#8d6e63', icon: '🐎', description: 'The classic centaur: human torso and head on a horse body. Noble and proud.' },
+    centaur_horse_head: { name: 'Centaur (Equine)', color: '#5d4037', icon: '🐴', description: 'A terrifying anomaly: A horse torso and body, with a horse head where the human torso should be.' },
     
     // === MARIO WORLD ===
     toad_citizen: { name: 'Toad', color: '#ff6b6b', icon: '🍄', description: 'The peaceful, fungal-capped citizens of the Mushroom Kingdom.' },
@@ -53,7 +54,7 @@ export const SPECIES_DATA = {
     elder_vampire: { name: 'Vampire', color: '#e4c1f9', icon: '🧛', description: 'Ancient, powerful undead aristocrats who feed on the living.' },
     midlands_orc: { name: 'Orc (Midlands)', color: '#2d6a4f', icon: '👹', description: 'Brutish warriors of the Wilderlands who live for battle.' },
     rakasha_hunter: { name: 'Rakasha', color: '#f0c69d', icon: '🐅', description: 'Proud, cat-like beastfolk who value honor and nature.' },
-    midlands_goblin: { name: 'Goblin', color: '#aed581', icon: '👺', description: 'Scrappy scavengers and mechanics of the Ratchet Raiders.' },
+    midlands_goblin: { name: 'Goblin (Scrapper)', color: '#aed581', icon: '👺', description: 'Scrappy scavengers and mechanics of the Ratchet Raiders.' },
     skeleton_warrior: { name: 'Skeleton', color: '#cfd8dc', icon: '💀', description: 'Animated remains serving necromancers or ancient curses.' },
     ghost_spirit: { name: 'Spirit', color: '#b3e5fc', icon: '👻', description: 'Restless souls bound to the mortal plane.' },
 
@@ -122,29 +123,44 @@ export const SPECIES_DATA = {
     sloth_folk: { name: 'Sloth', color: '#8d6e63', icon: '🦥', description: 'Slow-moving but thoughtful arboreal mammals.' },
     bear_folk: { name: 'Bear', color: '#3e2723', icon: '🐻', description: 'Strong and solitary omnivores.' },
 
-    // === EQUESTRIA ===
-    earth_pony: { name: 'Earth Pony', color: '#8d6e63', icon: '🐴', description: 'Strong ponies with a connection to the land.' },
-    pegasus: { name: 'Pegasus', color: '#4fc3f7', icon: '🪽', description: 'Winged ponies who manage the weather.' },
-    unicorn: { name: 'Unicorn', color: '#e1bee7', icon: '🦄', description: 'Ponies capable of wielding magic.' },
-    changeling: { name: 'Changeling', color: '#1de9b6', icon: '🦟', description: 'Insectoid shapeshifters who feed on love.' },
-    griffon: { name: 'Griffon', color: '#ffca28', icon: '🦅', description: 'Proud, eagle-lion hybrids from across the sea.' },
+    // === EQUESTRIA (Expanded) ===
+    earth_pony: { name: 'Earth Pony', color: '#8d6e63', icon: '🐴', description: 'Strong, dependable ponies with a deep connection to the land.' },
+    pegasus: { name: 'Pegasus', color: '#4fc3f7', icon: '🪽', description: 'Winged ponies who manage the weather and serve as the aerial military.' },
+    unicorn: { name: 'Unicorn', color: '#e1bee7', icon: '🦄', description: 'Magic-wielding ponies who form the scholarly and noble classes.' },
+    crystal_pony: { name: 'Crystal Pony', color: '#e0f7fa', icon: '💎', description: 'Ancient ponies from the Crystal Empire, radiating hope and light.' },
+    bat_pony: { name: 'Thestral (Bat Pony)', color: '#424242', icon: '🦇', description: 'Nocturnal ponies with leathery wings, often serving in the Royal Guard.' },
+    changeling_reformed: { name: 'Changeling (Reformed)', color: '#81c784', icon: '🦟', description: 'Metamorphosing insectoid creatures who now share love rather than stealing it.' },
+    kirin: { name: 'Kirin', color: '#ffcc80', icon: '🔥', description: 'Reclusive, draconic ponies who can burst into flames when angered.' },
+    griffon: { name: 'Griffon', color: '#ffca28', icon: '🦅', description: 'Proud, eagle-lion hybrids from Griffonstone.' },
+    yak: { name: 'Yak', color: '#5d4037', icon: '🐂', description: 'Large, powerful bovine creatures from the frozen north of Yakyakistan.' },
+    hippogriff: { name: 'Hippogriff/Seapony', color: '#ec407a', icon: '🌊', description: 'Transforming creatures who dwell on Mt. Aris and in Seaquestria.' },
 
-    // === TEYVAT ===
-    teyvat_human: { name: 'Human (Teyvat)', color: '#ffca3a', icon: '⚖️', description: 'Citizens of the seven nations.' },
-    hilichurl: { name: 'Hilichurl', color: '#5d4037', icon: '🎭', description: 'Masked tribal monsters found across the wilderness.' },
-    adeptus: { name: 'Adeptus', color: '#00bfa5', icon: '🐉', description: 'Illuminated beasts and guardians of Liyue.' },
-    abyss_mage: { name: 'Abyss Mage', color: '#6200ea', icon: '🧙‍♂️', description: 'Sorcerers of the Abyss Order promoting chaos.' },
-    slime_elemental: { name: 'Slime', color: '#29b6f6', icon: '💧', description: 'Pure elemental lifeforms in gelatinous shape.' },
+    // === TEYVAT (Expanded Lore) ===
+    teyvat_human: { name: 'Human (Teyvat)', color: '#ffca3a', icon: '⚖️', description: 'The primary populace of the seven nations.' },
+    hilichurl: { name: 'Hilichurl', color: '#5d4037', icon: '🎭', description: 'Tribal monsters found across the wilderness, remnants of a lost civilization.' },
+    adeptus: { name: 'Adeptus', color: '#00bfa5', icon: '🐉', description: 'Illuminated beasts and demigods of Liyue, bound by contract to protect the harbor.' },
+    youkai_inazuma: { name: 'Youkai', color: '#ab47bc', icon: '👺', description: 'Supernatural beings of Inazuma, including Kitsune, Oni, and Tengu.' },
+    fontainian: { name: 'Fontainian', color: '#42a5f5', icon: '💧', description: 'Humans of Fontaine, born from the oceanid\'s power and water.' },
+    melusine: { name: 'Melusine', color: '#f48fb1', icon: '🐌', description: 'Small, aquatic beings from Fontaine with keen sight and a unique perspective.' },
+    aranara: { name: 'Aranara', color: '#76ff03', icon: '🌱', description: 'Small, plant-like forest spirits of Sumeru, usually invisible to adults.' },
+    abyss_order: { name: 'Abyss Creature', color: '#6200ea', icon: '🧙‍♂️', description: 'Corrupted beings of the Void seeking to overthrow the divine throne.' },
+    elemental_lifeform: { name: 'Elemental', color: '#29b6f6', icon: '✨', description: 'Pure elemental lifeforms like Slimes, Hypostases, and Specters.' },
 
-    // === FAERUN ===
-    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'Versatile and ambitious humans of the Forgotten Realms.' },
-    faerun_elf: { name: 'Elf (Realms)', color: '#bde0fe', icon: '🧝‍♀️', description: 'Graceful and magical inhabitants of the forests.' },
-    faerun_dwarf: { name: 'Dwarf (Realms)', color: '#607d8b', icon: '⛏️', description: 'Stout warriors and craftsmen of the mountains.' },
-    halfling: { name: 'Halfling', color: '#ffcc80', icon: '🍞', description: 'Small, lucky folk who enjoy simple comforts.' },
-    gnome: { name: 'Gnome', color: '#ba68c8', icon: '⚙️', description: 'Inventive and eccentric tinkers.' },
-    tiefling: { name: 'Tiefling', color: '#ff5252', icon: '😈', description: 'Humans with an infernal heritage.' },
-    dragonborn: { name: 'Dragonborn', color: '#d4af37', icon: '🐲', description: 'Proud, draconic humanoids.' },
-    drow: { name: 'Drow', color: '#212121', icon: '🕷️', description: 'Dark elves from the Underdark.' },
+    // === FAERUN (Expanded D&D) ===
+    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'The adaptable and numerous humans of Toril.' },
+    faerun_elf: { name: 'Elf (Realms)', color: '#bde0fe', icon: '🧝‍♀️', description: 'Long-lived beings of magic and grace.' },
+    faerun_dwarf: { name: 'Dwarf (Realms)', color: '#607d8b', icon: '⛏️', description: 'Stout warriors and master craftsmen.' },
+    faerun_halfling: { name: 'Halfling (Realms)', color: '#ffcc80', icon: '🍞', description: 'Small, lucky folk who value home and hearth.' },
+    faerun_gnome: { name: 'Gnome (Realms)', color: '#ba68c8', icon: '⚙️', description: 'Inventive and inquisitive small folk.' },
+    faerun_tiefling: { name: 'Tiefling (Realms)', color: '#ff5252', icon: '😈', description: 'Heirs to an infernal bloodline.' },
+    faerun_dragonborn: { name: 'Dragonborn (Realms)', color: '#d4af37', icon: '🐲', description: 'Honor-bound warriors of draconic descent.' },
+    faerun_drow: { name: 'Drow (Realms)', color: '#212121', icon: '🕷️', description: 'Dark elves of the Underdark.' },
+    faerun_tabaxi: { name: 'Tabaxi', color: '#ffb74d', icon: '🐆', description: 'Cat-like wanderers driven by curiosity.' },
+    faerun_genasi: { name: 'Genasi', color: '#00bcd4', icon: '🔥', description: 'Those who carry the blood of the elemental planes.' },
+    faerun_aasimar: { name: 'Aasimar', color: '#e0f7fa', icon: '👼', description: 'Humans with a touch of celestial power.' },
+    faerun_tortle: { name: 'Tortle', color: '#558b2f', icon: '🐢', description: 'Nomadic tortoise-folk.' },
+    faerun_firbolg: { name: 'Firbolg', color: '#a1887f', icon: '🌲', description: 'Reclusive forest guardians.' },
+    faerun_goliath: { name: 'Goliath', color: '#90a4ae', icon: '🏔️', description: 'Strong folk from the highest mountain peaks.' },
 
     // === CONNECTOPIA ===
     block_folk: { name: 'Block Folk', color: '#795548', icon: '🟦', description: 'Pixelated humanoids who build and craft.' },
@@ -157,8 +173,12 @@ export const SPECIES_DATA = {
     celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Beings from the Spirit World summoned by keys.' },
     vulcan: { name: 'Vulcan', color: '#f44336', icon: '🦍', description: 'Monstrous ape-like creatures that inhabit mountains.' },
 
-    // === L'ECLAIRE ISLE ===
-    dough_folk: { name: 'Dough Folk', color: '#f4d35e', icon: '🍩', description: 'Sentient, pastry-based lifeforms.' },
+    // === L'ECLAIRE ISLE (The Originals) ===
+    dough_glazed: { name: 'Dough Folk (Glazed)', color: '#f4d35e', icon: '🍩', description: 'The ruling class of sweet, shiny original inhabitants.' },
+    dough_cake: { name: 'Dough Folk (Cake)', color: '#8d6e63', icon: '🍰', description: 'Dense, hardy folk often found in construction.' },
+    dough_jelly: { name: 'Dough Folk (Jelly)', color: '#e91e63', icon: '🍓', description: 'Volatile and energetic, filled with sweet potential.' },
+    dough_cruller: { name: 'Dough Folk (Cruller)', color: '#d7ccc8', icon: '🥨', description: 'Twisted, complex thinkers and philosophers.' },
+    dough_croissant: { name: 'Pastry-Kin (Croissant)', color: '#ffecb3', icon: '🥐', description: 'Flaky, layered aristocrats.' },
     frosting_slime: { name: 'Frosting Slime', color: '#f06292', icon: '🧁', description: 'Semi-sentient blobs of animated sugar.' },
     candy_construct: { name: 'Candy Golem', color: '#e91e63', icon: '🍭', description: 'Hard-candy constructs serving as guards.' },
 
@@ -177,16 +197,16 @@ export const SPECIES_DATA = {
 };
 
 export const REGIONAL_DEMOGRAPHICS = {
-    'Mushroom Kingdom Regions': { toad_citizen: 0.50, goomba: 0.15, koopa: 0.10, yoshi: 0.05, bob_omb: 0.05, shy_guy: 0.05, dnd_human: 0.05, dnd_halfling_lightfoot: 0.05 },
+    'Mushroom Kingdom Regions': { toad_citizen: 0.55, goomba: 0.15, koopa: 0.10, yoshi: 0.05, bob_omb: 0.05, shy_guy: 0.05, dnd_human: 0.05 },
     'Islands & Outer Realms': { pianta: 0.30, noki: 0.20, yoshi: 0.30, koopa: 0.10, monty_mole: 0.05, dnd_triton: 0.05 },
-    'The Midlands': { regal_midlander: 0.30, dnd_human: 0.10, moonfang_werewolf: 0.10, elder_vampire: 0.05, midlands_orc: 0.05, rakasha_hunter: 0.05, midlands_goblin: 0.05, skeleton_warrior: 0.05, ghost_spirit: 0.05, dnd_tiefling: 0.05, centaur_human_head: 0.05, dnd_dwarf_hill: 0.05, dnd_dragonborn_metallic: 0.05 },
-    'The Fated Place': { warhammer_human: 0.25, skaven: 0.15, warhammer_orc: 0.15, warhammer_dwarf: 0.10, warhammer_elf: 0.05, beastman: 0.05, chaos_warrior: 0.05, lizardman: 0.05, dnd_orc: 0.05, dnd_goblin: 0.05, centaur_horse_head: 0.05 },
-    'Middle-earth': { gondorian: 0.20, rohirrim: 0.15, middle_earth_elf: 0.10, middle_earth_dwarf: 0.10, hobbit: 0.05, mordor_orc: 0.15, uruk_hai: 0.10, ent: 0.03, cave_troll: 0.02, dnd_elf_high: 0.05, dnd_halfling_stout: 0.05 },
-    'Kivotos': { kivotos_human: 0.35, kivotos_angel: 0.20, kivotos_demon: 0.20, kivotos_beastkin: 0.10, kivotos_robot: 0.10, dnd_aasimar: 0.05 },
+    'The Midlands': { regal_midlander: 0.45, dnd_human: 0.15, moonfang_werewolf: 0.10, elder_vampire: 0.05, midlands_orc: 0.05, rakasha_hunter: 0.05, midlands_goblin: 0.05, skeleton_warrior: 0.05, ghost_spirit: 0.03, centaur_human_head: 0.02 },
+    'The Fated Place': { warhammer_human: 0.30, skaven: 0.15, warhammer_orc: 0.15, warhammer_dwarf: 0.10, warhammer_elf: 0.05, beastman: 0.05, chaos_warrior: 0.05, lizardman: 0.05, dnd_goblin: 0.05, dnd_halfling_stout: 0.05 },
+    'Middle-earth': { gondorian: 0.25, rohirrim: 0.15, middle_earth_elf: 0.10, middle_earth_dwarf: 0.10, hobbit: 0.05, mordor_orc: 0.20, uruk_hai: 0.10, ent: 0.02, cave_troll: 0.03 },
+    'Kivotos': { kivotos_human: 0.40, kivotos_angel: 0.20, kivotos_demon: 0.20, kivotos_beastkin: 0.10, kivotos_robot: 0.10 },
     'Pokémon Regions': { 
         pokemon_human: 0.20, 
-        normal_pokemon: 0.10, 
-        water_pokemon: 0.10, 
+        normal_pokemon: 0.12, 
+        water_pokemon: 0.12, 
         grass_pokemon: 0.10, 
         flying_pokemon: 0.08,
         bug_pokemon: 0.08,
@@ -195,25 +215,21 @@ export const REGIONAL_DEMOGRAPHICS = {
         rock_pokemon: 0.04,
         ground_pokemon: 0.04,
         poison_pokemon: 0.04,
-        fighting_pokemon: 0.03,
-        psychic_pokemon: 0.03,
-        dark_pokemon: 0.02,
+        fighting_pokemon: 0.02,
+        psychic_pokemon: 0.02,
+        dark_pokemon: 0.01,
         steel_pokemon: 0.01,
         fairy_pokemon: 0.01,
-        ice_pokemon: 0.01,
-        ghost_pokemon: 0.01,
-        dragon_pokemon: 0.005,
-        legendary_pokemon: 0.001,
-        dnd_gnome_forest: 0.03 
+        ice_pokemon: 0.01
     },
-    'The Internet': { netizen: 0.35, spam_bot: 0.20, living_meme: 0.15, virus_entity: 0.15, moderator_construct: 0.10, dnd_genasi_air: 0.05 },
-    'The Doughnut Hole': { void_entity: 0.35, cosmic_entity: 0.20, fractal_being: 0.15, time_echo: 0.15, logic_crystal: 0.10, dnd_goliath: 0.05 },
-    'Animatopia': { fox_folk: 0.15, rabbit_folk: 0.25, lion_folk: 0.10, sheep_folk: 0.20, sloth_folk: 0.10, bear_folk: 0.10, dnd_tabaxi: 0.05, dnd_kenku: 0.05 },
-    'The Edge Regions': { null_texture: 0.35, wireframe_husk: 0.25, glitch_ghost: 0.20, void_entity: 0.10, dnd_genasi_water: 0.10 },
-    'Connectopia': { block_folk: 0.65, creeper_kind: 0.15, ender_kind: 0.15, dnd_dwarf_mountain: 0.05 },
-    'Earth Land': { earth_land_mage: 0.55, exceed: 0.20, celestial_spirit: 0.10, vulcan: 0.10, dnd_genasi_fire: 0.05 },
-    'Faerûn': { faerun_human: 0.20, faerun_elf: 0.10, faerun_dwarf: 0.10, halfling: 0.10, gnome: 0.10, tiefling: 0.10, dragonborn: 0.10, dnd_drow: 0.05, dnd_elf_wood: 0.05, dnd_gnome_rock: 0.05, dnd_dragonborn_chromatic: 0.05 },
-    'L\'Eclaire Isle': { dough_folk: 0.75, frosting_slime: 0.10, candy_construct: 0.10, dnd_genasi_earth: 0.05 },
-    'Teyvat': { teyvat_human: 0.55, hilichurl: 0.20, adeptus: 0.05, abyss_mage: 0.10, slime_elemental: 0.05, dnd_genasi_air: 0.05 },
-    'Equestria': { earth_pony: 0.25, pegasus: 0.25, unicorn: 0.25, changeling: 0.05, griffon: 0.05, centaur_human_head: 0.10, dnd_firbolg: 0.05 },
+    'The Internet': { netizen: 0.40, spam_bot: 0.25, living_meme: 0.15, virus_entity: 0.10, moderator_construct: 0.10 },
+    'The Doughnut Hole': { void_entity: 0.30, cosmic_entity: 0.20, fractal_being: 0.15, time_echo: 0.15, logic_crystal: 0.10, dnd_goliath: 0.10 },
+    'Animatopia': { rabbit_folk: 0.30, sheep_folk: 0.20, fox_folk: 0.15, lion_folk: 0.10, sloth_folk: 0.10, bear_folk: 0.10, dnd_tabaxi: 0.05 },
+    'The Edge Regions': { null_texture: 0.40, wireframe_husk: 0.25, glitch_ghost: 0.20, void_entity: 0.10, dnd_genasi_water: 0.05 },
+    'Connectopia': { block_folk: 0.70, creeper_kind: 0.15, ender_kind: 0.10, dnd_dwarf_mountain: 0.05 },
+    'Earth Land': { earth_land_mage: 0.60, exceed: 0.20, celestial_spirit: 0.10, vulcan: 0.05, dnd_genasi_fire: 0.05 },
+    'Faerûn': { faerun_human: 0.25, faerun_elf: 0.15, faerun_dwarf: 0.10, faerun_halfling: 0.10, faerun_gnome: 0.05, faerun_tiefling: 0.05, faerun_dragonborn: 0.05, faerun_drow: 0.05, faerun_tabaxi: 0.05, faerun_genasi: 0.05, faerun_aasimar: 0.05, faerun_goliath: 0.05 },
+    'L\'Eclaire Isle': { dough_glazed: 0.30, dough_cake: 0.20, dough_jelly: 0.15, dough_cruller: 0.10, dough_croissant: 0.10, frosting_slime: 0.10, candy_construct: 0.05 },
+    'Teyvat': { teyvat_human: 0.60, hilichurl: 0.15, fontainian: 0.10, melusine: 0.05, youkai_inazuma: 0.05, adeptus: 0.02, abyss_mage: 0.03 },
+    'Equestria': { earth_pony: 0.30, pegasus: 0.25, unicorn: 0.20, crystal_pony: 0.10, bat_pony: 0.05, changeling_reformed: 0.05, kirin: 0.02, griffon: 0.02, yak: 0.01 },
 };

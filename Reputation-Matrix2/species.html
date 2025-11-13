@@ -22,6 +22,17 @@
                  <p class="page-subtitle">A comprehensive breakdown of population distribution, species density, and regional demographics based on the latest Vigilance reconnaissance data.</p>
                  
                  <div id="dashboard-grid">
+                    <!-- NEW: Total Population Card -->
+                    <div class="chart-container full-width" style="flex-direction: row; justify-content: space-between; align-items: center; padding: 30px;">
+                        <div>
+                            <h3>Total Known Population</h3>
+                            <p style="color: var(--text-secondary); margin: 0;">Census data aggregated from all tactical regions.</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <h2 id="total-population-display" style="font-family: var(--font-display); font-size: 3rem; color: var(--positive-color); margin: 0; text-shadow: 0 0 10px var(--positive-color);">0</h2>
+                        </div>
+                    </div>
+
                     <div class="chart-container full-width">
                         <h3>Global Species Distribution</h3>
                         <div class="canvas-wrapper">
