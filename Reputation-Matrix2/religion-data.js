@@ -1,4 +1,5 @@
 
+
 export const RELIGION_DATA = {
     groups: {
         celestial_order: {
@@ -34,56 +35,56 @@ export const RELIGION_DATA = {
         machine_orthodoxy: { celestial_order: 50, primal_forces: 80, machine_orthodoxy: 0, cosmic_void: 90 },
         cosmic_void: { celestial_order: 100, primal_forces: 40, machine_orthodoxy: 90, cosmic_void: 10 } // Chaos tolerates chaos
     },
-    // NEW: Gameplay consequences based on tension levels
+    // NEW: Gameplay consequences based on tension levels (TTRPG Flavor)
     tension_consequences: [
         { 
             min: 0, max: 10, 
             title: "Harmonious Integration", 
-            description: "Your species is fully welcomed into the fold.",
+            description: "Your soul resonates with the divine frequency of this faith.",
             effects: [
-                "✅ Full access to all temples and services.",
-                "✅ +10% Social Standing with followers.",
-                "✅ Ritual costs reduced by 15%."
+                "✅ Advantage on all Charisma (Persuasion) checks with followers.",
+                "✅ Temple services and non-magical healing are free.",
+                "✅ Access granted to inner sanctums and restricted archives."
             ]
         },
         { 
             min: 11, max: 30, 
             title: "Minor Friction", 
-            description: "You are viewed as an oddity, but tolerated.",
+            description: "You are viewed as a well-meaning outsider.",
             effects: [
-                "⚠️ Rituals cost 10% more.",
-                "⚠️ Minor social penalties in zealot-controlled zones.",
-                "✅ Standard access to merchants."
+                "⚠️ Ritual component costs increased by 10%.",
+                "⚠️ Social interactions start at 'Neutral' attitude.",
+                "✅ Standard access to merchants and services."
             ]
         },
         { 
             min: 31, max: 60, 
             title: "Spiritual Dissonance", 
-            description: "Your species' nature conflicts with the dogma.",
+            description: "Your nature conflicts with the dogma.",
             effects: [
-                "⛔ -20% Conversion Speed.",
-                "⛔ Healing rituals are 50% less effective on you.",
-                "⚠️ NPCs of this faith will be Unfriendly (prices +25%)."
+                "⛔ Disadvantage on Charisma checks to influence clergy.",
+                "⛔ Divine healing spells targeting you roll half the normal dice.",
+                "⚠️ NPC Attitude starts at 'Unfriendly'. DC 15 Check to improve."
             ]
         },
         { 
             min: 61, max: 80, 
             title: "Open Hostility", 
-            description: "You are branded an Outsider and a threat to purity.",
+            description: "You are branded an Apostate and a spiritual threat.",
             effects: [
-                "⛔ Denied access to inner sanctums.",
-                "⛔ -50% Social Standing. Dialogue checks hard fail.",
-                "⚠️ Merchants of this faith may refuse service."
+                "⛔ Denied entry to holy sites; trespassing invokes hostility.",
+                "⛔ Social checks automatically fail without magical compulsion.",
+                "⚠️ Merchants of this faith refuse service."
             ]
         },
         { 
             min: 81, max: 100, 
             title: "Heretical Status", 
-            description: "Your very existence is an insult to this god.",
+            description: "Your very existence is an insult to the god.",
             effects: [
-                "☠️ Paladins and Inquisitors may attack on sight.",
-                "⛔ Cannot join or convert.",
-                "⛔ Entering a temple is considered a crime."
+                "☠️ Zealots and Inquisitors attack on sight (Roll Initiative).",
+                "⛔ Divine magic from this source deals damage instead of healing.",
+                "⛔ Marked for death by the church hierarchy."
             ]
         }
     ],
@@ -101,6 +102,11 @@ export const RELIGION_DATA = {
             organization: "The Star Sanctuary",
             activation_ritual: "Stand beneath the open sky at midnight and offer a Star Bit while whispering your truest desire.",
             daily_liturgy: "Sketch the position of the North Star upon waking.",
+            weekly_observances: [
+                { day: "Soldas", text: "Cleanse the Star Altar with spring water." },
+                { day: "Mercurias", text: "Share a wish with a stranger to spread hope." },
+                { day: "Saturias", text: "Fast from sunrise to sunset to honor the Falling Stars." }
+            ],
             traditions: ["The Star Festival", "Collecting Star Pieces", "Wishing upon falling stars"],
             saints: ["Misstar", "Twink the Star Kid", "The Seven Star Spirits"],
             heresies: "Worship of the Dark Star; The belief that wishes are a finite resource.",
@@ -130,6 +136,11 @@ export const RELIGION_DATA = {
             organization: "Church of the Silver Flame",
             activation_ritual: "Burn a candle of pure silver and recite the Litany of Purification until the flame turns white.",
             daily_liturgy: "Recite the names of the purified while facing the rising sun.",
+            weekly_observances: [
+                { day: "Terras", text: "Sharpen blades and bless ammunition for the coming conflicts." },
+                { day: "Mercurias", text: "Light a beacon fire to guide lost souls." },
+                { day: "Venerias", text: "Public recitation of the list of forbidden entities." }
+            ],
             traditions: ["The Fast of Ashes", "The Vigil of the Long Night", "Inquisition trials"],
             saints: ["Tira Miron", "Saint Kord the Breaker"],
             heresies: "Radicalism (using dark magic to fight dark magic); Believing the Flame is a demon."
@@ -146,6 +157,10 @@ export const RELIGION_DATA = {
             organization: "The Hallowed Tower",
             activation_ritual: "Play the Azure Flute at the highest altitude possible to summon the Hall of Origin.",
             daily_liturgy: "Cleanse and polish all six Poké Balls before breakfast.",
+            weekly_observances: [
+                { day: "Lunadas", text: "Visit a shrine dedicated to Dialga or Palkia." },
+                { day: "Jovias", text: "Release a caught Pokémon back into the wild as an offering." }
+            ],
             traditions: ["Collecting Plates", "Reverence of Unown", "The Sinjoh Ruins pilgrimage"],
             saints: ["The Hero of Truth", "The Hero of Ideals", "The Ancient Hero"],
             heresies: "Creating artificial Pokémon like Mewtwo or Type: Null to rival the gods."
@@ -162,6 +177,10 @@ export const RELIGION_DATA = {
             organization: "The Holy Order of the Templars",
             activation_ritual: "Strike a warhammer upon a consecrated anvil at dawn while shouting praise to the Heldenhammer.",
             daily_liturgy: "Perform one hour of martial drills before the midday meal.",
+            weekly_observances: [
+                { day: "Mercurias", text: "Public denouncement of Chaos in the town square." },
+                { day: "Saturias", text: "The Feast of the Hammer - consume meat and ale in Sigmar's honor." }
+            ],
             traditions: ["Witch-burning", "Warrior Priests shaving their heads", "The Festival of the Comet"],
             saints: ["Magnus the Pious", "Valten"],
             heresies: "Chaos worship; Believing Sigmar was just a man; Ulric worship (sometimes)."
@@ -324,6 +343,10 @@ export const RELIGION_DATA = {
             organization: "The Green Tide",
             activation_ritual: "Head-butt the nearest hard object and scream 'WAAAGH!' as loud as possible.",
             daily_liturgy: "Break something valuable.",
+            weekly_observances: [
+                { day: "Terras", text: "Start a fight with someone larger than you." },
+                { day: "Venerias", text: "Paint a weapon red to make it go faster." }
+            ],
             traditions: ["Painting things red to go faster", "Looting", "Teef collection"],
             saints: ["Grimgor Ironhide", "Grom the Paunch", "Ghazghkull Thraka"],
             heresies: "Being quiet; Using strategy without violence; Peace."
@@ -340,6 +363,10 @@ export const RELIGION_DATA = {
             organization: "The Pack Council",
             activation_ritual: "Howl at the full moon in perfect unison with the pack.",
             daily_liturgy: "Hunt and kill a meal without using weapons.",
+            weekly_observances: [
+                { day: "Mercurias", text: "Sharpen claws on sacred stones." },
+                { day: "Venerias", text: "Run beneath the moonlight until exhaustion." }
+            ],
             traditions: ["The Great Hunt", "Raw meat feasts", "Marking territory"],
             saints: ["Hircine", "The First Werewolf"],
             heresies: "Using silver weapons; Curing lycanthropy; Veganism."
@@ -534,6 +561,11 @@ export const RELIGION_DATA = {
             organization: "Priesthood of Mars",
             activation_ritual: "Anoint a machine with sacred oil while chanting in binary.",
             daily_liturgy: "Disassemble and reassemble your primary weapon.",
+            weekly_observances: [
+                { day: "Lunadas", text: "Oil the gears of the great machines." },
+                { day: "Mercurias", text: "Calibrate all measuring tools." },
+                { day: "Jovias", text: "Recite the Canticle of Construction." }
+            ],
             traditions: ["Binary chanting", "Replacing limbs with augmetics", "Oil baths"],
             saints: ["Belisarius Cawl", "The Fabricator General"],
             heresies: "Artificial Intelligence (Abominable Intelligence); Scrap code; Rust."
@@ -728,6 +760,10 @@ export const RELIGION_DATA = {
             organization: "Circus of Values",
             activation_ritual: "Perform a pratfall that defies physics.",
             daily_liturgy: "Laugh at something inappropriate.",
+            weekly_observances: [
+                { day: "Lunadas", text: "Wear mismatched socks." },
+                { day: "Jovias", text: "Tell a joke that has no punchline." }
+            ],
             traditions: ["The Festival of Fools", "Custard pie fights", "Honking"],
             saints: ["Dimentio", "Marx"],
             heresies: "Being serious; Obeying laws of physics; Silence."
@@ -908,58 +944,5 @@ export const RELIGION_DATA = {
             saints: ["N", "Ghetsis"],
             heresies: "Pokémon Battles (officially); Poké Balls; Happiness."
         }
-    },
-    // NEW: Gameplay consequences based on tension levels
-    tension_consequences: [
-        { 
-            min: 0, max: 10, 
-            title: "Harmonious Integration", 
-            description: "Your species is fully welcomed into the fold.",
-            effects: [
-                "✅ Full access to all temples and services.",
-                "✅ +10% Social Standing with followers.",
-                "✅ Ritual costs reduced by 15%."
-            ]
-        },
-        { 
-            min: 11, max: 30, 
-            title: "Minor Friction", 
-            description: "You are viewed as an oddity, but tolerated.",
-            effects: [
-                "⚠️ Rituals cost 10% more.",
-                "⚠️ Minor social penalties in zealot-controlled zones.",
-                "✅ Standard access to merchants."
-            ]
-        },
-        { 
-            min: 31, max: 60, 
-            title: "Spiritual Dissonance", 
-            description: "Your species' nature conflicts with the dogma.",
-            effects: [
-                "⛔ -20% Conversion Speed.",
-                "⛔ Healing rituals are 50% less effective on you.",
-                "⚠️ NPCs of this faith will be Unfriendly (prices +25%)."
-            ]
-        },
-        { 
-            min: 61, max: 80, 
-            title: "Open Hostility", 
-            description: "You are branded an Outsider and a threat to purity.",
-            effects: [
-                "⛔ Denied access to inner sanctums.",
-                "⛔ -50% Social Standing. Dialogue checks hard fail.",
-                "⚠️ Merchants of this faith may refuse service."
-            ]
-        },
-        { 
-            min: 81, max: 100, 
-            title: "Heretical Status", 
-            description: "Your very existence is an insult to this god.",
-            effects: [
-                "☠️ Paladins and Inquisitors may attack on sight.",
-                "⛔ Cannot join or convert.",
-                "⛔ Entering a temple is considered a crime."
-            ]
-        }
-    ]
+    }
 };

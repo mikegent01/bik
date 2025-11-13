@@ -1,3 +1,4 @@
+
 #calendar-page-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -372,6 +373,31 @@
     color: var(--bg-color);
     font-weight: bold;
 }
+
+/* --- Edicts Modal Styles --- */
+.edicts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+.edict-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-color);
+    padding: 16px;
+    border-radius: 6px;
+}
+.edict-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+}
+.edict-religion { color: var(--text-color); font-weight: bold; }
+.edict-leader { color: var(--text-secondary); font-style: italic; font-size: 0.8rem; }
+.edict-text { font-family: 'Georgia', serif; font-size: 1rem; color: var(--text-color); line-height: 1.5; }
 
 
 @media (max-width: 1024px) {

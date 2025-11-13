@@ -47,11 +47,25 @@
                             <h3>Holidays</h3>
                             <ul id="holidays-list"></ul>
                         </div>
+                        <button id="view-edicts-btn" class="calendar-nav-btn" style="width:100%; margin-top: 16px;">📜 View Active Religious Edicts</button>
                     </div>
                  </div>
             </main>
         </div>
     </div>
+
+    <!-- Edicts Modal -->
+    <div id="edicts-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>Active Religious Edicts</h3>
+            <p class="page-subtitle">Current divine mandates enforced by the major faiths.</p>
+            <div id="edicts-modal-list" class="edicts-grid">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="calendar.js"></script>
