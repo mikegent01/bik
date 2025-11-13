@@ -1,4 +1,5 @@
 
+
 export const SPECIES_DATA = {
     // ========================================================================
     // D&D / FANTASY BASE
@@ -187,6 +188,22 @@ export const SPECIES_DATA = {
             silver_flame_faith: 0.30,
             unaligned: 0.10
         }
+    },
+    dnd_goliath: { 
+        name: 'Goliath', 
+        color: '#90a4ae', 
+        icon: '🏔️', 
+        description: 'Mountain-dwelling giants.', 
+        player_relations: { archie: "Small.", markop: "Brother.", humpik: "Cousin.", bowser: "Rival.", remi: "Tiny." }, 
+        religion_breakdown: { lunar_cycle: 0.50, cog_gospel: 0.20, unaligned: 0.30 } 
+    },
+    dnd_genasi_fire: { 
+        name: 'Genasi (Fire)', 
+        color: '#ff5722', 
+        icon: '🔥', 
+        description: 'Fire elementals.', 
+        player_relations: { archie: "Hot.", markop: "Warm.", humpik: "Forge.", bowser: "Like.", remi: "Burn." }, 
+        religion_breakdown: { lunar_cycle: 0.40, cog_gospel: 0.20, unaligned: 0.40 } 
     },
     
     // ========================================================================
@@ -586,6 +603,10 @@ export const SPECIES_DATA = {
     fire_pokemon: { name: 'Pokémon (Fire)', color: '#f08030', icon: '🔥', description: 'Pokémon of flame.', religion_breakdown: { arceus_mythos: 1.0 } },
     ghost_pokemon: { name: 'Pokémon (Ghost)', color: '#705898', icon: '👻', description: 'Spiritual Pokémon.', religion_breakdown: { arceus_mythos: 0.6, dark_moon_clan: 0.4 } },
     steel_pokemon: { name: 'Pokémon (Steel)', color: '#b8b8d0', icon: '🔩', description: 'Metal body Pokémon.', religion_breakdown: { arceus_mythos: 0.7, cog_gospel: 0.3 } },
+    electric_pokemon: { name: 'Pokémon (Electric)', color: '#f8d030', icon: '⚡', description: 'Pokémon charged with electricity.', religion_breakdown: { arceus_mythos: 0.8, cult_of_the_engine: 0.2 } },
+    psychic_pokemon: { name: 'Pokémon (Psychic)', color: '#f85888', icon: '🔮', description: 'Pokémon with powerful mental abilities.', religion_breakdown: { arceus_mythos: 0.7, star_spirits: 0.3 } },
+    dark_pokemon: { name: 'Pokémon (Dark)', color: '#705848', icon: '🌑', description: 'Pokémon active in the shadows.', religion_breakdown: { arceus_mythos: 0.6, void_nihilism: 0.4 } },
+    fighting_pokemon: { name: 'Pokémon (Fighting)', color: '#c03028', icon: '🥊', description: 'Martial artist Pokémon.', religion_breakdown: { arceus_mythos: 0.8, great_waaagh: 0.2 } },
     
     // ========================================================================
     // THE INTERNET

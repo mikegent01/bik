@@ -1,3 +1,4 @@
+
 import { playSound } from './common.js';
 import { MAP_DATA } from './map-data.js';
 import * as map from './maps.js';
@@ -30,10 +31,6 @@ export function renderTabs() {
         relevantGroups = ['The Doughnut Hole'];
     } else if (currentPage === 'pokemon-maps.html') {
         relevantGroups = ['Pokémon Regions'];
-    } else if (currentPage === 'almost-edge-maps.html' || currentPage === 'the-edge-maps.html') {
-        relevantGroups = ['The Edge Regions'];
-    } else if (currentPage === 'animatopia-maps.html') {
-        relevantGroups = ['Animatopia'];
     } else { // Default, for mushroom-kingdom-maps.html
         relevantGroups = ['Mushroom Kingdom Regions', 'Islands & Outer Realms'];
     }
@@ -72,6 +69,7 @@ export function renderTabs() {
     modeSelector.innerHTML = `
         <span>Mode:</span>
         <button class="mode-btn ${map.activeMapMode === 'standard' ? 'active' : ''}" data-mode="standard">Standard</button>
+        <button class="mode-btn ${map.activeMapMode === 'party' ? 'active' : ''}" data-mode="party">Party</button>
         <button class="mode-btn ${map.activeMapMode === 'political' ? 'active' : ''}" data-mode="political">Political</button>
         <button class="mode-btn ${map.activeMapMode === 'economic' ? 'active' : ''}" data-mode="economic">Economic</button>
         <button class="mode-btn ${map.activeMapMode === 'military' ? 'active' : ''}" data-mode="military">Military</button>

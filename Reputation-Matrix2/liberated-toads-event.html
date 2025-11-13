@@ -3,44 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vigilance Terminal | Special Mission</title>
+    <title>Vigilance Terminal | Mission Overview</title>
     <link rel="stylesheet" href="global.css" />
     <link rel="stylesheet" href="layout.css" />
     <link rel="stylesheet" href="components.css" />
+    <link rel="stylesheet" href="toads-event.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        /* ... all your existing CSS styles remain the same ... */
-        .metrics-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 16px 0 24px; }
-        .metric { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; }
-        .metric-header { display: flex; justify-content: space-between; font-family: "Roboto Mono", monospace; font-size: 0.9rem; color: #a9ffea; }
-        .metric-bar { height: 8px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin-top: 8px; }
-        .metric-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#2bd1ff,#4eff9e); transition: width 300ms ease; }
-        .dialogue-panel { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.12); padding: 16px; border-radius: 8px; margin: 12px 0 20px; font-family: 'Shadows Into Light Two', 'Roboto Mono', monospace; font-size: 1.1rem; color: #cbe6ff; line-height: 1.7; }
-        .dialogue-line .speaker { font-family: "Orbitron", sans-serif; color: #ffd54e; font-weight: bold; }
-        .decision-container { margin: 24px 0; padding: 16px; border-left: 3px solid #4eff9e; background: rgba(78, 255, 158, 0.05); border-radius: 0 8px 8px 0; }
-        .decision-title { font-family: "Orbitron", sans-serif; font-size: 1.4rem; margin-bottom: 8px; color: #4eff9e; }
-        .decision-narrative { font-family: "Roboto Mono", monospace; color: #cbe6ff; }
-        .choices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
-        .decision-card { border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; background: rgba(255,255,255,0.04); display: flex; flex-direction: column; transition: all 0.2s ease-in-out; }
-        .decision-card:hover { border-color: var(--accent-hover); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .decision-card-title { font-family: 'Orbitron', sans-serif; font-weight: 700; margin-bottom: 8px; color: #a9ffea; font-size: 1.1rem; }
-        .decision-card-desc { flex: 1; font-size: 0.95rem; color: #e8f5ff; line-height: 1.5; }
-        .decision-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
-        .btn { cursor: pointer; border: none; border-radius: 6px; padding: 10px 16px; font-family: "Roboto Mono", monospace; font-weight: bold; text-decoration: none; }
-        .btn-primary { background: #2bd1ff; color: #0a0f14; transition: background-color 0.2s; }
-        .btn-primary:hover { background-color: #5ce1ff; }
-        .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 1000; }
-        .modal.open { display: flex; animation: fadeIn 0.3s ease-out; }
-        .modal-content { background: #0a0f14; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 24px; width: min(500px, 92vw); position: relative; }
-        .modal-close { position: absolute; top: 10px; right: 10px; font-size: 1.5rem; background: transparent; color: #e8f5ff; border: none; cursor: pointer; transition: transform 0.2s; }
-        .modal-close:hover { transform: scale(1.2); }
-        .modal-content h3 { font-family: 'Orbitron', sans-serif; color: var(--neutral-color); margin-bottom: 16px; }
-        .modal-content p { font-family: 'Roboto Mono', monospace; }
-        .modal-actions { display: flex; justify-content: flex-end; margin-top: 24px; }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="tablet-frame">
@@ -48,183 +16,75 @@
         <div id="app">
             <aside id="sidebar"></aside>
             <main id="main-content">
-                <section id="mission-section">
-                    <h2 class="page-title">Special Mission: The Shattered Vow</h2>
-                    <p class="page-subtitle">
-                        The survivors of Shadeward Mansion have returned, but they brought the horror back with them. One of their own is grievously wounded, and worse, they carry the knowledge of a traitor in their ranks. The Iron Legion had a mole. Trust is gone. The vow that held the Liberated Toads together has shattered. As a leader, you must pick up the pieces before they turn on each other.
-                    </p>
-                    <div id="mission-metrics" class="metrics-board">
-                        <div class="metric">
-                            <div class="metric-header"><span>Toad Morale</span><span id="m-morale-val">0</span></div>
-                            <div class="metric-bar"><div id="m-morale" class="metric-fill"></div></div>
+                <section id="mission-dashboard">
+                    <!-- Header / Status Banner -->
+                    <div class="mission-header-banner status-critical">
+                        <div class="banner-content">
+                            <h2>OPERATION: SILENT RAIN</h2>
+                            <p>LOC: Raventree Manor // DAY 19</p>
                         </div>
-                        <div class="metric">
-                            <div class="metric-header"><span>Legion Threat</span><span id="m-threat-val">0</span></div>
-                            <div class="metric-bar"><div id="m-threat" class="metric-fill"></div></div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-header"><span>Internal Security</span><span id="m-security-val">0</span></div>
-                            <div class="metric-bar"><div id="m-security" class="metric-fill"></div></div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-header"><span>Group Cohesion</span><span id="m-cohesion-val">0</span></div>
-                            <div class="metric-bar"><div id="m-cohesion" class="metric-fill"></div></div>
+                        <div class="mission-status-badge blink">
+                            STATUS: CONTAINMENT BREACH
                         </div>
                     </div>
-                    <div id="dialogue" class="dialogue-panel"></div>
-                    <div id="decision-container"></div>
+
+                    <!-- Mission Details Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Left Col: Objectives & Metrics -->
+                        <div class="dashboard-col-left">
+                            <div class="panel tactical-panel">
+                                <div class="panel-header"><h3>Current Objectives</h3></div>
+                                <ul class="objective-list">
+                                    <li class="obj-complete">Establish Perimeter (Pond Patrol)</li>
+                                    <li class="obj-complete">Apprehend Archie Miser</li>
+                                    <li class="obj-failed">Secure the Manor Interior</li>
+                                    <li class="obj-active">Contain Supernatural Outbreak</li>
+                                </ul>
+                            </div>
+
+                            <div class="panel tactical-panel">
+                                <div class="panel-header"><h3>Environmental Readings</h3></div>
+                                <div class="readings-grid">
+                                    <div class="reading-item">
+                                        <span class="label">Arcane Flux</span>
+                                        <div class="bar-container"><div class="bar-fill red" style="width: 95%">CRITICAL</div></div>
+                                    </div>
+                                    <div class="reading-item">
+                                        <span class="label">Structural Integrity</span>
+                                        <div class="bar-container"><div class="bar-fill orange" style="width: 40%">UNSTABLE</div></div>
+                                    </div>
+                                    <div class="reading-item">
+                                        <span class="label">Unit Cohesion</span>
+                                        <div class="bar-container"><div class="bar-fill yellow" style="width: 60%">FRACTURED</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Col: Tactical Log -->
+                        <div class="dashboard-col-right">
+                            <div class="panel log-panel">
+                                <div class="panel-header"><h3>Tactical Log / SitRep</h3></div>
+                                <div id="tactical-log-feed" class="log-feed">
+                                    <!-- Logs injected via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unit Status Section -->
+                    <div class="panel unit-panel">
+                        <div class="panel-header"><h3>Key Asset Status</h3></div>
+                        <div id="asset-grid" class="asset-grid">
+                            <!-- Assets injected via JS -->
+                        </div>
+                    </div>
                 </section>
             </main>
         </div>
     </div>
-    <div id="consequence-modal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <h3 id="consequence-title">Consequences</h3>
-            <div id="consequence-body"></div>
-            <div class="modal-actions">
-                <button id="modal-continue" class="btn btn-primary">Continue</button>
-            </div>
-        </div>
-    </div>
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
-    <script type="module">
-        let missionState = {
-          metrics: { morale: 20, threat: 70, security: 10, cohesion: 15 },
-          choicesMade: []
-        };
-        
-        // --- THIS IS THE FIX ---
-        // The missing stage data has been added.
-        const missionData = {
-            stage_1: {
-                dialogue: `<div class="dialogue-line"><span class="speaker">Toad Lee:</span> "A traitor. He walked among us, shared our fire, and wore our face. Now one of our own bleeds because we were blind."</div><div class="dialogue-line"><span class="speaker">Roger:</span> "Blindness has nothing to do with it. Our vetting process was non-existent. We trusted too easily. That ends now."</div><div class="dialogue-line"><span class="speaker">Ryan:</span> "What do they know? What did he tell them? Are they coming back for the rest of us?"</div>`,
-                decisionTitle: 'Decision 1: Immediate Response',
-                decisionNarrative: 'Paranoia is a virus, and it\'s spreading fast. Your first move will set the tone for everything that follows. How do you stop the bleeding?',
-                choices: [
-                    { title: "Lee's Counsel: Martial Law", description: "Declare a state of emergency. Confine everyone to quarters, begin interrogations, and establish a rigid chain of command. Trust is a liability we can't afford.", effects: { morale: -20, threat: -10, security: +40, cohesion: -25 }, nextStage: 'stage_2_hardline', consequenceTitle: "Order Through Fear", consequenceText: "A grim silence falls over the toads. They obey, but their eyes are filled with fear and resentment. You have control, but you've sacrificed their spirit." },
-                    { title: "Roger's Counsel: Hunker Down", description: "Focus all efforts on the wounded. Fortify the airship and seal the entrance. No one comes in, no one goes out until we know we're safe.", effects: { morale: +5, threat: +10, security: +20, cohesion: -10 }, nextStage: 'stage_2_defensive', consequenceTitle: "A Gilded Cage", consequenceText: "The ship becomes a fortress, but also a prison. The toads are safe from the outside world, but trapped with their own suspicions." },
-                    { title: "Ryan's Counsel: Reaffirm the Vow", description: "Gather everyone. Address the betrayal head-on. Remind them of their shared purpose and the vow they swore. Rebuild trust, even if it feels impossible.", effects: { morale: +20, threat: +5, security: -20, cohesion: +30 }, nextStage: 'stage_2_unity', consequenceTitle: "A Flicker of Hope", consequenceText: "It's a difficult speech, but it resonates with some. The fear hasn't vanished, but for the first time since the raid, they look at each other as comrades, not potential enemies." }
-                ]
-            },
-            stage_2_hardline: {
-                dialogue: `<div class="dialogue-line"><span class="speaker">Toad Lee:</span> "The order is given. The interrogations have begun. The mole will talk. We will find out what the Legion knows."</div>`,
-                decisionTitle: 'Decision 2: The Price of Information',
-                decisionNarrative: 'The traitor is in custody, and the ship is under lockdown. The First Cohort is demanding a public execution. What is your next command?',
-                choices: [
-                    { title: "Public Trial & Execution", description: "Make an example of the traitor. Appease the calls for blood and show the Legion the price of infiltration.", effects: { morale: +15, threat: -10, security: +10, cohesion: -20 }, nextStage: 'end_mission', consequenceTitle: "Blood for Blood", consequenceText: "The execution is swift and brutal. The First Cohort is satisfied, but the original toads are horrified. You've enforced order, but at the cost of your soul." },
-                    { title: "Covert Interrogation", description: "Keep the traitor alive. Extract every piece of intel he has about Legion operations. Knowledge is more valuable than vengeance.", effects: { morale: -15, threat: -25, security: +15, cohesion: +5 }, nextStage: 'end_mission', consequenceTitle: "A Secret Kept", consequenceText: "The traitor disappears into the brig. You gain valuable intel, but the lack of public justice breeds resentment and conspiracy theories." }
-                ]
-            },
-            stage_2_defensive: {
-                dialogue: `<div class="dialogue-line"><span class="speaker">Roger:</span> "The ship is sealed. The wounded are stable. Now we wait. But paranoia is setting in. The toads are starting to see spies in every shadow."</div>`,
-                decisionTitle: 'Decision 2: The Waiting Game',
-                decisionNarrative: 'You are safe for now, but supplies are finite and tensions are rising. How do you maintain order while trapped in a metal box?',
-                choices: [
-                    { title: "Institute Strict Rationing", description: "Conserve resources above all. A well-fed crew is a luxury; a surviving crew is a necessity.", effects: { morale: -20, threat: +5, security: +5, cohesion: -15 }, nextStage: 'end_mission', consequenceTitle: "A Hungry Peace", consequenceText: "The crew is hungry and irritable, but your supplies will last significantly longer. You've bought time, but morale is at an all-time low." },
-                    { title: "Organize Internal Patrols", description: "Empower the toads to police themselves. Create watch schedules and security details to give them a sense of purpose and control.", effects: { morale: +10, threat: +0, security: +25, cohesion: +5 }, nextStage: 'end_mission', consequenceTitle: "A Watchful Peace", consequenceText: "The patrols give the toads a renewed sense of duty. They feel safer, but the constant vigilance adds to the atmosphere of suspicion." }
-                ]
-            },
-            stage_2_unity: {
-                dialogue: `<div class="dialogue-line"><span class="speaker">Ryan:</span> "They listened. Some of them, anyway. The Vow isn't completely broken, just... cracked. We need to do something to mend it."</div>`,
-                decisionTitle: 'Decision 2: A Step Toward Healing',
-                decisionNarrative: 'Words have laid the foundation, but action must build the house. What symbolic act will you choose to begin reuniting your people?',
-                choices: [
-                    { title: "Hold a Memorial", description: "Honor the toad who was lost to the robot in Shadeward Mansion. Unite the crew in shared grief, reminding them of their common loss.", effects: { morale: +25, threat: +5, security: -10, cohesion: +20 }, nextStage: 'end_mission', consequenceTitle: "A Shared Sorrow", consequenceText: "The memorial is a somber but powerful event. In their shared grief, the toads find a flicker of their old unity." },
-                    { title: "A Group Project", description: "Assign a critical ship-wide task that requires all factions to work together, such as repairing the damaged hull or reorganizing the cargo hold.", effects: { morale: +5, threat: +0, security: +0, cohesion: +30 }, nextStage: 'end_mission', consequenceTitle: "Shared Sweat", consequenceText: "It's awkward at first, but as they work together, the toads begin to talk. The shared task starts to mend the fractured bonds of their crew." }
-                ]
-            },
-            end_mission: {}
-        };
-
-        const modal = document.getElementById('consequence-modal');
-        const modalClose = modal.querySelector('.modal-close');
-        const modalContinue = modal.querySelector('#modal-continue');
-
-        function clamp(v) { return Math.max(0, Math.min(100, v)); }
-
-        function updateMetrics() {
-          const metrics = missionState.metrics;
-          const set = (id, val) => {
-            const bar = document.getElementById(id);
-            if (bar) bar.style.width = `${clamp(val)}%`;
-            const valEl = document.getElementById(`${id}-val`);
-            if (valEl) valEl.textContent = clamp(val);
-          };
-          set('m-morale', metrics.morale);
-          set('m-threat', metrics.threat);
-          set('m-security', metrics.security);
-          set('m-cohesion', metrics.cohesion);
-        }
-
-        function handleChoice(choice) {
-            Object.keys(choice.effects).forEach(key => {
-                missionState.metrics[key] += choice.effects[key];
-            });
-            missionState.choicesMade.push(choice.title);
-            updateMetrics();
-            document.getElementById('consequence-title').textContent = choice.consequenceTitle;
-            document.getElementById('consequence-body').innerHTML = `<p>${choice.consequenceText}</p>`;
-            modal.classList.add('open');
-            modalContinue.onclick = () => {
-                modal.classList.remove('open');
-                if (choice.nextStage === 'end_mission') {
-                    renderFinalPlan();
-                } else {
-                    renderStage(choice.nextStage);
-                }
-            };
-        }
-        
-        modalClose.onclick = () => modal.classList.remove('open');
-
-        function renderStage(stageId) {
-            const stage = missionData[stageId];
-            if (!stage) {
-                console.error("Stage not found:", stageId);
-                return;
-            }
-
-            document.getElementById('dialogue').innerHTML = stage.dialogue;
-            const decisionContainer = document.getElementById('decision-container');
-            
-            const choicesHTML = stage.choices.map(choice => {
-                const choiceString = JSON.stringify(choice).replace(/"/g, "&quot;");
-                return `
-                    <div class="decision-card">
-                        <div class="decision-card-title">${choice.title}</div>
-                        <div class="decision-card-desc">${choice.description}</div>
-                        <div class="decision-actions">
-                            <button class="btn btn-primary" data-choice="${choiceString}">Select</button>
-                        </div>
-                    </div>`;
-            }).join('');
-
-            decisionContainer.innerHTML = `
-                <div class="decision-title">${stage.decisionTitle}</div>
-                <div class="decision-narrative">${stage.decisionNarrative}</div>
-                <div class="choices-grid">${choicesHTML}</div>`;
-            
-            decisionContainer.querySelectorAll('.btn-primary').forEach(button => {
-                button.addEventListener('click', () => {
-                    const choiceData = JSON.parse(button.dataset.choice);
-                    handleChoice(choiceData);
-                });
-            });
-        }
-        
-        function renderFinalPlan() {
-            const container = document.getElementById('decision-container');
-            container.innerHTML = `<div class="decision-title">Mission Path Chosen</div><p>The immediate crisis has been handled, for better or worse. The consequences of your leadership will ripple through the Liberated Toads for a long time to come.</p><div class="decision-actions" style="margin-top: 24px; justify-content: center;"><a href="directory.html" class="btn btn-primary">Return to Directory</a></div>`;
-        }
-
-        function init() {
-          updateMetrics();
-          renderStage('stage_1');
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+    <script type="module" src="toads_event.js"></script>
 </body>
 </html>

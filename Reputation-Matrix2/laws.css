@@ -1,79 +1,124 @@
-#codex-container {
-    display: flex;
-    flex-direction: column;
+
+
+.culture-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
+    margin-bottom: 32px;
 }
 
-.tradition-category-section {
-    margin-bottom: 16px;
+.chart-panel, .stats-panel {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
 }
 
-.tradition-category-title {
+.chart-panel h3, .stats-panel h3 {
     font-family: var(--font-display);
-    font-size: 1.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-    padding-bottom: 12px;
+    color: var(--accent-color);
+    margin-bottom: 16px;
     border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
 }
 
-.traditions-grid {
+.canvas-wrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+#codex-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 24px;
 }
 
-.tradition-card {
+.culture-card {
     background-color: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 24px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s;
+}
+.culture-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.tradition-card-header {
+.culture-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding-bottom: 12px;
+    gap: 16px;
     margin-bottom: 16px;
     border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
 }
 
-.tradition-icon {
-    font-size: 2rem;
+.culture-icon {
+    font-size: 2.5rem;
 }
 
-.tradition-card-header h3 {
+.culture-title-block h3 {
     font-family: var(--font-display);
     color: var(--text-color);
     font-size: 1.5rem;
     margin: 0;
 }
 
-.tradition-description {
-    font-size: 0.95rem;
+.culture-pop {
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: 0.85rem;
+}
+
+.culture-desc {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.culture-adjectives {
     margin-bottom: 16px;
-    flex-grow: 1;
+    color: var(--accent-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
 }
 
-.tradition-followers {
-    margin-top: auto;
+.culture-section {
+    margin-top: 16px;
 }
 
-.tradition-followers h4 {
+.culture-section h5 {
     font-family: var(--font-display);
-    color: var(--text-secondary);
     font-size: 0.9rem;
+    color: var(--text-secondary);
     margin-bottom: 8px;
-    border-top: 1px dashed var(--border-color);
-    padding-top: 12px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 4px;
 }
 
-.followers-list {
+.species-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.species-pill {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.traditions-list {
     list-style: none;
     padding: 0;
     display: flex;
@@ -81,30 +126,32 @@
     gap: 8px;
 }
 
-.follower-tag {
-    background-color: var(--main-bg);
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+.tradition-tag {
+    background-color: rgba(255,255,255,0.05);
     border: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-color);
 }
 
-.follower-tag img {
-    width: 16px;
-    height: 16px;
-}
-
-.page-subtitle {
-    text-align: center;
+.art-style {
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    margin-top: -16px;
-    margin-bottom: 24px;
-    font-style: italic;
-    max-width: 80ch;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 0.9rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 8px;
+    background: var(--main-bg);
+    border-radius: 4px;
+}
+.stat-item .label { font-weight: bold; color: var(--text-secondary); }
+.stat-item .value { font-family: var(--font-mono); }
+
+@media (max-width: 900px) {
+    .culture-dashboard { grid-template-columns: 1fr; }
 }

@@ -1,3 +1,4 @@
+
 import { state, loadState, saveState } from './state.js';
 import * as ui from './map-ui.js';
 import * as renderer from './map-renderer.js';
@@ -71,12 +72,6 @@ function init() {
         activeMapId = 'doughnut_hole_full';
     } else if (pathname.includes('pokemon-maps.html')) {
         activeMapId = 'pokemon_full';
-    } else if (pathname.includes('almost-edge-maps.html')) {
-        activeMapId = 'almost_edge_full';
-    } else if (pathname.includes('the-edge-maps.html')) {
-        activeMapId = 'the_edge_full';
-    } else if (pathname.includes('animatopia-maps.html')) {
-        activeMapId = 'animatopia_full';
     } else {
         activeMapId = 'mushroom_kingdom_full';
     }
@@ -144,6 +139,7 @@ function setupEventListeners() {
             const poiMarker = e.target.closest('.poi-marker');
             const troopMarker = e.target.closest('.troop-marker');
             const vigilanceMarker = e.target.closest('.vigilance-marker');
+            const partyMarker = e.target.closest('.party-marker');
 
             if (poiMarker) {
                 e.preventDefault();
@@ -169,6 +165,13 @@ function setupEventListeners() {
                 e.stopPropagation();
                  playSound('click.mp3');
                 renderer.renderTacticalDetailPanel(vigilanceMarker.dataset.vigilanceId, 'vigilance');
+            } else if (partyMarker) {
+                e.preventDefault();
+                e.stopPropagation();
+                playSound('click.mp3');
+                const charKey = partyMarker.dataset.charKey;
+                const status = partyMarker.dataset.status;
+                renderer.renderPartyMemberDetail(charKey, status);
             } else if (!e.target.closest('.clickable-tactical')) {
                 // Clicked on map background
                 if(activeMapMode === 'laws') {

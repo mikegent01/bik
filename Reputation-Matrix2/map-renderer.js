@@ -1,3 +1,4 @@
+
 import { state } from './state.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import { LORE_DATA } from './lore.js';
@@ -10,6 +11,9 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 import { BATTLE_MAP_DATA } from './map-battle-data.js';
 import { LEGAL_DATA } from './legal_data.js';
 import { ALL_LEGAL_CODES } from './laws-data.js';
+import { CULTURE_DATA } from './culture-data.js'; 
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js'; 
+import { PARTY_LOCATIONS } from './party-data.js';
 
 
 const displayArea = document.getElementById('map-display-area');
@@ -141,6 +145,10 @@ export function renderMap(mapId) {
         
         if (map.activeMapMode === 'tactical') {
             renderBattleElements(mapId);
+        }
+        
+        if (map.activeMapMode === 'party') {
+            renderPartyMembers(mapId);
         }
 
         if (map.isEditMode) {
@@ -276,6 +284,165 @@ function renderBattleElements(mapId) {
     });
 }
 
+function renderPartyMembers(mapId) {
+    const interactiveLayer = document.getElementById('interactive-map-layer');
+    if (!interactiveLayer) return;
+
+    // Clear existing party markers to avoid duplicates
+    interactiveLayer.querySelectorAll('.party-marker').forEach(el => el.remove());
+
+    const members = PARTY_LOCATIONS[mapId];
+    if (!members) return;
+
+    // Cluster Logic: Group members if they are too close
+    const clusters = [];
+    const threshold = 2.0; // Distance threshold percentage
+
+    members.forEach(member => {
+        let added = false;
+        for (let c of clusters) {
+            const dist = Math.hypot(member.x - c.x, member.y - c.y);
+            if (dist < threshold) {
+                c.members.push(member);
+                // Don't average the position, stick to the first one to prevent drifting
+                added = true;
+                break;
+            }
+        }
+        if (!added) {
+            clusters.push({ x: member.x, y: member.y, members: [member] });
+        }
+    });
+
+    clusters.forEach(cluster => {
+        const marker = document.createElement('div');
+        marker.className = 'party-marker';
+        marker.style.left = `${cluster.x}%`;
+        marker.style.top = `${cluster.y}%`;
+
+        if (cluster.members.length > 1) {
+            // Group Marker
+            marker.classList.add('party-group-marker');
+            marker.textContent = cluster.members.length;
+            marker.style.backgroundImage = 'none';
+            marker.style.backgroundColor = 'var(--accent-color)'; // Purple
+            marker.style.color = '#fff';
+            marker.style.display = 'flex';
+            marker.style.alignItems = 'center';
+            marker.style.justifyContent = 'center';
+            marker.style.fontWeight = 'bold';
+            marker.style.fontSize = '14px';
+            marker.title = `${cluster.members.length} Characters`;
+
+            marker.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                playSound('click.mp3');
+                renderPartyGroupDetail(cluster.members);
+            });
+        } else {
+            // Single Member Marker
+            const member = cluster.members[0];
+            const charData = LORE_DATA.characters[member.charKey] || { name: 'Unknown', portrait: 'portraits/unknown.png', role: 'Unknown' };
+            
+            marker.dataset.charKey = member.charKey;
+            marker.dataset.status = member.status;
+            const statusClass = member.status.toLowerCase().replace(' ', '-');
+            marker.classList.add(`status-${statusClass}`);
+            
+            // Determine portrait
+            let portraitUrl = charData.portrait;
+            if (!portraitUrl) {
+                 // Fallback logic
+                 if (member.charKey.includes('toad')) portraitUrl = `toads/${member.charKey}.png`;
+                 else portraitUrl = `portraits/${member.charKey}.png`;
+            }
+            
+            marker.style.backgroundImage = `url('${portraitUrl}')`;
+
+            marker.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                playSound('click.mp3');
+                renderPartyMemberDetail(member.charKey, member.status);
+            });
+            
+            // Hover Tooltip
+            marker.addEventListener('mouseover', e => {
+                const tooltipContent = `
+                    <div class="tooltip-header">
+                        <h5>${charData.name}</h5>
+                    </div>
+                    <div class="tooltip-section">
+                        <p><strong>Status:</strong> <span style="color:var(--accent-color)">${member.status}</span></p>
+                    </div>
+                `;
+                showTooltip(e, tooltipContent);
+            });
+            marker.addEventListener('mouseout', hideTooltip);
+        }
+        interactiveLayer.appendChild(marker);
+    });
+}
+
+function renderPartyGroupDetail(members) {
+    let html = `
+        <div class="poi-detail">
+            <h3>Group Status (${members.length})</h3>
+            <div class="party-group-list" style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+    `;
+
+    members.forEach(member => {
+        const charData = LORE_DATA.characters[member.charKey] || { name: member.charKey, portrait: 'portraits/unknown.png' };
+        let portraitUrl = charData.portrait || `portraits/${member.charKey}.png`;
+
+        html += `
+            <div class="party-group-item" onclick="window.location.href='profile.html?user=${member.charKey}'" 
+                 style="cursor:pointer; padding: 8px; background: var(--sidebar-bg); border: 1px solid var(--border-color); border-radius: 4px; display: flex; gap: 12px; align-items: center; transition: background 0.2s;">
+                <img src="${portraitUrl}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--accent-color);">
+                <div>
+                    <div style="font-weight: bold; color: var(--text-color); font-size: 0.95rem;">${charData.name}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); font-style: italic;">${member.status}</div>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+    `;
+    detailPanel.innerHTML = html;
+}
+
+export function renderPartyMemberDetail(charKey, status) {
+    const charData = LORE_DATA.characters[charKey];
+    if (!charData) return;
+
+    const html = `
+        <div class="poi-detail">
+            <div class="party-detail-header">
+                <img src="${charData.portrait || `portraits/${charKey}.png`}" class="party-detail-portrait" alt="${charData.name}">
+                <div>
+                    <h3>${charData.name}</h3>
+                    <p class="party-role">${charData.role}</p>
+                </div>
+            </div>
+            
+            <div class="party-status-box status-${status.toLowerCase().replace(' ', '-')}">
+                <strong>Current Status:</strong> ${status}
+            </div>
+
+            <p class="poi-description">${charData.description}</p>
+            
+            <div class="party-actions">
+                <a href="profile.html?user=${charKey}" class="control-btn">View Full Profile</a>
+            </div>
+        </div>
+    `;
+    detailPanel.innerHTML = html;
+}
+
 
 function renderVigilance(container, svg) {
     const journey = BATTLE_MAP_DATA.vigilance_journey;
@@ -333,7 +500,7 @@ export function renderPois() {
         marker.dataset.poiId = poi.id;
         marker.title = poi.name;
 
-        marker.classList.remove('political-view', 'economic-view', 'military-view', 'population-view', 'laws-view');
+        marker.classList.remove('political-view', 'economic-view', 'military-view', 'population-view', 'laws-view', 'age-view', 'crime-view');
         
         const iconWrapper = document.createElement('div');
         iconWrapper.className = 'icon-wrapper';
@@ -349,6 +516,13 @@ export function renderPois() {
 
         if (map.activeMapMode === 'tactical') {
             marker.style.opacity = '0.5';
+            marker.style.width = '16px';
+            marker.style.height = '16px';
+            iconWrapper.innerHTML = BUILDING_TYPES[poi.type]?.icon || '❓';
+            iconWrapper.style.fontSize = '10px';
+        } else if (map.activeMapMode === 'party') {
+            // Fade out POIs slightly in party mode to highlight characters
+            marker.style.opacity = '0.4';
             marker.style.width = '16px';
             marker.style.height = '16px';
             iconWrapper.innerHTML = BUILDING_TYPES[poi.type]?.icon || '❓';
@@ -390,34 +564,66 @@ export function renderPois() {
                     marker.style.opacity = poi.population > 0 ? '0.9' : '0.5';
                     break;
                 case 'laws':
+                    // Prioritize Faction, then fallback to Culture
                     marker.classList.add('laws-view');
-                    marker.style.backgroundColor = FACTION_COLORS[poi.factionId] || 'var(--underworld-fringe-color)';
-                    iconWrapper.innerHTML = '📜';
-                    if (LEGAL_DATA.poi_traditions[poi.id]) {
+                    
+                    const factionKey = poi.factionId || 'unaligned';
+                    const legalCode = ALL_LEGAL_CODES[factionKey];
+                    const cultureInfo = getCultureForPoi(poi, map.activeMapId);
+
+                    if (legalCode && legalCode.logo) {
+                        // Show Faction Logo if explicit laws exist
+                        marker.style.backgroundColor = FACTION_COLORS[factionKey] || '#444';
                         marker.style.borderColor = 'var(--accent-color)';
                         marker.style.boxShadow = '0 0 8px var(--accent-color)';
+                        iconWrapper.innerHTML = ''; // Clear text
+                        const logoImg = document.createElement('img');
+                        logoImg.src = legalCode.logo;
+                        logoImg.style.width = '100%';
+                        logoImg.style.height = '100%';
+                        logoImg.style.borderRadius = '50%';
+                        iconWrapper.appendChild(logoImg);
                     } else {
+                        // Fallback to Culture
+                        marker.style.backgroundColor = cultureInfo.color;
+                        iconWrapper.innerHTML = cultureInfo.icon;
                         marker.style.borderColor = 'var(--border-color)';
                         marker.style.boxShadow = 'none';
                     }
                     break;
                 case 'age_of_antiquity':
-                    marker.classList.add('age-of-antiquity-view');
+                    marker.classList.add('age-view');
                     const age = poi.age_of_antiquity || 1;
-                    const ageSize = 16 + age * 1.5;
+                    const ageSize = 18 + age * 1.5;
                     marker.style.width = `${ageSize}px`;
                     marker.style.height = `${ageSize}px`;
-                    marker.style.backgroundColor = valueToColor(age, 1, 10, ['#a8d8ea', '#f9f871']); // light blue to yellow
-                    iconWrapper.innerHTML = `📜`;
+                    marker.style.backgroundColor = valueToColor(age, 1, 10, ['#a8d8ea', '#f9f871']); 
+                    
+                    // Distinct icons based on era
+                    if (age <= 3) iconWrapper.innerHTML = `🏠`; // Modern
+                    else if (age <= 7) iconWrapper.innerHTML = `🏰`; // Historical
+                    else iconWrapper.innerHTML = `🏺`; // Ancient/Mythic
+                    
+                    if (age >= 9) {
+                        marker.style.boxShadow = '0 0 10px #f9f871';
+                        marker.style.border = '2px solid gold';
+                    }
                     break;
                  case 'crime_rate':
-                    marker.classList.add('crime-rate-view');
+                    marker.classList.add('crime-view');
                     const crime = poi.crime_rate || 1;
                     const crimeSize = 16 + crime * 1.5;
                     marker.style.width = `${crimeSize}px`;
                     marker.style.height = `${crimeSize}px`;
                     marker.style.backgroundColor = valueToColor(crime, 1, 10, ['#4575b4', '#fee090', '#d73027']); // blue (low) to red (high)
-                    iconWrapper.innerHTML = `⚖️`;
+                    
+                    if (crime <= 3) iconWrapper.innerHTML = `🛡️`; // Safe
+                    else if (crime <= 7) iconWrapper.innerHTML = `⚠️`; // Caution
+                    else iconWrapper.innerHTML = `💀`; // Dangerous
+                    
+                    if (crime >= 8) {
+                        marker.style.animation = 'pulse-red-border 2s infinite';
+                    }
                     break;
                 case 'standard':
                 default:
@@ -510,59 +716,150 @@ function renderTraditionItems(traditionKeys) {
     }).join('');
 }
 
+function renderCodexLaws(lawData) {
+    const ICONS = { political: '🏛️', military: '⚔️', economic: '💰', social: '❤️‍🩹', penal: '⚖️' };
+    let html = '';
+    
+    ['political', 'military', 'economic', 'social', 'penal'].forEach(category => {
+        if (lawData[category] && lawData[category].length > 0) {
+            html += `<h4 style="margin-top:15px; border-bottom:1px solid #444;">${ICONS[category]} ${category.charAt(0).toUpperCase() + category.slice(1)} Laws</h4>`;
+            lawData[category].forEach(law => {
+                html += `
+                    <div class="law-popup-item" style="margin-bottom:8px;">
+                        <h5 style="font-size:0.95rem; color: var(--text-color);">${law.name}</h5>
+                        <p style="font-size:0.85rem;">${law.description}</p>
+                    </div>
+                `;
+            });
+        }
+    });
+    return html;
+}
+
+/**
+ * Determines the Culture for a POI based on its demographics or faction.
+ */
+function getCultureForPoi(poi, mapId) {
+    // 1. Check map/group default demographics
+    const mapInfo = MAP_DATA[mapId];
+    const group = mapInfo ? (mapInfo.group || 'Other') : 'Other';
+    const regionalSpecies = REGIONAL_DEMOGRAPHICS[group] || {};
+    
+    // Find dominant species
+    let dominantSpecies = 'dnd_human';
+    let maxPct = 0;
+    for (const [sKey, sPct] of Object.entries(regionalSpecies)) {
+        if (sPct > maxPct) {
+            maxPct = sPct;
+            dominantSpecies = sKey;
+        }
+    }
+
+    // 2. Find Culture matching dominant species
+    for (const [cultKey, cultData] of Object.entries(CULTURE_DATA)) {
+        if (cultData.primary_species.includes(dominantSpecies)) {
+            return cultData;
+        }
+    }
+
+    // Fallback: Unaligned / Unknown
+    return {
+        id: 'unaligned',
+        name: 'Local Custom',
+        color: '#6c757d',
+        icon: '🛖',
+        description: 'Local traditions not aligned with a major cultural sphere.',
+        art_style: "Varied / Rustic",
+        traditions: []
+    };
+}
+
 export function showTraditionsPopup(poi) {
     const mapId = map.activeMapId;
     const landmassKey = getLandmassKey(mapId);
-    
-    // Use the landmassKey to look up the group name, ensuring we always get the general region name
-    // instead of a sub-region name or the '(Full)' name.
     const regionDisplayName = MAP_DATA[landmassKey]?.group || MAP_DATA[landmassKey]?.name || MAP_DATA[mapId]?.group || MAP_DATA[mapId]?.name;
 
     let title = '';
-    let summaryHTML = '';
-    let traditionsHTML = '';
-    
+    let content = '';
+
     if (poi) {
-        title = `Laws & Customs of ${poi.name}`;
+        const culture = getCultureForPoi(poi, mapId);
+        
         const factionId = poi.factionId || 'unaligned';
-        const governingCode = ALL_LEGAL_CODES[factionId];
-        const faction = LORE_DATA.factions[factionId];
+        const factionName = LORE_DATA.factions[factionId]?.name || 'Independent';
+        const factionLegalCode = ALL_LEGAL_CODES[factionId];
+
+        title = `Laws & Customs: ${poi.name}`;
         
-        if (governingCode) {
-            const lawLink = `<a href="#" class="law-link" data-law-key="${factionId}">${governingCode.name}</a>`;
-            summaryHTML = `<p>This location is controlled by <strong>${faction.name}</strong> and is governed by <strong>"${lawLink}"</strong>: <em>${governingCode.description}</em></p>`;
+        // 1. FACTION LAWS (Primary if exists)
+        let factionLawsHTML = '';
+        if (factionLegalCode) {
+            factionLawsHTML = `
+                <div class="law-popup-section" style="background: rgba(0,0,0,0.2); padding:10px; border-radius:6px; margin-bottom:15px; border-left: 4px solid var(--accent-color);">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                        <img src="${factionLegalCode.logo}" style="width:32px; height:32px;">
+                        <h3 style="margin:0; font-size:1.2rem; color:var(--accent-color);">Governing Laws: ${factionName}</h3>
+                    </div>
+                    <p><em>${factionLegalCode.description}</em></p>
+                    ${renderCodexLaws(factionLegalCode)}
+                </div>
+            `;
         } else {
-            const introText = (factionId === 'unaligned' || !faction) 
-                ? 'This location is unaligned and' 
-                : `This location is controlled by <strong>${faction.name}</strong>, which has no formal codified laws, and`;
-             
-            summaryHTML = `<p>${introText} follows the general traditions of <strong>${regionDisplayName}</strong>.</p>`;
-        }
-        
-        const regionalKeys = LEGAL_DATA.regional_traditions[landmassKey] || [];
-        if(regionalKeys.length > 0) {
-            traditionsHTML += `<h4>Regional Traditions</h4>${renderTraditionItems(regionalKeys)}`;
+            factionLawsHTML = `
+                <div class="law-popup-section" style="padding:10px; margin-bottom:15px; border-left: 4px solid var(--text-secondary);">
+                    <h3 style="margin:0; font-size:1.1rem; color:var(--text-secondary);">Governing Power: ${factionName}</h3>
+                    <p><em>No codified legal system recorded. Rulership is likely informal, based on might, or adheres strictly to local tradition.</em></p>
+                </div>
+            `;
         }
 
-        const poiTraditionsData = LEGAL_DATA.poi_traditions[poi.id];
-        if (poiTraditionsData) {
-            summaryHTML += `<hr style="border-color: var(--border-color); margin: 12px 0;">`;
-            summaryHTML += `<p><strong>Specific Local Customs:</strong> ${poiTraditionsData.summary}</p>`;
-            traditionsHTML += `<h4>Local Customs</h4>${renderTraditionItems(poiTraditionsData.traditions)}`;
+        // 2. CULTURAL BACKGROUND (Secondary)
+        const cultureTraditionsHTML = renderTraditionItems(culture.traditions);
+        
+        // Local POI specific traditions (overrides)
+        let localTraditionsHTML = '';
+        if (LEGAL_DATA.poi_traditions[poi.id]) {
+            localTraditionsHTML = `
+                <div class="law-popup-item" style="border-left: 3px solid #ffcc00; background: rgba(255, 204, 0, 0.1);">
+                    <h5>📍 Local Custom</h5>
+                    <p>${LEGAL_DATA.poi_traditions[poi.id].summary}</p>
+                </div>
+                ${renderTraditionItems(LEGAL_DATA.poi_traditions[poi.id].traditions)}
+            `;
         }
+
+        const cultureHTML = `
+            <div class="law-popup-section">
+                <div class="law-popup-header" style="border-bottom: 2px solid ${culture.color}; padding-bottom: 10px; margin-bottom:10px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="font-size: 1.8rem;">${culture.icon}</div>
+                        <div>
+                            <h4 style="color:${culture.color}; margin: 0;">Underlying Culture: ${culture.name}</h4>
+                            <span style="font-size:0.8rem; color:var(--text-secondary);">Art Style: ${culture.art_style}</span>
+                        </div>
+                    </div>
+                    <p style="margin-top:5px;"><em>${culture.description}</em></p>
+                </div>
+                
+                <div class="law-popup-list">
+                    ${localTraditionsHTML}
+                    ${cultureTraditionsHTML ? `<h5 style="margin-top:10px;">Cultural Traditions</h5>${cultureTraditionsHTML}` : ''}
+                </div>
+            </div>
+        `;
+
+        content = `<div class="law-popup-content">${factionLawsHTML}${cultureHTML}</div>`;
 
     } else {
         title = `General Traditions of ${regionDisplayName}`;
-        summaryHTML = `<p>These are the overarching traditions that govern unaligned territories in this region.</p>`;
         const regionalKeys = LEGAL_DATA.regional_traditions[landmassKey] || [];
-        traditionsHTML += renderTraditionItems(regionalKeys);
+        content = `
+            <div class="law-popup-content">
+                <p>These are the overarching traditions that govern unaligned territories in this region.</p>
+                <div class="law-popup-list">${renderTraditionItems(regionalKeys)}</div>
+            </div>
+        `;
     }
-
-    const content = `
-        <div class="law-popup-content">
-            <div class="law-popup-header">${summaryHTML}</div>
-            <div class="law-popup-list">${traditionsHTML}</div>
-        </div>`;
 
     map.showMapModal(title, content);
 }
@@ -601,26 +898,8 @@ export function showLawCodexModal(lawKey) {
     const lawData = ALL_LEGAL_CODES[lawKey];
     if (!lawData) return;
 
-    const ICONS = { political: '🏛️', military: '⚔️', economic: '💰', social: '❤️‍🩹', penal: '⚖️' };
-    let content = '';
-    
-    ['political', 'military', 'economic', 'social', 'penal'].forEach(category => {
-        if (lawData[category] && lawData[category].length > 0) {
-            content += `<h4>${ICONS[category]} ${category.charAt(0).toUpperCase() + category.slice(1)} Laws</h4>`;
-            content += `<div class="law-popup-list">`;
-            lawData[category].forEach(law => {
-                content += `
-                    <div class="law-popup-item">
-                        <h5>${law.name}</h5>
-                        <p>${law.description}</p>
-                    </div>
-                `;
-            });
-            content += `</div>`;
-        }
-    });
-
-    map.showMapModal(`Codex: ${lawData.name}`, `<div class="law-popup-content">${content}</div>`);
+    const content = `<div class="law-popup-content">${renderCodexLaws(lawData)}</div>`;
+    map.showMapModal(`Codex: ${lawData.name}`, content);
 }
 
 
@@ -630,6 +909,16 @@ export async function showDetailPanel(poiId) {
     const poi = [...poiSource, ...userPois].find(p => p.id === poiId);
 
     if (!poi) return;
+
+    // Handle specialized modes first
+    if (map.activeMapMode === 'age_of_antiquity') {
+        renderHistoricalAnalysis(poi);
+        return;
+    }
+    if (map.activeMapMode === 'crime_rate') {
+        renderSecurityReport(poi);
+        return;
+    }
     
     const typeInfo = BUILDING_TYPES[poi.type] || { name: 'Unknown' };
     
@@ -671,6 +960,93 @@ export async function showDetailPanel(poiId) {
             ${intelReqHTML}
         </div>
         ${requestsHTML}
+    `;
+}
+
+function renderHistoricalAnalysis(poi) {
+    const age = poi.age_of_antiquity || 1;
+    let eraName = "Modern / Recent";
+    let description = "Structures built within the last century. Common architectural styles.";
+    let icon = "🏠";
+    
+    if (age >= 4 && age <= 7) {
+        eraName = "Historical / Medieval";
+        description = "Dating back several centuries. Stone foundations, older dialects in inscriptions.";
+        icon = "🏰";
+    } else if (age >= 8) {
+        eraName = "Mythic / Pre-Collapse";
+        description = "Ancient ruins from a forgotten age. High magical resonance and lost technology.";
+        icon = "🏺";
+    }
+
+    const discoveryChance = Math.min(100, age * 10);
+
+    detailPanel.innerHTML = `
+        <div class="poi-detail age-analysis-panel">
+            <div class="age-header">
+                <div class="age-icon">${icon}</div>
+                <div>
+                    <h3>${poi.name}</h3>
+                    <span class="age-badge age-${age >= 8 ? 'mythic' : age >= 4 ? 'historical' : 'modern'}">Era: ${eraName}</span>
+                </div>
+            </div>
+            
+            <div class="age-stats">
+                <p><strong>Antiquity Index:</strong> ${age}/10</p>
+                <p><strong>Preservation:</strong> ${(10 - (poi.ruin_level || 0)) * 10}%</p>
+                <p><strong>Artifact Potential:</strong> ${discoveryChance}%</p>
+            </div>
+
+            <p class="poi-description"><em>${description}</em></p>
+            
+            <div class="age-actions">
+                <a href="bookshelf.html" class="control-btn">Search Archives</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderSecurityReport(poi) {
+    const crime = poi.crime_rate || 1;
+    let threatLevel = "Low / Safe";
+    let statusColor = "var(--positive-color)";
+    let advice = "Standard vigilance is sufficient.";
+    let icon = "🛡️";
+
+    if (crime >= 4 && crime <= 7) {
+        threatLevel = "Medium / Caution";
+        statusColor = "var(--neutral-color)";
+        advice = "Travel in groups. Avoid unlit areas. Watch for pickpockets.";
+        icon = "⚠️";
+    } else if (crime >= 8) {
+        threatLevel = "Extreme / Lawless";
+        statusColor = "var(--negative-color)";
+        advice = "Do not travel alone. Weapons free. Expect ambush.";
+        icon = "💀";
+    }
+
+    const bountyHTML = crime >= 6 ? 
+        `<div class="bounty-alert">
+            <strong>WANTED:</strong> Local syndicates active. Bounties available for high-value targets.
+            <a href="quests.html" class="control-btn negative">View Bounties</a>
+         </div>` : '';
+
+    detailPanel.innerHTML = `
+        <div class="poi-detail security-report-panel">
+            <div class="security-header" style="border-left: 4px solid ${statusColor};">
+                <h3>${poi.name}</h3>
+                <p class="security-status" style="color:${statusColor}">${icon} Threat Level: ${threatLevel}</p>
+            </div>
+
+            <div class="security-stats">
+                <p><strong>Crime Index:</strong> ${crime}/10</p>
+                <p><strong>Law Enforcement:</strong> ${10 - crime}/10</p>
+            </div>
+
+            <p class="poi-description"><strong>Advisory:</strong> ${advice}</p>
+            
+            ${bountyHTML}
+        </div>
     `;
 }
 
@@ -807,9 +1183,100 @@ export function renderMapModeLegend() {
             `;
             break;
         case 'economic':
-             legendHTML = `...`; // Omitted for brevity
+            legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Economic View</h4>
+                    <p>Square markers indicate economic centers.</p>
+                    <div class="legend-scale">
+                        <span style="border: 2px solid white; padding: 2px 6px; border-radius: 4px; color: var(--main-bg); font-weight:bold; background: transparent;">#</span>
+                        <span>Number represents Economic Value (1-10)</span>
+                    </div>
+                </div>
+            `;
             break;
-        // ... other cases omitted for brevity
+        case 'military':
+            legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Military View</h4>
+                    <p>Diamond markers indicate military installations.</p>
+                    <div class="legend-scale">
+                        <span style="border: 2px solid white; padding: 4px; transform: rotate(45deg); display: inline-block; margin: 0 8px; color: white; font-weight:bold;">#</span>
+                        <span>Number represents Military Strength (1-10)</span>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'population':
+            legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Population Density</h4>
+                    <p>Color indicates estimated population size.</p>
+                    <ul class="legend-list">
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #4575b4;"></div><span>Sparse (< 50)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #91bfdb;"></div><span>Village (50-500)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #e0f3f8;"></div><span>Town (500-2k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #fee090;"></div><span>City (2k-5k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #fdae61;"></div><span>Major City (5k-10k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #f46d43;"></div><span>Metropolis (> 10k)</span></li>
+                    </ul>
+                </div>
+            `;
+            break;
+        case 'laws':
+             legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Laws & Traditions</h4>
+                    <p>Markers indicate the dominant legal or cultural influence.</p>
+                    <p style="font-size:0.8rem; font-style:italic;">Click a location to view specific traditions.</p>
+                </div>
+            `;
+            break;
+        case 'age_of_antiquity':
+             legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Age of Antiquity</h4>
+                    <p>Indicates the historical era of the site.</p>
+                    <ul class="legend-list">
+                        <li class="legend-item"><span>🏠</span> <span>Modern / Recent (1-3)</span></li>
+                        <li class="legend-item"><span>🏰</span> <span>Historical / Medieval (4-7)</span></li>
+                        <li class="legend-item"><span>🏺</span> <span>Mythic / Ancient (8-10)</span></li>
+                    </ul>
+                    <p style="font-size:0.8rem; font-style:italic;">Click a location to view Historical Analysis.</p>
+                </div>
+            `;
+            break;
+        case 'crime_rate':
+             legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Crime Rate</h4>
+                    <p>Estimated danger level and criminal activity.</p>
+                    <ul class="legend-list">
+                        <li class="legend-item"><span>🛡️</span> <div class="legend-color-box" style="background-color: #4575b4;"></div><span>Safe (1-3)</span></li>
+                        <li class="legend-item"><span>⚠️</span> <div class="legend-color-box" style="background-color: #fee090;"></div><span>Moderate (4-7)</span></li>
+                        <li class="legend-item"><span>💀</span> <div class="legend-color-box" style="background-color: #d73027;"></div><span>High / Lawless (8+)</span></li>
+                    </ul>
+                    <p style="font-size:0.8rem; font-style:italic;">High danger areas may have active Bounties.</p>
+                </div>
+            `;
+            break;
+        case 'party':
+            legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Party Location</h4>
+                    <p>Current known position of key operatives.</p>
+                    <ul class="legend-list">
+                        <li class="legend-item">
+                            <div class="party-marker-legend" style="background-image: url('portraits/bowser.png');"></div>
+                            <span>Active</span>
+                        </li>
+                        <li class="legend-item">
+                            <div class="party-marker-legend status-captured" style="background-image: url('portraits/archie.png');"></div>
+                            <span>Captured/Detained</span>
+                        </li>
+                    </ul>
+                </div>
+            `;
+            break;
         default:
              legendHTML = `<p class="panel-placeholder">Select a point of interest for details.</p>`;
             break;
@@ -818,5 +1285,38 @@ export function renderMapModeLegend() {
 }
 
 export function renderDrawingPreview(points) {
-    // ... code omitted for brevity
+    const drawingSvg = document.getElementById('map-drawing-svg');
+    if (!drawingSvg) return;
+    drawingSvg.innerHTML = ''; // Clear
+
+    // Render lines
+    if (points.length > 1) {
+        const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        const pointsString = points.map(p => `${p.x},${p.y}`).join(' ');
+        polyline.setAttribute('points', pointsString);
+        polyline.classList.add('draw-line');
+        drawingSvg.appendChild(polyline);
+    }
+
+    // Render points
+    points.forEach(p => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', p.x);
+        circle.setAttribute('cy', p.y);
+        circle.setAttribute('r', 1.5);
+        circle.classList.add('draw-point');
+        drawingSvg.appendChild(circle);
+    });
+    
+    // Close loop preview
+    if (points.length > 2) {
+        const closingLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        closingLine.setAttribute('x1', points[points.length - 1].x);
+        closingLine.setAttribute('y1', points[points.length - 1].y);
+        closingLine.setAttribute('x2', points[0].x);
+        closingLine.setAttribute('y2', points[0].y);
+        closingLine.classList.add('draw-line');
+        closingLine.style.strokeDasharray = "2, 2";
+        drawingSvg.appendChild(closingLine);
+    }
 }
