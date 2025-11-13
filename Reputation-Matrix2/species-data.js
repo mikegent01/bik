@@ -1,4 +1,5 @@
 
+
 export const SPECIES_DATA = {
     // ========================================================================
     // D&D / FANTASY BASE
@@ -13,7 +14,7 @@ export const SPECIES_DATA = {
             markop: "Viewed as a useful beast of burden or cavalry, not an equal. High discrimination in cities.",
             humpik: "Respected for trade and forge-work, though considered stubborn and rude.",
             bowser: "Terrified. Humans see a monster king and hide their children.",
-            remi: "Accepted as human, though your strange clothes mark you as a foreigner."
+            remi: "Uneasy. You look human, but the halo marks you as something else. Celestial?"
         }
     },
     dnd_elf_high: { 
@@ -26,7 +27,7 @@ export const SPECIES_DATA = {
             markop: "Disdain. They view centaurs as uncivilized mongrels interfering with refined society.",
             humpik: "Historical hatred. They see dwarves as dirt-grubbing pests ruining the earth.",
             bowser: "Revulsion. A crude, magical anomaly that offends their aesthetic sensibilities.",
-            remi: "Pity. Another short-lived human destined to wither and die in a blink."
+            remi: "Curiosity. A short-lived human with a permanent magical construct? Fascinatingly efficient."
         }
     },
     dnd_elf_wood: { 
@@ -304,7 +305,7 @@ export const SPECIES_DATA = {
             markop: "Prejudice. 'Beasts belong in the stable'.",
             humpik: "Respected for metalwork, ignored socially.",
             bowser: "The enemy at the gates.",
-            remi: "One of us, unless you're poor."
+            remi: "Foreigner. Your strange attire and halo mark you as an outsider."
         }
     },
     moonfang_werewolf: { 
@@ -402,7 +403,7 @@ export const SPECIES_DATA = {
     // ========================================================================
     // WARHAMMER
     // ========================================================================
-    warhammer_human: { name: 'Empire Human', color: '#c81d25', icon: '⚔️', description: 'Hardy humans of the Old World, beset by chaos.', player_relations: { archie: "Heretic!", markop: "Beastman! Kill it!", humpik: "Ally.", bowser: "Daemon!", remi: "Citizen." } },
+    warhammer_human: { name: 'Empire Human', color: '#c81d25', icon: '⚔️', description: 'Hardy humans of the Old World, beset by chaos.', player_relations: { archie: "Heretic!", markop: "Beastman! Kill it!", humpik: "Ally.", bowser: "Daemon!", remi: "Suspicious. Is that halo a sign of Sigmar or Chaos?" } },
     skaven: { name: 'Skaven', color: '#70e000', icon: '🐀', description: 'Insidious rat-men who dwell in the Under-Empire.', social_status: "Untrustworthy", player_relations: { archie: "Die-die, man-thing!", markop: "Horse-thing tasty!", humpik: "Beard-thing fear-fear!", bowser: "Big-thing scary!", remi: "Slave-thing!" } },
     warhammer_dwarf: { name: 'Dwarf (Old World)', color: '#0077b6', icon: '🛡️', description: 'Grudge-bearing mountain dwellers and master smiths.', player_relations: { archie: "Untrustworthy manling.", markop: "Abomination.", humpik: "KIN! ROCK AND STONE!", bowser: "Dragon-kin! Slay it!", remi: "Umgak (shoddy)." } },
     warhammer_orc: { name: 'Greenskin', color: '#38b000', icon: '🤮', description: 'Savage orcs living for the WAAAGH!', player_relations: { archie: "Krump 'im!", markop: "Fast food.", humpik: "Stuntie scum.", bowser: "Da Biggest Boss!", remi: "Squish." } },
@@ -414,7 +415,7 @@ export const SPECIES_DATA = {
     // ========================================================================
     // MIDDLE-EARTH
     // ========================================================================
-    gondorian: { name: 'Man of Gondor', color: '#e0e0e0', icon: '🏰', description: 'Noble descendants of Numenor guarding the White City.', player_relations: { archie: "Commoner.", markop: "Monster.", humpik: "Ally of old.", bowser: "Troll-king.", remi: "Citizen." } },
+    gondorian: { name: 'Man of Gondor', color: '#e0e0e0', icon: '🏰', description: 'Noble descendants of Numenor guarding the White City.', player_relations: { archie: "Commoner.", markop: "Monster.", humpik: "Ally of old.", bowser: "Troll-king.", remi: "Stranger from afar." } },
     rohirrim: { name: 'Rohirrim', color: '#81c784', icon: '🐎', description: 'Horse-lords of the grassy plains.', player_relations: { archie: "Stranger.", markop: "A HORSE MAN! AWE.", humpik: "Friend.", bowser: "Beast.", remi: "Shieldmaiden?" } },
     middle_earth_elf: { name: 'Elf (Middle-earth)', color: '#ffd700', icon: '🧝', description: 'Immortal beings of starlight, song, and sorrow.', player_relations: { archie: "Young soul.", markop: "Strange creature.", humpik: "Grudging tolerance.", bowser: "Shadow and flame.", remi: "Child." } },
     middle_earth_dwarf: { name: 'Dwarf (Durin\'s Folk)', color: '#a9a9a9', icon: '⛏️', description: 'Miners and smiths of Erebor and the Iron Hills.', player_relations: { archie: "Thief?", markop: "Too tall.", humpik: "COUSIN!", bowser: "Dragon-spawn.", remi: "Soft." } },
@@ -436,7 +437,7 @@ export const SPECIES_DATA = {
     // ========================================================================
     // POKEMON REGIONS
     // ========================================================================
-    pokemon_human: { name: 'Human (Trainer)', color: '#ff0000', icon: '🧢', description: 'Humans who live, work, and battle alongside Pokémon.', player_relations: { archie: "Trainer?", markop: "Pokemon?", humpik: "Pokemon?", bowser: "Legendary Pokemon!", remi: "Trainer." } },
+    pokemon_human: { name: 'Human (Trainer)', color: '#ff0000', icon: '🧢', description: 'Humans who live, work, and battle alongside Pokémon.', player_relations: { archie: "Trainer?", markop: "Pokemon?", humpik: "Pokemon?", bowser: "Legendary Pokemon!", remi: "Student? You look like a trainer, but where are your Pokémon?" } },
     normal_pokemon: { name: 'Pokémon (Normal)', color: '#a8a878', icon: '⚪', description: 'Versatile Pokémon.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" } },
     water_pokemon: { name: 'Pokémon (Water)', color: '#6890f0', icon: '💧', description: 'Pokémon adapted to aquatic environments.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" } },
     grass_pokemon: { name: 'Pokémon (Grass)', color: '#78c850', icon: '🌿', description: 'Pokémon with an affinity for nature.', player_relations: { archie: "?", markop: "?", humpik: "?", bowser: "?", remi: "?" } },
@@ -508,7 +509,7 @@ export const SPECIES_DATA = {
     // ========================================================================
     // FAERUN
     // ========================================================================
-    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'Adaptable humans.', player_relations: { archie: "Human.", markop: "Horse.", humpik: "Dwarf.", bowser: "Monster.", remi: "Kin." } },
+    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'Adaptable humans.', player_relations: { archie: "Human.", markop: "Horse.", humpik: "Dwarf.", bowser: "Monster.", remi: "Planar Traveler. You are human-shaped, but not of this world." } },
     faerun_elf: { name: 'Elf (Realms)', color: '#bde0fe', icon: '🧝‍♀️', description: 'Magical beings.', player_relations: { archie: "Crude.", markop: "Noble.", humpik: "Stubborn.", bowser: "Evil.", remi: "Short." } },
     faerun_dwarf: { name: 'Dwarf (Realms)', color: '#607d8b', icon: '⛏️', description: 'Stout warriors.', player_relations: { archie: "Weak.", markop: "Tall.", humpik: "BROTHER!", bowser: "Enemy.", remi: "Lass." } },
     faerun_halfling: { name: 'Halfling (Realms)', color: '#ffcc80', icon: '🍞', description: 'Lucky folk.', player_relations: { archie: "Big.", markop: "Ride?", humpik: "Ale?", bowser: "Hide.", remi: "Food?" } },

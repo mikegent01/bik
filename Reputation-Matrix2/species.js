@@ -1,5 +1,3 @@
-
-
 import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
@@ -11,7 +9,7 @@ const PLAYER_RACE_LABELS = {
     markop: "Centaur - Equine",
     humpik: "Dwarf",
     bowser: "Koopa",
-    remi: "Human"
+    remi: "Student (Human)"
 };
 
 // Helper to aggregate populations
