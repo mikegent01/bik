@@ -1,34 +1,39 @@
+
 // maps-data-loader.js
 
 import { QUEST_DATA } from './quests-data.js';
 import { MAP_DATA } from './map-data.js';
+import { REGIONAL_DEMOGRAPHICS, SPECIES_DATA } from './species-data.js';
 
-const WORLD_SPECIES = {
-    warhammer: ['Humans', 'Dwarfs', 'Orcs & Goblins', 'Undead', 'Elves', 'Skaven'],
-    mushroom_kingdom: ['Toads', 'Koopas', 'Goombas', 'Kongs', 'Yoshis', 'Boos'],
-    midlands: ['Humans', 'Vampires', 'Werewolves', 'Rakasha', 'Goblins', 'Mages'],
-    doughnut_hole: ['Cosmic Entities', 'Void Scavengers', 'Starlight Beings', 'Paradoxes'],
-    internet: ['Digital Avatars', 'AI', 'Data-Golems', 'Viruses', 'Memes'],
-    middle_earth: ['Men', 'Elves', 'Dwarves', 'Hobbits', 'Orcs', 'Uruk-hai'],
-    kivotos: ['Students (with Halos)', 'Robots', 'Delinquents', 'Mysterious Beings'],
-    pokemon: ['Humans', 'Pokémon (Various)', 'Delinquents', 'Champs']
+// Mapping between the `data-world` attribute in maps-1.html and the group keys in REGIONAL_DEMOGRAPHICS
+const WORLD_TO_GROUP = {
+    'warhammer': 'The Fated Place',
+    'mushroom_kingdom': 'Mushroom Kingdom Regions',
+    'midlands': 'The Midlands',
+    'doughnut_hole': 'The Doughnut Hole',
+    'internet': 'The Internet',
+    'middle_earth': 'Middle-earth',
+    'kivotos': 'Kivotos',
+    'pokemon': 'Pokémon Regions',
+    'animatopia': 'Animatopia',
+    'almost_edge': 'The Edge Regions',
+    'the_edge': 'The Edge Regions',
+    'connectopia': 'Connectopia',
+    'earth_land': 'Earth Land',
+    'faerun': 'Faerûn',
+    'leclaire_isle': 'L\'Eclaire Isle',
+    'teyvat': 'Teyvat',
+    'equestria': 'Equestria'
 };
 
-const MAP_GROUP_TO_WORLD = {
-    'The Fated Place': 'warhammer',
-    'Mushroom Kingdom Regions': 'mushroom_kingdom',
-    'Islands & Outer Realms': 'mushroom_kingdom',
-    'The Midlands': 'midlands',
-    'The Doughnut Hole': 'doughnut_hole',
-    'The Internet': 'internet',
-    'Middle-earth': 'middle_earth',
-    'Kivotos': 'kivotos',
-    'Pokémon Regions': 'pokemon'
-};
+// Inverse mapping for quest counting (Group Name -> World Key)
+const MAP_GROUP_TO_WORLD = Object.fromEntries(
+    Object.entries(WORLD_TO_GROUP).map(([key, value]) => [value, key])
+);
 
 function getQuestCounts() {
     const counts = {};
-    for (const worldKey in WORLD_SPECIES) {
+    for (const worldKey in WORLD_TO_GROUP) {
         counts[worldKey] = 0;
     }
 
@@ -73,7 +78,19 @@ function updateGalleryItems() {
         statsContainer.className = 'gallery-item-stats';
 
         const questCount = questCounts[worldKey] || 0;
-        const species = WORLD_SPECIES[worldKey] || [];
+        
+        // Dynamic Species List Generation
+        const groupName = WORLD_TO_GROUP[worldKey];
+        const demographics = REGIONAL_DEMOGRAPHICS[groupName] || {};
+        
+        // Get top 5 species by percentage
+        const speciesList = Object.entries(demographics)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([key]) => SPECIES_DATA[key]?.name || key)
+            .join(', ');
+
+        const displaySpecies = speciesList || "Unknown / Varied";
 
         statsContainer.innerHTML = `
             <div class="stat-item requests">
@@ -82,13 +99,17 @@ function updateGalleryItems() {
             </div>
             <div class="stat-item species">
                 <span class="stat-label">Inhabitants:</span>
-                <span class="stat-value">${species.join(', ')}</span>
+                <span class="stat-value">${displaySpecies}</span>
             </div>
         `;
 
         // Append after the description paragraph
         const descriptionP = infoContainer.querySelector('p');
         if (descriptionP) {
+            // Check if stats already exist to avoid duplication on re-runs
+            const existingStats = infoContainer.querySelector('.gallery-item-stats');
+            if (existingStats) existingStats.remove();
+            
             descriptionP.insertAdjacentElement('afterend', statsContainer);
         }
     });

@@ -1,67 +1,149 @@
 
 export const SPECIES_DATA = {
-    // === HUMANS ===
-    regal_midlander: { name: 'Regal Midlander', color: '#ffadad', icon: '🧑', description: 'The dominant human culture of the Midlands, known for their discipline, ambition, and belief in the manifest destiny of the Regal Empire.' },
-    vemilia_merchant: { name: 'Vemilian Merchant', color: '#ffc4a3', icon: '💰', description: 'A pragmatic and trade-focused human subgroup from the wealthy province of Vemilia. They value contracts and coin above all else.' },
-    northern_clansman: { name: 'Northern Clansman', color: '#d4afb9', icon: '🧔', description: 'Hardy, reclusive humans from the northern frontiers. They are fiercely independent and often form the backbone of the Rebel Clans.' },
-    silver_flame_zealot: { name: 'Silver Flame Zealot', color: '#e5e5e5', icon: '🔥', description: 'Humans who have dedicated their lives to the Order of the Silver Flame. They are characterized by their unwavering faith and intense hatred of the supernatural.' },
-    blood_thrall: { name: 'Blood Thrall', color: '#ff9a9a', icon: '🧛', description: 'Mortals bound by blood to a vampire master. They retain their human form but are supernaturally enthralled, serving as spies, servants, and a walking larder.' },
+    // === MARIO WORLD ===
+    toad_citizen: { name: 'Toad', color: '#ff6b6b', icon: '🍄', description: 'The peaceful, fungal-capped citizens of the Mushroom Kingdom.' },
+    koopa: { name: 'Koopa', color: '#ffd93d', icon: '🐢', description: 'Turtle-like creatures that form the backbone of Bowser\'s army.' },
+    goomba: { name: 'Goomba', color: '#8d6e63', icon: '😠', description: 'Small, mushroom-like creatures with a grumpy disposition.' },
+    yoshi: { name: 'Yoshi', color: '#76ff03', icon: '🦖', description: 'Friendly, dinosaur-like omnivores from Yoshi\'s Island.' },
+    pianta: { name: 'Pianta', color: '#f48c06', icon: '🌴', description: 'Strong, tree-loving islanders from the Sunshine Isles.' },
+    noki: { name: 'Noki', color: '#4fc3f7', icon: '🐚', description: 'Shell-dwelling islanders often found near coral reefs.' },
+    shy_guy: { name: 'Shy Guy', color: '#ef5350', icon: '🎭', description: 'Masked, mysterious minions who serve various masters.' },
+    bob_omb: { name: 'Bob-omb', color: '#212121', icon: '💣', description: 'Living explosives with a short fuse and shorter temper.' },
+    monty_mole: { name: 'Monty Mole', color: '#795548', icon: '👓', description: 'Subterranean pests that ambush travelers.' },
 
-    // === ELVES ===
-    autumnwood_elf: { name: 'Autumnwood Elf', color: '#caffbf', icon: '🧝', description: 'The native Elves of the Autumnwood, deeply connected to its seasonal magic. They are reclusive, scholarly, and serve as the core of the Mages\' Guild.' },
-    shadow_elf: { name: 'Shadow Elf (Drow)', color: '#a3a3a3', icon: '🧝‍♀️', description: 'Exiles and outcasts who dwell in the deep caverns of the Underdark. Known for their innate magical abilities and ruthless politics.' },
+    // === THE MIDLANDS ===
+    regal_midlander: { name: 'Regal Midlander', color: '#ffadad', icon: '🧑', description: 'The dominant human culture of the Midlands, known for discipline and ambition.' },
+    moonfang_werewolf: { name: 'Werewolf', color: '#ffd6a5', icon: '🐺', description: 'Lycanthropes bound to the lunar cycle and pack hierarchy.' },
+    elder_vampire: { name: 'Vampire', color: '#e4c1f9', icon: '🧛', description: 'Ancient, powerful undead aristocrats who feed on the living.' },
+    midlands_orc: { name: 'Orc (Midlands)', color: '#2d6a4f', icon: '👹', description: 'Brutish warriors of the Wilderlands who live for battle.' },
+    rakasha_hunter: { name: 'Rakasha', color: '#f0c69d', icon: '🐅', description: 'Proud, cat-like beastfolk who value honor and nature.' },
+    midlands_goblin: { name: 'Goblin', color: '#aed581', icon: '👺', description: 'Scrappy scavengers and mechanics of the Ratchet Raiders.' },
+    skeleton_warrior: { name: 'Skeleton', color: '#cfd8dc', icon: '💀', description: 'Animated remains serving necromancers or ancient curses.' },
+    ghost_spirit: { name: 'Spirit', color: '#b3e5fc', icon: '👻', description: 'Restless souls bound to the mortal plane.' },
 
-    // === DWARVES ===
-    mountain_dwarf: { name: 'Mountain Dwarf', color: '#bdb2ff', icon: '🧔‍♂️', description: 'The classic Dwarves of the great mountain holds. Master artisans and warriors, known for their long memories and even longer grudges.' },
-    hill_dwarf: { name: 'Hill Dwarf', color: '#c4b3ff', icon: '🧔‍♀️', description: 'Dwarves who live in fortified hill-settlements rather than deep mountains. They are more open to trade and interaction with other races.' },
+    // === WARHAMMER (THE FATED PLACE) ===
+    warhammer_human: { name: 'Empire Human', color: '#c81d25', icon: '⚔️', description: 'Hardy humans of the Old World, beset by chaos on all sides.' },
+    skaven: { name: 'Skaven', color: '#70e000', icon: '🐀', description: 'Insidious rat-men who dwell in the Under-Empire.' },
+    warhammer_dwarf: { name: 'Dwarf (Old World)', color: '#0077b6', icon: '🛡️', description: 'Grudge-bearing mountain dwellers and master smiths.' },
+    warhammer_orc: { name: 'Greenskin', color: '#38b000', icon: '🤮', description: 'Savage orcs living for the WAAAGH!' },
+    warhammer_elf: { name: 'High Elf', color: '#caf0f8', icon: '✨', description: 'Arrogant masters of magic from Ulthuan.' },
+    beastman: { name: 'Beastman', color: '#5d4037', icon: '🐐', description: 'Twisted children of Chaos who haunt the deep woods.' },
+    chaos_warrior: { name: 'Chaos Warrior', color: '#263238', icon: '🛡️', description: 'Heavily armored humans sworn to the Dark Gods.' },
+    lizardman: { name: 'Lizardman', color: '#00bcd4', icon: '🦎', description: 'Cold-blooded guardians of the Great Plan.' },
 
-    // === BEASTFOLK ===
-    moonfang_werewolf: { name: 'Moonfang Werewolf', color: '#ffd6a5', icon: '🐺', description: 'The dominant lycanthrope clan of the Midlands. They are brutal, territorial warriors whose power is tied to the lunar cycle.' },
-    rakasha_hunter: { name: 'Rakasha Hunter', color: '#f0c69d', icon: '🐅', description: 'Cat-like beastfolk from the Wilderlands. Proud, honorable hunters who live in harmony with the natural world and often clash with Imperial expansion.' },
-    centaur_nomad: { name: 'Centaur Nomad', color: '#e4b99a', icon: '🐎', description: 'Nomadic clans of centaurs who roam the Baldora Plains. They are master archers and are fiercely protective of their freedom.' },
-    harpy: { name: 'Harpy', color: '#f7d6b5', icon: '🦅', description: 'Winged, avian humanoids who live in high mountain aeries. They are known for their sharp talons and even sharper tempers.' },
-    ratfolk_scavenger: { name: 'Ratfolk Scavenger', color: '#d1bfae', icon: '🐀', description: 'Small, resourceful rat-like humanoids who thrive in the sewers and undercities of the Midlands. They are master scavengers and tinkerers.' },
-    minotaur: { name: 'Minotaur', color: '#c2a894', icon: '🐃', description: 'Large, bull-headed humanoids known for their immense strength and stubborn nature. Often employed as heavy shock troops or guards.' },
+    // === MIDDLE-EARTH ===
+    gondorian: { name: 'Man of Gondor', color: '#e0e0e0', icon: '🏰', description: 'Noble descendants of Numenor guarding the White City.' },
+    rohirrim: { name: 'Rohirrim', color: '#81c784', icon: '🐎', description: 'Horse-lords of the grassy plains.' },
+    middle_earth_elf: { name: 'Elf (Middle-earth)', color: '#ffd700', icon: '🧝', description: 'Immortal beings of starlight, song, and sorrow.' },
+    middle_earth_dwarf: { name: 'Dwarf (Durin\'s Folk)', color: '#a9a9a9', icon: '⛏️', description: 'Miners and smiths of Erebor and the Iron Hills.' },
+    uruk_hai: { name: 'Uruk-hai', color: '#3e2723', icon: '🤚', description: 'A superior breed of Orc created for war.' },
+    mordor_orc: { name: 'Orc (Mordor)', color: '#5c4d3c', icon: '👺', description: 'Corrupted servants of the Dark Lord.' },
+    hobbit: { name: 'Hobbit', color: '#8ab17d', icon: '🦶', description: 'Small, comfort-loving folk of the Shire.' },
+    ent: { name: 'Ent', color: '#33691e', icon: '🌳', description: 'Ancient tree-shepherds of Fangorn Forest.' },
+    cave_troll: { name: 'Troll', color: '#616161', icon: '🧌', description: 'Huge, dim-witted creatures of stone and darkness.' },
 
-    // === GOBLINOIDS ===
-    midlands_orc: { name: 'Midlands Orc', color: '#ffc6ff', icon: '👹', description: 'The common Orcs of the Midlands, often found in mercenary warbands or as conscripted labor for darker powers. They are strong, brutish, and love a good fight.' },
-    goblin_tinkerer: { name: 'Goblin Tinkerer', color: '#f4b0f4', icon: '👺', description: 'Small, cunning goblinoids with a natural aptitude for dangerous and unstable machinery. The core of the Ratchet Raiders.' },
-    hobgoblin: { name: 'Hobgoblin', color: '##e8a0e8', icon: '😈', description: 'Larger, more disciplined cousins of goblins. They are often found as sergeants and taskmasters in Orcish warbands.' },
-    war_ogre: { name: 'War Ogre', color: '#da93da', icon: ' Ogre', description: 'Dim-witted but incredibly strong giants, often bred by the Iron Legion as living siege engines.' },
+    // === KIVOTOS ===
+    kivotos_human: { name: 'Student (Human)', color: '#4a86e8', icon: '👩‍🎓', description: 'Ordinary students wielding extraordinary firepower.' },
+    kivotos_angel: { name: 'Student (Angel)', color: '#fff9c4', icon: '😇', description: 'Halo-bearing students, often from Trinity.' },
+    kivotos_demon: { name: 'Student (Demon)', color: '#ef9a9a', icon: '😈', description: 'Horned and tailed students, often from Gehenna.' },
+    kivotos_beastkin: { name: 'Student (Beastkin)', color: '#ffcc80', icon: '🦊', description: 'Students with animal traits like ears or tails.' },
+    kivotos_robot: { name: 'Automata', color: '#999999', icon: '🤖', description: 'Robotic citizens and combat units of Kivotos.' },
 
-    // === UNDEAD ===
-    elder_vampire: { name: 'Elder Vampire', color: '#e4c1f9', icon: '🦇', description: 'Ancient, powerful vampires who form the ruling council of the Onyx Hand. They are masters of magic, politics, and manipulation.' },
-    vampire_spawn: { name: 'Vampire Spawn', color: '#d4b1e3', icon: '🧛‍♂️', description: 'Lesser vampires created by an Elder. They possess great strength and speed but are subservient to their master\'s will.' },
-    ghoul: { name: 'Crypt Ghoul', color: '#c7a7d4', icon: '🧟', description: 'Feral, flesh-eating undead that haunt graveyards and battlefields. They are often found in the service of vampires.' },
-    wight: { name: 'Barrow Wight', color: '#b298c2', icon: '💀', description: 'The malevolent spirits of ancient kings and warriors, bound to their burial mounds. They command a chilling aura and can drain the life from their victims.' },
-    ghost: { name: 'Ghost / Spectre', color: '#f0e6f7', icon: '👻', description: 'Incorporeal spirits of the dead, often tied to a place of great sorrow or a violent death.' },
-    skeleton_warrior: { name: 'Skeleton Warrior', color: '#dcdcdc', icon: '💀', description: 'The reanimated bones of fallen soldiers, used as tireless and fearless infantry by necromancers.' },
-    
-    // === CONSTRUCTS & ELEMENTALS ===
-    magitek_construct: { name: 'Magitek Construct', color: '#a9def9', icon: '🤖', description: 'Automated war machines created by the Regal Empire, powered by arcane capacitors and bound by complex runes.' },
-    forge_golem: { name: 'Forge-Golem', color: '#97d1ed', icon: '🦾', description: 'Heavy, slow-moving constructs of iron and stone, often used for heavy labor in the Magitek Foundries or as shock troops by the Iron Legion.' },
-    homunculus: { name: 'Homunculus', color: '#d0effa', icon: '⚗️', description: 'Small, artificial beings created through alchemy by the Mages\' Guild to serve as assistants and spies.' },
-    mana_elemental: { name: 'Mana Elemental', color: '#b9e7f7', icon: '💧', description: 'Beings of pure, raw magical energy that coalesce around the ley lines and mana springs of the Autumnwood. They are wild and unpredictable.' },
-    gargoyle: { name: 'Gargoyle', color: '#a3d8e8', icon: '🗿', description: 'Winged, stone-like creatures bound to the service of the Onyx Hand. They serve as tireless sentinels for their vampire masters.' },
+    // === POKEMON REGIONS ===
+    pokemon_human: { name: 'Human (Trainer)', color: '#ff0000', icon: '🧢', description: 'Humans who live, work, and battle alongside Pokémon.' },
+    grass_pokemon: { name: 'Grass Type', color: '#4caf50', icon: '🌿', description: 'Pokémon with an affinity for nature and plants.' },
+    fire_pokemon: { name: 'Fire Type', color: '#f44336', icon: '🔥', description: 'Pokémon that command the power of flame.' },
+    water_pokemon: { name: 'Water Type', color: '#2196f3', icon: '💧', description: 'Pokémon adapted to aquatic environments.' },
+    electric_pokemon: { name: 'Electric Type', color: '#ffeb3b', icon: '⚡', description: 'Pokémon that generate and store electricity.' },
+    normal_pokemon: { name: 'Normal Type', color: '#a1887f', icon: '⚪', description: 'Versatile Pokémon adaptable to many environments.' },
+    ghost_pokemon: { name: 'Ghost Type', color: '#7e57c2', icon: '👻', description: 'Spectral Pokémon with mischievous or spooky natures.' },
+    legendary_pokemon: { name: 'Legendary', color: '#ffd700', icon: '✨', description: 'Rare and powerful Pokémon of myth and legend.' },
 
-    // === FEY & PLANAR ===
-    sprite: { name: 'Sprite / Pixie', color: '#b1f2cf', icon: '🧚', description: 'Tiny, mischievous fey creatures from the hidden groves of the Autumnwood. They are capricious and view mortals with amused curiosity.' },
-    dryad: { name: 'Dryad', color: '#a3e6c3', icon: '🌳', description: 'The spirit of an ancient tree given humanoid form. They are the fierce protectors of the deepest parts of the forests.' },
-    blink_dog: { name: 'Blink Dog', color: '#94d9b6', icon: '🐕', description: 'Magical canines with the ability to teleport short distances. They are intelligent, loyal, and often serve as familiars to powerful mages.' },
+    // === THE INTERNET ===
+    netizen: { name: 'Netizen', color: '#00ffff', icon: '🌐', description: 'Digital avatars representing users in the data-stream.' },
+    spam_bot: { name: 'Spam Bot', color: '#ffc107', icon: '📧', description: 'Annoying, self-replicating constructs selling nonsense.' },
+    living_meme: { name: 'Living Meme', color: '#00e676', icon: '🐸', description: 'Information entities that evolve through viral spread.' },
+    virus_entity: { name: 'Virus', color: '#d500f9', icon: '🦠', description: 'Malicious code given form, seeking to corrupt data.' },
+    moderator_construct: { name: 'Moderator', color: '#304ffe', icon: '🛡️', description: 'Enforcers of the Terms of Service.' },
 
-    // === MONSTROUS & GIANT-KIN ===
-    giant: { name: 'Hill Giant', color: '#f3c7a4', icon: '🦍', description: 'Large, brutish humanoids who live in the remote hills and mountains. They are simple-minded but possess immense strength.' },
-    troll: { name: 'Cave Troll', color: '#e5b999', icon: '🧌', description: 'Vicious, regenerating monsters that dwell in dark caves and under bridges. They are notoriously stupid and have a ravenous appetite.' },
-    cockatrice: { name: 'Cockatrice', color: '#d7ab8e', icon: '🐔', description: 'A monstrous hybrid of a lizard and a rooster, whose gaze can turn flesh to stone. Found in the rocky crags of Dry County.' },
-    basilisk: { name: 'Basilisk', color: '#c99d83', icon: '🐍', description: 'A massive, serpentine lizard whose venom is a potent acid and whose gaze is petrifying. A rare and terrifying predator.' },
-    wyvern: { name: 'Wyvern', color: '#bb8f78', icon: '🐉', description: 'Lesser, two-legged cousins of dragons. They are vicious aerial predators often found nesting in mountain peaks.' },
-    griffon: { name: 'Griffon', color: '#ad816d', icon: '🦁', description: 'Majestic creatures with the body of a lion and the head and wings of an eagle. They are noble beasts, sometimes tamed by the most skilled Imperial knights.' },
+    // === ANIMATOPIA ===
+    fox_folk: { name: 'Fox', color: '#e65100', icon: '🦊', description: 'Cunning and adaptable canids.' },
+    rabbit_folk: { name: 'Rabbit', color: '#bdbdbd', icon: '🐰', description: 'Fast, prolific, and generally peaceful lagomorphs.' },
+    lion_folk: { name: 'Lion', color: '#fbc02d', icon: '🦁', description: 'Proud felines often found in leadership roles.' },
+    sheep_folk: { name: 'Sheep', color: '#f5f5f5', icon: '🐑', description: 'Community-minded herbivores with soft wool.' },
+    sloth_folk: { name: 'Sloth', color: '#8d6e63', icon: '🦥', description: 'Slow-moving but thoughtful arboreal mammals.' },
+    bear_folk: { name: 'Bear', color: '#3e2723', icon: '🐻', description: 'Strong and solitary omnivores.' },
 
-    // === FLORA & FUNGI ===
-    myconid: { name: 'Myconid', color: '#d0bdf4', icon: '🍄', description: 'Sentient, humanoid fungi that live in the damp, dark places of the world. They communicate through telepathic spores and have a collective consciousness.' },
-    treant: { name: 'Treant', color: '#b8a6d4', icon: '🌲', description: 'Ancient, awakened trees that act as the slow, powerful guardians of the oldest forests. Their wrath, though slow to rouse, is immense.' },
-    shambling_mound: { name: 'Shambling Mound', color: '#a492c1', icon: '🌿', description: 'A semi-sentient mass of decaying vegetation, animated by lightning or raw magic. A mindless, all-consuming force of nature.' },
+    // === EQUESTRIA ===
+    earth_pony: { name: 'Earth Pony', color: '#8d6e63', icon: '🐴', description: 'Strong ponies with a connection to the land.' },
+    pegasus: { name: 'Pegasus', color: '#4fc3f7', icon: '🪽', description: 'Winged ponies who manage the weather.' },
+    unicorn: { name: 'Unicorn', color: '#e1bee7', icon: '🦄', description: 'Ponies capable of wielding magic.' },
+    changeling: { name: 'Changeling', color: '#1de9b6', icon: '🦟', description: 'Insectoid shapeshifters who feed on love.' },
+    griffon: { name: 'Griffon', color: '#ffca28', icon: '🦅', description: 'Proud, eagle-lion hybrids from across the sea.' },
+
+    // === TEYVAT ===
+    teyvat_human: { name: 'Human (Teyvat)', color: '#ffca3a', icon: '⚖️', description: 'Citizens of the seven nations.' },
+    hilichurl: { name: 'Hilichurl', color: '#5d4037', icon: '🎭', description: 'Masked tribal monsters found across the wilderness.' },
+    adeptus: { name: 'Adeptus', color: '#00bfa5', icon: '🐉', description: 'Illuminated beasts and guardians of Liyue.' },
+    abyss_mage: { name: 'Abyss Mage', color: '#6200ea', icon: '🧙‍♂️', description: 'Sorcerers of the Abyss Order promoting chaos.' },
+    slime_elemental: { name: 'Slime', color: '#29b6f6', icon: '💧', description: 'Pure elemental lifeforms in gelatinous shape.' },
+
+    // === FAERUN ===
+    faerun_human: { name: 'Human (Realms)', color: '#cdb4db', icon: '🧑‍🤝‍🧑', description: 'Versatile and ambitious humans of the Forgotten Realms.' },
+    faerun_elf: { name: 'Elf (Realms)', color: '#bde0fe', icon: '🧝‍♀️', description: 'Graceful and magical inhabitants of the forests.' },
+    faerun_dwarf: { name: 'Dwarf (Realms)', color: '#607d8b', icon: '⛏️', description: 'Stout warriors and craftsmen of the mountains.' },
+    halfling: { name: 'Halfling', color: '#ffcc80', icon: '🍞', description: 'Small, lucky folk who enjoy simple comforts.' },
+    gnome: { name: 'Gnome', color: '#ba68c8', icon: '⚙️', description: 'Inventive and eccentric tinkers.' },
+    tiefling: { name: 'Tiefling', color: '#ff5252', icon: '😈', description: 'Humans with an infernal heritage.' },
+    dragonborn: { name: 'Dragonborn', color: '#d4af37', icon: '🐲', description: 'Proud, draconic humanoids.' },
+    drow: { name: 'Drow', color: '#212121', icon: '🕷️', description: 'Dark elves from the Underdark.' },
+
+    // === CONNECTOPIA ===
+    block_folk: { name: 'Block Folk', color: '#795548', icon: '🟦', description: 'Pixelated humanoids who build and craft.' },
+    creeper_kind: { name: 'Exploder', color: '#43a047', icon: '🟩', description: 'Silent, green creatures that explode near others.' },
+    ender_kind: { name: 'Void Walker', color: '#311b92', icon: '👁️', description: 'Tall, dark figures that teleport and steal blocks.' },
+
+    // === EARTH LAND ===
+    earth_land_mage: { name: 'Mage', color: '#f4a261', icon: '🔥', description: 'Humans capable of wielding magic.' },
+    exceed: { name: 'Exceed', color: '#90caf9', icon: '😺', description: 'Winged cats from another dimension.' },
+    celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Beings from the Spirit World summoned by keys.' },
+    vulcan: { name: 'Vulcan', color: '#f44336', icon: '🦍', description: 'Monstrous ape-like creatures that inhabit mountains.' },
+
+    // === L'ECLAIRE ISLE ===
+    dough_folk: { name: 'Dough Folk', color: '#f4d35e', icon: '🍩', description: 'Sentient, pastry-based lifeforms.' },
+    frosting_slime: { name: 'Frosting Slime', color: '#f06292', icon: '🧁', description: 'Semi-sentient blobs of animated sugar.' },
+    candy_construct: { name: 'Candy Golem', color: '#e91e63', icon: '🍭', description: 'Hard-candy constructs serving as guards.' },
+
+    // === THE DOUGHNUT HOLE & THE EDGE ===
+    void_entity: { name: 'Void Entity', color: '#000000', icon: '🌑', description: 'Beings composed of emptiness and cosmic dust.' },
+    cosmic_entity: { name: 'Cosmic Entity', color: '#9d4edd', icon: '🌌', description: 'Beings of pure energy and starlight.' },
+    fractal_being: { name: 'Fractal Being', color: '#6200ea', icon: '💠', description: 'Lifeforms based on repeating mathematical patterns.' },
+    time_echo: { name: 'Time Echo', color: '#bdbdbd', icon: '⏳', description: 'Residual images of beings from other timelines.' },
+    logic_crystal: { name: 'Logic Crystal', color: '#00e5ff', icon: '💎', description: 'Sentient mineral structures seeking order.' },
+    null_texture: { name: 'Null Texture', color: '#ff00ff', icon: '🔲', description: 'Entities missing their visual data, appearing as magenta checkers.' },
+    wireframe_husk: { name: 'Wireframe', color: '#00ff00', icon: '🕸️', description: 'Creatures reduced to their structural geometry.' },
+    glitch_ghost: { name: 'Glitch Ghost', color: '#ffffff', icon: '🌫️', description: 'Fragmented data haunting the edge of reality.' },
 
     // === CATCH-ALL ===
-    other: { name: 'Other', color: '#8b949e', icon: '👽', description: 'A catch-all category for the countless other strange and unique species that inhabit the Doughnut World.' }
+    other: { name: 'Other / Unknown', color: '#6c757d', icon: '❓', description: 'Unclassified, unique, or minor species.' }
+};
+
+export const REGIONAL_DEMOGRAPHICS = {
+    'Mushroom Kingdom Regions': { toad_citizen: 0.60, goomba: 0.15, koopa: 0.10, yoshi: 0.05, bob_omb: 0.05, shy_guy: 0.05 },
+    'Islands & Outer Realms': { pianta: 0.30, noki: 0.20, yoshi: 0.30, koopa: 0.10, monty_mole: 0.10 },
+    'The Midlands': { regal_midlander: 0.40, moonfang_werewolf: 0.15, elder_vampire: 0.05, midlands_orc: 0.10, rakasha_hunter: 0.10, midlands_goblin: 0.10, skeleton_warrior: 0.05, ghost_spirit: 0.05 },
+    'The Fated Place': { warhammer_human: 0.30, skaven: 0.20, warhammer_orc: 0.20, warhammer_dwarf: 0.10, warhammer_elf: 0.05, beastman: 0.05, chaos_warrior: 0.05, lizardman: 0.05 },
+    'Middle-earth': { gondorian: 0.25, rohirrim: 0.15, middle_earth_elf: 0.10, middle_earth_dwarf: 0.10, hobbit: 0.05, mordor_orc: 0.20, uruk_hai: 0.10, ent: 0.03, cave_troll: 0.02 },
+    'Kivotos': { kivotos_human: 0.40, kivotos_angel: 0.20, kivotos_demon: 0.20, kivotos_beastkin: 0.10, kivotos_robot: 0.10 },
+    'Pokémon Regions': { pokemon_human: 0.20, grass_pokemon: 0.15, fire_pokemon: 0.15, water_pokemon: 0.15, electric_pokemon: 0.10, normal_pokemon: 0.15, ghost_pokemon: 0.05, legendary_pokemon: 0.05 },
+    'The Internet': { netizen: 0.40, spam_bot: 0.20, living_meme: 0.15, virus_entity: 0.15, moderator_construct: 0.10 },
+    'The Doughnut Hole': { void_entity: 0.40, cosmic_entity: 0.20, fractal_being: 0.15, time_echo: 0.15, logic_crystal: 0.10 },
+    'Animatopia': { fox_folk: 0.15, rabbit_folk: 0.30, lion_folk: 0.10, sheep_folk: 0.25, sloth_folk: 0.10, bear_folk: 0.10 },
+    'The Edge Regions': { null_texture: 0.40, wireframe_husk: 0.30, glitch_ghost: 0.20, void_entity: 0.10 },
+    'Connectopia': { block_folk: 0.70, creeper_kind: 0.15, ender_kind: 0.15 },
+    'Earth Land': { earth_land_mage: 0.60, exceed: 0.20, celestial_spirit: 0.10, vulcan: 0.10 },
+    'Faerûn': { faerun_human: 0.30, faerun_elf: 0.15, faerun_dwarf: 0.15, halfling: 0.10, gnome: 0.10, tiefling: 0.10, dragonborn: 0.10 },
+    'L\'Eclaire Isle': { dough_folk: 0.80, frosting_slime: 0.10, candy_construct: 0.10 },
+    'Teyvat': { teyvat_human: 0.60, hilichurl: 0.20, adeptus: 0.05, abyss_mage: 0.10, slime_elemental: 0.05 },
+    'Equestria': { earth_pony: 0.30, pegasus: 0.30, unicorn: 0.30, changeling: 0.05, griffon: 0.05 },
 };
