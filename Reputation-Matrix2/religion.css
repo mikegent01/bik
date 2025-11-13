@@ -1,0 +1,325 @@
+
+#religion-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.religion-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.chart-panel, .edict-panel {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.chart-panel h3, .edict-panel h3 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.canvas-wrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+#active-edicts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.edict-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-color);
+    padding: 10px;
+    border-radius: 4px;
+    transition: transform 0.2s;
+}
+.edict-card:hover {
+    transform: translateX(2px);
+}
+
+.edict-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+}
+
+.edict-religion {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.edict-leader {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.edict-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-family: 'Georgia', serif;
+}
+
+/* --- Tree Layout --- */
+.religion-tree-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.religion-group-section {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.group-icon {
+    font-size: 2rem;
+}
+
+.group-info h3 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.group-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 4px 0 0 0;
+}
+
+.denomination-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.denomination-card {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+.denomination-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.denom-stripe {
+    width: 4px;
+    margin-right: 12px;
+    border-radius: 2px;
+}
+
+.denom-content {
+    flex-grow: 1;
+}
+
+.denom-name {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.denom-followers {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.denom-bonus {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    background-color: rgba(88, 166, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* --- NEW DETAIL POPUP STYLES --- */
+
+.religion-modal-frame {
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 24px;
+    background-color: var(--main-bg);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.religion-modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.religion-icon-large {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+}
+
+.religion-modal-header h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.leader-name {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.religion-stats-bar {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--sidebar-bg);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.stat-pill {
+    text-align: center;
+}
+
+.stat-pill .label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.stat-pill .val {
+    font-weight: bold;
+    color: var(--text-color);
+    font-family: var(--font-mono);
+}
+
+.litany-box {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--border-color);
+    font-style: italic;
+    color: var(--text-secondary);
+}
+.litany-box h5 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-style: normal;
+}
+
+.scroll-container {
+    background-color: #e8dcc5;
+    color: #3e3427;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+    border: 1px solid #c2b49a;
+}
+
+.edict-scroll h5 {
+    color: #594933;
+    border-bottom: 1px solid #594933;
+    padding-bottom: 5px;
+    margin-top: 0;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.1rem;
+}
+
+.edict-content {
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.blessing-box {
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.blessing-box h5 {
+    margin-top: 0;
+    font-family: var(--font-display);
+    color: var(--accent-color);
+}
+
+.blessing-box p {
+    margin: 5px 0;
+}
+
+.subtext {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.organization-footer {
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+@media (max-width: 900px) {
+    .religion-dashboard {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Religious Demographics</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="religion.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+             <aside id="sidebar"></aside>
+            <main id="main-content">
+                 <h2 class="page-title">Religious Demographics & Influence</h2>
+                 <p class="page-subtitle">Analysis of spiritual allegiances, sectarian divisions, and the active edicts of religious leaders across known realms.</p>
+                 
+                 <div id="religion-layout">
+                    <div class="religion-dashboard">
+                        <div class="chart-panel">
+                            <h3>Global Faith Distribution</h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="religion-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="edict-panel">
+                            <h3>Active Religious Edicts</h3>
+                            <div id="active-edicts-container">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="religion-tree-container">
+                        <!-- Groups and denominations injected by JS -->
+                    </div>
+                 </div>
+            </main>
+            
+            <!-- Religion Detail Panel (Right Side) -->
+            <aside id="detail-panel">
+                <button id="detail-panel-close">&times;</button>
+                <div id="detail-panel-content">
+                    <!-- Details injected by JS -->
+                </div>
+            </aside>
+        </div>
+    </div>
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
+    <script type="module" src="religion.js"></script>
+</body>
+</html>
