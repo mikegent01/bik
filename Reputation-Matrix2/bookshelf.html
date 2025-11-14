@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigilance Terminal | Bookshelf</title>
+    <title>Vigilance Terminal | Inventory &amp; Archives</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
@@ -16,10 +16,23 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Party Inventory & Bookshelf</h2>
-                 <div id="library-container">
-                    <div class="bookshelf" id="bookshelf-main">
-                        <!-- Books will be injected here by JS -->
+                 <h2 class="page-title">Party Valuables &amp; Archives</h2>
+
+                 <div id="inventory-section">
+                    <h3 class="section-title">Party Inventory</h3>
+                    <p class="page-subtitle" style="text-align: left; max-width: none; margin: 0 0 24px 0;">A collection of notable items, artifacts, and curiosities held by the party.</p>
+                    <div id="inventory-grid-container">
+                        <!-- Inventory items injected here -->
+                    </div>
+                 </div>
+
+                 <div id="bookshelf-section" style="margin-top: 48px;">
+                    <h3 class="section-title">Party Bookshelf</h3>
+                    <p class="page-subtitle" style="text-align: left; max-width: none; margin: 0 0 24px 0;">Readable books and documents acquired by the party. Unread books are locked. Click on a book to read it.</p>
+                    <div id="library-container">
+                        <div class="bookshelf" id="bookshelf-main">
+                            <!-- Books will be injected here by JS -->
+                        </div>
                     </div>
                  </div>
             </main>

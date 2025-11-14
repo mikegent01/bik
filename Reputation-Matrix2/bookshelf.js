@@ -49,7 +49,6 @@ import { BOOK_DATA as mayorsLedger } from './books/mayors_ledger.js';
 
 import { BOOK_DESCRIPTIONS } from './books/book_descriptions.js';
 
-const bookshelfContainer = document.getElementById('bookshelf-main');
 const bookModal = document.getElementById('book-reader-modal');
 const bookModalClose = document.getElementById('book-modal-close');
 const bookModalTitle = document.getElementById('book-modal-title');
@@ -179,11 +178,46 @@ function getBookCoverUrl(bookTitle) {
 loadState();
 
 function init() {
+    renderInventory();
     renderBookshelf();
     setupEventListeners();
 }
 
+function renderInventory() {
+    const inventoryContainer = document.getElementById('inventory-grid-container');
+    if (!inventoryContainer) return;
+
+    const allItems = [];
+    for (const ownerKey in state.inventories) {
+        const inventory = state.inventories[ownerKey];
+        if (!inventory || !inventory.items) continue;
+
+        inventory.items.forEach(item => {
+            if (!bookDataMap[item]) { // Only include non-book items
+                allItems.push({
+                    name: item,
+                    owner: inventory.name
+                });
+            }
+        });
+    }
+
+    if (allItems.length === 0) {
+        inventoryContainer.innerHTML = '<p class="page-subtitle" style="grid-column: 1 / -1;">No non-book items found in party inventory.</p>';
+        return;
+    }
+
+    inventoryContainer.innerHTML = allItems.map(item => `
+        <div class="inventory-item-card">
+            <div class="item-icon">🎒</div>
+            <p class="item-name">${item.name}</p>
+            <p class="item-owner">Held by: ${item.owner}</p>
+        </div>
+    `).join('');
+}
+
 function renderBookshelf() {
+    const bookshelfContainer = document.getElementById('bookshelf-main');
     if (!bookshelfContainer) return;
 
     bookshelfContainer.innerHTML = `
@@ -201,7 +235,13 @@ function renderBookshelf() {
 
     for (const ownerKey in state.inventories) {
         const inventory = state.inventories[ownerKey];
-        if (!inventory) continue;
+        if (!inventory || !inventory.items) continue;
+
+        const booksInInventory = inventory.items.filter(item => bookDataMap[item]);
+
+        if (booksInInventory.length === 0) {
+            continue; // Skip rendering a shelf if there are no books
+        }
 
         const currentShelf = shelves[shelfIndex % shelves.length];
         
@@ -210,45 +250,33 @@ function renderBookshelf() {
         label.textContent = inventory.name;
         currentShelf.appendChild(label);
 
-        if (inventory.items && inventory.items.length > 0) {
-            inventory.items.forEach(item => {
-                const bookData = bookDataMap[item];
-                const bookEl = document.createElement('div');
-                bookEl.className = 'book';
-                bookEl.dataset.item = item;
+        booksInInventory.forEach(item => {
+            const bookData = bookDataMap[item];
+            const bookEl = document.createElement('div');
+            bookEl.className = 'book';
+            bookEl.dataset.item = item;
 
-                if (bookData) {
-                    const isUnlocked = READ_BOOKS.has(item) || state.debugMode;
-                    
-                    if (isUnlocked) {
-                        bookEl.classList.add('interactive');
-                        bookEl.dataset.bookKey = item;
-                        bookEl.title = item;
-                    } else {
-                        bookEl.classList.add('locked');
-                        bookEl.title = "This book has not been read by the party yet.";
-                    }
-                } else {
-                    bookEl.title = item;
-                }
-                
-                // Set background image based on title
-                const coverUrl = getBookCoverUrl(item);
-                if(coverUrl) {
-                    bookEl.style.backgroundImage = `url('${coverUrl}')`;
-                } else {
-                    bookEl.style.backgroundImage = `url('book_cover_history.png')`; // Fallback
-                }
+            const isUnlocked = READ_BOOKS.has(item) || state.debugMode;
+            
+            if (isUnlocked) {
+                bookEl.classList.add('interactive');
+                bookEl.dataset.bookKey = item;
+                bookEl.title = item;
+            } else {
+                bookEl.classList.add('locked');
+                bookEl.title = "This book has not been read by the party yet.";
+            }
+            
+            const coverUrl = getBookCoverUrl(item);
+            if(coverUrl) {
+                bookEl.style.backgroundImage = `url('${coverUrl}')`;
+            } else {
+                bookEl.style.backgroundImage = `url('book_cover_history.png')`; // Fallback
+            }
 
-
-                currentShelf.appendChild(bookEl);
-            });
-        } else {
-            const noItems = document.createElement('p');
-            noItems.className = 'no-items-text';
-            noItems.textContent = '[Empty]';
-            currentShelf.appendChild(noItems);
-        }
+            currentShelf.appendChild(bookEl);
+        });
+        
         shelfIndex++;
     }
 }
@@ -339,6 +367,7 @@ function changePage(direction) {
 }
 
 function setupEventListeners() {
+    const bookshelfContainer = document.getElementById('bookshelf-main');
     if (bookshelfContainer) {
         bookshelfContainer.addEventListener('click', (e) => {
             const interactiveBook = e.target.closest('.book.interactive');

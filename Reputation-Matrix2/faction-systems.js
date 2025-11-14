@@ -3,7 +3,6 @@
 
 import { state } from './state.js';
 import { renderDefaultSubfactionList } from './systems/common.js';
-import { renderLiberatedToadsSystem, initLiberatedToadsSystem } from './systems/liberated-toads-system.js';
 
 // Import all system renderers and initializers
 import { renderHolyMidlandsDiet, initHolyMidlandsDietListeners } from './systems/regal-empire-system.js';
@@ -66,9 +65,8 @@ function getSystemHTML(factionKey, factionData, currentState) {
         case 'cosmic_jesters': return renderCosmicJestersSystem();
         case 'diamond_city_investigators': return renderDCISystem();
         case 'liberated_toads':
-            // Append a link to the full report page, as this is the summary view
-            return renderLiberatedToadsSystem(factionKey, factionData, currentState) +
-                   `<a href="liberated-toads-system.html" class="btn btn-primary" style="display: block; text-align: center; margin-top: 24px;">View Full Faction Report</a>`;
+             // The summary view in simpleRenderers already links to focus.html, which is now the main page.
+            return simpleRenderers.renderLiberatedToads(factionKey, factionData, currentState);
         case 'rakasha_clans': return renderRakashaClansSystem();
         case 'rebel_clans': return renderRebelClansSystem();
         case 'fawfuls_furious_freaks': return renderFawfulSystem();
@@ -117,9 +115,6 @@ export function initSystem(factionKey) {
             break;
         case 'fawfuls_furious_freaks':
             initFawfulSystem();
-            break;
-        case 'liberated_toads':
-            initLiberatedToadsSystem();
             break;
     }
     

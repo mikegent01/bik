@@ -1,6 +1,7 @@
+
 import { state, loadState } from './state.js';
 import { TOAD_TIMELINE } from './focus-tree.js';
-import { LORE_DATA } from './lore.js';
+import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
 import { playSound } from './common.js';
 
 const auxiliaryPartyContainer = document.getElementById('auxiliary-party-container');
@@ -55,6 +56,25 @@ function renderAuxiliaryParty() {
             `).join('') :
             '<p class="no-abilities">No special abilities learned yet.</p>';
 
+        // --- NEW MERGED CONTENT ---
+        const subFactionData = LORE_DATA.factions.liberated_toads.internal_politics.sub_factions[key];
+        const descriptionHTML = subFactionData ? `<p class="aux-description">${subFactionData.description}</p>` : '';
+
+        const relations = CHARACTER_RELATIONS[key];
+        const opinionsHTML = relations ? `
+            <div class="aux-opinions">
+                <h6>Opinions</h6>
+                <ul>
+                    ${Object.entries(relations).map(([targetKey, relation]) => {
+                        const targetData = LORE_DATA.characters[targetKey] || { name: targetKey.replace(/_/g, ' ') };
+                        const opinionText = relation.text.split(':').slice(1).join(':').trim();
+                        return `<li><strong>On ${targetData.name}:</strong> "<em>${opinionText}</em>"</li>`;
+                    }).join('')}
+                </ul>
+            </div>
+        ` : '';
+        // --- END NEW MERGED CONTENT ---
+
         card.innerHTML = `
             <div class="aux-card-header">
                 <span class="aux-name">${member.name}</span>
@@ -64,6 +84,7 @@ function renderAuxiliaryParty() {
                 <span><strong>Weapon:</strong> ${member.weapon}</span>
                 <span><strong>Status:</strong> <span class="${statusTextClass}">${member.status}</span></span>
             </div>
+            ${descriptionHTML}
             <div class="xp-bar-container">
                 <div class="xp-bar" style="width: ${xpPercentage}%"></div>
                 <span class="xp-text">${member.xp} / ${member.xp_to_next} XP</span>
@@ -72,6 +93,7 @@ function renderAuxiliaryParty() {
                 <h6>Abilities</h6>
                 ${abilitiesHTML}
             </div>
+            ${opinionsHTML}
             <div class="aux-log">
                 <h6>Progression Log</h6>
                 <ul>
