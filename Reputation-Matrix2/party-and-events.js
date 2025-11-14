@@ -1,3 +1,4 @@
+
 import { TOAD_ABILITIES } from './abilities.js';
 
 export const AUXILIARY_PARTY = {
@@ -61,7 +62,7 @@ export const RUMORS = [
         title: "The Greenhouse Inferno",
         time_ago: "Today",
         isEvent: true,        
-        description: "A massive explosion and fire erupted from the grounds of the haunted Raventree Manor...",
+        description: "A chaotic series of events at Raventree Manor culminated in a devastating battle within its magical greenhouse. After Remi shot down a wyvern carrying Waluigi and Green T, the party was trapped inside by the Oracle and ambushed by rust monsters. The fight escalated into an inferno, climaxing with Archie unleashing a massive fireball that destroyed the greenhouse. The aftermath saw Dan's attempt to heal a critically wounded Eager backfire, leading to Archie's surrender to the newly-arrived 'Pond Patrol'. The incident concluded with Green T being pulled into a mirror and a new, terrifying supernatural threat emerging from it, plunging the manor into a full-blown containment crisis.",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'remi', 'dan', 'eager', 'waluigi', 'green_t', 'self_reflection_oracle'],
         effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 }
     },
