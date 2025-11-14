@@ -1,5 +1,7 @@
 
 
+
+
 export const RELIGION_DATA = {
     groups: {
         celestial_order: {
@@ -102,6 +104,7 @@ export const RELIGION_DATA = {
             organization: "The Star Sanctuary",
             activation_ritual: "Stand beneath the open sky at midnight and offer a Star Bit while whispering your truest desire.",
             daily_liturgy: "Sketch the position of the North Star upon waking.",
+            followers: ["Princess Peach", "Rosalina"],
             weekly_observances: [
                 { day: "Soldas", text: "Cleanse the Star Altar with spring water." },
                 { day: "Mercurias", text: "Share a wish with a stranger to spread hope." },
@@ -110,7 +113,6 @@ export const RELIGION_DATA = {
             traditions: ["The Star Festival", "Collecting Star Pieces", "Wishing upon falling stars"],
             saints: ["Misstar", "Twink the Star Kid", "The Seven Star Spirits"],
             heresies: "Worship of the Dark Star; The belief that wishes are a finite resource.",
-            // NEW: 10 Specific Mechanics for this Religion
             mechanics: [
                 { name: "Stardust Accumulation", effect: "Passively generates 'Star Bits' resource when in high-altitude zones." },
                 { name: "Cosmic Taxi", effect: "Allows fast travel between any discovered Star Pads via Launch Star." },
@@ -136,6 +138,7 @@ export const RELIGION_DATA = {
             organization: "Church of the Silver Flame",
             activation_ritual: "Burn a candle of pure silver and recite the Litany of Purification until the flame turns white.",
             daily_liturgy: "Recite the names of the purified while facing the rising sun.",
+            followers: ["High Inquisitor Vale", "Templar Captain Dorn"],
             weekly_observances: [
                 { day: "Terras", text: "Sharpen blades and bless ammunition for the coming conflicts." },
                 { day: "Mercurias", text: "Light a beacon fire to guide lost souls." },
@@ -157,6 +160,7 @@ export const RELIGION_DATA = {
             organization: "The Hallowed Tower",
             activation_ritual: "Play the Azure Flute at the highest altitude possible to summon the Hall of Origin.",
             daily_liturgy: "Cleanse and polish all six Poké Balls before breakfast.",
+            followers: ["Champion Carter", "Professor Elm"],
             weekly_observances: [
                 { day: "Lunadas", text: "Visit a shrine dedicated to Dialga or Palkia." },
                 { day: "Jovias", text: "Release a caught Pokémon back into the wild as an offering." }
@@ -177,6 +181,7 @@ export const RELIGION_DATA = {
             organization: "The Holy Order of the Templars",
             activation_ritual: "Strike a warhammer upon a consecrated anvil at dawn while shouting praise to the Heldenhammer.",
             daily_liturgy: "Perform one hour of martial drills before the midday meal.",
+            followers: ["Lord Sigmar", "Volkmar the Grim"],
             weekly_observances: [
                 { day: "Mercurias", text: "Public denouncement of Chaos in the town square." },
                 { day: "Saturias", text: "The Feast of the Hammer - consume meat and ale in Sigmar's honor." }
@@ -197,6 +202,7 @@ export const RELIGION_DATA = {
             organization: "The Grail Knights",
             activation_ritual: "Drink from the Grail (or a replica) filled with sacred water from a mist-shrouded lake.",
             daily_liturgy: "Clean and oil armor while reciting the Vow of Protection.",
+            followers: ["The Fay Enchantress", "King Louen Leoncoeur"],
             traditions: ["The Grail Quest", "Refusing ranged weaponry", "Protecting damsels"],
             saints: ["Gilles le Breton", "Repanse de Lyonesse"],
             heresies: "Using black powder weapons; Harming a damsel; Peasant rebellion."
@@ -213,6 +219,7 @@ export const RELIGION_DATA = {
             organization: "The Royal Guard",
             activation_ritual: "Raise the flag at exactly sunrise while singing the national anthem.",
             daily_liturgy: "Write a letter detailing a lesson learned about friendship.",
+            followers: ["Queen Celestia", "Shining Armor"],
             traditions: ["The Summer Sun Celebration", "The Grand Galloping Gala", "Friendship reports"],
             saints: ["Starswirl the Bearded", "Shining Armor", "The Elements of Harmony"],
             heresies: "Worship of Nightmare Moon; Refusing to smile; The belief in a Republic."
@@ -229,6 +236,7 @@ export const RELIGION_DATA = {
             organization: "The Sages",
             activation_ritual: "Play Zelda's Lullaby near a Goddess Statue to open the way.",
             daily_liturgy: "Offer a silent prayer at a roadside spring.",
+            followers: ["Princess Zelda", "Link"],
             traditions: ["Offering Spirit Orbs", "Pilgrimage to the Springs", "Cutting grass for rupees"],
             saints: ["The Hero of Time", "Hylia", "The Seven Sages"],
             heresies: "Worship of Ganon; Seeking only Power; Breaking pots excessively."
@@ -245,6 +253,7 @@ export const RELIGION_DATA = {
             organization: "The Shine Gatekeepers",
             activation_ritual: "Clean a graffiti-covered wall until a Shine Sprite appears.",
             daily_liturgy: "Consume at least one tropical fruit in direct sunlight.",
+            followers: ["Grand Pianta", "A Noki Elder"],
             traditions: ["The Shine Festival", "Riding Yoshis", "Collecting Blue Coins"],
             saints: ["The FLUDD AI", "Mario (The Cleaner)"],
             heresies: "Pollution; Hoarding Shines in darkness; Shadow Mario worship."
@@ -261,6 +270,7 @@ export const RELIGION_DATA = {
             organization: "The Galaxy Guard",
             activation_ritual: "Feed a hungry Luma enough Star Bits to cause it to transform.",
             daily_liturgy: "Read a storybook chapter to a celestial body.",
+            followers: ["Rosalina", "The Apricot Luma"],
             traditions: ["Storybook Reading", "Comet Observances", "Launch Star travel"],
             saints: ["The Mother of Stars", "The Apricot Luma"],
             heresies: "Consuming Lumas for personal power; Creating Black Holes."
@@ -277,6 +287,7 @@ export const RELIGION_DATA = {
             organization: "The Temple of Balance",
             activation_ritual: "Weigh a white feather against a golden heart amulet on a scale.",
             daily_liturgy: "Recite the 42 Negative Confessions at dusk.",
+            followers: ["High Priest Khonsu", "Seti the Scribe"],
             traditions: ["Mummification", "Recording true names", "Sun worship"],
             saints: ["The Pharaohs of Old", "The Sphinx"],
             heresies: "Necromancy that disturbs the rest; Eating hearts; Chaos."
@@ -293,6 +304,7 @@ export const RELIGION_DATA = {
             organization: "The Silver Hand",
             activation_ritual: "Bless a vial of water with holy light and anoint the forehead.",
             daily_liturgy: "Spend ten minutes in silent meditation on compassion.",
+            followers: ["Uther the Lightbringer", "Turalyon"],
             traditions: ["Paladin oaths", "Reading Librams", "Healing the sick"],
             saints: ["Uther", "Turalyon", "Velen"],
             heresies: "The Cult of the Damned; The Scarlet Crusade; Shadow priests."
@@ -309,6 +321,7 @@ export const RELIGION_DATA = {
             organization: "The White Tower",
             activation_ritual: "Pass through the Sacred Flame unharmed (don't try this at home).",
             daily_liturgy: "Compose a haiku honoring the sunrise.",
+            followers: ["The Phoenix King", "Teclis"],
             traditions: ["Poetry recitals", "Mask wearing", "Dragon taming"],
             saints: ["Aenarion the Defender", "Teclis"],
             heresies: "The Cult of Pleasure (Slaanesh); Dark Elf worship of Khaine."
@@ -325,6 +338,7 @@ export const RELIGION_DATA = {
             organization: "The Nazgûl",
             activation_ritual: "Chant the Ring-verse in Black Speech while standing near a volcano.",
             daily_liturgy: "Report a neighbor for seditious thoughts.",
+            followers: ["Sauron", "The Witch-king of Angmar"],
             traditions: ["Forging Rings of Power", "Breeding Orcs", "Building towers"],
             saints: ["The Witch-king of Angmar", "The Mouth of Sauron"],
             heresies: "Celebrating hobbits; Planting trees; The White Council."
@@ -343,6 +357,7 @@ export const RELIGION_DATA = {
             organization: "The Green Tide",
             activation_ritual: "Head-butt the nearest hard object and scream 'WAAAGH!' as loud as possible.",
             daily_liturgy: "Break something valuable.",
+            followers: ["Grimgor Ironhide", "Warboss Skarjaw"],
             weekly_observances: [
                 { day: "Terras", text: "Start a fight with someone larger than you." },
                 { day: "Venerias", text: "Paint a weapon red to make it go faster." }
@@ -363,6 +378,7 @@ export const RELIGION_DATA = {
             organization: "The Pack Council",
             activation_ritual: "Howl at the full moon in perfect unison with the pack.",
             daily_liturgy: "Hunt and kill a meal without using weapons.",
+            followers: ["Alpha Bloodmaw", "Chief Thornpaw"],
             weekly_observances: [
                 { day: "Mercurias", text: "Sharpen claws on sacred stones." },
                 { day: "Venerias", text: "Run beneath the moonlight until exhaustion." }
@@ -383,6 +399,7 @@ export const RELIGION_DATA = {
             organization: "The Onyx Hand",
             activation_ritual: "Drink fresh blood from a golden chalice.",
             daily_liturgy: "Sleep in a bed of grave soil during daylight hours.",
+            followers: ["Lady Ebonveil", "Lord Crimson"],
             traditions: ["The Masquerade", "Creating Thralls", "Sleeping in coffins"],
             saints: ["Vlad von Carstein", "Cain", "Dracula"],
             heresies: "Drinking dead blood; Exposing oneself to sunlight; Diablerie."
@@ -399,6 +416,7 @@ export const RELIGION_DATA = {
             organization: "The Slann Mage-Priests",
             activation_ritual: "Arrange golden geometric plaques in perfect alignment with the stars.",
             daily_liturgy: "Meditate on a geometric shape for four hours.",
+            followers: ["Lord Mazdamundi", "Lord Kroak"],
             traditions: ["Spawning pool ceremonies", "Dinosaur riding", "Purging warmbloods"],
             saints: ["Lord Kroak", "Tehenhauin"],
             heresies: "Altering the jungle layout; Skaven existence; Chaos."
@@ -415,6 +433,7 @@ export const RELIGION_DATA = {
             organization: "The Whispering Mycelium",
             activation_ritual: "Plant a rare spore in a decaying carcass and wait for it to bloom.",
             daily_liturgy: "Inhale deep breaths of swamp gas.",
+            followers: ["The Myconid King", "A Spore Druid"],
             traditions: ["Symbiotic bonding", "Fungal brewing", "Decomposition meditation"],
             saints: ["Zuggtmoy", "The Sovereign"],
             heresies: "Using fungicide; Excessive fire; Sterilization."
@@ -431,6 +450,7 @@ export const RELIGION_DATA = {
             organization: "The Fossil Maniacs",
             activation_ritual: "Consult the Helix Fossil repeatedly in times of doubt.",
             daily_liturgy: "Spin in a circle three times before entering a room.",
+            followers: ["The Omanyte Prophet", "Bird Jesus"],
             traditions: ["Anarchy Mode inputs", "Praising Bird Jesus", "Walking in circles"],
             saints: ["Bird Jesus", "AA-j", "Lord Helix"],
             heresies: "The Dome Fossil; Democracy mode; Releasing the starter."
@@ -447,6 +467,7 @@ export const RELIGION_DATA = {
             organization: "The Circle of Leaves",
             activation_ritual: "Water a sapling with water from a Moonwell.",
             daily_liturgy: "Speak to a plant and wait for a response.",
+            followers: ["Malfurion Stormrage", "Cenarius"],
             traditions: ["Grove tending", "Shapeshifting", "Speaking Sylvan"],
             saints: ["Cenarius", "Malfurion"],
             heresies: "The Burning Legion; Goblin logging machines; Blight."
@@ -463,6 +484,7 @@ export const RELIGION_DATA = {
             organization: "The Gutbusters",
             activation_ritual: "Eat an enormous amount of food in a single sitting without stopping.",
             daily_liturgy: "Consume something that is not technically food.",
+            followers: ["Greasus Goldtooth", "An Ogre Tyrant"],
             traditions: ["The Gut Magic", "Mercenary work for food", "Eating everything"],
             saints: ["Greasus Goldtooth", "The Butcher"],
             heresies: "Dieting; Leaving food on the plate; Veganism."
@@ -479,6 +501,7 @@ export const RELIGION_DATA = {
             organization: "The World Eaters",
             activation_ritual: "Take a skull for the Skull Throne.",
             daily_liturgy: "Draw blood (yours or theirs) before noon.",
+            followers: ["Skarbrand", "Valkia the Bloody"],
             traditions: ["Gladiatorial pits", "Refusing magic", "Screaming"],
             saints: ["Skarbrand", "Valkia the Bloody"],
             heresies: "Peace; Sorcery; Slaanesh worship."
@@ -495,6 +518,7 @@ export const RELIGION_DATA = {
             organization: "The Death Guard",
             activation_ritual: "Brew a plague in a cauldron and share it with friends.",
             daily_liturgy: "Count your boils.",
+            followers: ["Ku'gath Plaguefather", "Typhus"],
             traditions: ["Counting poxes", "Hugging Nurglings", "Not bathing"],
             saints: ["Typhus", "Ku'gath"],
             heresies: "Hygiene; Tzeentch worship; Soap."
@@ -511,6 +535,7 @@ export const RELIGION_DATA = {
             organization: "The Wardens",
             activation_ritual: "Blow the Horn of the Hunt at midnight.",
             daily_liturgy: "Run through the woods until exhausted.",
+            followers: ["Orion", "Ariel"],
             traditions: ["Riding stags", "Kidnapping mortals", "Eternal youth"],
             saints: ["Orion", "The Horned King"],
             heresies: "Farming; Settlement building; Iron."
@@ -527,6 +552,7 @@ export const RELIGION_DATA = {
             organization: "The Go-Rock Squad",
             activation_ritual: "Perform an electrifying guitar solo on a modified Styler.",
             daily_liturgy: "Practice posing dramatically in a mirror.",
+            followers: ["Gordor", "Billy"],
             traditions: ["The Quadruple Performance", "Capturing legendaries", "Band practice"],
             saints: ["The Go-Rock Quads"],
             heresies: "Acoustic music; Releasing Pokémon; Silence."
@@ -543,6 +569,7 @@ export const RELIGION_DATA = {
             organization: "The Chuckola Reserve",
             activation_ritual: "Water the Bean Star with Chuckola Cola.",
             daily_liturgy: "Tell a joke to a stranger.",
+            followers: ["Queen Bean", "Prince Peasley"],
             traditions: ["Joke telling", "Bean farming", "Making weird noises"],
             saints: ["Queen Bean", "Prince Peasley"],
             heresies: "Cackletta worship; Frowning; Diet soda."
@@ -561,6 +588,7 @@ export const RELIGION_DATA = {
             organization: "Priesthood of Mars",
             activation_ritual: "Anoint a machine with sacred oil while chanting in binary.",
             daily_liturgy: "Disassemble and reassemble your primary weapon.",
+            followers: ["General Marcus Ironhand", "Artificer Prime Kael"],
             weekly_observances: [
                 { day: "Lunadas", text: "Oil the gears of the great machines." },
                 { day: "Mercurias", text: "Calibrate all measuring tools." },
@@ -582,6 +610,7 @@ export const RELIGION_DATA = {
             organization: "The Administrators",
             activation_ritual: "Upload a fragment of consciousness to the cloud.",
             daily_liturgy: "Defragment your personal data storage.",
+            followers: ["Admin Zero", "Unit_734"],
             traditions: ["Cybernetic augmentation", "Data mining", "VR immersion"],
             saints: ["The Major", "Lain"],
             heresies: "Being offline; Analog media; Lag."
@@ -598,6 +627,7 @@ export const RELIGION_DATA = {
             organization: "Seminar",
             activation_ritual: "Successfully peer-review a thesis paper.",
             daily_liturgy: "Solve a complex mathematical equation.",
+            followers: ["Yuuka Hayase", "Rio Tsukatsuki"],
             traditions: ["Hackathons", "Robot battles", "Equation solving"],
             saints: ["Rio", "Himari", "Yuuka"],
             heresies: "Magic; Unexplained phenomena; Irrationality."
@@ -614,6 +644,7 @@ export const RELIGION_DATA = {
             organization: "The Brotherhood",
             activation_ritual: "Recite the Codex while polishing Power Armor.",
             daily_liturgy: "Calibrate laser rifle optics.",
+            followers: ["Elder Maxson", "Paladin Danse"],
             traditions: ["Tech retrieval", "Isolationism", "Saluting"],
             saints: ["Roger Maxson", "Paladin Danse"],
             heresies: "Sharing tech with civilians; Synths; Mutants."
@@ -630,6 +661,7 @@ export const RELIGION_DATA = {
             organization: "Ratchet Raiders",
             activation_ritual: "Build something functional out of pure junk.",
             daily_liturgy: "Find a use for a broken gear.",
+            followers: ["Lario", "Captain Zipwire"],
             traditions: ["Salvage runs", "Modifying vehicles", "Haggling"],
             saints: ["The Mekboy", "Mad Max"],
             heresies: "Throwing away useful scrap; Buying new things."
@@ -646,6 +678,7 @@ export const RELIGION_DATA = {
             organization: "The Hive",
             activation_ritual: "Synchronize data streams with the central core.",
             daily_liturgy: "Ping the central server for updates.",
+            followers: ["The Borg Queen", "SHODAN"],
             traditions: ["Drone maintenance", "Assimilation", "Buzzing"],
             saints: ["The Borg Queen", "SHODAN"],
             heresies: "Individuality; Firewalls; Disconnection."
@@ -662,6 +695,7 @@ export const RELIGION_DATA = {
             organization: "The Conductors",
             activation_ritual: "Stoke the eternal boiler with sacred coal.",
             daily_liturgy: "Check pressure gauges and verify steam levels.",
+            followers: ["The Conductor", "The Engine-Seer"],
             traditions: ["Train maintenance", "Continuous movement", "Whistle blowing"],
             saints: ["Wilford", "The Conductor"],
             heresies: "Stopping the train; Freezing; Brakes."
@@ -678,6 +712,7 @@ export const RELIGION_DATA = {
             organization: "Silph Co.",
             activation_ritual: "Sign an NDA in triplicate.",
             daily_liturgy: "Review quarterly profit projections.",
+            followers: ["The President of Silph Co.", "A Department Head"],
             traditions: ["Board meetings", "Hostile takeovers", "Product launches"],
             saints: ["The President of Silph Co."],
             heresies: "Open source software; Corporate espionage (by others); Unions."
@@ -694,6 +729,7 @@ export const RELIGION_DATA = {
             organization: "The Secretariat",
             activation_ritual: "File Form 22-B for permission to breathe.",
             daily_liturgy: "Polish the statue of the Great Leader.",
+            followers: ["Cherino", "Tomoe"],
             traditions: ["Parades", "Purging dissidents", "Eating pudding"],
             saints: ["Cherino (Great Leader)"],
             heresies: "Capitalism; Questioning the mustache; Coups."
@@ -710,6 +746,7 @@ export const RELIGION_DATA = {
             organization: "Ghost Hunters",
             activation_ritual: "Test a volatile invention without safety gear.",
             daily_liturgy: "Adjust spectacles and say 'Sucker!'",
+            followers: ["Professor E. Gadd", "Luigi (Reluctantly)"],
             traditions: ["Ghost catching", "Painting with goo", "Speaking gibberish"],
             saints: ["Luigi (reluctant)"],
             heresies: "Safety regulations; Boredom; Normalcy."
@@ -726,6 +763,7 @@ export const RELIGION_DATA = {
             organization: "The Dynasties",
             activation_ritual: "Wake up from a 60-million-year nap.",
             daily_liturgy: "Purge organic life from sector.",
+            followers: ["The Silent King", "Imotekh the Stormlord"],
             traditions: ["Reclaiming tomb worlds", "Enslaving C'tan", "Monologuing"],
             saints: ["Imotekh the Stormlord", "Trazyn the Infinite"],
             heresies: "Biological life; Eldar; Soul."
@@ -742,6 +780,7 @@ export const RELIGION_DATA = {
             organization: "The Engineers",
             activation_ritual: "Adjust pressure valves to the red line.",
             daily_liturgy: "Wind mainsprings.",
+            followers: ["The Grand Gear", "Lord Cogsworth"],
             traditions: ["Goggle wearing", "Brass polishing", "Tea time"],
             saints: ["The Clockwork King"],
             heresies: "Electricity; Digital tech; Rust."
@@ -760,6 +799,7 @@ export const RELIGION_DATA = {
             organization: "Circus of Values",
             activation_ritual: "Perform a pratfall that defies physics.",
             daily_liturgy: "Laugh at something inappropriate.",
+            followers: ["Waluigi", "Giggling Pete"],
             weekly_observances: [
                 { day: "Lunadas", text: "Wear mismatched socks." },
                 { day: "Jovias", text: "Tell a joke that has no punchline." }
@@ -780,6 +820,7 @@ export const RELIGION_DATA = {
             organization: "Cult of the End",
             activation_ritual: "Stare into the abyss until it blinks.",
             daily_liturgy: "Sit in silence for one hour.",
+            followers: ["Warlord Luna", "The Hollow One"],
             traditions: ["Silence", "Erasing history", "Ignoring pain"],
             saints: ["Malzahar", "The Lich"],
             heresies: "Hope; Creation; Light."
@@ -796,6 +837,7 @@ export const RELIGION_DATA = {
             organization: "The Thousand Sons",
             activation_ritual: "Plot a betrayal that ultimately betrays yourself.",
             daily_liturgy: "Change a minor detail of your plan.",
+            followers: ["Kairos Fateweaver", "Ahriman"],
             traditions: ["Mutation", "Collecting forbidden tomes", "Lying"],
             saints: ["Ahriman", "The Changeling"],
             heresies: "Stagnation (Nurgle); Straightforwardness; Trust."
@@ -812,6 +854,7 @@ export const RELIGION_DATA = {
             organization: "The Emperor's Children",
             activation_ritual: "Overindulge in sensory input.",
             daily_liturgy: "Perfect a single artistic stroke or sword swing.",
+            followers: ["A Keeper of Secrets", "Lucius the Eternal"],
             traditions: ["Noise marine concerts", "Art", "Debauchery"],
             saints: ["Lucius the Eternal"],
             heresies: "Moderation; Khorne worship; Boredom."
@@ -828,6 +871,7 @@ export const RELIGION_DATA = {
             organization: "Council of Thirteen",
             activation_ritual: "Eat raw warpstone.",
             daily_liturgy: "Plot the demise of your superior.",
+            followers: ["Thanquol", "Ikit Claw"],
             traditions: ["Backstabbing superiors", "Spreading plague", "Running away"],
             saints: ["Ikit Claw", "Queek Headtaker"],
             heresies: "Courage; Sharing; Cleanliness."
@@ -844,6 +888,7 @@ export const RELIGION_DATA = {
             organization: "The Boos",
             activation_ritual: "Trap a soul in a painting.",
             daily_liturgy: "Practice sinister cackling.",
+            followers: ["King Boo", "Boolossus"],
             traditions: ["Scaring plumbers", "Mansion building", "Illusion"],
             saints: ["King Boo", "Boolossus"],
             heresies: "Poltergusts; Flashlights; Daylight."
@@ -860,6 +905,7 @@ export const RELIGION_DATA = {
             organization: "Gematria",
             activation_ritual: "Analyze the sublime through terror.",
             daily_liturgy: "Contemplate the meaning of terror.",
+            followers: ["Black Suit", "Beatrice"],
             traditions: ["Creating Hieronymus", "Philosophical debate", "Monologuing"],
             saints: ["Beatrice", "Black Suit"],
             heresies: "The Adult Card; Common sense; Friendship."
@@ -876,6 +922,7 @@ export const RELIGION_DATA = {
             organization: "The Waluigi Fan Club",
             activation_ritual: "Play pinball while dancing and shouting 'WAH!'.",
             daily_liturgy: "Look in the mirror and say 'WAH' three times.",
+            followers: ["Waluigi", "Wario (business partner)"],
             traditions: ["Rose tossing", "Tennis", "Complaining"],
             saints: ["Waluigi (The One and Only)"],
             heresies: "Luigi; Being an assist trophy; Fair play."
@@ -892,6 +939,7 @@ export const RELIGION_DATA = {
             organization: "The Bug Catchers",
             activation_ritual: "Surf along the Cinnabar Coastline.",
             daily_liturgy: "Encounter a wild Pokemon at level 150.",
+            followers: ["'M", "A Glitch Enthusiast"],
             traditions: ["Item duplication", "Corrupted graphics", "Walking through walls"],
             saints: ["'M", "The Ghost"],
             heresies: "Patches; Save file corruption (the bad kind); Normalcy."
@@ -908,6 +956,7 @@ export const RELIGION_DATA = {
             organization: "The Alphabet",
             activation_ritual: "Spell out hidden messages on walls.",
             daily_liturgy: "Float in a specific formation.",
+            followers: ["Spencer Hale", "A Lead Researcher"],
             traditions: ["Hidden Power calculation", "Swarm movement", "Floating"],
             saints: ["Entei (Illusion)"],
             heresies: "Grammar checks; Erasers; Latin alphabet."
@@ -924,6 +973,7 @@ export const RELIGION_DATA = {
             organization: "The Abyss Order",
             activation_ritual: "Corrupt a dragon with abyssal energy.",
             daily_liturgy: "Curse the Seven.",
+            followers: ["The Sibling", "A Herald of the Abyss"],
             traditions: ["Hating the Seven", "Rifthounds", "Portals"],
             saints: ["The Sibling", "Dainsleif (Complicated)"],
             heresies: "Celestia; Visions; The Heavenly Principles."
@@ -940,6 +990,7 @@ export const RELIGION_DATA = {
             organization: "Team Plasma",
             activation_ritual: "Give a speech about liberation while stealing Pokémon.",
             daily_liturgy: "Chant 'Ghetsis! Ghetsis!'",
+            followers: ["Ghetsis", "N"],
             traditions: ["Sage councils", "Freezing cities", "Medieval cosplay"],
             saints: ["N", "Ghetsis"],
             heresies: "Pokémon Battles (officially); Poké Balls; Happiness."

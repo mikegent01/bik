@@ -1,9 +1,8 @@
 
-import { RELIGION_DATA } from './religion-data.js';
-import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
-import { MAP_DATA } from './map-data.js';
+
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
 import { playSound } from './common.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
+import { RELIGION_DATA } from './religion-data.js';
 import { state } from './state.js'; // Import state to get logged-in user
 
 // DOM Elements
@@ -15,6 +14,13 @@ const religionModal = document.getElementById('religion-modal');
 const religionModalBody = document.getElementById('religion-modal-body');
 const religionModalClose = document.getElementById('religion-modal-close');
 
+let displayedDate = {
+    year: CURRENT_GAME_DATE.year,
+    monthIndex: CURRENT_GAME_DATE.monthIndex
+};
+
+let selectedDate = { ...CURRENT_GAME_DATE };
+let currentView = 'monthly'; // 'monthly', 'weekly', 'yearly'
 let globalReligiousCounts = {};
 let grandTotalPop = 0;
 
@@ -28,26 +34,423 @@ if (RELIGION_DATA.denominations.star_spirits) {
 }
 
 /**
- * Helper to get player species key from state.
+ * Generates a pseudo-random number from a seed using a simple LCG.
+ * @param {number} seed - The seed value.
+ * @returns {number} A random number between 0 and 1.
  */
+function getSeededRandom(seed) {
+    let t = seed += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+}
+
+/**
+ * Generates a thematic weather forecast for a given day.
+ * @param {number} year - The current year.
+ * @param {number} monthIndex - The 0-indexed month.
+ * @param {number} day - The day of the month.
+ * @returns {object} An object containing weather details.
+ */
+function generateWeatherForDay(year, monthIndex, day) {
+    const monthData = CALENDAR_DATA.months.values[monthIndex];
+    const season = CALENDAR_DATA.seasons.values.find(s => {
+        const startMonth = s.monthStart - 1;
+        const endMonth = s.monthEnd - 1;
+        if (startMonth <= endMonth) {
+            return monthIndex >= startMonth && monthIndex <= endMonth;
+        } else { // Handle winter wrapping around the year
+            return monthIndex >= startMonth || monthIndex <= endMonth;
+        }
+    });
+
+    const seed = year * 10000 + (monthIndex + 1) * 100 + day;
+    const rand = getSeededRandom(seed);
+    const tempRand = getSeededRandom(seed + 1);
+    
+    // Magical weather check (e.g., 8% chance)
+    if (getSeededRandom(seed + 2) < 0.08 && MAGICAL_WEATHER_EVENTS.length > 0) {
+        const magicalIndex = Math.floor(getSeededRandom(seed + 3) * MAGICAL_WEATHER_EVENTS.length);
+        const magicalEvent = MAGICAL_WEATHER_EVENTS[magicalIndex];
+        return {
+            temp: `??°C`,
+            icon: magicalEvent.icon,
+            desc: magicalEvent.name,
+            isMagical: true
+        };
+    }
+
+
+    let baseTemp, tempVariation, weatherOptions;
+
+    switch (season.name) {
+        case 'Golden Summer':
+            baseTemp = 24;
+            tempVariation = 10;
+            weatherOptions = [
+                { icon: '☀️', desc: 'Clear and Sunny', chance: 0.6 },
+                { icon: '🌤️', desc: 'Partly Cloudy', chance: 0.2 },
+                { icon: '☁️', desc: 'Overcast', chance: 0.1 },
+                { icon: '🌦️', desc: 'Scattered Showers', chance: 0.07 },
+                { icon: '⛈️', desc: 'Afternoon Thunderstorm', chance: 0.03 }
+            ];
+            break;
+        case 'Hoarfrost Winter':
+            baseTemp = -5;
+            tempVariation = 8;
+             weatherOptions = [
+                { icon: '❄️', desc: 'Light Snowfall', chance: 0.4 },
+                { icon: '🥶', desc: 'Bitterly Cold', chance: 0.3 },
+                { icon: '☁️', desc: 'Grey and Overcast', chance: 0.2 },
+                { icon: '☀️', desc: 'Crisp and Clear', chance: 0.1 }
+            ];
+            break;
+        default: // Spring & Fall
+            baseTemp = 12;
+            tempVariation = 12;
+             weatherOptions = [
+                { icon: '🌤️', desc: 'Mild and Pleasant', chance: 0.4 },
+                { icon: '☁️', desc: 'Cloudy Skies', chance: 0.25 },
+                { icon: '🌦️', desc: 'Light Showers', chance: 0.2 },
+                { icon: '💨', desc: 'Windy', chance: 0.15 }
+            ];
+            break;
+    }
+
+    const temperature = Math.floor(baseTemp + (tempRand * tempVariation) - (tempVariation / 2));
+    
+    let cumulativeChance = 0;
+    const chosenWeather = weatherOptions.find(w => {
+        cumulativeChance += w.chance;
+        return rand <= cumulativeChance;
+    }) || weatherOptions[0];
+
+    return {
+        temp: `${temperature}°C`,
+        ...chosenWeather
+    };
+}
+
+
+function renderView() {
+    updateHeader();
+    updateNavButtons();
+    
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.view-btn[data-view="${currentView}"]`)?.classList.add('active');
+
+    document.querySelectorAll('.calendar-view').forEach(v => v.classList.remove('active'));
+
+    switch(currentView) {
+        case 'yearly':
+            document.getElementById('calendar-grid-yearly').classList.add('active');
+            renderYearlyView(displayedDate.year);
+            break;
+        case 'weekly':
+            document.getElementById('calendar-grid-weekly').classList.add('active');
+            renderWeeklyView(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+            break;
+        case 'monthly':
+        default:
+            document.getElementById('calendar-grid-monthly').classList.add('active');
+            renderMonthlyView(displayedDate.year, displayedDate.monthIndex);
+            break;
+    }
+
+    const detailPanel = document.getElementById('day-detail-panel');
+    if (detailPanel) {
+        if (currentView === 'monthly') {
+            renderDayDetails();
+            detailPanel.style.display = 'block';
+        } else {
+            detailPanel.style.display = 'none';
+        }
+    }
+}
+
+function renderMonthlyView(year, monthIndex) {
+    const grid = document.getElementById('calendar-grid-monthly');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    
+    CALENDAR_DATA.days.values.forEach(day => {
+        grid.innerHTML += `<div class="calendar-header">${day.abbreviation}</div>`;
+    });
+    
+    const firstOfMonth = new Date(year, monthIndex, 1);
+    let firstDayOfWeek = firstOfMonth.getDay() - (CALENDAR_DATA.days.values[0].ordinal - 1);
+    if (firstDayOfWeek < 0) firstDayOfWeek += 7;
+
+    const daysInMonth = CALENDAR_DATA.months.values[monthIndex].days;
+    for (let i = 0; i < firstDayOfWeek; i++) {
+        grid.innerHTML += `<div class="calendar-day other-month"></div>`;
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.dataset.day = day;
+
+        if (day === CURRENT_GAME_DATE.day && monthIndex === CURRENT_GAME_DATE.monthIndex && year === CURRENT_GAME_DATE.year) dayElement.classList.add('current-day');
+        if (day === selectedDate.day && monthIndex === selectedDate.monthIndex && year === selectedDate.year) dayElement.classList.add('selected');
+
+        const holiday = CALENDAR_DATA.holidays.values.find(h => h.month === monthIndex + 1 && h.day === day);
+        dayElement.innerHTML = `<div class="day-number">${day}</div> ${holiday ? `<div class="day-holiday" title="${holiday.description}">${holiday.name}</div>` : ''}`;
+        grid.appendChild(dayElement);
+    }
+}
+
+function renderWeeklyView(year, monthIndex, day) {
+    const grid = document.getElementById('calendar-grid-weekly');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const baseDate = new Date(year, monthIndex, day);
+    const dayOfWeek = baseDate.getDay() - (CALENDAR_DATA.days.values[0].ordinal - 1);
+    if (dayOfWeek < 0) dayOfWeek += 7;
+    baseDate.setDate(baseDate.getDate() - dayOfWeek);
+
+    for (let i = 0; i < 7; i++) {
+        const currentDate = new Date(baseDate);
+        currentDate.setDate(baseDate.getDate() + i);
+        
+        const cYear = currentDate.getFullYear();
+        const cMonth = currentDate.getMonth();
+        const cDay = currentDate.getDate();
+
+        const dayName = CALENDAR_DATA.days.values[currentDate.getDay()].name;
+        const weather = generateWeatherForDay(cYear, cMonth, cDay);
+        const holiday = CALENDAR_DATA.holidays.values.find(h => h.month === cMonth + 1 && h.day === cDay);
+
+        const card = document.createElement('div');
+        card.className = 'weekly-day-card';
+        if (cDay === CURRENT_GAME_DATE.day && cMonth === CURRENT_GAME_DATE.monthIndex && cYear === CURRENT_GAME_DATE.year) {
+            card.classList.add('current-day');
+        }
+
+        const weatherClass = weather.isMagical ? 'magical-weather' : '';
+        
+        card.innerHTML = `
+            <div class="day-header">
+                <div class="day-name">${dayName}</div>
+                <div class="day-date">${CALENDAR_DATA.months.values[cMonth].abbreviation} ${cDay}</div>
+            </div>
+            <div class="weather-forecast ${weatherClass}">
+                <div class="weather-icon">${weather.icon}</div>
+                <div class="weather-details">
+                    <p class="weather-temp">${weather.temp}</p>
+                    <p>${weather.desc}</p>
+                </div>
+            </div>
+            <ul class="day-events-list">
+                ${holiday ? `<li><strong>Holiday:</strong> ${holiday.name}</li>` : '<li>No scheduled events.</li>'}
+            </ul>
+        `;
+        grid.appendChild(card);
+    }
+}
+
+
+function renderYearlyView(year) {
+    const grid = document.getElementById('calendar-grid-yearly');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    CALENDAR_DATA.months.values.forEach((month, monthIndex) => {
+        const monthContainer = document.createElement('div');
+        monthContainer.className = 'mini-month-container';
+        monthContainer.dataset.monthIndex = monthIndex;
+
+        let monthHTML = `<div class="mini-month-header">${month.name}</div><div class="mini-month-grid">`;
+        CALENDAR_DATA.days.values.forEach(d => monthHTML += `<div class="mini-day-cell header">${d.abbreviation.charAt(0)}</div>`);
+        
+        const firstOfMonth = new Date(year, monthIndex, 1);
+        let firstDayOfWeek = firstOfMonth.getDay() - (CALENDAR_DATA.days.values[0].ordinal - 1);
+        if (firstDayOfWeek < 0) firstDayOfWeek += 7;
+
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            monthHTML += `<div class="mini-day-cell"></div>`;
+        }
+
+        for (let day = 1; day <= month.days; day++) {
+            let classes = 'mini-day-cell';
+            if (day === CURRENT_GAME_DATE.day && monthIndex === CURRENT_GAME_DATE.monthIndex && year === CURRENT_GAME_DATE.year) classes += ' current-day';
+            if (CALENDAR_DATA.holidays.values.some(h => h.month === monthIndex + 1 && h.day === day)) classes += ' holiday';
+            monthHTML += `<div class="${classes}">${day}</div>`;
+        }
+        monthHTML += '</div>';
+        monthContainer.innerHTML = monthHTML;
+        grid.appendChild(monthContainer);
+    });
+}
+
+function updateHeader() {
+    const headerDisplay = document.getElementById('calendar-header-display');
+    if (!headerDisplay) return;
+
+    switch(currentView) {
+        case 'yearly':
+            headerDisplay.textContent = `Year ${displayedDate.year} BF`;
+            break;
+        case 'weekly':
+            const baseDate = new Date(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+            let dayOfWeek = baseDate.getDay() - (CALENDAR_DATA.days.values[0].ordinal - 1);
+            if (dayOfWeek < 0) dayOfWeek += 7;
+
+            const startOfWeek = new Date(baseDate);
+            startOfWeek.setDate(baseDate.getDate() - dayOfWeek);
+            
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+            const startMonthName = CALENDAR_DATA.months.values[startOfWeek.getMonth()].name;
+            const endMonthName = CALENDAR_DATA.months.values[endOfWeek.getMonth()].name;
+
+            if (startOfWeek.getFullYear() !== endOfWeek.getFullYear()) {
+                headerDisplay.textContent = `${startMonthName} ${startOfWeek.getDate()}, ${startOfWeek.getFullYear()} - ${endMonthName} ${endOfWeek.getDate()}, ${endOfWeek.getFullYear()}`;
+            } else if (startMonthName !== endMonthName) {
+                 headerDisplay.textContent = `${startMonthName} ${startOfWeek.getDate()} - ${endMonthName} ${endOfWeek.getDate()}`;
+            } else {
+                 headerDisplay.textContent = `${startMonthName} ${startOfWeek.getDate()} - ${endOfWeek.getDate()}`;
+            }
+            break;
+        case 'monthly':
+        default:
+            headerDisplay.textContent = `${CALENDAR_DATA.months.values[displayedDate.monthIndex].name}, ${displayedDate.year} BF`;
+            break;
+    }
+}
+
+function updateNavButtons() {
+    const prevYearBtn = document.getElementById('prev-year');
+    const nextYearBtn = document.getElementById('next-year');
+    const prevBtn = document.getElementById('prev-month');
+    const nextBtn = document.getElementById('next-month');
+    if (!prevYearBtn) return;
+
+    prevYearBtn.style.display = 'block';
+    nextYearBtn.style.display = 'block';
+    prevBtn.style.display = 'block';
+    nextBtn.style.display = 'block';
+
+    if (currentView === 'yearly') {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    } else if (currentView === 'weekly') {
+        prevYearBtn.style.display = 'none';
+        nextYearBtn.style.display = 'none';
+        prevBtn.textContent = '‹ Week';
+        nextBtn.textContent = 'Week ›';
+    } else { // monthly
+        prevBtn.textContent = '‹ Month';
+        nextBtn.textContent = 'Month ›';
+    }
+}
+
+function renderDayDetails() {
+    let detailPanel = document.getElementById('day-detail-panel');
+    const sidebar = document.getElementById('calendar-sidebar');
+    if (!sidebar) return;
+
+    if (!detailPanel) {
+        detailPanel = document.createElement('div');
+        detailPanel.id = 'day-detail-panel';
+        sidebar.prepend(detailPanel);
+    }
+
+    const monthData = CALENDAR_DATA.months.values[selectedDate.monthIndex];
+    const daySuffix = (d => (d % 10 === 1 && d !== 11) ? "st" : (d % 10 === 2 && d !== 12) ? "nd" : (d % 10 === 3 && d !== 13) ? "rd" : "th")(selectedDate.day);
+
+    const holiday = CALENDAR_DATA.holidays.values.find(h => h.month === monthData.ordinal && h.day === selectedDate.day);
+    const weather = generateWeatherForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+
+    let eventsHTML = holiday ? `<li><strong>Holiday:</strong> ${holiday.name}</li>` : '<li>No scheduled events.</li>';
+
+    const weatherClass = weather.isMagical ? 'magical-weather' : '';
+
+    detailPanel.innerHTML = `
+        <h3>${selectedDate.day}${daySuffix} of ${monthData.name}</h3>
+        <div class="weather-forecast ${weatherClass}">
+            <div class="weather-icon">${weather.icon}</div>
+            <div class="weather-details">
+                <p class="weather-temp">${weather.temp}</p>
+                <p>${weather.desc}</p>
+            </div>
+        </div>
+        <ul class="day-events-list">
+            ${eventsHTML}
+        </ul>
+    `;
+}
+
+
+function renderMoons(year, monthIndex, day) {
+    const container = document.getElementById('moons-display');
+    if (!container) return;
+    
+    let daysPassed = 0;
+    for (let i = 0; i < monthIndex; i++) {
+        daysPassed += CALENDAR_DATA.months.values[i].days;
+    }
+    daysPassed += day;
+
+    container.innerHTML = CALENDAR_DATA.moons.values.map(moon => {
+        const daysIntoCycle = (daysPassed + moon.offset) % moon.cycleLength;
+        const phaseIndex = Math.floor((daysIntoCycle / moon.cycleLength) * moon.phaseNames.length);
+        const phaseName = moon.phaseNames[phaseIndex];
+
+        return `<div class="moon-info">
+                    <h4 style="color: ${moon.color};">${moon.name}</h4>
+                    <p class="moon-phase">${phaseName}</p>
+                </div>`;
+    }).join('');
+}
+
+function renderSidebar(year, monthIndex) {
+    const holidaysContainer = document.getElementById('holidays-list');
+    
+    if (holidaysContainer) {
+        const header = holidaysContainer.parentElement.querySelector('h3');
+        const monthName = CALENDAR_DATA.months.values[monthIndex].name;
+        if (header) {
+             header.textContent = `Holidays in ${monthName}`;
+        }
+       
+        const monthHolidays = CALENDAR_DATA.holidays.values
+            .filter(h => h.month === monthIndex + 1)
+            .sort((a,b) => a.day - b.day);
+            
+        holidaysContainer.innerHTML = monthHolidays.map(h => `
+             <li class="holiday-item">
+                <div class="holiday-header">
+                    <strong>Day ${h.day}: ${h.name}</strong>
+                </div>
+                <p class="holiday-description">${h.description}</p>
+                <p class="holiday-traditions"><em>Traditions:</em> ${h.traditions}</p>
+            </li>
+        `).join('') || '<li>No holidays this month.</li>';
+    }
+}
+
+// --- DATA IMPORT FUNCTIONS ---
+import { MAP_DATA } from './map-data.js';
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
+
 function getPlayerSpeciesKey() {
     const user = state.loggedInUser || 'generic';
     
     const charMap = {
-        'archie': 'dnd_human',
-        'markop': 'centaur_human_head',
+        'archie': 'kivotos_human',
+        'markop': 'centaur_horse_head',
         'humpik': 'dnd_dwarf_mountain',
         'bowser': 'koopa',
-        'remi': 'dnd_human'
+        'remi': 'kivotos_human'
     };
 
     return charMap[user] || 'dnd_human'; // Default to human if unknown
 }
 
-/**
- * Determines the tension between the player's species' dominant religion
- * and a target religion.
- */
 function calculateTension(targetDenomId) {
     const playerSpeciesKey = getPlayerSpeciesKey();
     const speciesInfo = SPECIES_DATA[playerSpeciesKey];
@@ -94,10 +497,6 @@ function calculateTension(targetDenomId) {
     return { level: tensionValue, label, color, sameFaith: false };
 }
 
-
-/**
- * Calculates total followers.
- */
 function calculateReligiousDemographics() {
     const counts = {};
     let totalPop = 0;
@@ -234,20 +633,9 @@ function renderEdicts() {
     edictsContainer.innerHTML = html;
 }
 
-// Helper for seeded random (simple LCG)
-function getSeededRandom(seed) {
-    let t = seed += 0x6D2B79F5;
-    t = Math.imul(t ^ t >>> 15, t | 1);
-    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-}
-
 function getGameDayName() {
     const date = new Date(CURRENT_GAME_DATE.year, CURRENT_GAME_DATE.monthIndex, CURRENT_GAME_DATE.day);
-    // Map JS day 0 (Sunday) to Game Calendar index. 
-    // Assuming standard mapping for simplicity or using CALENDAR_DATA if needed.
-    // CALENDAR_DATA.days.values array usually matches 0-6 index.
-    const dayIndex = date.getDay(); 
+    const dayIndex = (CURRENT_GAME_DATE.day - 1) % 7;
     return CALENDAR_DATA.days.values[dayIndex]?.name || "Unknown Day";
 }
 
@@ -264,47 +652,64 @@ function renderDailyRituals() {
         panelHeader.innerHTML = `Today's Liturgy <span class="header-date">${dateString}</span>`;
     }
 
-    // 2. Select Rituals Deterministically based on Date
+    // 2. Find denominations with specific observances for TODAY
     const denoms = Object.values(RELIGION_DATA.denominations);
-    const seed = CURRENT_GAME_DATE.year * 10000 + CURRENT_GAME_DATE.monthIndex * 100 + CURRENT_GAME_DATE.day;
+    const specificMatches = [];
+    const generalPool = [];
+
+    denoms.forEach(denom => {
+        let addedSpecific = false;
+        if (denom.weekly_observances) {
+            const obs = denom.weekly_observances.find(o => o.day === dayName);
+            if (obs) {
+                specificMatches.push({ denom, text: obs.text, isSpecial: true });
+                addedSpecific = true;
+            }
+        }
+        if (!addedSpecific) {
+            generalPool.push({ denom, text: denom.daily_liturgy || "Daily prayer." });
+        }
+    });
+
+    // 3. Fill the 4 slots
+    // Prioritize specific matches, then fill remaining with random general ones
+    const finalSelection = [...specificMatches];
     
-    // Shuffle using seeded random
-    const shuffled = [...denoms];
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    // Shuffle general pool for variety
+    const seed = CURRENT_GAME_DATE.year * 10000 + CURRENT_GAME_DATE.monthIndex * 100 + CURRENT_GAME_DATE.day;
+    for (let i = generalPool.length - 1; i > 0; i--) {
         const r = getSeededRandom(seed + i);
         const j = Math.floor(r * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        [generalPool[i], generalPool[j]] = [generalPool[j], generalPool[i]];
+    }
+
+    while (finalSelection.length < 4 && generalPool.length > 0) {
+        finalSelection.push(generalPool.pop());
     }
     
-    const dailyPicks = shuffled.slice(0, 4);
-    
-    // 3. Build HTML
+    // 4. Build HTML
     let html = `
         <div class="ritual-subtitle">
-            To maintain faithful standing, adherents are expected to complete at least one observance per week.
+            Observances for <strong>${dayName}</strong>. Adherents are expected to perform relevant rites.
         </div>
         <div class="rituals-grid">
     `;
     
-    dailyPicks.forEach(denom => {
-        const group = RELIGION_DATA.groups[denom.group];
-        let ritualText = denom.daily_liturgy || "Daily prayer.";
-        
-        // Check for specific day observance
-        if (denom.weekly_observances) {
-            const todayObs = denom.weekly_observances.find(o => o.day === dayName);
-            if (todayObs) {
-                ritualText = `<strong style="color:var(--accent-color)">${dayName}:</strong> ${todayObs.text}`;
-            }
-        }
-        
+    finalSelection.slice(0, 4).forEach(item => {
+        const group = RELIGION_DATA.groups[item.denom.group];
+        const specialStyle = item.isSpecial ? `border: 2px solid var(--accent-color); box-shadow: 0 0 10px ${group.color}40;` : `border-left: 3px solid ${group.color};`;
+        const titleStyle = item.isSpecial ? `color: var(--accent-color);` : `color: var(--text-color);`;
+
         html += `
-            <div class="ritual-card" style="border-left: 3px solid ${group.color}">
+            <div class="ritual-card" style="${specialStyle}">
                 <div class="ritual-header">
                     <span>${group.icon}</span>
-                    <strong>${denom.name}</strong>
+                    <strong style="${titleStyle}">${item.denom.name}</strong>
                 </div>
-                <div class="ritual-content">${ritualText}</div>
+                <div class="ritual-content">
+                    ${item.isSpecial ? `<span style="font-size:0.8em; text-transform:uppercase; color:var(--accent-color); display:block; margin-bottom:4px;">${dayName} Liturgy</span>` : ''}
+                    "${item.text}"
+                </div>
             </div>
         `;
     });
@@ -323,16 +728,16 @@ function renderTree() {
         const denoms = Object.values(RELIGION_DATA.denominations).filter(d => d.group === groupKey);
         
         const denomsHTML = denoms.map(d => {
-            const count = Math.round(globalReligiousCounts[d.id] || 0);
-            // Filter out tiny cults randomly to save space
-            if (count < 100 && Math.random() > 0.1) return ''; 
+            const demographicCount = Math.round(globalReligiousCounts[d.id] || 0);
+            const explicitFollowers = d.followers || [];
+            const totalCount = demographicCount + explicitFollowers.length;
             
             return `
                 <div class="denomination-card" data-id="${d.id}">
                     <div class="denom-stripe" style="background-color: ${group.color}"></div>
                     <div class="denom-content">
                         <div class="denom-name">${d.name}</div>
-                        <div class="denom-followers">${count.toLocaleString()} believers</div>
+                        <div class="denom-followers">${totalCount.toLocaleString()} believers</div>
                         <div class="denom-bonus">${d.bonus}</div>
                     </div>
                 </div>
@@ -367,13 +772,16 @@ function showDetailModal(denomId) {
     if (!denom) return;
     
     const group = RELIGION_DATA.groups[denom.group];
-    const count = Math.round(globalReligiousCounts[denomId] || 0);
+    const followerList = denom.followers || [];
+    const demographicCount = Math.round(globalReligiousCounts[denomId] || 0);
+    const totalCount = demographicCount + followerList.length;
     
     const traditionsList = denom.traditions ? denom.traditions.map(t => `<li>${t}</li>`).join('') : '<li>Unknown customs.</li>';
     const saintsList = denom.saints ? denom.saints.map(s => `<li>${s}</li>`).join('') : '<li>No recorded saints.</li>';
     const ritualText = denom.activation_ritual || "No specific ritual data available.";
     const dailyText = denom.daily_liturgy || "No daily observance recorded.";
     const heresyText = denom.heresies || "None currently recorded.";
+    const followersListHTML = followerList.length > 0 ? followerList.map(f => `<li>${f}</li>`).join('') : '<li>No specific notable followers recorded.</li>';
 
     // Mechanics List
     let mechanicsList = '';
@@ -440,7 +848,7 @@ function showDetailModal(denomId) {
                 <p class="holy-leader">High Priest: ${denom.leader}</p>
                 <div class="holy-stats">
                     <div class="stat-box"><span class="stat-label">Seat</span><span class="stat-val">${denom.seat}</span></div>
-                    <div class="stat-box"><span class="stat-label">Followers</span><span class="stat-val">${count.toLocaleString()}</span></div>
+                    <div class="stat-box"><span class="stat-label">Followers</span><span class="stat-val">${totalCount.toLocaleString()}</span></div>
                 </div>
                 ${tensionHTML}
                 ${consequenceHTML}
@@ -482,13 +890,18 @@ function showDetailModal(denomId) {
                 ${mechanicsList}
 
                 <div class="list-group">
-                    <h5>Traditions</h5>
-                    <ul class="holy-list">${traditionsList}</ul>
+                    <h5>Notable Followers</h5>
+                    <ul class="holy-list">${followersListHTML}</ul>
                 </div>
 
                 <div class="list-group">
                     <h5>Saints & Figures</h5>
                     <ul class="holy-list">${saintsList}</ul>
+                </div>
+
+                <div class="list-group">
+                    <h5>Traditions</h5>
+                    <ul class="holy-list">${traditionsList}</ul>
                 </div>
             </div>
         </div>
@@ -501,35 +914,171 @@ function hideDetailModal() {
     religionModal.style.display = 'none';
 }
 
+function renderEdictsModal() {
+    const edictsList = document.getElementById('edicts-modal-list');
+    if (!edictsList) return;
+
+    // Filter for denominations that have an active_law
+    const activeDenoms = Object.values(RELIGION_DATA.denominations).filter(d => d.active_law);
+    
+    edictsList.innerHTML = activeDenoms.map(denom => {
+        const groupColor = RELIGION_DATA.groups[denom.group].color;
+        return `
+            <div class="edict-card" style="border-left-color: ${groupColor}">
+                <div class="edict-header">
+                    <span class="edict-religion">${denom.name}</span>
+                    <span class="edict-leader">${denom.leader}</span>
+                </div>
+                <div class="edict-text">"${denom.active_law}"</div>
+            </div>
+        `;
+    }).join('');
+}
+
 function setupEventListeners() {
-    treeContainer.addEventListener('click', e => {
-        const card = e.target.closest('.denomination-card');
-        if (card) {
-            playSound('click.mp3');
-            showDetailModal(card.dataset.id);
+    // 1. Calendar Navigation & Grid Listeners
+    const gridMonthly = document.getElementById('calendar-grid-monthly');
+    const gridYearly = document.getElementById('calendar-grid-yearly');
+    const viewSwitcher = document.getElementById('view-switcher');
+
+    if (gridMonthly) {
+        gridMonthly.addEventListener('click', (e) => {
+            const dayCell = e.target.closest('.calendar-day:not(.other-month)');
+            if (dayCell && dayCell.dataset.day) {
+                selectedDate = { ...displayedDate, day: parseInt(dayCell.dataset.day, 10) };
+                renderView();
+            }
+        });
+    }
+    
+    if (gridYearly) {
+        gridYearly.addEventListener('click', e => {
+            const monthCell = e.target.closest('.mini-month-container');
+            if (monthCell) {
+                playSound('confirm.mp3');
+                const monthIndex = parseInt(monthCell.dataset.monthIndex, 10);
+                displayedDate.monthIndex = monthIndex;
+                selectedDate = { year: displayedDate.year, monthIndex: monthIndex, day: 1};
+                currentView = 'monthly';
+                renderView();
+                renderSidebar(displayedDate.year, displayedDate.monthIndex);
+            }
+        });
+    }
+
+    if (viewSwitcher) {
+        viewSwitcher.addEventListener('click', e => {
+            const btn = e.target.closest('.view-btn');
+            if (btn) {
+                playSound('click.mp3');
+                const newView = btn.dataset.view;
+
+                if (currentView === newView) {
+                    displayedDate = { year: CURRENT_GAME_DATE.year, monthIndex: CURRENT_GAME_DATE.monthIndex };
+                    selectedDate = { ...CURRENT_GAME_DATE };
+                } else {
+                    currentView = newView;
+                }
+                
+                renderView();
+            }
+        });
+    }
+    
+    // Navigation buttons logic (simplified for brevity)
+    const navActions = {
+        'prev-year': () => { displayedDate.year--; selectedDate.year = displayedDate.year; },
+        'next-year': () => { displayedDate.year++; selectedDate.year = displayedDate.year; },
+        'prev-month': () => {
+            displayedDate.monthIndex--;
+            if (displayedDate.monthIndex < 0) { displayedDate.monthIndex = 11; displayedDate.year--; }
+            selectedDate.year = displayedDate.year; selectedDate.monthIndex = displayedDate.monthIndex;
+        },
+        'next-month': () => {
+            displayedDate.monthIndex++;
+            if (displayedDate.monthIndex > 11) { displayedDate.monthIndex = 0; displayedDate.year++; }
+            selectedDate.year = displayedDate.year; selectedDate.monthIndex = displayedDate.monthIndex;
         }
-    });
+    };
+
+    for (const [id, action] of Object.entries(navActions)) {
+        const button = document.getElementById(id);
+        if (button) {
+            button.addEventListener('click', () => {
+                action();
+                renderView();
+                if (currentView === 'monthly') {
+                    renderSidebar(displayedDate.year, displayedDate.monthIndex);
+                }
+            });
+        }
+    }
+
+    // 2. Religion Tree & Modal Listeners
+    if (treeContainer) {
+        treeContainer.addEventListener('click', e => {
+            const card = e.target.closest('.denomination-card');
+            if (card) {
+                playSound('click.mp3');
+                showDetailModal(card.dataset.id);
+            }
+        });
+    }
 
     if (religionModalClose) {
         religionModalClose.addEventListener('click', hideDetailModal);
     }
     
-    window.addEventListener('click', (e) => {
-        if (e.target === religionModal) {
-            hideDetailModal();
+    if (religionModal) {
+        window.addEventListener('click', (e) => {
+            if (e.target === religionModal) {
+                hideDetailModal();
+            }
+        });
+    }
+
+    // 3. Edict Modal Listeners
+    const edictsBtn = document.getElementById('view-edicts-btn');
+    const edictsModal = document.getElementById('edicts-modal');
+    const edictsClose = edictsModal ? edictsModal.querySelector('.modal-close') : null;
+
+    if (edictsBtn && edictsModal) {
+        edictsBtn.addEventListener('click', () => {
+            renderEdictsModal();
+            edictsModal.style.display = 'flex';
+            playSound('click.mp3');
+        });
+        
+        if (edictsClose) {
+            edictsClose.addEventListener('click', () => {
+                edictsModal.style.display = 'none';
+            });
         }
-    });
+        
+        edictsModal.addEventListener('click', (e) => {
+            if(e.target === edictsModal) edictsModal.style.display = 'none';
+        });
+    }
 }
 
 function init() {
-    if (!treeContainer) return; 
+    if (treeContainer) {
+        const counts = calculateReligiousDemographics();
+        renderChart(counts);
+        renderEdicts();
+        renderDailyRituals();
+        renderTree();
+    }
     
-    const counts = calculateReligiousDemographics();
-    renderChart(counts);
-    renderEdicts();
-    renderDailyRituals();
-    renderTree();
+    // Always run setupEventListeners as it handles both calendar and religion page elements
+    // depending on what is present in the DOM.
     setupEventListeners();
+    
+    // If we are on the calendar page, trigger initial render
+    if (document.getElementById('calendar-grid-monthly')) {
+        renderView();
+        renderSidebar(displayedDate.year, displayedDate.monthIndex);
+    }
 }
 
 init();

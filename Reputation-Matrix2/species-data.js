@@ -5,10 +5,10 @@ export const SPECIES_DATA = {
     // D&D / FANTASY BASE
     // ========================================================================
     dnd_human: { 
-        name: 'Human (Variant)', 
+        name: 'Human (Variant/Mutated)', 
         color: '#d4a373', 
         icon: '🧑', 
-        description: 'Versatile and ambitious humans found across all realms.',
+        description: 'Versatile and ambitious humans found across all realms. Some exhibit unique variants or mutations.',
         player_relations: {
             archie: "Accepted as kin, though your third eye causes uneasy stares and whispers of mutation.",
             markop: "Viewed as a useful beast of burden or cavalry, not an equal. High discrimination in cities.",
