@@ -1,6 +1,13 @@
+
+
 import { LORE_DATA } from './lore.js';
 import { WALUIGI_INTRO_TEXT, WALUIGI_REGION_TIPS } from './new-operator/new-operator-data.js';
 import { playSound } from './common.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
+import { QUEST_DATA } from './quests-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
+import { PARTY_LOCATIONS } from './party-data.js';
+
 
 // --- Element Cache ---
 const startupScreen = document.getElementById('startup-screen');
@@ -52,7 +59,7 @@ function setupLoginScreen() {
         const card = document.createElement('div');
         card.className = 'char-card';
         card.dataset.charKey = charKey;
-        const imageName = `${charKey}.png`; 
+        const imageName = `portraits/${charKey}.png`; 
         card.innerHTML = `
             <img src="${imageName}" alt="${character.name}">
             <h3>${character.name}</h3>
@@ -215,6 +222,228 @@ function showLoginOrApp() {
     }
 }
 
+// --- NEW Dashboard Rendering Logic ---
+function formatCharacterKey(key) {
+    if (!key) return '';
+    return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+function getCharacterData(characterKey) {
+    if (!characterKey) return { name: 'Unknown', portrait: 'portraits/unknown.png', faction: null };
+    const char = LORE_DATA.characters[characterKey] || LORE_DATA.auxiliary_party[characterKey];
+    if (char && char.portrait) {
+        let faction = null;
+        for (const fKey in LORE_DATA.factions) {
+            const fac = LORE_DATA.factions[fKey];
+            if (fac.leader === characterKey || fac.notable_people?.some(p => p.name === char.name)) {
+                faction = { name: fac.name, logo: fac.logo };
+                break;
+            }
+        }
+        return { name: char.name, portrait: char.portrait, faction };
+    }
+    if (LORE_DATA.factions[characterKey]) {
+        const fac = LORE_DATA.factions[characterKey];
+        return { name: fac.name, portrait: fac.logo, faction: { name: fac.name, logo: fac.logo } };
+    }
+    const specialCases = {
+        'wah_media_collective': { name: "WAH Media Collective", portrait: 'icon_newspaper.png', faction: { name: "The Daily Paradox", logo: 'icon_newspaper.png' } },
+    };
+    if (specialCases[characterKey]) return { ...specialCases[characterKey] };
+    return { name: formatCharacterKey(characterKey), portrait: 'portraits/unknown.png', faction: null };
+}
+
+function getSeededRandom(seed) {
+    let t = seed += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+}
+
+function generateWeatherForDay(year, monthIndex, day) {
+    const season = CALENDAR_DATA.seasons.values.find(s => {
+        const startMonth = s.monthStart - 1;
+        const endMonth = s.monthEnd - 1;
+        if (startMonth <= endMonth) { return monthIndex >= startMonth && monthIndex <= endMonth; } 
+        else { return monthIndex >= startMonth || monthIndex <= endMonth; }
+    });
+
+    const seed = year * 10000 + (monthIndex + 1) * 100 + day;
+    if (getSeededRandom(seed + 2) < 0.08 && MAGICAL_WEATHER_EVENTS.length > 0) {
+        const magicalEvent = MAGICAL_WEATHER_EVENTS[Math.floor(getSeededRandom(seed + 3) * MAGICAL_WEATHER_EVENTS.length)];
+        return { temp: `??°C`, icon: magicalEvent.icon, desc: magicalEvent.name, isMagical: true };
+    }
+
+    let baseTemp, tempVariation, weatherOptions;
+    switch (season.name) {
+        case 'Golden Summer': baseTemp = 24; tempVariation = 10; weatherOptions = [{ icon: '☀️', desc: 'Clear and Sunny', chance: 0.6 }, { icon: '🌤️', desc: 'Partly Cloudy', chance: 0.2 }, { icon: '☁️', desc: 'Overcast', chance: 0.1 }, { icon: '🌦️', desc: 'Scattered Showers', chance: 0.07 }, { icon: '⛈️', desc: 'Afternoon Thunderstorm', chance: 0.03 }]; break;
+        case 'Hoarfrost Winter': baseTemp = -5; tempVariation = 8; weatherOptions = [{ icon: '❄️', desc: 'Light Snowfall', chance: 0.4 }, { icon: '🥶', desc: 'Bitterly Cold', chance: 0.3 }, { icon: '☁️', desc: 'Grey and Overcast', chance: 0.2 }, { icon: '☀️', desc: 'Crisp and Clear', chance: 0.1 }]; break;
+        default: baseTemp = 12; tempVariation = 12; weatherOptions = [{ icon: '🌤️', desc: 'Mild and Pleasant', chance: 0.4 }, { icon: '☁️', desc: 'Cloudy Skies', chance: 0.25 }, { icon: '🌦️', desc: 'Light Showers', chance: 0.2 }, { icon: '💨', desc: 'Windy', chance: 0.15 }]; break;
+    }
+
+    const temperature = Math.floor(baseTemp + (getSeededRandom(seed + 1) * tempVariation) - (tempVariation / 2));
+    let cumulativeChance = 0;
+    const chosenWeather = weatherOptions.find(w => { cumulativeChance += w.chance; return getSeededRandom(seed) <= cumulativeChance; }) || weatherOptions[0];
+    return { temp: `${temperature}°C`, ...chosenWeather };
+}
+
+function renderWeatherWidget() {
+    const { year, monthIndex, day } = CURRENT_GAME_DATE;
+    const weather = generateWeatherForDay(year, monthIndex, day);
+    const magicalClass = weather.isMagical ? 'magical-weather' : '';
+    return `
+        <div id="weather-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">🌦️</span>
+                <h3 class="widget-title">Midlands Forecast</h3>
+            </div>
+            <div class="widget-content ${magicalClass}">
+                <div class="weather-icon">${weather.icon}</div>
+                <div class="weather-temp">${weather.temp}</div>
+                <p class="weather-desc">${weather.desc}</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderMissionWidget() {
+    const quests = Object.values(QUEST_DATA);
+    let latestQuest = quests.find(q => q.is_updated);
+    if (!latestQuest) {
+        latestQuest = quests.find(q => q.status === 'active');
+    }
+    if (!latestQuest) return '';
+
+    return `
+        <div id="mission-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">🎯</span>
+                <h3 class="widget-title">Priority Mission</h3>
+            </div>
+            <div class="widget-content">
+                <h4 class="mission-title">${latestQuest.title}</h4>
+                <p class="mission-objective">${latestQuest.objective}</p>
+                <div class="mission-details">
+                    <span><strong>Assignee:</strong> ${latestQuest.assignee}</span>
+                    <span><strong>Status:</strong> ${latestQuest.status.toUpperCase()}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderChatterWidget() {
+    const latestPost = [...WAHBOOK_POSTS].sort((a, b) => (b.order || 0) - (a.order || 0))[0];
+    if (!latestPost) return '';
+
+    const author = getCharacterData(latestPost.characterKey);
+    return `
+        <div id="chatter-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">💬</span>
+                <h3 class="widget-title">Latest Network Chatter</h3>
+            </div>
+            <div class="widget-content">
+                <div class="post-header">
+                    <img src="${author.portrait}" alt="${author.name}" class="post-pfp">
+                    <div>
+                        <div class="post-author-name">${author.name}</div>
+                        <div class="post-meta">${latestPost.timestamp}</div>
+                    </div>
+                </div>
+                <p class="post-content">${latestPost.content}</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderAnalysisWidget() {
+    const analysisText = "WAH-HA-HA! A masterpiece! The toads are fighting each other! The Cohort besieges my magnificent new manor, and for what? To capture the three-eyed fool! Pathetic! Meanwhile, my business partner Green T gets eaten by a mirror, and now Bowser and the dwarf are fighting glass monsters! This is high art! The Greenhouse fire was just the opening act for this symphony of stupidity! The Oracle's little house is full of surprises. This is far more entertaining than I could have planned! WAH!";
+    return `
+         <div id="analysis-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">🧐</span>
+                <h3 class="widget-title">Waluigi's Analysis</h3>
+            </div>
+            <div class="widget-content">
+                <p>${analysisText}</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderPartyStatusWidget() {
+    const allPartyMembers = Object.values(PARTY_LOCATIONS).flat();
+    const mainPartyKeys = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
+
+    const partyListHTML = mainPartyKeys.map(charKey => {
+        const charInfo = LORE_DATA.characters[charKey];
+        const locationInfo = allPartyMembers.find(p => p.charKey === charKey);
+        
+        if (!charInfo || !locationInfo) {
+            return '';
+        }
+        
+        const status = locationInfo.status || 'Unknown';
+        const statusClass = status.toLowerCase().replace(/\s+/g, '-');
+
+        return `
+            <li class="party-member-item">
+                <img src="${charInfo.portrait}" alt="${charInfo.name}" class="party-member-pfp">
+                <div class="party-member-info">
+                    <span class="party-member-name">${charInfo.name}</span>
+                    <span class="party-member-status status-${statusClass}">${status}</span>
+                </div>
+            </li>
+        `;
+    }).join('');
+
+    return `
+        <div id="party-status-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">👥</span>
+                <h3 class="widget-title">Party Status</h3>
+            </div>
+            <div class="widget-content">
+                <ul class="party-status-list">
+                    ${partyListHTML}
+                </ul>
+            </div>
+        </div>
+    `;
+}
+
+function renderIntelWidget() {
+    const keyRumor = LORE_DATA.rumors.find(r => r.id === 'greenhouse_inferno');
+    if (!keyRumor) return '';
+
+    return `
+        <div id="intel-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">📰</span>
+                <h3 class="widget-title">Key Intel</h3>
+            </div>
+            <div class="widget-content">
+                <h4 class="intel-title">${keyRumor.title}</h4>
+                <p class="intel-summary">${keyRumor.description}</p>
+                <a href="assembly.html#intel" class="intel-link-btn">View Full Intel Dossier</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderDashboard() {
+    const dashboard = document.getElementById('session-dashboard');
+    if (!dashboard) return;
+    dashboard.innerHTML = `
+        ${renderWeatherWidget()}
+        ${renderMissionWidget()}
+        ${renderPartyStatusWidget()}
+        ${renderIntelWidget()}
+        ${renderChatterWidget()}
+        ${renderAnalysisWidget()}
+    `;
+}
 
 function main() {
     // Hide login screen initially
@@ -225,6 +454,7 @@ function main() {
 
     // Setup startup screen event listeners
     if (startupScreen && enterAppBtn) {
+        renderDashboard();
         enterAppBtn.addEventListener('click', showLoginOrApp);
         
         if (newOperatorBtn) {
