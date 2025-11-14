@@ -1,3 +1,4 @@
+
 #currency-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -8,6 +9,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 24px;
+    grid-column: 1 / -1;
 }
 
 .currency-card {
@@ -28,48 +30,116 @@
     padding-bottom: 12px;
 }
 
-.exchange-rate-display {
+/* Market Selector Styles */
+#market-selector-container {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: 8px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin: 16px 0;
+    flex-direction: column;
+    gap: 8px;
+    grid-column: 1 / -1;
 }
 
-.currency-info {
+#market-selector-container label {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
     text-align: center;
-}
-
-.currency-info img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 8px;
-}
-
-.currency-info p {
     font-size: 1.1rem;
+}
+
+#market-selector {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+}
+
+#market-selector:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Market Rates Styles */
+.market-rates-card {
+    grid-column: 1 / -1;
+}
+
+#market-rates-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.rate-item {
+    background-color: var(--main-bg);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: help;
+}
+
+.rate-item img {
+    width: 24px;
+    height: 24px;
+}
+
+.rate-info {
+    flex-grow: 1;
+}
+
+.rate-info .currency-name {
     font-weight: 700;
     color: var(--text-color);
+    font-size: 0.9rem;
 }
 
-.exchange-arrows {
-    font-size: 2rem;
+.rate-info .rate-value {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    font-weight: 700;
 }
 
-.exchange-rate-value {
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--neutral-color);
-    font-family: var(--font-display);
-    margin-top: 16px;
-    background-color: var(--main-bg);
-    padding: 8px;
-    border-radius: 6px;
+.acceptance-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
-/* New Converter Styles */
+.acceptance-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.acceptance-high { color: var(--positive-color); }
+.acceptance-high .acceptance-dot { background-color: var(--positive-color); }
+.acceptance-medium { color: var(--neutral-color); }
+.acceptance-medium .acceptance-dot { background-color: var(--neutral-color); }
+.acceptance-low { color: #d35400; } /* Orange */
+.acceptance-low .acceptance-dot { background-color: #d35400; }
+.acceptance-refused { color: var(--negative-color); }
+.acceptance-refused .acceptance-dot { background-color: var(--negative-color); }
+
+/* Converter Styles */
+.converter-card {
+    grid-column: 1 / -1;
+}
+@media (min-width: 1200px) {
+    .market-rates-card { grid-column: 1 / 2; }
+    .converter-card { grid-column: 2 / 3; }
+}
+
+
 #exchange-rate-converter {
     display: flex;
     flex-direction: column;
@@ -125,25 +195,7 @@
     padding-right: 10px;
 }
 
-
-.local-currency-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 16px;
-}
-
-.local-currency-list li {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    text-align: center;
-    padding: 8px 0;
-}
-
-.local-currency-list li strong {
-    color: var(--text-color);
-    font-family: var(--font-display);
-}
-
+/* Wallet Card Styles */
 .wallet-card {
     border-left: 5px solid var(--accent-color);
 }
@@ -201,4 +253,42 @@
     font-size: 1.5rem;
     color: var(--neutral-color);
     margin-left: 8px;
+}
+
+/* Tooltip Styles */
+.tooltip {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--main-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 12px;
+    width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+.tooltip.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-title {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.tooltip-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.tooltip-type {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--accent-color);
 }

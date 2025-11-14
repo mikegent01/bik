@@ -1,206 +1,294 @@
-const WALLET_DATA = {
-    archie: {
-        name: "Archie Miser",
-        midland_ducat: 40,
-        gold: 277,
-        silver: 6,
-        bronze: 18
-    },
-    bowser: {
-        name: "Bowser",
-        gold: 15
-    },
-    humpik: {
-        name: "Humpik",
-        gold: 5,
-        midland_ducat: 426
-    },
-    markop: {
-        name: "Markop Judi",
-        gold: 51,
-        silver: 6,
-        bronze: 15
-    }
-};
 
-const EXCHANGE_RATES = {
-    // Base unit is Gold (G)
-    midland_ducat: { to_gold: 1 / 3.7, name: "Midland Ducats", icon: "icon_midland_ducat.png" }, // Approx 0.27
-    mushroom_coin: { to_gold: 0.1, name: "Mushroom Kingdom Coins", icon: "icon_mushroom_coin.png" },
-    gold: { to_gold: 1, name: "Gold", icon: "icon_gold.png" },
-    silver: { to_gold: 0.1, name: "Silver", icon: "icon_silver.png" },
-    bronze: { to_gold: 0.01, name: "Bronze", icon: "icon_bronze.png" },
-    legion_scrip: { to_gold: 0.8, name: "Iron Legion Scrip", icon: "faction_iron_legion.png"},
-    blood_vial: { to_gold: 1.5, name: "Onyx Blood Vial", icon: "faction_onyx_hand.png"},
-    spirit_bead: { to_gold: 1.2, name: "Rakasha Spirit Bead", icon: "faction_rakasha.png"},
-    banana_bunch: { to_gold: 0.5, name: "Banana Bunch", icon: "icon_dk_banana.png" },
-    kremling_koin: { to_gold: 2.25, name: "Kremling Koin", icon: "icon_kremling_koin.png" }
-};
+import { MAP_DATA } from './map-data.js';
+import { LORE_DATA } from './lore.js';
 
-function renderExchangeRates() {
-    const optionsHTML = Object.entries(EXCHANGE_RATES).map(([key, data]) => 
-        `<option value="${key}">${data.name}</option>`
-    ).join('');
+// --- DATA ---
 
-    return `
-        <div class="currency-card">
-            <h3>Currency Converter</h3>
-            <div id="exchange-rate-converter">
-                <div class="converter-row">
-                    <input type="number" id="convert-from-amount" value="1" min="0">
-                    <select id="convert-from-currency">
-                        ${optionsHTML}
-                    </select>
-                </div>
-                <div class="converter-equals">=</div>
-                <div class="converter-row">
-                    <span id="convert-to-amount">?</span>
-                    <select id="convert-to-currency">
-                        ${optionsHTML}
-                    </select>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function calculateExchange() {
-    const fromAmount = parseFloat(document.getElementById('convert-from-amount').value);
-    const fromCurrencyKey = document.getElementById('convert-from-currency').value;
-    const toCurrencyKey = document.getElementById('convert-to-currency').value;
-    const toAmountSpan = document.getElementById('convert-to-amount');
-
-    if (isNaN(fromAmount) || !fromCurrencyKey || !toCurrencyKey) {
-        toAmountSpan.textContent = '?';
-        return;
-    }
-
-    const fromRate = EXCHANGE_RATES[fromCurrencyKey].to_gold;
-    const toRate = EXCHANGE_RATES[toCurrencyKey].to_gold;
-
-    const amountInGold = fromAmount * fromRate;
-    const result = amountInGold / toRate;
+const CURRENCY_DATA = {
+    // Widely Accepted / "Majors"
+    gold: { name: "Gold Pieces", icon: "icon_gold.png", base_value: 1.0, home_faction: null, type: "Commodity", description: "An ancient and universal medium of exchange. Favored in the underworld for large, untraceable transactions.", acceptance: { default: 'high' } },
+    silver: { name: "Silver Pieces", icon: "icon_silver.png", base_value: 0.1, home_faction: null, type: "Commodity", description: "A common currency for everyday transactions and trade between kingdoms.", acceptance: { default: 'high' } },
+    copper: { name: "Copper Pieces", icon: "icon_copper.png", base_value: 0.01, home_faction: null, type: "Commodity", description: "The lowest denomination of common currency, used for small purchases and by common folk.", acceptance: { default: 'high' } },
+    midland_ducat: { name: "Midland Ducat", icon: "icon_midland_ducat.png", base_value: 0.9, home_faction: 'regal_empire', type: "Fiat", description: "The official currency of the Regal Empire. Stable, well-regulated, and widely accepted in civilized lands.", acceptance: { default: 'medium', regal_empire: 'high', iron_legion: 'high', mushroom_regency: 'medium' } },
+    credstick: { name: "Credstick (Digital)", icon: "icon_currency.png", base_value: 1.1, home_faction: 'internet_federation', type: "Digital", description: "The standard digital currency of The Internet. Untraceable by non-digital means but requires network access.", acceptance: { default: 'low', internet_federation: 'high', millennium_science_school: 'high', freelancer_underworld: 'medium' } },
     
-    // Format to a reasonable number of decimal places
-    let formattedResult;
-    if (result < 1) {
-        formattedResult = result.toFixed(4);
-    } else if (result < 100) {
-        formattedResult = result.toFixed(2);
-    } else {
-        formattedResult = result.toLocaleString(undefined, { maximumFractionDigits: 0 });
-    }
+    // Regional & Factional
+    legion_scrip: { name: "Iron Legion Scrip", icon: "faction_iron_legion.png", base_value: 0.8, home_faction: 'iron_legion', type: "Military Fiat", description: "A military currency issued to Iron Legion soldiers. Its value is backed by the might of the Legion itself.", acceptance: { default: 'low', iron_legion: 'high', regal_empire: 'medium' } },
+    blood_vial: { name: "Onyx Blood Vial", icon: "faction_onyx_hand.png", base_value: 2.5, home_faction: 'onyx_hand', type: "Occult Commodity", description: "Vials of magically preserved, potent blood. Highly valuable to vampires, but viewed with suspicion elsewhere.", acceptance: { default: 'refused', onyx_hand: 'high', freelancer_underworld: 'low' } },
+    silver_pelts: { name: "Moonfang Silver Pelts", icon: "faction_moonfang.png", base_value: 1.8, home_faction: 'moonfang_pack', type: "Commodity", description: "The pelts of giant, silver-backed wolves. A symbol of status and wealth among the packs.", acceptance: { default: 'low', moonfang_pack: 'high', rakasha_clans: 'medium', onyx_hand: 'refused' } },
+    arcane_shard: { name: "Arcane Shard", icon: "icon_magic.png", base_value: 3.0, home_faction: 'mages_guild', type: "Magical", description: "Crystallized magical energy. Used as currency among mages and as a potent component for enchanting.", acceptance: { default: 'low', mages_guild: 'high' } },
+    mushroom_coin: { name: "Mushroom Kingdom Coin", icon: "icon_mushroom_coin.png", base_value: 0.5, home_faction: 'mushroom_regency', type: "Fiat", description: "The official, though currently unstable, currency of the Mushroom Regency.", acceptance: { default: 'low', mushroom_regency: 'high', peach_loyalists: 'high', beanbean_kingdom: 'medium' } },
+    star_bits: { name: "Star Bits", icon: "icon_quests.png", base_value: 1.5, home_faction: 'peach_loyalists', type: "Magical", description: "Fragments of celestial power. Valued by those who follow the stars.", acceptance: { default: 'low', peach_loyalists: 'high', mages_guild: 'medium' } },
+    bowser_bux: { name: "Bowser Bux", icon: "faction_koopa_troop.png", base_value: 0.4, home_faction: 'koopa_troop', type: "Military Fiat", description: "Scrip stamped with Bowser's face. Worth something within the Koopa Troop, but not much elsewhere.", acceptance: { default: 'refused', koopa_troop: 'high' } },
+    banana_bunch: { name: "Banana Bunch", icon: "icon_dk_banana.png", base_value: 0.7, home_faction: 'dk_crew', type: "Commodity", description: "The primary currency of the DK Isles. Its value fluctuates wildly based on the banana harvest.", acceptance: { default: 'refused', dk_crew: 'high', yoshi_clans: 'low' } },
+    kremling_koin: { name: "Kremling Koin", icon: "icon_kremling_koin.png", base_value: 0.6, home_faction: 'kremling_krew', type: "Illicit", description: "Crudely minted coins used by the Kremling Krew. Often stolen, and spending it can mark you as an associate.", acceptance: { default: 'refused', kremling_krew: 'high', freelancer_underworld: 'low' } },
+    kivotos_credit: { name: "Kivotos Credit", icon: "factions/kivotos_gsu.png", base_value: 1.2, home_faction: 'general_student_union', type: "Fiat", description: "The highly stable and technologically advanced currency of the Kivotos Academy City.", acceptance: { default: 'low', general_student_union: 'high', millennium_science_school: 'high', trinity_general_school: 'medium' } },
+    imperial_crown: { name: "Imperial Crown (Empire)", icon: "factions/empire.png", base_value: 1.1, home_faction: 'the_empire', type: "Fiat", description: "The official currency of the Empire of Man, backed by its vast treasury and military might.", acceptance: { default: 'medium', the_empire: 'high', regal_empire: 'medium' } },
+    dwarf_oathgold: { name: "Dwarf Oathgold", icon: "factions/dwarfs.png", base_value: 4.0, home_faction: 'kingdoms_of_the_dwarves_wh', type: "Commodity", description: "Not just gold, but gold mined, smelted, and stamped with binding oaths. Its value is as much in its promise as its material.", acceptance: { default: 'medium' } },
+    warpstone_token: { name: "Warpstone Token", icon: "factions/skaven.png", base_value: 10.0, home_faction: 'skaven', type: "Illicit", description: "Solidified magical chaos. Immensely powerful and valuable to the right buyer, but highly illegal and corrupting to possess.", acceptance: { default: 'refused', skaven: 'high', freelancer_underworld: 'low' } },
+    soul_coin: { name: "Soul Coin", icon: "faction_onyx_hand.png", base_value: 20.0, home_faction: null, type: "Occult", description: "Coins minted in the lower planes, each containing a trapped mortal soul. The ultimate currency for dealing with devils and demons.", acceptance: { default: 'refused', onyx_hand: 'medium' } },
+    wario_coin: { name: "Wario Coin", icon: "faction_wario.png", base_value: 1.2, home_faction: 'wario_land', type: "Fiat", description: "A large, garish gold coin stamped with Wario's face. Its value is propped up by Wario's massive hoard.", acceptance: { default: 'low', wario_land: 'high', freelancer_underworld: 'medium' } },
+    rupee: { name: "Hyrulean Rupee", icon: "icon_rupee.png", base_value: 0.7, home_faction: 'kingdom_of_gondor', type: "Commodity", description: "Gemstones of varying colors used as currency in the lands of Hyrule and its neighbors.", acceptance: { default: 'low', kingdom_of_gondor: 'high' } },
+    poke_dollar: { name: "PokéDollar", icon: "icon_pokedollar.png", base_value: 0.6, home_faction: 'pokemon_league', type: "Fiat", description: "The standard currency of the Pokémon regions, regulated by the Pokémon League.", acceptance: { default: 'low', pokemon_league: 'high' } },
+    mora: { name: "Mora", icon: "icon_mora.png", base_value: 1.3, home_faction: 'teyvat_hegemony', type: "Fiat", description: "The common currency of Teyvat, minted in Liyue and recognized in all seven nations.", acceptance: { default: 'medium', teyvat_hegemony: 'high' } },
+};
 
-    toAmountSpan.textContent = formattedResult;
-}
+const WALLET_DATA = {
+    archie: { name: "Archie Miser", currencies: { gold: 120, soul_coin: 3, silver: 200 } },
+    bowser: { name: "Bowser", currencies: { gold: 2500, bowser_bux: 50000, wario_coin: 500 } },
+    humpik: { name: "Humpik", currencies: { midland_ducat: 426, copper: 50, dwarf_oathgold: 2 } },
+    markop: { name: "Markop Judi", currencies: { legion_scrip: 150, imperial_crown: 20, silver: 150 } },
+    remi: { name: "Remi", currencies: { kivotos_credit: 5000, poke_dollar: 2000, rupee: 100 } }
+};
 
-function setupExchangeRateCalculator() {
-    const fromAmountInput = document.getElementById('convert-from-amount');
-    const fromCurrencySelect = document.getElementById('convert-from-currency');
-    const toCurrencySelect = document.getElementById('convert-to-currency');
+let economicHubs = [];
+let selectedMarketId = '';
 
-    if (!fromAmountInput) return; // Guard against running on wrong page
+// --- LOGIC ---
 
-    // Set defaults
-    fromCurrencySelect.value = 'gold';
-    toCurrencySelect.value = 'midland_ducat';
-
-    fromAmountInput.addEventListener('input', calculateExchange);
-    fromCurrencySelect.addEventListener('change', calculateExchange);
-    toCurrencySelect.addEventListener('change', calculateExchange);
-
-    // Initial calculation
-    calculateExchange();
-}
-
-
-function renderLocalCurrencies() {
-     const gold_to_silver = 1 / EXCHANGE_RATES.silver.to_gold;
-     const silver_to_bronze = EXCHANGE_RATES.silver.to_gold / EXCHANGE_RATES.bronze.to_gold;
-
-    return `
-         <div class="currency-card">
-            <h3>Local & Lesser Currencies</h3>
-            <ul class="local-currency-list">
-                <li>1 <strong>Gold</strong> = ${1 / EXCHANGE_RATES.mushroom_coin.to_gold} <strong>Mushroom Kingdom Coins</strong></li>
-                <li>1 <strong>Gold</strong> = ${gold_to_silver} <strong>Silver</strong></li>
-                <li>1 <strong>Silver</strong> = ${silver_to_bronze} <strong>Bronze</strong></li>
-                <li>1 <strong>Kremling Koin</strong> = ${EXCHANGE_RATES.kremling_koin.to_gold / EXCHANGE_RATES.banana_bunch.to_gold} <strong>Banana Bunches</strong></li>
-                <li>1 <strong>Onyx Blood Vial</strong> = ${EXCHANGE_RATES.blood_vial.to_gold} <strong>Gold</strong></li>
-                <li>1 <strong>Rakasha Spirit Bead</strong> = ${EXCHANGE_RATES.spirit_bead.to_gold} <strong>Gold</strong></li>
-                <li>1 <strong>Iron Legion Scrip</strong> = ${EXCHANGE_RATES.legion_scrip.to_gold} <strong>Gold</strong></li>
-            </ul>
-        </div>
-    `;
-}
-
-function renderPartyWallets() {
-    let walletsHTML = '<div class="currency-grid">';
-
-    const walletOrder = ['archie', 'markop', 'humpik', 'bowser'];
-
-    walletOrder.forEach(charKey => {
-        const character = WALLET_DATA[charKey];
-        if (!character) return;
-
-        let totalValueInGold = 0;
-        let currencyLinesHTML = '';
-
-        const currencyOrder = ['midland_ducat', 'mushroom_coin', 'gold', 'silver', 'bronze', 'legion_scrip', 'blood_vial', 'spirit_bead', 'banana_bunch', 'kremling_koin'];
-
-        currencyOrder.forEach(currencyKey => {
-            if (character[currencyKey]) {
-                const amount = character[currencyKey];
-                const rateInfo = EXCHANGE_RATES[currencyKey];
-                totalValueInGold += amount * rateInfo.to_gold;
-
-                currencyLinesHTML += `
-                    <div class="currency-line-item">
-                        <img src="${rateInfo.icon}" alt="${rateInfo.name}">
-                        <span class="currency-amount">${amount.toLocaleString()}</span>
-                        <span class="currency-name">${rateInfo.name}</span>
-                    </div>
-                `;
-            }
-        });
-
-         if (currencyLinesHTML === '') {
-            currencyLinesHTML = `<p class="text-secondary" style="text-align: center; padding: 20px 0;">Wallet is empty.</p>`;
+function findPoiById(poiId) {
+    for (const mapKey in MAP_DATA) {
+        if (MAP_DATA[mapKey].pointsOfInterest) {
+            const poi = MAP_DATA[mapKey].pointsOfInterest.find(p => p.id === poiId);
+            if (poi) return poi;
         }
+    }
+    return null;
+}
 
-        walletsHTML += `
-            <div class="currency-card wallet-card">
-                <h4 class="wallet-header">${character.name}</h4>
-                <div class="wallet-contents">
-                    ${currencyLinesHTML}
+function getLocalCurrency(poi) {
+    if (!poi || !poi.factionId) return 'midland_ducat'; // Default to a common currency
+    const factionCurrency = Object.keys(CURRENCY_DATA).find(key => CURRENCY_DATA[key].home_faction === poi.factionId);
+    return factionCurrency || 'midland_ducat';
+}
+
+function getCurrencyAcceptance(currencyKey, marketFactionId) {
+    const currency = CURRENCY_DATA[currencyKey];
+    if (!currency) return 'refused';
+    const factionRules = currency.acceptance;
+    // Specific faction rule > Home faction bonus > Default
+    if (factionRules[marketFactionId]) return factionRules[marketFactionId];
+    if (currency.home_faction === marketFactionId) return 'high';
+    return factionRules.default || 'low';
+}
+
+function getExchangeRate(fromKey, toKey, locationId) {
+    if (fromKey === toKey) return 1;
+
+    const fromCurrency = CURRENCY_DATA[fromKey];
+    const toCurrency = CURRENCY_DATA[toKey];
+    const poi = findPoiById(locationId);
+    
+    if (!fromCurrency || !toCurrency || !poi) return 0;
+    
+    const baseRate = fromCurrency.base_value / toCurrency.base_value;
+    
+    const economyMod = 1 + ((poi.economic_value || 5) - 5) * 0.05; // -20% to +20%
+    
+    let factionMod = 1.0;
+    if (fromCurrency.home_faction === poi.factionId) factionMod *= 1.05;
+    if (toCurrency.home_faction === poi.factionId) factionMod *= 0.95;
+
+    const acceptance = getCurrencyAcceptance(fromKey, poi.factionId);
+    const acceptanceValues = { high: 1.0, medium: 1.1, low: 1.5, refused: Infinity };
+    const acceptanceMod = acceptanceValues[acceptance] || 1.1;
+
+    const finalRate = (baseRate * economyMod * factionMod) / acceptanceMod;
+    
+    return isFinite(finalRate) ? finalRate : 0;
+}
+
+// --- RENDERING ---
+
+function populateLocationSelector() {
+    const selector = document.getElementById('market-selector');
+    if (!selector) return;
+    const hubTypes = ['capital_city', 'major_city', 'port', 'market', 'trade_post'];
+    let allHubs = [];
+    for (const mapKey in MAP_DATA) {
+        if (MAP_DATA[mapKey].pointsOfInterest) {
+            allHubs.push(...MAP_DATA[mapKey].pointsOfInterest.filter(poi => hubTypes.includes(poi.type) && poi.economic_value >= 7));
+        }
+    }
+    // FIX: De-duplicate locations by name
+    economicHubs = Array.from(new Map(allHubs.map(hub => [hub.name, hub])).values());
+    economicHubs.sort((a, b) => a.name.localeCompare(b.name));
+
+    selector.innerHTML = economicHubs.map(poi => `<option value="${poi.id}">${poi.name}</option>`).join('');
+    
+    selectedMarketId = economicHubs.find(h => h.id === 'poi_mid_capital_district')?.id || economicHubs[0]?.id || '';
+    selector.value = selectedMarketId;
+}
+
+function renderMarketRates() {
+    const container = document.getElementById('market-rates-container');
+    const title = document.getElementById('market-rates-title');
+    if (!container || !selectedMarketId) return;
+
+    const marketPoi = findPoiById(selectedMarketId);
+    const localCurrencyKey = getLocalCurrency(marketPoi);
+    const localCurrency = CURRENCY_DATA[localCurrencyKey];
+    title.textContent = `Market Rates in ${marketPoi.name} (vs. 1 ${localCurrency.name})`;
+
+    // Display ALL currencies
+    container.innerHTML = Object.keys(CURRENCY_DATA).sort((a,b) => CURRENCY_DATA[a].name.localeCompare(CURRENCY_DATA[b].name))
+    .map(key => {
+        const currency = CURRENCY_DATA[key];
+        if (!currency || key === localCurrencyKey) return ''; // Don't show local currency against itself
+        
+        const rate = getExchangeRate(key, localCurrencyKey, selectedMarketId);
+        const acceptance = getCurrencyAcceptance(key, marketPoi.factionId);
+
+        return `
+            <div class="rate-item" data-currency-key="${key}">
+                <img src="${currency.icon}" alt="${currency.name}">
+                <div class="rate-info">
+                    <div class="currency-name">${currency.name}</div>
+                    <div class="rate-value">${rate > 0 ? rate.toFixed(3) : 'N/A'}</div>
                 </div>
-                <div class="total-value-container">
-                    <p>Est. Total Value: <span class="total-value">${totalValueInGold.toFixed(2)} G</span></p>
+                <div class="acceptance-indicator acceptance-${acceptance}">
+                    <div class="acceptance-dot"></div>
+                    <span>${acceptance.charAt(0).toUpperCase() + acceptance.slice(1)}</span>
                 </div>
             </div>
         `;
-    });
-
-    walletsHTML += '</div>';
-    return walletsHTML;
+    }).join('');
 }
 
+function renderConverter() {
+    const container = document.getElementById('exchange-rate-converter');
+    if (!container) return;
+    const sortedCurrencies = Object.entries(CURRENCY_DATA).sort(([,a],[,b]) => a.name.localeCompare(b.name));
+    const optionsHTML = sortedCurrencies.map(([key, data]) => `<option value="${key}">${data.name}</option>`).join('');
+    container.innerHTML = `
+        <div class="converter-row">
+            <input type="number" id="convert-from-amount" value="1" min="0">
+            <select id="convert-from-currency">${optionsHTML}</select>
+        </div>
+        <div class="converter-equals">≈</div>
+        <div class="converter-row">
+            <span id="convert-to-amount">?</span>
+            <select id="convert-to-currency">${optionsHTML}</select>
+        </div>
+    `;
+    document.getElementById('convert-from-currency').value = 'gold';
+    document.getElementById('convert-to-currency').value = 'midland_ducat';
+    updateConverter();
+}
+
+function renderWallets() {
+    const container = document.getElementById('wallets-container');
+    if (!container) return;
+    const referenceCurrency = 'midland_ducat';
+
+    container.innerHTML = Object.values(WALLET_DATA).map(wallet => {
+        let totalValueInReference = 0;
+        const currencyLinesHTML = Object.entries(wallet.currencies).map(([currencyKey, amount]) => {
+            const currency = CURRENCY_DATA[currencyKey];
+            if (!currency) return '';
+            totalValueInReference += amount * (currency.base_value / (CURRENCY_DATA[referenceCurrency]?.base_value || 1));
+            return `
+                <div class="currency-line-item">
+                    <img src="${currency.icon}" alt="${currency.name}">
+                    <span class="currency-amount">${amount.toLocaleString()}</span>
+                    <span class="currency-name">${currency.name}</span>
+                </div>`;
+        }).join('');
+
+        return `
+            <div class="currency-card wallet-card">
+                <h4 class="wallet-header">${wallet.name}</h4>
+                <div class="wallet-contents">${currencyLinesHTML}</div>
+                <div class="total-value-container">
+                    <p>Est. Value in Ducats: <span class="total-value">${totalValueInReference.toFixed(2)}</span></p>
+                </div>
+            </div>`;
+    }).join('');
+}
+
+function updateConverter() {
+    const fromAmount = parseFloat(document.getElementById('convert-from-amount').value) || 0;
+    const fromKey = document.getElementById('convert-from-currency').value;
+    const toKey = document.getElementById('convert-to-currency').value;
+    const toAmountSpan = document.getElementById('convert-to-amount');
+    const rate = getExchangeRate(fromKey, toKey, selectedMarketId);
+    const result = fromAmount * rate;
+    toAmountSpan.textContent = result > 0 ? result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 }) : 'N/A';
+}
+
+function setupEventListeners() {
+    const marketSelector = document.getElementById('market-selector');
+    const converter = document.getElementById('exchange-rate-converter');
+    const tooltip = document.getElementById('currency-tooltip');
+    const marketRatesContainer = document.getElementById('market-rates-container');
+
+    if (marketSelector) {
+        marketSelector.addEventListener('change', () => {
+            selectedMarketId = marketSelector.value;
+            renderMarketRates();
+            updateConverter();
+        });
+    }
+    if (converter) {
+        converter.addEventListener('input', updateConverter);
+        converter.addEventListener('change', updateConverter);
+    }
+    if (marketRatesContainer && tooltip) {
+        marketRatesContainer.addEventListener('mouseover', e => {
+            const rateItem = e.target.closest('.rate-item');
+            if (rateItem) {
+                const currency = CURRENCY_DATA[rateItem.dataset.currencyKey];
+                tooltip.innerHTML = `
+                    <div class="tooltip-title">${currency.name}</div>
+                    <div class="tooltip-description">${currency.description}</div>
+                    <div class="tooltip-type">Type: ${currency.type}</div>
+                `;
+                tooltip.classList.add('visible');
+            }
+        });
+        marketRatesContainer.addEventListener('mousemove', e => {
+            if (tooltip.classList.contains('visible')) {
+                tooltip.style.left = `${e.clientX + 15}px`;
+                tooltip.style.top = `${e.clientY + 15}px`;
+            }
+        });
+        marketRatesContainer.addEventListener('mouseout', e => {
+            if (e.target.closest('.rate-item')) {
+                tooltip.classList.remove('visible');
+            }
+        });
+    }
+}
 
 function init() {
-    const container = document.getElementById('currency-container');
-    if (!container) return;
-
-    let fullHTML = `
-        <div class="currency-grid">
-            ${renderExchangeRates()}
-            ${renderLocalCurrencies()}
-        </div>
-        <h3 class="page-title" style="margin-top: 32px; font-size: 1.5rem; color: var(--text-secondary);">Party Wallets</h3>
-        ${renderPartyWallets()}
-    `;
-    
-    container.innerHTML = fullHTML;
-    setupExchangeRateCalculator();
+    populateLocationSelector();
+    renderMarketRates();
+    renderConverter();
+    renderWallets();
+    setupEventListeners();
 }
 
 init();
+// Image List
+// icon_gold.png
+// icon_silver.png
+// icon_copper.png
+// icon_midland_ducat.png
+// icon_currency.png
+// faction_iron_legion.png
+// faction_onyx_hand.png
+// faction_moonfang_pack.png
+// icon_magic.png
+// icon_mushroom_coin.png
+// icon_quests.png
+// faction_koopa_troop.png
+// icon_dk_banana.png
+// icon_kremling_koin.png
+// factions/kivotos_gsu.png
+// factions/empire.png
+// factions/dwarfs.png
+// factions/skaven.png
+// faction_wario.png
+// icon_rupee.png
+// icon_pokedollar.png
+// icon_mora.png
