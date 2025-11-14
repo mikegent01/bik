@@ -1,5 +1,7 @@
 
 
+
+
 export const SPECIES_DATA = {
     // ========================================================================
     // D&D / FANTASY BASE
@@ -231,14 +233,14 @@ export const SPECIES_DATA = {
         name: 'Centaur (Equine)', 
         color: '#5d4037', 
         icon: '🐴', 
-        description: 'A terrifying anomaly: A horse torso and body, with a horse head where the human torso should be.',
+        description: "An anthropomorphic horse-person with the four-legged lower body of a centaur. They possess a horse's head, a humanoid torso, and are often known for a cynical, world-weary demeanor.",
         social_status: "Cursed Anomaly",
         player_relations: {
-            archie: "Hungry? (It mostly just wants hay).",
-            markop: "Uncanny Valley. Even Markop is freaked out by these.",
-            humpik: "Is it a mount? Or a person? Confused.",
-            bowser: "Just a horse. Useful for pulling wagons.",
-            remi: "Offers a sugar cube."
+            archie: "Weird. Can I make a bet with it? Probably. Can I ride it? Probably not.",
+            markop: "Uncanny. They possess the noble form of a centaur, but the face of a beast. It is... unsettling.",
+            humpik: "It has four legs and a strong back, but it talks? Strange. Can probably hold its liquor though.",
+            bowser: "A monster, but a weird one. Might be useful in the army if they can hold a weapon properly. Or just as cavalry.",
+            remi: "Oh! A horse-person-centaur! That's so cool! Do you like apples?"
         },
         religion_breakdown: {
             void_nihilism: 0.80, // They have seen the void
