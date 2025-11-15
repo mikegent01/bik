@@ -4,7 +4,374 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
-
+    
+    {
+        id: 'steelstorm_operation_retribution',
+        order: 30640,
+        characterKey: 'colonel_vera_steelstorm',
+        timestamp: 'Just Now',
+        content: `Operation Swift Retribution is complete. The asset known as 'Speaker L' has been secured. His command structure has been dismantled. Order has been restored to the sector. This is a message to all who would harbor fugitives or defy Imperial law: The Legion is watching.`,
+        likes: 1250,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'A clean, decisive victory, Colonel. As it should be.' },
+            { characterKey: 'toad_lee', text: 'You call this "order"? You ambushed a leaderless group in the dark.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_ironic_justice',
+        order: 30639,
+        characterKey: 'archie',
+        timestamp: '1 minute ago',
+        content: `Heard Speaker L got a taste of his own medicine. Got arrested by a bigger, better army right after he arrested me. You truly, truly hate to see it. Oh wait, no you don't. It's hilarious.`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'bones', text: 'Live by the boot, die by the boot.' },
+            { characterKey: 'waluigi', text: 'WAH! The irony is so thick you could build a house with it!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toad_lee_l_captured',
+        order: 30638,
+        characterKey: 'toad_lee',
+        timestamp: '3 minutes ago',
+        content: `They have him. The Iron Legion struck while we were divided. Flashbangs, breaching charges... it was an assault, not a police action. They took Speaker L. The First Cohort is scattered. We are broken.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'dan', text: 'No... not more fighting. Not more of us captured.' },
+            { characterKey: 'markop', text: 'This is the consequence of our division. We are picking each other apart, and the Legion is feasting on the scraps.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'first_cohort_survivor_raid',
+        order: 30637,
+        characterKey: 'first_cohort_member',
+        timestamp: '5 minutes ago',
+        content: `They came from nowhere! Black armor, red lights! They were silent, efficient... they tore through our lines. They took the Speaker! They took him! We're scattered! We need orders!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Rally at the east bridge. Tend to the wounded. Do not engage.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'iron_legion_commando_raid_report',
+        order: 30636,
+        characterKey: 'iron_legion_commando',
+        timestamp: '8 minutes ago',
+        content: `Primary target secured. Cohort command structure neutralized. Minimal resistance. Extracting now. For the Empire.`,
+        likes: 780,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'broker_l_captured_market',
+        order: 30635,
+        characterKey: 'the_broker',
+        timestamp: '10 minutes ago',
+        content: `Market Correction: Asset 'Speaker L' is now in Iron Legion custody. The Liberated Toads faction is in a state of catastrophic leadership failure. Their value has plummeted. Information on Legion interrogation techniques has, once again, become a premium commodity.`,
+        likes: 690,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'bowser_reacts_to_raid',
+        order: 30634,
+        characterKey: 'bowser',
+        timestamp: '12 minutes ago',
+        content: `GWAHAHA! The little singing toad who arrested the three-eyed weirdo just got arrested by the tin cans! One less annoying voice in the world! This day just keeps getting better!`,
+        likes: 840,
+        comments: [
+            { characterKey: 'kamek', text: 'A most efficient removal of a minor nuisance, Your Viciousness.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'dan_reacts_to_raid',
+        order: 30633,
+        characterKey: 'dan',
+        timestamp: '15 minutes ago',
+        content: `No... they took him? The Legion... they just... took him? This is a nightmare. We were just fighting each other, and they swept in. This is all our fault.`,
+        likes: 510,
+        comments: [
+            { characterKey: 'ryan', text: 'Division is a weakness, Dan. The Legion is adept at exploiting weakness.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'fawful_reacts_to_raid',
+        order: 30632,
+        characterKey: 'fawful',
+        timestamp: '20 minutes ago',
+        content: `I HAVE THE MERRIMENT OF A THOUSAND GIGGLING BEANS! The singing toad is caged! The robot men have him! My enemies are eating my other enemies! It is a delicious casserole of self-destruction!`,
+        likes: 788,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'remi_reacts_to_raid',
+        order: 30631,
+        characterKey: 'remi',
+        timestamp: '22 minutes ago',
+        content: `Wait, the leader of the toad army that arrested Archie just got arrested by the other army? So... are we supposed to be happy about this? I'm so lost.`,
+        likes: 610,
+        comments: [
+            { characterKey: 'bones', text: 'Just be glad it wasn\'t you, kid. That\'s the only victory that matters.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'humpik_reacts_to_raid',
+        order: 30630,
+        characterKey: 'hjumpik',
+        timestamp: '25 minutes ago',
+        content: `The metal men took the loud singing toad? Good. One less person to yell at Archie.`,
+        likes: 730,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'kamek_analyzes_raid',
+        order: 30629,
+        characterKey: 'kamek',
+        timestamp: '30 minutes ago',
+        content: `The Iron Legion used the chaos of Miser's escape as cover for a decapitation strike. A classic maneuver. Efficient. The 'Liberated Toads' are now rudderless and vulnerable. A most interesting development.`,
+        likes: 560,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'roger_analyzes_raid',
+        order: 30628,
+        characterKey: 'roger',
+        timestamp: '35 minutes ago',
+        content: `Tactical Analysis: The Iron Legion utilized a coordinated, multi-point insertion under the cover of the ongoing internal conflict. Superior equipment, discipline, and intelligence. Our faction's operational security is non-existent. This was an inevitable outcome.`,
+        likes: 420,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'eager_reacts_to_raid',
+        order: 30627,
+        characterKey: 'eager',
+        timestamp: '40 minutes ago',
+        content: `The scary soldiers took the loud toad? Oh no! Even though he was mean to Archie, he's still one of us, right? This is awful!`,
+        likes: 380,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toadette_reacts_to_raid',
+        order: 30626,
+        characterKey: 'captain_toadette',
+        timestamp: '45 minutes ago',
+        content: `A rabble of former slaves tried to play soldier and were swiftly dismantled by a real army. Shocking. This is what happens when you lack true leadership and conviction.`,
+        likes: 530,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'generic_toad_hears_raid',
+        order: 30625,
+        characterKey: 'generic_toad',
+        timestamp: '50 minutes ago',
+        content: `I heard shouting and then... a big boom! From the Cohort's camp! What's going on now?! I thought they were the ones in charge!`,
+        likes: 215,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'krool_laughs_at_legion',
+        order: 30624,
+        characterKey: 'king_k_rool',
+        timestamp: '1 hour ago',
+        content: `Keheheh! The tin soldiers finally did something interesting! Snatching up the leader of a mushroom mob while everyone is distracted. A respectable bit of villainy! I approve!`,
+        likes: 610,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'syrup_missed_opportunity',
+        order: 30623,
+        characterKey: 'captain_syrup',
+        timestamp: '1 hour ago',
+        content: `The Legion raided the toad camp? And I missed it? Damn. There was probably some good loot to be had in the confusion.`,
+        likes: 450,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'wario_business_opportunity',
+        order: 30622,
+        characterKey: 'wario',
+        timestamp: '1 hour ago',
+        content: `The Legion just captured a high-value political prisoner? Excellent! Information about his location and interrogation schedule is a sellable commodity! Wario smells profit!`,
+        likes: 580,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'the_mole_silent_satisfaction',
+        order: 30621,
+        characterKey: 'the_mole',
+        timestamp: '2 hours ago',
+        content: `Justice is served. Order is restored. My part is done.`,
+        likes: 510,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_mission_complete',
+        order: 30620,
+        characterKey: 'jerry_the_spy',
+        timestamp: '2 hours ago',
+        content: `Report: Phase one was a success. The target's escape sowed maximum chaos within the enemy ranks, leaving their command structure vulnerable. Phase two is now complete. A good day's work for the Empire.`,
+        likes: 600,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'penny_connects_dots',
+        order: 30619,
+        characterKey: 'detective_penny',
+        timestamp: '2 hours ago',
+        content: `Case Notes: Archie escapes. His liberator is an Iron Legion spy. The Cohort is thrown into disarray. The Iron Legion immediately launches a raid and captures the Cohort's leader. This wasn't two events. This was one, perfectly executed decapitation strike. The Legion is more cunning than I thought.`,
+        likes: 790,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'midlands_citizen_fear',
+        order: 30618,
+        characterKey: 'midlands_citizen',
+        timestamp: '3 hours ago',
+        content: `First a fire at the manor, now a full-blown military raid on the toad camp nearby? The war is coming closer. This isn't safe anymore.`,
+        likes: 430,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'generic_koopa_cheers',
+        order: 30617,
+        characterKey: 'koopa_troop',
+        timestamp: '3 hours ago',
+        content: `The tin cans smashed the mushroom fanatics! HA! Less enemies for King Bowser to worry about!`,
+        likes: 350,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toadsworth_despairs',
+        order: 30616,
+        characterKey: 'chancellor_toadsworth',
+        timestamp: '4 hours ago',
+        content: `An Imperial military operation... within our borders... against a group of our own citizens, however misguided. This is a grave violation of our sovereignty. But we are too weak to do anything but watch. A sad day for the Kingdom.`,
+        likes: 390,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'dk_confused',
+        order: 30615,
+        characterKey: 'donkey_kong',
+        timestamp: '4 hours ago',
+        content: `So... the little toads were fighting the other little toads... and then the robot guys came and took the loud one away? This is too complicated. I need a banana.`,
+        likes: 1400,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'cranky_on_strategy',
+        order: 30614,
+        characterKey: 'cranky_kong',
+        timestamp: '5 hours ago',
+        content: `See? That's proper strategy! While the mushrooms were busy singing and pointing fingers, the metalheads came in and cleaned house! Back in my day, we called that a 'barrel roll'! Heh! Get it?`,
+        likes: 720,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'diddy_on_legion',
+        order: 30613,
+        characterKey: 'diddy_kong',
+        timestamp: '5 hours ago',
+        content: `The Iron Legion is playing a different game than everyone else. They're not just fighting, they're playing chess. And they just took a major piece off the board.`,
+        likes: 680,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'cybernetic_raid_analysis',
+        order: 30612,
+        characterKey: 'cybernetic_collectives',
+        timestamp: '6 hours ago',
+        content: `[ANALYSIS]: Iron Legion utilized a 94% optimal window of opportunity created by internal enemy conflict. Decapitation strike resulted in the successful acquisition of a hostile command asset. A tactically sound and efficient operation.`,
+        likes: 740,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'kivotos_millennium_raid',
+        order: 30611,
+        characterKey: 'millennium_science_school',
+        timestamp: '6 hours ago',
+        content: `[Seminar Leak]: The Iron Legion's raid was a textbook example of asymmetric warfare. Their use of flashbangs to disrupt command and control before the main assault is a tactic we should analyze for our own urban combat simulations.`,
+        likes: 690,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'warhammer_empire_raid',
+        order: 30610,
+        characterKey: 'the_empire',
+        timestamp: '7 hours ago',
+        content: `A swift, brutal strike against a disorganized rabble. An acceptable, if minor, victory for the forces of Order. Let this be a lesson to all greenskins and malcontents.`,
+        likes: 810,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'pokemon_trainer_raid',
+        order: 30609,
+        characterKey: 'trainer_guild',
+        timestamp: '7 hours ago',
+        content: `Wait, so they had a battle? Who won? Did anyone's Pokémon evolve?`,
+        likes: 790,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'vale_on_raid',
+        order: 30608,
+        characterKey: 'high_inquisitor_vale',
+        timestamp: '8 hours ago',
+        content: `The Legion's secular forces have detained a heretic. Good. One less obstacle to the Flame. But their methods are without faith. True justice can only be delivered by the righteous.`,
+        likes: 540,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'oracle_observes_raid',
+        order: 30607,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '8 hours ago',
+        content: `The iron thread pulls tight, catching the loudest songbird in its snare. A predictable outcome. The pattern shifts once more.`,
+        likes: 920,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_hears_raid',
+        order: 30606,
+        characterKey: 'markop',
+        timestamp: '9 hours ago',
+        content: `An explosion. From the direction of the Cohort's camp. Not thunder. Gunfire. They are under attack.`,
+        likes: 490,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
     {
         id: 'archie_returns_to_chaos',
         order: 30545,
