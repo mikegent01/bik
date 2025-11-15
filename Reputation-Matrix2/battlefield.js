@@ -4,6 +4,24 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY ---
     {
+        id: 'raid_on_cohort_command',
+        name: "Raid on Cohort Command",
+        conflict: "Liberated Toads Internal Conflict",
+        date: "Day 19, 1040 BF",
+        location: "First Cohort Command Post, near Raventree Manor",
+        belligerents: {
+            side_a: { name: "Iron Legion Strike Team", factions: ['iron_legion'] },
+            side_b: { name: "First Cohort Command", factions: ['liberated_toads'] }
+        },
+        commanders: { side_a: ["Colonel Vera Steelstorm (Overseeing)"], side_b: ["Speaker L"] },
+        outcome: "<span class='outcome victory'>Decisive Iron Legion Victory</span>; Speaker L captured.",
+        casualties: "Minimal Iron Legion casualties. Moderate First Cohort casualties. The Cohort's command structure is shattered.",
+        description: `
+            <p>In a stunning display of tactical opportunism, the Iron Legion launched a swift decapitation strike against the First Cohort's command post. Capitalizing on the chaos of Archie Miser's escape and the Cohort's internal disarray, an elite Legion strike team breached the compound under the cover of the ongoing storm.</p>
+            <p>Using flashbangs and superior discipline, the Legion forces neutralized the disorganized Cohort leadership, capturing Speaker L with minimal resistance. The raid was a resounding success for the Legion, effectively neutralizing the First Cohort as an organized threat and securing a high-value political prisoner.</p>
+        `
+    },    
+    {
         id: 'siege_of_raventree_manor',
         name: "The Siege Within Raventree Manor",
         conflict: "Liberated Toads Internal Conflict",
