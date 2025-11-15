@@ -152,16 +152,7 @@ export const WAHBOOK_POSTS = [
         comments: [],
         rumorId: 'archie_third_eye_escape'
     },
-    {
-        id: 'eager_reacts_to_raid',
-        order: 30627,
-        characterKey: 'eager',
-        timestamp: '40 minutes ago',
-        content: `The scary soldiers took the loud toad? Oh no! Even though he was mean to Archie, he's still one of us, right? This is awful!`,
-        likes: 380,
-        comments: [],
-        rumorId: 'archie_third_eye_escape'
-    },
+
     {
         id: 'toadette_reacts_to_raid',
         order: 30626,
