@@ -1,3 +1,4 @@
+
 import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
@@ -17,11 +18,13 @@ const PLAYER_RACE_LABELS = {
 function calculateDemographics() {
     const totalByRegion = {};
     const totalBySpecies = {};
+    const speciesFactionDistribution = {}; // New data structure
     let grandTotal = 0;
 
-    // Initialize species counts
+    // Initialize species counts and faction distributions
     for (const key in SPECIES_DATA) {
         totalBySpecies[key] = 0;
+        speciesFactionDistribution[key] = {}; // Initialize inner object
     }
 
     // Iterate over all maps
@@ -39,19 +42,21 @@ function calculateDemographics() {
                     totalByRegion[group] += pop;
                     grandTotal += pop;
 
-                    // Distribute to species based on regional makeup
-                    const demographics = REGIONAL_DEMOGRAPHICS[group] || { other: 1.0 }; // Fallback if region missing
-                    
-                    // Check if total percentage > 1.0 (floating point error protection)
-                    let remainingPop = pop;
+                    const factionId = poi.factionId || 'unaligned'; // Get faction for this POI
 
+                    // Distribute to species based on regional makeup
+                    const demographics = REGIONAL_DEMOGRAPHICS[group] || { 'dnd_human': 1.0 }; 
+                    
                     for (const [speciesKey, percentage] of Object.entries(demographics)) {
-                        // Only process if the species key exists in our master list to avoid "undefined"
-                        // Since we removed 'other' from data, we might have tiny remainders, but that's fine.
                         if (SPECIES_DATA[speciesKey]) {
-                            const speciesPop = Math.round(pop * percentage);
-                            totalBySpecies[speciesKey] += speciesPop;
-                            remainingPop -= speciesPop;
+                            const speciesPopInPoi = pop * percentage;
+                            totalBySpecies[speciesKey] += speciesPopInPoi;
+
+                            // NEW: Add to the faction distribution
+                            if (!speciesFactionDistribution[speciesKey][factionId]) {
+                                speciesFactionDistribution[speciesKey][factionId] = 0;
+                            }
+                            speciesFactionDistribution[speciesKey][factionId] += speciesPopInPoi;
                         }
                     }
                 }
@@ -59,7 +64,7 @@ function calculateDemographics() {
         }
     }
 
-    return { totalByRegion, totalBySpecies, grandTotal };
+    return { totalByRegion, totalBySpecies, grandTotal, speciesFactionDistribution }; // Return new data
 }
 
 function renderTotalPopulation(grandTotal) {
@@ -218,7 +223,7 @@ function renderSpeciesList(data) {
         // Handle 0/Low population display logic
         if (count > 0) {
             const percentage = data.grandTotal > 0 ? ((count / data.grandTotal) * 100).toFixed(1) : 0;
-            countString = count.toLocaleString();
+            countString = Math.round(count).toLocaleString();
             percentageString = `(${percentage}%)`;
         } else {
             // Generate realistic "Lore Estimates" for species not appearing on current maps
@@ -287,6 +292,35 @@ function renderSpeciesList(data) {
                 ${topRoles.map(r => `<span style="color:${r.color}; margin-left:4px;">${r.name}</span>`).join(', ')}
             </div>
         `;
+        
+        // --- FACTION LEANING CALCULATION ---
+        const factionDistribution = data.speciesFactionDistribution[key] || {};
+        const speciesTotalPop = data.totalBySpecies[key] || 0;
+        const topFactions = Object.entries(factionDistribution)
+            .sort((a, b) => b[1] - a[1]) // Sort descending by population
+            .slice(0, 5); // Get top 5
+
+        const factionsHTML = topFactions.length > 0 && topFactions[0][1] > 0 ? `
+            <div class="species-factions">
+                <h6>Top Factions</h6>
+                <ul>
+                    ${topFactions.map(([factionKey, count]) => {
+                        const faction = LORE_DATA.factions[factionKey];
+                        if (!faction) return '';
+                        const percentageOfTotal = speciesTotalPop > 0 ? ((count / speciesTotalPop) * 100).toFixed(1) : 0;
+                        if (parseFloat(percentageOfTotal) < 1) return ''; // Don't show negligible percentages
+                        return `
+                            <li>
+                                <img src="${faction.logo}" alt="${faction.name}" title="${faction.name}">
+                                <span>${faction.name}</span>
+                                <span class="faction-percentage">${percentageOfTotal}%</span>
+                            </li>
+                        `;
+                    }).join('')}
+                </ul>
+            </div>
+        ` : '<div class="species-factions"><p style="font-style:italic; color:var(--text-secondary);">No significant factional alignment.</p></div>';
+
 
         // --- RELATIONS CALCULATION ---
         let relationsHTML = '';
@@ -328,6 +362,7 @@ function renderSpeciesList(data) {
                 </div>
                 ${religionHTML}
                 ${workforceHTML}
+                ${factionsHTML}
                 ${relationsHTML}
             </div>
         `;
@@ -337,6 +372,7 @@ function renderSpeciesList(data) {
 }
 
 function init() {
+    if (!document.getElementById('species-grid-container')) return;
     const data = calculateDemographics();
     renderTotalPopulation(data.grandTotal);
     renderCharts(data);

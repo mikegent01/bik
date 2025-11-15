@@ -1,5 +1,4 @@
 
-
 .page-subtitle {
     text-align: center;
     color: var(--text-secondary);
@@ -229,6 +228,52 @@
     border-radius: 8px;
     transition: width 0.5s ease;
 }
+
+.species-factions {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.species-factions h6 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.species-factions ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.species-factions li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    background-color: var(--main-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.species-factions img {
+    width: 20px;
+    height: 20px;
+}
+
+.species-factions .faction-percentage {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    color: var(--neutral-color);
+    font-weight: bold;
+}
+
 
 @media (max-width: 900px) {
     #dashboard-grid {

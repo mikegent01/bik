@@ -2,6 +2,57 @@
 
 
 
+
+export const SPECIES_ESTATE_BIAS = {
+    // Nobility, Clergy, Burghers, Commoners, Indentured, Slaves
+    dnd_human: { nobility: 0.10, clergy: 0.10, burghers: 0.30, commoners: 0.40, indentured: 0.10, slaves: 0.00 },
+    regal_midlander: { nobility: 0.15, clergy: 0.15, burghers: 0.35, commoners: 0.30, indentured: 0.05, slaves: 0.00 },
+    dnd_elf_high: { nobility: 0.30, clergy: 0.40, burghers: 0.20, commoners: 0.10, indentured: 0.00, slaves: 0.00 },
+    dnd_elf_wood: { nobility: 0.10, clergy: 0.20, burghers: 0.10, commoners: 0.60, indentured: 0.00, slaves: 0.00 },
+    dnd_elf_drow: { nobility: 0.25, clergy: 0.35, burghers: 0.10, commoners: 0.00, indentured: 0.00, slaves: 0.30 },
+    dnd_dwarf_hill: { nobility: 0.05, clergy: 0.05, burghers: 0.50, commoners: 0.40, indentured: 0.00, slaves: 0.00 },
+    dnd_dwarf_mountain: { nobility: 0.10, clergy: 0.05, burghers: 0.60, commoners: 0.25, indentured: 0.00, slaves: 0.00 },
+    dnd_goblin: { nobility: 0.01, clergy: 0.01, burghers: 0.10, commoners: 0.48, indentured: 0.10, slaves: 0.30 },
+    dnd_tiefling: { nobility: 0.05, clergy: 0.10, burghers: 0.40, commoners: 0.40, indentured: 0.05, slaves: 0.00 },
+    dnd_orc: { nobility: 0.05, clergy: 0.00, burghers: 0.05, commoners: 0.70, indentured: 0.00, slaves: 0.20 },
+    dnd_dragonborn_metallic: { nobility: 0.20, clergy: 0.10, burghers: 0.30, commoners: 0.40, indentured: 0.00, slaves: 0.00 },
+    centaur_human_head: { nobility: 0.10, clergy: 0.05, burghers: 0.05, commoners: 0.80, indentured: 0.00, slaves: 0.00 },
+    toad_citizen: { nobility: 0.02, clergy: 0.08, burghers: 0.40, commoners: 0.50, indentured: 0.00, slaves: 0.00 },
+    koopa: { nobility: 0.20, clergy: 0.05, burghers: 0.10, commoners: 0.60, indentured: 0.00, slaves: 0.05 },
+    goomba: { nobility: 0.01, clergy: 0.01, burghers: 0.03, commoners: 0.85, indentured: 0.00, slaves: 0.10 },
+    yoshi: { nobility: 0.05, clergy: 0.10, burghers: 0.05, commoners: 0.80, indentured: 0.00, slaves: 0.00 },
+    pianta: { nobility: 0.05, clergy: 0.05, burghers: 0.30, commoners: 0.60, indentured: 0.00, slaves: 0.00 },
+    noki: { nobility: 0.02, clergy: 0.10, burghers: 0.40, commoners: 0.48, indentured: 0.00, slaves: 0.00 },
+    shy_guy: { nobility: 0.01, clergy: 0.01, burghers: 0.03, commoners: 0.55, indentured: 0.10, slaves: 0.30 },
+    bob_omb: { nobility: 0.01, clergy: 0.01, burghers: 0.03, commoners: 0.95, indentured: 0.00, slaves: 0.00 },
+    monty_mole: { nobility: 0.01, clergy: 0.01, burghers: 0.10, commoners: 0.78, indentured: 0.10, slaves: 0.00 },
+    moonfang_werewolf: { nobility: 0.15, clergy: 0.10, burghers: 0.05, commoners: 0.70, indentured: 0.00, slaves: 0.00 },
+    elder_vampire: { nobility: 0.50, clergy: 0.20, burghers: 0.10, commoners: 0.00, indentured: 0.00, slaves: 0.20 },
+    midlands_orc: { nobility: 0.05, clergy: 0.00, burghers: 0.05, commoners: 0.70, indentured: 0.00, slaves: 0.20 },
+    rakasha_hunter: { nobility: 0.10, clergy: 0.15, burghers: 0.10, commoners: 0.65, indentured: 0.00, slaves: 0.00 },
+    midlands_goblin: { nobility: 0.01, clergy: 0.01, burghers: 0.40, commoners: 0.48, indentured: 0.00, slaves: 0.10 },
+    skeleton_warrior: { nobility: 0.00, clergy: 0.00, burghers: 0.00, commoners: 0.00, indentured: 0.00, slaves: 1.00 },
+    ghost_spirit: { nobility: 0.10, clergy: 0.10, burghers: 0.10, commoners: 0.70, indentured: 0.00, slaves: 0.00 },
+    warhammer_human: { nobility: 0.15, clergy: 0.10, burghers: 0.30, commoners: 0.40, indentured: 0.05, slaves: 0.00 },
+    skaven: { nobility: 0.01, clergy: 0.05, burghers: 0.10, commoners: 0.14, indentured: 0.00, slaves: 0.70 },
+    warhammer_dwarf: { nobility: 0.10, clergy: 0.05, burghers: 0.65, commoners: 0.20, indentured: 0.00, slaves: 0.00 },
+    warhammer_orc: { nobility: 0.05, clergy: 0.01, burghers: 0.04, commoners: 0.80, indentured: 0.00, slaves: 0.10 },
+    warhammer_elf: { nobility: 0.30, clergy: 0.40, burghers: 0.20, commoners: 0.10, indentured: 0.00, slaves: 0.00 },
+    beastman: { nobility: 0.05, clergy: 0.05, burghers: 0.00, commoners: 0.90, indentured: 0.00, slaves: 0.00 },
+    kivotos_human: { nobility: 0.05, clergy: 0.05, burghers: 0.60, commoners: 0.30, indentured: 0.00, slaves: 0.00 },
+    kivotos_angel: { nobility: 0.10, clergy: 0.20, burghers: 0.50, commoners: 0.20, indentured: 0.00, slaves: 0.00 },
+    kivotos_demon: { nobility: 0.10, clergy: 0.05, burghers: 0.40, commoners: 0.45, indentured: 0.00, slaves: 0.00 },
+    kivotos_beastkin: { nobility: 0.05, clergy: 0.05, burghers: 0.30, commoners: 0.60, indentured: 0.00, slaves: 0.00 },
+    kivotos_robot: { nobility: 0.00, clergy: 0.00, burghers: 0.20, commoners: 0.00, indentured: 0.80, slaves: 0.00 },
+    pokemon_human: { nobility: 0.05, clergy: 0.05, burghers: 0.50, commoners: 0.40, indentured: 0.00, slaves: 0.00 },
+    netizen: { nobility: 0.01, clergy: 0.01, burghers: 0.80, commoners: 0.18, indentured: 0.00, slaves: 0.00 },
+    dough_glazed: { nobility: 0.10, clergy: 0.05, burghers: 0.40, commoners: 0.45, indentured: 0.00, slaves: 0.00 },
+    earth_pony: { nobility: 0.05, clergy: 0.05, burghers: 0.20, commoners: 0.50, indentured: 0.00, slaves: 0.20 },
+    pegasus: { nobility: 0.15, clergy: 0.05, burghers: 0.20, commoners: 0.40, indentured: 0.00, slaves: 0.20 },
+    unicorn: { nobility: 0.20, clergy: 0.15, burghers: 0.30, commoners: 0.20, indentured: 0.00, slaves: 0.15 },
+    default: { nobility: 0.05, clergy: 0.05, burghers: 0.20, commoners: 0.50, indentured: 0.10, slaves: 0.10 },
+};
+
 export const SPECIES_DATA = {
     // ========================================================================
     // D&D / FANTASY BASE
@@ -627,8 +678,7 @@ export const SPECIES_DATA = {
     fractal_being: { name: 'Fractal Being', color: '#6200ea', icon: '💠', description: 'Mathematical lifeforms.', player_relations: { archie: "Chaos.", markop: "Structure.", humpik: "Solid.", bowser: "Force.", remi: "Variable." }, religion_breakdown: { gematria_gnosis: 0.60, digital_ascension: 0.40 } },
     time_echo: { name: 'Time Echo', color: '#bdbdbd', icon: '⏳', description: 'Residual images.', player_relations: { archie: "Forgotten.", markop: "Past.", humpik: "Stone.", bowser: "Future.", remi: "Present." }, religion_breakdown: { void_nihilism: 1.0 } },
     logic_crystal: { name: 'Logic Crystal', color: '#00e5ff', icon: '💎', description: 'Sentient minerals.', player_relations: { archie: "Illogical.", markop: "Logical.", humpik: "Crystalline.", bowser: "Breaker.", remi: "Soft." }, religion_breakdown: { cog_gospel: 1.0 } },
-    dnd_goliath: { name: 'Goliath', color: '#90a4ae', icon: '🏔️', description: 'Mountain-dwelling giants.', player_relations: { archie: "Small.", markop: "Brother.", humpik: "Cousin.", bowser: "Rival.", remi: "Tiny." }, religion_breakdown: { lunar_cycle: 0.50, cog_gospel: 0.20, unaligned: 0.30 } },
-
+    
     // ========================================================================
     // ANIMATOPIA
     // ========================================================================
@@ -659,8 +709,7 @@ export const SPECIES_DATA = {
     exceed: { name: 'Exceed', color: '#90caf9', icon: '😺', description: 'Winged cats.', player_relations: { archie: "Pet.", markop: "Fly.", humpik: "Cat.", bowser: "Snack.", remi: "Cute." }, religion_breakdown: { star_spirits: 0.80, unaligned: 0.20 } },
     celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Summoned beings.', player_relations: { archie: "Contract.", markop: "Star.", humpik: "Ghost.", bowser: "Minion.", remi: "Friend." }, religion_breakdown: { celestial_spirit_cult: 1.0 } }, // Maps to Star Spirits logically but could be custom
     vulcan: { name: 'Vulcan', color: '#f44336', icon: '🦍', description: 'Monstrous apes.', player_relations: { archie: "Monster.", markop: "Beast.", humpik: "Fight.", bowser: "Recruit.", remi: "Scary." }, religion_breakdown: { great_waaagh: 0.70, unaligned: 0.30 } },
-    dnd_genasi_fire: { name: 'Genasi (Fire)', color: '#ff5722', icon: '🔥', description: 'Fire elementals.', player_relations: { archie: "Hot.", markop: "Warm.", humpik: "Forge.", bowser: "Like.", remi: "Burn." }, religion_breakdown: { lunar_cycle: 0.40, cog_gospel: 0.20, unaligned: 0.40 } },
-
+    
     // ========================================================================
     // FAERUN
     // ========================================================================
