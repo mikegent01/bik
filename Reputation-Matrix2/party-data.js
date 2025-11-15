@@ -1,14 +1,15 @@
 
+
 export const PARTY_LOCATIONS = {
     'midlands_full': [
         // --- Raventree Manor Group (The "Party" & Allies) ---
         // Clustered around the manor coordinates (73.5, 12.0)
         { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Trapped' },
         { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Trapped' },
-        { charKey: 'humpik', x: 73.8, y: 11.8, status: 'Trapped' },
+        { charKey: 'hjumpik', x: 73.8, y: 11.8, status: 'Trapped' },
         { charKey: 'markop', x: 73.5, y: 12.4, status: 'Engaged' },
         { charKey: 'remi', x: 73.3, y: 11.6, status: 'Disoriented' },
-        { charKey: 'archie', x: 75.0, y: 14.0, status: 'Captured' }, // Being moved
+        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Vengeful' },
         
         // Raventree Residents & Liberated Toads
         { charKey: 'green_t', x: 73.5, y: 12.0, status: 'Lost in Mirror' },

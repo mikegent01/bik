@@ -253,16 +253,7 @@ export const WAHBOOK_POSTS = [
         comments: [],
         rumorId: 'archie_third_eye_escape'
     },
-    {
-        id: 'toadsworth_despairs',
-        order: 30616,
-        characterKey: 'chancellor_toadsworth',
-        timestamp: '4 hours ago',
-        content: `An Imperial military operation... within our borders... against a group of our own citizens, however misguided. This is a grave violation of our sovereignty. But we are too weak to do anything but watch. A sad day for the Kingdom.`,
-        likes: 390,
-        comments: [],
-        rumorId: 'archie_third_eye_escape'
-    },
+
     {
         id: 'dk_confused',
         order: 30615,
