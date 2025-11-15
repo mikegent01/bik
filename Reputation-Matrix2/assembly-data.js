@@ -586,18 +586,7 @@ export const WAHBOOK_POSTS = [
         ],
         rumorId: 'archie_third_eye_escape'
     },
-    {
-        id: 'eager_is_archie_okay',
-        order: 30527,
-        characterKey: 'eager',
-        timestamp: '40 minutes ago',
-        content: `They said Archie escaped! Is he okay? Did the other bad toads get him? Or the robot guys? I hope he's safe!`,
-        likes: 410,
-        comments: [
-            { characterKey: 'dan', text: 'He\'s okay, Eager. He\'s back.' }
-        ],
-        rumorId: 'archie_third_eye_escape'
-    },
+
     {
         id: 'ryan_dimensional_tear',
         order: 30526,
