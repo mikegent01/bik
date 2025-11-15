@@ -23,7 +23,7 @@ export const MARKOP_QUESTS = {
         title: "The Serpent's Key",
         type: 'personal',
         category: 'Personal - Markop',
-        is_updated: true,
+        is_updated: false,
         objective: "In the aftermath of the Greenhouse Inferno, Green T provided Markop with a mysterious golden key, claiming it was an act of trust. He has offered a secret meeting to reveal what the mansion is truly hiding. Markop must decide whether to trust the manipulative toad or investigate the key's purpose on his own.",
         assignee: "Markop",
         assigneeKey: 'markop',

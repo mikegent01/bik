@@ -130,5 +130,12 @@ export const HISTORICAL_TIMELINE = [
         description: "As the Cohort's siege intensified, the manor's supernatural nature fully awakened. Green T was violently pulled into a mirror, and the party was hunted by spectral wraiths. Bowser, Waluigi, and Hjumpik navigated the shifting, treacherous halls, discovering a hidden, intact parlor and battling a mirror-creature. They witnessed Archie's capture from a distance before resolving to fight their way back to the remaining toads.", 
         icon: "icon_magic.png", 
         category: "Recent Event" 
-    },            
+    },           
+ { 
+        date: "Day 20", 
+        title: "The Third Eye Escape", 
+        description: "Archie Miser escaped Cohort custody with the aid of 'Jerry', a second traitor revealed to be an Iron Legion spy. Archie's escape led him on a surreal journey through a Rakasha relay and a Mindflayer colony, where he found X.O.'s remains, before returning to Raventree. The event shattered the Cohort's containment and revealed the depth of the Iron Legion's infiltration.", 
+        icon: "faction_iron_legion.png", 
+        category: "Recent Event" 
+    },     
 ];

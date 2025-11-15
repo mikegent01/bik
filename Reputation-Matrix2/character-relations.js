@@ -11,7 +11,10 @@ export const CHARACTER_RELATIONS = {
         'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
         'eager': { type: 'ally', text: "Archie on Eager: The little idiot charged in. Almost got himself killed. But then he had the nerve to stop me from leaving. Wants answers. He's not just a follower anymore." }, // UPDATED        'roger': { type: 'ally', text: "Archie on Roger: This one's got the right idea. A gun solves a lot of problems talk can't. Smart." },
         'ryan': { type: 'rivalry', text: "Archie on Ryan: He talks about knowledge. I just blew up a building to save one person. We have different methods. Let's see whose works better in the long run." }, // UPDATED        'bones': { type: 'ally', text: "Archie on Bones: He gets it. The world's a trash fire. He's just trying to stay warm. Respectable." },
-        'the_mole': { type: 'intrigue', text: "Archie on The Mole: So the Legion had a spy among my toads. Clever. Annoying, but clever. Now, who does he report to? That's the interesting part." },
+        'the_mole': { type: 'enemy', text: "Archie on The Mole (The Warden): The smug little rat who put me in the cage. He's on the list." },
+        'jerry_the_spy': { type: 'enemy', text: "Archie on Jerry (The Spy): He played me. Led me from one cage to another. An Iron Legion dog. He's at the top of the list." },
+        'rakasha_spirit_walker': { type: 'transactional', text: "Archie on the Rakasha: They got me out. Owe them one. Their methods are... weird. But effective." },
+        'xo': { type: 'neutral', text: "Archie on X.O.: Found her body in that... place. The mindflayers had her. I left her things. It felt... right. A debt paid, I guess." },
         'oracle': { type: 'enemy', text: "Archie on The Oracle: He opened the door and let the fire out. He wanted to see what would happen. This isn't just a game to him; we're his lab rats. I'll burn his whole maze down." }, // UPDATED        'bones': { type: 'ally', text: "Archie on Bones: He gets it. The world's a trash fire. He's just trying to stay warm. Respectable." },
         'green_t': { type: 'enemy', text: "Archie on Green T: He locked us in. He needed a distraction. Simple. He's not chaotic, he's just a user. A much more boring kind of enemy." }, // UPDATED
         'emperor_elagabalus': { type: 'enemy', text: "Archie on Elagabalus: The ultimate symbol of the oppressive, boring order I despise. His Empire needs to be torn down, brick by brick." },        'general_marcus_ironhand': { type: 'enemy', text: "Archie on Ironhand: Discipline is just another word for boring. He wouldn't know a good opportunity if it blew up in his face. I should arrange that." },
@@ -121,6 +124,8 @@ export const CHARACTER_RELATIONS = {
         'iron_legion': { type: 'enemy', text: "Roger on The Iron Legion: Their willingness to use infiltration tactics confirms they are a sophisticated and dangerous enemy. Standard protocols are insufficient." }
     },
     'speaker_l': {
+        'archie': { type: 'enemy', text: "Speaker L on Archie: He has made a mockery of our authority and escaped. This is an unacceptable failure. The incompetence within our ranks will be purged. Miser will be found." },
+        'iron_legion': { type: 'enemy', text: "Speaker L on the Iron Legion: They have infiltrated my Cohort. Not once, but twice. This is not just an external threat; it is a contamination. They will be scoured from our ranks." },        
         'archie': { type: 'enemy', text: "Speaker L on Archie: He has surrendered. Justice will be swift and transparent. His chaos ends now." },
         'hjumpik': { type: 'distrust', text: "Hjumpik on Hjumpik: The Dwarf's loyalty is a problem. He questions the will of the Cohort. He must be watched." },        'dan': { type: 'ally', text: "Speaker L on Dan: His proposal aligns with our need to preserve our numbers. A leader who protects his people is one we can work with. For now." }
     },

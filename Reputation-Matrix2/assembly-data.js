@@ -4,6 +4,439 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
+
+    {
+        id: 'archie_returns_to_chaos',
+        order: 30545,
+        characterKey: 'archie',
+        timestamp: 'Just Now',
+        content: `Back. The war isn't over. But at least I'm not in a cage anymore.`,
+        likes: 1980,
+        comments: [
+            { characterKey: 'speaker_l', text: 'MISER! YOU WILL ANSWER FOR THIS! NOWHERE TO RUN!' },
+            { characterKey: 'markop', text: 'Archie? By the light, are you alright? Where have you been?' },
+            { characterKey: 'waluigi', text: 'WAH! What an entrance! 10/10 for dramatic timing!' },
+            { characterKey: 'archie', text: 'You wouldn\'t believe me if I told you.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'speaker_l_humiliation',
+        order: 30544,
+        characterKey: 'speaker_l',
+        timestamp: '1 minute ago',
+        content: `ARCHIE MISER HAS ESCAPED CUSTODY! A toad named JERRY is responsible! He is a traitor to the Cohort and an agent of the Iron Legion! Find them both! The Mandate WILL be enforced!`,
+        likes: 810,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Another traitor... By the Vow, this treachery will not stand.' },
+            { characterKey: 'archie', text: 'Sounds like you have an internal security problem.' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'Your internal security problem is our operational success. Do try to keep up.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'rakasha_relay_complete',
+        order: 30543,
+        characterKey: 'rakasha_spirit_walker',
+        timestamp: '2 minutes ago',
+        content: `The client has been relayed. The balance is maintained. The debt is paid.`,
+        likes: 750,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Teleportation with no arcane residue?! What kind of transport is this?! I need to study it!' },
+            { characterKey: 'archmage_theron', text: 'It is Rakasha spirit-walking, Janna. It is not for you to "study." Leave them be.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'mindflayer_ponders_archie',
+        order: 30542,
+        characterKey: 'mindflayer_entity',
+        timestamp: '5 minutes ago',
+        content: `[Psionic Echo]: An anomaly. Un-tethered. Interesting... its chaotic neural pathways resonate with the Far Realm. A potential asset... or a delicious meal.`,
+        likes: 999,
+        comments: [
+            { characterKey: 'cybernetic_collectives', text: '[ANALYSIS]: Psionic broadcast detected. Non-standard origin. Intriguing.' },
+            { characterKey: 'high_inquisitor_vale', text: 'Abominations from beyond the veil. They must be purged.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_about_xo',
+        order: 30541,
+        characterKey: 'archie',
+        timestamp: '8 minutes ago',
+        content: `Saw X.O. She's not coming back. I left her things. A debt paid, I guess.`,
+        likes: 1340,
+        comments: [
+            { characterKey: 'dan', text: 'What do you mean? Archie, what did you see?' },
+            { characterKey: 'markop', text: 'May her soul find peace, despite her actions.' },
+            { characterKey: 'the_broker', text: 'Asset "X.O." permanently off the board. The market adjusts.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'iron_legion_failed_capture',
+        order: 30540,
+        characterKey: 'iron_legion_commando',
+        timestamp: '10 minutes ago',
+        content: `Target Miser has evaded containment. Repeat, target has evaded containment. Agent 'Jerry' has been... compromised. Deploying mech unit for perimeter sweep.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'Unacceptable. Find him.' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'Failure. Agent Jerry will report for debriefing and disciplinary action.' },
+            { characterKey: 'king_k_rool', text: 'Keheheh! Even with all your fancy toys, you couldn\'t catch one three-eyed freak? Pathetic.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_report',
+        order: 30539,
+        characterKey: 'jerry_the_spy',
+        timestamp: '12 minutes ago',
+        content: `He's gone. Used an invisibility potion and slipped the cordon. The mech is too slow. He's smarter than the file suggested.`,
+        likes: 550,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Acknowledged. Your assessment has been noted in your performance review.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toad_lee_disgusted',
+        order: 30538,
+        characterKey: 'toad_lee',
+        timestamp: '15 minutes ago',
+        content: `Two traitors. Two. In as many days. The Cohort is compromised. Speaker L's theatrical siege has turned into a humiliating failure. We are a joke.`,
+        likes: 880,
+        comments: [
+            { characterKey: 'speaker_l', text: 'This is not failure, it is a necessary purge! We will be stronger for it!' },
+            { characterKey: 'toad_lee', text: 'We are weaker than we have ever been.' },
+            { characterKey: 'markop', text: 'He is right, Speaker. Our house is divided against itself.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'cohort_grunt_confusion',
+        order: 30537,
+        characterKey: 'first_cohort_member',
+        timestamp: '16 minutes ago',
+        content: `Wait, so Jerry was a spy too? I thought he was one of us! Who are we even fighting anymore?`,
+        likes: 310,
+        comments: [
+            { characterKey: 'bones', text: 'Welcome to the real world, kid. The answer is: everyone.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'fawful_laughs_at_cohort',
+        order: 30536,
+        characterKey: 'fawful',
+        timestamp: '18 minutes ago',
+        content: `I HAVE A BELLY OF LAUGHTER! The singing toads had their prisoner, and he was stolen by ANOTHER toad who was a secret robot man! It is a comedy of fools, a circus of incompetence! My minions have more loyalty in their pinky claws!`,
+        likes: 820,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'Keep laughing. Your time is coming.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'waluigi_jealous',
+        order: 30535,
+        characterKey: 'waluigi',
+        timestamp: '20 minutes ago',
+        content: `WAH?! Dimensional travel? Mind-eating squids? He got to do all the fun stuff while I was stuck listening to that terrible marching band! It's not fair! I am the star of this show!`,
+        likes: 950,
+        comments: [
+            { characterKey: 'bowser', text: 'You call getting your butt handed to you by ghosts "fun stuff"?' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'broker_intel_spike',
+        order: 30534,
+        characterKey: 'the_broker',
+        timestamp: '22 minutes ago',
+        content: `Market Correction: Asset 'Archie Miser' has re-entered the board. His value has increased dramatically. Information on Rakasha Relays, Mindflayer Colonies, and the operational security of the Liberated Toads is now trading at an unprecedented premium. What a productive day.`,
+        likes: 780,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'Send me your catalogue.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_tries_to_understand',
+        order: 30533,
+        characterKey: 'markop',
+        timestamp: '25 minutes ago',
+        content: `He's back. But where did he go? He vanished from a Legion trap and reappeared in a locked room. There are forces at play here that defy our understanding.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'ryan', text: 'The energy signature was not arcane. It was... something else. Something ancient.' },
+            { characterKey: 'self_reflection_oracle', text: 'Some doors lead to other rooms. Some lead to other worlds.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'bowser_impressed',
+        order: 30532,
+        characterKey: 'bowser',
+        timestamp: '28 minutes ago',
+        content: `GWAHAHA! The three-eyed weirdo got captured by the mushrooms, betrayed by a robot, trapped by the tin cans, and STILL got away! I'm not even mad, that's amazing!`,
+        likes: 910,
+        comments: [
+            { characterKey: 'kamek', text: 'His capacity for survival is... noteworthy, Your Viciousness.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_loots_armory',
+        order: 30531,
+        characterKey: 'archie',
+        timestamp: '30 minutes ago',
+        content: `Found a nice little armory. Figured I'd help myself. You never know when you'll need nine quivers.`,
+        likes: 1250,
+        comments: [
+            { characterKey: 'roger', text: 'Nine? That is an inefficient number of quivers. Three is the optimal number for tactical deployment.' },
+            { characterKey: 'remi', text: 'You found NINE quivers and didn\'t bring me one?!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'remi_confused_again',
+        order: 30530,
+        characterKey: 'remi',
+        timestamp: '32 minutes ago',
+        content: `So... Archie was arrested, but then he escaped because the person who was helping arrest him was a different traitor working for the other guys who were also trying to arrest him? And then he went to a brain dimension? Am I getting this right?`,
+        likes: 888,
+        comments: [
+            { characterKey: 'markop', text: 'That is... a surprisingly accurate summary, yes.' },
+            { characterKey: 'waluigi', text: 'WAH! It\'s called a plot twist! Try to keep up!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'dan_more_betrayal',
+        order: 30529,
+        characterKey: 'dan',
+        timestamp: '35 minutes ago',
+        content: `Another one? Another traitor was living with us? How many more are there? Can we trust anyone?`,
+        likes: 512,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Trust is earned, Dan. And re-earned. We will be more vigilant.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'bones_not_surprised',
+        order: 30528,
+        characterKey: 'bones',
+        timestamp: '38 minutes ago',
+        content: `Of course there was another spy. There's always another spy. The only person you can trust is yourself. And even then, watch your back.`,
+        likes: 670,
+        comments: [
+            { characterKey: 'skull_cap_murphy', text: 'This guy gets it.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'eager_is_archie_okay',
+        order: 30527,
+        characterKey: 'eager',
+        timestamp: '40 minutes ago',
+        content: `They said Archie escaped! Is he okay? Did the other bad toads get him? Or the robot guys? I hope he's safe!`,
+        likes: 410,
+        comments: [
+            { characterKey: 'dan', text: 'He\'s okay, Eager. He\'s back.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'ryan_dimensional_tear',
+        order: 30526,
+        characterKey: 'ryan',
+        timestamp: '42 minutes ago',
+        content: `There was a spike. A brief, violent tear in the fabric of this space. Not arcane, not divine. It felt... ancient and biological. Like something very old opened a door and then closed it.`,
+        likes: 530,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Biological teleportation?! A psionic rift?! The implications are STAGGERING!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'humpik_so_confused',
+        order: 30525,
+        characterKey: 'hjumpik',
+        timestamp: '45 minutes ago',
+        content: `So... the little green toad was a bad guy? But he helped the other bad guys trap Archie? And then Archie disappeared? My head hurts. I am going to find something to smash.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'bowser', text: 'Start with the mirrors, Humpik. I don\'t like the way they look at us.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_enraged',
+        order: 30524,
+        characterKey: 'hag_of_the_fen',
+        timestamp: '48 minutes ago',
+        content: `He ESCAPED?! From a locked room? After I let the Speaker in? IMPOSSIBLE! That three-eyed rat will pay for this insult!`,
+        likes: 310,
+        comments: [
+            { characterKey: 'fawful', text: 'Your security has the integrity of a wet napkin!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'speaker_l_finds_empty_room',
+        order: 30523,
+        characterKey: 'speaker_l',
+        timestamp: '50 minutes ago',
+        content: `The room is empty. The spy is gone. The prisoner is gone. UNACCEPTABLE.`,
+        likes: 620,
+        comments: [
+            { characterKey: 'archie', text: 'Maybe you should have knocked?' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_slips_away',
+        order: 30522,
+        characterKey: 'jerry_the_spy',
+        timestamp: '52 minutes ago',
+        content: `The hag and the Speaker are distracted. Time to go. The Legion will be pleased with the intel, even if the primary asset escaped. Mission accomplished.`,
+        likes: 410,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_slams_door_on_L',
+        order: 30521,
+        characterKey: 'archie',
+        timestamp: '55 minutes ago',
+        content: `Sorry, Speaker. No time for a trial. Maybe later! *SLAM*`,
+        likes: 1100,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Open this door, Miser! You are only delaying the inevitable!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'speaker_l_finds_archie',
+        order: 30520,
+        characterKey: 'speaker_l',
+        timestamp: '58 minutes ago',
+        content: `Disobedience. Escape. Trespassing. Three crimes in as many hours, Archie Miser. Do you have a final statement before I burn you alive?`,
+        likes: 730,
+        comments: [
+            { characterKey: 'archie', text: 'Just that this looks bad, and I have a very good reason to fireball your face.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_finds_empty_room',
+        order: 30519,
+        characterKey: 'hag_of_the_fen',
+        timestamp: '1 hour ago',
+        content: `He's GONE?! He killed the spider and escaped the locked room?! And he left my Lightbringer staff?! What kind of fool is this?!`,
+        likes: 350,
+        comments: [
+            { characterKey: 'jerry_the_spy', text: 'A very resourceful one. My apologies for the inconvenience.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_leads_to_toads',
+        order: 30518,
+        characterKey: 'jerry_the_spy',
+        timestamp: '1 hour ago',
+        content: `Alright, Miser. Your friends are this way. Try to keep up.`,
+        likes: 290,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_finds_lario_chest',
+        order: 30517,
+        characterKey: 'archie',
+        timestamp: '1 hour ago',
+        content: `A chest labeled LARIO? Unlocked? Full of tools? Don't mind if I do...`,
+        likes: 980,
+        comments: [
+            { characterKey: 'lario', text: 'HEY! THOSE ARE MY GOOD WRENCHES! I\'LL GET YOU FOR THIS, YOU THREE-EYED THIEF!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_and_toad_deal',
+        order: 30516,
+        characterKey: 'hag_of_the_fen',
+        timestamp: '1 hour ago',
+        content: `The little toad brought me the 'thing'. As agreed. The prisoner is now his problem.`,
+        likes: 240,
+        comments: [
+            { characterKey: 'speaker_l', text: 'A pleasure doing business with you.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_kills_spider',
+        order: 30515,
+        characterKey: 'archie',
+        timestamp: '1 hour ago',
+        content: `Spider problem solved. Now, about this locked door...`,
+        likes: 760,
+        comments: [
+            { characterKey: 'humpik', text: 'Good. Humpik no like spiders.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_lightbringer_pact',
+        order: 30514,
+        characterKey: 'hag_of_the_fen',
+        timestamp: '1 hour ago',
+        content: `Ash and ember, bone and spark— Quarterstaff, awake from dark… Take it. It will light your way. For a price.`,
+        likes: 430,
+        comments: [
+            { characterKey: 'archie', text: 'Not interested.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_rust_monster_distraction',
+        order: 30513,
+        characterKey: 'jerry_the_spy',
+        timestamp: '2 hours ago',
+        content: `I'll distract. You stay alive.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'archie', text: 'Sounds like a plan.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'the_mole_reports_archie_escape',
+        order: 30512,
+        characterKey: 'the_mole',
+        timestamp: '2 hours ago',
+        content: `Miser is out of his cell. The key was taken. He is proceeding to the armory.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'speaker_l', text: 'How?! I had the only key!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_frees_archie',
+        order: 30511,
+        characterKey: 'jerry_the_spy',
+        timestamp: '2 hours ago',
+        content: `You can call me Jerry. Now let's go.`,
+        likes: 390,
+        comments: [
+            { characterKey: 'archie', text: 'You\'re not the toad I know.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },    
     {
         id: 'bowser_hungry_memory',
         order: 30490,

@@ -22,7 +22,7 @@ export const MAIN_QUESTS = {
         title: "The Artifacts of Balance",
         type: 'main',
         category: 'Main Story',
-        is_updated: true,
+        is_updated: false,
         objective: "The party must recover the Star of Radiance, but the path is now treacherous. One fragment bearer, The Oracle, has been revealed as the center of a temporal war. After navigating a living maze, Markop's group has discovered a book detailing four identical manors existing in different time periods. The key to confronting the Oracle and securing the Vision Shard lies within this mystery.",
         assignee: "Full Party (Led by Markop)",
         assigneeKey: 'full_party',

@@ -19,6 +19,25 @@ export const ARCHIE_QUESTS = {
             { id: 'step3', title: "Request an Audience", status: 'locked', description: "Confront the God Toad and request an audience. Given the being's power and the Oracle's example, this will be extremely dangerous." }
         ]
     },
+// In quests-archie.js
+
+    'archie_third_eye_escape': {
+        id: 'archie_third_eye_escape',
+        title: "The Third Eye Escape",
+        type: 'personal',
+        category: 'Personal - Archie',
+        is_updated: true,
+        objective: "After being captured by the First Cohort, Archie must navigate a web of betrayal and supernatural chaos to escape his captors, reclaim his gear, and uncover the true nature of the forces manipulating events at Raventree Manor.",
+        assignee: "Archie",
+        assigneeKey: 'archie',
+        status: "active",
+        motivation: "Survival. Archie is trapped, disarmed, and hunted by multiple factions at once. His primary goal is to escape, re-arm, and turn the tables on those who betrayed him—namely, the Iron Legion and their spy, 'Jerry'. The discovery of X.O.'s fate and the involvement of Mindflayers has added a layer of cosmic horror to his desperation.",
+        steps: [
+            { id: 'step1', title: "The Betrayal", status: 'completed', description: "Archie was 'freed' from his Cohort cell by 'Jerry,' who was immediately revealed to be an Iron Legion spy leading him into a trap." },
+            { id: 'step2', title: "A Journey Through Madness", status: 'completed', description: "After escaping the Legion, Archie was relayed through a Rakasha shrine into a Mindflayer colony. There, he discovered the mutilated body of X.O. before being relayed back to Raventree Manor by another mysterious entity." },
+            { id: 'step3', title: "Return to the Fray", status: 'active', description: "Archie has returned to a ghost-infested section of Raventree Manor, armed only with a sword. He must now navigate the haunted halls, evade the Cohort and the Legion, and find a way to regroup with his allies." }
+        ]
+    },    
     'archie_jesters_masterpiece': {
         id: 'archie_jesters_masterpiece',
         title: "The Jester's Masterpiece",

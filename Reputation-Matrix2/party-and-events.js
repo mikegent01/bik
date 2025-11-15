@@ -20,7 +20,24 @@ export const RUMORS = [
         targets: ['bowser'],
         effects: { mushroom_regency: -50, regal_empire: -15, silver_flame: -15, oathbound_judges: -15 }
     },
+// In party-and-events.js
 
+{
+    id: 'archie_third_eye_escape',
+    title: "The Third Eye Escape",
+    date: { day: 19, monthIndex: 6, year: 1040 },
+    isEvent: true, // This is a major, multi-part event
+    description: "In a stunning betrayal, the Liberated Toad 'Jerry' was revealed to be an Iron Legion spy who orchestrated Archie Miser's escape from Cohort custody, only to lead him into a Legion trap. Archie escaped again, navigating a surreal journey through a Rakasha relay, a Mindflayer colony where he discovered the mutilated remains of X.O., and a final, chaotic return to a ghost-infested Raventree Manor. The event revealed the Legion's deep infiltration and the manor's connection to otherworldly dimensions.",
+    targets: ['archie', 'liberated_toads', 'iron_legion', 'rakasha_clans', 'mages_guild'],
+    effects: {
+        liberated_toads: -25,
+        iron_legion: -20,
+        freelancer_underworld: 15,
+        rakasha_clans: 10,
+        mages_guild: -10, // For unsanctioned dimensional travel
+        cosmic_jesters: 10
+    }
+},
     
 {
     id: 'supernatural_sovereignty_act',
