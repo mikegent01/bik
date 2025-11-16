@@ -171,7 +171,7 @@ export function setupTabEventListeners() {
                     // Center and zoom on the POI
                     transform.panAndZoomToPoi(poi);
 
-                    // Show details
+                    // Show details panel for the selected POI
                     renderer.showDetailPanel(poiId);
 
                     // Highlight the marker

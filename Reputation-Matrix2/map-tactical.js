@@ -20,28 +20,16 @@ export function getUnitIcon(unitType) {
 function renderVigilance(container, svg) {
     const journey = BATTLE_MAP_DATA.vigilance_journey;
     
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', journey.path);
-    path.classList.add('vigilance-path');
-    svg.appendChild(path);
-
-    // Calculate position
-    const pathElForLength = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    pathElForLength.setAttribute('d', journey.path);
-    const pathLength = pathElForLength.getTotalLength();
-    const progress = journey.currentDay / journey.totalDays;
-    const currentPoint = pathElForLength.getPointAtLength(pathLength * progress);
-
     const marker = document.createElement('div');
     marker.className = 'vigilance-marker';
-    marker.style.left = `${currentPoint.x}%`;
-    marker.style.top = `${currentPoint.y}%`;
+    marker.style.left = `${journey.x}%`;
+    marker.style.top = `${journey.y}%`;
     marker.title = "The 'Vigilance'";
     marker.dataset.vigilanceId = 'vigilance';
     
     const label = document.createElement('div');
     label.className = 'vigilance-label';
-    label.textContent = `${journey.daysRemaining} days to Capital`;
+    label.textContent = `Holding Position`;
     marker.appendChild(label);
     
     container.appendChild(marker);

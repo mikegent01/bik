@@ -1,4 +1,7 @@
 
+
+
+
 import { state, loadState, saveState } from './state.js';
 import * as ui from './map-ui.js';
 import * as renderer from './map-renderer.js';
@@ -142,7 +145,7 @@ function setupEventListeners() {
     const displayArea = document.getElementById('map-display-area');
     if (displayArea) {
         displayArea.addEventListener('click', e => {
-            if (isEditMode || transform.wasDragged()) return;
+            if (isEditMode) return;
             
             const poiMarker = e.target.closest('.poi-marker');
             const troopMarker = e.target.closest('.troop-marker');
@@ -171,9 +174,10 @@ function setupEventListeners() {
             } else if (vigilanceMarker) {
                 e.preventDefault();
                 e.stopPropagation();
-                 playSound('click.mp3');
-                renderer.renderTacticalDetailPanel(vigilanceMarker.dataset.vigilanceId, 'vigilance');
+                playSound('click.mp3');
+                renderer.renderTacticalDetailPanel('vigilance', 'vigilance');
             } else if (partyMarker) {
+                if(partyMarker.classList.contains('party-group-marker')) return; // Let group markers handle their own popups
                 e.preventDefault();
                 e.stopPropagation();
                 playSound('click.mp3');

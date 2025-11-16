@@ -3,16 +3,34 @@
 export const BASE_BATTLE_DATA = {
     front_lines: [
         {
-            id: 'fl_mk_siege',
+            id: 'fl_mk_siege_main',
             mapId: 'mushroom_kingdom_full',
             points: "44,32 47,30 49,34 52,31 54,35",
             description: "The main siege line between the Peach Loyalists and Fawful's occupied castle."
+        },
+        {
+            id: 'fl_mk_siege_north',
+            mapId: 'mushroom_kingdom_full',
+            points: "46,28 50,26 54,29",
+            description: "The northern front of the siege on Peach's Castle."
+        },
+        {
+            id: 'fl_mk_siege_south',
+            mapId: 'mushroom_kingdom_full',
+            points: "45,36 49,38 53,36",
+            description: "The southern encirclement of Fawful's forces."
         },
         {
             id: 'fl_midlands_ravencreek',
             mapId: 'midlands_full',
             points: "31,45 34,43 36,46 39,44",
             description: "The contested battlefront at Ravencreek between the Moonfang Pack and the Onyx Hand."
+        },
+        {
+            id: 'fl_midlands_raventree_manor',
+            mapId: 'midlands_full',
+            points: "70,15 76,16 78,11",
+            description: "The containment perimeter established by the Liberated Toads' 'Pond Patrol' around the supernaturally active Raventree Manor."
         },
         {
             id: 'fl_me_war_in_the_north',
@@ -29,13 +47,9 @@ export const BASE_BATTLE_DATA = {
     ],
     vigilance_journey: {
         mapId: 'midlands_full',
-        path: "M 41,46 C 45,50 60,20 81.28,4.29",
-        totalDays: 14,
-        currentDay: 14,
-        status: 'Arrived at Imperial Capital',
-        get daysRemaining() {
-            return this.totalDays - this.currentDay;
-        }
+        x: 81.28,
+        y: 4.29,
+        status: "Holding position over Capital; preparing for infiltration."
     },
     troop_deployments: [
         {
@@ -46,6 +60,7 @@ export const BASE_BATTLE_DATA = {
             name: "Loyalist Main Siege Force",
             unitType: 'main_force',
             strength: "Approx. 400 zealous fighters",
+            strength_val: 400,
             battlefront: true,
             details: { status: "Besieging", objective: "Maintain pressure on Fawful's Fortress and probe for weaknesses in the western wall.", supply_level: 85, morale: 95, organization: 80, intelReq: { faction: 'peach_loyalists', level: 25 } }
         },
@@ -57,6 +72,7 @@ export const BASE_BATTLE_DATA = {
             name: "Fawful's Minion Horde",
             unitType: 'garrison',
             strength: "Unknown number of minions and machines",
+            strength_val: 600,
             battlefront: true,
             details: { status: "Entrenched", objective: "Defend the castle with maximum fury and chortles!", supply_level: 95, morale: 100, organization: 40, intelReq: { faction: 'fawfuls_furious_freaks', level: 25 } }
         },
@@ -68,6 +84,7 @@ export const BASE_BATTLE_DATA = {
             name: "Moonfang Pack Vanguard",
             unitType: 'main_force',
             strength: "Approx. 450 warriors",
+            strength_val: 450,
             battlefront: true,
             details: { status: "Assaulting", objective: "Break the vampire line at Ravencreek and push south to reclaim ancestral lands.", supply_level: 70, morale: 85, organization: 60, intelReq: { faction: 'moonfang_pack', level: 30 } }
         },
@@ -79,6 +96,7 @@ export const BASE_BATTLE_DATA = {
             name: "Sanguine Legion",
             unitType: 'main_force',
             strength: "Approx. 300 thralls, 50 knights",
+            strength_val: 350,
             battlefront: true,
             details: { status: "Defending", objective: "Hold Ravencreek at all costs and bleed the werewolves dry.", supply_level: 80, morale: 70, organization: 90, intelReq: { faction: 'onyx_hand', level: 30 } }
         }

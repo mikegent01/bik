@@ -1,5 +1,13 @@
 
 
+
+
+
+
+
+
+
+
 import { state } from './state.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import { LORE_DATA } from './lore.js';
@@ -203,11 +211,27 @@ function renderBattleElements(mapId) {
         svg.appendChild(line);
     });
 
-    if (BATTLE_MAP_DATA.vigilance_journey.mapId === mapId) {
-        renderVigilance(interactiveLayer, svg);
-    }
-
     const troopsOnThisMap = BATTLE_MAP_DATA.troop_deployments.filter(t => t.mapId === mapId);
+
+    // Render Zones of Control first, so they are behind other elements
+    troopsOnThisMap.forEach(troop => {
+        if (troop.strength_val && (troop.unitType === 'main_force' || troop.unitType === 'garrison')) {
+            const zone = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            zone.setAttribute('cx', troop.x);
+            zone.setAttribute('cy', troop.y);
+            const radius = troop.strength_val / 50; // Scaling factor for influence radius
+            zone.setAttribute('r', `${radius}%`);
+            zone.classList.add('zone-of-control');
+            const faction = LORE_DATA.factions[troop.factionId];
+            if (faction) {
+                const color = FACTION_COLORS[troop.factionId] || 'white';
+                zone.style.fill = color;
+                zone.style.stroke = color;
+            }
+            svg.appendChild(zone);
+        }
+    });
+
     troopsOnThisMap.forEach(troop => {
         const faction = LORE_DATA.factions[troop.factionId];
         
@@ -229,9 +253,24 @@ function renderBattleElements(mapId) {
         troopMarker.dataset.troopId = troop.id;
         
         if (faction) {
-            troopMarker.style.borderColor = FACTION_COLORS[troop.factionId] || 'white';
+            const factionColor = FACTION_COLORS[troop.factionId] || 'white';
+            troopMarker.style.borderColor = factionColor;
+            
+            // Convert hex to rgba for background
+            const hexToRgba = (hex, alpha) => {
+                if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) return `rgba(100, 100, 100, ${alpha})`;
+                let c = hex.substring(1).split('');
+                if (c.length === 3) {
+                    c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+                }
+                c = '0x' + c.join('');
+                return `rgba(${(c >> 16) & 255}, ${(c >> 8) & 255}, ${c & 255}, ${alpha})`;
+            };
+            troopMarker.style.backgroundColor = hexToRgba(factionColor, 0.4); // Add semi-transparent bg
+
         } else {
             troopMarker.style.borderColor = 'grey';
+            troopMarker.style.backgroundColor = 'rgba(100, 100, 100, 0.4)';
         }
         troopMarker.innerHTML = `<div class="unit-type-icon">${getUnitIcon(troop.unitType)}</div>`;
         if (troop.unitType === 'patrol') {
@@ -288,6 +327,11 @@ function renderBattleElements(mapId) {
 function renderPartyMembers(mapId) {
     const interactiveLayer = document.getElementById('interactive-map-layer');
     if (!interactiveLayer) return;
+
+    // Render Vigilance
+    if (BATTLE_MAP_DATA.vigilance_journey.mapId === mapId) {
+        renderVigilance(interactiveLayer);
+    }
 
     // Clear existing party markers to avoid duplicates
     interactiveLayer.querySelectorAll('.party-marker').forEach(el => el.remove());
@@ -445,37 +489,15 @@ export function renderPartyMemberDetail(charKey, status) {
 }
 
 
-function renderVigilance(container, svg) {
+function renderVigilance(container) {
     const journey = BATTLE_MAP_DATA.vigilance_journey;
     
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', journey.path);
-    path.classList.add('vigilance-path');
-    svg.appendChild(path);
-
-    const pathElForLength = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    pathElForLength.setAttribute('d', journey.path);
-    const pathLength = pathElForLength.getTotalLength();
-    const progress = Math.min(journey.currentDay / journey.totalDays, 1);
-    const currentPoint = pathElForLength.getPointAtLength(pathLength * progress);
-
     const marker = document.createElement('div');
     marker.className = 'vigilance-marker';
-    marker.style.left = `${currentPoint.x}%`;
-    marker.style.top = `${currentPoint.y}%`;
+    marker.style.left = `${journey.x}%`;
+    marker.style.top = `${journey.y}%`;
     marker.title = "The 'Vigilance'";
     marker.dataset.vigilanceId = 'vigilance';
-    
-    const label = document.createElement('div');
-    label.className = 'vigilance-label';
-    
-    if (journey.status && (journey.status.includes('Arrived') || journey.daysRemaining <= 0)) {
-        label.textContent = journey.status;
-    } else {
-        label.textContent = `${journey.daysRemaining} days to Capital`;
-    }
-    
-    marker.appendChild(label);
     
     container.appendChild(marker);
 }
@@ -1127,8 +1149,8 @@ export function renderTacticalDetailPanel(itemId, itemType) {
         `;
     } else if (itemType === 'vigilance') {
         const journey = BATTLE_MAP_DATA.vigilance_journey;
-        const statusText = journey.status || 'En route to Imperial Capital';
-        const timeRemainingText = journey.daysRemaining > 0 ? `${journey.daysRemaining} days` : 'Arrived';
+        const statusText = journey.status || 'Position Held';
+
         html = `
             <div class="tactical-detail-panel">
                 <h3>The 'Vigilance'</h3>
@@ -1138,12 +1160,11 @@ export function renderTacticalDetailPanel(itemId, itemType) {
                 </p>
                 <div class="tactical-info">
                     <p><strong>Status:</strong> ${statusText}</p>
-                    <p><strong>Journey Progress:</strong> Day ${journey.currentDay} of ${journey.totalDays}</p>
-                    <p><strong>Time Remaining:</strong> ${timeRemainingText}</p>
+                    <div class="tactical-stat"><strong>Position:</strong> Skies above Mighdural</div>
                 </div>
                 <div class="tactical-objective">
                     <h5>Mission</h5>
-                    <p>Travel to the heart of the Regal Empire to confront Emperor Elagabalus.</p>
+                    <p>Awaiting the opportune moment to confront Emperor Elagabalus. The airship serves as a mobile command center for the party's operations within the capital.</p>
                 </div>
             </div>
         `;
@@ -1287,15 +1308,19 @@ export function renderMapModeLegend() {
             legendHTML = `
                 <div class="map-mode-legend">
                     <h4>Party Location</h4>
-                    <p>Current known position of key operatives.</p>
+                    <p>Current known position of key operatives and assets.</p>
                     <ul class="legend-list">
                         <li class="legend-item">
+                            <div class="vigilance-marker-legend"></div>
+                            <span>The Vigilance</span>
+                        </li>
+                        <li class="legend-item">
                             <div class="party-marker-legend" style="background-image: url('portraits/bowser.png');"></div>
-                            <span>Active</span>
+                            <span>Active Operative</span>
                         </li>
                         <li class="legend-item">
                             <div class="party-marker-legend status-captured" style="background-image: url('portraits/archie.png');"></div>
-                            <span>Captured/Detained</span>
+                            <span>Captured/MIA</span>
                         </li>
                     </ul>
                 </div>
