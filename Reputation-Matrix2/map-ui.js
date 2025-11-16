@@ -1,10 +1,11 @@
 
 import { playSound } from './common.js';
-import { MAP_DATA } from './map-data.js';
+import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import * as map from './maps.js';
 import * as renderer from './map-renderer.js';
 import { toggleEditMode } from './map-editor.js';
 import { resetTransform } from './map-transform.js';
+import * as transform from './map-transform.js';
 
 const mapControls = document.getElementById('dynamic-map-controls');
 
@@ -12,11 +13,19 @@ export function renderTabs() {
     if (!mapControls) return;
     mapControls.innerHTML = ''; // Clear everything inside
 
+    // Add search bar
+    const searchContainer = document.createElement('div');
+    searchContainer.id = 'poi-search-container';
+    searchContainer.innerHTML = `
+        <input type="text" id="poi-search-input" placeholder="Search for a location..." autocomplete="off">
+        <div id="poi-search-suggestions" style="display: none;"></div>
+    `;
+    mapControls.appendChild(searchContainer);
+
     const currentPage = window.location.pathname.split('/').pop();
     
     let relevantGroups;
 
-    // Correctly structured if/else if/else chain
     if (currentPage === 'midlands-maps.html') {
         relevantGroups = ['The Midlands'];
     } else if (currentPage === 'internet-maps.html') {
@@ -31,6 +40,12 @@ export function renderTabs() {
         relevantGroups = ['The Doughnut Hole'];
     } else if (currentPage === 'pokemon-maps.html') {
         relevantGroups = ['Pokémon Regions'];
+    } else if (currentPage === 'animatopia-maps.html') {
+        relevantGroups = ['Animatopia'];
+    } else if (currentPage === 'almost-edge-maps.html') {
+        relevantGroups = ['The Edge Regions'];
+    } else if (currentPage === 'the-edge-maps.html') {
+        relevantGroups = ['The Edge Regions'];
     } else { // Default, for mushroom-kingdom-maps.html
         relevantGroups = ['Mushroom Kingdom Regions', 'Islands & Outer Realms'];
     }
@@ -114,4 +129,76 @@ export function setupTabEventListeners() {
             renderer.renderMap(map.activeMapId); // Re-render map to show/hide tactical elements
         }
     });
+
+    // Search bar event listeners
+    const searchInput = document.getElementById('poi-search-input');
+    const suggestionsContainer = document.getElementById('poi-search-suggestions');
+
+    if (searchInput && suggestionsContainer) {
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            if (query.length < 2) {
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+
+            const pois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
+            const matches = pois.filter(poi => poi.name.toLowerCase().includes(query)).slice(0, 7);
+
+            if (matches.length > 0) {
+                suggestionsContainer.innerHTML = matches.map(poi => `
+                    <div class="suggestion-item" data-poi-id="${poi.id}">
+                        ${poi.name}
+                        <small>${BUILDING_TYPES[poi.type]?.name || 'Unknown Type'}</small>
+                    </div>
+                `).join('');
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default;">No matches found</div>';
+                suggestionsContainer.style.display = 'block';
+            }
+        });
+
+        suggestionsContainer.addEventListener('click', e => {
+            const suggestionItem = e.target.closest('.suggestion-item');
+            if (suggestionItem && suggestionItem.dataset.poiId) {
+                const poiId = suggestionItem.dataset.poiId;
+                const pois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
+                const poi = pois.find(p => p.id === poiId);
+
+                if (poi) {
+                    // Center and zoom on the POI
+                    transform.panAndZoomToPoi(poi);
+
+                    // Show details
+                    renderer.showDetailPanel(poiId);
+
+                    // Highlight the marker
+                    setTimeout(() => { // Timeout to allow for pan/zoom animation
+                        document.querySelectorAll('.poi-marker.searched').forEach(m => m.classList.remove('searched'));
+
+                        const marker = document.querySelector(`.poi-marker[data-poi-id="${poiId}"]`);
+                        if (marker) {
+                            marker.classList.add('searched');
+                            // Remove highlight after a few seconds
+                            setTimeout(() => marker.classList.remove('searched'), 4500);
+                        }
+                    }, 800);
+                }
+
+                // Reset search
+                searchInput.value = '';
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Hide suggestions when clicking away
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                 suggestionsContainer.style.display = 'none';
+            }
+        });
+    }
 }

@@ -58,20 +58,28 @@ export function hideMapModal() {
 // --- INITIALIZATION ---
 function init() {
     const pathname = window.location.pathname;
-    if (pathname.includes('warhammer-maps.html')) {
+    const currentPage = pathname.split('/').pop();
+
+    if (currentPage === 'warhammer-maps.html') {
         activeMapId = 'warhammer_full';
-    } else if (pathname.includes('midlands-maps.html')) {
+    } else if (currentPage === 'midlands-maps.html') {
         activeMapId = 'midlands_full';
-    } else if (pathname.includes('internet-maps.html')) {
+    } else if (currentPage === 'internet-maps.html') {
         activeMapId = 'internet_full';
-    } else if (pathname.includes('middle-earth-maps.html')) {
+    } else if (currentPage === 'middle-earth-maps.html') {
         activeMapId = 'middle_earth_full';
-    } else if (pathname.includes('kivotos-maps.html')) {
+    } else if (currentPage === 'kivotos-maps.html') {
         activeMapId = 'kivotos_full';
-    } else if (pathname.includes('doughnut-hole-maps.html')) {
+    } else if (currentPage === 'doughnut-hole-maps.html') {
         activeMapId = 'doughnut_hole_full';
-    } else if (pathname.includes('pokemon-maps.html')) {
+    } else if (currentPage === 'pokemon-maps.html') {
         activeMapId = 'pokemon_full';
+    } else if (currentPage === 'animatopia-maps.html') {
+        activeMapId = 'animatopia_full';
+    } else if (currentPage === 'almost-edge-maps.html') {
+        activeMapId = 'almost_edge_full';
+    } else if (currentPage === 'the-edge-maps.html') {
+        activeMapId = 'the_edge_full';
     } else {
         activeMapId = 'mushroom_kingdom_full';
     }
