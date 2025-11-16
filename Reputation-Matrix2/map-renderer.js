@@ -1,4 +1,5 @@
 
+
 import { state } from './state.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import { LORE_DATA } from './lore.js';
@@ -533,14 +534,37 @@ export function renderPois() {
              marker.style.height = '20px';
              iconWrapper.style.fontSize = '12px';
             switch (map.activeMapMode) {
-                case 'political':
+                case 'political': {
                     marker.classList.add('political-view');
-                    marker.style.backgroundColor = FACTION_COLORS[poi.factionId] || 'var(--text-secondary)';
+                    iconWrapper.innerHTML = ''; // Clear any default icon
+
+                    const faction = LORE_DATA.factions[poi.factionId];
+
+                    if (faction && faction.logo) {
+                        marker.style.backgroundImage = `url(${faction.logo})`;
+                        marker.style.backgroundSize = 'cover';
+                        marker.style.backgroundPosition = 'center';
+                        marker.style.backgroundColor = 'transparent'; // Ensure background color doesn't obscure the flag
+                    } else {
+                        // Fallback to unaligned faction flag if main one is missing
+                        const unalignedLogo = LORE_DATA.factions['unaligned']?.logo;
+                        if (unalignedLogo) {
+                             marker.style.backgroundImage = `url(${unalignedLogo})`;
+                             marker.style.backgroundSize = 'cover';
+                             marker.style.backgroundPosition = 'center';
+                             marker.style.backgroundColor = 'transparent';
+                        } else {
+                            // Ultimate fallback to a solid color if no logos are available
+                            marker.style.backgroundColor = 'var(--text-secondary)';
+                            marker.style.backgroundImage = 'none';
+                        }
+                    }
+                    
                     const politicalSize = 16 + (poi.political_influence || 1) * 2;
                     marker.style.width = `${politicalSize}px`;
                     marker.style.height = `${politicalSize}px`;
-                    iconWrapper.innerHTML = '';
                     break;
+                }
                 case 'economic':
                     marker.classList.add('economic-view');
                     const economicSize = 16 + (poi.economic_value || 1) * 2;
