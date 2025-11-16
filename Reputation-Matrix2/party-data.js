@@ -24,7 +24,7 @@ export const PARTY_LOCATIONS = {
         // --- Imperial Capital Group ---
         { charKey: 'wario', x: 81.5, y: 4.5, status: 'Scheming' },
         { charKey: 'purple_t', x: 81.0, y: 4.0, status: 'Defiant' }, // On the Vigilance
-        { charKey: 'lario', x: 87.0, y: 6.0, status: 'Imprisoned' }, // Silent Service HQ
+        { charKey: 'lario', x: 87.0, y: 6.0, status: 'Observing' }, // Silent Service HQ
         { charKey: 'lady_toriel', x: 90.5, y: 8.5, status: 'Diplomacy' }, // Diplomatic Quarter
         { charKey: 'bones', x: 78.5, y: 2.5, status: 'Interrogated' }, // Aegis Command
         { charKey: 'the_mole', x: 78.0, y: 3.0, status: 'Debriefing' }, // Aegis Command
