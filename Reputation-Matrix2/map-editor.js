@@ -11,7 +11,6 @@ const poiPalette = document.getElementById('poi-palette');
 const drawFogBtn = document.getElementById('draw-fog-btn');
 const removeItemBtn = document.getElementById('remove-item-btn');
 const generateCodeBtn = document.getElementById('generate-code-btn');
-const cancelMapBtn = document.getElementById('cancel-map-btn');
 const poiEditorModal = document.getElementById('poi-editor-modal');
 const closeModalBtn = poiEditorModal.querySelector('.modal-close');
 const poiForm = document.getElementById('poi-form');
@@ -37,6 +36,7 @@ function renderEditorToolbar() {
 export function toggleEditMode(enable) {
     map.setEditMode(enable);
     const editButton = document.getElementById('edit-map-btn');
+    
     if (enable) {
         const currentMapData = MAP_DATA[map.activeMapId];
         map.setEditSessionData({
@@ -44,12 +44,12 @@ export function toggleEditMode(enable) {
             fogs: structuredClone(currentMapData.fogOfWar || [])
         });
         editorToolbar.style.display = 'flex';
-        if (editButton) editButton.style.display = 'none';
         if(mapControls) mapControls.style.display = 'none';
+        if (editButton) editButton.textContent = 'Cancel Edit';
     } else {
         editorToolbar.style.display = 'none';
-        if (editButton) editButton.style.display = 'block';
         if(mapControls) mapControls.style.display = 'flex';
+        if (editButton) editButton.textContent = 'Edit Map';
         map.setEditSessionData(null);
         setEditorMode('idle'); // Reset editor mode
     }
@@ -304,12 +304,16 @@ function handleEditSelectClick(e) {
 
 export function setupEditorEventListeners() {
     const editMapBtn = document.getElementById('edit-map-btn');
-    if (editMapBtn) editMapBtn.addEventListener('click', () => toggleEditMode(true));
+    if (editMapBtn) {
+        editMapBtn.addEventListener('click', () => {
+            playSound('click.mp3');
+            toggleEditMode(!map.isEditMode);
+        });
+    }
     
     renderEditorToolbar();
     
     generateCodeBtn.addEventListener('click', handleGenerateCode);
-    cancelMapBtn.addEventListener('click', () => toggleEditMode(false));
     drawFogBtn.addEventListener('click', () => setEditorMode('drawingFog'));
     removeItemBtn.addEventListener('click', () => setEditorMode('removing'));
 
