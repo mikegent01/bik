@@ -8,11 +8,8 @@ import { MAP_DATA } from './map-data.js';
 const mainQuestContainer = document.getElementById('quest-container');
 const bountyBoardContainer = document.getElementById('quest-board-list');
 const questCounter = document.getElementById('quest-counter');
-const sorterContainer = document.getElementById('quest-sorter');
 const filtererContainer = document.getElementById('quest-filterer');
 const statusFiltererContainer = document.getElementById('status-filterer');
-
-let currentSort = 'status';
 
 // Helper to create a consistent key from assignee names
 function sanitizeKey(name) {
@@ -153,15 +150,17 @@ function renderQuests() {
     
     // 4. Sort quests within each category
     const statusOrder = { 'active': 1, 'ongoing': 1, 'pending': 2, 'available': 3, 'hidden': 4, 'completed': 5, 'failed': 6 };
-    const typeOrder = { 'main': 1, 'personal': 2, 'side': 3, 'request': 4, 'mystery': 5, 'npc_plot': 6 };
 
     const sortFn = (a, b) => {
-        if (currentSort === 'status') {
-            return (statusOrder[a.status] || 99) - (statusOrder[b.status] || 99);
-        }
-        if (currentSort === 'type') {
-            return (typeOrder[a.type] || 99) - (typeOrder[b.type] || 99);
-        }
+        // Primary sort: is_updated flag (true comes first)
+        if (a.is_updated && !b.is_updated) return -1;
+        if (!a.is_updated && b.is_updated) return 1;
+
+        // Secondary sort: status order
+        const statusDiff = (statusOrder[a.status] || 99) - (statusOrder[b.status] || 99);
+        if (statusDiff !== 0) return statusDiff;
+
+        // Tertiary sort: alphabetically by title for stability
         return a.title.localeCompare(b.title);
     };
 
@@ -244,10 +243,6 @@ function formatQuestType(type) {
 }
 
 function renderQuestCard(quest) {
-    const updatedBadge = quest.is_updated 
-        ? '<div class="quest-updated-badge">UPDATED</div>' 
-        : '';
-    
     const contextHTML = quest.pending_condition ? `<div class="quest-context pending"><strong>Pending Activation:</strong> <p>${quest.pending_condition}</p></div>`
         : quest.motivation ? `<div class="quest-context"><strong>Motivation:</strong> <p>${quest.motivation}</p></div>`
         : quest.start_condition ? `<div class="quest-context"><strong>Start Condition:</strong> <p>${quest.start_condition}</p></div>`
@@ -264,9 +259,12 @@ function renderQuestCard(quest) {
 
     const formattedType = formatQuestType(quest.type);
 
+    const statusDisplayHTML = quest.is_updated
+        ? `<div class="quest-status updated">Status: updated</div>`
+        : `<div class="quest-status">${quest.status}</div>`;
+
     return `
         <div class="quest-card status-${quest.status}" id="${quest.id}">
-            ${updatedBadge} 
             <div class="quest-header">
                 <div class="quest-title-section">
                     <h4 class="quest-title">${quest.title}</h4>
@@ -274,7 +272,7 @@ function renderQuestCard(quest) {
                     <p class="quest-assignee">Assignee: ${quest.assignee}</p>
                     ${locationHTML}
                 </div>
-                <div class="quest-status">${quest.status}</div>
+                ${statusDisplayHTML}
             </div>
             <div class="quest-body">
                 <div class="quest-objective"><h5>Objective</h5><p>${quest.objective}</p></div>
@@ -344,19 +342,6 @@ function setupEventListeners() {
                 playSound('click.mp3');
                 const card = header.closest('.quest-card');
                 card.classList.toggle('is-expanded');
-            }
-        });
-    }
-
-    if (sorterContainer) {
-        sorterContainer.addEventListener('click', e => {
-            const button = e.target.closest('.sort-btn');
-            if (button && !button.classList.contains('active')) {
-                playSound('confirm.mp3', 0.5);
-                currentSort = button.dataset.sort;
-                sorterContainer.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                renderQuests();
             }
         });
     }
