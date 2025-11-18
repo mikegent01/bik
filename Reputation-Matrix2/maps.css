@@ -1,9 +1,4 @@
 
-
-
-
-
-
 #maps-layout {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -427,6 +422,28 @@
     background-color: rgba(138, 43, 226, 0.1);
 }
 
+#political-submode-selector {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 16px;
+}
+
+#political-submode-selector span {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: var(--font-display);
+}
+
+#political-submode-selector .mode-btn.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: rgba(138, 43, 226, 0.1);
+}
+
 .poi-marker.political-view {
     color: white;
     text-shadow: 1px 1px 2px black;
@@ -479,6 +496,42 @@
     border-radius: 50%;
     border: 2px solid transparent;
 }
+
+/* --- Province Marker Styles --- */
+.province-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 6;
+    transition: transform 0.2s ease;
+    border-radius: 50%;
+    pointer-events: all;
+}
+.province-marker:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    z-index: 11;
+}
+.province-marker svg {
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.6));
+    border-radius: 50%;
+}
+.province-marker .province-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(13, 17, 23, 0.85);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: var(--font-display);
+    white-space: nowrap;
+    pointer-events: none;
+    margin-top: 8px;
+    border: 1px solid var(--border-color);
+}
+
 
 /* --- Party Marker Styles --- */
 .party-marker {
@@ -902,6 +955,25 @@
 .status-bar-high { background-color: var(--positive-color); }
 .status-bar-medium { background-color: var(--neutral-color); }
 .status-bar-low { background-color: var(--negative-color); }
+#map-tooltip .legend-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+}
+#map-tooltip .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+#map-tooltip .legend-color-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
 
 /* Tactical Detail Panel */
 .tactical-detail-panel {

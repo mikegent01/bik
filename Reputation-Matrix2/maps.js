@@ -1,7 +1,4 @@
 
-
-
-
 import { state, loadState, saveState } from './state.js';
 import * as ui from './map-ui.js';
 import * as renderer from './map-renderer.js';
@@ -14,6 +11,7 @@ import { BATTLE_MAP_DATA } from './map-battle-data.js';
 // --- STATE ---
 export let activeMapId = 'mushroom_kingdom_full'; // Default value
 export let activeMapMode = 'standard';
+export let activePoliticalSubmode = 'poi'; // 'poi' or 'province'
 export let isEditMode = false;
 export let editSessionData = null; // Holds cloned data for an edit session
 export let renderedMapDimensions = { width: 0, height: 0 }; // Authoritative dimensions
@@ -31,6 +29,9 @@ export function setActiveMapId(mapId) {
 }
 export function setActiveMapMode(mode) {
     activeMapMode = mode;
+}
+export function setActivePoliticalSubmode(mode) {
+    activePoliticalSubmode = mode;
 }
 export function setEditMode(mode) {
     isEditMode = mode;

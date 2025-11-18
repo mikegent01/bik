@@ -6,6 +6,9 @@ import * as renderer from './map-renderer.js';
 import { toggleEditMode } from './map-editor.js';
 import { resetTransform } from './map-transform.js';
 import * as transform from './map-transform.js';
+import { PROVINCE_POLITICS } from './politics-data.js';
+import { LORE_DATA } from './lore.js';
+import { FACTION_COLORS } from './factions/faction-colors.js';
 
 const mapControls = document.getElementById('dynamic-map-controls');
 
@@ -95,6 +98,16 @@ export function renderTabs() {
         <button class="mode-btn ${map.activeMapMode === 'crime_rate' ? 'active' : ''}" data-mode="crime_rate">Crime Rate</button>
     `;
     mapControls.appendChild(modeSelector);
+
+    const subModeSelector = document.createElement('div');
+    subModeSelector.id = 'political-submode-selector';
+    subModeSelector.style.display = 'none'; // Hide by default
+    subModeSelector.innerHTML = `
+        <span>View:</span>
+        <button class="mode-btn ${map.activePoliticalSubmode === 'poi' ? 'active' : ''}" data-submode="poi">POIs</button>
+        <button class="mode-btn ${map.activePoliticalSubmode === 'province' ? 'active' : ''}" data-submode="province">Provinces</button>
+    `;
+    mapControls.appendChild(subModeSelector);
 }
 
 export function setupTabEventListeners() {
@@ -118,17 +131,45 @@ export function setupTabEventListeners() {
             return;
         }
 
-        const modeButton = e.target.closest('.mode-btn');
+        const modeButton = e.target.closest('#map-mode-selector .mode-btn');
         if (modeButton && !modeButton.classList.contains('active')) {
             playSound('confirm.mp3', 0.5);
-            map.setActiveMapMode(modeButton.dataset.mode);
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            const newMode = modeButton.dataset.mode;
+            map.setActiveMapMode(newMode);
+            
+            document.querySelectorAll('#map-mode-selector .mode-btn').forEach(btn => btn.classList.remove('active'));
             modeButton.classList.add('active');
+
+            const subModeSelector = document.getElementById('political-submode-selector');
+            if (newMode === 'political' && PROVINCE_POLITICS[map.activeMapId]) {
+                subModeSelector.style.display = 'flex';
+                subModeSelector.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.submode === map.activePoliticalSubmode);
+                });
+            } else {
+                subModeSelector.style.display = 'none';
+            }
+            
             renderer.renderPois();
             renderer.renderMapModeLegend();
-            renderer.renderMap(map.activeMapId); // Re-render map to show/hide tactical elements
+            renderer.renderMap(map.activeMapId);
         }
     });
+
+    const subModeSelector = document.getElementById('political-submode-selector');
+    if (subModeSelector) {
+        subModeSelector.addEventListener('click', e => {
+            const subModeBtn = e.target.closest('.mode-btn');
+            if (subModeBtn && !subModeBtn.classList.contains('active')) {
+                playSound('click.mp3');
+                map.setActivePoliticalSubmode(subModeBtn.dataset.submode);
+                subModeSelector.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+                subModeBtn.classList.add('active');
+                renderer.renderPois();
+                renderer.renderMapModeLegend();
+            }
+        });
+    }
 
     // Search bar event listeners
     const searchInput = document.getElementById('poi-search-input');

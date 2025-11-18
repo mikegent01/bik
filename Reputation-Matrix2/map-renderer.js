@@ -4,10 +4,6 @@
 
 
 
-
-
-
-
 import { state } from './state.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import { LORE_DATA } from './lore.js';
@@ -23,11 +19,24 @@ import { ALL_LEGAL_CODES } from './laws-data.js';
 import { CULTURE_DATA } from './culture-data.js'; 
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js'; 
 import { PARTY_LOCATIONS } from './party-data.js';
+import { PROVINCE_POLITICS } from './politics-data.js';
 
 
 const displayArea = document.getElementById('map-display-area');
 const detailPanel = document.getElementById('map-detail-content');
 let tooltip;
+
+/**
+ * Retrieves character data from all available sources.
+ * @param {string} charKey - The character's unique key.
+ * @returns {object} The character's data object.
+ */
+function getPartyCharacterData(charKey) {
+    return LORE_DATA.characters[charKey] 
+        || LORE_DATA.auxiliary_party[charKey] 
+        || { name: charKey.replace(/_/g, ' '), portrait: `portraits/${charKey}.png`, role: 'Unknown' };
+}
+
 
 function createTooltip() {
     if (document.getElementById('map-tooltip')) return;
@@ -94,6 +103,18 @@ function valueToColor(value, min, max, colors) {
     const b = Math.round(c1.b + (c2.b - c1.b) * segmentRatio);
 
     return rgbToHex(r, g, b);
+}
+
+function getUnitIcon(unitType) {
+    switch(unitType) {
+        case 'garrison': return '⛫';
+        case 'patrol': return '⬦';
+        case 'main_force': return '●';
+        case 'special_ops': return '★';
+        case 'siege_unit': return '⌖';
+        case 'ambush': return 'X';
+        default: return '?';
+    }
 }
 
 
@@ -171,18 +192,6 @@ export function renderMap(mapId) {
 
     renderMapModeLegend();
     resetTransform();
-}
-
-function getUnitIcon(unitType) {
-    switch(unitType) {
-        case 'garrison': return '⛫';
-        case 'patrol': return '⬦';
-        case 'main_force': return '●';
-        case 'special_ops': return '★';
-        case 'siege_unit': return '⌖';
-        case 'ambush': return 'X';
-        default: return '?';
-    }
 }
 
 function renderBattleElements(mapId) {
@@ -328,15 +337,41 @@ function renderPartyMembers(mapId) {
     const interactiveLayer = document.getElementById('interactive-map-layer');
     if (!interactiveLayer) return;
 
+    // Create SVG layer for paths (for Vigilance)
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.style.position = 'absolute';
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+    svg.style.pointerEvents = 'none';
+    svg.style.zIndex = '3';
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    interactiveLayer.appendChild(svg);
+    
     // Render Vigilance
     if (BATTLE_MAP_DATA.vigilance_journey.mapId === mapId) {
-        renderVigilance(interactiveLayer);
+        renderVigilance(interactiveLayer, svg);
     }
 
     // Clear existing party markers to avoid duplicates
     interactiveLayer.querySelectorAll('.party-marker').forEach(el => el.remove());
 
-    const members = PARTY_LOCATIONS[mapId];
+    let members = PARTY_LOCATIONS[mapId];
+    
+    // If no members on sub-map, check for group's main map data
+    if (!members) {
+        const currentMapInfo = MAP_DATA[mapId];
+        if (currentMapInfo && currentMapInfo.group) {
+            // Find the main map for the group (assuming it ends with '_full')
+            const groupKey = Object.keys(MAP_DATA).find(key => 
+                MAP_DATA[key].group === currentMapInfo.group && key.endsWith('_full')
+            );
+            if (groupKey && PARTY_LOCATIONS[groupKey]) {
+                members = PARTY_LOCATIONS[groupKey];
+            }
+        }
+    }
+
     if (!members) return;
 
     // Cluster Logic: Group members if they are too close
@@ -388,22 +423,14 @@ function renderPartyMembers(mapId) {
         } else {
             // Single Member Marker
             const member = cluster.members[0];
-            const charData = LORE_DATA.characters[member.charKey] || { name: 'Unknown', portrait: 'portraits/unknown.png', role: 'Unknown' };
+            const charData = getPartyCharacterData(member.charKey);
             
             marker.dataset.charKey = member.charKey;
             marker.dataset.status = member.status;
-            const statusClass = member.status.toLowerCase().replace(' ', '-');
+            const statusClass = member.status.toLowerCase().replace(/ /g, '-');
             marker.classList.add(`status-${statusClass}`);
             
-            // Determine portrait
-            let portraitUrl = charData.portrait;
-            if (!portraitUrl) {
-                 // Fallback logic
-                 if (member.charKey.includes('toad')) portraitUrl = `toads/${member.charKey}.png`;
-                 else portraitUrl = `portraits/${member.charKey}.png`;
-            }
-            
-            marker.style.backgroundImage = `url('${portraitUrl}')`;
+            marker.style.backgroundImage = `url('${charData.portrait}')`;
 
             marker.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -438,8 +465,8 @@ function renderPartyGroupDetail(members) {
     `;
 
     members.forEach(member => {
-        const charData = LORE_DATA.characters[member.charKey] || { name: member.charKey, portrait: 'portraits/unknown.png' };
-        let portraitUrl = charData.portrait || `portraits/${member.charKey}.png`;
+        const charData = getPartyCharacterData(member.charKey);
+        let portraitUrl = charData.portrait;
 
         html += `
             <div class="party-group-item" onclick="window.location.href='profile.html?user=${member.charKey}'" 
@@ -461,24 +488,24 @@ function renderPartyGroupDetail(members) {
 }
 
 export function renderPartyMemberDetail(charKey, status) {
-    const charData = LORE_DATA.characters[charKey];
+    const charData = getPartyCharacterData(charKey);
     if (!charData) return;
 
     const html = `
         <div class="poi-detail">
             <div class="party-detail-header">
-                <img src="${charData.portrait || `portraits/${charKey}.png`}" class="party-detail-portrait" alt="${charData.name}">
+                <img src="${charData.portrait}" class="party-detail-portrait" alt="${charData.name}">
                 <div>
                     <h3>${charData.name}</h3>
                     <p class="party-role">${charData.role}</p>
                 </div>
             </div>
             
-            <div class="party-status-box status-${status.toLowerCase().replace(' ', '-')}">
+            <div class="party-status-box status-${status.toLowerCase().replace(/ /g, '-')}">
                 <strong>Current Status:</strong> ${status}
             </div>
 
-            <p class="poi-description">${charData.description}</p>
+            <p class="poi-description">${charData.description || 'No description available.'}</p>
             
             <div class="party-actions">
                 <a href="profile.html?user=${charKey}" class="control-btn">View Full Profile</a>
@@ -489,24 +516,141 @@ export function renderPartyMemberDetail(charKey, status) {
 }
 
 
-function renderVigilance(container) {
+function renderVigilance(container, svg) {
     const journey = BATTLE_MAP_DATA.vigilance_journey;
     
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', journey.path);
+    path.classList.add('vigilance-path');
+    svg.appendChild(path);
+
+    const pathElForLength = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    pathElForLength.setAttribute('d', journey.path);
+    const pathLength = pathElForLength.getTotalLength();
+    const progress = Math.min(journey.currentDay / journey.totalDays, 1);
+    const currentPoint = pathElForLength.getPointAtLength(pathLength * progress);
+
     const marker = document.createElement('div');
     marker.className = 'vigilance-marker';
-    marker.style.left = `${journey.x}%`;
-    marker.style.top = `${journey.y}%`;
+    marker.style.left = `${currentPoint.x}%`;
+    marker.style.top = `${currentPoint.y}%`;
     marker.title = "The 'Vigilance'";
     marker.dataset.vigilanceId = 'vigilance';
     
     container.appendChild(marker);
 }
 
+function createPieChartSVG(data, size) {
+    const radius = size / 2;
+    let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+    let cumulativePercent = 0;
+
+    const sortedData = Object.entries(data).sort(([,a],[,b]) => b - a);
+
+    for (const [key, percent] of sortedData) {
+        if (percent === 0) continue;
+        const color = FACTION_COLORS[key] || '#ccc';
+        
+        const startAngle = (cumulativePercent * 2 * Math.PI) - (Math.PI / 2);
+        cumulativePercent += percent / 100;
+        const endAngle = (cumulativePercent * 2 * Math.PI) - (Math.PI / 2);
+        
+        // if the slice is 100%, draw a full circle to avoid arc glitches
+        if (percent >= 100) {
+            svg += `<circle cx="${radius}" cy="${radius}" r="${radius}" fill="${color}" stroke="var(--sidebar-bg)" stroke-width="1"/>`;
+            continue;
+        }
+
+        const startX = radius + radius * Math.cos(startAngle);
+        const startY = radius + radius * Math.sin(startAngle);
+        const endX = radius + radius * Math.cos(endAngle);
+        const endY = radius + radius * Math.sin(endAngle);
+        
+        const largeArcFlag = (percent > 50) ? 1 : 0;
+        
+        const pathData = [
+            `M ${radius},${radius}`, // Move to center
+            `L ${startX},${startY}`, // Line to start of arc
+            `A ${radius},${radius} 0 ${largeArcFlag} 1 ${endX},${endY}`, // Arc to end
+            'Z' // Close path
+        ].join(' ');
+
+        svg += `<path d="${pathData}" fill="${color}" stroke="var(--sidebar-bg)" stroke-width="1"/>`;
+    }
+
+    svg += '</svg>';
+    return svg;
+}
+
+export function renderProvinceDetailPanel(province) {
+    let factionsHTML = '<ul class="legend-list">';
+    Object.entries(province.control).sort(([,a],[,b]) => b - a).forEach(([factionId, percent]) => {
+        const faction = LORE_DATA.factions[factionId];
+        factionsHTML += `<li class="legend-item">
+            <div class="legend-color-box" style="background-color: ${FACTION_COLORS[factionId] || '#ccc'};"></div>
+            <span>${faction?.name || 'Unknown'}: <strong>${percent}%</strong></span>
+        </li>`;
+    });
+    factionsHTML += '</ul>';
+
+    const html = `
+        <div class="poi-detail">
+            <h3>${province.name}</h3>
+            <p class="poi-type">Provincial Influence Breakdown</p>
+            ${factionsHTML}
+        </div>
+    `;
+    detailPanel.innerHTML = html;
+}
+
 export function renderPois() {
     const interactiveLayer = document.getElementById('interactive-map-layer');
     if (!interactiveLayer) return;
     
-    interactiveLayer.querySelectorAll('.poi-marker').forEach(el => el.remove());
+    interactiveLayer.querySelectorAll('.poi-marker, .province-marker').forEach(el => el.remove());
+
+    const provinceData = PROVINCE_POLITICS[map.activeMapId];
+
+    if (map.activeMapMode === 'political' && provinceData && map.activePoliticalSubmode === 'province' && !map.isEditMode) {
+        Object.values(provinceData).forEach(province => {
+            const totalInfluence = Object.values(province.control).reduce((a, b) => a + b, 0);
+            const size = 30 + Math.log2(totalInfluence > 1 ? totalInfluence : 1) * 5; 
+            
+            const marker = document.createElement('div');
+            marker.className = 'province-marker';
+            marker.style.left = `${province.x}%`;
+            marker.style.top = `${province.y}%`;
+            marker.style.width = `${size}px`;
+            marker.style.height = `${size}px`;
+
+            const pieChartSVG = createPieChartSVG(province.control, size);
+            marker.innerHTML = pieChartSVG + `<div class="province-label">${province.name}</div>`;
+
+            marker.addEventListener('click', (e) => {
+                e.stopPropagation();
+                playSound('click.mp3');
+                renderProvinceDetailPanel(province);
+            });
+
+            marker.addEventListener('mouseover', e => {
+                let tooltipContent = `<div class="tooltip-header"><h5>${province.name}</h5></div>`;
+                tooltipContent += '<ul class="legend-list">';
+                Object.entries(province.control).sort(([,a],[,b]) => b - a).forEach(([factionId, percent]) => {
+                    const faction = LORE_DATA.factions[factionId];
+                    tooltipContent += `<li class="legend-item">
+                        <div class="legend-color-box" style="background-color: ${FACTION_COLORS[factionId] || '#ccc'};"></div>
+                        <span>${faction?.name || 'Unknown'}: ${percent}%</span>
+                    </li>`;
+                });
+                tooltipContent += '</ul>';
+                showTooltip(e, tooltipContent);
+            });
+            marker.addEventListener('mouseout', hideTooltip);
+
+            interactiveLayer.appendChild(marker);
+        });
+        return;
+    }
 
     const poiSource = map.isEditMode ? map.editSessionData.pois : (MAP_DATA[map.activeMapId]?.pointsOfInterest || []);
     
@@ -566,9 +710,8 @@ export function renderPois() {
                         marker.style.backgroundImage = `url(${faction.logo})`;
                         marker.style.backgroundSize = 'cover';
                         marker.style.backgroundPosition = 'center';
-                        marker.style.backgroundColor = 'transparent'; // Ensure background color doesn't obscure the flag
+                        marker.style.backgroundColor = 'transparent'; 
                     } else {
-                        // Fallback to unaligned faction flag if main one is missing
                         const unalignedLogo = LORE_DATA.factions['unaligned']?.logo;
                         if (unalignedLogo) {
                              marker.style.backgroundImage = `url(${unalignedLogo})`;
@@ -576,7 +719,6 @@ export function renderPois() {
                              marker.style.backgroundPosition = 'center';
                              marker.style.backgroundColor = 'transparent';
                         } else {
-                            // Ultimate fallback to a solid color if no logos are available
                             marker.style.backgroundColor = 'var(--text-secondary)';
                             marker.style.backgroundImage = 'none';
                         }
@@ -610,7 +752,6 @@ export function renderPois() {
                     marker.style.opacity = poi.population > 0 ? '0.9' : '0.5';
                     break;
                 case 'laws':
-                    // Prioritize Faction, then fallback to Culture
                     marker.classList.add('laws-view');
                     
                     const factionKey = poi.factionId || 'unaligned';
@@ -618,11 +759,10 @@ export function renderPois() {
                     const cultureInfo = getCultureForPoi(poi, map.activeMapId);
 
                     if (legalCode && legalCode.logo) {
-                        // Show Faction Logo if explicit laws exist
                         marker.style.backgroundColor = FACTION_COLORS[factionKey] || '#444';
                         marker.style.borderColor = 'var(--accent-color)';
                         marker.style.boxShadow = '0 0 8px var(--accent-color)';
-                        iconWrapper.innerHTML = ''; // Clear text
+                        iconWrapper.innerHTML = ''; 
                         const logoImg = document.createElement('img');
                         logoImg.src = legalCode.logo;
                         logoImg.style.width = '100%';
@@ -630,7 +770,6 @@ export function renderPois() {
                         logoImg.style.borderRadius = '50%';
                         iconWrapper.appendChild(logoImg);
                     } else {
-                        // Fallback to Culture
                         marker.style.backgroundColor = cultureInfo.color;
                         iconWrapper.innerHTML = cultureInfo.icon;
                         marker.style.borderColor = 'var(--border-color)';
@@ -645,10 +784,9 @@ export function renderPois() {
                     marker.style.height = `${ageSize}px`;
                     marker.style.backgroundColor = valueToColor(age, 1, 10, ['#a8d8ea', '#f9f871']); 
                     
-                    // Distinct icons based on era
-                    if (age <= 3) iconWrapper.innerHTML = `🏠`; // Modern
-                    else if (age <= 7) iconWrapper.innerHTML = `🏰`; // Historical
-                    else iconWrapper.innerHTML = `🏺`; // Ancient/Mythic
+                    if (age <= 3) iconWrapper.innerHTML = `🏠`; 
+                    else if (age <= 7) iconWrapper.innerHTML = `🏰`; 
+                    else iconWrapper.innerHTML = `🏺`; 
                     
                     if (age >= 9) {
                         marker.style.boxShadow = '0 0 10px #f9f871';
@@ -661,11 +799,11 @@ export function renderPois() {
                     const crimeSize = 16 + crime * 1.5;
                     marker.style.width = `${crimeSize}px`;
                     marker.style.height = `${crimeSize}px`;
-                    marker.style.backgroundColor = valueToColor(crime, 1, 10, ['#4575b4', '#fee090', '#d73027']); // blue (low) to red (high)
+                    marker.style.backgroundColor = valueToColor(crime, 1, 10, ['#4575b4', '#fee090', '#d73027']); 
                     
-                    if (crime <= 3) iconWrapper.innerHTML = `🛡️`; // Safe
-                    else if (crime <= 7) iconWrapper.innerHTML = `⚠️`; // Caution
-                    else iconWrapper.innerHTML = `💀`; // Dangerous
+                    if (crime <= 3) iconWrapper.innerHTML = `🛡️`; 
+                    else if (crime <= 7) iconWrapper.innerHTML = `⚠️`; 
+                    else iconWrapper.innerHTML = `💀`; 
                     
                     if (crime >= 8) {
                         marker.style.animation = 'pulse-red-border 2s infinite';
@@ -782,16 +920,11 @@ function renderCodexLaws(lawData) {
     return html;
 }
 
-/**
- * Determines the Culture for a POI based on its demographics or faction.
- */
 function getCultureForPoi(poi, mapId) {
-    // 1. Check map/group default demographics
     const mapInfo = MAP_DATA[mapId];
     const group = mapInfo ? (mapInfo.group || 'Other') : 'Other';
     const regionalSpecies = REGIONAL_DEMOGRAPHICS[group] || {};
     
-    // Find dominant species
     let dominantSpecies = 'dnd_human';
     let maxPct = 0;
     for (const [sKey, sPct] of Object.entries(regionalSpecies)) {
@@ -801,14 +934,12 @@ function getCultureForPoi(poi, mapId) {
         }
     }
 
-    // 2. Find Culture matching dominant species
     for (const [cultKey, cultData] of Object.entries(CULTURE_DATA)) {
         if (cultData.primary_species.includes(dominantSpecies)) {
             return cultData;
         }
     }
 
-    // Fallback: Unaligned / Unknown
     return {
         id: 'unaligned',
         name: 'Local Custom',
@@ -837,7 +968,6 @@ export function showTraditionsPopup(poi) {
 
         title = `Laws & Customs: ${poi.name}`;
         
-        // 1. FACTION LAWS (Primary if exists)
         let factionLawsHTML = '';
         if (factionLegalCode) {
             factionLawsHTML = `
@@ -859,10 +989,8 @@ export function showTraditionsPopup(poi) {
             `;
         }
 
-        // 2. CULTURAL BACKGROUND (Secondary)
         const cultureTraditionsHTML = renderTraditionItems(culture.traditions);
         
-        // Local POI specific traditions (overrides)
         let localTraditionsHTML = '';
         if (LEGAL_DATA.poi_traditions[poi.id]) {
             localTraditionsHTML = `
@@ -956,7 +1084,6 @@ export async function showDetailPanel(poiId) {
 
     if (!poi) return;
 
-    // Handle specialized modes first
     if (map.activeMapMode === 'age_of_antiquity') {
         renderHistoricalAnalysis(poi);
         return;
@@ -1149,7 +1276,21 @@ export function renderTacticalDetailPanel(itemId, itemType) {
         `;
     } else if (itemType === 'vigilance') {
         const journey = BATTLE_MAP_DATA.vigilance_journey;
-        const statusText = journey.status || 'Position Held';
+        const statusText = journey.status || 'Arrived at Imperial Capital';
+        const progressPercent = Math.min(100, Math.round((journey.currentDay / journey.totalDays) * 100));
+        
+        let journeyInfoHTML;
+        if (progressPercent >= 100) {
+            journeyInfoHTML = `<div class="tactical-stat"><strong>Journey Progress:</strong> Complete</div>`;
+        } else {
+            const timeRemainingText = journey.daysRemaining > 0 ? `${journey.daysRemaining} days` : 'Arriving soon';
+            journeyInfoHTML = `
+                <div class="tactical-stat"><strong>Journey Progress:</strong> Day ${journey.currentDay} of ${journey.totalDays}
+                    <div class="tooltip-bar-container"><div class="tooltip-bar status-bar-medium" style="width: ${progressPercent}%"></div></div>
+                </div>
+                <p><strong>Time Remaining:</strong> ${timeRemainingText}</p>
+            `;
+        }
 
         html = `
             <div class="tactical-detail-panel">
@@ -1160,11 +1301,11 @@ export function renderTacticalDetailPanel(itemId, itemType) {
                 </p>
                 <div class="tactical-info">
                     <p><strong>Status:</strong> ${statusText}</p>
-                    <div class="tactical-stat"><strong>Position:</strong> Skies above Mighdural</div>
+                    ${journeyInfoHTML}
                 </div>
                 <div class="tactical-objective">
                     <h5>Mission</h5>
-                    <p>Awaiting the opportune moment to confront Emperor Elagabalus. The airship serves as a mobile command center for the party's operations within the capital.</p>
+                    <p>Travel to the heart of the Regal Empire to confront Emperor Elagabalus.</p>
                 </div>
             </div>
         `;
@@ -1195,59 +1336,62 @@ export function renderMapModeLegend() {
     
     switch (map.activeMapMode) {
         case 'political':
-            const visibleFactions = [...new Set(currentPois
-                .map(p => p.factionId)
-                .filter(id => id && FACTION_COLORS[id]))];
+            const provinceDataForLegend = PROVINCE_POLITICS[map.activeMapId];
+            if (provinceDataForLegend && map.activePoliticalSubmode === 'province' && !map.isEditMode) {
+                const visibleFactions = new Set();
+                Object.values(provinceDataForLegend).forEach(province => {
+                    Object.keys(province.control).forEach(factionId => visibleFactions.add(factionId));
+                });
+                const sortedFactions = [...visibleFactions].sort((a, b) => {
+                    const nameA = LORE_DATA.factions[a]?.name || a;
+                    const nameB = LORE_DATA.factions[b]?.name || b;
+                    return nameA.localeCompare(nameB);
+                });
 
-            const sortedFactions = visibleFactions.sort((a, b) => {
-                const factionA = LORE_DATA.factions[a];
-                const factionB = LORE_DATA.factions[b];
-                const nameA = factionA?.name || '';
-                const nameB = factionB?.name || '';
-                return nameA.localeCompare(nameB);
-            });
-
-            legendHTML = `
-                <div class="map-mode-legend">
-                    <h4>Political View</h4>
-                    <p>Locations are colored by their controlling faction. Size indicates political influence.</p>
-                    ${sortedFactions.length > 0 ? `
-                    <ul class="legend-list">
-                        ${sortedFactions.map(factionId => {
-                            const faction = LORE_DATA.factions[factionId];
-                            return `
-                                <li class="legend-item">
-                                    <div class="legend-color-box" style="background-color: ${FACTION_COLORS[factionId]};"></div>
-                                    <span>${faction?.name || 'Unknown Faction'}</span>
-                                </li>
-                            `;
-                        }).join('')}
-                    </ul>
-                    ` : `<p class="panel-placeholder">No politically aligned factions in current view.</p>`}
-                </div>
-            `;
+                legendHTML = `
+                    <div class="map-mode-legend">
+                        <h4>Provincial Control</h4>
+                        <p>Pie charts represent faction control over a province. Size indicates total influence. Click a chart for details.</p>
+                        ${sortedFactions.length > 0 ? `
+                        <ul class="legend-list">
+                            ${sortedFactions.map(factionId => {
+                                const faction = LORE_DATA.factions[factionId];
+                                return `
+                                    <li class="legend-item">
+                                        <div class="legend-color-box" style="background-color: ${FACTION_COLORS[factionId] || '#ccc'};"></div>
+                                        <span>${faction?.name || 'Unknown Faction'}</span>
+                                    </li>
+                                `;
+                            }).join('')}
+                        </ul>
+                        ` : ''}
+                    </div>
+                `;
+            } else {
+                 const visibleFactions = [...new Set(currentPois.map(p => p.factionId).filter(id => id && FACTION_COLORS[id]))];
+                const sortedFactions = visibleFactions.sort((a, b) => (LORE_DATA.factions[a]?.name || '').localeCompare(LORE_DATA.factions[b]?.name || ''));
+                legendHTML = `
+                    <div class="map-mode-legend">
+                        <h4>Political View</h4>
+                        <p>Locations are colored by their controlling faction. Size indicates political influence.</p>
+                        ${sortedFactions.length > 0 ? `<ul class="legend-list">${sortedFactions.map(factionId => `<li class="legend-item"><div class="legend-color-box" style="background-image: url(${LORE_DATA.factions[factionId]?.logo}); background-size: cover;"></div><span>${LORE_DATA.factions[factionId]?.name || 'Unknown'}</span></li>`).join('')}</ul>` : `<p class="panel-placeholder">No politically aligned factions in current view.</p>`}
+                    </div>
+                `;
+            }
             break;
         case 'economic':
             legendHTML = `
                 <div class="map-mode-legend">
                     <h4>Economic View</h4>
-                    <p>Square markers indicate economic centers.</p>
-                    <div class="legend-scale">
-                        <span style="border: 2px solid white; padding: 2px 6px; border-radius: 4px; color: var(--main-bg); font-weight:bold; background: transparent;">#</span>
-                        <span>Number represents Economic Value (1-10)</span>
-                    </div>
+                    <p>Locations are sized by their relative economic value. Higher numbers and larger icons indicate greater economic importance, such as major trade hubs, resource-rich areas, or centers of production.</p>
                 </div>
             `;
             break;
         case 'military':
-            legendHTML = `
+             legendHTML = `
                 <div class="map-mode-legend">
                     <h4>Military View</h4>
-                    <p>Diamond markers indicate military installations.</p>
-                    <div class="legend-scale">
-                        <span style="border: 2px solid white; padding: 4px; transform: rotate(45deg); display: inline-block; margin: 0 8px; color: white; font-weight:bold;">#</span>
-                        <span>Number represents Military Strength (1-10)</span>
-                    </div>
+                    <p>Locations are sized by their relative military strength. Higher numbers and larger icons indicate significant strategic value, such as fortresses, garrisons, or major chokepoints.</p>
                 </div>
             `;
             break;
@@ -1255,73 +1399,95 @@ export function renderMapModeLegend() {
             legendHTML = `
                 <div class="map-mode-legend">
                     <h4>Population Density</h4>
-                    <p>Color indicates estimated population size.</p>
+                    <p>Locations are colored and sized based on estimated population. Larger, warmer-colored circles indicate major population centers.</p>
                     <ul class="legend-list">
-                        <li class="legend-item"><div class="legend-color-box" style="background-color: #4575b4;"></div><span>Sparse (< 50)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background-color: #91bfdb;"></div><span>Village (50-500)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background-color: #e0f3f8;"></div><span>Town (500-2k)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background-color: #fee090;"></div><span>City (2k-5k)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background-color: #fdae61;"></div><span>Major City (5k-10k)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background-color: #f46d43;"></div><span>Metropolis (> 10k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #f46d43;"></div><span>Very High (>10k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #fdae61;"></div><span>High (5k-10k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #fee090;"></div><span>Medium (2k-5k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #e0f3f8;"></div><span>Low (500-2k)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #91bfdb;"></div><span>Very Low (50-500)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background-color: #4575b4;"></div><span>Sparse (1-50)</span></li>
                     </ul>
                 </div>
             `;
             break;
         case 'laws':
-             legendHTML = `
+            legendHTML = `
                 <div class="map-mode-legend">
-                    <h4>Laws & Traditions</h4>
-                    <p>Markers indicate the dominant legal or cultural influence.</p>
-                    <p style="font-size:0.8rem; font-style:italic;">Click a location to view specific traditions.</p>
+                    <h4>Laws & Customs</h4>
+                    <p>Locations are marked with icons representing their dominant cultural sphere. Click any POI for a detailed breakdown of its governing laws and local traditions. Click the map background for regional customs.</p>
+                    <button class="control-btn" onclick="renderer.showTraditionsPopup(null)">View Regional Customs</button>
                 </div>
             `;
             break;
         case 'age_of_antiquity':
-             legendHTML = `
+            legendHTML = `
                 <div class="map-mode-legend">
                     <h4>Age of Antiquity</h4>
-                    <p>Indicates the historical era of the site.</p>
+                    <p>Locations are colored and sized by their historical age. Yellow, larger icons represent ancient or mythic locations, which have a higher chance of containing rare artifacts or secrets.</p>
                     <ul class="legend-list">
-                        <li class="legend-item"><span>🏠</span> <span>Modern / Recent (1-3)</span></li>
-                        <li class="legend-item"><span>🏰</span> <span>Historical / Medieval (4-7)</span></li>
-                        <li class="legend-item"><span>🏺</span> <span>Mythic / Ancient (8-10)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background: linear-gradient(to right, #a8d8ea, #f9f871);"></div><span>Modern to Mythic</span></li>
                     </ul>
-                    <p style="font-size:0.8rem; font-style:italic;">Click a location to view Historical Analysis.</p>
+                    <h5>Icons</h5>
+                    <ul class="legend-list">
+                        <li class="legend-item"><span>🏺 Mythic / Pre-Collapse</span></li>
+                        <li class="legend-item"><span>🏰 Historical / Medieval</span></li>
+                        <li class="legend-item"><span>🏠 Modern / Recent</span></li>
+                    </ul>
                 </div>
             `;
             break;
         case 'crime_rate':
-             legendHTML = `
+            legendHTML = `
                 <div class="map-mode-legend">
-                    <h4>Crime Rate</h4>
-                    <p>Estimated danger level and criminal activity.</p>
+                    <h4>Security Assessment</h4>
+                    <p>Locations are colored by their crime index. Red, larger icons indicate lawless areas with active criminal elements, while blue, smaller icons are safe, well-policed regions.</p>
                     <ul class="legend-list">
-                        <li class="legend-item"><span>🛡️</span> <div class="legend-color-box" style="background-color: #4575b4;"></div><span>Safe (1-3)</span></li>
-                        <li class="legend-item"><span>⚠️</span> <div class="legend-color-box" style="background-color: #fee090;"></div><span>Moderate (4-7)</span></li>
-                        <li class="legend-item"><span>💀</span> <div class="legend-color-box" style="background-color: #d73027;"></div><span>High / Lawless (8+)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background: linear-gradient(to right, #4575b4, #fee090, #d73027);"></div><span>Safe to Lawless</span></li>
                     </ul>
-                    <p style="font-size:0.8rem; font-style:italic;">High danger areas may have active Bounties.</p>
+                    <h5>Icons</h5>
+                    <ul class="legend-list">
+                        <li class="legend-item"><span>💀 Extreme / Lawless</span></li>
+                        <li class="legend-item"><span>⚠️ Medium / Caution</span></li>
+                        <li class="legend-item"><span>🛡️ Low / Safe</span></li>
+                    </ul>
+                </div>
+            `;
+            break;
+        case 'tactical':
+            legendHTML = `
+                <div class="map-mode-legend">
+                    <h4>Tactical Overview</h4>
+                    <p>Displays active military units and fronts. Click any unit for a detailed status report.</p>
+                    <h5>Unit Types</h5>
+                    <ul class="legend-list">
+                        <li class="legend-item"><div class="troop-marker-legend unit-type-main_force"><div class="unit-type-icon">${getUnitIcon('main_force')}</div></div><span>Main Force</span></li>
+                        <li class="legend-item"><div class="troop-marker-legend unit-type-garrison"><div class="unit-type-icon">${getUnitIcon('garrison')}</div></div><span>Garrison</span></li>
+                        <li class="legend-item"><div class="troop-marker-legend unit-type-patrol" style="transform: rotate(45deg);"><div class="unit-type-icon" style="transform: rotate(-45deg);">${getUnitIcon('patrol')}</div></div><span>Patrol</span></li>
+                        <li class="legend-item"><div class="troop-marker-legend unit-type-special_ops"><div class="unit-type-icon">${getUnitIcon('special_ops')}</div></div><span>Special Ops</span></li>
+                        <li class="legend-item"><div class="troop-marker-legend unit-type-ambush"><div class="unit-type-icon">${getUnitIcon('ambush')}</div></div><span>Ambush / Hidden</span></li>
+                    </ul>
+                    <h5>Map Features</h5>
+                    <ul class="legend-list">
+                        <li class="legend-item"><div class="front-line-legend"></div><span>Contested Front Line</span></li>
+                        <li class="legend-item"><div class="patrol-path-legend"></div><span>Patrol Route</span></li>
+                        <li class="legend-item"><div class="vigilance-marker-legend"></div><span>The 'Vigilance'</span></li>
+                        <li class="legend-item"><div class="vigilance-path-legend"></div><span>Vigilance's Path</span></li>
+                    </ul>
                 </div>
             `;
             break;
         case 'party':
             legendHTML = `
                 <div class="map-mode-legend">
-                    <h4>Party Location</h4>
-                    <p>Current known position of key operatives and assets.</p>
+                    <h4>Party Locations</h4>
+                    <p>Shows the last known location of key party members and allies. Click a marker for status.</p>
+                    <h5>Legend</h5>
                     <ul class="legend-list">
-                        <li class="legend-item">
-                            <div class="vigilance-marker-legend"></div>
-                            <span>The Vigilance</span>
-                        </li>
-                        <li class="legend-item">
-                            <div class="party-marker-legend" style="background-image: url('portraits/bowser.png');"></div>
-                            <span>Active Operative</span>
-                        </li>
-                        <li class="legend-item">
-                            <div class="party-marker-legend status-captured" style="background-image: url('portraits/archie.png');"></div>
-                            <span>Captured/MIA</span>
-                        </li>
+                        <li class="legend-item"><div class="party-marker-legend" style="border-color: var(--accent-color);"></div><span>Standard</span></li>
+                        <li class="legend-item"><div class="party-marker-legend" style="border-color: var(--negative-color);"></div><span>Trapped / In Combat</span></li>
+                        <li class="legend-item"><div class="party-marker-legend" style="border-color: var(--text-secondary); filter: grayscale(0.8);"></div><span>Captured / MIA</span></li>
+                        <li class="legend-item"><div class="party-group-marker" style="width: 24px; height: 24px; font-size: 12px; background-color: var(--accent-color); color: white; display:flex; align-items:center; justify-content:center;">#</div><span>Grouped Characters</span></li>
                     </ul>
                 </div>
             `;
@@ -1330,6 +1496,7 @@ export function renderMapModeLegend() {
              legendHTML = `<p class="panel-placeholder">Select a point of interest for details.</p>`;
             break;
     }
+    
     detailPanel.innerHTML = legendHTML;
 }
 

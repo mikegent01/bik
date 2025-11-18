@@ -1,9 +1,21 @@
 
 
 export const PARTY_LOCATIONS = {
-    'midlands_full': [
-        // --- Raventree Manor Group (The "Party" & Allies) ---
-        // Clustered around the manor coordinates (73.5, 12.0)
+  
+    'mushroom_kingdom_full': [
+        // Loyalists
+        { charKey: 'captain_toadette', x: 48.0, y: 38.0, status: 'Commanding' },
+        { charKey: 'embercap', x: 48.2, y: 38.2, status: 'Holding' },
+        { charKey: 'mistveil', x: 47.8, y: 37.8, status: 'Scouting' },
+        { charKey: 'dewdrop', x: 48.1, y: 38.1, status: 'Triage' },
+        
+        // Regency & Villains
+        { charKey: 'chancellor_toadsworth', x: 52.0, y: 24.5, status: 'Governing' },
+        { charKey: 'fawful', x: 50.5, y: 30.9, status: 'Ruling' },
+        { charKey: 'kamek', x: 44.0, y: 28.0, status: 'Scheming' },
+        { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
+    ],
+  'midlands_full': [
         { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Trapped' },
         { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Trapped' },
         { charKey: 'hjumpik', x: 73.8, y: 11.8, status: 'Trapped' },
@@ -38,20 +50,7 @@ export const PARTY_LOCATIONS = {
         { charKey: 'captain_syrup', x: 93.0, y: 52.0, status: 'Docked' }, // Port Noir
         { charKey: 'chief_thornpaw', x: 25.0, y: 15.0, status: 'Meditating' }, // Ironwood
         { charKey: 'alpha_bloodmaw', x: 75.0, y: 86.0, type: 'Hunting' } // Theghdural
-    ],
-    'mushroom_kingdom_full': [
-        // Loyalists
-        { charKey: 'captain_toadette', x: 48.0, y: 38.0, status: 'Commanding' },
-        { charKey: 'embercap', x: 48.2, y: 38.2, status: 'Holding' },
-        { charKey: 'mistveil', x: 47.8, y: 37.8, status: 'Scouting' },
-        { charKey: 'dewdrop', x: 48.1, y: 38.1, status: 'Triage' },
-        
-        // Regency & Villains
-        { charKey: 'chancellor_toadsworth', x: 52.0, y: 24.5, status: 'Governing' },
-        { charKey: 'fawful', x: 50.5, y: 30.9, status: 'Ruling' },
-        { charKey: 'kamek', x: 44.0, y: 28.0, status: 'Scheming' },
-        { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
-    ],
+    ],    
     'yoshi_dk_islands': [
         { charKey: 'donkey_kong', x: 94.0, y: 4.0, status: 'Enraged' },
         { charKey: 'diddy_kong', x: 94.2, y: 4.2, status: 'Mobilizing' },
