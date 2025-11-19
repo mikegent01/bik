@@ -16,53 +16,68 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Regal Empire Standard Calendar</h2>
-                 <div id="calendar-page-layout">
-                    <div id="calendar-main">
-                        <div class="calendar-navigation">
-                            <div class="calendar-nav-group">
-                                <button id="prev-year" class="calendar-nav-btn">&laquo; Year</button>
-                                <button id="prev-month" class="calendar-nav-btn">&lsaquo; Prev</button>
-                            </div>
-                            <h3 id="calendar-header-display">Month, Year</h3>
-                            <div class="calendar-nav-group">
-                                <button id="next-month" class="calendar-nav-btn">Next &rsaquo;</button>
-                                <button id="next-year" class="calendar-nav-btn">Year &raquo;</button>
-                            </div>
+                 <div class="calendar-page-header">
+                    <h2 class="page-title">Imperial Standard Calendar</h2>
+                    <div class="calendar-controls">
+                        <button id="today-btn" class="control-btn">Today</button>
+                        <div class="nav-group">
+                            <button id="prev-year" class="nav-arrow" title="Previous Year">&laquo;</button>
+                            <button id="prev-month" class="nav-arrow" title="Previous Month">&lsaquo;</button>
+                            <h3 id="current-date-display">Month Year</h3>
+                            <button id="next-month" class="nav-arrow" title="Next Month">&rsaquo;</button>
+                            <button id="next-year" class="nav-arrow" title="Next Year">&raquo;</button>
                         </div>
-                         <div id="view-switcher" class="calendar-navigation" style="justify-content: center;">
-                            <button class="view-btn" data-view="yearly">Yearly</button>
-                            <button class="view-btn active" data-view="monthly">Monthly</button>
-                            <button class="view-btn" data-view="weekly">Weekly</button>
-                        </div>
-                        <div id="calendar-view-container">
-                            <div id="calendar-grid-monthly" class="calendar-view active"></div>
-                            <div id="calendar-grid-weekly" class="calendar-view"></div>
-                            <div id="calendar-grid-yearly" class="calendar-view"></div>
-                        </div>
-                        <div id="moons-display"></div>
-                    </div>
-                    <div id="calendar-sidebar">
-                        <div id="holidays-container">
-                            <h3>Holidays</h3>
-                            <ul id="holidays-list"></ul>
-                        </div>
-                        <button id="view-edicts-btn" class="calendar-nav-btn" style="width:100%; margin-top: 16px;">📜 View Active Religious Edicts</button>
                     </div>
                  </div>
-            </main>
-        </div>
-    </div>
 
-    <!-- Edicts Modal -->
-    <div id="edicts-modal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <h3>Active Religious Edicts</h3>
-            <p class="page-subtitle">Current divine mandates enforced by the major faiths.</p>
-            <div id="edicts-modal-list" class="edicts-grid">
-                <!-- Injected via JS -->
-            </div>
+                 <div id="calendar-dashboard">
+                    <div class="calendar-grid-container">
+                        <div class="weekdays-header">
+                            <div>Sol</div>
+                            <div>Lun</div>
+                            <div>Ter</div>
+                            <div>Mer</div>
+                            <div>Jov</div>
+                            <div>Ven</div>
+                            <div>Sat</div>
+                        </div>
+                        <div id="calendar-grid">
+                            <!-- Days injected here -->
+                        </div>
+                    </div>
+
+                    <aside id="calendar-sidebar">
+                        <!-- Selected Day Details -->
+                        <div id="day-detail-card" class="info-card">
+                            <div class="card-header">
+                                <h4 id="selected-date-header">Select a Day</h4>
+                                <span id="selected-date-weather" class="weather-icon-large"></span>
+                            </div>
+                            <div id="selected-day-content">
+                                <p class="placeholder-text">Click a day on the grid to view details, weather reports, and liturgy.</p>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Events -->
+                        <div class="info-card">
+                            <h4 class="section-header">Upcoming Events</h4>
+                            <ul id="upcoming-events-list" class="event-list">
+                                <!-- Injected here -->
+                            </ul>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="info-card legend-card">
+                            <h4 class="section-header">Legend</h4>
+                            <div class="legend-grid">
+                                <div class="legend-item"><span class="dot holiday"></span> Holiday</div>
+                                <div class="legend-item"><span class="dot birthday"></span> Birthday</div>
+                                <div class="legend-item"><span class="dot ritual"></span> Liturgy</div>
+                            </div>
+                        </div>
+                    </aside>
+                 </div>
+            </main>
         </div>
     </div>
 

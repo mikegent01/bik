@@ -1,3 +1,4 @@
+
 // map-data.js
 
 import { BUILDING_TYPES } from './map-data/building-types.js';
@@ -76,6 +77,15 @@ import { mountainSavanaPois } from './map-data/pokemon/mountain_savana.js';
 import { almostEdgeData } from './map-data/almost-edge-pois.js';
 import { theEdgeData } from './map-data/the-edge-pois.js';
 import { animatopiaData } from './map-data/animatopia-pois.js';
+import { connectopiaData } from './map-data/connectopia-pois.js';
+import { earthLandData } from './map-data/earth-land-pois.js';
+import { faerunData } from './map-data/faerun-pois.js';
+import { leclaireIsleData } from './map-data/leclaire-isle-pois.js';
+import { teyvatData } from './map-data/teyvat-pois.js';
+import { equestriaData } from './map-data/equestria-pois.js';
+import { cenerlotData } from './map-data/equestria/Cenerlot.js';
+import { mountEverhoofData } from './map-data/equestria/MountEverhoof.js';
+import { grandCountryData } from './map-data/grand-country-pois.js';
 
 
 // Re-export BUILDING_TYPES so other modules can access it from this central file
@@ -224,7 +234,7 @@ export const MAP_DATA = {
             ...(piantaSeaData.fogOfWar || []),
             ...(yaleShoresData.fogOfWar || []),
         ],
-        poiSourceFile: null 
+        poiSourceFile: null
     },
     mushroom_kingdom: {
         id: 'mushroom_kingdom',
@@ -640,6 +650,7 @@ export const MAP_DATA = {
             ...gondorData.pointsOfInterest,
             ...rhovanionData.pointsOfInterest,
             ...mordorData.pointsOfInterest,
+            ...haradwaithData.pointsOfInterest,
         ],
         fogOfWar: [
             ...middleEarthData.fogOfWar,
@@ -647,6 +658,7 @@ export const MAP_DATA = {
             ...(gondorData.fogOfWar || []),
             ...(rhovanionData.fogOfWar || []),
             ...(mordorData.fogOfWar || []),
+            ...(haradwaithData.fogOfWar || []),
         ],
         poiSourceFile: 'map-data/middle-earth-pois.js'
     },
@@ -1253,4 +1265,100 @@ export const MAP_DATA = {
         fogOfWar: theEdgeData.fogOfWar || [],
         poiSourceFile: 'map-data/the-edge-pois.js'
     },
+    connectopia_full: {
+        id: 'connectopia_full',
+        name: 'Connectopia',
+        imageSrc: 'connectopia.png',
+        order: 1,
+        group: 'Connectopia',
+        pointsOfInterest: connectopiaData.pointsOfInterest,
+        fogOfWar: connectopiaData.fogOfWar || [],
+        poiSourceFile: 'map-data/connectopia-pois.js'
+    },
+    earth_land_full: {
+        id: 'earth_land_full',
+        name: 'Earth Land',
+        imageSrc: 'earth_land.png',
+        order: 1,
+        group: 'Earth Land',
+        pointsOfInterest: earthLandData.pointsOfInterest,
+        fogOfWar: earthLandData.fogOfWar || [],
+        poiSourceFile: 'map-data/earth-land-pois.js'
+    },
+    faerun_full: {
+        id: 'faerun_full',
+        name: 'Faerûn',
+        imageSrc: 'faerun.png',
+        order: 1,
+        group: 'Faerûn',
+        pointsOfInterest: faerunData.pointsOfInterest,
+        fogOfWar: faerunData.fogOfWar || [],
+        poiSourceFile: 'map-data/faerun-pois.js'
+    },
+    leclaire_isle_full: {
+        id: 'leclaire_isle_full',
+        name: 'L\'Eclaire Isle',
+        imageSrc: 'leclaire_isle.png',
+        order: 1,
+        group: 'L\'Eclaire Isle',
+        pointsOfInterest: leclaireIsleData.pointsOfInterest,
+        fogOfWar: leclaireIsleData.fogOfWar || [],
+        poiSourceFile: 'map-data/leclaire-isle-pois.js'
+    },
+    teyvat_full: {
+        id: 'teyvat_full',
+        name: 'Teyvat',
+        imageSrc: 'teyvat.png',
+        order: 1,
+        group: 'Teyvat',
+        pointsOfInterest: teyvatData.pointsOfInterest,
+        fogOfWar: teyvatData.fogOfWar || [],
+        poiSourceFile: 'map-data/teyvat-pois.js'
+    },
+    equestria_full: {
+        id: 'equestria_full',
+        name: 'Equestria',
+        imageSrc: 'equestria.png',
+        order: 1,
+        group: 'Equestria',
+        pointsOfInterest: [
+            ...cenerlotData.pointsOfInterest,
+            ...mountEverhoofData.pointsOfInterest
+        ],
+        fogOfWar: [
+            ...cenerlotData.fogOfWar,
+            ...mountEverhoofData.fogOfWar
+        ],
+        poiSourceFile: 'map-data/equestria-pois.js'
+    },
+    equestria_cenerlot: {
+        id: 'equestria_cenerlot',
+        name: 'Cenerlot (Capital)',
+        imageSrc: 'equestria.png',
+        order: 2,
+        group: 'Equestria',
+        pointsOfInterest: cenerlotData.pointsOfInterest,
+        fogOfWar: cenerlotData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/Cenerlot.js'
+    },
+    equestria_mount_everhoof: {
+        id: 'equestria_mount_everhoof',
+        name: 'Mount Everhoof',
+        imageSrc: 'equestria.png',
+        order: 3,
+        group: 'Equestria',
+        pointsOfInterest: mountEverhoofData.pointsOfInterest,
+        fogOfWar: mountEverhoofData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/MountEverhoof.js'
+    },
+    grand_country_full: {
+        id: 'grand_country_full',
+        name: 'The Grand Country',
+        imageSrc: 'grand_country.png',
+        order: 1,
+        group: 'The Grand Country',
+        pointsOfInterest: grandCountryData.pointsOfInterest,
+        fogOfWar: grandCountryData.fogOfWar || [],
+        poiSourceFile: 'map-data/grand-country-pois.js'
+    }
 };

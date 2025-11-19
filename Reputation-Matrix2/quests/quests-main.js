@@ -1,3 +1,4 @@
+
 export const MAIN_QUESTS = {
     'retrieve_the_staff': {
         id: 'retrieve_the_staff',
@@ -22,8 +23,8 @@ export const MAIN_QUESTS = {
         title: "The Artifacts of Balance",
         type: 'main',
         category: 'Main Story',
-        is_updated: false,
-        objective: "The party must recover the Star of Radiance, but the path is now treacherous. One fragment bearer, The Oracle, has been revealed as the center of a temporal war. After navigating a living maze, Markop's group has discovered a book detailing four identical manors existing in different time periods. The key to confronting the Oracle and securing the Vision Shard lies within this mystery.",
+        is_updated: true,
+        objective: "The Oracle has offered a bargain: Purge the three demons binding Raventree Manor, and he will heal Eager. The party has chosen to prioritize saving their friends in the courtyard from the spiders first, but the demons remain.",
         assignee: "Full Party (Led by Markop)",
         assigneeKey: 'full_party',
         status: "active",
@@ -39,18 +40,18 @@ export const MAIN_QUESTS = {
             },
             {
                 id: 'step1c',
-                title: "Find the Missing Page",
+                title: "The Oracle's Bargain",
                 status: 'active', // This is the new active objective
-                description: "The book of obituaries is the key, but the final, crucial page detailing how to travel between the time-displaced manors has been violently ripped out. The party must now find this missing page to have any hope of navigating the temporal war and confronting the true Oracle.",
+                description: "Archie has returned with a mysterious ticket, and Green T is trapped in a mirror. The Oracle demands the purging of three demons: The Spider, The Mirror Terror, and The Arcane Wrath. The party is currently marching to the courtyard to aid their allies.",
                 options: [
-                    "Interrogate the ghosts within the manor for clues.",
-                    "Search the Oracle's personal chambers for the missing page.",
-                    "Confront Green T, believing he knows more than he has revealed."
+                    "Defeat the Spider Demon in the Courtyard/Greenhouse.",
+                    "Return to the Solarium to face the Mirror Terror and free Green T.",
+                    "Confront the Arcane Wrath in the upper levels."
                 ]
             },
-            { id: 'step1d', title: "Confront the True Oracle", status: 'locked', description: "Once the method of temporal travel is understood, navigate the four manors, win the war for the correct Oracle family, and secure the Vision Shard." },
+            { id: 'step1d', title: "Confront the True Oracle", status: 'locked', description: "Once the demons are purged and Eager is healed, the party must confront the Oracle to claim the Vision Shard." },
             { id: 'step2', title: "The Fire Crystal – The Molten Depths", status: 'locked', description: "The Fire Crystal is hidden deep within a volcanic dungeon, guarded by an ancient fire dragon and its cult." },
-            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient beings." }
+            { id: 'step3', title: "The Mushroom of Life – The Forbidden Grove", status: 'locked', description: "This artifact rests within the heart of a cursed forest that distorts time, protected by ancient guardians who test all who seek it." }
         ],
         finalDecision: { description: "Once all three artifacts are gathered, a choice must be made: use them to restore balance or seize their power for yourself." }
     },

@@ -1,7 +1,7 @@
+
 // This file contains all the core narrative, character, and faction data for the application.
 // It imports data from smaller, more manageable files.
 
-// UPDATED: Now imports from the single, consolidated character file.
 import { CHARACTERS } from './characters-1.js';
 import { MIDLANDS_FACTIONS } from './factions/midlands.js';
 import { MUSHROOM_KINGDOM_FACTIONS } from './factions/mushroom-kingdom.js';
@@ -13,7 +13,7 @@ import { WARHAMMER_FACTIONS } from './factions/warhammer.js';
 import { KIVOTOS_FACTIONS } from './factions/kivotos.js';
 import { SPACE_FACTIONS } from './factions/space.js';
 import { POKEMON_FACTIONS } from './factions/pokemon.js';
-
+import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
 
 import { AUXILIARY_PARTY, RUMORS } from './party-and-events.js';
 import { PARLIAMENT_MEMBERS } from './parliament-members.js';
@@ -40,6 +40,7 @@ const combinedFactions = {
     ...KIVOTOS_FACTIONS,
     ...SPACE_FACTIONS,
     ...POKEMON_FACTIONS,
+    ...EQUESTRIA_FACTIONS, // Added here
 };
 
 // Modify Mushroom Kingdom factions before final export
@@ -49,13 +50,12 @@ if (modifiedMushroomKingdomFactions.liberated_toads) {
         ...modifiedMushroomKingdomFactions.liberated_toads,
         description: "A group of former slaves forged in tragedy. After discovering and freeing 150 more trafficked toads, a catastrophic magical accident killed 13 of the newcomers and gravely injured their leader, Dan. Now bound by a fragile vow and reeling from the discovery of an Iron Legion spy in their midst, they are split by distrust and grief, trying to find a path forward in a world that sees them as pawns.",
         internal_politics: {
-            // UPDATED: Dan is now the ruling faction again after the successful vote.
             ruling_faction: "dan",
             sub_factions: {
                 dan: {
                     name: "Dan, The Cautious Leader",
-                    influence: 35, // Increased influence
-                    status: "Leading with Caution", // UPDATED
+                    influence: 35,
+                    status: "Leading with Caution",
                     description: "Once shattered by tragedy, Dan has found his voice again. His successful counter-proposal for safer, more organized expeditions has re-established his leadership, this time tempered by a deep-seated caution and a fierce desire to prevent any further loss of life.",
                     opinions: {
                         toad_lee: "He stands with me. His strength gives my words weight. Together, we can protect them.",
@@ -72,7 +72,7 @@ if (modifiedMushroomKingdomFactions.liberated_toads) {
                         speaker_l: "His conditions are acceptable, so long as they do not compromise the safety of our people."
                     }
                 },
-                speaker_l: { // ADDED Speaker L as a key sub-faction
+                speaker_l: {
                     name: "Speaker L & The First Cohort",
                     influence: 25,
                     status: "Watchful & Pragmatic",

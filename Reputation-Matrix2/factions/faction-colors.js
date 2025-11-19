@@ -1,3 +1,4 @@
+
 // factions/faction-colors.js
 
 export const FACTION_COLORS = {
@@ -98,10 +99,15 @@ export const FACTION_COLORS = {
     ranger_union: '#4CAF50',
     go_rock_squad: '#795548',
 
-    // New Factions for Animatopia
+    // Animatopia
     animatopia_predator_alliance: '#A52A2A', // Brown-Red
     animatopia_prey_congress: '#228B22',    // Forest Green
     earth_land_federation: '#4682B4',       // Steel Blue
     connectopia_pioneers_guild: '#D2B48C',   // Tan
-    liminal_observers: '#4B0082'            // Indigo
+    liminal_observers: '#4B0082',            // Indigo
+
+    // Equestria (New)
+    equestrian_regime: '#e1bee7', // Lavender/White
+    pony_nobility: '#87CEEB',     // Sky Blue
+    spark_of_rebellion: '#FF4500' // Orange-Red
 };

@@ -4,7 +4,79 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
-    
+        {
+        id: 'bowser_mirror_punch',
+        order: 20405,
+        characterKey: 'bowser',
+        timestamp: 'Just Now',
+        content: `Stupid Green T got himself stuck in a mirror! He's just making fish faces at me from the other side! Tried to pull him out, got slashed by a glass monster. I PUNCHED IT. IT SHATTERED. But the mushroom head is still stuck. Useless!`,
+        likes: 412,
+        comments: [
+            { characterKey: 'kamek', text: "A mirror prison? Troublesome magic, Your Viciousness. Do not gaze too long into it." },
+            { characterKey: 'hjumpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_oracle_rambling',
+        order: 20404,
+        characterKey: 'hjumpik',
+        timestamp: '2 minutes ago',
+        content: `The ghost man (Oracle) talks too much. Bathrooms? Orcs? Mirrors having rules? I stopped listening. We left him talking to the dust. We have Toads to save.`,
+        likes: 289,
+        comments: [
+            { characterKey: 'toad_lee', text: "He is mad. Or he knows everything. I cannot tell which is worse." }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_ghost_fight',
+        order: 20403,
+        characterKey: 'toad_lee',
+        timestamp: '5 minutes ago',
+        content: `Ambushed by spirits in the Piano Room. "Just Desserts," they said. Bowser... he protected us. He caught a ghost's fist and hit it back. He said "Only I smash toads." I do not know if I should be grateful or terrified.`,
+        likes: 560,
+        comments: [
+            { characterKey: 'bowser', text: "Don't get used to it. You're just cannon fodder I haven't used yet." },
+            { characterKey: 'dan', text: "He saved Toadburt too. I saw it." }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_ticket_confusion',
+        order: 20402,
+        characterKey: 'archie',
+        timestamp: '8 minutes ago',
+        content: `I'm back. Don't ask where I was. A ghost just handed me a ticket for "Special Guest Smoken Al". Does anyone know what that means? Also, why did everyone just fall through the ceiling?`,
+        likes: 675,
+        comments: [
+            { characterKey: 'remi', text: "Archie! You're alive! We're heading to the courtyard! The lights are going crazy!" },
+            { characterKey: 'giggling_pete', text: "A ticket to the show! Hee hee! The Jester is watching!" }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_the_choice',
+        order: 20401,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '10 minutes ago',
+        content: `The players have gathered on the stage. The Spider, The Mirror Terror, The Arcane Wrath. Three demons to purge. They have chosen the path of friendship over the path of the mirror. A sentimental choice. Let us see if it kills them.`,
+        likes: 890,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_marching_out',
+        order: 20400,
+        characterKey: 'dan',
+        timestamp: '12 minutes ago',
+        content: `We're all together. Me, Archie, Humpik, Lee... even Bowser. We're going to the greenhouse. To the spiders. We're not leaving anyone behind this time.`,
+        likes: 445,
+        comments: [
+            { characterKey: 'markop', text: "Hold fast, Dan. We are coming." }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
     {
         id: 'steelstorm_operation_retribution',
         order: 30640,

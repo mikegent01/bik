@@ -7,8 +7,6 @@ import { toggleEditMode } from './map-editor.js';
 import { resetTransform } from './map-transform.js';
 import * as transform from './map-transform.js';
 import { PROVINCE_POLITICS } from './politics-data.js';
-import { LORE_DATA } from './lore.js';
-import { FACTION_COLORS } from './factions/faction-colors.js';
 
 const mapControls = document.getElementById('dynamic-map-controls');
 
@@ -49,6 +47,20 @@ export function renderTabs() {
         relevantGroups = ['The Edge Regions'];
     } else if (currentPage === 'the-edge-maps.html') {
         relevantGroups = ['The Edge Regions'];
+    } else if (currentPage === 'connectopia-maps.html') {
+        relevantGroups = ['Connectopia'];
+    } else if (currentPage === 'earth-land-maps.html') {
+        relevantGroups = ['Earth Land'];
+    } else if (currentPage === 'faerun-maps.html') {
+        relevantGroups = ['Faerûn'];
+    } else if (currentPage === 'leclaire-isle-maps.html') {
+        relevantGroups = ['L\'Eclaire Isle'];
+    } else if (currentPage === 'teyvat-maps.html') {
+        relevantGroups = ['Teyvat'];
+    } else if (currentPage === 'equestria-maps.html') {
+        relevantGroups = ['Equestria'];
+    } else if (currentPage === 'grand-country-maps.html') {
+        relevantGroups = ['The Grand Country'];
     } else { // Default, for mushroom-kingdom-maps.html
         relevantGroups = ['Mushroom Kingdom Regions', 'Islands & Outer Realms'];
     }
@@ -87,7 +99,6 @@ export function renderTabs() {
     modeSelector.innerHTML = `
         <span>Mode:</span>
         <button class="mode-btn ${map.activeMapMode === 'standard' ? 'active' : ''}" data-mode="standard">Standard</button>
-        <button class="mode-btn ${map.activeMapMode === 'party' ? 'active' : ''}" data-mode="party">Party</button>
         <button class="mode-btn ${map.activeMapMode === 'political' ? 'active' : ''}" data-mode="political">Political</button>
         <button class="mode-btn ${map.activeMapMode === 'economic' ? 'active' : ''}" data-mode="economic">Economic</button>
         <button class="mode-btn ${map.activeMapMode === 'military' ? 'active' : ''}" data-mode="military">Military</button>
@@ -98,6 +109,22 @@ export function renderTabs() {
         <button class="mode-btn ${map.activeMapMode === 'crime_rate' ? 'active' : ''}" data-mode="crime_rate">Crime Rate</button>
     `;
     mapControls.appendChild(modeSelector);
+
+    // Party Marker Toggle
+    const partyToggleDiv = document.createElement('div');
+    partyToggleDiv.id = 'party-toggle-container';
+    partyToggleDiv.style.marginTop = '12px';
+    partyToggleDiv.style.borderTop = '1px solid var(--border-color)';
+    partyToggleDiv.style.paddingTop = '12px';
+    partyToggleDiv.style.display = 'flex';
+    partyToggleDiv.style.justifyContent = 'center';
+
+    partyToggleDiv.innerHTML = `
+        <button id="toggle-party-btn" class="control-btn ${map.showPartyMarkers ? 'active' : ''}">
+            ${map.showPartyMarkers ? 'Hide Party Markers' : 'Show Party Markers'}
+        </button>
+    `;
+    mapControls.appendChild(partyToggleDiv);
 
     const subModeSelector = document.createElement('div');
     subModeSelector.id = 'political-submode-selector';
@@ -128,6 +155,20 @@ export function setupTabEventListeners() {
                 renderer.renderMap(mapId);
                 renderTabs(); // Re-render to update active state
             }
+            return;
+        }
+
+        // Handle Party Toggle
+        if (e.target.id === 'toggle-party-btn') {
+            playSound('click.mp3');
+            const newState = !map.showPartyMarkers;
+            map.setShowPartyMarkers(newState);
+            
+            e.target.textContent = newState ? 'Hide Party Markers' : 'Show Party Markers';
+            e.target.classList.toggle('active', newState);
+            
+            renderer.refreshPartyMarkers(); // Re-render overlays
+            renderer.renderMapModeLegend(); // Update legend
             return;
         }
 

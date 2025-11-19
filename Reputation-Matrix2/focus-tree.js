@@ -1,3 +1,4 @@
+
 export const TOAD_TIMELINE = [
     {
         day: 1,
@@ -55,6 +56,15 @@ export const TOAD_TIMELINE = [
             { toadKey: 'roger', focus: "Containment Protocol", status: "Ongoing", description: "Roger's rangers have arrived, but half are missing. He has switched from a rescue mission to a containment protocol, viewing the entire situation as a catastrophic failure that must be controlled.", details: "Focus is on damage control and locating missing personnel." },
             { toadKey: 'bones', focus: "Reluctant Siege", status: "Ongoing", description: "Bones is with the Cohort, having voted for the apprehension. However, he is deeply cynical of Speaker L's theatrical methods and the unfolding tragedy, seeing it as another pointless waste of life.", details: "Observing the siege with contempt." },
             { toadKey: 'the_mole', focus: "Mission Success", status: "Completed", description: "The Mole successfully aided Speaker L in locating and cornering Archie, fulfilling his objective. He is now a key figure in the Cohort's command structure during the siege.", details: "Influence with Speaker L has peaked." }
+        ]
+    },
+    {
+        day: 20,
+        events: [
+            { toadKey: 'dan', focus: "The Choice", status: "Active", description: "Awakened by the chaos, Dan joined the party in the Foyer. Faced with the Oracle's bargain—purge the demons to heal Eager, or save the friends outside—he and the party chose their friends. He is marching to the Courtyard.", details: "Status is Active (Shaken)." },
+            { toadKey: 'toad_lee', focus: "Reunited", status: "Active", description: "After nearly falling from the roof, Toad Lee has regrouped with the main party. He helped carry Toadburt to safety and is now preparing to charge the Spiders in the Greenhouse alongside Bowser.", details: "Status is Active (Combat Ready)." },
+            { toadKey: 'eager', focus: "The Bargain", status: "Ongoing", description: "Eager remains critical. The Oracle has promised to heal him if the party clears the Manor of its three demons (Spider, Mirror, Wrath). His fate is tied to their success.", details: "Status is Critical." },
+            { toadKey: 'green_t', focus: "Lost Reflection", status: "Ongoing", description: "Green T was pulled into a mirror by the 'Mirror Terror'. He is currently trapped in the Manor's reflection, MIA.", details: "Status is M.I.A. (Trapped)." }
         ]
     }
 ];

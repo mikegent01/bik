@@ -6,7 +6,6 @@ import * as editor from './map-editor.js';
 import * as transform from './map-transform.js';
 import { playSound } from './common.js';
 import { MAP_DATA } from './map-data.js';
-import { BATTLE_MAP_DATA } from './map-battle-data.js';
 
 // --- STATE ---
 export let activeMapId = 'mushroom_kingdom_full'; // Default value
@@ -15,6 +14,7 @@ export let activePoliticalSubmode = 'poi'; // 'poi' or 'province'
 export let isEditMode = false;
 export let editSessionData = null; // Holds cloned data for an edit session
 export let renderedMapDimensions = { width: 0, height: 0 }; // Authoritative dimensions
+export let showPartyMarkers = true; // Controls visibility of party markers overlay
 
 // --- DOM ELEMENTS ---
 const mapModal = document.getElementById('map-modal');
@@ -41,6 +41,9 @@ export function setEditSessionData(data) {
 }
 export function setRenderedMapDimensions(dimensions) {
     renderedMapDimensions = dimensions;
+}
+export function setShowPartyMarkers(visible) {
+    showPartyMarkers = visible;
 }
 
 
@@ -84,12 +87,25 @@ function init() {
         activeMapId = 'almost_edge_full';
     } else if (currentPage === 'the-edge-maps.html') {
         activeMapId = 'the_edge_full';
+    } else if (currentPage === 'connectopia-maps.html') {
+        activeMapId = 'connectopia_full';
+    } else if (currentPage === 'earth-land-maps.html') {
+        activeMapId = 'earth_land_full';
+    } else if (currentPage === 'faerun-maps.html') {
+        activeMapId = 'faerun_full';
+    } else if (currentPage === 'leclaire-isle-maps.html') {
+        activeMapId = 'leclaire_isle_full';
+    } else if (currentPage === 'teyvat-maps.html') {
+        activeMapId = 'teyvat_full';
+    } else if (currentPage === 'equestria-maps.html') {
+        activeMapId = 'equestria_full';
+    } else if (currentPage === 'grand-country-maps.html') {
+        activeMapId = 'grand_country_full';
     } else {
         activeMapId = 'mushroom_kingdom_full';
     }
 
     loadState();
-    checkAndDiscoverFogs();
     
     ui.renderTabs();
     transform.initPanAndZoom(); // Initialize pan and zoom BEFORE the first render
@@ -102,14 +118,6 @@ function init() {
     if (editMapBtn && state.debugMode) {
         editMapBtn.style.display = 'block';
     }
-}
-
-// --- CORE LOGIC ---
-function checkAndDiscoverFogs() {
-    // This logic can remain here as it modifies global state on load.
-    // In a larger app, this might be part of a 'gameState' service.
-    // For now, this is fine.
-    // ... (logic remains the same)
 }
 
 function findPoiById(poiId) {
@@ -178,7 +186,7 @@ function setupEventListeners() {
                 playSound('click.mp3');
                 renderer.renderTacticalDetailPanel('vigilance', 'vigilance');
             } else if (partyMarker) {
-                if(partyMarker.classList.contains('party-group-marker')) return; // Let group markers handle their own popups
+                if(partyMarker.classList.contains('party-group-marker')) return; 
                 e.preventDefault();
                 e.stopPropagation();
                 playSound('click.mp3');
@@ -200,6 +208,25 @@ function setupEventListeners() {
 
 // Run the application
 const currentPage = window.location.pathname.split('/').pop();
-if (['mushroom-kingdom-maps.html', 'midlands-maps.html', 'internet-maps.html', 'middle-earth-maps.html', 'warhammer-maps.html', 'kivotos-maps.html', 'doughnut-hole-maps.html', 'pokemon-maps.html', 'almost-edge-maps.html', 'the-edge-maps.html', 'animatopia-maps.html'].includes(currentPage)) {
+if ([
+    'mushroom-kingdom-maps.html', 
+    'midlands-maps.html', 
+    'internet-maps.html', 
+    'middle-earth-maps.html', 
+    'warhammer-maps.html', 
+    'kivotos-maps.html', 
+    'doughnut-hole-maps.html', 
+    'pokemon-maps.html', 
+    'almost-edge-maps.html', 
+    'the-edge-maps.html', 
+    'animatopia-maps.html',
+    'connectopia-maps.html',
+    'earth-land-maps.html',
+    'faerun-maps.html',
+    'leclaire-isle-maps.html',
+    'teyvat-maps.html',
+    'equestria-maps.html',
+    'grand-country-maps.html'
+].includes(currentPage)) {
     init();
 }

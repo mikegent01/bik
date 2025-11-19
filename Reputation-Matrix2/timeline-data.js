@@ -1,3 +1,4 @@
+
 export const HISTORICAL_TIMELINE = [
     { type: 'era_header', title: 'Day 1: The Dragon' },
     { date: "1040 IE (1040 BF), Day 1", title: "Dragon Slain", description: "The party defeats the dragon Ignis in the northern mountains, an act praised by militarists but condemned by magical researchers.", icon: "icon_focus.png", category: "Recent Event" },
@@ -42,7 +43,6 @@ export const HISTORICAL_TIMELINE = [
     { date: "1040 IE (1040 BF), Day 16", title: "The Dinner That Broke Time", description: "The liberated toads entered the nearby Shadeward Mansion seeking Archie, but instead found the Oracle. The bizarre, looping dinner was interrupted by a fireball-wielding clone of Archie, a robotic double, and ultimately a full-scale raid by the Iron Legion. Amid the chaos, a toad was captured by the robot, a traitor was revealed, and Wario appeared, claiming to be working with the Legion to investigate the mansion's temporal instability. The toads fought, negotiated, and ultimately escaped, but not before the Oracle delivered a cryptic final message.", icon: "faction_iron_legion.png", category: "Recent Event" },
     { date: "1040 IE (1040 BF), Day 16", title: "Betrayal on the Airship", description: "Returning to the Vigilance, the toads found it overrun by Iron Legion 'Royal Service' members. An intense confrontation erupted, and the rescued toad was taken to the mercenary Creek for emergency surgery. During the operation, an Iron Legion insignia was discovered on the wounded toad, exposing him as a plant and revealing the entire mansion raid was a setup.", icon: "icon_focus.png", category: "Recent Event" },
     {date: "1040 IE (1040 BF), Day 16",title: "The Scavenging Doctrine Vote",description: "A vote was held to determine the Liberated Toads' resource gathering strategy. Archie's proposal for small, high-risk teams was overwhelmingly defeated by Dan's counter-proposal for larger, more cautious expeditions. The vote marks a significant return to influence for Dan and a strategic shift for the faction towards safety and unity.",icon: "icon_treaty.png",category: "Political"}, 
-    {date: "1040 IE (1040 BF), Day 16",title: "The Scavenging Doctrine Vote",description: "A vote was held to determine the Liberated Toads' resource gathering strategy. Archie's proposal for small, high-risk teams was overwhelmingly defeated by Dan's counter-proposal for larger, more cautious expeditions. The vote marks a significant return to influence for Dan and a strategic shift for the faction towards safety and unity.",icon: "icon_treaty.png",category: "Political"},
     { type: 'era_header', title: 'Day 17: The Greenhouse Inferno' },
     { 
         date: "1040 IE (1040 BF), Day 17", 
@@ -72,12 +72,11 @@ export const HISTORICAL_TIMELINE = [
         icon: "icon_war.png", 
         category: "Military" 
     },
-
     { type: 'era_header', title: 'Day 18: The Magus Returns' },
     { 
         date: "1040 IE (1040 BF), Day 18", 
         title: "The Maze of Time", 
-        description: "While others faced a medical crisis, Markop, Green T, and Bowser navigated a living, shifting hedge maze on the manor grounds. They discovered a hidden, abandoned version of the manor, where they were confronted by ghosts and found an obituary for 'The Oracle,' revealing a war between Oracle families across different time periods.", 
+        description: "While others faced a medical crisis, Markop, Green T, and Bowser navigated a living, shifting hedge maze on the manor grounds. They discovered a hidden, abandoned version of the manor, where they were confronted by ghosts and discovered a book of obituaries for 'The Oracle,' revealing a war between Oracle families across different time periods.", 
         icon: "icon_focus.png", 
         category: "Recent Event" 
     },    
@@ -88,22 +87,22 @@ export const HISTORICAL_TIMELINE = [
         icon: "icon_magic.png", 
         category: "Political" 
     },    
-  { 
-        date: "Day 18", 
+    { 
+        date: "1040 IE (1040 BF), Day 18", 
         title: "Standoff at Raventree Manor", 
         description: "The morning after the Greenhouse Inferno, a series of crises unfolded. Dan's attempt to magically heal Eager backfired catastrophically, worsening his condition. As this happened, the Liberated Toads' 'Pond Patrol', led by Speaker L, stormed the manor to apprehend Archie's group for their reckless actions. Archie and Hjumpik barricaded themselves in a room with the wounded Eager and a catatonic Dan, creating a tense siege against their own allies.", 
         icon: "icon_war.png", 
         category: "Recent Event" 
     },
-      { 
-        date: "Day 18", 
+    { 
+        date: "1040 IE (1040 BF), Day 18", 
         title: "The Supernatural Sovereignty Act", 
-        description: "In a stunning display of political power, the Regal Empire pushed its 'Supernatural Sovereignty Act' through the Midlands Diet with an overwhelming majority (81-30). The act declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders, mandating a military containment protocol and setting the stage for a massive, state-sanctioned conflict.", 
+        description: "In a stunning display of political power, the Regal Empire pushed its 'Supernatural Sovereignty Act' through the Midlands Diet with an overwhelming majority of 81-30. The act, proposed by an Imperial delegate, declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders and mandates a military containment protocol, effectively ending any pretense of a truce.", 
         icon: "icon_treaty.png", 
         category: "Political" 
     },    
     { 
-        date: "Day 18", 
+        date: "1040 IE (1040 BF), Day 18", 
         title: "The Kong Bug & Assassination Plot", 
         description: "After a Kremling listening device was found in his office, Donkey Kong confronted King K. Rool in a tense phone call. The call ended with K. Rool issuing a direct assassination order for DK's intelligence chief, Funky Kong, to his agent 'Galypso', shattering the fragile peace and reigniting the war between the two factions.", 
         icon: "faction_dk_crew.png", 
@@ -111,31 +110,39 @@ export const HISTORICAL_TIMELINE = [
     },     
     { type: 'era_header', title: 'Day 19: The Siege of Raventree' },
     { 
-        date: "Day 19", 
+        date: "1040 IE (1040 BF), Day 19", 
         title: "The Cohort's Containment", 
         description: "The Liberated Toads' 'Pond Patrol', led by Speaker L, arrived at Raventree Manor in force. They performed a musical 'March of the Mandate,' declaring the manor under containment and naming Archie, Bowser, Waluigi, and Markop as subjects for apprehension. As the Cohort began sealing the estate, the manor's supernatural energy awakened, manifesting powerful wraiths and trapping the party between two hostile forces.", 
         icon: "icon_war.png", 
         category: "Recent Event" 
     },
     { 
-        date: "Day 19", 
+        date: "1040 IE (1040 BF), Day 19", 
         title: "The Surrender & The Mirror-Thing", 
         description: "The Cohort's siege of the barricaded room reached its climax. After Archie brutally cauterized Eager's wound and murdered a terrified toad witness, Speaker L confronted him. Interrupted by the Oracle, Archie ultimately surrendered. As the Cohort took him into custody, a monstrous entity made of glass and limbs emerged from a shattered mirror, plunging the room into darkness and chaos.", 
         icon: "faction_toad_gang.png", 
         category: "Recent Event" 
     },
     { 
-        date: "Day 19", 
+        date: "1040 IE (1040 BF), Day 19", 
         title: "The House of Hungry Memories", 
         description: "As the Cohort's siege intensified, the manor's supernatural nature fully awakened. Green T was violently pulled into a mirror, and the party was hunted by spectral wraiths. Bowser, Waluigi, and Hjumpik navigated the shifting, treacherous halls, discovering a hidden, intact parlor and battling a mirror-creature. They witnessed Archie's capture from a distance before resolving to fight their way back to the remaining toads.", 
         icon: "icon_magic.png", 
         category: "Recent Event" 
-    },           
- { 
-        date: "Day 20", 
+    },
+    { type: 'era_header', title: 'Day 20: The Ghost & The Choice' },
+    { 
+        date: "1040 IE (1040 BF), Day 20", 
         title: "The Third Eye Escape", 
         description: "Archie Miser escaped Cohort custody with the aid of 'Jerry', a second traitor revealed to be an Iron Legion spy. Archie's escape led him on a surreal journey through a Rakasha relay and a Mindflayer colony, where he found X.O.'s remains, before returning to Raventree. The event shattered the Cohort's containment and revealed the depth of the Iron Legion's infiltration.", 
         icon: "faction_iron_legion.png", 
         category: "Recent Event" 
     },     
+    { 
+        date: "1040 IE (1040 BF), Day 20", 
+        title: "The Performance of Just Desserts", 
+        description: "Trapped in Raventree Manor, the party battled a Poltergeist and spectral actors in the Piano Room. Bowser discovered he could punch ghosts, Hjumpik resorted to headbutts, and Archie returned from a dimensional trip with a mysterious ticket. The Oracle offered a choice: purge the manor's demons to save Eager, or save their friends outside. They chose to march on the Greenhouse.",
+        icon: "icon_war.png", 
+        category: "Recent Event" 
+    },    
 ];

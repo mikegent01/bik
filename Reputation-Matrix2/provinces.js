@@ -1,3 +1,4 @@
+
 // This file defines the provinces for all maps.
 
 export const PROVINCES = {
@@ -92,4 +93,8 @@ export const PROVINCES = {
     kv_abydos: { name: 'Abydos District (New Cairo)', color: '#e69138' },
     kv_srt: { name: 'SRT District (New America)', color: '#6c757d' },
     kv_anomaly: { name: 'Anomaly Zone (S. Aurean Pole)', color: '#8e7cc3' },
+
+    // Equestria
+    eq_cenerlot: { name: 'Cenerlot Capital', color: '#e1bee7' },
+    eq_everhoof: { name: 'Mount Everhoof', color: '#a3d2e3' },
 };

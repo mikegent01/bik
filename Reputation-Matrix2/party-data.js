@@ -1,5 +1,4 @@
 
-
 export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
@@ -16,40 +15,41 @@ export const PARTY_LOCATIONS = {
         { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
     ],
   'midlands_full': [
-        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Trapped' },
-        { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Trapped' },
-        { charKey: 'hjumpik', x: 73.8, y: 11.8, status: 'Trapped' },
-        { charKey: 'markop', x: 73.5, y: 12.4, status: 'Engaged' },
-        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Disoriented' },
-        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Vengeful' },
+        // Raventree Manor Siege Group
+        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Fighting Ghosts' },
+        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Fighting Ghosts' },
+        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Returned' },
+        { charKey: 'markop', x: 73.5, y: 12.4, status: 'Leading Charge' },
+        { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Scheming' },
+        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Defending' },
         
-        // Raventree Residents & Liberated Toads
-        { charKey: 'green_t', x: 73.5, y: 12.0, status: 'Lost in Mirror' },
-        { charKey: 'self_reflection_oracle', x: 73.6, y: 11.9, status: 'Watching' },
-        { charKey: 'dan', x: 73.5, y: 12.1, status: 'Incapacitated' },
-        { charKey: 'eager', x: 73.7, y: 12.3, status: 'Wounded' },
-        { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Defending' },
+        // Casualties & Trapped
+        { charKey: 'green_t', x: 73.5, y: 12.0, status: 'TRAPPED IN MIRROR' },
+        { charKey: 'eager', x: 73.7, y: 12.3, status: 'Critical' },
+        
+        // Liberated Toads
+        { charKey: 'dan', x: 73.5, y: 12.1, status: 'Active' },
+        { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Fighting' },
         { charKey: 'ryan', x: 73.4, y: 12.4, status: 'Casting' },
-        { charKey: 'roger', x: 73.8, y: 12.0, status: 'Fighting' },
-        { charKey: 'speaker_l', x: 73.0, y: 13.0, status: 'Commanding' }, // Outside perimeter
+        { charKey: 'roger', x: 73.8, y: 12.0, status: 'Shooting' },
+        { charKey: 'speaker_l', x: 73.0, y: 13.0, status: 'Besieging' },
 
         // --- Imperial Capital Group ---
         { charKey: 'wario', x: 81.5, y: 4.5, status: 'Scheming' },
-        { charKey: 'purple_t', x: 81.0, y: 4.0, status: 'Defiant' }, // On the Vigilance
-        { charKey: 'lario', x: 87.0, y: 6.0, status: 'Observing' }, // Silent Service HQ
-        { charKey: 'lady_toriel', x: 90.5, y: 8.5, status: 'Diplomacy' }, // Diplomatic Quarter
-        { charKey: 'bones', x: 78.5, y: 2.5, status: 'Interrogated' }, // Aegis Command
-        { charKey: 'the_mole', x: 78.0, y: 3.0, status: 'Debriefing' }, // Aegis Command
+        { charKey: 'lario', x: 87.0, y: 6.0, status: 'Observing' },
+        { charKey: 'lady_toriel', x: 90.5, y: 8.5, status: 'Diplomacy' },
+        { charKey: 'bones', x: 78.5, y: 2.5, status: 'Interrogated' },
+        { charKey: 'the_mole', x: 78.0, y: 3.0, status: 'Debriefing' },
 
         // --- Faction Leaders (Midlands) ---
-        { charKey: 'general_marcus_ironhand', x: 78.5, y: 2.5, status: 'Commanding' }, // Aegis Command
+        { charKey: 'general_marcus_ironhand', x: 78.5, y: 2.5, status: 'Commanding' },
         { charKey: 'colonel_vera_steelstorm', x: 78.5, y: 2.8, status: 'Strategizing' },
-        { charKey: 'lord_crimson', x: 88.5, y: 10.0, status: 'Hosting' }, // Onyx Embassy
-        { charKey: 'high_inquisitor_vale', x: 89.0, y: 14.0, status: 'Praying' }, // Cathedral
-        { charKey: 'archmage_theron', x: 77.0, y: 5.0, status: 'Researching' }, // Mages Guild
-        { charKey: 'captain_syrup', x: 93.0, y: 52.0, status: 'Docked' }, // Port Noir
-        { charKey: 'chief_thornpaw', x: 25.0, y: 15.0, status: 'Meditating' }, // Ironwood
-        { charKey: 'alpha_bloodmaw', x: 75.0, y: 86.0, type: 'Hunting' } // Theghdural
+        { charKey: 'lord_crimson', x: 88.5, y: 10.0, status: 'Hosting' },
+        { charKey: 'high_inquisitor_vale', x: 89.0, y: 14.0, status: 'Praying' },
+        { charKey: 'archmage_theron', x: 77.0, y: 5.0, status: 'Researching' },
+        { charKey: 'captain_syrup', x: 93.0, y: 52.0, status: 'Docked' },
+        { charKey: 'chief_thornpaw', x: 25.0, y: 15.0, status: 'Meditating' },
+        { charKey: 'alpha_bloodmaw', x: 75.0, y: 86.0, status: 'Hunting' }
     ],    
     'yoshi_dk_islands': [
         { charKey: 'donkey_kong', x: 94.0, y: 4.0, status: 'Enraged' },

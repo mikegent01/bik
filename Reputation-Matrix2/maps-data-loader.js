@@ -23,7 +23,8 @@ const WORLD_TO_GROUP = {
     'faerun': 'Faerûn',
     'leclaire_isle': 'L\'Eclaire Isle',
     'teyvat': 'Teyvat',
-    'equestria': 'Equestria'
+    'equestria': 'Equestria',
+    'grand_country': 'The Grand Country'
 };
 
 // Inverse mapping for quest counting (Group Name -> World Key)
