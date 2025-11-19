@@ -358,7 +358,7 @@ function renderChatterWidget() {
 }
 
 function renderAnalysisWidget() {
-    const analysisText = "WAH-HA-HA! A masterpiece! The toads are fighting each other! The Cohort besieges my magnificent new manor, and for what? To capture the three-eyed fool! Pathetic! Meanwhile, my business partner Green T gets eaten by a mirror, and now Bowser and the dwarf are fighting glass monsters! This is high art! The Greenhouse fire was just the opening act for this symphony of stupidity! The Oracle's little house is full of surprises. This is far more entertaining than I could have planned! WAH!";
+    const analysisText = "WAH-HA-HA! The haunted house has turned into a theater! 'Just Desserts'? I love a good show, especially when ghosts get punched in the face! Bowser is smashing spirits, the Dwarf is headbutting them, and the three-eyed bandit came back with a ticket! A TICKET! Magnificent absurdity! But then... they chose to save their little friends outside instead of fighting the big mirror monster? BO-RING! I would have smashed the glass and claimed the prize! But at least there are spiders next. Big, crunchy spiders! WAH!";
     return `
          <div id="analysis-widget" class="dashboard-widget">
             <div class="widget-header">
