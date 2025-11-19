@@ -6,7 +6,7 @@ export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
         {
         id: 'bowser_mirror_punch',
-        order: 20405,
+        order: 306405,
         characterKey: 'bowser',
         timestamp: 'Just Now',
         content: `Stupid Green T got himself stuck in a mirror! He's just making fish faces at me from the other side! Tried to pull him out, got slashed by a glass monster. I PUNCHED IT. IT SHATTERED. But the mushroom head is still stuck. Useless!`,
@@ -19,7 +19,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'humpik_oracle_rambling',
-        order: 20404,
+        order: 306404,
         characterKey: 'hjumpik',
         timestamp: '2 minutes ago',
         content: `The ghost man (Oracle) talks too much. Bathrooms? Orcs? Mirrors having rules? I stopped listening. We left him talking to the dust. We have Toads to save.`,
@@ -31,7 +31,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'toad_lee_ghost_fight',
-        order: 20403,
+        order: 306403,
         characterKey: 'toad_lee',
         timestamp: '5 minutes ago',
         content: `Ambushed by spirits in the Piano Room. "Just Desserts," they said. Bowser... he protected us. He caught a ghost's fist and hit it back. He said "Only I smash toads." I do not know if I should be grateful or terrified.`,
@@ -44,7 +44,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'archie_ticket_confusion',
-        order: 20402,
+        order: 306402,
         characterKey: 'archie',
         timestamp: '8 minutes ago',
         content: `I'm back. Don't ask where I was. A ghost just handed me a ticket for "Special Guest Smoken Al". Does anyone know what that means? Also, why did everyone just fall through the ceiling?`,
@@ -57,7 +57,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'oracle_the_choice',
-        order: 20401,
+        order: 30641,
         characterKey: 'self_reflection_oracle',
         timestamp: '10 minutes ago',
         content: `The players have gathered on the stage. The Spider, The Mirror Terror, The Arcane Wrath. Three demons to purge. They have chosen the path of friendship over the path of the mirror. A sentimental choice. Let us see if it kills them.`,
@@ -67,7 +67,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'dan_marching_out',
-        order: 20400,
+        order: 30640,
         characterKey: 'dan',
         timestamp: '12 minutes ago',
         content: `We're all together. Me, Archie, Humpik, Lee... even Bowser. We're going to the greenhouse. To the spiders. We're not leaving anyone behind this time.`,
