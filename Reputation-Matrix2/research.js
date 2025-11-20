@@ -1,5 +1,6 @@
 
 
+
 import { state, loadState, saveState } from './state.js';
 import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS } from './research-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
@@ -39,18 +40,45 @@ const dynasticContainer = document.getElementById('dynastic-cycle-container');
 // --- Calculations ---
 
 function calculateResearchDate(daysToAdd) {
-    const daysPerMonth = CALENDAR_DATA.months.values[0].days; 
-    const monthsPerYear = 12;
-    const daysPerYear = daysPerMonth * monthsPerYear;
+    const daysPerYear = 365; 
+    const startYear = 1035; 
 
-    let totalDays = ((CURRENT_GAME_DATE.year * daysPerYear) + (CURRENT_GAME_DATE.monthIndex * daysPerMonth) + CURRENT_GAME_DATE.day) + daysToAdd;
+    // Calculate current absolute day
+    let currentAbsoluteDay = 0;
+    currentAbsoluteDay += (CURRENT_GAME_DATE.year - startYear) * daysPerYear;
+    
+    const months = CALENDAR_DATA.months.values;
+    for(let i=0; i<CURRENT_GAME_DATE.monthIndex; i++) {
+        currentAbsoluteDay += months[i].days;
+    }
+    currentAbsoluteDay += (CURRENT_GAME_DATE.day - 1); // Day is 1-indexed
+    
+    // Add research days
+    let targetAbsoluteDay = currentAbsoluteDay + daysToAdd;
+    
+    // Convert back to Game Date
+    const estYearsPassed = Math.floor(targetAbsoluteDay / daysPerYear);
+    const estYear = startYear + estYearsPassed;
+    
+    let remainingDays = targetAbsoluteDay % daysPerYear;
+    let estMonthIndex = 0;
+    let estDay = 0;
+    
+    for (let i = 0; i < months.length; i++) {
+        if (remainingDays < months[i].days) {
+            estMonthIndex = i;
+            estDay = remainingDays + 1; // Back to 1-indexed
+            break;
+        }
+        remainingDays -= months[i].days;
+    }
+    
+    // Safety fallback if loop finishes without assignment (e.g. last day of year)
+    if (estDay === 0) {
+         estDay = remainingDays + 1; 
+    }
 
-    const estYear = Math.floor(totalDays / daysPerYear);
-    const remDaysYear = totalDays % daysPerYear;
-    const estMonthIndex = Math.floor(remDaysYear / daysPerMonth);
-    const estDay = Math.floor(remDaysYear % daysPerMonth);
-
-    const monthName = CALENDAR_DATA.months.values[estMonthIndex]?.name || "Unknown";
+    const monthName = months[estMonthIndex]?.name || "Unknown";
     
     return `${monthName} ${estDay}, ${estYear} BF`;
 }
@@ -278,18 +306,16 @@ function drawDynasticWheel(momentum) {
     ctx.clearRect(0,0,width,height);
 
     // Draw the wheel static - Tension (index 3) at top
-    // Array: Calm(0), Res(1), Exp(2), Ten(3), Con(4), Cri(5), Reb(6)
-    // Tension is index 3. We want index 3 at -PI/2.
-    // Angle = (i * arcSize) + offset.
-    // (3 * arcSize) + offset = -PI/2.
-    // offset = -PI/2 - (3 * arcSize).
-    
-    const rotationOffset = -Math.PI / 2 - (3 * arcSize);
+    // Slice 0 (Calm) at right side, rotate so 3 is at -PI/2.
+    // 0 is at angle 0. 3 is at 3 * arcSize.
+    // Rotation = -PI/2 - (3.5 * arcSize) to center slice 3 at top.
+    const rotationOffset = -Math.PI / 2 - (3.5 * arcSize);
     
     phases.forEach((phase, i) => {
         const startAngle = (i * arcSize) + rotationOffset;
         const endAngle = ((i + 1) * arcSize) + rotationOffset;
         
+        // Slice
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.arc(cx, cy, radius, startAngle, endAngle);
@@ -301,34 +327,40 @@ function drawDynasticWheel(momentum) {
         ctx.lineWidth = 4;
         ctx.stroke();
         
-        // Label
+        // Slice Label (Rotated)
         const textAngle = startAngle + (arcSize / 2);
-        const textX = cx + Math.cos(textAngle) * (radius * 0.7);
-        const textY = cy + Math.sin(textAngle) * (radius * 0.7);
+        const textDist = radius * 0.7;
+        const textX = cx + Math.cos(textAngle) * textDist;
+        const textY = cy + Math.sin(textAngle) * textDist;
         
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 12px Orbitron';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
         ctx.save();
         ctx.translate(textX, textY);
-        ctx.fillText(phase.name.replace('Cycle of ', ''), 0, 0);
+        
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 11px "Roboto Mono"';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'black';
+        ctx.shadowBlur = 4;
+        
+        const nameParts = phase.name.replace('Cycle of ', '').split(' ');
+        nameParts.forEach((part, idx) => {
+            ctx.fillText(part, 0, (idx - (nameParts.length-1)/2) * 12);
+        });
+        
         ctx.restore();
     });
     
-    // Draw Needle based on Momentum
-    // Momentum ranges roughly -6 to +6 in current logic.
-    // Map this to angle. 
-    // Tension (0) is at Top (-PI/2).
-    // Conflict (1) is +1 step clockwise.
-    // Step angle = arcSize.
-    // Angle = -PI/2 + (Momentum * arcSize).
+    // Draw Needle dynamically pointing to the ACTIVE PHASE
+    // Instead of mapping raw momentum which can drift, we point to the center of the current active slice.
+    // 1. Find index of current active phase
+    const activePhaseId = globalCycleState.phase.id;
+    const activeIndex = phases.findIndex(p => p.id === activePhaseId);
     
-    // Clamp momentum visually to avoid spinning too much if it gets huge
-    // Let's clamp between -3.5 and 3.5 to stay within the 7 slices
-    const clampedMomentum = Math.max(-3.5, Math.min(3.5, momentum));
-    const needleAngle = -Math.PI / 2 + (clampedMomentum * arcSize);
-    
+    // 2. Calculate angle to center of that slice
+    // Angle = (index * arcSize) + rotationOffset + (arcSize / 2)
+    const needleAngle = (activeIndex * arcSize) + rotationOffset + (arcSize / 2);
+
     // Needle
     const needleLen = radius - 20;
     const nx = cx + Math.cos(needleAngle) * needleLen;

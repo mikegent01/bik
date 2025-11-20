@@ -1,4 +1,5 @@
 
+
 import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from './lore.js';
@@ -85,12 +86,12 @@ export const CYCLE_PHASES = [
 
 // Initial "Base" Offsets (still used for starting positions)
 const NATION_OFFSETS = {
-    kivotos: { base: 3000 },
-    internet: { base: 2800 },
-    midlands: { base: 1200 },
-    warhammer: { base: 1100 },
-    pokemon: { base: 1500 },
-    doughnut_hole: { base: 3500 },
+    kivotos: { base: 2500 },
+    internet: { base: 2000 },
+    midlands: { base: 400 },
+    warhammer: { base: 700 },
+    pokemon: { base: 1000 },
+    doughnut_hole: { base: 3000 },
     teyvat: { base: 600 },
     mushroom_kingdom: { base: 100 },
     leclaire_isle: { base: 400 },
@@ -232,15 +233,19 @@ export function calculateGlobalCycle(allPosts) {
     }
 
     // 3. Determine Active Phase based on Momentum
-    let activePhaseIndex = naturalPhaseIndex;
+    // The natural cycle is the baseline, but momentum shifts it.
+    // Mapping momentum to cycle index shift.
+    // Total Momentum range roughly -10 to +10.
+    // Shift: +1 phase per ~1.5 momentum points?
     
-    // Thresholds for overriding the natural cycle
-    if (totalMomentum > 5) activePhaseIndex = 5; // Crisis
-    else if (totalMomentum > 2) activePhaseIndex = 4; // Conflict
-    else if (totalMomentum > 0.5) activePhaseIndex = 3; // Tension
-    else if (totalMomentum < -5) activePhaseIndex = 0; // Calm
-    else if (totalMomentum < -2) activePhaseIndex = 1; // Research
-    else if (totalMomentum < -0.5) activePhaseIndex = 2; // Expansion
+    let shift = Math.round(totalMomentum / 1.5);
+    let activePhaseIndex = (naturalPhaseIndex + shift) % 7;
+    if (activePhaseIndex < 0) activePhaseIndex += 7;
+    
+    // Clamp extreme momentum to Crisis (5) or Calm (0) if it exceeds normal bounds?
+    // Actually, let's allow it to wrap or stick. Sticking feels more impactful for "Crisis".
+    if (totalMomentum > 6) activePhaseIndex = 5; // Force Crisis
+    else if (totalMomentum < -6) activePhaseIndex = 0; // Force Calm
     
     const activePhase = CYCLE_PHASES[activePhaseIndex];
 
@@ -281,7 +286,10 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
     let daysConsumed = 0;
 
     const flavorSource = RESEARCH_FLAVOR[nationKey] || RESEARCH_FLAVOR.default;
-    const categoryFlavor = flavorSource[category] || RESEARCH_FLAVOR.default[category];
+    const defaultFlavor = RESEARCH_FLAVOR.default[category]; // Get default specifically for this category
+
+    // Try to get the specific nation's category flavor, but it might be empty/undefined
+    const specificCategoryFlavor = flavorSource[category]; 
 
     const isCompletedInState = (id) => {
         if (!researchState || !researchState[nationKey]) return false;
@@ -302,8 +310,19 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
             let nodeDesc = "Details unavailable.";
             let nodeEffect = "Unknown Effect";
 
-            if (categoryFlavor && categoryFlavor[tier] && categoryFlavor[tier][node-1]) {
-                const data = categoryFlavor[tier][node-1];
+            // ROBUST DATA FALLBACK LOGIC
+            let data = null;
+            
+            // 1. Try specific nation data for this tier and node
+            if (specificCategoryFlavor && specificCategoryFlavor[tier] && specificCategoryFlavor[tier][node-1]) {
+                data = specificCategoryFlavor[tier][node-1];
+            } 
+            // 2. Fallback to default (Midlands) data for this tier and node
+            else if (defaultFlavor && defaultFlavor[tier] && defaultFlavor[tier][node-1]) {
+                data = defaultFlavor[tier][node-1];
+            }
+
+            if (data) {
                 nodeName = data.name;
                 nodeDesc = data.desc;
                 nodeEffect = data.effect;
@@ -317,9 +336,6 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
                 progress = 100;
             } else {
                 // Simulate progress based on accumulated "Research Days"
-                // We treat 'effectiveDays' as the resource pool.
-                // Each node consumes 'realCost' days from the pool.
-                
                 if (effectiveDays >= daysConsumed + realCost) {
                     status = 'completed';
                     progress = 100;
@@ -334,7 +350,6 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
                     // Check if previous node is done
                     const prevNodeId = node > 1 ? `${category.toLowerCase()}_t${tier}_n${node-1}` : `${category.toLowerCase()}_t${tier-1}_n5`;
                     if (tree[prevNodeId] && tree[prevNodeId].status === 'completed') {
-                        // Only available if we have 'paid' for previous nodes
                         if (effectiveDays >= daysConsumed) { status = 'available'; } 
                         else { status = 'locked'; }
                     }
