@@ -1,5 +1,3 @@
-
-
 import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from './lore.js';
@@ -86,12 +84,12 @@ export const CYCLE_PHASES = [
 
 // Initial "Base" Offsets (still used for starting positions)
 const NATION_OFFSETS = {
-    kivotos: { base: 2500 },
-    internet: { base: 2000 },
-    midlands: { base: 400 },
-    warhammer: { base: 700 },
-    pokemon: { base: 1000 },
-    doughnut_hole: { base: 3000 },
+    kivotos: { base: 3000 },
+    internet: { base: 2800 },
+    midlands: { base: 1200 },
+    warhammer: { base: 1100 },
+    pokemon: { base: 1500 },
+    doughnut_hole: { base: 3500 },
     teyvat: { base: 600 },
     mushroom_kingdom: { base: 100 },
     leclaire_isle: { base: 400 },
@@ -136,6 +134,16 @@ export const AGE_CHOICES = {
         { id: 'path_annihilation', type: 'military', name: "Planet Killers", effect: "Orbital Strike Available, Fleet Power +30%", flavor: "Dominance through superior firepower." },
         { id: 'path_ascension', type: 'magic', name: "Cosmic Ascension", effect: "Reality Warping Enabled, Mortality -100%", flavor: "Becoming beings of pure energy." }
     ]
+};
+
+// Defines how much each Social Estate benefits from specific Research Categories (0-1 scale)
+export const RESEARCH_TO_ESTATE_MAPPING = {
+    WEAPONS: { nobility: 0.9, commoners: 0.2, slaves: 0.0 },
+    MAGIC: { clergy: 1.0, nobility: 0.3, indentured: 0.1 },
+    TECH: { burghers: 0.9, indentured: 0.4, nobility: 0.2 },
+    MEDICAL: { clergy: 0.7, commoners: 0.5, burghers: 0.5 },
+    ECONOMIC: { burghers: 1.0, nobility: 0.6, commoners: 0.2 },
+    POLITICAL: { nobility: 1.0, clergy: 0.8, burghers: 0.4 }
 };
 
 export function getAbsoluteDay() {
@@ -257,6 +265,29 @@ export function calculateGlobalCycle(allPosts) {
     };
 }
 
+export function getGlobalTechAverages() {
+    const averages = {};
+    const currentDay = getAbsoluteDay();
+
+    RESEARCH_CATEGORIES.forEach(cat => {
+        let totalTier = 0;
+        let count = 0;
+        Object.keys(NATIONS).forEach(key => {
+            const nationConfig = NATION_OFFSETS[key] || { base: 0 };
+            const effectiveDays = currentDay + nationConfig.base;
+            const avgTier = Math.floor(effectiveDays / DAYS_PER_TIER) + 1;
+            // Adjust tier slightly based on slot type (Primary gets boost)
+            let mod = 0;
+            if (NATIONS[key].slots.primary === cat) mod = 1.5;
+            else if (NATIONS[key].slots.major.includes(cat)) mod = 0.5;
+            
+            totalTier += Math.min(10, Math.max(1, avgTier + mod));
+            count++;
+        });
+        averages[cat] = totalTier / count;
+    });
+    return averages;
+}
 
 export function getTechTree(nationKey, category, researchState, globalCycle) {
     const tree = {};

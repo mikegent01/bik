@@ -2,6 +2,7 @@
 // species-workforce.js
 
 import { SPECIES_DATA } from './species-data.js';
+import { RESEARCH_CATEGORIES, RESEARCH_TO_ESTATE_MAPPING } from './research-data.js';
 
 // Define Labor Categories
 export const LABOR_CATEGORIES = [
@@ -46,6 +47,49 @@ export function getBiasForSpecies(key) {
     if (key.includes('kivotos')) return LABOR_BIAS.kivotos;
     if (key.includes('netizen') || key.includes('bot')) return LABOR_BIAS.internet;
     return LABOR_BIAS.default;
+}
+
+/**
+ * Calculates tech access scores. If specificCategory is null/undefined/aggregate, averages all.
+ * Otherwise, returns score for that specific category.
+ */
+export function calculateTechAccessByEstate(globalTechAverages, specificCategory = 'aggregate') {
+    const estateAccess = {
+        nobility: 0, clergy: 0, burghers: 0, commoners: 0, indentured: 0, slaves: 0
+    };
+
+    // Specific Category Calculation
+    if (specificCategory !== 'aggregate' && RESEARCH_CATEGORIES.includes(specificCategory)) {
+        const techLevel = globalTechAverages[specificCategory]; // 1 to 10
+        
+        Object.keys(estateAccess).forEach(estateKey => {
+            const accessFactor = RESEARCH_TO_ESTATE_MAPPING[specificCategory]?.[estateKey] || 0.1;
+            // Direct score for this category
+            // Scaling: Level (1-10) * Factor (0-1) * 10 to get a 0-100 scale feel on chart
+            estateAccess[estateKey] = techLevel * accessFactor * 2; 
+        });
+        
+        return estateAccess;
+    }
+
+    // Aggregate Calculation (Average of all)
+    Object.keys(estateAccess).forEach(estateKey => {
+        let totalScore = 0;
+        let count = 0;
+
+        RESEARCH_CATEGORIES.forEach(cat => {
+            const techLevel = globalTechAverages[cat]; // 1 to 10
+            const accessFactor = RESEARCH_TO_ESTATE_MAPPING[cat]?.[estateKey] || 0.1; // Default low access
+
+            totalScore += (techLevel * accessFactor);
+            count++;
+        });
+        
+        // Normalize to approx 0-10 scale for display
+        estateAccess[estateKey] = (totalScore / count) * 2; 
+    });
+
+    return estateAccess;
 }
 
 export function renderWorkforceData(data) {

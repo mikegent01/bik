@@ -2,8 +2,9 @@
 import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
-import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES } from './species-workforce.js';
+import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from './species-workforce.js';
 import { RELIGION_DATA } from './religion-data.js';
+import { getGlobalTechAverages, RESEARCH_CATEGORIES } from './research-data.js';
 
 // Define Player Races for Relationship Context
 const PLAYER_RACE_LABELS = {
@@ -200,6 +201,99 @@ function renderCharts(data) {
     }
 }
 
+// -- Tech Access by Social Class (Radar Chart) --
+function renderTechAccessChart(category = 'aggregate') {
+    const techAccessCtx = document.getElementById('tech-access-chart');
+    if (!techAccessCtx) return;
+
+    const existingChart = Chart.getChart(techAccessCtx);
+    if (existingChart) existingChart.destroy();
+
+    const globalTech = getGlobalTechAverages();
+    const estateAccess = calculateTechAccessByEstate(globalTech, category);
+    
+    // Format keys for display (nobility -> Nobility)
+    const labels = Object.keys(estateAccess).map(k => k.charAt(0).toUpperCase() + k.slice(1));
+    const dataValues = Object.values(estateAccess);
+
+    // Color logic based on category
+    let color = '#58a6ff'; // Default Blue
+    if (category === 'WEAPONS') color = '#f85149'; // Red
+    if (category === 'MAGIC') color = '#a371f7'; // Purple
+    if (category === 'ECONOMIC') color = '#e3b341'; // Gold
+
+    new Chart(techAccessCtx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: `${category === 'aggregate' ? 'Overall' : category} Access Score`,
+                data: dataValues,
+                backgroundColor: color + '33', // Add transparency
+                borderColor: color,
+                pointBackgroundColor: color,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: color
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: '#30363d' },
+                    grid: { color: '#30363d' },
+                    pointLabels: { color: '#e6edf3', font: { size: 12, family: "'Orbitron', sans-serif" } },
+                    ticks: { display: false, backdropColor: 'transparent' }, // Hide numbers background
+                    min: 0,
+                }
+            },
+            plugins: {
+                legend: { display: true, labels: { color: '#e6edf3' } },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Access Score: ${context.raw.toFixed(1)}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function setupTechSelector() {
+    const selector = document.getElementById('tech-access-filter');
+    if (!selector) return;
+
+    // Clear existing options (except first)
+    selector.innerHTML = '<option value="aggregate">Aggregate (All Tech)</option>';
+
+    // Add categories
+    RESEARCH_CATEGORIES.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat.charAt(0) + cat.slice(1).toLowerCase();
+        selector.appendChild(option);
+    });
+
+    // Listener
+    selector.addEventListener('change', (e) => {
+        renderTechAccessChart(e.target.value);
+        
+        // Update description text
+        const desc = document.getElementById('tech-access-desc');
+        if(desc) {
+            if(e.target.value === 'aggregate') {
+                desc.textContent = "Analysis of how advanced technology permeates different strata of society overall.";
+            } else {
+                desc.textContent = `Breakdown of access to ${e.target.value} technology specifically.`;
+            }
+        }
+    });
+}
+
 function renderSpeciesList(data) {
     const container = document.getElementById('species-grid-container');
     if (!container) return;
@@ -380,6 +474,10 @@ function init() {
     
     // New: Render Workforce Analysis
     renderWorkforceData(data);
+    
+    // New: Init Tech Selector and Chart
+    setupTechSelector();
+    renderTechAccessChart('aggregate'); // Default view
 }
 
 // Wait for DOM and Chart.js
