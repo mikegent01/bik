@@ -1,10 +1,7 @@
-
-
-
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
-    day: 19
+    day: 20
 };
 
 
@@ -80,17 +77,22 @@ export const CALENDAR_DATA = {
       { "name": "Zootopian Founders' Day", "month": 1, "day": 25, "description": "Zootopia celebrates equality.", "traditions": "Community Service." },
       { "name": "Midlands' King's Coronation", "month": 2, "day": 5, "description": "King Alaric's ascent.", "traditions": "Feasts, Warding." },
       { "name": "First Bloom Festival", "month": 3, "day": 1, "description": "First signs of spring.", "traditions": "Planting." },
+      { "name": "The Feast of the Silver Flame", "month": 3, "day": 15, "description": "Religious holiday of the Order of the Silver Flame celebrating purity and light.", "traditions": "Lighting bonfires, fasting." },
       { "name": "Aurean Glitch Day", "month": 4, "day": 4, "description": "Celebrated by rebel hackers.", "traditions": "Digital mischief." },
       { "name": "Victory at Cerulean Pass", "month": 5, "day": 5, "description": "Decisive ancient battle.", "traditions": "Bonfires." },
+      { "name": "The Great Gear Grind", "month": 5, "day": 20, "description": "Machine Orthodoxy celebration of industry and mechanism.", "traditions": "Oiling machinery, binary chanting." },
       { "name": "Efferd's Sun Zenith", "month": 6, "day": 21, "description": "Summer Solstice.", "traditions": "Feasts, Bonfires." },
       { "name": "Wario's Remembrance", "month": 6, "day": 25, "description": "Anniversary of Wario's supposed death.", "traditions": "Hiding valuables." },
       { "name": "Admin Zero's Protocol Day", "month": 7, "day": 7, "description": "System diagnostics.", "traditions": "Data-cleaning." },
       { "name": "Celestia's Iron Hoof Day", "month": 7, "day": 15, "description": "Celebration of Celestia's rule.", "traditions": "Military Parades." },
+      { "name": "Starfall Eve", "month": 8, "day": 12, "description": "A night when the Star Spirits are closest to the world.", "traditions": "Wishing on stars, staying awake until dawn." },
       { "name": "Peach's Starfall Lament", "month": 9, "day": 20, "description": "Mourning for Princess Peach.", "traditions": "Lanterns." },
       { "name": "Blood Moon Hunt", "month": 10, "day": 13, "description": "Folkloric monster hunting day.", "traditions": "Lock-ins." },
+      { "name": "Night of the Howl", "month": 10, "day": 28, "description": "Sacred night for the Moonfang Pack celebrating the primal hunt.", "traditions": "Howling at the moon, raw meat feasts." },
       { "name": "Warding Night", "month": 10, "day": 30, "description": "Reinforcing wards against dark creatures.", "traditions": "Salt lines." },
       { "name": "Remembrance of the First Guard", "month": 11, "day": 11, "description": "Honoring fallen soldiers.", "traditions": "Memorial visits." },
       { "name": "Winter's Veil Ball", "month": 12, "day": 20, "description": "Grand ball in the Capital.", "traditions": "Dancing." },
+      { "name": "The Day of Silence", "month": 12, "day": 21, "description": "A solemn day for followers of the Cosmic Void/Nihilism.", "traditions": "Total silence, fasting." },
       { "name": "Doughnut Hole Festival", "month": 12, "day": 30, "description": "Celebrating the world's topology.", "traditions": "Doughnut cakes." }
     ]
   }

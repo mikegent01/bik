@@ -1,7 +1,10 @@
 
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
 import { RELIGION_DATA } from './religion-data.js';
+import { HISTORICAL_TIMELINE } from './timeline-data.js';
 import { playSound } from './common.js';
+import { state } from './state.js'; // Needed to check research state
+import { getTechTree, NATIONS } from './research-data.js';
 
 // --- State ---
 let viewDate = {
@@ -18,6 +21,8 @@ const dayDetailContent = document.getElementById('selected-day-content');
 const selectedDateHeader = document.getElementById('selected-date-header');
 const selectedDateWeather = document.getElementById('selected-date-weather');
 const upcomingList = document.getElementById('upcoming-events-list');
+const searchInput = document.getElementById('calendar-search-input');
+const searchResults = document.getElementById('calendar-search-results');
 
 // --- Helpers ---
 function getSeededRandom(seed) {
@@ -27,34 +32,164 @@ function getSeededRandom(seed) {
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
 }
 
-function generateWeather(year, monthIndex, day) {
-    const monthData = CALENDAR_DATA.months.values[monthIndex];
-    const season = CALENDAR_DATA.seasons.values.find(s => {
-        const start = s.monthStart - 1;
-        const end = s.monthEnd - 1;
-        return (start <= end) ? (monthIndex >= start && monthIndex <= end) : (monthIndex >= start || monthIndex <= end);
+function getSeason(monthIndex) {
+    return CALENDAR_DATA.seasons.values.find(s => {
+        const startMonth = s.monthStart - 1;
+        const endMonth = s.monthEnd - 1;
+        if (startMonth <= endMonth) {
+            return monthIndex >= startMonth && monthIndex <= endMonth;
+        } else { // Handle winter wrapping around the year
+            return monthIndex >= startMonth || monthIndex <= endMonth;
+        }
     });
+}
+
+function generateWeatherForDay(year, monthIndex, day) {
+    const season = getSeason(monthIndex);
 
     const seed = year * 10000 + (monthIndex + 1) * 100 + day;
     const rand = getSeededRandom(seed);
+    const tempRand = getSeededRandom(seed + 1);
     
-    if (getSeededRandom(seed + 2) < 0.1 && MAGICAL_WEATHER_EVENTS.length > 0) {
+    // Magical weather check (e.g., 8% chance)
+    if (getSeededRandom(seed + 2) < 0.08 && MAGICAL_WEATHER_EVENTS.length > 0) {
         const magicalIndex = Math.floor(getSeededRandom(seed + 3) * MAGICAL_WEATHER_EVENTS.length);
-        return { ...MAGICAL_WEATHER_EVENTS[magicalIndex], isMagical: true, temp: "??°" };
+        const magicalEvent = MAGICAL_WEATHER_EVENTS[magicalIndex];
+        return {
+            temp: `??°C`,
+            icon: magicalEvent.icon,
+            desc: magicalEvent.name,
+            isMagical: true
+        };
     }
 
-    let icons = ['☀️', '🌤️', '☁️', '🌦️', '🌧️'];
-    if (season.name.includes('Winter')) icons = ['❄️', '🌨️', '☁️', '🥶', '☀️'];
-    if (season.name.includes('Summer')) icons = ['☀️', '☀️', '🌤️', '⛈️', '☁️'];
+    let baseTemp, tempVariation, weatherOptions;
+
+    switch (season.name) {
+        case 'Golden Summer':
+            baseTemp = 24;
+            tempVariation = 10;
+            weatherOptions = [
+                { icon: '☀️', desc: 'Clear and Sunny', chance: 0.6 },
+                { icon: '🌤️', desc: 'Partly Cloudy', chance: 0.2 },
+                { icon: '☁️', desc: 'Overcast', chance: 0.1 },
+                { icon: '🌦️', desc: 'Scattered Showers', chance: 0.07 },
+                { icon: '⛈️', desc: 'Afternoon Thunderstorm', chance: 0.03 }
+            ];
+            break;
+        case 'Hoarfrost Winter':
+            baseTemp = -5;
+            tempVariation = 8;
+             weatherOptions = [
+                { icon: '❄️', desc: 'Light Snowfall', chance: 0.4 },
+                { icon: '🥶', desc: 'Bitterly Cold', chance: 0.3 },
+                { icon: '☁️', desc: 'Grey and Overcast', chance: 0.2 },
+                { icon: '☀️', desc: 'Crisp and Clear', chance: 0.1 }
+            ];
+            break;
+        default: // Spring & Fall
+            baseTemp = 12;
+            tempVariation = 12;
+             weatherOptions = [
+                { icon: '🌤️', desc: 'Mild and Pleasant', chance: 0.4 },
+                { icon: '☁️', desc: 'Cloudy Skies', chance: 0.25 },
+                { icon: '🌦️', desc: 'Light Showers', chance: 0.2 },
+                { icon: '💨', desc: 'Windy', chance: 0.15 }
+            ];
+            break;
+    }
+
+    const temperature = Math.floor(baseTemp + (tempRand * tempVariation) - (tempVariation / 2));
     
-    const icon = icons[Math.floor(rand * icons.length)];
-    const baseTemp = season.name.includes('Winter') ? -5 : (season.name.includes('Summer') ? 25 : 15);
-    const temp = Math.floor(baseTemp + (getSeededRandom(seed+1) * 10) - 5);
-    
-    return { icon, temp: `${temp}°`, desc: "Normal", isMagical: false };
+    let cumulativeChance = 0;
+    const chosenWeather = weatherOptions.find(w => {
+        cumulativeChance += w.chance;
+        return rand <= cumulativeChance;
+    }) || weatherOptions[0];
+
+    return {
+        temp: `${temperature}°C`,
+        ...chosenWeather
+    };
 }
 
-function getEventsForDay(monthIndex, day) {
+/**
+ * Calculates the completion date for an active research project.
+ */
+function getResearchEventsForDay(year, monthIndex, day) {
+    const events = [];
+    if (!state || !state.researchState) return events;
+
+    // Constants from research logic
+    const SIMULATION_START_YEAR = 1035;
+    const daysPerMonth = 30; 
+    const daysPerYear = daysPerMonth * 12;
+
+    // Calculate target day's absolute value
+    const targetAbsoluteDay = ((year - SIMULATION_START_YEAR) * daysPerYear) + (monthIndex * daysPerMonth) + day;
+
+    for (const nationKey in state.researchState) {
+        const nationState = state.researchState[nationKey];
+        const categories = ['WEAPONS', 'MAGIC', 'TECH']; 
+        categories.forEach(cat => {
+             const tree = getTechTree(nationKey, cat, state.researchState);
+             Object.values(tree).forEach(node => {
+                 if (node.status === 'researching') {
+                     // Deterministic finish date based on node ID to simulate a fixed deadline
+                     // Hash the ID to get a day offset from start year
+                     let hash = 0;
+                     for (let i = 0; i < node.id.length; i++) hash = node.id.charCodeAt(i) + ((hash << 5) - hash);
+                     const finishDay = Math.abs(hash) % 3650; // Spread over 10 years
+                     
+                     if (Math.abs(finishDay - targetAbsoluteDay) < 1) {
+                         events.push({
+                             type: 'tech',
+                             name: `Tech Breakthrough: ${node.name}`,
+                             description: `${NATIONS[nationKey].name} completes research.`,
+                             icon: '🧪'
+                         });
+                     }
+                 }
+             });
+        });
+    }
+    return events;
+}
+
+/**
+ * Parses timeline data to find events matching specific days.
+ * Assumes "Day X" events in timeline map to the current game month (6/Highsun) for the crisis.
+ */
+function getTimelineEventsForDay(year, monthIndex, day) {
+    const events = [];
+    
+    // We map the "Day 1" etc from the timeline to the Current Month (6)
+    // Only if the year matches 1040
+    if (year !== 1040 || monthIndex !== 6) return events;
+
+    HISTORICAL_TIMELINE.forEach(entry => {
+        if (entry.type === 'era_header') return;
+
+        // Regex to find "Day X"
+        const match = entry.date.match(/Day\s+(\d+)/);
+        if (match) {
+            const eventDay = parseInt(match[1], 10);
+            if (eventDay === day) {
+                 events.push({
+                    type: 'history',
+                    name: entry.title,
+                    description: entry.description,
+                    icon: '📜'
+                });
+            }
+        }
+    });
+
+    return events;
+}
+
+
+function getEventsForDay(year, monthIndex, day) {
     const events = [];
     
     // Holidays
@@ -65,10 +200,16 @@ function getEventsForDay(monthIndex, day) {
     const birthday = CALENDAR_DATA.birthdays?.find(b => b.month === monthIndex + 1 && b.day === day);
     if (birthday) events.push({ type: 'birthday', ...birthday });
 
+    // Tech Events
+    const techEvents = getResearchEventsForDay(year, monthIndex, day);
+    events.push(...techEvents);
+
+    // Timeline Events (New)
+    const timelineEvents = getTimelineEventsForDay(year, monthIndex, day);
+    events.push(...timelineEvents);
+
     // Religious Observances
-    // Determine day of week. Assuming year 0 started on day 0 (Soldas) for simplicity of calculation
-    // Total days passed approx calculation or simplified modular arithmetic
-    const dayOfWeekIndex = (day - 1) % 7; // Simple cyclical for this game world logic
+    const dayOfWeekIndex = (day - 1) % 7;
     const dayName = CALENDAR_DATA.days.values[dayOfWeekIndex].name;
     
     for (const key in RELIGION_DATA.denominations) {
@@ -90,8 +231,6 @@ function renderCalendar() {
     const monthData = CALENDAR_DATA.months.values[viewDate.monthIndex];
     dateDisplay.textContent = `${monthData.name} ${viewDate.year}`;
     
-    // Simple offset logic: Month 1 Day 1 is always index 0 for simplicity in this game world unless complicated math is desired.
-    // Let's add a fake offset based on year/month to make it look dynamic
     const monthStartOffset = (viewDate.year * 12 + viewDate.monthIndex) % 7;
 
     // Previous month fillers
@@ -113,14 +252,23 @@ function renderCalendar() {
         if (isSelected) cell.classList.add('selected');
 
         // Data
-        const weather = generateWeather(viewDate.year, viewDate.monthIndex, day);
-        const events = getEventsForDay(viewDate.monthIndex, day);
+        const weather = generateWeatherForDay(viewDate.year, viewDate.monthIndex, day);
+        const events = getEventsForDay(viewDate.year, viewDate.monthIndex, day);
+
+        // Special Dots logic
+        const hasTech = events.some(e => e.type === 'tech');
+        const techDot = hasTech ? `<span class="event-dot tech" title="Tech Breakthrough"></span>` : '';
+        
+        const hasHistory = events.some(e => e.type === 'history');
+        const historyDot = hasHistory ? `<span class="event-dot history" title="Historical Event"></span>` : '';
 
         cell.innerHTML = `
             <div class="day-number">${day}</div>
             <div class="day-weather-icon" title="${weather.desc} ${weather.temp}">${weather.icon}</div>
             <div class="day-events-dots">
-                ${events.map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
+                ${events.filter(e => e.type !== 'tech' && e.type !== 'history').map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
+                ${techDot}
+                ${historyDot}
             </div>
         `;
 
@@ -139,8 +287,8 @@ function selectDay(day) {
 
 function renderSidebar() {
     const monthData = CALENDAR_DATA.months.values[selectedDate.monthIndex];
-    const events = getEventsForDay(selectedDate.monthIndex, selectedDate.day);
-    const weather = generateWeather(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+    const events = getEventsForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+    const weather = generateWeatherForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
 
     selectedDateHeader.textContent = `${monthData.name} ${selectedDate.day}, ${selectedDate.year}`;
     selectedDateWeather.textContent = weather.icon;
@@ -158,7 +306,7 @@ function renderSidebar() {
     } else {
         detailsHTML += events.map(e => `
             <div class="detail-item ${e.type}">
-                <span class="detail-type">${e.type}</span>
+                <span class="detail-type">${e.type === 'tech' ? '🔬 Research' : (e.type === 'history' ? '📜 Timeline' : e.type)}</span>
                 <span class="detail-title">${e.name}</span>
                 <span class="detail-desc">${e.description}</span>
             </div>
@@ -166,7 +314,7 @@ function renderSidebar() {
     }
     dayDetailContent.innerHTML = detailsHTML;
 
-    // Upcoming Events (Next 30 days)
+    // Upcoming Events (Next 45 days)
     renderUpcoming();
 }
 
@@ -174,10 +322,10 @@ function renderUpcoming() {
     let html = '';
     let count = 0;
     
-    // Scan forward from current game date (not selected date)
+    // Scan forward from current game date
     let checkYear = CURRENT_GAME_DATE.year;
     let checkMonth = CURRENT_GAME_DATE.monthIndex;
-    let checkDay = CURRENT_GAME_DATE.day + 1; // Start tomorrow
+    let checkDay = CURRENT_GAME_DATE.day + 1; 
 
     // Loop for next 45 days
     for (let i = 0; i < 45; i++) {
@@ -192,8 +340,8 @@ function renderUpcoming() {
             }
         }
 
-        const events = getEventsForDay(checkMonth, checkDay);
-        // Filter out rituals for upcoming list to reduce noise, keep holidays/birthdays
+        const events = getEventsForDay(checkYear, checkMonth, checkDay);
+        // Filter out rituals for upcoming to avoid clutter, prioritize history/holidays
         const notableEvents = events.filter(e => e.type !== 'ritual');
 
         if (notableEvents.length > 0) {
@@ -222,6 +370,114 @@ function renderUpcoming() {
 
     if (html === '') html = '<li class="event-list-item" style="justify-content:center; color:var(--text-secondary); font-style:italic;">No upcoming holidays or birthdays soon.</li>';
     upcomingList.innerHTML = html;
+}
+
+// --- Search Functionality ---
+function setupSearchListener() {
+    if (!searchInput || !searchResults) return;
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        searchResults.innerHTML = '';
+        
+        if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        const matches = [];
+
+        // Search Holidays
+        CALENDAR_DATA.holidays.values.forEach(h => {
+            if (h.name.toLowerCase().includes(query)) {
+                matches.push({ ...h, type: 'holiday' });
+            }
+        });
+
+        // Search Birthdays
+        CALENDAR_DATA.birthdays.forEach(b => {
+            if (b.name.toLowerCase().includes(query)) {
+                matches.push({ ...b, type: 'birthday' });
+            }
+        });
+        
+        // Search Timeline Events (Simple scan of full timeline for matches)
+        HISTORICAL_TIMELINE.forEach(entry => {
+            if(entry.type !== 'era_header' && entry.title.toLowerCase().includes(query)) {
+                 // Try to extract a date
+                 const dayMatch = entry.date.match(/Day\s+(\d+)/);
+                 if(dayMatch) {
+                     matches.push({
+                         name: entry.title,
+                         day: parseInt(dayMatch[1], 10),
+                         month: 7, // Defaulting to Highsun for these specific events
+                         type: 'history'
+                     });
+                 }
+            }
+        });
+
+        // Search Religions for Observances (Basic String Search)
+        for (const key in RELIGION_DATA.denominations) {
+            const denom = RELIGION_DATA.denominations[key];
+             if (denom.weekly_observances) {
+                // Very rough approximation to find next occurrence
+                denom.weekly_observances.forEach(obs => {
+                    if(obs.text.toLowerCase().includes(query) || denom.name.toLowerCase().includes(query)) {
+                         // We can't easily map this to a date without iterating calendar, so we just skip for now or add a generic "Weekly" item
+                         // matches.push({ name: `${denom.name} Liturgy`, description: obs.text, type: 'ritual', day: "Weekly" });
+                    }
+                })
+            }
+        }
+
+        if (matches.length > 0) {
+            matches.forEach(match => {
+                const li = document.createElement('li');
+                li.className = 'event-list-item';
+                li.style.cursor = 'pointer';
+                
+                const monthAbbr = CALENDAR_DATA.months.values[match.month - 1]?.abbreviation || '???';
+                
+                li.innerHTML = `
+                    <div class="event-date-badge">
+                        <span class="badge-day">${match.day}</span>
+                        <span class="badge-month">${monthAbbr}</span>
+                    </div>
+                    <div class="event-info-brief">
+                        <strong>${match.name}</strong>
+                        <span class="dot ${match.type}" style="margin-left:6px; vertical-align:middle;"></span>
+                    </div>
+                `;
+                
+                li.addEventListener('click', () => {
+                    // Jump to date
+                    viewDate.monthIndex = match.month - 1;
+                    // Assume current year for jump unless specified
+                    viewDate.year = CURRENT_GAME_DATE.year; 
+                    selectedDate = { year: viewDate.year, monthIndex: viewDate.monthIndex, day: match.day };
+                    
+                    renderCalendar();
+                    renderSidebar();
+                    searchResults.style.display = 'none';
+                    searchInput.value = '';
+                    playSound('click.mp3');
+                });
+                searchResults.appendChild(li);
+            });
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.innerHTML = '<li style="padding:8px; color:var(--text-secondary);">No results found.</li>';
+            searchResults.style.display = 'block';
+        }
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
 }
 
 
@@ -264,6 +520,8 @@ function setupListeners() {
         selectDay(CURRENT_GAME_DATE.day);
         playSound('confirm.mp3');
     });
+    
+    setupSearchListener();
 }
 
 function init() {

@@ -1,5 +1,4 @@
 
-
 import { LORE_DATA } from './lore.js';
 import { WALUIGI_INTRO_TEXT, WALUIGI_REGION_TIPS } from './new-operator/new-operator-data.js';
 import { playSound } from './common.js';
@@ -7,7 +6,8 @@ import { WAHBOOK_POSTS } from './assembly-data.js';
 import { QUEST_DATA } from './quests-data.js';
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
 import { PARTY_LOCATIONS } from './party-data.js';
-
+import { getActiveAge, NATIONS, getTechTree } from './research-data.js';
+import { state, loadState } from './state.js'; // Import state
 
 // --- Element Cache ---
 const startupScreen = document.getElementById('startup-screen');
@@ -357,8 +357,33 @@ function renderChatterWidget() {
     `;
 }
 
+function renderResearchWidget() {
+    loadState(); // Ensure state is loaded
+    const nationKey = 'midlands'; // Default view
+    const age = getActiveAge(nationKey);
+    const tree = getTechTree(nationKey, 'WEAPONS', state.researchState); // Pass state here
+    const researching = Object.values(tree).find(n => n.status === 'researching');
+    const researchingName = researching ? researching.name : "No active weapon projects.";
+
+    return `
+         <div id="research-widget" class="dashboard-widget">
+            <div class="widget-header">
+                <span class="widget-icon">🔬</span>
+                <h3 class="widget-title">Research & Dev</h3>
+            </div>
+            <div class="widget-content">
+                <p style="color:var(--accent-color); font-weight:bold; font-family:var(--font-display)">${NATIONS[nationKey].name}</p>
+                <p style="margin:5px 0;">Current Age: <strong>${age.name}</strong></p>
+                <hr style="border-color:var(--border-color); opacity:0.5;">
+                <p style="margin-top:10px; font-size:0.9rem;"><strong>Latest Priority:</strong><br>${researchingName}</p>
+                <a href="research.html" class="intel-link-btn">Open Research Lab</a>
+            </div>
+        </div>
+    `;
+}
+
 function renderAnalysisWidget() {
-    const analysisText = "WAH-HA-HA! The haunted house has turned into a theater! 'Just Desserts'? I love a good show, especially when ghosts get punched in the face! Bowser is smashing spirits, the Dwarf is headbutting them, and the three-eyed bandit came back with a ticket! A TICKET! Magnificent absurdity! But then... they chose to save their little friends outside instead of fighting the big mirror monster? BO-RING! I would have smashed the glass and claimed the prize! But at least there are spiders next. Big, crunchy spiders! WAH!";
+    const analysisText = "WAH-HA-HA! The haunted house has turned into a theater! 'Just Desserts'? I love a good show, especially when ghosts get punched in the face! Bowser is smashing spirits, the Dwarf is headbutting them, and the three-eyed bandit came back with a ticket! A TICKET! Magnificent absurdity! But the best part? The little toads are fighting each other! Delicious chaos!";
     return `
          <div id="analysis-widget" class="dashboard-widget">
             <div class="widget-header">
@@ -439,7 +464,7 @@ function renderDashboard() {
         ${renderWeatherWidget()}
         ${renderMissionWidget()}
         ${renderPartyStatusWidget()}
-        ${renderIntelWidget()}
+        ${renderResearchWidget()}
         ${renderChatterWidget()}
         ${renderAnalysisWidget()}
     `;

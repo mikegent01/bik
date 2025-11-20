@@ -1,7 +1,8 @@
+
 import { LORE_DATA } from './lore.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 
-const MAJOR_BATTLES = [
+export const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY ---
     {
         id: 'raid_on_cohort_command',
@@ -258,6 +259,7 @@ const MAJOR_BATTLES = [
         `
     }
 ];
+
 function renderBelligerents(belligerents) {
     let html = '';
     const sides = ['side_a', 'side_b', 'side_c', 'side_d'];

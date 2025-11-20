@@ -18,62 +18,63 @@ export const RUMORS = [
         time_ago: "45 Years Ago",
         description: "Princess Peach was killed, sparking a long and brutal civil war in the Mushroom Kingdom...",
         targets: ['bowser'],
-        effects: { mushroom_regency: -50, regal_empire: -15, silver_flame: -15, oathbound_judges: -15 }
+        effects: { mushroom_regency: -50, regal_empire: -15, silver_flame: -15, oathbound_judges: -15 },
+        cycle_impact: { score: 2, label: "Regime Collapse", type: "political" }
     },
-// In party-and-events.js
-
-{
-    id: 'archie_third_eye_escape',
-    title: "The Third Eye Escape",
-    date: { day: 19, monthIndex: 6, year: 1040 },
-    isEvent: true, // This is a major, multi-part event
-    description: "In a stunning betrayal, the Liberated Toad 'Jerry' was revealed to be an Iron Legion spy who orchestrated Archie Miser's escape from Cohort custody, only to lead him into a Legion trap. Archie escaped again, navigating a surreal journey through a Rakasha relay, a Mindflayer colony where he discovered the mutilated remains of X.O., and a final, chaotic return to a ghost-infested Raventree Manor. The event revealed the Legion's deep infiltration and the manor's connection to otherworldly dimensions.",
-    targets: ['archie', 'liberated_toads', 'iron_legion', 'rakasha_clans', 'mages_guild'],
-    effects: {
-        liberated_toads: -25,
-        iron_legion: -20,
-        freelancer_underworld: 15,
-        rakasha_clans: 10,
-        mages_guild: -10, // For unsanctioned dimensional travel
-        cosmic_jesters: 10
-    }
-},
-    
-{
-    id: 'supernatural_sovereignty_act',
-    title: "The Supernatural Sovereignty Act",
-    isEvent: true,
-    date: { day: 18, monthIndex: 6, year: 1040 },
-    description: "In a stunning display of political power, the Regal Empire pushed its 'Supernatural Sovereignty Act' through the Midlands Diet with an overwhelming majority of 81-30. The act, proposed by an Imperial delegate, declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders and mandates a military containment protocol, effectively ending any pretense of a truce.",
-    targets: ['dan', 'party', 'liberated_toads', 'onyx_hand', 'moonfang_pack', 'regal_empire', 'iron_legion'],
-    effects: {
-        regal_empire: 30,
-        iron_legion: 25,
-        silver_flame: 40,
-        oathbound_judges: 15,
-        onyx_hand: -50,
-        moonfang_pack: -50,
-        liberated_toads: -5, // Negative impact, as the Empire's aggression is worrying
-        the_unchained: -10,
-        rebel_clans: -5,
-        mages_guild: -15,
-        freelancer_underworld: -5
-    }
-},
-{
-    id: 'the_kong_bug',
-    title: "The Kong Bug & Assassination Plot",
-    date: { day: 18, monthIndex: 6, year: 1040 },
-    description: "Donkey Kong's Director of Intelligence, Funky Kong, has discovered a sophisticated listening device of Kremling origin in DK's private office. A tense phone call between DK and King K. Rool revealed a deeper conspiracy: a Kremling agent named Galypso is not only responsible for the bug but has been ordered by K. Rool to assassinate Funky Kong to cover their tracks. The 'peace' between the two factions is a sham.",
-    targets: ['donkey_kong', 'king_k_rool', 'funky_kong', 'dk_crew', 'kremling_krew'],
-    effects: {
-        dk_crew: -40,
-        kremling_krew: -40,
-        freelancer_underworld: 15,
-        regal_empire: -10,
-        mushroom_regency: -5
-    }
-},
+    {
+        id: 'archie_third_eye_escape',
+        title: "The Third Eye Escape",
+        date: { day: 19, monthIndex: 6, year: 1040 },
+        isEvent: true, 
+        description: "In a stunning betrayal, the Liberated Toad 'Jerry' was revealed to be an Iron Legion spy who orchestrated Archie Miser's escape from Cohort custody, only to lead him into a Legion trap. Archie escaped again, navigating a surreal journey through a Rakasha relay, a Mindflayer colony where he discovered the mutilated remains of X.O., and a final, chaotic return to a ghost-infested Raventree Manor. The event revealed the Legion's deep infiltration and the manor's connection to otherworldly dimensions.",
+        targets: ['archie', 'liberated_toads', 'iron_legion', 'rakasha_clans', 'mages_guild'],
+        effects: {
+            liberated_toads: -25,
+            iron_legion: -20,
+            freelancer_underworld: 15,
+            rakasha_clans: 10,
+            mages_guild: -10, 
+            cosmic_jesters: 10
+        },
+        cycle_impact: { score: 1.5, label: "Dimensional Breach", type: "magic" }
+    },
+    {
+        id: 'supernatural_sovereignty_act',
+        title: "The Supernatural Sovereignty Act",
+        isEvent: true,
+        date: { day: 18, monthIndex: 6, year: 1040 },
+        description: "In a stunning display of political power, the Regal Empire pushed its 'Supernatural Sovereignty Act' through the Midlands Diet with an overwhelming majority of 81-30. The act, proposed by an Imperial delegate, declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders and mandates a military containment protocol, effectively ending any pretense of a truce.",
+        targets: ['dan', 'party', 'liberated_toads', 'onyx_hand', 'moonfang_pack', 'regal_empire', 'iron_legion'],
+        effects: {
+            regal_empire: 30,
+            iron_legion: 25,
+            silver_flame: 40,
+            oathbound_judges: 15,
+            onyx_hand: -50,
+            moonfang_pack: -50,
+            liberated_toads: -5,
+            the_unchained: -10,
+            rebel_clans: -5,
+            mages_guild: -15,
+            freelancer_underworld: -5
+        },
+        cycle_impact: { score: 0.8, label: "Legislative Crackdown", type: "political" }
+    },
+    {
+        id: 'the_kong_bug',
+        title: "The Kong Bug & Assassination Plot",
+        date: { day: 18, monthIndex: 6, year: 1040 },
+        description: "Donkey Kong's Director of Intelligence, Funky Kong, has discovered a sophisticated listening device of Kremling origin in DK's private office. A tense phone call between DK and King K. Rool revealed a deeper conspiracy: a Kremling agent named Galypso is not only responsible for the bug but has been ordered by K. Rool to assassinate Funky Kong to cover their tracks. The 'peace' between the two factions is a sham.",
+        targets: ['donkey_kong', 'king_k_rool', 'funky_kong', 'dk_crew', 'kremling_krew'],
+        effects: {
+            dk_crew: -40,
+            kremling_krew: -40,
+            freelancer_underworld: 15,
+            regal_empire: -10,
+            mushroom_regency: -5
+        },
+        cycle_impact: { score: 1.2, label: "Espionage Scandal", type: "political" }
+    },
       {
         id: 'greenhouse_inferno',
         title: "The Greenhouse Inferno",
@@ -81,7 +82,8 @@ export const RUMORS = [
         isEvent: true,        
         description: "A chaotic series of events at Raventree Manor culminated in a devastating battle within its magical greenhouse. After Remi shot down a wyvern carrying Waluigi and Green T, the party was trapped inside by the Oracle and ambushed by rust monsters. The fight escalated into an inferno, climaxing with Archie unleashing a massive fireball that destroyed the greenhouse. The aftermath saw Dan's attempt to heal a critically wounded Eager backfire, leading to Archie's surrender to the newly-arrived 'Pond Patrol'. The incident concluded with Green T being pulled into a mirror and a new, terrifying supernatural threat emerging from it, plunging the manor into a full-blown containment crisis.",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'remi', 'dan', 'eager', 'waluigi', 'green_t', 'self_reflection_oracle'],
-        effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 }
+        effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 },
+        cycle_impact: { score: 2.5, label: "Arcane Catastrophe", type: "magic" }
     },
     {
         id: 'dragon_slaying',
@@ -89,7 +91,8 @@ export const RUMORS = [
         time_ago: "Approx. 2 Months Ago",
         description: "A month ago, the party slew a dragon, earning praise from the Iron Legion and scorn from the Mages' Guild.",
         targets: ['archie', 'markop', 'humpik', 'bowser'],
-        effects: { iron_legion: 10, mages_guild: -15 }
+        effects: { iron_legion: 10, mages_guild: -15 },
+        cycle_impact: { score: -0.5, label: "Beast Culling", type: "military" }
     },
     {
         id: 'iron_fists_raid',
@@ -97,7 +100,8 @@ export const RUMORS = [
         time_ago: "Approx. 5 Weeks Ago",
         description: "The party smashed an Iron Fists smuggling ring, earning the gang's ire.",
         targets: ['archie', 'markop'],
-        effects: { iron_fists: -25, freelancer_underworld: 5, regal_empire: 5 }
+        effects: { iron_fists: -25, freelancer_underworld: 5, regal_empire: 5 },
+        cycle_impact: { score: -0.2, label: "Crime Suppression", type: "military" }
     },
     {
         id: 'xo_defeat',
@@ -105,7 +109,8 @@ export const RUMORS = [
         time_ago: "Approx. 4 Weeks Ago",
         description: "The party, with the help of a liberated toad slave, defeated the rogue mage X.O. and secured the 'Vigilance'.",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'dan'],
-        effects: { regal_empire: 5, mages_guild: 5, the_unchained: 10, mushroom_regency: 5, liberated_toads: 25 }
+        effects: { regal_empire: 5, mages_guild: 5, the_unchained: 10, mushroom_regency: 5, liberated_toads: 25 },
+        cycle_impact: { score: -0.8, label: "Rogue Mage Neutralized", type: "magic" }
     },
     {
         id: 'core_crisis',
@@ -113,7 +118,8 @@ export const RUMORS = [
         time_ago: "Approx. 4 Weeks Ago",
         description: "In an act of supreme recklessness, Humpik disabled the Vigilance's power core with a thrown axe...",
         targets: ['humpik', 'bowser'],
-        effects: { regal_empire: -40, iron_legion: -25, mages_guild: -15, ratchet_raiders: 15, cosmic_jesters: 20 }
+        effects: { regal_empire: -40, iron_legion: -25, mages_guild: -15, ratchet_raiders: 15, cosmic_jesters: 20 },
+        cycle_impact: { score: 1.0, label: "Magitek Failure", type: "tech" }
     },
     {
         id: 'syrup_schism',
@@ -121,7 +127,8 @@ export const RUMORS = [
         time_ago: "Approx. 4 Weeks Ago",
         description: "The pirate Captain Syrup was freed from captivity under the goblin Lario...",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'waluigi'],
-        effects: { ratchet_raiders: -25, freelancer_underworld: 10, crimson_fleet: -20, regal_empire: -5 }
+        effects: { ratchet_raiders: -25, freelancer_underworld: 10, crimson_fleet: -20, regal_empire: -5 },
+        cycle_impact: { score: 0.5, label: "Underworld Instability", type: "economic" }
     },
     {
         id: 'archie_acquittal',
@@ -129,7 +136,8 @@ export const RUMORS = [
         time_ago: "Approx. 3-4 Weeks Ago",
         description: "Archie Miser was acquitted of killing a mage by an Onyx Hand tribunal...",
         targets: ['archie'],
-        effects: { onyx_hand: 15, mages_guild: -20, freelancer_underworld: 5 }
+        effects: { onyx_hand: 15, mages_guild: -20, freelancer_underworld: 5 },
+        cycle_impact: { score: 0.4, label: "Judicial Controversy", type: "political" }
     },
     {
         id: 'iron_fists_conspiracy',
@@ -137,7 +145,8 @@ export const RUMORS = [
         time_ago: "Approx. 3 Weeks Ago",
         description: "A captured Iron Legion bomber revealed a shocking secret before his demise...",
         targets: ['archie', 'markop', 'humpik', 'bowser'],
-        effects: { iron_fists: -5, regal_empire: -5, freelancer_underworld: 10 }
+        effects: { iron_fists: -5, regal_empire: -5, freelancer_underworld: 10 },
+        cycle_impact: { score: 0.8, label: "Corruption Scandal", type: "political" }
     },
     {
         id: 'koopa_loyalist_truce',
@@ -145,7 +154,8 @@ export const RUMORS = [
         time_ago: "Approx. 2 Weeks Ago",
         description: "The Koopa Troop remnants and the Peach Loyalists have formed a fragile truce...",
         targets: ['humpik', 'bowser'],
-        effects: { peach_loyalists: 10, koopa_troop: 5 }
+        effects: { peach_loyalists: 10, koopa_troop: 5 },
+        cycle_impact: { score: -1.0, label: "Diplomatic Breakthrough", type: "political" }
     },
     {
         id: 'barrel_compartment_reveal',
@@ -153,7 +163,8 @@ export const RUMORS = [
         time_ago: "Approx. 1 Week Ago",
         description: "The Iron Legion revealed to Humpik that the trafficked toads are hidden in secret compartments...",
         targets: ['humpik', 'liberated_toads'],
-        effects: { iron_legion: 5, liberated_toads: 10, the_unchained: 5 }
+        effects: { iron_legion: 5, liberated_toads: 10, the_unchained: 5 },
+        cycle_impact: { score: 0.5, label: "Trafficking Discovery", type: "social" }
     },
     {
         id: 'lankys_disgrace_at_summit',
@@ -161,7 +172,8 @@ export const RUMORS = [
         time_ago: "Yesterday",
         description: "Lanky Kong's bizarre behavior at the Democratic Summit caused a major diplomatic incident...",
         targets: ['donkey_kong', 'lanky_kong'],
-        effects: { dk_crew: -25, mushroom_regency: -20, regal_empire: -15, cosmic_jesters: 10 }
+        effects: { dk_crew: -25, mushroom_regency: -20, regal_empire: -15, cosmic_jesters: 10 },
+        cycle_impact: { score: 1.0, label: "Diplomatic Crisis", type: "political" }
     },
     {
         id: 'chaos_in_toad_town',
@@ -169,7 +181,8 @@ export const RUMORS = [
         time_ago: "A Few Days Ago",
         description: "A series of violent events rocked Toad Town...",
         targets: ['captain_toadette', 'embercap', 'chief_thornpaw'],
-        effects: { peach_loyalists: -20, mushroom_regency: -15, onyx_hand: -10, mages_guild: -10, koopa_troop: 5 }
+        effects: { peach_loyalists: -20, mushroom_regency: -15, onyx_hand: -10, mages_guild: -10, koopa_troop: 5 },
+        cycle_impact: { score: 1.5, label: "Civil Unrest", type: "social" }
     },
     {
         id: 'standoff_at_the_capital',
@@ -177,7 +190,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "The Vigilance was boarded by Regal Empire forces over the capital...",
         targets: ['party'],
-        effects: { regal_empire: -30, iron_legion: -25, crimson_fleet: 5, freelancer_underworld: -10, liberated_toads: -5 }
+        effects: { regal_empire: -30, iron_legion: -25, crimson_fleet: 5, freelancer_underworld: -10, liberated_toads: -5 },
+        cycle_impact: { score: 0.8, label: "Military Standoff", type: "military" }
     },
     {
         id: 'capital_diner_shadow_accord',
@@ -185,7 +199,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "Mr. Wario, Waluigi, and Lady Toriel convene in the Capital...",
         targets: ['wario', 'waluigi', 'lady_toriel', 'archie', 'markop', 'remi', 'humpik', 'green_t'],
-        effects: { freelancer_underworld: 15, regal_empire: -10, koopa_troop: 5, mushroom_regency: -5, diamond_city_investigators: 10 }
+        effects: { freelancer_underworld: 15, regal_empire: -10, koopa_troop: 5, mushroom_regency: -5, diamond_city_investigators: 10 },
+        cycle_impact: { score: -0.5, label: "Shadow Alliance", type: "political" }
     },
     {
         id: 'imposter_dan_revelation',
@@ -193,7 +208,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "A shocking revelation from the goblin Lario claims the 'Dan' traveling with the party is an imposter...",
         targets: ['party', 'liberated_toads'],
-        effects: { liberated_toads: -20, regal_empire: -10, freelancer_underworld: 10, oathbound_judges: -5 }
+        effects: { liberated_toads: -20, regal_empire: -10, freelancer_underworld: 10, oathbound_judges: -5 },
+        cycle_impact: { score: 0.5, label: "Identity Crisis", type: "social" }
     },
     {
         id: 'eager_tortured',
@@ -201,7 +217,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "The toad Eager was confirmed to have been captured and brutally tortured by the Iron Legion...",
         targets: ['party', 'liberated_toads'],
-        effects: { iron_legion: -30, liberated_toads: 15, the_unchained: 10, silver_flame: 5 }
+        effects: { iron_legion: -30, liberated_toads: 15, the_unchained: 10, silver_flame: 5 },
+        cycle_impact: { score: 1.0, label: "Human Rights Violation", type: "social" }
     },
     {
         id: 'centaur_arsonist',
@@ -209,7 +226,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "The centaur who accompanied the party to the capital was revealed to be a saboteur...",
         targets: ['party'],
-        effects: { regal_empire: -5, iron_legion: -5, rebel_clans: -10 }
+        effects: { regal_empire: -5, iron_legion: -5, rebel_clans: -10 },
+        cycle_impact: { score: 0.3, label: "Sabotage", type: "military" }
     },
     {
         id: 'grand_market_ring',
@@ -217,7 +235,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "A Legion noble’s ring is swallowed by a horse...",
         targets: ['remi', 'archie', 'green_t', 'iron_legion'],
-        effects: { iron_legion: -5, freelancer_underworld: 5, the_unchained: 5 }
+        effects: { iron_legion: -5, freelancer_underworld: 5, the_unchained: 5 },
+        cycle_impact: { score: 0.1, label: "Public Scandal", type: "social" }
     },
     {
         id: 'prison_break_fiasco',
@@ -225,7 +244,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "The party's attempt to rescue Eager was a chaotic failure...",
         targets: ['party'],
-        effects: { iron_legion: -10, regal_empire: -5, freelancer_underworld: 5, liberated_toads: -5 }
+        effects: { iron_legion: -10, regal_empire: -5, freelancer_underworld: 5, liberated_toads: -5 },
+        cycle_impact: { score: 0.8, label: "Security Breach", type: "military" }
     },
     {
         id: 'sewer_dragon',
@@ -233,7 +253,8 @@ export const RUMORS = [
         time_ago: "Tonight",
         description: "While seeking a cure for Dan, the party was guided by an Iron Legion spy into the capital's sewers...",
         targets: ['party'],
-        effects: { iron_legion: -10, mages_guild: 5 }
+        effects: { iron_legion: -10, mages_guild: 5 },
+        cycle_impact: { score: 0.5, label: "Monster Sighting", type: "military" }
     },
     {
         id: 'bowser_looting_manor',
@@ -241,7 +262,8 @@ export const RUMORS = [
         time_ago: "Tonight",
         description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance...",
         targets: ['party'],
-        effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 }
+        effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 },
+        cycle_impact: { score: 0, label: "Asset Relocation", type: "economic" }
     },
     {
         id: 'oracle_of_cursed_mansion',
@@ -249,7 +271,8 @@ export const RUMORS = [
         time_ago: "Tonight",
         description: "The party staying at Waluigi's newly acquired mansion has encountered its mysterious host, 'The Oracle.'...",
         targets: ['party', 'waluigi'],
-        effects: { mages_guild: 5, cosmic_jesters: 10, silver_flame: -5, freelancer_underworld: 5 }
+        effects: { mages_guild: 5, cosmic_jesters: 10, silver_flame: -5, freelancer_underworld: 5 },
+        cycle_impact: { score: 1.5, label: "Temporal Phenomenon", type: "magic" }
     },
     {
         id: 'waluigis_wyvern_exit',
@@ -257,7 +280,8 @@ export const RUMORS = [
         time_ago: "Tonight",
         description: "In a characteristically dramatic fashion, Waluigi and his associate Green T were seen escaping the grounds of the haunted mansion...",
         targets: ['waluigi', 'green_t'],
-        effects: { cosmic_jesters: 15, freelancer_underworld: 10, regal_empire: -5, mages_guild: -5 }
+        effects: { cosmic_jesters: 15, freelancer_underworld: 10, regal_empire: -5, mages_guild: -5 },
+        cycle_impact: { score: 0.4, label: "Aerial Incident", type: "military" }
     },
     {
         id: 'fall_of_bramblehaven',
@@ -265,7 +289,8 @@ export const RUMORS = [
         time_ago: "Today",
         description: "The Peach Loyalists brutally conquered the Fawful bastion of Bramblehaven...",
         targets: ['captain_toadette', 'embercap'],
-        effects: { peach_loyalists: 10, mushroom_regency: -20, fawfuls_furious_freaks: -30, koopa_troop: 5, iron_legion: 5, silver_flame: -10 }
+        effects: { peach_loyalists: 10, mushroom_regency: -20, fawfuls_furious_freaks: -30, koopa_troop: 5, iron_legion: 5, silver_flame: -10 },
+        cycle_impact: { score: 2.0, label: "Fortress Capture", type: "military" }
     },
     {
         id: 'shadeward_mansion_raid',
@@ -273,7 +298,8 @@ export const RUMORS = [
         time_ago: "Tonight",
         description: "A group of toads seeking Archie were trapped in the Shadeward Mansion by the time-looping Oracle...",
         targets: ['liberated_toads', 'bones', 'wario'],
-        effects: { liberated_toads: -30, iron_legion: -25, regal_empire: -15, freelancer_underworld: 10, mages_guild: 5 }
+        effects: { liberated_toads: -30, iron_legion: -25, regal_empire: -15, freelancer_underworld: 10, mages_guild: 5 },
+        cycle_impact: { score: 2.5, label: "Temporal Anomaly", type: "magic" }
     },
     {
         id: 'shadow_war',
@@ -281,7 +307,8 @@ export const RUMORS = [
         time_ago: "Ongoing",
         description: "The conflict between the Onyx Hand and Moonfang Pack is escalating...",
         targets: ['party'],
-        effects: { onyx_hand: 5, moonfang_pack: 5, silver_flame: -10 }
+        effects: { onyx_hand: 5, moonfang_pack: 5, silver_flame: -10 },
+        cycle_impact: { score: 1.5, label: "Supernatural Conflict", type: "military" }
     },
     {
         id: 'dan_training',
@@ -289,7 +316,8 @@ export const RUMORS = [
         time_ago: "Ongoing",
         description: "The heroic toad, Dan, is being trained in magic by the Rakasha...",
         targets: ['markop', 'dan'],
-        effects: { rakasha_clans: 15, mages_guild: 5, mushroom_regency: 10, liberated_toads: 15 }
+        effects: { rakasha_clans: 15, mages_guild: 5, mushroom_regency: 10, liberated_toads: 15 },
+        cycle_impact: { score: -0.5, label: "Arcane Study", type: "magic" }
     },
     {
         id: 'cosmic_static',
@@ -297,7 +325,8 @@ export const RUMORS = [
         time_ago: "Ongoing",
         description: "Archie's chaotic energies are reportedly causing 'cosmic static'...",
         targets: ['archie'],
-        effects: { cosmic_jesters: 15, mages_guild: -5 }
+        effects: { cosmic_jesters: 15, mages_guild: -5 },
+        cycle_impact: { score: 1.0, label: "Reality Distortion", type: "magic" }
     },
     {
         id: 'paladin_dilemma',
@@ -305,7 +334,8 @@ export const RUMORS = [
         time_ago: "Ongoing",
         description: "Markop's association with known criminals has not gone unnoticed by holy orders...",
         targets: ['markop'],
-        effects: { silver_flame: -15, oathbound_judges: -10 }
+        effects: { silver_flame: -15, oathbound_judges: -10 },
+        cycle_impact: { score: 0, label: "Moral Crisis", type: "social" }
     },
     {
         id: 'rebel_sympathies',
@@ -313,7 +343,8 @@ export const RUMORS = [
         time_ago: "Ongoing",
         description: "The party's anti-authoritarian actions have made them popular with various rebel groups.",
         targets: ['party'],
-        effects: { rebel_clans: 10, the_unchained: 5 }
+        effects: { rebel_clans: 10, the_unchained: 5 },
+        cycle_impact: { score: 0.5, label: "Sedition", type: "political" }
     },
     {
         id: 'scrap_trail',
@@ -321,6 +352,7 @@ export const RUMORS = [
         time_ago: "Ongoing",
         description: "The frequent destruction of magitek leaves a trail of valuable salvage...",
         targets: ['party'],
-        effects: { ratchet_raiders: 10, regal_empire: -5 }
+        effects: { ratchet_raiders: 10, regal_empire: -5 },
+        cycle_impact: { score: 0, label: "Industrial Waste", type: "economic" }
     }
 ];

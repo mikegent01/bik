@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +48,12 @@
                     </div>
 
                     <aside id="calendar-sidebar">
+                        <!-- Search Widget -->
+                        <div class="info-card search-card">
+                            <input type="text" id="calendar-search-input" placeholder="Search holidays, birthdays..." autocomplete="off">
+                            <ul id="calendar-search-results" class="event-list" style="display:none; margin-top:10px; max-height: 150px; overflow-y: auto;"></ul>
+                        </div>
+
                         <!-- Selected Day Details -->
                         <div id="day-detail-card" class="info-card">
                             <div class="card-header">
@@ -73,6 +80,8 @@
                                 <div class="legend-item"><span class="dot holiday"></span> Holiday</div>
                                 <div class="legend-item"><span class="dot birthday"></span> Birthday</div>
                                 <div class="legend-item"><span class="dot ritual"></span> Liturgy</div>
+                                <div class="legend-item"><span class="dot tech"></span> Research Finished</div>
+                                <div class="legend-item"><span class="dot history"></span> Timeline Event</div>
                             </div>
                         </div>
                     </aside>

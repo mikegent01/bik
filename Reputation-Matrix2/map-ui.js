@@ -1,4 +1,5 @@
 
+
 import { playSound } from './common.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import * as map from './maps.js';
@@ -135,6 +136,86 @@ export function renderTabs() {
         <button class="mode-btn ${map.activePoliticalSubmode === 'province' ? 'active' : ''}" data-submode="province">Provinces</button>
     `;
     mapControls.appendChild(subModeSelector);
+
+    // Re-attach listeners for the newly created elements
+    setupSearchListeners();
+}
+
+function setupSearchListeners() {
+    const searchInput = document.getElementById('poi-search-input');
+    const suggestionsContainer = document.getElementById('poi-search-suggestions');
+
+    if (searchInput && suggestionsContainer) {
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            suggestionsContainer.innerHTML = '';
+            
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+
+            const currentMapData = MAP_DATA[map.activeMapId];
+            if (!currentMapData || !currentMapData.pointsOfInterest) return;
+
+            const pois = currentMapData.pointsOfInterest;
+            const matches = pois.filter(poi => poi.name.toLowerCase().includes(query)).slice(0, 7);
+
+            if (matches.length > 0) {
+                suggestionsContainer.innerHTML = matches.map(poi => `
+                    <div class="suggestion-item" data-poi-id="${poi.id}">
+                        ${poi.name}
+                        <small>${BUILDING_TYPES[poi.type]?.name || 'Unknown Type'}</small>
+                    </div>
+                `).join('');
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default;">No matches found</div>';
+                suggestionsContainer.style.display = 'block';
+            }
+        });
+
+        suggestionsContainer.addEventListener('click', e => {
+            const suggestionItem = e.target.closest('.suggestion-item');
+            if (suggestionItem && suggestionItem.dataset.poiId) {
+                const poiId = suggestionItem.dataset.poiId;
+                const currentMapData = MAP_DATA[map.activeMapId];
+                const poi = currentMapData.pointsOfInterest.find(p => p.id === poiId);
+
+                if (poi) {
+                    // Center and zoom on the POI
+                    transform.panAndZoomToPoi(poi);
+                    playSound('click.mp3');
+
+                    // Show details panel for the selected POI
+                    renderer.showDetailPanel(poiId);
+
+                    // Highlight the marker
+                    setTimeout(() => { 
+                        document.querySelectorAll('.poi-marker.searched').forEach(m => m.classList.remove('searched'));
+                        const marker = document.querySelector(`.poi-marker[data-poi-id="${poiId}"]`);
+                        if (marker) {
+                            marker.classList.add('searched');
+                            // Remove highlight after a few seconds
+                            setTimeout(() => marker.classList.remove('searched'), 4500);
+                        }
+                    }, 300);
+                }
+
+                // Reset search
+                searchInput.value = '';
+                suggestionsContainer.innerHTML = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Hide suggestions when clicking away
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                 suggestionsContainer.style.display = 'none';
+            }
+        });
+    }
 }
 
 export function setupTabEventListeners() {
@@ -208,78 +289,6 @@ export function setupTabEventListeners() {
                 subModeBtn.classList.add('active');
                 renderer.renderPois();
                 renderer.renderMapModeLegend();
-            }
-        });
-    }
-
-    // Search bar event listeners
-    const searchInput = document.getElementById('poi-search-input');
-    const suggestionsContainer = document.getElementById('poi-search-suggestions');
-
-    if (searchInput && suggestionsContainer) {
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.trim().toLowerCase();
-            if (query.length < 2) {
-                suggestionsContainer.innerHTML = '';
-                suggestionsContainer.style.display = 'none';
-                return;
-            }
-
-            const pois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
-            const matches = pois.filter(poi => poi.name.toLowerCase().includes(query)).slice(0, 7);
-
-            if (matches.length > 0) {
-                suggestionsContainer.innerHTML = matches.map(poi => `
-                    <div class="suggestion-item" data-poi-id="${poi.id}">
-                        ${poi.name}
-                        <small>${BUILDING_TYPES[poi.type]?.name || 'Unknown Type'}</small>
-                    </div>
-                `).join('');
-                suggestionsContainer.style.display = 'block';
-            } else {
-                suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default;">No matches found</div>';
-                suggestionsContainer.style.display = 'block';
-            }
-        });
-
-        suggestionsContainer.addEventListener('click', e => {
-            const suggestionItem = e.target.closest('.suggestion-item');
-            if (suggestionItem && suggestionItem.dataset.poiId) {
-                const poiId = suggestionItem.dataset.poiId;
-                const pois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
-                const poi = pois.find(p => p.id === poiId);
-
-                if (poi) {
-                    // Center and zoom on the POI
-                    transform.panAndZoomToPoi(poi);
-
-                    // Show details panel for the selected POI
-                    renderer.showDetailPanel(poiId);
-
-                    // Highlight the marker
-                    setTimeout(() => { // Timeout to allow for pan/zoom animation
-                        document.querySelectorAll('.poi-marker.searched').forEach(m => m.classList.remove('searched'));
-
-                        const marker = document.querySelector(`.poi-marker[data-poi-id="${poiId}"]`);
-                        if (marker) {
-                            marker.classList.add('searched');
-                            // Remove highlight after a few seconds
-                            setTimeout(() => marker.classList.remove('searched'), 4500);
-                        }
-                    }, 800);
-                }
-
-                // Reset search
-                searchInput.value = '';
-                suggestionsContainer.innerHTML = '';
-                suggestionsContainer.style.display = 'none';
-            }
-        });
-        
-        // Hide suggestions when clicking away
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
-                 suggestionsContainer.style.display = 'none';
             }
         });
     }

@@ -1,4 +1,7 @@
 
+
+
+
 /* Layout */
 #calendar-dashboard {
     display: grid;
@@ -180,6 +183,8 @@
 .event-dot.holiday { background-color: var(--negative-color); }
 .event-dot.birthday { background-color: var(--neutral-color); }
 .event-dot.ritual { background-color: var(--mystical-ancient-color); }
+.event-dot.tech { background-color: #00bfff; }
+.event-dot.history { background-color: #ff9800; border: 1px solid #fff; }
 
 /* Sidebar */
 #calendar-sidebar {
@@ -227,6 +232,21 @@
     padding-bottom: 8px;
 }
 
+/* Search */
+#calendar-search-input {
+    width: 100%;
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+}
+#calendar-search-input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
 /* Event Details */
 .detail-item {
     margin-bottom: 12px;
@@ -239,6 +259,8 @@
 .detail-item.holiday { border-color: var(--negative-color); }
 .detail-item.birthday { border-color: var(--neutral-color); }
 .detail-item.ritual { border-color: var(--mystical-ancient-color); }
+.detail-item.tech { border-color: #00bfff; }
+.detail-item.history { border-color: #ff9800; }
 
 .detail-title {
     font-weight: bold;
@@ -312,6 +334,8 @@
 .dot.holiday { background-color: var(--negative-color); }
 .dot.birthday { background-color: var(--neutral-color); }
 .dot.ritual { background-color: var(--mystical-ancient-color); }
+.dot.tech { background-color: #00bfff; }
+.dot.history { background-color: #ff9800; }
 
 /* Placeholder */
 .placeholder-text {

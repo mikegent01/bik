@@ -1,6 +1,8 @@
+
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
+import { RESEARCH_CATEGORIES, NATIONS } from './research-data.js';
 
 // --- STATE MANAGEMENT ---
 
@@ -108,6 +110,30 @@ const DEFAULT_INVENTORIES = {
     }
 };
 
+// Helper to initialize research state
+function initResearchState() {
+    const rState = {};
+    for (const nationKey in NATIONS) {
+        rState[nationKey] = {
+            activeResearch: null,
+            completed: {}, 
+            unlocked: {},
+            currentAgeId: 'age_dawn', // Default starting age
+            ageHistory: [] // Track choices made
+        };
+        
+        // Initialize Tier 1 as unlocked
+        RESEARCH_CATEGORIES.forEach(cat => {
+            rState[nationKey].completed[cat] = [];
+            rState[nationKey].unlocked[cat] = [];
+            for(let i=1; i<=5; i++) {
+                rState[nationKey].unlocked[cat].push(`${cat.toLowerCase()}_t1_n${i}`);
+            }
+        });
+    }
+    return rState;
+}
+
 export const state = {
     loggedInUser: localStorage.getItem('vigilanceTerminalUser') || 'generic',
     debugMode: false,
@@ -136,7 +162,8 @@ export const state = {
     focusTreeState: {},
     inventories: {},
     mapState: { discoveredFogs: [], userPois: { mushroom_kingdom: [], midlands: [], }, userFogs: { mushroom_kingdom: [], midlands: [], } },
-    userState: { following: [], seenPostIds: [], waluigiWarningShown: false }
+    userState: { following: [], seenPostIds: [], waluigiWarningShown: false },
+    researchState: initResearchState() // Initialize research state
 };
 
 function initInventories() { state.inventories = structuredClone(DEFAULT_INVENTORIES); }
@@ -438,6 +465,11 @@ export function loadState() {
 
     if (!state.focusTreeState || state.focusTreeState.buildVersionApplied !== "2024-05-18-r1") {
         initFocusTreeState();
+    }
+    
+    // Ensure researchState is initialized
+    if (!state.researchState) {
+        state.researchState = initResearchState();
     }
     
     for (const mapId in MAP_DATA) {

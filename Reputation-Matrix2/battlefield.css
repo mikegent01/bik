@@ -1,3 +1,4 @@
+
 /* --- Battlefield Page Layout --- */
 #battlefield-container {
     display: flex;
@@ -12,13 +13,34 @@
     padding: 24px;
 }
 
+.battle-entry.active {
+    border-left: 4px solid var(--accent-color);
+}
+
+.battle-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
 .battle-entry h3 {
     font-family: var(--font-display);
     font-size: 1.8rem;
     color: var(--text-color);
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
+    margin: 0;
+}
+
+.battle-date-badge {
+    font-family: var(--font-mono);
+    background-color: var(--main-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
 }
 
 .battle-layout {
@@ -31,18 +53,107 @@
     font-size: 0.95rem;
     color: var(--text-secondary);
     line-height: 1.7;
+    margin-bottom: 20px;
 }
 
 .battle-narrative p {
     margin-bottom: 1em;
 }
 
+/* --- Progress Bar & Log --- */
+.battle-progress-section {
+    background-color: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 20px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.battle-progress-track {
+    width: 100%;
+    height: 12px;
+    background-color: var(--sidebar-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.battle-progress-fill {
+    height: 100%;
+    background-color: var(--accent-color);
+    width: 0%; /* Set via JS */
+    transition: width 1s ease-in-out;
+    border-radius: 6px;
+}
+
+.war-log {
+    border-top: 1px dashed var(--border-color);
+    padding-top: 12px;
+}
+
+.war-log h6 {
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+}
+
+.war-log-content {
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+/* Custom Scrollbar for log */
+.war-log-content::-webkit-scrollbar { width: 4px; }
+.war-log-content::-webkit-scrollbar-track { background: var(--sidebar-bg); }
+.war-log-content::-webkit-scrollbar-thumb { background: var(--border-color); }
+
+.war-log-entry {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding: 4px;
+    border-left: 2px solid var(--border-color);
+    background: rgba(255,255,255,0.02);
+}
+
+.war-log-entry.major {
+    border-left-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+.war-log-entry.timeline {
+    border-left-color: var(--neutral-color);
+    background: rgba(227, 179, 65, 0.1);
+}
+
+.log-date {
+    font-weight: bold;
+    margin-right: 6px;
+    opacity: 0.7;
+}
+
+/* --- Infobox --- */
 .battle-infobox {
     background-color: var(--main-bg);
     border: 1px solid var(--border-color);
     padding: 16px;
     border-radius: 6px;
     font-size: 0.85rem;
+    height: fit-content;
 }
 
 .infobox-item {
@@ -99,6 +210,7 @@
     background-color: var(--sidebar-bg);
     padding: 2px 6px;
     border-radius: 4px;
+    border: 1px solid var(--border-color);
 }
 
 .belligerent-item img {
@@ -119,6 +231,15 @@
 .outcome.stalemate {
     color: var(--neutral-color);
     font-weight: bold;
+}
+.outcome.ongoing {
+    color: var(--accent-color);
+    font-weight: bold;
+    animation: pulse-text 2s infinite;
+}
+
+@keyframes pulse-text {
+    50% { opacity: 0.6; }
 }
 
 @media (max-width: 900px) {
