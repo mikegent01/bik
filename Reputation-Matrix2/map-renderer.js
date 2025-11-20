@@ -23,6 +23,21 @@ let tooltip;
 
 // --- CONSTANTS & HELPERS ---
 
+function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+function seededRandom(seed) {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+}
+
 const TRADE_GOODS = {
     mine: [ {n:'Iron Ore', i:'🔩'}, {n:'Gold', i:'⚱️'}, {n:'Coal', i:'⚫'}, {n:'Gems', i:'💎'}, {n:'Mithril', i:'✨'} ],
     quarry: [ {n:'Stone', i:'🪨'}, {n:'Marble', i:'🏛️'}, {n:'Obsidian', i:'⬛'} ],
@@ -63,7 +78,7 @@ function getEstateWeights(poi) {
     return estateWeights;
 }
 
-function pickWeightedEstate(weights) {
+function pickWeightedEstate(weights, poi) {
     // For exports, we care about who drives production or investment
     // Nobility = Arms/Politics, Clergy = Magic/Medical, Burghers = Tech/Econ, Commoners = Farming/Labor
     const pool = [
@@ -74,7 +89,8 @@ function pickWeightedEstate(weights) {
     ];
     
     const total = pool.reduce((acc, item) => acc + item.w, 0);
-    let random = Math.random() * total;
+    const seed = simpleHash(poi.id);
+    let random = seededRandom(seed) * total;
     
     for (const item of pool) {
         if (random < item.w) return item.id;
@@ -101,7 +117,8 @@ function getResearchBasedExport(poi, estate) {
         'connectopia_pioneers_guild': 'grand_country' 
     };
     
-    const nationKey = factionToNation[poi.factionId] || 'midlands'; 
+    const mapNation = getNationFromMapId(map.activeMapId);
+    const nationKey = mapNation || factionToNation[poi.factionId] || 'midlands';
 
     // 2. Select Category based on Estate Preference
     // Nobility -> Weapons, Political
@@ -115,7 +132,7 @@ function getResearchBasedExport(poi, estate) {
     else preferredCategories = ['ECONOMIC', 'MEDICAL']; // Commoners
 
     // 3. Find highest tier completed tech in preferred categories
-    let bestTech = null;
+    let candidateTechs = [];
     let highestTier = -1;
 
     preferredCategories.forEach(cat => {
@@ -128,36 +145,45 @@ function getResearchBasedExport(poi, estate) {
         const completedNodes = nodes.filter(n => n.status === 'completed');
         
         if (completedNodes.length > 0) {
-            // Sort by tier descending
-            completedNodes.sort((a,b) => b.tier - a.tier);
-            const topNode = completedNodes[0];
-            
-            if (topNode.tier > highestTier) {
-                highestTier = topNode.tier;
-                bestTech = topNode;
-            }
+            completedNodes.forEach(node => {
+                if (node.tier > highestTier) {
+                    highestTier = node.tier;
+                }
+                candidateTechs.push(node);
+            });
         }
     });
 
-    if (bestTech) {
-        let icon = '📦';
-        if (bestTech.category === 'WEAPONS') icon = '⚔️';
-        if (bestTech.category === 'MAGIC') icon = '✨';
-        if (bestTech.category === 'TECH') icon = '⚙️';
-        if (bestTech.category === 'MEDICAL') icon = '💊';
-        if (bestTech.category === 'ECONOMIC') icon = '💰';
-        if (bestTech.category === 'POLITICAL') icon = '📜';
-        
-        return { n: bestTech.name, i: icon, source: bestTech.category, tierVal: bestTech.tier };
+    if (candidateTechs.length > 0) {
+        // Filter candidates to be within a certain range of the highest tier
+        const tierThreshold = 3; // Include techs up to 3 tiers below the max
+        const filteredCandidates = candidateTechs.filter(tech => highestTier - tech.tier <= tierThreshold);
+
+        // If we have candidates, pick one randomly
+        if (filteredCandidates.length > 0) {
+            const seed = simpleHash(poi.id + estate);
+            const bestTech = filteredCandidates[Math.floor(seededRandom(seed) * filteredCandidates.length)];
+            
+            let icon = '📦';
+            if (bestTech.category === 'WEAPONS') icon = '⚔️';
+            if (bestTech.category === 'MAGIC') icon = '✨';
+            if (bestTech.category === 'TECH') icon = '⚙️';
+            if (bestTech.category === 'MEDICAL') icon = '💊';
+            if (bestTech.category === 'ECONOMIC') icon = '💰';
+            if (bestTech.category === 'POLITICAL') icon = '📜';
+            
+            return { n: bestTech.name, i: icon, source: bestTech.category, tierVal: bestTech.tier };
+        }
     }
     
     return null;
 }
 
-function getImportNeeds(exportCategory) {
+function getImportNeeds(exportCategory, poi) {
     // Simple logic: Import what you don't export
     const cats = RESEARCH_CATEGORIES.filter(c => c !== exportCategory);
-    const importCat = cats[Math.floor(Math.random() * cats.length)];
+    const seed = simpleHash(poi.id + exportCategory);
+    const importCat = cats[Math.floor(seededRandom(seed) * cats.length)];
     
     let name = "General Supplies";
     if (importCat === 'WEAPONS') name = "Arms & Armor";
@@ -176,7 +202,7 @@ function getTradeInfo(poi) {
 
     // 1. Determine Production based on Research & Social Class
     const weights = getEstateWeights(poi);
-    const estate = pickWeightedEstate(weights);
+    const estate = pickWeightedEstate(weights, poi);
     const techExport = getResearchBasedExport(poi, estate);
 
     let exportItem = { n: 'Raw Materials', i: '🪵' };
@@ -206,7 +232,7 @@ function getTradeInfo(poi) {
     const dailyImport = Math.floor(dailyProduction * 0.5);
 
     // Import Category
-    const importName = getImportNeeds(exportCategory);
+    const importName = getImportNeeds(exportCategory, poi);
 
     let statusTier = "Local Producer";
     if (econScore >= 9) statusTier = "Global Trade Hub";
@@ -1074,8 +1100,10 @@ export function showDetailPanel(poiId) {
     if (!poi) return;
     
     const faction = LORE_DATA.factions[poi.factionId];
-    const typeInfo = BUILDING_TYPES[poi.type];
-    
+    const defaultTypeInfo = { name: 'Unknown Location', icon: '❓' };
+
+    // Safely get typeInfo
+    const typeInfo = BUILDING_TYPES[poi.type] || defaultTypeInfo;    
     // Basic Info
     let content = `
         <div class="poi-detail">
@@ -1343,6 +1371,29 @@ export function showLawCodexModal(lawKey) {
     const content = `<div class="law-popup-content">${renderCodexLaws(lawData)}</div>`;
     map.showMapModal(`Codex: ${lawData.name}`, content);
 }
+
+function getNationFromMapId(mapId) {
+    const mapInfo = MAP_DATA[mapId];
+    if (!mapInfo || !mapInfo.group) return null;
+    const group = mapInfo.group;
+
+    if (group.includes('Midlands')) return 'midlands';
+    if (group.includes('Mushroom Kingdom')) return 'mushroom_kingdom';
+    if (group.includes('Middle-earth')) return 'middle_earth';
+    if (group.includes('Kivotos')) return 'kivotos';
+    if (group.includes('Internet')) return 'internet';
+    if (group.includes('Fated Place')) return 'warhammer';
+    if (group.includes('Pokémon')) return 'pokemon';
+    if (group.includes('Equestria')) return 'equestria';
+    if (group.includes('Animatopia')) return 'animatopia';
+    if (group.includes("L'Eclaire Isle")) return 'leclaire_isle';
+    if (group.includes('Teyvat')) return 'teyvat';
+    if (group.includes('Doughnut Hole')) return 'doughnut_hole';
+    if (group.includes('Grand Country') || group.includes('Connectopia')) return 'grand_country';
+    
+    return null;
+}
+
 function getLandmassKey(mapId) {
     const mapInfo = MAP_DATA[mapId];
     if (!mapInfo || !mapInfo.group) return null;

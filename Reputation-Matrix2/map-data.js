@@ -93,6 +93,25 @@ import { siresHollowData } from './map-data/equestria/SiresHollow.js';
 import { farasiData } from './map-data/equestria/Farasi.js';
 import { zebrabweData } from './map-data/equestria/Zebrabwe.js';
 import { saddleArabiaData } from './map-data/equestria/SaddleArabia.js';
+import { boneDryDesertData } from './map-data/equestria/BoneDryDesert.js';
+import { appledoosaData } from './map-data/equestria/Appledoosa.js';
+import { seaPalominoDesertData } from './map-data/equestria/SeaPalominoDesert.js';
+import { badlandsData } from './map-data/equestria/Badlands.js';
+import { southCentralParkData } from './map-data/equestria/SouthCentralPark.js';
+import { stormKingsRealmData } from './map-data/equestria/StormKingsRealm.js';
+import { greatBlizzardBarreaerData } from './map-data/equestria/GreatBlizzardBarreaer.js';
+import { desolateWastelandData } from './map-data/equestria/DesolateWasteland.js';
+import { mountMetazoaData } from './map-data/equestria/MountMetazoa.js';
+import { sugarMapleGroveData } from './map-data/equestria/SugarMapleGrove.js';
+import { griffinstoneData } from './map-data/equestria/Griffonstone.js';
+import { thraceData } from './map-data/equestria/Thrace.js';
+import { greatIcePlatauData } from './map-data/equestria/GreatIcePlatau.js';
+import { halfingerGroveData } from './map-data/equestria/HalfingerGrove.js';
+import { trottingTerriansData } from './map-data/equestria/TrottingTerrians.js';
+import { abyssiniaData } from './map-data/equestria/Abyssinia.js';
+import { ngAmiaData } from './map-data/equestria/NgAmia.js';
+import { shireLankaData } from './map-data/equestria/ShireLanka.js';
+import { riverlandsData } from './map-data/equestria/Riverlands.js';
 
 
 // Re-export BUILDING_TYPES so other modules can access it from this central file
@@ -1337,11 +1356,50 @@ export const MAP_DATA = {
         ...(siresHollowData.pointsOfInterest || []),
         ...(farasiData.pointsOfInterest || []),
         ...(zebrabweData.pointsOfInterest || []),
-        ...(saddleArabiaData.pointsOfInterest || [])
+        ...(saddleArabiaData.pointsOfInterest || []),
+        ...(boneDryDesertData.pointsOfInterest || []),
+        ...(appledoosaData.pointsOfInterest || []),
+        ...(seaPalominoDesertData.pointsOfInterest || []),
+        ...(badlandsData.pointsOfInterest || []),
+        ...(southCentralParkData.pointsOfInterest || []),
+        ...(stormKingsRealmData.pointsOfInterest || []),
+        ...(greatBlizzardBarreaerData.pointsOfInterest || []),
+        ...(desolateWastelandData.pointsOfInterest || []),
+        ...(mountMetazoaData.pointsOfInterest || []),
+        ...(sugarMapleGroveData.pointsOfInterest || []),
+        ...(griffinstoneData.pointsOfInterest || []),
+        ...(thraceData.pointsOfInterest || []),
+        ...(greatIcePlatauData.pointsOfInterest || []),
+        ...(halfingerGroveData.pointsOfInterest || []),
+        ...(trottingTerriansData.pointsOfInterest || []),
+        ...(abyssiniaData.pointsOfInterest || []),
+        ...(ngAmiaData.pointsOfInterest || []),
+        ...(shireLankaData.pointsOfInterest || []),
+        ...(riverlandsData.pointsOfInterest || [])
         ],
         fogOfWar: [
-            ...cenerlotData.fogOfWar,
-            ...mountEverhoofData.fogOfWar
+            ...(cenerlotData.fogOfWar || []),
+            ...(mountEverhoofData.fogOfWar || []),
+            ...(hailbregData.fogOfWar || []),
+            ...(wanderingWoodsData.fogOfWar || []),
+            ...(jackalopeSlopesData.fogOfWar || []),
+            ...(siresHollowData.fogOfWar || []),
+            ...(farasiData.fogOfWar || []),
+            ...(zebrabweData.fogOfWar || []),
+            ...(saddleArabiaData.fogOfWar || []),
+            ...(boneDryDesertData.fogOfWar || []),
+            ...(appledoosaData.fogOfWar || []),
+            ...(seaPalominoDesertData.fogOfWar || []),
+            ...(badlandsData.fogOfWar || []),
+            ...(southCentralParkData.fogOfWar || []),
+            ...(stormKingsRealmData.fogOfWar || []),
+            ...(greatBlizzardBarreaerData.fogOfWar || []),
+            ...(desolateWastelandData.fogOfWar || []),
+            ...(mountMetazoaData.fogOfWar || []),
+            ...(sugarMapleGroveData.fogOfWar || []),
+            ...(griffinstoneData.fogOfWar || []),
+            ...(thraceData.fogOfWar || []),
+            ...(greatIcePlatauData.fogOfWar || [])
         ],
         poiSourceFile: 'map-data/equestria-pois.js'
     },
@@ -1434,7 +1492,191 @@ export const MAP_DATA = {
         pointsOfInterest: saddleArabiaData.pointsOfInterest,
         fogOfWar: saddleArabiaData.fogOfWar || [],
         poiSourceFile: 'map-data/equestria/SaddleArabia.js'
-    },    
+    },
+    equestria_bone_dry_desert: {
+        id: 'equestria_bone_dry_desert',
+        name: 'Bone Dry Desert',
+        imageSrc: 'equestria.png',
+        order: 11,
+        group: 'Equestria',
+        pointsOfInterest: boneDryDesertData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_bone_dry_desert', points: "36.82,64.82 40.48,63.30 43.66,63.51 48.78,65.25 51.34,63.95 51.71,70.67 53.78,76.96 50.00,76.75 46.46,75.23 45.12,75.23 41.95,77.40 38.90,79.13 37.07,78.92 35.60,68.07 35.60,64.38" }],
+        poiSourceFile: 'map-data/equestria/BoneDryDesert.js'
+    },
+    equestria_appledoosa: {
+        id: 'equestria_appledoosa',
+        name: 'Appledoosa',
+        imageSrc: 'equestria.png',
+        order: 12,
+        group: 'Equestria',
+        pointsOfInterest: appledoosaData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_appledoosa', points: "41.83,39.22 40.00,44.43 40.24,48.55 43.90,47.90 46.22,43.99 47.32,43.12 42.56,39.00" }],
+        poiSourceFile: 'map-data/equestria/Appledoosa.js'
+    },
+    equestria_sea_palomino_desert: {
+        id: 'equestria_sea_palomino_desert',
+        name: 'Sea Palomino Desert',
+        imageSrc: 'equestria.png',
+        order: 13,
+        group: 'Equestria',
+        pointsOfInterest: seaPalominoDesertData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_sea_palomino_desert', points: "32.80,44.43 36.82,43.34 37.19,47.46 35.11,50.50 32.80,53.10 30.48,52.02 30.84,46.59" }],
+        poiSourceFile: 'map-data/equestria/SeaPalominoDesert.js'
+    },
+    equestria_badlands: {
+        id: 'equestria_badlands',
+        name: 'Badlands',
+        imageSrc: 'equestria.png',
+        order: 14,
+        group: 'Equestria',
+        pointsOfInterest: badlandsData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_badlands', points: "45.73,48.76 49.63,43.12 51.22,48.76 51.10,54.62 48.17,55.49 45.73,50.50" }],
+        poiSourceFile: 'map-data/equestria/Badlands.js'
+    },
+    equestria_south_central_park: {
+        id: 'equestria_south_central_park',
+        name: 'South Central Park',
+        imageSrc: 'equestria.png',
+        order: 15,
+        group: 'Equestria',
+        pointsOfInterest: southCentralParkData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_south_central_park', points: "40.73,80.22 43.41,76.53 48.66,77.40 53.78,76.75 53.66,89.33 47.44,89.76 41.58,82.17" }],
+        poiSourceFile: 'map-data/equestria/SouthCentralPark.js'
+    },
+    equestria_storm_kings_realm: {
+        id: 'equestria_storm_kings_realm',
+        name: 'Storm Kings Realm',
+        imageSrc: 'equestria.png',
+        order: 16,
+        group: 'Equestria',
+        pointsOfInterest: stormKingsRealmData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_storm_kings_realm', points: "31.82,88.68 32.80,92.15 35.48,96.05 37.55,96.70 39.02,93.67 37.07,86.29 32.67,88.89" }],
+        poiSourceFile: 'map-data/equestria/StormKingsRealm.js'
+    },
+    equestria_great_blizzard_barreaer: {
+        id: 'equestria_great_blizzard_barreaer',
+        name: 'Great Blizzard Barreaer',
+        imageSrc: 'equestria.png',
+        order: 17,
+        group: 'Equestria',
+        pointsOfInterest: greatBlizzardBarreaerData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_great_blizzard_barreaer', points: "99.78,90.41 93.07,90.63 87.34,91.93 81.24,95.84 79.04,94.10 73.31,95.18 70.62,85.42 68.67,81.30 64.15,86.72 60.01,93.45 46.58,97.79 44.88,90.63 33.89,98.00 27.18,94.75 19.98,96.27 14.74,95.62 0.46,81.52 -1.00,101.69 100.27,101.69 99.91,95.84 99.91,90.41" }],
+        poiSourceFile: 'map-data/equestria/GreatBlizzardBarreaer.js'
+    },
+    equestria_desolate_wasteland: {
+        id: 'equestria_desolate_wasteland',
+        name: 'Desolate Wasteland',
+        imageSrc: 'equestria.png',
+        order: 18,
+        group: 'Equestria',
+        pointsOfInterest: desolateWastelandData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_desolate_wasteland', points: "80.26,9.50 75.62,10.59 72.57,12.32 75.14,20.56 77.33,24.90 86.36,24.47 87.46,17.09 89.05,9.93 84.90,10.15" }],
+        poiSourceFile: 'map-data/equestria/DesolateWasteland.js'
+    },
+    equestria_mount_metazoa: {
+        id: 'equestria_mount_metazoa',
+        name: 'Mount Metazoa',
+        imageSrc: 'equestria.png',
+        order: 19,
+        group: 'Equestria',
+        pointsOfInterest: mountMetazoaData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_mount_metazoa', points: "81.12,10.15 70.99,11.24 64.28,10.15 61.10,12.54 60.25,7.55 67.08,4.73 72.70,2.56 78.55,4.08 82.21,10.15" }],
+        poiSourceFile: 'map-data/equestria/MountMetazoa.js'
+    },
+    equestria_sugar_maple_grove: {
+        id: 'equestria_sugar_maple_grove',
+        name: 'Sugar Maple Grove',
+        imageSrc: 'equestria.png',
+        order: 20,
+        group: 'Equestria',
+        pointsOfInterest: sugarMapleGroveData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_sugar_maple_grove', points: "67.82,17.09 68.67,25.12 69.65,33.80 69.52,41.17 73.55,42.04 77.70,40.09 77.70,34.23 83.19,39.44 84.29,29.67 83.31,25.12 76.60,18.18 70.74,14.92 68.18,17.09" }],
+        poiSourceFile: 'map-data/equestria/SugarMapleGrove.js'
+    },
+    equestria_griffonstone: {
+        id: 'equestria_griffonstone',
+        name: 'Griffonstone',
+        imageSrc: 'equestria.png',
+        order: 21,
+        group: 'Equestria',
+        pointsOfInterest: griffinstoneData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_griffonstone', points: "64.76,10.15 66.23,27.72 65.62,37.48 61.84,29.89 61.59,19.26 61.59,9.07 63.54,9.50" }],
+        poiSourceFile: 'map-data/equestria/Griffonstone.js'
+    },
+    equestria_thrace: {
+        id: 'equestria_thrace',
+        name: 'Thrace',
+        imageSrc: 'equestria.png',
+        order: 22,
+        group: 'Equestria',
+        pointsOfInterest: thraceData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_thrace', points: "88.92,21.65 91.12,25.77 95.76,27.07 98.20,25.12 99.42,18.61 98.93,12.97 95.64,9.93 92.95,18.18 90.39,20.56" }],
+        poiSourceFile: 'map-data/equestria/Thrace.js'
+    },
+    equestria_great_ice_platau: {
+        id: 'equestria_great_ice_platau',
+        name: 'Great Ice Plateau',
+        imageSrc: 'equestria.png',
+        order: 23,
+        group: 'Equestria',
+        pointsOfInterest: greatIcePlatauData.pointsOfInterest,
+        fogOfWar: [{ id: 'fog_eq_great_ice_platau', points: "97.95,11.45 100.64,5.60 98.56,4.95 95.27,4.95 91.73,3.64 96.73,12.97" }],
+        poiSourceFile: 'map-data/equestria/GreatIcePlatau.js'
+    },
+    equestria_halfinger_grove: {
+        id: 'equestria_halfinger_grove',
+        name: 'Halfinger Grove',
+        imageSrc: 'equestria.png',
+        order: 24,
+        group: 'Equestria',
+        pointsOfInterest: halfingerGroveData.pointsOfInterest,
+        poiSourceFile: 'map-data/equestria/HalfingerGrove.js'
+    },
+    equestria_trotting_terrians: {
+        id: 'equestria_trotting_terrians',
+        name: 'Trotting Terrians',
+        imageSrc: 'equestria.png',
+        order: 25,
+        group: 'Equestria',
+        pointsOfInterest: trottingTerriansData.pointsOfInterest,
+        poiSourceFile: 'map-data/equestria/TrottingTerrians.js'
+    },
+    equestria_abyssinia: {
+        id: 'equestria_abyssinia',
+        name: 'Abyssinia',
+        imageSrc: 'equestria.png',
+        order: 26,
+        group: 'Equestria',
+        pointsOfInterest: abyssiniaData.pointsOfInterest,
+        poiSourceFile: 'map-data/equestria/Abyssinia.js'
+    },
+    equestria_ng_amia: {
+        id: 'equestria_ng_amia',
+        name: "Ng'Amia",
+        imageSrc: 'equestria.png',
+        order: 27,
+        group: 'Equestria',
+        pointsOfInterest: ngAmiaData.pointsOfInterest,
+        poiSourceFile: 'map-data/equestria/NgAmia.js'
+    },
+    equestria_shire_lanka: {
+        id: 'equestria_shire_lanka',
+        name: 'Shire Lanka',
+        imageSrc: 'equestria.png',
+        order: 28,
+        group: 'Equestria',
+        pointsOfInterest: shireLankaData.pointsOfInterest,
+        poiSourceFile: 'map-data/equestria/ShireLanka.js'
+    },
+    equestria_riverlands: {
+        id: 'equestria_riverlands',
+        name: 'Riverlands',
+        imageSrc: 'equestria.png',
+        order: 29,
+        group: 'Equestria',
+        pointsOfInterest: riverlandsData.pointsOfInterest,
+        poiSourceFile: 'map-data/equestria/Riverlands.js'
+    },
     grand_country_full: {
         id: 'grand_country_full',
         name: 'The Grand Country',
@@ -1442,7 +1684,7 @@ export const MAP_DATA = {
         order: 1,
         group: 'The Grand Country',
         pointsOfInterest: grandCountryData.pointsOfInterest,
-        fogOfWar: grandCountryData.fogOfWar || [],
+    //    fogOfWar: grandCountryData.fogOfWar || [],
         poiSourceFile: 'map-data/grand-country-pois.js'
     }
 };

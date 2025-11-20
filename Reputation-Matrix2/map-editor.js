@@ -11,6 +11,7 @@ const poiPalette = document.getElementById('poi-palette');
 const drawFogBtn = document.getElementById('draw-fog-btn');
 const removeItemBtn = document.getElementById('remove-item-btn');
 const generateCodeBtn = document.getElementById('generate-code-btn');
+generateCodeBtn.title = 'Exports the current map data (POIs and Fog of War) as JavaScript code to be used in the map data files.';
 const poiEditorModal = document.getElementById('poi-editor-modal');
 const closeModalBtn = poiEditorModal.querySelector('.modal-close');
 const poiForm = document.getElementById('poi-form');
@@ -74,6 +75,10 @@ function setEditorMode(mode) {
 }
 
 function handleGenerateCode() {
+    if (map.activeMapMode === 'political') {
+        alert("Exporting data is disabled in Political mode.");
+        return;
+    }
     playSound('confirm.mp3');
     if (activeEditorMode === 'drawingFog') finalizeFogPolygon();
     generateAndShowCode();

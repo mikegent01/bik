@@ -1,4 +1,3 @@
-// map-data/building-types.js
 
 export const BUILDING_TYPES = {
     // Cities & Settlements
@@ -13,6 +12,7 @@ export const BUILDING_TYPES = {
     // Military
     fortress: { name: 'Fortress', icon: '🏰' },
     castle: { name: 'Castle', icon: '🏯' },
+    tower: { name: 'Tower', icon: '🧱' }, // Added
     watchtower: { name: 'Watchtower', icon: '🗼' },
     barracks: { name: 'Barracks', icon: '🛡️' },
     siege_camp: { name: 'Siege Camp', icon: '⚔️' },
@@ -21,6 +21,7 @@ export const BUILDING_TYPES = {
     port: { name: 'Port', icon: '⚓' },
     market: { name: 'Marketplace', icon: '🛒' },
     mine: { name: 'Mine', icon: '⛏️' },
+    resource: { name: 'Natural Resource', icon: '🪵' }, // Added (for Tea, Salt, etc.)
     farm: { name: 'Farm', icon: '🌾' },
     workshop: { name: 'Workshop', icon: '🛠️' },
     trade_post: { name: 'Trade Post', icon: '🏪' },
@@ -30,6 +31,7 @@ export const BUILDING_TYPES = {
     temple: { name: 'Temple', icon: '⛪' },
     shrine: { name: 'Shrine', icon: '⛩️' },
     monastery: { name: 'Monastery', icon: '🛕' },
+    graveyard: { name: 'Graveyard', icon: '🪦' }, // Added
     mages_tower: { name: 'Mage\'s Tower', icon: '🧙' },
     ley_line: { name: 'Ley Line Nexus', icon: '✨' },
     ancient_circle: { name: 'Ancient Circle', icon: '⭕' },
