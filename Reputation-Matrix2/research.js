@@ -1,8 +1,6 @@
 
-
-
 import { state, loadState, saveState } from './state.js';
-import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS } from './research-data.js';
+import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING } from './research-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 import { LORE_DATA } from './lore.js';
 import { playSound } from './common.js';
@@ -306,9 +304,6 @@ function drawDynasticWheel(momentum) {
     ctx.clearRect(0,0,width,height);
 
     // Draw the wheel static - Tension (index 3) at top
-    // Slice 0 (Calm) at right side, rotate so 3 is at -PI/2.
-    // 0 is at angle 0. 3 is at 3 * arcSize.
-    // Rotation = -PI/2 - (3.5 * arcSize) to center slice 3 at top.
     const rotationOffset = -Math.PI / 2 - (3.5 * arcSize);
     
     phases.forEach((phase, i) => {
@@ -352,13 +347,14 @@ function drawDynasticWheel(momentum) {
     });
     
     // Draw Needle dynamically pointing to the ACTIVE PHASE
-    // Instead of mapping raw momentum which can drift, we point to the center of the current active slice.
     // 1. Find index of current active phase
     const activePhaseId = globalCycleState.phase.id;
     const activeIndex = phases.findIndex(p => p.id === activePhaseId);
     
     // 2. Calculate angle to center of that slice
-    // Angle = (index * arcSize) + rotationOffset + (arcSize / 2)
+    // Add needle movement based on momentum within the slice (clamped -0.5 to 0.5 of arc size)
+    // However, globalCycleState.momentum is total, not relative to phase.
+    // Simplified: Just point to center of active phase.
     const needleAngle = (activeIndex * arcSize) + rotationOffset + (arcSize / 2);
 
     // Needle
@@ -487,6 +483,63 @@ function openNodeDetails(node) {
         ? `${daysRemaining} days remaining<br><span class="calendar-estimate">(Exp: ${finishDate})</span>`
         : `${node.cost} days (Base)`;
 
+    // Distribution Logic
+    let distributionHTML = "";
+    // Only show distribution if the node is known (researching or completed)
+    if (node.status === 'completed' || node.status === 'researching') {
+        const estateKeys = ['nobility', 'clergy', 'burghers', 'commoners', 'indentured', 'slaves'];
+        const mapping = RESEARCH_TO_ESTATE_MAPPING[node.category] || RESEARCH_TO_ESTATE_MAPPING['TECH'];
+
+        const distItems = estateKeys.map(estate => {
+            // Base Affinity (0.0 - 1.0)
+            const affinity = mapping[estate] || 0.1;
+            
+            let percentage = 0;
+            if (node.tier <= 2) {
+                percentage = 100; // Ancient tech is universal
+            } else {
+                // New Decay Formula: 
+                // Decay Rate = 12 - (Affinity * 10)
+                // Range: 2% decay per tier (High affinity) to 12% decay (Low affinity)
+                const decayRate = 12 - (affinity * 10);
+                percentage = 100 - ((node.tier - 1) * decayRate);
+            }
+
+            // Apply scaling for researching nodes (super low access until finished)
+            if (node.status === 'researching') {
+                percentage = percentage * (node.progress / 100);
+            }
+            
+            // Clamp percentage
+            percentage = Math.max(0, Math.min(100, percentage));
+            
+            // Formatting Colors
+            let color = '#7d8590'; // Grey (Low)
+            if (percentage >= 80) color = '#3fb950'; // Green (Universal/High)
+            else if (percentage >= 50) color = '#e3b341'; // Yellow (Common)
+            else if (percentage >= 20) color = '#d29922'; // Orange (Restricted)
+            else if (percentage > 0) color = '#f85149'; // Red (Rare)
+
+            if (percentage > 0) {
+                return `<div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:2px;">
+                            <span style="text-transform:capitalize;">${estate}</span>
+                            <span style="color:${color}; font-weight:bold;">${Math.round(percentage)}%</span>
+                        </div>`;
+            }
+            return null;
+        }).filter(item => item !== null).join('');
+
+        if (distItems) {
+            distributionHTML = `
+                <div class="tech-distribution" style="margin-top:16px; border-top:1px solid var(--border-color); padding-top:12px;">
+                    <h4 style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:8px;">Projected Social Distribution</h4>
+                    ${distItems}
+                </div>
+            `;
+        }
+    }
+
+
     const html = `
         <div class="tech-detail-header">
             <h3>${node.name}</h3>
@@ -502,6 +555,7 @@ function openNodeDetails(node) {
             <span><strong>Estimate:</strong> ${timeString}</span>
             <span style="font-size:0.8em; color:var(--text-secondary); margin-top:4px;">Tier: ${node.tier}</span>
         </div>
+        ${distributionHTML}
     `;
     detailPanelContent.innerHTML = html;
     detailPanel.classList.add('visible');

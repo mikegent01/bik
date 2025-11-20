@@ -12,9 +12,10 @@ import { BATTLE_MAP_DATA } from './map-battle-data.js';
 import { LEGAL_DATA } from './legal_data.js';
 import { ALL_LEGAL_CODES } from './laws-data.js';
 import { CULTURE_DATA } from './culture-data.js'; 
-import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js'; 
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from './species-data.js'; 
 import { PARTY_LOCATIONS } from './party-data.js';
 import { PROVINCE_POLITICS } from './politics-data.js';
+import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from './research-data.js';
 
 const displayArea = document.getElementById('map-display-area');
 const detailPanel = document.getElementById('map-detail-content');
@@ -44,29 +45,193 @@ const TRADE_GOODS = {
     default: [ {n:'Supplies', i:'📦'}, {n:'Labor', i:'💪'} ]
 };
 
-function getTradeInfo(poi) {
-    let hash = 0;
-    for (let i = 0; i < poi.id.length; i++) {
-        hash = poi.id.charCodeAt(i) + ((hash << 5) - hash);
+// Helper to get estate breakdown for a specific POI region
+function getEstateWeights(poi) {
+    const mapInfo = MAP_DATA[map.activeMapId];
+    const regionGroup = mapInfo ? mapInfo.group : 'Other';
+    const demographics = REGIONAL_DEMOGRAPHICS[regionGroup] || { 'dnd_human': 1.0 };
+    
+    let estateWeights = { nobility: 0, clergy: 0, burghers: 0, commoners: 0 };
+    
+    for (const [speciesKey, pct] of Object.entries(demographics)) {
+        const bias = SPECIES_ESTATE_BIAS[speciesKey] || SPECIES_ESTATE_BIAS.default;
+        estateWeights.nobility += (bias.nobility || 0) * pct;
+        estateWeights.clergy += (bias.clergy || 0) * pct;
+        estateWeights.burghers += (bias.burghers || 0) * pct;
+        estateWeights.commoners += (bias.commoners || 0) * pct;
     }
-    const typeKey = TRADE_GOODS[poi.type] ? poi.type : 'default';
-    const goodsList = TRADE_GOODS[typeKey];
-    const good = goodsList[Math.abs(hash) % goodsList.length];
+    return estateWeights;
+}
+
+function pickWeightedEstate(weights) {
+    // For exports, we care about who drives production or investment
+    // Nobility = Arms/Politics, Clergy = Magic/Medical, Burghers = Tech/Econ, Commoners = Farming/Labor
+    const pool = [
+        { id: 'nobility', w: weights.nobility },
+        { id: 'burghers', w: weights.burghers },
+        { id: 'clergy', w: weights.clergy },
+        { id: 'commoners', w: weights.commoners }
+    ];
+    
+    const total = pool.reduce((acc, item) => acc + item.w, 0);
+    let random = Math.random() * total;
+    
+    for (const item of pool) {
+        if (random < item.w) return item.id;
+        random -= item.w;
+    }
+    return 'commoners';
+}
+
+function getResearchBasedExport(poi, estate) {
+    // 1. Identify Nation Key
+    const factionToNation = {
+        'regal_empire': 'midlands', 'iron_legion': 'midlands',
+        'mushroom_regency': 'mushroom_kingdom', 'toad_gang': 'mushroom_kingdom', 'peach_loyalists': 'mushroom_kingdom',
+        'kingdom_of_gondor': 'middle_earth', 'mordor': 'middle_earth', 'isengard': 'middle_earth',
+        'general_student_union': 'kivotos', 'millennium_science_school': 'kivotos', 'gehenna_academy': 'kivotos',
+        'internet_federation': 'internet', 'hacktivist_collectives': 'internet',
+        'the_empire': 'warhammer', 'greenskins': 'warhammer',
+        'pokemon_league': 'pokemon', 'team_rocket': 'pokemon',
+        'equestrian_regime': 'equestria', 'changeling_hive': 'equestria',
+        'animatopia_prey_congress': 'animatopia', 'animatopia_predator_alliance': 'animatopia',
+        'leclaire_democracy': 'leclaire_isle',
+        'teyvat_hegemony': 'teyvat',
+        'void_drifters': 'doughnut_hole',
+        'connectopia_pioneers_guild': 'grand_country' 
+    };
+    
+    const nationKey = factionToNation[poi.factionId] || 'midlands'; 
+
+    // 2. Select Category based on Estate Preference
+    // Nobility -> Weapons, Political
+    // Burghers -> Tech, Economic
+    // Clergy -> Magic, Medical
+    // Commoners -> Economic (Agriculture usually, mapped to Econ here for simplicity or low tier tech)
+    let preferredCategories = [];
+    if (estate === 'nobility') preferredCategories = ['WEAPONS', 'POLITICAL'];
+    else if (estate === 'burghers') preferredCategories = ['TECH', 'ECONOMIC'];
+    else if (estate === 'clergy') preferredCategories = ['MAGIC', 'MEDICAL'];
+    else preferredCategories = ['ECONOMIC', 'MEDICAL']; // Commoners
+
+    // 3. Find highest tier completed tech in preferred categories
+    let bestTech = null;
+    let highestTier = -1;
+
+    preferredCategories.forEach(cat => {
+        // Fetch the full tree for this category to get names/descriptions
+        // Note: passing globalCycleState as null since we just want static info for now
+        const tree = getTechTree(nationKey, cat, state.researchState, null);
+        const nodes = Object.values(tree);
+        
+        // Filter for completed nodes
+        const completedNodes = nodes.filter(n => n.status === 'completed');
+        
+        if (completedNodes.length > 0) {
+            // Sort by tier descending
+            completedNodes.sort((a,b) => b.tier - a.tier);
+            const topNode = completedNodes[0];
+            
+            if (topNode.tier > highestTier) {
+                highestTier = topNode.tier;
+                bestTech = topNode;
+            }
+        }
+    });
+
+    if (bestTech) {
+        let icon = '📦';
+        if (bestTech.category === 'WEAPONS') icon = '⚔️';
+        if (bestTech.category === 'MAGIC') icon = '✨';
+        if (bestTech.category === 'TECH') icon = '⚙️';
+        if (bestTech.category === 'MEDICAL') icon = '💊';
+        if (bestTech.category === 'ECONOMIC') icon = '💰';
+        if (bestTech.category === 'POLITICAL') icon = '📜';
+        
+        return { n: bestTech.name, i: icon, source: bestTech.category, tierVal: bestTech.tier };
+    }
+    
+    return null;
+}
+
+function getImportNeeds(exportCategory) {
+    // Simple logic: Import what you don't export
+    const cats = RESEARCH_CATEGORIES.filter(c => c !== exportCategory);
+    const importCat = cats[Math.floor(Math.random() * cats.length)];
+    
+    let name = "General Supplies";
+    if (importCat === 'WEAPONS') name = "Arms & Armor";
+    if (importCat === 'MAGIC') name = "Arcane Reagents";
+    if (importCat === 'TECH') name = "Machinery";
+    if (importCat === 'MEDICAL') name = "Medicine";
+    if (importCat === 'ECONOMIC') name = "Luxury Goods";
+    if (importCat === 'POLITICAL') name = "Diplomatic Favors";
+    
+    return name;
+}
+
+function getTradeInfo(poi) {
     const econScore = poi.economic_value || 1;
-    let tier = "Local Producer";
-    if (econScore >= 9) tier = "Global Trade Hub";
-    else if (econScore >= 7) tier = "Regional Center";
-    else if (econScore >= 4) tier = "Major Producer";
-    return { ...good, tier };
+    const pop = poi.population || 0;
+
+    // 1. Determine Production based on Research & Social Class
+    const weights = getEstateWeights(poi);
+    const estate = pickWeightedEstate(weights);
+    const techExport = getResearchBasedExport(poi, estate);
+
+    let exportItem = { n: 'Raw Materials', i: '🪵' };
+    let exportCategory = 'ECONOMIC';
+
+    if (techExport) {
+        exportItem = techExport;
+        exportCategory = techExport.source;
+    } else {
+        // Fallback to generic list
+        let hash = 0;
+        for (let i = 0; i < poi.id.length; i++) hash = poi.id.charCodeAt(i) + ((hash << 5) - hash);
+        const typeKey = TRADE_GOODS[poi.type] ? poi.type : 'default';
+        const goodsList = TRADE_GOODS[typeKey];
+        exportItem = goodsList[Math.abs(hash) % goodsList.length];
+    }
+
+    // 2. Calculate Volumes
+    // Production = (Econ Score * 100) + (Pop / 50)
+    const dailyProduction = Math.floor((econScore * 100) + (pop / 50));
+    
+    // Export % depends on Econ Score (Higher econ = more surplus)
+    const exportRatio = 0.1 + (econScore * 0.05); // 0.15 to 0.6
+    const dailyExport = Math.floor(dailyProduction * exportRatio);
+    
+    // Import is inversely proportional to export (Need resources to make stuff) or based on wealth
+    const dailyImport = Math.floor(dailyProduction * 0.5);
+
+    // Import Category
+    const importName = getImportNeeds(exportCategory);
+
+    let statusTier = "Local Producer";
+    if (econScore >= 9) statusTier = "Global Trade Hub";
+    else if (econScore >= 7) statusTier = "Regional Center";
+    else if (econScore >= 4) statusTier = "Major Producer";
+
+    return {
+        name: exportItem.n,
+        icon: exportItem.i,
+        tier: statusTier,
+        production: dailyProduction,
+        exportAmt: dailyExport,
+        importAmt: dailyImport,
+        importName: importName
+    };
 }
 
 function getAssociatedGuilds(tradeGoodName, factionId) {
     const guilds = [];
     const good = tradeGoodName.toLowerCase();
-    if (good.includes('iron') || good.includes('steel') || good.includes('weapon')) guilds.push("Iron Legion Quartermasters");
-    if (good.includes('magitek') || good.includes('crystal') || good.includes('potion')) guilds.push("Mages' Guild");
+    if (good.includes('iron') || good.includes('steel') || good.includes('weapon') || good.includes('armament')) guilds.push("Iron Legion Quartermasters");
+    if (good.includes('magitek') || good.includes('crystal') || good.includes('potion') || good.includes('spell')) guilds.push("Mages' Guild");
     if (good.includes('spice') || good.includes('silk') || good.includes('luxury')) guilds.push("Merchant Princes");
-    if (good.includes('herb') || good.includes('fungi')) guilds.push("Alchemists' Union");
+    if (good.includes('herb') || good.includes('fungi') || good.includes('medicine')) guilds.push("Alchemists' Union");
+    if (good.includes('machinery') || good.includes('tech')) guilds.push("Geargrinder's Union");
     if (factionId === 'freelancer_underworld') guilds.push("The Shadow Syndicate");
     if (guilds.length === 0) guilds.push("Local Merchants");
     return guilds.join(", ");
@@ -380,12 +545,21 @@ function applyPoiStyle(marker, poi) {
             const eSize = 18 + ecoVal * 1.5;
             marker.style.width = `${eSize}px`;
             marker.style.height = `${eSize}px`;
-            iconWrapper.innerHTML = trade.i;
+            iconWrapper.innerHTML = trade.icon;
             marker.style.borderColor = ecoVal >= 7 ? '#FFD700' : (ecoVal >= 4 ? '#C0C0C0' : '#cd7f32');
             
             marker.addEventListener('mouseenter', (e) => {
-                 const guilds = getAssociatedGuilds(trade.n, poi.factionId);
-                 showTooltip(e, `<div class="tooltip-header"><h5>${poi.name}</h5></div><div class="tooltip-section"><p><strong>Export:</strong> ${trade.i} ${trade.n}</p><p><strong>Wealth:</strong> ${ecoVal}/10</p><p><strong>Guilds:</strong> ${guilds}</p></div>`);
+                 const guilds = getAssociatedGuilds(trade.name, poi.factionId);
+                 showTooltip(e, `
+                    <div class="tooltip-header"><h5>${poi.name}</h5></div>
+                    <div class="tooltip-section">
+                        <p><strong>Primary Export:</strong> ${trade.icon} ${trade.name}</p>
+                        <p><strong>Status:</strong> ${trade.tier}</p>
+                        <p><strong>Daily Production:</strong> ${trade.production} units</p>
+                        <p><strong>Daily Export:</strong> ${trade.exportAmt} units</p>
+                        <p><strong>Needs Import:</strong> ${trade.importName} (${trade.importAmt})</p>
+                        <p><strong>Guilds:</strong> ${guilds}</p>
+                    </div>`);
             });
             marker.addEventListener('mouseleave', hideTooltip);
             break;
@@ -957,6 +1131,27 @@ export function showDetailPanel(poiId) {
         `;
     }
 
+    // --- NEW: Trade Info (Economic) ---
+    const trade = getTradeInfo(poi);
+    if (trade) {
+        content += `
+            <div class="poi-trade-section" style="margin-top:16px; padding-top:12px; border-top:1px dashed var(--border-color);">
+                <h4>Economic Output</h4>
+                <p><strong>Primary Export:</strong> ${trade.icon} ${trade.name}</p>
+                <p><strong>Status:</strong> ${trade.tier}</p>
+                
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:8px; font-size:0.9rem;">
+                    <div><strong>Production:</strong> ${trade.production} / day</div>
+                    <div><strong>Export:</strong> ${trade.exportAmt} / day</div>
+                </div>
+                
+                <p style="margin-top:8px;"><strong>Primary Import Need:</strong> ${trade.importName} (${trade.importAmt})</p>
+                
+                <p class="small" style="color:var(--text-secondary); margin-top:8px;"><em>Controlled by: ${getAssociatedGuilds(trade.name, poi.factionId)}</em></p>
+            </div>
+        `;
+    }
+
     content += `</div>`;
     detailPanel.innerHTML = content;
 }
@@ -1018,11 +1213,11 @@ export function renderMapModeLegend() {
             legendHTML = `
                 <div class="map-mode-legend">
                     <h4>Economic View</h4>
-                    <p>Locations show primary exports. Size indicates wealth.</p>
+                    <p>Locations show primary exports based on unlocked technology and local resources. Size indicates wealth.</p>
                     <ul class="legend-list">
-                        <li class="legend-item"><div class="legend-color-box" style="background:transparent; border: 2px solid #FFD700; color: #FFD700; text-align:center;">💰</div><span>Trade Hub (High Wealth)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background:transparent; border: 2px solid #C0C0C0; color: #C0C0C0; text-align:center;">⚒️</div><span>Producer (Medium Wealth)</span></li>
-                        <li class="legend-item"><div class="legend-color-box" style="background:transparent; border: 2px solid #cd7f32; color: #cd7f32; text-align:center;">🌾</div><span>Small Settlement (Low Wealth)</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background:transparent; border: 2px solid #FFD700; color: #FFD700; text-align:center;">💰</div><span>Global Hub / High Tech</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background:transparent; border: 2px solid #C0C0C0; color: #C0C0C0; text-align:center;">⚒️</div><span>Major Producer / Manufactured</span></li>
+                        <li class="legend-item"><div class="legend-color-box" style="background:transparent; border: 2px solid #cd7f32; color: #cd7f32; text-align:center;">🌾</div><span>Local / Raw Materials</span></li>
                     </ul>
                 </div>
             `;
@@ -1160,6 +1355,11 @@ function getLandmassKey(mapId) {
     if (group.includes('The Fated Place')) return 'warhammer_full';
     if (group.includes('Kivotos')) return 'kivotos_full';
     if (group.includes('The Doughnut Hole')) return 'doughnut_hole_full';
+    if (group.includes('Equestria')) return 'equestria_full';
+    if (group.includes('Animatopia')) return 'animatopia_full';
+    if (group.includes('L\'Eclaire Isle')) return 'leclaire_isle_full';
+    if (group.includes('Teyvat')) return 'teyvat_full';
+    if (group.includes('Edge')) return 'the_edge_full';
     
     return null;
 }

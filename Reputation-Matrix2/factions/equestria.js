@@ -1,4 +1,6 @@
 
+
+
 // factions/equestria.js
 
 export const EQUESTRIA_FACTIONS = {
@@ -8,7 +10,7 @@ export const EQUESTRIA_FACTIONS = {
         logo: 'faction_equestria.png',
         relations: {
             allies: ['regal_empire', 'pony_nobility'],
-            enemies: ['spark_of_rebellion', 'zootopia_republic', 'the_unchained', 'liberated_toads']
+            enemies: ['spark_of_rebellion', 'zootopia_republic', 'the_unchained', 'liberated_toads', 'changeling_hive']
         },
         power_level: 8,
         category: "Regional Powers",
@@ -53,5 +55,79 @@ export const EQUESTRIA_FACTIONS = {
             { name: "Starlight Glimmer", role: "Revolutionary Leader", description: "A former mage who turned against the system to fight for equality." },
             { name: "Tempest Shadow", role: "Enforcer", description: "A broken-horned mercenary working for the rebels." }
         ]
+    },
+    changeling_hive: {
+        name: "The Changeling Hive",
+        description: "A parasitic species of shapeshifters who feed on love and emotion. They infiltrate pony society to survive and undermine the Regime from within.",
+        logo: 'faction_rakasha.png', // Placeholder
+        relations: {
+            allies: ['spark_of_rebellion'],
+            enemies: ['equestrian_regime', 'pony_nobility']
+        },
+        power_level: 5,
+        category: "Underworld & Fringe",
+        region: "Equestria (Hidden)",
+        leader: "queen_chrysalis",
+        notable_people: [
+            { name: "Queen Chrysalis", role: "Hive Queen", description: "The ruthless leader of the Changelings, seeking to consume all love in Equestria." }
+        ]
+    },
+    griffon_stone: {
+        name: "Griffonstone Empire",
+        description: "A neighboring empire of proud, greedy griffons. They maintain a tense peace with Equestria, focused entirely on trade and the accumulation of gold.",
+        logo: 'faction_world_beyond.png', // Placeholder
+        relations: {
+            allies: [],
+            enemies: []
+        },
+        power_level: 5,
+        category: "Regional Powers",
+        region: "Equestria (Borderlands)",
+        leader: "king_glover",
+        notable_people: [
+            { name: "Gilda", role: "Mercenary Captain", description: "A tough griffon mercenary working for whoever pays the most." }
+        ]
+    },
+    farasi: {
+        name: "Farasi",
+        description: "A mysterious and ancient land bordering the ocean to Teyvat, known for its skilled sailors and unique magic.",
+        logo: 'faction_araby.png', // Placeholder
+        relations: {
+            allies: ['saddle_arabia'],
+            enemies: ['equestrian_regime']
+        },
+        power_level: 4,
+        category: "Regional Powers",
+        region: "Equestria (South)",
+        leader: "sultan_al_rashid",
+    },
+    zebrabwe: {
+        name: "Zebrabwe",
+        description: "The homeland of the Zebras, a society known for its intricate alchemy, shamanistic traditions, and fierce warriors.",
+        logo: 'faction_forests.png', // Placeholder
+        relations: {
+            allies: [],
+            enemies: []
+        },
+        power_level: 5,
+        category: "Regional Powers",
+        region: "Equestria (South)",
+        leader: "chief_zecora",
+        notable_people: [
+            { name: "Zecora", role: "Shaman", description: "A wise alchemist who often aids ponies despite the prejudice she faces." }
+        ]
+    },
+    saddle_arabia: {
+        name: "Saddle Arabia",
+        description: "A wealthy and powerful nation of horses known for its vast deserts, rich trade routes, and opulent palaces.",
+        logo: 'faction_araby.png', // Placeholder
+        relations: {
+            allies: ['farasi', 'regal_empire'],
+            enemies: []
+        },
+        power_level: 6,
+        category: "Regional Powers",
+        region: "Equestria (South)",
+        leader: "caliph_horseshoe",
     }
 };

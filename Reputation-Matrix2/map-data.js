@@ -86,6 +86,13 @@ import { equestriaData } from './map-data/equestria-pois.js';
 import { cenerlotData } from './map-data/equestria/Cenerlot.js';
 import { mountEverhoofData } from './map-data/equestria/MountEverhoof.js';
 import { grandCountryData } from './map-data/grand-country-pois.js';
+import { hailbregData } from './map-data/equestria/Hailbreg.js';
+import { wanderingWoodsData } from './map-data/equestria/WanderingWoods.js';
+import { jackalopeSlopesData } from './map-data/equestria/JackalopeSlopes.js';
+import { siresHollowData } from './map-data/equestria/SiresHollow.js';
+import { farasiData } from './map-data/equestria/Farasi.js';
+import { zebrabweData } from './map-data/equestria/Zebrabwe.js';
+import { saddleArabiaData } from './map-data/equestria/SaddleArabia.js';
 
 
 // Re-export BUILDING_TYPES so other modules can access it from this central file
@@ -1321,9 +1328,16 @@ export const MAP_DATA = {
         imageSrc: 'equestria.png',
         order: 1,
         group: 'Equestria',
-        pointsOfInterest: [
-            ...cenerlotData.pointsOfInterest,
-            ...mountEverhoofData.pointsOfInterest
+    pointsOfInterest: [
+        ...(cenerlotData.pointsOfInterest || []),
+        ...(mountEverhoofData.pointsOfInterest || []),
+        ...(hailbregData.pointsOfInterest || []),
+        ...(wanderingWoodsData.pointsOfInterest || []),
+        ...(jackalopeSlopesData.pointsOfInterest || []),
+        ...(siresHollowData.pointsOfInterest || []),
+        ...(farasiData.pointsOfInterest || []),
+        ...(zebrabweData.pointsOfInterest || []),
+        ...(saddleArabiaData.pointsOfInterest || [])
         ],
         fogOfWar: [
             ...cenerlotData.fogOfWar,
@@ -1351,6 +1365,76 @@ export const MAP_DATA = {
         fogOfWar: mountEverhoofData.fogOfWar || [],
         poiSourceFile: 'map-data/equestria/MountEverhoof.js'
     },
+    equestria_hailbreg: {
+        id: 'equestria_hailbreg',
+        name: 'Hailbreg',
+        imageSrc: 'equestria.png',
+        order: 4,
+        group: 'Equestria',
+        pointsOfInterest: hailbregData.pointsOfInterest,
+        fogOfWar: hailbregData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/Hailbreg.js'
+    },
+    equestria_wandering_woods: {
+        id: 'equestria_wandering_woods',
+        name: 'Wandering Woods',
+        imageSrc: 'equestria.png',
+        order: 5,
+        group: 'Equestria',
+        pointsOfInterest: wanderingWoodsData.pointsOfInterest,
+        fogOfWar: wanderingWoodsData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/WanderingWoods.js'
+    },
+    equestria_jackalope_slopes: {
+        id: 'equestria_jackalope_slopes',
+        name: 'Jackalope Slopes',
+        imageSrc: 'equestria.png',
+        order: 6,
+        group: 'Equestria',
+        pointsOfInterest: jackalopeSlopesData.pointsOfInterest,
+        fogOfWar: jackalopeSlopesData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/JackalopeSlopes.js'
+    },
+    equestria_sires_hollow: {
+        id: 'equestria_sires_hollow',
+        name: 'Sires Hollow',
+        imageSrc: 'equestria.png',
+        order: 7,
+        group: 'Equestria',
+        pointsOfInterest: siresHollowData.pointsOfInterest,
+        fogOfWar: siresHollowData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/SiresHollow.js'
+    },
+    equestria_farasi: {
+        id: 'equestria_farasi',
+        name: 'Farasi',
+        imageSrc: 'equestria.png',
+        order: 8,
+        group: 'Equestria',
+        pointsOfInterest: farasiData.pointsOfInterest,
+        fogOfWar: farasiData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/Farasi.js'
+    },
+    equestria_zebrabwe: {
+        id: 'equestria_zebrabwe',
+        name: 'Zebrabwe',
+        imageSrc: 'equestria.png',
+        order: 9,
+        group: 'Equestria',
+        pointsOfInterest: zebrabweData.pointsOfInterest,
+        fogOfWar: zebrabweData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/Zebrabwe.js'
+    },
+    equestria_saddle_arabia: {
+        id: 'equestria_saddle_arabia',
+        name: 'Saddle Arabia',
+        imageSrc: 'equestria.png',
+        order: 10,
+        group: 'Equestria',
+        pointsOfInterest: saddleArabiaData.pointsOfInterest,
+        fogOfWar: saddleArabiaData.fogOfWar || [],
+        poiSourceFile: 'map-data/equestria/SaddleArabia.js'
+    },    
     grand_country_full: {
         id: 'grand_country_full',
         name: 'The Grand Country',

@@ -1,6 +1,7 @@
 
 
 
+
 /* Layout */
 #research-layout {
     display: grid;
@@ -452,6 +453,13 @@
 .calendar-estimate {
     color: var(--accent-color);
     font-weight: bold;
+}
+
+.tech-distribution {
+    font-size: 0.85rem;
+    background-color: rgba(255,255,255,0.03);
+    padding: 8px;
+    border-radius: 4px;
 }
 
 /* AGES VIEW */

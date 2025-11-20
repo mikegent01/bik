@@ -1,3 +1,4 @@
+
 import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from './lore.js';
@@ -154,52 +155,54 @@ export function getAbsoluteDay() {
 
 /**
  * Helper function to determine the cycle impact of a rumor.
- * Prioritizes manual data, falls back to keyword analysis.
+ * Calculates impact based on volume of posts (100 posts = 1 impact).
+ * Direction (Positive/Negative) is determined by keywords.
+ * ADDED BASE IMPACT FOR SMALL RUMORS.
  */
 function getImpactDetails(rumor, relatedPostsCount) {
-    // 1. Check for manual override in data
-    if (rumor.cycle_impact) {
-        return {
-            score: rumor.cycle_impact.score,
-            label: rumor.cycle_impact.label,
-            type: rumor.cycle_impact.type || 'general'
-        };
-    }
-
-    // 2. Fallback: Keyword Analysis
     const text = (rumor.title + " " + rumor.description).toLowerCase();
-    let score = 0;
-    let label = "Unrest";
     let type = "general";
+    let direction = 0; // 1 for Crisis/War (positive momentum), -1 for Peace/Science (negative momentum)
+    let label = "Unrest";
 
-    // Conflict Keywords (Positive Score)
+    // Determine Type and Direction
     if (text.match(/war|battle|siege|raid|attack|kill|weapon|threat|army|invasion/)) {
-        score = 1;
-        label = "Military Conflict";
+        direction = 1;
         type = "military";
+        label = "Military Conflict";
     } 
-    // Tension Keywords (Minor Positive)
-    else if (text.match(/scandal|betrayal|plot|spy|secret|tension|dispute|crisis/)) {
-        score = 0.5;
-        label = "Political Tension";
-        type = "political";
-    }
-    // Stability Keywords (Negative Score)
-    else if (text.match(/peace|treaty|alliance|discovery|found|cure|save|build|grow|research/)) {
-        score = -1;
-        label = "Stabilization";
-        type = "diplomatic";
-    }
-    // Catastrophe Keywords (High Positive)
     else if (text.match(/disaster|catastrophe|plague|famine|collapse|void|breach/)) {
-        score = 2;
-        label = "Crisis Event";
+        direction = 1; // Strong positive momentum towards Crisis
         type = "crisis";
+        label = "Crisis Event";
+    }
+    else if (text.match(/scandal|betrayal|plot|spy|secret|tension|dispute|crisis/)) {
+        direction = 0.5; // Moderate positive momentum
+        type = "political";
+        label = "Political Tension";
+    }
+    else if (text.match(/peace|treaty|alliance|trade|agreement|pact/)) {
+        direction = -1; // Negative momentum towards Calm
+        type = "diplomatic";
+        label = "Diplomatic Stabilization";
+    }
+    else if (text.match(/discovery|found|cure|save|build|grow|research|science|magic/)) {
+        direction = -0.8; // Negative momentum towards Research
+        type = "magic"; // or tech
+        label = "Advancement";
+    } else {
+        // Default slight instability
+        direction = 0.1;
     }
 
-    // Apply Weighting based on activity
-    const weight = 1 + (relatedPostsCount / 20);
-    score = score * weight;
+    // Calculate Magnitude based on 100 posts = 1 impact rule
+    // Magnitude = count * 0.01
+    // ADDED: Base impact of 0.1 to ensure all rumors have weight
+    const baseImpact = 0.05;
+    const magnitude = baseImpact + (relatedPostsCount * 0.01);
+    
+    // Final Score
+    const score = direction * magnitude;
 
     return { score, label, type };
 }
@@ -222,14 +225,14 @@ export function calculateGlobalCycle(allPosts) {
         LORE_DATA.rumors.forEach(rumor => {
             // Count posts for this rumor
             const relatedPosts = allPosts.filter(p => p.rumorId === rumor.id).length;
-            if (relatedPosts === 0) return;
-
+            // Removed strict 0 check to allow base impact to work if rumor exists but has 0 posts (rare but possible)
+            
             const impactData = getImpactDetails(rumor, relatedPosts);
             
             totalMomentum += impactData.score;
 
             // Only add significant factors to the list
-            if (Math.abs(impactData.score) > 0.2) {
+            if (Math.abs(impactData.score) > 0.05) {
                 drivingFactors.push({ 
                     name: rumor.title, 
                     impact: impactData.score,
@@ -241,19 +244,15 @@ export function calculateGlobalCycle(allPosts) {
     }
 
     // 3. Determine Active Phase based on Momentum
-    // The natural cycle is the baseline, but momentum shifts it.
-    // Mapping momentum to cycle index shift.
-    // Total Momentum range roughly -10 to +10.
-    // Shift: +1 phase per ~1.5 momentum points?
+    // Shift: +1 phase per ~1.0 momentum points (since 100 posts = 1 impact)
     
-    let shift = Math.round(totalMomentum / 1.5);
+    let shift = Math.round(totalMomentum);
     let activePhaseIndex = (naturalPhaseIndex + shift) % 7;
     if (activePhaseIndex < 0) activePhaseIndex += 7;
     
-    // Clamp extreme momentum to Crisis (5) or Calm (0) if it exceeds normal bounds?
-    // Actually, let's allow it to wrap or stick. Sticking feels more impactful for "Crisis".
-    if (totalMomentum > 6) activePhaseIndex = 5; // Force Crisis
-    else if (totalMomentum < -6) activePhaseIndex = 0; // Force Calm
+    // Clamp extreme momentum
+    if (totalMomentum > 4) activePhaseIndex = 5; // Force Crisis
+    else if (totalMomentum < -4) activePhaseIndex = 0; // Force Calm
     
     const activePhase = CYCLE_PHASES[activePhaseIndex];
 
