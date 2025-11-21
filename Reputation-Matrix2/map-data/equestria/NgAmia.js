@@ -1,6 +1,6 @@
 // map-data/ngamia-pois.js
 
-export const ngamiaData = {
+export const ngAmiaData = {
     pointsOfInterest: [
         {
             id: 'poi_ng_sun_city',
