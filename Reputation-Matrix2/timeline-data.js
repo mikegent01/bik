@@ -145,4 +145,32 @@ export const HISTORICAL_TIMELINE = [
         icon: "icon_war.png", 
         category: "Recent Event" 
     },    
+    { 
+        date: "1040 IE (1040 BF), Day 20", 
+        title: "The Iron Sky Breach", 
+        description: "In a coordinated assault, the Iron Legion breached the airship Vigilance. The internal 'traitor' Aie was revealed, having opened the doors for the Legion. Ryan, cornered and witnessing the arrival of a high-ranking Legion spy hunting a specific target, was forced to jump from the airship to escape capture.", 
+        icon: "faction_iron_legion.png", 
+        category: "Military" 
+    },
+    { 
+        date: "1040 IE (1040 BF), Day 20", 
+        title: "Bones Goes Undercover", 
+        description: "Captured and placed on a prisoner train, Bones orchestrated a violent takeover of his carriage, killing a guard and stealing his armor. He has successfully infiltrated an Imperial Processing Facility disguised as a Legionnaire, discovering a horrifying industrial complex dedicated to torture, alchemy, and the processing of toad prisoners.", 
+        icon: "faction_liberated_toads.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: "1040 IE (1040 BF), Day 20", 
+        title: "Ryan's Fall & The Rakasha", 
+        description: "After jumping from the Vigilance, Ryan survived the fall only to be found by a Rakasha spirit-walker in a sacred boneyard. He is currently being tended to by the clan, witnessing their funeral rites and strange magic.", 
+        icon: "faction_rakasha.png", 
+        category: "Recent Event" 
+    },
+    { 
+        date: "1040 IE (1040 BF), Day 20", 
+        title: "Mobilization at Cheep Cheep Village", 
+        description: "Loyalist forces under Captain Toadette have mobilized at Cheep Cheep Village. Commander Embercap has been tasked with leading the assault on Fawful's Castle using a massive, tamed Red Cheep Cheep as a transport. Toadette remains behind to guard the rear.", 
+        icon: "faction_peach_loyalists.png", 
+        category: "Military" 
+    }    
 ];

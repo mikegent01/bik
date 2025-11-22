@@ -1,12 +1,13 @@
 
+
 export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
-        // Loyalists
-        { charKey: 'captain_toadette', x: 48.0, y: 38.0, status: 'Commanding' },
-        { charKey: 'embercap', x: 48.2, y: 38.2, status: 'Holding' },
-        { charKey: 'mistveil', x: 47.8, y: 37.8, status: 'Scouting' },
-        { charKey: 'dewdrop', x: 48.1, y: 38.1, status: 'Triage' },
+        // Loyalists - Cheep Cheep Village
+        { charKey: 'embercap', x: 25.0, y: 85.0, status: 'Boarding Fish' },
+        { charKey: 'captain_toadette', x: 25.2, y: 85.2, status: 'Guarding Rear' },
+        { charKey: 'mistveil', x: 24.8, y: 84.8, status: 'Scouting' },
+        { charKey: 'dewdrop', x: 25.1, y: 85.1, status: 'Prepping Meds' },
         
         // Regency & Villains
         { charKey: 'chancellor_toadsworth', x: 52.0, y: 24.5, status: 'Governing' },
@@ -15,30 +16,34 @@ export const PARTY_LOCATIONS = {
         { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
     ],
   'midlands_full': [
-        // Raventree Manor Siege Group
-        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Fighting Ghosts' },
-        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Fighting Ghosts' },
-        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Returned' },
-        { charKey: 'markop', x: 73.5, y: 12.4, status: 'Leading Charge' },
+        // Raventree Manor (Remnants)
+        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Regrouping' },
+        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Regrouping' },
+        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Escaped' },
+        { charKey: 'markop', x: 73.5, y: 12.4, status: 'Leading' },
         { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Scheming' },
-        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Defending' },
+        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Following' },
         
         // Casualties & Trapped
         { charKey: 'green_t', x: 73.5, y: 12.0, status: 'TRAPPED IN MIRROR' },
         { charKey: 'eager', x: 73.7, y: 12.3, status: 'Critical' },
         
+        // Ryan - Rakasha Territory
+        { charKey: 'ryan', x: 28.0, y: 18.0, status: 'Rescued/Injured' },
+
+        // Bones - Imperial Facility
+        { charKey: 'bones', x: 45.0, y: 30.0, status: 'Undercover/Infiltrating' },
+
         // Liberated Toads
         { charKey: 'dan', x: 73.5, y: 12.1, status: 'Active' },
         { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Fighting' },
-        { charKey: 'ryan', x: 73.4, y: 12.4, status: 'Casting' },
         { charKey: 'roger', x: 73.8, y: 12.0, status: 'Shooting' },
-        { charKey: 'speaker_l', x: 73.0, y: 13.0, status: 'Besieging' },
+        { charKey: 'speaker_l', x: 73.0, y: 13.0, status: 'Hunting' },
 
         // --- Imperial Capital Group ---
         { charKey: 'wario', x: 81.5, y: 4.5, status: 'Scheming' },
         { charKey: 'lario', x: 87.0, y: 6.0, status: 'Observing' },
         { charKey: 'lady_toriel', x: 90.5, y: 8.5, status: 'Diplomacy' },
-        { charKey: 'bones', x: 78.5, y: 2.5, status: 'Interrogated' },
         { charKey: 'the_mole', x: 78.0, y: 3.0, status: 'Debriefing' },
 
         // --- Faction Leaders (Midlands) ---
