@@ -6,7 +6,7 @@ export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
     {
         id: 'iron_legion_vigilance_captured',
-        order: 30700,
+        order: 306410,
         characterKey: 'general_marcus_ironhand',
         timestamp: 'Just Now',
         content: `The rogue airship 'Vigilance' has been secured. Imperial justice is absolute. The skies of the Midlands are once again under the protection of the Iron Legion. All resistance has been neutralized.`,
@@ -19,7 +19,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'ryan_survived_fall',
-        order: 30699,
+        order: 306409,
         characterKey: 'ryan',
         timestamp: '15 minutes ago',
         content: `Alive. Somehow. I saw... I saw the spy. They were waiting for us. The door didn't break, it opened. Someone let them in. I had to jump.`,
@@ -32,7 +32,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'bones_bad_soup',
-        order: 30698,
+        order: 306408,
         characterKey: 'bones',
         timestamp: '30 minutes ago',
         content: `Worst. Soup. Ever. Service is terrible, the staff is rude, and the uniforms are too tight. 0/5 stars. Would not recommend this train ride.`,
@@ -44,7 +44,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'embercap_cheep_cheep',
-        order: 30697,
+        order: 306407,
         characterKey: 'embercap',
         timestamp: '45 minutes ago',
         content: `The fish is ready. The Captain stays behind. It's just us now. We storm the castle tonight. No turning back.`,
@@ -56,7 +56,7 @@ export const WAHBOOK_POSTS = [
     },
     {
         id: 'broker_airship_market',
-        order: 30696,
+        order: 306406,
         characterKey: 'the_broker',
         timestamp: '1 hour ago',
         content: `Market Update: Imperial Airship stocks rising. 'Vigilance' salvage futures have been delisted. High demand for information regarding 'The Spy in Blue'. Bidding starts now.`,
@@ -65,47 +65,7 @@ export const WAHBOOK_POSTS = [
         eventId: 'vigilance_fall'
     },
 
-    // ... (Previous posts follow below) ...
-    {
-        id: 'bowser_mirror_punch',
-        order: 306405,
-        characterKey: 'bowser',
-        timestamp: 'Yesterday',
-        content: `Stupid Green T got himself stuck in a mirror! He's just making fish faces at me from the other side! Tried to pull him out, got slashed by a glass monster. I PUNCHED IT. IT SHATTERED. But the mushroom head is still stuck. Useless!`,
-        likes: 412,
-        comments: [
-            { characterKey: 'kamek', text: "A mirror prison? Troublesome magic, Your Viciousness. Do not gaze too long into it." },
-            { characterKey: 'hjumpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
-        ],
-        rumorId: 'greenhouse_inferno'
-    },
-    // ... (Rest of the existing file content) ...
-    {
-        id: 'humpik_oracle_rambling',
-        order: 306404,
-        characterKey: 'hjumpik',
-        timestamp: 'Yesterday',
-        content: `The ghost man (Oracle) talks too much. Bathrooms? Orcs? Mirrors having rules? I stopped listening. We left him talking to the dust. We have Toads to save.`,
-        likes: 289,
-        comments: [
-            { characterKey: 'toad_lee', text: "He is mad. Or he knows everything. I cannot tell which is worse." }
-        ],
-        rumorId: 'greenhouse_inferno'
-    },
-    // ... (Truncated for brevity, assume rest of file exists) ...
-     {
-        id: 'toadette_post_3',
-        order: 150,
-        characterKey: 'captain_toadette',
-        timestamp: '2 days ago',
-        content: `The Onyx Hand's shadow assassins have done what the Regency was too weak to do. The mayor was corrupt, a rot at the heart of our kingdom. With him gone, we have seized this moment. Toad Town is now under Loyalist control. This is not an occupation; it is a liberation. From here, we will build our base and begin the true war. For the Princess!`,
-        likes: 412,
-        comments: [
-            { characterKey: 'mistveil', text: "For the Princess! Whatever it takes." },
-            { characterKey: 'chancellor_toadsworth', text: "Captain! You are taking advantage of a murder to impose martial law! This is madness!" }
-        ],
-        rumorId: 'chaos_in_toad_town'
-    },    
+
         {
         id: 'bowser_mirror_punch',
         order: 306405,
