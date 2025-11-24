@@ -1,10 +1,11 @@
+
 import { state } from './state.js';
 import { LORE_DATA } from './lore.js';
 import { getReputation, getGenericFactionAssessment, renderIndividualStandings } from './reputation.js';
 import { playSound } from './common.js';
 import * as factionSystems from './faction-systems.js';
 import { BOP_STATE } from './balance-of-power.js';
-import { getIntelForFaction } from './systems/common.js';
+import { getIntelForFaction, getIntelBreakdown } from './systems/common.js'; // Import helper
 
 const viewContainer = document.getElementById('view-container');
 const partyList = document.getElementById('party-list');
@@ -71,6 +72,8 @@ function renderFactionDirectory() {
     grid.innerHTML = '';
     factionsToRender.forEach(([factionKey, faction]) => {
         const intelLevel = getIntelForFaction(factionKey);
+        const intelData = getIntelBreakdown(factionKey); // Get breakdown
+
         let leaderHTML = '';
         if ((intelLevel >= 40 || isDebug) && faction.leader && LORE_DATA.characters[faction.leader]) {
             leaderHTML = `<p class="assessment-text" style="font-size: 0.8rem; margin-top: 8px; font-style: normal;"><strong>Leader:</strong> ${LORE_DATA.characters[faction.leader].name}</p>`;
@@ -92,11 +95,34 @@ function renderFactionDirectory() {
             const userName = LORE_DATA.characters[loggedInUser]?.name || 'Operator';
             personalStandingHTML = `<div class="personal-standing" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color);"><h5 style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px;">${userName}'s Standing:${personalRepDisplay}</h5><div class="reputation-bar-container"><div class="reputation-bar ${personalRepClass}" style="width: ${personalBarWidth}%; background-color: var(--${personalRepClass}-color);"></div></div></div>`;
         }
-        const intelBarHTML = `<div class="intel-level" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color);"><h5 style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px;">Intel: <span style="color: var(--accent-color);">${intelLevel}</span></h5><div class="reputation-bar-container"><div class="reputation-bar" style="width: ${intelLevel}%; background-color: var(--accent-color);"></div></div></div>`;
+        
+        // INTEL BAR & BREAKDOWN
+        const intelBarHTML = `
+        <div class="intel-level" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color);">
+            <h5 style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px;">Intel: <span style="color: var(--accent-color);">${intelLevel}</span></h5>
+            <div class="reputation-bar-container">
+                <div class="reputation-bar" style="width: ${intelLevel}%; background-color: var(--accent-color);"></div>
+            </div>
+            <details style="margin-top: 6px; font-size: 0.75rem; color: var(--text-secondary); cursor: pointer;">
+                <summary>View Calculation Formula</summary>
+                <div style="margin-top: 4px; padding: 4px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+                    Base: ${intelData.base} + History: ${intelData.history} + Active Chatter: <span style="color:${intelData.active > 0 ? 'var(--positive-color)' : ''}">${intelData.active}</span><br>
+                    <strong>Total: ${intelData.total}</strong> <em style="display:block; margin-top:2px;">(Active chatter bonuses decay over time)</em>
+                </div>
+            </details>
+        </div>`;
+        
         const standingHTML = `<div class="party-reputation" style="margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-color);"><h5 style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px;">Party Standing:${partyRepDisplay}</h5><div class="reputation-bar-container"><div class="reputation-bar ${partyRepClass}" style="width: ${partyBarWidth}%; background-color: var(--${partyRepClass}-color);"></div></div>${personalStandingHTML}${intelBarHTML}</div>`;
+        
         const card = document.createElement('a');
         card.className = `faction-directory-card`;
-        card.href = `#faction/${factionKey}`;
+        
+        if (factionKey === 'liberated_toads') {
+            card.href = 'liberated-toads-system.html';
+        } else {
+            card.href = `#faction/${factionKey}`;
+        }
+
         card.innerHTML = `<div class="faction-directory-header"><img src="${faction.logo}" class="faction-directory-logo" alt="${faction.name} Logo"><div class="faction-info"><h4 class="faction-directory-title">${faction.name}</h4><p class="assessment-text" style="font-size: 0.8rem; margin-top: 4px; font-style: normal;">${powerHTML}</p>${leaderHTML}</div></div><p class="assessment-text" style="font-size: 0.8rem">${faction.description}</p>${standingHTML}`;
         grid.appendChild(card);
     });
@@ -135,12 +161,7 @@ function renderFactionDetail(factionKey) {
     }
 
     let intelSectionHTML = '';
-    if (intelLevel >= 60 || isDebug) {
-        const relevantRumors = LORE_DATA.rumors.filter(rumor => state.activeRumors.includes(rumor.id) && rumor.effects[factionKey]);
-        const bopLeaderMap = { /* ... */ };
-        // ... (rest of intel/agenda logic is fine)
-    }
-
+    
     let notablePeopleHTML = '';
     if ((intelLevel >= 25 || isDebug) && faction.notable_people && faction.notable_people.length > 0) {
         const showDetails = intelLevel >= 60 || isDebug;

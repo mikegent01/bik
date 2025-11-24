@@ -1,17 +1,68 @@
+
 import { state } from '../state.js';
 import { LORE_DATA } from '../lore.js';
 import { getSubFactionReputation } from '../reputation.js';
+import { calculateRumorMetrics } from '../research-data.js';
+import { WAHBOOK_POSTS } from '../assembly-data.js';
+
+/**
+ * Calculates the breakdown of intel for a faction.
+ * @param {string} factionKey
+ * @returns {object} Breakdown of Base, History, Active, and Total intel.
+ */
+export function getIntelBreakdown(factionKey) {
+    const loggedInUser = state.loggedInUser || 'generic';
+    
+    // 1. Base Intel (Permanent/Starting)
+    const userIntel = state.intelLevels[loggedInUser] || state.intelLevels.generic;
+    const base = userIntel[factionKey] ?? (state.intelLevels.generic ? state.intelLevels.generic[factionKey] : 0) ?? 0;
+
+    // 2. Historical Intel (From 'finalIntel' - accumulated from past events)
+    let history = 0;
+    if (state.finalIntel && state.finalIntel[loggedInUser] && state.finalIntel[loggedInUser][factionKey]) {
+        history = state.finalIntel[loggedInUser][factionKey] - base; // Difference is the gained history
+        if (history < 0) history = 0;
+    }
+
+    // 3. Active Chatter Bonus (Dynamic based on active rumors)
+    let active = 0;
+    if (LORE_DATA && LORE_DATA.rumors) {
+        LORE_DATA.rumors.forEach(rumor => {
+            // Is this faction involved?
+            const isAffected = rumor.effects && rumor.effects[factionKey] !== undefined;
+            const isTarget = rumor.targets && rumor.targets.includes(factionKey);
+            
+            if (isAffected || isTarget) {
+                const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                const metrics = calculateRumorMetrics(rumor, relatedPosts);
+                
+                // Only calculate active bonus for living rumors
+                if (metrics.status !== 'Dead' && metrics.status !== 'Old News') {
+                    // Bonus is based on Impact. High impact = more intel flowing.
+                    // We cap it to prevent game-breaking numbers.
+                    const bonus = Math.min(20, Math.ceil(metrics.finalScore * 2)); 
+                    active += Math.max(0, bonus);
+                }
+            }
+        });
+    }
+
+    return {
+        base,
+        history,
+        active,
+        total: Math.min(100, base + history + active)
+    };
+}
 
 /**
  * Calculates the intel level for a given faction based on the logged-in user.
+ * Now dynamically calculates active bonuses.
  * @param {string} factionKey - The key of the faction.
  * @returns {number} The calculated intel level.
  */
 export function getIntelForFaction(factionKey) {
-    const loggedInUser = state.loggedInUser || 'generic';
-    const userIntel = state.intelLevels[loggedInUser] || state.intelLevels.generic;
-    const defaultIntel = userIntel.default ?? (state.intelLevels.generic ? state.intelLevels.generic[factionKey] : 0) ?? 0;
-    return userIntel[factionKey] ?? defaultIntel;
+    return getIntelBreakdown(factionKey).total;
 }
 
 /**

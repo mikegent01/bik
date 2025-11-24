@@ -10,15 +10,17 @@ export function renderIntelAndRumors() {
     const rumors = LORE_DATA.rumors || [];
     
     const rumorsHTML = rumors.map(rumor => {
-        // Count posts for this rumor
-        const chatterCount = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id).length;
+        // Filter posts relevant to this rumor
+        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+        const chatterCount = relatedPosts.length;
         
-        // Calculate Hype & Decay metrics using the new shared logic
-        const metrics = calculateRumorMetrics(rumor, chatterCount);
+        // Calculate Hype & Decay metrics using the updated shared logic
+        const metrics = calculateRumorMetrics(rumor, relatedPosts);
 
         // Badge Logic
         let badgeHTML = '';
         if (metrics.status === 'Viral') badgeHTML = '<span class="intel-badge viral">🔥 VIRAL</span>';
+        else if (metrics.status === 'Trending') badgeHTML = '<span class="intel-badge trending">📈 TRENDING</span>';
         else if (metrics.status === 'Legendary') badgeHTML = '<span class="intel-badge legendary">👑 LEGENDARY</span>';
         else if (metrics.status === 'Fading') badgeHTML = '<span class="intel-badge fading">📉 FADING</span>';
         else if (metrics.status === 'Old News') badgeHTML = '<span class="intel-badge old">🕸️ OLD NEWS</span>';
@@ -41,12 +43,37 @@ export function renderIntelAndRumors() {
         const repChangesHTML = Object.entries(effects).map(([factionKey, value]) => {
             const faction = LORE_DATA.factions[factionKey];
             if (!faction) return '';
-            const changeClass = value > 0 ? 'positive' : 'negative';
-            const sign = value > 0 ? '+' : '';
-            return `<li class="rep-change-item"><img src="${faction.logo}" alt="${faction.name}" title="${faction.name}"><span>${faction.name}</span><span class="rep-value ${changeClass}">${sign}${value} Rep</span></li>`;
+            
+            // Apply multiplier to display
+            const adjustedValue = Math.round(value * metrics.repMultiplier);
+            
+            const changeClass = adjustedValue > 0 ? 'positive' : 'negative';
+            const sign = adjustedValue > 0 ? '+' : '';
+            return `<li class="rep-change-item"><img src="${faction.logo}" alt="${faction.name}" title="${faction.name}"><span>${faction.name}</span><span class="rep-value ${changeClass}">${sign}${adjustedValue} Rep</span></li>`;
         }).join('');
 
-        const repSectionHTML = repChangesHTML ? `<details class="intel-rep-details"><summary>View Reputation Impact</summary><ul class="intel-rep-list">${repChangesHTML}</ul></details>` : '';
+        const repSectionHTML = repChangesHTML ? `<details class="intel-rep-details"><summary>View Reputation Impact (x${metrics.repMultiplier.toFixed(1)})</summary><ul class="intel-rep-list">${repChangesHTML}</ul></details>` : '';
+
+        // Decay Display Logic
+        let decayDisplayHTML = '';
+        if (metrics.isFresh) {
+             decayDisplayHTML = `<span class="intel-decay decay-paused">Decay: PAUSED (Active Chatter)</span>`;
+        } else {
+            const lossValue = Math.abs(metrics.decayLoss).toFixed(2);
+            if (lossValue > 0.00) {
+                decayDisplayHTML = `<span class="intel-decay decay-active">Decay: -${lossValue} Impact</span>`;
+            } else {
+                 decayDisplayHTML = `<span class="intel-decay decay-neutral">Decay: 0</span>`;
+            }
+        }
+        
+        // Instigator
+        let instigatorHTML = '';
+        if (rumor.instigator) {
+            const charData = LORE_DATA.characters[rumor.instigator] || LORE_DATA.auxiliary_party[rumor.instigator];
+            const name = charData ? charData.name : rumor.instigator;
+            instigatorHTML = `<span class="instigator-tag">Instigator: ${name} (2x Reputation Effect)</span>`;
+        }
 
         return `
             <div class="intel-card" data-rumor-id="${rumor.id}">
@@ -59,10 +86,12 @@ export function renderIntelAndRumors() {
                     <span class="intel-impact ${impactClass}">Impact: ${finalScore} (Base: ${baseScore})</span>
                 </div>
                 <p class="intel-description">${rumor.description}</p>
+                ${instigatorHTML}
                 ${repSectionHTML}
                 <div class="intel-footer">
                     <span>Chatter Reports: <span class="chatter-count">${chatterCount}</span></span>
                     <span>Hype Factor: x${metrics.hypeFactor.toFixed(1)}</span>
+                    ${decayDisplayHTML}
                 </div>
             </div>
         `;

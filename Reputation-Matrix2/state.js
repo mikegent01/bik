@@ -2,7 +2,8 @@
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
-import { RESEARCH_CATEGORIES, NATIONS } from './research-data.js';
+import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
 
 // --- STATE MANAGEMENT ---
 
@@ -110,7 +111,6 @@ const DEFAULT_INVENTORIES = {
     }
 };
 
-// Helper to initialize research state
 function initResearchState() {
     const rState = {};
     for (const nationKey in NATIONS) {
@@ -118,11 +118,9 @@ function initResearchState() {
             activeResearch: null,
             completed: {}, 
             unlocked: {},
-            currentAgeId: 'age_dawn', // Default starting age
-            ageHistory: [] // Track choices made
+            currentAgeId: 'age_dawn', 
+            ageHistory: []
         };
-        
-        // Initialize Tier 1 as unlocked
         RESEARCH_CATEGORIES.forEach(cat => {
             rState[nationKey].completed[cat] = [];
             rState[nationKey].unlocked[cat] = [];
@@ -145,6 +143,7 @@ export const state = {
         remi: { regal_empire: 15, iron_legion: 30, freelancer_underworld: 15, mushroom_regency: 10, koopa_troop: 10, liberated_toads: 35, wario_land: 20, cosmic_jesters: 10, tea_leaf_syndicate: 10, toad_gang: 10, fawfuls_furious_freaks: 10, peach_loyalists: 10, onyx_hand: 5, moonfang_pack: 5, iron_fists: 10, rakasha_clans: 5, the_unchained: 5, silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 5, rebel_clans: 5, crimson_fleet: 5, diamond_city_investigators: 5, goodstyle_artisans: 5, unaligned: 100, },
         generic: generateGenericIntel(),
     },
+    finalIntel: {}, // Stores cumulative intel (base + event history)
     party: ['archie', 'markop', 'humpik', 'bowser', 'remi'],
     activeRumors: [], 
     players: {
@@ -163,7 +162,7 @@ export const state = {
     inventories: {},
     mapState: { discoveredFogs: [], userPois: { mushroom_kingdom: [], midlands: [], }, userFogs: { mushroom_kingdom: [], midlands: [], } },
     userState: { following: [], seenPostIds: [], waluigiWarningShown: false },
-    researchState: initResearchState() // Initialize research state
+    researchState: initResearchState() 
 };
 
 function initInventories() { state.inventories = structuredClone(DEFAULT_INVENTORIES); }
@@ -214,24 +213,17 @@ function initReputation() {
 function grantXP(charKey, amount, reason) {
     if (!state.auxiliary_party_state[charKey]) return;
     const character = state.auxiliary_party_state[charKey];
-
     character.xp += amount;
     if (!character.log) character.log = [];
     character.log.push({ reason: reason, xp: amount });
-
     while (character.xp >= character.xp_to_next) {
         character.xp -= character.xp_to_next;
         character.level++;
-        // --- THIS IS FIX #1: The incorrect XP formula ---
-        // This scaling formula matches the values in your screenshot (300 for L2->3, 500 for L3->4, etc.)
         character.xp_to_next = 100 + (character.level - 1) * 200;
         character.log.push({ reason: `Level Up! Reached Level ${character.level}`, xp: 0, isLevelUp: true });
-
         const archetype = getArchetypeFromWeapon(character.weapon);
         if (archetype) {
             const newAbility = getAbilityForLevel(archetype, character.level);
-            // --- THIS IS FIX #2: The fragile ability code ---
-            // Safety + dedupe so odd levels don't add duplicates
             if (newAbility && newAbility.name && newAbility.description) {
                 const added = addAbilityUnique(character, newAbility);
                 if (added) {
@@ -244,61 +236,7 @@ function grantXP(charKey, amount, reason) {
 
 function processInitialXP() {
     state.auxiliary_party_state = structuredClone(LORE_DATA.auxiliary_party);
-
-    // Hydrate any string abilities (e.g., ["Reckless Attack"]) into full objects and de-dupe
     hydrateInitialAbilities(state.auxiliary_party_state);
-
-    const allToads = ['dan', 'toad_lee', 'eager', 'ryan', 'roger', 'bones', 'the_mole'];
-    allToads.forEach(toadKey => { grantXP(toadKey, 25, "Participated in the liberation and survived the aftermath."); });
-    grantXP('dan', 150, "Landed the final blow on X.O./Skylla.");
-    grantXP('dan', 50, "Disarmed X.O. of her reality-bending staff.");
-    grantXP('dan', 75, "Fought against Captain Syrup's forces.");
-    grantXP('dan', 25, "Bravely asserted ownership of the staff against Archie.");
-    grantXP('toad_lee', 50, "First to join the fight, showed immense courage.");
-    grantXP('ryan', 50, "Assisted in the fight against Captain Syrup.");
-    grantXP('toad_lee', 100, "Knocked out a disguised Iron Legion kidnapper.");
-    grantXP('eager', 50, "Tied up the captured Iron Legion kidnapper.");
-    grantXP('bones', 25, "Survived the ship's crash and was revived by Wally.");
-    grantXP('ryan', 15, "Attempted to secure Wally's powerful staff.");
-    const brawlDefenders = ['dan', 'toad_lee', 'eager', 'ryan', 'roger', 'bones'];
-    brawlDefenders.forEach(toadKey => { grantXP(toadKey, 30, "Fended off an attack from a kidnapper toad."); });
-    const fireSurvivors = ['dan', 'toad_lee', 'eager', 'roger'];
-    fireSurvivors.forEach(toadKey => { grantXP(toadKey, 50, "Survived a direct hit from an Iron Legion fire attack."); });
-    grantXP('ryan', 25, "Survived the Iron Legion fire attack.");
-    grantXP('bones', 25, "Survived the Iron Legion fire attack.");
-    grantXP('eager', 75, "Discovered the Iron Legion's bomb plot.");
-    grantXP('dan', 75, "Showed mercy to an Orc attacker, proving his character.");
-    const agentsConfronters = ['dan', 'toad_lee', 'bones', 'roger', 'ryan'];
-    agentsConfronters.forEach(toadKey => { grantXP(toadKey, 50, "Confronted Crown Intelligence agents on the Vigilance."); });
-    grantXP('dan', 75, "Participated in the battle against haunted books.");
-    grantXP('dan', 25, "Showed tactical initiative by attempting to gain a height advantage.");
-    grantXP('dan', 30, "Acquired and studied 'Magitek Theory Vol. IV'.");
-    grantXP('dan', 25, "Demonstrated leadership by deciding to split off to find Humpik.");
-    grantXP('dan', 25, "Showed kindness by returning Markop's personal effects.");
-    grantXP('dan', 25, "Used resourcefulness to help fortify a shelter for the night.");
-    grantXP('eager', 150, "Was successfully found and rescued by the party in Raventree Manor.");
-    grantXP('dan', 25, "Participated in the early morning investigation of the disturbance.");
-    grantXP('dan', 15, "Witnessed the dramatic wyvern escape of Waluigi and Green T.");
-    grantXP('dan', 10, "Survived an... abrupt size adjustment and a slap from Bowser.");
-    grantXP('eager', 150, "Was found and rescued by Archie from the perilous Solarium.");
-    grantXP('eager', 50, "Survived being trapped in a collapsing, vine-choked Solarium with mysterious mirrors.");
-    const shadewardSurvivors = ['toad_lee', 'ryan', 'roger', 'bones', 'the_mole'];
-    shadewardSurvivors.forEach(toadKey => { grantXP(toadKey, 150, "Survived the temporal horrors and Iron Legion raid at Shadeward Mansion."); });
-    grantXP('ryan', 50, "Used a powerful darkness spell to facilitate the group's escape.");
-    grantXP('roger', 50, "Successfully neutralized an Iron Legionnaire during the raid.");
-    grantXP('the_mole', 25, "Successfully completed objective: facilitated the capture of Bones.");
-    const greenhouseParticipants = ['dan', 'eager']; 
-    greenhouseParticipants.forEach(toadKey => { grantXP(toadKey, 100, "Survived the Greenhouse Inferno battle against the rust monsters."); });
-    grantXP('dan', 150, "Successfully cast Cure Wounds under extreme pressure to save Archie's life.");
-    grantXP('eager', 100, "Showed immense bravery by charging into the fray to defend a comrade.");
-    grantXP('eager', 25, "Survived being pinned under the collapsing greenhouse roof.");
-    const manorWitnesses = ['toad_lee', 'ryan', 'roger', 'bones'];
-    manorWitnesses.forEach(toadKey => { grantXP(toadKey, 50, "Assisted in the chaotic aftermath of the Greenhouse Inferno and subsequent political votes."); });
-    grantXP('dan', 100, "Attempted a powerful healing spell under extreme duress, despite the catastrophic failure.");
-    grantXP('eager', 200, "Endured a catastrophic injury, a failed healing, a brutal cauterization, and a monstrous transformation.");
-    const siegeAssistants = ['toad_lee', 'ryan', 'roger', 'bones'];
-    siegeAssistants.forEach(toadKey => { grantXP(toadKey, 75, "Survived the Cohort siege and the emergence of the manor's horrors."); });
-    grantXP('the_mole', 50, "Successfully aided Speaker L in the confrontation and capture of Archie.");
 }
 
 export function initFocusTreeState() {
@@ -306,25 +244,9 @@ export function initFocusTreeState() {
         buildVersionApplied: "2024-05-18-r1",
         day: 6, activeToad: "dan", groupInfluence: 27,
         unlocked: { dan: ['dan_t1_influence'], toad_lee: ['lee_t1_command'], eager: ['eager_t1_scout'], ryan: ['ryan_t1_cantrips'], roger: ['rog_t1_trade'], bones: ['bones_t1_morale'], bryan: [], group: [] },
-        activeFocuses: [
-            { toadKey: 'group', nodeId: 'group_t1_repair_airship', remainingDays: 16, totalDays: 20 },
-            { toadKey: 'dan', nodeId: 'dan_t2_rally', remainingDays: 3, totalDays: 3 },
-            { toadKey: 'toad_lee', nodeId: 'lee_t2_fortify', remainingDays: 5, totalDays: 5 },
-            { toadKey: 'eager', nodeId: 'eager_t2_traps', remainingDays: 4, totalDays: 4 },
-            { toadKey: 'ryan', nodeId: 'ryan_t2_research_staff', remainingDays: 8, totalDays: 8 },
-            { toadKey: 'roger', nodeId: 'rog_t2_scavenge', remainingDays: 4, totalDays: 4 },
-            { toadKey: 'bones', nodeId: 'bones_t2_orc_debt', remainingDays: 6, totalDays: 6 },
-        ],
+        activeFocuses: [],
         influences: { dan: 55, toad_lee: 35, eager: 15, ryan: 15, roger: 20, bones: 10, bryan: 0 },
-        log: [
-            { who: "System", what: "Day 6 begins." }, { who: "Dan", what: "Completed focus: \"Hold a Council\"." },
-            { who: "Toad Lee", what: "Completed focus: \"Drill Sergeancy\"." }, { who: "Eager", what: "Completed focus: \"Scout the Surroundings\"." },
-            { who: "Roger", what: "Completed focus: \"Establish Barter System\"." }, { who: "Ryan", what: "Completed focus: \"Practice Cantrips\"." },
-            { who: "Bones", what: "Completed focus: \"Card Games in the Mess\"." }, { who: "Dan", what: "Began focus: \"Inspiring Speech\" [3 days]." },
-            { who: "Toad Lee", what: "Began focus: \"Fortify Position\" [5 days]." }, { who: "Eager", what: "Began focus: \"Set Booby Traps\" [4 days]." },
-            { who: "Ryan", what: "Began focus: \"Research X.O.'s Staff\" [8 days]." }, { who: "Roger", what: "Began focus: \"Organize Scavenging Parties\" [4 days]." },
-            { who: "Bones", what: "Began focus: \"Contemplate the Orc 'Debt'\" [6 days]." }, { who: "System", what: "System online. Focus protocols initiated." },
-        ],
+        log: [],
         luckyItemCooldowns: { dan: 0, toad_lee: 0, eager: 0, ryan: 0, roger: 0, bones: 0, bryan: 0 },
         flags: { waluigiPending: false }
     };
@@ -332,6 +254,52 @@ export function initFocusTreeState() {
 
 export function saveState() {
     localStorage.setItem('vigilanceTerminalState', JSON.stringify(state));
+}
+
+/**
+ * Calculates final intel levels by applying cumulative bonuses from all historical rumors
+ * to the base intel levels. This ensures intel grows with experience and doesn't decay.
+ */
+function calculateFinalIntel() {
+    // Start with a deep copy of the base intel levels defined in state.intelLevels
+    // This ensures we don't permanently mutate the base values in state, but build upon them.
+    const computedIntel = structuredClone(state.intelLevels);
+    
+    // Iterate through EVERY rumor in the lore database (history)
+    if (LORE_DATA && LORE_DATA.rumors) {
+        LORE_DATA.rumors.forEach(rumor => {
+            const playerKey = state.loggedInUser;
+            
+            // Generic profile doesn't track personal history
+            if (!playerKey || playerKey === 'generic') return;
+
+            // Check if the current player was involved in this rumor/event
+            const isTarget = rumor.targets.includes('party') ? state.party.includes(playerKey) : rumor.targets.includes(playerKey);
+            const isInstigator = rumor.instigator === playerKey;
+
+            // If involved, they gain permanent knowledge about the affected factions
+            if (isTarget || isInstigator) {
+                const affectedFactions = Object.keys(rumor.effects || {});
+
+                affectedFactions.forEach(factionKey => {
+                    if (!computedIntel[playerKey]) computedIntel[playerKey] = {};
+                    if (!computedIntel[playerKey][factionKey]) computedIntel[playerKey][factionKey] = 0;
+
+                    // Base gain for involvement
+                    let gain = 5; 
+                    // Bonus gain for being the instigator (you know what you did)
+                    if (isInstigator) gain += 5; 
+
+                    computedIntel[playerKey][factionKey] += gain;
+
+                    // Cap intel at 100
+                    computedIntel[playerKey][factionKey] = Math.min(100, computedIntel[playerKey][factionKey]);
+                });
+            }
+        });
+    }
+
+    state.finalIntel = computedIntel;
 }
 
 function calculateFinalReputations() {
@@ -343,6 +311,7 @@ function calculateFinalReputations() {
 
     for (const playerKey in finalReps) {
         calculationBreakdown[playerKey] = {};
+
         for (const factionKey in finalReps[playerKey].reputation) {
             let rumorRepModifier = 0;
             let rumorNotorietyModifier = 0;
@@ -356,11 +325,28 @@ function calculateFinalReputations() {
             LORE_DATA.rumors.forEach(rumor => {
                 if (state.activeRumors.includes(rumor.id)) {
                     const isTarget = rumor.targets.includes('party') ? state.party.includes(playerKey) : rumor.targets.includes(playerKey);
+                    const isInstigator = rumor.instigator === playerKey;
+
+                    const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                    const metrics = calculateRumorMetrics(rumor, relatedPosts);
+                    
                     if (isTarget && rumor.effects[factionKey]) {
-                        const effect = rumor.effects[factionKey];
+                        let effect = rumor.effects[factionKey];
+                        effect = Math.round(effect * metrics.repMultiplier);
+
+                        if (isInstigator) {
+                            effect *= 2;
+                        }
+
                         rumorRepModifier += effect;
-                        rumorNotorietyModifier += Math.abs(effect) / 2;
-                        calculationBreakdown[playerKey][factionKey].rumors.push({ title: rumor.title, value: effect });
+                        rumorNotorietyModifier += Math.round((Math.abs(effect) / 2) * (metrics.repMultiplier > 1 ? 1.5 : 1));
+
+                        calculationBreakdown[playerKey][factionKey].rumors.push({ 
+                            title: rumor.title, 
+                            value: effect,
+                            multiplier: metrics.repMultiplier,
+                            isInstigator: isInstigator
+                        });
                     }
                 }
             });
@@ -379,15 +365,10 @@ function calculateFinalReputations() {
             const targetFaction = LORE_DATA.factions[targetFactionKey];
             if(!targetFaction) return;
 
-            // --- THE NEW UNIVERSAL FIX ---
-            // If the character being calculated is a member of the main party,
-            // SKIP propagation entirely for ALL of their relationships.
-            // This preserves the direct reputation scores earned through the story.
             if (state.party.includes(playerKey)) {
-                propagatedChanges[targetFactionKey] = 0; // Ensure no changes are applied
-                return; // Go to the next faction and skip the logic below
+                propagatedChanges[targetFactionKey] = 0; 
+                return;
             }
-            // --- END OF FIX ---
 
             factionKeys.forEach(sourceFactionKey => {
                 if (sourceFactionKey === targetFactionKey) return;
@@ -415,7 +396,6 @@ function calculateFinalReputations() {
         });
     }
 
-    // Sub-faction reputation calculations
     for (const playerKey in state.players) {
         finalSubFactionReps[playerKey] = {};
         for (const factionKey in LORE_DATA.factions) {
@@ -434,7 +414,6 @@ function calculateFinalReputations() {
         }
     }
     
-    // Final clamp and assignment
     Object.keys(finalReps).forEach(playerKey => {
         Object.keys(finalReps[playerKey].reputation).forEach(factionKey => {
             finalReps[playerKey].reputation[factionKey] = Math.max(-100, Math.min(100, finalReps[playerKey].reputation[factionKey]));
@@ -461,13 +440,14 @@ export function loadState() {
     initReputation();
     initInventories();
     processInitialXP();
+    
     calculateFinalReputations();
+    calculateFinalIntel(); // Calculate cumulative intel based on history
 
     if (!state.focusTreeState || state.focusTreeState.buildVersionApplied !== "2024-05-18-r1") {
         initFocusTreeState();
     }
     
-    // Ensure researchState is initialized
     if (!state.researchState) {
         state.researchState = initResearchState();
     }
@@ -488,7 +468,6 @@ export function loadState() {
     state.loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
 }
 
-// Helper to get a clean, de-duped list of abilities for display
 export function getDisplayAbilities(character) {
     const arch = getArchetypeFromWeapon(character.weapon);
     const current = arch ? getAbilityForLevel(arch, character.level) : null;

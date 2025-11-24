@@ -1,9 +1,15 @@
+
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
     day: 20
 };
 
+// Set the current "Now" time for the simulation (22:00 / 10:00 PM)
+export const CURRENT_GAME_TIME = {
+    hour: 22,
+    minute: 0
+};
 
 export const CALENDAR_DATA = {
   "name": "Regal Empire Standard Calendar",
@@ -85,6 +91,7 @@ export const CALENDAR_DATA = {
       { "name": "Wario's Remembrance", "month": 6, "day": 25, "description": "Anniversary of Wario's supposed death.", "traditions": "Hiding valuables." },
       { "name": "Admin Zero's Protocol Day", "month": 7, "day": 7, "description": "System diagnostics.", "traditions": "Data-cleaning." },
       { "name": "Celestia's Iron Hoof Day", "month": 7, "day": 15, "description": "Celebration of Celestia's rule.", "traditions": "Military Parades." },
+      { "name": "Festival of the Fallen", "month": 7, "day": 20, "description": "A Rakasha tradition celebrating life by honoring the dead with bonfires and bone chimes.", "traditions": "Bonfires, bone chimes, chanting." },
       { "name": "Starfall Eve", "month": 8, "day": 12, "description": "A night when the Star Spirits are closest to the world.", "traditions": "Wishing on stars, staying awake until dawn." },
       { "name": "Peach's Starfall Lament", "month": 9, "day": 20, "description": "Mourning for Princess Peach.", "traditions": "Lanterns." },
       { "name": "Blood Moon Hunt", "month": 10, "day": 13, "description": "Folkloric monster hunting day.", "traditions": "Lock-ins." },
@@ -103,3 +110,54 @@ export const MAGICAL_WEATHER_EVENTS = [
     { name: "Gravity Flux", icon: "🎈" }, { name: "Aetheric Fog", icon: "🔮" }, { name: "Polychrome Rain", icon: "🌈" },
     { name: "Sorrow Storm", icon: "💧" }, { name: "Static Discharge", icon: "⚡️" }
 ];
+
+/**
+ * Helper function to calculate "Time Ago" based on current game date/time.
+ * @param {object} postDate - { year, monthIndex, day, hour, minute }
+ * @returns {string} - Formatted string (e.g., "2 hours ago")
+ */
+export function getDynamicTimestamp(postDate) {
+    // Standardized values for calculation
+    const minutesPerHour = 60;
+    const minutesPerDay = 24 * 60;
+    const minutesPerMonth = 30 * minutesPerDay;
+    const minutesPerYear = 365 * minutesPerDay;
+
+    // Convert Current Game Time to total minutes
+    const currentTotalMinutes = 
+        (CURRENT_GAME_DATE.year * minutesPerYear) +
+        (CURRENT_GAME_DATE.monthIndex * minutesPerMonth) +
+        (CURRENT_GAME_DATE.day * minutesPerDay) +
+        (CURRENT_GAME_TIME.hour * minutesPerHour) +
+        CURRENT_GAME_TIME.minute;
+
+    // Convert Post Time to total minutes (defaulting to 12:00 if time missing)
+    const pYear = postDate.year ?? CURRENT_GAME_DATE.year;
+    const pMonth = postDate.monthIndex ?? CURRENT_GAME_DATE.monthIndex;
+    const pDay = postDate.day ?? CURRENT_GAME_DATE.day;
+    const pHour = postDate.hour ?? 12;
+    const pMinute = postDate.minute ?? 0;
+
+    const postTotalMinutes = 
+        (pYear * minutesPerYear) +
+        (pMonth * minutesPerMonth) +
+        (pDay * minutesPerDay) +
+        (pHour * minutesPerHour) +
+        pMinute;
+
+    const diffMinutes = currentTotalMinutes - postTotalMinutes;
+
+    if (diffMinutes < 2) return "Just Now";
+    if (diffMinutes < 60) return `${diffMinutes} minutes ago`;
+    
+    const diffHours = Math.floor(diffMinutes / 60);
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+
+    const diffDays = Math.floor(diffMinutes / 1440);
+    if (diffDays === 1) return "Yesterday";
+    if (diffDays < 30) return `${diffDays} days ago`;
+
+    // If older than a month, show the date
+    const monthName = CALENDAR_DATA.months.values[pMonth].name;
+    return `${monthName} ${pDay}, ${pYear}`;
+}

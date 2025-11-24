@@ -1,6 +1,8 @@
 
 
 
+
+
 /* --- Timeline Filter Bar --- */
 #timeline-filter-bar {
     display: flex;
@@ -205,6 +207,13 @@
     font-size: 0.8rem;
     color: var(--text-secondary);
     font-style: italic;
+}
+
+.timeline-specific-time {
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+    font-weight: bold;
+    margin-left: 4px;
 }
 
 .timeline-content p {

@@ -12,12 +12,14 @@ import { GUILD_DATA, CHARTER_DATA } from './guilds-data.js';
 import { CHARACTER_MECHANICS } from './character-special-systems.js';
 import { renderIntelAndRumors } from './assembly-intel-system.js';
 import { calculateRumorMetrics } from './research-data.js'; 
+import { getDynamicTimestamp } from './calendar-data.js'; 
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './calendar-data.js'; 
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
 const contentContainer = document.getElementById('wahbook-content');
 const feedContainer = document.getElementById('feed-content');
 
-// Modal Elements
+// ... (Modal Elements remain the same) ...
 const dossierModal = document.getElementById('dossier-modal');
 const dossierModalBody = document.getElementById('dossier-modal-body');
 const dossierModalClose = document.querySelector('.dossier-modal-close');
@@ -30,11 +32,12 @@ const copyShareBtn = document.getElementById('copy-share-btn');
 const waluigiWarningModal = document.getElementById('waluigi-warning-modal');
 
 let currentEventSort = 'newest';
-let activeGroupFilter = 'all';
+let activeChannelId = 'all';
 
 let WAHBOOK_POSTS = [];
 let WAHBOOK_EVENTS = [];
 
+// ... (Data Loading functions remain the same) ...
 async function loadDynamicData() {
     const dataModule = await import('./assembly-data.js');
     WAHBOOK_POSTS = dataModule.WAHBOOK_POSTS;
@@ -42,6 +45,18 @@ async function loadDynamicData() {
     const eventsModule = await import('./assembly-events-data.js');
     const eventPosts = await eventsModule.loadEventPosts();
     WAHBOOK_POSTS.push(...eventPosts);
+}
+
+// ... (Helper functions remain the same) ...
+function getPostTimeValue(post) {
+    if (!post.date) return 0; 
+    return new Date(
+        post.date.year, 
+        post.date.monthIndex, 
+        post.date.day, 
+        post.date.hour || 12, 
+        post.date.minute || 0
+    ).getTime();
 }
 
 function formatCharacterKey(key) {
@@ -82,9 +97,15 @@ function getCharacterData(characterKey) {
     return { name: formatCharacterKey(characterKey), portrait: 'portraits/unknown.png', faction: null };
 }
 
+// ... (renderFeedPost, renderChatMessage, renderCreatePostBox remain the same) ...
 function renderFeedPost(post, options = {}) {
     const author = getCharacterData(post.characterKey);
-    const factionHTML = author.faction ? `<span class="post-meta">${author.faction.name} · ${post.timestamp}</span>` : `<span class="post-meta">${post.timestamp}</span>`;
+    let timeString = post.timestamp;
+    if (post.date) {
+        timeString = getDynamicTimestamp(post.date);
+    }
+
+    const factionHTML = author.faction ? `<span class="post-meta">${author.faction.name} · ${timeString}</span>` : `<span class="post-meta">${timeString}</span>`;
     const isNew = state.userState.seenPostIds && !state.userState.seenPostIds.includes(post.id);
     const newBadgeHTML = isNew ? `<div class="new-post-badge">NEW</div>` : '';
 
@@ -102,11 +123,7 @@ function renderFeedPost(post, options = {}) {
 
     let audioHTML = '';
     if (post.audioSrc) {
-        audioHTML = `
-            <div class="post-audio-container">
-                <audio controls src="${post.audioSrc}"></audio>
-            </div>
-        `;
+        audioHTML = `<div class="post-audio-container"><audio controls src="${post.audioSrc}"></audio></div>`;
     }
 
     const trendingBadgeHTML = options.showTrendingScore ? `<div class="trending-badge" title="Trending Score: ${options.trendingScore}">🔥</div>` : '';
@@ -136,14 +153,23 @@ function renderFeedPost(post, options = {}) {
         </div>
     `;
 }
-
+function renderChatMessage(post) {
+    const author = getCharacterData(post.characterKey);
+    const isPlayer = post.characterKey === state.loggedInUser;
+    const bubbleClass = isPlayer ? 'outgoing' : 'incoming';
+    let timeString = post.timestamp;
+    if (post.date) {
+        timeString = getDynamicTimestamp(post.date);
+    }
+    return `<div class="chat-bubble ${bubbleClass}" id="msg-${post.id}"><div class="chat-meta"><span class="chat-author">${author.name}</span><span class="chat-time">${timeString}</span></div><div class="chat-text">${post.content}</div></div>`;
+}
 function renderCreatePostBox() {
     if (state.loggedInUser === 'generic') return '';
     const user = getCharacterData(state.loggedInUser);
     return `<div class="create-post-container"><div class="create-post-header"><img src="${user.portrait}" alt="Your profile picture" class="create-post-pfp"><button class="create-post-input">What's on your mind, ${user.name.split(' ')[0]}?</button></div></div>`;
 }
 
-// Updated Sidebar Widget: Network Trends
+// Updated Sidebar Widget
 function renderTrendingRumorsWidget() {
     const rumors = LORE_DATA.rumors || [];
     const trendingList = [];
@@ -151,75 +177,38 @@ function renderTrendingRumorsWidget() {
 
     rumors.forEach(rumor => {
         const chatterCount = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id).length;
-        const metrics = calculateRumorMetrics(rumor, chatterCount);
-        
+        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+        const metrics = calculateRumorMetrics(rumor, relatedPosts);
         const item = { ...rumor, metrics, count: chatterCount };
         
-        // Logic to split them
-        // If hype is high and decay is low -> Trending
-        // If decay is high -> Decaying (even if posts are present)
-        if (metrics.hypeFactor >= 1.5 && metrics.decayFactor < 2.0) {
+        if (metrics.status === 'Viral' || metrics.status === 'Trending') {
             trendingList.push(item);
         } else if (metrics.decayFactor >= 2.0 || metrics.status === 'Fading' || metrics.status === 'Old News') {
-            // Only show decaying if it still has some impact
             if (Math.abs(metrics.finalScore) > 0.05) {
                 decayingList.push(item);
             }
         }
     });
 
-    // Sort lists
     trendingList.sort((a, b) => b.metrics.finalScore - a.metrics.finalScore);
-    decayingList.sort((a, b) => b.metrics.daysPassed - a.metrics.daysPassed); // Oldest first for decaying list? Or highest decay factor
+    decayingList.sort((a, b) => b.metrics.daysPassed - a.metrics.daysPassed);
 
     const renderList = (items, emptyMsg) => {
         if (items.length === 0) return `<li style="font-style:italic; color:var(--text-secondary); padding:8px;">${emptyMsg}</li>`;
-        return items.slice(0, 3).map(r => `
-            <li class="trending-rumor-item">
-                <div class="rumor-header">
-                    <div class="rumor-name" title="${r.title}">${r.title}</div>
-                    <span class="rumor-badge ${r.metrics.status.toLowerCase().replace(' ','-')}">${r.metrics.status}</span>
-                </div>
-                <div class="rumor-metrics">
-                    <span>Posts: ${r.count}</span>
-                    <span class="${r.metrics.finalScore > 0 ? 'metric-up' : 'metric-down'}">Imp: ${r.metrics.finalScore.toFixed(1)}</span>
-                </div>
-            </li>
-        `).join('');
+        return items.slice(0, 3).map(r => `<li class="trending-rumor-item"><div class="rumor-header"><div class="rumor-name" title="${r.title}">${r.title}</div><span class="rumor-badge ${r.metrics.status.toLowerCase().replace(' ','-')}">${r.metrics.status}</span></div><div class="rumor-metrics"><span>Posts: ${r.count}</span><span class="${r.metrics.finalScore > 0 ? 'metric-up' : 'metric-down'}">Imp: ${r.metrics.finalScore.toFixed(1)}</span></div></li>`).join('');
     };
 
-    return `
-        <div class="profile-sidebar-widget">
-            <h4>Network Trends</h4>
-            
-            <div style="margin-bottom: 16px;">
-                <h6 style="color: var(--positive-color); font-size: 0.8rem; margin-bottom: 8px;">🔥 VIRAL TARGETS</h6>
-                <ul class="trending-rumor-list">
-                    ${renderList(trendingList, "No viral topics currently.")}
-                </ul>
-            </div>
-
-            <div>
-                <h6 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 8px;">📉 FADING SIGNALS</h6>
-                <ul class="trending-rumor-list">
-                    ${renderList(decayingList, "No fading signals detected.")}
-                </ul>
-            </div>
-
-            <a href="assembly.html#intel" class="intel-link-btn" style="margin-top:16px; font-size:0.8rem; width:100%;">View Full Intel Report</a>
-        </div>
-    `;
+    return `<div class="profile-sidebar-widget"><h4>Network Trends</h4><div style="margin-bottom: 16px;"><h6 style="color: var(--positive-color); font-size: 0.8rem; margin-bottom: 8px;">🔥 VIRAL TARGETS</h6><ul class="trending-rumor-list">${renderList(trendingList, "No viral topics currently.")}</ul></div><div><h6 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 8px;">📉 FADING SIGNALS</h6><ul class="trending-rumor-list">${renderList(decayingList, "No fading signals detected.")}</ul></div><a href="assembly.html#intel" class="intel-link-btn" style="margin-top:16px; font-size:0.8rem; width:100%;">View Full Intel Report</a></div>`;
 }
 
 function renderMainFeed() {
     if (!feedContainer) return;
-    const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => (b.order || 0) - (a.order || 0));
+    const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
     const postsHTML = renderCreatePostBox() + sortedPosts.map(p => renderFeedPost(p)).join('');
-    
     feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderTrendingRumorsWidget()}</aside></div>`;
 }
 
-// ... (Rest of the file functions: renderEvent, renderEventsFeed, openDossierModal, renderFollowedFeed, renderTrendingFeed, renderGroupsFeed, handleShare, scrollToPostFromHash, getPostTone, generateSpecialKeywords, findNpcResponse, triggerNpcInteraction, handleNewPost, handleNewReply, showWaluigiWarning, setupEventListeners, updateSeenPosts, simulateLikes) remain identical.
+// ... (renderEvent, renderEventsFeed, openDossierModal, renderFollowedFeed remain the same) ...
 
 function renderEvent(rumor) {
     const allTargets = new Set();
@@ -227,69 +216,36 @@ function renderEvent(rumor) {
         if (t === 'party') { state.party.forEach(p => allTargets.add(p)); } 
         else { allTargets.add(t); }
     });
-
     const attendeesHTML = Array.from(allTargets).map(targetKey => {
         const character = getCharacterData(targetKey);
-        return `
-            <div class="attendee-card">
-                <img src="${character.portrait}" alt="${character.name}" class="attendee-pfp">
-                <div class="attendee-info">
-                    <span class="attendee-name">${character.name}</span>
-                </div>
-            </div>
-        `;
+        return `<div class="attendee-card"><img src="${character.portrait}" alt="${character.name}" class="attendee-pfp"><div class="attendee-info"><span class="attendee-name">${character.name}</span></div></div>`;
     }).join('');
-
     const allPostsForEvent = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
     const newsPosts = allPostsForEvent.filter(p => p.characterKey === 'wah_media_collective');
     const regularPosts = allPostsForEvent.filter(p => p.characterKey !== 'wah_media_collective');
-
+    newsPosts.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
+    regularPosts.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
     const newsHTML = newsPosts.length > 0 ? newsPosts.map(p => renderFeedPost(p)).join('') : '';
     const postsHTML = regularPosts.length > 0 ? regularPosts.map(p => renderFeedPost(p)).join('') : '';
-    
     const attendeesSectionHTML = attendeesHTML ? `<div class="attendees-list-container"><h4>Key Figures Involved</h4><div class="attendees-list">${attendeesHTML}</div></div>` : '';
     const hasCollapsibleContent = attendeesSectionHTML || newsHTML || postsHTML;
-
-    return `
-        <div class="event-container" data-event-id="${rumor.id}">
-            <div class="event-main-header">
-                <h3>${rumor.title || 'Untitled Event'}</h3>
-                <p>${rumor.description || 'No description available.'}</p>
-                ${hasCollapsibleContent ? '<span class="event-toggle-icon">▼</span>' : ''}
-            </div>
-            ${hasCollapsibleContent ? `
-            <div class="event-collapsible-body">
-                <div class="event-details-grid">
-                    ${attendeesSectionHTML}
-                    <div class="related-content-container">
-                        ${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}
-                        ${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}
-                    </div>
-                </div>
-            </div>` : ''}
-        </div>
-    `;
+    return `<div class="event-container" data-event-id="${rumor.id}"><div class="event-main-header"><h3>${rumor.title || 'Untitled Event'}</h3><p>${rumor.description || 'No description available.'}</p>${hasCollapsibleContent ? '<span class="event-toggle-icon">▼</span>' : ''}</div>${hasCollapsibleContent ? `<div class="event-collapsible-body"><div class="event-details-grid">${attendeesSectionHTML}<div class="related-content-container">${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}</div></div></div>` : ''}</div>`;
 }
-
 function renderEventsFeed() {
     const container = document.getElementById('events-feed-container');
     if (!container) return;
-
     const eventsToRender = LORE_DATA.rumors.filter(rumor => rumor.isEvent);
-    
     eventsToRender.sort((a, b) => {
         const dateA = a.date ? new Date(a.date.year, a.date.monthIndex, a.date.day) : 0;
         const dateB = b.date ? new Date(b.date.year, b.date.monthIndex, b.date.day) : 0;
         return (currentEventSort === 'newest') ? dateB - dateA : dateA - dateB;
     });
-
     container.innerHTML = eventsToRender.map(renderEvent).join('');
 }
-
 function openDossierModal(rumorId) {
     const rumor = LORE_DATA.rumors.find(r => r.id === rumorId);
     if (!rumor) return;
-    const intelPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumorId).sort((a, b) => (b.order || 0) - (a.order || 0));
+    const intelPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumorId).sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
     const chatterHTML = intelPosts.length > 0 ? intelPosts.map(post => renderFeedPost(post)).join('') : `<p class="page-subtitle">No network chatter detected for this rumor.</p>`;
     const allTargets = new Set();
     rumor.targets.forEach(t => {
@@ -298,10 +254,7 @@ function openDossierModal(rumorId) {
     });
     const affectedPartiesHTML = Array.from(allTargets).map(targetKey => {
         const targetData = getCharacterData(targetKey);
-        if (targetKey === 'liberated_toads') {
-            targetData.name = "The Liberated Toads";
-            targetData.portrait = LORE_DATA.factions.liberated_toads.logo;
-        }
+        if (targetKey === 'liberated_toads') { targetData.name = "The Liberated Toads"; targetData.portrait = LORE_DATA.factions.liberated_toads.logo; }
         if (!targetData.name) return '';
         return `<div class="affected-party-chip"><img src="${targetData.portrait}" alt="${targetData.name}" title="${targetData.name}"><span>${targetData.name}</span></div>`;
     }).join('');
@@ -315,7 +268,6 @@ function openDossierModal(rumorId) {
     dossierModalBody.innerHTML = `<div class="dossier-header"><h2>${rumor.title}</h2><p>Timeline: ${rumor.time_ago || 'Ongoing'}</p></div><p>${rumor.description}</p><div class="dossier-analysis-grid"><div class="dossier-affected-parties"><h4>Primary Targets Involved</h4><div class="affected-list">${affectedPartiesHTML}</div><h4>Reputation Impact</h4><ul class="rep-change-list">${repChangesHTML}</ul></div><div class="dossier-network-feed"><h4>Related Network Chatter</h4>${chatterHTML}</div></div>`;
     dossierModal.style.display = 'flex';
 }
-
 function renderFollowedFeed() {
     const container = document.getElementById('followed-feed-container');
     if (!container) return;
@@ -324,35 +276,78 @@ function renderFollowedFeed() {
         container.innerHTML = `<p class="page-subtitle">You are not following anyone yet. Visit a user's profile to follow them!</p>`;
         return;
     }
-    const followedPosts = WAHBOOK_POSTS.filter(p => state.userState.following.includes(p.characterKey)).sort((a, b) => (b.order || 0) - (a.order || 0));
+    const followedPosts = WAHBOOK_POSTS.filter(p => state.userState.following.includes(p.characterKey)).sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
     container.innerHTML = followedPosts.length > 0 ? followedPosts.map(p => renderFeedPost(p)).join('') : `<p class="page-subtitle">The accounts you follow haven't posted anything yet.</p>`;
 }
 
+// NEW: Trending Feed based on Dynamic Intel
 function renderTrendingFeed() {
     const container = document.getElementById('trending-feed-container');
     if (!container) return;
-    const recentPosts = WAHBOOK_POSTS.filter(p => !p.timestamp.includes('month') && !p.timestamp.includes('year'));
-    const scoredPosts = recentPosts.map(post => ({ ...post, trendingScore: (post.likes || 0) + ((post.comments?.length || 0) * 2) })).sort((a, b) => b.trendingScore - a.trendingScore).slice(0, 15);
-    container.innerHTML = scoredPosts.map(p => renderFeedPost(p, { showTrendingScore: true, trendingScore: p.trendingScore })).join('');
+
+    // 1. Get Viral & Trending Rumor IDs
+    // Use the same logic as Intel System: check active rumors
+    const activeRumors = LORE_DATA.rumors || [];
+    let trendingRumorIds = [];
+
+    activeRumors.forEach(rumor => {
+        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+        const metrics = calculateRumorMetrics(rumor, relatedPosts);
+        
+        // Include Viral, Trending, and Active rumors
+        if (['Viral', 'Trending', 'Active'].includes(metrics.status)) {
+            trendingRumorIds.push(rumor.id);
+        }
+    });
+
+    // 2. Filter posts that belong to these "Hot" rumors
+    let trendingPosts = WAHBOOK_POSTS.filter(p => p.rumorId && trendingRumorIds.includes(p.rumorId));
+
+    // 3. Fallback: If not enough rumor posts, grab the highest liked posts overall
+    if (trendingPosts.length < 5) {
+        const otherPosts = WAHBOOK_POSTS.filter(p => !p.rumorId)
+            .sort((a, b) => (b.likes || 0) - (a.likes || 0))
+            .slice(0, 5);
+        trendingPosts = [...trendingPosts, ...otherPosts];
+    }
+
+    // 4. Sort final feed by Likes (Popularity)
+    trendingPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+
+    // 5. Render
+    container.innerHTML = trendingPosts.map(p => {
+        const score = (p.likes || 0) + ((p.comments?.length || 0) * 2);
+        return renderFeedPost(p, { showTrendingScore: true, trendingScore: score });
+    }).join('');
 }
 
+
+// ... (renderGroupsFeed, handleShare, etc. remain the same) ...
 function renderGroupsFeed() {
     const container = document.getElementById('groups-content');
     if (!container) return;
     const filterBar = container.querySelector('#groups-filter-bar');
     const feedContainer = container.querySelector('#groups-feed-container');
+    const headerLabel = container.querySelector('#comms-active-channel');
     const groupPosts = WAHBOOK_POSTS.filter(p => p.groupId);
     const uniqueGroupIds = ['all', ...new Set(groupPosts.map(p => p.groupId))];
     const allGuildsAndCharters = { ...GUILD_DATA, ...CHARTER_DATA };
     filterBar.innerHTML = uniqueGroupIds.map(groupId => {
-        const name = (groupId === 'all') ? 'All Groups' : (allGuildsAndCharters[groupId]?.name.replace(/#\d+\s/, '') || groupId);
-        return `<button class="control-btn ${activeGroupFilter === groupId ? 'active' : ''}" data-group-id="${groupId}">${name}</button>`;
+        const name = (groupId === 'all') ? 'All Channels' : (allGuildsAndCharters[groupId]?.name.replace(/#\d+\s/, '') || groupId);
+        const isActive = activeChannelId === groupId;
+        let iconSrc = 'icon_focus.png';
+        if (groupId !== 'all' && allGuildsAndCharters[groupId]) { const factionKey = allGuildsAndCharters[groupId].sponsoring_faction; if (factionKey && LORE_DATA.factions[factionKey]) iconSrc = LORE_DATA.factions[factionKey].logo; }
+        return `<button class="comms-channel-btn ${isActive ? 'active' : ''}" data-group-id="${groupId}"><img src="${iconSrc}" class="channel-icon"><span>${name}</span></button>`;
     }).join('');
-    const filteredPosts = (activeGroupFilter === 'all') ? groupPosts : groupPosts.filter(p => p.groupId === activeGroupFilter);
-    filteredPosts.sort((a, b) => (b.order || 0) - (a.order || 0));
-    feedContainer.innerHTML = filteredPosts.length > 0 ? filteredPosts.map(p => renderFeedPost(p)).join('') : `<p class="page-subtitle">No posts found for this group.</p>`;
+    const filteredPosts = (activeChannelId === 'all') ? groupPosts : groupPosts.filter(p => p.groupId === activeChannelId);
+    filteredPosts.sort((a, b) => getPostTimeValue(a) - getPostTimeValue(b));
+    if (filteredPosts.length > 0) {
+        feedContainer.innerHTML = filteredPosts.map(p => renderChatMessage(p)).join('');
+        setTimeout(() => { feedContainer.scrollTop = feedContainer.scrollHeight; }, 50);
+    } else { feedContainer.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-secondary);">No encrypted traffic detected on this frequency.</div>`; }
+    const activeName = (activeChannelId === 'all') ? 'All Channels' : (allGuildsAndCharters[activeChannelId]?.name || activeChannelId);
+    headerLabel.textContent = `Frequency: ${activeName}`;
 }
-
 function handleShare(button) {
     const postElement = button.closest('.feed-post');
     if (!postElement || !shareModal) return;
@@ -369,7 +364,6 @@ function handleShare(button) {
     copyShareBtn.classList.remove('copied');
     shareModal.style.display = 'flex';
 }
-
 function scrollToPostFromHash() {
     if (window.location.hash) {
         try {
@@ -382,7 +376,6 @@ function scrollToPostFromHash() {
         } catch (e) { console.warn("Invalid hash for scrolling:", window.location.hash); }
     }
 }
-
 function getPostTone(text) {
     const lowerText = text.toLowerCase();
     const positiveWords = ['good', 'great', 'love', 'magnificent', 'hope', 'happy', 'agree', 'support', 'victory'];
@@ -393,7 +386,6 @@ function getPostTone(text) {
     if (inquisitiveWords.some(word => lowerText.includes(word))) return 'inquisitive';
     return 'neutral';
 }
-
 function generateSpecialKeywords(text) {
     const lowerText = text.toLowerCase();
     const keywords = [];
@@ -408,7 +400,6 @@ function generateSpecialKeywords(text) {
     }
     return keywords;
 }
-
 function findNpcResponse(sourceText, sourceAuthorKey, targetPost, threadHistory, responseType) {
     const lowerText = sourceText.toLowerCase();
     const sourceTone = getPostTone(sourceText);
@@ -432,7 +423,6 @@ function findNpcResponse(sourceText, sourceAuthorKey, targetPost, threadHistory,
     }
     return bestMatches.length > 0 ? bestMatches[Math.floor(Math.random() * bestMatches.length)] : null;
 }
-
 function triggerNpcInteraction(targetPost, initialText = null, initialAuthor = null) {
     let conversationChain = [];
     let lastCommentText = initialText || targetPost.content;
@@ -472,26 +462,24 @@ function triggerNpcInteraction(targetPost, initialText = null, initialAuthor = n
         }, (index * 6000) + (Math.random() * 4000));
     });
 }
-
 function handleNewPost() {
     const text = newPostTextarea.value.trim();
     if (!text) return;
-    const highestOrder = Math.max(...WAHBOOK_POSTS.map(p => p.order || 0));
-    const newPost = { id: `player_post_${Date.now()}`, order: highestOrder + 1, characterKey: state.loggedInUser, timestamp: 'Just now', content: text, likes: 0, comments: [] };
-    WAHBOOK_POSTS.unshift(newPost);
-    const feed = feedContainer.querySelector('.wahbook-feed-container');
-    const createPostBox = feed.querySelector('.create-post-container');
-    feed.insertAdjacentHTML('afterbegin', renderFeedPost(newPost));
-    if (createPostBox) feed.prepend(createPostBox);
-    const newPostElement = document.getElementById(`post-${newPost.id}`);
-    if (newPostElement) {
-        newPostElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    const newPost = { 
+        id: `player_post_${Date.now()}`, 
+        characterKey: state.loggedInUser, 
+        timestamp: 'Just now', 
+        date: { ...CURRENT_GAME_DATE, ...CURRENT_GAME_TIME }, 
+        content: text, 
+        likes: 0, 
+        comments: [] 
+    };
+    WAHBOOK_POSTS.push(newPost);
+    renderMainFeed(); 
     createPostModal.style.display = 'none';
     newPostTextarea.value = '';
     triggerNpcInteraction(newPost, text, state.loggedInUser);
 }
-
 function handleNewReply(inputElement) {
     const text = inputElement.value.trim();
     if (!text) return;
@@ -510,7 +498,6 @@ function handleNewReply(inputElement) {
         triggerNpcInteraction(post, text, state.loggedInUser);
     }
 }
-
 function showWaluigiWarning() {
     if (!waluigiWarningModal) return;
     playSound('wah.mp3');
@@ -520,7 +507,6 @@ function showWaluigiWarning() {
     }
     waluigiWarningModal.style.display = 'flex';
 }
-
 function setupEventListeners() {
     tabsContainer.addEventListener('click', (e) => {
         const tab = e.target.closest('.tab-btn');
@@ -531,21 +517,21 @@ function setupEventListeners() {
         tab.classList.add('active');
         contentContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         const activeContent = document.getElementById(`${tabName}-content`);
-        activeContent.classList.add('active');
+        if(activeContent) activeContent.classList.add('active');
         const feedContainer = activeContent.querySelector('.wahbook-feed-container');
-        if (feedContainer && feedContainer.childElementCount === 0) {
+        if (tabName === 'groups') {
+             renderGroupsFeed();
+        } else if (feedContainer && feedContainer.childElementCount === 0) {
             switch(tabName) {
                 case 'followed': renderFollowedFeed(); break;
                 case 'trending': renderTrendingFeed(); break;
-                case 'groups': renderGroupsFeed(); break;
             }
         }
         const intelRumorsContainer = document.getElementById('intel-rumors-container');
-        if (tabName === 'intel' && intelRumorsContainer && intelRumorsContainer.childElementCount === 0) {
+        if (tabName === 'intel' && intelRumorsContainer) {
             renderIntelAndRumors();
         }
     });
-
     document.body.addEventListener('click', e => {
         const likeBtn = e.target.closest('.like-btn');
         if (likeBtn) {
@@ -592,27 +578,23 @@ function setupEventListeners() {
             }
         }
     });
-    
     const groupsContent = document.getElementById('groups-content');
     if (groupsContent) {
         const filterBar = groupsContent.querySelector('#groups-filter-bar');
         filterBar.addEventListener('click', e => {
-            const btn = e.target.closest('.control-btn');
+            const btn = e.target.closest('.comms-channel-btn');
             if (btn) {
                 playSound('click.mp3');
-                activeGroupFilter = btn.dataset.groupId;
+                activeChannelId = btn.dataset.groupId;
                 renderGroupsFeed();
             }
         });
     }
-
     dossierModalClose?.addEventListener('click', () => dossierModal.style.display = 'none');
     dossierModal?.addEventListener('click', (e) => { if (e.target === dossierModal) dossierModal.style.display = 'none'; });
-    
     createPostModal.querySelector('.modal-close').addEventListener('click', () => createPostModal.style.display = 'none');
     createPostModal.addEventListener('click', e => { if (e.target === createPostModal) createPostModal.style.display = 'none'; });
     submitPostBtn.addEventListener('click', handleNewPost);
-
     if (shareModal) {
         shareModal.querySelector('.modal-close').addEventListener('click', () => shareModal.style.display = 'none');
         shareModal.addEventListener('click', e => { if (e.target === shareModal) shareModal.style.display = 'none'; });
@@ -640,7 +622,6 @@ function setupEventListeners() {
             });
         });
     }
-
     if(waluigiWarningModal) {
         const closeBtn = waluigiWarningModal.querySelector('.modal-close');
         closeBtn.addEventListener('click', () => waluigiWarningModal.style.display = 'none');
@@ -648,14 +629,12 @@ function setupEventListeners() {
             if(e.target === waluigiWarningModal) waluigiWarningModal.style.display = 'none';
         });
     }
-
     document.body.addEventListener('keypress', e => {
         if (e.key === 'Enter' && e.target.classList.contains('reply-input')) {
             handleNewReply(e.target);
         }
     });
 }
-
 function updateSeenPosts() {
     loadState();
     const allPostIds = WAHBOOK_POSTS.map(p => p.id);
@@ -664,7 +643,6 @@ function updateSeenPosts() {
     state.userState.seenPostIds = [...seenIds];
     saveState();
 }
-
 function simulateLikes() {
     setInterval(() => {
         const visiblePosts = document.querySelectorAll('.feed-post');
@@ -689,7 +667,6 @@ async function init() {
     loadState();
     await loadDynamicData();
     if (embedPostId) { 
-        // Embed rendering (simplified for this context)
         return; 
     }
     if (!feedContainer) return;

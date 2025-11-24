@@ -1,11 +1,11 @@
+
 // systems/liberated-toads-system.js
-import { state, loadState } from '../state.js';
+import { state } from '../state.js';
 import { LORE_DATA } from '../lore.js';
 import { CHARACTER_RELATIONS } from '../character-relations.js';
 
 /**
  * Renders the unique system display for the Liberated Toads faction.
- * This has been completely redesigned to be a narrative dashboard reflecting recent story events.
  * @param {string} factionKey - The key of the faction.
  * @param {object} factionData - The faction's data object.
  * @param {object} currentState - The global application state.
@@ -14,11 +14,22 @@ import { CHARACTER_RELATIONS } from '../character-relations.js';
 export function renderLiberatedToadsSystem(factionKey, factionData, currentState) {
     const subFactions = factionData.internal_politics.sub_factions;
 
+    // Additional metadata not present in the faction file
+    const toadMetadata = {
+        dan: { weapon: 'Longsword & Magic', portrait: 'toads/dan.png' },
+        toad_lee: { weapon: 'Axe', portrait: 'toads/toad_lee.png' },
+        eager: { weapon: 'Whip', portrait: 'toads/eager.png' },
+        roger: { weapon: 'Gun', portrait: 'toads/roger.png' },
+        ryan: { weapon: 'Spellcaster', portrait: 'toads/ryan.png' },
+        bones: { weapon: 'Grotesque Resilience', portrait: 'toads/bones.png' },
+        the_mole: { weapon: 'Deceit', portrait: 'toads/the_mole.png' }
+    };
+
     const keyFiguresHTML = Object.entries(subFactions).map(([subKey, subFaction]) => {
-        const toadData = LORE_DATA.auxiliary_party[subKey] || { name: subFaction.name, portrait: 'toads/toad.png' };
+        const metadata = toadMetadata[subKey] || { weapon: 'Unknown', portrait: 'toads/toad.png' };
         
         let statusClass = 'neutral';
-        if (subFaction.status.includes('Injured') || subFaction.status.includes('Withdrawn') || subFaction.status.includes('Duplicitous') || subFaction.status.includes('Vengeful')) {
+        if (subFaction.status.includes('Injured') || subFaction.status.includes('Withdrawn') || subFaction.status.includes('Duplicitous') || subFaction.status.includes('Vengeful') || subFaction.status.includes('Captured') || subFaction.status.includes('Critical')) {
             statusClass = 'negative';
         } else if (subFaction.status.includes('Active') || subFaction.status.includes('Enforcing')) {
             statusClass = 'positive';
@@ -30,7 +41,7 @@ export function renderLiberatedToadsSystem(factionKey, factionData, currentState
                 <ul>
                     ${Object.entries(CHARACTER_RELATIONS[subKey]).map(([targetKey, relation]) => {
                         const targetData = LORE_DATA.characters[targetKey];
-                        // Fallback for non-character targets like 'xo_staff'
+                        // Fallback for non-character targets
                         const targetName = targetData ? targetData.name : targetKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                         const opinionText = relation.text.split(':').slice(1).join(':').trim();
 
@@ -42,7 +53,7 @@ export function renderLiberatedToadsSystem(factionKey, factionData, currentState
 
         return `
             <div class="toad-figure-card">
-                <img src="${toadData.portrait || 'toads/toad.png'}" alt="${subFaction.name}" class="toad-figure-portrait">
+                <img src="${metadata.portrait || 'toads/toad.png'}" alt="${subFaction.name}" class="toad-figure-portrait">
                 <div class="toad-figure-info">
                     <h4 class="toad-figure-name">${subFaction.name}</h4>
                     <p class="toad-figure-status status-${statusClass}">${subFaction.status}</p>
@@ -54,7 +65,6 @@ export function renderLiberatedToadsSystem(factionKey, factionData, currentState
     }).join('');
 
     return `
-        <p class="system-description">A group forged in tragedy, now split by distrust. After a magical accident killed 13 newcomers and gravely injured their leader Dan, the toads are held together by a fragile vow. Their internal politics are highly volatile.</p>
         
         <div class="liberated-toads-system-container">
             <div class="toad-section-header">

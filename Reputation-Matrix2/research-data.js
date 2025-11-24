@@ -71,8 +71,7 @@ export const NATIONS = {
 const SIMULATION_START_YEAR = 1035;
 export const DAYS_PER_TIER = 600; 
 
-// CYCLE PHASES - 7-stage cycle
-// Bias: -3 (Calm) to +3 (Crisis)
+// CYCLE PHASES
 export const CYCLE_PHASES = [
     { id: 'calm', name: "Cycle of Calm", color: "#4fc3f7", bias: -3, description: "A period of stability. Resource generation is steady, but urgency is low.", modifiers: { ECONOMIC: 0.8, POLITICAL: 0.8, WEAPONS: 1.5 } },
     { id: 'research', name: "Cycle of Discovery", color: "#9c27b0", bias: -2, description: "A golden age of science and magic. Research speeds are doubled.", modifiers: { MAGIC: 0.7, TECH: 0.7, MEDICAL: 0.7 } },
@@ -83,7 +82,6 @@ export const CYCLE_PHASES = [
     { id: 'rebirth', name: "Cycle of Rebirth", color: "#8bc34a", bias: 3, description: "Reconstruction. Infrastructure repair speed increased.", modifiers: { TECH: 0.6, ECONOMIC: 0.7, WEAPONS: 1.5 } }
 ];
 
-// Initial "Base" Offsets (still used for starting positions)
 const NATION_OFFSETS = {
     kivotos: { base: 3000 },
     internet: { base: 2800 },
@@ -108,7 +106,6 @@ export const AGES = [
     { id: 'age_cosmic', name: "Cosmic Era", tiers: [9, 10], description: "Space travel, artificial intelligence, and reality warping." }
 ];
 
-// Age Choices (Buffs)
 export const AGE_CHOICES = {
     age_dawn: [
         { id: 'path_tradition', type: 'diplomatic', name: "Path of Tradition", effect: "Stability +10%, Culture Growth +15%", flavor: "Focus on oral history and clan loyalty." },
@@ -137,7 +134,6 @@ export const AGE_CHOICES = {
     ]
 };
 
-// Defines how much each Social Estate benefits from specific Research Categories (0-1 scale)
 export const RESEARCH_TO_ESTATE_MAPPING = {
     WEAPONS: { nobility: 0.9, commoners: 0.2, slaves: 0.0 },
     MAGIC: { clergy: 1.0, nobility: 0.3, indentured: 0.1 },
@@ -153,32 +149,21 @@ export function getAbsoluteDay() {
     return Math.max(0, days);
 }
 
-// Helper to calculate days between current date and a rumor date
-// Returns exact days difference based on the calendar
 function getDaysSinceRumor(rumor) {
     let rumorDaysTotal = 0;
-    
     if (rumor.date && typeof rumor.date === 'object') {
-        // Exact date calculation
         rumorDaysTotal = ((rumor.date.year - SIMULATION_START_YEAR) * 365) + (rumor.date.monthIndex * 30) + rumor.date.day;
-    } else if (rumor.time_ago) {
-        // Fallback for legacy data strings
-        return 0; 
     } else {
-        return 0; // Assume fresh if no date
+        return 60; // Fallback for legacy
     }
-
     const currentDaysTotal = ((CURRENT_GAME_DATE.year - SIMULATION_START_YEAR) * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
     return Math.max(0, currentDaysTotal - rumorDaysTotal);
 }
 
-/**
- * Helper to determine the cycle impact of a rumor.
- */
 function getImpactDetailsFallback(rumor) {
     const text = (rumor.title + " " + rumor.description).toLowerCase();
     let type = "general";
-    let direction = 0; // 1 for Crisis/War, -1 for Peace/Science
+    let direction = 0;
     let label = "Unrest";
 
     if (text.match(/war|battle|siege|raid|attack|kill|weapon|threat|army|invasion/)) {
@@ -198,34 +183,49 @@ function getImpactDetailsFallback(rumor) {
     } else {
         direction = 0.1;
     }
-
     return { score: direction, label, type };
 }
 
-// Mapping internal types to specific Cycle Names
 function getPushDirection(type, score) {
     if (score > 0) {
-        // Positive Momentum (Crisis/Conflict)
         if (type === 'military') return "Conflict";
         if (type === 'crisis') return "Crisis";
         if (type === 'political') return "Tension";
-        if (type === 'economic') return "Tension"; // Economic strife
-        return "Crisis"; // Default positive fallback
+        if (type === 'economic') return "Tension";
+        return "Crisis";
     } else {
-        // Negative Momentum (Calm/Research)
         if (type === 'diplomatic') return "Calm";
         if (type === 'magic' || type === 'tech') return "Discovery";
         if (type === 'economic') return "Expansion";
-        return "Calm"; // Default negative fallback
+        return "Calm";
     }
 }
 
 /**
- * NEW: Calculates metrics for a single rumor.
- * This logic is extracted to be used by both the cycle calculation and UI rendering.
+ * Calculates metrics for a single rumor.
  */
-export function calculateRumorMetrics(rumor, postCount) {
-    // 1. Base Data
+export function calculateRumorMetrics(rumor, relatedPosts) {
+    const postCount = Array.isArray(relatedPosts) ? relatedPosts.length : relatedPosts;
+    
+    // 1. Check Freshness (STRICT check against current date)
+    let isFresh = false;
+    if (Array.isArray(relatedPosts)) {
+        const latestPost = relatedPosts.sort((a, b) => {
+            const da = a.date ? (a.date.year*365 + a.date.monthIndex*30 + a.date.day) : 0;
+            const db = b.date ? (b.date.year*365 + b.date.monthIndex*30 + b.date.day) : 0;
+            return db - da;
+        })[0];
+
+        if (latestPost && latestPost.date) {
+            if (latestPost.date.year === CURRENT_GAME_DATE.year &&
+                latestPost.date.monthIndex === CURRENT_GAME_DATE.monthIndex &&
+                latestPost.date.day === CURRENT_GAME_DATE.day) {
+                isFresh = true;
+            }
+        }
+    }
+
+    // 2. Base Data
     let baseData;
     if (rumor.cycle_impact) {
         baseData = { 
@@ -237,20 +237,21 @@ export function calculateRumorMetrics(rumor, postCount) {
         baseData = getImpactDetailsFallback(rumor);
     }
 
-    // 2. Days Passed
+    // 3. Days Passed
     const daysPassed = getDaysSinceRumor(rumor);
 
-    // 3. Hype Factor (Amplifies impact based on post volume)
-    // Each post adds 10% to the base magnitude.
-    // e.g., 10 posts = 2x multiplier. 100 posts = 11x multiplier.
-    const hypeFactor = 1 + (postCount * 0.1);
+    // 4. Hype Factor
+    const hypeFactor = 1 + (postCount * 0.15); // Slightly increased weight
 
-    // 4. Decay Factor (Divides impact based on time)
-    // Divisor starts at 1. Every 5 days adds 1 to divisor.
-    // e.g. 0 days = /1. 5 days = /2. 15 days = /4.
-    const decayFactor = 1 + (daysPassed * 0.2);
+    // 5. Decay Factor
+    let decayFactor = 1 + (daysPassed * 0.25); // Base decay
+    if (isFresh) {
+        decayFactor = 1.0; // Fresh posts actively stop decay for the day
+    } else if (daysPassed < 2) {
+        decayFactor = 1.1; // Slow decay for very recent
+    }
 
-    // 5. Final Calculation
+    // 6. Final Calculation
     const rawMagnitude = Math.abs(baseData.score);
     const amplifiedMagnitude = rawMagnitude * hypeFactor;
     const finalMagnitude = amplifiedMagnitude / decayFactor;
@@ -258,13 +259,32 @@ export function calculateRumorMetrics(rumor, postCount) {
     const direction = baseData.score >= 0 ? 1 : -1;
     const finalScore = finalMagnitude * direction;
 
-    // 6. Status Determination
+    const potentialImpact = amplifiedMagnitude;
+    const decayLoss = potentialImpact - finalMagnitude;
+
+    // 7. Status & Multiplier Determination
     let status = "Active";
-    if (hypeFactor > 5) status = "Viral";
-    if (hypeFactor > 10) status = "Legendary";
-    if (decayFactor > 1.5) status = "Fading"; // ~3 days
-    if (decayFactor > 4) status = "Old News"; // ~15 days
-    if (finalMagnitude < 0.05) status = "Dead";
+    let repMultiplier = 1.0;
+
+    // Force Dead if very old, regardless of stats
+    if (daysPassed > 60) {
+        status = "Dead";
+        repMultiplier = 0.1;
+    } else {
+        if (finalMagnitude >= 20) { status = "Viral"; repMultiplier = 3.0; }
+        else if (finalMagnitude >= 10) { status = "Trending"; repMultiplier = 2.0; }
+        else if (finalMagnitude >= 5) { status = "Active"; repMultiplier = 1.5; }
+        else if (finalMagnitude >= 1) { status = "Fading"; repMultiplier = 1.0; }
+        else { status = "Old News"; repMultiplier = 0.5; }
+    }
+    
+    if (finalMagnitude < 0.1) {
+        status = "Dead";
+        repMultiplier = 0.1;
+    }
+
+    // Ensure active chatter keeps it somewhat relevant
+    if (isFresh && status === 'Dead') status = "Active";
 
     return {
         finalScore,
@@ -272,7 +292,10 @@ export function calculateRumorMetrics(rumor, postCount) {
         daysPassed,
         hypeFactor,
         decayFactor,
+        decayLoss: decayLoss * direction,
+        isFresh,
         status,
+        repMultiplier,
         pushTarget: getPushDirection(baseData.type, finalScore)
     };
 }
@@ -281,24 +304,20 @@ export function calculateRumorMetrics(rumor, postCount) {
  * Calculates the current Global Cycle Phase.
  */
 export function calculateGlobalCycle(allPosts) {
-    // 1. Base Cycle based on date
     const totalMonths = (CURRENT_GAME_DATE.year * 12) + CURRENT_GAME_DATE.monthIndex;
     const naturalPhaseIndex = totalMonths % 7;
     const naturalPhase = CYCLE_PHASES[naturalPhaseIndex];
 
-    // 2. Calculate Rumor Impact
     let totalMomentum = 0;
     let drivingFactors = [];
 
     if (LORE_DATA && LORE_DATA.rumors) {
         LORE_DATA.rumors.forEach(rumor => {
-            const relatedPosts = allPosts.filter(p => p.rumorId === rumor.id).length;
-            
+            const relatedPosts = allPosts.filter(p => p.rumorId === rumor.id);
             const metrics = calculateRumorMetrics(rumor, relatedPosts);
-
+            
             totalMomentum += metrics.finalScore;
 
-            // Only add currently relevant factors to the list
             if (Math.abs(metrics.finalScore) > 0.1) {
                 drivingFactors.push({ 
                     name: rumor.title, 
@@ -312,18 +331,14 @@ export function calculateGlobalCycle(allPosts) {
         });
     }
 
-    // 3. Determine Active Phase
     let shift = Math.round(totalMomentum);
     let activePhaseIndex = (naturalPhaseIndex + shift) % 7;
     if (activePhaseIndex < 0) activePhaseIndex += 7;
     
-    // Clamp extreme momentum (optional, keeps it somewhat grounded)
-    if (totalMomentum > 4) activePhaseIndex = 5; // Crisis
-    else if (totalMomentum < -4) activePhaseIndex = 0; // Calm
+    if (totalMomentum > 10) activePhaseIndex = 5; // Crisis threshold
+    else if (totalMomentum < -10) activePhaseIndex = 0; // Calm threshold
     
     const activePhase = CYCLE_PHASES[activePhaseIndex];
-
-    // Sort factors by absolute impact
     drivingFactors.sort((a,b) => Math.abs(b.impact) - Math.abs(a.impact));
 
     return {
@@ -362,23 +377,19 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
     const currentDay = getAbsoluteDay();
     const nationConfig = NATIONS[nationKey];
     const nationOffsets = NATION_OFFSETS[nationKey] || { base: 0 };
-    
     const baseOffset = nationOffsets.base || 0;
     
-    // 1. Determine Slot Multiplier
     let slotMult = 1.0;
     if (nationConfig.slots.primary === category) slotMult = SLOT_MULTIPLIERS.primary;
     else if (nationConfig.slots.major.includes(category)) slotMult = SLOT_MULTIPLIERS.major;
     else slotMult = SLOT_MULTIPLIERS.minor;
 
-    // 2. Determine Cycle Modifier
     let cycleMod = 1.0;
     if (globalCycle && globalCycle.phase.modifiers && globalCycle.phase.modifiers[category]) {
         cycleMod = globalCycle.phase.modifiers[category];
     }
 
     const totalMultiplier = slotMult * cycleMod;
-
     const effectiveDays = currentDay + baseOffset;
     let daysConsumed = 0;
 

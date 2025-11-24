@@ -2,7 +2,7 @@
 import { HISTORICAL_TIMELINE as rawTimelineData } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
 import { playSound } from './common.js';
-import { CURRENT_GAME_DATE } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from './calendar-data.js';
 
 const timelineContainer = document.getElementById('timeline-container');
 const filterBar = document.getElementById('timeline-filter-bar');
@@ -37,40 +37,52 @@ const BATTLE_UPDATE_TEMPLATES = [
  */
 function generateBattleTimelineEvents() {
     const events = [];
-    const currentDay = CURRENT_GAME_DATE.day; // Assuming current month/year context for simplicity in this view
+    const currentDay = CURRENT_GAME_DATE.day; 
     
     MAJOR_BATTLES.forEach(battle => {
         // 1. Add the Main Battle Event
-        // We try to parse the date string "Day X" to sort it correctly
+        // Battle objects still use string dates in battlefield.js, so we parse them manually here if needed,
+        // or leave them as is. The logic below handles both.
+        // For the main entry, we try to convert "Day X" to a proper date object if possible.
+        let mainEventDate = battle.date;
+        const match = battle.date.match(/Day\s+(\d+)/);
+        
+        if (match) {
+            // Construct a date object for sorting/display parity
+             mainEventDate = {
+                year: CURRENT_GAME_DATE.year,
+                monthIndex: CURRENT_GAME_DATE.monthIndex,
+                day: parseInt(match[1], 10),
+                hour: 12,
+                minute: 0
+            };
+        }
+
         events.push({
-            date: battle.date,
+            date: mainEventDate,
             title: battle.name,
             description: battle.description.replace(/<[^>]*>?/gm, '').substring(0, 200) + (battle.description.length > 200 ? "..." : ""), // Plain text summary
             icon: "icon_war.png",
             category: "Military",
             link: `battlefield.html#${battle.id}`,
-            originalDate: battle.date 
+            originalDate: battle.date,
         });
 
         // 2. Generate Daily Updates for Ongoing Battles
-        // Check if it's ongoing based on outcome text or date "Ongoing"
         const isOngoing = battle.outcome.includes("Ongoing") || battle.outcome.includes("Hostilities Resumed") || battle.date === 'Ongoing';
         
         if (isOngoing) {
-            // Try to parse start day. If "Ongoing" with no start date, maybe assume recent past (e.g. last 5 days)
             let startDay = 1;
             const dateMatch = battle.date.match(/Day (\d+)/);
             
             if (dateMatch) {
                 startDay = parseInt(dateMatch[1]);
             } else {
-                // If no specific start day found (e.g. "Ongoing"), just generate a few recent ones
                 startDay = Math.max(1, currentDay - 3); 
             }
 
             // Generate an event for each day from start+1 to today
             for (let d = startDay + 1; d <= currentDay; d++) {
-                // Deterministic seed: Battle ID characters + Day
                 let seed = d * 1337;
                 for (let i=0; i<battle.id.length; i++) seed += battle.id.charCodeAt(i);
                 
@@ -78,7 +90,14 @@ function generateBattleTimelineEvents() {
                 const updateText = BATTLE_UPDATE_TEMPLATES[randIndex];
                 
                 events.push({
-                    date: `1040 IE (1040 BF), Day ${d}`,
+                    // Generate a date object for the update
+                    date: { 
+                        year: CURRENT_GAME_DATE.year, 
+                        monthIndex: CURRENT_GAME_DATE.monthIndex, 
+                        day: d, 
+                        hour: 9, 
+                        minute: 0 
+                    },
                     title: `Update: ${battle.name}`,
                     description: updateText,
                     icon: "icon_report.png", 
@@ -94,15 +113,30 @@ function generateBattleTimelineEvents() {
 
 
 /**
- * Parses a date string (e.g., "1040 IE (1 BF), Day 5", "c. 8000 BF", "50 AF")
- * into a single, sortable numeric value.
+ * Parses a date (string or object) into a numeric value for sorting.
  */
-function parseDateToSortKey(dateStr) {
-    if (!dateStr) return -99999; // Fallback for "Ongoing" or unknown
+function parseDateToSortKey(event) {
+    const dateVal = event.date;
+    
+    if (!dateVal) return -9999999999999; 
+    if (dateVal === 'Ongoing') return 9999999999999; 
 
-    if (dateStr === 'Ongoing') return 999999; // Push to top if desired, or handle specifically
+    // Case 1: Date Object
+    if (typeof dateVal === 'object' && dateVal.year !== undefined) {
+        const year = dateVal.year - 1041; // Normalize
+        const day = dateVal.day || 0;
+        const hour = dateVal.hour || 12;
+        const minute = dateVal.minute || 0;
 
+        const minutesInYear = 365 * 24 * 60;
+        const minutesInDay = 24 * 60;
+        
+        return (year * minutesInYear) + (day * minutesInDay) + (hour * 60) + minute;
+    }
+
+    // Case 2: Legacy String
     let year = 0;
+    const dateStr = String(dateVal);
     const bfAfMatch = dateStr.match(/(\d+)\s*(BF|AF)/);
     const circaMatch = dateStr.match(/c\.\s*(\d+)\s*BF/);
     const ieMatch = dateStr.match(/(\d+)\s*IE/);
@@ -113,50 +147,60 @@ function parseDateToSortKey(dateStr) {
     } else if (circaMatch) {
         year = -parseInt(circaMatch[1], 10);
     } else if (ieMatch) {
-        // 1040 IE is roughly year 0/1 in this context logic
-        year = parseInt(ieMatch[1], 10) - 1041;
+        year = parseInt(ieMatch[1], 10) - 1041; 
     }
 
     const dayMatch = dateStr.match(/Day\s*(\d+)/);
     const day = dayMatch ? parseInt(dayMatch[1], 10) : 0;
     
-    // Weight year heavily, add fractional day
-    return year * 1000 + day;
+    // Default time for string dates
+    const hour = 12;
+    const minute = 0;
+
+    const minutesInYear = 365 * 24 * 60;
+    const minutesInDay = 24 * 60;
+
+    return (year * minutesInYear) + (day * minutesInDay) + (hour * 60) + minute;
 }
 
 /**
- * Calculates a human-readable string representing how long ago the event happened.
+ * Calculates a human-readable "Time Ago" string.
  */
-function calculateTimeAgo(dateStr) {
-    if (!dateStr) return "";
-    if (dateStr === 'Ongoing') return "HAPPENING NOW";
+function calculateTimeAgo(event) {
+    const dateVal = event.date;
+    
+    if (dateVal === 'Ongoing') return "HAPPENING NOW";
 
-    // 1. Check for specific "Day X" format in the current year (1040 IE)
+    // If it's an object, it's a recent event by definition
+    if (typeof dateVal === 'object' && dateVal.year !== undefined) {
+        return getDynamicTimestamp(dateVal);
+    }
+
+    // Fallback for strings
+    const dateStr = String(dateVal);
+    
+    // Legacy parsing for "1040 IE... Day X" strings if any slip through
     if (dateStr.includes("1040 IE") && dateStr.includes("Day")) {
         const dayMatch = dateStr.match(/Day\s+(\d+)/);
         if (dayMatch) {
-            const eventDay = parseInt(dayMatch[1], 10);
-            const currentDay = CURRENT_GAME_DATE.day;
-            const diff = currentDay - eventDay;
-
-            if (diff === 0) return "HAPPENING NOW";
-            if (diff === 1) return "YESTERDAY";
-            if (diff > 0) return `${diff} DAYS AGO`;
-            if (diff < 0) return `IN ${Math.abs(diff)} DAYS`;
+            const pDay = parseInt(dayMatch[1], 10);
+            const mockDateObj = {
+                year: CURRENT_GAME_DATE.year,
+                monthIndex: CURRENT_GAME_DATE.monthIndex,
+                day: pDay,
+                hour: 12,
+                minute: 0
+            };
+            return getDynamicTimestamp(mockDateObj);
         }
     }
 
-    // 2. Handle historical years
     let eventYear = 0;
     if (dateStr.includes("BF")) {
         const match = dateStr.match(/(\d+)\s*BF/);
         if (match) eventYear = -parseInt(match[1], 10);
-    } else if (dateStr.includes("IE")) {
-        const match = dateStr.match(/(\d+)\s*IE/);
-        if (match) eventYear = parseInt(match[1], 10);
     }
 
-    // Current year is roughly 1040 IE
     const currentYear = 1040;
     const yearDiff = currentYear - eventYear;
 
@@ -164,6 +208,21 @@ function calculateTimeAgo(dateStr) {
     if (yearDiff > 0) return `${yearDiff} YEARS AGO`;
     
     return "";
+}
+
+function formatTime(hour, minute) {
+    const h = hour.toString().padStart(2, '0');
+    const m = minute.toString().padStart(2, '0');
+    return `${h}:${m}`;
+}
+
+function formatDateForDisplay(dateVal) {
+    if (typeof dateVal === 'object') {
+        const monthName = CALENDAR_DATA.months.values[dateVal.monthIndex]?.name || "Unknown Month";
+        const timeStr = formatTime(dateVal.hour, dateVal.minute);
+        return `${monthName} ${dateVal.day}, ${dateVal.year} BF <span class="timeline-specific-time">@ ${timeStr}</span>`;
+    }
+    return String(dateVal);
 }
 
 function processTimelineData() {
@@ -174,29 +233,28 @@ function processTimelineData() {
     const battleEvents = generateBattleTimelineEvents();
     combinedData = combinedData.concat(battleEvents);
 
-    // 3. Process sort keys and time-ago strings
+    // 3. Process sort keys and display strings
     const processed = combinedData.map(event => {
         const newEvent = { ...event };
         if (newEvent.type !== 'era_header') {
-            newEvent.sortKey = parseDateToSortKey(newEvent.date);
-            newEvent.timeAgo = calculateTimeAgo(newEvent.date);
+            newEvent.sortKey = parseDateToSortKey(newEvent);
+            newEvent.timeAgo = calculateTimeAgo(newEvent);
+            newEvent.displayDate = formatDateForDisplay(newEvent.date);
         }
         return newEvent;
     });
 
-    // 4. Assign sort keys to Era Headers based on following event
+    // 4. Assign sort keys to Era Headers
     for (let i = 0; i < processed.length; i++) {
         if (processed[i].type === 'era_header') {
             let nextEventKey = -Infinity; 
-            // Search forward for the first non-header event to determine this header's time
             for (let j = i + 1; j < processed.length; j++) {
                 if (processed[j].type !== 'era_header' && processed[j].sortKey !== undefined) {
                     nextEventKey = processed[j].sortKey;
                     break;
                 }
             }
-            // If found, place header just before it. If not found (end of list), keep low.
-            processed[i].sortKey = (nextEventKey === -Infinity) ? -999999 : (nextEventKey - 0.001); 
+            processed[i].sortKey = (nextEventKey === -Infinity) ? -99999999999999 : (nextEventKey - 0.1); 
         }
     }
     
@@ -208,7 +266,6 @@ const timelineData = processTimelineData();
 
 function renderFilters() {
     if (!filterBar) return;
-    // Extract unique categories, ignoring headers
     const categories = [...new Set(timelineData.filter(e => e.category).map(e => e.category))];
     let filterHTML = '<button class="filter-btn active" data-category="all">All</button>';
     filterHTML += categories.sort().map(cat => 
@@ -222,38 +279,26 @@ function renderTimeline() {
     if (observer) observer.disconnect();
     
     timelineContainer.innerHTML = '';
-
-    // 1. Identify which events match the filter
-    //    Also mark headers as 'visible' only if they have children that match the filter.
     
     const eventsToRender = [];
     let currentHeader = null;
-    let headerHasChildren = false;
 
     timelineData.forEach(event => {
         if (event.type === 'era_header') {
-            // If we had a previous header with valid children, push it and its children
-            // (Logic handled by pushing children immediately; we just need to decide on the header)
-            // Actually, better approach: Push header to a temp buffer. If a child matches, push header then child.
             currentHeader = event;
-            headerHasChildren = false;
         } else {
-            // Check if event matches filter
             const isMatch = activeFilters.size === 0 || activeFilters.has(event.category);
             
             if (isMatch) {
-                // If we have a pending header that hasn't been added yet, add it now
                 if (currentHeader) {
                     eventsToRender.push(currentHeader);
-                    currentHeader = null; // Only add it once
-                    headerHasChildren = true;
+                    currentHeader = null; 
                 }
                 eventsToRender.push(event);
             }
         }
     });
 
-    // 2. Render the list
     let side = 'left';
     eventsToRender.forEach(event => {
         const eventElement = document.createElement('div');
@@ -261,22 +306,17 @@ function renderTimeline() {
         if (event.type === 'era_header') {
             eventElement.className = 'timeline-era-header';
             eventElement.innerHTML = `<h2>${event.title}</h2>`;
-            // Reset side for new era? Optional, but looks nice.
-            // side = 'left'; 
         } else {
             const categoryClass = event.category ? `category-${event.category.toLowerCase().replace(/ & /g, '-').replace(/\s/g, '-')}` : '';
             
-            // Specific styling for very recent events
             let timeAgoClass = 'timeline-elapsed';
-            if (event.timeAgo === 'HAPPENING NOW' || event.timeAgo === 'YESTERDAY') {
+            if (event.timeAgo.includes('Just Now') || event.timeAgo.includes('minute') || event.timeAgo === 'Yesterday') {
                 timeAgoClass += ' recent';
             }
 
-            // Action Button (if link exists)
             const actionBtn = event.link ? 
                 `<a href="${event.link}" class="control-btn small" style="display:inline-block; margin-top:8px; font-size:0.8rem;">View Report</a>` : '';
             
-            // Icon handling (fallback)
             const iconSrc = event.icon || "icon_focus.png";
 
             eventElement.className = `timeline-event ${side} ${categoryClass}`;
@@ -292,7 +332,7 @@ function renderTimeline() {
                     <p>${event.description}</p>
                     ${actionBtn}
                     <div class="timeline-footer">
-                        <span class="timeline-date">${event.date}</span>
+                        <span class="timeline-date">${event.displayDate}</span>
                     </div>
                 </div>
             `;
@@ -317,7 +357,6 @@ function handleFilterClick(e) {
         else activeFilters.add(category);
     }
     
-    // Update UI classes
     filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     if (activeFilters.size === 0) {
         filterBar.querySelector('[data-category="all"]').classList.add('active');

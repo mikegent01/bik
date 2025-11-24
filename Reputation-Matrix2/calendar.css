@@ -434,6 +434,18 @@ details.liturgy-details li {
     color: var(--text-color);
 }
 
+.event-dot.history { background-color: #ff9800; border: 1px solid #fff; }
+.event-dot.battle { background-color: #b71c1c; border: 1px solid var(--text-color); }
+.event-dot.rumor-start { background-color: #e91e63; }
+/* New Dot Style */
+.event-dot.rumor-end { background-color: #7d8590; border: 1px solid #e91e63; }
+
+/* ... existing sidebar css ... */
+.detail-item.history { border-color: #ff9800; }
+.detail-item.battle, .detail-item.battle_ongoing { border-color: #b71c1c; background-color: rgba(183, 28, 28, 0.1); }
+.detail-item.rumor_start { border-color: #e91e63; }
+/* New Detail Item Style */
+.detail-item.rumor_end { border-color: #7d8590; border-style: dashed; opacity: 0.8; }
 
 /* Responsive */
 @media (max-width: 1024px) {

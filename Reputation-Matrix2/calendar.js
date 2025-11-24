@@ -170,17 +170,32 @@ function getTimelineEventsForDay(year, monthIndex, day) {
     const events = [];
     HISTORICAL_TIMELINE.forEach(entry => {
         if (entry.type === 'era_header') return;
-        const match = entry.date.match(/Day\s+(\d+)/);
-        if (match) {
-            const eventDay = parseInt(match[1], 10);
-            if (year === CURRENT_GAME_DATE.year && monthIndex === CURRENT_GAME_DATE.monthIndex && day === eventDay) {
-                 events.push({
-                    type: 'history',
-                    name: entry.title,
-                    description: entry.description,
-                    icon: '📜'
-                });
+
+        let isMatch = false;
+
+        // Check if date is object
+        if (typeof entry.date === 'object') {
+             if (entry.date.year === year && entry.date.monthIndex === monthIndex && entry.date.day === day) {
+                 isMatch = true;
+             }
+        } else if (typeof entry.date === 'string') {
+            // Check if date is string
+            const match = entry.date.match(/Day\s+(\d+)/);
+            if (match) {
+                const eventDay = parseInt(match[1], 10);
+                if (year === CURRENT_GAME_DATE.year && monthIndex === CURRENT_GAME_DATE.monthIndex && day === eventDay) {
+                    isMatch = true;
+                }
             }
+        }
+
+        if (isMatch) {
+             events.push({
+                type: 'history',
+                name: entry.title,
+                description: entry.description,
+                icon: '📜'
+            });
         }
     });
     return events;
@@ -227,6 +242,10 @@ function getRumorEventsForDay(year, monthIndex, day) {
                 icon: '📣'
             });
         }
+        
+        // Calculate Expiration Date (Start Date + 14 Days)
+        // We need to handle month rollover.
+        // Converting to absolute days for calculation.
         const startAbsolute = (rumor.date.year * 365) + (rumor.date.monthIndex * 30) + rumor.date.day;
         const currentCheckAbsolute = (year * 365) + (monthIndex * 30) + day;
         
@@ -234,7 +253,7 @@ function getRumorEventsForDay(year, monthIndex, day) {
              events.push({
                 type: 'rumor_end',
                 name: `Trend Expiry: ${rumor.title}`,
-                description: "Public interest in this rumor has faded.",
+                description: "Public interest in this rumor has faded. Impact on intel is diminished.",
                 icon: '📉'
             });
         }
@@ -311,13 +330,15 @@ function renderCalendar() {
         const battleDot = hasBattle ? `<span class="event-dot battle" title="Battle"></span>` : '';
         const hasRumorStart = events.some(e => e.type === 'rumor_start');
         const rumorStartDot = hasRumorStart ? `<span class="event-dot rumor-start" title="New Rumor"></span>` : '';
+        const hasRumorEnd = events.some(e => e.type === 'rumor_end');
+        const rumorEndDot = hasRumorEnd ? `<span class="event-dot rumor-end" title="Rumor Expiry"></span>` : '';
 
         cell.innerHTML = `
             <div class="day-number">${day}</div>
             <div class="day-weather-icon" title="${weather.desc} ${weather.temp}">${weather.icon}</div>
             <div class="day-events-dots">
                 ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
-                ${techDot} ${historyDot} ${battleDot} ${rumorStartDot}
+                ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot}
             </div>
         `;
 

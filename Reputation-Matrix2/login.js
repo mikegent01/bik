@@ -6,7 +6,7 @@ import { WAHBOOK_POSTS } from './assembly-data.js';
 import { QUEST_DATA } from './quests-data.js';
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
 import { PARTY_LOCATIONS } from './party-data.js';
-import { getActiveAge, NATIONS, getTechTree } from './research-data.js';
+import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './research-data.js';
 import { state, loadState } from './state.js'; // Import state
 
 // --- Element Cache ---
@@ -439,18 +439,31 @@ function renderPartyStatusWidget() {
 }
 
 function renderIntelWidget() {
-    const keyRumor = LORE_DATA.rumors.find(r => r.id === 'greenhouse_inferno');
-    if (!keyRumor) return '';
+    // Calculate impact for all rumors and find the highest
+    let topRumor = null;
+    let maxScore = -999;
+
+    LORE_DATA.rumors.forEach(rumor => {
+         const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+         const metrics = calculateRumorMetrics(rumor, relatedPosts);
+         
+         if (Math.abs(metrics.finalScore) > maxScore) {
+             maxScore = Math.abs(metrics.finalScore);
+             topRumor = rumor;
+         }
+    });
+
+    if (!topRumor) return '';
 
     return `
         <div id="intel-widget" class="dashboard-widget">
             <div class="widget-header">
                 <span class="widget-icon">📰</span>
-                <h3 class="widget-title">Key Intel</h3>
+                <h3 class="widget-title">Top Trending Intel</h3>
             </div>
             <div class="widget-content">
-                <h4 class="intel-title">${keyRumor.title}</h4>
-                <p class="intel-summary">${keyRumor.description}</p>
+                <h4 class="intel-title">${topRumor.title}</h4>
+                <p class="intel-summary">${topRumor.description}</p>
                 <a href="assembly.html#intel" class="intel-link-btn">View Full Intel Dossier</a>
             </div>
         </div>
@@ -466,7 +479,7 @@ function renderDashboard() {
         ${renderPartyStatusWidget()}
         ${renderResearchWidget()}
         ${renderChatterWidget()}
-        ${renderAnalysisWidget()}
+        ${renderIntelWidget()}
     `;
 }
 

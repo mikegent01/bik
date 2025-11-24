@@ -1,3 +1,4 @@
+
 // This file acts as a dispatcher for rendering unique faction systems.
 // It imports modular rendering and initialization functions from the `/systems` directory.
 
@@ -17,8 +18,16 @@ import { renderRakashaClansSystem, initRakashaClansSystem } from './systems/raka
 import { renderRebelClansSystem, initRebelClansSystem } from './systems/rebel-clans-system.js';
 import { renderFawfulSystem, initFawfulSystem } from './systems/fawful-system.js';
 import { renderMushroomKingdomCivilWar } from './systems/mushroom-kingdom-civil-war.js';
-import * as simpleRenderers from './systems/simple-renderers.js';
 import { initTabbedSystem } from './systems/common.js';
+
+// Named imports from simple-renderers to avoid "is not a function" errors
+import { 
+    renderIronLegionDetailedSystem, 
+    renderKoopaTroopHierarchySystem, 
+    renderSilverFlameEdictsSystem, 
+    renderTurfWar, 
+    renderLiberatedToads 
+} from './systems/simple-renderers.js';
 
 /**
  * Selects and renders the appropriate unique system display for a given faction.
@@ -53,20 +62,20 @@ function getSystemHTML(factionKey, factionData, currentState) {
     const subFactions = factionData.internal_politics?.sub_factions;
     switch (factionKey) {
         case 'regal_empire': return renderHolyMidlandsDiet();
-        case 'iron_legion': return simpleRenderers.renderIronLegionDetailedSystem();
+        case 'iron_legion': return renderIronLegionDetailedSystem();
         case 'onyx_hand': return renderOnyxHandCovenSystem();
         case 'moonfang_pack': return renderMoonfangPackSystem();
         case 'mages_guild': return renderMagesGuildSystem();
-        case 'koopa_troop': return simpleRenderers.renderKoopaTroopHierarchySystem();
-        case 'silver_flame': return simpleRenderers.renderSilverFlameEdictsSystem();
+        case 'koopa_troop': return renderKoopaTroopHierarchySystem();
+        case 'silver_flame': return renderSilverFlameEdictsSystem();
         case 'oathbound_judges': return renderOathboundJudgesSystem();
         case 'freelancer_underworld': return renderFreelancerNetwork();
-        case 'toad_gang': return simpleRenderers.renderTurfWar(subFactions);
+        case 'toad_gang': return renderTurfWar(subFactions);
         case 'cosmic_jesters': return renderCosmicJestersSystem();
         case 'diamond_city_investigators': return renderDCISystem();
         case 'liberated_toads':
-             // The summary view in simpleRenderers already links to focus.html, which is now the main page.
-            return simpleRenderers.renderLiberatedToads(factionKey, factionData, currentState);
+             // Directly call the imported function
+            return renderLiberatedToads(factionKey, factionData, currentState);
         case 'rakasha_clans': return renderRakashaClansSystem();
         case 'rebel_clans': return renderRebelClansSystem();
         case 'fawfuls_furious_freaks': return renderFawfulSystem();
