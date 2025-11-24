@@ -5,6 +5,8 @@
 
 
 
+
+
 /* Layout */
 #research-layout {
     display: grid;
@@ -239,6 +241,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative; /* For positioning inner elements */
 }
 
 .category-btn:hover {
@@ -257,6 +260,19 @@
 .category-btn.slot-primary { border-bottom: 3px solid var(--positive-color); }
 .category-btn.slot-major { border-bottom: 3px solid var(--neutral-color); }
 .category-btn.slot-minor { border-bottom: 3px solid var(--border-color); }
+
+.bonus-badge {
+    background-color: var(--positive-color);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-top: 4px;
+    font-weight: bold;
+    font-family: var(--font-mono);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 
 /* Banners */
 #active-project-banner {

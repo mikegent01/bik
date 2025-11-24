@@ -11,10 +11,28 @@ export const CURRENT_GAME_TIME = {
     minute: 0
 };
 
+// Map pages to the specific day they were last updated. 
+// The navigation will show an "UPDATED" badge if this matches CURRENT_GAME_DATE.day
+export const PAGE_UPDATES = {
+    'maps.html': 20,
+    'battlefield.html': 20,
+    'liberated-toads-system.html': 20,
+    'assembly.html': 20,
+    'research.html': 20
+};
+
+export const MOON_PHASES = [
+    { name: "The Hole (New)", lore: "The moon turns its empty center to the world. Darkness reigns.", effect: "Stealth abilities maxed. Magic regeneration low.", icon: "⚫" },
+    { name: "Inner Rim (Waxing)", lore: "The inner curve catches the sun. Instincts sharpen.", effect: "Senses sharpen. Pack coordination increases.", icon: "🌒" },
+    { name: "The Glazed Face (Full)", lore: "The full face of the Torus shines. Madness takes hold.", effect: "Feral power absolute. Berserker rage. Magic surge.", icon: "🍩" },
+    { name: "Outer Crust (Waning)", lore: "The light recedes to the edges. Cold focus.", effect: "Calculated aggression. Defensive bonuses.", icon: "🌘" },
+    { name: "The Bite (Darkening)", lore: "A shadow falls across the rim. Spirits are close.", effect: "Spirit communication. Banishment rituals.", icon: "🌑" }
+];
+
 export const CALENDAR_DATA = {
   "name": "Regal Empire Standard Calendar",
   "description": "The official calendar of the Regal Empire...",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "path": "",
   "id": "regal-empire-standard-1040bf",
   "note": "This calendar reflects the state of the Doughnut World around 1040 BF.",
@@ -64,9 +82,19 @@ export const CALENDAR_DATA = {
   },
   "moons": {
     "values": [
-      { "name": "Luna Imperia", "cycleLength": 28, "phaseNames": ["New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent"], "offset": 0, "color": "#E0E0E0" },
-      { "name": "Crimson Eye", "cycleLength": 40, "phaseNames": ["Hidden", "Awakening", "Gazing", "Fading"], "offset": 15, "color": "#DC143C" },
-      { "name": "Scintilla", "cycleLength": 73.5, "phaseNames": ["Veiled", "Glimmer", "Brilliance", "Fading"], "offset": 30, "color": "#FFFACD" }
+      { 
+          "name": "Torrus (The Doughnut Moon)", 
+          "cycleLength": 28, 
+          "phaseNames": [
+              "The Hole (New)", 
+              "Inner Rim (Waxing)", 
+              "The Glazed Face (Full)", 
+              "Outer Crust (Waning)", 
+              "The Bite (Darkening)"
+          ], 
+          "offset": 0, 
+          "color": "#E0E0E0" 
+      }
     ]
   },
   "birthdays": [

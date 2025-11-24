@@ -1,5 +1,7 @@
+
 import { state, loadState } from './state.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
+import { PAGE_UPDATES, CURRENT_GAME_DATE } from './calendar-data.js';
 
 function checkForNewPosts() {
     loadState();
@@ -21,6 +23,25 @@ function checkForNewPosts() {
     } else {
         notificationDot.style.display = 'none';
     }
+}
+
+function markUpdatedPages(sidebar) {
+    const links = sidebar.querySelectorAll('a.nav-button');
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        // Check if this page has an update matching the current game day
+        if (PAGE_UPDATES[href] && PAGE_UPDATES[href] === CURRENT_GAME_DATE.day) {
+            // Check if badge already exists
+            if (!link.querySelector('.nav-badge.updated')) {
+                const badge = document.createElement('span');
+                badge.className = 'nav-badge updated pulse';
+                badge.textContent = 'UPDATED';
+                badge.style.marginLeft = 'auto';
+                badge.style.backgroundColor = 'var(--accent-color)'; // Blue for general updates
+                link.appendChild(badge);
+            }
+        }
+    });
 }
 
 
@@ -69,8 +90,9 @@ async function initializeSidebar() {
             }
         });
 
-        // After sidebar is rendered, check for notifications
+        // After sidebar is rendered, check for notifications and updates
         checkForNewPosts();
+        markUpdatedPages(sidebar);
 
     } catch (error) {
         console.error('Failed to load sidebar navigation:', error);

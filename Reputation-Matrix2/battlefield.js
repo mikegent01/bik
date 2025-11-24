@@ -8,7 +8,7 @@ export const MAJOR_BATTLES = [
         id: 'skirmish_manor_parlor',
         name: "Markop & The First Cohort",
         conflict: "Raventree Manor Crisis",
-        date: "Day 19, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 6, minute: 30 },
         location: "Raventree Manor Parlor",
         belligerents: {
             side_a: { name: "Markop's Command", factions: ['liberated_toads', 'unaligned'] }, // Markop, Toads, FNG, Rodger, Rounders
@@ -31,7 +31,7 @@ export const MAJOR_BATTLES = [
         id: 'raid_on_cohort_command',
         name: "Raid on Cohort Command",
         conflict: "Liberated Toads Internal Conflict",
-        date: "Day 19, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 14, minute: 0 },
         location: "First Cohort Command Post, near Raventree Manor",
         belligerents: {
             side_a: { name: "Iron Legion Strike Team", factions: ['iron_legion'] },
@@ -49,7 +49,7 @@ export const MAJOR_BATTLES = [
         id: 'siege_of_raventree_manor',
         name: "The Siege Within Raventree Manor",
         conflict: "Liberated Toads Internal Conflict",
-        date: "Day 19, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 6, minute: 0 },
         location: "Raventree Manor, Midlands",
         belligerents: {
             side_a: { name: "The First Cohort (Pond Patrol)", factions: ['liberated_toads'] },
@@ -68,7 +68,7 @@ export const MAJOR_BATTLES = [
         id: 'kong_kremling_war_reignited',
         name: "The Kong-Kremling War Rekindles",
         conflict: "DK Island Conflicts",
-        date: "Day 18, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 11, minute: 0 },
         location: "DK Island & Surrounding Waters",
         belligerents: {
             side_a: { name: "DK Crew", factions: ['dk_crew'] },
@@ -86,7 +86,7 @@ export const MAJOR_BATTLES = [
         id: 'siege_of_bramblehaven',
         name: "Siege of Bramblehaven",
         conflict: "Mushroom Kingdom Civil War",
-        date: "Day 17, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 12, minute: 0 },
         location: "Bramblehaven, Mushroom Kingdom",
         belligerents: {
             side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
@@ -104,7 +104,7 @@ export const MAJOR_BATTLES = [
         id: 'skirmish_at_gilded_octopus',
         name: "Skirmish at the Gilded Octopus",
         conflict: "Vigilance Crew Incidents",
-        date: "Day 14, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 19, minute: 0 },
         location: "The Gilded Octopus Restaurant, Midlands Capital",
         belligerents: {
             side_a: { name: "Vigilance Crew", factions: ['liberated_toads'] },
@@ -122,7 +122,7 @@ export const MAJOR_BATTLES = [
         id: 'toad_town_coup',
         name: "The Toad Town Coup & Sewer Test",
         conflict: "Mushroom Kingdom Civil War",
-        date: "Day 12, 1040 BF", // Corrected Date
+        date: { year: 1040, monthIndex: 6, day: 12, hour: 9, minute: 0 },
         location: "Toad Town",
         belligerents: {
             side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
@@ -140,7 +140,7 @@ export const MAJOR_BATTLES = [
         id: 'fawfuls_seizure_of_castle',
         name: "Fawful's Seizure of Peach's Castle",
         conflict: "Mushroom Kingdom Civil War",
-        date: "Approx. Day 8-9, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 8, hour: 12, minute: 0 },
         location: "Peach's Castle, Mushroom Kingdom",
         belligerents: {
             side_a: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] },
@@ -158,7 +158,7 @@ export const MAJOR_BATTLES = [
         id: 'tea_party_incident',
         name: "The 'Tea Party' Incident",
         conflict: "Underworld Conflicts",
-        date: "Day 9, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 9, hour: 20, minute: 0 },
         location: "Midlands Capital Slums",
         belligerents: {
             side_a: { name: "Archie & Humpik", factions: [] },
@@ -178,7 +178,7 @@ export const MAJOR_BATTLES = [
         id: 'the_syrup_schism',
         name: "The Syrup Schism",
         conflict: "Vigilance Crew Incidents",
-        date: "Day 6, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 6, hour: 12, minute: 0 },
         location: "Aboard the Airship 'Vigilance'",
         belligerents: {
             side_a: { name: "The Party & Allies", factions: ['liberated_toads'] },
@@ -195,7 +195,7 @@ export const MAJOR_BATTLES = [
         id: 'battle_for_the_vigilance',
         name: "The Battle for the Vigilance",
         conflict: "Vigilance Crew Incidents",
-        date: "Days 4-7, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 4, hour: 10, minute: 0 },
         location: "Aboard the Airship 'Vigilance'",
         belligerents: {
             side_a: { name: "The Party & Allies", factions: ['liberated_toads', 'koopa_troop'] },
@@ -213,7 +213,7 @@ export const MAJOR_BATTLES = [
         id: 'koopa_remnant_scuffles',
         name: "The Koopa Remnant Scuffles",
         conflict: "Mushroom Kingdom Civil War",
-        date: "Ongoing",
+        date: { year: 1040, monthIndex: 6, day: 1, hour: 0, minute: 0 }, // Start of current era
         location: "Various, Mushroom Kingdom Borderlands",
         belligerents: {
             side_a: { name: "Koopa Remnants", factions: ['koopa_troop'] },
@@ -231,7 +231,7 @@ export const MAJOR_BATTLES = [
         id: 'battle_of_bobomb_field',
         name: "Battle of Bob-omb Battlefield",
         conflict: "Second Koopa War",
-        date: "Approx. 20 years ago",
+        date: { year: 1020, monthIndex: 5, day: 15, hour: 12, minute: 0 },
         location: "Bob-omb Battlefield, Mushroom Kingdom",
         belligerents: {
             side_a: { name: "Mushroom Kingdom Army", factions: ['mushroom_regency'] },
@@ -249,7 +249,7 @@ export const MAJOR_BATTLES = [
         id: 'bowsers_first_invasion',
         name: "Bowser's First Invasion",
         conflict: "The First Koopa War",
-        date: "Approx. 40 years ago",
+        date: { year: 1000, monthIndex: 3, day: 1, hour: 6, minute: 0 },
         location: "Mushroom Plains",
         belligerents: {
             side_a: { name: "Mushroom Kingdom", factions: ['mushroom_regency'] },
@@ -267,7 +267,7 @@ export const MAJOR_BATTLES = [
         id: 'battle_of_ignis_peak',
         name: "Battle of Ignis Peak",
         conflict: "Early Party Adventures",
-        date: "Day 1, 1040 BF",
+        date: { year: 1040, monthIndex: 6, day: 1, hour: 14, minute: 0 },
         location: "Northern Mountains, Midlands",
         belligerents: {
             side_a: { name: "The Adventuring Party", factions: [] },
@@ -310,6 +310,16 @@ function renderBattle(battle) {
         return `<strong>${sideName}:</strong> ${names.join(', ')}`;
     }).join('<br>');
 
+    // Format date for display
+    let displayDate = "Unknown Date";
+    if (battle.date && typeof battle.date === 'object') {
+         // Simple format: Day X, Year Y
+         // Or reconstruct full string if we have helper access (simplified here for stability)
+         displayDate = `Year ${battle.date.year}, Month ${battle.date.monthIndex + 1}, Day ${battle.date.day}`;
+    } else if (battle.date) {
+         displayDate = battle.date; // Fallback
+    }
+
     return `
         <div class="battle-entry" id="${battle.id}">
             <h3>${battle.name}</h3>
@@ -324,7 +334,7 @@ function renderBattle(battle) {
                     </div>
                     <div class="infobox-item">
                         <h5>Date & Location</h5>
-                        <p>${battle.date}<br>${battle.location}</p>
+                        <p>${displayDate}<br>${battle.location}</p>
                     </div>
                     <div class="infobox-item">
                         <h5>Belligerents</h5>
@@ -352,21 +362,18 @@ function init() {
     const container = document.getElementById('battlefield-container');
     if (!container) return;
     
-    // Sort battles by date
-    // This logic now correctly handles 'Ongoing' and specific day numbers
+    // Sort battles by date (Newest first)
     const sortedBattles = MAJOR_BATTLES.sort((a, b) => {
-        if (a.date === 'Ongoing') return -1;
-        if (b.date === 'Ongoing') return 1;
+        // Handle object dates
+        const dateA = typeof a.date === 'object' 
+            ? new Date(a.date.year, a.date.monthIndex, a.date.day, a.date.hour, a.date.minute) 
+            : new Date(0); // Fallback for really old/weird dates
         
-        const dayA = parseInt(a.date.match(/Day (\d+)/)?.[1] || 0);
-        const dayB = parseInt(b.date.match(/Day (\d+)/)?.[1] || 0);
-        
-        if (dayA !== dayB) {
-            return dayB - dayA;
-        }
-
-        // If days are the same, sort by a secondary factor like name to keep it stable
-        return a.name.localeCompare(b.name);
+        const dateB = typeof b.date === 'object' 
+            ? new Date(b.date.year, b.date.monthIndex, b.date.day, b.date.hour, b.date.minute) 
+            : new Date(0);
+            
+        return dateB - dateA;
     });
 
     container.innerHTML = sortedBattles.map(renderBattle).join('');

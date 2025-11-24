@@ -1,6 +1,6 @@
 
 import { state, loadState, saveState } from './state.js';
-import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING } from './research-data.js';
+import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus } from './research-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 import { LORE_DATA } from './lore.js';
 import { playSound } from './common.js';
@@ -120,7 +120,9 @@ function renderNationList() {
 
 function renderCategoryTabs() {
     const nationData = NATIONS[activeNation];
-    
+    // Get demographic/guild bonuses for this nation
+    const bonuses = calculateDemographicBonus(activeNation);
+
     categoryTabsEl.innerHTML = RESEARCH_CATEGORIES.map(cat => {
         let slotType = 'Minor';
         let slotClass = 'minor';
@@ -130,10 +132,19 @@ function renderCategoryTabs() {
         
         const isActive = cat === activeCategory ? 'active' : '';
         
+        // Check for bonus
+        const bonusMultiplier = bonuses[cat] || 1.0;
+        let bonusHTML = '';
+        if (bonusMultiplier > 1.0) {
+            const percent = Math.round((bonusMultiplier - 1) * 100);
+            bonusHTML = `<div class="bonus-badge" title="Demographic Efficiency Bonus">+${percent}% SPD</div>`;
+        }
+
         return `
             <div class="category-btn ${isActive} slot-${slotClass}" data-category="${cat}">
                 <div style="font-size:0.7em; opacity:0.8; text-transform:uppercase;">${slotType} Slot</div>
                 ${cat}
+                ${bonusHTML}
             </div>
         `;
     }).join('');

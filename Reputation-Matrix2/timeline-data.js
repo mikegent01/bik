@@ -2,7 +2,7 @@
 export const HISTORICAL_TIMELINE = [
     { type: 'era_header', title: 'Ancient Era: The First Wars' },
     { date: { year: 955, monthIndex: 6, day: 1, hour: 14, minute: 0 }, title: "The Princess is Dead", description: "Princess Peach is assassinated, plunging the Mushroom Kingdom into a century-long civil war.", icon: "icon_focus.png", category: "Political" },
-    { date: { year: 1000, monthIndex: 6, day: 1, hour: 14, minute: 0 }, description: "King Bowser launches his first major assault on the Mushroom Plains. Repelled, but establishes the eternal enmity.", icon: "faction_koopa_troop.png", category: "Military" },
+    { date: { year: 1000, monthIndex: 6, day: 1, hour: 14, minute: 0 }, title: "First Koopa Wars" , description: "King Bowser launches his first major assault on the Mushroom Plains. Repelled, but establishes the eternal enmity.", icon: "faction_koopa_troop.png", category: "Military" },
     
     { type: 'era_header', title: 'The Middle Years: Stagnation' },
     { date: { year: 1020, monthIndex: 6, day: 1, hour: 14, minute: 0 }, title: "Battle of Bob-omb Battlefield", description: "A catastrophic clash that turned a lush plain into a cratered wasteland. Both sides claimed victory; neither won.", icon: "icon_war.png", category: "Military" },

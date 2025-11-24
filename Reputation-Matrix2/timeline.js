@@ -41,22 +41,8 @@ function generateBattleTimelineEvents() {
     
     MAJOR_BATTLES.forEach(battle => {
         // 1. Add the Main Battle Event
-        // Battle objects still use string dates in battlefield.js, so we parse them manually here if needed,
-        // or leave them as is. The logic below handles both.
-        // For the main entry, we try to convert "Day X" to a proper date object if possible.
-        let mainEventDate = battle.date;
-        const match = battle.date.match(/Day\s+(\d+)/);
-        
-        if (match) {
-            // Construct a date object for sorting/display parity
-             mainEventDate = {
-                year: CURRENT_GAME_DATE.year,
-                monthIndex: CURRENT_GAME_DATE.monthIndex,
-                day: parseInt(match[1], 10),
-                hour: 12,
-                minute: 0
-            };
-        }
+        // Use the structured date object directly from battlefield.js
+        const mainEventDate = battle.date;
 
         events.push({
             date: mainEventDate,
@@ -65,21 +51,15 @@ function generateBattleTimelineEvents() {
             icon: "icon_war.png",
             category: "Military",
             link: `battlefield.html#${battle.id}`,
-            originalDate: battle.date,
+            originalDate: battle.date, // Keep reference
         });
 
         // 2. Generate Daily Updates for Ongoing Battles
-        const isOngoing = battle.outcome.includes("Ongoing") || battle.outcome.includes("Hostilities Resumed") || battle.date === 'Ongoing';
+        // Check if outcome marks it as ongoing, or if it's a recent battle that implies ongoing conflict
+        const isOngoing = battle.outcome.includes("Ongoing") || battle.outcome.includes("Hostilities Resumed");
         
-        if (isOngoing) {
-            let startDay = 1;
-            const dateMatch = battle.date.match(/Day (\d+)/);
-            
-            if (dateMatch) {
-                startDay = parseInt(dateMatch[1]);
-            } else {
-                startDay = Math.max(1, currentDay - 3); 
-            }
+        if (isOngoing && typeof battle.date === 'object') {
+            const startDay = battle.date.day;
 
             // Generate an event for each day from start+1 to today
             for (let d = startDay + 1; d <= currentDay; d++) {
@@ -134,7 +114,7 @@ function parseDateToSortKey(event) {
         return (year * minutesInYear) + (day * minutesInDay) + (hour * 60) + minute;
     }
 
-    // Case 2: Legacy String
+    // Case 2: Legacy String (Fallback for manually entered timeline data strings)
     let year = 0;
     const dateStr = String(dateVal);
     const bfAfMatch = dateStr.match(/(\d+)\s*(BF|AF)/);
@@ -153,7 +133,6 @@ function parseDateToSortKey(event) {
     const dayMatch = dateStr.match(/Day\s*(\d+)/);
     const day = dayMatch ? parseInt(dayMatch[1], 10) : 0;
     
-    // Default time for string dates
     const hour = 12;
     const minute = 0;
 
@@ -171,29 +150,13 @@ function calculateTimeAgo(event) {
     
     if (dateVal === 'Ongoing') return "HAPPENING NOW";
 
-    // If it's an object, it's a recent event by definition
+    // If it's an object, it's a structured event, use dynamic timestamp
     if (typeof dateVal === 'object' && dateVal.year !== undefined) {
         return getDynamicTimestamp(dateVal);
     }
 
-    // Fallback for strings
+    // Fallback for strings (Historical events)
     const dateStr = String(dateVal);
-    
-    // Legacy parsing for "1040 IE... Day X" strings if any slip through
-    if (dateStr.includes("1040 IE") && dateStr.includes("Day")) {
-        const dayMatch = dateStr.match(/Day\s+(\d+)/);
-        if (dayMatch) {
-            const pDay = parseInt(dayMatch[1], 10);
-            const mockDateObj = {
-                year: CURRENT_GAME_DATE.year,
-                monthIndex: CURRENT_GAME_DATE.monthIndex,
-                day: pDay,
-                hour: 12,
-                minute: 0
-            };
-            return getDynamicTimestamp(mockDateObj);
-        }
-    }
 
     let eventYear = 0;
     if (dateStr.includes("BF")) {
@@ -202,6 +165,14 @@ function calculateTimeAgo(event) {
     }
 
     const currentYear = 1040;
+    // If year is very old (e.g., 995 BF vs 1040 is just 45 years, but 1000 BF is confusing.
+    // Assuming BF means "Before Founding" or similar relative epoch.
+    // If event year is negative, it's ancient.
+    if (eventYear < 0) {
+         // E.g. 1000 BF
+         return "ANCIENT ERA";
+    }
+    
     const yearDiff = currentYear - eventYear;
 
     if (yearDiff > 1000) return `${Math.floor(yearDiff / 1000)}k+ YEARS AGO`;

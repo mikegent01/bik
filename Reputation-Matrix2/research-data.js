@@ -2,15 +2,45 @@
 import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from './lore.js';
+import { RESEARCH_CATEGORIES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING } from './research-constants.js';
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
+import { GUILD_DATA } from './guilds-data.js';
 
-export const RESEARCH_CATEGORIES = ['WEAPONS', 'MAGIC', 'TECH', 'MEDICAL', 'ECONOMIC', 'POLITICAL'];
+export { RESEARCH_CATEGORIES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING };
 
-// Slot Multipliers (Days to complete = Base Cost * Multiplier)
-// Lower multiplier = Faster research
-export const SLOT_MULTIPLIERS = {
-    primary: 0.5, // 2x Speed
-    major: 1.0,   // Normal Speed
-    minor: 2.0    // 0.5x Speed
+// Mapping Nation Keys to Region Groups in SPECIES_DATA
+const NATION_TO_REGION_GROUP = {
+    midlands: 'The Midlands',
+    mushroom_kingdom: 'Mushroom Kingdom Regions',
+    middle_earth: 'Middle-earth',
+    kivotos: 'Kivotos',
+    internet: 'The Internet',
+    warhammer: 'The Fated Place',
+    doughnut_hole: 'The Doughnut Hole',
+    pokemon: 'Pokémon Regions',
+    animatopia: 'Animatopia',
+    equestria: 'Equestria',
+    leclaire_isle: "L'Eclaire Isle",
+    teyvat: 'Teyvat',
+    grand_country: 'The Grand Country'
+};
+
+// Mapping Guild Tags to Research Categories
+const TAG_TO_CATEGORY = {
+    industrial: 'TECH',
+    arcane: 'MAGIC',
+    nature: 'MEDICAL',
+    military: 'WEAPONS',
+    scavenger: 'ECONOMIC',
+    bureaucratic: 'POLITICAL',
+    agricultural: 'ECONOMIC',
+    maritime: 'ECONOMIC',
+    mining: 'TECH',
+    political: 'POLITICAL',
+    covert: 'POLITICAL',
+    digital: 'TECH',
+    medical: 'MEDICAL',
+    military_tech: 'WEAPONS'
 };
 
 export const NATIONS = {
@@ -132,15 +162,6 @@ export const AGE_CHOICES = {
         { id: 'path_annihilation', type: 'military', name: "Planet Killers", effect: "Orbital Strike Available, Fleet Power +30%", flavor: "Dominance through superior firepower." },
         { id: 'path_ascension', type: 'magic', name: "Cosmic Ascension", effect: "Reality Warping Enabled, Mortality -100%", flavor: "Becoming beings of pure energy." }
     ]
-};
-
-export const RESEARCH_TO_ESTATE_MAPPING = {
-    WEAPONS: { nobility: 0.9, commoners: 0.2, slaves: 0.0 },
-    MAGIC: { clergy: 1.0, nobility: 0.3, indentured: 0.1 },
-    TECH: { burghers: 0.9, indentured: 0.4, nobility: 0.2 },
-    MEDICAL: { clergy: 0.7, commoners: 0.5, burghers: 0.5 },
-    ECONOMIC: { burghers: 1.0, nobility: 0.6, commoners: 0.2 },
-    POLITICAL: { nobility: 1.0, clergy: 0.8, burghers: 0.4 }
 };
 
 export function getAbsoluteDay() {
@@ -349,6 +370,61 @@ export function calculateGlobalCycle(allPosts) {
     };
 }
 
+/**
+ * Calculates research bonuses based on the dominant species of a nation.
+ * @param {string} nationKey - The key of the nation (e.g., 'midlands').
+ * @returns {object} A map of research categories to bonus multipliers (e.g., { TECH: 1.2 }).
+ */
+export function calculateDemographicBonus(nationKey) {
+    const bonusMap = {};
+    
+    // 1. Identify the Region Group for this Nation
+    const regionGroup = NATION_TO_REGION_GROUP[nationKey];
+    if (!regionGroup) return bonusMap;
+
+    // 2. Get Demographics
+    const demographics = REGIONAL_DEMOGRAPHICS[regionGroup];
+    if (!demographics) return bonusMap;
+
+    // 3. Find dominant species
+    let dominantSpeciesKey = null;
+    let maxPct = 0;
+
+    for (const [species, pct] of Object.entries(demographics)) {
+        if (pct > maxPct) {
+            maxPct = pct;
+            dominantSpeciesKey = species;
+        }
+    }
+
+    if (!dominantSpeciesKey) return bonusMap;
+
+    // 4. Get species favored guild tag
+    const speciesData = SPECIES_DATA[dominantSpeciesKey];
+    if (!speciesData || !speciesData.favored_guild_tag) return bonusMap;
+
+    const favoredTag = speciesData.favored_guild_tag;
+
+    // 5. Map Tag to Research Category
+    const category = TAG_TO_CATEGORY[favoredTag];
+    
+    if (category) {
+        // Base bonus of 20% for dominant demographic alignment
+        bonusMap[category] = 1.2;
+        
+        // 6. Optional: Check if a relevant Guild exists in GUILD_DATA for extra flavor/bonus?
+        // For now, the species dominance is sufficient to grant the 'Demographic Efficiency Bonus'.
+        
+        // If the nation's primary slot matches the demographic bonus, boost it further
+        if (NATIONS[nationKey].slots.primary === category) {
+            bonusMap[category] = 1.3; // 30% total bonus if it matches national focus
+        }
+    }
+
+    return bonusMap;
+}
+
+
 export function getGlobalTechAverages() {
     const averages = {};
     const currentDay = getAbsoluteDay();
@@ -388,8 +464,12 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
     if (globalCycle && globalCycle.phase.modifiers && globalCycle.phase.modifiers[category]) {
         cycleMod = globalCycle.phase.modifiers[category];
     }
+    
+    // Calculate demographic bonus
+    const demoBonuses = calculateDemographicBonus(nationKey);
+    const demoMod = demoBonuses[category] ? (1 / demoBonuses[category]) : 1.0; // Invert because lower cost = faster
 
-    const totalMultiplier = slotMult * cycleMod;
+    const totalMultiplier = slotMult * cycleMod * demoMod;
     const effectiveDays = currentDay + baseOffset;
     let daysConsumed = 0;
 

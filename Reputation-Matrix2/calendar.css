@@ -434,6 +434,23 @@ details.liturgy-details li {
     color: var(--text-color);
 }
 
+.day-moon-icon {
+    position: absolute;
+    top: 6px;
+    right: 30px; /* Positioned to the left of the weather icon */
+    font-size: 1rem;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));
+}
+
+/* Adjust existing weather icon position slightly if needed */
+.day-weather-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 1.1rem;
+}
+
 .event-dot.history { background-color: #ff9800; border: 1px solid #fff; }
 .event-dot.battle { background-color: #b71c1c; border: 1px solid var(--text-color); }
 .event-dot.rumor-start { background-color: #e91e63; }

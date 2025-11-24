@@ -1,12 +1,12 @@
-
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE, MOON_PHASES } from './calendar-data.js';
 import { playSound } from './common.js';
 import { RELIGION_DATA } from './religion-data.js';
 import { state } from './state.js'; // Needed to check research state
-import { getTechTree, NATIONS, getAbsoluteDay } from './research-data.js';
+import { getTechTree, NATIONS, getAbsoluteDay, calculateGlobalCycle } from './research-data.js';
 import { HISTORICAL_TIMELINE } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
 import { LORE_DATA } from './lore.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
 
 // --- State ---
 let viewDate = {
@@ -38,11 +38,15 @@ function calculateAllResearchCompletionDates() {
     const startYear = 1035;
     const daysPerYear = 365; 
 
+    // Calculate the current global cycle to ensure research speeds match the UI
+    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+
     for (const nationKey in NATIONS) {
         const categories = ['WEAPONS', 'MAGIC', 'TECH', 'MEDICAL', 'ECONOMIC', 'POLITICAL'];
         
         categories.forEach(cat => {
-            const tree = getTechTree(nationKey, cat, state.researchState, null);
+            // Pass the globalCycle to getTechTree so modifiers are applied
+            const tree = getTechTree(nationKey, cat, state.researchState, globalCycle);
             
             Object.values(tree).forEach(node => {
                 if (node.status === 'researching') {
@@ -204,19 +208,40 @@ function getTimelineEventsForDay(year, monthIndex, day) {
 function getBattleEventsForDay(year, monthIndex, day) {
     const events = [];
     MAJOR_BATTLES.forEach(battle => {
-        const match = battle.date.match(/Day\s+(\d+)/);
-        if (match) {
-             const battleDay = parseInt(match[1], 10);
-             if (year === CURRENT_GAME_DATE.year && monthIndex === CURRENT_GAME_DATE.monthIndex && day === battleDay) {
-                events.push({
-                    type: 'battle',
-                    name: `Battle: ${battle.name}`,
-                    description: `${battle.outcome} - ${battle.conflict}`,
-                    icon: '⚔️'
-                });
-             }
+        let isBattleDay = false;
+
+        // Handle Object Date (New Standard)
+        if (typeof battle.date === 'object') {
+            if (battle.date.year === year && battle.date.monthIndex === monthIndex && battle.date.day === day) {
+                isBattleDay = true;
+            }
+        } 
+        // Handle String Date (Legacy / "Day X" format)
+        else if (typeof battle.date === 'string') {
+            const match = battle.date.match(/Day\s+(\d+)/);
+            if (match) {
+                const battleDay = parseInt(match[1], 10);
+                if (year === CURRENT_GAME_DATE.year && monthIndex === CURRENT_GAME_DATE.monthIndex && day === battleDay) {
+                   isBattleDay = true;
+                }
+            }
         }
-        if (battle.date === 'Ongoing' || battle.outcome.includes('Ongoing')) {
+
+        if (isBattleDay) {
+            events.push({
+                type: 'battle',
+                name: `Battle: ${battle.name}`,
+                description: `${battle.outcome} - ${battle.conflict}`,
+                icon: '⚔️'
+            });
+        }
+
+        // Handle Ongoing Battles (Display on Current Day)
+        // Check outcome string for "Ongoing" flag or legacy string
+        const isOngoing = battle.outcome.includes('Ongoing') || (typeof battle.date === 'string' && battle.date === 'Ongoing');
+        
+        if (isOngoing) {
+            // Show ongoing battles on the *current* day of the simulation
             if (year === CURRENT_GAME_DATE.year && monthIndex === CURRENT_GAME_DATE.monthIndex && day === CURRENT_GAME_DATE.day) {
                  events.push({
                     type: 'battle_ongoing',
@@ -293,6 +318,14 @@ function getEventsForDay(year, monthIndex, day) {
     return events;
 }
 
+function calculateMoonPhase(year, monthIndex, day) {
+    // Simplified absolute day calculation for moon phase
+    // Matches logic in moonfang-pack-details.js via calendar-data.js logic
+    const absDay = ((year - 1035) * 365) + (monthIndex * 30) + day;
+    const phaseIndex = Math.floor((absDay % 28) / 28 * MOON_PHASES.length) % MOON_PHASES.length;
+    return MOON_PHASES[phaseIndex];
+}
+
 // --- Rendering ---
 function renderCalendar() {
     if (!gridElement) return;
@@ -320,6 +353,7 @@ function renderCalendar() {
         if (isSelected) cell.classList.add('selected');
 
         const weather = generateWeatherForDay(viewDate.year, viewDate.monthIndex, day);
+        const moonPhase = calculateMoonPhase(viewDate.year, viewDate.monthIndex, day);
         const events = getEventsForDay(viewDate.year, viewDate.monthIndex, day);
 
         const hasTech = events.some(e => e.type === 'tech');
@@ -336,6 +370,7 @@ function renderCalendar() {
         cell.innerHTML = `
             <div class="day-number">${day}</div>
             <div class="day-weather-icon" title="${weather.desc} ${weather.temp}">${weather.icon}</div>
+            <div class="day-moon-icon" title="${moonPhase.name}">${moonPhase.icon}</div>
             <div class="day-events-dots">
                 ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
                 ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot}
@@ -359,6 +394,7 @@ function renderSidebar() {
     const monthData = CALENDAR_DATA.months.values[selectedDate.monthIndex];
     const events = getEventsForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
     const weather = generateWeatherForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+    const moonPhase = calculateMoonPhase(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
 
     selectedDateHeader.textContent = `${monthData.name} ${selectedDate.day}, ${selectedDate.year}`;
     selectedDateWeather.textContent = weather.icon;
@@ -368,6 +404,9 @@ function renderSidebar() {
         <div class="weather-details">
             <span class="temp-display">${weather.temp}</span>
             <span class="desc-display">${weather.desc}</span>
+        </div>
+        <div class="weather-details" style="margin-top:8px; border-top:1px dashed var(--border-color); padding-top:8px;">
+            <span class="desc-display">Moon Phase: <strong>${moonPhase.icon} ${moonPhase.name}</strong></span>
         </div>
     `;
 

@@ -1,8 +1,27 @@
 
-
 // toads_event.js - Mission Overview Renderer
 
 const TACTICAL_LOGS = [
+    {
+        time: "DAY 20 17:00",
+        type: "normal",
+        text: "Bones successfully infiltrates Imperial Processing Facility disguised as a Legionnaire. Transmitting intel on industrial operations."
+    },
+    {
+        time: "DAY 20 16:45",
+        type: "critical",
+        text: "Ryan confirmed alive. Taken in by Rakasha spirit-walker Koda. Location: Rakasha Camp (Wilderlands)."
+    },
+    {
+        time: "DAY 20 16:30",
+        type: "critical",
+        text: "THE VIGILANCE HAS FALLEN. Iron Legion boarding party successful. Airship captured. Ryan forced to jump to avoid capture."
+    },
+    {
+        time: "DAY 20 14:15",
+        type: "danger",
+        text: "Archie Miser escapes Cohort custody via 'Third Eye' interdimensional travel. Cohort containment shattered."
+    },
     {
         time: "DAY 20 07:30",
         type: "critical",
@@ -42,40 +61,20 @@ const TACTICAL_LOGS = [
         time: "DAY 19 06:45",
         type: "critical",
         text: "SURRENDER CONFIRMED. Archie Miser taken into custody by Speaker L. Reason: To buy time for allies."
-    },
-    {
-        time: "DAY 19 06:42",
-        type: "normal",
-        text: "Visual confirmation: Archie Miser cauterizes ally Eager's wound. Subject appears erratic."
-    },
-    {
-        time: "DAY 19 06:30",
-        type: "critical",
-        text: "Manor defenses activated. Supernatural energy spike detected. Spectral wraiths manifesting in the courtyard. Cohort forces engaging."
-    },
-    {
-        time: "DAY 19 06:15",
-        type: "normal",
-        text: "Speaker L initiates 'March of the Mandate.' Loudspeakers broadcast demand for Archie Miser's surrender. Drums audible from 2km."
-    },
-    {
-        time: "DAY 19 06:00",
-        type: "normal",
-        text: "Pond Patrol, led by Speaker L, establishes containment perimeter around Raventree Manor. Heavy rain reported."
     }
 ];
 
 const ASSETS = [
-    { name: "Archie Miser", status: "RETURNED", class: "status-deployed", icon: "portraits/archie.png" },
+    { name: "Archie Miser", status: "ESCAPED", class: "status-deployed", icon: "portraits/archie.png" },
+    { name: "Vigilance", status: "CAPTURED", class: "status-captured", icon: "newspaper_airship.png" },
+    { name: "Ryan", status: "MIA (SAFE)", class: "status-warning", icon: "toads/ryan.png" },
+    { name: "Bones", status: "UNDERCOVER", class: "status-scheming", icon: "toads/bones.png" },
     { name: "Green T", status: "LOST IN MIRROR", class: "status-mia", icon: "portraits/green_t.png" },
-    { name: "Bowser", status: "FIGHTING GHOSTS", class: "status-combat", icon: "portraits/bowser.png" },
-    { name: "Humpik", status: "HEADBUTTING", class: "status-combat", icon: "portraits/humpik.png" },
-    { name: "Dan", status: "ACTIVE (SHAKEN)", class: "status-warning", icon: "toads/dan.png" },
-    { name: "Toad Lee", status: "PROTECTING", class: "status-deployed", icon: "toads/toad_lee.png" },
-    { name: "Eager", status: "CRITICAL", class: "status-danger", icon: "toads/eager.png" },
+    { name: "Speaker L", status: "CAPTURED", class: "status-captured", icon: "toads/toad_lee.png" },
+    { name: "Embercap", status: "ASSAULTING", class: "status-combat", icon: "toads/embercap.png" },
+    { name: "Bowser", status: "REGROUPING", class: "status-warning", icon: "portraits/bowser.png" },
     { name: "Waluigi", status: "WATCHING", class: "status-scheming", icon: "portraits/waluigi.png" },
-    { name: "Markop", status: "REGROUPING", class: "status-warning", icon: "portraits/markop.png" },
-    { name: "Speaker L", status: "CAPTURED", class: "status-captured", icon: "toads/toad_lee.png" }
+    { name: "Markop", status: "REGROUPING", class: "status-warning", icon: "portraits/markop.png" }
 ];
 
 function renderLog() {
