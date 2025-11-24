@@ -418,6 +418,11 @@ details.liturgy-details li {
     font-size: 0.9rem;
     margin-bottom: 8px;
 }
+/* Add plague dot style */
+.event-dot.plague_outbreak {
+    background-color: var(--negative-color);
+    box-shadow: 0 0 4px var(--negative-color);
+}
 .trending-topic-item {
     display: flex;
     align-items: center;

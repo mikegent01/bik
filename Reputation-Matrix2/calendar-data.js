@@ -1,3 +1,4 @@
+import { state } from './state.js'; // Needed for seeded random if we use state
 
 export const CURRENT_GAME_DATE = {
     year: 1040,
@@ -5,20 +6,18 @@ export const CURRENT_GAME_DATE = {
     day: 20
 };
 
-// Set the current "Now" time for the simulation (22:00 / 10:00 PM)
 export const CURRENT_GAME_TIME = {
     hour: 22,
     minute: 0
 };
 
-// Map pages to the specific day they were last updated. 
-// The navigation will show an "UPDATED" badge if this matches CURRENT_GAME_DATE.day
 export const PAGE_UPDATES = {
     'maps.html': 20,
     'battlefield.html': 20,
     'liberated-toads-system.html': 20,
     'assembly.html': 20,
-    'research.html': 20
+    'research.html': 20,
+    'plagues.html': 20 // New page
 };
 
 export const MOON_PHASES = [
@@ -33,28 +32,21 @@ export const CALENDAR_DATA = {
   "name": "Regal Empire Standard Calendar",
   "description": "The official calendar of the Regal Empire...",
   "version": "1.3.0",
-  "path": "",
   "id": "regal-empire-standard-1040bf",
-  "note": "This calendar reflects the state of the Doughnut World around 1040 BF.",
-  "years": {
-    "yearZero": 0,
-    "firstWeekday": 0,
-    "leapYear": { "leapStart": 4, "leapInterval": 4 }
-  },
   "months": {
     "values": [
-      { "name": "Firstlight", "abbreviation": "Fst", "ordinal": 1, "days": 30, "leapDays": 30 },
-      { "name": "Chillwind", "abbreviation": "Chl", "ordinal": 2, "days": 30, "leapDays": 30 },
-      { "name": "Veridia", "abbreviation": "Ver", "ordinal": 3, "days": 30, "leapDays": 30 },
-      { "name": "Bloom", "abbreviation": "Blo", "ordinal": 4, "days": 30, "leapDays": 30 },
-      { "name": "Floria", "abbreviation": "Flo", "ordinal": 5, "days": 30, "leapDays": 30 },
-      { "name": "Efferd", "abbreviation": "Eff", "ordinal": 6, "days": 30, "leapDays": 30 },
-      { "name": "Highsun", "abbreviation": "Hsn", "ordinal": 7, "days": 30, "leapDays": 30 },
-      { "name": "Harvestide", "abbreviation": "Hrv", "ordinal": 8, "days": 30, "leapDays": 30 },
-      { "name": "Aethel", "abbreviation": "Aet", "ordinal": 9, "days": 30, "leapDays": 30 },
-      { "name": "Darkmoon", "abbreviation": "Drk", "ordinal": 10, "days": 30, "leapDays": 30 },
-      { "name": "Frostfall", "abbreviation": "Frs", "ordinal": 11, "days": 30, "leapDays": 30 },
-      { "name": "Deepwinter", "abbreviation": "Dpw", "ordinal": 12, "days": 35, "leapDays": 36 }
+      { "name": "Firstlight", "abbreviation": "Fst", "ordinal": 1, "days": 30 },
+      { "name": "Chillwind", "abbreviation": "Chl", "ordinal": 2, "days": 30 },
+      { "name": "Veridia", "abbreviation": "Ver", "ordinal": 3, "days": 30 },
+      { "name": "Bloom", "abbreviation": "Blo", "ordinal": 4, "days": 30 },
+      { "name": "Floria", "abbreviation": "Flo", "ordinal": 5, "days": 30 },
+      { "name": "Efferd", "abbreviation": "Eff", "ordinal": 6, "days": 30 },
+      { "name": "Highsun", "abbreviation": "Hsn", "ordinal": 7, "days": 30 },
+      { "name": "Harvestide", "abbreviation": "Hrv", "ordinal": 8, "days": 30 },
+      { "name": "Aethel", "abbreviation": "Aet", "ordinal": 9, "days": 30 },
+      { "name": "Darkmoon", "abbreviation": "Drk", "ordinal": 10, "days": 30 },
+      { "name": "Frostfall", "abbreviation": "Frs", "ordinal": 11, "days": 30 },
+      { "name": "Deepwinter", "abbreviation": "Dpw", "ordinal": 12, "days": 35 }
     ]
   },
   "days": {
@@ -66,43 +58,27 @@ export const CALENDAR_DATA = {
       { "name": "Jovias", "abbreviation": "Jov", "ordinal": 5 },
       { "name": "Venerias", "abbreviation": "Ven", "ordinal": 6, "isRestDay": true },
       { "name": "Saturias", "abbreviation": "Sat", "ordinal": 7, "isRestDay": true }
-    ],
-    "daysPerYear": 365,
-    "hoursPerDay": 24,
-    "minutesPerHour": 60,
-    "secondsPerMinute": 60
+    ]
   },
   "seasons": {
     "values": [
-      { "name": "Verdant Spring", "abbreviation": "Spr", "monthStart": 3, "monthEnd": 5, "dayStart": 1, "dayEnd": 30, "color": "#90EE90" },
-      { "name": "Golden Summer", "abbreviation": "Sum", "monthStart": 6, "monthEnd": 8, "dayStart": 1, "dayEnd": 30, "color": "#FFD700" },
-      { "name": "Crimson Fall", "abbreviation": "Fal", "monthStart": 9, "monthEnd": 11, "dayStart": 1, "dayEnd": 30, "color": "#FFA07A" },
-      { "name": "Hoarfrost Winter", "abbreviation": "Win", "monthStart": 12, "monthEnd": 2, "dayStart": 1, "dayEnd": 30, "color": "#ADD8E6" }
+      { "name": "Verdant Spring", "abbreviation": "Spr", "monthStart": 3, "monthEnd": 5, "color": "#90EE90" },
+      { "name": "Golden Summer", "abbreviation": "Sum", "monthStart": 6, "monthEnd": 8, "color": "#FFD700" },
+      { "name": "Crimson Fall", "abbreviation": "Fal", "monthStart": 9, "monthEnd": 11, "color": "#FFA07A" },
+      { "name": "Hoarfrost Winter", "abbreviation": "Win", "monthStart": 12, "monthEnd": 2, "color": "#ADD8E6" }
     ]
   },
   "moons": {
     "values": [
-      { 
-          "name": "Torrus (The Doughnut Moon)", 
-          "cycleLength": 28, 
-          "phaseNames": [
-              "The Hole (New)", 
-              "Inner Rim (Waxing)", 
-              "The Glazed Face (Full)", 
-              "Outer Crust (Waning)", 
-              "The Bite (Darkening)"
-          ], 
-          "offset": 0, 
-          "color": "#E0E0E0" 
-      }
+      { "name": "Torrus (The Doughnut Moon)", "cycleLength": 28, "phaseNames": MOON_PHASES.map(p => p.name), "offset": 0, "color": "#E0E0E0" }
     ]
   },
   "birthdays": [
-    { name: "Archie Miser", month: 1, day: 1, description: "Born on Empire's Founding Day. A chaotic start." },
-    { name: "Markop Judi", month: 7, day: 15, description: "Mid-Highsun. A time of light and strength." },
-    { name: "Humpik", month: 2, day: 3, description: "Early Chillwind. Born in the deep cold of the mountains." },
-    { name: "Bowser", month: 12, day: 30, description: "Doughnut Hole Festival. A festive, gluttonous day." },
-    { name: "Remi (FNG)", month: 8, day: 12, description: "Harvestide. A time of reaping what is sown." }
+    { name: "Archie Miser", month: 1, day: 1 },
+    { name: "Markop Judi", month: 7, day: 15 },
+    { name: "Humpik", month: 2, day: 3 },
+    { name: "Bowser", month: 12, day: 30 },
+    { name: "Remi (FNG)", month: 8, day: 12 }
   ],
   "holidays": {
     "values": [
@@ -111,23 +87,23 @@ export const CALENDAR_DATA = {
       { "name": "Zootopian Founders' Day", "month": 1, "day": 25, "description": "Zootopia celebrates equality.", "traditions": "Community Service." },
       { "name": "Midlands' King's Coronation", "month": 2, "day": 5, "description": "King Alaric's ascent.", "traditions": "Feasts, Warding." },
       { "name": "First Bloom Festival", "month": 3, "day": 1, "description": "First signs of spring.", "traditions": "Planting." },
-      { "name": "The Feast of the Silver Flame", "month": 3, "day": 15, "description": "Religious holiday of the Order of the Silver Flame celebrating purity and light.", "traditions": "Lighting bonfires, fasting." },
+      { "name": "The Feast of the Silver Flame", "month": 3, "day": 15, "description": "Religious holiday.", "traditions": "Lighting bonfires, fasting." },
       { "name": "Aurean Glitch Day", "month": 4, "day": 4, "description": "Celebrated by rebel hackers.", "traditions": "Digital mischief." },
       { "name": "Victory at Cerulean Pass", "month": 5, "day": 5, "description": "Decisive ancient battle.", "traditions": "Bonfires." },
-      { "name": "The Great Gear Grind", "month": 5, "day": 20, "description": "Machine Orthodoxy celebration of industry and mechanism.", "traditions": "Oiling machinery, binary chanting." },
+      { "name": "The Great Gear Grind", "month": 5, "day": 20, "description": "Machine Orthodoxy celebration.", "traditions": "Oiling machinery." },
       { "name": "Efferd's Sun Zenith", "month": 6, "day": 21, "description": "Summer Solstice.", "traditions": "Feasts, Bonfires." },
       { "name": "Wario's Remembrance", "month": 6, "day": 25, "description": "Anniversary of Wario's supposed death.", "traditions": "Hiding valuables." },
       { "name": "Admin Zero's Protocol Day", "month": 7, "day": 7, "description": "System diagnostics.", "traditions": "Data-cleaning." },
       { "name": "Celestia's Iron Hoof Day", "month": 7, "day": 15, "description": "Celebration of Celestia's rule.", "traditions": "Military Parades." },
-      { "name": "Festival of the Fallen", "month": 7, "day": 20, "description": "A Rakasha tradition celebrating life by honoring the dead with bonfires and bone chimes.", "traditions": "Bonfires, bone chimes, chanting." },
-      { "name": "Starfall Eve", "month": 8, "day": 12, "description": "A night when the Star Spirits are closest to the world.", "traditions": "Wishing on stars, staying awake until dawn." },
+      { "name": "Festival of the Fallen", "month": 7, "day": 20, "description": "A Rakasha tradition celebrating life.", "traditions": "Bonfires, bone chimes." },
+      { "name": "Starfall Eve", "month": 8, "day": 12, "description": "Star Spirits are closest.", "traditions": "Wishing on stars." },
       { "name": "Peach's Starfall Lament", "month": 9, "day": 20, "description": "Mourning for Princess Peach.", "traditions": "Lanterns." },
       { "name": "Blood Moon Hunt", "month": 10, "day": 13, "description": "Folkloric monster hunting day.", "traditions": "Lock-ins." },
-      { "name": "Night of the Howl", "month": 10, "day": 28, "description": "Sacred night for the Moonfang Pack celebrating the primal hunt.", "traditions": "Howling at the moon, raw meat feasts." },
-      { "name": "Warding Night", "month": 10, "day": 30, "description": "Reinforcing wards against dark creatures.", "traditions": "Salt lines." },
+      { "name": "Night of the Howl", "month": 10, "day": 28, "description": "Sacred night for Moonfang Pack.", "traditions": "Howling, feasts." },
+      { "name": "Warding Night", "month": 10, "day": 30, "description": "Reinforcing wards.", "traditions": "Salt lines." },
       { "name": "Remembrance of the First Guard", "month": 11, "day": 11, "description": "Honoring fallen soldiers.", "traditions": "Memorial visits." },
       { "name": "Winter's Veil Ball", "month": 12, "day": 20, "description": "Grand ball in the Capital.", "traditions": "Dancing." },
-      { "name": "The Day of Silence", "month": 12, "day": 21, "description": "A solemn day for followers of the Cosmic Void/Nihilism.", "traditions": "Total silence, fasting." },
+      { "name": "The Day of Silence", "month": 12, "day": 21, "description": "Solemn day for Cosmic Void.", "traditions": "Total silence." },
       { "name": "Doughnut Hole Festival", "month": 12, "day": 30, "description": "Celebrating the world's topology.", "traditions": "Doughnut cakes." }
     ]
   }
@@ -139,53 +115,75 @@ export const MAGICAL_WEATHER_EVENTS = [
     { name: "Sorrow Storm", icon: "💧" }, { name: "Static Discharge", icon: "⚡️" }
 ];
 
-/**
- * Helper function to calculate "Time Ago" based on current game date/time.
- * @param {object} postDate - { year, monthIndex, day, hour, minute }
- * @returns {string} - Formatted string (e.g., "2 hours ago")
- */
 export function getDynamicTimestamp(postDate) {
-    // Standardized values for calculation
     const minutesPerHour = 60;
     const minutesPerDay = 24 * 60;
     const minutesPerMonth = 30 * minutesPerDay;
     const minutesPerYear = 365 * minutesPerDay;
-
-    // Convert Current Game Time to total minutes
     const currentTotalMinutes = 
         (CURRENT_GAME_DATE.year * minutesPerYear) +
         (CURRENT_GAME_DATE.monthIndex * minutesPerMonth) +
         (CURRENT_GAME_DATE.day * minutesPerDay) +
         (CURRENT_GAME_TIME.hour * minutesPerHour) +
         CURRENT_GAME_TIME.minute;
-
-    // Convert Post Time to total minutes (defaulting to 12:00 if time missing)
     const pYear = postDate.year ?? CURRENT_GAME_DATE.year;
     const pMonth = postDate.monthIndex ?? CURRENT_GAME_DATE.monthIndex;
     const pDay = postDate.day ?? CURRENT_GAME_DATE.day;
     const pHour = postDate.hour ?? 12;
     const pMinute = postDate.minute ?? 0;
-
     const postTotalMinutes = 
         (pYear * minutesPerYear) +
         (pMonth * minutesPerMonth) +
         (pDay * minutesPerDay) +
         (pHour * minutesPerHour) +
         pMinute;
-
     const diffMinutes = currentTotalMinutes - postTotalMinutes;
-
     if (diffMinutes < 2) return "Just Now";
     if (diffMinutes < 60) return `${diffMinutes} minutes ago`;
-    
     const diffHours = Math.floor(diffMinutes / 60);
     if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-
     const diffDays = Math.floor(diffMinutes / 1440);
     if (diffDays === 1) return "Yesterday";
     if (diffDays < 30) return `${diffDays} days ago`;
-
-    // If older than a month, show the date
     const monthName = CALENDAR_DATA.months.values[pMonth].name;
     return `${monthName} ${pDay}, ${pYear}`;
+}
+
+// --- WEATHER GENERATION ---
+function getSeededRandom(seed) {
+    let t = seed += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+}
+
+export function generateWeatherForDay(year, monthIndex, day) {
+    const season = CALENDAR_DATA.seasons.values.find(s => {
+        const startMonth = s.monthStart - 1;
+        const endMonth = s.monthEnd - 1;
+        if (startMonth <= endMonth) return monthIndex >= startMonth && monthIndex <= endMonth;
+        else return monthIndex >= startMonth || monthIndex <= endMonth;
+    });
+
+    const seed = year * 10000 + (monthIndex + 1) * 100 + day;
+    const rand = getSeededRandom(seed);
+    const tempRand = getSeededRandom(seed + 1);
+    
+    if (getSeededRandom(seed + 2) < 0.08 && MAGICAL_WEATHER_EVENTS.length > 0) {
+        const magicalIndex = Math.floor(getSeededRandom(seed + 3) * MAGICAL_WEATHER_EVENTS.length);
+        const magicalEvent = MAGICAL_WEATHER_EVENTS[magicalIndex];
+        return { temp: `??°C`, icon: magicalEvent.icon, desc: magicalEvent.name, isMagical: true };
+    }
+
+    let baseTemp, tempVariation, weatherOptions;
+    switch (season.name) {
+        case 'Golden Summer': baseTemp = 24; tempVariation = 10; weatherOptions = [{ icon: '☀️', desc: 'Clear and Sunny', chance: 0.6 }, { icon: '🌤️', desc: 'Partly Cloudy', chance: 0.2 }, { icon: '☁️', desc: 'Overcast', chance: 0.1 }, { icon: '🌦️', desc: 'Scattered Showers', chance: 0.07 }, { icon: '⛈️', desc: 'Afternoon Thunderstorm', chance: 0.03 }]; break;
+        case 'Hoarfrost Winter': baseTemp = -5; tempVariation = 8; weatherOptions = [{ icon: '❄️', desc: 'Light Snowfall', chance: 0.4 }, { icon: '🥶', desc: 'Bitterly Cold', chance: 0.3 }, { icon: '☁️', desc: 'Grey and Overcast', chance: 0.2 }, { icon: '☀️', desc: 'Crisp and Clear', chance: 0.1 }]; break;
+        default: baseTemp = 12; tempVariation = 12; weatherOptions = [{ icon: '🌤️', desc: 'Mild and Pleasant', chance: 0.4 }, { icon: '☁️', desc: 'Cloudy Skies', chance: 0.25 }, { icon: '🌦️', desc: 'Light Showers', chance: 0.2 }, { icon: '💨', desc: 'Windy', chance: 0.15 }]; break;
+    }
+
+    const temperature = Math.floor(baseTemp + (tempRand * tempVariation) - (tempVariation / 2));
+    let cumulativeChance = 0;
+    const chosenWeather = weatherOptions.find(w => { cumulativeChance += w.chance; return rand <= cumulativeChance; }) || weatherOptions[0];
+    return { temp: `${temperature}°C`, ...chosenWeather };
 }

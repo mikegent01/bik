@@ -16,6 +16,69 @@
     gap: 16px;
     text-align: center;
 }
+/* ... existing styles ... */
+
+.scrying-orb {
+    /* Base styles */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    position: relative;
+    overflow: hidden;
+    /* Use variable from JS for cycle color */
+    box-shadow: 0 0 20px var(--cycle-color, var(--accent-color)), inset 0 0 15px rgba(255,255,255,0.2);
+}
+
+.scrying-orb::before {
+    /* Cloud texture */
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4xNSIvPjwvc3ZnPg==');
+    opacity: 0.5;
+    /* Tint the internal clouds with the cycle color */
+    background-color: var(--cycle-color, transparent);
+    mix-blend-mode: overlay;
+}
+
+/* Dynamic Weather States */
+.orb-calm::before {
+    animation: move-mist 20s infinite linear;
+}
+
+.orb-neutral::before {
+    animation: move-mist 10s infinite linear;
+}
+
+.orb-storm {
+    animation: orb-shake 0.2s infinite;
+    border-color: #fff;
+    box-shadow: 0 0 40px var(--cycle-color), 0 0 10px #fff;
+}
+.orb-storm::before {
+    animation: move-mist 2s infinite linear;
+    opacity: 0.8;
+}
+
+@keyframes move-mist {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(20px, 10px) rotate(360deg); }
+}
+
+@keyframes orb-shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
 .scrying-orb {
     width: 150px;
     height: 150px;

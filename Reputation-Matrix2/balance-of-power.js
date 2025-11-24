@@ -88,7 +88,8 @@ export const BOP_STATE = {
 };
 
 function renderMushroomKingdom() {
-    const data = BOP_STATE.mushroom_kingdom;
+    // Use the dynamic calculation instead of static state
+    const data = calculateCivilWarState(); 
     const totalInfluence = Object.values(data.influence).reduce((a, b) => a + b, 0);
 
     const influenceColors = {
@@ -107,7 +108,9 @@ function renderMushroomKingdom() {
         <div class="influence-bar-segment" style="width: ${data.influence.criminals / totalInfluence * 100}%; background-color: ${influenceColors.criminals};" title="Criminal Underworld Influence">Criminals</div>
     `;
 
-    const getPlansHTML = (leaderKey) => {
+    // ... (rest of render function remains same, just ensuring it uses 'data' which is now dynamic) ...
+    // ...
+    const getPlansHTML = (leaderKey) => { //... logic ... 
         return data.plans[leaderKey].map(plan => {
             const active = data.active_plans.find(p => p.planId === plan.id);
             return `
@@ -120,16 +123,17 @@ function renderMushroomKingdom() {
             `;
         }).join('');
     };
-    
+
     return `
         <div class="bop-system">
             <h4>${data.title}</h4>
             <p class="bop-description">${data.description}</p>
             <div class="civil-war-meter">
-                <h5>Current Influence</h5>
+                <h5>Current Influence (Dynamic Estimate)</h5>
                 <div class="influence-bar-container">${influenceBarHTML}</div>
             </div>
             <div class="bop-plans-section">
+                <!-- ... Leader plans HTML ... -->
                 <h5>Leader Agendas</h5>
                 <div class="leader-plans-grid">
                     <div class="leader-plans-block">
@@ -251,6 +255,40 @@ function setupEventListeners() {
     });
 }
 
+function calculateCivilWarState() {
+    const baseInfluence = { regency: 35, loyalists: 20, warlords: 15, criminals: 15, fawful: 15 };
+    const currentDay = getAbsoluteDay();
+    
+    // 1. Time Drift (Sine wave to simulate ebb and flow)
+    // Oscillates +/- 3% over a 20-day period
+    const drift = Math.sin(currentDay * 0.3) * 3;
+    
+    let dynInfluence = { ...baseInfluence };
+    dynInfluence.regency += drift;
+    dynInfluence.loyalists -= drift; // Loyalists gain when Regency loses
+    
+    // 2. Event Impact from Timeline
+    HISTORICAL_TIMELINE.forEach(event => {
+        // Simple keyword scanning for impact
+        if (event.category === "Military" || event.category === "Political") {
+            const desc = event.description.toLowerCase();
+            if (desc.includes('regency') && desc.includes('collapse')) dynInfluence.regency -= 10;
+            if (desc.includes('loyalist') && desc.includes('victory')) dynInfluence.loyalists += 5;
+            if (desc.includes('fawful') && desc.includes('seizure')) dynInfluence.fawful += 8;
+            if (desc.includes('koopa') && desc.includes('return')) dynInfluence.warlords += 5;
+        }
+    });
+
+    // Normalize to ensure no negative values
+    for (let key in dynInfluence) {
+        if (dynInfluence[key] < 5) dynInfluence[key] = 5;
+    }
+
+    return {
+        ...BOP_STATE.mushroom_kingdom,
+        influence: dynInfluence
+    };
+}
 
 export function init() {
     const container = document.getElementById('bop-container');

@@ -314,6 +314,7 @@ function getEventsForDay(year, monthIndex, day) {
             if (obs) events.push({ type: 'ritual', name: `${denom.name} Liturgy`, description: obs.text, religion: denom.name });
         }
     }
+    events.push(...getPlagueEventsForDay(year, monthIndex, day));
 
     return events;
 }
@@ -602,7 +603,26 @@ function setupListeners() {
     });
     setupSearchListener();
 }
-
+function getPlagueEventsForDay(year, monthIndex, day) {
+    const events = [];
+    const season = getSeason(monthIndex);
+    
+    PLAGUE_DATA.forEach(plague => {
+        if (plague.active_seasons.includes(season.name) || plague.active_seasons.includes("All")) {
+            // Simplified check: assume plagues are active randomly within their season
+            const seed = year * 10000 + (monthIndex + 1) * 100 + day + plague.name.length;
+            if (getSeededRandom(seed) < 0.05) { // 5% chance per day in season
+                 events.push({
+                    type: 'plague_outbreak',
+                    name: `Outbreak: ${plague.name}`,
+                    description: `Reports of ${plague.name} in ${plague.region}.`,
+                    icon: plague.icon
+                });
+            }
+        }
+    });
+    return events;
+}
 function init() {
     calculateAllResearchCompletionDates();
     setupListeners();
