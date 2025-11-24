@@ -279,8 +279,9 @@ export const TOADS_QUESTS = {
             { id: 'step2', title: "The Betrayal", status: 'completed', description: "The discovery of an Iron Legion mole after the Shadeward Mansion trap broke the fragile peace." },
             { id: 'step3', title: "The Pond Patrol Deploys", status: 'completed', description: "The First Cohort voted to deploy the 'Pond Patrol' to apprehend the party members involved in the Greenhouse Inferno, creating a deep schism." },
             { id: 'step4', title: "The Siege & Surrender", status: 'completed', description: "The Pond Patrol, led by Speaker L, breached the manor and cornered Archie's group. After a tense standoff involving the murder of a witness and a failed healing spell, Archie Miser surrendered and was taken into Cohort custody." },
-            { id: 'step5', title: "The Siege & Surrender", status: 'completed', description: "The Pond Patrol, led by Speaker L, breached the manor and cornered Archie's group. After a tense standoff, Archie Miser surrendered and was taken into Cohort custody." },
-            { id: 'step6', title: "The Great Escape", status: 'active', description: "Archie has escaped Cohort custody with the aid of another traitor, 'Jerry,' who has been revealed as an Iron Legion spy. Speaker L has lost control, and the Cohort's containment has failed. They are now in a desperate, chaotic manhunt for both Archie and the new traitor within the haunted, hostile manor." }
+            { id: 'step5', title: "The Siege Within", status: 'completed', description: "The Pond Patrol, led by Speaker L, breached the manor and successfully apprehended Archie Miser after a tense standoff." },
+            { id: 'step6', title: "The Hungry House", status: 'completed', description: "As Archie was being captured, a monstrous 'Mirror-Thing' emerged, plunging the infirmary into chaos." },
+            { id: 'step7', title: "The Wraiths of Raventree", status: 'active', description: "The rest of the Cohort, alongside Markop, was ambushed by two powerful Arcane Wraiths. They suffered casualties but managed to repel the attack. Now, with Archie a prisoner and the house actively hostile, the divided Cohort must decide whether to continue their internal conflict or unite against the true enemy." }
              ]
     },
 };

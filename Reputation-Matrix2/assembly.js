@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -10,6 +11,7 @@ import { NPC_RESPONSES } from './npc-responses.js';
 import { GUILD_DATA, CHARTER_DATA } from './guilds-data.js';
 import { CHARACTER_MECHANICS } from './character-special-systems.js';
 import { renderIntelAndRumors } from './assembly-intel-system.js';
+import { calculateRumorMetrics } from './research-data.js'; 
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
 const contentContainer = document.getElementById('wahbook-content');
@@ -33,17 +35,15 @@ let activeGroupFilter = 'all';
 let WAHBOOK_POSTS = [];
 let WAHBOOK_EVENTS = [];
 
-// In assembly.js, find and replace the loadDynamicData function
-
 async function loadDynamicData() {
     const dataModule = await import('./assembly-data.js');
     WAHBOOK_POSTS = dataModule.WAHBOOK_POSTS;
     
-    // This part is simplified, its main job is to get any extra posts
     const eventsModule = await import('./assembly-events-data.js');
     const eventPosts = await eventsModule.loadEventPosts();
     WAHBOOK_POSTS.push(...eventPosts);
 }
+
 function formatCharacterKey(key) {
     if (!key) return '';
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -95,13 +95,11 @@ function renderFeedPost(post, options = {}) {
 
     const imageHTML = post.image ? `<img src="${post.image}" alt="${post.image_alt}" class="post-image">` : '';
     
-    // Logic for local video embeds
     let videoHTML = '';
     if (post.videoSrc) {
         videoHTML = `<div class="post-video-container"><video src="${post.videoSrc}" controls autoplay muted loop playsinline></video></div>`;
     }
 
-    // --- NEW: LOGIC FOR AUDIO EMBEDS ---
     let audioHTML = '';
     if (post.audioSrc) {
         audioHTML = `
@@ -110,7 +108,6 @@ function renderFeedPost(post, options = {}) {
             </div>
         `;
     }
-    // --- END OF NEW LOGIC ---
 
     const trendingBadgeHTML = options.showTrendingScore ? `<div class="trending-badge" title="Trending Score: ${options.trendingScore}">🔥</div>` : '';
     const loggedInUser = state.loggedInUser !== 'generic' ? getCharacterData(state.loggedInUser) : null;
@@ -146,35 +143,70 @@ function renderCreatePostBox() {
     return `<div class="create-post-container"><div class="create-post-header"><img src="${user.portrait}" alt="Your profile picture" class="create-post-pfp"><button class="create-post-input">What's on your mind, ${user.name.split(' ')[0]}?</button></div></div>`;
 }
 
-// THIS IS THE CORRECTED FUNCTION
-function renderChaosAgentWidget() {
-    const characterKey = 'archie';
-    // Access the data through the imported CHARACTER_MECHANICS object
-    const specialMechanic = CHARACTER_MECHANICS[characterKey]; 
-    if (!specialMechanic) return '';
+// Updated Sidebar Widget: Network Trends
+function renderTrendingRumorsWidget() {
+    const rumors = LORE_DATA.rumors || [];
+    const trendingList = [];
+    const decayingList = [];
 
-    const levelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level) || specialMechanic.levels[0];
-    const nextLevelInfo = specialMechanic.levels.find(l => l.level === specialMechanic.current_level + 1);
-    const infamyPercentage = nextLevelInfo ? Math.min(100, (specialMechanic.current_infamy / nextLevelInfo.infamy_threshold) * 100) : 100;
+    rumors.forEach(rumor => {
+        const chatterCount = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id).length;
+        const metrics = calculateRumorMetrics(rumor, chatterCount);
+        
+        const item = { ...rumor, metrics, count: chatterCount };
+        
+        // Logic to split them
+        // If hype is high and decay is low -> Trending
+        // If decay is high -> Decaying (even if posts are present)
+        if (metrics.hypeFactor >= 1.5 && metrics.decayFactor < 2.0) {
+            trendingList.push(item);
+        } else if (metrics.decayFactor >= 2.0 || metrics.status === 'Fading' || metrics.status === 'Old News') {
+            // Only show decaying if it still has some impact
+            if (Math.abs(metrics.finalScore) > 0.05) {
+                decayingList.push(item);
+            }
+        }
+    });
 
-    const infamyLogHTML = specialMechanic.log.slice().reverse().map(entry => 
-        `<li>+${entry.infamy} Infamy: <em>${entry.reason}</em></li>`
-    ).join('');
+    // Sort lists
+    trendingList.sort((a, b) => b.metrics.finalScore - a.metrics.finalScore);
+    decayingList.sort((a, b) => b.metrics.daysPassed - a.metrics.daysPassed); // Oldest first for decaying list? Or highest decay factor
+
+    const renderList = (items, emptyMsg) => {
+        if (items.length === 0) return `<li style="font-style:italic; color:var(--text-secondary); padding:8px;">${emptyMsg}</li>`;
+        return items.slice(0, 3).map(r => `
+            <li class="trending-rumor-item">
+                <div class="rumor-header">
+                    <div class="rumor-name" title="${r.title}">${r.title}</div>
+                    <span class="rumor-badge ${r.metrics.status.toLowerCase().replace(' ','-')}">${r.metrics.status}</span>
+                </div>
+                <div class="rumor-metrics">
+                    <span>Posts: ${r.count}</span>
+                    <span class="${r.metrics.finalScore > 0 ? 'metric-up' : 'metric-down'}">Imp: ${r.metrics.finalScore.toFixed(1)}</span>
+                </div>
+            </li>
+        `).join('');
+    };
 
     return `
-        <div class="profile-sidebar-widget special-mechanic-widget">
-            <h4>${specialMechanic.icon} ${specialMechanic.title}</h4>
-            <h5 class="mechanic-subtitle">Operator: Archie Miser</h5>
-            <div class="infamy-meter" title="${specialMechanic.current_infamy} / ${nextLevelInfo ? nextLevelInfo.infamy_threshold : 'MAX'} Infamy">
-                <div class="infamy-bar" style="width: ${infamyPercentage}%;"></div>
-                <span class="infamy-text">${specialMechanic.current_infamy} Infamy</span>
+        <div class="profile-sidebar-widget">
+            <h4>Network Trends</h4>
+            
+            <div style="margin-bottom: 16px;">
+                <h6 style="color: var(--positive-color); font-size: 0.8rem; margin-bottom: 8px;">🔥 VIRAL TARGETS</h6>
+                <ul class="trending-rumor-list">
+                    ${renderList(trendingList, "No viral topics currently.")}
+                </ul>
             </div>
-            <p class="infamy-level-title">${levelInfo.name}</p>
-            <p class="mechanic-description">${specialMechanic.description}</p>
-            <details class="infamy-log-details">
-                <summary>Infamy Log</summary>
-                <ul>${infamyLogHTML}</ul>
-            </details>
+
+            <div>
+                <h6 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 8px;">📉 FADING SIGNALS</h6>
+                <ul class="trending-rumor-list">
+                    ${renderList(decayingList, "No fading signals detected.")}
+                </ul>
+            </div>
+
+            <a href="assembly.html#intel" class="intel-link-btn" style="margin-top:16px; font-size:0.8rem; width:100%;">View Full Intel Report</a>
         </div>
     `;
 }
@@ -183,11 +215,13 @@ function renderMainFeed() {
     if (!feedContainer) return;
     const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => (b.order || 0) - (a.order || 0));
     const postsHTML = renderCreatePostBox() + sortedPosts.map(p => renderFeedPost(p)).join('');
-    feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderChaosAgentWidget()}</aside></div>`;
+    
+    feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderTrendingRumorsWidget()}</aside></div>`;
 }
 
+// ... (Rest of the file functions: renderEvent, renderEventsFeed, openDossierModal, renderFollowedFeed, renderTrendingFeed, renderGroupsFeed, handleShare, scrollToPostFromHash, getPostTone, generateSpecialKeywords, findNpcResponse, triggerNpcInteraction, handleNewPost, handleNewReply, showWaluigiWarning, setupEventListeners, updateSeenPosts, simulateLikes) remain identical.
+
 function renderEvent(rumor) {
-    // Dynamically build the attendees list from the rumor's 'targets'
     const allTargets = new Set();
     (rumor.targets || []).forEach(t => {
         if (t === 'party') { state.party.forEach(p => allTargets.add(p)); } 
@@ -196,7 +230,6 @@ function renderEvent(rumor) {
 
     const attendeesHTML = Array.from(allTargets).map(targetKey => {
         const character = getCharacterData(targetKey);
-        // We don't have justifications here, but we can add them to the rumor data if needed.
         return `
             <div class="attendee-card">
                 <img src="${character.portrait}" alt="${character.name}" class="attendee-pfp">
@@ -207,7 +240,6 @@ function renderEvent(rumor) {
         `;
     }).join('');
 
-    // Dynamically find all posts related to this event via rumorId
     const allPostsForEvent = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
     const newsPosts = allPostsForEvent.filter(p => p.characterKey === 'wah_media_collective');
     const regularPosts = allPostsForEvent.filter(p => p.characterKey !== 'wah_media_collective');
@@ -239,16 +271,12 @@ function renderEvent(rumor) {
     `;
 }
 
-
-
 function renderEventsFeed() {
     const container = document.getElementById('events-feed-container');
     if (!container) return;
 
-    // The new source of truth: filter rumors that are marked as events.
     const eventsToRender = LORE_DATA.rumors.filter(rumor => rumor.isEvent);
     
-    // Sort by date object if it exists
     eventsToRender.sort((a, b) => {
         const dateA = a.date ? new Date(a.date.year, a.date.monthIndex, a.date.day) : 0;
         const dateB = b.date ? new Date(b.date.year, b.date.monthIndex, b.date.day) : 0;
@@ -257,8 +285,6 @@ function renderEventsFeed() {
 
     container.innerHTML = eventsToRender.map(renderEvent).join('');
 }
-
-
 
 function openDossierModal(rumorId) {
     const rumor = LORE_DATA.rumors.find(r => r.id === rumorId);
@@ -662,7 +688,10 @@ async function init() {
     const embedPostId = params.get('embed');
     loadState();
     await loadDynamicData();
-    if (embedPostId) { /* ... embed logic is correct ... */ return; }
+    if (embedPostId) { 
+        // Embed rendering (simplified for this context)
+        return; 
+    }
     if (!feedContainer) return;
     if (state.loggedInUser === 'archie' && !state.userState.waluigiWarningShown) {
         setTimeout(() => {

@@ -18,6 +18,7 @@ let activeCategory = RESEARCH_CATEGORIES[0];
 let currentView = 'tree'; 
 let currentZoom = 1.0; 
 let globalCycleState = null; // Holds the calculated dynamic cycle
+let showAllFactors = false; // Toggle for showing all driving factors
 
 // DOM Elements
 const nationListEl = document.getElementById('nation-list');
@@ -347,14 +348,9 @@ function drawDynasticWheel(momentum) {
     });
     
     // Draw Needle dynamically pointing to the ACTIVE PHASE
-    // 1. Find index of current active phase
     const activePhaseId = globalCycleState.phase.id;
     const activeIndex = phases.findIndex(p => p.id === activePhaseId);
     
-    // 2. Calculate angle to center of that slice
-    // Add needle movement based on momentum within the slice (clamped -0.5 to 0.5 of arc size)
-    // However, globalCycleState.momentum is total, not relative to phase.
-    // Simplified: Just point to center of active phase.
     const needleAngle = (activeIndex * arcSize) + rotationOffset + (arcSize / 2);
 
     // Needle
@@ -392,6 +388,7 @@ function renderDynasticCycleView() {
     const nationAge = getActiveAge(activeNation);
     const currentPhase = globalCycleState.phase;
     const momentum = globalCycleState.momentum;
+    const factors = globalCycleState.factors;
     
     document.getElementById('cycle-current-age').textContent = nationAge.name;
     document.getElementById('cycle-age-desc').textContent = `Tech Level: ${nationAge.description}`;
@@ -419,17 +416,42 @@ function renderDynasticCycleView() {
         effectHTML = `<div class="active-age-effect-card" style="border-style:dashed; text-align:center; color:var(--text-secondary);">No specialized doctrine selected for this era.</div>`;
     }
 
-    // Render Driving Factors with new styles and data
-    const factorsHTML = globalCycleState.factors.length > 0 
-        ? `<div class="driving-factors-list">
-            <h6>Driving Factors:</h6>
-            ${globalCycleState.factors.map(f => `
-                <div class="factor-item type-${f.type}">
+    // Render Driving Factors with details and "Show More" logic
+    let factorsHTML = '';
+    if (factors.length > 0) {
+        factorsHTML += `<div class="driving-factors-list"><h6>Driving Factors:</h6>`;
+        
+        // Render top 5
+        const topFactors = factors.slice(0, 5);
+        factorsHTML += topFactors.map(f => `
+            <div class="factor-item type-${f.type}">
+                <div style="flex-grow:1;">
                     <span class="factor-name">${f.name}</span>
-                    <span class="factor-label">${f.label}</span>
-                </div>`).join('')}
-           </div>`
-        : `<p class="small">No major rumors influencing the cycle.</p>`;
+                    <span class="factor-push">→ Pushes to ${f.pushTarget}</span>
+                </div>
+                <span class="factor-label">${f.label} (${f.impact > 0 ? '+' : ''}${f.impact.toFixed(1)})</span>
+            </div>`).join('');
+
+        // Render hidden factors if any exist
+        if (factors.length > 5) {
+            const hiddenFactors = factors.slice(5);
+            factorsHTML += `<div id="hidden-factors" class="${showAllFactors ? '' : 'hidden'}">
+                ${hiddenFactors.map(f => `
+                    <div class="factor-item type-${f.type}">
+                        <div style="flex-grow:1;">
+                            <span class="factor-name">${f.name}</span>
+                            <span class="factor-push">→ Pushes to ${f.pushTarget}</span>
+                        </div>
+                        <span class="factor-label">${f.label} (${f.impact > 0 ? '+' : ''}${f.impact.toFixed(1)})</span>
+                    </div>`).join('')}
+            </div>
+            <button id="toggle-factors-btn" class="control-btn small" style="width:100%; margin-top:5px;">${showAllFactors ? 'Show Less' : `Show ${hiddenFactors.length} More`}</button>`;
+        }
+        
+        factorsHTML += `</div>`;
+    } else {
+        factorsHTML = `<p class="small">No major rumors influencing the cycle.</p>`;
+    }
 
     const statsDiv = document.getElementById('cycle-stats');
     const scoreColor = momentum > 0 ? '#f85149' : '#3fb950'; // Red for tension, Green for calm
@@ -446,7 +468,7 @@ function renderDynasticCycleView() {
              </div>
             <div style="text-align:center; background:var(--main-bg); padding:10px; border-radius:8px; border:2px solid ${scoreColor}; min-width: 90px; box-shadow: 0 0 10px ${scoreColor}40;">
                 <span style="font-size:1.6rem; font-weight:bold; color:${scoreColor}; display:block;">${momentum.toFixed(2)}</span>
-                <span style="display:block; font-size:0.65rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px;">Global Tension</span>
+                <span style="display:block; font-size:0.65rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px;">Net Momentum</span>
             </div>
         </div>
 
@@ -455,6 +477,16 @@ function renderDynasticCycleView() {
         </div>
         ${effectHTML}
     `;
+
+    // Add event listener for the button if it exists
+    const toggleBtn = document.getElementById('toggle-factors-btn');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            showAllFactors = !showAllFactors;
+            renderDynasticCycleView(); // Re-render to update state
+            playSound('click.mp3');
+        });
+    }
 
     drawDynasticWheel(momentum);
 

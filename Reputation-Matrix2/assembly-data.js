@@ -4,6 +4,398 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     ...VIRAL_POSTS,
+ {
+        id: 'archie_on_a_horse',
+        order: 30735,
+        characterKey: 'archie',
+        timestamp: 'Just Now',
+        content: `So, I'm tied to a horse. This is an improvement over the cage, I guess. At least the view is better. 2/10, would not recommend getting arrested by a marching band.`,
+        likes: 1988,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Show some respect for your captors, Miser.' },
+            { characterKey: 'waluigi', text: 'WAH! You should have demanded a fancier horse! One with sequins!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'markop_aftermath_wraiths',
+        order: 30734,
+        characterKey: 'markop',
+        timestamp: '1 minute ago',
+        content: `He was one of them. Archie saved them. All of them. He freed them. And this is how they repay him. They march him away in chains. "No Cohort left behind," they say, as they abandon their liberator. There is no honor in this.`,
+        likes: 1250,
+        comments: [
+            { characterKey: 'dan', text: 'This is wrong... all of it is wrong.' },
+            { characterKey: 'toad_lee', text: 'I am on my way, Markop. We will sort this out. This is not the Vow.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'oracle_applauds_battle',
+        order: 30733,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '2 minutes ago',
+        content: `Marvelous work. The ghosts are dispelled. The mansion is clear. For now.`,
+        likes: 1313,
+        comments: [
+            { characterKey: 'markop', text: 'A toad is dead. My sword is broken. This was not "marvelous work."' },
+            { characterKey: 'kamek', text: 'You have a curious definition of "clear," Oracle.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'cohort_no_left_behind',
+        order: 30732,
+        characterKey: 'first_cohort_member',
+        timestamp: '4 minutes ago',
+        content: `We lost a brother today. But we completed the mission. Archie Miser is in custody. No toad left behind. No Cohort ever left behind. We stand together.`,
+        likes: 560,
+        comments: [
+            { characterKey: 'markop', text: 'You left your liberator behind.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'cohort_reports_archie_capture',
+        order: 30731,
+        characterKey: 'first_cohort_member',
+        timestamp: '5 minutes ago',
+        content: `We got him! We got Archie! Speaker L has him tied to one of the horses! Justice is coming!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Secure the prisoner. Maintain formation.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'markop_wraith_victory',
+        order: 30730,
+        characterKey: 'markop',
+        timestamp: '6 minutes ago',
+        content: `One is destroyed. The other has fled into the walls. The immediate threat is over. Tending to the wounded.`,
+        likes: 780,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'A righteous victory against the undead! The Flame applauds your conviction, even if your allies are questionable.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'markop_sword_shatters',
+        order: 30729,
+        characterKey: 'markop',
+        timestamp: '8 minutes ago',
+        content: `My blade is broken. Shattered against the wraith's form. But the fight is not over.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'hjumpik', text: 'Use your fists, horse-man! They are not broken!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'rodger_press_the_attack',
+        order: 30728,
+        characterKey: 'roger',
+        timestamp: '9 minutes ago',
+        content: `WE HAVE LOST A MAN! PRESS THE ATTACK! CONCENTRATE FIRE ON THE NEAREST TARGET! DO NOT LET HIS DEATH BE IN VAIN!`,
+        likes: 512,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Hold your line, Roger! Do not break formation!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'cohort_toad_dies',
+        order: 30727,
+        characterKey: 'first_cohort_member',
+        timestamp: '10 minutes ago',
+        content: `They got Pip! The ghost... it just... crushed him! Medic! MEDIC!`,
+        likes: 350,
+        comments: [
+            { characterKey: 'dewdrop', text: 'I... I cannot reach you. Hold on!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'waluigi_sees_eager',
+        order: 30726,
+        characterKey: 'waluigi',
+        timestamp: '12 minutes ago',
+        content: `WAH! I just saw the little fast toad... he's a balloon! I'm carrying him by his ankle! He looks ridiculous! This house is magnificent!`,
+        likes: 930,
+        comments: [
+            { characterKey: 'eager', text: '(muffled sounds of terrified floating)' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'remi_alchemy_brew',
+        order: 30725,
+        characterKey: 'remi',
+        timestamp: '14 minutes ago',
+        content: `Kitchen experiments coming in handy. This one smells like spicy teal. And explosions.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Spicy teal fumes? What are the alchemical components?! I must know!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'rodger_takes_command',
+        order: 30724,
+        characterKey: 'roger',
+        timestamp: '15 minutes ago',
+        content: `FRONT LINE! HOLD! RANGED BEHIND! MOVE, COHORT! WE HAVE TACTICAL SUPERIORITY! USE IT!`,
+        likes: 590,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Finally. A soldier who understands basic formations.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'rounders_reinforcements',
+        order: 30723,
+        characterKey: 'rounders',
+        timestamp: '16 minutes ago',
+        content: `I BROUGHT REINFORCEMENTS! TWO GIANTS! LET'S SMASH 'EM!`,
+        likes: 622,
+        comments: [
+            { characterKey: 'hjumpik', text: 'GWAHAHA! NOW THIS IS A PROPER FIGHT!' },
+            { characterKey: 'bowser', text: 'About time we got some real muscle in here!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'markop_wraith_attack',
+        order: 30722,
+        characterKey: 'markop',
+        timestamp: '18 minutes ago',
+        content: `Wraiths! In the parlor! To formation! Archers forward! HOLD THE LINE!`,
+        likes: 670,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'Cleanse the abominations in holy fire!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'toad_panic_wraiths',
+        order: 30721,
+        characterKey: 'first_cohort_member',
+        timestamp: '19 minutes ago',
+        content: `THE DOOR BROKE! THEY'RE COMING THROUGH THE WALLS! THEY'RE MADE OF SHADOW AND HATE!`,
+        likes: 310,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'fawful_on_parade',
+        order: 30720,
+        characterKey: 'fawful',
+        timestamp: '20 minutes ago',
+        content: `A PARADE! The fools are having a parade in a house of haunting! It is a beautiful prelude to their symphony of doom! I HAVE FURY AND POPCORN!`,
+        likes: 799,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'remi_parade_comment',
+        order: 30719,
+        characterKey: 'remi',
+        timestamp: '22 minutes ago',
+        content: `This situation calls for a parade.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'markop', text: '...No. No, it absolutely does not.' },
+            { characterKey: 'first_cohort_member', text: 'A PARADE FOR JUSTICE! YES! SEE? SHE GETS IT!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'markop_frustration_cohort',
+        order: 30718,
+        characterKey: 'markop',
+        timestamp: '25 minutes ago',
+        content: `You don't have legal authority. None of you. You are a mob, not a court. And you are walking into a trap.`,
+        likes: 530,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Our authority comes from the Vow you witnessed, Paladin.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'cohort_righteous',
+        order: 30717,
+        characterKey: 'first_cohort_member',
+        timestamp: '30 minutes ago',
+        content: `We're not reckless! We're righteous! Speaker L has given us our mandate! We are the law now!`,
+        likes: 290,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'toad_lee_hears_chaos',
+        order: 30716,
+        characterKey: 'toad_lee',
+        timestamp: '35 minutes ago',
+        content: `I hear shouting. A horn. Explosions. What is happening in the east wing? Markop, report!`,
+        likes: 480,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'broker_wraith_market',
+        order: 30715,
+        characterKey: 'the_broker',
+        timestamp: '40 minutes ago',
+        content: `Market Alert: Arcane Wraith manifestation confirmed at Raventree Manor. Ectoplasmic residue and soul-shards are now high-value commodities. Placing a bounty for a contained specimen. High risk, extreme payout.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'I\'LL TAKE IT!' },
+            { characterKey: 'archmage_theron', text: 'JANNA, NO!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'kamek_observes_wraiths',
+        order: 30714,
+        characterKey: 'kamek',
+        timestamp: '45 minutes ago',
+        content: `The manor's defenses are active. True wraiths. Not mere spirits. The Oracle is playing a far more dangerous game than I anticipated. This bears closer observation.`,
+        likes: 510,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'archie_hears_battle',
+        order: 30713,
+        characterKey: 'archie',
+        timestamp: '50 minutes ago',
+        content: `Sounds like the other kids are having fun. Hope they leave some for me.`,
+        likes: 1300,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'bowser_hears_battle',
+        order: 30712,
+        characterKey: 'bowser',
+        timestamp: '55 minutes ago',
+        content: `What's all that racket? It sounds like a real fight! Am I missing a real fight?!`,
+        likes: 740,
+        comments: [
+            { characterKey: 'hjumpik', text: 'SOUNDS LIKE SMASHING! I want to go to there!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'green_t_hears_battle',
+        order: 30711,
+        characterKey: 'green_t',
+        timestamp: '1 hour ago',
+        content: `Sounds like the Cohort found something nasty. My plan to get the key from the paladin may have just gotten a lot more complicated. Or a lot easier.`,
+        likes: 490,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'dan_hears_battle',
+        order: 30710,
+        characterKey: 'dan',
+        timestamp: '1 hour ago',
+        content: `More shouting... explosions... Is Markop okay? Are the others okay?`,
+        likes: 415,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'ryan_senses_wraiths',
+        order: 30709,
+        characterKey: 'ryan',
+        timestamp: '1 hour ago',
+        content: `A sudden surge of necrotic and arcane energy from the east wing. This isn't the Oracle's temporal magic. This is something else. Something hungry.`,
+        likes: 488,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'remi_hears_battle',
+        order: 30708,
+        characterKey: 'remi',
+        timestamp: '1 hour ago',
+        content: `I'm still stuck in this maze and now it sounds like a war just broke out back in the house. I'm starting to think this isn't a very safe place.`,
+        likes: 612,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'hjumpik_hears_battle',
+        order: 30707,
+        characterKey: 'hjumpik',
+        timestamp: '1 hour ago',
+        content: `HEAR THAT? THAT IS THE SOUND OF A GOOD FIGHT! I am stuck in a hallway made of mirrors! This is not fair!`,
+        likes: 675,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'bones_hears_battle',
+        order: 30706,
+        characterKey: 'bones',
+        timestamp: '1 hour ago',
+        content: `The little soldiers finally bit off more than they could chew, huh? Sounds like the house is biting back. Can't say I'm surprised.`,
+        likes: 521,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'speaker_l_hears_battle',
+        order: 30705,
+        characterKey: 'speaker_l',
+        timestamp: '1 hour ago',
+        content: `Reports of an engagement in the east wing. Hostiles are not the primary targets. What is happening? All units, maintain containment protocol!`,
+        likes: 615,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'the_mole_hears_battle',
+        order: 30704,
+        characterKey: 'the_mole',
+        timestamp: '1 hour ago',
+        content: `Unscheduled hostile contact in the east wing. Not our target. This complicates the apprehension.`,
+        likes: 499,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'jerry_the_spy_hears_battle',
+        order: 30703,
+        characterKey: 'jerry_the_spy',
+        timestamp: '2 hours ago',
+        content: `Sounds of heavy combat from the manor. Good. The more chaos, the easier my exfiltration.`,
+        likes: 455,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'krool_hears_of_wraiths',
+        order: 30702,
+        characterKey: 'king_k_rool',
+        timestamp: '2 hours ago',
+        content: `My spies report the mushrooms are now fighting ghosts? Keheheh! They can't even handle a simple haunted house! My Kremling Krew would have that place looted and converted into a summer palace in a week!`,
+        likes: 711,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'syrup_hears_of_wraiths',
+        order: 30701,
+        characterKey: 'captain_syrup',
+        timestamp: '2 hours ago',
+        content: `Ghosts, giants, and a singing toad army, all in one place? Sounds like a good party. And where there's a party, there's unguarded valuables.`,
+        likes: 688,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },    
     {
         id: 'iron_legion_vigilance_captured',
         order: 306410,

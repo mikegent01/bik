@@ -2,6 +2,7 @@
 
 
 
+
 /* Layout */
 #calendar-dashboard {
     display: grid;
@@ -185,6 +186,8 @@
 .event-dot.ritual { background-color: var(--mystical-ancient-color); }
 .event-dot.tech { background-color: #00bfff; }
 .event-dot.history { background-color: #ff9800; border: 1px solid #fff; }
+.event-dot.battle { background-color: #b71c1c; border: 1px solid var(--text-color); }
+.event-dot.rumor-start { background-color: #e91e63; }
 
 /* Sidebar */
 #calendar-sidebar {
@@ -241,6 +244,7 @@
     padding: 10px;
     color: var(--text-color);
     font-family: var(--font-primary);
+    font-size: 1rem;
 }
 #calendar-search-input:focus {
     border-color: var(--accent-color);
@@ -261,6 +265,8 @@
 .detail-item.ritual { border-color: var(--mystical-ancient-color); }
 .detail-item.tech { border-color: #00bfff; }
 .detail-item.history { border-color: #ff9800; }
+.detail-item.battle, .detail-item.battle_ongoing { border-color: #b71c1c; background-color: rgba(183, 28, 28, 0.1); }
+.detail-item.rumor_start { border-color: #e91e63; }
 
 .detail-title {
     font-weight: bold;
@@ -280,6 +286,41 @@
     color: var(--text-secondary);
     font-style: italic;
     line-height: 1.4;
+}
+
+/* Expandable Liturgy */
+details.liturgy-details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--mystical-ancient-color);
+    padding: 8px;
+    background-color: var(--main-bg);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    list-style: none; /* Remove default arrow */
+    position: relative;
+}
+details.liturgy-details summary::after {
+    content: '+'; 
+    position: absolute;
+    right: 10px;
+}
+details.liturgy-details[open] summary::after {
+    content: '-';
+}
+details.liturgy-details ul {
+    list-style: none;
+    padding: 8px;
+    background-color: rgba(0,0,0,0.2);
+    margin-top: 4px;
+    border-radius: 4px;
+}
+details.liturgy-details li {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 4px;
 }
 
 /* Upcoming List */
@@ -336,6 +377,8 @@
 .dot.ritual { background-color: var(--mystical-ancient-color); }
 .dot.tech { background-color: #00bfff; }
 .dot.history { background-color: #ff9800; }
+.dot.battle { background-color: #b71c1c; }
+.dot.rumor-start { background-color: #e91e63; }
 
 /* Placeholder */
 .placeholder-text {
@@ -362,6 +405,35 @@
 .desc-display {
     color: var(--text-secondary);
 }
+
+/* Trending Topics in Sidebar */
+.trending-topics-container {
+    margin-top: 24px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+.trending-topics-container h5 {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+.trending-topic-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--main-bg);
+    padding: 8px;
+    border-radius: 4px;
+    border-left: 2px solid var(--accent-color);
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+.trending-topic-item strong {
+    color: var(--text-color);
+}
+
 
 /* Responsive */
 @media (max-width: 1024px) {

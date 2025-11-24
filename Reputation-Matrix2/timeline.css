@@ -1,4 +1,6 @@
 
+
+
 /* --- Timeline Filter Bar --- */
 #timeline-filter-bar {
     display: flex;
@@ -217,7 +219,7 @@
 .category-mythic .timeline-event::after { border-color: var(--mystical-ancient-color); }
 .category-cataclysm .timeline-event::after { border-color: var(--negative-color); }
 .category-political .timeline-event::after { border-color: var(--major-powers-color); }
-.category-military .timeline-event::after { border-color: var(--regional-powers-color); }
+.category-military .timeline-event::after { border-color: #b71c1c; }
 .category-magic .timeline-event::after { border-color: var(--accent-color); }
 .category-social .timeline-event::after { border-color: var(--positive-color); }
 .category-prophecy .timeline-event::after { border-color: var(--neutral-color); }

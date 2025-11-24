@@ -12,6 +12,21 @@ export const AUXILIARY_PARTY = {
 };
 
 export const RUMORS = [
+{
+    id: 'wraith_conflagration',
+    title: "Conflagration in the Manor",
+    date: { day: 19, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    description: "A chaotic battle erupted within Raventree Manor when First Cohort toads, led by Markop, were ambushed by two powerful Arcane Wraiths. The fight was a desperate struggle involving divine magic, summoned giants, and volatile alchemy. Despite the death of a Cohort member, the combined forces managed to destroy one wraith and repel the other, but the event has left the Cohort shaken and questioning the true nature of the threat they are trying to contain.",
+    targets: ['markop', 'liberated_toads', 'remi'],
+    effects: {
+        liberated_toads: -15, // Loss of life, shattered confidence
+        silver_flame: 10, // For fighting undead
+        mages_guild: 5, // For dealing with a high-level arcane threat
+        cosmic_jesters: 5
+    },
+    cycle_impact: { score: 2.0, label: "Supernatural Incursion", type: "magic" }
+},
     {
         id: 'peach_death_fallout',
         title: "The Princess is Dead",

@@ -3,6 +3,29 @@ import { LORE_DATA } from './lore.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 
 export const MAJOR_BATTLES = [
+    // --- NEW BATTLE ENTRY: Markop & The First Cohort ---
+    {
+        id: 'skirmish_manor_parlor',
+        name: "Markop & The First Cohort",
+        conflict: "Raventree Manor Crisis",
+        date: "Day 19, 1040 BF",
+        location: "Raventree Manor Parlor",
+        belligerents: {
+            side_a: { name: "Markop's Command", factions: ['liberated_toads', 'unaligned'] }, // Markop, Toads, FNG, Rodger, Rounders
+            side_b: { name: "Manor Manifestations", factions: ['unaligned'] } // Wraiths
+        },
+        commanders: { 
+            side_a: ["Markop", "Rodger", "Rounders", "Speaker L (in spirit)"], 
+            side_b: ["The Oracle (Observer)", "Arcane Wraiths"] 
+        },
+        outcome: "<span class='outcome victory'>Tactical Victory</span>; Wraiths repelled, but political schism deepens.",
+        casualties: "1 Toad (Crushed), Markop's Sword (Shattered). Archie Miser surrendered to custody.",
+        description: `
+            <p>A tense standoff over authority between Markop and the zealous First Cohort toads was violently interrupted by the manifestation of two powerful Arcane Wraiths within the manor parlor. The spectral ambush shattered the room's doors and warped the hallway into a necrotic tunnel, forcing the divided toads into a desperate, ad-hoc defense.</p>
+            <p>As Markop rallied the toads and unleashed divine fire, the battle turned chaotic with the sudden arrival of reinforcements. Rounders, blowing a hunting horn, triggered a ceiling collapse that dropped two summoned giants into the fray, while Rodger and FNG deployed alchemical explosives to disrupt the wraiths. Despite the overwhelming force, the wraiths claimed a casualty, crushing one toad before being driven back.</p>
+            <p>The skirmish ended in a pyrrhic victory. While one wraith was destroyed and the other fled, the chaos allowed Speaker L to successfully apprehend Archie Miser. The mysterious Oracle observed the entire encounter with detached amusement before the surviving party members scattered to tend to their wounded.</p>
+        `
+    },
     // --- NEW BATTLE ENTRY ---
     {
         id: 'raid_on_cohort_command',
@@ -73,8 +96,7 @@ export const MAJOR_BATTLES = [
         outcome: "<span class='outcome victory'>Decisive Loyalist Victory</span>; Town captured.",
         casualties: "Heavy on both sides. Multiple Loyalist officers wounded. Fawful's command structure in the area was eliminated.",
         description: `
-            <p>A brutal, day-long assault on the key Fawful stronghold of Bramblehaven. The Peach Loyalists, led by Captain Toadette, leveraged superior numbers and tactical ferocity to overwhelm the entrenched defenders. The battle began with Loyalist forces pinned down by a sniper before Toadette's arrival turned the tide.</p>
-            <p>The conflict was marked by chaotic street-to-street fighting, the use of a summoned bear from a magical artifact, and significant friendly fire from Big R's cannon. The battle culminated in a merciless final charge where surrendering Fawful troops were executed in the town square. The victory secured a vital strategic position for the Loyalists but cemented their reputation as ruthless fanatics.</p>
+            <p>A brutal, day-long assault on the key Fawful stronghold of Bramblehaven. The Peach Loyalists, led by Captain Toadette, leveraged superior numbers and tactical ferocity to overwhelm the entrenched defenders. The battle was marked by chaotic street-to-street fighting, the use of a summoned bear from a magical artifact, and significant friendly fire from Big R's cannon. The battle culminated in a merciless final charge where surrendering Fawful troops were executed in the town square. The victory secured a vital strategic position for the Loyalists but cemented their reputation as ruthless fanatics.</p>
         `
     },
 
