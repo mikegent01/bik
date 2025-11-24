@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,16 +44,14 @@
                             <div class="visualizer-controls" style="flex-wrap: wrap;">
                                 <!-- Day 20 Events -->
                                 <button class="vis-btn active" data-scene="breach">Vigilance: Breach</button>
+                                <button class="vis-btn" data-scene="harbor">Cheep Cheep Harbor</button>
                                 <button class="vis-btn" data-scene="facility">Imperial Prison</button>
                                 <button class="vis-btn" data-scene="rakasha">Rakasha Camp</button>
-                                <button class="vis-btn" data-scene="harbor">Cheep Cheep Harbor</button>
                                 <!-- Previous Locations (Restored) -->
                                 <button class="vis-btn" data-scene="kitchen">Manor: Kitchen</button>
                                 <button class="vis-btn" data-scene="foyer">Manor: Foyer</button>
                                 <button class="vis-btn" data-scene="greenhouse">Manor: Greenhouse</button>
                                 <button class="vis-btn" data-scene="mirror">Mirror Dimension</button>
-                                <button class="vis-btn" data-scene="cockpit">Airship Cockpit</button>
-                                <button class="vis-btn" data-scene="interrogation">Interrogation Room</button>
                             </div>
                         </div>
                         <div id="tactical-visualizer-container">
@@ -123,6 +122,25 @@
             </main>
         </div>
     </div>
+
+    <!-- Terminal Modal -->
+    <div id="terminal-modal" class="modal" style="display:none;">
+        <div class="terminal-content">
+            <div class="terminal-header">
+                <span>TERMINAL ACCESS // <span id="terminal-id">UNKNOWN</span></span>
+                <button id="terminal-close">X</button>
+            </div>
+            <div class="terminal-body">
+                <div id="terminal-text" class="typewriter-text">
+                    <!-- Text injected via JS -->
+                </div>
+            </div>
+            <div class="terminal-footer">
+                STATUS: CONNECTED
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="toads_event.js"></script>

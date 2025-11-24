@@ -1,4 +1,5 @@
 
+
 /* Mission Dashboard Layout */
 #mission-dashboard {
     display: flex;
@@ -251,6 +252,7 @@
 .status-mia { background: rgba(139, 148, 158, 0.2); color: var(--text-secondary); border: 1px solid var(--text-secondary); }
 .status-danger { background: rgba(227, 179, 65, 0.2); color: var(--neutral-color); border: 1px solid var(--neutral-color); }
 .status-combat { background: rgba(211, 84, 0, 0.2); color: #e67e22; border: 1px solid #e67e22; }
+.status-scheming { background: rgba(138, 43, 226, 0.2); color: var(--mystical-ancient-color); border: 1px solid var(--mystical-ancient-color); }
 
 /* Footer */
 .mission-footer {
@@ -362,4 +364,96 @@
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.3); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
+}
+
+
+/* Terminal Modal Specific Styles */
+.terminal-content {
+    background-color: #001a00; /* Dark Green CRT Background */
+    border: 2px solid #33ff33;
+    border-radius: 10px;
+    padding: 0;
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 0 20px #33ff33;
+    font-family: 'Courier New', Courier, monospace;
+    color: #33ff33;
+    position: relative;
+    overflow: hidden;
+    animation: crt-flicker 0.15s infinite;
+}
+
+.terminal-content::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.terminal-header {
+    background-color: #33ff33;
+    color: #001a00;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+#terminal-close {
+    background: none;
+    border: none;
+    color: #001a00;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.terminal-body {
+    padding: 20px;
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.terminal-footer {
+    border-top: 1px dashed #33ff33;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.typewriter-text p {
+    margin-bottom: 12px;
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.95; }
+  20% { opacity: 0.98; }
+  25% { opacity: 0.95; }
+  30% { opacity: 0.9; }
+  35% { opacity: 0.96; }
+  40% { opacity: 0.98; }
+  45% { opacity: 0.95; }
+  50% { opacity: 0.99; }
+  55% { opacity: 0.93; }
+  60% { opacity: 0.9; }
+  65% { opacity: 0.96; }
+  70% { opacity: 1; }
+  75% { opacity: 0.97; }
+  80% { opacity: 0.95; }
+  85% { opacity: 0.92; }
+  90% { opacity: 0.96; }
+  95% { opacity: 1; }
+  100% { opacity: 0.98; }
 }

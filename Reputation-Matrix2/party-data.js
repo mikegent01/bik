@@ -1,9 +1,10 @@
 
 
+
 export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
-        // Loyalists - Cheep Cheep Village
+        // Loyalists - Cheep Cheep Village / Harbor
         { charKey: 'embercap', x: 25.0, y: 85.0, status: 'Boarding Fish' },
         { charKey: 'captain_toadette', x: 25.2, y: 85.2, status: 'Guarding Rear' },
         { charKey: 'mistveil', x: 24.8, y: 84.8, status: 'Scouting' },
@@ -16,14 +17,16 @@ export const PARTY_LOCATIONS = {
         { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
     ],
   'midlands_full': [
-        // Raventree Manor (Remnants)
+        // Raventree Manor (Remnants & Kitchen Defense)
         { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Regrouping' },
         { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Regrouping' },
         { charKey: 'archie', x: 73.4, y: 11.9, status: 'Escaped' },
         { charKey: 'markop', x: 73.5, y: 12.4, status: 'Leading' },
         { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Scheming' },
         { charKey: 'remi', x: 73.3, y: 11.6, status: 'Following' },
-        
+        // Roger is with Markop in the Kitchen
+        { charKey: 'roger', x: 73.5, y: 12.5, status: 'Defending' },
+
         // Casualties & Trapped
         { charKey: 'green_t', x: 73.5, y: 12.0, status: 'TRAPPED IN MIRROR' },
         { charKey: 'eager', x: 73.7, y: 12.3, status: 'Critical' },
@@ -34,11 +37,14 @@ export const PARTY_LOCATIONS = {
         // Bones - Imperial Facility
         { charKey: 'bones', x: 45.0, y: 30.0, status: 'Undercover/Infiltrating' },
 
-        // Liberated Toads
+        // Speaker L - Captured in Imperial Prison (Sector 7)
+        // Sector 7 facility location (approximate based on map visual)
+        { charKey: 'speaker_l', x: 45.5, y: 30.5, status: 'Captured' },
+
+        // Liberated Toads (Scattered)
         { charKey: 'dan', x: 73.5, y: 12.1, status: 'Active' },
         { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Fighting' },
-        { charKey: 'roger', x: 73.8, y: 12.0, status: 'Shooting' },
-        { charKey: 'speaker_l', x: 73.0, y: 13.0, status: 'Hunting' },
+
 
         // --- Imperial Capital Group ---
         { charKey: 'wario', x: 81.5, y: 4.5, status: 'Scheming' },

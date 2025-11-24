@@ -1,3 +1,4 @@
+
 // This file contains the detailed operational data for the Rakasha Clans' unique system display.
 
 export const RAKASHA_DETAILS = {
@@ -37,6 +38,13 @@ export const RAKASHA_DETAILS = {
                 { public_name: 'Rakasha', true_name: 'Silent-Step', role: 'Master Tracker' },
                 { public_name: 'Rakasha', true_name: 'Asha Whisperwind', role: 'Lead Scout' }
             ]
+        }
+    ],
+    traditions: [
+        {
+            name: "Festival of the Fallen",
+            description: "A sacred night where the Rakasha honor the cycle of life and death. Bonfires are lit to guide spirits, and chimes made from the bones of honored ancestors and prey are hung from trees to sing with the wind. It is a celebration of life's persistence, not a mourning of its end.",
+            date: "Highsun 20th"
         }
     ]
 };
