@@ -4,7 +4,10 @@ import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
 import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from './species-workforce.js';
 import { RELIGION_DATA } from './religion-data.js';
-import { getGlobalTechAverages, RESEARCH_CATEGORIES } from './research-data.js';
+import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from './research-data.js';
+import { PLAGUE_DATA } from './plagues-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 
 // Define Player Races for Relationship Context
 const PLAYER_RACE_LABELS = {
@@ -73,6 +76,69 @@ function renderTotalPopulation(grandTotal) {
     if (display) {
         display.innerText = grandTotal.toLocaleString();
     }
+}
+
+function renderVitalStatistics() {
+    const container = document.getElementById('vital-stats-container');
+    if (!container) return;
+
+    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+    const currentMonth = CURRENT_GAME_DATE.monthIndex;
+    const season = CALENDAR_DATA.seasons.values.find(s => {
+        const start = s.monthStart - 1;
+        const end = s.monthEnd - 1;
+        if (start <= end) return currentMonth >= start && currentMonth <= end;
+        return currentMonth >= start || currentMonth <= end;
+    })?.name || "Unknown";
+
+    // Base Rates (Annualized estimates)
+    let baseBirthRate = 1.5; // %
+    let baseDeathRate = 1.2; // %
+
+    // Cycle Impact
+    if (globalCycle.phase.id === 'expansion' || globalCycle.phase.id === 'rebirth') {
+        baseBirthRate += 0.2;
+    } else if (globalCycle.phase.id === 'crisis' || globalCycle.phase.id === 'conflict') {
+        baseDeathRate += 0.3;
+        baseBirthRate -= 0.1;
+    }
+
+    // Plague Impact
+    let plagueImpact = 0;
+    let activePlagueNames = [];
+    PLAGUE_DATA.forEach(plague => {
+        const isSeason = plague.active_seasons.includes(season) || plague.active_seasons.includes("All");
+        if (isSeason) {
+            // Simple check: active season implies higher risk
+            plagueImpact += 0.15;
+            activePlagueNames.push(plague.name);
+        }
+    });
+    
+    baseDeathRate += plagueImpact;
+
+    const netGrowth = baseBirthRate - baseDeathRate;
+    const growthColor = netGrowth >= 0 ? 'var(--positive-color)' : 'var(--negative-color)';
+
+    container.innerHTML = `
+        <div style="text-align:center;">
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Global Birth Rate</span>
+            <span style="font-size:1.5rem; color:var(--positive-color); font-family:var(--font-display);">${baseBirthRate.toFixed(2)}%</span>
+        </div>
+        <div style="text-align:center;">
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Global Death Rate</span>
+            <span style="font-size:1.5rem; color:var(--negative-color); font-family:var(--font-display);">${baseDeathRate.toFixed(2)}%</span>
+            ${plagueImpact > 0 ? `<div style="font-size:0.7rem; color:var(--negative-color); margin-top:2px;">+${plagueImpact.toFixed(2)}% from Bio-Threats</div>` : ''}
+        </div>
+        <div style="text-align:center;">
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Net Growth</span>
+            <span style="font-size:1.5rem; color:${growthColor}; font-family:var(--font-display);">${netGrowth > 0 ? '+' : ''}${netGrowth.toFixed(2)}%</span>
+        </div>
+        <div style="text-align:center; border-left:1px solid var(--border-color); padding-left:20px;">
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Active Cycle Effect</span>
+            <span style="color:${globalCycle.phase.color}; font-weight:bold;">${globalCycle.phase.name}</span>
+        </div>
+    `;
 }
 
 function renderCharts(data) {
@@ -469,6 +535,7 @@ function init() {
     if (!document.getElementById('species-grid-container')) return;
     const data = calculateDemographics();
     renderTotalPopulation(data.grandTotal);
+    renderVitalStatistics(); // New render function for stats
     renderCharts(data);
     renderSpeciesList(data);
     

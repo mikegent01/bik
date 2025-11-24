@@ -1,12 +1,14 @@
+
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE, MOON_PHASES } from './calendar-data.js';
 import { playSound } from './common.js';
 import { RELIGION_DATA } from './religion-data.js';
 import { state } from './state.js'; // Needed to check research state
-import { getTechTree, NATIONS, getAbsoluteDay, calculateGlobalCycle } from './research-data.js';
+import { getTechTree, NATIONS, getAbsoluteDay, calculateGlobalCycle, getGlobalTechAverages } from './research-data.js';
 import { HISTORICAL_TIMELINE } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
 import { LORE_DATA } from './lore.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
+import { PLAGUE_DATA } from './plagues-data.js';
 
 // --- State ---
 let viewDate = {
@@ -286,6 +288,69 @@ function getRumorEventsForDay(year, monthIndex, day) {
     return events;
 }
 
+function getPlagueEventsForDay(year, monthIndex, day) {
+    const events = [];
+    const season = getSeason(monthIndex);
+    
+    // 1. Random Outbreaks
+    PLAGUE_DATA.forEach(plague => {
+        if (plague.active_seasons.includes(season.name) || plague.active_seasons.includes("All")) {
+            const seed = year * 10000 + (monthIndex + 1) * 100 + day + plague.name.length;
+            if (getSeededRandom(seed) < 0.05) { // 5% chance per day in season
+                 events.push({
+                    type: 'plague_outbreak',
+                    name: `Outbreak: ${plague.name}`,
+                    description: `Reports of ${plague.name} in ${plague.region}.`,
+                    icon: plague.icon
+                });
+            }
+        }
+        
+        // 2. Projected Cure Dates
+        if (plague.cure_progress < 100) {
+             const techAverages = getGlobalTechAverages();
+             const medicalTech = techAverages.MEDICAL || 1;
+             const dailyCureRate = 0.5 + (medicalTech * 0.2);
+             const currentDay = getAbsoluteDay();
+             // Use Math.floor here to get a whole integer for days remaining
+             const projectedDaysToCure = Math.floor((100 - plague.cure_progress) / dailyCureRate);
+             
+             // Calculate absolute day of cure
+             const cureAbsDay = currentDay + projectedDaysToCure;
+             
+             // Convert target day back to calendar components for comparison
+             const startYear = 1035;
+             const yearsPassed = Math.floor(cureAbsDay / 365);
+             const targetYear = startYear + yearsPassed;
+             const remainingDays = cureAbsDay % 365;
+             
+             let dayCount = 0;
+             let targetMonthIndex = 0;
+             let targetDay = 0;
+             
+             for (let i = 0; i < CALENDAR_DATA.months.values.length; i++) {
+                const daysInMonth = CALENDAR_DATA.months.values[i].days;
+                if (dayCount + daysInMonth > remainingDays) {
+                    targetMonthIndex = i;
+                    targetDay = remainingDays - dayCount + 1;
+                    break;
+                }
+                dayCount += daysInMonth;
+            }
+
+            if (year === targetYear && monthIndex === targetMonthIndex && day === targetDay) {
+                 events.push({
+                    type: 'tech', // Reusing tech style for positive outcome
+                    name: `Proj. Cure: ${plague.name}`,
+                    description: `Estimated eradication of ${plague.name} based on current medical tech.`,
+                    icon: '💊'
+                });
+            }
+        }
+    });
+    return events;
+}
+
 function getEventsForDay(year, monthIndex, day) {
     const events = [];
     
@@ -303,6 +368,7 @@ function getEventsForDay(year, monthIndex, day) {
     events.push(...getTimelineEventsForDay(year, monthIndex, day));
     events.push(...getBattleEventsForDay(year, monthIndex, day));
     events.push(...getRumorEventsForDay(year, monthIndex, day));
+    events.push(...getPlagueEventsForDay(year, monthIndex, day));
 
     const dayOfWeekIndex = (day - 1) % 7;
     const dayName = CALENDAR_DATA.days.values[dayOfWeekIndex].name;
@@ -314,7 +380,6 @@ function getEventsForDay(year, monthIndex, day) {
             if (obs) events.push({ type: 'ritual', name: `${denom.name} Liturgy`, description: obs.text, religion: denom.name });
         }
     }
-    events.push(...getPlagueEventsForDay(year, monthIndex, day));
 
     return events;
 }
@@ -358,7 +423,7 @@ function renderCalendar() {
         const events = getEventsForDay(viewDate.year, viewDate.monthIndex, day);
 
         const hasTech = events.some(e => e.type === 'tech');
-        const techDot = hasTech ? `<span class="event-dot tech" title="Tech Breakthrough"></span>` : '';
+        const techDot = hasTech ? `<span class="event-dot tech" title="Tech Breakthrough/Cure"></span>` : '';
         const hasHistory = events.some(e => e.type === 'history');
         const historyDot = hasHistory ? `<span class="event-dot history" title="Historical Event"></span>` : '';
         const hasBattle = events.some(e => e.type === 'battle');
@@ -367,14 +432,16 @@ function renderCalendar() {
         const rumorStartDot = hasRumorStart ? `<span class="event-dot rumor-start" title="New Rumor"></span>` : '';
         const hasRumorEnd = events.some(e => e.type === 'rumor_end');
         const rumorEndDot = hasRumorEnd ? `<span class="event-dot rumor-end" title="Rumor Expiry"></span>` : '';
+        const hasPlague = events.some(e => e.type === 'plague_outbreak');
+        const plagueDot = hasPlague ? `<span class="event-dot plague_outbreak" title="Plague Outbreak"></span>` : '';
 
         cell.innerHTML = `
             <div class="day-number">${day}</div>
             <div class="day-weather-icon" title="${weather.desc} ${weather.temp}">${weather.icon}</div>
             <div class="day-moon-icon" title="${moonPhase.name}">${moonPhase.icon}</div>
             <div class="day-events-dots">
-                ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
-                ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot}
+                ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end', 'plague_outbreak'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
+                ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot} ${plagueDot}
             </div>
         `;
 
@@ -603,26 +670,7 @@ function setupListeners() {
     });
     setupSearchListener();
 }
-function getPlagueEventsForDay(year, monthIndex, day) {
-    const events = [];
-    const season = getSeason(monthIndex);
-    
-    PLAGUE_DATA.forEach(plague => {
-        if (plague.active_seasons.includes(season.name) || plague.active_seasons.includes("All")) {
-            // Simplified check: assume plagues are active randomly within their season
-            const seed = year * 10000 + (monthIndex + 1) * 100 + day + plague.name.length;
-            if (getSeededRandom(seed) < 0.05) { // 5% chance per day in season
-                 events.push({
-                    type: 'plague_outbreak',
-                    name: `Outbreak: ${plague.name}`,
-                    description: `Reports of ${plague.name} in ${plague.region}.`,
-                    icon: plague.icon
-                });
-            }
-        }
-    });
-    return events;
-}
+
 function init() {
     calculateAllResearchCompletionDates();
     setupListeners();
