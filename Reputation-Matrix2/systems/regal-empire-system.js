@@ -1,7 +1,7 @@
 // This module handles the rendering and interaction for the Holy Midlands Diet system.
 
 import { LORE_DATA, CHARACTER_RELATIONS } from '../lore.js';
-import { state } from '../Reputation-Matrix2/state.js';
+import { state } from '../state.js';
 
 const MIDLANDS_DIET_DATA = {
     name: "Holy Midlands Diet",

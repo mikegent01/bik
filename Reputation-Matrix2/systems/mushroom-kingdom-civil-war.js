@@ -2,7 +2,7 @@
 
 import { BOP_STATE } from '../balance-of-power.js';
 import { getIntelForFaction } from './common.js';
-import { state } from '../Reputation-Matrix2/state.js';
+import { state } from '../state.js';
 
 /**
  * Redacts text if the user's intel level is below the required threshold.

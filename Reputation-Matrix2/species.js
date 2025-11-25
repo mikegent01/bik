@@ -4,10 +4,10 @@ import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { MAP_DATA } from './map-data.js';
 import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from './species-workforce.js';
 import { RELIGION_DATA } from './religion-data.js';
-import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from './Reputation-Matrix2/research-data.js';
+import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from './research-data.js';
 import { PLAGUE_DATA } from './plagues-data.js';
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './Reputation-Matrix2/calendar-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 
 // Define Player Races for Relationship Context
 const PLAYER_RACE_LABELS = {

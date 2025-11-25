@@ -2,7 +2,7 @@
 import { LORE_DATA } from '../lore.js';
 import { getIntelForFaction } from './common.js';
 import { playSound } from '../common.js';
-import { state } from '../Reputation-Matrix2/state.js';
+import { state } from '../state.js';
 
 /**
  * Renders the HTML structure for the Chaos Index.

@@ -1,4 +1,4 @@
-import { state } from './Reputation-Matrix2/state.js'; // Needed for seeded random if we use state
+import { state } from './state.js'; // Needed for seeded random if we use state
 
 export const CURRENT_GAME_DATE = {
     year: 1040,

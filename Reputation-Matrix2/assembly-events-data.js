@@ -1,7 +1,7 @@
 import { DINER_EVENT } from './events/diner-date-event.js';
-import { state } from './Reputation-Matrix2/state.js';
+import { state } from './state.js';
 import { SCHEDULED_POSTS } from './events/scheduled-posts.js';
-import { CURRENT_GAME_DATE } from './Reputation-Matrix2/calendar-data.js';
+import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { TOADETTE_TEST_EVENT } from './events/toadette-test-event.js';
 import { ARCHIE_FIASCO_EVENT } from './events/archie-fiasco-event.js';
 import { DAY14_CHATTER_EVENT } from './events/day14-chatter.js';

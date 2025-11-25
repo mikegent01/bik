@@ -1,5 +1,5 @@
 import { playSound } from './common.js';
-import { state } from './Reputation-Matrix2/state.js';
+import { state } from './state.js';
 import { getIntelForFaction } from './systems/common.js';
 
 /**

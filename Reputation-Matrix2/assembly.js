@@ -6,14 +6,14 @@
 
 import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
 import { playSound } from './common.js';
-import { state, saveState, loadState } from './Reputation-Matrix2/state.js';
+import { state, saveState, loadState } from './state.js';
 import { NPC_RESPONSES } from './npc-responses.js';
 import { GUILD_DATA, CHARTER_DATA } from './guilds-data.js';
 import { CHARACTER_MECHANICS } from './character-special-systems.js';
 import { renderIntelAndRumors } from './assembly-intel-system.js';
-import { calculateRumorMetrics } from './Reputation-Matrix2/research-data.js'; 
-import { getDynamicTimestamp } from './Reputation-Matrix2/calendar-data.js'; 
-import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './Reputation-Matrix2/calendar-data.js'; 
+import { calculateRumorMetrics } from './research-data.js'; 
+import { getDynamicTimestamp } from './calendar-data.js'; 
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './calendar-data.js'; 
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
 const contentContainer = document.getElementById('wahbook-content');
@@ -39,7 +39,7 @@ let WAHBOOK_EVENTS = [];
 
 // ... (Data Loading functions remain the same) ...
 async function loadDynamicData() {
-    const dataModule = await import('./Reputation-Matrix2/assembly-data.js');
+    const dataModule = await import('./assembly-data.js');
     WAHBOOK_POSTS = dataModule.WAHBOOK_POSTS;
     
     const eventsModule = await import('./assembly-events-data.js');

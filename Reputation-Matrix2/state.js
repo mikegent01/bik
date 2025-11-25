@@ -2,8 +2,8 @@
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
-import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './Reputation-Matrix2/research-data.js';
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
+import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
 
 // --- STATE MANAGEMENT ---
 

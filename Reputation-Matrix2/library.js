@@ -1,5 +1,5 @@
 
-import { state, loadState } from './Reputation-Matrix2/state.js';
+import { state, loadState } from './state.js';
 import { playSound } from './common.js';
 import { BOOK_DESCRIPTIONS } from './books/book_descriptions.js';
 import { LIBRARY_STOCKS } from './books/library_stocks.js';

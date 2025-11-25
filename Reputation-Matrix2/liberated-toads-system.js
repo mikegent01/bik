@@ -1,6 +1,6 @@
 
 // liberated-toads-system.js
-import { state, loadState } from './Reputation-Matrix2/state.js';
+import { state, loadState } from './state.js';
 import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
 import { renderLiberatedToadsSystem, initLiberatedToadsSystem } from './systems/liberated-toads-system.js';
 import { TOAD_TIMELINE } from './focus-tree.js';

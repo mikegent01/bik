@@ -1,6 +1,6 @@
 
 // systems/liberated-toads-system.js
-import { state } from '../Reputation-Matrix2/state.js';
+import { state } from '../state.js';
 import { LORE_DATA } from '../lore.js';
 import { CHARACTER_RELATIONS } from '../character-relations.js';
 

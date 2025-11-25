@@ -1,9 +1,9 @@
 
 
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './Reputation-Matrix2/calendar-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
 import { playSound } from './common.js';
 import { RELIGION_DATA } from './religion-data.js';
-import { state } from './Reputation-Matrix2/state.js'; // Import state to get logged-in user
+import { state } from './state.js'; // Import state to get logged-in user
 
 // DOM Elements
 const chartCanvas = document.getElementById('religion-chart');

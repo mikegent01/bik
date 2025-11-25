@@ -1,5 +1,5 @@
 
-import { state } from './Reputation-Matrix2/state.js';
+import { state } from './state.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import { LORE_DATA } from './lore.js';
 import { getIntelForFaction } from './systems/common.js';
@@ -15,7 +15,7 @@ import { CULTURE_DATA } from './culture-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from './species-data.js'; 
 import { PARTY_LOCATIONS } from './party-data.js';
 import { PROVINCE_POLITICS } from './politics-data.js';
-import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from './Reputation-Matrix2/research-data.js';
+import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from './research-data.js';
 
 const displayArea = document.getElementById('map-display-area');
 const detailPanel = document.getElementById('map-detail-content');

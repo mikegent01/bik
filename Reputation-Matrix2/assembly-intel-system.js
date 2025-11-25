@@ -1,7 +1,7 @@
 
 import { LORE_DATA } from './lore.js';
-import { calculateRumorMetrics } from './Reputation-Matrix2/research-data.js'; // Import metric logic
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
+import { calculateRumorMetrics } from './research-data.js'; // Import metric logic
+import { WAHBOOK_POSTS } from './assembly-data.js';
 
 export function renderIntelAndRumors() {
     const container = document.getElementById('intel-rumors-container');

@@ -1,7 +1,7 @@
 
-import { state, loadState } from './Reputation-Matrix2/state.js';
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
-import { PAGE_UPDATES, CURRENT_GAME_DATE } from './Reputation-Matrix2/calendar-data.js';
+import { state, loadState } from './state.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
+import { PAGE_UPDATES, CURRENT_GAME_DATE } from './calendar-data.js';
 
 function checkForNewPosts() {
     loadState();

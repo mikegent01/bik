@@ -2,7 +2,7 @@
 
 import { LORE_DATA } from '../lore.js';
 import { getIntelForFaction } from './common.js';
-import { state } from '../Reputation-Matrix2/state.js';
+import { state } from '../state.js';
 
 export function renderRakashaClansSystem() {
     const data = LORE_DATA.faction_details.rakasha_clans;

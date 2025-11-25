@@ -1,4 +1,4 @@
-import { state } from '../Reputation-Matrix2/state.js';
+import { state } from '../state.js';
 import { LORE_DATA } from '../lore.js';
 import { getSubFactionReputation } from '../reputation.js';
 

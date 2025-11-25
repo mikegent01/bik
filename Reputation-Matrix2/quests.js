@@ -1,7 +1,7 @@
 import { QUEST_DATA } from './quests-data.js';
 import { BOUNTY_BOARD_QUESTS } from './bounty-quests-data.js';
 import { playSound } from './common.js';
-import { state } from './Reputation-Matrix2/state.js';
+import { state } from './state.js';
 import { LORE_DATA } from './lore.js';
 import { MAP_DATA } from './map-data.js';
 

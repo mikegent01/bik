@@ -1,10 +1,10 @@
 
-import { state, loadState, saveState } from './Reputation-Matrix2/state.js';
-import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus } from './Reputation-Matrix2/research-data.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './Reputation-Matrix2/calendar-data.js';
+import { state, loadState, saveState } from './state.js';
+import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus } from './research-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 import { LORE_DATA } from './lore.js';
 import { playSound } from './common.js';
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js'; 
+import { WAHBOOK_POSTS } from './assembly-data.js'; 
 
 // Constants
 const NODE_WIDTH = 160; 

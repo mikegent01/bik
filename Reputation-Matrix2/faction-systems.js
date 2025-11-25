@@ -2,7 +2,7 @@
 // This file acts as a dispatcher for rendering unique faction systems.
 // It imports modular rendering and initialization functions from the `/systems` directory.
 
-import { state } from './Reputation-Matrix2/state.js';
+import { state } from './state.js';
 import { renderDefaultSubfactionList } from './systems/common.js';
 
 // Import all system renderers and initializers

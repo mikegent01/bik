@@ -1,5 +1,5 @@
 
-import { state } from './Reputation-Matrix2/state.js';
+import { state } from './state.js';
 import { LORE_DATA } from './lore.js';
 import { getReputation, getGenericFactionAssessment, renderIndividualStandings } from './reputation.js';
 import { playSound } from './common.js';

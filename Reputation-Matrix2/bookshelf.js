@@ -1,4 +1,4 @@
-import { state, loadState } from './Reputation-Matrix2/state.js';
+import { state, loadState } from './state.js';
 import { LORE_DATA } from './lore.js';
 // Import book data from separate files
 import { BOOK_DATA as peachDiary } from './books/peach_diary.js';

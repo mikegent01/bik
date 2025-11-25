@@ -2,12 +2,12 @@
 import { LORE_DATA } from './lore.js';
 import { WALUIGI_INTRO_TEXT, WALUIGI_REGION_TIPS } from './new-operator/new-operator-data.js';
 import { playSound } from './common.js';
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
 import { QUEST_DATA } from './quests-data.js';
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './Reputation-Matrix2/calendar-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
 import { PARTY_LOCATIONS } from './party-data.js';
-import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './Reputation-Matrix2/research-data.js';
-import { state, loadState } from './Reputation-Matrix2/state.js'; // Import state
+import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './research-data.js';
+import { state, loadState } from './state.js'; // Import state
 
 // --- Element Cache ---
 const startupScreen = document.getElementById('startup-screen');

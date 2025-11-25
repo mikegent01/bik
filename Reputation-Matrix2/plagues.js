@@ -1,8 +1,8 @@
 
 import { PLAGUE_DATA } from './plagues-data.js';
-import { calculateGlobalCycle, getGlobalTechAverages, NATIONS, getAbsoluteDay } from './Reputation-Matrix2/research-data.js';
-import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './Reputation-Matrix2/calendar-data.js';
+import { calculateGlobalCycle, getGlobalTechAverages, NATIONS, getAbsoluteDay } from './research-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
 import { MAP_DATA } from './map-data.js';
 
 const container = document.getElementById('plagues-grid');
