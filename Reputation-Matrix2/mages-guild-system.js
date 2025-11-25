@@ -1,9 +1,11 @@
 
-import { state } from '../state.js';
-import { MAGES_GUILD_DETAILS } from '../mages-guild-details.js';
-import { generateWeatherForDay, CURRENT_GAME_DATE } from '../calendar-data.js';
-import { calculateGlobalCycle } from '../research-data.js';
-import { WAHBOOK_POSTS } from '../assembly-data.js';
+// This module handles the rendering and initialization for the Mages' Guild unique system.
+
+import { state } from './state.js';
+import { MAGES_GUILD_DETAILS } from './mages-guild-details.js';
+import { generateWeatherForDay, CURRENT_GAME_DATE } from './calendar-data.js';
+import { calculateGlobalCycle } from './research-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
 
 /**
  * Renders the HTML structure for the Mages' Guild system.

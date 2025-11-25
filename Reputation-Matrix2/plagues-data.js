@@ -7,7 +7,7 @@ export const PLAGUE_DATA = [
         id: 'blorbs',
         name: "The Blorbs",
         region: "Mushroom Kingdom",
-        starting_location: "poi_mk_toad_town_region", 
+        starting_location: "poi_mk_toadtown", 
         affected_species: ["toad_citizen", "goomba", "koopa"],
         affected_nations: ["mushroom_kingdom", "koopa_troop", "peach_loyalists"],
         research_impact: "Economic & Medical Research -20%",
