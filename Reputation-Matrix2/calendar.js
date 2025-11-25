@@ -345,68 +345,6 @@ function getRumorEventsForDay(year, monthIndex, day) {
     return events;
 }
 
-function getPlagueEventsForDay(year, monthIndex, day) {
-    const events = [];
-    const season = getSeason(monthIndex);
-    
-    // 1. Random Outbreaks
-    PLAGUE_DATA.forEach(plague => {
-        if (plague.active_seasons.includes(season.name) || plague.active_seasons.includes("All")) {
-            const seed = year * 10000 + (monthIndex + 1) * 100 + day + plague.name.length;
-            if (getSeededRandom(seed) < 0.05) { // 5% chance per day in season
-                 events.push({
-                    type: 'plague_outbreak',
-                    name: `Outbreak: ${plague.name}`,
-                    description: `Reports of ${plague.name} in ${plague.region}.`,
-                    icon: plague.icon
-                });
-            }
-        }
-        
-        // 2. Projected Cure Dates
-        if (plague.cure_progress < 100) {
-             const techAverages = getGlobalTechAverages();
-             const medicalTech = techAverages.MEDICAL || 1;
-             const dailyCureRate = 0.5 + (medicalTech * 0.2);
-             const currentDay = getAbsoluteDay();
-             // Use Math.floor here to get a whole integer for days remaining
-             const projectedDaysToCure = Math.floor((100 - plague.cure_progress) / dailyCureRate);
-             
-             // Calculate absolute day of cure
-             const cureAbsDay = currentDay + projectedDaysToCure;
-             
-             // Convert target day back to calendar components for comparison
-             const startYear = 1035;
-             const yearsPassed = Math.floor(cureAbsDay / 365);
-             const targetYear = startYear + yearsPassed;
-             const remainingDays = cureAbsDay % 365;
-             
-             let dayCount = 0;
-             let targetMonthIndex = 0;
-             let targetDay = 0;
-             
-             for (let i = 0; i < CALENDAR_DATA.months.values.length; i++) {
-                const daysInMonth = CALENDAR_DATA.months.values[i].days;
-                if (dayCount + daysInMonth > remainingDays) {
-                    targetMonthIndex = i;
-                    targetDay = remainingDays - dayCount + 1;
-                    break;
-                }
-                dayCount += daysInMonth;
-            }
-
-            if (year === targetYear && monthIndex === targetMonthIndex && day === targetDay) {
-                 events.push({
-                    type: 'tech', // Reusing tech style for positive outcome
-                    name: `Proj. Cure: ${plague.name}`,
-                    description: `Estimated eradication of ${plague.name} based on current medical tech.`,
-                    icon: '💊'
-                });
-            }
-        }
-    });
-    return events;
-}
 
 function getEventsForDay(year, monthIndex, day) {
     const events = [];
