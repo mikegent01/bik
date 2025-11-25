@@ -2,7 +2,7 @@
 
 import { MOONFANG_PACK_DETAILS } from '../moonfang-pack-details.js';
 import { getIntelForFaction } from './common.js';
-import { state } from '../state.js';
+import { state } from '../Reputation-Matrix2/state.js';
 
 /**
  * Renders the HTML structure for the Moonfang Pack's moon phase system.

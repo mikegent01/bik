@@ -1,5 +1,5 @@
 
-import { state, loadState, saveState } from './state.js';
+import { state, loadState, saveState } from './Reputation-Matrix2/state.js';
 import * as ui from './map-ui.js';
 import * as renderer from './map-renderer.js';
 import * as editor from './map-editor.js';

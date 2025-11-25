@@ -1,4 +1,4 @@
-import { state, loadState } from './state.js';
+import { state, loadState } from './Reputation-Matrix2/state.js';
 import { LORE_DATA } from './lore.js';
 import { getDetailedFactionAssessment } from './reputation.js';
 import { playSound } from './common.js';

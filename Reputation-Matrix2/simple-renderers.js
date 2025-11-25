@@ -1,7 +1,7 @@
 // This module contains a collection of simpler render functions for faction systems
 // that do not require complex, separate initialization logic.
 
-import { state } from '../state.js';
+import { state } from '../Reputation-Matrix2/state.js';
 import { LORE_DATA, CHARACTER_RELATIONS } from '../lore.js';
 import { buildDetailedSystemHTML } from './common.js';
 import { IRON_LEGION_DETAILS } from '../iron-legion-details.js';

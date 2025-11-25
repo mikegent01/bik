@@ -1,4 +1,4 @@
-import { loadState } from './state.js';
+import { loadState } from './Reputation-Matrix2/state.js';
 import { router, renderPartyList, renderEventList, setupEventListeners } from './ui.js';
 
 /**

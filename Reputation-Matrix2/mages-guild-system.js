@@ -1,9 +1,9 @@
 
-import { state } from '../state.js';
+import { state } from '../Reputation-Matrix2/state.js';
 import { MAGES_GUILD_DETAILS } from '../mages-guild-details.js';
-import { generateWeatherForDay, CURRENT_GAME_DATE } from '../calendar-data.js';
-import { calculateGlobalCycle } from '../research-data.js';
-import { WAHBOOK_POSTS } from '../assembly-data.js';
+import { generateWeatherForDay, CURRENT_GAME_DATE } from '../Reputation-Matrix2/calendar-data.js';
+import { calculateGlobalCycle } from '../Reputation-Matrix2/research-data.js';
+import { WAHBOOK_POSTS } from '../Reputation-Matrix2/assembly-data.js';
 
 /**
  * Renders the HTML structure for the Mages' Guild system.

@@ -2,7 +2,7 @@
 
 import { LORE_DATA } from '../lore.js';
 import { getIntelForFaction } from './common.js';
-import { state } from '../state.js';
+import { state } from '../Reputation-Matrix2/state.js';
 
 export function renderFawfulSystem() {
     const data = LORE_DATA.faction_details.fawfuls_furious_freaks;

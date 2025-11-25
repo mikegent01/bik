@@ -1,9 +1,9 @@
 
 import { LORE_DATA } from './lore.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
+import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
 import { playSound } from './common.js';
 import { PROFILE_THEMES } from './profile-themes.js';
-import { state, loadState, saveState } from './state.js';
+import { state, loadState, saveState } from './Reputation-Matrix2/state.js';
 
 const pageContainer = document.getElementById('profile-page-container');
 const headerContainer = document.getElementById('profile-header-container');

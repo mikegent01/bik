@@ -2,7 +2,7 @@
 import { HISTORICAL_TIMELINE as rawTimelineData } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
 import { playSound } from './common.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from './Reputation-Matrix2/calendar-data.js';
 
 const timelineContainer = document.getElementById('timeline-container');
 const filterBar = document.getElementById('timeline-filter-bar');

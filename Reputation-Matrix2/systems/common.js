@@ -1,9 +1,9 @@
 
-import { state } from '../state.js';
+import { state } from '../Reputation-Matrix2/state.js';
 import { LORE_DATA } from '../lore.js';
 import { getSubFactionReputation } from '../reputation.js';
-import { calculateRumorMetrics } from '../research-data.js';
-import { WAHBOOK_POSTS } from '../assembly-data.js';
+import { calculateRumorMetrics } from '../Reputation-Matrix2/research-data.js';
+import { WAHBOOK_POSTS } from '../Reputation-Matrix2/assembly-data.js';
 
 /**
  * Calculates the breakdown of intel for a faction.

@@ -1,13 +1,13 @@
 
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE, MOON_PHASES } from './calendar-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE, MOON_PHASES } from './Reputation-Matrix2/calendar-data.js';
 import { playSound } from './common.js';
 import { RELIGION_DATA } from './religion-data.js';
-import { state } from './state.js'; // Needed to check research state
-import { getTechTree, NATIONS, getAbsoluteDay, calculateGlobalCycle, getGlobalTechAverages } from './research-data.js';
+import { state } from './Reputation-Matrix2/state.js'; // Needed to check research state
+import { getTechTree, NATIONS, getAbsoluteDay, calculateGlobalCycle, getGlobalTechAverages } from './Reputation-Matrix2/research-data.js';
 import { HISTORICAL_TIMELINE } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
 import { LORE_DATA } from './lore.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
+import { WAHBOOK_POSTS } from './Reputation-Matrix2/assembly-data.js';
 import { PLAGUE_DATA } from './plagues-data.js';
 
 // --- State ---
