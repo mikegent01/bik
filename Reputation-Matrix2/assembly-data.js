@@ -245,7 +245,7 @@ export const WAHBOOK_POSTS = [
         content: `My blade is broken. Shattered against the wraith's form. But the fight is not over.`,
         likes: 710,
         comments: [
-            { characterKey: 'hjumpik', text: 'Use your fists, horse-man! They are not broken!' }
+            { characterKey: 'humpik', text: 'Use your fists, horse-man! They are not broken!' }
         ],
         rumorId: 'wraith_conflagration'
     },
@@ -463,7 +463,7 @@ export const WAHBOOK_POSTS = [
         content: `I BROUGHT REINFORCEMENTS! TWO GIANTS! LET'S SMASH 'EM!`,
         likes: 622,
         comments: [
-            { characterKey: 'hjumpik', text: 'GWAHAHA! NOW THIS IS A PROPER FIGHT!' },
+            { characterKey: 'humpik', text: 'GWAHAHA! NOW THIS IS A PROPER FIGHT!' },
             { characterKey: 'bowser', text: 'About time we got some real muscle in here!' }
         ],
         rumorId: 'wraith_conflagration'
@@ -609,7 +609,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'humpik_reacts_to_raid',
         order: 348,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 35 },
         timestamp: '25 minutes ago',
         content: `The metal men took the loud singing toad? Good. One less person to yell at Archie.`,
@@ -820,7 +820,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'humpik_so_confused',
         order: 331,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 15 },
         timestamp: '45 minutes ago',
         content: `So... the little green toad was a bad guy? But he helped the other bad guys trap Archie? And then Archie disappeared? My head hurts. I am going to find something to smash.`,
@@ -898,7 +898,7 @@ export const WAHBOOK_POSTS = [
         content: `What's all that racket? It sounds like a real fight! Am I missing a real fight?!`,
         likes: 740,
         comments: [
-            { characterKey: 'hjumpik', text: 'SOUNDS LIKE SMASHING! I want to go to there!' }
+            { characterKey: 'humpik', text: 'SOUNDS LIKE SMASHING! I want to go to there!' }
         ],
         rumorId: 'wraith_conflagration'
     },
@@ -973,9 +973,9 @@ export const WAHBOOK_POSTS = [
         rumorId: 'wraith_conflagration'
     },
     {
-        id: 'hjumpik_hears_battle',
+        id: 'humpik_hears_battle',
         order: 318,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `HEAR THAT? THAT IS THE SOUND OF A GOOD FIGHT! I am stuck in a hallway made of mirrors! This is not fair!`,
@@ -2386,7 +2386,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         likes: 412,
         comments: [
             { characterKey: 'kamek', text: "A mirror prison? Troublesome magic, Your Viciousness. Do not gaze too long into it." },
-            { characterKey: 'hjumpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
+            { characterKey: 'humpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -2514,15 +2514,15 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_rescue_archie_now',
+        id: 'humpik_rescue_archie_now',
         order: 193,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 59 },
         timestamp: '1 minute ago',
         content: `They're taking Archie. The little toads have him. This is not right. We go back. We get him.`,
         likes: 710,
         comments: [
-            { characterKey: 'toad_lee', text: 'Hjumpik, do not engage the Cohort. I am trying to resolve this peacefully. Do not start a war.' },
+            { characterKey: 'toad_lee', text: 'humpik, do not engage the Cohort. I am trying to resolve this peacefully. Do not start a war.' },
             { characterKey: 'bowser', text: 'He made his choice, Humpik. Let him lie in it for a bit.' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -2536,7 +2536,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `The door. Block it. Now.`,
         likes: 645,
         comments: [
-            { characterKey: 'hjumpik', text: 'ON IT!' },
+            { characterKey: 'humpik', text: 'ON IT!' },
             { characterKey: 'speaker_l', text: 'Delaying the inevitable, Miser.' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -2544,7 +2544,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
     {
         id: 'humpik_oracle_rambling',
         order: 191,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 58 },
         timestamp: '2 minutes ago',
         content: `The ghost man (Oracle) talks too much. Bathrooms? Orcs? Mirrors having rules? I stopped listening. We left him talking to the dust. We have Toads to save.`,
@@ -2608,15 +2608,15 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_mirror_monster_emerges',
+        id: 'humpik_mirror_monster_emerges',
         order: 186,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 56 },
         timestamp: '4 minutes ago',
         content: `THE MIRROR IS ALIVE! IT'S ALIVE AND IT'S COMING OUT! LIGHTS ARE GONE!`,
         likes: 750,
         comments: [
-            { characterKey: 'markop', text: 'Hjumpik, report! What is your status?! What is happening?!' },
+            { characterKey: 'markop', text: 'humpik, report! What is your status?! What is happening?!' },
             { characterKey: 'ryan', text: 'The dimensional barrier must have shattered! Get out of there!' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -2695,7 +2695,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         likes: 1570,
         comments: [
             { characterKey: 'speaker_l', text: 'Wise.' },
-            { characterKey: 'hjumpik', text: 'Archie, no!' },
+            { characterKey: 'humpik', text: 'Archie, no!' },
             { characterKey: 'general_marcus_ironhand', text: 'A pity. Our cells were waiting.' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -2730,7 +2730,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_vision',
+        id: 'humpik_vision',
         order: 177,
         characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 53 },
@@ -2888,7 +2888,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         likes: 450,
         comments: [
             { characterKey: 'detective_penny', text: 'Witness eliminated. Another loose end. This Miser is sloppy.' },
-            { characterKey: 'hjumpik', text: 'Archie... what did you do?' }
+            { characterKey: 'humpik', text: 'Archie... what did you do?' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -2956,7 +2956,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `GWAHAHA! A monster made of glass?! This house just keeps getting better! Tasted my fist, you walking window!`,
         likes: 760,
         comments: [
-            { characterKey: 'hjumpik', text: 'King Bowser! It came out of the mirror!' }
+            { characterKey: 'humpik', text: 'King Bowser! It came out of the mirror!' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -3285,9 +3285,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_finds_them_now',
+        id: 'humpik_finds_them_now',
         order: 134,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 28 },
         timestamp: '32 minutes ago',
         content: `Found them. It's bad. Eager is down, Dan is... not right. And the little toads are marching outside. We are trapped.`,
@@ -3451,7 +3451,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `We go to the solarium. We break the attic and catch them before they fall. It is the shorter, more direct route. We move now.`,
         likes: 410,
         comments: [
-            { characterKey: 'hjumpik', text: 'But the mirror stair is right there!' }
+            { characterKey: 'humpik', text: 'But the mirror stair is right there!' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -3495,9 +3495,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_alone',
+        id: 'humpik_alone',
         order: 117,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 15 },
         timestamp: '45 minutes ago',
         content: `Woke up. Everyone was gone. The house was quiet. Too quiet. I heard voices, but there was no one there. This place is not right. I am going back upstairs.`,
@@ -3528,9 +3528,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_falls_down',
+        id: 'humpik_falls_down',
         order: 114,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 12 },
         timestamp: '48 minutes ago',
         content: `The rope held. The joist did not. I have fallen. Am okay. This room has a very clean mirror. I do not trust it.`,
@@ -3576,9 +3576,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'hjumpik_sees_green_t',
+        id: 'humpik_sees_green_t',
         order: 110,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 8 },
         timestamp: '52 minutes ago',
         content: `We're in the vents. I can see down into a room... it's full of mirrors. Green T is trapped in one of them. He's like a bug in amber.`,
