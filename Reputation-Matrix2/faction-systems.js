@@ -9,7 +9,7 @@ import { renderDefaultSubfactionList } from './systems/common.js';
 import { renderHolyMidlandsDiet, initHolyMidlandsDietListeners } from './systems/regal-empire-system.js';
 import { renderFreelancerNetwork, initFreelancerNetwork } from './systems/freelancer-system.js';
 import { renderOnyxHandCovenSystem, initOnyxHandSystem } from './systems/onyx-hand-system.js';
-import { renderMagesGuildSystem, initMagesGuildSystem } from './systems/mages-guild-system.js';
+import { renderMagesGuildSystem, initMagesGuildSystem } from './mages-guild-system.js';
 import { renderMoonfangPackSystem, initMoonfangPackSystem } from './systems/moonfang-pack-system.js';
 import { renderCosmicJestersSystem, initCosmicJestersSystem } from './systems/cosmic-jesters-system.js';
 import { renderDCISystem, initDCISystem } from './systems/dci-system.js';

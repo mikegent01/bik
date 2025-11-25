@@ -1,3 +1,4 @@
+
 import { state } from '../state.js';
 import { MAGES_GUILD_DETAILS } from '../mages-guild-details.js';
 import { generateWeatherForDay, CURRENT_GAME_DATE } from '../calendar-data.js';
@@ -95,37 +96,40 @@ export function initMagesGuildSystem() {
         state.chartInstances['mages-guild'].destroy();
     }
     
-    state.chartInstances['mages-guild'] = new Chart(canvas, {
-        type: 'doughnut',
-        data: {
-            labels: MAGES_GUILD_DETAILS.influence_distribution.labels,
-            datasets: [{
-                label: 'Influence %',
-                data: baseData,
-                backgroundColor: [
-                    'rgba(138, 43, 226, 0.7)', // Purple (Research)
-                    'rgba(218, 54, 51, 0.7)',  // Red (Regulation)
-                    'rgba(240, 185, 11, 0.7)', // Yellow (Defense)
-                    'rgba(139, 148, 158, 0.7)' // Grey (Politics)
-                ],
-                borderColor: 'var(--sidebar-bg)',
-                borderWidth: 2,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: 'var(--text-secondary)',
-                        font: {
-                            family: "'Roboto Mono', monospace"
+    // Ensure Chart is available (it should be loaded via CDN in directory.html)
+    if (typeof Chart !== 'undefined') {
+        state.chartInstances['mages-guild'] = new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels: MAGES_GUILD_DETAILS.influence_distribution.labels,
+                datasets: [{
+                    label: 'Influence %',
+                    data: baseData,
+                    backgroundColor: [
+                        'rgba(138, 43, 226, 0.7)', // Purple (Research)
+                        'rgba(218, 54, 51, 0.7)',  // Red (Regulation)
+                        'rgba(240, 185, 11, 0.7)', // Yellow (Defense)
+                        'rgba(139, 148, 158, 0.7)' // Grey (Politics)
+                    ],
+                    borderColor: 'var(--sidebar-bg)',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#7d8590', // var(--text-secondary)
+                            font: {
+                                family: "'Roboto Mono', monospace"
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    }
 }

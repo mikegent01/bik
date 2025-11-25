@@ -14,19 +14,19 @@ export const PLAGUE_DATA = [
         icon: "🟠",
         description: "A magical affliction that causes Toads to swell into giant, immobile spheres. It blocks airways and renders the victim helpless.",
         symptoms: "Rapid body swelling, uncontrollably rolling, loss of motor function, muffled speech.",
+        
+        // New Systems
         transmission_vector: "Contact / Spore Inhalation",
         lethality_class: "Low (Incapacitating)",
         lethality_desc: "Rarely fatal directly, but victims are vulnerable to predation or starvation due to immobility.",
-        cure: "Miracle Cure (Requires Star Sprite dust & rare herbs).",
-        active_seasons: ["Golden Summer"],
-        cycle_modifier: { 'crisis': 2.0, 'conflict': 1.5 },
-        
-        // New Systems Data
         mutation_risk: 15, // %
         economic_strain: "High (Workforce Paralysis)",
         containment_status: "Failing",
 
         // Simulation Data
+        cure: "Miracle Cure (Requires Star Sprite dust & rare herbs).",
+        active_seasons: ["Golden Summer"],
+        cycle_modifier: { 'crisis': 2.0, 'conflict': 1.5 },
         start_day: 378400, 
         base_severity: 40,
         peak_population: 150000, 
@@ -38,7 +38,6 @@ export const PLAGUE_DATA = [
         id: 'crystal_fade',
         name: "Crystal Fade",
         region: "The Midlands",
-        // FIXED: Correct Capital POI for Midlands
         starting_location: "poi_mid_capital_district",
         affected_species: ["regal_midlander", "dnd_human", "dnd_elf_high"],
         affected_nations: ["regal_empire", "iron_legion"],
@@ -46,19 +45,19 @@ export const PLAGUE_DATA = [
         icon: "💎",
         description: "A mana-sickness caused by exposure to raw magitek runoff or unstable ley lines. Victims' skin slowly calcifies into brittle crystal.",
         symptoms: "Joint stiffness, crystalline growths on skin, mana discharge from eyes/mouth.",
+        
+        // New Systems
         transmission_vector: "Magical Radiation / Ley Line Proximity",
         lethality_class: "High (Terminal)",
         lethality_desc: "If untreated, the victim fully crystallizes and shatters. Mortality rate increases with spellcasting.",
-        cure: "Arcane dialysis or total removal from high-mana zones.",
-        active_seasons: ["Verdant Spring", "Crimson Fall"],
-        cycle_modifier: { 'research': 1.5, 'rebirth': 0.5 },
-        
-        // New Systems Data
         mutation_risk: 40,
         economic_strain: "Medium (Magitek Shutdowns)",
         containment_status: "Stable",
 
         // Simulation Data
+        cure: "Arcane dialysis or total removal from high-mana zones.",
+        active_seasons: ["Verdant Spring", "Crimson Fall"],
+        cycle_modifier: { 'research': 1.5, 'rebirth': 0.5 },
         start_day: 378300, 
         base_severity: 25,
         peak_population: 50000,
@@ -77,19 +76,19 @@ export const PLAGUE_DATA = [
         icon: "🤢",
         description: "A biological weapon developed by Clan Pestilens. It is a aggressive respiratory necro-virus that rots the lungs from the inside out.",
         symptoms: "Coughing up green phlegm, necrosis of the jaw, hallucinations of rats.",
+        
+        // New Systems
         transmission_vector: "Airborne / Waterborne",
         lethality_class: "Extreme (Bioweapon)",
         lethality_desc: "Death usually occurs within 7 days of first symptom. Corpses remain contagious.",
-        cure: "Shallyan purification rituals or amputation of infected organs.",
-        active_seasons: ["Hoarfrost Winter"],
-        cycle_modifier: { 'crisis': 1.8, 'tension': 1.2 },
-        
-        // New Systems Data
         mutation_risk: 85,
         economic_strain: "Severe (Trade Embargos)",
         containment_status: "Breached",
 
         // Simulation Data
+        cure: "Shallyan purification rituals or amputation of infected organs.",
+        active_seasons: ["Hoarfrost Winter"],
+        cycle_modifier: { 'crisis': 1.8, 'tension': 1.2 },
         start_day: 378430, 
         base_severity: 60,
         peak_population: 500000,
@@ -108,19 +107,19 @@ export const PLAGUE_DATA = [
         icon: "👾",
         description: "A logic virus that corrupts the avatar data of netizens, causing them to pixelate, glitch, and eventually de-rez into raw data.",
         symptoms: "Input lag, texture loss, memory corruption, sudden T-posing.",
+        
+        // New Systems
         transmission_vector: "Data Packet / Peer-to-Peer",
         lethality_class: "N/A (Data Loss)",
         lethality_desc: "Users are not 'killed' but their accounts are permanently corrupted or deleted.",
-        cure: "System Reboot or Anti-Virus Patch 4.2.",
-        active_seasons: ["All"],
-        cycle_modifier: { 'expansion': 1.4, 'calm': 0.8 },
-        
-        // New Systems Data
         mutation_risk: 99,
         economic_strain: "Catastrophic (Server Crash)",
         containment_status: "Unknown",
 
         // Simulation Data
+        cure: "System Reboot or Anti-Virus Patch 4.2.",
+        active_seasons: ["All"],
+        cycle_modifier: { 'expansion': 1.4, 'calm': 0.8 },
         start_day: 378440, 
         base_severity: 30,
         peak_population: 1000000, 

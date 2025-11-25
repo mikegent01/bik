@@ -4,7 +4,6 @@ import { calculateGlobalCycle, getGlobalTechAverages, NATIONS, getAbsoluteDay } 
 import { WAHBOOK_POSTS } from './assembly-data.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
 import { MAP_DATA } from './map-data.js';
-import { SPECIES_DATA } from './species-data.js';
 
 const container = document.getElementById('plagues-grid');
 const threatBar = document.querySelector('.threat-bar');
@@ -22,9 +21,7 @@ function getCurrentSeason() {
 }
 
 function getCalendarDateFromAbsolute(absDay) {
-    // Ensure we are working with an integer
     absDay = Math.floor(absDay);
-    
     const startYear = 1035;
     const yearsPassed = Math.floor(absDay / 365);
     const year = startYear + yearsPassed;
@@ -42,7 +39,8 @@ function getCalendarDateFromAbsolute(absDay) {
         }
         dayCount += daysInMonth;
     }
-    return `${CALENDAR_DATA.months.values[monthIndex].abbreviation} ${day}, ${year}`;
+    const monthName = CALENDAR_DATA.months.values[monthIndex]?.abbreviation || "Unk";
+    return `${monthName} ${day}, ${year}`;
 }
 
 function calculateSimulation(plague) {
@@ -68,16 +66,23 @@ function calculateSimulation(plague) {
 
     let currentInfected = Math.floor(plague.peak_population * infectionFactor * seasonMod * cycleMod);
     
-    // 2. Cure Progress
+    // 2. Cure Progress & Tech
     const medicalTech = techAverages.MEDICAL || 1;
-    const dailyCureRate = 0.5 + (medicalTech * 0.2); 
+    // Higher tech = faster cure
+    const dailyCureRate = 0.5 + (medicalTech * 0.25); 
     
-    // Projected Cure Date Fix: Use Math.floor
-    const projectedDaysToCure = Math.floor((100 - plague.cure_progress) / dailyCureRate);
+    // Projected Cure Date
+    // Use Math.floor to ensure integer days
+    let projectedDaysToCure = 0;
+    if (plague.cure_progress < 100) {
+        projectedDaysToCure = Math.floor((100 - plague.cure_progress) / dailyCureRate);
+    }
     const projectedCureDate = getCalendarDateFromAbsolute(currentDay + projectedDaysToCure);
 
     // 3. Population Impact
-    const projectedDecline = Math.floor(currentInfected * plague.mortality_rate);
+    // Dampen impact with high medical tech
+    const techDampener = Math.max(0.1, 1.0 - (medicalTech * 0.08)); 
+    const projectedDecline = Math.floor(currentInfected * plague.mortality_rate * techDampener);
     
     let status = "Dormant";
     if (plague.cure_progress >= 100) status = "Eradicated";
@@ -103,6 +108,17 @@ function formatKnowledge(value, level, threshold) {
     return `<span class="obfuscated">Unknown</span>`;
 }
 
+function getLocationName(poiId) {
+    if (!poiId) return "Unknown";
+    // Search all maps for the POI
+    for (const mapKey in MAP_DATA) {
+        const map = MAP_DATA[mapKey];
+        const poi = map.pointsOfInterest?.find(p => p.id === poiId);
+        if (poi) return poi.name;
+    }
+    return poiId; // Fallback to ID if name not found
+}
+
 function renderPlagues() {
     if (!container) return;
     
@@ -121,12 +137,11 @@ function renderPlagues() {
         
         const locationName = getLocationName(plague.starting_location);
 
-        // FIX: Join nations with comma
         const nationsHTML = plague.affected_nations.map(nationKey => {
             const nationConfig = NATIONS[nationKey];
             const name = nationConfig ? nationConfig.name : nationKey;
             return `<span class="nation-tag">${name}</span>`;
-        }).join(''); // ADDED JOIN
+        }).join('');
 
         // New Systems Render Logic
         const lethalityColor = plague.lethality_class.includes('High') || plague.lethality_class.includes('Extreme') ? 'negative' : 'neutral';
@@ -162,7 +177,7 @@ function renderPlagues() {
 
                 <div class="plague-metrics">
                     <div class="metric-row">
-                        <span class="metric-label">Infected</span>
+                        <span class="metric-label">Active Cases</span>
                         <span class="metric-value negative">${formatKnowledge(sim.currentInfected, plague.knowledge_level, 30)}</span>
                     </div>
                      <div class="metric-row">
@@ -188,13 +203,13 @@ function renderPlagues() {
                 <div class="progress-section">
                     <div class="bar-label-group">
                         <span>Cure Progress</span>
-                        <span>${Math.round(plague.cure_progress)}% (Est. End: ${formatKnowledge(sim.projectedCureDate, plague.knowledge_level, 50)})</span>
+                        <span>${Math.round(plague.cure_progress)}% (Est. Completion: ${sim.projectedCureDate})</span>
                     </div>
                     <div class="progress-bar-container">
                         <div class="progress-fill cure" style="width: ${plague.cure_progress}%"></div>
                     </div>
                      <div class="tech-boost-note">
-                        <span class="boost-icon">✚</span> Boosted by Medical Tech (Tier ${Math.round(sim.medicalTech)})
+                        <span class="boost-icon">✚</span> Medical Tech Boost (Tier ${Math.round(sim.medicalTech)})
                     </div>
                 </div>
 
@@ -208,7 +223,7 @@ function renderPlagues() {
                             <p>${formatKnowledge(plague.symptoms, plague.knowledge_level, 20)}</p>
                         </div>
                          <div class="detail-box">
-                            <strong>Lethality Details</strong>
+                            <strong>Impact Assessment</strong>
                             <p>${plague.lethality_desc}</p>
                         </div>
                     </div>
@@ -234,16 +249,6 @@ function renderPlagues() {
     threatBar.style.width = `${threatPercent}%`;
     threatValue.textContent = `${threatPercent}% BIO-THREAT LEVEL`;
     cycleNote.textContent = `Global Cycle (${globalCycle.phase.name}) is ${globalCycle.phase.bias > 0 ? 'amplifying' : 'reducing'} contagion vectors.`;
-}
-
-function getLocationName(poiId) {
-    if (!poiId) return "Unknown";
-    for (const mapKey in MAP_DATA) {
-        const map = MAP_DATA[mapKey];
-        const poi = map.pointsOfInterest?.find(p => p.id === poiId);
-        if (poi) return poi.name;
-    }
-    return poiId; // Fallback to ID if name not found
 }
 
 function init() {

@@ -171,6 +171,63 @@ function generateWeatherForDay(year, monthIndex, day) {
 
     return { temp: `${temperature}°C`, ...chosenWeather };
 }
+function getPlagueEventsForDay(year, monthIndex, day) {
+    const events = [];
+    const season = getSeason(monthIndex);
+    const techAverages = getGlobalTechAverages();
+    
+    PLAGUE_DATA.forEach(plague => {
+        // Random Outbreak Logic
+        if (plague.active_seasons.includes(season.name) || plague.active_seasons.includes("All")) {
+            const seed = year * 10000 + (monthIndex + 1) * 100 + day + plague.name.length;
+            if (getSeededRandom(seed) < 0.05) { // 5% chance
+                 events.push({
+                    type: 'plague_outbreak',
+                    name: `Outbreak: ${plague.name}`,
+                    description: `Reports of ${plague.name} clusters in ${plague.region}.`,
+                    icon: plague.icon
+                });
+            }
+        }
+
+        // Projected Cure Date Logic
+        if (plague.cure_progress < 100) {
+             const medicalTech = techAverages.MEDICAL || 1;
+             const dailyCureRate = 0.5 + (medicalTech * 0.25);
+             const currentDay = getAbsoluteDay();
+             const projectedDaysToCure = Math.floor((100 - plague.cure_progress) / dailyCureRate);
+             
+             const cureAbsDay = currentDay + projectedDaysToCure;
+             const startYear = 1035;
+             const yearsPassed = Math.floor(cureAbsDay / 365);
+             const targetYear = startYear + yearsPassed;
+             const remainingDays = cureAbsDay % 365;
+             let dayCount = 0;
+             let targetMonthIndex = 0;
+             let targetDay = 0;
+             
+             for (let i = 0; i < CALENDAR_DATA.months.values.length; i++) {
+                const daysInMonth = CALENDAR_DATA.months.values[i].days;
+                if (dayCount + daysInMonth > remainingDays) {
+                    targetMonthIndex = i;
+                    targetDay = remainingDays - dayCount + 1;
+                    break;
+                }
+                dayCount += daysInMonth;
+            }
+
+            if (year === targetYear && monthIndex === targetMonthIndex && day === targetDay) {
+                 events.push({
+                    type: 'tech', 
+                    name: `Est. Cure: ${plague.name}`,
+                    description: `Projected eradication of ${plague.name} based on current medical progress.`,
+                    icon: '💊'
+                });
+            }
+        }
+    });
+    return events;
+}
 
 function getTimelineEventsForDay(year, monthIndex, day) {
     const events = [];

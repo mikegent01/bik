@@ -22,23 +22,20 @@ const PLAYER_RACE_LABELS = {
 function calculateDemographics() {
     const totalByRegion = {};
     const totalBySpecies = {};
-    const speciesFactionDistribution = {}; // New data structure
+    const speciesFactionDistribution = {}; 
     let grandTotal = 0;
 
-    // Initialize species counts and faction distributions
     for (const key in SPECIES_DATA) {
         totalBySpecies[key] = 0;
-        speciesFactionDistribution[key] = {}; // Initialize inner object
+        speciesFactionDistribution[key] = {}; 
     }
 
-    // Iterate over all maps
     for (const mapKey in MAP_DATA) {
         const map = MAP_DATA[mapKey];
         const group = map.group || 'Other';
         
         if (!totalByRegion[group]) totalByRegion[group] = 0;
 
-        // Sum populations from POIs
         if (map.pointsOfInterest) {
             map.pointsOfInterest.forEach(poi => {
                 const pop = poi.population || 0;
@@ -46,9 +43,8 @@ function calculateDemographics() {
                     totalByRegion[group] += pop;
                     grandTotal += pop;
 
-                    const factionId = poi.factionId || 'unaligned'; // Get faction for this POI
+                    const factionId = poi.factionId || 'unaligned'; 
 
-                    // Distribute to species based on regional makeup
                     const demographics = REGIONAL_DEMOGRAPHICS[group] || { 'dnd_human': 1.0 }; 
                     
                     for (const [speciesKey, percentage] of Object.entries(demographics)) {
@@ -56,7 +52,6 @@ function calculateDemographics() {
                             const speciesPopInPoi = pop * percentage;
                             totalBySpecies[speciesKey] += speciesPopInPoi;
 
-                            // NEW: Add to the faction distribution
                             if (!speciesFactionDistribution[speciesKey][factionId]) {
                                 speciesFactionDistribution[speciesKey][factionId] = 0;
                             }
@@ -68,7 +63,7 @@ function calculateDemographics() {
         }
     }
 
-    return { totalByRegion, totalBySpecies, grandTotal, speciesFactionDistribution }; // Return new data
+    return { totalByRegion, totalBySpecies, grandTotal, speciesFactionDistribution };
 }
 
 function renderTotalPopulation(grandTotal) {
@@ -78,6 +73,7 @@ function renderTotalPopulation(grandTotal) {
     }
 }
 
+// --- NEW: Vital Statistics Renderer ---
 function renderVitalStatistics() {
     const container = document.getElementById('vital-stats-container');
     if (!container) return;
@@ -105,13 +101,13 @@ function renderVitalStatistics() {
 
     // Plague Impact
     let plagueImpact = 0;
-    let activePlagueNames = [];
     PLAGUE_DATA.forEach(plague => {
         const isSeason = plague.active_seasons.includes(season) || plague.active_seasons.includes("All");
         if (isSeason) {
-            // Simple check: active season implies higher risk
-            plagueImpact += 0.15;
-            activePlagueNames.push(plague.name);
+            // Simple check: active season implies higher risk.
+            // In a fuller sim, we'd check if the plague is actually spreading.
+            // For now, we assume active plagues in season contribute to mortality.
+            plagueImpact += (plague.mortality_rate * 0.1); // Add a fraction of the raw mortality rate
         }
     });
     
@@ -278,11 +274,9 @@ function renderTechAccessChart(category = 'aggregate') {
     const globalTech = getGlobalTechAverages();
     const estateAccess = calculateTechAccessByEstate(globalTech, category);
     
-    // Format keys for display (nobility -> Nobility)
     const labels = Object.keys(estateAccess).map(k => k.charAt(0).toUpperCase() + k.slice(1));
     const dataValues = Object.values(estateAccess);
 
-    // Color logic based on category
     let color = '#58a6ff'; // Default Blue
     if (category === 'WEAPONS') color = '#f85149'; // Red
     if (category === 'MAGIC') color = '#a371f7'; // Purple
@@ -311,7 +305,7 @@ function renderTechAccessChart(category = 'aggregate') {
                     angleLines: { color: '#30363d' },
                     grid: { color: '#30363d' },
                     pointLabels: { color: '#e6edf3', font: { size: 12, family: "'Orbitron', sans-serif" } },
-                    ticks: { display: false, backdropColor: 'transparent' }, // Hide numbers background
+                    ticks: { display: false, backdropColor: 'transparent' }, 
                     min: 0,
                 }
             },
@@ -333,10 +327,8 @@ function setupTechSelector() {
     const selector = document.getElementById('tech-access-filter');
     if (!selector) return;
 
-    // Clear existing options (except first)
     selector.innerHTML = '<option value="aggregate">Aggregate (All Tech)</option>';
 
-    // Add categories
     RESEARCH_CATEGORIES.forEach(cat => {
         const option = document.createElement('option');
         option.value = cat;
@@ -344,11 +336,9 @@ function setupTechSelector() {
         selector.appendChild(option);
     });
 
-    // Listener
     selector.addEventListener('change', (e) => {
         renderTechAccessChart(e.target.value);
         
-        // Update description text
         const desc = document.getElementById('tech-access-desc');
         if(desc) {
             if(e.target.value === 'aggregate') {
@@ -364,10 +354,8 @@ function renderSpeciesList(data) {
     const container = document.getElementById('species-grid-container');
     if (!container) return;
 
-    // Convert SPECIES_DATA to array
     const allSpecies = Object.entries(SPECIES_DATA);
 
-    // Sort by population count (descending)
     allSpecies.sort((a, b) => {
         const countA = data.totalBySpecies[a[0]] || 0;
         const countB = data.totalBySpecies[b[0]] || 0;
@@ -380,15 +368,11 @@ function renderSpeciesList(data) {
         let percentageString = "";
         let countString = "";
         
-        // Handle 0/Low population display logic
         if (count > 0) {
             const percentage = data.grandTotal > 0 ? ((count / data.grandTotal) * 100).toFixed(1) : 0;
             countString = Math.round(count).toLocaleString();
             percentageString = `(${percentage}%)`;
         } else {
-            // Generate realistic "Lore Estimates" for species not appearing on current maps
-            // or those that are statistically rare.
-            
             if (species.name.includes("Legendary") || species.social_status === "Unique") {
                 countString = "1 - 5";
                 percentageString = "(Unique)";
@@ -399,19 +383,16 @@ function renderSpeciesList(data) {
                 countString = "~100";
                 percentageString = "(Endangered)";
             } else {
-                // General scattered population
                 const randomEst = Math.floor(Math.random() * 400) + 50;
                 countString = `~${randomEst}`;
                 percentageString = "(Scattered)";
             }
         }
 
-        // --- RELIGION CALCULATION ---
         let dominantFaith = "Secular / Unaligned";
         let dominantFaithColor = "var(--text-secondary)";
         
         if (species.religion_breakdown) {
-            // Convert object to array and sort by value descending
             const sortedFaiths = Object.entries(species.religion_breakdown).sort((a, b) => b[1] - a[1]);
             
             if (sortedFaiths.length > 0) {
@@ -421,7 +402,6 @@ function renderSpeciesList(data) {
                     dominantFaith = "Secular / Unaligned";
                 } else if (RELIGION_DATA.denominations[topKey]) {
                     dominantFaith = RELIGION_DATA.denominations[topKey].name;
-                    // Get color from parent group
                     const groupKey = RELIGION_DATA.denominations[topKey].group;
                     if (RELIGION_DATA.groups[groupKey]) {
                         dominantFaithColor = RELIGION_DATA.groups[groupKey].color;
@@ -437,14 +417,12 @@ function renderSpeciesList(data) {
             </div>
         `;
 
-        // --- WORKFORCE CALCULATION (Mini) ---
         const bias = getBiasForSpecies(key);
         const sortedWorkforce = LABOR_CATEGORIES.map(cat => ({
             ...cat,
             value: bias[cat.id]
         })).sort((a, b) => b.value - a.value);
         
-        // Take top 2 roles
         const topRoles = sortedWorkforce.slice(0, 2);
         const workforceHTML = `
             <div class="species-workforce-mini">
@@ -453,12 +431,11 @@ function renderSpeciesList(data) {
             </div>
         `;
         
-        // --- FACTION LEANING CALCULATION ---
         const factionDistribution = data.speciesFactionDistribution[key] || {};
         const speciesTotalPop = data.totalBySpecies[key] || 0;
         const topFactions = Object.entries(factionDistribution)
-            .sort((a, b) => b[1] - a[1]) // Sort descending by population
-            .slice(0, 5); // Get top 5
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5);
 
         const factionsHTML = topFactions.length > 0 && topFactions[0][1] > 0 ? `
             <div class="species-factions">
@@ -468,7 +445,7 @@ function renderSpeciesList(data) {
                         const faction = LORE_DATA.factions[factionKey];
                         if (!faction) return '';
                         const percentageOfTotal = speciesTotalPop > 0 ? ((count / speciesTotalPop) * 100).toFixed(1) : 0;
-                        if (parseFloat(percentageOfTotal) < 1) return ''; // Don't show negligible percentages
+                        if (parseFloat(percentageOfTotal) < 1) return '';
                         return `
                             <li>
                                 <img src="${faction.logo}" alt="${faction.name}" title="${faction.name}">
@@ -482,7 +459,6 @@ function renderSpeciesList(data) {
         ` : '<div class="species-factions"><p style="font-style:italic; color:var(--text-secondary);">No significant factional alignment.</p></div>';
 
 
-        // --- RELATIONS CALCULATION ---
         let relationsHTML = '';
         if (species.player_relations) {
             relationsHTML = `
@@ -501,7 +477,6 @@ function renderSpeciesList(data) {
             relationsHTML = `<div class="species-relations"><p style="font-style:italic; color:var(--text-secondary);">No known bias.</p></div>`;
         }
 
-        // --- SOCIAL STATUS BADGE ---
         const statusBadge = species.social_status ? 
             `<div class="species-status-badge status-${species.social_status.toLowerCase().split(' ')[0]}">${species.social_status}</div>` 
             : '';
@@ -539,13 +514,10 @@ function init() {
     renderCharts(data);
     renderSpeciesList(data);
     
-    // New: Render Workforce Analysis
     renderWorkforceData(data);
     
-    // New: Init Tech Selector and Chart
     setupTechSelector();
-    renderTechAccessChart('aggregate'); // Default view
+    renderTechAccessChart('aggregate');
 }
 
-// Wait for DOM and Chart.js
 document.addEventListener('DOMContentLoaded', init);
