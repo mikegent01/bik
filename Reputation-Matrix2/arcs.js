@@ -1,6 +1,278 @@
 
 import { TOAD_ABILITIES } from './abilities.js';
+import { STORY_ARCS, RUMORS, getRumorsByArc, getArcProgress, getArcStats } from './lore.js';
+import { LORE_DATA } from './lore.js';
 
+const ARC_POSITION_ORDER = {
+    'opening': 0,
+    'rising': 1,
+    'climax': 2,
+    'falling': 3,
+    'resolution': 4
+};
+
+const ARC_STATUS_LABELS = {
+    'upcoming': { label: 'Upcoming', class: 'status-upcoming', icon: '⏳' },
+    'active': { label: 'In Progress', class: 'status-active', icon: '🔥' },
+    'resolved': { label: 'Resolved', class: 'status-resolved', icon: '✓' },
+    'failed': { label: 'Failed', class: 'status-failed', icon: '✗' }
+};
+
+function formatDate(date) {
+    if (!date) return 'Ongoing';
+    const months = ['Deepwinter', 'Stormcrest', 'Mudmarch', 'Bloomtide', 'Highsun', 'Goldfall', 'Harvestmoon', 'Frostfall', 'Darkember', 'Starfall', 'Snowmantle', 'Yearsend'];
+    return `${date.day} ${months[date.monthIndex]}, ${date.year}`;
+}
+
+function renderArcProgressBar(arc) {
+    const progress = getArcProgress(arc.id);
+    const phases = arc.phases;
+    
+    return `
+        <div class="arc-progress-container">
+            <div class="arc-progress-bar">
+                <div class="arc-progress-fill" style="width: ${progress * 100}%"></div>
+            </div>
+            <div class="arc-phases">
+                ${phases.map((phase, index) => {
+                    let phaseClass = 'phase-pending';
+                    if (index < arc.currentPhase) phaseClass = 'phase-complete';
+                    else if (index === arc.currentPhase) phaseClass = 'phase-active';
+                    
+                    return `
+                        <div class="arc-phase ${phaseClass}" title="${phase.description}">
+                            <div class="phase-marker"></div>
+                            <span class="phase-name">${phase.name}</span>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function renderArcRumorTimeline(arcId) {
+    const rumors = getRumorsByArc(arcId);
+    
+    if (rumors.length === 0) {
+        return '<p class="no-rumors">No recorded events yet.</p>';
+    }
+    
+    // Group rumors by position
+    const grouped = {
+        opening: [],
+        rising: [],
+        climax: [],
+        falling: [],
+        resolution: []
+    };
+    
+    rumors.forEach(rumor => {
+        const position = rumor.arcPosition || 'rising';
+        if (grouped[position]) {
+            grouped[position].push(rumor);
+        }
+    });
+    
+    return `
+        <div class="arc-timeline">
+            ${Object.entries(grouped).map(([position, positionRumors]) => {
+                if (positionRumors.length === 0) return '';
+                
+                const positionLabels = {
+                    opening: '🎬 Opening',
+                    rising: '📈 Rising Action',
+                    climax: '⚡ Climax',
+                    falling: '📉 Falling Action',
+                    resolution: '🎭 Resolution'
+                };
+                
+                return `
+                    <div class="timeline-section timeline-${position}">
+                        <h4 class="timeline-section-header">${positionLabels[position]}</h4>
+                        <div class="timeline-events">
+                            ${positionRumors.map(rumor => `
+                                <div class="timeline-event ${rumor.isEvent ? 'is-event' : 'is-rumor'}">
+                                    <div class="event-marker"></div>
+                                    <div class="event-content">
+                                        <div class="event-header">
+                                            <span class="event-title">${rumor.title}</span>
+                                            <span class="event-date">${formatDate(rumor.date)}</span>
+                                        </div>
+                                        <p class="event-description">${rumor.description.substring(0, 150)}${rumor.description.length > 150 ? '...' : ''}</p>
+                                        ${rumor.cycle_impact ? `
+                                            <span class="event-impact impact-${rumor.cycle_impact.type}">
+                                                ${rumor.cycle_impact.label} (${rumor.cycle_impact.score > 0 ? '+' : ''}${rumor.cycle_impact.score})
+                                            </span>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function renderArcCard(arc) {
+    const stats = getArcStats(arc.id);
+    const statusInfo = ARC_STATUS_LABELS[arc.status] || ARC_STATUS_LABELS.active;
+    
+    // Get top affected factions
+    const topFactions = Object.entries(stats.factionImpacts)
+        .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+        .slice(0, 5);
+    
+    return `
+        <div class="arc-card arc-${arc.status}" data-arc-id="${arc.id}">
+            <div class="arc-header">
+                <div class="arc-icon">${arc.icon}</div>
+                <div class="arc-title-section">
+                    <h3 class="arc-title">${arc.name}</h3>
+                    <span class="arc-status ${statusInfo.class}">
+                        ${statusInfo.icon} ${statusInfo.label}
+                    </span>
+                </div>
+            </div>
+            
+            <p class="arc-description">${arc.description}</p>
+            
+            <div class="arc-meta">
+                <span class="arc-dates">
+                    📅 ${formatDate(arc.startDate)} ${arc.endDate ? `→ ${formatDate(arc.endDate)}` : '→ Ongoing'}
+                </span>
+                <span class="arc-rumor-count">📜 ${stats.rumorCount} Events</span>
+            </div>
+            
+            ${renderArcProgressBar(arc)}
+            
+            <div class="arc-themes">
+                ${arc.themes.map(theme => `<span class="theme-tag theme-${theme}">${theme}</span>`).join('')}
+            </div>
+            
+            <div class="arc-faction-impacts">
+                <h4>Key Faction Impacts:</h4>
+                <div class="faction-impact-list">
+                    ${topFactions.map(([factionId, value]) => {
+                        const faction = LORE_DATA?.factions?.[factionId];
+                        const factionName = faction?.name || factionId;
+                        const impactClass = value > 0 ? 'positive' : 'negative';
+                        const sign = value > 0 ? '+' : '';
+                        return `
+                            <div class="faction-impact ${impactClass}">
+                                <span class="faction-name">${factionName}</span>
+                                <span class="faction-value">${sign}${value}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+            
+            <div class="arc-consequences">
+                <div class="consequences-positive">
+                    <h5>✓ Gains</h5>
+                    <ul>${arc.consequences.positive.map(c => `<li>${c}</li>`).join('')}</ul>
+                </div>
+                <div class="consequences-negative">
+                    <h5>✗ Losses</h5>
+                    <ul>${arc.consequences.negative.map(c => `<li>${c}</li>`).join('')}</ul>
+                </div>
+            </div>
+            
+            <button class="arc-expand-btn" onclick="toggleArcTimeline('${arc.id}')">
+                View Timeline ▼
+            </button>
+            
+            <div class="arc-timeline-container" id="timeline-${arc.id}" style="display: none;">
+                ${renderArcRumorTimeline(arc.id)}
+            </div>
+        </div>
+    `;
+}
+
+function renderArcOverview() {
+    const arcs = Object.values(STORY_ARCS);
+    
+    // Separate by status
+    const activeArcs = arcs.filter(a => a.status === 'active');
+    const resolvedArcs = arcs.filter(a => a.status === 'resolved');
+    const upcomingArcs = arcs.filter(a => a.status === 'upcoming');
+    
+    return `
+        <div class="arcs-overview">
+            <div class="arcs-summary">
+                <div class="summary-stat">
+                    <span class="stat-value">${activeArcs.length}</span>
+                    <span class="stat-label">Active Arcs</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="stat-value">${resolvedArcs.length}</span>
+                    <span class="stat-label">Resolved</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="stat-value">${RUMORS.length}</span>
+                    <span class="stat-label">Total Events</span>
+                </div>
+            </div>
+            
+            ${activeArcs.length > 0 ? `
+                <section class="arc-section">
+                    <h2>🔥 Active Story Arcs</h2>
+                    <div class="arcs-grid">
+                        ${activeArcs.map(arc => renderArcCard(arc)).join('')}
+                    </div>
+                </section>
+            ` : ''}
+            
+            ${resolvedArcs.length > 0 ? `
+                <section class="arc-section">
+                    <h2>✓ Resolved Arcs</h2>
+                    <div class="arcs-grid">
+                        ${resolvedArcs.map(arc => renderArcCard(arc)).join('')}
+                    </div>
+                </section>
+            ` : ''}
+            
+            ${upcomingArcs.length > 0 ? `
+                <section class="arc-section">
+                    <h2>⏳ Upcoming Arcs</h2>
+                    <div class="arcs-grid">
+                        ${upcomingArcs.map(arc => renderArcCard(arc)).join('')}
+                    </div>
+                </section>
+            ` : ''}
+        </div>
+    `;
+}
+
+// Toggle timeline visibility
+window.toggleArcTimeline = function(arcId) {
+    const timeline = document.getElementById(`timeline-${arcId}`);
+    const btn = timeline.previousElementSibling;
+    
+    if (timeline.style.display === 'none') {
+        timeline.style.display = 'block';
+        btn.textContent = 'Hide Timeline ▲';
+    } else {
+        timeline.style.display = 'none';
+        btn.textContent = 'View Timeline ▼';
+    }
+};
+
+export function renderArcs() {
+    const container = document.getElementById('arcs-container');
+    if (!container) return;
+    
+    container.innerHTML = renderArcOverview();
+}
+
+export function init() {
+    renderArcs();
+}
+
+init();
 export const AUXILIARY_PARTY = {
     dan: { name: "Dan", weapon: "Longsword & Magic", status: "Weakened & Diminished", portrait: "toads/dan.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
     toad_lee: { name: "Toad Lee", description: "A hardy toad warrior who fights with a surprisingly large axe.", weapon: "Axe", status: "Active", portrait: "toads/toad_lee.png", level: 2, xp: 150, xp_to_next: 300, log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."], abilities: ["Reckless Attack"] },
@@ -18,8 +290,6 @@ export const RUMORS = [
     date: { day: 20, monthIndex: 6, year: 1040 },
     isEvent: false,
     instigator: 'archie',
-    arc: 'raventree_manor',
-    arcPosition: 'climax',
     description: "Archie Miser has publicly admitted to casting a high-level Fireball spell to destroy the Raventree Greenhouse. While he claims it was to save his friends from Rust Monsters, the admission of such reckless magic has infuriated the Mages' Guild and delighted chaos-worshippers.",
     targets: ['archie'],
     effects: {
@@ -38,8 +308,6 @@ export const RUMORS = [
     date: { day: 19, monthIndex: 6, year: 1040 },
     isEvent: true,
     instigator: 'markop', // Markop led the Cohort defense
-    arc: 'raventree_manor',
-    arcPosition: 'climax',
     description: "A chaotic battle erupted within Raventree Manor when First Cohort toads, led by Markop, were ambushed by two powerful Arcane Wraiths. The fight was a desperate struggle involving divine magic, summoned giants, and volatile alchemy. Despite the death of a Cohort member, the combined forces managed to destroy one wraith and repel the other, but the event has left the Cohort shaken and questioning the true nature of the threat they are trying to contain.",
     targets: ['markop', 'liberated_toads', 'remi'],
     effects: {
@@ -55,8 +323,6 @@ export const RUMORS = [
         title: "The Princess is Dead",
         date: { day: 1, monthIndex: 0, year: 995 },
         time_ago: "45 Years Ago",
-        arc: 'mushroom_civil_war',
-        arcPosition: 'assassination',
         description: "Princess Peach was killed, sparking a long and brutal civil war in the Mushroom Kingdom...",
         targets: ['bowser'],
         effects: { mushroom_regency: -50, regal_empire: -15, silver_flame: -15, oathbound_judges: -15 },
@@ -68,8 +334,6 @@ export const RUMORS = [
         date: { day: 19, monthIndex: 6, year: 1040 },
         isEvent: true, 
         instigator: 'archie',
-        arc: 'raventree_manor',
-        arcPosition: 'falling',
         description: "In a stunning betrayal, the Liberated Toad 'Jerry' was revealed to be an Iron Legion spy who orchestrated Archie Miser's escape from Cohort custody, only to lead him into a Legion trap. Archie escaped again, navigating a surreal journey through a Rakasha relay, a Mindflayer colony where he discovered the mutilated remains of X.O., and a final, chaotic return to a ghost-infested Raventree Manor. The event revealed the Legion's deep infiltration and the manor's connection to otherworldly dimensions.",
         targets: ['archie', 'liberated_toads', 'iron_legion', 'rakasha_clans', 'mages_guild'],
         effects: {
@@ -88,8 +352,6 @@ export const RUMORS = [
         isEvent: true,
         instigator: 'dan', // Dan proposed it
         date: { day: 18, monthIndex: 6, year: 1040 },
-        arc: 'supernatural_sovereignty',
-        arcPosition: 'vote',
         description: "In a stunning display of political power, the Regal Empire pushed its 'Supernatural Sovereignty Act' through the Midlands Diet with an overwhelming majority of 81-30. The act, proposed by an Imperial delegate, declares organized supernatural entities like the Onyx Hand and Moonfang Pack illegal within Imperial borders and mandates a military containment protocol, effectively ending any pretense of a truce.",
         targets: ['dan', 'party', 'liberated_toads', 'onyx_hand', 'moonfang_pack', 'regal_empire', 'iron_legion'],
         effects: {
@@ -111,8 +373,6 @@ export const RUMORS = [
         id: 'the_kong_bug',
         title: "The Kong Bug & Assassination Plot",
         date: { day: 18, monthIndex: 6, year: 1040 },
-        arc: 'kong_kremling_cold_war',
-        arcPosition: 'discovery',
         description: "Donkey Kong's Director of Intelligence, Funky Kong, has discovered a sophisticated listening device of Kremling origin in DK's private office. A tense phone call between DK and King K. Rool revealed a deeper conspiracy: a Kremling agent named Galypso is not only responsible for the bug but has been ordered by K. Rool to assassinate Funky Kong to cover their tracks. The 'peace' between the two factions is a sham.",
         targets: ['donkey_kong', 'king_k_rool', 'funky_kong', 'dk_crew', 'kremling_krew'],
         effects: {
@@ -131,8 +391,6 @@ export const RUMORS = [
         date: { day: 17, monthIndex: 6, year: 1040 },
         isEvent: true,
         instigator: 'archie', // Archie cast the fireball
-        arc: 'raventree_manor',
-        arcPosition: 'rising',
         description: "A chaotic series of events at Raventree Manor culminated in a devastating battle within its magical greenhouse. After Remi shot down a wyvern carrying Waluigi and Green T, the party was trapped inside by the Oracle and ambushed by rust monsters. The fight escalated into an inferno, climaxing with Archie unleashing a massive fireball that destroyed the greenhouse. The aftermath saw Dan's attempt to heal a critically wounded Eager backfire, leading to Archie's surrender to the newly-arrived 'Pond Patrol'. The incident concluded with Green T being pulled into a mirror and a new, terrifying supernatural threat emerging from it, plunging the manor into a full-blown containment crisis.",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'remi', 'dan', 'eager', 'waluigi', 'green_t', 'self_reflection_oracle'],
         effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 },
@@ -166,8 +424,6 @@ export const RUMORS = [
         time_ago: "Approx. 4 Weeks Ago",
         date: { year: 1040, monthIndex: 5, day: 22 },
         instigator: 'dan', // Dan dealt the final blow
-        arc: 'vigilance_saga',
-        arcPosition: 'climax',
         description: "The party, with the help of a liberated toad slave, defeated the rogue mage X.O. and secured the 'Vigilance'.",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'dan'],
         effects: { regal_empire: 5, mages_guild: 5, the_unchained: 10, mushroom_regency: 5, liberated_toads: 25 },
@@ -179,8 +435,6 @@ export const RUMORS = [
         time_ago: "Approx. 4 Weeks Ago",
         date: { year: 1040, monthIndex: 5, day: 22 },
         instigator: 'humpik',
-        arc: 'vigilance_saga',
-        arcPosition: 'falling',
         description: "In an act of supreme recklessness, Humpik disabled the Vigilance's power core with an thrown axe...",
         targets: ['humpik', 'bowser'],
         effects: { regal_empire: -40, iron_legion: -25, mages_guild: -15, ratchet_raiders: 15, cosmic_jesters: 20 },
@@ -191,8 +445,6 @@ export const RUMORS = [
         title: "The Syrup Schism",
         time_ago: "Approx. 4 Weeks Ago",
         date: { year: 1040, monthIndex: 5, day: 22 },
-        arc: 'vigilance_saga',
-        arcPosition: 'falling',
         description: "The pirate Captain Syrup was freed from captivity under the goblin Lario...",
         targets: ['archie', 'markop', 'humpik', 'bowser', 'waluigi'],
         effects: { ratchet_raiders: -25, freelancer_underworld: 10, crimson_fleet: -20, regal_empire: -5 },
@@ -224,8 +476,6 @@ export const RUMORS = [
         title: "Koopa-Loyalist Truce",
         time_ago: "Approx. 2 Weeks Ago",
         date: { year: 1040, monthIndex: 6, day: 7 },
-        arc: 'mushroom_civil_war',
-        arcPosition: 'stalemate',
         description: "The Koopa Troop remnants and the Peach Loyalists have formed a fragile truce...",
         targets: ['humpik', 'bowser'],
         effects: { peach_loyalists: 10, koopa_troop: 5 },
@@ -237,8 +487,6 @@ export const RUMORS = [
         time_ago: "Approx. 1 Week Ago",
         date: { year: 1040, monthIndex: 6, day: 14 },
         instigator: 'humpik',
-        arc: 'toad_liberation',
-        arcPosition: 'infiltration',
         description: "The Iron Legion revealed to Humpik that the trafficked toads are hidden in secret compartments...",
         targets: ['humpik', 'liberated_toads'],
         effects: { iron_legion: 5, liberated_toads: 10, the_unchained: 5 },
@@ -249,8 +497,6 @@ export const RUMORS = [
         title: "Lanky's Disgrace at the Summit",
         time_ago: "Yesterday",
         date: { year: 1040, monthIndex: 6, day: 19 },
-        arc: 'kong_kremling_cold_war',
-        arcPosition: 'discovery',
         description: "Lanky Kong's bizarre behavior at the Democratic Summit caused a major diplomatic incident...",
         targets: ['donkey_kong', 'lanky_kong'],
         effects: { dk_crew: -25, mushroom_regency: -20, regal_empire: -15, cosmic_jesters: 10 },
@@ -261,8 +507,6 @@ export const RUMORS = [
         title: "Chaos in Toad Town",
         time_ago: "A Few Days Ago",
         date: { year: 1040, monthIndex: 6, day: 16 },
-        arc: 'mushroom_civil_war',
-        arcPosition: 'escalation',
         description: "A series of violent events rocked Toad Town...",
         targets: ['captain_toadette', 'embercap', 'chief_thornpaw'],
         effects: { peach_loyalists: -20, mushroom_regency: -15, onyx_hand: -10, mages_guild: -10, koopa_troop: 5 },
@@ -273,8 +517,6 @@ export const RUMORS = [
         title: "Standoff at the Capital",
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
-        arc: 'capital_intrigue',
-        arcPosition: 'escape',
         description: "The Vigilance was boarded by Regal Empire forces over the capital...",
         targets: ['party'],
         effects: { regal_empire: -30, iron_legion: -25, crimson_fleet: 5, freelancer_underworld: -10, liberated_toads: -5 },
@@ -286,8 +528,6 @@ export const RUMORS = [
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
         instigator: 'waluigi',
-        arc: 'capital_intrigue',
-        arcPosition: 'dealings',
         description: "Mr. Wario, Waluigi, and Lady Toriel convene in the Capital...",
         targets: ['wario', 'waluigi', 'lady_toriel', 'archie', 'markop', 'remi', 'humpik', 'green_t'],
         effects: { freelancer_underworld: 15, regal_empire: -10, koopa_troop: 5, mushroom_regency: -5, diamond_city_investigators: 10 },
@@ -299,8 +539,6 @@ export const RUMORS = [
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
         instigator: 'lario',
-        arc: 'toad_liberation',
-        arcPosition: 'reckoning',
         description: "A shocking revelation from the goblin Lario claims the 'Dan' traveling with the party is an imposter...",
         targets: ['party', 'liberated_toads'],
         effects: { liberated_toads: -20, regal_empire: -10, freelancer_underworld: 10, oathbound_judges: -5 },
@@ -311,8 +549,6 @@ export const RUMORS = [
         title: "A Toad in Chains",
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
-        arc: 'capital_intrigue',
-        arcPosition: 'rescue',
         description: "The toad Eager was confirmed to have been captured and brutally tortured by the Iron Legion...",
         targets: ['party', 'liberated_toads'],
         effects: { iron_legion: -30, liberated_toads: 15, the_unchained: 10, silver_flame: 5 },
@@ -323,8 +559,6 @@ export const RUMORS = [
         title: "The Arsonist Ally",
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
-        arc: 'capital_intrigue',
-        arcPosition: 'dealings',
         description: "The centaur who accompanied the party to the capital was revealed to be a saboteur...",
         targets: ['party'],
         effects: { regal_empire: -5, iron_legion: -5, rebel_clans: -10 },
@@ -336,8 +570,6 @@ export const RUMORS = [
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
         instigator: 'green_t',
-        arc: 'capital_intrigue',
-        arcPosition: 'dealings',
         description: "A Legion noble’s ring is swallowed by a horse...",
         targets: ['remi', 'archie', 'green_t', 'iron_legion'],
         effects: { iron_legion: -5, freelancer_underworld: 5, the_unchained: 5 },
@@ -349,8 +581,6 @@ export const RUMORS = [
         time_ago: "Today",
         date: { day: 14, monthIndex: 6, year: 1040 },
         instigator: 'remi',
-        arc: 'capital_intrigue',
-        arcPosition: 'rescue',
         description: "The party's attempt to rescue Eager was a chaotic failure...",
         targets: ['party'],
         effects: { iron_legion: -10, regal_empire: -5, freelancer_underworld: 5, liberated_toads: -5 },
@@ -361,8 +591,6 @@ export const RUMORS = [
         title: "A Dragon in the Sewers?",
         time_ago: "Tonight",
         date: { day: 14, monthIndex: 6, year: 1040 },
-        arc: 'capital_intrigue',
-        arcPosition: 'escape',
         description: "While seeking a cure for Dan, the party was guided by an Iron Legion spy into the capital's sewers...",
         targets: ['party'],
         effects: { iron_legion: -10, mages_guild: 5 },
@@ -374,8 +602,6 @@ export const RUMORS = [
         time_ago: "Tonight",
         date: { day: 16, monthIndex: 6, year: 1040 },
         instigator: 'waluigi',
-        arc: 'raventree_manor',
-        arcPosition: 'discovery',
         description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance...",
         targets: ['party'],
         effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 },
@@ -386,8 +612,6 @@ export const RUMORS = [
         title: "The Oracle of the Cursed Mansion",
         time_ago: "Tonight",
         date: { day: 16, monthIndex: 6, year: 1040 },
-        arc: 'raventree_manor',
-        arcPosition: 'discovery',
         description: "The party staying at Waluigi's newly acquired mansion has encountered its mysterious host, 'The Oracle.'...",
         targets: ['party', 'waluigi'],
         effects: { mages_guild: 5, cosmic_jesters: 10, silver_flame: -5, freelancer_underworld: 5 },
@@ -399,8 +623,6 @@ export const RUMORS = [
         time_ago: "Tonight",
         date: { day: 17, monthIndex: 6, year: 1040 },
         instigator: 'waluigi',
-        arc: 'raventree_manor',
-        arcPosition: 'escalation',
         description: "In a characteristically dramatic fashion, Waluigi and his associate Green T were seen escaping the grounds of the haunted mansion...",
         targets: ['waluigi', 'green_t'],
         effects: { cosmic_jesters: 15, freelancer_underworld: 10, regal_empire: -5, mages_guild: -5 },
@@ -412,8 +634,6 @@ export const RUMORS = [
         time_ago: "Today",
         date: { day: 17, monthIndex: 6, year: 1040 },
         instigator: 'captain_toadette',
-        arc: 'mushroom_civil_war',
-        arcPosition: 'escalation',
         description: "The Peach Loyalists brutally conquered the Fawful bastion of Bramblehaven...",
         targets: ['captain_toadette', 'embercap'],
         effects: { peach_loyalists: 10, mushroom_regency: -20, fawfuls_furious_freaks: -30, koopa_troop: 5, iron_legion: 5, silver_flame: -10 },
@@ -424,8 +644,6 @@ export const RUMORS = [
         title: "The Dinner That Broke Time",
         time_ago: "Tonight",
         date: { day: 16, monthIndex: 6, year: 1040 },
-        arc: 'raventree_manor',
-        arcPosition: 'escalation',
         description: "A group of toads seeking Archie were trapped in the Shadeward Mansion by the time-looping Oracle...",
         targets: ['liberated_toads', 'bones', 'wario'],
         effects: { liberated_toads: -30, iron_legion: -25, regal_empire: -15, freelancer_underworld: 10, mages_guild: 5 },
@@ -436,8 +654,6 @@ export const RUMORS = [
         title: "Shadow War Escalation",
         time_ago: "Ongoing",
         date: { day: 1, monthIndex: 6, year: 1040 },
-        arc: 'shadow_war',
-        arcPosition: 'escalation',
         description: "The conflict between the Onyx Hand and Moonfang Pack is escalating...",
         targets: ['party'],
         effects: { onyx_hand: 5, moonfang_pack: 5, silver_flame: -10 },

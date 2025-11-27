@@ -1,31 +1,692 @@
-#rumors-container {
+/* ================================
+   RUMORS & ARCS SYSTEM STYLES
+   ================================ */
+
+/* Summary Stats */
+.rumors-summary {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.summary-stat {
+    text-align: center;
+    padding: 0 20px;
+    border-right: 1px solid var(--border-color);
+}
+
+.summary-stat:last-child {
+    border-right: none;
+}
+
+.summary-stat .stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: var(--font-display);
+    color: var(--accent-color, #ffd700);
+}
+
+.summary-stat .stat-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Filter Tabs */
+.rumors-filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 8px;
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    padding: 10px 18px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-display);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+}
+
+.filter-tab.active {
+    background: var(--accent-color, #667eea);
+    color: #fff;
+    border-color: var(--accent-color, #667eea);
+}
+
+.tab-count {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.filter-tab.active .tab-count {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Section Headers */
+.arc-section {
+    margin-bottom: 32px;
+}
+
+.section-header {
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Arcs Grid */
+.arcs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 24px;
+}
+
+/* Arc Card */
+.arc-card {
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.arc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.arc-card.arc-active {
+    border-left: 4px solid #ff6b6b;
+}
+
+.arc-card.arc-resolved {
+    border-left: 4px solid #51cf66;
+    opacity: 0.9;
+}
+
+.arc-card.arc-upcoming {
+    border-left: 4px solid #ffd43b;
+    opacity: 0.8;
+}
+
+/* Arc Header */
+.arc-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.arc-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.arc-title-section {
+    flex: 1;
+}
+
+.arc-title {
+    margin: 0 0 4px 0;
+    font-family: var(--font-display);
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.arc-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+.status-resolved {
+    background: rgba(81, 207, 102, 0.2);
+    color: #51cf66;
+}
+
+.status-upcoming {
+    background: rgba(255, 212, 59, 0.2);
+    color: #ffd43b;
+}
+
+.status-failed {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4444;
+}
+
+/* Arc Description */
+.arc-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Arc Meta */
+.arc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.arc-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Progress Bar */
+.arc-progress-container {
+    margin: 16px 0;
+}
+
+.arc-progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.arc-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color, #667eea), #a855f7);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.arc-phases {
+    display: flex;
+    justify-content: space-between;
+}
+
+.arc-phase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    cursor: help;
+}
+
+.phase-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--border-color);
+    margin-bottom: 6px;
+    transition: all 0.3s;
+}
+
+.phase-pending .phase-marker {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.phase-active .phase-marker {
+    background: var(--accent-color, #667eea);
+    border-color: #a855f7;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.phase-complete .phase-marker {
+    background: #51cf66;
+    border-color: #40c057;
+}
+
+.phase-name {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 70px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.phase-active .phase-name {
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.phase-complete .phase-name {
+    color: #51cf66;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(102, 126, 234, 0.5); }
+    50% { box-shadow: 0 0 16px rgba(102, 126, 234, 0.8); }
+}
+
+/* Theme Tags */
+.arc-themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.theme-tag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+}
+
+.theme-supernatural { background: rgba(138, 43, 226, 0.2); border-color: rgba(138, 43, 226, 0.4); color: #da77f2; }
+.theme-political { background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4); color: #74c0fc; }
+.theme-war { background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #ff8787; }
+.theme-espionage { background: rgba(34, 197, 94, 0.2); border-color: rgba(34, 197, 94, 0.4); color: #69db7c; }
+.theme-survival { background: rgba(234, 179, 8, 0.2); border-color: rgba(234, 179, 8, 0.4); color: #ffd43b; }
+.theme-mystery { background: rgba(168, 85, 247, 0.2); border-color: rgba(168, 85, 247, 0.4); color: #b197fc; }
+.theme-action { background: rgba(249, 115, 22, 0.2); border-color: rgba(249, 115, 22, 0.4); color: #ffa94d; }
+.theme-liberation { background: rgba(6, 182, 212, 0.2); border-color: rgba(6, 182, 212, 0.4); color: #66d9e8; }
+.theme-betrayal { background: rgba(220, 38, 38, 0.2); border-color: rgba(220, 38, 38, 0.4); color: #ff6b6b; }
+.theme-horror { background: rgba(88, 28, 135, 0.2); border-color: rgba(88, 28, 135, 0.4); color: #9775fa; }
+.theme-tragedy { background: rgba(75, 85, 99, 0.2); border-color: rgba(75, 85, 99, 0.4); color: #adb5bd; }
+.theme-identity { background: rgba(14, 165, 233, 0.2); border-color: rgba(14, 165, 233, 0.4); color: #74c0fc; }
+.theme-recklessness { background: rgba(251, 146, 60, 0.2); border-color: rgba(251, 146, 60, 0.4); color: #ffc078; }
+
+/* Faction Impacts */
+.arc-faction-impacts {
+    margin-bottom: 12px;
+}
+
+.arc-faction-impacts h4 {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--font-display);
+}
+
+.faction-impact-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.faction-impact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    gap: 8px;
+}
+
+.faction-impact.positive {
+    background: rgba(81, 207, 102, 0.1);
+    border: 1px solid rgba(81, 207, 102, 0.3);
+}
+
+.faction-impact.negative {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.faction-impact.positive .faction-value { color: #51cf66; }
+.faction-impact.negative .faction-value { color: #ff6b6b; }
+
+.faction-name { color: var(--text-secondary); }
+.faction-value { font-weight: bold; font-family: var(--font-display); }
+
+/* Consequences */
+.arc-consequences {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.arc-consequences h5 {
+    margin: 0 0 6px 0;
+    font-size: 0.8rem;
+    font-family: var(--font-display);
+}
+
+.consequences-positive h5 { color: #51cf66; }
+.consequences-negative h5 { color: #ff6b6b; }
+
+.arc-consequences ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.arc-consequences li {
+    margin-bottom: 3px;
+}
+
+/* Expand Button */
+.arc-expand-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-display);
+    transition: all 0.2s;
+}
+
+.arc-expand-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Timeline Container */
+.arc-timeline-container {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.arc-timeline-container.expanded {
+    display: block;
+}
+
+/* Timeline */
+.arc-timeline {
+    position: relative;
+}
+
+.timeline-section {
+    margin-bottom: 20px;
+}
+
+.timeline-section-header {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+}
+
+.timeline-count {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+}
+
+.timeline-events {
+    position: relative;
+    padding-left: 20px;
+}
+
+.timeline-events::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-color, #667eea), #a855f7);
+}
+
+.timeline-event {
+    position: relative;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+}
+
+.timeline-event.is-event {
+    border-left-color: #ff6b6b;
+}
+
+.timeline-event:not(.is-event) {
+    border-left-color: #74c0fc;
+}
+
+.event-marker {
+    position: absolute;
+    left: -18px;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-color, #667eea);
+    border-radius: 50%;
+    border: 2px solid var(--sidebar-bg);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.event-title {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.event-date {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.event-description {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+}
+
+.event-impact {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+}
+
+.event-impact.impact-magic { background: rgba(138, 43, 226, 0.2); color: #da77f2; }
+.event-impact.impact-political { background: rgba(59, 130, 246, 0.2); color: #74c0fc; }
+.event-impact.impact-military { background: rgba(239, 68, 68, 0.2); color: #ff8787; }
+.event-impact.impact-social { background: rgba(234, 179, 8, 0.2); color: #ffd43b; }
+.event-impact.impact-economic { background: rgba(34, 197, 94, 0.2); color: #69db7c; }
+.event-impact.impact-tech { background: rgba(6, 182, 212, 0.2); color: #66d9e8; }
+
+/* Timeline Section Colors */
+.timeline-opening .timeline-section-header { color: #74c0fc; }
+.timeline-rising .timeline-section-header { color: #ffd43b; }
+.timeline-climax .timeline-section-header { color: #ff6b6b; }
+.timeline-falling .timeline-section-header { color: #da77f2; }
+.timeline-resolution .timeline-section-header { color: #51cf66; }
+
+/* Rumors Grid (for unassigned) */
+.rumors-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 24px;
 }
 
+/* Rumor Card Enhancements */
 .rumor-card {
     background-color: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--neutral-color);
     border-radius: 8px;
-    padding: 24px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rumor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.rumor-card.is-event {
+    border-left-color: #ff6b6b;
+}
+
+.rumor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.rumor-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rumor-date {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.rumor-type-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.rumor-type-badge.event {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+.rumor-type-badge.rumor {
+    background: rgba(116, 192, 252, 0.2);
+    color: #74c0fc;
+}
+
+.rumor-position-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+.rumor-position-badge.position-opening { background: rgba(116, 192, 252, 0.2); color: #74c0fc; }
+.rumor-position-badge.position-rising { background: rgba(255, 212, 59, 0.2); color: #ffd43b; }
+.rumor-position-badge.position-climax { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+.rumor-position-badge.position-falling { background: rgba(218, 119, 242, 0.2); color: #da77f2; }
+.rumor-position-badge.position-resolution { background: rgba(81, 207, 102, 0.2); color: #51cf66; }
+
+.rumor-arc-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.rumor-arc-badge:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .rumor-card h3 {
     font-family: var(--font-display);
     color: var(--text-color);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 8px;
 }
 
 .rumor-description {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     flex-grow: 1;
+    line-height: 1.5;
+}
+
+.rumor-cycle-impact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+}
+
+.rumor-cycle-impact.impact-magic { background: rgba(138, 43, 226, 0.15); }
+.rumor-cycle-impact.impact-political { background: rgba(59, 130, 246, 0.15); }
+.rumor-cycle-impact.impact-military { background: rgba(239, 68, 68, 0.15); }
+.rumor-cycle-impact.impact-social { background: rgba(234, 179, 8, 0.15); }
+.rumor-cycle-impact.impact-economic { background: rgba(34, 197, 94, 0.15); }
+.rumor-cycle-impact.impact-tech { background: rgba(6, 182, 212, 0.15); }
+
+.impact-label {
+    color: var(--text-secondary);
+}
+
+.impact-score {
+    font-weight: bold;
+    font-family: var(--font-display);
+    color: var(--text-color);
 }
 
 .rumor-effects {
@@ -36,7 +697,7 @@
 .rumor-effects h4 {
     font-family: var(--font-display);
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 8px;
 }
 
@@ -44,8 +705,76 @@
     list-style: none;
     padding: 0;
     font-size: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .rumor-effects li {
-    margin-bottom: 4px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.rumor-effects li.no-effects {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.rumor-instigator {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.rumor-instigator strong {
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+
+.no-rumors {
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .arcs-grid,
+    .rumors-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rumors-summary {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    
+    .summary-stat {
+        flex: 1 1 45%;
+        border-right: none;
+    }
+    
+    .arc-consequences {
+        grid-template-columns: 1fr;
+    }
+    
+    .phase-name {
+        font-size: 0.55rem;
+        max-width: 50px;
+    }
+}
+
+@media (max-width: 500px) {
+    .rumors-filter-tabs {
+        flex-direction: column;
+    }
+    
+    .filter-tab {
+        width: 100%;
+        justify-content: center;
+    }
 }

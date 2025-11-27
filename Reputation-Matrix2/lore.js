@@ -15,7 +15,7 @@ import { SPACE_FACTIONS } from './factions/space.js';
 import { POKEMON_FACTIONS } from './factions/pokemon.js';
 import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
 
-import { AUXILIARY_PARTY, RUMORS } from './party-and-events.js';
+import { RUMORS } from './party-and-events.js';
 import { PARLIAMENT_MEMBERS } from './parliament-members.js';
 import { RAKASHA_DETAILS } from './rakasha-clans-details.js';
 import { REBEL_CLANS_DETAILS } from './rebel-clans-details.js';
@@ -27,6 +27,16 @@ export { CHARACTER_RELATIONS } from './character-relations.js';
 const combinedCharacters = {
     ...CHARACTERS,
     ...PARLIAMENT_MEMBERS
+};
+
+export const AUXILIARY_PARTY = {
+    dan: { name: "Dan", weapon: "Longsword & Magic", status: "Weakened & Diminished", portrait: "toads/dan.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
+    toad_lee: { name: "Toad Lee", description: "A hardy toad warrior who fights with a surprisingly large axe.", weapon: "Axe", status: "Active", portrait: "toads/toad_lee.png", level: 2, xp: 150, xp_to_next: 300, log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."], abilities: ["Reckless Attack"] },
+    eager: { name: "Eager", weapon: "Whip", status: "Active", portrait: "toads/eager.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
+    ryan: { name: "Ryan", weapon: "Spellcaster", status: "Active", description: "A quiet, studious toad with a natural but untrained affinity for magic...", portrait: "toads/ryan.png", level: 2, xp: 150, xp_to_next: 300, log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell..."], abilities: ["Magic Missile"] },
+    roger: { name: "Roger", weapon: "Gun", status: "Active", portrait: "toads/roger.png", level: 2, xp: 150, xp_to_next: 300, log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire..."], abilities: ["Deadeye Shot"] },
+    bones: { name: "Bones", weapon: "Grotesque", status: "Active", portrait: "toads/bones.png", level: 2, xp: 150, xp_to_next: 300, log: ["Captured and interrogated by the Iron Legion during the chaotic raid..."], abilities: ["Rage"] },
+    the_mole: { name: "The Mole", weapon: "Deceit", status: "Active", description: "A toad of unknown origin... Revealed as an agent for the Iron Legion.", portrait: "toads/the_mole.png", level: 2, xp: 150, xp_to_next: 300, log: ["Revealed his allegiance by helping the Iron Legion capture Bones..."], abilities: ["Feint"] }
 };
 
 const combinedFactions = {
@@ -119,11 +129,245 @@ if (modifiedMushroomKingdomFactions.liberated_toads) {
 combinedFactions.liberated_toads = modifiedMushroomKingdomFactions.liberated_toads;
 
 
+
+// ============================================
+// STORY ARCS
+// ============================================
+export const STORY_ARCS = {
+    raventree_manor: {
+        id: 'raventree_manor',
+        name: 'The Raventree Manor Crisis',
+        description: 'A haunted mansion, a time-looping oracle, and a supernatural containment crisis that threatens to tear reality apart.',
+        icon: '🏚️',
+        status: 'active',
+        startDate: { day: 16, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'discovery', name: 'Discovery', description: 'The party arrives at the cursed mansion' },
+            { id: 'escalation', name: 'Escalation', description: 'Supernatural threats multiply' },
+            { id: 'crisis', name: 'Crisis', description: 'Full containment breach' },
+            { id: 'resolution', name: 'Resolution', description: 'The fate of the manor is decided' }
+        ],
+        currentPhase: 2,
+        themes: ['supernatural', 'survival', 'mystery'],
+        keyFactions: ['mages_guild', 'cosmic_jesters', 'iron_legion'],
+        consequences: {
+            positive: ['Potential arcane knowledge', 'Supernatural allies'],
+            negative: ['Reality destabilization', 'Casualties mounting']
+        }
+    },
+    capital_intrigue: {
+        id: 'capital_intrigue',
+        name: 'Capital Intrigue',
+        description: 'A web of political schemes, prison breaks, and shadow deals in the heart of the Regal Empire.',
+        icon: '🏛️',
+        status: 'resolved',
+        startDate: { day: 14, monthIndex: 6, year: 1040 },
+        endDate: { day: 14, monthIndex: 6, year: 1040 },
+        phases: [
+            { id: 'arrival', name: 'Arrival', description: 'The Vigilance arrives at the capital' },
+            { id: 'dealings', name: 'Shadow Dealings', description: 'Secret meetings and marketplace chaos' },
+            { id: 'rescue', name: 'Rescue Attempt', description: 'The failed prison break' },
+            { id: 'escape', name: 'Escape', description: 'Fleeing the capital' }
+        ],
+        currentPhase: 3,
+        themes: ['political', 'espionage', 'survival'],
+        keyFactions: ['regal_empire', 'iron_legion', 'freelancer_underworld'],
+        consequences: {
+            positive: ['New underworld contacts', 'Intel on Legion operations'],
+            negative: ['Increased Imperial scrutiny', 'Failed to rescue Eager cleanly']
+        }
+    },
+    vigilance_saga: {
+        id: 'vigilance_saga',
+        name: 'The Vigilance Saga',
+        description: 'The acquisition of a legendary airship and the chaos that followed.',
+        icon: '🚀',
+        status: 'resolved',
+        startDate: { day: 20, monthIndex: 4, year: 1040 },
+        endDate: { day: 28, monthIndex: 5, year: 1040 },
+        phases: [
+            { id: 'pursuit', name: 'Pursuit', description: 'Tracking down X.O.' },
+            { id: 'battle', name: 'Battle', description: 'The fight for the Vigilance' },
+            { id: 'crisis', name: 'Core Crisis', description: "Humpik's reckless action" },
+            { id: 'aftermath', name: 'Aftermath', description: 'Dealing with the fallout' }
+        ],
+        currentPhase: 3,
+        themes: ['action', 'liberation', 'recklessness'],
+        keyFactions: ['liberated_toads', 'regal_empire', 'ratchet_raiders'],
+        consequences: {
+            positive: ['Gained the Vigilance', 'Freed toad slaves', 'Defeated X.O.'],
+            negative: ['Massive reputation damage', 'Ship nearly destroyed']
+        }
+    },
+    supernatural_sovereignty: {
+        id: 'supernatural_sovereignty',
+        name: 'The Supernatural Sovereignty Crisis',
+        description: 'A political earthquake as the Empire moves to outlaw supernatural factions.',
+        icon: '⚖️',
+        status: 'active',
+        startDate: { day: 18, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'proposal', name: 'The Proposal', description: 'Dan introduces the act' },
+            { id: 'vote', name: 'The Vote', description: 'The Diet passes the act 81-30' },
+            { id: 'enforcement', name: 'Enforcement', description: 'Military protocols activated' },
+            { id: 'consequences', name: 'Consequences', description: 'The supernatural factions respond' }
+        ],
+        currentPhase: 2,
+        themes: ['political', 'supernatural', 'war'],
+        keyFactions: ['regal_empire', 'onyx_hand', 'moonfang_pack', 'silver_flame'],
+        consequences: {
+            positive: ['Imperial favor', 'Silver Flame support'],
+            negative: ['Supernatural enemies', 'War on two fronts']
+        }
+    },
+    mushroom_civil_war: {
+        id: 'mushroom_civil_war',
+        name: 'The Mushroom Kingdom Civil War',
+        description: "A 45-year conflict following Princess Peach's death, now reaching a bloody crescendo.",
+        icon: '🍄',
+        status: 'active',
+        startDate: { day: 1, monthIndex: 0, year: 995 },
+        endDate: null,
+        phases: [
+            { id: 'assassination', name: 'The Assassination', description: 'Princess Peach is killed' },
+            { id: 'fragmentation', name: 'Fragmentation', description: 'The kingdom splinters' },
+            { id: 'stalemate', name: 'Stalemate', description: 'Decades of grinding warfare' },
+            { id: 'escalation', name: 'Escalation', description: 'New players enter the conflict' },
+            { id: 'endgame', name: 'Endgame', description: 'The final confrontation approaches' }
+        ],
+        currentPhase: 3,
+        themes: ['war', 'political', 'tragedy'],
+        keyFactions: ['mushroom_regency', 'peach_loyalists', 'koopa_troop', 'fawfuls_furious_freaks'],
+        consequences: {
+            positive: ['Koopa-Loyalist truce'],
+            negative: ['Bramblehaven massacre', 'Civilian casualties']
+        }
+    },
+    kong_kremling_cold_war: {
+        id: 'kong_kremling_cold_war',
+        name: 'The Kong-Kremling Cold War',
+        description: 'A false peace hides assassination plots and espionage between two bitter rivals.',
+        icon: '🦍',
+        status: 'active',
+        startDate: { day: 18, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'discovery', name: 'Bug Discovery', description: 'Funky finds the listening device' },
+            { id: 'confrontation', name: 'Confrontation', description: 'DK calls K. Rool' },
+            { id: 'assassination', name: 'Assassination Plot', description: 'Galypso targets Funky' },
+            { id: 'war', name: 'Open War?', description: 'Will the cold war turn hot?' }
+        ],
+        currentPhase: 2,
+        themes: ['espionage', 'political', 'betrayal'],
+        keyFactions: ['dk_crew', 'kremling_krew'],
+        consequences: {
+            positive: ['Intel on Kremling operations'],
+            negative: ['Peace shattered', 'Assassination imminent']
+        }
+    },
+    shadow_war: {
+        id: 'shadow_war',
+        name: 'The Shadow War',
+        description: 'An escalating supernatural conflict between vampires and werewolves.',
+        icon: '🌙',
+        status: 'active',
+        startDate: { day: 1, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'tensions', name: 'Rising Tensions', description: 'Old grudges resurface' },
+            { id: 'skirmishes', name: 'Skirmishes', description: 'First blood is drawn' },
+            { id: 'escalation', name: 'Escalation', description: 'Open warfare begins' },
+            { id: 'intervention', name: 'Intervention', description: 'Outside forces get involved' }
+        ],
+        currentPhase: 1,
+        themes: ['supernatural', 'war', 'horror'],
+        keyFactions: ['onyx_hand', 'moonfang_pack', 'silver_flame'],
+        consequences: {
+            positive: ['Potential supernatural allies'],
+            negative: ['Collateral damage', 'Hunter attention']
+        }
+    },
+    toad_liberation: {
+        id: 'toad_liberation',
+        name: 'The Toad Liberation Movement',
+        description: 'The ongoing struggle to free toads from slavery and establish their freedom.',
+        icon: '⛓️',
+        status: 'active',
+        startDate: { day: 22, monthIndex: 5, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'awakening', name: 'Awakening', description: 'Dan and others are freed' },
+            { id: 'organization', name: 'Organization', description: 'The Liberated Toads form' },
+            { id: 'infiltration', name: 'Infiltration', description: 'Spies are discovered' },
+            { id: 'reckoning', name: 'Reckoning', description: "The movement's future is decided" }
+        ],
+        currentPhase: 2,
+        themes: ['liberation', 'betrayal', 'identity'],
+        keyFactions: ['liberated_toads', 'the_unchained', 'iron_legion'],
+        consequences: {
+            positive: ['Freed toads', 'Growing movement'],
+            negative: ['Infiltration by spies', 'Identity crisis (Two Dans)']
+        }
+    }
+};
+
+// ============================================
+// ARC HELPER FUNCTIONS
+// ============================================
+export function getRumorsByArc(arcId) {
+    return RUMORS
+        .filter(rumor => rumor.arc === arcId)
+        .sort((a, b) => {
+            const dateA = new Date(a.date.year, a.date.monthIndex, a.date.day);
+            const dateB = new Date(b.date.year, b.date.monthIndex, b.date.day);
+            return dateA - dateB;
+        });
+}
+
+export function getArcProgress(arcId) {
+    const arc = STORY_ARCS[arcId];
+    if (!arc) return 0;
+    return (arc.currentPhase + 1) / arc.phases.length;
+}
+
+export function getArcStats(arcId) {
+    const rumors = getRumorsByArc(arcId);
+    const arc = STORY_ARCS[arcId];
+    
+    if (!arc) return null;
+    
+    const factionImpacts = {};
+    rumors.forEach(rumor => {
+        Object.entries(rumor.effects || {}).forEach(([faction, value]) => {
+            factionImpacts[faction] = (factionImpacts[faction] || 0) + value;
+        });
+    });
+    
+    const totalCycleImpact = rumors.reduce((sum, r) => sum + (r.cycle_impact?.score || 0), 0);
+    
+    return {
+        rumorCount: rumors.length,
+        factionImpacts,
+        totalCycleImpact,
+        progress: getArcProgress(arcId),
+        currentPhaseName: arc.phases[arc.currentPhase]?.name || 'Unknown'
+    };
+}
+
+export function getUnassignedRumors() {
+    return RUMORS.filter(rumor => !rumor.arc);
+}
+// ============================================
+// RUMORS (with Arc References)
+// ============================================
 export const LORE_DATA = {
     characters: combinedCharacters,
     auxiliary_party: { ...AUXILIARY_PARTY, group: { name: "Group Focuses" } },
     factions: combinedFactions,
     rumors: RUMORS,
+    story_arcs: STORY_ARCS,  // ADD THIS LINE
     faction_details: {
         rakasha_clans: RAKASHA_DETAILS,
         rebel_clans: REBEL_CLANS_DETAILS,

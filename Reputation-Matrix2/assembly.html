@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,18 +126,5 @@
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="assembly.js"></script>
-
-    <!-- UPDATED: This new script block specifically handles the rendering of the Rumors & Intel tab. -->
-    <script type="module">
-        // Import the function that renders rumors and counts WAHbook posts.
-        import { renderIntelAndRumors } from './assembly-intel-system.js';
-        
-        // When the page is fully loaded...
-        document.addEventListener('DOMContentLoaded', () => {
-            // ...run the function to populate the 'intel' tab.
-            // The content will be hidden by default until the user clicks the tab.
-            renderIntelAndRumors();
-        });
-    </script>
 </body>
 </html>

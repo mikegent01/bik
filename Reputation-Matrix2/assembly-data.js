@@ -3,6 +3,427 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     {
+        id: 'archie_fireball_confession',
+        order: 30835,
+        characterKey: 'archie',
+        timestamp: 'Just Now',
+        content: `I cast fireball in the greenhouse, which is truly bad. But my friends were about to get eaten by rust monsters because of the greenhouse's derelict condition. Long story short, blowing up a greenhouse to save my friends? I say I'm justified.`,
+        likes: 2540,
+        comments: [
+            { characterKey: 'markop', text: 'Justified, perhaps. Reckless, absolutely. There were other ways, Archie.' },
+            { characterKey: 'dan', text: 'You saved us. That\'s what matters.' },
+            { characterKey: 'archmage_theron', text: 'You have publicly confessed to a Class 3 violation of the Autumnwood Accords. The Aegis Magi have been dispatched.' },
+            { characterKey: 'eager', text: 'He saved my life! You can\'t arrest him for that!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'archmage_theron_dispatch_aegis',
+        order: 30834,
+        characterKey: 'archmage_theron',
+        timestamp: '1 minute ago',
+        content: `He admits it. He openly boasts of using unsanctioned, high-level destructive magic within a known supernatural nexus. To unleash such chaotic energy in a place with documented temporal and spectral instability is the height of irresponsibility. This flagrant disregard for magical law and arcane stability will not stand. The Aegis Magi have been dispatched to apprehend Archie Miser for immediate judgment.`,
+        likes: 1890,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Oh, lighten up, Theron! The resulting arcane detonation was a once-in-a-lifetime research opportunity!' },
+            { characterKey: 'archie', text: 'Come and get me, you dusty old rulebook.' },
+            { characterKey: 'toad_lee', text: 'You will have to go through the Cohort first.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'waluigi_applauds_fireball',
+        order: 30833,
+        characterKey: 'waluigi',
+        timestamp: '3 minutes ago',
+        content: `WAH-HA-HA! SEE? He admits it! A glorious, magnificent fireball! He learned from the master! My influence is spreading! Soon everyone will be solving their problems with stylish explosions!`,
+        likes: 1520,
+        comments: [
+            { characterKey: 'archie', text: 'Don\'t flatter yourself. I was doing this long before I met you.' },
+            { characterKey: 'lario', text: 'You BOTH owe me for the scorch marks on the Vigilance!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'markop_justified_but_reckless',
+        order: 30832,
+        characterKey: 'markop',
+        timestamp: '5 minutes ago',
+        content: `His confession is... typical Archie. He sees only the end, not the means. Yes, he saved Eager. But he also destroyed a historic structure and nearly killed everyone inside with the collapse. Justification is not the same as wisdom.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'bones', text: 'Wisdom doesn\'t get you out of a burning building. Explosions do.' },
+            { characterKey: 'dan', text: 'But we are all alive because of it.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'cosmic_jesters_celebrate_confession',
+        order: 30831,
+        characterKey: 'giggling_pete',
+        timestamp: '8 minutes ago',
+        content: `Hee hee ho ho! A public confession! He doesn't hide his beautiful chaos; he displays it for all to see! A true prophet! The Jester is pleased by this hilarious act of self-incrimination!`,
+        likes: 999,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'Silence, demon! Your profane worship will be cleansed!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'iron_legion_arrest_warrant',
+        order: 30830,
+        characterKey: 'colonel_vera_steelstorm',
+        timestamp: '10 minutes ago',
+        content: `With his public confession, Archie Miser has admitted to multiple Imperial crimes, including reckless endangerment and destruction of property. A formal warrant has been issued. He is to be considered armed and extremely dangerous.`,
+        likes: 1120,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'See that it is done, Colonel.' },
+            { characterKey: 'speaker_l', text: 'He is already in OUR custody for his crimes against the Cohort. The Legion can wait its turn.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'broker_archie_bounty',
+        order: 30829,
+        characterKey: 'the_broker',
+        timestamp: '12 minutes ago',
+        content: `Market Update: Archie Miser's public confession has resulted in new, high-value warrants from both the Mages' Guild and the Iron Legion. His personal bounty has skyrocketed. A risky asset, but a profitable one for any willing to take the contract.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'boss_knuckles', text: 'The Iron Fists never rescinded our bounty. The price just went up.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'dan_defends_archie',
+        order: 30828,
+        characterKey: 'dan',
+        timestamp: '15 minutes ago',
+        content: `He's not a criminal. He's a hero. He did what he had to do to save Eager's life when my own magic failed. I was there. I saw it. I will not stand by and let him be hunted for it.`,
+        likes: 780,
+        comments: [
+            { characterKey: 'toad_lee', text: 'We protect our own. Whatever the cost.' },
+            { characterKey: 'archmage_theron', text: 'Sentiment does not absolve one of breaking the law, young toad.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'fawful_on_fireball',
+        order: 30827,
+        characterKey: 'fawful',
+        timestamp: '20 minutes ago',
+        content: `A FIREBALL! A simple, boring fireball! It has the finesse of a dropped brick! My own schemes have the complexity of a seven-layer cake of DOOM! His confession is a snack of stupidity!`,
+        likes: 740,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! I agree! My own firebolt had much more... panache!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'eager_supports_archie',
+        order: 30826,
+        characterKey: 'eager',
+        timestamp: '22 minutes ago',
+        content: `He's right! He did it to save me! I was pinned and those rust monsters were everywhere! That fireball was the bravest thing I've ever seen!`,
+        likes: 690,
+        comments: [
+            { characterKey: 'dan', text: 'We were all there, Eager. We know.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'toad_lee_protects_archie',
+        order: 30825,
+        characterKey: 'toad_lee',
+        timestamp: '25 minutes ago',
+        content: `The Mages' Guild and the Iron Legion can issue all the warrants they want. Archie is under the protection of the Vow. They will have to go through my axe to get to him.`,
+        likes: 950,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Is that a challenge, toad?' },
+            { characterKey: 'toad_lee', text: 'It is a statement of fact.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'green_thumb_guardians_outrage',
+        order: 30824,
+        characterKey: 'green_thumb_guardians',
+        timestamp: '30 minutes ago',
+        content: `HE DESTROYED A HISTORIC GREENHOUSE! A sanctuary of rare and endangered flora! He calls it justified?! He is a monster, a vandal of the highest order! The Green Thumb Guardians demand justice for this horticultural massacre!`,
+        likes: 420,
+        comments: [
+            { characterKey: 'archie', text: 'There was a really nice tomato. And some grapes. Most of it was rotten.' },
+            { characterKey: 'bowser', text: 'The tomato was MINE!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'bowser_on_fireball',
+        order: 30823,
+        characterKey: 'bowser',
+        timestamp: '35 minutes ago',
+        content: `GWAHAHA! Finally, he admits it! Blew the whole place sky-high! That's how you solve a problem! Less talking, more explosions! I approve!`,
+        likes: 880,
+        comments: [
+            { characterKey: 'hjumpik', text: 'A good boom!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'humpik_on_fireball',
+        order: 30822,
+        characterKey: 'hjumpik',
+        timestamp: '40 minutes ago',
+        content: `Little man made a big boom! Saved the fast toad! Good boom!`,
+        likes: 670,
+        comments: [
+            { characterKey: 'bowser', text: 'See? Humpik gets it!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'remi_on_fireball',
+        order: 30821,
+        characterKey: 'remi',
+        timestamp: '45 minutes ago',
+        content: `So he just... admitted to a war crime? And everyone is either trying to arrest him or give him a medal? This crew is weird.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'bones', text: 'Welcome to the party, kid.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'bones_on_confession',
+        order: 30820,
+        characterKey: 'bones',
+        timestamp: '50 minutes ago',
+        content: `Kid blew up a building to save his friends and then told everyone about it. Can't decide if that's brave or stupid. Probably both.`,
+        likes: 650,
+        comments: [
+            { characterKey: 'archie', text: 'Why not both?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'ryan_on_confession',
+        order: 30819,
+        characterKey: 'ryan',
+        timestamp: '55 minutes ago',
+        content: `The sheer power of the incantation was undeniable, but the collateral damage was... extensive. A necessary act, perhaps, but a deeply unbalanced one. It tore a wound in the local arcane spectrum.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: 'A wound that will fester.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'roger_on_confession',
+        order: 30818,
+        characterKey: 'roger',
+        timestamp: '1 hour ago',
+        content: `The action resulted in the successful extraction of a key asset. The subsequent public admission, however, has significantly increased the threat level from external state actors. A tactical victory leading to a strategic liability.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'A correct assessment.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'speaker_l_on_confession',
+        order: 30817,
+        characterKey: 'speaker_l',
+        timestamp: '1 hour ago',
+        content: `He confesses to the very crime we apprehended him for! This only proves our actions were just! His recklessness knows no bounds! The Cohort's judgment was correct!`,
+        likes: 680,
+        comments: [
+            { characterKey: 'archie', text: 'You apprehended me for incompetence. This was an act of extreme competence. Get your charges straight.' },
+            { characterKey: 'toad_lee', text: 'This changes nothing, Speaker. You acted rashly.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'toadette_on_confession',
+        order: 30816,
+        characterKey: 'captain_toadette',
+        timestamp: '1 hour ago',
+        content: `He uses the power of a WMD to solve a pest problem. This is why mages cannot be trusted. They lack the discipline of a true soldier.`,
+        likes: 580,
+        comments: [
+            { characterKey: 'embercap', text: 'Well said, Captain.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'krool_on_confession',
+        order: 30815,
+        characterKey: 'king_k_rool',
+        timestamp: '2 hours ago',
+        content: `Keheheh! The three-eyed freak blows up his own house and then brags about it! What an idiot! My minions have more sense than that!`,
+        likes: 690,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'At least he saves his friends. What was the last thing you did for your crew, K. Rool?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'syrup_on_confession',
+        order: 30814,
+        characterKey: 'captain_syrup',
+        timestamp: '2 hours ago',
+        content: `He blew up a greenhouse? What a waste of good real estate. And he probably destroyed any treasure that was inside. Amateur.`,
+        likes: 520,
+        comments: [
+            { characterKey: 'wario', text: 'My thoughts exactly! Think of the lost profits!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'lario_on_confession',
+        order: 30813,
+        characterKey: 'lario',
+        timestamp: '2 hours ago',
+        content: `He blew it up?! The whole greenhouse?! Think of all the scrap metal! The rare components! The salvage value! He just incinerated a fortune! I feel sick.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'the_broker', text: 'I am accepting bids for the salvage rights. Interested?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'generic_toad_on_confession',
+        order: 30812,
+        characterKey: 'generic_toad',
+        timestamp: '3 hours ago',
+        content: `Wait, he ADMITTED it? On WAHbook? Why would he do that? Doesn't he know the Mages' Guild will come after him now?`,
+        likes: 280,
+        comments: [
+            { characterKey: 'generic_toad_2', text: 'Maybe he thinks they can\'t catch him?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'steelstorm_on_confession',
+        order: 30811,
+        characterKey: 'colonel_vera_steelstorm',
+        timestamp: '3 hours ago',
+        content: `A public confession simplifies things. Activating Protocol 7-Gamma. Asset is to be apprehended on sight.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'jerry_the_spy', text: 'Acknowledged. Updating my operational parameters.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'ironhand_on_confession',
+        order: 30810,
+        characterKey: 'general_marcus_ironhand',
+        timestamp: '3 hours ago',
+        content: `His arrogance is his undoing. He has confessed his crimes against the Empire. Justice will be swift.`,
+        likes: 690,
+        comments: [
+            { characterKey: 'markop', text: 'There is a difference between justice and vengeance, General.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'kamek_on_confession',
+        order: 30809,
+        characterKey: 'kamek',
+        timestamp: '4 hours ago',
+        content: `He boasts of his recklessness. How amusingly short-sighted. He paints a target on his own back, drawing the attention of our mutual enemies. A useful fool.`,
+        likes: 590,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'Let the hounds chase the rabbit. It keeps them from the fox.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'penny_on_confession',
+        order: 30808,
+        characterKey: 'detective_penny',
+        timestamp: '4 hours ago',
+        content: `A public confession. Case closed, I guess? Now comes the hard part: the jurisdictional nightmare of who gets to arrest him first. #AnarchistProblems`,
+        likes: 620,
+        comments: [
+            { characterKey: 'archmage_theron', text: 'Mages\' Guild business takes precedence, Detective.' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'Imperial law takes precedence over all, Archmage.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'oracle_on_confession',
+        order: 30807,
+        characterKey: 'self_reflection_oracle',
+        timestamp: '5 hours ago',
+        content: `He chooses the thread of open defiance. A bold, bright, and tragically short thread. The pattern becomes clearer.`,
+        likes: 910,
+        comments: [
+            { characterKey: 'archie', text: 'I make my own patterns.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'the_mole_on_confession',
+        order: 30806,
+        characterKey: 'the_mole',
+        timestamp: '5 hours ago',
+        content: `Confirmation of target's use of high-yield incindiaries. Updating Legion file. His threat level has been elevated.`,
+        likes: 510,
+        comments: [
+            { characterKey: 'speaker_l', text: 'See? Vindicated!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'jerry_on_confession',
+        order: 30805,
+        characterKey: 'jerry_the_spy',
+        timestamp: '6 hours ago',
+        content: `He just admitted it? Publicly? My job just got a lot easier. And a lot harder.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Focus on the objective, Agent.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'dk_on_confession',
+        order: 30804,
+        characterKey: 'donkey_kong',
+        timestamp: '6 hours ago',
+        content: `Blew up a house to save his friends. Sounds like something a Kong would do. I like his style.`,
+        likes: 1600,
+        comments: [
+            { characterKey: 'diddy_kong', text: 'He\'s still a menace, DK.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'cranky_on_confession',
+        order: 30803,
+        characterKey: 'cranky_kong',
+        timestamp: '7 hours ago',
+        content: `Good grief! First he blows up a building, then he tells everyone about it on the WAH-thingy! Back in my day, we had the decency to keep our property damage a secret!`,
+        likes: 810,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'Times have changed, Cranky.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'cybernetic_on_confession',
+        order: 30801,
+        characterKey: 'cybernetic_collectives',
+        timestamp: '8 hours ago',
+        content: `[ANALYSIS]: Subject publicly admits to an act of extreme destruction for emotional reasons ('saving friends'). This contradicts logical self-preservation protocols. Organic decision-making remains fascinatingly inefficient.`,
+        likes: 777,
+        comments: [
+            { characterKey: 'ryan', text: 'Maybe efficiency isn\'t the only metric that matters.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },    
+    {
         id: 'archie_on_a_horse',
         order: 394,
         characterKey: 'archie',
