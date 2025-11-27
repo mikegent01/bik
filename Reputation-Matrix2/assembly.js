@@ -1,4 +1,5 @@
 
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -549,7 +550,8 @@ function setupEventListeners() {
             playSound('click.mp3');
             eventHeader.parentElement.classList.toggle('expanded');
         }
-        const dossierCard = e.target.closest('.intel-card');
+        // MODIFIED: Handle clicking on both intel-card and dossier-trigger
+        const dossierCard = e.target.closest('.intel-card, .dossier-trigger');
         if (dossierCard) {
             playSound('confirm.mp3', 0.6);
             openDossierModal(dossierCard.dataset.rumorId);

@@ -141,8 +141,9 @@ function renderIntelCard(rumor, showArcBadge = true) {
         ? `<span class="intel-position-badge position-${rumor.arcPosition}">${rumor.arcPosition}</span>`
         : '';
 
+    // Add dossier-trigger class to make it clickable
     return `
-        <div class="intel-card" data-rumor-id="${rumor.id}">
+        <div class="intel-card dossier-trigger" data-rumor-id="${rumor.id}" title="Click to view dossier and chatter">
             <div class="intel-card-header">
                 <h3 class="intel-title">${rumor.title || 'Untitled Rumor'}</h3>
                 <div class="intel-badges">
@@ -208,7 +209,7 @@ function renderArcTimeline(arcId) {
                                 const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
                                 const metrics = calculateRumorMetrics(rumor, relatedPosts);
                                 return `
-                                    <div class="timeline-event ${rumor.isEvent ? 'is-event' : ''}">
+                                    <div class="timeline-event dossier-trigger ${rumor.isEvent ? 'is-event' : ''}" data-rumor-id="${rumor.id}" title="Click to view intel details">
                                         <div class="event-marker"></div>
                                         <div class="event-content">
                                             <div class="event-header">
@@ -220,7 +221,7 @@ function renderArcTimeline(arcId) {
                                                 <span class="event-impact impact-${rumor.cycle_impact?.type || 'neutral'}">
                                                     ${rumor.cycle_impact?.label || 'Event'} (${metrics.finalScore.toFixed(1)})
                                                 </span>
-                                                <a href="timeline.html" class="view-event-link" title="Go to Timeline">🔗</a>
+                                                <span class="view-event-link">👁️ View Dossier</span>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +298,6 @@ function renderArcCard(arc) {
             <div class="arc-meta">
                 <span class="arc-dates">📅 ${formatDate(arc.startDate)} ${arc.endDate ? `→ ${formatDate(arc.endDate)}` : '→ Ongoing'}</span>
                 <span class="arc-rumor-count">📜 ${stats.rumorCount} Events</span>
-                <span class="arc-cycle-score" title="Total Cycle Impact">🌀 ${stats.totalCycleImpact.toFixed(1)} (${cycleShiftText})</span>
             </div>
             
             <!-- New Statistics Block -->
@@ -306,10 +306,17 @@ function renderArcCard(arc) {
                     <span class="impact-label">Max Event Impact</span>
                     <span class="impact-val positive">+${maxImpact.toFixed(2)}</span>
                 </div>
+                 <div class="impact-stat">
+                    <span class="impact-label">Cycle Shift</span>
+                    <span class="impact-val ${stats.totalCycleImpact > 0 ? 'negative' : 'positive'}">${stats.totalCycleImpact.toFixed(1)} 🌀</span>
+                </div>
                 <div class="impact-stat">
                     <span class="impact-label">Min Event Impact</span>
                     <span class="impact-val negative">${minImpact.toFixed(2)}</span>
                 </div>
+            </div>
+            <div class="arc-cycle-shift-text">
+                <strong>Impact on World Cycle:</strong> ${cycleShiftText}
             </div>
 
             ${renderArcProgressBar(arc)}
@@ -322,8 +329,10 @@ function renderArcCard(arc) {
                     <h5>🏆 Winners (Net Rep)</h5>
                     <ul>
                         ${winners.length > 0 ? winners.map(([fid, val]) => {
-                            const fName = LORE_DATA.factions?.[fid]?.name || fid;
-                            return `<li><strong>${fName}</strong> (+${val})</li>`;
+                            const fData = LORE_DATA.factions?.[fid];
+                            const fName = fData?.name || fid;
+                            const fLogo = fData?.logo ? `<img src="${fData.logo}" class="mini-faction-logo" alt="${fName}">` : '';
+                            return `<li>${fLogo}<strong>${fName}</strong> <span class="rep-gain">(+${val})</span></li>`;
                         }).join('') : '<li>None yet.</li>'}
                     </ul>
                 </div>
@@ -331,8 +340,10 @@ function renderArcCard(arc) {
                     <h5>📉 Losers (Net Rep)</h5>
                     <ul>
                          ${losers.length > 0 ? losers.map(([fid, val]) => {
-                            const fName = LORE_DATA.factions?.[fid]?.name || fid;
-                            return `<li><strong>${fName}</strong> (${val})</li>`;
+                            const fData = LORE_DATA.factions?.[fid];
+                            const fName = fData?.name || fid;
+                            const fLogo = fData?.logo ? `<img src="${fData.logo}" class="mini-faction-logo" alt="${fName}">` : '';
+                            return `<li>${fLogo}<strong>${fName}</strong> <span class="rep-loss">(${val})</span></li>`;
                         }).join('') : '<li>None yet.</li>'}
                     </ul>
                 </div>
