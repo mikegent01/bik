@@ -1404,3 +1404,55 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ... existing styles ... */
+
+/* Arc Meta */
+.arc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding: 8px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
+/* New Arc Impact Stats */
+.arc-impact-stats {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+.impact-stat {
+    display: flex;
+    gap: 6px;
+}
+.impact-label {
+    color: var(--text-secondary);
+}
+.impact-val {
+    font-weight: bold;
+    font-family: var(--font-mono);
+}
+.impact-val.positive { color: var(--accent-color); }
+.impact-val.negative { color: var(--negative-color); }
+
+/* ... existing styles ... */
+
+.view-event-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: color 0.2s;
+    margin-left: 10px;
+}
+.view-event-link:hover { color: var(--accent-color); }
+
+/* ... existing styles ... */

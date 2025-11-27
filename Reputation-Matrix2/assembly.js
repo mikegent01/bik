@@ -679,6 +679,8 @@ async function init() {
     }
     renderMainFeed();
     renderEventsFeed();
+    // Render Intel and Rumors immediately after loading dynamic data
+    renderIntelAndRumors(); 
     setupEventListeners();
     updateSeenPosts();
     simulateLikes();

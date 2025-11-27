@@ -269,9 +269,20 @@ function renderArcCard(arc) {
     };
     const status = statusConfig[arc.status] || statusConfig.active;
 
-    const topFactions = Object.entries(stats.factionImpacts)
-        .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
-        .slice(0, 4);
+    // Generate "Winners & Losers" based on net reputation change
+    const sortedFactions = Object.entries(stats.factionImpacts)
+        .sort((a, b) => b[1] - a[1]); // Sort descending by value
+
+    const winners = sortedFactions.filter(([, val]) => val > 0).slice(0, 3);
+    const losers = sortedFactions.filter(([, val]) => val < 0).reverse().slice(0, 3); // Most negative first
+
+    // Determine Net Cycle Shift Label
+    let cycleShiftText = "Stable";
+    if (stats.totalCycleImpact > 5) cycleShiftText = "Shift towards Chaos/Crisis";
+    else if (stats.totalCycleImpact < -5) cycleShiftText = "Shift towards Order/Peace";
+    else if (stats.totalCycleImpact > 0) cycleShiftText = "Leaning Chaotic";
+    else if (stats.totalCycleImpact < 0) cycleShiftText = "Leaning Orderly";
+
 
     return `
         <div class="arc-card arc-${arc.status}" data-arc-id="${arc.id}">
@@ -286,17 +297,17 @@ function renderArcCard(arc) {
             <div class="arc-meta">
                 <span class="arc-dates">📅 ${formatDate(arc.startDate)} ${arc.endDate ? `→ ${formatDate(arc.endDate)}` : '→ Ongoing'}</span>
                 <span class="arc-rumor-count">📜 ${stats.rumorCount} Events</span>
-                <span class="arc-cycle-score" title="Total Cycle Impact">🌀 ${stats.totalCycleImpact.toFixed(1)}</span>
+                <span class="arc-cycle-score" title="Total Cycle Impact">🌀 ${stats.totalCycleImpact.toFixed(1)} (${cycleShiftText})</span>
             </div>
             
             <!-- New Statistics Block -->
             <div class="arc-impact-stats">
                 <div class="impact-stat">
-                    <span class="impact-label">Max Impact</span>
+                    <span class="impact-label">Max Event Impact</span>
                     <span class="impact-val positive">+${maxImpact.toFixed(2)}</span>
                 </div>
                 <div class="impact-stat">
-                    <span class="impact-label">Min Impact</span>
+                    <span class="impact-label">Min Event Impact</span>
                     <span class="impact-val negative">${minImpact.toFixed(2)}</span>
                 </div>
             </div>
@@ -305,30 +316,39 @@ function renderArcCard(arc) {
             <div class="arc-themes">
                 ${arc.themes.map(theme => `<span class="theme-tag theme-${theme}">${theme}</span>`).join('')}
             </div>
-            ${topFactions.length > 0 ? `
-                <div class="arc-faction-impacts">
-                    <h4>Reputation Changes:</h4>
-                    <div class="faction-impact-list">
-                        ${topFactions.map(([factionId, value]) => {
-                            const faction = LORE_DATA.factions?.[factionId];
-                            const factionName = faction?.name || factionId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                            const impactClass = value > 0 ? 'positive' : 'negative';
-                            const sign = value > 0 ? '+' : '';
-                            return `<div class="faction-impact ${impactClass}"><span class="faction-name">${factionName}</span><span class="faction-value">${sign}${value}</span></div>`;
-                        }).join('')}
-                    </div>
-                </div>
-            ` : ''}
+            
             <div class="arc-consequences">
                 <div class="consequences-positive">
-                    <h5>✓ Gains</h5>
+                    <h5>🏆 Winners (Net Rep)</h5>
+                    <ul>
+                        ${winners.length > 0 ? winners.map(([fid, val]) => {
+                            const fName = LORE_DATA.factions?.[fid]?.name || fid;
+                            return `<li><strong>${fName}</strong> (+${val})</li>`;
+                        }).join('') : '<li>None yet.</li>'}
+                    </ul>
+                </div>
+                <div class="consequences-negative">
+                    <h5>📉 Losers (Net Rep)</h5>
+                    <ul>
+                         ${losers.length > 0 ? losers.map(([fid, val]) => {
+                            const fName = LORE_DATA.factions?.[fid]?.name || fid;
+                            return `<li><strong>${fName}</strong> (${val})</li>`;
+                        }).join('') : '<li>None yet.</li>'}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arc-consequences">
+                 <div class="consequences-positive">
+                    <h5>✓ Strategic Gains</h5>
                     <ul>${arc.consequences.positive.map(c => `<li>${c}</li>`).join('')}</ul>
                 </div>
                 <div class="consequences-negative">
-                    <h5>✗ Losses</h5>
+                    <h5>✗ Strategic Losses</h5>
                     <ul>${arc.consequences.negative.map(c => `<li>${c}</li>`).join('')}</ul>
                 </div>
             </div>
+
             <button class="arc-expand-btn" data-arc="${arc.id}">${isExpanded ? 'Hide Timeline ▲' : 'View Timeline ▼'}</button>
             <div class="arc-timeline-container ${isExpanded ? 'expanded' : ''}" id="timeline-${arc.id}">
                 ${isExpanded ? renderArcTimeline(arc.id) : ''}
