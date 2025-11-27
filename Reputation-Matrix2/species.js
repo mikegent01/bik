@@ -1,3 +1,4 @@
+// species.js - Updated to use population simulation
 
 import { LORE_DATA } from './lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
@@ -5,7 +6,8 @@ import { MAP_DATA } from './map-data.js';
 import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from './species-workforce.js';
 import { RELIGION_DATA } from './religion-data.js';
 import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from './research-data.js';
-import { PLAGUE_DATA } from './plagues-data.js';
+import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from './plagues-data.js';
+import { simulatePopulation, calculateGlobalVitalStats } from './population-state.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 
@@ -18,140 +20,176 @@ const PLAYER_RACE_LABELS = {
     remi: "Student (Human)"
 };
 
-// Helper to aggregate populations
+/**
+ * Calculate demographics using the population simulation
+ */
 function calculateDemographics() {
-    const totalByRegion = {};
-    const totalBySpecies = {};
-    const speciesFactionDistribution = {}; 
-    let grandTotal = 0;
-
+    // Run the full population simulation
+    const simulation = simulatePopulation();
+    
+    // Build the data structure expected by other functions
+    const totalByRegion = simulation.adjusted.byRegion;
+    const totalBySpecies = simulation.adjusted.bySpecies;
+    const grandTotal = simulation.adjusted.total;
+    
+    // Calculate faction distribution (simplified)
+    const speciesFactionDistribution = {};
     for (const key in SPECIES_DATA) {
-        totalBySpecies[key] = 0;
-        speciesFactionDistribution[key] = {}; 
+        speciesFactionDistribution[key] = {};
     }
-
+    
+    // Aggregate faction data from map
     for (const mapKey in MAP_DATA) {
         const map = MAP_DATA[mapKey];
         const group = map.group || 'Other';
         
-        if (!totalByRegion[group]) totalByRegion[group] = 0;
-
         if (map.pointsOfInterest) {
             map.pointsOfInterest.forEach(poi => {
                 const pop = poi.population || 0;
                 if (pop > 0) {
-                    totalByRegion[group] += pop;
-                    grandTotal += pop;
-
-                    const factionId = poi.factionId || 'unaligned'; 
-
-                    const demographics = REGIONAL_DEMOGRAPHICS[group] || { 'dnd_human': 1.0 }; 
+                    const factionId = poi.factionId || 'unaligned';
+                    const demographics = REGIONAL_DEMOGRAPHICS[group] || { dnd_human: 1.0 };
                     
                     for (const [speciesKey, percentage] of Object.entries(demographics)) {
                         if (SPECIES_DATA[speciesKey]) {
-                            const speciesPopInPoi = pop * percentage;
-                            totalBySpecies[speciesKey] += speciesPopInPoi;
-
+                            // Use adjusted population proportion
+                            const adjustedPop = (simulation.adjusted.bySpecies[speciesKey] || 0) * 
+                                               (pop / (simulation.base.byRegion[group] || 1));
+                            
                             if (!speciesFactionDistribution[speciesKey][factionId]) {
                                 speciesFactionDistribution[speciesKey][factionId] = 0;
                             }
-                            speciesFactionDistribution[speciesKey][factionId] += speciesPopInPoi;
+                            speciesFactionDistribution[speciesKey][factionId] += adjustedPop * percentage;
                         }
                     }
                 }
             });
         }
     }
-
-    return { totalByRegion, totalBySpecies, grandTotal, speciesFactionDistribution };
+    
+    return { 
+        totalByRegion, 
+        totalBySpecies, 
+        grandTotal, 
+        speciesFactionDistribution,
+        simulation // Include full simulation data for detailed stats
+    };
 }
 
-function renderTotalPopulation(grandTotal) {
+function renderTotalPopulation(grandTotal, simulation) {
     const display = document.getElementById('total-population-display');
     if (display) {
-        display.innerText = grandTotal.toLocaleString();
+        display.innerHTML = `
+            ${Math.round(grandTotal).toLocaleString()}
+            <span style="font-size: 0.4em; color: var(--text-secondary); display: block;">
+                Base: ${Math.round(simulation.base.total).toLocaleString()}
+            </span>
+        `;
     }
 }
 
-// --- NEW: Vital Statistics Renderer ---
-function renderVitalStatistics() {
+/**
+ * Render vital statistics with plague impact
+ */
+function renderVitalStatistics(data) {
     const container = document.getElementById('vital-stats-container');
     if (!container) return;
-
-    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
-    const currentMonth = CURRENT_GAME_DATE.monthIndex;
-    const season = CALENDAR_DATA.seasons.values.find(s => {
-        const start = s.monthStart - 1;
-        const end = s.monthEnd - 1;
-        if (start <= end) return currentMonth >= start && currentMonth <= end;
-        return currentMonth >= start || currentMonth <= end;
-    })?.name || "Unknown";
-
-    // Base Rates (Annualized estimates)
-    let baseBirthRate = 1.5; // %
-    let baseDeathRate = 1.2; // %
-
-    // Cycle Impact
-    if (globalCycle.phase.id === 'expansion' || globalCycle.phase.id === 'rebirth') {
-        baseBirthRate += 0.2;
-    } else if (globalCycle.phase.id === 'crisis' || globalCycle.phase.id === 'conflict') {
-        baseDeathRate += 0.3;
-        baseBirthRate -= 0.1;
-    }
-
-    // Plague Impact
-    let plagueImpact = 0;
-    PLAGUE_DATA.forEach(plague => {
-        const isSeason = plague.active_seasons.includes(season) || plague.active_seasons.includes("All");
-        if (isSeason) {
-            // Simple check: active season implies higher risk.
-            // In a fuller sim, we'd check if the plague is actually spreading.
-            // For now, we assume active plagues in season contribute to mortality.
-            plagueImpact += (plague.mortality_rate * 0.1); // Add a fraction of the raw mortality rate
-        }
-    });
     
-    baseDeathRate += plagueImpact;
-
-    const netGrowth = baseBirthRate - baseDeathRate;
-    const growthColor = netGrowth >= 0 ? 'var(--positive-color)' : 'var(--negative-color)';
-
+    const simulation = data.simulation;
+    const stats = simulation.rates;
+    const deaths = simulation.deaths;
+    const plagues = simulation.plagues;
+    
+    // Calculate active plague count
+    const activePlagues = plagues.filter(p => 
+        p.status !== PLAGUE_LIFECYCLE.STATUSES.ERADICATED &&
+        p.status !== PLAGUE_LIFECYCLE.STATUSES.DORMANT
+    ).length;
+    
+    const growthColor = stats.netGrowthRate >= 0 ? 'var(--positive-color)' : 'var(--negative-color)';
+    const currentSeason = simulation.currentSeason;
+    const globalCycle = simulation.globalCycle;
+    
+    // Calculate plague impact percentage
+    const plagueImpactPct = (deaths.plague / Math.max(1, simulation.adjusted.total)) * 365 * 100;
+    
     container.innerHTML = `
         <div style="text-align:center;">
-            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Global Birth Rate</span>
-            <span style="font-size:1.5rem; color:var(--positive-color); font-family:var(--font-display);">${baseBirthRate.toFixed(2)}%</span>
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Birth Rate</span>
+            <span style="font-size:1.5rem; color:var(--positive-color); font-family:var(--font-display);">
+                ${stats.annualBirthRate.toFixed(2)}%
+            </span>
+            <span style="display:block; font-size:0.65rem; color:var(--text-secondary);">
+                +${Math.round(simulation.births).toLocaleString()}/day
+            </span>
         </div>
         <div style="text-align:center;">
-            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Global Death Rate</span>
-            <span style="font-size:1.5rem; color:var(--negative-color); font-family:var(--font-display);">${baseDeathRate.toFixed(2)}%</span>
-            ${plagueImpact > 0 ? `<div style="font-size:0.7rem; color:var(--negative-color); margin-top:2px;">+${plagueImpact.toFixed(2)}% from Bio-Threats</div>` : ''}
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Death Rate</span>
+            <span style="font-size:1.5rem; color:var(--negative-color); font-family:var(--font-display);">
+                ${stats.annualDeathRate.toFixed(2)}%
+            </span>
+            ${plagueImpactPct > 0.01 ? `
+                <div style="font-size:0.65rem; color:var(--negative-color); margin-top:2px;">
+                    +${plagueImpactPct.toFixed(2)}% from ${activePlagues} outbreak${activePlagues !== 1 ? 's' : ''}
+                </div>
+            ` : ''}
+            <span style="display:block; font-size:0.65rem; color:var(--text-secondary);">
+                -${Math.round(deaths.total).toLocaleString()}/day
+            </span>
         </div>
         <div style="text-align:center;">
             <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Net Growth</span>
-            <span style="font-size:1.5rem; color:${growthColor}; font-family:var(--font-display);">${netGrowth > 0 ? '+' : ''}${netGrowth.toFixed(2)}%</span>
+            <span style="font-size:1.5rem; color:${growthColor}; font-family:var(--font-display);">
+                ${stats.netGrowthRate > 0 ? '+' : ''}${stats.netGrowthRate.toFixed(2)}%
+            </span>
+            <span style="display:block; font-size:0.65rem; color:var(--text-secondary);">
+                Annual projection
+            </span>
         </div>
         <div style="text-align:center; border-left:1px solid var(--border-color); padding-left:20px;">
-            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Active Cycle Effect</span>
-            <span style="color:${globalCycle.phase.color}; font-weight:bold;">${globalCycle.phase.name}</span>
+            <span style="display:block; color:var(--text-secondary); font-size:0.85rem;">Season</span>
+            <span style="color:var(--accent-color); font-weight:bold; font-size:0.9rem;">
+                ${currentSeason}
+            </span>
+            <span style="display:block; color:${globalCycle?.phase?.color || '#fff'}; font-weight:bold; font-size:0.85rem; margin-top:4px;">
+                ${globalCycle?.phase?.name || 'Unknown'}
+            </span>
         </div>
     `;
 }
 
+// Replace the pie chart section in renderCharts in species.js
+
+// Replace the pie chart section in renderCharts in species.js
+
 function renderCharts(data) {
     // -- Global Species Pie Chart --
     const chartDataEntries = [];
+    
+    // Minimum thresholds to show on chart
+    const CHART_THRESHOLD = 500;
+    const CHART_PERCENTAGE_THRESHOLD = 0.05; // 0.05%
 
     Object.entries(data.totalBySpecies).forEach(([key, count]) => {
-        if (count > 0) {
+        const percentage = data.grandTotal > 0 ? (count / data.grandTotal) * 100 : 0;
+        
+        // Include if meets either threshold
+        if (count >= CHART_THRESHOLD || percentage >= CHART_PERCENTAGE_THRESHOLD) {
             chartDataEntries.push({
+                key: key,
                 label: SPECIES_DATA[key]?.name || key,
-                count: count,
+                count: Math.round(count),
+                percentage: percentage,
                 color: SPECIES_DATA[key]?.color || '#888'
             });
         }
     });
 
+    // Sort by population (descending)
     chartDataEntries.sort((a, b) => b.count - a.count);
+    
+    // Limit to top 20 entries (no "Other" grouping)
+    const displayEntries = chartDataEntries.slice(0, 20);
 
     const speciesCtx = document.getElementById('global-species-chart');
     if (speciesCtx) {
@@ -161,10 +199,10 @@ function renderCharts(data) {
         new Chart(speciesCtx, {
             type: 'doughnut',
             data: {
-                labels: chartDataEntries.map(d => d.label),
+                labels: displayEntries.map(d => d.label),
                 datasets: [{
-                    data: chartDataEntries.map(d => d.count),
-                    backgroundColor: chartDataEntries.map(d => d.color),
+                    data: displayEntries.map(d => d.count),
+                    backgroundColor: displayEntries.map(d => d.color),
                     borderWidth: 1,
                     borderColor: '#161b22'
                 }]
@@ -177,10 +215,20 @@ function renderCharts(data) {
                         position: 'right', 
                         labels: { 
                             color: '#e6edf3', 
-                            font: { family: "'Roboto Mono', monospace" },
+                            font: { family: "'Roboto Mono', monospace", size: 10 },
                             boxWidth: 12,
-                            padding: 10
+                            padding: 8
                         } 
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw.toLocaleString();
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const pct = ((context.raw / total) * 100).toFixed(2);
+                                return `${context.label}: ${value} (${pct}%)`;
+                            }
+                        }
                     }
                 }
             }
@@ -188,7 +236,10 @@ function renderCharts(data) {
     }
 
     // -- Regional Population Bar Chart --
-    const regionEntries = Object.entries(data.totalByRegion).sort((a, b) => b[1] - a[1]);
+    const regionEntries = Object.entries(data.totalByRegion)
+        .map(([name, count]) => [name, Math.round(count)])
+        .sort((a, b) => b[1] - a[1]);
+    
     const regionCtx = document.getElementById('regional-population-chart');
     if (regionCtx) {
         const existingChart = Chart.getChart(regionCtx);
@@ -199,7 +250,7 @@ function renderCharts(data) {
             data: {
                 labels: regionEntries.map(([name]) => name),
                 datasets: [{
-                    label: 'Total Estimated Population',
+                    label: 'Adjusted Population',
                     data: regionEntries.map(([, count]) => count),
                     backgroundColor: '#58a6ff',
                     borderRadius: 4
@@ -210,9 +261,25 @@ function renderCharts(data) {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Population: ${context.raw.toLocaleString()}`;
+                            }
+                        }
+                    }
                 },
                 scales: {
-                    y: { ticks: { color: '#7d8590' }, grid: { color: '#30363d' } },
+                    y: { 
+                        ticks: { 
+                            color: '#7d8590',
+                            callback: function(value) {
+                                return value >= 1000000 ? (value/1000000).toFixed(1) + 'M' :
+                                       value >= 1000 ? (value/1000).toFixed(0) + 'K' : value;
+                            }
+                        }, 
+                        grid: { color: '#30363d' } 
+                    },
                     x: { ticks: { color: '#e6edf3' }, grid: { display: false } }
                 }
             }
@@ -236,12 +303,12 @@ function renderCharts(data) {
 
         const topFactions = Object.entries(factionStrength)
             .sort((a, b) => b[1] - a[1])
-            .slice(0, 10); // Top 10
+            .slice(0, 10);
 
         new Chart(factionCtx, {
             type: 'bar',
             data: {
-                labels: topFactions.map(([id]) => LORE_DATA.factions[id]?.name || id),
+                labels: topFactions.map(([id]) => LORE_DATA.factions?.[id]?.name || id),
                 datasets: [{
                     label: 'Military Projection Power',
                     data: topFactions.map(([, val]) => val),
@@ -250,7 +317,7 @@ function renderCharts(data) {
                 }]
             },
             options: {
-                indexAxis: 'y', // Horizontal bar chart
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
@@ -277,10 +344,10 @@ function renderTechAccessChart(category = 'aggregate') {
     const labels = Object.keys(estateAccess).map(k => k.charAt(0).toUpperCase() + k.slice(1));
     const dataValues = Object.values(estateAccess);
 
-    let color = '#58a6ff'; // Default Blue
-    if (category === 'WEAPONS') color = '#f85149'; // Red
-    if (category === 'MAGIC') color = '#a371f7'; // Purple
-    if (category === 'ECONOMIC') color = '#e3b341'; // Gold
+    let color = '#58a6ff';
+    if (category === 'WEAPONS') color = '#f85149';
+    if (category === 'MAGIC') color = '#a371f7';
+    if (category === 'ECONOMIC') color = '#e3b341';
 
     new Chart(techAccessCtx, {
         type: 'radar',
@@ -289,7 +356,7 @@ function renderTechAccessChart(category = 'aggregate') {
             datasets: [{
                 label: `${category === 'aggregate' ? 'Overall' : category} Access Score`,
                 data: dataValues,
-                backgroundColor: color + '33', // Add transparency
+                backgroundColor: color + '33',
                 borderColor: color,
                 pointBackgroundColor: color,
                 pointBorderColor: '#fff',
@@ -355,6 +422,7 @@ function renderSpeciesList(data) {
     if (!container) return;
 
     const allSpecies = Object.entries(SPECIES_DATA);
+    const simulation = data.simulation;
 
     allSpecies.sort((a, b) => {
         const countA = data.totalBySpecies[a[0]] || 0;
@@ -363,32 +431,91 @@ function renderSpeciesList(data) {
         return a[1].name.localeCompare(b[1].name);
     });
 
-    const cardsHTML = allSpecies.map(([key, species]) => {
-        let count = data.totalBySpecies[key] || 0;
-        let percentageString = "";
-        let countString = "";
+// Find this section in renderSpeciesList in species.js and replace it:
+
+const cardsHTML = allSpecies.map(([key, species]) => {
+    const adjustedCount = data.totalBySpecies[key] || 0;
+    const baseCount = simulation?.base?.bySpecies?.[key] || 0;
+    const speciesDetail = simulation?.speciesDetails?.[key];
+    
+    let countString = "";
+    let percentageString = "";
+    let trendIndicator = "";
+    let showAsScattered = false;
+    
+    // Threshold to show actual numbers vs "Scattered"
+    const VISIBILITY_THRESHOLD = 500;
+    const PERCENTAGE_THRESHOLD = 0.01; // 0.01%
+    
+    const percentage = data.grandTotal > 0 ? (adjustedCount / data.grandTotal) * 100 : 0;
+    
+    if (adjustedCount >= VISIBILITY_THRESHOLD || percentage >= PERCENTAGE_THRESHOLD) {
+        // Show actual population
+        countString = Math.round(adjustedCount).toLocaleString();
+        percentageString = `(${percentage.toFixed(2)}%)`;
         
-        if (count > 0) {
-            const percentage = data.grandTotal > 0 ? ((count / data.grandTotal) * 100).toFixed(1) : 0;
-            countString = Math.round(count).toLocaleString();
-            percentageString = `(${percentage}%)`;
-        } else {
-            if (species.name.includes("Legendary") || species.social_status === "Unique") {
-                countString = "1 - 5";
-                percentageString = "(Unique)";
-            } else if (species.social_status === "Cursed Anomaly" || species.name.includes("Equine")) {
-                countString = "~15 - 50";
-                percentageString = "(Rare Anomaly)";
-            } else if (species.social_status === "Endangered" || species.name.includes("Void")) {
-                countString = "~100";
-                percentageString = "(Endangered)";
+        // Show population trend
+        if (speciesDetail) {
+            const dailyChange = speciesDetail.netChange || 0;
+            if (dailyChange > 10) {
+                trendIndicator = `<span style="color:var(--positive-color);">↑ +${Math.round(dailyChange).toLocaleString()}/day</span>`;
+            } else if (dailyChange < -10) {
+                trendIndicator = `<span style="color:var(--negative-color);">↓ ${Math.round(dailyChange).toLocaleString()}/day</span>`;
             } else {
-                const randomEst = Math.floor(Math.random() * 400) + 50;
-                countString = `~${randomEst}`;
-                percentageString = "(Scattered)";
+                trendIndicator = `<span style="color:var(--text-secondary);">→ Stable</span>`;
+            }
+            
+            // Plague deaths warning
+            if (speciesDetail.plagueDeaths > 0) {
+                trendIndicator += `<br><span style="color:var(--negative-color); font-size:0.7rem;">☠️ ${Math.round(speciesDetail.plagueDeaths).toLocaleString()}/day from disease</span>`;
+            }
+            
+            // Growth indicator for small populations
+            if (adjustedCount < 1000 && speciesDetail.netChange > 0) {
+                const daysToThousand = Math.ceil((1000 - adjustedCount) / speciesDetail.netChange);
+                if (daysToThousand < 365) {
+                    trendIndicator += `<br><span style="color:var(--accent-color); font-size:0.7rem;">📈 Est. ${daysToThousand} days to 1,000</span>`;
+                }
             }
         }
+    } else if (adjustedCount > 0) {
+        // Small but tracked population
+        showAsScattered = true;
+        
+        if (species.social_status?.includes('Unique') || species.social_status?.includes('Legendary')) {
+            countString = `${Math.round(adjustedCount)} known`;
+            percentageString = "(Unique)";
+        } else if (species.social_status?.includes('Endangered')) {
+            countString = `~${Math.round(adjustedCount)}`;
+            percentageString = "(Endangered)";
+        } else if (species.social_status?.includes('Anomaly')) {
+            countString = `~${Math.round(adjustedCount)}`;
+            percentageString = "(Rare Anomaly)";
+        } else {
+            countString = `~${Math.round(adjustedCount)}`;
+            percentageString = "(Scattered)";
+        }
+        
+        // Still show trend for scattered populations
+        if (speciesDetail && speciesDetail.netChange !== 0) {
+            const dailyChange = speciesDetail.netChange;
+            if (dailyChange > 0.5) {
+                trendIndicator = `<span style="color:var(--positive-color); font-size:0.8rem;">↑ Growing</span>`;
+            } else if (dailyChange < -0.5) {
+                trendIndicator = `<span style="color:var(--negative-color); font-size:0.8rem;">↓ Declining</span>`;
+            }
+        }
+    } else {
+        // Truly zero population
+        countString = "Extinct?";
+        percentageString = "";
+        trendIndicator = `<span style="color:var(--negative-color);">☠️ No known population</span>`;
+    }
 
+    // ... rest of the card rendering continues
+        
+
+        // Religion
         let dominantFaith = "Secular / Unaligned";
         let dominantFaithColor = "var(--text-secondary)";
         
@@ -400,10 +527,10 @@ function renderSpeciesList(data) {
                 
                 if (topKey === 'unaligned') {
                     dominantFaith = "Secular / Unaligned";
-                } else if (RELIGION_DATA.denominations[topKey]) {
+                } else if (RELIGION_DATA.denominations?.[topKey]) {
                     dominantFaith = RELIGION_DATA.denominations[topKey].name;
                     const groupKey = RELIGION_DATA.denominations[topKey].group;
-                    if (RELIGION_DATA.groups[groupKey]) {
+                    if (RELIGION_DATA.groups?.[groupKey]) {
                         dominantFaithColor = RELIGION_DATA.groups[groupKey].color;
                     }
                 }
@@ -417,6 +544,7 @@ function renderSpeciesList(data) {
             </div>
         `;
 
+        // Workforce
         const bias = getBiasForSpecies(key);
         const sortedWorkforce = LABOR_CATEGORIES.map(cat => ({
             ...cat,
@@ -431,6 +559,7 @@ function renderSpeciesList(data) {
             </div>
         `;
         
+        // Factions
         const factionDistribution = data.speciesFactionDistribution[key] || {};
         const speciesTotalPop = data.totalBySpecies[key] || 0;
         const topFactions = Object.entries(factionDistribution)
@@ -442,13 +571,13 @@ function renderSpeciesList(data) {
                 <h6>Top Factions</h6>
                 <ul>
                     ${topFactions.map(([factionKey, count]) => {
-                        const faction = LORE_DATA.factions[factionKey];
+                        const faction = LORE_DATA.factions?.[factionKey];
                         if (!faction) return '';
                         const percentageOfTotal = speciesTotalPop > 0 ? ((count / speciesTotalPop) * 100).toFixed(1) : 0;
                         if (parseFloat(percentageOfTotal) < 1) return '';
                         return `
                             <li>
-                                <img src="${faction.logo}" alt="${faction.name}" title="${faction.name}">
+                                <img src="${faction.logo}" alt="${faction.name}" title="${faction.name}" onerror="this.style.display='none'">
                                 <span>${faction.name}</span>
                                 <span class="faction-percentage">${percentageOfTotal}%</span>
                             </li>
@@ -458,7 +587,7 @@ function renderSpeciesList(data) {
             </div>
         ` : '<div class="species-factions"><p style="font-style:italic; color:var(--text-secondary);">No significant factional alignment.</p></div>';
 
-
+        // Relations
         let relationsHTML = '';
         if (species.player_relations) {
             relationsHTML = `
@@ -494,6 +623,7 @@ function renderSpeciesList(data) {
                 <div class="species-pop-stat">
                     <span>Est. Population:</span>
                     <strong>${countString} <span style="font-weight:normal; font-size:0.8em; color:var(--text-secondary);">${percentageString}</span></strong>
+                    ${trendIndicator ? `<div style="font-size:0.75rem; margin-top:4px;">${trendIndicator}</div>` : ''}
                 </div>
                 ${religionHTML}
                 ${workforceHTML}
@@ -508,9 +638,17 @@ function renderSpeciesList(data) {
 
 function init() {
     if (!document.getElementById('species-grid-container')) return;
+    
+    console.log('[Demographics] Initializing population simulation...');
+    
     const data = calculateDemographics();
-    renderTotalPopulation(data.grandTotal);
-    renderVitalStatistics(); // New render function for stats
+    
+    console.log(`[Demographics] Base population: ${data.simulation.base.total.toLocaleString()}`);
+    console.log(`[Demographics] Adjusted population: ${data.grandTotal.toLocaleString()}`);
+    console.log(`[Demographics] Active plagues: ${data.simulation.plagues.filter(p => p.status !== 'Eradicated').length}`);
+    
+    renderTotalPopulation(data.grandTotal, data.simulation);
+    renderVitalStatistics(data);
     renderCharts(data);
     renderSpeciesList(data);
     

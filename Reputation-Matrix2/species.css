@@ -1,245 +1,259 @@
+/* species.css - Species Page Styles */
 
-.page-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-top: -16px;
-    margin-bottom: 24px;
-    font-style: italic;
-    max-width: 70ch;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+/* ============================================
+   DASHBOARD GRID
+   ============================================ */
 #dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 24px;
     margin-bottom: 40px;
 }
 
 .chart-container {
-    background-color: var(--sidebar-bg);
+    background: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .chart-container h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-color);
     font-family: var(--font-display);
-    color: var(--accent-color);
-    font-size: 1.2rem;
-    margin-bottom: 16px;
-    width: 100%;
-    text-align: left;
+    font-size: 1.1rem;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 8px;
 }
 
-.full-width {
-    grid-column: 1 / -1;
+.chart-container.full-width {
+    width: 100%;
+}
+
+.chart-container.half-width {
+    width: 100%;
+}
+
+@media (min-width: 900px) {
+    #dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+    
+    .chart-container.full-width {
+        grid-column: 1 / -1;
+    }
 }
 
 .canvas-wrapper {
     position: relative;
     width: 100%;
-    height: 300px; /* Fixed height for consistency */
-    display: flex;
-    justify-content: center;
+    height: 300px;
+    min-height: 250px;
 }
 
-#species-grid-container {
+/* ============================================
+   VITAL STATS CONTAINER
+   ============================================ */
+#vital-stats-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-}
-
-.species-card {
-    background-color: var(--sidebar-bg);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease;
+}
+
+#vital-stats-container > div {
+    text-align: center;
+    padding: 10px;
+}
+
+#vital-stats-container > div:last-child {
+    border-left: 1px solid var(--border-color);
+    padding-left: 20px;
+}
+
+@media (max-width: 600px) {
+    #vital-stats-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    #vital-stats-container > div:last-child {
+        grid-column: 1 / -1;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        padding-left: 10px;
+        padding-top: 15px;
+    }
+}
+
+/* ============================================
+   SPECIES GRID
+   ============================================ */
+#species-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+    #species-grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   SPECIES CARD
+   ============================================ */
+.species-card {
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
 }
 
 .species-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .species-header {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding-bottom: 12px;
     margin-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .species-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 1;
 }
 
 .species-header h3 {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
     margin: 0;
+    font-size: 1.1rem;
+    font-family: var(--font-display);
 }
 
-/* New Status Badge Styles */
 .species-status-badge {
     display: inline-block;
-    font-size: 0.75rem;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 0.65rem;
     padding: 2px 6px;
     border-radius: 4px;
     margin-top: 4px;
-}
-
-.status-under, .status-enslaved, .status-oppressed {
-    background-color: rgba(248, 81, 73, 0.15);
-    color: #f85149;
-    border: 1px solid #f85149;
-}
-
-.status-cursed, .status-anomaly, .status-disposable {
-    background-color: rgba(110, 118, 129, 0.15);
-    color: #8b949e;
-    border: 1px solid #8b949e;
-}
-
-.status-untrustworthy, .status-mistrusted {
-    background-color: rgba(210, 153, 34, 0.15);
-    color: #d29922;
-    border: 1px solid #d29922;
-}
-
-
-.species-description {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 16px;
-    flex-grow: 1;
-}
-
-.species-pop-stat {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--text-color);
-    background: var(--main-bg);
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.pop-unknown {
-    font-style: italic;
-    color: var(--text-secondary);
-    font-weight: normal;
-}
-
-/* --- Relations Styling --- */
-.species-relations {
-    margin-top: 16px;
-    padding-top: 12px;
-    border-top: 1px dashed var(--border-color);
-    font-size: 0.85rem;
-}
-
-.species-relations h6 {
-    font-family: var(--font-display);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
     text-transform: uppercase;
+    font-weight: bold;
     letter-spacing: 0.5px;
 }
 
-.species-relations ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.species-status-badge.status-under,
+.species-status-badge.status-enslaved {
+    background: rgba(248, 81, 73, 0.2);
+    color: #f85149;
 }
 
-.species-relations li {
-    background-color: rgba(255, 255, 255, 0.03);
-    padding: 6px 8px;
-    border-radius: 4px;
-    border-left: 2px solid var(--border-color);
+.species-status-badge.status-pest,
+.species-status-badge.status-disposable {
+    background: rgba(227, 179, 65, 0.2);
+    color: #e3b341;
+}
+
+.species-status-badge.status-mistrusted {
+    background: rgba(163, 113, 247, 0.2);
+    color: #a371f7;
+}
+
+.species-status-badge.status-cursed {
+    background: rgba(139, 69, 139, 0.2);
+    color: #b366b3;
+}
+
+.species-status-badge.status-unique,
+.species-status-badge.status-legendary {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+}
+
+.species-status-badge.status-endangered {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+.species-description {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
 }
 
-.species-relations li strong {
-    color: var(--accent-color);
-    margin-right: 4px;
-}
-
-/* --- Workforce & Religion Styling --- */
-.species-workforce-mini, .species-religion-mini {
-    font-size: 0.8rem; 
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    margin-bottom: 4px;
-}
-
-.species-religion-mini strong, .species-workforce-mini strong {
-    margin-right: 6px;
-}
-
-.workforce-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
-}
-
-.workforce-label {
+/* ============================================
+   SPECIES POPULATION STATS
+   ============================================ */
+.species-pop-stat {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.species-pop-stat > span:first-child {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.species-pop-stat > strong {
     font-family: var(--font-mono);
-    font-size: 0.9rem;
     color: var(--text-color);
-    margin-bottom: 4px;
+    font-size: 1rem;
 }
 
-.workforce-bar-bg {
+.species-pop-stat > div {
     width: 100%;
-    height: 16px;
-    background-color: var(--main-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
+    margin-top: 4px;
 }
 
-.workforce-bar-fill {
-    height: 100%;
-    border-radius: 8px;
-    transition: width 0.5s ease;
+/* ============================================
+   SPECIES INFO SECTIONS
+   ============================================ */
+.species-religion-mini,
+.species-workforce-mini {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-color);
 }
 
+.species-religion-mini strong,
+.species-workforce-mini strong {
+    margin-right: 8px;
+}
+
+/* ============================================
+   SPECIES FACTIONS
+   ============================================ */
 .species-factions {
-    margin-top: 16px;
-    padding-top: 12px;
-    border-top: 1px dashed var(--border-color);
+    margin: 12px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
 }
 
 .species-factions h6 {
-    font-family: var(--font-display);
+    margin: 0 0 8px 0;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -247,6 +261,7 @@
 .species-factions ul {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -257,26 +272,223 @@
     align-items: center;
     gap: 8px;
     font-size: 0.85rem;
-    background-color: var(--main-bg);
-    padding: 4px 8px;
-    border-radius: 4px;
 }
 
-.species-factions img {
+.species-factions li img {
     width: 20px;
     height: 20px;
+    border-radius: 4px;
+    object-fit: cover;
 }
 
 .species-factions .faction-percentage {
     margin-left: auto;
+    color: var(--accent-color);
     font-family: var(--font-mono);
-    color: var(--neutral-color);
-    font-weight: bold;
+    font-size: 0.8rem;
 }
 
+.species-factions p {
+    margin: 0;
+    font-size: 0.85rem;
+}
 
-@media (max-width: 900px) {
-    #dashboard-grid {
-        grid-template-columns: 1fr;
+/* ============================================
+   SPECIES RELATIONS
+   ============================================ */
+.species-relations {
+    margin-top: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+}
+
+.species-relations h6 {
+    margin: 0 0 8px 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.species-relations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.species-relations li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.species-relations li strong {
+    color: var(--text-color);
+}
+
+.species-relations p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   WORKFORCE SECTION
+   ============================================ */
+#workforce-section {
+    margin-top: 24px;
+}
+
+#workforce-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.workforce-species-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.workforce-species-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.workforce-species-header .species-icon {
+    font-size: 1.2rem;
+}
+
+.workforce-bars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.workforce-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    min-width: 120px;
+}
+
+.workforce-bar-item .bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 60px;
+}
+
+.workforce-bar-item .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* ============================================
+   TECH ACCESS CHART
+   ============================================ */
+#tech-access-filter {
+    background: var(--main-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#tech-access-filter:hover {
+    border-color: var(--accent-color);
+}
+
+#tech-access-filter:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+#tech-access-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   POPULATION DISPLAY
+   ============================================ */
+#total-population-display {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--positive-color);
+    margin: 0;
+    text-shadow: 0 0 10px var(--positive-color);
+    line-height: 1.2;
+}
+
+#total-population-display span {
+    text-shadow: none;
+}
+
+/* ============================================
+   TREND INDICATORS
+   ============================================ */
+.trend-positive {
+    color: var(--positive-color);
+}
+
+.trend-negative {
+    color: var(--negative-color);
+}
+
+.trend-stable {
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 480px) {
+    .species-card {
+        padding: 12px;
+    }
+    
+    .species-header {
+        flex-wrap: wrap;
+    }
+    
+    .species-icon {
+        font-size: 1.5rem;
+    }
+    
+    .species-header h3 {
+        font-size: 1rem;
+    }
+    
+    .species-pop-stat {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #total-population-display {
+        font-size: 2rem;
+    }
+    
+    .canvas-wrapper {
+        height: 250px;
     }
 }
