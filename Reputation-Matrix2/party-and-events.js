@@ -13,6 +13,24 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
 {
+    id: 'greenhouse_inferno_confession',
+    title: "Archie's Confession",
+    date: { day: 20, monthIndex: 6, year: 1040 },
+    isEvent: false,
+    instigator: 'archie',
+    description: "Archie Miser has publicly admitted to casting a high-level Fireball spell to destroy the Raventree Greenhouse. While he claims it was to save his friends from Rust Monsters, the admission of such reckless magic has infuriated the Mages' Guild and delighted chaos-worshippers.",
+    targets: ['archie'],
+    effects: {
+        mages_guild: -30, // Unsanctioned magic
+        green_thumb_guardians: -20, // Destroying a greenhouse
+        regal_empire: -10, // Reckless endangerment
+        cosmic_jesters: 25, // Hilarious destruction
+        liberated_toads: 10, // Saved friends
+        ratchet_raiders: 10 // Scrap created
+    },
+    cycle_impact: { score: 0.5, label: "Public Recklessness", type: "magic" }
+},
+{
     id: 'wraith_conflagration',
     title: "Conflagration in the Manor",
     date: { day: 19, monthIndex: 6, year: 1040 },
@@ -145,7 +163,7 @@ export const RUMORS = [
         time_ago: "Approx. 4 Weeks Ago",
         date: { year: 1040, monthIndex: 5, day: 22 },
         instigator: 'humpik',
-        description: "In an act of supreme recklessness, Humpik disabled the Vigilance's power core with a thrown axe...",
+        description: "In an act of supreme recklessness, Humpik disabled the Vigilance's power core with an thrown axe...",
         targets: ['humpik', 'bowser'],
         effects: { regal_empire: -40, iron_legion: -25, mages_guild: -15, ratchet_raiders: 15, cosmic_jesters: 20 },
         cycle_impact: { score: 1.0, label: "Magitek Failure", type: "tech" }
