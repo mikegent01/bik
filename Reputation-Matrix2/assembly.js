@@ -1,5 +1,4 @@
 
-
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -15,6 +14,7 @@ import { renderIntelAndRumors } from './assembly-intel-system.js';
 import { calculateRumorMetrics } from './research-data.js'; 
 import { getDynamicTimestamp } from './calendar-data.js'; 
 import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './calendar-data.js'; 
+import { renderRakashaNews } from './rakasha-news.js'; // Import new renderer
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
 const contentContainer = document.getElementById('wahbook-content');
@@ -209,8 +209,6 @@ function renderMainFeed() {
     feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderTrendingRumorsWidget()}</aside></div>`;
 }
 
-// ... (renderEvent, renderEventsFeed, openDossierModal, renderFollowedFeed remain the same) ...
-
 function renderEvent(rumor) {
     const allTargets = new Set();
     (rumor.targets || []).forEach(t => {
@@ -287,7 +285,6 @@ function renderTrendingFeed() {
     if (!container) return;
 
     // 1. Get Viral & Trending Rumor IDs
-    // Use the same logic as Intel System: check active rumors
     const activeRumors = LORE_DATA.rumors || [];
     let trendingRumorIds = [];
 
@@ -323,32 +320,6 @@ function renderTrendingFeed() {
 }
 
 
-// ... (renderGroupsFeed, handleShare, etc. remain the same) ...
-function renderGroupsFeed() {
-    const container = document.getElementById('groups-content');
-    if (!container) return;
-    const filterBar = container.querySelector('#groups-filter-bar');
-    const feedContainer = container.querySelector('#groups-feed-container');
-    const headerLabel = container.querySelector('#comms-active-channel');
-    const groupPosts = WAHBOOK_POSTS.filter(p => p.groupId);
-    const uniqueGroupIds = ['all', ...new Set(groupPosts.map(p => p.groupId))];
-    const allGuildsAndCharters = { ...GUILD_DATA, ...CHARTER_DATA };
-    filterBar.innerHTML = uniqueGroupIds.map(groupId => {
-        const name = (groupId === 'all') ? 'All Channels' : (allGuildsAndCharters[groupId]?.name.replace(/#\d+\s/, '') || groupId);
-        const isActive = activeChannelId === groupId;
-        let iconSrc = 'icon_focus.png';
-        if (groupId !== 'all' && allGuildsAndCharters[groupId]) { const factionKey = allGuildsAndCharters[groupId].sponsoring_faction; if (factionKey && LORE_DATA.factions[factionKey]) iconSrc = LORE_DATA.factions[factionKey].logo; }
-        return `<button class="comms-channel-btn ${isActive ? 'active' : ''}" data-group-id="${groupId}"><img src="${iconSrc}" class="channel-icon"><span>${name}</span></button>`;
-    }).join('');
-    const filteredPosts = (activeChannelId === 'all') ? groupPosts : groupPosts.filter(p => p.groupId === activeChannelId);
-    filteredPosts.sort((a, b) => getPostTimeValue(a) - getPostTimeValue(b));
-    if (filteredPosts.length > 0) {
-        feedContainer.innerHTML = filteredPosts.map(p => renderChatMessage(p)).join('');
-        setTimeout(() => { feedContainer.scrollTop = feedContainer.scrollHeight; }, 50);
-    } else { feedContainer.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-secondary);">No encrypted traffic detected on this frequency.</div>`; }
-    const activeName = (activeChannelId === 'all') ? 'All Channels' : (allGuildsAndCharters[activeChannelId]?.name || activeChannelId);
-    headerLabel.textContent = `Frequency: ${activeName}`;
-}
 function handleShare(button) {
     const postElement = button.closest('.feed-post');
     if (!postElement || !shareModal) return;
@@ -519,15 +490,19 @@ function setupEventListeners() {
         contentContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         const activeContent = document.getElementById(`${tabName}-content`);
         if(activeContent) activeContent.classList.add('active');
+        
         const feedContainer = activeContent.querySelector('.wahbook-feed-container');
+
         if (tabName === 'groups') {
-             renderGroupsFeed();
+             // REPLACED: Now renders Rakasha News instead of the chat feed
+             renderRakashaNews();
         } else if (feedContainer && feedContainer.childElementCount === 0) {
             switch(tabName) {
                 case 'followed': renderFollowedFeed(); break;
                 case 'trending': renderTrendingFeed(); break;
             }
         }
+        
         const intelRumorsContainer = document.getElementById('intel-rumors-container');
         if (tabName === 'intel' && intelRumorsContainer) {
             renderIntelAndRumors();
@@ -580,18 +555,9 @@ function setupEventListeners() {
             }
         }
     });
-    const groupsContent = document.getElementById('groups-content');
-    if (groupsContent) {
-        const filterBar = groupsContent.querySelector('#groups-filter-bar');
-        filterBar.addEventListener('click', e => {
-            const btn = e.target.closest('.comms-channel-btn');
-            if (btn) {
-                playSound('click.mp3');
-                activeChannelId = btn.dataset.groupId;
-                renderGroupsFeed();
-            }
-        });
-    }
+    
+    // REMOVED: groupsContent event listeners are no longer needed for the chat interface.
+
     dossierModalClose?.addEventListener('click', () => dossierModal.style.display = 'none');
     dossierModal?.addEventListener('click', (e) => { if (e.target === dossierModal) dossierModal.style.display = 'none'; });
     createPostModal.querySelector('.modal-close').addEventListener('click', () => createPostModal.style.display = 'none');

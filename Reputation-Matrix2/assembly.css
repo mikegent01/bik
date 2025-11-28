@@ -1561,3 +1561,513 @@
 .view-event-link:hover { color: var(--accent-color); }
 
 /* ... existing styles ... */
+
+
+/* ... existing styles ... */
+
+/* Rakasha News Newspaper Styles */
+.rakasha-paper {
+    background-color: #fdfbf7;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjEuNSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=');
+    color: #2c2c2c;
+    padding: 32px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    position: relative;
+    border: 1px solid #dcdcdc;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Header */
+.paper-header {
+    text-align: center;
+    border-bottom: 4px double #2c2c2c;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+}
+
+.paper-masthead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.claw-mark {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--negative-color);
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.paper-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    line-height: 1;
+}
+
+.paper-subtitle {
+    font-style: italic;
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    font-family: 'Georgia', serif;
+}
+
+.paper-meta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #444;
+    border-top: 1px solid #2c2c2c;
+    border-bottom: 1px solid #2c2c2c;
+    padding: 6px 0;
+    width: 100%;
+}
+
+.paper-greeting {
+    margin-top: 16px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    font-variant: small-caps;
+}
+
+/* Main Layout */
+.paper-body {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.paper-columns {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 32px;
+}
+
+@media (max-width: 800px) {
+    .paper-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+.paper-section {
+    margin-bottom: 32px;
+}
+
+.section-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: #2c2c2c;
+    padding: 4px 8px;
+    display: inline-block;
+    margin-bottom: 12px;
+    border-radius: 2px;
+}
+
+/* Main Headline */
+.main-headline {
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+}
+
+.headline-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 16px 0;
+    color: #111;
+}
+
+.headline-flavor {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #444;
+    margin-bottom: 24px;
+    font-family: 'Georgia', serif;
+}
+
+.headline-body {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 24px auto;
+    text-align: left;
+    columns: 2;
+    column-gap: 32px;
+}
+
+@media (max-width: 600px) {
+    .headline-body { columns: 1; }
+}
+
+.headline-analysis {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    background: #f0f0f0;
+    padding: 16px;
+    border: 1px solid #ccc;
+    flex-wrap: wrap;
+}
+
+.analysis-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.analysis-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #666;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.analysis-value {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.threat-high { color: #d32f2f; }
+.threat-medium { color: #f57c00; }
+.threat-low { color: #388e3c; }
+
+/* Arc List */
+.arc-item {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-bottom: 16px;
+    background: #fff;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.arc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.arc-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2c2c2c;
+}
+
+.arc-location {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.arc-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f5f5f5;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #2c2c2c;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.arc-stats {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 8px;
+    text-align: right;
+}
+
+/* Weather & Moon */
+.weather-box, .moon-box {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.weather-main, .moon-main {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.weather-icon, .moon-icon {
+    font-size: 2.5rem;
+}
+
+.weather-title, .moon-phase {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.weather-temp, .moon-lore {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.weather-hunt, .moon-advice {
+    font-size: 0.9rem;
+    border-top: 1px dashed #ccc;
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+.weather-warning {
+    color: #d32f2f;
+    font-size: 0.85rem;
+    margin-top: 8px;
+}
+
+.moon-effects {
+    font-size: 0.85rem;
+    background: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.moon-blessing { color: #388e3c; }
+.moon-curse { color: #d32f2f; }
+
+/* Faction Watch */
+.faction-item {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.faction-status {
+    font-size: 1.2rem;
+}
+
+.faction-info {
+    font-size: 0.9rem;
+}
+
+.faction-report {
+    display: block;
+    color: #444;
+    margin-top: 2px;
+}
+
+.faction-activity {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    color: #888;
+}
+
+/* Whispers */
+.whispers-box {
+    background: #f5f5f5;
+    padding: 16px;
+    border-left: 4px solid #2c2c2c;
+}
+
+.whisper-item {
+    margin-bottom: 16px;
+}
+
+.whisper-item:last-child { margin-bottom: 0; }
+
+.whisper-intro {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.whisper-content {
+    font-style: italic;
+    font-size: 1rem;
+    margin: 4px 0;
+    color: #2c2c2c;
+}
+
+.whisper-source {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: right;
+}
+
+/* Cycle Box */
+.cycle-box {
+    border: 2px solid #2c2c2c;
+    padding: 16px;
+    background: #fff;
+    text-align: center;
+}
+
+.cycle-header {
+    margin-bottom: 12px;
+}
+
+.cycle-phase {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: block;
+}
+
+.cycle-momentum {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.meter-track {
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.meter-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.cycle-interpretation {
+    margin-bottom: 16px;
+}
+
+.interp-main {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2c2c2c;
+}
+
+.interp-desc {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.cycle-analysis {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.analysis-row {
+    display: flex;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.cycle-note {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 12px;
+    border-top: 1px dashed #ccc;
+    padding-top: 8px;
+}
+
+/* Warnings */
+.warnings-section {
+    margin-top: 32px;
+    border-top: 4px double #2c2c2c;
+    padding-top: 24px;
+}
+
+.warnings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.warning-item {
+    display: flex;
+    gap: 12px;
+    background: #fff0f0;
+    border: 1px solid #ffcdd2;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.warning-icon {
+    font-size: 1.5rem;
+}
+
+.warning-content strong {
+    display: block;
+    color: #b71c1c;
+    margin-bottom: 4px;
+}
+
+.warning-content span {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* Footer */
+.paper-footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #ccc;
+    color: #666;
+}
+
+.footer-decoration {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.footer-closing {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #2c2c2c;
+}
+
+.footer-small {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    max-width: 600px;
+    margin: 0 auto;
+}

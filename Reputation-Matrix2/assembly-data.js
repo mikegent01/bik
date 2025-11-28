@@ -2,6 +2,232 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+    // --- The Vigilance Saga ---
+    {
+        id: 'post_vig_1',
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 3, day: 20, hour: 14, minute: 0 },
+        content: "Did anyone else see that massive shadow in the clouds above the Northern Mountains? Looked too big to be a bird.",
+        likes: 45,
+        rumorId: 'vigilance_early_sightings'
+    },
+    {
+        id: 'post_vig_2',
+        characterKey: 'ratchet_raiders',
+        date: { year: 1040, monthIndex: 4, day: 5, hour: 9, minute: 30 },
+        content: "Scrap rain in Sector 4! Something big blew a gasket up high. First come, first served!",
+        likes: 120,
+        rumorId: 'vigilance_engine_failure'
+    },
+    {
+        id: 'post_vig_3',
+        characterKey: 'iron_legion',
+        date: { year: 1040, monthIndex: 4, day: 15, hour: 16, minute: 0 },
+        content: "Sky-patrols report unauthorized airship activity near the border. Interception protocols failed. Craft is heavily armored.",
+        likes: 89,
+        rumorId: 'vigilance_skirmish_border'
+    },
+    {
+        id: 'post_vig_4',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 4, day: 28, hour: 18, minute: 0 },
+        content: "BREAKING: The rogue airship 'Vigilance' has touched down. Smoke seen rising from the crash site. Local authorities advising caution.",
+        likes: 230,
+        rumorId: 'vigilance_final_descent'
+    },
+
+    // --- Supernatural Sovereignty ---
+    {
+        id: 'post_sov_1',
+        characterKey: 'freelancer_spy_1',
+        date: { year: 1040, monthIndex: 5, day: 10, hour: 22, minute: 0 },
+        content: "Intercepted memo from the Diet. They're drafting something big regarding 'non-human entities'. Hide your fangs.",
+        likes: 340,
+        rumorId: 'sov_proposal_leak'
+    },
+    {
+        id: 'post_sov_2',
+        characterKey: 'moonfang_pack',
+        date: { year: 1040, monthIndex: 5, day: 12, hour: 3, minute: 0 },
+        content: "They defiled the Lunar Shrine. The Empire has forgotten who hunts in the dark. We will remind them.",
+        likes: 150,
+        rumorId: 'sov_temple_vandalism'
+    },
+    {
+        id: 'post_sov_3',
+        characterKey: 'regal_empire_delegate',
+        date: { year: 1040, monthIndex: 5, day: 15, hour: 12, minute: 0 },
+        content: "The debate floor was chaotic today. Order must be maintained. These creatures cannot roam unchecked.",
+        likes: 60,
+        rumorId: 'sov_public_debate'
+    },
+    {
+        id: 'post_sov_4',
+        characterKey: 'onyx_hand',
+        date: { year: 1040, monthIndex: 5, day: 17, hour: 1, minute: 0 },
+        content: "A midnight visit to the magistrate's home seems to have... clarified our position. The bill will face opposition.",
+        likes: 210,
+        rumorId: 'sov_midnight_raid'
+    },
+
+    // --- Mushroom Civil War ---
+    {
+        id: 'post_mcw_1',
+        characterKey: 'chancellor_toadsworth',
+        date: { year: 995, monthIndex: 0, day: 2, hour: 9, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "The sun has set on the Kingdom. Her Highness is gone. We must remain strong for the people.",
+        likes: 5000,
+        rumorId: 'mushroom_civil_war_peach_death'
+    },
+    {
+        id: 'post_mcw_2',
+        characterKey: 'generic_toad',
+        date: { year: 1020, monthIndex: 2, day: 15, hour: 14, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "They're burning the shops in the lower district! The riots are out of control! Where is the Guard?!",
+        likes: 12,
+        rumorId: 'mushroom_civil_war_toad_town_riots'
+    },
+    {
+        id: 'post_mcw_3',
+        characterKey: 'koopa_troop',
+        date: { year: 1025, monthIndex: 6, day: 20, hour: 10, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "Another mile gained. The mushroom fortifications crumble before the might of the King!",
+        likes: 400,
+        rumorId: 'mushroom_civil_war_koopa_advance'
+    },
+    {
+        id: 'post_mcw_4',
+        characterKey: 'captain_toad',
+        date: { year: 1030, monthIndex: 10, day: 5, hour: 18, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "The refugee camps are full. We need supplies, not more speeches from the Regency council.",
+        likes: 800,
+        rumorId: 'mushroom_civil_war_refugee_crisis'
+    },
+    {
+        id: 'post_mcw_5',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 5, day: 10, hour: 12, minute: 0 },
+        content: "Air raid sirens over Toad Town. Loyalist bombers spotted. Seek shelter immediately.",
+        likes: 650,
+        rumorId: 'mushroom_civil_war_bombing_run'
+    },
+
+    // --- Kong-Kremling Cold War ---
+    {
+        id: 'post_kk_1',
+        characterKey: 'funky_kong',
+        date: { year: 1038, monthIndex: 1, day: 10, hour: 11, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "Tariffs on bananas? Seriously? K. Rool is tripping. Prices just doubled.",
+        likes: 300,
+        rumorId: 'kong_kremling_trade_war'
+    },
+    {
+        id: 'post_kk_2',
+        characterKey: 'king_k_rool',
+        date: { year: 1039, monthIndex: 7, day: 15, hour: 14, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "The embargo stands! No Kremling ships will dock at Kong ports until they apologize for the coconut incident!",
+        likes: 220,
+        rumorId: 'kong_kremling_embargo'
+    },
+    {
+        id: 'post_kk_3',
+        characterKey: 'diddy_kong',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 16, minute: 0 },
+        content: "Caught a lizard snooping around the hoard. Nice try. He's talking now.",
+        likes: 500,
+        rumorId: 'kong_kremling_spy_capture'
+    },
+    {
+        id: 'post_kk_4',
+        characterKey: 'chunky_kong',
+        date: { year: 1040, monthIndex: 5, day: 15, hour: 10, minute: 0 },
+        content: "Meeting went bad. K. Rool yelled a lot. No peace today.",
+        likes: 150,
+        rumorId: 'kong_kremling_diplomacy_fail'
+    },
+
+    // --- The Shadow War ---
+    {
+        id: 'post_sw_1',
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 4, day: 1, hour: 7, minute: 0 },
+        content: "My whole herd... drained. Not a drop of blood left in the field. This wasn't wolves.",
+        likes: 45,
+        rumorId: 'shadow_war_cattle'
+    },
+    {
+        id: 'post_sw_2',
+        characterKey: 'silver_flame',
+        date: { year: 1040, monthIndex: 4, day: 10, hour: 9, minute: 0 },
+        content: "Desecration at the ancestral crypts. The dead should remain resting. We are investigating.",
+        likes: 120,
+        rumorId: 'shadow_war_crypt'
+    },
+    {
+        id: 'post_sw_3',
+        characterKey: 'rakasha_clans',
+        date: { year: 1040, monthIndex: 5, day: 1, hour: 23, minute: 0 },
+        content: "The moon was red last night. We heard the clash of steel and claw in the valley. The cold ones are moving.",
+        likes: 180,
+        rumorId: 'shadow_war_skirmish_moon'
+    },
+    {
+        id: 'post_sw_4',
+        characterKey: 'freelancer_spy_1',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 12, minute: 0 },
+        content: "Vampires taxing the border villages now. 'Blood for protection'. Locals aren't happy.",
+        likes: 90,
+        rumorId: 'vampire_raid_supply'
+    },
+
+    // --- Toad Liberation ---
+    {
+        id: 'post_tl_1',
+        characterKey: 'the_unchained',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 20, minute: 0 },
+        content: "The chains are loose. We hear whispers of a new group forming in the shadows. Solidarity.",
+        likes: 300,
+        rumorId: 'toad_lib_whispers'
+    },
+    {
+        id: 'post_tl_2',
+        characterKey: 'iron_legion',
+        date: { year: 1040, monthIndex: 5, day: 5, hour: 8, minute: 0 },
+        content: "Supply convoy ambushed near Sector 7. Attackers were small, fast, and organized. Investigation ongoing.",
+        likes: 60,
+        rumorId: 'toad_lib_raid_supplies'
+    },
+    {
+        id: 'post_tl_3',
+        characterKey: 'rebel_clans_scout',
+        date: { year: 1040, monthIndex: 5, day: 15, hour: 14, minute: 0 },
+        content: "Saw a group of Toads drilling with spears in the woods. They looked... surprisingly competent.",
+        likes: 110,
+        rumorId: 'toad_lib_training_sighting'
+    },
+    {
+        id: 'post_tl_4',
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 10, minute: 0 },
+        content: "Saw Toad Lee yelling at recruits holding sticks. It's actually kind of inspiring? They're really trying.",
+        likes: 200,
+        rumorId: 'toad_training_montage'
+    },
+    // --- Kong Kremling Extra ---
+    {
+        id: 'post_kk_blockade',
+        characterKey: 'funky_kong',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 0 },
+        content: "K. Rool's galleons are blocking the surf! Can't catch a wave, can't ship a crate. This is totally bogus.",
+        likes: 420,
+        rumorId: 'kremling_naval_blockade'
+    },
     {
         id: 'archie_fireball_confession',
         order: 30835,
@@ -5166,47 +5392,8 @@ Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the 
             { characterKey: 'generic_toad', text: "Oh no, not again..." }
         ]
     },
-    {
-        id: 'guild_post_gryphon_1',
-        order: 11,
-        characterKey: 'commander_valerius',
-        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
-        timestamp: '1 week ago',
-        content: `**OPEN CONTRACT:** The Gilded Gryphon Mercenary Company is now accepting applications for caravan guard duty on the Great Imperial Road. High pay, high risk. Must provide your own standard-issue sidearm and have a clean service record. Amateurs need not apply. Payment upon completion.`,
-        likes: 412,
-        comments: [
-            { characterKey: 'donkey_kong', text: "Good pay? Does that mean bananas? DK needs to know." },
-            { characterKey: 'lario', text: "High pay? I'll bring my own tools. And a bigger bag for my cut. WAH-ha-ha... wait." }
-        ],
-        groupId: 'gilded_gryphon'
-    },
-    {
-        id: 'guild_post_wayfinders_1',
-        order: 10,
-        characterKey: 'high_cartographer_elara',
-        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
-        timestamp: '1 week ago',
-        content: `A notice from the High Cartographer: An expedition is being planned to chart the shifting coastlines of the Triple Moon World. Experienced navigators and warriors are encouraged to apply at the Horizon Spire. High risk, high reward.`,
-        likes: 350,
-        comments: [
-            { characterKey: 'captain_zipwire', text: "Shifting coastlines? Sounds dangerous! And profitable! Where do I sign up?"}
-        ],
-        groupId: 'wayfinders_guild'
-    },
-    {
-        id: 'guild_post_aegis_1',
-        order: 9,
-        characterKey: 'battle_mage_kovar',
-        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
-        timestamp: '1 week ago',
-        content: `A reminder to all sanctioned practitioners: The Autumnwood Accords are not suggestions. All research into reality-bending or chronomantic magic is strictly forbidden without a permit from the Conclave. The Aegis Magi will enforce this with extreme prejudice. Do not test us.`,
-        likes: 630,
-        comments: [
-            { characterKey: 'janna_brightspark', text: "Fear of progress is what holds this Guild back. How can we learn if we do not experiment?" },
-            { characterKey: 'archmage_theron', text: "A necessary and prudent warning, Battle-Mage. Order must be maintained." }
-        ],
-        groupId: 'aegis_magi'
-    },
+    
+
     {
         id: 'summit_pre_1',
         order: 8,

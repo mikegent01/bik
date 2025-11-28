@@ -1,8 +1,11 @@
+
 // This module handles the unique Chaos Index display for the Cosmic Jesters.
 import { LORE_DATA } from '../lore.js';
 import { getIntelForFaction } from './common.js';
 import { playSound } from '../common.js';
 import { state } from '../state.js';
+import { calculateGlobalCycle } from '../research-data.js';
+import { WAHBOOK_POSTS } from '../assembly-data.js';
 
 /**
  * Renders the HTML structure for the Chaos Index.
@@ -10,7 +13,7 @@ import { state } from '../state.js';
  */
 export function renderCosmicJestersSystem() {
     return `
-        <p class="system-description">To measure the Jesters is to measure madness. Their "influence" is a fiction, their "goals" a paradox. This display attempts to quantify the current level of cosmic absurdity. It is not guaranteed to be accurate, or even sensical. Try interacting with it... if you dare.</p>
+        <p class="system-description">To measure the Jesters is to measure madness. Their "influence" is a fiction, their "goals" a paradox. This display attempts to quantify the current level of cosmic absurdity based on the world's instability. It is not guaranteed to be accurate, or even sensical. Try interacting with it... if you dare.</p>
         <div class="system-content chaos-system">
              <div id="chaos-index-display" title="Click to tempt fate">Calculating...</div>
         </div>
@@ -66,18 +69,72 @@ export function initCosmicJestersSystem() {
     const display = document.getElementById('chaos-index-display');
     if (!display) return;
     
-    const outcomes = ["Probability: Mauve", "42%", "Error: Success!", "Cheese Found", "The Punchline Approaches", "WAAH!"];
+    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+    const momentum = Math.abs(globalCycle.momentum);
+    const phaseId = globalCycle.phase.id;
+
+    // Determine base chaos level
+    let baseChaos = momentum * 5; 
+    if (phaseId === 'crisis' || phaseId === 'conflict') baseChaos += 50;
+    else if (phaseId === 'calm') baseChaos -= 20;
+    
+    baseChaos = Math.max(1, Math.min(100, baseChaos));
+
+    const chaoticOutcomes = [
+        "Probability: Mauve", 
+        "Error: Success!", 
+        "Cheese Found", 
+        "The Punchline Approaches", 
+        "WAAH!", 
+        "Reality: Buffer Overflow",
+        "Honk Honk",
+        "404: Logic Not Found"
+    ];
+
+    const stableOutcomes = [
+        "Chaos: Low",
+        "Boring...",
+        "Reality: Stable",
+        "Waiting for the Joke",
+        "Entropy: 12%"
+    ];
+
+    const intervalSpeed = Math.max(100, 1500 - (baseChaos * 10)); // Faster updates for higher chaos
+
     const intervalId = setInterval(() => {
         if (!document.body.contains(display)) {
             clearInterval(intervalId);
             return;
         }
+        
+        const outcomes = baseChaos > 40 ? chaoticOutcomes : stableOutcomes;
         const randomIndex = Math.floor(Math.random() * outcomes.length);
-        const randomColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-        display.textContent = outcomes[randomIndex];
-        display.style.color = randomColor;
-        display.style.textShadow = `0 0 10px ${randomColor}`;
-    }, 1500);
+        
+        // Color reflects chaos level (Blue -> Red/Rainbow)
+        let color;
+        if (baseChaos > 70) {
+             color = `hsl(${Math.random() * 360}, 100%, 70%)`; // Rainbow
+        } else if (baseChaos > 40) {
+             color = '#f85149'; // Red
+        } else {
+             color = '#58a6ff'; // Blue
+        }
+
+        let text = outcomes[randomIndex];
+        if (baseChaos > 50) text += ` (${Math.round(baseChaos)}%)`;
+
+        display.textContent = text;
+        display.style.color = color;
+        display.style.textShadow = `0 0 ${baseChaos / 5}px ${color}`;
+        
+        // Shake effect for high chaos
+        if (baseChaos > 60) {
+            display.style.transform = `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)`;
+        } else {
+            display.style.transform = 'none';
+        }
+
+    }, intervalSpeed);
 
     display.addEventListener('click', () => {
         playSound('click.mp3');

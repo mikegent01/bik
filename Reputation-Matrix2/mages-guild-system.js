@@ -6,6 +6,7 @@ import { MAGES_GUILD_DETAILS } from './mages-guild-details.js';
 import { generateWeatherForDay, CURRENT_GAME_DATE } from './calendar-data.js';
 import { calculateGlobalCycle } from './research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
+import { MAJOR_BATTLES } from './battlefield.js'; // Import battles for timeline connection
 
 /**
  * Renders the HTML structure for the Mages' Guild system.
@@ -24,7 +25,7 @@ export function renderMagesGuildSystem() {
     const weather = generateWeatherForDay(CURRENT_GAME_DATE.year, CURRENT_GAME_DATE.monthIndex, CURRENT_GAME_DATE.day);
     const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
 
-    // Determine Orb Visuals
+    // Determine Orb Visuals based on Weather
     let orbClass = '';
     let orbStatusText = '';
     
@@ -40,7 +41,20 @@ export function renderMagesGuildSystem() {
     }
 
     // Apply Cycle Color
-    const cycleColor = globalCycle.phase.color;
+    const cycleColor = globalCycle.phase.color || '#a855f7';
+
+    // --- NEW: Connect Plot to Timeline ---
+    // Get the most recent ongoing or completed battle
+    const sortedBattles = [...MAJOR_BATTLES].sort((a, b) => {
+        const dateA = typeof a.date === 'object' ? (a.date.year * 10000 + a.date.monthIndex * 100 + a.date.day) : 0;
+        const dateB = typeof b.date === 'object' ? (b.date.year * 10000 + b.date.monthIndex * 100 + b.date.day) : 0;
+        return dateB - dateA;
+    });
+    
+    const latestEvent = sortedBattles[0];
+    const activePlotText = latestEvent 
+        ? `Monitoring temporal fallout from: <strong>${latestEvent.name}</strong>`
+        : data.scrying_orb.active_plot;
 
     return `
         <p class="system-description">${data.description}</p>
@@ -50,9 +64,10 @@ export function renderMagesGuildSystem() {
                 <div class="scrying-orb-info">
                     <h6>${data.scrying_orb.title}</h6>
                     <p><strong>Signal:</strong> <span class="active-plot">${orbStatusText}</span></p>
-                    <p><strong>Cycle Resonance:</strong> <span style="color:${cycleColor}">${globalCycle.phase.name}</span></p>
-                    <p><strong>Plot:</strong> <span class="active-plot">${data.scrying_orb.active_plot}</span></p>
-                    <p>${data.scrying_orb.current_focus}</p>
+                    <p><strong>Cycle Resonance:</strong> <span style="color:${cycleColor}; font-weight:bold;">${globalCycle.phase.name}</span></p>
+                    <div style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--border-color);">
+                        <p style="font-size:0.85rem; color:var(--text-color);">${activePlotText}</p>
+                    </div>
                 </div>
             </div>
             <div class="influence-details-container">
@@ -98,7 +113,7 @@ export function initMagesGuildSystem() {
         state.chartInstances['mages-guild'].destroy();
     }
     
-    // Ensure Chart is available (it should be loaded via CDN in directory.html)
+    // Ensure Chart is available
     if (typeof Chart !== 'undefined') {
         state.chartInstances['mages-guild'] = new Chart(canvas, {
             type: 'doughnut',
@@ -124,7 +139,7 @@ export function initMagesGuildSystem() {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            color: '#7d8590', // var(--text-secondary)
+                            color: '#7d8590', 
                             font: {
                                 family: "'Roboto Mono', monospace"
                             }

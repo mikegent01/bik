@@ -8,7 +8,7 @@ import { HISTORICAL_TIMELINE } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
 import { LORE_DATA } from './lore.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-import { PLAGUE_DATA } from './plagues-data.js'; // ADDED IMPORT
+import { PLAGUE_DATA } from './plagues-data.js'; 
 
 // --- State ---
 let viewDate = {
@@ -185,17 +185,15 @@ function getRumorEventsForDay(year, monthIndex, day) {
     return events;
 }
 
-// --- NEW: PLAGUE EVENTS ---
 function getPlagueEventsForDay(year, monthIndex, day) {
     const events = [];
     const season = getSeason(monthIndex);
     const techAverages = getGlobalTechAverages();
     
     PLAGUE_DATA.forEach(plague => {
-        // Random Outbreak Logic
         if (plague.active_seasons.includes(season.name) || plague.active_seasons.includes("All")) {
             const seed = year * 10000 + (monthIndex + 1) * 100 + day + plague.name.length;
-            if (getSeededRandom(seed) < 0.05) { // 5% chance
+            if (getSeededRandom(seed) < 0.05) { 
                  events.push({
                     type: 'plague_outbreak',
                     name: `Outbreak: ${plague.name}`,
@@ -205,7 +203,6 @@ function getPlagueEventsForDay(year, monthIndex, day) {
             }
         }
 
-        // Projected Cure Date Logic
         if (plague.cure_progress < 100) {
              const medicalTech = techAverages.MEDICAL || 1;
              const dailyCureRate = 0.5 + (medicalTech * 0.25);
@@ -256,7 +253,7 @@ function getEventsForDay(year, monthIndex, day) {
     events.push(...getTimelineEventsForDay(year, monthIndex, day));
     events.push(...getBattleEventsForDay(year, monthIndex, day));
     events.push(...getRumorEventsForDay(year, monthIndex, day));
-    events.push(...getPlagueEventsForDay(year, monthIndex, day)); // Added here
+    events.push(...getPlagueEventsForDay(year, monthIndex, day));
 
     const dayOfWeekIndex = (day - 1) % 7;
     const dayName = CALENDAR_DATA.days.values[dayOfWeekIndex].name;
@@ -333,11 +330,26 @@ function selectDay(day) {
     renderCalendar();
 }
 
+// --- NEW: SCRYING ORB LOGIC ---
+function calculateOrbForecast(weather, moonPhase) {
+    if (weather.desc.includes('Storm') || weather.desc.includes('Rain') || weather.isMagical) {
+        return { status: 'Turbulent', color: '#f85149', icon: '🔮⚡' };
+    } else if (weather.desc.includes('Clear') && (moonPhase.name.includes('Full') || moonPhase.name.includes('Glazed'))) {
+        return { status: 'Crystal Clear', color: '#00ffff', icon: '🔮✨' };
+    } else if (weather.desc.includes('Clear')) {
+        return { status: 'Stable', color: '#58a6ff', icon: '🔮' };
+    } else {
+        return { status: 'Fluctuating', color: '#e3b341', icon: '🔮〰️' };
+    }
+}
+
 function renderSidebar() {
     const monthData = CALENDAR_DATA.months.values[selectedDate.monthIndex];
     const events = getEventsForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
     const weather = generateWeatherForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
     const moonPhase = calculateMoonPhase(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+    const orbForecast = calculateOrbForecast(weather, moonPhase); // Calculate orb state
+
     selectedDateHeader.textContent = `${monthData.name} ${selectedDate.day}, ${selectedDate.year}`;
     selectedDateWeather.textContent = weather.icon;
     selectedDateWeather.title = weather.desc;
@@ -348,6 +360,13 @@ function renderSidebar() {
         </div>
         <div class="weather-details" style="margin-top:8px; border-top:1px dashed var(--border-color); padding-top:8px;">
             <span class="desc-display">Moon Phase: <strong>${moonPhase.icon} ${moonPhase.name}</strong></span>
+        </div>
+        <!-- New Scrying Section -->
+        <div class="weather-details" style="margin-top:8px; border-top:1px dashed var(--border-color); padding-top:8px; background: rgba(138, 43, 226, 0.05);">
+            <span class="desc-display" style="width:100%; display:flex; justify-content:space-between;">
+                <span>${orbForecast.icon} Scrying Forecast:</span>
+                <strong style="color:${orbForecast.color}">${orbForecast.status}</strong>
+            </span>
         </div>
     `;
     const displayEvents = events.filter(e => e.type !== 'ritual' && e.type !== 'battle_ongoing');
