@@ -1,3 +1,4 @@
+
 import { DINER_EVENT } from './events/diner-date-event.js';
 import { state } from './state.js';
 import { SCHEDULED_POSTS } from './events/scheduled-posts.js';
@@ -49,12 +50,36 @@ const BASE_EVENTS = [
 
 // --- SCRIPTED EVENTS ---
 
+const ARCHIES_CONFESSION_EVENT = {
+    id: 'archies_confession',
+    title: "The Fireball Confession",
+    order: -5.0, // Newest Event (Day 20)
+    locationId: 'poi_mid_raventree_manor',
+    description: "Archie Miser publicly posted a confession regarding the destruction of the Raventree Greenhouse on Wahbook, sparking immediate backlash. This coincided with a chaotic skirmish in the Manor's Dance Hall against the Iron Legion and Arcane Wraiths.",
+    attendees: [
+        { characterKey: 'archie', host: true, justification: "Posted the confession and led the group into the Dance Hall." },
+        { characterKey: 'humpik', justification: "Advised against the post; secured dark crystals during the aftermath." },
+        { characterKey: 'markop', justification: "Defended against the Wraiths." },
+        { characterKey: 'toad_lee', justification: "Fought alongside the Oracle against the animated coat." },
+        { characterKey: 'waluigi', justification: "Observed the chaos with glee." }
+    ],
+    news_ids: ['wah_media_confession_reaction'],
+    post_ids: [
+        'archie_confession_post', 
+        'mages_guild_warrant', 
+        'legion_mockery_anthem_post', 
+        'humpik_dark_crystal_post', 
+        'oracle_cryptic_update',
+        'waluigi_manor_laugh'
+    ]
+};
+
 // --- NEW SHADEWARD MANOR EVENT ---
 const SHADEWARD_MANOR_EVENT = {
     id: 'shadeward_manor_raid',
     title: "The Shadeward Betrayal",
-    order: -4.0, // Newest Event
-    locationId: 'poi_mid_raventree_manor', // Assuming Shadeward is near Raventree
+    order: -4.0, 
+    locationId: 'poi_mid_raventree_manor', 
     description: "A group of Liberated Toads seeking Archie were trapped in the time-looping Shadeward Mansion by the Oracle. The bizarre dinner was crashed by an Archie clone, a robot double, and a full-scale Iron Legion raid team led by Mr. Wario. The raid was revealed to be a setup, facilitated by a traitor toad who helped capture Bones. The survivors escaped with their wounded, their trust shattered.",
     attendees: [
         { characterKey: 'self_reflection_oracle', host: true, justification: "Host of the 'dinner party' and master of the time-looping manor." },
@@ -65,8 +90,8 @@ const SHADEWARD_MANOR_EVENT = {
         { characterKey: 'rodger', justification: "Successfully engaged and defeated an Iron Legionnaire during the raid." },
         { characterKey: 'the_mole', justification: "The traitor who infiltrated the toads and revealed his allegiance to the Iron Legion." }
     ],
-    news_ids: [], // No official news coverage yet
-    post_ids: [ // All posts we created for this event
+    news_ids: [], 
+    post_ids: [ 
         'rodger_traitor_reveal', 'rodger_creek_surgery', 'bones_calls_out_lt', 'purple_t_my_house', 
         'toad_lee_return_to_ship', 'oracle_offers_rooms', 'rodger_negotiation', 'ryan_aftermath_of_darkness', 
         'toad_lee_blind_chaos', 'ryan_unleashes_darkness', 'purple_t_defends_waluigi_book', 
@@ -82,7 +107,7 @@ const RAVENTREE_MANOR_EVENT = {
     id: 'raventree_manor_chaos',
     title: "The Haunting of Raventree Manor",
     order: -3.0,
-    locationId: 'poi_mid_raventree_manor', // CORRECTED Location ID
+    locationId: 'poi_mid_raventree_manor', 
     description: "The party's exploration of the haunted Raventree Manor descended into chaos. After being separated, they battled flaming books, discovered cryptic clues, and eventually regrouped with Bowser and Eager before barricading themselves for the night.",
     attendees: [
         { characterKey: 'archie', justification: "Discovered a cryptic clue before falling down a flight of stairs." },
@@ -99,7 +124,7 @@ const BRAMBLEHAVEN_EVENT = {
     id: 'bramblehaven_siege',
     title: "The Siege of Bramblehaven",
     order: -2.0,
-    locationId: 'poi_mk_castle', // Placeholder, Bramblehaven is not on map
+    locationId: 'poi_mk_castle', 
     description: "The brutal, day-long assault and capture of the Fawful bastion, Bramblehaven, by Captain Toadette's Peach Loyalist forces. The battle was marked by heavy casualties and the Loyalists' ruthless refusal to accept surrender.",
     attendees: [
         { characterKey: 'captain_toadette', host: true, justification: "Commanding officer of the Loyalist assault." },
@@ -116,10 +141,79 @@ const PRISON_DECEPTION_EVENT = { /* ... no changes ... */ };
 const VAMPIRE_WAR_EVENT = { /* ... no changes ... */ };
 const REGENCY_FALL_EVENT = { /* ... no changes ... */ };
 
+// --- DAY 20 POSTS ---
+export const DAY_20_POSTS = [
+    {
+        id: 'archie_confession_post',
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 7, minute: 45 },
+        content: "[This post was deleted]",
+        likes: 8,
+        comments: [
+            { characterKey: 'humpik', text: "Laddie... you posted this? Delete it. Now." },
+            { characterKey: 'regal_empire_delegate', text: "Admission of guilt noted. The Accords are clear on the destruction of heritage sites." },
+            { characterKey: 'green_thumb_guardians', text: "YOU DID WHAT TO A GREENHOUSE?!" }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'legion_mockery_anthem_post',
+        characterKey: 'iron_legion',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 15 },
+        content: "Intercepted audio from the Raventree Dance Hall. Our operatives have composed a little... tribute. 🎵 '...for the only thing reborn tonight is the Iron Dominion refined!' 🎵",
+        audioSrc: 'legion_anthem.mp3', // Placeholder
+        likes: 450,
+        comments: [
+            { characterKey: 'markop', text: "They mock us while holding hostages. Their arrogance will be their undoing." },
+            { characterKey: 'waluigi', text: "WAH! Catchy tune! Needs more accordion though." }
+        ],
+        rumorId: 'legion_mockery_anthem'
+    },
+    {
+        id: 'mages_guild_warrant',
+        characterKey: 'mages_guild',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 30 },
+        content: "NOTICE: Archie Miser is sought for questioning regarding unsanctioned high-energy spellcasting in a Nexus Zone. Any magical signatures matching his 'Third Eye' resonance are to be reported. A Null-Cage has been prepared.",
+        likes: 120,
+        comments: [
+            { characterKey: 'generic_toad', text: "Is he going to jail? Or magic jail? Magic jail sounds worse." }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'humpik_dark_crystal_post',
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 0 },
+        content: "Found some... interesting minerals in the debris. Heavy. Cold. Might be useful for the forge, or might be cursed. Probably both.",
+        likes: 65,
+        comments: [
+            { characterKey: 'archmage_theron', text: "Do not handle raw dark crystals without protection, Dwarf. They stain the soul." }
+        ],
+        rumorId: 'raventree_manor'
+    },
+    {
+        id: 'oracle_cryptic_update',
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 10 },
+        content: "The coat was simply... unfashionable. Markop killed the spider. Wonderful. Now, who is brave enough to climb the stairs? Once we go up, there is no coming back.",
+        likes: 333,
+        comments: [],
+        rumorId: 'raventree_manor'
+    },
+    {
+        id: 'wah_media_confession_reaction',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 30 },
+        content: "BREAKING: 'The Fireball Confession' trends globally! Archie Miser admits to destroying Raventree Greenhouse. Opinions split: Heroic rescue or reckless vandalism? Mages' Guild calls for arrest; Rebel Clans applaud the chaos.",
+        likes: 890,
+        comments: [],
+        rumorId: 'greenhouse_inferno_confession'
+    }
+];
 
 let allEvents = [...BASE_EVENTS];
 
-// Conditionally add the Diner event (Day 14+)
+// Conditionally add events based on game date
 if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
     allEvents.unshift(RESTAURANT_RAID_EVENT);
     allEvents.unshift(PRISON_DECEPTION_EVENT);
@@ -129,21 +223,23 @@ if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
     allEvents.unshift(DINER_EVENT);
 }
 
-// Conditionally add the Iron Hoof Day event (Day 15+)
 if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
     allEvents.unshift(BRAMBLEHAVEN_EVENT);
     const { IRON_HOOF_DAY_EVENT } = await import('./events/iron-hoof-day.js');
     allEvents.unshift(IRON_HOOF_DAY_EVENT);
 }
 
-// Conditionally add the World War events (Day 16+ or debug mode)
 if (CURRENT_GAME_DATE.day >= 16 || state.debugMode) {
-    allEvents.unshift(SHADEWARD_MANOR_EVENT); // ADDED
+    allEvents.unshift(SHADEWARD_MANOR_EVENT);
     allEvents.unshift(RAVENTREE_MANOR_EVENT);
     allEvents.unshift(REGENCY_FALL_EVENT);
     allEvents.unshift(VAMPIRE_WAR_EVENT);
 }
 
+// Add Day 20 events
+if (CURRENT_GAME_DATE.day >= 20 || state.debugMode) {
+    allEvents.unshift(ARCHIES_CONFESSION_EVENT);
+}
 
 export const WAHBOOK_EVENTS = allEvents;
 
@@ -173,6 +269,9 @@ export async function loadEventPosts() {
     if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
         const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
         posts.push(...IRON_HOOF_DAY_POSTS);
+    }
+    if (CURRENT_GAME_DATE.day >= 20 || state.debugMode) {
+        posts.push(...DAY_20_POSTS);
     }
     return posts;
 }

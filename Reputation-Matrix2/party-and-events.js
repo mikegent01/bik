@@ -14,6 +14,25 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
 {
+    id: 'mages_guild_warrant',
+    title: "The Guild's Warrant & The Legion's Anthem",
+    date: { day: 20, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'archie',
+    arc: 'raventree_manor',
+    arcPosition: 'climax',
+    description: "Following Archie Miser's public confession, the Mages' Guild has formally dispatched agents to arrest him for multiple violations of the Autumnwood Accords. Concurrently, an Iron Legion contingent at Raventree Manor performed a brutal, mocking anthem, publicly humiliating the Liberated Toads and their allies. This escalation from both factions has cornered the party, forcing them into an alliance with a rogue mage against the manor's supernatural horrors.",
+    targets: ['archie', 'party', 'liberated_toads', 'mages_guild', 'iron_legion'],
+    effects: {
+        mages_guild: -25,
+        iron_legion: -25,
+        liberated_toads: -10,
+        freelancer_underworld: 10,
+        cosmic_jesters: 5
+    },
+    cycle_impact: { score: 1.5, label: "Political Escalation", type: "political" }
+},
+    {
     id: 'greenhouse_inferno_confession',
     title: "Archie's Confession",
     date: { day: 20, monthIndex: 6, year: 1040 },

@@ -5,6 +5,29 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 export const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY: Markop & The First Cohort ---
     {
+        id: 'skirmish_dance_hall',
+        name: "The Dance Hall Discord",
+        conflict: "Raventree Manor Crisis",
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 0 },
+        location: "Raventree Manor, Dance Hall",
+        belligerents: {
+            side_a: { name: "The Party & Oracle", factions: ['liberated_toads', 'unaligned'] },
+            side_b: { name: "Iron Legion Spies & Magi", factions: ['iron_legion', 'mages_guild'] },
+            side_c: { name: "Manor Entities", factions: ['unaligned'] }
+        },
+        commanders: { 
+            side_a: ["Archie", "Hjumpik", "The Oracle"], 
+            side_b: ["Legion Spy 'Baritone'", "Rogue Magi"],
+            side_c: ["Arcane Wraith"]
+        },
+        outcome: "<span class='outcome ongoing'>Chaotic Retreat</span>; Legion captured a Toad hostage; Wraith repelled.",
+        casualties: "One Iron Legion Spy (Mauled by Wraith). One Toad taken hostage.",
+        description: `
+            <p>A surreal confrontation in the Manor's Dance Hall. Iron Legion spies and rogue Magi held a theatrical 'performance', singing mocking anthems about the party's failures. The standoff was shattered when an Arcane Wraith manifested, causing panic.</p>
+            <p>In the ensuing chaos, the Legion agents fled with a Toad hostage. The Oracle assisted in fighting off an animated coat, while Hjumpik secured mysterious dark crystals. The Magi attempted to arrest Archie for his earlier reckless magic but were forced to offer a 'plea deal' due to the overwhelming supernatural threat.</p>
+        `
+    },    
+    {
         id: 'skirmish_manor_parlor',
         name: "Markop & The First Cohort",
         conflict: "Raventree Manor Crisis",

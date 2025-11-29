@@ -2,7 +2,103 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
-    // --- The Vigilance Saga ---
+    {
+    id: 'waluigi_soundtrack_hijack',
+    order: 30947,
+    characterKey: 'waluigi',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 28 },
+    timestamp: 'Just Now',
+    content: `You call that an anthem, Iron Losers? It has no SOUL! No PIZZAZZ! Waluigi is taking over the audio feed! Prepare for "Destruction in D Major (Wah Version)"! 🎻🥀`,
+    likes: 3200,
+    comments: [
+        { characterKey: 'iron_legion', text: 'Cease this transmission immediately. You are disrupting tactical frequencies.' },
+        { characterKey: 'waluigi', text: 'I CAN\'T HEAR YOU OVER THE SOUND OF MY OWN GENIUS!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'ryan_decodes_orange',
+    order: 30946,
+    characterKey: 'ryan',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 24 },
+    timestamp: '4 minutes ago',
+    content: `Toad Lee, I ran that name "Orange Corvinarus" through the historical cypher. It's not just a name. "Corvinarus" is old dialect for "Raven Heart." Orange... implies the Citrus Duchy. We aren't looking for a person. We're looking for a biological weapon created during the First Toad Wars.`,
+    likes: 890,
+    comments: [
+        { characterKey: 'toad_lee', text: 'A biological weapon? Buried here? Under the Oracle\'s nose?' },
+        { characterKey: 'archie', text: 'Great. Zombies. It had to be zombies.' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'hjumpik_whispering_rocks',
+    order: 30945,
+    characterKey: 'humpik',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 19 },
+    timestamp: '9 minutes ago',
+    content: `The rocks are getting warmer. They are whispering to Humpik. They say, "Smash the walls. Free the hungry ones." ...Maybe just one little smash?`,
+    likes: 650,
+    comments: [
+        { characterKey: 'bowser', text: 'Hold it together, soldier! Smash the enemies, not the load-bearing walls!' },
+        { characterKey: 'dan', text: 'His eyes are turning purple. That happens to me sometimes. It usually ends bad.' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'bowser_vs_mirror_beast',
+    order: 30944,
+    characterKey: 'bowser',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 15 },
+    timestamp: '13 minutes ago',
+    content: `Archie couldn't hold the door. WEAK! The Mirror Freak broke out. It looks like... a liquid metal Mario? DISGUSTING! SHOWTIME! 🔥🔨`,
+    likes: 2100,
+    comments: [
+        { characterKey: 'archie', text: 'It mimicked my fear! Be careful, it reflects attacks!' },
+        { characterKey: 'humpik', text: 'SMASH THE SHINY MAN!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'mages_guild_location_ping',
+    order: 30943,
+    characterKey: 'mages_guild',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 11 },
+    timestamp: '17 minutes ago',
+    content: `Mana signature confirmed. Fugitive "Archie Miser" located in the Sub-Level 4 Catacombs. Extraction Team "Silencer" is en route. Do not resist.`,
+    likes: 500,
+    comments: [
+        { characterKey: 'freelancer_spy_1', text: 'Sub-Level 4? Even the Guild usually avoids that place. Good luck.' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'oracle_mocking',
+    order: 30942,
+    characterKey: 'self_reflection_oracle',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 6 },
+    timestamp: '22 minutes ago',
+    content: `You lock the door as if the monster is on the outside. But the mirror reflects what is *inside* you, Archie. You cannot lock out your own guilt.`,
+    likes: 1350,
+    comments: [
+        { characterKey: 'speaker_l', text: 'Do not listen to it. Focus on the mission.' },
+        { characterKey: 'waluigi', text: 'WAH! Too metaphorical! Needs more dancing!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'archie_door_struggle',
+    order: 30941,
+    characterKey: 'archie',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 2 },
+    timestamp: '26 minutes ago',
+    content: `It's banging on the wood. It's screaming with MY voice. I need a heavy object to barricade this! Humpik! Get the rocks!`,
+    likes: 1900,
+    comments: [
+        { characterKey: 'humpik', text: 'The rocks say they don\'t want to be a doorstop. They want to play.' },
+        { characterKey: 'archie', text: 'NOT THE TIME FOR SAPIENT GEOLOGY!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
     {
         id: 'post_vig_1',
         characterKey: 'generic_toad',
@@ -228,26 +324,13 @@ export const WAHBOOK_POSTS = [
         likes: 420,
         rumorId: 'kremling_naval_blockade'
     },
-    {
-        id: 'archie_fireball_confession',
-        order: 30835,
-        characterKey: 'archie',
-        timestamp: 'Just Now',
-        content: `I cast fireball in the greenhouse, which is truly bad. But my friends were about to get eaten by rust monsters because of the greenhouse's derelict condition. Long story short, blowing up a greenhouse to save my friends? I say I'm justified.`,
-        likes: 2540,
-        comments: [
-            { characterKey: 'markop', text: 'Justified, perhaps. Reckless, absolutely. There were other ways, Archie.' },
-            { characterKey: 'dan', text: 'You saved us. That\'s what matters.' },
-            { characterKey: 'archmage_theron', text: 'You have publicly confessed to a Class 3 violation of the Autumnwood Accords. The Aegis Magi have been dispatched.' },
-            { characterKey: 'eager', text: 'He saved my life! You can\'t arrest him for that!' }
-        ],
-        rumorId: 'greenhouse_inferno_confession'
-    },
+
     {
         id: 'archmage_theron_dispatch_aegis',
         order: 30834,
         characterKey: 'archmage_theron',
         timestamp: '1 minute ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 1, minute: 0 },
         content: `He admits it. He openly boasts of using unsanctioned, high-level destructive magic within a known supernatural nexus. To unleash such chaotic energy in a place with documented temporal and spectral instability is the height of irresponsibility. This flagrant disregard for magical law and arcane stability will not stand. The Aegis Magi have been dispatched to apprehend Archie Miser for immediate judgment.`,
         likes: 1890,
         comments: [
@@ -262,6 +345,7 @@ export const WAHBOOK_POSTS = [
         order: 30833,
         characterKey: 'waluigi',
         timestamp: '3 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 2, minute: 0 },
         content: `WAH-HA-HA! SEE? He admits it! A glorious, magnificent fireball! He learned from the master! My influence is spreading! Soon everyone will be solving their problems with stylish explosions!`,
         likes: 1520,
         comments: [
@@ -275,6 +359,7 @@ export const WAHBOOK_POSTS = [
         order: 30832,
         characterKey: 'markop',
         timestamp: '5 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 0 },
         content: `His confession is... typical Archie. He sees only the end, not the means. Yes, he saved Eager. But he also destroyed a historic structure and nearly killed everyone inside with the collapse. Justification is not the same as wisdom.`,
         likes: 640,
         comments: [
@@ -288,6 +373,8 @@ export const WAHBOOK_POSTS = [
         order: 30831,
         characterKey: 'giggling_pete',
         timestamp: '8 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 1 },
+            
         content: `Hee hee ho ho! A public confession! He doesn't hide his beautiful chaos; he displays it for all to see! A true prophet! The Jester is pleased by this hilarious act of self-incrimination!`,
         likes: 999,
         comments: [
@@ -302,6 +389,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '10 minutes ago',
         content: `With his public confession, Archie Miser has admitted to multiple Imperial crimes, including reckless endangerment and destruction of property. A formal warrant has been issued. He is to be considered armed and extremely dangerous.`,
         likes: 1120,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 2 },
         comments: [
             { characterKey: 'general_marcus_ironhand', text: 'See that it is done, Colonel.' },
             { characterKey: 'speaker_l', text: 'He is already in OUR custody for his crimes against the Cohort. The Legion can wait its turn.' }
@@ -313,6 +401,7 @@ export const WAHBOOK_POSTS = [
         order: 30829,
         characterKey: 'the_broker',
         timestamp: '12 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 3 },
         content: `Market Update: Archie Miser's public confession has resulted in new, high-value warrants from both the Mages' Guild and the Iron Legion. His personal bounty has skyrocketed. A risky asset, but a profitable one for any willing to take the contract.`,
         likes: 850,
         comments: [
@@ -325,6 +414,7 @@ export const WAHBOOK_POSTS = [
         order: 30828,
         characterKey: 'dan',
         timestamp: '15 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 4 },
         content: `He's not a criminal. He's a hero. He did what he had to do to save Eager's life when my own magic failed. I was there. I saw it. I will not stand by and let him be hunted for it.`,
         likes: 780,
         comments: [
@@ -338,6 +428,7 @@ export const WAHBOOK_POSTS = [
         order: 30827,
         characterKey: 'fawful',
         timestamp: '20 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 5 },        
         content: `A FIREBALL! A simple, boring fireball! It has the finesse of a dropped brick! My own schemes have the complexity of a seven-layer cake of DOOM! His confession is a snack of stupidity!`,
         likes: 740,
         comments: [
@@ -352,6 +443,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '22 minutes ago',
         content: `He's right! He did it to save me! I was pinned and those rust monsters were everywhere! That fireball was the bravest thing I've ever seen!`,
         likes: 690,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 6 },
         comments: [
             { characterKey: 'dan', text: 'We were all there, Eager. We know.' }
         ],
@@ -364,6 +456,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '25 minutes ago',
         content: `The Mages' Guild and the Iron Legion can issue all the warrants they want. Archie is under the protection of the Vow. They will have to go through my axe to get to him.`,
         likes: 950,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 8 },
         comments: [
             { characterKey: 'colonel_vera_steelstorm', text: 'Is that a challenge, toad?' },
             { characterKey: 'toad_lee', text: 'It is a statement of fact.' }
@@ -377,6 +470,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '30 minutes ago',
         content: `HE DESTROYED A HISTORIC GREENHOUSE! A sanctuary of rare and endangered flora! He calls it justified?! He is a monster, a vandal of the highest order! The Green Thumb Guardians demand justice for this horticultural massacre!`,
         likes: 420,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 10 },
         comments: [
             { characterKey: 'archie', text: 'There was a really nice tomato. And some grapes. Most of it was rotten.' },
             { characterKey: 'bowser', text: 'The tomato was MINE!' }
@@ -390,16 +484,18 @@ export const WAHBOOK_POSTS = [
         timestamp: '35 minutes ago',
         content: `GWAHAHA! Finally, he admits it! Blew the whole place sky-high! That's how you solve a problem! Less talking, more explosions! I approve!`,
         likes: 880,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 11 },
         comments: [
-            { characterKey: 'hjumpik', text: 'A good boom!' }
+            { characterKey: 'humpik', text: 'A good boom!' }
         ],
         rumorId: 'greenhouse_inferno_confession'
     },
     {
         id: 'humpik_on_fireball',
         order: 30822,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         timestamp: '40 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 12 },
         content: `Little man made a big boom! Saved the fast toad! Good boom!`,
         likes: 670,
         comments: [
@@ -412,6 +508,7 @@ export const WAHBOOK_POSTS = [
         order: 30821,
         characterKey: 'remi',
         timestamp: '45 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 13 },
         content: `So he just... admitted to a war crime? And everyone is either trying to arrest him or give him a medal? This crew is weird.`,
         likes: 710,
         comments: [
@@ -423,6 +520,7 @@ export const WAHBOOK_POSTS = [
         id: 'bones_on_confession',
         order: 30820,
         characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 14 },
         timestamp: '50 minutes ago',
         content: `Kid blew up a building to save his friends and then told everyone about it. Can't decide if that's brave or stupid. Probably both.`,
         likes: 650,
@@ -438,6 +536,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '55 minutes ago',
         content: `The sheer power of the incantation was undeniable, but the collateral damage was... extensive. A necessary act, perhaps, but a deeply unbalanced one. It tore a wound in the local arcane spectrum.`,
         likes: 480,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 15 },
         comments: [
             { characterKey: 'self_reflection_oracle', text: 'A wound that will fester.' }
         ],
@@ -448,6 +547,7 @@ export const WAHBOOK_POSTS = [
         order: 30818,
         characterKey: 'roger',
         timestamp: '1 hour ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 17 },
         content: `The action resulted in the successful extraction of a key asset. The subsequent public admission, however, has significantly increased the threat level from external state actors. A tactical victory leading to a strategic liability.`,
         likes: 410,
         comments: [
@@ -459,6 +559,7 @@ export const WAHBOOK_POSTS = [
         id: 'speaker_l_on_confession',
         order: 30817,
         characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 20 },
         timestamp: '1 hour ago',
         content: `He confesses to the very crime we apprehended him for! This only proves our actions were just! His recklessness knows no bounds! The Cohort's judgment was correct!`,
         likes: 680,
@@ -473,6 +574,8 @@ export const WAHBOOK_POSTS = [
         order: 30816,
         characterKey: 'captain_toadette',
         timestamp: '1 hour ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 22 },
+
         content: `He uses the power of a WMD to solve a pest problem. This is why mages cannot be trusted. They lack the discipline of a true soldier.`,
         likes: 580,
         comments: [
@@ -485,6 +588,7 @@ export const WAHBOOK_POSTS = [
         order: 30815,
         characterKey: 'king_k_rool',
         timestamp: '2 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 23 },
         content: `Keheheh! The three-eyed freak blows up his own house and then brags about it! What an idiot! My minions have more sense than that!`,
         likes: 690,
         comments: [
@@ -499,6 +603,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '2 hours ago',
         content: `He blew up a greenhouse? What a waste of good real estate. And he probably destroyed any treasure that was inside. Amateur.`,
         likes: 520,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 24 },
         comments: [
             { characterKey: 'wario', text: 'My thoughts exactly! Think of the lost profits!' }
         ],
@@ -511,6 +616,7 @@ export const WAHBOOK_POSTS = [
         timestamp: '2 hours ago',
         content: `He blew it up?! The whole greenhouse?! Think of all the scrap metal! The rare components! The salvage value! He just incinerated a fortune! I feel sick.`,
         likes: 310,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
         comments: [
             { characterKey: 'the_broker', text: 'I am accepting bids for the salvage rights. Interested?' }
         ],
@@ -523,6 +629,8 @@ export const WAHBOOK_POSTS = [
         timestamp: '3 hours ago',
         content: `Wait, he ADMITTED it? On WAHbook? Why would he do that? Doesn't he know the Mages' Guild will come after him now?`,
         likes: 280,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         comments: [
             { characterKey: 'generic_toad_2', text: 'Maybe he thinks they can\'t catch him?' }
         ],
@@ -535,6 +643,8 @@ export const WAHBOOK_POSTS = [
         timestamp: '3 hours ago',
         content: `A public confession simplifies things. Activating Protocol 7-Gamma. Asset is to be apprehended on sight.`,
         likes: 710,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         comments: [
             { characterKey: 'jerry_the_spy', text: 'Acknowledged. Updating my operational parameters.' }
         ],
@@ -545,6 +655,8 @@ export const WAHBOOK_POSTS = [
         order: 30810,
         characterKey: 'general_marcus_ironhand',
         timestamp: '3 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         content: `His arrogance is his undoing. He has confessed his crimes against the Empire. Justice will be swift.`,
         likes: 690,
         comments: [
@@ -557,6 +669,8 @@ export const WAHBOOK_POSTS = [
         order: 30809,
         characterKey: 'kamek',
         timestamp: '4 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         content: `He boasts of his recklessness. How amusingly short-sighted. He paints a target on his own back, drawing the attention of our mutual enemies. A useful fool.`,
         likes: 590,
         comments: [
@@ -569,6 +683,8 @@ export const WAHBOOK_POSTS = [
         order: 30808,
         characterKey: 'detective_penny',
         timestamp: '4 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         content: `A public confession. Case closed, I guess? Now comes the hard part: the jurisdictional nightmare of who gets to arrest him first. #AnarchistProblems`,
         likes: 620,
         comments: [
@@ -581,6 +697,8 @@ export const WAHBOOK_POSTS = [
         id: 'oracle_on_confession',
         order: 30807,
         characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         timestamp: '5 hours ago',
         content: `He chooses the thread of open defiance. A bold, bright, and tragically short thread. The pattern becomes clearer.`,
         likes: 910,
@@ -593,6 +711,8 @@ export const WAHBOOK_POSTS = [
         id: 'the_mole_on_confession',
         order: 30806,
         characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         timestamp: '5 hours ago',
         content: `Confirmation of target's use of high-yield incindiaries. Updating Legion file. His threat level has been elevated.`,
         likes: 510,
@@ -605,6 +725,8 @@ export const WAHBOOK_POSTS = [
         id: 'jerry_on_confession',
         order: 30805,
         characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         timestamp: '6 hours ago',
         content: `He just admitted it? Publicly? My job just got a lot easier. And a lot harder.`,
         likes: 480,
@@ -616,6 +738,8 @@ export const WAHBOOK_POSTS = [
     {
         id: 'dk_on_confession',
         order: 30804,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         characterKey: 'donkey_kong',
         timestamp: '6 hours ago',
         content: `Blew up a house to save his friends. Sounds like something a Kong would do. I like his style.`,
@@ -630,6 +754,8 @@ export const WAHBOOK_POSTS = [
         order: 30803,
         characterKey: 'cranky_kong',
         timestamp: '7 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         content: `Good grief! First he blows up a building, then he tells everyone about it on the WAH-thingy! Back in my day, we had the decency to keep our property damage a secret!`,
         likes: 810,
         comments: [
@@ -644,6 +770,8 @@ export const WAHBOOK_POSTS = [
         timestamp: '8 hours ago',
         content: `[ANALYSIS]: Subject publicly admits to an act of extreme destruction for emotional reasons ('saving friends'). This contradicts logical self-preservation protocols. Organic decision-making remains fascinatingly inefficient.`,
         likes: 777,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
         comments: [
             { characterKey: 'ryan', text: 'Maybe efficiency isn\'t the only metric that matters.' }
         ],
@@ -695,7 +823,7 @@ export const WAHBOOK_POSTS = [
         id: 'archie_returns_to_chaos',
         order: 391,
         characterKey: 'archie',
-        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 0 },
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 1, minute: 1 },
         timestamp: 'Just Now',
         content: `Back. The war isn't over. But at least I'm not in a cage anymore.`,
         likes: 1980,

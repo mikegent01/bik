@@ -1,6 +1,7 @@
 
 
 
+
 export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
@@ -17,18 +18,17 @@ export const PARTY_LOCATIONS = {
         { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
     ],
   'midlands_full': [
-        // Raventree Manor (Remnants & Kitchen Defense)
-        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Regrouping' },
-        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Regrouping' },
-        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Escaped' },
-        { charKey: 'markop', x: 73.5, y: 12.4, status: 'Leading' },
-        { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Scheming' },
-        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Following' },
-        // Roger is with Markop in the Kitchen
-        { charKey: 'roger', x: 73.5, y: 12.5, status: 'Defending' },
+        // Raventree Manor - Upper House / Dance Hall
+        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Smashing' },
+        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Looting Crystals' },
+        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Panicking' },
+        { charKey: 'markop', x: 73.5, y: 12.4, status: 'Defending' },
+        { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Laughing' },
+        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Hiding' },
+        { charKey: 'roger', x: 73.5, y: 12.5, status: 'Fighting' },
 
         // Casualties & Trapped
-        { charKey: 'green_t', x: 73.5, y: 12.0, status: 'TRAPPED IN MIRROR' },
+        { charKey: 'green_t', x: 73.5, y: 12.0, status: 'RUNNING IN MIRROR' },
         { charKey: 'eager', x: 73.7, y: 12.3, status: 'Critical' },
         
         // Ryan - Rakasha Territory
@@ -38,12 +38,11 @@ export const PARTY_LOCATIONS = {
         { charKey: 'bones', x: 45.0, y: 30.0, status: 'Undercover/Infiltrating' },
 
         // Speaker L - Captured in Imperial Prison (Sector 7)
-        // Sector 7 facility location (approximate based on map visual)
         { charKey: 'speaker_l', x: 45.5, y: 30.5, status: 'Captured' },
 
         // Liberated Toads (Scattered)
-        { charKey: 'dan', x: 73.5, y: 12.1, status: 'Active' },
-        { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Fighting' },
+        { charKey: 'dan', x: 73.5, y: 12.1, status: 'Burning Coats' },
+        { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Axe Swinging' },
 
 
         // --- Imperial Capital Group ---
