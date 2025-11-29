@@ -1,4 +1,5 @@
 
+
 import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from './lore.js';
@@ -372,8 +373,6 @@ export function calculateGlobalCycle(allPosts) {
 
 /**
  * Calculates research bonuses based on the dominant species of a nation.
- * @param {string} nationKey - The key of the nation (e.g., 'midlands').
- * @returns {object} A map of research categories to bonus multipliers (e.g., { TECH: 1.2 }).
  */
 export function calculateDemographicBonus(nationKey) {
     const bonusMap = {};
@@ -412,14 +411,47 @@ export function calculateDemographicBonus(nationKey) {
         // Base bonus of 20% for dominant demographic alignment
         bonusMap[category] = 1.2;
         
-        // 6. Optional: Check if a relevant Guild exists in GUILD_DATA for extra flavor/bonus?
-        // For now, the species dominance is sufficient to grant the 'Demographic Efficiency Bonus'.
-        
         // If the nation's primary slot matches the demographic bonus, boost it further
         if (NATIONS[nationKey].slots.primary === category) {
             bonusMap[category] = 1.3; // 30% total bonus if it matches national focus
         }
     }
+
+    return bonusMap;
+}
+
+/**
+ * NEW: Calculates research bonuses based on sponsored Guilds.
+ */
+export function calculateGuildBonus(nationKey) {
+    const bonusMap = {};
+    
+    Object.values(GUILD_DATA).forEach(guild => {
+        // Check if this guild operates in this nation (via sponsoring faction)
+        // Map Factions to Nations roughly
+        let isSponsored = false;
+        if (guild.sponsoring_faction) {
+            // If guild is sponsored by a faction like 'iron_legion', and activeNation is 'midlands', match
+            // Simplified Check: If faction key contains nation key logic or manual map
+            // For simplicity, let's use a basic mapping or string check
+            if (guild.sponsoring_faction.includes(nationKey) || 
+               (nationKey === 'midlands' && guild.sponsoring_faction.includes('iron_legion')) ||
+               (nationKey === 'mushroom_kingdom' && guild.sponsoring_faction.includes('mushroom'))) {
+                   isSponsored = true;
+               }
+        } else {
+            // Independent Guilds grant global minor bonuses if highly active, or just to local region
+            // Assume independent guilds operate everywhere for now
+            isSponsored = true; 
+        }
+
+        if (isSponsored && guild.research_bonus) {
+            const cat = guild.research_bonus.category;
+            const amount = guild.research_bonus.amount;
+            if (!bonusMap[cat]) bonusMap[cat] = 1.0;
+            bonusMap[cat] += amount;
+        }
+    });
 
     return bonusMap;
 }
@@ -469,7 +501,11 @@ export function getTechTree(nationKey, category, researchState, globalCycle) {
     const demoBonuses = calculateDemographicBonus(nationKey);
     const demoMod = demoBonuses[category] ? (1 / demoBonuses[category]) : 1.0; // Invert because lower cost = faster
 
-    const totalMultiplier = slotMult * cycleMod * demoMod;
+    // Calculate Guild Bonus
+    const guildBonuses = calculateGuildBonus(nationKey);
+    const guildMod = guildBonuses[category] ? (1 / guildBonuses[category]) : 1.0;
+
+    const totalMultiplier = slotMult * cycleMod * demoMod * guildMod;
     const effectiveDays = currentDay + baseOffset;
     let daysConsumed = 0;
 

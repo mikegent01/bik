@@ -605,7 +605,14 @@ export function getArcProgress(arcId) {
     if (!arc) return 0;
     return (arc.currentPhase + 1) / arc.phases.length;
 }
-
+export const GUILD_HOLIDAYS = [
+    { name: "Foundation of Stone", month: 2, day: 10, guild: "stonecarvers_brethren", description: "Dwarves celebrate the laying of the first stone. Ale flows freely." },
+    { name: "The Great Transmutation", month: 5, day: 20, guild: "alchemists_union", description: "Alchemists display their most volatile creations in public squares." },
+    { name: "Cartographer's Zenith", month: 6, day: 21, guild: "wayfinders_guild", description: "Celebration of the longest day, perfect for mapping." },
+    { name: "The Unseen Market", month: 10, day: 30, guild: "shadow_syndicate", description: "A night where illicit trade is traditionally ignored by guards." },
+    { name: "Day of the Kinetic Eye", month: 9, day: 1, guild: "aegis_magi", description: "Military parades displaying magical prowess." },
+    { name: "The Golden Handshake", month: 4, day: 15, guild: "gilded_gryphon", description: "Mercenary contracts are renewed globally." }
+];
 // Helper function to get arc summary stats
 export function getArcStats(arcId) {
     const rumors = getRumorsByArc(arcId);

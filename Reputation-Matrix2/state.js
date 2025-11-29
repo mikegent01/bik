@@ -1,4 +1,6 @@
 
+
+
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
@@ -330,13 +332,24 @@ function calculateFinalReputations() {
                     const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
                     const metrics = calculateRumorMetrics(rumor, relatedPosts);
                     
-                    if (isTarget && rumor.effects[factionKey]) {
-                        let effect = rumor.effects[factionKey];
-                        effect = Math.round(effect * metrics.repMultiplier);
+                    // Determine specific effect for this player
+                    let effect = 0;
+                    let hasPersonalImpact = false;
+                    
+                    // 1. Check Personal Impact first
+                    if (rumor.personal_impact && rumor.personal_impact[playerKey] && rumor.personal_impact[playerKey][factionKey] !== undefined) {
+                        effect = rumor.personal_impact[playerKey][factionKey];
+                        hasPersonalImpact = true;
+                    } 
+                    // 2. Fallback to General Effects if target matches
+                    else if (isTarget && rumor.effects[factionKey]) {
+                        effect = rumor.effects[factionKey];
+                        if (isInstigator) effect *= 2; // Double effect for instigator on general rumors
+                    }
 
-                        if (isInstigator) {
-                            effect *= 2;
-                        }
+                    if (effect !== 0) {
+                        // Apply multiplier
+                        effect = Math.round(effect * metrics.repMultiplier);
 
                         rumorRepModifier += effect;
                         rumorNotorietyModifier += Math.round((Math.abs(effect) / 2) * (metrics.repMultiplier > 1 ? 1.5 : 1));
@@ -345,7 +358,8 @@ function calculateFinalReputations() {
                             title: rumor.title, 
                             value: effect,
                             multiplier: metrics.repMultiplier,
-                            isInstigator: isInstigator
+                            isInstigator: isInstigator,
+                            isPersonal: hasPersonalImpact
                         });
                     }
                 }

@@ -1,283 +1,192 @@
 
+import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
-// This file contains all of Archie's personal quests.
 export const ARCHIE_QUESTS = {
-'archie_god_toad_hunt': {
+    'archie_fugitive_of_the_accords': {
+        id: 'archie_fugitive_of_the_accords',
+        title: "Fugitive of the Accords",
+        subtitle: "Wanted: Dead or Alive",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - Archie',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Evade capture by the Mages' Guild and Iron Legion while dealing with the consequences of public confession.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        difficulty: { overall: DIFFICULTY.DEADLY, magic: DIFFICULTY.HARD, stealth: DIFFICULTY.HARD, social: DIFFICULTY.DEADLY },
+        tags: ['survival', 'law', 'magic', 'escape', 'warrant'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 20 }, updated: { year: 1040, monthIndex: 6, day: 20 }, deadline: { year: 1040, monthIndex: 6, day: 21 } },
+        
+        description: "Archie's decision to publicly confess to the Greenhouse Inferno on Wahbook was a tactical gamble that may have cost him his life. By admitting to using 'unsanctioned high-yield thermal thaumaturgy' in a designated heritage site, he has violated the Autumnwood Accords on three separate counts. The Mages' Guild has dispatched a team of Aegis Battle-Mages to 'contain' him, and the Iron Legion has labeled him a public menace. He is currently trapped in Raventree Manor, his location pinned by the magical signature of his own confession.",
+
+        loreEntries: ['autumnwood_accords', 'aegis_magi_tactics', 'magical_crimes_act'],
+
+        consequences: {
+            success: "Archie evades capture or negotiates a plea deal. He gains notoriety but retains his freedom.",
+            failure: "Archie is captured, stripped of his magic, and imprisoned in the Anti-Magic Ziggurat.",
+            partial: "Archie escapes but is branded 'Anathema', locking him out of all Guild services."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'notoriety', faction: 'mages_guild', amount: 500, description: "Infamous Outlaw" }
+            ],
+            conditional: [
+                { condition: "Escape without killing Guild members", reward: { type: 'reputation', faction: 'freelancer_underworld', amount: 300, description: "Professional respect", name: "Street Cred" }},
+                { condition: "Humiliate the pursuit team", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 200, description: "The Jesters are watching", name: "Jester's Favor" }}
+            ],
+            xp: 5000
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Confession", 
+                description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 }
+            },
+            {
+                id: 'm2', 
+                status: 'active', 
+                title: "The Dance Hall Escape",
+                description: "Survive the skirmish in the Dance Hall. The Legion knows you are here. The Wraiths know you are here.",
+                goals: [
+                    { text: "Evade Legion Spies", status: 'completed' },
+                    { text: "Survive Wraith Attack", status: 'completed' },
+                    { text: "Enter Upper House without being followed", status: 'active' }
+                ]
+            },
+            {
+                id: 'm3', 
+                status: 'locked', 
+                title: "Confront the Guild Envoy",
+                description: "A rogue mage has offered a temporary truce to deal with the manor's demons. Is it a trap?"
+            }
+        ],
+        npcs: { enemies: ['mages_guild', 'iron_legion'], keyNpcs: ['self_reflection_oracle', 'rogue_mage'] }
+    },
+
+    'archie_god_toad_hunt': {
         id: 'archie_god_toad_hunt',
         title: "An Audience with a God",
-        type: 'personal',
+        subtitle: "Sins of the Father",
+        type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
-        is_updated: false,
-        objective: "Months ago, Archie betrayed a powerful toad who held a single, potent Star Fragment. That toad has since used its power to shatter it into nine pieces, distribute them to his followers, and ascend to godhood. Archie must now confront the chaotic god he helped create.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "active",
-        motivation: "The Oracle, another fragment bearer, has proven to be a manipulative and dangerous entity. This confirms for Archie that all fragment bearers are cosmic-level threats. He must seek an audience with the God Toad to understand the nature of this power and to see if it can be controlled, stolen, or must be destroyed.",
-        steps: [
-            { id: 'step1', title: "Locate the God", status: 'completed', description: "Intelligence gathered during the Gala infiltration has confirmed the God Toad's current location: he is a 'guest of honor' at Fawful's occupied castle." },
-            { id: 'step2', title: "Infiltrate the Madhouse", status: 'active', description: "The castle is a fortress of madness, besieged by Loyalists and defended by Fawful's bizarre minions. Archie must find a way inside to get to his true target." },
-            { id: 'step3', title: "Request an Audience", status: 'locked', description: "Confront the God Toad and request an audience. Given the being's power and the Oracle's example, this will be extremely dangerous." }
+        status: QUEST_STATUS.ONGOING,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'mushroom_civil_war',
+        objective: "Confront the 'God Toad' (formerly known as the Evil Toad) to understand the nature of the Star Fragments and atone for creating him.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        description: "Archie didn't just betray his former boss; he accidentally ascended him. The toad once known as 'Orange T' utilized a Star Fragment to become a warping divinity. Now allied with Fawful, this 'God Toad' represents a cosmological threat that Archie feels personally responsible for. To fix this, he must enter the heart of Fawful's territory and stare his creation in the many, many eyes.",
+        difficulty: { overall: DIFFICULTY.DEADLY, sanity: DIFFICULTY.EXTREME },
+        tags: ['divine', 'guilt', 'mystery', 'boss-hunt'],
+        
+        loreEntries: ['star_fragment_corruption', 'orange_t_biography', 'apotheosis_theory'],
+
+        rewards: {
+            guaranteed: [
+                { type: 'knowledge', name: "Truth of the Star", description: "Understanding the fragment's origin" }
+            ],
+            xp: 8000
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "Locate the God", 
+                description: "Archie confirmed the God Toad's presence at Fawful's Gala. The aura was unmistakable.", 
+                completedDate: { year: 1040, monthIndex: 6, day: 11 } 
+            },
+            { 
+                id: 'm2', 
+                status: 'active', 
+                title: "Infiltrate the Castle", 
+                description: "Fawful's Castle is a fortress of madness. Archie needs a way in that doesn't involve being eaten by a mechanical midbus.", 
+                goals: [{ text: "Find a secret entrance", status: 'active' }] 
+            },
+            { 
+                id: 'm3', 
+                status: 'locked', 
+                title: "The Audience", 
+                description: "Speak the words that need to be spoken. Survive the answer." 
+            }
         ]
     },
-// In quests-archie.js
 
     'archie_third_eye_escape': {
         id: 'archie_third_eye_escape',
         title: "The Third Eye Escape",
-        type: 'personal',
+        subtitle: "A Trip Through Nowhere",
+        type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
-        is_updated: true,
-        objective: "After being captured by the First Cohort, Archie must navigate a web of betrayal and supernatural chaos to escape his captors, reclaim his gear, and uncover the true nature of the forces manipulating events at Raventree Manor.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "active",
-        motivation: "Survival. Archie is trapped, disarmed, and hunted by multiple factions at once. His primary goal is to escape, re-arm, and turn the tables on those who betrayed him—namely, the Iron Legion and their spy, 'Jerry'. The discovery of X.O.'s fate and the involvement of Mindflayers has added a layer of cosmic horror to his desperation.",
-        steps: [
-            { id: 'step1', title: "The Betrayal", status: 'completed', description: "Archie was 'freed' from his Cohort cell by 'Jerry,' who was immediately revealed to be an Iron Legion spy leading him into a trap." },
-            { id: 'step2', title: "A Journey Through Madness", status: 'completed', description: "After escaping the Legion, Archie was relayed through a Rakasha shrine into a Mindflayer colony. There, he discovered the mutilated body of X.O. before being relayed back to Raventree Manor by another mysterious entity." },
-            { id: 'step3', title: "Return to the Fray", status: 'active', description: "Archie has returned to a ghost-infested section of Raventree Manor, armed only with a sword. He must now navigate the haunted halls, evade the Cohort and the Legion, and find a way to regroup with his allies." }
+        status: QUEST_STATUS.COMPLETED,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'raventree_manor',
+        objective: "Escape Cohort custody and survive the dimensional jaunt.",
+        description: "Captured by Speaker L's Pond Patrol, Archie was moments away from a tribunal. In a flash of desperation, he activated his 'Third Eye' ability, tearing a hole in space. He tumbled through a Rakasha relay station and a Mindflayer colony before crashing back into Raventree Manor. The experience has left him vibrating with residual dimensional energy.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        dates: { added: { year: 1040, monthIndex: 6, day: 20 }, updated: { year: 1040, monthIndex: 6, day: 20 } },
+        
+        rewards: {
+            guaranteed: [
+                { type: 'ability', name: "Dimension Hop (Unstable)", description: "Can teleport short distances, 50% chance of error" }
+            ],
+            xp: 2000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'completed', title: "Escape Custody", description: "Fled the 'Pond Patrol' with help from a spy." },
+            { id: 'm2', status: 'completed', title: "Dimensional Drift", description: "Survived the Rakasha relay and Mindflayer colony." },
+            { id: 'm3', status: 'completed', title: "Return", description: "Returned to Raventree Manor, slightly traumatized." }
         ]
-    },    
+    },
+
     'archie_jesters_masterpiece': {
         id: 'archie_jesters_masterpiece',
         title: "The Jester's Masterpiece",
-        type: 'personal',
+        subtitle: "Art Through Chaos",
+        type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
-        is_updated: false,
-        objective: "Create an act of sublime, beautiful, and utterly pointless chaos to gain the full favor of the Servants of the Cosmic Jester.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "The Greenhouse Inferno was an accidental masterpiece—fire, chaos, betrayal, and a dramatic escape. It was beautiful. Archie now feels inspired to create a deliberate work of chaos that can top it, an act of pure artistic expression to impress the only entity he considers a peer.",
-        steps: [
-            { id: 'step1', title: "The Grand Idea", status: 'active', description: "What would be the ultimate prank? The most chaotic act? Archie must decide on his masterpiece.", options: ["Option A: Replace the Mages' Guild's scrying pool with grape juice.", "Option B: Teach the Iron Legion's war hounds to sing opera.", "Option C: Steal the Emperor's left shoe."] },
-            { id: 'step2', title: "Gather the 'Paints'", status: 'locked', description: "Acquire the necessary components for the chosen act of chaos. This will likely involve theft, trickery, and explosions." },
-            { id: 'step3', title: "The Performance", status: 'locked', description: "Execute the plan and unveil the masterpiece to an unsuspecting world." }
+        status: QUEST_STATUS.AVAILABLE,
+        priority: QUEST_PRIORITY.LOW,
+        objective: "Create an act of chaos so profound it impresses the Cosmic Jesters.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        description: "The Greenhouse Inferno was an accident, but the Jesters loved it. Now, Archie feels the pressure to perform. He wants to top it with a deliberate 'masterpiece'—a prank or act of destruction that defies logic and authority in equal measure.",
+        difficulty: { overall: DIFFICULTY.MODERATE, creativity: DIFFICULTY.HARD },
+        tags: ['chaos', 'art', 'prank', 'optional'],
+        
+        rewards: {
+            conditional: [
+                { condition: "Make the Empire laugh", reward: { type: 'item', name: "Jester's Cap", description: "Immunity to confusion effects" }}
+            ]
+        },
+
+        milestones: [
+            { id: 'm1', status: 'active', title: "Conception", description: "Identify a target worthy of the 'joke'." },
+            { id: 'm2', status: 'locked', title: "Execution", description: "Pull it off without getting caught." }
         ]
     },
-    'archie_ultimate_heist': {
-        id: 'archie_ultimate_heist',
-        title: "The Ultimate Heist",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "Pull off the most audacious heist imaginable: steal the mustache wax of Emperor Elagabalus right from his private chambers in the Imperial Palace.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "For Archie, it's not about the wax. It's about the sheer, glorious absurdity of the act. It's performance art, a middle finger to the most powerful man in the world, and a story that will be told in every tavern for a hundred years.",
-        steps: [
-            { id: 'step1', title: "Case the Joint", status: 'active', description: "Infiltrate the Imperial Palace during a state dinner to scout the layout, guard patrols, and the location of the Emperor's private quarters." },
-            { id: 'step2', title: "Acquire the Tools", status: 'locked', description: "Obtain a set of anti-magical lockpicks from the Freelancer Underworld and a 'silence' grenade from the Ratchet Raiders." },
-            { id: 'step3', title: "The Grand Performance", status: 'locked', description: "Execute the heist, leaving behind a calling card to ensure everyone knows who was responsible for the Emperor's bad mustache day." }
-        ]
-    },
-    'archie_iron_fists_payback': {
-        id: 'archie_iron_fists_payback',
-        title: "Payback's a Blast",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Iron Fists have a bounty on Archie's head. It's time to turn the tables and dismantle their new leadership in a way they'll never forget.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "This isn't just about defense; it's about making a statement. Archie wants to humiliate the Iron Fists so thoroughly that no one will ever dare to put a price on his head again. He intends to make their headquarters the site of his next great art installation.",
-        steps: [
-            { id: 'step1', title: "Find the New Boss", status: 'active', description: "After the party's last raid, the Iron Fists have a new, more paranoid leader. Find out who they are and where they operate." },
-            { id: 'step2', title: "The Perfect Firework", status: 'locked', description: "Convince the Ratchet Raiders' 'Da Boomers' faction to build a custom 'Waluigi-Brand Surprise Box'—a massive, glitter-filled firework." },
-            { id: 'step3', title: "Special Delivery", status: 'locked', description: "Infiltrate the new Iron Fists headquarters and replace their main ammo crate with the 'Surprise Box' before their next big meeting." }
-        ]
-    },
+
     'archie_kamek_conundrum': {
         id: 'archie_kamek_conundrum',
         title: "The Kamek Conundrum",
-        type: 'personal',
+        type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
-        is_updated: false,
-        objective: "Kamek, Bowser's powerful and cunning advisor, has returned to power in the Valley of Bowser. He doesn't trust Archie. Archie needs to secure leverage over him to ensure the Magikoopa doesn't try to 'magically fix' him later.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "active", // This is now a high-priority, active threat
-        motivation: "Archie knows that Bowser's loyalty is fickle, but Kamek's is absolute—to the Koopa Kingdom. With Kamek now consolidating power while Bowser is away, he represents the single greatest threat to Archie's autonomy within the alliance. Finding blackmail material is no longer a side project; it's a matter of survival.",
-        steps: [
-            { id: 'step1', title: "Find the Skeleton in the Robe", status: 'active', description: "Every old wizard has a secret. Delve into Koopa Troop historical archives or underworld intelligence to find records of Kamek's greatest failures or most embarrassing secrets." },
-            { id: 'step2', title: "The Proof", status: 'locked', description: "It's not enough to know the secret; Archie needs proof. This involves a risky trip to a secure Koopa vault or a forgotten library." },
-            { id: 'step3', title: "A Private Conversation", status: 'locked', description: "Present the evidence to Kamek not as a threat, but as an 'insurance policy' for their continued, 'fruitful' alliance." }
-        ]
-    },
-    'archie_mages_guild_prank': {
-        id: 'archie_mages_guild_prank',
-        title: "An Arcane Annoyance",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Mages' Guild hates Archie. The feeling is mutual. He decides to play a prank on them by enchanting their library's books to sing off-key whenever a 'Conservator' opens them.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Pure, unadulterated spite. Archie finds the Mages' Guild's stuffiness to be an invitation for mockery, and he's more than happy to oblige.",
-        steps: [
-            { id: 'step1', title: "The Annoyance Aria", status: 'active', description: "Commission a particularly grating song from a tone-deaf bard in the Freelancer Underworld." },
-            { id: 'step2', title: "Mass Enchantment", status: 'locked', description: "Sneak into the Mages' Guild's library and cast a wide-area, low-power enchantment scroll that links the song to the books." }
-        ]
-    },
-    'archie_vampire_poker': {
-        id: 'archie_vampire_poker',
-        title: "Vampire Poker Night",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "Archie learns of a high-stakes poker game hosted by Lord Crimson of the Onyx Hand. The buy-in isn't gold, but secrets. Archie decides to crash the party.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Archie loves chaos and high stakes. A poker game with ancient vampires where the currency is secrets is the most exciting game he's ever heard of. He wants in.",
-        steps: [
-            { id: 'step1', title: "Get an Invitation", status: 'active', description: "The game is exclusive. Archie must either steal an invitation or perform a favor for a lesser vampire to get a seat at the table." },
-            { id: 'step2', title: "Ante Up", status: 'locked', description: "Archie needs a valuable secret to even buy into the game. He'll have to uncover one, perhaps from Markop's past or Bowser's war plans." },
-            { id: 'step3', title: "Play the Game", status: 'locked', description: "Survive a night of poker against opponents who can read minds and have centuries of bluffing experience. The goal isn't just to win, but to cause as much paranoia as possible." }
-        ]
-    },
-    'archie_ratchet_race': {
-        id: 'archie_ratchet_race',
-        title: "The Great Goblin Grand Prix",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Ratchet Raiders are hosting their annual, highly dangerous airship race. Archie decides he not only wants to enter, he wants to win by using the most ridiculously over-powered, unstable engine imaginable.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "It's a race with explosions. For Archie, this is the perfect combination of his two favorite hobbies.",
-        steps: [
-            { id: 'step1', title: "Build a 'Racer'", status: 'active', description: "Acquire a barely-functional airskiff and convince Lario to help him strap a stolen Imperial siege engine to it." },
-            { id: 'step2', title: "Enter the Race", status: 'locked', description: "Pay the entry fee (a pile of high-quality scrap) and survive the qualifying heats." },
-            { id: 'step3', title: "Win... or Explode Gloriously", status: 'locked', description: "Compete in the final race, where cheating isn't just allowed, it's encouraged." }
-        ]
-    },
-    'archie_unchained_broadcast': {
-        id: 'archie_unchained_broadcast',
-        title: "A Message from the Underground",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Unchained want to broadcast a message of rebellion across the Empire, but the Imperials control the airwaves. They need Archie's expertise in chaos to hijack the main Imperial propaganda station.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Archie doesn't care about their message, but he adores the idea of replacing the Emperor's boring speech with revolutionary poetry or, even better, just static. It's a grand stage for his art.",
-        steps: [
-            { id: 'step1', title: "Find the Transmitter", status: 'active', description: "Locate the secret Imperial broadcast tower, hidden deep in the mountains." },
-            { id: 'step2', title: "Create a Diversion", status: 'locked', description: "Cause a massive, unrelated explosion on the other side of the mountain to draw away the bulk of the tower's Iron Legion guards." },
-            { id: 'step3', title: "Flip the Switch", status: 'locked', description: "Break into the broadcast room and rig it to transmit the Unchained's message... with a few of Archie's own chaotic modifications." }
-        ]
-    },
-    'archie_wario_ghost': {
-        id: 'archie_wario_ghost',
-        title: "Ghost in the Machine",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "Wario's ghost is still rumored to be haunting the dimensional flux around the Vigilance. Archie wants to find a way to communicate with it, believing it might know the location of a legendary treasure.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Greed, pure and simple. But also curiosity. How does a ghost work? Can he weaponize it? These are the questions that keep Archie up at night.",
-        steps: [
-            { id: 'step1', title: "The Ghost Radio", status: 'active', description: "Convince Ryan to build a 'spectral transceiver' from parts of X.O.'s old equipment, a device that can theoretically communicate with ghosts." },
-            { id: 'step2', title: "Tune In", status: 'locked', description: "Use the transceiver to find Wario's spectral frequency in the chaotic energies surrounding the ship." },
-            { id: 'step3', title: "A Ghostly Bargain", status: 'locked', description: "Negotiate with the ghost of Wario for the location of his last, greatest treasure hoard." }
-        ]
-    },
-    'archie_tea_leaf_revenge': {
-        id: 'archie_tea_leaf_revenge',
-        title: "A Dish Served Loud",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Tea Leaf Syndicate attempted to strong-arm the party. Archie responded by turning their meeting into a massive, explosive brawl, effectively crushing their local power base.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "completed",
-        motivation: "They tried to kill him, and Archie considers that very rude. He saw their meeting as the perfect opportunity to remind them that messing with him is a bad idea, and also to test out his new sonic grenades.",
-        steps: [
-            { id: 'step1', title: "Attend the 'Meeting'", status: 'completed', description: "Archie and Humpik attended a meeting with the Tea Leaf Syndicate that was clearly a trap." },
-            { id: 'step2', title: "Press the Panic Button", status: 'completed', description: "Sensing a double-cross, Archie pressed a panic button, summoning Toad Gang and Iron Legion forces to the fray." },
-            { id: 'step3', title: "Unleash Chaos", status: 'completed', description: "In the ensuing chaos, Archie unleashed a massive fireball, killing most of the Syndicate's enforcers and crippling their organization." }
-        ]
-    },
-    'archie_fawful_fanboy': {
-        id: 'archie_fawful_fanboy',
-        title: "A Meeting of Minds",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "Archie has heard tales of the mad genius Fawful and is deeply impressed. He wants to meet him, not as an enemy, but as a professional courtesy, to exchange notes on chaos and villainy.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Archie sees Fawful as a fellow artist. He's not interested in the castle or the politics; he's interested in Fawful's methods, his madness, and his glorious, furious monologues.",
-        steps: [
-            { id: 'step1', title: "The Gift Basket", status: 'active', description: "To get Fawful's attention, Archie must send a gift: a crate of high-explosives arranged in the shape of Fawful's face." },
-            { id: 'step2', title: "The Invitation", status: 'locked', description: "If Fawful is impressed, he will send an invitation for a private meeting. It is probably a trap." },
-            { id: 'step3', title: "A Professional Chat", status: 'locked', description: "Survive the likely trap and have a conversation with Fawful about the finer points of evil genius." }
-        ]
-    },
-    'archie_perfect_diversion': {
-        id: 'archie_perfect_diversion',
-        title: "The Perfect Diversion",
-        type: 'personal',
-        category: 'Personal - Archie',
-        is_updated: false,
-        objective: "Archie needs a place where he can lie low and experiment in peace. He decides to create the ultimate diversion by fabricating evidence of a massive gold deposit in the middle of the vampire-werewolf warzone, sending every greedy faction scrambling.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Archie just witnessed Green T expertly use the party's lives as a 'distraction' for a minor objective. He is deeply, professionally impressed. It has inspired him to create his own grand diversion, not for something as petty as a fruit basket, but for the ultimate prize: privacy.",
-        steps: [
-            { id: 'step1', title: "The Fake Map", status: 'active', description: "Commission a master forger from the Freelancer Underworld to create an ancient-looking map to the 'Lost Imperial Mint of Ravencreek'." },
-            { id: 'step2', title: "Salt the Mine", status: 'locked', description: "Acquire a small amount of gold and 'plant' it in an abandoned mine in the contested territory, along with some fake historical markers." },
-            { id: 'step3', title: "Leak the Intel", status: 'locked', description: "Leak the map to the most avaricious factions—Wario Land, the Ratchet Raiders, and the Crimson Fleet—and watch the chaos unfold from a safe distance." }
-        ]
-    },
-    'archie_three_eyed_king': {
-        id: 'archie_three_eyed_king',
-        title: "The Three-Eyed King",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Toad Gang's Mushroom Skulls faction, who owe their rise to Archie's defeat of Big T, have begun to worship him as a figure of chaos. They offer him the crown of the Toad Gang. Archie is intrigued.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "Archie has no interest in ruling, but the sheer absurdity of being the king of a mushroom-themed crime syndicate is too hilarious to pass up. He wants to see how far he can take the joke.",
-        steps: [
-            { id: 'step1', title: "The Coronation", status: 'active', description: "Attend the coronation ceremony in the Toad Gang's sewer headquarters." },
-            { id: 'step2', title: "First Royal Decree", status: 'locked', description: "As the new king, Archie must issue his first decree.", options: ["A) Declare war on the color beige.", "B) Make juggling a mandatory skill for all gang members.", "C) Order the construction of a giant, gold-plated statue of himself."] },
-            { id: 'step3', title: "Abdicate in Style", status: 'locked', description: "After a day of glorious, chaotic rule, Archie must abdicate the throne in the most dramatic and confusing way possible, leaving the Toad Gang even more disorganized than he found it." }
-        ]
-    },
-    'archie_annoy_a_judge': {
-        id: 'archie_annoy_a_judge',
-        title: "Contempt of a Cosmic Court",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "The Oathbound Judges are a symbol of absolute, unwavering order. Archie finds this personally offensive. He decides to find a loophole in their ancient, cosmic law and exploit it for his own amusement.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "available",
-        motivation: "To prove that no system is perfect, no law is absolute, and everything can be broken with enough creativity and a flagrant disregard for consequences.",
-        steps: [
-            { id: 'step1', title: "The Law Library", status: 'active', description: "Acquire a copy of the Oathbound Judges' legal code, a tome of infinite length and soul-crushing boredom." },
-            { id: 'step2', title: "The Loophole", status: 'locked', description: "Find an ancient, forgotten law—for example, a law stating that all legal disputes must be postponed if a goose steals the judge's gavel." },
-            { id: 'step3', title: "The Goose", status: 'locked', description: "Train a goose." }
-        ]
-    },
-    'archie_bryan_vengeance': {
-        id: 'archie_bryan_vengeance',
-        title: "The Ghost of the Past",
-        type: 'personal',
-        category: 'Personal - Archie',
-        objective: "Confront Bryan, a toad from Archie's past who believes Archie betrayed him and left him for dead in an airship explosion. Bryan, now a member of the Mushroom Skulls and empowered by the 'God Toad', is actively hunting Archie for revenge.",
-        assignee: "Archie",
-        assigneeKey: 'archie',
-        status: "active",
-        motivation: "This isn't just another bounty hunter; this is personal. Bryan represents a past Archie thought was buried. Confronting him is about tying up a loose end, but also facing a direct consequence of his chaotic lifestyle, a consequence that now has divine backing and a serious grudge.",
-        steps: [
-            { id: 'step1', title: "The First Encounter", status: 'active', description: "Bryan is hunting you. The first step is to survive his initial, surprise attack." },
-            { id: 'step2', title: "Investigate the 'God Toad'", status: 'locked', description: "Learn more about the entity that saved and empowered Bryan. Understanding the source of his new power is key to defeating him." },
-            { id: 'step3', title: "The Final Showdown", status: 'locked', description: "Confront Bryan and deal with his quest for vengeance, one way or another." }
+        status: QUEST_STATUS.ONGOING,
+        priority: QUEST_PRIORITY.MEDIUM,
+        arcId: 'mushroom_civil_war',
+        objective: "Secure leverage over Kamek to ensure safety within the Koopa alliance.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        description: "Kamek views Archie as a chaotic liability and a rival spellcaster. To ensure he doesn't 'accidentally' get targeted by a Magikoopa blast during the next battle, Archie needs dirt. Serious dirt.",
+        milestones: [
+            { id: 'm1', status: 'active', title: "Dig for Dirt", description: "Find embarrassing secrets or tactical weaknesses about Kamek." }
         ]
     }
 };

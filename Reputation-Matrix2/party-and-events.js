@@ -1,5 +1,4 @@
 
-
 import { TOAD_ABILITIES } from './abilities.js';
 
 export const AUXILIARY_PARTY = {
@@ -13,63 +12,85 @@ export const AUXILIARY_PARTY = {
 };
 
 export const RUMORS = [
-{
-    id: 'mages_guild_warrant',
-    title: "The Guild's Warrant & The Legion's Anthem",
-    date: { day: 20, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'archie',
-    arc: 'raventree_manor',
-    arcPosition: 'climax',
-    description: "Following Archie Miser's public confession, the Mages' Guild has formally dispatched agents to arrest him for multiple violations of the Autumnwood Accords. Concurrently, an Iron Legion contingent at Raventree Manor performed a brutal, mocking anthem, publicly humiliating the Liberated Toads and their allies. This escalation from both factions has cornered the party, forcing them into an alliance with a rogue mage against the manor's supernatural horrors.",
-    targets: ['archie', 'party', 'liberated_toads', 'mages_guild', 'iron_legion'],
-    effects: {
-        mages_guild: -25,
-        iron_legion: -25,
-        liberated_toads: -10,
-        freelancer_underworld: 10,
-        cosmic_jesters: 5
-    },
-    cycle_impact: { score: 1.5, label: "Political Escalation", type: "political" }
-},
     {
-    id: 'greenhouse_inferno_confession',
-    title: "Archie's Confession",
-    date: { day: 20, monthIndex: 6, year: 1040 },
-    isEvent: false,
-    instigator: 'archie',
-    arc: 'raventree_manor',
-    arcPosition: 'climax',
-    description: "Archie Miser has publicly admitted to casting a high-level Fireball spell to destroy the Raventree Greenhouse. While he claims it was to save his friends from Rust Monsters, the admission of such reckless magic has infuriated the Mages' Guild and delighted chaos-worshippers.",
-    targets: ['archie'],
-    effects: {
-        mages_guild: -30, // Unsanctioned magic
-        green_thumb_guardians: -20, // Destroying a greenhouse
-        regal_empire: -10, // Reckless endangerment
-        cosmic_jesters: 25, // Hilarious destruction
-        liberated_toads: 10, // Saved friends
-        ratchet_raiders: 10 // Scrap created
+        id: 'mirror_door_breach',
+        title: "The Mirror Door Breach",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'self_reflection_oracle',
+        arc: 'raventree_manor',
+        arcPosition: 'climax',
+        description: "Led by the Oracle to a hidden upper house within Raventree Manor, the party narrowly escaped a mirror monster by slamming a mystical door. The Oracle warned that 'once we go up, there's no coming back', signaling a point of no return in the investigation of the manor's curse.",
+        targets: ['party', 'self_reflection_oracle', 'archie', 'humpik'],
+        effects: {
+            mages_guild: 5, // Investigating anomalies
+            cosmic_jesters: 10, // High weirdness
+            freelancer_underworld: 5
+        },
+        cycle_impact: { score: 2.0, label: "Dimensional Threshold", type: "magic" }
     },
-    cycle_impact: { score: 0.5, label: "Public Recklessness", type: "magic" }
-},
-{
-    id: 'wraith_conflagration',
-    title: "Conflagration in the Manor",
-    date: { day: 19, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'markop', // Markop led the Cohort defense
-    arc: 'raventree_manor',
-    arcPosition: 'climax',
-    description: "A chaotic battle erupted within Raventree Manor when First Cohort toads, led by Markop, were ambushed by two powerful Arcane Wraiths. The fight was a desperate struggle involving divine magic, summoned giants, and volatile alchemy. Despite the death of a Cohort member, the combined forces managed to destroy one wraith and repel the other, but the event has left the Cohort shaken and questioning the true nature of the threat they are trying to contain.",
-    targets: ['markop', 'liberated_toads', 'remi'],
-    effects: {
-        liberated_toads: -15, 
-        silver_flame: 10, 
-        mages_guild: 5, 
-        cosmic_jesters: 5
+    {
+        id: 'mages_guild_warrant',
+        title: "The Guild's Warrant & The Legion's Anthem",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'archie',
+        arc: 'raventree_manor',
+        arcPosition: 'climax',
+        description: "Following Archie Miser's public confession, the Mages' Guild has formally dispatched agents to arrest him for multiple violations of the Autumnwood Accords. Concurrently, an Iron Legion contingent at Raventree Manor performed a brutal, mocking anthem, publicly humiliating the Liberated Toads and their allies. This escalation from both factions has cornered the party, forcing them into an alliance with a rogue mage against the manor's supernatural horrors.",
+        targets: ['archie', 'party', 'liberated_toads', 'mages_guild', 'iron_legion'],
+        effects: {
+            mages_guild: -25,
+            iron_legion: -25,
+            liberated_toads: -10,
+            freelancer_underworld: 10,
+            cosmic_jesters: 5
+        },
+        personal_impact: {
+            archie: { mages_guild: -50, iron_legion: -50 }, // Primary target
+            humpik: { mages_guild: -10, cosmic_jesters: 15 }, // Kept dark crystals against advice
+            bowser: { iron_legion: -30 } // Recognized as a threat
+        },
+        cycle_impact: { score: 1.5, label: "Political Escalation", type: "political" }
     },
-    cycle_impact: { score: 2.0, label: "Supernatural Incursion", type: "magic" }
-},
+    {
+        id: 'greenhouse_inferno_confession',
+        title: "Archie's Confession",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: false,
+        instigator: 'archie',
+        arc: 'raventree_manor',
+        arcPosition: 'climax',
+        description: "Archie Miser has publicly admitted to casting a high-level Fireball spell to destroy the Raventree Greenhouse. While he claims it was to save his friends from Rust Monsters, the admission of such reckless magic has infuriated the Mages' Guild and delighted chaos-worshippers.",
+        targets: ['archie'],
+        effects: {
+            mages_guild: -30, // Unsanctioned magic
+            green_thumb_guardians: -20, // Destroying a greenhouse
+            regal_empire: -10, // Reckless endangerment
+            cosmic_jesters: 25, // Hilarious destruction
+            liberated_toads: 10, // Saved friends
+            ratchet_raiders: 10 // Scrap created
+        },
+        cycle_impact: { score: 0.5, label: "Public Recklessness", type: "magic" }
+    },
+    {
+        id: 'wraith_conflagration',
+        title: "Conflagration in the Manor",
+        date: { day: 19, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'markop', // Markop led the Cohort defense
+        arc: 'raventree_manor',
+        arcPosition: 'climax',
+        description: "A chaotic battle erupted within Raventree Manor when First Cohort toads, led by Markop, were ambushed by two powerful Arcane Wraiths. The fight was a desperate struggle involving divine magic, summoned giants, and volatile alchemy. Despite the death of a Cohort member, the combined forces managed to destroy one wraith and repel the other, but the event has left the Cohort shaken and questioning the true nature of the threat they are trying to contain.",
+        targets: ['markop', 'liberated_toads', 'remi'],
+        effects: {
+            liberated_toads: -15, 
+            silver_flame: 10, 
+            mages_guild: 5, 
+            cosmic_jesters: 5
+        },
+        cycle_impact: { score: 2.0, label: "Supernatural Incursion", type: "magic" }
+    },
     {
         id: 'peach_death_fallout',
         title: "The Princess is Dead",
@@ -532,7 +553,6 @@ export const RUMORS = [
         effects: { ratchet_raiders: 10, regal_empire: -5 },
         cycle_impact: { score: 0, label: "Industrial Waste", type: "economic" }
     },
-    // --- NEW ENTRIES to ensure every active arc is populated ---
     {
         id: 'vampire_raid_supply',
         title: "Blood Tax on the Border",

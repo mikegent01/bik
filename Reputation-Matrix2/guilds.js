@@ -1,135 +1,233 @@
+
+
 import { GUILD_DATA, CHARTER_DATA } from './guilds-data.js';
-import { LORE_DATA } from './lore.js';
+import { state, loadState } from './state.js';
 import { playSound } from './common.js';
+import { SPECIES_DATA } from './species-data.js';
 
-function renderCard(data, key, type = 'guild') {
-    const cardData = data;
-    const sponsor = cardData.sponsoring_faction ? LORE_DATA.factions[cardData.sponsoring_faction] : null;
+const grid = document.getElementById('guilds-grid');
+const membershipContainer = document.getElementById('my-membership-container');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const modal = document.getElementById('guild-modal');
+const modalBody = document.getElementById('guild-modal-body');
+const modalClose = document.querySelector('.guild-modal-close');
+
+let currentFilter = 'all';
+
+function init() {
+    loadState();
+    setupEventListeners();
+    renderDashboard();
+}
+
+function renderDashboard() {
+    renderMembership();
+    renderGrid();
+}
+
+function renderMembership() {
+    if (!membershipContainer) return;
     
-    // --- Prepare Tab Content ---
-    const goalsHTML = cardData.goals.map(goal => `<li>${goal}</li>`).join('');
-    const ranksHTML = cardData.ranks.map(rank => `<li><strong>${rank.title}:</strong> ${rank.description}</li>`).join('');
-    const rulesHTML = cardData.rules.map(rule => `<li>${rule}</li>`).join('');
-    const hasSubGuilds = cardData.sub_guilds && cardData.sub_guilds.length > 0;
-    const subGuildsHTML = hasSubGuilds ? cardData.sub_guilds.map(sub => `
-        <div class="sub-guild-card">
-            <h6>${sub.name}</h6>
-            <p><strong>Leader:</strong> ${sub.leader}</p>
-            <p><em>${sub.description}</em></p>
-        </div>
-    `).join('') : '';
-
-    // --- Build Tabs ---
-    let tabsHTML = `
-        <button class="guild-tab-btn active" data-tab="goals">Goals</button>
-        <button class="guild-tab-btn" data-tab="ranks">Ranks</button>
-        <button class="guild-tab-btn" data-tab="rules">Rules</button>
-        <button class="guild-tab-btn" data-tab="recruitment">Recruitment</button>
-    `;
-    if (hasSubGuilds) {
-        tabsHTML += `<button class="guild-tab-btn" data-tab="subguilds">Sub-Guilds</button>`;
+    const user = state.loggedInUser;
+    if (!user || user === 'generic') {
+        membershipContainer.innerHTML = '';
+        return;
     }
 
-    // --- Build Content Panes ---
-    let contentHTML = `
-        <div class="guild-tab-content active" data-tab-content="goals">
-            <h5>Primary Goals</h5>
-            <ul>${goalsHTML}</ul>
-        </div>
-        <div class="guild-tab-content" data-tab-content="ranks">
-            <h5>Ranks & Hierarchy</h5>
-            <ul>${ranksHTML}</ul>
-        </div>
-        <div class="guild-tab-content" data-tab-content="rules">
-            <h5>Code of Conduct</h5>
-            <ul>${rulesHTML}</ul>
-        </div>
-        <div class="guild-tab-content" data-tab-content="recruitment">
-            <h5>Joining</h5>
-            <p>${cardData.recruitment}</p>
-        </div>
-    `;
-    if (hasSubGuilds) {
-        contentHTML += `
-            <div class="guild-tab-content" data-tab-content="subguilds">
-                <h5>Sub-Groups</h5>
-                ${subGuildsHTML}
+    // Find guilds the player is a member of
+    let myGuilds = [];
+    
+    // Check standard guilds
+    Object.entries(GUILD_DATA).forEach(([key, guild]) => {
+        if (guild.isPlayerMember === user) {
+            myGuilds.push({ key, ...guild, type: 'Guild' });
+        }
+    });
+    
+    // Check charters
+    Object.entries(CHARTER_DATA).forEach(([key, charter]) => {
+        if (charter.isPlayerMember === user) {
+            myGuilds.push({ key, ...charter, type: 'Charter' });
+        }
+    });
+
+    if (myGuilds.length === 0) {
+        membershipContainer.innerHTML = '';
+        return;
+    }
+
+    const html = myGuilds.map(guild => {
+        const dutiesHTML = (guild.duties || []).map(d => `
+            <div class="duty-item">
+                <div class="duty-info">
+                    <strong>${d.task}</strong>
+                    <span class="duty-reward">Reward: ${d.reward}</span>
+                </div>
+                <span class="duty-status status-${d.status.toLowerCase()}">${d.status}</span>
+            </div>
+        `).join('');
+
+        // Find user's rank info if available (simplified assumption here)
+        const rankInfo = guild.ranks ? guild.ranks.find(r => r.title.includes("Stonecarver") || r.title.includes("Member")) : { title: "Member" };
+        const userRank = user === 'humpik' && guild.key === 'stonecarvers_brethren' ? "Stonecarver" : "Initiate";
+
+        return `
+            <div class="section-label">My Active Membership</div>
+            <div class="membership-card">
+                <div class="membership-header">
+                    <div class="membership-badge">⚒️</div>
+                    <h3 class="membership-title">${guild.name}</h3>
+                    <span class="membership-rank">${userRank}</span>
+                    <p style="font-size:0.85rem; color:var(--text-secondary);">${guild.headquarters}</p>
+                </div>
+                <div class="membership-duties">
+                    <h4 style="font-family:var(--font-display); color:var(--text-color); margin:0;">Active Duties</h4>
+                    ${dutiesHTML || '<p style="font-style:italic; color:var(--text-secondary);">No active duties.</p>'}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    membershipContainer.innerHTML = html;
+}
+
+function renderGrid() {
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    let items = [];
+    
+    if (currentFilter === 'all' || currentFilter === 'guild') {
+        Object.entries(GUILD_DATA).forEach(([k, v]) => items.push({ id: k, ...v, type: 'Guild' }));
+    }
+    if (currentFilter === 'all' || currentFilter === 'charter') {
+        Object.entries(CHARTER_DATA).forEach(([k, v]) => items.push({ id: k, ...v, type: 'Charter' }));
+    }
+    
+    if (currentFilter === 'my-guilds') {
+         const user = state.loggedInUser;
+         items = items.filter(i => i.isPlayerMember === user);
+    }
+
+    items.forEach(item => {
+        const isMember = item.isPlayerMember === state.loggedInUser;
+        const card = document.createElement('div');
+        card.className = 'guild-card';
+        
+        if (isMember) {
+            card.innerHTML += `<div class="member-ribbon">MEMBER</div>`;
+            card.style.borderColor = 'var(--positive-color)';
+        }
+        
+        // Calculate member count based on species affinity (Mock logic for now, using static data mostly)
+        // In a real scenario, we'd sum up population from state.simulation.adjusted.bySpecies
+        let memberCountDisplay = item.member_count;
+        let speciesIcons = '';
+        
+        if (item.primary_species) {
+             speciesIcons = item.primary_species.slice(0, 3).map(sKey => {
+                 const species = SPECIES_DATA[sKey];
+                 return species ? `<span title="${species.name}" style="font-size:1.2rem; margin-right:4px;">${species.icon}</span>` : '';
+             }).join('');
+        }
+
+        card.innerHTML += `
+            <div class="guild-card-header">
+                <div>
+                    <h4 class="guild-name">${item.name}</h4>
+                    <span class="guild-type">${item.type}</span>
+                </div>
+                <div class="guild-icon">📜</div>
+            </div>
+            <div class="guild-stats">
+                <div class="stat-box">👥 ${memberCountDisplay}</div>
+                <div class="stat-box">💰 Res: ${item.resources ? 'High' : 'Low'}</div>
+            </div>
+             <div class="guild-species" style="margin-bottom:12px;">
+                ${speciesIcons}
+            </div>
+            <p class="guild-desc">${item.description.substring(0, 100)}...</p>
+        `;
+        
+        card.addEventListener('click', () => openModal(item));
+        grid.appendChild(card);
+    });
+    
+    if (items.length === 0) {
+        grid.innerHTML = `<p style="color:var(--text-secondary); grid-column: 1/-1; text-align:center;">No organizations found.</p>`;
+    }
+}
+
+function openModal(data) {
+    playSound('click.mp3');
+    
+    const rulesHTML = data.rules.map(r => `<li>${r}</li>`).join('');
+    const ranksHTML = data.ranks.map(r => `<li><strong>${r.title}:</strong> ${r.description}</li>`).join('');
+    
+    let resourceHTML = '';
+    if (data.resources) {
+        resourceHTML = `
+            <div class="resource-group">
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:4px;">
+                    <span>Gold Reserves</span><span>${data.resources.gold}%</span>
+                </div>
+                <div class="resource-bar"><div class="resource-fill" style="width:${data.resources.gold}%; background: gold;"></div></div>
+                
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:4px;">
+                    <span>Influence</span><span>${data.resources.stone || 50}%</span>
+                </div>
+                <div class="resource-bar"><div class="resource-fill" style="width:${data.resources.stone || 50}%; background: grey;"></div></div>
             </div>
         `;
     }
-    const cardClass = type === 'guild' ? 'guild-card' : 'guild-card charter-card';
-    return `
-        <div class="${cardClass}" id="${type}-${key}">
-            <div class="guild-header">
-                <img src="${sponsor ? sponsor.logo : 'icon_focus.png'}" alt="${cardData.name} Logo" class="guild-logo">
-                <div class="guild-title-group">
-                    <h3>${cardData.name}</h3>
-                    <p>Sponsored by: ${sponsor ? sponsor.name : 'Independent'}</p>
-                </div>
+
+    modalBody.innerHTML = `
+        <div class="guild-modal-header">
+            <h2 class="guild-modal-title">${data.name}</h2>
+            <p style="color:var(--text-secondary); margin-top:8px;">Leader: ${data.leader}</p>
+            <span class="status-tag status-active" style="font-size:0.8rem; margin-top:8px; display:inline-block;">Active Contracts: ${data.active_contracts || 0}</span>
+        </div>
+        <div class="guild-modal-body">
+            <div class="modal-section">
+                <h4>Description</h4>
+                <p>${data.description}</p>
+                
+                <h4 style="margin-top:16px;">Resources & Status</h4>
+                ${resourceHTML}
+                
+                <h4 style="margin-top:16px;">Research Bonus</h4>
+                <p class="text-accent">+${(data.research_bonus.amount * 100).toFixed(0)}% to ${data.research_bonus.category}</p>
             </div>
-            <div class="guild-body">
-                <p>${cardData.description}</p>
-                <div class="guild-info-block">
-                    <ul>
-                        <li><strong>Leader:</strong> ${cardData.leader}</li>
-                        <li><strong>HQ:</strong> ${cardData.headquarters}</li>
-                    </ul>
-                </div>
-                <div class="guild-details-tabs">${tabsHTML}</div>
-                <div class="guild-details-content">${contentHTML}</div>
+            <div class="modal-section">
+                <h4>Hierarchy</h4>
+                <ul style="list-style:none; padding:0; font-size:0.9rem;">${ranksHTML}</ul>
+                
+                <h4 style="margin-top:16px;">Core Rules</h4>
+                <ul style="padding-left:20px; font-size:0.9rem;">${rulesHTML}</ul>
             </div>
         </div>
     `;
-}
-
-
-function renderPageContent() {
-    const guildsContainer = document.getElementById('guilds-container');
-    const chartersContainer = document.getElementById('charters-container');
-
-    if (!guildsContainer || !chartersContainer) return;
-
-    let guildsHTML = '';
-    for (const guildKey in GUILD_DATA) {
-        guildsHTML += renderCard(GUILD_DATA[guildKey], guildKey, 'guild');
-    }
-    guildsContainer.innerHTML = guildsHTML;
-
-    let chartersHTML = '';
-    for (const charterKey in CHARTER_DATA) {
-        chartersHTML += renderCard(CHARTER_DATA[charterKey], charterKey, 'charter');
-    }
-    chartersContainer.innerHTML = chartersHTML;
+    modal.style.display = 'flex';
 }
 
 function setupEventListeners() {
-    const app = document.getElementById('app');
-    if (!app) return;
-
-    app.addEventListener('click', e => {
-        const tabBtn = e.target.closest('.guild-tab-btn');
-        if (tabBtn) {
-            playSound('click.mp3', 0.6);
-            const card = tabBtn.closest('.guild-card, .charter-card');
-            const tabName = tabBtn.dataset.tab;
-
-            card.querySelectorAll('.guild-tab-btn').forEach(btn => btn.classList.remove('active'));
-            card.querySelectorAll('.guild-tab-content').forEach(content => content.classList.remove('active'));
-
-            tabBtn.classList.add('active');
-            const activeContent = card.querySelector(`.guild-tab-content[data-tab-content="${tabName}"]`);
-            if (activeContent) {
-                activeContent.classList.add('active');
-            }
-        }
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            playSound('click.mp3');
+            filterBtns.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            currentFilter = e.target.dataset.filter;
+            renderGrid();
+        });
     });
-}
-
-
-function init() {
-    if (!document.getElementById('guilds-container')) return;
-    renderPageContent();
-    setupEventListeners();
+    
+    if (modalClose) {
+        modalClose.addEventListener('click', () => modal.style.display = 'none');
+    }
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
 }
 
 init();

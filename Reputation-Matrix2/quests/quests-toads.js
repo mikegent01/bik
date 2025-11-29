@@ -1,287 +1,245 @@
-// This file contains all side quests related to the Liberated Toads.
+
+import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
+
 export const TOADS_QUESTS = {
-    // --- DAN'S QUESTS ---
-    'dan_rakasha_request': {
-        id: 'dan_rakasha_request',
-        title: "The Rakasha's Request",
-        type: 'side',
-        category: 'Personal - Dan',
-        objective: "Chief Thornpaw has sensed a corruption spreading from a nearby grove. He has asked Dan, as part of his training, to investigate and cleanse it.",
-        assignee: "Dan",
-        assigneeKey: 'archie', // Archie is pushing Dan to take this on.
-        status: "pending",
-        pending_condition: "Pending Activation: The party must travel to the Whispering Grove in the Midlands. This requires convincing Captain Lario to alter the Vigilance's course or finding an alternative means of reaching the surface.",
-        start_condition: "Triggered after Dan begins his magical training with the Rakasha.",
-        steps: [
-            { id: 'step1', title: "Investigate the Whispering Grove", status: 'active', description: "The party is currently aboard the Vigilance. To reach the grove, they must either convince the airship's temperamental goblin captain, Lario, to make a detour, or find an alternative, likely more dangerous, method of reaching the location on their own." },
-            { id: 'step2', title: "Identify the Source", status: 'locked', description: "Find the epicenter of the blight and determine what foul magic or creature is causing it." },
-            { id: 'step3', title: "Perform the Cleansing Ritual", status: 'locked', description: "Using the teachings of the Rakasha, perform the ritual to purify the land and restore its balance." }
-        ]
-    },
     'dan_reclaim_the_staff': {
         id: 'dan_reclaim_the_staff',
         title: "The Staff's Burden",
-        type: 'side',
+        subtitle: "The Weight of Command",
+        type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Dan',
-        objective: "Dan attempted to reclaim the staff, but its chaotic power overwhelmed him. He had a severe mental breakdown, unleashing a fireball that killed 13 of the newly freed toads. He is now gravely injured, having lost an arm in the struggle, and has lost the staff to Toad Lee.",
-        assignee: "Dan",
-        assigneeKey: 'dan',
-        status: "failed",
-        steps: [
-            { id: 'step1', title: "A Desperate Plea", status: 'completed', description: "Dan confronted the others in the engine room, pleading for the staff's return, fearing its corrupting influence." },
-            { id: 'step2', title: "The Meltdown", status: 'failed', description: "Overwhelmed by desperation and the staff's corruption, Dan unleashed a fireball that killed 13 of the new toads. His sanity slipped as he was consumed by the staff's power." },
-            { id: 'step3', title: "The Burden is Passed", status: 'failed', description: "Green T intervened in the chaos, severing Dan's arm to free him from the staff. Toad Lee then secured the volatile artifact, leaving Dan broken and defeated." }
-        ]
-    },
-    'dan_sword_and_spell': {
-        id: 'dan_sword_and_spell',
-        title: "The Sword and the Spell",
-        type: 'personal',
-        category: 'Personal - Dan',
-        is_updated: false,
-        objective: "Dan is horrified by the Empire's 'Supernatural Sovereignty Act,' seeing it as a path to genocide, not peace. This has solidified his resolve to become a different kind of leader. He seeks to merge his warrior training and magical potential by finding the lost tomb of a legendary 'Spellsword' champion.",
-        assignee: "Dan",
-        assigneeKey: 'dan',
-        status: "active",
-        motivation: "The Empire's brutal, sweeping law has shown Dan that power without compassion is tyranny. He now seeks the legacy of the Azure Knight not just for personal strength, but to become a symbol of a third option: a protector who wields both might and mercy, proving there is a path other than domination or destruction.",
-        steps: [
-            { id: 'step1', title: "Find the Tomb", status: 'active', description: "Research ancient legends in the Vigilance's library or through contacts in the Freelancer Underworld to find the location of the Tomb of the Azure Knight." },
-            { id: 'step2', title: "Pass the Trials", status: 'locked', description: "The tomb is protected by trials that test both martial prowess and magical intellect." },
-            { id: 'step3', title: "Claim the Legacy", status: 'locked', description: "Claim the Azure Knight's enchanted blade." }
-        ]
-    },
-    'dan_orc_trial': {
-        id: 'dan_orc_trial',
-        title: "The Orc's Trial",
-        type: 'side',
-        category: 'Personal - Dan',
-        objective: "After being bitten by a strange creature at the Orc war camp, Dan feels an unusual connection to the tribe. He must investigate the bite and the strange 'trial' the Orcs now speak of.",
-        assignee: "Dan",
-        assigneeKey: 'dan',
-        status: "available",
-        motivation: "The bite left a strange mark, both physically and spiritually. Dan feels a pull towards the Orc camp, a need to understand what happened and why the normally hostile Orcs now watch him with a mix of suspicion and respect. Is this a curse, or an opportunity?",
-        steps: [
-            { id: 'step1', title: "Investigate the Bite", status: 'active', description: "Consult with Chief Thornpaw or other knowledgeable healers to identify the creature that bit Dan and the nature of its venom or magic." },
-            { id: 'step2', title: "The Warboss's Summons", status: 'locked', description: "The Orc Warboss has taken notice of Dan's mercy and survival. He summons Dan to undergo a trial to earn the tribe's respect." },
-            { id: 'step3', title: "Survive the Pit", status: 'locked', description: "Face the Orc's champion in their fighting pit. The goal is not necessarily to win, but to prove his courage and strength." }
+        status: QUEST_STATUS.FAILED,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Reclaim control of X.O.'s staff and find redemption for the lives lost.",
+        assignees: ['dan'],
+        primaryAssignee: 'dan',
+        difficulty: { overall: DIFFICULTY.DEADLY, magic: DIFFICULTY.DEADLY, emotional: DIFFICULTY.EXTREME },
+        tags: ['trauma', 'magic', 'redemption', 'failure'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 15 }, updated: { year: 1040, monthIndex: 6, day: 20 } },
+        
+        description: "Dan's attempt to wield X.O.'s staff during the Legion assault was an act of desperate heroism that ended in catastrophic failure. The staff's raw power overwhelmed him, detonating in a blast that took his right arm and the lives of thirteen fellow toads. Now, the staff is contained but unstable, and Dan is broken—physically maimed and spiritually crushed by guilt. To reclaim the staff is not just about power; it is about proving that the sacrifice was not in vain, and that he is still worthy to lead.",
+        
+        loreEntries: ['dan_the_survivor', 'the_thirteen_fallen', 'arcane_backlash'],
+
+        consequences: {
+            success: "Dan masters the staff, turning a curse into a tool for liberation.",
+            failure: "The staff consumes Dan completely, creating a magical anomaly.",
+            partial: "Dan rejects the staff but finds a new way to lead without magic."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'trait', name: "Scarred Wisdom", description: "Permanent mental resilience bonus" }
+            ],
+            conditional: [
+                { condition: "Forgive yourself", reward: { type: 'ability', name: "One-Handed Casting", description: "Mastery of somatic components with a disability" }}
+            ],
+            xp: 5000
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Confrontation", 
+                description: "Dan seized the staff amidst the chaos of the Legion boarding action.",
+                completedDate: { year: 1040, monthIndex: 6, day: 15 }
+            },
+            { 
+                id: 'm2', 
+                status: 'failed', 
+                title: "The Detonation", 
+                description: "Control was lost. The resulting explosion killed 13 allies and severed Dan's arm. The staff was dropped and remains volatile.",
+                completedDate: { year: 1040, monthIndex: 6, day: 15 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Recovery",
+                description: "Recover from the physical wounds. The psychological wounds may never heal.",
+                goals: [
+                    { text: "Survive the initial shock", status: 'completed' },
+                    { text: "Accept the loss of the arm", status: 'active' },
+                    { text: "Face the families of the fallen", status: 'pending' }
+                ]
+            }
         ]
     },
 
-    // --- TOAD LEE'S QUESTS ---
-    'lee_firsts_legacy': {
-        id: 'lee_firsts_legacy',
-        title: "The First's Legacy",
-        type: 'side',
-        category: 'Personal - Toad Lee',
-        objective: "Feeling overshadowed by Dan's magical destiny, Toad Lee seeks to prove his own worth as a warrior by taking on a dangerous mission alone: clearing out a nest of venomous Spidersaurs threatening Toad's Landing.",
-        assignee: "Toad Lee",
-        assigneeKey: 'toad_lee',
-        status: "available",
-        motivation: "Toad Lee's identity is that of the protector, the first one who stood up. He needs to reaffirm that role and prove that brute strength and courage are just as valuable as flashy magic.",
-        steps: [
-            { id: 'step1', title: "The Lone Hunter", status: 'active', description: "Without telling the others, Toad Lee ventures into the nearby caves to hunt the Spidersaurs." },
-            { id: 'step2', title: "The Broodmother", status: 'locked', description: "After clearing the lesser creatures, Toad Lee must face the massive Spidersaur Broodmother in a test of pure strength and endurance." }
-        ]
-    },
-    'lee_axe_to_grind': {
-        id: 'lee_axe_to_grind',
-        title: "An Axe to Grind",
-        type: 'side',
-        category: 'Personal - Toad Lee',
-        objective: "Toad Lee's axe is big but crudely made. He learns of a master Dwarven smith in the mountains of Middle Earth and seeks him out to have his weapon reforged into a true masterpiece.",
-        assignee: "Toad Lee",
-        assigneeKey: 'toad_lee',
-        status: "available",
-        start_condition: "Toad Lee reaches Level 4.",
-        steps: [
-            { id: 'step1', title: "The Mountain Forge", status: 'active', description: "Travel to the Dwarven forge and seek an audience with the legendary smith, Balin Stone-Shaper." },
-            { id: 'step2', title: "A Worthy Price", status: 'locked', description: "Balin will not work for gold. Toad Lee must bring him a rare Adamantine nugget, found only in a dangerous, monster-infested mine." },
-            { id: 'step3', title: "The Forging", status: 'locked', description: "Assist Balin in the reforging, a process that requires both the smith's skill and the warrior's strength to complete." }
-        ]
-    },
-    'lee_old_wounds': {
-        id: 'lee_old_wounds',
-        title: "Old Wounds",
-        type: 'side',
-        category: 'Personal - Toad Lee',
-        objective: "Toad Lee learns that the slaver who originally captured him is now a high-ranking enforcer in the Iron Fists gang. He must confront his former tormentor and decide between revenge and justice.",
-        assignee: "Toad Lee",
-        assigneeKey: 'toad_lee',
-        status: "available",
-        motivation: "This is a deeply personal quest to close a dark chapter of his life. Toad Lee needs to face the source of his trauma to truly move forward as a free toad.",
-        steps: [
-            { id: 'step1', title: "The Tip-Off", status: 'active', description: "Get a lead from a Freelancer Underworld informant on the location of 'Slaver Krang' within an Iron Fists-controlled warehouse." },
-            { id: 'step2', title: "The Confrontation", status: 'locked', description: "Infiltrate the warehouse and confront Krang. Will Toad Lee give in to his rage, or will he capture Krang and turn him over to the Oathbound Judges?" }
-        ]
-    },
-
-    
-
-    'eager_the_performer': {
-        id: 'eager_the_performer',
-        title: "The Performer's Past",
-        type: 'side',
-        category: 'Personal - Eager',
-        is_updated: false,
-        objective: "Eager's past as a circus performer comes back to haunt him when his cruel former Ringmaster shows up in a nearby town, using enslaved creatures for his act. Eager wants to free them.",
-        assignee: "Eager",
-        assigneeKey: 'eager',
-        status: "available",
-        motivation: "Eager cannot stand to see others suffer as he did. His reckless charge into the Greenhouse Inferno to save Archie was a new kind of performance—one of genuine bravery. This quest is about channeling that newfound courage to confront his past and use his skills to become a liberator.",
-        steps: [
-            { id: 'step1', title: "Infiltrate the Circus", status: 'active', description: "Use his old skills to get a job at the circus and identify where the enslaved creatures are being kept." },
-            { id: 'step2', title: "The Grand Distraction", status: 'locked', description: "Sabotage the main event with a spectacular, non-lethal performance using his whip, creating a diversion to free the creatures." }
-        ]
-    },
-    // --- RYAN'S QUESTS ---
-    'ryan_glimmer_of_past': {
-        id: 'ryan_glimmer_of_past',
-        title: "A Glimmer of the Past",
-        type: 'side',
-        category: 'Personal - Ryan',
-        objective: "Ryan's study of X.O.'s staff reveals a psychic echo within. He wants to perform a ritual to safely view the memories trapped inside, hoping to understand X.O.'s motivations.",
-        assignee: "Ryan",
-        assigneeKey: 'ryan',
-        status: "available",
-        motivation: "Ryan's scholarly curiosity drives him. After witnessing the Oracle's perversion of life with clones and robots at Shadeward Mansion, he feels a renewed urgency to understand the origins and motivations behind such powerful and corrupting artifacts before they can cause more harm.",
-        steps: [
-            { id: 'step1', title: "The Ritual Components", status: 'active', description: "Gather the components for a 'psychometric resonance' ritual: a silver mirror, powdered dream-dust, and a magically attuned crystal." },
-            { id: 'step2', title: "Perform the Ritual", status: 'locked', description: "Perform the dangerous ritual on the staff, opening a window into X.O.'s memories." },
-            { id: 'step3', title: "The Vision", status: 'locked', description: "Witness a key memory from X.O.'s past that reveals her true motives and perhaps the source of her immense power." }
-        ]
-    },
-    'ryan_unwritten_spell': {
-        id: 'ryan_unwritten_spell',
-        title: "The Unwritten Spell",
-        type: 'side',
-        category: 'Personal - Ryan',
-        is_updated: false,
-        objective: "Ryan discovers a half-finished spellbook from a long-dead Mages' Guild Innovator. He believes he can complete the final, powerful spell, but it requires rare and dangerous components.",
-        assignee: "Ryan",
-        assigneeKey: 'ryan',
-        status: "available",
-        start_condition: "Ryan reaches Level 4.",
-        motivation: "After witnessing Archie's massive, uncontrolled fireball destroy the greenhouse, Ryan is more convinced than ever that raw power is not enough. He sees completing this complex, forgotten spell as a path to true mastery—a way to wield great power with precision and control, unlike the chaotic forces that endanger them all.",
-        steps: [
-            { id: 'step1', title: "The Components", status: 'active', description: "Gather the three components for the spell: the tear of a ghost, the spark from a living storm, and a word of power spoken by a dragon." },
-            { id: 'step2', title: "The Final Incantation", status: 'locked', description: "With the components gathered, Ryan must complete the spell's arcane matrix and attempt to cast it for the first time." }
-        ]
-    },
-    // --- ROGER'S QUESTS ---
-    'roger_one_last_job': {
-        id: 'roger_one_last_job',
-        title: "One Last Job",
-        type: 'side',
-        category: 'Personal - Roger',
-        objective: "An old contact of Roger's from the Freelancer Underworld, a sly raccoon named 'Fingers', offers him a cut of a huge score: robbing a Regal Empire tax convoy. Roger is torn between his new life and the lure of a massive payday that could secure the Toads' future.",
-        assignee: "Roger",
-        assigneeKey: 'roger',
-        status: "available",
-        motivation: "Roger is a pragmatist. After seeing the Iron Legion's advanced capabilities and infiltration tactics firsthand at Shadeward Mansion, he knows they are outgunned and vulnerable. A massive influx of funds from this heist could be the only way to acquire the resources needed for their long-term survival.",
-        steps: [
-            { id: 'step1', title: "The Meeting", status: 'active', description: "Meet with 'Fingers' to get the details of the heist. The risk is now significantly higher, as the Legion is on high alert and has proven to be a far more sophisticated enemy than previously thought." },
-            { id: 'step2', title: "The Decision", status: 'locked', description: "Roger must decide whether to accept the high-risk, high-reward job, and whether to tell the others, knowing their trust is already shattered.", options: ["Accept, and do it secretly.", "Accept, and try to convince the others to help.", "Refuse, and cut ties with his past."] }
-        ]
-    },
-    'roger_a_better_bang': { /* ... No Changes ... */ },
-    'roger_the_accountant': { /* ... No Changes ... */ },
-
-    // --- BONES' QUESTS ---
-    'bones_orcs_debt': {
-        id: 'bones_orcs_debt',
-        title: "The Orc's Debt",
-        type: 'side',
-        category: 'Personal - Bones',
-        objective: "Bones feels a debt of honor to the Orcs who spared him, but now it's personal. After being captured and interrogated by the Iron Legion at Shadeward Mansion, he wants to repay his debt and get revenge by hijacking a Legion supply convoy and delivering the food to the starving Orc clan.",
-        assignee: "Bones",
-        assigneeKey: 'bones',
-        status: "available",
-        motivation: "Bones lives by a harsh code, and a debt is a debt. But now he has a score to settle. The Orcs showed him mercy, while the Legion showed him a cage. He's compelled to repay one and punish the other in the only way he knows how: with violence.",
-        steps: [
-            { id: 'step1', title: "The Convoy", status: 'active', description: "Gather intelligence on an upcoming Iron Legion food convoy, including its route and guard detail. This is now a revenge mission as much as a supply run." },
-            { id: 'step2', title: "The Heist", status: 'locked', description: "Ambush the convoy and secure the supplies." },
-            { id: 'step3', title: "The Delivery", status: 'locked', description: "Deliver the supplies to the Orc clan, an act that will solidify their respect and further enrage the Iron Legion." }
-        ]
-    },
-    'bones_facing_the_mirror': { /* ... No Changes ... */ },
-    'bones_the_survivor': { /* ... No Changes ... */ },
-    
-    // --- GROUP QUESTS ---
     'toads_rescue_eager': {
         id: 'toads_rescue_eager',
         title: "Rescue Eager",
-        type: 'side',
+        subtitle: "No Toad Left Behind",
+        type: QUEST_TYPES.RESCUE,
         category: 'Liberated Toads',
-        objective: "Eager was successfully extracted from the restaurant, but the party's escape led them into the treacherous, lava-filled sewers beneath the capital. With their guide revealed as a traitor and a monstrous Behir blocking the path, the new objective was simple: survive.",
-        assignee: "Liberated Toads",
-        assigneeKey: 'liberated_toads',
-        status: "completed",
-        motivation: "Eager is one of their own. The Liberated Toads cannot abandon one of their family to the mercy of his captors. His rescue is their top priority.",
-        steps: [
-            { id: 'step1', title: "Prison Break Fiasco", status: 'completed', description: "The initial prison rescue failed. Eager was abducted by another guard amidst the chaos and subsequently intercepted by raiders." },
-            { id: 'step2', title: "A New Captor", status: 'completed', description: "Archie located Eager working as a bartender in a capital restaurant, under the watchful eye of his new 'employer,' an angel." },
-            { id: 'step3', title: "Restaurant Raid", status: 'completed', description: "An attempt to extract Eager from the restaurant failed when the exits were blocked and the Iron Legion initiated a full-scale raid on the establishment." },
-            { id: 'step4', title: "Out of the Frying Pan...", status: 'completed', description: "Eager was successfully extracted from the restaurant, but the party was forced to flee into the capital's sewers. They survived the ordeal with the Behir, healed Dan, and escaped the capital, completing their desperate mission." }
+        status: QUEST_STATUS.COMPLETED,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'capital_intrigue',
+        objective: "Rescue Eager from his various captors across the Capital.",
+        assignees: ['party', 'liberated_toads'],
+        primaryAssignee: 'party',
+        difficulty: { overall: DIFFICULTY.HARD, combat: DIFFICULTY.MODERATE, stealth: DIFFICULTY.HARD },
+        tags: ['rescue', 'urban', 'chase'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 14 }, updated: { year: 1040, monthIndex: 6, day: 18 } },
+        
+        description: "Eager, the youngest and most impulsive of the crew, was captured during the initial scattering. His rescue became a running battle across the Capital city—from a high-security Imperial prison to the kitchens of the Gilded Octopus restaurant, and finally through the lava-filled sewers. The party's persistence paid off, but Eager remains critically injured and traumatized by his ordeal.",
+
+        loreEntries: ['eager_the_scout', 'imperial_prison_system', 'capital_sewers'],
+
+        rewards: {
+            guaranteed: [
+                { type: 'ally', name: "Eager (Injured)", description: "Eager returns to the party" },
+                { type: 'reputation', faction: 'liberated_toads', amount: 200, description: "Loyalty proven" }
+            ],
+            xp: 3000
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "Locate", 
+                description: "Intel confirmed Eager was being held at the Gilded Octopus restaurant as 'exotic stock'.",
+                completedDate: { year: 1040, monthIndex: 6, day: 14 }
+            },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "Extract", 
+                description: "A raid on the restaurant turned into a sewer chase. Eager was recovered but requires advanced healing.",
+                completedDate: { year: 1040, monthIndex: 6, day: 15 }
+            }
         ]
     },
- 'toads_a_place_to_call_home': {
+
+    'toads_a_place_to_call_home': {
         id: 'toads_a_place_to_call_home',
         title: "A Place to Call Home",
-        type: 'side',
+        subtitle: "Land for the Landless",
+        type: QUEST_TYPES.FACTION,
         category: 'Liberated Toads',
-        objective: "The discovery of an Iron Legion mole has shattered the illusion of safety aboard the Vigilance. The nomadic group is compromised and vulnerable. They must find and secure a permanent, defensible location to build a new home, 'Toad's Landing', before their enemies can strike again.",
-        assignee: "Liberated Toads",
-        assigneeKey: 'liberated_toads',
-        status: "active",
-        start_condition: "Talk to Dan after he has established himself as a leader ('Hold a Council' focus).",
-        steps: [
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'toad_liberation',
+        objective: "Establish a permanent, defensible settlement for the Liberated Toads.",
+        assignees: ['liberated_toads'],
+        primaryAssignee: 'toad_lee',
+        difficulty: { overall: DIFFICULTY.HARD, management: DIFFICULTY.HARD, exploration: DIFFICULTY.MODERATE },
+        tags: ['settlement', 'survival', 'politics', 'resource-management'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 18 }, updated: { year: 1040, monthIndex: 6, day: 20 } },
+        
+        description: "The loss of the Vigilance has made one thing clear: the Toads cannot live on the run forever. They need land. They need walls. They need a home. Roger and Toad Lee are spearheading the effort to find a suitable location. Options include reclaiming the ruins of Bramblehaven (currently held by ruthless Loyalists), negotiating for land in the dangerous Wilderlands, or finding a hidden valley in the mountains. Each choice carries significant geopolitical risks.",
+
+        loreEntries: ['toad_diaspora', 'wilderlands_geography', 'settlement_requirements'],
+
+        consequences: {
+            success: "The Toads establish 'New Toad Town', a sovereign city-state.",
+            failure: "The refugees are scattered and absorbed into other factions as second-class citizens.",
+            partial: "A hidden camp is established, but it is vulnerable and lacks resources."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'facility', name: "Base of Operations", description: "A safe haven with crafting and rest bonuses" }
+            ],
+            conditional: [
+                { condition: "Secure a trade route", reward: { type: 'income', name: "Tax Revenue", description: "Weekly gold income" }},
+                { condition: "Ally with locals", reward: { type: 'unit', name: "Local Militia", description: "Defense bonus" }}
+            ],
+            xp: 10000
+        },
+
+        milestones: [
             { 
-                id: 'step1', 
-                title: "Organize Expeditions", 
+                id: 'm1', 
                 status: 'active', 
-                description: "Following a successful vote, the Toads have a new doctrine: large, well-armed expeditions will be sent to scout potential locations. The focus is on safety through numbers and caution. Toad Lee and Roger are organizing the first teams.", 
-                options: ["Scout an abandoned Imperial watchtower.", "Scout a hidden, fertile valley.", "Scout a defensible cave system."] 
+                title: "Scouting Phase", 
+                description: "Scout teams are currently evaluating three potential sites.",
+                goals: [
+                    { text: "Scout Bramblehaven Ruins", status: 'pending' },
+                    { text: "Survey the Hidden Valley", status: 'active' },
+                    { text: "Investigate the Abandoned Mine", status: 'pending' }
+                ]
             },
-            { id: 'step2', title: "Clear the Dangers", status: 'locked', description: "The chosen location will not be uninhabited. Clear out any resident monsters, bandits, or hazards. Toad Lee will lead the assault." },
-            { id: 'step3', title: "Found 'Toad's Landing'", status: 'locked', description: "With the location secured, begin construction on basic shelters, a well, and a palisade wall. Roger will oversee the logistics." }
+            { 
+                id: 'm2', 
+                status: 'locked', 
+                title: "Clearance", 
+                description: "The chosen site must be cleared of current occupants (monsters or bandits)." 
+            },
+            { 
+                id: 'm3', 
+                status: 'locked', 
+                title: "Construction", 
+                description: "Build housing, defenses, and resource gathering infrastructure." 
+            }
         ]
     },
-    'toads_first_harvest': {
-        id: 'toads_first_harvest',
-        title: "The First Harvest",
-        type: 'side',
-        category: 'Liberated Toads',
-        objective: "The Liberated Toads need a stable food source to survive the coming season. They must find fertile ground, acquire seeds, and protect their first crops from the dangers of the world.",
-        assignee: "Liberated Toads",
-        assigneeKey: 'liberated_toads',
-        status: "available",
-        start_condition: "This quest becomes available after founding 'Toad's Landing'.",
-        steps: [
-            { id: 'step1', title: "Find Arable Land", status: 'active', description: "Scout the area around Toad's Landing for a plot of land suitable for farming." },
-            { id: 'step2', title: "Acquire Seeds", status: 'locked', description: "Seeds are scarce. The Toads must either trade with a nearby settlement, raid an abandoned farm, or find a cache of wild, edible plants.", options: ["Trade with the Mushroom Regency.", "Scavenge from the war-torn farmlands.", "Forage for wild seeds."] },
-            { id: 'step3', title: "Protect the Crop", status: 'locked', description: "The growing crops will attract hungry wildlife and opportunistic bandits. The Toads must stand guard and protect their harvest until it's ready." }
-        ]
-    },
-    
-'liberated_toads_integration': {
+
+    'liberated_toads_integration': {
         id: 'liberated_toads_integration',
         title: "The Shattered Vow",
-        type: 'faction',
+        subtitle: "Civil War of the Toads",
+        type: QUEST_TYPES.FACTION,
         category: 'Liberated Toads',
-        is_updated: true,
-        objective: "The faction has fractured completely. The Pond Patrol, led by Speaker L, has successfully apprehended Archie after a tense standoff. However, the victory was immediately overshadowed by the emergence of a terrifying 'Mirror-Thing,' leaving the Cohort in disarray and facing a new, unknown horror.",
-        assignee: "Liberated Toads",
-        assigneeKey: 'liberated_toads',
-        status: "active",
-        start_condition: "Triggered after Black T reveals the toad trafficking operation.",
-        steps: [
-            { id: 'step1', title: "The Vow of Fury", status: 'completed', description: "After a magical catastrophe killed 13 of their number, the 'First Cohort of Renewal' swore a fragile vow of unity with the original Liberated Toads." },
-            { id: 'step2', title: "The Betrayal", status: 'completed', description: "The discovery of an Iron Legion mole after the Shadeward Mansion trap broke the fragile peace." },
-            { id: 'step3', title: "The Pond Patrol Deploys", status: 'completed', description: "The First Cohort voted to deploy the 'Pond Patrol' to apprehend the party members involved in the Greenhouse Inferno, creating a deep schism." },
-            { id: 'step4', title: "The Siege & Surrender", status: 'completed', description: "The Pond Patrol, led by Speaker L, breached the manor and cornered Archie's group. After a tense standoff involving the murder of a witness and a failed healing spell, Archie Miser surrendered and was taken into Cohort custody." },
-            { id: 'step5', title: "The Siege Within", status: 'completed', description: "The Pond Patrol, led by Speaker L, breached the manor and successfully apprehended Archie Miser after a tense standoff." },
-            { id: 'step6', title: "The Hungry House", status: 'completed', description: "As Archie was being captured, a monstrous 'Mirror-Thing' emerged, plunging the infirmary into chaos." },
-            { id: 'step7', title: "The Wraiths of Raventree", status: 'active', description: "The rest of the Cohort, alongside Markop, was ambushed by two powerful Arcane Wraiths. They suffered casualties but managed to repel the attack. Now, with Archie a prisoner and the house actively hostile, the divided Cohort must decide whether to continue their internal conflict or unite against the true enemy." }
-             ]
-    },
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'toad_liberation',
+        objective: "Resolve the deepening schism between Speaker L's 'First Cohort' and Dan's original group.",
+        assignees: ['liberated_toads', 'party'],
+        primaryAssignee: 'party',
+        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.DEADLY, politics: DIFFICULTY.HARD },
+        tags: ['politics', 'betrayal', 'diplomacy', 'civil-war'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 16 }, updated: { year: 1040, monthIndex: 6, day: 20 } },
+        
+        description: "The unity of the Liberated Toads has fractured. Speaker L, commanding the militant 'First Cohort' (also known as the Pond Patrol), has formally arrested Archie Miser for the Greenhouse Inferno incident. This has created a violent rift with Dan's faction, who view Archie as a flawed but necessary leader. The internal conflict reached a boiling point during the 'Siege of Raventree', where toads drew weapons on toads. With Speaker L now captured by the Iron Legion, the Cohort is leaderless and angry. The party must bridge this divide before the faction destroys itself from within.",
+
+        loreEntries: ['the_first_cohort', 'speaker_l', 'the_unity_vow'],
+
+        consequences: {
+            success: "The factions reunite under a shared council. The Toads become a major political power.",
+            failure: "The Toads split into warring gangs. The movement dies.",
+            partial: "An uneasy truce is formed, but resentment lingers."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'reputation', faction: 'liberated_toads', amount: 1000, description: "Savior of the Movement" }
+            ],
+            conditional: [
+                { condition: "Rescue Speaker L", reward: { type: 'ally', name: "First Cohort Loyalty", description: "Access to elite toad shock troops" }},
+                { condition: "Expose the true mole", reward: { type: 'intel', name: "Legion Spy Network", description: "List of other spies" }}
+            ],
+            xp: 7500
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Vow", 
+                description: "The initial vow of unity was taken on the deck of the Vigilance. It lasted less than a week.",
+                completedDate: { year: 1040, monthIndex: 6, day: 12 }
+            },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "The Betrayal", 
+                description: "The discovery of an Iron Legion mole within the ranks sowed the seeds of paranoia.",
+                completedDate: { year: 1040, monthIndex: 6, day: 16 }
+            },
+            { 
+                id: 'm3', 
+                status: 'active', 
+                title: "The Schism", 
+                description: "Open conflict. Speaker L arrested Archie. Markop fought to defend him. Now Speaker L is gone, and the Cohort is demanding action.",
+                goals: [
+                    { text: "Rescue Speaker L from the Legion", status: 'active', priority: 'high' },
+                    { text: "Negotiate a ceasefire between Cohort and Dan's group", status: 'pending', priority: 'critical' },
+                    { text: "Prove Archie's value to the Cohort hardliners", status: 'locked', priority: 'medium' }
+                ]
+            }
+        ]
+    }
 };

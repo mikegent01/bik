@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,23 +17,40 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Guilds & Charters</h2>
-                 <p class="page-subtitle">The number prefixed to each Guild and Charter is its unique identifier within the Vigilance's terminal database, assigned automatically to organize incoming intelligence data.</p>
-                 <div id="guilds-section">
-                    <h3 class="section-title">Established Guilds</h3>
-                    <div id="guilds-container" class="guild-grid">
-                        <!-- Guilds will be injected here by JS -->
-                    </div>
+                 <div class="guilds-header">
+                     <h2 class="page-title">Guilds & Charters Registry</h2>
+                     <div class="guild-controls">
+                         <button class="filter-btn active" data-filter="all">All</button>
+                         <button class="filter-btn" data-filter="guild">Guilds</button>
+                         <button class="filter-btn" data-filter="charter">Charters</button>
+                         <button class="filter-btn" data-filter="my-guilds">My Memberships</button>
+                     </div>
                  </div>
-                 <div id="charters-section" style="margin-top: 48px;">
-                    <h3 class="section-title">Active Charters & Contracts</h3>
-                     <div id="charters-container" class="guild-grid">
-                        <!-- Charters will be injected here by JS -->
+
+                 <div id="guilds-dashboard">
+                     <!-- User's Guild Membership Panel (Dynamic) -->
+                     <div id="my-membership-container"></div>
+
+                     <!-- Main Grid -->
+                     <div class="section-label">Directory Listing</div>
+                     <div id="guilds-grid" class="guilds-grid">
+                         <!-- Injected by JS -->
                      </div>
                  </div>
             </main>
         </div>
     </div>
+
+    <!-- Guild Detail Modal -->
+    <div id="guild-modal" class="modal" style="display: none;">
+        <div class="modal-content guild-modal-content">
+            <button class="modal-close guild-modal-close">&times;</button>
+            <div id="guild-modal-body">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="guilds.js"></script>

@@ -1,8 +1,3 @@
-
-
-
-
-
 /* Layout */
 #calendar-dashboard {
     display: grid;
@@ -188,6 +183,12 @@
 .event-dot.history { background-color: #ff9800; border: 1px solid #fff; }
 .event-dot.battle { background-color: #b71c1c; border: 1px solid var(--text-color); }
 .event-dot.rumor-start { background-color: #e91e63; }
+.event-dot.guild_holiday { background-color: #ffd700; border: 1px solid #b8860b; }
+/* Quest Dots */
+.event-dot.quest-start { background-color: #ffd700; box-shadow: 0 0 4px #ffd700; }
+.event-dot.quest-deadline { background-color: #ff4444; border: 1px solid white; }
+.event-dot.quest-complete { background-color: #51cf66; border: 1px solid white; }
+
 
 /* Sidebar */
 #calendar-sidebar {
@@ -267,6 +268,11 @@
 .detail-item.history { border-color: #ff9800; }
 .detail-item.battle, .detail-item.battle_ongoing { border-color: #b71c1c; background-color: rgba(183, 28, 28, 0.1); }
 .detail-item.rumor_start { border-color: #e91e63; }
+.detail-item.guild_holiday { border-color: #ffd700; background-color: rgba(255, 215, 0, 0.05); }
+.detail-item.quest_start { border-color: #ffd700; background-color: rgba(255, 215, 0, 0.1); }
+.detail-item.quest_deadline { border-color: #ff4444; background-color: rgba(255, 68, 68, 0.1); }
+.detail-item.quest_complete { border-color: #51cf66; background-color: rgba(81, 207, 102, 0.1); }
+
 
 .detail-title {
     font-weight: bold;
@@ -379,6 +385,10 @@ details.liturgy-details li {
 .dot.history { background-color: #ff9800; }
 .dot.battle { background-color: #b71c1c; }
 .dot.rumor-start { background-color: #e91e63; }
+.dot.guild_holiday { background-color: #ffd700; }
+.dot.quest_start { background-color: #ffd700; }
+.dot.quest_deadline { background-color: #ff4444; }
+.dot.quest_complete { background-color: #51cf66; }
 
 /* Placeholder */
 .placeholder-text {
@@ -479,3 +489,4 @@ details.liturgy-details li {
         height: 600px; /* Fixed height on mobile */
     }
 }
+.event-dot.legislation { background-color: #9b59b6; border: 1px solid #e0e0e0; }

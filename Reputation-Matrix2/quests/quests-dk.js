@@ -1,21 +1,43 @@
-// quests/quests-dk.js
+
+import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
 export const DK_QUESTS = {
     'dk_save_funky': {
         id: 'dk_save_funky',
         title: "The Serpent in the Surf Shack",
-        type: 'personal',
+        subtitle: "Assassination Protocol: Active",
+        type: QUEST_TYPES.RESCUE,
         category: 'Personal - Donkey Kong',
-        is_updated: false,
-        objective: "King K. Rool has issued an assassination order for Funky Kong to cover up a Kremling espionage operation. Donkey Kong must race against time to protect his friend and neutralize the Kremling agent, Galypso, before she can strike.",
-        assignee: "Donkey Kong",
-        assigneeKey: 'donkey_kong',
-        status: "active",
-        motivation: "This is a profound betrayal. Funky is family. After the diplomatic disaster with Lanky, DK's leadership is already in question. Failing to protect his own Director of Intelligence from a direct assassination attempt would shatter the DK Crew's morale and his authority completely. This is not just about saving a friend; it's about saving his crew.",
-        steps: [
-            { id: 'step1', title: "Secure Funky Kong", status: 'active', description: "Funky is fortified in his surf shack, but a Kremling assassin is on the way. DK must get to him and reinforce his position before the assassin arrives." },
-            { id: 'step2', title: "Identify the Assassin", status: 'locked', description: "Gather intelligence on the Kremling agent 'Galypso'. What are her methods? Her weaknesses? Where will she strike from?" },
-            { id: 'step3', title: "Turn the Tables", status: 'locked', description: "Set a trap for Galypso and neutralize the threat to Funky Kong, sending a clear message back to King K. Rool." }
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'kong_kremling_cold_war',
+        objective: "Protect Funky Kong from the assassin Galypso.",
+        assignees: ['donkey_kong'],
+        primaryAssignee: 'donkey_kong',
+        description: "The truce is broken. King K. Rool was overheard ordering his top assassin, the camouflaged Kremling 'Galypso', to eliminate Funky Kong. Funky is currently at his Surf Shack on the coast, unaware that a hit squad is closing in. DK must race against time to intercept the assassins before they strike.",
+        difficulty: { overall: DIFFICULTY.HARD, combat: DIFFICULTY.HARD, speed: DIFFICULTY.CRITICAL },
+        tags: ['rescue', 'combat', 'time-sensitive', 'jungle'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 18 }, deadline: { year: 1040, monthIndex: 6, day: 19 } },
+        
+        loreEntries: ['galypso_profile', 'funky_kong', 'kremling_tactics'],
+
+        consequences: {
+            success: "Funky survives. War is declared openly.",
+            failure: "Funky is assassinated. The DK Crew loses their transport and tech expert.",
+            partial: "Funky is wounded, shack destroyed."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "Funky's Special Board", description: "A surfboard that works on lava" },
+                { type: 'reputation', faction: 'dk_crew', amount: 1000, description: "Family Savior" }
+            ],
+            xp: 6000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'active', title: "Secure Funky", description: "Reach the surf shack. Galypso is likely already there." },
+            { id: 'm2', status: 'locked', title: "Defeat Galypso", description: "The assassin uses active camouflage. Watch the water." }
         ]
     }
 };

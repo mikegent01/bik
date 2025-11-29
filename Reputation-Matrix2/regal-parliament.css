@@ -1,145 +1,1461 @@
-/* --- Regal Empire: Holy Midlands Diet --- */
-.parliament-container {
-    background-color: var(--main-bg);
+/* ============================================
+   HOLY MIDLANDS DIET - POLITICAL SYSTEM CSS
+   ============================================ */
+
+/* ============================================
+   CSS VARIABLES - DIET SPECIFIC
+   ============================================ */
+:root {
+    /* Vote Colors */
+    --vote-yes: #2ed573;
+    --vote-yes-bg: rgba(46, 213, 115, 0.15);
+    --vote-no: #ff4757;
+    --vote-no-bg: rgba(255, 71, 87, 0.15);
+    --vote-abstain: #ffa502;
+    --vote-abstain-bg: rgba(255, 165, 2, 0.15);
+    --vote-expelled: #57606f;
+    --vote-expelled-bg: rgba(87, 96, 111, 0.2);
+
+    /* Urgency Levels */
+    --urgency-critical: #ff4757;
+    --urgency-high: #ffa502;
+    --urgency-medium: #70a1ff;
+    --urgency-low: #7bed9f;
+
+    /* Status Colors */
+    --status-passed: #2ed573;
+    --status-failed: #ff4757;
+    --status-tabled: #a4b0be;
+    --status-scheduled: #70a1ff;
+    --status-voting: #ffa502;
+
+    /* Coalition Colors */
+    --coalition-imperial: #c9a227;
+    --coalition-sanguine: #8b0000;
+    --coalition-territorial: #228b22;
+    --coalition-arcane: #9b59b6;
+    --coalition-heartland: #3498db;
+    --coalition-chaos: #e91e63;
+
+    /* Diet Theme */
+    --diet-gold: #c9a227;
+    --diet-parchment: #f5e6c8;
+    --diet-ink: #2c1810;
+    --diet-seal: #8b0000;
+}
+
+/* ============================================
+   DIET HEADER
+   ============================================ */
+.diet-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--diet-gold);
+    flex-wrap: wrap;
+}
+
+.diet-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--diet-gold);
+    margin: 0;
+    text-shadow: 0 0 20px rgba(201, 162, 39, 0.3);
+    letter-spacing: 2px;
+}
+
+.diet-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.diet-status.status-crisis-session {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 165, 2, 0.2));
+    color: var(--urgency-critical);
+    border: 1px solid var(--urgency-critical);
+}
+
+.diet-status.status-in-session {
+    background: rgba(46, 213, 115, 0.15);
+    color: var(--status-passed);
+    border: 1px solid var(--status-passed);
+}
+
+.diet-status.status-recess {
+    background: rgba(164, 176, 190, 0.15);
+    color: var(--status-tabled);
+    border: 1px solid var(--status-tabled);
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.session-info {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.system-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(201, 162, 39, 0.05), transparent);
+    border-left: 3px solid var(--diet-gold);
+    border-radius: 0 8px 8px 0;
+}
+
+/* ============================================
+   VOTE DISPLAY CARD
+   ============================================ */
+.vote-display-card {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.vote-display-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--diet-gold), transparent);
+}
+
+/* Urgency Border Variants */
+.vote-display-card.urgency-critical {
+    border-color: var(--urgency-critical);
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.2);
+}
+
+.vote-display-card.urgency-critical::before {
+    background: linear-gradient(90deg, var(--urgency-critical), var(--urgency-high), transparent);
+    animation: urgencyGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes urgencyGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.vote-display-card.urgency-high {
+    border-color: var(--urgency-high);
+}
+
+.vote-display-card.urgency-high::before {
+    background: linear-gradient(90deg, var(--urgency-high), transparent);
+}
+
+.vote-display-card.urgency-medium::before {
+    background: linear-gradient(90deg, var(--urgency-medium), transparent);
+}
+
+/* Vote Header */
+.vote-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.vote-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+}
+
+.vote-title-block {
+    flex: 1;
+    min-width: 200px;
+}
+
+.vote-title-block .section-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.vote-proposer {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.vote-proposer strong {
+    color: var(--diet-gold);
+}
+
+.vote-status-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.vote-status-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vote-status-badge.status-urgent {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+    border: 1px solid var(--vote-no);
+    animation: urgentBadge 1s ease-in-out infinite;
+}
+
+@keyframes urgentBadge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.vote-status-badge.status-warning {
+    background: var(--vote-abstain-bg);
+    color: var(--vote-abstain);
+    border: 1px solid var(--vote-abstain);
+}
+
+.vote-status-badge.status-info {
+    background: rgba(112, 161, 255, 0.15);
+    color: var(--status-scheduled);
+    border: 1px solid var(--status-scheduled);
+}
+
+.vote-status-badge.status-success {
+    background: var(--vote-yes-bg);
+    color: var(--vote-yes);
+    border: 1px solid var(--vote-yes);
+}
+
+.vote-status-badge.status-danger {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+    border: 1px solid var(--vote-no);
+}
+
+.vote-status-badge.status-muted {
+    background: var(--vote-expelled-bg);
+    color: var(--vote-expelled);
+    border: 1px solid var(--vote-expelled);
+}
+
+.vote-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.days-until {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.vote-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+/* ============================================
+   VOTE ARGUMENTS
+   ============================================ */
+.vote-arguments {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.argument {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.argument h5 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.argument p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.argument-for {
+    background: linear-gradient(135deg, var(--vote-yes-bg), transparent);
+    border-color: rgba(46, 213, 115, 0.3);
+}
+
+.argument-for h5 {
+    color: var(--vote-yes);
+}
+
+.argument-against {
+    background: linear-gradient(135deg, var(--vote-no-bg), transparent);
+    border-color: rgba(255, 71, 87, 0.3);
+}
+
+.argument-against h5 {
+    color: var(--vote-no);
+}
+
+/* ============================================
+   RELATED EVENTS
+   ============================================ */
+.related-events {
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(201, 162, 39, 0.05);
+    border-radius: 6px;
+    border-left: 3px solid var(--diet-gold);
+}
+
+.related-events h5 {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--diet-gold);
+    margin: 0 0 10px 0;
+}
+
+.related-events ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.related-events li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+}
+
+.related-events li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+}
+
+
+
+.expelled-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-style: italic;
+    text-align: center;
+}
+
+/* ============================================
+   LEGISLATIVE CALENDAR
+   ============================================ */
+.legislative-calendar {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
+    margin-bottom: 24px;
+}
+
+.legislative-calendar h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calendar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-left: 3px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.calendar-item:hover {
+    background: rgba(0, 0, 0, 0.3);
+    transform: translateX(4px);
+}
+
+.calendar-item.historical {
+    opacity: 0.7;
+    border-left-color: var(--text-muted);
+}
+
+.calendar-item.upcoming {
+    border-left-color: var(--status-scheduled);
+}
+
+.calendar-item.imminent {
+    border-left-color: var(--urgency-critical);
+    background: rgba(255, 71, 87, 0.1);
+    animation: imminentPulse 2s ease-in-out infinite;
+}
+
+@keyframes imminentPulse {
+    0%, 100% { box-shadow: none; }
+    50% { box-shadow: 0 0 10px rgba(255, 71, 87, 0.3); }
+}
+
+.cal-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    min-width: 120px;
+}
+
+.cal-title {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.cal-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.cal-status.status-passed {
+    background: var(--vote-yes-bg);
+    color: var(--vote-yes);
+}
+
+.cal-status.status-failed {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+}
+
+.cal-status.status-tabled {
+    background: var(--vote-expelled-bg);
+    color: var(--vote-expelled);
+}
+
+.cal-days {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 80px;
+    text-align: right;
+}
+
+.calendar-item.imminent .cal-days {
+    color: var(--urgency-critical);
+    font-weight: 700;
+}
+
+.calendar-divider {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 12px 0;
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+    margin: 8px 0;
+}
+
+/* ============================================
+   PARLIAMENT SEATING
+   ============================================ */
+.parliament-container {
+    background: linear-gradient(180deg, var(--main-bg), rgba(0, 0, 0, 0.3));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
     margin-top: 24px;
 }
 
-#diet-power-balance {
-    margin-bottom: 24px;
+.seating-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: -8px 0 16px 0;
+    font-style: italic;
 }
 
-#diet-power-balance h4 {
-    font-family: var(--font-display);
-    color: var(--text-secondary);
-    text-align: center;
-    margin-bottom: 16px;
-}
-
-.power-balance-chart {
-    display: flex;
-    width: 100%;
-    height: 30px;
-    background-color: var(--sidebar-bg);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.power-balance-bar {
-    height: 100%;
-    transition: width 0.5s ease-in-out;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.power-balance-bar span {
-    color: white;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 0 5px;
-}
-
+/* Speaker Section */
 .speaker-section {
     text-align: center;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--diet-gold);
+    position: relative;
+}
+
+.speaker-section::after {
+    content: '⚜';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: var(--diet-gold);
+    background: var(--main-bg);
+    padding: 0 16px;
 }
 
 .speaker-section h4 {
     font-family: var(--font-display);
-    color: var(--text-secondary);
-    margin-bottom: 12px;
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .speaker-seat {
-    width: 32px;
-    height: 32px;
-    border: 2px solid var(--neutral-color);
-    border-radius: 4px;
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--diet-gold);
+    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease;
     display: inline-block;
     position: relative;
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.3);
+}
+
+.speaker-seat::before {
+    content: '👑';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
 }
 
 .speaker-seat:hover {
     transform: scale(1.2);
-    box-shadow: 0 0 10px var(--neutral-color);
+    box-shadow: 0 0 30px rgba(201, 162, 39, 0.5);
 }
 
+.speaker-name {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+/* Coalition Grid */
 .coalition-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
 }
 
 .coalition-block {
-    background-color: var(--sidebar-bg);
-    padding: 16px;
-    border-radius: 6px;
+    background: var(--sidebar-bg);
+    padding: 20px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.coalition-block:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.coalition-block.expelled-coalition {
+    opacity: 0.6;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--sidebar-bg),
+        var(--sidebar-bg) 10px,
+        rgba(0, 0, 0, 0.1) 10px,
+        rgba(0, 0, 0, 0.1) 20px
+    );
+    border-style: dashed;
 }
 
 .coalition-header {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--text-color);
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 8px;
     padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    border-left: 4px solid;
+    padding-left: 12px;
+    margin-left: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.coalition-description {
-    font-size: 0.9rem;
+.seat-count {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.coalition-stance {
+    font-size: 0.8rem;
     color: var(--text-secondary);
     margin: 0 0 16px 0;
-    line-height: 1.5;
-    padding-left: 12px;
-    border-left: 2px solid var(--border-color);
 }
 
+.coalition-stance strong {
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+
+/* Seat Container */
 .seat-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
 }
 
 .parliament-seat {
-    width: 18px;
-    height: 18px;
-    border: 1px solid var(--border-color);
-    border-radius: 3px;
+    width: 22px;
+    height: 22px;
+    border: 2px solid transparent;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    position: relative; /* For tooltips */
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .parliament-seat:hover {
-    transform: scale(1.5);
-    border-color: var(--accent-color);
+    transform: scale(1.4);
     z-index: 10;
+    box-shadow: 0 0 12px currentColor;
 }
 
 .parliament-seat.selected {
-    transform: scale(1.6);
-    border: 2px solid var(--neutral-color);
-    box-shadow: 0 0 10px var(--neutral-color);
+    transform: scale(1.5);
+    border-color: white !important;
+    box-shadow: 0 0 16px white;
     z-index: 11;
 }
 
-/* Faction/Coalition Colors for Seats */
-.seat-regal_empire, .coalition-imperial_concordat { background-color: var(--major-powers-color); }
-.seat-iron_legion { background-color: #6c757d; }
-.seat-moonfang_pack, .coalition-territorial_pact { background-color: var(--regional-powers-color); }
-.seat-onyx_hand, .coalition-sanguine_covenant { background-color: var(--negative-color); }
-.seat-mages_guild, .coalition-arcane_congress { background-color: var(--mystical-ancient-color); }
-.seat-cosmic_jesters, .coalition-chaos_caucus { background-color: var(--interdimensional-threat-color); }
-.seat-freelancer_underworld { background-color: var(--underworld-fringe-color); }
-.seat-unaligned, .coalition-heartland_alliance { background-color: var(--neutral-color); }
+/* Faction Colors */
+.seat-regal_empire { background: var(--coalition-imperial); }
+.seat-iron_legion { background: #6c757d; }
+.seat-moonfang_pack { background: var(--coalition-territorial); }
+.seat-onyx_hand { background: var(--coalition-sanguine); }
+.seat-mages_guild { background: var(--coalition-arcane); }
+.seat-cosmic_jesters { background: var(--coalition-chaos); }
+.seat-freelancer_underworld { background: #4a4a4a; }
+.seat-unaligned { background: var(--coalition-heartland); }
+
+/* Vote State Colors (overlay) */
+.parliament-seat.vote-yes {
+    border-color: var(--vote-yes);
+    box-shadow: inset 0 0 6px var(--vote-yes);
+}
+
+.parliament-seat.vote-no {
+    border-color: var(--vote-no);
+    box-shadow: inset 0 0 6px var(--vote-no);
+}
+
+.parliament-seat.vote-abstain {
+    border-color: var(--vote-abstain);
+    box-shadow: inset 0 0 6px var(--vote-abstain);
+}
+
+.parliament-seat.expelled {
+    opacity: 0.4;
+    background: var(--vote-expelled) !important;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
+.parliament-seat.expelled::after {
+    content: '✕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.parliament-seat.expelled:hover {
+    transform: scale(1.2);
+    box-shadow: none;
+}
+
+/* ============================================
+   VOTE LEGEND
+   ============================================ */
+.legend-section {
+    margin-top: 24px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.legend-section h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+}
+
+.vote-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 2px solid;
+}
+
+.legend-dot.vote-yes {
+    background: rgba(46, 213, 115, 0.3);
+    border-color: var(--vote-yes);
+}
+
+.legend-dot.vote-no {
+    background: rgba(255, 71, 87, 0.3);
+    border-color: var(--vote-no);
+}
+
+.legend-dot.vote-abstain {
+    background: rgba(255, 165, 2, 0.3);
+    border-color: var(--vote-abstain);
+}
+
+.legend-dot.expelled {
+    background: var(--vote-expelled);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.legend-dot.expelled::after {
+    content: '✕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ============================================
+   PARLIAMENT TOOLTIP
+   ============================================ */
+#parliament-tooltip {
+    position: absolute;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 200px;
+    max-width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+#parliament-tooltip h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#parliament-tooltip p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 4px 0;
+}
+
+#parliament-tooltip .vote-yes {
+    color: var(--vote-yes);
+}
+
+#parliament-tooltip .vote-no {
+    color: var(--vote-no);
+}
+
+#parliament-tooltip .vote-abstain {
+    color: var(--vote-abstain);
+}
+
+#parliament-tooltip .vote-expelled {
+    color: var(--vote-expelled);
+}
+
+#parliament-tooltip .tooltip-reason {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
+}
+
+/* ============================================
+   DETAIL PANEL - REPRESENTATIVE
+   ============================================ */
+#detail-panel .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#detail-panel .expelled-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+    border: 1px solid var(--vote-no);
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.corruptible-tag {
+    font-size: 0.85rem;
+    color: var(--vote-abstain);
+    padding: 6px 10px;
+    background: var(--vote-abstain-bg);
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.vote-prediction {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.vote-prediction h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+}
+
+.vote-stance {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.vote-stance.vote-yes { color: var(--vote-yes); }
+.vote-stance.vote-no { color: var(--vote-no); }
+.vote-stance.vote-abstain { color: var(--vote-abstain); }
+
+.vote-reason {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.vote-confidence {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.expelled-notice {
+    background: var(--vote-no-bg);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.expelled-notice h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--vote-no);
+    margin: 0 0 8px 0;
+}
+
+.expelled-notice p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================================
+   CALENDAR DOT FOR LEGISLATION
+   ============================================ */
+.event-dot.legislation {
+    background: linear-gradient(135deg, var(--diet-gold), #8b6914);
+    border: 1px solid white;
+    box-shadow: 0 0 4px var(--diet-gold);
+}
+
+.detail-item.legislation {
+    border-color: var(--diet-gold);
+    background: rgba(201, 162, 39, 0.1);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .coalition-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vote-arguments {
+        grid-template-columns: 1fr;
+    }
+    
+    .vote-header {
+        flex-direction: column;
+    }
+    
+    .vote-status-block {
+        align-items: flex-start;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .diet-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .calendar-item {
+        flex-wrap: wrap;
+    }
+    
+    .cal-date {
+        min-width: 100%;
+        margin-bottom: 4px;
+    }
+    
+    .vote-tally-bar {
+        height: 60px;
+    }
+    
+    .tally-segment {
+        min-width: 30px;
+    }
+    
+    .tally-label {
+        font-size: 0.55rem;
+    }
+    
+    .tally-count {
+        font-size: 1rem;
+    }
+    
+    .parliament-seat {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .speaker-seat {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vote-display-card {
+        padding: 16px;
+    }
+    
+    .vote-icon {
+        font-size: 2rem;
+    }
+    
+    .vote-title-block .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .vote-legend {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .coalition-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+/* ============================================
+   ANIMATIONS & EFFECTS
+   ============================================ */
+@keyframes seatAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.parliament-seat {
+    animation: seatAppear 0.3s ease forwards;
+}
+
+.seat-container .parliament-seat:nth-child(1) { animation-delay: 0.01s; }
+.seat-container .parliament-seat:nth-child(2) { animation-delay: 0.02s; }
+.seat-container .parliament-seat:nth-child(3) { animation-delay: 0.03s; }
+.seat-container .parliament-seat:nth-child(4) { animation-delay: 0.04s; }
+.seat-container .parliament-seat:nth-child(5) { animation-delay: 0.05s; }
+.seat-container .parliament-seat:nth-child(6) { animation-delay: 0.06s; }
+.seat-container .parliament-seat:nth-child(7) { animation-delay: 0.07s; }
+.seat-container .parliament-seat:nth-child(8) { animation-delay: 0.08s; }
+.seat-container .parliament-seat:nth-child(9) { animation-delay: 0.09s; }
+.seat-container .parliament-seat:nth-child(10) { animation-delay: 0.1s; }
+.seat-container .parliament-seat:nth-child(n+11) { animation-delay: 0.11s; }
+
+/* Vote result animation */
+@keyframes tallyGrow {
+    from {
+        width: 0;
+    }
+}
+
+.tally-segment {
+    animation: tallyGrow 0.8s ease-out forwards;
+}
+
+/* Hover effects for coalition blocks */
+.coalition-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.coalition-block {
+    position: relative;
+}
+
+.coalition-block:hover::before {
+    opacity: 1;
+}
+
+/* Scan line effect for urgency */
+.vote-display-card.urgency-critical::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 71, 87, 0.03) 2px,
+        rgba(255, 71, 87, 0.03) 4px
+    );
+    pointer-events: none;
+    animation: scanLines 8s linear infinite;
+}
+
+@keyframes scanLines {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100px);
+    }
+}
+/* ============================================
+   DETAIL PANEL - CENTERED MODAL
+   ============================================ */
+#detail-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 450px;
+    max-width: 90vw;
+    max-height: 80vh;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    z-index: 1001;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+#detail-panel.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#detail-panel-content {
+    padding: 24px;
+    max-height: calc(80vh - 60px);
+    overflow-y: auto;
+}
+
+/* Modal header with close button */
+.panel-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#detail-panel-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+#detail-panel-close:hover {
+    background: var(--vote-no-bg);
+    color: var(--vote-no);
+}
+
+/* Backdrop overlay */
+.detail-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* ============================================
+   VOTE RESULTS / TALLY BAR - FIXED
+   ============================================ */
+.vote-results {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.vote-results.projected {
+    border-style: dashed;
+}
+
+.vote-results h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.projection-warning {
+    font-size: 0.8rem;
+    color: var(--vote-abstain);
+    margin: 0 0 16px 0;
+    padding: 8px 12px;
+    background: var(--vote-abstain-bg);
+    border-radius: 4px;
+    border-left: 3px solid var(--vote-abstain);
+}
+
+/* Main Tally Bar Container */
+.vote-tally-bar {
+    display: flex;
+    min-height: 56px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    overflow: visible; /* Changed from hidden */
+    margin-bottom: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Individual Tally Segments */
+.tally-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: visible;
+}
+
+.tally-segment:hover {
+    filter: brightness(1.2);
+    z-index: 5;
+}
+
+/* Ensure minimum width for readability */
+.tally-segment.vote-yes {
+    background: linear-gradient(180deg, var(--vote-yes), #1e8449);
+    min-width: 60px;
+    border-radius: 6px 0 0 6px;
+}
+
+.tally-segment.vote-no {
+    background: linear-gradient(180deg, var(--vote-no), #c0392b);
+    min-width: 60px;
+}
+
+.tally-segment.vote-abstain {
+    background: linear-gradient(180deg, var(--vote-abstain), #d68910);
+    min-width: 70px;
+    border-radius: 0 6px 6px 0;
+}
+
+/* Label styling */
+.tally-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Count styling */
+.tally-count {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+}
+
+.expelled-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-style: italic;
+    text-align: center;
+}
+
+/* ============================================
+   ALTERNATIVE: STACKED LAYOUT FOR SMALL SEGMENTS
+   ============================================ */
+
+/* If segment is too small, show tooltip instead */
+.tally-segment[style*="width: 0"],
+.tally-segment[style*="width: 1"],
+.tally-segment[style*="width: 2"],
+.tally-segment[style*="width: 3"],
+.tally-segment[style*="width: 4"],
+.tally-segment[style*="width: 5%"] {
+    min-width: 40px;
+}
+
+/* Hover tooltip for small segments */
+.tally-segment::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--text-color);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tally-segment:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   RESPONSIVE TALLY BAR
+   ============================================ */
+@media (max-width: 600px) {
+    .vote-tally-bar {
+        flex-direction: column;
+        min-height: auto;
+    }
+    
+    .tally-segment {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px 16px;
+        min-width: 100% !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+    }
+    
+    .tally-segment.vote-yes {
+        border-radius: 6px 6px 0 0 !important;
+    }
+    
+    .tally-segment.vote-abstain {
+        border-radius: 0 0 6px 6px !important;
+    }
+    
+    .tally-label {
+        font-size: 0.75rem;
+        order: 1;
+    }
+    
+    .tally-count {
+        font-size: 1.5rem;
+        order: 2;
+    }
+    
+    .tally-segment::after {
+        display: none;
+    }
+}
+
+/* ============================================
+   LEGEND BELOW BAR (OPTIONAL ADDITION)
+   ============================================ */
+.tally-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.tally-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.tally-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.tally-legend-dot.yes { background: var(--vote-yes); }
+.tally-legend-dot.no { background: var(--vote-no); }
+.tally-legend-dot.abstain { background: var(--vote-abstain); }
+
+.tally-legend-value {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--text-color);
+}

@@ -1,5 +1,5 @@
 
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE, MOON_PHASES } from './calendar-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE, MOON_PHASES, GUILD_HOLIDAYS } from './calendar-data.js';
 import { playSound } from './common.js';
 import { RELIGION_DATA } from './religion-data.js';
 import { state } from './state.js';
@@ -9,7 +9,8 @@ import { MAJOR_BATTLES } from './battlefield.js';
 import { LORE_DATA } from './lore.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
 import { PLAGUE_DATA } from './plagues-data.js'; 
-
+import { QUEST_DATA, QUEST_STATUS } from './quests-data.js';
+import { getLegislativeEventsForDay } from './government/holy-midlands-diet.js';
 // --- State ---
 let viewDate = {
     year: CURRENT_GAME_DATE.year,
@@ -40,7 +41,6 @@ function calculateAllResearchCompletionDates() {
     const startYear = 1035;
     const daysPerYear = 365; 
 
-    // Calculate the current global cycle to ensure research speeds match the UI
     const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
 
     for (const nationKey in NATIONS) {
@@ -185,6 +185,33 @@ function getRumorEventsForDay(year, monthIndex, day) {
     return events;
 }
 
+function getQuestEventsForDay(year, monthIndex, day) {
+    const events = [];
+    Object.values(QUEST_DATA).forEach(quest => {
+        if (quest.dates?.added) {
+             if (quest.dates.added.year === year && quest.dates.added.monthIndex === monthIndex && quest.dates.added.day === day) {
+                events.push({ type: 'quest_start', name: `Quest: ${quest.title}`, description: "New mission available.", icon: '✨' });
+             }
+        }
+        if (quest.dates?.deadline) {
+             if (quest.dates.deadline.year === year && quest.dates.deadline.monthIndex === monthIndex && quest.dates.deadline.day === day) {
+                events.push({ type: 'quest_deadline', name: `Deadline: ${quest.title}`, description: "Mission expiry or critical event.", icon: '⏰' });
+             }
+        }
+        if (quest.milestones) {
+            quest.milestones.forEach(m => {
+                if (m.completedDate) {
+                    if (m.completedDate.year === year && m.completedDate.monthIndex === monthIndex && m.completedDate.day === day) {
+                         events.push({ type: 'quest_complete', name: `Completed: ${m.title}`, description: `Milestone in '${quest.title}' achieved.`, icon: '✅' });
+                    }
+                }
+            });
+        }
+    });
+    return events;
+}
+
+
 function getPlagueEventsForDay(year, monthIndex, day) {
     const events = [];
     const season = getSeason(monthIndex);
@@ -245,6 +272,10 @@ function getEventsForDay(year, monthIndex, day) {
     const events = [];
     const holiday = CALENDAR_DATA.holidays.values.find(h => h.month === monthIndex + 1 && h.day === day);
     if (holiday) events.push({ type: 'holiday', ...holiday });
+    
+    const guildHoliday = GUILD_HOLIDAYS.find(h => h.month === monthIndex + 1 && h.day === day);
+    if (guildHoliday) events.push({ type: 'guild_holiday', ...guildHoliday });
+
     const birthday = CALENDAR_DATA.birthdays?.find(b => b.month === monthIndex + 1 && b.day === day);
     if (birthday) events.push({ type: 'birthday', ...birthday });
     const dateKey = `${year}-${monthIndex}-${day}`;
@@ -254,7 +285,8 @@ function getEventsForDay(year, monthIndex, day) {
     events.push(...getBattleEventsForDay(year, monthIndex, day));
     events.push(...getRumorEventsForDay(year, monthIndex, day));
     events.push(...getPlagueEventsForDay(year, monthIndex, day));
-
+    events.push(...getQuestEventsForDay(year, monthIndex, day));
+    events.push(...getLegislativeEventsForDay(year, monthIndex, day));
     const dayOfWeekIndex = (day - 1) % 7;
     const dayName = CALENDAR_DATA.days.values[dayOfWeekIndex].name;
     for (const key in RELIGION_DATA.denominations) {
@@ -296,6 +328,7 @@ function renderCalendar() {
         const moonPhase = calculateMoonPhase(viewDate.year, viewDate.monthIndex, day);
         const events = getEventsForDay(viewDate.year, viewDate.monthIndex, day);
 
+        // Dot Generators
         const hasTech = events.some(e => e.type === 'tech');
         const techDot = hasTech ? `<span class="event-dot tech" title="Tech/Cure"></span>` : '';
         const hasHistory = events.some(e => e.type === 'history');
@@ -308,14 +341,30 @@ function renderCalendar() {
         const rumorEndDot = hasRumorEnd ? `<span class="event-dot rumor-end" title="Expiry"></span>` : '';
         const hasPlague = events.some(e => e.type === 'plague_outbreak');
         const plagueDot = hasPlague ? `<span class="event-dot plague_outbreak" title="Plague"></span>` : '';
+        const hasGuild = events.some(e => e.type === 'guild_holiday');
+        const guildDot = hasGuild ? `<span class="event-dot guild_holiday" title="Guild Event"></span>` : '';
+        
+        // Quest Dots
+        const hasQuestStart = events.some(e => e.type === 'quest_start');
+        const questStartDot = hasQuestStart ? `<span class="event-dot quest-start" title="Quest Available"></span>` : '';
+        const hasQuestDeadline = events.some(e => e.type === 'quest_deadline');
+        const questDeadlineDot = hasQuestDeadline ? `<span class="event-dot quest-deadline" title="Deadline"></span>` : '';
+        const hasQuestComplete = events.some(e => e.type === 'quest_complete');
+        const questCompleteDot = hasQuestComplete ? `<span class="event-dot quest-complete" title="Milestone Complete"></span>` : '';
+
+        // Legislation Dot
+        const hasLegislation = events.some(e => e.type === 'legislation');
+        const legislationDot = hasLegislation ? `<span class="event-dot legislation" title="Legislation"></span>` : '';
 
         cell.innerHTML = `
             <div class="day-number">${day}</div>
             <div class="day-weather-icon" title="${weather.desc} ${weather.temp}">${weather.icon}</div>
             <div class="day-moon-icon" title="${moonPhase.name}">${moonPhase.icon}</div>
             <div class="day-events-dots">
-                ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end', 'plague_outbreak'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
-                ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot} ${plagueDot}
+                ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end', 'plague_outbreak', 'guild_holiday', 'quest_start', 'quest_deadline', 'quest_complete', 'legislation'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
+                ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot} ${plagueDot} ${guildDot}
+                ${questStartDot} ${questDeadlineDot} ${questCompleteDot}
+                ${legislationDot}
             </div>
         `;
         cell.addEventListener('click', () => selectDay(day));
@@ -330,7 +379,6 @@ function selectDay(day) {
     renderCalendar();
 }
 
-// --- NEW: SCRYING ORB LOGIC ---
 function calculateOrbForecast(weather, moonPhase) {
     if (weather.desc.includes('Storm') || weather.desc.includes('Rain') || weather.isMagical) {
         return { status: 'Turbulent', color: '#f85149', icon: '🔮⚡' };
@@ -348,7 +396,7 @@ function renderSidebar() {
     const events = getEventsForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
     const weather = generateWeatherForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
     const moonPhase = calculateMoonPhase(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
-    const orbForecast = calculateOrbForecast(weather, moonPhase); // Calculate orb state
+    const orbForecast = calculateOrbForecast(weather, moonPhase); 
 
     selectedDateHeader.textContent = `${monthData.name} ${selectedDate.day}, ${selectedDate.year}`;
     selectedDateWeather.textContent = weather.icon;
@@ -361,7 +409,6 @@ function renderSidebar() {
         <div class="weather-details" style="margin-top:8px; border-top:1px dashed var(--border-color); padding-top:8px;">
             <span class="desc-display">Moon Phase: <strong>${moonPhase.icon} ${moonPhase.name}</strong></span>
         </div>
-        <!-- New Scrying Section -->
         <div class="weather-details" style="margin-top:8px; border-top:1px dashed var(--border-color); padding-top:8px; background: rgba(138, 43, 226, 0.05);">
             <span class="desc-display" style="width:100%; display:flex; justify-content:space-between;">
                 <span>${orbForecast.icon} Scrying Forecast:</span>
@@ -371,7 +418,7 @@ function renderSidebar() {
     `;
     const displayEvents = events.filter(e => e.type !== 'ritual' && e.type !== 'battle_ongoing');
     const ritualEvents = events.filter(e => e.type === 'ritual');
-    const trendingEvents = events.filter(e => e.type === 'rumor_start' || e.type === 'battle' || e.type === 'battle_ongoing');
+    const trendingEvents = events.filter(e => e.type === 'rumor_start' || e.type === 'battle' || e.type === 'battle_ongoing' || e.type === 'legislation');
 
     if (displayEvents.length === 0 && ritualEvents.length === 0 && trendingEvents.length === 0) {
         detailsHTML += `<p class="placeholder-text">No significant events recorded for this date.</p>`;
@@ -433,6 +480,7 @@ function setupSearchListener() {
         if (query.length < 2) { searchResults.style.display = 'none'; return; }
         const matches = [];
         CALENDAR_DATA.holidays.values.forEach(h => { if (h.name.toLowerCase().includes(query)) matches.push({ ...h, type: 'holiday' }); });
+        GUILD_HOLIDAYS.forEach(h => { if (h.name.toLowerCase().includes(query)) matches.push({ ...h, type: 'guild_holiday' }); });
         CALENDAR_DATA.birthdays.forEach(b => { if (b.name.toLowerCase().includes(query)) matches.push({ ...b, type: 'birthday' }); });
         for (const [dateStr, events] of researchCompletionCache) {
             events.forEach(e => { if (e.name.toLowerCase().includes(query)) { const [y, m, d] = dateStr.split('-').map(Number); matches.push({ name: e.name, day: d, month: m + 1, year: y, type: 'tech' }); } });

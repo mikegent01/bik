@@ -1,454 +1,1329 @@
-#quest-log-header {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-    background-color: var(--sidebar-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 24px;
+/* ============================================
+   QUESTS.CSS - Quest Log Styles
+   ============================================ */
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+    /* Priority Colors */
+    --priority-critical: #ff4757;
+    --priority-high: #ffa502;
+    --priority-medium: #2ed573;
+    --priority-low: #70a1ff;
+    --priority-trivial: #a4b0be;
+
+    /* Status Colors */
+    --status-active: #00d9ff;
+    --status-ongoing: #7bed9f;
+    --status-pending: #ffa502;
+    --status-available: #70a1ff;
+    --status-completed: #2ed573;
+    --status-failed: #ff4757;
+    --status-paused: #a4b0be;
+    --status-hidden: #57606f;
+    --status-expired: #ff6b81;
+
+    /* Quest Card */
+    --quest-bg: rgba(10, 20, 30, 0.85);
+    --quest-bg-hover: rgba(15, 30, 45, 0.95);
+    --quest-border: rgba(0, 217, 255, 0.3);
+    --quest-border-hover: rgba(0, 217, 255, 0.6);
+    --quest-header-bg: rgba(0, 50, 80, 0.4);
+
+    /* Text */
+    --text-primary: #e4f1f8;
+    --text-secondary: #8892a0;
+    --text-muted: #57606f;
+    --text-accent: #00d9ff;
+
+    /* Misc */
+    --glow-cyan: 0 0 10px rgba(0, 217, 255, 0.3);
+    --glow-gold: 0 0 10px rgba(255, 165, 2, 0.3);
+    --transition-fast: 0.15s ease;
+    --transition-medium: 0.25s ease;
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
 }
 
-.quest-header-row {
+/* ============================================
+   PAGE LAYOUT
+   ============================================ */
+.quests-header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--quest-border);
 }
 
-#quest-counter {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--text-color);
-    display: flex;
-    gap: 12px;
-    align-items: center;
+.page-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    color: var(--text-accent);
+    text-shadow: var(--glow-cyan);
+    margin: 0;
+    letter-spacing: 1px;
 }
 
-.player-quest-count {
-    padding: 6px 10px;
-    background-color: var(--main-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.player-quest-count.limit-reached {
-    color: var(--negative-color);
-    border-color: var(--negative-color);
-    animation: pulse-red 2s infinite;
-}
-
-@keyframes pulse-red {
-    50% { text-shadow: 0 0 8px var(--negative-color); }
-}
-
-#quest-controls {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.quest-control-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
-}
-
-.quest-control-group span {
+.quest-counter {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    padding-left: 4px;
+    background: rgba(0, 217, 255, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--quest-border);
 }
 
-#quest-filterer, #status-filterer {
+.quest-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .quest-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .quest-sidebar {
+        order: -1;
+    }
+}
+
+/* ============================================
+   QUEST SUMMARY / DASHBOARD
+   ============================================ */
+#quest-summary {
+    margin-bottom: 1.5rem;
+}
+
+.quest-dashboard {
+    background: var(--quest-bg);
+    border: 1px solid var(--quest-border);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+
+.dashboard-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 120px;
+    background: rgba(0, 50, 80, 0.3);
+    border: 1px solid var(--quest-border);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    text-align: center;
+    transition: var(--transition-fast);
+}
+
+.stat-card:hover {
+    background: rgba(0, 70, 100, 0.4);
+    border-color: var(--quest-border-hover);
+}
+
+.stat-card.urgent {
+    border-color: var(--priority-critical);
+    background: rgba(255, 71, 87, 0.1);
+}
+
+.stat-card.urgent .stat-value {
+    color: var(--priority-critical);
+}
+
+.stat-value {
+    display: block;
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-accent);
+    line-height: 1.2;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.25rem;
+}
+
+/* ============================================
+   FILTER CONTROLS
+   ============================================ */
+.quest-filters,
+#quest-filterer {
+    background: var(--quest-bg);
+    border: 1px solid var(--quest-border);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-group {
+    margin-bottom: 0.75rem;
+}
+
+.filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
-.control-btn {
-    padding: 8px 12px;
-    background-color: var(--main-bg);
-    border: 1px solid var(--border-color);
+.filter-btn,
+.sort-btn,
+.reset-btn {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(0, 50, 80, 0.4);
+    border: 1px solid var(--quest-border);
+    border-radius: var(--border-radius-sm);
     color: var(--text-secondary);
-    font-family: var(--font-primary);
-    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
+    text-transform: capitalize;
 }
 
-.control-btn:hover {
-    color: var(--text-color);
-    border-color: var(--accent-hover);
+.filter-btn:hover,
+.sort-btn:hover,
+.reset-btn:hover {
+    background: rgba(0, 70, 100, 0.5);
+    border-color: var(--quest-border-hover);
+    color: var(--text-primary);
 }
 
-#quest-sorter .control-btn.active {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-    background-color: rgba(138, 43, 226, 0.1);
+/* Filter States */
+.filter-btn.include {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: var(--text-accent);
+    color: var(--text-accent);
 }
 
-.control-btn.active-include {
-    color: var(--positive-color);
-    border-color: var(--positive-color);
-    background-color: rgba(35, 134, 54, 0.1);
+.filter-btn.exclude {
+    background: rgba(255, 71, 87, 0.2);
+    border-color: var(--priority-critical);
+    color: var(--priority-critical);
+    text-decoration: line-through;
 }
 
-.control-btn.active-exclude {
-    color: var(--negative-color);
-    border-color: var(--negative-color);
-    background-color: rgba(218, 54, 51, 0.1);
+.sort-btn.active {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: var(--text-accent);
+    color: var(--text-accent);
 }
 
-#quest-container {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+.reset-btn {
+    background: rgba(255, 71, 87, 0.15);
+    border-color: rgba(255, 71, 87, 0.4);
+    color: var(--priority-critical);
 }
 
+.reset-btn:hover {
+    background: rgba(255, 71, 87, 0.3);
+    border-color: var(--priority-critical);
+}
+
+/* ============================================
+   QUEST CATEGORIES
+   ============================================ */
 .quest-category {
-    background-color: var(--sidebar-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 24px;
+    margin-bottom: 2rem;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(90deg, rgba(0, 100, 150, 0.3) 0%, transparent 100%);
+    border-left: 3px solid var(--text-accent);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.category-header:hover {
+    background: linear-gradient(90deg, rgba(0, 120, 180, 0.4) 0%, transparent 100%);
 }
 
 .quest-category-title {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--accent-color);
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text-accent);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.category-count {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(0, 217, 255, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-sm);
+}
+
+/* Collapsed State */
+.quest-category.collapsed .quest-list {
+    display: none;
+}
+
+.quest-category.collapsed .category-header::after {
+    content: '▼';
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.quest-category:not(.collapsed) .category-header::after {
+    content: '▲';
+    color: var(--text-accent);
+    font-size: 0.75rem;
+}
+
+/* Category Variants */
+.quest-category.pending-quests .category-header {
+    border-left-color: var(--status-pending);
+}
+
+.quest-category.pending-quests .quest-category-title {
+    color: var(--status-pending);
+}
+
+.quest-category.completed-quests .category-header {
+    border-left-color: var(--status-completed);
+}
+
+.quest-category.completed-quests .quest-category-title {
+    color: var(--status-completed);
+}
+
+.quest-category.failed-quests .category-header {
+    border-left-color: var(--status-failed);
+}
+
+.quest-category.failed-quests .quest-category-title {
+    color: var(--status-failed);
 }
 
 .quest-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-}
-
-.quest-card {
-    background-color: var(--main-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    transition: all 0.3s ease-in-out;
-    position: relative; /* ADDED for badge positioning */
-    overflow: hidden;   /* ADDED to contain the badge */
-}
-
-.quest-card.status-active { border-left: 4px solid var(--neutral-color); }
-.quest-card.status-ongoing { border-left: 4px solid var(--mystical-ancient-color); }
-.quest-card.status-pending { border-left: 4px solid #1f6feb; }
-.quest-card.status-available { border-left: 4px solid var(--text-secondary); }
-.quest-card.status-completed { border-left: 4px solid var(--positive-color); }
-.quest-card.status-failed { border-left: 4px solid var(--negative-color); }
-.quest-card.status-hidden { border-left: 4px solid var(--mystical-ancient-color); }
-
-.quest-header {
-    padding: 16px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ============================================
+   QUEST CARD
+   ============================================ */
+.quest-card {
+    background: var(--quest-bg);
+    border: 1px solid var(--quest-border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition-medium);
+}
+
+.quest-card:hover {
+    background: var(--quest-bg-hover);
+    border-color: var(--quest-border-hover);
+    box-shadow: var(--glow-cyan);
+}
+
+/* Priority border variants */
+.quest-card.priority-critical {
+    border-left: 4px solid var(--priority-critical);
+}
+
+.quest-card.priority-high {
+    border-left: 4px solid var(--priority-high);
+}
+
+.quest-card.priority-medium {
+    border-left: 4px solid var(--priority-medium);
+}
+
+.quest-card.priority-low {
+    border-left: 4px solid var(--priority-low);
+}
+
+.quest-card.priority-trivial {
+    border-left: 4px solid var(--priority-trivial);
+}
+
+/* Urgent State */
+.quest-card.is-urgent {
+    animation: urgentPulse 2s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 71, 87, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    }
+}
+
+/* Updated State */
+.quest-card.is-updated::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 30px 30px 0;
+    border-color: transparent var(--status-completed) transparent transparent;
+}
+
+/* Status variants */
+.quest-card.status-completed {
+    opacity: 0.7;
+    border-color: var(--status-completed);
+}
+
+.quest-card.status-failed,
+.quest-card.status-expired {
+    opacity: 0.6;
+    border-color: var(--status-failed);
+}
+
+.quest-card.status-paused {
+    opacity: 0.75;
+}
+
+/* ============================================
+   QUEST HEADER
+   ============================================ */
+.quest-header {
+    display: flex;
     align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--quest-header-bg);
     cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.quest-header:hover {
+    background: rgba(0, 70, 100, 0.5);
+}
+
+.quest-priority-marker {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1rem;
 }
 
 .quest-title-section {
-    flex-grow: 1;
+    flex: 1;
+    min-width: 0;
+}
+
+.quest-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .quest-title {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--text-color);
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
     margin: 0;
-}
-.quest-type {
-    font-size: 0.8rem;
-    font-family: var(--font-display);
-    text-transform: uppercase;
-    color: var(--accent-color);
-    margin-top: 4px;
+    line-height: 1.3;
 }
 
-.quest-assignee, .quest-location {
+.quest-subtitle {
     font-size: 0.85rem;
     color: var(--text-secondary);
+    margin: 0.25rem 0 0 0;
     font-style: italic;
-    margin: 4px 0 0 0;
 }
 
-.quest-location strong {
-    color: var(--neutral-color);
-    font-style: normal;
+.quest-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.quest-type,
+.quest-assignee,
+.quest-difficulty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.quest-type {
+    font-weight: 600;
+}
+
+.quest-assignee {
+    color: var(--text-secondary);
+}
+
+.quest-difficulty {
+    color: var(--priority-high);
+}
+
+.quest-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
 }
 
 .quest-status {
-    font-family: var(--font-display);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
     font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm);
     text-transform: uppercase;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-    margin-left: 16px;
-}
-.quest-card.status-active .quest-status { background-color: rgba(240, 185, 11, 0.1); color: var(--neutral-color); }
-.quest-card.status-ongoing .quest-status { background-color: rgba(163, 113, 247, 0.1); color: var(--mystical-ancient-color); }
-.quest-card.status-pending .quest-status { background-color: rgba(31, 111, 235, 0.1); color: #1f6feb; }
-.quest-card.status-available .quest-status { background-color: rgba(139, 148, 158, 0.1); color: var(--text-secondary); }
-.quest-card.status-completed .quest-status { background-color: rgba(35, 134, 54, 0.1); color: var(--positive-color); }
-.quest-card.status-failed .quest-status { background-color: rgba(218, 54, 51, 0.1); color: var(--negative-color); }
-.quest-card.status-hidden .quest-status { background-color: rgba(138, 43, 226, 0.1); color: var(--mystical-ancient-color); }
-
-.quest-status.updated {
-    background-color: rgba(227, 179, 65, 0.1);
-    color: var(--neutral-color);
-    animation: pulse-yellow-bg 2s infinite;
+    letter-spacing: 1px;
 }
 
-@keyframes pulse-yellow-bg {
-    50% { box-shadow: 0 0 8px var(--neutral-color); }
+.quest-status.status-active {
+    background: rgba(0, 217, 255, 0.2);
+    color: var(--status-active);
+    border: 1px solid var(--status-active);
 }
 
+.quest-status.status-ongoing {
+    background: rgba(123, 237, 159, 0.2);
+    color: var(--status-ongoing);
+    border: 1px solid var(--status-ongoing);
+}
+
+.quest-status.status-pending {
+    background: rgba(255, 165, 2, 0.2);
+    color: var(--status-pending);
+    border: 1px solid var(--status-pending);
+}
+
+.quest-status.status-available {
+    background: rgba(112, 161, 255, 0.2);
+    color: var(--status-available);
+    border: 1px solid var(--status-available);
+}
+
+.quest-status.status-completed {
+    background: rgba(46, 213, 115, 0.2);
+    color: var(--status-completed);
+    border: 1px solid var(--status-completed);
+}
+
+.quest-status.status-failed,
+.quest-status.status-expired {
+    background: rgba(255, 71, 87, 0.2);
+    color: var(--status-failed);
+    border: 1px solid var(--status-failed);
+}
+
+.quest-status.status-paused {
+    background: rgba(164, 176, 190, 0.2);
+    color: var(--status-paused);
+    border: 1px solid var(--status-paused);
+}
+
+.quest-status.status-hidden {
+    background: rgba(87, 96, 111, 0.2);
+    color: var(--status-hidden);
+    border: 1px solid var(--status-hidden);
+}
+
+.quest-expand-icon {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.quest-card.is-expanded .quest-expand-icon {
+    color: var(--text-accent);
+}
+
+/* Badges */
+.updated-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.15rem 0.4rem;
+    background: var(--status-completed);
+    color: #000;
+    border-radius: var(--border-radius-sm);
+    text-transform: uppercase;
+    animation: badgePulse 1.5s ease-in-out infinite;
+}
+
+.deadline-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.15rem 0.4rem;
+    background: var(--priority-critical);
+    color: #fff;
+    border-radius: var(--border-radius-sm);
+    animation: badgePulse 1s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ============================================
+   PROGRESS SECTION
+   ============================================ */
+.quest-progress-section {
+    padding: 0.5rem 1rem;
+    background: rgba(0, 30, 50, 0.4);
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+/* ============================================
+   QUEST BODY (Collapsible)
+   ============================================ */
 .quest-body {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-    padding: 0 16px;
+    transition: max-height 0.4s ease, padding 0.3s ease;
 }
-.quest-card.is-expanded .quest-body {
+
+.quest-body.expanded {
     max-height: 2000px;
-    padding: 16px;
-    border-top: 1px solid var(--border-color);
+    padding: 1rem;
 }
 
-.quest-body h5 {
-    font-family: var(--font-display);
-    color: var(--accent-color);
-    margin-bottom: 8px;
-    margin-top: 16px;
-}
-.quest-body h5:first-child {
-    margin-top: 0;
+.quest-section {
+    margin-bottom: 1rem;
 }
 
-.quest-objective p, .quest-final-decision p, .quest-context p {
+.quest-section:last-child {
+    margin-bottom: 0;
+}
+
+.quest-section h5 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    color: var(--text-accent);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+.quest-section p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Arc Section */
+.arc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 50, 80, 0.4);
+    border: 1px solid;
+    border-radius: var(--border-radius-sm);
+}
+
+.arc-icon {
+    font-size: 1.2rem;
+}
+
+.arc-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.arc-status {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+/* Dates Section */
+.date-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+}
+
+.date-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.date-item.urgent {
+    color: var(--priority-critical);
+}
+
+.date-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.date-value {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.date-item.urgent .date-value {
+    color: var(--priority-critical);
+    font-weight: 600;
+}
+
+/* Rewards Section */
+.rewards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.reward-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    color: #ffd700;
+}
+
+.reward-item.xp {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: rgba(0, 217, 255, 0.3);
+    color: var(--text-accent);
+}
+
+.reward-item.item {
+    background: rgba(123, 237, 159, 0.1);
+    border-color: rgba(123, 237, 159, 0.3);
+    color: var(--status-ongoing);
+}
+
+/* Tags Section */
+.quest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.quest-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(112, 161, 255, 0.15);
+    border: 1px solid rgba(112, 161, 255, 0.3);
+    border-radius: var(--border-radius-sm);
+    color: var(--status-available);
+}
+
+/* ============================================
+   MILESTONES
+   ============================================ */
+.milestones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.milestone {
+    padding: 0.75rem;
+    background: rgba(0, 30, 50, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.15);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--text-accent);
+}
+
+.milestone.status-completed {
+    border-left-color: var(--status-completed);
+    opacity: 0.8;
+}
+
+.milestone.status-locked {
+    border-left-color: var(--status-hidden);
+    opacity: 0.5;
+}
+
+.milestone.status-active {
+    border-left-color: var(--text-accent);
+    background: rgba(0, 100, 150, 0.2);
+}
+
+.milestone-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.milestone-icon {
     font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
 }
 
-.quest-context {
-    background-color: var(--sidebar-bg);
-    padding: 10px;
-    border-radius: 4px;
-    border-left: 2px solid var(--accent-color);
+.milestone-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
 }
-.quest-context.pending {
-    border-left-color: #1f6feb;
+
+.milestone-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
 }
-.quest-context strong {
+
+/* Goals */
+.milestone-goals {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.goals-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.goals-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.goals-fill {
+    height: 100%;
+    background: var(--status-completed);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.goals-count {
+    font-size: 0.7rem;
     color: var(--text-secondary);
 }
 
-.quest-step-list {
+.goals-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.quest-step {
+.goal-item {
     display: flex;
-    gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px dashed var(--border-color);
-}
-.quest-step:last-child {
-    border-bottom: none;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
+    color: var(--text-secondary);
 }
 
-.step-marker {
+.goal-item.status-completed {
+    color: var(--status-completed);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.goal-checkbox {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid var(--border-color);
-    margin-top: 4px;
-    position: relative;
 }
 
-.quest-step.status-completed .step-marker {
-    background-color: var(--positive-color);
-    border-color: var(--positive-color);
+/* ============================================
+   BOUNTY BOARD SIDEBAR
+   ============================================ */
+.quest-sidebar {
+    position: sticky;
+    top: 1rem;
 }
-.quest-step.status-completed .step-marker::after {
-    content: '✔';
-    color: var(--main-bg);
+
+.bounty-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.4) 0%, rgba(101, 67, 33, 0.3) 100%);
+    border: 2px solid rgba(139, 90, 43, 0.6);
+    border-bottom: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.bounty-board-header h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: #deb887;
+    margin: 0;
+    text-shadow: 0 0 5px rgba(222, 184, 135, 0.3);
+}
+
+.board-icon {
+    font-size: 1.2rem;
+}
+
+.bounty-list,
+#quest-board-list {
+    background: linear-gradient(180deg, rgba(139, 90, 43, 0.15) 0%, rgba(80, 50, 20, 0.2) 100%);
+    border: 2px solid rgba(139, 90, 43, 0.4);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    padding: 1rem;
+    min-height: 200px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.no-bounties {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 2rem 1rem;
+}
+
+/* Quest Notes (Bounty Items) */
+.quest-note {
+    position: relative;
+    background: linear-gradient(145deg, #f5e6c8 0%, #e8d4a8 100%);
+    border: 1px solid #c4a97a;
+    border-radius: 2px;
+    padding: 1rem;
+    padding-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #3d2914;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transform: rotate(-1deg);
+    transition: var(--transition-fast);
+}
+
+.quest-note:nth-child(even) {
+    transform: rotate(0.5deg);
+}
+
+.quest-note:nth-child(3n) {
+    transform: rotate(-0.5deg);
+}
+
+.quest-note:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.quest-pin {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c0392b);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.quest-pin::after {
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 14px;
-    font-weight: bold;
-}
-.quest-step.status-completed .step-title {
-    text-decoration: line-through;
-    color: var(--text-secondary);
-}
-
-.quest-step.status-active .step-marker {
-    border-color: var(--neutral-color);
-    animation: pulse-yellow-border 2s infinite;
-}
-@keyframes pulse-yellow-border {
-    50% { box-shadow: 0 0 8px var(--neutral-color); }
-}
-
-.quest-step.status-locked {
-    opacity: 0.6;
-}
-.quest-step.status-locked .step-marker {
-    background-color: var(--border-color);
-}
-.quest-step.status-locked .step-content .step-title {
-    color: var(--text-secondary);
-}
-.quest-step.status-locked .step-content .step-description {
-    font-style: italic;
-    color: var(--text-secondary);
-}
-
-.step-content {
-    flex-grow: 1;
-}
-.step-title {
-    font-weight: bold;
-    color: var(--text-color);
-    margin: 0;
-}
-.step-description {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin: 4px 0 0 0;
-}
-
-.step-options {
-    margin-top: 12px;
-    padding: 10px;
-    background-color: var(--sidebar-bg);
-    border-radius: 4px;
-    border-left: 2px solid var(--accent-color);
-}
-.step-options h6 {
-    font-family: var(--font-display);
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    margin: 0 0 8px 0;
-}
-.step-options ul {
-    list-style: none;
-    padding: 0;
-    font-size: 0.85rem;
-}
-.step-options li {
-    padding: 4px 0;
-}
-
-.quest-category.completed-quests,
-.quest-category.failed-quests {
-    background-color: var(--main-bg);
-}
-
-.quest-category.completed-quests .quest-card,
-.quest-category.failed-quests .quest-card {
-    opacity: 0.8;
-}
-
-.quest-category.completed-quests .quest-category-title {
-    color: var(--positive-color);
-}
-
-.quest-category.failed-quests .quest-category-title {
-    color: var(--negative-color);
-}
-
-#quest-board-section {
-    background: url(https://www.transparenttextures.com/patterns/wood-pattern.png), #6b4f39;
-    border: 8px solid #3d2c1d;
-    border-radius: 10px;
-    padding: 24px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 5px 15px rgba(0,0,0,0.4);
-}
-#quest-board-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-.quest-note {
-    background-color: #fdf5e6;
-    color: #333;
-    padding: 16px;
-    border-radius: 4px;
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
-    position: relative;
-    transform: rotate(calc(var(--random-angle, 0) * 1deg));
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.quest-note:hover {
-    transform: translateY(-5px) rotate(calc(var(--random-angle, 0) * 1deg)) scale(1.05);
-    box-shadow: 5px 10px 15px rgba(0,0,0,0.5);
-    z-index: 10;
-}
-
-.quest-note:nth-child(4n+1) { --random-angle: -1.5; }
-.quest-note:nth-child(4n+2) { --random-angle: 2; }
-.quest-note:nth-child(4n+3) { --random-angle: -1; }
-.quest-note:nth-child(4n+4) { --random-angle: 1; }
-
-.quest-pin {
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
-    background-color: #e74c3c;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
-    border: 2px solid #c0392b;
-    box-shadow: 0 0 5px #c0392b, inset 0 0 5px rgba(255,255,255,0.4);
 }
 
 .note-title {
-    font-family: var(--font-display);
-    color: #2c3e50;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    border-bottom: 1px solid #bdc3c7;
-    padding-bottom: 4px;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2c1810;
+    margin: 0 0 0.5rem 0;
+    border-bottom: 1px dashed #a08060;
+    padding-bottom: 0.4rem;
 }
+
 .note-content {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    color: #34495e;
-}
-.note-footer {
-    text-align: right;
-    font-style: italic;
     font-size: 0.8rem;
-    color: #7f8c8d;
+    line-height: 1.4;
+    margin: 0 0 0.75rem 0;
+    color: #4a3520;
 }
-.note-footer strong {
-    color: var(--negative-color);
+
+.note-footer {
+    font-size: 0.75rem;
+    color: #5a4030;
 }
-.note-footer .positive {
-    color: var(--positive-color);
+
+.note-footer p {
+    margin: 0.25rem 0;
 }
+
 .note-footer .neutral {
-    color: var(--neutral-color);
+    color: #4a3520;
+}
+
+.note-footer .gold {
+    color: #b8860b;
+    font-weight: 600;
+}
+
+.note-footer .rare {
+    color: #8b4513;
+    font-weight: 600;
+}
+
+/* ============================================
+   NO QUESTS STATE
+   ============================================ */
+.no-quests {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+.no-quests p {
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    .quest-header {
+        flex-wrap: wrap;
+    }
+    
+    .quest-header-right {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .quest-meta-row {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .dashboard-stats {
+        flex-direction: column;
+    }
+    
+    .filter-buttons {
+        gap: 0.25rem;
+    }
+    
+    .filter-btn,
+    .sort-btn {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .quests-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .page-title {
+        font-size: 1.2rem;
+    }
+    
+    .quest-title {
+        font-size: 0.9rem;
+    }
+    
+    .bounty-list,
+    #quest-board-list {
+        max-height: 400px;
+    }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+.bounty-list::-webkit-scrollbar,
+#quest-board-list::-webkit-scrollbar,
+#quest-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.bounty-list::-webkit-scrollbar-track,
+#quest-board-list::-webkit-scrollbar-track,
+#quest-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.bounty-list::-webkit-scrollbar-thumb,
+#quest-board-list::-webkit-scrollbar-thumb,
+#quest-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 217, 255, 0.3);
+    border-radius: 3px;
+}
+
+.bounty-list::-webkit-scrollbar-thumb:hover,
+#quest-board-list::-webkit-scrollbar-thumb:hover,
+#quest-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 217, 255, 0.5);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quest-card {
+    animation: slideIn 0.3s ease forwards;
+}
+
+.quest-card:nth-child(1) { animation-delay: 0.05s; }
+.quest-card:nth-child(2) { animation-delay: 0.1s; }
+.quest-card:nth-child(3) { animation-delay: 0.15s; }
+.quest-card:nth-child(4) { animation-delay: 0.2s; }
+.quest-card:nth-child(5) { animation-delay: 0.25s; }
+
+/* BONUS OBJECTIVES (New Conditional Reward Style) */
+.bonus-objective {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    font-size: 0.85rem;
+}
+
+.bonus-condition {
+    flex: 1;
+    background: rgba(138, 43, 226, 0.1);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bonus-reward {
+    flex: 1;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+}
+
+.bonus-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.bonus-condition .bonus-label { color: var(--accent-color); }
+.bonus-reward .bonus-label { color: #ffd700; }
+
+.bonus-text {
+    font-weight: bold;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.bonus-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border-color), transparent);
+}
+
+/* Hints */
+.hints-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hints-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.hints-list li::before {
+    content: '💡';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 0.9rem;
+}
+
+.consequence.success { border-left-color: #51cf66; }
+.consequence.partial { border-left-color: #ffd700; }
+.consequence.failure { border-left-color: #ff4444; }
+/* Consequences */
+.consequences-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.consequence {
+    font-size: 0.85rem;
+    padding: 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.2);
+    border-left: 3px solid transparent;
+}
+.option-consequence { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
+/* Party Load */
+.party-quest-load {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+Here’s only the new/updated CSS you need to add for the Party Workload section to look polished and match your existing quests.css aesthetic:
+CSS
+
+/* =============== PARTY WORKLOAD SECTION =============== */
+.dashboard-section h4 {
+    margin: 0 0 12px 0;
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text-accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.member-load {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 0.9rem;
+}
+
+.member-name {
+    min-width: 80px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.load-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.load-fill {
+    height: 100%;
+    width: 0%; /* controlled by inline style */
+    background: linear-gradient(90deg, #2ed573, #7bed9f);
+    border-radius: 5px;
+    transition: width 0.6s ease;
+    box-shadow: var(--glow-cyan);
+}
+
+.member-load.overloaded .load-fill {
+    background: linear-gradient(90deg, #ffa502, #ff6b6b);
+    box-shadow: 0 0 12px rgba(255, 107, 107, 0.5);
+}
+
+.load-count {
+    min-width: 36px;
+    text-align: right;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    color: var(--text-accent);
+    font-size: 1rem;
+}
+
+.member-load.overloaded .load-count {
+    color: var(--priority-critical);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }

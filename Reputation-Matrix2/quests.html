@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigilance Terminal | Quests</title>
+    <title>Vigilance Terminal | Quest Log</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
@@ -16,60 +17,42 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Active Mission & Quest Log</h2>
-                 <div id="quest-log-header">
-                    <div class="quest-header-row">
-                        <div id="quest-counter"></div>
-                    </div>
-                    <div class="quest-header-row" id="quest-controls">
-                        <div class="quest-control-group">
-                            <span>Assignee:</span>
-                            <div id="quest-filterer">
-                                <button class="control-btn" data-filter="reset">Reset Filters</button>
-                                <button class="control-btn" data-filter="full_party">Party</button>
-                                <button class="control-btn" data-filter="archie">Archie</button>
-                                <button class="control-btn" data-filter="markop">Markop</button>
-                                <button class="control-btn" data-filter="humpik">Humpik</button>
-                                <button class="control-btn" data-filter="bowser">Bowser</button>
-                                <button class="control-btn" data-filter="remi">Remi</button>
-                                <button class="control-btn" data-filter="dan">Dan</button>
-                                <button class="control-btn" data-filter="toad_lee">Toad Lee</button>
-                                <button class="control-btn" data-filter="eager">Eager</button>
-                                <button class="control-btn" data-filter="ryan">Ryan</button>
-                                <button class="control-btn" data-filter="roger">Roger</button>
-                                <button class="control-btn" data-filter="bones">Bones</button>
-                                <button class="control-btn" data-filter="liberated_toads">Liberated Toads</button>
-                                <button class="control-btn" data-filter="koopa_troop_&_peach_loyalists">Koopa/Loyalists</button>
-                                <button class="control-btn" data-filter="diddy_kong">Diddy Kong</button>
-                                <button class="control-btn" data-filter="chunky_kong">Chunky Kong</button>
-                            </div>
-                        </div>
-                         <div class="quest-control-group">
-                            <span>Status:</span>
-                            <div id="status-filterer">
-                                <button class="control-btn status-filter-btn" data-filter="active">Active</button>
-                                <button class="control-btn status-filter-btn" data-filter="ongoing">Ongoing</button>
-                                <button class="control-btn status-filter-btn" data-filter="available">Available</button>
-                                <button class="control-btn status-filter-btn" data-filter="pending">Pending</button>
-                                <button class="control-btn status-filter-btn" data-filter="completed">Completed</button>
-                                <button class="control-btn status-filter-btn" data-filter="failed">Failed</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <div id="quest-container">
-                    <!-- Quest categories and cards will be injected here by JS -->
+                 <div class="quests-header-row">
+                     <h2 class="page-title">Mission Control & Quest Log</h2>
+                     <div id="quest-counter" class="quest-counter">Syncing...</div>
                  </div>
 
-                 <div id="quest-board-section" class="quest-category">
-                    <h3 class="quest-category-title">Bounty & Notice Board</h3>
-                    <div id="quest-board-list">
-                        <!-- Bounty quests will be injected here by JS -->
-                    </div>
+                 <!-- Dashboard Stats -->
+                 <div id="quest-summary">
+                     <!-- Injected by JS -->
+                 </div>
+
+                 <!-- Filters -->
+                 <div id="quest-filterer" class="quest-filters">
+                     <!-- Injected by JS -->
+                 </div>
+
+                 <div class="quest-layout">
+                     <!-- Main Quest List -->
+                     <div id="quest-container">
+                         <!-- Quests Injected by JS -->
+                     </div>
+
+                     <!-- Side Panel / Bounty Board -->
+                     <aside class="quest-sidebar">
+                         <div class="bounty-board-header">
+                             <h3>Wanted / Bounties</h3>
+                             <span class="board-icon">📜</span>
+                         </div>
+                         <div id="quest-board-list" class="bounty-list">
+                             <!-- Bounties Injected by JS -->
+                         </div>
+                     </aside>
                  </div>
             </main>
         </div>
     </div>
+
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="quests.js"></script>

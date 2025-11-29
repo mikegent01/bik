@@ -1,4 +1,6 @@
 
+
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -241,6 +243,7 @@ function renderEventsFeed() {
     });
     container.innerHTML = eventsToRender.map(renderEvent).join('');
 }
+
 function openDossierModal(rumorId) {
     const rumor = LORE_DATA.rumors.find(r => r.id === rumorId);
     if (!rumor) return;
@@ -257,16 +260,50 @@ function openDossierModal(rumorId) {
         if (!targetData.name) return '';
         return `<div class="affected-party-chip"><img src="${targetData.portrait}" alt="${targetData.name}" title="${targetData.name}"><span>${targetData.name}</span></div>`;
     }).join('');
+
+    // Generate Reputation Changes HTML (Including Specifics)
     const repChangesHTML = Object.entries(rumor.effects).map(([factionKey, repChange]) => {
         const factionData = LORE_DATA.factions[factionKey];
         if (!factionData) return '';
+        
+        // Check if there are specific personal impacts to list alongside general ones
+        let specificsHTML = '';
+        if (rumor.personal_impact) {
+            const specificImpacts = [];
+            for (const charKey in rumor.personal_impact) {
+                const charImpact = rumor.personal_impact[charKey];
+                if (charImpact[factionKey] !== undefined) {
+                    const charData = getCharacterData(charKey);
+                    const val = charImpact[factionKey];
+                    const sClass = val > 0 ? 'positive' : 'negative';
+                    specificImpacts.push(`<span style="font-size:0.8em; color:var(--text-secondary); margin-left:5px;">${charData.name}: <span class="${sClass}">${val > 0 ? '+' : ''}${val}</span></span>`);
+                }
+            }
+            if (specificImpacts.length > 0) {
+                specificsHTML = `<div style="margin-top:4px;">${specificImpacts.join(', ')}</div>`;
+            }
+        }
+
         const repClass = repChange > 0 ? 'positive' : 'negative';
         const sign = repChange > 0 ? '+' : '';
-        return `<li class="rep-change-item"><div class="faction-info"><img src="${factionData.logo}" alt="${factionData.name}"><span>${factionData.name}</span></div><span class="rep-change-value ${repClass}">${sign}${repChange} Rep</span></li>`;
+        return `
+            <li class="rep-change-item">
+                <div class="faction-info">
+                    <img src="${factionData.logo}" alt="${factionData.name}">
+                    <span>${factionData.name}</span>
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:flex-end;">
+                    <span class="rep-change-value ${repClass}">${sign}${repChange} Rep (General)</span>
+                    ${specificsHTML}
+                </div>
+            </li>
+        `;
     }).join('');
+
     dossierModalBody.innerHTML = `<div class="dossier-header"><h2>${rumor.title}</h2><p>Timeline: ${rumor.time_ago || 'Ongoing'}</p></div><p>${rumor.description}</p><div class="dossier-analysis-grid"><div class="dossier-affected-parties"><h4>Primary Targets Involved</h4><div class="affected-list">${affectedPartiesHTML}</div><h4>Reputation Impact</h4><ul class="rep-change-list">${repChangesHTML}</ul></div><div class="dossier-network-feed"><h4>Related Network Chatter</h4>${chatterHTML}</div></div>`;
     dossierModal.style.display = 'flex';
 }
+
 function renderFollowedFeed() {
     const container = document.getElementById('followed-feed-container');
     if (!container) return;

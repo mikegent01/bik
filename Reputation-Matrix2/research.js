@@ -1,6 +1,7 @@
 
+
 import { state, loadState, saveState } from './state.js';
-import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus } from './research-data.js';
+import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus, calculateGuildBonus } from './research-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 import { LORE_DATA } from './lore.js';
 import { playSound } from './common.js';
@@ -120,8 +121,9 @@ function renderNationList() {
 
 function renderCategoryTabs() {
     const nationData = NATIONS[activeNation];
-    // Get demographic/guild bonuses for this nation
-    const bonuses = calculateDemographicBonus(activeNation);
+    // Get bonuses
+    const demoBonuses = calculateDemographicBonus(activeNation);
+    const guildBonuses = calculateGuildBonus(activeNation);
 
     categoryTabsEl.innerHTML = RESEARCH_CATEGORIES.map(cat => {
         let slotType = 'Minor';
@@ -132,12 +134,20 @@ function renderCategoryTabs() {
         
         const isActive = cat === activeCategory ? 'active' : '';
         
-        // Check for bonus
-        const bonusMultiplier = bonuses[cat] || 1.0;
         let bonusHTML = '';
-        if (bonusMultiplier > 1.0) {
-            const percent = Math.round((bonusMultiplier - 1) * 100);
-            bonusHTML = `<div class="bonus-badge" title="Demographic Efficiency Bonus">+${percent}% SPD</div>`;
+        
+        // Demographic Bonus
+        const dBonus = demoBonuses[cat] || 1.0;
+        if (dBonus > 1.0) {
+            const percent = Math.round((dBonus - 1) * 100);
+            bonusHTML += `<div class="bonus-badge" title="Demographic Efficiency">+${percent}% SPD (Pop)</div>`;
+        }
+
+        // Guild Bonus
+        const gBonus = guildBonuses[cat] || 1.0;
+        if (gBonus > 1.0) {
+            const percent = Math.round((gBonus - 1) * 100);
+            bonusHTML += `<div class="bonus-badge" style="background-color:#e3b341; margin-top:2px;" title="Guild Contract Efficiency">+${percent}% SPD (Guild)</div>`;
         }
 
         return `
