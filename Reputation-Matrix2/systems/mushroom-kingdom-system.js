@@ -132,7 +132,7 @@ export const CIVIL_WAR_FACTIONS = {
         weaknesses: ['Slow Mobility', 'Rigid Tactics'],
         allies: [],
         enemies: ['criminals', 'fawful'],
-        description: "A mysterious military order that emerged from the chaos, claiming to restore order through strength."
+        description: "A military order that emerged from the midlands, they are neutral in the civil war."
     },
     onyx_hand: { 
         id: 'onyx_hand', 
