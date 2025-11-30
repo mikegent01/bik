@@ -1,32 +1,7 @@
 // map-analysis.js
 
 import { MDATA_F } from '../map-data.js';
-
-// Faction ID Mapping
-const FACTION_MAP = {
-    'mushroom_regency': 'regency',
-    'peach_loyalists': 'loyalists',
-    'fawfuls_furious_freaks': 'fawful',
-    'koopa_troop': 'warlords',
-    'toad_gang': 'criminals',
-    'freelancer_underworld': 'criminals',
-    'iron_legion': 'iron_legion',
-    'onyx_hand': 'onyx_hand',
-    'wario_land': 'wario',
-    'yoshi_clans': 'yoshis',
-    'dk_crew': 'dk_crew',
-    'beanbean_kingdom': 'beanbean',
-    'regal_empire': 'regal_empire',
-    'silver_flame': 'silver_flame',
-    'mages_guild': 'mages_guild',
-    'unaligned': 'unaligned'
-};
-
-const SYSTEM_IDS = [
-    'regency', 'loyalists', 'fawful', 'warlords', 'criminals',
-    'iron_legion', 'onyx_hand', 'wario', 'yoshis', 'dk_crew',
-    'beanbean', 'regal_empire', 'silver_flame', 'mages_guild', 'unaligned'
-];
+import { getAllFactions, getAllSystemIds, toSystemId, getFaction } from './faction-registry.js';
 
 const SKIP_REGIONS = ['mushroom_kingdom_full'];
 
@@ -34,13 +9,16 @@ const SKIP_REGIONS = ['mushroom_kingdom_full'];
  * Core function to get all map statistics
  */
 export function getRealTimeMapStats() {
+    const allFactions = getAllFactions();
+    const systemIds = getAllSystemIds();
+
     const stats = {
         global: {},
         regions: []
     };
 
-    // Initialize global counters
-    SYSTEM_IDS.forEach(sysId => {
+    // Initialize global counters for ALL factions (including auto-discovered)
+    systemIds.forEach(sysId => {
         stats.global[sysId] = {
             id: sysId,
             military: 0,
@@ -65,18 +43,28 @@ export function getRealTimeMapStats() {
 
         // Process POIs
         region.pointsOfInterest.forEach(poi => {
-            const rawId = poi.factionId || 'unaligned';
-            const sysId = FACTION_MAP[rawId] || 'unaligned';
+            const sysId = toSystemId(poi.factionId);
 
-            if (stats.global[sysId]) {
-                stats.global[sysId].military += (poi.military_strength || 0);
-                stats.global[sysId].economic += (poi.economic_value || 0);
-                stats.global[sysId].political += (poi.political_influence || 0);
-                stats.global[sysId].population += (poi.population || 0);
-                stats.global[sysId].poiCount += 1;
-                
-                regionCounts[sysId] = (regionCounts[sysId] || 0) + 1;
+            // Initialize if this is a newly discovered faction
+            if (!stats.global[sysId]) {
+                stats.global[sysId] = {
+                    id: sysId,
+                    military: 0,
+                    economic: 0,
+                    political: 0,
+                    population: 0,
+                    poiCount: 0,
+                    controlledRegions: 0
+                };
             }
+
+            stats.global[sysId].military += (poi.military_strength || 0);
+            stats.global[sysId].economic += (poi.economic_value || 0);
+            stats.global[sysId].political += (poi.political_influence || 0);
+            stats.global[sysId].population += (poi.population || 0);
+            stats.global[sysId].poiCount += 1;
+
+            regionCounts[sysId] = (regionCounts[sysId] || 0) + 1;
 
             regionMil += (poi.military_strength || 0);
             regionEco += (poi.economic_value || 0);
@@ -129,11 +117,14 @@ export function getRealTimeMapStats() {
 }
 
 function determineRegionType(id) {
-    if (id.includes('castle') || id.includes('fort')) return 'Fortress';
-    if (id.includes('town') || id.includes('city')) return 'Urban';
-    if (id.includes('wood') || id.includes('forest')) return 'Wilderness';
-    if (id.includes('desert') || id.includes('volcano')) return 'Wasteland';
-    if (id.includes('sea') || id.includes('isle') || id.includes('island')) return 'Maritime';
+    const lower = id.toLowerCase();
+    if (lower.includes('castle') || lower.includes('fort')) return 'Fortress';
+    if (lower.includes('town') || lower.includes('city')) return 'Urban';
+    if (lower.includes('wood') || lower.includes('forest')) return 'Wilderness';
+    if (lower.includes('desert') || lower.includes('volcano')) return 'Wasteland';
+    if (lower.includes('sea') || lower.includes('isle') || lower.includes('island')) return 'Maritime';
+    if (lower.includes('mountain') || lower.includes('peak')) return 'Highlands';
+    if (lower.includes('swamp') || lower.includes('marsh')) return 'Wetlands';
     return 'Territory';
 }
 
@@ -144,9 +135,10 @@ export function getCuratedTerritoryList() {
     const stats = getRealTimeMapStats();
     const displayList = [];
     const processedIds = new Set();
+    const systemIds = getAllSystemIds();
 
     // Best region for each faction
-    SYSTEM_IDS.forEach(factionId => {
+    systemIds.forEach(factionId => {
         if (factionId === 'unaligned') return;
 
         const factionRegions = stats.regions
@@ -172,11 +164,11 @@ export function getCuratedTerritoryList() {
     });
 
     // Fill remaining slots
-    if (displayList.length < 10) {
+    if (displayList.length < 12) {
         const remaining = stats.regions
             .filter(r => !processedIds.has(r.id) && r.poiCount > 0)
             .sort((a, b) => b.totalValue - a.totalValue)
-            .slice(0, 10 - displayList.length);
+            .slice(0, 12 - displayList.length);
 
         remaining.forEach(r => {
             displayList.push({ ...r, label: 'Territory' });
@@ -210,8 +202,7 @@ export function getDetailedFactionStats(factionKey) {
         let regionEco = 0;
 
         region.pointsOfInterest.forEach(poi => {
-            const rawId = poi.factionId || 'unaligned';
-            const sysId = FACTION_MAP[rawId] || 'unaligned';
+            const sysId = toSystemId(poi.factionId);
             regionCounts[sysId] = (regionCounts[sysId] || 0) + 1;
 
             if (sysId === factionKey) {
@@ -275,8 +266,7 @@ export function getDetailedRegionStats(regionId) {
     const pois = [];
 
     region.pointsOfInterest.forEach(poi => {
-        const rawId = poi.factionId || 'unaligned';
-        const sysId = FACTION_MAP[rawId] || 'unaligned';
+        const sysId = toSystemId(poi.factionId);
 
         factionPresence[sysId] = (factionPresence[sysId] || 0) + 1;
         militarySum += (poi.military_strength || 0);
@@ -330,8 +320,9 @@ export function getDetailedRegionStats(regionId) {
 /**
  * Render the analytics modal
  */
-export function renderAnalyticsModal(factionsConfig) {
+export function renderAnalyticsModal() {
     const stats = getRealTimeMapStats();
+    const allFactions = getAllFactions();
 
     const sortedFactions = Object.values(stats.global)
         .filter(f => f.id !== 'unaligned' && (f.military > 0 || f.economic > 0 || f.poiCount > 0))
@@ -348,27 +339,28 @@ export function renderAnalyticsModal(factionsConfig) {
                     <div class="modal-icon" style="background: #ffd700;">📊</div>
                     <div class="modal-title-block">
                         <h2>Kingdom Intel Report</h2>
-                        <p class="modal-subtitle">Analysis of ${stats.regions.length} regions</p>
+                        <p class="modal-subtitle">Analysis of ${stats.regions.length} regions · ${sortedFactions.length} active factions</p>
                     </div>
                 </div>
 
                 <div class="modal-body">
                     <div class="modal-section">
                         <h4>⚔️ Military Power Distribution</h4>
-                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; max-height: 400px; overflow-y: auto;">
                             ${sortedFactions.map(f => {
-                                const def = factionsConfig ? factionsConfig[f.id] : null;
-                                if (!def) return '';
+                                const def = allFactions[f.id] || getFaction(f.id);
                                 const percent = (f.military / maxMil) * 100;
+                                const isAuto = def.isAutoGenerated ? ' (Auto)' : '';
                                 return `
                                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                                        <div style="width: 140px; font-size: 0.8rem; color: ${def.color}; font-weight: bold;">
-                                            ${def.icon} ${def.name}
+                                        <div style="width: 150px; font-size: 0.8rem; color: ${def.color}; font-weight: bold; display: flex; align-items: center; gap: 6px;">
+                                            <span>${def.icon}</span>
+                                            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${def.shortName || def.name}${isAuto}</span>
                                         </div>
                                         <div style="flex: 1; background: rgba(255,255,255,0.1); height: 12px; border-radius: 4px; overflow: hidden;">
                                             <div style="width: ${percent}%; background: ${def.color}; height: 100%;"></div>
                                         </div>
-                                        <span style="font-size: 0.8rem; color: #fff; width: 40px; text-align: right; margin-left: 10px;">${f.military}</span>
+                                        <span style="font-size: 0.8rem; color: #fff; width: 50px; text-align: right; margin-left: 10px;">${f.military}</span>
                                     </div>
                                 `;
                             }).join('')}
@@ -377,25 +369,31 @@ export function renderAnalyticsModal(factionsConfig) {
 
                     <div class="modal-section">
                         <h4>🌍 Regional Control</h4>
-                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
-                            <tr style="background: rgba(255,255,255,0.05);">
-                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);">Faction</th>
-                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);">Regions</th>
-                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);">Economy</th>
-                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);">POIs</th>
-                            </tr>
-                            ${sortedFactions.map(f => {
-                                const def = factionsConfig ? factionsConfig[f.id] : null;
-                                if (!def) return '';
-                                return `
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                    <td style="padding: 10px; color: ${def.color};">${def.icon} ${def.name}</td>
-                                    <td style="padding: 10px;">${f.controlledRegions}</td>
-                                    <td style="padding: 10px; color: #ffd700;">${f.economic}</td>
-                                    <td style="padding: 10px;">${f.poiCount}</td>
-                                </tr>`;
-                            }).join('')}
-                        </table>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                                <tr style="background: rgba(255,255,255,0.05); position: sticky; top: 0;">
+                                    <th style="padding: 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);">Faction</th>
+                                    <th style="padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">Regions</th>
+                                    <th style="padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">Military</th>
+                                    <th style="padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">Economy</th>
+                                    <th style="padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">POIs</th>
+                                </tr>
+                                ${sortedFactions.map(f => {
+                                    const def = allFactions[f.id] || getFaction(f.id);
+                                    return `
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                        <td style="padding: 10px; color: ${def.color};">
+                                            ${def.icon} ${def.shortName || def.name}
+                                            ${def.isAutoGenerated ? '<span style="font-size:0.6rem; color:#666;"> (auto)</span>' : ''}
+                                        </td>
+                                        <td style="padding: 10px; text-align: center;">${f.controlledRegions}</td>
+                                        <td style="padding: 10px; text-align: center; color: #ef4444;">${f.military}</td>
+                                        <td style="padding: 10px; text-align: center; color: #fbbf24;">${f.economic}</td>
+                                        <td style="padding: 10px; text-align: center;">${f.poiCount}</td>
+                                    </tr>`;
+                                }).join('')}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

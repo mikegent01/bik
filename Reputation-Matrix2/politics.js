@@ -200,3 +200,13 @@ function renderPoliticsPage() {
         `;
     }
 }
+
+function init() {
+    const container = document.getElementById('politics-container');
+    if (!container) return;
+
+    renderPoliticsPage();
+    initBoP();
+}
+
+init();

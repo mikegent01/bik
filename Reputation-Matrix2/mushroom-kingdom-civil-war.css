@@ -3516,3 +3516,37 @@
     font-size: 0.8rem;
     color: #94a3b8;
 }
+/* Auto-discovered faction indicators */
+.auto-badge {
+    display: inline-block;
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    text-transform: uppercase;
+}
+
+.auto-tag {
+    display: inline-block;
+    background: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+    font-size: 0.6rem;
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 4px;
+}
+
+.gso-auto {
+    color: #ffc107 !important;
+    font-style: italic;
+}
+
+.gso-footnote {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-style: italic;
+    margin-top: 10px;
+    text-align: right;
+}
