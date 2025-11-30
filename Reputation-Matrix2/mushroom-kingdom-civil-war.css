@@ -1989,3 +1989,1530 @@
     border-top: 1px solid var(--border-color);
     font-style: italic;
 }
+/* ===================================
+   ENHANCED FACTION MODAL STYLES
+   =================================== */
+
+.faction-modal-large {
+    max-width: 900px !important;
+    width: 95%;
+}
+
+/* Header Badge */
+.modal-header-badge {
+    margin-left: auto;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-header-badge .badge-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.modal-header-badge .badge-label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(0,0,0,0.7);
+    text-transform: uppercase;
+}
+
+/* Faction Description */
+.faction-description {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-color, #ffd700);
+}
+
+.faction-description p {
+    margin: 0;
+    font-style: italic;
+    color: #ccc;
+}
+
+/* Hero Stats Grid */
+.stats-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-hero-card {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-hero-card.compact {
+    padding: 12px 10px;
+}
+
+.stat-hero-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.stat-hero-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+}
+
+.stat-hero-card.compact .stat-hero-value {
+    font-size: 1.4rem;
+}
+
+.stat-hero-label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-hero-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.stat-hero-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+
+/* Two Column Layout */
+.modal-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+@media (max-width: 768px) {
+    .modal-two-column {
+        grid-template-columns: 1fr;
+    }
+    .stats-hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.modal-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Power Chart */
+.power-chart {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.power-bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.power-bar-row:last-child {
+    margin-bottom: 0;
+}
+
+.power-bar-row.current-faction {
+    background: rgba(255,255,255,0.1);
+}
+
+.power-bar-label {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.power-bar-icon {
+    font-size: 1rem;
+}
+
+.power-bar-name {
+    font-size: 0.8rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.power-bar-track {
+    flex: 1;
+    height: 16px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.power-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+}
+
+.power-bar-value {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #fff;
+    width: 40px;
+    text-align: right;
+}
+
+/* Region Chips */
+.region-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.region-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+}
+
+.region-chip-icon {
+    font-size: 1rem;
+}
+
+.region-chip-name {
+    color: #fff;
+    font-weight: 500;
+}
+
+.region-chip-value {
+    color: #888;
+    font-size: 0.75rem;
+}
+
+/* Goal Section */
+.goal-section {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.goal-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.ideology-badge {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.ideology-label {
+    color: #888;
+}
+
+.ideology-value {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* POI List */
+.poi-list-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.poi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.poi-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,0,0,0.2);
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-left: 3px solid #666;
+    transition: background 0.2s;
+}
+
+.poi-list-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.poi-list-icon {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.poi-list-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.poi-list-name {
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.poi-list-type {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: capitalize;
+}
+
+.poi-list-stats {
+    display: flex;
+    gap: 8px;
+}
+
+.poi-stat {
+    font-size: 0.75rem;
+    color: #aaa;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.poi-list-more {
+    text-align: center;
+    padding: 10px;
+    color: #888;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* Strengths & Weaknesses Grid */
+.sw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.sw-card {
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.sw-strengths {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.sw-weaknesses {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.sw-card h5 {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+}
+
+.sw-strengths h5 {
+    color: #4ade80;
+}
+
+.sw-weaknesses h5 {
+    color: #f87171;
+}
+
+.sw-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.sw-card li {
+    color: #ccc;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+/* Operations List */
+.operations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.operation-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.operation-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.operation-icon {
+    font-size: 1rem;
+}
+
+.operation-name {
+    font-weight: 500;
+    color: #fff;
+    flex: 1;
+}
+
+.operation-status {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+.operation-status.status-active {
+    background: rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.operation-status.status-planning {
+    background: rgba(251, 191, 36, 0.3);
+    color: #fbbf24;
+}
+
+.operation-desc {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.operation-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.operation-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.operation-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.operation-progress-text {
+    font-size: 0.8rem;
+    color: #fff;
+    font-weight: bold;
+    width: 40px;
+    text-align: right;
+}
+
+/* Relations */
+.relations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.relations-column {
+    background: rgba(0,0,0,0.2);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.relations-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.relations-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.relation-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid;
+}
+
+.relation-chip.ally {
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+}
+
+.relation-chip.enemy {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+.no-relations {
+    color: #666;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.no-data {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Territory Status Banner */
+.territory-status-banner {
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.territory-status-banner.contested {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+.territory-status-banner.secure {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #4ade80;
+}
+
+/* Controller Card */
+.controller-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.controller-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.controller-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.controller-name {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.controller-ideology {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.view-faction-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.view-faction-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Presence Chart */
+.presence-chart {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.presence-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.presence-row:last-child {
+    margin-bottom: 0;
+}
+
+.presence-label {
+    width: 100px;
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.presence-bar {
+    flex: 1;
+    height: 12px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.presence-fill {
+    height: 100%;
+    border-radius: 6px;
+}
+
+.presence-count {
+    font-size: 0.8rem;
+    color: #888;
+    width: 60px;
+    text-align: right;
+}
+/* ===================================
+   GLOBAL STRATEGIC OVERVIEW CSS
+   =================================== */
+
+.strategic-overview-panel {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.overview-subsection {
+    margin-bottom: 25px;
+}
+
+.overview-subsection:last-child {
+    margin-bottom: 0;
+}
+
+.subsection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sub-title {
+    color: #e2e8f0;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.sub-meta {
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+/* 1. Stacked Control Bar */
+.stacked-control-bar {
+    height: 24px;
+    width: 100%;
+    background: #1e293b;
+    border-radius: 12px;
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.control-segment {
+    height: 100%;
+    transition: width 1s ease-in-out;
+    position: relative;
+}
+
+.control-segment:hover {
+    filter: brightness(1.2);
+    cursor: help;
+}
+
+/* Striped pattern for remainder/wild areas */
+.segment-remainder {
+    background: repeating-linear-gradient(
+        45deg,
+        #334155,
+        #334155 10px,
+        #1e293b 10px,
+        #1e293b 20px
+    );
+}
+
+/* Tooltip Logic (Pure CSS) */
+.tooltip-trigger:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.control-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-text {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* 2. Multi-Bar Power Chart */
+.power-comparison-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.power-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.power-row-label {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.row-icon {
+    font-size: 1rem;
+}
+
+.row-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.power-row-bars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dual-bar-container {
+    display: flex;
+    align-items: center;
+    height: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden; /* Keeps bar inside */
+    position: relative;
+}
+
+.dual-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.dual-bar.military {
+    background: #ef4444; /* Red */
+}
+
+.dual-bar.economy {
+    background: #fbbf24; /* Amber */
+}
+
+.dual-bar-val {
+    margin-left: 8px;
+    font-size: 0.65rem;
+    color: #64748b;
+    min-width: 30px;
+}
+/* ===================================
+   GLOBAL STRATEGIC OVERVIEW
+   =================================== */
+
+.global-strategic-overview {
+    background: linear-gradient(135deg, rgba(20, 20, 40, 0.9) 0%, rgba(30, 30, 50, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.gso-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gso-title {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.gso-summary {
+    display: flex;
+    gap: 20px;
+}
+
+.gso-stat {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.gso-stat strong {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.gso-section {
+    margin-bottom: 28px;
+}
+
+.gso-section:last-child {
+    margin-bottom: 0;
+}
+
+.gso-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.gso-section-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.gso-section-meta {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* Stacked Control Bar */
+.stacked-control-bar {
+    height: 32px;
+    width: 100%;
+    background: #1e293b;
+    border-radius: 16px;
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.control-segment {
+    height: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.control-segment:hover {
+    filter: brightness(1.3);
+    transform: scaleY(1.1);
+    z-index: 2;
+}
+
+.control-segment:first-child {
+    border-radius: 16px 0 0 16px;
+}
+
+.control-segment:last-child {
+    border-radius: 0 16px 16px 0;
+}
+
+.segment-unclaimed {
+    background: repeating-linear-gradient(
+        45deg,
+        #374151,
+        #374151 8px,
+        #1f2937 8px,
+        #1f2937 16px
+    );
+}
+
+/* Control Legend */
+.control-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.legend-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.segment-unclaimed-dot {
+    background: repeating-linear-gradient(
+        45deg,
+        #374151,
+        #374151 2px,
+        #1f2937 2px,
+        #1f2937 4px
+    );
+}
+
+.legend-name {
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.legend-percent {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* Bar Legend */
+.gso-bar-legend {
+    display: flex;
+    gap: 16px;
+}
+
+.bar-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.bar-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+}
+
+.bar-dot.military {
+    background: #ef4444;
+}
+
+.bar-dot.economy {
+    background: #fbbf24;
+}
+
+.bar-dot.pois {
+    background: #3b82f6;
+}
+
+/* Power Comparison Chart */
+.power-comparison-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.power-comparison-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.power-comparison-row:hover {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.pcr-faction {
+    width: 110px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.pcr-icon {
+    font-size: 1.2rem;
+}
+
+.pcr-name {
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pcr-bars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pcr-bar-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pcr-bar-track {
+    flex: 1;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.pcr-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.6s ease;
+}
+
+.pcr-bar-fill.military {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.pcr-bar-fill.economy {
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+.pcr-bar-fill.pois {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+}
+
+.pcr-bar-value {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    width: 55px;
+    text-align: right;
+}
+
+.pcr-regions {
+    width: 60px;
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.pcr-region-count {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.pcr-region-label {
+    display: block;
+    font-size: 0.65rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+/* Pie Grid */
+.gso-pie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .gso-pie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.gso-pie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.gso-pie-ring {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--color) calc(var(--percent) * 1%),
+        rgba(255, 255, 255, 0.1) calc(var(--percent) * 1%)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.gso-pie-ring::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #1a1a2e;
+    border-radius: 50%;
+}
+
+.gso-pie-icon {
+    position: relative;
+    z-index: 1;
+    font-size: 1.4rem;
+}
+
+.gso-pie-info {
+    text-align: center;
+}
+
+.gso-pie-name {
+    display: block;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.gso-pie-value {
+    display: block;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Civil War System Base Styles */
+.civil-war-system {
+    padding: 20px;
+}
+
+.cw-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.cw-title {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.cw-meta {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.cw-phase {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.phase-escalation {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.cw-date {
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.cw-btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.cw-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.cw-description {
+    color: #94a3b8;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.cw-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 1024px) {
+    .cw-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.section-title {
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 0 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-subtitle {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin: -12px 0 12px 0;
+}
+
+/* Faction Cards Grid */
+.faction-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.faction-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.faction-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.faction-card.faction-leading {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.faction-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.faction-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.faction-title-block {
+    flex: 1;
+}
+
+.faction-name {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.faction-leader {
+    margin: 4px 0 0 0;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.faction-influence-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.faction-card-body {
+    padding: 16px;
+}
+
+.faction-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.stat-icon {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.65rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.faction-detail-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.faction-detail-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Sidebar */
+.cw-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.territory-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.territory-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.territory-item:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.territory-item.contested {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.territory-icon {
+    font-size: 1.2rem;
+}
+
+.territory-info {
+    flex: 1;
+}
+
+.territory-name {
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.territory-type {
+    display: block;
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+.territory-controller {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.no-territories {
+    color: #64748b;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Events Timeline */
+.events-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.timeline-event {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border-left: 3px solid #64748b;
+}
+
+.timeline-event.event-major {
+    border-left-color: #ef4444;
+}
+
+.timeline-event.event-battle {
+    border-left-color: #f59e0b;
+}
+
+.timeline-event.event-diplomatic {
+    border-left-color: #22c55e;
+}
+
+.event-date-marker {
+    width: 50px;
+    text-align: center;
+}
+
+.days-ago {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.event-content {
+    flex: 1;
+}
+
+.event-title {
+    margin: 0 0 4px 0;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.event-desc {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
