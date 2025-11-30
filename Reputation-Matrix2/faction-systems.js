@@ -20,7 +20,7 @@ import { renderFawfulSystem, initFawfulSystem } from './systems/fawful-system.js
 // NEW: Import from the new mushroom kingdom system
 import { 
     renderMushroomKingdomCivilWar, 
-    initCivilWarListeners 
+    initCivilWarListeners
 } from './systems/mushroom-kingdom-civil-war.js';
 
 import { initTabbedSystem } from './systems/common.js';

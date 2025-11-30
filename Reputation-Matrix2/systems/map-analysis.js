@@ -1,175 +1,154 @@
 // map-analysis.js
-import { MAP_DATA } from '../map-data.js'; // Ensure this path matches your project structure
+import { MAP_DATA } from './map-data.js'; 
 import { CIVIL_WAR_FACTIONS } from './mushroom-kingdom-system.js';
 
-// 1. MAPPING DICTIONARY
-// Maps the IDs found in map-data files to the IDs used in mushroom-kingdom-system
-const FACTION_ID_MAP = {
+// 1. FACTION ID MAPPING
+const FACTION_MAP = {
     'mushroom_regency': 'regency',
     'peach_loyalists': 'loyalists',
     'fawfuls_furious_freaks': 'fawful',
     'koopa_troop': 'warlords',
     'toad_gang': 'criminals',
-    'freelancer_underworld': 'criminals', // Assuming freelance maps to criminals
+    'freelancer_underworld': 'criminals',
     'liberated_toads': 'liberated_toads',
     'unaligned': 'unaligned'
 };
 
 /**
- * TALLIES UP DATA FROM ALL MAP FILES
+ * Calculates real-time stats from MAP_DATA.
  */
 export function getRealTimeMapStats() {
     const stats = {
-        global: {}, // Faction totals
-        regions: [] // Regional breakdowns
+        global: {},
+        regions: []
     };
 
-    // Initialize Faction Totals
+    // Initialize Global Counters
     Object.keys(CIVIL_WAR_FACTIONS).forEach(sysId => {
         stats.global[sysId] = {
             id: sysId,
             name: CIVIL_WAR_FACTIONS[sysId].name,
             military: 0,
             economic: 0,
-            political: 0,
-            population: 0,
-            poiCount: 0
+            poiCount: 0,
+            controlledRegions: 0
         };
     });
-    // Add Unaligned holder
-    stats.global['unaligned'] = { id: 'unaligned', name: 'Neutral / Independent', military: 0, economic: 0, political: 0, population: 0, poiCount: 0 };
 
-    // PROCESS MAP DATA
+    // Iterate over every Region
     Object.values(MAP_DATA).forEach(region => {
         if (!region.pointsOfInterest) return;
 
-        const regionStat = {
-            id: region.id,
-            name: region.name,
-            military: 0,
-            economic: 0,
-            population: 0,
-            dominantFaction: 'unaligned'
-        };
-
-        const factionCounts = {};
-
+        const regionCounts = {};
+        
+        // Process POIs
         region.pointsOfInterest.forEach(poi => {
-            // Normalize ID
             const rawId = poi.factionId || 'unaligned';
-            const sysId = FACTION_ID_MAP[rawId] || 'unaligned';
+            const sysId = FACTION_MAP[rawId]; 
 
-            // 1. Update Global Totals
-            if (stats.global[sysId]) {
+            if (sysId && stats.global[sysId]) {
                 stats.global[sysId].military += (poi.military_strength || 0);
                 stats.global[sysId].economic += (poi.economic_value || 0);
-                stats.global[sysId].political += (poi.political_influence || 0);
-                stats.global[sysId].population += (poi.population || 0);
-                stats.global[sysId].poiCount++;
-            }
-
-            // 2. Update Regional Totals
-            regionStat.military += (poi.military_strength || 0);
-            regionStat.economic += (poi.economic_value || 0);
-            regionStat.population += (poi.population || 0);
-
-            // Track dominance
-            factionCounts[sysId] = (factionCounts[sysId] || 0) + 1;
-        });
-
-        // Determine who owns the region based on POI count
-        let max = 0;
-        Object.entries(factionCounts).forEach(([fid, count]) => {
-            if (count > max) {
-                max = count;
-                regionStat.dominantFaction = fid;
+                stats.global[sysId].poiCount += 1;
+                regionCounts[sysId] = (regionCounts[sysId] || 0) + 1;
             }
         });
 
-        stats.regions.push(regionStat);
+        // Determine Region Controller
+        let controller = 'unaligned';
+        let maxCount = 0;
+
+        Object.entries(regionCounts).forEach(([fid, count]) => {
+            if (count > maxCount) {
+                maxCount = count;
+                controller = fid;
+            }
+        });
+
+        if (controller !== 'unaligned' && stats.global[controller]) {
+            stats.global[controller].controlledRegions += 1;
+        }
+
+        stats.regions.push({
+            id: region.id,
+            name: region.name,
+            controller: controller,
+            poiCount: region.pointsOfInterest.length,
+            militarySum: region.pointsOfInterest.reduce((acc, p) => acc + (p.military_strength || 0), 0),
+            economicSum: region.pointsOfInterest.reduce((acc, p) => acc + (p.economic_value || 0), 0)
+        });
     });
 
     return stats;
 }
 
 /**
- * GENERATES THE MODAL HTML
+ * Renders the Analytics Modal HTML - NOW MATCHING CSS
  */
 export function renderAnalyticsModal() {
-    const data = getRealTimeMapStats();
-    
-    // Sort factions by Military Strength
-    const sortedFactions = Object.values(data.global)
-        .filter(f => f.id !== 'unaligned')
-        .sort((a, b) => b.military - a.military);
-
-    // Sort regions by Economic Value
-    const richestRegions = [...data.regions]
-        .sort((a, b) => b.economic - a.economic)
-        .slice(0, 5);
+    const stats = getRealTimeMapStats();
+    const sortedFactions = Object.values(stats.global).sort((a, b) => b.military - a.military);
+    const richestRegions = [...stats.regions].sort((a, b) => b.economicSum - a.economicSum).slice(0, 5);
 
     return `
         <div class="faction-modal-overlay analytics-overlay">
-            <div class="faction-modal" style="max-width: 900px;">
+            <div class="faction-modal">
                 <button class="modal-close" onclick="document.querySelector('.analytics-overlay').remove()">✕</button>
                 
                 <div class="modal-header" style="border-bottom-color: #ffd700;">
-                    <div class="modal-icon" style="background: #ffd700;">📈</div>
+                    <div class="modal-icon" style="background: #ffd700;">📊</div>
                     <div class="modal-title-block">
-                        <h2>Kingdom Analytics Report</h2>
-                        <p class="modal-subtitle">Real-time data aggregated from ${data.regions.length} regions</p>
+                        <h2>Kingdom Intel Report</h2>
+                        <p class="modal-subtitle">Live data aggregated from ${stats.regions.length} map files</p>
                     </div>
                 </div>
 
-                <div class="modal-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="modal-body" style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
                     
-                    <!-- LEFT COL: FACTION BREAKDOWN -->
                     <div class="modal-section" style="grid-column: 1 / -1;">
-                        <h4>⚔️ Military & Economic Power by Faction</h4>
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
-                                <tr style="background: rgba(255,255,255,0.1); text-align: left;">
-                                    <th style="padding: 8px;">Faction</th>
-                                    <th style="padding: 8px;">POIs</th>
-                                    <th style="padding: 8px;">Military</th>
-                                    <th style="padding: 8px;">Economy</th>
-                                    <th style="padding: 8px;">Population</th>
-                                </tr>
-                                ${sortedFactions.map(f => {
-                                    const color = CIVIL_WAR_FACTIONS[f.id]?.color || '#fff';
-                                    return `
-                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                        <td style="padding: 8px; color: ${color}; font-weight: bold;">${f.name}</td>
-                                        <td style="padding: 8px;">${f.poiCount}</td>
-                                        <td style="padding: 8px;">${f.military}</td>
-                                        <td style="padding: 8px;">${f.economic}</td>
-                                        <td style="padding: 8px;">${f.population.toLocaleString()}</td>
-                                    </tr>`;
-                                }).join('')}
-                            </table>
-                        </div>
+                        <h4>⚔️ Global Power Analysis</h4>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                            <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+                                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">Faction</th>
+                                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">Regions</th>
+                                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">Military</th>
+                                <th style="padding: 12px; border-bottom: 1px solid var(--border-color);">Economy</th>
+                            </tr>
+                            ${sortedFactions.map(f => {
+                                const factionDef = CIVIL_WAR_FACTIONS[f.id];
+                                if (!factionDef) return '';
+                                return `
+                                <tr style="border-bottom: 1px solid var(--border-color);">
+                                    <td style="padding: 12px; color: ${factionDef.color}; font-weight: bold;">
+                                        ${factionDef.icon} ${factionDef.name}
+                                    </td>
+                                    <td style="padding: 12px;">${f.controlledRegions}</td>
+                                    <td style="padding: 12px;">${f.military}</td>
+                                    <td style="padding: 12px;">${f.economic}</td>
+                                </tr>`;
+                            }).join('')}
+                        </table>
                     </div>
 
-                    <!-- RIGHT COL: REGION HIGHLIGHTS -->
                     <div class="modal-section">
-                        <h4>💰 Richest Regions (Economic Value)</h4>
+                        <h4>💰 Richest Regions</h4>
                         <ul class="rumors-list">
                             ${richestRegions.map(r => `
                                 <li class="rumor-item" style="display:flex; justify-content:space-between;">
                                     <span>${r.name}</span>
-                                    <span style="color: #ffd700;">${r.economic} G</span>
+                                    <span style="color: #ffd700; font-weight:bold;">${r.economicSum} G</span>
                                 </li>
                             `).join('')}
                         </ul>
                     </div>
-
+                    
                     <div class="modal-section">
-                        <h4>🛡️ Most Militarized Regions</h4>
+                        <h4>🛡️ Most Dangerous</h4>
                         <ul class="rumors-list">
-                            ${[...data.regions].sort((a,b) => b.military - a.military).slice(0,5).map(r => `
+                            ${[...stats.regions].sort((a,b) => b.militarySum - a.militarySum).slice(0, 5).map(r => `
                                 <li class="rumor-item" style="display:flex; justify-content:space-between;">
                                     <span>${r.name}</span>
-                                    <span style="color: #ff4444;">${r.military} STR</span>
+                                    <span style="color: #ff4444; font-weight:bold;">${r.militarySum} STR</span>
                                 </li>
                             `).join('')}
                         </ul>
