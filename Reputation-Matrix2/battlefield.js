@@ -5,6 +5,27 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 export const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY: Markop & The First Cohort ---
     {
+        id: 'skirmish_surf_shack',
+        name: "The Skirmish at Funky's Shack",
+        conflict: "Kong-Kremling Cold War",
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 0 },
+        location: "Funky's Surf Shack, DK Island Coast",
+        belligerents: {
+            side_a: { name: "Donkey Kong", factions: ['dk_crew'] },
+            side_b: { name: "Galypso (Assassin)", factions: ['kremling_krew'] }
+        },
+        commanders: { 
+            side_a: ["Donkey Kong"], 
+            side_b: ["Galypso"]
+        },
+        outcome: "<span class='outcome victory'>DK Crew Victory</span>; Assassination thwarted, Galypso retreated.",
+        casualties: "None fatal. Funky's favorite surfboard snapped in half.",
+        description: `
+            <p>Acting on intel regarding an assassination plot, Donkey Kong intercepted the Kremling agent Galypso moments before they could strike at Funky Kong. The ensuing battle destroyed much of the surf shack's inventory.</p>
+            <p>Despite Galypso's active camouflage technology, DK's raw strength and area-of-effect ground pounds flushed the assassin out. Galypso was forced to retreat into the ocean, abandoning the mission. This direct attack on a member of the Kong family has officially ended the truce between the factions.</p>
+        `
+    },    
+    {
         id: 'skirmish_dance_hall',
         name: "The Dance Hall Discord",
         conflict: "Raventree Manor Crisis",

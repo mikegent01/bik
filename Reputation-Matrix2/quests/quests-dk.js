@@ -5,19 +5,19 @@ export const DK_QUESTS = {
     'dk_save_funky': {
         id: 'dk_save_funky',
         title: "The Serpent in the Surf Shack",
-        subtitle: "Assassination Protocol: Active",
+        subtitle: "Assassination Protocol: Foiled",
         type: QUEST_TYPES.RESCUE,
         category: 'Personal - Donkey Kong',
-        status: QUEST_STATUS.ACTIVE,
+        status: QUEST_STATUS.COMPLETED,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'kong_kremling_cold_war',
         objective: "Protect Funky Kong from the assassin Galypso.",
         assignees: ['donkey_kong'],
         primaryAssignee: 'donkey_kong',
-        description: "The truce is broken. King K. Rool was overheard ordering his top assassin, the camouflaged Kremling 'Galypso', to eliminate Funky Kong. Funky is currently at his Surf Shack on the coast, unaware that a hit squad is closing in. DK must race against time to intercept the assassins before they strike.",
+        description: "The truce is broken. King K. Rool was overheard ordering his top assassin, the camouflaged Kremling 'Galypso', to eliminate Funky Kong. DK raced to the Surf Shack and intercepted the assassin moments before the strike. Galypso was beaten back into the ocean, but the message is clear: The Cold War is over. Open conflict has begun.",
         difficulty: { overall: DIFFICULTY.HARD, combat: DIFFICULTY.HARD, speed: DIFFICULTY.CRITICAL },
         tags: ['rescue', 'combat', 'time-sensitive', 'jungle'],
-        dates: { added: { year: 1040, monthIndex: 6, day: 18 }, deadline: { year: 1040, monthIndex: 6, day: 19 } },
+        dates: { added: { year: 1040, monthIndex: 6, day: 18 }, updated: { year: 1040, monthIndex: 6, day: 20 }, completed: { year: 1040, monthIndex: 6, day: 20 } },
         
         loreEntries: ['galypso_profile', 'funky_kong', 'kremling_tactics'],
 
@@ -36,8 +36,20 @@ export const DK_QUESTS = {
         },
 
         milestones: [
-            { id: 'm1', status: 'active', title: "Secure Funky", description: "Reach the surf shack. Galypso is likely already there." },
-            { id: 'm2', status: 'locked', title: "Defeat Galypso", description: "The assassin uses active camouflage. Watch the water." }
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "Secure Funky", 
+                description: "DK arrived at the shack just as Galypso decloaked. Funky was mid-shaka.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 }
+            },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "Defeat Galypso", 
+                description: "The assassin was overpowered by a Banana Slamma and forced to retreat into the sea.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 }
+            }
         ]
     }
 };

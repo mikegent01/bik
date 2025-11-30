@@ -2,6 +2,38 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+   {
+        id: 'post_dk_war_declaration',
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 30 },
+        content: "YOU MISSED. K. Rool, you sent a snake to my brother's house. You tried to take out Funky. That was your last mistake. No more talks. No more truces. I'm coming for the Krew, and I'm bringing the whole jungle. #War #DKCrew",
+        likes: 5420,
+        rumorId: 'assassination_attempt_foiled'
+    },
+    {
+        id: 'post_funky_alive',
+        characterKey: 'funky_kong',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 45 },
+        content: "Whoa, dudes. Gnarly vibes today. Almost got surfed on by a camouflaged lizard while waxing the board. Not cool. Big thanks to the Big Guy for the save. The Shack is closed for renovations (and fortification). Peace... for now.",
+        likes: 3100,
+        rumorId: 'assassination_attempt_foiled'
+    },
+    {
+        id: 'post_krool_denial',
+        characterKey: 'king_k_rool',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 15 },
+        content: "Slander! Lies! I have no knowledge of this 'Galypso' or any alleged attack! But if the ape wants to rattle his cage, the Kremling Krew is ready to sink this island! Prepare the Blast-O-Matic!",
+        likes: 890,
+        rumorId: 'assassination_attempt_foiled'
+    },
+    {
+        id: 'post_wah_media_jungle_war',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
+        content: "BREAKING: Open warfare declared in the Southern Isles. Following a failed assassination attempt on Funky Kong, the DK Crew has mobilized. Banana prices are expected to skyrocket. Travel to the region is NOT advised.",
+        likes: 2200,
+        rumorId: 'assassination_attempt_foiled'
+    },    
     {
     id: 'waluigi_soundtrack_hijack',
     order: 30947,

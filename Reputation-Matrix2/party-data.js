@@ -2,6 +2,7 @@
 
 
 
+
 export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
@@ -62,9 +63,10 @@ export const PARTY_LOCATIONS = {
         { charKey: 'alpha_bloodmaw', x: 75.0, y: 86.0, status: 'Hunting' }
     ],    
     'yoshi_dk_islands': [
-        { charKey: 'donkey_kong', x: 94.0, y: 4.0, status: 'Enraged' },
-        { charKey: 'diddy_kong', x: 94.2, y: 4.2, status: 'Mobilizing' },
-        { charKey: 'chunky_kong', x: 93.8, y: 4.1, status: 'Guarding' },
-        { charKey: 'king_k_rool', x: 95.0, y: 12.0, status: 'Plotting' }
+        { charKey: 'donkey_kong', x: 94.5, y: 6.0, status: 'War Footing' },
+        { charKey: 'diddy_kong', x: 94.5, y: 6.1, status: 'Loading Cannons' },
+        { charKey: 'chunky_kong', x: 94.4, y: 6.0, status: 'Guarding Shack' },
+        { charKey: 'funky_kong', x: 94.3, y: 6.0, status: 'Recovering' },
+        { charKey: 'king_k_rool', x: 95.0, y: 12.0, status: 'Deploying Fleet' }
     ]
 };

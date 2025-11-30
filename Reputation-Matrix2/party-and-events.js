@@ -1,4 +1,6 @@
 
+
+
 import { TOAD_ABILITIES } from './abilities.js';
 
 export const AUXILIARY_PARTY = {
@@ -12,6 +14,24 @@ export const AUXILIARY_PARTY = {
 };
 
 export const RUMORS = [
+    {
+        id: 'assassination_attempt_foiled',
+        title: "War in the Jungle",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'donkey_kong',
+        arc: 'kong_kremling_cold_war',
+        arcPosition: 'climax',
+        description: "Donkey Kong successfully intercepted the Kremling assassin 'Galypso' at Funky's Surf Shack, saving his brother's life. The failed hit has shattered the fragile peace of the islands. The DK Crew has mobilized for all-out war against King K. Rool's Krew.",
+        targets: ['donkey_kong', 'funky_kong', 'king_k_rool', 'dk_crew', 'kremling_krew'],
+        effects: {
+            dk_crew: 50,
+            kremling_krew: -50,
+            freelancer_underworld: 20,
+            regal_empire: -10
+        },
+        cycle_impact: { score: 2.5, label: "Open Warfare", type: "military" }
+    },
     {
         id: 'mirror_door_breach',
         title: "The Mirror Door Breach",
@@ -150,7 +170,7 @@ export const RUMORS = [
     },
     {
         id: 'the_kong_bug',
-        title: "The Kong Bug & Assassination Plot",
+        title: "The Kong Bug",
         date: { day: 18, monthIndex: 6, year: 1040 },
         arc: 'kong_kremling_cold_war',
         arcPosition: 'opening',
