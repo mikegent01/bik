@@ -2,7 +2,6 @@
 
 import { MAP_DATA } from './map-data.js';
 import { LORE_DATA } from './lore.js';
-import { init as initBoP } from './balance-of-power.js';
 import { REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from './species-data.js';
 
 const ESTATES = {
@@ -201,13 +200,3 @@ function renderPoliticsPage() {
         `;
     }
 }
-
-function init() {
-    const container = document.getElementById('politics-container');
-    if (!container) return;
-
-    renderPoliticsPage();
-    initBoP();
-}
-
-init();
