@@ -1,4 +1,3 @@
-
 // This file acts as a dispatcher for rendering unique faction systems.
 // It imports modular rendering and initialization functions from the `/systems` directory.
 
@@ -17,7 +16,13 @@ import { renderOathboundJudgesSystem, initOathboundJudgesSystem } from './system
 import { renderRakashaClansSystem, initRakashaClansSystem } from './systems/rakasha-clans-system.js';
 import { renderRebelClansSystem, initRebelClansSystem } from './systems/rebel-clans-system.js';
 import { renderFawfulSystem, initFawfulSystem } from './systems/fawful-system.js';
-import { renderMushroomKingdomCivilWar } from './systems/mushroom-kingdom-civil-war.js';
+
+// NEW: Import from the new mushroom kingdom system
+import { 
+    renderMushroomKingdomCivilWar, 
+    initCivilWarListeners 
+} from './systems/mushroom-kingdom-civil-war.js';
+
 import { initTabbedSystem } from './systems/common.js';
 
 // Named imports from simple-renderers to avoid "is not a function" errors
@@ -74,7 +79,6 @@ function getSystemHTML(factionKey, factionData, currentState) {
         case 'cosmic_jesters': return renderCosmicJestersSystem();
         case 'diamond_city_investigators': return renderDCISystem();
         case 'liberated_toads':
-             // Directly call the imported function
             return renderLiberatedToads(factionKey, factionData, currentState);
         case 'rakasha_clans': return renderRakashaClansSystem();
         case 'rebel_clans': return renderRebelClansSystem();
@@ -90,6 +94,13 @@ function getSystemHTML(factionKey, factionData, currentState) {
  * @param {string} factionKey - The key of the faction.
  */
 export function initSystem(factionKey) {
+    // NEW: Initialize civil war listeners for Mushroom Kingdom factions
+    const MUSHROOM_KINGDOM_FACTIONS = ['toad_gang', 'toad_cult', 'mushroom_regency', 'peach_loyalists', 'fawfuls_furious_freaks', 'liberated_toads', 'koopa_troop'];
+    
+    if (MUSHROOM_KINGDOM_FACTIONS.includes(factionKey)) {
+        initCivilWarListeners();
+    }
+
     // Call specific initializers for complex systems
     switch (factionKey) {
         case 'regal_empire':
