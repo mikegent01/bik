@@ -293,7 +293,6 @@ export function renderMushroomKingdomCivilWar() {
                         <span class="cw-date">Year ${CURRENT_GAME_DATE.year}</span>
                     </div>
                 </div>
-                <button id="btn-view-analytics" class="cw-btn-primary">📊 Full Intel Report</button>
             </div>
 
             <p class="cw-description">${CIVIL_WAR_CONFIG.description}</p>
