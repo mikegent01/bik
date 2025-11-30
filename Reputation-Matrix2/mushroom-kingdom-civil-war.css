@@ -1336,7 +1336,643 @@
     color: var(--text-color);
     font-size: 1rem;
 }
+/* ===================================
+   ENHANCED FACTION MODAL STYLES
+   =================================== */
 
+.faction-modal-large {
+    max-width: 900px !important;
+    width: 95%;
+}
+
+/* Header Badge */
+.modal-header-badge {
+    margin-left: auto;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-header-badge .badge-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.modal-header-badge .badge-label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(0,0,0,0.7);
+    text-transform: uppercase;
+}
+
+/* Faction Description */
+.faction-description {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-color, #ffd700);
+}
+
+.faction-description p {
+    margin: 0;
+    font-style: italic;
+    color: #ccc;
+}
+
+/* Hero Stats Grid */
+.stats-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-hero-card {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-hero-card.compact {
+    padding: 12px 10px;
+}
+
+.stat-hero-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.stat-hero-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+}
+
+.stat-hero-card.compact .stat-hero-value {
+    font-size: 1.4rem;
+}
+
+.stat-hero-label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-hero-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.stat-hero-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+
+/* Two Column Layout */
+.modal-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+@media (max-width: 768px) {
+    .modal-two-column {
+        grid-template-columns: 1fr;
+    }
+    .stats-hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.modal-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Power Chart */
+.power-chart {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.power-bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.power-bar-row:last-child {
+    margin-bottom: 0;
+}
+
+.power-bar-row.current-faction {
+    background: rgba(255,255,255,0.1);
+}
+
+.power-bar-label {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.power-bar-icon {
+    font-size: 1rem;
+}
+
+.power-bar-name {
+    font-size: 0.8rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.power-bar-track {
+    flex: 1;
+    height: 16px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.power-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+}
+
+.power-bar-value {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #fff;
+    width: 40px;
+    text-align: right;
+}
+
+/* Region Chips */
+.region-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.region-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+}
+
+.region-chip-icon {
+    font-size: 1rem;
+}
+
+.region-chip-name {
+    color: #fff;
+    font-weight: 500;
+}
+
+.region-chip-value {
+    color: #888;
+    font-size: 0.75rem;
+}
+
+/* Goal Section */
+.goal-section {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.goal-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.ideology-badge {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.ideology-label {
+    color: #888;
+}
+
+.ideology-value {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* POI List */
+.poi-list-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.poi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.poi-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,0,0,0.2);
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-left: 3px solid #666;
+    transition: background 0.2s;
+}
+
+.poi-list-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.poi-list-icon {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.poi-list-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.poi-list-name {
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.poi-list-type {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: capitalize;
+}
+
+.poi-list-stats {
+    display: flex;
+    gap: 8px;
+}
+
+.poi-stat {
+    font-size: 0.75rem;
+    color: #aaa;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.poi-list-more {
+    text-align: center;
+    padding: 10px;
+    color: #888;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* Strengths & Weaknesses Grid */
+.sw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.sw-card {
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.sw-strengths {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.sw-weaknesses {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.sw-card h5 {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+}
+
+.sw-strengths h5 {
+    color: #4ade80;
+}
+
+.sw-weaknesses h5 {
+    color: #f87171;
+}
+
+.sw-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.sw-card li {
+    color: #ccc;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+/* Operations List */
+.operations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.operation-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.operation-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.operation-icon {
+    font-size: 1rem;
+}
+
+.operation-name {
+    font-weight: 500;
+    color: #fff;
+    flex: 1;
+}
+
+.operation-status {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+.operation-status.status-active {
+    background: rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.operation-status.status-planning {
+    background: rgba(251, 191, 36, 0.3);
+    color: #fbbf24;
+}
+
+.operation-desc {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.operation-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.operation-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.operation-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.operation-progress-text {
+    font-size: 0.8rem;
+    color: #fff;
+    font-weight: bold;
+    width: 40px;
+    text-align: right;
+}
+
+/* Relations */
+.relations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.relations-column {
+    background: rgba(0,0,0,0.2);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.relations-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.relations-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.relation-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid;
+}
+
+.relation-chip.ally {
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+}
+
+.relation-chip.enemy {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+.no-relations {
+    color: #666;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.no-data {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Territory Status Banner */
+.territory-status-banner {
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.territory-status-banner.contested {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+.territory-status-banner.secure {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #4ade80;
+}
+
+/* Controller Card */
+.controller-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.controller-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.controller-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.controller-name {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.controller-ideology {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.view-faction-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.view-faction-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Presence Chart */
+.presence-chart {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.presence-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.presence-row:last-child {
+    margin-bottom: 0;
+}
+
+.presence-label {
+    width: 100px;
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.presence-bar {
+    flex: 1;
+    height: 12px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.presence-fill {
+    height: 100%;
+    border-radius: 6px;
+}
+
+.presence-count {
+    font-size: 0.8rem;
+    color: #888;
+    width: 60px;
+    text-align: right;
+}
 .territory-tooltip p {
     margin: 0 0 6px 0;
     font-size: 0.85rem;
@@ -1352,39 +1988,4 @@
     padding-top: 12px;
     border-top: 1px solid var(--border-color);
     font-style: italic;
-}
-/* War Statistics Bar */
-.war-stats-bar {
-    display: flex;
-    justify-content: space-around;
-    padding: 16px;
-    background: var(--sidebar-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 24px;
-}
-
-.war-stat {
-    text-align: center;
-}
-
-.war-stat-value {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--accent-color);
-}
-
-.war-stat-label {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Calendar Civil War Dot */
-.event-dot.civil-war {
-    background: #ff69b4;
-    box-shadow: 0 0 4px rgba(255, 105, 180, 0.5);
 }

@@ -3,173 +3,153 @@ import {
     CIVIL_WAR_CONFIG,
     CIVIL_WAR_FACTIONS,
     CIVIL_WAR_EVENTS,
-    getTerritoryMapWithStats,
     calculateDynamicInfluence,
     calculateWarStatus,
-    initMushroomKingdomListeners // This is the function you need
+    initMushroomKingdomListeners
 } from './mushroom-kingdom-system.js';
-import { getRealTimeMapStats } from './map-analysis.js';
+import { getRealTimeMapStats, getCuratedTerritoryList } from './map-analysis.js';
 import { CURRENT_GAME_DATE } from '../calendar-data.js';
 
-// EXPORT THIS FUNCTION SO EXTERNAL FILES CAN CALL IT
-export { initMushroomKingdomListeners as initCivilWarListeners };
+export { initMushroomKingdomListeners };
 
 export function renderMushroomKingdomCivilWar() {
     const influence = calculateDynamicInfluence();
     const stats = getRealTimeMapStats().global;
     const warStatus = calculateWarStatus();
-    const territories = getTerritoryMapWithStats(); 
+    const territories = getCuratedTerritoryList();
     
-    // 1. Render Faction Cards
-    const cardsHTML = Object.entries(CIVIL_WAR_FACTIONS).map(([key, faction]) => {
-        const fStats = stats[key] || { military: 0, controlledRegions: 0, poiCount: 0 };
+    // 1. Active Factions (Filter out those with 0 presence to keep UI clean)
+    const activeFactions = Object.entries(CIVIL_WAR_FACTIONS)
+        .filter(([key, _]) => stats[key] && stats[key].poiCount > 0)
+        .sort(([keyA, _], [keyB, __]) => influence[keyB] - influence[keyA])
+        .slice(0, 8); // Top 8 active
+
+    const cardsHTML = activeFactions.map(([key, faction]) => {
+        const fStats = stats[key];
         const isLeading = warStatus.leadingFaction && warStatus.leadingFaction.id === key;
         
         return `
-            <div class="faction-card ${isLeading ? 'leading-card' : ''}" data-faction="${key}" style="border-top: 4px solid ${faction.color}; position: relative;">
+            <div class="faction-card ${isLeading ? 'faction-leading' : ''}" data-faction="${key}" style="border-top: 4px solid ${faction.color};">
                 <div class="faction-card-header">
                     <div class="faction-icon" style="background: ${faction.color}">${faction.icon}</div>
-                    <div>
-                        <h4 style="margin:0;">${faction.name}</h4>
-                        <small style="opacity:0.8;">${faction.leaderTitle}</small>
+                    <div class="faction-title-block">
+                        <h4 class="faction-name">${faction.name}</h4>
+                        <p class="faction-leader">${faction.leaderTitle}</p>
                     </div>
-                    <div class="influence-badge" style="background:${faction.color}; margin-left:auto;">
+                    <div class="faction-influence-badge" style="background:${faction.color};">
                         ${influence[key]}
                     </div>
                 </div>
-                
-                <div class="faction-card-body" style="padding: 15px;">
-                    <div class="stat-row" style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                        <span>⚔️ Military:</span>
-                        <strong>${fStats.military}</strong>
+                <div class="faction-card-body">
+                    <div class="faction-stats">
+                        <div class="stat-item"><span class="stat-icon">⚔️</span><span class="stat-value">${fStats.military}</span><span class="stat-label">Military</span></div>
+                        <div class="stat-item"><span class="stat-icon">🏴</span><span class="stat-value">${fStats.controlledRegions}</span><span class="stat-label">Regions</span></div>
+                        <div class="stat-item"><span class="stat-icon">📍</span><span class="stat-value">${fStats.poiCount}</span><span class="stat-label">POIs</span></div>
                     </div>
-                    <div class="stat-row" style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                        <span>🏴 Regions:</span>
-                        <strong>${fStats.controlledRegions}</strong>
-                    </div>
-                    <div class="stat-row" style="display:flex; justify-content:space-between; margin-bottom:15px;">
-                        <span>📍 POIs:</span>
-                        <strong>${fStats.poiCount}</strong>
-                    </div>
-                    
-                    <button class="faction-detail-btn" data-faction="${key}" 
-                        style="width:100%; padding:8px; background:rgba(255,255,255,0.1); border:none; color:white; cursor:pointer; border-radius:4px;">
-                        View Details
-                    </button>
+                    <button class="faction-detail-btn" data-faction="${key}" style="width:100%; margin-top:10px;">View Details</button>
                 </div>
             </div>
         `;
     }).join('');
 
-    // 2. Render Territory Sidebar List
+    // 2. Sidebar Territories
     const territoryHTML = territories.map(region => {
-        const controllerDef = CIVIL_WAR_FACTIONS[region.controller];
-        const color = controllerDef ? controllerDef.color : '#666';
-        const icon = controllerDef ? controllerDef.icon : '?';
+        const controllerDef = CIVIL_WAR_FACTIONS[region.controller] || { color: '#666', icon: '?' };
+        const isContested = region.isContested;
         
         return `
-            <div class="territory-item" style="display:flex; align-items:center; gap:10px; padding:8px; background:rgba(0,0,0,0.3); margin-bottom:5px; border-left:3px solid ${color};">
-                <div style="font-size:1.2em;">${region.icon}</div>
-                <div style="flex-grow:1;">
-                    <div style="font-weight:bold; font-size:0.9em;">${region.name}</div>
-                    <div style="font-size:0.7em; opacity:0.7;">${region.type}</div>
+            <div class="territory-item ${isContested ? 'contested' : ''}" data-region-id="${region.id}" style="border-left: 3px solid ${controllerDef.color};">
+                <div class="territory-icon" style="font-size: 1.2rem;">${isContested ? '🔥' : '🏰'}</div>
+                <div class="territory-info">
+                    <span class="territory-name">${region.name}</span>
+                    <span class="territory-type">${region.isContested ? 'Contested Hotspot' : (region.label || region.type)}</span>
                 </div>
-                <div style="background:${color}; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8em;">
-                    ${icon}
+                <div class="territory-controller" style="background:${controllerDef.color}; color:white;">
+                    ${controllerDef.icon}
                 </div>
             </div>
         `;
     }).join('');
-
-    // 3. Render Events Sidebar List
-    const eventsHTML = CIVIL_WAR_EVENTS.slice(0,4).map(evt => `
-        <div class="timeline-event" style="margin-bottom:10px; padding-left:10px; border-left: 2px solid rgba(255,255,255,0.2);">
-            <div style="font-size:0.7em; opacity:0.6;">${evt.date.year}-${evt.date.monthIndex}-${evt.date.day}</div>
-            <div style="font-weight:bold; font-size:0.85em;">${evt.title}</div>
-            <div style="font-size:0.8em; opacity:0.8;">${evt.description}</div>
-        </div>
-    `).join('');
 
     return `
         <div class="civil-war-system">
-            <!-- HEADER -->
-            <div class="cw-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                <div>
+            <div class="cw-header">
+                <div class="cw-title-block">
                     <h2 class="cw-title">🍄 ${CIVIL_WAR_CONFIG.name}</h2>
-                    <span style="opacity:0.7;">
-                        ${CIVIL_WAR_CONFIG.status} | Year ${CURRENT_GAME_DATE.year} | Phase: ${warStatus.phase}
-                    </span>
+                    <div class="cw-meta">
+                        <span class="cw-phase phase-escalation">${warStatus.phase}</span>
+                        <span class="cw-date">Year ${CURRENT_GAME_DATE.year}</span>
+                    </div>
                 </div>
-                <button id="btn-view-analytics" class="faction-detail-btn" style="padding:8px 16px; cursor:pointer; background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); color: white; border-radius: 4px;">
-                    📊 View Intel Report
-                </button>
             </div>
 
-            <p style="margin-bottom:20px; line-height:1.5;">${CIVIL_WAR_CONFIG.description}</p>
-
-            <div class="cw-content-grid" style="display:grid; grid-template-columns: 3fr 1fr; gap:20px;">
-                
-                <!-- LEFT: FACTION CARDS -->
+            <p class="cw-description">${CIVIL_WAR_CONFIG.description}</p>
+            
+            <div class="cw-content-grid">
                 <div class="factions-section">
-                    <h3 class="section-title">⚔️ Warring Factions</h3>
-                    <div class="faction-cards-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px;">
+                    <h3 class="section-title">⚔️ Major Power Blocks</h3>
+                    <div class="faction-cards-grid">
                         ${cardsHTML}
                     </div>
                 </div>
 
-                <!-- RIGHT: SIDEBAR (Territories & Events) -->
                 <div class="cw-sidebar">
-                    <h3 class="section-title">🗺️ Territory Control</h3>
-                    <div class="territory-list" style="margin-bottom:20px;">
-                        ${territoryHTML}
+                    <div class="territory-section">
+                        <h3 class="section-title">🗺️ Key Holdings & Hotspots</h3>
+                        <p style="font-size:0.75rem; color:#aaa; margin-bottom:10px;">Click a region for details.</p>
+                        <div class="territory-list">
+                            ${territoryHTML}
+                        </div>
                     </div>
-
-                    <h3 class="section-title">📜 Recent Events</h3>
-                    <div class="events-timeline">
-                        ${eventsHTML}
+                    <div class="events-section">
+                        <h3 class="section-title">📜 Recent Events</h3>
+                        <div class="events-timeline">
+                            ${(CIVIL_WAR_EVENTS || []).slice(0,3).map(evt => `
+                                <div class="timeline-event event-${evt.type}">
+                                    <div class="event-date-marker"><div class="days-ago">${evt.date.monthIndex}/${evt.date.day}</div></div>
+                                    <div class="event-content">
+                                        <h5 class="event-title">${evt.title}</h5>
+                                        <p class="event-desc">${evt.description}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <style>
-                .leading-card {
-                    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-                    border: 1px solid rgba(255, 215, 0, 0.5);
-                }
-                .faction-card {
-                    background: rgba(0,0,0,0.4);
-                    border-radius: 8px;
-                    overflow: hidden;
-                    transition: transform 0.2s;
-                }
-                .faction-card:hover {
-                    transform: translateY(-2px);
-                }
-                .faction-card-header {
-                    padding: 12px;
-                    background: rgba(255,255,255,0.05);
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
-                .faction-icon {
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.2em;
-                }
-                .influence-badge {
-                    padding: 2px 8px;
-                    border-radius: 12px;
-                    font-weight: bold;
-                    font-size: 0.9em;
-                    color: white;
-                    text-shadow: 0 1px 2px black;
-                }
-            </style>
         </div>
     `;
+}
+export function initCivilWarListeners() {
+    const container = document.querySelector('.civil-war-system');
+    if (!container) return;
+
+    // 1. Faction Detail Cards
+    container.addEventListener('click', (e) => {
+        const detailBtn = e.target.closest('.faction-detail-btn');
+        // Do not trigger if it's the analytics button
+        if (detailBtn && detailBtn.id !== 'btn-view-analytics') {
+            const factionKey = detailBtn.dataset.faction;
+            if (typeof window.showFactionModal === 'function') {
+                window.showFactionModal(factionKey);
+            }
+        }
+    });
+
+    // 2. Analytics Modal
+    const analyticsBtn = container.querySelector('#btn-view-analytics');
+    if (analyticsBtn) {
+        analyticsBtn.addEventListener('click', () => {
+            const html = renderAnalyticsModal();
+            document.body.insertAdjacentHTML('beforeend', html);
+        });
+    }
+
+    // 3. Territory Hover Tooltips
+    container.addEventListener('mouseover', (e) => {
+        const territory = e.target.closest('.territory-item');
+        if (territory) {
+           // Tooltip logic can go here (handled via global listeners usually)
+        }
+    });
 }
