@@ -1,4 +1,5 @@
 
+
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
 export const REMI_QUESTS = {
@@ -58,6 +59,31 @@ export const REMI_QUESTS = {
         milestones: [
             { id: 'm1', status: 'active', title: "Identify Target", description: "Find the meeting location at the Port of Mighdural." },
             { id: 'm2', status: 'locked', title: "The Sting", description: "Record the conversation." }
+        ]
+    },
+    
+    'remi_adopt_mossy': {
+        id: 'remi_adopt_mossy',
+        title: "Taming the Beast",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - Remi',
+        status: QUEST_STATUS.COMPLETED,
+        priority: QUEST_PRIORITY.MEDIUM,
+        objective: "Bond with the experimental construct 'Mossy'.",
+        assignees: ['remi'],
+        primaryAssignee: 'remi',
+        description: "The Oracle gifted Remi a chrome-plated mechanical dog, a failed Guild experiment. It is loyal, violent, and occasionally heals people after concussing them. Remi has taken it upon herself to train it.",
+        difficulty: { overall: DIFFICULTY.MODERATE, animal_handling: DIFFICULTY.HARD },
+        tags: ['pet', 'construct', 'loyalty'],
+        rewards: {
+             guaranteed: [
+                { type: 'companion', name: "Mossy", description: "A robotic dog that attacks and heals." }
+            ],
+            xp: 1500
+        },
+        milestones: [
+            { id: 'm1', status: 'completed', title: "Acceptance", description: "Accepted the gift from the Oracle." },
+            { id: 'm2', status: 'completed', title: "First Command", description: "Taught Mossy to 'sit' (he sat too hard)." }
         ]
     }
 };

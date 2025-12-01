@@ -10,7 +10,6 @@ import { LORE_DATA } from './lore.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
 import { PLAGUE_DATA } from './plagues-data.js'; 
 import { QUEST_DATA, QUEST_STATUS } from './quests-data.js';
-import { getLegislativeEventsForDay } from './government/holy-midlands-diet.js';
 // --- State ---
 let viewDate = {
     year: CURRENT_GAME_DATE.year,
@@ -286,7 +285,6 @@ function getEventsForDay(year, monthIndex, day) {
     events.push(...getRumorEventsForDay(year, monthIndex, day));
     events.push(...getPlagueEventsForDay(year, monthIndex, day));
     events.push(...getQuestEventsForDay(year, monthIndex, day));
-    events.push(...getLegislativeEventsForDay(year, monthIndex, day));
     const dayOfWeekIndex = (day - 1) % 7;
     const dayName = CALENDAR_DATA.days.values[dayOfWeekIndex].name;
     for (const key in RELIGION_DATA.denominations) {

@@ -26,6 +26,27 @@ export const MAJOR_BATTLES = [
         `
     },    
     {
+        id: 'skirmish_silent_grove',
+        name: "Ambush in the Silent Grove",
+        conflict: "Raventree Manor Crisis",
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 0 },
+        location: "Raventree Manor, Hedge Maze",
+        belligerents: {
+            side_a: { name: "Markop's Rescue Party", factions: ['liberated_toads', 'unaligned'] },
+            side_b: { name: "The Web-Weaver & Brood", factions: ['unaligned'] }
+        },
+        commanders: { 
+            side_a: ["Markop", "Remi (FNG)", "Waluigi", "Rodger"], 
+            side_b: ["Colossal Spider", "Mirror Entities"]
+        },
+        outcome: "<span class='outcome ongoing'>Ongoing Combat</span>; Eager located but trapped.",
+        casualties: "Waluigi (Webbed repeatedly). Eager (Cocooned).",
+        description: `
+            <p>Markop led a squad into the silent, dead grove deep within the hedge maze to rescue Eager, who had been enlarged and dragged away. They found him cocooned in a massive dead tree, surrounded by desiccated corpses.</p>
+            <p>The rescue turned into a desperate battle against a Colossal Spider and its brood. Remi deployed acid and her new robotic companion, 'Mossy', while Waluigi provided fire support (and distraction). Rodger's toad squad provided suppressive fire. The Oracle observed from the sidelines, seemingly protecting Remi but offering no direct aid.</p>
+        `
+    },
+    {
         id: 'skirmish_dance_hall',
         name: "The Dance Hall Discord",
         conflict: "Raventree Manor Crisis",

@@ -33,6 +33,24 @@ export const RUMORS = [
         cycle_impact: { score: 2.5, label: "Open Warfare", type: "military" }
     },
     {
+        id: "spider_grove_ambush",
+        title: "The Spider Grove Ambush",
+        date: { "day": 20, "monthIndex": 6, "year": 1040 },
+        isEvent: true,
+        instigator: "self_reflection_oracle",
+        arc: "raventree_manor",
+        arcPosition: "climax",
+        description: "Markop, Remi (FNG), and a squad of Toads were led by the Oracle into a silent, web-choked grove within Raventree Manor to rescue Eager. They discovered Waluigi attempting to 'help' by using chaotic magic, and subsequently battled a massive Arachnid Matriarch and her brood. The skirmish saw Remi bonding with a new mechanical companion, 'Mossy', and Waluigi accidentally proving useful with fire magic.",
+        targets: ["markop", "remi", "waluigi", "eager", "self_reflection_oracle"],
+        effects: {
+            liberated_toads: 10,
+            cosmic_jesters: 10,
+            mages_guild: -5,
+            freelancer_underworld: 5
+        },
+        cycle_impact: { "score": 1.5, "label": "Monster Hunt", "type": "combat" }
+    },    
+    {
         id: 'mirror_door_breach',
         title: "The Mirror Door Breach",
         date: { day: 20, monthIndex: 6, year: 1040 },
