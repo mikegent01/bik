@@ -36,6 +36,8 @@ const waluigiWarningModal = document.getElementById('waluigi-warning-modal');
 
 let currentEventSort = 'newest';
 let activeChannelId = 'all';
+let currentPage = 1;
+const POSTS_PER_PAGE = 20;
 
 let WAHBOOK_POSTS = [];
 let WAHBOOK_EVENTS = [];
@@ -204,11 +206,50 @@ function renderTrendingRumorsWidget() {
     return `<div class="profile-sidebar-widget"><h4>Network Trends</h4><div style="margin-bottom: 16px;"><h6 style="color: var(--positive-color); font-size: 0.8rem; margin-bottom: 8px;">🔥 VIRAL TARGETS</h6><ul class="trending-rumor-list">${renderList(trendingList, "No viral topics currently.")}</ul></div><div><h6 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 8px;">📉 FADING SIGNALS</h6><ul class="trending-rumor-list">${renderList(decayingList, "No fading signals detected.")}</ul></div><a href="assembly.html#intel" class="intel-link-btn" style="margin-top:16px; font-size:0.8rem; width:100%;">View Full Intel Report</a></div>`;
 }
 
+
 function renderMainFeed() {
     if (!feedContainer) return;
+    
     const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-    const postsHTML = renderCreatePostBox() + sortedPosts.map(p => renderFeedPost(p)).join('');
-    feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}</div><aside id="feed-sidebar">${renderTrendingRumorsWidget()}</aside></div>`;
+    const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+    
+    // Clamp currentPage
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+    
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    const currentPosts = sortedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+    
+    const postsHTML = renderCreatePostBox() + currentPosts.map(p => renderFeedPost(p)).join('');
+    
+    const paginationHTML = `
+        <div class="wahbook-pagination">
+            <button id="prev-page-btn" class="control-btn" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Previous</button>
+            <span class="page-info">Page ${currentPage} of ${totalPages}</span>
+            <button id="next-page-btn" class="control-btn" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>
+        </div>
+    `;
+
+    feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}${paginationHTML}</div><aside id="feed-sidebar">${renderTrendingRumorsWidget()}</aside></div>`;
+
+    // Add Listeners
+    document.getElementById('prev-page-btn')?.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderMainFeed();
+            const layout = document.getElementById('feed-content-layout');
+            if (layout) layout.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    document.getElementById('next-page-btn')?.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderMainFeed();
+             const layout = document.getElementById('feed-content-layout');
+            if (layout) layout.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 }
 
 function renderEvent(rumor) {

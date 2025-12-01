@@ -18,78 +18,9 @@ function getSeededRandom(seed) {
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
 }
 
-const BATTLE_UPDATE_TEMPLATES = [
-    "Scouts report minor skirmishes along the perimeter.",
-    "Heavy fighting reported in the early hours, settling into a stalemate.",
-    "Logistics convoys intercepted; supplies running low.",
-    "Quiet on the front today, tensions remain high.",
-    "Sudden artillery barrage exchanged, minimal casualties.",
-    "Troop movements detected suggesting a flanking maneuver.",
-    "Morale holds despite worsening weather conditions.",
-    "Local militia clashes with patrol units.",
-    "Rumors of a new enemy commander arriving at the front.",
-    "Night raid repelled with moderate losses."
-];
 
-/**
- * Generates timeline events from battlefield data.
- * Includes main battle entries and daily updates for ongoing conflicts.
- */
-function generateBattleTimelineEvents() {
-    const events = [];
-    const currentDay = CURRENT_GAME_DATE.day; 
-    
-    MAJOR_BATTLES.forEach(battle => {
-        // 1. Add the Main Battle Event
-        // Use the structured date object directly from battlefield.js
-        const mainEventDate = battle.date;
 
-        events.push({
-            date: mainEventDate,
-            title: battle.name,
-            description: battle.description.replace(/<[^>]*>?/gm, '').substring(0, 200) + (battle.description.length > 200 ? "..." : ""), // Plain text summary
-            icon: "icon_war.png",
-            category: "Military",
-            link: `battlefield.html#${battle.id}`,
-            originalDate: battle.date, // Keep reference
-        });
 
-        // 2. Generate Daily Updates for Ongoing Battles
-        // Check if outcome marks it as ongoing, or if it's a recent battle that implies ongoing conflict
-        const isOngoing = battle.outcome.includes("Ongoing") || battle.outcome.includes("Hostilities Resumed");
-        
-        if (isOngoing && typeof battle.date === 'object') {
-            const startDay = battle.date.day;
-
-            // Generate an event for each day from start+1 to today
-            for (let d = startDay + 1; d <= currentDay; d++) {
-                let seed = d * 1337;
-                for (let i=0; i<battle.id.length; i++) seed += battle.id.charCodeAt(i);
-                
-                const randIndex = Math.floor(getSeededRandom(seed) * BATTLE_UPDATE_TEMPLATES.length);
-                const updateText = BATTLE_UPDATE_TEMPLATES[randIndex];
-                
-                events.push({
-                    // Generate a date object for the update
-                    date: { 
-                        year: CURRENT_GAME_DATE.year, 
-                        monthIndex: CURRENT_GAME_DATE.monthIndex, 
-                        day: d, 
-                        hour: 9, 
-                        minute: 0 
-                    },
-                    title: `Update: ${battle.name}`,
-                    description: updateText,
-                    icon: "icon_report.png", 
-                    category: "Military",
-                    isDailyRoll: true,
-                    link: `battlefield.html#${battle.id}`
-                });
-            }
-        }
-    });
-    return events;
-}
 
 
 /**
@@ -201,8 +132,6 @@ function processTimelineData() {
     let combinedData = [...rawTimelineData];
 
     // 2. Generate and add Battle Events
-    const battleEvents = generateBattleTimelineEvents();
-    combinedData = combinedData.concat(battleEvents);
 
     // 3. Process sort keys and display strings
     const processed = combinedData.map(event => {
