@@ -49,7 +49,7 @@ function renderGlobalStrategicOverview(stats) {
         })
         .sort((a, b) => b.totalPower - a.totalPower);
 
-    const topFactions = factionData.slice(0, 8);
+    const topFactions = factionData.slice(0, 80);
     const claimedPercent = topFactions.reduce((acc, f) => acc + f.poiPercent, 0);
     const unclaimedPercent = Math.max(0, 100 - claimedPercent);
 
@@ -265,7 +265,6 @@ export function renderMushroomKingdomCivilWar() {
                         <span class="cw-date">Year ${CURRENT_GAME_DATE.year}</span>
                     </div>
                 </div>
-                <button id="btn-view-analytics" class="cw-btn-primary">📊 Full Intel Report</button>
             </div>
 
             <p class="cw-description">${CIVIL_WAR_CONFIG.description}</p>

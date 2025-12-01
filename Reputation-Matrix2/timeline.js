@@ -9,20 +9,6 @@ const filterBar = document.getElementById('timeline-filter-bar');
 
 let activeFilters = new Set();
 let observer;
-
-// --- Seeded Random for Daily Events ---
-function getSeededRandom(seed) {
-    var t = seed += 0x6D2B79F5;
-    t = Math.imul(t ^ t >>> 15, t | 1);
-    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-}
-
-
-
-
-
-
 /**
  * Parses a date (string or object) into a numeric value for sorting.
  */
