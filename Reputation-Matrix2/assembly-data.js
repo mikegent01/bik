@@ -19,15 +19,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'rodger_shot_count',
+        id: 'roger_shot_count',
         order: 31038,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 13 },
         timestamp: '2 minutes ago',
         content: `Double shot! Right in the eyes! The song guides our aim! 🎶 We are the Toads, the mighty Toads! 🎶`,
         likes: 1200,
         comments: [
-            { characterKey: 'rodder', text: '🎶 We shoot the bugs, we clear the roads! 🎶' },
+            { characterKey: 'roger', text: '🎶 We shoot the bugs, we clear the roads! 🎶' },
             { characterKey: 'captain_toadette', text: 'Good form, soldier! Keep that rhythm!' },
             { characterKey: 'toad_lee', text: 'Less singing, more reloading!' }
         ],
@@ -43,7 +43,7 @@ export const WAHBOOK_POSTS = [
         likes: 980,
         comments: [
             { characterKey: 'markop', text: 'Focus, FNG. Flank left.' },
-            { characterKey: 'hjumpik', text: 'Is the spider okay? It looks melty.' },
+            { characterKey: 'humpik', text: 'Is the spider okay? It looks melty.' },
             { characterKey: 'janna_brightspark', text: 'What is the pH level of that compound? Fascinating reaction!' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -87,7 +87,7 @@ export const WAHBOOK_POSTS = [
         content: `Target sighted. Massive arachnid. Two distinct signatures. One is... nursing the other? Unnatural. Prepare to engage on my signal.`,
         likes: 670,
         comments: [
-            { characterKey: 'rodger', text: 'We are ready, Paladin.' },
+            { characterKey: 'roger', text: 'We are ready, Paladin.' },
             { characterKey: 'bones', text: 'Cut them down.' },
             { characterKey: 'remi', text: 'Moving to position.' }
         ],
@@ -147,7 +147,7 @@ export const WAHBOOK_POSTS = [
         content: `Woke up in a creepy grove. The Oracle was watching me sleep. Mossy didn't even bark. Apparently, my 'bond is too weak.' I hate this place.`,
         likes: 1100,
         comments: [
-            { characterKey: 'hjumpik', text: 'Is the dog shiny? I want a shiny dog.' },
+            { characterKey: 'humpik', text: 'Is the dog shiny? I want a shiny dog.' },
             { characterKey: 'mages_guild_envoy', text: 'That construct is Guild property. Return it.' },
             { characterKey: 'remi', text: 'Come take it. I dare you.' }
         ],
@@ -190,7 +190,7 @@ export const WAHBOOK_POSTS = [
         content: `Why are there so many webs? I hate spiders. Why did we follow the purple man?`,
         likes: 120,
         comments: [
-            { characterKey: 'rodger', text: 'Courage! Sing the song!' },
+            { characterKey: 'roger', text: 'Courage! Sing the song!' },
             { characterKey: 'waluigi', text: 'BECAUSE WALUIGI KNOWS THE WAY!' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -210,7 +210,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'oracle_missing_hjumpik',
+        id: 'oracle_missing_humpik',
         order: 31025,
         characterKey: 'self_reflection_oracle',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 45 },
@@ -219,7 +219,7 @@ export const WAHBOOK_POSTS = [
         likes: 1300,
         comments: [
             { characterKey: 'markop', text: 'You\'re lying.' },
-            { characterKey: 'hjumpik', text: 'I am right here! I found a rock!' }
+            { characterKey: 'humpik', text: 'I am right here! I found a rock!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -246,7 +246,7 @@ export const WAHBOOK_POSTS = [
         content: `Okay, 'Sit' works. He drops like a ton of bricks. Literally. The floorboards are groaning. Now, let's try 'Run.'`,
         likes: 900,
         comments: [
-            { characterKey: 'hjumpik', text: 'He is a heavy boy!' },
+            { characterKey: 'humpik', text: 'He is a heavy boy!' },
             { characterKey: 'mages_guild_envoy', text: 'You are operating a Class-4 Siege Construct without a license.' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -296,7 +296,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'mossy_steals_anchor',
         order: 31019,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 5 },
         timestamp: '2 hours 10 minutes ago',
         content: `The metal dog took the anchor! Hey! That is heavy ordnance, not a chew toy!`,
@@ -316,7 +316,7 @@ export const WAHBOOK_POSTS = [
         content: `So. The Oracle gave me a dog. A robot dog. Made of chrome and magic. I named him Mossy. If I don't keep him, he gets 'shut down.' I guess I'm a dog owner now.`,
         likes: 2500,
         comments: [
-            { characterKey: 'hjumpik', text: 'Can he smash things?' },
+            { characterKey: 'humpik', text: 'Can he smash things?' },
             { characterKey: 'remi', text: 'We\'re finding out.' },
             { characterKey: 'toad_lee', text: 'Does he take commands? Can he fight?' }
         ],
@@ -345,7 +345,7 @@ export const WAHBOOK_POSTS = [
         content: `We are tired... but the song keeps us going. Just a little nap. 🎶 We are the Toads... zzz... 🎶`,
         likes: 600,
         comments: [
-            { characterKey: 'rodder', text: '🎶 The mighty Toads... 🎶' },
+            { characterKey: 'roger', text: '🎶 The mighty Toads... 🎶' },
             { characterKey: 'captain_toadette', text: 'Rest well, soldiers. You earned it.' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -418,16 +418,16 @@ export const WAHBOOK_POSTS = [
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'hjumpik_spider_friend',
+        id: 'humpik_spider_friend',
         order: 31010,
-        characterKey: 'hjumpik',
+        characterKey: 'humpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
         timestamp: '3 hours 45 minutes ago',
         content: `The fuzzy legs are ticklish! They have so many eyes! Hello new friends!`,
         likes: 880,
         comments: [
             { characterKey: 'bowser', text: 'Humpik, get away from there! SQUASH IT!' },
-            { characterKey: 'hjumpik', text: 'No squash! Only pets!' }
+            { characterKey: 'humpik', text: 'No squash! Only pets!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -524,15 +524,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'rodger_tune_stuck',
+        id: 'roger_tune_stuck',
         order: 31002,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 10 },
         timestamp: '5 hours ago',
         content: `This tune is stuck in my head. 🎶 We are the Toads... 🎶 It's catchy, right?`,
         likes: 500,
         comments: [
-            { characterKey: 'rodder', text: 'Never stops.' }
+            { characterKey: 'roger', text: 'Never stops.' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -610,7 +610,7 @@ export const WAHBOOK_POSTS = [
     rumorId: 'mages_guild_warrant'
 },
 {
-    id: 'hjumpik_whispering_rocks',
+    id: 'humpik_whispering_rocks',
     order: 30945,
     characterKey: 'humpik',
     date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 19 },
@@ -1630,7 +1630,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'archie_third_eye_escape'
     },
     {
-        id: 'rodger_press_the_attack',
+        id: 'roger_press_the_attack',
         order: 374,
         characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 51 },
@@ -1754,7 +1754,7 @@ export const WAHBOOK_POSTS = [
         rumorId: 'wraith_conflagration'
     },
     {
-        id: 'rodger_takes_command',
+        id: 'roger_takes_command',
         order: 364,
         characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 45 },
@@ -4395,7 +4395,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'rodger_rangers_lost_now',
+        id: 'roger_rangers_lost_now',
         order: 153,
         characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 42 },
@@ -5190,9 +5190,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_traitor_reveal',
+        id: 'roger_traitor_reveal',
         order: 89,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 22, minute: 0 },
         timestamp: 'Just Now',
         content: `Creek found this. During the surgery. It was on him the whole time. He was one of them. He was a plant. All of this... it was a setup.`,
@@ -5236,9 +5236,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_creek_surgery',
+        id: 'roger_creek_surgery',
         order: 85,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 55 },
         timestamp: '5 minutes ago',
         content: `We got him to Creek. We had to trade almost everything we had left. The operation is... happening. I can't watch. The sounds are bad enough.`,
@@ -5324,9 +5324,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_negotiation',
+        id: 'roger_negotiation',
         order: 77,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 38 },
         timestamp: '22 minutes ago',
         content: `We got him back. We talked them down. One of the soldiers kicked him down the stairs as a final 'parting gift'. He's hurt bad, but he's with us. We're getting out of here.`,
@@ -5379,9 +5379,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_interrogation_fail',
+        id: 'roger_interrogation_fail',
         order: 72,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 25 },
         timestamp: '35 minutes ago',
         content: `This interrogation is a joke. They ask about the staff, they ask about Archie. They don't care about the toad who was just eaten by a robot. And now L is screaming at Ryan about a book. We're losing it.`,
@@ -5489,9 +5489,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_fake_staff',
+        id: 'roger_fake_staff',
         order: 62,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `The clone is back, and now he has a 'staff'. It's a fake. Too clean, no scratches. It's brand new. Another lie. What is the Oracle's game here?`,
@@ -5511,9 +5511,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_demands_proof',
+        id: 'roger_demands_proof',
         order: 60,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `This is a trap. L thinks the food is poisoned and for once I agree with him. I told the Oracle. If it's safe, HE can eat it. Take a piece from every plate. Let's see how confident he is then.`,
@@ -5555,9 +5555,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'shadeward_mansion_raid'
     },
     {
-        id: 'rodger_bad_feeling',
+        id: 'roger_bad_feeling',
         order: 56,
-        characterKey: 'rodger',
+        characterKey: 'roger',
         date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `Sitting in the dining hall. There's a carving on one of the chairs: 'Beware the T.' And every single candle is lit. It's too bright. This isn't a dinner. It's an interrogation.`,
