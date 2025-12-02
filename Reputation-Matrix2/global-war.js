@@ -3,7 +3,7 @@
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from './systems/faction-registry.js';
 import { getRealTimeMapStats, getCuratedTerritoryList, getDetailedRegionStats, renderAnalyticsModal, getDetailedFactionStats } from './global-map-analysis.js';
 import { CURRENT_GAME_DATE } from './calendar-data.js';
-import { MAP_DATA } from '../Reputation-Matrix2/map-data.js';
+import { MAP_DATA } from './map-data.js';
 import { renderTerritoryDetailModal } from './systems/mushroom-kingdom-system.js'; 
 // ============================================
 // STATE
