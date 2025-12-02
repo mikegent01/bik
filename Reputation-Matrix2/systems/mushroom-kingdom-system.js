@@ -1,358 +1,237 @@
-// mushroom-kingdom-system.js
+// mushroom-kingdom-system.js - Rewritten to use FactionRegistry
 
-import { getRealTimeMapStats, renderAnalyticsModal, getCuratedTerritoryList, getDetailedFactionStats } from './map-analysis.js';
+import { getRealTimeMapStats, renderAnalyticsModal, getCuratedTerritoryList, getDetailedFactionStats, getDetailedRegionStats } from './map-analysis.js';
 import { CURRENT_GAME_DATE } from '../calendar-data.js';
+import { getFaction, getAllFactions, getFactionColor, getFactionIcon } from './faction-registry.js';
 
 // ============================================
-// 1. FACTION COLORS
-// ============================================
-export const FACTION_COLORS = {
-    regency: '#4169E1',
-    loyalists: '#FFDAB9',
-    fawful: '#32CD32',
-    warlords: '#006400',
-    criminals: '#A0522D',
-    iron_legion: '#ADB5BD',
-    onyx_hand: '#8B0000',
-    wario: '#FFAC1C',
-    yoshis: '#7FFF00',
-    dk_crew: '#FFE135',
-    beanbean: '#90EE90',
-    regal_empire: '#FFD700',
-    silver_flame: '#C0C0C0',
-    mages_guild: '#9966CC',
-    unaligned: '#6c757d'
-};
-
-// ============================================
-// 2. CONFIGURATION
+// 1. CONFIGURATION
 // ============================================
 export const CIVIL_WAR_CONFIG = {
     name: "Mushroom Kingdom Civil War",
-    startDate: { year: 1040, monthIndex: 6, day: 1 },
+    startDate: { year: 998, monthIndex: 6, day: 1 },
     status: "Active Conflict",
     description: "The kingdom is fractured. The Regency holds the plains, Loyalists wage crusade, while new powers like the Iron Legion and Onyx Hand enter the fray."
 };
 
 // ============================================
-// 3. FACTION DEFINITIONS
+// 2. FACTION KEY MAPPING
+// Maps short keys used in this file to registry IDs
 // ============================================
-export const CIVIL_WAR_FACTIONS = {
-    regency: { 
-        id: 'regency', 
-        name: 'Mushroom Regency', 
-        shortName: 'Regency', 
-        leaderTitle: 'Lord Regent', 
-        leaderName: 'Toadsworth', 
-        color: FACTION_COLORS.regency, 
-        icon: '🍄', 
-        ideology: 'Constitutional Monarchy', 
-        goal: 'Maintain order and legitimacy until the Princess returns.', 
-        strengths: ['Legitimacy', 'Wealth', 'Infrastructure'], 
-        weaknesses: ['Bureaucracy', 'Slow Response'],
-        allies: ['beanbean'],
-        enemies: ['fawful', 'warlords'],
-        description: "The official government of the Mushroom Kingdom, desperately trying to hold things together in Princess Peach's absence."
-    },
-    loyalists: { 
-        id: 'loyalists', 
-        name: 'Peach Loyalists', 
-        shortName: 'Loyalists', 
-        leaderTitle: 'Commander', 
-        leaderName: 'Toadette', 
-        color: FACTION_COLORS.loyalists, 
-        icon: '👑', 
-        ideology: 'Royalist Zealotry', 
-        goal: 'Purge all usurpers and restore the true monarchy.', 
-        strengths: ['Morale', 'Guerilla Tactics', 'Popular Support'], 
-        weaknesses: ['Limited Resources', 'Extremism'],
-        allies: ['regency'],
-        enemies: ['fawful', 'criminals'],
-        description: "Fanatical supporters of Princess Peach who believe the Regency has become corrupt and must be cleansed."
-    },
-    fawful: { 
-        id: 'fawful', 
-        name: "Fawful's Dominion", 
-        shortName: 'Fawful', 
-        leaderTitle: 'Supreme Overlord', 
-        leaderName: 'Fawful', 
-        color: FACTION_COLORS.fawful, 
-        icon: '😈', 
-        ideology: 'Technarcratic Conquest', 
-        goal: 'Total conquest and technological supremacy over all kingdoms.', 
-        strengths: ['Advanced Tech', 'Castle Fortifications', 'Robot Armies'], 
-        weaknesses: ['Insanity', 'Overconfidence', 'No Allies'],
-        allies: [],
-        enemies: ['regency', 'loyalists', 'warlords'],
-        description: "The mad genius Fawful has seized the royal castle and now builds his mechanical army to conquer everything."
-    },
-    warlords: { 
-        id: 'warlords', 
-        name: 'Koopa Remnants', 
-        shortName: 'Remnants', 
-        leaderTitle: 'Regent Commander', 
-        leaderName: 'Kamek', 
-        color: FACTION_COLORS.warlords, 
-        icon: '🐢', 
-        ideology: 'Koopa Restoration', 
-        goal: 'Find King Bowser and restore the Koopa Empire.', 
-        strengths: ['Magic Users', 'Veteran Soldiers', 'Fortresses'], 
-        weaknesses: ['Scattered Forces', 'Internal Disputes'],
-        allies: [],
-        enemies: ['regency', 'fawful'],
-        description: "The remnants of Bowser's army, now scattered and searching for their missing king while defending their territories."
-    },
-    criminals: { 
-        id: 'criminals', 
-        name: 'The Underworld', 
-        shortName: 'Criminals', 
-        leaderTitle: 'Don', 
-        leaderName: 'Murphy the Bandit King', 
-        color: FACTION_COLORS.criminals, 
-        icon: '💀', 
-        ideology: 'Profit Above All', 
-        goal: 'Exploit the chaos to build a criminal empire.', 
-        strengths: ['Smuggling Networks', 'Bribery', 'Information'], 
-        weaknesses: ['No Trust', 'No Legitimacy', 'Internal Betrayal'],
-        allies: [],
-        enemies: ['loyalists', 'iron_legion'],
-        description: "A loose coalition of bandits, thieves, and criminal organizations profiting from the kingdom's chaos."
-    },
-    iron_legion: { 
-        id: 'iron_legion', 
-        name: 'Iron Legion', 
-        shortName: 'Legion', 
-        leaderTitle: 'General', 
-        leaderName: 'Unknown Commander', 
-        color: FACTION_COLORS.iron_legion, 
-        icon: '⚔️', 
-        ideology: 'Martial Order', 
-        goal: 'Impose order through military discipline and force.', 
-        strengths: ['Heavy Infantry', 'Discipline', 'Siege Warfare'], 
-        weaknesses: ['Slow Mobility', 'Rigid Tactics'],
-        allies: [],
-        enemies: ['criminals', 'fawful'],
-        description: "A military order that emerged from the midlands, they are neutral in the civil war."
-    },
-    onyx_hand: { 
-        id: 'onyx_hand', 
-        name: 'Onyx Hand', 
-        shortName: 'Onyx', 
-        leaderTitle: 'Shadow Master', 
-        leaderName: 'Unknown', 
-        color: FACTION_COLORS.onyx_hand, 
-        icon: '🌑', 
-        ideology: 'Dark Arcanism', 
-        goal: 'Acquire ancient artifacts and forbidden knowledge.', 
-        strengths: ['Stealth', 'Dark Magic', 'Assassination'], 
-        weaknesses: ['Public Distrust', 'Small Numbers'],
-        allies: [],
-        enemies: ['silver_flame', 'mages_guild'],
-        description: "A secretive cabal of dark mages and assassins working toward mysterious, sinister goals."
-    },
-    wario: { 
-        id: 'wario', 
-        name: 'Wario Land Inc.', 
-        shortName: 'Wario', 
-        leaderTitle: 'CEO & President', 
-        leaderName: 'Wario', 
-        color: FACTION_COLORS.wario, 
-        icon: '💰', 
-        ideology: 'Capitalist Greed', 
-        goal: 'Get filthy rich by any means necessary.', 
-        strengths: ['Massive Wealth', 'Mercenaries', 'Business Networks'], 
-        weaknesses: ['Greed', 'Unreliable', 'Everyone Hates Wario'],
-        allies: [],
-        enemies: [],
-        description: "Wario's corporate empire, exploiting the war to buy up land, hire mercenaries, and make obscene profits."
-    },
-    yoshis: { 
-        id: 'yoshis', 
-        name: 'Yoshi Clans', 
-        shortName: 'Yoshis', 
-        leaderTitle: 'Elder Chief', 
-        leaderName: 'Yoshi Elder', 
-        color: FACTION_COLORS.yoshis, 
-        icon: '🥚', 
-        ideology: 'Isolationist Survival', 
-        goal: 'Protect the islands and stay out of mainland conflicts.', 
-        strengths: ['Home Terrain', 'Unity', 'Natural Defenses'], 
-        weaknesses: ['Limited Tech', 'Small Population'],
-        allies: ['dk_crew'],
-        enemies: [],
-        description: "The peaceful Yoshi tribes, forced to defend their island paradise from those who would exploit it."
-    },
-    dk_crew: { 
-        id: 'dk_crew', 
-        name: 'Kong Family', 
-        shortName: 'Kongs', 
-        leaderTitle: 'King of the Jungle', 
-        leaderName: 'Donkey Kong', 
-        color: FACTION_COLORS.dk_crew, 
-        icon: '🍌', 
-        ideology: 'Jungle Freedom', 
-        goal: 'Protect the banana hoard and jungle territories.', 
-        strengths: ['Raw Strength', 'Jungle Warfare', 'Loyal Family'], 
-        weaknesses: ['No Politics', 'Easily Tricked'],
-        allies: ['yoshis'],
-        enemies: [],
-        description: "The Kong family and their jungle allies, defending their territory with primal strength."
-    },
-    beanbean: { 
-        id: 'beanbean', 
-        name: 'Beanbean Kingdom', 
-        shortName: 'Beanbean', 
-        leaderTitle: 'Queen', 
-        leaderName: 'Queen Bean', 
-        color: FACTION_COLORS.beanbean, 
-        icon: '🫘', 
-        ideology: 'Defensive Sovereignty', 
-        goal: 'Protect borders and maintain independence.', 
-        strengths: ['Diplomacy', 'Unique Magic', 'Fortified Borders'], 
-        weaknesses: ['Small Military', 'Economic Dependency'],
-        allies: ['regency'],
-        enemies: ['fawful'],
-        description: "The neighboring Beanbean Kingdom, trying to stay neutral while protecting their borders from the chaos."
-    },
-    regal_empire: { 
-        id: 'regal_empire', 
-        name: 'Regal Empire', 
-        shortName: 'Empire', 
-        leaderTitle: 'Emperor', 
-        leaderName: 'Unknown', 
-        color: FACTION_COLORS.regal_empire, 
-        icon: '⚜️', 
-        ideology: 'Imperial Expansion', 
-        goal: 'Expand the empire and civilize the chaos.', 
-        strengths: ['Discipline', 'Resources', 'Professional Army'], 
-        weaknesses: ['Overextension', 'Arrogance'],
-        allies: [],
-        enemies: [],
-        description: "A foreign imperial power seeing opportunity in the kingdom's weakness."
-    },
-    silver_flame: { 
-        id: 'silver_flame', 
-        name: 'Order of the Silver Flame', 
-        shortName: 'Silver Flame', 
-        leaderTitle: 'High Priest', 
-        leaderName: 'Father Luminos', 
-        color: FACTION_COLORS.silver_flame, 
-        icon: '🔥', 
-        ideology: 'Holy Purification', 
-        goal: 'Purify the land of darkness and corruption.', 
-        strengths: ['Zealous Warriors', 'Healing Magic', 'Popular Faith'], 
-        weaknesses: ['Intolerance', 'Extremism'],
-        allies: [],
-        enemies: ['onyx_hand', 'criminals'],
-        description: "A militant religious order dedicated to burning away the darkness they see spreading across the land."
-    },
-    mages_guild: { 
-        id: 'mages_guild', 
-        name: "Mages' Guild", 
-        shortName: 'Mages', 
-        leaderTitle: 'Archmage', 
-        leaderName: 'Merlon the Elder', 
-        color: '#9966CC', 
-        icon: '🔮', 
-        ideology: 'Magical Neutrality', 
-        goal: 'Preserve magical knowledge and stay neutral.', 
-        strengths: ['Powerful Magic', 'Knowledge', 'Neutral Status'], 
-        weaknesses: ['Small Numbers', 'Political Naivety'],
-        allies: [],
-        enemies: ['onyx_hand'],
-        description: "The ancient guild of mages, trying to remain neutral while protecting magical artifacts from all sides."
-    }
+const FACTION_KEY_MAP = {
+    // Short key -> Registry ID
+    'regency': 'mushroom_regency',
+    'loyalists': 'peach_loyalists',
+    'fawful': 'fawfuls_furious_freaks',
+    'warlords': 'koopa_troop',
+    'criminals': 'freelancer_underworld',
+    'iron_legion': 'iron_legion',
+    'onyx_hand': 'onyx_hand',
+    'wario': 'wario_land',
+    'yoshis': 'yoshi_clans',
+    'dk_crew': 'dk_crew',
+    'beanbean': 'beanbean_kingdom',
+    'regal_empire': 'regal_empire',
+    'silver_flame': 'silver_flame',
+    'mages_guild': 'mages_guild',
+    'toad_cult': 'toad_cult',
+    'toad_gang': 'toad_gang',
+    'liberated_toads': 'liberated_toads',
+    'the_unchained': 'the_unchained',
+    'ratchet_raiders': 'ratchet_raiders',
+    'crimson_fleet': 'crimson_fleet',
+    'iron_fists': 'iron_fists',
+    'diamond_city_investigators': 'diamond_city_investigators',
+    'goodstyle_artisans': 'goodstyle_artisans',
+    'cosmic_jesters': 'cosmic_jesters',
+    'flower_kingdom': 'flower_kingdom',
+    'kremling_krew': 'kremling_krew',
+    'unaligned': 'unaligned'
 };
 
+// Reverse map: Registry ID -> Short key
+const REVERSE_KEY_MAP = Object.fromEntries(
+    Object.entries(FACTION_KEY_MAP).map(([short, full]) => [full, short])
+);
+
+/**
+ * Convert any faction key to registry ID
+ */
+function toRegistryId(key) {
+    if (!key) return 'unaligned';
+    // If it's already a full ID, return it
+    if (getFaction(key)?.id === key) return key;
+    // Try the mapping
+    return FACTION_KEY_MAP[key] || key;
+}
+
+/**
+ * Get faction from registry, supporting both short and full keys
+ */
+function getFactionSafe(key) {
+    const registryId = toRegistryId(key);
+    return getFaction(registryId);
+}
+
 // ============================================
-// 4. STRATEGIC OPERATIONS
+// 3. CIVIL WAR SPECIFIC DATA
+// (Operations, Events - things not in the registry)
 // ============================================
+
 export const STRATEGIC_OPERATIONS = {
-    regency: [
+    mushroom_regency: [
         { id: 'reg_1', name: 'Capital Fortification', type: 'defensive', status: 'active', progress: 65, description: 'Reinforcing Toad Town walls.' },
         { id: 'reg_2', name: 'Tax Collection Drive', type: 'economic', status: 'active', progress: 40, description: 'Collecting emergency war taxes.' }
     ],
-    loyalists: [
+    peach_loyalists: [
         { id: 'loy_1', name: 'Castle Liberation', type: 'military', status: 'planning', progress: 25, description: 'Planning assault on Fawful\'s castle.' },
         { id: 'loy_2', name: 'Guerilla Campaign', type: 'military', status: 'active', progress: 70, description: 'Sabotaging enemy supply lines.' }
     ],
-    fawful: [
+    fawfuls_furious_freaks: [
         { id: 'faw_1', name: 'Mechawful Production', type: 'research', status: 'active', progress: 85, description: 'Mass-producing robot soldiers.' },
         { id: 'faw_2', name: 'Dark Star Research', type: 'research', status: 'active', progress: 30, description: 'Studying the Dark Star fragments.' }
     ],
-    criminals: [
+    freelancer_underworld: [
         { id: 'crim_1', name: 'Smuggling Network', type: 'economic', status: 'active', progress: 90, description: 'Moving contraband across borders.' }
     ],
     iron_legion: [
         { id: 'il_1', name: 'March on Capital', type: 'military', status: 'active', progress: 30, description: 'Advancing toward Toad Town.' }
     ],
-    warlords: [
+    koopa_troop: [
         { id: 'war_1', name: 'Search for Bowser', type: 'intelligence', status: 'active', progress: 15, description: 'Scouring the land for the missing king.' }
     ]
 };
 
-// ============================================
-// 5. CIVIL WAR EVENTS
-// ============================================
 export const CIVIL_WAR_EVENTS = [
-    { type: 'major', date: { year: 1040, monthIndex: 6, day: 8 }, title: "Fawful Seizes Castle", description: "Fawful has occupied the royal castle with his robot army.", impact: { fawful: +15 } },
-    { type: 'battle', date: { year: 1040, monthIndex: 6, day: 17 }, title: "Fall of Bramblehaven", description: "Loyalists captured the strategic outpost.", impact: { loyalists: +10 } },
-    { type: 'diplomatic', date: { year: 1040, monthIndex: 6, day: 22 }, title: "Beanbean Alliance", description: "Queen Bean pledges support to the Regency.", impact: { regency: +5, beanbean: +5 } }
+    { type: 'major', date: { year: 1040, monthIndex: 6, day: 8 }, title: "Fawful Seizes Castle", description: "Fawful has occupied the royal castle with his robot army.", impact: { fawfuls_furious_freaks: +15 } },
+    { type: 'battle', date: { year: 1040, monthIndex: 6, day: 17 }, title: "Fall of Bramblehaven", description: "Loyalists captured the strategic outpost.", impact: { peach_loyalists: +10 } },
+    { type: 'diplomatic', date: { year: 1040, monthIndex: 6, day: 22 }, title: "Beanbean Alliance", description: "Queen Bean pledges support to the Regency.", impact: { mushroom_regency: +5, beanbean_kingdom: +5 } }
 ];
 
 // ============================================
-// 6. GLOBAL MODAL FUNCTION
+// 4. CIVIL WAR FACTIONS LIST
+// List of factions involved in the civil war
+// ============================================
+
+const CIVIL_WAR_FACTION_IDS = [
+    'mushroom_regency',
+    'peach_loyalists',
+    'fawfuls_furious_freaks',
+    'koopa_troop',
+    'freelancer_underworld',
+    'iron_legion',
+    'onyx_hand',
+    'wario_land',
+    'yoshi_clans',
+    'dk_crew',
+    'beanbean_kingdom',
+    'regal_empire',
+    'silver_flame',
+    'mages_guild',
+    'toad_cult',
+    'toad_gang',
+    'liberated_toads',
+    'the_unchained',
+    'ratchet_raiders',
+    'crimson_fleet',
+    'iron_fists',
+    'diamond_city_investigators',
+    'goodstyle_artisans',
+    'cosmic_jesters',
+    'flower_kingdom',
+    'kremling_krew'
+];
+
+/**
+ * Get all civil war factions from the registry
+ */
+export function getCivilWarFactions() {
+    const factions = {};
+    for (const id of CIVIL_WAR_FACTION_IDS) {
+        const faction = getFaction(id);
+        if (faction && faction.id !== 'unaligned') {
+            factions[id] = faction;
+        }
+    }
+    return factions;
+}
+
+// Legacy export for compatibility
+export const CIVIL_WAR_FACTIONS = new Proxy({}, {
+    get(target, prop) {
+        if (prop === Symbol.iterator || prop === 'then') return undefined;
+        return getFactionSafe(prop);
+    },
+    ownKeys() {
+        return CIVIL_WAR_FACTION_IDS;
+    },
+    getOwnPropertyDescriptor(target, prop) {
+        if (CIVIL_WAR_FACTION_IDS.includes(prop) || FACTION_KEY_MAP[prop]) {
+            return { enumerable: true, configurable: true };
+        }
+        return undefined;
+    }
+});
+
+// ============================================
+// 5. GLOBAL MODAL FUNCTION
 // ============================================
 window.showFactionModal = function(factionKey) {
     const existing = document.querySelector('.faction-modal-overlay:not(.analytics-overlay)');
     if (existing) existing.remove();
 
-    const html = renderFactionDetailModal(factionKey);
+    // Convert to registry ID
+    const registryId = toRegistryId(factionKey);
+    
+    const html = renderFactionDetailModal(registryId);
     if (html) {
         document.body.insertAdjacentHTML('beforeend', html);
         requestAnimationFrame(() => {
-            const overlay = document.querySelector(`#faction-modal-${factionKey}`);
+            const overlay = document.querySelector(`#faction-modal-${registryId}`);
             if (overlay) overlay.classList.add('visible');
         });
     }
 };
 
 // ============================================
-// 7. ENHANCED FACTION DETAIL MODAL
+// 6. ENHANCED FACTION DETAIL MODAL
 // ============================================
 export function renderFactionDetailModal(factionKey) {
-    const faction = CIVIL_WAR_FACTIONS[factionKey];
-    if (!faction) {
-        console.warn('No faction found for key:', factionKey);
+    const registryId = toRegistryId(factionKey);
+    const faction = getFaction(registryId);
+    
+    if (!faction || faction.id === 'unaligned') {
+        console.warn('No faction found for key:', factionKey, '-> registryId:', registryId);
         return '';
     }
     
     // Get detailed stats from the analysis module
-    const detailedStats = getDetailedFactionStats(factionKey);
+    const detailedStats = getDetailedFactionStats(registryId);
     const allFactionStats = getRealTimeMapStats();
-    const operations = STRATEGIC_OPERATIONS[factionKey] || [];
+    const operations = STRATEGIC_OPERATIONS[registryId] || [];
     
     // Calculate kingdom control percentage
     const totalInfluence = Object.values(allFactionStats.global)
-        .reduce((sum, f) => sum + f.military + f.economic, 0) || 1;
-    const factionInfluence = detailedStats.military + detailedStats.economic;
+        .reduce((sum, f) => sum + (f.military || 0) + (f.economic || 0), 0) || 1;
+    const factionInfluence = (detailedStats.military || 0) + (detailedStats.economic || 0);
     const controlPercent = Math.round((factionInfluence / totalInfluence) * 100);
     
-    // Get top 5 factions for the power distribution chart
+    // Get top 6 factions for the power distribution chart
     const topFactions = Object.entries(allFactionStats.global)
         .filter(([id, _]) => id !== 'unaligned')
         .map(([id, stats]) => ({
             id,
-            faction: CIVIL_WAR_FACTIONS[id],
-            total: stats.military + stats.economic + (stats.controlledRegions * 10)
+            faction: getFaction(id),
+            total: (stats.military || 0) + (stats.economic || 0) + ((stats.controlledRegions || 0) * 10)
         }))
+        .filter(f => f.faction && f.faction.id !== 'unaligned')
         .sort((a, b) => b.total - a.total)
         .slice(0, 6);
     
     const maxPower = Math.max(...topFactions.map(f => f.total), 1);
 
     return `
-        <div class="faction-modal-overlay" id="faction-modal-${factionKey}">
+        <div class="faction-modal-overlay" id="faction-modal-${registryId}">
             <div class="faction-modal faction-modal-large">
                 <button class="modal-close" onclick="this.closest('.faction-modal-overlay').remove()">✕</button>
                 
@@ -379,34 +258,34 @@ export function renderFactionDetailModal(factionKey) {
                     <div class="stats-hero-grid">
                         <div class="stat-hero-card">
                             <div class="stat-hero-icon">⚔️</div>
-                            <div class="stat-hero-value">${detailedStats.military.toLocaleString()}</div>
+                            <div class="stat-hero-value">${(detailedStats.military || 0).toLocaleString()}</div>
                             <div class="stat-hero-label">Military Strength</div>
                             <div class="stat-hero-bar">
-                                <div class="stat-hero-fill" style="width: ${Math.min(100, (detailedStats.military / 500) * 100)}%; background: #ef4444;"></div>
+                                <div class="stat-hero-fill" style="width: ${Math.min(100, ((detailedStats.military || 0) / 500) * 100)}%; background: #ef4444;"></div>
                             </div>
                         </div>
                         <div class="stat-hero-card">
                             <div class="stat-hero-icon">💰</div>
-                            <div class="stat-hero-value">${detailedStats.economic.toLocaleString()}</div>
+                            <div class="stat-hero-value">${(detailedStats.economic || 0).toLocaleString()}</div>
                             <div class="stat-hero-label">Economic Power</div>
                             <div class="stat-hero-bar">
-                                <div class="stat-hero-fill" style="width: ${Math.min(100, (detailedStats.economic / 500) * 100)}%; background: #fbbf24;"></div>
+                                <div class="stat-hero-fill" style="width: ${Math.min(100, ((detailedStats.economic || 0) / 500) * 100)}%; background: #fbbf24;"></div>
                             </div>
                         </div>
                         <div class="stat-hero-card">
                             <div class="stat-hero-icon">🏛️</div>
-                            <div class="stat-hero-value">${detailedStats.political.toLocaleString()}</div>
+                            <div class="stat-hero-value">${(detailedStats.political || 0).toLocaleString()}</div>
                             <div class="stat-hero-label">Political Influence</div>
                             <div class="stat-hero-bar">
-                                <div class="stat-hero-fill" style="width: ${Math.min(100, (detailedStats.political / 500) * 100)}%; background: #8b5cf6;"></div>
+                                <div class="stat-hero-fill" style="width: ${Math.min(100, ((detailedStats.political || 0) / 500) * 100)}%; background: #8b5cf6;"></div>
                             </div>
                         </div>
                         <div class="stat-hero-card">
                             <div class="stat-hero-icon">👥</div>
-                            <div class="stat-hero-value">${detailedStats.population.toLocaleString()}</div>
+                            <div class="stat-hero-value">${(detailedStats.population || 0).toLocaleString()}</div>
                             <div class="stat-hero-label">Total Population</div>
                             <div class="stat-hero-bar">
-                                <div class="stat-hero-fill" style="width: ${Math.min(100, (detailedStats.population / 50000) * 100)}%; background: #22c55e;"></div>
+                                <div class="stat-hero-fill" style="width: ${Math.min(100, ((detailedStats.population || 0) / 50000) * 100)}%; background: #22c55e;"></div>
                             </div>
                         </div>
                     </div>
@@ -423,7 +302,7 @@ export function renderFactionDetailModal(factionKey) {
                                     ${topFactions.map(f => {
                                         if (!f.faction) return '';
                                         const percent = (f.total / maxPower) * 100;
-                                        const isCurrentFaction = f.id === factionKey;
+                                        const isCurrentFaction = f.id === registryId;
                                         return `
                                             <div class="power-bar-row ${isCurrentFaction ? 'current-faction' : ''}">
                                                 <div class="power-bar-label">
@@ -442,14 +321,14 @@ export function renderFactionDetailModal(factionKey) {
 
                             <!-- CONTROLLED REGIONS -->
                             <div class="modal-section">
-                                <h4>🗺️ Controlled Regions (${detailedStats.controlledRegions})</h4>
+                                <h4>🗺️ Controlled Regions (${detailedStats.controlledRegions || 0})</h4>
                                 <div class="region-chips">
-                                    ${detailedStats.regions.length > 0 ? 
+                                    ${(detailedStats.regions && detailedStats.regions.length > 0) ? 
                                         detailedStats.regions.map(r => `
                                             <div class="region-chip">
                                                 <span class="region-chip-icon">${r.isContested ? '🔥' : '🏰'}</span>
                                                 <span class="region-chip-name">${r.name}</span>
-                                                <span class="region-chip-value">⚔️${r.military} 💰${r.economic}</span>
+                                                <span class="region-chip-value">⚔️${r.military || 0} 💰${r.economic || 0}</span>
                                             </div>
                                         `).join('') :
                                         '<p class="no-data">No regions currently controlled</p>'
@@ -473,9 +352,9 @@ export function renderFactionDetailModal(factionKey) {
                             
                             <!-- CONTROLLED POIs -->
                             <div class="modal-section">
-                                <h4>📍 Key Holdings (${detailedStats.pois.length} POIs)</h4>
+                                <h4>📍 Key Holdings (${(detailedStats.pois || []).length} POIs)</h4>
                                 <div class="poi-list-container">
-                                    ${detailedStats.pois.length > 0 ? `
+                                    ${(detailedStats.pois && detailedStats.pois.length > 0) ? `
                                         <div class="poi-list">
                                             ${detailedStats.pois.slice(0, 10).map(poi => `
                                                 <div class="poi-list-item">
@@ -504,13 +383,13 @@ export function renderFactionDetailModal(factionKey) {
                                 <div class="sw-card sw-strengths">
                                     <h5>💪 Strengths</h5>
                                     <ul>
-                                        ${faction.strengths.map(s => `<li>${s}</li>`).join('')}
+                                        ${(faction.strengths || ['Unknown']).map(s => `<li>${s}</li>`).join('')}
                                     </ul>
                                 </div>
                                 <div class="sw-card sw-weaknesses">
                                     <h5>⚠️ Weaknesses</h5>
                                     <ul>
-                                        ${faction.weaknesses.map(w => `<li>${w}</li>`).join('')}
+                                        ${(faction.weaknesses || ['Unknown']).map(w => `<li>${w}</li>`).join('')}
                                     </ul>
                                 </div>
                             </div>
@@ -548,10 +427,11 @@ export function renderFactionDetailModal(factionKey) {
                                         <span class="relations-label">Allies</span>
                                         <div class="relations-list">
                                             ${(faction.allies || []).length > 0 ? 
-                                                faction.allies.map(a => {
-                                                    const ally = CIVIL_WAR_FACTIONS[a];
-                                                    return ally ? `<span class="relation-chip ally" style="border-color: ${ally.color};">${ally.icon} ${ally.shortName}</span>` : '';
-                                                }).join('') :
+                                                faction.allies.map(allyId => {
+                                                    const ally = getFaction(allyId);
+                                                    if (!ally || ally.id === 'unaligned') return '';
+                                                    return `<span class="relation-chip ally" style="border-color: ${ally.color};">${ally.icon} ${ally.shortName}</span>`;
+                                                }).filter(Boolean).join('') || '<span class="no-relations">None</span>' :
                                                 '<span class="no-relations">None</span>'
                                             }
                                         </div>
@@ -560,10 +440,11 @@ export function renderFactionDetailModal(factionKey) {
                                         <span class="relations-label">Enemies</span>
                                         <div class="relations-list">
                                             ${(faction.enemies || []).length > 0 ? 
-                                                faction.enemies.map(e => {
-                                                    const enemy = CIVIL_WAR_FACTIONS[e];
-                                                    return enemy ? `<span class="relation-chip enemy" style="border-color: ${enemy.color};">${enemy.icon} ${enemy.shortName}</span>` : '';
-                                                }).join('') :
+                                                faction.enemies.map(enemyId => {
+                                                    const enemy = getFaction(enemyId);
+                                                    if (!enemy || enemy.id === 'unaligned') return '';
+                                                    return `<span class="relation-chip enemy" style="border-color: ${enemy.color};">${enemy.icon} ${enemy.shortName}</span>`;
+                                                }).filter(Boolean).join('') || '<span class="no-relations">None</span>' :
                                                 '<span class="no-relations">None</span>'
                                             }
                                         </div>
@@ -578,64 +459,39 @@ export function renderFactionDetailModal(factionKey) {
     `;
 }
 
-// Helper function for POI icons
+// ============================================
+// 7. HELPER FUNCTIONS
+// ============================================
+
 function getPoiIcon(type) {
     const icons = {
-        'village': '🏘️',
-        'city': '🏙️',
-        'town': '🏠',
-        'castle': '🏰',
-        'fortress': '🏯',
-        'fort': '⛫',
-        'outpost': '🚩',
-        'mine': '⛏️',
-        'farm': '🌾',
-        'port': '⚓',
-        'market': '🏪',
-        'temple': '⛩️',
-        'tower': '🗼',
-        'camp': '⛺',
-        'ruins': '🏚️',
-        'cave': '🕳️',
-        'forest': '🌲',
-        'mountain': '⛰️',
-        'bridge': '🌉',
-        'warehouse': '📦',
-        'guild': '🏛️',
-        'tavern': '🍺',
-        'arena': '🏟️',
-        'laboratory': '🔬',
+        'village': '🏘️', 'city': '🏙️', 'town': '🏠', 'castle': '🏰',
+        'fortress': '🏯', 'fort': '⛫', 'outpost': '🚩', 'mine': '⛏️',
+        'farm': '🌾', 'port': '⚓', 'market': '🏪', 'temple': '⛩️',
+        'tower': '🗼', 'camp': '⛺', 'ruins': '🏚️', 'cave': '🕳️',
+        'forest': '🌲', 'mountain': '⛰️', 'bridge': '🌉', 'warehouse': '📦',
+        'guild': '🏛️', 'tavern': '🍺', 'arena': '🏟️', 'laboratory': '🔬',
         'factory': '🏭'
     };
     return icons[type] || '📍';
 }
 
-// Helper function for operation icons
 function getOperationIcon(type) {
     const icons = {
-        'military': '⚔️',
-        'defensive': '🛡️',
-        'economic': '💰',
-        'research': '🔬',
-        'intelligence': '🔍',
-        'diplomatic': '🤝',
+        'military': '⚔️', 'defensive': '🛡️', 'economic': '💰',
+        'research': '🔬', 'intelligence': '🔍', 'diplomatic': '🤝',
         'sabotage': '💣'
     };
     return icons[type] || '⚙️';
 }
 
 // ============================================
-// 8. TERRITORY DETAIL MODAL (ENHANCED)
+// 8. TERRITORY DETAIL MODAL
 // ============================================
 export function renderTerritoryDetailModal(regionData) {
-    const controller = CIVIL_WAR_FACTIONS[regionData.controller] || { 
-        name: 'Unaligned', 
-        color: '#666', 
-        icon: '❓',
-        shortName: 'None'
-    };
+    const controllerId = toRegistryId(regionData.controller);
+    const controller = getFaction(controllerId);
 
-    // Get POIs for this region
     const regionPois = regionData.pois || [];
 
     return `
@@ -652,7 +508,6 @@ export function renderTerritoryDetailModal(regionData) {
                 </div>
                 
                 <div class="modal-body">
-                    <!-- Status Banner -->
                     <div class="territory-status-banner ${regionData.isContested ? 'contested' : 'secure'}">
                         ${regionData.isContested ? 
                             '⚠️ ACTIVE COMBAT ZONE - Multiple factions fighting for control' : 
@@ -660,7 +515,6 @@ export function renderTerritoryDetailModal(regionData) {
                         }
                     </div>
 
-                    <!-- Stats Grid -->
                     <div class="stats-hero-grid" style="grid-template-columns: repeat(4, 1fr);">
                         <div class="stat-hero-card compact">
                             <div class="stat-hero-icon">⚔️</div>
@@ -684,7 +538,6 @@ export function renderTerritoryDetailModal(regionData) {
                         </div>
                     </div>
 
-                    <!-- Controller Info -->
                     <div class="modal-section">
                         <h4>🏴 Controlling Faction</h4>
                         <div class="controller-card" style="border-color: ${controller.color};">
@@ -693,13 +546,12 @@ export function renderTerritoryDetailModal(regionData) {
                                 <span class="controller-name">${controller.name}</span>
                                 <span class="controller-ideology">${controller.ideology || 'Unknown'}</span>
                             </div>
-                            <button class="view-faction-btn" onclick="window.showFactionModal('${regionData.controller}'); this.closest('.faction-modal-overlay').remove();">
+                            <button class="view-faction-btn" onclick="window.showFactionModal('${controllerId}'); this.closest('.faction-modal-overlay').remove();">
                                 View Faction →
                             </button>
                         </div>
                     </div>
 
-                    <!-- Faction Presence Chart -->
                     ${regionData.factionPresence ? `
                         <div class="modal-section">
                             <h4>📊 Faction Presence</h4>
@@ -708,8 +560,8 @@ export function renderTerritoryDetailModal(regionData) {
                                     .sort((a, b) => b[1] - a[1])
                                     .slice(0, 5)
                                     .map(([factionId, count]) => {
-                                        const f = CIVIL_WAR_FACTIONS[factionId];
-                                        if (!f) return '';
+                                        const f = getFaction(factionId);
+                                        if (!f || f.id === 'unaligned') return '';
                                         const maxPresence = Math.max(...Object.values(regionData.factionPresence));
                                         const percent = (count / maxPresence) * 100;
                                         return `
@@ -721,18 +573,17 @@ export function renderTerritoryDetailModal(regionData) {
                                                 <span class="presence-count">${count} POIs</span>
                                             </div>
                                         `;
-                                    }).join('')}
+                                    }).filter(Boolean).join('')}
                             </div>
                         </div>
                     ` : ''}
 
-                    <!-- POI List -->
                     ${regionPois.length > 0 ? `
                         <div class="modal-section">
                             <h4>📍 Points of Interest</h4>
                             <div class="poi-list">
                                 ${regionPois.slice(0, 8).map(poi => {
-                                    const poiFaction = CIVIL_WAR_FACTIONS[poi.factionId] || { color: '#666', icon: '❓' };
+                                    const poiFaction = getFaction(poi.factionId);
                                     return `
                                         <div class="poi-list-item" style="border-left: 3px solid ${poiFaction.color};">
                                             <div class="poi-list-icon">${getPoiIcon(poi.type)}</div>
@@ -772,7 +623,8 @@ export function initMushroomKingdomListeners() {
     const analyticsBtn = container.querySelector('#btn-view-analytics');
     if (analyticsBtn) {
         analyticsBtn.addEventListener('click', () => {
-            const html = renderAnalyticsModal(CIVIL_WAR_FACTIONS);
+            const factions = getCivilWarFactions();
+            const html = renderAnalyticsModal(factions);
             document.body.insertAdjacentHTML('beforeend', html);
             requestAnimationFrame(() => {
                 const overlay = document.querySelector('.analytics-overlay');
@@ -824,12 +676,18 @@ export function initMushroomKingdomListeners() {
 export function calculateDynamicInfluence() {
     const influence = {};
     const stats = getRealTimeMapStats().global;
-    Object.keys(CIVIL_WAR_FACTIONS).forEach(key => {
-        const fStats = stats[key];
+    
+    for (const id of CIVIL_WAR_FACTION_IDS) {
+        const fStats = stats[id];
         let val = 5;
-        if (fStats) val += Math.floor(fStats.military / 10) + Math.floor(fStats.economic / 10) + (fStats.controlledRegions * 3);
-        influence[key] = val;
-    });
+        if (fStats) {
+            val += Math.floor((fStats.military || 0) / 10);
+            val += Math.floor((fStats.economic || 0) / 10);
+            val += ((fStats.controlledRegions || 0) * 3);
+        }
+        influence[id] = val;
+    }
+    
     return influence;
 }
 
@@ -837,19 +695,30 @@ export function calculateWarStatus() {
     const influence = calculateDynamicInfluence();
     let leading = null;
     let max = 0;
-    Object.entries(influence).forEach(([k, v]) => { 
-        if (v > max) { 
-            max = v; 
-            leading = k; 
-        } 
-    });
+    
+    for (const [id, val] of Object.entries(influence)) {
+        if (val > max) { 
+            max = val; 
+            leading = id; 
+        }
+    }
+    
     const startYear = 1040;
+    const leadingFaction = leading ? getFaction(leading) : null;
+    
     return { 
-        leadingFaction: CIVIL_WAR_FACTIONS[leading], 
+        leadingFaction: leadingFaction, 
         daysSinceStart: (CURRENT_GAME_DATE.year - startYear) * 365, 
         phase: "Escalation" 
     };
 }
 
-// Import the new helper function
-import { getDetailedRegionStats } from './map-analysis.js';
+// ============================================
+// 11. LEGACY COLOR EXPORT (for compatibility)
+// ============================================
+export const FACTION_COLORS = new Proxy({}, {
+    get(target, prop) {
+        const faction = getFactionSafe(prop);
+        return faction ? faction.color : '#6c757d';
+    }
+});

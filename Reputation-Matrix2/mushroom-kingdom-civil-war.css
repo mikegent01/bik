@@ -356,15 +356,29 @@
     opacity: 0.5;
 }
 
+
 .faction-card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    border-bottom: 3px solid;
-    background: rgba(0, 0, 0, 0.2);
+    min-height: 70px;
+}
+.source-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    padding: 1px 5px;
+    border-radius: 6px;
+    margin-left: 4px;
+    vertical-align: middle;
+    text-transform: uppercase;
 }
 
+.source-badge.from-widespread {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.source-badge.from-inferred {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
 .faction-icon {
     width: 48px;
     height: 48px;
@@ -2938,7 +2952,8 @@
     background: rgba(255, 255, 255, 0.05);
     padding: 6px 12px;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    max-width: 180px;
 }
 
 .legend-color {
@@ -2960,6 +2975,9 @@
 .legend-name {
     color: #e2e8f0;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .legend-percent {
@@ -3021,11 +3039,12 @@
 }
 
 .pcr-faction {
-    width: 110px;
+    width: 160px; /* Increased from 110px */
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 600;
+    flex-shrink: 0;
 }
 
 .pcr-icon {
@@ -3033,10 +3052,11 @@
 }
 
 .pcr-name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 130px; /* Allow more space */
 }
 
 .pcr-bars {
@@ -3291,13 +3311,8 @@
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
-.faction-card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: rgba(0, 0, 0, 0.2);
-}
+
+
 
 .faction-icon {
     width: 44px;
@@ -3314,9 +3329,9 @@
 }
 
 .faction-name {
-    margin: 0;
-    font-size: 1rem;
-    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    word-wrap: break-word;
 }
 
 .faction-leader {
@@ -3549,4 +3564,78 @@
     font-style: italic;
     margin-top: 10px;
     text-align: right;
+}
+/* Auto-discovered faction card styling */
+.faction-card.faction-auto {
+    border-style: dashed;
+    background: rgba(255, 193, 7, 0.05);
+}
+
+.faction-card.faction-auto .faction-card-header {
+    background: rgba(255, 193, 7, 0.08);
+}
+
+/* Auto badge in card header */
+.auto-badge {
+    display: inline-block;
+    background: rgba(255, 193, 7, 0.25);
+    color: #ffc107;
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+/* Section meta count */
+.section-meta {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: normal;
+    margin-left: 8px;
+}
+
+
+.power-comparison-row.auto-faction {
+    border-left: 3px solid #ffc107;
+    background: rgba(255, 193, 7, 0.05);
+}
+
+.power-comparison-row.auto-faction .pcr-name::after {
+    content: ' ✦';
+    color: #ffc107;
+    font-size: 0.65rem;
+}
+
+/* Global overview auto indicator */
+.gso-stat.gso-auto {
+    color: #ffc107 !important;
+    font-style: italic;
+    background: rgba(255, 193, 7, 0.1);
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+/* Footnote styling */
+.gso-footnote {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-style: italic;
+    margin-top: 12px;
+    text-align: right;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Legend chip for auto-discovered */
+.legend-chip.auto-discovered {
+    border: 1px dashed #ffc107;
+    background: rgba(255, 193, 7, 0.1);
+}
+
+.legend-chip.auto-discovered .legend-name {
+    color: #ffc107;
 }

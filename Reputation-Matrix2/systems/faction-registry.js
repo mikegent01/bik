@@ -1,587 +1,858 @@
-// faction-registry.js
+// faction-registry.js - Complete Rewrite with Singleton Pattern
+
+// ============================================
+// IMPORTS
+// ============================================
 
 import { MDATA_F } from '../map-data.js';
+import { LORE_DATA } from '../lore.js';
+import { MIDLANDS_FACTIONS } from '../factions/midlands.js';
+import { MUSHROOM_KINGDOM_FACTIONS } from '../factions/mushroom-kingdom.js';
+import { WIDESPREAD_FACTIONS } from '../widespread.js';
+import { WILDERLANDS_FACTIONS } from '../factions/wilderlands.js';
+import { MIDDLE_EARTH_FACTIONS } from '../factions/middle-earth.js';
+import { INTERNET_FACTIONS } from '../factions/internet.js';
+import { WARHAMMER_FACTIONS } from '../factions/warhammer.js';
+import { KIVOTOS_FACTIONS } from '../factions/kivotos.js';
+import { SPACE_FACTIONS } from '../factions/space.js';
+import { POKEMON_FACTIONS } from '../factions/pokemon.js';
+import { EQUESTRIA_FACTIONS } from '../factions/equestria.js';
 
 // ============================================
-// 1. MANUAL FACTION DEFINITIONS (OVERRIDES)
-// These take priority over auto-generated ones
+// STATIC DATA - COLORS (from CSS :root)
 // ============================================
-const MANUAL_FACTION_DEFINITIONS = {
-    regency: {
-        name: 'Mushroom Regency',
-        shortName: 'Regency',
-        leaderTitle: 'Lord Regent',
-        leaderName: 'Toadsworth',
-        color: '#4169E1',
-        icon: '🍄',
-        ideology: 'Constitutional Monarchy',
-        goal: 'Maintain order and legitimacy until the Princess returns.',
-        strengths: ['Legitimacy', 'Wealth', 'Infrastructure'],
-        weaknesses: ['Bureaucracy', 'Slow Response'],
-        allies: ['beanbean'],
-        enemies: ['fawful', 'warlords'],
-        description: "The official government of the Mushroom Kingdom, desperately trying to hold things together in Princess Peach's absence."
-    },
-    loyalists: {
-        name: 'Peach Loyalists',
-        shortName: 'Loyalists',
-        leaderTitle: 'Commander',
-        leaderName: 'Toadette',
-        color: '#FFDAB9',
-        icon: '👑',
-        ideology: 'Royalist Zealotry',
-        goal: 'Purge all usurpers and restore the true monarchy.',
-        strengths: ['Morale', 'Guerilla Tactics', 'Popular Support'],
-        weaknesses: ['Limited Resources', 'Extremism'],
-        allies: ['regency'],
-        enemies: ['fawful', 'criminals'],
-        description: "Fanatical supporters of Princess Peach who believe the Regency has become corrupt."
-    },
-    fawful: {
-        name: "Fawful's Dominion",
-        shortName: 'Fawful',
-        leaderTitle: 'Supreme Overlord',
-        leaderName: 'Fawful',
-        color: '#32CD32',
-        icon: '😈',
-        ideology: 'Technarcratic Conquest',
-        goal: 'Total conquest and technological supremacy.',
-        strengths: ['Advanced Tech', 'Castle Fortifications', 'Robot Armies'],
-        weaknesses: ['Insanity', 'Overconfidence', 'No Allies'],
-        allies: [],
-        enemies: ['regency', 'loyalists', 'warlords'],
-        description: "The mad genius Fawful has seized the royal castle and builds his mechanical army."
-    },
-    warlords: {
-        name: 'Koopa Remnants',
-        shortName: 'Remnants',
-        leaderTitle: 'Regent Commander',
-        leaderName: 'Kamek',
-        color: '#006400',
-        icon: '🐢',
-        ideology: 'Koopa Restoration',
-        goal: 'Find King Bowser and restore the Koopa Empire.',
-        strengths: ['Magic Users', 'Veteran Soldiers', 'Fortresses'],
-        weaknesses: ['Scattered Forces', 'Internal Disputes'],
-        allies: [],
-        enemies: ['regency', 'fawful'],
-        description: "The remnants of Bowser's army, searching for their missing king."
-    },
-    criminals: {
-        name: 'The Underworld',
-        shortName: 'Criminals',
-        leaderTitle: 'Don',
-        leaderName: 'Murphy the Bandit King',
-        color: '#A0522D',
-        icon: '💀',
-        ideology: 'Profit Above All',
-        goal: 'Exploit the chaos to build a criminal empire.',
-        strengths: ['Smuggling Networks', 'Bribery', 'Information'],
-        weaknesses: ['No Trust', 'No Legitimacy'],
-        allies: [],
-        enemies: ['loyalists', 'iron_legion'],
-        description: "A loose coalition of bandits, thieves, and criminal organizations."
-    },
-    iron_legion: {
-        name: 'Iron Legion',
-        shortName: 'Legion',
-        leaderTitle: 'General',
-        leaderName: 'Unknown Commander',
-        color: '#ADB5BD',
-        icon: '⚔️',
-        ideology: 'Martial Order',
-        goal: 'Impose order through military discipline.',
-        strengths: ['Heavy Infantry', 'Discipline', 'Siege Warfare'],
-        weaknesses: ['Slow Mobility', 'Rigid Tactics'],
-        allies: [],
-        enemies: ['criminals', 'fawful'],
-        description: "A mysterious military order claiming to restore order through strength."
-    },
-    onyx_hand: {
-        name: 'Onyx Hand',
-        shortName: 'Onyx',
-        leaderTitle: 'Shadow Master',
-        leaderName: 'Unknown',
-        color: '#8B0000',
-        icon: '🌑',
-        ideology: 'Dark Arcanism',
-        goal: 'Acquire ancient artifacts and forbidden knowledge.',
-        strengths: ['Stealth', 'Dark Magic', 'Assassination'],
-        weaknesses: ['Public Distrust', 'Small Numbers'],
-        allies: [],
-        enemies: ['silver_flame', 'mages_guild'],
-        description: "A secretive cabal of dark mages working toward sinister goals."
-    },
-    wario: {
-        name: 'Wario Land Inc.',
-        shortName: 'Wario',
-        leaderTitle: 'CEO & President',
-        leaderName: 'Wario',
-        color: '#FFAC1C',
-        icon: '💰',
-        ideology: 'Capitalist Greed',
-        goal: 'Get filthy rich by any means necessary.',
-        strengths: ['Massive Wealth', 'Mercenaries'],
-        weaknesses: ['Greed', 'Everyone Hates Wario'],
-        allies: [],
-        enemies: [],
-        description: "Wario's corporate empire exploiting the war for profit."
-    },
-    yoshis: {
-        name: 'Yoshi Clans',
-        shortName: 'Yoshis',
-        leaderTitle: 'Elder Chief',
-        leaderName: 'Yoshi Elder',
-        color: '#7FFF00',
-        icon: '🥚',
-        ideology: 'Isolationist Survival',
-        goal: 'Protect the islands and stay neutral.',
-        strengths: ['Home Terrain', 'Unity', 'Natural Defenses'],
-        weaknesses: ['Limited Tech', 'Small Population'],
-        allies: ['dk_crew'],
-        enemies: [],
-        description: "The peaceful Yoshi tribes defending their island paradise."
-    },
-    dk_crew: {
-        name: 'Kong Family',
-        shortName: 'Kongs',
-        leaderTitle: 'King of the Jungle',
-        leaderName: 'Donkey Kong',
-        color: '#FFE135',
-        icon: '🍌',
-        ideology: 'Jungle Freedom',
-        goal: 'Protect the banana hoard.',
-        strengths: ['Raw Strength', 'Jungle Warfare'],
-        weaknesses: ['No Politics', 'Easily Tricked'],
-        allies: ['yoshis'],
-        enemies: [],
-        description: "The Kong family defending their territory with primal strength."
-    },
-    beanbean: {
-        name: 'Beanbean Kingdom',
-        shortName: 'Beanbean',
-        leaderTitle: 'Queen',
-        leaderName: 'Queen Bean',
-        color: '#90EE90',
-        icon: '🫘',
-        ideology: 'Defensive Sovereignty',
-        goal: 'Protect borders and maintain independence.',
-        strengths: ['Diplomacy', 'Unique Magic'],
-        weaknesses: ['Small Military'],
-        allies: ['regency'],
-        enemies: ['fawful'],
-        description: "The neighboring Beanbean Kingdom trying to stay neutral."
-    },
-    regal_empire: {
-        name: 'Regal Empire',
-        shortName: 'Empire',
-        leaderTitle: 'Emperor',
-        leaderName: 'Unknown',
-        color: '#FFD700',
-        icon: '⚜️',
-        ideology: 'Imperial Expansion',
-        goal: 'Expand the empire.',
-        strengths: ['Discipline', 'Resources'],
-        weaknesses: ['Overextension', 'Arrogance'],
-        allies: [],
-        enemies: [],
-        description: "A foreign imperial power seeing opportunity in the kingdom's weakness."
-    },
-    silver_flame: {
-        name: 'Order of the Silver Flame',
-        shortName: 'Silver Flame',
-        leaderTitle: 'High Priest',
-        leaderName: 'Father Luminos',
-        color: '#C0C0C0',
-        icon: '🔥',
-        ideology: 'Holy Purification',
-        goal: 'Purify the land of darkness.',
-        strengths: ['Zealous Warriors', 'Healing Magic'],
-        weaknesses: ['Intolerance', 'Extremism'],
-        allies: [],
-        enemies: ['onyx_hand', 'criminals'],
-        description: "A militant religious order dedicated to burning away darkness."
-    },
-    mages_guild: {
-        name: "Mages' Guild",
-        shortName: 'Mages',
-        leaderTitle: 'Archmage',
-        leaderName: 'Merlon the Elder',
-        color: '#9966CC',
-        icon: '🔮',
-        ideology: 'Magical Neutrality',
-        goal: 'Preserve magical knowledge.',
-        strengths: ['Powerful Magic', 'Knowledge'],
-        weaknesses: ['Small Numbers', 'Political Naivety'],
-        allies: [],
-        enemies: ['onyx_hand'],
-        description: "The ancient guild of mages trying to remain neutral."
-    },
-    unaligned: {
-        name: 'Unaligned',
-        shortName: 'Wild',
-        leaderTitle: 'None',
-        leaderName: 'N/A',
-        color: '#6c757d',
-        icon: '❓',
-        ideology: 'None',
-        goal: 'Survival',
-        strengths: [],
-        weaknesses: [],
-        allies: [],
-        enemies: [],
-        description: "Territories and locations not controlled by any major faction."
-    }
+
+const COLORS = {
+    // Core Factions
+    regal_empire: '#FFD700',
+    mushroom_regency: '#4169E1',
+    peach_loyalists: '#FFDAB9',
+    beanbean_kingdom: '#90EE90',
+    flower_kingdom: '#FFB6C1',
+    middle_earth_kingdoms: '#228B22',
+    iron_legion: '#ADB5BD',
+    iron_fists: '#495057',
+    oathbound_judges: '#007BFF',
+    silver_flame: '#C0C0C0',
+    knights_of_the_gilded_lily: '#FAFAD2',
+    onyx_hand: '#8B0000',
+    mages_guild: '#8A2BE2',
+    toad_cult: '#9932CC',
+    moonfang_pack: '#556B2F',
+    cosmic_jesters: '#FF69B4',
+    starlight_weavers: '#FFD700',
+    custodians_of_causality: '#00BFFF',
+    void_drifters: '#483D8B',
+    toad_gang: '#A0522D',
+    freelancer_underworld: '#2F4F4F',
+    crimson_fleet: '#DC143C',
+    ratchet_raiders: '#D2691E',
+    tea_leaf_syndicate: '#6B8E23',
+    fawfuls_furious_freaks: '#32CD32',
+    koopa_troop: '#006400',
+    the_unchained: '#FF4500',
+    kremling_krew: '#808000',
+    yoshi_clans: '#7FFF00',
+    dk_crew: '#FFE135',
+    rakasha_clans: '#D2B48C',
+    rebel_clans: '#800000',
+    wario_land: '#FFAC1C',
+    diamond_city_investigators: '#8B4513',
+    goodstyle_artisans: '#20B2AA',
+    data_merchant_guilds: '#F5DEB3',
+    liberated_toads: '#87CEEB',
+    internet_federation: '#00FFFF',
+    hacktivist_collectives: '#00FF00',
+    cybernetic_collectives: '#E0E0E0',
+    
+    // Warhammer
+    wh_the_empire: '#c81d25',
+    wh_dwarfs: '#0077b6',
+    wh_greenskins: '#2d6a4f',
+    wh_vampire_counts: '#800f2f',
+    wh_chaos: '#a47c48',
+    wh_skaven: '#70e000',
+    wh_high_elves: '#ade8f4',
+    wh_dark_elves: '#5a189a',
+    wh_lizardmen: '#48bfe3',
+    wh_tomb_kings: '#f0ead2',
+    wh_araby: '#ffd60a',
+    wh_bretonnia: '#00509d',
+    wh_chaos_dwarfs: '#b21e35',
+    wh_grand_cathay: '#52b788',
+    wh_hobgoblins: '#8d6e63',
+    
+    // Kivotos
+    kivotos_gsu: '#4a86e8',
+    kivotos_millennium: '#674ea7',
+    kivotos_trinity: '#f1c232',
+    kivotos_gehenna: '#cc0000',
+    kivotos_shanhaijing: '#93c47d',
+    kivotos_abydos: '#e69138',
+    kivotos_red_winter: '#a61c00',
+    
+    // Pokemon
+    pokemon_league: '#3b4cca',
+    pokemon_plasma: '#7b8b8c',
+    pokemon_trainer: '#ff0000',
+    pokemon_aqua: '#0077b6',
+    pokemon_magma: '#b21e35',
+    pokemon_flare: '#fd7e14',
+    pokemon_rocket: '#212529',
+    pokemon_star: '#e94a89',
+    pokemon_ranger: '#4CAF50',
+    pokemon_gorock: '#795548',
+    
+    // System
+    unaligned: '#6c757d'
 };
 
 // ============================================
-// 2. RAW FACTION ID TO SYSTEM ID MAPPING
-// Maps POI factionIds to our system IDs
+// STATIC DATA - ICONS
 // ============================================
-const MANUAL_FACTION_MAP = {
-    'mushroom_regency': 'regency',
-    'peach_loyalists': 'loyalists',
-    'fawfuls_furious_freaks': 'fawful',
-    'koopa_troop': 'warlords',
-    'koopa_remnants': 'warlords',
-    'toad_gang': 'criminals',
-    'freelancer_underworld': 'criminals',
-    'bandit_gang': 'criminals',
-    'iron_legion': 'iron_legion',
-    'onyx_hand': 'onyx_hand',
-    'wario_land': 'wario',
-    'wario_inc': 'wario',
-    'yoshi_clans': 'yoshis',
-    'yoshi_tribe': 'yoshis',
-    'dk_crew': 'dk_crew',
-    'kong_family': 'dk_crew',
-    'beanbean_kingdom': 'beanbean',
-    'regal_empire': 'regal_empire',
-    'silver_flame': 'silver_flame',
-    'mages_guild': 'mages_guild',
-    'unaligned': 'unaligned',
-    'neutral': 'unaligned',
-    'none': 'unaligned',
-    '': 'unaligned'
+
+const ICONS = {
+    regal_empire: '⚜️',
+    mushroom_regency: '🍄',
+    peach_loyalists: '👑',
+    beanbean_kingdom: '🫘',
+    flower_kingdom: '🌸',
+    middle_earth_kingdoms: '🏔️',
+    iron_legion: '⚔️',
+    iron_fists: '✊',
+    oathbound_judges: '⚖️',
+    silver_flame: '🔥',
+    knights_of_the_gilded_lily: '🛡️',
+    onyx_hand: '🌑',
+    mages_guild: '🔮',
+    toad_cult: '👁️',
+    moonfang_pack: '🐺',
+    cosmic_jesters: '🎭',
+    starlight_weavers: '✨',
+    custodians_of_causality: '⏳',
+    void_drifters: '🌌',
+    toad_gang: '💀',
+    freelancer_underworld: '🗡️',
+    crimson_fleet: '🏴‍☠️',
+    ratchet_raiders: '🦅',
+    tea_leaf_syndicate: '🍵',
+    fawfuls_furious_freaks: '😈',
+    koopa_troop: '🐢',
+    the_unchained: '⛓️',
+    kremling_krew: '🐊',
+    yoshi_clans: '🥚',
+    dk_crew: '🍌',
+    rakasha_clans: '🐅',
+    rebel_clans: '🏴',
+    wario_land: '💰',
+    diamond_city_investigators: '🔍',
+    goodstyle_artisans: '🎨',
+    data_merchant_guilds: '💾',
+    liberated_toads: '✊',
+    internet_federation: '🌐',
+    hacktivist_collectives: '💻',
+    cybernetic_collectives: '🤖',
+    wh_the_empire: '🦅',
+    wh_dwarfs: '⛏️',
+    wh_greenskins: '👹',
+    wh_vampire_counts: '🧛',
+    wh_chaos: '☠️',
+    wh_skaven: '🐀',
+    wh_high_elves: '🧝',
+    wh_dark_elves: '🗡️',
+    wh_lizardmen: '🦎',
+    wh_tomb_kings: '💀',
+    wh_araby: '🏜️',
+    wh_bretonnia: '🛡️',
+    wh_chaos_dwarfs: '🔥',
+    wh_grand_cathay: '🐉',
+    wh_hobgoblins: '👺',
+    kivotos_gsu: '🎓',
+    kivotos_millennium: '🔬',
+    kivotos_trinity: '✝️',
+    kivotos_gehenna: '😈',
+    kivotos_shanhaijing: '🐲',
+    kivotos_abydos: '🏛️',
+    kivotos_red_winter: '❄️',
+    pokemon_league: '🏆',
+    pokemon_plasma: '⚡',
+    pokemon_trainer: '🧢',
+    pokemon_aqua: '🌊',
+    pokemon_magma: '🌋',
+    pokemon_flare: '🔥',
+    pokemon_rocket: '🚀',
+    pokemon_star: '⭐',
+    pokemon_ranger: '🌿',
+    pokemon_gorock: '🎸',
+    unaligned: '❓'
 };
 
 // ============================================
-// 3. AUTO-GENERATION UTILITIES
+// CATEGORY FALLBACKS
 // ============================================
 
-// Color palette for auto-generated factions
-const AUTO_COLORS = [
-    '#E74C3C', '#3498DB', '#2ECC71', '#9B59B6', '#F39C12',
-    '#1ABC9C', '#E91E63', '#00BCD4', '#FF5722', '#607D8B',
-    '#8BC34A', '#FFC107', '#795548', '#673AB7', '#009688',
-    '#FF9800', '#CDDC39', '#03A9F4', '#F44336', '#4CAF50',
-    '#FFEB3B', '#9C27B0', '#00E5FF', '#76FF03', '#FF1744'
-];
+const CATEGORY_COLORS = {
+    'major powers': '#e3b341',
+    'regional powers': '#fd7e14',
+    'mystical & ancient': '#a371f7',
+    'underworld & fringe': '#6a737d',
+    'interdimensional threat': '#e94a89',
+    'criminal': '#A0522D',
+    'underworld': '#2F4F4F',
+    'military': '#ADB5BD',
+    'religious': '#C0C0C0',
+    'magical': '#8A2BE2',
+    'mystical': '#a371f7',
+    'political': '#4169E1',
+    'tribal': '#556B2F',
+    'merchant': '#FFD700',
+    'nature': '#228B22',
+    'neutral': '#6c757d'
+};
 
-// Icon pool for auto-generated factions
-const AUTO_ICONS = [
-    '⚔️', '🛡️', '🏴', '🏰', '⭐', '🔶', '🔷', '🔴', '🟢', '🟡',
-    '🟣', '🟠', '⚪', '🔵', '🟤', '👁️', '🗡️', '🏹', '🪓', '🔱',
-    '⚡', '🌟', '💎', '🎭', '🦅', '🐉', '🦁', '🐺', '🦊', '🐍'
-];
-
-/**
- * Generate a consistent color from a string (hash-based)
- */
-function stringToColor(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return AUTO_COLORS[Math.abs(hash) % AUTO_COLORS.length];
-}
-
-/**
- * Generate a consistent icon from a string (hash-based)
- */
-function stringToIcon(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return AUTO_ICONS[Math.abs(hash) % AUTO_ICONS.length];
-}
-
-/**
- * Convert snake_case or kebab-case to Title Case
- */
-function toTitleCase(str) {
-    return str
-        .replace(/[-_]/g, ' ')
-        .replace(/\b\w/g, char => char.toUpperCase())
-        .trim();
-}
-
-/**
- * Generate a short name from full name
- */
-function toShortName(name) {
-    const words = name.split(' ');
-    if (words.length === 1) return name.substring(0, 8);
-    if (words.length === 2) return words[0];
-    // For 3+ words, try acronym or first word
-    if (name.length <= 10) return name;
-    return words[0];
-}
-
-/**
- * Create a default faction definition for auto-discovered factions
- */
-function createAutoFaction(systemId, rawId) {
-    const name = toTitleCase(rawId || systemId);
-    return {
-        id: systemId,
-        name: name,
-        shortName: toShortName(name),
-        leaderTitle: 'Leader',
-        leaderName: 'Unknown',
-        color: stringToColor(systemId),
-        icon: stringToIcon(systemId),
-        ideology: 'Unknown',
-        goal: 'Unknown objectives.',
-        strengths: ['Adaptable'],
-        weaknesses: ['Unknown'],
-        allies: [],
-        enemies: [],
-        description: `A faction known as ${name}. Little is known about their true intentions.`,
-        isAutoGenerated: true
-    };
-}
+const CATEGORY_ICONS = {
+    'major powers': '👑',
+    'regional powers': '🏰',
+    'mystical & ancient': '🔮',
+    'underworld & fringe': '🌑',
+    'interdimensional threat': '🌀',
+    'criminal': '💀',
+    'underworld': '🗡️',
+    'military': '⚔️',
+    'religious': '🔥',
+    'magical': '✨',
+    'mystical': '🔮',
+    'political': '👑',
+    'tribal': '🦁',
+    'merchant': '💰',
+    'nature': '🌿',
+    'neutral': '⚪'
+};
 
 // ============================================
-// 4. FACTION DISCOVERY & REGISTRY
+// THE GLOBAL REGISTRY OBJECT
 // ============================================
 
-let _factionRegistry = null;
-let _factionMap = null;
-let _discoveredRawIds = null;
-
-/**
- * Scan all map data and discover unique faction IDs
- */
-function discoverFactionsFromMapData() {
-    const rawFactionIds = new Set();
-
-    Object.values(MDATA_F).forEach(region => {
-        if (!region.pointsOfInterest) return;
-
-        region.pointsOfInterest.forEach(poi => {
-            if (poi.factionId) {
-                rawFactionIds.add(poi.factionId);
+const FactionRegistry = {
+    _factions: {},
+    _idMap: {},
+    _initialized: false,
+    
+    // Initialize the registry
+    init() {
+        if (this._initialized) {
+            return this;
+        }
+        
+        console.log('[FactionRegistry] Initializing...');
+        
+        // Collect all faction sources
+        const allSources = this._collectAllSources();
+        
+        // Process each source
+        for (const [sourceId, sourceData] of Object.entries(allSources)) {
+            if (!sourceData || typeof sourceData !== 'object') continue;
+            
+            for (const [rawKey, rawData] of Object.entries(sourceData)) {
+                const id = this._normalizeId(rawKey);
+                
+                // Skip if already exists (first source wins)
+                if (this._factions[id]) continue;
+                
+                // Build faction object
+                this._factions[id] = this._buildFaction(id, rawKey, rawData, sourceId);
+                
+                // Add to ID map
+                this._idMap[id] = id;
+                this._idMap[rawKey] = id;
+                this._idMap[rawKey.toLowerCase()] = id;
             }
-        });
-    });
-
-    return rawFactionIds;
-}
-
-/**
- * Build the complete faction registry
- * Combines manual definitions with auto-discovered factions
- */
-function buildFactionRegistry() {
-    const registry = {};
-    const factionMap = { ...MANUAL_FACTION_MAP };
-    const discoveredRawIds = discoverFactionsFromMapData();
-
-    // 1. Add all manual definitions first
-    Object.entries(MANUAL_FACTION_DEFINITIONS).forEach(([id, def]) => {
-        registry[id] = {
-            id,
-            ...def,
+        }
+        
+        // Discover from map
+        this._discoverFromMap();
+        
+        // Ensure unaligned exists
+        if (!this._factions['unaligned']) {
+            this._factions['unaligned'] = this._createUnaligned();
+        }
+        
+        // Build additional ID mappings
+        this._buildIdMappings();
+        
+        this._initialized = true;
+        console.log(`[FactionRegistry] Initialized with ${Object.keys(this._factions).length} factions`);
+        
+        return this;
+    },
+    
+    // Collect all source data
+    _collectAllSources() {
+        const sources = {};
+        
+        // Add LORE_DATA first (highest priority)
+        if (LORE_DATA && LORE_DATA.factions) {
+            sources['lore'] = LORE_DATA.factions;
+        }
+        
+        // Add faction files
+        if (MUSHROOM_KINGDOM_FACTIONS) sources['mushroom_kingdom'] = MUSHROOM_KINGDOM_FACTIONS;
+        if (WIDESPREAD_FACTIONS) sources['widespread'] = WIDESPREAD_FACTIONS;
+        if (MIDLANDS_FACTIONS) sources['midlands'] = MIDLANDS_FACTIONS;
+        if (WILDERLANDS_FACTIONS) sources['wilderlands'] = WILDERLANDS_FACTIONS;
+        if (MIDDLE_EARTH_FACTIONS) sources['middle_earth'] = MIDDLE_EARTH_FACTIONS;
+        if (INTERNET_FACTIONS) sources['internet'] = INTERNET_FACTIONS;
+        if (WARHAMMER_FACTIONS) sources['warhammer'] = WARHAMMER_FACTIONS;
+        if (KIVOTOS_FACTIONS) sources['kivotos'] = KIVOTOS_FACTIONS;
+        if (SPACE_FACTIONS) sources['space'] = SPACE_FACTIONS;
+        if (POKEMON_FACTIONS) sources['pokemon'] = POKEMON_FACTIONS;
+        if (EQUESTRIA_FACTIONS) sources['equestria'] = EQUESTRIA_FACTIONS;
+        
+        // Log what we found
+        for (const [id, data] of Object.entries(sources)) {
+            const count = data ? Object.keys(data).length : 0;
+            console.log(`[FactionRegistry] Source "${id}": ${count} factions`);
+        }
+        
+        return sources;
+    },
+    
+    // Normalize faction ID
+    _normalizeId(rawId) {
+        if (!rawId) return 'unknown';
+        return String(rawId).toLowerCase().trim().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+    },
+    
+    // Build a faction object from raw data
+    _buildFaction(id, rawKey, data, source) {
+        const name = data.name || this._toTitleCase(rawKey);
+        const category = data.category || 'Unknown';
+        const leader = this._extractLeader(data);
+        const relations = this._extractRelations(data);
+        
+        return {
+            id: id,
+            name: name,
+            shortName: this._toShortName(name),
+            leaderTitle: leader.title,
+            leaderName: leader.name,
+            color: COLORS[id] || this._getCategoryColor(category),
+            icon: ICONS[id] || this._getCategoryIcon(category),
+            ideology: this._inferIdeology(name, category, data.description),
+            goal: this._inferGoal(data.description),
+            strengths: this._inferStrengths(category, data.power_level),
+            weaknesses: this._inferWeaknesses(category, data.power_level),
+            allies: relations.allies,
+            enemies: relations.enemies,
+            description: data.description || `A faction known as ${name}.`,
+            powerLevel: data.power_level || 5,
+            category: category,
+            region: data.region || 'Unknown',
+            logo: data.logo || null,
+            notablePeople: data.notable_people || [],
+            internalPolitics: data.internal_politics || null,
+            waluigiTip: data.waluigi_tip || null,
+            source: source,
             isAutoGenerated: false
         };
-    });
-
-    // 2. Process discovered raw IDs
-    discoveredRawIds.forEach(rawId => {
-        const normalizedRawId = rawId.toLowerCase().trim();
-
-        // Check if we have a manual mapping
-        if (MANUAL_FACTION_MAP[normalizedRawId]) {
-            // Already mapped, ensure the mapping exists
-            factionMap[normalizedRawId] = MANUAL_FACTION_MAP[normalizedRawId];
-            return;
-        }
-
-        // Check if raw ID matches an existing system ID
-        if (registry[normalizedRawId]) {
-            factionMap[normalizedRawId] = normalizedRawId;
-            return;
-        }
-
-        // Check if the raw ID is similar to any existing system ID
-        const possibleMatch = Object.keys(registry).find(sysId => 
-            normalizedRawId.includes(sysId) || sysId.includes(normalizedRawId)
-        );
-
-        if (possibleMatch) {
-            factionMap[normalizedRawId] = possibleMatch;
-            return;
-        }
-
-        // No match found - create new auto-generated faction
-        const newSystemId = normalizedRawId.replace(/[^a-z0-9_]/g, '_');
-        
-        if (!registry[newSystemId]) {
-            console.log(`[FactionRegistry] Auto-discovered new faction: "${rawId}" → "${newSystemId}"`);
-            registry[newSystemId] = createAutoFaction(newSystemId, rawId);
-        }
-
-        factionMap[normalizedRawId] = newSystemId;
-    });
-
-    return { registry, factionMap, discoveredRawIds };
-}
-
-/**
- * Initialize or get the faction registry (singleton)
- */
-function getRegistry() {
-    if (!_factionRegistry) {
-        const result = buildFactionRegistry();
-        _factionRegistry = result.registry;
-        _factionMap = result.factionMap;
-        _discoveredRawIds = result.discoveredRawIds;
-
-        console.log(`[FactionRegistry] Initialized with ${Object.keys(_factionRegistry).length} factions`);
-        console.log(`[FactionRegistry] Manual: ${Object.keys(MANUAL_FACTION_DEFINITIONS).length}, Auto-discovered: ${Object.keys(_factionRegistry).length - Object.keys(MANUAL_FACTION_DEFINITIONS).length}`);
-    }
-    return { registry: _factionRegistry, factionMap: _factionMap, discoveredRawIds: _discoveredRawIds };
-}
-
-// ============================================
-// 5. PUBLIC API
-// ============================================
-
-/**
- * Get all factions (combined manual + auto-discovered)
- */
-export function getAllFactions() {
-    return getRegistry().registry;
-}
-
-/**
- * Get a specific faction by system ID
- */
-export function getFaction(systemId) {
-    const { registry } = getRegistry();
-    return registry[systemId] || registry['unaligned'];
-}
-
-/**
- * Get the faction map (raw ID → system ID)
- */
-export function getFactionMap() {
-    return getRegistry().factionMap;
-}
-
-/**
- * Convert a raw faction ID to system ID
- */
-export function toSystemId(rawFactionId) {
-    if (!rawFactionId) return 'unaligned';
-    const { factionMap } = getRegistry();
-    const normalized = rawFactionId.toLowerCase().trim();
-    return factionMap[normalized] || factionMap[rawFactionId] || 'unaligned';
-}
-
-/**
- * Get list of all system IDs
- */
-export function getAllSystemIds() {
-    return Object.keys(getRegistry().registry);
-}
-
-/**
- * Get only manually defined factions
- */
-export function getManualFactions() {
-    const { registry } = getRegistry();
-    const result = {};
-    Object.entries(registry).forEach(([id, faction]) => {
-        if (!faction.isAutoGenerated) {
-            result[id] = faction;
-        }
-    });
-    return result;
-}
-
-/**
- * Get only auto-discovered factions
- */
-export function getAutoFactions() {
-    const { registry } = getRegistry();
-    const result = {};
-    Object.entries(registry).forEach(([id, faction]) => {
-        if (faction.isAutoGenerated) {
-            result[id] = faction;
-        }
-    });
-    return result;
-}
-
-/**
- * Check if a faction exists
- */
-export function factionExists(systemId) {
-    return !!getRegistry().registry[systemId];
-}
-
-/**
- * Force rebuild the registry (useful after map data changes)
- */
-export function rebuildRegistry() {
-    _factionRegistry = null;
-    _factionMap = null;
-    _discoveredRawIds = null;
-    return getRegistry();
-}
-
-/**
- * Get faction color by system ID
- */
-export function getFactionColor(systemId) {
-    return getFaction(systemId)?.color || '#6c757d';
-}
-
-/**
- * Get faction icon by system ID
- */
-export function getFactionIcon(systemId) {
-    return getFaction(systemId)?.icon || '❓';
-}
-
-/**
- * Add or update a manual faction definition at runtime
- */
-export function registerFaction(systemId, definition) {
-    const { registry } = getRegistry();
-    registry[systemId] = {
-        id: systemId,
-        ...definition,
-        isAutoGenerated: false
-    };
-    console.log(`[FactionRegistry] Registered faction: ${systemId}`);
-}
-
-/**
- * Get summary statistics about factions
- */
-export function getFactionStats() {
-    const { registry, discoveredRawIds } = getRegistry();
-    const manual = Object.values(registry).filter(f => !f.isAutoGenerated).length;
-    const auto = Object.values(registry).filter(f => f.isAutoGenerated).length;
+    },
     
-    return {
-        total: Object.keys(registry).length,
-        manual,
-        autoDiscovered: auto,
-        rawIdsFound: discoveredRawIds.size
-    };
+    // Create unaligned faction
+    _createUnaligned() {
+        return {
+            id: 'unaligned',
+            name: 'Unaligned',
+            shortName: 'Wild',
+            leaderTitle: 'None',
+            leaderName: 'N/A',
+            color: '#6c757d',
+            icon: '❓',
+            ideology: 'None',
+            goal: 'Survival',
+            strengths: [],
+            weaknesses: [],
+            allies: [],
+            enemies: [],
+            description: 'Territories not controlled by any major faction.',
+            powerLevel: 0,
+            category: 'Neutral',
+            region: 'N/A',
+            logo: null,
+            notablePeople: [],
+            internalPolitics: null,
+            waluigiTip: null,
+            source: 'system',
+            isAutoGenerated: false
+        };
+    },
+    
+    // Discover factions from map data
+    _discoverFromMap() {
+        if (!MDATA_F) return;
+        
+        let discovered = 0;
+        
+        for (const region of Object.values(MDATA_F)) {
+            if (!region.pointsOfInterest) continue;
+            
+            for (const poi of region.pointsOfInterest) {
+                if (!poi.factionId || poi.factionId.trim() === '') continue;
+                
+                const id = this._normalizeId(poi.factionId);
+                
+                // Skip if already exists
+                if (this._factions[id]) {
+                    // Just add to ID map
+                    this._idMap[poi.factionId] = id;
+                    continue;
+                }
+                
+                // Create minimal faction
+                const name = this._toTitleCase(poi.factionId);
+                this._factions[id] = {
+                    id: id,
+                    name: name,
+                    shortName: this._toShortName(name),
+                    leaderTitle: 'Leader',
+                    leaderName: 'Unknown',
+                    color: COLORS[id] || '#6c757d',
+                    icon: ICONS[id] || '❓',
+                    ideology: 'Unknown',
+                    goal: 'Unknown objectives.',
+                    strengths: ['Adaptable'],
+                    weaknesses: ['Unknown'],
+                    allies: [],
+                    enemies: [],
+                    description: `A faction known as ${name}.`,
+                    powerLevel: 3,
+                    category: 'Unknown',
+                    region: 'Unknown',
+                    logo: null,
+                    notablePeople: [],
+                    internalPolitics: null,
+                    waluigiTip: null,
+                    source: 'map_discovery',
+                    isAutoGenerated: true
+                };
+                
+                this._idMap[poi.factionId] = id;
+                discovered++;
+            }
+        }
+        
+        if (discovered > 0) {
+            console.log(`[FactionRegistry] Discovered ${discovered} factions from map`);
+        }
+    },
+    
+    // Build additional ID mappings
+    _buildIdMappings() {
+        // Common aliases
+        const aliases = {
+            'koopa_remnants': 'koopa_troop',
+            'warlords': 'koopa_troop',
+            'criminals': 'freelancer_underworld',
+            'regency': 'mushroom_regency',
+            'loyalists': 'peach_loyalists',
+            'fawful': 'fawfuls_furious_freaks',
+            'neutral': 'unaligned',
+            'none': 'unaligned',
+            '': 'unaligned'
+        };
+        
+        for (const [alias, target] of Object.entries(aliases)) {
+            if (this._factions[target]) {
+                this._idMap[alias] = target;
+            }
+        }
+        
+        // Add variations for each faction
+        for (const id of Object.keys(this._factions)) {
+            // kebab-case
+            this._idMap[id.replace(/_/g, '-')] = id;
+            // no separators
+            this._idMap[id.replace(/_/g, '')] = id;
+        }
+    },
+    
+    // Extract leader from data
+    _extractLeader(data) {
+        // Check notable_people
+        if (data.notable_people && data.notable_people.length > 0) {
+            const leaderRoles = ['leader', 'head', 'boss', 'chief', 'king', 'queen', 
+                               'lord', 'lady', 'president', 'ceo', 'commander', 
+                               'general', 'captain', 'master', 'don', 'archmage',
+                               'supreme', 'ruler', 'sovereign', 'alpha', 'elder'];
+            
+            const leader = data.notable_people.find(p => {
+                const role = (p.role || '').toLowerCase();
+                return leaderRoles.some(r => role.includes(r));
+            }) || data.notable_people[0];
+            
+            return { title: leader.role || 'Leader', name: leader.name || 'Unknown' };
+        }
+        
+        // Check leader string
+        if (data.leader && typeof data.leader === 'string') {
+            return { title: 'Leader', name: this._toTitleCase(data.leader) };
+        }
+        
+        return { title: 'Leader', name: 'Unknown' };
+    },
+    
+    // Extract relations
+    _extractRelations(data) {
+        const result = { allies: [], enemies: [] };
+        
+        if (data.relations) {
+            if (Array.isArray(data.relations.allies)) {
+                result.allies = [...data.relations.allies];
+            }
+            if (Array.isArray(data.relations.enemies)) {
+                result.enemies = [...data.relations.enemies];
+            }
+        }
+        
+        return result;
+    },
+    
+    // Convert to title case
+    _toTitleCase(str) {
+        if (!str) return 'Unknown';
+        return String(str)
+            .replace(/[-_]+/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .split(' ')
+            .map((word, i) => {
+                if (!word) return '';
+                const skip = ['of', 'the', 'and', 'in', 'on', 'at', 'to', 'for'];
+                if (i > 0 && skip.includes(word.toLowerCase())) {
+                    return word.toLowerCase();
+                }
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            })
+            .join(' ');
+    },
+    
+    // Convert to short name
+    _toShortName(name) {
+        if (!name) return 'Unknown';
+        if (name.length <= 14) return name;
+        
+        const words = name.split(' ');
+        const skip = ['the', 'a', 'an', 'of', 'and'];
+        const meaningful = words.filter(w => !skip.includes(w.toLowerCase()));
+        
+        if (meaningful.length === 0) return words[0] || name.substring(0, 14);
+        if (meaningful.length === 1) return meaningful[0];
+        
+        const twoWords = meaningful.slice(0, 2).join(' ');
+        if (twoWords.length <= 16) return twoWords;
+        
+        return meaningful[0];
+    },
+    
+    // Get color for category
+    _getCategoryColor(category) {
+        if (!category) return '#6c757d';
+        const lower = category.toLowerCase();
+        for (const [key, color] of Object.entries(CATEGORY_COLORS)) {
+            if (lower.includes(key)) return color;
+        }
+        return '#6c757d';
+    },
+    
+    // Get icon for category
+    _getCategoryIcon(category) {
+        if (!category) return '❓';
+        const lower = category.toLowerCase();
+        for (const [key, icon] of Object.entries(CATEGORY_ICONS)) {
+            if (lower.includes(key)) return icon;
+        }
+        return '❓';
+    },
+    
+    // Infer ideology
+    _inferIdeology(name, category, desc) {
+        if (category && category !== 'Unknown') return category;
+        
+        const text = ((name || '') + ' ' + (desc || '')).toLowerCase();
+        
+        const patterns = [
+            [['criminal', 'gang', 'thief'], 'Criminal Enterprise'],
+            [['empire', 'imperial'], 'Imperial'],
+            [['kingdom', 'regency', 'royal'], 'Monarchy'],
+            [['cult', 'church', 'religious'], 'Religious Order'],
+            [['guild', 'mage', 'magic'], 'Magical Collective'],
+            [['legion', 'army', 'military'], 'Martial Order'],
+            [['tribe', 'clan', 'pack'], 'Tribal'],
+            [['rebel', 'liberation', 'freedom'], 'Revolutionary']
+        ];
+        
+        for (const [keywords, ideology] of patterns) {
+            if (keywords.some(k => text.includes(k))) return ideology;
+        }
+        
+        return 'Independent';
+    },
+    
+    // Infer goal
+    _inferGoal(desc) {
+        if (!desc) return 'Unknown objectives.';
+        
+        const indicators = ['operating for', 'dedicated to', 'seeking to', 'aims to'];
+        const lower = desc.toLowerCase();
+        
+        for (const ind of indicators) {
+            const idx = lower.indexOf(ind);
+            if (idx !== -1) {
+                const after = desc.substring(idx + ind.length);
+                const end = after.search(/[.!?]/);
+                if (end > 0 && end <= 80) {
+                    return after.substring(0, end + 1).trim();
+                }
+            }
+        }
+        
+        return 'Pursue their own agenda.';
+    },
+    
+    // Infer strengths
+    _inferStrengths(category, powerLevel) {
+        const strengths = [];
+        const cat = (category || '').toLowerCase();
+        
+        if (cat.includes('military')) strengths.push('Disciplined Forces');
+        if (cat.includes('magical') || cat.includes('mystical')) strengths.push('Magical Power');
+        if (cat.includes('criminal') || cat.includes('underworld')) strengths.push('Information Network');
+        if (cat.includes('major')) strengths.push('Vast Resources');
+        
+        if (powerLevel >= 8) strengths.push('Major Power');
+        else if (powerLevel >= 5) strengths.push('Established');
+        else strengths.push('Adaptable');
+        
+        return strengths.slice(0, 3);
+    },
+    
+    // Infer weaknesses
+    _inferWeaknesses(category, powerLevel) {
+        const weaknesses = [];
+        const cat = (category || '').toLowerCase();
+        
+        if (cat.includes('criminal')) weaknesses.push('No Legitimacy');
+        if (cat.includes('religious')) weaknesses.push('Extremism');
+        if (powerLevel >= 8) weaknesses.push('Overextension');
+        if (powerLevel <= 3) weaknesses.push('Limited Resources');
+        
+        return weaknesses.length > 0 ? weaknesses : ['Unknown'];
+    },
+    
+    // ==========================================
+    // PUBLIC API
+    // ==========================================
+    
+    // Get a faction by ID
+    get(id) {
+        this.init();
+        
+        if (!id) return this._factions['unaligned'];
+        
+        const normalId = this._normalizeId(id);
+        
+        // Direct lookup
+        if (this._factions[normalId]) {
+            return this._factions[normalId];
+        }
+        
+        // Try ID map
+        const mappedId = this._idMap[normalId] || this._idMap[id] || this._idMap[id?.toLowerCase?.()];
+        if (mappedId && this._factions[mappedId]) {
+            return this._factions[mappedId];
+        }
+        
+        // Not found
+        return this._factions['unaligned'];
+    },
+    
+    // Get all factions
+    getAll() {
+        this.init();
+        return { ...this._factions };
+    },
+    
+    // Check if faction exists
+    exists(id) {
+        this.init();
+        const normalId = this._normalizeId(id);
+        return !!(this._factions[normalId] || this._idMap[normalId] || this._idMap[id]);
+    },
+    
+    // Get faction color
+    getColor(id) {
+        return this.get(id)?.color || '#6c757d';
+    },
+    
+    // Get faction icon
+    getIcon(id) {
+        return this.get(id)?.icon || '❓';
+    },
+    
+    // Get all IDs
+    getAllIds() {
+        this.init();
+        return Object.keys(this._factions);
+    },
+    
+    // Search factions
+    search(query) {
+        this.init();
+        if (!query) return [];
+        
+        const lower = query.toLowerCase();
+        return Object.values(this._factions).filter(f => 
+            f.name.toLowerCase().includes(lower) ||
+            f.description?.toLowerCase().includes(lower) ||
+            f.category?.toLowerCase().includes(lower)
+        );
+    },
+    
+    // Get by category
+    getByCategory(category) {
+        this.init();
+        return Object.values(this._factions).filter(f => 
+            f.category?.toLowerCase().includes(category.toLowerCase())
+        );
+    },
+    
+    // Get by region
+    getByRegion(region) {
+        this.init();
+        return Object.values(this._factions).filter(f => 
+            f.region?.toLowerCase().includes(region.toLowerCase())
+        );
+    },
+    
+    // Get stats
+    getStats() {
+        this.init();
+        const bySource = {};
+        for (const f of Object.values(this._factions)) {
+            bySource[f.source] = (bySource[f.source] || 0) + 1;
+        }
+        return {
+            total: Object.keys(this._factions).length,
+            bySource
+        };
+    },
+    
+    // Force rebuild
+    rebuild() {
+        this._factions = {};
+        this._idMap = {};
+        this._initialized = false;
+        return this.init();
+    }
+};
+
+// ============================================
+// INITIALIZE ON LOAD
+// ============================================
+
+FactionRegistry.init();
+
+// ============================================
+// EXPORT FUNCTIONS (for compatibility)
+// ============================================
+
+export function getAllFactions() {
+    return FactionRegistry.getAll();
 }
+
+export function getFaction(id) {
+    return FactionRegistry.get(id);
+}
+
+export function factionExists(id) {
+    return FactionRegistry.exists(id);
+}
+
+export function getFactionColor(id) {
+    return FactionRegistry.getColor(id);
+}
+
+export function getFactionIcon(id) {
+    return FactionRegistry.getIcon(id);
+}
+
+export function getAllSystemIds() {
+    return FactionRegistry.getAllIds();
+}
+
+export function toSystemId(rawId) {
+    if (!rawId) return 'unaligned';
+    return FactionRegistry._normalizeId(rawId);
+}
+
+export function getFactionMap() {
+    FactionRegistry.init();
+    return { ...FactionRegistry._idMap };
+}
+
+export function searchFactions(query) {
+    return FactionRegistry.search(query);
+}
+
+export function getFactionsByCategory(category) {
+    return FactionRegistry.getByCategory(category);
+}
+
+export function getFactionsByRegion(region) {
+    return FactionRegistry.getByRegion(region);
+}
+
+export function getFactionStats() {
+    return FactionRegistry.getStats();
+}
+
+export function rebuildRegistry() {
+    return FactionRegistry.rebuild();
+}
+
+export function getAutoFactions() {
+    FactionRegistry.init();
+    return Object.fromEntries(
+        Object.entries(FactionRegistry._factions).filter(([, f]) => f.isAutoGenerated)
+    );
+}
+
+export function registerFaction(id, data) {
+    FactionRegistry.init();
+    const normalId = FactionRegistry._normalizeId(id);
+    FactionRegistry._factions[normalId] = FactionRegistry._buildFaction(normalId, id, data, 'runtime');
+    FactionRegistry._idMap[id] = normalId;
+    console.log(`[FactionRegistry] Registered: ${normalId}`);
+}
+
+export function getAllCategories() {
+    FactionRegistry.init();
+    const cats = new Set();
+    for (const f of Object.values(FactionRegistry._factions)) {
+        if (f.category && f.category !== 'Unknown') cats.add(f.category);
+    }
+    return [...cats].sort();
+}
+
+export function getAllRegions() {
+    FactionRegistry.init();
+    const regions = new Set();
+    for (const f of Object.values(FactionRegistry._factions)) {
+        if (f.region && f.region !== 'Unknown' && f.region !== 'N/A') {
+            regions.add(f.region);
+        }
+    }
+    return [...regions].sort();
+}
+
+// Also export the registry object itself for direct access if needed
+export { FactionRegistry };
