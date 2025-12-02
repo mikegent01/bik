@@ -4,6 +4,7 @@ import * as map from './maps.js';
 let d3Zoom = null;
 let svg = null;
 let interactionGuardsInitialized = false;
+let isMapLocked = false;
 
 // Anything matching this selector will NOT cause pan/zoom when clicked/dragged/scrolled.
 const INTERACTIVE_SELECTOR = [
@@ -57,6 +58,10 @@ function zoomed(event) {
     wrapper.style.transform = `translate(${transform.x}px, ${transform.y}px) scale(${transform.k})`;
 }
 
+export function setMapLock(locked) {
+    isMapLocked = locked;
+}
+
 export function initPanAndZoom() {
     const svgElement = document.getElementById('map-display-area');
     if (!svgElement || typeof d3 === 'undefined') return;
@@ -70,6 +75,9 @@ export function initPanAndZoom() {
     d3Zoom = d3.zoom()
         .scaleExtent([0.5, 8]) // Min/max zoom levels
         .filter((event) => {
+            // Check if map interaction is explicitly locked (e.g. when viewing POI details)
+            if (isMapLocked) return false;
+
             // Ignore events already cancelled elsewhere
             if (event.defaultPrevented) return false;
 
@@ -140,4 +148,4 @@ export function panAndZoomToPoi(poi) {
         .transition()
         .duration(750)
         .call(d3Zoom.transform, transform);
-}
+} 

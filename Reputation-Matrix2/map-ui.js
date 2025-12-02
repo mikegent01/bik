@@ -1,5 +1,4 @@
 
-
 import { playSound } from './common.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import * as map from './maps.js';
@@ -51,7 +50,15 @@ export function renderTabs() {
     } else if (currentPage === 'connectopia-maps.html') {
         relevantGroups = ['Connectopia'];
     } else if (currentPage === 'earth-land-maps.html') {
-        relevantGroups = ['Earth Land'];
+        relevantGroups = [
+            'Earth Land',
+            'Earth Continents',
+            'Divine Kingdoms',
+            'Lost Continents & Myths',
+            'Norse Realms',
+            'Outer Realms',
+            'Oceanic & Islands'
+        ];
     } else if (currentPage === 'faerun-maps.html') {
         relevantGroups = ['Faerûn'];
     } else if (currentPage === 'leclaire-isle-maps.html') {

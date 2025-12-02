@@ -1,4 +1,3 @@
-
 import { state } from './state.js';
 import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
 import { LORE_DATA } from './lore.js';
@@ -21,6 +20,15 @@ const displayArea = document.getElementById('map-display-area');
 const detailPanel = document.getElementById('map-detail-content');
 let tooltip;
 
+// --- CLUSTERING CONFIG ---
+const CLUSTER_CONFIG = {
+    enabled: true,
+    threshold: 2.5,           // Distance in % to cluster POIs
+    minZoomToExpand: 2.0,     // Zoom level at which clusters auto-expand
+    maxClusterSize: 12,       // Max POIs per cluster before splitting
+    showCountBadge: true
+};
+
 // --- CONSTANTS & HELPERS ---
 
 function simpleHash(str) {
@@ -28,7 +36,7 @@ function simpleHash(str) {
     for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);
         hash = (hash << 5) - hash + char;
-        hash |= 0; // Convert to 32bit integer
+        hash |= 0;
     }
     return hash;
 }
@@ -36,6 +44,108 @@ function simpleHash(str) {
 function seededRandom(seed) {
     const x = Math.sin(seed) * 10000;
     return x - Math.floor(x);
+}
+
+// --- FACTION HELPERS ---
+
+/**
+ * Get faction data with fallbacks for missing data
+ */
+function getFactionData(factionId) {
+    if (!factionId) {
+        return {
+            id: 'unaligned',
+            name: 'Unaligned',
+            shortName: 'UNA',
+            color: '#888888',
+            logo: null,
+            icon: '❓',
+            description: 'No faction affiliation'
+        };
+    }
+
+    const faction = LORE_DATA.factions?.[factionId];
+    if (!faction) {
+        return {
+            id: factionId,
+            name: factionId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+            shortName: factionId.substring(0, 3).toUpperCase(),
+            color: FACTION_COLORS[factionId] || '#888888',
+            logo: null,
+            icon: '🏴',
+            description: 'Unknown faction'
+        };
+    }
+
+    return {
+        id: factionId,
+        name: faction.name || factionId,
+        shortName: faction.shortName || faction.name?.substring(0, 3).toUpperCase() || 'UNK',
+        color: FACTION_COLORS[factionId] || faction.color || '#888888',
+        logo: faction.logo || null,
+        icon: faction.icon || '🏴',
+        description: faction.description || ''
+    };
+}
+
+/**
+ * Get dominant faction from a list of POIs
+ */
+function getDominantFaction(pois) {
+    const factionCounts = {};
+    const factionPower = {};
+
+    pois.forEach(poi => {
+        const fid = poi.factionId || 'unaligned';
+        factionCounts[fid] = (factionCounts[fid] || 0) + 1;
+        // Weight by influence/power
+        const power = (poi.political_influence || 1) + (poi.military_strength || 0) + (poi.economic_value || 0);
+        factionPower[fid] = (factionPower[fid] || 0) + power;
+    });
+
+    let dominant = 'unaligned';
+    let maxPower = 0;
+
+    for (const [fid, power] of Object.entries(factionPower)) {
+        if (power > maxPower) {
+            maxPower = power;
+            dominant = fid;
+        }
+    }
+
+    return {
+        factionId: dominant,
+        count: factionCounts[dominant] || 0,
+        totalFactions: Object.keys(factionCounts).length,
+        isContested: Object.keys(factionCounts).length > 1
+    };
+}
+
+/**
+ * Calculate faction presence statistics for a region
+ */
+function getRegionFactionStats(pois) {
+    const stats = {};
+
+    pois.forEach(poi => {
+        const fid = poi.factionId || 'unaligned';
+        if (!stats[fid]) {
+            stats[fid] = {
+                poiCount: 0,
+                totalMilitary: 0,
+                totalEconomic: 0,
+                totalPolitical: 0,
+                totalPopulation: 0
+            };
+        }
+        stats[fid].poiCount++;
+        stats[fid].totalMilitary += poi.military_strength || 0;
+        stats[fid].totalEconomic += poi.economic_value || 0;
+        stats[fid].totalPolitical += poi.political_influence || 0;
+        stats[fid].totalPopulation += poi.population || 0;
+    });
+
+    return stats;
 }
 
 const TRADE_GOODS = {
@@ -79,8 +189,6 @@ function getEstateWeights(poi) {
 }
 
 function pickWeightedEstate(weights, poi) {
-    // For exports, we care about who drives production or investment
-    // Nobility = Arms/Politics, Clergy = Magic/Medical, Burghers = Tech/Econ, Commoners = Farming/Labor
     const pool = [
         { id: 'nobility', w: weights.nobility },
         { id: 'burghers', w: weights.burghers },
@@ -100,7 +208,6 @@ function pickWeightedEstate(weights, poi) {
 }
 
 function getResearchBasedExport(poi, estate) {
-    // 1. Identify Nation Key
     const factionToNation = {
         'regal_empire': 'midlands', 'iron_legion': 'midlands',
         'mushroom_regency': 'mushroom_kingdom', 'toad_gang': 'mushroom_kingdom', 'peach_loyalists': 'mushroom_kingdom',
@@ -120,28 +227,18 @@ function getResearchBasedExport(poi, estate) {
     const mapNation = getNationFromMapId(map.activeMapId);
     const nationKey = mapNation || factionToNation[poi.factionId] || 'midlands';
 
-    // 2. Select Category based on Estate Preference
-    // Nobility -> Weapons, Political
-    // Burghers -> Tech, Economic
-    // Clergy -> Magic, Medical
-    // Commoners -> Economic (Agriculture usually, mapped to Econ here for simplicity or low tier tech)
     let preferredCategories = [];
     if (estate === 'nobility') preferredCategories = ['WEAPONS', 'POLITICAL'];
     else if (estate === 'burghers') preferredCategories = ['TECH', 'ECONOMIC'];
     else if (estate === 'clergy') preferredCategories = ['MAGIC', 'MEDICAL'];
-    else preferredCategories = ['ECONOMIC', 'MEDICAL']; // Commoners
+    else preferredCategories = ['ECONOMIC', 'MEDICAL'];
 
-    // 3. Find highest tier completed tech in preferred categories
     let candidateTechs = [];
     let highestTier = -1;
 
     preferredCategories.forEach(cat => {
-        // Fetch the full tree for this category to get names/descriptions
-        // Note: passing globalCycleState as null since we just want static info for now
         const tree = getTechTree(nationKey, cat, state.researchState, null);
         const nodes = Object.values(tree);
-        
-        // Filter for completed nodes
         const completedNodes = nodes.filter(n => n.status === 'completed');
         
         if (completedNodes.length > 0) {
@@ -155,11 +252,9 @@ function getResearchBasedExport(poi, estate) {
     });
 
     if (candidateTechs.length > 0) {
-        // Filter candidates to be within a certain range of the highest tier
-        const tierThreshold = 3; // Include techs up to 3 tiers below the max
+        const tierThreshold = 3;
         const filteredCandidates = candidateTechs.filter(tech => highestTier - tech.tier <= tierThreshold);
 
-        // If we have candidates, pick one randomly
         if (filteredCandidates.length > 0) {
             const seed = simpleHash(poi.id + estate);
             const bestTech = filteredCandidates[Math.floor(seededRandom(seed) * filteredCandidates.length)];
@@ -180,7 +275,6 @@ function getResearchBasedExport(poi, estate) {
 }
 
 function getImportNeeds(exportCategory, poi) {
-    // Simple logic: Import what you don't export
     const cats = RESEARCH_CATEGORIES.filter(c => c !== exportCategory);
     const seed = simpleHash(poi.id + exportCategory);
     const importCat = cats[Math.floor(seededRandom(seed) * cats.length)];
@@ -200,7 +294,6 @@ function getTradeInfo(poi) {
     const econScore = poi.economic_value || 1;
     const pop = poi.population || 0;
 
-    // 1. Determine Production based on Research & Social Class
     const weights = getEstateWeights(poi);
     const estate = pickWeightedEstate(weights, poi);
     const techExport = getResearchBasedExport(poi, estate);
@@ -212,7 +305,6 @@ function getTradeInfo(poi) {
         exportItem = techExport;
         exportCategory = techExport.source;
     } else {
-        // Fallback to generic list
         let hash = 0;
         for (let i = 0; i < poi.id.length; i++) hash = poi.id.charCodeAt(i) + ((hash << 5) - hash);
         const typeKey = TRADE_GOODS[poi.type] ? poi.type : 'default';
@@ -220,18 +312,10 @@ function getTradeInfo(poi) {
         exportItem = goodsList[Math.abs(hash) % goodsList.length];
     }
 
-    // 2. Calculate Volumes
-    // Production = (Econ Score * 100) + (Pop / 50)
     const dailyProduction = Math.floor((econScore * 100) + (pop / 50));
-    
-    // Export % depends on Econ Score (Higher econ = more surplus)
-    const exportRatio = 0.1 + (econScore * 0.05); // 0.15 to 0.6
+    const exportRatio = 0.1 + (econScore * 0.05);
     const dailyExport = Math.floor(dailyProduction * exportRatio);
-    
-    // Import is inversely proportional to export (Need resources to make stuff) or based on wealth
     const dailyImport = Math.floor(dailyProduction * 0.5);
-
-    // Import Category
     const importName = getImportNeeds(exportCategory, poi);
 
     let statusTier = "Local Producer";
@@ -273,7 +357,7 @@ function hasSufficientIntel(requirement) {
     if (!requirement) return true;
     if (state.debugMode) return true;
     if (typeof requirement === 'number') {
-        return true; // Simplified for brevity, ideally check regional intel
+        return true;
     }
     if (typeof requirement === 'object' && requirement.faction && typeof requirement.level === 'number') {
         return getIntelForFaction(requirement.faction) >= requirement.level;
@@ -336,6 +420,87 @@ function getPopulationColor(population) {
     return '#f46d43';
 }
 
+// --- CLUSTERING LOGIC ---
+
+/**
+ * Cluster POIs based on proximity
+ */
+function clusterPois(pois, threshold) {
+    if (!CLUSTER_CONFIG.enabled || pois.length === 0) {
+        return pois.map(poi => ({ x: poi.x, y: poi.y, pois: [poi], isCluster: false }));
+    }
+
+    const clusters = [];
+    const assigned = new Set();
+
+    // Sort POIs by importance (larger/more important POIs anchor clusters)
+    const sortedPois = [...pois].sort((a, b) => {
+        const aScore = (a.political_influence || 0) + (a.military_strength || 0) + (a.economic_value || 0);
+        const bScore = (b.political_influence || 0) + (b.military_strength || 0) + (b.economic_value || 0);
+        return bScore - aScore;
+    });
+
+    sortedPois.forEach(poi => {
+        if (assigned.has(poi.id)) return;
+
+        // Find or create cluster
+        let foundCluster = null;
+        for (const cluster of clusters) {
+            const dx = poi.x - cluster.x;
+            const dy = poi.y - cluster.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < threshold && cluster.pois.length < CLUSTER_CONFIG.maxClusterSize) {
+                foundCluster = cluster;
+                break;
+            }
+        }
+
+        if (foundCluster) {
+            foundCluster.pois.push(poi);
+            // Recalculate cluster center (weighted by importance)
+            let totalWeight = 0;
+            let weightedX = 0;
+            let weightedY = 0;
+            foundCluster.pois.forEach(p => {
+                const weight = 1 + (p.political_influence || 0) + (p.military_strength || 0);
+                weightedX += p.x * weight;
+                weightedY += p.y * weight;
+                totalWeight += weight;
+            });
+            foundCluster.x = weightedX / totalWeight;
+            foundCluster.y = weightedY / totalWeight;
+            assigned.add(poi.id);
+        } else {
+            clusters.push({
+                x: poi.x,
+                y: poi.y,
+                pois: [poi],
+                isCluster: false
+            });
+            assigned.add(poi.id);
+        }
+    });
+
+    // Mark clusters with multiple POIs
+    clusters.forEach(c => {
+        c.isCluster = c.pois.length > 1;
+    });
+
+    return clusters;
+}
+
+/**
+ * Get current zoom level from transform
+ */
+function getCurrentZoom() {
+    const wrapper = document.getElementById('map-zoom-wrapper');
+    if (!wrapper) return 1;
+    const transform = wrapper.style.transform;
+    const match = transform.match(/scale\(([^)]+)\)/);
+    return match ? parseFloat(match[1]) : 1;
+}
+
 // --- TOOLTIP LOGIC ---
 
 function createTooltip() {
@@ -351,11 +516,9 @@ function showTooltip(e, content) {
     tooltip.classList.add('visible');
     const rect = displayArea.getBoundingClientRect();
     
-    // Ensure coordinates are relative to the display area
     let x = e.clientX - rect.left + 15;
     let y = e.clientY - rect.top + 15;
 
-    // Boundary checks
     if (x + tooltip.offsetWidth > rect.width) x -= (tooltip.offsetWidth + 30);
     if (y + tooltip.offsetHeight > rect.height) y -= (tooltip.offsetHeight + 30);
 
@@ -382,11 +545,9 @@ export function renderMap(mapId) {
     displayArea.classList.toggle('edit-mode', map.isEditMode);
     createTooltip();
 
-    // Create Zoom Wrapper
     const zoomWrapper = document.createElement('div');
     zoomWrapper.id = 'map-zoom-wrapper';
 
-    // Create Image
     const mapImage = document.createElement('img');
     mapImage.id = 'map-image';
     mapImage.src = mapData.imageSrc;
@@ -394,7 +555,6 @@ export function renderMap(mapId) {
     
     displayArea.appendChild(zoomWrapper);
 
-    // Wait for image to load to set up overlay dimensions
     mapImage.onload = () => {
         const container = displayArea;
         const img = mapImage;
@@ -414,7 +574,6 @@ export function renderMap(mapId) {
             left = 0;
         }
 
-        // Unified Interactive Layer
         const interactiveLayer = document.createElement('div');
         interactiveLayer.id = 'interactive-map-layer';
         interactiveLayer.style.position = 'absolute';
@@ -426,7 +585,6 @@ export function renderMap(mapId) {
 
         map.setRenderedMapDimensions({ width: renderedWidth, height: renderedHeight });
 
-        // Create Unified SVG Layer for vector graphics (Fog, Lines, Paths)
         const svgLayer = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svgLayer.id = 'map-vector-layer';
         svgLayer.setAttribute('viewBox', '0 0 100 100');
@@ -434,14 +592,12 @@ export function renderMap(mapId) {
         svgLayer.style.position = 'absolute';
         svgLayer.style.width = '100%';
         svgLayer.style.height = '100%';
-        svgLayer.style.pointerEvents = 'none'; // Allow clicks to pass through empty areas
+        svgLayer.style.pointerEvents = 'none';
         svgLayer.style.zIndex = '1'; 
         interactiveLayer.appendChild(svgLayer);
 
-        // --- Render Layers ---
         renderFogLayer(svgLayer);
         
-        // Tactical mode renders lines into SVG and markers into DOM
         if (map.activeMapMode === 'tactical') {
             renderTacticalLayer(mapId, interactiveLayer, svgLayer);
         }
@@ -450,7 +606,6 @@ export function renderMap(mapId) {
         renderPartyLayer(mapId, interactiveLayer, svgLayer);
 
         if (map.isEditMode) {
-            // Dedicated drawing layer for editor to prevent clearing game elements
             const drawingSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             drawingSvg.id = 'map-drawing-svg';
             drawingSvg.setAttribute('viewBox', '0 0 100 100');
@@ -474,7 +629,7 @@ function renderFogLayer(svgContainer) {
         const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
         polygon.setAttribute('points', fog.points);
         polygon.id = fog.id;
-        polygon.style.pointerEvents = map.isEditMode ? 'all' : 'none'; // Only clickable in edit mode
+        polygon.style.pointerEvents = map.isEditMode ? 'all' : 'none';
         
         if (state.mapState.discoveredFogs.includes(fog.id)) {
             polygon.classList.add('discovered');
@@ -485,8 +640,8 @@ function renderFogLayer(svgContainer) {
 }
 
 function renderPoisLayer(container) {
-    // Clear existing markers (but not the SVG layer)
-    container.querySelectorAll('.poi-marker, .province-marker').forEach(el => el.remove());
+    // Clear existing markers
+    container.querySelectorAll('.poi-marker, .province-marker, .poi-cluster-marker').forEach(el => el.remove());
 
     // Political - Province View
     const provinceData = PROVINCE_POLITICS[map.activeMapId];
@@ -499,51 +654,287 @@ function renderPoisLayer(container) {
     const poiSource = map.isEditMode ? map.editSessionData.pois : (MAP_DATA[map.activeMapId]?.pointsOfInterest || []);
     const visiblePois = poiSource.filter(poi => map.isEditMode || hasSufficientIntel(poi));
     
+    // Get current zoom and adjust threshold
+    const currentZoom = getCurrentZoom();
+    const shouldCluster = !map.isEditMode && CLUSTER_CONFIG.enabled && currentZoom < CLUSTER_CONFIG.minZoomToExpand;
+    
+    // Cluster or pass through
+    const clusters = shouldCluster 
+        ? clusterPois(visiblePois, CLUSTER_CONFIG.threshold / Math.max(currentZoom, 0.5))
+        : visiblePois.map(poi => ({ x: poi.x, y: poi.y, pois: [poi], isCluster: false }));
+    
     const fragment = document.createDocumentFragment();
     
-    visiblePois.forEach(poi => {
-        const marker = document.createElement('div');
-        marker.className = 'poi-marker';
-        marker.style.left = `${poi.x}%`;
-        marker.style.top = `${poi.y}%`;
-        marker.dataset.poiId = poi.id;
-        
-        // Apply Mode Styling
-        applyPoiStyle(marker, poi);
-        
-        // Edit Mode
-        if (map.isEditMode) {
-            marker.draggable = true;
-            marker.classList.add('draggable-poi');
+    clusters.forEach(cluster => {
+        if (cluster.isCluster && cluster.pois.length > 1) {
+            // Render cluster marker
+            const clusterMarker = createClusterMarker(cluster);
+            fragment.appendChild(clusterMarker);
+        } else {
+            // Render single POI
+            const poi = cluster.pois[0];
+            const marker = createPoiMarker(poi);
+            fragment.appendChild(marker);
         }
-
-        // Request Indicator
-        const hasRequest = Object.values(QUEST_DATA).some(q => q.locationId === poi.id && q.status === 'available');
-        if (hasRequest && !map.isEditMode) {
-            const ind = document.createElement('div');
-            ind.className = 'poi-request-indicator';
-            ind.textContent = '!';
-            marker.appendChild(ind);
-        }
-
-        fragment.appendChild(marker);
     });
     
     container.appendChild(fragment);
 }
 
+/**
+ * Create a single POI marker
+ */
+function createPoiMarker(poi) {
+    const marker = document.createElement('div');
+    marker.className = 'poi-marker';
+    marker.style.left = `${poi.x}%`;
+    marker.style.top = `${poi.y}%`;
+    marker.dataset.poiId = poi.id;
+    
+    // Apply Mode Styling
+    applyPoiStyle(marker, poi);
+    
+    // Edit Mode
+    if (map.isEditMode) {
+        marker.draggable = true;
+        marker.classList.add('draggable-poi');
+    }
+
+    // Request Indicator
+    const hasRequest = Object.values(QUEST_DATA).some(q => q.locationId === poi.id && q.status === 'available');
+    if (hasRequest && !map.isEditMode) {
+        const ind = document.createElement('div');
+        ind.className = 'poi-request-indicator';
+        ind.textContent = '!';
+        marker.appendChild(ind);
+    }
+
+    return marker;
+}
+
+/**
+ * Create a cluster marker for multiple POIs
+ */
+function createClusterMarker(cluster) {
+    const marker = document.createElement('div');
+    marker.className = 'poi-cluster-marker';
+    marker.style.left = `${cluster.x}%`;
+    marker.style.top = `${cluster.y}%`;
+    marker.dataset.clusterSize = cluster.pois.length;
+
+    // Get dominant faction for cluster styling
+    const dominantInfo = getDominantFaction(cluster.pois);
+    const factionData = getFactionData(dominantInfo.factionId);
+
+    // Calculate cluster stats
+    const totalMilitary = cluster.pois.reduce((sum, p) => sum + (p.military_strength || 0), 0);
+    const totalEconomic = cluster.pois.reduce((sum, p) => sum + (p.economic_value || 0), 0);
+    const totalPop = cluster.pois.reduce((sum, p) => sum + (p.population || 0), 0);
+
+    // Size based on number of POIs and importance
+    const baseSize = 28;
+    const sizeBonus = Math.min(cluster.pois.length * 2, 20);
+    const size = baseSize + sizeBonus;
+    
+    marker.style.width = `${size}px`;
+    marker.style.height = `${size}px`;
+
+    // Styling based on map mode
+    switch (map.activeMapMode) {
+        case 'political':
+            if (factionData.logo) {
+                marker.style.backgroundImage = `url(${factionData.logo})`;
+                marker.style.backgroundSize = 'contain';
+                marker.style.backgroundRepeat = 'no-repeat';
+                marker.style.backgroundPosition = 'center';
+            }
+            marker.style.borderColor = factionData.color;
+            marker.style.backgroundColor = hexToRgba(factionData.color, 0.3);
+            if (dominantInfo.isContested) {
+                marker.classList.add('contested-cluster');
+            }
+            break;
+            
+        case 'military':
+            const avgMilitary = Math.round(totalMilitary / cluster.pois.length);
+            marker.style.backgroundColor = valueToColor(avgMilitary, 0, 10, ['#4575b4', '#fee090', '#d73027']);
+            marker.style.borderColor = '#fff';
+            break;
+            
+        case 'economic':
+            const avgEconomic = Math.round(totalEconomic / cluster.pois.length);
+            marker.style.borderColor = avgEconomic >= 7 ? '#FFD700' : (avgEconomic >= 4 ? '#C0C0C0' : '#cd7f32');
+            marker.style.backgroundColor = hexToRgba(marker.style.borderColor, 0.3);
+            break;
+            
+        case 'population':
+            const avgPop = Math.round(totalPop / cluster.pois.length);
+            marker.style.backgroundColor = getPopulationColor(avgPop);
+            break;
+            
+        default:
+            marker.style.borderColor = factionData.color;
+            marker.style.backgroundColor = hexToRgba(factionData.color, 0.3);
+    }
+
+    // Count badge
+    if (CLUSTER_CONFIG.showCountBadge) {
+        const badge = document.createElement('div');
+        badge.className = 'cluster-count-badge';
+        badge.textContent = cluster.pois.length;
+        marker.appendChild(badge);
+    }
+
+    // Faction indicator for mixed clusters
+    if (dominantInfo.totalFactions > 1) {
+        const contestedBadge = document.createElement('div');
+        contestedBadge.className = 'cluster-contested-badge';
+        contestedBadge.textContent = '⚔️';
+        contestedBadge.title = `${dominantInfo.totalFactions} factions present`;
+        marker.appendChild(contestedBadge);
+    }
+
+    // Tooltip on hover
+    marker.addEventListener('mouseenter', (e) => {
+        const poiNames = cluster.pois.slice(0, 5).map(p => p.name).join(', ');
+        const moreText = cluster.pois.length > 5 ? ` +${cluster.pois.length - 5} more` : '';
+        
+        showTooltip(e, `
+            <div class="tooltip-header">
+                <h5>Region Cluster (${cluster.pois.length} locations)</h5>
+            </div>
+            <div class="tooltip-section">
+                <p><strong>Dominant:</strong> ${factionData.name}</p>
+                ${dominantInfo.isContested ? `<p class="contested-warning">⚠️ Contested by ${dominantInfo.totalFactions} factions</p>` : ''}
+                <p><strong>Locations:</strong> ${poiNames}${moreText}</p>
+                <p><strong>Combined Strength:</strong> ⚔️${totalMilitary} 💰${totalEconomic}</p>
+                <p><strong>Total Population:</strong> ${totalPop.toLocaleString()}</p>
+            </div>
+            <div class="tooltip-footer">Click to expand</div>
+        `);
+    });
+    marker.addEventListener('mouseleave', hideTooltip);
+
+    // Click to show cluster detail
+    marker.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playSound('click.mp3');
+        showClusterDetailPanel(cluster);
+    });
+
+    return marker;
+}
+
+/**
+ * Show detail panel for a cluster
+ */
+function showClusterDetailPanel(cluster) {
+    const dominantInfo = getDominantFaction(cluster.pois);
+    const factionStats = getRegionFactionStats(cluster.pois);
+
+    // Faction breakdown HTML
+    let factionBreakdownHTML = '<div class="cluster-faction-breakdown">';
+    const sortedFactions = Object.entries(factionStats)
+        .sort(([, a], [, b]) => b.poiCount - a.poiCount);
+
+    sortedFactions.forEach(([factionId, stats]) => {
+        const fData = getFactionData(factionId);
+        const percentage = Math.round((stats.poiCount / cluster.pois.length) * 100);
+        
+        factionBreakdownHTML += `
+            <div class="faction-breakdown-row">
+                <div class="faction-info">
+                    ${fData.logo ? `<img src="${fData.logo}" class="faction-mini-logo">` : ''}
+                    <span style="color: ${fData.color}">${fData.name}</span>
+                </div>
+                <div class="faction-stats-mini">
+                    <span class="poi-count">${stats.poiCount} POIs (${percentage}%)</span>
+                    <span class="stat-mini">⚔️${stats.totalMilitary}</span>
+                    <span class="stat-mini">💰${stats.totalEconomic}</span>
+                </div>
+            </div>
+        `;
+    });
+    factionBreakdownHTML += '</div>';
+
+    // POI list HTML
+    let poisListHTML = '<div class="cluster-poi-list">';
+    cluster.pois.forEach(poi => {
+        const pFaction = getFactionData(poi.factionId);
+        const typeInfo = BUILDING_TYPES[poi.type] || { name: 'Location', icon: '📍' };
+        
+        poisListHTML += `
+            <div class="cluster-poi-item" data-poi-id="${poi.id}" style="border-left-color: ${pFaction.color}">
+                <div class="poi-item-header">
+                    <span class="poi-item-icon">${typeInfo.icon}</span>
+                    <span class="poi-item-name">${poi.name}</span>
+                </div>
+                <div class="poi-item-stats">
+                    <span>⚔️${poi.military_strength || 0}</span>
+                    <span>💰${poi.economic_value || 0}</span>
+                    <span>👥${(poi.population || 0).toLocaleString()}</span>
+                </div>
+            </div>
+        `;
+    });
+    poisListHTML += '</div>';
+
+    const content = `
+        <div class="cluster-detail-panel">
+            <div class="cluster-header">
+                <h3>Regional Cluster</h3>
+                <p class="cluster-subtitle">${cluster.pois.length} Locations</p>
+            </div>
+            
+            <div class="cluster-summary">
+                <div class="summary-stat">
+                    <span class="stat-value">${cluster.pois.reduce((s, p) => s + (p.military_strength || 0), 0)}</span>
+                    <span class="stat-label">Total Military</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="stat-value">${cluster.pois.reduce((s, p) => s + (p.economic_value || 0), 0)}</span>
+                    <span class="stat-label">Total Economic</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="stat-value">${cluster.pois.reduce((s, p) => s + (p.population || 0), 0).toLocaleString()}</span>
+                    <span class="stat-label">Total Population</span>
+                </div>
+            </div>
+
+            <h4>Faction Control</h4>
+            ${factionBreakdownHTML}
+
+            <h4>Locations</h4>
+            ${poisListHTML}
+        </div>
+    `;
+
+    detailPanel.innerHTML = content;
+
+    // Add click handlers to POI items
+    detailPanel.querySelectorAll('.cluster-poi-item').forEach(item => {
+        item.addEventListener('click', () => {
+            playSound('click.mp3');
+            showDetailPanel(item.dataset.poiId);
+        });
+    });
+}
+
 function applyPoiStyle(marker, poi) {
-    marker.className = 'poi-marker'; // Reset
+    marker.className = 'poi-marker';
     const iconWrapper = document.createElement('div');
     iconWrapper.className = 'icon-wrapper';
     marker.innerHTML = '';
     marker.appendChild(iconWrapper);
 
+    // Get faction data for styling
+    const factionData = getFactionData(poi.factionId);
+
     if (map.activeMapMode === 'tactical') {
         marker.style.opacity = '0.5';
         marker.style.width = '14px';
         marker.style.height = '14px';
-        iconWrapper.innerHTML = ''; // Minimalist in tactical mode
+        iconWrapper.innerHTML = '';
         return;
     }
 
@@ -552,12 +943,11 @@ function applyPoiStyle(marker, poi) {
     switch (map.activeMapMode) {
         case 'political':
             marker.classList.add('political-view');
-            const faction = LORE_DATA.factions[poi.factionId];
-            if (faction?.logo) {
-                marker.style.backgroundImage = `url(${faction.logo})`;
+            if (factionData.logo) {
+                marker.style.backgroundImage = `url(${factionData.logo})`;
                 marker.style.backgroundSize = 'cover';
             } else {
-                marker.style.backgroundColor = '#555';
+                marker.style.backgroundColor = factionData.color;
             }
             const pSize = 16 + (poi.political_influence || 1) * 2;
             marker.style.width = `${pSize}px`;
@@ -579,6 +969,7 @@ function applyPoiStyle(marker, poi) {
                  showTooltip(e, `
                     <div class="tooltip-header"><h5>${poi.name}</h5></div>
                     <div class="tooltip-section">
+                        <p><strong>Controller:</strong> ${factionData.name}</p>
                         <p><strong>Primary Export:</strong> ${trade.icon} ${trade.name}</p>
                         <p><strong>Status:</strong> ${trade.tier}</p>
                         <p><strong>Daily Production:</strong> ${trade.production} units</p>
@@ -598,7 +989,13 @@ function applyPoiStyle(marker, poi) {
             iconWrapper.innerHTML = poi.military_strength || '?';
             
             marker.addEventListener('mouseenter', (e) => {
-                showTooltip(e, `<div class="tooltip-header"><h5>${poi.name}</h5></div><div class="tooltip-section"><p><strong>Strength:</strong> ${poi.military_strength}/10</p><p><strong>Defensibility:</strong> High</p></div>`);
+                showTooltip(e, `
+                    <div class="tooltip-header"><h5>${poi.name}</h5></div>
+                    <div class="tooltip-section">
+                        <p><strong>Controller:</strong> ${factionData.name}</p>
+                        <p><strong>Strength:</strong> ${poi.military_strength}/10</p>
+                        <p><strong>Defensibility:</strong> High</p>
+                    </div>`);
             });
             marker.addEventListener('mouseleave', hideTooltip);
             break;
@@ -611,7 +1008,12 @@ function applyPoiStyle(marker, poi) {
             marker.style.backgroundColor = getPopulationColor(poi.population || 0);
             
             marker.addEventListener('mouseenter', (e) => {
-                 showTooltip(e, `<div class="tooltip-header"><h5>${poi.name}</h5></div><div class="tooltip-section"><p><strong>Pop:</strong> ${(poi.population || 0).toLocaleString()}</p></div>`);
+                 showTooltip(e, `
+                    <div class="tooltip-header"><h5>${poi.name}</h5></div>
+                    <div class="tooltip-section">
+                        <p><strong>Controller:</strong> ${factionData.name}</p>
+                        <p><strong>Pop:</strong> ${(poi.population || 0).toLocaleString()}</p>
+                    </div>`);
             });
             marker.addEventListener('mouseleave', hideTooltip);
             break;
@@ -625,19 +1027,14 @@ function applyPoiStyle(marker, poi) {
             let lawName = culture.name;
             let lawDesc = culture.description;
 
-            // Check for specific POI traditions (High Priority)
             if (LEGAL_DATA.poi_traditions && LEGAL_DATA.poi_traditions[poi.id]) {
                 lawIcon = '📍'; 
-                lawColor = '#ffcc00'; // distinct highlight
+                lawColor = '#ffcc00';
                 lawName = "Local Customs";
                 lawDesc = LEGAL_DATA.poi_traditions[poi.id].summary;
             } 
-            // Check for Faction-Specific Legal Codes (Medium Priority)
             else if (poi.factionId && ALL_LEGAL_CODES[poi.factionId]) {
-                 // Use Culture Icon but with Faction Color to denote influence
                  lawName = ALL_LEGAL_CODES[poi.factionId].name;
-                 // Try to find a matching color in CSS variables or default
-                 // Using culture icon preserves the "underlying culture" visual while tooltip shows law
             }
 
             iconWrapper.innerHTML = lawIcon;
@@ -657,6 +1054,7 @@ function applyPoiStyle(marker, poi) {
                     </div>
                     <div class="tooltip-section">
                          <p style="font-size:0.85rem; font-style:italic;">"${lawDesc}"</p>
+                        <p><strong>Controller:</strong> ${factionData.name}</p>
                         <p><strong>Underlying Culture:</strong> ${culture.name}</p>
                     </div>
                 `);
@@ -672,11 +1070,11 @@ function applyPoiStyle(marker, poi) {
             let ageLabel = "Modern";
 
             if (age >= 9) {
-                ageIcon = '🏺'; // Ancient/Mythic
+                ageIcon = '🏺';
                 ageColor = '#f9f871'; 
                 ageLabel = "Mythic Era";
             } else if (age >= 5) {
-                ageIcon = '🏰'; // Historical
+                ageIcon = '🏰';
                 ageColor = '#d4eac8'; 
                 ageLabel = "Historical";
             }
@@ -691,7 +1089,12 @@ function applyPoiStyle(marker, poi) {
             marker.style.borderRadius = '6px';
 
              marker.addEventListener('mouseenter', (e) => {
-                 showTooltip(e, `<div class="tooltip-header"><h5>${poi.name}</h5></div><div class="tooltip-section"><p><strong>Age Rating:</strong> ${age}/10 (${ageLabel})</p></div>`);
+                 showTooltip(e, `
+                    <div class="tooltip-header"><h5>${poi.name}</h5></div>
+                    <div class="tooltip-section">
+                        <p><strong>Controller:</strong> ${factionData.name}</p>
+                        <p><strong>Age Rating:</strong> ${age}/10 (${ageLabel})</p>
+                    </div>`);
             });
             marker.addEventListener('mouseleave', hideTooltip);
             break;
@@ -722,15 +1125,22 @@ function applyPoiStyle(marker, poi) {
             marker.style.border = '2px solid white';
             
              marker.addEventListener('mouseenter', (e) => {
-                 showTooltip(e, `<div class="tooltip-header"><h5>${poi.name}</h5></div><div class="tooltip-section"><p><strong>Security Status:</strong> ${crime}/10 (${crimeLabel})</p></div>`);
+                 showTooltip(e, `
+                    <div class="tooltip-header"><h5>${poi.name}</h5></div>
+                    <div class="tooltip-section">
+                        <p><strong>Controller:</strong> ${factionData.name}</p>
+                        <p><strong>Security Status:</strong> ${crime}/10 (${crimeLabel})</p>
+                    </div>`);
             });
             marker.addEventListener('mouseleave', hideTooltip);
             break;
 
-        default: // Standard
+        default:
             iconWrapper.innerHTML = BUILDING_TYPES[poi.type]?.icon || '❓';
             marker.style.width = '20px';
             marker.style.height = '20px';
+            // Add faction color indicator
+            marker.style.borderColor = factionData.color;
             break;
     }
 }
@@ -764,10 +1174,8 @@ function renderProvinces(container, provinceData) {
 
 
 function renderTacticalLayer(mapId, domContainer, svgContainer) {
-    // 1. Get Compatible Maps (same image source)
     const compatibleIds = getCompatibleMapIds(mapId);
     
-    // 2. Render Front Lines (SVG)
     const frontLines = BATTLE_MAP_DATA.front_lines.filter(fl => compatibleIds.includes(fl.mapId));
     const svgFragment = document.createDocumentFragment();
     
@@ -783,34 +1191,32 @@ function renderTacticalLayer(mapId, domContainer, svgContainer) {
         svgFragment.appendChild(line);
     });
 
-    // 3. Render Patrol Paths (SVG)
     const troops = BATTLE_MAP_DATA.troop_deployments.filter(t => compatibleIds.includes(t.mapId));
     troops.forEach(troop => {
         if (troop.unitType === 'patrol' && troop.path) {
             const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             path.setAttribute('d', troop.path);
             path.classList.add('patrol-path');
-            const faction = LORE_DATA.factions[troop.factionId];
-            if (faction) path.style.stroke = FACTION_COLORS[troop.factionId] || 'white';
+            const factionData = getFactionData(troop.factionId);
+            path.style.stroke = factionData.color;
             svgFragment.appendChild(path);
         }
-        // Zone of Control
         if (troop.strength_val && (troop.unitType === 'main_force' || troop.unitType === 'garrison')) {
             const zone = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             zone.setAttribute('cx', troop.x);
             zone.setAttribute('cy', troop.y);
             zone.setAttribute('r', `${troop.strength_val / 50}%`);
             zone.classList.add('zone-of-control');
-            zone.style.fill = FACTION_COLORS[troop.factionId] || 'white';
+            const factionData = getFactionData(troop.factionId);
+            zone.style.fill = factionData.color;
             svgFragment.appendChild(zone);
         }
     });
     svgContainer.appendChild(svgFragment);
 
-    // 4. Render Troop Markers (DOM)
     const domFragment = document.createDocumentFragment();
     troops.forEach(troop => {
-        const faction = LORE_DATA.factions[troop.factionId];
+        const factionData = getFactionData(troop.factionId);
         const marker = document.createElement('div');
         marker.className = `troop-marker unit-type-${troop.unitType}`;
         if (troop.battlefront) marker.classList.add('battlefront');
@@ -818,9 +1224,8 @@ function renderTacticalLayer(mapId, domContainer, svgContainer) {
         marker.style.top = `${troop.y}%`;
         marker.dataset.troopId = troop.id;
         
-        const color = faction ? (FACTION_COLORS[troop.factionId] || 'white') : 'grey';
-        marker.style.borderColor = color;
-        marker.style.backgroundColor = faction ? hexToRgba(color, 0.4) : 'rgba(100,100,100,0.4)';
+        marker.style.borderColor = factionData.color;
+        marker.style.backgroundColor = hexToRgba(factionData.color, 0.4);
         
         marker.innerHTML = `<div class="unit-type-icon">${getUnitIcon(troop.unitType)}</div>`;
         if (troop.unitType === 'patrol') {
@@ -844,16 +1249,13 @@ function renderPartyLayer(mapId, domContainer, svgContainer) {
 
     const compatibleIds = getCompatibleMapIds(mapId);
     
-    // 1. Render Vigilance (if present)
     if (compatibleIds.includes(BATTLE_MAP_DATA.vigilance_journey.mapId)) {
         const journey = BATTLE_MAP_DATA.vigilance_journey;
-        // Path in SVG
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', journey.path || ""); // Added fallback
+        path.setAttribute('d', journey.path || "");
         path.classList.add('vigilance-path');
         svgContainer.appendChild(path);
 
-        // Marker in DOM
         const marker = document.createElement('div');
         marker.className = 'vigilance-marker';
         marker.style.left = `${journey.x}%`;
@@ -866,7 +1268,6 @@ function renderPartyLayer(mapId, domContainer, svgContainer) {
         domContainer.appendChild(marker);
     }
 
-    // 2. Render Party Members
     let members = [];
     compatibleIds.forEach(id => {
         if (PARTY_LOCATIONS[id]) members = members.concat(PARTY_LOCATIONS[id]);
@@ -874,7 +1275,6 @@ function renderPartyLayer(mapId, domContainer, svgContainer) {
 
     if (members.length === 0) return;
 
-    // Cluster logic
     const clusters = [];
     const threshold = 2.0; 
     members.forEach(member => {
@@ -929,9 +1329,8 @@ export function renderTacticalDetailPanel(itemId, itemType) {
     if (itemType === 'troop') {
         const troop = BATTLE_MAP_DATA.troop_deployments.find(t => t.id === itemId);
         if (!troop) return;
-        const faction = LORE_DATA.factions[troop.factionId];
+        const factionData = getFactionData(troop.factionId);
         
-        // Check intel
         const hasIntel = hasSufficientIntel(troop.details.intelReq);
         
         let statusHTML = '<p class="redacted">[Intel Required]</p>';
@@ -946,7 +1345,10 @@ export function renderTacticalDetailPanel(itemId, itemType) {
         html = `
             <div class="tactical-detail-panel">
                 <h3>${troop.name}</h3>
-                <p class="tactical-faction"><img src="${faction?.logo || ''}"> ${faction?.name}</p>
+                <p class="tactical-faction">
+                    ${factionData.logo ? `<img src="${factionData.logo}">` : ''} 
+                    <span style="color: ${factionData.color}">${factionData.name}</span>
+                </p>
                 <p><strong>Strength:</strong> ${troop.strength}</p>
                 ${statusHTML}
             </div>
@@ -1001,10 +1403,10 @@ function renderPartyGroupDetail(members) {
 function renderProvinceDetailPanel(province) {
      let factionsHTML = '<ul class="legend-list">';
     Object.entries(province.control).sort(([,a],[,b]) => b - a).forEach(([factionId, percent]) => {
-        const faction = LORE_DATA.factions[factionId];
+        const factionData = getFactionData(factionId);
         factionsHTML += `<li class="legend-item">
-            <div class="legend-color-box" style="background-color: ${FACTION_COLORS[factionId] || '#ccc'};"></div>
-            <span>${faction?.name || 'Unknown'}: <strong>${percent}%</strong></span>
+            <div class="legend-color-box" style="background-color: ${factionData.color};"></div>
+            <span>${factionData.name}: <strong>${percent}%</strong></span>
         </li>`;
     });
     factionsHTML += '</ul>';
@@ -1029,7 +1431,8 @@ function createPieChartSVG(data, size) {
 
     for (const [key, percent] of sortedData) {
         if (percent === 0) continue;
-        const color = FACTION_COLORS[key] || '#ccc';
+        const factionData = getFactionData(key);
+        const color = factionData.color;
         const startAngle = (cumulativePercent * 2 * Math.PI) - (Math.PI / 2);
         cumulativePercent += percent / 100;
         const endAngle = (cumulativePercent * 2 * Math.PI) - (Math.PI / 2);
@@ -1052,7 +1455,7 @@ function createPieChartSVG(data, size) {
 }
 
 function hexToRgba(hex, alpha) {
-    if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) return `rgba(128,128,128,${alpha})`;
+    if (!hex || !/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) return `rgba(128,128,128,${alpha})`;
     let c = hex.substring(1).split('');
     if (c.length === 3) c = [c[0], c[0], c[1], c[1], c[2], c[2]];
     const r = parseInt(c.slice(0,2).join(''), 16);
@@ -1089,7 +1492,7 @@ export function renderPois() {
 export function renderFog() {
     const svgLayer = document.getElementById('map-vector-layer');
     if (svgLayer) {
-        svgLayer.innerHTML = ''; // Clear old fog
+        svgLayer.innerHTML = '';
         renderFogLayer(svgLayer);
     }
 }
@@ -1099,24 +1502,26 @@ export function showDetailPanel(poiId) {
     const poi = MAP_DATA[map.activeMapId]?.pointsOfInterest.find(p => p.id === poiId);
     if (!poi) return;
     
-    const faction = LORE_DATA.factions[poi.factionId];
+    const factionData = getFactionData(poi.factionId);
     const defaultTypeInfo = { name: 'Unknown Location', icon: '❓' };
-
-    // Safely get typeInfo
     const typeInfo = BUILDING_TYPES[poi.type] || defaultTypeInfo;    
-    // Basic Info
+
     let content = `
         <div class="poi-detail">
             <h3>${poi.name}</h3>
-            <p class="poi-type">${typeInfo.icon} ${typeInfo.name} - ${faction ? faction.name : 'Unaligned'}</p>
+            <p class="poi-type">${typeInfo.icon} ${typeInfo.name}</p>
+            <p class="poi-faction" style="color: ${factionData.color}">
+                ${factionData.logo ? `<img src="${factionData.logo}" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">` : ''}
+                ${factionData.name}
+            </p>
             <p class="poi-description">${poi.description}</p>
     `;
 
-    // Intel Requirement
     if (poi.intelReq && !state.debugMode) {
         const hasIntel = hasSufficientIntel(poi.intelReq);
+        const reqFaction = typeof poi.intelReq === 'object' ? getFactionData(poi.intelReq.faction) : null;
         const reqText = typeof poi.intelReq === 'object' 
-            ? `${LORE_DATA.factions[poi.intelReq.faction]?.name || 'Faction'} (Lvl ${poi.intelReq.level})`
+            ? `${reqFaction?.name || 'Faction'} (Lvl ${poi.intelReq.level})`
             : `Intel Level ${poi.intelReq}`;
         
         content += `
@@ -1133,7 +1538,6 @@ export function showDetailPanel(poiId) {
         }
     }
 
-    // Stats
     content += `
         <div class="poi-stats">
             <p><strong>Influence:</strong> ${poi.political_influence || 0}/10</p>
@@ -1143,7 +1547,6 @@ export function showDetailPanel(poiId) {
         </div>
     `;
     
-    // Active Requests
     const requests = Object.values(QUEST_DATA).filter(q => q.locationId === poi.id && q.status === 'available');
     if (requests.length > 0) {
         content += `
@@ -1159,7 +1562,6 @@ export function showDetailPanel(poiId) {
         `;
     }
 
-    // --- NEW: Trade Info (Economic) ---
     const trade = getTradeInfo(poi);
     if (trade) {
         content += `
@@ -1191,6 +1593,16 @@ export function renderMapModeLegend() {
     
     let legendHTML = '';
     
+    // Cluster toggle control (when applicable)
+    const clusterToggleHTML = !map.isEditMode ? `
+        <div class="cluster-toggle-control" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-color);">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" id="cluster-toggle" ${CLUSTER_CONFIG.enabled ? 'checked' : ''}>
+                <span>Group nearby locations</span>
+            </label>
+        </div>
+    ` : '';
+    
     switch (map.activeMapMode) {
         case 'political':
             const provinceDataForLegend = PROVINCE_POLITICS[map.activeMapId];
@@ -1200,23 +1612,24 @@ export function renderMapModeLegend() {
                     Object.keys(province.control).forEach(factionId => visibleFactions.add(factionId));
                 });
                 const sortedFactions = [...visibleFactions].sort((a, b) => {
-                    const nameA = LORE_DATA.factions[a]?.name || a;
-                    const nameB = LORE_DATA.factions[b]?.name || b;
-                    return nameA.localeCompare(nameB);
+                    const factionA = getFactionData(a);
+                    const factionB = getFactionData(b);
+                    return factionA.name.localeCompare(factionB.name);
                 });
 
                 legendHTML = `
                     <div class="map-mode-legend">
+                        ${clusterToggleHTML}
                         <h4>Provincial Control</h4>
                         <p>Pie charts represent faction control over a province. Size indicates total influence. Click a chart for details.</p>
                         ${sortedFactions.length > 0 ? `
                         <ul class="legend-list">
                             ${sortedFactions.map(factionId => {
-                                const faction = LORE_DATA.factions[factionId];
+                                const factionData = getFactionData(factionId);
                                 return `
                                     <li class="legend-item">
-                                        <div class="legend-color-box" style="background-color: ${FACTION_COLORS[factionId] || '#ccc'};"></div>
-                                        <span>${faction?.name || 'Unknown Faction'}</span>
+                                        <div class="legend-color-box" style="background-color: ${factionData.color};"></div>
+                                        <span>${factionData.name}</span>
                                     </li>
                                 `;
                             }).join('')}
@@ -1226,13 +1639,25 @@ export function renderMapModeLegend() {
                 `;
             } else {
                 const currentPois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
-                const visibleFactions = [...new Set(currentPois.map(p => p.factionId).filter(id => id && FACTION_COLORS[id]))];
-                const sortedFactions = visibleFactions.sort((a, b) => (LORE_DATA.factions[a]?.name || '').localeCompare(LORE_DATA.factions[b]?.name || ''));
+                const visibleFactions = [...new Set(currentPois.map(p => p.factionId).filter(Boolean))];
+                const sortedFactions = visibleFactions.sort((a, b) => {
+                    const factionA = getFactionData(a);
+                    const factionB = getFactionData(b);
+                    return factionA.name.localeCompare(factionB.name);
+                });
+                
                 legendHTML = `
                     <div class="map-mode-legend">
+                        ${clusterToggleHTML}
                         <h4>Political View</h4>
                         <p>Locations are colored by their controlling faction. Size indicates political influence.</p>
-                        ${sortedFactions.length > 0 ? `<ul class="legend-list">${sortedFactions.map(factionId => `<li class="legend-item"><div class="legend-color-box" style="background-image: url(${LORE_DATA.factions[factionId]?.logo}); background-size: cover;"></div><span>${LORE_DATA.factions[factionId]?.name || 'Unknown'}</span></li>`).join('')}</ul>` : `<p class="panel-placeholder">No politically aligned factions in current view.</p>`}
+                        ${sortedFactions.length > 0 ? `<ul class="legend-list">${sortedFactions.map(factionId => {
+                            const factionData = getFactionData(factionId);
+                            return `<li class="legend-item">
+                                <div class="legend-color-box" style="${factionData.logo ? `background-image: url(${factionData.logo}); background-size: cover;` : `background-color: ${factionData.color};`}"></div>
+                                <span>${factionData.name}</span>
+                            </li>`;
+                        }).join('')}</ul>` : `<p class="panel-placeholder">No politically aligned factions in current view.</p>`}
                     </div>
                 `;
             }
@@ -1240,6 +1665,7 @@ export function renderMapModeLegend() {
         case 'economic':
             legendHTML = `
                 <div class="map-mode-legend">
+                    ${clusterToggleHTML}
                     <h4>Economic View</h4>
                     <p>Locations show primary exports based on unlocked technology and local resources. Size indicates wealth.</p>
                     <ul class="legend-list">
@@ -1253,6 +1679,7 @@ export function renderMapModeLegend() {
         case 'military':
              legendHTML = `
                 <div class="map-mode-legend">
+                    ${clusterToggleHTML}
                     <h4>Military View</h4>
                     <p>Locations are sized by their relative military strength. Higher numbers and larger icons indicate significant strategic value, such as fortresses, garrisons, or major chokepoints.</p>
                 </div>
@@ -1261,6 +1688,7 @@ export function renderMapModeLegend() {
         case 'population':
             legendHTML = `
                 <div class="map-mode-legend">
+                    ${clusterToggleHTML}
                     <h4>Population Density</h4>
                     <p>Locations are colored and sized based on estimated population. Larger, warmer-colored circles indicate major population centers.</p>
                     <ul class="legend-list">
@@ -1277,6 +1705,7 @@ export function renderMapModeLegend() {
         case 'laws':
             legendHTML = `
                 <div class="map-mode-legend">
+                    ${clusterToggleHTML}
                     <h4>Laws & Customs</h4>
                     <p>Locations are marked with icons representing their dominant cultural sphere. Click any POI for a detailed breakdown of its governing laws and local traditions. Click the map background for regional customs.</p>
                     <button class="control-btn" onclick="renderer.showTraditionsPopup(null)">View Regional Customs</button>
@@ -1286,6 +1715,7 @@ export function renderMapModeLegend() {
         case 'age_of_antiquity':
             legendHTML = `
                 <div class="map-mode-legend">
+                    ${clusterToggleHTML}
                     <h4>Age of Antiquity</h4>
                     <p>Locations are colored and sized by their historical age. Yellow, larger icons represent ancient or mythic locations, which have a higher chance of containing rare artifacts or secrets.</p>
                     <ul class="legend-list">
@@ -1303,6 +1733,7 @@ export function renderMapModeLegend() {
         case 'crime_rate':
             legendHTML = `
                 <div class="map-mode-legend">
+                    ${clusterToggleHTML}
                     <h4>Security Assessment</h4>
                     <p>Locations are colored by their crime index. Red, larger icons indicate lawless areas with active criminal elements, while blue, smaller icons are safe, well-policed regions.</p>
                     <ul class="legend-list">
@@ -1341,7 +1772,12 @@ export function renderMapModeLegend() {
             `;
             break;
         default:
-             legendHTML = `<p class="panel-placeholder">Select a point of interest for details.</p>`;
+             legendHTML = `
+                <div class="map-mode-legend">
+                    ${clusterToggleHTML}
+                    <p class="panel-placeholder">Select a point of interest for details.</p>
+                </div>
+            `;
             break;
     }
 
@@ -1359,18 +1795,203 @@ export function renderMapModeLegend() {
             </div>
         `;
     }
+
+    // Append Cluster Legend if clustering is enabled
+    if (CLUSTER_CONFIG.enabled && !map.isEditMode && map.activeMapMode !== 'tactical') {
+        legendHTML += `
+            <div class="map-mode-legend cluster-legend" style="border-top: 1px dashed var(--border-color); margin-top: 10px; padding-top: 10px;">
+                <h4>Clusters</h4>
+                <ul class="legend-list">
+                    <li class="legend-item">
+                        <div class="cluster-marker-legend"></div>
+                        <span>Grouped Locations</span>
+                    </li>
+                    <li class="legend-item">
+                        <div class="cluster-marker-legend contested"></div>
+                        <span>Contested Region</span>
+                    </li>
+                </ul>
+                <p class="legend-note">Zoom in to see individual locations</p>
+            </div>
+        `;
+    }
     
     panel.innerHTML = legendHTML;
+
+    // Add event listener for cluster toggle
+    const clusterToggle = document.getElementById('cluster-toggle');
+    if (clusterToggle) {
+        clusterToggle.addEventListener('change', (e) => {
+            CLUSTER_CONFIG.enabled = e.target.checked;
+            playSound('click.mp3');
+            renderPois();
+        });
+    }
 }
 
+// --- REGION/FACTION ANALYSIS ---
 
-export function showLawCodexModal(lawKey) {
-    const lawData = ALL_LEGAL_CODES[lawKey];
-    if (!lawData) return;
+/**
+ * Get comprehensive stats for all factions on current map
+ */
+export function getMapFactionAnalysis() {
+    const mapData = MAP_DATA[map.activeMapId];
+    if (!mapData || !mapData.pointsOfInterest) return null;
 
-    const content = `<div class="law-popup-content">${renderCodexLaws(lawData)}</div>`;
-    map.showMapModal(`Codex: ${lawData.name}`, content);
+    const pois = mapData.pointsOfInterest;
+    const factionStats = getRegionFactionStats(pois);
+    
+    // Calculate totals
+    const totals = {
+        poiCount: pois.length,
+        totalMilitary: 0,
+        totalEconomic: 0,
+        totalPolitical: 0,
+        totalPopulation: 0
+    };
+
+    Object.values(factionStats).forEach(stats => {
+        totals.totalMilitary += stats.totalMilitary;
+        totals.totalEconomic += stats.totalEconomic;
+        totals.totalPolitical += stats.totalPolitical;
+        totals.totalPopulation += stats.totalPopulation;
+    });
+
+    // Calculate percentages and rankings
+    const factionRankings = Object.entries(factionStats)
+        .map(([factionId, stats]) => {
+            const factionData = getFactionData(factionId);
+            const powerScore = stats.totalMilitary + stats.totalEconomic + (stats.poiCount * 5);
+            const controlPercent = (stats.poiCount / totals.poiCount) * 100;
+            
+            return {
+                factionId,
+                factionData,
+                stats,
+                powerScore,
+                controlPercent,
+                militaryPercent: totals.totalMilitary > 0 ? (stats.totalMilitary / totals.totalMilitary) * 100 : 0,
+                economicPercent: totals.totalEconomic > 0 ? (stats.totalEconomic / totals.totalEconomic) * 100 : 0
+            };
+        })
+        .sort((a, b) => b.powerScore - a.powerScore);
+
+    return {
+        mapId: map.activeMapId,
+        mapName: mapData.name,
+        totals,
+        factionRankings,
+        dominantFaction: factionRankings[0] || null,
+        isContested: factionRankings.length > 1 && factionRankings[0]?.controlPercent < 60
+    };
 }
+
+/**
+ * Render faction analysis panel
+ */
+export function renderFactionAnalysisPanel() {
+    const analysis = getMapFactionAnalysis();
+    if (!analysis) {
+        detailPanel.innerHTML = '<p class="panel-placeholder">No data available for analysis.</p>';
+        return;
+    }
+
+    const dominantFaction = analysis.dominantFaction;
+    const contestedClass = analysis.isContested ? 'contested' : '';
+
+    let factionListHTML = analysis.factionRankings.map((faction, index) => {
+        const rankIcon = index === 0 ? '👑' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : `#${index + 1}`));
+        
+        return `
+            <div class="faction-analysis-row" style="border-left: 4px solid ${faction.factionData.color}">
+                <div class="faction-rank">${rankIcon}</div>
+                <div class="faction-info">
+                    ${faction.factionData.logo ? `<img src="${faction.factionData.logo}" class="faction-mini-logo">` : ''}
+                    <span class="faction-name">${faction.factionData.name}</span>
+                </div>
+                <div class="faction-metrics">
+                    <div class="metric">
+                        <span class="metric-value">${faction.stats.poiCount}</span>
+                        <span class="metric-label">POIs</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">${faction.controlPercent.toFixed(1)}%</span>
+                        <span class="metric-label">Control</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">⚔️${faction.stats.totalMilitary}</span>
+                        <span class="metric-label">Military</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">💰${faction.stats.totalEconomic}</span>
+                        <span class="metric-label">Economic</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const html = `
+        <div class="faction-analysis-panel">
+            <div class="analysis-header ${contestedClass}">
+                <h3>${analysis.mapName}</h3>
+                <p class="analysis-subtitle">
+                    ${analysis.isContested 
+                        ? '⚔️ Contested Region - Multiple factions vying for control' 
+                        : `Dominated by ${dominantFaction?.factionData.name || 'Unknown'}`}
+                </p>
+            </div>
+
+            <div class="analysis-summary">
+                <div class="summary-stat">
+                    <span class="stat-value">${analysis.totals.poiCount}</span>
+                    <span class="stat-label">Total Locations</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="stat-value">${analysis.factionRankings.length}</span>
+                    <span class="stat-label">Active Factions</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="stat-value">${analysis.totals.totalPopulation.toLocaleString()}</span>
+                    <span class="stat-label">Total Population</span>
+                </div>
+            </div>
+
+            <h4>Faction Control Rankings</h4>
+            <div class="faction-analysis-list">
+                ${factionListHTML}
+            </div>
+
+            <div class="analysis-actions">
+                <button class="control-btn" onclick="renderer.exportFactionData()">Export Data</button>
+            </div>
+        </div>
+    `;
+
+    detailPanel.innerHTML = html;
+}
+
+/**
+ * Export faction data as JSON (for debugging/analysis)
+ */
+export function exportFactionData() {
+    const analysis = getMapFactionAnalysis();
+    if (!analysis) return;
+
+    const dataStr = JSON.stringify(analysis, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `faction-analysis-${map.activeMapId}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// --- LAW/CULTURE HELPERS ---
 
 function getNationFromMapId(mapId) {
     const mapInfo = MAP_DATA[mapId];
@@ -1430,7 +2051,7 @@ function getCultureForPoi(poi, mapId) {
     }
 
     for (const [cultKey, cultData] of Object.entries(CULTURE_DATA)) {
-        if (cultData.primary_species.includes(dominantSpecies)) {
+        if (cultData.primary_species && cultData.primary_species.includes(dominantSpecies)) {
             return cultData;
         }
     }
@@ -1463,6 +2084,7 @@ function renderTraditionItems(traditionKeys) {
         return '';
     }).join('');
 }
+
 function renderCodexLaws(lawData) {
     const ICONS = { political: '🏛️', military: '⚔️', economic: '💰', social: '❤️‍🩹', penal: '⚖️' };
     let html = '';
@@ -1481,6 +2103,14 @@ function renderCodexLaws(lawData) {
         }
     });
     return html;
+}
+
+export function showLawCodexModal(lawKey) {
+    const lawData = ALL_LEGAL_CODES[lawKey];
+    if (!lawData) return;
+
+    const content = `<div class="law-popup-content">${renderCodexLaws(lawData)}</div>`;
+    map.showMapModal(`Codex: ${lawData.name}`, content);
 }
 
 export async function showLibraryPopup(poi) {
@@ -1524,7 +2154,7 @@ export function showTraditionsPopup(poi) {
         const culture = getCultureForPoi(poi, mapId);
         
         const factionId = poi.factionId || 'unaligned';
-        const factionName = LORE_DATA.factions[factionId]?.name || 'Independent';
+        const factionData = getFactionData(factionId);
         const factionLegalCode = ALL_LEGAL_CODES[factionId];
 
         title = `Laws & Customs: ${poi.name}`;
@@ -1532,10 +2162,10 @@ export function showTraditionsPopup(poi) {
         let factionLawsHTML = '';
         if (factionLegalCode) {
             factionLawsHTML = `
-                <div class="law-popup-section" style="background: rgba(0,0,0,0.2); padding:10px; border-radius:6px; margin-bottom:15px; border-left: 4px solid var(--accent-color);">
+                <div class="law-popup-section" style="background: rgba(0,0,0,0.2); padding:10px; border-radius:6px; margin-bottom:15px; border-left: 4px solid ${factionData.color};">
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                        <img src="${factionLegalCode.logo}" style="width:32px; height:32px;">
-                        <h3 style="margin:0; font-size:1.2rem; color:var(--accent-color);">Governing Laws: ${factionName}</h3>
+                        ${factionLegalCode.logo ? `<img src="${factionLegalCode.logo}" style="width:32px; height:32px;">` : ''}
+                        <h3 style="margin:0; font-size:1.2rem; color:${factionData.color};">Governing Laws: ${factionData.name}</h3>
                     </div>
                     <p><em>${factionLegalCode.description}</em></p>
                     ${renderCodexLaws(factionLegalCode)}
@@ -1544,7 +2174,7 @@ export function showTraditionsPopup(poi) {
         } else {
             factionLawsHTML = `
                 <div class="law-popup-section" style="padding:10px; margin-bottom:15px; border-left: 4px solid var(--text-secondary);">
-                    <h3 style="margin:0; font-size:1.1rem; color:var(--text-secondary);">Governing Power: ${factionName}</h3>
+                    <h3 style="margin:0; font-size:1.1rem; color:var(--text-secondary);">Governing Power: ${factionData.name}</h3>
                     <p><em>No codified legal system recorded. Rulership is likely informal, based on might, or adheres strictly to local tradition.</em></p>
                 </div>
             `;
@@ -1553,7 +2183,7 @@ export function showTraditionsPopup(poi) {
         const cultureTraditionsHTML = renderTraditionItems(culture.traditions);
         
         let localTraditionsHTML = '';
-        if (LEGAL_DATA.poi_traditions[poi.id]) {
+        if (LEGAL_DATA.poi_traditions && LEGAL_DATA.poi_traditions[poi.id]) {
             localTraditionsHTML = `
                 <div class="law-popup-item" style="border-left: 3px solid #ffcc00; background: rgba(255, 204, 0, 0.1);">
                     <h5>📍 Local Custom</h5>
@@ -1587,7 +2217,7 @@ export function showTraditionsPopup(poi) {
 
     } else {
         title = `General Traditions of ${regionDisplayName}`;
-        const regionalKeys = LEGAL_DATA.regional_traditions[landmassKey] || [];
+        const regionalKeys = LEGAL_DATA.regional_traditions ? LEGAL_DATA.regional_traditions[landmassKey] || [] : [];
         content = `
             <div class="law-popup-content">
                 <p>These are the overarching traditions that govern unaligned territories in this region.</p>
@@ -1598,3 +2228,58 @@ export function showTraditionsPopup(poi) {
 
     map.showMapModal(title, content);
 }
+
+// --- ZOOM-BASED CLUSTERING UPDATE ---
+
+/**
+ * Handle zoom changes to update clustering
+ */
+export function onZoomChange(newZoom) {
+    if (!CLUSTER_CONFIG.enabled || map.isEditMode) return;
+    
+    // Re-render POIs when zoom crosses the threshold
+    const container = document.getElementById('interactive-map-layer');
+    if (container) {
+        renderPoisLayer(container);
+    }
+}
+
+// --- EXPORT FACTION HELPERS FOR OTHER MODULES ---
+
+export { getFactionData, getDominantFaction, getRegionFactionStats };
+
+// --- INITIALIZATION ---
+
+/**
+ * Initialize map renderer with event listeners
+ */
+export function initMapRenderer() {
+    // Listen for zoom changes
+    if (displayArea) {
+        displayArea.addEventListener('wheel', () => {
+            // Debounced re-render on zoom
+            clearTimeout(window._zoomDebounce);
+            window._zoomDebounce = setTimeout(() => {
+                const currentZoom = getCurrentZoom();
+                onZoomChange(currentZoom);
+            }, 150);
+        });
+    }
+
+    // Listen for window resize
+    window.addEventListener('resize', () => {
+        clearTimeout(window._resizeDebounce);
+        window._resizeDebounce = setTimeout(() => {
+            if (map.activeMapId) {
+                renderMap(map.activeMapId);
+            }
+        }, 250);
+    });
+}
+
+// Auto-initialize if DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMapRenderer);
+} else {
+    initMapRenderer();
+}                    

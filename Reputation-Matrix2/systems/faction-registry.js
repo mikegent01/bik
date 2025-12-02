@@ -1,22 +1,24 @@
+
 // faction-registry.js - Complete Rewrite with Singleton Pattern
 
 // ============================================
 // IMPORTS
 // ============================================
 
-import { MDATA_F } from '../map-data.js';
-import { LORE_DATA } from '../lore.js';
-import { MIDLANDS_FACTIONS } from '../factions/midlands.js';
-import { MUSHROOM_KINGDOM_FACTIONS } from '../factions/mushroom-kingdom.js';
-import { WIDESPREAD_FACTIONS } from '../widespread.js';
-import { WILDERLANDS_FACTIONS } from '../factions/wilderlands.js';
-import { MIDDLE_EARTH_FACTIONS } from '../factions/middle-earth.js';
-import { INTERNET_FACTIONS } from '../factions/internet.js';
-import { WARHAMMER_FACTIONS } from '../factions/warhammer.js';
-import { KIVOTOS_FACTIONS } from '../factions/kivotos.js';
-import { SPACE_FACTIONS } from '../factions/space.js';
-import { POKEMON_FACTIONS } from '../factions/pokemon.js';
-import { EQUESTRIA_FACTIONS } from '../factions/equestria.js';
+import { MAP_DATA, MDATA_F } from './map-data.js';
+import { LORE_DATA } from './lore.js';
+import { MIDLANDS_FACTIONS } from './factions/midlands.js';
+import { MUSHROOM_KINGDOM_FACTIONS } from './factions/mushroom-kingdom.js';
+import { WIDESPREAD_FACTIONS } from './widespread.js';
+import { WILDERLANDS_FACTIONS } from './factions/wilderlands.js';
+import { MIDDLE_EARTH_FACTIONS } from './factions/middle-earth.js';
+import { INTERNET_FACTIONS } from './factions/internet.js';
+import { WARHAMMER_FACTIONS } from './factions/warhammer.js';
+import { KIVOTOS_FACTIONS } from './factions/kivotos.js';
+import { SPACE_FACTIONS } from './factions/space.js';
+import { POKEMON_FACTIONS } from './factions/pokemon.js';
+import { EQUESTRIA_FACTIONS } from './factions/equestria.js';
+import { EARTH_LAND_FACTIONS } from './factions/earth-land.js';
 
 // ============================================
 // STATIC DATA - COLORS (from CSS :root)
@@ -102,6 +104,11 @@ const COLORS = {
     pokemon_star: '#e94a89',
     pokemon_ranger: '#4CAF50',
     pokemon_gorock: '#795548',
+
+    // Earth Land
+    fiore_kingdom: '#4fc3f7',
+    alvarez_empire: '#d32f2f',
+    tartaros_guild: '#212121',
     
     // System
     unaligned: '#6c757d'
@@ -184,6 +191,9 @@ const ICONS = {
     pokemon_star: '⭐',
     pokemon_ranger: '🌿',
     pokemon_gorock: '🎸',
+    fiore_kingdom: '🧚',
+    alvarez_empire: '🛡️',
+    tartaros_guild: '👹',
     unaligned: '❓'
 };
 
@@ -307,12 +317,7 @@ const FactionRegistry = {
         if (SPACE_FACTIONS) sources['space'] = SPACE_FACTIONS;
         if (POKEMON_FACTIONS) sources['pokemon'] = POKEMON_FACTIONS;
         if (EQUESTRIA_FACTIONS) sources['equestria'] = EQUESTRIA_FACTIONS;
-        
-        // Log what we found
-        for (const [id, data] of Object.entries(sources)) {
-            const count = data ? Object.keys(data).length : 0;
-            console.log(`[FactionRegistry] Source "${id}": ${count} factions`);
-        }
+        if (EARTH_LAND_FACTIONS) sources['earth_land'] = EARTH_LAND_FACTIONS;
         
         return sources;
     },
@@ -388,11 +393,13 @@ const FactionRegistry = {
     
     // Discover factions from map data
     _discoverFromMap() {
-        if (!MDATA_F) return;
+        // Prefer MAP_DATA for comprehensive global coverage
+        const data = MAP_DATA || MDATA_F;
+        if (!data) return;
         
         let discovered = 0;
         
-        for (const region of Object.values(MDATA_F)) {
+        for (const region of Object.values(data)) {
             if (!region.pointsOfInterest) continue;
             
             for (const poi of region.pointsOfInterest) {

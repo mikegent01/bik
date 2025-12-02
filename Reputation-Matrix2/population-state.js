@@ -57,12 +57,8 @@ export function seededRandom(seed) {
 // ============================================================================
 
 /**
- * Calculate base populations from MAP_DATA (before any simulation adjustments)
- */
-// Replace getBasePopulations in population-state.js
-
-/**
- * Calculate base populations from MAP_DATA and give seed populations to all species
+ * Calculate base populations from MAP_DATA POIs only.
+ * Matches logic in global-map-analysis.js to ensure consistency.
  */
 export function getBasePopulations() {
     const byRegion = {};
@@ -70,35 +66,15 @@ export function getBasePopulations() {
     const byNation = {};
     let total = 0;
 
-    // Initialize ALL species with a seed population based on rarity
+    // Initialize all species keys with 0 to prevent UI errors
     for (const key in SPECIES_DATA) {
-        const species = SPECIES_DATA[key];
-        const status = species.social_status || '';
-        
-        // Assign seed population based on social status / rarity
-        let seedPop = 100; // Default seed
-        
-        if (status.includes('Unique') || status.includes('Legendary')) {
-            seedPop = 5;
-        } else if (status.includes('Endangered')) {
-            seedPop = 50;
-        } else if (status.includes('Rare') || status.includes('Anomaly')) {
-            seedPop = 25;
-        } else if (status.includes('Pest') || status.includes('Disposable')) {
-            seedPop = 500; // Pests are numerous but untracked
-        } else if (status.includes('Mistrusted')) {
-            seedPop = 200;
-        } else {
-            // Default: small scattered population
-            seedPop = 100;
-        }
-        
-        bySpecies[key] = seedPop;
-        total += seedPop;
+        bySpecies[key] = 0;
     }
 
-    // Now aggregate from map data (this ADDS to seed populations)
+    // Iterate map data, processing only "Full" maps to prevent double counting
     for (const mapKey in MAP_DATA) {
+        if (!mapKey.endsWith('_full')) continue;
+
         const map = MAP_DATA[mapKey];
         const region = map.group || 'Other';
         const nation = map.nation || 'unaligned';
@@ -114,11 +90,19 @@ export function getBasePopulations() {
                     byNation[nation] += pop;
                     total += pop;
 
-                    // Distribute by species demographics
+                    // Distribute by species demographics defined for this region
                     const demographics = REGIONAL_DEMOGRAPHICS[region] || { dnd_human: 1.0 };
+                    
+                    // Normalize percentages if needed (though they should sum to 1.0)
+                    let totalPct = 0;
+                    for (const pct of Object.values(demographics)) totalPct += pct;
+                    if (totalPct === 0) totalPct = 1;
+
                     for (const [speciesKey, percentage] of Object.entries(demographics)) {
                         if (SPECIES_DATA[speciesKey]) {
-                            bySpecies[speciesKey] += pop * percentage;
+                            // Calculate specific population share
+                            const speciesPop = pop * (percentage / totalPct);
+                            bySpecies[speciesKey] += speciesPop;
                         }
                     }
                 }
@@ -164,10 +148,6 @@ export function simulatePopulation() {
 /**
  * Calculate the current population state
  */
-// Replace the calculatePopulationState function in population-state.js
-
-// Replace this section in calculatePopulationState in population-state.js
-
 function calculatePopulationState(basePop, currentDay, globalCycle, currentSeason, plagues, medicalTech) {
     // Get modifiers
     const seasonMod = SEASON_MODIFIERS[currentSeason] || SEASON_MODIFIERS.Unknown;
@@ -227,7 +207,7 @@ function calculatePopulationState(basePop, currentDay, globalCycle, currentSeaso
         // Net daily change
         const dailyNetChange = dailyBirths - totalDailyDeaths;
 
-        // KEY FIX: Use daysFromReference, not capped daysSinceStart
+        // Cumulative change over time
         const cumulativeChange = dailyNetChange * daysFromReference;
         
         // Adjusted population
@@ -262,12 +242,28 @@ function calculatePopulationState(basePop, currentDay, globalCycle, currentSeaso
     // Recalculate regional populations
     const adjustedByRegion = {};
     for (const [region, baseRegionPop] of Object.entries(basePop.byRegion)) {
+        // We need to estimate regional growth based on the species in that region
         const demographics = REGIONAL_DEMOGRAPHICS[region] || {};
         let regionTotal = 0;
         
+        // Weighted growth factor based on species composition
+        let weightedGrowthFactor = 0;
+        let totalWeight = 0;
+        
         for (const [speciesKey, percentage] of Object.entries(demographics)) {
-            const speciesAdjustedPop = adjustedBySpecies[speciesKey] || 0;
-            regionTotal += speciesAdjustedPop * percentage;
+            const speciesAdj = speciesAdjustments[speciesKey];
+            if (speciesAdj && speciesAdj.base > 0) {
+                const growthRatio = speciesAdj.adjusted / speciesAdj.base;
+                weightedGrowthFactor += growthRatio * percentage;
+                totalWeight += percentage;
+            }
+        }
+        
+        if (totalWeight > 0) {
+            weightedGrowthFactor = weightedGrowthFactor / totalWeight;
+            regionTotal = baseRegionPop * weightedGrowthFactor;
+        } else {
+            regionTotal = baseRegionPop;
         }
         
         adjustedByRegion[region] = Math.round(regionTotal);
@@ -308,11 +304,10 @@ function calculatePopulationState(basePop, currentDay, globalCycle, currentSeaso
         globalCycle
     };
 }
+
 /**
  * Calculate plague deaths distributed by species
  */
-// Replace calculatePlagueDeaths in population-state.js
-
 function calculatePlagueDeaths(plagues, speciesPopulations, outputBySpecies) {
     let totalDeaths = 0;
 
@@ -365,10 +360,6 @@ function calculatePlagueDeaths(plagues, speciesPopulations, outputBySpecies) {
 /**
  * Get species-specific vital rate modifiers
  */
-// Replace getSpeciesVitalModifiers in population-state.js
-
-// Replace getSpeciesVitalModifiers in population-state.js
-
 function getSpeciesVitalModifiers(speciesKey, speciesData) {
     const tags = SPECIES_TAGS[speciesKey] || ['organic'];
     const status = speciesData?.social_status || '';

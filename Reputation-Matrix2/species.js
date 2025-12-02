@@ -38,8 +38,11 @@ function calculateDemographics() {
         speciesFactionDistribution[key] = {};
     }
     
-    // Aggregate faction data from map
+    // Aggregate faction data from map - FILTER FOR _FULL MAPS
     for (const mapKey in MAP_DATA) {
+        // IMPORTANT: Only process _full maps to align with population simulation and prevent double counting
+        if (!mapKey.endsWith('_full')) continue;
+
         const map = MAP_DATA[mapKey];
         const group = map.group || 'Other';
         
@@ -157,10 +160,6 @@ function renderVitalStatistics(data) {
         </div>
     `;
 }
-
-// Replace the pie chart section in renderCharts in species.js
-
-// Replace the pie chart section in renderCharts in species.js
 
 function renderCharts(data) {
     // -- Global Species Pie Chart --
@@ -289,6 +288,9 @@ function renderCharts(data) {
     // -- Faction Strength --
     const factionStrength = {};
     for (const mapKey in MAP_DATA) {
+        // Also only process _full here to avoid double counting power
+        if (!mapKey.endsWith('_full')) continue;
+
         MAP_DATA[mapKey].pointsOfInterest?.forEach(poi => {
             if (poi.factionId && poi.military_strength) {
                 factionStrength[poi.factionId] = (factionStrength[poi.factionId] || 0) + poi.military_strength;
@@ -431,89 +433,81 @@ function renderSpeciesList(data) {
         return a[1].name.localeCompare(b[1].name);
     });
 
-// Find this section in renderSpeciesList in species.js and replace it:
-
-const cardsHTML = allSpecies.map(([key, species]) => {
-    const adjustedCount = data.totalBySpecies[key] || 0;
-    const baseCount = simulation?.base?.bySpecies?.[key] || 0;
-    const speciesDetail = simulation?.speciesDetails?.[key];
-    
-    let countString = "";
-    let percentageString = "";
-    let trendIndicator = "";
-    let showAsScattered = false;
-    
-    // Threshold to show actual numbers vs "Scattered"
-    const VISIBILITY_THRESHOLD = 500;
-    const PERCENTAGE_THRESHOLD = 0.01; // 0.01%
-    
-    const percentage = data.grandTotal > 0 ? (adjustedCount / data.grandTotal) * 100 : 0;
-    
-    if (adjustedCount >= VISIBILITY_THRESHOLD || percentage >= PERCENTAGE_THRESHOLD) {
-        // Show actual population
-        countString = Math.round(adjustedCount).toLocaleString();
-        percentageString = `(${percentage.toFixed(2)}%)`;
+    const cardsHTML = allSpecies.map(([key, species]) => {
+        const adjustedCount = data.totalBySpecies[key] || 0;
+        const speciesDetail = simulation?.speciesDetails?.[key];
         
-        // Show population trend
-        if (speciesDetail) {
-            const dailyChange = speciesDetail.netChange || 0;
-            if (dailyChange > 10) {
-                trendIndicator = `<span style="color:var(--positive-color);">↑ +${Math.round(dailyChange).toLocaleString()}/day</span>`;
-            } else if (dailyChange < -10) {
-                trendIndicator = `<span style="color:var(--negative-color);">↓ ${Math.round(dailyChange).toLocaleString()}/day</span>`;
-            } else {
-                trendIndicator = `<span style="color:var(--text-secondary);">→ Stable</span>`;
-            }
+        let countString = "";
+        let percentageString = "";
+        let trendIndicator = "";
+        
+        // Threshold to show actual numbers vs "Scattered"
+        const VISIBILITY_THRESHOLD = 500;
+        const PERCENTAGE_THRESHOLD = 0.01; // 0.01%
+        
+        const percentage = data.grandTotal > 0 ? (adjustedCount / data.grandTotal) * 100 : 0;
+        
+        if (adjustedCount >= VISIBILITY_THRESHOLD || percentage >= PERCENTAGE_THRESHOLD) {
+            // Show actual population
+            countString = Math.round(adjustedCount).toLocaleString();
+            percentageString = `(${percentage.toFixed(2)}%)`;
             
-            // Plague deaths warning
-            if (speciesDetail.plagueDeaths > 0) {
-                trendIndicator += `<br><span style="color:var(--negative-color); font-size:0.7rem;">☠️ ${Math.round(speciesDetail.plagueDeaths).toLocaleString()}/day from disease</span>`;
-            }
-            
-            // Growth indicator for small populations
-            if (adjustedCount < 1000 && speciesDetail.netChange > 0) {
-                const daysToThousand = Math.ceil((1000 - adjustedCount) / speciesDetail.netChange);
-                if (daysToThousand < 365) {
-                    trendIndicator += `<br><span style="color:var(--accent-color); font-size:0.7rem;">📈 Est. ${daysToThousand} days to 1,000</span>`;
+            // Show population trend
+            if (speciesDetail) {
+                const dailyChange = speciesDetail.netChange || 0;
+                if (dailyChange > 10) {
+                    trendIndicator = `<span style="color:var(--positive-color);">↑ +${Math.round(dailyChange).toLocaleString()}/day</span>`;
+                } else if (dailyChange < -10) {
+                    trendIndicator = `<span style="color:var(--negative-color);">↓ ${Math.round(dailyChange).toLocaleString()}/day</span>`;
+                } else {
+                    trendIndicator = `<span style="color:var(--text-secondary);">→ Stable</span>`;
+                }
+                
+                // Plague deaths warning
+                if (speciesDetail.plagueDeaths > 0) {
+                    trendIndicator += `<br><span style="color:var(--negative-color); font-size:0.7rem;">☠️ ${Math.round(speciesDetail.plagueDeaths).toLocaleString()}/day from disease</span>`;
+                }
+                
+                // Growth indicator for small populations
+                if (adjustedCount < 1000 && speciesDetail.netChange > 0) {
+                    const daysToThousand = Math.ceil((1000 - adjustedCount) / speciesDetail.netChange);
+                    if (daysToThousand < 365) {
+                        trendIndicator += `<br><span style="color:var(--accent-color); font-size:0.7rem;">📈 Est. ${daysToThousand} days to 1,000</span>`;
+                    }
                 }
             }
-        }
-    } else if (adjustedCount > 0) {
-        // Small but tracked population
-        showAsScattered = true;
-        
-        if (species.social_status?.includes('Unique') || species.social_status?.includes('Legendary')) {
-            countString = `${Math.round(adjustedCount)} known`;
-            percentageString = "(Unique)";
-        } else if (species.social_status?.includes('Endangered')) {
-            countString = `~${Math.round(adjustedCount)}`;
-            percentageString = "(Endangered)";
-        } else if (species.social_status?.includes('Anomaly')) {
-            countString = `~${Math.round(adjustedCount)}`;
-            percentageString = "(Rare Anomaly)";
-        } else {
-            countString = `~${Math.round(adjustedCount)}`;
-            percentageString = "(Scattered)";
-        }
-        
-        // Still show trend for scattered populations
-        if (speciesDetail && speciesDetail.netChange !== 0) {
-            const dailyChange = speciesDetail.netChange;
-            if (dailyChange > 0.5) {
-                trendIndicator = `<span style="color:var(--positive-color); font-size:0.8rem;">↑ Growing</span>`;
-            } else if (dailyChange < -0.5) {
-                trendIndicator = `<span style="color:var(--negative-color); font-size:0.8rem;">↓ Declining</span>`;
+        } else if (adjustedCount > 0) {
+            // Small but tracked population
+            
+            if (species.social_status?.includes('Unique') || species.social_status?.includes('Legendary')) {
+                countString = `${Math.round(adjustedCount)} known`;
+                percentageString = "(Unique)";
+            } else if (species.social_status?.includes('Endangered')) {
+                countString = `~${Math.round(adjustedCount)}`;
+                percentageString = "(Endangered)";
+            } else if (species.social_status?.includes('Anomaly')) {
+                countString = `~${Math.round(adjustedCount)}`;
+                percentageString = "(Rare Anomaly)";
+            } else {
+                countString = `~${Math.round(adjustedCount)}`;
+                percentageString = "(Scattered)";
             }
+            
+            // Still show trend for scattered populations
+            if (speciesDetail && speciesDetail.netChange !== 0) {
+                const dailyChange = speciesDetail.netChange;
+                if (dailyChange > 0.5) {
+                    trendIndicator = `<span style="color:var(--positive-color); font-size:0.8rem;">↑ Growing</span>`;
+                } else if (dailyChange < -0.5) {
+                    trendIndicator = `<span style="color:var(--negative-color); font-size:0.8rem;">↓ Declining</span>`;
+                }
+            }
+        } else {
+            // Truly zero population
+            countString = "Extinct?";
+            percentageString = "";
+            trendIndicator = `<span style="color:var(--negative-color);">☠️ No known population</span>`;
         }
-    } else {
-        // Truly zero population
-        countString = "Extinct?";
-        percentageString = "";
-        trendIndicator = `<span style="color:var(--negative-color);">☠️ No known population</span>`;
-    }
-
-    // ... rest of the card rendering continues
-        
 
         // Religion
         let dominantFaith = "Secular / Unaligned";
@@ -603,7 +597,7 @@ const cardsHTML = allSpecies.map(([key, species]) => {
                 </div>
             `;
         } else {
-            relationsHTML = `<div class="species-relations"><p style="font-style:italic; color:var(--text-secondary);">No known bias.</p></div>`;
+            relationsHTML = `<div class="species-relations"><p style="font-style:italic; color:var(--text-secondary);"> </p></div>`;
         }
 
         const statusBadge = species.social_status ? 
