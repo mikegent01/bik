@@ -1,23 +1,10 @@
-// mushroom-kingdom-civil-war.js
+// global-war.js
 
-import {
-    CIVIL_WAR_CONFIG,
-    CIVIL_WAR_EVENTS,
-    calculateDynamicInfluence,
-    calculateWarStatus,
-    renderTerritoryDetailModal
-} from './mushroom-kingdom-system.js';
-
-import { getAllFactions, getFaction, getFactionStats } from './faction-registry.js';
-import { 
-    getRealTimeMapStats, 
-    getCuratedTerritoryList, 
-    renderAnalyticsModal, 
-    getDetailedRegionStats 
-} from './map-analysis.js';
-import { CURRENT_GAME_DATE } from '../calendar-data.js';
-import { MDATA_F } from '../map-data.js';
-
+import { getAllFactions, getFaction, getFactionStats, toSystemId } from './systems/faction-registry.js';
+import { getRealTimeMapStats, getCuratedTerritoryList, getDetailedRegionStats, renderAnalyticsModal, getDetailedFactionStats } from './global-map-analysis.js';
+import { CURRENT_GAME_DATE } from './calendar-data.js';
+import { MAP_DATA } from './map-data.js';
+import { renderTerritoryDetailModal } from './systems/mushroom-kingdom-system.js'; 
 // ============================================
 // STATE
 // ============================================
@@ -38,50 +25,16 @@ function formatPop(num) {
 // GET ALL REGIONS FROM MAP DATA
 // ============================================
 function getAllRegions() {
-    if (!MDATA_F) return [];
-    return Object.entries(MDATA_F).map(([id, data]) => ({
-        id,
-        name: data.name || id,
-        description: data.description || '',
-        poiCount: (data.pointsOfInterest || []).length
-    })).sort((a, b) => a.name.localeCompare(b.name));
-}
-
-// ============================================
-// GET STATS FOR SPECIFIC REGION
-// ============================================
-function getRegionStats(regionId) {
-    if (!MDATA_F || !MDATA_F[regionId]) return null;
-    
-    const region = MDATA_F[regionId];
-    const pois = region.pointsOfInterest || [];
-    const factionStats = {};
-    
-    pois.forEach(poi => {
-        const factionId = poi.factionId || 'unaligned';
-        if (!factionStats[factionId]) {
-            factionStats[factionId] = {
-                military: 0,
-                economic: 0,
-                political: 0,
-                population: 0,
-                poiCount: 0,
-                controlledRegions: 0
-            };
-        }
-        factionStats[factionId].military += poi.military_strength || 0;
-        factionStats[factionId].economic += poi.economic_value || 0;
-        factionStats[factionId].political += poi.political_influence || 0;
-        factionStats[factionId].population += poi.population || 0;
-        factionStats[factionId].poiCount += 1;
-    });
-    
-    return {
-        regionId,
-        regionName: region.name || regionId,
-        global: factionStats,
-        regions: [{ id: regionId, name: region.name }]
-    };
+    if (!MAP_DATA) return [];
+    // Only use _full keys to represent distinct regions
+    return Object.entries(MAP_DATA)
+        .filter(([id]) => id.endsWith('_full'))
+        .map(([id, data]) => ({
+            id,
+            name: data.name.replace(' (Full)', '') || id,
+            description: data.description || '',
+            poiCount: (data.pointsOfInterest || []).length
+        })).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 // ============================================
@@ -100,8 +53,9 @@ function sortFactions(factions, sortBy) {
                 return (b[1].population || 0) - (a[1].population || 0);
             case 'power':
             default:
-                const aPower = (a[1].military || 0) + (a[1].economic || 0) + ((a[1].controlledRegions || 0) * 15);
-                const bPower = (b[1].military || 0) + (b[1].economic || 0) + ((b[1].controlledRegions || 0) * 15);
+                // Using activeRegions instead of controlledRegions, weight adjusted to 10
+                const aPower = (a[1].military || 0) + (a[1].economic || 0) + ((a[1].activeRegions || 0) * 10);
+                const bPower = (b[1].military || 0) + (b[1].economic || 0) + ((b[1].activeRegions || 0) * 10);
                 return bPower - aPower;
         }
     });
@@ -117,7 +71,7 @@ function renderViewControls() {
         <div class="view-controls">
             <div class="view-toggle">
                 <button class="view-btn ${currentView === 'global' ? 'active' : ''}" data-view="global">
-                    🌍 Global View
+                    🌍 Multiverse View
                 </button>
                 <button class="view-btn ${currentView === 'region' ? 'active' : ''}" data-view="region">
                     🗺️ Region View
@@ -150,10 +104,7 @@ function renderViewControls() {
                     <button class="sort-btn ${currentSort === 'economic' ? 'active' : ''}" data-sort="economic" title="Economic Power">
                         💰 Economic
                     </button>
-                    <button class="sort-btn ${currentSort === 'political' ? 'active' : ''}" data-sort="political" title="Political Influence">
-                        🏛️ Political
-                    </button>
-                    <button class="sort-btn ${currentSort === 'population' ? 'active' : ''}" data-sort="population" title="Population">
+                    <button class="sort-btn ${currentSort === 'population' ? 'active' : ''}" data-sort="population" title="Total Population">
                         👥 Population
                     </button>
                 </div>
@@ -167,8 +118,7 @@ function renderViewControls() {
 // ============================================
 function renderGlobalStrategicOverview(stats) {
     const allFactions = getAllFactions();
-    const factionStats = getFactionStats();
-
+    
     const totalPois = Object.values(stats.global).reduce((acc, f) => acc + (f.poiCount || 0), 0) || 1;
 
     // Get active factions and apply filter
@@ -179,13 +129,11 @@ function renderGlobalStrategicOverview(stats) {
             if (!data) return false;
             return (data.military || 0) > 0 || 
                    (data.economic || 0) > 0 || 
-                   (data.political || 0) > 0 || 
-                   (data.population || 0) > 0 ||
                    (data.poiCount || 0) > 0;
         })
         .map(([id, def]) => {
-            const data = stats.global[id] || { military: 0, economic: 0, poiCount: 0, controlledRegions: 0, political: 0, population: 0 };
-            const totalPower = (data.military || 0) + (data.economic || 0) + ((data.controlledRegions || 0) * 15);
+            const data = stats.global[id] || { military: 0, economic: 0, poiCount: 0, controlledRegions: 0, activeRegions: 0, population: 0 };
+            const totalPower = (data.military || 0) + (data.economic || 0) + ((data.activeRegions || 0) * 10);
             return {
                 id,
                 name: def.name,
@@ -195,38 +143,43 @@ function renderGlobalStrategicOverview(stats) {
                 isAuto: def.isAutoGenerated,
                 military: data.military || 0,
                 economic: data.economic || 0,
-                political: data.political || 0,
-                population: data.population || 0,
                 poiCount: data.poiCount || 0,
                 controlledRegions: data.controlledRegions || 0,
+                activeRegions: data.activeRegions || 0,
+                population: data.population || 0,
                 totalPower,
                 poiPercent: ((data.poiCount || 0) / totalPois) * 100
             };
         });
 
     // Apply sorting
-    factionData = factionData.sort((a, b) => {
-        switch (currentSort) {
-            case 'military': return b.military - a.military;
-            case 'economic': return b.economic - a.economic;
-            case 'political': return b.political - a.political;
-            case 'population': return b.population - a.population;
-            case 'power':
-            default: return b.totalPower - a.totalPower;
-        }
-    });
+    factionData = factionData.sort((a, b) => b.totalPower - a.totalPower);
 
     const displayFactions = factionData; // Show ALL factions
     
-    const claimedPercent = displayFactions.reduce((acc, f) => acc + f.poiPercent, 0);
+    const claimedPercent = factionData.reduce((acc, f) => acc + f.poiPercent, 0);
     const unclaimedPercent = Math.max(0, 100 - claimedPercent);
 
     const maxMilitary = Math.max(...displayFactions.map(f => f.military), 1);
     const maxEconomic = Math.max(...displayFactions.map(f => f.economic), 1);
-    const maxPois = Math.max(...displayFactions.map(f => f.poiCount), 1);
 
     // Color Uniquifier Logic
-    const stackColorMap = new Map();
+    const usedColors = new Map();
+    const getStyle = (baseColor) => {
+        let style = `background: ${baseColor};`;
+        if (usedColors.has(baseColor)) {
+            const count = usedColors.get(baseColor);
+            style += ` filter: hue-rotate(${count * 45}deg);`;
+            usedColors.set(baseColor, count + 1);
+        } else {
+            usedColors.set(baseColor, 1);
+        }
+        return style;
+    };
+    
+    // Reset used colors for stacking logic
+    const stackColorMap = new Map(); 
+
     const stackedSegments = displayFactions.map(f => {
         let style = `width: ${f.poiPercent}%; background: ${f.color};`;
         if (stackColorMap.has(f.color)) {
@@ -240,19 +193,22 @@ function renderGlobalStrategicOverview(stats) {
         return `
         <div class="control-segment ${f.isAuto ? 'auto-segment' : ''}" 
              style="${style}"
-             title="${f.name}${f.isAuto ? ' (Discovered)' : ''}: ${f.poiPercent.toFixed(1)}% (${f.poiCount} POIs)">
+             title="${f.name}: ${f.poiPercent.toFixed(1)}% (${f.poiCount} POIs)">
         </div>
         `;
     }).join('');
 
-    // Reset usedColors for legend
-    stackColorMap.clear();
-
+    // Reset for rows/legend to match
+    usedColors.clear();
+    
+    // Use a temp map for consistency between legend and rows if needed, but for now reset is okay 
+    // since iteration order is same.
+    
     const powerRows = displayFactions.map(f => `
         <div class="power-comparison-row ${f.isAuto ? 'auto-faction' : ''}">
             <div class="pcr-faction" style="color: ${f.color};">
                 <span class="pcr-icon">${f.icon}</span>
-                <span class="pcr-name" title="${f.name}">${f.name}</span>
+                <span class="pcr-name" title="${f.name}">${f.shortName}</span>
             </div>
             <div class="pcr-bars">
                 <div class="pcr-bar-group">
@@ -267,12 +223,6 @@ function renderGlobalStrategicOverview(stats) {
                     </div>
                     <span class="pcr-bar-value">💰 ${f.economic}</span>
                 </div>
-                <div class="pcr-bar-group">
-                    <div class="pcr-bar-track">
-                        <div class="pcr-bar-fill pois" style="width: ${(f.poiCount / maxPois) * 100}%;"></div>
-                    </div>
-                    <span class="pcr-bar-value">📍 ${f.poiCount}</span>
-                </div>
             </div>
             <div class="pcr-regions">
                 <span class="pcr-region-count">${formatPop(f.population)}</span>
@@ -281,7 +231,10 @@ function renderGlobalStrategicOverview(stats) {
         </div>
     `).join('');
 
-    const legendItems = displayFactions.slice(0, 120).map(f => {
+    // Reset usedColors for legend to ensure it matches the stacked bar colors
+    stackColorMap.clear();
+
+    const legendItems = displayFactions.map(f => {
         let style = `background: ${f.color};`;
         if (stackColorMap.has(f.color)) {
             const count = stackColorMap.get(f.color);
@@ -290,12 +243,12 @@ function renderGlobalStrategicOverview(stats) {
         } else {
             stackColorMap.set(f.color, 1);
         }
-        
+
         return `
         <div class="legend-chip ${f.isAuto ? 'auto-discovered' : ''}">
             <span class="legend-color" style="${style}"></span>
             <span class="legend-name" title="${f.name}">${f.shortName}</span>
-            <span class="legend-percent">${f.poiPercent.toFixed(0)}%</span>
+            <span class="legend-percent">${f.poiPercent.toFixed(1)}%</span>
         </div>
         `;
     }).join('');
@@ -303,56 +256,49 @@ function renderGlobalStrategicOverview(stats) {
     const autoCount = factionData.filter(f => f.isAuto).length;
     const manualCount = factionData.filter(f => !f.isAuto).length;
 
-    const viewTitle = currentView === 'region' && currentRegion 
-        ? `🗺️ ${MDATA_F[currentRegion]?.name || currentRegion} Overview`
-        : '🌍 Kingdom Control Overview';
+    // Handle view title logic
+    let viewTitle = '🌍 Multiverse Control Overview';
+    if (currentView === 'region' && currentRegion) {
+        const regionName = MAP_DATA[currentRegion]?.name.replace(' (Full)', '') || currentRegion;
+        viewTitle = `🗺️ ${regionName} Overview`;
+    }
 
     return `
         <div class="global-strategic-overview">
             <div class="gso-header">
                 <h3 class="gso-title">${viewTitle}</h3>
                 <div class="gso-summary">
-                    <span class="gso-stat"><strong>${stats.regions?.length || 1}</strong> Regions</span>
+                    <span class="gso-stat"><strong>${stats.regions?.length || 0}</strong> Regions</span>
                     <span class="gso-stat"><strong>${totalPois}</strong> POIs</span>
-                    <span class="gso-stat"><strong>${manualCount + autoCount}</strong> Factions</span>
-                    ${autoCount > 0 ? `<span class="gso-stat gso-auto">+${autoCount} discovered</span>` : ''}
+                    <span class="gso-stat"><strong>${manualCount + autoCount}</strong> Active Factions</span>
                 </div>
             </div>
 
             <div class="gso-section">
                 <div class="gso-section-header">
                     <span class="gso-section-title">Territorial Control</span>
-                    <span class="gso-section-meta">${claimedPercent.toFixed(0)}% Claimed · ${unclaimedPercent.toFixed(0)}% Contested/Wild</span>
+                    <span class="gso-section-meta">${claimedPercent.toFixed(0)}% Claimed</span>
                 </div>
                 <div class="stacked-control-bar">
                     ${stackedSegments}
-                    ${unclaimedPercent > 0 ? `<div class="control-segment segment-unclaimed" style="width: ${unclaimedPercent}%;"></div>` : ''}
+                    <div class="control-segment segment-unclaimed" style="flex: 1;"></div>
                 </div>
                 <div class="control-legend">
                     ${legendItems}
-                    ${unclaimedPercent > 2 ? `
-                        <div class="legend-chip">
-                            <span class="legend-color segment-unclaimed-dot"></span>
-                            <span class="legend-name">Wild</span>
-                            <span class="legend-percent">${unclaimedPercent.toFixed(0)}%</span>
-                        </div>
-                    ` : ''}
                 </div>
             </div>
 
             <div class="gso-section">
                 <div class="gso-section-header">
-                    <span class="gso-section-title">Power Projection</span>
+                    <span class="gso-section-title">Power Projection (All Active Factions)</span>
                     <div class="gso-bar-legend">
                         <span class="bar-legend-item"><span class="bar-dot military"></span>Military</span>
                         <span class="bar-legend-item"><span class="bar-dot economy"></span>Economy</span>
-                        <span class="bar-legend-item"><span class="bar-dot pois"></span>Holdings</span>
                     </div>
                 </div>
                 <div class="power-comparison-chart">
                     ${powerRows}
                 </div>
-                ${autoCount > 0 ? `<p class="gso-footnote">✦ = Auto-discovered faction from map data</p>` : ''}
             </div>
         </div>
     `;
@@ -361,25 +307,48 @@ function renderGlobalStrategicOverview(stats) {
 // ============================================
 // MAIN RENDER
 // ============================================
-export function renderMushroomKingdomCivilWar() {
-    const influence = calculateDynamicInfluence();
+export function renderGlobalWar() {
     
     // Get stats based on current view
     let stats;
+    
     if (currentView === 'region' && currentRegion) {
-        stats = getRegionStats(currentRegion);
-        if (!stats) {
-            stats = getRealTimeMapStats();
+        // Region view: stats for specific region
+        // We use getDetailedRegionStats but need to shape it like the global stats object for consistency
+        const detailed = getDetailedRegionStats(currentRegion);
+        stats = {
+            global: detailed ? detailed.factionPresence : {}, 
+            regions: detailed ? [detailed] : []
+        };
+        
+        // Re-build stats.global to contain military/eco sums for this region
+        stats.global = {};
+        if (detailed && detailed.pois) {
+            detailed.pois.forEach(poi => {
+                const fid = poi.factionId;
+                if (!stats.global[fid]) stats.global[fid] = { military: 0, economic: 0, poiCount: 0, controlledRegions: 0, activeRegions: 0, population: 0 };
+                stats.global[fid].military += poi.military_strength || 0;
+                stats.global[fid].economic += poi.economic_value || 0;
+                stats.global[fid].population += poi.population || 0;
+                stats.global[fid].poiCount += 1;
+            });
+             if (detailed.controller && detailed.controller !== 'unaligned' && stats.global[detailed.controller]) {
+                stats.global[detailed.controller].controlledRegions = 1;
+            }
+            // For single region view, active region is just 1 if present
+            Object.keys(detailed.factionPresence).forEach(fid => {
+                if (stats.global[fid]) stats.global[fid].activeRegions = 1;
+            });
         }
     } else {
+        // Global view: all full maps
         stats = getRealTimeMapStats();
     }
     
-    const warStatus = calculateWarStatus();
-    const territories = getCuratedTerritoryList();
+    const territories = getCuratedTerritoryList(); // Used for sidebar
     const allFactions = getAllFactions();
 
-    // Get all active factions with at least some stats
+    // Get all active factions in the current view
     let allActiveFactions = Object.entries(allFactions)
         .filter(([key]) => {
             if (key === 'unaligned') return false;
@@ -387,8 +356,6 @@ export function renderMushroomKingdomCivilWar() {
             if (!fStats) return false;
             return (fStats.military || 0) > 0 || 
                    (fStats.economic || 0) > 0 || 
-                   (fStats.political || 0) > 0 || 
-                   (fStats.population || 0) > 0 ||
                    (fStats.poiCount || 0) > 0;
         })
         .map(([key, faction]) => {
@@ -400,7 +367,8 @@ export function renderMushroomKingdomCivilWar() {
                 political: fStats.political || 0,
                 population: fStats.population || 0,
                 poiCount: fStats.poiCount || 0,
-                controlledRegions: fStats.controlledRegions || 0
+                controlledRegions: fStats.controlledRegions || 0,
+                activeRegions: fStats.activeRegions || 0
             }];
         });
 
@@ -411,28 +379,20 @@ export function renderMushroomKingdomCivilWar() {
     const manualFactions = allActiveFactions.filter(([, faction]) => !faction.isAutoGenerated);
     const autoFactions = allActiveFactions.filter(([, faction]) => faction.isAutoGenerated);
     
-    // Combine for display (manual first, then auto)
+    // Combine for display
     const activeFactions = [...manualFactions, ...autoFactions];
 
     // Faction Cards
     const cardsHTML = activeFactions.map(([key, faction]) => {
-        const fStats = stats.global[key] || { military: 0, controlledRegions: 0, poiCount: 0 };
-        const isLeading = warStatus.leadingFaction && warStatus.leadingFaction.id === key;
-        
         let badgeHTML = '';
         if (faction.isAutoGenerated) {
-            if (faction.sourceData === 'widespread') {
-                badgeHTML = '<span class="source-badge from-widespread">Known</span>';
-            } else {
-                badgeHTML = '<span class="source-badge from-inferred">New</span>';
-            }
+             badgeHTML = '<span class="source-badge from-inferred">New</span>';
         }
 
-        // Highlight sorted column
         const highlightClass = (stat) => currentSort === stat ? 'stat-highlighted' : '';
 
         return `
-            <div class="faction-card ${isLeading ? 'faction-leading' : ''} ${faction.isAutoGenerated ? 'faction-auto' : ''}" 
+            <div class="faction-card ${faction.isAutoGenerated ? 'faction-auto' : ''}" 
                  data-faction="${key}" 
                  style="border-top: 4px solid ${faction.color};">
                 <div class="faction-card-header" style="border-bottom-color: ${faction.color};">
@@ -443,42 +403,39 @@ export function renderMushroomKingdomCivilWar() {
                             ${faction.leaderTitle}: ${faction.leaderName}
                         </p>
                     </div>
-                    <div class="faction-influence-badge" style="background:${faction.color};">
-                        ${influence[key] || 0}
-                    </div>
                 </div>
                 <div class="faction-card-body">
                     <div class="faction-stats">
                         <div class="stat-item ${highlightClass('military')}">
                             <span class="stat-icon">⚔️</span>
-                            <span class="stat-value">${faction.military || fStats.military || 0}</span>
+                            <span class="stat-value">${faction.military || 0}</span>
                             <span class="stat-label">Military</span>
                         </div>
                         <div class="stat-item ${highlightClass('economic')}">
                             <span class="stat-icon">💰</span>
-                            <span class="stat-value">${faction.economic || fStats.economic || 0}</span>
+                            <span class="stat-value">${faction.economic || 0}</span>
                             <span class="stat-label">Economic</span>
                         </div>
                         <div class="stat-item ${highlightClass('political')}">
                             <span class="stat-icon">🏛️</span>
-                            <span class="stat-value">${faction.political || fStats.political || 0}</span>
+                            <span class="stat-value">${faction.political || 0}</span>
                             <span class="stat-label">Political</span>
                         </div>
-                        <div class="stat-item ${highlightClass('population')}">
+                         <div class="stat-item ${highlightClass('population')}">
                             <span class="stat-icon">👥</span>
-                            <span class="stat-value">${formatPop(faction.population || fStats.population || 0)}</span>
-                            <span class="stat-label">Population</span>
+                            <span class="stat-value">${formatPop(faction.population || 0)}</span>
+                            <span class="stat-label">Pop.</span>
                         </div>
                     </div>
                     <div class="faction-stats-secondary">
                         <div class="stat-item-small">
-                            <span class="stat-icon">🏴</span>
-                            <span class="stat-value">${faction.controlledRegions || fStats.controlledRegions || 0}</span>
-                            <span class="stat-label">Regions</span>
+                            <span class="stat-icon">🌍</span>
+                            <span class="stat-value">${faction.activeRegions || 0}</span>
+                            <span class="stat-label">${currentView === 'region' ? 'Zones' : 'Active Regions'}</span>
                         </div>
                         <div class="stat-item-small">
                             <span class="stat-icon">📍</span>
-                            <span class="stat-value">${faction.poiCount || fStats.poiCount || 0}</span>
+                            <span class="stat-value">${faction.poiCount || 0}</span>
                             <span class="stat-label">POIs</span>
                         </div>
                     </div>
@@ -489,39 +446,25 @@ export function renderMushroomKingdomCivilWar() {
     }).join('');
 
     // Section title with count
-    const factionCountText = `<span class="section-meta">(${activeFactions.length} factions)</span>`;
+    const factionCountText = `<span class="section-meta">(${activeFactions.length} active)</span>`;
 
-    // Territory List
-    const territoryHTML = territories.length > 0 ? territories.map(region => {
+    const territoryHTML = territories.length > 0 ? territories.slice(0, 10).map(region => {
         const controllerDef = getFaction(region.controller);
         return `
             <div class="territory-item ${region.isContested ? 'contested' : ''}" 
                  data-region-id="${region.id}" 
                  style="border-left: 3px solid ${controllerDef.color};">
-                <div class="territory-icon">${region.isContested ? '🔥' : '🏰'}</div>
+                <div class="territory-icon">${region.isContested ? '🔥' : '🌍'}</div>
                 <div class="territory-info">
                     <span class="territory-name">${region.name}</span>
-                    <span class="territory-type">${region.isContested ? 'Contested' : (region.label || region.type || 'Territory')}</span>
+                    <span class="territory-type">${region.isContested ? 'Contested Region' : 'Region'}</span>
                 </div>
                 <div class="territory-controller" style="background:${controllerDef.color};">
                     ${controllerDef.icon}
                 </div>
             </div>
         `;
-    }).join('') : '<p class="no-territories">No territories found</p>';
-
-    // Events
-    const eventsHTML = (CIVIL_WAR_EVENTS || []).slice(0, 10).map(evt => `
-        <div class="timeline-event event-${evt.type}">
-            <div class="event-date-marker">
-                <div class="days-ago">${evt.date.monthIndex + 1}/${evt.date.day}</div>
-            </div>
-            <div class="event-content">
-                <h5 class="event-title">${evt.title}</h5>
-                <p class="event-desc">${evt.description}</p>
-            </div>
-        </div>
-    `).join('');
+    }).join('') : '<p class="no-territories">No data found</p>';
 
     const viewControlsHTML = renderViewControls();
     const globalOverviewHTML = renderGlobalStrategicOverview(stats);
@@ -530,15 +473,15 @@ export function renderMushroomKingdomCivilWar() {
         <div class="civil-war-system">
             <div class="cw-header">
                 <div class="cw-title-block">
-                    <h2 class="cw-title">🍄 ${CIVIL_WAR_CONFIG.name}</h2>
+                    <h2 class="cw-title">🌌 Multiverse Conflict Monitor</h2>
                     <div class="cw-meta">
-                        <span class="cw-phase phase-${warStatus.phase.toLowerCase().replace(/\s+/g, '-')}">${warStatus.phase}</span>
+                        <span class="cw-phase phase-escalation">Global Escalation</span>
                         <span class="cw-date">Year ${CURRENT_GAME_DATE.year}</span>
                     </div>
                 </div>
             </div>
 
-            <p class="cw-description">${CIVIL_WAR_CONFIG.description}</p>
+            <p class="cw-description">Live strategic tracking across all known regions. Monitoring power projection and territorial control of major factions throughout the multiverse.</p>
 
             ${viewControlsHTML}
 
@@ -546,7 +489,7 @@ export function renderMushroomKingdomCivilWar() {
 
             <div class="cw-content-grid">
                 <div class="factions-section">
-                    <h3 class="section-title">⚔️ Major Power Blocs ${factionCountText}</h3>
+                    <h3 class="section-title">⚔️ Active Power Blocs ${factionCountText}</h3>
                     <div class="faction-cards-grid">
                         ${cardsHTML}
                     </div>
@@ -554,18 +497,16 @@ export function renderMushroomKingdomCivilWar() {
 
                 <div class="cw-sidebar">
                     <div class="territory-section">
-                        <h3 class="section-title">🗺️ Key Holdings</h3>
+                        <h3 class="section-title">🌍 Strategic Regions</h3>
                         <p class="section-subtitle">Click for details</p>
                         <div class="territory-list">
                             ${territoryHTML}
                         </div>
                     </div>
-
+                    
                     <div class="events-section">
-                        <h3 class="section-title">📜 Recent Events</h3>
-                        <div class="events-timeline">
-                            ${eventsHTML}
-                        </div>
+                        <h3 class="section-title">📊 Analytics</h3>
+                        <button id="btn-view-analytics" class="cw-btn-primary" style="width: 100%;">View Full Report</button>
                     </div>
                 </div>
             </div>
@@ -576,7 +517,7 @@ export function renderMushroomKingdomCivilWar() {
 // ============================================
 // EVENT LISTENERS
 // ============================================
-export function initCivilWarListeners() {
+export function initGlobalWarListeners() {
     const container = document.querySelector('.civil-war-system');
     if (!container) return;
 
@@ -590,7 +531,7 @@ export function initCivilWarListeners() {
                 if (newView === 'global') {
                     currentRegion = null;
                 }
-                rerenderCivilWar();
+                rerenderGlobalWar();
             }
             return;
         }
@@ -601,38 +542,32 @@ export function initCivilWarListeners() {
             const newSort = sortBtn.dataset.sort;
             if (newSort !== currentSort) {
                 currentSort = newSort;
-                rerenderCivilWar();
+                rerenderGlobalWar();
             }
             return;
         }
 
         // Faction Detail Buttons
         const detailBtn = e.target.closest('.faction-detail-btn');
-        if (detailBtn && detailBtn.id !== 'btn-view-analytics') {
+        if (detailBtn) {
             const factionKey = detailBtn.dataset.faction;
-            if (typeof window.showFactionModal === 'function') {
-                window.showFactionModal(factionKey);
-            }
+            showGlobalFactionModal(factionKey);
             return;
         }
 
-        // Territory Item Click
+        // Sidebar Territory Click
         const terrItem = e.target.closest('.territory-item');
         if (terrItem) {
             const regionId = terrItem.dataset.regionId;
             const detailedRegion = getDetailedRegionStats(regionId);
             if (detailedRegion) {
-                const existing = document.getElementById('terr-modal');
-                if (existing) existing.remove();
-
-                const html = renderTerritoryDetailModal(detailedRegion);
+                const html = renderTerritoryDetailModal(detailedRegion); 
                 document.body.insertAdjacentHTML('beforeend', html);
                 requestAnimationFrame(() => {
                     const overlay = document.getElementById('terr-modal');
                     if (overlay) overlay.classList.add('visible');
                 });
             }
-            return;
         }
     });
 
@@ -640,7 +575,7 @@ export function initCivilWarListeners() {
     container.addEventListener('change', (e) => {
         if (e.target.id === 'region-select') {
             currentRegion = e.target.value || null;
-            rerenderCivilWar();
+            rerenderGlobalWar();
         }
     });
 
@@ -650,7 +585,7 @@ export function initCivilWarListeners() {
         analyticsBtn.addEventListener('click', () => {
             const html = renderAnalyticsModal();
             document.body.insertAdjacentHTML('beforeend', html);
-            requestAnimationFrame(() => {
+             requestAnimationFrame(() => {
                 const overlay = document.querySelector('.analytics-overlay');
                 if (overlay) overlay.classList.add('visible');
             });
@@ -659,35 +594,108 @@ export function initCivilWarListeners() {
 }
 
 // ============================================
+// MODAL HELPER
+// ============================================
+function showGlobalFactionModal(factionKey) {
+     const registryId = toSystemId(factionKey);
+     const customHtml = renderGlobalFactionDetailModal(registryId);
+     
+     if (customHtml) {
+        document.body.insertAdjacentHTML('beforeend', customHtml);
+        requestAnimationFrame(() => {
+            const overlay = document.querySelector(`#faction-modal-${registryId}`);
+            if (overlay) overlay.classList.add('visible');
+        });
+    }
+}
+
+// Simplified Modal Renderer for Global Context
+function renderGlobalFactionDetailModal(registryId) {
+    const faction = getFaction(registryId);
+    if (!faction) return '';
+    
+    const detailedStats = getDetailedFactionStats(registryId);
+    
+    // Get top POIs (sorted by value)
+    const topPois = (detailedStats.pois || [])
+        .sort((a, b) => (b.military_strength + b.economic_value) - (a.military_strength + a.economic_value))
+        .slice(0, 10);
+    
+    return `
+        <div class="faction-modal-overlay" id="faction-modal-${registryId}">
+            <div class="faction-modal faction-modal-large">
+                <button class="modal-close" onclick="this.closest('.faction-modal-overlay').remove()">✕</button>
+                <div class="modal-header" style="border-bottom-color: ${faction.color}">
+                    <div class="modal-icon" style="background: ${faction.color};">${faction.icon}</div>
+                    <div class="modal-title-block">
+                        <h2>${faction.name}</h2>
+                        <p class="modal-subtitle">Global Analysis</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="faction-description"><p>${faction.description}</p></div>
+                    <div class="stats-hero-grid">
+                        <div class="stat-hero-card"><div class="stat-hero-value">${detailedStats.military}</div><div class="stat-hero-label">Military</div></div>
+                        <div class="stat-hero-card"><div class="stat-hero-value">${detailedStats.economic}</div><div class="stat-hero-label">Economic</div></div>
+                        <div class="stat-hero-card"><div class="stat-hero-value">${detailedStats.activeRegions}</div><div class="stat-hero-label">Active Regions</div></div>
+                        <div class="stat-hero-card"><div class="stat-hero-value">${detailedStats.poiCount}</div><div class="stat-hero-label">POIs</div></div>
+                    </div>
+                    
+                    <div class="modal-two-column">
+                        <div class="modal-column">
+                            <div class="modal-section">
+                                <h4>🌍 Active Regions</h4>
+                                <div class="region-chips">
+                                     ${(detailedStats.regions && detailedStats.regions.length > 0) ? 
+                                        detailedStats.regions.map(r => `
+                                            <div class="region-chip">
+                                                <span class="region-chip-icon">${r.isContested ? '🔥' : '🌍'}</span>
+                                                <span class="region-chip-name">${r.name}</span>
+                                            </div>
+                                        `).join('') : '<p class="no-data">No active regions</p>'}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-column">
+                             <div class="modal-section">
+                                <h4>📍 Top Holdings</h4>
+                                <div class="poi-list-container">
+                                    <div class="poi-list">
+                                        ${topPois.length > 0 ? topPois.map(poi => `
+                                            <div class="poi-list-item" style="border-left: 3px solid ${faction.color};">
+                                                <div class="poi-list-info">
+                                                    <span class="poi-list-name">${poi.name}</span>
+                                                    <span class="poi-list-type" style="font-size: 0.75rem; color: #888;">${poi.type} in ${poi.regionName}</span>
+                                                </div>
+                                                <div class="poi-list-stats">
+                                                    <span class="poi-stat">⚔️${poi.military_strength}</span>
+                                                    <span class="poi-stat">💰${poi.economic_value}</span>
+                                                </div>
+                                            </div>
+                                        `).join('') : '<p class="no-data">No POIs found</p>'}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================
 // RERENDER HELPER
 // ============================================
-function rerenderCivilWar() {
+function rerenderGlobalWar() {
     const container = document.querySelector('.civil-war-system');
     if (!container) return;
     
     const parent = container.parentElement;
-    const newHTML = renderMushroomKingdomCivilWar();
+    const newHTML = renderGlobalWar();
     
     container.remove();
     parent.insertAdjacentHTML('beforeend', newHTML);
     
-    // Re-attach listeners
-    initCivilWarListeners();
-}
-
-// ============================================
-// EXPORT STATE SETTERS (optional, for external control)
-// ============================================
-export function setView(view) {
-    currentView = view;
-    if (view === 'global') currentRegion = null;
-}
-
-export function setRegion(regionId) {
-    currentView = 'region';
-    currentRegion = regionId;
-}
-
-export function setSort(sortBy) {
-    currentSort = sortBy;
+    initGlobalWarListeners();
 }

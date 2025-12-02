@@ -1,6 +1,6 @@
 // mushroom-kingdom-system.js - Rewritten to use FactionRegistry
 
-import { getRealTimeMapStats, renderAnalyticsModal, getCuratedTerritoryList, getDetailedFactionStats, getDetailedRegionStats } from './map-analysis.js';
+import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } from './map-analysis.js';
 import { CURRENT_GAME_DATE } from '../calendar-data.js';
 import { getFaction, getAllFactions, getFactionColor, getFactionIcon } from './faction-registry.js';
 
@@ -489,9 +489,42 @@ function getOperationIcon(type) {
 // 8. TERRITORY DETAIL MODAL
 // ============================================
 export function renderTerritoryDetailModal(regionData) {
-    const controllerId = toRegistryId(regionData.controller);
-    const controller = getFaction(controllerId);
+    const registryId = toRegistryId(regionData.controller);
+    let displayControllerId = registryId;
+    let bannerText = '';
+    let bannerClass = 'secure';
 
+    // Get sorted presence to find top faction
+    const sortedPresence = Object.entries(regionData.factionPresence || {})
+        .sort((a, b) => b[1] - a[1]);
+    
+    // Find the dominant influence (top faction that isn't 'unaligned')
+    const dominantEntry = sortedPresence.find(([id]) => id !== 'unaligned');
+    const dominantFaction = dominantEntry ? getFaction(dominantEntry[0]) : null;
+
+    const controllerDef = getFaction(registryId);
+    // Check for explicit "Independent" or "Unaligned" named factions if they exist in registry
+    const isUnaligned = registryId === 'unaligned' || 
+                              (controllerDef && (controllerDef.name === 'Independent' || controllerDef.name === 'Unaligned'));
+
+    if (regionData.isContested) {
+        bannerClass = 'contested';
+        bannerText = '⚠️ ACTIVE COMBAT ZONE - Multiple factions fighting for control';
+    } else if (isUnaligned) {
+        bannerClass = 'contested'; // Use warning color/style for unaligned/independent
+        if (dominantFaction) {
+            bannerText = `⚠️ UNGOVERNED - Dominant Influence: ${dominantFaction.name}`;
+            displayControllerId = dominantFaction.id; // Switch card to top faction
+        } else {
+            bannerText = '⚠️ UNCLAIMED TERRITORY - Lawless Zone';
+        }
+    } else {
+        const controller = getFaction(registryId);
+        bannerClass = 'secure';
+        bannerText = `✅ SECURED - Under ${controller.name} occupation`;
+    }
+
+    const controller = getFaction(displayControllerId);
     const regionPois = regionData.pois || [];
 
     return `
@@ -500,19 +533,16 @@ export function renderTerritoryDetailModal(regionData) {
                 <button class="modal-close" onclick="this.closest('.faction-modal-overlay').remove()">✕</button>
                 
                 <div class="modal-header" style="border-bottom-color: ${controller.color}">
-                    <div class="modal-icon" style="background: ${controller.color}">${regionData.isContested ? '🔥' : '🏰'}</div>
+                    <div class="modal-icon" style="background: ${controller.color}">${regionData.isContested ? '🔥' : (isUnaligned ? '⚠️' : '🏰')}</div>
                     <div class="modal-title-block">
                         <h2>${regionData.name}</h2>
-                        <p class="modal-subtitle">${regionData.isContested ? '⚠️ Contested Zone' : `Controlled by ${controller.name}`}</p>
+                        <p class="modal-subtitle">${regionData.isContested ? '⚠️ Contested Zone' : (isUnaligned ? 'Unclaimed Territory' : `Controlled by ${controller.name}`)}</p>
                     </div>
                 </div>
                 
                 <div class="modal-body">
-                    <div class="territory-status-banner ${regionData.isContested ? 'contested' : 'secure'}">
-                        ${regionData.isContested ? 
-                            '⚠️ ACTIVE COMBAT ZONE - Multiple factions fighting for control' : 
-                            `✅ SECURED - Under ${controller.name} occupation`
-                        }
+                    <div class="territory-status-banner ${bannerClass}">
+                        ${bannerText}
                     </div>
 
                     <div class="stats-hero-grid" style="grid-template-columns: repeat(4, 1fr);">
@@ -539,14 +569,14 @@ export function renderTerritoryDetailModal(regionData) {
                     </div>
 
                     <div class="modal-section">
-                        <h4>🏴 Controlling Faction</h4>
+                        <h4>${isUnaligned && dominantFaction ? '🏴 Dominant Faction' : '🏴 Controlling Faction'}</h4>
                         <div class="controller-card" style="border-color: ${controller.color};">
                             <div class="controller-icon" style="background: ${controller.color};">${controller.icon}</div>
                             <div class="controller-info">
                                 <span class="controller-name">${controller.name}</span>
                                 <span class="controller-ideology">${controller.ideology || 'Unknown'}</span>
                             </div>
-                            <button class="view-faction-btn" onclick="window.showFactionModal('${controllerId}'); this.closest('.faction-modal-overlay').remove();">
+                            <button class="view-faction-btn" onclick="window.showFactionModal('${displayControllerId}'); this.closest('.faction-modal-overlay').remove();">
                                 View Faction →
                             </button>
                         </div>
@@ -558,7 +588,6 @@ export function renderTerritoryDetailModal(regionData) {
                             <div class="presence-chart">
                                 ${Object.entries(regionData.factionPresence)
                                     .sort((a, b) => b[1] - a[1])
-                                    .slice(0, 5)
                                     .map(([factionId, count]) => {
                                         const f = getFaction(factionId);
                                         if (!f || f.id === 'unaligned') return '';
@@ -605,69 +634,6 @@ export function renderTerritoryDetailModal(regionData) {
             </div>
         </div>
     `;
-}
-
-// ============================================
-// 9. EVENT LISTENERS
-// ============================================
-export function initMushroomKingdomListeners() {
-    const container = document.querySelector('.civil-war-system');
-    if (!container) {
-        console.warn('Civil war container not found');
-        return;
-    }
-
-    console.log('Initializing Mushroom Kingdom listeners...');
-
-    // View Analytics Button
-    const analyticsBtn = container.querySelector('#btn-view-analytics');
-    if (analyticsBtn) {
-        analyticsBtn.addEventListener('click', () => {
-            const factions = getCivilWarFactions();
-            const html = renderAnalyticsModal(factions);
-            document.body.insertAdjacentHTML('beforeend', html);
-            requestAnimationFrame(() => {
-                const overlay = document.querySelector('.analytics-overlay');
-                if (overlay) overlay.classList.add('visible');
-            });
-        });
-    }
-
-    // Main Click Delegation
-    container.addEventListener('click', (e) => {
-        // A. Handle Faction Card "View Details"
-        const factionBtn = e.target.closest('.faction-detail-btn');
-        if (factionBtn && factionBtn.id !== 'btn-view-analytics') {
-            const key = factionBtn.dataset.faction;
-            console.log('Faction button clicked:', key);
-            window.showFactionModal(key);
-            return;
-        }
-
-        // B. Handle Sidebar Territory Click
-        const terrItem = e.target.closest('.territory-item');
-        if (terrItem) {
-            const regionId = terrItem.dataset.regionId;
-            console.log('Territory clicked:', regionId);
-
-            const detailedRegion = getDetailedRegionStats(regionId);
-
-            if (detailedRegion) {
-                const existing = document.getElementById('terr-modal');
-                if (existing) existing.remove();
-
-                const html = renderTerritoryDetailModal(detailedRegion);
-                document.body.insertAdjacentHTML('beforeend', html);
-
-                requestAnimationFrame(() => {
-                    const overlay = document.getElementById('terr-modal');
-                    if (overlay) overlay.classList.add('visible');
-                });
-            } else {
-                console.warn('No stats found for region:', regionId);
-            }
-        }
-    });
 }
 
 // ============================================
