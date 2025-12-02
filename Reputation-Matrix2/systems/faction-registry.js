@@ -5,20 +5,20 @@
 // IMPORTS
 // ============================================
 
-import { MAP_DATA, MDATA_F } from './map-data.js';
-import { LORE_DATA } from './lore.js';
-import { MIDLANDS_FACTIONS } from './factions/midlands.js';
-import { MUSHROOM_KINGDOM_FACTIONS } from './factions/mushroom-kingdom.js';
-import { WIDESPREAD_FACTIONS } from './widespread.js';
-import { WILDERLANDS_FACTIONS } from './factions/wilderlands.js';
-import { MIDDLE_EARTH_FACTIONS } from './factions/middle-earth.js';
-import { INTERNET_FACTIONS } from './factions/internet.js';
-import { WARHAMMER_FACTIONS } from './factions/warhammer.js';
-import { KIVOTOS_FACTIONS } from './factions/kivotos.js';
-import { SPACE_FACTIONS } from './factions/space.js';
-import { POKEMON_FACTIONS } from './factions/pokemon.js';
-import { EQUESTRIA_FACTIONS } from './factions/equestria.js';
-import { EARTH_LAND_FACTIONS } from './factions/earth-land.js';
+import { MAP_DATA } from '../map-data.js';
+import { LORE_DATA } from '../lore.js';
+import { MIDLANDS_FACTIONS } from '../factions/midlands.js';
+import { MUSHROOM_KINGDOM_FACTIONS } from '../factions/mushroom-kingdom.js';
+import { WIDESPREAD_FACTIONS } from '../widespread.js';
+import { WILDERLANDS_FACTIONS } from '../factions/wilderlands.js';
+import { MIDDLE_EARTH_FACTIONS } from '../factions/middle-earth.js';
+import { INTERNET_FACTIONS } from '../factions/internet.js';
+import { WARHAMMER_FACTIONS } from '../factions/warhammer.js';
+import { KIVOTOS_FACTIONS } from '../factions/kivotos.js';
+import { SPACE_FACTIONS } from '../factions/space.js';
+import { POKEMON_FACTIONS } from '../factions/pokemon.js';
+import { EQUESTRIA_FACTIONS } from '../factions/equestria.js';
+import { EARTH_LAND_FACTIONS } from '../factions/earth-land.js';
 
 // ============================================
 // STATIC DATA - COLORS (from CSS :root)
