@@ -54,7 +54,7 @@ export const WAHBOOK_POSTS = [
         likes: 850,
         comments: [
             { characterKey: 'the_broker', text: 'It is a target. I will buy it from you for 10% of its value as a collector\'s item.' },
-            { characterKey: 'hjumpik', text: 'Trust the lady. Hide the card.' }
+            { characterKey: 'humpik', text: 'Trust the lady. Hide the card.' }
         ],
         rumorId: 'iron_mandate_passage'
     },
