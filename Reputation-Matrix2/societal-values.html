@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="societal-values.css">
+    <link rel="stylesheet" href="faction-modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,39 +18,28 @@
             <aside id="sidebar"></aside>
             <main id="main-content">
                 <h2 class="page-title">Societal Values & Ideology Analysis</h2>
-                <p class="page-subtitle">Comparative analysis of faction ideologies across multiple value dimensions. Assess cultural alignment, potential alliances, and ideological fault lines.</p>
+                <p class="page-subtitle">Comparative analysis of faction ideologies across multiple value dimensions.</p>
                 
                 <div id="dashboard-grid">
-                    <!-- Summary Stats Row -->
                     <div id="values-stats-container" class="chart-container full-width" style="flex-direction: row; justify-content: space-around; padding: 20px;">
-                        <!-- Injected by JS -->
                     </div>
                     
-                    <!-- Main Values System Container -->
                     <div id="values-system-container" class="chart-container full-width">
-                        <!-- Main system injected here -->
                     </div>
                 </div>
             </main>
         </div>
     </div>
     
-    <!-- Global function for faction modals -->
-    <script>
-        window.showFactionModal = (factionId) => {
-            console.log('Opening faction details for:', factionId);
-            alert(`Faction Profile: ${factionId}\n\nFull faction details would appear in a modal.`);
-        };
-    </script>
-    
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
+    <!-- Load faction modal FIRST so window.showFactionModal is available -->
+    <script type="module" src="faction-modal.js"></script>
     <script type="module" src="societal-values.js"></script>
     <script type="module">
         import { renderSocietalValues, initSocietalValuesListeners, getAllFactionsWithValues } from './societal-values.js';
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Render summary stats
             const statsContainer = document.getElementById('values-stats-container');
             if (statsContainer) {
                 const factions = getAllFactionsWithValues();
@@ -75,17 +65,9 @@
                             <span class="vital-stat-label">Data Points</span>
                         </div>
                     </div>
-                    <div class="vital-stat">
-                        <span class="vital-stat-icon">🔥</span>
-                        <div class="vital-stat-info">
-                            <span class="vital-stat-value">${Math.floor(factions.length * 0.4)}</span>
-                            <span class="vital-stat-label">Potential Conflicts</span>
-                        </div>
-                    </div>
                 `;
             }
             
-            // Render main system
             const systemContainer = document.getElementById('values-system-container');
             if (systemContainer) {
                 try {
@@ -93,13 +75,8 @@
                     initSocietalValuesListeners();
                     console.log('Societal Values System initialized');
                 } catch (error) {
-                    console.error('Error initializing system:', error);
-                    systemContainer.innerHTML = `
-                        <div style="padding: 40px; text-align: center; color: var(--warning-color);">
-                            <p>⚠️ Error loading Societal Values System</p>
-                            <p style="font-size: 0.85rem; color: var(--text-secondary);">${error.message}</p>
-                        </div>
-                    `;
+                    console.error('Error:', error);
+                    systemContainer.innerHTML = `<p style="color: #ef4444;">Error: ${error.message}</p>`;
                 }
             }
         });
