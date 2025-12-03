@@ -122,31 +122,48 @@ const VOTE_HISTORY = [
         results: { yes: 35, no: 42, abstain: 38 },
         consequences: ["Vote tabled for 30 days pending investigation"],
         icon: '🍄'
-    }
-];
-
-const UPCOMING_VOTES = [
+    },
+    // === NEW: IRON MANDATE - JUST PASSED TODAY ===
     {
         id: 'iron_mandate',
         title: "The Iron Mandate",
         proposer: 'Lord Chancellor Aldric Stonehand',
         proposerFaction: 'regal_empire',
         date: { year: 1040, monthIndex: 6, day: 21 },
-        status: 'scheduled',
+        status: 'passed',
         description: "Emergency authorization granting the Iron Legion expanded powers to enforce the Supernatural Sovereignty Act, including: warrantless searches in border provinces, requisition of civilian assets, and summary detention of 'supernatural sympathizers'.",
         arguments: {
             for: "The Sovereignty Act is meaningless without enforcement. The Legion needs these tools to protect citizens from supernatural retaliation. Half-measures invite annihilation.",
             against: "This grants the Legion powers not seen since the Tyrant Wars. Today it's supernaturals—tomorrow, anyone who opposes the Chancellor. The border provinces will become military fiefdoms."
         },
-        projectedResults: null,
-        icon: '🛡️',
-        urgency: 'critical',
-        relatedEvents: [
-            "Supernatural Sovereignty Act (Passed - Day 18)",
-            "Kong-Kremling War Rekindled (Day 18)",
-            "Iron Sky Breach - Vigilance Captured (Day 20)"
-        ]
-    },
+        results: { 
+            yes: 28, 
+            no: 8, 
+            abstain: 3,
+            notable_votes: [
+                { name: 'Archmage Quintus Brightwater', province: 'Yale Shores', vote: 'no', reason: 'Warned this would push the Guild toward the supernatural factions' },
+                { name: 'Speaker Wren Rivers', province: 'Lockerwood', vote: 'abstain', reason: 'Walked out in protest, calling it "the death of liberty"' },
+                { name: 'The Laughing Representative', province: 'Dry County', vote: 'yes', reason: 'Cackled "Let it burn!" before voting' },
+                { name: 'Lord Valerius Ironford', province: 'Capital Province', vote: 'yes', reason: 'Gave impassioned speech about "necessary sacrifices"' }
+            ]
+        },
+        consequences: [
+            "Iron Legion granted emergency powers effective immediately",
+            "Warrantless searches authorized in Autumnwood, Dulgra, Dark Valley, and Gehnsha Glade",
+            "Speaker Wren Rivers resigned from Heartland Alliance leadership",
+            "Mages' Guild recalled all members from border provinces",
+            "Reports of supernatural refugees fleeing toward the Doughnut Hole",
+            "Underground resistance networks beginning to form"
+        ],
+        aftermath: {
+            immediate: "Legion patrols deployed within hours of the vote. First arrests reported in Autumnwood by nightfall.",
+            tensions: "Archmage Brightwater was seen in heated discussion with vampire emissaries outside the Diet chambers.",
+            rumors: "Whispers that Alpha Fenris has called a Grand Moot of all werewolf clans—something not seen in 200 years."
+        },
+        icon: '🛡️'
+    }
+];
+const UPCOMING_VOTES = [
     {
         id: 'refugee_containment_act',
         title: "The Displaced Persons Containment Act",
@@ -161,7 +178,12 @@ const UPCOMING_VOTES = [
         },
         projectedResults: null,
         icon: '🏚️',
-        urgency: 'high'
+        urgency: 'critical',
+        relatedEvents: [
+            "Iron Mandate (Passed - Day 21)",
+            "Mass exodus from border provinces reported",
+            "Vigilance captured by Iron Sky forces (Day 20)"
+        ]
     },
     {
         id: 'mage_registry_amendment',
@@ -177,7 +199,11 @@ const UPCOMING_VOTES = [
         },
         projectedResults: null,
         icon: '📜',
-        urgency: 'medium'
+        urgency: 'high',
+        relatedEvents: [
+            "Mages' Guild recalled members from border provinces (Day 21)",
+            "Archmage seen meeting with vampire emissaries"
+        ]
     },
     {
         id: 'kong_kremling_neutrality',
@@ -194,8 +220,88 @@ const UPCOMING_VOTES = [
         projectedResults: null,
         icon: '🌊',
         urgency: 'medium'
+    },
+    {
+        id: 'emergency_conscription',
+        title: "The Realm Defense Mobilization Act",
+        proposer: 'General Marcus Steelgrave',
+        proposerFaction: 'iron_legion',
+        date: { year: 1040, monthIndex: 7, day: 7 },
+        status: 'drafted',
+        description: "Authorizes emergency conscription of all able-bodied citizens ages 16-45 in border provinces. The Legion claims it's for defense; critics say it's to replace casualties from the coming supernatural war.",
+        arguments: {
+            for: "The supernatural threat is existential. Every citizen must contribute to the realm's defense.",
+            against: "You're drafting children to fight immortal monsters. This is a death sentence disguised as patriotism."
+        },
+        projectedResults: null,
+        icon: '⚔️',
+        urgency: 'high'
     }
 ];
+const TODAYS_DIET_EVENTS = {
+    date: { year: 1040, monthIndex: 6, day: 21 },
+    headline: "IRON MANDATE PASSES - EMPIRE GRANTED EMERGENCY POWERS",
+    summary: "In a tense session that lasted until nightfall, the Holy Midlands Diet passed the Iron Mandate by a vote of 28-8, with 3 abstentions. The legislation grants the Iron Legion sweeping new powers to enforce the Supernatural Sovereignty Act.",
+    keyMoments: [
+        {
+            time: "Morning Session",
+            event: "Lord Chancellor Stonehand opens debate",
+            description: "The Chancellor invoked the memory of the Tyrant Wars, arguing that 'half-measures against existential threats are suicide by indecision.'"
+        },
+        {
+            time: "Midday",
+            event: "Archmage Brightwater's warning",
+            description: "The Mages' Guild representative gave an impassioned speech warning that the Empire was 'making enemies of those who could be allies, and allies of those who should be enemies.'"
+        },
+        {
+            time: "Afternoon",
+            event: "Speaker Rivers walks out",
+            description: "Wren Rivers, leader of the Heartland Alliance, dramatically walked out of the chamber before the vote, declaring 'I will not lend legitimacy to tyranny with my presence.'"
+        },
+        {
+            time: "Evening",
+            event: "Vote passes",
+            description: "The Iron Mandate passes 28-8-3. Legion Commander Blackthorn was seen smiling for the first time anyone can remember."
+        },
+        {
+            time: "Night",
+            event: "First enforcement actions",
+            description: "Legion patrols were deployed to Autumnwood within hours. Reports of arrests have already begun filtering in."
+        }
+    ],
+    reactions: {
+        imperial_concordat: {
+            mood: 'triumphant',
+            statement: "Today, the Diet chose survival over sentimentality. History will remember those who stood firm.",
+            speaker: "Lord Chancellor Aldric Stonehand"
+        },
+        sanguine_covenant: {
+            mood: 'defiant',
+            statement: "They have signed their own death warrants. The night belongs to us, and we have very long memories.",
+            speaker: "Countess Isolde Blackwood (in absentia)"
+        },
+        territorial_pact: {
+            mood: 'enraged',
+            statement: "The hunt begins. But they have forgotten—we are the hunters.",
+            speaker: "Alpha Fenris Greycastle (via encoded message)"
+        },
+        arcane_congress: {
+            mood: 'calculating',
+            statement: "The Guild takes no official position at this time. Individual members are advised to avoid the border provinces.",
+            speaker: "Mages' Guild Official Statement"
+        },
+        heartland_alliance: {
+            mood: 'despairing',
+            statement: "We tried. Gods help us all, we tried. What comes next is on their heads, not ours.",
+            speaker: "Former Speaker Wren Rivers"
+        },
+        chaos_caucus: {
+            mood: 'gleeful',
+            statement: "HAHAHAHA! This is going to be SPECTACULAR!",
+            speaker: "The Laughing Representative"
+        }
+    }
+};
 
 // ============================================
 // REPRESENTATIVE GENERATION
@@ -276,21 +382,34 @@ function generateRepresentatives() {
 function getCurrentVote() {
     const currentAbsDay = CURRENT_GAME_DATE.year * 365 + CURRENT_GAME_DATE.monthIndex * 30 + CURRENT_GAME_DATE.day;
     
-    // Find the most recent scheduled/active vote
+    // Check if we should show today's passed vote as the "current" focus
+    const ironMandate = VOTE_HISTORY.find(v => v.id === 'iron_mandate');
+    if (ironMandate) {
+        const mandateDay = ironMandate.date.year * 365 + ironMandate.date.monthIndex * 30 + ironMandate.date.day;
+        // Show Iron Mandate as current focus for 1 day after passage
+        if (currentAbsDay - mandateDay <= 1) {
+            return { ...ironMandate, isTodaysFocus: true };
+        }
+    }
+    
+    // Otherwise show next upcoming vote
     for (const vote of UPCOMING_VOTES) {
         const voteAbsDay = vote.date.year * 365 + vote.date.monthIndex * 30 + vote.date.day;
-        if (voteAbsDay <= currentAbsDay + 1) { // Include votes happening tomorrow
+        if (voteAbsDay >= currentAbsDay) {
             return vote;
         }
     }
-    return UPCOMING_VOTES[0]; // Default to first upcoming
+    return UPCOMING_VOTES[0];
 }
-
 function getVoteStatus(vote) {
     const currentAbsDay = CURRENT_GAME_DATE.year * 365 + CURRENT_GAME_DATE.monthIndex * 30 + CURRENT_GAME_DATE.day;
     const voteAbsDay = vote.date.year * 365 + vote.date.monthIndex * 30 + vote.date.day;
     
+    // Historical votes
     if (vote.status === 'passed' || vote.status === 'failed' || vote.status === 'tabled') {
+        if (vote.isTodaysFocus) {
+            return 'just_passed';
+        }
         return vote.status;
     }
     
@@ -298,21 +417,35 @@ function getVoteStatus(vote) {
     if (diff < 0) return 'missed';
     if (diff === 0) return 'voting_today';
     if (diff === 1) return 'voting_tomorrow';
+    if (diff <= 3) return 'imminent';
     return 'scheduled';
 }
-
 function simulateVote(vote) {
-    if (vote.results) return vote.results;
-    if (vote.status !== 'passed' && vote.status !== 'failed') {
-        // Project results for upcoming votes
-        return projectVoteResults(vote);
+    // If vote already has final results, return them
+    if (vote.results && !vote.results.projected) {
+        return vote.results;
     }
-    return vote.results;
+    
+    // For historical votes, return stored results
+    if (vote.status === 'passed' || vote.status === 'failed' || vote.status === 'tabled') {
+        return vote.results;
+    }
+    
+    // Project results for upcoming votes
+    return projectVoteResults(vote);
 }
+
 
 function projectVoteResults(vote) {
     const results = { yes: 0, no: 0, abstain: 0, votes: [], projected: true };
     const voteSeed = vote.id.length * 1000 + vote.date.day;
+
+    // Post-Iron Mandate political shifts
+    const postMandateShifts = {
+        'mages_guild': { towardNo: 0.2, towardAbstain: 0.3 }, // Guild is pulling back
+        'unaligned': { towardNo: 0.15, towardAbstain: 0.25 }, // Heartland demoralized
+        'regal_empire': { towardYes: 0.1 } // Empire emboldened
+    };
 
     representatives.forEach((rep, idx) => {
         let voteDecision = 'abstain';
@@ -323,83 +456,116 @@ function projectVoteResults(vote) {
             c.factions.includes(rep.factionId)
         );
 
-        // Base faction alignment
+        // Expelled factions
         if (rep.factionId === 'onyx_hand' || rep.factionId === 'moonfang_pack') {
-            // Supernatural factions - expelled but tracking their "would vote"
             voteDecision = 'expelled';
             reason = 'Expelled from Diet following Supernatural Sovereignty Act.';
             confidence = 1.0;
-        } else if (rep.factionId === 'mages_guild') {
-            // Mages are nervous but strategic
+        } 
+        // Mages - now more oppositional after Iron Mandate
+        else if (rep.factionId === 'mages_guild') {
             if (vote.id === 'mage_registry_amendment') {
                 voteDecision = 'yes';
-                reason = 'Voting to protect Guild interests.';
-                confidence = 0.95;
-            } else if (vote.id === 'iron_mandate') {
+                reason = 'Voting to protect Guild interests - our survival depends on it.';
+                confidence = 0.98;
+            } else if (vote.id === 'refugee_containment_act') {
                 voteDecision = 'no';
-                reason = 'Fears Legion overreach will eventually target mages.';
-                confidence = 0.7;
+                reason = 'After the Mandate, we cannot support further persecution.';
+                confidence = 0.8;
+            } else if (vote.id === 'emergency_conscription') {
+                voteDecision = 'no';
+                reason = 'The Guild will not see its apprentices conscripted.';
+                confidence = 0.9;
             } else {
                 voteDecision = 'abstain';
-                reason = 'Watching carefully, avoiding commitment.';
-                confidence = 0.6;
-            }
-        } else if (coalition?.name === 'The Imperial Concordat') {
-            // Pro-imperial votes
-            if (vote.id === 'iron_mandate' || vote.id === 'refugee_containment_act') {
-                voteDecision = 'yes';
-                reason = 'Supporting the Chancellor\'s security agenda.';
-                confidence = 0.85;
-            } else {
-                voteDecision = 'yes';
-                reason = 'Following party line.';
+                reason = 'The Guild is reassessing all political positions.';
                 confidence = 0.7;
             }
-        } else if (rep.factionId === 'unaligned') {
-            // Heartland swing votes
+        } 
+        // Imperial Concordat - emboldened
+        else if (coalition?.name === 'The Imperial Concordat') {
+            if (vote.id === 'refugee_containment_act' || vote.id === 'emergency_conscription') {
+                voteDecision = 'yes';
+                reason = 'The Iron Mandate proves strength works. Continue the momentum.';
+                confidence = 0.9;
+            } else {
+                voteDecision = 'yes';
+                reason = 'Supporting the Chancellor\'s agenda.';
+                confidence = 0.85;
+            }
+        } 
+        // Heartland - demoralized after Rivers resignation
+        else if (rep.factionId === 'unaligned') {
             const swingRoll = generateSeededRandom(voteSeed + idx);
-            if (vote.id === 'iron_mandate') {
-                if (swingRoll < 0.4) {
+            
+            if (vote.id === 'refugee_containment_act') {
+                // More oppose this than supported Iron Mandate
+                if (swingRoll < 0.5) {
                     voteDecision = 'no';
-                    reason = 'Fears Legion overreach in their province.';
-                } else if (swingRoll < 0.7) {
+                    reason = 'We failed to stop the Mandate. We cannot fail these refugees too.';
+                } else if (swingRoll < 0.8) {
                     voteDecision = 'abstain';
-                    reason = 'Torn between security and liberty.';
+                    reason = 'Without Speaker Rivers, we have no unified position.';
                 } else {
                     voteDecision = 'yes';
-                    reason = 'Believes strong measures are necessary.';
+                    reason = 'Perhaps controlled facilities are better than the alternative.';
                 }
                 confidence = 0.5;
             } else {
-                voteDecision = 'abstain';
-                reason = 'Waiting to see which way the wind blows.';
+                // Generally more abstentions post-Rivers
+                if (swingRoll < 0.4) {
+                    voteDecision = 'abstain';
+                    reason = 'The Heartland Alliance is in disarray.';
+                } else if (swingRoll < 0.6) {
+                    voteDecision = 'no';
+                    reason = 'Following the spirit of what Rivers stood for.';
+                } else {
+                    voteDecision = 'yes';
+                    reason = 'Siding with the winning faction for protection.';
+                }
                 confidence = 0.4;
             }
-        } else if (rep.factionId === 'cosmic_jesters') {
-            // Chaos vote
+        } 
+        // Chaos Caucus
+        else if (rep.factionId === 'cosmic_jesters' || rep.factionId === 'freelancer_underworld') {
             const chaosRoll = generateSeededRandom(voteSeed + idx + 9999);
-            if (chaosRoll < 0.33) voteDecision = 'yes';
-            else if (chaosRoll < 0.66) voteDecision = 'no';
-            else voteDecision = 'abstain';
-            reason = 'Voted based on... unclear criteria.';
+            // Slightly more likely to vote for chaos-inducing measures
+            if (vote.id === 'refugee_containment_act' || vote.id === 'emergency_conscription') {
+                voteDecision = chaosRoll < 0.6 ? 'yes' : (chaosRoll < 0.8 ? 'no' : 'abstain');
+                reason = 'Chaos feeds on conflict.';
+            } else {
+                if (chaosRoll < 0.33) voteDecision = 'yes';
+                else if (chaosRoll < 0.66) voteDecision = 'no';
+                else voteDecision = 'abstain';
+                reason = 'The Laughing Representative flipped a coin.';
+            }
             confidence = 0.1;
         }
 
-        // Personality modifiers
-        if (rep.personality.type === 'Fiery Firebrand' && vote.id === 'iron_mandate') {
-            voteDecision = 'yes';
-            reason = 'Passionately supports crushing supernatural threat.';
-            confidence = 0.9;
-        } else if (rep.personality.type === 'Reformist Idealist' && vote.id === 'iron_mandate') {
-            voteDecision = 'no';
-            reason = 'Believes this path leads to tyranny.';
-            confidence = 0.85;
+        // Apply personality modifiers
+        if (rep.personality.type === 'Reformist Idealist') {
+            if (vote.id === 'refugee_containment_act') {
+                voteDecision = 'no';
+                reason = 'This is unconscionable. I will not be party to it.';
+                confidence = 0.95;
+            }
+        } else if (rep.personality.type === 'Honorable Zealot') {
+            if (vote.id === 'emergency_conscription') {
+                voteDecision = 'yes';
+                reason = 'All must serve in the defense of the realm.';
+                confidence = 0.9;
+            }
         } else if (rep.personality.type === 'Jaded Cynic') {
-            if (generateSeededRandom(voteSeed + idx + 5000) < 0.4) {
+            if (generateSeededRandom(voteSeed + idx + 5000) < 0.5) {
                 voteDecision = 'abstain';
-                reason = 'Believes the vote is already decided by backroom deals.';
+                reason = 'It doesn\'t matter. The outcome is predetermined.';
                 confidence = 0.6;
             }
+        } else if (rep.personality.type === 'Corrupt Opportunist') {
+            // Votes with whoever seems to be winning
+            voteDecision = 'yes';
+            reason = 'Aligning with the ascendant power.';
+            confidence = 0.7;
         }
 
         if (voteDecision !== 'expelled') {
@@ -420,7 +586,118 @@ function projectVoteResults(vote) {
 
     return results;
 }
+function renderTodaysAftermath() {
+    const events = TODAYS_DIET_EVENTS;
+    const ironMandate = VOTE_HISTORY.find(v => v.id === 'iron_mandate');
+    
+    if (!ironMandate) return '';
 
+    const notableVotesHTML = ironMandate.results.notable_votes ? `
+        <div class="notable-votes-section">
+            <h4>📋 Notable Votes</h4>
+            <div class="notable-votes-grid">
+                ${ironMandate.results.notable_votes.map(nv => `
+                    <div class="notable-vote-card vote-${nv.vote}">
+                        <div class="nv-header">
+                            <span class="nv-name">${nv.name}</span>
+                            <span class="nv-vote-badge">${nv.vote.toUpperCase()}</span>
+                        </div>
+                        <span class="nv-province">${nv.province}</span>
+                        <p class="nv-reason">"${nv.reason}"</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
+
+    const consequencesHTML = `
+        <div class="consequences-section">
+            <h4>⚡ Immediate Consequences</h4>
+            <ul class="consequences-list">
+                ${ironMandate.consequences.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+        </div>
+    `;
+
+    const timelineHTML = `
+        <div class="todays-timeline">
+            <h4>📅 Today's Events</h4>
+            <div class="timeline-items">
+                ${events.keyMoments.map(moment => `
+                    <div class="timeline-item">
+                        <div class="timeline-time">${moment.time}</div>
+                        <div class="timeline-content">
+                            <strong>${moment.event}</strong>
+                            <p>${moment.description}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    const reactionsHTML = `
+        <div class="reactions-section">
+            <h4>💬 Faction Reactions</h4>
+            <div class="reactions-grid">
+                ${Object.entries(events.reactions).map(([key, reaction]) => {
+                    const coalition = MIDLANDS_DIET_DATA.coalitions[key];
+                    const moodIcons = {
+                        'triumphant': '🎉',
+                        'defiant': '😤',
+                        'enraged': '🔥',
+                        'calculating': '🧮',
+                        'despairing': '😔',
+                        'gleeful': '😈'
+                    };
+                    return `
+                        <div class="reaction-card mood-${reaction.mood}" style="border-left-color: ${coalition?.color || 'var(--border-color)'}">
+                            <div class="reaction-header">
+                                <span class="reaction-faction">${coalition?.name || key}</span>
+                                <span class="reaction-mood">${moodIcons[reaction.mood] || '❓'}</span>
+                            </div>
+                            <blockquote class="reaction-quote">"${reaction.statement}"</blockquote>
+                            <cite class="reaction-speaker">— ${reaction.speaker}</cite>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+
+    const aftermathHTML = ironMandate.aftermath ? `
+        <div class="aftermath-section">
+            <h4>🌙 As Night Falls...</h4>
+            <div class="aftermath-items">
+                <div class="aftermath-item">
+                    <strong>Immediate:</strong> ${ironMandate.aftermath.immediate}
+                </div>
+                <div class="aftermath-item">
+                    <strong>Tensions:</strong> ${ironMandate.aftermath.tensions}
+                </div>
+                <div class="aftermath-item aftermath-rumor">
+                    <strong>Rumors:</strong> ${ironMandate.aftermath.rumors}
+                </div>
+            </div>
+        </div>
+    ` : '';
+
+    return `
+        <div class="todays-aftermath-container">
+            <div class="aftermath-header">
+                <span class="breaking-badge">⚡ BREAKING</span>
+                <h3>${events.headline}</h3>
+                <p class="aftermath-summary">${events.summary}</p>
+            </div>
+            
+            ${timelineHTML}
+            ${notableVotesHTML}
+            ${consequencesHTML}
+            ${reactionsHTML}
+            ${aftermathHTML}
+        </div>
+    `;
+}
 // ============================================
 // CALENDAR INTEGRATION
 // ============================================
@@ -593,7 +870,6 @@ function getDaysUntil(date) {
 // ============================================
 
 export function renderHolyMidlandsDiet() {
-    // Initialize representatives if needed
     if (representatives.length === 0) {
         representatives = generateRepresentatives();
     }
@@ -603,14 +879,15 @@ export function renderHolyMidlandsDiet() {
     const voteStatus = getVoteStatus(currentVote);
     const voteResults = simulateVote(currentVote);
     
-    // Calculate totals (excluding expelled)
+    // Check if today's focus is the Iron Mandate that just passed
+    const showTodaysAftermath = currentVote.isTodaysFocus && currentVote.id === 'iron_mandate';
+    
     const activeReps = representatives.filter(r => 
         r.factionId !== 'onyx_hand' && r.factionId !== 'moonfang_pack'
     );
     const totalActiveVotes = activeReps.length;
     const expelledCount = representatives.length - activeReps.length;
 
-    // Group by coalition
     const groupedByCoalition = representatives.reduce((acc, rep) => {
         const coalitionKey = Object.keys(data.coalitions).find(key => 
             data.coalitions[key].factions.includes(rep.factionId)
@@ -620,10 +897,26 @@ export function renderHolyMidlandsDiet() {
         return acc;
     }, {});
 
-    // Speaker
     const speakerRep = activeReps[0];
 
-    // Coalition HTML
+    // Updated status config with "just passed"
+    const statusConfig = {
+        'voting_today': { label: 'VOTING TODAY', class: 'status-urgent', icon: '🗳️' },
+        'voting_tomorrow': { label: 'VOTING TOMORROW', class: 'status-warning', icon: '⏰' },
+        'imminent': { label: 'IMMINENT', class: 'status-warning', icon: '⚠️' },
+        'scheduled': { label: 'SCHEDULED', class: 'status-info', icon: '📅' },
+        'passed': { label: 'PASSED', class: 'status-success', icon: '✅' },
+        'just_passed': { label: 'JUST PASSED', class: 'status-breaking', icon: '⚡' },
+        'failed': { label: 'FAILED', class: 'status-danger', icon: '❌' },
+        'tabled': { label: 'TABLED', class: 'status-muted', icon: '📋' }
+    };
+    const statusInfo = statusConfig[voteStatus] || statusConfig['scheduled'];
+    const daysUntil = getDaysUntil(currentVote.date);
+
+    // Coalition HTML with updated vote predictions for next vote
+    const nextVote = UPCOMING_VOTES[0]; // Refugee Containment Act
+    const nextVoteResults = projectVoteResults(nextVote);
+    
     const coalitionsHTML = Object.entries(data.coalitions).map(([key, coalition]) => {
         const reps = groupedByCoalition[key] || [];
         if (reps.length === 0) return '';
@@ -639,7 +932,8 @@ export function renderHolyMidlandsDiet() {
                 <p class="coalition-stance">Stance: <strong>${coalition.stance}</strong> | Leader: ${coalition.leader}</p>
                 <div class="seat-container">
                     ${reps.map(rep => {
-                        const repVote = voteResults.votes?.find(v => v.repId === rep.id);
+                        // Show next vote predictions, not the passed vote
+                        const repVote = nextVoteResults.votes?.find(v => v.repId === rep.id);
                         const voteClass = repVote ? `vote-${repVote.vote}` : '';
                         const expelledClass = isExpelled ? 'expelled' : '';
                         return `
@@ -654,21 +948,9 @@ export function renderHolyMidlandsDiet() {
         `;
     }).join('');
 
-    // Vote status display
-    const statusConfig = {
-        'voting_today': { label: 'VOTING TODAY', class: 'status-urgent', icon: '🗳️' },
-        'voting_tomorrow': { label: 'VOTING TOMORROW', class: 'status-warning', icon: '⏰' },
-        'scheduled': { label: 'SCHEDULED', class: 'status-info', icon: '📅' },
-        'passed': { label: 'PASSED', class: 'status-success', icon: '✅' },
-        'failed': { label: 'FAILED', class: 'status-danger', icon: '❌' },
-        'tabled': { label: 'TABLED', class: 'status-muted', icon: '📋' }
-    };
-    const statusInfo = statusConfig[voteStatus] || statusConfig['scheduled'];
-    const daysUntil = getDaysUntil(currentVote.date);
-
-    // Current vote display
-    const voteDisplayHTML = `
-        <div class="vote-display-card urgency-${currentVote.urgency || 'medium'}">
+    // Current vote display - shows the Iron Mandate final results
+    const voteDisplayHTML = showTodaysAftermath ? `
+        <div class="vote-display-card urgency-breaking just-passed">
             <div class="vote-header">
                 <span class="vote-icon">${currentVote.icon || '🏛️'}</span>
                 <div class="vote-title-block">
@@ -679,36 +961,14 @@ export function renderHolyMidlandsDiet() {
                     <span class="vote-status-badge ${statusInfo.class}">
                         ${statusInfo.icon} ${statusInfo.label}
                     </span>
-                    <span class="vote-date">${formatDate(currentVote.date)}</span>
-                    ${daysUntil > 0 ? `<span class="days-until">(in ${daysUntil} day${daysUntil > 1 ? 's' : ''})</span>` : ''}
+                    <span class="vote-date">${formatDate(currentVote.date)} - TODAY</span>
                 </div>
             </div>
             
             <p class="vote-description">${currentVote.description}</p>
             
-            <div class="vote-arguments">
-                <div class="argument argument-for">
-                    <h5>✅ Argument FOR:</h5>
-                    <p>${currentVote.arguments.for}</p>
-                </div>
-                <div class="argument argument-against">
-                    <h5>❌ Argument AGAINST:</h5>
-                    <p>${currentVote.arguments.against}</p>
-                </div>
-            </div>
-
-            ${currentVote.relatedEvents ? `
-                <div class="related-events">
-                    <h5>📌 Related Events:</h5>
-                    <ul>
-                        ${currentVote.relatedEvents.map(e => `<li>${e}</li>`).join('')}
-                    </ul>
-                </div>
-            ` : ''}
-            
-            <div class="vote-results ${voteResults.projected ? 'projected' : 'final'}">
-                <h4>${voteResults.projected ? '📊 Projected Outcome' : '📊 Final Tally'}</h4>
-                ${voteResults.projected ? '<p class="projection-warning">⚠️ Projections based on current faction alignments. Actual votes may vary.</p>' : ''}
+            <div class="vote-results final">
+                <h4>📊 Final Tally</h4>
                 <div class="vote-tally-bar">
                     <div class="tally-segment vote-yes" 
                          style="width: ${(voteResults.yes / totalActiveVotes) * 100}%" 
@@ -730,28 +990,34 @@ export function renderHolyMidlandsDiet() {
                     </div>
                 </div>
                 <p class="expelled-note">Note: ${expelledCount} seats vacant (supernatural representatives expelled)</p>
+                <p class="result-declaration">THE IRON MANDATE HAS PASSED</p>
             </div>
         </div>
-    `;
+        
+        ${renderTodaysAftermath()}
+    ` : renderStandardVoteDisplay(currentVote, voteResults, statusInfo, totalActiveVotes, expelledCount, daysUntil);
 
-    // Legislative calendar
+    // Updated calendar showing Iron Mandate as passed today
     const calendarHTML = `
         <div class="legislative-calendar">
             <h4>📅 Legislative Calendar</h4>
             <div class="calendar-items">
-                ${VOTE_HISTORY.slice(-2).map(vote => `
-                    <div class="calendar-item historical">
-                        <span class="cal-date">${formatDate(vote.date)}</span>
-                        <span class="cal-title">${vote.title}</span>
-                        <span class="cal-status status-${vote.status}">${vote.status.toUpperCase()}</span>
-                    </div>
-                `).join('')}
-                <div class="calendar-divider">— Today: ${formatDate(CURRENT_GAME_DATE)} —</div>
+                ${VOTE_HISTORY.slice(-3).map(vote => {
+                    const isToday = vote.id === 'iron_mandate';
+                    return `
+                        <div class="calendar-item historical ${isToday ? 'today-vote' : ''}">
+                            <span class="cal-date">${formatDate(vote.date)}${isToday ? ' (TODAY)' : ''}</span>
+                            <span class="cal-title">${vote.title}</span>
+                            <span class="cal-status status-${vote.status}">${vote.status.toUpperCase()}</span>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="calendar-divider">— Upcoming Votes —</div>
                 ${UPCOMING_VOTES.map(vote => {
                     const status = getVoteStatus(vote);
                     const days = getDaysUntil(vote.date);
                     return `
-                        <div class="calendar-item upcoming ${status === 'voting_today' || status === 'voting_tomorrow' ? 'imminent' : ''}">
+                        <div class="calendar-item upcoming ${status === 'imminent' ? 'imminent' : ''}">
                             <span class="cal-date">${formatDate(vote.date)}</span>
                             <span class="cal-title">${vote.title}</span>
                             <span class="cal-days">${days === 0 ? 'TODAY' : days === 1 ? 'TOMORROW' : `+${days} days`}</span>
@@ -762,14 +1028,28 @@ export function renderHolyMidlandsDiet() {
         </div>
     `;
 
-    // Speaker vote
-    const speakerVote = voteResults.votes?.find(v => v.repId === speakerRep?.id)?.vote || 'abstain';
+    // Next vote preview
+    const nextVotePreviewHTML = `
+        <div class="next-vote-preview">
+            <h4>⏭️ Next Vote: ${nextVote.title}</h4>
+            <p class="next-vote-date">${formatDate(nextVote.date)} (in ${getDaysUntil(nextVote.date)} days)</p>
+            <p class="next-vote-desc">${nextVote.description.substring(0, 150)}...</p>
+            <div class="next-vote-projection">
+                <span class="projection-label">Current Projection:</span>
+                <span class="projection-yes">YES: ${nextVoteResults.yes}</span>
+                <span class="projection-no">NO: ${nextVoteResults.no}</span>
+                <span class="projection-abstain">ABSTAIN: ${nextVoteResults.abstain}</span>
+            </div>
+        </div>
+    `;
+
+    const speakerVote = nextVoteResults.votes?.find(v => v.repId === speakerRep?.id)?.vote || 'abstain';
 
     return `
         <div class="diet-header">
             <h2>${data.name}</h2>
             <span class="diet-status status-${data.status.toLowerCase().replace(' ', '-')}">${data.status}</span>
-            <span class="session-info">Session ${data.sessionStartDate ? data.currentSession : '??'}</span>
+            <span class="session-info">Session ${data.currentSession}</span>
         </div>
         
         <p class="system-description">${data.description}</p>
@@ -777,10 +1057,12 @@ export function renderHolyMidlandsDiet() {
         <div class="system-content">
             ${voteDisplayHTML}
             
+            ${showTodaysAftermath ? nextVotePreviewHTML : ''}
+            
             ${calendarHTML}
             
             <h3 class="section-title" style="margin-top: 32px;">Diet Seating Chart</h3>
-            <p class="seating-subtitle">Click on a seat to view representative details and voting prediction.</p>
+            <p class="seating-subtitle">Showing predicted votes for: <strong>${nextVote.title}</strong></p>
             
             <div class="parliament-container">
                 <div class="speaker-section">
@@ -795,22 +1077,88 @@ export function renderHolyMidlandsDiet() {
             </div>
             
             <div class="legend-section">
-                <h4>Vote Legend</h4>
+                <h4>Vote Legend (Next Vote Prediction)</h4>
                 <div class="vote-legend">
-                    <span class="legend-item"><span class="legend-dot vote-yes"></span> Voting YES</span>
-                    <span class="legend-item"><span class="legend-dot vote-no"></span> Voting NO</span>
-                    <span class="legend-item"><span class="legend-dot vote-abstain"></span> Abstaining</span>
+                    <span class="legend-item"><span class="legend-dot vote-yes"></span> Likely YES</span>
+                    <span class="legend-item"><span class="legend-dot vote-no"></span> Likely NO</span>
+                    <span class="legend-item"><span class="legend-dot vote-abstain"></span> Likely Abstain</span>
                     <span class="legend-item"><span class="legend-dot expelled"></span> Expelled</span>
                 </div>
             </div>
         </div>
     `;
 }
-
 // ============================================
 // EVENT LISTENERS
 // ============================================
+function renderStandardVoteDisplay(vote, results, statusInfo, totalVotes, expelled, daysUntil) {
+    return `
+        <div class="vote-display-card urgency-${vote.urgency || 'medium'}">
+            <div class="vote-header">
+                <span class="vote-icon">${vote.icon || '🏛️'}</span>
+                <div class="vote-title-block">
+                    <h3 class="section-title">${vote.title}</h3>
+                    <p class="vote-proposer">Proposed by: <strong>${vote.proposer}</strong></p>
+                </div>
+                <div class="vote-status-block">
+                    <span class="vote-status-badge ${statusInfo.class}">
+                        ${statusInfo.icon} ${statusInfo.label}
+                    </span>
+                    <span class="vote-date">${formatDate(vote.date)}</span>
+                    ${daysUntil > 0 ? `<span class="days-until">(in ${daysUntil} day${daysUntil > 1 ? 's' : ''})</span>` : ''}
+                </div>
+            </div>
+            
+            <p class="vote-description">${vote.description}</p>
+            
+            <div class="vote-arguments">
+                <div class="argument argument-for">
+                    <h5>✅ Argument FOR:</h5>
+                    <p>${vote.arguments.for}</p>
+                </div>
+                <div class="argument argument-against">
+                    <h5>❌ Argument AGAINST:</h5>
+                    <p>${vote.arguments.against}</p>
+                </div>
+            </div>
 
+            ${vote.relatedEvents ? `
+                <div class="related-events">
+                    <h5>📌 Related Events:</h5>
+                    <ul>
+                        ${vote.relatedEvents.map(e => `<li>${e}</li>`).join('')}
+                    </ul>
+                </div>
+            ` : ''}
+            
+            <div class="vote-results ${results.projected ? 'projected' : 'final'}">
+                <h4>${results.projected ? '📊 Projected Outcome' : '📊 Final Tally'}</h4>
+                ${results.projected ? '<p class="projection-warning">⚠️ Projections based on current faction alignments. Actual votes may vary.</p>' : ''}
+                <div class="vote-tally-bar">
+                    <div class="tally-segment vote-yes" 
+                         style="width: ${(results.yes / totalVotes) * 100}%" 
+                         title="${results.yes} Yes votes">
+                        <span class="tally-label">YES</span>
+                        <span class="tally-count">${results.yes}</span>
+                    </div>
+                    <div class="tally-segment vote-no" 
+                         style="width: ${(results.no / totalVotes) * 100}%" 
+                         title="${results.no} No votes">
+                        <span class="tally-label">NO</span>
+                        <span class="tally-count">${results.no}</span>
+                    </div>
+                    <div class="tally-segment vote-abstain" 
+                         style="width: ${(results.abstain / totalVotes) * 100}%" 
+                         title="${results.abstain} Abstain votes">
+                        <span class="tally-label">ABSTAIN</span>
+                        <span class="tally-count">${results.abstain}</span>
+                    </div>
+                </div>
+                <p class="expelled-note">Note: ${expelled} seats vacant (supernatural representatives expelled)</p>
+            </div>
+        </div>
+    `;
+}
 export function initHolyMidlandsDietListeners() {
     const tooltip = document.getElementById('parliament-tooltip');
     const dietContainer = document.querySelector('.unique-system-container');

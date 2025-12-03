@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,8 +43,10 @@
                         <div class="panel-header">
                             <h3>Tactical Spatial Analysis</h3>
                             <div class="visualizer-controls" style="flex-wrap: wrap;">
+                                <!-- Day 21 Events -->
+                                <button class="vis-btn active" data-scene="solarium">Manor: Solarium Battle</button>
                                 <!-- Day 20 Events -->
-                                <button class="vis-btn active" data-scene="breach">Vigilance: Breach</button>
+                                <button class="vis-btn" data-scene="breach">Vigilance: Breach</button>
                                 <button class="vis-btn" data-scene="harbor">Cheep Cheep Harbor</button>
                                 <button class="vis-btn" data-scene="facility">Imperial Prison</button>
                                 <button class="vis-btn" data-scene="rakasha">Rakasha Camp</button>
@@ -73,11 +76,10 @@
                             <div class="panel tactical-panel">
                                 <div class="panel-header"><h3>Current Objectives</h3></div>
                                 <ul class="objective-list">
-                                    <li class="obj-failed">Defend the Airship 'Vigilance'</li>
-                                    <li class="obj-active">Bones: Maintain Cover / Rescue Prisoners</li>
-                                    <li class="obj-active">Ryan: Survive the Rakasha Rites</li>
-                                    <li class="obj-active">Embercap: Assault Fawful's Castle</li>
-                                    <li class="obj-complete">Explore Manor Ruins</li>
+                                    <li class="obj-active">Secure the Ruined Hall</li>
+                                    <li class="obj-complete">Defeat the Shard Stalker</li>
+                                    <li class="obj-active">Confront the Iron Legion Spies</li>
+                                    <li class="obj-active">Recover Humpik (Done)</li>
                                 </ul>
                             </div>
 
@@ -85,16 +87,16 @@
                                 <div class="panel-header"><h3>Environmental Readings</h3></div>
                                 <div class="readings-grid">
                                     <div class="reading-item">
-                                        <span class="label">Imperial Control</span>
-                                        <div class="bar-container"><div class="bar-fill red" style="width: 95%">ABSOLUTE</div></div>
+                                        <span class="label">Mirror Stability</span>
+                                        <div class="bar-container"><div class="bar-fill red" style="width: 15%">SHATTERED</div></div>
                                     </div>
                                     <div class="reading-item">
-                                        <span class="label">Loyalist Morale</span>
-                                        <div class="bar-container"><div class="bar-fill orange" style="width: 60%">WAVERING</div></div>
+                                        <span class="label">Party Cohesion</span>
+                                        <div class="bar-container"><div class="bar-fill orange" style="width: 45%">STRAINED</div></div>
                                     </div>
                                     <div class="reading-item">
                                         <span class="label">Ancient Spirits</span>
-                                        <div class="bar-container"><div class="bar-fill yellow" style="width: 85%">ACTIVE</div></div>
+                                        <div class="bar-container"><div class="bar-fill yellow" style="width: 90%">WATCHING</div></div>
                                     </div>
                                 </div>
                             </div>

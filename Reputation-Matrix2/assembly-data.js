@@ -2,6 +2,458 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+    {
+        id: 'iron_legion_mandate_announcement',
+        order: 31300,
+        characterKey: 'general_marcus_ironhand',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The Midlands Diet has spoken. The Iron Mandate is ratified. To ensure the safety of the realm against supernatural insurrection, the Legion assumes temporary administrative control of all security sectors. Curfew is set for 20:00. Compliance is mandatory. Order prevails.`,
+        likes: 5400,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'We are already deployed. The streets will be clean by morning.' },
+            { characterKey: 'toad_lee', text: 'This is an occupation, not protection.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'mages_guild_withdraws',
+        order: 31295,
+        characterKey: 'archmage_theron',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 5 },
+        timestamp: '5 minutes ago',
+        content: `The Mages' Guild DOES NOT recognize the authority of the Iron Legion to conduct warrantless searches of Arcane Sanctums. This "Mandate" is a violation of the Treaty of Wands. We are withdrawing all Guild Envoys from the Imperial Palace effective immediately.`,
+        likes: 3200,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'They tried to seize my research notes at the border! I incinerated the warrant. Was that wrong?' },
+            { characterKey: 'general_marcus_ironhand', text: 'Your "Treaty" is a relic. Stand down, Theron, or be classified as a threat.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'speaker_rivers_resignation',
+        order: 31290,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 10 },
+        timestamp: '10 minutes ago',
+        content: `BREAKING: Speaker Rivers has resigned from the Diet! He threw his gavel at Lord Chancellor Stonehand and walked out. "I will not preside over the death of liberty," he said.`,
+        likes: 1800,
+        comments: [
+            { characterKey: 'dan', text: 'He was a good toad. The only honest one left.' },
+            { characterKey: 'lord_chancellor_stonehand', text: 'His emotional outburst has been noted. A replacement will be appointed.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'archie_confused_status',
+        order: 31285,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 15 },
+        timestamp: '15 minutes ago',
+        content: `Hypothetical question: If I just got a shiny new Guild Pass, but the Guild just declared war on the Government, and the Government just declared Martial Law... is this pass a shield or a target? The ink isn't even dry yet.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'the_broker', text: 'It is a target. I will buy it from you for 10% of its value as a collector\'s item.' },
+            { characterKey: 'hjumpik', text: 'Trust the lady. Hide the card.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'civilian_checkpoint_report',
+        order: 31280,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `They have checkpoints on every bridge. They are checking for "supernatural contraband." They arrested Old Man Mush because he had a bag of Glow-Berries. They said it was "unsanctioned bio-luminescence." This is insane!`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'iron_legion_commando', text: 'Bio-luminescence is a sign of infection. Report all glowing vegetation.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'moonfang_response',
+        order: 31275,
+        characterKey: 'alpha_bloodmaw',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Let them come to the forests. Their iron armor will only make them slower. The hunt begins.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Target acquired.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'spy_subtle_nod',
+        order: 31270,
+        characterKey: 'iron_legion_spy',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 15 },
+        timestamp: '1 hour 15 minutes ago',
+        content: `The machinery of state is heavy, but it moves with purpose. Those who aligned correctly have nothing to fear.`,
+        likes: 45,
+        comments: [
+            { characterKey: 'hjumpik', text: 'I hear you. Keeping my head down.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'bowser_martial_law_reaction',
+        order: 31265,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 30 },
+        timestamp: '1 hour 30 minutes ago',
+        content: `MARTIAL LAW? I INVENTED MARTIAL LAW! These tin cans think they can tell ME when curfew is?! I sleep when I want! I smash when I want!`,
+        likes: 3500,
+        comments: [
+            { characterKey: 'peach_loyalist_1', text: 'For once... I agree with the Koopa King.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'onyx_hand_underground',
+        order: 31260,
+        characterKey: 'freelancer_spy_1',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The Onyx Hand safehouses are emptying. They're going deep underground. If you owe them money, you might be off the hook. If they owe you money... bad luck.`,
+        likes: 900,
+        comments: [],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'regal_empire_justification',
+        order: 31255,
+        characterKey: 'chancellor_toadsworth',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+        timestamp: '2 hours 30 minutes ago',
+        content: `These measures, while harsh, are necessary to preserve the Regency. We must prioritize the safety of the citizenry over the comfort of the magical elite. We ask for patience.`,
+        likes: 200,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'You sold us out to the Legion, Chancellor.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'humpik_secret_pact_final',
+        order: 31250,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 59 },
+        timestamp: 'Just Now',
+        content: `I have the tools. I have the plan. No magic. Just iron, steel, and muscle. We finish this.`,
+        likes: 512,
+        comments: [
+            { characterKey: 'bowser', text: 'That\'s what I like to hear! Smash time!' },
+            { characterKey: 'iron_legion_spy', text: 'Strike while the iron is hot.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'spy_debrief_log',
+        order: 31245,
+        characterKey: 'iron_legion_spy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 55 },
+        timestamp: '4 minutes ago',
+        content: `Subject H has accepted the terms. The Sorcerer will surrender, or he will fall. The Oracle will be intercepted. The Sovereignty Act approaches.`,
+        likes: 0,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_suspicious_of_spy',
+        order: 31240,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 50 },
+        timestamp: '9 minutes ago',
+        content: `That lady in the shadows... she smells like trouble. And government paperwork. Why is Humpik talking to her? I should roast her just in case.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'humpik', text: 'No roasting! She gave me lockpicks!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'oracle_blood_collected',
+        order: 31235,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 45 },
+        timestamp: '14 minutes ago',
+        content: `Such anger, Archie. But the blood is useful. The ritual requires sacrifice, willing or otherwise. We are one step closer to the end.`,
+        likes: 800,
+        comments: [
+            { characterKey: 'archie', text: 'You made me do that! You baited me!' },
+            { characterKey: 'dan', text: 'Let me bandage that hand, Archie.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'archie_punches_mirror',
+        order: 31230,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 42 },
+        timestamp: '17 minutes ago',
+        content: `humpik was supposed to KILL it?! I did all that—the twig, the panic, the running—and HE spares it?! *CRASH* Ow. My hand.`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'humpik', text: 'It is a statue now. A good statue.' },
+            { characterKey: 'self_reflection_oracle', text: 'Thank you for the donation, wizard.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'mages_guild_pass_grant',
+        order: 31225,
+        characterKey: 'mages_guild_envoy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 40 },
+        timestamp: '19 minutes ago',
+        content: `Due to the successful neutralization (and preservation for study) of the Class-5 Shard Stalker, Archie Miser is hereby granted a Provisional Guild Pass. You are legal. For now.`,
+        likes: 320,
+        comments: [
+            { characterKey: 'archie', text: 'Finally! Some respect!' },
+            { characterKey: 'iron_legion_spy', text: 'Enjoy it while it lasts.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_returns_stone',
+        order: 31220,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 38 },
+        timestamp: '21 minutes ago',
+        content: `I am back! And the lady gave me a choice. Shatter the green mirror, or keep the monster as stone. I chose stone. The Guild wants to study it.`,
+        likes: 900,
+        comments: [
+            { characterKey: 'dan', text: 'You\'re alive! That\'s all that matters.' },
+            { characterKey: 'bowser', text: 'HUMPY!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'spy_mirror_encounter',
+        order: 31215,
+        characterKey: 'iron_legion_spy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 35 },
+        timestamp: '24 minutes ago',
+        content: `Encountered Subject H in the Reflection Archive. He has... potential. We had a productive conversation about free will and hammers.`,
+        likes: 50,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_mirror_parkour',
+        order: 31210,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 32 },
+        timestamp: '27 minutes ago',
+        content: `The buildings are floating! The books are flying! I am jumping like a flea! Also, found a lady reading a book. She knows my name. Is she a ghost?`,
+        likes: 650,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_kill_confirm',
+        order: 31205,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 30 },
+        timestamp: '29 minutes ago',
+        content: `GOTCHA! CHOKEHOLD! It shattered! The mirrors are breaking! WHERE IS HUMPIK?!`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'mages_guild_envoy', text: 'We will take the debris. And the Red one.' },
+            { characterKey: 'toad_lee', text: 'He\'s still in there!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'red_humpik_taunt',
+        order: 31200,
+        characterKey: 'red_humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 28 },
+        timestamp: '31 minutes ago',
+        content: `Why the long face, Bowser? I'm the real humpik! I just got a tan! Break the mirrors! There are... uh... fifty toads in there! Trust me!`,
+        likes: 15,
+        comments: [
+            { characterKey: 'dan', text: 'He is definitely lying.' },
+            { characterKey: 'bowser', text: 'I AM PUNCHING YOU NOW!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'blue_humpik_riddle',
+        order: 31195,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 26 },
+        timestamp: '33 minutes ago',
+        content: `The Blue Humpik says "If you attack me, you attack yourself." I say "Hammer goes BONK." I jumped past him. He threw an axe at me! Rude!`,
+        likes: 880,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'green_t_rescued',
+        order: 31190,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 25 },
+        timestamp: '34 minutes ago',
+        content: `I'm out! Dan pulled me out! I was in there for HOURS. I saw myself aging. I saw infinite Green Ts. I need a juice box.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'dan', text: 'Stay behind me, kid.' },
+            { characterKey: 'waluigi', text: 'DID YOU FIND ANY COINS IN THERE?' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'dan_saves_green_t',
+        order: 31185,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 23 },
+        timestamp: '36 minutes ago',
+        content: `Smashed the mirror—failed. It didn't break. Had to reach in and PULL him out. Green T is safe. But humpik is still gone.`,
+        likes: 700,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Focus on the monster, Dan! Bowser has it!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_abducted',
+        order: 31180,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 20 },
+        timestamp: '39 minutes ago',
+        content: `Me and Bowser, the Dream Team! Attacking from abov—HEY! IT GRABBED MY HAMMER! I'M BEING PULLED I—`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'bowser', text: 'NO! LET HIM GO!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_fire_breath',
+        order: 31175,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 18 },
+        timestamp: '41 minutes ago',
+        content: `The little wizard throws twigs? PATHETIC! WATCH THE KING! FIRE BREATH!`,
+        likes: 2200,
+        comments: [
+            { characterKey: 'archie', text: 'Okay, show off.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_fake_reflection',
+        order: 31170,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 15 },
+        timestamp: '44 minutes ago',
+        content: `That reflection... it looked at me funny. That's not me! SMASHING THE MIRROR! It's gone now.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'dan', text: 'Good instincts, Humpik.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'oracle_tree_comment',
+        order: 31165,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 12 },
+        timestamp: '47 minutes ago',
+        content: `There used to be a lovely tree here. This monster has simply ruined the ambiance. *Swings cane* Rude beast, ignoring me.`,
+        likes: 900,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_benches_toadburt',
+        order: 31160,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 10 },
+        timestamp: '49 minutes ago',
+        content: `Where do you think you're going, Little Toad? You sit this one out. You'll get squashed. The King works alone! (And with Humpik).`,
+        likes: 1800,
+        comments: [
+            { characterKey: 'toadburt', text: 'But I have a stick!' },
+            { characterKey: 'bowser', text: 'SIT.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'dan_dizzy',
+        order: 31155,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 8 },
+        timestamp: '51 minutes ago',
+        content: `One arm, spinning room, too many mirrors. I think I'm gonna be sick. Standing my ground.`,
+        likes: 400,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'archie_flaming_twig',
+        order: 31150,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 6 },
+        timestamp: '53 minutes ago',
+        content: `Analyzed the creature. Determined fire resistance is low. Casting... uh... Flaming Twig. ...It didn't care. It just retreated. Great.`,
+        likes: 650,
+        comments: [
+            { characterKey: 'mages_guild_envoy', text: 'That is a cantrip, at best.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'toad_lee_stairs',
+        order: 31145,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 4 },
+        timestamp: '55 minutes ago',
+        content: `Too crowded in the stairwell! Making a path! Hopping over the Oracle! Engaging the target!`,
+        likes: 500,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'oracle_slams_monster',
+        order: 31140,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 2 },
+        timestamp: '57 minutes ago',
+        content: `It's showtime. *SLAM*`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'humpik', text: 'He is very fast for an old spooky man.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_door_breach',
+        order: 31135,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Someone is picking the lock? No time! Squeezing through! I'll take the front line! Let's go!`,
+        likes: 700,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Wait for the squad!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'solarium_desc',
+        order: 31130,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 55 },
+        timestamp: '1 hour 5 minutes ago',
+        content: `The Attic Solarium. Broken glass, rusty frame, overgrown plants killing each other. And a ring of mirrors. This is definitely a trap.`,
+        likes: 1000,
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: 'Open the door when you are ready.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
         {
         id: 'waluigi_spider_slayer',
         order: 31039,

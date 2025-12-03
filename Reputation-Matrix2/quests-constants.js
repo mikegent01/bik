@@ -1,3 +1,4 @@
+// quests-constants.js - ADD these enhanced status definitions
 
 export const QUEST_STATUS = {
     HIDDEN: 'hidden',
@@ -11,6 +12,152 @@ export const QUEST_STATUS = {
     EXPIRED: 'expired'
 };
 
+// Enhanced status configuration with visual styling
+export const QUEST_STATUS_CONFIG = {
+    hidden: {
+        label: 'Hidden',
+        icon: '👁️‍🗨️',
+        color: '#6c757d',
+        bgColor: 'rgba(108, 117, 125, 0.15)',
+        borderColor: 'rgba(108, 117, 125, 0.3)',
+        glowColor: 'transparent',
+        animation: null
+    },
+    available: {
+        label: 'Available',
+        icon: '📋',
+        color: '#74c0fc',
+        bgColor: 'rgba(116, 192, 252, 0.15)',
+        borderColor: 'rgba(116, 192, 252, 0.4)',
+        glowColor: 'rgba(116, 192, 252, 0.2)',
+        animation: 'pulse-soft'
+    },
+    active: {
+        label: 'Active',
+        icon: '⚡',
+        color: '#ffd43b',
+        bgColor: 'rgba(255, 212, 59, 0.15)',
+        borderColor: 'rgba(255, 212, 59, 0.5)',
+        glowColor: 'rgba(255, 212, 59, 0.3)',
+        animation: 'pulse-glow'
+    },
+    ongoing: {
+        label: 'In Progress',
+        icon: '🔄',
+        color: '#69db7c',
+        bgColor: 'rgba(105, 219, 124, 0.15)',
+        borderColor: 'rgba(105, 219, 124, 0.4)',
+        glowColor: 'rgba(105, 219, 124, 0.2)',
+        animation: 'spin-slow'
+    },
+    pending: {
+        label: 'Pending',
+        icon: '⏳',
+        color: '#ffa94d',
+        bgColor: 'rgba(255, 169, 77, 0.15)',
+        borderColor: 'rgba(255, 169, 77, 0.4)',
+        glowColor: 'rgba(255, 169, 77, 0.2)',
+        animation: 'hourglass'
+    },
+    paused: {
+        label: 'Paused',
+        icon: '⏸️',
+        color: '#adb5bd',
+        bgColor: 'rgba(173, 181, 189, 0.15)',
+        borderColor: 'rgba(173, 181, 189, 0.4)',
+        glowColor: 'transparent',
+        animation: null
+    },
+    completed: {
+        label: 'Completed',
+        icon: '✅',
+        color: '#51cf66',
+        bgColor: 'rgba(81, 207, 102, 0.15)',
+        borderColor: 'rgba(81, 207, 102, 0.5)',
+        glowColor: 'rgba(81, 207, 102, 0.3)',
+        animation: 'success-flash'
+    },
+    failed: {
+        label: 'Failed',
+        icon: '💀',
+        color: '#ff6b6b',
+        bgColor: 'rgba(255, 107, 107, 0.2)',
+        borderColor: 'rgba(255, 107, 107, 0.6)',
+        glowColor: 'rgba(255, 107, 107, 0.4)',
+        animation: 'shake-fade',
+        strikethrough: true
+    },
+    expired: {
+        label: 'Expired',
+        icon: '⌛',
+        color: '#868e96',
+        bgColor: 'rgba(134, 142, 150, 0.15)',
+        borderColor: 'rgba(134, 142, 150, 0.3)',
+        glowColor: 'transparent',
+        animation: 'fade-out',
+        strikethrough: true
+    }
+};
+
+// Milestone-specific statuses
+export const MILESTONE_STATUS_CONFIG = {
+    completed: {
+        label: 'Complete',
+        icon: '✓',
+        color: '#51cf66',
+        bgColor: 'rgba(81, 207, 102, 0.15)',
+        lineStyle: 'solid'
+    },
+    active: {
+        label: 'Active',
+        icon: '►',
+        color: '#ffd43b',
+        bgColor: 'rgba(255, 212, 59, 0.15)',
+        lineStyle: 'dashed',
+        pulse: true
+    },
+    pending: {
+        label: 'Pending',
+        icon: '○',
+        color: '#adb5bd',
+        bgColor: 'transparent',
+        lineStyle: 'dotted'
+    },
+    locked: {
+        label: 'Locked',
+        icon: '🔒',
+        color: '#495057',
+        bgColor: 'rgba(73, 80, 87, 0.1)',
+        lineStyle: 'none',
+        locked: true
+    },
+    failed: {
+        label: 'Failed',
+        icon: '✗',
+        color: '#ff6b6b',
+        bgColor: 'rgba(255, 107, 107, 0.15)',
+        lineStyle: 'solid',
+        strikethrough: true
+    },
+    skipped: {
+        label: 'Skipped',
+        icon: '↷',
+        color: '#868e96',
+        bgColor: 'transparent',
+        lineStyle: 'dotted',
+        strikethrough: true
+    }
+};
+
+// Goal status configuration
+export const GOAL_STATUS_CONFIG = {
+    completed: { icon: '✓', color: '#51cf66', strike: false },
+    active: { icon: '►', color: '#ffd43b', strike: false },
+    pending: { icon: '○', color: '#adb5bd', strike: false },
+    locked: { icon: '🔒', color: '#495057', strike: false },
+    failed: { icon: '✗', color: '#ff6b6b', strike: true },
+    optional: { icon: '◇', color: '#74c0fc', strike: false }
+};
 export const QUEST_PRIORITY = {
     CRITICAL: { level: 5, label: 'CRITICAL', color: '#ff4444', icon: '🔴' },
     HIGH: { level: 4, label: 'High', color: '#ff8c00', icon: '🟠' },

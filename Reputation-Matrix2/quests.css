@@ -1,3 +1,5 @@
+
+
 /* ============================================
    QUESTS.CSS - Quest Log Styles
    ============================================ */
@@ -1159,7 +1161,7 @@
 /* BONUS OBJECTIVES (New Conditional Reward Style) */
 .bonus-objective {
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--text-accent);
     border-radius: 6px;
     margin-top: 8px;
     display: flex;
@@ -1196,18 +1198,18 @@
     opacity: 0.8;
 }
 
-.bonus-condition .bonus-label { color: var(--accent-color); }
+.bonus-condition .bonus-label { color: var(--text-accent); }
 .bonus-reward .bonus-label { color: #ffd700; }
 
 .bonus-text {
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--text-primary);
     line-height: 1.3;
 }
 
 .bonus-divider {
     width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--border-color), transparent);
+    background: linear-gradient(to bottom, transparent, var(--quest-border), transparent);
 }
 
 /* Hints */
@@ -1234,9 +1236,6 @@
     font-size: 0.9rem;
 }
 
-.consequence.success { border-left-color: #51cf66; }
-.consequence.partial { border-left-color: #ffd700; }
-.consequence.failure { border-left-color: #ff4444; }
 /* Consequences */
 .consequences-grid {
     display: flex;
@@ -1251,25 +1250,127 @@
     background: rgba(0,0,0,0.2);
     border-left: 3px solid transparent;
 }
+
+.consequence.success { border-left-color: #51cf66; }
+.consequence.partial { border-left-color: #ffd700; }
+.consequence.failure { border-left-color: #ff4444; }
+
 .option-consequence { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
-/* Party Load */
-.party-quest-load {
+.conditional-rewards {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.rewards-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    width: 100%;
+    gap: 10px;
 }
-Here’s only the new/updated CSS you need to add for the Party Workload section to look polished and match your existing quests.css aesthetic:
-CSS
+
+.conditional-reward-item {
+    position: relative;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+}
+
+/* Completed State */
+.conditional-reward-item.reward-completed {
+    border-left-color: var(--status-completed);
+    background: rgba(81, 207, 102, 0.1);
+}
+
+/* PENDING State */
+.conditional-reward-item.reward-pending {
+    border-left-color: var(--status-pending);
+}
+
+/* FAILED State - Specific Fix */
+.conditional-reward-item.reward-failed {
+    border-left-color: var(--status-failed);
+    background: rgba(255, 71, 87, 0.1);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.conditional-reward-item.reward-failed .reward-condition-text,
+.conditional-reward-item.reward-failed .reward-name {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.conditional-reward-item.reward-failed .reward-status-icon::after {
+    content: '❌';
+}
+
+/* The Fail Reason Text */
+.fail-reason {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--status-failed);
+    font-weight: 600;
+    font-style: italic;
+    background: rgba(0,0,0,0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.fail-reason::before {
+    content: "FAILURE: ";
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+/* Reward Content Styling */
+.reward-condition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.reward-condition-text {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+
+.reward-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.reward-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    color: var(--text-accent);
+}
 
 /* =============== PARTY WORKLOAD SECTION =============== */
 .dashboard-section h4 {
-    margin: 0 0 12px 0;
+    margin: 1.5rem 0 12px 0;
     font-family: 'Orbitron', monospace;
     font-size: 1rem;
     color: var(--text-accent);
     letter-spacing: 1px;
     text-transform: uppercase;
+}
+
+.party-quest-load {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
 }
 
 .member-load {

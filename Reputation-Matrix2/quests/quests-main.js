@@ -1,5 +1,5 @@
+// quests-main.js - UPDATED
 
-// quests-main.js
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
 export const MAIN_QUESTS = {
@@ -24,12 +24,12 @@ export const MAIN_QUESTS = {
         tags: ['combat', 'rescue', 'airship', 'betrayal', 'urgent', 'faction-war'],
         dates: { 
             added: { year: 1040, monthIndex: 6, day: 18 }, 
-            updated: { year: 1040, monthIndex: 6, day: 20 },
+            updated: { year: 1040, monthIndex: 6, day: 21 },
             deadline: { year: 1040, monthIndex: 6, day: 25 }
         },
-        description: "The unthinkable has happened. Following the 'Iron Sky Breach' event at Raventree Manor, the Iron Legion launched a ruthless boarding action against the Vigilance. Despite Captain Ryan's desperate resistance and the crew's valiant stand, the ship was seized in a brutal thirty-minute assault. Ryan was forced to leap from the burning deck, plummeting into the forest canopy below. The surviving Liberated Toads are either scattered across the countryside, hiding in the wreckage of their dreams, or in Legion chains being transported to an unknown facility. The Iron Legion now controls the skies above the Midlands, and with them, the party's only true home.",
+        description: "The unthinkable has happened. Following the 'Iron Sky Breach' event at Raventree Manor, the Iron Legion launched a ruthless boarding action against the Vigilance. Despite Captain Ryan's desperate resistance and the crew's valiant stand, the ship was seized in a brutal thirty-minute assault. Ryan was forced to leap from the burning deck, plummeting into the forest canopy below. The surviving Liberated Toads are either scattered across the countryside, hiding in the wreckage of their dreams, or in Legion chains being transported to an unknown facility. The Iron Legion now controls the skies above the Midlands, and with them, the party's only true home. Today's passage of the Iron Mandate has made the situation exponentially worse—the Legion now has legal authority to hunt down survivors.",
         
-        loreEntries: ['vigilance_history', 'iron_legion_tactics', 'ryan_the_pilot'],
+        loreEntries: ['vigilance_history', 'iron_legion_tactics', 'ryan_the_pilot', 'iron_mandate'],
         
         consequences: {
             success: "Reclaiming the Vigilance restores the party's mobility and deals a crushing blow to Legion morale. The Liberated Toads gain a symbol of hope.",
@@ -81,10 +81,10 @@ export const MAIN_QUESTS = {
                 id: 'm3', 
                 status: 'active', 
                 title: "Regroup and Retaliate", 
-                description: "The party is fractured across multiple locations. To retake the ship, they must first survive the current manhunt, gather their scattered allies, and formulate a plan to breach the Legion's aerial cordon around the captured Vigilance.",
+                description: "The party is fractured across multiple locations. The Iron Mandate passed today—the Legion now has legal authority for warrantless searches and summary detention. Time is running out.",
                 goals: [
                     { text: "Escape Raventree Manor alive", status: 'active', priority: 'critical' },
-                    { text: "Locate Captain Ryan in the eastern forest", status: 'active', priority: 'high' },
+                    { text: "Locate Captain Ryan in the eastern forest", status: 'pending', priority: 'high' },
                     { text: "Contact the Rakasha for aerial reconnaissance", status: 'pending', priority: 'medium' },
                     { text: "Identify the Legion's prisoner transport route", status: 'locked', priority: 'high' },
                     { text: "Rally the scattered Toad survivors", status: 'pending', priority: 'medium' }
@@ -121,7 +121,8 @@ export const MAIN_QUESTS = {
                                 name: "The Devil's Bargain", 
                                 description: "Negotiate with a Legion officer who may have... flexible loyalties.",
                                 requirements: ["Significant leverage or payment", "Contact within Legion"],
-                                consequences: { success: "Bloodless resolution", failure: "Trap sprung, position revealed" }
+                                consequences: { success: "Bloodless resolution", failure: "Trap sprung, position revealed" },
+                                note: "Humpik has established contact with a Legion spy. This path may now be viable."
                             }
                         ]
                     }
@@ -157,7 +158,7 @@ export const MAIN_QUESTS = {
         npcs: {
             allies: ['captain_ryan', 'toad_lee', 'roger_the_bold', 'rakasha_pilot'],
             enemies: ['legion_commander_vex', 'iron_legion', 'void_hunters'],
-            neutral: ['smuggler_collective', 'mercenary_guild']
+            neutral: ['smuggler_collective', 'mercenary_guild', 'legion_spy']
         },
 
         locations: {
@@ -169,13 +170,15 @@ export const MAIN_QUESTS = {
             "Ryan knows a maintenance hatch that isn't on any official schematic.",
             "The Legion rotates guards every four hours - there's a fifteen minute window during shift change.",
             "One of the Legion officers has gambling debts to the wrong people...",
-            "The Rakasha owe Ryan a life-debt. They might provide more than just reconnaissance."
+            "The Rakasha owe Ryan a life-debt. They might provide more than just reconnaissance.",
+            "Humpik's new Legion contact might prove useful—if she can be trusted."
         ],
 
         journalEntries: [
             { date: { year: 1040, monthIndex: 6, day: 18 }, author: 'system', text: "The Vigilance has been captured. All hands scattered. This is our darkest hour." },
             { date: { year: 1040, monthIndex: 6, day: 19 }, author: 'ryan', text: "Broken ribs. Can barely breathe. But I'm alive. The bastards have my ship. They'll pay for every scratch on her hull." },
-            { date: { year: 1040, monthIndex: 6, day: 20 }, author: 'system', text: "Contact established with Ryan. He's injured but mobile. Planning phase initiated." }
+            { date: { year: 1040, monthIndex: 6, day: 20 }, author: 'system', text: "Contact established with Ryan. He's injured but mobile. Planning phase initiated." },
+            { date: { year: 1040, monthIndex: 6, day: 21 }, author: 'system', text: "The Iron Mandate has passed. The Legion now has emergency powers. Our window is closing." }
         ],
 
         relatedQuests: ['retrieve_the_staff', 'toads_a_place_to_call_home', 'liberated_toads_integration']
@@ -201,11 +204,11 @@ export const MAIN_QUESTS = {
         tags: ['artifact', 'curse', 'tragedy', 'redemption', 'time-sensitive'],
         dates: { 
             added: { year: 1040, monthIndex: 6, day: 15 }, 
-            updated: { year: 1040, monthIndex: 6, day: 20 },
+            updated: { year: 1040, monthIndex: 6, day: 21 },
             deadline: { year: 1040, monthIndex: 6, day: 28 }
         },
         
-        description: "The artifact recovered from the rogue mage X.O. is no mere weapon—it is a conduit of raw, unstable magic that seems to possess a malevolent sentience. When Dan, driven by desperation and grief, attempted to wield it to protect the toads during the Legion's assault, the staff recognized his pain and fed upon it. The resulting magical detonation cost Dan his right arm and unleashed a devastating blast that killed thirteen of his kin—toads who trusted him to protect them. The staff is currently in the trembling possession of Toad Lee, sealed within an 'Iron Binding' ritual circle that he created from memory. But the runes are degrading. Cracks are forming. The staff whispers through the barriers. It is a weapon of mass destruction with a faulty trigger, and it is counting down.",
+        description: "The artifact recovered from the rogue mage X.O. is no mere weapon—it is a conduit of raw, unstable magic that seems to possess a malevolent sentience. When Dan, driven by desperation and grief, attempted to wield it to protect the toads during the Legion's assault, the staff recognized his pain and fed upon it. The resulting magical detonation cost Dan his right arm and unleashed a devastating blast that killed thirteen of his kin—toads who trusted him to protect them. Despite his injury, Dan proved his courage today by pulling Green T from the Mirror Dimension with his one remaining arm. The staff remains sealed, but the binding weakens with each passing hour.",
 
         loreEntries: ['xo_the_betrayer', 'iron_binding_ritual', 'arcane_weapons_history'],
 
@@ -263,9 +266,9 @@ export const MAIN_QUESTS = {
                 id: 'm3', 
                 status: 'active', 
                 title: "Seek the Arcane Smith", 
-                description: "Rumors point to a legendary smith in the Undercity who specializes in cursed metals and corrupted artifacts. This 'Forgemaster Grimm' is said to have unmade weapons that drove their wielders to madness. Finding them is the first challenge—convincing them to help may be harder.",
+                description: "Rumors point to a legendary smith in the Undercity who specializes in cursed metals and corrupted artifacts. This 'Forgemaster Grimm' is said to have unmade weapons that drove their wielders to madness. Finding them is the first challenge—convincing them to help may be harder. The Mages' Guild may have information, but after the Iron Mandate, their cooperation is uncertain.",
                 goals: [
-                    { text: "Locate an entrance to the Undercity", status: 'active', priority: 'high' },
+                    { text: "Locate an entrance to the Undercity", status: 'pending', priority: 'high' },
                     { text: "Find a guide who knows the Forgemaster's location", status: 'pending', priority: 'medium' },
                     { text: "Gather payment for the Forgemaster's services", status: 'pending', priority: 'medium' },
                     { text: "Transport the staff safely to the forge", status: 'locked', priority: 'critical' }
@@ -347,13 +350,15 @@ export const MAIN_QUESTS = {
             "The staff seems to react to strong emotions—particularly grief and rage.",
             "Forgemaster Grimm hasn't been seen on the surface in thirty years. They had a falling out with the Mages' Guild.",
             "The thirteen souls killed by the staff... might still be trapped inside it.",
-            "Dan's severed arm occasionally twitches in the direction of the staff, even from a distance."
+            "Dan's severed arm occasionally twitches in the direction of the staff, even from a distance.",
+            "Archie's new Mages' Guild membership might help locate the Forgemaster."
         ],
 
         journalEntries: [
             { date: { year: 1040, monthIndex: 6, day: 15 }, author: 'toad_lee', text: "The binding is failing. I can hear it whispering at night. It knows my name." },
             { date: { year: 1040, monthIndex: 6, day: 18 }, author: 'dan', text: "What have I done? Thirteen souls. Thirteen friends. Their blood is on my hands—on my one remaining hand." },
-            { date: { year: 1040, monthIndex: 6, day: 20 }, author: 'system', text: "Seal integrity now at 31%. Time is running out." }
+            { date: { year: 1040, monthIndex: 6, day: 20 }, author: 'system', text: "Seal integrity now at 31%. Time is running out." },
+            { date: { year: 1040, monthIndex: 6, day: 21 }, author: 'dan', text: "Pulled Green T from that mirror with one arm. Maybe I'm not completely useless. Maybe there's still a chance to make things right." }
         ],
 
         relatedQuests: ['dan_reclaim_the_staff', 'vigilance_fallen']
@@ -380,29 +385,29 @@ export const MAIN_QUESTS = {
         tags: ['supernatural', 'time', 'demons', 'puzzle', 'cosmic-horror'],
         dates: { 
             added: { year: 1040, monthIndex: 6, day: 19 }, 
-            updated: { year: 1040, monthIndex: 6, day: 20 }
+            updated: { year: 1040, monthIndex: 6, day: 21 }
         },
 
-        description: "The Oracle of Raventree—a being who has lived the same day ten thousand times—has revealed the true nature of the manor's curse. It is not merely haunted; it is a nexus point where three distinct timelines have been forcibly braided together by demonic anchors. Past, present, and a terrible possible future bleed into one another, creating paradoxes that drive mortals mad and feed the entities that dwell in the spaces between moments. The Star Ascension of the 'Evil Toad God' destabilized the first anchor, but two demons remain. To heal Eager's fractured mind, to escape the loop, to prevent this manor from becoming a permanent wound in reality, these entities must be destroyed—or bound—or bargained with. Each has their own nature. Each has their own price. Visit the <a href='artifacts.html' class='quest-link'>Artifact Collection</a> to track your progress.",
+        description: "The Oracle of Raventree—a being who has lived the same day ten thousand times—has revealed the true nature of the manor's curse. It is not merely haunted; it is a nexus point where three distinct timelines have been forcibly braided together by demonic anchors. Two of the three demons have been dealt with. The Spider Demon was destroyed by Markop's holy fire. The Mirror Terror was spared by Humpik—contained rather than killed, much to the Oracle's displeasure. He now demands blood for the final ritual. Archie has volunteered to hunt the last demon alone while the rest of the party prepares for the ritual. The Iron Legion watches from the shadows. A spy has made a deal with Humpik. The clock tower still hasn't struck midnight.",
 
         loreEntries: ['raventree_curse_origin', 'timeline_bleeding', 'demon_taxonomy', 'oracle_families'],
 
         consequences: {
             success: "The timelines separate. Raventree becomes just a manor again. Those trapped are freed. Eager's mind is restored.",
-            partial: "Some demons are destroyed but others remain. The curse continues in a weakened but persistent form.",
+            partial: "With the Mirror Terror spared, the curse is weakened but not broken. Residual instability remains.",
             failure: "The timelines collapse into one another. Everyone in the manor is erased from existence—past, present, and future."
         },
 
         rewards: {
             guaranteed: [
                 { type: 'artifact', name: "Shard of Stabilized Time", description: "A crystal containing a moment of perfect stillness. Has various temporal applications." },
-                { type: 'ally', name: "The Oracle's Gratitude", description: "The Oracle becomes a powerful divination contact" },
+                { type: 'ally', name: "The Oracle's... Tolerance", description: "The Oracle is displeased that the Mirror Terror was spared, but the ritual can proceed." },
                 { type: 'reputation', faction: 'cosmic_entities', amount: 200, description: "Notice from beings beyond mortal ken", name: "Cosmic Notice" }
             ],
             conditional: [
-                { condition: "Destroy all three demons", reward: { type: 'title', name: "Timeline Mender", description: "You have healed a wound in reality itself" }},
-                { condition: "Bind a demon instead of destroying it", reward: { type: 'summon', name: "Bound Demon", description: "A dangerous but controllable ally" }},
-                { condition: "Complete without any party deaths", reward: { type: 'blessing', name: "Temporal Immunity", description: "Resistance to time-manipulation effects" }}
+                { condition: "Destroy all three demons", reward: { type: 'title', name: "Timeline Mender", description: "You have healed a wound in reality itself" }, status: 'failed', reason: "Mirror Terror was spared by Humpik" },
+                { condition: "Spare the Mirror Terror", reward: { type: 'favor', name: "Legion Intelligence Contact", description: "The Iron Legion spy owes Humpik for this outcome" }, status: 'earned' },
+                { condition: "Complete without any party deaths", reward: { type: 'blessing', name: "Temporal Immunity", description: "Resistance to time-manipulation effects" }, status: 'pending' }
             ],
             xp: 10000,
             gold: { min: 3000, max: 8000 }
@@ -413,7 +418,7 @@ export const MAIN_QUESTS = {
                 id: 'm1', 
                 status: 'completed', 
                 title: "The Star Ascendant", 
-                description: "The entity once known as the 'Evil Toad' utilized a Star Fragment to transcend its mortal form, becoming something between a god and an abomination. This violent apotheosis destabilized the first temporal anchor, causing the timeline bleeding to accelerate.",
+                description: "The entity once known as the 'Evil Toad' utilized a Star Fragment to transcend its mortal form, becoming something between a god and an abomination. This violent apotheosis destabilized the first temporal anchor.",
                 completedDate: { year: 1040, monthIndex: 6, day: 19 },
                 outcomes: [
                     "First anchor destroyed (unintentionally)",
@@ -437,26 +442,28 @@ export const MAIN_QUESTS = {
             },
             { 
                 id: 'm3', 
-                status: 'active', 
+                status: 'completed', 
                 title: "The Three Demons", 
-                description: "Three entities anchor the curse. Each must be confronted.",
+                description: "Two anchors are dealt with. The third is being hunted.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
                 goals: [
                     { 
                         text: "The Spider Demon (The Weaver of Moments)", 
                         status: 'completed', 
-                        details: "Hunted by Markop in the basement levels. Destroyed via holy fire.",
+                        details: "Destroyed by Markop via holy fire in the basement levels.",
                         priority: 'completed'
                     },
                     { 
                         text: "The Mirror Terror (The Reflection That Hungers)", 
-                        status: 'active', 
-                        details: "Currently stalking the Upper House. Has captured Green T. Weakness: Cannot exist without something to reflect.",
-                        priority: 'critical'
+                        status: 'completed', 
+                        details: "SPARED by Humpik. Contained in the mirror dimension by choice. The Oracle is displeased—demands blood for the ritual.",
+                        priority: 'completed',
+                        outcome: 'spared'
                     },
                     { 
                         text: "The Arcane Wraith (The Echo of Uncast Spells)", 
                         status: 'active', 
-                        details: "Roaming the Dance Hall, feeding on magical energy. Even the Legion fears it.",
+                        details: "Archie is hunting it alone in the lower levels. He has a provisional Mages' Guild card now.",
                         priority: 'high'
                     }
                 ],
@@ -467,16 +474,21 @@ export const MAIN_QUESTS = {
                         status: 'destroyed',
                         domain: "Connections between cause and effect",
                         weakness: "Holy fire severs its threads",
-                        reward: "Thread of Causality (allows minor retcon once per day)"
+                        reward: "Thread of Causality (allows minor retcon once per day)",
+                        destroyedBy: "Markop",
+                        method: "Holy fire"
                     },
                     {
                         id: 'mirror_terror',
                         name: "The Reflection That Hungers",
-                        status: 'active',
+                        status: 'contained',
                         domain: "Identity and self-perception",
-                        weakness: "Cannot exist in complete darkness or without reflective surfaces",
-                        reward: "Mirror of True Seeing (shows things as they truly are)",
-                        hostage: "Green T (trapped in mirror dimension)"
+                        weakness: "Compassion / Lack of hostility",
+                        reward: "Legion Spy Favor (earned by Humpik)",
+                        sparedBy: "Humpik",
+                        reason: "Showed mercy to the creature",
+                        consequence: "Oracle demands blood for the ritual",
+                        legionInvolvement: "A Legion spy observed and approved—this served their interests"
                     },
                     {
                         id: 'arcane_wraith',
@@ -484,43 +496,107 @@ export const MAIN_QUESTS = {
                         status: 'active',
                         domain: "Magical potential and unrealized power",
                         weakness: "Can be starved by suppressing all magic in its vicinity",
-                        reward: "Spell Echo Stone (stores one spell for later release)"
+                        reward: "Spell Echo Stone (stores one spell for later release)",
+                        huntedBy: "Archie (alone)",
+                        note: "Archie now has a provisional Mages' Guild card"
                     }
                 ]
             },
             {
                 id: 'm4',
+                status: 'active',
+                title: "The Oracle's Ritual",
+                description: "The Oracle has led the party to the Ruined Hall. Because the Mirror Terror was spared rather than destroyed, the ritual requires additional sacrifice—blood. The Iron Legion watches from the shadows. A spy has made contact with Humpik.",
+                goals: [
+                    { text: "Await Archie's return from hunting the Arcane Wraith", status: 'active', priority: 'high' },
+                    { text: "Provide blood sacrifice for the ritual (Oracle's demand)", status: 'pending', priority: 'high' },
+                    { text: "Complete the Oracle's separation ritual", status: 'pending', priority: 'critical' },
+                    { text: "Decide: Trust the Oracle or the Legion?", status: 'active', priority: 'critical' }
+                ],
+                currentSituation: {
+                    location: "Ruined Hall",
+                    oracleStatus: "Demanding blood for the ritual",
+                    legionPresence: "Two spies watching; one made a deal with Humpik",
+                    archieStatus: "Hunting the Arcane Wraith in lower levels with new Guild card",
+                    greenTStatus: "Fled in panic after being rescued from the mirror",
+                    partyMood: "Fractured trust, uncertain alliances"
+                }
+            },
+            {
+                id: 'm5',
                 status: 'locked',
                 title: "The Convergence",
-                description: "With all three anchors addressed, the timelines will attempt to separate. This will be violent.",
+                description: "The ritual to separate the timelines. Success or failure will reshape reality.",
                 goals: [
-                    { text: "Reach the manor's heart (the clock tower)", status: 'locked' },
-                    { text: "Perform the separation ritual", status: 'locked' },
-                    { text: "Survive the temporal backlash", status: 'locked' },
-                    { text: "Choose which timeline becomes 'real'", status: 'locked' }
+                    { text: "Survive the ritual", status: 'locked' },
+                    { text: "Contain any secondary effects", status: 'locked' },
+                    { text: "Escape the manor before midnight", status: 'locked' }
                 ]
             }
         ],
 
         npcs: {
             allies: ['self_reflection_oracle', 'ghost_of_lady_raventree'],
-            enemies: ['mirror_terror', 'arcane_wraith', 'god_toad'],
-            neutral: ['iron_legion_captain']
+            enemies: ['arcane_wraith', 'god_toad'],
+            neutral: ['iron_legion_spy', 'blue_humpik'],
+            removed: ['red_humpik']
         },
 
         locations: {
             primary: 'raventree_manor',
-            related: ['mirror_dimension', 'dance_hall', 'upper_house', 'clock_tower', 'basement_web']
+            current: 'ruined_hall',
+            related: ['mirror_dimension', 'dance_hall', 'upper_house', 'clock_tower', 'basement_web', 'solarium']
         },
 
         hints: [
-            "The Oracle has lived this day before. He knows how most attempts end—badly.",
-            "The Mirror Terror cannot harm what it cannot see. But it can hear...",
-            "The Arcane Wraith was once a mage who tried to stop the curse. His good intentions paved the way to his damnation.",
-            "The clock tower hasn't struck midnight in 200 years. When it does, the timelines will synchronize—for better or worse."
+            "The Oracle cannot lie, but he cannot tell the whole truth either. He's displeased about the Mirror Terror being spared.",
+            "The Legion spy told Humpik not to let the Mages' Guild get to the Oracle. They want him in Legion custody.",
+            "Archie punched a mirror in anger when he learned Humpik was supposed to kill the Mirror Terror. His hand bleeds.",
+            "The clock tower hasn't struck midnight in 200 years. When it does, the timelines will synchronize—for better or worse.",
+            "The spy said: 'Do your little ritual, have him do it, the iron will strike while it's hot.'"
         ],
 
-        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'archie_god_toad_hunt']
+        recentEvents: [
+            { 
+                timestamp: "Day 21 - Solarium Battle",
+                event: "The party confronted the Shard Stalker (Mirror Terror's physical form)",
+                details: [
+                    "Oracle crashed into the monster; Humpik held the front line",
+                    "Dan pulled Green T from the mirror dimension with one arm",
+                    "Bowser punched the mirror repeatedly, bleeding heavily",
+                    "Humpik was pulled into the mirror dimension",
+                    "A 'Red Humpik' emerged while the real Humpik was inside",
+                    "Bowser killed the Shard Stalker's physical form"
+                ]
+            },
+            {
+                timestamp: "Day 21 - Mirror Dimension",
+                event: "Humpik's journey through the mirror realm",
+                details: [
+                    "Met a 'Blue Humpik' who warned him about attacking reflections",
+                    "Found a Legion spy reading in a floating library",
+                    "The spy gave him thieves' tools and information",
+                    "She said: 'We need bronze, steel, iron weapons—no spells'",
+                    "Humpik agreed to help deliver the Oracle to Legion custody",
+                    "Chose to spare the Mirror Terror; it is now contained (not destroyed)"
+                ]
+            },
+            {
+                timestamp: "Day 21 - Ruined Hall",
+                event: "Current situation",
+                details: [
+                    "Red Humpik was exposed as a fake when the real Humpik returned",
+                    "Green T fled in panic after being rescued",
+                    "The Oracle led the party to the Ruined Hall",
+                    "He demands blood for the ritual because the Mirror Terror was spared",
+                    "Archie left to hunt the Arcane Wraith alone",
+                    "Archie received a provisional Mages' Guild card",
+                    "Legion spies are watching from the shadows"
+                ]
+            }
+        ],
+
+        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'archie_god_toad_hunt', 'archie_fugitive_of_the_accords']
     },
 
     'main_quest_raventree': {
@@ -538,16 +614,16 @@ export const MAIN_QUESTS = {
         difficulty: { 
             overall: DIFFICULTY.DEADLY, 
             survival: DIFFICULTY.HARD, 
-            navigation: DIFFICULTY.DEADLY,
+            navigation: DIFFICULTY.DEADLY, 
             sanity: DIFFICULTY.HARD 
         },
         tags: ['survival', 'horror', 'supernatural', 'split-party', 'urgent'],
         dates: { 
             added: { year: 1040, monthIndex: 6, day: 19 }, 
-            updated: { year: 1040, monthIndex: 6, day: 20 }
+            updated: { year: 1040, monthIndex: 6, day: 21 }
         },
 
-        description: "What began as a simple investigation has become a waking nightmare. Raventree Manor has shifted from a haunted house to an active warzone where reality itself is a casualty. The 'Dance Hall Discord' and 'Mirror Door Breach' events on Day 20 saw the manifestation of Arcane Wraiths so terrifying that hardened Iron Legion soldiers fled screaming into the night. The party is now scattered across multiple layers of the manor—some in the present, some in echoes of the past, and Archie briefly visited what might have been the future. The laws of physics are optional here. Gravity is a suggestion. Time is a spiral. The only certainty is that staying still means death.",
+        description: "What began as a simple investigation has become a waking nightmare. The party has fought through mirror dimensions, temporal loops, and demonic entities. Today brought resolution and new complications in equal measure. Bowser shattered the Shard Stalker. Humpik was pulled into the Mirror Dimension and returned—but made a deal with a Legion spy in the process. Green T was rescued but fled in terror. The Oracle demands blood for his ritual. Archie hunts the last demon alone. The Iron Legion watches. And Red Humpik has been exposed as an impostor. The party now gathers in the Ruined Hall, uncertain of who to trust.",
 
         loreEntries: ['raventree_manor_history', 'lady_raventree_tragedy', 'the_great_sealing'],
 
@@ -572,11 +648,55 @@ export const MAIN_QUESTS = {
         },
 
         partyStatus: {
-            archie: { location: "Upper House (Post-dimensional return)", status: "Shaken but alive", sanity: 7 },
-            markop: { location: "Upper House (Fighting wraiths)", status: "In combat", sanity: 8 },
-            bowser: { location: "Unknown (Lost in transition)", status: "Missing", sanity: "?" },
-            humpik: { location: "Dance Hall (Evading Legion)", status: "Hiding", sanity: 9 },
-            remi: { location: "Greenhouse Ruins", status: "Wounded", sanity: 6 }
+            archie: { 
+                location: "Lower Levels (Hunting Arcane Wraith)", 
+                status: "Provisional Mages' Guild Member", 
+                sanity: 7,
+                notes: "Has new Guild card. Hunting alone. Hand bleeding from punching mirror in anger."
+            },
+            markop: { 
+                location: "Ruined Hall", 
+                status: "Regrouped", 
+                sanity: 8,
+                notes: "Destroyed the Spider Demon. Gained temporal resistance."
+            },
+            bowser: { 
+                location: "Ruined Hall", 
+                status: "Protective of Toads / Suspicious", 
+                sanity: 7,
+                notes: "Killed the Shard Stalker. Hands bleeding from punching mirrors. Doesn't fully trust Humpik."
+            },
+            humpik: { 
+                location: "Ruined Hall", 
+                status: "Returned (Secret Legion Deal)", 
+                sanity: 8,
+                notes: "Made deal with Legion spy. Has thieves' tools. Agreed to help deliver Oracle to Legion custody.",
+                secretAgenda: true
+            },
+            dan: { 
+                location: "Ruined Hall", 
+                status: "One-Armed Hero", 
+                sanity: 6,
+                notes: "Pulled Green T from mirror with one arm. Proving his worth despite his injury."
+            },
+            green_t: { 
+                location: "Unknown (Fled)", 
+                status: "Traumatized / Fleeing", 
+                sanity: 2,
+                notes: "Rescued from mirror but fled in panic. Broke a lock to escape. Critical mental state."
+            },
+            toad_lee: { 
+                location: "Ruined Hall", 
+                status: "Suspicious of Everyone", 
+                sanity: 6,
+                notes: "Tested Humpik with toad count question. Noticed the Oracle disappeared briefly."
+            },
+            toad_burt: { 
+                location: "Ruined Hall", 
+                status: "Kept Safe", 
+                sanity: 8,
+                notes: "Bowser prevented him from joining the Solarium fight."
+            }
         },
 
         milestones: [
@@ -591,7 +711,7 @@ export const MAIN_QUESTS = {
                 id: 'm2', 
                 status: 'completed', 
                 title: "The Greenhouse Inferno", 
-                description: "When Rust Monsters emerged from the walls, Archie made a split-second decision. The resulting fire destroyed the greenhouse, the monsters, and any hope of a stealthy investigation. The smoke drew the Legion. The chaos drew worse things.",
+                description: "When Rust Monsters emerged from the walls, Archie made a split-second decision. The resulting fire destroyed the greenhouse, the monsters, and any hope of a stealthy investigation.",
                 completedDate: { year: 1040, monthIndex: 6, day: 17 },
                 outcomes: [
                     "Rust Monsters eliminated",
@@ -602,27 +722,81 @@ export const MAIN_QUESTS = {
             },
             { 
                 id: 'm3', 
-                status: 'active', 
+                status: 'completed', 
                 title: "The Upper House Breach", 
-                description: "The party has breached the distorted upper levels via a hidden staircase. The Mirror Door Breach event (Day 20) signaled a massive escalation in supernatural activity. A Mirror Monster has sealed the exit.",
-                goals: [
-                    { text: "Reunite the scattered party members", status: 'active', priority: 'critical' },
-                    { text: "Find Bowser (last seen near the conservatory)", status: 'active', priority: 'high' },
-                    { text: "Defeat or bypass the Mirror Monster", status: 'active', priority: 'critical' },
-                    { text: "Locate an alternative exit route", status: 'pending', priority: 'medium' },
-                    { text: "Avoid the Arcane Wraith's patrol pattern", status: 'active', priority: 'high' },
-                    { text: "Keep everyone sane", status: 'ongoing', priority: 'medium' }
-                ],
-                currentThreats: [
-                    { name: "Mirror Monster", threat: 'critical', behavior: "Blocks the main staircase. Reflects attacks. Hungers for identity." },
-                    { name: "Arcane Wraith", threat: 'extreme', behavior: "Patrols the Dance Hall. Drains magic. Attracted to spellcasting." },
-                    { name: "Iron Legion Squad", threat: 'high', behavior: "Searching the lower floors. Will shoot on sight." },
-                    { name: "Temporal Echoes", threat: 'moderate', behavior: "Ghosts of past events. Mostly harmless but disorienting." },
-                    { name: "The Manor Itself", threat: 'variable', behavior: "Rooms shift. Stairs lead to different places. Trust nothing." }
-                ]
+                description: "The party breached the distorted upper levels via a hidden staircase.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 }
             },
             {
                 id: 'm4',
+                status: 'completed',
+                title: "Solarium Showdown",
+                description: "The final confrontation with the Mirror Terror in the shattered solarium. Mirrors everywhere. Reflections that moved wrong. And then the chaos.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Oracle crashed into the Shard Stalker to start the fight",
+                    "Humpik held the front line against the creature",
+                    "Toad Lee hopped over the Oracle to attack",
+                    "Archie threw flaming twigs at the monster",
+                    "The creature retreated into mirrors, creating duplicates",
+                    "Bowser arrived, angry about Humpik's caution",
+                    "A reflection of Humpik appeared in a mirror",
+                    "The real Humpik smashed the mirror containing his reflection",
+                    "Archie considered using unsanctioned magic but held back",
+                    "Dan pushed mirrors over with his one arm",
+                    "Bowser used fire breath on the creature",
+                    "The creature pulled Humpik into the mirror dimension",
+                    "Dan pulled Green T from the mirror—but Green T fled in panic",
+                    "A 'Red Humpik' emerged from the mirror (later revealed as impostor)",
+                    "Bowser punched the mirror three times, hands bleeding",
+                    "The Shard Stalker was destroyed when Bowser shattered the mirror"
+                ]
+            },
+            {
+                id: 'm5',
+                status: 'completed',
+                title: "Humpik's Mirror Journey",
+                description: "While the party fought the Shard Stalker, Humpik traveled through the mirror dimension.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Found himself in a floating library with books and pews",
+                    "Heard Green T calling out—followed the voice",
+                    "Encountered a clone of himself created by the monster",
+                    "Met a Legion spy reading in the dimension",
+                    "The spy revealed she was sent to observe, not kill",
+                    "She explained the Supernatural Sovereignty Act would pass",
+                    "Made a deal: help deliver the Oracle to Legion custody",
+                    "Received thieves' picks and tools from the spy",
+                    "Met a 'Blue Humpik' who warned about attacking reflections",
+                    "Chose to SPARE the Mirror Terror rather than destroy it",
+                    "The creature was contained in the mirror dimension by choice",
+                    "Returned to reality, displacing the 'Red Humpik' impostor"
+                ]
+            },
+            {
+                id: 'm6',
+                status: 'active',
+                title: "The Ruined Hall Gathering",
+                description: "The party has regrouped in the Ruined Hall. Trust is fractured. The Oracle demands blood. The Legion watches. Archie hunts alone.",
+                goals: [
+                    { text: "Secure the Ruined Hall", status: 'completed', priority: 'high' },
+                    { text: "Locate the fleeing Green T", status: 'active', priority: 'high' },
+                    { text: "Wait for Archie to return from hunting the Arcane Wraith", status: 'active', priority: 'high' },
+                    { text: "Provide blood for the Oracle's ritual", status: 'pending', priority: 'critical' },
+                    { text: "Decide: Trust the Oracle or the Legion?", status: 'active', priority: 'critical' }
+                ],
+                currentState: {
+                    archieStatus: "Left to hunt the Arcane Wraith alone. Said 'if you see anything out of the ordinary, attack.'",
+                    oracleStatus: "Displeased that Mirror Terror was spared. Demands blood for ritual.",
+                    legionSpyStatus: "Made deal with Humpik. Said 'the iron will strike while it's hot.'",
+                    humpikSecret: "Has agreed to help Legion capture the Oracle after the ritual.",
+                    bowserSuspicion: "Noticed Humpik was 'normal' before and now is 'red.' Told party to hold off destroying mirrors.",
+                    danHeroism: "Proved himself by pulling Green T from the mirror with one arm.",
+                    greenTFlight: "Broke a lock to escape. Currently somewhere in the manor, panicked."
+                }
+            },
+            {
+                id: 'm7',
                 status: 'locked',
                 title: "The Escape",
                 description: "Find a way out of this nightmare.",
@@ -636,66 +810,70 @@ export const MAIN_QUESTS = {
         ],
 
         npcs: {
-            allies: ['self_reflection_oracle', 'ghost_servants'],
-            enemies: ['mirror_terror', 'arcane_wraith', 'iron_legion', 'rust_monsters'],
-            neutral: ['lady_raventree_echo', 'temporal_duplicates']
+            allies: ['self_reflection_oracle', 'ghost_servants', 'green_t'],
+            enemies: ['arcane_wraith', 'iron_legion'],
+            neutral: ['lady_raventree_echo', 'temporal_duplicates', 'blue_humpik', 'legion_spy'],
+            removed: ['red_humpik', 'shard_stalker']
         },
 
         locations: {
             primary: 'raventree_manor',
+            current: 'ruined_hall',
             subLocations: [
                 { name: "Grand Foyer", status: 'explored', notes: "Legion presence. Avoid." },
-                { name: "Greenhouse", status: 'destroyed', notes: "Archie's handiwork." },
-                { name: "Dance Hall", status: 'dangerous', notes: "Wraith territory." },
-                { name: "Upper House", status: 'current', notes: "Reality unstable." },
-                { name: "Basement", status: 'explored', notes: "Spider demon destroyed." },
-                { name: "Clock Tower", status: 'locked', notes: "The heart of the curse." }
+                { name: "Solarium", status: 'destroyed', notes: "Mirrors shattered. Shard Stalker destroyed here. Glass and blood everywhere." },
+                { name: "Dance Hall", status: 'dangerous', notes: "Arcane Wraith territory. Archie hunting here." },
+                { name: "Upper House", status: 'cleared', notes: "Path from Solarium to Ruined Hall." },
+                { name: "Ruined Hall", status: 'current', notes: "Party staging area. Oracle preparing ritual." },
+                { name: "Lower Levels", status: 'dangerous', notes: "Archie's hunting ground. Arcane Wraith's domain." }
             ]
         },
 
         survivalTips: [
             "The Manor responds to fear. Stay calm or it will find you.",
-            "Reflective surfaces are doorways. Cover them or avoid them.",
+            "Reflective surfaces are doorways. Most mirrors are now destroyed in the Solarium.",
             "The ghosts of servants remember their duties. Ask for help politely.",
             "If you see yourself, run. It's not a reflection.",
-            "The Oracle cannot lie, but he cannot tell the whole truth either."
+            "The Oracle cannot lie, but he cannot tell the whole truth either.",
+            "The Legion spy said: 'We need bronze, steel, iron weapons—no spells.' What does this mean?",
+            "Green T is somewhere in the manor, traumatized. Find him before something else does."
         ],
 
-        relatedQuests: ['artifacts_of_balance', 'rescue_green_t', 'archie_fugitive_of_the_accords']
+        relatedQuests: ['artifacts_of_balance', 'rescue_green_t', 'archie_fugitive_of_the_accords', 'humpik_legion_deal']
     },
 
     'rescue_green_t': {
         id: 'rescue_green_t',
         title: "Through the Looking Glass",
-        subtitle: "Save Green T from the Mirror Dimension",
+        subtitle: "Find the Fleeing Survivor",
         type: QUEST_TYPES.RESCUE,
         category: 'Main Story',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.HIGH,
         arcId: 'raventree_manor',
-        objective: "Rescue Green T from the Mirror Dimension before he is consumed by the Reflection That Hungers.",
-        assignees: ['party', 'bowser'],
-        primaryAssignee: 'bowser',
+        objective: "Locate and calm Green T, who was rescued from the mirror but fled in a state of temporal shock.",
+        assignees: ['party', 'dan'],
+        primaryAssignee: 'dan',
         difficulty: { 
-            overall: DIFFICULTY.HARD, 
-            puzzle: DIFFICULTY.HARD, 
-            time: DIFFICULTY.CRITICAL 
+            overall: DIFFICULTY.MODERATE, 
+            tracking: DIFFICULTY.MODERATE, 
+            social: DIFFICULTY.HARD 
         },
-        tags: ['rescue', 'dimensional', 'time-sensitive', 'puzzle', 'mirror'],
+        tags: ['rescue', 'dimensional', 'time-sensitive', 'chase', 'mirror', 'trauma'],
         dates: { 
             added: { year: 1040, monthIndex: 6, day: 19 }, 
-            updated: { year: 1040, monthIndex: 6, day: 20 },
+            updated: { year: 1040, monthIndex: 6, day: 21 },
             deadline: { year: 1040, monthIndex: 6, day: 21 }
         },
 
-        description: "During the initial chaos at the manor, Green T made the mistake of looking too long into an antique mirror. Crystalline hands erupted from the glass and pulled him screaming into another place—a reflection of Raventree Manor where everything is reversed, cold, and hungry. Through scattered mirrors, the party has caught glimpses of him: running through corridors that don't exist in the real manor, hiding from things that look almost like his friends but aren't, slowly losing color as the dimension drains his essence. The Oracle claims the key to his release lies somewhere in the Upper House—a 'Prism Key' that can shatter the barrier between reflection and reality. But time moves differently in the mirror. Every hour here is a day there. Green T's reflection is becoming more solid than he is.",
+        description: "Green T was trapped in the Mirror Dimension for what felt like days, though only hours passed in reality. Dan, despite having only one arm, successfully pulled him through the shattering mirror during the Solarium battle. However, Green T took one look at the chaos—the blood, the shattered glass, the impossible reflections—and fled in terror. He broke a lock to escape deeper into the manor. He is back in our reality, but his mind may still be trapped in the reflection. The manor is dangerous. He is alone. And he is not thinking clearly.",
 
         loreEntries: ['mirror_dimension', 'reflection_entities', 'prism_artifacts'],
 
         consequences: {
-            success: "Green T is rescued, possibly with unique insights about the mirror dimension.",
-            failure: "Green T is fully absorbed into the mirror. His reflection walks free in the real world—but it isn't him.",
-            partial: "Green T is rescued but permanently changed—part of him remains in the mirror."
+            success: "Green T is calmed and rejoins the party. His knowledge of the mirror realm may prove valuable.",
+            failure: "Green T wanders the manor alone and is taken by another entity—or worse, the Legion.",
+            partial: "Green T is found but remains catatonic or hostile. Requires ongoing care."
         },
 
         rewards: {
@@ -703,13 +881,7 @@ export const MAIN_QUESTS = {
                 { type: 'ally', name: "Green T's Loyalty", description: "Green T becomes a dedicated ally with knowledge of the mirror realm" },
                 { type: 'item', name: "Mirror Shard", description: "A piece of the dimension barrier—has unusual reflective properties" }
             ],
-            conditional: [
-                { condition: "Rescue without confronting the Terror", reward: { type: 'stealth_xp', amount: 1000, description: "Bonus XP for clever solution", name: "Stealth Bonus" }},
-                { condition: "Rescue within 12 hours", reward: { type: 'item', name: "Green T's Journal", description: "Contains valuable observations about the mirror realm" }},
-                { condition: "Destroy the mirror permanently", reward: { type: 'peace', name: "One Less Gateway", description: "The manor becomes slightly less dangerous" }}
-            ],
-            xp: 3000,
-            gold: { min: 500, max: 1500 }
+            xp: 3000
         },
 
         milestones: [
@@ -718,74 +890,64 @@ export const MAIN_QUESTS = {
                 status: 'completed', 
                 title: "The Abduction", 
                 description: "Bowser watched helplessly as Green T was dragged into the mirror. The glass rippled like water, and then he was gone. Only his scream lingered.",
-                completedDate: { year: 1040, monthIndex: 6, day: 19 },
-                witnessReport: "One moment he was there, the next—hands made of glass came out of nowhere. I tried to grab him but my claws just... passed through."
+                completedDate: { year: 1040, monthIndex: 6, day: 19 }
             },
             { 
                 id: 'm2', 
-                status: 'active', 
-                title: "Find the Prism Key", 
-                description: "Locate the artifact that anchors the Mirror Dimension to our reality. The Oracle says it's in the Upper House, hidden by Lady Raventree herself.",
-                goals: [
-                    { text: "Search Lady Raventree's private chambers", status: 'active', priority: 'high' },
-                    { text: "Solve the riddle of the seven mirrors", status: 'pending', priority: 'medium' },
-                    { text: "Avoid attracting the Mirror Terror's attention", status: 'ongoing', priority: 'critical' }
-                ],
-                clues: [
-                    "Lady Raventree wrote: 'The key reflects truth, and truth is found in the eye of the beholder.'",
-                    "There are seven mirrors in the Upper House. Only one shows true reflections.",
-                    "The Prism Key was used to imprison the Mirror Terror originally. It may recognize it."
-                ]
+                status: 'completed', 
+                title: "Find the Mirrors", 
+                description: "The party located the mirrors in the Solarium.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 }
             },
             {
                 id: 'm3',
-                status: 'locked',
-                title: "Enter the Mirror",
-                description: "Use the Prism Key to create a stable passage into the Mirror Dimension.",
-                goals: [
-                    { text: "Activate the Prism Key at the correct mirror", status: 'locked' },
-                    { text: "Enter the Mirror Dimension", status: 'locked' },
-                    { text: "Navigate the reversed manor", status: 'locked' }
+                status: 'completed',
+                title: "The Extraction",
+                description: "Amidst the chaos of the Shard Stalker battle, Dan rushed a mirror. Despite his injury—despite having only one arm—he reached in and hauled Green T out just as the glass shattered around them.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Green T successfully pulled from mirror dimension",
+                    "Dan proved his worth despite his injury",
+                    "Green T is disoriented and traumatized",
+                    "Dan told Green T to help—Green T refused, saying 'I was stuck in there for hours'"
                 ]
             },
             {
                 id: 'm4',
-                status: 'locked',
-                title: "The Rescue",
-                description: "Find Green T and bring him back before the dimension consumes him.",
+                status: 'active',
+                title: "The Flight",
+                description: "Green T took one look at the battle, the blood, the chaos—and ran. He broke a lock to escape deeper into the manor. He's back in reality, but his mind is still fractured.",
                 goals: [
-                    { text: "Track Green T's location in the mirror realm", status: 'locked' },
-                    { text: "Defeat or evade his mirror-self", status: 'locked' },
-                    { text: "Escape before the portal closes", status: 'locked' }
+                    { text: "Track Green T's path through the manor", status: 'active', priority: 'high' },
+                    { text: "Find him before the Legion does", status: 'active', priority: 'high' },
+                    { text: "Calm him down without violence or restraint", status: 'pending', priority: 'high' },
+                    { text: "Assess his mental state", status: 'pending', priority: 'medium' }
                 ]
             }
         ],
 
         greenTStatus: {
-            currentCondition: "Fading",
-            timeInMirror: "Approximately 2 days (mirror time)",
-            colorSaturation: "47%",
-            lastSighting: "Running through mirrored Dance Hall",
-            mirrorSelfStrength: "Growing"
+            currentCondition: "Panicked Flight",
+            lastAction: "Broke a lock to escape the Solarium",
+            lastDirection: "Deeper into the manor (unknown location)",
+            mentalState: "Critical - experiencing reality confusion",
+            physicalState: "Uninjured but exhausted",
+            timeInMirror: "Subjective hours (actual: unknown)",
+            sanity: 2,
+            notes: [
+                "Spent what felt like hours in the mirror dimension",
+                "Was likely exposed to temporal distortion",
+                "May have difficulty distinguishing reality from reflection",
+                "Dan's rescue may have been too sudden—no time to adjust",
+                "The chaos of the battle upon emergence worsened his state"
+            ]
         },
 
         npcs: {
-            allies: ['green_t'],
-            enemies: ['mirror_terror', 'green_t_reflection'],
-            neutral: ['mirror_servants']
+            allies: ['green_t', 'dan'],
+            enemies: ['manor_traps', 'temporal_echoes'],
+            neutral: []
         },
-
-        locations: {
-            primary: 'mirror_dimension',
-            related: ['upper_house', 'lady_raventree_chambers', 'seven_mirror_gallery']
-        },
-
-        hints: [
-            "In the mirror realm, left is right and right is left. Maps are useless unless flipped.",
-            "Green T's reflection grows stronger as he grows weaker. Kill one, and both might die.",
-            "The mirror servants obey whoever holds the Prism Key. They may help.",
-            "Time flows backward in some parts of the mirror realm. Watch for loops."
-        ],
 
         relatedQuests: ['artifacts_of_balance', 'main_quest_raventree']
     }

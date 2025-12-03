@@ -14,6 +14,45 @@ export const AUXILIARY_PARTY = {
 };
 
 export const RUMORS = [
+{
+    id: 'iron_mandate_passage',
+    title: "The Iron Mandate Passes",
+    date: { day: 21, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'lord_chancellor_stonehand',
+    arc: 'supernatural_sovereignty',
+    arcPosition: 'climax',
+    description: "The Midlands Diet passed the Iron Mandate (28-8-3), granting the Iron Legion emergency powers to enforce the Supernatural Sovereignty Act. This includes warrantless searches and summary detention. Speaker Rivers resigned in protest, while the Mages' Guild withdrew support. Legion patrols deployed immediately.",
+    targets: ['regal_empire', 'iron_legion', 'mages_guild', 'moonfang_pack', 'onyx_hand'],
+    effects: {
+        regal_empire: 40,
+        iron_legion: 40,
+        silver_flame: 20,
+        mages_guild: -25,
+        moonfang_pack: -40,
+        onyx_hand: -40,
+        heartland_alliance: -20
+    },
+    cycle_impact: { score: 3.0, label: "Martial Law", type: "political" }
+},    
+    {
+        id: "shard_stalker_incident",
+        title: "The Shard Stalker & The Spy",
+        date: { "day": 21, "monthIndex": 6, "year": 1040 },
+        isEvent: true,
+        instigator: "archie",
+        arc: "raventree_manor",
+        arcPosition: "climax",
+        description: "The party breached the Solarium to destroy the Mirror Monster. In the chaos, Humpik was pulled into the Mirror Dimension where he fought a doppleganger and received aid from an Iron Legion Spy, who revealed the impending Supernatural Sovereignty Act. Archie punched a mirror in a blood rage, and the group retreated to a Ruined Hall to plan their next move against the spies.",
+        targets: ["archie", "humpik", "bowser", "green_t", "dan", "self_reflection_oracle"],
+        effects: {
+            liberated_toads: 5,
+            iron_legion: -10,
+            mages_guild: 5,
+            cosmic_jesters: 10
+        },
+        cycle_impact: { "score": 2.0, "label": "Dimensional Breach", "type": "magic" }
+    },    
     {
         id: 'assassination_attempt_foiled',
         title: "War in the Jungle",

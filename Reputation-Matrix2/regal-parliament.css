@@ -1459,3 +1459,482 @@
     font-weight: 700;
     color: var(--text-color);
 }
+.vote-display-card.just-passed {
+    border-color: var(--vote-yes);
+    box-shadow: 0 0 30px rgba(46, 213, 115, 0.3);
+}
+.vote-display-card.just-passed::before {
+    background: linear-gradient(90deg, var(--vote-yes), var(--diet-gold), transparent);
+    animation: breakingGlow 1s ease-in-out infinite;
+}
+
+@keyframes breakingGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.vote-status-badge.status-breaking {
+    background: linear-gradient(135deg, var(--vote-yes), #27ae60);
+    color: white;
+    border: none;
+    animation: breakingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes breakingPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--vote-yes); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px var(--vote-yes); }
+}
+
+.result-declaration {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--vote-yes);
+    text-align: center;
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--vote-yes-bg);
+    border-radius: 6px;
+    border: 2px solid var(--vote-yes);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: declarationPulse 2s ease-in-out infinite;
+}
+
+@keyframes declarationPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(46, 213, 115, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(46, 213, 115, 0.6); }
+}
+
+/* ============================================
+   TODAY'S AFTERMATH CONTAINER
+   ============================================ */
+
+.todays-aftermath-container {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.todays-aftermath-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--urgency-critical), var(--vote-abstain), var(--diet-gold));
+}
+
+.aftermath-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.breaking-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    background: var(--urgency-critical);
+    color: white;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    animation: breakingBadge 1s ease-in-out infinite;
+}
+
+@keyframes breakingBadge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.aftermath-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 8px 0;
+}
+
+.aftermath-summary {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================
+   NOTABLE VOTES
+   ============================================ */
+
+.notable-votes-section {
+    margin-bottom: 24px;
+}
+
+.notable-votes-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+}
+
+.notable-votes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.notable-vote-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 14px;
+    border-left: 4px solid var(--border-color);
+}
+
+.notable-vote-card.vote-yes { border-left-color: var(--vote-yes); }
+.notable-vote-card.vote-no { border-left-color: var(--vote-no); }
+.notable-vote-card.vote-abstain { border-left-color: var(--vote-abstain); }
+
+.nv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.nv-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.nv-vote-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.vote-yes .nv-vote-badge { background: var(--vote-yes-bg); color: var(--vote-yes); }
+.vote-no .nv-vote-badge { background: var(--vote-no-bg); color: var(--vote-no); }
+.vote-abstain .nv-vote-badge { background: var(--vote-abstain-bg); color: var(--vote-abstain); }
+
+.nv-province {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.nv-reason {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 8px 0 0 0;
+}
+
+/* ============================================
+   CONSEQUENCES
+   ============================================ */
+
+.consequences-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(255, 71, 87, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid var(--urgency-critical);
+}
+
+.consequences-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--urgency-critical);
+    margin: 0 0 12px 0;
+}
+
+.consequences-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.consequences-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-bottom: 1px dashed rgba(255, 71, 87, 0.2);
+}
+
+.consequences-list li:last-child {
+    border-bottom: none;
+}
+
+.consequences-list li::before {
+    content: '⚡';
+    position: absolute;
+    left: 0;
+}
+
+/* ============================================
+   TODAY'S TIMELINE
+   ============================================ */
+
+.todays-timeline {
+    margin-bottom: 24px;
+}
+
+.todays-timeline h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+}
+
+.timeline-items {
+    position: relative;
+    padding-left: 24px;
+}
+
+.timeline-items::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--diet-gold), var(--urgency-critical));
+}
+
+.timeline-item {
+    position: relative;
+    padding: 12px 0 12px 20px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--main-bg);
+    border: 2px solid var(--diet-gold);
+    border-radius: 50%;
+}
+
+.timeline-time {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.timeline-content strong {
+    display: block;
+    color: var(--text-color);
+    margin: 4px 0;
+}
+
+.timeline-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================================
+   REACTIONS
+   ============================================ */
+
+.reactions-section {
+    margin-bottom: 24px;
+}
+
+.reactions-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--diet-gold);
+    margin: 0 0 16px 0;
+}
+
+.reactions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.reaction-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 14px;
+    border-left: 4px solid;
+}
+
+.reaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reaction-faction {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.reaction-mood {
+    font-size: 1.2rem;
+}
+
+.reaction-quote {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0 0 8px 0;
+    padding-left: 12px;
+    border-left: 2px solid var(--text-muted);
+}
+
+.reaction-speaker {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Mood-based styling */
+.reaction-card.mood-triumphant { background: rgba(46, 213, 115, 0.1); }
+.reaction-card.mood-defiant { background: rgba(139, 0, 0, 0.1); }
+.reaction-card.mood-enraged { background: rgba(255, 71, 87, 0.1); }
+.reaction-card.mood-calculating { background: rgba(155, 89, 182, 0.1); }
+.reaction-card.mood-despairing { background: rgba(52, 152, 219, 0.1); }
+.reaction-card.mood-gleeful { background: rgba(233, 30, 99, 0.1); }
+
+/* ============================================
+   AFTERMATH
+   ============================================ */
+
+.aftermath-section {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(139, 0, 0, 0.1));
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.aftermath-section h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0 0 16px 0;
+}
+
+.aftermath-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.aftermath-item {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.aftermath-item strong {
+    color: var(--text-color);
+}
+
+.aftermath-rumor {
+    padding: 12px;
+    background: rgba(255, 165, 2, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid var(--vote-abstain);
+}
+
+/* ============================================
+   NEXT VOTE PREVIEW
+   ============================================ */
+
+.next-vote-preview {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.next-vote-preview h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0 0 8px 0;
+}
+
+.next-vote-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--urgency-high);
+    margin: 0 0 12px 0;
+}
+
+.next-vote-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+.next-vote-projection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.projection-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    width: 100%;
+}
+
+.projection-yes {
+    font-family: var(--font-mono);
+    color: var(--vote-yes);
+    font-weight: 600;
+}
+
+.projection-no {
+    font-family: var(--font-mono);
+    color: var(--vote-no);
+    font-weight: 600;
+}
+
+.projection-abstain {
+    font-family: var(--font-mono);
+    color: var(--vote-abstain);
+    font-weight: 600;
+}
+
+/* ============================================
+   CALENDAR - TODAY HIGHLIGHT
+   ============================================ */
+
+.calendar-item.today-vote {
+    background: rgba(46, 213, 115, 0.15);
+    border-left-color: var(--vote-yes);
+    animation: todayHighlight 2s ease-in-out infinite;
+}
+
+@keyframes todayHighlight {
+    0%, 100% { box-shadow: 0 0 5px rgba(46, 213, 115, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(46, 213, 115, 0.5); }
+}

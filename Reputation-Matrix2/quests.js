@@ -246,7 +246,7 @@ function renderQuestCard(rawQuest) {
     const quest = normalizeQuestData(rawQuest); // Normalize data first
     const isExpanded = expandedQuests.has(quest.id);
     
-    // Progress calc handles both milestones and steps via normalization
+    // Progress calc
     const completedMilestones = quest.milestones.filter(m => m.status === 'completed').length;
     const totalMilestones = quest.milestones.length;
     const progress = totalMilestones > 0 ? Math.round((completedMilestones / totalMilestones) * 100) : 0;
@@ -364,7 +364,7 @@ function renderQuestCard(rawQuest) {
                 <!-- Rewards -->
                 ${quest.rewards ? `
                     <div class="quest-section rewards-section">
-                        <h5>🎁 Potential Rewards</h5>
+                        <h5>🎁 Rewards & Outcomes</h5>
                         <div class="rewards-grid">
                             ${goldReward ? `<span class="reward-item gold">💰 ${goldReward} Gold</span>` : ''}
                             ${xpReward ? `<span class="reward-item xp">⭐ ${xpReward} XP</span>` : ''}
@@ -377,29 +377,49 @@ function renderQuestCard(rawQuest) {
                                 }
                                 return `<span class="reward-item item">${r.type === 'item' ? '📦' : '🎖️'} ${label || 'Unknown Reward'}</span>`;
                             }).join('') : ''}
-                            
-                            <!-- Conditional Rewards (Redesigned) -->
-                            ${quest.rewards.conditional ? quest.rewards.conditional.map(c => {
-                                // FIX: Handle undefined reward names properly
-                                let rLabel = c.reward.name || 'Special Reward';
-                                if (c.reward.type === 'gold') rLabel = `${c.reward.amount} Gold`;
-                                if (c.reward.type === 'xp' || c.reward.type === 'stealth_xp') rLabel = `${c.reward.amount} XP`;
-                                
-                                return `
-                                    <div class="bonus-objective">
-                                        <div class="bonus-condition">
-                                            <span class="bonus-label">CONDITION</span>
-                                            <span class="bonus-text">${c.condition}</span>
-                                        </div>
-                                        <div class="bonus-divider"></div>
-                                        <div class="bonus-reward">
-                                            <span class="bonus-label">REWARD</span>
-                                            <span class="bonus-text">${rLabel}</span>
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('') : ''}
                         </div>
+
+                        <!-- NEW: Conditional Rewards Block -->
+                        ${quest.rewards.conditional ? `
+                            <div class="conditional-rewards">
+                                <div class="rewards-list">
+                                    ${quest.rewards.conditional.map(item => {
+                                        // 1. Determine Status
+                                        const isFailed = item.status === 'failed';
+                                        const isCompleted = item.status === 'earned' || item.status === 'completed';
+                                        
+                                        // 2. Assign CSS Classes
+                                        let statusClass = 'reward-pending';
+                                        if (isCompleted) statusClass = 'reward-completed';
+                                        if (isFailed) statusClass = 'reward-failed';
+
+                                        // 3. Icons
+                                        const icon = isCompleted ? '✅' : (isFailed ? '❌' : '⏳');
+                                        
+                                        // 4. Format Label
+                                        let rLabel = item.reward.name || 'Bonus';
+                                        if (item.reward.type === 'gold') rLabel = `${item.reward.amount} Gold`;
+                                        if (item.reward.type === 'xp') rLabel = `${item.reward.amount} XP`;
+
+                                        return `
+                                        <div class="conditional-reward-item ${statusClass}">
+                                            <div class="reward-condition">
+                                                <span class="reward-status-icon">${icon}</span>
+                                                <span class="reward-condition-text ${isFailed ? 'struck' : ''}">${item.condition}</span>
+                                            </div>
+                                            <div class="reward-details">
+                                                <span class="reward-type">${item.reward.type}</span>
+                                                <span class="reward-name ${isFailed ? 'struck' : ''}">${rLabel}</span>
+                                                <span class="reward-desc">${item.reward.description || ''}</span>
+                                            </div>
+                                            <!-- Inject Failure Reason if Failed -->
+                                            ${isFailed && item.reason ? `<span class="fail-reason">${item.reason}</span>` : ''}
+                                        </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
                     </div>
                 ` : ''}
 

@@ -1,40 +1,41 @@
 
+
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
 export const ARCHIE_QUESTS = {
     'archie_fugitive_of_the_accords': {
         id: 'archie_fugitive_of_the_accords',
         title: "Fugitive of the Accords",
-        subtitle: "Wanted: Dead or Alive",
+        subtitle: "Wanted: Dead or Alive (or Licensed?)",
         type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
-        objective: "Evade capture by the Mages' Guild and Iron Legion while dealing with the consequences of public confession.",
+        objective: "Survive the Manor, hunt the final Wraith, and navigate the fragile truce with the Mages' Guild.",
         assignees: ['archie'],
         primaryAssignee: 'archie',
         difficulty: { overall: DIFFICULTY.DEADLY, magic: DIFFICULTY.HARD, stealth: DIFFICULTY.HARD, social: DIFFICULTY.DEADLY },
         tags: ['survival', 'law', 'magic', 'escape', 'warrant'],
         dates: { added: { year: 1040, monthIndex: 6, day: 20 }, updated: { year: 1040, monthIndex: 6, day: 20 }, deadline: { year: 1040, monthIndex: 6, day: 21 } },
         
-        description: "Archie's decision to publicly confess to the Greenhouse Inferno on Wahbook was a tactical gamble that may have cost him his life. By admitting to using 'unsanctioned high-yield thermal thaumaturgy' in a designated heritage site, he has violated the Autumnwood Accords on three separate counts. The Mages' Guild has dispatched a team of Aegis Battle-Mages to 'contain' him, and the Iron Legion has labeled him a public menace. He is currently trapped in Raventree Manor, his location pinned by the magical signature of his own confession.",
+        description: "Archie's status has shifted from 'Kill on Sight' to 'Provisionally Useful'. After aiding in the Solarium battle and refraining from using his signature Fireball (mostly), a senior Magus handed him an official Guild Card. It's a reprieve, not a pardon. However, his anger at learning that 'cleansing' requires blood led him to shatter a mirror in the Ruined Hall. He has now been sent downstairs to hunt the Arcane Wraith alone—a test of his loyalty, or a suicide mission. The Oracle demands a death to fuel the ritual.",
 
-        loreEntries: ['autumnwood_accords', 'aegis_magi_tactics', 'magical_crimes_act'],
+        loreEntries: ['autumnwood_accords', 'aegis_magi_tactics', 'magical_crimes_act', 'guild_membership_protocols'],
 
         consequences: {
-            success: "Archie evades capture or negotiates a plea deal. He gains notoriety but retains his freedom.",
-            failure: "Archie is captured, stripped of his magic, and imprisoned in the Anti-Magic Ziggurat.",
-            partial: "Archie escapes but is branded 'Anathema', locking him out of all Guild services."
+            success: "Archie proves his worth, potentially earning a real pardon or at least a trial.",
+            failure: "Archie is executed by the Legion or the Guild once his usefulness ends.",
+            partial: "Archie survives but is forced into servitude as a Guild enforcer."
         },
 
         rewards: {
             guaranteed: [
-                { type: 'notoriety', faction: 'mages_guild', amount: 500, description: "Infamous Outlaw" }
+                { type: 'item', name: "Provisional Guild Card", description: "Grants access to basic Guild services, monitored by tracking spells" }
             ],
             conditional: [
-                { condition: "Escape without killing Guild members", reward: { type: 'reputation', faction: 'freelancer_underworld', amount: 300, description: "Professional respect", name: "Street Cred" }},
-                { condition: "Humiliate the pursuit team", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 200, description: "The Jesters are watching", name: "Jester's Favor" }}
+                { condition: "Kill the Wraith alone", reward: { type: 'reputation', faction: 'mages_guild', amount: 300, description: "Competence proven" }},
+                { condition: "Rebel against the Oracle", reward: { type: 'reputation', faction: 'liberated_toads', amount: 300, description: "Defied the Blood Magic" }}
             ],
             xp: 5000
         },
@@ -49,23 +50,24 @@ export const ARCHIE_QUESTS = {
             },
             {
                 id: 'm2', 
-                status: 'active', 
-                title: "The Dance Hall Escape",
-                description: "Survive the skirmish in the Dance Hall. The Legion knows you are here. The Wraiths know you are here.",
-                goals: [
-                    { text: "Evade Legion Spies", status: 'completed' },
-                    { text: "Survive Wraith Attack", status: 'completed' },
-                    { text: "Enter Upper House without being followed", status: 'active' }
-                ]
+                status: 'completed', 
+                title: "The Solarium Test",
+                description: "Archie did NOT cast Fireball. He threw a twig. The Guild noticed. He has been issued a provisional license.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 }
             },
             {
-                id: 'm3', 
-                status: 'locked', 
-                title: "Confront the Guild Envoy",
-                description: "A rogue mage has offered a temporary truce to deal with the manor's demons. Is it a trap?"
+                id: 'm3',
+                status: 'active',
+                title: "The Wraith Hunt",
+                description: "Descend to the lower levels. Find the Arcane Wraith. Kill it. The Oracle demands blood, the Legion demands order, and Archie just wants to not be arrested.",
+                goals: [
+                    { text: "Locate the Wraith", status: 'active' },
+                    { text: "Destroy it without causing collateral damage", status: 'active' },
+                    { text: "Return alive with proof of kill", status: 'pending' }
+                ]
             }
         ],
-        npcs: { enemies: ['mages_guild', 'iron_legion'], keyNpcs: ['self_reflection_oracle', 'rogue_mage'] }
+        npcs: { enemies: ['arcane_wraith'], keyNpcs: ['self_reflection_oracle', 'senior_magus', 'legion_spy'] }
     },
 
     'archie_god_toad_hunt': {

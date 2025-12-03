@@ -3,6 +3,8 @@
 
 
 
+
+
 export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
@@ -19,18 +21,23 @@ export const PARTY_LOCATIONS = {
         { charKey: 'skull_cap_murphy', x: 46.0, y: 68.0, status: 'Extorting' }
     ],
   'midlands_full': [
-        // Raventree Manor - Upper House / Dance Hall
-        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Smashing' },
-        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Looting Crystals' },
-        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Panicking' },
+        // Raventree Manor - Ruined Hall (Post-Solarium Battle)
+        { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Bleeding/Victorious' },
+        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Recovering' },
+        { charKey: 'archie', x: 73.4, y: 11.9, status: 'Hunting Wraiths' },
         { charKey: 'markop', x: 73.5, y: 12.4, status: 'Defending' },
-        { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Laughing' },
-        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Hiding' },
-        { charKey: 'roger', x: 73.5, y: 12.5, status: 'Fighting' },
+        { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Looting' },
+        { charKey: 'remi', x: 73.3, y: 11.6, status: 'Reloading' },
+        { charKey: 'roger', x: 73.5, y: 12.5, status: 'Guarding' },
+        { charKey: 'dan', x: 73.5, y: 12.1, status: 'Tending Wounds' },
+        { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Regrouping' },
+        { charKey: 'green_t', x: 73.5, y: 12.0, status: 'Escaping' },
 
-        // Casualties & Trapped
-        { charKey: 'green_t', x: 73.5, y: 12.0, status: 'RUNNING IN MIRROR' },
-        { charKey: 'eager', x: 73.7, y: 12.3, status: 'Critical' },
+        // The Oracle
+        { charKey: 'oracle', x: 73.5, y: 12.3, status: 'Watching' },
+
+        // Casualties
+        { charKey: 'eager', x: 73.7, y: 12.3, status: 'Critical/Stable' },
         
         // Ryan - Rakasha Territory
         { charKey: 'ryan', x: 28.0, y: 18.0, status: 'Rescued/Injured' },
@@ -40,10 +47,6 @@ export const PARTY_LOCATIONS = {
 
         // Speaker L - Captured in Imperial Prison (Sector 7)
         { charKey: 'speaker_l', x: 45.5, y: 30.5, status: 'Captured' },
-
-        // Liberated Toads (Scattered)
-        { charKey: 'dan', x: 73.5, y: 12.1, status: 'Burning Coats' },
-        { charKey: 'toad_lee', x: 73.6, y: 12.2, status: 'Axe Swinging' },
 
 
         // --- Imperial Capital Group ---

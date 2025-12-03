@@ -1,3 +1,4 @@
+
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
@@ -45,6 +46,18 @@ const LOCATIONS = {
             { id: 'legion_officer', name: "Legion Officer", status: "Breaching", pos: { x: 0, y: 0, z: -10 }, portrait: "portraits/colonel_vera_steelstorm.png", scale: 1.8, isEnemy: true },
             { id: 'legion_soldier_1', name: "Legionnaire", status: "Attacking", pos: { x: -4, y: 0, z: -8 }, portrait: "faction_iron_legion.png", scale: 1.6, isEnemy: true },
             { id: 'legion_soldier_2', name: "Legionnaire", status: "Attacking", pos: { x: 4, y: 0, z: -8 }, portrait: "faction_iron_legion.png", scale: 1.6, isEnemy: true }
+        ]
+    },
+    solarium: {
+        title: "The Solarium Battle",
+        camPos: {x: 0, y: 14, z: 14},
+        characters: [
+            { id: 'hjumpik', name: "Humpik", status: "Mirror Combat", pos: { x: -4, y: 0, z: 2 }, portrait: "portraits/humpik.png", scale: 1.8 },
+            { id: 'bowser', name: "Bowser", status: "Punching Mirrors", pos: { x: 4, y: 0, z: 2 }, portrait: "portraits/bowser.png", scale: 2.5 },
+            { id: 'shard_stalker', name: "Shard Stalker", status: "Teleporting", pos: { x: 0, y: 2, z: -6 }, portrait: "faction_unaligned.png", scale: 3.0, isEnemy: true },
+            { id: 'dan', name: "Dan", status: "Shattering Glass", pos: { x: -6, y: 0, z: 5 }, portrait: "toads/dan.png", scale: 1.5 },
+            { id: 'oracle', name: "The Oracle", status: "Watching", pos: { x: 6, y: 1, z: 5 }, portrait: "portraits/oracle.png", scale: 1.8 },
+            { id: 'archie', name: "Archie", status: "Using Fire", pos: { x: 0, y: 0, z: 8 }, portrait: "portraits/archie.png", scale: 1.5 }
         ]
     },
     facility: {
@@ -466,6 +479,7 @@ function buildScene(type) {
         case 'mirror':        buildMirrorDimension();    break;
         case 'cockpit':       buildCockpit();            break;
         case 'interrogation': buildInterrogation();      break;
+        case 'solarium':      buildSolarium();           break;
     }
 
     if (LOCATIONS[type]) {
@@ -1819,6 +1833,77 @@ function buildInterrogation() {
     scene.add(group);
 }
 
+// 11. Solarium (The Mirror Battle)
+function buildSolarium() {
+    const group = new THREE.Group();
+
+    // Floor with broken glass
+    const floorMat = makeTiledStandardMaterial('wall_stone', {
+        color: 0x666666,
+        roughness: 0.8,
+        metalness: 0.1,
+        repeatX: 6,
+        repeatY: 6
+    });
+    const floor = createTexturedFloor(30, 30, null, { color: 0x666666 }); // Use fallback if texture fails
+    floor.material = floorMat;
+    group.add(floor);
+
+    // Walls
+    const wallMat = makeTiledStandardMaterial('wall_stone', {
+        color: 0x444444,
+        roughness: 0.9,
+        metalness: 0.2,
+        repeatX: 4,
+        repeatY: 2
+    });
+    group.add(createBox(30, 8, 1, wallMat, 0, 4, -15));
+    group.add(createBox(30, 8, 1, wallMat, 0, 4, 15));
+    group.add(createBox(1, 8, 30, wallMat, -15, 4, 0));
+    group.add(createBox(1, 8, 30, wallMat, 15, 4, 0));
+
+    // Large Mirror Ring
+    const mirrorFrameMat = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8, roughness: 0.3 });
+    const mirrorGlassMat = new THREE.MeshStandardMaterial({ color: 0xaaddff, metalness: 0.9, roughness: 0.1, transparent: true, opacity: 0.7 });
+    
+    for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const x = Math.cos(angle) * 8;
+        const z = Math.sin(angle) * 8;
+        
+        const frame = createBox(2, 4, 0.2, mirrorFrameMat, x, 2, z);
+        frame.lookAt(0, 2, 0);
+        group.add(frame);
+        
+        const glass = createBox(1.8, 3.8, 0.1, mirrorGlassMat, x, 2, z);
+        glass.lookAt(0, 2, 0);
+        group.add(glass);
+    }
+
+    // Shattered Mirror Shards on floor
+    const shardMat = new THREE.MeshStandardMaterial({ color: 0xccffff, metalness: 0.9, roughness: 0.1 });
+    for (let i = 0; i < 30; i++) {
+        const x = (Math.random() - 0.5) * 20;
+        const z = (Math.random() - 0.5) * 20;
+        const shard = new THREE.Mesh(new THREE.TetrahedronGeometry(0.2), shardMat);
+        shard.position.set(x, 0.1, z);
+        shard.rotation.set(Math.random(), Math.random(), Math.random());
+        group.add(shard);
+    }
+
+    // Overgrown Vines
+    const vineMat = new THREE.MeshStandardMaterial({ color: 0x225522, roughness: 0.9 });
+    for (let i = 0; i < 5; i++) {
+        const x = (Math.random() - 0.5) * 25;
+        const z = (Math.random() - 0.5) * 25;
+        const vine = createProp(new THREE.TorusKnotGeometry(1, 0.2, 64, 8), vineMat, x, 4, z);
+        group.add(vine);
+    }
+    
+    scene.add(group);
+}
+
+
 // --- CHARACTERS ---
 function addCharacters(chars) {
     chars.forEach((charData, index) => {
@@ -1839,7 +1924,7 @@ function addCharacters(chars) {
         }
 
         // Mirror monster
-        if (charData.id === 'mirror_monster') {
+        if (charData.id === 'mirror_monster' || charData.id === 'shard_stalker') {
             const geo = new THREE.DodecahedronGeometry(charData.scale);
             const mat = new THREE.MeshStandardMaterial({
                 color: 0x00ffff,

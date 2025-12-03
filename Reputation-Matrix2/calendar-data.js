@@ -3,7 +3,7 @@ import { state } from './state.js'; // Needed for seeded random if we use state
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 6, // 0-indexed for Highsun (ordinal 7)
-    day: 20
+    day: 21
 };
 
 export const CURRENT_GAME_TIME = {
