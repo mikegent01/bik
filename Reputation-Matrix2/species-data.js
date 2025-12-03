@@ -414,7 +414,7 @@ export const SPECIES_DATA = {
     // ========================================================================
     // EARTH LAND
     // ========================================================================
-    earth_land_mage: { name: 'Mage', color: '#f4a261', icon: '🔥', description: 'Magic wielding humans.', favored_guild_tag: 'arcane', religion_breakdown: { star_spirits: 0.40, lunar_cycle: 0.20, jester_cult: 0.10, unaligned: 0.30 } },
+    earth_land_mage: { name: 'Mage Born', color: '#f4a261', icon: '🔥', description: 'Magic wielding humans.', favored_guild_tag: 'arcane', religion_breakdown: { star_spirits: 0.40, lunar_cycle: 0.20, jester_cult: 0.10, unaligned: 0.30 } },
     exceed: { name: 'Exceed', color: '#90caf9', icon: '😺', description: 'Winged cats.', favored_guild_tag: 'maritime', religion_breakdown: { star_spirits: 0.80, unaligned: 0.20 } },
     celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Summoned beings.', favored_guild_tag: 'arcane', religion_breakdown: { celestial_spirit_cult: 1.0 } }, 
     vulcan: { name: 'Vulcan', color: '#f44336', icon: '🦍', description: 'Monstrous apes.', favored_guild_tag: 'military', religion_breakdown: { great_waaagh: 0.70, unaligned: 0.30 } },
