@@ -23,7 +23,127 @@
 .faction-modal-overlay.visible {
     opacity: 1;
 }
+.fm-installations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+}
 
+.fm-installation-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border-left: 3px solid #64748b;
+}
+
+.fm-installation-card.fortress {
+    border-left-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.fm-installation-card.outpost {
+    border-left-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.fm-install-icon {
+    font-size: 1.5rem;
+}
+
+.fm-install-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.fm-install-name {
+    display: block;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fm-install-type {
+    display: block;
+    color: var(--text-secondary, #94a3b8);
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.fm-install-strength {
+    font-size: 0.85rem;
+    color: #fca5a5;
+    font-weight: 600;
+}
+
+/* ============================================
+   FORCE COMPOSITION
+   ============================================ */
+
+.fm-composition-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fm-comp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.fm-comp-label {
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fm-comp-icon {
+    font-size: 1rem;
+}
+
+.fm-comp-name {
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.fm-comp-count {
+    color: var(--text-secondary, #64748b);
+    font-size: 0.75rem;
+}
+
+.fm-comp-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.fm-comp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ef4444, #f97316);
+    border-radius: 4px;
+}
+
+.fm-comp-value {
+    min-width: 100px;
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--text-secondary, #94a3b8);
+}
+
+/* Power bar icon */
+.fm-power-icon {
+    font-size: 0.9rem;
+    margin-right: 4px;
+}
 /* Modal Container */
 .faction-modal {
     background: var(--main-bg, #0f172a);

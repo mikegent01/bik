@@ -1,53 +1,24 @@
 // societal-values.js - Faction & Regional Value Spectrum System
 
 import { getAllFactions, getFaction } from './systems/faction-registry.js'; 
-import { MDATA_F } from './map-data.js';
+import { MAP_DATA } from './map-data.js'; 
 
 // ============================================
 // VALUE AXES DEFINITIONS
 // ============================================
-function shouldExcludeFaction(factionId, faction) {
-    if (!factionId) return true;
-    
-    const idLower = factionId.toLowerCase().trim();
-    
-    // Check excluded IDs
-    const excludedIds = [
-        'unaligned',
-        'independent',
-        'unaligned_independent',
-        'unaligned-independent',
-        'unaligned & independent',
-        'unaligned_&_independent',
-        'none',
-        'neutral',
-        'unknown',
-        'n/a',
-        'na',
-        'null',
-        'undefined',
-        ''
-    ];
-    
-    if (excludedIds.includes(idLower)) return true;
-    
-    // Check if ID contains unaligned or independent
-    if (idLower.includes('unaligned') || idLower.includes('independent')) {
-        return true;
-    }
-    
-    // Check faction name
-    const name = (faction?.name || '').toLowerCase();
-    if (name.includes('unaligned') || 
-        name.includes('independent') || 
-        name.includes('no faction') ||
-        name.includes('n/a') ||
-        name === 'none') {
-        return true;
-    }
-    
-    return false;
-}
+const EXCLUDED_FACTION_IDS = [
+    'unaligned',
+    'independent',
+    'none',
+    'neutral',
+    'unknown',
+    'n/a',
+    'na',
+    'null',
+    'undefined',
+    ''
+];
+
 const VALUE_AXES = {
     tradition_innovation: {
         id: 'tradition_innovation',
@@ -206,7 +177,819 @@ const VALUE_AXES = {
         rightDesc: 'Education for all, libraries, shared learning.'
     }
 };
-
+const KEYWORD_VALUE_MODIFIERS = {
+    // Government/Structure Keywords
+    'empire': {
+        centralization: -40,      // Very centralized
+        tradition_innovation: -20, // Traditional
+        militarism: -30,          // Militaristic
+        foreign_policy: 30,       // Expansionist
+        social_mobility: -30,     // Aristocratic
+        collectivism: -20         // Collectivist
+    },
+    'kingdom': {
+        centralization: -30,
+        tradition_innovation: -15,
+        social_mobility: -35,
+        religion_state: -15
+    },
+    'republic': {
+        centralization: 20,
+        social_mobility: 25,
+        collectivism: 15,
+        religion_state: 20
+    },
+    'federation': {
+        centralization: 35,
+        collectivism: 20,
+        borders: 15
+    },
+    'confederacy': {
+        centralization: 40,
+        collectivism: 10
+    },
+    'council': {
+        centralization: 25,
+        social_mobility: 20,
+        knowledge: 20
+    },
+    'theocracy': {
+        religion_state: -45,
+        tradition_innovation: -30,
+        centralization: -20,
+        knowledge: -20
+    },
+    'tribe': {
+        centralization: 30,
+        tradition_innovation: -25,
+        nature_development: -30,
+        economy_type: -35
+    },
+    'tribal': {
+        centralization: 25,
+        tradition_innovation: -20,
+        nature_development: -25,
+        economy_type: -30
+    },
+    'horde': {
+        militarism: -40,
+        centralization: 15,
+        tradition_innovation: -15,
+        foreign_policy: 35,
+        nature_development: -20
+    },
+    'clan': {
+        centralization: 20,
+        tradition_innovation: -20,
+        collectivism: -25
+    },
+    'dynasty': {
+        social_mobility: -40,
+        tradition_innovation: -25,
+        centralization: -25
+    },
+    'commune': {
+        collectivism: -40,
+        centralization: 35,
+        social_mobility: 30,
+        economy_type: -15
+    },
+    'collective': {
+        collectivism: -45,
+        centralization: 30,
+        social_mobility: 25
+    },
+    
+    // Military Keywords
+    'military': {
+        militarism: -35,
+        centralization: -15,
+        magic_technology: 20
+    },
+    'army': {
+        militarism: -30,
+        magic_technology: 25
+    },
+    'legion': {
+        militarism: -35,
+        centralization: -20,
+        tradition_innovation: -15
+    },
+    'order': {
+        centralization: -15,
+        tradition_innovation: -20,
+        religion_state: -15,
+        militarism: -20
+    },
+    'knights': {
+        militarism: -25,
+        tradition_innovation: -20,
+        social_mobility: -20,
+        magic_technology: 30
+    },
+    'warrior': {
+        militarism: -35,
+        magic_technology: 35
+    },
+    'guard': {
+        militarism: -20,
+        centralization: -15
+    },
+    'mercenary': {
+        militarism: -20,
+        collectivism: 35,
+        borders: 25
+    },
+    'raiders': {
+        militarism: -35,
+        foreign_policy: 30,
+        borders: -20,
+        collectivism: 25
+    },
+    'pirates': {
+        militarism: -25,
+        borders: 30,
+        collectivism: 30,
+        centralization: 30
+    },
+    'bandits': {
+        militarism: -20,
+        centralization: 40,
+        collectivism: 35
+    },
+    
+    // Religious/Spiritual Keywords
+    'church': {
+        religion_state: -40,
+        tradition_innovation: -25,
+        centralization: -20
+    },
+    'temple': {
+        religion_state: -35,
+        tradition_innovation: -20,
+        knowledge: -15
+    },
+    'cult': {
+        religion_state: -40,
+        centralization: -25,
+        knowledge: -30,
+        borders: -25
+    },
+    'holy': {
+        religion_state: -35,
+        tradition_innovation: -20
+    },
+    'sacred': {
+        religion_state: -30,
+        nature_development: -20
+    },
+    'divine': {
+        religion_state: -35,
+        social_mobility: -15
+    },
+    'blessed': {
+        religion_state: -25
+    },
+    'inquisition': {
+        religion_state: -40,
+        centralization: -30,
+        borders: -35,
+        knowledge: -25
+    },
+    'monastery': {
+        religion_state: -30,
+        knowledge: 20,
+        militarism: 25
+    },
+    'shrine': {
+        religion_state: -25,
+        nature_development: -15
+    },
+    
+    // Magic/Arcane Keywords
+    'magic': {
+        magic_technology: -40,
+        knowledge: 25,
+        tradition_innovation: 10
+    },
+    'magical': {
+        magic_technology: -35,
+        knowledge: 20
+    },
+    'mage': {
+        magic_technology: -40,
+        knowledge: 30,
+        social_mobility: 20
+    },
+    'wizard': {
+        magic_technology: -45,
+        knowledge: 35,
+        centralization: 15
+    },
+    'sorcerer': {
+        magic_technology: -40,
+        knowledge: 20,
+        collectivism: 25
+    },
+    'witch': {
+        magic_technology: -35,
+        centralization: 30,
+        nature_development: -20
+    },
+    'arcane': {
+        magic_technology: -45,
+        knowledge: 30
+    },
+    'mystic': {
+        magic_technology: -35,
+        religion_state: -15,
+        knowledge: 15
+    },
+    'enchant': {
+        magic_technology: -30,
+        economy_type: 15
+    },
+    'coven': {
+        magic_technology: -35,
+        centralization: 25,
+        collectivism: -20
+    },
+    'academy': {
+        magic_technology: -25,
+        knowledge: 40,
+        social_mobility: 30,
+        tradition_innovation: 25
+    },
+    
+    // Technology/Science Keywords
+    'science': {
+        tradition_innovation: 40,
+        magic_technology: 30,
+        knowledge: 35,
+        religion_state: 25
+    },
+    'scientific': {
+        tradition_innovation: 35,
+        magic_technology: 25,
+        knowledge: 30
+    },
+    'technology': {
+        tradition_innovation: 40,
+        magic_technology: 35,
+        economy_type: 25
+    },
+    'tech': {
+        tradition_innovation: 35,
+        magic_technology: 30,
+        economy_type: 20
+    },
+    'engineer': {
+        tradition_innovation: 30,
+        magic_technology: 25,
+        economy_type: 20
+    },
+    'industrial': {
+        economy_type: 40,
+        tradition_innovation: 25,
+        nature_development: 35
+    },
+    'factory': {
+        economy_type: 40,
+        nature_development: 30
+    },
+    'mechanical': {
+        magic_technology: 35,
+        tradition_innovation: 30
+    },
+    'cyber': {
+        tradition_innovation: 45,
+        magic_technology: 40
+    },
+    'research': {
+        knowledge: 40,
+        tradition_innovation: 30
+    },
+    'laboratory': {
+        knowledge: 35,
+        tradition_innovation: 35,
+        magic_technology: 20
+    },
+    'school': {
+        knowledge: 40,
+        social_mobility: 25,
+        tradition_innovation: 20
+    },
+    'university': {
+        knowledge: 45,
+        social_mobility: 30,
+        tradition_innovation: 25
+    },
+    'institute': {
+        knowledge: 35,
+        tradition_innovation: 25
+    },
+    
+    // Trade/Economic Keywords
+    'merchant': {
+        economy_type: 30,
+        borders: 35,
+        collectivism: 30,
+        militarism: 25
+    },
+    'trade': {
+        borders: 35,
+        economy_type: 25,
+        militarism: 20
+    },
+    'trading': {
+        borders: 30,
+        economy_type: 20
+    },
+    'guild': {
+        economy_type: 20,
+        social_mobility: 25,
+        centralization: 20
+    },
+    'company': {
+        economy_type: 25,
+        collectivism: 25,
+        centralization: 15
+    },
+    'corporation': {
+        economy_type: 35,
+        collectivism: 30,
+        centralization: 20
+    },
+    'cartel': {
+        economy_type: 25,
+        centralization: 25,
+        borders: -15
+    },
+    'syndicate': {
+        centralization: 20,
+        borders: 20,
+        collectivism: 20
+    },
+    'bank': {
+        economy_type: 30,
+        centralization: -15
+    },
+    'market': {
+        borders: 30,
+        economy_type: 20
+    },
+    
+    // Nature/Environment Keywords
+    'forest': {
+        nature_development: -40,
+        tradition_innovation: -15,
+        economy_type: -25
+    },
+    'wood': {
+        nature_development: -30,
+        economy_type: -20
+    },
+    'grove': {
+        nature_development: -35,
+        religion_state: -15
+    },
+    'nature': {
+        nature_development: -40,
+        tradition_innovation: -20
+    },
+    'wild': {
+        nature_development: -35,
+        centralization: 25,
+        tradition_innovation: -15
+    },
+    'feral': {
+        nature_development: -40,
+        centralization: 35
+    },
+    'beast': {
+        nature_development: -30,
+        militarism: -20
+    },
+    'mountain': {
+        nature_development: -25,
+        foreign_policy: -20,
+        borders: -20
+    },
+    'sea': {
+        borders: 25,
+        foreign_policy: 20,
+        economy_type: 15
+    },
+    'ocean': {
+        borders: 30,
+        foreign_policy: 25
+    },
+    'river': {
+        economy_type: 10,
+        borders: 15
+    },
+    'desert': {
+        nature_development: -20,
+        foreign_policy: -15,
+        economy_type: -20
+    },
+    'swamp': {
+        nature_development: -30,
+        foreign_policy: -25,
+        borders: -25
+    },
+    'island': {
+        foreign_policy: -20,
+        borders: -15
+    },
+    
+    // Race/Species Keywords
+    'elf': {
+        tradition_innovation: -20,
+        nature_development: -30,
+        magic_technology: -25,
+        social_mobility: -20
+    },
+    'elven': {
+        tradition_innovation: -25,
+        nature_development: -35,
+        magic_technology: -30
+    },
+    'dwarf': {
+        tradition_innovation: -15,
+        economy_type: 25,
+        nature_development: 20,
+        magic_technology: 20
+    },
+    'dwarven': {
+        tradition_innovation: -20,
+        economy_type: 30,
+        nature_development: 25
+    },
+    'orc': {
+        militarism: -35,
+        tradition_innovation: -10,
+        magic_technology: 30
+    },
+    'orcish': {
+        militarism: -40,
+        magic_technology: 35
+    },
+    'goblin': {
+        tradition_innovation: 20,
+        centralization: 25,
+        collectivism: 20
+    },
+    'troll': {
+        militarism: -25,
+        tradition_innovation: -20
+    },
+    'undead': {
+        religion_state: -20,
+        nature_development: 25,
+        tradition_innovation: -25
+    },
+    'vampire': {
+        social_mobility: -35,
+        tradition_innovation: -20,
+        centralization: -25
+    },
+    'demon': {
+        religion_state: -30,
+        militarism: -30,
+        centralization: -20
+    },
+    'dragon': {
+        centralization: -35,
+        social_mobility: -30,
+        militarism: -25
+    },
+    'human': {
+        // Balanced - no strong modifiers
+    },
+    'halfling': {
+        militarism: 30,
+        nature_development: -15,
+        collectivism: -20
+    },
+    'gnome': {
+        tradition_innovation: 25,
+        knowledge: 25,
+        economy_type: 15
+    },
+    
+    // Political Stance Keywords
+    'free': {
+        centralization: 35,
+        collectivism: 30,
+        borders: 25
+    },
+    'freedom': {
+        centralization: 40,
+        collectivism: 35
+    },
+    'liberty': {
+        centralization: 35,
+        collectivism: 35,
+        borders: 20
+    },
+    'liberation': {
+        centralization: 30,
+        foreign_policy: 20
+    },
+    'rebel': {
+        centralization: 30,
+        tradition_innovation: 15,
+        foreign_policy: 15
+    },
+    'rebellion': {
+        centralization: 35,
+        tradition_innovation: 20
+    },
+    'resistance': {
+        centralization: 25,
+        militarism: -15
+    },
+    'revolutionary': {
+        tradition_innovation: 35,
+        centralization: 30
+    },
+    'royal': {
+        social_mobility: -35,
+        centralization: -25,
+        tradition_innovation: -20
+    },
+    'imperial': {
+        centralization: -35,
+        foreign_policy: 30,
+        social_mobility: -25
+    },
+    'noble': {
+        social_mobility: -30,
+        tradition_innovation: -15
+    },
+    'aristocrat': {
+        social_mobility: -40,
+        centralization: -15
+    },
+    'democratic': {
+        centralization: 35,
+        social_mobility: 30,
+        collectivism: 20
+    },
+    'populist': {
+        centralization: 25,
+        social_mobility: 25
+    },
+    
+    // Isolationist/Expansionist Keywords
+    'isolat': {
+        foreign_policy: -40,
+        borders: -35
+    },
+    'hidden': {
+        foreign_policy: -35,
+        borders: -40,
+        knowledge: -25
+    },
+    'secret': {
+        knowledge: -40,
+        borders: -30,
+        centralization: -20
+    },
+    'shadow': {
+        knowledge: -35,
+        borders: -25,
+        centralization: -15
+    },
+    'conquest': {
+        foreign_policy: 40,
+        militarism: -35
+    },
+    'conquer': {
+        foreign_policy: 35,
+        militarism: -30
+    },
+    'dominion': {
+        foreign_policy: 30,
+        centralization: -25
+    },
+    'expansion': {
+        foreign_policy: 35
+    },
+    'colonial': {
+        foreign_policy: 35,
+        borders: 20
+    },
+    
+    // Peaceful/Diplomatic Keywords
+    'peace': {
+        militarism: 40,
+        foreign_policy: -10,
+        borders: 20
+    },
+    'peaceful': {
+        militarism: 35,
+        borders: 15
+    },
+    'harmony': {
+        militarism: 30,
+        collectivism: -15,
+        nature_development: -20
+    },
+    'diplomatic': {
+        militarism: 25,
+        borders: 25,
+        foreign_policy: 15
+    },
+    'alliance': {
+        borders: 25,
+        foreign_policy: 15
+    },
+    'united': {
+        collectivism: -25,
+        centralization: -15
+    },
+    'union': {
+        collectivism: -30,
+        centralization: 15
+    },
+    
+    // Urban/Rural Keywords
+    'city': {
+        nature_development: 35,
+        economy_type: 25,
+        centralization: 15
+    },
+    'cities': {
+        nature_development: 30,
+        economy_type: 20,
+        centralization: 20
+    },
+    'urban': {
+        nature_development: 40,
+        economy_type: 30
+    },
+    'metro': {
+        nature_development: 40,
+        economy_type: 35,
+        tradition_innovation: 25
+    },
+    'village': {
+        nature_development: -20,
+        economy_type: -25,
+        centralization: 25
+    },
+    'farm': {
+        economy_type: -35,
+        nature_development: -25
+    },
+    'pastoral': {
+        economy_type: -30,
+        nature_development: -30,
+        militarism: 20
+    },
+    'nomad': {
+        centralization: 35,
+        foreign_policy: -15,
+        nature_development: -25,
+        economy_type: -30
+    },
+    
+    // Misc Descriptors
+    'ancient': {
+        tradition_innovation: -35,
+        knowledge: 15
+    },
+    'old': {
+        tradition_innovation: -25
+    },
+    'eternal': {
+        tradition_innovation: -30
+    },
+    'new': {
+        tradition_innovation: 25
+    },
+    'modern': {
+        tradition_innovation: 35,
+        economy_type: 20
+    },
+    'progressive': {
+        tradition_innovation: 40,
+        social_mobility: 25
+    },
+    'conservative': {
+        tradition_innovation: -30,
+        social_mobility: -15
+    },
+    'orthodox': {
+        tradition_innovation: -35,
+        religion_state: -25
+    },
+    'reformed': {
+        tradition_innovation: 20,
+        religion_state: 15
+    },
+    'purist': {
+        tradition_innovation: -30,
+        borders: -25
+    },
+    'elite': {
+        social_mobility: -30,
+        centralization: -20
+    },
+    'chosen': {
+        religion_state: -25,
+        social_mobility: -20
+    },
+    'supreme': {
+        centralization: -30,
+        social_mobility: -25
+    },
+    'grand': {
+        centralization: -20,
+        social_mobility: -15
+    },
+    'great': {
+        centralization: -15
+    },
+    'eternal': {
+        tradition_innovation: -30
+    },
+    'dark': {
+        religion_state: -15,
+        knowledge: -20
+    },
+    'light': {
+        religion_state: -15,
+        knowledge: 15
+    },
+    'crimson': {
+        militarism: -20
+    },
+    'iron': {
+        militarism: -25,
+        magic_technology: 25
+    },
+    'steel': {
+        magic_technology: 30,
+        economy_type: 20
+    },
+    'golden': {
+        economy_type: 25,
+        social_mobility: -15
+    },
+    'silver': {
+        economy_type: 20
+    },
+    'black': {
+        knowledge: -15
+    },
+    'white': {
+        religion_state: -10
+    },
+    'blood': {
+        militarism: -25,
+        religion_state: -15
+    },
+    'death': {
+        militarism: -30
+    },
+    'war': {
+        militarism: -40,
+        foreign_policy: 25
+    },
+    'battle': {
+        militarism: -30
+    },
+    'storm': {
+        militarism: -20,
+        foreign_policy: 15
+    },
+    'flame': {
+        militarism: -20,
+        tradition_innovation: 10
+    },
+    'frost': {
+        foreign_policy: -20,
+        nature_development: -15
+    },
+    'ice': {
+        foreign_policy: -15
+    },
+    'void': {
+        magic_technology: -30,
+        knowledge: -20
+    },
+    'chaos': {
+        centralization: 40,
+        tradition_innovation: 20
+    },
+    'order': {
+        centralization: -25,
+        tradition_innovation: -20
+    }
+};
 // ============================================
 // FACTION VALUE DATA
 // Values range from 0-100 (0 = full left, 100 = full right, 50 = neutral)
@@ -351,18 +1134,6 @@ function getFactionValues(factionId) {
     return generateFactionValues(faction);
 }
 
-function generateFactionValues(faction) {
-    const hash = simpleHash(faction.id || faction.name);
-    const values = {};
-    
-    Object.keys(VALUE_AXES).forEach((axisId, index) => {
-        const seed = (hash + index * 17) % 100;
-        values[axisId] = Math.max(5, Math.min(95, seed));
-    });
-    
-    return values;
-}
-
 function generateDefaultValues() {
     const values = {};
     Object.keys(VALUE_AXES).forEach(axisId => {
@@ -381,35 +1152,6 @@ function simpleHash(str) {
     return Math.abs(hash) % 100;
 }
 
-function getAllFactionsWithValues() {
-    const allFactions = getAllFactions();
-    const result = [];
-    
-    Object.keys(FACTION_VALUES).forEach(factionId => {
-        const faction = allFactions[factionId] || getFaction(factionId);
-        if (faction) {
-            result.push({
-                id: factionId,
-                faction,
-                values: FACTION_VALUES[factionId]
-            });
-        }
-    });
-    
-    if (result.length < 10) {
-        Object.entries(allFactions).slice(0, 20).forEach(([id, faction]) => {
-            if (!FACTION_VALUES[id]) {
-                result.push({
-                    id,
-                    faction,
-                    values: generateFactionValues(faction)
-                });
-            }
-        });
-    }
-    
-    return result;
-}
 
 function getFactionsByAxis(axisId, order = 'left') {
     const factions = getAllFactionsWithValues();
@@ -1181,7 +1923,213 @@ function rerenderSocietalValues() {
     parent.insertAdjacentHTML('beforeend', renderSocietalValues());
     initSocietalValuesListeners();
 }
+function shouldExcludeFaction(factionId, faction) {
+    if (!factionId) return true;
+    
+    const idLower = String(factionId).toLowerCase().trim();
+    
+    // Excluded IDs
+    const excludedPatterns = [
+        'unaligned',
+        'independent',
+        'none',
+        'neutral',
+        'unknown',
+        'n/a',
+        'na',
+        'null',
+        'undefined'
+    ];
+    
+    // Check if ID matches or contains excluded patterns
+    for (const pattern of excludedPatterns) {
+        if (idLower === pattern || idLower.includes(pattern)) {
+            return true;
+        }
+    }
+    
+    // Check faction name
+    if (faction) {
+        const name = String(faction.name || '').toLowerCase();
+        for (const pattern of excludedPatterns) {
+            if (name.includes(pattern)) {
+                return true;
+            }
+        }
+        
+        // Also exclude "no faction" type names
+        if (name === 'none' || name.includes('no faction')) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+/**
+ * Generate values for a faction based on keyword analysis
+ */
+function generateFactionValues(faction) {
+    // Start with neutral values
+    const values = {};
+    Object.keys(VALUE_AXES).forEach(axisId => {
+        values[axisId] = 50;
+    });
+    
+    if (!faction) return values;
+    
+    // Gather all text to analyze
+    const textsToAnalyze = [
+        faction.id || '',
+        faction.name || '',
+        faction.type || '',
+        faction.description || '',
+        faction.lore || '',
+        faction.government || '',
+        faction.culture || '',
+        faction.religion || '',
+        faction.primaryRace || '',
+        faction.species || '',
+        ...(faction.tags || [])
+    ].join(' ').toLowerCase();
+    
+    // Track which modifiers we've applied to average them
+    const appliedModifiers = {};
+    Object.keys(VALUE_AXES).forEach(axisId => {
+        appliedModifiers[axisId] = [];
+    });
+    
+    // Check each keyword
+    Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
+        // Check if keyword exists in faction text
+        const regex = new RegExp(`\\b${keyword}`, 'i');
+        if (regex.test(textsToAnalyze)) {
+            // Apply modifiers
+            Object.entries(modifiers).forEach(([axisId, modifier]) => {
+                if (VALUE_AXES[axisId]) {
+                    appliedModifiers[axisId].push(modifier);
+                }
+            });
+        }
+    });
+    
+    // Calculate final values by averaging modifiers
+    Object.entries(appliedModifiers).forEach(([axisId, mods]) => {
+        if (mods.length > 0) {
+            // Average the modifiers
+            const avgMod = mods.reduce((sum, m) => sum + m, 0) / mods.length;
+            // Apply to base value of 50
+            values[axisId] = Math.max(5, Math.min(95, Math.round(50 + avgMod)));
+        } else {
+            // No keywords matched - use hash-based fallback with less variance
+            const hash = simpleHash(faction.id || faction.name || 'unknown');
+            const variance = ((hash + Object.keys(VALUE_AXES).indexOf(axisId) * 7) % 30) - 15;
+            values[axisId] = 50 + variance;
+        }
+    });
+    
+    return values;
+}
 
+/**
+ * Get all factions with their values (filtered)
+ */
+function getAllFactionsWithValues() {
+    const allFactions = getAllFactions();
+    const result = [];
+    const addedIds = new Set();
+    
+    // Add factions with preset values first
+    Object.keys(FACTION_VALUES).forEach(factionId => {
+        if (shouldExcludeFaction(factionId, null)) return;
+        if (addedIds.has(factionId)) return;
+        
+        const faction = allFactions[factionId] || getFaction(factionId);
+        if (faction && !shouldExcludeFaction(factionId, faction)) {
+            result.push({
+                id: factionId,
+                faction,
+                values: FACTION_VALUES[factionId]
+            });
+            addedIds.add(factionId);
+        }
+    });
+    
+    // Add remaining factions from registry with generated values
+    Object.entries(allFactions).forEach(([id, faction]) => {
+        // Skip if already added or should be excluded
+        if (addedIds.has(id)) return;
+        if (shouldExcludeFaction(id, faction)) return;
+        
+        result.push({
+            id,
+            faction,
+            values: generateFactionValues(faction)
+        });
+        addedIds.add(id);
+    });
+    
+    return result;
+}
+/**
+ * Get value data for a faction
+ */
+
+/**
+ * Debug function to see what keywords matched for a faction
+ */
+function debugFactionKeywords(factionId) {
+    const allFactions = getAllFactions();
+    const faction = allFactions[factionId] || getFaction(factionId);
+    
+    if (!faction) {
+        console.log(`Faction ${factionId} not found`);
+        return;
+    }
+    
+    const textsToAnalyze = [
+        faction.id || '',
+        faction.name || '',
+        faction.type || '',
+        faction.description || '',
+        faction.lore || '',
+        faction.government || '',
+        faction.culture || '',
+        faction.religion || '',
+        faction.primaryRace || '',
+        faction.species || '',
+        ...(faction.tags || [])
+    ].join(' ').toLowerCase();
+    
+    console.log(`\n=== Debug: ${faction.name || factionId} ===`);
+    console.log(`Text analyzed: "${textsToAnalyze.substring(0, 200)}..."`);
+    console.log('\nMatched keywords:');
+    
+    const matches = [];
+    Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
+        const regex = new RegExp(`\\b${keyword}`, 'i');
+        if (regex.test(textsToAnalyze)) {
+            matches.push({ keyword, modifiers });
+            console.log(`  ✓ "${keyword}":`, modifiers);
+        }
+    });
+    
+    if (matches.length === 0) {
+        console.log('  (no keywords matched)');
+    }
+    
+    console.log('\nGenerated values:');
+    const values = generateFactionValues(faction);
+    Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
+        const val = values[axisId];
+        const stance = val < 40 ? axis.leftLabel : val > 60 ? axis.rightLabel : 'Balanced';
+        console.log(`  ${axis.name}: ${val} (${stance})`);
+    });
+    
+    return { faction, matches, values };
+}
+
+// Make debug function available globally
+window.debugFactionKeywords = debugFactionKeywords;
 // ============================================
 // EXPORTS
 // ============================================

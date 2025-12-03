@@ -2,7 +2,7 @@
 
 import { getFaction, getAllFactions, getFactionColor, getFactionIcon } from './systems/faction-registry.js';
 import { VALUE_AXES, getFactionValues } from './societal-values.js';
-import { MDATA_F } from '../map-data.js';
+import { MAP_DATA } from './map-data.js';
 
 // ============================================
 // STATE
@@ -20,44 +20,60 @@ let activeTab = 'overview';
  * Get all POIs controlled by a faction
  */
 function getFactionPOIs(factionId) {
-    if (!MDATA_F) return [];
+    if (!MAP_DATA) return [];
     
     const pois = [];
-    Object.entries(MDATA_F).forEach(([regionId, region]) => {
+    Object.entries(MAP_DATA).forEach(([regionId, region]) => {
+        // Only process _full regions to avoid double-counting
+        if (!regionId.endsWith('_full')) return;
+        
         const regionPois = region.pointsOfInterest || [];
+        const cleanRegionName = (region.name || regionId).replace(' (Full)', '');
+        
         regionPois.forEach(poi => {
             if (poi.factionId === factionId) {
                 pois.push({
                     ...poi,
                     regionId,
-                    regionName: region.name || regionId
+                    regionName: cleanRegionName
                 });
             }
         });
     });
     
-    return pois.sort((a, b) => (b.military_strength || 0) - (a.military_strength || 0));
+    return pois.sort((a, b) => 
+        (b.military_strength || b.militaryStrength || 0) - 
+        (a.military_strength || a.militaryStrength || 0)
+    );
 }
-
 /**
  * Get regions where faction has presence
  */
 function getFactionRegions(factionId) {
-    if (!MDATA_F) return [];
+    if (!MAP_DATA) return [];
     
     const regions = [];
-    Object.entries(MDATA_F).forEach(([regionId, region]) => {
+    Object.entries(MAP_DATA).forEach(([regionId, region]) => {
+        // Only process _full regions
+        if (!regionId.endsWith('_full')) return;
+        
         const regionPois = region.pointsOfInterest || [];
         const factionPois = regionPois.filter(poi => poi.factionId === factionId);
         
         if (factionPois.length > 0) {
-            const totalMilitary = factionPois.reduce((sum, p) => sum + (p.military_strength || 0), 0);
-            const totalEconomic = factionPois.reduce((sum, p) => sum + (p.economic_value || 0), 0);
-            const totalPopulation = factionPois.reduce((sum, p) => sum + (p.population || 0), 0);
+            const totalMilitary = factionPois.reduce((sum, p) => 
+                sum + (p.military_strength || p.militaryStrength || 0), 0);
+            const totalEconomic = factionPois.reduce((sum, p) => 
+                sum + (p.economic_value || p.economicValue || 0), 0);
+            const totalPopulation = factionPois.reduce((sum, p) => 
+                sum + (p.population || 0), 0);
+            
+            // Clean the name - remove "(Full)" suffix
+            const cleanName = (region.name || regionId).replace(' (Full)', '');
             
             regions.push({
                 id: regionId,
-                name: region.name || regionId,
+                name: cleanName,
                 terrain: region.terrain,
                 poiCount: factionPois.length,
                 totalPois: regionPois.length,
@@ -71,7 +87,6 @@ function getFactionRegions(factionId) {
     
     return regions.sort((a, b) => b.controlPercent - a.controlPercent);
 }
-
 /**
  * Get faction aggregate stats
  */
@@ -79,21 +94,34 @@ function getFactionStats(factionId) {
     const pois = getFactionPOIs(factionId);
     const regions = getFactionRegions(factionId);
     
+    // Calculate totals from POIs
+    const totalMilitary = pois.reduce((sum, p) => 
+        sum + (p.military_strength || p.militaryStrength || 0), 0);
+    const totalEconomic = pois.reduce((sum, p) => 
+        sum + (p.economic_value || p.economicValue || 0), 0);
+    const totalPolitical = pois.reduce((sum, p) => 
+        sum + (p.political_influence || p.politicalInfluence || 0), 0);
+    const totalPopulation = pois.reduce((sum, p) => 
+        sum + (p.population || 0), 0);
+    
     return {
         totalPOIs: pois.length,
         totalRegions: regions.length,
-        totalMilitary: pois.reduce((sum, p) => sum + (p.military_strength || 0), 0),
-        totalEconomic: pois.reduce((sum, p) => sum + (p.economic_value || 0), 0),
-        totalPolitical: pois.reduce((sum, p) => sum + (p.political_influence || 0), 0),
-        totalPopulation: pois.reduce((sum, p) => sum + (p.population || 0), 0),
+        totalMilitary,
+        totalEconomic,
+        totalPolitical,
+        totalPopulation,
         dominatedRegions: regions.filter(r => r.controlPercent > 50).length,
-        capitalCity: pois.find(p => p.type === 'capital' || p.isCapital),
+        capitalCity: pois.find(p => 
+            p.type === 'capital' || 
+            p.type === 'capital_city' || 
+            p.isCapital
+        ),
         strongestPOI: pois[0],
         pois,
         regions
     };
 }
-
 /**
  * Find allied and rival factions based on values
  */
@@ -586,13 +614,51 @@ function renderRelationCard(relation, type) {
  */
 function renderMilitaryTab(faction, stats) {
     const { pois } = stats;
-    const militaryPois = pois.filter(p => (p.military_strength || 0) > 0)
-        .sort((a, b) => (b.military_strength || 0) - (a.military_strength || 0));
     
-    // Calculate military composition
-    const fortresses = pois.filter(p => ['fortress', 'castle', 'fort', 'citadel'].includes(p.type?.toLowerCase())).length;
-    const camps = pois.filter(p => ['camp', 'outpost', 'garrison'].includes(p.type?.toLowerCase())).length;
-    const cities = pois.filter(p => ['city', 'capital', 'town'].includes(p.type?.toLowerCase())).length;
+    // Military building type categories
+    const militaryTypes = ['fortress', 'castle', 'watchtower', 'barracks', 'siege_camp'];
+    const campTypes = ['outpost', 'bandit_camp', 'siege_camp', 'listening_post'];
+    const cityTypes = ['capital_city', 'major_city', 'town', 'city', 'capital'];
+    const navalTypes = ['port', 'shipwreck', 'space_station', 'generation_ship'];
+    const magicTypes = ['mages_tower', 'ley_line', 'ancient_circle', 'portal'];
+    
+    // Count by type (check both 'type' and 'buildingType' fields)
+    const getPoiType = (poi) => (poi.type || poi.buildingType || '').toLowerCase().replace(/[\s-]/g, '_');
+    
+    const fortresses = pois.filter(p => {
+        const type = getPoiType(p);
+        return militaryTypes.some(t => type.includes(t));
+    });
+    
+    const camps = pois.filter(p => {
+        const type = getPoiType(p);
+        return campTypes.some(t => type.includes(t));
+    });
+    
+    const garrisonedCities = pois.filter(p => {
+        const type = getPoiType(p);
+        const isCityType = cityTypes.some(t => type.includes(t));
+        const hasMilitary = (p.military_strength || p.militaryStrength || 0) > 0;
+        return isCityType && hasMilitary;
+    });
+    
+    const navalBases = pois.filter(p => {
+        const type = getPoiType(p);
+        return navalTypes.some(t => type.includes(t));
+    });
+    
+    const magicSites = pois.filter(p => {
+        const type = getPoiType(p);
+        return magicTypes.some(t => type.includes(t));
+    });
+    
+    // Get POIs with military strength, sorted
+    const militaryPois = pois
+        .filter(p => (p.military_strength || p.militaryStrength || 0) > 0)
+        .sort((a, b) => (b.military_strength || b.militaryStrength || 0) - (a.military_strength || a.militaryStrength || 0));
+    
+    // Calculate total military
+    const totalMilitary = pois.reduce((sum, p) => sum + (p.military_strength || p.militaryStrength || 0), 0);
     
     return `
         <div class="fm-tab-content" data-content="military">
@@ -601,26 +667,69 @@ function renderMilitaryTab(faction, stats) {
                 <h3 class="fm-section-title">⚔️ Military Overview</h3>
                 <div class="fm-military-summary">
                     <div class="fm-military-stat main">
-                        <span class="fm-military-value">${stats.totalMilitary.toLocaleString()}</span>
+                        <span class="fm-military-value">${totalMilitary.toLocaleString()}</span>
                         <span class="fm-military-label">Total Military Strength</span>
                     </div>
                     <div class="fm-military-stat">
                         <span class="fm-military-icon">🏰</span>
-                        <span class="fm-military-value">${fortresses}</span>
-                        <span class="fm-military-label">Fortresses</span>
+                        <span class="fm-military-value">${fortresses.length}</span>
+                        <span class="fm-military-label">Fortresses & Castles</span>
                     </div>
                     <div class="fm-military-stat">
-                        <span class="fm-military-icon">⛺</span>
-                        <span class="fm-military-value">${camps}</span>
-                        <span class="fm-military-label">Camps/Outposts</span>
+                        <span class="fm-military-icon">🏕️</span>
+                        <span class="fm-military-value">${camps.length}</span>
+                        <span class="fm-military-label">Outposts & Camps</span>
                     </div>
                     <div class="fm-military-stat">
                         <span class="fm-military-icon">🏙️</span>
-                        <span class="fm-military-value">${cities}</span>
+                        <span class="fm-military-value">${garrisonedCities.length}</span>
                         <span class="fm-military-label">Garrisoned Cities</span>
                     </div>
+                    ${navalBases.length > 0 ? `
+                        <div class="fm-military-stat">
+                            <span class="fm-military-icon">⚓</span>
+                            <span class="fm-military-value">${navalBases.length}</span>
+                            <span class="fm-military-label">Naval Bases</span>
+                        </div>
+                    ` : ''}
+                    ${magicSites.length > 0 ? `
+                        <div class="fm-military-stat">
+                            <span class="fm-military-icon">🧙</span>
+                            <span class="fm-military-value">${magicSites.length}</span>
+                            <span class="fm-military-label">Magic Sites</span>
+                        </div>
+                    ` : ''}
                 </div>
             </div>
+            
+            <!-- Military Installations Breakdown -->
+            ${fortresses.length > 0 || camps.length > 0 ? `
+                <div class="fm-section">
+                    <h3 class="fm-section-title">🏰 Military Installations</h3>
+                    <div class="fm-installations-grid">
+                        ${fortresses.slice(0, 6).map(poi => `
+                            <div class="fm-installation-card fortress">
+                                <span class="fm-install-icon">${getPoiIcon(getPoiType(poi))}</span>
+                                <div class="fm-install-info">
+                                    <span class="fm-install-name">${poi.name}</span>
+                                    <span class="fm-install-type">${poi.type || poi.buildingType || 'Fortress'}</span>
+                                </div>
+                                <span class="fm-install-strength">⚔️ ${poi.military_strength || poi.militaryStrength || 0}</span>
+                            </div>
+                        `).join('')}
+                        ${camps.slice(0, 4).map(poi => `
+                            <div class="fm-installation-card outpost">
+                                <span class="fm-install-icon">${getPoiIcon(getPoiType(poi))}</span>
+                                <div class="fm-install-info">
+                                    <span class="fm-install-name">${poi.name}</span>
+                                    <span class="fm-install-type">${poi.type || poi.buildingType || 'Outpost'}</span>
+                                </div>
+                                <span class="fm-install-strength">⚔️ ${poi.military_strength || poi.militaryStrength || 0}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
             
             <!-- Military Power Distribution -->
             <div class="fm-section">
@@ -628,12 +737,14 @@ function renderMilitaryTab(faction, stats) {
                 ${militaryPois.length > 0 ? `
                     <div class="fm-power-chart">
                         ${militaryPois.slice(0, 8).map((poi, index) => {
-                            const maxMil = militaryPois[0]?.military_strength || 1;
-                            const percent = ((poi.military_strength || 0) / maxMil) * 100;
+                            const maxMil = militaryPois[0]?.military_strength || militaryPois[0]?.militaryStrength || 1;
+                            const poiMil = poi.military_strength || poi.militaryStrength || 0;
+                            const percent = (poiMil / maxMil) * 100;
                             return `
                                 <div class="fm-power-bar">
                                     <div class="fm-power-label">
                                         <span class="fm-power-rank">#${index + 1}</span>
+                                        <span class="fm-power-icon">${getPoiIcon(getPoiType(poi))}</span>
                                         <span class="fm-power-name">${poi.name}</span>
                                     </div>
                                     <div class="fm-power-track">
@@ -642,7 +753,7 @@ function renderMilitaryTab(faction, stats) {
                                             background: ${faction.color || '#ef4444'};
                                         "></div>
                                     </div>
-                                    <span class="fm-power-value">${poi.military_strength || 0}</span>
+                                    <span class="fm-power-value">${poiMil.toLocaleString()}</span>
                                 </div>
                             `;
                         }).join('')}
@@ -650,64 +761,328 @@ function renderMilitaryTab(faction, stats) {
                 ` : '<p class="fm-no-data">No military installations recorded.</p>'}
             </div>
             
+            <!-- Force Composition -->
+            <div class="fm-section">
+                <h3 class="fm-section-title">📊 Force Composition</h3>
+                <div class="fm-composition">
+                    ${renderForceComposition(pois)}
+                </div>
+            </div>
+            
             <!-- Strategic Assessment -->
             <div class="fm-section">
                 <h3 class="fm-section-title">🎯 Strategic Assessment</h3>
                 <div class="fm-assessment">
-                    ${generateStrategicAssessment(faction, stats)}
+                    ${generateStrategicAssessment(faction, stats, { fortresses, camps, garrisonedCities, navalBases, magicSites })}
                 </div>
             </div>
         </div>
     `;
 }
-
+function renderForceComposition(pois) {
+    const composition = {};
+    
+    pois.forEach(poi => {
+        const type = (poi.type || poi.buildingType || 'unknown').toLowerCase().replace(/[\s-]/g, '_');
+        const mil = poi.military_strength || poi.militaryStrength || 0;
+        
+        if (!composition[type]) {
+            composition[type] = { count: 0, military: 0, type };
+        }
+        composition[type].count++;
+        composition[type].military += mil;
+    });
+    
+    const sorted = Object.values(composition)
+        .filter(c => c.military > 0)
+        .sort((a, b) => b.military - a.military)
+        .slice(0, 6);
+    
+    if (sorted.length === 0) {
+        return '<p class="fm-no-data">No force composition data available.</p>';
+    }
+    
+    const totalMil = sorted.reduce((sum, c) => sum + c.military, 0);
+    
+    return `
+        <div class="fm-composition-bars">
+            ${sorted.map(comp => {
+                const percent = (comp.military / totalMil) * 100;
+                return `
+                    <div class="fm-comp-row">
+                        <div class="fm-comp-label">
+                            <span class="fm-comp-icon">${getPoiIcon(comp.type)}</span>
+                            <span class="fm-comp-name">${formatTypeName(comp.type)}</span>
+                            <span class="fm-comp-count">(${comp.count})</span>
+                        </div>
+                        <div class="fm-comp-bar">
+                            <div class="fm-comp-fill" style="width: ${percent}%;"></div>
+                        </div>
+                        <span class="fm-comp-value">${comp.military.toLocaleString()} (${Math.round(percent)}%)</span>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+function formatTypeName(type) {
+    return type
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
 /**
  * Generate strategic assessment text
  */
-function generateStrategicAssessment(faction, stats) {
+/**
+ * Generate strategic assessment text
+ */
+function generateStrategicAssessment(faction, stats, installations) {
     const assessments = [];
+    const { fortresses, camps, garrisonedCities, navalBases, magicSites } = installations;
+    const totalMilitary = stats.totalMilitary;
+    const totalPOIs = stats.totalPOIs;
+    const totalRegions = stats.totalRegions;
     
-    // Military strength assessment
-    if (stats.totalMilitary > 1000) {
+    // Military strength assessment - scaled to your game's values
+    // Adjust these thresholds based on your world's power scale
+    if (totalMilitary >= 500) {
+        assessments.push({
+            icon: '👑',
+            title: 'Dominant Superpower',
+            text: 'Possesses overwhelming military capabilities. Uncontested dominance across multiple regions.',
+            type: 'positive'
+        });
+    } else if (totalMilitary >= 300) {
         assessments.push({
             icon: '💪',
             title: 'Major Military Power',
-            text: 'This faction possesses significant military capabilities and can project force across multiple regions.',
+            text: 'Significant military capabilities with strong offensive and defensive capacity. A force to be reckoned with.',
             type: 'positive'
         });
-    } else if (stats.totalMilitary > 500) {
+    } else if (totalMilitary >= 150) {
         assessments.push({
             icon: '⚔️',
+            title: 'Regional Power',
+            text: 'Capable military force with solid territorial defense and moderate power projection.',
+            type: 'positive'
+        });
+    } else if (totalMilitary >= 75) {
+        assessments.push({
+            icon: '🛡️',
             title: 'Moderate Military',
-            text: 'Capable of regional defense and limited offensive operations.',
+            text: 'Adequate defensive capabilities. Can hold territory but limited offensive reach.',
             type: 'neutral'
+        });
+    } else if (totalMilitary >= 25) {
+        assessments.push({
+            icon: '⚠️',
+            title: 'Limited Military',
+            text: 'Primarily defensive capabilities. May rely on diplomacy, alliances, or unconventional tactics.',
+            type: 'warning'
         });
     } else {
         assessments.push({
-            icon: '🛡️',
-            title: 'Limited Military',
-            text: 'Primarily defensive capabilities. May rely on diplomacy or alliances.',
+            icon: '🕊️',
+            title: 'Minimal Military',
+            text: 'Little to no standing military forces. Relies on other means for security.',
             type: 'warning'
         });
     }
     
-    // Territorial spread
-    if (stats.totalRegions > 5) {
+    // Fortress network
+    if (fortresses.length >= 5) {
         assessments.push({
-            icon: '🌍',
-            title: 'Wide Territorial Spread',
-            text: 'Presence across many regions provides strategic flexibility but may strain logistics.',
+            icon: '🏰',
+            title: 'Heavily Fortified',
+            text: `Extensive network of ${fortresses.length} fortifications ensures exceptional territorial defense.`,
+            type: 'positive'
+        });
+    } else if (fortresses.length >= 3) {
+        assessments.push({
+            icon: '🏰',
+            title: 'Fortified Territory',
+            text: `Network of ${fortresses.length} fortifications provides strong territorial defense.`,
+            type: 'positive'
+        });
+    } else if (fortresses.length >= 1) {
+        assessments.push({
+            icon: '🏰',
+            title: 'Some Fortifications',
+            text: `${fortresses.length} fortress${fortresses.length > 1 ? 'es' : ''} anchor${fortresses.length === 1 ? 's' : ''} key defensive positions.`,
             type: 'neutral'
         });
     }
     
-    // Economic base
-    if (stats.totalEconomic > stats.totalMilitary) {
+    // Naval power
+    if (navalBases.length >= 3) {
+        assessments.push({
+            icon: '⚓',
+            title: 'Naval Dominance',
+            text: `Controls ${navalBases.length} ports/naval bases enabling major maritime operations.`,
+            type: 'positive'
+        });
+    } else if (navalBases.length >= 1) {
+        assessments.push({
+            icon: '⚓',
+            title: 'Naval Presence',
+            text: `Access to ${navalBases.length} port${navalBases.length > 1 ? 's' : ''} enables maritime operations.`,
+            type: 'neutral'
+        });
+    }
+    
+    // Magic capability
+    if (magicSites.length >= 3) {
+        assessments.push({
+            icon: '✨',
+            title: 'Arcane Powerhouse',
+            text: `Control of ${magicSites.length} magical sites provides significant supernatural advantages.`,
+            type: 'positive'
+        });
+    } else if (magicSites.length >= 1) {
+        assessments.push({
+            icon: '✨',
+            title: 'Arcane Assets',
+            text: `Access to ${magicSites.length} magical site${magicSites.length > 1 ? 's' : ''} provides supernatural advantages.`,
+            type: 'neutral'
+        });
+    }
+    
+    // Garrisoned cities
+    if (garrisonedCities.length >= 5) {
+        assessments.push({
+            icon: '🏙️',
+            title: 'Urban Military Network',
+            text: `${garrisonedCities.length} garrisoned cities provide manpower reserves and defensive depth.`,
+            type: 'positive'
+        });
+    } else if (garrisonedCities.length >= 3) {
+        assessments.push({
+            icon: '🏙️',
+            title: 'Urban Garrisons',
+            text: `${garrisonedCities.length} cities maintain active garrisons for regional defense.`,
+            type: 'neutral'
+        });
+    }
+    
+    // Outposts and camps
+    if (camps.length >= 5) {
+        assessments.push({
+            icon: '🏕️',
+            title: 'Extended Reach',
+            text: `Network of ${camps.length} outposts enables rapid deployment and border control.`,
+            type: 'positive'
+        });
+    }
+    
+    // Territorial spread assessment
+    if (totalRegions >= 5) {
+        assessments.push({
+            icon: '🌍',
+            title: 'Wide Territorial Spread',
+            text: `Presence across ${totalRegions} regions provides strategic flexibility but may strain logistics.`,
+            type: 'neutral'
+        });
+    } else if (totalRegions >= 3) {
+        assessments.push({
+            icon: '🗺️',
+            title: 'Multi-Regional Presence',
+            text: `Active in ${totalRegions} regions with room for expansion.`,
+            type: 'neutral'
+        });
+    } else if (totalRegions === 1 && totalPOIs >= 10) {
+        assessments.push({
+            icon: '🎯',
+            title: 'Concentrated Power',
+            text: 'Forces concentrated in single region. Strong local defense but limited reach.',
+            type: 'neutral'
+        });
+    }
+    
+    // Economic vs Military balance
+    if (stats.totalEconomic > stats.totalMilitary * 2) {
+        assessments.push({
+            icon: '💰',
+            title: 'Economic Superpower',
+            text: 'Vast economic base could fund rapid military expansion if threatened.',
+            type: 'positive'
+        });
+    } else if (stats.totalEconomic > stats.totalMilitary * 1.5) {
         assessments.push({
             icon: '💰',
             title: 'Economic Focus',
-            text: 'Strong economic base could fund rapid military expansion if needed.',
+            text: 'Strong economic base could fund military expansion if needed.',
+            type: 'neutral'
+        });
+    } else if (stats.totalMilitary > stats.totalEconomic * 2) {
+        assessments.push({
+            icon: '⚔️',
+            title: 'Militarized Society',
+            text: 'Military capabilities outpace economic development. Aggressive posture.',
+            type: 'neutral'
+        });
+    }
+    
+    // Political influence
+    if (stats.totalPolitical >= 300) {
+        assessments.push({
+            icon: '🏛️',
+            title: 'Political Hegemon',
+            text: 'Enormous political influence shapes regional and global affairs.',
             type: 'positive'
+        });
+    } else if (stats.totalPolitical >= 150) {
+        assessments.push({
+            icon: '🏛️',
+            title: 'Political Powerhouse',
+            text: 'Significant political influence extends beyond territorial borders.',
+            type: 'positive'
+        });
+    }
+    
+    // Population base
+    if (stats.totalPopulation >= 500000) {
+        assessments.push({
+            icon: '👥',
+            title: 'Massive Population',
+            text: `Population of ${stats.totalPopulation.toLocaleString()} provides vast manpower reserves.`,
+            type: 'positive'
+        });
+    } else if (stats.totalPopulation >= 100000) {
+        assessments.push({
+            icon: '👥',
+            title: 'Large Population',
+            text: `Population of ${stats.totalPopulation.toLocaleString()} supports sustained military efforts.`,
+            type: 'neutral'
+        });
+    }
+    
+    // Vulnerability checks
+    if (fortresses.length === 0 && totalMilitary >= 100) {
+        assessments.push({
+            icon: '⚠️',
+            title: 'Lacking Fortifications',
+            text: 'No major fortresses detected. Territory may be vulnerable to invasion.',
+            type: 'warning'
+        });
+    }
+    
+    if (totalRegions >= 3 && camps.length === 0 && fortresses.length <= 1) {
+        assessments.push({
+            icon: '⚠️',
+            title: 'Overextended',
+            text: 'Spread across multiple regions with minimal defensive infrastructure.',
+            type: 'warning'
+        });
+    }
+    
+    // Fallback if no assessments
+    if (assessments.length === 0) {
+        assessments.push({
+            icon: '❓',
+            title: 'Insufficient Data',
+            text: 'Not enough information to generate strategic assessment.',
+            type: 'neutral'
         });
     }
     
@@ -720,20 +1095,104 @@ function generateStrategicAssessment(faction, stats) {
             </div>
         </div>
     `).join('');
-}
-
-/**
+}/**
  * Get POI type icon
  */
 function getPoiIcon(type) {
     const icons = {
-        'village': '🏘️', 'city': '🏙️', 'town': '🏠', 'castle': '🏰',
-        'fortress': '🏯', 'fort': '⛫', 'outpost': '🚩', 'mine': '⛏️',
-        'farm': '🌾', 'port': '⚓', 'market': '🏪', 'temple': '⛩️',
-        'tower': '🗼', 'camp': '⛺', 'ruins': '🏚️', 'cave': '🕳️',
-        'forest': '🌲', 'mountain': '⛰️', 'capital': '👑', 'citadel': '🏛️'
+        // Cities & Settlements
+        'capital_city': '👑',
+        'capital': '👑',
+        'major_city': '🏙️',
+        'city': '🏙️',
+        'town': '🏡',
+        'village': '🏘️',
+        'hamlet': '🏠',
+        'outpost': '🏕️',
+        'ruins': '🏛️',
+        
+        // Military
+        'fortress': '🏰',
+        'castle': '🏯',
+        'watchtower': '🗼',
+        'barracks': '🛡️',
+        'siege_camp': '⚔️',
+        
+        // Economy & Trade
+        'port': '⚓',
+        'market': '🛒',
+        'marketplace': '🛒',
+        'mine': '⛏️',
+        'farm': '🌾',
+        'workshop': '🛠️',
+        'trade_post': '🏪',
+        'quarry': '🪨',
+        
+        // Religion & Magic
+        'temple': '⛪',
+        'shrine': '⛩️',
+        'monastery': '🛕',
+        'mages_tower': '🧙',
+        'mage_tower': '🧙',
+        'ley_line': '✨',
+        'ancient_circle': '⭕',
+        
+        // Nature & Geography
+        'forest': '🌲',
+        'mountain_pass': '⛰️',
+        'mountain': '⛰️',
+        'bridge': '🌉',
+        'cave_entrance': '🦇',
+        'cave': '🦇',
+        'oasis': '🌴',
+        'waterfall': '🌊',
+        'volcano': '🌋',
+        'swamp': '🐊',
+        
+        // Underworld & Danger
+        'dungeon_entrance': '💀',
+        'dungeon': '💀',
+        'lair': '🐉',
+        'bandit_camp': '🏴',
+        'haunted_place': '👻',
+        'battlefield': '⚔️',
+        
+        // Misc
+        'inn': '🍺',
+        'tavern': '🍺',
+        'library': '📚',
+        'shipwreck': '🚢',
+        'landmark': '📍',
+        'portal': '🌀',
+        'prison': '⛓️',
+        'academy': '🎓',
+        'observatory': '🔭',
+        
+        // Space Types
+        'space_station': '🛰️',
+        'asteroid_field': '☄️',
+        'nebula': '🌌',
+        'black_hole': '⚫',
+        'wormhole': '🌀',
+        'comet': '💫',
+        'generation_ship': '🚀',
+        'listening_post': '📡',
+        'cosmic_anomaly': '❓',
+        'crystal_entity': '💎',
+        'star_nursery': '✨'
     };
-    return icons[type?.toLowerCase()] || '📍';
+    
+    // Try exact match first
+    if (icons[type]) return icons[type];
+    
+    // Try partial match
+    for (const [key, icon] of Object.entries(icons)) {
+        if (type.includes(key) || key.includes(type)) {
+            return icon;
+        }
+    }
+    
+    return '📍';
 }
 
 // ============================================
