@@ -39,7 +39,7 @@ export const WAHBOOK_POSTS = [
         content: `BREAKING: Speaker Rivers has resigned from the Diet! He threw his gavel at Lord Chancellor Stonehand and walked out. "I will not preside over the death of liberty," he said.`,
         likes: 1800,
         comments: [
-            { characterKey: 'dan', text: 'He was a good toad. The only honest one left.' },
+            { characterKey: 'dan', text: 'He was a good man. The only honest one left.' },
             { characterKey: 'lord_chancellor_stonehand', text: 'His emotional outburst has been noted. A replacement will be appointed.' }
         ],
         rumorId: 'iron_mandate_passage'
