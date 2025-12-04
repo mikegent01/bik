@@ -177,817 +177,1153 @@ const VALUE_AXES = {
         rightDesc: 'Education for all, libraries, shared learning.'
     }
 };
+// ============================================
+// KEYWORD-BASED VALUE MAPPINGS
+// Values are now MORE EXTREME to create real differences
+// ============================================
+
 const KEYWORD_VALUE_MODIFIERS = {
-    // Government/Structure Keywords
+    // ==========================================
+    // GOVERNMENT/STRUCTURE - Strong modifiers
+    // ==========================================
     'empire': {
-        centralization: -40,      // Very centralized
-        tradition_innovation: -20, // Traditional
-        militarism: -30,          // Militaristic
-        foreign_policy: 30,       // Expansionist
-        social_mobility: -30,     // Aristocratic
-        collectivism: -20         // Collectivist
-    },
-    'kingdom': {
-        centralization: -30,
-        tradition_innovation: -15,
-        social_mobility: -35,
-        religion_state: -15
-    },
-    'republic': {
-        centralization: 20,
-        social_mobility: 25,
-        collectivism: 15,
-        religion_state: 20
-    },
-    'federation': {
-        centralization: 35,
-        collectivism: 20,
-        borders: 15
-    },
-    'confederacy': {
-        centralization: 40,
-        collectivism: 10
-    },
-    'council': {
-        centralization: 25,
-        social_mobility: 20,
-        knowledge: 20
-    },
-    'theocracy': {
-        religion_state: -45,
+        centralization: -45,
         tradition_innovation: -30,
-        centralization: -20,
-        knowledge: -20
-    },
-    'tribe': {
-        centralization: 30,
-        tradition_innovation: -25,
-        nature_development: -30,
-        economy_type: -35
-    },
-    'tribal': {
-        centralization: 25,
-        tradition_innovation: -20,
-        nature_development: -25,
-        economy_type: -30
-    },
-    'horde': {
         militarism: -40,
-        centralization: 15,
-        tradition_innovation: -15,
-        foreign_policy: 35,
-        nature_development: -20
-    },
-    'clan': {
-        centralization: 20,
-        tradition_innovation: -20,
-        collectivism: -25
-    },
-    'dynasty': {
+        foreign_policy: 40,
         social_mobility: -40,
-        tradition_innovation: -25,
-        centralization: -25
-    },
-    'commune': {
-        collectivism: -40,
-        centralization: 35,
-        social_mobility: 30,
-        economy_type: -15
-    },
-    'collective': {
-        collectivism: -45,
-        centralization: 30,
-        social_mobility: 25
-    },
-    
-    // Military Keywords
-    'military': {
-        militarism: -35,
-        centralization: -15,
-        magic_technology: 20
-    },
-    'army': {
-        militarism: -30,
-        magic_technology: 25
-    },
-    'legion': {
-        militarism: -35,
-        centralization: -20,
-        tradition_innovation: -15
-    },
-    'order': {
-        centralization: -15,
-        tradition_innovation: -20,
-        religion_state: -15,
-        militarism: -20
-    },
-    'knights': {
-        militarism: -25,
-        tradition_innovation: -20,
-        social_mobility: -20,
-        magic_technology: 30
-    },
-    'warrior': {
-        militarism: -35,
-        magic_technology: 35
-    },
-    'guard': {
-        militarism: -20,
-        centralization: -15
-    },
-    'mercenary': {
-        militarism: -20,
-        collectivism: 35,
-        borders: 25
-    },
-    'raiders': {
-        militarism: -35,
-        foreign_policy: 30,
-        borders: -20,
-        collectivism: 25
-    },
-    'pirates': {
-        militarism: -25,
-        borders: 30,
-        collectivism: 30,
-        centralization: 30
-    },
-    'bandits': {
-        militarism: -20,
-        centralization: 40,
-        collectivism: 35
-    },
-    
-    // Religious/Spiritual Keywords
-    'church': {
-        religion_state: -40,
-        tradition_innovation: -25,
-        centralization: -20
-    },
-    'temple': {
-        religion_state: -35,
-        tradition_innovation: -20,
-        knowledge: -15
-    },
-    'cult': {
-        religion_state: -40,
-        centralization: -25,
-        knowledge: -30,
-        borders: -25
-    },
-    'holy': {
-        religion_state: -35,
-        tradition_innovation: -20
-    },
-    'sacred': {
-        religion_state: -30,
-        nature_development: -20
-    },
-    'divine': {
-        religion_state: -35,
-        social_mobility: -15
-    },
-    'blessed': {
-        religion_state: -25
-    },
-    'inquisition': {
-        religion_state: -40,
-        centralization: -30,
-        borders: -35,
-        knowledge: -25
-    },
-    'monastery': {
-        religion_state: -30,
-        knowledge: 20,
-        militarism: 25
-    },
-    'shrine': {
-        religion_state: -25,
-        nature_development: -15
-    },
-    
-    // Magic/Arcane Keywords
-    'magic': {
-        magic_technology: -40,
-        knowledge: 25,
-        tradition_innovation: 10
-    },
-    'magical': {
-        magic_technology: -35,
-        knowledge: 20
-    },
-    'mage': {
-        magic_technology: -40,
-        knowledge: 30,
-        social_mobility: 20
-    },
-    'wizard': {
-        magic_technology: -45,
-        knowledge: 35,
-        centralization: 15
-    },
-    'sorcerer': {
-        magic_technology: -40,
-        knowledge: 20,
-        collectivism: 25
-    },
-    'witch': {
-        magic_technology: -35,
-        centralization: 30,
-        nature_development: -20
-    },
-    'arcane': {
-        magic_technology: -45,
-        knowledge: 30
-    },
-    'mystic': {
-        magic_technology: -35,
-        religion_state: -15,
-        knowledge: 15
-    },
-    'enchant': {
-        magic_technology: -30,
-        economy_type: 15
-    },
-    'coven': {
-        magic_technology: -35,
-        centralization: 25,
-        collectivism: -20
-    },
-    'academy': {
-        magic_technology: -25,
-        knowledge: 40,
-        social_mobility: 30,
-        tradition_innovation: 25
-    },
-    
-    // Technology/Science Keywords
-    'science': {
-        tradition_innovation: 40,
-        magic_technology: 30,
-        knowledge: 35,
-        religion_state: 25
-    },
-    'scientific': {
-        tradition_innovation: 35,
-        magic_technology: 25,
-        knowledge: 30
-    },
-    'technology': {
-        tradition_innovation: 40,
-        magic_technology: 35,
-        economy_type: 25
-    },
-    'tech': {
-        tradition_innovation: 35,
-        magic_technology: 30,
-        economy_type: 20
-    },
-    'engineer': {
-        tradition_innovation: 30,
-        magic_technology: 25,
-        economy_type: 20
-    },
-    'industrial': {
-        economy_type: 40,
-        tradition_innovation: 25,
-        nature_development: 35
-    },
-    'factory': {
-        economy_type: 40,
-        nature_development: 30
-    },
-    'mechanical': {
-        magic_technology: 35,
-        tradition_innovation: 30
-    },
-    'cyber': {
-        tradition_innovation: 45,
-        magic_technology: 40
-    },
-    'research': {
-        knowledge: 40,
-        tradition_innovation: 30
-    },
-    'laboratory': {
-        knowledge: 35,
-        tradition_innovation: 35,
-        magic_technology: 20
-    },
-    'school': {
-        knowledge: 40,
-        social_mobility: 25,
-        tradition_innovation: 20
-    },
-    'university': {
-        knowledge: 45,
-        social_mobility: 30,
-        tradition_innovation: 25
-    },
-    'institute': {
-        knowledge: 35,
-        tradition_innovation: 25
-    },
-    
-    // Trade/Economic Keywords
-    'merchant': {
-        economy_type: 30,
-        borders: 35,
-        collectivism: 30,
-        militarism: 25
-    },
-    'trade': {
-        borders: 35,
-        economy_type: 25,
-        militarism: 20
-    },
-    'trading': {
-        borders: 30,
-        economy_type: 20
-    },
-    'guild': {
-        economy_type: 20,
-        social_mobility: 25,
-        centralization: 20
-    },
-    'company': {
-        economy_type: 25,
-        collectivism: 25,
-        centralization: 15
-    },
-    'corporation': {
-        economy_type: 35,
-        collectivism: 30,
-        centralization: 20
-    },
-    'cartel': {
-        economy_type: 25,
-        centralization: 25,
-        borders: -15
-    },
-    'syndicate': {
-        centralization: 20,
-        borders: 20,
-        collectivism: 20
-    },
-    'bank': {
-        economy_type: 30,
-        centralization: -15
-    },
-    'market': {
-        borders: 30,
-        economy_type: 20
-    },
-    
-    // Nature/Environment Keywords
-    'forest': {
-        nature_development: -40,
-        tradition_innovation: -15,
-        economy_type: -25
-    },
-    'wood': {
-        nature_development: -30,
-        economy_type: -20
-    },
-    'grove': {
-        nature_development: -35,
-        religion_state: -15
-    },
-    'nature': {
-        nature_development: -40,
-        tradition_innovation: -20
-    },
-    'wild': {
-        nature_development: -35,
-        centralization: 25,
-        tradition_innovation: -15
-    },
-    'feral': {
-        nature_development: -40,
-        centralization: 35
-    },
-    'beast': {
-        nature_development: -30,
-        militarism: -20
-    },
-    'mountain': {
-        nature_development: -25,
-        foreign_policy: -20,
+        collectivism: -30,
         borders: -20
     },
-    'sea': {
+    'kingdom': {
+        centralization: -35,
+        tradition_innovation: -25,
+        social_mobility: -45,
+        religion_state: -20,
+        collectivism: -20
+    },
+    'republic': {
+        centralization: 35,
+        social_mobility: 40,
+        collectivism: 25,
+        religion_state: 30,
+        tradition_innovation: 20
+    },
+    'federation': {
+        centralization: 45,
+        collectivism: 30,
         borders: 25,
-        foreign_policy: 20,
-        economy_type: 15
+        social_mobility: 30
     },
-    'ocean': {
-        borders: 30,
-        foreign_policy: 25
+    'confederacy': {
+        centralization: 45,
+        collectivism: 20,
+        militarism: 15
     },
-    'river': {
-        economy_type: 10,
-        borders: 15
+    'council': {
+        centralization: 35,
+        social_mobility: 30,
+        knowledge: 30,
+        collectivism: 20
     },
-    'desert': {
-        nature_development: -20,
-        foreign_policy: -15,
-        economy_type: -20
+    'theocracy': {
+        religion_state: -50,
+        tradition_innovation: -40,
+        centralization: -30,
+        knowledge: -35,
+        social_mobility: -25
     },
-    'swamp': {
+    'tribe': {
+        centralization: 40,
+        tradition_innovation: -35,
+        nature_development: -40,
+        economy_type: -45,
+        collectivism: -30
+    },
+    'tribal': {
+        centralization: 35,
+        tradition_innovation: -30,
+        nature_development: -35,
+        economy_type: -40
+    },
+    'horde': {
+        militarism: -50,
+        centralization: 25,
+        tradition_innovation: -25,
+        foreign_policy: 45,
         nature_development: -30,
-        foreign_policy: -25,
-        borders: -25
+        social_mobility: 35
     },
-    'island': {
-        foreign_policy: -20,
-        borders: -15
-    },
-    
-    // Race/Species Keywords
-    'elf': {
-        tradition_innovation: -20,
-        nature_development: -30,
-        magic_technology: -25,
+    'clan': {
+        centralization: 30,
+        tradition_innovation: -30,
+        collectivism: -35,
         social_mobility: -20
     },
-    'elven': {
+    'dynasty': {
+        social_mobility: -50,
+        tradition_innovation: -35,
+        centralization: -35
+    },
+    'commune': {
+        collectivism: -50,
+        centralization: 45,
+        social_mobility: 40,
+        economy_type: -25
+    },
+    'collective': {
+        collectivism: -50,
+        centralization: 40,
+        social_mobility: 35
+    },
+    'academy': {
+        knowledge: 50,
+        tradition_innovation: 40,
+        social_mobility: 40,
+        magic_technology: -20
+    },
+    'school': {
+        knowledge: 50,
+        tradition_innovation: 35,
+        social_mobility: 45,
+        militarism: 30
+    },
+    'university': {
+        knowledge: 50,
+        tradition_innovation: 40,
+        social_mobility: 40,
+        religion_state: 30
+    },
+    'guild': {
+        economy_type: 30,
+        social_mobility: 35,
+        centralization: 30,
+        knowledge: 25
+    },
+    
+    // ==========================================
+    // MILITARY - Very strong modifiers
+    // ==========================================
+    'military': {
+        militarism: -45,
+        centralization: -25,
+        magic_technology: 35,
+        foreign_policy: 20
+    },
+    'army': {
+        militarism: -40,
+        magic_technology: 40,
+        centralization: -20
+    },
+    'legion': {
+        militarism: -45,
+        centralization: -30,
         tradition_innovation: -25,
+        magic_technology: 35
+    },
+    'order': {
+        centralization: -25,
+        tradition_innovation: -30,
+        religion_state: -25,
+        militarism: -30,
+        collectivism: -25
+    },
+    'knights': {
+        militarism: -35,
+        tradition_innovation: -30,
+        social_mobility: -30,
+        magic_technology: 40,
+        religion_state: -20
+    },
+    'warrior': {
+        militarism: -45,
+        magic_technology: 45,
+        tradition_innovation: -20
+    },
+    'guard': {
+        militarism: -30,
+        centralization: -25,
+        tradition_innovation: -15
+    },
+    'mercenary': {
+        militarism: -30,
+        collectivism: 45,
+        borders: 35,
+        social_mobility: 30
+    },
+    'raiders': {
+        militarism: -45,
+        foreign_policy: 40,
+        borders: -30,
+        collectivism: 35,
+        centralization: 35
+    },
+    'pirates': {
+        militarism: -35,
+        borders: 40,
+        collectivism: 40,
+        centralization: 40,
+        foreign_policy: 30
+    },
+    'bandits': {
+        militarism: -30,
+        centralization: 45,
+        collectivism: 45,
+        borders: -25
+    },
+    'rebel': {
+        centralization: 40,
+        tradition_innovation: 25,
+        foreign_policy: 25,
+        militarism: -25
+    },
+    'rebellion': {
+        centralization: 45,
+        tradition_innovation: 30,
+        militarism: -20
+    },
+    'resistance': {
+        centralization: 35,
+        militarism: -25,
+        collectivism: -20
+    },
+    'revolutionary': {
+        tradition_innovation: 45,
+        centralization: 40,
+        social_mobility: 35
+    },
+    
+    // ==========================================
+    // RELIGIOUS/SPIRITUAL - Strong modifiers
+    // ==========================================
+    'church': {
+        religion_state: -50,
+        tradition_innovation: -35,
+        centralization: -30,
+        knowledge: -25
+    },
+    'temple': {
+        religion_state: -45,
+        tradition_innovation: -30,
+        knowledge: -20,
+        nature_development: -15
+    },
+    'cult': {
+        religion_state: -50,
+        centralization: -35,
+        knowledge: -40,
+        borders: -35,
+        collectivism: -30
+    },
+    'holy': {
+        religion_state: -45,
+        tradition_innovation: -30,
+        militarism: -20
+    },
+    'sacred': {
+        religion_state: -40,
+        nature_development: -30,
+        tradition_innovation: -25
+    },
+    'divine': {
+        religion_state: -45,
+        social_mobility: -25,
+        centralization: -20
+    },
+    'blessed': {
+        religion_state: -35,
+        nature_development: -20
+    },
+    'inquisition': {
+        religion_state: -50,
+        centralization: -40,
+        borders: -45,
+        knowledge: -35,
+        militarism: -30
+    },
+    'monastery': {
+        religion_state: -40,
+        knowledge: 30,
+        militarism: 35,
+        nature_development: -25
+    },
+    'shrine': {
+        religion_state: -35,
+        nature_development: -25
+    },
+    'druid': {
+        nature_development: -50,
+        religion_state: -30,
+        magic_technology: -40,
+        tradition_innovation: -30
+    },
+    'monk': {
+        religion_state: -35,
+        militarism: 25,
+        knowledge: 30,
+        collectivism: -25
+    },
+    
+    // ==========================================
+    // MAGIC/ARCANE - Very strong modifiers
+    // ==========================================
+    'magic': {
+        magic_technology: -50,
+        knowledge: 35,
+        tradition_innovation: 15
+    },
+    'magical': {
+        magic_technology: -45,
+        knowledge: 30
+    },
+    'mage': {
+        magic_technology: -50,
+        knowledge: 40,
+        social_mobility: 30
+    },
+    'wizard': {
+        magic_technology: -50,
+        knowledge: 45,
+        centralization: 20
+    },
+    'sorcerer': {
+        magic_technology: -50,
+        knowledge: 30,
+        collectivism: 35
+    },
+    'witch': {
+        magic_technology: -45,
+        centralization: 40,
+        nature_development: -30
+    },
+    'arcane': {
+        magic_technology: -50,
+        knowledge: 40
+    },
+    'mystic': {
+        magic_technology: -45,
+        religion_state: -25,
+        knowledge: 25
+    },
+    'enchant': {
+        magic_technology: -40,
+        economy_type: 20
+    },
+    'coven': {
+        magic_technology: -45,
+        centralization: 35,
+        collectivism: -30,
+        borders: -30
+    },
+    'elves': {
+        magic_technology: -40,
+        nature_development: -45,
+        tradition_innovation: -35,
+        social_mobility: -25
+    },
+    'elf': {
+        magic_technology: -35,
+        nature_development: -40,
+        tradition_innovation: -30
+    },
+    'elven': {
+        magic_technology: -40,
+        nature_development: -45,
+        tradition_innovation: -35
+    },
+    
+    // ==========================================
+    // TECHNOLOGY/SCIENCE - Very strong modifiers
+    // ==========================================
+    'science': {
+        tradition_innovation: 50,
+        magic_technology: 45,
+        knowledge: 45,
+        religion_state: 35
+    },
+    'scientific': {
+        tradition_innovation: 45,
+        magic_technology: 40,
+        knowledge: 40
+    },
+    'technology': {
+        tradition_innovation: 50,
+        magic_technology: 45,
+        economy_type: 35
+    },
+    'tech': {
+        tradition_innovation: 45,
+        magic_technology: 40,
+        economy_type: 30
+    },
+    'engineer': {
+        tradition_innovation: 40,
+        magic_technology: 35,
+        economy_type: 30,
+        knowledge: 25
+    },
+    'industrial': {
+        economy_type: 50,
+        tradition_innovation: 35,
+        nature_development: 45
+    },
+    'factory': {
+        economy_type: 50,
+        nature_development: 40,
+        tradition_innovation: 25
+    },
+    'mechanical': {
+        magic_technology: 45,
+        tradition_innovation: 40
+    },
+    'cyber': {
+        tradition_innovation: 50,
+        magic_technology: 50,
+        economy_type: 35
+    },
+    'cybernetic': {
+        tradition_innovation: 50,
+        magic_technology: 50,
+        economy_type: 30
+    },
+    'robot': {
+        magic_technology: 50,
+        tradition_innovation: 45
+    },
+    'android': {
+        magic_technology: 50,
+        tradition_innovation: 45
+    },
+    'research': {
+        knowledge: 50,
+        tradition_innovation: 40
+    },
+    'laboratory': {
+        knowledge: 45,
+        tradition_innovation: 45,
+        magic_technology: 30
+    },
+    'hacktivist': {
+        tradition_innovation: 45,
+        centralization: 45,
+        borders: 40,
+        knowledge: 40
+    },
+    'data': {
+        tradition_innovation: 40,
+        knowledge: 40,
+        economy_type: 30
+    },
+    'internet': {
+        tradition_innovation: 45,
+        borders: 50,
+        knowledge: 45,
+        centralization: 40
+    },
+    'digital': {
+        tradition_innovation: 45,
+        magic_technology: 40,
+        borders: 35
+    },
+    
+    // ==========================================
+    // TRADE/ECONOMIC - Strong modifiers
+    // ==========================================
+    'merchant': {
+        economy_type: 40,
+        borders: 45,
+        collectivism: 40,
+        militarism: 35
+    },
+    'trade': {
+        borders: 45,
+        economy_type: 35,
+        militarism: 30
+    },
+    'trading': {
+        borders: 40,
+        economy_type: 30
+    },
+    'trader': {
+        borders: 40,
+        economy_type: 30,
+        collectivism: 30
+    },
+    'company': {
+        economy_type: 35,
+        collectivism: 35,
+        centralization: 25,
+        social_mobility: 25
+    },
+    'corporation': {
+        economy_type: 45,
+        collectivism: 40,
+        centralization: 30
+    },
+    'cartel': {
+        economy_type: 35,
+        centralization: 35,
+        borders: -25
+    },
+    'syndicate': {
+        centralization: 30,
+        borders: 30,
+        collectivism: 30,
+        knowledge: -30
+    },
+    'bank': {
+        economy_type: 40,
+        centralization: -25
+    },
+    'market': {
+        borders: 40,
+        economy_type: 30
+    },
+    'wario': {
+        economy_type: 40,
+        collectivism: 50,
+        militarism: -20,
+        borders: 30
+    },
+    
+    // ==========================================
+    // NATURE/ENVIRONMENT - Strong modifiers
+    // ==========================================
+    'forest': {
+        nature_development: -50,
+        tradition_innovation: -25,
+        economy_type: -35
+    },
+    'wood': {
+        nature_development: -40,
+        economy_type: -30
+    },
+    'grove': {
+        nature_development: -45,
+        religion_state: -25
+    },
+    'nature': {
+        nature_development: -50,
+        tradition_innovation: -30
+    },
+    'wild': {
+        nature_development: -45,
+        centralization: 35,
+        tradition_innovation: -25
+    },
+    'feral': {
+        nature_development: -50,
+        centralization: 45
+    },
+    'beast': {
+        nature_development: -40,
+        militarism: -30
+    },
+    'animal': {
+        nature_development: -35,
+        centralization: 25
+    },
+    'mountain': {
+        nature_development: -35,
+        foreign_policy: -30,
+        borders: -30
+    },
+    'sea': {
+        borders: 35,
+        foreign_policy: 30,
+        economy_type: 25
+    },
+    'ocean': {
+        borders: 40,
+        foreign_policy: 35
+    },
+    'desert': {
+        nature_development: -30,
+        foreign_policy: -25,
+        economy_type: -30,
+        borders: -25
+    },
+    'swamp': {
+        nature_development: -40,
+        foreign_policy: -35,
+        borders: -35
+    },
+    'island': {
+        foreign_policy: -30,
+        borders: -25
+    },
+    'flower': {
+        nature_development: -40,
+        militarism: 35,
+        tradition_innovation: -15
+    },
+    'yoshi': {
+        nature_development: -35,
+        collectivism: -30,
+        militarism: 30
+    },
+    
+    // ==========================================
+    // RACE/SPECIES - Strong modifiers
+    // ==========================================
+    'dwarf': {
+        tradition_innovation: -30,
+        economy_type: 40,
+        nature_development: 35,
+        magic_technology: 30,
+        centralization: -25
+    },
+    'dwarven': {
+        tradition_innovation: -35,
+        economy_type: 45,
+        nature_development: 40
+    },
+    'orc': {
+        militarism: -50,
+        tradition_innovation: -20,
+        magic_technology: 45,
+        centralization: 25
+    },
+    'orcish': {
+        militarism: -50,
+        magic_technology: 45
+    },
+    'greenskin': {
+        militarism: -45,
+        magic_technology: 40,
+        centralization: 30
+    },
+    'goblin': {
+        tradition_innovation: 30,
+        centralization: 35,
+        collectivism: 30
+    },
+    'troll': {
+        militarism: -35,
+        tradition_innovation: -30
+    },
+    'undead': {
+        religion_state: -30,
+        nature_development: 35,
+        tradition_innovation: -35,
+        militarism: -30
+    },
+    'vampire': {
+        social_mobility: -45,
+        tradition_innovation: -30,
+        centralization: -35,
+        knowledge: 25
+    },
+    'demon': {
+        religion_state: -40,
+        militarism: -40,
+        centralization: -30
+    },
+    'dragon': {
+        centralization: -45,
+        social_mobility: -40,
+        militarism: -35,
+        magic_technology: -30
+    },
+    'halfling': {
+        militarism: 40,
+        nature_development: -25,
+        collectivism: -30,
+        economy_type: -20
+    },
+    'gnome': {
+        tradition_innovation: 35,
+        knowledge: 35,
+        economy_type: 25
+    },
+    'lizard': {
+        tradition_innovation: -35,
         nature_development: -35,
         magic_technology: -30
     },
-    'dwarf': {
-        tradition_innovation: -15,
-        economy_type: 25,
-        nature_development: 20,
-        magic_technology: 20
+    'skaven': {
+        tradition_innovation: 30,
+        centralization: 35,
+        collectivism: -35,
+        borders: -40,
+        knowledge: -30
     },
-    'dwarven': {
-        tradition_innovation: -20,
-        economy_type: 30,
-        nature_development: 25
+    'chaos': {
+        centralization: 45,
+        tradition_innovation: 30,
+        religion_state: -35,
+        militarism: -40
     },
-    'orc': {
+    'void': {
+        magic_technology: -40,
+        knowledge: -35,
+        religion_state: -30,
+        foreign_policy: -30
+    },
+    'cosmic': {
+        magic_technology: -35,
+        knowledge: 30,
+        tradition_innovation: 25
+    },
+    'toad': {
+        nature_development: -30,
+        collectivism: -25
+    },
+    'koopa': {
         militarism: -35,
-        tradition_innovation: -10,
-        magic_technology: 30
-    },
-    'orcish': {
-        militarism: -40,
-        magic_technology: 35
-    },
-    'goblin': {
-        tradition_innovation: 20,
-        centralization: 25,
-        collectivism: 20
-    },
-    'troll': {
-        militarism: -25,
+        centralization: -30,
         tradition_innovation: -20
     },
-    'undead': {
-        religion_state: -20,
-        nature_development: 25,
-        tradition_innovation: -25
-    },
-    'vampire': {
-        social_mobility: -35,
+    'mushroom': {
+        nature_development: -30,
         tradition_innovation: -20,
-        centralization: -25
+        collectivism: -25
     },
-    'demon': {
-        religion_state: -30,
-        militarism: -30,
-        centralization: -20
-    },
-    'dragon': {
-        centralization: -35,
-        social_mobility: -30,
-        militarism: -25
-    },
-    'human': {
-        // Balanced - no strong modifiers
-    },
-    'halfling': {
+    'pony': {
+        collectivism: -30,
         militarism: 30,
-        nature_development: -15,
-        collectivism: -20
+        nature_development: -25,
+        magic_technology: -25
     },
-    'gnome': {
-        tradition_innovation: 25,
-        knowledge: 25,
-        economy_type: 15
+    'changeling': {
+        borders: -40,
+        centralization: -35,
+        collectivism: -40,
+        knowledge: -35
+    },
+    'griffon': {
+        militarism: -25,
+        social_mobility: -30,
+        tradition_innovation: -20
     },
     
-    // Political Stance Keywords
+    // ==========================================
+    // POLITICAL STANCE - Strong modifiers
+    // ==========================================
     'free': {
-        centralization: 35,
-        collectivism: 30,
-        borders: 25
+        centralization: 45,
+        collectivism: 40,
+        borders: 35
     },
     'freedom': {
-        centralization: 40,
-        collectivism: 35
+        centralization: 50,
+        collectivism: 45
     },
     'liberty': {
-        centralization: 35,
-        collectivism: 35,
-        borders: 20
+        centralization: 45,
+        collectivism: 45,
+        borders: 30
     },
     'liberation': {
-        centralization: 30,
-        foreign_policy: 20
+        centralization: 40,
+        foreign_policy: 30
     },
-    'rebel': {
-        centralization: 30,
-        tradition_innovation: 15,
-        foreign_policy: 15
-    },
-    'rebellion': {
-        centralization: 35,
-        tradition_innovation: 20
-    },
-    'resistance': {
-        centralization: 25,
-        militarism: -15
-    },
-    'revolutionary': {
-        tradition_innovation: 35,
-        centralization: 30
+    'liberated': {
+        centralization: 45,
+        collectivism: 40
     },
     'royal': {
-        social_mobility: -35,
-        centralization: -25,
-        tradition_innovation: -20
-    },
-    'imperial': {
+        social_mobility: -45,
         centralization: -35,
-        foreign_policy: 30,
-        social_mobility: -25
-    },
-    'noble': {
-        social_mobility: -30,
-        tradition_innovation: -15
-    },
-    'aristocrat': {
-        social_mobility: -40,
-        centralization: -15
-    },
-    'democratic': {
-        centralization: 35,
-        social_mobility: 30,
-        collectivism: 20
-    },
-    'populist': {
-        centralization: 25,
-        social_mobility: 25
-    },
-    
-    // Isolationist/Expansionist Keywords
-    'isolat': {
-        foreign_policy: -40,
-        borders: -35
-    },
-    'hidden': {
-        foreign_policy: -35,
-        borders: -40,
-        knowledge: -25
-    },
-    'secret': {
-        knowledge: -40,
-        borders: -30,
-        centralization: -20
-    },
-    'shadow': {
-        knowledge: -35,
-        borders: -25,
-        centralization: -15
-    },
-    'conquest': {
-        foreign_policy: 40,
-        militarism: -35
-    },
-    'conquer': {
-        foreign_policy: 35,
-        militarism: -30
-    },
-    'dominion': {
-        foreign_policy: 30,
-        centralization: -25
-    },
-    'expansion': {
-        foreign_policy: 35
-    },
-    'colonial': {
-        foreign_policy: 35,
-        borders: 20
-    },
-    
-    // Peaceful/Diplomatic Keywords
-    'peace': {
-        militarism: 40,
-        foreign_policy: -10,
-        borders: 20
-    },
-    'peaceful': {
-        militarism: 35,
-        borders: 15
-    },
-    'harmony': {
-        militarism: 30,
-        collectivism: -15,
-        nature_development: -20
-    },
-    'diplomatic': {
-        militarism: 25,
-        borders: 25,
-        foreign_policy: 15
-    },
-    'alliance': {
-        borders: 25,
-        foreign_policy: 15
-    },
-    'united': {
-        collectivism: -25,
-        centralization: -15
-    },
-    'union': {
-        collectivism: -30,
-        centralization: 15
-    },
-    
-    // Urban/Rural Keywords
-    'city': {
-        nature_development: 35,
-        economy_type: 25,
-        centralization: 15
-    },
-    'cities': {
-        nature_development: 30,
-        economy_type: 20,
-        centralization: 20
-    },
-    'urban': {
-        nature_development: 40,
-        economy_type: 30
-    },
-    'metro': {
-        nature_development: 40,
-        economy_type: 35,
-        tradition_innovation: 25
-    },
-    'village': {
-        nature_development: -20,
-        economy_type: -25,
-        centralization: 25
-    },
-    'farm': {
-        economy_type: -35,
-        nature_development: -25
-    },
-    'pastoral': {
-        economy_type: -30,
-        nature_development: -30,
-        militarism: 20
-    },
-    'nomad': {
-        centralization: 35,
-        foreign_policy: -15,
-        nature_development: -25,
-        economy_type: -30
-    },
-    
-    // Misc Descriptors
-    'ancient': {
-        tradition_innovation: -35,
-        knowledge: 15
-    },
-    'old': {
-        tradition_innovation: -25
-    },
-    'eternal': {
         tradition_innovation: -30
     },
+    'imperial': {
+        centralization: -45,
+        foreign_policy: 40,
+        social_mobility: -35
+    },
+    'noble': {
+        social_mobility: -40,
+        tradition_innovation: -25
+    },
+    'aristocrat': {
+        social_mobility: -50,
+        centralization: -25
+    },
+    'democratic': {
+        centralization: 45,
+        social_mobility: 40,
+        collectivism: 30
+    },
+    'populist': {
+        centralization: 35,
+        social_mobility: 35
+    },
+    'loyalist': {
+        centralization: -35,
+        tradition_innovation: -30,
+        collectivism: -30
+    },
+    'regency': {
+        centralization: -30,
+        social_mobility: -35,
+        tradition_innovation: -25
+    },
+    
+    // ==========================================
+    // ISOLATIONIST/EXPANSIONIST - Strong modifiers
+    // ==========================================
+    'isolat': {
+        foreign_policy: -50,
+        borders: -45
+    },
+    'hidden': {
+        foreign_policy: -45,
+        borders: -50,
+        knowledge: -35
+    },
+    'secret': {
+        knowledge: -50,
+        borders: -40,
+        centralization: -30
+    },
+    'shadow': {
+        knowledge: -45,
+        borders: -35,
+        centralization: -25
+    },
+    'conquest': {
+        foreign_policy: 50,
+        militarism: -45
+    },
+    'conquer': {
+        foreign_policy: 45,
+        militarism: -40
+    },
+    'dominion': {
+        foreign_policy: 40,
+        centralization: -35
+    },
+    'expansion': {
+        foreign_policy: 45
+    },
+    'colonial': {
+        foreign_policy: 45,
+        borders: 30
+    },
+    
+    // ==========================================
+    // PEACEFUL/DIPLOMATIC - Strong modifiers
+    // ==========================================
+    'peace': {
+        militarism: 50,
+        foreign_policy: -15,
+        borders: 30
+    },
+    'peaceful': {
+        militarism: 45,
+        borders: 25
+    },
+    'harmony': {
+        militarism: 40,
+        collectivism: -25,
+        nature_development: -30
+    },
+    'diplomatic': {
+        militarism: 35,
+        borders: 35,
+        foreign_policy: 25
+    },
+    'alliance': {
+        borders: 35,
+        foreign_policy: 25
+    },
+    'united': {
+        collectivism: -35,
+        centralization: -25
+    },
+    'union': {
+        collectivism: -40,
+        centralization: 25
+    },
+    'general': {
+        centralization: 30,
+        militarism: -20
+    },
+    'student': {
+        knowledge: 40,
+        tradition_innovation: 30,
+        social_mobility: 35
+    },
+    
+    // ==========================================
+    // CRIMINAL/UNDERWORLD - Strong modifiers
+    // ==========================================
+    'underworld': {
+        knowledge: -45,
+        borders: -35,
+        centralization: 35,
+        collectivism: 40
+    },
+    'gang': {
+        centralization: 40,
+        collectivism: 35,
+        militarism: -25,
+        knowledge: -30
+    },
+    'thief': {
+        collectivism: 45,
+        borders: 30,
+        centralization: 35
+    },
+    'assassin': {
+        knowledge: -40,
+        centralization: 30,
+        militarism: -30
+    },
+    'smuggler': {
+        borders: 40,
+        centralization: 35,
+        collectivism: 35
+    },
+    'criminal': {
+        centralization: 40,
+        collectivism: 40,
+        knowledge: -30
+    },
+    'mafia': {
+        centralization: -25,
+        knowledge: -35,
+        collectivism: 30
+    },
+    
+    // ==========================================
+    // MISCELLANEOUS - Strong modifiers
+    // ==========================================
+    'ancient': {
+        tradition_innovation: -45,
+        knowledge: 25
+    },
+    'old': {
+        tradition_innovation: -35
+    },
+    'eternal': {
+        tradition_innovation: -40
+    },
     'new': {
-        tradition_innovation: 25
+        tradition_innovation: 35
     },
     'modern': {
-        tradition_innovation: 35,
-        economy_type: 20
+        tradition_innovation: 45,
+        economy_type: 30
     },
     'progressive': {
-        tradition_innovation: 40,
-        social_mobility: 25
+        tradition_innovation: 50,
+        social_mobility: 35
     },
     'conservative': {
-        tradition_innovation: -30,
-        social_mobility: -15
+        tradition_innovation: -40,
+        social_mobility: -25
     },
     'orthodox': {
-        tradition_innovation: -35,
-        religion_state: -25
+        tradition_innovation: -45,
+        religion_state: -35
     },
     'reformed': {
-        tradition_innovation: 20,
-        religion_state: 15
-    },
-    'purist': {
-        tradition_innovation: -30,
-        borders: -25
+        tradition_innovation: 30,
+        religion_state: 25
     },
     'elite': {
-        social_mobility: -30,
-        centralization: -20
+        social_mobility: -40,
+        centralization: -30
     },
     'chosen': {
-        religion_state: -25,
-        social_mobility: -20
+        religion_state: -35,
+        social_mobility: -30
     },
     'supreme': {
+        centralization: -40,
+        social_mobility: -35
+    },
+    'grand': {
         centralization: -30,
         social_mobility: -25
     },
-    'grand': {
-        centralization: -20,
-        social_mobility: -15
-    },
     'great': {
-        centralization: -15
-    },
-    'eternal': {
-        tradition_innovation: -30
+        centralization: -25
     },
     'dark': {
-        religion_state: -15,
-        knowledge: -20
+        religion_state: -25,
+        knowledge: -30
     },
     'light': {
-        religion_state: -15,
-        knowledge: 15
+        religion_state: -25,
+        knowledge: 25
     },
     'crimson': {
-        militarism: -20
+        militarism: -30
     },
     'iron': {
-        militarism: -25,
-        magic_technology: 25
+        militarism: -35,
+        magic_technology: 40,
+        tradition_innovation: -20
     },
     'steel': {
-        magic_technology: 30,
-        economy_type: 20
+        magic_technology: 45,
+        economy_type: 30
     },
     'golden': {
-        economy_type: 25,
-        social_mobility: -15
+        economy_type: 35,
+        social_mobility: -25
     },
     'silver': {
-        economy_type: 20
-    },
-    'black': {
-        knowledge: -15
-    },
-    'white': {
-        religion_state: -10
+        economy_type: 30
     },
     'blood': {
-        militarism: -25,
-        religion_state: -15
+        militarism: -35,
+        religion_state: -25
     },
     'death': {
-        militarism: -30
+        militarism: -40
     },
     'war': {
-        militarism: -40,
-        foreign_policy: 25
+        militarism: -50,
+        foreign_policy: 35
     },
     'battle': {
-        militarism: -30
+        militarism: -40
     },
     'storm': {
-        militarism: -20,
-        foreign_policy: 15
+        militarism: -30,
+        foreign_policy: 25
     },
     'flame': {
-        militarism: -20,
-        tradition_innovation: 10
+        militarism: -30,
+        tradition_innovation: 15
+    },
+    'fire': {
+        militarism: -25
     },
     'frost': {
-        foreign_policy: -20,
-        nature_development: -15
+        foreign_policy: -30,
+        nature_development: -25
     },
     'ice': {
-        foreign_policy: -15
+        foreign_policy: -25
     },
-    'void': {
+    'star': {
         magic_technology: -30,
-        knowledge: -20
+        tradition_innovation: 25
     },
-    'chaos': {
-        centralization: 40,
-        tradition_innovation: 20
+    'starlight': {
+        magic_technology: -35,
+        nature_development: -25
     },
-    'order': {
-        centralization: -25,
+    'moon': {
+        nature_development: -30,
+        magic_technology: -25
+    },
+    'sun': {
+        religion_state: -25,
+        centralization: -20
+    },
+    'abyssal': {
+        nature_development: 30,
+        magic_technology: -35,
+        religion_state: -30
+    },
+    'predator': {
+        militarism: -35,
+        nature_development: -25
+    },
+    'prey': {
+        militarism: 35,
+        collectivism: -30
+    },
+    'ranger': {
+        nature_development: -40,
+        militarism: -20,
+        centralization: 25
+    },
+    'trainer': {
+        nature_development: -25,
+        knowledge: 30,
+        collectivism: 20
+    },
+    'team': {
+        collectivism: -30,
+        centralization: -20
+    },
+    'ratchet': {
+        tradition_innovation: 35,
+        magic_technology: 35,
+        economy_type: 25
+    },
+    'oathbound': {
+        religion_state: -30,
+        tradition_innovation: -25,
+        centralization: -25
+    },
+    'judge': {
+        centralization: -30,
+        religion_state: -20
+    },
+    'investigator': {
+        knowledge: 35,
+        centralization: 25
+    },
+    'detective': {
+        knowledge: 35,
+        centralization: 20
+    },
+    'unchained': {
+        centralization: 45,
+        collectivism: 40,
+        tradition_innovation: 25
+    },
+    'liberated': {
+        centralization: 45,
+        collectivism: 40
+    },
+    'custodian': {
+        tradition_innovation: -30,
+        knowledge: 30,
+        centralization: -25
+    },
+    'weaver': {
+        magic_technology: -30,
         tradition_innovation: -20
+    },
+    'drifter': {
+        centralization: 45,
+        foreign_policy: -30,
+        borders: 35
+    },
+    'pioneer': {
+        foreign_policy: 35,
+        tradition_innovation: 30,
+        borders: 30
+    },
+    'spark': {
+        tradition_innovation: 35,
+        centralization: 30
+    },
+    'jester': {
+        centralization: 40,
+        tradition_innovation: 25,
+        religion_state: 30
+    },
+    'artisan': {
+        economy_type: 25,
+        tradition_innovation: -15,
+        social_mobility: 25
+    },
+    'fist': {
+        militarism: -40,
+        centralization: -25
+    },
+    'hand': {
+        knowledge: -30,
+        centralization: -20
+    },
+    'fleet': {
+        militarism: -30,
+        borders: 30,
+        foreign_policy: 25
+    },
+    'crew': {
+        centralization: 35,
+        collectivism: -25
     }
 };
 // ============================================
@@ -1414,7 +1750,7 @@ function renderSpectrumView() {
 }
 
 function renderRadarView() {
-    const factions = getAllFactionsWithValues().slice(0, 8);
+    const factions = getAllFactionsWithValues().slice(0, 80);
     
     return `
         <div class="sv-radar-view">
@@ -1485,7 +1821,7 @@ function renderComparisonView() {
     const allFactions = getAllFactionsWithValues();
     const toCompare = comparisonFactions.length >= 2 
         ? comparisonFactions.map(id => allFactions.find(f => f.id === id)).filter(Boolean)
-        : allFactions.slice(0, 3);
+        : allFactions.slice(0, 80);
     
     return `
         <div class="sv-comparison-view">
@@ -1494,7 +1830,7 @@ function renderComparisonView() {
             <div class="sv-comparison-selector">
                 <p>Select factions to compare:</p>
                 <div class="sv-comparison-chips">
-                    ${allFactions.slice(0, 12).map(({ id, faction }) => `
+                    ${allFactions.slice(0, 80).map(({ id, faction }) => `
                         <button class="sv-comparison-chip ${comparisonFactions.includes(id) ? 'selected' : ''}"
                                 data-faction="${id}"
                                 style="--faction-color: ${faction?.color || '#666'};">
@@ -1594,7 +1930,7 @@ function renderCompatibilityMatrix(factions) {
                 f1: f1.faction,
                 f2: f2.faction,
                 compatibility,
-                differences: differences.sort((a, b) => b.diff - a.diff).slice(0, 3)
+                differences: differences.sort((a, b) => b.diff - a.diff).slice(0, 80)
             });
         }
     }
