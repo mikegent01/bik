@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="politics.css">
+    <link rel="stylesheet" href="faction-modal.css"> <!-- Add this -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 </head>
@@ -17,19 +18,20 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Political Demographics & Systems</h2>
-                 <p class="page-subtitle">An analysis of the major political estates and ongoing conflicts across the known worlds. This data models the distribution of power between nobility, clergy, merchants, and commoners.</p>
+                 <h2 class="page-title">Political Landscape Analysis</h2>
+                 <p class="page-subtitle">Interactive modeling of government types, political values, and power structures across all factions and regions.</p>
                  
                  <div id="politics-container">
                     <!-- Main content injected by politics.js -->
+                    <div class="loading-state">Analyzing political spectrums...</div>
                  </div>
-
 
             </main>
         </div>
     </div>
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
+    <script type="module" src="faction-modal.js"></script>
     <script type="module" src="politics.js"></script>
 </body>
 </html>

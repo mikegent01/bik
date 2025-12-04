@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +16,21 @@
         <div id="app">
              <aside id="sidebar"></aside>
             <main id="main-content">
-                 <h2 class="page-title">Chronicle of Major Battles</h2>
-                 <p class="page-subtitle">A historical record of significant military engagements, skirmishes, and political conflicts across the known worlds. Entries are listed from most to least recent.</p>
-                 <div id="battlefield-container">
+                 
+                 <!-- NEW: Tab Controls -->
+                 <div class="view-controls">
+                    <button class="view-btn active" data-target="battles">Tactical Log</button>
+                    <button class="view-btn" data-target="conflicts">Active Conflicts</button>
+                 </div>
+
+                 <!-- Battle Log Container (Default) -->
+                 <div id="battlefield-container" class="view-section active">
                     <!-- Battle information injected by JS -->
+                 </div>
+
+                 <!-- Conflicts Container (Hidden by default) -->
+                 <div id="conflicts-container" class="view-section" style="display: none;">
+                    <!-- Conflict dossiers injected by JS -->
                  </div>
             </main>
         </div>
