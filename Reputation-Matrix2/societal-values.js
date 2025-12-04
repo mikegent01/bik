@@ -1565,7 +1565,291 @@ let viewMode = 'spectrum';
 // DATA FUNCTIONS
 // ============================================
 
+// ============================================
+// ALLIANCE TYPE CALCULATION - DYNAMIC
+// ============================================
+
+/**
+ * Calculate alliance type based on member POIs and building types
+ */
+function calculateAllianceType(members) {
+    if (!members || members.length === 0) return 'military_pact';
+    
+    // Count building types across all members
+    const buildingCounts = {
+        military: 0,      // fortress, castle, barracks, watchtower
+        economic: 0,      // market, mine, farm, port, trade_post
+        naval: 0,         // port, shipyard, harbor
+        research: 0,      // academy, library, mages_tower, laboratory
+        cultural: 0,      // temple, shrine, monument, theater
+        political: 0      // capital, palace, embassy, court
+    };
+    
+    const buildingTypeMap = {
+        // Military
+        'fortress': 'military', 'castle': 'military', 'barracks': 'military',
+        'watchtower': 'military', 'fort': 'military', 'outpost': 'military',
+        'siege_camp': 'military', 'garrison': 'military', 'stronghold': 'military',
+        
+        // Economic
+        'market': 'economic', 'mine': 'economic', 'farm': 'economic',
+        'trade_post': 'economic', 'warehouse': 'economic', 'bank': 'economic',
+        'workshop': 'economic', 'factory': 'economic', 'quarry': 'economic',
+        
+        // Naval
+        'port': 'naval', 'shipyard': 'naval', 'harbor': 'naval',
+        'dock': 'naval', 'lighthouse': 'naval', 'naval_base': 'naval',
+        
+        // Research
+        'academy': 'research', 'library': 'research', 'mages_tower': 'research',
+        'laboratory': 'research', 'university': 'research', 'observatory': 'research',
+        'school': 'research', 'archive': 'research',
+        
+        // Cultural
+        'temple': 'cultural', 'shrine': 'cultural', 'monument': 'cultural',
+        'theater': 'cultural', 'monastery': 'cultural', 'cathedral': 'cultural',
+        'arena': 'cultural', 'colosseum': 'cultural',
+        
+        // Political
+        'capital': 'political', 'capital_city': 'political', 'palace': 'political',
+        'embassy': 'political', 'court': 'political', 'senate': 'political',
+        'throne_room': 'political'
+    };
+    
+    // Count POIs by type for all members
+    members.forEach(memberId => {
+        if (!MAP_DATA) return;
+        
+        Object.entries(MAP_DATA).forEach(([regionId, region]) => {
+            if (!regionId.endsWith('_full')) return;
+            const pois = region.pointsOfInterest || [];
+            
+            pois.forEach(poi => {
+                if (poi.factionId !== memberId) return;
+                
+                const poiType = (poi.type || '').toLowerCase().replace(/[\s-]/g, '_');
+                const category = buildingTypeMap[poiType];
+                
+                if (category) {
+                    buildingCounts[category]++;
+                } else {
+                    // Default categorization based on stats
+                    if ((poi.military_strength || 0) > (poi.economic_value || 0)) {
+                        buildingCounts.military++;
+                    } else if ((poi.economic_value || 0) > 0) {
+                        buildingCounts.economic++;
+                    }
+                }
+            });
+        });
+    });
+    
+    // Calculate total and percentages
+    const total = Object.values(buildingCounts).reduce((a, b) => a + b, 0) || 1;
+    const percentages = {};
+    Object.entries(buildingCounts).forEach(([key, val]) => {
+        percentages[key] = (val / total) * 100;
+    });
+    
+    // Determine alliance type based on dominant categories
+    const dominant = Object.entries(percentages)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 2);
+    
+    const [primary, secondary] = dominant;
+    
+    // Decision tree for alliance type
+    if (primary[0] === 'military' && primary[1] >= 40) {
+        if (secondary && secondary[0] === 'political' && secondary[1] >= 20) {
+            return 'hegemonic_bloc';
+        }
+        return 'military_pact';
+    }
+    
+    if (primary[0] === 'economic' && primary[1] >= 35) {
+        return 'economic_union';
+    }
+    
+    if (primary[0] === 'naval' && primary[1] >= 25) {
+        return 'naval_league';
+    }
+    
+    if (primary[0] === 'research' && primary[1] >= 25) {
+        return 'technology_pact';
+    }
+    
+    if (primary[0] === 'cultural' && primary[1] >= 25) {
+        return 'cultural_alliance';
+    }
+    
+    if (primary[0] === 'political' && primary[1] >= 30) {
+        return 'federation';
+    }
+    
+    // Mixed - default to defensive coalition
+    if (primary[1] < 30) {
+        return 'defensive_coalition';
+    }
+    
+    // Fallback
+    return 'military_pact';
+}
+
+/**
+ * Calculate member role based on power disparity
+ */
+function calculateMemberRoles(alliance) {
+    const memberPowers = {};
+    let maxPower = 0;
+    let leaderId = null;
+    
+    alliance.members.forEach(memberId => {
+        const stats = getFactionStats(memberId);
+        const pois = getFactionTotalPOIs(memberId);
+        const power = (stats.military * 2) + (stats.economic * 1.5) + (stats.political) + (pois * 5);
+        memberPowers[memberId] = power;
+        
+        if (power > maxPower) {
+            maxPower = power;
+            leaderId = memberId;
+        }
+    });
+    
+    const roles = {};
+    const avgPower = Object.values(memberPowers).reduce((a, b) => a + b, 0) / alliance.members.length;
+    
+    alliance.members.forEach(memberId => {
+        const power = memberPowers[memberId];
+        const ratio = power / maxPower;
+        
+        if (memberId === leaderId) {
+            roles[memberId] = 'leader';
+        } else if (ratio >= 0.7) {
+            roles[memberId] = 'full_member';
+        } else if (ratio >= 0.4) {
+            roles[memberId] = 'full_member';
+        } else if (ratio >= 0.2) {
+            roles[memberId] = 'associate';
+        } else if (ratio >= 0.1) {
+            roles[memberId] = 'vassal';
+        } else {
+            roles[memberId] = 'puppet';
+        }
+    });
+    
+    return { roles, leaderId, memberPowers };
+}
+
+// ============================================
+// VALUE RANDOMIZATION WITH SEED
+// ============================================
+
+/**
+ * Seeded random number generator
+ */
+function seededRandom(seed) {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+
+/**
+ * Generate a stable seed from a string
+ */
+function stringToSeed(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return Math.abs(hash);
+}
+
+/**
+ * Generate faction values with randomization
+ */
+function generateFactionValuesWithSeed(faction) {
+    const values = {};
+    const factionId = faction.id || faction.name || 'unknown';
+    const baseSeed = stringToSeed(factionId);
+    
+    // Start with neutral values
+    Object.keys(VALUE_AXES).forEach((axisId, index) => {
+        values[axisId] = 50;
+    });
+    
+    if (!faction) return values;
+    
+    // Gather text to analyze
+    const textsToAnalyze = [
+        faction.id || '',
+        faction.name || '',
+        faction.type || '',
+        faction.description || '',
+        faction.lore || '',
+        faction.government || '',
+        faction.culture || '',
+        faction.religion || '',
+        faction.primaryRace || '',
+        faction.species || '',
+        ...(faction.tags || [])
+    ].join(' ').toLowerCase();
+    
+    // Track applied modifiers
+    const appliedModifiers = {};
+    Object.keys(VALUE_AXES).forEach(axisId => {
+        appliedModifiers[axisId] = [];
+    });
+    
+    // Check keywords and apply modifiers
+    Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
+        const regex = new RegExp(`\\b${keyword}`, 'i');
+        if (regex.test(textsToAnalyze)) {
+            Object.entries(modifiers).forEach(([axisId, modifier]) => {
+                if (VALUE_AXES[axisId]) {
+                    appliedModifiers[axisId].push(modifier);
+                }
+            });
+        }
+    });
+    
+    // Calculate final values with randomization
+    Object.entries(appliedModifiers).forEach(([axisId, mods], index) => {
+        // Generate random offset for this faction/axis combination
+        const axisSeed = baseSeed + index * 7919; // Use prime multiplier for variety
+        const randomOffset = (seededRandom(axisSeed) - 0.5) * 20; // -10 to +10 random offset
+        
+        if (mods.length > 0) {
+            const avgMod = mods.reduce((sum, m) => sum + m, 0) / mods.length;
+            values[axisId] = Math.max(5, Math.min(95, Math.round(50 + avgMod + randomOffset)));
+        } else {
+            // No keywords - use larger random variance
+            const noKeywordSeed = baseSeed + index * 3571;
+            const variance = (seededRandom(noKeywordSeed) - 0.5) * 40; // -20 to +20
+            values[axisId] = Math.max(10, Math.min(90, Math.round(50 + variance)));
+        }
+    });
+    
+    // Ensure minimum differentiation - check against other factions
+    // Add faction-specific quirks based on name hash
+    const quirks = Math.floor(seededRandom(baseSeed + 999) * 3) + 1; // 1-3 quirks
+    const axisKeys = Object.keys(VALUE_AXES);
+    
+    for (let i = 0; i < quirks; i++) {
+        const quirkSeed = baseSeed + i * 1337;
+        const axisIndex = Math.floor(seededRandom(quirkSeed) * axisKeys.length);
+        const axisId = axisKeys[axisIndex];
+        const quirkAmount = (seededRandom(quirkSeed + 1) - 0.5) * 30; // -15 to +15 quirk
+        
+        values[axisId] = Math.max(5, Math.min(95, Math.round(values[axisId] + quirkAmount)));
+    }
+    
+    return values;
+}
+
+// Update the getFactionValues function to use seeded randomization
 function getFactionValues(factionId) {
+    // Check preset values first
     if (FACTION_VALUES[factionId]) {
         return FACTION_VALUES[factionId];
     }
@@ -1573,7 +1857,186 @@ function getFactionValues(factionId) {
     const faction = getFaction(factionId);
     if (!faction) return generateDefaultValues();
     
-    return generateFactionValues(faction);
+    // Use seeded generation
+    return generateFactionValuesWithSeed(faction);
+}
+
+// ============================================
+// UNIFIED ALLIANCE CALCULATION
+// ============================================
+
+
+
+// ============================================
+// UNIFIED RENDER - ALLIANCE MEMBER ROW
+// ============================================
+
+function renderAllianceMemberChip(memberId, alliance, showStats = false) {
+    const member = getFaction(memberId);
+    const role = alliance.memberRoles?.[memberId] || 'full_member';
+    const roleInfo = MEMBER_ROLES[role] || MEMBER_ROLES.full_member;
+    const isLeader = memberId === alliance.leader;
+    const power = alliance.memberPowers?.[memberId] || 0;
+    const stats = showStats ? getFactionStats(memberId) : null;
+    
+    return `
+        <div class="member-chip ${role}" 
+             data-faction="${memberId}"
+             style="--member-color: ${member?.color || '#666'};"
+             title="${member?.name || memberId} - ${roleInfo.name}">
+            <span class="member-icon" style="background: ${member?.color || '#666'};">
+                ${member?.icon || '❓'}
+            </span>
+            <span class="member-name">${member?.shortName || memberId}</span>
+            ${isLeader ? '<span class="leader-crown">👑</span>' : ''}
+            <span class="role-indicator" style="color: ${roleInfo.color};" title="${roleInfo.name}">
+                ${roleInfo.icon}
+            </span>
+            ${showStats && stats ? `
+                <span class="member-stats-inline">⚔️${stats.military}</span>
+            ` : ''}
+        </div>
+    `;
+}
+
+// ============================================
+// UNIFIED RENDER - ALLIANCE HEADER
+// ============================================
+
+function renderAllianceHeader(alliance, showPower = true) {
+    const allianceType = ALLIANCE_TYPES[alliance.allianceType] || ALLIANCE_TYPES.military_pact;
+    
+    return `
+        <div class="alliance-header-unified" style="--alliance-color: ${alliance.color};">
+            <span class="alliance-icon-unified" style="background: ${alliance.color};">
+                ${alliance.icon}
+            </span>
+            <div class="alliance-info-unified">
+                <h4 class="alliance-name-unified">${alliance.name}</h4>
+                <div class="alliance-meta-unified">
+                    <span class="alliance-type-badge ${alliance.allianceType}">
+                        ${allianceType.icon} ${allianceType.name}
+                    </span>
+                    <span class="alliance-size">${alliance.members.length} members</span>
+                    <span class="alliance-cohesion-inline">${alliance.cohesion}% cohesion</span>
+                </div>
+            </div>
+            ${showPower ? `
+                <div class="alliance-power-badge">
+                    <span class="power-value">${Math.round(alliance.totalPower)}</span>
+                    <span class="power-label">Power</span>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// ============================================
+// UNIFIED RENDER - ALLIANCE SECTION (for global-war page)
+// ============================================
+
+function renderAllianceSectionCompact(alliance) {
+    const allianceType = ALLIANCE_TYPES[alliance.allianceType] || ALLIANCE_TYPES.military_pact;
+    
+    return `
+        <div class="alliance-section-compact" style="border-color: ${alliance.color};">
+            ${renderAllianceHeader(alliance, false)}
+            
+            <div class="alliance-members-compact">
+                <span class="members-label">Members:</span>
+                <div class="members-list-compact">
+                    ${alliance.members.map(m => renderAllianceMemberChip(m, alliance, true)).join('')}
+                </div>
+            </div>
+            
+            <div class="alliance-features-compact">
+                ${allianceType.features.slice(0, 5).map(fId => {
+                    const f = ALLIANCE_FEATURES[fId];
+                    return f ? `<span class="feature-dot" title="${f.name}">${f.icon}</span>` : '';
+                }).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// ============================================
+// UPDATED: renderTerritoryDetailModal alliance section
+// ============================================
+
+function renderTerritoryAllianceSection(control) {
+    if (!control.alliance) return '';
+    
+    const alliance = control.alliance;
+    const allianceType = ALLIANCE_TYPES[alliance.allianceType] || ALLIANCE_TYPES.military_pact;
+    
+    return `
+        <div class="modal-section alliance-section">
+            <h4>🤝 Controlling Alliance</h4>
+            <div class="alliance-card-unified" style="border-color: ${alliance.color};">
+                <div class="alliance-card-header-unified">
+                    <span class="alliance-icon" style="background: ${alliance.color};">
+                        ${alliance.icon}
+                    </span>
+                    <div class="alliance-info">
+                        <span class="alliance-name">${alliance.name}</span>
+                        <span class="alliance-type-line">
+                            <span class="alliance-type-badge ${alliance.allianceType}">
+                                ${allianceType.icon} ${allianceType.name}
+                            </span>
+                            <span class="alliance-stats-mini">
+                                ${alliance.members.length} members • ${alliance.cohesion}% cohesion
+                            </span>
+                        </span>
+                    </div>
+                    <div class="alliance-power">
+                        <span class="power-value">${control.controlPercent}%</span>
+                        <span class="power-label">control</span>
+                    </div>
+                </div>
+                
+                <div class="alliance-members">
+                    <span class="members-label">Member Factions:</span>
+                    <div class="members-list">
+                        ${alliance.members.map(memberId => {
+                            const member = getFaction(memberId);
+                            const isLeader = memberId === alliance.leader;
+                            const role = alliance.memberRoles?.[memberId] || 'full_member';
+                            const roleInfo = MEMBER_ROLES[role] || MEMBER_ROLES.full_member;
+                            const memberStats = control.dominantBloc?.members?.find(m => m.factionId === memberId);
+                            
+                            return `
+                                <div class="member-chip ${role}" 
+                                     style="border-color: ${member?.color || '#666'};"
+                                     onclick="window.showFactionModal('${memberId}'); document.getElementById('terr-modal')?.remove();">
+                                    <span class="member-icon" style="background: ${member?.color || '#666'};">
+                                        ${member?.icon || '?'}
+                                    </span>
+                                    <span class="member-name">${member?.shortName || memberId}</span>
+                                    ${isLeader ? '<span class="leader-badge">👑</span>' : `<span class="role-badge" style="color: ${roleInfo.color};">${roleInfo.icon}</span>`}
+                                    ${memberStats ? `<span class="member-power">⚔️${memberStats.stats?.military || 0}</span>` : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <div class="alliance-features-row">
+                    <span class="features-label">Features:</span>
+                    <div class="features-icons">
+                        ${allianceType.features.slice(0, 6).map(fId => {
+                            const f = ALLIANCE_FEATURES[fId];
+                            return f ? `<span class="feature-icon-mini" title="${f.name}: ${f.effect}">${f.icon}</span>` : '';
+                        }).join('')}
+                    </div>
+                </div>
+            </div>
+            
+            <p class="control-explanation">
+                <strong>De Facto</strong> control - This territory is governed by an alliance of ideologically aligned factions.
+                As a <strong>${allianceType.name}</strong>, members share ${allianceType.features.slice(0, 2).map(f => ALLIANCE_FEATURES[f]?.name || f).join(' and ')}.
+            </p>
+        </div>
+    `;
 }
 
 function generateDefaultValues() {

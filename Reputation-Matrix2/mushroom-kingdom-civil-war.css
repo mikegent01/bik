@@ -1836,3 +1836,644 @@
         margin-top: 8px;
     }
 }
+/* Modal scrolling fix */
+.faction-modal.territory-modal {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body-scrollable {
+    overflow-y: auto;
+    max-height: calc(90vh - 100px);
+    padding-right: 0.5rem;
+}
+
+.modal-body-scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body-scrollable::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.modal-body-scrollable::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* De Jure styling */
+.territory-status-banner.de-jure {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25), rgba(202, 138, 4, 0.15));
+    border-left: 4px solid #eab308;
+    color: #fef08a;
+}
+
+/* De Facto styling */
+.territory-status-banner.de-facto {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(22, 163, 74, 0.15));
+    border-left: 4px solid #22c55e;
+    color: #86efac;
+}
+.power-blocs-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Individual Row */
+.power-bloc-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.power-bloc-row:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateX(2px);
+}
+
+/* Highlight the dominant (top) bloc */
+.power-bloc-row.dominant {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for Alliance rows vs Faction rows */
+.power-bloc-row.alliance {
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 1. Label Section (Icon + Text) */
+.bloc-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 180px; /* Fixed width for alignment */
+    flex-shrink: 0;
+}
+
+.bloc-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.bloc-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* prevents text spill */
+}
+
+.bloc-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bloc-type {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+/* 2. Progress Bar Section */
+.bloc-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.bloc-fill {
+    height: 100%;
+    border-radius: 5px;
+    /* Animated width on load */
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+/* 3. Stats Section (Percent + Details) */
+.bloc-stats {
+    width: 80px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.bloc-percent {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: monospace; /* aligns numbers better */
+}
+
+.bloc-detail {
+    font-size: 0.65rem;
+    color: #64748b;
+    margin-top: 2px;
+    letter-spacing: -0.2px;
+}
+@media (max-width: 600px) {
+    .power-bloc-row {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .bloc-label {
+        width: 100%; /* Full width on mobile */
+        margin-bottom: 4px;
+    }
+
+    .bloc-bar {
+        flex: 1; /* Takes available space */
+        min-width: 100px;
+    }
+
+    .bloc-stats {
+        width: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .bloc-detail {
+        margin-top: 0;
+    }
+}
+/* ============================================
+   TERRITORY MODAL - CONTESTING POWERS
+   ============================================ */
+
+/* Container Grid */
+.contesting-blocs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+/* Individual Card */
+.contester-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(30, 41, 59, 0.6); /* Slightly darker/warmer background */
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Border-left is handled inline by JS, this adds depth */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contester-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle background pattern for Alliances to distinguish them */
+.contester-card.alliance {
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.01) 10px,
+        rgba(255, 255, 255, 0.01) 20px
+    );
+}
+
+/* 1. Icon Section */
+.contester-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Info Section (Name & Type) */
+.contester-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0; /* Prevents text overflow issues */
+}
+
+.contester-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.contester-type {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: capitalize;
+}
+
+/* 3. Power Section (Percentage & Stats) */
+.contester-power {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 80px;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.contester-power .power-percent {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+/* Add a pseudo-element to indicate 'threat level' based on opacity or color */
+.contester-power .power-percent::after {
+    content: '%';
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-left: 1px;
+}
+
+.contester-power .power-stats {
+    font-size: 0.7rem;
+    font-family: monospace;
+    color: #cbd5e1;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: -0.5px;
+}
+
+/* Optional: Make military stat red to indicate threat */
+.contester-power .power-stats span:first-child { 
+    /* Assuming the military sword is the first character in the HTML string */
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+    .contester-card {
+        padding: 10px;
+    }
+    
+    .contester-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .contester-name {
+        font-size: 0.85rem;
+    }
+    
+    .contester-power .power-percent {
+        font-size: 1rem;
+    }
+}
+/* ============================================
+   ALLIANCE SECTION STYLES
+   ============================================ */
+
+/* Alliance Section Container */
+.alliance-section {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(22, 163, 74, 0.04));
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    margin-bottom: 1rem;
+}
+
+.alliance-section h4 {
+    margin: 0 0 1rem 0;
+    color: #86efac;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Alliance Card */
+.alliance-card {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    border-left: 4px solid;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.alliance-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(0, 0, 0, 0.3));
+    border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.alliance-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.alliance-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.alliance-name {
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: #f0fdf4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.alliance-type {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alliance-type .cohesion-badge {
+    background: rgba(34, 197, 94, 0.3);
+    color: #86efac;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+}
+
+.alliance-power {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(34, 197, 94, 0.1));
+    border-radius: 8px;
+    min-width: 80px;
+}
+
+.alliance-power .power-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #22c55e;
+    text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.alliance-power .power-label {
+    font-size: 0.65rem;
+    color: #86efac;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Alliance Members */
+.alliance-members {
+    padding: 1rem 1.25rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.members-label {
+    display: block;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.members-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.member-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+}
+
+.member-chip:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.member-chip.leader {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25), rgba(234, 179, 8, 0.1));
+    border-color: rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
+}
+
+.member-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.member-name {
+    color: #e5e7eb;
+    font-weight: 500;
+}
+
+.leader-badge {
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+}
+
+.member-pois {
+    font-size: 0.65rem;
+    color: #9ca3af;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.15rem 0.4rem;
+    border-radius: 8px;
+    margin-left: 0.25rem;
+}
+
+/* Alliance Stats Bar */
+.alliance-stats-bar {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.alliance-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.alliance-stat-icon {
+    font-size: 0.9rem;
+}
+
+.alliance-stat-value {
+    font-weight: bold;
+    color: #e5e7eb;
+}
+
+.alliance-stat-label {
+    color: #9ca3af;
+    font-size: 0.7rem;
+}
+
+/* Control Explanation */
+.control-explanation {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border-left: 3px solid rgba(34, 197, 94, 0.5);
+    font-size: 0.8rem;
+    color: #9ca3af;
+    line-height: 1.5;
+}
+
+.control-explanation strong {
+    color: #22c55e;
+}
+
+/* Scripted Alliance Indicator */
+.scripted-alliance-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.1));
+    color: #c4b5fd;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    margin-left: 0.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+/* De Facto Banner */
+.territory-status-banner.de-facto {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(22, 163, 74, 0.12));
+    border-left: 4px solid #22c55e;
+    color: #dcfce7;
+    padding: 0.875rem 1rem;
+}
+
+.territory-status-banner.de-facto .banner-icon {
+    font-size: 1.25rem;
+    filter: drop-shadow(0 0 4px rgba(34, 197, 94, 0.5));
+}
+
+.territory-status-banner.de-facto .banner-subtext {
+    color: #86efac;
+}
+
+/* Modal Header Badge for De Facto */
+.modal-header-badge.de-facto {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+/* Control Type Badge */
+.control-type-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.control-type-badge.de-facto {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.08));
+    border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.control-type-icon {
+    font-size: 1.75rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.control-type-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.control-type-label {
+    font-weight: bold;
+    color: #e5e7eb;
+    font-size: 1rem;
+}
+
+.control-type-desc {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}

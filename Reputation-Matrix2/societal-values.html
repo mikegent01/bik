@@ -40,34 +40,7 @@
         import { renderSocietalValues, initSocietalValuesListeners, getAllFactionsWithValues } from './societal-values.js';
         
         document.addEventListener('DOMContentLoaded', () => {
-            const statsContainer = document.getElementById('values-stats-container');
-            if (statsContainer) {
-                const factions = getAllFactionsWithValues();
-                statsContainer.innerHTML = `
-                    <div class="vital-stat">
-                        <span class="vital-stat-icon">🏴</span>
-                        <div class="vital-stat-info">
-                            <span class="vital-stat-value">${factions.length}</span>
-                            <span class="vital-stat-label">Analyzed Factions</span>
-                        </div>
-                    </div>
-                    <div class="vital-stat">
-                        <span class="vital-stat-icon">📐</span>
-                        <div class="vital-stat-info">
-                            <span class="vital-stat-value">12</span>
-                            <span class="vital-stat-label">Value Axes</span>
-                        </div>
-                    </div>
-                    <div class="vital-stat">
-                        <span class="vital-stat-icon">⚖️</span>
-                        <div class="vital-stat-info">
-                            <span class="vital-stat-value">${factions.length * 12}</span>
-                            <span class="vital-stat-label">Data Points</span>
-                        </div>
-                    </div>
-                `;
-            }
-            
+            const statsContainer = document.getElementById('values-stats-container');           
             const systemContainer = document.getElementById('values-system-container');
             if (systemContainer) {
                 try {

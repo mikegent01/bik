@@ -6,13 +6,14 @@ import { CURRENT_GAME_DATE } from '../calendar-data.js';
 import { MAP_DATA } from '../map-data.js';
 import { renderTerritoryDetailModal } from '../systems/mushroom-kingdom-system.js'; 
 import { showFactionModal } from '../faction-modal.js';
+import { calculateAllAlliances } from '../alliances-page.js';
 // ============================================
 // STATE
 // ============================================
 let currentView = 'global'; // 'global' or 'region'
 let currentRegion = null;   // Selected region ID when in region view
 let currentSort = 'power';  // 'power', 'military', 'economic', 'political', 'population'
-
+let cachedAllianceData = null; // Store calculated alliances
 // ============================================
 // HELPER
 // ============================================
@@ -322,7 +323,7 @@ export function renderGlobalWar() {
     
     // Get stats based on current view
     let stats;
-    
+    cachedAllianceData = calculateAllAlliances();
     if (currentView === 'region' && currentRegion) {
         // Region view: stats for specific region
         // We use getDetailedRegionStats but need to shape it like the global stats object for consistency
@@ -531,12 +532,16 @@ export function renderGlobalWar() {
 // ============================================
 // EVENT LISTENERS
 // ============================================
+    
+
+  
 export function initGlobalWarListeners() {
     const container = document.querySelector('.civil-war-system');
     if (!container) return;
 
-    // View Toggle Buttons
+    // View Toggle Buttons & Sort Buttons & Faction Details
     container.addEventListener('click', (e) => {
+        // 1. View Toggles
         const viewBtn = e.target.closest('.view-btn');
         if (viewBtn) {
             const newView = viewBtn.dataset.view;
@@ -550,7 +555,7 @@ export function initGlobalWarListeners() {
             return;
         }
 
-        // Sort Buttons
+        // 2. Sort Buttons
         const sortBtn = e.target.closest('.sort-btn');
         if (sortBtn) {
             const newSort = sortBtn.dataset.sort;
@@ -561,7 +566,7 @@ export function initGlobalWarListeners() {
             return;
         }
 
-        // Faction Detail Buttons
+        // 3. Faction Detail Buttons
         const detailBtn = e.target.closest('.faction-detail-btn');
         if (detailBtn) {
             const factionKey = detailBtn.dataset.faction;
@@ -569,12 +574,43 @@ export function initGlobalWarListeners() {
             return;
         }
 
-        // Sidebar Territory Click
+        // 4. Sidebar Territory Click - FIXED ALLIANCE SYNC
         const terrItem = e.target.closest('.territory-item');
         if (terrItem) {
             const regionId = terrItem.dataset.regionId;
+            
+            // Get the local region stats
             const detailedRegion = getDetailedRegionStats(regionId);
+            
             if (detailedRegion) {
+                // --- UNIFICATION FIX START ---
+                // Calculate the canonical global alliances to match the Alliances Page exactly
+                const globalAllianceData = calculateAllAlliances();
+                const controllerId = detailedRegion.controller;
+
+                // If the controller of this region is part of a global alliance...
+                if (controllerId && globalAllianceData.factionToAlliance[controllerId]) {
+                    const canonicalAlliance = globalAllianceData.factionToAlliance[controllerId];
+                    
+                    // Override the region's local alliance data with the canonical global object
+                    // This ensures the member list, cohesion, and stats match the Alliances page
+                    detailedRegion.alliance = canonicalAlliance;
+                    
+                    // Update the dominantBloc property which some modals use for the member list stats
+                    detailedRegion.dominantBloc = {
+                        id: canonicalAlliance.id,
+                        name: canonicalAlliance.name,
+                        type: canonicalAlliance.allianceType,
+                        // Map members to the structure expected by the modal renderer
+                        members: canonicalAlliance.members.map(mId => ({
+                            factionId: mId,
+                            stats: getFactionStats(mId)
+                        })),
+                        totalPower: canonicalAlliance.totalPower
+                    };
+                }
+                // --- UNIFICATION FIX END ---
+
                 const html = renderTerritoryDetailModal(detailedRegion); 
                 document.body.insertAdjacentHTML('beforeend', html);
                 requestAnimationFrame(() => {
@@ -585,7 +621,7 @@ export function initGlobalWarListeners() {
         }
     });
 
-    // Region Dropdown
+    // Region Dropdown Change
     container.addEventListener('change', (e) => {
         if (e.target.id === 'region-select') {
             currentRegion = e.target.value || null;
@@ -593,7 +629,7 @@ export function initGlobalWarListeners() {
         }
     });
 
-    // Analytics Modal
+    // Analytics Modal Button
     const analyticsBtn = container.querySelector('#btn-view-analytics');
     if (analyticsBtn) {
         analyticsBtn.addEventListener('click', () => {
@@ -606,6 +642,8 @@ export function initGlobalWarListeners() {
         });
     }
 }
+
+  
 
 // ============================================
 // MODAL HELPER

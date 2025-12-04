@@ -1,6 +1,6 @@
 // map-analysis.js
 
-import { MDATA_F } from '../map-data.js';
+import { MAP_DATA } from '../map-data.js';
 import { getAllFactions, getAllSystemIds, toSystemId, getFaction } from './faction-registry.js';
 
 const SKIP_REGIONS = ['mushroom_kingdom_full'];
@@ -31,7 +31,7 @@ export function getRealTimeMapStats() {
     });
 
     // Process each region
-    Object.values(MDATA_F).forEach(region => {
+    Object.values(MAP_DATA).forEach(region => {
         if (SKIP_REGIONS.includes(region.id)) return;
         if (!region.pointsOfInterest || region.pointsOfInterest.length === 0) return;
 
@@ -200,7 +200,7 @@ export function getDetailedFactionStats(factionKey) {
         pois: []
     };
 
-    Object.values(MDATA_F).forEach(region => {
+    Object.values(MAP_DATA).forEach(region => {
         if (SKIP_REGIONS.includes(region.id)) return;
         if (!region.pointsOfInterest) return;
 
@@ -267,7 +267,7 @@ export function getDetailedFactionStats(factionKey) {
  * Get detailed stats for a specific region
  */
 export function getDetailedRegionStats(regionId) {
-    const region = MDATA_F[regionId];
+    const region = MAP_DATA[regionId];
     if (!region || !region.pointsOfInterest) return null;
 
     const factionPresence = {};
