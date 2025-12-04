@@ -3,51 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faction Directory</title>
-    
-    <!-- Your existing CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- NEW: Add the Diet System CSS -->
-    <link rel="stylesheet" href="css/regal-empire-diet.css">
+    <title>Vigilance Terminal | Faction Directory</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="directory.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app">
+            <aside id="sidebar"></aside>
+            <main id="main-content">
+                <!-- Header -->
+                <div class="directory-header">
+                    <h2 class="page-title">Faction Relations Database</h2>
+                    <p class="page-subtitle">Party standings, faction assessments, and intelligence reports across all known organizations.</p>
+                </div>
 
-    <!-- Main Content Area -->
-    <div id="app">
-        <!-- Your navigation, sidebar, etc goes here -->
-        
-        <div id="main-content">
-            <div id="view-container"></div>
+                <!-- Party Stats Bar -->
+                <div id="party-stats-bar" class="party-stats-bar">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- View Controls -->
+                <div class="directory-controls">
+                    <div class="view-mode-tabs">
+                        <button class="view-mode-btn active" data-view="grid">
+                            <span>📊</span> Faction Grid
+                        </button>
+                        <button class="view-mode-btn" data-view="player">
+                            <span>👤</span> Player View
+                        </button>
+                        <button class="view-mode-btn" data-view="standings">
+                            <span>📈</span> Standings Matrix
+                        </button>
+                        <button class="view-mode-btn" data-view="intel">
+                            <span>🔍</span> Intel Report
+                        </button>
+                    </div>
+                    
+                    <div class="directory-filters">
+                        <div class="filter-group">
+                            <label>Region:</label>
+                            <select id="region-filter" class="filter-select">
+                                <option value="all">All Regions</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Standing:</label>
+                            <select id="standing-filter" class="filter-select">
+                                <option value="all">All Standings</option>
+                                <option value="friendly">Friendly (50+)</option>
+                                <option value="neutral">Neutral (-50 to 50)</option>
+                                <option value="hostile">Hostile (-50-)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Sort:</label>
+                            <select id="sort-filter" class="filter-select">
+                                <option value="reputation">Party Reputation</option>
+                                <option value="name">Name</option>
+                                <option value="intel">Intel Level</option>
+                                <option value="notoriety">Notoriety</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <input type="text" id="search-filter" class="filter-search" placeholder="🔍 Search factions...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Layout -->
+                <div id="directory-layout">
+                    <!-- Sidebar -->
+                    <aside id="directory-sidebar">
+                        <!-- Party Members -->
+                        <div class="sidebar-section" id="party-panel">
+                            <h4>🎭 Active Party</h4>
+                            <div id="party-member-list">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Standing Summary -->
+                        <div class="sidebar-section" id="standing-summary">
+                            <h4>📊 Standing Summary</h4>
+                            <div id="standing-summary-content">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Recent Events -->
+                        <div class="sidebar-section" id="recent-events">
+                            <h4>📜 Recent Events</h4>
+                            <div id="recent-events-list">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <div id="view-container">
+                        <!-- Content injected here -->
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
-    <!-- FACTION DETAIL MODAL (Existing) -->
+    <!-- Faction Detail Modal -->
     <div id="faction-detail-modal" class="faction-modal-overlay">
         <div class="faction-modal">
             <button class="modal-close" id="modal-close-btn">✕</button>
-            <div id="faction-modal-content" class="modal-content-scroll">
-                <!-- Content injected by JS -->
+            <div id="faction-modal-content">
+                <!-- Injected by JS -->
             </div>
         </div>
     </div>
 
-    <!-- REQUIRED FOR DIET SYSTEM: Tooltip Container -->
-    <div id="parliament-tooltip"></div>
-
-    <!-- REQUIRED FOR DIET SYSTEM: Seat Detail Panel -->
-    <div id="detail-panel" class="detail-panel">
-        <div class="panel-header-wrapper">
-            <h3>Representative Details</h3>
-            <button id="detail-panel-close">✕</button>
-        </div>
-        <div id="detail-panel-content">
-            <!-- Injected by regal-empire-system.js -->
-        </div>
-    </div>
-
-    <!-- Scripts -->
+    <script type="module" src="common.js"></script>
+    <script type="module" src="navigation.js"></script>
     <script type="module" src="directory-system.js"></script>
-
 </body>
 </html>
