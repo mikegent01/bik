@@ -187,33 +187,85 @@ function getFactionRelations(factionId) {
         
         let totalDiff = 0;
         let count = 0;
+        let extremeConflicts = 0;      // Count of major disagreements (50+ diff)
+        let strongConflicts = 0;        // Count of significant disagreements (35+ diff)
+        let strongAgreements = 0;       // Count of strong agreements (15 or less diff)
         let biggestDifferences = [];
         let biggestAgreements = [];
+        let maxSingleDiff = 0;          // Track the worst single disagreement
         
         Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
             const targetVal = targetValues[axisId] || 50;
             const otherVal = values[axisId] || 50;
             const diff = Math.abs(targetVal - otherVal);
+            
             totalDiff += diff;
             count++;
+            maxSingleDiff = Math.max(maxSingleDiff, diff);
             
-            // Track biggest differences and agreements
-            if (diff >= 40) {
+            // Count conflict/agreement levels
+            if (diff >= 50) {
+                extremeConflicts++;
+                biggestDifferences.push({ axis, diff, targetVal, otherVal });
+            } else if (diff >= 35) {
+                strongConflicts++;
                 biggestDifferences.push({ axis, diff, targetVal, otherVal });
             }
+            
             if (diff <= 15) {
+                strongAgreements++;
                 biggestAgreements.push({ axis, diff, targetVal, otherVal });
             }
         });
         
         const avgDiff = count > 0 ? totalDiff / count : 50;
-        const compatibility = Math.round(100 - avgDiff);
+        
+        // Calculate base compatibility
+        let compatibility = Math.round(100 - avgDiff);
+        
+        // Apply penalties for extreme conflicts
+        // Even one extreme conflict (50+ diff) should heavily impact relations
+        if (extremeConflicts >= 3) {
+            compatibility -= 30;  // Fundamental opposition
+        } else if (extremeConflicts >= 2) {
+            compatibility -= 20;  // Major opposition
+        } else if (extremeConflicts >= 1) {
+            compatibility -= 12;  // Significant tension
+        }
+        
+        // Apply smaller penalties for strong conflicts
+        if (strongConflicts >= 3) {
+            compatibility -= 10;
+        } else if (strongConflicts >= 2) {
+            compatibility -= 5;
+        }
+        
+        // Bonus for strong agreements (but smaller than penalties)
+        if (strongAgreements >= 4) {
+            compatibility += 8;
+        } else if (strongAgreements >= 3) {
+            compatibility += 4;
+        }
+        
+        // If there's one massive disagreement (70+), it dominates the relationship
+        if (maxSingleDiff >= 70) {
+            compatibility = Math.min(compatibility, 35);  // Cap at rivalry
+        } else if (maxSingleDiff >= 60) {
+            compatibility = Math.min(compatibility, 45);  // Cap at tension
+        }
+        
+        // Clamp compatibility to 0-100
+        compatibility = Math.max(0, Math.min(100, compatibility));
         
         relations.push({
             id,
             faction,
             compatibility,
             avgDiff,
+            extremeConflicts,
+            strongConflicts,
+            strongAgreements,
+            maxSingleDiff,
             biggestDifferences: biggestDifferences.sort((a, b) => b.diff - a.diff).slice(0, 3),
             biggestAgreements: biggestAgreements.sort((a, b) => a.diff - b.diff).slice(0, 3)
         });
@@ -222,19 +274,19 @@ function getFactionRelations(factionId) {
     // Sort by compatibility
     relations.sort((a, b) => b.compatibility - a.compatibility);
     
-    // Loosened thresholds:
-    // Allies: >= 55% compatibility (was 65%)
-    // Rivals: <= 45% compatibility (was 35%)
-    // Neutral: everything in between
+    // Stricter thresholds:
+    // Allies: >= 70% compatibility (was 55%)
+    // Rivals: <= 35% compatibility (was 45%)
+    // Neutral: everything in between (35-70%)
     
-    const allies = relations.filter(r => r.compatibility >= 55);
-    const rivals = relations.filter(r => r.compatibility <= 45);
-    const neutral = relations.filter(r => r.compatibility > 45 && r.compatibility < 55);
+    const allies = relations.filter(r => r.compatibility >= 70);
+    const rivals = relations.filter(r => r.compatibility <= 35);
+    const neutral = relations.filter(r => r.compatibility > 35 && r.compatibility < 70);
     
     return {
-        allies: allies.slice(0, 8),      // Show more allies
-        rivals: rivals.slice(0, 8),      // Show more rivals
-        neutral: neutral.slice(0, 6)     // Show some neutral
+        allies: allies.slice(0, 5),      // Fewer, more meaningful allies
+        rivals: rivals.slice(0, 6),      // Show more rivals
+        neutral: neutral.slice(0, 5)     // Some neutral
     };
 }
 // ============================================
@@ -613,7 +665,7 @@ function renderRelationsTab(faction, factionId) {
             <div class="fm-relations-summary">
                 <div class="fm-rel-stat allies">
                     <span class="fm-rel-count">${allyCount}</span>
-                    <span class="fm-rel-label">Potential Allies</span>
+                    <span class="fm-rel-label">Allies</span>
                 </div>
                 <div class="fm-rel-stat neutral">
                     <span class="fm-rel-count">${neutralCount}</span>
@@ -627,40 +679,39 @@ function renderRelationsTab(faction, factionId) {
             
             <!-- Allies -->
             <div class="fm-section">
-                <h3 class="fm-section-title">🤝 Potential Allies</h3>
-                <p class="fm-section-desc">Factions with similar ideological values (55%+ compatibility)</p>
+                <h3 class="fm-section-title">🤝 Allies</h3>
+                <p class="fm-section-desc">Factions with strongly aligned values (70%+ compatibility)</p>
                 ${relations.allies.length > 0 ? `
                     <div class="fm-relations-list">
                         ${relations.allies.map(r => renderRelationCard(r, 'ally')).join('')}
                     </div>
-                ` : '<p class="fm-no-data">No allied factions identified based on current values.</p>'}
+                ` : '<p class="fm-no-data">No true allies. This faction\'s values are too distinct for close partnerships.</p>'}
             </div>
             
             <!-- Neutral -->
             <div class="fm-section">
                 <h3 class="fm-section-title">😐 Neutral Relations</h3>
-                <p class="fm-section-desc">Factions with mixed compatibility (45-55%)</p>
+                <p class="fm-section-desc">Factions with mixed compatibility (35-70%)</p>
                 ${relations.neutral.length > 0 ? `
                     <div class="fm-relations-list">
                         ${relations.neutral.map(r => renderRelationCard(r, 'neutral')).join('')}
                     </div>
-                ` : '<p class="fm-no-data">No factions in the neutral range. Relations tend to be clearly aligned or opposed.</p>'}
+                ` : '<p class="fm-no-data">Relations tend to be clearly aligned or opposed.</p>'}
             </div>
             
             <!-- Rivals -->
             <div class="fm-section">
-                <h3 class="fm-section-title">⚔️ Ideological Rivals</h3>
-                <p class="fm-section-desc">Factions with opposing values (45% or less compatibility)</p>
+                <h3 class="fm-section-title">⚔️ Rivals & Enemies</h3>
+                <p class="fm-section-desc">Factions with opposing values (35% or less compatibility)</p>
                 ${relations.rivals.length > 0 ? `
                     <div class="fm-relations-list">
                         ${relations.rivals.map(r => renderRelationCard(r, 'rival')).join('')}
                     </div>
-                ` : '<p class="fm-no-data">No major rivals identified. This faction\'s values are broadly compatible with most others.</p>'}
+                ` : '<p class="fm-no-data">No major rivals identified.</p>'}
             </div>
         </div>
     `;
 }
-
 /**
  * Render a relation card
  */
@@ -675,34 +726,33 @@ function renderRelationCard(relation, type) {
         rival: '#ef4444'
     };
     
-    const statusIcons = {
-        ally: '🤝',
-        neutral: '😐',
-        rival: '⚔️'
-    };
-    
-    // Determine relationship strength label
+    // Determine relationship strength label based on new metrics
     let strengthLabel = '';
     if (type === 'ally') {
-        if (relation.compatibility >= 85) strengthLabel = 'Strong Allies';
-        else if (relation.compatibility >= 70) strengthLabel = 'Good Relations';
-        else strengthLabel = 'Potential Allies';
+        if (relation.compatibility >= 85) strengthLabel = 'Natural Allies';
+        else if (relation.compatibility >= 77) strengthLabel = 'Strong Partners';
+        else strengthLabel = 'Friendly Relations';
     } else if (type === 'rival') {
-        if (relation.compatibility <= 25) strengthLabel = 'Bitter Enemies';
-        else if (relation.compatibility <= 35) strengthLabel = 'Strong Rivals';
-        else strengthLabel = 'Ideological Tension';
+        if (relation.compatibility <= 15) strengthLabel = 'Mortal Enemies';
+        else if (relation.compatibility <= 25) strengthLabel = 'Bitter Rivals';
+        else strengthLabel = 'Opposed';
     } else {
-        strengthLabel = 'Mixed Relations';
+        if (relation.extremeConflicts > 0) strengthLabel = 'Tense Neutrality';
+        else if (relation.strongAgreements >= 2) strengthLabel = 'Cordial';
+        else strengthLabel = 'Indifferent';
     }
     
     // Show key differences or agreements
     let detailHTML = '';
     if (type === 'rival' && relation.biggestDifferences && relation.biggestDifferences.length > 0) {
+        const conflictText = relation.extremeConflicts >= 2 ? 'Fundamental conflicts:' : 'Key conflicts:';
         detailHTML = `
             <div class="fm-relation-details">
-                <span class="fm-relation-detail-label">Key conflicts:</span>
+                <span class="fm-relation-detail-label">${conflictText}</span>
                 ${relation.biggestDifferences.slice(0, 2).map(d => `
-                    <span class="fm-relation-conflict">${d.axis.leftIcon}↔${d.axis.rightIcon}</span>
+                    <span class="fm-relation-conflict" title="${d.axis.name}: ${d.diff} point difference">
+                        ${d.axis.leftIcon}↔${d.axis.rightIcon}
+                    </span>
                 `).join('')}
             </div>
         `;
@@ -711,10 +761,21 @@ function renderRelationCard(relation, type) {
             <div class="fm-relation-details">
                 <span class="fm-relation-detail-label">Shared values:</span>
                 ${relation.biggestAgreements.slice(0, 2).map(a => `
-                    <span class="fm-relation-agreement">${a.axis.leftIcon}${a.axis.rightIcon}</span>
+                    <span class="fm-relation-agreement" title="${a.axis.name}: Only ${a.diff} point difference">
+                        ${a.axis.leftIcon}${a.axis.rightIcon}
+                    </span>
                 `).join('')}
             </div>
         `;
+    } else if (type === 'neutral') {
+        // Show why they're neutral
+        if (relation.extremeConflicts > 0 && relation.strongAgreements > 0) {
+            detailHTML = `
+                <div class="fm-relation-details">
+                    <span class="fm-relation-detail-label">Mixed: agrees on some, conflicts on others</span>
+                </div>
+            `;
+        }
     }
     
     return `
@@ -742,8 +803,7 @@ function renderRelationCard(relation, type) {
             <button class="fm-relation-view" data-faction="${relation.id}">View →</button>
         </div>
     `;
-}
-/**
+}/**
  * Render military tab
  */
 function renderMilitaryTab(faction, stats) {

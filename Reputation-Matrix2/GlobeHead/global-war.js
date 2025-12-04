@@ -5,6 +5,7 @@ import { getRealTimeMapStats, getCuratedTerritoryList, getDetailedRegionStats, r
 import { CURRENT_GAME_DATE } from '../calendar-data.js';
 import { MAP_DATA } from '../map-data.js';
 import { renderTerritoryDetailModal } from '../systems/mushroom-kingdom-system.js'; 
+import { showFactionModal } from '../faction-modal.js';
 // ============================================
 // STATE
 // ============================================
@@ -610,15 +611,15 @@ export function initGlobalWarListeners() {
 // MODAL HELPER
 // ============================================
 function showGlobalFactionModal(factionKey) {
-     const registryId = toSystemId(factionKey);
-     const customHtml = renderGlobalFactionDetailModal(registryId);
-     
-     if (customHtml) {
-        document.body.insertAdjacentHTML('beforeend', customHtml);
-        requestAnimationFrame(() => {
-            const overlay = document.querySelector(`#faction-modal-${registryId}`);
-            if (overlay) overlay.classList.add('visible');
-        });
+    const registryId = toSystemId(factionKey);
+    
+    // Use the full-featured modal from faction-modal.js
+    if (window.showFactionModal) {
+        window.showFactionModal(registryId);
+    } else if (showFactionModal) {
+        showFactionModal(registryId);
+    } else {
+        console.error('[GlobalWar] showFactionModal not available');
     }
 }
 

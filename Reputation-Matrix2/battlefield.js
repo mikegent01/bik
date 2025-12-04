@@ -5,6 +5,28 @@ import { FACTION_COLORS } from './factions/faction-colors.js';
 export const MAJOR_BATTLES = [
     // --- NEW BATTLE ENTRY: Markop & The First Cohort ---
     {
+        id: 'battle_solarium_shatter',
+        name: "The Shattering of the Solarium",
+        conflict: "Raventree Manor Curse",
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
+        location: "Raventree Manor - Solarium",
+        belligerents: {
+            side_a: { name: "The Party", factions: ['vigilance_crew'] },
+            side_b: { name: "The Mirror Terror", factions: ['raventree_curse'] }
+        },
+        commanders: {
+            side_a: ["Bowser", "Hjumpik"],
+            side_b: ["Shard Stalker"]
+        },
+        outcome: "<span class='outcome victory'>Party Victory</span>; Monster neutralized. Hjumpik displaced his doppelganger. Green T rescued but fled.",
+        casualties: "Minor injuries. Extensive property damage to antique mirrors.",
+        description: `
+            <p>A chaotic engagement in the attic Solarium. The Mirror Terror, a 'Shard Stalker', utilized reflections to attack from multiple angles. The party was congested in the staircase, limiting mobility.</p>
+            <p>Archie provided support with minor pyromancy (twigs) to avoid escalating the curse. Bowser utilized brute force and fire breath, eventually shattering the primary mirror and the creature's physical form.</p>
+            <p>Humpik was pulled into the Mirror Dimension, where he engaged in a metaphysical duel with the entity and a 'Blue' doppelganger. Guided by a Legion Spy, he chose mercy, sparing the creature's soul while Bowser destroyed its body. This allowed him to return and displace the 'Red' Humpik impostor. Dan 'One-Armed Bandit' successfully extracted the traumatized Green T from the mirror's grasp.</p>
+        `
+    },    
+    {
         id: 'skirmish_surf_shack',
         name: "The Skirmish at Funky's Shack",
         conflict: "Kong-Kremling Cold War",

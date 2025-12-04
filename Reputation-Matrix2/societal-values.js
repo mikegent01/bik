@@ -18,6 +18,112 @@ const EXCLUDED_FACTION_IDS = [
     'undefined',
     ''
 ];
+function calculateFactionCompatibility(factionId1, factionId2) {
+    const values1 = getFactionValues(factionId1);
+    const values2 = getFactionValues(factionId2);
+    
+    if (!values1 || !values2) return null;
+    
+    let totalDiff = 0;
+    let count = 0;
+    let extremeConflicts = 0;      // 50+ diff
+    let strongConflicts = 0;        // 35-49 diff
+    let strongAgreements = 0;       // 0-15 diff
+    let maxSingleDiff = 0;
+    const biggestDifferences = [];
+    const biggestAgreements = [];
+    
+    Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
+        const val1 = values1[axisId] || 50;
+        const val2 = values2[axisId] || 50;
+        const diff = Math.abs(val1 - val2);
+        
+        totalDiff += diff;
+        count++;
+        maxSingleDiff = Math.max(maxSingleDiff, diff);
+        
+        // Count conflict/agreement levels
+        if (diff >= 50) {
+            extremeConflicts++;
+            biggestDifferences.push({ axis, diff, val1, val2 });
+        } else if (diff >= 35) {
+            strongConflicts++;
+            biggestDifferences.push({ axis, diff, val1, val2 });
+        }
+        
+        if (diff <= 15) {
+            strongAgreements++;
+            biggestAgreements.push({ axis, diff, val1, val2 });
+        }
+    });
+    
+    const avgDiff = count > 0 ? totalDiff / count : 50;
+    
+    // Calculate base compatibility
+    let compatibility = Math.round(100 - avgDiff);
+    
+    // Apply penalties for extreme conflicts
+    if (extremeConflicts >= 3) {
+        compatibility -= 30;  // Fundamental opposition
+    } else if (extremeConflicts >= 2) {
+        compatibility -= 20;  // Major opposition
+    } else if (extremeConflicts >= 1) {
+        compatibility -= 12;  // Significant tension
+    }
+    
+    // Apply smaller penalties for strong conflicts
+    if (strongConflicts >= 3) {
+        compatibility -= 10;
+    } else if (strongConflicts >= 2) {
+        compatibility -= 5;
+    }
+    
+    // Bonus for strong agreements (smaller than penalties)
+    if (strongAgreements >= 4) {
+        compatibility += 8;
+    } else if (strongAgreements >= 3) {
+        compatibility += 4;
+    }
+    
+    // If there's one massive disagreement (70+), it dominates
+    if (maxSingleDiff >= 70) {
+        compatibility = Math.min(compatibility, 35);
+    } else if (maxSingleDiff >= 60) {
+        compatibility = Math.min(compatibility, 45);
+    }
+    
+    // Clamp to 0-100
+    compatibility = Math.max(0, Math.min(100, compatibility));
+    
+    return {
+        compatibility,
+        avgDiff,
+        extremeConflicts,
+        strongConflicts,
+        strongAgreements,
+        maxSingleDiff,
+        biggestDifferences: biggestDifferences.sort((a, b) => b.diff - a.diff).slice(0, 3),
+        biggestAgreements: biggestAgreements.sort((a, b) => a.diff - b.diff).slice(0, 3)
+    };
+}
+function getRelationshipLabel(compatibility, extremeConflicts = 0, strongAgreements = 0) {
+    if (compatibility >= 85) return { label: 'Natural Allies', type: 'ally', icon: '💚' };
+    if (compatibility >= 77) return { label: 'Strong Partners', type: 'ally', icon: '🤝' };
+    if (compatibility >= 70) return { label: 'Friendly Relations', type: 'ally', icon: '😊' };
+    
+    if (compatibility <= 15) return { label: 'Mortal Enemies', type: 'rival', icon: '💀' };
+    if (compatibility <= 25) return { label: 'Bitter Rivals', type: 'rival', icon: '⚔️' };
+    if (compatibility <= 35) return { label: 'Opposed', type: 'rival', icon: '😠' };
+    
+    // Neutral range with nuance
+    if (extremeConflicts > 0 && strongAgreements > 0) {
+        return { label: 'Tense Neutrality', type: 'neutral', icon: '😬' };
+    }
+    if (strongAgreements >= 3) {
+        return { label: 'Cordial', type: 'neutral', icon: '🙂' };
+    }
+    return { label: 'Indifferent', type: 'neutral', icon: '😐' };
+}
 
 const VALUE_AXES = {
     tradition_innovation: {
@@ -1536,25 +1642,17 @@ function findSimilarFactions(factionId, threshold = 15) {
     return factions
         .filter(f => f.id !== factionId)
         .map(f => {
-            let totalDiff = 0;
-            let count = 0;
-            
-            Object.keys(VALUE_AXES).forEach(axisId => {
-                const diff = Math.abs((targetValues[axisId] || 50) - (f.values[axisId] || 50));
-                totalDiff += diff;
-                count++;
-            });
-            
+            const compat = calculateFactionCompatibility(factionId, f.id);
             return {
                 ...f,
-                similarity: 100 - (totalDiff / count),
-                avgDiff: totalDiff / count
+                similarity: compat ? compat.compatibility : 50,
+                avgDiff: compat ? compat.avgDiff : 50,
+                ...compat
             };
         })
         .filter(f => f.avgDiff <= threshold)
         .sort((a, b) => b.similarity - a.similarity);
 }
-
 function findOpposingFactions(factionId, threshold = 30) {
     const targetValues = getFactionValues(factionId);
     if (!targetValues) return [];
@@ -1564,25 +1662,17 @@ function findOpposingFactions(factionId, threshold = 30) {
     return factions
         .filter(f => f.id !== factionId)
         .map(f => {
-            let totalDiff = 0;
-            let count = 0;
-            
-            Object.keys(VALUE_AXES).forEach(axisId => {
-                const diff = Math.abs((targetValues[axisId] || 50) - (f.values[axisId] || 50));
-                totalDiff += diff;
-                count++;
-            });
-            
+            const compat = calculateFactionCompatibility(factionId, f.id);
             return {
                 ...f,
-                opposition: totalDiff / count,
-                avgDiff: totalDiff / count
+                opposition: compat ? (100 - compat.compatibility) : 50,
+                avgDiff: compat ? compat.avgDiff : 50,
+                ...compat
             };
         })
         .filter(f => f.avgDiff >= threshold)
         .sort((a, b) => b.opposition - a.opposition);
 }
-
 // ============================================
 // RENDER FUNCTIONS
 // ============================================
@@ -1908,29 +1998,23 @@ function renderCompatibilityMatrix(factions) {
             const f1 = factions[i];
             const f2 = factions[j];
             
-            let totalDiff = 0;
-            let count = 0;
-            const differences = [];
+            const compat = calculateFactionCompatibility(f1.id, f2.id);
+            if (!compat) continue;
             
-            Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
-                const v1 = f1.values[axisId] || 50;
-                const v2 = f2.values[axisId] || 50;
-                const diff = Math.abs(v1 - v2);
-                totalDiff += diff;
-                count++;
-                
-                if (diff > 40) {
-                    differences.push({ axis, diff, f1Value: v1, f2Value: v2 });
-                }
-            });
-            
-            const compatibility = Math.round(100 - (totalDiff / count));
+            const relationInfo = getRelationshipLabel(
+                compat.compatibility, 
+                compat.extremeConflicts, 
+                compat.strongAgreements
+            );
             
             pairs.push({
                 f1: f1.faction,
                 f2: f2.faction,
-                compatibility,
-                differences: differences.sort((a, b) => b.diff - a.diff).slice(0, 80)
+                compatibility: compat.compatibility,
+                relationInfo,
+                differences: compat.biggestDifferences,
+                agreements: compat.biggestAgreements,
+                extremeConflicts: compat.extremeConflicts
             });
         }
     }
@@ -1938,10 +2022,7 @@ function renderCompatibilityMatrix(factions) {
     return `
         <div class="sv-compatibility-grid">
             ${pairs.map(pair => {
-                const statusClass = pair.compatibility >= 70 ? 'allied' : 
-                                   pair.compatibility >= 40 ? 'neutral' : 'hostile';
-                const statusText = pair.compatibility >= 70 ? 'Natural Allies' :
-                                  pair.compatibility >= 40 ? 'Potential Partners' : 'Ideological Rivals';
+                const statusClass = pair.relationInfo.type;
                 
                 return `
                     <div class="sv-compatibility-card ${statusClass}">
@@ -1956,25 +2037,37 @@ function renderCompatibilityMatrix(factions) {
                         </div>
                         <div class="sv-compat-score">
                             <div class="sv-compat-percentage">${pair.compatibility}%</div>
-                            <div class="sv-compat-label">${statusText}</div>
+                            <div class="sv-compat-label">
+                                ${pair.relationInfo.icon} ${pair.relationInfo.label}
+                            </div>
                         </div>
                         ${pair.differences.length > 0 ? `
                             <div class="sv-compat-conflicts">
-                                <span class="sv-compat-conflicts-title">Key Differences:</span>
+                                <span class="sv-compat-conflicts-title">
+                                    ${pair.extremeConflicts >= 2 ? '⚠️ Major Conflicts:' : 'Key Differences:'}
+                                </span>
                                 ${pair.differences.map(d => `
-                                    <span class="sv-compat-conflict">
-                                        ${d.axis.leftIcon}↔${d.axis.rightIcon} ${d.axis.name}
+                                    <span class="sv-compat-conflict" title="${d.axis.name}: ${d.diff} point difference">
+                                        ${d.axis.leftIcon}↔${d.axis.rightIcon}
                                     </span>
                                 `).join('')}
                             </div>
-                        ` : '<div class="sv-compat-harmony">✨ Strong value alignment</div>'}
+                        ` : `
+                            <div class="sv-compat-harmony">
+                                ✨ Strong value alignment
+                                ${pair.agreements.length > 0 ? `
+                                    <span class="sv-compat-agreements">
+                                        ${pair.agreements.slice(0, 2).map(a => `${a.axis.leftIcon}`).join(' ')}
+                                    </span>
+                                ` : ''}
+                            </div>
+                        `}
                     </div>
                 `;
             }).join('')}
         </div>
     `;
 }
-
 function renderWorldOverviewContent() {
     const averages = getGlobalAverages();
     const factions = getAllFactionsWithValues();
@@ -2479,5 +2572,7 @@ export {
     getGlobalAverages,
     findSimilarFactions,
     findOpposingFactions,
-    getFactionValues
+    getFactionValues,
+    calculateFactionCompatibility,  // NEW
+    getRelationshipLabel            // NEW
 };
