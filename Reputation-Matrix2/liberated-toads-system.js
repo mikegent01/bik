@@ -1743,7 +1743,7 @@ function seededRandom(seed) {
 
 function generateBarrelSurvivors() {
     const survivors = [];
-    const totalBarrelSurvivors = 147; // 150 - 3 deceased
+    const totalBarrelSurvivors = 140; // 150 - 3 deceased
     
     const conditionPool = [
         { condition: [], weight: 50 }, // Healthy
