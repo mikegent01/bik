@@ -39,6 +39,7 @@ export const AUXILIARY_PARTY = {
     the_mole: { name: "The Mole", weapon: "Deceit", status: "Active", description: "A toad of unknown origin... Revealed as an agent for the Iron Legion.", portrait: "toads/the_mole.png", level: 2, xp: 150, xp_to_next: 300, log: ["Revealed his allegiance by helping the Iron Legion capture Bones..."], abilities: ["Feint"] }
 };
 
+
 const combinedFactions = {
     ...MIDLANDS_FACTIONS,
     ...MUSHROOM_KINGDOM_FACTIONS,

@@ -78,7 +78,7 @@ export const northAmericaData = {
         { id: 'na_canyon', x: 45.5, y: 48.5, type: 'landmark', name: 'The Grand Rift', description: 'A massive geological scar running through the continent.', factionId: 'unaligned', population: 50, economic_value: 4, age_of_antiquity: 10 },
         { id: 'na_yellowstone', x: 46.0, y: 46.5, type: 'volcano', name: 'Geyser Basin', description: 'A land of bubbling mud and shooting water.', factionId: 'unaligned', population: 0, economic_value: 2, age_of_antiquity: 10 },
         { id: 'na_lakes', x: 47.5, y: 46.0, type: 'waterfall', name: 'Great Freshwater Seas', description: 'A collection of massive interconnected lakes.', factionId: 'unaligned', population: 2000, economic_value: 6, age_of_antiquity: 5 },
-        { id: 'na_capital', x: 48.5, y: 48.0, type: 'capital_city', name: 'Federal District', description: 'The seat of government for the local federation.', factionId: 'north_america', population: 7000, economic_value: 7, age_of_antiquity: 3 },
+        { id: 'na_capital', x: 48.5, y: 48.0, type: 'capital_city', name: 'Federal District', description: 'The seat of government for the local federation.', factionId: 'north_american_tribes', population: 7000, economic_value: 7, age_of_antiquity: 3 },
         { id: 'na_hollywood', x: 44.5, y: 49.0, type: 'town', name: 'Starfall City', description: 'Where dreams are made and stories are told.', factionId: 'unaligned', population: 40000, economic_value: 8, age_of_antiquity: 2 },
         { id: 'na_bayou', x: 47.0, y: 50.0, type: 'swamp', name: 'Deep Bayou', description: 'Mysterious swamps filled with ancient magic.', factionId: 'unaligned', population: 500, economic_value: 3, age_of_antiquity: 6 },
         { id: 'na_rockies', x: 45.0, y: 47.0, type: 'mountain_pass', name: 'Spine of the World', description: 'High peaks that divide the continent.', factionId: 'unaligned', population: 100, economic_value: 2, age_of_antiquity: 10 },
@@ -94,16 +94,16 @@ export const southAmericaData = { pointsOfInterest: [], fogOfWar: [] };
 
 export const africaData = {
     pointsOfInterest: [
-        { id: 'af_pyramids', x: 51.0, y: 54.0, type: 'landmark', name: 'Great Pyramids', description: 'Tombs of ancient kings rising from the sands.', factionId: 'africa', population: 5000, economic_value: 6, age_of_antiquity: 10 },
+        { id: 'af_pyramids', x: 51.0, y: 54.0, type: 'landmark', name: 'Great Pyramids', description: 'Tombs of ancient kings rising from the sands.', factionId: 'African Union', population: 5000, economic_value: 6, age_of_antiquity: 10 },
         { id: 'af_nile', x: 51.5, y: 55.0, type: 'resource', name: 'Lifeblood River', description: 'The longest river, bringing life to the desert.', factionId: 'unaligned', population: 1000, economic_value: 7, age_of_antiquity: 10 },
         { id: 'af_sahara', x: 49.5, y: 54.5, type: 'resource', name: 'Sea of Sand', description: 'An inhospitable expanse of heat and dunes.', factionId: 'unaligned', population: 1000, economic_value: 2, age_of_antiquity: 10 },
         { id: 'af_victoria', x: 52.5, y: 56.0, type: 'waterfall', name: 'Thunderous Falls', description: 'A massive curtain of falling water.', factionId: 'unaligned', population: 5000, economic_value: 4, age_of_antiquity: 10 },
         { id: 'af_kilimanjaro', x: 53.0, y: 55.5, type: 'mountain_pass', name: 'Snow-Capped Giant', description: 'A lone mountain rising from the savannah.', factionId: 'unaligned', population: 2000, economic_value: 3, age_of_antiquity: 10 },
-        { id: 'af_cape', x: 52.0, y: 57.0, type: 'port', name: 'Table Bay', description: 'A strategic port at the southern tip.', factionId: 'africa', population: 4000, economic_value: 7, age_of_antiquity: 4 },
+        { id: 'af_cape', x: 52.0, y: 57.0, type: 'port', name: 'Table Bay', description: 'A strategic port at the southern tip.', factionId: 'African Union', population: 4000, economic_value: 7, age_of_antiquity: 4 },
         { id: 'af_congo', x: 51.0, y: 55.5, type: 'forest', name: 'Emerald Heart', description: 'A dense, impenetrable rainforest.', factionId: 'unaligned', population: 200, economic_value: 5, age_of_antiquity: 10 },
         { id: 'af_serengeti', x: 52.5, y: 55.0, type: 'resource', name: 'Great Plains', description: 'Teeming with wildlife and migration herds.', factionId: 'unaligned', population: 5000, economic_value: 4, age_of_antiquity: 10 },
         { id: 'af_madagascar', x: 54.0, y: 56.5, type: 'landmark', name: 'Lemur Island', description: 'An island of unique biodiversity.', factionId: 'unaligned', population: 2500, economic_value: 3, age_of_antiquity: 8 },
-        { id: 'af_timbuktu', x: 49.0, y: 55.0, type: 'library', name: 'Scholars\' Oasis', description: 'A historic center of learning and manuscripts.', factionId: 'africa', population: 500, economic_value: 4, age_of_antiquity: 9 }
+        { id: 'af_timbuktu', x: 49.0, y: 55.0, type: 'library', name: 'Scholars\' Oasis', description: 'A historic center of learning and manuscripts.', factionId: 'African Union', population: 500, economic_value: 4, age_of_antiquity: 9 }
     ],
     fogOfWar: [
 
@@ -112,11 +112,11 @@ export const africaData = {
 
 export const asiaData = {
     pointsOfInterest: [
-        { id: 'as_forbidden', x: 55.0, y: 48.0, type: 'capital_city', name: 'The Jade Palace', description: 'An ancient imperial complex at the heart of the east.', factionId: 'asia', population: 20000, economic_value: 8, age_of_antiquity: 9 },
-        { id: 'as_wall', x: 54.0, y: 47.5, type: 'fortress', name: 'The Great Barrier', description: 'A massive stone wall stretching for thousands of miles.', factionId: 'asia', population: 100, economic_value: 2, age_of_antiquity: 9 },
+        { id: 'as_forbidden', x: 55.0, y: 48.0, type: 'capital_city', name: 'The Jade Palace', description: 'An ancient imperial complex at the heart of the east.', factionId: 'CSTO', population: 20000, economic_value: 8, age_of_antiquity: 9 },
+        { id: 'as_wall', x: 54.0, y: 47.5, type: 'fortress', name: 'The Great Barrier', description: 'A massive stone wall stretching for thousands of miles.', factionId: 'CSTO', population: 100, economic_value: 2, age_of_antiquity: 9 },
         { id: 'as_himalaya', x: 52.0, y: 49.5, type: 'mountain_pass', name: 'Roof of the World', description: 'The highest peaks in existence, shrouded in mystery.', factionId: 'unaligned', population: 500, economic_value: 1, age_of_antiquity: 10 },
         { id: 'as_taj', x: 51.5, y: 50.5, type: 'landmark', name: 'Marble Mausoleum', description: 'A stunning white monument to lost love.', factionId: 'unaligned', population: 5000, economic_value: 5, age_of_antiquity: 6 },
-        { id: 'as_tokyo', x: 57.0, y: 48.5, type: 'major_city', name: 'Neon Harbor', description: 'A futuristic city that never sleeps.', factionId: 'asia', population: 140000, economic_value: 10, age_of_antiquity: 1 },
+        { id: 'as_tokyo', x: 57.0, y: 48.5, type: 'major_city', name: 'Neon Harbor', description: 'A futuristic city that never sleeps.', factionId: 'CSTO', population: 140000, economic_value: 10, age_of_antiquity: 1 },
         { id: 'as_angkor', x: 55.5, y: 51.5, type: 'ruins', name: 'Jungle Temples', description: 'Ancient stone structures reclaimed by nature.', factionId: 'unaligned', population: 0, economic_value: 3, age_of_antiquity: 9 },
         { id: 'as_siberia', x: 54.0, y: 46.0, type: 'outpost', name: 'Frozen Wastes', description: 'A harsh, cold land of exile and resources.', factionId: 'unaligned', population: 5000, economic_value: 6, age_of_antiquity: 10 },
         { id: 'as_gobi', x: 53.0, y: 48.0, type: 'resource', name: 'Endless Dunes', description: 'A vast, cold desert.', factionId: 'unaligned', population: 1000, economic_value: 2, age_of_antiquity: 10 },
