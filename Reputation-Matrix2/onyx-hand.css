@@ -2,11 +2,8 @@
    ONYX HAND COVEN SYSTEM - COMPLETE STYLES
    ============================================================================ */
 
-/* ============================================================================
-   CSS VARIABLES FOR ONYX HAND
-   ============================================================================ */
-
-:root {
+/* --- Variables --- */
+.onyx-hand-system {
     --blood-color: #8b0000;
     --blood-glow: rgba(139, 0, 0, 0.4);
     --shadow-color: #1a1a2e;
@@ -19,37 +16,202 @@
     --vampire-dark: #1a0a0a;
 }
 
-/* ============================================================================
-   MAIN CONTAINER
-   ============================================================================ */
-
 .onyx-hand-system {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 20px 0;
+}
+/* ============================================================================
+   FACTION HERO / HEADER SECTION
+   ============================================================================ */
+.faction-hero {
+    position: relative;
+    padding: 40px 30px;
+    background-color: #0a0a0a;
+    border-bottom: 4px solid #8b0000; /* Onyx/Blood red border */
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Background texture/gradient */
+.hero-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(to bottom, rgba(10, 10, 10, 0.8), #0a0a0a),
+        repeating-linear-gradient(45deg, #111 0, #111 1px, transparent 0, transparent 50%);
+    z-index: 0;
+    opacity: 0.6;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* Emblem Image */
+.faction-emblem img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.6));
+}
+
+/* Title Text */
+.faction-title {
+    flex: 1;
+}
+
+.faction-title h1 {
+    font-family: 'Orbitron', sans-serif; /* Sci-fi/Tech font */
+    font-size: 3rem;
+    margin: 0;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(139, 0, 0, 0.8);
+}
+
+.faction-tagline {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    font-style: italic;
+    margin: 8px 0 0 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Status Badge Area */
+.faction-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    text-align: right;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+.status-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    display: inline-block;
+}
+
+/* Specific style for "HUNTED" status */
+.status-hunted {
+    background-color: rgba(220, 38, 38, 0.15);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+    animation: status-pulse 2s infinite;
+}
+
+.status-reason {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-family: 'Roboto Mono', monospace;
+}
+
+@keyframes status-pulse {
+    0% { opacity: 1; box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
+    50% { opacity: 0.8; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+    100% { opacity: 1; box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
 }
 
 /* ============================================================================
-   SECTION TITLES (SHARED)
+   NAVIGATION TABS
    ============================================================================ */
-
-.section-title {
+.faction-nav {
+    background-color: #121212;
+    border-bottom: 1px solid #333;
+    padding: 0 30px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-display, 'Orbitron', sans-serif);
-    font-size: 1.2rem;
-    color: var(--text-color, #ffffff);
-    margin: 0 0 20px 0;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color, #333);
+    gap: 5px;
+    overflow-x: auto; /* Allows scrolling on mobile */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.section-icon {
-    font-size: 1.3rem;
+.faction-nav-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 20px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
+/* Hover State */
+.faction-nav-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Active State */
+.faction-nav-btn.active {
+    color: #dc2626; /* Vampire Red */
+    background-color: rgba(220, 38, 38, 0.05);
+}
+
+/* The red underline for active tab */
+.faction-nav-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #dc2626;
+    box-shadow: 0 -2px 10px rgba(220, 38, 38, 0.5);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .faction-status {
+        align-items: center;
+        width: 100%;
+        margin-top: 15px;
+    }
+    
+    .faction-nav {
+        padding: 0 10px;
+    }
+    
+    .faction-nav-btn {
+        padding: 15px 15px;
+        font-size: 0.8rem;
+    }
+}
 /* ============================================================================
    MOON PHASE PANEL
    ============================================================================ */
@@ -59,8 +221,8 @@
     grid-template-columns: auto 1fr 1fr;
     gap: 24px;
     padding: 24px;
-    background: linear-gradient(135deg, #1a0a0a 0%, var(--sidebar-bg, #1a1a2e) 100%);
-    border: 1px solid #8b0000;
+    background: linear-gradient(135deg, var(--vampire-dark) 0%, var(--sidebar-bg) 100%);
+    border: 1px solid var(--blood-color);
     border-radius: 12px;
     align-items: center;
 }
@@ -82,43 +244,20 @@
 
 .moon-glow {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     border-radius: 50%;
     animation: moon-pulse 4s ease-in-out infinite;
 }
 
-.moon-glow.phase-0 {
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
-}
-
-.moon-glow.phase-1 {
-    background: radial-gradient(circle, rgba(200, 200, 200, 0.2) 0%, transparent 70%);
-}
-
-.moon-glow.phase-2 {
-    background: radial-gradient(circle, rgba(255, 255, 200, 0.4) 0%, transparent 70%);
-}
-
-.moon-glow.phase-3 {
-    background: radial-gradient(circle, rgba(150, 150, 150, 0.2) 0%, transparent 70%);
-}
-
-.moon-glow.phase-4 {
-    background: radial-gradient(circle, rgba(50, 50, 80, 0.3) 0%, transparent 70%);
-}
+.moon-glow.phase-0 { background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, transparent 70%); }
+.moon-glow.phase-1 { background: radial-gradient(circle, rgba(200, 200, 200, 0.2) 0%, transparent 70%); }
+.moon-glow.phase-2 { background: radial-gradient(circle, rgba(255, 255, 200, 0.4) 0%, transparent 70%); }
+.moon-glow.phase-3 { background: radial-gradient(circle, rgba(150, 150, 150, 0.2) 0%, transparent 70%); }
+.moon-glow.phase-4 { background: radial-gradient(circle, rgba(50, 50, 80, 0.3) 0%, transparent 70%); }
 
 @keyframes moon-pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 0.7;
-    }
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
 }
 
 .moon-info {
@@ -128,15 +267,15 @@
 }
 
 .moon-name {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 1.4rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
     margin: 0;
 }
 
 .moon-lore {
     font-size: 0.9rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     font-style: italic;
     margin: 0;
     line-height: 1.5;
@@ -151,28 +290,27 @@
 
 .countdown-label {
     font-size: 0.8rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
 }
 
 .countdown-value {
-    font-family: var(--font-mono, 'Roboto Mono', monospace);
+    font-family: var(--font-mono);
     font-size: 0.9rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
     font-weight: bold;
 }
 
-/* Vampire Effects Box */
 .vampire-effects {
     padding: 16px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 8px;
-    border-left: 3px solid #8b0000;
+    border-left: 3px solid var(--blood-color);
 }
 
 .vampire-effects h5 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 0.9rem;
-    color: #dc2626;
+    color: var(--vampire-red);
     margin: 0 0 12px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -193,38 +331,26 @@
 .effect-item.special {
     grid-column: 1 / -1;
     padding-top: 8px;
-    border-top: 1px dashed var(--border-color, #333);
+    border-top: 1px dashed var(--border-color);
     margin-top: 4px;
 }
 
 .effect-label {
     font-size: 0.7rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .effect-value {
     font-size: 0.85rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
 }
 
-.effect-value.power-maximum {
-    color: #dc2626;
-    font-weight: bold;
-}
-
-.effect-value.power-high {
-    color: #f97316;
-}
-
-.effect-value.power-moderate {
-    color: var(--neutral-color, #fbbf24);
-}
-
-.effect-value.power-reduced {
-    color: var(--text-secondary, #a0a0a0);
-}
+.effect-value.power-maximum { color: var(--vampire-red); font-weight: bold; }
+.effect-value.power-high { color: #f97316; }
+.effect-value.power-moderate { color: var(--neutral-color); }
+.effect-value.power-reduced { color: var(--text-secondary); }
 
 /* ============================================================================
    PATRIARCH SECTION
@@ -235,7 +361,7 @@
 }
 
 .patriarch-section.highlighted {
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+    box-shadow: 0 0 30px var(--blood-glow);
 }
 
 .patriarch-panel {
@@ -243,8 +369,8 @@
     grid-template-columns: 200px 1fr;
     gap: 24px;
     padding: 24px;
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 1px solid var(--border-color, #333);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
 }
 
@@ -263,16 +389,16 @@
 .portrait-frame {
     width: 150px;
     height: 150px;
-    border: 3px solid #8b0000;
+    border: 3px solid var(--blood-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1a0a0a 0%, #2a0a0a 100%);
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+    background: linear-gradient(135deg, var(--vampire-dark) 0%, #2a0a0a 100%);
+    box-shadow: 0 0 30px var(--blood-glow);
 }
 
-.portrait-frame .patriarch-icon {
+.patriarch-icon {
     font-size: 4rem;
 }
 
@@ -282,31 +408,25 @@
     left: 50%;
     width: 4px;
     height: 30px;
-    background: linear-gradient(to bottom, #8b0000, transparent);
+    background: linear-gradient(to bottom, var(--blood-color), transparent);
     transform: translateX(-50%);
     animation: drip 3s ease-in-out infinite;
 }
 
 @keyframes drip {
-    0%, 100% {
-        height: 30px;
-        opacity: 1;
-    }
-    50% {
-        height: 50px;
-        opacity: 0.5;
-    }
+    0%, 100% { height: 30px; opacity: 1; }
+    50% { height: 50px; opacity: 0.5; }
 }
 
 .patriarch-silhouette {
     width: 150px;
     height: 150px;
-    border: 2px dashed var(--border-color, #333);
+    border: 2px dashed var(--border-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--main-bg, #0d0d0d);
+    background: var(--main-bg);
 }
 
 .silhouette-icon {
@@ -315,15 +435,15 @@
 }
 
 .patriarch-info h4 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 1.6rem;
-    color: #dc2626;
+    color: var(--vampire-red);
     margin: 0 0 4px 0;
 }
 
 .patriarch-title {
     font-size: 1rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
     font-style: italic;
     display: block;
     margin-bottom: 8px;
@@ -331,21 +451,21 @@
 
 .patriarch-age {
     font-size: 0.9rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin: 0 0 12px 0;
 }
 
 .patriarch-desc {
     font-size: 0.95rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     line-height: 1.6;
     margin: 0 0 16px 0;
 }
 
 .patriarch-abilities h6 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 0.9rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
     margin: 0 0 8px 0;
 }
 
@@ -356,7 +476,7 @@
 
 .patriarch-abilities li {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin-bottom: 4px;
 }
 
@@ -367,7 +487,7 @@
     background: rgba(255, 0, 0, 0.1);
     border-radius: 6px;
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin-top: 16px;
 }
 
@@ -376,8 +496,8 @@
    ============================================================================ */
 
 .covens-section {
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 1px solid var(--border-color, #333);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
 }
@@ -389,7 +509,7 @@
     align-items: start;
 }
 
-/* --- Coven Circle Selector --- */
+/* --- Coven Circle --- */
 .coven-selector {
     display: flex;
     justify-content: center;
@@ -404,10 +524,7 @@
 
 .circle-background {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
 }
 
 .circle-background svg {
@@ -416,10 +533,9 @@
 }
 
 .connection-lines circle {
-    stroke: var(--border-color, #333);
+    stroke: var(--border-color);
 }
 
-/* Patriarch Center Node */
 .patriarch-center {
     position: absolute;
     top: 50%;
@@ -427,8 +543,8 @@
     width: 80px;
     height: 80px;
     transform: translate(-50%, -50%);
-    background: linear-gradient(135deg, #1a0a0a 0%, #2a0a0a 100%);
-    border: 2px solid #8b0000;
+    background: linear-gradient(135deg, var(--vampire-dark) 0%, #2a0a0a 100%);
+    border: 2px solid var(--blood-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -440,7 +556,7 @@
 
 .patriarch-center:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+    box-shadow: 0 0 30px var(--blood-glow);
 }
 
 .patriarch-center .patriarch-icon {
@@ -449,37 +565,26 @@
 
 .patriarch-pulse {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border: 2px solid #8b0000;
+    inset: -10px;
+    border: 2px solid var(--blood-color);
     border-radius: 50%;
     animation: pulse-ring 2s ease-out infinite;
 }
 
 @keyframes pulse-ring {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* Coven Nodes */
 .coven-node {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 70px;
     height: 70px;
-    margin-left: -35px;
-    margin-top: -35px;
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 2px solid var(--border-color, #333);
+    margin: -35px;
+    background: var(--sidebar-bg);
+    border: 2px solid var(--border-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -495,9 +600,9 @@
 }
 
 .coven-node:hover {
-    border-color: var(--accent-color, #8a2be2);
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
-    transform: scale(1.15);
+    transform: translate(var(--tx, 0), var(--ty, 0)) scale(1.15);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color);
 }
 
 .coven-node:hover .coven-icon {
@@ -505,9 +610,9 @@
 }
 
 .coven-node.active {
-    border-color: #dc2626;
-    box-shadow: 0 0 25px rgba(139, 0, 0, 0.4);
-    background: linear-gradient(135deg, #1a0a0a 0%, var(--sidebar-bg, #1a1a2e) 100%);
+    border-color: var(--vampire-red);
+    box-shadow: 0 0 25px var(--blood-glow);
+    background: linear-gradient(135deg, var(--vampire-dark) 0%, var(--sidebar-bg) 100%);
 }
 
 .coven-node.ascendant {
@@ -516,20 +621,13 @@
 }
 
 @keyframes ascendant-glow {
-    0%, 100% {
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
-    }
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+    50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.7); }
 }
 
 .ascendant-glow {
     position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
+    inset: -5px;
     border: 1px solid gold;
     border-radius: 50%;
     animation: pulse-ring 2s ease-out infinite;
@@ -537,8 +635,8 @@
 
 /* --- Coven Details Panel --- */
 .coven-info-panel {
-    background: var(--main-bg, #0d0d0d);
-    border: 1px solid var(--border-color, #333);
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 24px;
     min-height: 400px;
@@ -553,18 +651,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .coven-details.redacted {
@@ -576,7 +662,7 @@
 
 .redacted-overlay {
     text-align: center;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
 }
 
 .lock-icon {
@@ -586,7 +672,6 @@
     opacity: 0.5;
 }
 
-/* Coven Header */
 .coven-header {
     display: flex;
     justify-content: space-between;
@@ -605,22 +690,21 @@
 }
 
 .coven-title h4 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 1.4rem;
     margin: 0;
-    color: var(--text-color, #ffffff);
 }
 
 .coven-leader-name {
     display: block;
     font-size: 1rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
 }
 
 .coven-leader-title {
     display: block;
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -632,29 +716,27 @@
     font-size: 0.8rem;
     color: gold;
     font-weight: bold;
-    white-space: nowrap;
 }
 
-/* Coven Specialty */
 .coven-specialty {
     font-size: 1rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
     font-style: italic;
     margin: 0;
     padding: 12px;
     background: rgba(138, 43, 226, 0.1);
-    border-left: 3px solid var(--accent-color, #8a2be2);
+    border-left: 3px solid var(--accent-color);
     border-radius: 0 6px 6px 0;
 }
 
 .coven-description {
     font-size: 0.95rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     line-height: 1.7;
     margin: 0;
 }
 
-/* Coven Stats Bars */
+/* Coven Stats */
 .coven-stats {
     display: flex;
     flex-direction: column;
@@ -670,15 +752,15 @@
 
 .stat-label {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
 }
 
 .stat-track {
     height: 8px;
-    background: var(--main-bg, #0d0d0d);
+    background: var(--main-bg);
     border-radius: 4px;
     overflow: hidden;
-    border: 1px solid var(--border-color, #333);
+    border: 1px solid var(--border-color);
 }
 
 .stat-fill {
@@ -688,17 +770,17 @@
 }
 
 .stat-fill.strength {
-    background: linear-gradient(90deg, #8b0000, #dc2626);
+    background: linear-gradient(90deg, var(--blood-color), var(--vampire-red));
 }
 
 .stat-fill.influence {
-    background: linear-gradient(90deg, #8a2be2, #9f7aea);
+    background: linear-gradient(90deg, var(--accent-color), var(--silk-color));
 }
 
 .stat-value {
-    font-family: var(--font-mono, 'Roboto Mono', monospace);
+    font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
     text-align: right;
 }
 
@@ -707,16 +789,16 @@
     padding: 12px;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 6px;
-    border-left: 3px solid var(--border-color, #333);
+    border-left: 3px solid var(--border-color);
 }
 
 .coven-territory h6,
 .coven-relations h6,
 .coven-rituals h6,
 .coven-members h6 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 0.85rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
     margin: 0 0 8px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -725,14 +807,10 @@
 .coven-territory p {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
 }
 
 /* Coven Relations */
-.coven-relations {
-    margin-top: 8px;
-}
-
 .relations-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -744,46 +822,29 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
-    background: var(--main-bg, #0d0d0d);
+    background: var(--main-bg);
     border-radius: 4px;
-    border-left: 3px solid var(--border-color, #333);
+    border-left: 3px solid var(--border-color);
 }
 
-.relation-item.positive {
-    border-left-color: var(--positive-color, #4ade80);
-}
-
-.relation-item.negative {
-    border-left-color: var(--negative-color, #f87171);
-}
-
-.relation-item.neutral {
-    border-left-color: var(--neutral-color, #fbbf24);
-}
+.relation-item.positive { border-left-color: var(--positive-color); }
+.relation-item.negative { border-left-color: var(--negative-color); }
+.relation-item.neutral { border-left-color: var(--neutral-color); }
 
 .relation-target {
     font-size: 0.85rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
 }
 
 .relation-value {
-    font-family: var(--font-mono, 'Roboto Mono', monospace);
+    font-family: var(--font-mono);
     font-size: 0.8rem;
 }
 
-.relation-item.positive .relation-value {
-    color: var(--positive-color, #4ade80);
-}
-
-.relation-item.negative .relation-value {
-    color: var(--negative-color, #f87171);
-}
+.relation-item.positive .relation-value { color: var(--positive-color); }
+.relation-item.negative .relation-value { color: var(--negative-color); }
 
 /* Coven Rituals */
-.coven-rituals {
-    margin-top: 8px;
-}
-
 .rituals-list {
     display: flex;
     flex-direction: column;
@@ -792,36 +853,31 @@
 
 .ritual-item {
     padding: 12px;
-    background: var(--main-bg, #0d0d0d);
+    background: var(--main-bg);
     border-radius: 6px;
-    border: 1px solid var(--border-color, #333);
+    border: 1px solid var(--border-color);
 }
 
 .ritual-item .ritual-name {
     font-weight: bold;
-    color: #dc2626;
+    color: var(--vampire-red);
     display: block;
     margin-bottom: 4px;
 }
 
 .ritual-item .ritual-freq {
     font-size: 0.75rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
     float: right;
 }
 
 .ritual-item .ritual-desc {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin: 8px 0 0 0;
-    clear: both;
 }
 
 /* Coven Members */
-.coven-members {
-    margin-top: 8px;
-}
-
 .members-list {
     display: flex;
     flex-direction: column;
@@ -833,20 +889,20 @@
     grid-template-columns: 1fr 1fr auto;
     gap: 12px;
     padding: 8px 12px;
-    background: var(--main-bg, #0d0d0d);
+    background: var(--main-bg);
     border-radius: 4px;
     align-items: center;
 }
 
 .member-name {
     font-weight: bold;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
     font-size: 0.9rem;
 }
 
 .member-role {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
 }
 
 .member-status {
@@ -858,57 +914,17 @@
 
 .member-status.status-active {
     background: rgba(74, 222, 128, 0.2);
-    color: var(--positive-color, #4ade80);
+    color: var(--positive-color);
 }
 
 .member-status.status-missing {
     background: rgba(251, 191, 36, 0.2);
-    color: var(--neutral-color, #fbbf24);
+    color: var(--neutral-color);
 }
 
 .member-status.status-unknown {
     background: rgba(156, 163, 175, 0.2);
-    color: var(--text-secondary, #a0a0a0);
-}
-
-/* ============================================================================
-   COVEN-SPECIFIC COLOR THEMING
-   ============================================================================ */
-
-.coven-details.type-blood .coven-title h4 {
-    color: #8b0000;
-}
-
-.coven-details.type-shadow .coven-title h4 {
-    color: #6366f1;
-}
-
-.coven-details.type-iron .coven-title h4 {
-    color: #4a5568;
-}
-
-.coven-details.type-silk .coven-title h4 {
-    color: #9f7aea;
-}
-
-.coven-details.type-blood .coven-specialty {
-    background: rgba(139, 0, 0, 0.1);
-    border-left-color: #8b0000;
-}
-
-.coven-details.type-shadow .coven-specialty {
-    background: rgba(26, 26, 46, 0.3);
-    border-left-color: #6366f1;
-}
-
-.coven-details.type-iron .coven-specialty {
-    background: rgba(74, 85, 104, 0.2);
-    border-left-color: #4a5568;
-}
-
-.coven-details.type-silk .coven-specialty {
-    background: rgba(159, 122, 234, 0.1);
-    border-left-color: #9f7aea;
+    color: var(--text-secondary);
 }
 
 /* ============================================================================
@@ -916,8 +932,8 @@
    ============================================================================ */
 
 .blood-hunts-section {
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 1px solid var(--border-color, #333);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
 }
@@ -930,35 +946,21 @@
 
 .blood-hunt-card {
     padding: 16px;
-    background: var(--main-bg, #0d0d0d);
-    border: 1px solid var(--border-color, #333);
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    border-left: 4px solid #dc2626;
+    border-left: 4px solid var(--vampire-red);
     transition: all 0.2s ease;
 }
 
 .blood-hunt-card:hover {
-    border-color: #dc2626;
-    box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+    border-color: var(--vampire-red);
+    box-shadow: 0 0 15px var(--blood-glow);
 }
 
 .blood-hunt-card.redacted {
     opacity: 0.6;
-    border-left-color: var(--border-color, #333);
-}
-
-.blood-hunt-card.ongoing .hunt-status {
-    background: var(--neutral-color, #fbbf24);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.6;
-    }
+    border-left-color: var(--border-color);
 }
 
 .hunt-header {
@@ -974,9 +976,9 @@
 
 .hunt-target {
     flex: 1;
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 1.1rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
 }
 
 .hunt-status {
@@ -984,18 +986,23 @@
     border-radius: 4px;
     font-size: 0.7rem;
     font-weight: bold;
-    background: #dc2626;
+    background: var(--vampire-red);
     color: white;
+}
+
+.blood-hunt-card.ongoing .hunt-status {
+    background: var(--neutral-color);
+    animation: pulse 2s infinite;
 }
 
 .hunt-details p {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin: 4px 0;
 }
 
 .hunt-details strong {
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
 }
 
 /* ============================================================================
@@ -1003,8 +1010,8 @@
    ============================================================================ */
 
 .traditions-section {
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 1px solid var(--border-color, #333);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
 }
@@ -1017,15 +1024,15 @@
 
 .tradition-item {
     padding: 16px;
-    background: var(--main-bg, #0d0d0d);
-    border: 1px solid var(--border-color, #333);
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    border-left: 4px solid #8b0000;
+    border-left: 4px solid var(--blood-color);
 }
 
 .tradition-item.redacted {
     opacity: 0.5;
-    border-left-color: var(--border-color, #333);
+    border-left-color: var(--border-color);
 }
 
 .tradition-header {
@@ -1033,14 +1040,12 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 8px;
-    flex-wrap: wrap;
-    gap: 8px;
 }
 
 .tradition-header h6 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 1rem;
-    color: #dc2626;
+    color: var(--vampire-red);
     margin: 0;
 }
 
@@ -1048,16 +1053,15 @@
     font-size: 0.75rem;
     padding: 4px 8px;
     background: rgba(255, 0, 0, 0.1);
-    border: 1px solid #dc2626;
+    border: 1px solid var(--vampire-red);
     border-radius: 4px;
-    color: #dc2626;
+    color: var(--vampire-red);
     font-weight: bold;
-    white-space: nowrap;
 }
 
 .tradition-item p {
     font-size: 0.9rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin: 0;
     line-height: 1.6;
 }
@@ -1067,8 +1071,8 @@
    ============================================================================ */
 
 .events-section {
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 1px solid var(--border-color, #333);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
 }
@@ -1081,23 +1085,23 @@
 
 .event-card {
     padding: 20px;
-    background: var(--main-bg, #0d0d0d);
-    border: 1px solid var(--border-color, #333);
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    border-left: 4px solid var(--accent-color, #8a2be2);
+    border-left: 4px solid var(--accent-color);
 }
 
 .event-card.crisis {
-    border-left-color: #dc2626;
-    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, var(--main-bg, #0d0d0d) 100%);
+    border-left-color: var(--vampire-red);
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, var(--main-bg) 100%);
 }
 
 .event-card.ongoing {
-    border-left-color: var(--neutral-color, #fbbf24);
+    border-left-color: var(--neutral-color);
 }
 
 .event-card.mystery {
-    border-left-color: var(--accent-color, #8a2be2);
+    border-left-color: var(--accent-color);
 }
 
 .event-card.redacted {
@@ -1109,14 +1113,12 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    flex-wrap: wrap;
-    gap: 8px;
 }
 
 .event-header h6 {
-    font-family: var(--font-display, 'Orbitron', sans-serif);
+    font-family: var(--font-display);
     font-size: 1.1rem;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
     margin: 0;
 }
 
@@ -1125,39 +1127,38 @@
     border-radius: 4px;
     font-size: 0.7rem;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 .event-card.crisis .event-status {
-    background: #dc2626;
+    background: var(--vampire-red);
     color: white;
 }
 
 .event-card.ongoing .event-status {
-    background: var(--neutral-color, #fbbf24);
+    background: var(--neutral-color);
     color: black;
 }
 
 .event-card.mystery .event-status {
-    background: var(--accent-color, #8a2be2);
+    background: var(--accent-color);
     color: white;
 }
 
 .event-description {
     font-size: 0.95rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     line-height: 1.6;
     margin: 0 0 16px 0;
 }
 
 .event-responses {
-    border-top: 1px dashed var(--border-color, #333);
+    border-top: 1px dashed var(--border-color);
     padding-top: 16px;
 }
 
 .event-responses h6 {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin: 0 0 12px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1168,38 +1169,23 @@
     margin-bottom: 8px;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 4px;
-    border-left: 3px solid var(--border-color, #333);
+    border-left: 3px solid var(--border-color);
 }
 
-.response-item:last-child {
-    margin-bottom: 0;
-}
-
-.response-item.type-blood {
-    border-left-color: #8b0000;
-}
-
-.response-item.type-shadow {
-    border-left-color: #1a1a2e;
-}
-
-.response-item.type-iron {
-    border-left-color: #4a5568;
-}
-
-.response-item.type-silk {
-    border-left-color: #9f7aea;
-}
+.response-item.type-blood { border-left-color: var(--blood-color); }
+.response-item.type-shadow { border-left-color: var(--shadow-color); }
+.response-item.type-iron { border-left-color: var(--iron-color); }
+.response-item.type-silk { border-left-color: var(--silk-color); }
 
 .response-coven {
     font-weight: bold;
     font-size: 0.85rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
 }
 
 .response-item p {
     font-size: 0.85rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     margin: 4px 0 0 0;
     font-style: italic;
 }
@@ -1209,8 +1195,8 @@
    ============================================================================ */
 
 .feeding-grounds-section {
-    background: var(--sidebar-bg, #1a1a2e);
-    border: 1px solid var(--border-color, #333);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
 }
@@ -1223,32 +1209,21 @@
 
 .feeding-ground {
     padding: 16px;
-    background: var(--main-bg, #0d0d0d);
-    border: 1px solid var(--border-color, #333);
+    background: var(--main-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    border-left: 4px solid var(--border-color, #333);
+    border-left: 4px solid var(--border-color);
     transition: all 0.2s ease;
 }
 
 .feeding-ground:hover {
-    border-color: var(--accent-color, #8a2be2);
+    border-color: var(--accent-color);
 }
 
-.feeding-ground.type-blood {
-    border-left-color: #8b0000;
-}
-
-.feeding-ground.type-shadow {
-    border-left-color: #1a1a2e;
-}
-
-.feeding-ground.type-iron {
-    border-left-color: #4a5568;
-}
-
-.feeding-ground.type-silk {
-    border-left-color: #9f7aea;
-}
+.feeding-ground.type-blood { border-left-color: var(--blood-color); }
+.feeding-ground.type-shadow { border-left-color: var(--shadow-color); }
+.feeding-ground.type-iron { border-left-color: var(--iron-color); }
+.feeding-ground.type-silk { border-left-color: var(--silk-color); }
 
 .ground-header {
     display: flex;
@@ -1259,62 +1234,57 @@
 
 .ground-name {
     font-weight: bold;
-    color: var(--text-color, #ffffff);
+    color: var(--text-color);
 }
 
 .ground-controller {
     font-size: 0.75rem;
-    color: var(--accent-color, #8a2be2);
+    color: var(--accent-color);
 }
 
 .ground-stats {
     display: flex;
     gap: 16px;
     margin-bottom: 8px;
-    flex-wrap: wrap;
 }
 
 .ground-quality,
 .ground-risk {
     font-size: 0.8rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
 }
 
-.ground-risk.risk-low {
-    color: var(--positive-color, #4ade80);
-}
-
-.ground-risk.risk-medium {
-    color: var(--neutral-color, #fbbf24);
-}
-
-.ground-risk.risk-high {
-    color: #f97316;
-}
-
-.ground-risk.risk-very-high {
-    color: var(--negative-color, #f87171);
-}
-
-.ground-risk.risk-extreme {
-    color: #dc2626;
-    font-weight: bold;
-}
+.ground-risk.risk-low { color: var(--positive-color); }
+.ground-risk.risk-medium { color: var(--neutral-color); }
+.ground-risk.risk-high { color: #f97316; }
+.ground-risk.risk-very-high { color: var(--negative-color); }
+.ground-risk.risk-extreme { color: var(--vampire-red); font-weight: bold; }
 
 .ground-notes {
     font-size: 0.8rem;
-    color: var(--text-secondary, #a0a0a0);
+    color: var(--text-secondary);
     font-style: italic;
     margin: 0;
 }
 
 /* ============================================================================
-   REDACTED / CLASSIFIED CONTENT
+   SECTION TITLES
    ============================================================================ */
 
-.redacted-text {
-    color: var(--text-secondary, #a0a0a0);
-    font-style: italic;
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-icon {
+    font-size: 1.3rem;
 }
 
 /* ============================================================================
@@ -1325,11 +1295,11 @@
     .covens-layout {
         grid-template-columns: 1fr;
     }
-
+    
     .coven-selector {
         order: 1;
     }
-
+    
     .coven-info-panel {
         order: 2;
     }
@@ -1340,211 +1310,101 @@
         grid-template-columns: 1fr;
         text-align: center;
     }
-
+    
     .moon-visual {
         margin: 0 auto;
     }
-
+    
     .vampire-effects {
         border-left: none;
-        border-top: 3px solid #8b0000;
+        border-top: 3px solid var(--blood-color);
     }
-
+    
     .patriarch-panel {
         grid-template-columns: 1fr;
         text-align: center;
     }
-
+    
     .patriarch-portrait {
         justify-content: center;
     }
-
+    
     .coven-circle-container {
         width: 250px;
         height: 250px;
     }
-
+    
     .coven-node {
         width: 55px;
         height: 55px;
-        margin-left: -27.5px;
-        margin-top: -27.5px;
+        margin: -27.5px;
     }
-
+    
     .patriarch-center {
         width: 60px;
         height: 60px;
     }
-
-    .coven-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
+    
     .stat-bar {
         grid-template-columns: 1fr;
         gap: 4px;
     }
-
+    
     .stat-value {
         text-align: left;
     }
-
+    
     .member-item {
         grid-template-columns: 1fr;
         gap: 4px;
     }
-
+    
     .blood-hunts-grid,
     .feeding-grounds-grid {
         grid-template-columns: 1fr;
     }
-
-    .tradition-header {
-        flex-direction: column;
-    }
-
-    .event-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .hunt-header {
-        flex-wrap: wrap;
-    }
-
-    .hunt-target {
-        flex-basis: 100%;
-        order: -1;
-    }
-}
-
-@media (max-width: 480px) {
-    .onyx-hand-system {
-        gap: 20px;
-    }
-
-    .moon-phase-panel,
-    .patriarch-panel,
-    .covens-section,
-    .blood-hunts-section,
-    .traditions-section,
-    .events-section,
-    .feeding-grounds-section {
-        padding: 16px;
-    }
-
-    .section-title {
-        font-size: 1rem;
-    }
-
-    .coven-circle-container {
-        width: 220px;
-        height: 220px;
-    }
-
-    .coven-node {
-        width: 50px;
-        height: 50px;
-        margin-left: -25px;
-        margin-top: -25px;
-    }
-
-    .coven-node .coven-icon {
-        font-size: 1.5rem;
-    }
-
-    .patriarch-center {
-        width: 50px;
-        height: 50px;
-    }
-
-    .patriarch-center .patriarch-icon {
-        font-size: 1.5rem;
-    }
-
-    .coven-info-panel {
-        padding: 16px;
-        min-height: auto;
-    }
-
-    .coven-title {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .relations-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .ground-stats {
-        flex-direction: column;
-        gap: 4px;
-    }
 }
 
 /* ============================================================================
-   PRINT STYLES
+   COVEN-SPECIFIC COLOR THEMING
    ============================================================================ */
 
-@media print {
-    .onyx-hand-system {
-        background: white;
-        color: black;
-    }
+.coven-details.type-blood .coven-title h4 { color: var(--blood-color); }
+.coven-details.type-shadow .coven-title h4 { color: #6366f1; }
+.coven-details.type-iron .coven-title h4 { color: var(--iron-color); }
+.coven-details.type-silk .coven-title h4 { color: var(--silk-color); }
 
-    .moon-phase-panel,
-    .patriarch-panel,
-    .covens-section,
-    .blood-hunts-section,
-    .traditions-section,
-    .events-section,
-    .feeding-grounds-section {
-        border: 1px solid #ccc;
-        background: white;
-    }
-
-    .coven-node,
-    .patriarch-center {
-        border: 1px solid #333;
-    }
-
-    .section-title,
-    .coven-title h4,
-    .patriarch-info h4,
-    .tradition-header h6,
-    .event-header h6 {
-        color: black;
-    }
+.coven-details.type-blood .coven-specialty { 
+    background: rgba(139, 0, 0, 0.1); 
+    border-left-color: var(--blood-color); 
+}
+.coven-details.type-shadow .coven-specialty { 
+    background: rgba(26, 26, 46, 0.3); 
+    border-left-color: #6366f1; 
+}
+.coven-details.type-iron .coven-specialty { 
+    background: rgba(74, 85, 104, 0.2); 
+    border-left-color: var(--iron-color); 
+}
+.coven-details.type-silk .coven-specialty { 
+    background: rgba(159, 122, 234, 0.1); 
+    border-left-color: var(--silk-color); 
 }
 
 /* ============================================================================
-   ACCESSIBILITY
+   ANIMATIONS
    ============================================================================ */
 
-@media (prefers-reduced-motion: reduce) {
-    .moon-glow,
-    .patriarch-pulse,
-    .ascendant-glow,
-    .blood-drip,
-    .coven-node,
-    .patriarch-center,
-    .coven-details {
-        animation: none;
-    }
-
-    .coven-node:hover {
-        transform: none;
-    }
-
-    .patriarch-center:hover {
-        transform: translate(-50%, -50%);
-    }
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
 }
 
-/* Focus states for keyboard navigation */
-.coven-node:focus-visible,
-.patriarch-center:focus-visible {
-    outline: 2px solid var(--accent-color, #8a2be2);
-    outline-offset: 4px;
+.coven-details {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
