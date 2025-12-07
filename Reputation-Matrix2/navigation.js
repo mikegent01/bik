@@ -1,9 +1,7 @@
 import { state, loadState } from './state.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
 
-// ✅ FIXED: Correct Repo and Folder path
-const GITHUB_REPO = 'mikegent01/bik'; 
-const REPO_FOLDER = 'Reputation-Matrix2/'; 
+// 🗑️ REMOVED: GITHUB_REPO and REPO_FOLDER (No longer needed!)
 
 function checkForNewPosts() {
     loadState();
@@ -27,7 +25,7 @@ function checkForNewPosts() {
     }
 }
 
-// New function: Fetches your local JSON file
+// ✅ NEW FUNCTION: Fetches the local JSON file
 async function getPageUpdates() {
     try {
         // Fetch the file we generated with the node script
@@ -48,46 +46,6 @@ async function getPageUpdates() {
     }
 }
 
-async function markUpdatedPages(sidebar) {
-    const links = sidebar.querySelectorAll('a.nav-button');
-    
-    // 1. Get the list of file dates
-    const pageUpdates = await getPageUpdates();
-    
-    // 2. Get the user's history
-    const lastVisits = JSON.parse(localStorage.getItem('pageLastVisits') || '{}');
-    
-    let updatedCount = 0;
-
-    links.forEach(link => {
-        const href = link.getAttribute('href'); // e.g., "maps.html"
-        const updateTimeStr = pageUpdates[href]; // Check the JSON
-        const lastVisitStr = lastVisits[href];
-
-        if (updateTimeStr) {
-            const updateDate = new Date(updateTimeStr);
-            const visitDate = lastVisitStr ? new Date(lastVisitStr) : null;
-            
-            // Logic: Is New if (Never Visited) OR (Updated After Visit)
-            const isNew = !lastVisitStr || updateDate > visitDate;
-
-            if (isNew) {
-                // Check if badge already exists to avoid duplicates
-                if (!link.querySelector('.nav-badge.updated')) {
-                    const badge = document.createElement('span');
-                    badge.className = 'nav-badge updated pulse';
-                    badge.textContent = 'UPDATED';
-                    badge.style.marginLeft = 'auto';
-                    badge.style.backgroundColor = 'var(--accent-color)';
-                    link.appendChild(badge);
-                    updatedCount++;
-                }
-            }
-        }
-    });
-    console.log(`🏷️ Added ${updatedCount} "UPDATED" badges`);
-}
-
 function markPageAsVisited() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const lastVisits = JSON.parse(localStorage.getItem('pageLastVisits') || '{}');
@@ -98,7 +56,10 @@ function markPageAsVisited() {
 
 async function markUpdatedPages(sidebar) {
     const links = sidebar.querySelectorAll('a.nav-button');
-    const pageUpdates = await getPageUpdatesFromGitHub();
+    
+    // ✅ FIXED: Calling the NEW function name
+    const pageUpdates = await getPageUpdates();
+    
     const lastVisits = JSON.parse(localStorage.getItem('pageLastVisits') || '{}');
     
     let updatedCount = 0;

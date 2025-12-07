@@ -906,60 +906,958 @@ Recent events have tested them severely. The loss of the Vigilance, the intensif
         isPlayerMember: 'bowser',
         playerRank: 'Council Member',
         playerReputation: 8500
+    },
+    
+
+    // ===== ARTISAN GUILDS =====
+
+    deephold_smiths: {
+        id: 'deephold_smiths',
+        name: "Deephold Smithing Guild",
+        shortName: "Deephold Smiths",
+        motto: "From Stone We Rise, To Stone We Return",
+        category: 'artisan',
+        icon: '⛏️',
+        banner: 'guild_banners/deephold.png',
+        founded: '89 BF',
+        headquarters: 'The Great Forge, Ironroot Mountains (Midlands)',
+        
+        description: "The legendary dwarven smithing guild, producers of the finest weapons and armor in the known world. Their runic enchantments are unmatched by any magical academy.",
+        
+        lore: `The Deephold Smithing Guild predates most surface kingdoms. Founded by Smith-King Thordak after the First Forging, they have supplied weapons to armies, adventurers, and kings for nearly a thousand years.
+
+Their Great Forge has burned continuously for nine centuries, fed by volcanic vents deep beneath the Ironroot Mountains. The secrets of dwarven runic smithing are guarded more closely than any nation's military plans.
+
+The Iron Legion's rise troubles the guild deeply. The Legion's 'Gospel of the Cog' ideology views dwarven craft as inefficient compared to standardized machine production. Legion envoys have demanded exclusive contracts—demands the guild has firmly refused.
+
+Individual guild members like Humpik often travel the surface world, both to practice their craft and to gather intelligence on potential threats to dwarven interests. The guild maintains strict neutrality, but that neutrality is tested when customers threaten dwarven traditions.`,
+
+        leader: {
+            name: "Forge-Father Brokkir Ironmantle",
+            title: "Forge-Father",
+            portrait: "portraits/brokkir.png",
+            description: "Master of the legendary hammer Worldshaper. Has personally forged over a hundred legendary weapons in his 340 years."
+        },
+
+        officers: [
+            { name: "Forge-Mother Helga Emberheart", role: "Production Master", description: "Oversees all guild smithing operations" },
+            { name: "Runelord Dorin Stonescript", role: "Keeper of Runes", description: "Guards ancient runic enchantment secrets" },
+            { name: "Trade-Thane Grimjaw Shieldbreaker", role: "External Relations", description: "Manages contracts with surface kingdoms" }
+        ],
+
+        ranks: [
+            { tier: 1, title: "Furnace-Tender", description: "Apprentice maintaining forges", requirements: "Dwarven heritage or exceptional talent", benefits: ["Basic training", "Room and board"], repRequired: 0 },
+            { tier: 2, title: "Journeysmith", description: "Traveling craftsman", requirements: "Complete apprenticeship", benefits: ["Guild certification", "Tool allowance"], repRequired: 1000 },
+            { tier: 3, title: "Master Smith", description: "Expert craftsman", requirements: "Create masterwork item", benefits: ["Own forge rights", "Apprentice allotment"], repRequired: 3000 },
+            { tier: 4, title: "Runesmith", description: "Enchantment specialist", requirements: "Master runic inscription", benefits: ["Rune access", "Artifact commission rights"], repRequired: 6000 },
+            { tier: 5, title: "Forge-Father/Mother", description: "Guild leadership", requirements: "Unanimous acclaim of Runesmiths", benefits: ["Worldshaper access", "Guild treasury"], repRequired: 10000 }
+        ],
+
+        rules: [
+            "A dwarf's word is unbreakable stone",
+            "Guild secrets die with the keeper",
+            "Never craft shoddy work—reputation is everything",
+            "Maintain the Great Forge above all else",
+            "Trade fairly with all who pay fairly",
+            "The mountain provides, the dwarf endures"
+        ],
+
+        resources: {
+            treasury: 500000,
+            influence: 65,
+            manpower: 2000,
+            materials: {
+                ore: 95,
+                gems: 80,
+                runic_components: 70,
+                masterwork_equipment: 90
+            }
+        },
+
+        facilities: [
+            { name: "The Great Forge", type: "Smithy", description: "Legendary volcanic forge", access: "Furnace-Tender+" },
+            { name: "Runehold Archives", type: "Library", description: "Repository of runic knowledge", access: "Master Smith+" },
+            { name: "Surface Outposts", type: "Trade", description: "Smithies in major cities", access: "Journeysmith+" },
+            { name: "The Deep Mines", type: "Resources", description: "Guild-controlled ore deposits", access: "Master Smith+" }
+        ],
+
+        services: [
+            { name: "Masterwork Smithing", description: "Commission legendary equipment", priceRange: "500-50,000 gold", discount: { friendly: 10, honored: 25, revered: 40, exalted: 60 } },
+            { name: "Runic Enchantment", description: "Ancient dwarven enchantments", priceRange: "1,000-25,000 gold", discount: { friendly: 5, honored: 20, revered: 35, exalted: 55 } },
+            { name: "Equipment Repair", description: "Restore damaged gear", priceRange: "50-2,000 gold", discount: { friendly: 15, honored: 30, revered: 45, exalted: 65 } },
+            { name: "Ore Refining", description: "Process raw materials", priceRange: "10% of value", discount: { friendly: 10, honored: 20, revered: 30, exalted: 50 } }
+        ],
+
+        research_bonus: { 
+            category: 'Crafting', 
+            amount: 0.35,
+            description: "+35% to Smithing, Runic, and Crafting research when allied"
+        },
+
+        relations: {
+            merchants_consortium: { standing: 'excellent', reason: 'Primary distribution partner' },
+            mages_guild: { standing: 'respectful', reason: 'Mutual interest in enchantment' },
+            iron_legion: { standing: 'cold', reason: 'Gospel of the Cog threatens dwarven traditions' },
+            silver_flame_templars: { standing: 'profitable', reason: 'Holy weapon contracts' },
+            thieves_guild: { standing: 'hostile', reason: 'They stole guild secrets once. Once.' }
+        },
+
+        contracts: [
+            {
+                id: 'ds_001',
+                title: "Ore Expedition",
+                type: 'gathering',
+                difficulty: 'medium',
+                reward: { gold: 300, reputation: 150, materials: 'Share of ore' },
+                deadline: 21,
+                description: "Join an expedition to recover rare ores from a collapsed section.",
+                requirements: ["Mining skill or combat capability"],
+                status: 'available'
+            },
+            {
+                id: 'ds_002',
+                title: "Recover Stolen Designs",
+                type: 'retrieval',
+                difficulty: 'hard',
+                reward: { gold: 1000, reputation: 400 },
+                deadline: 30,
+                description: "Thieves stole runic schematics. Retrieve them—and silence the thieves.",
+                requirements: ["Combat capability", "Discretion"],
+                status: 'urgent'
+            }
+        ],
+
+        events: [
+            { date: "Day 40", title: "Forge Festival", description: "Annual celebration of smithing excellence" },
+            { date: "Day 60", title: "Ancestor's Remembrance", description: "Honoring fallen smiths" }
+        ],
+
+        history: [
+            { year: '89 BF', event: 'Smith-King Thordak founds the guild' },
+            { year: '234 BF', event: 'Great Forge ignited' },
+            { year: '567 BF', event: 'Supplied weapons for Dragon Wars' },
+            { year: '1035 BF', event: 'Iron Legion demands exclusive contracts—refused' },
+            { year: '1040 BF', event: 'Humpik granted leave to aid surface resistance' }
+        ],
+
+        rumors: [
+            "The guild is secretly supplying resistance fighters...",
+            "Forge-Father Brokkir threw a Legion envoy down a mine shaft.",
+            "The Deep Mines connect to tunnels older than the dwarves..."
+        ],
+
+        membershipRequirements: {
+            species: ['dwarf', 'exceptional others'],
+            skills: ['smithing', 'mining'],
+            sponsorship: 'Guild member must vouch',
+            fee: 'Prove worth through craft'
+        },
+
+        isPlayerMember: 'humpik',
+        playerRank: 'Master Smith',
+        playerReputation: 4200
+    },
+
+    // ===== MARTIAL GUILDS =====
+
+    silver_flame_templars: {
+        id: 'silver_flame_templars',
+        name: "Order of the Silver Flame",
+        shortName: "Silver Flame",
+        motto: "Purge the Darkness",
+        category: 'martial',
+        icon: '🔥',
+        banner: 'guild_banners/silver_flame.png',
+        founded: '567 BF',
+        headquarters: 'Flamekeep, Midlands (Regal Empire)',
+        
+        description: "A militant religious order dedicated to destroying supernatural evil. Popular among humans in the Midlands, they've become controversial since the Supernatural Sovereignty Act aligned their goals with the Iron Legion.",
+        
+        lore: `The Order of the Silver Flame was founded during the Dragon Wars, when mortal heroes needed divine aid against draconic devastation. The Silver Flame itself—a pillar of divine fire in Flamekeep—became the symbol of humanity's defiance against supernatural threats.
+
+For centuries, the Order hunted vampires, werewolves, and demons. Their Templars were welcomed in most lands as protectors against the things that lurk in darkness. The Onyx Hand and Moonfang Pack learned to fear the silver-blessed blades.
+
+The Supernatural Sovereignty Act has complicated their reputation. The Order's goals now align with the Iron Legion's, making them uncomfortable allies—or willing collaborators, depending on who you ask. Some Templars embrace the Legion's efficiency; others worry about losing their independence to the military machine.
+
+The current High Inquisitor walks a careful line, accepting Legion support while maintaining the Order's autonomy. Not all Templars agree with this compromise.`,
+
+        leader: {
+            name: "High Inquisitor Aldric Dawnblade",
+            title: "High Inquisitor",
+            portrait: "portraits/dawnblade.png",
+            description: "A veteran monster hunter struggling to maintain Order independence while accepting Legion resources."
+        },
+
+        officers: [
+            { name: "Templar Commander Sera Brightshield", role: "Military Leader", description: "Commands Templar forces in the field" },
+            { name: "Keeper of the Flame", role: "Spiritual Head", description: "Maintains the Silver Flame itself" },
+            { name: "Grand Inquisitor Vale", role: "Investigation Chief", description: "Leads supernatural threat investigations" }
+        ],
+
+        ranks: [
+            { tier: 1, title: "Initiate", description: "Training to join the Order", requirements: "Pass trials of faith", benefits: ["Training", "Blessed equipment"], repRequired: 0 },
+            { tier: 2, title: "Templar", description: "Full knight of the Order", requirements: "Complete initiation", benefits: ["Silver weapons", "Order support"], repRequired: 1000 },
+            { tier: 3, title: "Inquisitor", description: "Supernatural investigator", requirements: "Proven against darkness", benefits: ["Investigation authority", "Advanced training"], repRequired: 3000 },
+            { tier: 4, title: "Grand Templar", description: "Elite warrior", requirements: "Exceptional service", benefits: ["Command authority", "Artifact access"], repRequired: 6000 },
+            { tier: 5, title: "High Inquisitor", description: "Order leader", requirements: "Election by Grand Templars", benefits: ["Full authority", "Flame communion"], repRequired: 10000 }
+        ],
+
+        rules: [
+            "Purge supernatural evil wherever found",
+            "Protect the innocent from darkness",
+            "The Silver Flame guides all actions",
+            "Show no mercy to the corrupted",
+            "Maintain purity of body and soul",
+            "The Order's mission supersedes politics"
+        ],
+
+        resources: {
+            treasury: 150000,
+            influence: 70,
+            manpower: 3000,
+            materials: {
+                silver_weapons: 90,
+                holy_relics: 75,
+                blessed_armor: 80,
+                intelligence: 65
+            }
+        },
+
+        facilities: [
+            { name: "Flamekeep", type: "Headquarters", description: "Fortress-cathedral housing the Silver Flame", access: "Initiate+" },
+            { name: "Chapter Houses", type: "Barracks", description: "Order outposts in major cities", access: "Templar+" },
+            { name: "The Pyre", type: "Training", description: "Combat and spiritual training grounds", access: "Initiate+" },
+            { name: "Inquisition Archives", type: "Intelligence", description: "Records on supernatural threats", access: "Inquisitor+" }
+        ],
+
+        services: [
+            { name: "Monster Hunting", description: "Professional supernatural elimination", priceRange: "100-5,000 gold", discount: { friendly: 15, honored: 30, revered: 50, exalted: 75 } },
+            { name: "Holy Blessing", description: "Bless weapons against supernatural", priceRange: "50-500 gold", discount: { friendly: 20, honored: 40, revered: 60, exalted: 80 } },
+            { name: "Exorcism", description: "Remove possession or corruption", priceRange: "200-2,000 gold", discount: { friendly: 10, honored: 25, revered: 45, exalted: 70 } },
+            { name: "Protection Detail", description: "Templar bodyguards", priceRange: "100 gold/day", discount: { friendly: 10, honored: 20, revered: 35, exalted: 55 } }
+        ],
+
+        research_bonus: { 
+            category: 'Divine', 
+            amount: 0.25,
+            description: "+25% to Divine Magic and Monster Lore research when allied"
+        },
+
+        relations: {
+            iron_legion: { standing: 'aligned', reason: 'Supernatural Sovereignty Act—shared goals' },
+            onyx_hand: { standing: 'war', reason: 'Ancient enemies—vampires must burn' },
+            moonfang_pack: { standing: 'war', reason: 'Werewolves are abominations' },
+            mages_guild: { standing: 'suspicious', reason: 'Magic borders on the supernatural' },
+            celestial_church: { standing: 'allied', reason: 'Shared faith traditions' }
+        },
+
+        contracts: [
+            {
+                id: 'sf_001',
+                title: "Vampire Nest Elimination",
+                type: 'combat',
+                difficulty: 'hard',
+                reward: { gold: 800, reputation: 300 },
+                deadline: 14,
+                description: "A vampire coven has been located. Purge them.",
+                requirements: ["Combat capability", "Silver weapons recommended"],
+                status: 'available'
+            },
+            {
+                id: 'sf_002',
+                title: "Investigate Haunting",
+                type: 'investigation',
+                difficulty: 'medium',
+                reward: { gold: 300, reputation: 150 },
+                deadline: 21,
+                description: "A village reports supernatural activity. Investigate and resolve.",
+                requirements: ["Investigation skills", "Faith"],
+                status: 'available'
+            }
+        ],
+
+        events: [
+            { date: "Day 18", title: "Supernatural Sovereignty Act", description: "Order goals align with Legion policy" },
+            { date: "Annual", title: "Festival of Flame", description: "Celebration of the Silver Flame" }
+        ],
+
+        history: [
+            { year: '567 BF', event: 'Order founded during Dragon Wars' },
+            { year: '800 BF', event: 'Great Purge against vampire covens' },
+            { year: '890 BF', event: 'Aided against the Lich King' },
+            { year: '1040 BF', event: 'Supernatural Sovereignty Act—controversial alignment with Legion' }
+        ],
+
+        rumors: [
+            "Some Templars are uncomfortable with Legion alliance...",
+            "The Silver Flame itself has grown dim lately.",
+            "Grand Inquisitor Vale may be planning a coup against moderates."
+        ],
+
+        membershipRequirements: {
+            species: ['human', 'non-supernatural'],
+            skills: ['combat', 'faith'],
+            sponsorship: 'Temple recommendation',
+            fee: 'Vow of service'
+        },
+
+        isPlayerMember: null,
+        playerRank: null,
+        playerReputation: -1500
+    },
+
+    freelance_adventurers: {
+        id: 'freelance_adventurers',
+        name: "Adventurer's League",
+        shortName: "Adventurers",
+        motto: "Fortune Favors the Bold",
+        category: 'martial',
+        icon: '⚔️',
+        banner: 'guild_banners/adventurers.png',
+        founded: '650 BF',
+        headquarters: 'The Crossroads Inn (Multiple Chapters)',
+        
+        description: "A loose confederation of professional adventurers, monster hunters, and sellswords. They maintain neutrality, taking contracts from anyone who pays.",
+        
+        lore: `The Adventurer's League began as a mutual aid society for traveling warriors, mages, and rogues who made their living taking dangerous jobs. Over centuries, it evolved into a semi-professional organization with chapters in every major city.
+
+Unlike military orders or mercenary companies, the League doesn't deploy units—it certifies individuals. An Adventurer's League badge tells potential employers that the bearer has been vetted, their skills verified, and their reputation tracked.
+
+The League maintains strict political neutrality. A Gold-ranked adventurer might work for the Iron Legion one week and the Liberated Toads the next. This neutrality is protected by the simple fact that everyone needs adventurers—and blacklisting the League means losing access to the realm's most capable problem-solvers.
+
+The current conflict has been a boom time for adventurers. There's never been more work available—or more ways to die.`,
+
+        leader: {
+            name: "Guildmaster Helena Stormblade",
+            title: "Grand Guildmaster",
+            portrait: "portraits/stormblade.png",
+            description: "Retired legendary adventurer who killed three dragons. Now manages the League's largest chapter."
+        },
+
+        officers: [
+            { name: "Registrar Quill", role: "Certification Head", description: "Manages adventurer rankings" },
+            { name: "Contract Master Deals", role: "Job Coordinator", description: "Distributes contracts to appropriate adventurers" },
+            { name: "Arbiter Fairwind", role: "Dispute Resolution", description: "Handles conflicts between members and clients" }
+        ],
+
+        ranks: [
+            { tier: 1, title: "Copper", description: "Beginner adventurer", requirements: "Basic combat or magic test", benefits: ["License", "Board access"], repRequired: 0 },
+            { tier: 2, title: "Silver", description: "Experienced adventurer", requirements: "Complete 10+ contracts", benefits: ["Better contracts", "Insurance"], repRequired: 1000 },
+            { tier: 3, title: "Gold", description: "Professional adventurer", requirements: "Significant achievement", benefits: ["Premium contracts", "Legal protection"], repRequired: 3000 },
+            { tier: 4, title: "Platinum", description: "Elite adventurer", requirements: "Legendary deed", benefits: ["Named contracts", "Political immunity"], repRequired: 6000 },
+            { tier: 5, title: "Mythril", description: "Living legend", requirements: "Realm-changing accomplishment", benefits: ["Retire wealthy", "Statue in guild hall"], repRequired: 10000 }
+        ],
+
+        rules: [
+            "Complete your contracts",
+            "Don't steal from clients—bad for business",
+            "Guild neutrality must be maintained",
+            "Help fellow adventurers in genuine distress",
+            "Report monster sightings to local chapters",
+            "Don't die—it looks bad on your record"
+        ],
+
+        resources: {
+            treasury: 75000,
+            influence: 55,
+            manpower: 8000,
+            materials: {
+                contracts: 90,
+                equipment: 60,
+                intelligence: 70,
+                reputation: 85
+            }
+        },
+
+        facilities: [
+            { name: "Chapter Houses", type: "Headquarters", description: "Guild halls in major cities", access: "Copper+" },
+            { name: "Contract Boards", type: "Employment", description: "Job postings sorted by difficulty", access: "Copper+" },
+            { name: "Training Grounds", type: "Training", description: "Practice facilities", access: "Copper+" },
+            { name: "The Vault", type: "Banking", description: "Secure storage for adventurer loot", access: "Silver+" }
+        ],
+
+        services: [
+            { name: "Contract Matching", description: "Find work suited to your skills", priceRange: "5% of contract value", discount: { friendly: 10, honored: 25, revered: 40, exalted: 60 } },
+            { name: "Party Formation", description: "Find adventuring companions", priceRange: "Free for members", discount: { friendly: 0, honored: 0, revered: 0, exalted: 0 } },
+            { name: "Legal Defense", description: "When contracts go wrong", priceRange: "200-2,000 gold", discount: { friendly: 15, honored: 30, revered: 50, exalted: 75 } },
+            { name: "Resurrection Services", description: "If you can afford it, death isn't permanent", priceRange: "5,000+ gold", discount: { friendly: 5, honored: 15, revered: 30, exalted: 50 } }
+        ],
+
+        research_bonus: { 
+            category: 'Monster Lore', 
+            amount: 0.20,
+            description: "+20% to Monster and Dungeon research when allied"
+        },
+
+        relations: {
+            merchants_consortium: { standing: 'cooperative', reason: 'Caravan escort contracts' },
+            mages_guild: { standing: 'neutral', reason: 'Some overlap in membership' },
+            iron_legion: { standing: 'business', reason: 'They pay well' },
+            liberated_toads: { standing: 'business', reason: 'They pay... eventually' },
+            thieves_guild: { standing: 'rivalry', reason: 'Occasional contract conflicts' }
+        },
+
+        contracts: [
+            {
+                id: 'al_001',
+                title: "Clear Monster Nest",
+                type: 'combat',
+                difficulty: 'medium',
+                reward: { gold: 400, reputation: 150 },
+                deadline: 14,
+                description: "A nest of creatures has formed near a village. Eliminate them.",
+                requirements: ["Combat capability"],
+                status: 'available'
+            },
+            {
+                id: 'al_002',
+                title: "Escort Expedition",
+                type: 'escort',
+                difficulty: 'hard',
+                reward: { gold: 600, reputation: 200 },
+                deadline: 21,
+                description: "Protect a research team exploring dangerous ruins.",
+                requirements: ["Combat capability", "Survival skills"],
+                status: 'available'
+            }
+        ],
+
+        events: [
+            { date: "Monthly", title: "Ranking Trials", description: "Test for rank advancement" },
+            { date: "Annual", title: "Grand Tournament", description: "Competition between top adventurers" }
+        ],
+
+        history: [
+            { year: '650 BF', event: 'League founded as mutual aid society' },
+            { year: '800 BF', event: 'Ranking system established' },
+            { year: '890 BF', event: 'League adventurers crucial in defeating Lich King' },
+            { year: '1040 BF', event: 'Record contract volume due to current conflict' }
+        ],
+
+        rumors: [
+            "Some Platinum-ranked adventurers are secretly working for the resistance.",
+            "The League has blacklisted the Iron Legion internally—unofficially.",
+            "Guildmaster Stormblade is coming out of retirement for one last job..."
+        ],
+
+        membershipRequirements: {
+            species: null,
+            skills: ['combat or magic or stealth'],
+            sponsorship: false,
+            fee: '50 gold registration'
+        },
+
+        isPlayerMember: null,
+        playerRank: 'Gold',
+        playerReputation: 3500
+    },
+
+    // ===== SHADOW GUILDS =====
+
+    thieves_guild: {
+        id: 'thieves_guild',
+        name: "The Shadow Weavers",
+        shortName: "Shadows",
+        motto: "What You Don't See Can Hurt You",
+        category: 'shadow',
+        icon: '🗡️',
+        banner: 'guild_banners/shadows.png',
+        founded: 'Unknown',
+        headquarters: 'The Nowhere (Location Unknown)',
+        
+        description: "The organized criminal underworld. Thieves, smugglers, assassins, and information brokers all answer to the Shadow Weavers—or find themselves floating in the harbor.",
+        
+        lore: `The Shadow Weavers have existed in some form since civilization began accumulating things worth stealing. The current organization emerged from the unification of competing criminal gangs approximately two centuries ago.
+
+They operate on a simple principle: crime is inevitable, so it should be organized. Freelance criminals are bad for business—they draw attention, leave witnesses, and undercut prices. Under the Weavers, crime is professional, predictable, and profitable.
+
+Their services are available to anyone with coin and discretion. Need someone killed? There's a price list. Need something stolen? They have specialists. Need to disappear? They know every hidden route in the realm.
+
+The current conflict has been complicated for the Weavers. The Iron Legion's order and surveillance makes traditional crime harder, but war creates new opportunities in smuggling, espionage, and assassination. The Liberated Toads have proven surprisingly good customers.`,
+
+        leader: {
+            name: "The Silence",
+            title: "Guildmaster",
+            portrait: "portraits/silence.png",
+            description: "No one knows their true identity, face, or even species. Commands through intermediaries. May not be a single person."
+        },
+
+        officers: [
+            { name: "Whisper", role: "Intelligence Director", description: "Runs the information network" },
+            { name: "Coin", role: "Financial Operations", description: "Manages guild funds and fencing" },
+            { name: "Shade", role: "Enforcement", description: "Deals with those who break guild rules" },
+            { name: "Ghost", role: "Assassination Coordinator", description: "Manages contract killings" }
+        ],
+
+        ranks: [
+            { tier: 1, title: "Finger", description: "Petty criminal under guild protection", requirements: "Pay tribute", benefits: ["Territory rights", "Fence access"], repRequired: 0 },
+            { tier: 2, title: "Hand", description: "Full guild thief", requirements: "Successful jobs", benefits: ["Better fencing rates", "Job referrals"], repRequired: 1000 },
+            { tier: 3, title: "Shadow", description: "Elite operative", requirements: "Major heist", benefits: ["Premium jobs", "Safe houses"], repRequired: 3000 },
+            { tier: 4, title: "Silence", description: "Guild officer", requirements: "Exceptional service", benefits: ["Command authority", "Treasury access"], repRequired: 6000 },
+            { tier: 5, title: "The Silence", description: "Guildmaster", requirements: "Unknown", benefits: ["Absolute authority", "True anonymity"], repRequired: 10000 }
+        ],
+
+        rules: [
+            "Never steal from the guild",
+            "Never rat on a fellow member",
+            "Pay your tribute on time",
+            "Respect territory boundaries",
+            "A contract accepted is a contract completed",
+            "The guild protects its own—until they become a liability"
+        ],
+
+        resources: {
+            treasury: 300000,
+            influence: 60,
+            manpower: 4000,
+            materials: {
+                safe_houses: 85,
+                blackmail: 90,
+                smuggling_routes: 80,
+                assassins: 65
+            }
+        },
+
+        facilities: [
+            { name: "The Nowhere", type: "Headquarters", description: "Guild command—location unknown", access: "Silence+" },
+            { name: "Thieves' Dens", type: "Hideouts", description: "Local guild hideouts", access: "Finger+" },
+            { name: "The Black Market", type: "Fencing", description: "Where stolen goods become clean money", access: "Hand+" },
+            { name: "Dead Drops", type: "Communication", description: "Secure message points", access: "Shadow+" }
+        ],
+
+        services: [
+            { name: "Acquisition Services", description: "Professional theft to order", priceRange: "10-50% of item value", discount: { friendly: 5, honored: 15, revered: 30, exalted: 50 } },
+            { name: "Smuggling", description: "Move goods past any checkpoint", priceRange: "20% of cargo value", discount: { friendly: 10, honored: 20, revered: 35, exalted: 55 } },
+            { name: "Information Brokerage", description: "Secrets for sale", priceRange: "100-10,000 gold", discount: { friendly: 10, honored: 25, revered: 40, exalted: 60 } },
+            { name: "Assassination", description: "Permanent problem solving", priceRange: "1,000-50,000 gold", discount: { friendly: 5, honored: 15, revered: 25, exalted: 45 } },
+            { name: "Disappearing", description: "New identity, new life", priceRange: "5,000-20,000 gold", discount: { friendly: 10, honored: 20, revered: 35, exalted: 55 } }
+        ],
+
+        research_bonus: { 
+            category: 'Subterfuge', 
+            amount: 0.30,
+            description: "+30% to Stealth, Deception, and Espionage research when allied"
+        },
+
+        relations: {
+            iron_legion: { standing: 'hostile', reason: 'Their order is bad for business' },
+            iron_crown_brigade: { standing: 'rivalry', reason: 'Competing intelligence networks' },
+            liberated_toads: { standing: 'business', reason: 'Good paying customers lately' },
+            merchants_consortium: { standing: 'complicated', reason: 'Competition and corruption' },
+            mages_guild: { standing: 'neutral', reason: 'Magic users are useful' }
+        },
+
+        contracts: [
+            {
+                id: 'tw_001',
+                title: "Acquire Documents",
+                type: 'theft',
+                difficulty: 'medium',
+                reward: { gold: 500, reputation: 200 },
+                deadline: 14,
+                description: "Steal specific documents from a merchant's office.",
+                requirements: ["Stealth", "Lockpicking"],
+                status: 'available'
+            },
+            {
+                id: 'tw_002',
+                title: "Eliminate Target",
+                type: 'assassination',
+                difficulty: 'hard',
+                reward: { gold: 2000, reputation: 350 },
+                deadline: 21,
+                description: "A Legion officer needs to stop breathing. Make it look accidental.",
+                requirements: ["Assassination skills", "Discretion"],
+                status: 'available'
+            }
+        ],
+
+        events: [
+            { date: "Unknown", title: "Guild Meetings", description: "Location and time vary" },
+            { date: "Quarterly", title: "The Accounting", description: "Tribute collection and territory disputes" }
+        ],
+
+        history: [
+            { year: 'Unknown', event: 'Guild origins lost to history' },
+            { year: '200 BF', event: 'Current organization structure established' },
+            { year: '955 BF', event: 'Profited from Mushroom Kingdom civil war' },
+            { year: '1040 BF', event: 'Major contracts from resistance movements' }
+        ],
+
+        rumors: [
+            "The Silence is actually three people who rotate...",
+            "They have blackmail on every noble in the realm.",
+            "Ghost hasn't failed a contract in fifteen years."
+        ],
+
+        membershipRequirements: {
+            species: null,
+            skills: ['stealth', 'crime'],
+            sponsorship: 'Guild member must vouch',
+            fee: 'Percentage of earnings'
+        },
+
+        isPlayerMember: 'archie',
+        playerRank: 'Shadow',
+        playerReputation: 2500
+    },
+
+    // ===== ARCANE GUILDS =====
+
+    mages_guild: {
+        id: 'mages_guild',
+        name: "The Mages' Guild",
+        shortName: "Mages Guild",
+        motto: "Knowledge Is Power",
+        category: 'arcane',
+        icon: '🔮',
+        banner: 'guild_banners/mages.png',
+        founded: '412 BF',
+        headquarters: 'The Astral Spire, Yale Shores (Midlands)',
+        
+        description: "The preeminent organization of magical practitioners. They regulate magic use, train new mages, and research the arcane arts. Currently under political pressure from the Iron Legion and furious at certain fire-happy individuals.",
+        
+        lore: `The Mages' Guild was established in the aftermath of the Arcane Cataclysm, when unregulated magic nearly destroyed the realm. The founding Archmages created the Guild to ensure such devastation would never occur again.
+
+For centuries, the Guild has maintained a careful balance—preserving magical knowledge while preventing its misuse. They license practitioners, investigate magical crimes, and serve as advisors to governments across the realm.
+
+The Supernatural Sovereignty Act has placed the Guild in a precarious position. While officially exempt, many members fear they will be the next targets. The Iron Legion's Gospel of the Cog views magic as unreliable compared to technology—and the Legion has a history of eliminating what it views as threats.
+
+Recent events have worsened the Guild's mood. The so-called "Greenhouse Inferno"—a massive fireball cast by an individual named Archie Miser—killed numerous combatants and destroyed property. Worse, an Onyx Hand tribunal acquitted him of killing a mage, a decision the Guild views as supernatural creatures shielding a murderer. The Mages' Guild has officially condemned Archie Miser and placed a bounty on information regarding his activities.`,
+
+        leader: {
+            name: "Archmage Quintus Brightwater",
+            title: "Archmage",
+            portrait: "portraits/quintus.png",
+            description: "A powerful human wizard navigating the Guild through its greatest crisis while dealing with pyromaniac vigilantes."
+        },
+
+        officers: [
+            { name: "Grand Enchanter Lyria Moonwhisper", role: "Dean of Enchantment", description: "Heads the Enchantment College" },
+            { name: "High Conjurer Thaddeus Vex", role: "Dean of Conjuration", description: "Heads the Conjuration College" },
+            { name: "Keeper Mordecai", role: "Master of the Library", description: "Guards the Forbidden Archives" },
+            { name: "Inquisitor Flamebane", role: "Magical Crimes", description: "Investigating the Greenhouse Inferno" }
+        ],
+
+        ranks: [
+            { tier: 1, title: "Initiate", description: "Student of the arcane arts", requirements: "Pass magical aptitude test", benefits: ["Basic training", "Library access"], repRequired: 0 },
+            { tier: 2, title: "Apprentice", description: "Assigned to a master", requirements: "Complete initiate studies", benefits: ["Master mentorship", "Practice labs"], repRequired: 1000 },
+            { tier: 3, title: "Journeymage", description: "Licensed to practice independently", requirements: "Pass certification exams", benefits: ["Legal practice", "Guild contracts"], repRequired: 3000 },
+            { tier: 4, title: "Magister", description: "Respected expert", requirements: "Significant magical achievement", benefits: ["Teaching rights", "Research grants"], repRequired: 6000 },
+            { tier: 5, title: "Archmage", description: "Supreme magical authority", requirements: "Election by the Conclave", benefits: ["Full authority", "Artifact access"], repRequired: 10000 }
+        ],
+
+        rules: [
+            "Never use magic for wanton destruction",
+            "Report all magical anomalies to the Guild",
+            "Maintain accurate records of all spell research",
+            "Do not teach magic to unlicensed individuals",
+            "Submit to Guild arbitration in magical disputes",
+            "Protect non-magical persons from magical harm"
+        ],
+
+        resources: {
+            treasury: 150000,
+            influence: 72,
+            manpower: 800,
+            materials: {
+                mana_crystals: 80,
+                rare_reagents: 65,
+                artifacts: 45,
+                spell_libraries: 95
+            }
+        },
+
+        facilities: [
+            { name: "The Astral Spire", type: "Headquarters", description: "Main tower containing all colleges", access: "Initiate+" },
+            { name: "The Great Library", type: "Archive", description: "Vast collection of magical texts", access: "Initiate+" },
+            { name: "The Forbidden Archives", type: "Restricted", description: "Dangerous knowledge under seal", access: "Magister+" },
+            { name: "The Crucible", type: "Laboratory", description: "Advanced magical experimentation", access: "Journeymage+" }
+        ],
+
+        services: [
+            { name: "Spellcasting Services", description: "Hire a mage for magical needs", priceRange: "50-5,000 gold", discount: { friendly: 10, honored: 20, revered: 35, exalted: 50 } },
+            { name: "Magical Training", description: "Learn spells and magical theory", priceRange: "200 gold/week", discount: { friendly: 5, honored: 15, revered: 30, exalted: 45 } },
+            { name: "Enchantment Services", description: "Have items enchanted", priceRange: "100-10,000 gold", discount: { friendly: 10, honored: 25, revered: 40, exalted: 55 } },
+            { name: "Magical Identification", description: "Identify unknown magical items", priceRange: "25-500 gold", discount: { friendly: 15, honored: 30, revered: 45, exalted: 60 } }
+        ],
+
+        research_bonus: { 
+            category: 'Arcane', 
+            amount: 0.30,
+            description: "+30% to Arcane research when allied"
+        },
+
+        relations: {
+            iron_legion: { standing: 'tense', reason: 'Supernatural Sovereignty Act threatens Guild autonomy' },
+            deephold_smiths: { standing: 'respectful', reason: 'Mutual interest in enchantment' },
+            merchants_consortium: { standing: 'friendly', reason: 'Magical goods trade' },
+            onyx_hand: { standing: 'hostile', reason: 'They acquitted Archie Miser—unforgivable' },
+            silver_flame_templars: { standing: 'wary', reason: 'They view magic with suspicion' },
+            liberated_toads: { standing: 'hostile', reason: 'They harbor Archie Miser' }
+        },
+
+        contracts: [
+            {
+                id: 'mg_001',
+                title: "Investigate Magical Anomaly",
+                type: 'investigation',
+                difficulty: 'medium',
+                reward: { gold: 400, reputation: 150 },
+                deadline: 14,
+                description: "Strange magical readings detected. Investigate and report.",
+                requirements: ["Basic magical knowledge", "Investigation skill"],
+                status: 'available'
+            },
+            {
+                id: 'mg_002',
+                title: "Locate Archie Miser",
+                type: 'bounty',
+                difficulty: 'hard',
+                reward: { gold: 1000, reputation: 300 },
+                deadline: 'Ongoing',
+                description: "Provide actionable intelligence on the whereabouts of the war criminal Archie Miser.",
+                requirements: ["Intelligence gathering", "Survival instinct"],
+                status: 'priority'
+            }
+        ],
+
+        events: [
+            { date: "Day 28", title: "Mage Registry Amendment Vote", description: "Diet votes on Guild exemption" },
+            { date: "Day 35", title: "Conclave Assembly", description: "Emergency meeting regarding Guild security" }
+        ],
+
+        history: [
+            { year: '412 BF', event: 'Guild founded after Arcane Cataclysm' },
+            { year: '567 BF', event: 'Established the Licensing System' },
+            { year: '890 BF', event: 'The Mage Wars—Guild nearly destroyed' },
+            { year: '1040 BF', event: 'Supernatural Sovereignty Act threatens autonomy' },
+            { year: '1040 BF', event: 'Greenhouse Inferno—Archie Miser condemned' },
+            { year: '1040 BF', event: 'Onyx Hand acquits Miser—relations severed' }
+        ],
+
+        rumors: [
+            "The Archmage is considering Legion alliance for protection...",
+            "Inquisitor Flamebane is personally hunting Archie Miser.",
+            "The Forbidden Archives contain spells that could destroy armies."
+        ],
+
+        membershipRequirements: {
+            species: null,
+            skills: ['arcana', 'spellcasting'],
+            sponsorship: false,
+            fee: 'Magical aptitude test'
+        },
+
+        isPlayerMember: null,
+        playerRank: null,
+        playerReputation: -2500
+    },
+
+    // ===== FAITH GUILDS =====
+
+    celestial_church: {
+        id: 'celestial_church',
+        name: "Church of the Star Spirits",
+        shortName: "Star Church",
+        motto: "The Stars Guide, The Stars Provide",
+        category: 'faith',
+        icon: '✨',
+        banner: 'guild_banners/star_church.png',
+        founded: 'Ancient',
+        headquarters: 'Star Haven Temple, Mushroom Kingdom',
+        
+        description: "The dominant faith of the Mushroom Kingdom. Followers believe the Star Spirits grant wishes and guide destiny. Provides healing, sanctuary, and moral guidance.",
+        
+        lore: `The Veneration of the Stars is the oldest organized religion in the Mushroom Kingdom, predating the current royal dynasty. The Star Spirits themselves—Eldstar, Mamar, Skolar, Muskular, Misstar, Klevar, and Kalmar—are said to dwell in Star Haven, granting wishes to the worthy.
+
+The Church operates temples in every major settlement, providing healing to the sick, comfort to the grieving, and moral guidance to all who seek it. Their clerics are trained in divine magic, channeling the power of the stars.
+
+The assassination of Princess Peach in 955 BF devastated the Church—she was considered divinely blessed. The century of civil war that followed tested their faith severely. Many believe the current chaos is a consequence of failing to protect her.
+
+The Iron Legion's invasion has forced the Church into difficult decisions. Some clerics counsel cooperation; others quietly support resistance movements. The Star Spirits themselves have been unusually silent.`,
+
+        leader: {
+            name: "High Priestess Celestine",
+            title: "Voice of the Stars",
+            portrait: "portraits/celestine.png",
+            description: "Elderly Toad woman who claims to receive visions from the Star Spirits. Her guidance is sought by commoners and kings alike."
+        },
+
+        officers: [
+            { name: "Father Luminos", role: "Head of Healing", description: "Oversees all Church medical services" },
+            { name: "Sister Starweaver", role: "Head of Prophecy", description: "Interprets Star Spirit messages" },
+            { name: "Brother Sanctuary", role: "Temple Defense", description: "Protects Church holdings" }
+        ],
+
+        ranks: [
+            { tier: 1, title: "Faithful", description: "Regular worshipper", requirements: "Attend services", benefits: ["Blessing", "Community"], repRequired: 0 },
+            { tier: 2, title: "Acolyte", description: "Church servant", requirements: "Take vows", benefits: ["Training", "Room and board"], repRequired: 500 },
+            { tier: 3, title: "Cleric", description: "Ordained priest", requirements: "Complete training", benefits: ["Divine magic", "Temple assignment"], repRequired: 2000 },
+            { tier: 4, title: "High Cleric", description: "Temple leader", requirements: "Years of service", benefits: ["Temple authority", "Artifact access"], repRequired: 5000 },
+            { tier: 5, title: "Voice of the Stars", description: "Church leader", requirements: "Star Spirit communion", benefits: ["Divine revelation", "Full authority"], repRequired: 9000 }
+        ],
+
+        rules: [
+            "Aid all who suffer",
+            "Speak truth in the Stars' name",
+            "Protect the innocent",
+            "Honor the Star Spirits in all actions",
+            "Maintain temple sanctity",
+            "Hope is the greatest gift"
+        ],
+
+        resources: {
+            treasury: 80000,
+            influence: 75,
+            manpower: 2000,
+            materials: {
+                star_bits: 60,
+                healing_supplies: 85,
+                sanctuary_space: 90,
+                divine_power: 70
+            }
+        },
+
+        facilities: [
+            { name: "Star Haven Temple", type: "Headquarters", description: "Central temple of the faith", access: "Faithful+" },
+            { name: "Healing Halls", type: "Medical", description: "Free healing for the faithful", access: "Faithful+" },
+            { name: "Sanctuaries", type: "Refuge", description: "Safe haven for the persecuted", access: "Faithful+" },
+            { name: "Star Observatories", type: "Divination", description: "Where prophecies are interpreted", access: "Cleric+" }
+        ],
+
+        services: [
+            { name: "Divine Healing", description: "Magical and mundane medical care", priceRange: "Donation-based", discount: { friendly: 50, honored: 75, revered: 90, exalted: 100 } },
+            { name: "Blessing", description: "Star Spirit blessing for endeavors", priceRange: "Donation-based", discount: { friendly: 50, honored: 75, revered: 90, exalted: 100 } },
+            { name: "Sanctuary", description: "Protection from persecution", priceRange: "Free for the worthy", discount: { friendly: 100, honored: 100, revered: 100, exalted: 100 } },
+            { name: "Last Rites", description: "Funeral services and soul guidance", priceRange: "Donation-based", discount: { friendly: 50, honored: 75, revered: 90, exalted: 100 } }
+        ],
+
+        research_bonus: { 
+            category: 'Divine', 
+            amount: 0.25,
+            description: "+25% to Divine Magic and Prophecy research when allied"
+        },
+
+        relations: {
+            silver_flame_templars: { standing: 'allied', reason: 'Shared faith traditions' },
+            iron_legion: { standing: 'wary', reason: 'They demand compliance, not faith' },
+            liberated_toads: { standing: 'sympathetic', reason: 'Many faithful among their ranks' },
+            mages_guild: { standing: 'neutral', reason: 'Different approaches to the supernatural' },
+            onyx_hand: { standing: 'hostile', reason: 'Undead are an abomination to the Stars' }
+        },
+
+        contracts: [
+            {
+                id: 'cc_001',
+                title: "Escort Refugees",
+                type: 'escort',
+                difficulty: 'medium',
+                reward: { gold: 0, reputation: 200, blessing: 'Star Spirit Blessing' },
+                deadline: 14,
+                description: "Help refugees reach Church sanctuary safely.",
+                requirements: ["Combat capability", "Compassion"],
+                status: 'available'
+            }
+        ],
+
+        events: [
+            { date: "Annual", title: "Star Festival", description: "Celebration honoring the Star Spirits" },
+            { date: "New Moon", title: "Night of Wishes", description: "Community wish ceremony" }
+        ],
+
+        history: [
+            { year: 'Ancient', event: 'Star Spirit worship begins' },
+            { year: '400 BF', event: 'Church formally organized' },
+            { year: '955 BF', event: 'Princess Peach assassinated—Church devastated' },
+            { year: '1040 BF', event: 'Iron Legion invasion tests Church neutrality' }
+        ],
+
+        rumors: [
+            "The Star Spirits have been silent for months...",
+            "High Priestess Celestine is secretly aiding the resistance.",
+            "Some say Princess Peach received a final Star Spirit blessing before death."
+        ],
+
+        membershipRequirements: {
+            species: null,
+            skills: ['faith', 'compassion'],
+            sponsorship: false,
+            fee: 'None—faith is free'
+        },
+
+        isPlayerMember: null,
+        playerRank: null,
+        playerReputation: 2000
     }
 };
 
 // Player reputation data (would normally be in state.js)
 export const PLAYER_GUILD_DATA = {
     archie: {
-        stonecarvers_brethren: { reputation: 500, rank: null, joinDate: null },
-        merchants_consortium: { reputation: 1200, rank: 'Merchant', joinDate: '1038 BF' },
-        shadow_weavers: { reputation: 500, rank: 'Thread', joinDate: '1040 BF' },
-        mages_guild: { reputation: 2500, rank: 'Journeymage', joinDate: '1035 BF' },
-        iron_crown_brigade: { reputation: -5000, rank: null, joinDate: null },
-        liberated_toads: { reputation: 8000, rank: 'Council Member', joinDate: '1040 BF' }
+        liberated_toads: { reputation: 8000, rank: 'Council Member', joinDate: '1040 BF' },
+        thieves_guild: { reputation: 2500, rank: null, joinDate: '1039 BF' },
+        mages_guild: { reputation: -2500, rank: null, joinDate: null }, // THEY HATE HIM
+        merchants_consortium: { reputation: 10, rank: null, joinDate: '1038 BF' },
+        iron_crown_brigade: { reputation: -600, rank: null, joinDate: null },
+        freelance_adventurers: { reputation: 350, rank: null, joinDate: '1035 BF' },
+        deephold_smiths: { reputation: 500, rank: null, joinDate: null },
+        celestial_church: { reputation: 1500, rank: null, joinDate: null },
+        silver_flame_templars: { reputation: -1500, rank: null, joinDate: null }
     },
     humpik: {
-        stonecarvers_brethren: { reputation: 3500, rank: 'Stonecarver', joinDate: '1020 BF' },
-        merchants_consortium: { reputation: 800, rank: 'Associate', joinDate: '1038 BF' },
-        shadow_weavers: { reputation: -1000, rank: null, joinDate: null },
+        liberated_toads: { reputation: 7500, rank: 'Council Member', joinDate: '1040 BF' },
+        deephold_smiths: { reputation: 4200, rank: 'Master Smith', joinDate: '1010 BF' }, // LONG-TIME MEMBER
+        merchants_consortium: { reputation: 800, rank: 'Peddler', joinDate: '1038 BF' },
+        freelance_adventurers: { reputation: 3200, rank: 'Gold', joinDate: '1030 BF' },
         mages_guild: { reputation: 200, rank: null, joinDate: null },
-        iron_crown_brigade: { reputation: -4000, rank: null, joinDate: null },
-        liberated_toads: { reputation: 7500, rank: 'Council Member', joinDate: '1040 BF' }
+        iron_crown_brigade: { reputation: -5000, rank: null, joinDate: null },
+        thieves_guild: { reputation: -500, rank: null, joinDate: null },
+        celestial_church: { reputation: 1000, rank: 'Faithful', joinDate: null },
+        silver_flame_templars: { reputation: 0, rank: null, joinDate: null }
     },
     markop: {
-        stonecarvers_brethren: { reputation: 100, rank: null, joinDate: null },
-        merchants_consortium: { reputation: 500, rank: 'Associate', joinDate: '1039 BF' },
-        shadow_weavers: { reputation: 300, rank: null, joinDate: null },
-        mages_guild: { reputation: 1500, rank: 'Apprentice', joinDate: '1038 BF' },
-        iron_crown_brigade: { reputation: -3500, rank: null, joinDate: null },
-        liberated_toads: { reputation: 7000, rank: 'Council Member', joinDate: '1040 BF' }
+        liberated_toads: { reputation: 7000, rank: 'Council Member', joinDate: '1040 BF' },
+        freelance_adventurers: { reputation: 3000, rank: 'Gold', joinDate: '1038 BF' },
+        mages_guild: { reputation: -800, rank: null, joinDate: null }, // Association with Archie
+        merchants_consortium: { reputation: 500, rank: 'Peddler', joinDate: '1039 BF' },
+        iron_crown_brigade: { reputation: -4500, rank: null, joinDate: null },
+        deephold_smiths: { reputation: 400, rank: null, joinDate: null },
+        thieves_guild: { reputation: 300, rank: null, joinDate: null },
+        celestial_church: { reputation: 800, rank: 'Faithful', joinDate: null },
+        silver_flame_templars: { reputation: 0, rank: null, joinDate: null }
     },
     bowser: {
-        stonecarvers_brethren: { reputation: 50, rank: null, joinDate: null },
-        merchants_consortium: { reputation: -500, rank: null, joinDate: null },
-        shadow_weavers: { reputation: -2000, rank: null, joinDate: null },
-        mages_guild: { reputation: -1000, rank: null, joinDate: null },
-        iron_crown_brigade: { reputation: -8000, rank: null, joinDate: null },
-        liberated_toads: { reputation: 9000, rank: 'Council Member', joinDate: '1040 BF' }
+        liberated_toads: { reputation: 9000, rank: 'Council Member', joinDate: '1040 BF' },
+        freelance_adventurers: { reputation: 2000, rank: 'Silver', joinDate: '1040 BF' }, // Recent, reputation for... directness
+        merchants_consortium: { reputation: -500, rank: null, joinDate: null }, // Burned bridges
+        mages_guild: { reputation: -500, rank: null, joinDate: null },
+        iron_crown_brigade: { reputation: -10000, rank: null, joinDate: null }, // BLOOD FEUD
+        deephold_smiths: { reputation: 1200, rank: 'Furnace-Tender', joinDate: '1040 BF' }, // They respect his firepower
+        thieves_guild: { reputation: -2000, rank: null, joinDate: null }, // Too loud for crime
+        celestial_church: { reputation: -1000, rank: null, joinDate: null }, // His past
+        silver_flame_templars: { reputation: -500, rank: null, joinDate: null }
     },
     remi: {
-        stonecarvers_brethren: { reputation: 200, rank: null, joinDate: null },
-        merchants_consortium: { reputation: 1000, rank: 'Merchant', joinDate: '1039 BF' },
-        shadow_weavers: { reputation: 100, rank: null, joinDate: null },
-        mages_guild: { reputation: 800, rank: 'Initiate', joinDate: '1040 BF' },
-        iron_crown_brigade: { reputation: -2500, rank: null, joinDate: null },
-        liberated_toads: { reputation: 6500, rank: 'Operative', joinDate: '1040 BF' }
+        liberated_toads: { reputation: 5500, rank: 'Operative', joinDate: '1040 BF' }, // Newer, joined Day 12
+        freelance_adventurers: { reputation: 1500, rank: 'Silver', joinDate: '1040 BF' },
+        merchants_consortium: { reputation: 400, rank: 'Peddler', joinDate: '1040 BF' },
+        mages_guild: { reputation: -200, rank: null, joinDate: null },
+        iron_crown_brigade: { reputation: -3000, rank: null, joinDate: null },
+        deephold_smiths: { reputation: 200, rank: null, joinDate: null },
+        thieves_guild: { reputation: 100, rank: null, joinDate: null },
+        celestial_church: { reputation: 500, rank: 'Faithful', joinDate: null },
+        silver_flame_templars: { reputation: 0, rank: null, joinDate: null }
     }
 };
-
 export function getReputationTier(reputation) {
-    const tiers = Object.values(REPUTATION_TIERS).sort((a, b) => b.min - a.min);
-    for (const tier of tiers) {
-        if (reputation >= tier.min) {
-            return tier;
-        }
-    }
+    if (reputation >= 10000) return REPUTATION_TIERS.exalted;
+    if (reputation >= 6000) return REPUTATION_TIERS.revered;
+    if (reputation >= 3000) return REPUTATION_TIERS.honored;
+    if (reputation >= 1000) return REPUTATION_TIERS.friendly;
+    if (reputation >= 0) return REPUTATION_TIERS.neutral;
+    if (reputation >= -1000) return REPUTATION_TIERS.unfriendly;
+    if (reputation >= -3000) return REPUTATION_TIERS.hostile;
     return REPUTATION_TIERS.hated;
 }
 
