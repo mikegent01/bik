@@ -27,74 +27,65 @@ function checkForNewPosts() {
     }
 }
 
-async function getPageUpdatesFromGitHub() {
-    console.log('🔍 Fetching page updates from GitHub...');
-    console.log(`📦 Repository: ${GITHUB_REPO}`);
-    
+// New function: Fetches your local JSON file
+async function getPageUpdates() {
     try {
-        const cached = localStorage.getItem('githubPageUpdates');
-        const cacheTime = localStorage.getItem('githubPageUpdatesTime');
-        
-        // ✅ CHANGED: Cache for 30 minutes (1,800,000 ms)
-        if (cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 1800000) {
-            console.log('📋 Using cached GitHub data (less than 30 min old)');
-            return JSON.parse(cached);
-        }
-
-        console.log('🌐 Making fresh API request to GitHub...');
-        
-        // Fetch last 5 commits for the specific folder
-        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/commits?path=${REPO_FOLDER}&per_page=5`);
+        // Fetch the file we generated with the node script
+        // We add a timestamp query (?t=...) to prevent the browser from caching the JSON file itself
+        const response = await fetch(`site-updates.json?t=${Date.now()}`);
         
         if (!response.ok) {
-            if (response.status === 403 && cached) {
-                console.warn('⚠️ Rate limit hit. Using old cache.');
-                return JSON.parse(cached);
-            }
-            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+            console.warn('⚠️ Could not find site-updates.json');
+            return {};
         }
         
-        const commits = await response.json();
-        console.log(`📝 Found ${commits.length} commits`);
-        
-        const updates = {};
+        const updates = await response.json();
+        console.log('📊 Loaded site updates manifest:', updates);
+        return updates;
+    } catch (error) {
+        console.error('❌ Error loading updates:', error);
+        return {};
+    }
+}
 
-        // Process the commits
-        for (const commit of commits) {
-            const commitDate = commit.commit.author.date;
-            const detailResponse = await fetch(commit.url);
+async function markUpdatedPages(sidebar) {
+    const links = sidebar.querySelectorAll('a.nav-button');
+    
+    // 1. Get the list of file dates
+    const pageUpdates = await getPageUpdates();
+    
+    // 2. Get the user's history
+    const lastVisits = JSON.parse(localStorage.getItem('pageLastVisits') || '{}');
+    
+    let updatedCount = 0;
+
+    links.forEach(link => {
+        const href = link.getAttribute('href'); // e.g., "maps.html"
+        const updateTimeStr = pageUpdates[href]; // Check the JSON
+        const lastVisitStr = lastVisits[href];
+
+        if (updateTimeStr) {
+            const updateDate = new Date(updateTimeStr);
+            const visitDate = lastVisitStr ? new Date(lastVisitStr) : null;
             
-            if (detailResponse.ok) {
-                const detail = await detailResponse.json();
-                if (detail.files) {
-                    detail.files.forEach(file => {
-                        // Check if file is in our folder and is HTML
-                        if (file.filename.startsWith(REPO_FOLDER) && file.filename.endsWith('.html')) {
-                            // Strip folder name so it matches local links
-                            const cleanName = file.filename.replace(REPO_FOLDER, '');
-                            if (!updates[cleanName]) {
-                                updates[cleanName] = commitDate;
-                            }
-                        }
-                    });
+            // Logic: Is New if (Never Visited) OR (Updated After Visit)
+            const isNew = !lastVisitStr || updateDate > visitDate;
+
+            if (isNew) {
+                // Check if badge already exists to avoid duplicates
+                if (!link.querySelector('.nav-badge.updated')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'nav-badge updated pulse';
+                    badge.textContent = 'UPDATED';
+                    badge.style.marginLeft = 'auto';
+                    badge.style.backgroundColor = 'var(--accent-color)';
+                    link.appendChild(badge);
+                    updatedCount++;
                 }
             }
         }
-
-        // Merge with existing cache to preserve older dates
-        const existingCache = cached ? JSON.parse(cached) : {};
-        const mergedUpdates = { ...existingCache, ...updates };
-
-        localStorage.setItem('githubPageUpdates', JSON.stringify(mergedUpdates));
-        localStorage.setItem('githubPageUpdatesTime', Date.now().toString());
-
-        return mergedUpdates;
-    } catch (error) {
-        console.error('❌ GitHub fetch error:', error);
-        const cached = localStorage.getItem('githubPageUpdates');
-        if (cached) return JSON.parse(cached);
-        return {};
-    }
+    });
+    console.log(`🏷️ Added ${updatedCount} "UPDATED" badges`);
 }
 
 function markPageAsVisited() {
