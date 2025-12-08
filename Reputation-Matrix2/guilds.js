@@ -42,7 +42,121 @@ function directoryRepToGuildRep(directoryRep) {
     const normalized = (directoryRep + 100) / 200; // 0 to 1
     return Math.round((normalized * 16000) - 6000); // -6000 to 10000
 }
-
+function renderServicesTab(guild, playerData, repTier) {
+    const services = guild.services || [];
+    const user = state.loggedInUser;
+    const isMember = playerData?.rank !== null;
+    
+    return `
+        <div class="tab-content services-tab">
+            <div class="services-header">
+                <h3>Guild Services</h3>
+                ${!isMember ? `
+                    <div class="non-member-notice">
+                        <span class="notice-icon">ℹ️</span>
+                        <span>Some services are only available to guild members</span>
+                    </div>
+                ` : ''}
+            </div>
+            
+            ${services.length > 0 ? `
+                <div class="services-grid">
+                    ${services.map(service => {
+                        const isAvailable = !service.memberOnly || isMember;
+                        const meetsRepReq = !service.repRequired || (playerData?.reputation >= service.repRequired);
+                        const canUse = isAvailable && meetsRepReq;
+                        
+                        return `
+                            <div class="service-card ${canUse ? 'available' : 'locked'}">
+                                <div class="service-header">
+                                    <span class="service-icon">${service.icon || '🔧'}</span>
+                                    <h4 class="service-name">${service.name}</h4>
+                                    ${service.memberOnly ? '<span class="member-badge">Members Only</span>' : ''}
+                                </div>
+                                <p class="service-description">${service.description}</p>
+                                
+                                ${service.cost ? `
+                                    <div class="service-cost">
+                                        <span class="cost-label">Cost:</span>
+                                        <span class="cost-value">${service.cost}</span>
+                                    </div>
+                                ` : ''}
+                                
+                                ${service.repRequired ? `
+                                    <div class="service-rep-req ${meetsRepReq ? 'met' : 'unmet'}">
+                                        <span class="rep-icon">${meetsRepReq ? '✓' : '○'}</span>
+                                        Requires ${service.repRequired} reputation
+                                    </div>
+                                ` : ''}
+                                
+                                ${service.benefits ? `
+                                    <div class="service-benefits">
+                                        <strong>Benefits:</strong>
+                                        <ul>
+                                            ${service.benefits.map(b => `<li>${b}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+                                
+                                ${canUse ? `
+                                    <button class="use-service-btn" data-service="${service.id || service.name}">
+                                        Use Service
+                                    </button>
+                                ` : `
+                                    <div class="locked-reason">
+                                        ${!isAvailable ? 'Join guild to access' : `Need ${service.repRequired - (playerData?.reputation || 0)} more rep`}
+                                    </div>
+                                `}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            ` : `
+                <div class="no-services">
+                    <div class="empty-icon">🔧</div>
+                    <p>No services information available for this guild.</p>
+                </div>
+            `}
+            
+            ${guild.facilities && guild.facilities.length > 0 ? `
+                <div class="facilities-section" style="margin-top: 32px;">
+                    <h3>Facilities & Amenities</h3>
+                    <div class="facilities-grid">
+                        ${guild.facilities.map(facility => `
+                            <div class="facility-card">
+                                <h5>${facility.name}</h5>
+                                <span class="facility-type">${facility.type}</span>
+                                <p>${facility.description}</p>
+                                <div class="facility-access">
+                                    <span class="access-label">Access:</span>
+                                    <span class="access-value ${facility.access === 'Public' ? 'public' : 'restricted'}">
+                                        ${facility.access}
+                                    </span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            ${guild.training ? `
+                <div class="training-section" style="margin-top: 32px;">
+                    <h3>Training Programs</h3>
+                    <div class="training-grid">
+                        ${(Array.isArray(guild.training) ? guild.training : [guild.training]).map(program => `
+                            <div class="training-card">
+                                <h5>${program.name || 'Training Program'}</h5>
+                                <p>${program.description || program}</p>
+                                ${program.duration ? `<span class="training-duration">Duration: ${program.duration}</span>` : ''}
+                                ${program.cost ? `<span class="training-cost">Cost: ${program.cost}</span>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
 /**
  * Get player's reputation with a guild, checking both systems
  */
