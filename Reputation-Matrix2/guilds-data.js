@@ -1649,7 +1649,7 @@ export const PLAYER_GUILD_DATA = {
         mages_guild: { reputation: -2500, rank: null, joinDate: null }, // THEY HATE HIM
         merchants_consortium: { reputation: 10, rank: null, joinDate: '1038 BF' },
         iron_crown_brigade: { reputation: -600, rank: null, joinDate: null },
-        freelance_adventurers: { reputation: 350, rank: null, joinDate: '1035 BF' },
+        freelance_adventurers: { reputation: 350, rank: null, joinDate: null },
         deephold_smiths: { reputation: 500, rank: null, joinDate: null },
         celestial_church: { reputation: 1500, rank: null, joinDate: null },
         silver_flame_templars: { reputation: -1500, rank: null, joinDate: null }
@@ -1657,45 +1657,45 @@ export const PLAYER_GUILD_DATA = {
     humpik: {
         liberated_toads: { reputation: 7500, rank: 'Council Member', joinDate: '1040 BF' },
         deephold_smiths: { reputation: 4200, rank: 'Master Smith', joinDate: '1010 BF' }, // LONG-TIME MEMBER
-        merchants_consortium: { reputation: 800, rank: 'Peddler', joinDate: '1038 BF' },
-        freelance_adventurers: { reputation: 3200, rank: 'Gold', joinDate: '1030 BF' },
+        merchants_consortium: { reputation: 800, rank: null, joinDate: null },
+        freelance_adventurers: { reputation: 3200, rank: null, joinDate: null },
         mages_guild: { reputation: 200, rank: null, joinDate: null },
         iron_crown_brigade: { reputation: -5000, rank: null, joinDate: null },
         thieves_guild: { reputation: -500, rank: null, joinDate: null },
-        celestial_church: { reputation: 1000, rank: 'Faithful', joinDate: null },
+        celestial_church: { reputation: 1000, rank: null, joinDate: null },
         silver_flame_templars: { reputation: 0, rank: null, joinDate: null }
     },
     markop: {
         liberated_toads: { reputation: 7000, rank: 'Council Member', joinDate: '1040 BF' },
-        freelance_adventurers: { reputation: 3000, rank: 'Gold', joinDate: '1038 BF' },
+        freelance_adventurers: { reputation: 3000, rank: null, joinDate: null },
         mages_guild: { reputation: -800, rank: null, joinDate: null }, // Association with Archie
-        merchants_consortium: { reputation: 500, rank: 'Peddler', joinDate: '1039 BF' },
+        merchants_consortium: { reputation: 500, rank: null, joinDate: null },
         iron_crown_brigade: { reputation: -4500, rank: null, joinDate: null },
         deephold_smiths: { reputation: 400, rank: null, joinDate: null },
         thieves_guild: { reputation: 300, rank: null, joinDate: null },
-        celestial_church: { reputation: 800, rank: 'Faithful', joinDate: null },
+        celestial_church: { reputation: 800, rank: null, joinDate: null },
         silver_flame_templars: { reputation: 0, rank: null, joinDate: null }
     },
     bowser: {
         liberated_toads: { reputation: 9000, rank: 'Council Member', joinDate: '1040 BF' },
-        freelance_adventurers: { reputation: 2000, rank: 'Silver', joinDate: '1040 BF' }, // Recent, reputation for... directness
+        freelance_adventurers: { reputation: 2000, rank: null, joinDate: null}, // Recent, reputation for... directness
         merchants_consortium: { reputation: -500, rank: null, joinDate: null }, // Burned bridges
         mages_guild: { reputation: -500, rank: null, joinDate: null },
         iron_crown_brigade: { reputation: -10000, rank: null, joinDate: null }, // BLOOD FEUD
-        deephold_smiths: { reputation: 1200, rank: 'Furnace-Tender', joinDate: '1040 BF' }, // They respect his firepower
+        deephold_smiths: { reputation: 1200, rank: null, joinDate: null }, // They respect his firepower
         thieves_guild: { reputation: -2000, rank: null, joinDate: null }, // Too loud for crime
         celestial_church: { reputation: -1000, rank: null, joinDate: null }, // His past
         silver_flame_templars: { reputation: -500, rank: null, joinDate: null }
     },
     remi: {
         liberated_toads: { reputation: 5500, rank: 'Operative', joinDate: '1040 BF' }, // Newer, joined Day 12
-        freelance_adventurers: { reputation: 1500, rank: 'Silver', joinDate: '1040 BF' },
-        merchants_consortium: { reputation: 400, rank: 'Peddler', joinDate: '1040 BF' },
+        freelance_adventurers: { reputation: 1500, rank: null, joinDate: null },
+        merchants_consortium: { reputation: 400, rank: null, joinDate: null },
         mages_guild: { reputation: -200, rank: null, joinDate: null },
         iron_crown_brigade: { reputation: -3000, rank: null, joinDate: null },
         deephold_smiths: { reputation: 200, rank: null, joinDate: null },
         thieves_guild: { reputation: 100, rank: null, joinDate: null },
-        celestial_church: { reputation: 500, rank: 'Faithful', joinDate: null },
+        celestial_church: { reputation: 500, rank: null, joinDate: null },
         silver_flame_templars: { reputation: 0, rank: null, joinDate: null }
     }
 };
