@@ -2,6 +2,151 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+{
+    
+        id: 'remi_guild_application',
+        order: 30950,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 12, minute: 15 },
+        timestamp: '12 hours ago',
+        content: `Application formally submitted to the Deephold Smithing Guild. I've attached schematics for the 'Vigilance' engine refit and the high-tensile alloy formula I developed from the scrap. I'm not just a field mechanic. I'm a smith.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'You have the skills, soldier. Make us proud.' },
+            { characterKey: 'humpik', text: 'Shiny metal! Good metal! You make good hammer?' },
+            { characterKey: 'wario', text: 'If you get in, make me a gold-plated bike! DISCOUNT PRICE!' }
+        ],
+        rumorId: 'remi_personal_arc'
+    },
+
+    // [Insert Day 20 Late Night - Battle Begins]
+    {
+        id: 'generic_toad_spider_scream',
+        order: 31221,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 25 },
+        timestamp: '25 minutes ago',
+        content: `IT'S IN THE TREES! IT'S THE SIZE OF A HOUSE! RETREAT! RETREA—`,
+        likes: 12,
+        comments: [
+            { characterKey: 'roger', text: 'Hold the line! Aim for the eyes!' },
+            { characterKey: 'bones', text: 'Stop screaming. Start shooting.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Waluigi's Ice]
+    {
+        id: 'waluigi_ice_king',
+        order: 31224,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 32 },
+        timestamp: '18 minutes ago',
+        content: `FREEZE RAY! ❄️ Waluigi is the ICE KING! Watch them shiver! Watch them slip! I am colder than your ex-girlfriend's heart! WAH!`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'markop', text: 'You froze the path we needed to run on!' },
+            { characterKey: 'remi', text: 'Actually... it slowed the spiders down. Good job. Weirdly.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Squad Splintering]
+    {
+        id: 'smoking_j_bitten',
+        order: 31226,
+        characterKey: 'smoking_j', // Assuming a key exists or falls back to generic
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 35 },
+        timestamp: '15 minutes ago',
+        content: `Leg feels numb. Everything is turning purple. Just wanted to flank 'em. Tell my mom I... I think I left the stove on.`,
+        likes: 80,
+        comments: [
+            { characterKey: 'dan', text: 'Stay with us, soldier! Don\'t close your eyes!' },
+            { characterKey: 'ryan', text: 'Neurotoxin. We need an antidote, fast.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Markop Titan]
+    {
+        id: 'markop_titan_mode',
+        order: 31228,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 40 },
+        timestamp: '10 minutes ago',
+        content: `MARKOP JUST GREW FIFTY FEET TALL! He accepted the spooky guy's light and now he's wrestling the spider kaiju-style! THIS IS THE COOLEST NIGHT EVER!`,
+        likes: 3500,
+        comments: [
+            { characterKey: 'humpik', text: 'I WANT TO BE BIG TOO! UNFAIR!' },
+            { characterKey: 'self_reflection_oracle', text: 'Size is merely a matter of perspective. And ancient magic.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Eager's Friendly Fire]
+    {
+        id: 'eager_pepper_spray_blind',
+        order: 31229,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 42 },
+        timestamp: '8 minutes ago',
+        content: `CANT SEE. SPICY AIR. TOO MUCH SPRAY. SORRY SORRY SORRY.`,
+        likes: 40,
+        comments: [
+            { characterKey: 'toad_lee', text: 'STOP SPRAYING! YOU ARE HITTING THE SQUAD!' },
+            { characterKey: 'waluigi', text: 'MY EYES! THE GOGGLES DO NOTHING!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Vigilance Flyover]
+    {
+        id: 'vigilance_propaganda_flyover',
+        order: 31236,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 46 },
+        timestamp: '4 minutes ago',
+        content: `Airship 'Vigilance' is on station over Raventree. Broadcasting mandatory compliance anthems. Citizens in the grove: Do not be alarmed by the shadow. Order is arriving.`,
+        likes: 50,
+        comments: [
+            { characterKey: 'remi', text: 'WE ARE DYING DOWN HERE! HELP US!' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'We have our target. You have yours.' },
+            { characterKey: 'waluigi', text: 'YOUR MUSIC SUCKS!' }
+        ],
+        rumorId: 'iron_sky_breach'
+    },
+
+    // [Insert Day 20 Late Night - Squad Lost]
+    {
+        id: 'salem_lost_fountain',
+        order: 31238,
+        characterKey: 'salem', // Assuming fallback
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 50 },
+        timestamp: 'Just Now',
+        content: `We lost the visual. Pitch black. Standing water. It smells like... old magic. Where is the platoon leader? Where is the light?`,
+        likes: 20,
+        comments: [
+            { characterKey: 'markop', text: 'Hold position, Salem! Don\'t move until I shrink!' },
+            { characterKey: 'self_reflection_oracle', text: 'The water runs deep here. Mind the ripples.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    
+    // [Insert Day 20 Late Night - Mossy Damage]
+    {
+        id: 'remi_mossy_damage',
+        order: 31239,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 55 },
+        timestamp: 'Just Now',
+        content: `Mossy took a fang to the chassis protecting me. Hydraulics are leaking fluid. If that spider wasn't already paste, I'd kill it myself. Nobody hurts my dog.`,
+        likes: 900,
+        comments: [
+            { characterKey: 'humpik', text: 'We fix puppy. I have hammer. Remi has wrench.' },
+            { characterKey: 'mages_guild_envoy', text: 'That chassis is Guild property. You will be billed for damages.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },         
     {
         id: 'iron_legion_mandate_announcement',
         order: 31300,

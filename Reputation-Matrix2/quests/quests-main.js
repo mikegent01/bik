@@ -81,7 +81,7 @@ export const MAIN_QUESTS = {
                 id: 'm3', 
                 status: 'active', 
                 title: "Regroup and Retaliate", 
-                description: "The party is fractured across multiple locations. The Iron Mandate passed today—the Legion now has legal authority for warrantless searches and summary detention. Time is running out.",
+                description: "The party is fractured. The Vigilance has been sighted flying low over Raventree Manor, broadcasting Iron Legion propaganda and ignoring the battles below. It is taunting us.",
                 goals: [
                     { text: "Escape Raventree Manor alive", status: 'active', priority: 'critical' },
                     { text: "Locate Captain Ryan in the eastern forest", status: 'pending', priority: 'high' },
@@ -388,7 +388,7 @@ export const MAIN_QUESTS = {
             updated: { year: 1040, monthIndex: 6, day: 21 }
         },
 
-        description: "The Oracle of Raventree—a being who has lived the same day ten thousand times—has revealed the true nature of the manor's curse. It is not merely haunted; it is a nexus point where three distinct timelines have been forcibly braided together by demonic anchors. Two of the three demons have been dealt with. The Spider Demon was destroyed by Markop's holy fire. The Mirror Terror was spared by Humpik—contained rather than killed, much to the Oracle's displeasure. He now demands blood for the final ritual. Archie has volunteered to hunt the last demon alone while the rest of the party prepares for the ritual. The Iron Legion watches from the shadows. A spy has made a deal with Humpik. The clock tower still hasn't struck midnight.",
+        description: "The Oracle of Raventree—a being who has lived the same day ten thousand times—has revealed the true nature of the manor's curse. It is not merely haunted; it is a nexus point where three distinct timelines have been forcibly braided together by demonic anchors. One anchor remains active in the shadows, while another battle rages in the Silent Grove. The Mirror Terror was spared by Humpik, angering the Oracle. Now, Markop fights a Titan-sized battle in the gardens, while Archie hunts the final demon in the depths.",
 
         loreEntries: ['raventree_curse_origin', 'timeline_bleeding', 'demon_taxonomy', 'oracle_families'],
 
@@ -442,16 +442,17 @@ export const MAIN_QUESTS = {
             },
             { 
                 id: 'm3', 
-                status: 'completed', 
+                status: 'active', 
                 title: "The Three Demons", 
-                description: "Two anchors are dealt with. The third is being hunted.",
+                description: "Two anchors are accounted for. The third is being hunted.",
                 completedDate: { year: 1040, monthIndex: 6, day: 21 },
                 goals: [
                     { 
                         text: "The Spider Demon (The Weaver of Moments)", 
-                        status: 'completed', 
-                        details: "Destroyed by Markop via holy fire in the basement levels.",
-                        priority: 'completed'
+                        status: 'active', 
+                        details: "ENGAGED: Markop has assumed Titan form and is battling the Arachnid Matriarch in the Silent Grove. The battle is ongoing.",
+                        priority: 'critical',
+                        outcome: 'ongoing'
                     },
                     { 
                         text: "The Mirror Terror (The Reflection That Hungers)", 
@@ -471,12 +472,12 @@ export const MAIN_QUESTS = {
                     {
                         id: 'spider_demon',
                         name: "The Weaver of Moments",
-                        status: 'destroyed',
+                        status: 'engaged',
                         domain: "Connections between cause and effect",
-                        weakness: "Holy fire severs its threads",
-                        reward: "Thread of Causality (allows minor retcon once per day)",
-                        destroyedBy: "Markop",
-                        method: "Holy fire"
+                        weakness: "Titan-scale brute force",
+                        reward: "Thread of Causality",
+                        engagedBy: "Titan Markop & Remi",
+                        method: "Physical Combat & Oracle Blessing"
                     },
                     {
                         id: 'mirror_terror',
@@ -506,8 +507,9 @@ export const MAIN_QUESTS = {
                 id: 'm4',
                 status: 'active',
                 title: "The Oracle's Ritual",
-                description: "The Oracle has led the party to the Ruined Hall. Because the Mirror Terror was spared rather than destroyed, the ritual requires additional sacrifice—blood. The Iron Legion watches from the shadows. A spy has made contact with Humpik.",
+                description: "The Oracle has led the party to the Ruined Hall. Because the Mirror Terror was spared rather than destroyed, the ritual requires additional sacrifice—blood. The Iron Legion watches from the shadows. A spy has made a deal with Humpik.",
                 goals: [
+                    { text: "Await outcome of the Spider Demon battle", status: 'active', priority: 'critical' },
                     { text: "Await Archie's return from hunting the Arcane Wraith", status: 'active', priority: 'high' },
                     { text: "Provide blood sacrifice for the ritual (Oracle's demand)", status: 'pending', priority: 'high' },
                     { text: "Complete the Oracle's separation ritual", status: 'pending', priority: 'critical' },
@@ -537,7 +539,7 @@ export const MAIN_QUESTS = {
 
         npcs: {
             allies: ['self_reflection_oracle', 'ghost_of_lady_raventree'],
-            enemies: ['arcane_wraith', 'god_toad'],
+            enemies: ['arcane_wraith', 'spider_matriarch', 'god_toad'],
             neutral: ['iron_legion_spy', 'blue_humpik'],
             removed: ['red_humpik']
         },
@@ -545,7 +547,7 @@ export const MAIN_QUESTS = {
         locations: {
             primary: 'raventree_manor',
             current: 'ruined_hall',
-            related: ['mirror_dimension', 'dance_hall', 'upper_house', 'clock_tower', 'basement_web', 'solarium']
+            related: ['silent_grove', 'mirror_dimension', 'dance_hall', 'upper_house', 'clock_tower', 'basement_web', 'solarium']
         },
 
         hints: [
@@ -582,16 +584,12 @@ export const MAIN_QUESTS = {
                 ]
             },
             {
-                timestamp: "Day 21 - Ruined Hall",
-                event: "Current situation",
+                timestamp: "Day 21 - Silent Grove",
+                event: "Battle engaged",
                 details: [
-                    "Red Humpik was exposed as a fake when the real Humpik returned",
-                    "Green T fled in panic after being rescued",
-                    "The Oracle led the party to the Ruined Hall",
-                    "He demands blood for the ritual because the Mirror Terror was spared",
-                    "Archie left to hunt the Arcane Wraith alone",
-                    "Archie received a provisional Mages' Guild card",
-                    "Legion spies are watching from the shadows"
+                    "Rescue party ambushed by Spider Matriarch",
+                    "Markop accepted Oracle's blessing to grow to Titan size",
+                    "Vigilance observed flying overhead broadcasting propaganda"
                 ]
             }
         ],
@@ -623,7 +621,7 @@ export const MAIN_QUESTS = {
             updated: { year: 1040, monthIndex: 6, day: 21 }
         },
 
-        description: "What began as a simple investigation has become a waking nightmare. The party has fought through mirror dimensions, temporal loops, and demonic entities. Today brought resolution and new complications in equal measure. Bowser shattered the Shard Stalker. Humpik was pulled into the Mirror Dimension and returned—but made a deal with a Legion spy in the process. Green T was rescued but fled in terror. The Oracle demands blood for his ritual. Archie hunts the last demon alone. The Iron Legion watches. And Red Humpik has been exposed as an impostor. The party now gathers in the Ruined Hall, uncertain of who to trust.",
+        description: "What began as a simple investigation has become a waking nightmare. The party is split across the manor. While Bowser and Dan regroup in the Ruined Hall, a rescue team led by Markop and Remi is fighting for their lives in the Silent Grove against a massive Arachnid Matriarch. Humpik has returned from the Mirror Dimension with a secret deal. Green T is lost in the halls. The Oracle demands blood. And overhead, the captured Vigilance broadcasts Legion propaganda, mocking the party's plight.",
 
         loreEntries: ['raventree_manor_history', 'lady_raventree_tragedy', 'the_great_sealing'],
 
@@ -655,10 +653,28 @@ export const MAIN_QUESTS = {
                 notes: "Has new Guild card. Hunting alone. Hand bleeding from punching mirror in anger."
             },
             markop: { 
-                location: "Ruined Hall", 
-                status: "Regrouped", 
-                sanity: 8,
-                notes: "Destroyed the Spider Demon. Gained temporal resistance."
+                location: "Silent Grove", 
+                status: "TITAN FORM (Active)", 
+                sanity: 7,
+                notes: "Accepted Oracle's blessing. Currently giant-sized and wrestling a spider."
+            },
+            remi: {
+                location: "Silent Grove",
+                status: "Combat Active",
+                sanity: 5,
+                notes: "With Mossy (damaged). Defending against spiders."
+            },
+            waluigi: {
+                location: "Silent Grove",
+                status: "Webbed / Casting Ice",
+                sanity: 4,
+                notes: "Claiming to be an 'Ice King'. Providing chaotic support."
+            },
+            eager: {
+                location: "Silent Grove",
+                status: "Rescued / Combat",
+                sanity: 3,
+                notes: "Freed from cocoon. Blindly firing pepper spray."
             },
             bowser: { 
                 location: "Ruined Hall", 
@@ -684,18 +700,6 @@ export const MAIN_QUESTS = {
                 status: "Traumatized / Fleeing", 
                 sanity: 2,
                 notes: "Rescued from mirror but fled in panic. Broke a lock to escape. Critical mental state."
-            },
-            toad_lee: { 
-                location: "Ruined Hall", 
-                status: "Suspicious of Everyone", 
-                sanity: 6,
-                notes: "Tested Humpik with toad count question. Noticed the Oracle disappeared briefly."
-            },
-            toad_burt: { 
-                location: "Ruined Hall", 
-                status: "Kept Safe", 
-                sanity: 8,
-                notes: "Bowser prevented him from joining the Solarium fight."
             }
         },
 
@@ -797,6 +801,23 @@ export const MAIN_QUESTS = {
             },
             {
                 id: 'm7',
+                status: 'active',
+                title: "The Titan in the Grove",
+                description: "A rescue mission in the gardens turned into a full-scale battle. Markop, Remi, Waluigi, and the toad squad are fighting a massive Arachnid Matriarch.",
+                goals: [
+                    { text: "Defeat the Arachnid Matriarch", status: 'active', priority: 'critical' },
+                    { text: "Rescue the scattered Toad Squad", status: 'active', priority: 'high' },
+                    { text: "Regroup with the main party in the Hall", status: 'pending', priority: 'medium' }
+                ],
+                currentEvents: [
+                    "Markop accepted Oracle's blessing, growing to 5x size (Titan Form)",
+                    "Vigilance flying overhead broadcasting compliance anthems",
+                    "Waluigi using ice magic with surprising effectiveness",
+                    "Remi's dog 'Mossy' damaged in combat"
+                ]
+            },
+            {
+                id: 'm8',
                 status: 'locked',
                 title: "The Escape",
                 description: "Find a way out of this nightmare.",
@@ -825,7 +846,8 @@ export const MAIN_QUESTS = {
                 { name: "Dance Hall", status: 'dangerous', notes: "Arcane Wraith territory. Archie hunting here." },
                 { name: "Upper House", status: 'cleared', notes: "Path from Solarium to Ruined Hall." },
                 { name: "Ruined Hall", status: 'current', notes: "Party staging area. Oracle preparing ritual." },
-                { name: "Lower Levels", status: 'dangerous', notes: "Archie's hunting ground. Arcane Wraith's domain." }
+                { name: "Lower Levels", status: 'dangerous', notes: "Archie's hunting ground. Arcane Wraith's domain." },
+                { name: "Silent Grove", status: 'combat', notes: "Battle active. Titan Markop vs Spider." }
             ]
         },
 
@@ -901,7 +923,7 @@ export const MAIN_QUESTS = {
             },
             {
                 id: 'm3',
-                status: 'completed',
+                status: 'completed', 
                 title: "The Extraction",
                 description: "Amidst the chaos of the Shard Stalker battle, Dan rushed a mirror. Despite his injury—despite having only one arm—he reached in and hauled Green T out just as the glass shattered around them.",
                 completedDate: { year: 1040, monthIndex: 6, day: 21 },

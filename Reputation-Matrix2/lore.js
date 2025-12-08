@@ -318,13 +318,7 @@ export const STORY_ARCS = {
 // ARC HELPER FUNCTIONS
 // ============================================
 export function getRumorsByArc(arcId) {
-    return RUMORS
-        .filter(rumor => rumor.arc === arcId)
-        .sort((a, b) => {
-            const dateA = new Date(a.date.year, a.date.monthIndex, a.date.day);
-            const dateB = new Date(b.date.year, b.date.monthIndex, b.date.day);
-            return dateA - dateB;
-        });
+    return LORE_DATA.rumors.filter(rumor => rumor.arc === arcId);
 }
 
 export function getArcProgress(arcId) {

@@ -103,25 +103,31 @@ export const MAJOR_BATTLES = [
         tacticalNotes: "Kremling assassins favor poison-tipped weaponry.",
         participatingCharacters: ['donkey_kong', 'funky_kong']
     },
-    {
+       
+{
         id: 'skirmish_silent_grove',
         name: "Ambush in the Silent Grove",
         conflict: "Raventree Manor Crisis",
         arc: 'raventree_manor',
-        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 0 },
-        location: "Raventree Manor, Hedge Maze",
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 30 },
+        location: "Raventree Manor, Hedge Maze & Grove",
         belligerents: {
             side_a: { name: "Rescue Party", factions: ['liberated_toads'] },
             side_b: { name: "The Web-Weaver", factions: ['unaligned'] }
         },
-        commanders: { side_a: ["Markop", "Remi"], side_b: ["Colossal Spider"] },
+        commanders: { side_a: ["Markop (Titan Form)", "Remi"], side_b: ["Arachnid Matriarch"] },
         outcome: "ongoing",
-        outcomeDetail: "Eager located but trapped in cocoon.",
-        casualties: { side_a: "Waluigi webbed, Eager cocooned", side_b: "Unknown" },
+        outcomeDetail: "Markop transformed to giant size. Vigilance ignored battle. Squad scattered.",
+        casualties: { 
+            side_a: "Remi's Dog damaged, Smoking J poisoned, Toad squad lost in fountain area", 
+            side_b: "Multiple lesser spiders killed" 
+        },
         strategicValue: "critical",
-        description: `<p>A desperate rescue mission turned into a battle against giant arachnids in the dead grove. The party located Eager but found him cocooned and guarded by a massive spider creature.</p>`,
-        tacticalNotes: "Fire is effective against webbing. Spider sensitive to vibrations.",
-        participatingCharacters: ['markop', 'remi', 'waluigi', 'eager']
+        description: `<p>A desperate rescue mission descended into chaos in the web-choked grove. While Remi and her mechanical hound held off the initial assault—resulting in damage to the construct—the Toad squad splintered. 'Smoking J' took a venomous bite while trying to flank, and Salem's unit became disoriented and lost in a pitch-black, flooded fountain district.</p>
+        <p>The tide turned when the Oracle appeared, casting a blinding illumination spell while Waluigi cleared a path with ice magic. In a desperate gamble, Markop accepted a cryptic blessing from the Oracle, instantly growing to colossal proportions (5x size) to grapple with the Arachnid Matriarch on equal footing.</p>
+        <p><strong>The Airship Incident:</strong> Amidst the clash of titans—and Eager blindly firing pepper spray while trapped in his own enlarged form—the hijacked airship 'Vigilance' roared overhead. Blasting Iron Legion propaganda songs, it completely ignored the plight of its former crew, flying straight toward the manor proper.</p>`,
+        tacticalNotes: "The Oracle's blessings grant immense power but likely carry a heavy price. Giant combatants require wide engagement zones.",
+        participatingCharacters: ['markop', 'remi', 'waluigi', 'eager', 'oracle']
     },
     {
         id: 'skirmish_dance_hall',

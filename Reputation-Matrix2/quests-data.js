@@ -44,38 +44,90 @@ export const QUEST_DATA = {
 
 export function getQuestProgress(quest) {
     if (!quest.milestones || quest.milestones.length === 0) return 0;
+    
+    // Count 'completed' milestones
     const completed = quest.milestones.filter(m => m.status === 'completed').length;
+    
+    // Calculate percentage
     return Math.round((completed / quest.milestones.length) * 100);
 }
 
 export function getUrgentQuests() {
+    // Fallback map in case Priority constants are just strings
+    const PRIORITY_MAP = {
+        'CRITICAL': 5,
+        'HIGH': 4,
+        'MEDIUM': 3,
+        'LOW': 2,
+        'TRIVIAL': 1
+    };
+
     return Object.values(QUEST_DATA).filter(q => {
+        // Only look at active/ongoing quests
         if (q.status !== QUEST_STATUS.ACTIVE && q.status !== QUEST_STATUS.ONGOING) return false;
-        if (q.priority && q.priority.level >= 4) return true; 
+
+        // Check Priority Level
+        let pLevel = 0;
+        if (typeof q.priority === 'object' && q.priority !== null) {
+            pLevel = q.priority.level || 0;
+        } else if (typeof q.priority === 'string') {
+            pLevel = PRIORITY_MAP[q.priority.toUpperCase()] || 0;
+        }
+
+        // Return true if Critical/High (Level 4+) OR if it has a deadline
+        if (pLevel >= 4) return true;
         if (q.dates?.deadline) return true;
+
         return false;
-    });
+    }).sort(sortQuestsByPriority); // Return sorted
 }
 
+/**
+ * Returns the number of days remaining until the deadline.
+ * Returns negative numbers if overdue.
+ */
 export function getDaysUntilDeadline(quest) {
     if (!quest.dates?.deadline) return null;
-    const deadline = quest.dates.deadline;
-    const current = CURRENT_GAME_DATE;
-    const deadlineTotal = deadline.year * 365 + deadline.monthIndex * 30 + deadline.day;
-    const currentTotal = current.year * 365 + current.monthIndex * 30 + current.day;
-    return deadlineTotal - currentTotal;
+    
+    const deadlineDays = calculateTotalDays(quest.dates.deadline);
+    const currentDays = calculateTotalDays(CURRENT_GAME_DATE);
+    
+    return deadlineDays - currentDays;
 }
 
-export function isQuestUpdatedRecently(quest, daysThreshold = 3) {
-    const updated = quest.dates?.updated || quest.dates?.added || null;
-    if (!updated) return false;
-    const current = CURRENT_GAME_DATE;
-    const updatedTotal = updated.year * 365 + updated.monthIndex * 30 + updated.day;
-    const currentTotal = current.year * 365 + current.monthIndex * 30 + current.day;
-    return (currentTotal - updatedTotal) <= daysThreshold;
+
+function calculateTotalDays(dateObj) {
+    if (!dateObj) return 0;
+    // fallback to 0 if properties missing
+    const y = dateObj.year || 0;
+    const m = dateObj.monthIndex || 0;
+    const d = dateObj.day || 0;
+    return (y * 365) + (m * 30) + d;
+}
+
+export function isQuestUpdatedRecently(quest, daysThreshold = 1) {
+    const updatedDate = quest.dates?.updated || quest.dates?.added;
+    if (!updatedDate) return false;
+
+    const updatedDays = calculateTotalDays(updatedDate);
+    const currentDays = calculateTotalDays(CURRENT_GAME_DATE);
+
+    return (currentDays - updatedDays) <= daysThreshold;
 }
 
 export function getQuestsByArc(arcId) {
     return Object.values(QUEST_DATA).filter(q => q.arcId === arcId);
 }
-        
+export function sortQuestsByPriority(a, b) {
+    const getLevel = (q) => {
+        if (typeof q.priority === 'object') return q.priority.level || 0;
+        // Fallback for string matching
+        const str = String(q.priority).toUpperCase();
+        if (str.includes('CRITICAL')) return 5;
+        if (str.includes('HIGH')) return 4;
+        if (str.includes('MEDIUM')) return 3;
+        return 1;
+    };
+
+    return getLevel(b) - getLevel(a);
+}

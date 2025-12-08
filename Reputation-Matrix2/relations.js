@@ -417,16 +417,32 @@ function displayRelationsFor(entityId, entityType) {
 
     const relations = { positive: [], negative: [], complicated: [], neutral: [] };
 
+    // Helper to extract clean text or return null if empty
+    const extractOpinionText = (text) => {
+        if (!text) return null;
+        // If it contains a colon (e.g. "Archie: He is cool"), take the part after.
+        // Otherwise, assume the whole string is the quote.
+        let clean = text.includes(':') 
+            ? text.split(':').slice(1).join(':').trim() 
+            : text.trim();
+        
+        // If the split resulted in empty string (or was empty to start), return null
+        return clean.length > 0 ? clean : null;
+    };
+
     // 1. Gather opinions BY the selected entity
     if (CHARACTER_RELATIONS[entityId]) {
         Object.entries(CHARACTER_RELATIONS[entityId]).forEach(([targetKey, relation]) => {
             const target = LORE_DATA.characters[targetKey] || LORE_DATA.auxiliary_party[targetKey] || LORE_DATA.factions[targetKey];
-            if (target) {
+            const opinionText = extractOpinionText(relation.text);
+
+            // Only proceed if target exists AND we extracted valid text
+            if (target && opinionText) {
                 const category = getRelationClass(relation.type);
                 relations[category].push({
                     targetName: target.name,
                     targetImage: target.portrait || target.logo || 'portraits/unknown.png',
-                    quote: `"${relation.text.split(':').slice(1).join(':').trim()}"`,
+                    quote: `"${opinionText}"`,
                     type: relation.type,
                     direction: 'by'
                 });
@@ -439,12 +455,15 @@ function displayRelationsFor(entityId, entityType) {
         if (sourceRelations[entityId]) {
             const relation = sourceRelations[entityId];
             const source = LORE_DATA.characters[sourceKey] || LORE_DATA.auxiliary_party[sourceKey] || LORE_DATA.factions[sourceKey];
-            if (source) {
+            const opinionText = extractOpinionText(relation.text);
+
+            // Only proceed if source exists AND we extracted valid text
+            if (source && opinionText) {
                 const category = getRelationClass(relation.type);
                 relations[category].push({
                     targetName: source.name,
                     targetImage: source.portrait || source.logo || 'portraits/unknown.png',
-                    quote: `"${relation.text.split(':').slice(1).join(':').trim()}"`,
+                    quote: `"${opinionText}"`,
                     type: relation.type,
                     direction: 'of'
                 });
@@ -481,6 +500,12 @@ function displayRelationsFor(entityId, entityType) {
         ${createListHTML(relations.complicated, 'Rivalries & Distrust')}
         ${createListHTML(relations.neutral, 'Neutral & Transactional')}
     `;
+    
+    // If no relations found at all
+    if (Object.values(relations).every(arr => arr.length === 0)) {
+         container.innerHTML += `<div class="panel-section"><p>No recorded relationships found.</p></div>`;
+    }
+
     container.style.display = 'block';
     if(window.innerWidth > 768) { // Only smooth scroll on larger screens
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
+import { LORE_DATA } from './lore.js';
 import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
 import { NPC_RESPONSES } from './npc-responses.js';
@@ -548,15 +548,7 @@ function handleNewReply(inputElement) {
         triggerNpcInteraction(post, text, state.loggedInUser);
     }
 }
-function showWaluigiWarning() {
-    if (!waluigiWarningModal) return;
-    playSound('wah.mp3');
-    const textElement = document.getElementById('waluigi-warning-text');
-    if(textElement) {
-        textElement.textContent = "WAH! HEY! YOU! Three-eyes! A little birdy told me you've been playing with magic. Very stylish! But the boring killjoys at the Mages' Guild have rules... something called the 'Autumnwood Accords'. Apparently, unsanctioned magic is a big no-no in their territory. They're watching you. Don't get caught! Or if you do, make it spectacular! WAH-HA-HA!";
-    }
-    waluigiWarningModal.style.display = 'flex';
-}
+
 function setupEventListeners() {
     tabsContainer.addEventListener('click', (e) => {
         const tab = e.target.closest('.tab-btn');
@@ -718,7 +710,6 @@ async function init() {
     if (!feedContainer) return;
     if (state.loggedInUser === 'archie' && !state.userState.waluigiWarningShown) {
         setTimeout(() => {
-            showWaluigiWarning();
             state.userState.waluigiWarningShown = true;
             saveState();
         }, 1500);

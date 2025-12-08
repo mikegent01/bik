@@ -28,9 +28,9 @@ function checkForNewPosts() {
 // ✅ NEW FUNCTION: Fetches the local JSON file
 async function getPageUpdates() {
     try {
-        // Fetch the file we generated with the node script
-        // We add a timestamp query (?t=...) to prevent the browser from caching the JSON file itself
-        const response = await fetch(`site-updates.json?t=${Date.now()}`);
+        // CHANGED: Removed "Reputation-Matrix2/" from the path
+        // Since index.html and the json file are in the same folder
+        const response = await fetch(`./site-updates.json?t=${Date.now()}`);
         
         if (!response.ok) {
             console.warn('⚠️ Could not find site-updates.json');
@@ -45,7 +45,6 @@ async function getPageUpdates() {
         return {};
     }
 }
-
 function markPageAsVisited() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const lastVisits = JSON.parse(localStorage.getItem('pageLastVisits') || '{}');
@@ -53,34 +52,37 @@ function markPageAsVisited() {
     lastVisits[currentPage] = now;
     localStorage.setItem('pageLastVisits', JSON.stringify(lastVisits));
 }
-
 async function markUpdatedPages(sidebar) {
     const links = sidebar.querySelectorAll('a.nav-button');
-    
-    // ✅ FIXED: Calling the NEW function name
     const pageUpdates = await getPageUpdates();
-    
-    const lastVisits = JSON.parse(localStorage.getItem('pageLastVisits') || '{}');
-    
+
+    // 1. Get all dates from the file
+    const allDates = Object.values(pageUpdates).map(d => new Date(d).getTime());
+
+    // 2. Find the absolute latest update time across the whole site
+    if (allDates.length === 0) return;
+    const latestUpdateTimestamp = Math.max(...allDates);
+
+    // 3. Set the "Recent" window (5 hours in milliseconds)
+    // 5 hours * 60 mins * 60 secs * 1000 ms
+    const RECENT_WINDOW = 5 * 60 * 60 * 1000; 
+    const cutoffTime = latestUpdateTimestamp - RECENT_WINDOW;
+
     let updatedCount = 0;
 
     links.forEach(link => {
         const href = link.getAttribute('href');
-        const pageUpdateTime = pageUpdates[href];
-        const lastVisit = lastVisits[href];
+        const pageUpdateTimeString = pageUpdates[href];
 
-        if (pageUpdateTime) {
-            const updateDate = new Date(pageUpdateTime);
-            const visitDate = lastVisit ? new Date(lastVisit) : null;
-            
-            // Show badge if never visited OR updated after last visit
-            const isNew = !lastVisit || updateDate > visitDate;
+        if (pageUpdateTimeString) {
+            const pageTime = new Date(pageUpdateTimeString).getTime();
 
-            if (isNew) {
+            // 4. Compare: Is this page's update time newer than the cutoff?
+            if (pageTime > cutoffTime) {
                 if (!link.querySelector('.nav-badge.updated')) {
                     const badge = document.createElement('span');
                     badge.className = 'nav-badge updated pulse';
-                    badge.textContent = 'UPDATED';
+                    badge.textContent = 'NEW'; // Changed text to NEW since it's fresh
                     badge.style.marginLeft = 'auto';
                     badge.style.backgroundColor = 'var(--accent-color)';
                     link.appendChild(badge);
@@ -89,7 +91,8 @@ async function markUpdatedPages(sidebar) {
             }
         }
     });
-    console.log(`🏷️ Added ${updatedCount} "UPDATED" badges`);
+
+    console.log(`🏷️ Found ${updatedCount} pages updated in the last 5 hours relative to the latest post.`);
 }
 
 async function initializeSidebar() {
