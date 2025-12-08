@@ -205,8 +205,8 @@ const RAKASHA_DATA = {
                 },
                 {
                     title: 'Current Status',
-                    content: `Dan sustained critical injuries during the Restaurant Raid on Day 14. The party descended into lava-filled sewers seeking a cure, only to be led into a trap. His current condition: recovering with Rakasha healers in a hidden sanctuary.`,
-                    redacted_content: `Dan sustained critical injuries during the Restaurant Raid on Day 14. The party descended into lava-filled sewers seeking a cure, only to be led into a trap. His current condition and location are <span class="intel-redacted" data-reveal="recovering with Rakasha healers in a hidden sanctuary">███████████████████████████████████████████</span>.`,
+                    content: `Dan survived the toxin from the Restaurant Raid on Day 14, but suffered a catastrophic injury on Day 20. In a desperate attempt to defend the Vigilance crew, he tried to wield X.O.'s Cursed Staff, resulting in a magical detonation that severed his right arm. He is currently commanding the survivors in the Ruined Hall of Raventree Manor.`,
+                    redacted_content: `Dan survived the toxin from the Restaurant Raid on Day 14, but suffered a catastrophic injury on Day 20. In a desperate attempt to defend the Vigilance crew, he tried to wield <span class="intel-redacted" data-reveal="X.O.'s Cursed Staff">█████████████████</span>, resulting in a magical detonation that <span class="intel-redacted" data-reveal="severed his right arm">███████████████████</span>. He is currently commanding the survivors in the <span class="intel-redacted" data-reveal="Ruined Hall of Raventree Manor">████████████████████████████</span>.`,
                     min_intel: 65
                 }
             ]
