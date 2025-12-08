@@ -2,516 +2,869 @@ import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
 import { state } from './state.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 
-// --- Detail Panel Logic (for Graph) ---
-const appContainer = document.getElementById('app');
-const detailPanel = document.getElementById('detail-panel');
-const detailPanelContent = document.getElementById('detail-panel-content');
-const detailPanelClose = document.getElementById('detail-panel-close');
-let selectedNode = null;
+// ============================================
+// RELATIONSHIP MANAGER - Central Data Handler
+// ============================================
 
-function getIntelForFaction(factionKey) {
-    if (!state.intelLevels || !factionKey) return 0;
-    const loggedInUser = state.loggedInUser || 'generic';
-    const userIntel = state.intelLevels[loggedInUser] || state.intelLevels.generic;
-    if (!userIntel) return 0;
-    const defaultIntel = userIntel.default ?? (state.intelLevels.generic ? state.intelLevels.generic[factionKey] : 0) ?? 0;
-    return userIntel[factionKey] ?? defaultIntel;
-}
-
-function hideDetailPanel() {
-    detailPanel.classList.remove('visible');
-    appContainer.classList.remove('panel-visible');
-    if (selectedNode) {
-        d3.select(selectedNode).classed('selected', false);
-        selectedNode = null;
-    }
-}
-
-function showDetailPanel(data, nodeElement) {
-    if (selectedNode) {
-        d3.select(selectedNode).classed('selected', false);
-    }
-    selectedNode = nodeElement;
-    d3.select(selectedNode).classed('selected', true);
-
-    let contentHTML = '';
-
-    if (data.type === 'faction') {
-        const faction = LORE_DATA.factions[data.id];
-        let alliesHTML = faction.relations?.allies?.map(key => LORE_DATA.factions[key] ? `<li class="ally">${LORE_DATA.factions[key].name}</li>` : '').join('') || '<li>None</li>';
-        let enemiesHTML = faction.relations?.enemies?.map(key => LORE_DATA.factions[key] ? `<li class="enemy">${LORE_DATA.factions[key].name}</li>` : '').join('') || '<li>None</li>';
-
-        contentHTML = `
-            <div class="panel-header">
-                <img src="${faction.logo}" alt="${faction.name} Logo">
-                <h3>${faction.name}</h3>
-            </div>
-            <div class="panel-section">
-                <p>${faction.description}</p>
-            </div>
-            <div class="panel-section">
-                <h4>Allies</h4>
-                <ul>${alliesHTML}</ul>
-            </div>
-            <div class="panel-section">
-                <h4>Enemies</h4>
-                <ul>${enemiesHTML}</ul>
-            </div>
-        `;
-    } else { // Character or Party
-        const character = LORE_DATA.characters[data.id];
-        let opinionsByHTML = '';
-        if (CHARACTER_RELATIONS[data.id]) {
-            opinionsByHTML = Object.entries(CHARACTER_RELATIONS[data.id]).map(([targetKey, relation]) => {
-                const targetChar = LORE_DATA.characters[targetKey];
-                if (!targetChar) return '';
-                const opinionText = relation.text.split(':').slice(1).join(':').trim();
-                return `<div class="opinion-quote"><strong>On ${targetChar.name}:</strong><p>"${opinionText}"</p></div>`;
-            }).join('');
-        }
-        let opinionsOfHTML = '';
-        Object.entries(CHARACTER_RELATIONS).forEach(([sourceKey, relations]) => {
-            if (relations[data.id]) {
-                const sourceChar = LORE_DATA.characters[sourceKey];
-                const opinionText = relations[data.id].text.split(':').slice(1).join(':').trim();
-                opinionsOfHTML += `<div class="opinion-quote"><strong>${sourceChar.name}:</strong><p>"${opinionText}"</p></div>`;
-            }
-        });
-
-        contentHTML = `
-            <div class="panel-header">
-                <h3>${character.name}</h3>
-            </div>
-            <div class="panel-section">
-                 <p>${data.role}</p>
-            </div>
-            <div class="panel-section">
-                <h4>Dossier: Personal Opinions</h4>
-                ${opinionsByHTML || opinionsOfHTML ? '' : '<p>No specific recorded opinions.</p>'}
-                ${opinionsByHTML}
-                ${opinionsOfHTML}
-            </div>
-        `;
+class RelationshipManager {
+    constructor() {
+        this.entities = new Map();
+        this.relationships = [];
+        this.initialized = false;
     }
 
-    detailPanelContent.innerHTML = contentHTML;
-    detailPanel.classList.add('visible');
-    appContainer.classList.add('panel-visible');
-}
+    init() {
+        if (this.initialized) return;
+        this.processEntities();
+        this.processRelationships();
+        this.initialized = true;
+    }
 
-if(detailPanelClose) detailPanelClose.addEventListener('click', hideDetailPanel);
-
-// --- D3 Force-Directed Graph ---
-
-let masterNodes = [];
-let masterLinks = [];
-let svg, graphGroup, tooltip, simulation;
-
-function processGraphData() {
-    const allFactions = LORE_DATA.factions;
-    const allCharacters = LORE_DATA.characters;
-    const isDebug = state.debugMode;
-
-    const knownFactionKeys = new Set(Object.keys(LORE_DATA.factions).filter(key => isDebug || getIntelForFaction(key) > 0));
-
-    const nodes = [];
-    const links = [];
-    const characterNodeIds = new Set();
-    
-    // Process Factions
-    knownFactionKeys.forEach(key => {
-        const faction = allFactions[key];
-        nodes.push({ id: key, type: 'faction', name: faction.name, category: faction.category, power: faction.power_level, logo: faction.logo });
-    });
-
-    // Process Characters (Leaders & Party)
-    Object.keys(allCharacters).forEach(key => {
-        const char = allCharacters[key];
-        const isParty = char.isParty;
-        const leaderFactionKey = Object.keys(allFactions).find(fKey => allFactions[fKey].leader === key || allFactions[fKey].notable_people?.some(p => p.name === char.name));
-
-        if (isParty || (leaderFactionKey && knownFactionKeys.has(leaderFactionKey))) {
-            nodes.push({ id: key, type: isParty ? 'party' : 'leader', name: char.name, role: char.role || (isParty ? "Main Party" : "Key Figure") });
-            characterNodeIds.add(key);
-        }
-    });
-
-    const knownNodeIds = new Set(nodes.map(n => n.id));
-
-    // Process Links
-    knownFactionKeys.forEach(sourceKey => {
-        const faction = allFactions[sourceKey];
-        if (faction.relations?.allies) {
-            faction.relations.allies.forEach(targetKey => { if (knownFactionKeys.has(targetKey)) links.push({ source: sourceKey, target: targetKey, type: 'ally' }); });
-        }
-        if (faction.relations?.enemies) {
-            faction.relations.enemies.forEach(targetKey => { if (knownFactionKeys.has(targetKey)) links.push({ source: sourceKey, target: targetKey, type: 'enemy' }); });
-        }
-    });
-
-    // Add tethers for known leaders to their known factions
-    nodes.forEach(node => {
-        if (node.type === 'leader') {
-            const leaderFactionKey = Object.keys(allFactions).find(fKey => allFactions[fKey].leader === node.id || allFactions[fKey].notable_people?.some(p => p.name === node.name));
-            if (leaderFactionKey && knownNodeIds.has(leaderFactionKey)) {
-                links.push({ source: node.id, target: leaderFactionKey, type: 'tether' });
-            }
-        }
-    });
-
-    Object.keys(CHARACTER_RELATIONS).forEach(sourceKey => {
-        Object.keys(CHARACTER_RELATIONS[sourceKey]).forEach(targetKey => {
-            if (knownNodeIds.has(sourceKey) && knownNodeIds.has(targetKey)) {
-                const relation = CHARACTER_RELATIONS[sourceKey][targetKey];
-                links.push({ source: sourceKey, target: targetKey, type: relation.type, text: relation.text });
-            }
-        });
-    });
-
-    masterNodes = nodes;
-    masterLinks = links;
-}
-
-function setupGraphCanvas(container) {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    svg = d3.select(container)
-        .append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr("viewBox", [0, 0, width, height]);
-
-    svg.on('click', (event) => {
-        if (event.target === svg.node()) {
-            hideDetailPanel();
-        }
-    });
-
-    graphGroup = svg.append("g");
-    tooltip = d3.select(container).append("div").attr("class", "graph-tooltip");
-
-    simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(d => d.id).distance(d => {
-            if (d.type === 'tether') return 60;
-            if (d.type === 'ally') return 120;
-            return 180;
-        }).strength(d => d.type === 'tether' ? 0.2 : 0.1))
-        .force("charge", d3.forceManyBody().strength(d => d.type === 'faction' ? -400 : -100))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("x", d3.forceX(width / 2).strength(0.04)) // A gentle pull to the horizontal center
-        .force("y", d3.forceY(height / 2).strength(0.04)) // A gentle pull to the vertical center
-        .force("collide", d3.forceCollide().radius(d => (d.type === 'faction' ? 10 + d.power * 2.5 : d.type === 'party' ? 15 : 12) + 5));
-    
-    const zoom = d3.zoom().scaleExtent([0.1, 4]).on('zoom', (event) => {
-        graphGroup.attr('transform', event.transform);
-    });
-    svg.call(zoom);
-}
-
-function updateGraphVisualization(nodes, links) {
-    graphGroup.selectAll("*").remove();
-    const loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
-
-    simulation.nodes(nodes);
-    simulation.force("link").links(links);
-    
-    const link = graphGroup.append("g")
-        .selectAll("line").data(links).join("line").attr("class", d => `link ${d.type}`);
-
-    const node = graphGroup.append("g")
-        .selectAll("g").data(nodes).join("g").attr("class", d => `node ${d.type}`);
-
-    node.append("circle")
-        .attr("r", d => d.type === 'faction' ? 10 + d.power * 2.5 : d.type === 'party' ? 14 : 10)
-        .style("fill", d => d.type === 'faction' ? (FACTION_COLORS[d.id] || "var(--text-secondary)") : "var(--sidebar-bg)")
-        .classed("logged-in-player", d => d.id === loggedInUser);
-
-    node.filter(d => d.type === 'faction').append("image")
-        .attr("xlink:href", d => d.logo)
-        .attr("x", d => -(10 + d.power * 2.5) * 0.7).attr("y", d => -(10 + d.power * 2.5) * 0.7)
-        .attr("width", d => (10 + d.power * 2.5) * 1.4).attr("height", d => (10 + d.power * 2.5) * 1.4);
+    getIntelLevel(factionKey) {
+        if (state.debugMode) return 10;
+        if (!state.intelLevels || !factionKey) return 0;
         
-    node.filter(d => d.type !== 'faction').append("text")
-        .text(d => d.name).attr("dy", d => d.type === 'party' ? "26px" : "22px");
-
-    simulation.on("tick", () => {
-        link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-        node.attr("transform", d => `translate(${d.x},${d.y})`);
-    });
-
-    const linkedByIndex = {};
-    links.forEach(d => { 
-        linkedByIndex[`${d.source.id || d.source},${d.target.id || d.target}`] = 1; 
-    });
-    function isConnected(a, b) { return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id; }
-
-    node.on("mouseover", function (event, d) {
-        if (detailPanel.classList.contains('visible')) return;
-        tooltip.html(`<h4>${d.name}</h4><p><strong>Role:</strong> ${d.role || d.category}</p>`).style("opacity", .9);
-        node.style("opacity", o => isConnected(d, o) ? 1 : 0.2);
-        link.style("stroke-opacity", o => (o.source === d || o.target === d || o.source.id === d.id || o.target.id === d.id) ? 1 : 0.1);
-    })
-    .on("mousemove", (event) => {
-        const containerRect = event.currentTarget.closest('#relations-graph-container').getBoundingClientRect();
-        tooltip.style("left", (event.clientX - containerRect.left + 15) + "px")
-               .style("top", (event.clientY - containerRect.top - 28) + "px");
-    })
-    .on("mouseout", function () {
-        tooltip.style("opacity", 0);
-        node.style("opacity", 1);
-        link.style("stroke-opacity", d => d.type === 'tether' ? 0.4 : 0.6);
-    })
-    .on('click', function(event, d) {
-        event.stopPropagation();
-        showDetailPanel(d, this);
-    });
-
-    link.on('mouseover', function(event, d) { if(d.text) tooltip.html(`<p>${d.text}</p>`).style("opacity", .9); })
-    .on("mousemove", (event) => { 
-        const containerRect = event.currentTarget.closest('#relations-graph-container').getBoundingClientRect();
-        tooltip.style("left", (event.clientX - containerRect.left + 15) + "px")
-               .style("top", (event.clientY - containerRect.top - 28) + "px");
-    })
-    .on('mouseout', function() { tooltip.style("opacity", 0); });
-
-    node.call(d3.drag()
-        .on("start", (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-        .on("drag", (event, d) => { d.fx = event.x; d.fy = event.y; })
-        .on("end", (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
-    
-    simulation.alpha(1).restart();
-}
-
-function filterAndRedraw(filter) {
-    let filteredNodes;
-    const nodeIds = new Set();
-    const partyIds = new Set(masterNodes.filter(n => n.type === 'party').map(n => n.id));
-
-    switch (filter) {
-        case 'party_factions':
-            filteredNodes = masterNodes.filter(n => n.type === 'party' || n.type === 'faction');
-            break;
-        case 'party_leaders':
-            filteredNodes = masterNodes.filter(n => n.type === 'party' || n.type === 'leader');
-            break;
-        case 'major_powers':
-            filteredNodes = masterNodes.filter(n => partyIds.has(n.id) || (n.type === 'faction' && n.category === 'Major Powers') || (n.type === 'leader' && masterLinks.some(l => l.source === n.id && masterNodes.find(t => t.id === l.target)?.category === 'Major Powers')));
-            break;
-        case 'underworld':
-            filteredNodes = masterNodes.filter(n => partyIds.has(n.id) || (n.type === 'faction' && n.category === 'Underworld & Fringe') || (n.type === 'leader' && masterLinks.some(l => l.source === n.id && masterNodes.find(t => t.id === l.target)?.category === 'Underworld & Fringe')));
-            break;
-        case 'all':
-        default:
-            filteredNodes = [...masterNodes];
-            break;
+        const user = state.loggedInUser || 'generic';
+        const userIntel = state.intelLevels[user] || state.intelLevels.generic || {};
+        return userIntel[factionKey] ?? userIntel.default ?? 0;
     }
 
-    filteredNodes.forEach(n => nodeIds.add(n.id));
-    const filteredLinks = masterLinks.filter(l => nodeIds.has(l.source.id || l.source) && nodeIds.has(l.target.id || l.target));
-
-    updateGraphVisualization(filteredNodes, filteredLinks);
-}
-
-function setupFilterControls() {
-    const controlButtons = document.querySelectorAll('#graph-controls .control-button');
-    controlButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            controlButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const filter = button.dataset.filter;
-            filterAndRedraw(filter);
+    processEntities() {
+        // Process Factions
+        Object.entries(LORE_DATA.factions || {}).forEach(([key, faction]) => {
+            if (this.getIntelLevel(key) > 0) {
+                this.entities.set(key, {
+                    id: key,
+                    type: 'faction',
+                    name: faction.name,
+                    category: faction.category || 'Unknown',
+                    power: faction.power_level || 3,
+                    image: faction.logo || 'images/factions/default.png',
+                    description: faction.description,
+                    factionRelations: faction.relations || {}
+                });
+            }
         });
-    });
-}
 
+        // Process Main Characters
+        Object.entries(LORE_DATA.characters || {}).forEach(([key, char]) => {
+            const faction = this.findCharacterFaction(key, char.name);
+            const isParty = char.isParty;
+            
+            // Include if party member, or if their faction is known
+            if (isParty || (faction && this.entities.has(faction))) {
+                this.entities.set(key, {
+                    id: key,
+                    type: isParty ? 'party' : 'character',
+                    name: char.name,
+                    role: char.role || (isParty ? 'Party Member' : 'Notable Figure'),
+                    image: char.portrait || 'portraits/unknown.png',
+                    faction: faction,
+                    isParty: isParty
+                });
+            }
+        });
 
-function initializeGraph() {
-    const container = document.getElementById('relations-graph-container');
-    if (!container) return;
-    
-    processGraphData();
-    setupGraphCanvas(container);
-    updateGraphVisualization(masterNodes, masterLinks); // Initial draw with all data
-    setupFilterControls();
-}
-
-
-// --- NEW: Individual Dossier Matrix Logic ---
-
-/**
- * Converts a detailed relationship type into a simple CSS class.
- * @param {string} type - The relationship type (e.g., 'ally', 'rivalry').
- * @returns {string} 'positive', 'negative', 'complicated', or 'neutral'.
- */
-function getRelationClass(type) {
-    switch (type) {
-        case 'ally': case 'loyalty': return 'positive';
-        case 'enemy': return 'negative';
-        case 'rivalry': case 'distrust': case 'volatile': return 'complicated';
-        default: return 'neutral';
+        // Process Auxiliary Party Members
+        Object.entries(LORE_DATA.auxiliary_party || {}).forEach(([key, char]) => {
+            this.entities.set(key, {
+                id: key,
+                type: 'auxiliary',
+                name: char.name,
+                role: char.role || 'Ally',
+                image: char.portrait || 'portraits/unknown.png',
+                isParty: true
+            });
+        });
     }
-}
 
-/**
- * Creates the grid of buttons to select a character or faction.
- */
-function createRelationsSelector() {
-    const container = document.getElementById('relations-selector-grid');
-    if (!container) return;
-
-    const entities = new Map();
-
-    // Add factions that have relationships
-    Object.keys(LORE_DATA.factions).forEach(key => {
-        const faction = LORE_DATA.factions[key];
-        if (getIntelForFaction(key) > 0 && faction.relations && (faction.relations.allies?.length > 0 || faction.relations.enemies?.length > 0)) {
-            entities.set(key, { id: key, name: faction.name, image: faction.logo, type: 'faction' });
+    findCharacterFaction(charKey, charName) {
+        for (const [factionKey, faction] of Object.entries(LORE_DATA.factions || {})) {
+            if (faction.leader === charKey) return factionKey;
+            if (faction.notable_people?.some(p => p.key === charKey || p.name === charName)) {
+                return factionKey;
+            }
         }
-    });
+        return null;
+    }
 
-    // Add characters who have opinions
-    Object.keys(CHARACTER_RELATIONS).forEach(key => {
-        const character = LORE_DATA.characters[key] || LORE_DATA.auxiliary_party[key];
-        if (character) {
-            entities.set(key, { id: key, name: character.name, image: character.portrait || 'portraits/unknown.png', type: 'character' });
-        }
-    });
+    processRelationships() {
+        const addedPairs = new Set();
 
-    // Sort entities alphabetically by name
-    const sortedEntities = Array.from(entities.values()).sort((a, b) => a.name.localeCompare(b.name));
+        // Faction-to-Faction relationships
+        this.entities.forEach((entity, key) => {
+            if (entity.type !== 'faction') return;
 
-    const buttonsHTML = sortedEntities.map(entity => `
-        <button class="relation-selector-btn" data-id="${entity.id}" data-type="${entity.type}">
-            <img src="${entity.image}" alt="${entity.name}">
-            <span>${entity.name}</span>
-        </button>
-    `).join('');
+            const addFactionLink = (targetKey, type, category) => {
+                if (!this.entities.has(targetKey)) return;
+                const pairKey = [key, targetKey].sort().join('|');
+                if (addedPairs.has(pairKey)) return;
+                addedPairs.add(pairKey);
+                
+                this.relationships.push({
+                    source: key,
+                    target: targetKey,
+                    type,
+                    category,
+                    bidirectional: true
+                });
+            };
 
-    container.innerHTML = buttonsHTML;
-
-    // Add event listeners
-    container.querySelectorAll('.relation-selector-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            container.querySelectorAll('.relation-selector-btn').forEach(btn => btn.classList.remove('active'));
-            e.currentTarget.classList.add('active');
-            const { id, type } = e.currentTarget.dataset;
-            displayRelationsFor(id, type);
+            entity.factionRelations.allies?.forEach(t => addFactionLink(t, 'ally', 'positive'));
+            entity.factionRelations.enemies?.forEach(t => addFactionLink(t, 'enemy', 'negative'));
         });
-    });
-}
 
-/**
- * Displays the detailed relationship panel for the selected entity.
- * @param {string} entityId - The key of the character or faction.
- * @param {string} entityType - 'character' or 'faction'.
- */
-function displayRelationsFor(entityId, entityType) {
-    const container = document.getElementById('relations-detail-view');
-    if (!container) return;
+        // Character-to-Character relationships
+        Object.entries(CHARACTER_RELATIONS || {}).forEach(([sourceKey, relations]) => {
+            if (!this.entities.has(sourceKey)) return;
 
-    const mainEntity = entityType === 'faction'
-        ? LORE_DATA.factions[entityId]
-        : (LORE_DATA.characters[entityId] || LORE_DATA.auxiliary_party[entityId]);
+            Object.entries(relations).forEach(([targetKey, rel]) => {
+                if (!this.entities.has(targetKey)) return;
 
-    const relations = { positive: [], negative: [], complicated: [], neutral: [] };
+                this.relationships.push({
+                    source: sourceKey,
+                    target: targetKey,
+                    type: rel.type,
+                    category: this.categorize(rel.type),
+                    text: rel.text,
+                    bidirectional: false
+                });
+            });
+        });
 
-    // Helper to extract clean text or return null if empty
-    const extractOpinionText = (text) => {
+        // Character-to-Faction tethers
+        this.entities.forEach((entity, key) => {
+            if (entity.faction && this.entities.has(entity.faction)) {
+                this.relationships.push({
+                    source: key,
+                    target: entity.faction,
+                    type: 'member',
+                    category: 'tether',
+                    bidirectional: false
+                });
+            }
+        });
+    }
+
+    categorize(type) {
+        const map = {
+            ally: 'positive', loyalty: 'positive', friendship: 'positive', trust: 'positive',
+            enemy: 'negative', hostile: 'negative', hatred: 'negative',
+            rivalry: 'complicated', distrust: 'complicated', volatile: 'complicated', 
+            suspicious: 'complicated', tension: 'complicated',
+            neutral: 'neutral', transactional: 'neutral', professional: 'neutral'
+        };
+        return map[type?.toLowerCase()] || 'neutral';
+    }
+
+    extractQuote(text) {
         if (!text) return null;
-        // If it contains a colon (e.g. "Archie: He is cool"), take the part after.
-        // Otherwise, assume the whole string is the quote.
-        let clean = text.includes(':') 
-            ? text.split(':').slice(1).join(':').trim() 
-            : text.trim();
+        const parts = text.split(':');
+        const quote = parts.length > 1 ? parts.slice(1).join(':').trim() : text.trim();
+        return quote.length > 0 ? quote : null;
+    }
+
+    // --- PUBLIC API ---
+
+    getEntity(id) {
+        return this.entities.get(id);
+    }
+
+    getAllEntities(filter = null) {
+        let results = Array.from(this.entities.values());
         
-        // If the split resulted in empty string (or was empty to start), return null
-        return clean.length > 0 ? clean : null;
-    };
+        if (filter) {
+            results = results.filter(e => {
+                switch (filter) {
+                    case 'faction': return e.type === 'faction';
+                    case 'party': return e.isParty;
+                    case 'character': return e.type === 'character' || e.type === 'party' || e.type === 'auxiliary';
+                    default: return true;
+                }
+            });
+        }
+        
+        return results.sort((a, b) => a.name.localeCompare(b.name));
+    }
 
-    // 1. Gather opinions BY the selected entity
-    if (CHARACTER_RELATIONS[entityId]) {
-        Object.entries(CHARACTER_RELATIONS[entityId]).forEach(([targetKey, relation]) => {
-            const target = LORE_DATA.characters[targetKey] || LORE_DATA.auxiliary_party[targetKey] || LORE_DATA.factions[targetKey];
-            const opinionText = extractOpinionText(relation.text);
-
-            // Only proceed if target exists AND we extracted valid text
-            if (target && opinionText) {
-                const category = getRelationClass(relation.type);
-                relations[category].push({
-                    targetName: target.name,
-                    targetImage: target.portrait || target.logo || 'portraits/unknown.png',
-                    quote: `"${opinionText}"`,
-                    type: relation.type,
-                    direction: 'by'
-                });
+    getEntitiesWithRelationships() {
+        const hasRelations = new Set();
+        
+        this.relationships.forEach(r => {
+            if (r.text) {
+                hasRelations.add(r.source);
+                hasRelations.add(r.target);
             }
+        });
+
+        // Add factions with allies/enemies
+        this.entities.forEach((e, key) => {
+            if (e.type === 'faction' && e.factionRelations) {
+                if (e.factionRelations.allies?.length || e.factionRelations.enemies?.length) {
+                    hasRelations.add(key);
+                }
+            }
+        });
+
+        return this.getAllEntities().filter(e => hasRelations.has(e.id));
+    }
+
+    getRelationshipsFor(entityId) {
+        const result = {
+            positive: [],
+            negative: [],
+            complicated: [],
+            neutral: []
+        };
+
+        // Outgoing (opinions BY this entity)
+        this.relationships
+            .filter(r => r.source === entityId && r.text)
+            .forEach(r => {
+                const target = this.entities.get(r.target);
+                const quote = this.extractQuote(r.text);
+                if (target && quote) {
+                    result[r.category].push({
+                        entity: target,
+                        type: r.type,
+                        quote,
+                        direction: 'outgoing'
+                    });
+                }
+            });
+
+        // Incoming (opinions OF this entity)
+        this.relationships
+            .filter(r => r.target === entityId && r.text)
+            .forEach(r => {
+                const source = this.entities.get(r.source);
+                const quote = this.extractQuote(r.text);
+                if (source && quote) {
+                    result[r.category].push({
+                        entity: source,
+                        type: r.type,
+                        quote,
+                        direction: 'incoming'
+                    });
+                }
+            });
+
+        // For factions, also include allies/enemies
+        const entity = this.entities.get(entityId);
+        if (entity?.type === 'faction' && entity.factionRelations) {
+            entity.factionRelations.allies?.forEach(targetKey => {
+                const target = this.entities.get(targetKey);
+                if (target) {
+                    result.positive.push({
+                        entity: target,
+                        type: 'ally',
+                        quote: `Allied faction`,
+                        direction: 'mutual'
+                    });
+                }
+            });
+            entity.factionRelations.enemies?.forEach(targetKey => {
+                const target = this.entities.get(targetKey);
+                if (target) {
+                    result.negative.push({
+                        entity: target,
+                        type: 'enemy',
+                        quote: `Hostile faction`,
+                        direction: 'mutual'
+                    });
+                }
+            });
+        }
+
+        return result;
+    }
+
+    getGraphData(filter = 'all') {
+        let nodes = Array.from(this.entities.values());
+        const partyIds = new Set(nodes.filter(n => n.isParty).map(n => n.id));
+
+        switch (filter) {
+            case 'factions':
+                nodes = nodes.filter(n => n.type === 'faction' || n.isParty);
+                break;
+            case 'characters':
+                nodes = nodes.filter(n => n.type !== 'faction');
+                break;
+            case 'party':
+                nodes = nodes.filter(n => n.isParty);
+                break;
+            case 'major':
+                nodes = nodes.filter(n => 
+                    n.isParty || n.category === 'Major Powers' ||
+                    (n.faction && this.entities.get(n.faction)?.category === 'Major Powers')
+                );
+                break;
+            case 'underworld':
+                nodes = nodes.filter(n => 
+                    n.isParty || n.category === 'Underworld & Fringe' ||
+                    (n.faction && this.entities.get(n.faction)?.category === 'Underworld & Fringe')
+                );
+                break;
+        }
+
+        const nodeIds = new Set(nodes.map(n => n.id));
+        const links = this.relationships
+            .filter(r => nodeIds.has(r.source) && nodeIds.has(r.target))
+            .map(r => ({ ...r })); // Clone to avoid D3 mutation issues
+
+        return { nodes, links };
+    }
+}
+
+// ============================================
+// GRAPH RENDERER - D3 Visualization
+// ============================================
+
+class GraphRenderer {
+    constructor(containerId, manager) {
+        this.container = document.getElementById(containerId);
+        this.manager = manager;
+        this.svg = null;
+        this.graphGroup = null;
+        this.tooltip = null;
+        this.simulation = null;
+        this.selectedNode = null;
+        this.currentFilter = 'all';
+        
+        this.onNodeSelect = null; // Callback for node selection
+    }
+
+    init() {
+        if (!this.container) return;
+        this.setupCanvas();
+        this.render();
+        this.setupControls();
+    }
+
+    setupCanvas() {
+        const width = this.container.clientWidth;
+        const height = this.container.clientHeight;
+
+        // Clear existing
+        this.container.innerHTML = '';
+
+        this.svg = d3.select(this.container)
+            .append('svg')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', [0, 0, width, height]);
+
+        this.graphGroup = this.svg.append('g').attr('class', 'graph-layer');
+
+        this.tooltip = d3.select(this.container)
+            .append('div')
+            .attr('class', 'graph-tooltip');
+
+        // Zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.2, 4])
+            .on('zoom', (event) => {
+                this.graphGroup.attr('transform', event.transform);
+            });
+
+        this.svg.call(zoom);
+
+        // Click background to deselect
+        this.svg.on('click', (event) => {
+            if (event.target === this.svg.node()) {
+                this.deselectNode();
+            }
+        });
+
+        // Setup simulation
+        this.simulation = d3.forceSimulation()
+            .force('link', d3.forceLink()
+                .id(d => d.id)
+                .distance(d => {
+                    if (d.category === 'tether') return 50;
+                    if (d.category === 'positive') return 100;
+                    return 150;
+                })
+                .strength(d => d.category === 'tether' ? 0.3 : 0.15))
+            .force('charge', d3.forceManyBody()
+                .strength(d => d.type === 'faction' ? -350 : -80))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('x', d3.forceX(width / 2).strength(0.03))
+            .force('y', d3.forceY(height / 2).strength(0.03))
+            .force('collide', d3.forceCollide()
+                .radius(d => this.getNodeRadius(d) + 8));
+    }
+
+    getNodeRadius(d) {
+        if (d.type === 'faction') return 12 + (d.power || 3) * 2;
+        if (d.isParty) return 14;
+        return 10;
+    }
+
+    getNodeColor(d) {
+        if (d.type === 'faction') {
+            return FACTION_COLORS[d.id] || 'var(--text-secondary)';
+        }
+        if (d.isParty) return 'var(--accent-color)';
+        return 'var(--sidebar-bg)';
+    }
+
+    render() {
+        const { nodes, links } = this.manager.getGraphData(this.currentFilter);
+        this.graphGroup.selectAll('*').remove();
+
+        this.simulation.nodes(nodes);
+        this.simulation.force('link').links(links);
+
+        // Links
+        const link = this.graphGroup.append('g')
+            .attr('class', 'links-layer')
+            .selectAll('line')
+            .data(links)
+            .join('line')
+            .attr('class', d => `link ${d.type} ${d.category}`);
+
+        // Nodes
+        const node = this.graphGroup.append('g')
+            .attr('class', 'nodes-layer')
+            .selectAll('g')
+            .data(nodes)
+            .join('g')
+            .attr('class', d => `node type-${d.type}${d.isParty ? ' is-party' : ''}`);
+
+        // Node circles
+        node.append('circle')
+            .attr('r', d => this.getNodeRadius(d))
+            .style('fill', d => this.getNodeColor(d))
+            .classed('logged-in-user', d => d.id === state.loggedInUser);
+
+        // Faction logos
+        node.filter(d => d.type === 'faction')
+            .append('image')
+            .attr('xlink:href', d => d.image)
+            .attr('x', d => -this.getNodeRadius(d) * 0.65)
+            .attr('y', d => -this.getNodeRadius(d) * 0.65)
+            .attr('width', d => this.getNodeRadius(d) * 1.3)
+            .attr('height', d => this.getNodeRadius(d) * 1.3)
+            .style('pointer-events', 'none');
+
+        // Character labels
+        node.filter(d => d.type !== 'faction')
+            .append('text')
+            .attr('dy', d => this.getNodeRadius(d) + 12)
+            .attr('text-anchor', 'middle')
+            .text(d => d.name);
+
+        // Simulation tick
+        this.simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+
+            node.attr('transform', d => `translate(${d.x},${d.y})`);
+        });
+
+        // Interactions
+        this.setupInteractions(node, link, links);
+
+        // Restart simulation
+        this.simulation.alpha(1).restart();
+    }
+
+    setupInteractions(node, link, links) {
+        // Build connectivity index
+        const linkedById = {};
+        links.forEach(l => {
+            const sId = l.source.id || l.source;
+            const tId = l.target.id || l.target;
+            linkedById[`${sId},${tId}`] = true;
+            linkedById[`${tId},${sId}`] = true;
+        });
+
+        const isConnected = (a, b) => {
+            return linkedById[`${a.id},${b.id}`] || a.id === b.id;
+        };
+
+        // Node hover
+        node
+            .on('mouseenter', (event, d) => {
+                if (this.selectedNode) return;
+
+                this.tooltip
+                    .html(`
+                        <strong>${d.name}</strong>
+                        <span class="tooltip-type">${d.category || d.role || d.type}</span>
+                    `)
+                    .classed('visible', true);
+
+                // Highlight connected
+                node.classed('dimmed', o => !isConnected(d, o));
+                link.classed('dimmed', l => l.source.id !== d.id && l.target.id !== d.id);
+            })
+            .on('mousemove', (event) => {
+                const rect = this.container.getBoundingClientRect();
+                this.tooltip
+                    .style('left', `${event.clientX - rect.left + 15}px`)
+                    .style('top', `${event.clientY - rect.top - 10}px`);
+            })
+            .on('mouseleave', () => {
+                this.tooltip.classed('visible', false);
+                if (!this.selectedNode) {
+                    node.classed('dimmed', false);
+                    link.classed('dimmed', false);
+                }
+            })
+            .on('click', (event, d) => {
+                event.stopPropagation();
+                this.selectNode(d, event.currentTarget);
+            });
+
+        // Link hover (for relationship text)
+        link
+            .on('mouseenter', (event, d) => {
+                if (d.text) {
+                    const quote = this.manager.extractQuote(d.text);
+                    this.tooltip
+                        .html(`<em>"${quote}"</em>`)
+                        .classed('visible', true);
+                }
+            })
+            .on('mousemove', (event) => {
+                const rect = this.container.getBoundingClientRect();
+                this.tooltip
+                    .style('left', `${event.clientX - rect.left + 15}px`)
+                    .style('top', `${event.clientY - rect.top - 10}px`);
+            })
+            .on('mouseleave', () => {
+                this.tooltip.classed('visible', false);
+            });
+
+        // Drag behavior
+        node.call(d3.drag()
+            .on('start', (event, d) => {
+                if (!event.active) this.simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            })
+            .on('drag', (event, d) => {
+                d.fx = event.x;
+                d.fy = event.y;
+            })
+            .on('end', (event, d) => {
+                if (!event.active) this.simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }));
+    }
+
+    selectNode(data, element) {
+        this.deselectNode();
+        
+        this.selectedNode = element;
+        d3.select(element).classed('selected', true);
+
+        if (this.onNodeSelect) {
+            this.onNodeSelect(data);
+        }
+    }
+
+    deselectNode() {
+        if (this.selectedNode) {
+            d3.select(this.selectedNode).classed('selected', false);
+            this.selectedNode = null;
+        }
+        
+        this.graphGroup.selectAll('.node').classed('dimmed', false);
+        this.graphGroup.selectAll('.link').classed('dimmed', false);
+    }
+
+    setFilter(filter) {
+        this.currentFilter = filter;
+        this.render();
+    }
+
+    setupControls() {
+        const controls = document.getElementById('graph-controls');
+        if (!controls) return;
+
+        controls.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                controls.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.setFilter(btn.dataset.filter);
+            });
+        });
+    }
+}
+
+// ============================================
+// DOSSIER BROWSER - Entity Selection & Details
+// ============================================
+
+class DossierBrowser {
+    constructor(manager) {
+        this.manager = manager;
+        this.selectorGrid = document.getElementById('dossier-selector');
+        this.detailPanel = document.getElementById('dossier-detail');
+        this.selectedId = null;
+    }
+
+    init() {
+        this.renderSelector();
+        this.setupSearch();
+    }
+
+    renderSelector() {
+        if (!this.selectorGrid) return;
+
+        const entities = this.manager.getEntitiesWithRelationships();
+
+        const html = entities.map(entity => `
+            <button class="dossier-btn" data-id="${entity.id}">
+                <img src="${entity.image}" alt="${entity.name}" loading="lazy">
+                <span class="dossier-btn-name">${entity.name}</span>
+                <span class="dossier-btn-type">${entity.type}</span>
+            </button>
+        `).join('');
+
+        this.selectorGrid.innerHTML = html;
+
+        // Event delegation
+        this.selectorGrid.addEventListener('click', (e) => {
+            const btn = e.target.closest('.dossier-btn');
+            if (!btn) return;
+
+            this.selectorGrid.querySelectorAll('.dossier-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.showDossier(btn.dataset.id);
         });
     }
 
-    // 2. Gather opinions OF the selected entity
-    Object.entries(CHARACTER_RELATIONS).forEach(([sourceKey, sourceRelations]) => {
-        if (sourceRelations[entityId]) {
-            const relation = sourceRelations[entityId];
-            const source = LORE_DATA.characters[sourceKey] || LORE_DATA.auxiliary_party[sourceKey] || LORE_DATA.factions[sourceKey];
-            const opinionText = extractOpinionText(relation.text);
+    setupSearch() {
+        const searchInput = document.getElementById('dossier-search');
+        if (!searchInput) return;
 
-            // Only proceed if source exists AND we extracted valid text
-            if (source && opinionText) {
-                const category = getRelationClass(relation.type);
-                relations[category].push({
-                    targetName: source.name,
-                    targetImage: source.portrait || source.logo || 'portraits/unknown.png',
-                    quote: `"${opinionText}"`,
-                    type: relation.type,
-                    direction: 'of'
-                });
-            }
-        }
-    });
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            this.selectorGrid.querySelectorAll('.dossier-btn').forEach(btn => {
+                const name = btn.querySelector('.dossier-btn-name').textContent.toLowerCase();
+                btn.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+    }
 
-    const createListHTML = (list, title) => {
-        if (list.length === 0) return '';
-        // Sort by target name for consistent ordering
-        list.sort((a,b) => a.targetName.localeCompare(b.targetName));
-        const itemsHTML = list.map(item => `
-            <div class="relation-item opinion-${getRelationClass(item.type)}">
-                <img src="${item.targetImage}" alt="${item.targetName}" class="relation-item-img">
-                <div class="relation-item-content">
-                    <div class="relation-item-header">
-                        <span class="relation-item-name">${item.direction === 'by' ? `→ ${item.targetName}` : `← ${item.targetName}`}</span>
-                        <span class="relation-item-type">${item.type.toUpperCase()}</span>
+    showDossier(entityId) {
+        if (!this.detailPanel) return;
+
+        const entity = this.manager.getEntity(entityId);
+        if (!entity) return;
+
+        this.selectedId = entityId;
+        const relations = this.manager.getRelationshipsFor(entityId);
+
+        const createSection = (items, title, category) => {
+            if (!items.length) return '';
+
+            const itemsHtml = items.map(item => `
+                <div class="relation-card category-${category}">
+                    <img src="${item.entity.image}" alt="${item.entity.name}" class="relation-card-img">
+                    <div class="relation-card-content">
+                        <div class="relation-card-header">
+                            <span class="relation-card-name">
+                                ${item.direction === 'outgoing' ? '→' : item.direction === 'incoming' ? '←' : '↔'}
+                                ${item.entity.name}
+                            </span>
+                            <span class="relation-card-type">${item.type}</span>
+                        </div>
+                        <p class="relation-card-quote">"${item.quote}"</p>
                     </div>
-                    <p class="relation-item-quote">${item.quote}</p>
+                </div>
+            `).join('');
+
+            return `
+                <div class="dossier-section">
+                    <h4 class="section-title category-${category}">${title}</h4>
+                    ${itemsHtml}
+                </div>
+            `;
+        };
+
+        const hasRelations = Object.values(relations).some(arr => arr.length > 0);
+
+        this.detailPanel.innerHTML = `
+            <div class="dossier-header">
+                <img src="${entity.image}" alt="${entity.name}" class="dossier-portrait">
+                <div class="dossier-info">
+                    <h3>${entity.name}</h3>
+                    <span class="dossier-meta">${entity.category || entity.role || entity.type}</span>
                 </div>
             </div>
-        `).join('');
-        return `<div class="panel-section"><h4>${title}</h4>${itemsHTML}</div>`;
-    };
+            
+            <div class="dossier-body">
+                ${hasRelations ? `
+                    ${createSection(relations.positive, 'Allies & Loyalties', 'positive')}
+                    ${createSection(relations.negative, 'Enemies & Hostilities', 'negative')}
+                    ${createSection(relations.complicated, 'Rivalries & Complications', 'complicated')}
+                    ${createSection(relations.neutral, 'Neutral & Professional', 'neutral')}
+                ` : `
+                    <div class="dossier-empty">
+                        <p>No recorded relationships for this entity.</p>
+                    </div>
+                `}
+            </div>
+        `;
 
-    container.innerHTML = `
-        <div class="panel-header">
-            <img src="${mainEntity.portrait || mainEntity.logo}" alt="${mainEntity.name}">
-            <h3>${mainEntity.name}'s Network</h3>
-        </div>
-        ${createListHTML(relations.positive, 'Allies & Loyalties')}
-        ${createListHTML(relations.negative, 'Enemies & Hostilities')}
-        ${createListHTML(relations.complicated, 'Rivalries & Distrust')}
-        ${createListHTML(relations.neutral, 'Neutral & Transactional')}
-    `;
-    
-    // If no relations found at all
-    if (Object.values(relations).every(arr => arr.length === 0)) {
-         container.innerHTML += `<div class="panel-section"><p>No recorded relationships found.</p></div>`;
+        this.detailPanel.classList.add('active');
+        
+        // Scroll into view on mobile
+        if (window.innerWidth <= 768) {
+            this.detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
-    container.style.display = 'block';
-    if(window.innerWidth > 768) { // Only smooth scroll on larger screens
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    selectById(entityId) {
+        const btn = this.selectorGrid?.querySelector(`[data-id="${entityId}"]`);
+        if (btn) {
+            this.selectorGrid.querySelectorAll('.dossier-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.showDossier(entityId);
+        }
     }
 }
 
-// Main execution
-initializeGraph();
-createRelationsSelector();
+// ============================================
+// DETAIL PANEL - Slide-out for Graph Nodes
+// ============================================
+// ============================================
+// DETAIL PANEL - Slide-out for Graph Nodes
+// ============================================
+
+class DetailPanel {
+    constructor(manager) {
+        this.manager = manager;
+        this.panel = document.getElementById('node-detail-panel');
+        this.content = document.getElementById('node-detail-content');
+        
+        // Close panel when clicking outside (on the graph)
+        document.getElementById('graph-container')?.addEventListener('click', (e) => {
+            if (e.target.tagName === 'svg' || e.target.closest('svg')?.parentElement?.id === 'graph-container') {
+                // Only hide if clicking the background, not a node
+                if (!e.target.closest('.node')) {
+                    this.hide();
+                }
+            }
+        });
+    }
+
+    show(entity) {
+        if (!this.panel || !this.content) return;
+
+        const relations = this.manager.getRelationshipsFor(entity.id);
+
+        let relationsHtml = '';
+        
+        ['positive', 'negative', 'complicated', 'neutral'].forEach(category => {
+            if (relations[category].length) {
+                relationsHtml += `
+                    <div class="panel-relation-group">
+                        <h5 class="category-${category}">${this.getCategoryLabel(category)}</h5>
+                        <ul>
+                            ${relations[category].map(r => `
+                                <li class="category-${category}">
+                                    ${r.direction === 'outgoing' ? '→' : '←'} ${r.entity.name}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+        });
+
+        this.content.innerHTML = `
+            <div class="panel-entity-header">
+                <img src="${entity.image}" alt="${entity.name}">
+                <div>
+                    <h3>${entity.name}</h3>
+                    <span>${entity.category || entity.role || entity.type}</span>
+                </div>
+            </div>
+            ${entity.description ? `<p class="panel-description">${entity.description}</p>` : ''}
+            ${relationsHtml || '<p class="panel-empty">No detailed relationships recorded.</p>'}
+        `;
+
+        this.panel.classList.add('visible');
+        document.getElementById('app')?.classList.add('panel-open');
+    }
+
+    hide() {
+        this.panel?.classList.remove('visible');
+        document.getElementById('app')?.classList.remove('panel-open');
+    }
+
+    getCategoryLabel(category) {
+        const labels = {
+            positive: 'Allies',
+            negative: 'Enemies',
+            complicated: 'Complicated',
+            neutral: 'Neutral'
+        };
+        return labels[category] || category;
+    }
+}
+
+
+// ============================================
+// VIEW SWITCHER - Tabs
+// ============================================
+
+class ViewSwitcher {
+    constructor() {
+        this.tabs = document.querySelectorAll('.view-tab');
+        this.panels = document.querySelectorAll('.view-panel');
+        
+        this.tabs.forEach(tab => {
+            tab.addEventListener('click', () => this.switchTo(tab.dataset.view));
+        });
+    }
+
+    switchTo(viewId) {
+        this.tabs.forEach(t => t.classList.toggle('active', t.dataset.view === viewId));
+        this.panels.forEach(p => p.classList.toggle('active', p.id === viewId));
+    }
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+
+function initRelationsPage() {
+    const manager = new RelationshipManager();
+    manager.init();
+
+    const graph = new GraphRenderer('graph-container', manager);
+    const dossier = new DossierBrowser(manager);
+    const detailPanel = new DetailPanel(manager);
+    const viewSwitcher = new ViewSwitcher();
+
+    graph.init();
+    dossier.init();
+
+    // Connect graph selection to dossier
+    graph.onNodeSelect = (entity) => {
+        detailPanel.show(entity);
+    };
+
+    // Expose for debugging
+    window.relationsDebug = { manager, graph, dossier };
+}
+
+// Wait for DOM and state
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRelationsPage);
+} else {
+    initRelationsPage();
+}
+
+export { RelationshipManager, GraphRenderer, DossierBrowser };

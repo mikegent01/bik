@@ -17,7 +17,7 @@ import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
 
 import { RUMORS } from './party-and-events.js';
 import { PARLIAMENT_MEMBERS } from './parliament-members.js';
-import { RAKASHA_DETAILS } from './rakasha-clans-details.js';
+import { RAKASHA_DETAILS } from '../data/rakasha-clans-details.js';
 import { REBEL_CLANS_DETAILS } from './rebel-clans-details.js';
 import { FAWFUL_DETAILS } from './fawful-details.js';
 import { COSMIC_JESTERS_DETAILS } from './cosmic-jesters-details.js';
