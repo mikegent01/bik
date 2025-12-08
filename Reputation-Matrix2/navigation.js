@@ -65,7 +65,7 @@ async function markUpdatedPages(sidebar) {
 
     // 3. Set the "Recent" window (5 hours in milliseconds)
     // 5 hours * 60 mins * 60 secs * 1000 ms
-    const RECENT_WINDOW = 5 * 60 * 60 * 1000; 
+    const RECENT_WINDOW = 19 * 60 * 60 * 1000; 
     const cutoffTime = latestUpdateTimestamp - RECENT_WINDOW;
 
     let updatedCount = 0;
