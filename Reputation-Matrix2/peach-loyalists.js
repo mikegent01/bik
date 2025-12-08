@@ -3,8 +3,7 @@
 // =============================================
 
 import { state } from './state.js';
-import { CURRENT_GAME_DATE } from './calendar-data.js';
-
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js'; // Adjust path if necessary
 // =============================================
 // DATA DEFINITIONS
 // =============================================
@@ -1893,13 +1892,15 @@ function renderRelationshipCard(rel) {
 function formatDate(dateObj) {
     if (!dateObj || typeof dateObj !== 'object') return 'Unknown Date';
     
-    const months = [
-        'Frostmelt', 'Seedsow', 'Bloomtide', 'Sunsheight',
-        'Highsun', 'Harvestmoon', 'Leaffall', 'Darkember'
-    ];
+    // Validate bounds
+    const safeMonthIndex = Math.max(0, Math.min(dateObj.monthIndex, CALENDAR_DATA.months.values.length - 1));
     
-    const monthName = months[dateObj.monthIndex] || `Month ${dateObj.monthIndex + 1}`;
-    return `${monthName} ${dateObj.day}, ${dateObj.year} BF`;
+    // Get month name from CALENDAR_DATA
+    const monthData = CALENDAR_DATA.months.values[safeMonthIndex];
+    const monthName = monthData ? monthData.name : `Month ${dateObj.monthIndex + 1}`;
+    
+    // Determine suffix (We removed "BF" as 1040 is the current era)
+    return `${monthName} ${dateObj.day}, ${dateObj.year}`;
 }
 
 function formatDateTime(dateObj) {
@@ -1913,13 +1914,18 @@ function formatDateTime(dateObj) {
     }
     return date;
 }
-
 function getDaysAgo(dateObj) {
     if (!dateObj) return null;
     
     const current = CURRENT_GAME_DATE;
-    const currentTotal = (current.year * 365) + (current.monthIndex * 30) + current.day;
-    const targetTotal = (dateObj.year * 365) + (dateObj.monthIndex * 30) + dateObj.day;
+    
+    // Calculate distinct days (Simplified approximation assuming 30 days/month for performance)
+    // For exact precision including the 35-day month, you would iterate the month array.
+    const daysPerYear = 365;
+    const daysPerMonth = 30;
+    
+    const currentTotal = (current.year * daysPerYear) + (current.monthIndex * daysPerMonth) + current.day;
+    const targetTotal = (dateObj.year * daysPerYear) + (dateObj.monthIndex * daysPerMonth) + dateObj.day;
     
     return currentTotal - targetTotal;
 }
@@ -1927,12 +1933,18 @@ function getDaysAgo(dateObj) {
 function getTimeAgoString(dateObj) {
     const days = getDaysAgo(dateObj);
     if (days === null) return '';
+    
+    if (days < 0) return 'In the future';
     if (days === 0) return 'Today';
     if (days === 1) return 'Yesterday';
     if (days < 7) return `${days} days ago`;
     if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
     if (days < 365) return `${Math.floor(days / 30)} months ago`;
-    return `${Math.floor(days / 365)} years ago`;
+    if (days >= 365) {
+        const years = Math.floor(days / 365);
+        return `${years} year${years > 1 ? 's' : ''} ago`;
+    }
+    return formatDate(dateObj);
 }
 
 // =============================================
