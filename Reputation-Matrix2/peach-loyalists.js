@@ -425,7 +425,7 @@ const LOYALIST_DATA = {
                 role: 'Field Intelligence Chief',
                 status: 'active',
                 intelRequired: 30,
-                bio: 'The Loyalists\' primary intelligence gatherer. She successfully extracted the Thornpaw revelation during the gala. Now coordinates Rakasha relations.',
+                bio: 'The Loyalists\' primary intelligence gatherer. He successfully extracted the Thornpaw revelation during the gala. Now coordinates Rakasha relations.',
                 stats: {
                     operations: 56,
                     yearsActive: 12,
