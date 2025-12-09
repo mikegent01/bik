@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Terminal | Koopa Troop</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="faction-koopa.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tablet-frame">
+        <div class="scanline-overlay"></div>
+        <div id="app" class="koopa-theme">
+            <aside id="sidebar"></aside>
+            
+            <main id="main-content" class="faction-page">
+                <!-- Faction Header -->
+                <header class="faction-header">
+                    <div class="faction-banner">
+                        <div class="faction-emblem">
+                            <img src="images/factions/koopa-troop.png" alt="Koopa Troop Emblem">
+                        </div>
+                        <div class="faction-title-block">
+                            <span class="faction-category">Major Power</span>
+                            <h1 class="faction-name">The Koopa Troop</h1>
+                            <p class="faction-motto">"Strength Through Unity, Victory Through Power"</p>
+                        </div>
+                        <div class="faction-status-block">
+                            <div class="status-item">
+                                <span class="status-label">Threat Level</span>
+                                <span class="status-value critical">CRITICAL</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Stability</span>
+                                <span class="status-value high">UNSTABLE</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">War Status</span>
+                                <span class="status-value moderate">ACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Faction Navigation -->
+                <nav class="faction-nav">
+                    <button class="faction-nav-tab active" data-section="overview">Overview</button>
+                    <button class="faction-nav-tab" data-section="leadership">Leadership</button>
+                    <button class="faction-nav-tab" data-section="military">Military Forces</button>
+                    <button class="faction-nav-tab" data-section="civil-war">Civil War</button>
+                    <button class="faction-nav-tab" data-section="relations">Foreign Relations</button>
+                    <button class="faction-nav-tab" data-section="territory">Territory</button>
+                    <button class="faction-nav-tab" data-section="koopalings">The Koopalings</button>
+                    <button class="faction-nav-tab" data-section="operations">Operations</button>
+                    <button class="faction-nav-tab" data-section="intel">Intelligence</button>
+                </nav>
+
+                <!-- Content Area -->
+                <div class="faction-content">
+                    
+                    <!-- Overview Section -->
+                    <section id="overview" class="faction-section active">
+                        <h2 class="section-title">Empire Overview</h2>
+                        
+                        <div class="situation-alert">
+                            <div class="alert-header">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/></svg>
+                                <h4>Current Crisis: Leadership Vacuum</h4>
+                            </div>
+                            <p>With King Bowser's prolonged absence, the Koopa Empire faces its greatest internal challenge in decades. Kamek struggles to maintain order while the Koopalings vie for influence. The ongoing conflict with the Mushroom Kingdom has entered a critical phase.</p>
+                        </div>
+                        
+                        <div class="overview-grid">
+                            <div class="overview-main">
+                                <div class="info-card">
+                                    <h4>
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/></svg>
+                                        Background
+                                    </h4>
+                                    <p>The Koopa Troop stands as the dominant military force in the Darklands and surrounding territories. For generations, the Kingdom has been ruled by the Koopa dynasty, with King Bowser being the current—and most aggressive—ruler in recorded history.</p>
+                                    <p>What began as a territorial dispute with the Mushroom Kingdom has evolved into a multi-generational conflict driven by resource scarcity, ideological differences, and personal vendettas. The Koopa Troop's military doctrine emphasizes overwhelming force and tactical flexibility.</p>
+                                </div>
+                                
+                                <div class="info-card">
+                                    <h4>
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z"/></svg>
+                                        Strategic Objectives
+                                    </h4>
+                                    <p><strong>Primary:</strong> Maintain territorial integrity during the leadership transition while continuing pressure on Mushroom Kingdom borders.</p>
+                                    <p><strong>Secondary:</strong> Locate and recover King Bowser. Suppress internal dissent among the Koopalings. Secure resource pipelines from contested zones.</p>
+                                    <p><strong>Long-term:</strong> Complete conquest of the Mushroom Kingdom. Establish Koopa dominance across all known territories.</p>
+                                </div>
+                                
+                                <div class="info-card">
+                                    <h4>
+                                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M16.59,7.58L10,14.17L7.41,11.59L6,13L10,17L18,9L16.59,7.58Z"/></svg>
+                                        Current Strengths
+                                    </h4>
+                                    <p>• Largest standing army in the known world<br>
+                                    • Unmatched magical resources through Magikoopa corps<br>
+                                    • Control of critical Warp Pipe networks<br>
+                                    • Industrial capacity in Bowser's Castle complex<br>
+                                    • Fearsome reputation and psychological warfare advantage</p>
+                                </div>
+                            </div>
+                            
+                            <div class="overview-sidebar">
+                                <div class="info-card">
+                                    <h4>Quick Statistics</h4>
+                                    <div class="quick-stats">
+                                        <div class="stat-box">
+                                            <div class="stat-value">8</div>
+                                            <div class="stat-label">Territories</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-value">50K+</div>
+                                            <div class="stat-label">Troops</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-value">7</div>
+                                            <div class="stat-label">Koopalings</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-value">12</div>
+                                            <div class="stat-label">Fortresses</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-card">
+                                    <h4>Key Weaknesses</h4>
+                                    <p>• Leadership crisis with Bowser missing<br>
+                                    • Internal power struggles among Koopalings<br>
+                                    • Overextended supply lines<br>
+                                    • Vulnerable to Mario-class threats<br>
+                                    • Succession unclear</p>
+                                </div>
+                                
+                                <div class="info-card">
+                                    <h4>Recent Developments</h4>
+                                    <p><strong>3 days ago:</strong> Kamek assumed emergency powers<br>
+                                    <strong>1 week ago:</strong> Border skirmish with Toad Brigade<br>
+                                    <strong>2 weeks ago:</strong> Last confirmed Bowser sighting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Leadership Section -->
+                    <section id="leadership" class="faction-section">
+                        <h2 class="section-title">Chain of Command</h2>
+                        
+                        <div class="leadership-grid">
+                            <div class="leader-card absent">
+                                <div class="leader-content">
+                                    <img src="portraits/bowser.png" alt="King Bowser" class="leader-portrait">
+                                    <div class="leader-info">
+                                        <h3 class="leader-name">King Bowser Koopa</h3>
+                                        <div class="leader-role">Supreme Ruler</div>
+                                        <p class="leader-desc">The undisputed ruler of the Koopa Kingdom. His current whereabouts are unknown, triggering the ongoing succession crisis.</p>
+                                        <div class="leader-status">
+                                            <span class="status-dot absent"></span>
+                                            <span>Missing - Last seen 2 weeks ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="leader-card primary">
+                                <div class="leader-content">
+                                    <img src="portraits/kamek.png" alt="Kamek" class="leader-portrait">
+                                    <div class="leader-info">
+                                        <h3 class="leader-name">Kamek</h3>
+                                        <div class="leader-role">Royal Advisor & Acting Regent</div>
+                                        <p class="leader-desc">The ancient Magikoopa who raised Bowser from infancy. Now bears the burden of holding the empire together in his king's absence.</p>
+                                        <div class="leader-status">
+                                            <span class="status-dot active"></span>
+                                            <span>Active - Bowser's Castle</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="leader-card">
+                                <div class="leader-content">
+                                    <img src="portraits/bowser-jr.png" alt="Bowser Jr." class="leader-portrait">
+                                    <div class="leader-info">
+                                        <h3 class="leader-name">Bowser Jr.</h3>
+                                        <div class="leader-role">Crown Prince</div>
+                                        <p class="leader-desc">Bowser's only legitimate heir. Young but ambitious, he lacks the experience to command but possesses his father's ferocity.</p>
+                                        <div class="leader-status">
+                                            <span class="status-dot active"></span>
+                                            <span>Active - Royal Quarters</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="leader-card">
+                                <div class="leader-content">
+                                    <img src="portraits/kammy.png" alt="Kammy Koopa" class="leader-portrait">
+                                    <div class="leader-info">
+                                        <h3 class="leader-name">Kammy Koopa</h3>
+                                        <div class="leader-role">Elder Magikoopa</div>
+                                        <p class="leader-desc">Senior member of the Magikoopa council. Provides magical support and counsel to Kamek during the crisis.</p>
+                                        <div class="leader-status">
+                                            <span class="status-dot active"></span>
+                                            <span>Active - Magic Tower</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="section-subtitle">Kamek's Burden</h3>
+                        <div class="info-card">
+                            <p>For the first time in his centuries-long life, Kamek finds himself not as advisor but as ruler. The weight of the entire Koopa Empire rests on his wizened shoulders. His challenges are numerous:</p>
+                            <p><strong>Legitimacy:</strong> While respected, Kamek is not of royal blood. Some generals question whether a Magikoopa should command the military.</p>
+                            <p><strong>The Koopalings:</strong> Each of the seven believes they have a claim to power. Kamek must balance their egos while preventing outright civil war.</p>
+                            <p><strong>The War:</strong> The conflict with the Mushroom Kingdom cannot pause. Kamek must prosecute a war he never wanted while searching for his missing king.</p>
+                            <p><strong>The Search:</strong> Every resource spent looking for Bowser is a resource not spent defending the realm. Yet abandoning the search would be unthinkable.</p>
+                        </div>
+                    </section>
+
+                    <!-- Military Section -->
+                    <section id="military" class="faction-section">
+                        <h2 class="section-title">Military Forces</h2>
+                        
+                        <div class="military-overview">
+                            <div class="force-card">
+                                <h4>
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/></svg>
+                                    Ground Forces
+                                </h4>
+                                <ul class="force-list">
+                                    <li>
+                                        <span class="unit-name">Goomba Infantry</span>
+                                        <span class="unit-count">15,000</span>
+                                        <span class="unit-status ready">Ready</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Koopa Troopa Regulars</span>
+                                        <span class="unit-count">8,000</span>
+                                        <span class="unit-status deployed">Deployed</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Hammer Bros Elite</span>
+                                        <span class="unit-count">2,500</span>
+                                        <span class="unit-status ready">Ready</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Dry Bones Legion</span>
+                                        <span class="unit-count">5,000</span>
+                                        <span class="unit-status deployed">Deployed</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Chain Chomp Units</span>
+                                        <span class="unit-count">800</span>
+                                        <span class="unit-status recovering">Recovering</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="force-card">
+                                <h4>
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/></svg>
+                                    Airborne & Special
+                                </h4>
+                                <ul class="force-list">
+                                    <li>
+                                        <span class="unit-name">Paratroopa Wings</span>
+                                        <span class="unit-count">3,000</span>
+                                        <span class="unit-status ready">Ready</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Lakitu Cloud Corps</span>
+                                        <span class="unit-count">1,200</span>
+                                        <span class="unit-status deployed">Deployed</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Magikoopa Battlemages</span>
+                                        <span class="unit-count">500</span>
+                                        <span class="unit-status ready">Ready</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Airship Fleet</span>
+                                        <span class="unit-count">24 ships</span>
+                                        <span class="unit-status ready">Ready</span>
+                                    </li>
+                                    <li>
+                                        <span class="unit-name">Boo Infiltrators</span>
+                                        <span class="unit-count">Unknown</span>
+                                        <span class="unit-status deployed">Deployed</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="strategic-map">
+                            <h4>Strategic Deployment Map</h4>
+                            <div class="map-placeholder">
+                                [Interactive Map - Current Force Positions]
+                            </div>
+                        </div>
+                        
+                        <h3 class="section-subtitle">Current Deployments</h3>
+                        <div class="info-card">
+                            <p><strong>Eastern Front:</strong> 40% of forces concentrated along the Mushroom Kingdom border. Engaged in active operations against Peach Loyalist positions.</p>
+                            <p><strong>Northern Garrison:</strong> 25% maintaining defensive positions against potential incursions from the Beanbean Kingdom.</p>
+                            <p><strong>Home Defense:</strong> 20% protecting Bowser's Castle and critical infrastructure.</p>
+                            <p><strong>Reserve:</strong> 15% held in strategic reserve, available for rapid deployment.</p>
+                        </div>
+                    </section>
+
+                    <!-- Civil War Section -->
+                    <section id="civil-war" class="faction-section">
+                        <h2 class="section-title">The Mushroom Kingdom Civil War</h2>
+                        
+                        <div class="war-stats">
+                            <div class="war-stat-card">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1"/></svg>
+                                </div>
+                                <div class="stat-value">847</div>
+                                <div class="stat-label">Days of Conflict</div>
+                            </div>
+                            <div class="war-stat-card">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/></svg>
+                                </div>
+                                <div class="stat-value">23</div>
+                                <div class="stat-label">Major Battles</div>
+                            </div>
+                            <div class="war-stat-card">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/></svg>
+                                </div>
+                                <div class="stat-value">4</div>
+                                <div class="stat-label">Territories Gained</div>
+                            </div>
+                            <div class="war-stat-card">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z"/></svg>
+                                </div>
+                                <div class="stat-value">2</div>
+                                <div class="stat-label">Territories Lost</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2L1,21H23M12,6L19.53,19H4.47"/></svg>
+                                Koopa Perspective on the Conflict
+                            </h4>
+                            <p>The Koopa Troop views the conflict not as aggression but as rightful expansion into territories that belong to them by ancient claim. The Mushroom Kingdom, they argue, was built on lands stolen from Koopa ancestors during the Great Displacement centuries ago.</p>
+                            <p>King Bowser's personal vendetta against Princess Peach complicates the strategic picture. What could be a calculated territorial war has become entangled with the King's obsession, leading to costly and sometimes irrational military decisions.</p>
+                            <p>With Bowser missing, Kamek has attempted to impose more rational military strategy—but changing course mid-war is proving difficult, especially with the Koopalings each pushing their own agendas.</p>
+                        </div>
+                        
+                        <h3 class="section-subtitle">War Timeline</h3>
+                        <div class="war-timeline">
+                            <div class="war-event ongoing">
+                                <div class="event-date">Present Day</div>
+                                <div class="event-title">The Interregnum Crisis</div>
+                                <p class="event-desc">With Bowser missing, the war has entered an uncertain phase. Kamek attempts to maintain offensive pressure while dealing with internal power struggles. The Peach Loyalists sense weakness.</p>
+                                <span class="event-outcome ongoing">Ongoing</span>
+                            </div>
+                            
+                            <div class="war-event defeat">
+                                <div class="event-date">3 Weeks Ago</div>
+                                <div class="event-title">The Toad Harbor Disaster</div>
+                                <p class="event-desc">A major amphibious assault on Toad Harbor ended in catastrophic failure when Mario intervened. Three airships lost, 2,000 casualties. Bowser disappeared during the retreat.</p>
+                                <span class="event-outcome defeat">Major Defeat</span>
+                            </div>
+                            
+                            <div class="war-event victory">
+                                <div class="event-date">2 Months Ago</div>
+                                <div class="event-title">Capture of World 4-4</div>
+                                <p class="event-desc">Ludwig's forces successfully captured the strategically vital fortress, securing the eastern approach to World 5. A rare unqualified victory.</p>
+                                <span class="event-outcome victory">Victory</span>
+                            </div>
+                            
+                            <div class="war-event">
+                                <div class="event-date">6 Months Ago</div>
+                                <div class="event-title">The Star Road Offensive</div>
+                                <p class="event-desc">Attempted seizure of the Star Road access points. Initial success followed by a devastating counterattack. Heavy losses on both sides.</p>
+                                <span class="event-outcome stalemate">Stalemate</span>
+                            </div>
+                            
+                            <div class="war-event victory">
+                                <div class="event-date">1 Year Ago</div>
+                                <div class="event-title">Operation Dark Land Expansion</div>
+                                <p class="event-desc">Successful annexation of three border territories. Established the current front lines. Marked the high point of Koopa territorial gains.</p>
+                                <span class="event-outcome victory">Strategic Victory</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Relations Section -->
+                    <section id="relations" class="faction-section">
+                        <h2 class="section-title">Foreign Relations</h2>
+                        
+                        <div class="relations-grid">
+                            <div class="relation-card">
+                                <div class="relation-header">
+                                    <img src="images/factions/mushroom-kingdom.png" alt="Mushroom Kingdom">
+                                    <span class="relation-name">Mushroom Kingdom (Peach Loyalists)</span>
+                                    <span class="relation-stance hostile">At War</span>
+                                </div>
+                                <div class="relation-body">
+                                    <p>The primary enemy. The Koopa Troop has been locked in conflict with the Mushroom Kingdom for generations, though the current war is the most intense in living memory.</p>
+                                    <p>With Peach maintaining strong alliances and the Mario Brothers as her champions, the Kingdom has proven surprisingly resilient despite being outmatched in raw military power.</p>
+                                    <div class="relation-factors">
+                                        <span class="relation-factor">Territorial Dispute</span>
+                                        <span class="relation-factor">Ideological Conflict</span>
+                                        <span class="relation-factor">Personal Vendetta</span>
+                                        <span class="relation-factor">Resource Competition</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relation-card">
+                                <div class="relation-header">
+                                    <img src="images/factions/beanbean.png" alt="Beanbean Kingdom">
+                                    <span class="relation-name">Beanbean Kingdom</span>
+                                    <span class="relation-stance tense">Hostile</span>
+                                </div>
+                                <div class="relation-body">
+                                    <p>Relations soured after the Cackletta incident. While not actively at war, border tensions remain high. The Beanbean Kingdom maintains a defensive alliance with the Mushroom Kingdom.</p>
+                                    <p>Kamek has attempted diplomatic overtures, but Queen Bean remains distrustful of Koopa intentions.</p>
+                                    <div class="relation-factors">
+                                        <span class="relation-factor">Past Conflict</span>
+                                        <span class="relation-factor">Alliance with Enemy</span>
+                                        <span class="relation-factor">Border Disputes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relation-card">
+                                <div class="relation-header">
+                                    <img src="images/factions/sarasaland.png" alt="Sarasaland">
+                                    <span class="relation-name">Sarasaland</span>
+                                    <span class="relation-stance neutral">Neutral</span>
+                                </div>
+                                <div class="relation-body">
+                                    <p>Princess Daisy maintains strict neutrality in the Koopa-Mushroom conflict, despite her personal friendship with Peach. Trade relations continue, providing the Koopa Troop with resources otherwise unavailable.</p>
+                                    <p>Kamek values this neutrality and has issued orders to avoid any provocation of Sarasaland interests.</p>
+                                    <div class="relation-factors">
+                                        <span class="relation-factor">Trade Partner</span>
+                                        <span class="relation-factor">Strategic Neutrality</span>
+                                        <span class="relation-factor">Potential Ally</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relation-card">
+                                <div class="relation-header">
+                                    <img src="images/factions/wario-inc.png" alt="Wario Inc">
+                                    <span class="relation-name">Wario Incorporated</span>
+                                    <span class="relation-stance friendly">Transactional</span>
+                                </div>
+                                <div class="relation-body">
+                                    <p>Wario's mercenary organization maintains profitable business relationships with the Koopa Troop. Weapons, intelligence, and occasionally personnel are exchanged for gold.</p>
+                                    <p>While not a formal alliance, Wario's willingness to work with anyone paying makes him a valuable—if unreliable—asset.</p>
+                                    <div class="relation-factors">
+                                        <span class="relation-factor">Arms Dealer</span>
+                                        <span class="relation-factor">Intelligence Source</span>
+                                        <span class="relation-factor">Mercenary Access</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relation-card">
+                                <div class="relation-header">
+                                    <img src="images/factions/king-boo.png" alt="King Boo's Court">
+                                    <span class="relation-name">King Boo's Court</span>
+                                    <span class="relation-stance allied">Allied</span>
+                                </div>
+                                <div class="relation-body">
+                                    <p>The spectral kingdom of King Boo maintains close ties with the Koopa Troop. Boo forces serve as invaluable scouts, infiltrators, and psychological warfare specialists.</p>
+                                    <p>King Boo's personal hatred of Luigi makes him a reliable ally against the Mario Brothers specifically.</p>
+                                    <div class="relation-factors">
+                                        <span class="relation-factor">Military Alliance</span>
+                                        <span class="relation-factor">Shared Enemies</span>
+                                        <span class="relation-factor">Mutual Support</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relation-card">
+                                <div class="relation-header">
+                                    <img src="images/factions/smithy-gang.png" alt="Smithy's Remnants">
+                                    <span class="relation-name">Smithy Gang Remnants</span>
+                                    <span class="relation-stance tense">Hostile</span>
+                                </div>
+                                <div class="relation-body">
+                                    <p>The mechanical forces that once invaded from another dimension were defeated through an unlikely Koopa-Mushroom alliance. Remnant factions still operate in remote areas.</p>
+                                    <p>Both kingdoms maintain standing orders to destroy Smithy forces on sight—one of the few things they agree on.</p>
+                                    <div class="relation-factors">
+                                        <span class="relation-factor">Existential Threat</span>
+                                        <span class="relation-factor">Past Invasion</span>
+                                        <span class="relation-factor">Mutual Enemy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Territory Section -->
+                    <section id="territory" class="faction-section">
+                        <h2 class="section-title">Territorial Holdings</h2>
+                        
+                        <div class="territory-list">
+                            <div class="territory-card">
+                                <div class="territory-header">
+                                    <h4>Bowser's Castle Complex</h4>
+                                    <span class="territory-status controlled">Controlled</span>
+                                </div>
+                                <div class="territory-body">
+                                    <p>The heart of the Koopa Empire. A massive fortress complex built over centuries, containing the seat of power, primary military command, and the royal treasury.</p>
+                                    <div class="territory-resources">
+                                        <span class="resource-tag">Capital</span>
+                                        <span class="resource-tag">Military HQ</span>
+                                        <span class="resource-tag">Industrial Center</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="territory-card">
+                                <div class="territory-header">
+                                    <h4>Dark Land</h4>
+                                    <span class="territory-status controlled">Controlled</span>
+                                </div>
+                                <div class="territory-body">
+                                    <p>The ancestral homeland of the Koopa species. Volcanic terrain rich in mineral resources. Home to the largest Koopa population centers.</p>
+                                    <div class="territory-resources">
+                                        <span class="resource-tag">Population Center</span>
+                                        <span class="resource-tag">Mining</span>
+                                        <span class="resource-tag">Lava Power</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="territory-card">
+                                <div class="territory-header">
+                                    <h4>World 4 (Giant Land)</h4>
+                                    <span class="territory-status controlled">Controlled</span>
+                                </div>
+                                <div class="territory-body">
+                                    <p>Territory of massive flora and fauna. Provides unique biological resources and houses specialized Giant Goomba breeding facilities.</p>
+                                    <div class="territory-resources">
+                                        <span class="resource-tag">Giant Troops</span>
+                                        <span class="resource-tag">Agriculture</span>
+                                        <span class="resource-tag">Research</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="territory-card">
+                                <div class="territory-header">
+                                    <h4>Pipe Land (World 7)</h4>
+                                    <span class="territory-status contested">Contested</span>
+                                </div>
+                                <div class="territory-body">
+                                    <p>Critical warp pipe network hub. Currently under dispute with Mushroom Kingdom forces controlling several key junctions.</p>
+                                    <div class="territory-resources">
+                                        <span class="resource-tag">Warp Network</span>
+                                        <span class="resource-tag">Strategic Transit</span>
+                                        <span class="resource-tag">Trade Routes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="territory-card">
+                                <div class="territory-header">
+                                    <h4>Sky Land (World 5)</h4>
+                                    <span class="territory-status contested">Contested</span>
+                                </div>
+                                <div class="territory-body">
+                                    <p>Floating island territory. Essential for airship operations and Lakitu training. Currently divided between Koopa and Mushroom control.</p>
+                                    <div class="territory-resources">
+                                        <span class="resource-tag">Airship Base</span>
+                                        <span class="resource-tag">Cloud Manufacturing</span>
+                                        <span class="resource-tag">Aerial Advantage</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="territory-card">
+                                <div class="territory-header">
+                                    <h4>Ice Land (World 6)</h4>
+                                    <span class="territory-status controlled">Controlled</span>
+                                </div>
+                                <div class="territory-body">
+                                    <p>Frozen territory under Lemmy's governance. Harsh conditions limit its strategic value, but provides natural defensive buffer.</p>
+                                    <div class="territory-resources">
+                                        <span class="resource-tag">Natural Defense</span>
+                                        <span class="resource-tag">Ice Mining</span>
+                                        <span class="resource-tag">Training Ground</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Koopalings Section -->
+                    <section id="koopalings" class="faction-section">
+                        <h2 class="section-title">The Koopalings</h2>
+                        
+                        <div class="info-card" style="margin-bottom: 24px;">
+                            <p>The seven Koopalings serve as Bowser's elite lieutenants, each commanding their own forces and territories. With Bowser missing, tensions between them have escalated as each jockeys for position in a potential succession.</p>
+                        </div>
+                        
+                        <div class="koopalings-grid">
+                            <div class="koopaling-card">
+                                <img src="portraits/ludwig.png" alt="Ludwig" class="koopaling-portrait">
+                                <div class="koopaling-name">Ludwig von Koopa</div>
+                                <div class="koopaling-title">Strategic Commander</div>
+                                <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #4CAF50;"></span>
+                                    Active - Eastern Front
+                                </span>
+                            </div>
+                            
+                            <div class="koopaling-card">
+                                <img src="portraits/lemmy.png" alt="Lemmy" class="koopaling-portrait">
+                                <div class="koopaling-name">Lemmy Koopa</div>
+                                <div class="koopaling-title">Ice Land Governor</div>
+                                <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #4CAF50;"></span>
+                                    Active - Ice Land
+                                </span>
+                            </div>
+                            
+                            <div class="koopaling-card">
+                                <img src="portraits/roy.png" alt="Roy" class="koopaling-portrait">
+                                <div class="koopaling-name">Roy Koopa</div>
+                                <div class="koopaling-title">Heavy Assault Commander</div>
+                                <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #2196F3;"></span>
+                                    Deployed - Border Zone
+                                </span>
+                            </div>
+                            
+                            <div class="koopaling-card">
+                                <img src="portraits/iggy.png" alt="Iggy" class="koopaling-portrait">
+                                <div class="koopaling-name">Iggy Koopa</div>
+                                <div class="koopaling-title">R&D Division Head</div>
+                                <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #4CAF50;"></span>
+                                    Active - Research Labs
+                                </span>
+                            </div>
+                            
+                            <div class="koopaling-card">
+                                <img src="portraits/wendy.png" alt="Wendy" class="koopaling-portrait">
+                                <div class="koopaling-name">Wendy O. Koopa</div>
+                                <div class="koopaling-title">Naval Operations</div>
+                                <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #4CAF50;"></span>
+                                    Active - Water Land
+                                </span>
+                            </div>
+                            
+                            <div class="koopaling-card">
+                                <img src="portraits/morton.png" alt="Morton" class="koopaling-portrait">
+                                <div class="koopaling-name">Morton Koopa Jr.</div>
+                                <div class="koopaling-title">Desert Operations</div>
+                                <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #4CAF50;"></span>
+                                    Active - Desert Land
+                                </span>
+                            </div>
+                            
+                            <div class="koopaling-card">
+                                <img src="portraits/larry.png" alt="Larry" class="koopaling-portrait">
+                                <div class="koopaling-name">
+                                    Larry Koopa</div>
+                                    <div class="koopaling-title">Frontline Commander</div>
+                                    <span class="koopaling-status">
+                                    <span class="status-dot" style="background: #2196F3;"></span>
+                                    Deployed - Grass Land
+                                    </span>
+                                    </div>
+                                    </div>
+                    <h3 class="section-subtitle">Koopaling Power Dynamics</h3>
+                    <div class="info-card">
+                        <p><strong>Ludwig von Koopa</strong> considers himself the rightful heir due to his seniority and tactical brilliance. He commands the most respect among the military brass and has been openly critical of Kamek's "soft" approach to the war.</p>
+                        <p><strong>Roy Koopa</strong> believes might makes right and has begun consolidating forces loyal to him personally rather than the crown. His ambitions worry Kamek greatly.</p>
+                        <p><strong>Wendy O. Koopa</strong> has been quietly building alliances with external powers, including secret communications with Sarasaland. Her long-term goals remain unclear.</p>
+                        <p><strong>Iggy Koopa</strong> remains focused on his research, seemingly uninterested in power—but his weapons development gives him leverage no one can ignore.</p>
+                        <p><strong>Lemmy, Morton, and Larry</strong> have thus far remained loyal to Kamek's regency, though their patience wears thin as Bowser's absence extends.</p>
+                    </div>
+                    
+                    <h3 class="section-subtitle">Succession Crisis</h3>
+                    <div class="situation-alert">
+                        <div class="alert-header">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/></svg>
+                            <h4>Internal Threat Assessment</h4>
+                        </div>
+                        <p>Intelligence suggests that if Bowser is not found within 30 days, Ludwig and Roy may move against each other openly. Kamek has positioned loyalist forces at key chokepoints, but a civil war within the civil war would be catastrophic for Koopa interests.</p>
+                        <p>Bowser Jr., the legitimate heir, lacks the experience and respect needed to unite the Koopalings. Several have privately expressed that they will not take orders from "the brat."</p>
+                    </div>
+                </section>
+
+                <!-- Operations Section -->
+                <section id="operations" class="faction-section">
+                    <h2 class="section-title">Current Operations</h2>
+                    
+                    <div class="operations-list">
+                        <div class="operation-card">
+                            <div class="operation-header">
+                                <h4>Operation: King's Return</h4>
+                                <span class="operation-status active">Active</span>
+                            </div>
+                            <div class="operation-body">
+                                <p>Priority mission to locate and recover King Bowser. Multiple Magikoopa scrying teams deployed. Boo infiltrators searching Mushroom Kingdom territory for signs of capture or imprisonment.</p>
+                                <ul class="operation-objectives">
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Deploy scrying network across all known territories</span>
+                                    </li>
+                                    <li class="complete">
+                                        <span class="obj-check"></span>
+                                        <span>Confirm Bowser not held in Peach's Castle</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Investigate dimensional anomalies near last sighting</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Interrogate captured Toad officers for intelligence</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="operation-card">
+                            <div class="operation-header">
+                                <h4>Operation: Iron Shell</h4>
+                                <span class="operation-status active">Active</span>
+                            </div>
+                            <div class="operation-body">
+                                <p>Defensive consolidation of the eastern front following the Toad Harbor disaster. Focus on fortifying current positions rather than aggressive expansion.</p>
+                                <ul class="operation-objectives">
+                                    <li class="complete">
+                                        <span class="obj-check"></span>
+                                        <span>Reinforce World 4-4 garrison</span>
+                                    </li>
+                                    <li class="complete">
+                                        <span class="obj-check"></span>
+                                        <span>Establish fallback positions at World 3 border</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Deploy additional Bullet Bill batteries</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Complete warp pipe denial operations</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="operation-card">
+                            <div class="operation-header">
+                                <h4>Operation: Shadow Watch</h4>
+                                <span class="operation-status active">Active</span>
+                            </div>
+                            <div class="operation-body">
+                                <p>Counter-intelligence operation monitoring the Koopalings for signs of rebellion or unauthorized actions. Kamek's personal initiative, known only to his most trusted Magikoopas.</p>
+                                <ul class="operation-objectives">
+                                    <li class="complete">
+                                        <span class="obj-check"></span>
+                                        <span>Place observers in each Koopaling's command staff</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Monitor all long-range magical communications</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Identify potential loyalist officers for emergency deployment</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Develop contingency plans for each succession scenario</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="operation-card">
+                            <div class="operation-header">
+                                <h4>Operation: Pipe Dream</h4>
+                                <span class="operation-status planning">Planning</span>
+                            </div>
+                            <div class="operation-body">
+                                <p>Proposed offensive to seize control of the remaining Pipe Land warp junctions. Ludwig is pushing for immediate execution; Kamek urges caution until Bowser's status is confirmed.</p>
+                                <ul class="operation-objectives">
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Complete reconnaissance of Mushroom defensive positions</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Amass strike force of 5,000 troops</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Coordinate airship support from Sky Land bases</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Obtain Kamek's authorization for launch</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="operation-card">
+                            <div class="operation-header">
+                                <h4>Operation: Starfall</h4>
+                                <span class="operation-status failed">Suspended</span>
+                            </div>
+                            <div class="operation-body">
+                                <p>Ambitious plan to capture Star Road access points and control the flow of Power Stars. Suspended indefinitely after the initial assault's failure six months ago.</p>
+                                <ul class="operation-objectives">
+                                    <li class="complete">
+                                        <span class="obj-check"></span>
+                                        <span>Identify Star Road entry points</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Secure initial foothold (FAILED)</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Establish permanent garrison</span>
+                                    </li>
+                                    <li>
+                                        <span class="obj-check"></span>
+                                        <span>Begin Star harvesting operations</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Intel Section -->
+                <section id="intel" class="faction-section">
+                    <h2 class="section-title">Intelligence Reports</h2>
+                    
+                    <div class="intel-feed">
+                        <div class="intel-item priority-high">
+                            <div class="intel-icon">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/></svg>
+                            </div>
+                            <div class="intel-content">
+                                <div class="intel-header">
+                                    <span class="intel-title">Mario Brothers Movement Detected</span>
+                                    <span class="intel-date">2 hours ago</span>
+                                </div>
+                                <p class="intel-body">Boo reconnaissance reports Mario and Luigi departing Toad Town heading northeast. Destination unknown. All eastern garrisons on high alert. This could be a rescue mission for Bowser if they know something we don't.</p>
+                                <div class="intel-tags">
+                                    <span class="intel-tag">Priority Alpha</span>
+                                    <span class="intel-tag">Mario Threat</span>
+                                    <span class="intel-tag">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="intel-item priority-high">
+                            <div class="intel-icon">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/></svg>
+                            </div>
+                            <div class="intel-content">
+                                <div class="intel-header">
+                                    <span class="intel-title">Roy's Unauthorized Troop Movement</span>
+                                    <span class="intel-date">6 hours ago</span>
+                                </div>
+                                <p class="intel-body">Roy Koopa has repositioned 800 troops from his border garrison to positions closer to Dark Land's interior. When questioned, he claimed "defensive restructuring." Kamek is not convinced. Recommend increased surveillance.</p>
+                                <div class="intel-tags">
+                                    <span class="intel-tag">Internal Security</span>
+                                    <span class="intel-tag">Koopaling Watch</span>
+                                    <span class="intel-tag">Unverified</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="intel-item priority-medium">
+                            <div class="intel-icon">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21,10.12H14.22L16.96,7.3C14.23,4.6 9.81,4.5 7.08,7.2C4.35,9.91 4.35,14.28 7.08,17C9.81,19.7 14.23,19.7 16.96,17C18.32,15.65 19,14.08 19,12.1H21C21,14.08 20.12,16.65 18.36,18.39C14.85,21.87 9.15,21.87 5.64,18.39C2.14,14.92 2.11,9.28 5.62,5.81C9.13,2.34 14.76,2.34 18.27,5.81L21,3V10.12Z"/></svg>
+                            </div>
+                            <div class="intel-content">
+                                <div class="intel-header">
+                                    <span class="intel-title">Peach Loyalist Reinforcements</span>
+                                    <span class="intel-date">1 day ago</span>
+                                </div>
+                                <p class="intel-body">Toad Brigade has received reinforcements from Beanbean Kingdom. Estimated 2,000 Bean troops now integrated into Mushroom defensive lines at World 5 border. This confirms the defensive alliance is more than symbolic.</p>
+                                <div class="intel-tags">
+                                    <span class="intel-tag">Enemy Forces</span>
+                                    <span class="intel-tag">Alliance Intel</span>
+                                    <span class="intel-tag">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="intel-item classified">
+                            <div class="intel-icon">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg>
+                            </div>
+                            <div class="intel-content">
+                                <div class="intel-header">
+                                    <span class="intel-title">Wendy's Secret Communications</span>
+                                    <span class="intel-date">2 days ago</span>
+                                </div>
+                                <p class="intel-body">[CLASSIFIED - KAMEK EYES ONLY] Intercepted magical transmission from Wendy O. Koopa to unknown recipient in Sarasaland. Contents encrypted with unknown cipher. Magikoopa cryptanalysis team working on decryption. Potential treason investigation pending.</p>
+                                <div class="intel-tags">
+                                    <span class="intel-tag">Classified</span>
+                                    <span class="intel-tag">Koopaling Watch</span>
+                                    <span class="intel-tag">Decryption Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="intel-item priority-medium">
+                            <div class="intel-icon">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z"/></svg>
+                            </div>
+                            <div class="intel-content">
+                                <div class="intel-header">
+                                    <span class="intel-title">Dimensional Anomaly Detected</span>
+                                    <span class="intel-date">3 days ago</span>
+                                </div>
+                                <p class="intel-body">Magikoopa sensors detected unusual dimensional disturbance near Bowser's last known position at Toad Harbor. Signature consistent with forced interdimensional transport. Possibility that Bowser was not killed but displaced to another realm.</p>
+                                <div class="intel-tags">
+                                    <span class="intel-tag">King's Return</span>
+                                    <span class="intel-tag">Dimensional</span>
+                                    <span class="intel-tag">Under Investigation</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="intel-item priority-low">
+                            <div class="intel-icon">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.58,4 4,7.58 4,12C4,16.42 7.58,20 12,20C16.42,20 20,16.42 20,12C20,7.58 16.42,4 12,4M12,6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6Z"/></svg>
+                            </div>
+                            <div class="intel-content">
+                                <div class="intel-header">
+                                    <span class="intel-title">Wario Inc. Arms Shipment Arrival</span>
+                                    <span class="intel-date">4 days ago</span>
+                                </div>
+                                <p class="intel-body">Latest weapons shipment from Wario Incorporated arrived at Dark Land port. Inventory includes 500 Bob-omb units, 200 Bullet Bill launchers, and experimental "Gold Flower" devices. Payment of 50,000 coins transferred.</p>
+                                <div class="intel-tags">
+                                    <span class="intel-tag">Logistics</span>
+                                    <span class="intel-tag">Arms Deal</span>
+                                    <span class="intel-tag">Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script type="module" src="common.js"></script>
+<script type="module" src="navigation.js"></script>
+<script type="module" src="faction-koopa.js"></script>                                    

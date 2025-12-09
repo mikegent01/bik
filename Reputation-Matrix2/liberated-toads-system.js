@@ -1222,7 +1222,7 @@ const CORE_TOADS = {
         rank: "Hero of the Liberation",
         
         level: 5,
-        xp: 1650,
+        xp: 1850,
         
         stats: {
             str: 16, dex: 10, con: 14, int: 10, wis: 13, cha: 17,
@@ -1954,6 +1954,7 @@ function generateCohortMembers() {
             background: "Elite guard serving Speaker L directly. Hand-picked for loyalty and combat skill.",
             
             log: [
+                { day: 20, event: "Helped defeat  a giant spider monster", xp: 100, type: "military" },
                 { day: 18, event: "Assigned to Pond Patrol by Captain Fernback", xp: 50, type: "political" }
             ]
         });
