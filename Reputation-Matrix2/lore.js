@@ -16,8 +16,7 @@ import { POKEMON_FACTIONS } from './factions/pokemon.js';
 import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
 
 import { RUMORS } from './party-and-events.js';
-import { PARLIAMENT_MEMBERS } from './parliament-members.js';
-import { RAKASHA_DETAILS } from '../data/rakasha-clans-details.js';
+import { PARLIAMENT_MEMBERS } from './parliament-members.js'; 
 import { REBEL_CLANS_DETAILS } from './rebel-clans-details.js';
 import { FAWFUL_DETAILS } from './fawful-details.js';
 import { COSMIC_JESTERS_DETAILS } from './cosmic-jesters-details.js';
@@ -364,7 +363,6 @@ export const LORE_DATA = {
     rumors: RUMORS,
     story_arcs: STORY_ARCS,  // ADD THIS LINE
     faction_details: {
-        rakasha_clans: RAKASHA_DETAILS,
         rebel_clans: REBEL_CLANS_DETAILS,
         fawfuls_furious_freaks: FAWFUL_DETAILS,
         cosmic_jesters: COSMIC_JESTERS_DETAILS
