@@ -17,6 +17,95 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
     {
+        id: 'spider_grove_ambush',
+        title: "Titan vs. Arachnid",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'markop',
+        arc: 'raventree_manor',
+        arcPosition: 'rising',
+        description: "Chaos erupted in the Raventree hedge maze when the party was ambushed by giant spiders. The skirmish is being called 'The Titan Incident' after Markop reportedly grew fifty feet tall to wrestle the broodmother, aided by Waluigi's erratic ice magic and Remi's prototype mechanical hound, 'Mossy'. Despite heavy friendly fire and pepper-spray blindness, the squad successfully repelled the arachnid threat and rescued the toad Eager.",
+        targets: ['markop', 'waluigi', 'remi', 'eager', 'roger'],
+        effects: {
+            liberated_toads: 10,
+            iron_legion: -5,
+            mages_guild: -5,
+            cosmic_jesters: 15
+        },
+        cycle_impact: { score: 1.5, label: "Kaiju Battle", type: "military" }
+    },
+    {
+        id: 'iron_mandate_passage',
+        title: "The Iron Mandate",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'general_marcus_ironhand',
+        arc: 'supernatural_sovereignty',
+        arcPosition: 'falling',
+        description: "Following the Supernatural Sovereignty Act, the Midlands Diet has ratified the 'Iron Mandate', establishing martial law and granting the Iron Legion full administrative control over security sectors. The Mages' Guild has withdrawn its envoys in protest of warrantless searches, Speaker Rivers has resigned from the Diet, and supernatural factions are retreating deep underground.",
+        targets: ['party', 'mages_guild', 'onyx_hand', 'moonfang_pack'],
+        effects: {
+            regal_empire: 20,
+            iron_legion: 30,
+            mages_guild: -25,
+            freelancer_underworld: -15,
+            liberated_toads: -10
+        },
+        cycle_impact: { score: 2.0, label: "Martial Law", type: "political" }
+    },
+    {
+        id: 'iron_sky_breach',
+        title: "Vigilance Over Raventree",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: false,
+        instigator: 'colonel_vera_steelstorm',
+        arc: 'vigilance_saga',
+        arcPosition: 'falling',
+        description: "The captured airship 'Vigilance' has been deployed by the Iron Legion to broadcast propaganda and enforce compliance over the Raventree sector. The sight of their former vessel being used as a tool of oppression has demoralized the Liberated Toads and signaled the Legion's total air superiority.",
+        targets: ['party', 'liberated_toads'],
+        effects: {
+            iron_legion: 10,
+            liberated_toads: -10,
+            ratchet_raiders: -5
+        },
+        cycle_impact: { score: 0.5, label: "Propaganda Ops", type: "military" }
+    },
+    {
+        id: 'remi_personal_arc',
+        title: "Remi's Guild Application",
+        date: { day: 20, monthIndex: 6, year: 1040 },
+        isEvent: false,
+        instigator: 'remi',
+        arc: 'vigilance_saga',
+        arcPosition: 'falling',
+        description: "Amidst the chaos of war, Remi has formally submitted her application to the Deephold Smithing Guild, leveraging schematics from the Vigilance and new alloy formulas. The move signals a potential shift from field mechanic to recognized smith, assuming she survives the night.",
+        targets: ['remi'],
+        effects: {
+            ratchet_raiders: 5,
+            regal_empire: 0
+        },
+        cycle_impact: { score: 0.1, label: "Bureaucracy", type: "economic" }
+    },    
+{
+id: 'shard_stalker_incident',
+title: "The Shard Stalker Incident",
+date: { day: 20, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'humpik',
+arc: 'raventree_manor',
+arcPosition: 'climax',
+description: "In the mirror-filled attic of Raventree Manor, Humpik neutralized a Class-5 Shard Stalker by sealing it into a stone statue rather than destroying it. This strategic choice saved the trapped toad 'Green T' and secured a pristine specimen for the Mages' Guild. As a reward for the preservation, Archie Miser was granted a provisional Guild Pass, legitimizing the party's magic just hours before the Iron Legion's martial law declaration.",
+targets: ['humpik', 'archie', 'bowser', 'dan', 'green_t'],
+effects: {
+mages_guild: 25,
+iron_legion: 10,
+liberated_toads: 15,
+cosmic_jesters: -10,
+freelancer_underworld: 5
+},
+cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
+},    
+    {
         id: 'greenhouse_inferno_confession',
         title: "Archie's Confession",
         date: { day: 20, monthIndex: 6, year: 1040 },
