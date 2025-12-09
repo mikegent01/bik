@@ -3,6 +3,10 @@ import { RESEARCH_CATEGORIES, RESEARCH_TO_ESTATE_MAPPING } from './research-cons
 
 export const SPECIES_ESTATE_BIAS = {
     // Nobility, Clergy, Burghers, Commoners, Indentured, Slaves
+    etherious_demon: { nobility: 0.30, clergy: 0.20, burghers: 0.05, commoners: 0.15, indentured: 0.00, slaves: 0.30 },
+    machias: { nobility: 0.05, clergy: 0.05, burghers: 0.50, commoners: 0.20, indentured: 0.20, slaves: 0.00 },
+    earth_land_dragon: { nobility: 0.90, clergy: 0.05, burghers: 0.00, commoners: 0.05, indentured: 0.00, slaves: 0.00 },
+    earth_land_giant: { nobility: 0.10, clergy: 0.10, burghers: 0.10, commoners: 0.70, indentured: 0.00, slaves: 0.00 },    
     dnd_human: { nobility: 0.10, clergy: 0.10, burghers: 0.30, commoners: 0.40, indentured: 0.10, slaves: 0.00 },
     regal_midlander: { nobility: 0.15, clergy: 0.15, burghers: 0.35, commoners: 0.30, indentured: 0.05, slaves: 0.00 },
     dnd_elf_high: { nobility: 0.30, clergy: 0.40, burghers: 0.20, commoners: 0.10, indentured: 0.00, slaves: 0.00 },
@@ -418,7 +422,38 @@ export const SPECIES_DATA = {
     exceed: { name: 'Exceed', color: '#90caf9', icon: '😺', description: 'Winged cats.', favored_guild_tag: 'maritime', religion_breakdown: { star_spirits: 0.80, unaligned: 0.20 } },
     celestial_spirit: { name: 'Celestial Spirit', color: '#ffd700', icon: '🔑', description: 'Summoned beings.', favored_guild_tag: 'arcane', religion_breakdown: { celestial_spirit_cult: 1.0 } }, 
     vulcan: { name: 'Vulcan', color: '#f44336', icon: '🦍', description: 'Monstrous apes.', favored_guild_tag: 'military', religion_breakdown: { great_waaagh: 0.70, unaligned: 0.30 } },
-    
+    etherious_demon: { 
+        name: 'Etherious', 
+        color: '#880e4f', 
+        icon: '👿', 
+        description: 'Demons created from the Books of Zeref to kill the immortal.',
+        favored_guild_tag: 'arcane', 
+        religion_breakdown: { void_nihilism: 0.80, sanguine_path: 0.10, unaligned: 0.10 } 
+    },
+    machias: { 
+        name: 'Machias', 
+        color: '#00897b', 
+        icon: '🦾', 
+        description: 'Magical androids capable of technological reconfiguration.',
+        favored_guild_tag: 'industrial', 
+        religion_breakdown: { cog_gospel: 0.60, digital_ascension: 0.30, unaligned: 0.10 } 
+    },
+    earth_land_dragon: { 
+        name: 'Dragon (True)', 
+        color: '#b71c1c', 
+        icon: '🐉', 
+        description: 'Ancient, intelligent rulers of the skies of Earth Land.',
+        favored_guild_tag: 'military', 
+        religion_breakdown: { unaligned: 1.0 } // Dragons generally view themselves as the pinnacle
+    },
+    earth_land_giant: { 
+        name: 'Giant (Earth Land)', 
+        color: '#ef6c00', 
+        icon: '🗿', 
+        description: 'Colossal beings, often guardians of eternal flames.',
+        favored_guild_tag: 'nature', 
+        religion_breakdown: { silver_flame_faith: 0.70, star_spirits: 0.30 } 
+    },
     // ========================================================================
     // FAERUN
     // ========================================================================
@@ -485,7 +520,16 @@ export const REGIONAL_DEMOGRAPHICS = {
     "The Edge Regions": { void_entity: 0.5, null_texture: 0.3, wireframe_husk: 0.2 },
     "Animatopia": { rabbit_folk: 0.2, sheep_folk: 0.2, fox_folk: 0.1, lion_folk: 0.1, sloth_folk: 0.1, bear_folk: 0.1, rakasha_hunter: 0.1, dnd_human: 0.1 },
     "Connectopia": { block_folk: 0.5, creeper_kind: 0.3, ender_kind: 0.2 },
-    "Earth Land": { earth_land_mage: 0.6, exceed: 0.2, celestial_spirit: 0.1, vulcan: 0.1 },
+"Earth Land": { 
+        earth_land_mage: 0.20, 
+        exceed: 0.15, 
+        celestial_spirit: 0.10, 
+        vulcan: 0.05, 
+        etherious_demon: 0.10, 
+        machias: 0.05, 
+        earth_land_dragon: 0.03, 
+        earth_land_giant: 0.02 
+    },
     "Faerûn": { faerun_human: 0.4, faerun_elf: 0.2, faerun_dwarf: 0.2, faerun_halfling: 0.1, faerun_gnome: 0.1 },
     "L'Eclaire Isle": { dough_glazed: 0.3, dough_cake: 0.2, dough_jelly: 0.2, dough_cruller: 0.1, dough_croissant: 0.1, frosting_slime: 0.1 },
     "Teyvat": { teyvat_human: 0.7, hilichurl: 0.1, adeptus: 0.05, fontainian: 0.05, melusine: 0.05, youkai_inazuma: 0.05 },
