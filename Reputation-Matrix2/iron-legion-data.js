@@ -1,28 +1,30 @@
 // Comprehensive intelligence dossier on the Iron Legion
 
 export const IRON_LEGION_DATA = {
-    overview: {
-        name: "The Iron Legion",
-        alias: ["The Legion", "Steelclad's Army", "The Hammers"],
-        founded: 1035,
-        foundedEvent: "Consolidated from a network of Midlands mercenary companies during the Post-War Reconstruction",
-        headquarters: "The Iron Citadel, Midlands Capital District",
-        estimatedStrength: "45,000+ active combatants",
-        politicalStatus: "De facto ruling military junta of the Midlands",
-        currentObjective: "Expansion into the Mushroom Kingdom under guise of 'stabilization operations'"
+overview: {
+        name: " The Iron Legion",
+        alias: ["The War Council", "Iron Fists", "The Steel Tide"],
+        founded: "2024 (Reconstituted)",
+        foundedEvent: "The Treaty of Iron",
+        headquarters: "Mobile Command / The Iron Citadel (Location Classified)",
+        estimatedStrength: "High (est. 5,000+ Active Personnel)",
+        politicalStatus: "Hostile Insurgency / Rogue State",
+        currentObjective: "Destabilization of Rogueport; Elimination of Regency Loyalists"
     },
-
     leadership: {
-        title: "Command Structure",
+       title: "Chain of Command",
         supremeCommand: {
-            rank: "Grand Forgemaster",
-            name: "Lord Vexar Steelclad",
-            description: "Supreme military and political authority. Elected by the Council of Hammers upon predecessor's death. Known for ruthless efficiency and zero tolerance for insubordination. Has held power for 4 years.",
-            status: "Active - Last confirmed at Iron Citadel"
+            rank: "Grand Warlord",
+            name: "General Grok (Presumed)",
+            description: "A brilliant tactician who prioritizes strength above all. Whereabouts currently unknown, but orders are being received.",
+            status: "ACTIVE"
         },
         councilOfHammers: {
             description: "Advisory body of seven senior Hammer Lords. Responsible for grand strategy, resource allocation, and succession protocols. Meets weekly in the Anvil Chamber.",
             members: [
+                { name: "Commander Kael", portfolio: "Logistics & Supply", notes: "Orchestrating supply lines into Rogueport." },
+                { name: "High Inquisitor Vex", portfolio: "Internal Security", notes: "Managing the 'Iron Fists' covert squads." },
+                { name: "Strategist Thorne", portfolio: "Field Operations", notes: "Architect of the current lockdown." },                
                 { name: "Hammer Lord Kessler", portfolio: "Eastern Territories", notes: "Hardliner faction leader" },
                 { name: "Hammer Lord Vance", portfolio: "Western Marches", notes: "Moderate, advocates negotiation" },
                 { name: "Hammer Lord Thresh", portfolio: "Naval Operations", notes: "Controls the Iron Fleet" },
@@ -44,6 +46,24 @@ export const IRON_LEGION_DATA = {
     subsidiaryForces: {
         title: "Subsidiary & Covert Units",
         units: [
+  {
+                name: "Iron Crown Brigade",
+                status: "ACTIVE - Frontline",
+                commander: "Centurion Drax",
+                strength: "Regiment",
+                location: "Toad Town Outskirts",
+                mission: "Direct conflict with Loyalist forces.",
+                description: "The main fighting force of the Legion."
+            },
+            {
+                name: "The Iron Fists",
+                status: "ACTIVE - Rogueport",
+                commander: "Unknown",
+                strength: "Squads",
+                location: "Rogueport (Trade & Dock Wards)",
+                mission: "Urban Pacification & Assassination",
+                description: "Ruthless enforcers wearing distinctive heavy armor. Responsible for the 'Night of Knives' killing local guards."
+            },
             {
                 name: "Iron Crown Brigade",
                 commander: "Viceroy Hammer Forgeheart",
@@ -87,6 +107,8 @@ export const IRON_LEGION_DATA = {
         title: "Military Doctrine",
         corePhilosophy: "The Legion fights not to win battles, but to end wars. Every engagement is designed to break the enemy's capacity and will to resist. Speed is sacrificed for certainty.",
         tacticalPrinciples: [
+            { name: "The Anvil", description: "Holding ground with overwhelming heavy armor." },
+            { name: "The Hammer", description: "Rapid, crushing strikes against weakened enemy lines." },            
             {
                 name: "The Iron Wall",
                 description: "Standard defensive formation using interlocking enchanted shields. Creates near-impenetrable barriers that can advance slowly while maintaining protection. Vulnerable only to flanking or magical bombardment."
@@ -105,6 +127,8 @@ export const IRON_LEGION_DATA = {
             }
         ],
         covertTactics: [
+            { name: "Urban Lockdowns", description: "Seizing control of city districts by assassinating local law enforcement at night." },
+            { name: "False Flag Recruitment", description: "Posing as mercenaries to move goods or intel." },            
             {
                 name: "The Long Game",
                 description: "In territories not yet conquered, the Legion plants agents years in advance. These sleepers gather intelligence, recruit sympathizers, and await activation."
@@ -121,8 +145,8 @@ export const IRON_LEGION_DATA = {
     },
 
     ideology: {
-        title: "The Hammer Code",
-        description: "The ideological foundation of Legion society. Drilled into every recruit from day one. Violations are punished severely.",
+        title: "The Iron Code",
+        description: "The Legion believes the Kingdom is weak and requires a 'hard reset' of governance.",
         tenets: [
             { number: 1, tenet: "Order Above All", meaning: "Chaos is the enemy. Personal desires, moral qualms, and individual freedoms are secondary to collective stability." },
             { number: 2, tenet: "Strength Through Unity", meaning: "A single soldier is nothing. The Legion is everything. Those who act alone threaten the whole." },
@@ -171,6 +195,24 @@ export const IRON_LEGION_DATA = {
         title: "Recent Operations in Regal Empire",
         operations: [
             {
+                date: "Current",
+                codename: "Operation: Silent Night",
+                description: "Enforcing a total lockdown in Rogueport. Systematic elimination of independent guards and Regency patrols.",
+                outcome: "ONGOING (High Success)"
+            },
+            {
+                date: "2 Weeks Ago",
+                codename: "The Toad Town Push",
+                description: "Support role in the Loyalist takeover of Toad Town.",
+                outcome: "SUCCESS"
+            },
+            {
+                date: "Last Month",
+                codename: "Supply Raid",
+                description: "Interception of Royal supply caravans.",
+                outcome: "PARTIAL SUCCESS"
+            },            
+            {
                 date: "Day 7-8, 1040 BF",
                 codename: "IRON GATE",
                 description: "First major confrontation with party aboard Vigilance. Legion agents attempted to recover prisoners and were detained. Revealed extent of Brigade infiltration.",
@@ -216,14 +258,19 @@ export const IRON_LEGION_DATA = {
             { type: "Cavalry Squadrons", quantity: "~3,000 riders", notes: "Heavy shock cavalry" },
             { type: "Siege Engines", quantity: "~200 'Forge Engines'", notes: "Catapults and ballistae" },
             { type: "Warships", quantity: "~40 vessels", notes: "Iron Fleet, mostly patrol craft" },
-            { type: "Airship Assets", quantity: "1 confirmed (Vigilance)", notes: "Recently captured" }
+            { type: "Airship Assets", quantity: "1 confirmed (Vigilance)", notes: "Recently captured" },
+            { type: "Heavy Plate Armor", quantity: "High", notes: "Standard issue, resistant to light magic." },
+            { type: "Siege Weaponry", quantity: "Moderate", notes: "Stored in hidden caches." },            
         ],
         intelligence: [
+            { type: "Informant Network", quantity: "Low", notes: "Rogueport dock workers." },
+            { type: "Scout Reports", quantity: "High", notes: "Constant updates from the front." },            
             { type: "Embedded Agents", quantity: "Unknown (dozens confirmed)", notes: "Sleeper cells in all major factions" },
             { type: "Informant Network", quantity: "Extensive", notes: "Paid sources across the Kingdom" },
             { type: "Arcane Assets", quantity: "Limited", notes: "Archie clone, robotic duplicate, others suspected" }
         ],
         political: [
+            { type: "Warlord Alliances", quantity: "Fluctuating", notes: "Tenuous pacts with independent villain factions." },            
             { type: "Midlands Diet Control", quantity: "28 of 39 seats aligned", notes: "Near-total political control" },
             { type: "Supernatural Sovereignty Act", quantity: "Enacted", notes: "Legal basis for expanded operations" },
             { type: "Iron Mandate", quantity: "Enacted Day 21", notes: "Emergency powers authorization" }
@@ -233,6 +280,20 @@ export const IRON_LEGION_DATA = {
     knownPersonnel: {
         title: "Known Operatives in Kingdom Theater",
         operatives: [
+            {
+                name: "Legionnaire 734 (Deceased)",
+                threatLevel: "Low",
+                role: "Scout",
+                description: "Killed by Skeleton Knight in Rogueport. Armor looted by Erick.",
+                status: "KIA"
+            },
+            {
+                name: "'The Executioner'",
+                threatLevel: "EXTREME",
+                role: "Iron Fist Commander",
+                description: "Unidentified leader of the Rogueport assassination squad.",
+                status: "ACTIVE"
+            },            
             {
                 name: "Viceroy Hammer Forgeheart",
                 role: "Iron Crown Brigade Commander",
@@ -281,6 +342,8 @@ export const IRON_LEGION_DATA = {
     vulnerabilities: {
         title: "Assessed Vulnerabilities",
         weaknesses: [
+            { category: "Magic Defense", exploitability: "High", description: "Heavy armor makes them slow and conductive to electrical/fire magic." },
+            { category: "Supply Lines", exploitability: "Medium", description: "Heavily reliant on stolen goods." },            
             {
                 category: "Overextension",
                 description: "The Legion is operating far from supply lines. The Iron Crown Brigade has limited reinforcement options and must rely on local recruitment.",
@@ -337,7 +400,8 @@ export const LEGION_QUOTES = [
     { text: "We do not raid. We conquer.", source: "Iron Legion Field Manual, Section 6" },
     { text: "The conquered peoples are not our equals. They are raw material.", source: "Field Manual, Section 11" },
     { text: "Chaos is the enemy. Order is the only virtue.", source: "The Hammer Code, Section 2" },
-    { text: "A Legionnaire's life belongs to the Emperor. Spend it wisely.", source: "The Hammer Code, Section 2" }
+    { text: "A Legionnaire's life belongs to the Emperor. Spend it wisely.", source: "The Hammer Code, Section 2" },
+    { text: "Rogueport is ours tonight. Stay inside, or stay dead.", source: "Rogueport Assassin" },
 ];
 
 export const THREAT_ASSESSMENT = {
@@ -349,10 +413,16 @@ export const THREAT_ASSESSMENT = {
         "Vigilance under enemy control",
         "Unknown number of sleeper agents remain active",
         "Iron Mandate grants expanded operational authority",
-        "Archie clone remains a wild card"
+        "Archie clone remains a wild card",
+        "Rogueport District Control",
+        "Assassination of Allied Personnel",
+        "Destabilization of Trade Routes"        
     ],
     recommendedActions: [
         "Prioritize intelligence gathering on Brigade structure",
+        "Avoid Trade Ward at night.",
+        "Use magic-heavy tactics against armored units.",
+        "Disrupt supply chains in the Midlands.",        
         "Identify and neutralize remaining embedded agents",
         "Consider alliance with factions targeted by Supernatural Sovereignty Act",
         "Develop contingency for Vigilance recovery or destruction"

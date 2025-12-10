@@ -296,6 +296,13 @@ const LOYALIST_DATA = {
         
         breakthroughs: [
             {
+                date: { year: 1040, monthIndex: 6, day: 21 },
+                title: 'The House of Pleasure (Xeos)',
+                description: 'Mystivil entered the Rakasha mindscape (Xeos). He confirmed Thornpaw\'s deep connection to the spirit realm and the existence of a "Rakasha Guide" who facilitates these connections. The Rakasha are not just savages; they are a psychic collective.',
+                critical: true,
+                intelRequired: 60
+            },            
+            {
                 date: { year: 1040, monthIndex: 6, day: 10 },
                 title: 'The Thornpaw Revelation',
                 description: 'Chief Thornpaw reveals his relationship with Princess Peach and the existence of a secret hatch in her chambers. This is the most significant breakthrough in decades.',
@@ -397,6 +404,45 @@ const LOYALIST_DATA = {
         ],
         
         cellLeaders: [
+            {
+                id: 'mystivil',
+                name: 'Mystivil',
+                codename: 'ENVOY',
+                icon: '🎭',
+                role: 'Diplomatic Liaison',
+                status: 'active',
+                intelRequired: 40,
+                bio: 'A high-ranking diplomat who successfully navigated the Rakasha "Festival of the Fallen." He survived the Xeos Ritual—a psychic link to the Rakasha hive mind—to secure a pact with Chief Thornpaw.',
+                stats: {
+                    operations: 12,
+                    yearsActive: 4,
+                    directKills: 0
+                },
+                recentActions: [
+                    'Attended Festival of the Fallen',
+                    'Survived Xeos Ritual (Inner Path)',
+                    'Secured "Rogueport District" Pact'
+                ]
+            },
+            {
+                id: 'big_r',
+                name: 'Big R',
+                codename: 'ANCHOR',
+                icon: '🛡️',
+                role: 'Diplomatic Security',
+                status: 'active',
+                intelRequired: 35,
+                bio: 'Mystivil\'s personal bodyguard and enforcer. Skeptical of magic but fiercely loyal. Kept watch while Mystivil was under the influence of the Xeos trance.',
+                stats: {
+                    operations: 45,
+                    yearsActive: 7,
+                    directKills: 32
+                },
+                recentActions: [
+                    'Security for Festival of the Fallen',
+                    'Extracted Envoy from ritual site'
+                ]
+            },            
             {
                 id: 'embercap',
                 name: 'Embercap',
@@ -549,6 +595,48 @@ const LOYALIST_DATA = {
     
     // Operations Database
     operations: [
+        {
+            id: 'op_rakasha_alliance',
+            codename: 'SPIRIT BOND',
+            type: 'diplomatic',
+            typeLabel: 'Diplomatic Mission',
+            status: 'completed', // CHANGED FROM active
+            classification: 'secret',
+            date: { year: 1040, monthIndex: 6, day: 21 }, // Updated Date
+            objective: 'Establish formal alliance with the Rakasha Clans via the Festival of the Fallen.',
+            commander: 'Mistveil / Mystivil',
+            cells: ['Truth Seekers'],
+            forces: { friendly: 2, enemy: 0 },
+            outcome: 'PACT ESTABLISHED', // CHANGED
+            outcomeDetail: 'Mystivil passed the Xeos Ritual. Thornpaw agreed to an alliance on the condition that Loyalists protect a specific district in Rogueport.',
+            casualties: { friendly: 0, enemy: 0 },
+            intelGained: [
+                'Direct mental link with Thornpaw established',
+                'Confirmation of Rakasha hive-mind capabilities',
+                'Location of Rakasha interests in Rogueport'
+            ],
+            notes: 'The alliance is fragile. We must honor the "District Protection" clause or the pact voids.'
+        },
+
+        // ADD THIS NEW OPERATION:
+        {
+            id: 'op_rogueport_district',
+            codename: 'SAFE HAVEN',
+            type: 'military',
+            typeLabel: 'Garrison Deployment',
+            status: 'active',
+            classification: 'secret',
+            date: { year: 1040, monthIndex: 6, day: 22 },
+            objective: 'Occupy and protect the Rakasha-designated district in Rogueport as per the Spirit Bond treaty.',
+            commander: 'Commander Redcap',
+            cells: ['Liberation Front', 'Vengeance Cell'],
+            forces: { friendly: 150, enemy: 'Various gangs' },
+            outcome: 'DEPLOYING',
+            outcomeDetail: 'Troops moving to secure the perimeter. No invasion—strictly a protection detail as requested by Thornpaw.',
+            casualties: { friendly: 0, enemy: 0 },
+            intelGained: [],
+            notes: 'This is the price of the Rakasha alliance. We hold this district, we hold their friendship.'
+        },        
         {
             id: 'op_bramblehaven',
             codename: 'IRON ROSE',
@@ -873,10 +961,10 @@ const LOYALIST_DATA = {
         },
         {
             faction: 'Rakasha Clans',
-            status: 'potential-ally',
+            status: 'ally', // CHANGED from potential-ally
             icon: '🐾',
-            description: 'Chief Thornpaw\'s revelation has opened diplomatic channels. They possess information we desperately need.',
-            recentDevelopments: 'Alliance negotiations ongoing. Iron Mandate makes them receptive.'
+            description: 'Allied via the Spirit Bond Pact. We protect their interests in Rogueport; they provide intelligence and sanctuary.',
+            recentDevelopments: 'Formal pact sealed at the Festival of the Fallen.'
         },
         {
             faction: 'Liberated Toads',

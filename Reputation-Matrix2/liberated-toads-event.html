@@ -1,16 +1,15 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vigilance Terminal | Mission Overview</title>
+    <title>Vigilance Terminal | Rogueport Infiltration</title>
     <link rel="stylesheet" href="global.css" />
     <link rel="stylesheet" href="layout.css" />
     <link rel="stylesheet" href="components.css" />
     <link rel="stylesheet" href="toads-event.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Three.js Import Map -->
     <script type="importmap">
         {
             "imports": {
@@ -28,13 +27,13 @@
             <main id="main-content">
                 <section id="mission-dashboard">
                     <!-- Header / Status Banner -->
-                    <div class="mission-header-banner status-critical">
+                    <div class="mission-header-banner status-warning">
                         <div class="banner-content">
-                            <h2>OPERATION: IRONFALL</h2>
-                            <p>LOC: The Midlands / Mushroom Kingdom // DAY 20</p>
+                            <h2>OPERATION: NIGHT TRAIN</h2>
+                            <p>LOC: Rogueport (Trade Ward) // TIME: 02:00 AM</p>
                         </div>
                         <div class="mission-status-badge blink">
-                            STATUS: CHAOTIC
+                            STATUS: INFILTRATION
                         </div>
                     </div>
 
@@ -43,29 +42,22 @@
                         <div class="panel-header">
                             <h3>Tactical Spatial Analysis</h3>
                             <div class="visualizer-controls" style="flex-wrap: wrap;">
-                                <!-- Day 21 Events -->
-                                <button class="vis-btn active" data-scene="solarium">Manor: Solarium Battle</button>
-                                <!-- Day 20 Events -->
-                                <button class="vis-btn" data-scene="breach">Vigilance: Breach</button>
-                                <button class="vis-btn" data-scene="harbor">Cheep Cheep Harbor</button>
-                                <button class="vis-btn" data-scene="facility">Imperial Prison</button>
-                                <button class="vis-btn" data-scene="rakasha">Rakasha Camp</button>
-                                <!-- Previous Locations (Restored) -->
-                                <button class="vis-btn" data-scene="kitchen">Manor: Kitchen</button>
-                                <button class="vis-btn" data-scene="foyer">Manor: Foyer</button>
-                                <button class="vis-btn" data-scene="greenhouse">Manor: Greenhouse</button>
-                                <button class="vis-btn" data-scene="mirror">Mirror Dimension</button>
+                                <!-- Current Active Scenes -->
+                                <button class="vis-btn active" data-scene="rogueport_trade">Rogueport: Trade Ward</button>
+                                <button class="vis-btn" data-scene="rakasha_camp">Rakasha: Bone Festival</button>
                             </div>
                         </div>
+                        
+                        <!-- Visualizer Container -->
                         <div id="tactical-visualizer-container">
                             <div id="tactical-tooltip" class="hidden"></div>
                         </div>
+                        
                         <div class="visualizer-legend">
                             <span class="legend-dot ally"></span> Ally
-                            <span class="legend-dot neutral"></span> Neutral/Unknown
-                            <span class="legend-dot enemy"></span> Hostile/Traitor
-                            <span class="legend-dot critical"></span> Critical/Down
-                            <span class="legend-dot anomaly"></span> Magical/Special
+                            <span class="legend-dot enemy"></span> Iron Legion / Hostile
+                            <span class="legend-dot magic"></span> Spirit Summon
+                            <span class="legend-dot critical"></span> Deceased
                         </div>
                     </div>
 
@@ -76,27 +68,27 @@
                             <div class="panel tactical-panel">
                                 <div class="panel-header"><h3>Current Objectives</h3></div>
                                 <ul class="objective-list">
-                                    <li class="obj-active">Secure the Ruined Hall</li>
-                                    <li class="obj-complete">Defeat the Shard Stalker</li>
-                                    <li class="obj-active">Confront the Iron Legion Spies</li>
-                                    <li class="obj-active">Recover Humpik (Done)</li>
+                                    <li class="obj-active">Locate 'Violet Emblem' Building</li>
+                                    <li class="obj-active">Retrieve Rakasha's Stolen Asset</li>
+                                    <li class="obj-warning">Evade 'Iron Fist' Death Squads</li>
+                                    <li class="obj-complete">Secure Rakasha Alliance (Mystivil)</li>
                                 </ul>
                             </div>
 
                             <div class="panel tactical-panel">
-                                <div class="panel-header"><h3>Environmental Readings</h3></div>
+                                <div class="panel-header"><h3>Sector Conditions</h3></div>
                                 <div class="readings-grid">
                                     <div class="reading-item">
-                                        <span class="label">Mirror Stability</span>
-                                        <div class="bar-container"><div class="bar-fill red" style="width: 15%">SHATTERED</div></div>
+                                        <span class="label">Legion Presence</span>
+                                        <div class="bar-container"><div class="bar-fill red" style="width: 95%">EXTREME</div></div>
                                     </div>
                                     <div class="reading-item">
-                                        <span class="label">Party Cohesion</span>
-                                        <div class="bar-container"><div class="bar-fill orange" style="width: 45%">STRAINED</div></div>
+                                        <span class="label">Stealth Integrity</span>
+                                        <div class="bar-container"><div class="bar-fill orange" style="width: 40%">COMPROMISED</div></div>
                                     </div>
                                     <div class="reading-item">
-                                        <span class="label">Ancient Spirits</span>
-                                        <div class="bar-container"><div class="bar-fill yellow" style="width: 90%">WATCHING</div></div>
+                                        <span class="label">Magic Fluctuations</span>
+                                        <div class="bar-container"><div class="bar-fill purple" style="width: 85%">SUMMON ACTIVE</div></div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +99,11 @@
                             <div class="panel log-panel">
                                 <div class="panel-header"><h3>Tactical Log / SitRep</h3></div>
                                 <div id="tactical-log-feed" class="log-feed">
-                                    <!-- Logs injected via JS -->
+                                    <!-- Static initial logs, dynamic ones can be added via JS -->
+                                    <div class="log-entry"><span class="timestamp">02:15</span> <span class="log-text">Target identified: Trade Ward. Violet sigil confirmed.</span></div>
+                                    <div class="log-entry"><span class="timestamp">02:10</span> <span class="log-text">Hostile contact. Iron Legion 'Iron Fists' engaging civilians.</span></div>
+                                    <div class="log-entry"><span class="timestamp">02:05</span> <span class="log-text">Dewdrop summoned Spirit Tiger. Visualizer updating...</span></div>
+                                    <div class="log-entry"><span class="timestamp">02:00</span> <span class="log-text">Toadette departed. Team is boots-on-ground in Rogueport.</span></div>
                                 </div>
                             </div>
                         </div>
@@ -115,9 +111,30 @@
 
                     <!-- Unit Status Section -->
                     <div class="panel unit-panel">
-                        <div class="panel-header"><h3>Key Asset Status</h3></div>
+                        <div class="panel-header"><h3>Squad Status</h3></div>
                         <div id="asset-grid" class="asset-grid">
-                            <!-- Assets injected via JS -->
+                            <!-- Placeholder for JS injection or static fallback -->
+                            <div class="asset-card status-ok">
+                                <div class="asset-icon"><img src="toads/embercap.png" alt="Embercap"></div>
+                                <div class="asset-info">
+                                    <span class="asset-name">Embercap</span>
+                                    <span class="asset-status">ARMED</span>
+                                </div>
+                            </div>
+                            <div class="asset-card status-ok">
+                                <div class="asset-icon"><img src="toads/dewdrop.png" alt="Dewdrop"></div>
+                                <div class="asset-info">
+                                    <span class="asset-name">Dewdrop</span>
+                                    <span class="asset-status">CASTING</span>
+                                </div>
+                            </div>
+                            <div class="asset-card status-warning">
+                                <div class="asset-icon"><img src="faction_iron_legion.png" alt="Erick"></div>
+                                <div class="asset-info">
+                                    <span class="asset-name">Erick</span>
+                                    <span class="asset-status">DISGUISED</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -143,9 +160,11 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
+    <!-- Use the updated tactical visualizer script -->
+    <script type="module" src="tactical-visualizer.js"></script>
     <script type="module" src="toads_event.js"></script>
-    <script type="module" src="mission-visualizer.js"></script>
 </body>
 </html>

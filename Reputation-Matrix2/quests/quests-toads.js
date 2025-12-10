@@ -2,6 +2,159 @@
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
 export const TOADS_QUESTS = {
+    'rogueport_retrieval': {
+        id: 'rogueport_retrieval',
+        title: "The Price of Passage",
+        type: 'main',
+        category: 'Main Story - Rogueport',
+        is_updated: true,
+        objective: "Retrieve Rakasha's stolen prize from the 'Violet Emblem' building in the Trade Ward.",
+        assignee: "Embercap, Dewdrop, Erick",
+        assigneeKey: 'embercap',
+        status: "active",
+        motivation: "To secure the Cheep-Cheep Treaty and transport for the army, Rakasha demands a retrieval mission in the heart of the crime-ridden city.",
+        steps: [
+            { id: 'arrival', title: "Survive the Drop", status: 'completed', description: "Landed in Rogueport. Toadette returned to command; the squad is on their own." },
+            { id: 'contact', title: "Find the Target", status: 'active', description: "Locate the building with the violet emblem in the Trade Ward. Avoid the Iron Legion 'Iron Fists' death squads." },
+            { id: 'retrieve', title: "Retrieve the Asset", status: 'pending', description: "Secure the stolen item and return to the docks alive." }
+        ]
+    },
+    'rakasha_alliance': {
+        id: 'rakasha_alliance',
+        title: "Festival of the Fallen",
+        type: 'diplomacy',
+        category: 'Faction - Peach Loyalists',
+        is_updated: true,
+        objective: "Secure an alliance with the Rakasha tribes.",
+        assignee: "Mystivil, Big R",
+        assigneeKey: 'mystivil',
+        status: "completed",
+        motivation: "The Loyalists need magical support. Mystivil entered the 'Xeos' mind-realm to bargain with Thornpaw.",
+        steps: [
+            { id: 'attend', title: "Attend the Festival", status: 'completed', description: "Survived the Rakasha bone festival and ate the weird fungus." },
+            { id: 'bargain', title: "The Mind Bargain", status: 'completed', description: "Thornpaw agreed to an alliance in exchange for the Loyalists protecting a Rakasha district in Rogueport." }
+        ]
+    },    
+'rogueport_retrieval': {
+        id: 'rogueport_retrieval',
+        title: "The Price of a Handshake",
+        subtitle: "Diplomacy by Other Means",
+        type: QUEST_TYPES.EXPEDITION,
+        category: 'Liberated Toads',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'rakasha_alliance',
+        objective: "Retrieve Rakasha's stolen prize from the purple emblem building in Rogueport's Trade Ward.",
+        assignees: ['embercap', 'dewdrop', 'erick'],
+        primaryAssignee: 'embercap',
+        difficulty: { overall: DIFFICULTY.DEADLY, combat: DIFFICULTY.HARD, investigation: DIFFICULTY.MODERATE },
+        tags: ['rogueport', 'heist', 'rakasha', 'stealth'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 21 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
+        
+        description: "To secure a vital alliance with the Rakasha and the networks of Thornpaw, a delegation of Toads was sent to negotiate. The price of cooperation is not gold, but action. Rakasha has tasked the group with a 'retrieval' mission in the heart of Rogueport—a lawless city of pirates and thieves. They must locate a building in the Trade Ward marked with a purple emblem and recover a stolen item. Failure means the alliance dies; success means surviving the night in a city that wants them dead.",
+
+        loreEntries: ['rakasha_totems', 'rogueport_trade_ward', 'the_cheep_cheep_treaty'],
+
+        consequences: {
+            success: "The Rakasha join the fight against the Loyalists. The Cheep-Cheep Treaty is ratified.",
+            failure: "The delegation is executed or enslaved in Rogueport. The Rakasha remain neutral.",
+            partial: "The item is retrieved damaged; Rakasha offers only limited support."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "Rakasha's Favor", description: "Token of safe passage in tribal lands" },
+                { type: 'intel', name: "Rogueport Network", description: "Access to the criminal underworld market" }
+            ],
+            conditional: [
+                { condition: "Don't use the Tiger summons again", reward: { type: 'summon', name: "Spirit Tiger", description: "One-time use combat summon kept for later" }}
+            ],
+            xp: 8000
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Plunge", 
+                description: "Jumped from Cheep-Cheep Falls to board the transport. Survived the psychological test.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "Welcome to Rogueport", 
+                description: "Survived the initial ambush by local thugs and the Iron Legion using the Tiger summon.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Violet Emblem",
+                description: "Infiltrate the Trade Ward and locate the shop with the purple emblem. Retrieve the target.",
+                goals: [
+                    { text: "Bypass Trade Ward Guild Guards", status: 'completed' },
+                    { text: "Enter the Target Building", status: 'active' },
+                    { text: "Escape with the Item", status: 'pending' }
+                ]
+            }
+        ]
+    },
+
+    'festival_of_the_fallen_pact': {
+        id: 'festival_of_the_fallen_pact',
+        title: "The Inner Path",
+        subtitle: "Mind Games",
+        type: QUEST_TYPES.DIPLOMACY,
+        category: 'Peach Loyalists',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'rakasha_alliance',
+        objective: "Honor the pact made with Thornpaw by establishing a protective garrison in Rogueport.",
+        assignees: ['mystivil', 'big_r'],
+        primaryAssignee: 'mystivil',
+        difficulty: { overall: DIFFICULTY.HARD, magic: DIFFICULTY.EXTREME, social: DIFFICULTY.HARD },
+        tags: ['ritual', 'mind-control', 'politics'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 21 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
+        
+        description: "Mystivil and Big R attended the Rakasha's 'Festival of the Fallen'. Through a hallucinogenic ritual known as 'Xeos', Mystivil entered a mental construct and negotiated directly with Thornpaw. The resulting agreement is fragile: The Peach Loyalists must take control of a specific district in Rogueport and protect the Rakasha interests there—not as conquerors, but as guardians. This puts the Loyalists in direct proximity to the Liberated Toads' operation.",
+
+        loreEntries: ['xeos_ritual', 'thornpaws_network', 'house_of_pleasure'],
+
+        consequences: {
+            success: "The Loyalists gain a powerful irregular army in the Rakasha.",
+            failure: "Thornpaw views the broken promise as an act of war.",
+            partial: "The garrison is established but conflicts with locals arise."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'ally', name: "Thornpaw's Spies", description: "Global surveillance bonuses" }
+            ],
+            xp: 6500
+        },
+
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Ritual", 
+                description: "Survived the Xeos trance and successfully negotiated with the avatar of Thornpaw.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            { 
+                id: 'm2', 
+                status: 'active', 
+                title: "The Garrison", 
+                description: "Deploy forces to Rogueport to secure the designated Rakasha district.",
+                goals: [
+                    { text: "Identify the District", status: 'pending' },
+                    { text: "Clear Hostiles", status: 'pending' },
+                    { text: "Establish HQ", status: 'pending' }
+                ]
+            }
+        ]
+    },    
     'dan_reclaim_the_staff': {
         id: 'dan_reclaim_the_staff',
         title: "The Staff's Burden",

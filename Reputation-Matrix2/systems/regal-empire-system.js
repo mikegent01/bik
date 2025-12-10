@@ -17,11 +17,11 @@ import { IRON_LEGION_DATA, LEGION_QUOTES, THREAT_ASSESSMENT } from '../iron-legi
 const LEGION_DIET_CONNECTIONS = {
     operationVoteLinks: {
         'iron_mandate': {
-            operationCodename: 'MANDATE',
-            legionUnit: 'Iron Crown Brigade',
-            dietImpact: 'Granted emergency powers for supernatural elimination',
-            militaryResponse: 'Immediate deployment of Legion patrols to border provinces',
-            commanderInvolved: 'Lord Chancellor Aldric Stonehand (Political), Viceroy Hammer Forgeheart (Military)'
+            operationCodename: 'MANDATE / SILENT NIGHT', // Updated to include Rogueport op
+            legionUnit: 'Iron Crown Brigade & Iron Fists',
+            dietImpact: 'Granted emergency powers; used immediately to justify Rogueport lockdown',
+            militaryResponse: 'Deployment to border provinces and seize of Trade Ward',
+            commanderInvolved: 'Lord Chancellor Aldric Stonehand (Political), Col. Steelstorm (Military)'
         },
         'supernatural_sovereignty_act': {
             operationCodename: 'IRON GATE',
@@ -62,7 +62,7 @@ const LEGION_DIET_CONNECTIONS = {
 
     deploymentsByVote: {
         'iron_mandate': {
-            troops: 5000,
+            troops: 5300,
             units: ['Royal Service Division', 'Shadow Hammers'],
             locations: ['Autumnwood', 'Dulgra', 'Dark Valley', 'Gehnsha Glade'],
             status: 'ACTIVE DEPLOYMENT'
@@ -126,6 +126,12 @@ const LEGION_DIET_CONNECTIONS = {
     ],
 
     coordinatedTimeline: [
+        {
+            date: { year: 1040, monthIndex: 6, day: 21 },
+            dietAction: 'Iron Mandate passed',
+            legionResponse: 'Operation SILENT NIGHT initiated in Rogueport',
+            strategicGoal: 'Seize eastern port facilities under guise of security'
+        },        
         {
             date: { year: 1040, monthIndex: 6, day: 12 },
             dietAction: 'Toad Town Recognition vote tabled',
@@ -220,6 +226,14 @@ const ENHANCED_LEGION_DATA = {
         title: "Current Deployment Status",
         lastUpdated: "Day 21, 1040 BF",
         deployments: [
+            {
+                region: "Rogueport (Trade Ward)",
+                troops: 300,
+                commander: "The Executioner",
+                mission: "Urban Pacification & Asset Seizure",
+                authority: "Iron Mandate (Extended Interpretation)",
+                status: "CONTESTED" // Updated after the skirmish
+            },            
             {
                 region: "Autumnwood",
                 troops: 1200,
@@ -378,7 +392,7 @@ export function getLegionThreatAssessment() {
         overall: "CRITICAL",
         military: "EXTREME",
         political: "HIGH",
-        intelligence: "EXTREME",
+        intelligence: "COMPROMISED",
         immediateThreats: [
             "Vigilance under enemy control",
             "Unknown number of sleeper agents remain active",
@@ -862,7 +876,17 @@ const TODAYS_DIET_EVENTS = {
             time: "Night",
             event: "First enforcement actions",
             description: "Legion patrols were deployed to Autumnwood within hours. Reports of arrests have already begun filtering in."
-        }
+        },
+        {
+            time: "Night",
+            event: "First enforcement actions",
+            description: "Legion patrols were deployed to Autumnwood within hours. Reports of arrests have already begun filtering in."
+        },
+        {
+            time: "Late Night (03:00)",
+            event: "Rogueport Incident Report",
+            description: "Confused reports arrive of a magical beast attack in Rogueport. Chancellor Stonehand dismisses it as 'rebel propaganda' but orders the Iron Fleet to standby."
+        },        
     ],
     reactions: {
         imperial_concordat: {

@@ -62,6 +62,32 @@ export const CONFLICT_DETAILS = {
     }
 };
 export const MAJOR_BATTLES = [
+{
+        id: 'skirmish_rogueport_trade_ward',
+        name: "The Night of Iron Knives",
+        conflict: "Iron Legion Expansion", // New conflict context
+        arc: 'toad_liberation',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 2, minute: 15 },
+        location: "Rogueport - Trade Ward",
+        belligerents: {
+            side_a: { name: "Liberated Toads Ops", factions: ['liberated_toads'] },
+            side_b: { name: "Iron Legion 'Iron Fists'", factions: ['iron_legion'] }
+        },
+        commanders: { side_a: ["Embercap", "Dewdrop"], side_b: ["Unit 734 (KIA)"] },
+        outcome: "victory",
+        outcomeDetail: "Death squad neutralized. Rakasha artifact retrieved.",
+        casualties: { 
+            side_a: "None (Erick disguised)", 
+            side_b: "4 Iron Fist Elites (Mauled by Spirit Tiger)" 
+        },
+        strategicValue: "high",
+        description: `<p>Following the negotiation of the 'Cheep-Cheep Treaty', a covert team (Embercap, Dewdrop, Erick) infiltrated Rogueport to secure payment for the Rakasha. They arrived to find the city under a shadow lockdown by the Iron Legion.</p>
+        <p>The team intercepted an 'Iron Fist' assassination squad—elite Legionnaires tasked with purging local independent guards to destabilize the city. Realizing standard combat would fail against the heavily armored troopers, Dewdrop utilized a one-time summoning scroll provided by Rakasha leadership.</p>
+        <p>The resulting Spirit Tiger manifestation decimated the Legion squad in seconds. The team successfully retrieved the stolen artifact from the Violet Emblem building and retreated before reinforcements arrived.</p>
+        <p><strong>Intel Gained:</strong> The Iron Legion is not just hiring mercenaries; they are actively conquering Rogueport district by district using terror tactics and assassination.</p>`,
+        tacticalNotes: "Iron Legion heavy plate is vulnerable to magical beast attacks. Disguise tactics (Erick) proved effective for infiltration.",
+        participatingCharacters: ['embercap', 'dewdrop', 'erick']
+    },    
     {
         id: 'battle_solarium_shatter',
         name: "The Shattering of the Solarium",

@@ -28,7 +28,7 @@ const RAKASHA_DATA = {
                     role: 'Clan Leader & High Shaman',
                     intel_required: 75,
                     highlight: true,
-                    details: 'Chief Thornpaw holds a devastating secret - he was romantically involved with Princess Peach before her assassination. He knows of a secret hatch in her chambers, information that could reshape the investigation into her death.'
+                    details: 'Chief Thornpaw holds a devastating secret regarding Princess Peach\'s assassination. Recently, he successfully negotiated the "Rogueport Pact" with Peach Loyalist envoys during the Festival of the Fallen, granting them conditional alliance in exchange for protecting a Rakasha district.'
                 },
                 { 
                     public_name: 'Rakasha', 
@@ -64,6 +64,14 @@ const RAKASHA_DATA = {
                     intel_required: 65,
                     highlight: false,
                     details: 'The greatest warrior among the Rakasha. He has refused all overtures from the Iron Legion to join their forces, viewing them as dishonorable mercenaries.'
+                },
+                { 
+                    public_name: 'Rakasha', 
+                    true_name: 'The Azure Envoy', 
+                    role: 'Diplomat & Sea-Master',
+                    intel_required: 45,
+                    highlight: true,
+                    details: 'A distinct azure-skinned Rakasha with carnivore eyes who commands massive saddle-rigged Cheep-Cheeps. She recently negotiated the "Cheep-Cheep Treaty" with Liberated Toad forces, sending them on a retrieval mission in Rogueport.'
                 },
                 { 
                     public_name: 'Rakasha', 
@@ -110,8 +118,7 @@ const RAKASHA_DATA = {
                 }
             ]
         }
-    ],
-    
+    ],    
     traditions: [
         {
             id: 'festival_fallen',
@@ -119,7 +126,16 @@ const RAKASHA_DATA = {
             icon: '🔥',
             date: 'Highsun 20th',
             description: 'A sacred night where the Rakasha honor the cycle of life and death. Bonfires are lit to guide spirits, and chimes made from the bones of honored ancestors and prey are hung from trees to sing with the wind. It is a celebration of life\'s persistence, not a mourning of its end.',
-            significance: 'This year\'s festival coincided with the Iron Mandate vote, creating tension between traditional observance and political crisis.',
+            significance: 'Peach Loyalist envoys Mystivil and Big R attended this year\'s festival, using the occasion to forge the Rogueport Pact.',
+            recent_occurrence: true
+        },
+        {
+            id: 'xeos_ritual',
+            name: 'Xeos (The Inner Path)',
+            icon: '🧠',
+            date: 'During High Negotiations',
+            description: 'A potent psychic ritual where participants are guided into a shared mindscape (often manifesting as the "House of Pleasure" or "Hall of Obsidian"). Here, minds meet directly, stripping away deception to allow for raw negotiation.',
+            significance: 'Used by Chief Thornpaw to negotiate directly with Mystivil during the Festival of the Fallen.',
             recent_occurrence: true
         },
         {
@@ -149,9 +165,57 @@ const RAKASHA_DATA = {
             significance: 'Ryan\'s witnessing of this rite has created a unique bond between him and the Rakasha people.',
             recent_occurrence: true
         }
-    ],
-    
+    ],    
     intelligence_files: {
+        'rogueport-pact': {
+            title: 'The Rogueport Pact',
+            classification: 'SECRET',
+            classificationStyle: 'secret',
+            icon: '🤝',
+            min_intel: 40,
+            sections: [
+                {
+                    title: 'Diplomatic Breakthrough',
+                    content: `During the Festival of the Fallen, Peach Loyalist representatives Mystivil and Big R successfully negotiated a preliminary alliance with Chief Thornpaw. The negotiation took place within a psychic construct known as "Xeos."`,
+                    min_intel: 0
+                },
+                {
+                    title: 'Terms of Agreement',
+                    content: `In exchange for Rakasha support, the Peach Loyalists have agreed to secure a specific district in Rogueport. They are to establish a garrison and ensure the protection of Rakasha living within the city, effectively creating a safe haven.`,
+                    min_intel: 0
+                },
+                {
+                    title: 'Strategic Value',
+                    content: `This pact grants the Loyalists potential access to Rakasha spirit-magic and scouts, while the Rakasha gain a foothold in the city without needing to commit a full invasion force.`,
+                    min_intel: 50
+                }
+            ]
+        },
+        'cheep-cheep-treaty': {
+            title: 'The Cheep-Cheep Treaty',
+            classification: 'CLASSIFIED',
+            classificationStyle: 'classified',
+            icon: '🐟',
+            min_intel: 30,
+            sections: [
+                {
+                    title: 'Naval Negotiation',
+                    content: `Liberated Toad envoys (Toadette, Embercap, Dewdrop, Erick) met with a Rakasha representative known as "The Azure Envoy" atop a massive Cheep-Cheep mount at Cheep Cheep Falls.`,
+                    min_intel: 0
+                },
+                {
+                    title: 'The Mission',
+                    content: `The Azure Envoy refused an immediate alliance, instead issuing a "language of consequence" test. The toad squad was transported to Rogueport via the mount and ordered to retrieve a specific stolen item from a building with a purple emblem in the Trade Ward.`,
+                    redacted_content: `The Azure Envoy refused an immediate alliance, instead issuing a test. The squad was transported to <span class="intel-redacted" data-reveal="Rogueport">█████████</span> and ordered to retrieve a <span class="intel-redacted" data-reveal="stolen item from the Trade Ward">████████████████████████</span>.`,
+                    min_intel: 40
+                },
+                {
+                    title: 'Assets Granted',
+                    content: `As part of the test, the group was given a scroll to summon a spectral tiger once. The mission is currently active. Success will likely formalize the treaty; failure means abandonment in Rogueport.`,
+                    min_intel: 0
+                }
+            ]
+        },
         'thornpaw-secret': {
             title: 'The Thornpaw Secret',
             classification: 'TOP SECRET',
@@ -198,11 +262,7 @@ const RAKASHA_DATA = {
                     content: `Dan, a toad formerly associated with the Liberated Toads faction, sought out the Rakasha Spirit-Walkers for unknown reasons. He has been accepted as an acolyte - an unprecedented honor for an outsider.`,
                     min_intel: 0
                 },
-                {
-                    title: 'Critical Contribution',
-                    content: `Dan played a pivotal role during the confrontation with X.O. aboard the Vigilance on Day 5. His intervention, possibly utilizing techniques learned from the Spirit-Walkers, proved critical in neutralizing the threat and securing the airship.`,
-                    min_intel: 0
-                },
+               
                 {
                     title: 'Current Status',
                     content: `Dan survived the toxin from the Restaurant Raid on Day 14, but suffered a catastrophic injury on Day 20. In a desperate attempt to defend the Vigilance crew, he tried to wield X.O.'s Cursed Staff, resulting in a magical detonation that severed his right arm. He is currently commanding the survivors in the Ruined Hall of Raventree Manor.`,
@@ -239,6 +299,7 @@ const RAKASHA_DATA = {
                 }
             ]
         },
+
         'supernatural-act': {
             title: 'Supernatural Sovereignty Act Impact',
             classification: 'CLASSIFIED',
@@ -287,10 +348,38 @@ const RAKASHA_DATA = {
                     min_intel: 85
                 }
             ]
+        }, 
+        'iron-mandate': {
+            title: 'Iron Mandate Threat Assessment',
+            classification: 'URGENT',
+            classificationStyle: 'urgent',
+            icon: '⚔️',
+            min_intel: 20,
+            sections: [
+                {
+                    title: 'Legislative Action',
+                    content: `On Day 21, the Midlands Diet passed the Iron Mandate by a vote of 28-8-3, granting the Iron Legion emergency powers to "purge supernatural threats." Speaker Rivers resigned in protest as Legion patrols mobilized immediately.`,
+                    min_intel: 0
+                },
+                {
+                    title: 'Impact on Rakasha',
+                    content: `While the Rakasha are not explicitly supernatural, their Spirit-Walker practices and shamanic traditions could be classified as such under the Mandate's deliberately vague language. The Beast-Riders' bond with their mounts may also be targeted.`,
+                    min_intel: 0
+                }
+            ]
         }
     },
-    
+        
     timeline_events: [
+                {
+            date: { year: 1040, monthIndex: 6, day: 23 },
+            title: 'The Rogueport Pact',
+            description: 'During the Festival of the Fallen, Peach Loyalists successfully forge a pact with Chief Thornpaw via the Xeos ritual. They agree to protect a Rakasha district in Rogueport.',
+            major: true,
+            tag: 'Alliance Formed',
+            min_intel: 30
+        },
+                
         {
             date: { year: 955, monthIndex: 6, day: 1 },
             title: 'The Princess\'s Secret',

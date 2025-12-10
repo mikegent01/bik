@@ -2,7 +2,158 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
-{
+// --- EPISODE VII: THE CHEEP-CHEEP TREATY & FESTIVAL OF THE FALLEN ---
+
+    // [Noon - The Jump]
+    {
+        id: 'toadette_sacrifice_jump',
+        order: 31305,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 15 },
+        timestamp: '12 hours ago',
+        content: `Fear is a shackle. We break it today. To the edge and beyond. For the Kingdom.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'embercap', text: 'I didn\'t scream. I definitely didn\'t scream. That was... the wind.' },
+            { characterKey: 'dewdrop', text: 'We lost one. The water is cruel.' }
+        ],
+        rumorId: 'cheep_cheep_treaty'
+    },
+
+    // [Afternoon - The Negotiation on the Fish]
+    {
+        id: 'rakasha_negotiation_boredom',
+        order: 31310,
+        characterKey: 'rakasha_spirit_walker', // Represents Rakasha (the Azure woman)
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 30 },
+        timestamp: '11 hours ago',
+        content: `New clients. Same old desperate pleas. Everyone wants a war won, but no one wants to pay the price. Let's see if these little fungi understand the language of consequence.`,
+        likes: 420,
+        comments: [
+            { characterKey: 'embercap', text: 'We are sitting right here. We can see this post.' },
+            { characterKey: 'rakasha_spirit_walker', text: 'I know. Read the fine print, little soldier.' }
+        ],
+        rumorId: 'cheep_cheep_treaty'
+    },
+
+    // [Evening - Festival of the Fallen - Arrival]
+    {
+        id: 'big_r_festival_party',
+        order: 31320,
+        characterKey: 'big_r',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 19, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `Yo, this Rakasha party is LIT! 🔥 Bonfires everywhere, people dancing in masks, and the drums are insane. Mystivil is acting weird though. He ate a red mushroom and now he's staring at his hands.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'mystivil', text: 'The door... the door has veins...' },
+            { characterKey: 'chief_thornpaw', text: 'Respect the rites, outsider. He walks the Inner Path now.' }
+        ],
+        rumorId: 'festival_of_the_fallen'
+    },
+
+    // [Night - Rogueport Arrival]
+    {
+        id: 'rogueport_welcome',
+        order: 31330,
+        characterKey: 'rogueport_thug',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 45 },
+        timestamp: '4 hours ago',
+        content: `Fresh meat at the docks. Three little toads looking lost. Who wants 'em? Bidding starts at 50 coins.`,
+        likes: 12,
+        comments: [
+            { characterKey: 'embercap', text: 'We are armed! Stay back!' },
+            { characterKey: 'rogueport_thug', text: 'Cute. He thinks a stick is a weapon.' }
+        ],
+        rumorId: 'rogueport_mission'
+    },
+
+    // [Night - The Newspaper Incident]
+    {
+        id: 'brocco_t_headline',
+        order: 31335,
+        characterKey: 'brocco_t', // New Journalist Character
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 21, minute: 0 },
+        timestamp: '3 hours 45 minutes ago',
+        content: `EXTRA! EXTRA! READ ALL ABOUT IT! 
+        
+        **THE GREAT GREENHOUSE INFERNO!** 
+        
+        "The air tastes of ozone and old ghosts!" 
+        Wyverns crashing! Rust monsters unleashed! A magical fireball levels a historic landmark! Is this the work of the so-called "Vigilance" heroes or domestic terrorism? Read the full report by Brocco-T!`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'embercap', text: 'Archie did WHAT?!' },
+            { characterKey: 'erick', text: 'Toadette is going to be furious... or jealous.' },
+            { characterKey: 'dewdrop', text: 'Who writes this? "Ozone and old ghosts"? A bit dramatic.' }
+        ],
+        rumorId: 'greenhouse_inferno_news'
+    },
+
+    // [Night - The Ritual - Mystivil's Vision]
+    {
+        id: 'mystivil_xeos_vision',
+        order: 31340,
+        characterKey: 'mystivil',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 22, minute: 15 },
+        timestamp: '3 hours ago',
+        content: `I am in the Obsidian Hall. The teal fire whispers. I met the wolf who walks like a man. We have... an understanding. The pact is sealed in smoke.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'big_r', text: 'Bro, you passed out for like an hour. You okay?' },
+            { characterKey: 'chief_thornpaw', text: 'The bargain is struck. Do not fail your end, Loyalist.' }
+        ],
+        rumorId: 'festival_of_the_fallen'
+    },
+
+    // [Night - Rogueport Combat - The Tiger]
+    {
+        id: 'dewdrop_tiger_summon',
+        order: 31350,
+        characterKey: 'dewdrop',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `I used the scroll. I... I didn't know it would do THAT. The tiger... it ate him. It just ate him. Rogueport is a nightmare.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'rakasha_spirit_walker', text: 'Efficient, isn\'t it? Do not waste my gifts.' },
+            { characterKey: 'erick', text: 'Remind me never to make you angry, Dewdrop.' }
+        ],
+        rumorId: 'rogueport_mission'
+    },
+
+    // [Late Night - The Tired Guard]
+    {
+        id: 'dandrick_regency_complaint',
+        order: 31355,
+        characterKey: 'dandrick', // The Regency Guard Guide
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 45 },
+        timestamp: '45 minutes ago',
+        content: `Another double shift. Now I'm babysitting three toads and a magical tiger. They want to go to the Trade Ward. At night. During a Legion lockdown. I need a raise. Or a transfer.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'embercap', text: 'We appreciate the help, Dandrick! You\'re a hero!' },
+            { characterKey: 'dandrick', text: 'I\'m a victim of circumstance. Keep moving.' }
+        ],
+        rumorId: 'rogueport_mission'
+    },
+
+    // [Late Night - Rakasha/Thornpaw Conclusion]
+    {
+        id: 'thornpaw_alliance_update',
+        order: 31360,
+        characterKey: 'chief_thornpaw',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 0, minute: 15 },
+        timestamp: 'Just Now',
+        content: `The spirits have woven new threads tonight. To the Peach Loyalists: We will watch your district. To the others... survive the night, and we shall see. The Rakasha do not forget debts.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'mystivil', text: 'We will honor the pact.' },
+            { characterKey: 'captain_toadette', text: 'We will endure. We always do.' }
+        ],
+        rumorId: 'rakasha_alliance_update'
+    },
+    {
     
         id: 'remi_guild_application',
         order: 30950,

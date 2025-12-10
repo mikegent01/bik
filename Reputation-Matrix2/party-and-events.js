@@ -16,6 +16,95 @@ export const AUXILIARY_PARTY = {
 
 
 export const RUMORS = [
+{
+        id: 'cheep_cheep_treaty',
+        title: "The Cheep-Cheep Treaty",
+        date: { day: 22, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'captain_toadette',
+        arc: 'toad_liberation',
+        arcPosition: 'rising',
+        description: "In a display of suicidal bravery, Captain Toadette and her squad leapt from Cheep-Cheep Falls onto a massive aquatic mount to negotiate with the Rakasha Spirit Walker. Reports indicate a tenuous alliance has been formed on the high seas, bypassing traditional Regency diplomatic channels entirely. The negotiation came at a cost, however, with at least one attendant swept away by the falls.",
+        targets: ['captain_toadette', 'embercap', 'rakasha_spirit_walker'],
+        effects: {
+            liberated_toads: 15,
+            rakasha_clans: 15,
+            mushroom_regency: -15,
+            regal_empire: -5
+        },
+        cycle_impact: { score: 1.5, label: "Unsanctioned Diplomacy", type: "political" }
+    },
+    {
+        id: 'festival_of_the_fallen',
+        title: "Pact of Smoke and Bone",
+        date: { day: 22, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'mystivil',
+        arc: 'shadow_war',
+        arcPosition: 'rising',
+        description: "Peach Loyalist envoys Mystivil and Big R were spotted at the Rakasha 'Festival of the Fallen.' Mystivil reportedly undertook the 'Ritual of Xeos,' entering a trance to commune directly with Chief Thornpaw. The result is a formal pact: the Loyalists have agreed to occupy and protect a district in Rogueport in exchange for Rakasha military support. The alliance between the Mushroom Kingdom's remnants and the beast clans is solidifying.",
+        targets: ['mystivil', 'big_r', 'chief_thornpaw'],
+        effects: {
+            peach_loyalists: 20,
+            rakasha_clans: 20,
+            iron_legion: -10,
+            silver_flame: -15
+        },
+        cycle_impact: { score: 1.2, label: "Ritual Alliance", type: "magic" }
+    },
+    {
+        id: 'rogueport_tiger_mauling',
+        title: "The Rogueport Mauling",
+        date: { day: 22, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'dewdrop',
+        arc: 'toad_liberation',
+        arcPosition: 'rising',
+        description: "Violence erupted in the Rogueport Dock Ward when a squad of Toads, allegedly agents of the Regency, clashed with local bandits and the Iron Legion. Witnesses report a magical scroll was used to summon a massive tiger, which brutally mauled the aggressors. An Iron Legion soldier was found dead at the scene, killed by a crossbow bolt, triggering a localized lockdown and increased Legion patrols.",
+        targets: ['dewdrop', 'embercap', 'erick'],
+        effects: {
+            iron_legion: -10,
+            freelancer_underworld: 15,
+            liberated_toads: -5,
+            mushroom_regency: -5
+        },
+        cycle_impact: { score: 0.8, label: "Urban Warfare", type: "military" }
+    },
+    {
+        id: 'greenhouse_inferno_news',
+        title: "News: The Great Greenhouse Inferno",
+        date: { day: 22, monthIndex: 6, year: 1040 },
+        isEvent: false,
+        instigator: 'brocco_t',
+        arc: 'raventree_manor',
+        arcPosition: 'falling',
+        description: "The journalist Brocco-T has published a sensationalist exposé titled 'THE GREAT GREENHOUSE INFERNO' in the Wahbook International Edition. The article details the destruction of the Raventree Greenhouse, blaming Archie Miser's 'reckless fireball' and confirming the presence of Rust Monsters and Wyverns. The story is viral, causing panic about 'bio-threats' and turning Archie into a household name for all the wrong reasons.",
+        targets: ['archie'],
+        effects: {
+            cosmic_jesters: 10,
+            mages_guild: -15,
+            green_thumb_guardians: -25,
+            wah_media_collective: 15
+        },
+        cycle_impact: { score: 0.5, label: "Media Sensation", type: "social" }
+    },
+    {
+        id: 'rakasha_stolen_prize',
+        title: "Heist at the Violet Emblem",
+        date: { day: 22, monthIndex: 6, year: 1040 },
+        isEvent: false,
+        instigator: 'rakasha_spirit_walker',
+        arc: 'toad_liberation',
+        arcPosition: 'rising',
+        description: "Rumors are circulating in the Rogueport Trade Ward that the Rakasha Spirit Walker has contracted a team of outsiders to retrieve a stolen artifact from a building marked with a violet emblem. The building is reportedly a front for a powerful guild, and the 'Iron Fists' mercenary group has been seen guarding the perimeter.",
+        targets: ['embercap', 'dewdrop'],
+        effects: {
+            rakasha_clans: 5,
+            iron_fists: -5,
+            freelancer_underworld: 10
+        },
+        cycle_impact: { score: 0.3, label: "Contract Work", type: "economic" }
+    },    
     {
         id: 'spider_grove_ambush',
         title: "Titan vs. Arachnid",
