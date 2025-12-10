@@ -71,24 +71,6 @@ export const RUMORS = [
         cycle_impact: { score: 0.8, label: "Urban Warfare", type: "military" }
     },
     {
-        id: 'greenhouse_inferno_news',
-        title: "News: The Great Greenhouse Inferno",
-        date: { day: 22, monthIndex: 6, year: 1040 },
-        isEvent: false,
-        instigator: 'brocco_t',
-        arc: 'raventree_manor',
-        arcPosition: 'falling',
-        description: "The journalist Brocco-T has published a sensationalist exposé titled 'THE GREAT GREENHOUSE INFERNO' in the Wahbook International Edition. The article details the destruction of the Raventree Greenhouse, blaming Archie Miser's 'reckless fireball' and confirming the presence of Rust Monsters and Wyverns. The story is viral, causing panic about 'bio-threats' and turning Archie into a household name for all the wrong reasons.",
-        targets: ['archie'],
-        effects: {
-            cosmic_jesters: 10,
-            mages_guild: -15,
-            green_thumb_guardians: -25,
-            wah_media_collective: 15
-        },
-        cycle_impact: { score: 0.5, label: "Media Sensation", type: "social" }
-    },
-    {
         id: 'rakasha_stolen_prize',
         title: "Heist at the Violet Emblem",
         date: { day: 22, monthIndex: 6, year: 1040 },

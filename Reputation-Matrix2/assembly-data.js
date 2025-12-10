@@ -72,7 +72,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'brocco_t_headline',
         order: 31335,
-        characterKey: 'brocco_t', // New Journalist Character
+        characterKey: 'green_t', // New Journalist Character
         date: { year: 1040, monthIndex: 6, day: 22, hour: 21, minute: 0 },
         timestamp: '3 hours 45 minutes ago',
         content: `EXTRA! EXTRA! READ ALL ABOUT IT! 
@@ -87,7 +87,7 @@ export const WAHBOOK_POSTS = [
             { characterKey: 'erick', text: 'Toadette is going to be furious... or jealous.' },
             { characterKey: 'dewdrop', text: 'Who writes this? "Ozone and old ghosts"? A bit dramatic.' }
         ],
-        rumorId: 'greenhouse_inferno_news'
+        rumorId: 'greenhouse_inferno'
     },
 
     // [Night - The Ritual - Mystivil's Vision]
