@@ -2,39 +2,7 @@
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
 export const TOADS_QUESTS = {
-    'rogueport_retrieval': {
-        id: 'rogueport_retrieval',
-        title: "The Price of Passage",
-        type: 'main',
-        category: 'Main Story - Rogueport',
-        is_updated: true,
-        objective: "Retrieve Rakasha's stolen prize from the 'Violet Emblem' building in the Trade Ward.",
-        assignee: "Embercap, Dewdrop, Erick",
-        assigneeKey: 'embercap',
-        status: "active",
-        motivation: "To secure the Cheep-Cheep Treaty and transport for the army, Rakasha demands a retrieval mission in the heart of the crime-ridden city.",
-        steps: [
-            { id: 'arrival', title: "Survive the Drop", status: 'completed', description: "Landed in Rogueport. Toadette returned to command; the squad is on their own." },
-            { id: 'contact', title: "Find the Target", status: 'active', description: "Locate the building with the violet emblem in the Trade Ward. Avoid the Iron Legion 'Iron Fists' death squads." },
-            { id: 'retrieve', title: "Retrieve the Asset", status: 'pending', description: "Secure the stolen item and return to the docks alive." }
-        ]
-    },
-    'rakasha_alliance': {
-        id: 'rakasha_alliance',
-        title: "Festival of the Fallen",
-        type: 'diplomacy',
-        category: 'Faction - Peach Loyalists',
-        is_updated: true,
-        objective: "Secure an alliance with the Rakasha tribes.",
-        assignee: "Mystivil, Big R",
-        assigneeKey: 'mystivil',
-        status: "completed",
-        motivation: "The Loyalists need magical support. Mystivil entered the 'Xeos' mind-realm to bargain with Thornpaw.",
-        steps: [
-            { id: 'attend', title: "Attend the Festival", status: 'completed', description: "Survived the Rakasha bone festival and ate the weird fungus." },
-            { id: 'bargain', title: "The Mind Bargain", status: 'completed', description: "Thornpaw agreed to an alliance in exchange for the Loyalists protecting a Rakasha district in Rogueport." }
-        ]
-    },    
+
 'rogueport_retrieval': {
         id: 'rogueport_retrieval',
         title: "The Price of a Handshake",
