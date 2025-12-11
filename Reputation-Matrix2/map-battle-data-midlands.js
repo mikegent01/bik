@@ -1,15 +1,102 @@
-// This file contains new troop deployments for the Midlands region.
+// map-data/midlands-troops.js
 
 export const MIDLANDS_TROOPS = [
     // Existing units updated with morale/organization
-    { id: 'mid_troop_1', mapId: 'midlands_full', x: 39.0, y: 34.0, factionId: 'regal_empire', name: "Lockerwood Garrison", unitType: 'garrison', strength: "500 Legionnaires", details: { status: "Observing", objective: "Contain the supernatural conflict and prevent it from spilling into Imperial territory. Intervene only if Imperial assets are threatened.", supply_level: 95, morale: 90, organization: 95, intelReq: { faction: 'regal_empire', level: 20 } } },
-    { id: 'mid_troop_2', mapId: 'midlands_full', x: 30.5, y: 47.0, factionId: 'moonfang_pack', name: "Whisperwood Stalkers", unitType: 'patrol', strength: "Elite scout units", path: "M 30.5,47 L 34,49 L 31,51 Z", details: { status: "Harassing", objective: "Conduct hit-and-run raids on vampire supply lines coming from the south.", supply_level: 65, morale: 75, organization: 70, intelReq: { faction: 'moonfang_pack', level: 40 } } },
-    { id: 'mid_troop_3', mapId: 'midlands_full', x: 37.5, y: 45.5, factionId: 'onyx_hand', name: "Gargoyle Roost", unitType: 'special_ops', strength: "Gargoyle scouts", details: { status: "Scouting", objective: "Provide aerial reconnaissance on werewolf movements and identify high-value targets for assassination.", supply_level: 100, morale: 100, organization: 80, intelReq: { faction: 'onyx_hand', level: 45 } } },
+    { 
+        id: 'mid_troop_1', 
+        mapId: 'midlands_full', 
+        x: 39.0, 
+        y: 34.0, 
+        factionId: 'regal_empire', 
+        name: "Lockerwood Containment Force", 
+        unitType: 'garrison', 
+        strength: "Reinforced Legion", 
+        details: { 
+            status: "Red Alert", 
+            objective: "Shoot on sight. Prevent any entities—living, dead, or wolf—from crossing the northern perimeter into Imperial lands.", 
+            supply_level: 90, 
+            morale: 85, 
+            organization: 95, 
+            intelReq: { faction: 'regal_empire', level: 20 } 
+        } 
+    },
+    { 
+        id: 'mid_troop_2', 
+        mapId: 'midlands_full', 
+        x: 30.5, 
+        y: 47.0, 
+        factionId: 'lycan_pack', 
+        name: "Blood-Maw Stalkers", 
+        unitType: 'patrol', 
+        strength: "Feral Werewolves", 
+        path: "M 30.5,47 L 34,49 L 31,51 Z", 
+        details: { 
+            status: "Hunting", 
+            objective: "Intercept Vampire supply thralls moving towards Fort Tiberius. Execute no-prisoner raids.", 
+            supply_level: 50, 
+            morale: 90, 
+            organization: 60, 
+            intelReq: { faction: 'lycan_pack', level: 40 } 
+        } 
+    },
+    { 
+        id: 'mid_troop_3', 
+        mapId: 'midlands_full', 
+        x: 37.5, 
+        y: 45.5, 
+        factionId: 'vampire_covenant', 
+        name: "Tiberius Air Wing", 
+        unitType: 'special_ops', 
+        strength: "Gargoyles & Bat Swarms", 
+        details: { 
+            status: "Bombing", 
+            objective: "Drop alchemical fire on Lycan positions in the Wyrm's Scar to flush them out of cover.", 
+            supply_level: 90, 
+            morale: 95, 
+            organization: 85, 
+            intelReq: { faction: 'vampire_covenant', level: 45 } 
+        } 
+    },
     { id: 'mid_troop_4', mapId: 'midlands_full', x: 58.0, y: 38.0, factionId: 'iron_legion', name: "Imperial Road Patrol", unitType: 'patrol', strength: "Heavy infantry & cavalry", path: "M 58,38 L 62,34 L 59,31 Z", details: { status: "Patrolling", objective: "Ensure the security of the Great Imperial Road and suppress any local unrest or banditry.", supply_level: 100, morale: 95, organization: 95, intelReq: { faction: 'iron_legion', level: 15 } } },
     { id: 'mid_troop_5', mapId: 'midlands_full', x: 51.5, y: 38.5, factionId: 'rebel_clans', name: "Redmane Ambushers", unitType: 'ambush', strength: "Guerilla fighters", details: { status: "Waiting", objective: "Ambush Imperial supply convoys moving along the Great Road to steal weapons and provisions.", supply_level: 40, morale: 80, organization: 50, intelReq: { faction: 'rebel_clans', level: 55 } } },
-    { id: 'mid_troop_6', mapId: 'midlands_full', x: 40.5, y: 38.5, factionId: 'silver_flame', name: "Purifier Crusade", unitType: 'patrol', strength: "Zealous paladins and clerics", path: "M 40.5,38.5 L 37,43 L 41,43 Z", details: { status: "Purging", objective: "Hunt for any supernatural creatures in the contested zone, viewing both vampires and werewolves as equal abominations.", supply_level: 80, morale: 100, organization: 85, intelReq: { faction: 'silver_flame', level: 40 } } },
+    { 
+        id: 'mid_troop_6', 
+        mapId: 'midlands_full', 
+        x: 40.5, 
+        y: 38.5, 
+        factionId: 'silver_flame', 
+        name: "The Martyrs of the Mountain", 
+        unitType: 'patrol', 
+        strength: "Battered Paladins", 
+        path: "M 40.5,38.5 L 37,43 L 41,43 Z", 
+        details: { 
+            status: "Besieged", 
+            objective: "Hold the line against horrors on both sides. They are cut off from support and fighting a desperate defensive war.", 
+            supply_level: 30, 
+            morale: 100, 
+            organization: 60, 
+            intelReq: { faction: 'silver_flame', level: 40 } 
+        } 
+    },
     { id: 'mid_troop_7', mapId: 'midlands_full', x: 36.0, y: 62.0, factionId: 'mages_guild', name: "Anomaly Containment Team", unitType: 'special_ops', strength: "Elite Aegis Magi", details: { status: "Containing", objective: "Monitor and contain the volatile magical energies emanating from the Mana-Springs in Autumnwood, preventing a catastrophic outbreak.", supply_level: 90, morale: 80, organization: 90, intelReq: { faction: 'mages_guild', level: 50 } } },
-    { id: 'mid_troop_8', mapId: 'midlands_full', x: 34.5, y: 47.0, factionId: 'onyx_hand', name: "Coven of the Gilded Thorn", unitType: 'special_ops', strength: "Necromancers & Blood Mages", details: { status: "Raising Dead", objective: "Animate the corpses from the Fields of Ravencreek to bolster the Sanguine Legion's front line with undead minions.", supply_level: 75, morale: 60, organization: 80, intelReq: { faction: 'onyx_hand', level: 60 } } },
+    { 
+        id: 'mid_troop_8', 
+        mapId: 'midlands_full', 
+        x: 34.5, 
+        y: 47.0, 
+        factionId: 'vampire_covenant', 
+        name: "Corpse-Raiser Coven", 
+        unitType: 'special_ops', 
+        strength: "Necromancers", 
+        details: { 
+            status: "Harvesting", 
+            objective: "Raise the fresh dead from the recent battles to replenish the front-line fodder. 'Recycling' the enemy.", 
+            supply_level: 80, 
+            morale: 85, 
+            organization: 80, 
+            intelReq: { faction: 'vampire_covenant', level: 60 } 
+        } 
+    },
     { id: 'mid_troop_9', mapId: 'midlands_full', x: 81.5, y: 4.0, factionId: 'regal_empire', name: "Imperial District Guard", unitType: 'garrison', strength: "Elite Guards", details: { status: "Guarding", objective: "Maintain order in the capital.", supply_level: 100, morale: 100, organization: 100, intelReq: { faction: 'regal_empire', level: 10 } } },
     { id: 'mid_troop_10', mapId: 'midlands_full', x: 28.0, y: 57.0, factionId: 'iron_legion', name: "Imperial Toll Fort Garrison", unitType: 'garrison', strength: "Infantry Cohort", details: { status: "Taxing", objective: "Enforce Imperial tariffs on all trade moving north from Yal Central.", supply_level: 90, morale: 85, organization: 95, intelReq: { faction: 'iron_legion', level: 25 } } },
     { id: 'mid_troop_11', mapId: 'midlands_full', x: 75.0, y: 86.0, factionId: 'moonfang_pack', name: "Alpha's Maw Guard", unitType: 'garrison', strength: "Elite werewolf warriors", details: { status: "Guarding", objective: "Protect the Alpha Prime and the werewolf capital from all intruders, especially the Silver Flame.", supply_level: 95, morale: 95, organization: 70, intelReq: { faction: 'moonfang_pack', level: 40 } } },
@@ -24,7 +111,24 @@ export const MIDLANDS_TROOPS = [
     { id: 'mid_troop_20', mapId: 'midlands_full', x: 88.5, y: 10.0, factionId: 'onyx_hand', name: "Onyx Embassy Guard", unitType: 'special_ops', strength: "Vampire Assassins", details: { status: "Intriguing", objective: "Conduct political assassinations and blackmail operations from their embassy in the Imperial Capital.", supply_level: 100, morale: 70, organization: 95, intelReq: { faction: 'onyx_hand', level: 70 } } },
     // 10 New Units
     { id: 'mid_troop_21', mapId: 'midlands_full', x: 74.5, y: 13.0, factionId: 'iron_fists', name: "The Grinder's Champions", unitType: 'garrison', strength: "Pit Fighters", details: { status: "Controlling", objective: "Run the illegal fighting pits in the capital's underbelly.", supply_level: 70, morale: 80, organization: 60, intelReq: { faction: 'iron_fists', level: 45 } } },
-    { id: 'mid_troop_22', mapId: 'midlands_full', x: 44.5, y: 48.0, factionId: 'unaligned', name: "Orc Scavenger Warband", unitType: 'main_force', strength: "Orc Warriors", details: { status: "Salvaging", objective: "Scavenge for magitek and weapons in the ruins of Fort Tiberius.", supply_level: 30, morale: 60, organization: 40, intelReq: { faction: 'freelancer_underworld', level: 20 } } },
+    { 
+        id: 'mid_troop_22', 
+        mapId: 'midlands_full', 
+        x: 44.5, 
+        y: 48.0, 
+        factionId: 'lycan_pack', 
+        name: "Broken Tusk Vanguard", 
+        unitType: 'main_force', 
+        strength: "Enslaved Orcs", 
+        details: { 
+            status: "Enslaved", 
+            objective: "Forced by the Lycans to charge Vampire lines to trigger magical traps before the wolves attack.", 
+            supply_level: 20, 
+            morale: 15, 
+            organization: 30, 
+            intelReq: { faction: 'lycan_pack', level: 20 } 
+        } 
+    },
     { id: 'mid_troop_23', mapId: 'midlands_full', x: 39.5, y: 72.0, factionId: 'silver_flame', name: "Autumnwood Patrol", unitType: 'patrol', strength: "Templars", path: "M 39.5,72 L 36,70 L 38,68 Z", details: { status: "Investigating", objective: "Monitor the Mages' Guild for signs of heretical magic.", supply_level: 75, morale: 85, organization: 80, intelReq: { faction: 'silver_flame', level: 50 } } },
     { id: 'mid_troop_24', mapId: 'midlands_full', x: 38.0, y: 8.0, factionId: 'unaligned', name: "The Thing in the Mine", unitType: 'ambush', strength: "Unknown Entity", details: { status: "Slumbering", objective: "???", supply_level: 100, morale: 100, organization: 100, intelReq: { faction: 'mages_guild', level: 95 } } },
     { id: 'mid_troop_25', mapId: 'midlands_full', x: 84.5, y: 12.0, factionId: 'oathbound_judges', name: "Citadel of Law Wardens", unitType: 'garrison', strength: "Justicars", details: { status: "Upholding Law", objective: "Maintain cosmic law and order from their headquarters in the capital.", supply_level: 100, morale: 100, organization: 100, intelReq: { faction: 'oathbound_judges', level: 40 } } },
@@ -41,6 +145,23 @@ export const MIDLANDS_TROOPS = [
     { id: 'mid_troop_36', mapId: 'midlands_full', x: 5.0, y: 78.0, factionId: 'silver_flame', name: "The Besieged Watchpost", unitType: 'garrison', strength: "Watchful Knights", details: { status: "Holding Out", objective: "Survive constant harassment from the Jungle of Thorns and report on vampire movements.", supply_level: 30, morale: 95, organization: 70, intelReq: { faction: 'silver_flame', level: 45 } } },
     { id: 'mid_troop_37', mapId: 'midlands_full', x: 22.0, y: 57.0, factionId: 'mushroom_regency', name: "Port Toadstool West Garrison", unitType: 'garrison', strength: "Colonial Guard", details: { status: "Securing", objective: "Protect the Mushroom Kingdom's economic interests in the Midlands.", supply_level: 85, morale: 75, organization: 80, intelReq: { faction: 'mushroom_regency', level: 20 } } },
     { id: 'mid_troop_38', mapId: 'midlands_full', x: 32.0, y: 59.0, factionId: 'mages_guild', name: "Innovator's Field Test", unitType: 'special_ops', strength: "Mages & Constructs", details: { status: "Experimenting", objective: "Conduct a field test of a new, unstable arcane construct. High chance of collateral damage.", supply_level: 90, morale: 70, organization: 75, intelReq: { faction: 'mages_guild', level: 55 } } },
-    { id: 'mid_troop_39', mapId: 'midlands_full', x: 42.5, y: 43.0, factionId: 'unaligned', name: "The Crater's Anomaly", unitType: 'ambush', strength: "Magical Entity", details: { status: "Pulsing", objective: "Radiate unpredictable magical energy across the crater.", supply_level: 100, morale: 100, organization: 10, intelReq: { faction: 'mages_guild', level: 80 } } },
+    { 
+        id: 'mid_troop_39', 
+        mapId: 'midlands_full', 
+        x: 42.5, 
+        y: 43.0, 
+        factionId: 'vampire_covenant', 
+        name: "Covenant Arcane Siphon", 
+        unitType: 'ambush', 
+        strength: "Vampire Mages", 
+        details: { 
+            status: "Channeling", 
+            objective: "Drain the unstable magical energy of the Great Blast Crater to power necromantic siege engines.", 
+            supply_level: 95, 
+            morale: 100, 
+            organization: 90, 
+            intelReq: { faction: 'vampire_covenant', level: 80 } 
+        } 
+    },
     { id: 'mid_troop_40', mapId: 'midlands_full', x: 54.0, y: 44.0, factionId: 'regal_empire', name: "Gryphon Aerie Patrol", unitType: 'patrol', strength: "Imperial Knights on Gryphons", path: "M 54,44 L 50,42 L 55,40 Z", details: { status: "Patrolling", objective: "Provide aerial superiority over the Baldora Plains and watch for rebel movements.", supply_level: 95, morale: 90, organization: 90, intelReq: { faction: 'regal_empire', level: 40 } } },
 ];

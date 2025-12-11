@@ -155,12 +155,12 @@ export const baldoraPlainsData = {
         // #156
         {
             id: 'poi_bp_vigilance',
-            x: 58.00,
-            y: 25.00,
+            x: 81.00,
+            y: 4.00,
             type: 'landmark',
             name: "The 'Vigilance' Airship",
             description: "The legendary airship, currently positioned over the Field of Lost Banners. While its destination is the Imperial Capital, its journey is slow and its presence is a major point of interest for all factions in the region. (Note: This is a mobile landmark).",
-            factionId: 'unaligned',
+            factionId: 'liberated_toads', 
             intelReq: 5,
             political_influence: 6,
             economic_value: 4,

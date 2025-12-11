@@ -9,10 +9,10 @@ export const PARTY_LOCATIONS = {
   
     'mushroom_kingdom_full': [
         // Loyalists - Cheep Cheep Village / Harbor
-        { charKey: 'embercap', x: 25.0, y: 85.0, status: 'Boarding Fish' },
-        { charKey: 'captain_toadette', x: 25.2, y: 85.2, status: 'Guarding Rear' },
-        { charKey: 'mistveil', x: 24.8, y: 84.8, status: 'Scouting' },
-        { charKey: 'dewdrop', x: 25.1, y: 85.1, status: 'Prepping Meds' },
+        { charKey: 'embercap', x: 25.0, y: 44.0, status: 'Scouting' },
+        { charKey: 'captain_toadette', x: 25.2, y: 44.2, status: 'Guarding Rear' },
+        { charKey: 'mistveil', x: 25.8, y: 44.8, status: 'Scouting' },
+        { charKey: 'dewdrop', x: 40.1, y: 66.1, status: 'Prepping Meds' },
         
         // Regency & Villains
         { charKey: 'chancellor_toadsworth', x: 52.0, y: 24.5, status: 'Governing' },
@@ -43,10 +43,10 @@ export const PARTY_LOCATIONS = {
         { charKey: 'ryan', x: 28.0, y: 18.0, status: 'Rescued/Injured' },
 
         // Bones - Imperial Facility
-        { charKey: 'bones', x: 45.0, y: 30.0, status: 'Undercover/Infiltrating' },
+        { charKey: 'bones', x: 77.0, y: 5.0, status: 'Undercover/Infiltrating' },
 
         // Speaker L - Captured in Imperial Prison (Sector 7)
-        { charKey: 'speaker_l', x: 45.5, y: 30.5, status: 'Captured' },
+        { charKey: 'speaker_l', x: 77.5, y: 5.5, status: 'Captured' },
 
 
         // --- Imperial Capital Group ---
