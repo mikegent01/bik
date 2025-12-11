@@ -930,11 +930,11 @@ const MEMBER_ROLES = {
 };
 
 export const ALLIANCE_SIZE_LIMITS = {
-    BASE_THRESHOLD: 60,           // LOWERED: Factions only need to be neutral/friendly (was 70)
-    SIZE_PENALTY_PER_MEMBER: 5,   // INCREASED: Harder to make massive blobs
-    MAX_ALLIANCE_SIZE: 6,         // LOWERED: Encourages more, smaller alliances
+    BASE_THRESHOLD: 80,           // LOWERED: Factions only need to be neutral/friendly (was 70)
+    SIZE_PENALTY_PER_MEMBER: 25,   // INCREASED: Harder to make massive blobs
+    MAX_ALLIANCE_SIZE: 15,         // LOWERED: Encourages more, smaller alliances
     MIN_POI_FOR_ALLIANCE: 3,      // LOWERED: Now small factions (3 POIs) can form pacts (was 10)
-    MIN_POI_REGIONAL: 5           // LOWERED: Easier to calculate regional power
+    MIN_POI_REGIONAL: 15           // LOWERED: Easier to calculate regional power
 };
 function calculateAllianceType(members) {
     if (!members || members.length === 0) return 'military_pact';
@@ -1606,6 +1606,7 @@ function getAlliancePOIs(alliance) {
     if (!MAP_DATA) return [];
     
     const pois = [];
+    const seenPois = new Set(); // Track POIs we've already added
     const memberSet = new Set(alliance.members);
     
     Object.entries(MAP_DATA).forEach(([regionId, region]) => {
@@ -1615,12 +1616,19 @@ function getAlliancePOIs(alliance) {
         
         regionPois.forEach(poi => {
             if (memberSet.has(poi.factionId)) {
-                pois.push({
-                    ...poi,
-                    regionId,
-                    regionName,
-                    ownerFaction: getFaction(poi.factionId)
-                });
+                // Create a unique key for this POI
+                const poiKey = `${poi.name}_${poi.factionId}_${regionId}`;
+                
+                // Only add if we haven't seen this POI before
+                if (!seenPois.has(poiKey)) {
+                    seenPois.add(poiKey);
+                    pois.push({
+                        ...poi,
+                        regionId,
+                        regionName,
+                        ownerFaction: getFaction(poi.factionId)
+                    });
+                }
             }
         });
     });
