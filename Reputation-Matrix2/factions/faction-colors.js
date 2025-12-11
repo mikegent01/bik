@@ -1,4 +1,3 @@
-
 // factions/faction-colors.js
 
 export const FACTION_COLORS = {
@@ -106,8 +105,73 @@ export const FACTION_COLORS = {
     connectopia_pioneers_guild: '#D2B48C',   // Tan
     liminal_observers: '#4B0082',            // Indigo
 
-    // Equestria (New)
+    // Equestria
     equestrian_regime: '#e1bee7', // Lavender/White
     pony_nobility: '#87CEEB',     // Sky Blue
-    spark_of_rebellion: '#FF4500' // Orange-Red
+    spark_of_rebellion: '#FF4500', // Orange-Red
+
+    // --- Newly Discovered Factions ---
+    
+    // Ancient / Mythic
+    mu_empire: '#40E0D0',             // Turquoise (Ancient Ocean)
+    lemuria_conclave: '#4682B4',      // Steel Blue
+    asgard: '#FFD700',                // Gold (Divine)
+    jotunheimr: '#ADD8E6',            // Light Blue (Ice/Frost)
+    avalon_court: '#9370DB',          // Medium Purple (Fey/Magic)
+    atlantis_legacy: '#008B8B',       // Dark Cyan (Note: Inferred group if Scylla is part of this)
+    
+    // Earth / Tribal / Historical
+    north_american_tribes: '#A0522D', // Sienna (Earth)
+    african_union: '#006400',         // Dark Green
+    csto: '#708090',                  // Slate Gray (Military/Soviet bloc)
+    wh_araby: '#E3C565',              // Sand/Gold (Distinction from 'araby')
+    apis_kingdom: '#DAA520',          // Goldenrod (Egyptian/Bull)
+    cult_of_min: '#2F2F2F',           // Dark Grey (Fertility/Earth)
+    mnevis_order: '#B8860B',          // Dark Goldenrod
+    desert_sultanate: '#F4A460',      // Sandy Brown
+    desert_traders: '#DEB887',        // Burlywood
+    centaur_khanate: '#8B4513',       // Saddle Brown
+
+    // Dark / Monster / Supernatural
+    vampire_covenant: '#660000',      // Deep Blood Red
+    lycan_pack: '#778899',            // Light Slate Gray (Fur)
+    undead: '#2F4F4F',                // Dark Slate Gray
+    king_of_tombs: '#E6C288',         // Bone/Sand
+    abyssal_court: '#191970',         // Midnight Blue
+    scylla_charybdis: '#008080',      // Teal (Sea Monster)
+    void_entities: '#4B0082',         // Indigo
+    void_cult: '#8A2BE2',             // Blue Violet
+    monsters: '#556B2F',              // Dark Olive Green
+    bandits: '#A52A2A',               // Brown
+    
+    // Oceanic / Island Nations
+    sirsirian_ocean: '#00BFFF',       // Deep Sky Blue
+    crimision_isle: '#DC143C',        // Crimson
+    garden_isles: '#32CD32',          // Lime Green
+    xenonesia: '#20B2AA',             // Light Sea Green
+    glarnia: '#4169E1',               // Royal Blue
+    
+    // Fated Place / Fantasy Nations
+    geminia: '#FF69B4',               // Hot Pink (Dual/Twin)
+    asclepia: '#00FA9A',              // Medium Spring Green (Healing)
+    minerva: '#C0C0C0',               // Silver (Wisdom)
+    skycaverns: '#87CEEB',            // Sky Blue
+    weldrhom: '#B8860B',              // Dark Goldenrod
+    formosa_ultima: '#FF7F50',        // Coral
+    refijia: '#9ACD32',               // Yellow Green
+    robensonia: '#F0E68C',            // Khaki
+    pitatia: '#DDA0DD',               // Plum
+    
+    // Religious / Order / Guilds
+    blessed_order: '#FAFAD2',         // Light Goldenrod Yellow
+    oracula: '#9932CC',               // Dark Orchid
+    eiwass: '#E6E6FA',                // Lavender (Mystical)
+    druid_circle: '#228B22',          // Forest Green
+    monks_order: '#FF8C00',           // Dark Orange (Robes)
+    merchant_guild: '#CD853F',        // Peru
+    halfling_federation: '#90EE90',   // Light Green
+
+    // Abstract / Special
+    polybius: '#FF00FF',              // Magenta (Digital/Arcade myth)
+    u: '#FFFFFF'                      // White (Unknown/Mystery)
 };
