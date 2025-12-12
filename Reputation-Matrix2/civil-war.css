@@ -1,0 +1,2498 @@
+/* =============================================
+   CIVIL WAR - WAR ROOM INTERFACE
+   Tactical Command Center Aesthetic
+   ============================================= */
+
+/* =============================================
+   CSS VARIABLES
+   ============================================= */
+
+:root {
+    --wr-bg-dark: #0a0c10;
+    --wr-bg-panel: #0d1117;
+    --wr-bg-card: #161b22;
+    --wr-bg-elevated: #1c2128;
+    --wr-bg-hover: #21262d;
+    
+    --wr-border: #30363d;
+    --wr-border-bright: #484f58;
+    
+    --wr-text: #c9d1d9;
+    --wr-text-muted: #8b949e;
+    --wr-text-bright: #f0f6fc;
+    
+    --wr-accent: #58a6ff;
+    --wr-accent-glow: rgba(88, 166, 255, 0.3);
+    
+    --wr-critical: #f85149;
+    --wr-warning: #d29922;
+    --wr-success: #3fb950;
+    --wr-info: #58a6ff;
+    
+    --wr-loyalist: #db61a2;
+    --wr-regency: #f85149;
+    --wr-fawful: #a371f7;
+    --wr-legion: #8b949e;
+    --wr-koopa: #3fb950;
+    
+    --wr-font-mono: 'Roboto Mono', 'Consolas', monospace;
+    --wr-font-display: 'Orbitron', sans-serif;
+    
+    --wr-glow: 0 0 20px var(--wr-accent-glow);
+    --wr-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* =============================================
+   WAR ROOM CONTAINER
+   ============================================= */
+
+.war-room {
+    background: var(--wr-bg-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--wr-font-mono);
+    color: var(--wr-text);
+    position: relative;
+    overflow: hidden;
+}
+
+.war-room::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at top, rgba(88, 166, 255, 0.03) 0%, transparent 50%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(88, 166, 255, 0.02) 2px, rgba(88, 166, 255, 0.02) 4px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* =============================================
+   COMMAND HEADER
+   ============================================= */
+
+.command-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, var(--wr-bg-panel) 0%, var(--wr-bg-dark) 100%);
+    border-bottom: 1px solid var(--wr-border);
+    position: relative;
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.command-emblem {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emblem-glyph {
+    font-size: 2.5rem;
+    z-index: 2;
+    filter: drop-shadow(0 0 10px var(--wr-accent));
+}
+
+.emblem-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--wr-accent);
+    border-radius: 50%;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+.command-title .classification {
+    display: inline-block;
+    background: var(--wr-critical);
+    color: white;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    margin-bottom: 0.25rem;
+}
+
+.command-title h1 {
+    font-family: var(--wr-font-display);
+    font-size: 1.4rem;
+    color: var(--wr-text-bright);
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.command-title .subtitle {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 1px;
+}
+
+.header-center .status-display {
+    text-align: center;
+}
+
+.status-display .status-label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.status-display .status-value {
+    font-family: var(--wr-font-display);
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    letter-spacing: 1px;
+}
+
+.status-value.critical {
+    background: rgba(248, 81, 73, 0.2);
+    color: var(--wr-critical);
+    border: 1px solid var(--wr-critical);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Intel Gauge */
+.intel-gauge {
+    position: relative;
+    width: 100px;
+    height: 60px;
+}
+
+.gauge-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: var(--wr-bg-elevated);
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.gauge-fill {
+    fill: none;
+    stroke: var(--wr-accent);
+    stroke-width: 8;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 6px var(--wr-accent));
+    transition: stroke-dasharray 0.5s ease;
+}
+
+.gauge-value {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--wr-font-display);
+    font-size: 1.1rem;
+    color: var(--wr-text-bright);
+}
+
+.gauge-label {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 2px;
+}
+
+/* Access Badge */
+.access-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.access-badge.supreme { background: linear-gradient(135deg, #ffd700, #ff8c00); color: #000; }
+.access-badge.high { background: var(--wr-fawful); color: white; }
+.access-badge.officer { background: var(--wr-accent); color: white; }
+.access-badge.operative { background: var(--wr-success); color: white; }
+.access-badge.informant { background: var(--wr-legion); color: white; }
+.access-badge.outsider { background: var(--wr-bg-elevated); color: var(--wr-text-muted); }
+
+/* =============================================
+   TACTICAL NAVIGATION
+   ============================================= */
+
+.tactical-nav {
+    display: flex;
+    background: var(--wr-bg-panel);
+    border-bottom: 1px solid var(--wr-border);
+    padding: 0 1rem;
+    overflow-x: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-sector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    color: var(--wr-text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-sector:hover {
+    color: var(--wr-text);
+    background: var(--wr-bg-hover);
+}
+
+.nav-sector.active {
+    color: var(--wr-accent);
+    border-bottom-color: var(--wr-accent);
+}
+
+.sector-icon {
+    font-size: 1.2rem;
+}
+
+.sector-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.sector-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--wr-accent);
+    transition: width 0.2s ease;
+}
+
+.nav-sector.active .sector-indicator {
+    width: 80%;
+    box-shadow: 0 0 10px var(--wr-accent);
+}
+
+/* =============================================
+   WAR ROOM BODY
+   ============================================= */
+
+.war-room-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+}
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+
+.war-room-sidebar {
+    width: 280px;
+    background: var(--wr-bg-panel);
+    border-right: 1px solid var(--wr-border);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.sidebar-section {
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.sidebar-section h4 {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--wr-border);
+}
+
+/* Victim Card */
+.victim-card {
+    text-align: center;
+}
+
+.victim-portrait {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.portrait-icon {
+    font-size: 3rem;
+    filter: grayscale(50%);
+}
+
+.portrait-status {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--wr-critical);
+    color: white;
+    font-size: 0.55rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.victim-info h3 {
+    font-size: 0.9rem;
+    color: var(--wr-text-bright);
+    margin-bottom: 0.25rem;
+}
+
+.victim-dates {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+}
+
+.victim-summary {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+    margin-top: 0.75rem;
+    line-height: 1.5;
+}
+
+/* Momentum Tracker */
+.momentum-leader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.leader-icon {
+    font-size: 1.5rem;
+}
+
+.leader-name {
+    font-weight: 600;
+    color: var(--wr-loyalist);
+}
+
+.momentum-bar {
+    height: 8px;
+    background: var(--wr-bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.momentum-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--wr-loyalist), var(--wr-accent));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.momentum-confidence {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+/* Quick Odds */
+.odds-row {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--wr-border);
+}
+
+.odds-row:last-child {
+    border-bottom: none;
+}
+
+.odds-faction {
+    flex: 1;
+    font-size: 0.75rem;
+}
+
+.odds-value {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.odds-trend {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 2px;
+}
+
+.odds-trend.up { color: var(--wr-success); }
+.odds-trend.down { color: var(--wr-critical); }
+
+/* Alert Feed */
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.alert-item.critical {
+    background: rgba(248, 81, 73, 0.1);
+    border-left: 3px solid var(--wr-critical);
+}
+
+.alert-item.warning {
+    background: rgba(210, 153, 34, 0.1);
+    border-left: 3px solid var(--wr-warning);
+}
+
+.alert-item.info {
+    background: rgba(88, 166, 255, 0.1);
+    border-left: 3px solid var(--wr-info);
+}
+
+/* =============================================
+   MAIN PANEL AREA
+   ============================================= */
+
+.war-room-main {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.panel {
+    background: var(--wr-bg-panel);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--wr-border);
+}
+
+.panel-header h2 {
+    font-family: var(--wr-font-display);
+    font-size: 1.2rem;
+    color: var(--wr-text-bright);
+    letter-spacing: 2px;
+}
+
+.panel-timestamp, .case-number, .analysis-date, .dynasty-motto, .questions-count {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+}
+
+/* =============================================
+   SITUATION PANEL
+   ============================================= */
+
+.sitrep-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.sitrep-block {
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.sitrep-block h3 {
+    font-size: 0.75rem;
+    color: var(--wr-accent);
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+}
+
+.sitrep-block p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--wr-text);
+    margin-bottom: 0.5rem;
+}
+
+.sitrep-block.overview {
+    grid-column: span 2;
+}
+
+/* Faction Status Grid */
+.status-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.faction-status-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 4px;
+    border-left: 3px solid var(--faction-color);
+}
+
+.fsc-icon {
+    font-size: 1.25rem;
+}
+
+.fsc-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.fsc-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.fsc-status {
+    font-size: 0.65rem;
+    color: var(--wr-text-muted);
+}
+
+.fsc-trend {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+}
+
+.fsc-trend.ascending { background: var(--wr-success); color: white; }
+.fsc-trend.declining { background: var(--wr-critical); color: white; }
+.fsc-trend.holding { background: var(--wr-warning); color: black; }
+.fsc-trend.collapsing { background: var(--wr-critical); color: white; }
+.fsc-trend.reorganizing { background: var(--wr-info); color: white; }
+.fsc-trend.expanding { background: var(--wr-success); color: white; }
+
+/* Power Bars */
+.power-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.power-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 40px;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.power-label {
+    font-size: 0.75rem;
+}
+
+.power-bar-container {
+    height: 12px;
+    background: var(--wr-bg-dark);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.power-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+}
+
+.power-value {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Events List */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.event-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.event-icon {
+    font-size: 1rem;
+}
+
+.event-text {
+    color: var(--wr-text);
+}
+
+.event-date {
+    color: var(--wr-text-muted);
+    font-size: 0.7rem;
+}
+
+/* =============================================
+   FACTIONS PANEL
+   ============================================= */
+
+.factions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.faction-dossier {
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-top: 3px solid var(--faction-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.dossier-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dossier-icon {
+    font-size: 2rem;
+}
+
+.dossier-title {
+    flex: 1;
+}
+
+.dossier-title h3 {
+    font-size: 1rem;
+    color: var(--wr-text-bright);
+    margin-bottom: 0.25rem;
+}
+
+.dossier-leader {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+}
+
+.dossier-status {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.dossier-status.ascending { background: var(--wr-success); color: white; }
+.dossier-status.declining { background: var(--wr-warning); color: black; }
+.dossier-status.collapsing { background: var(--wr-critical); color: white; }
+.dossier-status.holding { background: var(--wr-info); color: white; }
+
+.dossier-summary {
+    font-size: 0.85rem;
+    color: var(--wr-text);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.dossier-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.metric {
+    display: grid;
+    grid-template-columns: 70px 1fr 40px;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.metric-label {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+.metric-bar {
+    height: 6px;
+    background: var(--wr-bg-dark);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.metric-fill {
+    height: 100%;
+    background: var(--faction-color, var(--wr-accent));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+.metric-value {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.dossier-analysis {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 4px;
+}
+
+.analysis-col h4 {
+    font-size: 0.65rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.analysis-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.analysis-col li {
+    font-size: 0.75rem;
+    padding: 0.2rem 0;
+    padding-left: 0.75rem;
+    position: relative;
+}
+
+.analysis-col li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+}
+
+.analysis-col:first-child li::before {
+    color: var(--wr-success);
+}
+
+.analysis-col:last-child li::before {
+    color: var(--wr-critical);
+}
+
+.dossier-actions {
+    border-top: 1px solid var(--wr-border);
+    padding-top: 0.75rem;
+}
+
+.dossier-actions h4 {
+    font-size: 0.65rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.action-entry {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed var(--wr-border);
+}
+
+.action-entry:last-child {
+    border-bottom: none;
+}
+
+.action-date {
+    color: var(--wr-text-muted);
+    font-size: 0.7rem;
+}
+
+.action-text {
+    flex: 1;
+    margin-left: 0.75rem;
+}
+
+/* =============================================
+   DYNASTY PANEL
+   ============================================= */
+
+.dynasty-overview {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.dynasty-crest {
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    background: var(--wr-bg-card);
+    border: 2px solid var(--wr-border);
+    border-radius: 8px;
+}
+
+.crest-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
+}
+
+.dynasty-crest h3 {
+    font-family: var(--wr-font-display);
+    font-size: 1.2rem;
+    color: var(--wr-text-bright);
+    margin-bottom: 0.25rem;
+}
+
+.dynasty-status {
+    font-size: 0.7rem;
+    color: var(--wr-critical);
+    letter-spacing: 1px;
+}
+
+.bloodline-section {
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+}
+
+.bloodline-section h3 {
+    font-size: 0.85rem;
+    color: var(--wr-accent);
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--wr-border);
+}
+
+.bloodline-section.classified {
+    border-color: var(--wr-fawful);
+    background: rgba(163, 113, 247, 0.05);
+}
+
+.bloodline-section.locked {
+    text-align: center;
+    color: var(--wr-text-muted);
+    padding: 2rem;
+}
+
+.bloodline-section.locked h3 {
+    color: var(--wr-text-muted);
+    border-bottom: none;
+}
+
+/* Royal Line */
+.royal-line {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.royal-member {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 6px;
+    border-left: 3px solid var(--wr-border);
+}
+
+.royal-member.deceased {
+    border-left-color: var(--wr-text-muted);
+    opacity: 0.8;
+}
+
+.royal-member.ASSASSINATED {
+    border-left-color: var(--wr-critical);
+    background: rgba(248, 81, 73, 0.05);
+}
+
+.member-icon {
+    font-size: 2rem;
+}
+
+.member-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.member-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--wr-text-bright);
+}
+
+.member-title {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+}
+
+.member-reign {
+    font-size: 0.7rem;
+    color: var(--wr-accent);
+}
+
+.member-status {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--wr-bg-dark);
+    color: var(--wr-text-muted);
+}
+
+.royal-member.ASSASSINATED .member-status {
+    background: var(--wr-critical);
+    color: white;
+}
+
+/* Branches Grid */
+.branches-grid, .claimants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.branch-card, .claimant-card {
+    padding: 1rem;
+    background: var(--wr-bg-elevated);
+    border: 1px solid var(--wr-border);
+    border-radius: 6px;
+}
+
+.branch-card.destroyed {
+    opacity: 0.6;
+    border-style: dashed;
+}
+
+.branch-header, .claimant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.branch-name, .claimant-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--wr-text-bright);
+}
+
+.branch-status {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+    background: var(--wr-bg-dark);
+    color: var(--wr-text-muted);
+}
+
+.branch-status.destroyed {
+    background: var(--wr-critical);
+    color: white;
+}
+
+.claimant-kingdom {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+.branch-claim, .claimant-claim {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.claim-dots {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.claim-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--wr-bg-dark);
+    border: 1px solid var(--wr-border);
+}
+
+.claim-dot.filled {
+    background: var(--wr-warning);
+    border-color: var(--wr-warning);
+}
+
+.branch-notes {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+    line-height: 1.4;
+}
+
+.claimant-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.claimant-details span {
+    color: var(--wr-text);
+}
+
+.claimant-details strong {
+    color: var(--wr-text-muted);
+}
+
+/* Hidden Heirs */
+.hidden-heirs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.secret-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 4px;
+    border-left: 3px solid var(--wr-fawful);
+}
+
+.secret-intel {
+    font-size: 0.6rem;
+    color: var(--wr-fawful);
+    white-space: nowrap;
+}
+
+.secret-text {
+    font-size: 0.8rem;
+    color: var(--wr-text);
+}
+
+/* =============================================
+   INVESTIGATION PANEL
+   ============================================= */
+
+.investigation-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.evidence-section {
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.evidence-section h3 {
+    font-size: 0.8rem;
+    color: var(--wr-accent);
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--wr-border);
+}
+
+.evidence-cards, .testimony-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.evidence-card, .testimony-card {
+    padding: 1rem;
+    background: var(--wr-bg-elevated);
+    border: 1px solid var(--wr-border);
+    border-radius: 6px;
+    border-left: 3px solid var(--wr-border);
+}
+
+.evidence-card.critical, .testimony-card.critical {
+    border-left-color: var(--wr-critical);
+}
+
+.evidence-card.verified, .testimony-card.verified {
+    border-left-color: var(--wr-success);
+}
+
+.evidence-card.disputed, .testimony-card.disputed {
+    border-left-color: var(--wr-warning);
+}
+
+.evidence-card.new, .testimony-card.new {
+    border-left-color: var(--wr-accent);
+}
+
+.evidence-header, .testimony-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.evidence-status, .testimony-status {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.evidence-card.critical .evidence-status,
+.testimony-card.critical .testimony-status {
+    background: var(--wr-critical);
+    color: white;
+}
+
+.evidence-card.verified .evidence-status,
+.testimony-card.verified .testimony-status {
+    background: var(--wr-success);
+    color: white;
+}
+
+.evidence-card.disputed .evidence-status,
+.testimony-card.disputed .testimony-status {
+    background: var(--wr-warning);
+    color: black;
+}
+
+.evidence-card.new .evidence-status,
+.testimony-card.new .testimony-status {
+    background: var(--wr-accent);
+    color: white;
+}
+
+.evidence-date {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+.evidence-card h4, .testimony-card h4 {
+    font-size: 0.9rem;
+    color: var(--wr-text-bright);
+    margin-bottom: 0.5rem;
+}
+
+.evidence-summary {
+    font-size: 0.8rem;
+    color: var(--wr-text);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.evidence-implications {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.evidence-implications strong {
+    color: var(--wr-text-muted);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.evidence-implications ul {
+    list-style: none;
+    padding-left: 0.75rem;
+    margin: 0;
+}
+
+.evidence-implications li {
+    padding: 0.15rem 0;
+    position: relative;
+}
+
+.evidence-implications li::before {
+    content: '→';
+    position: absolute;
+    left: -0.75rem;
+    color: var(--wr-accent);
+}
+
+.evidence-source {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+    font-style: italic;
+}
+
+.testimony-card p {
+    font-size: 0.8rem;
+    color: var(--wr-text);
+    line-height: 1.5;
+}
+
+/* Theory Chart */
+.evidence-section.theories {
+    border-color: var(--wr-fawful);
+}
+
+.theory-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.theory-bar {
+    display: grid;
+    grid-template-columns: 180px 1fr 50px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theory-label {
+    font-size: 0.8rem;
+    color: var(--wr-text);
+}
+
+.theory-track {
+    height: 20px;
+    background: var(--wr-bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.theory-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--wr-fawful), var(--wr-accent));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.theory-prob {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--wr-text-bright);
+    text-align: right;
+}
+
+/* =============================================
+   TERRITORY PANEL
+   ============================================= */
+
+.territory-overview {
+    margin-bottom: 1.5rem;
+}
+
+.control-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+}
+
+.control-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 4px;
+    border-left: 3px solid var(--ctrl-color);
+}
+
+.ctrl-icon {
+    font-size: 1.25rem;
+}
+
+.ctrl-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.ctrl-value {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+}
+
+.territory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.territory-tile {
+    padding: 1rem;
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+    border-top: 3px solid var(--ctrl-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.territory-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tile-icon {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.tile-info {
+    text-align: center;
+}
+
+.tile-name {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--wr-text-bright);
+}
+
+.tile-type {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+.tile-control {
+    text-align: center;
+}
+
+.ctrl-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 3px;
+    color: var(--ctrl-color);
+}
+
+.tile-value {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+}
+
+/* =============================================
+   PROJECTIONS PANEL
+   ============================================= */
+
+.projections-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.projection-section {
+    padding: 1.25rem;
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+}
+
+.projection-section h3 {
+    font-size: 0.75rem;
+    color: var(--wr-text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.projection-section.leader {
+    border-color: var(--wr-loyalist);
+    background: rgba(219, 97, 162, 0.05);
+}
+
+.frontrunner-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 6px;
+}
+
+.fr-icon {
+    font-size: 2.5rem;
+}
+
+.fr-name {
+    font-family: var(--wr-font-display);
+    font-size: 1.5rem;
+    color: var(--wr-loyalist);
+    flex: 1;
+}
+
+.fr-confidence {
+    font-size: 0.9rem;
+    color: var(--wr-text-muted);
+}
+
+.odds-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.odds-bar {
+    display: grid;
+    grid-template-columns: 120px 1fr 50px 60px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.odds-label {
+    font-size: 0.85rem;
+    color: var(--wr-text);
+}
+
+.odds-track {
+    height: 24px;
+    background: var(--wr-bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.odds-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--wr-accent), var(--wr-loyalist));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.odds-percent {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--wr-text-bright);
+    text-align: right;
+}
+
+.odds-trend {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.odds-trend.up {
+    background: rgba(63, 185, 80, 0.2);
+    color: var(--wr-success);
+}
+
+.odds-trend.down {
+    background: rgba(248, 81, 73, 0.2);
+    color: var(--wr-critical);
+}
+
+.odds-trend.flat {
+    background: var(--wr-bg-elevated);
+    color: var(--wr-text-muted);
+}
+
+.factors-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.factor-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 4px;
+}
+
+.factor-num {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--wr-accent);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 50%;
+}
+
+.factor-text {
+    font-size: 0.85rem;
+    color: var(--wr-text);
+}
+
+/* =============================================
+   TIMELINE PANEL
+   ============================================= */
+
+.chrono-timeline {
+    position: relative;
+    padding-left: 120px;
+}
+
+.chrono-timeline::before {
+    content: '';
+    position: absolute;
+    left: 100px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--wr-border);
+}
+
+.chrono-event {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.chrono-event::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--wr-bg-panel);
+    border: 2px solid var(--wr-border);
+    border-radius: 50%;
+}
+
+.chrono-event.critical::before {
+    background: var(--wr-critical);
+    border-color: var(--wr-critical);
+    box-shadow: 0 0 10px var(--wr-critical);
+}
+
+.chrono-event:hover {
+    border-color: var(--wr-accent);
+    transform: translateX(5px);
+}
+
+.chrono-marker {
+    position: absolute;
+    left: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    text-align: right;
+}
+
+.chrono-year {
+    display: block;
+    font-family: var(--wr-font-display);
+    font-size: 1rem;
+    color: var(--wr-accent);
+    font-weight: 700;
+}
+
+.chrono-date {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+.chrono-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.chrono-category {
+    font-size: 0.65rem;
+    color: var(--wr-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chrono-event.assassination .chrono-category { color: var(--wr-critical); }
+.chrono-event.political .chrono-category { color: var(--wr-accent); }
+.chrono-event.military .chrono-category { color: var(--wr-warning); }
+.chrono-event.diplomatic .chrono-category { color: var(--wr-success); }
+.chrono-event.investigation .chrono-category { color: var(--wr-fawful); }
+
+.chrono-text {
+    font-size: 0.9rem;
+    color: var(--wr-text-bright);
+}
+
+.chrono-critical {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    background: var(--wr-critical);
+    color: white;
+    border-radius: 2px;
+    font-weight: 700;
+}
+
+/* =============================================
+   QUESTIONS PANEL
+   ============================================= */
+
+.questions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.question-card {
+    padding: 1.25rem;
+    background: var(--wr-bg-card);
+    border: 1px solid var(--wr-border);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.question-card::before {
+    content: '?';
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-size: 8rem;
+    font-weight: 700;
+    color: var(--wr-bg-elevated);
+    pointer-events: none;
+}
+
+.question-card.critical {
+    border-color: var(--wr-critical);
+}
+
+.question-card.high {
+    border-color: var(--wr-warning);
+}
+
+.question-priority {
+    display: inline-block;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.question-card.critical .question-priority {
+    background: var(--wr-critical);
+    color: white;
+}
+
+.question-card.high .question-priority {
+    background: var(--wr-warning);
+    color: black;
+}
+
+.question-text {
+    font-size: 1.1rem;
+    color: var(--wr-text-bright);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.question-status {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.status-label {
+    color: var(--wr-text-muted);
+}
+
+.status-value {
+    color: var(--wr-accent);
+    font-weight: 600;
+}
+
+.question-intel {
+    font-size: 0.7rem;
+    color: var(--wr-text-muted);
+}
+
+.intel-req {
+    padding: 0.2rem 0.5rem;
+    background: var(--wr-bg-elevated);
+    border-radius: 3px;
+}
+
+.questions-locked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: var(--wr-bg-card);
+    border: 1px dashed var(--wr-border);
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+.locked-icon {
+    font-size: 1.5rem;
+}
+
+.locked-text {
+    color: var(--wr-text-muted);
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   DATA STREAM
+   ============================================= */
+
+.data-stream {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: var(--wr-bg-panel);
+    border-top: 1px solid var(--wr-border);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.stream-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: scroll-stream 30s linear infinite;
+}
+
+@keyframes scroll-stream {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.stream-text {
+    font-size: 0.7rem;
+    color: var(--wr-accent);
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.stream-text::before {
+    content: '▶ ';
+    color: var(--wr-success);
+}
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+
+@media (max-width: 1200px) {
+    .war-room-sidebar {
+        width: 240px;
+    }
+    
+    .factions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .command-header {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .header-center {
+        order: 3;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .war-room-body {
+        flex-direction: column;
+    }
+    
+    .war-room-sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-right: none;
+        border-bottom: 1px solid var(--wr-border);
+    }
+    
+    .sidebar-section {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .sitrep-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sitrep-block.overview {
+        grid-column: span 1;
+    }
+    
+    .chrono-timeline {
+        padding-left: 60px;
+    }
+    
+    .chrono-timeline::before {
+        left: 50px;
+    }
+    
+    .chrono-marker {
+        left: -60px;
+        width: 45px;
+    }
+    
+    .chrono-year {
+        font-size: 0.85rem;
+    }
+    
+    .chrono-event::before {
+        left: -18px;
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .command-header {
+        padding: 0.75rem;
+    }
+    
+    .command-title h1 {
+        font-size: 1rem;
+    }
+    
+    .tactical-nav {
+        padding: 0 0.5rem;
+    }
+    
+    .nav-sector {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .sector-label {
+        display: none;
+    }
+    
+    .war-room-main {
+        padding: 1rem;
+    }
+    
+    .panel {
+        padding: 1rem;
+    }
+    
+    .panel-header h2 {
+        font-size: 1rem;
+    }
+    
+    .territory-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .odds-bar {
+        grid-template-columns: 80px 1fr 40px;
+    }
+    
+    .odds-trend {
+        display: none;
+    }
+    
+    .questions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dossier-analysis {
+        grid-template-columns: 1fr;
+    }
+    
+    .theory-bar {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .theory-label {
+        font-weight: 600;
+    }
+}
+
+/* =============================================
+   SCROLLBAR STYLING
+   ============================================= */
+
+.war-room ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.war-room ::-webkit-scrollbar-track {
+    background: var(--wr-bg-dark);
+}
+
+.war-room ::-webkit-scrollbar-thumb {
+    background: var(--wr-border);
+    border-radius: 4px;
+}
+
+.war-room ::-webkit-scrollbar-thumb:hover {
+    background: var(--wr-accent);
+}
+
+/* =============================================
+   UTILITY CLASSES
+   ============================================= */
+
+.wr-hidden { display: none !important; }
+.wr-text-muted { color: var(--wr-text-muted); }
+.wr-text-bright { color: var(--wr-text-bright); }
+.wr-text-critical { color: var(--wr-critical); }
+.wr-text-warning { color: var(--wr-warning); }
+.wr-text-success { color: var(--wr-success); }
+.wr-text-accent { color: var(--wr-accent); }
+
+/* =============================================
+   PRINT STYLES
+   ============================================= */
+
+@media print {
+    .war-room {
+        background: white;
+        color: black;
+    }
+    
+    .command-header,
+    .tactical-nav,
+    .data-stream,
+    .war-room-sidebar {
+        display: none;
+    }
+    
+    .war-room-main {
+        padding: 0;
+    }
+    
+    .panel {
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+}
+/* Modal Overlay */
+.war-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.war-modal-overlay.hidden {
+    display: none;
+}
+
+.war-modal-content {
+    background: #111;
+    border: 2px solid #333;
+    width: 600px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9);
+    padding: 2rem;
+    color: #eee;
+    font-family: monospace;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.interactive {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.interactive:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 2px solid white;
+}
+/* ADD THIS TO THE BOTTOM OF YOUR CSS */
+.click-hint {
+    font-size: 0.55rem;
+    color: var(--wr-accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.2s;
+    margin-left: auto; /* Pushes it to the right */
+}
+
+.interactive:hover .click-hint {
+    opacity: 1; /* Shows on hover */
+}
+
+.royal-member.interactive:hover {
+    background: var(--wr-bg-hover);
+    border-left-color: var(--wr-accent);
+    cursor: pointer;
+}
+/* =========================================
+   WAR ROOM VARIABLES
+   ========================================= */
+:root {
+    --wr-bg-dark: #111111;
+    --wr-bg-panel: rgba(20, 20, 25, 0.95);
+    --wr-text-main: #e0e0e0;
+    --wr-text-muted: #888888;
+    
+    /* Faction/Status Colors */
+    --wr-royal-pink: #ff69b4;
+    --wr-royal-gold: #ffd700;
+    --wr-status-dead: #444444;
+    --wr-status-killed: #ff3333;
+    --wr-status-active: #00ff99;
+    --wr-accent: #00d2ff;
+    
+    --wr-border: 1px solid rgba(255, 255, 255, 0.1);
+    --wr-glass: rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================
+   DYNASTY PANEL LAYOUT
+   ========================================= */
+.dynasty-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.dynasty-motto {
+    display: block;
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    color: var(--wr-royal-gold);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-top: 0.25rem;
+    opacity: 0.8;
+}
+
+/* Container for the Tree Structure */
+.dynasty-tree-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Royal Line vs Cadet Branches */
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .dynasty-tree-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bloodline-column h3 {
+    color: var(--wr-accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--wr-accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   ROYAL LINE (The Main Tree)
+   ========================================= */
+.main-line {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* The Vertical Connecting Line */
+.main-line::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 24px; /* Aligns with center of icon */
+    width: 2px;
+    height: calc(100% - 60px);
+    background: linear-gradient(to bottom, var(--wr-royal-gold), var(--wr-status-killed));
+    z-index: 0;
+    opacity: 0.3;
+}
+
+.royal-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    background: var(--wr-bg-dark);
+    border: 1px solid var(--wr-royal-gold);
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+/* Status Specific Styles */
+.royal-card.deceased {
+    border-color: var(--wr-status-dead);
+    opacity: 0.7;
+    filter: grayscale(0.8);
+}
+
+.royal-card.ASSASSINATED {
+    border-color: var(--wr-status-killed);
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+    background: linear-gradient(90deg, rgba(50,0,0,0.5), transparent);
+}
+
+.royal-icon {
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--wr-glass);
+    border-radius: 50%;
+    margin-right: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.royal-details {
+    flex: 1;
+}
+
+.royal-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--wr-text-main);
+}
+
+.royal-reign {
+    font-size: 0.8rem;
+    color: var(--wr-text-muted);
+    font-family: monospace;
+}
+
+/* =========================================
+   CADET BRANCHES (Rivals)
+   ========================================= */
+.cadet-line {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cadet-card {
+    background: var(--wr-glass);
+    border-left: 3px solid var(--wr-text-muted);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.cadet-card:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Cadet Status Colors */
+.cadet-card.active { border-left-color: var(--wr-status-active); }
+.cadet-card.destroyed { border-left-color: var(--wr-status-killed); opacity: 0.5; text-decoration: line-through; }
+
+.cadet-name {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.cadet-status {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.cadet-claim {
+    font-family: monospace;
+    color: var(--wr-royal-gold);
+    letter-spacing: 2px;
+}
+
+/* =========================================
+   FOREIGN CLAIMANTS
+   ========================================= */
+.foreign-claims-section h3 {
+    color: var(--wr-text-muted);
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--wr-border);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.claimants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.claimant-card {
+    background: var(--wr-bg-dark);
+    border: var(--wr-border);
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100px;
+}
+
+.claimant-card:hover {
+    border-color: var(--wr-accent);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.claimant-name {
+    font-weight: bold;
+    color: var(--wr-text-main);
+}
+
+.claimant-kingdom {
+    font-size: 0.75rem;
+    background: var(--wr-glass);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--wr-accent);
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--wr-text-muted);
+    font-family: monospace;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 0.5rem;
+}
+
+/* =========================================
+   INTERACTIVE ELEMENTS
+   ========================================= */
+.interactive {
+    cursor: pointer;
+}
+
+.interactive:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.click-indicator {
+    font-size: 0.8rem;
+    color: var(--wr-accent);
+    border: 1px solid var(--wr-accent);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.interactive:hover .click-indicator {
+    opacity: 1;
+}
+
+/* =========================================
+   MODAL STYLING (For Dossiers)
+   ========================================= */
+.war-modal-overlay {
+    position: absolute; /* or fixed depending on container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.war-modal-content {
+    background: #1a1a1a;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90%;
+    border: 1px solid var(--wr-accent);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    position: relative;
+    padding: 2rem;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace; /* Dossier feel */
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--wr-status-killed);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Modal Internal Typography */
+.war-modal-content h2 {
+    color: var(--wr-royal-gold);
+    border-bottom: 1px dashed var(--wr-text-muted);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.war-modal-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+.classified-box {
+    margin-top: 20px;
+    border: 1px solid var(--wr-status-killed);
+    background: rgba(255, 0, 0, 0.1);
+    color: #ffaaaa;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.secrets-list {
+    list-style: none;
+    padding: 0;
+}
+
+.secrets-list li {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.secrets-list li.locked {
+    color: var(--wr-status-dead);
+    font-family: monospace;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.2),
+        rgba(0,0,0,0.2) 10px,
+        rgba(0,0,0,0.3) 10px,
+        rgba(0,0,0,0.3) 20px
+    );
+}
+
+.secrets-list li.unlocked {
+    color: var(--wr-status-active);
+}
