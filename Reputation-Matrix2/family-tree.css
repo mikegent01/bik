@@ -2,7 +2,868 @@
    DYNASTY TREE - INTERACTIVE FAMILY TREE STYLES
    Bloodlines of the Mushroom Kingdom
    ============================================= */
+/* =============================================
+   FAMILY TREE VISUAL STYLES
+   ============================================= */
+/* =============================================
+   VISUAL FAMILY TREE STYLES
+   ============================================= */
 
+/* View Controls */
+.tree-view-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+}
+
+.tree-view-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: transparent;
+    border: 1px solid var(--dynasty-border);
+    border-radius: 6px;
+    color: var(--dynasty-text-dim);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.tree-view-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--dynasty-text);
+}
+
+.tree-view-btn.active {
+    background: var(--dynasty-gold);
+    border-color: var(--dynasty-gold);
+    color: #000;
+}
+
+.tree-view-panel {
+    display: none;
+}
+
+.tree-view-panel.active {
+    display: block;
+    animation: fadeIn var(--transition-med);
+}
+
+/* Visual Tree Viewport */
+.visual-tree-viewport {
+    background: var(--dynasty-bg);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 500px;
+    position: relative;
+}
+
+.visual-tree-canvas {
+    position: relative;
+    min-width: max-content;
+    padding: 2rem;
+}
+
+.tree-connections-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Generation Rows */
+.tree-generation {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.gen-label-vertical {
+    width: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    position: relative;
+}
+
+.gen-label-vertical::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -20px;
+    bottom: -20px;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--dynasty-border), transparent);
+}
+
+.gen-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 0.7rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.gen-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Family Units */
+.family-unit {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.family-unit.married {
+    background: rgba(255, 215, 0, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 215, 0, 0.2);
+}
+
+.family-unit.polygamous {
+    background: rgba(155, 89, 182, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px dashed rgba(155, 89, 182, 0.2);
+}
+
+/* Marriage Connector */
+.marriage-connector {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    align-self: center;
+}
+
+.connector-line {
+    width: 20px;
+    height: 2px;
+    background: var(--dynasty-gold);
+}
+
+.connector-symbol {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-gold);
+    border-radius: 50%;
+    font-size: 0.9rem;
+}
+
+/* Children Indicator */
+.children-indicator {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.children-line {
+    width: 2px;
+    height: 15px;
+    background: var(--dynasty-border);
+}
+
+.children-count {
+    font-size: 0.65rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--dynasty-border);
+}
+
+/* Primary with Consorts */
+.primary-with-consorts {
+    display: flex;
+    gap: 1rem;
+}
+
+.consorts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.consort-connection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.consort-line {
+    width: 30px;
+    height: 2px;
+    position: relative;
+}
+
+.consort-line.marriage { background: var(--dynasty-gold); }
+.consort-line.affair { background: #e74c3c; }
+.consort-line.political { background: #3498db; }
+.consort-line.warrior { background: #e67e22; }
+.consort-line.true-love { background: #e91e63; }
+.consort-line.annulled { background: #666; }
+
+.consort-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    font-size: 0.6rem;
+    max-width: 80px;
+}
+
+.consort-type {
+    color: var(--dynasty-gold);
+    font-weight: 500;
+}
+
+.consort-date {
+    color: var(--dynasty-text-dim);
+}
+
+.consort-status {
+    padding: 0.1rem 0.25rem;
+    border-radius: 2px;
+    background: var(--dynasty-surface-alt);
+}
+
+.consort-status.ended { color: var(--dynasty-danger); }
+.consort-status.active { color: var(--dynasty-success); }
+
+/* Tree Person Card */
+.tree-person {
+    width: 160px;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.tree-person:hover {
+    transform: translateY(-3px);
+    border-color: var(--dynasty-gold);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.tree-person.primary {
+    border-width: 3px;
+}
+
+.tree-person.spouse {
+    opacity: 0.95;
+}
+
+.tree-person.consort {
+    width: 140px;
+    opacity: 0.9;
+}
+
+.tree-person.external {
+    border-style: dashed;
+    opacity: 0.85;
+}
+
+/* Status-based styling */
+.tree-person.deceased {
+    border-color: var(--dynasty-deceased);
+}
+
+.tree-person.active {
+    border-color: var(--dynasty-success);
+}
+
+.tree-person.murdered,
+.tree-person.assassinated {
+    border-color: var(--dynasty-danger);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(231, 76, 60, 0.1) 100%);
+}
+
+.tree-person.incapacitated {
+    border-color: var(--dynasty-royal);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(155, 89, 182, 0.1) 100%);
+}
+
+.tree-person.legendary,
+.tree-person.transcended {
+    border-color: var(--dynasty-gold);
+    background: linear-gradient(135deg, var(--dynasty-surface) 0%, rgba(255, 215, 0, 0.1) 100%);
+}
+
+.tree-person.unknown,
+.tree-person.banished {
+    border-style: dashed;
+    border-color: var(--dynasty-warning);
+}
+
+/* Person Portrait */
+.person-portrait {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.portrait-emoji {
+    font-size: 2rem;
+    display: block;
+}
+
+.birth-order {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    font-size: 0.6rem;
+    background: var(--dynasty-gold);
+    color: #000;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+/* Person Details */
+.person-details {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.person-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dynasty-text-bright);
+    line-height: 1.2;
+}
+
+.person-epithet {
+    font-size: 0.65rem;
+    color: var(--dynasty-gold);
+    font-style: italic;
+}
+
+.person-dates {
+    font-size: 0.6rem;
+    color: var(--dynasty-text-dim);
+}
+
+.person-reign {
+    font-size: 0.55rem;
+    color: var(--dynasty-royal);
+}
+
+/* Person Badges */
+.person-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.status-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: var(--dynasty-surface-alt);
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.status-badge.deceased { color: var(--dynasty-text-dim); }
+.status-badge.active { color: var(--dynasty-success); }
+.status-badge.murdered { color: var(--dynasty-danger); }
+.status-badge.incapacitated { color: var(--dynasty-royal); }
+.status-badge.legendary { color: var(--dynasty-gold); }
+
+.secrets-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: rgba(243, 156, 18, 0.2);
+    color: var(--dynasty-warning);
+}
+
+.external-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: rgba(52, 152, 219, 0.2);
+    color: var(--dynasty-info);
+}
+
+/* Marriage Badge on Person */
+.marriage-badge {
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.marriage-badge.marriage { background: rgba(255, 215, 0, 0.2); color: var(--dynasty-gold); }
+.marriage-badge.affair { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+.marriage-badge.political { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+.marriage-badge.warrior { background: rgba(230, 126, 34, 0.2); color: #e67e22; }
+.marriage-badge.true-love { background: rgba(233, 30, 99, 0.2); color: #e91e63; }
+.marriage-badge.annulled { background: rgba(100, 100, 100, 0.2); color: #888; text-decoration: line-through; }
+
+/* =============================================
+   MARRIAGES VIEW
+   ============================================= */
+
+.marriages-visual-container {
+    padding: 0.5rem 0;
+}
+
+.marriages-summary {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+}
+
+.summary-stat {
+    text-align: center;
+}
+
+.summary-stat .stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dynasty-gold);
+}
+
+.summary-stat .stat-label {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+.marriages-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Marriage Visual Card */
+.marriage-visual-card {
+    background: var(--dynasty-surface);
+    border: 1px solid var(--dynasty-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+}
+
+.marriage-visual-card:hover {
+    transform: translateX(5px);
+    border-color: var(--dynasty-gold);
+}
+
+.marriage-visual-card.affair { border-left: 4px solid #e74c3c; }
+.marriage-visual-card.political { border-left: 4px solid #3498db; }
+.marriage-visual-card.warrior { border-left: 4px solid #e67e22; }
+.marriage-visual-card.true-love { border-left: 4px solid #e91e63; }
+.marriage-visual-card.annulled { border-left: 4px solid #666; opacity: 0.8; }
+.marriage-visual-card.marriage { border-left: 4px solid var(--dynasty-gold); }
+
+.marriage-visual-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.marriage-symbol {
+    font-size: 1.25rem;
+}
+
+.marriage-type-label {
+    flex: 1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dynasty-text);
+}
+
+.marriage-date-range {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+    background: var(--dynasty-surface);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.marriage-parties {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem;
+}
+
+.party {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 100px;
+}
+
+.party-icon {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface-alt);
+    border-radius: 50%;
+    border: 2px solid var(--dynasty-border);
+}
+
+.party-name {
+    font-size: 0.8rem;
+    color: var(--dynasty-text);
+    text-align: center;
+    max-width: 120px;
+}
+
+.marriage-bond {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.bond-line {
+    width: 30px;
+    height: 2px;
+}
+
+.bond-line.marriage { background: var(--dynasty-gold); }
+.bond-line.affair { background: #e74c3c; }
+.bond-line.political { background: #3498db; }
+.bond-line.warrior { background: #e67e22; }
+.bond-line.true-love { background: #e91e63; }
+.bond-line.annulled { background: #666; }
+
+.bond-heart {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dynasty-surface);
+    border: 2px solid var(--dynasty-border);
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+.marriage-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(39, 174, 96, 0.1);
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.result-icon {
+    font-size: 1rem;
+}
+
+.result-text {
+    font-size: 0.85rem;
+    color: var(--dynasty-success);
+}
+
+.marriage-footer {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--dynasty-border);
+}
+
+.marriage-status {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--dynasty-surface-alt);
+    margin-bottom: 0.5rem;
+}
+
+.marriage-status.ended { color: var(--dynasty-danger); }
+.marriage-status.active { color: var(--dynasty-success); }
+.marriage-status.annulled { color: #888; }
+
+.marriage-significance {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+}
+
+/* =============================================
+   FAMILY TIMELINE VIEW
+   ============================================= */
+
+.family-timeline-container {
+    padding: 0.5rem 0;
+}
+
+.timeline-eras {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.timeline-era {
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--dynasty-border);
+}
+
+.era-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--dynasty-surface-alt);
+    border-bottom: 1px solid var(--dynasty-border);
+}
+
+.era-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+}
+
+.era-count {
+    font-size: 0.75rem;
+    color: var(--dynasty-text-dim);
+}
+
+.era-events {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.timeline-event-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--dynasty-surface-alt);
+    border-radius: 6px;
+    border-left: 3px solid var(--dynasty-border);
+    transition: all var(--transition-fast);
+}
+
+.timeline-event-card:hover {
+    transform: translateX(3px);
+    border-left-color: var(--dynasty-gold);
+}
+
+.timeline-event-card.birth { border-left-color: var(--dynasty-success); }
+.timeline-event-card.death { border-left-color: var(--dynasty-danger); }
+.timeline-event-card.coronation { border-left-color: var(--dynasty-gold); }
+.timeline-event-card.marriage { border-left-color: #e91e63; }
+
+.timeline-event-card .event-year {
+    min-width: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dynasty-gold);
+}
+
+.timeline-event-card .event-icon {
+    font-size: 1rem;
+}
+
+.timeline-event-card .event-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-event-card .event-title {
+    font-size: 0.85rem;
+    color: var(--dynasty-text);
+}
+
+.timeline-event-card .event-subtitle {
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+    font-style: italic;
+}
+
+/* =============================================
+   LEGEND ENHANCEMENTS
+   ============================================= */
+
+.tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--dynasty-surface);
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.legend-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.legend-title {
+    font-size: 0.75rem;
+    color: var(--dynasty-gold);
+    font-weight: 600;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    color: var(--dynasty-text-dim);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+.legend-dot.deceased { border-color: var(--dynasty-deceased); }
+.legend-dot.active { border-color: var(--dynasty-success); }
+.legend-dot.murdered { border-color: var(--dynasty-danger); }
+.legend-dot.hidden { border-color: var(--dynasty-warning); border-style: dashed; }
+
+.legend-line {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.legend-line.marriage { background: var(--dynasty-gold); }
+.legend-line.child { background: #4a90a4; }
+.legend-line.affair { background: #e74c3c; }
+
+/* Connection Lines */
+.connection-line {
+    stroke-linecap: round;
+}
+
+.connection-line.child-line {
+    stroke: #4a90a4;
+    stroke-dasharray: 5, 3;
+}
+
+.connection-line.marriage-line {
+    stroke: var(--dynasty-gold);
+}
+
+.connection-line.affair-line {
+    stroke: #e74c3c;
+    stroke-dasharray: 3, 3;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 768px) {
+    .tree-view-controls {
+        flex-wrap: wrap;
+    }
+    
+    .tree-view-btn {
+        flex: 1 1 30%;
+        font-size: 0.7rem;
+        padding: 0.5rem;
+    }
+    
+    .tree-person {
+        width: 130px;
+        padding: 0.5rem;
+    }
+    
+    .tree-person.consort {
+        width: 110px;
+    }
+    
+    .portrait-emoji {
+        font-size: 1.5rem;
+    }
+    
+    .person-name {
+        font-size: 0.7rem;
+    }
+    
+    .marriage-parties {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .marriage-bond {
+        transform: rotate(90deg);
+    }
+    
+    .marriages-summary {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .legend-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 /* =============================================
    CSS VARIABLES
    ============================================= */
