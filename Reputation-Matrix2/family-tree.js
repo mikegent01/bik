@@ -662,7 +662,7 @@ houseToadstool: {
                 { intel: 75, text: 'Medical records indicate a pregnancy in 954. The child was never officially born.' },
                 { intel: 85, text: 'She sent the child to safety with Lady Bloomia the night before she died. She KNEW she would be killed.' },
                 { intel: 90, text: 'Lady Bloomia fled with the child to a safehouse in the Forever Forest. The Rakasha have protected the child ever since.' },
-                { intel: 95, text: 'Her draft will named the child as heir, with Daisy as regent. She also named her killers - but the document was destroyed.' }
+                { intel: 95, text: 'Her draft will is said to have named the child as heir, with Daisy as regent. She also named her killers - but the document was destroyed.' }
             ],
             
             relationships: [
@@ -906,7 +906,7 @@ houseToadstool: {
                     { intel: 45, text: 'He holds the Obsidian Tablets proving the Toadstools are technically Koopa vassals.' },
                     { intel: 65, text: 'He arrived at the murder scene minutes after it happened and found the body.' },
                     { intel: 80, text: 'He roared in genuine grief. He invaded to AVENGE her, not because he killed her.' },
-                    { intel: 95, text: 'He knows who the father of Peach\'s child is. He has kept the secret for 85 years.' }
+                    { intel: 95, text: 'Rumor is he knows who the father of Peach\'s child is. He has kept the secret for 85 years.' }
                 ],
                 
                 relationships: [
