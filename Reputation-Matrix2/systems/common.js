@@ -4,31 +4,36 @@ import { LORE_DATA } from '../lore.js';
 import { getSubFactionReputation } from '../reputation.js';
 import { calculateRumorMetrics } from '../research-data.js';
 import { WAHBOOK_POSTS } from '../assembly-data.js';
-
+import { CURRENT_GAME_DATE } from '../calendar-data.js';
 /**
  * Calculates the breakdown of intel for a faction.
  * @param {string} factionKey
  * @returns {object} Breakdown of Base, History, Active, and Total intel.
  */
+function gameDateToDays(date) {
+    const daysPerMonth = 30; // Assuming 30-day months, adjust if needed
+    const monthsPerYear = 12;
+    return (date.year * monthsPerYear * daysPerMonth) + (date.monthIndex * daysPerMonth) + date.day;
+}
+
 export function getIntelBreakdown(factionKey) {
     const loggedInUser = state.loggedInUser || 'generic';
     
-    // 1. Base Intel (Permanent/Starting)
-    const userIntel = state.intelLevels[loggedInUser] || state.intelLevels.generic;
-    const base = userIntel[factionKey] ?? (state.intelLevels.generic ? state.intelLevels.generic[factionKey] : 0) ?? 0;
+    // 1. Base Intel (From state.intelLevels - starting point)
+    const userIntel = state.intelLevels?.[loggedInUser] || state.intelLevels?.generic || {};
+    const genericIntel = state.intelLevels?.generic || {};
+    const base = userIntel[factionKey] ?? genericIntel[factionKey] ?? 0;
 
-    // 2. Historical Intel (From 'finalIntel' - accumulated from past events)
-    let history = 0;
-    if (state.finalIntel && state.finalIntel[loggedInUser] && state.finalIntel[loggedInUser][factionKey]) {
-        history = state.finalIntel[loggedInUser][factionKey] - base; // Difference is the gained history
-        if (history < 0) history = 0;
-    }
+    // 2. History Modifier (Dynamic - based on consecutive days in positive/negative standing)
+    const history = calculateHistoryModifier(factionKey);
 
-    // 3. Active Chatter Bonus (Dynamic based on active rumors)
+    // 3. Decay (Negative modifier based on chatter inactivity)
+    const decay = calculateIntelDecay(factionKey);
+
+    // 4. Active Chatter Bonus (Dynamic based on active rumors)
     let active = 0;
     if (LORE_DATA && LORE_DATA.rumors) {
         LORE_DATA.rumors.forEach(rumor => {
-            // Is this faction involved?
             const isAffected = rumor.effects && rumor.effects[factionKey] !== undefined;
             const isTarget = rumor.targets && rumor.targets.includes(factionKey);
             
@@ -36,25 +41,27 @@ export function getIntelBreakdown(factionKey) {
                 const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
                 const metrics = calculateRumorMetrics(rumor, relatedPosts);
                 
-                // Only calculate active bonus for living rumors
                 if (metrics.status !== 'Dead' && metrics.status !== 'Old News') {
-                    // Bonus is based on Impact. High impact = more intel flowing.
-                    // We cap it to prevent game-breaking numbers.
                     const bonus = Math.min(20, Math.ceil(metrics.finalScore * 2)); 
                     active += Math.max(0, bonus);
+                    
+                    // Mark chatter as active when rumors are alive
+                    markChatterActive(factionKey);
                 }
             }
         });
     }
 
+    const total = Math.max(0, Math.min(100, base + history + decay + active));
+
     return {
         base,
         history,
+        decay,
         active,
-        total: Math.min(100, base + history + active)
+        total
     };
 }
-
 /**
  * Calculates the intel level for a given faction based on the logged-in user.
  * Now dynamically calculates active bonuses.
@@ -64,7 +71,15 @@ export function getIntelBreakdown(factionKey) {
 export function getIntelForFaction(factionKey) {
     return getIntelBreakdown(factionKey).total;
 }
-
+export function processDailyIntelUpdates(getReputation, getAllFactionKeys) {
+    const factionKeys = getAllFactionKeys();
+    const targetPlayer = state.party?.[0] || state.loggedInUser || 'generic';
+    
+    factionKeys.forEach(factionKey => {
+        const currentRep = getReputation(targetPlayer, factionKey);
+        updateFactionHistory(factionKey, currentRep);
+    });
+}
 /**
  * Builds a generic tabbed interface for factions with detailed, structured information.
  * @param {object} details - The data object containing hierarchy, recruitment, etc.
@@ -156,7 +171,6 @@ export function buildDetailedSystemHTML(details, description) {
         </div>
     `;
 }
-
 /**
  * Initializes the event listeners for a generic tabbed system.
  */
@@ -179,7 +193,6 @@ export function initTabbedSystem() {
         });
     }
 }
-
 /**
  * A fallback renderer for factions that have subfactions but no unique visualization.
  * @param {object} subFactions - The subfaction data object.
@@ -188,23 +201,105 @@ export function initTabbedSystem() {
  * @returns {string} HTML for the subfaction list.
  */
 export function renderDefaultSubfactionList(subFactions, factionKey, currentState) {
-     const subFactionListHTML = Object.entries(subFactions).map(([subKey, subFaction]) => {
-            const playerRepHTML = currentState.party.map(playerKey => {
-                const subRep = getSubFactionReputation(playerKey, factionKey, subKey);
-                const repClass = subRep > 10 ? 'positive' : subRep < -10 ? 'negative' : 'neutral';
-                    return `<div class="subfaction-player-rep">
-                            <span class="char-name">${LORE_DATA.characters[playerKey].name}:</span>
-                            <span class="rep-value ${repClass}">${subRep}</span>
-                        </div>`;
-            }).join('');
+    const subFactionListHTML = Object.entries(subFactions).map(([subKey, subFaction]) => {
+        const playerRepHTML = currentState.party.map(playerKey => {
+            const subRep = getSubFactionReputation(playerKey, factionKey, subKey);
+            const repClass = subRep > 10 ? 'positive' : subRep < -10 ? 'negative' : 'neutral';
+            return `<div class="subfaction-player-rep">
+                    <span class="char-name">${LORE_DATA.characters[playerKey].name}:</span>
+                    <span class="rep-value ${repClass}">${subRep}</span>
+                </div>`;
+        }).join('');
         return `<li class="subfaction-item">
-                    <div class="subfaction-header">
-                        <span class="subfaction-name">${subFaction.name}</span>
-                        <span class="subfaction-influence">(${subFaction.influence || '??'}% Influence)</span>
-                    </div>
-                    <p class="subfaction-description">${subFaction.description}</p>
-                    <div class="subfaction-reps-container">${playerRepHTML}</div>
-                </li>`;
+                <div class="subfaction-header">
+                    <span class="subfaction-name">${subFaction.name}</span>
+                    <span class="subfaction-influence">(${subFaction.influence || '??'}% Influence)</span>
+                </div>
+                <p class="subfaction-description">${subFaction.description}</p>
+                <div class="subfaction-reps-container">${playerRepHTML}</div>
+            </li>`;
     }).join('');
     return `<div class="system-content"><ul class="subfaction-list">${subFactionListHTML}</ul></div>`;
 }
+function getDaysBetween(dateA, dateB) {
+    return gameDateToDays(dateB) - gameDateToDays(dateA);
+}
+function calculateIntelDecay(factionKey) {
+    const lastActiveDate = state.factionChatterLastActive?.[factionKey];
+    if (!lastActiveDate) return 0;
+    
+    const daysSinceActive = getDaysBetween(lastActiveDate, CURRENT_GAME_DATE);
+    
+    if (daysSinceActive <= 0) return 0;
+    
+    // Decay 2% per day of inactivity, max 50% decay
+    const decay = Math.min(daysSinceActive * 2, 50);
+    return -decay;
+}
+function calculateHistoryModifier(factionKey) {
+    const historyData = state.factionHistory?.[factionKey];
+    if (!historyData) return 0;
+    
+    const { consecutiveDays, isPositive } = historyData;
+    
+    // +1 or -1 per consecutive day, capped at ±30
+    const modifier = Math.min(Math.abs(consecutiveDays), 30);
+    return isPositive ? modifier : -modifier;
+}
+
+
+export function updateFactionHistory(factionKey, currentRep) {
+    if (!state.factionHistory) {
+        state.factionHistory = {};
+    }
+    
+    const existing = state.factionHistory[factionKey];
+    const isPositive = currentRep >= 0;
+    
+    if (!existing) {
+        state.factionHistory[factionKey] = {
+            consecutiveDays: 1,
+            isPositive: isPositive,
+            lastUpdated: { ...CURRENT_GAME_DATE }
+        };
+        return;
+    }
+    
+    const daysPassed = getDaysBetween(existing.lastUpdated, CURRENT_GAME_DATE);
+    
+    if (daysPassed < 1) return; // Already updated today
+    
+    if (existing.isPositive === isPositive) {
+        // Same direction, increment consecutive days
+        existing.consecutiveDays += daysPassed;
+    } else {
+        // Direction changed, reset
+        existing.consecutiveDays = daysPassed;
+        existing.isPositive = isPositive;
+    }
+    
+    existing.lastUpdated = { ...CURRENT_GAME_DATE };
+}
+export function markChatterActive(factionKey) {
+    if (!state.factionChatterLastActive) {
+        state.factionChatterLastActive = {};
+    }
+    state.factionChatterLastActive[factionKey] = { ...CURRENT_GAME_DATE };
+}
+export function isChatterActive(factionKey, thresholdDays = 3) {
+    const lastActive = state.factionChatterLastActive?.[factionKey];
+    if (!lastActive) return false;
+    
+    const daysSince = getDaysBetween(lastActive, CURRENT_GAME_DATE);
+    
+    return daysSince < thresholdDays;
+}
+
+/**
+ * A fallback renderer for factions that have subfactions but no unique visualization.
+ * @param {object} subFactions - The subfaction data object.
+ * @param {string} factionKey - The key of the parent faction.
+ * @param {object} currentState - The global application state.
+ * @returns {string} HTML for the subfaction list.
+ */
+

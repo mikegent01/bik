@@ -6,7 +6,7 @@ import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
 import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-
+const DATA_VERSION = 2; 
 // --- STATE MANAGEMENT ---
 
 // Weapon archetype normalization to prevent undefined ability lookups
@@ -137,12 +137,104 @@ function initResearchState() {
 export const state = {
     loggedInUser: localStorage.getItem('vigilanceTerminalUser') || 'generic',
     debugMode: false,
-    intelLevels: {
-        archie: { regal_empire: 25, iron_legion: 40, freelancer_underworld: 50, toad_gang: 45, toad_cult: 10, onyx_hand: 35, mages_guild: 20, rakasha_clans: 55, cosmic_jesters: 60, the_unchained: 40, silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 45, koopa_troop: 20, rebel_clans: 25, crimson_fleet: 30, wario_land: 35, mushroom_regency: 15, peach_loyalists: 20, fawfuls_furious_freaks: 40, iron_fists: 55, moonfang_pack: 15, liberated_toads: 70, diamond_city_investigators: 25, goodstyle_artisans: 5, tea_leaf_syndicate: 40, unaligned: 100, kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 },
-        markop: { regal_empire: 45, iron_legion: 50, freelancer_underworld: 15, toad_gang: 20, toad_cult: 5, onyx_hand: 25, mages_guild: 20, rakasha_clans: 60, cosmic_jesters: 5, the_unchained: 45, silver_flame: 55, oathbound_judges: 60, ratchet_raiders: 10, koopa_troop: 20, rebel_clans: 35, crimson_fleet: 10, wario_land: 10, mushroom_regency: 35, peach_loyalists: 30, fawfuls_furious_freaks: 25, iron_fists: 20, moonfang_pack: 25, liberated_toads: 80, diamond_city_investigators: 15, goodstyle_artisans: 10, tea_leaf_syndicate: 25, unaligned: 100, kingdom_of_gondor: 10, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 },
-        humpik: { koopa_troop: 70, toad_gang: 30, regal_empire: 15, iron_legion: 45, rakasha_clans: 10, rebel_clans: 5, moonfang_pack: 15, liberated_toads: 55, freelancer_underworld: 15, cosmic_jesters: 5, tea_leaf_syndicate: 35, peach_loyalists: 20, fawfuls_furious_freaks: 20, onyx_hand: 10, iron_fists: 15, silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 10, crimson_fleet: 10, wario_land: 10, mushroom_regency: 15, the_unchained: 5, diamond_city_investigators: 5, goodstyle_artisans: 5, unaligned: 100, },
-        bowser: { koopa_troop: 100, mushroom_regency: 50, peach_loyalists: 45, regal_empire: 40, iron_legion: 35, rebel_clans: 20, onyx_hand: 15, moonfang_pack: 20, crimson_fleet: 25, liberated_toads: 30, fawfuls_furious_freaks: 40, toad_gang: 25, freelancer_underworld: 20, wario_land: 15, iron_fists: 15, the_unchained: 10, cosmic_jesters: 10, rakasha_clans: 10, silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 15, diamond_city_investigators: 10, goodstyle_artisans: 5, tea_leaf_syndicate: 15, unaligned: 100, },
-        remi: { regal_empire: 15, iron_legion: 30, freelancer_underworld: 15, mushroom_regency: 10, koopa_troop: 10, liberated_toads: 35, wario_land: 20, cosmic_jesters: 10, tea_leaf_syndicate: 10, toad_gang: 10, fawfuls_furious_freaks: 10, peach_loyalists: 10, onyx_hand: 5, moonfang_pack: 5, iron_fists: 10, rakasha_clans: 5, the_unchained: 5, silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 5, rebel_clans: 5, crimson_fleet: 5, diamond_city_investigators: 5, goodstyle_artisans: 5, unaligned: 100, },
+    version: DATA_VERSION, 
+intelLevels: {
+        archie: { 
+            // HIGHEST: Underworld & Magic due to backstory & recent Tribunal/Fireball events
+            onyx_hand: 65, // Acquitted by Tribunal (Day 2)
+            tea_leaf_syndicate: 50, // "Tea Party Incident" (Day 9) - he knows exactly how they operate now
+            iron_legion: 45, // Constant conflict + escape with Legion Spy (Day 20)
+            mages_guild: 40, // They hate him (Greenhouse Inferno/Confession), but he knows their laws well
+            
+            // MODERATE: Party allies & adversaries
+            freelancer_underworld: 45, 
+            liberated_toads: 40, // Works closely with Dan/Toads
+            regal_empire: 30, // Knows the laws he breaks
+            cosmic_jesters: 30, // Raventree Manor/Oracle interactions
+            
+            // LOW: Unrelated factions
+            koopa_troop: 35, 
+            mushroom_regency: 15, 
+            rakasha_clans: 10,
+            moonfang_pack: 10,
+            
+            // GENERIC/LOW
+            toad_gang: 25, toad_cult: 10, the_unchained: 20, silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 25, rebel_clans: 15, crimson_fleet: 20, wario_land: 20, peach_loyalists: 10, fawfuls_furious_freaks: 15, iron_fists: 30, diamond_city_investigators: 15, goodstyle_artisans: 5, unaligned: 100, kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 
+        },
+        markop: { 
+            // HIGHEST: Investigation & Mystery
+            diamond_city_investigators: 60, // His likely background/archetype
+            iron_legion: 50, // Found the "Barrel Secret" (Day 12) + Maze of Time (Day 18)
+            cosmic_jesters: 45, // "Maze of Time" / "Titan of the Grove" - Deep Oracle interaction
+            
+            // MODERATE:
+            liberated_toads: 40, 
+            regal_empire: 35, // Dealing with Sovereignty Act
+            onyx_hand: 25, // Intersecting investigations
+            
+            // LOW
+            tea_leaf_syndicate: 20, // Got the key from Green T (Day 17)
+            koopa_troop: 35, 
+            
+            // GENERIC
+            freelancer_underworld: 20, toad_gang: 20, toad_cult: 15, mages_guild: 20, rakasha_clans: 10, the_unchained: 15, silver_flame: 15, oathbound_judges: 20, ratchet_raiders: 10, rebel_clans: 10, crimson_fleet: 10, wario_land: 10, mushroom_regency: 25, peach_loyalists: 20, fawfuls_furious_freaks: 15, iron_fists: 15, moonfang_pack: 15, goodstyle_artisans: 10, unaligned: 100, kingdom_of_gondor: 10, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 
+        },
+        humpik: { 
+            // HIGHEST: Tech & Engineering
+            liberated_toads: 65, // Core crew, fixed the Vigilance (Day 6)
+            iron_legion: 55, // Discovered smuggling barrels (Day 12) + Mirror Dimension Spy (Day 21)
+            
+            // MODERATE
+            koopa_troop: 40, // Works with Bowser
+            crimson_fleet: 30, // Confrontation with Captain Syrup (Day 6)
+            
+            // LOW
+            mages_guild: 10, // Not a magic user
+            rakasha_clans: 5, // Didn't go with Ryan
+            
+            // GENERIC
+            toad_gang: 25, regal_empire: 20, freelancer_underworld: 15, toad_cult: 5, onyx_hand: 10, cosmic_jesters: 15, the_unchained: 5, silver_flame: 5, oathbound_judges: 5, ratchet_raiders: 10, rebel_clans: 10, wario_land: 10, mushroom_regency: 15, peach_loyalists: 15, fawfuls_furious_freaks: 15, iron_fists: 20, moonfang_pack: 10, diamond_city_investigators: 5, goodstyle_artisans: 20, tea_leaf_syndicate: 15, unaligned: 100, kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 20, isengard: 5, mordor: 5
+        },
+        bowser: { 
+            // HIGHEST: Warlord Status
+            koopa_troop: 100, // He IS the Koopa Troop
+            mushroom_regency: 80, // His literal arch-nemesis for decades
+            peach_loyalists: 70, // Knows them intimately
+            
+            // HIGH
+            fawfuls_furious_freaks: 50, // Old rivalry/Alliance dynamics
+            regal_empire: 40, // Fellow superpower
+            
+            // MODERATE
+            wario_land: 35, // Knows Wario well (Bomb incident Day 12)
+            dk_crew: 30, // Knows DK politics (Summit Disaster Day 13)
+            
+            // LOW (He ignores the small fry)
+            tea_leaf_syndicate: 10,
+            diamond_city_investigators: 5,
+            
+            // GENERIC
+            iron_legion: 35, rebel_clans: 20, onyx_hand: 15, moonfang_pack: 20, crimson_fleet: 25, liberated_toads: 25, toad_gang: 25, freelancer_underworld: 20, iron_fists: 15, the_unchained: 10, cosmic_jesters: 15, rakasha_clans: 10, silver_flame: 5, oathbound_judges: 10, ratchet_raiders: 15, goodstyle_artisans: 5, toad_cult: 5, mages_guild: 15, unaligned: 100, kingdom_of_gondor: 5, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5
+        },
+        remi: { 
+            // THE FNG (Fresh New Guy) - Generally low stats everywhere
+            
+            // HIGHEST (Relative to her)
+            liberated_toads: 25, // Traveling with them
+            wario_land: 25, // "Explosive Proposition" job offer (Day 12)
+            goodstyle_artisans: 20, // Applied to Smithing Guild (Day 20)
+            
+            // MODERATE
+            iron_legion: 15, // Captured/Interrogated
+            
+            // LOW - She knows nothing about the wider world yet
+            koopa_troop: 5,
+            mushroom_regency: 5,
+            onyx_hand: 0,
+            
+            // GENERIC
+            regal_empire: 10, freelancer_underworld: 10, cosmic_jesters: 5, tea_leaf_syndicate: 5, toad_gang: 5, fawfuls_furious_freaks: 5, peach_loyalists: 5, moonfang_pack: 0, iron_fists: 10, rakasha_clans: 0, the_unchained: 0, silver_flame: 0, oathbound_judges: 0, ratchet_raiders: 0, rebel_clans: 0, crimson_fleet: 5, diamond_city_investigators: 0, toad_cult: 0, mages_guild: 5, unaligned: 100, kingdom_of_gondor: 0, kingdom_of_rohan: 0, lothlorien: 0, elves_of_lindon: 0, kingdoms_of_the_dwarves: 5, isengard: 0, mordor: 0
+        },
         generic: generateGenericIntel(),
     },
     finalIntel: {}, // Stores cumulative intel (base + event history)
@@ -435,8 +527,18 @@ function calculateFinalReputations() {
 
 export function loadState() {
     const savedState = localStorage.getItem('vigilanceTerminalState');
-    if (savedState) {
+   if (savedState) {
         const parsedState = JSON.parse(savedState);
+        
+        // Check if save is old
+        if (!parsedState.version || parsedState.version < DATA_VERSION) {
+            console.log("Save format too old, resetting base stats...");
+            // Don't load the stale stats
+            delete parsedState.intelLevels;
+            // Update their version
+            parsedState.version = DATA_VERSION;
+        }
+
         delete parsedState.inventories;
         Object.assign(state, parsedState);
     }

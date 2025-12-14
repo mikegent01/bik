@@ -8,6 +8,8 @@ import { getIntelForFaction, getIntelBreakdown } from './systems/common.js';
 import { playSound } from './common.js';
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from './systems/faction-registry.js';
 import { getRealTimeMapStats } from './global-map-analysis.js';
+import { WAHBOOK_POSTS } from '../assembly-data.js';
+import { calculateRumorMetrics } from './research-data.js'; 
 
 // ============================================
 // STATE
@@ -586,7 +588,6 @@ function renderGridView() {
         ` : ''}
     `;
 }
-
 function renderWhyModal(factionKey) {
     const faction = getUnifiedFaction(factionKey);
     if (!faction) return;
@@ -594,6 +595,10 @@ function renderWhyModal(factionKey) {
     const factors = getReputationFactors(factionKey);
     const targetPlayer = (selectedPlayer && selectedPlayer !== 'generic') ? selectedPlayer : state.party[0];
     const totalRep = getReputation(targetPlayer, factionKey);
+    const playerData = LORE_DATA.characters[targetPlayer];
+    
+    // Get intel breakdown
+    const intelBreakdown = getIntelBreakdown(factionKey);
     
     let modal = document.getElementById('why-modal');
     if (!modal) {
@@ -604,38 +609,160 @@ function renderWhyModal(factionKey) {
     }
 
     const html = `
-        <div class="faction-modal small-modal">
+        <div class="faction-modal why-modal">
             <button class="modal-close" id="why-close-btn">✕</button>
-            <div class="modal-header compact">
-                <img src="${faction.logo || 'logos/default.png'}" class="modal-logo-small">
-                <div>
-                    <h3 class="modal-title-small">Reputation Breakdown</h3>
-                    <span class="modal-subtitle">${faction.name}</span>
-                </div>
-                <div class="fc-rep-badge ${getReputationClass(totalRep)} ml-auto">
-                    ${totalRep >= 0 ? '+' : ''}${totalRep}
+            
+            <!-- Header -->
+            <div class="why-modal-header">
+                <img src="${faction.logo || 'logos/default.png'}" class="why-modal-logo" alt="${faction.name}">
+                <div class="why-modal-title">
+                    <h3>${faction.icon || ''} ${faction.name}</h3>
+                    <span class="why-modal-region">${faction.region || 'Unknown Region'}</span>
                 </div>
             </div>
             
-            <div class="why-list">
-                ${factors.map(f => `
-                    <div class="why-item ${f.impact}">
-                        <div class="why-icon">${f.impact === 'negative' ? '📉' : (f.impact === 'positive' ? '📈' : '⏺')}</div>
-                        <div class="why-content">
-                            <span class="why-text">${f.text}</span>
-                            <span class="why-source">${f.source}</span>
-                        </div>
-                        ${f.value !== undefined ? `
+            <!-- Tab Navigation -->
+            <div class="why-tabs">
+                <button class="why-tab-btn active" data-tab="reputation">
+                    <span class="why-tab-icon">💬</span>
+                    Reputation
+                </button>
+                <button class="why-tab-btn" data-tab="intel">
+                    <span class="why-tab-icon">🔍</span>
+                    Intel
+                </button>
+            </div>
+            
+            <!-- Reputation Tab -->
+            <div class="why-tab-content active" id="why-tab-reputation">
+                <div class="why-section-header">
+                    <div class="why-section-title">
+                        <h4>Reputation Breakdown</h4>
+                        <span class="why-section-subtitle">How ${playerData?.name || targetPlayer} is viewed</span>
+                    </div>
+                    <div class="why-total-badge ${getReputationClass(totalRep)}">
+                        ${totalRep >= 0 ? '+' : ''}${totalRep}
+                    </div>
+                </div>
+                
+                <div class="why-list">
+                    ${factors.map(f => `
+                        <div class="why-item ${f.impact}">
+                            <div class="why-icon">${f.impact === 'negative' ? '📉' : '📈'}</div>
+                            <div class="why-content">
+                                <span class="why-text">${f.text}</span>
+                                <span class="why-source">${f.source}</span>
+                            </div>
                             <span class="why-value ${f.value >= 0 ? 'positive' : 'negative'}">
                                 ${f.value >= 0 ? '+' : ''}${f.value}
                             </span>
-                        ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="why-footer">
+                    <div class="why-footer-label">Standing</div>
+                    <div class="why-footer-value">
+                        <span class="why-standing-label ${getReputationClass(totalRep)}">${getReputationLabel(totalRep)}</span>
+                        <span class="why-standing-player">for ${playerData?.name || targetPlayer}</span>
                     </div>
-                `).join('')}
+                </div>
             </div>
             
-            <div class="why-footer">
-                <p>Standing for <strong>${LORE_DATA.characters[targetPlayer]?.name || targetPlayer}</strong>: <strong>${getReputationLabel(totalRep)}</strong></p>
+            <!-- Intel Tab -->
+            <div class="why-tab-content" id="why-tab-intel">
+                <div class="why-section-header">
+                    <div class="why-section-title">
+                        <h4>Intel Breakdown</h4>
+                        <span class="why-section-subtitle">What you know about this faction</span>
+                    </div>
+                    <div class="why-total-badge intel">
+                        ${intelBreakdown.total}%
+                    </div>
+                </div>
+                
+                <div class="intel-visual-bar">
+                    <div class="intel-bar-track">
+                        <div class="intel-bar-fill" style="width: ${intelBreakdown.total}%;"></div>
+                        <div class="intel-bar-markers">
+                            <span class="intel-marker" style="left: 25%;" title="Basic Info">25%</span>
+                            <span class="intel-marker" style="left: 50%;" title="Detailed Info">50%</span>
+                            <span class="intel-marker" style="left: 75%;" title="Deep Intel">75%</span>
+                        </div>
+                    </div>
+                    <div class="intel-bar-labels">
+                        <span>Unknown</span>
+                        <span>Full Intel</span>
+                    </div>
+                </div>
+                
+                <div class="why-list">
+                    <!-- Base Intel -->
+                    <div class="why-item ${intelBreakdown.base > 0 ? 'positive' : 'neutral'}">
+                        <div class="why-icon">📚</div>
+                        <div class="why-content">
+                            <span class="why-text">Base Knowledge</span>
+                            <span class="why-source">From encounters, POIs, and known information</span>
+                        </div>
+                        <span class="why-value ${intelBreakdown.base > 0 ? 'positive' : 'neutral'}">
+                            ${intelBreakdown.base > 0 ? '+' : ''}${intelBreakdown.base}%
+                        </span>
+                    </div>
+                    
+                    <!-- History Modifier -->
+                    <div class="why-item ${intelBreakdown.history > 0 ? 'positive' : intelBreakdown.history < 0 ? 'negative' : 'neutral'}">
+                        <div class="why-icon">${intelBreakdown.history >= 0 ? '📈' : '📉'}</div>
+                        <div class="why-content">
+                            <span class="why-text">Relationship History</span>
+                            <span class="why-source">${getHistoryDescription(intelBreakdown.history, factionKey)}</span>
+                        </div>
+                        <span class="why-value ${intelBreakdown.history >= 0 ? 'positive' : 'negative'}">
+                            ${intelBreakdown.history >= 0 ? '+' : ''}${intelBreakdown.history}%
+                        </span>
+                    </div>
+                    
+                    <!-- Decay -->
+                    ${intelBreakdown.decay !== 0 ? `
+                        <div class="why-item negative">
+                            <div class="why-icon">⏳</div>
+                            <div class="why-content">
+                                <span class="why-text">Information Decay</span>
+                                <span class="why-source">${getDecayDescription(factionKey)}</span>
+                            </div>
+                            <span class="why-value negative">
+                                ${intelBreakdown.decay}%
+                            </span>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Active Chatter -->
+                    <div class="why-item ${intelBreakdown.active > 0 ? 'positive' : 'neutral'}">
+                        <div class="why-icon">${intelBreakdown.active > 0 ? '💬' : '🔇'}</div>
+                        <div class="why-content">
+                            <span class="why-text">Active Chatter</span>
+                            <span class="why-source">${getActiveChatterDescription(intelBreakdown.active, factionKey)}</span>
+                        </div>
+                        <span class="why-value ${intelBreakdown.active > 0 ? 'positive' : 'neutral'}">
+                            ${intelBreakdown.active > 0 ? '+' : ''}${intelBreakdown.active}%
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Intel Unlocks -->
+                <div class="intel-unlocks">
+                    <h5 class="intel-unlocks-title">Intel Unlocks</h5>
+                    <div class="intel-unlock-list">
+                        ${renderIntelUnlocks(intelBreakdown.total)}
+                    </div>
+                </div>
+                
+                <div class="why-footer">
+                    <div class="why-footer-label">Intel Status</div>
+                    <div class="why-footer-value">
+                        <span class="why-intel-status ${getIntelStatusClass(intelBreakdown.total)}">${getIntelStatusLabel(intelBreakdown.total)}</span>
+                        <span class="why-intel-trend">${getIntelTrend(intelBreakdown)}</span>
+                    </div>
+                </div>
             </div>
         </div>
     `;
@@ -643,8 +770,150 @@ function renderWhyModal(factionKey) {
     modal.innerHTML = html;
     modal.classList.add('visible');
 
-    document.getElementById('why-close-btn').onclick = () => modal.classList.remove('visible');
-    modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('visible'); };
+    // Tab switching
+    const tabBtns = modal.querySelectorAll('.why-tab-btn');
+    const tabContents = modal.querySelectorAll('.why-tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playSound('click.mp3', 0.3);
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const tabId = btn.dataset.tab;
+            tabContents.forEach(content => {
+                content.classList.toggle('active', content.id === `why-tab-${tabId}`);
+            });
+        });
+    });
+
+    // Close handlers
+    document.getElementById('why-close-btn').onclick = () => {
+        playSound('click.mp3', 0.3);
+        modal.classList.remove('visible');
+    };
+    
+    modal.onclick = (e) => { 
+        if (e.target === modal) {
+            modal.classList.remove('visible');
+        }
+    };
+}
+function renderIntelUnlocks(intelLevel) {
+    const unlocks = [
+        { threshold: 10, label: 'Basic Info', icon: '📋', desc: 'Name and region' },
+        { threshold: 25, label: 'Notable People', icon: '👤', desc: 'Key figures revealed' },
+        { threshold: 40, label: 'Assessments', icon: '💭', desc: 'Personal opinions visible' },
+        { threshold: 50, label: 'Relations', icon: '🤝', desc: 'Allies and enemies known' },
+        { threshold: 60, label: 'Deep Intel', icon: '🔮', desc: 'Detailed descriptions' },
+        { threshold: 75, label: 'Secrets', icon: '🗝️', desc: 'Hidden information' },
+        { threshold: 90, label: 'Full Dossier', icon: '📖', desc: 'Complete knowledge' }
+    ];
+    
+    return unlocks.map(unlock => {
+        const isUnlocked = intelLevel >= unlock.threshold;
+        const isNext = !isUnlocked && intelLevel >= unlock.threshold - 15;
+        
+        return `
+            <div class="intel-unlock-item ${isUnlocked ? 'unlocked' : ''} ${isNext ? 'next' : ''}">
+                <div class="intel-unlock-icon">${isUnlocked ? unlock.icon : '🔒'}</div>
+                <div class="intel-unlock-info">
+                    <span class="intel-unlock-label">${unlock.label}</span>
+                    <span class="intel-unlock-threshold">${unlock.threshold}%</span>
+                </div>
+                ${isNext ? `<span class="intel-unlock-needed">Need ${unlock.threshold - intelLevel}% more</span>` : ''}
+            </div>
+        `;
+    }).join('');
+}
+function getIntelStatusClass(intel) {
+    if (intel >= 75) return 'excellent';
+    if (intel >= 50) return 'good';
+    if (intel >= 25) return 'moderate';
+    return 'poor';
+}
+
+/**
+ * Get intel status label
+ */
+function getIntelStatusLabel(intel) {
+    if (intel >= 90) return 'Full Dossier';
+    if (intel >= 75) return 'Well Informed';
+    if (intel >= 50) return 'Moderate Intel';
+    if (intel >= 25) return 'Basic Knowledge';
+    if (intel >= 10) return 'Minimal Intel';
+    return 'Unknown';
+}
+
+/**
+ * Get intel trend indicator
+ */
+function getIntelTrend(breakdown) {
+    const trend = breakdown.active + breakdown.decay;
+    
+    if (trend > 5) return '📈 Increasing';
+    if (trend < -5) return '📉 Decreasing';
+    return '➡️ Stable';
+}
+function getHistoryDescription(historyValue, factionKey) {
+    const historyData = state.factionHistory?.[factionKey];
+    
+    if (!historyData || historyValue === 0) {
+        return 'No established relationship history yet';
+    }
+    
+    const days = historyData.consecutiveDays || 0;
+    const direction = historyData.isPositive ? 'positive' : 'negative';
+    
+    if (days === 1) {
+        return `1 day of ${direction} standing`;
+    }
+    
+    return `${days} consecutive days of ${direction} standing`;
+}
+function getDecayDescription(factionKey) {
+    const lastActive = state.factionChatterLastActive?.[factionKey];
+    
+    if (!lastActive) {
+        return 'No recent information flow';
+    }
+    
+    const daysSince = getDaysBetween(lastActive, CURRENT_GAME_DATE);
+    
+    if (daysSince === 1) {
+        return 'Information going stale (1 day since last update)';
+    }
+    
+    return `Information going stale (${daysSince} days since last update)`;
+}
+function getActiveChatterDescription(activeValue, factionKey) {
+    if (activeValue === 0) {
+        return 'No current rumors or news about this faction';
+    }
+    
+    // Count active rumors involving this faction
+    let activeRumorCount = 0;
+    if (LORE_DATA && LORE_DATA.rumors) {
+        LORE_DATA.rumors.forEach(rumor => {
+            const isAffected = rumor.effects && rumor.effects[factionKey] !== undefined;
+            const isTarget = rumor.targets && rumor.targets.includes(factionKey);
+            
+            if (isAffected || isTarget) {
+                const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                const metrics = calculateRumorMetrics(rumor, relatedPosts);
+                
+                if (metrics.status !== 'Dead' && metrics.status !== 'Old News') {
+                    activeRumorCount++;
+                }
+            }
+        });
+    }
+    
+    if (activeRumorCount === 1) {
+        return '1 active rumor providing fresh intel';
+    }
+    
+    return `${activeRumorCount} active rumors providing fresh intel`;
 }
 
 function renderFactionCard(factionData, isDebug) {

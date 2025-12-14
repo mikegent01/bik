@@ -5,15 +5,14 @@
 // IMPORTS
 // ============================================
 import { state } from './state.js';
-// We assume getFaction is available, though strictly not needed for the intel logic
+import { getIntelForFaction } from './systems/common.js'; // IMPORTED: The single source of truth for Intel
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
 
 // ============================================
 // CONSTANTS & LORE DATA
 // ============================================
 const FAWFUL_ID = 'fawful_dominion';
-// The key used in state.intelLevels for Fawful's faction
-const FAWFUL_INTEL_KEY = 'fawfuls_furious_freaks'; 
+const FAWFUL_INTEL_KEY = 'fawfuls_furious_freaks'; // Key matching your state/lore
 
 const MONTH_NAMES = [
     "Hammer", "Alturiak", "Ches", "Tarsakh", "Mirtul", "Kythorn",
@@ -35,9 +34,10 @@ const CASTLE_ZONES = {
             {
                 id: 'secret_hatch',
                 title: "THE SECRET HATCH",
-                classification: "TOP SECRET",
+                classification: "CONFIDENTIAL",
                 icon: "🚪",
-                discovered: true,
+                discovered: false,
+                intelRequired: 10,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 9 },
                 content: `Behind the royal portrait of Queen Toadstool the First, scanners detected an anomalous thermal signature. Upon investigation, Fawful's technicians discovered a concealed passage—masterfully hidden for perhaps centuries.
 
@@ -56,9 +56,10 @@ FAWFUL'S NOTE: "I am having the INTRIGUE! What secrets did the pink princess hid
             {
                 id: 'hidden_journal',
                 title: "PEACH'S PRIVATE JOURNAL",
-                classification: "EYES ONLY",
+                classification: "SECRET",
                 icon: "📔",
-                discovered: true,
+                discovered: false,
+                intelRequired: 20,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 11 },
                 content: `Found in a hollowed-out book on the royal bookshelf (disguised as "Advanced Cake Decorating Vol. 7"). Written in a personal cipher that took three days to crack.
 
@@ -86,7 +87,8 @@ FAWFUL'S ANALYSIS: "The pink one KNEW! She had the knowing of her doom before th
                 title: "RAKASHA ARTIFACTS",
                 classification: "SECRET",
                 icon: "🐾",
-                discovered: true,
+                discovered: false,
+                intelRequired: 30,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 12 },
                 content: `Hidden compartment in the nightstand contained several Rakasha artifacts:
                 
@@ -125,37 +127,12 @@ FAWFUL'S NOTE: "The fury-cat and the princess, sitting in a tree! But now the pr
         description: "The heart of power. Now displays Fawful's glorious visage.",
         discoveries: [
             {
-                id: 'throne_mechanism',
-                title: "THE THRONE'S SECRET",
-                classification: "SECRET",
-                icon: "⚙️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 10 },
-                content: `The royal throne is not merely decorative. X-ray analysis revealed an intricate mechanism within the seat itself.
-
-When activated by a specific pressure pattern (which Fawful has decoded), the throne rises and rotates, revealing a sealed vault beneath. The vault door bears the royal seal and requires THREE KEYS to open:
-
-1. The Royal Scepter (Currently in Fawful's possession)
-2. The Chancellor's Seal (Held by Toadsworth, now prisoner of the Loyalists)
-3. The Keeper's Tooth (Location unknown—possibly with "Lady Bloomia")
-
-VAULT STATUS: SEALED
-FAWFUL'S ATTEMPTS: 47 (All failed - Requires all three keys simultaneously)
-
-FAWFUL'S NOTE: "FURY! The stupid vault mocks Fawful with its lockedness! What treasures hide inside? Fawful MUST know! Perhaps the blue-haired weakling Toadsworth can be... borrowed... from the Loyalist fools."`,
-                implications: [
-                    "A three-key system implies extreme security",
-                    "The Chancellor was always part of the security",
-                    "The 'Keeper's Tooth' suggests a third party",
-                    "Lady Bloomia may be the 'Keeper'"
-                ]
-            },
-            {
                 id: 'power_core',
                 title: "STAR POWER CONDUITS",
                 classification: "TOP SECRET",
                 icon: "⭐",
-                discovered: true,
+                discovered: false,
+                intelRequired: 15,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 8 },
                 content: `The castle's infrastructure is powered by an ancient Star-based energy system. Conduits of crystallized starlight run through the walls like veins, converging beneath the throne room.
 
@@ -174,6 +151,33 @@ FAWFUL'S NOTE: "CONTINENTAL BARRIER! RESURRECTION?! Fawful's genius brain is hav
                     "Star Spirits hold the activation knowledge",
                     "12% power has sustained the kingdom for centuries",
                     "Full activation could change everything"
+                ]
+            },
+            {
+                id: 'throne_mechanism',
+                title: "THE THRONE'S SECRET",
+                classification: "SECRET",
+                icon: "⚙️",
+                discovered: false,
+                intelRequired: 25,
+                discoveryDate: { year: 1040, monthIndex: 6, day: 10 },
+                content: `The royal throne is not merely decorative. X-ray analysis revealed an intricate mechanism within the seat itself.
+
+When activated by a specific pressure pattern (which Fawful has decoded), the throne rises and rotates, revealing a sealed vault beneath. The vault door bears the royal seal and requires THREE KEYS to open:
+
+1. The Royal Scepter (Currently in Fawful's possession)
+2. The Chancellor's Seal (Held by Toadsworth, now prisoner of the Loyalists)
+3. The Keeper's Tooth (Location unknown—possibly with "Lady Bloomia")
+
+VAULT STATUS: SEALED
+FAWFUL'S ATTEMPTS: 47 (All failed - Requires all three keys simultaneously)
+
+FAWFUL'S NOTE: "FURY! The stupid vault mocks Fawful with its lockedness! What treasures hide inside? Fawful MUST know! Perhaps the blue-haired weakling Toadsworth can be... borrowed... from the Loyalist fools."`,
+                implications: [
+                    "A three-key system implies extreme security",
+                    "The Chancellor was always part of the security",
+                    "The 'Keeper's Tooth' suggests a third party",
+                    "Lady Bloomia may be the 'Keeper'"
                 ]
             }
         ],
@@ -196,11 +200,40 @@ FAWFUL'S NOTE: "CONTINENTAL BARRIER! RESURRECTION?! Fawful's genius brain is hav
         description: "Ancient cells now holding enemies of the Dominion.",
         discoveries: [
             {
+                id: 'old_tunnels',
+                title: "THE DEEP TUNNELS",
+                classification: "SECRET",
+                icon: "🕳️",
+                discovered: false,
+                intelRequired: 35,
+                discoveryDate: { year: 1040, monthIndex: 6, day: 14 },
+                content: `The dungeon's lowest level connects to a vast tunnel network. Mapping drones have explored approximately 15% of the system.
+
+Confirmed destinations:
+- Toad Town (3 exits, now sealed)
+- The Pipe Maze (Emergency escape route)
+- Unknown Location "DEEP-7" (Drone lost signal)
+- The Garden of Remembrance (Mentioned in Peach's journal!)
+
+The tunnels show signs of recent use—within the last century. Someone has been maintaining them. Boot prints suggest both Toad-sized and larger humanoid traffic.
+
+Most concerning: One tunnel bears FRESH tracks. Someone used these passages AFTER Fawful took the castle. An infiltrator is operating within our walls.
+
+FAWFUL'S NOTE: "SPIES! In FAWFUL'S castle?! Unacceptable! All tunnel exits are now being watched! The spy will be found and will be having the VERY BAD DAY!"`,
+                implications: [
+                    "The Loyalists' Operation HOMECOMING may use these tunnels",
+                    "The 'Garden of Remembrance' is accessible",
+                    "'DEEP-7' is concerning—what lies there?",
+                    "An active infiltrator is present"
+                ]
+            },
+            {
                 id: 'prisoner_085',
                 title: "THE FORGOTTEN PRISONER",
                 classification: "TOP SECRET",
                 icon: "👤",
-                discovered: true,
+                discovered: false,
+                intelRequired: 40,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 9 },
                 content: `Cell 085 was sealed behind a false wall. Inside, Fawful's forces discovered a living occupant.
 
@@ -221,33 +254,6 @@ FAWFUL'S NOTE: "A witness! But his brain is having the emptiness! Fawful's scien
                     "The Regency knew about this cell",
                     "Magical stasis kept him alive",
                     "His memories could identify the real killer"
-                ]
-            },
-            {
-                id: 'old_tunnels',
-                title: "THE DEEP TUNNELS",
-                classification: "SECRET",
-                icon: "🕳️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 14 },
-                content: `The dungeon's lowest level connects to a vast tunnel network. Mapping drones have explored approximately 15% of the system.
-
-Confirmed destinations:
-- Toad Town (3 exits, now sealed)
-- The Pipe Maze (Emergency escape route)
-- Unknown Location "DEEP-7" (Drone lost signal)
-- The Garden of Remembrance (Mentioned in Peach's journal!)
-
-The tunnels show signs of recent use—within the last century. Someone has been maintaining them. Boot prints suggest both Toad-sized and larger humanoid traffic.
-
-Most concerning: One tunnel bears FRESH tracks. Someone used these passages AFTER Fawful took the castle. An infiltrator is operating within our walls.
-
-FAWFUL'S NOTE: "SPIES! In FAWFUL'S castle?! Unacceptable! All tunnel exits are now being watched! The spy will be found and will be having the VERY BAD DAY!"`,
-                implications: [
-                    "The Loyalists' Operation HOMECOMING may use these tunnels",
-                    "The 'Garden of Remembrance' is accessible",
-                    "'DEEP-7' is concerning—what lies there?",
-                    "An active infiltrator is present"
                 ]
             }
         ],
@@ -276,11 +282,38 @@ FAWFUL'S NOTE: "SPIES! In FAWFUL'S castle?! Unacceptable! All tunnel exits are n
         description: "Memorial garden with... unusual properties.",
         discoveries: [
             {
+                id: 'garden_spirits',
+                title: "THE WATCHING SPIRITS",
+                classification: "SECRET",
+                icon: "👻",
+                discovered: false,
+                intelRequired: 45,
+                discoveryDate: { year: 1040, monthIndex: 6, day: 19 },
+                content: `The garden is not empty at night. Infrared cameras detected multiple spectral entities after sunset.
+
+They do not attack or threaten, but they WATCH. Analysis suggests they are the spirits of those buried in the garden—nobility and royalty from centuries past.
+
+One spirit has been identified: Former Queen Toadstool III, Peach's grandmother. She appears at her own grave each night and stares at the castle windows. When she "sees" surveillance equipment, she smiles.
+
+Attempts to communicate have failed. However, a medium brought in for consultation reported: "She says 'The garden remembers everything. The trees heard the conspiracy. Ask the ancient oak—it saw the killers' faces.'"
+
+An ancient oak tree stands at the garden's center. It is over 400 years old. Experiments to "communicate" with it are ongoing.
+
+FAWFUL'S NOTE: "Trees that are having the SEEING? Grandmothers who are being GHOSTS? This castle is the craziness wrapped in the madness wrapped in the FURY! But if the tree knows... Fawful will make the tree TALK!"`,
+                implications: [
+                    "The spirits may be protectors of the truth",
+                    "The ancient oak may have witnessed the assassination",
+                    "Spectral communication could reveal everything",
+                    "Queen Toadstool III seems to approve of investigation"
+                ]
+            },
+            {
                 id: 'weeping_statue',
                 title: "THE STATUE THAT WEEPS",
                 classification: "TOP SECRET",
                 icon: "🗿",
-                discovered: true,
+                discovered: false,
+                intelRequired: 50,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 18 },
                 content: `Following the clue from Peach's journal, surveillance was established on all garden statues.
 
@@ -309,31 +342,6 @@ FAWFUL'S NOTE: "BLOOD PROOF?! LINEAGE?! Was the pink princess not who she seemed
                     "A 'sacred cave' in Rakasha territory holds the truth",
                     "The Queen's locket is the final piece"
                 ]
-            },
-            {
-                id: 'garden_spirits',
-                title: "THE WATCHING SPIRITS",
-                classification: "SECRET",
-                icon: "👻",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 19 },
-                content: `The garden is not empty at night. Infrared cameras detected multiple spectral entities after sunset.
-
-They do not attack or threaten, but they WATCH. Analysis suggests they are the spirits of those buried in the garden—nobility and royalty from centuries past.
-
-One spirit has been identified: Former Queen Toadstool III, Peach's grandmother. She appears at her own grave each night and stares at the castle windows. When she "sees" surveillance equipment, she smiles.
-
-Attempts to communicate have failed. However, a medium brought in for consultation reported: "She says 'The garden remembers everything. The trees heard the conspiracy. Ask the ancient oak—it saw the killers' faces.'"
-
-An ancient oak tree stands at the garden's center. It is over 400 years old. Experiments to "communicate" with it are ongoing.
-
-FAWFUL'S NOTE: "Trees that are having the SEEING? Grandmothers who are being GHOSTS? This castle is the craziness wrapped in the madness wrapped in the FURY! But if the tree knows... Fawful will make the tree TALK!"`,
-                implications: [
-                    "The spirits may be protectors of the truth",
-                    "The ancient oak may have witnessed the assassination",
-                    "Spectral communication could reveal everything",
-                    "Queen Toadstool III seems to approve of investigation"
-                ]
             }
         ],
         surveillance: {
@@ -359,7 +367,8 @@ FAWFUL'S NOTE: "Trees that are having the SEEING? Grandmothers who are being GHO
                 title: "THE PROPHECY CHARTS",
                 classification: "SECRET",
                 icon: "📊",
-                discovered: true,
+                discovered: false,
+                intelRequired: 20,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 12 },
                 content: `The observatory contains star charts dating back 500 years. Most are standard astronomical records, but one locked cabinet (now opened) contained charts marked "PROPHECY TRACKING."
 
@@ -385,7 +394,8 @@ FAWFUL'S NOTE: "Nine days! NINE DAYS until the stars are aligning! Fawful must f
                 title: "DRAGON ALLIANCE COMMUNICATIONS",
                 classification: "FAWFUL EYES ONLY",
                 icon: "🐉",
-                discovered: true,
+                discovered: false,
+                intelRequired: 60,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 11 },
                 content: `[THIS FILE IS RESTRICTED TO LORD FAWFUL ONLY]
 
@@ -435,36 +445,12 @@ FAWFUL'S NOTE: "CHANCELLOR ROBES! Not Bowser! Not Koopa! A CHANCELLOR! The treas
         description: "Royal armory, now upgraded with Fawful technology.",
         discoveries: [
             {
-                id: 'assassination_weapon',
-                title: "THE REAL MURDER WEAPON",
-                classification: "TOP SECRET",
-                icon: "🗡️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 15 },
-                content: `The official story claims Peach was killed with a ceremonial dagger. That dagger is on display in the Regency Museum.
-
-But a hidden vault in the armory contained the REAL weapon, preserved in a stasis field: A blade of Koopa design—but analysis proves it was FORGED in the Mushroom Kingdom. The metallic signature is unmistakable.
-
-This blade was never used by a Koopa. It was crafted here, in the castle forges, and designed to implicate Bowser.
-
-Inscription on the blade (hidden under dried blood—Peach's blood, confirmed): "For the Greater Mushroom"
-
-The phrase "Greater Mushroom" appears in exactly one other historical document: The founding charter of the Mushroom Regency.
-
-FAWFUL'S NOTE: "FORGED EVIDENCE! The frame-job on the turtle-king was having the planning! This blade PROVES the Regency killed their own princess! Fawful will broadcast this to the WORLD! ...After using the information for maximum personal advantage, of course. I am not being STUPID."`,
-                implications: [
-                    "Bowser was framed by the Regency",
-                    "The assassination was planned well in advance",
-                    "The murder weapon proves domestic conspiracy",
-                    "The Regency's founding may be built on lies"
-                ]
-            },
-            {
                 id: 'royal_guard_logs',
                 title: "DELETED GUARD LOGS",
                 classification: "SECRET",
                 icon: "📋",
-                discovered: true,
+                discovered: false,
+                intelRequired: 55,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 13 },
                 content: `The armory's records vault contained guard rotation logs from 955 BF. Most were mundane, but analysis revealed that several entries were OVERWRITTEN—crudely erased and rewritten.
 
@@ -486,6 +472,32 @@ FAWFUL'S NOTE: "The Chancellor was FIRST ON SCENE after withdrawing the guards! 
                     "He was first to find the body",
                     "The official record was falsified",
                     "Current Chancellor may know the truth"
+                ]
+            },
+            {
+                id: 'assassination_weapon',
+                title: "THE REAL MURDER WEAPON",
+                classification: "TOP SECRET",
+                icon: "🗡️",
+                discovered: false,
+                intelRequired: 70,
+                discoveryDate: { year: 1040, monthIndex: 6, day: 15 },
+                content: `The official story claims Peach was killed with a ceremonial dagger. That dagger is on display in the Regency Museum.
+
+But a hidden vault in the armory contained the REAL weapon, preserved in a stasis field: A blade of Koopa design—but analysis proves it was FORGED in the Mushroom Kingdom. The metallic signature is unmistakable.
+
+This blade was never used by a Koopa. It was crafted here, in the castle forges, and designed to implicate Bowser.
+
+Inscription on the blade (hidden under dried blood—Peach's blood, confirmed): "For the Greater Mushroom"
+
+The phrase "Greater Mushroom" appears in exactly one other historical document: The founding charter of the Mushroom Regency.
+
+FAWFUL'S NOTE: "FORGED EVIDENCE! The frame-job on the turtle-king was having the planning! This blade PROVES the Regency killed their own princess! Fawful will broadcast this to the WORLD! ...After using the information for maximum personal advantage, of course. I am not being STUPID."`,
+                implications: [
+                    "Bowser was framed by the Regency",
+                    "The assassination was planned well in advance",
+                    "The murder weapon proves domestic conspiracy",
+                    "The Regency's founding may be built on lies"
                 ]
             }
         ],
@@ -512,7 +524,8 @@ FAWFUL'S NOTE: "The Chancellor was FIRST ON SCENE after withdrawing the guards! 
                 title: "THE BACKUP PLAN",
                 classification: "SECRET",
                 icon: "☠️",
-                discovered: true,
+                discovered: false,
+                intelRequired: 10,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 16 },
                 content: `A hidden compartment behind the spice rack contained a vial of extremely rare poison: Essence of Void Mushroom. This poison is undetectable and causes death that appears completely natural.
 
@@ -558,7 +571,8 @@ FAWFUL'S NOTE: "They were having the redundancy! PROFESSIONALS! This was not the
                 title: "PARTIAL PASSAGE MAP",
                 classification: "SECRET",
                 icon: "🗺️",
-                discovered: true,
+                discovered: false,
+                intelRequired: 40,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 17 },
                 content: `Current mapping progress: 23%
 
@@ -588,7 +602,7 @@ FAWFUL'S NOTE: "Memory erasure? Drones vanishing? This passage is having the WEI
                 title: "CHAMBER OF STARS - ACCESSED",
                 classification: "TOP SECRET",
                 icon: "✨",
-                discovered: false, // Will default to false, unlocked by intel
+                discovered: false,
                 intelRequired: 90,
                 discoveryDate: { year: 1040, monthIndex: 6, day: 30 },
                 content: `[DECRYPTION SUCCESSFUL - INTEL LEVEL SUFFICIENT]
@@ -671,19 +685,23 @@ let currentUserIntel = 0; // Tracks the user's intel level for UI display
 // ============================================
 
 function synchronizeIntelState() {
-    // 1. Identify User
-    const currentUser = state.loggedInUser || 'generic';
+    // 1. Fetch Intel Score using the centralized system helper
+    // This handles base stats + history + research automatically
+    // It also handles the 'generic' user fallback internally
+    currentUserIntel = getIntelForFaction(FAWFUL_INTEL_KEY);
     
-    // 2. Fetch Intel Score for Fawful's Faction
-    // state.finalIntel is computed in state.js via calculateFinalIntel()
-    const intelMap = state.finalIntel?.[currentUser];
-    currentUserIntel = intelMap?.[FAWFUL_INTEL_KEY] || 0;
+    // Safety clamp to ensure it's 0-100
+    if (typeof currentUserIntel !== 'number' || isNaN(currentUserIntel)) {
+        console.warn(`[FAWFUL_OS] Intel calculation failed for ${FAWFUL_INTEL_KEY}. Defaulting to 0.`);
+        currentUserIntel = 0;
+    }
     
-    console.log(`[FAWFUL_OS] Authenticated User: ${currentUser}`);
-    console.log(`[FAWFUL_OS] Intel Level (Fawful Faction): ${currentUserIntel}`);
+    console.log(`[FAWFUL_OS] Authenticated User: ${state.loggedInUser || 'generic'}`);
+    console.log(`[FAWFUL_OS] Intel Level Resolved: ${currentUserIntel}%`);
 
-    // 3. Update Discovery Unlocks
+    // 2. Update Discovery Unlocks based on Intel Requirements
     let unlockedCount = 0;
+    
     Object.values(CASTLE_ZONES).forEach(zone => {
         zone.discoveries.forEach(discovery => {
             // Check if this discovery has an intel requirement
@@ -692,16 +710,19 @@ function synchronizeIntelState() {
                     discovery.discovered = true;
                     discovery.unlockedByIntel = true; // Flag for UI styling
                     unlockedCount++;
-                    console.log(`[FAWFUL_OS] Decrypted: ${discovery.title}`);
                 } else {
                     discovery.discovered = false;
                 }
+            } else {
+                // If no requirement is set, it defaults to discovered
+                discovery.discovered = true; 
             }
         });
     });
 
     if (unlockedCount > 0) {
-        addSecurityMessage(`SYSTEM UPDATE: ${unlockedCount} high-level files decrypted via Intel.`);
+        // Optional: Log only if debugging
+        // console.log(`[FAWFUL_OS] Decrypted ${unlockedCount} files.`);
     }
 }
 
@@ -734,6 +755,12 @@ function renderSystemHeader() {
     const dateString = getFormattedDate();
     const threat = calculateThreatLevel();
     const daysToAlignment = getDaysUntilAlignment();
+    
+    // Ensure intel is synchronized before rendering the header
+    // (This acts as a failsafe if render is called before init)
+    if (currentUserIntel === 0 && state.loggedInUser && state.loggedInUser !== 'generic') {
+         synchronizeIntelState();
+    }
     
     return `
         <header class="fawful-system-header">
@@ -970,7 +997,7 @@ function renderOverviewContent() {
                 </div>
                 <div class="stat-card">
                     <span class="stat-value">${totalDiscoveries}</span>
-                    <span class="stat-label">Discoveries Made</span>
+                    <span class="stat-label">Discoveries Decrypted</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-value">${getDaysUntilAlignment()}</span>
@@ -1089,7 +1116,7 @@ function renderZoneContent(zoneId) {
                                 <span class="discovery-icon">🔒</span>
                                 <span class="discovery-title">CLASSIFIED</span>
                             </div>
-                            <span class="discovery-classification">INTEL REQUIRED: ${h.intelRequired || 'UNKNOWN'}</span>
+                            <span class="discovery-classification">INTEL REQUIRED: ${h.intelRequired}</span>
                             <div class="discovery-preview">Insufficient decryption level.</div>
                         </div>
                     `).join('')}
@@ -1551,7 +1578,8 @@ function initFawfulPage() {
     const container = document.getElementById('main-content');
     if (!container) return;
     
-    // Initialize Intel System first to ensure unlocks are processed before rendering
+    // CRITICAL: Initialize Intel System first to ensure unlocks are processed 
+    // AND state is read correctly before any HTML is generated.
     synchronizeIntelState();
 
     // Build the complete interface
@@ -1580,7 +1608,6 @@ function initFawfulPage() {
     startAnimationLoops();
     
     console.log('[FAWFUL_OS] Castle Command Interface initialized');
-    console.log('[FAWFUL_OS] Fury status: MAXIMUM');
     console.log(`[FAWFUL_OS] Days until celestial alignment: ${getDaysUntilAlignment()}`);
 }
 
