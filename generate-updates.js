@@ -10,7 +10,7 @@ console.log('📝 Scanning for HTML updates...');
 
 const updates = {};
 const files = fs.readdirSync(TARGET_FOLDER);
-
+fs.truncate('OUTPUT_FILE', 0, function(){console.log('done')})
 files.forEach(file => {
     if (path.extname(file) === '.html') {
         const fullPath = path.join(TARGET_FOLDER, file);
