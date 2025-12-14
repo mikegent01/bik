@@ -6,7 +6,7 @@ import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
 import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-const DATA_VERSION = 2; 
+const DATA_VERSION = 3; 
 // --- STATE MANAGEMENT ---
 
 // Weapon archetype normalization to prevent undefined ability lookups
@@ -240,12 +240,104 @@ intelLevels: {
     finalIntel: {}, // Stores cumulative intel (base + event history)
     party: ['archie', 'markop', 'humpik', 'bowser', 'remi'],
     activeRumors: [], 
-    players: {
-        archie: { name: 'Archie Miser', reputation: {}, notoriety: {} },
-        markop: { name: 'Markop Judi', reputation: {}, notoriety: {} },
-        humpik: { name: 'Humpik', reputation: {}, notoriety: {} },
-        bowser: { name: 'Bowser', reputation: {}, notoriety: {} },
-        remi: { name: 'FNG Remi', reputation: {}, notoriety: {} }
+players: {
+        archie: { 
+            name: 'Archie Miser', 
+            reputation: {
+                regal_empire: -40,       // Wanted criminal
+                iron_legion: -60,        // "Tea Party Incident" (Day 9) + Escaped Custody (Day 20)
+                mages_guild: -80,        // "Greenhouse Inferno" confession on Wahbook (Day 20)
+                onyx_hand: 20,           // Acquitted by Tribunal (Day 2) - respected but wary
+                tea_leaf_syndicate: -100,// Killed their enforcer Earl Grey (Day 12)
+                liberated_toads: 10,     // Controversial figure (lost vote on Day 16)
+                cosmic_jesters: -10,     // Punched a mirror in rage (Day 21)
+                unaligned: 0
+            }, 
+            notoriety: {
+                regal_empire: 60,
+                iron_legion: 80,         // High profile target
+                mages_guild: 90,         // Viral confession makes him famous
+                onyx_hand: 50,
+                tea_leaf_syndicate: 100, // They definitely know who killed Earl Grey
+                unaligned: 20
+            } 
+        },
+        markop: { 
+            name: 'Markop Judi', 
+            reputation: {
+                regal_empire: -20,       // Guilt by association
+                iron_legion: -20,        // Investigating their secrets (Day 12/18)
+                diamond_city_investigators: 30, // Professional courtesy
+                cosmic_jesters: 40,      // Blessed by the Oracle ("Titan of the Grove" Day 20)
+                liberated_toads: 40,     // Reliable party member
+                tea_leaf_syndicate: -20, // Involved in the brawl
+                unaligned: 0
+            }, 
+            notoriety: {
+                regal_empire: 20,
+                iron_legion: 35,
+                cosmic_jesters: 50,      // The Oracle took special interest
+                diamond_city_investigators: 40,
+                unaligned: 10
+            } 
+        },
+        humpik: { 
+            name: 'Humpik', 
+            reputation: {
+                regal_empire: -30,       // Pilot of the stolen ship
+                iron_legion: -10,        // Negotiated bombs (Day 8) - They view him as the "Reasonable One"
+                liberated_toads: 80,     // Hero who fixed the Core (Day 6)
+                crimson_fleet: -40,      // Disabled Syrup's ship (Day 6)
+                koopa_troop: 20,         // Alliance of convenience with Bowser
+                unaligned: 10
+            }, 
+            notoriety: {
+                regal_empire: 40,
+                iron_legion: 50,         // Known negotiator
+                liberated_toads: 90,     // Hero status
+                crimson_fleet: 60,       // Syrup remembers him
+                unaligned: 15
+            } 
+        },
+        bowser: { 
+            name: 'Bowser', 
+            reputation: {
+                koopa_troop: 100,        // Supreme Leader
+                mushroom_regency: -100,  // Arch-Nemesis
+                peach_loyalists: -90,    // Hated enemy
+                regal_empire: -50,       // Viewed as a foreign threat
+                fawfuls_furious_freaks: -20, // Rival warlord
+                wario_land: 10,          // Professional respect (Day 12 bomb incident)
+                dk_crew: -40,            // Historical enemy
+                unaligned: -20
+            }, 
+            notoriety: {
+                koopa_troop: 100,
+                mushroom_regency: 100,   // Everyone knows Bowser
+                peach_loyalists: 100,
+                regal_empire: 90,
+                iron_legion: 80,
+                unaligned: 100
+            } 
+        },
+        remi: { 
+            name: 'FNG Remi', 
+            reputation: {
+                regal_empire: -5,        // Minor accessory to crimes
+                iron_legion: -10,        // Escaped interrogation
+                wario_land: 20,          // Job offer from Wario (Day 12)
+                goodstyle_artisans: 15,  // Pending Application (Day 20)
+                liberated_toads: 30,     // Accepted by the crew
+                unaligned: 0
+            }, 
+            notoriety: {
+                regal_empire: 5,         // "Who?"
+                iron_legion: 15,         // "That girl in the crate"
+                wario_land: 25,
+                goodstyle_artisans: 10,
+                unaligned: 0
+            } 
+        }
     },
     auxiliary_party_state: {},
     finalReputations: {}, 
