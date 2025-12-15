@@ -323,7 +323,7 @@ export const WAHBOOK_POSTS = [
         content: `The Wizard tried to steal my kill! I tripped him! HA! Saw right up his robe! RED UNDERWEAR! BRIGHT RED! BWAHAHAHA!`,
         likes: 5000,
         comments: [
-            { characterKey: 'pernus_annmatar', text: 'THIS IS LIBEL! DELETE THIS!' },
+            { characterKey: 'mages_guild', text: 'THIS IS LIBEL! DELETE THIS!' },
             { characterKey: 'humpik', text: 'I saw it too. Very red.' }
         ],
         rumorId: 'wraith_banishment'
