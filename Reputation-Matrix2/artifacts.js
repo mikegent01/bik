@@ -59,7 +59,7 @@ const ARTIFACT_DATA = {
             icon: '⭐',
             rarity: 'legendary',
             status: 'scattered',
-            pieces: { collected: 1, total: 9 },
+            pieces: { collected: 0, total: 9 },
             description: "A piece of a fallen star, shattered into nine fragments by the God Toad. Each shard bestows immense, unique power upon its bearer, but also subtly corrupts them to fit a grand, unknown design.",
             lore: "When the star fell, it illuminated the night sky for seven days. The God Toad, witnessing its descent, knew such power could not remain whole.",
             abilities: ["Soul Binding", "Power Amplification", "Fate Manipulation"],
