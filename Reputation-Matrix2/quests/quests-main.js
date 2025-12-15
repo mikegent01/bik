@@ -2,6 +2,246 @@
 
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
 
+// --- REWARDS EXTRACTION SYSTEM ---
+
+function findLastCompletedMilestoneDate(quest) {
+    if (!quest.milestones) return null;
+    
+    let lastDate = null;
+    quest.milestones.forEach(m => {
+        if (m.status === 'completed' && m.completedDate) {
+            if (!lastDate || 
+                (m.completedDate.year > lastDate.year) ||
+                (m.completedDate.year === lastDate.year && m.completedDate.monthIndex > lastDate.monthIndex) ||
+                (m.completedDate.year === lastDate.year && m.completedDate.monthIndex === lastDate.monthIndex && m.completedDate.day > lastDate.day)) {
+                lastDate = m.completedDate;
+            }
+        }
+    });
+    
+    return lastDate;
+}
+
+function getRewardIcon(type) {
+    const icons = {
+        'item': '📦',
+        'intel': '🔍',
+        'summon': '🐯',
+        'ally': '🤝',
+        'reputation': '⭐',
+        'facility': '🏠',
+        'income': '💰',
+        'unit': '⚔️',
+        'trait': '🧠',
+        'ability': '✨',
+        'feat': '🏆',
+        'knowledge': '📚',
+        'companion': '🐕',
+        'status': '📜',
+        'gold': '🪙',
+        'xp': '⚡',
+        'army': '🎖️',
+        'artifact': '💎',
+        'favor': '🎭'
+    };
+    return icons[type] || '🎁';
+}
+export function extractAllRewards() {
+    const allQuests = {
+        ...TOADS_QUESTS,
+        ...HUMPIK_QUESTS,
+        ...ARCHIE_QUESTS,
+        ...REMI_QUESTS,
+        ...DK_QUESTS,
+        ...GUILDS_QUESTS,
+        ...BOWSER_QUESTS,
+        ...MARKOP_QUESTS,
+        ...MYSTERY_QUESTS,
+        ...WORLD_QUESTS,
+        ...MAIN_QUESTS
+    };
+    
+    const rewards = [];
+    
+    for (const [questId, quest] of Object.entries(allQuests)) {
+        if (!quest.rewards) continue;
+        
+        const isCompleted = quest.status === QUEST_STATUS.COMPLETED;
+        const completedDate = quest.dates?.completed || findLastCompletedMilestoneDate(quest);
+        
+        // Determine who earned the reward
+        const earnedBy = quest.primaryAssignee || 
+                         (quest.assignees && quest.assignees[0]) || 
+                         'party';
+        
+        // Guaranteed rewards
+        if (quest.rewards.guaranteed) {
+            quest.rewards.guaranteed.forEach(reward => {
+                let rewardName = reward.name;
+                if (!rewardName && reward.type === 'reputation') {
+                    rewardName = reward.description || `${reward.faction} +${reward.amount}`;
+                } else if (!rewardName) {
+                    rewardName = reward.description || 'Unknown Reward';
+                }
+                
+                rewards.push({
+                    ...reward,
+                    name: rewardName,
+                    icon: getRewardIcon(reward.type),
+                    questId: questId,
+                    questTitle: quest.title,
+                    questCategory: quest.category,
+                    earned: isCompleted,
+                    earnedDate: isCompleted ? completedDate : null,
+                    earnedBy: earnedBy,
+                    category: 'guaranteed',
+                    description: reward.description || `Reward from ${quest.title}`
+                });
+            });
+        }
+        
+        // Conditional rewards
+        if (quest.rewards.conditional) {
+            quest.rewards.conditional.forEach(cond => {
+                const rewardData = cond.reward || cond;
+                const conditionMet = cond.status === 'earned';
+                
+                let rewardName = rewardData.name;
+                if (!rewardName && rewardData.type === 'reputation') {
+                    rewardName = rewardData.description || `${rewardData.faction} +${rewardData.amount}`;
+                } else if (!rewardName) {
+                    rewardName = rewardData.description || 'Unknown Reward';
+                }
+                
+                rewards.push({
+                    ...rewardData,
+                    name: rewardName,
+                    icon: getRewardIcon(rewardData.type),
+                    questId: questId,
+                    questTitle: quest.title,
+                    questCategory: quest.category,
+                    condition: cond.condition,
+                    earned: conditionMet,
+                    earnedDate: conditionMet ? completedDate : null,
+                    earnedBy: earnedBy,
+                    category: 'conditional',
+                    description: rewardData.description || `Conditional reward from ${quest.title}`
+                });
+            });
+        }
+        
+        // Outcomes
+        if (quest.rewards.outcomes) {
+            quest.rewards.outcomes.forEach((outcome, idx) => {
+                rewards.push({
+                    type: 'outcome',
+                    name: outcome.length > 50 ? outcome.substring(0, 50) + '...' : outcome,
+                    icon: '📋',
+                    questId: questId,
+                    questTitle: quest.title,
+                    questCategory: quest.category,
+                    earned: true,
+                    earnedDate: completedDate,
+                    earnedBy: earnedBy,
+                    category: 'outcome',
+                    description: outcome
+                });
+            });
+        }
+        
+        // XP rewards
+        if (quest.rewards.xp) {
+            rewards.push({
+                type: 'xp',
+                name: `${quest.rewards.xp.toLocaleString()} XP`,
+                icon: '⚡',
+                amount: quest.rewards.xp,
+                questId: questId,
+                questTitle: quest.title,
+                questCategory: quest.category,
+                earned: isCompleted,
+                earnedDate: isCompleted ? completedDate : null,
+                earnedBy: earnedBy,
+                category: 'guaranteed',
+                description: `Experience points earned from completing ${quest.title}`
+            });
+        }
+        
+        // Gold rewards
+        if (quest.rewards.gold) {
+            const goldAmount = typeof quest.rewards.gold === 'object' 
+                ? `${quest.rewards.gold.min}-${quest.rewards.gold.max}` 
+                : quest.rewards.gold;
+            rewards.push({
+                type: 'gold',
+                name: `${goldAmount} Gold`,
+                icon: '🪙',
+                amount: quest.rewards.gold,
+                questId: questId,
+                questTitle: quest.title,
+                questCategory: quest.category,
+                earned: isCompleted,
+                earnedDate: isCompleted ? completedDate : null,
+                earnedBy: earnedBy,
+                category: 'guaranteed',
+                description: `Gold earned from ${quest.title}`
+            });
+        }
+    }
+    
+    return rewards;
+}
+export function getRewardsByDate() {
+    const allRewards = extractAllRewards();
+    const earnedRewards = allRewards.filter(r => r.earned && r.earnedDate);
+    
+    // Sort by date (newest first)
+    earnedRewards.sort((a, b) => {
+        const dateA = a.earnedDate.year * 10000 + a.earnedDate.monthIndex * 100 + a.earnedDate.day;
+        const dateB = b.earnedDate.year * 10000 + b.earnedDate.monthIndex * 100 + b.earnedDate.day;
+        return dateB - dateA;
+    });
+    
+    // Group by date
+    const groupedByDate = {};
+    earnedRewards.forEach(reward => {
+        const key = `${reward.earnedDate.year}-${reward.earnedDate.monthIndex}-${reward.earnedDate.day}`;
+        if (!groupedByDate[key]) {
+            groupedByDate[key] = {
+                date: { ...reward.earnedDate },
+                rewards: []
+            };
+        }
+        groupedByDate[key].rewards.push(reward);
+    });
+    
+    return groupedByDate;
+}
+
+export function getPendingRewards() {
+    const allRewards = extractAllRewards();
+    return allRewards.filter(r => !r.earned);
+}
+
+export function getRewardsForSpecificDay(year, monthIndex, day) {
+    const allRewards = extractAllRewards();
+    return allRewards.filter(r => 
+        r.earned && 
+        r.earnedDate &&
+        r.earnedDate.year === year && 
+        r.earnedDate.monthIndex === monthIndex && 
+        r.earnedDate.day === day
+    );
+}
+
+// Export the rewards data for calendar integration
+export const REWARDS_DATA = {
+    extractAll: extractAllRewards,
+    getByDate: getRewardsByDate,
+    getPending: getPendingRewards,
+    getForDay: getRewardsForSpecificDay,
+    getIcon: getRewardIcon
+};
 export const TOADS_QUESTS = {
 
 'rogueport_retrieval': {

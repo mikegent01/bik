@@ -1,3 +1,184 @@
+/* Rewards Panel Styles */
+.rewards-summary {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    background: var(--surface-secondary);
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.summary-stat {
+    text-align: center;
+}
+
+.summary-stat .stat-value {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.summary-stat.earned .stat-value { color: #4ade80; }
+.summary-stat.pending .stat-value { color: #fbbf24; }
+.summary-stat.xp .stat-value { color: #a78bfa; }
+
+.rewards-scroll-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.rewards-date-group {
+    margin-bottom: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.rewards-date-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: var(--surface-secondary);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.rewards-date-header:hover {
+    background: var(--surface-hover);
+}
+
+.reward-count {
+    margin-left: auto;
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+.rewards-list {
+    padding: 8px;
+}
+
+.reward-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    background: var(--surface-primary);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    border-left: 3px solid #4ade80;
+}
+
+.reward-item.pending {
+    border-left-color: #fbbf24;
+    opacity: 0.7;
+}
+
+.reward-icon {
+    font-size: 1.5em;
+}
+
+.reward-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reward-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.reward-desc {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+.reward-source {
+    font-size: 0.75em;
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+.reward-type-badge {
+    font-size: 0.65em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--surface-tertiary);
+    text-transform: uppercase;
+}
+
+.reward-type-badge.xp { background: #7c3aed; color: white; }
+.reward-type-badge.gold { background: #f59e0b; color: black; }
+.reward-type-badge.item { background: #3b82f6; color: white; }
+.reward-type-badge.ally { background: #10b981; color: white; }
+.reward-type-badge.reputation { background: #f472b6; color: white; }
+.dot.reward_earned, .dot.reward-earned { background: #eab308; }
+.conditional-badge {
+    font-size: 0.7em;
+    padding: 1px 4px;
+    background: #fbbf24;
+    color: black;
+    border-radius: 3px;
+}
+/* Rewards */
+.event-dot.reward-earned,
+.event-dot.reward_earned {
+    background: linear-gradient(135deg, #fde047, #eab308);
+    box-shadow: 0 0 5px #fde047;
+}
+.reward-earned-by {
+    font-size: 0.8em;
+    color: #60a5fa;
+    font-weight: 500;
+    padding: 2px 6px;
+    background: rgba(96, 165, 250, 0.1);
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 2px;
+}
+.event-dot.reward-earned {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    box-shadow: 0 0 4px #4ade80;
+}
+
+.day-rewards-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.day-rewards-section h5 {
+    margin: 0 0 8px 0;
+    color: #4ade80;
+}
+
+.day-rewards-list .reward-item.compact {
+    padding: 6px 8px;
+    margin-bottom: 4px;
+}
+
+.day-rewards-list .reward-item.compact .reward-icon {
+    font-size: 1.2em;
+}
+
+.rewards-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.rewards-empty .empty-icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.rewards-empty .subtext {
+    font-size: 0.85em;
+    color: var(--text-tertiary);
+}
 /* Layout */
 #calendar-dashboard {
     display: grid;

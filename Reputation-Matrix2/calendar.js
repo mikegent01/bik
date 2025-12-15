@@ -6,8 +6,9 @@ import { state } from './state.js';
 import { getTechTree, NATIONS, getAbsoluteDay, calculateGlobalCycle, getGlobalTechAverages } from './research-data.js';
 import { HISTORICAL_TIMELINE } from './timeline-data.js';
 import { MAJOR_BATTLES } from './battlefield.js';
-import { LORE_DATA } from './lore.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
+import { LORE_DATA } from './lore.js';  
+import { WAHBOOK_POSTS } from './assembly-data.js'; 
+import { REWARDS_DATA } from './quests/quests-main.js';  
 import { PLAGUE_DATA } from './plagues-data.js'; 
 import { QUEST_DATA, QUEST_STATUS } from './quests-data.js';
 // --- State ---
@@ -31,7 +32,135 @@ const searchResults = document.getElementById('calendar-search-results');
 
 // --- Optimization: Pre-calculate Research Completion Dates ---
 let researchCompletionCache = new Map();
+let rewardsCache = null;
 
+function buildRewardsCache() {
+    rewardsCache = REWARDS_DATA.getByDate();
+}
+
+function getRewardEventsForDay(year, monthIndex, day) {
+    if (!rewardsCache) buildRewardsCache();
+    
+    const key = `${year}-${monthIndex}-${day}`;
+    const dayData = rewardsCache[key];
+    
+    if (!dayData) return [];
+    
+    return dayData.rewards.map(reward => ({
+        type: 'reward_earned',
+        name: reward.name,
+        description: reward.description,
+        icon: reward.icon,
+        questTitle: reward.questTitle,
+        rewardType: reward.type,
+        category: reward.category,
+        condition: reward.condition
+    }));
+}
+
+function renderRewardsPanel() {
+    const container = document.getElementById('rewards-panel');
+    if (!container) return;
+    
+    const rewardsByDate = REWARDS_DATA.getByDate();
+    const dates = Object.keys(rewardsByDate).sort((a, b) => {
+        const [yA, mA, dA] = a.split('-').map(Number);
+        const [yB, mB, dB] = b.split('-').map(Number);
+        return (yB * 10000 + mB * 100 + dB) - (yA * 10000 + mA * 100 + dA);
+    });
+    
+    if (dates.length === 0) {
+        container.innerHTML = `
+            <div class="rewards-empty">
+                <span class="empty-icon">🎁</span>
+                <p>No rewards earned yet!</p>
+                <p class="subtext">Complete quests to earn rewards.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = `<div class="rewards-scroll-container">`;
+    
+    dates.forEach(dateKey => {
+        const dayData = rewardsByDate[dateKey];
+        const monthData = CALENDAR_DATA.months.values[dayData.date.monthIndex];
+        const dateLabel = `${monthData.name} ${dayData.date.day}, ${dayData.date.year}`;
+        
+        html += `
+            <div class="rewards-date-group" data-date="${dateKey}">
+                <div class="rewards-date-header">
+                    <span class="date-badge">
+                        <span class="badge-day">${dayData.date.day}</span>
+                        <span class="badge-month">${monthData.abbreviation}</span>
+                    </span>
+                    <span class="date-label">${dateLabel}</span>
+                    <span class="reward-count">${dayData.rewards.length} reward${dayData.rewards.length > 1 ? 's' : ''}</span>
+                </div>
+                <div class="rewards-list">
+        `;
+        
+        dayData.rewards.forEach(reward => {
+            const earnedClass = reward.earned ? 'earned' : 'pending';
+            const conditionalBadge = reward.category === 'conditional' 
+                ? `<span class="conditional-badge" title="${reward.condition}">⚡ Conditional</span>` 
+                : '';
+            
+            html += `
+                <div class="reward-item ${earnedClass} ${reward.type}">
+                    <span class="reward-icon">${reward.icon}</span>
+                    <div class="reward-info">
+                        <span class="reward-name">${reward.name}</span>
+                        ${conditionalBadge}
+                        <span class="reward-desc">${reward.description}</span>
+                        <span class="reward-source">From: ${reward.questTitle}</span>
+                    </div>
+                    <span class="reward-type-badge ${reward.type}">${reward.type.toUpperCase()}</span>
+                </div>
+            `;
+        });
+        
+        html += `</div></div>`;
+    });
+    
+    html += `</div>`;
+    
+    // Add summary stats
+    const allRewards = REWARDS_DATA.extractAll();
+    const earned = allRewards.filter(r => r.earned);
+    const pending = allRewards.filter(r => !r.earned);
+    const totalXP = earned.filter(r => r.type === 'xp').reduce((sum, r) => sum + (r.amount || 0), 0);
+    
+    html = `
+        <div class="rewards-summary">
+            <div class="summary-stat earned">
+                <span class="stat-value">${earned.length}</span>
+                <span class="stat-label">Earned</span>
+            </div>
+            <div class="summary-stat pending">
+                <span class="stat-value">${pending.length}</span>
+                <span class="stat-label">Pending</span>
+            </div>
+            <div class="summary-stat xp">
+                <span class="stat-value">${totalXP.toLocaleString()}</span>
+                <span class="stat-label">Total XP</span>
+            </div>
+        </div>
+    ` + html;
+    
+    container.innerHTML = html;
+    
+    // Add click listeners to navigate to dates
+    container.querySelectorAll('.rewards-date-group').forEach(group => {
+        group.querySelector('.rewards-date-header').addEventListener('click', () => {
+            const [year, monthIndex, day] = group.dataset.date.split('-').map(Number);
+            viewDate = { year, monthIndex };
+            selectedDate = { year, monthIndex, day };
+            renderCalendar();
+            playSound('click.mp3');
+        });
+    });
+}
 function calculateAllResearchCompletionDates() {
     researchCompletionCache.clear();
     if (!state || !state.researchState) return;
@@ -285,6 +414,7 @@ function getEventsForDay(year, monthIndex, day) {
     events.push(...getRumorEventsForDay(year, monthIndex, day));
     events.push(...getPlagueEventsForDay(year, monthIndex, day));
     events.push(...getQuestEventsForDay(year, monthIndex, day));
+    events.push(...getRewardEventsForDay(year, monthIndex, day));
     const dayOfWeekIndex = (day - 1) % 7;
     const dayName = CALENDAR_DATA.days.values[dayOfWeekIndex].name;
     for (const key in RELIGION_DATA.denominations) {
@@ -325,7 +455,8 @@ function renderCalendar() {
         const weather = generateWeatherForDay(viewDate.year, viewDate.monthIndex, day);
         const moonPhase = calculateMoonPhase(viewDate.year, viewDate.monthIndex, day);
         const events = getEventsForDay(viewDate.year, viewDate.monthIndex, day);
-
+const hasReward = events.some(e => e.type === 'reward_earned');
+const rewardDot = hasReward ? `<span class="event-dot reward-earned" title="Rewards Earned"></span>` : '';
         // Dot Generators
         const hasTech = events.some(e => e.type === 'tech');
         const techDot = hasTech ? `<span class="event-dot tech" title="Tech/Cure"></span>` : '';
@@ -362,7 +493,7 @@ function renderCalendar() {
                 ${events.filter(e => !['tech', 'history', 'ritual', 'battle', 'battle_ongoing', 'rumor_start', 'rumor_end', 'plague_outbreak', 'guild_holiday', 'quest_start', 'quest_deadline', 'quest_complete', 'legislation'].includes(e.type)).map(e => `<span class="event-dot ${e.type}" title="${e.name}"></span>`).join('')}
                 ${techDot} ${historyDot} ${battleDot} ${rumorStartDot} ${rumorEndDot} ${plagueDot} ${guildDot}
                 ${questStartDot} ${questDeadlineDot} ${questCompleteDot}
-                ${legislationDot}
+                ${legislationDot} ${rewardDot}
             </div>
         `;
         cell.addEventListener('click', () => selectDay(day));
@@ -417,7 +548,26 @@ function renderSidebar() {
     const displayEvents = events.filter(e => e.type !== 'ritual' && e.type !== 'battle_ongoing');
     const ritualEvents = events.filter(e => e.type === 'ritual');
     const trendingEvents = events.filter(e => e.type === 'rumor_start' || e.type === 'battle' || e.type === 'battle_ongoing' || e.type === 'legislation');
-
+    const dayRewards = REWARDS_DATA.getForDay(selectedDate.year, selectedDate.monthIndex, selectedDate.day);
+    
+    if (dayRewards.length > 0) {
+        detailsHTML += `
+            <div class="day-rewards-section">
+                <h5>🎁 Rewards Earned</h5>
+                <div class="day-rewards-list">
+                    ${dayRewards.map(reward => `
+                        <div class="reward-item compact ${reward.type}">
+                            <span class="reward-icon">${reward.icon}</span>
+                            <div class="reward-info">
+                                <span class="reward-name">${reward.name}</span>
+                                <span class="reward-desc">${reward.description}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
     if (displayEvents.length === 0 && ritualEvents.length === 0 && trendingEvents.length === 0) {
         detailsHTML += `<p class="placeholder-text">No significant events recorded for this date.</p>`;
     } else {
@@ -513,8 +663,10 @@ function setupListeners() {
 
 function init() {
     calculateAllResearchCompletionDates();
+    buildRewardsCache(); // Add this line
     setupListeners();
     renderCalendar();
+    renderRewardsPanel(); // Add this line
 }
 
 init();

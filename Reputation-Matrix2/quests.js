@@ -663,11 +663,12 @@ function renderDashboardStats() {
     }
 }
 
+
 // ============================================
 // RENDER: Bounty Board
 // ============================================
 function renderBountyBoard() {
-    if (!bountyBoardContainer) return;
+    if (!bountyBoardContainer) return; 
     
     // Filter available bounties
     const bounties = BOUNTY_BOARD_QUESTS.filter(b => b.status === 'available' || b.status === 'active');
