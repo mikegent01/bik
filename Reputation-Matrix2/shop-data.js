@@ -2308,6 +2308,987 @@ export const SHOP_ITEMS = {
         shippedBy: 'Cosmic Event',
         levelRequirement: 15
     },
+// ============================================
+    // === HIGH TIER (26,000 - 60,000 XP) ===
+    // ============================================
+
+    'lazy_shell_armor': {
+        id: 'lazy_shell_armor',
+        name: "Lazy Shell (Armor)",
+        description: "A gigantic red shell. You become nearly indestructible, but you lose the will to move quickly.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 28000,
+        icon: '🛡️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "AC becomes 22 (cannot be modified)",
+            "Resistance to ALL damage types (Fire, Cold, Thunder, etc.)",
+            "Disadvantage on DEX saves and Initiative",
+            "Speed reduced by 15ft"
+        ],
+        vendor: 'gilded_gryphon',
+        shippedBy: 'Crane Delivery',
+        levelRequirement: 8
+    },
+
+    'lazy_shell_weapon': {
+        id: 'lazy_shell_weapon',
+        name: "Lazy Shell (Weapon)",
+        description: "A massive green shell on a stick. Hits like a truck, heavy as a mountain.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 28000,
+        icon: '🐢',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "2d12 Bludgeoning Damage",
+            "Reach 10ft",
+            "On Critical Hit: Target is Stunned until end of next turn",
+            "Requires 18 STR to wield"
+        ],
+        vendor: 'gilded_gryphon',
+        shippedBy: 'Heavy Freight',
+        levelRequirement: 8
+    },
+
+    'quartz_charm': {
+        id: 'quartz_charm',
+        name: "Quartz Charm",
+        description: "A crystal pendant from Monstro Town. Radiates protective energy.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 32000,
+        icon: '💎',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "You take half damage from Spells",
+            "Your attacks deal +1d6 Force damage",
+            "Cannot be surprised",
+            "You sparkle annoying brightly"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Crystal Case',
+        levelRequirement: 9
+    },
+
+    'mega_mushroom': {
+        id: 'mega_mushroom',
+        name: "Mega Mushroom",
+        description: "A mushroom the size of a pumpkin. Turns you into a kaiju.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 26000,
+        icon: '🍄',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Duration: 1 Minute",
+            "Size becomes Gargantuan",
+            "STR score becomes 26",
+            "Can walk through buildings (destroys them)",
+            "Immune to all damage except Psychic"
+        ],
+        vendor: 'toad_town_market',
+        shippedBy: 'Hazardous Materials',
+        levelRequirement: 8
+    },
+
+    'gold_flower': {
+        id: 'gold_flower',
+        name: "Gold Flower",
+        description: "A shimmering golden flower. Turns enemies into currency.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 30000,
+        icon: '🌻',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Cast 'Fireball' but deals 10d6 Force damage",
+            "If an enemy dies from this, they turn into Gold Coins (100gp per CR)",
+            "You turn solid gold for 1 round (+5 AC, cannot move)"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'Armored Truck',
+        levelRequirement: 7
+    },
+
+    'retry_clock': {
+        id: 'retry_clock',
+        name: "Retry Clock",
+        description: "A mechanical device that violently rewinds time. Use when everything goes wrong.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 35000,
+        icon: '⏰',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Single Use",
+            "Reset the current combat encounter to Round 1",
+            "All HP/Slots restored to pre-fight state",
+            "Everyone remembers what happened (Trauma included)"
+        ],
+        vendor: 'rogueport_black_market',
+        shippedBy: 'Paradox Container',
+        levelRequirement: 10
+    },
+
+    'ghost_port_poltergust': {
+        id: 'ghost_port_poltergust',
+        name: "Poltergust Type-G",
+        description: "Military grade ghost-catching vacuum. Keeps the spectral realm at bay.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 34000,
+        icon: '👻',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Can capture ANY incorporeal undead (DC 18 STR check)",
+            "Captured ghosts can be fired as projectiles (4d8 Necrotic)",
+            "Detects invisible entities within 60ft",
+            "Runs on batteries (included)"
+        ],
+        vendor: 'gilded_gryphon',
+        shippedBy: 'E. Gadd Labs',
+        levelRequirement: 7
+    },
+
+    'safety_ring': {
+        id: 'safety_ring',
+        name: "Safety Ring",
+        description: "A simple ring that guarantees safety. The ultimate defense against bad luck.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 40000,
+        icon: '💍',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Immunity to ALL status conditions (Poison, Paralyze, Sleep, Petrify, Fear, Charm)",
+            "Immunity to Critical Hits",
+            "Immunity to Instant Death effects"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Velvet Box',
+        levelRequirement: 10
+    },
+
+    'faction_airship_plating': {
+        id: 'faction_airship_plating',
+        name: "Adamantite Hull Plating",
+        description: "Reinforce the Vigilance with the strongest metal known.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 28000,
+        icon: '🛡️',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Vigilance ignores damage below threshold 15",
+            "Can ram other airships without taking damage",
+            "+25% Survival rate for crew during crashes"
+        ],
+        vendor: 'gilded_gryphon',
+        factionBonus: { defense: 40, combatReadiness: 10 }
+    },
+
+    'faction_lakitu_cam': {
+        id: 'faction_lakitu_cam',
+        name: "Lakitu News Chopper",
+        description: "A permanent Lakitu follower who streams the battlefield from above.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 32000,
+        icon: '🎥',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Players can view a top-down map of any outdoor area in real-time",
+            "Negates enemy stealth bonuses",
+            "Provides battle commentary"
+        ],
+        vendor: 'rogueport_black_market',
+        factionBonus: { intelligence: 50 }
+    },
+
+    'copy_flower': {
+        id: 'copy_flower',
+        name: "Copy Flower",
+        description: "Creates dozens of clones of yourself for a massive stampede.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 27000,
+        icon: '🌸',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Cast 'Mirror Image' (but with 10 clones)",
+            "Next Attack Action: Make 10 attacks dealing 5 damage each",
+            "Clones vanish after attack"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Fragile Box',
+        levelRequirement: 9
+    },
+
+    'mix_flower': {
+        id: 'mix_flower',
+        name: "Mix Flower",
+        description: "Calls down a giant fireball from orbit. It's technically 'gardening'.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 35000,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "100ft Radius Explosion",
+            "20d6 Fire Damage (DEX save DC 18 half)",
+            "Ignores Fire Resistance",
+            "Leaves a crater"
+        ],
+        vendor: 'toad_town_market',
+        shippedBy: 'Orbital Drop',
+        levelRequirement: 10
+    },
+
+    'rawk_hawk_belt': {
+        id: 'rawk_hawk_belt',
+        name: "Champ's Belt",
+        description: "The championship belt of the Glitz Pit. RAWWWK!",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 38000,
+        icon: '🏆',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "STR set to 22",
+            "Advantage on Grapple checks",
+            "Can fly 30ft, but must land at end of turn",
+            "You feel compelled to pose after every kill"
+        ],
+        vendor: 'rogueport_black_market',
+        shippedBy: 'Glitz Pit Locker',
+        levelRequirement: 10
+    },
+
+    'crystal_king_crown': {
+        id: 'crystal_king_crown',
+        name: "Crown of the Crystal King",
+        description: "Cold as the void. Grants mastery over ice.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 42000,
+        icon: '👑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Immunity to Cold Damage",
+            "At Will: Ray of Frost (17th level)",
+            "Once/Day: Summon 3 Crystal Bits (act as Shield spell or attack)",
+            "You float 1 inch off the ground"
+        ],
+        vendor: 'comet_observatory',
+        shippedBy: 'Frozen Crate',
+        levelRequirement: 11
+    },
+
+    'tubba_blubba_heart': {
+        id: 'tubba_blubba_heart',
+        name: "Secret Heart",
+        description: "A pulsating heart in a jar. If you hide it, you become invincible. If it breaks, you die.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 50000,
+        icon: '❤️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "While the jar is hidden and safe: You have Resistance to ALL damage and Regenerate 10 HP/turn",
+            "If the jar is destroyed: You drop to 0 HP immediately",
+            "You cannot move more than 1 mile from the jar"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Courier',
+        levelRequirement: 12
+    },
+
+    'shadow_siren_veil': {
+        id: 'shadow_siren_veil',
+        name: "Veil of the Three",
+        description: "A dark purple veil. Allows you to hide in the floor.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 36000,
+        icon: '👒',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Action: Become a shadow on the floor (Invulnerable, cannot attack, speed 30ft)",
+            "Advantage on Stealth",
+            "Can cast 'Invisibility' 3/day"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Shadow Mail',
+        levelRequirement: 9
+    },
+
+    'magikoopa_wand_master': {
+        id: 'magikoopa_wand_master',
+        name: "Kamek's Spare Wand",
+        description: "A geometric wand brimming with chaotic transformation magic.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 45000,
+        icon: '🪄',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "+2 to Spell Attack/DC",
+            "Action: Transform a medium object into a CR 3 monster (Loyal to you)",
+            "Action: Transform terrain into geometric blocks",
+            "User laughs uncontrollably"
+        ],
+        vendor: 'valley_trading_post',
+        shippedBy: 'Broomstick',
+        levelRequirement: 11
+    },
+
+    'faction_dry_bones_reassembler': {
+        id: 'faction_dry_bones_reassembler',
+        name: "Necro-Reassembler V2",
+        description: "Automated machinery that puts skeletons back together.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 35000,
+        icon: '☠️',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Toads who 'die' in combat have a 75% chance to return as Dry Bones (Undead)",
+            "Dry Bones toads are immune to poison/exhaustion",
+            "Increases faction 'Durability'"
+        ],
+        vendor: 'valley_trading_post',
+        factionBonus: { combatReadiness: 15, loyalty: 10 }
+    },
+
+    'faction_warp_pipe_hub': {
+        id: 'faction_warp_pipe_hub',
+        name: "Portable Warp Hub",
+        description: "Install a master Warp Pipe on the Vigilance linked to 3 major cities.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 48000,
+        icon: '🟢',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Instant travel to Toad Town, Rogueport, and the Capital",
+            "Deploy troops anywhere instantly",
+            "Escape route always available"
+        ],
+        vendor: 'toad_town_market',
+        factionBonus: { mobility: 50, operations: 20 }
+    },
+
+    'antasma_cape': {
+        id: 'antasma_cape',
+        name: "Nightmare Cape",
+        description: "A cape made of bats and bad dreams. Allows entry into the Dream World.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 55000,
+        icon: '🦇',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Fly Speed 40ft",
+            "Action: Put target to sleep (WIS DC 17)",
+            "Bonus Action: Enter the dreams of a sleeping target (Inception rules apply)",
+            "Sunlight Sensitivity"
+        ],
+        vendor: 'rogueport_black_market',
+        shippedBy: 'Nightmare',
+        levelRequirement: 12
+    },
+
+    'cobalt_star_shard': {
+        id: 'cobalt_star_shard',
+        name: "Cobalt Star Shard",
+        description: "A piece of a star that holds an alien princess. Manipulates time locally.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 42000,
+        icon: '🔷',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Reaction: Force an enemy to reroll an attack",
+            "3 Charges/Day: Cast 'Haste' or 'Slow'",
+            "You hear faint screaming from inside the shard"
+        ],
+        vendor: 'comet_observatory',
+        shippedBy: 'Time Stream',
+        levelRequirement: 10
+    },
+
+    'faction_shroob_tech': {
+        id: 'faction_shroob_tech',
+        name: "Reverse-Engineered Shroob Blasters",
+        description: "Alien weaponry for the elite Wardens. Dangerous and purple.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 50000,
+        icon: '👾',
+        stock: 1,
+        rarity: 'forbidden',
+        effects: [
+            "Warden Cohort gains +5 Attack and deals Necrotic damage",
+            "Risk of weapons exploding (5%)",
+            "Iron Legion will designate you as a planetary threat"
+        ],
+        vendor: 'onyx_hand',
+        factionBonus: { combatReadiness: 30 }
+    },
+
+    'broque_monsieur_collection': {
+        id: 'broque_monsieur_collection',
+        name: "Block Collection",
+        description: "A set of sentient blocks. They can form walls, bridges, or prisons on command.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 29000,
+        icon: '🟨',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Action: Summon a 20ft x 20ft stone fortress",
+            "Action: Create a bridge up to 60ft",
+            "The blocks speak French and judge your fashion"
+        ],
+        vendor: 'toad_town_market',
+        shippedBy: 'Block',
+        levelRequirement: 8
+    },
+
+    'grodus_staff': {
+        id: 'grodus_staff',
+        name: "Techno-Staff",
+        description: "The staff of the X-Naut leader. Controls machinery.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 58000,
+        icon: '📡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Dominate Machine (WIS DC 17 for constructs)",
+            "Lightning Bolt (5th level) at will",
+            "Creates a forcefield (+3 AC)",
+            "Makes you bald"
+        ],
+        vendor: 'rogueport_black_market',
+        shippedBy: 'X-Naut Pod',
+        levelRequirement: 12
+    },
+
+    'vampire_tomato': {
+        id: 'vampire_tomato',
+        name: "Vampire Tomato",
+        description: "A tomato with fangs. Eating it grants permanent life-steal qualities.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 45000,
+        icon: '🍅',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Permanent Effect: When you deal melee damage, heal for 10% of damage dealt",
+            "Permanent Effect: You no longer have a reflection",
+            "Tastes like iron"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Coffin',
+        levelRequirement: 10
+    },
+
+    'earlier_times': {
+        id: 'earlier_times',
+        name: "Earlier Times",
+        description: "A dusty bottle containing the concept of 'Before'. Drink to reset the round.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 40000,
+        icon: '⌛',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Consume as Reaction when hit",
+            "The turn resets completely. The attack never happened.",
+            "You regain your Reaction.",
+            "Reality destabilizes slightly."
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Yesterday',
+        levelRequirement: 11
+    },
+
+    'faction_propeller_fleet': {
+        id: 'faction_propeller_fleet',
+        name: "Toad Brigade Propeller Suits",
+        description: "Flight suits for the Scout Cohort. Death from above.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 38000,
+        icon: '🚁',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Scouts gain Fly speed",
+            "Can bypass ground defenses",
+            "Drastically improves map exploration"
+        ],
+        vendor: 'toad_town_market',
+        factionBonus: { mobility: 20, intelligence: 15 }
+    },
+
+    'invincibility_star': {
+        id: 'invincibility_star',
+        name: "Super Star",
+        description: "The ultimate power-up. You become a god for 18 seconds.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 50000,
+        icon: '⭐',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Duration: 3 Rounds (18 seconds)",
+            "Invulnerable to ALL damage",
+            "Touch enemies to deal 10d10 Radiant damage (No save)",
+            "Speed doubled",
+            "Plays loud music"
+        ],
+        vendor: 'comet_observatory',
+        shippedBy: 'Bouncing',
+        levelRequirement: 1
+    },
+
+    'faction_treasury_investment': {
+        id: 'faction_treasury_investment',
+        name: "Wario Asset Management",
+        description: "Let Wario invest the faction's funds. High risk, high reward.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 30000,
+        icon: '📈',
+        stock: 1,
+        rarity: 'rare',
+        effects: [
+            "Generates 5% interest on Faction XP weekly",
+            "Wario takes a 20% cut",
+            "Unlocks 'Corporate Takeover' missions"
+        ],
+        vendor: 'wario_direct',
+        factionBonus: { economy: 50 }
+    },
+
+    'ultra_hammer_legendary': {
+        id: 'ultra_hammer_legendary',
+        name: "Ultra Hammer (Authentic)",
+        description: "The real deal. Not a replica. Can smash through reality.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 60000,
+        icon: '🔨',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "3d12 Bludgeoning Damage",
+            "+3 to Hit/Damage",
+            "Ignores AC provided by Armor or Shields",
+            "Action: Smash the ground to cast Earthquake"
+        ],
+        vendor: 'gilded_gryphon',
+        shippedBy: 'Heavy Loader',
+        levelRequirement: 14
+    },
+
+    // ============================================
+    // === INSANE / GOD TIER (70,000 - 999,999 XP) ===
+    // ============================================
+
+    'chaos_heart': {
+        id: 'chaos_heart',
+        name: "The Chaos Heart",
+        description: "A dark artifact capable of consuming all worlds. The Void is calling.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 150000,
+        icon: '🖤',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Grants invulnerability to all attacks unless pierced by Pure Heart",
+            "Can open Void rifts (banish enemies to non-existence)",
+            "You slowly lose your soul to the Void",
+            "The universe begins to decay while you hold this"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Dimensional Rift',
+        levelRequirement: 20,
+        warning: "WILL END THE CAMPAIGN IF USED IMPROPERLY"
+    },
+
+    'star_rod': {
+        id: 'star_rod',
+        name: "The Star Rod",
+        description: "The legendary rod stolen by Bowser. Grants any wish.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 200000,
+        icon: '🌟',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Cast 'Wish' at will (1/day)",
+            "Alter reality within a 1-mile radius",
+            "Grant invincibility to self or others",
+            "The 7 Star Spirits will hunt you down"
+        ],
+        vendor: 'comet_observatory',
+        shippedBy: 'Star Haven',
+        levelRequirement: 20
+    },
+
+    'shroob_mothership_strike': {
+        id: 'shroob_mothership_strike',
+        name: "Shroob Orbital Beam",
+        description: "A remote control for the dormant Shroob Mothership in orbit.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 90000,
+        icon: '🛸',
+        stock: 1,
+        rarity: 'forbidden',
+        effects: [
+            "Call down a beam that deals 50d10 Necrotic damage to a 1-mile area",
+            "Turns the land into a purple wasteland",
+            "Destroys entire cities",
+            "Single Use"
+        ],
+        vendor: 'onyx_hand',
+        factionBonus: { combatReadiness: 100 }
+    },
+
+    'dream_stone': {
+        id: 'dream_stone',
+        name: "The Dream Stone",
+        description: "Manifests dreams into reality. Infinite potential, infinite danger.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 120000,
+        icon: '💤',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Create objects, creatures, or structures from nothing",
+            "Transform into a giant version of yourself",
+            "If shattered, releases a nightmare fog that covers the continent"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Pillow',
+        levelRequirement: 18
+    },
+
+    'reset_button': {
+        id: 'reset_button',
+        name: "The Reset Button",
+        description: "A literal button. Resets the campaign to Session 1. Everyone keeps their memories.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 999999,
+        icon: '🔄',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "NEW GAME +",
+            "Resets the world state",
+            "Players keep levels and items",
+            "Enemies become harder",
+            "DM cries"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'Console Command',
+        levelRequirement: 20
+    },
+
+    'cappy_original': {
+        id: 'cappy_original',
+        name: "Cappy (The Original)",
+        description: "The legendary bonneter. Allows possession of ANYTHING.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 85000,
+        icon: '🎩',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Possess any creature regardless of CR (WIS save DC 25)",
+            "Possess inanimate objects (T-Rex, Tank, Electricity, Meat)",
+            "Gain all stats/abilities of possessed target",
+            "You retain your mental stats"
+        ],
+        vendor: 'comet_observatory',
+        shippedBy: 'Hat Ship',
+        levelRequirement: 15
+    },
+
+    'warios_franchise': {
+        id: 'warios_franchise',
+        name: "WarioWare, Inc. Majority Share",
+        description: "Buy Wario's company. You become the owner of Wario's Warehouse.",
+        category: SHOP_CATEGORIES.PREMIUM,
+        price: 500000,
+        icon: '💰',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "All shop items become free",
+            "Generate 10,000 Gold Coins daily",
+            "Wario becomes your employee (he hates this)",
+            "You gain a mustache"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'Legal Team',
+        levelRequirement: 15
+    },
+
+    'pure_heart_complete': {
+        id: 'pure_heart_complete',
+        name: "The Complete Pure Heart",
+        description: "Restored love and hope. The only thing that stops the Chaos Heart.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 150000,
+        icon: '🤍',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Revive the dead (Mass Resurrection)",
+            "Break invulnerability shields",
+            "Banish the Void",
+            "Requires true love to activate (or a really good roll)"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Light',
+        levelRequirement: 20
+    },
+
+    'culex_crystal': {
+        id: 'culex_crystal',
+        name: "Shard of Vanda",
+        description: "A crystal from a dark knight of another dimension. Breaks the 4th wall.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 95000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Changes the battle music to Final Fantasy boss themes",
+            "Summons 4 Elemental Crystals to fight for you",
+            "Cast 'Meteor Swarm' 1/day",
+            "You speak in old English text boxes"
+        ],
+        vendor: 'rogueport_black_market',
+        shippedBy: 'Dimensional Rift',
+        levelRequirement: 16
+    },
+
+    'phantom_guide': {
+        id: 'phantom_guide',
+        name: "Phantom Guide Contract",
+        description: "Summon a hero from a previous campaign as a permanent follower.",
+        category: SHOP_CATEGORIES.SERVICES,
+        price: 80000,
+        icon: '📜',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Summon a Level 20 PC from a past game",
+            "They serve for 1 week or until death",
+            "DM controls them (mostly)"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Spirit Portal',
+        levelRequirement: 10
+    },
+
+    'wonder_flower_seed': {
+        id: 'wonder_flower_seed',
+        name: "Wonder Seed",
+        description: "A seed that warps reality permanently in a localized area.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 75000,
+        icon: '🌱',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Change the biome of a region instantly (Desert -> Ocean, etc.)",
+            "Animate all inanimate objects in a city",
+            "Gravity becomes optional",
+            "Everyone turns into Goombas"
+        ],
+        vendor: 'toad_town_market',
+        shippedBy: 'Talking Flower',
+        levelRequirement: 14
+    },
+
+    'faction_flying_fortress': {
+        id: 'faction_flying_fortress',
+        name: "Sky Fortress Upgrade",
+        description: "Convert the Vigilance or Base into a permanent flying castle.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 100000,
+        icon: '🏰',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "The base can fly indefinitely",
+            "Orbital bombardment capabilities",
+            "Unassailable from the ground",
+            "The ultimate symbol of power"
+        ],
+        vendor: 'gilded_gryphon',
+        factionBonus: { mobility: 100, defense: 100, morale: 50 }
+    },
+
+    '1_up_deluxe': {
+        id: '1_up_deluxe',
+        name: "1-Up Deluxe",
+        description: "A platinum mushroom. Grants a literal second life.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 70000,
+        icon: '🍄',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Passive: If you die, you immediately respawn at the start of your next turn with Full HP, Spell Slots, and Abilities.",
+            "Consumed on use.",
+            "Can only carry one at a time."
+        ],
+        vendor: 'toad_town_market',
+        shippedBy: 'Divine Courier',
+        levelRequirement: 1
+    },
+
+    'shadow_queen_crown': {
+        id: 'shadow_queen_crown',
+        name: "Crown of Shadows",
+        description: "The crown of the ancient demon queen. Grants dominion over darkness.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 110000,
+        icon: '👑',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Control any shadow creature",
+            "Cover the world in eternal night",
+            "Immunity to Non-Magical damage",
+            "Possession risk: High"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Sealed Box',
+        levelRequirement: 18
+    },
+
+    'golden_tanooki': {
+        id: 'golden_tanooki',
+        name: "Golden Tanooki Suit",
+        description: "A suit that vibrates with invincible energy. You cannot be stopped.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 90000,
+        icon: '🦝',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Permanent Invincibility to Damage (unless you fall in a pit)",
+            "Infinite Flight",
+            "You sparkle constantly",
+            "Enemies flee on sight"
+        ],
+        vendor: 'comet_observatory',
+        shippedBy: 'Golden Leaves',
+        levelRequirement: 15
+    },
+
+    'smithy_hammer_god': {
+        id: 'smithy_hammer_god',
+        name: "Smithy's True Hammer",
+        description: "The hammer that forged the Star Road. Can create or destroy artifacts.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 130000,
+        icon: '⚒️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Craft Legendary items instantly",
+            "Destroy any object (even magical ones) with a single hit",
+            "Transform living beings into weapons",
+            "User's head may transform into a tank"
+        ],
+        vendor: 'rogueport_black_market',
+        shippedBy: 'Machine Dimension',
+        levelRequirement: 18
+    },
+
+    'sprixie_alliance': {
+        id: 'sprixie_alliance',
+        name: "Sprixie Kingdom Alliance",
+        description: "Full military and magical support of the Sprixie Princesses.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 75000,
+        icon: '🧚',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Access to Clear Pipes (Instant travel network)",
+            "Fairy Magic buffs for all faction members",
+            "Construction of magical infrastructure"
+        ],
+        vendor: 'toad_town_market',
+        factionBonus: { mobility: 40, economy: 30, magic: 50 }
+    },
+
+    'grand_star_core': {
+        id: 'grand_star_core',
+        name: "Grand Star Core",
+        description: "The reactor of a galaxy. Infinite clean energy.",
+        category: SHOP_CATEGORIES.FACTION,
+        price: 140000,
+        icon: '🌟',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Powers the entire faction/base forever",
+            "Can power a planetary shield",
+            "Allows space travel",
+            "Rosalina wants this back"
+        ],
+        vendor: 'comet_observatory',
+        factionBonus: { energy: 100, defense: 50 }
+    },
+
+    'dark_prognosticus': {
+        id: 'dark_prognosticus',
+        name: "Dark Prognosticus",
+        description: "The book that foretells the end of all worlds. Contains the DM's notes.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 180000,
+        icon: '📖',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Read the campaign's future events",
+            "Learn any secret",
+            "Trigger the apocalypse",
+            "Sanity loss: 1d10 per page"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Bleck',
+        levelRequirement: 19
+    },
+
+    'light_prognosticus': {
+        id: 'light_prognosticus',
+        name: "Light Prognosticus",
+        description: "The counter-book. Can rewrite the ending.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 180000,
+        icon: '📓',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Change one major campaign event",
+            "Resurrect a fallen plotline",
+            "Create a 'Happy Ending' failsafe",
+            "Requires pure intent"
+        ],
+        vendor: 'shamans_hut',
+        shippedBy: 'Merlon',
+        levelRequirement: 19
+    },    
     'pure_heart': {
         id: 'pure_heart',
         name: "The Pure Heart",
