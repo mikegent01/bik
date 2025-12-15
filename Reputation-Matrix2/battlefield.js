@@ -2,8 +2,9 @@ import { LORE_DATA } from './lore.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE, getDynamicTimestamp } from './calendar-data.js';
 import { STORY_ARCS, getRumorsByArc } from './lore.js';
+
 // ============================================================================
-// CONFLICT METADATA - Add after MAJOR_BATTLES array
+// CONFLICT METADATA
 // ============================================================================
 
 export const CONFLICT_DETAILS = {
@@ -42,9 +43,9 @@ export const CONFLICT_DETAILS = {
         majorPhases: [
             { name: "Discovery (Day 15-16)", description: "Party enters manor, encounters Oracle and initial manifestations." },
             { name: "Escalation (Day 17-19)", description: "Mirror monsters, wraiths, and temporal anomalies multiply." },
-            { name: "Crisis (Day 20-21)", description: "Full supernatural breach, Iron Legion involvement, multi-faction chaos." }
+            { name: "Convergence (Day 20-21)", description: "Full supernatural breach. Legion and Mages Guild intervene physically. Timelines destabilize." }
         ],
-        keyFactions: ['liberated_toads', 'iron_legion', 'mages_guild'],
+        keyFactions: ['liberated_toads', 'iron_legion', 'mages_guild', 'raventree_curse'],
         estimatedCasualties: "Dozens of toads, multiple Legion agents, unknown supernatural entities"
     },
     "Vigilance Crew Incidents": {
@@ -54,18 +55,106 @@ export const CONFLICT_DETAILS = {
         rootCause: "The party's seizure of the toad-trafficking airship created instant enemies and responsibilities.",
         majorPhases: [
             { name: "Liberation (Day 4-5)", description: "Seizure of the Vigilance from X.O." },
-            { name: "Consolidation (Day 6-10)", description: "Dealing with fallout, discovering trafficking operation." },
-            { name: "Hunted (Day 11-Present)", description: "Multiple factions pursue the ship and crew." }
+            { name: "Hunted (Day 11-20)", description: "Pursued by Crimson Fleet and Iron Legion. Ship captured." },
+            { name: "The Purge (Day 21-Present)", description: "Order 120 issued. Total war between Legion and Liberated Toads." }
         ],
         keyFactions: ['liberated_toads', 'crimson_fleet', 'iron_legion'],
         estimatedCasualties: "Estimated 70+ across all incidents"
+    },
+    "The Dragon Conspiracy": {
+        summary: "A covert operation revealing that the Dragon-Empire war is fabricated.",
+        startYear: 1040,
+        status: "active",
+        rootCause: "The discovery that Dragons are being controlled by sonic frequencies to stage false conflicts.",
+        majorPhases: [
+            { name: "Revelation (Day 21)", description: "Robinson discovers the truth at Dragon Mountain." },
+            { name: "Capture (Day 21)", description: "Robinson and the Dragon taken to Aegis Command." }
+        ],
+        keyFactions: ['iron_legion', 'dragons', 'regal_empire'],
+        estimatedCasualties: "Unknown"
     }
 };
+
 export const MAJOR_BATTLES = [
-{
+    {
+        id: 'raid_aegis_command',
+        name: "The Aegis Command Massacre",
+        conflict: "Vigilance Crew Incidents",
+        arc: 'toad_liberation',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 },
+        location: "Aegis Command Fortress",
+        belligerents: {
+            side_a: { name: "Infiltration Team", factions: ['liberated_toads'] },
+            side_b: { name: "Iron Legion High Command", factions: ['iron_legion'] }
+        },
+        commanders: { side_a: ["Bones", "Creek"], side_b: ["Marcus Ironhand"] },
+        outcome: "defeat",
+        outcomeDetail: "Infiltration failed. Bones stabbed. Order 120 issued.",
+        casualties: { 
+            side_a: "Bones (Criticaly Injured), Multiple Toads Captured", 
+            side_b: "1 Soldier (Melted by Creek's acid)" 
+        },
+        strategicValue: "critical",
+        description: `<p>Bones, disguised as a guard, infiltrated the prison courtyard to rescue the leadership. He was led to an interrogation room where he questioned a prisoner identified as <strong>Speaker L</strong>.</p>
+        <p>However, the interrogation revealed this was a <strong>Green Decoy</strong> who claimed his skin color changed because he "ate a poisoned mushroom." The decoy spouted cult-like rhetoric about "The Fractured Heart" and a doctrine of "CONTAIN, ACCOUNT, RESTORE, ADHERE."</p>
+        <p>The operation collapsed when Marcus Ironhand entered. Seeing through Bones' disguise immediately ("I'm a new recruit"), Ironhand ripped the disguise off and stabbed Bones through the chest. In the chaos, the Toad commando Creek melted a Legion soldier with acid, but they were overwhelmed.</p>
+        <p><strong>Order 120:</strong> Enraged by the infiltration and the confirmation of "vigilante" tactics, Ironhand looked at the captured Toads—including a fake Archie Miser—and issued a chilling command: "Order 120. Execute them all."</p>`,
+        tacticalNotes: "Legion command structures are highly resistant to social engineering. The 'Decoy Gambit' has misled the Legion, but at the cost of the infiltration team's lives.",
+        participatingCharacters: ['bones', 'creek', 'marcus_ironhand', 'green_speaker_l_decoy']
+    },
+    {
+        id: 'battle_arcane_wraith',
+        name: "Banishment of the Arcane Wraith",
+        conflict: "Raventree Manor Crisis",
+        arc: 'raventree_manor',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 30 },
+        location: "Raventree Manor - Lower Levels",
+        belligerents: {
+            side_a: { name: "The Party", factions: ['vigilance_crew'] },
+            side_b: { name: "Arcane Wraith", factions: ['raventree_curse'] },
+            side_c: { name: "The Audience", factions: ['mages_guild', 'iron_legion'] }
+        },
+        commanders: { side_a: ["Bowser", "Dan", "Oracle"], side_b: ["Fire Wraith"], side_c: ["Pernus Annmatar"] },
+        outcome: "victory",
+        outcomeDetail: "Wraith banished. Ectoplasm secured. Mages/Legion interference thwarted.",
+        casualties: { 
+            side_a: "Bowser (Internal Force Dmg/Possession trauma)", 
+            side_b: "Banished", 
+            side_c: "Pernus Annmatar (Thrown & Tripped)" 
+        },
+        strategicValue: "critical",
+        description: `<p>The confrontation with the Fire Wraith turned into a chaotic three-way struggle. Dan, despite missing an arm, proved his lethality by landing deep hits with throwing axes. Bowser, overcoming his fear of ghosts ("That one's dressed nice—that's scary!"), physically pummeled the entity.</p>
+        <p><strong>The Interlopers:</strong> The Mages' Guild representative, Pernus Annmatar, flew into the room to "give the audience a good show." He summoned dancing ghosts and even possessed Bowser's body. Bowser retaliated by physically throwing the Mage out of his body and later tripping him when the Mage tried to steal the kill.</p>
+        <p><strong>Elemental Clash:</strong> Archie, finding a moment of clarity, unleashed a powerful ice blast that shattered the wraith temporarily. When the Legion and Mages surged in to capture the weakened entity, Bowser blocked them, declaring "My fight. My kill." The Oracle finally banished the creature, allowing Archie to harvest the ectoplasm.</p>`,
+        tacticalNotes: "Physical force combined with elemental counters (Ice vs Fire Wraith) proved effective. External interference remains a major threat.",
+        participatingCharacters: ['bowser', 'dan', 'archie', 'hjumpik', 'toad_lee', 'oracle', 'pernus_annmatar']
+    },
+    {
+        id: 'capture_of_robinson',
+        name: "The Silence of Dragon Mountain",
+        conflict: "The Dragon Conspiracy",
+        arc: 'dragon_mountain',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 10, minute: 0 },
+        location: "Dragon Mountain",
+        belligerents: {
+            side_a: { name: "Robinson & The Dragon", factions: ['unaligned'] },
+            side_b: { name: "Iron Brigade", factions: ['iron_legion'] }
+        },
+        commanders: { side_a: ["Robinson"], side_b: ["Iron Brigade Captain"] },
+        outcome: "defeat",
+        outcomeDetail: "Dragon paralyzed by sonic weapon. Robinson captured.",
+        casualties: { side_a: "Both captured", side_b: "None" },
+        strategicValue: "high",
+        description: `<p>Robinson (Markop's father) woke inside the Dragon's Den to find a Great Dragon coiling above him. The Dragon confessed a terrifying truth: The war between Dragons and the Regal Empire is a fabrication. The Empire has invented a sound frequency that paralyzes dragons, forcing them to spy on Markop and others.</p>
+        <p>Moments after this confession, a horn sounded in the distance. The Dragon froze midair, unable to move, and slammed into the ground screaming. Iron Brigade soldiers stormed the area, securing the paralyzed beast and arresting Robinson. Both were evacuated to Aegis Command.</p>`,
+        tacticalNotes: "Dragons possess a biological vulnerability to specific sonic frequencies. This is a critical weakness exploited by the Empire.",
+        participatingCharacters: ['robinson', 'the_dragon']
+    },
+    
+    {
         id: 'skirmish_rogueport_trade_ward',
         name: "The Night of Iron Knives",
-        conflict: "Iron Legion Expansion", // New conflict context
+        conflict: "Iron Legion Expansion", 
         arc: 'toad_liberation',
         date: { year: 1040, monthIndex: 6, day: 21, hour: 2, minute: 15 },
         location: "Rogueport - Trade Ward",
@@ -83,15 +172,14 @@ export const MAJOR_BATTLES = [
         strategicValue: "high",
         description: `<p>Following the negotiation of the 'Cheep-Cheep Treaty', a covert team (Embercap, Dewdrop, Erick) infiltrated Rogueport to secure payment for the Rakasha. They arrived to find the city under a shadow lockdown by the Iron Legion.</p>
         <p>The team intercepted an 'Iron Fist' assassination squad—elite Legionnaires tasked with purging local independent guards to destabilize the city. Realizing standard combat would fail against the heavily armored troopers, Dewdrop utilized a one-time summoning scroll provided by Rakasha leadership.</p>
-        <p>The resulting Spirit Tiger manifestation decimated the Legion squad in seconds. The team successfully retrieved the stolen artifact from the Violet Emblem building and retreated before reinforcements arrived.</p>
-        <p><strong>Intel Gained:</strong> The Iron Legion is not just hiring mercenaries; they are actively conquering Rogueport district by district using terror tactics and assassination.</p>`,
+        <p>The resulting Spirit Tiger manifestation decimated the Legion squad in seconds. The team successfully retrieved the stolen artifact from the Violet Emblem building and retreated before reinforcements arrived.</p>`,
         tacticalNotes: "Iron Legion heavy plate is vulnerable to magical beast attacks. Disguise tactics (Erick) proved effective for infiltration.",
         participatingCharacters: ['embercap', 'dewdrop', 'erick']
     },    
     {
         id: 'battle_solarium_shatter',
         name: "The Shattering of the Solarium",
-        conflict: "Raventree Manor Curse",
+        conflict: "Raventree Manor Crisis",
         arc: 'raventree_manor',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
         location: "Raventree Manor - Solarium",
@@ -129,8 +217,7 @@ export const MAJOR_BATTLES = [
         tacticalNotes: "Kremling assassins favor poison-tipped weaponry.",
         participatingCharacters: ['donkey_kong', 'funky_kong']
     },
-       
-{
+    {
         id: 'skirmish_silent_grove',
         name: "Ambush in the Silent Grove",
         conflict: "Raventree Manor Crisis",
@@ -175,6 +262,31 @@ export const MAJOR_BATTLES = [
         description: `<p>A three-way standoff in the manor's grand ballroom was disrupted by a supernatural manifestation. The dancing wraith forced all parties to literally dance, creating chaos that the Legion exploited to capture a Toad hostage.</p>`,
         tacticalNotes: "Supernatural compulsion effects require high willpower to resist.",
         participatingCharacters: ['archie', 'hjumpik']
+    },
+    {
+        id: 'iron_sky_breach',
+        name: "The Iron Sky Breach",
+        conflict: "Vigilance Crew Incidents",
+        arc: 'raventree_manor',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 16, minute: 30 },
+        location: "Airship Vigilance - Skies Above Raventree",
+        belligerents: {
+            side_a: { name: "Vigilance Defenders", factions: ['liberated_toads'] },
+            side_b: { name: "Iron Legion Boarding Party", factions: ['iron_legion'] }
+        },
+        commanders: { side_a: ["Ryan", "Skeleton Crew"], side_b: ["Colonel Steelstorm"] },
+        outcome: "defeat",
+        outcomeDetail: "Vigilance captured. Ryan escaped via freefall. Crew detained.",
+        casualties: { 
+            side_a: "Total - ship and crew lost", 
+            side_b: "Minimal - surgical operation" 
+        },
+        strategicValue: "critical",
+        description: `<p>While the main party was trapped in Raventree Manor dealing with supernatural threats, the Iron Legion executed a perfectly coordinated assault on the Vigilance. The skeleton crew left to guard the ship never stood a chance.</p>
+        <p>Colonel Steelstorm, the Legion's premier tactical officer, led the boarding party personally. Legion skyhooks latched onto the Vigilance from three angles simultaneously, disgorging troops before the defenders could mount an organized response. The entire operation lasted less than fifteen minutes.</p>
+        <p>Ryan, one of the few toads to escape, made a desperate leap from the ship rather than face capture. His survival—via an improvised parachute and a fortuitous landing near a Rakasha encampment—was miraculous. The intelligence he carried about Legion movements and the ship's capture would prove valuable.</p>`,
+        tacticalNotes: "Never leave a strategic asset lightly defended. The Legion exploits any weakness.",
+        participatingCharacters: ['ryan']
     },
     {
         id: 'skirmish_manor_parlor',
@@ -237,276 +349,76 @@ export const MAJOR_BATTLES = [
         tacticalNotes: "The manor responds to violence. Peaceful resolution may be key.",
         participatingCharacters: ['archie', 'speaker_l']
     },
-{
-    id: 'kong_kremling_war_reignited',
-    name: "The Kong Bug Revelation",
-    conflict: "Kong-Kremling Cold War",
-    arc: 'kong_kremling_cold_war',
-    date: { year: 1040, monthIndex: 6, day: 18, hour: 11, minute: 0 },
-    location: "DK Island - Funky's Surf Shack / Phone Lines",
-    belligerents: {
-        side_a: { name: "DK Crew", factions: ['dk_crew'] },
-        side_b: { name: "Kremling Krew", factions: ['kremling_krew'] }
+    {
+        id: 'kong_kremling_war_reignited',
+        name: "The Kong Bug Revelation",
+        conflict: "Kong-Kremling Cold War",
+        arc: 'kong_kremling_cold_war',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 11, minute: 0 },
+        location: "DK Island - Funky's Surf Shack / Phone Lines",
+        belligerents: {
+            side_a: { name: "DK Crew", factions: ['dk_crew'] },
+            side_b: { name: "Kremling Krew", factions: ['kremling_krew'] }
+        },
+        commanders: { side_a: ["Donkey Kong", "Funky Kong"], side_b: ["King K. Rool"] },
+        outcome: "ongoing",
+        outcomeDetail: "Cold war transformed to active hostilities. Assassination plot revealed.",
+        casualties: { side_a: "None yet - but Funky marked for death", side_b: "Intelligence network exposed" },
+        strategicValue: "critical",
+        description: `<p>The discovery of a sophisticated Kremling listening device in Funky Kong's surf shack shattered years of uneasy peace between the two island powers. Funky, the DK Crew's Director of Intelligence and resident technical genius, found the bug during routine equipment maintenance—a discovery that would reshape the conflict entirely.</p>
+        <p>The device was no crude wiretap. It represented Kremling technology at its finest: compact, long-range, and virtually undetectable by conventional means. Funky estimated it had been in place for at least six months, meaning the Kremlings had been listening to sensitive DK Crew discussions throughout the recent Democratic Summit preparations.</p>
+        <p>Donkey Kong's response was immediate and undiplomatic. His phone call to King K. Rool—recorded by the DK Crew's own security systems—devolved quickly from accusation to threat. K. Rool, characteristically, denied everything while simultaneously threatening Funky's life if DK didn't "mind his own business."</p>`,
+        tacticalNotes: "Funky Kong's technical expertise makes him a priority target. Protection details should be reinforced.",
+        participatingCharacters: ['donkey_kong', 'funky_kong', 'king_k_rool']
     },
-    commanders: { side_a: ["Donkey Kong", "Funky Kong"], side_b: ["King K. Rool"] },
-    outcome: "ongoing",
-    outcomeDetail: "Cold war transformed to active hostilities. Assassination plot revealed.",
-    casualties: { side_a: "None yet - but Funky marked for death", side_b: "Intelligence network exposed" },
-    strategicValue: "critical",
-    description: `<p>The discovery of a sophisticated Kremling listening device in Funky Kong's surf shack shattered years of uneasy peace between the two island powers. Funky, the DK Crew's Director of Intelligence and resident technical genius, found the bug during routine equipment maintenance—a discovery that would reshape the conflict entirely.</p>
-    <p>The device was no crude wiretap. It represented Kremling technology at its finest: compact, long-range, and virtually undetectable by conventional means. Funky estimated it had been in place for at least six months, meaning the Kremlings had been listening to sensitive DK Crew discussions throughout the recent Democratic Summit preparations.</p>
-    <p>Donkey Kong's response was immediate and undiplomatic. His phone call to King K. Rool—recorded by the DK Crew's own security systems—devolved quickly from accusation to threat. K. Rool, characteristically, denied everything while simultaneously threatening Funky's life if DK didn't "mind his own business."</p>
-    <p>The call ended with K. Rool's chilling words: "That surfboard-waxing fool should watch his back. The next wave he catches might be his last." Within hours, Kremling assassin Galypso was en route to DK Island.</p>
-    <p><strong>Intelligence Assessment:</strong> The bug's placement in Funky's shack rather than DK's home suggests the Kremlings correctly identified Funky as the crew's intelligence backbone. Eliminating him would blind the DK Crew to future operations.</p>
-    <p><strong>Strategic Implications:</strong> The cold war that has defined Kong-Kremling relations for decades is effectively over. Both sides are mobilizing for what may be a full-scale conflict. Neutral parties in the region are choosing sides or preparing to flee.</p>`,
-    tacticalNotes: "Funky Kong's technical expertise makes him a priority target. Protection details should be reinforced.",
-    participatingCharacters: ['donkey_kong', 'funky_kong', 'king_k_rool']
-},
-// ============================================================================
-// HISTORICAL BATTLES - Add these to your MAJOR_BATTLES array
-// ============================================================================
-
-{
-    id: 'assassination_of_peach',
-    name: "The Assassination of Princess Peach",
-    conflict: "Mushroom Kingdom Civil War",
-    arc: 'mushroom_civil_war',
-    date: { year: 955, monthIndex: 6, day: 1, hour: 14, minute: 0 },
-    location: "Peach's Castle - Royal Chambers",
-    belligerents: {
-        side_a: { name: "Royal Guard", factions: ['mushroom_regency'] },
-        side_b: { name: "Unknown Assassins", factions: ['unaligned'] }
+    {
+        id: 'siege_of_bramblehaven',
+        name: "Siege of Bramblehaven",
+        conflict: "Mushroom Kingdom Civil War",
+        arc: 'mushroom_civil_war',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 12, minute: 0 },
+        location: "Bramblehaven Fortress",
+        belligerents: {
+            side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
+            side_b: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] }
+        },
+        commanders: { side_a: ["Cpt. Toadette", "Embercap"], side_b: ["Fawful Commander"] },
+        outcome: "victory",
+        outcomeDetail: "Town captured. Garrison executed. Strategic position secured.",
+        casualties: { 
+            side_a: "Heavy - estimated 180 killed, 60 wounded", 
+            side_b: "Total annihilation - no survivors" 
+        },
+        strategicValue: "critical",
+        description: `<p>The Siege of Bramblehaven represented the bloodiest single engagement of the current phase of the Mushroom Kingdom Civil War. Captain Toadette's Peach Loyalist forces, hardened by decades of guerrilla warfare and burning with zealous fury, descended upon the Fawful-held fortress with overwhelming force and absolutely no intention of taking prisoners.</p>
+        <p>The assault began with a pre-dawn bombardment using captured Fawful technology—an irony not lost on the defenders. As the walls crumbled, Loyalist shock troops poured through the breaches, engaging in brutal room-to-room combat with Fawful's robotic defenders and organic troops alike.</p>`,
+        tacticalNotes: "Loyalist forces fight with religious fervor. Expect no mercy and plan for asymmetric commitment.",
+        participatingCharacters: ['captain_toadette', 'embercap']
     },
-    commanders: { side_a: ["Captain of the Guard"], side_b: ["Unknown"] },
-    outcome: "defeat",
-    outcomeDetail: "Princess Peach killed. Assassins escaped. Kingdom shattered.",
-    casualties: { side_a: "Princess Peach, 3 Royal Guards", side_b: "Unknown - presumed minimal" },
-    strategicValue: "historical",
-    description: `<p>The single most consequential act of violence in Mushroom Kingdom history. Princess Peach was found dead in her royal chambers under circumstances that remain disputed to this day. The official investigation was compromised within hours as various factions moved to secure power.</p>
-    <p>Chief Thornpaw of the Rakasha Clans, who would later reveal he had been in a secret relationship with the Princess, discovered evidence of a hidden hatch in her room during a gala infiltration 85 years later—suggesting the assassins had intimate knowledge of the castle's secret passages.</p>
-    <p>The power vacuum created by her death triggered immediate factional violence. Within days, Bowser's Koopa Troop, the Mushroom Regency, and what would become the Peach Loyalists were at each other's throats. The war that followed would claim hundreds of thousands of lives and continues to this day.</p>
-    <p><strong>Historical Note:</strong> Multiple theories persist about the assassination. Some blame Bowser, others point to internal Regency politics, and a growing faction believes interdimensional actors were involved. The truth may never be known.</p>`,
-    tacticalNotes: "The castle's secret passages were never fully mapped. This intelligence gap contributed to the assassination's success.",
-    participatingCharacters: ['princess_peach']
-},
-
-{
-    id: 'rise_of_iron_legion',
-    name: "The Iron Consolidation",
-    conflict: "Midlands Power Struggles",
-    arc: null,
-    date: { year: 1035, monthIndex: 6, day: 1, hour: 12, minute: 0 },
-    location: "Midlands - Multiple Sites",
-    belligerents: {
-        side_a: { name: "Iron Legion", factions: ['iron_legion'] },
-        side_b: { name: "Rival Mercenary Companies", factions: ['unaligned'] }
+    {
+        id: 'fall_of_bramblehaven_detailed',
+        name: "The Fall of Bramblehaven (Detailed)",
+        conflict: "Mushroom Kingdom Civil War",
+        arc: 'mushroom_civil_war',
+        date: { year: 1040, monthIndex: 6, day: 15, hour: 5, minute: 0 },
+        location: "Bramblehaven Fortress",
+        belligerents: {
+            side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
+            side_b: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] }
+        },
+        commanders: { side_a: ["Captain Toadette", "Embercap"], side_b: ["Fawful Commander Gearbolt"] },
+        outcome: "victory",
+        outcomeDetail: "Fortress captured. Garrison executed. Intel secured.",
+        casualties: { 
+            side_a: "Heavy - 30% of assault force killed or wounded", 
+            side_b: "Total - no survivors among defenders" 
+        },
+        strategicValue: "critical",
+        description: `<p>Embercap, the Loyalist infiltration specialist, had previously gathered intelligence on the fortress's weak points during a disastrous gala infiltration that cost the life of operative Jade Grit. This intelligence proved crucial, allowing the Loyalists to breach the eastern wall where the automated defenses had a blind spot.</p>
+        <p>What followed was not a battle but a systematic slaughter. Toadette personally executed surrendering officers, declaring that "traitors to the Princess's memory deserve no mercy." The few Fawful soldiers who attempted to flee were hunted down by Loyalist cavalry.</p>`,
+        tacticalNotes: "Fawful's automated defenses are powerful but have exploitable sensor gaps. Human intelligence remains superior to technological surveillance.",
+        participatingCharacters: ['captain_toadette', 'embercap']
     },
-    commanders: { side_a: ["The Iron Council"], side_b: ["Various Captains"] },
-    outcome: "victory",
-    outcomeDetail: "Iron Legion achieves regional dominance. Rivals absorbed or destroyed.",
-    casualties: { side_a: "Moderate", side_b: "Catastrophic - most companies eliminated" },
-    strategicValue: "historical",
-    description: `<p>Over the course of a single bloody year, the Iron Legion transformed from one of many mercenary companies in the Midlands to the undisputed military power of the region. Through a combination of superior tactics, ruthless efficiency, and strategic marriages into noble houses, they eliminated or absorbed every significant rival.</p>
-    <p>The consolidation campaign was notable for its precision. Rather than costly open battles, the Legion favored intelligence operations, targeted assassinations, and economic warfare. Rival companies would find their contracts cancelled, their supply lines cut, and their officers dead in their beds.</p>
-    <p>By year's end, the Legion had achieved something unprecedented: a mercenary company with the power of a nation-state. Their influence now extends into the Regal Empire's political structure, and they maintain a network of spies and informants that rivals any government agency.</p>
-    <p><strong>Long-term Impact:</strong> The Iron Legion's rise fundamentally altered the balance of power in the region. They now control toad trafficking routes, maintain "security contracts" that amount to protection rackets, and have become kingmakers in Midlands politics.</p>`,
-    tacticalNotes: "The Legion's intelligence apparatus was their true weapon. Military action was merely the final step in campaigns decided by information warfare.",
-    participatingCharacters: []
-},
-
-{
-    id: 'first_koopa_war_climax',
-    name: "The Siege of Koopa Keep",
-    conflict: "The First Koopa War",
-    arc: 'mushroom_civil_war',
-    date: { year: 1000, monthIndex: 8, day: 15, hour: 6, minute: 0 },
-    location: "Koopa Keep - Dark Land",
-    belligerents: {
-        side_a: { name: "Mushroom Alliance", factions: ['mushroom_regency'] },
-        side_b: { name: "Koopa Troop", factions: ['koopa_troop'] }
-    },
-    commanders: { side_a: ["General Toadsworth Sr."], side_b: ["Bowser", "Kamek"] },
-    outcome: "stalemate",
-    outcomeDetail: "Siege broken. Armistice signed. Borders established.",
-    casualties: { side_a: "Heavy - 40% of siege force", side_b: "Moderate - civilian population displaced" },
-    strategicValue: "historical",
-    description: `<p>The climactic battle of the First Koopa War saw the Mushroom Alliance's greatest army arrayed against Bowser's fortress homeland. For three months, the siege ground on, with neither side able to achieve decisive victory.</p>
-    <p>The Mushroom forces, led by the elder Toadsworth (father of the current Chancellor), employed every conventional tactic: bombardment, starvation, tunneling, and repeated assaults on the walls. Each was countered by Kamek's magic and Bowser's seemingly inexhaustible ferocity.</p>
-    <p>The siege was finally broken not by military action but by exhaustion. Both sides had bled themselves white. The resulting armistice established the borders that would hold for decades—until Princess Peach's assassination shattered the peace.</p>
-    <p><strong>Military Analysis:</strong> This battle demonstrated the futility of conventional warfare against a magically-defended position. Future conflicts would see both sides develop new approaches: the Koopa Troop invested in mobile warfare and surprise attacks, while the Mushroom forces developed anti-magic countermeasures.</p>`,
-    tacticalNotes: "Kamek's weather manipulation spells proved decisive in breaking multiple assault attempts. Anti-magic units became a priority after this engagement.",
-    participatingCharacters: ['bowser', 'kamek', 'toadsworth']
-},
-
-{
-    id: 'fall_of_bramblehaven_detailed',
-    name: "The Fall of Bramblehaven",
-    conflict: "Mushroom Kingdom Civil War",
-    arc: 'mushroom_civil_war',
-    date: { year: 1040, monthIndex: 6, day: 15, hour: 5, minute: 0 },
-    location: "Bramblehaven Fortress",
-    belligerents: {
-        side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
-        side_b: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] }
-    },
-    commanders: { side_a: ["Captain Toadette", "Embercap"], side_b: ["Fawful Commander Gearbolt"] },
-    outcome: "victory",
-    outcomeDetail: "Fortress captured. Garrison executed. Intel secured.",
-    casualties: { 
-        side_a: "Heavy - 30% of assault force killed or wounded", 
-        side_b: "Total - no survivors among defenders" 
-    },
-    strategicValue: "critical",
-    description: `<p>The assault on Bramblehaven began at dawn and did not end until well after sunset. Captain Toadette's Peach Loyalist forces, driven by decades of grief-fueled rage, showed absolutely no quarter to the Fawful defenders.</p>
-    <p>The fortress, a critical Fawful supply depot and communications hub, was defended by approximately 200 soldiers equipped with Fawful's signature high-tech weaponry. The Loyalists attacked with nearly 600 troops, accepting horrific casualties in exchange for forward momentum.</p>
-    <p>Embercap, the Loyalist infiltration specialist, had previously gathered intelligence on the fortress's weak points during a disastrous gala infiltration that cost the life of operative Jade Grit. This intelligence proved crucial, allowing the Loyalists to breach the eastern wall where the automated defenses had a blind spot.</p>
-    <p>What followed was not a battle but a systematic slaughter. Toadette personally executed surrendering officers, declaring that "traitors to the Princess's memory deserve no mercy." The few Fawful soldiers who attempted to flee were hunted down by Loyalist cavalry.</p>
-    <p><strong>War Crime Allegations:</strong> Neutral observers from the Regal Empire have documented the massacre for potential prosecution. The Loyalists' response has been defiant: "We are already at war with civilization. Their laws mean nothing to us."</p>
-    <p><strong>Strategic Impact:</strong> The fall of Bramblehaven cuts Fawful's northern supply lines and provides the Loyalists with valuable intelligence on his technological capabilities. However, the brutality of the assault has driven wavering neutral parties toward Fawful's faction.</p>`,
-    tacticalNotes: "Fawful's automated defenses are powerful but have exploitable sensor gaps. Human intelligence remains superior to technological surveillance.",
-    participatingCharacters: ['captain_toadette', 'embercap']
-},
-
-{
-    id: 'tea_party_massacre',
-    name: "The Tea Party Massacre",
-    conflict: "Underworld Conflicts",
-    arc: 'capital_intrigue',
-    date: { year: 1040, monthIndex: 6, day: 9, hour: 20, minute: 0 },
-    location: "Abandoned Warehouse, Midlands Slums",
-    belligerents: {
-        side_a: { name: "Archie Miser (Solo)", factions: [] },
-        side_b: { name: "Tea Leaf Syndicate", factions: ['tea_leaf_syndicate'] },
-        side_c: { name: "Iron Legion Response Team", factions: ['iron_legion'] }
-    },
-    commanders: { side_a: ["Archie Miser"], side_b: ["Green T", "Earl Grey"], side_c: ["Legion Rapid Response"] },
-    outcome: "victory",
-    outcomeDetail: "Syndicate leadership annihilated. Archie escaped. Legion arrived too late.",
-    casualties: { 
-        side_a: "None", 
-        side_b: "Catastrophic - 47 confirmed dead including most leadership", 
-        side_c: "Unknown - arrived after primary engagement" 
-    },
-    strategicValue: "medium",
-    description: `<p>What was intended as a negotiation meeting between Archie Miser and the Tea Leaf Syndicate devolved into one of the bloodiest single incidents in Midlands underworld history. The exact sequence of events remains disputed, but the outcome is not: nearly fifty people died in under three minutes.</p>
-    <p>The Syndicate, a mid-tier criminal organization specializing in narcotic tea blends and protection rackets, had summoned Archie to discuss "mutual interests." Unknown to Archie, they had also invited the Iron Legion to the same meeting, intending to sell him out for bounty money.</p>
-    <p>When someone—accounts differ on who—pressed a panic button, chaos erupted. Syndicate enforcers drew weapons, Legion agents burst through the doors, and Archie, feeling cornered, unleashed a high-level Fireball spell directly into the center of the room.</p>
-    <p>The warehouse's dry wooden structure and the presence of highly flammable tea compounds created a secondary conflagration. Earl Grey, the Syndicate's chief enforcer, was caught in the initial blast. His body, saturated with magical accelerants from years of enhanced tea consumption, literally exploded, scattering debris and shrapnel throughout the space.</p>
-    <p>Green T survived only by virtue of his position near the exit. He would later resurface at Raventree Manor, nursing a vendetta against Archie and displaying bizarre new abilities—possibly gained from exposure to the magical explosion.</p>
-    <p><strong>Aftermath:</strong> The Tea Leaf Syndicate effectively ceased to exist as an organization. Their territory was absorbed by rivals within days. The Iron Legion added the incident to Archie's growing file of "destabilizing activities." The Mages' Guild condemned the use of such powerful magic in a civilian area.</p>`,
-    tacticalNotes: "Fireball spells in enclosed spaces with flammable materials create exponentially more destruction. Archie has demonstrated a pattern of excessive force.",
-    participatingCharacters: ['archie']
-},
-
-{
-    id: 'democratic_summit_incident',
-    name: "The Democratic Summit Disaster",
-    conflict: "DK Island Conflicts",
-    arc: 'kong_kremling_cold_war',
-    date: { year: 1040, monthIndex: 6, day: 13, hour: 10, minute: 0 },
-    location: "Democratic Summit Hall, Neutral Territory",
-    belligerents: {
-        side_a: { name: "DK Crew Delegation", factions: ['dk_crew'] },
-        side_b: { name: "International Observers", factions: ['mushroom_regency', 'regal_empire'] }
-    },
-    commanders: { side_a: ["Lanky Kong (Acting Delegate)"], side_b: ["Various Diplomats"] },
-    outcome: "defeat",
-    outcomeDetail: "Diplomatic catastrophe. Economic sanctions threatened. DK Crew fractured.",
-    casualties: { side_a: "Political credibility destroyed", side_b: "None physical; severe diplomatic damage" },
-    strategicValue: "high",
-    description: `<p>The Democratic Summit was intended to normalize relations between the DK Crew and the broader international community. Instead, it became a case study in diplomatic failure when Lanky Kong, substituting for the absent Donkey Kong, engaged in behavior so bizarre that multiple delegations walked out.</p>
-    <p>Eyewitness accounts describe Lanky performing inappropriate physical comedy during solemn proceedings, making nonsensical policy proposals, and at one point attempting to juggle classified documents. Whether this was deliberate sabotage, mental breakdown, or simply catastrophic judgment remains unclear.</p>
-    <p>The Mushroom Kingdom delegation, already hostile to the DK Crew's neutrality in the Civil War, used the incident to push for economic sanctions. The Regal Empire's observers noted the chaos with undisguised interest, seeing opportunity in DK Island's weakened diplomatic position.</p>
-    <p><strong>Internal Fallout:</strong> The summit disaster created deep fractures within the DK Crew. Donkey Kong's decision to skip the summit—later revealed to be due to intelligence about the Kremling listening device—was criticized by those who didn't know the full picture. Lanky Kong has been effectively sidelined from all future diplomatic activities.</p>
-    <p><strong>Connection to Kremling Plot:</strong> Some analysts believe the Kremlings deliberately timed their espionage activities to coincide with the summit, knowing that DK's attention would be divided. The discovery of the listening device the following day suggests this was part of a coordinated intelligence operation.</p>`,
-    tacticalNotes: "Never send Lanky Kong to a diplomatic function. This should have been obvious.",
-    participatingCharacters: ['donkey_kong']
-},
-
-{
-    id: 'vigilance_liberation',
-    name: "The Liberation of the Vigilance",
-    conflict: "Vigilance Crew Incidents",
-    arc: 'vigilance_saga',
-    date: { year: 1040, monthIndex: 6, day: 5, hour: 18, minute: 45 },
-    location: "Airship Vigilance - All Decks",
-    belligerents: {
-        side_a: { name: "Liberation Party", factions: ['liberated_toads'] },
-        side_b: { name: "X.O.'s Mutineers", factions: ['crimson_fleet'] }
-    },
-    commanders: { side_a: ["Archie", "Markop", "Dan"], side_b: ["X.O."] },
-    outcome: "victory",
-    outcomeDetail: "X.O. neutralized. Ship secured. Toad slaves discovered.",
-    casualties: { 
-        side_a: "Moderate - several wounded including Bowser", 
-        side_b: "Heavy - X.O. killed, most mutineers dead or captured" 
-    },
-    strategicValue: "critical",
-    description: `<p>The battle to retake the Vigilance from X.O.'s control was a turning point for what would become the Liberated Toads movement. When the party boarded the hijacked airship, they expected a simple rescue mission. What they found changed everything.</p>
-    <p>X.O., a former officer whose true allegiances remained murky, had seized the ship the previous day, taking Warlord Bowser captive in the process. Her motivations—whether personal vendetta, contract fulfillment, or ideological commitment—died with her in the final confrontation.</p>
-    <p>The battle raged across multiple decks. Dan the Toad, newly freed from slavery, proved instrumental in rallying other captive toads to the party's cause. His knowledge of the ship's layout and the mutineers' positions turned what could have been a grinding battle of attrition into a surgical strike.</p>
-    <p>In the aftermath, the party discovered the true horror of the Vigilance's purpose: it had been used as a mobile toad trafficking operation. Over 150 toads were found hidden throughout the ship, crammed into barrels and secret compartments, awaiting sale to various buyers including, disturbingly, the Iron Legion.</p>
-    <p><strong>Birth of a Movement:</strong> The liberation of the Vigilance's cargo created an instant constituency for toad rights. These freed toads, with nowhere else to go, became the founding members of the Liberated Toads faction. Dan's charisma and the party's combat prowess gave them a nucleus of leadership.</p>
-    <p><strong>Unresolved Questions:</strong> X.O.'s staff, which was later used to restore the ship's power, contained technology and magic beyond anything the party had encountered. Who supplied her? What was her true mission? The answers went to her grave.</p>`,
-    tacticalNotes: "Airship combat favors those who control the engine room and bridge. Securing these first should be priority.",
-    participatingCharacters: ['archie', 'markop', 'dan', 'bowser']
-},
-
-{
-    id: 'iron_sky_breach',
-    name: "The Iron Sky Breach",
-    conflict: "Vigilance Crew Incidents",
-    arc: 'raventree_manor',
-    date: { year: 1040, monthIndex: 6, day: 20, hour: 16, minute: 30 },
-    location: "Airship Vigilance - Skies Above Raventree",
-    belligerents: {
-        side_a: { name: "Vigilance Defenders", factions: ['liberated_toads'] },
-        side_b: { name: "Iron Legion Boarding Party", factions: ['iron_legion'] }
-    },
-    commanders: { side_a: ["Ryan", "Skeleton Crew"], side_b: ["Colonel Steelstorm"] },
-    outcome: "defeat",
-    outcomeDetail: "Vigilance captured. Ryan escaped via freefall. Crew detained.",
-    casualties: { 
-        side_a: "Total - ship and crew lost", 
-        side_b: "Minimal - surgical operation" 
-    },
-    strategicValue: "critical",
-    description: `<p>While the main party was trapped in Raventree Manor dealing with supernatural threats, the Iron Legion executed a perfectly coordinated assault on the Vigilance. The skeleton crew left to guard the ship never stood a chance.</p>
-    <p>Colonel Steelstorm, the Legion's premier tactical officer, led the boarding party personally. Legion skyhooks latched onto the Vigilance from three angles simultaneously, disgorging troops before the defenders could mount an organized response. The entire operation lasted less than fifteen minutes.</p>
-    <p>Ryan, one of the few toads to escape, made a desperate leap from the ship rather than face capture. His survival—via an improvised parachute and a fortuitous landing near a Rakasha encampment—was miraculous. The intelligence he carried about Legion movements and the ship's capture would prove valuable.</p>
-    <p><strong>Strategic Implications:</strong> The loss of the Vigilance was a devastating blow to the Liberated Toads. Their mobile base, their symbol of freedom, was now in enemy hands. The Legion immediately began exploiting the ship's records to identify and hunt down other freed toads.</p>
-    <p><strong>Parallel Operations:</strong> The timing of the assault—while the party was trapped in the manor—suggests the Legion had intelligence about their movements. The spy later revealed within the Liberated Toads organization may have provided this information.</p>`,
-    tacticalNotes: "Never leave a strategic asset lightly defended. The Legion exploits any weakness.",
-    participatingCharacters: ['ryan']
-},
-{
-    id: 'siege_of_bramblehaven',
-    name: "Siege of Bramblehaven",
-    conflict: "Mushroom Kingdom Civil War",
-    arc: 'mushroom_civil_war',
-    date: { year: 1040, monthIndex: 6, day: 17, hour: 12, minute: 0 },
-    location: "Bramblehaven Fortress",
-    belligerents: {
-        side_a: { name: "Peach Loyalists", factions: ['peach_loyalists'] },
-        side_b: { name: "Fawful's Forces", factions: ['fawfuls_furious_freaks'] }
-    },
-    commanders: { side_a: ["Cpt. Toadette", "Embercap"], side_b: ["Fawful Commander"] },
-    outcome: "victory",
-    outcomeDetail: "Town captured. Garrison executed. Strategic position secured.",
-    casualties: { 
-        side_a: "Heavy - estimated 180 killed, 60 wounded", 
-        side_b: "Total annihilation - no survivors" 
-    },
-    strategicValue: "critical",
-    description: `<p>The Siege of Bramblehaven represented the bloodiest single engagement of the current phase of the Mushroom Kingdom Civil War. Captain Toadette's Peach Loyalist forces, hardened by decades of guerrilla warfare and burning with zealous fury, descended upon the Fawful-held fortress with overwhelming force and absolutely no intention of taking prisoners.</p>
-    <p>The assault began with a pre-dawn bombardment using captured Fawful technology—an irony not lost on the defenders. As the walls crumbled, Loyalist shock troops poured through the breaches, engaging in brutal room-to-room combat with Fawful's robotic defenders and organic troops alike.</p>
-    <p>Embercap's prior intelligence, gathered at the cost of operative Jade Grit's life during a gala infiltration, proved invaluable. The Loyalists knew which corridors to avoid, which automated defenses had blind spots, and where the command center was located.</p>
-    <p>What transformed the battle into a massacre was Toadette's explicit "no quarter" order. Surrendering Fawful troops were executed on the spot. Wounded enemies were finished off rather than captured. When the fighting ended, not a single defender remained alive.</p>
-    <p><strong>War Crimes Investigation:</strong> The Regal Empire has opened a formal inquiry into the Bramblehaven massacre. The Loyalists' response has been characteristically defiant: they consider themselves already at war with the established order and reject its legal authority.</p>
-    <p><strong>Strategic Aftermath:</strong> Bramblehaven's fall cuts Fawful's northern supply lines and provides the Loyalists with intelligence on his technological capabilities. However, the brutality has alienated potential allies and strengthened Fawful's narrative of fighting against "murderous fanatics."</p>`,
-    tacticalNotes: "Loyalist forces fight with religious fervor. Expect no mercy and plan for asymmetric commitment.",
-    participatingCharacters: ['captain_toadette', 'embercap']
-},
     {
         id: 'skirmish_at_gilded_octopus',
         name: "Skirmish at the Gilded Octopus",
@@ -526,6 +438,26 @@ export const MAJOR_BATTLES = [
         description: `<p>A chaotic extraction mission went sideways when Legion forces cornered the party in an upscale restaurant. Archie's creative use of the kitchen's contents allowed the crew to escape.</p>`,
         tacticalNotes: "Urban environments favor the outnumbered but creative.",
         participatingCharacters: ['archie']
+    },
+    {
+        id: 'democratic_summit_incident',
+        name: "The Democratic Summit Disaster",
+        conflict: "DK Island Conflicts",
+        arc: 'kong_kremling_cold_war',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 10, minute: 0 },
+        location: "Democratic Summit Hall, Neutral Territory",
+        belligerents: {
+            side_a: { name: "DK Crew Delegation", factions: ['dk_crew'] },
+            side_b: { name: "International Observers", factions: ['mushroom_regency', 'regal_empire'] }
+        },
+        commanders: { side_a: ["Lanky Kong (Acting Delegate)"], side_b: ["Various Diplomats"] },
+        outcome: "defeat",
+        outcomeDetail: "Diplomatic catastrophe. Economic sanctions threatened. DK Crew fractured.",
+        casualties: { side_a: "Political credibility destroyed", side_b: "None physical; severe diplomatic damage" },
+        strategicValue: "high",
+        description: `<p>The Democratic Summit was intended to normalize relations between the DK Crew and the broader international community. Instead, it became a case study in diplomatic failure when Lanky Kong, substituting for the absent Donkey Kong, engaged in behavior so bizarre that multiple delegations walked out.</p>`,
+        tacticalNotes: "Never send Lanky Kong to a diplomatic function. This should have been obvious.",
+        participatingCharacters: ['donkey_kong']
     },
     {
         id: 'toad_town_coup',
@@ -548,6 +480,32 @@ export const MAJOR_BATTLES = [
         participatingCharacters: ['captain_toadette', 'toadsworth']
     },
     {
+        id: 'tea_party_massacre',
+        name: "The Tea Party Massacre",
+        conflict: "Underworld Conflicts",
+        arc: 'capital_intrigue',
+        date: { year: 1040, monthIndex: 6, day: 9, hour: 20, minute: 0 },
+        location: "Abandoned Warehouse, Midlands Slums",
+        belligerents: {
+            side_a: { name: "Archie Miser (Solo)", factions: [] },
+            side_b: { name: "Tea Leaf Syndicate", factions: ['tea_leaf_syndicate'] },
+            side_c: { name: "Iron Legion Response Team", factions: ['iron_legion'] }
+        },
+        commanders: { side_a: ["Archie Miser"], side_b: ["Green T", "Earl Grey"], side_c: ["Legion Rapid Response"] },
+        outcome: "victory",
+        outcomeDetail: "Syndicate leadership annihilated. Archie escaped. Legion arrived too late.",
+        casualties: { 
+            side_a: "None", 
+            side_b: "Catastrophic - 47 confirmed dead including most leadership", 
+            side_c: "Unknown - arrived after primary engagement" 
+        },
+        strategicValue: "medium",
+        description: `<p>What was intended as a negotiation meeting between Archie Miser and the Tea Leaf Syndicate devolved into one of the bloodiest single incidents in Midlands underworld history. The exact sequence of events remains disputed, but the outcome is not: nearly fifty people died in under three minutes.</p>
+        <p>When someone—accounts differ on who—pressed a panic button, chaos erupted. Syndicate enforcers drew weapons, Legion agents burst through the doors, and Archie, feeling cornered, unleashed a high-level Fireball spell directly into the center of the room.</p>`,
+        tacticalNotes: "Fireball spells in enclosed spaces with flammable materials create exponentially more destruction. Archie has demonstrated a pattern of excessive force.",
+        participatingCharacters: ['archie']
+    },
+    {
         id: 'fawfuls_seizure_of_castle',
         name: "Fawful Seizes Peach's Castle",
         conflict: "Mushroom Kingdom Civil War",
@@ -566,27 +524,6 @@ export const MAJOR_BATTLES = [
         description: `<p>Fawful launched a surprise attack using high-tech weaponry and robotic minions. Captain Toad's conventional defenses were overwhelmed within hours.</p>`,
         tacticalNotes: "Fawful's technology is highly advanced but has specific weaknesses.",
         participatingCharacters: ['fawful', 'captain_toad']
-    },
-    {
-        id: 'tea_party_incident',
-        name: "The 'Tea Party' Incident",
-        conflict: "Underworld Conflicts",
-        arc: 'capital_intrigue',
-        date: { year: 1040, monthIndex: 6, day: 9, hour: 20, minute: 0 },
-        location: "Midlands Slums - Abandoned Warehouse",
-        belligerents: {
-            side_a: { name: "Archie (Solo)", factions: [] },
-            side_b: { name: "Tea Leaf Syndicate", factions: ['tea_leaf_syndicate'] },
-            side_c: { name: "Iron Legion", factions: ['iron_legion'] }
-        },
-        commanders: { side_a: ["Archie"], side_b: ["Green T"], side_c: ["Unknown"] },
-        outcome: "victory",
-        outcomeDetail: "Syndicate crippled. Green T presumed dead.",
-        casualties: { side_a: "None", side_b: "Massive - organization destroyed", side_c: "Unknown" },
-        strategicValue: "medium",
-        description: `<p>A negotiation meeting turned into a massacre when Archie unleashed a high-level Fireball spell. The Tea Leaf Syndicate's leadership was incinerated instantly.</p>`,
-        tacticalNotes: "Archie should not be allowed into negotiations unsupervised.",
-        participatingCharacters: ['archie']
     },
     {
         id: 'the_syrup_schism',
@@ -609,6 +546,31 @@ export const MAJOR_BATTLES = [
         participatingCharacters: ['markop', 'captain_syrup']
     },
     {
+        id: 'vigilance_liberation',
+        name: "The Liberation of the Vigilance",
+        conflict: "Vigilance Crew Incidents",
+        arc: 'vigilance_saga',
+        date: { year: 1040, monthIndex: 6, day: 5, hour: 18, minute: 45 },
+        location: "Airship Vigilance - All Decks",
+        belligerents: {
+            side_a: { name: "Liberation Party", factions: ['liberated_toads'] },
+            side_b: { name: "X.O.'s Mutineers", factions: ['crimson_fleet'] }
+        },
+        commanders: { side_a: ["Archie", "Markop", "Dan"], side_b: ["X.O."] },
+        outcome: "victory",
+        outcomeDetail: "X.O. neutralized. Ship secured. Toad slaves discovered.",
+        casualties: { 
+            side_a: "Moderate - several wounded including Bowser", 
+            side_b: "Heavy - X.O. killed, most mutineers dead or captured" 
+        },
+        strategicValue: "critical",
+        description: `<p>The battle to retake the Vigilance from X.O.'s control was a turning point for what would become the Liberated Toads movement. When the party boarded the hijacked airship, they expected a simple rescue mission. What they found changed everything.</p>
+        <p>X.O., a former officer whose true allegiances remained murky, had seized the ship the previous day, taking Warlord Bowser captive in the process. Her motivations—whether personal vendetta, contract fulfillment, or ideological commitment—died with her in the final confrontation.</p>
+        <p>The battle raged across multiple decks. Dan the Toad, newly freed from slavery, proved instrumental in rallying other captive toads to the party's cause. His knowledge of the ship's layout and the mutineers' positions turned what could have been a grinding battle of attrition into a surgical strike.</p>`,
+        tacticalNotes: "Airship combat favors those who control the engine room and bridge. Securing these first should be priority.",
+        participatingCharacters: ['archie', 'markop', 'dan', 'bowser']
+    },
+    {
         id: 'battle_for_the_vigilance',
         name: "Battle for the Vigilance",
         conflict: "Vigilance Crew Incidents",
@@ -627,6 +589,26 @@ export const MAJOR_BATTLES = [
         description: `<p>The party fought to retake the ship from hijackers led by the mysterious X.O. The battle was fierce but ultimately successful, establishing the party's control over the Vigilance.</p>`,
         tacticalNotes: "Shipboard combat favors those who know the vessel's layout.",
         participatingCharacters: ['archie', 'markop', 'hjumpik']
+    },
+    {
+        id: 'battle_of_ignis_peak',
+        name: "Battle of Ignis Peak",
+        conflict: "Early Party Adventures",
+        arc: null,
+        date: { year: 1040, monthIndex: 6, day: 1, hour: 14, minute: 0 },
+        location: "Northern Mountains - Ignis Peak",
+        belligerents: {
+            side_a: { name: "Adventuring Party", factions: [] },
+            side_b: { name: "Dragon 'Ignis'", factions: ['unaligned'] }
+        },
+        commanders: { side_a: ["Archie", "Markop"], side_b: ["Ignis the Red"] },
+        outcome: "victory",
+        outcomeDetail: "Dragon slain. Hoard claimed.",
+        casualties: { side_a: "Minor injuries", side_b: "Dragon killed" },
+        strategicValue: "low",
+        description: `<p>The party hunted and killed a dragon terrorizing the northern trade routes. The battle was surprisingly one-sided, with Archie's fire immunity proving crucial against the fire-breathing beast.</p>`,
+        tacticalNotes: "Fire-based dragons are vulnerable to their own element being resisted.",
+        participatingCharacters: ['archie', 'markop']
     },
     {
         id: 'koopa_remnant_scuffles',
@@ -649,6 +631,26 @@ export const MAJOR_BATTLES = [
         participatingCharacters: ['kamek']
     },
     {
+        id: 'rise_of_iron_legion',
+        name: "The Iron Consolidation",
+        conflict: "Midlands Power Struggles",
+        arc: null,
+        date: { year: 1035, monthIndex: 6, day: 1, hour: 12, minute: 0 },
+        location: "Midlands - Multiple Sites",
+        belligerents: {
+            side_a: { name: "Iron Legion", factions: ['iron_legion'] },
+            side_b: { name: "Rival Mercenary Companies", factions: ['unaligned'] }
+        },
+        commanders: { side_a: ["The Iron Council"], side_b: ["Various Captains"] },
+        outcome: "victory",
+        outcomeDetail: "Iron Legion achieves regional dominance. Rivals absorbed or destroyed.",
+        casualties: { side_a: "Moderate", side_b: "Catastrophic - most companies eliminated" },
+        strategicValue: "historical",
+        description: `<p>Over the course of a single bloody year, the Iron Legion transformed from one of many mercenary companies in the Midlands to the undisputed military power of the region. Through a combination of superior tactics, ruthless efficiency, and strategic marriages into noble houses, they eliminated or absorbed every significant rival.</p>`,
+        tacticalNotes: "The Legion's intelligence apparatus was their true weapon. Military action was merely the final step in campaigns decided by information warfare.",
+        participatingCharacters: []
+    },
+    {
         id: 'battle_of_bobomb_field',
         name: "Battle of Bob-omb Battlefield",
         conflict: "Second Koopa War",
@@ -667,6 +669,27 @@ export const MAJOR_BATTLES = [
         description: `<p>A massive artillery exchange destroyed the region entirely. Both sides suffered catastrophic losses, and the battlefield remains a scarred wasteland to this day.</p>`,
         tacticalNotes: "This battle demonstrates the futility of total war.",
         participatingCharacters: ['bowser']
+    },
+    {
+        id: 'first_koopa_war_climax',
+        name: "The Siege of Koopa Keep",
+        conflict: "The First Koopa War",
+        arc: 'mushroom_civil_war',
+        date: { year: 1000, monthIndex: 8, day: 15, hour: 6, minute: 0 },
+        location: "Koopa Keep - Dark Land",
+        belligerents: {
+            side_a: { name: "Mushroom Alliance", factions: ['mushroom_regency'] },
+            side_b: { name: "Koopa Troop", factions: ['koopa_troop'] }
+        },
+        commanders: { side_a: ["General Toadsworth Sr."], side_b: ["Bowser", "Kamek"] },
+        outcome: "stalemate",
+        outcomeDetail: "Siege broken. Armistice signed. Borders established.",
+        casualties: { side_a: "Heavy - 40% of siege force", side_b: "Moderate - civilian population displaced" },
+        strategicValue: "historical",
+        description: `<p>The climactic battle of the First Koopa War saw the Mushroom Alliance's greatest army arrayed against Bowser's fortress homeland. For three months, the siege ground on, with neither side able to achieve decisive victory.</p>
+        <p>The siege was finally broken not by military action but by exhaustion. Both sides had bled themselves white. The resulting armistice established the borders that would hold for decades—until Princess Peach's assassination shattered the peace.</p>`,
+        tacticalNotes: "Kamek's weather manipulation spells proved decisive in breaking multiple assault attempts. Anti-magic units became a priority after this engagement.",
+        participatingCharacters: ['bowser', 'kamek', 'toadsworth']
     },
     {
         id: 'bowsers_first_invasion',
@@ -689,24 +712,25 @@ export const MAJOR_BATTLES = [
         participatingCharacters: ['bowser', 'princess_peach']
     },
     {
-        id: 'battle_of_ignis_peak',
-        name: "Battle of Ignis Peak",
-        conflict: "Early Party Adventures",
-        arc: null,
-        date: { year: 1040, monthIndex: 6, day: 1, hour: 14, minute: 0 },
-        location: "Northern Mountains - Ignis Peak",
+        id: 'assassination_of_peach',
+        name: "The Assassination of Princess Peach",
+        conflict: "Mushroom Kingdom Civil War",
+        arc: 'mushroom_civil_war',
+        date: { year: 955, monthIndex: 6, day: 1, hour: 14, minute: 0 },
+        location: "Peach's Castle - Royal Chambers",
         belligerents: {
-            side_a: { name: "Adventuring Party", factions: [] },
-            side_b: { name: "Dragon 'Ignis'", factions: ['unaligned'] }
+            side_a: { name: "Royal Guard", factions: ['mushroom_regency'] },
+            side_b: { name: "Unknown Assassins", factions: ['unaligned'] }
         },
-        commanders: { side_a: ["Archie", "Markop"], side_b: ["Ignis the Red"] },
-        outcome: "victory",
-        outcomeDetail: "Dragon slain. Hoard claimed.",
-        casualties: { side_a: "Minor injuries", side_b: "Dragon killed" },
-        strategicValue: "low",
-        description: `<p>The party hunted and killed a dragon terrorizing the northern trade routes. The battle was surprisingly one-sided, with Archie's fire immunity proving crucial against the fire-breathing beast.</p>`,
-        tacticalNotes: "Fire-based dragons are vulnerable to their own element being resisted.",
-        participatingCharacters: ['archie', 'markop']
+        commanders: { side_a: ["Captain of the Guard"], side_b: ["Unknown"] },
+        outcome: "defeat",
+        outcomeDetail: "Princess Peach killed. Assassins escaped. Kingdom shattered.",
+        casualties: { side_a: "Princess Peach, 3 Royal Guards", side_b: "Unknown - presumed minimal" },
+        strategicValue: "historical",
+        description: `<p>The single most consequential act of violence in Mushroom Kingdom history. Princess Peach was found dead in her royal chambers under circumstances that remain disputed to this day. The official investigation was compromised within hours as various factions moved to secure power.</p>
+        <p>Chief Thornpaw of the Rakasha Clans, who would later reveal he had been in a secret relationship with the Princess, discovered evidence of a hidden hatch in her room during a gala infiltration 85 years later—suggesting the assassins had intimate knowledge of the castle's secret passages.</p>`,
+        tacticalNotes: "The castle's secret passages were never fully mapped. This intelligence gap contributed to the assassination's success.",
+        participatingCharacters: ['princess_peach']
     }
 ];
 

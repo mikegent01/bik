@@ -2,7 +2,357 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
-// --- EPISODE VII: THE CHEEP-CHEEP TREATY & FESTIVAL OF THE FALLEN ---
+
+    // ========================================================================
+    // DRAGON MOUNTAIN: THE TRUTH (Day 21 - Morning)
+    // ========================================================================
+    {
+        id: 'robinson_dragon_lies',
+        order: 32100,
+        characterKey: 'robinson',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 9, minute: 45 },
+        timestamp: '10 hours ago',
+        content: `The Dragon keeps changing its story. First it wants me to babysit, then it wants to open the mountain? It's improvising. It's scared. Why would a dragon be scared of me?`,
+        likes: 5,
+        comments: [],
+        rumorId: 'dragon_conspiracy_revealed'
+    },
+    {
+        id: 'robinson_sonic_frequency',
+        order: 32105,
+        characterKey: 'robinson',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 10, minute: 0 },
+        timestamp: '9 hours 45 minutes ago',
+        content: `It told me. The war is fake. The Empire has a sound—a frequency. It paralyzes them. They aren't enemies; they're slaves. And they've been spying on Markop. My son... what have they done to you?`,
+        likes: 12,
+        comments: [
+            { characterKey: 'markop', text: 'Dad?! Hold on, I\'m coming!' }
+        ],
+        rumorId: 'dragon_conspiracy_revealed'
+    },
+    {
+        id: 'iron_brigade_horn',
+        order: 32110,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 10, minute: 10 },
+        timestamp: '9 hours 30 minutes ago',
+        content: `Asset retrieval initiated. Sonic Horn deployed. Target 'Ignis-Major' is grounded and immobile. Loading for transport to Aegis Command.`,
+        likes: 340,
+        comments: [],
+        rumorId: 'dragon_conspiracy_revealed'
+    },
+
+    // ========================================================================
+    // AEGIS COMMAND: THE INFILTRATION (Day 21 - Early Afternoon)
+    // ========================================================================
+    {
+        id: 'bones_disguise_check',
+        order: 32115,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 30 },
+        timestamp: '6 hours ago',
+        content: `Two guards just spotted me. One healed me? Said I looked "rough from training." The other is taking me to the interrogation room. If this works, I'm the greatest spy who ever lived. If not... well, it was a good run.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'creek', text: 'Don\'t get cocky. Get the intel.' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'bones_mistaken_identity',
+        order: 32120,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 40 },
+        timestamp: '5 hours 50 minutes ago',
+        content: `There's an old man in the interrogation room. Thought it was Big T for a second. Nope. Just some civilian caught in the net. Wrenchy is here too. This is getting crowded.`,
+        likes: 420,
+        comments: [],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'legion_cult_doctrine_leak',
+        order: 32125,
+        characterKey: 'iron_legion_spy', // Watching the interrogation
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 },
+        timestamp: '5 hours 30 minutes ago',
+        content: `Interrogating the Toad Prisoner. He's reciting poetry instead of intel. "Mending the Fractured Heart." "CONTAIN, ACCOUNT, RESTORE, ADHERE." This isn't a militia; it's a religious movement.`,
+        likes: 150,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Fanaticism makes them predictable.' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'bones_interrogates_decoy',
+        order: 32130,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 10 },
+        timestamp: '5 hours 20 minutes ago',
+        content: `I'm questioning "Speaker L." He says he wants to scrap the airship for housing? And he says he turned green because he ate a poison mushroom? This guy is lying through his teeth. Or he's an idiot. Or both.`,
+        likes: 670,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Green? Speaker L is not green. ABORT!' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'green_decoy_post',
+        order: 32135,
+        characterKey: 'green_speaker_l_decoy',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 15 },
+        timestamp: '5 hours 15 minutes ago',
+        content: `The squishy head makes me smarter. I will be King. I will form my own nation. The Fractured Heart demands it.`,
+        likes: 33,
+        comments: [
+            { characterKey: 'the_mole', text: 'Strike one. Stick to the script.' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+
+    // ========================================================================
+    // AEGIS COMMAND: THE MASSACRE (Day 21 - Late Afternoon)
+    // ========================================================================
+    {
+        id: 'creek_acid_defense',
+        order: 32140,
+        characterKey: 'creek',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 25 },
+        timestamp: '5 hours ago',
+        content: `THEY KNOW! IRONHAND IS HERE! HE STABBED BONES! I threw the acid—the soldier melted! We're trapped!`,
+        likes: 890,
+        comments: [
+            { characterKey: 'iron_legion_commando', text: 'My arm! It burns! Kill the green one!' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'bones_stabbed_update',
+        order: 32145,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 28 },
+        timestamp: '4 hours 58 minutes ago',
+        content: `Stabbed. Chest. Hurts less than you'd think. Can't breathe right. Ironhand... ripped my mask off. He knows.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'skull_cap_murphy', text: 'Don\'t die, you idiot! Fight!' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'fake_archie_reveal',
+        order: 32150,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+        timestamp: '4 hours 55 minutes ago',
+        content: `We brought in the prisoner identified as 'Archie Miser.' Turns out it's just a regular toad in armor. He says, "They just took my eye." We have been chasing ghosts.`,
+        likes: 560,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'Enough games.' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+    {
+        id: 'order_120_issued',
+        order: 32155,
+        characterKey: 'general_marcus_ironhand',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 32 },
+        timestamp: '4 hours 53 minutes ago',
+        content: `Toads throwing acid. Vigilantes infiltrating my command. Decoys mocking Imperial justice. I am done sorting them. ACTIVE ORDER 120: EXECUTE THEM ALL.`,
+        likes: 6500,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Understood, General. Firing squads are assembling.' },
+            { characterKey: 'toad_lee', text: 'THIS IS A WAR CRIME!' }
+        ],
+        rumorId: 'aegis_command_massacre'
+    },
+
+    // ========================================================================
+    // RAVENTREE MANOR: THE LEAD UP (Day 21 - Evening)
+    // ========================================================================
+    {
+        id: 'oracle_ritual_explanation',
+        order: 32160,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 0 },
+        timestamp: '1 hour 50 minutes ago',
+        content: `Active and Passive. Essence and Geometry. The ritual requires opposing signs. We must omit the sign of our realm. It is simple, really. Why does everyone look so confused?`,
+        likes: 800,
+        comments: [
+            { characterKey: 'humpik', text: 'Too many fancy words. Just say "Smash the bad thing."' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'humpik_notices_tell',
+        order: 32165,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 15 },
+        timestamp: '1 hour 35 minutes ago',
+        content: `The Oracle scratches his head when he talks about the Mages. He says they are trespassers. He is lying. He invited them. Or he can't stop them.`,
+        likes: 670,
+        comments: [
+            { characterKey: 'bowser', text: 'If he\'s lying, I roast him.' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'oracle_spirit_refusal',
+        order: 32170,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 20 },
+        timestamp: '1 hour 30 minutes ago',
+        content: `He spoke to a spirit in the weird language. The spirit said "No." Said "Last monster, no more aid." We are on our own.`,
+        likes: 500,
+        comments: [],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'ghost_in_hallway',
+        order: 32175,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 45 },
+        timestamp: '1 hour 5 minutes ago',
+        content: `A ghost just walked past me in the hallway. The Oracle pretended not to see it. "What ghost?" he says. I HAVE EYES, SPOOKY MAN!`,
+        likes: 890,
+        comments: [
+            { characterKey: 'bowser', text: 'Showtime.' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+
+    // ========================================================================
+    // RAVENTREE MANOR: THE WRAITH BATTLE (Day 21 - Night)
+    // ========================================================================
+    {
+        id: 'battle_ambush_fail',
+        order: 32180,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 0 },
+        timestamp: '50 minutes ago',
+        content: `We tried to ambush it. It ambushed us. Slammed a toad into the wall before we even drew weapons. This thing is fast. And it's on fire.`,
+        likes: 450,
+        comments: [],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'archie_failed_icicle',
+        order: 32185,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 5 },
+        timestamp: '45 minutes ago',
+        content: `Came out of the closet (literally) to blast it. Ice spike melted mid-air. The heat coming off this thing is insane. Need to focus.`,
+        likes: 670,
+        comments: [
+            { characterKey: 'humpik', text: 'Don\'t worry Archie! We got this!' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'bowser_punch_absorb',
+        order: 32190,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 10 },
+        timestamp: '40 minutes ago',
+        content: `I PUNCHED IT AND IT LAUGHED! It absorbed the force! How dare you absorb the King's fist?!`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'toad_lee', text: 'It feeds on kinetic energy! Stop hitting it!' },
+            { characterKey: 'bowser', text: 'NEVER!' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'pernus_entrance',
+        order: 32195,
+        characterKey: 'pernus_annmatar', // Mages Guild
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 15 },
+        timestamp: '35 minutes ago',
+        content: `A marvelous struggle! The raw desperation is palpable! Welcome to the show, my little combatants! Let's make this interesting!`,
+        likes: 20,
+        comments: [
+            { characterKey: 'toad_lee', text: 'He\'s flying through the door! It\'s the Guild!' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'bowser_possessed',
+        order: 32200,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 20 },
+        timestamp: '30 minutes ago',
+        content: `GET OUT OF MY HEAD! GET OUT OF MY BODY! NO ONE DRIVES THE BOWSER BUS BUT BOWSER!`,
+        likes: 2500,
+        comments: [
+            { characterKey: 'humpik', text: 'Stop being scared! It\'s just a ghost in a suit!' },
+            { characterKey: 'bowser', text: 'THE SUIT MAKES IT SCARIER!' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'dan_javelin_throw',
+        order: 32205,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 22 },
+        timestamp: '28 minutes ago',
+        content: `Toad Lee handed me a javelin. One arm is all I need. Landed a hit right in the core.`,
+        likes: 900,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'Adapt. Overcome. Well done.' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'archie_clarity_moment',
+        order: 32210,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 25 },
+        timestamp: '25 minutes ago',
+        content: `Breathe. Focus. Not fire. Ice. Absolute zero. *SNAP*`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'mages_guild_envoy', text: 'A Class-4 Cryo-Blast? Impressive control.' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'bowser_red_underwear',
+        order: 32215,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 28 },
+        timestamp: '22 minutes ago',
+        content: `The Wizard tried to steal my kill! I tripped him! HA! Saw right up his robe! RED UNDERWEAR! BRIGHT RED! BWAHAHAHA!`,
+        likes: 5000,
+        comments: [
+            { characterKey: 'pernus_annmatar', text: 'THIS IS LIBEL! DELETE THIS!' },
+            { characterKey: 'humpik', text: 'I saw it too. Very red.' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'humpik_legion_standoff',
+        order: 32220,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 30 },
+        timestamp: '20 minutes ago',
+        content: `The spy lady wanted to jump in. Bowser said "My Fight." She backed off. She is smart. The Mage was not smart.`,
+        likes: 700,
+        comments: [],
+        rumorId: 'wraith_banishment'
+    },
+    {
+        id: 'oracle_banish_clap',
+        order: 32225,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 32 },
+        timestamp: '18 minutes ago',
+        content: `The audience has had their fun. The wraith is banished. Archie, collect your ectoplasm. We are not done. To the Summoning Room. Now.`,
+        likes: 1100,
+        comments: [
+            { characterKey: 'archie', text: 'Gross. But valuable.' }
+        ],
+        rumorId: 'wraith_banishment'
+    },
+    // --- EPISODE VII: THE CHEEP-CHEEP TREATY & FESTIVAL OF THE FALLEN ---
 
     // [Noon - The Jump]
     {

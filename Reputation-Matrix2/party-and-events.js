@@ -17,6 +17,60 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
 {
+        id: 'dragon_conspiracy_revealed',
+        title: "The Dragon Conspiracy",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'robinson',
+        arc: 'dragon_mountain',
+        arcPosition: 'climax',
+        description: "A shocking revelation from Dragon Mountain: Robinson (Markop's father) has uncovered that the war between Dragons and the Regal Empire is a fabrication. The Empire utilizes sonic frequencies to paralyze and control dragons, forcing them into servitude as spies. Both Robinson and the paralyzed dragon 'Ignis-Major' were captured by the Iron Legion and transported to Aegis Command.",
+        targets: ['robinson', 'markop', 'iron_legion'],
+        effects: {
+            regal_empire: -20,
+            iron_legion: -10,
+            rebel_clans: 15,
+            cosmic_jesters: 10
+        },
+        cycle_impact: { score: 2.5, label: "False Flag Operation", type: "political" }
+    },
+    {
+        id: 'aegis_command_massacre',
+        title: "Massacre at Aegis Command",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'bones',
+        arc: 'toad_liberation',
+        arcPosition: 'climax',
+        description: "A daring infiltration of the Iron Legion's Aegis Command fortress ended in disaster. The operative Bones, disguised as a guard, discovered that the captured 'Speaker L' was a decoy. His cover was blown by General Marcus Ironhand, resulting in Bones being critically stabbed and the issuance of 'Order 120': the immediate execution of all Toad prisoners. The incident also involved the use of acid by the Toad commando Creek against Legion personnel.",
+        targets: ['bones', 'creek', 'speaker_l', 'general_marcus_ironhand'],
+        effects: {
+            liberated_toads: -30,
+            iron_legion: 20,
+            the_unchained: -15,
+            silver_flame: -5
+        },
+        cycle_impact: { score: 2.0, label: "Failed Rescue", type: "military" }
+    },
+    {
+        id: 'wraith_banishment',
+        title: "Banishment of the Arcane Wraith",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'bowser',
+        arc: 'raventree_manor',
+        arcPosition: 'climax',
+        description: "The supernatural threat at Raventree Manor escalated into a three-way brawl involving the party, an Arcane Wraith, and interference from the Mages' Guild. Bowser physically assaulted the ghost (and a Guild Mage), while Dan fought with one arm and Archie demonstrated precise Ice magic control. The Oracle successfully banished the entity, securing ectoplasm for the party and humiliating the Guild representative Pernus Annmatar.",
+        targets: ['bowser', 'dan', 'archie', 'humpik', 'self_reflection_oracle'],
+        effects: {
+            mages_guild: -15,
+            raventree_curse: -20,
+            vigilance_crew: 10,
+            cosmic_jesters: 5
+        },
+        cycle_impact: { score: 1.5, label: "Supernatural Containment", type: "magic" }
+    },
+    {
         id: 'cheep_cheep_treaty',
         title: "The Cheep-Cheep Treaty",
         date: { day: 22, monthIndex: 6, year: 1040 },

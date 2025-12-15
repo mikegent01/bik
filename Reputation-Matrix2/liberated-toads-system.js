@@ -653,14 +653,56 @@ const VOTING_SYSTEM = {
     
     active_votes: [
         {
+            id: "V-2021-002", // Updated ID
+            title: "CRISIS RESPONSE: ORDER 120",
+            type: "emergency",
+            status: "active",
+            proposed_by: "Captain Fernback", // Speaker L is missing/decoy
+            proposed_date: { day: 21, monthIndex: 6, year: 1040, hour: 14, minute: 45 },
+            deadline: { day: 21, monthIndex: 6, year: 1040, hour: 15, minute: 45 },
+            description: "General Ironhand has issued 'Order 120': The immediate execution of all Toad prisoners at Aegis Command. Bones is confirmed among them, critically wounded. The 'Speaker L' in custody is confirmed to be a decoy.",
+            background: "We have less than an hour before executions begin. The infiltration team (Creek) is pinned down.",
+            options: [
+                { 
+                    id: "A", 
+                    text: "Suicide Assault - Throw everything at Aegis Command immediately", 
+                    votes: 2, 
+                    voters: ["Warden Thornshell", "Captain Fernback"],
+                    pros: ["Only chance to save them", "Honor"],
+                    cons: ["Likely total faction wipeout", "Aegis is a fortress"]
+                },
+                { 
+                    id: "B", 
+                    text: "The Humpik Bargain - Use the Oracle as leverage (Humpik's connection)", 
+                    votes: 1, 
+                    voters: ["Forgemaster Ironspore"],
+                    pros: ["Diplomatic leverage", "High value trade"],
+                    cons: ["Requires Humpik's cooperation", "Betrays the Oracle"]
+                },
+                { 
+                    id: "C", 
+                    text: "Distraction Strike - Hit a different target to draw forces away", 
+                    votes: 1, 
+                    voters: ["Scribe Dewdrop"],
+                    pros: ["Lower risk", "Strategic"],
+                    cons: ["Might not stop executions in time"]
+                }
+            ],
+            speaker_recommendation: null, // Speaker L is missing
+            speaker_statement: "SPEAKER ABSENT. CAPTAIN FERNBACK ASSUMING TEMPORARY COMMAND.",
+            quorum_required: 4,
+            current_quorum: 4,
+            notes: "Situation critical. Bones life signs fading."
+        },        
+        {
             id: "V-2021-001",
             title: "Response to the Iron Mandate",
             type: "emergency",
-            status: "active",
-            proposed_by: "Speaker L",
+            status: "suspended",
+            proposed_by: "Speaker L (Decoy?)",
             proposed_date: { day: 21, monthIndex: 6, year: 1040, hour: 10, minute: 0 },
             deadline: { day: 21, monthIndex: 6, year: 1040, hour: 11, minute: 0 },
-            description: "The Midlands Diet has passed the Iron Mandate (28-8-3), granting the Iron Legion emergency powers to purge supernatural threats. As the Liberated Toads are now classified as an 'organized supernatural entity' due to our magical members, we must determine our response.",
+            description: "Suspended due to active combat scenario (Order 120).",
             background: "Speaker Rivers resigned in protest. Legion patrols are mobilizing immediately. We have perhaps hours before they reach our position.",
             options: [
                 { 
@@ -697,10 +739,10 @@ const VOTING_SYSTEM = {
                 }
             ],
             speaker_recommendation: "D",
-            speaker_statement: "I will not invoke emergency decree. This decision affects all of us. But I believe withdrawal preserves what we have built while we assess our options.",
+            speaker_statement: "Vote suspended.",
             quorum_required: 4,
-            current_quorum: 6,
-            notes: "The Scout seat remains vacant due to The Mole's betrayal."
+            current_quorum: 0,
+            notes: "Superseded by V-2021-002"
         },
         {
             id: "V-2021-002",
@@ -898,25 +940,39 @@ const ACCOUNTABILITY_DOCKET = {
             added: "Day 18",
             speaker_note: "The purple one is chaos incarnate. Approach with extreme caution."
         },
-        { 
+                { 
             name: "Dan", 
             id: "dan_docket",
-            status: "in_custody_medical",
+            status: "probationary_active", // Updated
             priority: "low",
             portrait: "🐸⚔️",
             crimes: [
-                "Unstable Hand - Magic Endangerment of the Cohort",
-                "Unauthorized magical experimentation"
+                "Unstable Hand - Magic Endangerment",
             ],
-            evidence: [
-                "Witness accounts of magical incidents",
-                "Residual magical contamination"
-            ],
-            notes: "Currently catatonic and under medical care in the Menders' ward. Psychological trauma from Shadeward Mansion events. Cannot be questioned or held accountable in current state.",
-            last_seen: "Day 20 - Medical bay, Vigilance",
+            evidence: ["Witness accounts"],
+            notes: "Returned to active duty during Wraith attack despite injuries. Demonstrated control and loyalty. Charges suspended pending review.",
+            last_seen: "Day 21 - Raventree Manor (Combat)",
             bounty: null,
             added: "Day 18",
-            speaker_note: "Dan gave everything for us. His mind broke in our service. He is victim as much as offender."
+            speaker_note: "His spirit is unbroken. He fights for us still."
+        },
+        { 
+            name: "Green Decoy (Unknown ID)", 
+            id: "green_decoy",
+            status: "captured_by_legion",
+            priority: "medium",
+            portrait: "🐸🟢",
+            crimes: [
+                "Impersonating an Officer",
+                "Spreading False Doctrine ('The Fractured Heart')",
+                "Endangering the Cohort"
+            ],
+            evidence: ["Interrogation logs from Bones"],
+            notes: "Toad claiming to be Speaker L. Captured by Legion. Claimed skin turned green from mushrooms. Spouting cult rhetoric.",
+            last_seen: "Day 21 - Aegis Command Interrogation Room",
+            bounty: null,
+            added: "Day 21",
+            speaker_note: "Who is this impostor? And who taught him our codes?"
         },
         { 
             name: "Eager", 
@@ -1206,28 +1262,28 @@ const CLASS_DEFINITIONS = {
 // ========================================
 
 const CORE_TOADS = {
-    dan: {
+       dan: {
         id: "dan",
         name: "Dan",
         title: "The Faithful",
         class: "paladin",
         subclass: "Oath of Devotion",
-        weapon: "Longsword & Shield",
-        status: "Catatonic",
-        statusType: "critical",
-        statusDetail: "Psychological trauma from Shadeward Mansion events",
+        weapon: "Longsword (Left Hand)", // Updated
+        status: "Active - Injured", // Updated from Catatonic
+        statusType: "injured",
+        statusDetail: "Missing right arm, recovering from trauma",
         portrait: "🐸⚔️",
         isCore: true,
         cohort: null,
         rank: "Hero of the Liberation",
         
         level: 5,
-        xp: 1850,
+        xp: 2050, // Updated XP
         
         stats: {
             str: 16, dex: 10, con: 14, int: 10, wis: 13, cha: 17,
-            hp: 12, maxHp: 52,
-            ac: 18, speed: 30,
+            hp: 28, maxHp: 52, // Recovered some HP
+            ac: 16, speed: 30, // Lowered AC (no shield/off-hand)
             proficiency: 3
         },
         
@@ -1235,11 +1291,11 @@ const CORE_TOADS = {
         
         abilities: [
             { name: "Divine Sense", unlocked: true },
-            { name: "Lay on Hands", unlocked: true, pool: 25 },
+            { name: "Lay on Hands", unlocked: true, pool: 5 }, // Low pool
             { name: "Divine Smite", unlocked: true },
-            { name: "Divine Health", unlocked: true },
-            { name: "Extra Attack", unlocked: true }
+            { name: "One-Handed Mastery", unlocked: true, note: "Adapted fighting style" } // New trait
         ],
+        
         
         spells: {
             slots: { 1: 4, 2: 2 },
@@ -1253,10 +1309,8 @@ const CORE_TOADS = {
             { name: "Holy Symbol", type: "focus", description: "Symbol of the Pond" }
         ],
         
-        conditions: ["Catatonic", "Psychic Trauma", "Requires Constant Care"],
-        
-        background: "Dan was among the first toads liberated from the barrels. His unwavering faith and martial prowess made him a natural leader, and his Divine Smites have felled many enemies. However, the horrors witnessed at Shadeward Mansion—the Oracle, the temporal loops, the deaths—have shattered his mind. He stares blankly, unresponsive to all stimuli.",
-        
+        conditions: ["Amputee (Right Arm)", "Psychic Trauma", "Determined"],        
+        background: "Dan has rallied from his catatonic state. Though he lost his arm to the Staff of X.O., he refused to stay down when the Arcane Wraith attacked. Fighting with a longsword in his remaining hand and throwing axes with deadly precision, he proved he is still a warrior of the Pond.",        
         personality: {
             traits: ["Devoted", "Courageous", "Self-sacrificing"],
             ideal: "Faith in the Pond guides all",
@@ -1280,7 +1334,10 @@ const CORE_TOADS = {
             { day: 16, event: "⭐ Ability Unlock: Extra Attack", xp: 0, type: "ability" },
             { day: 16, event: "Iron Legion raid on the Vigilance - defended the wounded", xp: 100, type: "combat" },
             { day: 18, event: "⚖️ Placed on Accountability Docket by Speaker L", xp: 0, type: "political" },
-            { day: 20, event: "💔 Entered catatonic state due to accumulated psychological trauma", xp: 0, type: "status" }
+            { day: 20, event: "💔 Entered catatonic state due to accumulated psychological trauma", xp: 0, type: "status" },
+            { day: 20, event: "💔 Entered catatonic state due to trauma", xp: 0, type: "status" },
+            { day: 21, event: "⚔️ Roused from catatonia to fight Arcane Wraith", xp: 0, type: "status" },
+            { day: 21, event: "Landed critical axe throw with off-hand vs Wraith", xp: 200, type: "combat" }        
         ]
     },
     
@@ -1510,21 +1567,21 @@ const CORE_TOADS = {
         title: "The Unbreakable",
         class: "barbarian",
         subclass: "Path of the Berserker",
-        weapon: "Greataxe",
-        status: "Captured - Iron Legion",
-        statusType: "mia",
-        statusDetail: "Held at Imperial Processing Facility, status unknown",
+        weapon: "None (Disarmed)",
+        status: "Critical - Captured", // Updated
+        statusType: "critical",
+        statusDetail: "Stabbed in chest, bleeding out in Aegis Command",
         portrait: "🐸💀",
         isCore: true,
         cohort: null,
         rank: "Front-line Champion",
         
         level: 4,
-        xp: 850,
+        xp: 950,
         
         stats: {
             str: 18, dex: 10, con: 18, int: 8, wis: 10, cha: 8,
-            hp: 0, maxHp: 52,
+            hp: 1, maxHp: 52, // 1 HP left
             ac: 14, speed: 30,
             proficiency: 2
         },
@@ -1532,22 +1589,16 @@ const CORE_TOADS = {
         saves: { str: 6, dex: 0, con: 6, int: -1, wis: 0, cha: -1 },
         
         abilities: [
-            { name: "Rage", unlocked: true, uses: 3, damage: 2 },
-            { name: "Unarmored Defense", unlocked: true },
-            { name: "Reckless Attack", unlocked: true },
-            { name: "Danger Sense", unlocked: true },
-            { name: "Frenzy", unlocked: true, note: "Berserker feature" }
-        ],
-        
+            { name: "Rage", unlocked: true, uses: 0, damage: 2 },
+            { name: "Relentless Rage", unlocked: false } // Not high enough level yet
+        ],        
         equipment: [
             { name: "Brutal Greataxe", type: "weapon", bonus: "+1 to damage, 1d12+STR" },
             { name: "Javelins (4)", type: "weapon", bonus: "Thrown 30/120, 1d6+STR" }
         ],
         
-        conditions: ["Captured", "Location: Imperial Processing Facility", "Status Unknown", "Possible Interrogation"],
-        
-        background: "Bones earned their nickname from the unsettling cracking sounds their joints make when they rage. Despite their intimidating appearance and terrifying combat style, they're fiercely protective of their allies. Captured by the Iron Legion during the raid, their current condition is unknown—but the faction is planning a rescue.",
-        
+        conditions: ["Critical Stab Wound", "Restrained", "Target of Order 120"],        
+        background: "Bones infiltrated Aegis Command disguised as a guard to save Speaker L. He discovered the Speaker was a decoy just as General Marcus Ironhand saw through his disguise. Ironhand stabbed him through the chest. Bones is currently alive, but critically wounded and facing immediate execution under Order 120.",        
         personality: {
             traits: ["Intimidating", "Protective", "Surprisingly gentle with allies"],
             ideal: "Strength protects the weak",
@@ -1569,7 +1620,11 @@ const CORE_TOADS = {
             { day: 16, event: "⭐ Ability Unlock: Frenzy (Berserker)", xp: 0, type: "ability" },
             { day: 16, event: "🔴 Betrayed by The Mole during Iron Legion raid", xp: 0, type: "status" },
             { day: 16, event: "⛓️ Captured by Iron Legion forces", xp: 0, type: "status" },
-            { day: 20, event: "📍 Confirmed held at Imperial Processing Facility", xp: 0, type: "intel" }
+            { day: 20, event: "📍 Confirmed held at Imperial Processing Facility", xp: 0, type: "intel" },
+            { day: 16, event: "⛓️ Captured by Iron Legion forces", xp: 0, type: "status" },
+            { day: 21, event: "Infiltrated Aegis Command courtyard disguised as guard", xp: 100, type: "stealth" },
+            { day: 21, event: "💔 CRITICAL INJURY: Stabbed by Marcus Ironhand", xp: 0, type: "injury" },
+            { day: 21, event: "☠️ Marked for execution (Order 120)", xp: 0, type: "status" }            
         ]
     },
     
@@ -1636,7 +1691,9 @@ const CORE_TOADS = {
             { day: 15, event: "Fought through Iron Legion raid, held the line", xp: 150, type: "combat" },
             { day: 16, event: "🎉 LEVEL UP! Reached Level 3 - Chose Bear Totem", xp: 0, type: "levelup" },
             { day: 16, event: "⭐ Ability Unlock: Totem Spirit (Bear)", xp: 0, type: "ability" },
-            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" }
+            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
+            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
+            { day: 21, event: "Fought Arcane Wraith, coordinating attacks with Dan", xp: 150, type: "combat" }            
         ]
     },
     
@@ -2030,6 +2087,50 @@ function generateCohortMembers() {
 // ========================================
 
 const FACTION_TIMELINE = [
+{
+        day: 21,
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isCurrent: true,
+        title: "The Iron Mandate & Order 120",
+        events: [
+            {
+                time: "09:00",
+                title: "Iron Mandate Enacted",
+                type: "political",
+                severity: "critical",
+                icon: "⚖️",
+                description: "The Midlands Diet passes the Iron Mandate. The Liberated Toads are classified as an 'organized supernatural entity.'",
+                involved: ["Iron Legion", "Midlands Diet"]
+            },
+            {
+                time: "10:00",
+                title: "Dragon Conspiracy Revealed",
+                type: "intel",
+                severity: "high",
+                icon: "🐉",
+                description: "Robinson (Markop's father) discovers the Dragon-Empire war is a fabrication. He and the dragon 'Ignis-Major' are captured by the Legion.",
+                involved: ["Robinson", "Iron Legion", "Markop"]
+            },
+            {
+                time: "14:30",
+                title: "Massacre at Aegis Command",
+                type: "combat",
+                severity: "critical",
+                icon: "🩸",
+                description: "Infiltration failed. Bones stabbed by General Ironhand. A 'Green Decoy' of Speaker L was discovered. Ironhand issues 'Order 120': Execute all Toad prisoners.",
+                involved: ["Bones", "Creek", "Marcus Ironhand", "Green Decoy"]
+            },
+            {
+                time: "19:30",
+                title: "Banishment of the Wraith",
+                type: "magic",
+                severity: "high",
+                icon: "👻",
+                description: "The party defeats an Arcane Wraith at Raventree Manor. Dan fights one-armed; Bowser physically assaults the ghost. The Oracle banishes the entity.",
+                involved: ["Bowser", "Dan", "Archie", "Oracle", "Pernus Annmatar"]
+            }
+        ]
+    },    
     {
         day: 21,
         date: { day: 21, monthIndex: 6, year: 1040 },
@@ -2070,6 +2171,15 @@ const FACTION_TIMELINE = [
         date: { day: 20, monthIndex: 6, year: 1040 },
         title: "The Iron Sky Breach",
         events: [
+    {
+                time: "16:30",
+                title: "Vigilance Captured",
+                type: "military",
+                severity: "critical",
+                icon: "🚀",
+                description: "The Iron Legion boards and captures the Vigilance.",
+                involved: ["Iron Legion", "Ryan"]
+            },            
             {
                 time: "16:30",
                 title: "Vigilance Captured",

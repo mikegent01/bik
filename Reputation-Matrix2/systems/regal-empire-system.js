@@ -17,11 +17,11 @@ import { IRON_LEGION_DATA, LEGION_QUOTES, THREAT_ASSESSMENT } from '../iron-legi
 const LEGION_DIET_CONNECTIONS = {
     operationVoteLinks: {
         'iron_mandate': {
-            operationCodename: 'MANDATE / SILENT NIGHT', // Updated to include Rogueport op
-            legionUnit: 'Iron Crown Brigade & Iron Fists',
-            dietImpact: 'Granted emergency powers; used immediately to justify Rogueport lockdown',
-            militaryResponse: 'Deployment to border provinces and seize of Trade Ward',
-            commanderInvolved: 'Lord Chancellor Aldric Stonehand (Political), Col. Steelstorm (Military)'
+            operationCodename: 'ORDER 120 / IRON SKY', // Updated
+            legionUnit: 'Iron Crown Brigade & High Command',
+            dietImpact: 'Vindication for the Hawk faction; immediate use of lethal force authority',
+            militaryResponse: 'Execution order for prisoners at Aegis Command; Seizure of Vigilance',
+            commanderInvolved: 'General Marcus Ironhand'
         },
         'supernatural_sovereignty_act': {
             operationCodename: 'IRON GATE',
@@ -62,7 +62,7 @@ const LEGION_DIET_CONNECTIONS = {
 
     deploymentsByVote: {
         'iron_mandate': {
-            troops: 5300,
+            troops: 6500, 
             units: ['Royal Service Division', 'Shadow Hammers'],
             locations: ['Autumnwood', 'Dulgra', 'Dark Valley', 'Gehnsha Glade'],
             status: 'ACTIVE DEPLOYMENT'
@@ -126,12 +126,12 @@ const LEGION_DIET_CONNECTIONS = {
     ],
 
     coordinatedTimeline: [
-        {
+      {
             date: { year: 1040, monthIndex: 6, day: 21 },
             dietAction: 'Iron Mandate passed',
-            legionResponse: 'Operation SILENT NIGHT initiated in Rogueport',
-            strategicGoal: 'Seize eastern port facilities under guise of security'
-        },        
+            legionResponse: 'Vigilance captured; Order 120 issued at Aegis Command',
+            strategicGoal: 'Total decapitation of the Toad insurgency'
+        },   
         {
             date: { year: 1040, monthIndex: 6, day: 12 },
             dietAction: 'Toad Town Recognition vote tabled',
@@ -195,10 +195,10 @@ const ENHANCED_LEGION_DATA = {
         },
         
         currentLegislativePriorities: [
-            {
+  {
                 bill: "Iron Mandate",
-                status: "PASSED",
-                legionBenefit: "Emergency powers for warrantless operations",
+                status: "ENFORCED", // Updated from PASSED
+                legionBenefit: "Legal cover for Aegis Command executions",
                 deploymentAuthorized: true
             },
             {
@@ -218,14 +218,39 @@ const ENHANCED_LEGION_DATA = {
         oppositionTracking: {
             arcaneCongressThreat: "HIGH - Guild may ally with supernaturals",
             heartlandAllianceStatus: "NEUTRALIZED - Leadership resigned",
-            chaosCaucusUtility: "USEFUL - Votes with chaos, often aligns with disruption"
+            chaosCaucusUtility: "USEFUL - Votes with chaos, often aligns with disruption",
+            liberatedToads: "ELIMINATION TARGET - Order 120 in effect" // New Entry
         }
     },
 
     activeDeployments: {
         title: "Current Deployment Status",
-        lastUpdated: "Day 21, 1040 BF",
+        lastUpdated: "Day 21, 1040 BF (Evening)", // Updated time
         deployments: [
+            {
+                region: "Aegis Command HQ",
+                troops: 5000,
+                commander: "General Marcus Ironhand",
+                mission: "Internal Security / Prisoner Execution",
+                authority: "Iron Mandate (Self-Defense Clause)",
+                status: "LOCKDOWN / COMBAT"
+            },
+            {
+                region: "Vigilance (Captured Airship)",
+                troops: 200,
+                commander: "Tribune Aldric Stone",
+                mission: "Asset Secured / Prisoner Processing",
+                authority: "Operation IRON SKY",
+                status: "SECURED"
+            },
+            {
+                region: "Raventree Manor Perimeter",
+                troops: 150,
+                commander: "Spy 'Jerry'",
+                mission: "Containment of Supernatural Entities",
+                authority: "Iron Mandate",
+                status: "ACTIVE"
+            },            
             {
                 region: "Rogueport (Trade Ward)",
                 troops: 300,
@@ -849,90 +874,68 @@ const UPCOMING_VOTES = [
 
 const TODAYS_DIET_EVENTS = {
     date: { year: 1040, monthIndex: 6, day: 21 },
-    headline: "IRON MANDATE PASSES - EMPIRE GRANTED EMERGENCY POWERS",
-    summary: "In a tense session that lasted until nightfall, the Holy Midlands Diet passed the Iron Mandate by a vote of 28-8, with 3 abstentions. The legislation grants the Iron Legion sweeping new powers to enforce the Supernatural Sovereignty Act.",
+    headline: "ATTACK ON AEGIS COMMAND - TOAD INSURGENTS ATTEMPT INFILTRATION",
+    summary: "Moments after the Iron Mandate was ratified, reports confirmed a daring infiltration attempt on the Iron Legion's Aegis Command fortress. General Ironhand was personally involved in repelling the attackers. The incident has been cited by the Chancellor as 'absolute proof' that the emergency powers were necessary.",
     keyMoments: [
         {
-            time: "Morning Session",
-            event: "Lord Chancellor Stonehand opens debate",
-            description: "The Chancellor invoked the memory of the Tyrant Wars, arguing that 'half-measures against existential threats are suicide by indecision.'"
+            time: "Morning",
+            event: "Iron Mandate Passes",
+            description: "28-8-3 Vote. Emergency powers granted."
         },
         {
-            time: "Midday",
-            event: "Archmage Brightwater's warning",
-            description: "The Mages' Guild representative gave an impassioned speech warning that the Empire was 'making enemies of those who could be allies, and allies of those who should be enemies.'"
+            time: "Afternoon (14:30)",
+            event: "Aegis Infiltration Thwarted",
+            description: "General Ironhand unmasks infiltrators within the fortress. One insurgent stabbed. Acid attacks reported against Legionnaires."
         },
         {
-            time: "Afternoon",
-            event: "Speaker Rivers walks out",
-            description: "Wren Rivers, leader of the Heartland Alliance, dramatically walked out of the chamber before the vote, declaring 'I will not lend legitimacy to tyranny with my presence.'"
+            time: "Afternoon (14:45)",
+            event: "Order 120 Issued",
+            description: "General Ironhand declares all Toad prisoners 'unlawful combatants' and orders immediate execution. Diet hawks applaud the 'decisive action.'"
         },
         {
             time: "Evening",
-            event: "Vote passes",
-            description: "The Iron Mandate passes 28-8-3. Legion Commander Blackthorn was seen smiling for the first time anyone can remember."
+            event: "Vigilance Secured",
+            description: "The rogue airship is fully under Legion control. The skies are declared secure."
         },
         {
             time: "Night",
-            event: "First enforcement actions",
-            description: "Legion patrols were deployed to Autumnwood within hours. Reports of arrests have already begun filtering in."
-        },
-        {
-            time: "Night",
-            event: "First enforcement actions",
-            description: "Legion patrols were deployed to Autumnwood within hours. Reports of arrests have already begun filtering in."
-        },
-        {
-            time: "Late Night (03:00)",
-            event: "Rogueport Incident Report",
-            description: "Confused reports arrive of a magical beast attack in Rogueport. Chancellor Stonehand dismisses it as 'rebel propaganda' but orders the Iron Fleet to standby."
-        },        
+            event: "Raventree Incident",
+            description: "Confused reports of a massive magical discharge (Wraith battle) at Raventree Manor. Legion units moving to secure the site."
+        }
     ],
     reactions: {
         imperial_concordat: {
-            mood: 'triumphant',
-            statement: "Today, the Diet chose survival over sentimentality. History will remember those who stood firm.",
+            mood: 'vindicated',
+            statement: "They attacked our headquarters the very day we voted! Thank the stars we passed the Mandate. Crush them all.",
             speaker: "Lord Chancellor Aldric Stonehand"
         },
-        sanguine_covenant: {
-            mood: 'defiant',
-            statement: "They have signed their own death warrants. The night belongs to us, and we have very long memories.",
-            speaker: "Countess Isolde Blackwood (in absentia)"
-        },
-        territorial_pact: {
-            mood: 'enraged',
-            statement: "The hunt begins. But they have forgotten—we are the hunters.",
-            speaker: "Alpha Fenris Greycastle (via encoded message)"
-        },
-        arcane_congress: {
-            mood: 'calculating',
-            statement: "The Guild takes no official position at this time. Individual members are advised to avoid the border provinces.",
-            speaker: "Mages' Guild Official Statement"
-        },
         heartland_alliance: {
-            mood: 'despairing',
-            statement: "We tried. Gods help us all, we tried. What comes next is on their heads, not ours.",
-            speaker: "Former Speaker Wren Rivers"
+            mood: 'horrified',
+            statement: "Order 120 is a massacre, not justice. We are executing prisoners of war in our own capital.",
+            speaker: "Acting Representative Merek Oakhaven"
         },
         chaos_caucus: {
-            mood: 'gleeful',
-            statement: "HAHAHAHA! This is going to be SPECTACULAR!",
+            mood: 'excited',
+            statement: "Acid attacks? Stabbings? Now THIS is politics!",
             speaker: "The Laughing Representative"
+        },
+        arcane_congress: {
+            mood: 'concerned',
+            statement: "The magical spikes at Raventree are concerning. The Legion's brute force cannot contain what is happening there.",
+            speaker: "Archmage Quintus Brightwater"
         }
     },
     legionBriefing: {
-        classification: 'CONFIDENTIAL',
-        preparedBy: 'Hammer Lord Brennan',
+        classification: 'TOP SECRET',
+        preparedBy: 'General Marcus Ironhand',
         keyPoints: [
-            "Operation MANDATE authorized and deploying",
-            "5,000+ troops moving to border provinces",
-            "Priority targets identified in Autumnwood and Dulgra",
-            "Shadow Hammers activated for high-value target elimination",
-            "Intelligence suggests supernatural factions preparing coordinated response"
+            "Infiltration attempt confirmed: Toad insurgency possesses shapeshifting/disguise capabilities.",
+            "Captured 'Speaker L' identified as a decoy. True leadership remains at large.",
+            "Prisoner 'Bones' critically wounded but alive; slated for execution.",
+            "Dragon Asset 'Ignis-Major' secured in holding cells."
         ]
     }
 };
-
 // ============================================
 // REPRESENTATIVE GENERATION
 // ============================================
