@@ -530,72 +530,85 @@ export const HUMPIK_QUESTS = {
 };
 
 export const ARCHIE_QUESTS = {
-    'archie_fugitive_of_the_accords': {
-        id: 'archie_fugitive_of_the_accords',
-        title: "Fugitive of the Accords",
-        subtitle: "Wanted: Dead or Alive (or Licensed?)",
-        type: QUEST_TYPES.PERSONAL,
-        category: 'Personal - Archie',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
-        objective: "Survive the Manor, hunt the final Wraith, and navigate the fragile truce with the Mages' Guild.",
-        assignees: ['archie'],
-        primaryAssignee: 'archie',
-        difficulty: { overall: DIFFICULTY.DEADLY, magic: DIFFICULTY.HARD, stealth: DIFFICULTY.HARD, social: DIFFICULTY.DEADLY },
-        tags: ['survival', 'law', 'magic', 'escape', 'warrant'],
-        dates: { added: { year: 1040, monthIndex: 6, day: 20 }, updated: { year: 1040, monthIndex: 6, day: 20 }, deadline: { year: 1040, monthIndex: 6, day: 21 } },
-        
-        description: "Archie's status has shifted from 'Kill on Sight' to 'Provisionally Useful'. After aiding in the Solarium battle and refraining from using his signature Fireball (mostly), a senior Magus handed him an official Guild Card. It's a reprieve, not a pardon. However, his anger at learning that 'cleansing' requires blood led him to shatter a mirror in the Ruined Hall. He has now been sent downstairs to hunt the Arcane Wraith alone—a test of his loyalty, or a suicide mission. The Oracle demands a death to fuel the ritual.",
+   'archie_fugitive_of_the_accords': {
+    id: 'archie_fugitive_of_the_accords',
+    title: "Fugitive of the Accords",
+    subtitle: "Ice Over Fire",
+    type: QUEST_TYPES.PERSONAL,
+    category: 'Personal - Archie',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'raventree_manor',
+    objective: "Complete the Oracle's ritual in the Summoning Room while maintaining the Mages' Guild's provisional approval.",
+    assignees: ['archie'],
+    primaryAssignee: 'archie',
+    difficulty: { overall: DIFFICULTY.DEADLY, magic: DIFFICULTY.HARD, control: DIFFICULTY.CRITICAL },
+    tags: ['survival', 'law', 'magic', 'redemption', 'ritual'],
+    dates: { added: { year: 1040, monthIndex: 6, day: 20 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
+    
+    description: "Archie has successfully hunted the Arcane Wraith, proving his versatility by utilizing Ice magic instead of his forbidden Fireball. Despite a rocky start (melting icicles), he landed a decisive freeze that allowed the Oracle to banish the entity. He has collected valuable ectoplasm and is currently in good standing with his provisional Guild license, despite the heckling of Senior Mage Pernus Annmatar. Now, he must assist the Oracle in the final separation ritual in the Summoning Room without losing control or succumbing to the manor's chaos.",
 
-        loreEntries: ['autumnwood_accords', 'aegis_magi_tactics', 'magical_crimes_act', 'guild_membership_protocols'],
+    loreEntries: ['autumnwood_accords', 'cryomancy_basics', 'guild_membership_protocols', 'ectoplasm_harvesting'],
 
-        consequences: {
-            success: "Archie proves his worth, potentially earning a real pardon or at least a trial.",
-            failure: "Archie is executed by the Legion or the Guild once his usefulness ends.",
-            partial: "Archie survives but is forced into servitude as a Guild enforcer."
-        },
-
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Provisional Guild Card", description: "Grants access to basic Guild services, monitored by tracking spells" }
-            ],
-            conditional: [
-                { condition: "Kill the Wraith alone", reward: { type: 'reputation', faction: 'mages_guild', amount: 300, description: "Competence proven" }},
-                { condition: "Rebel against the Oracle", reward: { type: 'reputation', faction: 'liberated_toads', amount: 300, description: "Defied the Blood Magic" }}
-            ],
-            xp: 5000
-        },
-
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Confession", 
-                description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
-                completedDate: { year: 1040, monthIndex: 6, day: 20 }
-            },
-            {
-                id: 'm2', 
-                status: 'completed', 
-                title: "The Solarium Test",
-                description: "Archie did NOT cast Fireball. He threw a twig. The Guild noticed. He has been issued a provisional license.",
-                completedDate: { year: 1040, monthIndex: 6, day: 20 }
-            },
-            {
-                id: 'm3',
-                status: 'active',
-                title: "The Wraith Hunt",
-                description: "Descend to the lower levels. Find the Arcane Wraith. Kill it. The Oracle demands blood, the Legion demands order, and Archie just wants to not be arrested.",
-                goals: [
-                    { text: "Locate the Wraith", status: 'active' },
-                    { text: "Destroy it without causing collateral damage", status: 'active' },
-                    { text: "Return alive with proof of kill", status: 'pending' }
-                ]
-            }
-        ],
-        npcs: { enemies: ['arcane_wraith'], keyNpcs: ['self_reflection_oracle', 'senior_magus', 'legion_spy'] }
+    consequences: {
+        success: "Archie solidifies his status as a legitimate mage, earning a permanent Guild license.",
+        failure: "Archie loses control during the ritual, causing a magical catastrophe and immediate revocation of his life.",
+        partial: "The ritual succeeds, but Archie is arrested immediately after by the waiting Legion."
     },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Wraith Ectoplasm", description: "Potent magical reagent harvested from the banished entity" },
+            { type: 'item', name: "Provisional Guild Card", description: "Currently Active - Validated by combat performance" }
+        ],
+        conditional: [
+            { condition: "Finish the ritual without Fireball", reward: { type: 'feat', name: "Cryomancer's Patience", description: "Bonus to ice magic control and mental fortitude" }},
+            { condition: "Humiliate Pernus Annmatar", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 300, description: "Made a mockery of the establishment" }}
+        ],
+        xp: 6500
+    },
+
+    milestones: [
+        { 
+            id: 'm1', 
+            status: 'completed', 
+            title: "The Confession", 
+            description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
+            completedDate: { year: 1040, monthIndex: 6, day: 20 }
+        },
+        {
+            id: 'm2', 
+            status: 'completed', 
+            title: "The Solarium Test",
+            description: "Archie did NOT cast Fireball. He threw a twig. The Guild noticed. He has been issued a provisional license.",
+            completedDate: { year: 1040, monthIndex: 6, day: 20 }
+        },
+        {
+            id: 'm3',
+            status: 'completed',
+            title: "The Wraith Slayer",
+            description: "Defeated the Arcane Wraith using Ice magic. Collected the remains. Proved he is not a 'one-trick pony' to the watching Mages.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Used Ice Beam successfully",
+                "Harvested Ectoplasm",
+                "Resisted baiting by Pernus Annmatar"
+            ]
+        },
+        {
+            id: 'm4',
+            status: 'active',
+            title: "The Summoning Room",
+            description: "Assist the Oracle in the final separation ritual. The energies required are vast, and the 'Audience' is watching.",
+            goals: [
+                { text: "Channel energy for the Oracle", status: 'active' },
+                { text: "Maintain magical discipline (No Fire)", status: 'active' },
+                { text: "Ensure the timeline separates cleanly", status: 'pending' }
+            ]
+        }
+    ],
+    npcs: { enemies: ['pernus_annmatar', 'iron_legion'], keyNpcs: ['self_reflection_oracle', 'senior_magus'] }
+}, 
 
     'archie_god_toad_hunt': {
         id: 'archie_god_toad_hunt',
