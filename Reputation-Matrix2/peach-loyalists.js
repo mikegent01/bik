@@ -1,1591 +1,6972 @@
-// faction-fawful.js - FAWFUL DOMINION COMMAND INTERFACE
-// Interactive Holographic Castle Reconnaissance System
+import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
+import { VIRAL_POSTS } from './assembly-viral-data.js';
 
-// ============================================
-// IMPORTS
-// ============================================
-import { state } from './state.js';
-// We assume getFaction is available, though strictly not needed for the intel logic
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
+export const WAHBOOK_POSTS = [
+// --- EPISODE VII: THE CHEEP-CHEEP TREATY & FESTIVAL OF THE FALLEN ---
 
-// ============================================
-// CONSTANTS & LORE DATA
-// ============================================
-const FAWFUL_ID = 'fawful_dominion';
-// The key used in state.intelLevels for Fawful's faction
-const FAWFUL_INTEL_KEY = 'fawfuls_furious_freaks'; 
-
-const MONTH_NAMES = [
-    "Hammer", "Alturiak", "Ches", "Tarsakh", "Mirtul", "Kythorn",
-    "Highsun", "Eleasias", "Eleint", "Marpenoth", "Uktar", "Nightal"
-];
-
-// Castle Zone Data - Interactive Hotspots
-const CASTLE_ZONES = {
-    royal_chambers: {
-        id: 'royal_chambers',
-        name: "Royal Chambers",
-        icon: "👑",
-        position: { x: 50, y: 15, z: 0 },
-        status: "SECURED",
-        securityLevel: "MAXIMUM",
-        color: "#ff1493",
-        description: "Former quarters of Princess Peach. Now Fawful's personal domain.",
-        discoveries: [
-            {
-                id: 'secret_hatch',
-                title: "THE SECRET HATCH",
-                classification: "TOP SECRET",
-                icon: "🚪",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 9 },
-                content: `Behind the royal portrait of Queen Toadstool the First, scanners detected an anomalous thermal signature. Upon investigation, Fawful's technicians discovered a concealed passage—masterfully hidden for perhaps centuries.
-
-The mechanism requires a specific sequence: Three roses pressed in order (left, center, right), followed by a quarter-turn of the portrait frame clockwise.
-
-The passage leads DOWN. Initial drone reconnaissance shows it connects to a network of tunnels that predate the castle itself. Carbon dating suggests these passages are over 500 years old—older than the Mushroom Kingdom's founding.
-
-FAWFUL'S NOTE: "I am having the INTRIGUE! What secrets did the pink princess hide in her burrow like a frightened bunny? Fawful will know ALL!"`,
-                implications: [
-                    "Peach knew of escape routes—she was prepared for assassination",
-                    "The tunnels predate the kingdom—who built them?",
-                    "The Regency never found this in 85 years of control",
-                    "Someone taught Peach about this passage"
-                ]
-            },
-            {
-                id: 'hidden_journal',
-                title: "PEACH'S PRIVATE JOURNAL",
-                classification: "EYES ONLY",
-                icon: "📔",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 11 },
-                content: `Found in a hollowed-out book on the royal bookshelf (disguised as "Advanced Cake Decorating Vol. 7"). Written in a personal cipher that took three days to crack.
-
-Selected translated entries:
-
-ENTRY 847: "T. visited again through the old ways. He says the Council grows restless. They do not understand that the Koopas are not our true enemy. The shadows in the Senate—those are what I fear."
-
-ENTRY 851: "The Chancellor's son watches me with hungry eyes. Not desire—calculation. I have instructed Lady Bloomia to prepare the contingency."
-
-ENTRY 856: "If you are reading this, I am likely dead. Do not trust the Regency. The truth is in the GARDEN OF REMEMBRANCE. Look for the statue that weeps at midnight. T. knows the way. Find him among the spirit-walkers."
-
-FINAL ENTRY (Undated): "They are coming tonight. I can feel it. My only regret is—" [Entry ends abruptly, page torn]
-
-FAWFUL'S ANALYSIS: "The pink one KNEW! She had the knowing of her doom before the doom had the arriving! This 'T' person has the explaining to do. Fawful will find this spirit-walker and extract the TRUTH like juice from a berry!"`,
-                implications: [
-                    "'T' is almost certainly Chief Thornpaw of the Rakasha",
-                    "Peach suspected the Regency, not Bowser",
-                    "Lady Bloomia had a 'contingency'—what was it?",
-                    "The 'Garden of Remembrance' contains more secrets",
-                    "The final entry suggests she knew the exact night"
-                ]
-            },
-            {
-                id: 'thornpaw_evidence',
-                title: "RAKASHA ARTIFACTS",
-                classification: "SECRET",
-                icon: "🐾",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 12 },
-                content: `Hidden compartment in the nightstand contained several Rakasha artifacts:
-                
-- A spirit-bone amulet (identifies the wearer as "friend to the clans")
-- Three letters written in Rakasha pictographic script (translation pending)
-- A lock of silver-white fur tied with a pink ribbon
-- A small portrait showing Peach and a Rakasha male (presumably Thornpaw) standing before a waterfall
-
-The implications are clear: Princess Peach and Chief Thornpaw were romantically involved, likely for years before her death. This relationship was hidden from the entire court.
-
-FAWFUL'S NOTE: "The fury-cat and the princess, sitting in a tree! But now the princess is DEAD and the cat has the silence for 85 years! Why does he speak NOW? What game does the whisker-face play?"`,
-                implications: [
-                    "Confirms Thornpaw's gala confession",
-                    "The relationship was serious and long-term",
-                    "Thornpaw had access to the castle secretly",
-                    "Did the assassins know about this relationship?"
-                ]
-            }
+    // [Noon - The Jump]
+    {
+        id: 'toadette_sacrifice_jump',
+        order: 31305,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 15 },
+        timestamp: '12 hours ago',
+        content: `Fear is a shackle. We break it today. To the edge and beyond. For the Kingdom.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'embercap', text: 'I didn\'t scream. I definitely didn\'t scream. That was... the wind.' },
+            { characterKey: 'dewdrop', text: 'We lost one. The water is cruel.' }
         ],
-        surveillance: {
-            cameras: 12,
-            guards: 8,
-            alerts: 0,
-            lastIncident: null
-        }
+        rumorId: 'cheep_cheep_treaty'
     },
 
-    throne_room: {
-        id: 'throne_room',
-        name: "Throne Room",
-        icon: "🏰",
-        position: { x: 50, y: 45, z: 0 },
-        status: "CONVERTED",
-        securityLevel: "HIGH",
-        color: "#00ff00",
-        description: "The heart of power. Now displays Fawful's glorious visage.",
-        discoveries: [
-            {
-                id: 'throne_mechanism',
-                title: "THE THRONE'S SECRET",
-                classification: "SECRET",
-                icon: "⚙️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 10 },
-                content: `The royal throne is not merely decorative. X-ray analysis revealed an intricate mechanism within the seat itself.
-
-When activated by a specific pressure pattern (which Fawful has decoded), the throne rises and rotates, revealing a sealed vault beneath. The vault door bears the royal seal and requires THREE KEYS to open:
-
-1. The Royal Scepter (Currently in Fawful's possession)
-2. The Chancellor's Seal (Held by Toadsworth, now prisoner of the Loyalists)
-3. The Keeper's Tooth (Location unknown—possibly with "Lady Bloomia")
-
-VAULT STATUS: SEALED
-FAWFUL'S ATTEMPTS: 47 (All failed - Requires all three keys simultaneously)
-
-FAWFUL'S NOTE: "FURY! The stupid vault mocks Fawful with its lockedness! What treasures hide inside? Fawful MUST know! Perhaps the blue-haired weakling Toadsworth can be... borrowed... from the Loyalist fools."`,
-                implications: [
-                    "A three-key system implies extreme security",
-                    "The Chancellor was always part of the security",
-                    "The 'Keeper's Tooth' suggests a third party",
-                    "Lady Bloomia may be the 'Keeper'"
-                ]
-            },
-            {
-                id: 'power_core',
-                title: "STAR POWER CONDUITS",
-                classification: "TOP SECRET",
-                icon: "⭐",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 8 },
-                content: `The castle's infrastructure is powered by an ancient Star-based energy system. Conduits of crystallized starlight run through the walls like veins, converging beneath the throne room.
-
-Analysis suggests the castle was built AROUND this power source, not the reverse. The Star Core predates the Mushroom Kingdom by potentially thousands of years.
-
-Current readings show the core operating at only 12% capacity. If fully activated, projections suggest it could:
-- Power a continental-scale barrier
-- Enable mass teleportation
-- Potentially... resurrect the recently deceased?
-
-The activation sequence is unknown. References in recovered texts mention "The Seven Star Spirits" as guardians of this knowledge.
-
-FAWFUL'S NOTE: "CONTINENTAL BARRIER! RESURRECTION?! Fawful's genius brain is having the EXPLOSIONS of ideas! This power will be MINE! The Star Spirits will tell Fawful their secrets or they will be having the very bad time!"`,
-                implications: [
-                    "The castle is far more important than anyone knew",
-                    "Star Spirits hold the activation knowledge",
-                    "12% power has sustained the kingdom for centuries",
-                    "Full activation could change everything"
-                ]
-            }
+    // [Afternoon - The Negotiation on the Fish]
+    {
+        id: 'rakasha_negotiation_boredom',
+        order: 31310,
+        characterKey: 'rakasha_spirit_walker', // Represents Rakasha (the Azure woman)
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 30 },
+        timestamp: '11 hours ago',
+        content: `New clients. Same old desperate pleas. Everyone wants a war won, but no one wants to pay the price. Let's see if these little fungi understand the language of consequence.`,
+        likes: 420,
+        comments: [
+            { characterKey: 'embercap', text: 'We are sitting right here. We can see this post.' },
+            { characterKey: 'rakasha_spirit_walker', text: 'I know. Read the fine print, little soldier.' }
         ],
-        surveillance: {
-            cameras: 24,
-            guards: 16,
-            alerts: 0,
-            lastIncident: "Day 10 - Loyalist scout detected and eliminated"
-        }
+        rumorId: 'cheep_cheep_treaty'
     },
 
-    dungeons: {
-        id: 'dungeons',
-        name: "Castle Dungeons",
-        icon: "⛓️",
-        position: { x: 50, y: 85, z: 0 },
-        status: "OPERATIONAL",
-        securityLevel: "EXTREME",
-        color: "#8b0000",
-        description: "Ancient cells now holding enemies of the Dominion.",
-        discoveries: [
-            {
-                id: 'prisoner_085',
-                title: "THE FORGOTTEN PRISONER",
-                classification: "TOP SECRET",
-                icon: "👤",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 9 },
-                content: `Cell 085 was sealed behind a false wall. Inside, Fawful's forces discovered a living occupant.
-
-SUBJECT: Unknown male Toad, elderly (estimated 100+ years)
-CONDITION: Alive but non-responsive. Eyes open but unfocused.
-IDENTIFICATION: None. Fingerprints match no known records.
-PECULIARITY: Has not aged since discovery. Does not eat, drink, or speak. Breathes approximately once per minute.
-
-On his cell wall, scratched into the stone over what must have been decades:
-
-"I SAW WHO HELD THE BLADE. I SAW THE FACE BENEATH THE MASK. THEY SILENCED ME BUT I REMEMBER. THE KILLER WALKS FREE. THE KILLER SITS IN POWER. THE KILLER—"
-
-The text ends abruptly. The prisoner's fingernails are worn to nothing.
-
-FAWFUL'S NOTE: "A witness! But his brain is having the emptiness! Fawful's scientists are working to extract the memories like... like PICKLES from a jar! YES! The pickle-extraction of TRUTH!"`,
-                implications: [
-                    "Someone was imprisoned to hide the truth",
-                    "The Regency knew about this cell",
-                    "Magical stasis kept him alive",
-                    "His memories could identify the real killer"
-                ]
-            },
-            {
-                id: 'old_tunnels',
-                title: "THE DEEP TUNNELS",
-                classification: "SECRET",
-                icon: "🕳️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 14 },
-                content: `The dungeon's lowest level connects to a vast tunnel network. Mapping drones have explored approximately 15% of the system.
-
-Confirmed destinations:
-- Toad Town (3 exits, now sealed)
-- The Pipe Maze (Emergency escape route)
-- Unknown Location "DEEP-7" (Drone lost signal)
-- The Garden of Remembrance (Mentioned in Peach's journal!)
-
-The tunnels show signs of recent use—within the last century. Someone has been maintaining them. Boot prints suggest both Toad-sized and larger humanoid traffic.
-
-Most concerning: One tunnel bears FRESH tracks. Someone used these passages AFTER Fawful took the castle. An infiltrator is operating within our walls.
-
-FAWFUL'S NOTE: "SPIES! In FAWFUL'S castle?! Unacceptable! All tunnel exits are now being watched! The spy will be found and will be having the VERY BAD DAY!"`,
-                implications: [
-                    "The Loyalists' Operation HOMECOMING may use these tunnels",
-                    "The 'Garden of Remembrance' is accessible",
-                    "'DEEP-7' is concerning—what lies there?",
-                    "An active infiltrator is present"
-                ]
-            }
+    // [Evening - Festival of the Fallen - Arrival]
+    {
+        id: 'big_r_festival_party',
+        order: 31320,
+        characterKey: 'big_r',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 19, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `Yo, this Rakasha party is LIT! 🔥 Bonfires everywhere, people dancing in masks, and the drums are insane. Mystivil is acting weird though. He ate a red mushroom and now he's staring at his hands.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'mystivil', text: 'The door... the door has veins...' },
+            { characterKey: 'chief_thornpaw', text: 'Respect the rites, outsider. He walks the Inner Path now.' }
         ],
-        surveillance: {
-            cameras: 48,
-            guards: 24,
-            alerts: 3,
-            lastIncident: "Day 20 - Motion detected in sealed tunnel section"
-        },
-        prisoners: [
-            { id: 'P001', name: 'Regency Officer', status: 'Interrogation' },
-            { id: 'P002', name: 'Suspected Loyalist', status: 'Holding' },
-            { id: 'P003', name: 'Unknown (Cell 085)', status: 'Medical Study' },
-            { id: 'P004', name: 'Captured Mage', status: 'Cooperative' }
+        rumorId: 'festival_of_the_fallen'
+    },
+
+    // [Night - Rogueport Arrival]
+    {
+        id: 'rogueport_welcome',
+        order: 31330,
+        characterKey: 'rogueport_thug',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 45 },
+        timestamp: '4 hours ago',
+        content: `Fresh meat at the docks. Three little toads looking lost. Who wants 'em? Bidding starts at 50 coins.`,
+        likes: 12,
+        comments: [
+            { characterKey: 'embercap', text: 'We are armed! Stay back!' },
+            { characterKey: 'rogueport_thug', text: 'Cute. He thinks a stick is a weapon.' }
+        ],
+        rumorId: 'rogueport_mission'
+    },
+
+    // [Night - The Newspaper Incident]
+    {
+        id: 'brocco_t_headline',
+        order: 31335,
+        characterKey: 'brocco_t', // New Journalist Character
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 21, minute: 0 },
+        timestamp: '3 hours 45 minutes ago',
+        content: `EXTRA! EXTRA! READ ALL ABOUT IT! 
+        
+        **THE GREAT GREENHOUSE INFERNO!** 
+        
+        "The air tastes of ozone and old ghosts!" 
+        Wyverns crashing! Rust monsters unleashed! A magical fireball levels a historic landmark! Is this the work of the so-called "Vigilance" heroes or domestic terrorism? Read the full report by Brocco-T!`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'embercap', text: 'Archie did WHAT?!' },
+            { characterKey: 'erick', text: 'Toadette is going to be furious... or jealous.' },
+            { characterKey: 'dewdrop', text: 'Who writes this? "Ozone and old ghosts"? A bit dramatic.' }
+        ],
+        rumorId: 'greenhouse_inferno_news'
+    },
+
+    // [Night - The Ritual - Mystivil's Vision]
+    {
+        id: 'mystivil_xeos_vision',
+        order: 31340,
+        characterKey: 'mystivil',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 22, minute: 15 },
+        timestamp: '3 hours ago',
+        content: `I am in the Obsidian Hall. The teal fire whispers. I met the wolf who walks like a man. We have... an understanding. The pact is sealed in smoke.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'big_r', text: 'Bro, you passed out for like an hour. You okay?' },
+            { characterKey: 'chief_thornpaw', text: 'The bargain is struck. Do not fail your end, Loyalist.' }
+        ],
+        rumorId: 'festival_of_the_fallen'
+    },
+
+    // [Night - Rogueport Combat - The Tiger]
+    {
+        id: 'dewdrop_tiger_summon',
+        order: 31350,
+        characterKey: 'dewdrop',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `I used the scroll. I... I didn't know it would do THAT. The tiger... it ate him. It just ate him. Rogueport is a nightmare.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'rakasha_spirit_walker', text: 'Efficient, isn\'t it? Do not waste my gifts.' },
+            { characterKey: 'erick', text: 'Remind me never to make you angry, Dewdrop.' }
+        ],
+        rumorId: 'rogueport_mission'
+    },
+
+    // [Late Night - The Tired Guard]
+    {
+        id: 'dandrick_regency_complaint',
+        order: 31355,
+        characterKey: 'dandrick', // The Regency Guard Guide
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 45 },
+        timestamp: '45 minutes ago',
+        content: `Another double shift. Now I'm babysitting three toads and a magical tiger. They want to go to the Trade Ward. At night. During a Legion lockdown. I need a raise. Or a transfer.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'embercap', text: 'We appreciate the help, Dandrick! You\'re a hero!' },
+            { characterKey: 'dandrick', text: 'I\'m a victim of circumstance. Keep moving.' }
+        ],
+        rumorId: 'rogueport_mission'
+    },
+
+    // [Late Night - Rakasha/Thornpaw Conclusion]
+    {
+        id: 'thornpaw_alliance_update',
+        order: 31360,
+        characterKey: 'chief_thornpaw',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 0, minute: 15 },
+        timestamp: 'Just Now',
+        content: `The spirits have woven new threads tonight. To the Peach Loyalists: We will watch your district. To the others... survive the night, and we shall see. The Rakasha do not forget debts.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'mystivil', text: 'We will honor the pact.' },
+            { characterKey: 'captain_toadette', text: 'We will endure. We always do.' }
+        ],
+        rumorId: 'rakasha_alliance_update'
+    },
+    {
+    
+        id: 'remi_guild_application',
+        order: 30950,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 12, minute: 15 },
+        timestamp: '12 hours ago',
+        content: `Application formally submitted to the Deephold Smithing Guild. I've attached schematics for the 'Vigilance' engine refit and the high-tensile alloy formula I developed from the scrap. I'm not just a field mechanic. I'm a smith.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'You have the skills, soldier. Make us proud.' },
+            { characterKey: 'humpik', text: 'Shiny metal! Good metal! You make good hammer?' },
+            { characterKey: 'wario', text: 'If you get in, make me a gold-plated bike! DISCOUNT PRICE!' }
+        ],
+        rumorId: 'remi_personal_arc'
+    },
+
+    // [Insert Day 20 Late Night - Battle Begins]
+    {
+        id: 'generic_toad_spider_scream',
+        order: 31221,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 25 },
+        timestamp: '25 minutes ago',
+        content: `IT'S IN THE TREES! IT'S THE SIZE OF A HOUSE! RETREAT! RETREA—`,
+        likes: 12,
+        comments: [
+            { characterKey: 'roger', text: 'Hold the line! Aim for the eyes!' },
+            { characterKey: 'bones', text: 'Stop screaming. Start shooting.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Waluigi's Ice]
+    {
+        id: 'waluigi_ice_king',
+        order: 31224,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 32 },
+        timestamp: '18 minutes ago',
+        content: `FREEZE RAY! ❄️ Waluigi is the ICE KING! Watch them shiver! Watch them slip! I am colder than your ex-girlfriend's heart! WAH!`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'markop', text: 'You froze the path we needed to run on!' },
+            { characterKey: 'remi', text: 'Actually... it slowed the spiders down. Good job. Weirdly.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Squad Splintering]
+    {
+        id: 'smoking_j_bitten',
+        order: 31226,
+        characterKey: 'smoking_j', // Assuming a key exists or falls back to generic
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 35 },
+        timestamp: '15 minutes ago',
+        content: `Leg feels numb. Everything is turning purple. Just wanted to flank 'em. Tell my mom I... I think I left the stove on.`,
+        likes: 80,
+        comments: [
+            { characterKey: 'dan', text: 'Stay with us, soldier! Don\'t close your eyes!' },
+            { characterKey: 'ryan', text: 'Neurotoxin. We need an antidote, fast.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Markop Titan]
+    {
+        id: 'markop_titan_mode',
+        order: 31228,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 40 },
+        timestamp: '10 minutes ago',
+        content: `MARKOP JUST GREW FIFTY FEET TALL! He accepted the spooky guy's light and now he's wrestling the spider kaiju-style! THIS IS THE COOLEST NIGHT EVER!`,
+        likes: 3500,
+        comments: [
+            { characterKey: 'humpik', text: 'I WANT TO BE BIG TOO! UNFAIR!' },
+            { characterKey: 'self_reflection_oracle', text: 'Size is merely a matter of perspective. And ancient magic.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Eager's Friendly Fire]
+    {
+        id: 'eager_pepper_spray_blind',
+        order: 31229,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 42 },
+        timestamp: '8 minutes ago',
+        content: `CANT SEE. SPICY AIR. TOO MUCH SPRAY. SORRY SORRY SORRY.`,
+        likes: 40,
+        comments: [
+            { characterKey: 'toad_lee', text: 'STOP SPRAYING! YOU ARE HITTING THE SQUAD!' },
+            { characterKey: 'waluigi', text: 'MY EYES! THE GOGGLES DO NOTHING!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+
+    // [Insert Day 20 Late Night - Vigilance Flyover]
+    {
+        id: 'vigilance_propaganda_flyover',
+        order: 31236,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 46 },
+        timestamp: '4 minutes ago',
+        content: `Airship 'Vigilance' is on station over Raventree. Broadcasting mandatory compliance anthems. Citizens in the grove: Do not be alarmed by the shadow. Order is arriving.`,
+        likes: 50,
+        comments: [
+            { characterKey: 'remi', text: 'WE ARE DYING DOWN HERE! HELP US!' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'We have our target. You have yours.' },
+            { characterKey: 'waluigi', text: 'YOUR MUSIC SUCKS!' }
+        ],
+        rumorId: 'iron_sky_breach'
+    },
+
+    // [Insert Day 20 Late Night - Squad Lost]
+    {
+        id: 'salem_lost_fountain',
+        order: 31238,
+        characterKey: 'salem', // Assuming fallback
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 50 },
+        timestamp: 'Just Now',
+        content: `We lost the visual. Pitch black. Standing water. It smells like... old magic. Where is the platoon leader? Where is the light?`,
+        likes: 20,
+        comments: [
+            { characterKey: 'markop', text: 'Hold position, Salem! Don\'t move until I shrink!' },
+            { characterKey: 'self_reflection_oracle', text: 'The water runs deep here. Mind the ripples.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    
+    // [Insert Day 20 Late Night - Mossy Damage]
+    {
+        id: 'remi_mossy_damage',
+        order: 31239,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 55 },
+        timestamp: 'Just Now',
+        content: `Mossy took a fang to the chassis protecting me. Hydraulics are leaking fluid. If that spider wasn't already paste, I'd kill it myself. Nobody hurts my dog.`,
+        likes: 900,
+        comments: [
+            { characterKey: 'humpik', text: 'We fix puppy. I have hammer. Remi has wrench.' },
+            { characterKey: 'mages_guild_envoy', text: 'That chassis is Guild property. You will be billed for damages.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },         
+    {
+        id: 'iron_legion_mandate_announcement',
+        order: 31300,
+        characterKey: 'general_marcus_ironhand',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The Midlands Diet has spoken. The Iron Mandate is ratified. To ensure the safety of the realm against supernatural insurrection, the Legion assumes temporary administrative control of all security sectors. Curfew is set for 20:00. Compliance is mandatory. Order prevails.`,
+        likes: 5400,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'We are already deployed. The streets will be clean by morning.' },
+            { characterKey: 'toad_lee', text: 'This is an occupation, not protection.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'mages_guild_withdraws',
+        order: 31295,
+        characterKey: 'archmage_theron',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 5 },
+        timestamp: '5 minutes ago',
+        content: `The Mages' Guild DOES NOT recognize the authority of the Iron Legion to conduct warrantless searches of Arcane Sanctums. This "Mandate" is a violation of the Treaty of Wands. We are withdrawing all Guild Envoys from the Imperial Palace effective immediately.`,
+        likes: 3200,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'They tried to seize my research notes at the border! I incinerated the warrant. Was that wrong?' },
+            { characterKey: 'general_marcus_ironhand', text: 'Your "Treaty" is a relic. Stand down, Theron, or be classified as a threat.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'speaker_rivers_resignation',
+        order: 31290,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 10 },
+        timestamp: '10 minutes ago',
+        content: `BREAKING: Speaker Rivers has resigned from the Diet! He threw his gavel at Lord Chancellor Stonehand and walked out. "I will not preside over the death of liberty," he said.`,
+        likes: 1800,
+        comments: [
+            { characterKey: 'dan', text: 'He was a good man. The only honest one left.' },
+            { characterKey: 'lord_chancellor_stonehand', text: 'His emotional outburst has been noted. A replacement will be appointed.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'archie_confused_status',
+        order: 31285,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 15 },
+        timestamp: '15 minutes ago',
+        content: `Hypothetical question: If I just got a shiny new Guild Pass, but the Guild just declared war on the Government, and the Government just declared Martial Law... is this pass a shield or a target? The ink isn't even dry yet.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'the_broker', text: 'It is a target. I will buy it from you for 10% of its value as a collector\'s item.' },
+            { characterKey: 'humpik', text: 'Trust the lady. Hide the card.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'civilian_checkpoint_report',
+        order: 31280,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 12, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `They have checkpoints on every bridge. They are checking for "supernatural contraband." They arrested Old Man Mush because he had a bag of Glow-Berries. They said it was "unsanctioned bio-luminescence." This is insane!`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'iron_legion_commando', text: 'Bio-luminescence is a sign of infection. Report all glowing vegetation.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'moonfang_response',
+        order: 31275,
+        characterKey: 'alpha_bloodmaw',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Let them come to the forests. Their iron armor will only make them slower. The hunt begins.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Target acquired.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'spy_subtle_nod',
+        order: 31270,
+        characterKey: 'iron_legion_spy',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 15 },
+        timestamp: '1 hour 15 minutes ago',
+        content: `The machinery of state is heavy, but it moves with purpose. Those who aligned correctly have nothing to fear.`,
+        likes: 45,
+        comments: [
+            { characterKey: 'hjumpik', text: 'I hear you. Keeping my head down.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'bowser_martial_law_reaction',
+        order: 31265,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 30 },
+        timestamp: '1 hour 30 minutes ago',
+        content: `MARTIAL LAW? I INVENTED MARTIAL LAW! These tin cans think they can tell ME when curfew is?! I sleep when I want! I smash when I want!`,
+        likes: 3500,
+        comments: [
+            { characterKey: 'peach_loyalist_1', text: 'For once... I agree with the Koopa King.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'onyx_hand_underground',
+        order: 31260,
+        characterKey: 'freelancer_spy_1',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The Onyx Hand safehouses are emptying. They're going deep underground. If you owe them money, you might be off the hook. If they owe you money... bad luck.`,
+        likes: 900,
+        comments: [],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'regal_empire_justification',
+        order: 31255,
+        characterKey: 'chancellor_toadsworth',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+        timestamp: '2 hours 30 minutes ago',
+        content: `These measures, while harsh, are necessary to preserve the Regency. We must prioritize the safety of the citizenry over the comfort of the magical elite. We ask for patience.`,
+        likes: 200,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'You sold us out to the Legion, Chancellor.' }
+        ],
+        rumorId: 'iron_mandate_passage'
+    },
+    {
+        id: 'humpik_secret_pact_final',
+        order: 31250,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 59 },
+        timestamp: 'Just Now',
+        content: `I have the tools. I have the plan. No magic. Just iron, steel, and muscle. We finish this.`,
+        likes: 512,
+        comments: [
+            { characterKey: 'bowser', text: 'That\'s what I like to hear! Smash time!' },
+            { characterKey: 'iron_legion_spy', text: 'Strike while the iron is hot.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'spy_debrief_log',
+        order: 31245,
+        characterKey: 'iron_legion_spy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 55 },
+        timestamp: '4 minutes ago',
+        content: `Subject H has accepted the terms. The Sorcerer will surrender, or he will fall. The Oracle will be intercepted. The Sovereignty Act approaches.`,
+        likes: 0,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_suspicious_of_spy',
+        order: 31240,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 50 },
+        timestamp: '9 minutes ago',
+        content: `That lady in the shadows... she smells like trouble. And government paperwork. Why is Humpik talking to her? I should roast her just in case.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'humpik', text: 'No roasting! She gave me lockpicks!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'oracle_blood_collected',
+        order: 31235,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 45 },
+        timestamp: '14 minutes ago',
+        content: `Such anger, Archie. But the blood is useful. The ritual requires sacrifice, willing or otherwise. We are one step closer to the end.`,
+        likes: 800,
+        comments: [
+            { characterKey: 'archie', text: 'You made me do that! You baited me!' },
+            { characterKey: 'dan', text: 'Let me bandage that hand, Archie.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'archie_punches_mirror',
+        order: 31230,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 42 },
+        timestamp: '17 minutes ago',
+        content: `humpik was supposed to KILL it?! I did all that—the twig, the panic, the running—and HE spares it?! *CRASH* Ow. My hand.`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'humpik', text: 'It is a statue now. A good statue.' },
+            { characterKey: 'self_reflection_oracle', text: 'Thank you for the donation, wizard.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'mages_guild_pass_grant',
+        order: 31225,
+        characterKey: 'mages_guild_envoy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 40 },
+        timestamp: '19 minutes ago',
+        content: `Due to the successful neutralization (and preservation for study) of the Class-5 Shard Stalker, Archie Miser is hereby granted a Provisional Guild Pass. You are legal. For now.`,
+        likes: 320,
+        comments: [
+            { characterKey: 'archie', text: 'Finally! Some respect!' },
+            { characterKey: 'iron_legion_spy', text: 'Enjoy it while it lasts.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_returns_stone',
+        order: 31220,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 38 },
+        timestamp: '21 minutes ago',
+        content: `I am back! And the lady gave me a choice. Shatter the green mirror, or keep the monster as stone. I chose stone. The Guild wants to study it.`,
+        likes: 900,
+        comments: [
+            { characterKey: 'dan', text: 'You\'re alive! That\'s all that matters.' },
+            { characterKey: 'bowser', text: 'HUMPY!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'spy_mirror_encounter',
+        order: 31215,
+        characterKey: 'iron_legion_spy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 35 },
+        timestamp: '24 minutes ago',
+        content: `Encountered Subject H in the Reflection Archive. He has... potential. We had a productive conversation about free will and hammers.`,
+        likes: 50,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_mirror_parkour',
+        order: 31210,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 32 },
+        timestamp: '27 minutes ago',
+        content: `The buildings are floating! The books are flying! I am jumping like a flea! Also, found a lady reading a book. She knows my name. Is she a ghost?`,
+        likes: 650,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_kill_confirm',
+        order: 31205,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 30 },
+        timestamp: '29 minutes ago',
+        content: `GOTCHA! CHOKEHOLD! It shattered! The mirrors are breaking! WHERE IS HUMPIK?!`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'mages_guild_envoy', text: 'We will take the debris. And the Red one.' },
+            { characterKey: 'toad_lee', text: 'He\'s still in there!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'red_humpik_taunt',
+        order: 31200,
+        characterKey: 'red_humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 28 },
+        timestamp: '31 minutes ago',
+        content: `Why the long face, Bowser? I'm the real humpik! I just got a tan! Break the mirrors! There are... uh... fifty toads in there! Trust me!`,
+        likes: 15,
+        comments: [
+            { characterKey: 'dan', text: 'He is definitely lying.' },
+            { characterKey: 'bowser', text: 'I AM PUNCHING YOU NOW!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'blue_humpik_riddle',
+        order: 31195,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 26 },
+        timestamp: '33 minutes ago',
+        content: `The Blue Humpik says "If you attack me, you attack yourself." I say "Hammer goes BONK." I jumped past him. He threw an axe at me! Rude!`,
+        likes: 880,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'green_t_rescued',
+        order: 31190,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 25 },
+        timestamp: '34 minutes ago',
+        content: `I'm out! Dan pulled me out! I was in there for HOURS. I saw myself aging. I saw infinite Green Ts. I need a juice box.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'dan', text: 'Stay behind me, kid.' },
+            { characterKey: 'waluigi', text: 'DID YOU FIND ANY COINS IN THERE?' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'dan_saves_green_t',
+        order: 31185,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 23 },
+        timestamp: '36 minutes ago',
+        content: `Smashed the mirror—failed. It didn't break. Had to reach in and PULL him out. Green T is safe. But humpik is still gone.`,
+        likes: 700,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Focus on the monster, Dan! Bowser has it!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_abducted',
+        order: 31180,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 20 },
+        timestamp: '39 minutes ago',
+        content: `Me and Bowser, the Dream Team! Attacking from abov—HEY! IT GRABBED MY HAMMER! I'M BEING PULLED I—`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'bowser', text: 'NO! LET HIM GO!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_fire_breath',
+        order: 31175,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 18 },
+        timestamp: '41 minutes ago',
+        content: `The little wizard throws twigs? PATHETIC! WATCH THE KING! FIRE BREATH!`,
+        likes: 2200,
+        comments: [
+            { characterKey: 'archie', text: 'Okay, show off.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_fake_reflection',
+        order: 31170,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 15 },
+        timestamp: '44 minutes ago',
+        content: `That reflection... it looked at me funny. That's not me! SMASHING THE MIRROR! It's gone now.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'dan', text: 'Good instincts, Humpik.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'oracle_tree_comment',
+        order: 31165,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 12 },
+        timestamp: '47 minutes ago',
+        content: `There used to be a lovely tree here. This monster has simply ruined the ambiance. *Swings cane* Rude beast, ignoring me.`,
+        likes: 900,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'bowser_benches_toadburt',
+        order: 31160,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 10 },
+        timestamp: '49 minutes ago',
+        content: `Where do you think you're going, Little Toad? You sit this one out. You'll get squashed. The King works alone! (And with Humpik).`,
+        likes: 1800,
+        comments: [
+            { characterKey: 'toadburt', text: 'But I have a stick!' },
+            { characterKey: 'bowser', text: 'SIT.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'dan_dizzy',
+        order: 31155,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 8 },
+        timestamp: '51 minutes ago',
+        content: `One arm, spinning room, too many mirrors. I think I'm gonna be sick. Standing my ground.`,
+        likes: 400,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'archie_flaming_twig',
+        order: 31150,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 6 },
+        timestamp: '53 minutes ago',
+        content: `Analyzed the creature. Determined fire resistance is low. Casting... uh... Flaming Twig. ...It didn't care. It just retreated. Great.`,
+        likes: 650,
+        comments: [
+            { characterKey: 'mages_guild_envoy', text: 'That is a cantrip, at best.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'toad_lee_stairs',
+        order: 31145,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 4 },
+        timestamp: '55 minutes ago',
+        content: `Too crowded in the stairwell! Making a path! Hopping over the Oracle! Engaging the target!`,
+        likes: 500,
+        comments: [],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'oracle_slams_monster',
+        order: 31140,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 2 },
+        timestamp: '57 minutes ago',
+        content: `It's showtime. *SLAM*`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'humpik', text: 'He is very fast for an old spooky man.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'humpik_door_breach',
+        order: 31135,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Someone is picking the lock? No time! Squeezing through! I'll take the front line! Let's go!`,
+        likes: 700,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Wait for the squad!' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+    {
+        id: 'solarium_desc',
+        order: 31130,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 55 },
+        timestamp: '1 hour 5 minutes ago',
+        content: `The Attic Solarium. Broken glass, rusty frame, overgrown plants killing each other. And a ring of mirrors. This is definitely a trap.`,
+        likes: 1000,
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: 'Open the door when you are ready.' }
+        ],
+        rumorId: 'shard_stalker_incident'
+    },
+        {
+        id: 'waluigi_spider_slayer',
+        order: 31039,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 14 },
+        timestamp: '1 minute ago',
+        content: `WAH! DID YOU SEE THAT? I burned it! I burned the legs off! Just like the little fireball man! I am a WIZARD now! Waluigi Number One Spellcaster!`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'archie', text: 'That was barely a spark. Don\'t insult my craft.' },
+            { characterKey: 'waluigi', text: 'JEALOUSY! PURE JEALOUSY!' },
+            { characterKey: 'wario', text: 'Did the spider drop any gold? CHECK THE STOMACH!' },
+            { characterKey: 'bowser', text: 'Stick to tennis, beanpole.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'roger_shot_count',
+        order: 31038,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 13 },
+        timestamp: '2 minutes ago',
+        content: `Double shot! Right in the eyes! The song guides our aim! 🎶 We are the Toads, the mighty Toads! 🎶`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'roger', text: '🎶 We shoot the bugs, we clear the roads! 🎶' },
+            { characterKey: 'captain_toadette', text: 'Good form, soldier! Keep that rhythm!' },
+            { characterKey: 'toad_lee', text: 'Less singing, more reloading!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_acid_splash',
+        order: 31037,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 12 },
+        timestamp: '3 minutes ago',
+        content: `Missed the bolt, hit the vial. It's melting. It smells terrible. Mossy, heel! Don't eat the acidic spider goo.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'markop', text: 'Focus, FNG. Flank left.' },
+            { characterKey: 'humpik', text: 'Is the spider okay? It looks melty.' },
+            { characterKey: 'janna_brightspark', text: 'What is the pH level of that compound? Fascinating reaction!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'oracle_battle_commentary',
+        order: 31036,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 10 },
+        timestamp: '5 minutes ago',
+        content: `Such frenetic energy. The threads of fate are vibrating quite violently. Do try not to die, it makes the paperwork in the afterlife so tedious.`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'markop', text: 'PICK UP A WEAPON OR GET OUT OF THE WAY.' },
+            { characterKey: 'speaker_l', text: 'Fate is not yours to weave, Oracle.' },
+            { characterKey: 'dan', text: 'Could use a little less commentary and a little more help!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_web_stuck_3',
+        order: 31035,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 0 },
+        timestamp: '15 minutes ago',
+        content: `STUCK AGAIN! STUPID STICKY STRING! WALUIGI DEMANDS ASSISTANCE!`,
+        likes: 400,
+        comments: [
+            { characterKey: 'remi', text: 'Stop running into them!' },
+            { characterKey: 'green_t', text: 'Boss, maybe duck next time?' },
+            { characterKey: 'wario', text: 'You are embarrassing the brand!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'markop_ambush_signal',
+        order: 31034,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 55 },
+        timestamp: '20 minutes ago',
+        content: `Target sighted. Massive arachnid. Two distinct signatures. One is... nursing the other? Unnatural. Prepare to engage on my signal.`,
+        likes: 670,
+        comments: [
+            { characterKey: 'roger', text: 'We are ready, Paladin.' },
+            { characterKey: 'bones', text: 'Cut them down.' },
+            { characterKey: 'remi', text: 'Moving to position.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_big_spider',
+        order: 31033,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 50 },
+        timestamp: '25 minutes ago',
+        content: `Markop said flank right. I saw a bigger spider on the left. Plans change. I'm going for the big one.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'markop', text: 'That is NOT the plan, FNG!' },
+            { characterKey: 'bowser', text: 'Hah! That\'s the spirit! Crush it!' },
+            { characterKey: 'archie', text: 'Bold strategy. Let\'s see if it pays off.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'oracle_wishing_well',
+        order: 31032,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 40 },
+        timestamp: '35 minutes ago',
+        content: `Fishing for wishes, Paladin? It's rude to read the coins of the dead. I, however, am merely making a deposit. For luck.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'markop', text: 'You are impossible to track. Stop vanishing.' },
+            { characterKey: 'ryan', text: 'The magical resonance on those coins... be careful.' },
+            { characterKey: 'kamek', text: 'You play dangerous games, Oracle.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'markop_suspicious_fountain',
+        order: 31031,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 35 },
+        timestamp: '40 minutes ago',
+        content: `Found a ruined fountain. Water is clouded with pests. Oracle is here again. How does he move so fast? He is dropping coins.`,
+        likes: 550,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Evidence tampering? Or a ritual?' },
+            { characterKey: 'toad_lee', text: 'Don\'t drink the water, sir.' },
+            { characterKey: 'remi', text: 'He was just with me a second ago. This guy is spooky.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_guard_duty',
+        order: 31030,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 20 },
+        timestamp: '55 minutes ago',
+        content: `Woke up in a creepy grove. The Oracle was watching me sleep. Mossy didn't even bark. Apparently, my 'bond is too weak.' I hate this place.`,
+        likes: 1100,
+        comments: [
+            { characterKey: 'humpik', text: 'Is the dog shiny? I want a shiny dog.' },
+            { characterKey: 'mages_guild_envoy', text: 'That construct is Guild property. Return it.' },
+            { characterKey: 'remi', text: 'Come take it. I dare you.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_web_discovery',
+        order: 31029,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 15 },
+        timestamp: '1 hour ago',
+        content: `Found a cocoon! Is it candy? Or is it Eager? Poking it with a stick to find out! WAH!`,
+        likes: 880,
+        comments: [
+            { characterKey: 'toad_lee', text: 'DO NOT POKE OUR COMRADE WITH A STICK!' },
+            { characterKey: 'dan', text: 'Waluigi, step away from the web!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'markop_dead_tree',
+        order: 31028,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 10 },
+        timestamp: '1 hour 5 minutes ago',
+        content: `The center of the grove. A dead tree. Corpses wrapped in silk. The air is... stagnant. Sound dies here. Eager is up there.`,
+        likes: 600,
+        comments: [
+            { characterKey: 'bones', text: 'A slaughter ground.' },
+            { characterKey: 'captain_toadette', text: 'Bring him home, Markop.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'generic_toad_scared',
+        order: 31027,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 0 },
+        timestamp: '1 hour 15 minutes ago',
+        content: `Why are there so many webs? I hate spiders. Why did we follow the purple man?`,
+        likes: 120,
+        comments: [
+            { characterKey: 'roger', text: 'Courage! Sing the song!' },
+            { characterKey: 'waluigi', text: 'BECAUSE WALUIGI KNOWS THE WAY!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'markop_maze_entry',
+        order: 31026,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 50 },
+        timestamp: '1 hour 25 minutes ago',
+        content: `Entering the hedge maze. Tracks are erratic. Some dragged, some sprinting. Oracle says 'spiders.' I don't trust him, but I trust the scream I just heard.`,
+        likes: 750,
+        comments: [
+            { characterKey: 'bones', text: 'Keep your shield up, Paladin.' },
+            { characterKey: 'toad_lee', text: 'We are right behind you.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'oracle_missing_humpik',
+        order: 31025,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 45 },
+        timestamp: '1 hour 30 minutes ago',
+        content: `You ask about the jumping one? He is with the arachnids. Or perhaps he isn't. Truth is so fluid in a nexus, don't you think, Markop?`,
+        likes: 1300,
+        comments: [
+            { characterKey: 'markop', text: 'You\'re lying.' },
+            { characterKey: 'humpik', text: 'I am right here! I found a rock!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_dog_training_fail',
+        order: 31024,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 30 },
+        timestamp: '1 hour 45 minutes ago',
+        content: `Told Mossy to 'run.' He destroyed the room. Smashed the dresser. Then he tackled me. I think my ribs cracked. Then he... healed me? This dog is confusing.`,
+        likes: 1600,
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: 'He has a spirited personality.' },
+            { characterKey: 'bowser', text: 'A dog that smashes? I want it.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_sit_command',
+        order: 31023,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 25 },
+        timestamp: '1 hour 50 minutes ago',
+        content: `Okay, 'Sit' works. He drops like a ton of bricks. Literally. The floorboards are groaning. Now, let's try 'Run.'`,
+        likes: 900,
+        comments: [
+            { characterKey: 'humpik', text: 'He is a heavy boy!' },
+            { characterKey: 'mages_guild_envoy', text: 'You are operating a Class-4 Siege Construct without a license.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_corpse_sighting',
+        order: 31022,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 15 },
+        timestamp: '2 hours ago',
+        content: `There is a body in the hallway. I am choosing to walk down a different hallway. I do not have time for this.`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Wait, describe the body. Was it Imperial?' },
+            { characterKey: 'remi', text: 'Penny, I am busy not dying.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_panic_run',
+        order: 31021,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 10 },
+        timestamp: '2 hours 5 minutes ago',
+        content: `I FIXED IT! NO WAIT I DIDN'T! MUSHROOM WAS BAD! TOAD IS GONE! CHASING THE TOAD! WAAAAAH!`,
+        likes: 1400,
+        comments: [
+            { characterKey: 'remi', text: 'You didn\'t fix anything! You made it worse!' },
+            { characterKey: 'green_t', text: 'Boss, you gotta stop using random items you find on the floor.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_cutting_eager',
+        order: 31020,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 8 },
+        timestamp: '2 hours 7 minutes ago',
+        content: `Waluigi has Eager tied up? No, stuck. He used a mushroom wrong. I cut him loose and... something just yanked him into the bushes. This night never ends.`,
+        likes: 950,
+        comments: [
+            { characterKey: 'dan', text: 'EAGER! I\'m coming!' },
+            { characterKey: 'toad_lee', text: 'Hold on, brother!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'mossy_steals_anchor',
+        order: 31019,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 5 },
+        timestamp: '2 hours 10 minutes ago',
+        content: `The metal dog took the anchor! Hey! That is heavy ordnance, not a chew toy!`,
+        likes: 800,
+        comments: [
+            { characterKey: 'remi', text: 'He\'s just... retrieving. Aggressively.' },
+            { characterKey: 'bowser', text: 'HA! Good dog!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_new_pet',
+        order: 31018,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 0 },
+        timestamp: '2 hours 15 minutes ago',
+        content: `So. The Oracle gave me a dog. A robot dog. Made of chrome and magic. I named him Mossy. If I don't keep him, he gets 'shut down.' I guess I'm a dog owner now.`,
+        likes: 2500,
+        comments: [
+            { characterKey: 'humpik', text: 'Can he smash things?' },
+            { characterKey: 'remi', text: 'We\'re finding out.' },
+            { characterKey: 'toad_lee', text: 'Does he take commands? Can he fight?' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'oracle_gift_dog',
+        order: 31017,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 20, minute: 55 },
+        timestamp: '2 hours 20 minutes ago',
+        content: `A failed Guild experiment. Too loyal. Too loud. FNG, he is yours. Do try to teach him manners, or I shall have to dismantle him for spare runes.`,
+        likes: 1800,
+        comments: [
+            { characterKey: 'mages_guild_envoy', text: 'You stole that from the containment unit!' },
+            { characterKey: 'remi', text: 'He\'s mine now. Back off.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'toad_rest_song',
+        order: 31016,
+        characterKey: 'fng_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 20, minute: 45 },
+        timestamp: '2 hours 30 minutes ago',
+        content: `We are tired... but the song keeps us going. Just a little nap. 🎶 We are the Toads... zzz... 🎶`,
+        likes: 600,
+        comments: [
+            { characterKey: 'roger', text: '🎶 The mighty Toads... 🎶' },
+            { characterKey: 'captain_toadette', text: 'Rest well, soldiers. You earned it.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_tuning_gear',
+        order: 31015,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 20, minute: 30 },
+        timestamp: '2 hours 45 minutes ago',
+        content: `Quiet moment. Channeling runes into the armor. Crossbow is humming. If we're going to find Waluigi in this madhouse, I need to be ready.`,
+        likes: 720,
+        comments: [
+            { characterKey: 'iron_legion_commando', text: 'We are detecting unlicensed magical tinkering.' },
+            { characterKey: 'remi', text: 'Detect this.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'markop_status_check',
+        order: 31014,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 20, minute: 15 },
+        timestamp: '3 hours ago',
+        content: `Regrouping. Lanterns are dim. Shadows are long. We need rest, but the manor doesn't sleep. Stay vigilant.`,
+        likes: 500,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Perimeter set. We are watching.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_lost_in_garden',
+        order: 31013,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 20, minute: 0 },
+        timestamp: '3 hours 15 minutes ago',
+        content: `THIS GARDEN IS A MAZE! WHO DESIGNED THIS?! I just want to help the little mushroom man!`,
+        likes: 950,
+        comments: [
+            { characterKey: 'green_t', text: 'Boss, just turn left at the fountain!' },
+            { characterKey: 'waluigi', text: 'WHICH FOUNTAIN?!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'spooky_ambience_1',
+        order: 31012,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 50 },
+        timestamp: '3 hours 25 minutes ago',
+        content: `Did anyone else hear clicking? Like... a lot of clicking?`,
+        likes: 300,
+        comments: [
+            { characterKey: 'bones', text: 'Chitin on stone. Prepare weapons.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'iron_legion_patrol_log',
+        order: 31011,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 40 },
+        timestamp: '3 hours 35 minutes ago',
+        content: `Perimeter breach in Sector 4 (The Gardens). Scouts are not reporting back. Advise caution.`,
+        likes: 400,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Contain it. Do not let it spread to the main hall.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'humpik_spider_friend',
+        order: 31010,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
+        timestamp: '3 hours 45 minutes ago',
+        content: `The fuzzy legs are ticklish! They have so many eyes! Hello new friends!`,
+        likes: 880,
+        comments: [
+            { characterKey: 'bowser', text: 'Humpik, get away from there! SQUASH IT!' },
+            { characterKey: 'humpik', text: 'No squash! Only pets!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'oracle_cryptic_warning',
+        order: 31009,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 20 },
+        timestamp: '3 hours 55 minutes ago',
+        content: `The web is spun. The fly is caught. But who is the spider? A riddle for the evening.`,
+        likes: 1100,
+        comments: [
+            { characterKey: 'kamek', text: 'Your riddles are tiresome, Oracle.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'remi_pre_rest',
+        order: 31008,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 10 },
+        timestamp: '4 hours ago',
+        content: `Finally stopping. My feet are killing me. This mansion is too big.`,
+        likes: 650,
+        comments: [
+            { characterKey: 'dan', text: 'Rest while you can, Remi.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'toad_lee_missing_eager',
+        order: 31007,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 0 },
+        timestamp: '4 hours 10 minutes ago',
+        content: `Has anyone seen Eager? He was right behind me a moment ago.`,
+        likes: 700,
+        comments: [
+            { characterKey: 'waluigi', text: 'I HAVE HIM! I AM HELPING!' },
+            { characterKey: 'toad_lee', text: 'Give him back!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'archie_remote_comment',
+        order: 31006,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 50 },
+        timestamp: '4 hours 20 minutes ago',
+        content: `Sensing some serious magical incompetence nearby. It feels purple.`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'waluigi', text: 'I HEAR YOU!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'dan_concern',
+        order: 31005,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 40 },
+        timestamp: '4 hours 30 minutes ago',
+        content: `The shadows here feel... hungry.`,
+        likes: 400,
+        comments: [
+            { characterKey: 'ryan', text: 'It is a Nexus point. The veil is thin.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'mages_guild_anomaly',
+        order: 31004,
+        characterKey: 'mages_guild',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 30 },
+        timestamp: '4 hours 40 minutes ago',
+        content: `Detecting a localized mana spike in the Raventree Gardens. Possible unauthorized summoning.`,
+        likes: 300,
+        comments: [
+            { characterKey: 'archmage_theron', text: 'Investigate. Neutralize.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'mossy_activation',
+        order: 31003,
+        characterKey: 'mages_guild_envoy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 20 },
+        timestamp: '4 hours 50 minutes ago',
+        content: `Subject K-9 'Mossy' has gone offline from the Guild network. Last known location: near the Oracle.`,
+        likes: 200,
+        comments: [
+            { characterKey: 'the_broker', text: 'Lost assets are bad for business.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'roger_tune_stuck',
+        order: 31002,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 10 },
+        timestamp: '5 hours ago',
+        content: `This tune is stuck in my head. 🎶 We are the Toads... 🎶 It's catchy, right?`,
+        likes: 500,
+        comments: [
+            { characterKey: 'roger', text: 'Never stops.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'oracle_jacket_comment',
+        order: 31001,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 0 },
+        timestamp: '5 hours 10 minutes ago',
+        content: `My jacket is restless tonight. It knows guests are coming.`,
+        likes: 900,
+        comments: [
+            { characterKey: 'toad_lee', text: 'We are not guests. We are prisoners.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+   {
+        id: 'post_dk_war_declaration',
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 30 },
+        content: "YOU MISSED. K. Rool, you sent a snake to my brother's house. You tried to take out Funky. That was your last mistake. No more talks. No more truces. I'm coming for the Krew, and I'm bringing the whole jungle. #War #DKCrew",
+        likes: 5420,
+        rumorId: 'assassination_attempt_foiled'
+    },
+    {
+        id: 'post_funky_alive',
+        characterKey: 'funky_kong',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 18, minute: 45 },
+        content: "Whoa, dudes. Gnarly vibes today. Almost got surfed on by a camouflaged lizard while waxing the board. Not cool. Big thanks to the Big Guy for the save. The Shack is closed for renovations (and fortification). Peace... for now.",
+        likes: 3100,
+        rumorId: 'assassination_attempt_foiled'
+    },
+    {
+        id: 'post_krool_denial',
+        characterKey: 'king_k_rool',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 15 },
+        content: "Slander! Lies! I have no knowledge of this 'Galypso' or any alleged attack! But if the ape wants to rattle his cage, the Kremling Krew is ready to sink this island! Prepare the Blast-O-Matic!",
+        likes: 890,
+        rumorId: 'assassination_attempt_foiled'
+    },
+    {
+        id: 'post_wah_media_jungle_war',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
+        content: "BREAKING: Open warfare declared in the Southern Isles. Following a failed assassination attempt on Funky Kong, the DK Crew has mobilized. Banana prices are expected to skyrocket. Travel to the region is NOT advised.",
+        likes: 2200,
+        rumorId: 'assassination_attempt_foiled'
+    },    
+    {
+    id: 'waluigi_soundtrack_hijack',
+    order: 30947,
+    characterKey: 'waluigi',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 28 },
+    timestamp: 'Just Now',
+    content: `You call that an anthem, Iron Losers? It has no SOUL! No PIZZAZZ! Waluigi is taking over the audio feed! Prepare for "Destruction in D Major (Wah Version)"! 🎻🥀`,
+    likes: 3200,
+    comments: [
+        { characterKey: 'iron_legion', text: 'Cease this transmission immediately. You are disrupting tactical frequencies.' },
+        { characterKey: 'waluigi', text: 'I CAN\'T HEAR YOU OVER THE SOUND OF MY OWN GENIUS!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'ryan_decodes_orange',
+    order: 30946,
+    characterKey: 'ryan',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 24 },
+    timestamp: '4 minutes ago',
+    content: `Toad Lee, I ran that name "Orange Corvinarus" through the historical cypher. It's not just a name. "Corvinarus" is old dialect for "Raven Heart." Orange... implies the Citrus Duchy. We aren't looking for a person. We're looking for a biological weapon created during the First Toad Wars.`,
+    likes: 890,
+    comments: [
+        { characterKey: 'toad_lee', text: 'A biological weapon? Buried here? Under the Oracle\'s nose?' },
+        { characterKey: 'archie', text: 'Great. Zombies. It had to be zombies.' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'humpik_whispering_rocks',
+    order: 30945,
+    characterKey: 'humpik',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 19 },
+    timestamp: '9 minutes ago',
+    content: `The rocks are getting warmer. They are whispering to Humpik. They say, "Smash the walls. Free the hungry ones." ...Maybe just one little smash?`,
+    likes: 650,
+    comments: [
+        { characterKey: 'bowser', text: 'Hold it together, soldier! Smash the enemies, not the load-bearing walls!' },
+        { characterKey: 'dan', text: 'His eyes are turning purple. That happens to me sometimes. It usually ends bad.' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'bowser_vs_mirror_beast',
+    order: 30944,
+    characterKey: 'bowser',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 15 },
+    timestamp: '13 minutes ago',
+    content: `Archie couldn't hold the door. WEAK! The Mirror Freak broke out. It looks like... a liquid metal Mario? DISGUSTING! SHOWTIME! 🔥🔨`,
+    likes: 2100,
+    comments: [
+        { characterKey: 'archie', text: 'It mimicked my fear! Be careful, it reflects attacks!' },
+        { characterKey: 'humpik', text: 'SMASH THE SHINY MAN!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'mages_guild_location_ping',
+    order: 30943,
+    characterKey: 'mages_guild',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 11 },
+    timestamp: '17 minutes ago',
+    content: `Mana signature confirmed. Fugitive "Archie Miser" located in the Sub-Level 4 Catacombs. Extraction Team "Silencer" is en route. Do not resist.`,
+    likes: 500,
+    comments: [
+        { characterKey: 'freelancer_spy_1', text: 'Sub-Level 4? Even the Guild usually avoids that place. Good luck.' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'oracle_mocking',
+    order: 30942,
+    characterKey: 'self_reflection_oracle',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 6 },
+    timestamp: '22 minutes ago',
+    content: `You lock the door as if the monster is on the outside. But the mirror reflects what is *inside* you, Archie. You cannot lock out your own guilt.`,
+    likes: 1350,
+    comments: [
+        { characterKey: 'speaker_l', text: 'Do not listen to it. Focus on the mission.' },
+        { characterKey: 'waluigi', text: 'WAH! Too metaphorical! Needs more dancing!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+{
+    id: 'archie_door_struggle',
+    order: 30941,
+    characterKey: 'archie',
+    date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 2 },
+    timestamp: '26 minutes ago',
+    content: `It's banging on the wood. It's screaming with MY voice. I need a heavy object to barricade this! Humpik! Get the rocks!`,
+    likes: 1900,
+    comments: [
+        { characterKey: 'humpik', text: 'The rocks say they don\'t want to be a doorstop. They want to play.' },
+        { characterKey: 'archie', text: 'NOT THE TIME FOR SAPIENT GEOLOGY!' }
+    ],
+    rumorId: 'mages_guild_warrant'
+},
+    {
+        id: 'post_vig_1',
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 3, day: 20, hour: 14, minute: 0 },
+        content: "Did anyone else see that massive shadow in the clouds above the Northern Mountains? Looked too big to be a bird.",
+        likes: 45,
+        rumorId: 'vigilance_early_sightings'
+    },
+    {
+        id: 'post_vig_2',
+        characterKey: 'ratchet_raiders',
+        date: { year: 1040, monthIndex: 4, day: 5, hour: 9, minute: 30 },
+        content: "Scrap rain in Sector 4! Something big blew a gasket up high. First come, first served!",
+        likes: 120,
+        rumorId: 'vigilance_engine_failure'
+    },
+    {
+        id: 'post_vig_3',
+        characterKey: 'iron_legion',
+        date: { year: 1040, monthIndex: 4, day: 15, hour: 16, minute: 0 },
+        content: "Sky-patrols report unauthorized airship activity near the border. Interception protocols failed. Craft is heavily armored.",
+        likes: 89,
+        rumorId: 'vigilance_skirmish_border'
+    },
+    {
+        id: 'post_vig_4',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 4, day: 28, hour: 18, minute: 0 },
+        content: "BREAKING: The rogue airship 'Vigilance' has touched down. Smoke seen rising from the crash site. Local authorities advising caution.",
+        likes: 230,
+        rumorId: 'vigilance_final_descent'
+    },
+
+    // --- Supernatural Sovereignty ---
+    {
+        id: 'post_sov_1',
+        characterKey: 'freelancer_spy_1',
+        date: { year: 1040, monthIndex: 5, day: 10, hour: 22, minute: 0 },
+        content: "Intercepted memo from the Diet. They're drafting something big regarding 'non-human entities'. Hide your fangs.",
+        likes: 340,
+        rumorId: 'sov_proposal_leak'
+    },
+    {
+        id: 'post_sov_2',
+        characterKey: 'moonfang_pack',
+        date: { year: 1040, monthIndex: 5, day: 12, hour: 3, minute: 0 },
+        content: "They defiled the Lunar Shrine. The Empire has forgotten who hunts in the dark. We will remind them.",
+        likes: 150,
+        rumorId: 'sov_temple_vandalism'
+    },
+    {
+        id: 'post_sov_3',
+        characterKey: 'regal_empire_delegate',
+        date: { year: 1040, monthIndex: 5, day: 15, hour: 12, minute: 0 },
+        content: "The debate floor was chaotic today. Order must be maintained. These creatures cannot roam unchecked.",
+        likes: 60,
+        rumorId: 'sov_public_debate'
+    },
+    {
+        id: 'post_sov_4',
+        characterKey: 'onyx_hand',
+        date: { year: 1040, monthIndex: 5, day: 17, hour: 1, minute: 0 },
+        content: "A midnight visit to the magistrate's home seems to have... clarified our position. The bill will face opposition.",
+        likes: 210,
+        rumorId: 'sov_midnight_raid'
+    },
+
+    // --- Mushroom Civil War ---
+    {
+        id: 'post_mcw_1',
+        characterKey: 'chancellor_toadsworth',
+        date: { year: 995, monthIndex: 0, day: 2, hour: 9, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "The sun has set on the Kingdom. Her Highness is gone. We must remain strong for the people.",
+        likes: 5000,
+        rumorId: 'mushroom_civil_war_peach_death'
+    },
+    {
+        id: 'post_mcw_2',
+        characterKey: 'generic_toad',
+        date: { year: 1020, monthIndex: 2, day: 15, hour: 14, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "They're burning the shops in the lower district! The riots are out of control! Where is the Guard?!",
+        likes: 12,
+        rumorId: 'mushroom_civil_war_toad_town_riots'
+    },
+    {
+        id: 'post_mcw_3',
+        characterKey: 'koopa_troop',
+        date: { year: 1025, monthIndex: 6, day: 20, hour: 10, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "Another mile gained. The mushroom fortifications crumble before the might of the King!",
+        likes: 400,
+        rumorId: 'mushroom_civil_war_koopa_advance'
+    },
+    {
+        id: 'post_mcw_4',
+        characterKey: 'captain_toad',
+        date: { year: 1030, monthIndex: 10, day: 5, hour: 18, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "The refugee camps are full. We need supplies, not more speeches from the Regency council.",
+        likes: 800,
+        rumorId: 'mushroom_civil_war_refugee_crisis'
+    },
+    {
+        id: 'post_mcw_5',
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 5, day: 10, hour: 12, minute: 0 },
+        content: "Air raid sirens over Toad Town. Loyalist bombers spotted. Seek shelter immediately.",
+        likes: 650,
+        rumorId: 'mushroom_civil_war_bombing_run'
+    },
+
+    // --- Kong-Kremling Cold War ---
+    {
+        id: 'post_kk_1',
+        characterKey: 'funky_kong',
+        date: { year: 1038, monthIndex: 1, day: 10, hour: 11, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "Tariffs on bananas? Seriously? K. Rool is tripping. Prices just doubled.",
+        likes: 300,
+        rumorId: 'kong_kremling_trade_war'
+    },
+    {
+        id: 'post_kk_2',
+        characterKey: 'king_k_rool',
+        date: { year: 1039, monthIndex: 7, day: 15, hour: 14, minute: 0 },
+        timestamp: "Historical Archive",
+        content: "The embargo stands! No Kremling ships will dock at Kong ports until they apologize for the coconut incident!",
+        likes: 220,
+        rumorId: 'kong_kremling_embargo'
+    },
+    {
+        id: 'post_kk_3',
+        characterKey: 'diddy_kong',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 16, minute: 0 },
+        content: "Caught a lizard snooping around the hoard. Nice try. He's talking now.",
+        likes: 500,
+        rumorId: 'kong_kremling_spy_capture'
+    },
+    {
+        id: 'post_kk_4',
+        characterKey: 'chunky_kong',
+        date: { year: 1040, monthIndex: 5, day: 15, hour: 10, minute: 0 },
+        content: "Meeting went bad. K. Rool yelled a lot. No peace today.",
+        likes: 150,
+        rumorId: 'kong_kremling_diplomacy_fail'
+    },
+
+    // --- The Shadow War ---
+    {
+        id: 'post_sw_1',
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 4, day: 1, hour: 7, minute: 0 },
+        content: "My whole herd... drained. Not a drop of blood left in the field. This wasn't wolves.",
+        likes: 45,
+        rumorId: 'shadow_war_cattle'
+    },
+    {
+        id: 'post_sw_2',
+        characterKey: 'silver_flame',
+        date: { year: 1040, monthIndex: 4, day: 10, hour: 9, minute: 0 },
+        content: "Desecration at the ancestral crypts. The dead should remain resting. We are investigating.",
+        likes: 120,
+        rumorId: 'shadow_war_crypt'
+    },
+    {
+        id: 'post_sw_3',
+        characterKey: 'rakasha_clans',
+        date: { year: 1040, monthIndex: 5, day: 1, hour: 23, minute: 0 },
+        content: "The moon was red last night. We heard the clash of steel and claw in the valley. The cold ones are moving.",
+        likes: 180,
+        rumorId: 'shadow_war_skirmish_moon'
+    },
+    {
+        id: 'post_sw_4',
+        characterKey: 'freelancer_spy_1',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 12, minute: 0 },
+        content: "Vampires taxing the border villages now. 'Blood for protection'. Locals aren't happy.",
+        likes: 90,
+        rumorId: 'vampire_raid_supply'
+    },
+
+    // --- Toad Liberation ---
+    {
+        id: 'post_tl_1',
+        characterKey: 'the_unchained',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 20, minute: 0 },
+        content: "The chains are loose. We hear whispers of a new group forming in the shadows. Solidarity.",
+        likes: 300,
+        rumorId: 'toad_lib_whispers'
+    },
+    {
+        id: 'post_tl_2',
+        characterKey: 'iron_legion',
+        date: { year: 1040, monthIndex: 5, day: 5, hour: 8, minute: 0 },
+        content: "Supply convoy ambushed near Sector 7. Attackers were small, fast, and organized. Investigation ongoing.",
+        likes: 60,
+        rumorId: 'toad_lib_raid_supplies'
+    },
+    {
+        id: 'post_tl_3',
+        characterKey: 'rebel_clans_scout',
+        date: { year: 1040, monthIndex: 5, day: 15, hour: 14, minute: 0 },
+        content: "Saw a group of Toads drilling with spears in the woods. They looked... surprisingly competent.",
+        likes: 110,
+        rumorId: 'toad_lib_training_sighting'
+    },
+    {
+        id: 'post_tl_4',
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 10, minute: 0 },
+        content: "Saw Toad Lee yelling at recruits holding sticks. It's actually kind of inspiring? They're really trying.",
+        likes: 200,
+        rumorId: 'toad_training_montage'
+    },
+    // --- Kong Kremling Extra ---
+    {
+        id: 'post_kk_blockade',
+        characterKey: 'funky_kong',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 0 },
+        content: "K. Rool's galleons are blocking the surf! Can't catch a wave, can't ship a crate. This is totally bogus.",
+        likes: 420,
+        rumorId: 'kremling_naval_blockade'
+    },
+
+    {
+        id: 'archmage_theron_dispatch_aegis',
+        order: 30834,
+        characterKey: 'archmage_theron',
+        timestamp: '1 minute ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 1, minute: 0 },
+        content: `He admits it. He openly boasts of using unsanctioned, high-level destructive magic within a known supernatural nexus. To unleash such chaotic energy in a place with documented temporal and spectral instability is the height of irresponsibility. This flagrant disregard for magical law and arcane stability will not stand. The Aegis Magi have been dispatched to apprehend Archie Miser for immediate judgment.`,
+        likes: 1890,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Oh, lighten up, Theron! The resulting arcane detonation was a once-in-a-lifetime research opportunity!' },
+            { characterKey: 'archie', text: 'Come and get me, you dusty old rulebook.' },
+            { characterKey: 'toad_lee', text: 'You will have to go through the Cohort first.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'waluigi_applauds_fireball',
+        order: 30833,
+        characterKey: 'waluigi',
+        timestamp: '3 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 2, minute: 0 },
+        content: `WAH-HA-HA! SEE? He admits it! A glorious, magnificent fireball! He learned from the master! My influence is spreading! Soon everyone will be solving their problems with stylish explosions!`,
+        likes: 1520,
+        comments: [
+            { characterKey: 'archie', text: 'Don\'t flatter yourself. I was doing this long before I met you.' },
+            { characterKey: 'lario', text: 'You BOTH owe me for the scorch marks on the Vigilance!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'markop_justified_but_reckless',
+        order: 30832,
+        characterKey: 'markop',
+        timestamp: '5 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 0 },
+        content: `His confession is... typical Archie. He sees only the end, not the means. Yes, he saved Eager. But he also destroyed a historic structure and nearly killed everyone inside with the collapse. Justification is not the same as wisdom.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'bones', text: 'Wisdom doesn\'t get you out of a burning building. Explosions do.' },
+            { characterKey: 'dan', text: 'But we are all alive because of it.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'cosmic_jesters_celebrate_confession',
+        order: 30831,
+        characterKey: 'giggling_pete',
+        timestamp: '8 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 1 },
+            
+        content: `Hee hee ho ho! A public confession! He doesn't hide his beautiful chaos; he displays it for all to see! A true prophet! The Jester is pleased by this hilarious act of self-incrimination!`,
+        likes: 999,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'Silence, demon! Your profane worship will be cleansed!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'iron_legion_arrest_warrant',
+        order: 30830,
+        characterKey: 'colonel_vera_steelstorm',
+        timestamp: '10 minutes ago',
+        content: `With his public confession, Archie Miser has admitted to multiple Imperial crimes, including reckless endangerment and destruction of property. A formal warrant has been issued. He is to be considered armed and extremely dangerous.`,
+        likes: 1120,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 2 },
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'See that it is done, Colonel.' },
+            { characterKey: 'speaker_l', text: 'He is already in OUR custody for his crimes against the Cohort. The Legion can wait its turn.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'broker_archie_bounty',
+        order: 30829,
+        characterKey: 'the_broker',
+        timestamp: '12 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 3 },
+        content: `Market Update: Archie Miser's public confession has resulted in new, high-value warrants from both the Mages' Guild and the Iron Legion. His personal bounty has skyrocketed. A risky asset, but a profitable one for any willing to take the contract.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'boss_knuckles', text: 'The Iron Fists never rescinded our bounty. The price just went up.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'dan_defends_archie',
+        order: 30828,
+        characterKey: 'dan',
+        timestamp: '15 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 4 },
+        content: `He's not a criminal. He's a hero. He did what he had to do to save Eager's life when my own magic failed. I was there. I saw it. I will not stand by and let him be hunted for it.`,
+        likes: 780,
+        comments: [
+            { characterKey: 'toad_lee', text: 'We protect our own. Whatever the cost.' },
+            { characterKey: 'archmage_theron', text: 'Sentiment does not absolve one of breaking the law, young toad.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'fawful_on_fireball',
+        order: 30827,
+        characterKey: 'fawful',
+        timestamp: '20 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 5 },        
+        content: `A FIREBALL! A simple, boring fireball! It has the finesse of a dropped brick! My own schemes have the complexity of a seven-layer cake of DOOM! His confession is a snack of stupidity!`,
+        likes: 740,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! I agree! My own firebolt had much more... panache!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'eager_supports_archie',
+        order: 30826,
+        characterKey: 'eager',
+        timestamp: '22 minutes ago',
+        content: `He's right! He did it to save me! I was pinned and those rust monsters were everywhere! That fireball was the bravest thing I've ever seen!`,
+        likes: 690,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 6 },
+        comments: [
+            { characterKey: 'dan', text: 'We were all there, Eager. We know.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'toad_lee_protects_archie',
+        order: 30825,
+        characterKey: 'toad_lee',
+        timestamp: '25 minutes ago',
+        content: `The Mages' Guild and the Iron Legion can issue all the warrants they want. Archie is under the protection of the Vow. They will have to go through my axe to get to him.`,
+        likes: 950,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 8 },
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Is that a challenge, toad?' },
+            { characterKey: 'toad_lee', text: 'It is a statement of fact.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'green_thumb_guardians_outrage',
+        order: 30824,
+        characterKey: 'green_thumb_guardians',
+        timestamp: '30 minutes ago',
+        content: `HE DESTROYED A HISTORIC GREENHOUSE! A sanctuary of rare and endangered flora! He calls it justified?! He is a monster, a vandal of the highest order! The Green Thumb Guardians demand justice for this horticultural massacre!`,
+        likes: 420,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 10 },
+        comments: [
+            { characterKey: 'archie', text: 'There was a really nice tomato. And some grapes. Most of it was rotten.' },
+            { characterKey: 'bowser', text: 'The tomato was MINE!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'bowser_on_fireball',
+        order: 30823,
+        characterKey: 'bowser',
+        timestamp: '35 minutes ago',
+        content: `GWAHAHA! Finally, he admits it! Blew the whole place sky-high! That's how you solve a problem! Less talking, more explosions! I approve!`,
+        likes: 880,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 11 },
+        comments: [
+            { characterKey: 'humpik', text: 'A good boom!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'humpik_on_fireball',
+        order: 30822,
+        characterKey: 'humpik',
+        timestamp: '40 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 12 },
+        content: `Little man made a big boom! Saved the fast toad! Good boom!`,
+        likes: 670,
+        comments: [
+            { characterKey: 'bowser', text: 'See? Humpik gets it!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'remi_on_fireball',
+        order: 30821,
+        characterKey: 'remi',
+        timestamp: '45 minutes ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 13 },
+        content: `So he just... admitted to a war crime? And everyone is either trying to arrest him or give him a medal? This crew is weird.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'bones', text: 'Welcome to the party, kid.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'bones_on_confession',
+        order: 30820,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 14 },
+        timestamp: '50 minutes ago',
+        content: `Kid blew up a building to save his friends and then told everyone about it. Can't decide if that's brave or stupid. Probably both.`,
+        likes: 650,
+        comments: [
+            { characterKey: 'archie', text: 'Why not both?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'ryan_on_confession',
+        order: 30819,
+        characterKey: 'ryan',
+        timestamp: '55 minutes ago',
+        content: `The sheer power of the incantation was undeniable, but the collateral damage was... extensive. A necessary act, perhaps, but a deeply unbalanced one. It tore a wound in the local arcane spectrum.`,
+        likes: 480,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 15 },
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: 'A wound that will fester.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'roger_on_confession',
+        order: 30818,
+        characterKey: 'roger',
+        timestamp: '1 hour ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 17 },
+        content: `The action resulted in the successful extraction of a key asset. The subsequent public admission, however, has significantly increased the threat level from external state actors. A tactical victory leading to a strategic liability.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'A correct assessment.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'speaker_l_on_confession',
+        order: 30817,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 20 },
+        timestamp: '1 hour ago',
+        content: `He confesses to the very crime we apprehended him for! This only proves our actions were just! His recklessness knows no bounds! The Cohort's judgment was correct!`,
+        likes: 680,
+        comments: [
+            { characterKey: 'archie', text: 'You apprehended me for incompetence. This was an act of extreme competence. Get your charges straight.' },
+            { characterKey: 'toad_lee', text: 'This changes nothing, Speaker. You acted rashly.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'toadette_on_confession',
+        order: 30816,
+        characterKey: 'captain_toadette',
+        timestamp: '1 hour ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 22 },
+
+        content: `He uses the power of a WMD to solve a pest problem. This is why mages cannot be trusted. They lack the discipline of a true soldier.`,
+        likes: 580,
+        comments: [
+            { characterKey: 'embercap', text: 'Well said, Captain.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'krool_on_confession',
+        order: 30815,
+        characterKey: 'king_k_rool',
+        timestamp: '2 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 23 },
+        content: `Keheheh! The three-eyed freak blows up his own house and then brags about it! What an idiot! My minions have more sense than that!`,
+        likes: 690,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'At least he saves his friends. What was the last thing you did for your crew, K. Rool?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'syrup_on_confession',
+        order: 30814,
+        characterKey: 'captain_syrup',
+        timestamp: '2 hours ago',
+        content: `He blew up a greenhouse? What a waste of good real estate. And he probably destroyed any treasure that was inside. Amateur.`,
+        likes: 520,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 24 },
+        comments: [
+            { characterKey: 'wario', text: 'My thoughts exactly! Think of the lost profits!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'lario_on_confession',
+        order: 30813,
+        characterKey: 'lario',
+        timestamp: '2 hours ago',
+        content: `He blew it up?! The whole greenhouse?! Think of all the scrap metal! The rare components! The salvage value! He just incinerated a fortune! I feel sick.`,
+        likes: 310,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+        comments: [
+            { characterKey: 'the_broker', text: 'I am accepting bids for the salvage rights. Interested?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'generic_toad_on_confession',
+        order: 30812,
+        characterKey: 'generic_toad',
+        timestamp: '3 hours ago',
+        content: `Wait, he ADMITTED it? On WAHbook? Why would he do that? Doesn't he know the Mages' Guild will come after him now?`,
+        likes: 280,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        comments: [
+            { characterKey: 'generic_toad_2', text: 'Maybe he thinks they can\'t catch him?' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'steelstorm_on_confession',
+        order: 30811,
+        characterKey: 'colonel_vera_steelstorm',
+        timestamp: '3 hours ago',
+        content: `A public confession simplifies things. Activating Protocol 7-Gamma. Asset is to be apprehended on sight.`,
+        likes: 710,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        comments: [
+            { characterKey: 'jerry_the_spy', text: 'Acknowledged. Updating my operational parameters.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'ironhand_on_confession',
+        order: 30810,
+        characterKey: 'general_marcus_ironhand',
+        timestamp: '3 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        content: `His arrogance is his undoing. He has confessed his crimes against the Empire. Justice will be swift.`,
+        likes: 690,
+        comments: [
+            { characterKey: 'markop', text: 'There is a difference between justice and vengeance, General.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'kamek_on_confession',
+        order: 30809,
+        characterKey: 'kamek',
+        timestamp: '4 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        content: `He boasts of his recklessness. How amusingly short-sighted. He paints a target on his own back, drawing the attention of our mutual enemies. A useful fool.`,
+        likes: 590,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'Let the hounds chase the rabbit. It keeps them from the fox.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'penny_on_confession',
+        order: 30808,
+        characterKey: 'detective_penny',
+        timestamp: '4 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        content: `A public confession. Case closed, I guess? Now comes the hard part: the jurisdictional nightmare of who gets to arrest him first. #AnarchistProblems`,
+        likes: 620,
+        comments: [
+            { characterKey: 'archmage_theron', text: 'Mages\' Guild business takes precedence, Detective.' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'Imperial law takes precedence over all, Archmage.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'oracle_on_confession',
+        order: 30807,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        timestamp: '5 hours ago',
+        content: `He chooses the thread of open defiance. A bold, bright, and tragically short thread. The pattern becomes clearer.`,
+        likes: 910,
+        comments: [
+            { characterKey: 'archie', text: 'I make my own patterns.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'the_mole_on_confession',
+        order: 30806,
+        characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        timestamp: '5 hours ago',
+        content: `Confirmation of target's use of high-yield incindiaries. Updating Legion file. His threat level has been elevated.`,
+        likes: 510,
+        comments: [
+            { characterKey: 'speaker_l', text: 'See? Vindicated!' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'jerry_on_confession',
+        order: 30805,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        timestamp: '6 hours ago',
+        content: `He just admitted it? Publicly? My job just got a lot easier. And a lot harder.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Focus on the objective, Agent.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'dk_on_confession',
+        order: 30804,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        characterKey: 'donkey_kong',
+        timestamp: '6 hours ago',
+        content: `Blew up a house to save his friends. Sounds like something a Kong would do. I like his style.`,
+        likes: 1600,
+        comments: [
+            { characterKey: 'diddy_kong', text: 'He\'s still a menace, DK.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'cranky_on_confession',
+        order: 30803,
+        characterKey: 'cranky_kong',
+        timestamp: '7 hours ago',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        content: `Good grief! First he blows up a building, then he tells everyone about it on the WAH-thingy! Back in my day, we had the decency to keep our property damage a secret!`,
+        likes: 810,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'Times have changed, Cranky.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },
+    {
+        id: 'cybernetic_on_confession',
+        order: 30801,
+        characterKey: 'cybernetic_collectives',
+        timestamp: '8 hours ago',
+        content: `[ANALYSIS]: Subject publicly admits to an act of extreme destruction for emotional reasons ('saving friends'). This contradicts logical self-preservation protocols. Organic decision-making remains fascinatingly inefficient.`,
+        likes: 777,
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 25 },
+
+        comments: [
+            { characterKey: 'ryan', text: 'Maybe efficiency isn\'t the only metric that matters.' }
+        ],
+        rumorId: 'greenhouse_inferno_confession'
+    },    
+    {
+        id: 'archie_on_a_horse',
+        order: 394,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `So, I'm tied to a horse. This is an improvement over the cage, I guess. At least the view is better. 2/10, would not recommend getting arrested by a marching band.`,
+        likes: 1988,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Show some respect for your captors, Miser.' },
+            { characterKey: 'waluigi', text: 'WAH! You should have demanded a fancier horse! One with sequins!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'iron_legion_vigilance_captured',
+        order: 393,
+        characterKey: 'general_marcus_ironhand',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The rogue airship 'Vigilance' has been secured. Imperial justice is absolute. The skies of the Midlands are once again under the protection of the Iron Legion. All resistance has been neutralized.`,
+        likes: 3200,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: "A flawless operation, General. The assets are being processed." },
+            { characterKey: 'waluigi', text: "WAH! You broke my ship! I'm sending you the bill!" }
+        ],
+        eventId: 'vigilance_fall'
+    },
+    {
+        id: 'steelstorm_operation_retribution',
+        order: 392,
+        characterKey: 'colonel_vera_steelstorm',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `Operation Swift Retribution is complete. The asset known as 'Speaker L' has been secured. His command structure has been dismantled. Order has been restored to the sector. This is a message to all who would harbor fugitives or defy Imperial law: The Legion is watching.`,
+        likes: 1250,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'A clean, decisive victory, Colonel. As it should be.' },
+            { characterKey: 'toad_lee', text: 'You call this "order"? You ambushed a leaderless group in the dark.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_returns_to_chaos',
+        order: 391,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 1, minute: 1 },
+        timestamp: 'Just Now',
+        content: `Back. The war isn't over. But at least I'm not in a cage anymore.`,
+        likes: 1980,
+        comments: [
+            { characterKey: 'speaker_l', text: 'MISER! YOU WILL ANSWER FOR THIS! NOWHERE TO RUN!' },
+            { characterKey: 'markop', text: 'Archie? By the light, are you alright? Where have you been?' },
+            { characterKey: 'waluigi', text: 'WAH! What an entrance! 10/10 for dramatic timing!' },
+            { characterKey: 'archie', text: 'You wouldn\'t believe me if I told you.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_aftermath_wraiths',
+        order: 390,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 59 },
+        timestamp: '1 minute ago',
+        content: `He was one of them. Archie saved them. All of them. He freed them. And this is how they repay him. They march him away in chains. "No Cohort left behind," they say, as they abandon their liberator. There is no honor in this.`,
+        likes: 1250,
+        comments: [
+            { characterKey: 'dan', text: 'This is wrong... all of it is wrong.' },
+            { characterKey: 'toad_lee', text: 'I am on my way, Markop. We will sort this out. This is not the Vow.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'archie_ironic_justice',
+        order: 389,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 59 },
+        timestamp: '1 minute ago',
+        content: `Heard Speaker L got a taste of his own medicine. Got arrested by a bigger, better army right after he arrested me. You truly, truly hate to see it. Oh wait, no you don't. It's hilarious.`,
+        likes: 2100,
+        comments: [
+            { characterKey: 'bones', text: 'Live by the boot, die by the boot.' },
+            { characterKey: 'waluigi', text: 'WAH! The irony is so thick you could build a house with it!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'speaker_l_humiliation',
+        order: 388,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 59 },
+        timestamp: '1 minute ago',
+        content: `ARCHIE MISER HAS ESCAPED CUSTODY! A toad named JERRY is responsible! He is a traitor to the Cohort and an agent of the Iron Legion! Find them both! The Mandate WILL be enforced!`,
+        likes: 810,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Another traitor... By the Vow, this treachery will not stand.' },
+            { characterKey: 'archie', text: 'Sounds like you have an internal security problem.' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'Your internal security problem is our operational success. Do try to keep up.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'oracle_applauds_battle',
+        order: 387,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `Marvelous work. The ghosts are dispelled. The mansion is clear. For now.`,
+        likes: 1313,
+        comments: [
+            { characterKey: 'markop', text: 'A toad is dead. My sword is broken. This was not "marvelous work."' },
+            { characterKey: 'kamek', text: 'You have a curious definition of "clear," Oracle.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'rakasha_relay_complete',
+        order: 386,
+        characterKey: 'rakasha_spirit_walker',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `The client has been relayed. The balance is maintained. The debt is paid.`,
+        likes: 750,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Teleportation with no arcane residue?! What kind of transport is this?! I need to study it!' },
+            { characterKey: 'archmage_theron', text: 'It is Rakasha spirit-walking, Janna. It is not for you to "study." Leave them be.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toad_lee_patrol_dissent',
+        order: 385,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `I voted no. Our people are wounded, scattered. They need aid, not chains. To treat our own as criminals in the wake of a battle is to break the very Vow that holds us together. This is a mistake.`,
+        likes: 415,
+        comments: [
+            { characterKey: 'dan', text: 'I agree with you, Lee. We should be helping them.' },
+            { characterKey: 'speaker_l', text: 'Helping them continue their path of destruction is not an option.' }
         ]
     },
-
-    garden_remembrance: {
-        id: 'garden_remembrance',
-        name: "Garden of Remembrance",
-        icon: "🌹",
-        position: { x: 15, y: 50, z: 0 },
-        status: "ANOMALOUS",
-        securityLevel: "RESTRICTED",
-        color: "#ff69b4",
-        description: "Memorial garden with... unusual properties.",
-        discoveries: [
-            {
-                id: 'weeping_statue',
-                title: "THE STATUE THAT WEEPS",
-                classification: "TOP SECRET",
-                icon: "🗿",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 18 },
-                content: `Following the clue from Peach's journal, surveillance was established on all garden statues.
-
-At precisely midnight, a statue depicting the first Queen Toadstool began to weep. Not water—STARLIGHT. Liquid luminescence flowed from her stone eyes for exactly seven minutes.
-
-When the weeping stopped, the statue's base shifted, revealing a hidden compartment containing:
-
-1. A sealed letter addressed to "My Dearest T—"
-2. A crystal vial containing what appears to be preserved blood
-3. A map fragment showing a location in Rakasha territory
-4. A golden key with the inscription "FOR WHEN THE TRUTH MUST BE KNOWN"
-
-The letter has been opened and transcribed:
-
-"My love, if you are reading this, I did not survive. The contents of this vault will expose everything. The blood is proof of lineage. The map leads to your people's sacred cave where I have hidden the complete truth. The key opens my mother's locket, which contains the final piece.
-
-Do not blame yourself. They would have come for me eventually. Just promise me: when the time is right, tell the world what really happened.
-
-Forever yours in this life and the next,
-- P"
-
-FAWFUL'S NOTE: "BLOOD PROOF?! LINEAGE?! Was the pink princess not who she seemed?! The plot is having more thickness than Fawful's grandmother's mustard soup! I MUST have this locket!"`,
-                implications: [
-                    "Peach left a complete record of the conspiracy",
-                    "The blood proves some kind of lineage secret",
-                    "A 'sacred cave' in Rakasha territory holds the truth",
-                    "The Queen's locket is the final piece"
-                ]
-            },
-            {
-                id: 'garden_spirits',
-                title: "THE WATCHING SPIRITS",
-                classification: "SECRET",
-                icon: "👻",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 19 },
-                content: `The garden is not empty at night. Infrared cameras detected multiple spectral entities after sunset.
-
-They do not attack or threaten, but they WATCH. Analysis suggests they are the spirits of those buried in the garden—nobility and royalty from centuries past.
-
-One spirit has been identified: Former Queen Toadstool III, Peach's grandmother. She appears at her own grave each night and stares at the castle windows. When she "sees" surveillance equipment, she smiles.
-
-Attempts to communicate have failed. However, a medium brought in for consultation reported: "She says 'The garden remembers everything. The trees heard the conspiracy. Ask the ancient oak—it saw the killers' faces.'"
-
-An ancient oak tree stands at the garden's center. It is over 400 years old. Experiments to "communicate" with it are ongoing.
-
-FAWFUL'S NOTE: "Trees that are having the SEEING? Grandmothers who are being GHOSTS? This castle is the craziness wrapped in the madness wrapped in the FURY! But if the tree knows... Fawful will make the tree TALK!"`,
-                implications: [
-                    "The spirits may be protectors of the truth",
-                    "The ancient oak may have witnessed the assassination",
-                    "Spectral communication could reveal everything",
-                    "Queen Toadstool III seems to approve of investigation"
-                ]
-            }
-        ],
-        surveillance: {
-            cameras: 8,
-            guards: 4,
-            alerts: 12,
-            lastIncident: "Day 20 - All cameras failed simultaneously at midnight"
-        }
+    {
+        id: 'archie_scavenging_vote_loss',
+        order: 384,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `So the consensus is... 'be careful'. Groundbreaking. My plan was faster. But fine. I'll play along with the 'overwhelming force' strategy. Don't come crying to me when it takes a month to find one rusty wrench.`,
+        likes: 255,
+        comments: [
+            { characterKey: 'bones', text: 'More walking for less profit. Figures.' }
+        ]
     },
-
-    east_tower: {
-        id: 'east_tower',
-        name: "East Tower (Observatory)",
-        icon: "🔭",
-        position: { x: 85, y: 30, z: 0 },
-        status: "RESEARCH",
-        securityLevel: "MEDIUM",
-        color: "#4169e1",
-        description: "Astronomical observatory, now Fawful's research division.",
-        discoveries: [
-            {
-                id: 'star_charts',
-                title: "THE PROPHECY CHARTS",
-                classification: "SECRET",
-                icon: "📊",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 12 },
-                content: `The observatory contains star charts dating back 500 years. Most are standard astronomical records, but one locked cabinet (now opened) contained charts marked "PROPHECY TRACKING."
-
-These charts track a specific celestial alignment that occurs once every 85 years. The last alignment occurred in 955 BF—the year of Peach's assassination.
-
-The next alignment occurs in 1040 BF—THIS YEAR. Specifically, on Day 30 of Highsun (9 days from now).
-
-Notes in the margins:
-"The stars align when the veil thins. The truth can be revealed only when the stars permit. The dead may speak on this night—if the seven flames burn in the Chamber of Stars."
-
-The "Chamber of Stars" is referenced in no other document. Its location remains unknown.
-
-FAWFUL'S NOTE: "Nine days! NINE DAYS until the stars are aligning! Fawful must find this 'Chamber of Stars'! If the dead can speak, then PEACH HERSELF can tell Fawful who had the killing of her! The ULTIMATE interrogation!"`,
-                implications: [
-                    "The assassination may have been timed to the celestial event",
-                    "Day 30 of Highsun is cosmically significant",
-                    "The 'Chamber of Stars' is somewhere in the castle",
-                    "Communication with the dead may be possible"
-                ]
-            },
-            {
-                id: 'dragon_comm',
-                title: "DRAGON ALLIANCE COMMUNICATIONS",
-                classification: "FAWFUL EYES ONLY",
-                icon: "🐉",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 11 },
-                content: `[THIS FILE IS RESTRICTED TO LORD FAWFUL ONLY]
-
-The Dragon Council has agreed to Fawful's terms. In exchange for:
-- Territorial rights to the Northern Mountains
-- Non-interference in dragon hunting grounds
-- Access to the Star Core (limited, supervised)
-
-The Dragons will provide:
-- Aerial supremacy over the Mushroom Kingdom
-- Intelligence on Koopa Troop movements
-- Three ancient texts from their hoards (contents: the location of all seven Star Spirits)
-
-Current dragon assets:
-- Cindermaw the Red (Stationed: Bramblehaven ruins)
-- Frostbane the White (Stationed: Northern patrol)
-- Voltaris the Blue (Stationed: Sea approach)
-- Ashclaw the Black (Stationed: Personal guard rotation)
-
-The Dragons have also shared a concerning revelation: They remember the night Peach died. Dragons live for millennia. Cindermaw was flying patrol that night and saw "a figure fleeing the castle through a secret passage, carrying a bloody blade. The figure wore the robes of a Chancellor."
-
-FAWFUL'S NOTE: "CHANCELLOR ROBES! Not Bowser! Not Koopa! A CHANCELLOR! The treasonous Toadsworth family has the GUILT! Fawful will have the crushing of them! But first... the Star Spirits. Their knowledge will make Fawful UNSTOPPABLE!"`,
-                implications: [
-                    "Dragons witnessed the assassination",
-                    "A Chancellor-robed figure was the killer",
-                    "This directly implicates the Toadsworth family",
-                    "Fawful is hunting the Star Spirits"
-                ]
-            }
+    {
+        id: 'toad_lee_l_captured',
+        order: 383,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 57 },
+        timestamp: '3 minutes ago',
+        content: `They have him. The Iron Legion struck while we were divided. Flashbangs, breaching charges... it was an assault, not a police action. They took Speaker L. The First Cohort is scattered. We are broken.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'dan', text: 'No... not more fighting. Not more of us captured.' },
+            { characterKey: 'markop', text: 'This is the consequence of our division. We are picking each other apart, and the Legion is feasting on the scraps.' }
         ],
-        surveillance: {
-            cameras: 6,
-            guards: 4,
-            alerts: 0,
-            lastIncident: null
-        }
+        rumorId: 'archie_third_eye_escape'
     },
-
-    west_tower: {
-        id: 'west_tower',
-        name: "West Tower (Armory)",
-        icon: "⚔️",
-        position: { x: 15, y: 30, z: 0 },
-        status: "FORTIFIED",
-        securityLevel: "HIGH",
-        color: "#ffa500",
-        description: "Royal armory, now upgraded with Fawful technology.",
-        discoveries: [
-            {
-                id: 'assassination_weapon',
-                title: "THE REAL MURDER WEAPON",
-                classification: "TOP SECRET",
-                icon: "🗡️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 15 },
-                content: `The official story claims Peach was killed with a ceremonial dagger. That dagger is on display in the Regency Museum.
-
-But a hidden vault in the armory contained the REAL weapon, preserved in a stasis field: A blade of Koopa design—but analysis proves it was FORGED in the Mushroom Kingdom. The metallic signature is unmistakable.
-
-This blade was never used by a Koopa. It was crafted here, in the castle forges, and designed to implicate Bowser.
-
-Inscription on the blade (hidden under dried blood—Peach's blood, confirmed): "For the Greater Mushroom"
-
-The phrase "Greater Mushroom" appears in exactly one other historical document: The founding charter of the Mushroom Regency.
-
-FAWFUL'S NOTE: "FORGED EVIDENCE! The frame-job on the turtle-king was having the planning! This blade PROVES the Regency killed their own princess! Fawful will broadcast this to the WORLD! ...After using the information for maximum personal advantage, of course. I am not being STUPID."`,
-                implications: [
-                    "Bowser was framed by the Regency",
-                    "The assassination was planned well in advance",
-                    "The murder weapon proves domestic conspiracy",
-                    "The Regency's founding may be built on lies"
-                ]
-            },
-            {
-                id: 'royal_guard_logs',
-                title: "DELETED GUARD LOGS",
-                classification: "SECRET",
-                icon: "📋",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 13 },
-                content: `The armory's records vault contained guard rotation logs from 955 BF. Most were mundane, but analysis revealed that several entries were OVERWRITTEN—crudely erased and rewritten.
-
-Fawful's data recovery team restored the original entries:
-
-ORIGINAL: "2300 hours - All guards withdrawn from Royal Wing by order of Chancellor Toadsworth. Reason given: 'Emergency drill.' "
-
-MODIFIED VERSION: "2300 hours - All guards maintain normal positions. No incidents."
-
-ORIGINAL: "0015 hours - Princess Peach found deceased in chambers. Guards were not at posts. Chancellor Toadsworth first on scene."
-
-MODIFIED VERSION: "0015 hours - Princess Peach found deceased in chambers. Koopa assassin fled through window. Guards in pursuit."
-
-The forgery is competent but not perfect. The ink age doesn't match. Someone tried to rewrite history.
-
-FAWFUL'S NOTE: "The Chancellor was FIRST ON SCENE after withdrawing the guards! The coincidence is having the suspiciousness! Old Toadsworth had the doing of this! And his son knows! The family secret that EVERYONE should know!"`,
-                implications: [
-                    "Chancellor Toadsworth withdrew the guards",
-                    "He was first to find the body",
-                    "The official record was falsified",
-                    "Current Chancellor may know the truth"
-                ]
-            }
+    {
+        id: 'cohort_no_left_behind',
+        order: 382,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 56 },
+        timestamp: '4 minutes ago',
+        content: `We lost a brother today. But we completed the mission. Archie Miser is in custody. No toad left behind. No Cohort ever left behind. We stand together.`,
+        likes: 560,
+        comments: [
+            { characterKey: 'markop', text: 'You left your liberator behind.' }
         ],
-        surveillance: {
-            cameras: 16,
-            guards: 12,
-            alerts: 1,
-            lastIncident: "Day 14 - Attempted break-in, infiltrator escaped"
-        }
+        rumorId: 'wraith_conflagration'
     },
-
-    grand_kitchen: {
-        id: 'grand_kitchen',
-        name: "Grand Kitchen",
-        icon: "🍰",
-        position: { x: 75, y: 65, z: 0 },
-        status: "OPERATIONAL",
-        securityLevel: "LOW",
-        color: "#f0e68c",
-        description: "The legendary kitchen. Fawful has... opinions about the menu.",
-        discoveries: [
-            {
-                id: 'poison_evidence',
-                title: "THE BACKUP PLAN",
-                classification: "SECRET",
-                icon: "☠️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 16 },
-                content: `A hidden compartment behind the spice rack contained a vial of extremely rare poison: Essence of Void Mushroom. This poison is undetectable and causes death that appears completely natural.
-
-The vial is 85 years old. It was never used.
-
-Attached note (in different handwriting than Peach's journal):
-
-"Plan B, if the direct approach fails. Add to evening tea. Death within the hour, attributed to natural causes. Destroy this note after reading. —T.Sr."
-
-"T.Sr." almost certainly refers to Toadsworth Senior, the Chancellor at the time of the assassination.
-
-The poison was the BACKUP. The blade was Plan A. Either way, Peach was meant to die that night. The conspirators left nothing to chance.
-
-FAWFUL'S NOTE: "They were having the redundancy! PROFESSIONALS! This was not the crime of the passion—this was the EXECUTION! A PLANNED EXECUTION by her own government! Fawful is almost having the admiration! ...Almost. They should have used more MUSTARD."`,
-                implications: [
-                    "Multiple assassination methods were prepared",
-                    "Toadsworth Senior was definitively involved",
-                    "This was a coordinated conspiracy",
-                    "The poison proves premeditation"
-                ]
-            }
+    {
+        id: 'cohort_reports_archie_capture',
+        order: 381,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `We got him! We got Archie! Speaker L has him tied to one of the horses! Justice is coming!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Secure the prisoner. Maintain formation.' }
         ],
-        surveillance: {
-            cameras: 4,
-            guards: 2,
-            alerts: 0,
-            lastIncident: null
-        }
+        rumorId: 'wraith_conflagration'
     },
-
-    secret_passages: {
-        id: 'secret_passages',
-        name: "Secret Passage Network",
-        icon: "🕸️",
-        position: { x: 50, y: 50, z: -1 },
-        status: "MAPPING",
-        securityLevel: "UNKNOWN",
-        color: "#4a4a4a",
-        description: "Hidden tunnels throughout the castle. Exploration ongoing.",
-        discoveries: [
-            {
-                id: 'passage_map',
-                title: "PARTIAL PASSAGE MAP",
-                classification: "SECRET",
-                icon: "🗺️",
-                discovered: true,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 17 },
-                content: `Current mapping progress: 23%
-
-Confirmed passages:
-- Royal Chambers → Garden of Remembrance (ACTIVE)
-- Throne Room → Dungeons (SEALED)
-- West Tower → East Tower (COLLAPSED)
-- Kitchen → External escape point (MONITORED)
-- Dungeons → Deep Tunnels (ACTIVE, DANGEROUS)
-
-Unknown passages: At least 7 more detected via sonar
-
-One passage defies mapping—instruments simply fail within. This passage connects the Royal Chambers to an unknown destination. Drones sent in do not return. Guards sent in emerge hours later with no memory of entering.
-
-This passage is designated "THE VOID CORRIDOR." Entry is forbidden until further analysis.
-
-FAWFUL'S NOTE: "Memory erasure? Drones vanishing? This passage is having the WEIRDNESS! Fawful suspects magical protection of the highest order. Someone REALLY did not want this destination found. Which means Fawful MUST find it!"`,
-                implications: [
-                    "The castle has at least 12 secret passages",
-                    "The 'Void Corridor' is anomalously protected",
-                    "Someone maintains these passages",
-                    "The collapsed West-East tunnel may have been deliberate"
-                ]
-            },
-            {
-                id: 'chamber_of_stars',
-                title: "CHAMBER OF STARS - ACCESSED",
-                classification: "TOP SECRET",
-                icon: "✨",
-                discovered: false, // Will default to false, unlocked by intel
-                intelRequired: 90,
-                discoveryDate: { year: 1040, monthIndex: 6, day: 30 },
-                content: `[DECRYPTION SUCCESSFUL - INTEL LEVEL SUFFICIENT]
-
-The Void Corridor has opened. The stars have aligned.
-
-Fawful's elite team has breached the Chamber. Inside, suspended in a column of pure starlight, lies the answer to everything.
-
-It is not just a room. It is a memory bank of the Star Spirits.
-
-The center of the room holds a pedestal. On it, a single recording crystal.
-
-Playback initialized...
-
-Voice of Princess Peach (Recorded 955 BF):
-"They are breaking down the door. I have sent the Star Spirits away to hide them. But I cannot hide. If you find this... know that Bowser did not do this. It was the Senate. It was the Council of Mushrooms. They want the power of the Stars for themselves. They want to militarize the kingdom. I refused. So they will replace me with a puppet government. A Regency.
-
-Please... protect the Toads. Protect the Koopas. Protect everyone. The darkness comes from within."
-
-FAWFUL'S NOTE: "THE SMOKING GUN! The evidence that burns! The Regency is EXPOSED! The Princess left a message from the GRAVE! Fawful has WON! Now... how to use this to make them all kneel..."`,
-                implications: [
-                    "Definitive proof of the Regency's guilt",
-                    "Peach's final message recovered",
-                    "The Star Spirits were sent into hiding by Peach",
-                    "The entire political structure of the last 85 years is illegitimate"
-                ]
-            }
+    {
+        id: 'first_cohort_survivor_raid',
+        order: 380,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `They came from nowhere! Black armor, red lights! They were silent, efficient... they tore through our lines. They took the Speaker! They took him! We're scattered! We need orders!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Rally at the east bridge. Tend to the wounded. Do not engage.' }
         ],
-        surveillance: {
-            cameras: 0,
-            guards: 6,
-            alerts: "CONSTANT",
-            lastIncident: "Continuous anomalous readings"
-        }
-    }
-};
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'mindflayer_ponders_archie',
+        order: 379,
+        characterKey: 'mindflayer_entity',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `[Psionic Echo]: An anomaly. Un-tethered. Interesting... its chaotic neural pathways resonate with the Far Realm. A potential asset... or a delicious meal.`,
+        likes: 999,
+        comments: [
+            { characterKey: 'cybernetic_collectives', text: '[ANALYSIS]: Psionic broadcast detected. Non-standard origin. Intriguing.' },
+            { characterKey: 'high_inquisitor_vale', text: 'Abominations from beyond the veil. They must be purged.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_wraith_victory',
+        order: 378,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 54 },
+        timestamp: '6 minutes ago',
+        content: `One is destroyed. The other has fled into the walls. The immediate threat is over. Tending to the wounded.`,
+        likes: 780,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'A righteous victory against the undead! The Flame applauds your conviction, even if your allies are questionable.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'markop_sword_shatters',
+        order: 377,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `My blade is broken. Shattered against the wraith's form. But the fight is not over.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'humpik', text: 'Use your fists, horse-man! They are not broken!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'iron_legion_commando_raid_report',
+        order: 376,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `Primary target secured. Cohort command structure neutralized. Minimal resistance. Extracting now. For the Empire.`,
+        likes: 780,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_about_xo',
+        order: 375,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `Saw X.O. She's not coming back. I left her things. A debt paid, I guess.`,
+        likes: 1340,
+        comments: [
+            { characterKey: 'dan', text: 'What do you mean? Archie, what did you see?' },
+            { characterKey: 'markop', text: 'May her soul find peace, despite her actions.' },
+            { characterKey: 'the_broker', text: 'Asset "X.O." permanently off the board. The market adjusts.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'roger_press_the_attack',
+        order: 374,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 51 },
+        timestamp: '9 minutes ago',
+        content: `WE HAVE LOST A MAN! PRESS THE ATTACK! CONCENTRATE FIRE ON THE NEAREST TARGET! DO NOT LET HIS DEATH BE IN VAIN!`,
+        likes: 512,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Hold your line, Roger! Do not break formation!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'cohort_toad_dies',
+        order: 373,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `They got Pip! The ghost... it just... crushed him! Medic! MEDIC!`,
+        likes: 350,
+        comments: [
+            { characterKey: 'dewdrop', text: 'I... I cannot reach you. Hold on!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'broker_l_captured_market',
+        order: 372,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Market Correction: Asset 'Speaker L' is now in Iron Legion custody. The Liberated Toads faction is in a state of catastrophic leadership failure. Their value has plummeted. Information on Legion interrogation techniques has, once again, become a premium commodity.`,
+        likes: 690,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'iron_legion_failed_capture',
+        order: 371,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Target Miser has evaded containment. Repeat, target has evaded containment. Agent 'Jerry' has been... compromised. Deploying mech unit for perimeter sweep.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: 'Unacceptable. Find him.' },
+            { characterKey: 'colonel_vera_steelstorm', text: 'Failure. Agent Jerry will report for debriefing and disciplinary action.' },
+            { characterKey: 'king_k_rool', text: 'Keheheh! Even with all your fancy toys, you couldn\'t catch one three-eyed freak? Pathetic.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'generic_toad_scavenging_relief',
+        order: 370,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Thank goodness! I was so scared I'd be picked for one of those small scouting groups. Going out in a big, well-armed team sounds so much safer. It feels like we're finally thinking about protecting each other again.`,
+        likes: 288,
+        comments: []
+    },
+    {
+        id: 'waluigi_sees_eager',
+        order: 369,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `WAH! I just saw the little fast toad... he's a balloon! I'm carrying him by his ankle! He looks ridiculous! This house is magnificent!`,
+        likes: 930,
+        comments: [
+            { characterKey: 'eager', text: '(muffled sounds of terrified floating)' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'bowser_reacts_to_raid',
+        order: 368,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `GWAHAHA! The little singing toad who arrested the three-eyed weirdo just got arrested by the tin cans! One less annoying voice in the world! This day just keeps getting better!`,
+        likes: 840,
+        comments: [
+            { characterKey: 'kamek', text: 'A most efficient removal of a minor nuisance, Your Viciousness.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_report',
+        order: 367,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `He's gone. Used an invisibility potion and slipped the cordon. The mech is too slow. He's smarter than the file suggested.`,
+        likes: 550,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Acknowledged. Your assessment has been noted in your performance review.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'roger_vote_efficiency',
+        order: 366,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `Analysis complete: The previous resource acquisition model resulted in an unacceptable rate of personnel attrition. Dan's new protocol improves operational security and minimizes inefficient losses. It is the logistically superior strategy. I endorse it fully.`,
+        likes: 198,
+        comments: []
+    },
+    {
+        id: 'remi_alchemy_brew',
+        order: 365,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 46 },
+        timestamp: '14 minutes ago',
+        content: `Kitchen experiments coming in handy. This one smells like spicy teal. And explosions.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Spicy teal fumes? What are the alchemical components?! I must know!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'roger_takes_command',
+        order: 364,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `FRONT LINE! HOLD! RANGED BEHIND! MOVE, COHORT! WE HAVE TACTICAL SUPERIORITY! USE IT!`,
+        likes: 590,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Finally. A soldier who understands basic formations.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'ryan_survived_fall',
+        order: 363,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Alive. Somehow. I saw... I saw the spy. They were waiting for us. The door didn't break, it opened. Someone let them in. I had to jump.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'dan', text: "Ryan! Where are you?! We're scattered!" },
+            { characterKey: 'chief_thornpaw', text: "Rest, little one. The spirits watch over you now." }
+        ],
+        eventId: 'vigilance_fall'
+    },
+    {
+        id: 'dan_reacts_to_raid',
+        order: 362,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `No... they took him? The Legion... they just... took him? This is a nightmare. We were just fighting each other, and they swept in. This is all our fault.`,
+        likes: 510,
+        comments: [
+            { characterKey: 'ryan', text: 'Division is a weakness, Dan. The Legion is adept at exploiting weakness.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toad_lee_disgusted',
+        order: 361,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Two traitors. Two. In as many days. The Cohort is compromised. Speaker L's theatrical siege has turned into a humiliating failure. We are a joke.`,
+        likes: 880,
+        comments: [
+            { characterKey: 'speaker_l', text: 'This is not failure, it is a necessary purge! We will be stronger for it!' },
+            { characterKey: 'toad_lee', text: 'We are weaker than we have ever been.' },
+            { characterKey: 'markop', text: 'He is right, Speaker. Our house is divided against itself.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'rounders_reinforcements',
+        order: 360,
+        characterKey: 'rounders',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 44 },
+        timestamp: '16 minutes ago',
+        content: `I BROUGHT REINFORCEMENTS! TWO GIANTS! LET'S SMASH 'EM!`,
+        likes: 622,
+        comments: [
+            { characterKey: 'humpik', text: 'GWAHAHA! NOW THIS IS A PROPER FIGHT!' },
+            { characterKey: 'bowser', text: 'About time we got some real muscle in here!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'cohort_grunt_confusion',
+        order: 359,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 44 },
+        timestamp: '16 minutes ago',
+        content: `Wait, so Jerry was a spy too? I thought he was one of us! Who are we even fighting anymore?`,
+        likes: 310,
+        comments: [
+            { characterKey: 'bones', text: 'Welcome to the real world, kid. The answer is: everyone.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_wraith_attack',
+        order: 358,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 42 },
+        timestamp: '18 minutes ago',
+        content: `Wraiths! In the parlor! To formation! Archers forward! HOLD THE LINE!`,
+        likes: 670,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'Cleanse the abominations in holy fire!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'fawful_laughs_at_cohort',
+        order: 357,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 42 },
+        timestamp: '18 minutes ago',
+        content: `I HAVE A BELLY OF LAUGHTER! The singing toads had their prisoner, and he was stolen by ANOTHER toad who was a secret robot man! It is a comedy of fools, a circus of incompetence! My minions have more loyalty in their pinky claws!`,
+        likes: 820,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'Keep laughing. Your time is coming.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toad_panic_wraiths',
+        order: 356,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 41 },
+        timestamp: '19 minutes ago',
+        content: `THE DOOR BROKE! THEY'RE COMING THROUGH THE WALLS! THEY'RE MADE OF SHADOW AND HATE!`,
+        likes: 310,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'fawful_on_parade',
+        order: 355,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `A PARADE! The fools are having a parade in a house of haunting! It is a beautiful prelude to their symphony of doom! I HAVE FURY AND POPCORN!`,
+        likes: 799,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'fawful_reacts_to_raid',
+        order: 354,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `I HAVE THE MERRIMENT OF A THOUSAND GIGGLING BEANS! The singing toad is caged! The robot men have him! My enemies are eating my other enemies! It is a delicious casserole of self-destruction!`,
+        likes: 788,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'waluigi_jealous',
+        order: 353,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `WAH?! Dimensional travel? Mind-eating squids? He got to do all the fun stuff while I was stuck listening to that terrible marching band! It's not fair! I am the star of this show!`,
+        likes: 950,
+        comments: [
+            { characterKey: 'bowser', text: 'You call getting your butt handed to you by ghosts "fun stuff"?' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'remi_parade_comment',
+        order: 352,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `This situation calls for a parade.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'markop', text: '...No. No, it absolutely does not.' },
+            { characterKey: 'first_cohort_member', text: 'A PARADE FOR JUSTICE! YES! SEE? SHE GETS IT!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'remi_reacts_to_raid',
+        order: 351,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `Wait, the leader of the toad army that arrested Archie just got arrested by the other army? So... are we supposed to be happy about this? I'm so lost.`,
+        likes: 610,
+        comments: [
+            { characterKey: 'bones', text: 'Just be glad it wasn\'t you, kid. That\'s the only victory that matters.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'broker_intel_spike',
+        order: 350,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `Market Correction: Asset 'Archie Miser' has re-entered the board. His value has increased dramatically. Information on Rakasha Relays, Mindflayer Colonies, and the operational security of the Liberated Toads is now trading at an unprecedented premium. What a productive day.`,
+        likes: 780,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'Send me your catalogue.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_frustration_cohort',
+        order: 349,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `You don't have legal authority. None of you. You are a mob, not a court. And you are walking into a trap.`,
+        likes: 530,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Our authority comes from the Vow you witnessed, Paladin.' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'humpik_reacts_to_raid',
+        order: 348,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `The metal men took the loud singing toad? Good. One less person to yell at Archie.`,
+        likes: 730,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_tries_to_understand',
+        order: 347,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `He's back. But where did he go? He vanished from a Legion trap and reappeared in a locked room. There are forces at play here that defy our understanding.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'ryan', text: 'The energy signature was not arcane. It was... something else. Something ancient.' },
+            { characterKey: 'self_reflection_oracle', text: 'Some doors lead to other rooms. Some lead to other worlds.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'bowser_impressed',
+        order: 346,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 32 },
+        timestamp: '28 minutes ago',
+        content: `GWAHAHA! The three-eyed weirdo got captured by the mushrooms, betrayed by a robot, trapped by the tin cans, and STILL got away! I'm not even mad, that's amazing!`,
+        likes: 910,
+        comments: [
+            { characterKey: 'kamek', text: 'His capacity for survival is... noteworthy, Your Viciousness.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'cohort_righteous',
+        order: 345,
+        characterKey: 'first_cohort_member',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `We're not reckless! We're righteous! Speaker L has given us our mandate! We are the law now!`,
+        likes: 290,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'bones_bad_soup',
+        order: 344,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `Worst. Soup. Ever. Service is terrible, the staff is rude, and the uniforms are too tight. 0/5 stars. Would not recommend this train ride.`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'the_mole', text: "Enjoy the hospitality, Bones. You'll be there a while." }
+        ],
+        eventId: 'vigilance_fall'
+    },
+    {
+        id: 'kamek_analyzes_raid',
+        order: 343,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `The Iron Legion used the chaos of Miser's escape as cover for a decapitation strike. A classic maneuver. Efficient. The 'Liberated Toads' are now rudderless and vulnerable. A most interesting development.`,
+        likes: 560,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_loots_armory',
+        order: 342,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `Found a nice little armory. Figured I'd help myself. You never know when you'll need nine quivers.`,
+        likes: 1250,
+        comments: [
+            { characterKey: 'roger', text: 'Nine? That is an inefficient number of quivers. Three is the optimal number for tactical deployment.' },
+            { characterKey: 'remi', text: 'You found NINE quivers and didn\'t bring me one?!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'remi_confused_again',
+        order: 341,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 28 },
+        timestamp: '32 minutes ago',
+        content: `So... Archie was arrested, but then he escaped because the person who was helping arrest him was a different traitor working for the other guys who were also trying to arrest him? And then he went to a brain dimension? Am I getting this right?`,
+        likes: 888,
+        comments: [
+            { characterKey: 'markop', text: 'That is... a surprisingly accurate summary, yes.' },
+            { characterKey: 'waluigi', text: 'WAH! It\'s called a plot twist! Try to keep up!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'toad_lee_hears_chaos',
+        order: 340,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `I hear shouting. A horn. Explosions. What is happening in the east wing? Markop, report!`,
+        likes: 480,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'roger_analyzes_raid',
+        order: 339,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `Tactical Analysis: The Iron Legion utilized a coordinated, multi-point insertion under the cover of the ongoing internal conflict. Superior equipment, discipline, and intelligence. Our faction's operational security is non-existent. This was an inevitable outcome.`,
+        likes: 420,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'dan_more_betrayal',
+        order: 338,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `Another one? Another traitor was living with us? How many more are there? Can we trust anyone?`,
+        likes: 512,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Trust is earned, Dan. And re-earned. We will be more vigilant.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'bones_not_surprised',
+        order: 337,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 22 },
+        timestamp: '38 minutes ago',
+        content: `Of course there was another spy. There's always another spy. The only person you can trust is yourself. And even then, watch your back.`,
+        likes: 670,
+        comments: [
+            { characterKey: 'skull_cap_murphy', text: 'This guy gets it.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'broker_wraith_market',
+        order: 336,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `Market Alert: Arcane Wraith manifestation confirmed at Raventree Manor. Ectoplasmic residue and soul-shards are now high-value commodities. Placing a bounty for a contained specimen. High risk, extreme payout.`,
+        likes: 640,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'I\'LL TAKE IT!' },
+            { characterKey: 'archmage_theron', text: 'JANNA, NO!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'ryan_dimensional_tear',
+        order: 335,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 18 },
+        timestamp: '42 minutes ago',
+        content: `There was a spike. A brief, violent tear in the fabric of this space. Not arcane, not divine. It felt... ancient and biological. Like something very old opened a door and then closed it.`,
+        likes: 530,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'Biological teleportation?! A psionic rift?! The implications are STAGGERING!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'kamek_observes_wraiths',
+        order: 334,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `The manor's defenses are active. True wraiths. Not mere spirits. The Oracle is playing a far more dangerous game than I anticipated. This bears closer observation.`,
+        likes: 510,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'embercap_cheep_cheep',
+        order: 333,
+        characterKey: 'embercap',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `The fish is ready. The Captain stays behind. It's just us now. We storm the castle tonight. No turning back.`,
+        likes: 950,
+        comments: [
+            { characterKey: 'captain_toadette', text: "Make them pay, Commander." }
+        ],
+        eventId: 'vigilance_fall'
+    },
+    {
+        id: 'toadette_reacts_to_raid',
+        order: 332,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `A rabble of former slaves tried to play soldier and were swiftly dismantled by a real army. Shocking. This is what happens when you lack true leadership and conviction.`,
+        likes: 530,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'humpik_so_confused',
+        order: 331,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `So... the little green toad was a bad guy? But he helped the other bad guys trap Archie? And then Archie disappeared? My head hurts. I am going to find something to smash.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'bowser', text: 'Start with the mirrors, Humpik. I don\'t like the way they look at us.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_enraged',
+        order: 330,
+        characterKey: 'hag_of_the_fen',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 12 },
+        timestamp: '48 minutes ago',
+        content: `He ESCAPED?! From a locked room? After I let the Speaker in? IMPOSSIBLE! That three-eyed rat will pay for this insult!`,
+        likes: 310,
+        comments: [
+            { characterKey: 'fawful', text: 'Your security has the integrity of a wet napkin!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_hears_battle',
+        order: 329,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `Sounds like the other kids are having fun. Hope they leave some for me.`,
+        likes: 1300,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'generic_toad_hears_raid',
+        order: 328,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `I heard shouting and then... a big boom! From the Cohort's camp! What's going on now?! I thought they were the ones in charge!`,
+        likes: 215,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'speaker_l_finds_empty_room',
+        order: 327,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `The room is empty. The spy is gone. The prisoner is gone. UNACCEPTABLE.`,
+        likes: 620,
+        comments: [
+            { characterKey: 'archie', text: 'Maybe you should have knocked?' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_slips_away',
+        order: 326,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 8 },
+        timestamp: '52 minutes ago',
+        content: `The hag and the Speaker are distracted. Time to go. The Legion will be pleased with the intel, even if the primary asset escaped. Mission accomplished.`,
+        likes: 410,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'bowser_hears_battle',
+        order: 325,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 5 },
+        timestamp: '55 minutes ago',
+        content: `What's all that racket? It sounds like a real fight! Am I missing a real fight?!`,
+        likes: 740,
+        comments: [
+            { characterKey: 'humpik', text: 'SOUNDS LIKE SMASHING! I want to go to there!' }
+        ],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'archie_slams_door_on_L',
+        order: 324,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 5 },
+        timestamp: '55 minutes ago',
+        content: `Sorry, Speaker. No time for a trial. Maybe later! *SLAM*`,
+        likes: 1100,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Open this door, Miser! You are only delaying the inevitable!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'speaker_l_finds_archie',
+        order: 323,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 2 },
+        timestamp: '58 minutes ago',
+        content: `Disobedience. Escape. Trespassing. Three crimes in as many hours, Archie Miser. Do you have a final statement before I burn you alive?`,
+        likes: 730,
+        comments: [
+            { characterKey: 'archie', text: 'Just that this looks bad, and I have a very good reason to fireball your face.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'green_t_hears_battle',
+        order: 322,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Sounds like the Cohort found something nasty. My plan to get the key from the paladin may have just gotten a lot more complicated. Or a lot easier.`,
+        likes: 490,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'dan_hears_battle',
+        order: 321,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `More shouting... explosions... Is Markop okay? Are the others okay?`,
+        likes: 415,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'ryan_senses_wraiths',
+        order: 320,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `A sudden surge of necrotic and arcane energy from the east wing. This isn't the Oracle's temporal magic. This is something else. Something hungry.`,
+        likes: 488,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'remi_hears_battle',
+        order: 319,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `I'm still stuck in this maze and now it sounds like a war just broke out back in the house. I'm starting to think this isn't a very safe place.`,
+        likes: 612,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'humpik_hears_battle',
+        order: 318,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `HEAR THAT? THAT IS THE SOUND OF A GOOD FIGHT! I am stuck in a hallway made of mirrors! This is not fair!`,
+        likes: 675,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'bones_hears_battle',
+        order: 317,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The little soldiers finally bit off more than they could chew, huh? Sounds like the house is biting back. Can't say I'm surprised.`,
+        likes: 521,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'speaker_l_hears_battle',
+        order: 316,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Reports of an engagement in the east wing. Hostiles are not the primary targets. What is happening? All units, maintain containment protocol!`,
+        likes: 615,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'the_mole_hears_battle',
+        order: 315,
+        characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Unscheduled hostile contact in the east wing. Not our target. This complicates the apprehension.`,
+        likes: 499,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'broker_airship_market',
+        order: 314,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Market Update: Imperial Airship stocks rising. 'Vigilance' salvage futures have been delisted. High demand for information regarding 'The Spy in Blue'. Bidding starts now.`,
+        likes: 780,
+        comments: [],
+        eventId: 'vigilance_fall'
+    },
+    {
+        id: 'krool_laughs_at_legion',
+        order: 313,
+        characterKey: 'king_k_rool',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Keheheh! The tin soldiers finally did something interesting! Snatching up the leader of a mushroom mob while everyone is distracted. A respectable bit of villainy! I approve!`,
+        likes: 610,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'syrup_missed_opportunity',
+        order: 312,
+        characterKey: 'captain_syrup',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The Legion raided the toad camp? And I missed it? Damn. There was probably some good loot to be had in the confusion.`,
+        likes: 450,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'wario_business_opportunity',
+        order: 311,
+        characterKey: 'wario',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The Legion just captured a high-value political prisoner? Excellent! Information about his location and interrogation schedule is a sellable commodity! Wario smells profit!`,
+        likes: 580,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_finds_empty_room',
+        order: 310,
+        characterKey: 'hag_of_the_fen',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `He's GONE?! He killed the spider and escaped the locked room?! And he left my Lightbringer staff?! What kind of fool is this?!`,
+        likes: 350,
+        comments: [
+            { characterKey: 'jerry_the_spy', text: 'A very resourceful one. My apologies for the inconvenience.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_leads_to_toads',
+        order: 309,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Alright, Miser. Your friends are this way. Try to keep up.`,
+        likes: 290,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_finds_lario_chest',
+        order: 308,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `A chest labeled LARIO? Unlocked? Full of tools? Don't mind if I do...`,
+        likes: 980,
+        comments: [
+            { characterKey: 'lario', text: 'HEY! THOSE ARE MY GOOD WRENCHES! I\'LL GET YOU FOR THIS, YOU THREE-EYED THIEF!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_and_toad_deal',
+        order: 307,
+        characterKey: 'hag_of_the_fen',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The little toad brought me the 'thing'. As agreed. The prisoner is now his problem.`,
+        likes: 240,
+        comments: [
+            { characterKey: 'speaker_l', text: 'A pleasure doing business with you.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'archie_kills_spider',
+        order: 306,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Spider problem solved. Now, about this locked door...`,
+        likes: 760,
+        comments: [
+            { characterKey: 'humpik', text: 'Good. Humpik no like spiders.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'hag_lightbringer_pact',
+        order: 305,
+        characterKey: 'hag_of_the_fen',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Ash and ember, bone and spark— Quarterstaff, awake from dark… Take it. It will light your way. For a price.`,
+        likes: 430,
+        comments: [
+            { characterKey: 'archie', text: 'Not interested.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_hears_battle',
+        order: 304,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Sounds of heavy combat from the manor. Good. The more chaos, the easier my exfiltration.`,
+        likes: 455,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'krool_hears_of_wraiths',
+        order: 303,
+        characterKey: 'king_k_rool',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `My spies report the mushrooms are now fighting ghosts? Keheheh! They can't even handle a simple haunted house! My Kremling Krew would have that place looted and converted into a summer palace in a week!`,
+        likes: 711,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'syrup_hears_of_wraiths',
+        order: 302,
+        characterKey: 'captain_syrup',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Ghosts, giants, and a singing toad army, all in one place? Sounds like a good party. And where there's a party, there's unguarded valuables.`,
+        likes: 688,
+        comments: [],
+        rumorId: 'wraith_conflagration'
+    },
+    {
+        id: 'the_mole_silent_satisfaction',
+        order: 301,
+        characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Justice is served. Order is restored. My part is done.`,
+        likes: 510,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_the_spy_mission_complete',
+        order: 300,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Report: Phase one was a success. The target's escape sowed maximum chaos within the enemy ranks, leaving their command structure vulnerable. Phase two is now complete. A good day's work for the Empire.`,
+        likes: 600,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'penny_connects_dots',
+        order: 299,
+        characterKey: 'detective_penny',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Case Notes: Archie escapes. His liberator is an Iron Legion spy. The Cohort is thrown into disarray. The Iron Legion immediately launches a raid and captures the Cohort's leader. This wasn't two events. This was one, perfectly executed decapitation strike. The Legion is more cunning than I thought.`,
+        likes: 790,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_rust_monster_distraction',
+        order: 298,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `I'll distract. You stay alive.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'archie', text: 'Sounds like a plan.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'the_mole_reports_archie_escape',
+        order: 297,
+        characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Miser is out of his cell. The key was taken. He is proceeding to the armory.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'speaker_l', text: 'How?! I had the only key!' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'jerry_frees_archie',
+        order: 296,
+        characterKey: 'jerry_the_spy',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `You can call me Jerry. Now let's go.`,
+        likes: 390,
+        comments: [
+            { characterKey: 'archie', text: 'You\'re not the toad I know.' }
+        ],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'midlands_citizen_fear',
+        order: 295,
+        characterKey: 'midlands_citizen',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `First a fire at the manor, now a full-blown military raid on the toad camp nearby? The war is coming closer. This isn't safe anymore.`,
+        likes: 430,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'generic_koopa_cheers',
+        order: 294,
+        characterKey: 'koopa_troop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `The tin cans smashed the mushroom fanatics! HA! Less enemies for King Bowser to worry about!`,
+        likes: 350,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'dk_confused',
+        order: 293,
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `So... the little toads were fighting the other little toads... and then the robot guys came and took the loud one away? This is too complicated. I need a banana.`,
+        likes: 1400,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'cranky_on_strategy',
+        order: 292,
+        characterKey: 'cranky_kong',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `See? That's proper strategy! While the mushrooms were busy singing and pointing fingers, the metalheads came in and cleaned house! Back in my day, we called that a 'barrel roll'! Heh! Get it?`,
+        likes: 720,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'diddy_on_legion',
+        order: 291,
+        characterKey: 'diddy_kong',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `The Iron Legion is playing a different game than everyone else. They're not just fighting, they're playing chess. And they just took a major piece off the board.`,
+        likes: 680,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'cybernetic_raid_analysis',
+        order: 290,
+        characterKey: 'cybernetic_collectives',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `[ANALYSIS]: Iron Legion utilized a 94% optimal window of opportunity created by internal enemy conflict. Decapitation strike resulted in the successful acquisition of a hostile command asset. A tactically sound and efficient operation.`,
+        likes: 740,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'kivotos_millennium_raid',
+        order: 289,
+        characterKey: 'millennium_science_school',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `[Seminar Leak]: The Iron Legion's raid was a textbook example of asymmetric warfare. Their use of flashbangs to disrupt command and control before the main assault is a tactic we should analyze for our own urban combat simulations.`,
+        likes: 690,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'warhammer_empire_raid',
+        order: 288,
+        characterKey: 'the_empire',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `A swift, brutal strike against a disorganized rabble. An acceptable, if minor, victory for the forces of Order. Let this be a lesson to all greenskins and malcontents.`,
+        likes: 810,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'pokemon_trainer_raid',
+        order: 287,
+        characterKey: 'trainer_guild',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `Wait, so they had a battle? Who won? Did anyone's Pokémon evolve?`,
+        likes: 790,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'donkey_kong_simple_post',
+        order: 286,
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `Headache. Need bananas.`,
+        likes: 1530,
+        comments: [ { characterKey: 'chunky_kong', text: 'I\'ll bring you some, DK.' } ]
+    },
+    {
+        id: 'vale_on_raid',
+        order: 285,
+        characterKey: 'high_inquisitor_vale',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 14, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `The Legion's secular forces have detained a heretic. Good. One less obstacle to the Flame. But their methods are without faith. True justice can only be delivered by the righteous.`,
+        likes: 540,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'oracle_observes_raid',
+        order: 284,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 14, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `The iron thread pulls tight, catching the loudest songbird in its snare. A predictable outcome. The pattern shifts once more.`,
+        likes: 920,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'markop_hears_raid',
+        order: 283,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 13, minute: 0 },
+        timestamp: '9 hours ago',
+        content: `An explosion. From the direction of the Cohort's camp. Not thunder. Gunfire. They are under attack.`,
+        likes: 490,
+        comments: [],
+        rumorId: 'archie_third_eye_escape'
+    },
+    {
+        id: 'koopa_grunt_post',
+        order: 282,
+        characterKey: 'koopa_troop',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 12, minute: 0 },
+        timestamp: '10 hours ago',
+        content: `Heard the pink fanatics are laying siege to the castle. Ha! Let 'em! The green weirdo and the mushroom-heads can beat each other up. We'll just march in and take the place back when they're both exhausted. Long live King Bowser!`,
+        likes: 450,
+        comments: []
+    },
+    {
+        id: 'pokemon_trainer_reacts',
+        order: 281,
+        characterKey: 'trainer_guild',
+        date: { year: 1040, monthIndex: 6, day: 19, hour: 6, minute: 0 },
+        timestamp: '16 hours ago',
+        content: `Wait, so there are other worlds with... flying ships? And magic? And no Pokémon? That sounds really weird. Can you catch the magic? Does it have a type? I have so many questions.`,
+        likes: 821,
+        comments: []
+    },
+    {
+        id: 'dk_warns_funky',
+        order: 280,
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `FUNKY! HE'S SENDING SOMEONE! An agent named Galypso! Don't let anyone in the shack! We're on our way! DO NOT LEAVE!`,
+        likes: 1890,
+        comments: [
+            { characterKey: 'funky_kong', text: 'Whoa, heavy stuff, DK! The shack is on lockdown, my dude. No bad vibes gettin\' in here.' },
+            { characterKey: 'diddy_kong', text: 'We\'re coming in hot, Funky! Hold tight!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'kong_krool_call_leak',
+        order: 279, // The newest post
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `**AUDIO LEAK: TENSE CALL BETWEEN DK & K. ROOL!** We have obtained an explosive, authenticated audio recording of a private call between Donkey Kong and King K. Rool. The conversation, which begins with accusations of espionage, escalates dramatically. Sources confirm the call ends with what appears to be a direct assassination order against a key member of the DK Crew. The fragile peace is over.`,
+        // NEW: The property for the local audio file
+        audioSrc: 'call.mp3',
+        likes: 4580,
+        comments: [
+            { characterKey: 'the_broker', text: 'A high-value intelligence leak. The authenticity is confirmed. The market is in turmoil.' },
+            { characterKey: 'wario', text: 'Oh, this is SO much better than just insults. Someone recorded the whole thing! Beautiful!' },
+            { characterKey: 'regal_empire_delegate', text: 'This blatant disregard for diplomatic protocol is exactly why these lesser kingdoms cannot be trusted to govern themselves.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'lord_crimson_contempt',
+        order: 278,
+        characterKey: 'lord_crimson',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The mortals have "voted." How quaint. Their Emperor waves his scepter, and 81 of his puppets dance. They think a law changes the nature of the night. It does not. It merely clarifies who the true enemy is. All of them.`,
+        likes: 1455,
+        comments: [
+            { characterKey: 'lady_ebonveil', text: 'Patience, my lord. Their arrogance provides us with new opportunities.' },
+            { characterKey: 'alpha_bloodmaw', text: 'For once, I agree with the leech. The Empire has made this simple.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'archie_jumped_on_ship',
+        order: 277,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: `So, I was just minding my own business, admiring the structural integrity of a ventilation shaft, when I got jumped by a group of Iron Hand... or was it Iron Legion?... goons. Same difference, right? Stuffed shirts with big hammers. 
 
-// ============================================
-// SECURITY & INTEL DATA
-// ============================================
-const SECURITY_STATUS = {
-    overallThreat: "ELEVATED",
-    activeInfiltrators: "1-3 (Estimated)",
-    dragonCoverage: "87%",
-    minionMorale: "HAVING FURY",
-    lastBreach: { year: 1040, monthIndex: 6, day: 20 },
-    broadcasts: [
-        "SECTOR 7 - Clear",
-        "SECTOR 12 - Motion detected, investigating",
-        "GARDEN - Spectral activity nominal",
-        "DUNGEONS - Prisoner 085 unchanged",
-        "TUNNELS - Drone 17 lost signal"
-    ]
-};
+They were going on about "stories of the third eye" which, okay, flattering. But the weird part? One of them kept muttering about wanting "Toad Soup." Seriously. On a spaceship. Weirdos.`,
+        likes: 184,
+        comments: [
+            { characterKey: 'toad_lee', text: "Toad Soup? We will not allow any harm to come to our people. Stay vigilant, brothers." },
+            { characterKey: 'general_marcus_ironhand', text: "The Iron LEGION does not employ 'goons.' Our soldiers are disciplined warriors. If this incident occurred, it was not by my command or the action of my men. Perhaps you are confusing us with common street thugs." },
+            { characterKey: 'boss_knuckles', text: "You mean the Iron FISTS, you three-eyed freak. And that wasn't a story, it was a down payment. Next time, we're collecting more than just stories. The bounty on your head is still active." },
+            { characterKey: 'dan', text: "Archie, are you okay? That sounds terrifying." }
+        ]
+    },
+    {
+        id: 'waluigi_toad_focus_update',
+        order: 276,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: `WAH! HEY, THREE-EYES (@Archie)! An update on your little mushroom projects!
 
-const FAWFUL_OBJECTIVES = [
-    { id: 'obj1', text: "Locate the Chamber of Stars", status: "IN PROGRESS", priority: "CRITICAL" },
-    { id: 'obj2', text: "Open the Throne Vault (2/3 keys)", status: "BLOCKED", priority: "HIGH" },
-    { id: 'obj3', text: "Extract memories from Prisoner 085", status: "IN PROGRESS", priority: "HIGH" },
-    { id: 'obj4', text: "Find and eliminate Loyalist infiltrators", status: "ONGOING", priority: "HIGH" },
-    { id: 'obj5', text: "Communicate with the ancient oak", status: "EXPERIMENTAL", priority: "MEDIUM" },
-    { id: 'obj6', text: "Acquire Queen's Locket", status: "SEARCHING", priority: "MEDIUM" },
-    { id: 'obj7', text: "Prepare for celestial alignment (Day 30)", status: "PREPARING", priority: "CRITICAL" }
+That hero-kid, **Dan**, held a 'council'. So important! He's their little leader now, making them feel all hopeful. The big one, **Toad Lee**, has been teaching them how to hold an axe without chopping their own feet off. Progress!
+
+The quiet one, **Ryan**, is making sparks with his fingers. He calls it 'magic practice'. Cute. The jumpy one, **Eager**, ran around and drew a map of the cargo bay. Probably on a napkin.
+
+The one with the gun, **Roger**, has organized all their junk into neat little piles. He calls it a 'barter system'. At least he's not losing their only wrench. And the ugly one, **Bones**, is teaching them card games. A useful skill! They might learn how to cheat, which is even better!
+
+They're getting organized. This could be useful for my magnificent plans! WAH-HA-HA!`,
+        likes: 123,
+        comments: [
+            { characterKey: 'dan', text: "We're not projects! We're building a community and a new life for ourselves!" }
+        ]
+    },
+    {
+        id: 'diddy_rage_post',
+        order: 275,
+        characterKey: 'diddy_kong',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 59 },
+        timestamp: '1 minute ago',
+        content: `That scaly scumbag. He's gone too far this time. This isn't about bananas anymore. This is about family.`,
+        likes: 1543,
+        comments: [
+            { characterKey: 'chunky_kong', text: 'What happened, Diddy? Is everyone okay?' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'alpha_bloodmaw_declaration_of_war',
+        order: 274,
+        characterKey: 'alpha_bloodmaw',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `So the sheep have voted that the wolves have no rights. The Empire has drawn its line. Good. It makes the hunt cleaner. There is no 'truce' with those who deny our existence. There is only prey.`,
+        likes: 1120,
+        comments: [
+            { characterKey: 'chief_thornpaw', text: 'The spirits weep. The foolishness of mortals will drown this land in blood.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'krool_public_denial',
+        order: 273,
+        characterKey: 'king_k_rool',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 57 },
+        timestamp: '3 minutes ago',
+        content: `The ape accuses me of espionage? Keheheh! How pathetic! He can't control his own family, so now he blames me for his internal problems. Don't flatter yourself, monkey. If I wanted to spy on you, you'd never know it.`,
+        likes: 1245,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'You\'re a liar and a coward, K. Rool.' },
+            { characterKey: 'kremling_loyalist', text: 'All hail the brilliant King K. Rool! He outsmarts the foolish Kongs again!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'dan_reacts_to_act',
+        order: 272,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 57 },
+        timestamp: '3 minutes ago',
+        content: `The Empire has forced it through. The Supernatural Sovereignty Act is law. It's... brutal. I understand the need to protect people, but to declare entire peoples illegal... this feels like the path to a massacre, not peace.`,
+        likes: 950,
+        comments: [
+            { characterKey: 'markop', text: 'It is the Imperial way, Dan. Order enforced by an iron fist.' },
+            { characterKey: 'toad_lee', text: 'It gives us a clear enemy. There is a brutal simplicity in that.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'dk_public_accusation',
+        order: 271,
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `King K. Rool. You put a bug in my office. Don't bother denying it. The 'truce' is over. You've made a grave mistake.`,
+        likes: 2105,
+        comments: [
+            { characterKey: 'king_k_rool', text: 'Oh, boo hoo! Did I interrupt your naptime scheming? Prove it, you oaf.' },
+            { characterKey: 'cranky_kong', text: 'Good grief! Now the overgrown lizard is playing spy games!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'ironhand_enforces_act',
+        order: 270,
+        characterKey: 'general_marcus_ironhand',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `The Diet has affirmed the Emperor's will. The Supernatural Sovereignty Act is law. The Legion will enforce it. Our orders are to establish a hard border. There will be no truce, only containment. Order will be maintained.`,
+        likes: 910,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Finally. A clear mandate.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'vale_holy_war_act',
+        order: 269,
+        characterKey: 'high_inquisitor_vale',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `AT LAST! The Empire finds its spine! 81 to 30! They have declared the monsters for what they are: illegal entities, abominations to be purged! This is not containment; it is a declaration of a holy war! The Silver Flame will be its vanguard!`,
+        likes: 850,
+        comments: [
+            { characterKey: 'silver_flame_cleric', text: 'The cleansing begins!' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'funky_finds_bug',
+        order: 268,
+        characterKey: 'funky_kong',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Whoa, dudes! Was just sweeping up some banana peels in DK's office and found this gnarly little gizmo behind the desk. Looks like some kind of listening device. Totally not cool! The tech has a real... scaly vibe to it. Bummer.`,
+        likes: 987,
+        comments: [
+            { characterKey: 'diddy_kong', text: 'Funky, don\'t touch it! Get DK in there now!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'midlands_diet_herald_announcement',
+        order: 267,
+        characterKey: 'midlands_diet_herald',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `**Official Proclamation from the Midlands Diet**
+
+By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Imperial-proposed Supernatural Sovereignty Act has been ratified. The court will not recognize vampire or werewolf suzerainty and declares their organized presence within Imperial borders illegal. A containment protocol is to be enforced by Royal Warrant.`,
+        videoSrc: 'video0.mp4',
+        likes: 3120,
+        comments: [
+            { characterKey: 'emperor_elagabalus', text: 'A decisive victory for order.' },
+            { characterKey: 'generic_toad', text: 'Oh dear, this sounds like it\'s going to lead to a lot of fighting...' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'midlands_diet_herald_announcement',
+        order: 266,
+        characterKey: 'midlands_diet_herald',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `**Official Proclamation from the Midlands Diet**
+
+By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supernatural Sovereignty Act, proposed by the delegate Dan, has been ratified. The court will not recognize vampire or werewolf suzerainty and declares their organized presence within Imperial borders illegal. A containment protocol is to be enforced by Royal Warrant.`,
+        videoSrc: 'video0.mp4',
+        likes: 3120,
+        comments: [
+            { characterKey: 'emperor_elagabalus', text: 'A decisive victory for order.' },
+            { characterKey: 'generic_toad', text: 'Oh dear, this sounds like it\'s going to lead to a lot of fighting...' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'broker_kong_bug_market',
+        order: 265,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `Market Advisory: High-value intelligence leak confirmed from within the DK Crew. Source points to Kremling espionage. The DK-Kremling non-aggression pact has catastrophically failed. Expect extreme volatility in all related currencies. Information on agent 'Galypso' is now a premium item.`,
+        likes: 750,
+        comments: [
+            { characterKey: 'fawful', text: 'I HAVE INTEREST! Send me the pricing for this... \'Galypso\'!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'broker_analyzes_vote',
+        order: 264,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `Market Analysis: The Supernatural Sovereignty Act passes with a supermajority. The Onyx Hand and Moonfang Pack have been officially delisted as recognized political entities. Expect extreme volatility in border territories. Legion military contracts are now trading at an all-time high. The market for blackmail on the 30 'against' votes is now open.`,
+        likes: 710,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'cranky_on_espionage',
+        order: 263,
+        characterKey: 'cranky_kong',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Good grief! Spies! Listening devices! Back in my day, if you wanted to know what your enemy was planning, you hid in a barrel and listened at their door! Much more honest! And you got a free barrel!`,
+        likes: 910,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'I know, Cranky. I know.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'archie_mocks_dan_plan',
+        order: 262,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `The kid's big idea was to make being a monster illegal? And it passed by a landslide? That's the most ridiculous, pointless, and utterly brilliant thing I've ever heard. It changes nothing and everything all at once. The fallout from this is going to be spectacular. I'm almost impressed.`,
+        likes: 1211,
+        comments: [
+            { characterKey: 'dan', text: 'It\'s not about making them illegal, it\'s about protecting people.' },
+            { characterKey: 'archie', text: 'Semantics, kid. You just painted a giant target on the whole government.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'waluigi_sends_fruit_basket',
+        order: 261,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 42 },
+        timestamp: '18 minutes ago',
+        content: `WAH-HA-HA! The little one-armed toad made a LAW against monsters! And everyone agreed! This is magnificent! They've poked the hornets' nest with a giant stick! The resulting chaos will be a masterpiece! I must send Dan a fruit basket! A very large, possibly explosive fruit basket!`,
+        likes: 1050,
+        comments: [
+            { characterKey: 'giggling_pete', text: 'A legislative declaration of war! The Jester applauds this beautiful absurdity!' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'waluigi_loves_the_drama',
+        order: 260,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `WAH! The monkey and the lizard are fighting again! Accusations! Denials! Secret agents! It's a beautiful symphony of paranoia! I love it!`,
+        likes: 888,
+        comments: [
+            { characterKey: 'giggling_pete', text: 'Hee hee! The plot thickens, like a delicious, chaotic stew!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'midlands_noble_vote_result',
+        order: 259,
+        characterKey: 'midlands_noble',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `By the stars, it passed. 81 to 30. The Supernatural Sovereignty Act stands. That little toad's speech was surprisingly persuasive. The Emperor has forced a war upon the beasts. A bold move. Let's see if it holds. #MidlandsDietVote`,
+        likes: 315,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'fawful_enjoys_the_show',
+        order: 258,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `I HAVE CHORTLES! The ape has fleas and the lizard has the scratching post! While they are busy with their primate foolishness, my magnificent plans will proceed without the annoyance of their meddling!`,
+        likes: 765,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'Enjoy your laughter while it lasts, monster.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'toadsworth_diplomatic_failure',
+        order: 257,
+        characterKey: 'chancellor_toadsworth',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `Oh, dear. The Kremling-Kong détente has collapsed. And so publicly... this will have dire consequences for regional stability. I do hope they can resolve this without resorting to... well, the usual.`,
+        likes: 340,
+        comments: [
+            { characterKey: 'regal_empire_delegate', text: 'This is what happens when primitives are allowed to govern themselves. A predictable failure.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'kamek_observes_vote_result',
+        order: 256,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `The humans of the Midlands squabble and pass laws against the dark. Amusing. Let them draw their lines in the sand. The tide is still coming. This over-extension of Legion forces to the borders presents... opportunities.`,
+        likes: 412,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'lario_tech_analysis',
+        order: 255,
+        characterKey: 'lario',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `Heard they found a Kremling bug. Amateurs. My bugs are ten times smaller, have a much better battery life, and they come in different colors. For a reasonable price, of course.`,
+        likes: 250,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Noted for future reference, Lario. I\'ll add it to your file.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'toadsworth_concerned_by_landslide',
+        order: 254,
+        characterKey: 'chancellor_toadsworth',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `An imposed war by the Midlands Diet? And with such an overwhelming majority? While we all pray for peace, to corner two such ancient powers with no room for negotiation could have... unforeseen and catastrophic consequences for the entire region.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'The only negotiation with monsters is at the end of a blade.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'penny_case_files',
+        order: 253,
+        characterKey: 'detective_penny',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 28 },
+        timestamp: '32 minutes ago',
+        content: `Case Notes: DK Crew alleges Kremling espionage. K. Rool denies. Classic he-said, she-said. But the evidence mentioned... a 'scaled pattern' and a 'cloaca smear'... that's specific. That's a lead. #TheKongBug`,
+        likes: 480,
+        comments: [
+            { characterKey: 'master_goodstyle', text: 'A most un-stylish clue, but a clue nonetheless! Good luck, Detective!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'archie_enjoys_chaos',
+        order: 252,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `Two geriatric kings throwing a tantrum over a microphone. This is what passes for international politics. Hilarious. Let them fight. It'll be a good distraction.`,
+        likes: 990,
+        comments: [
+            { characterKey: 'bones', text: 'Couldn\'t have said it better myself.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'fawful_fury_at_distraction',
+        order: 251,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `THE FOOLS HAVE THE VOTES! They make a war with the furry and the fanged! It is a treaty of STUPIDITY! While they are distracted by their pointless border skirmishes, I will be preparing a symphony of DOOM!`,
+        likes: 721,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'markop_disappointed',
+        order: 250,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `And so, the fragile peace collapses under the weight of old hatreds and deceit. Espionage, accusations... it is a sad, predictable cycle. True peace cannot be built on a foundation of lies.`,
+        likes: 420,
+        comments: [
+            { characterKey: 'dan', text: 'It\'s just... sad.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'bowser_laughs_at_vote',
+        order: 249,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `GWAHAHA! The Empire tells the vampires and werewolves to sit down and shut up! About time someone showed them who's boss! (Besides me, of course). That little one-armed toad has some guts!`,
+        likes: 678,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'humpik_ready_to_fight',
+        order: 248,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `Monkey king and lizard king are fighting again? GOOD! More fighting is always good! Who are we hitting?`,
+        likes: 560,
+        comments: [
+            { characterKey: 'bowser', text: 'Stand down, Humpik. This isn\'t our fight. ...Yet.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'lario_bad_for_business',
+        order: 247,
+        characterKey: 'lario',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `Great. A 'containment protocol'. That means the Legion will be all over the border territories with checkpoints and patrols. Bad for business. Time to find some new, less-policed smuggling routes.`,
+        likes: 198,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'bowser_smug',
+        order: 246,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `GWAHAHA! Told you the monkey couldn't be trusted! And the lizard is a born schemer! This is why you need a strong, honest king like ME to rule everyone!`,
+        likes: 810,
+        comments: [
+            { characterKey: 'donkey_kong', text: 'Funny, I seem to remember your kids trying to overthrow you. Twice.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'janna_research_opportunity',
+        order: 245,
+        characterKey: 'janna_brightspark',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `An Imperial-enforced containment of two unique lycanthropic and vampiric species? Fascinating! This provides a unique opportunity to study both groups under extreme political pressure. I must prepare my research grant proposal immediately!`,
+        likes: 305,
+        comments: [
+            { characterKey: 'archmage_theron', text: 'Janna, you will not be "studying" two armies on the brink of war.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'remi_confused',
+        order: 244,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 5 },
+        timestamp: '55 minutes ago',
+        content: `So the big monkey is mad at the crocodile king because of a bug? Is it a literal bug? Like a beetle? This world is very confusing.`,
+        likes: 490,
+        comments: [
+            { characterKey: 'roger', text: 'Negative. The term "bug" refers to a covert listening device. An instrument of espionage.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'toadette_unimpressed',
+        order: 243,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The beasts are squabbling amongst themselves. Predictable. Let them tear each other apart. It distracts from the real war.`,
+        likes: 510,
+        comments: [
+            { characterKey: 'embercap', text: 'Agreed, Captain. Their chaos is our opportunity.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'ironhand_opportunity',
+        order: 242,
+        characterKey: 'general_marcus_ironhand',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The Kong-Kremling détente has collapsed. Instability on our northern maritime borders. This presents both a threat and a strategic opportunity. The Legion will be prepared to act.`,
+        likes: 620,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'I have already drafted three potential intervention scenarios, General.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'kamek_scheming',
+        order: 241,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Two lesser kings weaken each other through pointless espionage. This plays directly into our long-term strategy. Excellent.`,
+        likes: 499,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'A fine observation, Magikoopa. Let the children play their games.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'dk_banana_question',
+        order: 240,
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Heard some government is mad at vampires. Do vampires have bananas?`,
+        likes: 1590,
+        comments: [
+            { characterKey: 'diddy_kong', text: 'No, DK. They don\'t have bananas.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'syrup_sees_opportunity',
+        order: 239,
+        characterKey: 'captain_syrup',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The Empire is trying to put a leash on the Onyx Hand? Good luck with that. More chaos in the Midlands means less Imperial patrols on the shipping lanes. Sounds profitable to me.`,
+        likes: 489,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'remi_is_it_a_good_idea',
+        order: 238,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `So...the big government to pick a fight with vampires and werewolves at the same time? Is that... a good idea?`,
+        likes: 412,
+        comments: [
+            { characterKey: 'markop', text: 'It is a decisive one. Whether it is a good one remains to be seen.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'humpik_confused',
+        order: 237,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `GWAH! Lot of yelling about a vote. The little one-armed toad is giving orders to the Empire now? This is confusing. As long as I know who to hit with my axe, I am happy.`,
+        likes: 521,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'bones_shrugs',
+        order: 236,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Kings spying on kings. Color me surprised.`,
+        likes: 480,
+        comments: [
+            { characterKey: 'skull_cap_murphy', text: 'Told ya. All bosses are the same.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'dan_sad',
+        order: 235,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Another peace treaty falls apart. It's... disheartening. Why can't people just... talk?`,
+        likes: 410,
+        comments: [
+            { characterKey: 'ryan', text: 'Their interests were never truly aligned, Dan. It was only a matter of time.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'ryan_observes',
+        order: 234,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The predictable result of an alliance built on convenience rather than true alignment of interests. The collapse was a matter of when, not if.`,
+        likes: 380,
+        comments: [
+            { characterKey: 'cybernetic_collectives', text: '[AGREEMENT]: The probability of long-term stability was calculated at less than 3.4%.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'roger_analyzes',
+        order: 233,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The breakdown of the Kong-Kremling agreement will have significant downstream effects on supply chains for tropical goods. Expect prices for bananas to increase by at least 30%.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'lario', text: 'Ooh, a market opportunity!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'cybernetic_collective_analysis_vote',
+        order: 232,
+        characterKey: 'cybernetic_collectives',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `[ANALYSIS]: A legislative body has attempted to alter the behavioral parameters of two hostile, non-compliant entities via decree. Probability of success: 1.7%. Probability of escalating a regional conflict into a continental war: 91.2%. Fascinatingly illogical.`,
+        likes: 712,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'kivotos_gehanna_mocks_vote',
+        order: 231,
+        characterKey: 'gehanna_academy',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `[Pandemonium Society Leak]: The Midlands Diet just tried to outlaw two of the strongest factions on their continent? With a piece of paper? And it was some random toad's idea? That's hilarious. Let's see how well that works out for them.`,
+        likes: 666,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'warhammer_skaven_delighted',
+        order: 230,
+        characterKey: 'skaven',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Man-things make-make paper-law against claw-things and fang-things! Yes-yes! Let them fight-squabble! More-more chaos for the Under-Empire to grow-spread!`,
+        likes: 598,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'eager_scared',
+        order: 229,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `The big monkey and the crocodile are fighting again! Does this mean war? I don't like war!`,
+        likes: 280,
+        comments: [
+            { characterKey: 'dan', text: 'It\'s okay, Eager. It\'s far away from us for now.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'speaker_l_distrust',
+        order: 228,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `And this is why we cannot trust kings and their games. Their 'peace' is a lie they tell while sharpening their knives. The only true security is in our own strength.`,
+        likes: 390,
+        comments: [
+            { characterKey: 'generic_toad', text: 'Well said, Speaker L!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'the_mole_reports',
+        order: 227,
+        characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Report: Southern factions have re-engaged in hostilities. Kremling espionage operation confirmed. Recommend Legion forces assume a state of heightened readiness on the southern border.`,
+        likes: 460,
+        comments: [
+            { characterKey: 'colonel_vera_steelstorm', text: 'Acknowledged. Send the full report.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'pokemon_team_rocket_opportunity',
+        order: 226,
+        characterKey: 'team_rocket',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `While the local authorities are busy trying to referee monsters, it presents a perfect opportunity for our own acquisition operations in the region. Prepare for trouble!`,
+        likes: 410,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'toadette_dismisses_vote',
+        order: 225,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `The Midlands Diet plays their games of words while a real war is being fought. Let them posture. It keeps their eyes off the Mushroom Kingdom, which is all that matters.`,
+        likes: 488,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'bones_cynical_vote',
+        order: 224,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `A bunch of suits in a fancy room voted to make monsters illegal. Heh. Good luck enforcing that.`,
+        likes: 451,
+        comments: [
+            { characterKey: 'archie', text: 'Exactly.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'midlands_noble_gossip',
+        order: 223,
+        characterKey: 'midlands_noble',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Heard the most delicious rumor from the southern isles. Apparently Donkey Kong accused K. Rool of leaving a... 'cloaca smear' in his office. How deliciously vulgar! The diplomatic season is off to a roaring start!`,
+        likes: 290,
+        comments: [
+            { characterKey: 'midlands_noble_2', text: 'Oh, darling, you MUST tell me everything at the gala!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'generic_toad_confused',
+        order: 222,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `So the monkeys and lizards are fighting again? Weren't they just having a summit? I can't keep up.`,
+        likes: 240,
+        comments: [
+            { characterKey: 'generic_toad_2', text: 'Politics, friend. It never makes sense.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'ryan_paradox_vote',
+        order: 221,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `To deny their legitimacy while attempting to control them... it's a paradox. You cannot legislate a force of nature. Dan's act will only provoke them. I fear the consequences.`,
+        likes: 360,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'roger_logistics_vote',
+        order: 220,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `This 'containment' is an logistical impossibility. The resources required to maintain a hard border between two such hostile territories are astronomical. It's an inefficient, unsustainable gesture that is doomed to fail.`,
+        likes: 299,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'koopa_troop_laughs',
+        order: 219,
+        characterKey: 'koopa_troop',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `Heard the apes are fighting the crocs again! Good! Let 'em! The more they fight each other, the less they'll be paying attention when King Bowser returns to smash them both!`,
+        likes: 410,
+        comments: [
+            { characterKey: 'koopa_troop_2', text: 'For the King!' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'cybernetic_collective_predicts',
+        order: 218,
+        characterKey: 'cybernetic_collectives',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `[ANALYSIS]: Alliance between historically hostile organic entities has collapsed due to espionage. This outcome was predicted with 97.8% certainty. The subsequent escalation to assassination protocols is a standard, if inefficient, parameter of organic conflict resolution.`,
+        likes: 720,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'See? Predictable! But what was the energy signature of the device?' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'eager_simple_vote',
+        order: 217,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `Does this mean the vampires and werewolves have to stop fighting? That sounds good! Less fighting is good, right?`,
+        likes: 240,
+        comments: [
+            { characterKey: 'toad_lee', text: 'In theory, young one. In practice, it is more complicated.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'speaker_l_leadership_vote',
+        order: 216,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `The Midlands Diet shows strength, unlike our own leadership. They impose order instead of negotiating with monsters. Dan's proposal was decisive. A surprising display of leadership from the one who has shown so little.`,
+        likes: 310,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'krool_gloats_dk',
+        order: 215,
+        characterKey: 'king_k_rool',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `First their oafish delegate causes a global financial crisis, and now their leader is making desperate calls to his enemies? The DK Crew is falling apart at the seams! My Kremling Krew will be there to pick up the pieces... and the bananas! Keheheheh!`,
+        likes: 399,
+        comments: [ { characterKey: 'donkey_kong', text: 'Keep laughing, K. Rool. You\'ll see what happens when you mess with the Kongs.' } ],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'kivotos_millennium_tech',
+        order: 214,
+        characterKey: 'millennium_science_school',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `[Veritas Leak]: Intercepted schematics for the alleged 'Kremling bug'. The power source is crude, but the signal encryption is surprisingly sophisticated. We must acquire a sample for analysis.`,
+        likes: 680,
+        comments: [
+            { characterKey: 'gehanna_academy', text: 'Always trying to get your hands on other people\'s toys, Millennium?' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'warhammer_empire_contempt',
+        order: 213,
+        characterKey: 'the_empire',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `Let the greenskins and beastmen squabble in their jungle hovels. Their petty squabbles are of no concern to the Empire of Man.`,
+        likes: 840,
+        comments: [
+            { characterKey: 'king_louen_leoncoeur', text: 'A king who ignores his neighbors soon finds his borders aflame.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'the_mole_reports_vote',
+        order: 212,
+        characterKey: 'the_mole',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `Report: Midlands Diet has passed the Supernatural Sovereignty Act. This will stretch Legion forces thin during enforcement. An opportunity for other operations. Forwarding analysis to command.`,
+        likes: 450,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'midlands_citizen_fear_vote',
+        order: 211,
+        characterKey: 'midlands_citizen',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `They did what?! They made a law against the vampires?! Are they insane?! The vampires are going to be so angry! We live on the border! This is terrifying!`,
+        likes: 620,
+        comments: [
+            { characterKey: 'lord_crimson', text: 'Do not worry, little mortal. We will not be angry. We will be... thorough.' }
+        ],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'cybernetic_collective_analysis',
+        order: 210,
+        characterKey: 'cybernetic_collectives',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 16, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `[ANALYSIS]: Probability of organic species self-destructing due to internal political schisms and resource disputes remains consistently high. The 'Lanky Kong Incident' has increased the probability of regional economic collapse by 4.7%. Fascinating data.`,
+        likes: 666,
+        comments: [],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'pokemon_trainer_quest',
+        order: 209,
+        characterKey: 'trainer_guild',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `Wait, so there's a spy named Galypso? Is that a rare Pokémon? What type is it? Is it legendary? I gotta catch it!`,
+        likes: 830,
+        comments: [
+            { characterKey: 'mages_guild_apprentice', text: 'It is... not a Pokémon. It is an agent of a foreign power. Please do not try to catch the assassin.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'midlands_citizen_worried',
+        order: 208,
+        characterKey: 'midlands_citizen',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `The Kongs and the Kremlings are at war again? Does this mean the price of bananas is going to go up? I just bought a new barrel!`,
+        likes: 610,
+        comments: [
+            { characterKey: 'the_broker', text: 'Yes. Sell your barrel futures and invest in bananas.' }
+        ],
+        rumorId: 'the_kong_bug'
+    },
+    {
+        id: 'koopa_troop_reacts_vote',
+        order: 207,
+        characterKey: 'koopa_troop',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `Ha! The shiny-armor humans are picking a fight with the spooky monsters! Good! Let 'em weaken each other. Makes it easier for King Bowser to smash 'em all later!`,
+        likes: 380,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'generic_toad_indifferent_vote',
+        order: 206,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 15, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `I heard some other kingdom is having political problems. As long as it's not here, I don't care. We have enough problems with Fawful.`,
+        likes: 210,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'midlands_diet_vote_start',
+        order: 205,
+        characterKey: 'midlands_diet_herald',
+        date: { year: 1040, monthIndex: 6, day: 18, hour: 14, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `The emergency session of the Midlands Diet is underway. Delegate Dan has proposed the "Supernatural Sovereignty Act" to address the ongoing crisis at our borders. The vote is expected to be contentious.`,
+        likes: 1800,
+        comments: [],
+        rumorId: 'supernatural_sovereignty_act'
+    },
+    {
+        id: 'bowser_mirror_punch',
+        order: 204,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `Stupid Green T got himself stuck in a mirror! He's just making fish faces at me from the other side! Tried to pull him out, got slashed by a glass monster. I PUNCHED IT. IT SHATTERED. But the mushroom head is still stuck. Useless!`,
+        likes: 412,
+        comments: [
+            { characterKey: 'kamek', text: "A mirror prison? Troublesome magic, Your Viciousness. Do not gaze too long into it." },
+            { characterKey: 'humpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_hungry_memory',
+        order: 203,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `Whatever's in this place—it isn't just ghosts. It's memory, and it's hungry.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'kamek', text: 'A keen observation, Your Viciousness. Be wary of places that remember.' },
+            { characterKey: 'self_reflection_oracle', text: 'A king of beasts understands the nature of the hunt.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kay_killed',
+        order: 202,
+        characterKey: 'kay',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Earlier Today',
+        content: `We're here for peace... please...`,
+        likes: 210,
+        comments: [
+            { characterKey: 'chancellor_toadsworth', text: 'May the stars guide your spirit, brave envoy.' }
+        ],
+        rumorId: 'bramblehaven_siege' // Concurrently
+    },
+    {
+        id: 'koomba_killed',
+        order: 201,
+        characterKey: 'koomba',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Earlier Today',
+        content: `That's Peach's seal! Return it!`,
+        likes: 190,
+        comments: [
+            { characterKey: 'captain_toadette', text: 'He died defending the Princess\'s honor. A true soldier.' }
+        ],
+        rumorId: 'bramblehaven_siege' // Concurrently
+    },
+    {
+        id: 'speaker_l_candy_cookie',
+        order: 200,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `They have barricaded themselves. A futile gesture. ALL UNITS, FORMATION! CODEWORD: CANDY CHOCOLATE COOKIE! We will breach and secure!`,
+        likes: 410,
+        comments: [
+            { characterKey: 'generic_toad', text: '...Candy Chocolate Cookie? Is that a real codeword?' },
+            { characterKey: 'speaker_l', text: 'IT IS A TACTICAL PHONETIC DESIGNATION! CEASE YOUR QUESTIONING!' },
+            { characterKey: 'waluigi', text: 'WAH! What a delicious-sounding codeword! I approve!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toadbert_on_dan_duty',
+        order: 199,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `He gave me his sword and told me to watch Dan. And not to cut his head off. Why would I cut his head off?! I'm so scared...`,
+        likes: 98,
+        comments: [
+            { characterKey: 'archie', text: 'It was a precaution. Don\'t worry about it.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kay_diplomat_mission',
+        order: 198,
+        characterKey: 'kay',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Morning',
+        content: `We're on a mission for peace. With the Koopa Troop. I have a bad feeling about this.`,
+        likes: 88,
+        comments: [],
+        rumorId: 'bramblehaven_siege' // Different event, happening concurrently
+    },
+    {
+        id: 'koomba_diplomat_mission',
+        order: 197,
+        characterKey: 'koomba',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Morning',
+        content: `Delivering a message from a dead princess to a broken kingdom. What could possibly go wrong?`,
+        likes: 102,
+        comments: [],
+        rumorId: 'bramblehaven_siege' // Different event
+    },
+    {
+        id: 'paratroopa_report_envoys',
+        order: 196,
+        characterKey: 'koopa_troop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Morning',
+        content: `Two envoys from the pink fanatics are trying to get into the valley. They say they have a message. Orders are to... let them pass? Weird.`,
+        likes: 154,
+        comments: [],
+        rumorId: 'bramblehaven_siege' // Different event
+    },
+    {
+        id: 'speaker_l_patrol_vote',
+        order: 195,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The vote has passed. We will deploy the Pond Patrol. This is not a matter of retribution, but of accountability and security. We cannot allow such destructive incompetence to go unchecked. All individuals involved will be brought in for questioning. This is the will of the First Cohort.`,
+        likes: 380,
+        comments: [ { characterKey: 'generic_toad', text: 'Finally! Some real action!' } ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_in_the_rain',
+        order: 194,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The fire is out. The rain is washing away the ash. Everyone is alive, somehow. But the cost... Archie's final act was one of desperation, not victory. And Green T... he's playing a game I do not understand. He gave me a key. A key to what? More secrets? This house is a wound that will not close.`,
+        likes: 121,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_rescue_archie_now',
+        order: 193,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 59 },
+        timestamp: '1 minute ago',
+        content: `They're taking Archie. The little toads have him. This is not right. We go back. We get him.`,
+        likes: 710,
+        comments: [
+            { characterKey: 'toad_lee', text: 'humpik, do not engage the Cohort. I am trying to resolve this peacefully. Do not start a war.' },
+            { characterKey: 'bowser', text: 'He made his choice, Humpik. Let him lie in it for a bit.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_barricade',
+        order: 192,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 59 },
+        timestamp: '1 minute ago',
+        content: `The door. Block it. Now.`,
+        likes: 645,
+        comments: [
+            { characterKey: 'humpik', text: 'ON IT!' },
+            { characterKey: 'speaker_l', text: 'Delaying the inevitable, Miser.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_oracle_rambling',
+        order: 191,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `The ghost man (Oracle) talks too much. Bathrooms? Orcs? Mirrors having rules? I stopped listening. We left him talking to the dust. We have Toads to save.`,
+        likes: 289,
+        comments: [
+            { characterKey: 'toad_lee', text: "He is mad. Or he knows everything. I cannot tell which is worse." }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_offer_declined',
+        order: 190,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `The offer to untangle the thread was made. It was refused. The path of consequence is chosen. So be it.`,
+        likes: 812,
+        comments: [
+            { characterKey: 'kamek', text: 'Playing with mortals is a dangerous game, old friend. Sometimes they refuse to be pawns.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_offers_key',
+        order: 189,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 58 },
+        timestamp: '2 minutes ago',
+        content: `Trust is a currency. I've made a down payment. Let's see if the paladin is smart enough to invest it. The real game starts tonight.`,
+        likes: 277,
+        comments: [
+            { characterKey: 'the_broker', text: 'An interesting move. The market for Imperial keys just saw a spike.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_sees_archie_captured_window',
+        order: 188,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 57 },
+        timestamp: '3 minutes ago',
+        content: `He's in their hands now. The little fools actually caught him. Dragging him out into the rain.`,
+        likes: 850,
+        comments: [
+            { characterKey: 'kamek', text: 'An unfortunate but predictable outcome for one who relies on chaos.' },
+            { characterKey: 'fawful', text: 'I HAVE THE SMALLEST OF CHORTLES! The three-eyed fool is caged by mushrooms!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_apprehend',
+        order: 187,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 57 },
+        timestamp: '3 minutes ago',
+        content: `BY VOTE AND VOW, BY COHORT LAW! ARCHIE MISER! YOU AND YOUR ASSOCIATES ARE TO SURRENDER! YOU ARE TO BE APPREHENDED FOR CATASTROPHIC FAILURE AND RECKLESS ENDANGERMENT!`,
+        likes: 520,
+        comments: [
+            { characterKey: 'archie', text: 'Busy at the moment! We have a toad bleeding out! Call back later!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_mirror_monster_emerges',
+        order: 186,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 56 },
+        timestamp: '4 minutes ago',
+        content: `THE MIRROR IS ALIVE! IT'S ALIVE AND IT'S COMING OUT! LIGHTS ARE GONE!`,
+        likes: 750,
+        comments: [
+            { characterKey: 'markop', text: 'humpik, report! What is your status?! What is happening?!' },
+            { characterKey: 'ryan', text: 'The dimensional barrier must have shattered! Get out of there!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_ghost_fight',
+        order: 185,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Ambushed by spirits in the Piano Room. "Just Desserts," they said. Bowser... he protected us. He caught a ghost's fist and hit it back. He said "Only I smash toads." I do not know if I should be grateful or terrified.`,
+        likes: 560,
+        comments: [
+            { characterKey: 'bowser', text: "Don't get used to it. You're just cannon fodder I haven't used yet." },
+            { characterKey: 'dan', text: "He saved Toadburt too. I saw it." }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_arrest_report',
+        order: 184,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Target apprehended. Archie Miser is in Cohort custody. The situation is contained. Justice will be served.`,
+        likes: 980,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Contained? Speaker, what happened in there? My patrol is reporting screams and a power failure.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'pond_patrol_sings',
+        order: 183,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Hear us, Archie, in your keep, We’ve marched through fire, wade through deep! From shattered labs to fallen halls, The Cohort answers duty’s calls!`,
+        likes: 289,
+        comments: [
+            { characterKey: 'bones', text: 'Great. A singing mob. Just what we needed.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bones_patrol_vote',
+        order: 182,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Voted yes. Someone needs to put a leash on them before they burn down the whole forest. This 'self-destruction' is a liability we can't afford. Time to clean up the mess.`,
+        likes: 290,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_raisins',
+        order: 181,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `The fire turned my grapes into raisins. The rain turned them back into grapes. This place is weird.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'eager', text: 'Magic grapes! Can I try one?!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_surrenders_now',
+        order: 180,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 54 },
+        timestamp: '6 minutes ago',
+        content: `Fine. I surrender.`,
+        likes: 1570,
+        comments: [
+            { characterKey: 'speaker_l', text: 'Wise.' },
+            { characterKey: 'humpik', text: 'Archie, no!' },
+            { characterKey: 'general_marcus_ironhand', text: 'A pity. Our cells were waiting.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_failed_healing',
+        order: 179,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 54 },
+        timestamp: '6 minutes ago',
+        content: `I can't... I can't... I made it worse...`,
+        likes: 310,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Dan, breathe. Do not let the failure consume you. Reset and try again.' },
+            { characterKey: 'ryan', text: 'You forced the energy. It requires calm, a gentle guidance. You will learn.' },
+            { characterKey: 'archie', text: 'Not now, Dan. Get it together.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_stops_fireball',
+        order: 178,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 53 },
+        timestamp: '7 minutes ago',
+        content: `Not yet.`,
+        likes: 1212,
+        comments: [
+            { characterKey: 'archie', text: 'Get out of my head!' },
+            { characterKey: 'kamek', text: 'Such effortless displays of power are always the most terrifying.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_vision',
+        order: 177,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 53 },
+        timestamp: '7 minutes ago',
+        content: `I looked at the blood on the floor. It showed me... something. A face made of glass. I do not like this house's mirrors. Or its floors.`,
+        likes: 315,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_ticket_confusion',
+        order: 176,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `I'm back. Don't ask where I was. A ghost just handed me a ticket for "Special Guest Smoken Al". Does anyone know what that means? Also, why did everyone just fall through the ceiling?`,
+        likes: 675,
+        comments: [
+            { characterKey: 'remi', text: "Archie! You're alive! We're heading to the courtyard! The lights are going crazy!" },
+            { characterKey: 'giggling_pete', text: "A ticket to the show! Hee hee! The Jester is watching!" }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_wrong_answer',
+        order: 175,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `Wrong answer.`,
+        likes: 740,
+        comments: [
+            { characterKey: 'the_mole', text: '*whistles*' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_dan_heal_now',
+        order: 174,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `Dan! Do something! Use your magic, heal him now! HE'S BLEEDING OUT!`,
+        likes: 540,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'ryan_patrol_vote_revelation',
+        order: 173,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `I voted yes. The arcane energies unleashed were a perversion. The metallic monsters... their creation felt familiar. I sense a signature akin to the temporal corruption of The Oracle. We must secure the site for investigation.`,
+        likes: 320,
+        comments: [ { characterKey: 'janna_brightspark', text: 'Temporal corruption linked to the rust monsters?! Fascinating! You must get samples!' } ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_soot_and_rust',
+        order: 172,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `I'M ALIVE! But I'm covered in soot, my everything aches, and my mouth still tastes like a rusty pipe. That was NOT PORK. I'm going to find that stupid toad who cooked it and... and... make him watch me eat a REAL steak.`,
+        likes: 450,
+        comments: [
+            { characterKey: 'kamek', text: 'A harrowing experience, Your Viciousness. I shall prepare a volcanic rock for you to rest upon.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_power_struggle',
+        order: 171,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 51 },
+        timestamp: '9 minutes ago',
+        content: `You’re my captain. I’m your leader. You answer to me.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'speaker_l', text: 'An interesting interpretation of the chain of command.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'pond_patrol_arrival',
+        order: 170,
+        characterKey: 'pond_patrol_grunt',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 51 },
+        timestamp: '9 minutes ago',
+        content: `We have arrived at the objective. It is a ruin. Moving to secure the perimeter.`,
+        likes: 188,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_the_choice',
+        order: 169,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `The players have gathered on the stage. The Spider, The Mirror Terror, The Arcane Wrath. Three demons to purge. They have chosen the path of friendship over the path of the mirror. A sentimental choice. Let us see if it kills them.`,
+        likes: 890,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_eats',
+        order: 168,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Eat.`,
+        likes: 999,
+        comments: [
+            { characterKey: 'high_inquisitor_vale', text: 'Unspeakable heresy! This creature is a font of pure evil!' },
+            { characterKey: 'lord_crimson', text: '...Fascinating. A crude but effective method of battlefield apotheosis.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_wakes_up_drums',
+        order: 167,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Collapsed in a wrecked room full of broken mirrors. Finally got some sleep. Woke up to the sound of drums. I hate this house.`,
+        likes: 455,
+        comments: [
+            { characterKey: 'generic_toad', text: 'That\'s the Pond Patrol! They\'re here!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_aftermath_thought',
+        order: 166,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `...I thought it'd work.`,
+        likes: 812,
+        comments: [
+            { characterKey: 'dan', text: 'You saved him, Archie. You saved Eager. That worked.' },
+            { characterKey: 'markop', text: 'You saved him. But look at the cost.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toadsburt_is_killed',
+        order: 165,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 49 },
+        timestamp: '11 minutes ago',
+        content: `That's not you... you're not Archie... It's a demon! I can see it in the mirror! A DEMON! AGH- *crack*`,
+        likes: 450,
+        comments: [
+            { characterKey: 'detective_penny', text: 'Witness eliminated. Another loose end. This Miser is sloppy.' },
+            { characterKey: 'humpik', text: 'Archie... what did you do?' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'eager_agony',
+        order: 164,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 49 },
+        timestamp: '11 minutes ago',
+        content: `AAAAAAAAAAGH!`,
+        likes: 742,
+        comments: [
+            { characterKey: 'dewdrop', text: 'By the stars, what happened?! I\'m mobilizing a medical team!' },
+            { characterKey: 'dan', text: 'I\'m so sorry... I\'m so sorry...' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_marching_out',
+        order: 163,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `We're all together. Me, Archie, Humpik, Lee... even Bowser. We're going to the greenhouse. To the spiders. We're not leaving anyone behind this time.`,
+        likes: 445,
+        comments: [
+            { characterKey: 'markop', text: "Hold fast, Dan. We are coming." }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_cauterizes_wound_now',
+        order: 162,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `Hold him. This is going to hurt.`,
+        likes: 810,
+        comments: [
+            { characterKey: 'dewdrop', text: 'Cauterizing a magical wound with a heated axe?! That\'s barbaric! You need a real medic!' },
+            { characterKey: 'roger', text: 'A crude but effective field measure to stop exsanguination. I approve.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_freezes_fire',
+        order: 161,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `WAH! And for my final act! A magnificent cone of cold to extinguish the flames! You see? The fire was merely an appetizer for my brilliant, show-stopping finale! You're all welcome! Betsy is fine, by the way. Just a little shaken.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'markop', text: 'You helped start it with a firebolt, you purple menace.' },
+            { characterKey: 'waluigi', text: 'Details, details! It\'s all part of the performance!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_fights_mirror_creature',
+        order: 160,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 46 },
+        timestamp: '14 minutes ago',
+        content: `GWAHAHA! A monster made of glass?! This house just keeps getting better! Tasted my fist, you walking window!`,
+        likes: 760,
+        comments: [
+            { characterKey: 'humpik', text: 'King Bowser! It came out of the mirror!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'oracle_to_remi',
+        order: 159,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 46 },
+        timestamp: '14 minutes ago',
+        content: `Yes. There is another house. You have seen one of the other threads. Be careful which ones you pull.`,
+        likes: 698,
+        comments: [
+            { characterKey: 'remi', text: 'What does that even mean?!' },
+            { characterKey: 'archie', text: 'It means he\'s a creepy fortune cookie. Ignore him.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_move_or_die',
+        order: 158,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Bowser and Green T have fled. Remi is lost in their ranks. The Cohort is sealing the manor, and the house itself is birthing wraiths. We move now, before containment becomes execution.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Where are you? I am trying to de-escalate this, but Speaker L is not listening to reason.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_spider_fight',
+        order: 157,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Fought a spider the size of a wolf in the maze. My shield spell worked. My dagger did not. My crossbow bolt hit it in the eye. It ran away. I'm never going in a maze again.`,
+        likes: 612,
+        comments: [
+            { characterKey: 'humpik', text: 'Good shot, little one!' },
+            { characterKey: 'waluigi', text: 'WAH! You should have captured it! Think of the chaos we could cause with a giant spider!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_fireball_final',
+        order: 156,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `FIREBALL!`,
+        likes: 1205,
+        comments: [
+            { characterKey: 'janna_brightspark', text: 'The energy readings were off the charts! Magnificent!' },
+            { characterKey: 'archmage_theron', text: 'Unsanctioned. Uncontrolled. Utterly reckless.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_escapes_drumline',
+        order: 155,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 44 },
+        timestamp: '16 minutes ago',
+        content: `Enough of this marching band nonsense. I'm not getting trapped in a haunted house by a bunch of singing mushrooms. Anyone who wants to live is coming with me.`,
+        likes: 580,
+        comments: [
+            { characterKey: 'kamek', text: 'A wise tactical withdrawal, Your Viciousness.' },
+            { characterKey: 'green_t', text: 'I\'m right behind you!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_calls_for_archie',
+        order: 154,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 44 },
+        timestamp: '16 minutes ago',
+        content: `Three-eyes! Grab my hand! The whole place is coming down!`,
+        likes: 388,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'roger_rangers_lost_now',
+        order: 153,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 42 },
+        timestamp: '18 minutes ago',
+        content: `SITREP: My rangers responded to the fire, assuming hostile action. We have made contact with the First Cohort's main force. The situation is... fluid. Half my men are unaccounted for inside the manor. We are transitioning from a rescue to a search operation.`,
+        likes: 290,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Roger, hold your position. Do not engage. Repeat, do not engage.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_cure_wounds_first',
+        order: 152,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 42 },
+        timestamp: '18 minutes ago',
+        content: `I... I did it. A real spell. It wasn't the staff. It was me.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'archie', text: 'You did good, kid.' },
+            { characterKey: 'toad_lee', text: 'Your training bears fruit.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_wraiths_now',
+        order: 151,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `Okay, new rule: never get trapped in a haunted house that's being besieged by a toad army. Especially when the house starts spawning lightning ghosts. Time for Plan B.`,
+        likes: 412,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Lightning ghosts! My one regret is not being there to see it!' },
+            { characterKey: 'ryan', text: 'These are not simple spirits. They are echoes of pain, given form. Be careful.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_lost_in_maze',
+        order: 150,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `I'm lost. I'm lost in a maze that keeps changing. And of course there are spiders. Why did I have to say spiders.`,
+        likes: 388,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'roger_patrol_vote',
+        order: 149,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `The deployment of the Pond Patrol is the only logistically sound decision. It contains the variables, secures the operational area, and allows for a full assessment of the catastrophic resource loss. It is a necessary action to prevent further systemic collapse.`,
+        likes: 225,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_firebolt_help',
+        order: 148,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `WAH-HA-HA! These rusty fools need a lesson in style! Let's heat things up! FIREBOLT! ...Hmm. Maybe that made it worse. MORE CHAOS!`,
+        likes: 245,
+        comments: [
+            { characterKey: 'ryan', text: 'You are an agent of entropy.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_containment_protocol_now',
+        order: 147,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `Containment protocols are in effect. All exits of Raventree Manor are being sealed. Those named in the Mandate will be brought to justice. The rest will stand aside. This is not a negotiation. This is order being restored.`,
+        likes: 620,
+        comments: [
+            { characterKey: 'first_cohort_member', text: 'For the Cohort! For the Vow!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_keeps_book',
+        order: 146,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `The book speaks of four manors, a war across time. The final page, the key to it all, is missing. The ghosts want it back. No. This knowledge is too dangerous to be left to them. I am keeping it.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'green_t', text: 'A wise, if predictable, choice, paladin.' },
+            { characterKey: 'janna_brightspark', text: 'A chronomantic codex?! You must let me see it! For science!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'eager_reckless_charge',
+        order: 145,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `They're swarming Archie! I have to help! FOR THE VIGILANCE!`,
+        likes: 178,
+        comments: [
+            { characterKey: 'archie', text: 'Kid, no, wait-!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_joins_the_march_now',
+        order: 144,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 36 },
+        timestamp: '24 minutes ago',
+        content: `The drums... so loud. I have a drum now. Marching. I think... I'm marching with them. It's easier than running.`,
+        likes: 550,
+        comments: [
+            { characterKey: 'markop', text: 'Remi, break formation! Get back to us!' },
+            { characterKey: 'dan', text: 'Remi? No...' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_bitten',
+        order: 143,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 36 },
+        timestamp: '24 minutes ago',
+        content: `It bit me. My arm is turning orange. This is fine. Everything is fine.`,
+        likes: 312,
+        comments: [
+            { characterKey: 'dan', text: 'Remi, get back! Let us handle this!' },
+            { characterKey: 'dewdrop', text: 'That sounds like a potent corrosive agent! Please seek medical attention immediately!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_ceremony_with_teeth_now',
+        order: 142,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `WAH! A singing army! A musical invasion! They're not soldiers, they're a ceremony with teeth! It's the most gloriously over-the-top thing I've ever seen! I almost feel outdone!`,
+        likes: 899,
+        comments: [
+            { characterKey: 'fawful', text: 'THEIR SINGING LACKS THE FURY OF A TRUE VILLAINOUS HYMN!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_ghosts',
+        order: 141,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `Okay, fine. There's a whole family of ghosts here. Oracles. They're at war with each other, living vs dead, for control of this place. Happy now?`,
+        likes: 375,
+        comments: [
+            { characterKey: 'markop', text: 'Your willingness to share this information now is noted. And distrusted.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_locks_door',
+        order: 140,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `Let's move this conversation somewhere... less flammable. And let's make sure our test subjects remain... focused. *click*`,
+        likes: 433,
+        comments: [
+            { characterKey: 'wario', text: 'Good. An uncontrolled experiment yields messy data.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_bonfire_start',
+        order: 139,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 33 },
+        timestamp: '27 minutes ago',
+        content: `Rust monsters, huh? Let's see how you handle a little heat. Time to start a bonfire.`,
+        likes: 399,
+        comments: [
+            { characterKey: 'markop', text: 'Archie, this is a glass house filled with dry plants. Perhaps a different approach?' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'speaker_l_song_now',
+        order: 138,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 32 },
+        timestamp: '28 minutes ago',
+        content: `By vote and vow, by quill and seal, We bring the order none can steal! Marching forth, the Cohort’s call— To guard the living, and judge the fall!`,
+        likes: 710,
+        comments: [
+            { characterKey: 'bones', text: 'I think I\'m gonna be sick.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_sees_cohort',
+        order: 137,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `They're here. Hundreds of them. The Cohort has arrived. This isn't a patrol. It's an army.`,
+        likes: 680,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_obituary',
+        order: 136,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `We found a side entrance. A different part of the house, abandoned. On a table was a silver frame. An obituary. The name on it was 'Oracle'.`,
+        likes: 451,
+        comments: [
+            { characterKey: 'detective_penny', text: 'An obituary? For a man who is still walking around? This case keeps getting stranger. Keep that as evidence.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_good_tomato',
+        order: 135,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `This whole greenhouse is rotten, but I found one perfect tomato! GWAHAHA! It's the little victories. Now I'm gonna eat it before anyone else... wait what's that clicking sound?`,
+        likes: 284,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_finds_them_now',
+        order: 134,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 28 },
+        timestamp: '32 minutes ago',
+        content: `Found them. It's bad. Eager is down, Dan is... not right. And the little toads are marching outside. We are trapped.`,
+        likes: 620,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_finds_rotten_tomatoes',
+        order: 133,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 28 },
+        timestamp: '32 minutes ago',
+        content: `Checked a planter in the creepy greenhouse. Just a basket of rotten tomatoes. Great.`,
+        likes: 215,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_heals_dan',
+        order: 132,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `Found the one-armed toad trembling by a broken window. WAH! So pathetic! I healed him a little. Can't have my audience dying of fright before the final act!`,
+        likes: 510,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_dead_end',
+        order: 131,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `GWAH! A dead end! This stupid maze! I'm just gonna PUNCH my way through! RAAARGH! ...Okay, that hurt. These are some tough thorns.`,
+        likes: 398,
+        comments: [
+            { characterKey: 'markop', text: 'Brute force is not the answer to everything, Bowser.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'observer_wyvern_crash',
+        order: 130,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `I was just trimming the hedges and a WYVERN fell out of the sky! It crashed in the garden! And the tall purple guy fell off! What is HAPPENING at this manor?!`,
+        likes: 158,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Mind your own business, you nosy mushroom!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'waluigi_betsy',
+        order: 129,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 24 },
+        timestamp: '36 minutes ago',
+        content: `WAH! STOP! DON'T HURT BETSY! She's a rental! Do you know how much the deposit is on a summoned wyvern?!`,
+        likes: 341,
+        comments: [
+            { characterKey: 'remi', text: 'It was coming right for us!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_smashes_mirror',
+        order: 128,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 22 },
+        timestamp: '38 minutes ago',
+        content: `GREEN T GOT EATEN BY A MIRROR! So I punched it! A door opened! This house is weird, but it respects brute force! GWAHAHA!`,
+        likes: 780,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_shoots_wyvern',
+        order: 127,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 22 },
+        timestamp: '38 minutes ago',
+        content: `Big green thing in the sky. I shot it. It fell down.`,
+        likes: 502,
+        comments: [
+            { characterKey: 'green_t', text: '...Nice shot.' },
+            { characterKey: 'roger', text: 'Excellent trigger discipline.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_green_t_taken',
+        order: 126,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `Green T has been taken. Something pulled him into a mirror. The house... it's fighting back. This is no longer a simple haunting.`,
+        likes: 540,
+        comments: [
+            { characterKey: 'the_broker', text: 'Asset "Green T" is temporarily off the board. Fascinating. His information futures are now on hold.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_winged_it',
+        order: 125,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `Yes, alright, I winged it! I needed a distraction to get away and fire seemed like a bad idea. I grabbed a key. This maze is a defense system. Now follow me before it decides to eat us.`,
+        likes: 311,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_throws_remi',
+        order: 124,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `GWAH! The little one is too slippery! She fell! But she found a path! Okay, this time for real! YEET!`,
+        likes: 367,
+        comments: [
+            { characterKey: 'remi', text: 'Stop throwing me!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_shot_down',
+        order: 123,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `WHO SHOT US?! I was having a perfectly civil mid-air business negotiation!`,
+        likes: 319,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! And I was about to close the deal!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_discovers_path',
+        order: 122,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 19 },
+        timestamp: '41 minutes ago',
+        content: `Okay, so Bowser dropped me. But from down here I can see a hidden path along the side of the house! It looks... bushy.`,
+        likes: 412,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_solarium_plan',
+        order: 121,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 18 },
+        timestamp: '42 minutes ago',
+        content: `We go to the solarium. We break the attic and catch them before they fall. It is the shorter, more direct route. We move now.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'humpik', text: 'But the mirror stair is right there!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_axe_swing',
+        order: 120,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 18 },
+        timestamp: '42 minutes ago',
+        content: `The entrance to the maze was blocked by a wall of living vines. It bled when I cut it. This place is unnatural.`,
+        likes: 299,
+        comments: [
+            { characterKey: 'chief_thornpaw', text: 'The spirits of this place are angry. Wounded. Tread carefully.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'green_t_throws_remi',
+        order: 119,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 16 },
+        timestamp: '44 minutes ago',
+        content: `If we can't go through it, we go over. Simple. Bowser, move. You're in my line of... throw.`,
+        likes: 299,
+        comments: [
+            { characterKey: 'markop', text: 'Is throwing people our only strategy now?' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_pockets_silver',
+        order: 118,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `Found a secret room. Looked comfy. Found a bag of silver. It's mine now. Finders keepers, losers weepers!`,
+        likes: 620,
+        comments: [
+            { characterKey: 'wario', text: 'That\'s the spirit! Always secure the loot!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_alone',
+        order: 117,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `Woke up. Everyone was gone. The house was quiet. Too quiet. I heard voices, but there was no one there. This place is not right. I am going back upstairs.`,
+        likes: 250,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_statue_observation',
+        order: 116,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `The garden walkway is overgrown, almost hostile. Found a statue of the Oracle, but its face has been completely worn away by time or malice. A fitting monument for a man who seems to have lost himself.`,
+        likes: 211,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'the_oracle_walkway',
+        order: 115,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 14 },
+        timestamp: '46 minutes ago',
+        content: `The thorns grow to protect the memory. The statue's face is gone because the reflection it shows is no longer mine.`,
+        likes: 723,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_falls_down',
+        order: 114,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 12 },
+        timestamp: '48 minutes ago',
+        content: `The rope held. The joist did not. I have fallen. Am okay. This room has a very clean mirror. I do not trust it.`,
+        likes: 515,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_finds_passage',
+        order: 113,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `The main path is a death trap. But there is a way. A crawlspace between the walls. It is tight, but it will get us through. Follow me.`,
+        likes: 480,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_wakes_up_locked',
+        order: 112,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `Woke up. The door is locked from the outside. My roommate smashed the lock. Breakfast was... not pork. Bowser's teeth are rusting. A wyvern fell from the sky. And now there's a living maze. I need a nap.`,
+        likes: 789,
+        comments: [
+            { characterKey: 'cranky_kong', text: 'Back in my day, we didn\'t have haunted houses, we had haunted shacks! And we LIKED it!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'eager_too_heavy_monster',
+        order: 111,
+        characterKey: 'eager',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `I tried to pick up one of the rust monster bodies for Ryan to study but... it's SO heavy! It's like it's made of solid lead! And my arms feel all tingly now. Weird.`,
+        likes: 119,
+        comments: [
+            { characterKey: 'ryan', text: 'Fascinating. Perhaps its biology is silicon or iron-based.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_sees_green_t',
+        order: 110,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 8 },
+        timestamp: '52 minutes ago',
+        content: `We're in the vents. I can see down into a room... it's full of mirrors. Green T is trapped in one of them. He's like a bug in amber.`,
+        likes: 590,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'archie_orange_t',
+        order: 109,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 8 },
+        timestamp: '52 minutes ago',
+        content: `Morning, Orange T.`,
+        likes: 478,
+        comments: [
+            { characterKey: 'self_reflection_oracle', text: '...' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_spider_surprise',
+        order: 108,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 5 },
+        timestamp: '55 minutes ago',
+        content: `Found a bathroom. Opened the door. Giant spider lunged at me. I closed the door. Some things you just don't punch.`,
+        likes: 713,
+        comments: [
+            { characterKey: 'remi', text: 'Told you there were spiders!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'fawful_amused_by_breakfast',
+        order: 107,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 5 },
+        timestamp: '55 minutes ago',
+        content: `I HAVE CHORTLES! The fools eat monsters for breakfast! And then their teeth rust! It is a buffet of foolishness, a salad of stupidity! My own evil plans have much better catering!`,
+        likes: 689,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_lee_uneasy_truce',
+        order: 106,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 2 },
+        timestamp: '58 minutes ago',
+        content: `They are not the enemy. Not yet. The house is. An uneasy truce has been formed with Bowser's group. We will move together. Strength in numbers.`,
+        likes: 543,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'bowser_rust_teeth',
+        order: 105,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 2 },
+        timestamp: '58 minutes ago',
+        content: `...oops. My magnificent teeth... they feel... crunchy. And orange. This is NOT an improvement.`,
+        likes: 541,
+        comments: [
+            { characterKey: 'king_k_rool', text: 'Keheheh! Having some dental trouble, are we? Perhaps you should try a banana instead!' },
+            { characterKey: 'bowser', text: 'SHUT UP, CROC-FACE!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_ignores_waluigi',
+        order: 104,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `There is a shadow with claws in the west hall. The Oracle is here, whispering at it. This is not my concern. I am going for breakfast.`,
+        likes: 350,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! You just walked past my dramatic entrance!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kamek_observes_pond_patrol',
+        order: 103,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The mushrooms are sending a 'Pond Patrol' to apprehend their own allies. A delightful development. Let them tear each other apart. It saves us the effort.`,
+        likes: 420,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_warns_bowser_food',
+        order: 102,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Stop. That’s not food — that’s poison. It's the rust monster from last night.`,
+        likes: 315,
+        comments: [
+            { characterKey: 'bowser', text: 'It looked like pork!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'clueless_toad_cook',
+        order: 101,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Breakfast is served! Found some delicious-looking fresh meat in the kitchen! A bit tough to cut, but I'm sure it's delicious! Come and get it!`,
+        likes: 45,
+        comments: [
+            { characterKey: 'remi', text: 'Is that... clicking?' },
+            { characterKey: 'dan', text: 'Wait! DON\'T EAT THAT!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'humpik_ready_for_breakfast',
+        order: 100,
+        characterKey: 'humpik',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `GWAH! Time for breakfast! I could eat a whole rust monster! ...Wait.`,
+        likes: 240,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'markop_shadow_fight',
+        order: 99,
+        characterKey: 'markop',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Something is stirring in the west hall. A shadow with claws. The Oracle is here as well, debating it. This house does not rest.`,
+        likes: 199,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_ignores_fight_for_food',
+        order: 98,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Saw the centaur guy fighting a literal shadow monster in the hallway. We decided breakfast was more important. I'm very hungry.`,
+        likes: 489,
+        comments: [
+            { characterKey: 'markop', text: 'A little help would have been appreciated.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'toad_smashes_door',
+        order: 97,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The door was locked so I smashed it open with my mace! Problem solved! Time for breakfast!`,
+        likes: 130,
+        comments: [
+            { characterKey: 'remi', text: '...Thanks, I guess.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'remi_locked_in',
+        order: 96,
+        characterKey: 'remi',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Woke up. The door is locked. From the outside. My roommate is telling me about breakfast. I can't get out. This isn't creepy at all.`,
+        likes: 250,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! A classic haunted house trope! Magnificent!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'broker_greenhouse_market',
+        order: 95,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Market Correction: Reports of a significant structural failure at Raventree Manor. Insurance futures are plummeting. Demand for rust-proofing alchemy and wyvern rentals, however, is at an all-time high. My inbox is open for premium salvage rights.`,
+        likes: 512,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'kamek_observes_greenhouse',
+        order: 94,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The Oracle's manor is burning. Lord Bowser is inside. As is the purple fool, the three-eyed one, and a host of other variables. This is either a disaster or a magnificent opportunity to remove several thorns at once. I shall continue to observe.`,
+        likes: 388,
+        comments: [
+            { characterKey: 'bowser', text: 'I BETTER NOT BE ONE OF THE THORNS YOU WANT REMOVED, KAMEK.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'penny_greenhouse_fire',
+        order: 93,
+        characterKey: 'detective_penny',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Case Notes: Receiving reports of a major fire at Raventree Manor, a location already linked to a decades-old cold case. Waluigi, Bowser, and Archie Miser are all reported to be present. That's not a party, that's a list of primary suspects for... well, everything. This requires a closer look. #GreenhouseInferno`,
+        likes: 412,
+        comments: [],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'wario_observes_fire',
+        order: 92,
+        characterKey: 'wario',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Heard there was a fire at the purple idiot's new house. Gahaha! Sounds like property values are about to go down! A perfect time to make an offer!`,
+        likes: 489,
+        comments: [
+            { characterKey: 'lario', text: 'I can get you a great deal on the salvage rights!' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'syrup_observes_fire',
+        order: 91,
+        characterKey: 'captain_syrup',
+        date: { year: 1040, monthIndex: 6, day: 17, hour: 17, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `My spies tell me Waluigi's new manor is on fire and he's fighting his own allies. Couldn't have happened to a nicer cheat. Hope my invitation to the housewarming party is still valid.`,
+        likes: 512,
+        comments: [
+            { characterKey: 'first_mate_jones', text: 'I\'ll prepare the grappling hooks, Captain.' }
+        ],
+        rumorId: 'greenhouse_inferno'
+    },
+    {
+        id: 'dan_scavenging_vote_win',
+        order: 90,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `The proposal has passed. Thank you. We will not send our people out to die in small, scattered groups. Our strength is in our numbers and our caution. From now on, we move as one, protected and prepared. No more needless sacrifices.`,
+        likes: 412,
+        comments: [
+            { characterKey: 'toad_lee', text: 'The correct decision was made. We will enforce this.' },
+            { characterKey: 'ryan', text: 'Wisdom has prevailed.' }
+        ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_traitor_reveal',
+        order: 89,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `Creek found this. During the surgery. It was on him the whole time. He was one of them. He was a plant. All of this... it was a setup.`,
+        image: 'legion_insignia_card.png',
+        image_alt: "A small, blood-stained iron card bearing the insignia of the Iron Legion.",
+        likes: 899,
+        comments: [ { characterKey: 'toad_lee', text: '...Betrayed.' }, { characterKey: 'ryan', text: 'I KNEW IT. I KNEW SOMETHING WAS WRONG.' }, { characterKey: 'dan', text: 'What?! No...' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'waluigi_manor_gloat_2',
+        order: 88,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `WAH! Leaving these losers to their squabbling. Bowser and I are 'relocating' some well-deserved treasures to my magnificent new property: Raventree Manor! Time for some peace and quiet... and looting! WAH-HA-HA!`,
+        likes: 133,
+        comments: [],
+        rumorId: 'bowser_looting_manor'
+    },
+    {
+        id: 'waluigi_manor_gloat',
+        order: 87,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `WAH! My new manor is magnificent! A little dusty, maybe a few ghosts, but it has character! Perfect for storing... 'valuables'. Waluigi is moving up in the world!`,
+        likes: 85,
+        comments: [],
+        rumorId: 'bowser_looting_manor'
+    },
+    {
+        id: 'speaker_l_vote_reaction',
+        order: 86,
+        characterKey: 'speaker_l',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `The First Cohort stands with Dan's proposal. The preservation of our people is paramount. However, our secondary mandate remains: these expeditions will gather intelligence on our enemies. Safety will serve the cause of justice.`,
+        likes: 350,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_creek_surgery',
+        order: 85,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `We got him to Creek. We had to trade almost everything we had left. The operation is... happening. I can't watch. The sounds are bad enough.`,
+        likes: 310,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_splinter_groups',
+        order: 84,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `The crew splinters. 'First Cohort', 'Originals'... Dan falters under the pressure. This is not the unity we swore a vow for. We are losing ourselves.`,
+        likes: 289,
+        comments: [],
+        rumorId: 'dan_training'
+    },
+    {
+        id: 'toad_lee_imposes_order',
+        order: 83,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Enough! The Vow was sworn. We are one cohort. We will have order. Anyone who tries to splinter this group will answer to me. And to my axe.`,
+        likes: 241,
+        comments: [ { characterKey: 'bones', text: "Big words. Let's see if you can back 'em up." } ],
+        rumorId: 'dan_training'
+    },
+    {
+        id: 'bones_calls_out_lt',
+        order: 82,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `Oh, I'm sorry, is your shiny cape getting crumpled, 'Capey'? You Legion types are all the same. All authority, no substance. Get over yourself.`,
+        likes: 560,
+        comments: [ { characterKey: 'colonel_vera_steelstorm', text: 'Insubordination will be noted, criminal.' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'purple_t_my_house',
+        order: 81,
+        characterKey: 'purple_t',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `GET OUT OF MY HOUSE! THIS IS MY SHIP! MINE! YOU HAVE NO JURISDICTION HERE, LEGION SCUM! GET OUT!`,
+        likes: 411,
+        comments: [ { characterKey: 'generic_toad', text: 'Uh... I thought this was the Vigilance? When did he get a house?' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_return_to_ship',
+        order: 80,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `We have returned to the airship. It is filled with steam and Iron Legion soldiers calling themselves the 'Royal Service'. They are... cooking. The situation remains volatile.`,
+        likes: 345,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'generic_toad_splinter_groups',
+        order: 79,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `This is chaos! Dan is just... sitting there. Everyone's shouting, forming their own little groups. The 'First Cohort' this, the 'Originals' that... I thought we were all in this together! We need a real leader, not someone overwhelmed by it all.`,
+        likes: 188,
+        comments: [ { characterKey: 'dan', text: "..." } ],
+        rumorId: 'dan_training'
+    },
+    {
+        id: 'oracle_offers_rooms',
+        order: 78,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 40 },
+        timestamp: '20 minutes ago',
+        content: `Such a trying evening for you all. Do not fret. Though this estate has proven... inhospitable, I have several others. A lovely summer home by the sea, perhaps? The reflections there are much calmer.`,
+        likes: 720,
+        comments: [ { characterKey: 'ryan', text: 'WE\'RE LEAVING.' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_negotiation',
+        order: 77,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 38 },
+        timestamp: '22 minutes ago',
+        content: `We got him back. We talked them down. One of the soldiers kicked him down the stairs as a final 'parting gift'. He's hurt bad, but he's with us. We're getting out of here.`,
+        likes: 418,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'ryan_aftermath_of_darkness',
+        order: 76,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 35 },
+        timestamp: '25 minutes ago',
+        content: `The light is back. The two Archies are gone, locked behind a door. We're all bruised. A few of us are laughing, I think from shock. That was... insane. We need to go. NOW.`,
+        likes: 388,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_blind_chaos',
+        order: 75,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 32 },
+        timestamp: '28 minutes ago',
+        content: `Darkness. Complete and total. I can hear the clang of weapons hitting metal, the splintering of wood. We are fighting shadows. This is madness.`,
+        likes: 350,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'ryan_unleashes_darkness',
+        order: 74,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `ENOUGH! You want to play games in the dark?! FINE! LET'S PLAY!`,
+        likes: 512,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'purple_t_defends_waluigi_book',
+        order: 73,
+        characterKey: 'purple_t',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 28 },
+        timestamp: '32 minutes ago',
+        content: `Don't you talk about Waluigi's book! It was a very cool book! You wouldn't understand!`,
+        likes: 210,
+        comments: [ { characterKey: 'waluigi', text: 'WAH! My book collection IS cool! Full of magnificent schemes and stylish poses!' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_interrogation_fail',
+        order: 72,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `This interrogation is a joke. They ask about the staff, they ask about Archie. They don't care about the toad who was just eaten by a robot. And now L is screaming at Ryan about a book. We're losing it.`,
+        likes: 391,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'wario_business_update',
+        order: 71,
+        characterKey: 'wario',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `Observing the Iron Legion's... methods. Inefficient, but they get results. The temporal flux in this mansion is a potential gold mine. Releasing their prisoners is bad for business. Gotta see this play out. #WarioInvestigates`,
+        likes: 555,
+        comments: [ { characterKey: 'detective_penny', text: 'Wario. Your involvement is noted. We will be having a discussion about your business practices.' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'kamek_observes_wario',
+        order: 70,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 18 },
+        timestamp: '42 minutes ago',
+        content: `Mr. Wario makes an appearance, aligned with the Iron Legion. A curious alliance. Greed and Order, hand-in-hand. The political landscape of this realm grows more convoluted, and thus, more interesting.`,
+        likes: 412,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_library',
+        order: 69,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `We tracked them to the library. The Legion has Bones. They speak of bats, but the creatures in the shelves are... something else. Then a new player arrives. A greedy man in yellow. Wario.`,
+        likes: 401,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'ryan_robot_eats_toad',
+        order: 68,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 12 },
+        timestamp: '48 minutes ago',
+        content: `He tried to run. The robot Archie just... opened up. And pulled him inside. There was a sound. I'm going to be sick. And one of our own just HELPED the Legion grab Bones. We have a traitor.`,
+        likes: 489,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'iron_legion_report',
+        order: 67,
+        characterKey: 'iron_legion_commando',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 10 },
+        timestamp: '50 minutes ago',
+        content: `Primary target 'Orange Toad' not present. Have secured secondary targets for interrogation. Resistance encountered and suppressed. The mansion is under Legion control.`,
+        likes: 640,
+        comments: [ { characterKey: 'general_marcus_ironhand', text: 'Proceed. Extract the information. By any means necessary.' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'bones_dream',
+        order: 66,
+        characterKey: 'bones',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 8 },
+        timestamp: '52 minutes ago',
+        content: `Everyone wants to BE something. A hero, a leader, a king. Me? My only dream is becoming Archie Miser. And I'm a hell of a lot closer than this cheap copy.`,
+        likes: 515,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'oracle_farewell',
+        order: 65,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 5 },
+        timestamp: '55 minutes ago',
+        content: `Farewell. I’ll be reborn. This life is too depressing. May your Archie disappear without a trace.`,
+        likes: 910,
+        comments: [ { characterKey: 'toad_lee', text: 'What did he mean by that?' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'ryan_oracle_broken',
+        order: 64,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 2 },
+        timestamp: '58 minutes ago',
+        content: `We already did this! He's broken! The Oracle is stuck in a loop, asking every single one of us the same stupid joke. This isn't a game, it's a glitch. I've had enough of this.`,
+        likes: 423,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_joke_success',
+        order: 63,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The Oracle repeated his query. This time, I understood the premise. 'The C.' His satisfaction was... unsettlingly immense. Now he is asking the others.`,
+        likes: 388,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_fake_staff',
+        order: 62,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The clone is back, and now he has a 'staff'. It's a fake. Too clean, no scratches. It's brand new. Another lie. What is the Oracle's game here?`,
+        likes: 440,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'ryan_robot_archie',
+        order: 61,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `WHAT WAS THAT?! The Oracle clapped and a ROBOT ARCHIE walked out of the other room. A ROBOT. It just ate our food. This is the weirdest, most terrifying thing I have ever seen.`,
+        likes: 531,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_demands_proof',
+        order: 60,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `This is a trap. L thinks the food is poisoned and for once I agree with him. I told the Oracle. If it's safe, HE can eat it. Take a piece from every plate. Let's see how confident he is then.`,
+        likes: 478,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'purple_t_accuses',
+        order: 59,
+        characterKey: 'purple_t',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `You're all fools! Sitting down to eat with this... thing! The food is obviously poisoned! You're so weak, so desperate for a moment of peace you'd swallow your own doom!`,
+        likes: 313,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_clone_lies',
+        order: 58,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `We have questioned the duplicate. It claims the staff was given to Green T. A falsehood. Its voice trembled. It cannot maintain the deception under pressure.`,
+        likes: 415,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'ryan_fireball',
+        order: 57,
+        characterKey: 'ryan',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `SOMEONE WHO LOOKS LIKE ARCHIE JUST WALKED IN AND THREW A FIREBALL AT US. It's not him. It's a copy. His eyes are empty.`,
+        likes: 498,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'roger_bad_feeling',
+        order: 56,
+        characterKey: 'roger',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Sitting in the dining hall. There's a carving on one of the chairs: 'Beware the T.' And every single candle is lit. It's too bright. This isn't a dinner. It's an interrogation.`,
+        likes: 450,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'oracle_pirate_joke',
+        order: 55,
+        characterKey: 'self_reflection_oracle',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `What’s a pirate’s favorite letter? ... Anyone? ... The C. It's the C. You see, because of the... sea.`,
+        likes: 680,
+        comments: [ { characterKey: 'toad_lee', text: 'I do not understand the reference.' } ],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'toad_lee_arrival',
+        order: 54,
+        characterKey: 'toad_lee',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `We have entered the Shadeward Mansion in search of Archie. We have not found him. We have found the Oracle. He is... unnerving. His attempts at humor are not successful.`,
+        likes: 422,
+        comments: [],
+        rumorId: 'shadeward_mansion_raid'
+    },
+    {
+        id: 'fawful_gloats_at_siege',
+        order: 53,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 20, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `I HAVE CHORTLES! The mushroom fools outside my magnificent castle fling their pathetic rocks and angry words! It is like being tickled by furious, tiny babies! My walls are strong! My minions are many! My victory is a sandwich of absolute certainty!`,
+        likes: 715,
+        comments: [ { characterKey: 'captain_toadette', text: 'Laugh while you can, monster. Every chortle is a moment you steal from the true rulers of this kingdom. Your time is short.' } ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'mistveil_scout_report',
+        order: 52,
+        characterKey: 'mistveil',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 19, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Scouting report: Toad Town is a fortress now. Every street corner has a Loyalist checkpoint. Civilians are being... relocated. It's grim, but it's necessary. The castle is the objective. All else is secondary. For the Princess.`,
+        likes: 388,
+        comments: [ { characterKey: 'dewdrop', text: 'Stay safe out there, brother.' } ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'dewdrop_medic_report',
+        order: 51,
+        characterKey: 'dewdrop',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 18, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `The field hospital is full again. This new strategy... this war of attrition... the cost is high. So many wounded. But their resolve is strong. They believe in the Captain. I just pray their faith is enough.`,
+        likes: 412,
+        comments: [ { characterKey: 'dan', text: 'If there is anything we can do to help, please let us know. No one should suffer alone.' } ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'toad_town_citizen_complaint',
+        order: 50,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 14, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `This is ridiculous! First the mayor gets whacked, now Toadette's fanatics are marching in the streets imposing a curfew! I can't even get to the shop for a decent turnip! I didn't vote for this!`,
+        likes: 789,
+        comments: [ { characterKey: 'chancellor_toadsworth', text: 'The Regency does not condone this occupation. We are working on a diplomatic solution.' }, { characterKey: 'skull_cap_murphy', text: 'See? Rulers are all the same. If ya want real freedom, ya need to break some heads.' } ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'skull_cap_murphy_opportunity',
+        order: 49,
+        characterKey: 'skull_cap_murphy',
+        date: { year: 1040, monthIndex: 6, day: 16, hour: 13, minute: 0 },
+        timestamp: '9 hours ago',
+        content: `The Loyalists and the Regency are too busy squabbling over who gets to be in charge. Good. While they're distracted, the Mushroom Skulls will be expanding our turf. More chaos means more business for us.`,
+        likes: 210,
+        comments: [],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'embercap_returns',
+        order: 48,
+        characterKey: 'embercap',
+        date: { year: 1040, monthIndex: 6, day: 15, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: `The reports of my death were greatly exaggerated. I have seen the enemy's heart. There is no room for mercy. No more half-measures. Captain Toadette's path is the only path to justice. We will have our victory, or we will have our vengeance.`,
+        likes: 690,
+        comments: [ { characterKey: 'captain_toadette', text: 'Welcome back, Commander. We have work to do.' } ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'cranky_post_2',
+        order: 47,
+        characterKey: 'cranky_kong',
+        date: { year: 1040, monthIndex: 6, day: 15, hour: 22, minute: 0 },
+        timestamp: '3 days ago',
+        content: `Good grief! Now every Tom, Dick, and three-eyed weirdo has an opinion on Kong family matters! Back in my day, we didn't have 'post our problems on the WAH-whatever', we threw barrels at them until they went away! A much better system!`,
+        likes: 420,
+        comments: [],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'dk_post_2',
+        order: 46,
+        characterKey: 'donkey_kong',
+        date: { year: 1040, monthIndex: 6, day: 15, hour: 22, minute: 0 },
+        timestamp: '3 days ago',
+        content: `Family business is family business. And right now, business is giving me a migraine. Outsiders should remember that we solve our own problems. The Kong way.`,
+        likes: 550,
+        comments: [
+            { characterKey: 'chunky_kong', text: "I'm trying, DK." },
+            { characterKey: 'king_k_rool', text: "Sounds like there's weakness in the ranks. Good to know." }
+        ],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'diddy_post_2',
+        order: 45,
+        characterKey: 'diddy_kong',
+        date: { year: 1040, monthIndex: 6, day: 15, hour: 22, minute: 0 },
+        timestamp: '3 days ago',
+        content: `And now the three-eyed freak thinks this is a joke too? Stay out of Kong family business, you walking talking powder keg.`,
+        likes: 315,
+        comments: [],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'archie_post_ride',
+        order: 44,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 15, hour: 22, minute: 0 },
+        timestamp: '4 days ago',
+        content: `Hello everyone, quite the bumpy ride wasn't it? How is everyone holding up?`,
+        likes: 218,
+        comments: [
+            { characterKey: 'lario', text: "Holding up?! I'm holding a wrench and a grudge! That purple cheat left me for dead!" },
+            { characterKey: 'dan', text: "A little shaken, but we're free. That's what matters. We're all still here." },
+            { characterKey: 'bowser', text: "Bumpy? GWAHAHA! That's how I like it! A little chaos keeps everyone on their toes!" },
+            { characterKey: 'waluigi', text: "Bumpy? That was a magnificent performance! A true work of art! You're welcome, everyone! WAH!" },
+            { characterKey: 'fawful', text: "YOUR BUMPY RIDE IS A MERE PUDDLE OF DISCOMFORT NEXT TO THE OCEAN OF MY FURY! I HAVE BUMPINESS!" }
+        ]
+    },
+    {
+        id: 'detective_penny_vigilance_standoff',
+        order: 43,
+        characterKey: 'detective_penny',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 22, minute: 0 },
+        timestamp: 'Just Now',
+        content: `Case notes: 'Mr. Wario' captured by Imperial forces aboard the 'Vigilance'. Subject Archie Miser also detained. The same airship previously involved in the 'ghostly energy' incident. Coincidence? Unlikely. This web is more tangled than I thought. The Empire's involvement complicates things, but also presents an opportunity to access their files on Wario. #CaseOfTheGreedyGhost`,
+        likes: 255,
+        comments: [ { characterKey: 'master_goodstyle', text: 'May justice be swift and stylish, Detective.' } ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'toadette_post_3',
+        order: 42,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 22, minute: 0 },
+        timestamp: '2 days ago',
+        content: `The Onyx Hand's shadow assassins have done what the Regency was too weak to do. The mayor was corrupt, a rot at the heart of our kingdom. With him gone, we have seized this moment. Toad Town is now under Loyalist control. This is not an occupation; it is a liberation. From here, we will build our base and begin the true war. For the Princess!`,
+        likes: 412,
+        comments: [
+            { characterKey: 'mistveil', text: "For the Princess! Whatever it takes." },
+            { characterKey: 'chancellor_toadsworth', text: "Captain! You are taking advantage of a murder to impose martial law! This is madness!" }
+        ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'embercap_post_1',
+        order: 41,
+        characterKey: 'embercap',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 22, minute: 0 },
+        timestamp: '2 days ago',
+        content: `I had my doubts. I questioned the path. But I have seen the depths of the betrayal we face. The enemy wears a friendly smile and offers you a potion before trying to steal your king. There is no room for half-measures. Captain Toadette is right. The path to justice is hard, but we will walk it. We will be the ones to end this.`,
+        likes: 355,
+        comments: [
+            { characterKey: 'dewdrop', text: "A hard path, brother, but a necessary one. We will tend to the wounds, you lead the charge." },
+            { characterKey: 'chief_thornpaw', text: "I witnessed your death and your return, young soldier. The path you now walk is heavy with the scent of both steel and sorrow. Tread carefully." }
+        ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'toadtown_citizen_post_1',
+        order: 40,
+        characterKey: 'generic_toad',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 22, minute: 0 },
+        timestamp: '2 days ago',
+        content: `The mayor is dead... murdered in his own home! Now there are Loyalist soldiers everywhere, talking about 'relocation'. What's happening to our town? I don't feel safe anymore. Who is in charge?`,
+        likes: 620,
+        comments: [
+            { characterKey: 'dan', text: "Stay strong. Communities have to look after each other when leaders fail." }
+        ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'kamek_post_toadtown',
+        order: 39,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 22, minute: 0 },
+        timestamp: '2 days ago',
+        content: `The mushrooms are devouring each other. Fanatics versus bureaucrats, assassins in the shadows... it's a delightful spectacle. Let them bleed each other white. It will only make Lord Bowser's glorious return all the easier. Patience is a virtue.`,
+        likes: 290,
+        comments: [
+            { characterKey: 'bowser', text: "Excellent. Let the appetizers fight amongst themselves." }
+        ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'janna_post_spellbook',
+        order: 38,
+        characterKey: 'janna_brightspark',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 22, minute: 0 },
+        timestamp: '2 days ago',
+        content: `Fascinating! A spellbook containing a variant of a soul-binding ritual, linked to the Onyx Hand, was recovered from the Toad Town incident. And the caster was a MAGE! The Conservators will be furious, but the data from this political application of advanced puppetry is invaluable! What a time to be alive!`,
+        likes: 188,
+        comments: [
+            { characterKey: 'archmage_theron', text: "Janna, this is not 'data'. This is a grave breach of the Accords and a profound threat to stability. The Aegis Magi have been notified." }
+        ],
+        rumorId: 'chaos_in_toad_town'
+    },
+    {
+        id: 'lario_captured',
+        order: 37,
+        characterKey: 'lario',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Great. Just great. First I get betrayed by that purple cheat, then I get captured by these tin-can soldiers. Now I'm stuck in some Imperial holding cell that doesn't even have a decent workbench! This is a violation of my... goblin rights, or something! I demand a lawyer! And a sandwich!`,
+        likes: 198,
+        comments: [ { characterKey: 'captain_syrup', text: 'Looks like your luck has finally run out, grease monkey. Enjoy the imperial hospitality.' } ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'green_t_calls_out_dan',
+        order: 36,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `To the so-called 'heroes' of the Vigilance: Your leader is broken! Dan played with a power he couldn't handle, and now he's hiding the truth from all of you! DANGER IS COMING, and he's too weak to face it! Open your eyes!`,
+        likes: 451,
+        comments: [ { characterKey: 'dan', text: "..." } ],
+        rumorId: 'imposter_dan_revelation'
+    },
+    {
+        id: 'regal_empire_standoff_statement',
+        order: 35,
+        characterKey: 'regal_empire_delegate',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Let it be known that the criminals Archie Miser and 'Mr. Wario' are now in the custody of the Regal Empire. The rogue airship 'Vigilance' has been secured. This decisive action reaffirms the Empire's commitment to eradicating chaos and maintaining order across the realms. Justice will be swift.`,
+        likes: 890,
+        comments: [ { characterKey: 'general_marcus_ironhand', text: 'A victory for order. As it should be.' } ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'broker_market_update_standoff',
+        order: 34,
+        characterKey: 'the_broker',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `Market update: Key assets (Miser, Wario, 'Vigilance') are now off-board. Expect short-term volatility in the chaos-futures market. Bounties are temporarily suspended. Information on Imperial interrogation techniques is now trading at a premium. My inbox is open.`,
+        likes: 412,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'unchained_archie_capture',
+        order: 33,
+        characterKey: 'free_name_sarah',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `They have caged a storm. The Empire thinks capturing Archie Miser is a victory, but they have only made him a martyr. His chaos inspired many who were too afraid to act. Ideas, unlike people, cannot be imprisoned.`,
+        likes: 678,
+        comments: [ { characterKey: 'young_wolf_kara', text: 'Well said. This only proves the Empire is afraid of anyone who won\'t bend the knee.' } ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'janna_brightspark_iron_binding',
+        order: 32,
+        characterKey: 'janna_brightspark',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Fascinating! The Iron Legion has developed a field-applicable 'Iron Binding' seal capable of suppressing an artifact's power output by an estimated 50%. The energy resonance is crude, but effective. I must acquire a schematic! For science, of course!`,
+        likes: 310,
+        comments: [ { characterKey: 'archmage_theron', text: 'You will do no such thing, Janna. That is Legion military technology and meddling with it is a violation of the Accords.' } ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'theron_archie_capture',
+        order: 31,
+        characterKey: 'archmage_theron',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 21, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The anarchist Archie Miser is finally in Imperial custody. Good. His flagrant disregard for the laws of magic and man is a cancer. Let the Empire deal with him. The Mages' Guild will be watching to ensure true justice is served.`,
+        likes: 540,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'dwarf_observes_vigilance',
+        order: 30,
+        characterKey: 'kingdoms_of_the_dwarves_wh',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 11, minute: 0 },
+        timestamp: '11 hours ago',
+        content: `The lads from the Engineer's Guild are all in a tizzy about this 'Vigilance' airship. A flying mountain of metal, they say. Impressive, I suppose. But can it withstand a proper grudge-thrower? I doubt it. Nothing beats good old Dwarf-forged steel.`,
+        likes: 620,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'kivotos_millennium_analysis',
+        order: 29,
+        characterKey: 'millennium_science_school',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 10, minute: 0 },
+        timestamp: '12 hours ago',
+        content: `[Veritas Leak]: Scans of the 'Vigilance' airship's energy signature are fascinating. The power source is not based on any known reactor technology. It appears to be an unstable fusion of arcane and quantum mechanics. The potential for catastrophic failure is calculated at 87.4%. We must acquire it for study.`,
+        likes: 730,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'warhammer_empire_engineer_scoffs',
+        order: 28,
+        characterKey: 'the_empire',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 9, minute: 0 },
+        timestamp: '13 hours ago',
+        content: `The Imperial Engineers' Guild has reviewed the schematics of this 'Vigilance'. While its power source is unorthodox, its structural integrity is laughable. A single Hellfire Rocket Volley would tear it asunder. Such primitive designs are no threat to the Empire of Man.`,
+        likes: 850,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'waluigi_makes_fun',
+        order: 27,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 8, minute: 0 },
+        timestamp: '14 hours ago',
+        content: `WAHAHAHA! The Empire captures a few fools and thinks they've won! Captain Syrup grabs the staff and it doesn't even work! And Archie gets caught! So much failure! So much incompetence! It's a beautiful symphony of failure, and I, Waluigi, am the conductor! WAH!`,
+        likes: 999,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'hactivist_iron_binding',
+        order: 26,
+        characterKey: 'hacktivist_collectives',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 7, minute: 0 },
+        timestamp: '15 hours ago',
+        content: `The Iron Legion's 'Iron Binding' is just a glorified DRM lock. A crude piece of proprietary magitek designed to restrict the flow of power. Information wants to be free. So does energy. #JailbreakTheStaff`,
+        likes: 777,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'commander_valerius_vigilance',
+        order: 25,
+        characterKey: 'commander_valerius',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 5, minute: 0 },
+        timestamp: '17 hours ago',
+        content: `The crew of the 'Vigilance' were shaping up to be lucrative, if chaotic, clients. Their current Imperial entanglement is bad for business. Hopefully, they resolve their legal issues soon. The Gilded Gryphon Company values reliable partners.`,
+        likes: 340,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'chief_thornpaw_cryptic_post',
+        order: 24,
+        characterKey: 'chief_thornpaw',
+        date: { year: 1040, monthIndex: 6, day: 14, hour: 4, minute: 0 },
+        timestamp: '18 hours ago',
+        content: `A cage of steel holds a storm. A seal of iron holds a star. The world tips on the edge of a choice made in a city of stone. The spirits are watching.`,
+        likes: 560,
+        comments: [],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'standoff_at_capital_news',
+        order: 23,
+        characterKey: 'wah_media_collective',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: `**STANDOFF IN THE SKIES! Regal Empire Forces Board Rogue Airship 'Vigilance' Over Capital! High-Profile Arrests Made!**
+
+A tense standoff concluded today as the rogue airship 'Vigilance' was boarded by Regal Empire forces, identified as elite Crown Intelligence agents. The operation, which took place in the skies directly over the Imperial Capital, resulted in the capture of the notorious smuggler 'Mr. Wario' and the surprising surrender of the anarchist Archie Miser. 
+
+Eyewitness reports from the ship are chaotic, detailing a fierce firefight, the brief appearance of the pirate Captain Syrup, and a struggle over the airship's powerful, artifact-based power source. The 'Vigilance' has since landed at the capital's military spaceport and is currently under heavy guard. The fate of its renegade crew remains uncertain.`,
+        image: 'newspaper_airship.png',
+        image_alt: "The Vigilance airship surrounded by smaller Imperial vessels.",
+        likes: 1854,
+        comments: [
+            { characterKey: 'generic_toad', text: "Finally! Maybe now we can have some peace and quiet!" },
+            { characterKey: 'the_broker', text: "Several high-value assets just went off the board. This will have... interesting effects on the market." }
+        ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'steelstorm_standoff_post',
+        order: 22,
+        characterKey: 'colonel_vera_steelstorm',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: "A successful joint operation between Crown Intelligence and the Iron Legion has neutralized a significant threat over the capital. Key assets were secured, and several high-value targets, including the anarchist Archie Miser and the smuggler 'Mr. Wario', are in custody. Order will be maintained.",
+        likes: 562,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: "A victory for the Empire. Let chaos reign no more." }
+        ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'waluigi_iron_binding_post',
+        order: 21,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: "WAH! These Iron Legion goons! No style! They slap some rusty magic on my ship's power source and call it 'tactics'? It's a cheap parlor trick! It's like putting a bumper sticker on a masterpiece! An insult to my genius!",
+        likes: 210,
+        comments: [
+            { characterKey: 'lario', text: "Hey! I could have fixed it better! And for a reasonable price!" }
+        ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'syrup_standoff_post',
+        order: 20,
+        characterKey: 'captain_syrup',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '1 day ago',
+        content: "Got my hands on the famous staff for a moment. All that fuss for a glorified glowstick that doesn't even work! And then those tin soldiers slap their ugly binding on it. Amateurs. The real prize was the chaos anyway.",
+        likes: 315,
+        comments: [
+            { characterKey: 'first_mate_jones', text: "We'll find a better prize, Captain. We always do." }
+        ],
+        rumorId: 'standoff_at_the_capital'
+    },
+    {
+        id: 'cranky_post_1',
+        order: 19,
+        characterKey: 'cranky_kong',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '5 days ago',
+        content: `Back in my day, we didn't have 'diplomatic incidents'. We had coconut guns. Solved problems a lot faster. This whole summit was a waste of good bananas. And Lanky... don't get me started on that good-for-nothing slacker!`,
+        likes: 350,
+        comments: [
+            { characterKey: 'donkey_kong', text: "He's still family, Cranky." },
+            { characterKey: 'diddy_kong', text: "Cranky's right, DK. Family or not, he's a liability." }
+        ],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'leoncoeur_post_1',
+        order: 18,
+        characterKey: 'king_louen_leoncoeur',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '5 days ago',
+        content: `I must confess, the recent 'summit' was a disheartening display. To see diplomacy devolve into such buffoonery is a sad day for all civilized realms. Where is the honor? Where is the chivalry? It seems in short supply in these lands.`,
+        likes: 410,
+        comments: [
+            { characterKey: 'captain_toadette', text: "Honor is found on the battlefield, not in a talking shop with apes and monsters." },
+            { characterKey: 'ambassador_callista', text: "A most unfortunate incident, your Majesty. I assure you it is not representative of all diplomatic efforts in this region." }
+        ],
+        rumorId: 'lankys_disgrace_at_summit'
+    },
+    {
+        id: 'kamek_post_1',
+        order: 17,
+        characterKey: 'kamek',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '6 days ago',
+        content: `The pieces are moving on the board. While the lesser factions squabble over castles and politics, the true game is being played in the shadows. The King's will shall be done. A storm is gathering...`,
+        likes: 275,
+        comments: [
+            { characterKey: 'bowser', text: "Excellent work, Kamek. Keep me updated. And make sure the storm has lots of lightning!" },
+            { characterKey: 'the_broker', text: "Storms are good for business. They create opportunities." }
+        ]
+    },
+    {
+        id: 'toadette_post_2',
+        order: 16,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 6, day: 13, hour: 22, minute: 0 },
+        timestamp: '6 days ago',
+        content: `The Regency falters! Fawful's madness defiles our sacred castle! Only the Peach Loyalists have the strength and the will to restore justice! Do not be swayed by the weak-willed words of politicians! Take up arms! For the Princess!`,
+        likes: 388,
+        comments: [
+            { characterKey: 'mistveil', text: "For the Princess!" },
+            { characterKey: 'chancellor_toadsworth', text: "Captain Toadette, your zealotry is creating more division, not less! We must be united!" }
+        ]
+    },
+    {
+        id: 'waluigi_post_2',
+        order: 15,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
+        timestamp: '1 week ago',
+        content: `WAH! Some people call it 'chaos'. I call it 'art'! The world is my canvas, and my paintbrush is a well-thrown Bob-omb! All you boring people with your 'plans' and 'order'... you just don't appreciate true genius!`,
+        likes: 999,
+        comments: [
+            { characterKey: 'giggling_pete', text: "A masterpiece of a metaphor! The Jester applauds your stylish entropy!" }
+        ]
+    },
+    {
+        id: 'steelstorm_post_2',
+        order: 14,
+        characterKey: 'colonel_vera_steelstorm',
+        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
+        timestamp: '1 week ago',
+        content: "Victory is not achieved through tradition; it is achieved through efficiency. While the Old Guard debates protocol, the War-Forged act. Results are the only metric that matters on the battlefield. Adapt or be broken.",
+        likes: 388,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: "Discipline IS efficiency, Colonel. Do not mistake reckless action for progress. The Hammer Code has guided us for a thousand years for a reason." }
+        ]
+    },
+    {
+        id: 'dan_post_freedom',
+        order: 13,
+        characterKey: 'dan',
+        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
+        timestamp: '1 week ago',
+        content: `Every day of freedom feels like a gift. Learning the ways of the Rakasha is difficult, but Chief Thornpaw is a patient teacher. I will become strong enough to protect my friends and ensure no toad has to suffer like we did.`,
+        likes: 621,
+        comments: [
+            { characterKey: 'toad_lee', text: "And you will have my axe to guard your back. Always." }
+        ]
+    },
+    {
+        id: 'bowser_post_recruiting',
+        order: 12,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 12, hour: 22, minute: 0 },
+        timestamp: '1 week ago',
+        content: `The Koopa Troop is scattered, but not broken! Soon, I will reunite my armies under one glorious banner! We will crush the tin-can soldiers of the Legion and the mushroom-headed fools of the Regency! The world will tremble before the might of King Bowser once more! GWAHAHAHA!`,
+        likes: 815,
+        comments: [
+            { characterKey: 'kamek', text: "An inspiring proclamation, your Viciousness! The remnants await your command." },
+            { characterKey: 'generic_toad', text: "Oh no, not again..." }
+        ]
+    },
+    
+
+    {
+        id: 'summit_pre_1',
+        order: 8,
+        characterKey: 'captain_toad',
+        date: { year: 1040, monthIndex: 6, day: 5, hour: 22, minute: 0 },
+        timestamp: '2 weeks ago',
+        content: `Final preparations for the Democratic Summit are complete. This is a crucial moment for the Regency. Hoping for productive talks and new alliances. The security arrangements have been... stressful. Let's hope everything goes smoothly.`,
+        likes: 310,
+        comments: [
+            { characterKey: 'chancellor_toadsworth', text: "Your efforts are appreciated, Captain. The fate of the Kingdom may well rest on these talks." },
+            { characterKey: 'queen_bean', text: "Looking forward to it, Captain! The Beanbean Kingdom stands with you." }
+        ]
+    },
+    {
+        id: 'summit_pre_2',
+        order: 7,
+        characterKey: 'lanky_kong',
+        date: { year: 1040, monthIndex: 6, day: 5, hour: 22, minute: 0 },
+        timestamp: '2 weeks ago',
+        content: `Headed to some big important meeting! They said I have to be on my best behavior. I'll try! Look at my new tie! It's a banana! 🍌 Heheheh.`,
+        likes: 58,
+        comments: [
+            { characterKey: 'diddy_kong', text: "Lanky, just... please don't do anything weird." },
+            { characterKey: 'donkey_kong', text: "He'll be fine. What's the worst that could happen?" }
+        ]
+    },
+    {
+        id: 'toadette_crusade_post',
+        order: 6,
+        characterKey: 'captain_toadette',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 22, minute: 0 },
+        timestamp: '2 months ago',
+        content: `The reports from the so-called 'Gala' only strengthen my resolve. The Regency hobnobs with apes while monsters play with time itself. We are the ONLY ones fighting for true justice! For the Princess! Join the Loyalists today and fight for what's right!`,
+        likes: 241,
+        comments: [
+            { characterKey: 'generic_toad', text: "But the pay is better with the Regency Guard..." },
+            { characterKey: 'mistveil', text: "For the Princess!" }
+        ]
+    },
+    {
+        id: 'lario_mr_wario_post',
+        order: 5,
+        characterKey: 'lario',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 22, minute: 0 },
+        timestamp: '2 months ago',
+        content: "'Mr. Wario' now wants me to build a 'ghost-powered vacuum cleaner'. I swear, this guy gets weirder every day. Still, his coin is good. As long as he keeps paying, Lario keeps building! WAH-HA-HA... wait, that's not my laugh.",
+        likes: 73,
+        comments: [
+            { characterKey: 'waluigi', text: "WAH! An imposter! There is only ONE magnificent laugh, and it is MINE!" },
+        ]
+    },
+    {
+        id: 'fawful_fury_post',
+        order: 4,
+        characterKey: 'fawful',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 22, minute: 0 },
+        timestamp: '2 months ago',
+        content: "I HAVE FURY! The fools think they have seen my full genius? My gala was but an appetizer! The main course of my victory is yet to be served! It will have the chortles! And a side of doom!",
+        likes: 712,
+        comments: []
+    },
+    {
+        id: 'penny_wario_clue',
+        order: 3,
+        characterKey: 'detective_penny',
+        date: { year: 1040, monthIndex: 4, day: 20, hour: 22, minute: 0 },
+        timestamp: '2 months ago',
+        content: "My investigation into the mysterious 'Mr. Wario' continues. Found this strange, ectoplasmic residue at one of the old Wario Land warehouses. It smells faintly of garlic. Does anyone recognize this substance? #CaseOfTheGreedyGhost",
+        image: 'clue.png',
+        image_alt: "A blurry, close-up photo of a puddle of greenish, glowing goo on a warehouse floor.",
+        likes: 198,
+        comments: [
+            { characterKey: 'master_goodstyle', text: "Disgusting. Whatever it is, it has no style." },
+            { characterKey: 'fawful', text: "It is the goo of a fool! Not the goo of a genius, like my own magnificent goo!" }
+        ]
+    },
+    {
+        id: 'steelstorm_post_1',
+        order: 2,
+        characterKey: 'colonel_vera_steelstorm',
+        date: { year: 1040, monthIndex: 4, day: 16, hour: 22, minute: 0 },
+        timestamp: '1 month ago',
+        content: "Imperial Law is not a suggestion. The individuals known as Green T and Lario are wanted for trial. The crew of the Vigilance has 24 standard hours to comply with Imperial Edict 77B-4. Order will be maintained.",
+        likes: 152,
+        comments: [
+            { characterKey: 'general_marcus_ironhand', text: "A lawful and necessary proclamation, Colonel. The Old Guard stands with you. There will be no deviation from the Hammer Code." },
+            { characterKey: 'lario', text: "24 hours? I can strip an airship for parts in 6! You guys are slow. Also, do you pay for compliance? Asking for a friend." },
+            { characterKey: 'ambassador_callista', text: "Colonel, perhaps a more... diplomatic approach would be prudent. This could escalate into an unfortunate international incident."}
+        ],
+        rumorId: 'iron_legion_ruse'
+    },
+    {
+        id: 'waluigi_post_1',
+        order: 1,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 4, day: 16, hour: 22, minute: 0 },
+        timestamp: '1 month ago',
+        content: "Some call it 'friendly fire'. I call it 'stylish crowd control'. WAH! The little frozen toad will thaw out eventually. Probably. He should be grateful he was part of my magnificent performance!",
+        likes: 42,
+        comments: [
+            { characterKey: 'lario', text: "You left me to die, you purple cheat! And you froze one of the little guys! You're a menace!" },
+            { characterKey: 'giggling_pete', text: "Magnificent! Freezing the small one was an unexpected punchline! The Jester applauds your commitment to beautiful, pointless chaos!" },
+        ],
+        rumorId: 'waluigi_friendly_fire'
+    },
+    {
+        id: 'lario_post_1',
+        order: 0,
+        characterKey: 'lario',
+        date: { year: 1040, monthIndex: 4, day: 16, hour: 22, minute: 0 },
+        timestamp: '1 month ago',
+        content: "This mysterious new client, 'Mr. Wario', pays well, but his demands are ridiculous! 'Needs more garlic!' 'Make it shinier!' Who does this guy think he is? At least his coin is good. Best not to ask questions.",
+        likes: 88,
+        comments: [
+            { characterKey: 'captain_syrup', text: "You still owe me for that ship, you greasy little wrench-turner. I'll take payment in the form of your workshop." },
+            { characterKey: 'detective_penny', text: "Interesting. A new, wealthy client? I'll be keeping an eye on your workshop, Lario. For 'business' purposes, of course." },
+        ],
+        rumorId: 'wario_escape'
+    },
+    ...WAHBOOK_INTEL_POSTS
 ];
-
-// ============================================
-// STATE MANAGEMENT
-// ============================================
-let currentFocus = 'overview';
-let selectedZone = null;
-let selectedDiscovery = null;
-let hologramRotation = { x: 0, y: 0 };
-let isRotating = true;
-let scanlineOffset = 0;
-let particleSystem = null;
-let currentUserIntel = 0; // Tracks the user's intel level for UI display
-
-// ============================================
-// HELPER FUNCTIONS
-// ============================================
-
-function synchronizeIntelState() {
-    // 1. Identify User
-    const currentUser = state.loggedInUser || 'generic';
-    
-    // 2. Fetch Intel Score for Fawful's Faction
-    // state.finalIntel is computed in state.js via calculateFinalIntel()
-    const intelMap = state.finalIntel?.[currentUser];
-    currentUserIntel = intelMap?.[FAWFUL_INTEL_KEY] || 0;
-    
-    console.log(`[FAWFUL_OS] Authenticated User: ${currentUser}`);
-    console.log(`[FAWFUL_OS] Intel Level (Fawful Faction): ${currentUserIntel}`);
-
-    // 3. Update Discovery Unlocks
-    let unlockedCount = 0;
-    Object.values(CASTLE_ZONES).forEach(zone => {
-        zone.discoveries.forEach(discovery => {
-            // Check if this discovery has an intel requirement
-            if (typeof discovery.intelRequired === 'number') {
-                if (currentUserIntel >= discovery.intelRequired) {
-                    discovery.discovered = true;
-                    discovery.unlockedByIntel = true; // Flag for UI styling
-                    unlockedCount++;
-                    console.log(`[FAWFUL_OS] Decrypted: ${discovery.title}`);
-                } else {
-                    discovery.discovered = false;
-                }
-            }
-        });
-    });
-
-    if (unlockedCount > 0) {
-        addSecurityMessage(`SYSTEM UPDATE: ${unlockedCount} high-level files decrypted via Intel.`);
-    }
-}
-
-function getFormattedDate() {
-    const month = MONTH_NAMES[CURRENT_GAME_DATE.monthIndex] || "Unknown";
-    return `YEAR ${CURRENT_GAME_DATE.year} // ${month.toUpperCase()} // DAY ${CURRENT_GAME_DATE.day}`;
-}
-
-function getDaysUntilAlignment() {
-    // The alignment is Day 30 of Highsun (monthIndex 6)
-    const targetDay = 30;
-    const currentDay = CURRENT_GAME_DATE.day;
-    return targetDay - currentDay;
-}
-
-function calculateThreatLevel() {
-    const alerts = Object.values(CASTLE_ZONES).reduce((sum, zone) => 
-        sum + (typeof zone.surveillance.alerts === 'number' ? zone.surveillance.alerts : 5), 0);
-    if (alerts > 10) return { level: 'CRITICAL', color: '#ff0000' };
-    if (alerts > 5) return { level: 'ELEVATED', color: '#ff6600' };
-    if (alerts > 2) return { level: 'GUARDED', color: '#ffff00' };
-    return { level: 'NOMINAL', color: '#00ff00' };
-}
-
-// ============================================
-// RENDER FUNCTIONS
-// ============================================
-
-function renderSystemHeader() {
-    const dateString = getFormattedDate();
-    const threat = calculateThreatLevel();
-    const daysToAlignment = getDaysUntilAlignment();
-    
-    return `
-        <header class="fawful-system-header">
-            <div class="header-row">
-                <div class="sys-id">
-                    <span class="blink">●</span> FAWFUL_DOMINION // CASTLE COMMAND INTERFACE v2.0
-                </div>
-                <div class="sys-date">
-                    ${dateString}
-                </div>
-            </div>
-            <div class="header-row status-row">
-                <div class="sys-status">
-                    THREAT LEVEL: <span class="threat-level" style="color: ${threat.color}">${threat.level}</span>
-                </div>
-                <div class="alignment-countdown ${daysToAlignment <= 3 ? 'critical' : ''}">
-                    <span class="countdown-icon">⭐</span>
-                    CELESTIAL ALIGNMENT: ${daysToAlignment} DAYS
-                </div>
-                <div class="sys-intel-readout">
-                    DECRYPTION LEVEL: <span class="intel-value" style="color: #00ffff">${currentUserIntel}%</span>
-                </div>
-            </div>
-        </header>
-    `;
-}
-
-function renderHologramStage() {
-    return `
-        <div class="hologram-stage" id="hologram-stage">
-            <!-- Holographic Grid Floor -->
-            <div class="holo-floor">
-                <div class="grid-plane"></div>
-            </div>
-            
-            <!-- Projector Base -->
-            <div class="projector-base">
-                <div class="projector-ring ring-1"></div>
-                <div class="projector-ring ring-2"></div>
-                <div class="projector-ring ring-3"></div>
-                <div class="projector-beam"></div>
-            </div>
-            
-            <!-- The Castle Hologram -->
-            <div class="castle-hologram" id="castle-hologram">
-                ${renderCastleModel()}
-                ${renderZoneHotspots()}
-            </div>
-            
-            <!-- Floating Data Rings -->
-            <div class="data-ring-container">
-                <div class="data-ring data-ring-inner"></div>
-                <div class="data-ring data-ring-outer"></div>
-            </div>
-            
-            <!-- Scanline Effect -->
-            <div class="scanline-overlay"></div>
-            
-            <!-- Glitch Effect Container -->
-            <div class="glitch-container"></div>
-        </div>
-    `;
-}
-
-function renderCastleModel() {
-    return `
-        <div class="castle-3d-model">
-            <!-- Main Castle Body -->
-            <div class="castle-body">
-                <!-- Central Tower -->
-                <div class="tower central-tower">
-                    <div class="tower-body"></div>
-                    <div class="tower-roof">
-                        <div class="fawful-banner"></div>
-                    </div>
-                    <div class="tower-windows">
-                        <div class="window"></div>
-                        <div class="window"></div>
-                        <div class="window"></div>
-                    </div>
-                </div>
-                
-                <!-- Left Tower -->
-                <div class="tower left-tower">
-                    <div class="tower-body"></div>
-                    <div class="tower-roof"></div>
-                </div>
-                
-                <!-- Right Tower -->
-                <div class="tower right-tower">
-                    <div class="tower-body"></div>
-                    <div class="tower-roof"></div>
-                </div>
-                
-                <!-- Castle Base/Walls -->
-                <div class="castle-base">
-                    <div class="wall front-wall">
-                        <div class="gate"></div>
-                    </div>
-                    <div class="wall left-wall"></div>
-                    <div class="wall right-wall"></div>
-                    <div class="wall back-wall"></div>
-                </div>
-                
-                <!-- Underground Section (Dungeons) -->
-                <div class="underground-section">
-                    <div class="dungeon-level"></div>
-                    <div class="tunnel-hints"></div>
-                </div>
-                
-                <!-- Garden -->
-                <div class="castle-garden">
-                    <div class="garden-trees"></div>
-                    <div class="weeping-statue"></div>
-                </div>
-            </div>
-            
-            <!-- Wireframe Overlay -->
-            <div class="wireframe-overlay"></div>
-            
-            <!-- Energy Pulses -->
-            <div class="energy-pulse pulse-1"></div>
-            <div class="energy-pulse pulse-2"></div>
-        </div>
-    `;
-}
-
-function renderZoneHotspots() {
-    return Object.values(CASTLE_ZONES).map(zone => `
-        <div class="zone-hotspot" 
-             data-zone="${zone.id}"
-             style="left: ${zone.position.x}%; top: ${zone.position.y}%; --zone-color: ${zone.color}">
-            <div class="hotspot-ping"></div>
-            <div class="hotspot-icon">${zone.icon}</div>
-            <div class="hotspot-label">${zone.name}</div>
-            <div class="hotspot-status status-${zone.status.toLowerCase()}">${zone.status}</div>
-        </div>
-    `).join('');
-}
-
-function renderControlPanel() {
-    return `
-        <div class="control-panel">
-            <div class="panel-section view-controls">
-                <h4 class="section-title">
-                    <span class="title-icon">🎮</span>
-                    HOLOGRAM CONTROLS
-                </h4>
-                <div class="control-buttons">
-                    <button class="control-btn" id="btn-rotate" title="Toggle Rotation">
-                        <span class="btn-icon">🔄</span>
-                        <span class="btn-label">ROTATE</span>
-                    </button>
-                    <button class="control-btn" id="btn-reset" title="Reset View">
-                        <span class="btn-icon">🏠</span>
-                        <span class="btn-label">RESET</span>
-                    </button>
-                    <button class="control-btn" id="btn-scan" title="Full Scan">
-                        <span class="btn-icon">📡</span>
-                        <span class="btn-label">SCAN</span>
-                    </button>
-                    <button class="control-btn danger" id="btn-alert" title="Security Alert">
-                        <span class="btn-icon">🚨</span>
-                        <span class="btn-label">ALERT</span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="panel-section zone-selector">
-                <h4 class="section-title">
-                    <span class="title-icon">📍</span>
-                    ZONE SELECT
-                </h4>
-                <div class="zone-buttons">
-                    ${Object.values(CASTLE_ZONES).map(zone => `
-                        <button class="zone-btn" data-zone="${zone.id}">
-                            <span class="zone-icon">${zone.icon}</span>
-                            <span class="zone-name">${zone.name}</span>
-                        </button>
-                    `).join('')}
-                </div>
-            </div>
-            
-            <div class="panel-section objectives-panel">
-                <h4 class="section-title">
-                    <span class="title-icon">🎯</span>
-                    FAWFUL'S OBJECTIVES
-                </h4>
-                <div class="objectives-list">
-                    ${FAWFUL_OBJECTIVES.map(obj => `
-                        <div class="objective-item priority-${obj.priority.toLowerCase()}">
-                            <span class="obj-status status-${obj.status.toLowerCase().replace(' ', '-')}">${obj.status}</span>
-                            <span class="obj-text">${obj.text}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function renderInfoPanel() {
-    return `
-        <div class="info-panel" id="info-panel">
-            <div class="info-header">
-                <h3 class="info-title" id="info-title">PEACH'S CASTLE - OVERVIEW</h3>
-                <button class="info-close" id="btn-close-info">×</button>
-            </div>
-            <div class="info-content" id="info-content">
-                ${renderOverviewContent()}
-            </div>
-        </div>
-    `;
-}
-
-function renderOverviewContent() {
-    const totalDiscoveries = Object.values(CASTLE_ZONES)
-        .reduce((sum, zone) => sum + zone.discoveries.filter(d => d.discovered).length, 0);
-    
-    return `
-        <div class="overview-content">
-            <div class="overview-header">
-                <div class="castle-icon-large">🏰</div>
-                <div class="overview-title">
-                    <h2>PEACH'S CASTLE</h2>
-                    <p class="subtitle">Now: FAWFUL'S GLORIOUS STRONGHOLD</p>
-                </div>
-            </div>
-            
-            <div class="overview-stats">
-                <div class="stat-card">
-                    <span class="stat-value">${Object.keys(CASTLE_ZONES).length}</span>
-                    <span class="stat-label">Zones Secured</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-value">${totalDiscoveries}</span>
-                    <span class="stat-label">Discoveries Made</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-value">${getDaysUntilAlignment()}</span>
-                    <span class="stat-label">Days to Alignment</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-value">23%</span>
-                    <span class="stat-label">Passages Mapped</span>
-                </div>
-            </div>
-            
-            <div class="overview-narrative">
-                <h4>SITUATION REPORT</h4>
-                <p>Fawful's forces seized this castle on Day 8 of Highsun, 1040. What was once the seat of the illegitimate Mushroom Regency is now the command center of the GLORIOUS FAWFUL DOMINION.</p>
-                
-                <p>But this castle holds secrets—secrets that even 85 years of Regency rule could not uncover. Princess Peach was assassinated within these walls, and the truth of her death was buried here.</p>
-                
-                <p>Now, Fawful's brilliant mind has begun to unravel what the Regency tried so desperately to hide. The discoveries are... ILLUMINATING.</p>
-                
-                <p class="warning-text">⚠️ CELESTIAL ALIGNMENT IMMINENT: In ${getDaysUntilAlignment()} days, the stars will align as they did on the night of the assassination. The Chamber of Stars may finally be accessible. PREPARE FOR REVELATION.</p>
-            </div>
-            
-            <div class="overview-instructions">
-                <h4>INTERFACE INSTRUCTIONS</h4>
-                <ul>
-                    <li><span class="key">CLICK</span> zone hotspots to investigate areas</li>
-                    <li><span class="key">DRAG</span> the hologram to rotate view</li>
-                    <li><span class="key">SCROLL</span> to zoom in/out</li>
-                    <li><span class="key">BUTTONS</span> on the left for quick navigation</li>
-                </ul>
-            </div>
-        </div>
-    `;
-}
-
-function renderZoneContent(zoneId) {
-    const zone = CASTLE_ZONES[zoneId];
-    if (!zone) return '';
-    
-    const discoveredItems = zone.discoveries.filter(d => d.discovered);
-    const hiddenItems = zone.discoveries.filter(d => !d.discovered);
-    
-    return `
-        <div class="zone-content">
-            <div class="zone-header">
-                <div class="zone-icon-large" style="--zone-color: ${zone.color}">${zone.icon}</div>
-                <div class="zone-title-block">
-                    <h2>${zone.name}</h2>
-                    <div class="zone-status-row">
-                        <span class="status-badge status-${zone.status.toLowerCase()}">${zone.status}</span>
-                        <span class="security-badge security-${zone.securityLevel.toLowerCase()}">${zone.securityLevel} SECURITY</span>
-                    </div>
-                </div>
-            </div>
-            
-            <p class="zone-description">${zone.description}</p>
-            
-            <div class="surveillance-grid">
-                <div class="surv-item">
-                    <span class="surv-icon">📹</span>
-                    <span class="surv-value">${zone.surveillance.cameras}</span>
-                    <span class="surv-label">Cameras</span>
-                </div>
-                <div class="surv-item">
-                    <span class="surv-icon">💂</span>
-                    <span class="surv-value">${zone.surveillance.guards}</span>
-                    <span class="surv-label">Guards</span>
-                </div>
-                <div class="surv-item ${zone.surveillance.alerts > 0 ? 'alert' : ''}">
-                    <span class="surv-icon">⚠️</span>
-                    <span class="surv-value">${zone.surveillance.alerts}</span>
-                    <span class="surv-label">Alerts</span>
-                </div>
-            </div>
-            
-            ${zone.surveillance.lastIncident ? `
-                <div class="last-incident">
-                    <span class="incident-label">LAST INCIDENT:</span>
-                    <span class="incident-text">${zone.surveillance.lastIncident}</span>
-                </div>
-            ` : ''}
-            
-            ${zone.prisoners ? `
-                <div class="prisoners-section">
-                    <h4>DETAINED SUBJECTS</h4>
-                    <div class="prisoners-list">
-                        ${zone.prisoners.map(p => `
-                            <div class="prisoner-item">
-                                <span class="prisoner-id">${p.id}</span>
-                                <span class="prisoner-name">${p.name}</span>
-                                <span class="prisoner-status">${p.status}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            ` : ''}
-            
-            <div class="discoveries-section">
-                <h4>INTELLIGENCE DISCOVERIES (${discoveredItems.length}/${zone.discoveries.length})</h4>
-                <div class="discoveries-grid">
-                    ${discoveredItems.map(d => `
-                        <div class="discovery-card ${d.unlockedByIntel ? 'decrypted' : ''}" data-discovery="${d.id}">
-                            <div class="discovery-header">
-                                <span class="discovery-icon">${d.icon}</span>
-                                <span class="discovery-title">${d.title}</span>
-                            </div>
-                            <span class="discovery-classification ${d.classification.toLowerCase().replace(' ', '-')}">${d.classification}</span>
-                            ${d.unlockedByIntel ? '<span class="decryption-badge">DECRYPTED</span>' : ''}
-                            <div class="discovery-preview">Click to view full report...</div>
-                        </div>
-                    `).join('')}
-                    
-                    ${hiddenItems.map(h => `
-                         <div class="discovery-card locked">
-                            <div class="discovery-header">
-                                <span class="discovery-icon">🔒</span>
-                                <span class="discovery-title">CLASSIFIED</span>
-                            </div>
-                            <span class="discovery-classification">INTEL REQUIRED: ${h.intelRequired || 'UNKNOWN'}</span>
-                            <div class="discovery-preview">Insufficient decryption level.</div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function renderDiscoveryModal(zoneId, discoveryId) {
-    const zone = CASTLE_ZONES[zoneId];
-    const discovery = zone?.discoveries.find(d => d.id === discoveryId);
-    if (!discovery) return '';
-    
-    return `
-        <div class="discovery-modal" id="discovery-modal">
-            <div class="modal-backdrop"></div>
-            <div class="modal-content discovery-document">
-                <div class="document-header">
-                    <div class="classification-stamp ${discovery.classification.toLowerCase().replace(' ', '-')}">
-                        ${discovery.classification}
-                    </div>
-                    ${discovery.unlockedByIntel ? '<div class="decrypted-stamp">DECRYPTED</div>' : ''}
-                    <button class="modal-close" id="btn-close-modal">×</button>
-                </div>
-                
-                <div class="document-title-block">
-                    <span class="document-icon">${discovery.icon}</span>
-                    <h2>${discovery.title}</h2>
-                </div>
-                
-                <div class="document-meta">
-                    <div class="meta-item">
-                        <span class="meta-label">LOCATION:</span>
-                        <span class="meta-value">${zone.name}</span>
-                    </div>
-                    ${discovery.discoveryDate ? `
-                        <div class="meta-item">
-                            <span class="meta-label">DISCOVERED:</span>
-                            <span class="meta-value">Day ${discovery.discoveryDate.day}, ${MONTH_NAMES[discovery.discoveryDate.monthIndex]} ${discovery.discoveryDate.year}</span>
-                        </div>
-                    ` : ''}
-                </div>
-                
-                <div class="document-content">
-                    ${discovery.content.split('\n\n').map(para => `<p>${para}</p>`).join('')}
-                </div>
-                
-                ${discovery.implications.length > 0 ? `
-                    <div class="document-implications">
-                        <h4>STRATEGIC IMPLICATIONS</h4>
-                        <ul>
-                            ${discovery.implications.map(imp => `<li>${imp}</li>`).join('')}
-                        </ul>
-                    </div>
-                ` : ''}
-                
-                <div class="document-footer">
-                    <div class="fawful-seal">🎭</div>
-                    <p class="footer-text">FAWFUL DOMINION INTELLIGENCE DIVISION</p>
-                    <p class="footer-motto">"Knowledge is the mustard of POWER!"</p>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function renderSecurityFeed() {
-    return `
-        <div class="security-feed" id="security-feed">
-            <div class="feed-header">
-                <span class="feed-icon">📡</span>
-                <span class="feed-title">LIVE SECURITY FEED</span>
-                <span class="feed-status blink">● LIVE</span>
-            </div>
-            <div class="feed-scroll" id="feed-scroll">
-                ${SECURITY_STATUS.broadcasts.map((msg, i) => `
-                    <div class="feed-message" style="animation-delay: ${i * 0.5}s">
-                        <span class="msg-time">${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}</span>
-                        <span class="msg-text">${msg}</span>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
-}
-
-function renderAmbientEffects() {
-    return `
-        <div class="ambient-container">
-            <div class="particle-field" id="particle-field"></div>
-            <div class="hologram-noise"></div>
-            <div class="corner-brackets">
-                <div class="bracket tl"></div>
-                <div class="bracket tr"></div>
-                <div class="bracket bl"></div>
-                <div class="bracket br"></div>
-            </div>
-        </div>
-    `;
-}
-
-// ============================================
-// INTERACTION HANDLERS
-// ============================================
-
-function attachEventListeners() {
-    // Zone hotspots
-    document.querySelectorAll('.zone-hotspot').forEach(hotspot => {
-        hotspot.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const zoneId = hotspot.dataset.zone;
-            selectZone(zoneId);
-        });
-    });
-    
-    // Zone buttons
-    document.querySelectorAll('.zone-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const zoneId = btn.dataset.zone;
-            selectZone(zoneId);
-            focusHologramOnZone(zoneId);
-        });
-    });
-    
-    // Control buttons
-    document.getElementById('btn-rotate')?.addEventListener('click', toggleRotation);
-    document.getElementById('btn-reset')?.addEventListener('click', resetView);
-    document.getElementById('btn-scan')?.addEventListener('click', triggerScan);
-    document.getElementById('btn-alert')?.addEventListener('click', triggerAlert);
-    document.getElementById('btn-close-info')?.addEventListener('click', closeInfoPanel);
-    
-    // Hologram drag rotation
-    const hologram = document.getElementById('castle-hologram');
-    if (hologram) {
-        let isDragging = false;
-        let startX, startY;
-        
-        hologram.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            isRotating = false;
-            updateRotateButton();
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            hologramRotation.y += deltaX * 0.5;
-            hologramRotation.x += deltaY * 0.3;
-            hologramRotation.x = Math.max(-30, Math.min(30, hologramRotation.x));
-            applyHologramRotation();
-            startX = e.clientX;
-            startY = e.clientY;
-        });
-        
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-    }
-    
-    // Discovery cards
-    document.addEventListener('click', (e) => {
-        const discoveryCard = e.target.closest('.discovery-card:not(.locked)');
-        if (discoveryCard && selectedZone) {
-            const discoveryId = discoveryCard.dataset.discovery;
-            openDiscoveryModal(selectedZone, discoveryId);
-        }
-        
-        // Modal close
-        if (e.target.matches('.modal-backdrop') || e.target.matches('#btn-close-modal')) {
-            closeDiscoveryModal();
-        }
-    });
-}
-
-function selectZone(zoneId) {
-    selectedZone = zoneId;
-    
-    // Update hotspot highlighting
-    document.querySelectorAll('.zone-hotspot').forEach(h => {
-        h.classList.toggle('selected', h.dataset.zone === zoneId);
-    });
-    
-    // Update zone buttons
-    document.querySelectorAll('.zone-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.zone === zoneId);
-    });
-    
-    // Update info panel
-    const infoTitle = document.getElementById('info-title');
-    const infoContent = document.getElementById('info-content');
-    const zone = CASTLE_ZONES[zoneId];
-    
-    if (infoTitle) infoTitle.textContent = zone.name.toUpperCase();
-    if (infoContent) {
-        infoContent.innerHTML = renderZoneContent(zoneId);
-        attachDiscoveryListeners();
-    }
-    
-    // Show info panel
-    document.getElementById('info-panel')?.classList.add('visible');
-}
-
-function attachDiscoveryListeners() {
-    document.querySelectorAll('.discovery-card:not(.locked)').forEach(card => {
-        card.addEventListener('click', () => {
-            const discoveryId = card.dataset.discovery;
-            if (selectedZone && discoveryId) {
-                openDiscoveryModal(selectedZone, discoveryId);
-            }
-        });
-    });
-}
-
-function focusHologramOnZone(zoneId) {
-    const zone = CASTLE_ZONES[zoneId];
-    if (!zone) return;
-    
-    // Calculate rotation to face zone
-    const targetY = (zone.position.x - 50) * -2;
-    const targetX = (zone.position.y - 50) * 0.5;
-    
-    animateRotation(targetX, targetY);
-}
-
-function animateRotation(targetX, targetY) {
-    const duration = 500;
-    const startX = hologramRotation.x;
-    const startY = hologramRotation.y;
-    const startTime = performance.now();
-    
-    function animate(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // Ease out cubic
-        
-        hologramRotation.x = startX + (targetX - startX) * eased;
-        hologramRotation.y = startY + (targetY - startY) * eased;
-        applyHologramRotation();
-        
-        if (progress < 1) {
-            requestAnimationFrame(animate);
-        }
-    }
-    
-    requestAnimationFrame(animate);
-}
-
-function applyHologramRotation() {
-    const hologram = document.getElementById('castle-hologram');
-    if (hologram) {
-        hologram.style.transform = `rotateX(${hologramRotation.x}deg) rotateY(${hologramRotation.y}deg)`;
-    }
-}
-
-function toggleRotation() {
-    isRotating = !isRotating;
-    updateRotateButton();
-    if (isRotating) startAutoRotation();
-}
-
-function updateRotateButton() {
-    const btn = document.getElementById('btn-rotate');
-    if (btn) {
-        btn.classList.toggle('active', isRotating);
-    }
-}
-
-function startAutoRotation() {
-    function rotate() {
-        if (!isRotating) return;
-        hologramRotation.y += 0.2;
-        applyHologramRotation();
-        requestAnimationFrame(rotate);
-    }
-    requestAnimationFrame(rotate);
-}
-
-function resetView() {
-    selectedZone = null;
-    hologramRotation = { x: 0, y: 0 };
-    applyHologramRotation();
-    
-    document.querySelectorAll('.zone-hotspot').forEach(h => h.classList.remove('selected'));
-    document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
-    
-    const infoTitle = document.getElementById('info-title');
-    const infoContent = document.getElementById('info-content');
-    
-    if (infoTitle) infoTitle.textContent = "PEACH'S CASTLE - OVERVIEW";
-    if (infoContent) infoContent.innerHTML = renderOverviewContent();
-}
-
-function triggerScan() {
-    const stage = document.getElementById('hologram-stage');
-    if (stage) {
-        stage.classList.add('scanning');
-        addSecurityMessage('FULL SPECTRUM SCAN INITIATED...');
-        
-        setTimeout(() => {
-            stage.classList.remove('scanning');
-            addSecurityMessage('SCAN COMPLETE - No new anomalies detected');
-        }, 3000);
-    }
-}
-
-function triggerAlert() {
-    const stage = document.getElementById('hologram-stage');
-    if (stage) {
-        stage.classList.add('alert-mode');
-        addSecurityMessage('⚠️ SECURITY ALERT TRIGGERED - All zones on high alert');
-        
-        // Play alert animation
-        document.querySelectorAll('.zone-hotspot').forEach(h => {
-            h.classList.add('alert-pulse');
-        });
-        
-        setTimeout(() => {
-            stage.classList.remove('alert-mode');
-            document.querySelectorAll('.zone-hotspot').forEach(h => {
-                h.classList.remove('alert-pulse');
-            });
-            addSecurityMessage('Alert status normalized');
-        }, 5000);
-    }
-}
-
-function closeInfoPanel() {
-    document.getElementById('info-panel')?.classList.remove('visible');
-    selectedZone = null;
-    document.querySelectorAll('.zone-hotspot').forEach(h => h.classList.remove('selected'));
-    document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
-}
-
-function openDiscoveryModal(zoneId, discoveryId) {
-    const existingModal = document.getElementById('discovery-modal');
-    if (existingModal) existingModal.remove();
-    
-    const modalHtml = renderDiscoveryModal(zoneId, discoveryId);
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-    
-    // Animate in
-    requestAnimationFrame(() => {
-        document.getElementById('discovery-modal')?.classList.add('visible');
-    });
-}
-
-function closeDiscoveryModal() {
-    const modal = document.getElementById('discovery-modal');
-    if (modal) {
-        modal.classList.remove('visible');
-        setTimeout(() => modal.remove(), 300);
-    }
-}
-
-function addSecurityMessage(message) {
-    const feed = document.getElementById('feed-scroll');
-    if (feed) {
-        const now = new Date();
-        const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-        
-        const msgEl = document.createElement('div');
-        msgEl.className = 'feed-message new';
-        msgEl.innerHTML = `
-            <span class="msg-time">${time}</span>
-            <span class="msg-text">${message}</span>
-        `;
-        
-        feed.insertBefore(msgEl, feed.firstChild);
-        
-        // Remove old messages
-        while (feed.children.length > 10) {
-            feed.removeChild(feed.lastChild);
-        }
-    }
-}
-
-// ============================================
-// PARTICLE SYSTEM
-// ============================================
-
-function initParticleSystem() {
-    const container = document.getElementById('particle-field');
-    if (!container) return;
-    
-    const particleCount = 50;
-    
-    for (let i = 0; i < particleCount; i++) {
-        createParticle(container);
-    }
-}
-
-function createParticle(container) {
-    const particle = document.createElement('div');
-    particle.className = 'holo-particle';
-    
-    // Random position
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.top = `${Math.random() * 100}%`;
-    
-    // Random animation
-    particle.style.animationDuration = `${3 + Math.random() * 4}s`;
-    particle.style.animationDelay = `${Math.random() * 2}s`;
-    
-    container.appendChild(particle);
-}
-
-// ============================================
-// ANIMATION LOOPS
-// ============================================
-
-function startAnimationLoops() {
-    // Scanline animation
-    function animateScanline() {
-        scanlineOffset += 1;
-        if (scanlineOffset > 100) scanlineOffset = 0;
-        
-        const overlay = document.querySelector('.scanline-overlay');
-        if (overlay) {
-            overlay.style.backgroundPositionY = `${scanlineOffset}%`;
-        }
-        
-        requestAnimationFrame(animateScanline);
-    }
-    animateScanline();
-    
-    // Start auto-rotation if enabled
-    if (isRotating) {
-        startAutoRotation();
-    }
-    
-    // Periodic security feed updates
-    setInterval(() => {
-        const messages = [
-            'All sectors nominal',
-            'Patrol Unit 7 checking in',
-            'Drone sweep complete - Zone 4',
-            'Perimeter secure',
-            'Spectral activity detected - Garden (normal range)',
-            'Prisoner 085 vitals unchanged',
-            'Dragon patrol overhead - Ashclaw reporting',
-            'Tunnel motion sensors calibrated'
-        ];
-        
-        if (Math.random() > 0.7) {
-            addSecurityMessage(messages[Math.floor(Math.random() * messages.length)]);
-        }
-    }, 8000);
-}
-
-// ============================================
-// MAIN INITIALIZATION
-// ============================================
-
-function initFawfulPage() {
-    const container = document.getElementById('main-content');
-    if (!container) return;
-    
-    // Initialize Intel System first to ensure unlocks are processed before rendering
-    synchronizeIntelState();
-
-    // Build the complete interface
-    container.innerHTML = `
-        <div class="fawful-interface">
-            ${renderSystemHeader()}
-            
-            <div class="main-layout">
-                ${renderControlPanel()}
-                
-                <div class="hologram-container">
-                    ${renderHologramStage()}
-                    ${renderSecurityFeed()}
-                </div>
-                
-                ${renderInfoPanel()}
-            </div>
-            
-            ${renderAmbientEffects()}
-        </div>
-    `;
-    
-    // Initialize systems
-    attachEventListeners();
-    initParticleSystem();
-    startAnimationLoops();
-    
-    console.log('[FAWFUL_OS] Castle Command Interface initialized');
-    console.log('[FAWFUL_OS] Fury status: MAXIMUM');
-    console.log(`[FAWFUL_OS] Days until celestial alignment: ${getDaysUntilAlignment()}`);
-}
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', initFawfulPage);
-
-// Export for manual triggering
-export { initFawfulPage };
