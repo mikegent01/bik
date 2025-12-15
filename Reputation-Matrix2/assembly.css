@@ -6,7 +6,216 @@
     --wah-hover-bg: rgba(255, 255, 255, 0.03);
     --wah-border: var(--border-color);
 }
+/* =========================================
+   EVENTS FEED STYLING
+   ========================================= */
 
+/* The Main Event Card */
+.event-container {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color, #333);
+    border-left: 4px solid var(--primary-color, #00ff41); /* Neon accent */
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.event-container:hover {
+    border-color: var(--primary-color, #00ff41);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+
+/* Event Header (Always Visible) */
+.event-main-header {
+    padding: 20px;
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(0,255,65,0.05) 0%, transparent 100%);
+    position: relative;
+}
+
+.event-main-header h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary-color, #00ff41);
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-right: 30px; /* Space for the arrow */
+}
+
+.event-main-header p {
+    color: var(--text-secondary, #aaa);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* The Toggle Arrow */
+.event-toggle-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--primary-color, #00ff41);
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when expanded */
+.event-container.expanded .event-toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Collapsible Body (Hidden by default) */
+.event-collapsible-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-out, opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--border-color, #333);
+}
+
+.event-container.expanded .event-collapsible-body {
+    max-height: 2000px; /* Large enough to fit content */
+    opacity: 1;
+    padding: 20px;
+    transition: max-height 0.8s ease-in, opacity 0.3s ease;
+}
+
+/* Attendees Section */
+.attendees-list-container h4,
+.related-content-container h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #888);
+    margin-bottom: 12px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.attendees-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.attendee-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px 6px 6px;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.attendee-card:hover {
+    border-color: var(--primary-color, #00ff41);
+}
+
+.attendee-pfp {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 1px solid #555;
+}
+
+.attendee-name {
+    font-size: 0.85rem;
+    color: var(--text-main, #eee);
+    font-weight: 500;
+}
+
+/* Event Sorting Controls (Top of Page) */
+#event-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border-color, #444);
+}
+
+#event-controls span {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-secondary, #888);
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
+/* =========================================
+   PAGINATION & BUTTONS
+   ========================================= */
+
+/* Feed Pagination Container */
+.wahbook-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color, #333);
+}
+
+/* Page Info Text */
+.page-info {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-main, #eee);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* General Control Buttons (Used for Next/Prev and Sort) */
+.control-btn {
+    background: transparent;
+    border: 1px solid var(--primary-dim, #008f11);
+    color: var(--primary-dim, #008f11);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.control-btn:hover:not(:disabled) {
+    background: var(--primary-dim, #008f11);
+    color: #000;
+    box-shadow: 0 0 10px var(--primary-dim, #008f11);
+    text-shadow: none;
+}
+
+.control-btn.active {
+    background: var(--primary-color, #00ff41);
+    color: #000;
+    border-color: var(--primary-color, #00ff41);
+    box-shadow: 0 0 10px var(--primary-color, #00ff41);
+    font-weight: 700;
+}
+
+.control-btn:disabled {
+    border-color: #333;
+    color: #555;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Related News / Posts inside Event */
+.related-news, .related-posts {
+    margin-top: 15px;
+    padding-left: 10px;
+    border-left: 2px solid #333;
+}
+
+.related-news h4, .related-posts h4 {
+    color: var(--accent-color, #00e5ff); /* Cyan for content headers */
+}
 #main-content {
     /* Grid texture background */
     background-image: 
