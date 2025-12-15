@@ -85,7 +85,7 @@ export const CALENDAR_DATA = {
       { "name": "Empire's Founding Day", "month": 1, "day": 1, "description": "Commemorates the establishment of the Regal Empire.", "traditions": "Parades, Oaths." },
       { "name": "First Hum Imperial Recognition", "month": 1, "day": 2, "description": "Cosmic significance of the First Hum.", "traditions": "Contemplation." },
       { "name": "Zootopian Founders' Day", "month": 1, "day": 25, "description": "Zootopia celebrates equality.", "traditions": "Community Service." },
-      { "name": "Midlands' King's Coronation", "month": 2, "day": 5, "description": "King Alaric's ascent.", "traditions": "Feasts, Warding." },
+      { "name": "Midlands' King's Coronation", "month": 2, "day": 5, "description": "King Elagabalu's ascent.", "traditions": "Feasts, Warding." },
       { "name": "First Bloom Festival", "month": 3, "day": 1, "description": "First signs of spring.", "traditions": "Planting." },
       { "name": "The Feast of the Silver Flame", "month": 3, "day": 15, "description": "Religious holiday.", "traditions": "Lighting bonfires, fasting." },
       { "name": "Aurean Glitch Day", "month": 4, "day": 4, "description": "Celebrated by rebel hackers.", "traditions": "Digital mischief." },

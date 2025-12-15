@@ -261,7 +261,7 @@ const REGIONAL_ANALYSIS_DATA = [
         details: {
             politicalSystem: "Monarchy with layered feudal and supernatural influence",
             currentSituation: "A dark and war-torn land under the rule of an enigmatic king",
-            leadership: "King Alaric (The Enigmatic King)",
+            leadership: "King Elagabalus (The Enigmatic King)",
             population: "719.0M",
             gdp: "$250B",
             politicalInfluence: "High"
@@ -271,7 +271,7 @@ const REGIONAL_ANALYSIS_DATA = [
             { name: "Vampire Coven", influence: 17, rumor: { text: "The Vampire Coven uses their petal to deepen their connection to the night.", source: "Silver Flame Interrogation Transcript", intel_req: { faction: 'silver_flame', level: 50 } } },
             { name: "Werewolf Packs", influence: 13, rumor: { text: "Werewolf Packs believe their petal imbues them with primal fury.", source: "Rakasha Huntmaster's Observation", intel_req: { faction: 'rakasha_clans', level: 50 } } }
         ],
-        overallRumor: { text: "King Alaric's enigmatic reign is sustained by the largest Fire Flower petal.", intel_req: { faction: 'regal_empire', level: 60 } }
+        overallRumor: { text: "King Elagabalus's enigmatic reign is sustained by the largest Fire Flower petal.", intel_req: { faction: 'regal_empire', level: 60 } }
     },
     {
         name: "Mushroom Kingdom",
@@ -282,13 +282,13 @@ const REGIONAL_ANALYSIS_DATA = [
         details: {
             politicalSystem: "Criminal Monarchy Crisis",
             currentSituation: "In political turmoil after Princess Peach's assassination",
-            leadership: "Count Toad (Prime Minister)",
+            leadership: "Chancellor Toadsworth III (Prime Minister)",
             population: "685.0M",
             gdp: "$80B",
             politicalInfluence: "Medium"
         },
         factions: [
-            { name: "Count Toad's Influence", influence: 45, rumor: { text: "Count Toad uses his petal to weave intricate illusions.", source: "Freelancer Underworld Informant", intel_req: { faction: 'freelancer_underworld', level: 45 } } },
+            { name: "Chancellor Toadsworth III's Influence", influence: 45, rumor: { text: "Count Toad uses his petal to weave intricate illusions.", source: "Freelancer Underworld Informant", intel_req: { faction: 'freelancer_underworld', level: 45 } } },
             { name: "Toad Army", influence: 16, rumor: { text: "The Toad Army's petal grants enhanced morale.", source: "Captured Iron Legion Scout", intel_req: { faction: 'iron_legion', level: 40 } } },
             { name: "Mushroom Guild", influence: 14, rumor: { text: "The Guild cultivates their petal for rare fungi growth.", source: "Wario Land 'Business' Proposal", intel_req: { faction: 'wario_land', level: 40 } } },
             { name: "Royal Guard Remnants", influence: 12, rumor: { text: "The fragmented Royal Guard clings to a dying petal.", source: "Peach Loyalist Sympathizer", intel_req: { faction: 'peach_loyalists', level: 50 } } }

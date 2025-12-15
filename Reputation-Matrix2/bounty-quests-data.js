@@ -1,6 +1,6 @@
 export const BOUNTY_BOARD_QUESTS = [
     {
-        title: "Contract: 'Neutralize' King Alaric",
+        title: "Contract: 'Neutralize' King Elagabalus",
         description: "A hastily scrawled note, pinned with a rusty dagger. Seems too good to be true. Eliminate the enigmatic king of the Midlands. Payment upon proof.",
         reward: "100 Gold",
         reward_type: "negative",
