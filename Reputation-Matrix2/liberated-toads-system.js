@@ -3631,25 +3631,42 @@ function setupEventListeners() {
 // ========================================
 // INITIALIZATION
 // ========================================
-
 function init() {
     console.log('Initializing Liberated Toads System...');
     
     // Load state
     loadState();
     
-    // Initialize data
+    // Initialize data - ALWAYS do this so other modules can use the data
     initializeAllToads();
     console.log(`Loaded ${appState.allToads.length} toads`);
     console.log(`Faction Stats:`, appState.factionStats);
     
-    // Update header
-    document.getElementById('current-day').textContent = CURRENT_DAY;
-    document.getElementById('current-date').textContent = CURRENT_DATE_STRING;
+    // CHECK: Are we on the Liberated Toads dashboard page?
+    // If these elements don't exist, we're on a different page (like shop.js)
+    const currentDayEl = document.getElementById('current-day');
+    const currentDateEl = document.getElementById('current-date');
+    const crewGrid = document.getElementById('crew-grid');
+    const governanceContent = document.getElementById('governance-content');
+    
+    // If none of the dashboard elements exist, skip UI rendering
+    if (!currentDayEl && !currentDateEl && !crewGrid && !governanceContent) {
+        console.log('Liberated Toads UI elements not found - skipping dashboard render (probably on another page)');
+        return; // Exit early - data is loaded, but don't render UI
+    }
+    
+    // Update header elements (with null checks)
+    if (currentDayEl) {
+        currentDayEl.textContent = CURRENT_DAY;
+    }
+    
+    if (currentDateEl) {
+        currentDateEl.textContent = CURRENT_DATE_STRING;
+    }
     
     // Update squad status based on morale
     const squadStatus = document.getElementById('squad-status');
-    if (squadStatus) {
+    if (squadStatus && appState.factionStats) {
         const morale = appState.factionStats.morale;
         if (morale < 40) {
             squadStatus.textContent = 'CRITICAL';
@@ -3663,7 +3680,7 @@ function init() {
         }
     }
     
-    // Render all sections
+    // Render all sections (these functions should also have null checks)
     renderFactionStats();
     renderGovernanceSection();
     renderVotingSection();
@@ -3674,28 +3691,106 @@ function init() {
     // Setup event listeners
     setupEventListeners();
     
-    console.log('Liberated Toads System initialized successfully');
+    console.log('Liberated Toads Dashboard initialized successfully');
 }
-
 // Run initialization when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
 }
+// ========================================
+// EXPORTS FOR OTHER MODULES (like shop.js)
+// ========================================
 
+// Combine all toad sources into a single exportable array
+export function getAllToadsData() {
+    const coreToads = Object.values(CORE_TOADS);
+    const barrelSurvivors = typeof generateBarrelSurvivors === 'function' ? generateBarrelSurvivors() : [];
+    const cohortMembers = typeof generateCohortMembers === 'function' ? generateCohortMembers() : [];
+    
+    return [...coreToads, ...barrelSurvivors, ...cohortMembers];
+}
+
+// Export the raw data objects
+export { 
+    CORE_TOADS,
+    GOVERNANCE,
+    VOTING_SYSTEM,
+    ACCOUNTABILITY_DOCKET,
+    CLASS_DEFINITIONS,
+    FACTION_TIMELINE
+};
+
+// Export a pre-calculated stats object for quick access
+export function getPreCalculatedFactionStats() {
+    const allToads = getAllToadsData();
+    const nonHostile = allToads.filter(t => t.statusType !== 'hostile');
+    
+    const stats = {
+        total: nonHostile.length,
+        active: nonHostile.filter(t => t.statusType === 'active').length,
+        injured: nonHostile.filter(t => t.statusType === 'injured').length,
+        critical: nonHostile.filter(t => t.statusType === 'critical').length,
+        mia: nonHostile.filter(t => t.statusType === 'mia').length,
+        special: nonHostile.filter(t => t.statusType === 'special').length,
+        deceased: 3,
+        
+        totalXP: nonHostile.reduce((sum, t) => sum + (t.xp || 0), 0),
+        averageLevel: 0,
+        levelDistribution: {},
+        
+        cohortBreakdown: {},
+        classBreakdown: {},
+        
+        morale: 0,
+        loyalty: 0,
+        combatReadiness: 0
+    };
+    
+    let totalLevel = 0;
+    let moraleSum = 0;
+    let loyaltySum = 0;
+    let combatReady = 0;
+    
+    nonHostile.forEach(toad => {
+        totalLevel += toad.level || 1;
+        stats.levelDistribution[toad.level] = (stats.levelDistribution[toad.level] || 0) + 1;
+        
+        const cohort = toad.cohort || "Unassigned";
+        stats.cohortBreakdown[cohort] = (stats.cohortBreakdown[cohort] || 0) + 1;
+        
+        stats.classBreakdown[toad.class] = (stats.classBreakdown[toad.class] || 0) + 1;
+        
+        let toadMorale = 70;
+        if (toad.statusType === 'active') { toadMorale += 20; combatReady++; }
+        if (toad.statusType === 'injured') toadMorale -= 10;
+        if (toad.statusType === 'critical') toadMorale -= 30;
+        if (toad.statusType === 'special') toadMorale += 5;
+        if (toad.conditions?.some(c => c.includes('Trauma'))) toadMorale -= 15;
+        moraleSum += Math.max(0, Math.min(100, toadMorale));
+        
+        let toadLoyalty = toad.cohort ? 75 : 50;
+        if (toad.isCore) toadLoyalty += 15;
+        if (toad.cohort === 'Pond Patrol') toadLoyalty = 100;
+        loyaltySum += toadLoyalty;
+    });
+    
+    if (nonHostile.length > 0) {
+        stats.averageLevel = parseFloat((totalLevel / nonHostile.length).toFixed(1));
+        stats.morale = Math.round(moraleSum / nonHostile.length);
+        stats.loyalty = Math.round(loyaltySum / nonHostile.length);
+        stats.combatReadiness = Math.round((combatReady / nonHostile.length) * 100);
+    }
+    
+    return stats;
+}
 // ========================================
 // EXPORTS
 // ========================================
 
 export { 
-    GOVERNANCE,
-    VOTING_SYSTEM,
-    ACCOUNTABILITY_DOCKET,
-    CLASS_DEFINITIONS,
     ABILITY_TYPES,
-    CORE_TOADS,
-    FACTION_TIMELINE,
     appState,
     initializeAllToads,
     calculateFactionStats,

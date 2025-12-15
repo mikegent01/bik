@@ -995,3 +995,639 @@
     background: rgba(34, 197, 94, 0.2);
     color: #22c55e;
 }
+/* === MAIN TABS === */
+.main-tabs {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--wario-border);
+}
+
+.main-tab {
+    flex: 1;
+    padding: 14px 20px;
+    background: var(--wario-surface);
+    border: 2px solid var(--wario-border);
+    border-radius: 8px;
+    color: var(--wario-text);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.main-tab:hover {
+    background: var(--wario-purple);
+    border-color: var(--wario-purple-light);
+}
+
+.main-tab.active {
+    background: linear-gradient(135deg, var(--wario-gold-dark), var(--wario-gold));
+    border-color: var(--wario-gold);
+    color: #1a1a1a;
+}
+
+/* === PENDING WALLET STAT === */
+.wallet-stat.pending .wallet-value {
+    color: #fbbf24;
+}
+
+/* === VENDOR INFO === */
+.vendor-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vendor-icon {
+    font-size: 1em;
+}
+
+.vendor-name {
+    font-size: 0.85em;
+    color: var(--wario-text-dim);
+}
+
+/* === ITEM SHIPPING === */
+.item-shipping {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75em;
+    color: var(--wario-text-dim);
+    padding: 8px 0;
+    margin-bottom: 12px;
+}
+
+.shipping-label {
+    color: var(--wario-gold);
+}
+
+/* === ITEM REQUIREMENT === */
+.item-requirement {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    color: #93c5fd;
+    margin-bottom: 12px;
+}
+
+/* === ITEM FACTION BONUS === */
+.item-faction-bonus {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.bonus-label {
+    font-size: 0.8em;
+    color: var(--wario-gold);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.bonus-tag {
+    display: inline-block;
+    font-size: 0.75em;
+    padding: 3px 8px;
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 4px;
+    color: #86efac;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.bonus-tag.active {
+    background: rgba(34, 197, 94, 0.3);
+    border-color: #22c55e;
+}
+
+/* === SHIPPING SELECTOR === */
+.shipping-selector {
+    margin: 12px 0;
+    padding: 12px;
+    background: var(--wario-surface-light);
+    border-radius: 6px;
+}
+
+.shipping-selector label {
+    display: block;
+    font-size: 0.85em;
+    color: var(--wario-gold);
+    margin-bottom: 8px;
+}
+
+.shipping-selector select {
+    width: 100%;
+    padding: 10px;
+    background: var(--wario-surface);
+    border: 1px solid var(--wario-border);
+    border-radius: 4px;
+    color: var(--wario-text);
+    font-family: inherit;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.shipping-selector select:focus {
+    outline: none;
+    border-color: var(--wario-gold);
+}
+
+/* === CART ROWS === */
+.cart-subtotal-row,
+.cart-shipping-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+    color: var(--wario-text-dim);
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--wario-border);
+}
+
+/* === PENDING ORDERS === */
+.pending-orders {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--wario-border);
+}
+
+.pending-orders h4 {
+    margin: 0 0 12px 0;
+    font-size: 0.95em;
+    color: var(--wario-gold);
+}
+
+.pending-order-item {
+    background: var(--wario-surface-light);
+    border: 1px solid var(--wario-border);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+}
+
+.pending-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.order-id {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85em;
+    color: var(--wario-gold);
+}
+
+.pending-status {
+    font-size: 0.7em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.pending-status.awaiting {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.pending-order-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: var(--wario-text-dim);
+}
+
+.order-total {
+    font-weight: bold;
+    color: var(--wario-gold);
+}
+
+.pending-order-date {
+    font-size: 0.75em;
+    color: var(--wario-text-dim);
+    margin-top: 4px;
+}
+
+.cancel-order-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--wario-red);
+    border-radius: 4px;
+    color: var(--wario-red);
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-order-btn:hover {
+    background: rgba(220, 20, 60, 0.2);
+}
+
+/* === NOTIFICATION === */
+.shop-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    background: var(--wario-surface);
+    border: 2px solid var(--wario-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1001;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 8px 24px var(--wario-shadow);
+}
+
+.shop-notification.success {
+    border-color: var(--wario-green);
+}
+
+.shop-notification.error {
+    border-color: var(--wario-red);
+}
+
+.shop-notification.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.notification-icon {
+    font-size: 1.5em;
+}
+
+.notification-message {
+    color: var(--wario-text);
+}
+
+/* === FACTION TAB === */
+.faction-content {
+    width: 100%;
+    padding: 20px;
+}
+
+.faction-tab-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.faction-overview {
+    background: var(--wario-surface);
+    border: 2px solid var(--wario-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.faction-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--wario-border);
+}
+
+.faction-logo {
+    font-size: 3em;
+}
+
+.faction-header h2 {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--wario-gold);
+}
+
+.faction-subtitle {
+    margin: 4px 0 0 0;
+    color: var(--wario-text-dim);
+}
+
+/* === FACTION STATS GRID === */
+.faction-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.faction-stat-card {
+    background: var(--wario-surface-light);
+    border: 1px solid var(--wario-border);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.faction-stat-card .stat-icon {
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.faction-stat-card .stat-info {
+    margin-bottom: 8px;
+}
+
+.faction-stat-card .stat-value {
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--wario-gold);
+}
+
+.faction-stat-card .stat-label {
+    font-size: 0.8em;
+    color: var(--wario-text-dim);
+    text-transform: uppercase;
+}
+
+.stat-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.75em;
+}
+
+.stat-breakdown span {
+    padding: 2px 6px;
+    background: var(--wario-surface);
+    border-radius: 4px;
+}
+
+.stat-breakdown .active { color: #4ade80; }
+.stat-breakdown .injured { color: #fbbf24; }
+.stat-breakdown .critical { color: #f87171; }
+.stat-breakdown .mia { color: #94a3b8; }
+
+/* === STAT BARS === */
+.stat-bar {
+    height: 8px;
+    background: var(--wario-surface);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.stat-bar-fill.morale { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.stat-bar-fill.loyalty { background: linear-gradient(90deg, #ec4899, #f472b6); }
+.stat-bar-fill.combat { background: linear-gradient(90deg, #f97316, #fb923c); }
+
+.bonus-indicator {
+    display: block;
+    font-size: 0.7em;
+    color: #4ade80;
+    margin-top: 4px;
+}
+
+/* === FACTION SECTIONS === */
+.faction-section {
+    background: var(--wario-surface);
+    border: 1px solid var(--wario-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.faction-section h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.2em;
+    color: var(--wario-gold);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--wario-border);
+}
+
+/* === PURCHASED UPGRADES === */
+.purchased-upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.purchased-upgrade-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+}
+
+.purchased-upgrade-card .upgrade-icon {
+    font-size: 2em;
+}
+
+.purchased-upgrade-card .upgrade-name {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.no-upgrades {
+    text-align: center;
+    padding: 24px;
+    color: var(--wario-text-dim);
+}
+
+.no-upgrades .subtext {
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+/* === FACTION UPGRADES GRID === */
+.faction-upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.faction-upgrade-card {
+    background: var(--wario-surface-light);
+    border: 2px solid var(--wario-border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.faction-upgrade-card:hover:not(.purchased) {
+    border-color: var(--wario-purple-light);
+    transform: translateY(-2px);
+}
+
+.faction-upgrade-card.purchased {
+    opacity: 0.6;
+    border-color: var(--wario-green);
+}
+
+.faction-upgrade-card.unaffordable {
+    opacity: 0.5;
+}
+
+.faction-upgrade-card.in-cart {
+    border-color: var(--wario-green);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+}
+
+.faction-upgrade-card .upgrade-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.faction-upgrade-card .upgrade-icon {
+    font-size: 2.5em;
+}
+
+.faction-upgrade-card .upgrade-title {
+    flex: 1;
+}
+
+.faction-upgrade-card .upgrade-name {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+}
+
+.faction-upgrade-card .upgrade-price {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--wario-gold);
+}
+
+.faction-upgrade-card .upgrade-price.unaffordable {
+    color: var(--wario-red);
+}
+
+.faction-upgrade-card .upgrade-description {
+    font-size: 0.9em;
+    color: var(--wario-text-dim);
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.faction-upgrade-card .upgrade-effects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.faction-upgrade-card .upgrade-bonuses {
+    margin-bottom: 16px;
+}
+
+.faction-upgrade-card .upgrade-status.purchased {
+    text-align: center;
+    padding: 12px;
+    background: rgba(34, 197, 94, 0.2);
+    border-radius: 6px;
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.faction-add-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--wario-purple), var(--wario-purple-light));
+    border: 1px solid var(--wario-purple-light);
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85em;
+}
+
+.faction-add-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--wario-purple-light), var(--wario-gold-dark));
+}
+
+.faction-add-btn:disabled {
+    background: #4a4a5a;
+    cursor: not-allowed;
+}
+
+.faction-upgrade-card.in-cart .faction-add-btn {
+    background: linear-gradient(135deg, var(--wario-green), #228b22);
+}
+
+/* === BONUS SUMMARY === */
+.bonus-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.bonus-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--wario-surface-light);
+    border-radius: 6px;
+    border-left: 3px solid var(--wario-green);
+}
+
+.bonus-summary-item .bonus-key {
+    color: var(--wario-text-dim);
+    font-size: 0.9em;
+}
+
+.bonus-summary-item .bonus-value {
+    font-weight: bold;
+    color: #4ade80;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.no-bonuses {
+    text-align: center;
+    color: var(--wario-text-dim);
+    padding: 16px;
+}
+
+/* === RECEIPT SHIPPING === */
+.receipt-shipping {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.9em;
+    border-bottom: 1px dotted #ccc;
+}
