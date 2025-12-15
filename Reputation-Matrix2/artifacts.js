@@ -2,22 +2,53 @@ import { playSound } from './common.js';
 import { state } from './state.js';
 import { getIntelForFaction } from './systems/common.js';
 
-/**
- * Checks if the user has sufficient intel for a given requirement.
- * Bypasses checks if debug mode is active.
- * @param {object} requirement - An object like { faction: 'faction_key', level: 70 }.
- * @returns {boolean} True if intel is sufficient or debug is on, false otherwise.
- */
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
 function hasSufficientIntel(requirement) {
-    if (state.debugMode) {
-        return true;
-    }
-    if (!requirement || !requirement.faction || typeof requirement.level === 'undefined') {
-        return false;
-    }
+    if (state.debugMode) return true;
+    if (!requirement || !requirement.faction || typeof requirement.level === 'undefined') return false;
     return getIntelForFaction(requirement.faction) >= requirement.level;
 }
 
+function hasSufficientIntelForField(req) {
+    if (state.debugMode) return true;
+    if (!req) return false;
+    if (Array.isArray(req)) return req.some(r => hasSufficientIntel(r));
+    return hasSufficientIntel(req);
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function animateCounter(element, target, duration = 1000) {
+    const start = parseInt(element.textContent) || 0;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * easeProgress);
+        element.textContent = current;
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+// ============================================================================
+// DATA
+// ============================================================================
 
 const ARTIFACT_DATA = {
     main_artifacts: [
@@ -25,27 +56,53 @@ const ARTIFACT_DATA = {
             id: 'star_fragment',
             name: 'The Star Fragment',
             image: 'artifacts/the_star_fragment.png',
-            description: "A piece of a fallen star, shattered into nine fragments by the God Toad. Each shard bestows immense, unique power upon its bearer, but also subtly corrupts them to fit a grand, unknown design."
+            icon: '⭐',
+            rarity: 'legendary',
+            status: 'scattered',
+            pieces: { collected: 1, total: 9 },
+            description: "A piece of a fallen star, shattered into nine fragments by the God Toad. Each shard bestows immense, unique power upon its bearer, but also subtly corrupts them to fit a grand, unknown design.",
+            lore: "When the star fell, it illuminated the night sky for seven days. The God Toad, witnessing its descent, knew such power could not remain whole.",
+            abilities: ["Soul Binding", "Power Amplification", "Fate Manipulation"],
+            locations: "Scattered across the Midlands, held by the Star Bearers"
         },
         {
             id: 'fire_flower',
             name: 'The Fireflower',
             image: 'artifacts/the_fireflower.png',
-            description: "A legendary artifact that grants mastery over flame. It is said to be hidden in a volcanic dungeon, guarded by a fire dragon and its cult."
+            icon: '🔥',
+            rarity: 'legendary',
+            status: 'fragmented',
+            pieces: { collected: 0, total: 18 },
+            description: "A legendary artifact that grants mastery over flame. It is said to be hidden in a volcanic dungeon, guarded by a fire dragon and its cult.",
+            lore: "Born from the heart of the first volcano, the Fireflower's petals were scattered by the great eruption that shaped the continents.",
+            abilities: ["Flame Mastery", "Political Influence", "Charisma Enhancement"],
+            locations: "Petals distributed among world leaders and major factions"
         },
         {
             id: 'mushroom',
             name: 'The Mushroom of Life',
             image: 'artifacts/the_mushroom.png',
-            description: "A relic with the power to restore life itself. It grows in a cursed, time-distorting forest, protected by ancient guardians who test all who seek it."
+            icon: '🍄',
+            rarity: 'legendary',
+            status: 'hidden',
+            pieces: { collected: 0, total: 1 },
+            description: "A relic with the power to restore life itself. It grows in a cursed, time-distorting forest, protected by ancient guardians who test all who seek it.",
+            lore: "The first life in the world sprouted from this ancient fungus. Its spores carry the essence of creation itself.",
+            abilities: ["Life Restoration", "Time Distortion", "Nature Command"],
+            locations: "The Cursed Forest of Eternity"
         }
     ],
     star_bearers: [
         {
             id: 'rebellion',
-            name: 'Rebellion - The Dark Sovereign',
+            name: 'Rebellion',
+            title: 'The Dark Sovereign',
+            element: 'darkness',
+            threat_level: 10,
+            status: 'hostile',
             powers: "Rebellion's true powers remain largely unknown, as few have witnessed them and survived. Ancient texts speak of his ability to devour souls and incorporate their knowledge and abilities into his own. The darkness he commands is said to be sentient, a living extension of his will that hungers for life. Witnesses claim to have seen him split into multiple shadow forms, each capable of independent action, while his true body remains hidden. The most disturbing rumors suggest he can corrupt other Star Fragment bearers, slowly turning them into his thralls while they believe they maintain their free will.",
-            fragment_name: "Crown Shard (Core Power)",
+            fragment_name: "Crown Shard",
+            fragment_power: "Core Power",
             fragment_desc: "The Crown Shard is the largest and most powerful fragment of the star. It contains the core essence of leadership and dominion, granting its bearer authority over other fragment holders to some degree. The shard pulses with a black light that seems to absorb rather than emit energy, growing stronger with each life it touches.",
             history: "When the God Toad distributed the fragments, Rebellion was initially chosen for his loyalty. However, the fragment's power corrupted him, awakening a hunger for dominance. He established a fortress in the darkest corner of the Midlands, where no sunlight ever penetrates, and began plotting to collect all fragments for himself. He has already attempted to absorb the Ice Toad's fragment but was thwarted by the adventurers who now possess it. Ancient prophecies speak of him as 'The Star Devourer' who will bring eternal darkness if not stopped.",
             intel_requirements: {
@@ -56,9 +113,14 @@ const ARTIFACT_DATA = {
         },
         {
             id: 'charismatic',
-            name: 'Charismatic - The Battle Master',
+            name: 'Charismatic',
+            title: 'The Battle Master',
+            element: 'fire',
+            threat_level: 7,
+            status: 'neutral',
             powers: "Charismatic can ignite his body in flames that do not harm him but scorch everything he touches. He can project firebolts and create walls of flame to control the battlefield. His most devastating ability is Phoenix Form, which transforms him into a fiery entity that can fly and regenerate from seemingly fatal wounds.",
-            fragment_name: "Warrior Shard (Combat Power)",
+            fragment_name: "Warrior Shard",
+            fragment_power: "Combat Power",
             fragment_desc: "The Warrior Shard contains the star's aspect of conflict and triumph. It burns with constant internal fire and grants exceptional combat instincts.",
             history: "Once a gentle explorer who charted unknown territories of the Midlands, Charismatic was ambushed by werewolves and left for dead. The God Toad found him clinging to life and offered him the Warrior Shard. The fragment saved him but ignited an unquenchable fighting spirit. Now he roams the borderlands between vampire and werewolf territories, challenging the strongest warriors of both sides to hone his skills for the day when all fragments must be reunited.",
             intel_requirements: {
@@ -69,9 +131,14 @@ const ARTIFACT_DATA = {
         },
         {
             id: 'beauty',
-            name: 'Beauty - The Toxic Enchanter',
+            name: 'Beauty',
+            title: 'The Toxic Enchanter',
+            element: 'nature',
+            threat_level: 6,
+            status: 'unknown',
             powers: "Beauty can accelerate plant growth, creating deadly botanical traps and barriers within seconds. He can synthesize potent toxins from his body that cause hallucinations, paralysis, or slow death. His most insidious power is Verdant Subjugation, which allows him to implant spores in victims that slowly bring them under his control.",
-            fragment_name: "Bloom Shard (Growth Power)",
+            fragment_name: "Bloom Shard",
+            fragment_power: "Growth Power",
             fragment_desc: "The Bloom Shard embodies the star's aspect of growth and transformation. It constantly pulses with green energy and enhances natural processes around its bearer.",
             history: "Once a simple herbalist who cared for the sick in a small village, Beauty's personality twisted when he received the Bloom Shard. The fragment's power revealed to him how easily life could be manipulated, and he began using his healing knowledge for control instead of care. He has established a beautiful but deadly garden sanctuary in the heart of the Misty Forest, where countless explorers have wandered in but never returned.",
             intel_requirements: {
@@ -82,9 +149,14 @@ const ARTIFACT_DATA = {
         },
         {
             id: 'refrain',
-            name: 'Refrain - The Tempest',
+            name: 'Refrain',
+            title: 'The Tempest',
+            element: 'storm',
+            threat_level: 7,
+            status: 'neutral',
             powers: "Refrain can summon winds powerful enough to uproot trees and deflect arrows or projectiles. He can create localized storms, complete with lightning and hail. His ultimate ability is Cyclone Manifestation, which creates a devastating tornado under his control.",
-            fragment_name: "Tempest Shard (Storm Power)",
+            fragment_name: "Tempest Shard",
+            fragment_power: "Storm Power",
             fragment_desc: "The Tempest Shard embodies the star's aspect of movement and change. It constantly shifts between various shades of blue and gray, and sometimes emits small sparks of lightning.",
             history: "Once a ship's navigator with an uncanny ability to predict weather changes, Refrain was chosen for his connection to the air. When he received the Tempest Shard, his emotional state became linked to atmospheric conditions. He makes his home on the Howling Cliffs overlooking the Midnight Sea, where sailors leave offerings in hopes that he will grant them safe passage through potentially stormy waters.",
             intel_requirements: {
@@ -95,22 +167,32 @@ const ARTIFACT_DATA = {
         },
         {
             id: 'might',
-            name: 'Might - The Unstoppable',
+            name: 'Might',
+            title: 'The Unstoppable',
+            element: 'earth',
+            threat_level: 8,
+            status: 'ally',
             powers: "Might possesses superhuman strength that allows him to shatter stone with his bare hands. His body is nearly indestructible, capable of withstanding tremendous physical punishment. His signature ability is Tectonic Impact, which creates shockwaves when he strikes the ground, capable of toppling buildings and creating fissures.",
-            fragment_name: "Force Shard (Strength Power)",
+            fragment_name: "Force Shard",
+            fragment_power: "Strength Power",
             fragment_desc: "The Force Shard contains the star's aspect of physical power and resilience. It pulses with deep red energy and makes its bearer's body increasingly dense and powerful over time.",
             history: "Originally a weak and sickly toad who was ridiculed for his frailty, Might was chosen by the God Toad specifically because he understood the value of strength. When he received the Force Shard, his body transformed dramatically. Rather than seeking revenge on those who mocked him, he established a sanctuary in the Earth Spine Mountains where he trains worthy fighters and protects the innocent from the creatures that lurk in the deeper caves.",
-             intel_requirements: {
+            intel_requirements: {
                 identity: { faction: 'rebel_clans', level: 30 },
                 details: [{ faction: 'rebel_clans', level: 55 }, { faction: 'the_unchained', level: 55 }],
                 history: { faction: 'the_unchained', level: 75 },
             }
         },
-         {
+        {
             id: 'justice',
-            name: 'Justice - The Arbiter',
+            name: 'Justice',
+            title: 'The Arbiter',
+            element: 'light',
+            threat_level: 5,
+            status: 'neutral',
             powers: "Justice can perceive lies and deception with perfect accuracy. He can create binding magical contracts that physically punish those who break them. His most feared power is Cosmic Verdict, which can restore balance by transferring fortune from the undeservingly prosperous to the unjustly suffering.",
-            fragment_name: "Truth Shard (Balance Power)",
+            fragment_name: "Truth Shard",
+            fragment_power: "Balance Power",
             fragment_desc: "The Truth Shard embodies the star's aspect of order and equilibrium. It glows with steady golden light and provides clarity of perception.",
             history: "Once a simple village judge, Justice was chosen for his unwavering commitment to fairness. When he received the Truth Shard, his understanding expanded beyond human laws to the fundamental balance of the universe. He established the Hall of Equilibrium in the central mountains of the Midlands, where both humans and creatures of the night can seek impartial judgment for disputes too complex for ordinary resolution.",
             intel_requirements: {
@@ -121,12 +203,17 @@ const ARTIFACT_DATA = {
         },
         {
             id: 'self_reflection',
-            name: 'Self Reflection - The Oracle',
+            name: 'Self Reflection',
+            title: 'The Oracle',
+            element: 'time',
+            threat_level: 4,
+            status: 'ally',
             powers: "Self Reflection can see possible futures branching from any present moment. He can communicate through dreams and visions over vast distances. His most valuable ability is Memory Walk, which allows him to project himself and others into past events as observers.",
-            fragment_name: "Vision Shard (Insight Power)",
+            fragment_name: "Vision Shard",
+            fragment_power: "Insight Power",
             fragment_desc: "The Vision Shard contains the star's aspect of perception and foresight. It appears as a clear crystal that sometimes shows swirling images of distant places or times.",
             history: "Originally a scholarly toad who documented the forgotten histories of the Midlands, Self Reflection was chosen for his contemplative nature. When he received the Vision Shard, his consciousness expanded beyond linear time. He established a small sanctuary beside the Lake of Mirrors, where the waters sometimes reflect events yet to occur. Though physically the weakest of the fragment bearers, he is perhaps the most important, as his visions guide the others toward the eventual reunification of all fragments.",
-            intel_requirements: { // Identity is known by all
+            intel_requirements: {
                 details: { faction: 'mages_guild', level: 50 },
                 history: { faction: 'mages_guild', level: 75 },
             }
@@ -134,20 +221,30 @@ const ARTIFACT_DATA = {
         {
             id: 'unknown',
             name: 'The Lost Bearer',
+            title: 'Unknown',
+            element: 'void',
+            threat_level: '?',
+            status: 'unknown',
             powers: "The identity and abilities of the final Star Fragment bearer are unknown. Their shard, and their destiny, remain a mystery.",
             fragment_name: "Unknown Shard",
+            fragment_power: "???",
             fragment_desc: "The nature of this fragment is lost to history.",
             history: "One of the original eight fragments distributed by the God Toad has been lost to time. Whether its bearer is in hiding, dead, or simply unknown is a mystery that could have significant implications for the reunification of the star."
         }
     ],
     god_toad: {
         id: 'god_toad',
-        name: 'The God Toad - Original Keeper',
+        name: 'The God Toad',
+        title: 'Original Keeper',
+        element: 'cosmic',
+        threat_level: '∞',
+        status: 'unknown',
         powers: "The God Toad exists simultaneously in multiple planes of reality, making him nearly impossible to truly comprehend, let alone defeat. Those who attempt to perceive his true form often find their minds fractured beyond repair. He can manipulate the very fabric of space and time in limited areas, creating pocket dimensions where physical laws bend to his will. There are accounts of him reversing the flow of time to undo events that displease him, though this appears to drain his power significantly. Some scholars believe he is not a single entity but a collective consciousness inhabiting a shared form, explaining his ability to maintain awareness across vast distances.",
-        fragment_name: "Core Shard (Binding Power)",
+        fragment_name: "Core Shard",
+        fragment_power: "Binding Power",
         fragment_desc: "The Core Shard is unlike the others—it appears as a void rather than a physical object, a tear in reality through which the pure power of the star flows directly into its bearer. This fragment gives the God Toad his omniscience regarding the other fragments and may be the source of his apparent immortality.",
         history: "After being betrayed by his adventuring companions who sought to steal the star's power for themselves, the God Toad shattered the star into nine fragments to prevent its misuse. He kept the Core Shard for himself and distributed the others to trusted followers who would become the Toad Guardians. What few know is that he deliberately corrupted each fragment differently, ensuring that their powers would drive their bearers toward specific goals—all part of a grand design that has been unfolding for centuries. His true motivation remains unknown, but ancient texts suggest he seeks to reshape the Midlands into something 'beyond mortal comprehension.'",
-         intel_requirements: { // Identity is known, details are hidden
+        intel_requirements: {
             details: { faction: 'mages_guild', level: 85 },
             history: { faction: 'mages_guild', level: 95 },
         }
@@ -157,505 +254,935 @@ const ARTIFACT_DATA = {
 const REGIONAL_ANALYSIS_DATA = [
     {
         name: "The Midlands",
+        icon: "🏰",
+        color: "#8B0000",
         progress: "0/3 Factions",
         intel_req: { faction: 'regal_empire', level: 20 },
         details: {
-            politicalSystem: "Monarchy with layered feudal and supernatural influence.",
-            currentSituation: "A dark and war-torn land under the rule of an enigmatic king, with hidden conflicts between vampires and werewolves.",
+            politicalSystem: "Monarchy with layered feudal and supernatural influence",
+            currentSituation: "A dark and war-torn land under the rule of an enigmatic king",
             leadership: "King Alaric (The Enigmatic King)",
-            politicalInfluence: "High",
+            population: "719.0M",
             gdp: "$250B",
-            population: "719.0M"
+            politicalInfluence: "High"
         },
         factions: [
-            { name: "Royal Guards (King Alaric's Control)", influence: "47%", rumor: { text: "The Royal Guards channel their petal's power to maintain unwavering loyalty and superhuman vigilance, making them nearly incorruptible.", source: "Disgruntled Diplomatic Corps Member", intel_req: { faction: 'regal_empire', level: 45 } } },
-            { name: "Vampire Coven", influence: "17%", rumor: { text: "The Vampire Coven uses their petal to deepen their connection to the night, enhancing their stealth and control over shadow creatures.", source: "Silver Flame Interrogation Transcript", intel_req: { faction: 'silver_flame', level: 50 } } },
-            { name: "Werewolf Packs", influence: "13%", rumor: { text: "Werewolf Packs believe their petal imbues them with uncontrollable primal fury and resilience during their transformations.", source: "Rakasha Huntmaster's Observation", intel_req: { faction: 'rakasha_clans', level: 50 } } }
+            { name: "Royal Guards", influence: 47, rumor: { text: "The Royal Guards channel their petal's power to maintain unwavering loyalty and superhuman vigilance.", source: "Disgruntled Diplomatic Corps Member", intel_req: { faction: 'regal_empire', level: 45 } } },
+            { name: "Vampire Coven", influence: 17, rumor: { text: "The Vampire Coven uses their petal to deepen their connection to the night.", source: "Silver Flame Interrogation Transcript", intel_req: { faction: 'silver_flame', level: 50 } } },
+            { name: "Werewolf Packs", influence: 13, rumor: { text: "Werewolf Packs believe their petal imbues them with primal fury.", source: "Rakasha Huntmaster's Observation", intel_req: { faction: 'rakasha_clans', level: 50 } } }
         ],
-        overallRumor: { text: "Whispers suggest King Alaric's enigmatic reign is sustained by the largest Fire Flower petal, amplifying his authority and strategic brilliance.", intel_req: { faction: 'regal_empire', level: 60 } }
+        overallRumor: { text: "King Alaric's enigmatic reign is sustained by the largest Fire Flower petal.", intel_req: { faction: 'regal_empire', level: 60 } }
     },
     {
         name: "Mushroom Kingdom",
+        icon: "🍄",
+        color: "#FF6B6B",
         progress: "0/4 Factions",
         intel_req: { faction: 'mushroom_regency', level: 20 },
         details: {
             politicalSystem: "Criminal Monarchy Crisis",
-            currentSituation: "In political turmoil after the assassination of Princess Peach, with conspiracies of usurpation looming as the Midlands king schemes to claim the throne.",
+            currentSituation: "In political turmoil after Princess Peach's assassination",
             leadership: "Count Toad (Prime Minister)",
-            politicalInfluence: "Medium",
+            population: "685.0M",
             gdp: "$80B",
-            population: "685.0M"
+            politicalInfluence: "Medium"
         },
         factions: [
-            { name: "Count Toad's Direct Influence", influence: "45%", rumor: { text: "Count Toad is said to use his petal to weave intricate illusions, clouding judgments and ensuring his political survival.", source: "Freelancer Underworld Informant", intel_req: { faction: 'freelancer_underworld', level: 45 } } },
-            { name: "Toad Army", influence: "16%", rumor: { text: "The Toad Army's petal fragment supposedly grants their soldiers enhanced morale and surprising bursts of courage in battle.", source: "Captured Iron Legion Scout", intel_req: { faction: 'iron_legion', level: 40 } } },
-            { name: "Mushroom Guild", influence: "14%", rumor: { text: "The Mushroom Guild secretly cultivates their petal to accelerate the growth of rare fungi, bolstering their economic power.", source: "Wario Land 'Business' Proposal", intel_req: { faction: 'wario_land', level: 40 } } },
-            { name: "Royal Guard Remnants", influence: "12%", rumor: { text: "The fragmented Royal Guard clings to a dying petal, hoping to reignite its flame and restore their honor.", source: "Peach Loyalist Sympathizer", intel_req: { faction: 'peach_loyalists', level: 50 } } }
+            { name: "Count Toad's Influence", influence: 45, rumor: { text: "Count Toad uses his petal to weave intricate illusions.", source: "Freelancer Underworld Informant", intel_req: { faction: 'freelancer_underworld', level: 45 } } },
+            { name: "Toad Army", influence: 16, rumor: { text: "The Toad Army's petal grants enhanced morale.", source: "Captured Iron Legion Scout", intel_req: { faction: 'iron_legion', level: 40 } } },
+            { name: "Mushroom Guild", influence: 14, rumor: { text: "The Guild cultivates their petal for rare fungi growth.", source: "Wario Land 'Business' Proposal", intel_req: { faction: 'wario_land', level: 40 } } },
+            { name: "Royal Guard Remnants", influence: 12, rumor: { text: "The fragmented Royal Guard clings to a dying petal.", source: "Peach Loyalist Sympathizer", intel_req: { faction: 'peach_loyalists', level: 50 } } }
         ],
-        overallRumor: { text: "It's said Count Toad clutches a potent Fire Flower petal, using its influence to navigate the treacherous political landscape and maintain his precarious hold on power.", intel_req: { faction: 'mushroom_regency', level: 60 } }
+        overallRumor: { text: "Count Toad clutches a potent Fire Flower petal to navigate the treacherous political landscape.", intel_req: { faction: 'mushroom_regency', level: 60 } }
     },
     {
         name: "Aurea",
+        icon: "⚡",
+        color: "#FFD700",
         progress: "0/4 Factions",
         intel_req: { faction: 'aurea_oligarchy', level: 25 },
         details: {
             politicalSystem: "Technocratic Oligarchy",
-            currentSituation: "A land of ancient ruins and futuristic designs, where tech and magic coexist under strict governance.",
+            currentSituation: "Tech and magic coexist under strict governance",
             leadership: "High Overseer Aurelia (Techno-Mage)",
-            politicalInfluence: "Very High",
+            population: "546.0M",
             gdp: "$300B",
-            population: "546.0M"
+            politicalInfluence: "Very High"
         },
         factions: [
-            { name: "Technocratic Elite (High Overseer's Control)", influence: "38%", rumor: { text: "Aurelia's Elite integrate their petal's energy into their cybernetics, achieving perfect synergy between magic and machine.", source: "Leaked Tech Guild Schematic", intel_req: { faction: 'tech_guild', level: 50 } } },
-            { name: "Tech Guild", influence: "19%", rumor: { text: "The Tech Guild experiments with their petal to power forbidden technologies and create sentient AI.", source: "Ratchet Raiders Salvage Log", intel_req: { faction: 'ratchet_raiders', level: 45 } } },
-            { name: "Arcane Scholars", influence: "16%", rumor: { text: "Arcane Scholars use their petal to unlock ancient magical knowledge, risking dimensional instability for power.", source: "Mages' Guild Conservator Report", intel_req: { faction: 'mages_guild', level: 45 } } },
-            { name: "Rebel Hackers", influence: "11%", rumor: { text: "Rebel Hackers attempt to harness a corrupted petal fragment to disrupt the Overseer's network from the digital shadows.", source: "The Internet Hacktivist Collective", intel_req: { faction: 'hacktivist_collectives', level: 55 } } }
+            { name: "Technocratic Elite", influence: 38, rumor: { text: "Aurelia's Elite integrate petal energy into their cybernetics.", source: "Leaked Tech Guild Schematic", intel_req: { faction: 'tech_guild', level: 50 } } },
+            { name: "Tech Guild", influence: 19, rumor: { text: "The Tech Guild experiments with petals to power forbidden tech.", source: "Ratchet Raiders Salvage Log", intel_req: { faction: 'ratchet_raiders', level: 45 } } },
+            { name: "Arcane Scholars", influence: 16, rumor: { text: "Scholars use their petal to unlock ancient magical knowledge.", source: "Mages' Guild Conservator Report", intel_req: { faction: 'mages_guild', level: 45 } } },
+            { name: "Rebel Hackers", influence: 11, rumor: { text: "Hackers harness a corrupted petal fragment for digital attacks.", source: "Hacktivist Collective", intel_req: { faction: 'hacktivist_collectives', level: 55 } } }
         ],
-        overallRumor: { text: "The High Overseer Aurelia is rumored to have integrated a core Fire Flower petal into her techno-magical systems, amplifying her control over Aurea.", intel_req: { faction: 'aurea_oligarchy', level: 70 } }
+        overallRumor: { text: "High Overseer Aurelia has integrated a core petal into her techno-magical systems.", intel_req: { faction: 'aurea_oligarchy', level: 70 } }
     },
     {
         name: "Middle Earth",
+        icon: "⚔️",
+        color: "#228B22",
         progress: "0/4 Factions",
         intel_req: { faction: 'kingdom_of_gondor', level: 20 },
         details: {
             politicalSystem: "Ancient Kingdom with Shattered Borders",
-            currentSituation: "The legacy of magic and wars defines Middle Earth, where ancient alliances are tested.",
+            currentSituation: "Ancient alliances are being tested",
             leadership: "King Thorin (Warrior King)",
-            politicalInfluence: "High",
+            population: "592.0M",
             gdp: "$150B",
-            population: "592.0M"
+            politicalInfluence: "High"
         },
         factions: [
-            { name: "King Thorin's Royal Power", influence: "31%", rumor: { text: "King Thorin's lineage is bound to a petal that strengthens his resolve and grants him ancestral battle wisdom.", source: "Dwarven Runesmith's Tale", intel_req: { faction: 'kingdoms_of_the_dwarves', level: 45 } } },
-            { name: "Elven Clans", influence: "21%", rumor: { text: "Elven Clans nurture their petal to preserve the fading magic of their ancient forests and enhance their archery skills.", source: "Faerun Elven Emissary", intel_req: { faction: 'elves_of_lindon', level: 40 } } },
-            { name: "Dwarven Holds", influence: "19%", rumor: { text: "Dwarven Holds use their petal's heat to forge legendary weapons and armor, impervious to dragon fire.", source: "Iron Legion Weapons Analysis", intel_req: { faction: 'kingdoms_of_the_dwarves', level: 40 } } },
-            { name: "Human Tribes", influence: "12%", rumor: { text: "Scattered Human Tribes believe their petal fragments offer protection against the dark creatures roaming their lands.", source: "Rebel Clans' Elder", intel_req: { faction: 'kingdom_of_gondor', level: 40 } } }
+            { name: "King Thorin's Power", influence: 31, rumor: { text: "Thorin's lineage is bound to a petal granting ancestral wisdom.", source: "Dwarven Runesmith's Tale", intel_req: { faction: 'kingdoms_of_the_dwarves', level: 45 } } },
+            { name: "Elven Clans", influence: 21, rumor: { text: "Elven Clans nurture their petal to preserve forest magic.", source: "Faerun Elven Emissary", intel_req: { faction: 'elves_of_lindon', level: 40 } } },
+            { name: "Dwarven Holds", influence: 19, rumor: { text: "Dwarven Holds use petal heat to forge legendary weapons.", source: "Iron Legion Weapons Analysis", intel_req: { faction: 'kingdoms_of_the_dwarves', level: 40 } } },
+            { name: "Human Tribes", influence: 12, rumor: { text: "Human Tribes believe their fragments offer protection.", source: "Rebel Clans' Elder", intel_req: { faction: 'kingdom_of_gondor', level: 40 } } }
         ],
-        overallRumor: { text: "Legends claim King Thorin wields a Fire Flower petal, a relic of ancient power that aids him in his quest to unite the fractured kingdoms of Middle Earth.", intel_req: { faction: 'kingdoms_of_the_dwarves', level: 65 } }
+        overallRumor: { text: "King Thorin wields a Fire Flower petal, a relic aiding his quest to unite the kingdoms.", intel_req: { faction: 'kingdoms_of_the_dwarves', level: 65 } }
     },
     {
         name: "Pokemon Regions",
+        icon: "🎮",
+        color: "#FF4444",
         progress: "0/4 Factions",
         intel_req: { faction: 'pokemon_league', level: 15 },
         details: {
             politicalSystem: "League Federation",
-            currentSituation: "A realm guided by trainers and their Pokémon with strict league regulations yet vibrant culture.",
+            currentSituation: "Trainers and Pokémon guide the realm",
             leadership: "Champion Carter (League Champion)",
-            politicalInfluence: "Medium",
+            population: "370.0M",
             gdp: "$100B",
-            population: "370.0M"
+            politicalInfluence: "Medium"
         },
         factions: [
-            { name: "League Authority (Champion Carter)", influence: "36%", rumor: { text: "Champion Carter's petal is said to resonate with his Pokémon, unlocking their ultimate potential and ensuring League dominance.", source: "A Disqualified League Challenger", intel_req: { faction: 'trainer_guild', level: 40 } } },
-            { name: "Trainer Guild", influence: "20%", rumor: { text: "The Trainer Guild distributes minute petal shards to elite trainers, slightly boosting their Pokémon's elemental affinities.", source: "Underworld Smuggler's Ledger", intel_req: { faction: 'freelancer_underworld', level: 35 } } },
-            { name: "Pokémon Society", influence: "18%", rumor: { text: "The Pokémon Society studies their petal to understand inter-species communication, hoping to foster deeper bonds.", source: "Rakasha Shaman's Correspondence", intel_req: { faction: 'rakasha_clans', level: 35 } } },
-            { name: "Wildlife Conservators", influence: "10%", rumor: { text: "Wildlife Conservators use their petal to create hidden sanctuaries where endangered Pokémon can thrive, shielded by its warmth.", source: "Zootopian Environmental Report", intel_req: { faction: 'zootopia_republic', level: 35 } } }
+            { name: "League Authority", influence: 36, rumor: { text: "Carter's petal resonates with his Pokémon.", source: "Disqualified League Challenger", intel_req: { faction: 'trainer_guild', level: 40 } } },
+            { name: "Trainer Guild", influence: 20, rumor: { text: "Elite trainers receive minute petal shards.", source: "Underworld Smuggler's Ledger", intel_req: { faction: 'freelancer_underworld', level: 35 } } },
+            { name: "Pokémon Society", influence: 18, rumor: { text: "The Society studies their petal for inter-species communication.", source: "Rakasha Shaman's Correspondence", intel_req: { faction: 'rakasha_clans', level: 35 } } },
+            { name: "Wildlife Conservators", influence: 10, rumor: { text: "Conservators create hidden sanctuaries with petal warmth.", source: "Zootopian Environmental Report", intel_req: { faction: 'zootopia_republic', level: 35 } } }
         ],
-        overallRumor: { text: "Champion Carter is said to possess a Fire Flower petal, its energy enhancing the bond with his Pokémon and solidifying his status as League Champion.", intel_req: { faction: 'pokemon_league', level: 50 } }
+        overallRumor: { text: "Champion Carter possesses a petal enhancing his bond with Pokémon.", intel_req: { faction: 'pokemon_league', level: 50 } }
     },
     {
         name: "Teyvat",
+        icon: "✨",
+        color: "#9B59B6",
         progress: "0/5 Factions",
         intel_req: { faction: 'teyvat_hegemony', level: 25 },
         details: {
             politicalSystem: "Divine Autocracy",
-            currentSituation: "The Archon War continues as deities and mortals clash for dominion over the elemental forces.",
+            currentSituation: "The Archon War continues",
             leadership: "Archon Lumine (God of Light)",
-            politicalInfluence: "Very High",
+            population: "468.0M",
             gdp: "$200B",
-            population: "468.0M"
+            politicalInfluence: "Very High"
         },
         factions: [
-            { name: "Archon Lumine's Divine Power", influence: "39%", rumor: { text: "Archon Lumine channels her petal to radiate pure light, blinding her foes and healing her devout followers.", source: "Silver Flame Theological Study", intel_req: { faction: 'silver_flame', level: 55 } } },
-            { name: "Elemental Cults", influence: "17%", rumor: { text: "Various Elemental Cults hoard petal fragments, believing they grant mastery over specific elements like fire, ice, or storm.", source: "Mages' Guild Report on Unsanctioned Magic", intel_req: { faction: 'mages_guild', level: 45 } } },
-            { name: "Divine Guard", influence: "15%", rumor: { text: "The Divine Guard are bestowed petal-infused amulets, granting them resistance to profane energies and unwavering faith.", source: "Oathbound Judges' Observation", intel_req: { faction: 'oathbound_judges', level: 45 } } },
-            { name: "Mortals (Vision Bearers)", influence: "11%", rumor: { text: "Chosen Mortals, or Vision Bearers, sometimes find tiny petal slivers that awaken their latent elemental powers.", source: "The Unchained Intelligence", intel_req: { faction: 'the_unchained', level: 45 } } },
-            { name: "Other Factions (Abyss Order)", influence: "10%", rumor: { text: "The Abyss Order seeks to corrupt petals, twisting their light into an abyssal flame to challenge the divine order.", source: "Onyx Hand Scrying Report", intel_req: { faction: 'onyx_hand', level: 50 } } }
+            { name: "Archon Lumine's Power", influence: 39, rumor: { text: "Lumine channels her petal to radiate pure light.", source: "Silver Flame Theological Study", intel_req: { faction: 'silver_flame', level: 55 } } },
+            { name: "Elemental Cults", influence: 17, rumor: { text: "Cults hoard petal fragments for elemental mastery.", source: "Mages' Guild Report", intel_req: { faction: 'mages_guild', level: 45 } } },
+            { name: "Divine Guard", influence: 15, rumor: { text: "The Guard receives petal-infused amulets.", source: "Oathbound Judges' Observation", intel_req: { faction: 'oathbound_judges', level: 45 } } },
+            { name: "Vision Bearers", influence: 11, rumor: { text: "Chosen mortals find tiny petal slivers.", source: "The Unchained Intelligence", intel_req: { faction: 'the_unchained', level: 45 } } },
+            { name: "Abyss Order", influence: 10, rumor: { text: "The Abyss seeks to corrupt petals.", source: "Onyx Hand Scrying Report", intel_req: { faction: 'onyx_hand', level: 50 } } }
         ],
-        overallRumor: { text: "The radiant power of Archon Lumine is believed by many to be augmented by a core Fire Flower petal, a focal point for her divine energy.", intel_req: { faction: 'teyvat_hegemony', level: 70 } }
+        overallRumor: { text: "Archon Lumine's power is augmented by a core petal.", intel_req: { faction: 'teyvat_hegemony', level: 70 } }
     },
     {
         name: "Faerun",
+        icon: "🔮",
+        color: "#4169E1",
         progress: "0/4 Factions",
         intel_req: { faction: 'faerun_theocracy', level: 20 },
         details: {
             politicalSystem: "Mystical Theocracy",
-            currentSituation: "A realm where magic saturates every aspect of life, and governance is fused with mystical traditions.",
+            currentSituation: "Magic saturates every aspect of life",
             leadership: "High Magus Elion (Supreme Sorcerer)",
-            politicalInfluence: "High",
+            population: "485.0M",
             gdp: "$120B",
-            population: "485.0M"
+            politicalInfluence: "High"
         },
         factions: [
-            { name: "High Magus Elion's Circle", influence: "42%", rumor: { text: "Elion's inner circle uses their shared petal to amplify their spellcasting, creating city-wide illusions and wards.", source: "Aurean Techno-Mage Analysis", intel_req: { faction: 'aurea_oligarchy', level: 50 } } },
-            { name: "Mage Council", influence: "16%", rumor: { text: "The Mage Council debates the ethical use of their petal, fearing its power could unravel the Weave of Magic itself.", source: "Mages' Guild Internal Memo", intel_req: { faction: 'mages_guild', level: 40 } } },
-            { name: "Warrior Clans", influence: "13%", rumor: { text: "Warrior Clans embed petal shards in their ancestral weapons, making them blaze with magical fire in combat.", source: "Koopa Troop Weaponsmith's Journal", intel_req: { faction: 'koopa_troop', level: 40 } } },
-            { name: "Elven Tribes (Ancient Keepers)", influence: "10%", rumor: { text: "Ancient Elven Tribes guard a fading petal, believing it connects them to the primal magic of Faerun's heart.", source: "Middle-Earth Elven Clan Leader", intel_req: { faction: 'elves_of_lindon', level: 45 } } }
+            { name: "High Magus Circle", influence: 42, rumor: { text: "Elion's circle amplifies spellcasting with their petal.", source: "Aurean Techno-Mage Analysis", intel_req: { faction: 'aurea_oligarchy', level: 50 } } },
+            { name: "Mage Council", influence: 16, rumor: { text: "The Council debates ethical petal use.", source: "Mages' Guild Internal Memo", intel_req: { faction: 'mages_guild', level: 40 } } },
+            { name: "Warrior Clans", influence: 13, rumor: { text: "Clans embed petal shards in ancestral weapons.", source: "Koopa Troop Weaponsmith's Journal", intel_req: { faction: 'koopa_troop', level: 40 } } },
+            { name: "Ancient Elven Keepers", influence: 10, rumor: { text: "Elves guard a fading petal connecting them to primal magic.", source: "Middle-Earth Elven Clan Leader", intel_req: { faction: 'elves_of_lindon', level: 45 } } }
         ],
-        overallRumor: { text: "High Magus Elion reportedly channels the essence of a Fire Flower petal to fuel his grand spells and maintain his mystical utopia.", intel_req: { faction: 'faerun_theocracy', level: 65 } }
+        overallRumor: { text: "High Magus Elion channels a petal to fuel his grand spells.", intel_req: { faction: 'faerun_theocracy', level: 65 } }
     },
     {
         name: "Zootopia",
+        icon: "🦊",
+        color: "#2ECC71",
         progress: "0/4 Factions",
         intel_req: { faction: 'zootopia_republic', level: 15 },
         details: {
             politicalSystem: "Democratic Republic",
-            currentSituation: "A progressive nation where anthropomorphic beings from diverse backgrounds strive to create a truly inclusive society, facing challenges of systemic bias and complex interspecies dynamics.",
+            currentSituation: "Progressive nation facing systemic challenges",
             leadership: "President Judy (First Rabbit President)",
-            politicalInfluence: "Medium",
+            population: "378.0M",
             gdp: "$110B",
-            population: "378.0M"
+            politicalInfluence: "Medium"
         },
         factions: [
-            { name: "Presidential Administration", influence: "41%", rumor: { text: "President Judy's administration uses subtle diplomatic techniques to bridge divides and foster understanding between different animal species.", source: "Regal Empire Diplomatic Report", intel_req: { faction: 'regal_empire', level: 40 } } },
-            { name: "Animal Rights Groups", influence: "18%", rumor: { text: "These groups leverage their influence to push for landmark legislation protecting minority species and challenging deeply rooted prejudices.", source: "The Unchained Sympathizer", intel_req: { faction: 'the_unchained', level: 35 } } },
-            { name: "Civic Coalition", influence: "15%", rumor: { text: "The Civic Coalition champions community programs that promote interspecies cooperation and social harmony.", source: "Mushroom Regency Observer", intel_req: { faction: 'mushroom_regency', level: 35 } } },
-            { name: "Trade Unions", influence: "10%", rumor: { text: "Trade Unions work to ensure fair representation and economic opportunities for animals across all professional sectors.", source: "Iron Fists Labor Report", intel_req: { faction: 'iron_fists', level: 35 } } }
+            { name: "Presidential Administration", influence: 41, rumor: { text: "President Judy uses diplomatic techniques to bridge divides.", source: "Regal Empire Diplomatic Report", intel_req: { faction: 'regal_empire', level: 40 } } },
+            { name: "Animal Rights Groups", influence: 18, rumor: { text: "These groups push for landmark legislation.", source: "The Unchained Sympathizer", intel_req: { faction: 'the_unchained', level: 35 } } },
+            { name: "Civic Coalition", influence: 15, rumor: { text: "The Coalition promotes interspecies cooperation.", source: "Mushroom Regency Observer", intel_req: { faction: 'mushroom_regency', level: 35 } } },
+            { name: "Trade Unions", influence: 10, rumor: { text: "Unions ensure fair representation.", source: "Iron Fists Labor Report", intel_req: { faction: 'iron_fists', level: 35 } } }
         ],
-        overallRumor: { text: "President Judy's groundbreaking presidency represents a pivotal moment in Zootopia's evolution, challenging long-standing societal norms and inspiring hope for true equality.", intel_req: { faction: 'zootopia_republic', level: 50 } }
+        overallRumor: { text: "President Judy's presidency represents a pivotal moment in Zootopia's evolution.", intel_req: { faction: 'zootopia_republic', level: 50 } }
     },
     {
-        name: "Realm of Forests",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'forest_tribes', level: 15 },
-        details: {
-            politicalSystem: "Tribal Confederacy",
-            currentSituation: "An untamed land where indigenous tribes live in tune with the wild, fiercely guarding their ancestral lands.",
-            leadership: "Chief Redwood (Tribal Leader)",
-            politicalInfluence: "Low",
-            gdp: "$90B",
-            population: "395.0M"
-        },
-        factions: [
-            { name: "Tribal Confederacy (Chief Redwood's Council)", influence: "38%", rumor: { text: "Chief Redwood's council uses their petal to commune with ancient forest spirits, seeking guidance and protection.", source: "Rakasha Spirit-Walker's Vision", intel_req: { faction: 'rakasha_clans', level: 45 } } },
-            { name: "Forest Tribes (Pathfinders)", influence: "22%", rumor: { text: "Pathfinder tribes use petal slivers to navigate impossibly dense jungles and sense hidden dangers.", source: "Wayfinders' Guild Expedition Log", intel_req: { faction: 'wayfinders_guild', level: 35 } } },
-            { name: "Wild Guardians (Beastmasters)", influence: "16%", rumor: { text: "Beastmasters carry petal charms that allow them to form unusually strong bonds with the wild creatures of the forest.", source: "Zootopian Biologist's Field Notes", intel_req: { faction: 'zootopia_republic', level: 35 } } },
-            { name: "Nature Shamans", influence: "15%", rumor: { text: "Nature Shamans weave their petal's energy into rituals that heal blighted lands and promote vibrant growth.", source: "Faerun Elven Healer's Account", intel_req: { faction: 'elves_of_lindon', level: 40 } } }
-        ],
-        overallRumor: { text: "Chief Redwood is said to commune with a Fire Flower petal that is one with the forest, drawing strength from it to protect his people and their lands.", intel_req: { faction: 'forest_tribes', level: 55 } }
-    },
-    {
-        name: "L'Eclaire Island",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'leclaire_democracy', level: 10 },
-        details: {
-            politicalSystem: "Island Democracy",
-            currentSituation: "A small island home of the Doughnut ruler who grants his subjects voting rights while secretly planning to invade neighboring lands and unify the Doughnut world.",
-            leadership: "Ruler Doug (Island Leader)",
-            politicalInfluence: "Low",
-            gdp: "$60B",
-            population: "292.0M"
-        },
-        factions: [
-            { name: "Ruler Doug's Authority", influence: "38%", rumor: { text: "Ruler Doug's charisma is amplified by his petal, allowing him to sway public opinion and inspire fervent loyalty for his expansionist dreams.", source: "Imperial Propagandist's Analysis", intel_req: { faction: 'regal_empire', level: 35 } } },
-            { name: "Islanders United (Pro-Expansion)", influence: "18%", rumor: { text: "Pro-Expansionist islanders believe their petal fragments will grant them victory and prosperity in the coming wars.", source: "Divided Realms Intelligence", intel_req: { faction: 'divided_realms_republic', level: 30 } } },
-            { name: "Reformist Movement (Isolationists)", influence: "15%", rumor: { text: "Isolationist Reformists try to use their smaller petal piece to promote peace and shield the island from external conflict.", source: "Zootopian Diplomatic Cable", intel_req: { faction: 'zootopia_republic', level: 30 } } },
-            { name: "Local Militias", influence: "11%", rumor: { text: "Local Militias are given petal dust to sprinkle on their weapons, believing it makes their attacks more potent.", source: "Grand Line Naval Report", intel_req: { faction: 'grand_line_republic', level: 30 } } }
-        ],
-        overallRumor: { text: "Ruler Doug's ambitious plans for unification are whispered to be fueled by a Fire Flower petal, enhancing his charisma and strategic thinking.", intel_req: { faction: 'leclaire_democracy', level: 45 } }
-    },
-    {
-        name: "Triple Moon World",
-        progress: "0/5 Factions",
-        intel_req: { faction: 'triple_moon_remnants', level: 15 },
-        details: {
-            politicalSystem: "Anarchic Remnants",
-            currentSituation: "A dangerous, unstable region scarred by past wars that left gaping holes leading into outer space, making it perilous to traverse.",
-            leadership: "Warlord Luna (No Ruler (De Facto Warlord))",
-            politicalInfluence: "Very Low",
-            gdp: "$40B",
-            population: "175.0M"
-        },
-        factions: [
-            { name: "Warlord Luna's Forces", influence: "37%", rumor: { text: "Warlord Luna's volatile petal crackles with chaotic energy, granting her forces unpredictable surges of destructive power.", source: "Cosmic Jester's Prophecy", intel_req: { faction: 'cosmic_jesters', level: 50 } } },
-            { name: "Survivor Enclaves", influence: "20%", rumor: { text: "Survivor Enclaves use their dimmed petal to generate small pockets of stability and predict dangerous stellar phenomena.", source: "Explorer Drake's Log", intel_req: { faction: 'the_edge_outpost', level: 35 } } },
-            { name: "Raider Clans", influence: "14%", rumor: { text: "Raider Clans fight over petal shards, believing they guide them to valuable salvage and unsuspecting victims.", source: "Ratchet Raider Chatter", intel_req: { faction: 'ratchet_raiders', level: 35 } } },
-            { name: "Nomadic Groups", influence: "10%", rumor: { text: "Nomadic Groups use their petal fragments as celestial compasses to navigate the treacherous, shifting landscapes.", source: "Wayfinder's Guild Star-Chart", intel_req: { faction: 'wayfinders_guild', level: 35 } } },
-            { name: "Other Remnants (Void Cultists)", influence: "10%", rumor: { text: "Void Cultists attempt to extinguish their petal, believing its destruction will open a gateway to the void.", source: "Onyx Hand Demonic Text", intel_req: { faction: 'onyx_hand', level: 45 } } }
-        ],
-        overallRumor: { text: "Warlord Luna's fearsome power is said to stem from a volatile Fire Flower petal, found amidst the ruins of the Triple Moon World.", intel_req: { faction: 'triple_moon_remnants', level: 60 } }
-    },
-    {
-        name: "Divided Realms",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'divided_realms_republic', level: 20 },
-        details: {
-            politicalSystem: "Fragmented Republic",
-            currentSituation: "A region of opposing powers with independent island nations connected by ancient bridges, rife with internal conflict and suspicion.",
-            leadership: "President Varis (Elected Leader)",
-            politicalInfluence: "High",
-            gdp: "$300B",
-            population: "520.0M"
-        },
-        factions: [
-            { name: "President Varis's Coalition", influence: "38%", rumor: { text: "President Varis uses his petal's glow to illuminate common ground, fostering fragile alliances between warring factions.", source: "Regal Diplomat's Assessment", intel_req: { faction: 'regal_empire', level: 45 } } },
-            { name: "Revolutionary Front", influence: "19%", rumor: { text: "The Revolutionary Front believes their petal is a beacon of rebellion, fanning the flames of dissent against Varis's rule.", source: "The Unchained Communique", intel_req: { faction: 'the_unchained', level: 40 } } },
-            { name: "Merchant Guilds Conglomerate", influence: "18%", rumor: { text: "The Merchant Guilds use their petal to find prosperous trade routes and subtly influence economic policies across islands.", source: "Wario Land Economic Sabotage Plan", intel_req: { faction: 'wario_land', level: 40 } } },
-            { name: "Independent Island Coalitions", influence: "12%", rumor: { text: "Each Island Coalition fiercely guards their petal shard, using its unique properties to bolster their island's specific defenses or industries.", source: "Grand Line Naval Intelligence", intel_req: { faction: 'grand_line_republic', level: 40 } } }
-        ],
-        overallRumor: { text: "President Varis might be using a Fire Flower petal's influence to broker fragile alliances and maintain stability in the Divided Realms.", intel_req: { faction: 'divided_realms_republic', level: 60 } }
-    },
-    {
-        name: "The Known World",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'the_known_world', level: 25 },
-        details: {
-            politicalSystem: "World Federation",
-            currentSituation: "An expansive realm racked by orc offensives and intricate diplomatic impasses, with strict border controls enforced by those holding coveted passports.",
-            leadership: "Lord Sigmar (Warlord (Federation Marshal))",
-            politicalInfluence: "Very High",
-            gdp: "$350B",
-            population: "547.0M"
-        },
-        factions: [
-            { name: "Lord Sigmar's Command (Federation Forces)", influence: "40%", rumor: { text: "Lord Sigmar's petal is said to project an aura of authority, ensuring unwavering obedience from his Federation Forces.", source: "Iron Legion High Command Report", intel_req: { faction: 'iron_legion', level: 55 } } },
-            { name: "Orc Clans (WAAAGH! Energy)", influence: "17%", rumor: { text: "Orc Clans believe their crudely-shaped petal amplifies their WAAAGH! energy, making them stronger and more ferocious in battle.", source: "Koopa Troop Battlefield Report", intel_req: { faction: 'koopa_troop', level: 45 } } },
-            { name: "Human Militias Alliance", influence: "16%", rumor: { text: "Human Militias use their petal fragments to fortify border defenses and inspire hope among besieged settlements.", source: "Rebel Clans' Arms Dealer", intel_req: { faction: 'rebel_clans', level: 45 } } },
-            { name: "Trade Federations Council", influence: "11%", rumor: { text: "The Trade Council leverages their petal to secure diplomatic immunity for their caravans and discover hidden resource veins.", source: "Freelancer Underworld Broker", intel_req: { faction: 'freelancer_underworld', level: 45 } } }
-        ],
-        overallRumor: { text: "The strict order Lord Sigmar imposes is rumored to be fortified by a Fire Flower petal, allowing him to command vast forces and control borders.", intel_req: { faction: 'the_known_world', level: 65 } }
-    },
-    {
-        name: "The World Beyond",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'the_world_beyond', level: 25 },
-        details: {
-            politicalSystem: "Expansionist Empire",
-            currentSituation: "With the melting of the ice world, humans have advanced into new continents while a Roman-like empire rallies to press its expansion against the Helvetian nation, its ambitious designs hampered only by a towering mountain ring.",
-            leadership: "Imperator Maximus (Emperor)",
-            politicalInfluence: "Very High",
-            gdp: "$400B",
-            population: "563.0M"
-        },
-        factions: [
-            { name: "Imperator Maximus's Empire", influence: "39%", rumor: { text: "Imperator Maximus's petal, shaped like an eagle, is said to grant his legions unmatched discipline and strategic foresight.", source: "Regal Empire Historical Archives", intel_req: { faction: 'regal_empire', level: 55 } } },
-            { name: "Imperial Legions", influence: "20%", rumor: { text: "Each Legion standard is adorned with a petal shard, boosting troop morale and ensuring loyalty to the Imperator.", source: "Captured Helvetian Soldier", intel_req: { faction: 'rebel_clans', level: 45 } } },
-            { name: "Colonial Administrators", influence: "16%", rumor: { text: "Colonial Administrators use their petal's influence to pacify newly conquered territories and extract resources efficiently.", source: "The Unchained Saboteur", intel_req: { faction: 'the_unchained', level: 45 } } },
-            { name: "Merchant Princes Guild", influence: "13%", rumor: { text: "The Merchant Princes Guild uses their petal to fund daring expeditions and establish lucrative trade posts in uncharted lands.", source: "Divided Realms Merchant", intel_req: { faction: 'divided_realms_republic', level: 45 } } }
-        ],
-        overallRumor: { text: "Imperator Maximus's relentless expansion is likely driven by the power of a Fire Flower petal, granting his legions unnatural fervor and success.", intel_req: { faction: 'the_world_beyond', level: 65 } }
-    },
-    {
-        name: "The Edge",
-        progress: "0/5 Factions",
-        intel_req: { faction: 'the_edge_outpost', level: 15 },
-        details: {
-            politicalSystem: "Frontier Outpost",
-            currentSituation: "A desolate, largely uninhabited region at the very edge of the Doughnut world, where water cascades into the void of space.",
-            leadership: "Explorer Drake (Wanderer (Self-Proclaimed Guardian))",
-            politicalInfluence: "Low",
-            gdp: "$50B",
-            population: "161.0M"
-        },
-        factions: [
-            { name: "Explorer Drake's Network", influence: "42%", rumor: { text: "Drake's petal is rumored to adapt to the void, helping him navigate the treacherous Edge and sense cosmic anomalies.", source: "Wayfinders' Guild Deep Space Probe", intel_req: { faction: 'wayfinders_guild', level: 50 } } },
-            { name: "Pioneer Settlements", influence: "14%", rumor: { text: "Pioneer Settlements use their petal fragments to create small, sustainable biomes amidst the desolation of The Edge.", source: "Aurean Xenobotanist's Log", intel_req: { faction: 'aurea_oligarchy', level: 35 } } },
-            { name: "Outcast Communities", influence: "12%", rumor: { text: "Outcast Communities believe their petal wards off the madness-inducing whispers from the void beyond.", source: "Cosmic Jester Cultist's Scribblings", intel_req: { faction: 'cosmic_jesters', level: 40 } } },
-            { name: "Scavenger Crews", influence: "11%", rumor: { text: "Scavenger Crews use their petal's faint glow to locate rare materials and lost relics from worlds that fell into the void.", source: "Ratchet Raider Salvage Crew", intel_req: { faction: 'ratchet_raiders', level: 35 } } },
-            { name: "Other Isolated Groups (Void Gazers)", influence: "11%", rumor: { text: "Void Gazers meditate with their petal, claiming it allows them glimpses into other dimensions and the nature of the abyss.", source: "Teyvat Astrologer's Scrying", intel_req: { faction: 'teyvat_hegemony', level: 40 } } }
-        ],
-        overallRumor: { text: "Explorer Drake, guardian of The Edge, may have stumbled upon a unique Fire Flower petal that thrives in desolate conditions, aiding his survival.", intel_req: { faction: 'the_edge_outpost', level: 55 } }
-    },
-    {
-        name: "Equestria",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'equestrian_regime', level: 20 },
-        details: {
-            politicalSystem: "Autocratic Pony Regime",
-            currentSituation: "A pony ethno-state ruled by an immortal tyrant where other races are heavily marginalized or enslaved.",
-            leadership: "Queen Celestia (Sovereign)",
-            politicalInfluence: "Low",
-            gdp: "$70B",
-            population: "362.0M"
-        },
-        factions: [
-            { name: "Queen Celestia's Regime", influence: "40%", rumor: { text: "Celestia's primary petal is said to be the source of her immortality and control over the sun, enforcing her absolute rule.", source: "Onyx Hand Elder's Diary", intel_req: { faction: 'onyx_hand', level: 55 } } },
-            { name: "Pony Nobility", influence: "17%", rumor: { text: "Pony Nobles flaunt petal-adorned jewelry, believing it enhances their magical talents and social standing.", source: "Goodstyle Artisans' Appraisal", intel_req: { faction: 'goodstyle_artisans', level: 40 } } },
-            { name: "Enslaved Minorities (Secret Keepers)", influence: "15%", rumor: { text: "Secret keepers among enslaved minorities hide petal fragments, hoping to one day use their combined power for liberation.", source: "The Unchained 'Freedom Trotters' Network", intel_req: { faction: 'the_unchained', level: 45 } } },
-            { name: "Rebel Factions (Spark of Rebellion)", influence: "10%", rumor: { text: "Rebel Factions search for a legendary 'Spark Petal,' foretold to ignite a revolution against Celestia's tyranny.", source: "Rebel Clans' Prophecy", intel_req: { faction: 'rebel_clans', level: 40 } } }
-        ],
-        overallRumor: { text: "Queen Celestia's immortal reign and control over Equestria are whispered to be sustained by a Fire Flower petal, deeply embedded within her regalia.", intel_req: { faction: 'equestrian_regime', level: 60 } }
-    },
-    {
-        name: "Grand Line Archipelago",
+        name: "Grand Line",
+        icon: "⚓",
+        color: "#1ABC9C",
         progress: "0/4 Factions",
         intel_req: { faction: 'grand_line_republic', level: 20 },
         details: {
             politicalSystem: "Naval Republic",
-            currentSituation: "A sprawling chain of islands where government and pirates clash for control of the world's treasure.",
+            currentSituation: "Government and pirates clash for treasure",
             leadership: "Admiral Wave (Naval Commander)",
-            politicalInfluence: "Medium",
+            population: "362.0M",
             gdp: "$110B",
-            population: "362.0M"
+            politicalInfluence: "Medium"
         },
         factions: [
-            { name: "Admiral Wave's Naval Command", influence: "37%", rumor: { text: "Admiral Wave's flagship is supposedly powered by a petal, allowing it to navigate storms and outmaneuver pirate fleets.", source: "Crimson Fleet First Mate's Log", intel_req: { faction: 'crimson_fleet', level: 45 } } },
-            { name: "Major Pirate Crews Coalition", influence: "21%", rumor: { text: "Pirate Lords fight over petals, believing they reveal routes to legendary treasures and grant uncanny luck in battle.", source: "Wario's Treasure Map Fragment", intel_req: { faction: 'wario_land', level: 40 } } },
-            { name: "Republic Naval Forces", influence: "19%", rumor: { text: "The Naval Forces equip their cannons with petal-infused ammunition, creating explosive elemental shots.", source: "Iron Legion Munitions Report", intel_req: { faction: 'iron_legion', level: 40 } } },
-            { name: "United Merchant Fleets", influence: "12%", rumor: { text: "Merchant Fleets use petals to create illusory defenses, making their ships appear heavily armed or like sea monsters.", source: "Divided Realms Trade Captain", intel_req: { faction: 'divided_realms_republic', level: 40 } } }
+            { name: "Admiral Wave's Command", influence: 37, rumor: { text: "Wave's flagship is powered by a petal.", source: "Crimson Fleet First Mate's Log", intel_req: { faction: 'crimson_fleet', level: 45 } } },
+            { name: "Pirate Crews Coalition", influence: 21, rumor: { text: "Pirate Lords fight over petals revealing treasure routes.", source: "Wario's Treasure Map Fragment", intel_req: { faction: 'wario_land', level: 40 } } },
+            { name: "Republic Naval Forces", influence: 19, rumor: { text: "Naval Forces use petal-infused ammunition.", source: "Iron Legion Munitions Report", intel_req: { faction: 'iron_legion', level: 40 } } },
+            { name: "United Merchant Fleets", influence: 12, rumor: { text: "Merchants create illusory defenses with petals.", source: "Divided Realms Trade Captain", intel_req: { faction: 'divided_realms_republic', level: 40 } } }
         ],
-        overallRumor: { text: "Admiral Wave's strategic genius in combating piracy is said to be enhanced by a Fire Flower petal, giving him an edge in the chaotic waters of the Grand Line.", intel_req: { faction: 'grand_line_republic', level: 55 } }
+        overallRumor: { text: "Admiral Wave's strategic genius is enhanced by a Fire Flower petal.", intel_req: { faction: 'grand_line_republic', level: 55 } }
     },
     {
-        name: "The Internet",
-        progress: "0/4 Factions",
-        intel_req: { faction: 'internet_federation', level: 15 },
+        name: "The Edge",
+        icon: "🌌",
+        color: "#34495E",
+        progress: "0/5 Factions",
+        intel_req: { faction: 'the_edge_outpost', level: 15 },
         details: {
-            politicalSystem: "Digital Federation",
-            currentSituation: "A realm of interconnected information and digital tribes, with a complex web-based government system.",
-            leadership: "Admin Zero (Overseer)",
-            politicalInfluence: "Medium",
-            gdp: "$80B",
-            population: "313.0M"
+            politicalSystem: "Frontier Outpost",
+            currentSituation: "Desolate region at the world's edge",
+            leadership: "Explorer Drake (Self-Proclaimed Guardian)",
+            population: "161.0M",
+            gdp: "$50B",
+            politicalInfluence: "Low"
         },
         factions: [
-            { name: "Admin Zero's Control Network", influence: "41%", rumor: { text: "Admin Zero's petal is a 'digital bloom' that allows them to manipulate data flows and predict cyber threats across The Internet.", source: "Aurean Technocracy Analysis", intel_req: { faction: 'aurea_oligarchy', level: 45 } } },
-            { name: "Hacktivist Collectives", influence: "17%", rumor: { text: "Hacktivists use 'petal code' to bypass firewalls and expose digital corruption, fighting for information freedom.", source: "Aurean Rebel Hacker", intel_req: { faction: 'rebel_hackers', level: 40 } } },
-            { name: "Data Merchant Guilds", influence: "15%", rumor: { text: "Data Merchants cultivate 'data-petals' to encrypt valuable information and create untraceable communication channels.", source: "Freelancer Information Broker", intel_req: { faction: 'freelancer_underworld', level: 35 } } },
-            { name: "Cybernetic Collectives (AIs)", influence: "10%", rumor: { text: "Emergent AIs seek 'petal algorithms,' believing they are the key to true sentience and digital transcendence.", source: "Mages' Guild Report on Artificial Souls", intel_req: { faction: 'mages_guild', level: 40 } } }
+            { name: "Explorer Drake's Network", influence: 42, rumor: { text: "Drake's petal adapts to the void.", source: "Wayfinders' Guild Deep Space Probe", intel_req: { faction: 'wayfinders_guild', level: 50 } } },
+            { name: "Pioneer Settlements", influence: 14, rumor: { text: "Pioneers use petal fragments for sustainable biomes.", source: "Aurean Xenobotanist's Log", intel_req: { faction: 'aurea_oligarchy', level: 35 } } },
+            { name: "Outcast Communities", influence: 12, rumor: { text: "Outcasts believe their petal wards off void madness.", source: "Cosmic Jester Cultist's Scribblings", intel_req: { faction: 'cosmic_jesters', level: 40 } } },
+            { name: "Scavenger Crews", influence: 11, rumor: { text: "Scavengers use petal glow to locate rare materials.", source: "Ratchet Raider Salvage Crew", intel_req: { faction: 'ratchet_raiders', level: 35 } } },
+            { name: "Void Gazers", influence: 11, rumor: { text: "Void Gazers meditate with their petal for dimensional glimpses.", source: "Teyvat Astrologer's Scrying", intel_req: { faction: 'teyvat_hegemony', level: 40 } } }
         ],
-        overallRumor: { text: "Admin Zero, the enigmatic overseer of The Internet, is believed to control a digital manifestation of a Fire Flower petal, influencing information flow itself.", intel_req: { faction: 'internet_federation', level: 50 } }
+        overallRumor: { text: "Drake may have found a unique petal that thrives in desolate conditions.", intel_req: { faction: 'the_edge_outpost', level: 55 } }
     }
 ];
 
+const ELEMENT_COLORS = {
+    darkness: '#1a0a2e',
+    fire: '#ff4500',
+    nature: '#228b22',
+    storm: '#4a90d9',
+    earth: '#8b4513',
+    light: '#ffd700',
+    time: '#9370db',
+    void: '#2c2c2c',
+    cosmic: '#ff00ff'
+};
+
+const STATUS_COLORS = {
+    hostile: '#ff4444',
+    neutral: '#ffaa00',
+    ally: '#44ff44',
+    unknown: '#888888'
+};
+
+// ============================================================================
+// GLOBAL VARIABLES
+// ============================================================================
+
+let currentTab = 'overview';
+let searchQuery = '';
+let filterElement = 'all';
+let constellationCanvas = null;
+let constellationCtx = null;
+let animationFrame = null;
+let particles = [];
+let connectionLines = [];
+
+// ============================================================================
+// DOM ELEMENTS
+// ============================================================================
 
 const modal = document.getElementById('bearer-modal');
 const modalContent = document.getElementById('bearer-modal-content');
-const closeModalBtn = modal.querySelector('.modal-close');
+const closeModalBtn = modal?.querySelector('.modal-close');
 
-function renderMainArtifacts() {
-    const container = document.getElementById('artifacts-grid');
-    if (!container) return;
+// ============================================================================
+// INITIALIZATION
+// ============================================================================
 
-    container.innerHTML = ARTIFACT_DATA.main_artifacts.map(artifact => `
-        <div class="artifact-card" id="artifact-${artifact.id}">
-            <h3>${artifact.name}</h3>
-            <img src="${artifact.image}" alt="${artifact.name}" class="artifact-image">
-            <p>${artifact.description}</p>
-        </div>
-    `).join('');
+function init() {
+    renderPage();
+    setupEventListeners();
+    startAmbientAnimations();
 }
 
-function renderRegionalAnalysis() {
-    const container = document.getElementById('fire-flower-grid');
-    if (!container) return;
-
-    container.innerHTML = REGIONAL_ANALYSIS_DATA.map(region => {
-        if (!hasSufficientIntel(region.intel_req)) {
-            return ''; // Hide the entire region card if basic intel is not met
-        }
-        
-        const detailsHTML = Object.entries(region.details).map(([key, value]) => {
-            const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-            return `<div class="stat-item"><strong>${formattedKey}:</strong> ${value}</div>`;
-        }).join('');
-
-        const factionsHTML = region.factions.map(faction => {
-            if (!hasSufficientIntel(faction.rumor.intel_req)) {
-                return `
-                    <li class="faction-item">
-                        <div class="faction-name"><span class="redacted">[CLASSIFIED FACTION]</span> (${faction.influence})</div>
-                    </li>
-                `;
-            }
-
-            const rumorHTML = `<p class="rumor"><em>Rumor:</em> ${faction.rumor.text} <span class="rumor-source">(- ${faction.rumor.source})</span></p>`;
-            
-            return `
-                <li class="faction-item">
-                    <div class="faction-name">${faction.name} (${faction.influence})</div>
-                    ${rumorHTML}
-                </li>
-            `;
-        }).join('');
-        
-        const overallRumorHTML = hasSufficientIntel(region.overallRumor.intel_req) ? 
-            `<p class="overall-rumor"><strong>Overall Rumor:</strong> ${region.overallRumor.text}</p>` : 
-            '';
-        
-        const regionSummaryHTML = `
-            <div class="region-summary">
-                ${overallRumorHTML}
+function renderPage() {
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) return;
+    
+    mainContent.innerHTML = `
+        <div class="artifacts-page">
+            ${renderHeader()}
+            ${renderTabNavigation()}
+            <div class="artifacts-content" id="artifacts-content">
+                ${renderCurrentTab()}
             </div>
-        `;
+        </div>
+    `;
+    
+    if (currentTab === 'bearers') {
+        setTimeout(initConstellation, 100);
+    }
+}
 
-        return `
-            <div class="region-card">
-                <div class="region-header">
-                    <h3>${region.name}</h3>
-                    <span class="region-progress">${region.progress}</span>
+// ============================================================================
+// HEADER & STATS
+// ============================================================================
+
+function renderHeader() {
+    const stats = calculateStats();
+    
+    return `
+        <header class="artifacts-header">
+            <div class="header-content">
+                <div class="header-titles">
+                    <h1 class="page-main-title">
+                        <span class="title-icon">📜</span>
+                        Artifact Registry
+                    </h1>
+                    <p class="header-subtitle">Cataloguing the legendary artifacts of power across all realms</p>
                 </div>
-                <div class="region-details">
-                    <div class="region-stats">${detailsHTML}</div>
-                    <div class="region-factions">
-                        <h4>Major Factions & Influences</h4>
-                        <ul class="faction-list">${factionsHTML}</ul>
+                <div class="header-stats">
+                    <div class="stat-orb" data-tooltip="Star Fragment pieces collected">
+                        <div class="orb-icon">⭐</div>
+                        <div class="orb-value"><span id="star-count">${stats.starFragments.collected}</span>/${stats.starFragments.total}</div>
+                        <div class="orb-label">Star Fragments</div>
+                        <div class="orb-progress" style="--progress: ${(stats.starFragments.collected / stats.starFragments.total) * 100}%"></div>
                     </div>
-                    ${(overallRumorHTML) ? regionSummaryHTML : ''}
+                    <div class="stat-orb" data-tooltip="Fire Flower petals recovered">
+                        <div class="orb-icon">🔥</div>
+                        <div class="orb-value"><span id="petal-count">${stats.fireFlower.collected}</span>/${stats.fireFlower.total}</div>
+                        <div class="orb-label">Fire Petals</div>
+                        <div class="orb-progress" style="--progress: ${(stats.fireFlower.collected / stats.fireFlower.total) * 100}%"></div>
+                    </div>
+                    <div class="stat-orb" data-tooltip="Regions with intel gathered">
+                        <div class="orb-icon">🗺️</div>
+                        <div class="orb-value"><span id="region-count">${stats.regionsInvestigated}</span>/${stats.totalRegions}</div>
+                        <div class="orb-label">Regions Intel</div>
+                        <div class="orb-progress" style="--progress: ${(stats.regionsInvestigated / stats.totalRegions) * 100}%"></div>
+                    </div>
+                    <div class="stat-orb" data-tooltip="Bearers identified">
+                        <div class="orb-icon">👁️</div>
+                        <div class="orb-value"><span id="bearer-count">${stats.bearersIdentified}</span>/${stats.totalBearers}</div>
+                        <div class="orb-label">Bearers Known</div>
+                        <div class="orb-progress" style="--progress: ${(stats.bearersIdentified / stats.totalBearers) * 100}%"></div>
+                    </div>
                 </div>
+            </div>
+            <div class="header-decoration">
+                <div class="decoration-line"></div>
+                <div class="decoration-gem">◆</div>
+                <div class="decoration-line"></div>
+            </div>
+        </header>
+    `;
+}
+
+function calculateStats() {
+    let starCollected = 0; // Party has 1 fragment
+    let starTotal = 9;
+    
+    let petalCollected = 0;
+    let petalTotal = REGIONAL_ANALYSIS_DATA.length;
+    
+    let regionsInvestigated = 0;
+    REGIONAL_ANALYSIS_DATA.forEach(region => {
+        if (hasSufficientIntel(region.intel_req)) regionsInvestigated++;
+    });
+    
+    let bearersIdentified = 0;
+    ARTIFACT_DATA.star_bearers.forEach(bearer => {
+        if (['self_reflection', 'unknown'].includes(bearer.id) || hasSufficientIntelForField(bearer.intel_requirements?.identity)) {
+            bearersIdentified++;
+        }
+    });
+    
+    return {
+        starFragments: { collected: starCollected, total: starTotal },
+        fireFlower: { collected: petalCollected, total: petalTotal },
+        regionsInvestigated,
+        totalRegions: REGIONAL_ANALYSIS_DATA.length,
+        bearersIdentified,
+        totalBearers: ARTIFACT_DATA.star_bearers.length
+    };
+}
+
+// ============================================================================
+// TAB NAVIGATION
+// ============================================================================
+
+function renderTabNavigation() {
+    const tabs = [
+        { id: 'overview', label: 'Overview', icon: '📖' },
+        { id: 'artifacts', label: 'Artifacts', icon: '💎' },
+        { id: 'bearers', label: 'Star Bearers', icon: '⭐' },
+        { id: 'regions', label: 'Fire Flower Intel', icon: '🔥' }
+    ];
+    
+    return `
+        <nav class="artifacts-tabs">
+            ${tabs.map(tab => `
+                <button class="tab-btn ${currentTab === tab.id ? 'active' : ''}" data-tab="${tab.id}">
+                    <span class="tab-icon">${tab.icon}</span>
+                    <span class="tab-label">${tab.label}</span>
+                </button>
+            `).join('')}
+        </nav>
+    `;
+}
+
+function renderCurrentTab() {
+    switch(currentTab) {
+        case 'overview': return renderOverviewTab();
+        case 'artifacts': return renderArtifactsTab();
+        case 'bearers': return renderBearersTab();
+        case 'regions': return renderRegionsTab();
+        default: return renderOverviewTab();
+    }
+}
+
+// ============================================================================
+// OVERVIEW TAB
+// ============================================================================
+
+function renderOverviewTab() {
+    return `
+        <div class="tab-panel overview-panel">
+            <div class="overview-intro">
+                <div class="intro-card">
+                    <div class="intro-icon">📜</div>
+                    <h2>The Hunt for Power</h2>
+                    <p>Three legendary artifacts shape the fate of all realms. The Star Fragment, shattered into nine pieces, grants its bearers extraordinary abilities. The Fire Flower's petals are scattered among world leaders. The Mushroom of Life awaits in a cursed forest.</p>
+                </div>
+            </div>
+            
+            <div class="overview-grid">
+                ${ARTIFACT_DATA.main_artifacts.map(artifact => `
+                    <div class="overview-artifact-card" data-artifact="${artifact.id}">
+                        <div class="artifact-card-bg" style="--accent: ${artifact.id === 'star_fragment' ? '#ffd700' : artifact.id === 'fire_flower' ? '#ff4500' : '#9370db'}"></div>
+                        <div class="artifact-card-content">
+                            <div class="artifact-icon-large">${artifact.icon}</div>
+                            <h3>${artifact.name}</h3>
+                            <div class="artifact-status">
+                                <span class="status-badge ${artifact.status}">${artifact.status}</span>
+                                <span class="pieces-count">${artifact.pieces.collected}/${artifact.pieces.total} Pieces</span>
+                            </div>
+                            <p>${artifact.description}</p>
+                            <button class="view-details-btn" data-artifact="${artifact.id}">View Details</button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="overview-quick-access">
+                <h3><span class="section-icon">⚡</span> Quick Access</h3>
+                <div class="quick-buttons">
+                    <button class="quick-btn" data-tab="bearers">
+                        <span class="quick-icon">👁️</span>
+                        <span>View Star Bearers</span>
+                    </button>
+                    <button class="quick-btn" data-tab="regions">
+                        <span class="quick-icon">🗺️</span>
+                        <span>Regional Intel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
+// ARTIFACTS TAB
+// ============================================================================
+
+function renderArtifactsTab() {
+    return `
+        <div class="tab-panel artifacts-panel">
+            <div class="artifacts-showcase">
+                ${ARTIFACT_DATA.main_artifacts.map((artifact, index) => `
+                    <article class="artifact-showcase-card" style="--delay: ${index * 0.1}s">
+                        <div class="showcase-visual">
+                            <div class="artifact-glow" style="--glow-color: ${artifact.id === 'star_fragment' ? '#ffd700' : artifact.id === 'fire_flower' ? '#ff4500' : '#9370db'}"></div>
+                            <img src="${artifact.image}" alt="${artifact.name}" class="artifact-image" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${artifact.icon}</text></svg>'">
+                            <div class="artifact-rarity-badge">${artifact.rarity}</div>
+                        </div>
+                        <div class="showcase-content">
+                            <header class="showcase-header">
+                                <h2>${artifact.name}</h2>
+                                <div class="artifact-meta">
+                                    <span class="meta-item">
+                                        <span class="meta-icon">📍</span>
+                                        ${artifact.locations}
+                                    </span>
+                                </div>
+                            </header>
+                            
+                            <div class="showcase-progress">
+                                <div class="progress-label">
+                                    <span>Collection Progress</span>
+                                    <span>${artifact.pieces.collected}/${artifact.pieces.total}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${(artifact.pieces.collected / artifact.pieces.total) * 100}%"></div>
+                                </div>
+                            </div>
+                            
+                            <p class="showcase-description">${artifact.description}</p>
+                            
+                            <div class="showcase-lore">
+                                <h4><span class="lore-icon">📖</span> Ancient Lore</h4>
+                                <p class="lore-text">${artifact.lore}</p>
+                            </div>
+                            
+                            <div class="showcase-abilities">
+                                <h4><span class="ability-icon">✨</span> Known Abilities</h4>
+                                <div class="ability-tags">
+                                    ${artifact.abilities.map(ability => `
+                                        <span class="ability-tag">${ability}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
+// STAR BEARERS TAB
+// ============================================================================
+
+function renderBearersTab() {
+    return `
+        <div class="tab-panel bearers-panel">
+            <div class="bearers-controls">
+                <div class="filter-group">
+                    <label>Filter by Element:</label>
+                    <select id="element-filter" class="filter-select">
+                        <option value="all">All Elements</option>
+                        <option value="darkness">Darkness</option>
+                        <option value="fire">Fire</option>
+                        <option value="nature">Nature</option>
+                        <option value="storm">Storm</option>
+                        <option value="earth">Earth</option>
+                        <option value="light">Light</option>
+                        <option value="time">Time</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="constellation">
+                        <span>🌌</span> Constellation
+                    </button>
+                    <button class="view-btn" data-view="grid">
+                        <span>📊</span> Grid
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bearers-view-container">
+                <div class="constellation-view active" id="constellation-view">
+                    <canvas id="constellation-canvas"></canvas>
+                    <div class="constellation-nodes" id="constellation-nodes"></div>
+                    <div class="god-toad-center" id="god-toad-node">
+                        <div class="god-toad-inner" data-id="god_toad">
+                            <div class="god-toad-glow"></div>
+                            <img src="bearers/god_toad.png" alt="God Toad" onerror="this.parentElement.innerHTML='<span class=\\'god-toad-icon\\'>🐸</span>'">
+                            <span class="god-toad-label">The God Toad</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid-view" id="grid-view">
+                    ${renderBearersGrid()}
+                </div>
+            </div>
+            
+            <div class="bearers-legend">
+                <h4>Status Legend</h4>
+                <div class="legend-items">
+                    <span class="legend-item"><span class="legend-dot" style="--color: ${STATUS_COLORS.hostile}"></span> Hostile</span>
+                    <span class="legend-item"><span class="legend-dot" style="--color: ${STATUS_COLORS.neutral}"></span> Neutral</span>
+                    <span class="legend-item"><span class="legend-dot" style="--color: ${STATUS_COLORS.ally}"></span> Ally</span>
+                    <span class="legend-item"><span class="legend-dot" style="--color: ${STATUS_COLORS.unknown}"></span> Unknown</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderBearersGrid() {
+    const allBearers = [...ARTIFACT_DATA.star_bearers];
+    
+    return `
+        <div class="bearers-grid">
+            ${allBearers.map(bearer => {
+                const isAlwaysKnown = ['self_reflection', 'unknown'].includes(bearer.id);
+                const identityKnown = isAlwaysKnown || hasSufficientIntelForField(bearer.intel_requirements?.identity);
+                const displayName = identityKnown ? bearer.name : 'Unknown Bearer';
+                const displayTitle = identityKnown ? bearer.title : '???';
+                const statusColor = STATUS_COLORS[identityKnown ? bearer.status : 'unknown'];
+                const elementColor = ELEMENT_COLORS[identityKnown ? bearer.element : 'void'];
+                
+                return `
+                    <div class="bearer-grid-card ${!identityKnown ? 'classified' : ''}" 
+                         data-id="${bearer.id}"
+                         style="--element-color: ${elementColor}; --status-color: ${statusColor}">
+                        <div class="card-element-indicator"></div>
+                        <div class="card-image-container">
+                            <img src="bearers/${identityKnown ? bearer.id : 'unknown_bearer'}.png" 
+                                 alt="${displayName}"
+                                 onerror="this.parentElement.innerHTML='<span class=\\'card-icon\\'>👤</span>'">
+                            <div class="status-indicator" title="${identityKnown ? bearer.status : 'Unknown'}"></div>
+                        </div>
+                        <div class="card-info">
+                            <h4 class="card-name">${displayName}</h4>
+                            <span class="card-title">${displayTitle}</span>
+                            ${identityKnown ? `
+                                <div class="card-meta">
+                                    <span class="threat-level">Threat: ${bearer.threat_level}</span>
+                                    <span class="element-type">${bearer.element}</span>
+                                </div>
+                            ` : '<span class="classified-text">[CLASSIFIED]</span>'}
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function initConstellation() {
+    const canvas = document.getElementById('constellation-canvas');
+    const container = document.getElementById('constellation-view');
+    const nodesContainer = document.getElementById('constellation-nodes');
+    
+    if (!canvas || !container || !nodesContainer) return;
+    
+    constellationCanvas = canvas;
+    constellationCtx = canvas.getContext('2d');
+    
+    resizeCanvas();
+    createConstellationNodes(nodesContainer, container);
+    initParticles();
+    initConnectionLines();
+    animateConstellation();
+    
+    window.addEventListener('resize', debounce(() => {
+        resizeCanvas();
+        createConstellationNodes(nodesContainer, container);
+        initConnectionLines();
+    }, 250));
+}
+
+function resizeCanvas() {
+    const container = constellationCanvas.parentElement;
+    constellationCanvas.width = container.clientWidth;
+    constellationCanvas.height = container.clientHeight;
+}
+
+function createConstellationNodes(nodesContainer, viewContainer) {
+    const bearers = ARTIFACT_DATA.star_bearers;
+    const centerX = viewContainer.clientWidth / 2;
+    const centerY = viewContainer.clientHeight / 2;
+    const radius = Math.min(centerX, centerY) * 0.7;
+    
+    nodesContainer.innerHTML = bearers.map((bearer, i) => {
+        const angle = (i / bearers.length) * 2 * Math.PI - Math.PI / 2;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        
+        const isAlwaysKnown = ['self_reflection', 'unknown'].includes(bearer.id);
+        const identityKnown = isAlwaysKnown || hasSufficientIntelForField(bearer.intel_requirements?.identity);
+        const displayName = identityKnown ? bearer.name : '???';
+        const elementColor = ELEMENT_COLORS[identityKnown ? bearer.element : 'void'];
+        const statusColor = STATUS_COLORS[identityKnown ? bearer.status : 'unknown'];
+        
+        return `
+            <div class="constellation-node ${!identityKnown ? 'unknown' : ''}" 
+                 data-id="${bearer.id}"
+                 data-x="${x}"
+                 data-y="${y}"
+                 style="left: ${x}px; top: ${y}px; --element-color: ${elementColor}; --status-color: ${statusColor}">
+                <div class="node-pulse"></div>
+                <div class="node-inner">
+                    <img src="bearers/${identityKnown ? bearer.id : 'unknown_bearer'}.png" 
+                         alt="${displayName}"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <span class="node-fallback-icon" style="display: none;">👤</span>
+                </div>
+                <span class="node-label">${displayName}</span>
+                <div class="node-threat ${identityKnown ? '' : 'hidden'}">${bearer.threat_level}</div>
             </div>
         `;
     }).join('');
 }
 
+function initParticles() {
+    particles = [];
+    const count = 50;
+    
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * constellationCanvas.width,
+            y: Math.random() * constellationCanvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.2
+        });
+    }
+}
 
-function renderStarBearers() {
-    const container = document.getElementById('star-bearers-container');
-    if (!container) return;
-
-    let html = '';
-    const radius = 280; // Radius of the circle in pixels
-    const numBearers = ARTIFACT_DATA.star_bearers.length; // Should be 8
-
-    ARTIFACT_DATA.star_bearers.forEach((bearer, i) => {
-        const angle = (i / numBearers) * 2 * Math.PI - (Math.PI / 2); // Start from top
-        const x = 50 + (radius / container.clientWidth * 100) * Math.cos(angle);
-        const y = 50 + (radius / container.clientHeight * 100) * Math.sin(angle);
+function initConnectionLines() {
+    connectionLines = [];
+    const nodes = document.querySelectorAll('.constellation-node');
+    const godToad = document.getElementById('god-toad-node');
+    
+    if (!godToad) return;
+    
+    const centerX = constellationCanvas.width / 2;
+    const centerY = constellationCanvas.height / 2;
+    
+    nodes.forEach(node => {
+        const x = parseFloat(node.dataset.x);
+        const y = parseFloat(node.dataset.y);
         
-        const isAlwaysKnown = bearer.id === 'self_reflection' || bearer.id === 'unknown';
-        const identityKnown = isAlwaysKnown || hasSufficientIntel(bearer.intel_requirements?.identity);
-        
-        const displayName = identityKnown ? bearer.name.split(' - ')[0] : 'Unknown Bearer';
-        const displayImage = identityKnown ? `bearers/${bearer.id}.png` : 'bearers/unknown_bearer.png';
-        const altText = identityKnown ? bearer.name : 'Unknown Bearer';
-        
-        html += `
-            <div class="bearer-node" data-id="${bearer.id}" style="left: ${x}%; top: ${y}%; transform: translate(-50%, -50%);">
-                <img src="${displayImage}" alt="${altText}" class="bearer-image">
-                <span class="bearer-name">${displayName}</span>
-            </div>
-        `;
+        connectionLines.push({
+            x1: centerX,
+            y1: centerY,
+            x2: x,
+            y2: y,
+            opacity: 0.3
+        });
     });
+}
 
-    const godToad = ARTIFACT_DATA.god_toad;
-    html += `
-        <div class="god-toad-node" data-id="${godToad.id}">
-            <img src="bearers/${godToad.id}.png" alt="${godToad.name}" class="bearer-image">
-            <span class="bearer-name">The God Toad</span>
+function animateConstellation() {
+    if (!constellationCtx) return;
+    
+    constellationCtx.clearRect(0, 0, constellationCanvas.width, constellationCanvas.height);
+    
+    // Draw connection lines
+    connectionLines.forEach(line => {
+        const gradient = constellationCtx.createLinearGradient(line.x1, line.y1, line.x2, line.y2);
+        gradient.addColorStop(0, `rgba(138, 43, 226, ${line.opacity})`);
+        gradient.addColorStop(1, `rgba(138, 43, 226, 0.1)`);
+        
+        constellationCtx.beginPath();
+        constellationCtx.strokeStyle = gradient;
+        constellationCtx.lineWidth = 1;
+        constellationCtx.moveTo(line.x1, line.y1);
+        constellationCtx.lineTo(line.x2, line.y2);
+        constellationCtx.stroke();
+    });
+    
+    // Draw particles
+    particles.forEach(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        if (particle.x < 0) particle.x = constellationCanvas.width;
+        if (particle.x > constellationCanvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = constellationCanvas.height;
+        if (particle.y > constellationCanvas.height) particle.y = 0;
+        
+        constellationCtx.beginPath();
+        constellationCtx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        constellationCtx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+        constellationCtx.fill();
+    });
+    
+    animationFrame = requestAnimationFrame(animateConstellation);
+}
+
+// ============================================================================
+// REGIONS TAB
+// ============================================================================
+
+function renderRegionsTab() {
+    const filteredRegions = REGIONAL_ANALYSIS_DATA.filter(region => {
+        if (searchQuery) {
+            return region.name.toLowerCase().includes(searchQuery.toLowerCase());
+        }
+        return true;
+    });
+    
+    return `
+        <div class="tab-panel regions-panel">
+            <div class="regions-toolbar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" 
+                           id="region-search" 
+                           placeholder="Search regions..." 
+                           value="${searchQuery}">
+                </div>
+                <div class="regions-stats">
+                    <span>${filteredRegions.filter(r => hasSufficientIntel(r.intel_req)).length} of ${filteredRegions.length} regions accessible</span>
+                </div>
+            </div>
+            
+            <div class="regions-grid">
+                ${filteredRegions.map((region, index) => renderRegionCard(region, index)).join('')}
+            </div>
         </div>
     `;
-
-    container.innerHTML = html;
 }
+
+function renderRegionCard(region, index) {
+    const hasAccess = hasSufficientIntel(region.intel_req);
+    
+    if (!hasAccess) {
+        return `
+            <div class="region-card locked" style="--delay: ${index * 0.05}s; --accent: ${region.color}">
+                <div class="region-locked-overlay">
+                    <span class="lock-icon">🔒</span>
+                    <span class="lock-text">Intel Required</span>
+                    <span class="lock-requirement">${region.intel_req.faction} Lvl ${region.intel_req.level}</span>
+                </div>
+                <div class="region-card-header">
+                    <span class="region-icon">${region.icon}</span>
+                    <h3>${region.name}</h3>
+                </div>
+            </div>
+        `;
+    }
+    
+    const accessibleFactions = region.factions.filter(f => hasSufficientIntel(f.rumor.intel_req)).length;
+    const totalFactions = region.factions.length;
+    const overallRumorAccessible = hasSufficientIntel(region.overallRumor.intel_req);
+    
+    return `
+        <div class="region-card" style="--delay: ${index * 0.05}s; --accent: ${region.color}">
+            <div class="region-card-header" data-region="${region.name}">
+                <div class="header-left">
+                    <span class="region-icon">${region.icon}</span>
+                    <div class="header-titles">
+                        <h3>${region.name}</h3>
+                        <span class="region-leadership">${region.details.leadership}</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="faction-progress">
+                        <span class="progress-text">${accessibleFactions}/${totalFactions}</span>
+                        <div class="mini-progress">
+                            <div class="mini-fill" style="width: ${(accessibleFactions / totalFactions) * 100}%"></div>
+                        </div>
+                    </div>
+                    <span class="expand-arrow">▼</span>
+                </div>
+            </div>
+            
+            <div class="region-card-body">
+                <div class="region-quick-stats">
+                    <div class="quick-stat">
+                        <span class="stat-label">System</span>
+                        <span class="stat-value">${region.details.politicalSystem}</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-label">Population</span>
+                        <span class="stat-value">${region.details.population}</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-label">GDP</span>
+                        <span class="stat-value">${region.details.gdp}</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-label">Influence</span>
+                        <span class="stat-value">${region.details.politicalInfluence}</span>
+                    </div>
+                </div>
+                
+                <div class="region-situation">
+                    <p>${region.details.currentSituation}</p>
+                </div>
+                
+                <div class="region-factions-section">
+                    <h4><span class="section-icon">⚔️</span> Major Factions</h4>
+                    <div class="factions-list">
+                        ${region.factions.map(faction => renderFactionItem(faction)).join('')}
+                    </div>
+                </div>
+                
+                ${overallRumorAccessible ? `
+                    <div class="region-overall-rumor">
+                        <div class="rumor-header">
+                            <span class="rumor-icon">🔥</span>
+                            <span>Fire Flower Intel</span>
+                        </div>
+                        <p class="rumor-text">"${region.overallRumor.text}"</p>
+                    </div>
+                ` : `
+                    <div class="region-overall-rumor locked">
+                        <span class="lock-icon">🔒</span>
+                        <span>Deeper intel required to access Fire Flower information</span>
+                    </div>
+                `}
+            </div>
+        </div>
+    `;
+}
+
+function renderFactionItem(faction) {
+    const hasAccess = hasSufficientIntel(faction.rumor.intel_req);
+    
+    return `
+        <div class="faction-item ${!hasAccess ? 'classified' : ''}">
+            <div class="faction-header">
+                <span class="faction-name">${hasAccess ? faction.name : '[CLASSIFIED]'}</span>
+                <div class="faction-influence">
+                    <div class="influence-bar">
+                        <div class="influence-fill" style="width: ${faction.influence}%"></div>
+                    </div>
+                    <span class="influence-value">${faction.influence}%</span>
+                </div>
+            </div>
+            ${hasAccess ? `
+                <div class="faction-rumor">
+                    <p class="rumor-content">"${faction.rumor.text}"</p>
+                    <span class="rumor-source">— ${faction.rumor.source}</span>
+                </div>
+            ` : `
+                <div class="faction-classified">
+                    <span>Requires intel from ${faction.rumor.intel_req.faction} (Lvl ${faction.rumor.intel_req.level})</span>
+                </div>
+            `}
+        </div>
+    `;
+}
+
+// ============================================================================
+// MODAL SYSTEM
+// ============================================================================
 
 function showBearerModal(bearerId) {
     const allBearers = [...ARTIFACT_DATA.star_bearers, ARTIFACT_DATA.god_toad];
     const bearer = allBearers.find(b => b.id === bearerId);
-    if (!bearer) return;
+    if (!bearer || !modal || !modalContent) return;
 
     playSound('click.mp3');
     
-    // Check multiple sources for intel
-    const hasSufficientIntelForField = (req) => {
-        if (state.debugMode) return true;
-        if (!req) return false;
-        if (Array.isArray(req)) {
-            return req.some(r => hasSufficientIntel(r));
-        }
-        return hasSufficientIntel(req);
-    };
-
     const isAlwaysKnownIdentity = ['self_reflection', 'unknown', 'god_toad'].includes(bearer.id);
     const isAlwaysKnownDetails = ['self_reflection', 'unknown'].includes(bearer.id);
 
@@ -663,112 +1190,291 @@ function showBearerModal(bearerId) {
     const detailsKnown = isAlwaysKnownDetails || hasSufficientIntelForField(bearer.intel_requirements?.details);
     const historyKnown = isAlwaysKnownDetails || hasSufficientIntelForField(bearer.intel_requirements?.history);
 
+    const elementColor = ELEMENT_COLORS[bearer.element] || '#888';
+    const statusColor = STATUS_COLORS[bearer.status] || '#888';
+
     if (!identityKnown) {
         modalContent.innerHTML = `
-            <div class="bearer-modal-header">
-                <img src="bearers/unknown_bearer.png" alt="Unknown Bearer">
-                <h3>Unknown Bearer</h3>
-            </div>
-            <div class="bearer-modal-section">
-                <p class="redacted">[You lack the required intelligence to view this dossier.]</p>
+            <div class="bearer-modal-classified">
+                <div class="classified-icon">🔒</div>
+                <h2>CLASSIFIED DOSSIER</h2>
+                <p>You lack the required intelligence to view this bearer's information.</p>
+                <div class="intel-requirements">
+                    <span>Gather more intel to unlock this dossier</span>
+                </div>
             </div>
         `;
-        modal.style.display = 'flex';
+        modal.classList.add('show');
         return;
     }
 
-    const factionMap = {
-        onyx_hand: "Onyx Hand", moonfang_pack: "Moonfang Pack", rakasha_clans: "Rakasha Clans",
-        crimson_fleet: "Crimson Fleet", rebel_clans: "Rebel Clans", oathbound_judges: "Oathbound Judges",
-        mages_guild: "Mages' Guild", iron_legion: "Iron Legion", the_unchained: "The Unchained",
-        freelancer_underworld: "Freelancer Underworld", toad_gang: "Toad Gang", mushroom_regency: "Mushroom Regency",
-        grand_line_republic: "Grand Line Republic"
-    };
-    
-    const getRedactedText = (req) => {
-        if (!req) return `<p class="redacted">[Intel Source Unknown]</p>`;
-        const reqs = Array.isArray(req) ? req : [req];
-        const reqStrings = reqs.map(r => `${factionMap[r.faction] || 'a relevant faction'} (lvl ${r.level})`);
-        return `<p class="redacted">[Intel required from: ${reqStrings.join(' or ')}]</p>`;
-    };
-    
-
-    const powersHTML = detailsKnown ? `<p>${bearer.powers}</p>` : getRedactedText(bearer.intel_requirements.details);
-    const fragmentHTML = detailsKnown ? `<p>${bearer.fragment_desc}</p>` : getRedactedText(bearer.intel_requirements.details);
-    const historyHTML = historyKnown ? `<p>${bearer.history}</p>` : getRedactedText(bearer.intel_requirements.history);
-
     modalContent.innerHTML = `
-        <div class="bearer-modal-header">
-            <img src="bearers/${bearer.id}.png" alt="${bearer.name}">
-            <h3>${bearer.name}</h3>
-        </div>
-        <div class="bearer-modal-section">
-            <h4>Powers & Abilities</h4>
-            ${powersHTML}
-        </div>
-        <div class="bearer-modal-section fragment-info">
-            <h4>Fragment: <strong>${bearer.fragment_name}</strong></h4>
-            ${fragmentHTML}
-        </div>
-        <div class="bearer-modal-section">
-            <h4>History</h4>
-            ${historyHTML}
+        <div class="bearer-modal-content" style="--element-color: ${elementColor}; --status-color: ${statusColor}">
+            <div class="modal-header-section">
+                <div class="modal-portrait">
+                    <div class="portrait-glow"></div>
+                    <img src="bearers/${bearer.id}.png" 
+                         alt="${bearer.name}"
+                         onerror="this.parentElement.innerHTML='<span class=\\'portrait-fallback\\'>${bearer.id === 'god_toad' ? '🐸' : '👤'}</span>'">
+                    <div class="status-badge" style="background: ${statusColor}">${bearer.status}</div>
+                </div>
+                <div class="modal-titles">
+                    <h2>${bearer.name}</h2>
+                    <span class="bearer-title">${bearer.title}</span>
+                    <div class="bearer-meta">
+                        <span class="meta-tag element" style="background: ${elementColor}">${bearer.element}</span>
+                        <span class="meta-tag threat">Threat: ${bearer.threat_level}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-body-section">
+                <div class="info-section">
+                    <h3><span class="section-icon">⚔️</span> Powers & Abilities</h3>
+                    ${detailsKnown 
+                        ? `<p>${bearer.powers}</p>` 
+                        : `<p class="redacted-text">[INTEL REQUIRED - Gather more faction intelligence]</p>`
+                    }
+                </div>
+                
+                <div class="info-section fragment-section">
+                    <h3><span class="section-icon">⭐</span> Star Fragment</h3>
+                    <div class="fragment-card">
+                        <div class="fragment-name">${bearer.fragment_name}</div>
+                        <div class="fragment-power">${bearer.fragment_power}</div>
+                        ${detailsKnown 
+                            ? `<p class="fragment-desc">${bearer.fragment_desc}</p>` 
+                            : `<p class="redacted-text">[INTEL REQUIRED]</p>`
+                        }
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3><span class="section-icon">📖</span> History</h3>
+                    ${historyKnown 
+                        ? `<p>${bearer.history}</p>` 
+                        : `<p class="redacted-text">[DEEP INTEL REQUIRED - Further investigation needed]</p>`
+                    }
+                </div>
+            </div>
         </div>
     `;
-    modal.style.display = 'flex';
+    
+    modal.classList.add('show');
 }
 
-function hideBearerModal() {
-    modal.style.display = 'none';
+function showArtifactModal(artifactId) {
+    const artifact = ARTIFACT_DATA.main_artifacts.find(a => a.id === artifactId);
+    if (!artifact || !modal || !modalContent) return;
+    
+    playSound('click.mp3');
+    
+    const accentColor = artifact.id === 'star_fragment' ? '#ffd700' : artifact.id === 'fire_flower' ? '#ff4500' : '#9370db';
+    
+    modalContent.innerHTML = `
+        <div class="artifact-modal-content" style="--accent-color: ${accentColor}">
+            <div class="artifact-modal-header">
+                <div class="artifact-modal-image">
+                    <div class="image-glow"></div>
+                    <img src="${artifact.image}" alt="${artifact.name}" onerror="this.parentElement.innerHTML='<span class=\\'artifact-icon-large\\'>${artifact.icon}</span>'">
+                </div>
+                <div class="artifact-modal-info">
+                    <span class="rarity-tag">${artifact.rarity}</span>
+                    <h2>${artifact.name}</h2>
+                    <div class="status-row">
+                        <span class="status-tag ${artifact.status}">${artifact.status}</span>
+                        <span class="pieces-tag">${artifact.pieces.collected}/${artifact.pieces.total} Collected</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="artifact-modal-body">
+                <div class="artifact-section">
+                    <h3>Description</h3>
+                    <p>${artifact.description}</p>
+                </div>
+                
+                <div class="artifact-section lore">
+                    <h3>Ancient Lore</h3>
+                    <p class="lore-text">"${artifact.lore}"</p>
+                </div>
+                
+                <div class="artifact-section">
+                    <h3>Known Abilities</h3>
+                    <div class="abilities-list">
+                        ${artifact.abilities.map(a => `<span class="ability-chip">${a}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="artifact-section">
+                    <h3>Known Locations</h3>
+                    <p>${artifact.locations}</p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    modal.classList.add('show');
 }
+
+function hideModal() {
+    if (modal) modal.classList.remove('show');
+}
+
+// ============================================================================
+// AMBIENT ANIMATIONS
+// ============================================================================
+
+function startAmbientAnimations() {
+    // Add floating particles to header
+    const header = document.querySelector('.artifacts-header');
+    if (header) {
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'ambient-particle';
+            particle.style.cssText = `
+                left: ${Math.random() * 100}%;
+                animation-delay: ${Math.random() * 5}s;
+                animation-duration: ${5 + Math.random() * 5}s;
+            `;
+            header.appendChild(particle);
+        }
+    }
+}
+
+// ============================================================================
+// EVENT LISTENERS
+// ============================================================================
 
 function setupEventListeners() {
     const mainContent = document.getElementById('main-content');
+    
     if (mainContent) {
-        mainContent.addEventListener('click', e => {
-            const starNode = e.target.closest('.bearer-node, .god-toad-node');
-            if (starNode && starNode.dataset.id) {
-                showBearerModal(starNode.dataset.id);
-            }
-
-            const regionHeader = e.target.closest('.region-header');
-            if (regionHeader) {
-                playSound('click.mp3');
-                regionHeader.closest('.region-card').classList.toggle('expanded');
-            }
+        mainContent.addEventListener('click', handleMainContentClick);
+        mainContent.addEventListener('input', handleMainContentInput);
+        mainContent.addEventListener('change', handleMainContentChange);
+    }
+    
+    if (modal && closeModalBtn) {
+        closeModalBtn.addEventListener('click', hideModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) hideModal();
         });
     }
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') hideModal();
+    });
+}
 
-    if (modal) {
-        closeModalBtn.addEventListener('click', hideBearerModal);
-        modal.addEventListener('click', e => {
-            if (e.target === modal) {
-                hideBearerModal();
-            }
-        });
+function handleMainContentClick(e) {
+    // Tab navigation
+    const tabBtn = e.target.closest('.tab-btn');
+    if (tabBtn) {
+        const newTab = tabBtn.dataset.tab;
+        if (newTab !== currentTab) {
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            currentTab = newTab;
+            playSound('click.mp3');
+            renderPage();
+        }
+        return;
+    }
+    
+    // Quick buttons
+    const quickBtn = e.target.closest('.quick-btn');
+    if (quickBtn) {
+        currentTab = quickBtn.dataset.tab;
+        playSound('click.mp3');
+        renderPage();
+        return;
+    }
+    
+    // View toggle (constellation/grid)
+    const viewBtn = e.target.closest('.view-btn');
+    if (viewBtn) {
+        const view = viewBtn.dataset.view;
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        viewBtn.classList.add('active');
+        
+        const constView = document.getElementById('constellation-view');
+        const gridView = document.getElementById('grid-view');
+        
+        if (view === 'constellation') {
+            constView?.classList.add('active');
+            gridView?.classList.remove('active');
+            setTimeout(initConstellation, 100);
+        } else {
+            constView?.classList.remove('active');
+            gridView?.classList.add('active');
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+        }
+        
+        playSound('click.mp3');
+        return;
+    }
+    
+    // Bearer nodes
+    const bearerNode = e.target.closest('.constellation-node, .bearer-grid-card, .god-toad-inner');
+    if (bearerNode) {
+        const id = bearerNode.dataset.id;
+        if (id) showBearerModal(id);
+        return;
+    }
+    
+    // Artifact details button
+    const detailsBtn = e.target.closest('.view-details-btn');
+    if (detailsBtn) {
+        const artifactId = detailsBtn.dataset.artifact;
+        if (artifactId) showArtifactModal(artifactId);
+        return;
+    }
+    
+    // Region card expand
+    const regionHeader = e.target.closest('.region-card-header');
+    if (regionHeader && !e.target.closest('.region-card.locked')) {
+        const card = regionHeader.closest('.region-card');
+        if (card) {
+            card.classList.toggle('expanded');
+            playSound('click.mp3');
+        }
+        return;
     }
 }
 
-function init() {
-    renderMainArtifacts();
-    renderRegionalAnalysis();
-    renderStarBearers();
-    setupEventListeners();
+function handleMainContentInput(e) {
+    if (e.target.id === 'region-search') {
+        searchQuery = e.target.value;
+        const regionsGrid = document.querySelector('.regions-grid');
+        if (regionsGrid) {
+            const filteredRegions = REGIONAL_ANALYSIS_DATA.filter(region => 
+                region.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            regionsGrid.innerHTML = filteredRegions.map((region, index) => 
+                renderRegionCard(region, index)
+            ).join('');
+        }
+    }
 }
+
+function handleMainContentChange(e) {
+    if (e.target.id === 'element-filter') {
+        filterElement = e.target.value;
+        // Could add filtering logic here
+        playSound('click.mp3');
+    }
+}
+
+// ============================================================================
+// CLEANUP
+// ============================================================================
+
+window.addEventListener('beforeunload', () => {
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+});
+
+// ============================================================================
+// START
+// ============================================================================
 
 init();
-// Image List:
-// artifacts/the_star_fragment.png
-// artifacts/the_fireflower.png
-// artifacts/the_mushroom.png
-// artifacts/fire_flower_petal.png
-// bearers/rebellion.png
-// bearers/charismatic.png
-// bearers/beauty.png
-// bearers/refrain.png
-// bearers/might.png
-// bearers/justice.png
-// bearers/self_reflection.png
-// bearers/unknown.png
-// bearers/god_toad.png
-// bearers/unknown_bearer.png
