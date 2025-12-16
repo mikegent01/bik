@@ -22,7 +22,66 @@
     --wario-text-dim: #a0a0b0;
     --wario-shadow: rgba(0, 0, 0, 0.5);
 }
+/* === ITEM BADGES CONTAINER === */
+.item-badges,
+.upgrade-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
 
+/* === RECEIPT DURABILITY === */
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px dotted #ccc;
+}
+
+.receipt-item:last-child {
+    border-bottom: none;
+}
+
+.receipt-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.receipt-item-name {
+    font-size: 0.9em;
+}
+
+.receipt-item-durability {
+    font-size: 0.75em;
+    color: #666;
+    font-style: italic;
+}
+
+.receipt-item-price {
+    font-weight: bold;
+    margin-left: 16px;
+    white-space: nowrap;
+}
+
+/* === LEVEL DISTRIBUTION === */
+.level-distribution {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.level-tag {
+    font-size: 0.7em;
+    padding: 2px 6px;
+    background: var(--wario-surface);
+    border-radius: 4px;
+    color: var(--wario-text-dim);
+}
 /* === PAGE CONTAINER === */
 .shop-page {
     background: linear-gradient(180deg, var(--wario-purple-dark) 0%, #0d0d15 100%);

@@ -153,7 +153,1567 @@ export const VENDORS = {
 
 
 export const SHOP_ITEMS = {
-    
+'warp_pipe_installation': {
+    id: 'warp_pipe_installation',
+    name: "Warp Pipe Installation",
+    description: "A licensed plumber from the Underground Network installs a permanent warp pipe between two locations.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 100000,
+    icon: '🪨',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Creates a permanent two-way pipe portal (max 200ft apart)",
+        "Pipe is indestructible (AC 20, 100 HP, immune to spells)",
+        "Requires a 'Pipe License' (DM discretion)"
+    ],
+    vendor: 'warp_plumbing_corp',
+    shippedBy: 'Underground Crew',
+    levelRequirement: 8
+},
+
+'blessing_of_the_elders': {
+    id: 'blessing_of_the_elders',
+    name: "Blessing of the Elders",
+    description: "A ritual performed by ancient Toad sages to imbue a weapon or armor with ancestral power.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 75000,
+    icon: '🙏',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "One weapon or armor gains +1 bonus for 1 year (non-magical items become +1)",
+        "Once per month: cast *Sanctuary* on the item’s user",
+        "Requires a 1-hour ceremony and a personal sacrifice (DM discretion)"
+    ],
+    vendor: 'toad_council',
+    shippedBy: 'Ritual Scroll',
+    levelRequirement: 6
+},
+
+'mercenary_band_hire': {
+    id: 'mercenary_band_hire',
+    name: "Hire: 50-Unit Mercenary Band",
+    description: "A crack squad of Koopa Troopas, Hammer Bros, and Snifits under a contract.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 300000,
+    icon: '🪖',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "50 troops (CR 1/2 to 2) under your command for 1 week",
+        "Can be deployed for defense, escort, or assault",
+        "If they suffer >50% losses, they disband and demand double pay"
+    ],
+    vendor: 'iron_legion',
+    shippedBy: 'Marching Orders',
+    levelRequirement: 10,
+    factionBonus: { combatReadiness: 30, economy: -10 }
+},
+
+'fey_tattoo_ritual': {
+    id: 'fey_tattoo_ritual',
+    name: "Fey Tattoo Ritual",
+    description: "A moonlit ceremony where a Fey artist etches a permanent magical tattoo onto your body.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 200000,
+    icon: '🖤',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Gain one Fey-themed feature (e.g., *Misty Step*, *Fey Charm*, or *Wild Magic Surge*)",
+        "Tattoo glows when Fey are near",
+        "Fey may request favors in the future (no takebacks)"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Moonlit Inkwell',
+    levelRequirement: 12
+},
+
+'dragon_breath_insurance': {
+    id: 'dragon_breath_insurance',
+    name: "Dragon-Breath Insurance Policy",
+    description: "A magical contract that covers you against fire-based attacks (or your own fiery mistakes).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 50000,
+    icon: '📜',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "For 1 year, you take half damage from Fire attacks",
+        "If you die by fire, your body is restored at dawn (1 use/year)",
+        "Policy must be renewed annually"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Notarized Scroll',
+    levelRequirement: 5
+},
+
+'haunting_consultation': {
+    id: 'haunting_consultation',
+    name: "Haunting Consultation",
+    description: "A professional ghost helps you haunt a location (or yourself) for maximum effect.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 25000,
+    icon: '👻',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "A ghost will haunt a room for 1 week (creates eerie ambiance, scares intruders)",
+        "Or, haunt *yourself*: gain *Incorporeality* for 10 minutes/day",
+        "Ghost may demand snacks or a backstory"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Spirit Jar',
+    levelRequirement: 4
+},
+
+'airship_pilot_rental': {
+    id: 'airship_pilot_rental',
+    name: "Airship Pilot Rental",
+    description: "Hire a seasoned pilot for your airship for a single voyage.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 40000,
+    icon: '🧑‍✈️',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Pilot handles navigation, evasion, and combat for 1 long trip (1d4 days)",
+        "Pilot has +5 to airship-related rolls",
+        "Pilot may demand a share of loot"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Crew Manifest',
+    levelRequirement: 6
+},
+
+'ancestral_weapon_forging': {
+    id: 'ancestral_weapon_forging',
+    name: "Ancestral Weapon Forging",
+    description: "A master blacksmith reforges your weapon using your ancestors' spirits.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 150000,
+    icon: '⚒️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Weapon gains +2, *sentience (1 INT)*, and a unique ancestral power (DM discretion)",
+        "Requires a personal heirloom and 3 days of forging",
+        "Ancestors may whisper advice (or warnings)"
+    ],
+    vendor: 'steamworks',
+    shippedBy: 'Forge-Fire Scroll',
+    levelRequirement: 10
+},
+
+'faction_lobbying': {
+    id: 'faction_lobbying',
+    name: "Faction Lobbying (1 Day)",
+    description: "A political agent negotiates on your behalf to improve your standing with a faction.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 100000,
+    icon: '🤝',
+    stock: 5,
+    rarity: 'epic',
+    effects: [
+        "Gain +20 reputation with one faction",
+        "May unlock faction-specific perks or quests",
+        "Agent may require future favors"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Sealed Proposal',
+    levelRequirement: 8,
+    factionBonus: { influence: 20 }
+},
+
+'personal_weather_control': {
+    id: 'personal_weather_control',
+    name: "Personal Weather Control (1 Hour)",
+    description: "A cloud mage alters the weather in a 1-mile radius for a short time.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 80000,
+    icon: '🌤️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Choose: Clear, Rain, Fog, or Storm (DM may impose limits)",
+        "Can be used to disrupt enemies or aid allies",
+        "Overuse may anger the weather spirits"
+    ],
+    vendor: 'storm_seller',
+    shippedBy: 'Cloud Vial',
+    levelRequirement: 7
+},
+
+'undead_burial': {
+    id: 'undead_burial',
+    name: "Undead Burial Service",
+    description: "A necromancer ensures a corpse is *truly* dead (or repurposed).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 30000,
+    icon: '⚰️',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "Guarantees a corpse cannot rise as undead",
+        "Or, transforms it into a loyal zombie (CR 1/2) for 1 week",
+        "Service includes a small ceremony"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Bone Box',
+    levelRequirement: 5
+},
+
+'fey_deal_negotiation': {
+    id: 'fey_deal_negotiation',
+    name: "Fey Deal Negotiation",
+    description: "A lawyer specializing in Fey contracts ensures your deal is fair (or as fair as Fey allow).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 120000,
+    icon: '🧑‍⚖️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Negotiate a Fey pact with +2 to all checks",
+        "May insert loopholes or protections into the deal",
+        "Fey lawyer may demand a small part of your soul"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Golden Quill',
+    levelRequirement: 10
+},
+
+'guild_membership': {
+    id: 'guild_membership',
+    name: "Guild Membership (1 Year)",
+    description: "A year-long membership to a powerful guild (Thieves, Mages, Mercenaries, etc.).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 200000,
+    icon: '🎖️',
+    stock: 5,
+    rarity: 'legendary',
+    effects: [
+        "Gain access to guild resources, training, and contacts",
+        "May request aid (DM discretion)",
+        "Requires monthly dues (10% of price)"
+    ],
+    vendor: 'guild_hall',
+    shippedBy: 'Guild Charter',
+    levelRequirement: 8
+},
+
+'personal_bodyguard': {
+    id: 'personal_bodyguard',
+    name: "Personal Bodyguard (1 Month)",
+    description: "A highly trained bodyguard (CR 3) watches over you for a month.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 60000,
+    icon: '🛡️',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "Bodyguard has AC 18, 50 HP, and proficiency in combat",
+        "Will sacrifice themselves to save you once",
+        "May demand higher pay if danger is extreme"
+    ],
+    vendor: 'iron_legion',
+    shippedBy: 'Contract Scroll',
+    levelRequirement: 4
+},
+
+'reality_revision_consultation': {
+    id: 'reality_revision_consultation',
+    name: "Reality Revision Consultation",
+    description: "A cosmic entity offers advice on how to alter reality (for a price).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 500000,
+    icon: '🌌',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "DM provides one *Wish*-like option with a clear cost",
+        "May rewrite a past event (but consequences follow)",
+        "Entity may demand a future service"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Cosmic Scroll',
+    levelRequirement: 15
+},
+
+'golden_warp_pipe': {
+    id: 'golden_warp_pipe',
+    name: "Golden Warp Pipe",
+    description: "A solid gold warp pipe that teleports you in style.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 250000,
+    icon: '🪙',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Teleports user to any known location (1/day)",
+        "Pipe is immune to damage and theft",
+        "Leaves a trail of gold dust"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Armored Truck',
+    levelRequirement: 10
+},
+
+'personal_island': {
+    id: 'personal_island',
+    name: "Personal Island (1 Acre)",
+    description: "A small, private island in the middle of the ocean.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 1000000,
+    icon: '🏝️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Island is yours to build, defend, or abandon",
+        "May attract pirates, treasure, or sea monsters",
+        "Deed is magically binding"
+    ],
+    vendor: 'mariner_guild',
+    shippedBy: 'Nautical Chart',
+    levelRequirement: 12
+},
+
+'royal_feast': {
+    id: 'royal_feast',
+    name: "Royal Feast (For 100 Guests)",
+    description: "A banquet fit for a king, complete with entertainment and enchanted food.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 150000,
+    icon: '🍽️',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Guests gain +2 to all rolls for 1 day",
+        "May improve relations with factions",
+        "Leftovers are magically preserved"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Floating Banquet Hall',
+    levelRequirement: 8
+},
+
+'infinite_wine_cask': {
+    id: 'infinite_wine_cask',
+    name: "Infinite Wine Cask",
+    description: "A cask that refills with fine wine every dawn.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 300000,
+    icon: '🍷',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Produces 100 bottles of high-quality wine/day",
+        "Wine grants +1 to CHA checks for 1 hour",
+        "Cask is sentient (but never speaks)"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Cask of Gold',
+    levelRequirement: 6
+},
+
+'private_observatory': {
+    id: 'private_observatory',
+    name: "Private Observatory",
+    description: "A portable, high-tech observatory that fits in a backpack.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 500000,
+    icon: '🔭',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Can see through walls, clouds, and time (DM discretion)",
+        "Reveals hidden celestial events",
+        "Requires a clear night sky"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Telescope Case',
+    levelRequirement: 12
+},
+
+'eternal_fireplace': {
+    id: 'eternal_fireplace',
+    name: "Eternal Fireplace",
+    description: "A fireplace that burns without fuel and never goes out.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 200000,
+    icon: '🔥',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Grants +2 to all saves for those nearby",
+        "Can be used to send messages through flames",
+        "Fire is warm but never burns"
+    ],
+    vendor: 'steamworks',
+    shippedBy: 'Stone Hearth',
+    levelRequirement: 8
+},
+
+'personal_butler': {
+    id: 'personal_butler',
+    name: "Personal Butler (Lifetime)",
+    description: "A loyal, magically bound butler who serves you eternally.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 400000,
+    icon: '🧑‍💼',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Butler handles all mundane tasks (cooking, cleaning, etc.)",
+        "Can be summoned with a whistle",
+        "Butler is immortal but not combat-capable"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Butler Contract',
+    levelRequirement: 10
+},
+
+'golden_toilet': {
+    id: 'golden_toilet',
+    name: "Golden Toilet",
+    description: "A throne-like toilet that flushes away your worries (and waste).",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 100000,
+    icon: '🚽',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Grants +1 to all rolls after use",
+        "Toilet is indestructible and self-cleaning",
+        "Attracts jealous nobles"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Gold Plating',
+    levelRequirement: 1
+},
+
+'personal_meteor_shower': {
+    id: 'personal_meteor_shower',
+    name: "Personal Meteor Shower (1 Night)",
+    description: "A celestial event arranged just for you.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 300000,
+    icon: '🌠',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "A safe meteor shower occurs over your location (1 night)",
+        "May reveal rare minerals or celestial messages",
+        "Guests gain +2 to INT checks for 1 day"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Celestial Scroll',
+    levelRequirement: 12
+},
+
+'infinite_ballroom': {
+    id: 'infinite_ballroom',
+    name: "Infinite Ballroom",
+    description: "A pocket dimension ballroom that expands to fit any event.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 600000,
+    icon: '🎭',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Ballroom can host up to 10,000 guests",
+        "Music, food, and decorations are provided",
+        "May attract Fey or nobles"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Pocket Dimension Key',
+    levelRequirement: 10
+},
+
+'personal_sunrise': {
+    id: 'personal_sunrise',
+    name: "Personal Sunrise (1 Day)",
+    description: "A sunrise occurs exactly when you want it to.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 100000,
+    icon: '🌅',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Sunrise occurs at a time of your choosing (even underground)",
+        "Grants +2 to all rolls for 1 day",
+        "May attract sun worshippers"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Sunbeam Vial',
+    levelRequirement: 8
+},
+
+'eternal_fountain': {
+    id: 'eternal_fountain',
+    name: "Eternal Fountain",
+    description: "A fountain that flows with magical water.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 250000,
+    icon: '⛲',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Water heals 1d4 HP per sip",
+        "Fountain is indestructible",
+        "May attract water spirits"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Stone Basin',
+    levelRequirement: 8
+},
+
+'personal_moon': {
+    id: 'personal_moon',
+    name: "Personal Moon (1 Night)",
+    description: "A small moon appears in the sky for you.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 500000,
+    icon: '🌕',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Moon grants +2 to all rolls for 1 night",
+        "May reveal hidden paths or secrets",
+        "Guests gain +1 to CHA checks"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Lunar Scroll',
+    levelRequirement: 12
+},
+
+'infinite_garden': {
+    id: 'infinite_garden',
+    name: "Infinite Garden",
+    description: "A pocket dimension garden that grows any plant.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 400000,
+    icon: '🌿',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Garden grows any plant you desire",
+        "Plants are always in peak condition",
+        "May attract dryads or gardeners"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Pocket Dimension Key',
+    levelRequirement: 10
+},
+
+'royal_pardon': {
+    id: 'royal_pardon',
+    name: "Royal Pardon",
+    description: "A decree that clears you of any crime.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 200000,
+    icon: '📜',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "All bounties and criminal charges are erased",
+        "Pardon is magically enforced",
+        "May anger the original victims"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Royal Seal',
+    levelRequirement: 8
+},
+// ============================================
+// === 40 NEW ITEMS (SERVICES & PREMIUM FOCUS) ===
+// ============================================
+
+'identification_service': {
+    id: 'identification_service',
+    name: "Arcane Identification Service",
+    description: "A certified appraiser will identify any magical item, curse, or enchantment within 24 hours.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 500,
+    icon: '🔍',
+    stock: 999,
+    rarity: 'common',
+    effects: [
+        "Identify 1 item (magical properties, curses, origin)",
+        "Expert confirmation of rarity and approximate value",
+        "Provides written certificate"
+    ],
+    vendor: 'arcane_institute',
+    shippedBy: 'Personal Appointment',
+    levelRequirement: 1
+},
+
+'resurrection_consultation': {
+    id: 'resurrection_consultation',
+    name: "Resurrection Consultation",
+    description: "A 1-hour session with a High Priest to discuss bringing someone back from the dead.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 2500,
+    icon: '✨',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Guidance on ritual requirements and material costs",
+        "Assessment of target's spiritual readiness",
+        "Connections to appropriate resurrection specialists (Discount: 10%)"
+    ],
+    vendor: 'temple_eternal',
+    shippedBy: 'Scheduled Meeting',
+    levelRequirement: 5
+},
+
+'bounty_hunting_contract': {
+    id: 'bounty_hunting_contract',
+    name: "Bounty Hunting Contract (Active)",
+    description: "Official paperwork registering you as a licensed bounty hunter for a single high-value target.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 1200,
+    icon: '📋',
+    stock: 50,
+    rarity: 'uncommon',
+    effects: [
+        "Legal authority to capture/interrogate target",
+        "Guild protection",
+        "10% commission split with Bounty Master",
+        "Contract expires after 30 days or target capture"
+    ],
+    vendor: 'bounty_guild',
+    shippedBy: 'Sealed Document',
+    levelRequirement: 3
+},
+
+'herbalism_tutoring': {
+    id: 'herbalism_tutoring',
+    name: "Herbalism Tutoring (5 Sessions)",
+    description: "Five 2-hour sessions with a master herbalist learning rare plant cultivation and extraction.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 3800,
+    icon: '🌿',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "+1 to Herbalism checks permanently",
+        "Learn recipe for 1 rare potion (DM discretion)",
+        "Gain access to herbalist's garden (cheaper ingredients 20%)"
+    ],
+    vendor: 'apothecary_guild',
+    shippedBy: 'Class Enrollment',
+    levelRequirement: 2
+},
+
+'enchantment_reinforcement': {
+    id: 'enchantment_reinforcement',
+    name: "Enchantment Reinforcement",
+    description: "A master enchanter reinforces a magical item, making it more durable and potent.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 15000,
+    icon: '✨',
+    stock: 20,
+    rarity: 'rare',
+    effects: [
+        "Target item gains +1 to AC or damage (non-stacking)",
+        "Item breaks on natural 1 instead of natural 2-5",
+        "Ritual takes 1 week; item must be left behind"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Commissioned Service',
+    levelRequirement: 5
+},
+
+'safe_house_rental': {
+    id: 'safe_house_rental',
+    name: "Safe House Rental (1 Month)",
+    description: "An anonymous, well-hidden residence with defensive wards and an exit tunnel.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 8000,
+    icon: '🏠',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Secure lodging for 30 days (Wards prevent scrying/detection)",
+        "2 secret exits to different districts",
+        "Monthly supplies included (food, water, basic medicine)",
+        "Landlord asks no questions"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Keys Delivered',
+    levelRequirement: 3
+},
+
+'forgery_commission': {
+    id: 'forgery_commission',
+    name: "Forgery Commission (1 Document)",
+    description: "Hire a master forger to create a convincing fake: passport, deed, letter of nobility, etc.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 5500,
+    icon: '🖇️',
+    stock: 15,
+    rarity: 'rare',
+    effects: [
+        "Create 1 convincing forged document",
+        "Forgery DC 16 to detect (normal inspection: DC 12)",
+        "Takes 3 days; risky if document is studied closely"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Covert Delivery',
+    levelRequirement: 4
+},
+
+'pest_extermination': {
+    id: 'pest_extermination',
+    name: "Pest Extermination (Professional)",
+    description: "A licensed exterminator removes dangerous creatures (rats, spiders, minor demons) from your property.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 1800,
+    icon: '🪲',
+    stock: 30,
+    rarity: 'uncommon',
+    effects: [
+        "Remove all pests from a building (24-hour guarantee)",
+        "Handles creatures up to CR 2",
+        "Blessed salt/wards placed for 7 days (prevents return)"
+    ],
+    vendor: 'town_hall',
+    shippedBy: 'Scheduled Appointment',
+    levelRequirement: 1
+},
+
+'courier_express': {
+    id: 'courier_express',
+    name: "Courier Express (Cross-Continent)",
+    description: "Hire a skilled courier to deliver an item or message across dangerous terrain in record time.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 2200,
+    icon: '📬',
+    stock: 40,
+    rarity: 'uncommon',
+    effects: [
+        "Deliver 1 package up to 100 miles in 3 days (guaranteed)",
+        "Protected by guild tabard (safe passage through most lands)",
+        "Can negotiate for dangerous/fragile cargo (+2000 gp)"
+    ],
+    vendor: 'merchant_guild',
+    shippedBy: 'Contract Signed',
+    levelRequirement: 1
+},
+
+'cartography_commission': {
+    id: 'cartography_commission',
+    name: "Cartography Commission (Custom Map)",
+    description: "Hire a master cartographer to create a detailed, magically accurate map of any area.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 7000,
+    icon: '🗺️',
+    stock: 12,
+    rarity: 'rare',
+    effects: [
+        "Custom map of any region up to 50 square miles",
+        "Includes hidden locations, ley lines, and hazard zones",
+        "Map glows if nearby danger approaches (magical upgrade)"
+    ],
+    vendor: 'scholar_society',
+    shippedBy: 'Commissioned Work',
+    levelRequirement: 4
+},
+
+'assassination_contract': {
+    id: 'assassination_contract',
+    name: "Assassination Contract",
+    description: "A highly illegal contract to eliminate a specific target. Buyer assumes all risk.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 25000,
+    icon: '🗡️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Professional assassin targets 1 specific target within 6 months",
+        "Guaranteed 90% success rate (DM decides outcome)",
+        "Buyer's name hidden from assassin; perfect plausible deniability",
+        "If failed, contract is void and all parties deny involvement"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Untraceable Dead Drop',
+    levelRequirement: 8
+},
+
+'soul_binding_ceremony': {
+    id: 'soul_binding_ceremony',
+    name: "Soul Binding Ceremony",
+    description: "Permanently bind two souls together: marriage, contract, blood oath, or curse.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 12000,
+    icon: '💕',
+    stock: 5,
+    rarity: 'epic',
+    effects: [
+        "Create binding magical contract (breach causes 2d10 psychic damage)",
+        "Souls remain linked for 99 years",
+        "Ceremony involves exotic components and 3-hour ritual",
+        "Can bind willing or coerced parties (DM judgment)"
+    ],
+    vendor: 'temple_eternal',
+    shippedBy: 'Ritual Appointment',
+    levelRequirement: 7
+},
+
+'gambling_tournament_entry': {
+    id: 'gambling_tournament_entry',
+    name: "Gambling Tournament Entry (High Stakes)",
+    description: "Entry fee for an exclusive underground gambling tournament. Prizes: 10x your bet.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 50000,
+    icon: '🎰',
+    stock: 20,
+    rarity: 'epic',
+    effects: [
+        "Compete against 1d6+4 rivals in games of skill and luck",
+        "Win: gain 500,000 gp (if luck is on your side)",
+        "Lose: lose your entry fee + betting rounds",
+        "Tournament lasts 1 week; abstinence impossible"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Sealed Invitation',
+    levelRequirement: 10
+},
+
+'nightmare_exorcism': {
+    id: 'nightmare_exorcism',
+    name: "Nightmare Exorcism Service",
+    description: "A dream-walker specializes in purging nightmares and psychic corruption from your mind.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 4500,
+    icon: '😴',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "Remove recurring nightmares/madness effects",
+        "Sleep becomes restful; gain +1 HP per level during long rests for 7 days",
+        "Exorcism requires you to sleep in wizard's tower"
+    ],
+    vendor: 'dream_sanctuary',
+    shippedBy: 'Appointment Only',
+    levelRequirement: 5
+},
+
+// ============================================
+// === PREMIUM TIER (100,000+ GP) ===
+// ============================================
+
+'godly_artifact_auction': {
+    id: 'godly_artifact_auction',
+    name: "Legendary Artifact Auction Bid (Minimum)",
+    description: "A bidding slot in an exclusive auction for godly artifacts. Minimum bid: 500,000 gp. Hammer falls in 7 days.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 500000,
+    icon: '🏺',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Enter auction for 1 of 5 godly items (DM determined)",
+        "Outbid by others at auction; price may exceed 1,000,000 gp",
+        "Winner receives artifact + legendary status in underworld"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Auction House Invitation',
+    levelRequirement: 15
+},
+
+'dimensional_estate': {
+    id: 'dimensional_estate',
+    name: "Pocket Dimension Estate (100 Years)",
+    description: "Own a pocket dimension: your own castle, tower, or vault in a space outside normal reality.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 750000,
+    icon: '🏰',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Create/customize a private dimension (up to 1 square mile)",
+        "Time moves normally inside; seasons pass; safe from external attacks",
+        "Entrance: 1 portal key (can give to allies)",
+        "Lease expires in 100 years; renewal available"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Portal Key Delivered',
+    levelRequirement: 14
+},
+
+'immortality_binding': {
+    id: 'immortality_binding',
+    name: "Immortality Binding (Phylactery Service)",
+    description: "Bind your soul to a phylactery, granting functional immortality at terrible cost.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 1000000,
+    icon: '💀',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "You cannot die permanently; resurrection in phylactery within 1d6 days",
+        "Each resurrection: gain 1 level of exhaustion (cures at full power)",
+        "Phylactery must be hidden; if discovered & destroyed, you are destroyed",
+        "Attracts paladins, necromancers, and cosmic entities"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Ritual Ceremony',
+    levelRequirement: 16
+},
+
+'reality_weaver_contract': {
+    id: 'reality_weaver_contract',
+    name: "Reality Weaver Contract",
+    description: "A contract with a cosmic entity to reshape a small region of reality to your specifications.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 900000,
+    icon: '🌌',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Reshape 1 square mile of terrain/weather/environment permanently",
+        "Terraforming takes 1 week; requires massive mana/sacrifice",
+        "Reality warping may attract unwanted attention from other beings",
+        "Changes are permanent and cannot be undone by normal means"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Binding Ritual',
+    levelRequirement: 15
+},
+
+'time_acceleration_chamber': {
+    id: 'time_acceleration_chamber',
+    name: "Time Acceleration Chamber (Permanent)",
+    description: "A magical chamber where 1 day inside = 1 year outside. Perfect for training and aging items.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 850000,
+    icon: '⏰',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "1 day of training = 1 year of real-world progress (Experience/skills/aging)",
+        "Can store up to 6 people at once",
+        "Exiting chamber causes disorientation for 1d4 hours",
+        "Maintenance: 10,000 gp per year to keep functioning"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Installed on-site',
+    levelRequirement: 12
+},
+
+'legendary_smithing_commission': {
+    id: 'legendary_smithing_commission',
+    name: "Legendary Smithing Commission",
+    description: "Commission the world's greatest smith to craft a weapon/armor tailored to you perfectly.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 120000,
+    icon: '🔨',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Create 1 custom Legendary item (choose from: +3 weapon, +3 armor, or unique magical property)",
+        "Item is perfectly balanced for you (+1 to attack/defense)",
+        "Crafting takes 6 months; smith requires rare materials (additional cost: 50,000 gp)"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Commissioned Masterwork',
+    levelRequirement: 13
+},
+
+'army_recruitment_contract': {
+    id: 'army_recruitment_contract',
+    name: "Army Recruitment (1,000 Soldiers)",
+    description: "Hire an entire mercenary army: 1,000 trained soldiers loyal to your cause for 1 year.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 500000,
+    icon: '⚔️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Command 1,000 soldiers (CR 1/8 each, effective in mass combat)",
+        "Army remains loyal for 1 year or until major battle",
+        "Must provide supplies (100,000 gp annually)",
+        "Army morale decays if not paid monthly"
+    ],
+    vendor: 'steel_syndicate',
+    shippedBy: 'Mercenary Contract',
+    levelRequirement: 14,
+    factionBonus: { military: 100, control: 50 }
+},
+
+'dragon_egg_incubation': {
+    id: 'dragon_egg_incubation',
+    name: "Dragon Egg Incubation Service",
+    description: "Professional dragon egg incubation and hatching, with trainer included for first year.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 350000,
+    icon: '🐉',
+    stock: 2,
+    rarity: 'legendary',
+    effects: [
+        "Incubate any dragon egg (guarantees hatching within 6 months)",
+        "Trainer teaches hatchling basic obedience for 1 year",
+        "Dragon becomes loyal companion (CR scales with DM)",
+        "Service includes food costs for first year"
+    ],
+    vendor: 'dragon_sanctuary',
+    shippedBy: 'Expert Courier',
+    levelRequirement: 12
+},
+
+'wish_granting_ritual': {
+    id: 'wish_granting_ritual',
+    name: "Wish Granting Ritual (Limited)",
+    description: "A master wizard performs a carefully controlled ritual to grant you one wish within reasonable bounds.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 650000,
+    icon: '✨',
+    stock: 2,
+    rarity: 'godly',
+    effects: [
+        "DM adjudicates wish (no 'wish for unlimited wishes')",
+        "Wish can alter reality within DM-approved scope",
+        "Wizard absorbs backlash; may demand payment/service in return",
+        "Each wish has a 50% chance to create unintended consequences"
+    ],
+    vendor: 'arcane_institute',
+    shippedBy: 'Ritual Ceremony',
+    levelRequirement: 14
+},
+
+'continental_teleportation_network': {
+    id: 'continental_teleportation_network',
+    name: "Continental Teleportation Network Access",
+    description: "Lifetime membership in a network of teleportation portals across all major cities.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 200000,
+    icon: '🔮',
+    stock: 5,
+    rarity: 'epic',
+    effects: [
+        "Teleport between any 5 major cities (once per day, no cost)",
+        "Emergency teleport (once per week, avoid death)",
+        "Network membership card grants safe passage in civilized lands",
+        "Membership passes to heirs upon death"
+    ],
+    vendor: 'merchant_guild',
+    shippedBy: 'Crystal Pendant',
+    levelRequirement: 10
+},
+
+'planar_seal_breaking': {
+    id: 'planar_seal_breaking',
+    name: "Planar Seal Breaking (Service)",
+    description: "A specialized team of mages can breach one planar seal or dimensional lock.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 180000,
+    icon: '🌀',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Break 1 planar seal, prison dimension, or locked gate",
+        "Ritual takes 8 hours; requires 5 mages working in concert",
+        "Breaking a seal alerts its creator; risk of counter-curse"
+    ],
+    vendor: 'arcane_institute',
+    shippedBy: 'Magical Expertise',
+    levelRequirement: 11
+},
+
+'memory_alteration': {
+    id: 'memory_alteration',
+    name: "Memory Alteration (Professional)",
+    description: "Erase, modify, or implant memories. Ethically dubious, totally illegal, disturbingly effective.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 95000,
+    icon: '🧠',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Alter/erase/implant 1 memory from a willing or incapacitated target",
+        "Modification is seamless; victim has no way to detect the change",
+        "Risky: botched alteration can cause insanity",
+        "This service makes you an enemy of every memory mage"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Procedure Appointment',
+    levelRequirement: 9
+},
+
+'godly_blessing_ceremony': {
+    id: 'godly_blessing_ceremony',
+    name: "Godly Blessing Ceremony",
+    description: "Petition a god directly for a boon. High Priest oversees the ritual.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 110000,
+    icon: '⛪',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Gain +1 to all saves for 1 year (blessing)",
+        "Once per year: automatically succeed a single saving throw (divine intervention)",
+        "God may demand future service/quest in exchange",
+        "Blessing is visibly obvious (stigmata, halo, etc.)"
+    ],
+    vendor: 'temple_eternal',
+    shippedBy: 'Ceremonial Ritual',
+    levelRequirement: 10
+},
+
+'civilization_founding_charter': {
+    id: 'civilization_founding_charter',
+    name: "Civilization Founding Charter",
+    description: "Legal documentation to establish a new city, town, or settlement with full sovereign rights.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 300000,
+    icon: '🏛️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Found 1 settlement with guaranteed legal recognition",
+        "Full governing authority; can establish laws and taxation",
+        "Protected by international law (cannot be easily destroyed)",
+        "Must recruit citizens and maintain infrastructure"
+    ],
+    vendor: 'merchant_guild',
+    shippedBy: 'Official Charter',
+    levelRequirement: 12
+},
+
+'genetic_enhancement_suite': {
+    id: 'genetic_enhancement_suite',
+    name: "Genetic Enhancement Suite (Full)",
+    description: "Undergo radical biological enhancement: increase attributes, gain resistances, optimize physiology.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 275000,
+    icon: '🧬',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Choose 2 ability scores: increase by 2 (max 20)",
+        "Gain 1 damage resistance type of choice",
+        "Gain +5 maximum HP permanently",
+        "Transformation takes 1 week; you are helpless during process"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Surgical Procedure',
+    levelRequirement: 11
+},
+
+'infinite_library_access': {
+    id: 'infinite_library_access',
+    name: "Infinite Library Access (Lifetime)",
+    description: "Permanent access to the largest library in existence. Gain knowledge of almost everything.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 165000,
+    icon: '📚',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "+2 to all Knowledge checks permanently",
+        "Once per long rest: gain advantage on a single Intelligence check",
+        "Access to restricted archives (DM may set limits)",
+        "Membership passes to 1 heir"
+    ],
+    vendor: 'scholar_society',
+    shippedBy: 'Enchanted Library Card',
+    levelRequirement: 9
+},
+
+'temporal_loop_insurance': {
+    id: 'temporal_loop_insurance',
+    name: "Temporal Loop Insurance (Annual)",
+    description: "If you die within the year, reality loops back 1 week and you retain all memories.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 95000,
+    icon: '🔄',
+    stock: 999,
+    rarity: 'epic',
+    effects: [
+        "If killed: time resets to 1 week ago (only you remember)",
+        "Enemies unaware of reset; you have advantage",
+        "Insurance resets annually (must repurchase)",
+        "Side effects: temporal fatigue, déjà vu, minor paradoxes"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Magical Contract',
+    levelRequirement: 10
+},
+
+'demon_binding_contract': {
+    id: 'demon_binding_contract',
+    name: "Demon Binding Contract",
+    description: "Legally bind a demon to your service through infernal bureaucracy. Risky but effective.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 380000,
+    icon: '😈',
+    stock: 2,
+    rarity: 'legendary',
+    effects: [
+        "Summon and bind 1 demon (CR up to 10) for 1 year",
+        "Demon must obey your commands (within contract)",
+        "Demon demands payment: souls, gold, or future favors",
+        "If contract breaks, demon hunts you forever"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Infernal Scroll',
+    levelRequirement: 13
+},
+
+'cloning_chamber': {
+    id: 'cloning_chamber',
+    name: "Cloning Chamber (Installation)",
+    description: "Install a magical chamber that can clone living beings. One clone per month.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 450000,
+    icon: '👥',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Clone any willing humanoid once per month (takes 30 days)",
+        "Clone is identical but shares no memories/personality (blank slate)",
+        "Clone ages normally; original can transfer consciousness (optional)",
+        "Maintenance: 5,000 gp/month"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Major Installation',
+    levelRequirement: 12
+},
+
+'pandemic_cure_formula': {
+    id: 'pandemic_cure_formula',
+    name: "Pandemic Cure Formula",
+    description: "A complete cure for any plague, pestilence, or magical disease affecting an entire population.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 320000,
+    icon: '💊',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Cure all instances of 1 disease in a region (up to 1,000 people)",
+        "Formula grants immunity for 1 year",
+        "Production & distribution takes 1 week",
+        "Highly sought after by governments & factions"
+    ],
+    vendor: 'alchemist_guild',
+    shippedBy: 'Rare Ingredients',
+    levelRequirement: 11
+},
+
+'stellar_explosion_bomb': {
+    id: 'stellar_explosion_bomb',
+    name: "Stellar Explosion Bomb",
+    description: "A weaponized star fragment. Detonates with catastrophic force.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 550000,
+    icon: '💥',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Single Use: 40d6 Fire damage in 300ft radius",
+        "Decimates entire city blocks; leaves crater",
+        "Using this makes you a wanted criminal globally",
+        "Detonation requires 1 minute setup"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Shielded Container',
+    levelRequirement: 14
+},
+
+'love_curse_reversal': {
+    id: 'love_curse_reversal',
+    name: "Love Curse Reversal (Specialty)",
+    description: "Remove even the most potent magical love spells, charms, and emotional bindings.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 28000,
+    icon: '💔',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Remove 1 charm, enchantment, or love spell (even godly ones)",
+        "Target regains full autonomy of emotions",
+        "Original caster may feel backlash (DC 18 save or 4d6 psychic)",
+        "Ritual takes 1 hour"
+    ],
+    vendor: 'dream_sanctuary',
+    shippedBy: 'Appointment',
+    levelRequirement: 5
+},
+
+'mind_fortress_installation': {
+    id: 'mind_fortress_installation',
+    name: "Mind Fortress Installation",
+    description: "A specialist constructs powerful psychic defenses in your mind against all mental intrusion.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 65000,
+    icon: '🧠',
+    stock: 4,
+    rarity: 'epic',
+    effects: [
+        "Gain immunity to charm, detect thoughts, scrying within 60ft",
+        "Advantage on all Intelligence/Wisdom saves",
+        "Installation takes 3 days; you are incapacitated during process",
+        "Defenses deactivate for 24 hours if you willingly share thoughts"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Psychic Surgery',
+    levelRequirement: 7
+},
+
+'curse_amplification_kit': {
+    id: 'curse_amplification_kit',
+    name: "Curse Amplification Kit",
+    description: "Dark tools to magnify any existing curse on an enemy: make it permanent, more painful, harder to break.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 140000,
+    icon: '💀',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Amplify 1 curse: increase damage/effect by 100%, ignore removal attempts",
+        "Curse becomes permanent until the caster dies",
+        "Target must make DC 18 save or suffers terrible side effects",
+        "Using this marks you as cursed"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Dark Components',
+    levelRequirement: 10
+},
+
+'planar_anchor_installation': {
+    id: 'planar_anchor_installation',
+    name: "Planar Anchor Installation",
+    description: "Anchor a location to the material plane, preventing it from shifting or existing partially in another plane.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 85000,
+    icon: '⚓',
+    stock: 5,
+    rarity: 'epic',
+    effects: [
+        "Install 1 planar anchor in a location",
+        "Location becomes permanently stable (cannot be teleported, phased, or planed-shifted)",
+        "Maintenance: 2,000 gp per year",
+        "Installation requires 1 week of work"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Installation Service',
+    levelRequirement: 8
+},
+
+'genocide_commission': {
+    id: 'genocide_commission',
+    name: "Genocide Commission (Race-Specific)",
+    description: "A dark, binding contract to systematically eliminate an entire species. Forbidden, ancient, powerful.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 1200000,
+    icon: '⚱️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Contract to erase 1 species from existence within 50 years",
+        "All members of species gain -3 to all saves against you",
+        "You become hunted by every faction opposed to genocide",
+        "Completing contract grants godly power; failing grants a curse"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Ancient Ritual',
+    levelRequirement: 16
+},
+'faction_war_declaration': {
+    id: 'faction_war_declaration',
+    name: "Faction War Declaration",
+    description: "A formal declaration of war against another faction.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 1000000,
+    icon: '⚔️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Grants a 30-day war with another faction",
+        "Allies may join or abandon you",
+        "DM may impose severe consequences"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Blood Seal',
+    levelRequirement: 12,
+    factionBonus: { combatReadiness: 100, economy: -50 }
+},
+
+'forbidden_knowledge_scroll': {
+    id: 'forbidden_knowledge_scroll',
+    name: "Forbidden Knowledge Scroll",
+    description: "A scroll containing knowledge that should never be known.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 1000000,
+    icon: '📜',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Grants one *Wish*-like effect (DM discretion)",
+        "Each use causes a random madness (1d4 days)",
+        "Scroll is hunted by cosmic entities"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Lead Box',
+    levelRequirement: 15
+},
+
+'faction_ally_summoning': {
+    id: 'faction_ally_summoning',
+    name: "Faction Ally Summoning",
+    description: "Summon a powerful ally from a faction to fight for you.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 500000,
+    icon: '🤝',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Summon a CR 10+ ally for 1 hour",
+        "Ally is loyal but may demand payment",
+        "Faction reputation increases by +30"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Alliance Scroll',
+    levelRequirement: 10,
+    factionBonus: { combatReadiness: 50 }
+},
+
+'forbidden_weapon_forging': {
+    id: 'forbidden_weapon_forging',
+    name: "Forbidden Weapon Forging",
+    description: "A weapon forged with forbidden magic.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 750000,
+    icon: '⚔️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Weapon deals +3d6 damage of a random type",
+        "Each use has a 10% chance to curse the wielder",
+        "Weapon is sentient and hungry"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Cursed Forge',
+    levelRequirement: 12
+},
+
+'faction_espionage_network': {
+    id: 'faction_espionage_network',
+    name: "Faction Espionage Network",
+    description: "A network of spies working for your faction.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 400000,
+    icon: '🕵️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Gain intelligence on any target (1/week)",
+        "Spies can sabotage or assassinate (DM discretion)",
+        "Network may be compromised"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Encrypted Data Slate',
+    levelRequirement: 10,
+    factionBonus: { intelligence: 100 }
+},
+
+'forbidden_summoning_circle': {
+    id: 'forbidden_summoning_circle',
+    name: "Forbidden Summoning Circle",
+    description: "A circle that summons a creature from another dimension.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 600000,
+    icon: '⭕',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Summon a CR 15+ creature (DM discretion)",
+        "Creature is loyal for 1 hour or until dismissed",
+        "May attract unwanted attention"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Blood Ink',
+    levelRequirement: 15
+},
+
+'faction_peace_treaty': {
+    id: 'faction_peace_treaty',
+    name: "Faction Peace Treaty",
+    description: "A treaty that ends hostilities between two factions.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 300000,
+    icon: '🕊️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Ends a war between two factions",
+        "May require concessions or reparations",
+        "Faction reputation increases by +50"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Peace Scroll',
+    levelRequirement: 10,
+    factionBonus: { diplomacy: 100 }
+},
+
+'forbidden_artifact_activation': {
+    id: 'forbidden_artifact_activation',
+    name: "Forbidden Artifact Activation",
+    description: "A ritual to activate a dormant artifact.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 900000,
+    icon: '🏺',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Artifact gains a new power (DM discretion)",
+        "Each use risks a random catastrophic effect",
+        "Artifact may demand a sacrifice"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Ritual Scroll',
+    levelRequirement: 15
+},
+
+'faction_legendary_recruit': {
+    id: 'faction_legendary_recruit',
+    name: "Faction Legendary Recruit",
+    description: "Recruit a legendary figure to your faction.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 1000000,
+    icon: '🏆',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Recruit a CR 20+ ally to your faction",
+        "Ally is loyal but may have their own goals",
+        "Faction reputation increases by +100"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Legendary Scroll',
+    levelRequirement: 12,
+    factionBonus: { combatReadiness: 100, influence: 100 }
+},
+
+'forbidden_dimensional_rift': {
+    id: 'forbidden_dimensional_rift',
+    name: "Forbidden Dimensional Rift",
+    description: "A rift to another dimension that you can control.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 2000000,
+    icon: '🌀',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Rift can transport you to another dimension (1/day)",
+        "Each use risks a random planar effect",
+        "Rift is hunted by cosmic entities"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Void Box',
+    levelRequirement: 15
+},    
     // ============================================
     // === BARGAIN BIN (50 - 800 XP) ===
     // ============================================
@@ -639,7 +2199,7 @@ export const SHOP_ITEMS = {
         icon: '📄',
         stock: 20,
         rarity: 'common',
-        effects: ["Action: Set up decoy. Enemies must attack it once before attacking you.", "1 HP"],
+        effects: ["Action: Set up decoy. Dumb enemies must attack it once before attacking you.", "1 HP"],
         vendor: 'toad_town_market',
         shippedBy: 'Envelope',
         levelRequirement: 1
@@ -2753,7 +4313,2201 @@ export const SHOP_ITEMS = {
         shippedBy: 'Velvet Box',
         levelRequirement: 10
     },
+// ============================================
+// === MID-TIER ITEMS (10,000 - 20,000 GP) ===
+// ============================================
 
+'fire_flower_pendant': {
+    id: 'fire_flower_pendant',
+    name: "Fire Flower Pendant",
+    description: "A necklace shaped like a blooming fire flower. Warms the wearer like a cozy hearth.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🔥',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Cast 'Fire Bolt' at will (1d10 Fire damage)",
+        "+2 to Fire damage rolls",
+        "Immunity to extreme heat (up to 100°F)",
+        "Leaves scorch marks on furniture"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Sealed Urn',
+    levelRequirement: 3
+},
+
+'boo_bell': {
+    id: 'boo_bell',
+    name: "Boo's Whispering Bell",
+    description: "A silver bell that chimes with ghostly echoes. Summons mischievous spirits for pranks.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 12000,
+    icon: '🔔',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Action: Ring to summon 1d4 Boos (CR 1/2 each)",
+        "Boos distract enemies (Disadvantage on next attack)",
+        "Lasts 1 minute, then they haunt your pockets",
+        "Cannot be used in haunted houses"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Velvet Pouch',
+    levelRequirement: 2
+},
+
+'goomba_stomper_boots': {
+    id: 'goomba_stomper_boots',
+    name: "Goomba Stomper Boots",
+    description: "Heavy iron boots designed for maximum squish. Echo with the screams of a thousand Goombas.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '👢',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "+1d6 Bludgeoning on unarmed strikes",
+        "Advantage on jumps and falls (up to 20ft)",
+        "Enemies CR 1/4 or lower take double damage from stomps",
+        "You weigh 50lbs more (doors creak)"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Wooden Crate',
+    levelRequirement: 1
+},
+
+'starman_shard': {
+    id: 'starman_shard',
+    name: "Starman Shard",
+    description: "A glowing fragment of a Super Star. Grants bursts of invincibility, but it's addictive.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10000,
+    icon: '⭐',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Invulnerable for 10 seconds",
+        "Double speed and damage during effect",
+        "After use, -1 to all rolls for 1 hour (withdrawal)",
+        "Collect 5 shards for a full Starman?"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Padded Box',
+    levelRequirement: 1
+},
+
+'piranha_plant_pot': {
+    id: 'piranha_plant_pot',
+    name: "Piranha Plant in a Pot",
+    description: "A chomping green head in a terracotta pot. Loyal guard dog... if you feed it.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 16000,
+    icon: '🌱',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Summons a Piranha Plant familiar (CR 1/2)",
+        "Bites for 1d8 Piercing + Poison (1d4)",
+        "Guards your camp at night",
+        "Eats one raw steak per day or turns on you"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Reinforced Barrel',
+    levelRequirement: 4,
+    factionBonus: { defense: 10 }
+},
+
+'coin_block_replica': {
+    id: 'coin_block_replica',
+    name: "Mini Coin Block",
+    description: "A brick that dispenses coins when punched. Finite, but who doesn't love free money?",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 11000,
+    icon: '🧱',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Punch to dispense 1d10 Gold Coins (50 uses total)",
+        "Recharges 1d4 coins at dawn",
+        "Breaks after 50 uses (recyclable for 500gp)",
+        "Attracts greedy squirrels"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Bubble Wrap',
+    levelRequirement: 1
+},
+
+'thwomp_glove': {
+    id: 'thwomp_glove',
+    name: "Thwomp's Crushing Glove",
+    description: "A stone gauntlet mimicking a Thwomp's fist. For when you need to slam doors... literally.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19000,
+    icon: '👊',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Unarmed strikes deal 2d6 Bludgeoning",
+        "On hit: Push target 10ft",
+        "Once per short rest: Slam for 4d6 in 5ft radius",
+        "Disadvantage on Sleight of Hand checks"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Iron Chest',
+    levelRequirement: 5
+},
+
+'mushroom_spore_bomb': {
+    id: 'mushroom_spore_bomb',
+    name: "Mushroom Spore Bomb",
+    description: "A throwable orb packed with growth spores. Turns battlefields into fungal nightmares.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 14000,
+    icon: '💣',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Throw (20ft range): 3d6 Poison in 10ft radius",
+    "Half on DEX save",
+        "Area becomes Difficult Terrain (mushrooms sprout)",
+        "You gain temporary HP equal to damage dealt"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Leather Satchel',
+    levelRequirement: 3
+},
+
+'toadstool_tea_set': {
+    id: 'toadstool_tea_set',
+    name: "Toadstool Tea Set",
+    description: "A porcelain set infused with minor mushroom magic. Brews potions of dubious origin.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 13000,
+    icon: '🍵',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Brew 1 potion per long rest (roll 1d6: 1-2 Heal 2d4, 3-4 Poison 1d6, 5-6 Invisibility 10min)",
+        "+1 to Charisma (Persuasion) while sipping",
+        "Set whispers Toad facts during tea time",
+        "Breaks if used for coffee"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Tea Crate',
+    levelRequirement: 1
+},
+
+'lakitu_cloud_cushion': {
+    id: 'lakitu_cloud_cushion',
+    name: "Lakitu Cloud Cushion",
+    description: "A fluffy cloud pillow that floats lazily. Perfect for naps or emergency escapes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '☁️',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Hover 10ft off ground (speed 20ft)",
+        "Once per day: Dash 60ft horizontally",
+        "Comfort +5 to rest rolls",
+        "Rains lightly when you're sad"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Sky Delivery',
+    levelRequirement: 4
+},
+
+'bullet_bill_launcher': {
+    id: 'bullet_bill_launcher',
+    name: "Bullet Bill Blaster",
+    description: "A cannon that fires explosive Bills. Aim carefully, or regret it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '🚀',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Action: Fire for 4d6 Fire damage (line 60ft)",
+        "DEX save or 2d6 extra on fail",
+        "3 charges, recharges at dawn",
+        "Overheats in rain (1d4 Fire to user)"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Armored Wagon',
+    levelRequirement: 6
+},
+
+'shyguy_mask': {
+    id: 'shyguy_mask',
+    name: "Shy Guy Mask",
+    description: "A red hood that cloaks you in anonymity. Secrets stay secret... mostly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '😷',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth and Deception",
+        "Disguise as any humanoid (1 hour)",
+        "Mask giggles uncontrollably in silence",
+        "Shy Guys sense a kindred spirit"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Anonymous Package',
+    levelRequirement: 2
+},
+
+'question_block_lamp': {
+    id: 'question_block_lamp',
+    name: "Question Block Lamp",
+    description: "A glowing ? block that illuminates surprises. Sometimes literally.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 12500,
+    icon: '💡',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Sheds bright light (20ft) and dim (20ft more)",
+        "Once per day: Reveals hidden doors/items",
+        "1% chance to dispense a coin when turned on",
+        "Attracts curious Koopas"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Cardboard Box',
+    levelRequirement: 1
+},
+
+'hammer_bro_gloves': {
+    id: 'hammer_bro_gloves',
+    name: "Hammer Bro Throwing Gloves",
+    description: "Leather gloves etched with Bro runes. Enhances your inner blacksmith's fury.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '🧤',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Thrown weapons deal +1d4 damage",
+        "Advantage on throws under 30ft",
+        "Once per short rest: Throw returns like boomerang",
+        "Gloves itch during full moons"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Forge-Wrapped',
+    levelRequirement: 3
+},
+
+'yoshi_egg_whistle': {
+    id: 'yoshi_egg_whistle',
+    name: "Yoshi Egg Whistle",
+    description: "A carved egg that trills like a dino call. Summons a friendly Yoshi for a joyride.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 19500,
+    icon: '🥚',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Blow: Summon Yoshi mount (1 hour)",
+        "Speed 40ft, Swallow attack (1d6 + grapple)",
+        "Can tongue-lash enemies (Reach 15ft, pull 10ft)",
+        "Yoshi eats fruit, not gold (disappointed)"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Nest Basket',
+    levelRequirement: 5
+},
+'bobomb_buddy_plushie': {
+    id: 'bobomb_buddy_plushie',
+    name: "Bob-omb Buddy Plushie",
+    description: "A stuffed explosive friend that whispers encouragement... and occasionally detonates.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 12000,
+    icon: '🧸',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Grants Advantage on CHA checks with explosives or rebels",
+        "Once per day: Explodes for 2d6 Fire damage (you choose target)",
+        "Squeaks when you're nervous (no stealth advantage nearby)",
+        "Cannot be thrown — it cries if you try"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Bubble Wrap Courier',
+    levelRequirement: 3
+},
+
+'mystery_mario_hat': {
+    id: 'mystery_mario_hat',
+    name: "Mystery Mario Hat",
+    description: "Looks like Mario’s cap… but sometimes it isn’t. Changes randomly every dawn.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🧢',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Each morning, transforms into a random NPC’s hat (Luigi, Toad, Goomba King, etc.)",
+        "Grants +1 to a random ability score based on the hat",
+        "May cause NPCs to mistake you for someone else (DM’s whim)",
+        "Wearing Peach’s tiara gives disadvantage on stealth (sparkles too much)"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Disguised Parcel',
+    levelRequirement: 4
+},
+
+'cheep_cheep_life_preserver': {
+    id: 'cheep_cheep_life_preserver',
+    name: "Cheep Cheep Life Preserver",
+    description: "Floats you safely... while screaming underwater opera.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🐠',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "You cannot drown",
+        "Swim Speed 30ft",
+        "While submerged, emits loud operatic singing (no stealth)",
+        "Attracts aquatic predators (roll WIS save DC 12 or summon 1d4 hostile fish)"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Floating Crate',
+    levelRequirement: 3
+},
+
+'spiny_egg_timer': {
+    id: 'spiny_egg_timer',
+    name: "Spiny Egg Timer",
+    description: "Crack it open to start a countdown. What hatches? Depends on your luck.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 11000,
+    icon: '🥚',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Set timer for 1–6 rounds (roll d6)",
+        "When timer ends, egg hatches: 50% Spiny (hostile), 30% Mini-Spiny (pet), 20% Golden Spiny (drops 50gp)",
+        "Can be used as improvised weapon (1d4 piercing, spikes fall off after use)"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Nest Delivery',
+    levelRequirement: 2
+},
+
+'piranha_plant_potted_pet': {
+    id: 'piranha_plant_potted_pet',
+    name: "Potted Piranha Plant (Domesticated?)",
+    description: "It’s cute! It waves! It also bites strangers. And sometimes friends.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 16000,
+    icon: '🌿',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Grants +2 to Intimidation checks",
+        "Bites anyone who startles you (1d6 piercing as reaction)",
+        "Requires daily feeding (meat or coins — it’s not picky)",
+        "Sings lullabies at night (Advantage on sleep saves, Disadvantage on Perception)"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Reinforced Pottery',
+    levelRequirement: 3
+},
+
+'koopa_karaoke_machine': {
+    id: 'koopa_karaoke_machine',
+    name: "Koopa Karaoke Machine",
+    description: "Portable party starter. Comes with Bowser’s Greatest Hits (and his angry voicemails).",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 19000,
+    icon: '🎤',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Grants Advantage on Performance checks",
+        "Once per day: Cast ‘Tasha’s Hideous Laughter’ on all enemies within 30ft (DC 14 WIS save)",
+        "Bowser may call through the speaker to complain about your song choice",
+        "Loud enough to wake the dead (literally — may attract undead in haunted areas)"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Boombox Drone',
+    levelRequirement: 4
+},
+
+'boo_in_a_jar': {
+    id: 'boo_in_a_jar',
+    name: "Boo in a Jar",
+    description: "A captured Boo. Whispers secrets. Sometimes lies. Always watching.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 17000,
+    icon: '👻',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Can answer 1 question per day (50% chance truth, 50% mischievous lie)",
+        "Grants Darkvision 60ft while jar is open",
+        "If jar breaks, Boo becomes hostile or vanishes to tell secrets to your enemies",
+        "Whispers embarrassing facts about you at dramatic moments"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Cursed Glassware',
+    levelRequirement: 5
+},
+
+'goomba_stomp_boots': {
+    id: 'goomba_stomp_boots',
+    name: "Goomba-Stomp Boots",
+    description: "Heavy soled boots designed for maximum flattening efficiency.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '👢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Jump attacks deal +1d6 bludgeoning damage to creatures smaller than you",
+        "Disadvantage on Stealth checks (they squeak with every step)",
+        "Immune to falling damage from ≤ 20ft",
+        "Goombas visibly tremble when you approach"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Drop-Shipped Crate',
+    levelRequirement: 3
+},
+
+'lakitu_cloud_lease': {
+    id: 'lakitu_cloud_lease',
+    name: "Lakitu Cloud Lease (30 Days)",
+    description: "Rent a personal raincloud. Comes with optional spiny delivery service.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '☁️',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Fly Speed 30ft (hover) for 30 days",
+        "Can summon light rain (creates difficult terrain or extinguishes fires)",
+        "Optional Add-On: Call Lakitu to drop 1 Spiny per day (extra 5000 coins)",
+        "Cloud whimpers if you yell at it"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Weather Balloon',
+    levelRequirement: 4
+},
+
+'yoshi_egg_surprise': {
+    id: 'yoshi_egg_surprise',
+    name: "Yoshi Egg Surprise",
+    description: "Crack it open! What color Yoshi will you get? Will it even be a Yoshi?",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 13000,
+    icon: '🐣',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Hatches into a random colored Yoshi (Red = fire breath, Blue = water wings, Yellow = ground pound)",
+        "10% chance hatches into a Shy Guy wearing a Yoshi costume (disappointed but loyal)",
+        "Yoshi follows you for 24 hours, then vanishes (leaves behind 1d10 eggs)",
+        "If fed 5+ berries, grants you a ride (carries 1 passenger, speed 40ft)"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Egg Carton Express',
+    levelRequirement: 2
+},
+
+'hammer_bro_coin_launcher': {
+    id: 'hammer_bro_coin_launcher',
+    name: "Hammer Bro Coin Launcher",
+    description: "Fires coins like bullets. Economical AND deadly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '💸',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Ranged Weapon: 60ft, 1d8 piercing + target must make DEX save DC 13 or be knocked prone",
+        "Uses Gold Coins as ammo (1 coin = 1 shot)",
+        "On Critical Hit: Target is blinded by shiny distraction for 1 round",
+        "Wario sues you if caught using this in his territory"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Coin-Operated Crate',
+    levelRequirement: 5
+},
+
+'blooper_ink_vial': {
+    id: 'blooper_ink_vial',
+    name: "Blooper Ink Vial",
+    description: "One splash and nobody knows where you went. Or what you did.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10500,
+    icon: '🐙',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Action: Throw vial to create 10ft radius cloud of ink",
+        "All inside have total concealment (attack rolls against them have disadvantage)",
+        "Lasts 1 minute or until dispersed by wind/water",
+        "Stains permanently — your clothes, your skin, your reputation"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Leaky Pouch',
+    levelRequirement: 2
+},
+
+'question_block_replica': {
+    id: 'question_block_replica',
+    name: "Question Block Replica",
+    description: "Hit it from below! Might give coins. Might give trouble.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 16500,
+    icon: '🟥',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Once per day: Strike from below to activate",
+        "Roll d6: 1-2=100 coins, 3=Fire Flower, 4=Starman (1 min invincibility), 5=10 Buzzy Beetles, 6=Warp Pipe appears beneath you",
+        "Makes ‘boing’ sound — alerts nearby enemies",
+        "Mario gets jealous if he sees you with it"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Suspiciously Floating Box',
+    levelRequirement: 4
+},
+
+'para_beanie': {
+    id: 'para_beanie',
+    name: "Para-Beanie",
+    description: "A propeller beanie that almost lets you fly. Emphasis on ‘almost’.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🧢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Jump height tripled",
+        "If you jump off high place, can glide slowly downward (no fall damage)",
+        "Propeller falls off if you take thunder damage (requires tinkering to fix)",
+        "Kids point and laugh. Adults sigh nostalgically."
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Parcel Chute',
+    levelRequirement: 2
+},
+// ============================================
+// === 50 MORE RANDOM ITEMS (ANY PRICE) ===
+// ============================================
+
+'propeller_mushroom': {
+    id: 'propeller_mushroom',
+    name: "Propeller Mushroom",
+    description: "A mushroom with a spinning propeller cap. Launch yourself skyward with style.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 8000,
+    icon: '🍄',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Fly 60ft straight up",
+        "Slow fall for 1 minute",
+        "Propeller hums the Mario theme",
+        "You spin uncontrollably for 30 seconds after landing"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Spinning Crate',
+    levelRequirement: 2
+},
+
+'boo_portrait': {
+    id: 'boo_portrait',
+    name: "Haunted Boo Portrait",
+    description: "A painting that follows you with its eyes. Sometimes the eyes blink.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 5000,
+    icon: '🖼️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Warns of invisible creatures (30ft)",
+        "Portrait Boo whispers secrets at night",
+        "Once per day: Cast 'Mage Hand' as Boo",
+        "Cries when left alone"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Canvas Wrap',
+    levelRequirement: 1
+},
+
+'chain_chomp_chain': {
+    id: 'chain_chomp_chain',
+    name: "Chain Chomp's Leash",
+    description: "A heavy iron chain that once held a beast. Still twitches with aggression.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22000,
+    icon: '⛓️',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Whip attack: 2d6 Slashing, Reach 15ft",
+        "On crit: Target restrained for 1 round",
+        "Chain rattles when enemies approach",
+        "You feel the urge to bark at mailmen"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Iron Chest',
+    levelRequirement: 6
+},
+
+'wiggler_segment': {
+    id: 'wiggler_segment',
+    name: "Wiggler's Wrath Segment",
+    description: "A squirming orange segment from an angry Wiggler. Still pulsates with rage.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 6000,
+    icon: '🐛',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: Explodes into 3d4 angry caterpillars",
+        "Each caterpillar deals 1d4 Poison on contact",
+        "Lasts 3 rounds, then they cry and leave",
+        "You feel slightly guilty"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Leaf Wrap',
+    levelRequirement: 1
+},
+
+'fuzzy_wig': {
+    id: 'fuzzy_wig',
+    name: "Fuzzy Thinking Wig",
+    description: "A pink fuzzy that sits on your head. Makes you smarter, but also hungrier.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '🧠',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "+2 to INT checks and saves",
+        "Advantage on knowledge rolls",
+        "Must eat double rations or wig leaves",
+        "Wig occasionally steals your thoughts"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Thought Bubble',
+    levelRequirement: 3
+},
+
+'pokey_spine_pen': {
+    id: 'pokey_spine_pen',
+    name: "Pokey Spine Quill",
+    description: "A cactus spine that writes in prickly ink. Contracts signed with it are legally binding in the desert.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 3000,
+    icon: '🖊️',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Writes on any surface, even sand",
+        "Contracts signed are magically enforced (DC 15 CHA to break)",
+        "Ink causes 1d4 Poison if used as dagger",
+        "Desert creatures respect the signature"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Cactus Wrap',
+    levelRequirement: 1
+},
+
+'sledge_bro_hammer': {
+    id: 'sledge_bro_hammer',
+    name: "Sledge Bro's Mallet",
+    description: "An enormous hammer that creates shockwaves. Requires two hands and a strong back.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '🔨',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "2d10 Bludgeoning damage",
+        "On hit: Creatures within 10ft make DEX save or fall prone",
+        "Requires 17 STR to wield",
+        "You stomp when you walk"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Stone Sled',
+    levelRequirement: 7
+},
+
+'bandit_mask': {
+    id: 'bandit_mask',
+    name: "Bandit's Smiling Mask",
+    description: "A white mask that grins eternally. Steals coins from those who trust you.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '😁',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Sleight of Hand vs humanoids",
+        "Once per day: Steal 1d20gp from touched creature",
+        "Mask whispers gambling tips",
+        "You can't stop smiling while wearing it"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Coin Purse',
+    levelRequirement: 2
+},
+
+'cheep_cheep_aquarium': {
+    id: 'cheep_cheep_aquarium',
+    name: "Portable Cheep-Cheep Tank",
+    description: "A bubble containing a living fish. Shoots water jets on command.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '🐟',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Action: 15ft water jet, 2d6 Bludgeoning",
+        "Can breathe underwater while holding tank",
+        "Cheep-Cheep sings sea shanties",
+        "Tank cracks if dropped (fish becomes hostile)"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Water Bubble',
+    levelRequirement: 3
+},
+
+'dk_barrel_backpack': {
+    id: 'dk_barrel_backpack',
+    name: "DK Barrel Jetpack",
+    description: "A wooden barrel strapped to your back. Blast forward with explosive force.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🛢️',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Once per short rest: Dash 120ft in straight line",
+        "Enemies in path take 2d6 Fire (DEX save half)",
+        "You take 1d6 Fire damage from backblast",
+        "Apes respect you"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Barrel Roll',
+    levelRequirement: 5
+},
+
+'spiny_shell_helmet': {
+    id: 'spiny_shell_helmet',
+    name: "Spiny Shell Spiked Helm",
+    description: "A red shell with spikes that retracts into your skull. Headbutts become lethal.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '🐚',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Headbutt attacks deal 2d6 Piercing",
+        "Enemies who grapple you take 1d6 Piercing",
+        "Spikes retract when you bow (polite)",
+        "Birds avoid your head"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Spiked Crate',
+    levelRequirement: 4
+},
+
+'banana_peel_bunch': {
+    id: 'banana_peel_bunch',
+    name: "Banana Peel Cluster",
+    description: "A bundle of magically slippery peels. Classic prank, timeless chaos.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 4000,
+    icon: '🍌',
+    stock: 20,
+    rarity: 'common',
+    effects: [
+        "Throw: 10ft radius, DEX save or fall prone",
+        "Lasts 3 rounds, then peels vanish",
+        "Monkeys become hostile if they see you waste bananas",
+        "Slippery surface counts as difficult terrain"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Fruit Basket',
+    levelRequirement: 1
+},
+
+'magikoopa_wand': {
+    id: 'magikoopa_wand',
+    name: "Magikoopa's Bent Wand",
+    description: "A crooked wand that misfires spells. Sometimes helpful, often hilarious.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '🪄',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Cast a random 1st-level spell (roll 1d6)",
+        "50% chance target is wrong (DM chooses)",
+        "Wand cackles when used",
+        "Explodes on natural 1 (2d6 Force to user)"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Star Wrap',
+    levelRequirement: 3
+},
+
+'bob_omb_buddy': {
+    id: 'bob_omb_buddy',
+    name: "Bob-Omb Buddy",
+    description: "A pink Bob-Omb that follows you like a puppy. Explodes on command, reforms at dawn.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 12000,
+    icon: '💣',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Command: Explode (3d6 Fire, 10ft radius)",
+        "Reforms after 24 hours",
+        "Likes to hug your leg (awkward)",
+        "Afraid of torches"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Explosive Container',
+    levelRequirement: 4,
+    factionBonus: { offense: 10 }
+},
+
+'cape_feather': {
+    id: 'cape_feather',
+    name: "Cape Feather",
+    description: "A golden feather that grants brief flight. Smells like nostalgia and freedom.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7000,
+    icon: '🪶',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Fly 40ft for 1 minute",
+        "Can perform a spin attack (1d6 Slashing)",
+        "Feather dissolves into sparkles",
+        "You hear cape music in your head"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Feather Pillow',
+    levelRequirement: 1
+},
+
+'monty_mole_tunnel_map': {
+    id: 'monty_mole_tunnel_map',
+    name: "Monty Mole's Tunnel Map",
+    description: "A dirt-stained map of underground passages. Leads to treasure or toilets.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 5000,
+    icon: '🗺️',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Reveals 1d4 hidden passages in current area",
+        "20% chance map is upside down (you get lost)",
+        "Moles will trade info for worms",
+        "Smells like earthworms"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Buried Box',
+    levelRequirement: 1
+},
+
+'ice_flower_seed': {
+    id: 'ice_flower_seed',
+    name: "Ice Flower Seed",
+    description: "A crystalline seed that grows into a frost-spitting flower. Keep away from fire.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 8500,
+    icon: '🌸',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Plant: Grows in 1 round, 5ft frost aura (difficult terrain)",
+        "Shoots ice shards (1d8 Cold, 30ft range)",
+        "Lasts 5 rounds, then shatters",
+        "Slips from warm hands"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Ice Pack',
+    levelRequirement: 2
+},
+
+'klomp_pirate_peg': {
+    id: 'klomp_pirate_peg',
+    name: "Klomp's Peg Leg",
+    description: "A wooden leg that once belonged to a Kremling pirate. Stomps echo like cannon fire.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '🦿',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Kick attacks deal 1d8 Bludgeoning",
+        "Stomp: Creatures within 10ft make WIS save or be startled",
+        "Advantage on Intimidation vs pirates",
+        "You develop a slight limp (cosmetic)"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Treasure Chest',
+    levelRequirement: 3
+},
+
+'chomp_call_whistle': {
+    id: 'chomp_call_whistle',
+    name: "Chain Chomp Call",
+    description: "A rusty whistle that summons a wild Chain Chomp. Hope you're friends.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 15000,
+    icon: '📯',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Summons CR 2 Chain Chomp (1 minute)",
+        "50% chance it attacks you instead",
+        "Chomp leaves after 1 minute or when bored",
+        "Dogs hate the sound"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Chain Wrap',
+    levelRequirement: 5
+},
+
+'toadette_bow': {
+    id: 'toadette_bow',
+    name: "Toadette's Pink Bow",
+    description: "A giant pink bow that boosts charisma. Makes you feel adorable and powerful.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🎀',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to CHA (Persuasion) checks",
+        "Advantage on Performance (dance)",
+        "Bow squeaks when you're nervous",
+        "Mushroom people trust you more"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Gift Box',
+    levelRequirement: 1
+},
+
+'sumo_bro_sandals': {
+    id: 'sumo_bro_sandals',
+    name: "Sumo Bro Thunder Sandals",
+    description: "Heavy sandals that stomp lightning. Shake the earth with every step.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21000,
+    icon: '🩴',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Stomp: 1d6 Thunder in 5ft radius",
+        "Once per short rest: Lightning stomp (3d6 Thunder, DEX save half)",
+        "You weigh 100lbs more",
+        "Clouds gather above your head when angry"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Thunder Crate',
+    levelRequirement: 6
+},
+
+'blooper_ink_well': {
+    id: 'blooper_ink_well',
+    name: "Blooper's Ink Well",
+    description: "A glass well filled with black ink. Write messages or blind enemies.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 7000,
+    icon: '🦑',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: 15ft cone, creatures blinded for 1 round (CON save)",
+        "Ink writes messages visible only in moonlight",
+        "Octopi become friendly",
+        "Smells like low tide"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Sealed Jar',
+    levelRequirement: 2
+},
+
+'wiggler_segment_armor': {
+    id: 'wiggler_segment_armor',
+    name: "Wiggler Segment Plate",
+    description: "Orange segmented armor that squishes and stretches. Surprisingly flexible.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '🐛',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "AC +2, but reduces speed by 5ft",
+        "Resistance to Poison damage",
+        "Can squeeze through 1ft openings",
+        "Caterpillars think you're their mom"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Cocoon Wrap',
+    levelRequirement: 4
+},
+
+'dk_tie': {
+    id: 'dk_tie',
+    name: "DK's Red Tie",
+    description: "A massive red tie that grants ape-like strength. Makes you beat your chest involuntarily.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '👔',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+2 to STR (Athletics) checks",
+        "Advantage on climbing",
+        "Once per day: Beat chest to intimidate (WIS save or frightened)",
+        "Bananas taste better"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Jungle Vine',
+    levelRequirement: 3
+},
+
+'parakoopa_wings': {
+    id: 'parakoopa_wings',
+    name: "Parakoopa Wing Clips",
+    description: "Small wings that strap to your arms. Flap awkwardly but fly briefly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '🪶',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Fly 30ft for 2 rounds (concentration)",
+        "Glide safely from any height",
+        "Wings flap loudly (disadvantage on Stealth)",
+        "Birds mock your technique"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Feather Box',
+    levelRequirement: 4
+},
+
+'king_boo_crown': {
+    id: 'king_boo_crown',
+    name: "King Boo's Crown Fragment",
+    description: "A broken piece of spectral royalty. Makes you translucent and arrogant.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 23000,
+    icon: '👑',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Resistance to Force damage",
+        "Can phase through walls (1/day, 10ft)",
+        "Ghosts recognize you as nobility",
+        "You become allergic to flashlights"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Ghostly Package',
+    levelRequirement: 8
+},
+
+'goomba_king_scepter': {
+    id: 'goomba_king_scepter',
+    name: "Goomba King's Scepter",
+    description: "A dented scepter that commands respect from weak-minded mushrooms.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '🔱',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Command Goombas (CR 1/4 or lower)",
+        "Scepter headbutt: 1d8 Bludgeoning",
+        "Goombas will form a throne for you",
+        "You feel an urge to waddle"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Mushroom Crate',
+    levelRequirement: 5
+},
+
+'bullet_bill_helmet': {
+    id: 'bullet_bill_helmet',
+    name: "Bullet Bill Helmet",
+    description: "A rocket-shaped helmet that launches you forward. Landing is your problem.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19000,
+    icon: '🚀',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Once per short rest: Dash 120ft in straight line",
+        "Enemies in path take 2d6 Bludgeoning (DEX save half)",
+        "You take 1d6 damage from impact",
+        "Smoke trail lasts 1 minute"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Rocket Sled',
+    levelRequirement: 6
+},
+
+' shy_guy_torch': {
+    id: 'shy_guy_torch',
+    name: "Shy Guy's Mask Torch",
+    description: "A torch that burns with a shy flame. Hides you in shadows but whispers secrets.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🔦',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Sheds dim light in 20ft, but you're invisible in it",
+        "Whispers one secret per day (DM's choice)",
+        "Mask on torch giggles when nervous",
+        "Burns out if you speak loudly"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Dark Wrap',
+    levelRequirement: 2
+},
+
+'toad_house_cookie': {
+    id: 'toad_house_cookie',
+    name: "Toad House Power Cookie",
+    description: "A star-shaped cookie that tastes like victory. Baked by Toadette herself.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5000,
+    icon: '🍪',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Eat: Gain 1d10 temporary HP",
+        "Advantage on next saving throw",
+        "Cookie crumbles into star shapes",
+        "You feel optimistic for 1 hour"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Cookie Tin',
+    levelRequirement: 1
+},
+
+'larry_koopa_wand': {
+    id: 'larry_koopa_wand',
+    name: "Larry's Chewed Wand",
+    description: "A wand with bite marks. Casts weak magic but summons magical chewing gum.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '🪥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Cast 'Prestidigitation' at will",
+        "Once per day: Create sticky gum trap (10ft radius, DEX save or restrained)",
+        "Wand tastes like mint",
+        "Koopalings mock you for using it"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Chewed Wrapper',
+    levelRequirement: 3
+},
+
+'mega_mole_gloves': {
+    id: 'mega_mole_gloves',
+    name: "Mega Mole Digging Gloves",
+    description: "Giant claws that let you burrow through earth. Leave a trail of upturned soil.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '🥊',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Burrow speed 20ft through non-rocky earth",
+        "Claw attacks deal 1d8 Slashing",
+        "Leave obvious mole trails",
+        "Worms become your friends"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Dirt Mound',
+    levelRequirement: 4
+},
+
+// ============================================
+// === 50 NEW ITEMS (varied tiers & flavors) ===
+// ============================================
+
+'sparkling_bento': {
+    id: 'sparkling_bento',
+    name: "Sparkling Bento",
+    description: "An effervescent meal in a lacquered box. Tastes like home, and a tiny fireworks show.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 300,
+    icon: '🍱',
+    stock: 20,
+    rarity: 'common',
+    effects: [
+        "Heals 1d2 HP instantly",
+        "If eaten during a performance, +1 to Performance for 10 minutes"
+    ],
+    vendor: 'mushroom_mart',
+    shippedBy: 'Insulated Crate',
+    levelRequirement: 1
+},
+
+'pocket_compass': {
+    id: 'pocket_compass',
+    name: "Pocket Compass",
+    description: "A small brass compass whose needle wobbles toward your strongest desire.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 2200,
+    icon: '🧭',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Points toward whatever you currently seek (subjective)",
+        "Once per long rest: cast Locate Object (self only)",
+        "Glows when near hidden doors"
+    ],
+    vendor: 'twilight_outpost',
+    shippedBy: 'Padded Pouch',
+    levelRequirement: 2
+},
+
+'whispering_scroll': {
+    id: 'whispering_scroll',
+    name: "Whispering Scroll",
+    description: "A brittle parchment that softly murmurs secrets in a language you almost understand.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 4500,
+    icon: '📜',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Grants knowledge of one obscure fact or a usable cantrip for 1 hour",
+        "If unrolled at night it tells a helpful bedtime memory",
+        "Chance to attract a curious scholar"
+    ],
+    vendor: 'bazaar_of_oddities',
+    shippedBy: 'Silk Tube',
+    levelRequirement: 3
+},
+
+'glow_shroom': {
+    id: 'glow_shroom',
+    name: "Glow Shroom",
+    description: "A luminescent mushroom sealed in a jar. Edible in small bites or used to light rooms.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 1200,
+    icon: '🍄',
+    stock: 30,
+    rarity: 'uncommon',
+    effects: [
+        "Provides bright light (10ft) for 8 hours",
+        "Eating grants darkvision for 1 hour",
+        "Overindulgence causes gentle bioluminescent skin for 24 hours (cosmetic)"
+    ],
+    vendor: 'orchard_stall',
+    shippedBy: 'Glass Jar',
+    levelRequirement: 1
+},
+
+'echo_lantern': {
+    id: 'echo_lantern',
+    name: "Echo Lantern",
+    description: "A lantern that records the last spoken phrase it hears and can replay it.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8000,
+    icon: '🏮',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Records up to 1 minute of sounds and replays on command (range 60ft)",
+        "Replaying can distract or pacify creatures who heard the original",
+        "If fed a secret, it sometimes decides to whisper it later"
+    ],
+    vendor: 'glow_merchant',
+    shippedBy: 'Wooden Crate',
+    levelRequirement: 2
+},
+
+'cracked_star_coin': {
+    id: 'cracked_star_coin',
+    name: "Cracked Star Coin",
+    description: "A thin coin with a tiny fissure; it hums with distant starlight.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 3000,
+    icon: '🪙',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: teleport to a safe nearby star-lit spot (30ft)",
+        "If used under a true night sky, grants +1 Inspiration",
+        "The crack widens with each use (fragile)"
+    ],
+    vendor: 'starflea',
+    shippedBy: 'Velvet Pouch',
+    levelRequirement: 2
+},
+
+'time_sand_hourglass': {
+    id: 'time_sand_hourglass',
+    name: "Hourglass of Stilled Seconds",
+    description: "A glass hourglass filled with moonlight sand. Slows or rewinds fleeting moments.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 60000,
+    icon: '⏳',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "3 charges",
+        "Spend 1 charge as a reaction to grant +10 to a single d20 roll (rewind a failure)",
+        "Spend 3 charges to rewind the last 6 seconds of combat (players keep memories)",
+        "Recharges 1 charge per full moon"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Hermetic Case',
+    levelRequirement: 12
+},
+
+'bridge_builder_brick': {
+    id: 'bridge_builder_brick',
+    name: "Bridge-Builder Brick",
+    description: "A warm brick that murmurs blueprints. Lay it down, and a sturdy bridge follows.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 14000,
+    icon: '🧱',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Place on gap: conjures a 10ft-wide stone bridge lasting 24 hours",
+        "Bridge resists weather and normal attacks (AC 15, HP 50)",
+        "Using two bricks side-by-side widens the span"
+    ],
+    vendor: 'bricklane',
+    shippedBy: 'Crate of Mortar',
+    levelRequirement: 4
+},
+
+'poltergeist_pepper': {
+    id: 'poltergeist_pepper',
+    name: "Poltergeist Pepper",
+    description: "A wrinkled pepper that makes inanimate objects very enthusiastic about violence.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 18000,
+    icon: '🌶️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Dust an area (15ft radius). Objects animate and attack for 1 minute (DM discretion)",
+        "Animated objects deal +1d6 force damage",
+        "On a roll of 1, attracts an actual poltergeist"
+    ],
+    vendor: 'witch_hut',
+    shippedBy: 'Sealed Spice Jar',
+    levelRequirement: 6
+},
+
+'mirror_of_second_chances': {
+    id: 'mirror_of_second_chances',
+    name: "Mirror of Second Chances",
+    description: "A hand mirror framed with tiny feathers. It shows how a single different choice would have gone.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 25000,
+    icon: '🪞',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Once per long rest: reroll a failed check/attack/save with advantage",
+        "If used to alter a major decision, the mirror may demand a memory in payment"
+    ],
+    vendor: 'rare_relics',
+    shippedBy: 'Feathered Crate',
+    levelRequirement: 8
+},
+
+'sprocket_belt': {
+    id: 'sprocket_belt',
+    name: "Sprocket Belt",
+    description: "A leather belt studded with ticking gears. Powers small mechanical augmentations.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22000,
+    icon: '⚙️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Gain +2 to Strength checks for tool/construct use",
+        "3 charges: spend 1 for +10 on a single craft or attack; 1 charge/short rest",
+        "Belt emits faint ticking"
+    ],
+    vendor: 'gearworks',
+    shippedBy: 'Metal Trunk',
+    levelRequirement: 4
+},
+
+'glacial_bottle': {
+    id: 'glacial_bottle',
+    name: "Glacial Bottle",
+    description: "A flask of bottled winter. Throw to chill or sip for a cold clarity.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 6000,
+    icon: '🧊',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Throw (20ft): 10ft cone of Cold, 3d6 cold damage (DEX save half)",
+        "Sip: immunity to cold and +1 to INT checks for 10 minutes",
+        "Bottle reforms in 7 days"
+    ],
+    vendor: 'sea_seller',
+    shippedBy: 'Ice-Packed Box',
+    levelRequirement: 3
+},
+
+'tunneler_capsule': {
+    id: 'tunneler_capsule',
+    name: "Tunneler Capsule",
+    description: "A heavy metal seed that can sprout a short burrow with grinding, earthworm teeth.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '🪨',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Plant: creates 5ft-wide, 30ft-long tunnel in soft earth in 1 minute",
+        "Tunnel collapses after 24 hours",
+        "Sends a faint tremor detectable by Perception"
+    ],
+    vendor: 'junkheap_merchant',
+    shippedBy: 'Metal Seed Crate',
+    levelRequirement: 4
+},
+
+'koopa_lantern': {
+    id: 'koopa_lantern',
+    name: "Lantern Koopa",
+    description: "A ceramic shell-lantern that glows and flashes when danger approaches.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 7500,
+    icon: '🏮',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Sheds warm light (20ft) and gives +1 to passive Perception while lit",
+        "Flashes red when hostile intent enters 30ft",
+        "Works 24 hours; recharges at dawn"
+    ],
+    vendor: 'mariner_guild',
+    shippedBy: 'Bubble-Wrapped Box',
+    levelRequirement: 1
+},
+
+'sunglasses_of_swagger': {
+    id: 'sunglasses_of_swagger',
+    name: "Sunglasses of Swagger",
+    description: "Stylish shades that make you impossible to ignore (in a good way).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '🕶️',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "While worn, +2 to Performance (Charisma) checks",
+        "Once per day: cast Charm Person (self only)",
+        "Attracts fanfare and pigeons"
+    ],
+    vendor: 'skyloom',
+    shippedBy: 'Paper Sleeve',
+    levelRequirement: 2
+},
+
+'mushroom_idol': {
+    id: 'mushroom_idol',
+    name: "Grand Mushroom Idol",
+    description: "A carved statue of a smiling mushroom that radiates ancient hospitality.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 50000,
+    icon: '🗿',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Place in camp: grants +2 to all saving throws for allies within 30ft",
+        "Once per week: summon a Mushroom Guardian (CR 3)",
+        "Requires periodic offerings or it sulks"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Stone Crate',
+    levelRequirement: 8
+},
+
+'wish_wisp': {
+    id: 'wish_wisp',
+    name: "Wish Wisp",
+    description: "A tiny floating ember that whispers promises. It responds to true yearning... for a price.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 120000,
+    icon: '✨',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Single Use: Grant a wish subject to DM adjudication",
+        "Wish may twist reality in small ways and attracts cosmic attention",
+        "After use, the wisher loses one cherished memory"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Glass Vial',
+    levelRequirement: 15
+},
+
+'cackleberry': {
+    id: 'cackleberry',
+    name: "Cackleberry",
+    description: "A small egg that constantly giggles when held. Delicious if you can stand the laughter.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 400,
+    icon: '🥚',
+    stock: 30,
+    rarity: 'common',
+    effects: [
+        "Eat: +2 to Stealth for 10 minutes (giggly cover)",
+        "50% chance to laugh uncontrollably and reveal position",
+        "Favorite treat of trickster sprites"
+    ],
+    vendor: 'twine_shop',
+    shippedBy: 'Wicker Basket',
+    levelRequirement: 1
+},
+
+'potion_of_cheer': {
+    id: 'potion_of_cheer',
+    name: "Potion of Cheer",
+    description: "A fizzy vial that brightens the spirit and loosens the tongue.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 2000,
+    icon: '🥤',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Drink: +2 Charisma (Persuasion) for 1 hour",
+        "Cures minor sadness and fear effects",
+        "May cause sudden optimism (risky decisions)"
+    ],
+    vendor: 'alchemist_stall',
+    shippedBy: 'Corked Flask',
+    levelRequirement: 1
+},
+
+'map_fragment_starfield': {
+    id: 'map_fragment_starfield',
+    name: "Starfield Map Fragment",
+    description: "A scrap of ancient cartography that maps celestial ley-lines and hidden nodes.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 9500,
+    icon: '🗺️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Reveals nearby ley nodes or celestial shrines on a map",
+        "Once per day: reveal a safe path (DM discretion)"
+    ],
+    vendor: 'orbit_outpost',
+    shippedBy: 'Rolled Tube',
+    levelRequirement: 5
+},
+
+'thunder_leaf': {
+    id: 'thunder_leaf',
+    name: "Thunder Leaf",
+    description: "A crackling leaf that tingles your fingers and turns kicks into lightning.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 21000,
+    icon: '🍃',
+    stock: 6,
+    rarity: 'epic',
+    effects: [
+        "Single Use: For 1 minute, melee attacks deal +1d8 Lightning and gain advantage on Acrobatics",
+        "After use, suffer 1d6 shock (withdrawal)",
+        "Sparks can ignite flammable materials"
+    ],
+    vendor: 'storm_seller',
+    shippedBy: 'Porcelain Jar',
+    levelRequirement: 7
+},
+
+'lucky_pixel': {
+    id: 'lucky_pixel',
+    name: "Lucky Pixel",
+    description: "A tiny, glowing bit of digital luck. Handy for gambling and tech experiments.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 3000,
+    icon: '🔴',
+    stock: 50,
+    rarity: 'common',
+    effects: [
+        "Once per day: reroll a d20 and take the higher result",
+        "Magically sticky — attracts stray electronics"
+    ],
+    vendor: 'starflea',
+    shippedBy: 'Small Tin',
+    levelRequirement: 1
+},
+
+'navigator_of_tabs': {
+    id: 'navigator_of_tabs',
+    name: "Navigator of Tabs",
+    description: "A brass sextant full of minute bookmarks. Each tab is a destination you've been to before.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 75000,
+    icon: '🧭',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Action: Open a tab and teleport to any location you've visited (1/day)",
+        "Houses 5 tabs; regains one tab per long rest",
+        "Steals a memory of that place when used (temporary amnesia)"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Lockbox',
+    levelRequirement: 12
+},
+
+'squad_glow_beacon': {
+    id: 'squad_glow_beacon',
+    name: "Squad Glow Beacon",
+    description: "A compact flare that calls nearby friendly troops and marks your position.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 9000,
+    icon: '📡',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Deploy: call 1d6 allied militia (CR 1/2) to your location; they follow simple orders",
+        "Each use increases faction attention (+2)",
+        "Beacons burn for 10 minutes"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Crate of Flares',
+    levelRequirement: 4,
+    factionBonus: { morale: 10 }
+},
+
+'ink_splotch_talisman': {
+    id: 'ink_splotch_talisman',
+    name: "Ink-Splotch Talisman",
+    description: "A blot of indelible ink preserved under glass. It soaks up lies and reveals truth.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🖋️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Wearer can see lies as faint halos (1/day for 10 minutes)",
+        "Can nullify forged documents within 30ft (action)",
+        "Attracts pedants"
+    ],
+    vendor: 'black_ink',
+    shippedBy: 'Stamped Tube',
+    levelRequirement: 5
+},
+
+'molten_bracelet': {
+    id: 'molten_bracelet',
+    name: "Molten Bracelet",
+    description: "A ring of cooled lava that hums warmly. It warms wounds and lashes with flame.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 33000,
+    icon: '🔥',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "While worn, Resistance to Fire damage",
+        "Once per short rest: molten aura (10ft) deals 2d6 Fire to attackers",
+        "May melt fragile items on touch"
+    ],
+    vendor: 'steamworks',
+    shippedBy: 'Lead Pouch',
+    levelRequirement: 7
+},
+
+'soul_lantern': {
+    id: 'soul_lantern',
+    name: "Soul Lantern",
+    description: "A black lantern that traps stray spirits. Its light tastes like memories.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 100000,
+    icon: '🔮',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Capture: once per day trap a medium or smaller spirit (contested check)",
+        "Trapped spirits can be queried for knowledge (ethically dubious)",
+        "Attracts vengeful entities if left lit"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Ironbound Cage',
+    levelRequirement: 12
+},
+
+'bouncing_bubble_gum': {
+    id: 'bouncing_bubble_gum',
+    name: "Bouncing Bubble Gum",
+    description: "A strip of gum that produces an extra-large, bouncy bubble when chewed.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 1500,
+    icon: '🍬',
+    stock: 25,
+    rarity: 'uncommon',
+    effects: [
+        "Chew: create a bubble platform (10ft diameter) that holds Tiny objects for 1 minute",
+        "Burst: deals 1d4 bludgeoning in 5ft radius",
+        "Sticky residue remains"
+    ],
+    vendor: 'pawn_of_wonders',
+    shippedBy: 'Waxed Paper',
+    levelRequirement: 1
+},
+
+'accordion_of_autumn': {
+    id: 'accordion_of_autumn',
+    name: "Accordion of Autumn",
+    description: "A squeezebox that brings fall wherever it plays; leaves swirl and hearts feel nostalgic.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8000,
+    icon: '🪗',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Play: 20ft radius of swirling leaves grants +1 Stealth to those within",
+        "Once per day: entropic hum calms hostiles for 1 round (DC 12 Wis)",
+        "Polka may induce dizziness"
+    ],
+    vendor: 'wandering_vend',
+    shippedBy: 'Cloth Bag',
+    levelRequirement: 2
+},
+
+'honeyed_lockpick': {
+    id: 'honeyed_lockpick',
+    name: "Honeyed Lockpick",
+    description: "A slim pick laced with sweet syrup that tempts tumblers to slip aside.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 2400,
+    icon: '🔐',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to Thieves' Tools checks",
+        "Once per day: open a non-magical lock without a check",
+        "Sticky sap may attract insects"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Velvet Roll',
+    levelRequirement: 1
+},
+
+'gravity_pipette': {
+    id: 'gravity_pipette',
+    name: "Gravity Pipette",
+    description: "A glass dropper that can alter the pull of the world on a small object.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 47000,
+    icon: '🧪',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Siphon gravity from a 5ft cube: objects fall 10x slower for 1 minute",
+        "Use on yourself to ignore fall damage once per long rest",
+        "Fragile; breaks on critical failure"
+    ],
+    vendor: 'alchemist_stall',
+    shippedBy: 'Padded Flask Box',
+    levelRequirement: 6
+},
+
+'sprint_spurs': {
+    id: 'sprint_spurs',
+    name: "Sprint Spurs",
+    description: "Metal spurs that make you feel the open road under your feet.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🏇',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Wearer gains +10ft speed",
+        "Once per short rest: Dash becomes a bonus action",
+        "Rattles when idle"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Tin Case',
+    levelRequirement: 2
+},
+
+'gobble_hat': {
+    id: 'gobble_hat',
+    name: "Gobble Hat",
+    description: "A jaunty cap adorned with a beak. People can't help but offer you food.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 1200,
+    icon: '🧢',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Advantage on Persuasion checks when food is present",
+        "Once per day: eat a small object (coins, tiny trinkets) to hide it safely",
+        "Googly-eyed when wet"
+    ],
+    vendor: 'orchard_stall',
+    shippedBy: 'Cloth Cap Box',
+    levelRequirement: 1
+},
+
+'plate_of_reflections': {
+    id: 'plate_of_reflections',
+    name: "Plate of Reflections",
+    description: "A polished plate that shows more than your face: moments, memories, small truths.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 26000,
+    icon: '🍽️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Place food on it: reveals a memory tied to the meal (useful for investigation)",
+        "Once per week: shapeshift your reflection (illusion) to charm or confuse"
+    ],
+    vendor: 'midnight_bazaar',
+    shippedBy: 'Silver-Wrapped',
+    levelRequirement: 6
+},
+
+'orb_of_snowglobe': {
+    id: 'orb_of_snowglobe',
+    name: "Orb of Snowglobe",
+    description: "A palm-sized globe that contains a tiny, perfect winter town.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 4200,
+    icon: '❄️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Shake: create a localized snowfield (10ft radius) that reduces movement and grants concealment for 1 minute",
+        "Shaken thrice: calms nearby beasts",
+        "Contains a miniature model of a random location"
+    ],
+    vendor: 'glow_merchant',
+    shippedBy: 'Packed Straw',
+    levelRequirement: 1
+},
+
+'vortex_zip_tie': {
+    id: 'vortex_zip_tie',
+    name: "Vortex Zip-Tie",
+    description: "A metallic band threaded with a micro-vortex that locks space together.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 38000,
+    icon: '🔗',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Use to bind a creature: deals 2d10 force/round while restrained (STR check to break)",
+        "Binds even intangible things briefly",
+        "Consumes itself on success"
+    ],
+    vendor: 'gearworks',
+    shippedBy: 'Steel Tube',
+    levelRequirement: 8
+},
+
+'pocket_orchestra': {
+    id: 'pocket_orchestra',
+    name: "Pocket Orchestra",
+    description: "A tiny music box that summons a handful of invisible musicians.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 15000,
+    icon: '🎼',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Play: summon 1d6 spectral musicians that provide +2 AC and +1 morale to allies within 30ft for 10 minutes",
+        "Musicians vanish if disturbed"
+    ],
+    vendor: 'pawn_of_wonders',
+    shippedBy: 'Mahogany Case',
+    levelRequirement: 4
+},
+
+'maple_armor_patch': {
+    id: 'maple_armor_patch',
+    name: "Maple Armor Patch",
+    description: "A patch of living bark that sticks to armor and mends it slowly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 2500,
+    icon: '🪵',
+    stock: 20,
+    rarity: 'uncommon',
+    effects: [
+        "Attach to armor: restores 1d4 HP to armor each day (repairs wear)",
+        "If soaked or burned, it sprouts leaves and improves stealth in natural areas",
+        "Can be removed after 7 days"
+    ],
+    vendor: 'mossy_stall',
+    shippedBy: 'Leaf-Wrapped',
+    levelRequirement: 1
+},
+
+'echoes_bottle': {
+    id: 'echoes_bottle',
+    name: "Echoes Bottle",
+    description: "A bottle that catches sounds and holds them like fish.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 6500,
+    icon: '🍶',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Capture a single spoken sentence and replay it from anywhere (range 500ft)",
+        "Useful to trigger sound-sensitive traps or create decoys",
+        "Bottled sounds go stale after a month"
+    ],
+    vendor: 'black_ink',
+    shippedBy: 'Corked Bottle',
+    levelRequirement: 2
+},
+
+'smokestack_prefab': {
+    id: 'smokestack_prefab',
+    name: "Smokestack Prefab",
+    description: "A portable factory smokestack that belches engineered fog and obscures the battlefield.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 150000,
+    icon: '🏭',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Deployable: creates dense smoke in a 100ft radius obscuring vision & sensors for 24 hours",
+        "Configurable with scent, gas, or holographic decoys",
+        "Public use risks sanctions & bounties"
+    ],
+    vendor: 'steel_syndicate',
+    shippedBy: 'Freight Pallet',
+    levelRequirement: 12,
+    factionBonus: { stealth: 40, denial: 50 }
+},
+
+'rusted_starman': {
+    id: 'rusted_starman',
+    name: "Rusted Starman",
+    description: "A tarnished, slow-glowing star relic. It's seen better days but still hums with speed.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 50000,
+    icon: '🌠',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Single Use: Grants Haste & invulnerability to physical damage for 1 round, then you are immobile for 1 minute",
+        "After use, gain one level of exhaustion",
+        "Attracts cosmic scavengers"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Antique Box',
+    levelRequirement: 10
+},
+
+'cocoa_amulet': {
+    id: 'cocoa_amulet',
+    name: "Cocoa Amulet",
+    description: "A sweet-smelling charm that warms the heart and the hands.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 1100,
+    icon: '🍫',
+    stock: 25,
+    rarity: 'common',
+    effects: [
+        "Wear: Resistance to Cold for 24 hours",
+        "Once per day: brew a restorative cup that heals 1d4 HP",
+        "Emits a pleasant aroma"
+    ],
+    vendor: 'orchard_stall',
+    shippedBy: 'Small Tin',
+    levelRequirement: 1
+},
+
+'inked_tattoo_voucher': {
+    id: 'inked_tattoo_voucher',
+    name: "Inked Tattoo Voucher",
+    description: "A voucher entitling the bearer to one magical tattoo session at a select parlor.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 7000,
+    icon: '🖊️',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Redeemable: gain a permanent minor magical tattoo (DM chooses: +1 stat, small resistance, or minor cantrip)",
+        "Tattoos can be removed only by powerful magic"
+    ],
+    vendor: 'inked_parlor',
+    shippedBy: 'Folded Card',
+    levelRequirement: 1
+},
+
+'sapphire_frog_boots': {
+    id: 'sapphire_frog_boots',
+    name: "Sapphire Frog Boots",
+    description: "Boots with a glossy blue sheen and webbed hems. You feel amphibious and precise.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 38000,
+    icon: '🐸',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Grants swim speed equal to walking speed and advantage on Acrobatics in water",
+        "Once per day: leap across 60ft of water as if solid",
+        "Leaves a faint spray with each step"
+    ],
+    vendor: 'sea_seller',
+    shippedBy: 'Waterproof Satchel',
+    levelRequirement: 6
+},
+
+'gyro_seed': {
+    id: 'gyro_seed',
+    name: "Gyro Seed",
+    description: "A metal seed that spins endlessly, stabilizing small objects and creatures.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 3500,
+    icon: '🔩',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Plant near falling object: negates fall damage for up to 10ft radius for 1 minute",
+        "Affix to ammo to add +1 to hit",
+        "Requires magnetized surface"
+    ],
+    vendor: 'gearworks',
+    shippedBy: 'Padded Crate',
+    levelRequirement: 1
+},
+
+'mimic_chest_key': {
+    id: 'mimic_chest_key',
+    name: "Mimic Chest Key",
+    description: "A key carved with toothy smiles. It calms or convinces chests to reveal their secrets.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 9800,
+    icon: '🗝️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Use on chest: 80% chance to pacify a mimic or open a trapped chest safely",
+        "Fails against artifacts or cursed chests",
+        "Key grows warm near hungry things"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Wax Envelope',
+    levelRequirement: 3
+},
+
+'neon_glove': {
+    id: 'neon_glove',
+    name: "Neon Glove",
+    description: "A glowing latex glove that leaves streaks of color in the air as you gesture.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '🧤',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Attacks deal +1d4 radiant while glove is lit",
+        "Once per short rest: draw glowing symbols in the air (Light with effects)",
+        "Needs nightly charging"
+    ],
+    vendor: 'neon_vendor',
+    shippedBy: 'Glow Box',
+    levelRequirement: 2
+},
+
+'ashen_mask': {
+    id: 'ashen_mask',
+    name: "Ashen Mask",
+    description: "A gray porcelain mask said to be made from the ash of a forgotten god. Your face hides a darker face.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 80000,
+    icon: '🎭',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Wear: assume another's identity perfectly for 1 hour/day",
+        "Each use steals a sliver of empathy (-2 Wisdom temporary)",
+        "Attracts necromancers and bounty hunters"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Obsidian Sarcophagus',
+    levelRequirement: 10
+},
+
+'fabric_of_morning': {
+    id: 'fabric_of_morning',
+    name: "Fabric of Morning",
+    description: "A bolt of cloth woven from actual dawn: warm, bright, and impossibly clean.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 250000,
+    icon: '🌅',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Unfurl: create daylight over a 200ft area that banishes gloom for 24 hours",
+        "Drape over a corpse during a long rest: 50% chance to stabilize and revive with 1 HP (DM roll)",
+        "Cloth hums softly and calls wandering sunbeasts"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Sunproof Cylinder',
+    levelRequirement: 12
+},
+
+'ephemeral_petal': {
+    id: 'ephemeral_petal',
+    name: "Ephemeral Petal",
+    description: "A fragile petal that flickers like a candle flame and whispers forgotten names.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 21000,
+    icon: '🌸',
+    stock: 6,
+    rarity: 'epic',
+    effects: [
+        "Single Use: time feels slower for you for 1 minute (you can take an additional small action once)",
+        "Memory Whisper: hear one truth about a creature you touch (short insight)",
+        "Petal vanishes into motes after use"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Silk Envelope',
+    levelRequirement: 6
+},
+'toadette_tea_set': {
+    id: 'toadette_tea_set',
+    name: "Toadette’s Calming Tea Set",
+    description: "Brew a cuppa and forget your troubles. Or become obsessed with tea etiquette.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 11500,
+    icon: '☕',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Drinking tea restores 1d8 HP and removes Frightened condition",
+        "Must perform full 1-minute tea ceremony to activate (cannot be rushed)",
+        "After 3 cups, gain +5 to Persuasion with Toads, -5 with Koopas (they hate tea time)",
+        "Teapot occasionally sings showtunes"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Steam-Powered Trolley',
+    levelRequirement: 1
+},
     'faction_airship_plating': {
         id: 'faction_airship_plating',
         name: "Adamantite Hull Plating",

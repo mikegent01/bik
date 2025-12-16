@@ -5,8 +5,7 @@ import { REWARDS_DATA } from './quests/quests-main.js';
 import { playSound } from './common.js';
 // Import faction data directly 
 import { getAllToadsData, getPreCalculatedFactionStats } from './liberated-toads-system.js';
-
-// --- State ---
+import { renderDurabilityBadge, renderLevelRequirement, calculateDurability, addOwnedItem, injectDurabilityStyles } from './shop-durability.js';// --- State ---
 let currentCategory = 'all';
 let currentTab = 'shop';
 let cart = [];
@@ -281,6 +280,7 @@ function renderCategoryTabs() {
     });
 }
 
+
 function renderShopItems() {
     const container = document.getElementById('shop-items');
     if (!container) return;
@@ -320,6 +320,7 @@ function renderShopItems() {
         const inCartClass = inCart ? 'in-cart' : '';
         
         const vendor = getVendorDisplay(item.vendor);
+        const durability = calculateDurability(item);
         
         return `
             <div class="shop-item ${rarityClass} ${disabledClass} ${inCartClass}" data-id="${item.id}">
@@ -333,6 +334,12 @@ function renderShopItems() {
                         ${item.price.toLocaleString()} XP
                     </span>
                 </div>
+                
+                <div class="item-badges">
+                    ${renderDurabilityBadge(item)}
+                    ${renderLevelRequirement(item)}
+                </div>
+                
                 <p class="item-description">${item.description}</p>
                 <div class="item-effects">
                     ${item.effects.map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
@@ -369,7 +376,6 @@ function renderShopItems() {
         });
     });
 }
-
 function toggleCartItem(itemId) {
     const existingIndex = cart.findIndex(c => c.id === itemId);
     
@@ -581,7 +587,10 @@ function completePurchase() {
             
             const owned = getPurchasedFactionUpgrades();
             cart.forEach(item => {
-                if (!owned.includes(item.id)) owned.push(item.id);
+                if (!owned.includes(item.id)) {
+                    owned.push(item.id);
+                    addOwnedItem(item, generateOrderId());
+                }
             });
             localStorage.setItem('faction_items_owned', JSON.stringify(owned));
             
@@ -595,17 +604,27 @@ function completePurchase() {
         }
     } else {
         const shippingInfo = SHIPPING_METHODS[selectedShipping.toUpperCase()];
+        const orderId = generateOrderId();
         
         const order = {
-            orderId: generateOrderId(),
-            items: cart.map(item => ({
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                icon: item.icon,
-                vendor: item.vendor,
-                category: item.category
-            })),
+            orderId: orderId,
+            items: cart.map(item => {
+                const durability = calculateDurability(item);
+                return {
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    icon: item.icon,
+                    vendor: item.vendor,
+                    category: item.category,
+                    durability: {
+                        maxUses: durability.maxUses,
+                        isPermanent: durability.isPermanent,
+                        isSingleUse: durability.isSingleUse,
+                        renewalCost: durability.renewalCost
+                    }
+                };
+            }),
             subtotal: cart.reduce((sum, c) => sum + c.price, 0),
             shippingMethod: shippingInfo.name,
             shippingCost: shippingCost,
@@ -628,7 +647,6 @@ function completePurchase() {
         renderCart();
     }
 }
-
 function showReceipt(order, remainingXP) {
     const modal = document.getElementById('receipt-modal');
     const content = document.getElementById('receipt-content');
@@ -659,7 +677,14 @@ function showReceipt(order, remainingXP) {
             <div class="receipt-items">
                 ${order.items.map(item => `
                     <div class="receipt-item">
-                        <span class="receipt-item-name">${item.icon} ${item.name}</span>
+                        <div class="receipt-item-info">
+                            <span class="receipt-item-name">${item.icon} ${item.name}</span>
+                            <span class="receipt-item-durability">
+                                ${item.durability?.isPermanent ? '♾️ Permanent' : 
+                                  item.durability?.isSingleUse ? '💨 Single Use' : 
+                                  `🛡️ ${item.durability?.maxUses || '?'} Uses`}
+                            </span>
+                        </div>
                         <span class="receipt-item-price">${item.price.toLocaleString()} XP</span>
                     </div>
                 `).join('')}
@@ -704,10 +729,10 @@ function showReceipt(order, remainingXP) {
     });
 }
 
+
 // ============================================
 // === FACTION TAB ===
 // ============================================
-
 function renderFactionTab() {
     const container = document.getElementById('faction-content');
     if (!container) return;
@@ -716,26 +741,12 @@ function renderFactionTab() {
     const bonuses = calculateFactionBonuses(purchasedUpgrades);
     const status = getFactionXPStatus();
     
-    // Use the loaded faction stats
     const stats = factionStats || {
-        total: 0,
-        active: 0,
-        injured: 0,
-        critical: 0,
-        mia: 0,
-        special: 0,
-        deceased: 0,
-        totalXP: 0,
-        averageLevel: 0,
-        morale: 50,
-        loyalty: 50,
-        combatReadiness: 50,
-        levelDistribution: {},
-        cohortBreakdown: {},
-        classBreakdown: {}
+        total: 0, active: 0, injured: 0, critical: 0, mia: 0, special: 0, deceased: 0,
+        totalXP: 0, averageLevel: 0, morale: 50, loyalty: 50, combatReadiness: 50,
+        levelDistribution: {}, cohortBreakdown: {}, classBreakdown: {}
     };
     
-    // Calculate modified stats with bonuses
     const modifiedStats = {
         morale: Math.min(100, stats.morale + (bonuses.morale || 0)),
         loyalty: Math.min(100, stats.loyalty + (bonuses.loyalty || 0)),
@@ -744,7 +755,6 @@ function renderFactionTab() {
     
     const factionUpgrades = getFactionUpgrades();
     
-    // Sort: Owned first, then by price
     factionUpgrades.sort((a, b) => {
         const aOwned = purchasedUpgrades.includes(a.id);
         const bOwned = purchasedUpgrades.includes(b.id);
@@ -755,7 +765,6 @@ function renderFactionTab() {
 
     container.innerHTML = `
         <div class="faction-tab-content">
-            <!-- Faction Overview -->
             <div class="faction-overview">
                 <div class="faction-header">
                     <span class="faction-logo">🍄</span>
@@ -769,7 +778,6 @@ function renderFactionTab() {
                     </div>
                 </div>
                 
-                <!-- Member Stats -->
                 <div class="faction-stats-grid">
                     <div class="faction-stat-card members">
                         <span class="stat-icon">👥</span>
@@ -845,7 +853,6 @@ function renderFactionTab() {
                 </div>
             </div>
             
-            <!-- Purchased Upgrades -->
             ${purchasedUpgrades.length > 0 ? `
                 <div class="faction-section">
                     <h3>✅ Active Upgrades</h3>
@@ -871,7 +878,6 @@ function renderFactionTab() {
                 </div>
             ` : ''}
             
-            <!-- Available Upgrades -->
             <div class="faction-section">
                 <h3>🛒 Available Faction Upgrades</h3>
                 <div class="faction-upgrades-grid">
@@ -879,6 +885,7 @@ function renderFactionTab() {
                         const isPurchased = purchasedUpgrades.includes(item.id);
                         const canAfford = status.available >= item.price;
                         const inCart = cart.some(c => c.id === item.id);
+                        const durability = calculateDurability(item);
                         
                         return `
                             <div class="faction-upgrade-card ${isPurchased ? 'purchased' : ''} ${!canAfford && !isPurchased ? 'unaffordable' : ''} ${inCart ? 'in-cart' : ''}"
@@ -892,6 +899,12 @@ function renderFactionTab() {
                                         </span>
                                     </div>
                                 </div>
+                                
+                                <div class="upgrade-badges">
+                                    ${renderDurabilityBadge(item)}
+                                    ${renderLevelRequirement(item)}
+                                </div>
+                                
                                 <p class="upgrade-description">${item.description}</p>
                                 <div class="upgrade-effects">
                                     ${item.effects.map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
@@ -914,7 +927,6 @@ function renderFactionTab() {
                 </div>
             </div>
             
-            <!-- Bonus Summary -->
             <div class="faction-section bonus-summary">
                 <h3>📊 Total Upgrade Bonuses</h3>
                 <div class="bonus-summary-grid">
@@ -932,7 +944,6 @@ function renderFactionTab() {
         </div>
     `;
     
-    // Add event listeners
     container.querySelectorAll('.faction-add-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -995,10 +1006,13 @@ function renderPurchaseHistory() {
 async function init() {
     console.log('🏪 Initializing Wario\'s Warehouse...');
     
+    // Inject durability styles
+    injectDurabilityStyles();
+    
     // Load approved purchases
     await loadApprovedPurchases();
     
-    // Load faction data from liberated-toads-data.js
+    // Load faction data
     loadFactionData();
     
     // Render UI
@@ -1009,5 +1023,4 @@ async function init() {
     console.log('💎 Player XP:', getPlayerXPStatus());
     console.log('🍄 Faction XP:', getFactionXPStatus());
 }
-
 document.addEventListener('DOMContentLoaded', init);
