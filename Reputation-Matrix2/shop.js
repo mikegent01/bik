@@ -1,16 +1,28 @@
-// shop.js - Wario's Warehouse XP Emporium
-
-import { SHOP_ITEMS, SHOP_CATEGORIES, VENDORS, SHIPPING_METHODS, getShopStats, getFactionUpgrades, calculateFactionBonuses } from './shop-data.js';
+import { 
+    SHOP_ITEMS, 
+    SHOP_CATEGORIES, 
+    VENDORS, 
+    SHIPPING_METHODS, 
+    getShopStats, 
+    getFactionUpgrades, 
+    calculateFactionBonuses,
+} from './shop-data.js';
 import { REWARDS_DATA } from './quests/quests-main.js';
 import { playSound } from './common.js';
-// Import faction data directly 
 import { getAllToadsData, getPreCalculatedFactionStats } from './liberated-toads-system.js';
-import { renderDurabilityBadge, renderLevelRequirement, calculateDurability, addOwnedItem, injectDurabilityStyles } from './shop-durability.js';// --- State ---
+import { 
+    renderDurabilityBadge, 
+    renderLevelRequirement, 
+    calculateDurability, 
+    addOwnedItem, 
+    injectDurabilityStyles 
+} from './shop-durability.js';
 let currentCategory = 'all';
 let currentTab = 'shop';
 let cart = [];
 let selectedShipping = 'standard';
-
+let cartQuantities = {}; // Track quantities for bulk orders
+const PARTY_MAX_LEVEL = 6;
 let pendingOrders = JSON.parse(localStorage.getItem('xp_pending_orders') || '[]');
 let approvedPurchases = [];
 let spentFactionXP = parseInt(localStorage.getItem('faction_xp_spent') || '0');
@@ -18,7 +30,118 @@ let spentFactionXP = parseInt(localStorage.getItem('faction_xp_spent') || '0');
 // Faction data - loaded once on init
 let factionStats = null;
 let allToads = [];
+function canPurchaseAtLevel(item, partyLevel = PARTY_MAX_LEVEL) {
+    if (!item.levelRequirement) return true;
+    return partyLevel >= item.levelRequirement;
+}
 
+function renderLevelBadge(item) {
+    if (!item.levelRequirement) return '';
+    
+    const canUse = canPurchaseAtLevel(item);
+    const levelClass = canUse ? 'level-ok' : 'level-locked';
+    const icon = canUse ? '⭐' : '🔒';
+    
+    return `
+        <div class="level-badge ${levelClass}" 
+             title="${canUse ? 'Your party can use this!' : `Requires Level ${item.levelRequirement}. Party is Level ${PARTY_MAX_LEVEL}`}">
+            <span class="level-icon">${icon}</span>
+            <span class="level-text">Lvl ${item.levelRequirement}+</span>
+            ${!canUse ? `<span class="level-current">(Party: ${PARTY_MAX_LEVEL})</span>` : ''}
+        </div>
+    `;
+}
+
+// --- Bulk Order Helpers ---
+
+function getCartQuantity(itemId) {
+    return cartQuantities[itemId] || 0;
+}
+
+function setCartQuantity(itemId, quantity) {
+    if (quantity <= 0) {
+        delete cartQuantities[itemId];
+        cart = cart.filter(c => c.id !== itemId);
+    } else {
+        cartQuantities[itemId] = quantity;
+        // Update cart entry
+        const existingIndex = cart.findIndex(c => c.id === itemId);
+        const item = SHOP_ITEMS[itemId];
+        if (item) {
+            const bulkPrice = calculateBulkPrice(item, quantity);
+            const cartEntry = {
+                ...item,
+                quantity: quantity,
+                totalPrice: bulkPrice,
+                pricePerUnit: Math.ceil(bulkPrice / quantity)
+            };
+            if (existingIndex >= 0) {
+                cart[existingIndex] = cartEntry;
+            } else {
+                cart.push(cartEntry);
+            }
+        }
+    }
+}
+
+function getMaxBulkQuantity(item) {
+    if (!canBulkOrder(item)) return 1;
+    
+    // Check remaining stock
+    const approvedCount = approvedPurchases.filter(p => p.itemId === item.id).length;
+    const pendingCount = pendingOrders.reduce((sum, o) => 
+        sum + o.items.filter(i => i.id === item.id).reduce((s, i) => s + (i.quantity || 1), 0), 0);
+    const remainingStock = item.stock - approvedCount - pendingCount;
+    
+    return Math.min(BULK_PRICING.maxQuantity, remainingStock);
+}
+
+function renderBulkControls(item, currentQty, maxQty, canAfford) {
+    if (!canBulkOrder(item) || maxQty <= 1) {
+        return `
+            <button class="add-to-cart-btn" 
+                    ${(!canAfford || maxQty <= 0) ? 'disabled' : ''}
+                    data-id="${item.id}">
+                ${currentQty > 0 ? '✓ In Cart' : '🛒 Add to Cart'}
+            </button>
+        `;
+    }
+    
+    const breakdown = getBulkPriceBreakdown(item, Math.max(1, currentQty));
+    const nextUnitPrice = currentQty < maxQty ? 
+        Math.ceil(item.price * (1 + (currentQty * (BULK_PRICING.priceIncreasePerUnit[item.rarity] || 0.05)))) : 0;
+    
+    return `
+        <div class="bulk-controls" data-id="${item.id}">
+            <div class="bulk-info">
+                <span class="bulk-label">📦 Bulk Order Available</span>
+                <span class="bulk-hint">+${Math.round((BULK_PRICING.priceIncreasePerUnit[item.rarity] || 0.05) * 100)}% per extra unit</span>
+            </div>
+            <div class="bulk-quantity-row">
+                <button class="qty-btn minus" ${currentQty <= 0 ? 'disabled' : ''}>−</button>
+                <span class="qty-display">${currentQty}</span>
+                <button class="qty-btn plus" ${currentQty >= maxQty || !canAfford ? 'disabled' : ''}>+</button>
+                <span class="qty-max">/ ${maxQty}</span>
+            </div>
+            ${currentQty > 0 ? `
+                <div class="bulk-total">
+                    <span>Total: ${calculateBulkPrice(item, currentQty).toLocaleString()} XP</span>
+                    ${currentQty > 1 ? `<span class="bulk-savings-note">(${currentQty} × ~${Math.ceil(calculateBulkPrice(item, currentQty) / currentQty)} avg)</span>` : ''}
+                </div>
+            ` : `
+                <div class="bulk-next-price">
+                    <span>First unit: ${item.price.toLocaleString()} XP</span>
+                </div>
+            `}
+            ${currentQty < maxQty && currentQty > 0 ? `
+                <div class="bulk-next-unit">
+                    <span class="next-label">Next unit:</span>
+                    <span class="next-price">${nextUnitPrice.toLocaleString()} XP (+${Math.round(currentQty * (BULK_PRICING.priceIncreasePerUnit[item.rarity] || 0.05) * 100)}%)</span>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
 // --- Fetch Data ---
 async function loadApprovedPurchases() {
     try {
@@ -32,7 +155,65 @@ async function loadApprovedPurchases() {
         approvedPurchases = [];
     }
 }
+export const BULK_PRICING = {
+    enabled: true,
+    allowedRarities: ['common', 'uncommon'], // Only these can be bulk ordered
+    maxQuantity: 10,
+    priceIncreasePerUnit: {
+        common: 0.05,      // 5% increase per additional unit
+        uncommon: 0.10     // 10% increase per additional unit
+    },
+    // Price formula: basePrice * (1 + (quantity-1) * increaseRate) * quantity
+    // Example: 100 XP common, qty 3 = 100 * (1 + 0.10) * 3 = 330 XP (not 300)
+};
+export function calculateBulkPrice(item, quantity) {
+    if (quantity <= 1) return item.price;
+    
+    const rarity = item.rarity || 'common';
+    const increaseRate = BULK_PRICING.priceIncreasePerUnit[rarity] || 0.05;
+    
+    // Each additional unit costs more
+    let total = 0;
+    for (let i = 0; i < quantity; i++) {
+        const unitPrice = Math.ceil(item.price * (1 + (i * increaseRate)));
+        total += unitPrice;
+    }
+    
+    return total;
+}
+export function getBulkPriceBreakdown(item, quantity) {
+    if (quantity <= 1) {
+        return [{
+            unit: 1,
+            unitPrice: item.price,
+            cumulative: item.price
+        }];
+    }
+    
+    const rarity = item.rarity || 'common';
+    const increaseRate = BULK_PRICING.priceIncreasePerUnit[rarity] || 0.05;
+    
+    const breakdown = [];
+    let cumulative = 0;
+    
+    for (let i = 0; i < quantity; i++) {
+        const unitPrice = Math.ceil(item.price * (1 + (i * increaseRate)));
+        cumulative += unitPrice;
+        breakdown.push({
+            unit: i + 1,
+            unitPrice: unitPrice,
+            cumulative: cumulative,
+            increase: i > 0 ? Math.round(i * increaseRate * 100) : 0
+        });
+    }
+    
+    return breakdown;
+}
 
+export function canBulkOrder(item) {
+    return BULK_PRICING.enabled && 
+           BULK_PRICING.allowedRarities.includes(item.rarity || 'common');
+}
 // --- Load Faction Data ---
 function loadFactionData() {
     console.log('🍄 Loading faction data...');
@@ -146,13 +327,14 @@ function showNotification(message, type = 'info') {
 }
 
 // --- Render Functions ---
-
 function renderShopHeader() {
     const status = getXPStatus();
     const container = document.getElementById('shop-header');
     if (!container) return;
     
     const themeClass = currentTab === 'faction' ? 'faction-theme' : 'shop-theme';
+    const totalCartItems = cart.reduce((sum, c) => sum + (c.quantity || 1), 0);
+    const cartTotalPrice = cart.reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
     
     container.className = `shop-header ${themeClass}`;
     
@@ -169,6 +351,15 @@ function renderShopHeader() {
                     </p>
                 </div>
             </div>
+            
+            <div class="party-level-display">
+                <span class="party-level-icon">⭐</span>
+                <div class="party-level-info">
+                    <span class="party-level-value">Level ${PARTY_MAX_LEVEL}</span>
+                    <span class="party-level-label">Party Max</span>
+                </div>
+            </div>
+            
             <div class="xp-wallet">
                 <div class="wallet-stat total">
                     <span class="wallet-value">${status.total.toLocaleString()}</span>
@@ -187,12 +378,14 @@ function renderShopHeader() {
                     <span class="wallet-label">Available</span>
                 </div>
             </div>
+            
             <div class="cart-summary" id="cart-summary-btn">
                 <span class="cart-icon">🛒</span>
-                <span class="cart-count">${cart.length}</span>
-                <span class="cart-total">${cart.reduce((sum, c) => sum + c.price, 0).toLocaleString()} XP</span>
+                <span class="cart-count">${totalCartItems}</span>
+                <span class="cart-total">${cartTotalPrice.toLocaleString()} XP</span>
             </div>
         </div>
+        
         <div class="main-tabs">
             <button class="main-tab ${currentTab === 'shop' ? 'active' : ''}" data-tab="shop">
                 💎 Player Shop
@@ -211,6 +404,7 @@ function renderShopHeader() {
             if (cart.length > 0) {
                 if (!confirm('Switching tabs will clear your cart. Continue?')) return;
                 cart = [];
+                cartQuantities = {};
             }
             
             currentTab = newTab;
@@ -220,7 +414,6 @@ function renderShopHeader() {
         });
     });
 }
-
 function renderMainContent() {
     const shopGrid = document.getElementById('shop-items');
     const factionContent = document.getElementById('faction-content');
@@ -306,46 +499,67 @@ function renderShopItems() {
     }
     
     container.innerHTML = items.map(item => {
-        const canAfford = status.available >= item.price;
-        const inCart = cart.some(c => c.id === item.id);
+        const currentQty = getCartQuantity(item.id);
+        const currentItemCost = currentQty > 0 ? calculateBulkPrice(item, currentQty) : 0;
+        
+        // Calculate what's already committed in cart (excluding this item)
+        const otherCartCost = cart
+            .filter(c => c.id !== item.id)
+            .reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
+        
+        const canAffordOne = status.available - otherCartCost - currentItemCost >= item.price;
+        const inCart = currentQty > 0;
         
         const approvedCount = approvedPurchases.filter(p => p.itemId === item.id).length;
         const pendingCount = pendingOrders.reduce((sum, o) => 
-            sum + o.items.filter(i => i.id === item.id).length, 0);
-        const remainingStock = item.stock - approvedCount - pendingCount;
+            sum + o.items.filter(i => i.id === item.id).reduce((s, i) => s + (i.quantity || 1), 0), 0);
+        const remainingStock = item.stock - approvedCount - pendingCount - currentQty;
         
-        const outOfStock = remainingStock <= 0;
+        const outOfStock = remainingStock <= 0 && currentQty === 0;
         const rarityClass = item.rarity || 'common';
-        const disabledClass = (!canAfford || outOfStock) ? 'disabled' : '';
+        const canUseAtLevel = canPurchaseAtLevel(item);
+        const levelLockedClass = !canUseAtLevel ? 'level-locked' : '';
+        const disabledClass = (!canAffordOne && !inCart) || outOfStock ? 'disabled' : '';
         const inCartClass = inCart ? 'in-cart' : '';
         
         const vendor = getVendorDisplay(item.vendor);
-        const durability = calculateDurability(item);
+        const maxBulkQty = getMaxBulkQuantity(item);
+        const isBulkable = canBulkOrder(item);
         
         return `
-            <div class="shop-item ${rarityClass} ${disabledClass} ${inCartClass}" data-id="${item.id}">
+            <div class="shop-item ${rarityClass} ${disabledClass} ${inCartClass} ${levelLockedClass}" 
+                 data-id="${item.id}"
+                 data-bulkable="${isBulkable}">
                 <div class="item-header">
                     <span class="item-icon">${item.icon}</span>
                     <div class="item-title-group">
                         <span class="item-name">${item.name}</span>
                         <span class="item-rarity ${rarityClass}">${rarityClass}</span>
                     </div>
-                    <span class="item-price ${canAfford ? '' : 'unaffordable'}">
+                    <span class="item-price ${canAffordOne || inCart ? '' : 'unaffordable'}">
                         ${item.price.toLocaleString()} XP
                     </span>
                 </div>
                 
                 <div class="item-badges">
                     ${renderDurabilityBadge(item)}
-                    ${renderLevelRequirement(item)}
+                    ${renderLevelBadge(item)}
                 </div>
                 
                 <p class="item-description">${item.description}</p>
+                
                 <div class="item-effects">
                     ${item.effects.map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
                 </div>
+                
                 ${item.warning ? `<div class="item-warning">⚠️ ${item.warning}</div>` : ''}
                 ${item.requirement ? `<div class="item-requirement">🔒 ${item.requirement}</div>` : ''}
+                ${!canUseAtLevel ? `
+                    <div class="item-level-warning">
+                        ⚠️ Party Level ${PARTY_MAX_LEVEL} - Need Level ${item.levelRequirement} to use
+                    </div>
+                ` : ''}
+                
                 <div class="item-footer">
                     <div class="vendor-info">
                         <span class="vendor-icon">${vendor.icon}</span>
@@ -355,47 +569,99 @@ function renderShopItems() {
                         ${outOfStock ? '❌ SOLD OUT' : `📦 ${remainingStock} left`}
                     </span>
                 </div>
+                
                 <div class="item-shipping">
                     <span class="shipping-label">📬 Shipped by:</span>
                     <span class="shipping-info">${item.shippedBy || 'Standard Courier'}</span>
                 </div>
-                <button class="add-to-cart-btn" 
-                        ${(!canAfford || outOfStock) ? 'disabled' : ''}>
-                    ${inCart ? '✓ In Cart' : '🛒 Add to Cart'}
-                </button>
+                
+                ${renderBulkControls(item, currentQty, maxBulkQty, canAffordOne)}
             </div>
         `;
     }).join('');
     
+    // Event listeners for non-bulk items
     container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const itemCard = btn.closest('.shop-item');
-            const itemId = itemCard.dataset.id;
+            const itemId = btn.dataset.id;
             toggleCartItem(itemId);
         });
     });
-}
-function toggleCartItem(itemId) {
-    const existingIndex = cart.findIndex(c => c.id === itemId);
     
-    if (existingIndex >= 0) {
-        cart.splice(existingIndex, 1);
-        playSound('click.mp3');
-    } else {
+    // Event listeners for bulk controls
+    container.querySelectorAll('.bulk-controls').forEach(controls => {
+        const itemId = controls.dataset.id;
         const item = SHOP_ITEMS[itemId];
         if (!item) return;
         
-        const isFactionItem = item.category === SHOP_CATEGORIES.FACTION;
-        const isFactionTab = currentTab === 'faction';
+        const minusBtn = controls.querySelector('.qty-btn.minus');
+        const plusBtn = controls.querySelector('.qty-btn.plus');
         
-        if (isFactionItem !== isFactionTab) {
-            showNotification('Switch tabs to buy this item type.', 'error');
-            return;
+        minusBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const currentQty = getCartQuantity(itemId);
+            setCartQuantity(itemId, currentQty - 1);
+            playSound('click.mp3');
+            renderShopHeader();
+            renderShopItems();
+            renderCart();
+        });
+        
+        plusBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const currentQty = getCartQuantity(itemId);
+            const maxQty = getMaxBulkQuantity(item);
+            if (currentQty < maxQty) {
+                setCartQuantity(itemId, currentQty + 1);
+                playSound('confirm.mp3');
+                renderShopHeader();
+                renderShopItems();
+                renderCart();
+            }
+        });
+    });
+}
+
+function toggleCartItem(itemId) {
+    const item = SHOP_ITEMS[itemId];
+    if (!item) return;
+    
+    // For bulk items, use the bulk system
+    if (canBulkOrder(item)) {
+        const currentQty = getCartQuantity(itemId);
+        if (currentQty > 0) {
+            setCartQuantity(itemId, 0);
+            playSound('click.mp3');
+        } else {
+            setCartQuantity(itemId, 1);
+            playSound('confirm.mp3');
         }
+    } else {
+        // Non-bulk items: simple toggle
+        const existingIndex = cart.findIndex(c => c.id === itemId);
         
-        cart.push({ ...item });
-        playSound('confirm.mp3');
+        if (existingIndex >= 0) {
+            cart.splice(existingIndex, 1);
+            delete cartQuantities[itemId];
+            playSound('click.mp3');
+        } else {
+            const isFactionItem = item.category === SHOP_CATEGORIES.FACTION;
+            const isFactionTab = currentTab === 'faction';
+            
+            if (isFactionItem !== isFactionTab) {
+                showNotification('Switch tabs to buy this item type.', 'error');
+                return;
+            }
+            
+            cart.push({ 
+                ...item, 
+                quantity: 1, 
+                totalPrice: item.price 
+            });
+            cartQuantities[itemId] = 1;
+            playSound('confirm.mp3');
+        }
     }
     
     renderShopHeader();
@@ -403,7 +669,6 @@ function toggleCartItem(itemId) {
     if (currentTab === 'faction') renderFactionTab();
     renderCart();
 }
-
 function renderCart() {
     const container = document.getElementById('shop-cart');
     if (!container) return;
@@ -411,11 +676,13 @@ function renderCart() {
     const status = getXPStatus();
     const isFaction = currentTab === 'faction';
     const shippingCost = isFaction ? 0 : (cart.length > 0 ? (SHIPPING_METHODS[selectedShipping.toUpperCase()]?.cost || 0) : 0);
-    const cartSubtotal = cart.reduce((sum, c) => sum + c.price, 0);
+    const cartSubtotal = cart.reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
     const cartTotal = cartSubtotal + shippingCost;
     const canCheckout = status.available >= cartTotal && cart.length > 0;
     
-    let cartHtml = `<h3>${isFaction ? '🍄 Faction Cart' : '🛒 Shopping Cart'}</h3>`;
+    const totalItems = cart.reduce((sum, c) => sum + (c.quantity || 1), 0);
+    
+    let cartHtml = `<h3>${isFaction ? '🍄 Faction Cart' : '🛒 Shopping Cart'} ${totalItems > 0 ? `(${totalItems} items)` : ''}</h3>`;
     
     if (cart.length === 0) {
         cartHtml += `
@@ -430,8 +697,14 @@ function renderCart() {
                 ${cart.map(item => `
                     <div class="cart-item" data-id="${item.id}">
                         <span class="cart-item-icon">${item.icon}</span>
-                        <span class="cart-item-name">${item.name}</span>
-                        <span class="cart-item-price">${item.price.toLocaleString()}</span>
+                        <div class="cart-item-details">
+                            <span class="cart-item-name">${item.name}</span>
+                            ${item.quantity > 1 ? `
+                                <span class="cart-item-qty">×${item.quantity}</span>
+                                <span class="cart-item-unit-price">(~${Math.ceil(item.totalPrice / item.quantity).toLocaleString()} ea)</span>
+                            ` : ''}
+                        </div>
+                        <span class="cart-item-price">${(item.totalPrice || item.price).toLocaleString()}</span>
                         <button class="remove-btn" data-id="${item.id}">✕</button>
                     </div>
                 `).join('')}
@@ -456,7 +729,7 @@ function renderCart() {
         cartHtml += `
             <div class="cart-total-section">
                 <div class="cart-subtotal-row">
-                    <span>Subtotal:</span>
+                    <span>Subtotal (${totalItems} items):</span>
                     <span>${cartSubtotal.toLocaleString()} XP</span>
                 </div>
                 ${!isFaction ? `
@@ -492,24 +765,27 @@ function renderCart() {
         cartHtml += `
             <div class="pending-orders">
                 <h4>⏳ Pending Orders</h4>
-                ${relevantOrders.map(order => `
-                    <div class="pending-order-item" data-order-id="${order.orderId}">
-                        <div class="pending-order-header">
-                            <span class="order-id">${order.orderId}</span>
-                            <span class="pending-status awaiting">Awaiting</span>
+                ${relevantOrders.map(order => {
+                    const orderItemCount = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
+                    return `
+                        <div class="pending-order-item" data-order-id="${order.orderId}">
+                            <div class="pending-order-header">
+                                <span class="order-id">${order.orderId}</span>
+                                <span class="pending-status awaiting">Awaiting</span>
+                            </div>
+                            <div class="pending-order-details">
+                                <span class="order-items-count">${orderItemCount} item${orderItemCount > 1 ? 's' : ''}</span>
+                                <span class="order-total">${order.total.toLocaleString()} XP</span>
+                            </div>
+                            <div class="pending-order-date">
+                                ${new Date(order.submittedAt).toLocaleDateString()}
+                            </div>
+                            <button class="cancel-order-btn" data-order-id="${order.orderId}">
+                                ❌ Cancel
+                            </button>
                         </div>
-                        <div class="pending-order-details">
-                            <span class="order-items-count">${order.items.length} item${order.items.length > 1 ? 's' : ''}</span>
-                            <span class="order-total">${order.total.toLocaleString()} XP</span>
-                        </div>
-                        <div class="pending-order-date">
-                            ${new Date(order.submittedAt).toLocaleDateString()}
-                        </div>
-                        <button class="cancel-order-btn" data-order-id="${order.orderId}">
-                            ❌ Cancel
-                        </button>
-                    </div>
-                `).join('')}
+                    `;
+                }).join('')}
             </div>
         `;
     }
@@ -518,7 +794,15 @@ function renderCart() {
     
     // Event listeners
     container.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', () => toggleCartItem(btn.dataset.id));
+        btn.addEventListener('click', () => {
+            const itemId = btn.dataset.id;
+            setCartQuantity(itemId, 0);
+            playSound('click.mp3');
+            renderShopHeader();
+            if (currentTab === 'shop') renderShopItems();
+            if (currentTab === 'faction') renderFactionTab();
+            renderCart();
+        });
     });
     
     const shippingSelect = container.querySelector('#shipping-select');
@@ -533,6 +817,7 @@ function renderCart() {
     
     container.querySelector('.clear-cart-btn')?.addEventListener('click', () => {
         cart = [];
+        cartQuantities = {};
         renderShopHeader();
         if (currentTab === 'shop') renderShopItems();
         if (currentTab === 'faction') renderFactionTab();
@@ -544,7 +829,6 @@ function renderCart() {
         btn.addEventListener('click', () => cancelOrder(btn.dataset.orderId));
     });
 }
-
 function cancelOrder(orderId) {
     const orderIndex = pendingOrders.findIndex(o => o.orderId === orderId);
     if (orderIndex === -1) return;
@@ -573,12 +857,14 @@ function completePurchase() {
     const status = getXPStatus();
     const isFaction = currentTab === 'faction';
     const shippingCost = isFaction ? 0 : (SHIPPING_METHODS[selectedShipping.toUpperCase()]?.cost || 0);
-    const cartTotal = cart.reduce((sum, c) => sum + c.price, 0) + shippingCost;
+    const cartTotal = cart.reduce((sum, c) => sum + (c.totalPrice || c.price), 0) + shippingCost;
     
     if (status.available < cartTotal) {
         showNotification('Insufficient XP!', 'error');
         return;
     }
+    
+    const totalItems = cart.reduce((sum, c) => sum + (c.quantity || 1), 0);
     
     if (isFaction) {
         if (confirm(`Confirm spending ${cartTotal.toLocaleString()} Faction XP on upgrades?`)) {
@@ -598,6 +884,7 @@ function completePurchase() {
             showNotification('Faction upgrades acquired!', 'success');
             
             cart = [];
+            cartQuantities = {};
             renderShopHeader();
             renderFactionTab();
             renderCart();
@@ -613,10 +900,13 @@ function completePurchase() {
                 return {
                     id: item.id,
                     name: item.name,
-                    price: item.price,
+                    basePrice: item.price,
+                    quantity: item.quantity || 1,
+                    totalPrice: item.totalPrice || item.price,
                     icon: item.icon,
                     vendor: item.vendor,
                     category: item.category,
+                    rarity: item.rarity,
                     durability: {
                         maxUses: durability.maxUses,
                         isPermanent: durability.isPermanent,
@@ -625,7 +915,8 @@ function completePurchase() {
                     }
                 };
             }),
-            subtotal: cart.reduce((sum, c) => sum + c.price, 0),
+            itemCount: totalItems,
+            subtotal: cart.reduce((sum, c) => sum + (c.totalPrice || c.price), 0),
             shippingMethod: shippingInfo.name,
             shippingCost: shippingCost,
             total: cartTotal,
@@ -640,6 +931,7 @@ function completePurchase() {
         showReceipt(order, status.available - cartTotal);
         
         cart = [];
+        cartQuantities = {};
         playSound('confirm.mp3');
         
         renderShopHeader();
@@ -674,18 +966,28 @@ function showReceipt(order, remainingXP) {
                 <span>${dateStr} ${timeStr}</span>
             </div>
             
+            <div class="receipt-party-level">
+                ⭐ Party Level: ${PARTY_MAX_LEVEL}
+            </div>
+            
             <div class="receipt-items">
                 ${order.items.map(item => `
                     <div class="receipt-item">
                         <div class="receipt-item-info">
                             <span class="receipt-item-name">${item.icon} ${item.name}</span>
-                            <span class="receipt-item-durability">
-                                ${item.durability?.isPermanent ? '♾️ Permanent' : 
-                                  item.durability?.isSingleUse ? '💨 Single Use' : 
-                                  `🛡️ ${item.durability?.maxUses || '?'} Uses`}
-                            </span>
+                            <div class="receipt-item-meta">
+                                ${item.quantity > 1 ? `
+                                    <span class="receipt-qty">×${item.quantity}</span>
+                                    <span class="receipt-bulk-note">(Bulk: ~${Math.ceil(item.totalPrice / item.quantity).toLocaleString()} ea)</span>
+                                ` : ''}
+                                <span class="receipt-item-durability">
+                                    ${item.durability?.isPermanent ? '♾️ Permanent' : 
+                                      item.durability?.isSingleUse ? '💨 Single Use' : 
+                                      `🛡️ ${item.durability?.maxUses || '?'} Uses`}
+                                </span>
+                            </div>
                         </div>
-                        <span class="receipt-item-price">${item.price.toLocaleString()} XP</span>
+                        <span class="receipt-item-price">${item.totalPrice.toLocaleString()} XP</span>
                     </div>
                 `).join('')}
             </div>
@@ -693,6 +995,17 @@ function showReceipt(order, remainingXP) {
             <div class="receipt-shipping">
                 <span>📬 ${order.shippingMethod}</span>
                 <span>${order.shippingCost === 0 ? 'FREE' : order.shippingCost.toLocaleString() + ' XP'}</span>
+            </div>
+            
+            <div class="receipt-summary">
+                <div class="receipt-summary-row">
+                    <span>Items:</span>
+                    <span>${order.itemCount}</span>
+                </div>
+                <div class="receipt-summary-row">
+                    <span>Subtotal:</span>
+                    <span>${order.subtotal.toLocaleString()} XP</span>
+                </div>
             </div>
             
             <div class="receipt-total">
@@ -728,8 +1041,6 @@ function showReceipt(order, remainingXP) {
         }
     });
 }
-
-
 // ============================================
 // === FACTION TAB ===
 // ============================================

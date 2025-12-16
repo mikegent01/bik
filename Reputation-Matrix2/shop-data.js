@@ -10347,6 +10347,1384 @@ export const SHOP_ITEMS = {
     levelRequirement: 6
 },
 
+'koopa_troop_glider_kit': {
+    id: 'koopa_troop_glider_kit',
+    name: "Koopa Troop Glider Kit",
+    description: "A collapsible glider kit used by Koopa paratroopers for rapid deployment.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🪂',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Allows safe gliding from any height (speed 60ft, descent rate 30ft/round)",
+        "Kit folds into a small backpack when not in use",
+        "Made by: Koopa Troop"
+    ],
+    vendor: 'koopa_troop_armory',
+    shippedBy: 'Reinforced Crate',
+    levelRequirement: 4
+},
+
+'iron_legion_repair_gel': {
+    id: 'iron_legion_repair_gel',
+    name: "Iron Legion Repair Gel",
+    description: "A viscous gel that temporarily seals mechanical damage on constructs.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 8500,
+    icon: '🧴',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Apply to a construct: restores 2d8 HP and seals minor breaches for 24 hours",
+        "Gel hardens into temporary plating (AC +1 for 1 hour)",
+        "Made by: Iron Legion"
+    ],
+    vendor: 'iron_legion_supply',
+    shippedBy: 'Sealed Canister',
+    levelRequirement: 4
+},
+
+'formosa_ultima_silk_rope': {
+    id: 'formosa_ultima_silk_rope',
+    name: "Formosa Ultima Silk Rope",
+    description: "A 50ft rope woven from enchanted spider silk that never tangles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🕸️',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Never knots or tangles, even when wet",
+        "Can support up to 2 tons of weight",
+        "Made by: Formosa Ultima"
+    ],
+    vendor: 'formosa_ultima_trader',
+    shippedBy: 'Coiled Bundle',
+    levelRequirement: 4
+},
+
+'skycavern_echo_stone': {
+    id: 'skycavern_echo_stone',
+    name: "Skycavern Echo Stone",
+    description: "A small crystal that records and replays the last 10 seconds of sound it hears.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 7200,
+    icon: '🔊',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Perfectly records and replays sounds (useful for mimicry or traps)",
+        "Can be used to create simple audio illusions",
+        "Made by: Skycaverns"
+    ],
+    vendor: 'skycavern_trader',
+    shippedBy: 'Padded Pouch',
+    levelRequirement: 4
+},
+
+'glarnian_poison_pen': {
+    id: 'glarnian_poison_pen',
+    name: "Glarnian Poison Pen",
+    description: "A fountain pen that writes with ink laced with a mild paralytic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9800,
+    icon: '✒️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Ink causes numbness in the hand after 1 minute of contact (disadvantage on fine motor skills for 10 minutes)",
+        "Can be used to write invisible messages (revealed by heat)",
+        "Made by: Glarnia"
+    ],
+    vendor: 'glarnian_scribe',
+    shippedBy: 'Leather Case',
+    levelRequirement: 4
+},
+
+'polybius_data_crystal': {
+    id: 'polybius_data_crystal',
+    name: "Polybius Data Crystal",
+    description: "A small crystal that stores and projects holographic maps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '💎',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Stores one detailed map (up to 10 square miles)",
+        "Projects a 3D hologram of the stored map (10ft diameter)",
+        "Made by: Polybius"
+    ],
+    vendor: 'polybius_data_hub',
+    shippedBy: 'Crystal Case',
+    levelRequirement: 4
+},
+
+'internet_firewall_ring': {
+    id: 'internet_firewall_ring',
+    name: "Internet Firewall Ring",
+    description: "A ring that creates a personal digital shield against hacking attempts.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8200,
+    icon: '💍',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on saves against digital intrusion attempts",
+        "Blocks minor tracking spells (like Locate Object)",
+        "Made by: Internet"
+    ],
+    vendor: 'hacktivist_collective',
+    shippedBy: 'Static Bag',
+    levelRequirement: 4
+},
+
+'pokemon_league_healing_berry': {
+    id: 'pokemon_league_healing_berry',
+    name: "Pokémon League Healing Berry",
+    description: "A rare berry that restores vitality when consumed.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5500,
+    icon: '🍇',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Heals 2d6+2 HP when eaten",
+        "Can be used to stabilize a dying creature",
+        "Made by: Pokémon League"
+    ],
+    vendor: 'pokemon_league_store',
+    shippedBy: 'Wicker Basket',
+    levelRequirement: 4
+},
+
+'xenonesian_translation_earpiece': {
+    id: 'xenonesian_translation_earpiece',
+    name: "Xenonesian Translation Earpiece",
+    description: "A small device that translates alien languages in real-time.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '👂',
+    stock: 7,
+    rarity: 'rare',
+    effects: [
+        "Translates one alien language perfectly",
+        "Requires 1 hour to attune to a new language",
+        "Made by: Xenonesia"
+    ],
+    vendor: 'xenonesian_ambassador',
+    shippedBy: 'Padded Case',
+    levelRequirement: 4
+},
+
+'mushroom_regency_spore_pouch': {
+    id: 'mushroom_regency_spore_pouch',
+    name: "Mushroom Regency Spore Pouch",
+    description: "A pouch containing hallucinogenic spores that create minor illusions.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 6800,
+    icon: '🍄',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Throw to create a 10ft cloud of spores (creatures must make DC 13 WIS save or see minor illusions for 1 minute)",
+        "Can be used to create simple distractions",
+        "Made by: Mushroom Regency"
+    ],
+    vendor: 'mushroom_regency_market',
+    shippedBy: 'Sealed Pouch',
+    levelRequirement: 4
+},
+
+'geminian_phase_glass': {
+    id: 'geminian_phase_glass',
+    name: "Geminian Phase Glass",
+    description: "A small pane of glass that becomes temporarily intangible.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '🔮',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "As an action, make the glass intangible for 1 minute (can pass through solid objects)",
+        "Glass is fragile and breaks on a natural 1 when used",
+        "Made by: Geminia"
+    ],
+    vendor: 'geminia_tech',
+    shippedBy: 'Padded Frame',
+    levelRequirement: 4
+},
+
+'servants_cosmic_star_chart': {
+    id: 'servants_cosmic_star_chart',
+    name: "Servants Cosmic Star Chart",
+    description: "A chart showing the current positions of celestial bodies and their influences.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 7800,
+    icon: '🌠',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to Astrology checks",
+        "Can predict minor celestial events (eclipses, meteor showers)",
+        "Made by: Servants Cosmic"
+    ],
+    vendor: 'cosmic_archives',
+    shippedBy: 'Rolled Scroll',
+    levelRequirement: 4
+},
+
+'asclepian_healing_salve': {
+    id: 'asclepian_healing_salve',
+    name: "Asclepian Healing Salve",
+    description: "A medicinal ointment that accelerates natural healing.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 9500,
+    icon: '🧴',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Apply to a wound: heals 1d8+2 HP and stops bleeding",
+        "Can be used to treat minor diseases",
+        "Made by: Asclepia"
+    ],
+    vendor: 'asclepia_vault',
+    shippedBy: 'Ceramic Jar',
+    levelRequirement: 4
+},
+
+'pony_nobility_diplomatic_seal': {
+    id: 'pony_nobility_diplomatic_seal',
+    name: "Pony Nobility Diplomatic Seal",
+    description: "A wax seal that authenticates documents as coming from the Pony Nobility.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8500,
+    icon: '📜',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Documents bearing this seal are treated as official by Pony-aligned factions",
+        "Can be used to forge minor diplomatic papers",
+        "Made by: Pony Nobility"
+    ],
+    vendor: 'pony_royal_court',
+    shippedBy: 'Sealed Envelope',
+    levelRequirement: 4
+},
+
+'king_of_tombs_preservation_jar': {
+    id: 'king_of_tombs_preservation_jar',
+    name: "King of Tombs Preservation Jar",
+    description: "A jar that keeps organic material perfectly preserved indefinitely.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '🏺',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Any organic material placed inside remains perfectly preserved",
+        "Can be used to store food, body parts, or magical components",
+        "Made by: King of Tombs"
+    ],
+    vendor: 'tomb_gatekeeper',
+    shippedBy: 'Stone Jar',
+    levelRequirement: 4
+},
+
+'lemuria_conclave_breathing_mask': {
+    id: 'lemuria_conclave_breathing_mask',
+    name: "Lemuria Conclave Breathing Mask",
+    description: "A mask that filters toxins and allows breathing underwater.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '😷',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Grants water breathing for 1 hour",
+        "Filters airborne toxins (advantage on saves vs. inhaled poisons)",
+        "Made by: Lemuria Conclave"
+    ],
+    vendor: 'lemuria_outpost',
+    shippedBy: 'Waterproof Case',
+    levelRequirement: 4
+},
+
+'empire_man_steel_gauntlets': {
+    id: 'empire_man_steel_gauntlets',
+    name: "Empire Man Steel Gauntlets",
+    description: "Reinforced gauntlets that enhance unarmed strikes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🥊',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Unarmed strikes deal 1d6+STR bludgeoning damage",
+        "Advantage on Strength checks to break objects",
+        "Made by: Empire Man"
+    ],
+    vendor: 'empire_man_chancery',
+    shippedBy: 'Metal Case',
+    levelRequirement: 4
+},
+
+'grand_cathay_silk_armor': {
+    id: 'grand_cathay_silk_armor',
+    name: "Grand Cathay Silk Armor",
+    description: "Light armor woven from enchanted silk that resists slashing attacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '👕',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "AC 13 + DEX modifier (max 2)",
+        "Resistance to slashing damage",
+        "Made by: Grand Cathay"
+    ],
+    vendor: 'cathay_trade_route',
+    shippedBy: 'Silk Bundle',
+    levelRequirement: 4
+},
+
+'mu_empire_levitation_boots': {
+    id: 'mu_empire_levitation_boots',
+    name: "Mu Empire Levitation Boots",
+    description: "Boots that allow brief periods of controlled levitation.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '👢',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "As an action, levitate 1ft off the ground for 1 minute (speed 20ft)",
+        "Can be used to cross small gaps or avoid ground hazards",
+        "Made by: Mu Empire"
+    ],
+    vendor: 'mu_outpost',
+    shippedBy: 'Padded Box',
+    levelRequirement: 4
+},
+
+'mages_guild_spellbook_page': {
+    id: 'mages_guild_spellbook_page',
+    name: "Mages' Guild Spellbook Page",
+    description: "A single page from a master mage's spellbook containing one cantrip.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 6500,
+    icon: '📄',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Contains one random cantrip (DM's choice)",
+        "Can be copied into your spellbook normally",
+        "Made by: Mages' Guild"
+    ],
+    vendor: 'mages_guild_hall',
+    shippedBy: 'Sealed Scroll',
+    levelRequirement: 4
+},
+
+'data_merchant_encrypted_ledger': {
+    id: 'data_merchant_encrypted_ledger',
+    name: "Data Merchant Encrypted Ledger",
+    description: "A small device containing financial records of minor black market transactions.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8000,
+    icon: '📒',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Contains information that could be used for blackmail or leverage",
+        "Requires a DC 15 Intelligence check to decipher",
+        "Made by: Data Merchant"
+    ],
+    vendor: 'data_merchant_node',
+    shippedBy: 'Encrypted Case',
+    levelRequirement: 4
+},
+
+'changeling_hive_disguise_kit': {
+    id: 'changeling_hive_disguise_kit',
+    name: "Changeling Hive Disguise Kit",
+    description: "A kit containing makeup and tools to mimic a specific humanoid's appearance.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🎭',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Deception checks to appear as someone else",
+        "Kit contains enough material for 3 uses",
+        "Made by: Changeling Hive"
+    ],
+    vendor: 'changeling_hive_exchange',
+    shippedBy: 'Makeup Case',
+    levelRequirement: 4
+},
+
+'cybernetic_eye_implant': {
+    id: 'cybernetic_eye_implant',
+    name: "Cybernetic Eye Implant",
+    description: "A basic cybernetic eye that enhances vision in low-light conditions.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '👁️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants darkvision 60ft",
+        "Can see normally in magical darkness",
+        "Made by: Cybernetic"
+    ],
+    vendor: 'cybernetic_corp',
+    shippedBy: 'Surgical Kit',
+    levelRequirement: 4
+},
+
+'onyx_hand_poison_vial': {
+    id: 'onyx_hand_poison_vial',
+    name: "Onyx Hand Poison Vial",
+    description: "A vial containing a fast-acting paralytic poison.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7500,
+    icon: '💊',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Poison (ingested): DC 13 CON save or be paralyzed for 1 minute",
+        "Single dose (enough to coat one weapon or contaminate one drink)",
+        "Made by: The Onyx Hand"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Glass Vial',
+    levelRequirement: 4
+},
+
+'kingdoms_dwarves_rune_stone': {
+    id: 'kingdoms_dwarves_rune_stone',
+    name: "Kingdoms Dwarves Rune Stone",
+    description: "A small stone inscribed with a protective rune.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8500,
+    icon: '🪨',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to AC when carried",
+        "Once per day, can be used to cast Shield (as the spell)",
+        "Made by: Kingdoms Dwarves"
+    ],
+    vendor: 'dwarf_elder',
+    shippedBy: 'Rune Bag',
+    levelRequirement: 4
+},
+
+'greenskins_war_paint': {
+    id: 'greenskins_war_paint',
+    name: "Greenskins War Paint",
+    description: "A set of paints that enhance the wearer's intimidating presence.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 6000,
+    icon: '🎨',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Grants advantage on Intimidation checks for 1 hour",
+        "Paint is waterproof and lasts 24 hours",
+        "Made by: Greenskins"
+    ],
+    vendor: 'greenskin_warboss',
+    shippedBy: 'Paint Pot',
+    levelRequirement: 4
+},
+
+'jotunheimr_frost_talisman': {
+    id: 'jotunheimr_frost_talisman',
+    name: "Jotunheimr Frost Talisman",
+    description: "A small charm that radiates cold and protects against heat.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '❄️',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants resistance to fire damage",
+        "Once per day, can emit a 10ft cone of cold (1d6 cold damage, DC 13 CON save for half)",
+        "Made by: Jotunheimr"
+    ],
+    vendor: 'jotunheimr_outpost',
+    shippedBy: 'Frost Case',
+    levelRequirement: 4
+},
+
+'high_elves_elven_rope': {
+    id: 'high_elves_elven_rope',
+    name: "High Elves Elven Rope",
+    description: "A 50ft rope woven from enchanted fibers that responds to commands.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🪢',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Responds to verbal commands (tie, untie, shorten, lengthen)",
+        "Can support up to 1 ton of weight",
+        "Made by: High Elves"
+    ],
+    vendor: 'high_elf_enclave',
+    shippedBy: 'Rope Coil',
+    levelRequirement: 4
+},
+
+'dark_elves_shadow_cloak': {
+    id: 'dark_elves_shadow_cloak',
+    name: "Dark Elves Shadow Cloak",
+    description: "A cloak that blends into shadows, making the wearer harder to see.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '👗',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Stealth checks in dim light or darkness",
+        "Cloak is slightly heavier than normal",
+        "Made by: Dark Elves"
+    ],
+    vendor: 'dark_elf_vault',
+    shippedBy: 'Shadow Bag',
+    levelRequirement: 4
+},
+
+'trainer_guild_animal_whistle': {
+    id: 'trainer_guild_animal_whistle',
+    name: "Trainer Guild Animal Whistle",
+    description: "A whistle that can calm or attract certain types of animals.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🐕',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Can be used to calm or attract animals of a specific type (DM's choice)",
+        "Effect lasts for 1 hour",
+        "Made by: Trainer Guild"
+    ],
+    vendor: 'trainer_guild_chapter',
+    shippedBy: 'Leather Pouch',
+    levelRequirement: 4
+},
+
+'crimision_isle_pearl_diving_kit': {
+    id: 'crimision_isle_pearl_diving_kit',
+    name: "Crimision Isle Pearl Diving Kit",
+    description: "A kit containing everything needed for deep-sea pearl diving.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🐚',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on checks to find underwater treasures",
+        "Contains enough air for 1 hour of diving",
+        "Made by: Crimision Isle"
+    ],
+    vendor: 'crimision_dock',
+    shippedBy: 'Waterproof Case',
+    levelRequirement: 4
+},
+
+'blessed_order_holy_water_flask': {
+    id: 'blessed_order_holy_water_flask',
+    name: "Blessed Order Holy Water Flask",
+    description: "A flask containing holy water blessed by the Blessed Order.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7500,
+    icon: '💧',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Holy water deals 2d6 radiant damage to fiends and undead",
+        "Can be used to bless a small area (10ft radius) for 1 hour",
+        "Made by: Blessed Order"
+    ],
+    vendor: 'blessed_order_sanctum',
+    shippedBy: 'Glass Flask',
+    levelRequirement: 4
+},
+
+'sirsirian_ocean_compass': {
+    id: 'sirsirian_ocean_compass',
+    name: "Sirsirian Ocean Compass",
+    description: "A compass that always points toward the nearest landmass.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🧭',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Always points toward the nearest land",
+        "Grants advantage on Survival checks to navigate at sea",
+        "Made by: Sirsirian Ocean"
+    ],
+    vendor: 'sirsirian_navigator',
+    shippedBy: 'Wooden Box',
+    levelRequirement: 4
+},
+
+'saddle_arabia_desert_compass': {
+    id: 'saddle_arabia_desert_compass',
+    name: "Saddle Arabia Desert Compass",
+    description: "A compass that points toward the nearest water source in desert environments.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🧭',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Always points toward the nearest water source in deserts",
+        "Grants advantage on Survival checks in desert environments",
+        "Made by: Saddle Arabia"
+    ],
+    vendor: 'desert_traders_post',
+    shippedBy: 'Leather Case',
+    levelRequirement: 4
+},
+
+'ratchet_raiders_boom_box': {
+    id: 'ratchet_raiders_boom_box',
+    name: "Ratchet Raiders Boom Box",
+    description: "A portable music player that can disrupt magical silence effects.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🎵',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Can play music that disrupts magical silence in a 20ft radius",
+        "Grants advantage on Performance checks when used",
+        "Made by: Ratchet Raiders"
+    ],
+    vendor: 'ratchet_raiders_cache',
+    shippedBy: 'Padded Case',
+    levelRequirement: 4
+},
+
+'wario_land_garlic_breath_potion': {
+    id: 'wario_land_garlic_breath_potion',
+    name: "Wario Land Garlic Breath Potion",
+    description: "A potion that gives the drinker incredibly foul breath that can repel creatures.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5000,
+    icon: '🧄',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Creatures within 5ft must make a DC 13 CON save or be repelled for 1 minute",
+        "Effect lasts for 1 hour",
+        "Made by: Wario Land"
+    ],
+    vendor: 'wario_land_shop',
+    shippedBy: 'Glass Bottle',
+    levelRequirement: 4
+},
+
+'millennium_time_sand': {
+    id: 'millennium_time_sand',
+    name: "Millennium Time Sand",
+    description: "A small vial of sand that can briefly slow time for the user.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 12000,
+    icon: '⏳',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "As a reaction, can slow time for the user (gain an additional action on their next turn)",
+        "Single use",
+        "Made by: Millennium"
+    ],
+    vendor: 'millennium_nexus',
+    shippedBy: 'Hourglass',
+    levelRequirement: 4
+},
+
+'apis_kingdom_royal_jelly': {
+    id: 'apis_kingdom_royal_jelly',
+    name: "Apis Kingdom Royal Jelly",
+    description: "A jar of royal jelly that can temporarily enhance physical abilities.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 9000,
+    icon: '🍯',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +2 to Strength for 1 hour",
+        "Can be used to heal 1d6 HP",
+        "Made by: Apis Kingdom"
+    ],
+    vendor: 'apis_hive_exchange',
+    shippedBy: 'Glass Jar',
+    levelRequirement: 4
+},
+
+'lizardmen_swamp_compass': {
+    id: 'lizardmen_swamp_compass',
+    name: "Lizardmen Swamp Compass",
+    description: "A compass that points toward dry land in swamp environments.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🧭',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Always points toward the nearest dry land in swamps",
+        "Grants advantage on Survival checks in swamp environments",
+        "Made by: Lizardmen"
+    ],
+    vendor: 'lizardmen_swamp_post',
+    shippedBy: 'Waterproof Case',
+    levelRequirement: 4
+},
+
+'trinity_general_medic_kit': {
+    id: 'trinity_general_medic_kit',
+    name: "Trinity General Medic Kit",
+    description: "A comprehensive medical kit for treating battlefield injuries.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '⚕️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Can stabilize a dying creature",
+        "Grants advantage on Medicine checks",
+        "Made by: Trinity General"
+    ],
+    vendor: 'trinity_general_bank',
+    shippedBy: 'Medical Case',
+    levelRequirement: 4
+},
+// ============================================
+// === 30 NEW ITEMS (LEVEL 4-5, FACTION FOCUS) ===
+// ============================================
+
+// --- EQUIPMENT (LEVEL 4-5) ---
+
+'tomb_king_khopesh': {
+    id: 'tomb_king_khopesh',
+    name: "Tomb King Khopesh",
+    description: "A bronze sickle-sword etched with curses. It hums with the souls of defeated enemies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 40000,
+    icon: '⚔️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "On hit: Target must make DC 14 CON save or be Cursed (disadvantage on attack rolls)",
+        "While cursed, you gain +1d4 necrotic damage on attacks against them",
+        "Curse lasts until dispelled or target rests for 8 hours"
+    ],
+    vendor: 'king_of_tombs',
+    shippedBy: 'Sarcophagus Delivery',
+    levelRequirement: 5
+},
+
+'asgardian_rune_axe': {
+    id: 'asgardian_rune_axe',
+    name: "Asgardian Rune Axe",
+    description: "A heavy axe with a glowing rune on its head. It strikes with the force of a thunderclap.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 35000,
+    icon: '🪓',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Once per short rest: On hit, deal an extra 2d8 Thunder damage",
+        "Enemies hit by the thunderclap are Deafened until end of their next turn",
+        "Axe is considered magical for overcoming resistances"
+    ],
+    vendor: 'asgard',
+    shippedBy: 'Bifrost Courier',
+    levelRequirement: 4
+},
+
+'iron_legion_targeting_visor': {
+    id: 'iron_legion_targeting_visor',
+    name: "Iron Legion Targeting Visor",
+    description: "A cybernetic eyepiece that highlights enemy weak points in real-time.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 45000,
+    icon: '🔬',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Action: Target one creature. You and your allies have +1 to attack rolls against it for 1 minute",
+        "Uses 1 charge (3 charges, recharges at dawn)",
+        "Visor flickers occasionally, revealing enemy data"
+    ],
+    vendor: 'iron_legion',
+    shippedBy: 'Armory Drop',
+    levelRequirement: 5
+},
+
+'koopa_troop_shield': {
+    id: 'koopa_troop_shield',
+    name: "Koopa Troop Shield",
+    description: "A sturdy shell shield. Perfect for defense and launching surprise attacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '🛡️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC",
+        "Bonus Action: Tuck into shell. You gain Resistance to Bludgeoning/Piercing damage, but your speed is 0",
+        "Can be kicked as a bonus action (1d6 bludgeoning, 10ft push)"
+    ],
+    vendor: 'koopa_troop',
+    shippedBy: 'Turtle Tank Transport',
+    levelRequirement: 4
+},
+
+'crimson_fleet_cutlass': {
+    id: 'crimson_fleet_cutlass',
+    name: "Crimson Fleet Cutlass",
+    description: "A wickedly sharp blade favored by space pirates. It thirsts for treasure.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 30000,
+    icon: '🗡️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "+1 to attack and damage rolls",
+        "On a critical hit, the target drops 1d4 x 10 gp (or equivalent value trinkets)",
+        "You have advantage on Intimidation checks when brandishing it"
+    ],
+    vendor: 'crimson_fleet',
+    shippedBy: 'Smuggler\'s Run',
+    levelRequirement: 5
+},
+
+'wario_land_garlic_bomb': {
+    id: 'wario_land_garlic_bomb',
+    name: "Wario Land Garlic Bomb",
+    description: "A stink bomb so potent it can stun even the toughest brutes. Smells like victory.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5000,
+    icon: '🧄',
+    stock: 20,
+    rarity: 'uncommon',
+    effects: [
+        "Throw (20ft): All creatures in 10ft radius must make DC 13 CON save or be Stunned for 1 round",
+        "On a success, they are Disgusted (-2 to attack) for 1 round",
+        "You are immune to its effects"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Odor-Proof Crate',
+    levelRequirement: 4
+},
+
+'mushroom_regency_spore_pouch': {
+    id: 'mushroom_regency_spore_pouch',
+    name: "Mushroom Regency Spore Pouch",
+    description: "A pouch of glowing spores. Inhaling them grants a burst of energy and clarity.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7500,
+    icon: '🍄',
+    stock: 15,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Inhale as a bonus action. Gain 10 temporary HP and +5 to your next Initiative roll",
+        "If you fail a CON save (DC 12), you are Poisoned for 1 minute instead"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Spore-Proof Jar',
+    levelRequirement: 5
+},
+
+'pokemon_league_type_charm': {
+    id: 'pokemon_league_type_charm',
+    name: "Pokémon League Type Charm",
+    description: "A small charm imbued with the essence of a single elemental type.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '🔮',
+    stock: 1, // Choice of one type
+    rarity: 'rare',
+    effects: [
+        "Choose one type (Fire, Water, Grass, Electric)",
+        "Your attacks of the chosen type deal +1d4 damage",
+        "You have resistance to damage of the chosen type"
+    ],
+    vendor: 'pokemon_league',
+    shippedBy: 'Certified Trainer',
+    levelRequirement: 4
+},
+
+'yoshi_clan_egg': {
+    id: 'yoshi_clan_egg',
+    name: "Yoshi Clan Egg",
+    description: "A brightly colored egg that hums with gentle energy. It will hatch for a loyal companion.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 50000,
+    icon: '🥚',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Takes 1 week of warmth to hatch into a friendly Yoshi (acts as a trained riding beast)",
+        "The hatched Yoshi can eat one enemy per day to grant you +5 HP",
+        "Very protective of its owner"
+    ],
+    vendor: 'yoshi_clans',
+    shippedBy: 'Nest-Warmed Blanket',
+    levelRequirement: 5
+},
+
+'void_drifter_stabilizer': {
+    id: 'void_drifter_stabilizer',
+    name: "Void Drifter Stabilizer",
+    description: "A humming device that anchors you to reality, resisting cosmic madness.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 42000,
+    icon: '⚙️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+2 to saving throws against being Banished, Teleported, or affected by Void magic",
+        "While held, you emit faint, unsettling whispers that others cannot understand",
+        "Requires a rare crystal to power (lasts 1 month)"
+    ],
+    vendor: 'void_drifters',
+    shippedBy: 'Gravity-Sealed Box',
+    levelRequirement: 5
+},
+
+// --- CONSUMABLES (LEVEL 4-5) ---
+
+'asclepia_panacea_poultice': {
+    id: 'asclepia_panacea_poultice',
+    name: "Asclepia Panacea Poultice",
+    description: "A magical salve that mends flesh and bone with impossible speed.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 6000,
+    icon: '🍃',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: As an action, apply to a creature. Heals 3d8+3 HP and ends the Poisoned condition"
+    ],
+    vendor: 'asclepia',
+    shippedBy: 'Medical Courier',
+    levelRequirement: 4
+},
+
+'formosa_ultima_mango_juice': {
+    id: 'formosa_ultima_mango_juice',
+    name: "Formosa Ultima Mango Juice",
+    description: "This juice is so refreshing it feels like you're drinking pure sunshine. Restores a bit of stamina.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 1500,
+    icon: '🥭',
+    stock: 50,
+    rarity: 'common',
+    effects: [
+        "Single Use: Drink as a bonus action. Remove one level of Exhaustion"
+    ],
+    vendor: 'formosa_ultima',
+    shippedBy: 'Refrigerated Crate',
+    levelRequirement: 1
+},
+
+'king_of_tombs_canopic_flask': {
+    id: 'king_of_tombs_canopic_flask',
+    name: "Canopic Flask of Preservation",
+    description: "A jar that preserves a single organ or body part indefinitely, protecting it from decay and scrying.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 30000,
+    icon: '🏺',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Preserves one organic item (up to 1 cubic foot) perfectly",
+        "The item cannot be scried or located by magical means while inside",
+        "Breaking the flask releases the preserved item and a cloud of choking dust"
+    ],
+    vendor: 'king_of_tombs',
+    shippedBy: 'Sarcophagus Guard',
+    levelRequirement: 5
+},
+
+'ratchet_raiders_scrap_cannon': {
+    id: 'ratchet_raiders_scrap_cannon',
+    name: "Ratchet Raiders Scrap Cannon",
+    description: "A jury-rigged cannon that fires a volley of sharp, random scrap metal.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 38000,
+    icon: '🔩',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Action: Fire a cone of scrap (15ft). All creatures in area take 4d6 Piercing damage (DEX save for half)",
+        "On a critical hit, one target is Impaled (1d6 bleed damage per round until DC 13 MED check)",
+        "Has a 10% chance of jamming (requires an action to clear)"
+    ],
+    vendor: 'ratchet_raiders',
+    shippedBy: 'Scrap Heap Delivery',
+    levelRequirement: 5
+},
+
+'spark_rebellion_data_spike': {
+    id: 'spark_rebellion_data_spike',
+    name: "Spark Rebellion Data Spike",
+    description: "A device that injects a burst of chaotic data into a machine, causing it to malfunction spectacularly.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 8000,
+    icon: '📈',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Target a mechanical or robotic creature. It must make a DC 14 INT save or be Stunned for 1 round as its systems reboot",
+        "On a success, it is merely Confused for 1 round"
+    ],
+    vendor: 'spark_rebellion',
+    shippedBy: 'Encrypted Drive',
+    levelRequirement: 4
+},
+
+'gilded_knights_vow_talisman': {
+    id: 'gilded_knights_vow_talisman',
+    name: "Gilded Knight's Vow Talisman",
+    description: "A silver talisman that strengthens your resolve when protecting an ally.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22000,
+    icon: '🛡️',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "While you are within 5 feet of an ally who has less than 50% of their HP, you gain +2 AC",
+        "Talisman glows faintly when its power is active"
+    ],
+    vendor: 'knights_gilded',
+    shippedBy: 'Squire Delivery',
+    levelRequirement: 4
+},
+
+'desert_sultanate_silk_scarf': {
+    id: 'desert_sultanate_silk_scarf',
+    name: "Desert Sultanate Silk Scarf",
+    description: "Flowing silk that shimmers in the sun. It helps you endure the harshest heat.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🧣',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Resistance to Fire damage",
+        "You can hold your breath for 1 hour longer than normal",
+        "Can be used to blind a creature (CON save) once per day"
+    ],
+    vendor: 'sultanates_araby',
+    shippedBy: 'Camel Caravan',
+    levelRequirement: 4
+},
+
+'moonfang_pack_howl_charm': {
+    id: 'moonfang_pack_howl_charm',
+    name: "Moonfang Pack Howl Charm",
+    description: "A wolf-fang charm that lets you borrow the strength of the pack.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 28000,
+    icon: '🐺',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Once per short rest: As a bonus action, howl. You and all allies within 30ft gain +5 temporary HP",
+        "You have advantage on checks to track or intimidate beasts"
+    ],
+    vendor: 'moonfang_pack',
+    shippedBy: 'Pack Runner',
+    levelRequirement: 5
+},
+
+'hacktivist_decryption_key': {
+    id: 'hacktivist_decryption_key',
+    name: "Hacktivist Decryption Key",
+    description: "A USB drive that can bypass most conventional digital security systems.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 50000,
+    icon: '🔑',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Grants access to a locked computer system or network (DM discretion)",
+        "Using it on a high-security system has a 50% chance of alerting the owners"
+    ],
+    vendor: 'hacktivist',
+    shippedBy: 'Dead Drop',
+    levelRequirement: 5
+},
+
+'cybernetic_repair_nanite_patch': {
+    id: 'cybernetic_repair_nanite_patch',
+    name: "Cybernetic Repair Nanite Patch",
+    description: "A sticky patch that releases nanites to repair cybernetic limbs and enhancements.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 12000,
+    icon: '🩹',
+    stock: 12,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Apply to a cybernetic limb. Removes one negative condition (e.g., broken, jammed) and restores 1d8 HP to the limb",
+        "If used on a non-cybernetic creature, it does nothing but feels tingly"
+    ],
+    vendor: 'cybernetic',
+    shippedBy: 'Tech Support',
+    levelRequirement: 4
+},
+
+// --- CURIOSITIES & SERVICES (LEVEL 4-5) ---
+
+'kingdom_gondor_scout_map': {
+    id: 'kingdom_gondor_scout_map',
+    name: "Gondorian Scout Map",
+    description: "A military-grade map of a contested region, detailing hidden paths and enemy fortifications.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 15000,
+    icon: '🗺️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Survival checks to navigate the mapped region",
+        "Reveals 3 hidden paths or ambush points of the DM's choice"
+    ],
+    vendor: 'kingdom_gondor',
+    shippedBy: 'Ranger Courier',
+    levelRequirement: 4
+},
+
+'regal_empire_audience_invitation': {
+    id: 'regal_empire_audience_invitation',
+    name: "Regal Empire Audience Invitation",
+    description: "An ornate invitation granting you a formal (and likely dangerous) audience with a minor noble.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8000,
+    icon: '📜',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Grants access to the Noble District and its associated events",
+        "May grant a boon or a quest from the noble, depending on your performance",
+        "Failing etiquette may result in imprisonment"
+    ],
+    vendor: 'regal_empire',
+    shippedBy: 'Royal Messenger',
+    levelRequirement: 4
+},
+
+'onyx_hand_poison_kit': {
+    id: 'onyx_hand_poison_kit',
+    name: "Onyx Hand Poison Kit",
+    description: "A set of vials and applicators for coating weapons with fast-acting, untraceable poisons.",
+    category: SHOP_CATEGORIES.SERVICES, // Sold as a kit, but application is a service
+    price: 25000,
+    icon: '☠️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Kit contains enough poison for 3 weapon coatings",
+        "Poison deals 2d6 poison damage on hit (CON save for half)",
+        "Poison is colorless and odorless; DC 15 check to identify"
+    ],
+    vendor: 'the_onyx_hand',
+    shippedBy: 'Black Market Box',
+    levelRequirement: 5
+},
+
+'geminia_twin_link_potion': {
+    id: 'geminia_twin_link_potion',
+    name: "Geminia Twin-Link Potion",
+    description: "A shimmering, two-toned liquid. Drinking it links your fate with another's.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 20000,
+    icon: '🧪',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Drink with another willing creature. For 1 hour, damage taken by one is split equally between you both",
+        "If one dies, the other takes 10d10 psychic damage"
+    ],
+    vendor: 'geminia',
+    shippedBy: 'Paired Vials',
+    levelRequirement: 5
+},
+
+'apis_kingdom_royal_jelly': {
+    id: 'apis_kingdom_royal_jelly',
+    name: "Apis Kingdom Royal Jelly",
+    description: "A spoonful of this glowing jelly grants the vigor of a queen bee.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10000,
+    icon: '🍯',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: As an action, consume. You gain 1d8 temporary HP and +1 to all saves for 1 hour"
+    ],
+    vendor: 'apis_kingdom',
+    shippedBy: 'Drone Escort',
+    levelRequirement: 4
+},
+
+'starlight_observatory_chart': {
+    id: 'starlight_observatory_chart',
+    name: "Starlight Observatory Chart",
+    description: "A celestial map that shows the location of a specific, temporary cosmic event.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 40000,
+    icon: '⭐',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Reveals the location of a 'Starfall' (a meteor rich in rare metals) or a 'Whispering Nebula' (grants a vision)",
+        "The event only lasts for 24 hours after the chart is consulted",
+        "Using the chart consumes it"
+    ],
+    vendor: 'starlight',
+    shippedBy: 'Astronomer',
+    levelRequirement: 5
+},
+
+'trinity_general_comms_link': {
+    id: 'trinity_general_comms_link',
+    name: "Trinity General Comms Link",
+    description: "An earpiece that provides a secure, encrypted channel to a single other user.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 33000,
+    icon: '🎧',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Allows you to communicate telepathically with one other person wearing a link, up to 1 mile away",
+        "The link is scrambled; cannot be intercepted by non-magical means"
+    ],
+    vendor: 'trinity_general',
+    shippedBy: 'Military Supply',
+    levelRequirement: 4
+},
+
+'ranger_union_beast_call_horn': {
+    id: 'ranger_union_beast_call_horn',
+    name: "Ranger Union Beast Call Horn",
+    description: "A horn whose sound soothes beasts and calls them to your aid.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 27000,
+    icon: '📯',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Once per day: Blow the horn. Summons 2d4 beasts (CR 1/4 or lower, like wolves or giant badgers) to serve you for 1 hour",
+        "Beasts will not attack you, but may attack others"
+    ],
+    vendor: 'ranger_union',
+    shippedBy: 'Ranger Post',
+    levelRequirement: 5
+},
+
+'shanshaijing_monster_scroll': {
+    id: 'shanshaijing_monster_scroll',
+    name: "Shan Hai Jing Monster Scroll",
+    description: "A scroll depicting a mythical beast. Reading its true name grants you power over it.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 55000,
+    icon: '📜',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Read the scroll aloud to summon a specific mythical beast (DM's choice, e.g., a Qilin or a Zouyu)",
+        "The beast is not hostile and will answer one question truthfully before departing",
+        "Using the scroll destroys it"
+    ],
+    vendor: 'shanhaijing',
+    shippedBy: 'Librarian',
+    levelRequirement: 5
+},
+
+'undead_pacification_incense': {
+    id: 'undead_pacification_incense',
+    name: "Undead Pacification Incense",
+    description: "A bundle of rare woods and herbs that smells of grave dirt and peace. It calms the restless dead.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 9000,
+    icon: '🪵',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Burning the incense for 10 minutes pacifies all Undead (CR 3 or lower) within a 60ft radius",
+        "They will not attack unless provoked"
+    ],
+    vendor: 'undead', // Sold by a faction of necromancers who specialize in crowd control
+    shippedBy: 'Mortician\'s Supply',
+    levelRequirement: 4
+},
+
+'toad_cult_shrine_key': {
+    id: 'toad_cult_shrine_key',
+    name: "Toad Cult Shrine Key",
+    description: "A large, ornate brass key. It opens a hidden shrine and grants a minor blessing.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 24000,
+    icon: '🗝️',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Opens a hidden Toad Shrine (location provided upon purchase)",
+        "Inside, you can receive a blessing: +1 to all checks for 8 hours (once per visit)",
+        "The shrine is a neutral ground; no violence is permitted inside"
+    ],
+    vendor: 'the_toad_cult',
+    shippedBy: 'Toad-in-a-Box',
+    levelRequirement: 5
+},
+
+'fawfuls_furious_cackle_bomb': {
+    id: 'fawfuls_furious_cackle_bomb',
+    name: "Fawful's Furious Cackle Bomb",
+    description: "A bomb that, on impact, releases a deafening, maniacal cackle.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7000,
+    icon: '💥',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Throw (30ft): All creatures in 15ft radius must make a DC 13 WIS save or be Frightened of you for 1 minute",
+        "On a success, they are Deafened for 1 round"
+    ],
+    vendor: 'fawfuls_furious',
+    shippedBy: 'Prankster Supply',
+    levelRequirement: 4
+},
+
+'vampire_covenant_invitation': {
+    id: 'vampire_covenant_invitation',
+    name: "Vampire Covenant Invitation",
+    description: "A blood-red card inviting you to a 'social gathering' hosted by a local coven.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 1000, // The price is your blood later
+    icon: '🩸',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Grants safe passage to and from a vampire-controlled territory for one night",
+        "You may be asked to perform a 'favor' in exchange for their hospitality",
+        "Refusing an invitation from a vampire is a terrible idea"
+    ],
+    vendor: 'vampire_covenant',
+    shippedBy: 'Bat Messenger',
+    levelRequirement: 5
+},
+
 'team_rocket_uniform': {
     id: 'team_rocket_uniform',
     name: "Team Rocket Grunt Uniform",

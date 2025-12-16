@@ -22,6 +22,331 @@
     --wario-text-dim: #a0a0b0;
     --wario-shadow: rgba(0, 0, 0, 0.5);
 }
+/* === PARTY LEVEL DISPLAY === */
+.party-level-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(168, 85, 247, 0.2));
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 8px;
+}
+
+.party-level-icon {
+    font-size: 1.8em;
+}
+
+.party-level-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.party-level-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #c4b5fd;
+}
+
+.party-level-label {
+    font-size: 0.7em;
+    color: var(--wario-text-dim);
+    text-transform: uppercase;
+}
+
+/* === LEVEL BADGE === */
+.level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.level-badge.level-ok {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #86efac;
+}
+
+.level-badge.level-locked {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+}
+
+.level-current {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+/* === LEVEL LOCKED ITEM === */
+.shop-item.level-locked {
+    border-color: rgba(239, 68, 68, 0.4);
+    position: relative;
+}
+
+.shop-item.level-locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    opacity: 0.6;
+}
+
+.item-level-warning {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    color: #fca5a5;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* === BULK CONTROLS === */
+.bulk-controls {
+    background: var(--wario-surface-light);
+    border: 1px solid var(--wario-border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.bulk-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bulk-label {
+    font-size: 0.85em;
+    font-weight: bold;
+    color: var(--wario-gold);
+}
+
+.bulk-hint {
+    font-size: 0.75em;
+    color: var(--wario-text-dim);
+    background: rgba(251, 191, 36, 0.15);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.bulk-quantity-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--wario-purple-light);
+    background: var(--wario-purple);
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover:not(:disabled) {
+    background: var(--wario-gold-dark);
+    border-color: var(--wario-gold);
+    transform: scale(1.1);
+}
+
+.qty-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.qty-btn.plus {
+    background: linear-gradient(135deg, var(--wario-green), #228b22);
+    border-color: var(--wario-green);
+}
+
+.qty-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--wario-gold);
+    min-width: 40px;
+    text-align: center;
+}
+
+.qty-max {
+    font-size: 0.85em;
+    color: var(--wario-text-dim);
+}
+
+.bulk-total {
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.bulk-total span:first-child {
+    font-weight: bold;
+    color: var(--wario-gold);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.bulk-savings-note {
+    display: block;
+    font-size: 0.75em;
+    color: var(--wario-text-dim);
+    margin-top: 2px;
+}
+
+.bulk-next-price {
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--wario-text-dim);
+}
+
+.bulk-next-unit {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    padding: 6px 8px;
+    background: var(--wario-surface);
+    border-radius: 4px;
+}
+
+.next-label {
+    color: var(--wario-text-dim);
+}
+
+.next-price {
+    color: #fbbf24;
+    font-weight: 600;
+}
+
+/* === CART ITEM DETAILS === */
+.cart-item-details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+}
+
+.cart-item-qty {
+    font-size: 0.85em;
+    padding: 2px 6px;
+    background: var(--wario-purple);
+    border-radius: 4px;
+    color: var(--wario-gold);
+    font-weight: bold;
+}
+
+.cart-item-unit-price {
+    font-size: 0.7em;
+    color: var(--wario-text-dim);
+}
+
+/* === RECEIPT ENHANCEMENTS === */
+.receipt-party-level {
+    text-align: center;
+    padding: 8px;
+    background: #e8e8d0;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    color: #6b21a8;
+}
+
+.receipt-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.receipt-qty {
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+.receipt-bulk-note {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.receipt-summary {
+    border-top: 1px dashed #999;
+    padding: 8px 0;
+    margin-bottom: 8px;
+}
+
+.receipt-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* === ITEM BADGES CONTAINER === */
+.item-badges,
+.upgrade-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+/* === LEVEL DISTRIBUTION === */
+.level-distribution {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.level-tag {
+    font-size: 0.7em;
+    padding: 2px 6px;
+    background: var(--wario-surface);
+    border-radius: 4px;
+    color: var(--wario-text-dim);
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+    .party-level-display {
+        padding: 8px 12px;
+    }
+    
+    .party-level-value {
+        font-size: 1em;
+    }
+    
+    .bulk-controls {
+        padding: 10px;
+    }
+    
+    .qty-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
 /* === ITEM BADGES CONTAINER === */
 .item-badges,
 .upgrade-badges {
