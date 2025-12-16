@@ -1520,6 +1520,9208 @@ export const SHOP_ITEMS = {
     shippedBy: 'Ancient Ritual',
     levelRequirement: 16
 },
+'crystal_bottle_of_silence': {
+    id: 'crystal_bottle_of_silence',
+    name: "Crystal Bottle of Silence",
+    description: "A vial that captures sound and releases it as pure, crushing quiet.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8500,
+    icon: '💧',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Release: 20ft radius of absolute silence for 1 minute",
+        "No sound can be made or heard inside — spells with verbal components fail",
+        "Bottle refills at dawn with ambient noise"
+    ],
+    vendor: 'echo_hollow',
+    shippedBy: 'Glass Vial',
+    levelRequirement: 4
+},
+
+'inkwell_of_truth': {
+    id: 'inkwell_of_truth',
+    name: "Inkwell of Truth",
+    description: "A black inkwell that forces honesty when used to write.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 18000,
+    icon: '🖋️',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Any text written with it cannot contain lies",
+        "If you try to lie, ink turns red and burns your hand",
+        "Documents written with it are magically binding"
+    ],
+    vendor: 'black_ink',
+    shippedBy: 'Obsidian Stand',
+    levelRequirement: 6
+},
+
+'cursed_mirror_shard': {
+    id: 'cursed_mirror_shard',
+    name: "Cursed Mirror Shard",
+    description: "A broken piece of a mirror that shows your worst fear instead of your reflection.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 95000,
+    icon: '🪞',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "When held, you see your deepest fear manifested (DC 18 Wis save to look away)",
+        "Failure: gain 1 level of madness (DM chooses)",
+        "Can be used to banish illusions (1/day)"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Shattered Frame',
+    levelRequirement: 11
+},
+
+'frozen_smile': {
+    id: 'frozen_smile',
+    name: "Frozen Smile",
+    description: "A porcelain mask of a smiling face. It never melts, even in lava.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 42000,
+    icon: '🎭',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Wear: gain advantage on Persuasion, but you cannot show emotion",
+        "Immunity to fear effects",
+        "Anyone who sees your face for more than 1 minute must make a DC 15 Wis save or become fascinated"
+    ],
+    vendor: 'dream_sanctuary',
+    shippedBy: 'Ice-Cooled Box',
+    levelRequirement: 8
+},
+
+'ghostly_pianist': {
+    id: 'ghostly_pianist',
+    name: "Ghostly Pianist",
+    description: "A spectral musician who plays haunting melodies on an invisible piano.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 15000,
+    icon: '🎹',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Plays for 1 hour daily at dawn — all within 30ft gain +1 to saves vs fear",
+        "Plays only when someone is lonely",
+        "If you cry, it stops and leaves you a single rose"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Musical Box',
+    levelRequirement: 5
+},
+
+'compass_of_dead_paths': {
+    id: 'compass_of_dead_paths',
+    name: "Compass of Dead Paths",
+    description: "A rusted compass that points not to north, but to where someone last died.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 12000,
+    icon: '🧭',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Points to the location of the most recent death within 10 miles",
+        "Glows brighter with more recent or violent deaths",
+        "May attract ghosts or scavengers"
+    ],
+    vendor: 'bazaar_of_oddities',
+    shippedBy: 'Rusted Case',
+    levelRequirement: 3
+},
+
+'bone_chime_wind_catcher': {
+    id: 'bone_chime_wind_catcher',
+    name: "Bone Chime Wind Catcher",
+    description: "A mobile of tiny bones that chime in the wind — each chime is a whisper of the dead.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 6000,
+    icon: '🪦',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "When wind blows, you hear one cryptic phrase from a dead person",
+        "Once per day: ask a yes/no question — answer is whispered in a dead voice",
+        "Chimes stop if you lie"
+    ],
+    vendor: 'temple_eternal',
+    shippedBy: 'Woven String',
+    levelRequirement: 2
+},
+
+'petrified_tears': {
+    id: 'petrified_tears',
+    name: "Petrified Tears",
+    description: "A vial of crystallized tears from a weeping angel. They glow with sorrow.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 25000,
+    icon: '💧',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Drink: gain 1d10 temporary HP and advantage on saves vs charm for 1 hour",
+        "You feel overwhelming empathy for all living things",
+        "After effect, you cry uncontrollably for 1 minute"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Crystal Flask',
+    levelRequirement: 7
+},
+
+'wishing_coin': {
+    id: 'wishing_coin',
+    name: "Wishing Coin",
+    description: "A coin that whispers wishes to you while you sleep. Only one can be true.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 150000,
+    icon: '🪙',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Each night, you hear a whispered wish (DM chooses one)",
+        "You may choose to fulfill it — but it costs 1d6 years of your life",
+        "If you refuse, the coin whispers louder until you break"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Velvet Pouch',
+    levelRequirement: 10
+},
+
+'timeless_sand': {
+    id: 'timeless_sand',
+    name: "Timeless Sand",
+    description: "A jar of sand that never runs out — it flows backward when touched.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 75000,
+    icon: '⏳',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Sprinkle: reverse time for 1 minute for a single object or creature",
+        "Cannot affect living beings for more than 10 seconds",
+        "Each use ages the user 1d4 days"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Crystal Jar',
+    levelRequirement: 9
+},
+
+'portal_key_to_nowhere': {
+    id: 'portal_key_to_nowhere',
+    name: "Portal Key to Nowhere",
+    description: "A key that opens a door to a dimension of pure white void.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 220000,
+    icon: '🚪',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Open portal: enter a 10ft cube of nothingness — no time, no sound, no gravity",
+        "You age 1 year per hour spent inside",
+        "Escape requires a DC 20 Wisdom save — failure means you vanish forever"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Void Box',
+    levelRequirement: 14
+},
+
+'book_of_unwritten_names': {
+    id: 'book_of_unwritten_names',
+    name: "Book of Unwritten Names",
+    description: "A blank book that writes the names of those who will die tomorrow.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 180000,
+    icon: '📖',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Each dawn, 1d4 names appear — those people will die before sunset",
+        "You may erase a name — but another appears in its place",
+        "The book is sentient. It whispers to you at night"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Leather Binding',
+    levelRequirement: 12
+},
+
+'candle_of_the_last_breath': {
+    id: 'candle_of_the_last_breath',
+    name: "Candle of the Last Breath",
+    description: "A black candle that burns for exactly 1 minute — and brings back the dead for that time.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 300000,
+    icon: '🕯️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Light: resurrects one recently dead creature (within 1 hour)",
+        "They return with 1 HP and full memories",
+        "They speak one truth before dissolving into smoke",
+        "You lose 1d6 years of life"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Ashen Box',
+    levelRequirement: 15
+},
+
+'heart_of_the_mountain': {
+    id: 'heart_of_the_mountain',
+    name: "Heart of the Mountain",
+    description: "A pulsing stone that feels like a living heartbeat. It is the soul of a dead titan.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 550000,
+    icon: '🪨',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Place in ground: creates a 1-mile radius of unshakable stability",
+        "Earthquakes, collapses, and planar rifts are impossible within",
+        "The heart must be fed 10,000 gp in precious stones monthly — or it crumbles"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Stone Chest',
+    levelRequirement: 13
+},
+
+'fountain_of_mirrored_souls': {
+    id: 'fountain_of_mirrored_souls',
+    name: "Fountain of Mirrored Souls",
+    description: "A fountain that reflects not your face, but your alternate selves.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 700000,
+    icon: '💧',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Drink: you experience the life of one alternate version of yourself (DM chooses)",
+        "Gain 1d4 memories, skills, or traumas from that life",
+        "You may permanently merge with one version — gaining their abilities, losing your past"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Obsidian Basin',
+    levelRequirement: 16
+},
+
+'pocket_dimensional_kitchen': {
+    id: 'pocket_dimensional_kitchen',
+    name: "Pocket Dimensional Kitchen",
+    description: "A tiny kitchen that opens into a vast, infinite pantry and oven.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 450000,
+    icon: '🍳',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Cook any meal: infinite quantity, perfect flavor, +1d4 HP restored",
+        "All food is magically preserved for 100 years",
+        "Kitchen is guarded by a sentient spatula (CR 1/4) who judges your cooking"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Miniature Stove',
+    levelRequirement: 10
+},
+
+'crown_of_the_lost_king': {
+    id: 'crown_of_the_lost_king',
+    name: "Crown of the Lost King",
+    description: "A rusted crown that whispers the names of every ruler who ever failed.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 800000,
+    icon: '👑',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Wear: gain +2 to Charisma and advantage on Leadership checks",
+        "You hear the voices of 100 fallen kings — each gives advice (DM chooses)",
+        "Every 7 days, you must make a DC 18 Wisdom save — failure: you believe you are one of them"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Cursed Sarcophagus',
+    levelRequirement: 14
+},
+
+'whispering_garden_seeds': {
+    id: 'whispering_garden_seeds',
+    name: "Whispering Garden Seeds",
+    description: "Seeds that grow into plants that speak in the voices of those who planted them.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 18000,
+    icon: '🌱',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Plant: grow a sentient plant that speaks in the voice of the planter",
+        "Plant remembers everything the planter said near it",
+        "If killed, it screams the last thing it heard — and everyone within 50ft hears it"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Soil-Wrapped Packet',
+    levelRequirement: 5
+},
+
+'armor_of_the_forgotten': {
+    id: 'armor_of_the_forgotten',
+    name: "Armor of the Forgotten",
+    description: "A suit of armor with no maker’s mark. It remembers every warrior who wore it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 350000,
+    icon: '🦾',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "AC 20, resistance to all damage types",
+        "Gains +1 to attack/damage for each fallen warrior whose memory it holds (max +5)",
+        "If you die, the armor remembers you — and whispers your name to others forever"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Bone Chest',
+    levelRequirement: 12
+},
+
+'storm_in_a_bottle': {
+    id: 'storm_in_a_bottle',
+    name: "Storm in a Bottle",
+    description: "A sealed bottle containing a miniature hurricane.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 280000,
+    icon: '🌀',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Break: unleash a 50ft radius storm — 4d10 lightning, 3d10 thunder, wind speed 60ft",
+        "Lasts 10 minutes",
+        "The bottle reforms in 1 week — but each use weakens the storm inside"
+    ],
+    vendor: 'storm_seller',
+    shippedBy: 'Lead-Sealed Vial',
+    levelRequirement: 10
+},
+
+'oracle_of_lost_words': {
+    id: 'oracle_of_lost_words',
+    name: "Oracle of Lost Words",
+    description: "A stone tablet that speaks only in languages that no longer exist.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 22000,
+    icon: '🪨',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Ask a question: it answers in a dead language — but you understand it",
+        "Answer is always cryptic, poetic, and true",
+        "Each use erases one word from your native tongue forever"
+    ],
+    vendor: 'scholar_society',
+    shippedBy: 'Ancient Stone',
+    levelRequirement: 7
+},
+
+'vial_of_the_first_sigh': {
+    id: 'vial_of_the_first_sigh',
+    name: "Vial of the First Sigh",
+    description: "A drop of air from the moment the first living creature exhaled.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 650000,
+    icon: '🌬️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Breathe: grant yourself or another creature 100 temporary HP",
+        "You gain the ability to speak all languages for 1 hour",
+        "After use, you forget your own name for 1d4 days"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Glass Sphere',
+    levelRequirement: 15
+},
+
+'familiar_soul_jar': {
+    id: 'familiar_soul_jar',
+    name: "Familiar Soul Jar",
+    description: "A jar that holds the soul of a lost familiar — you can summon it as a ghost.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 15000,
+    icon: '👻',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "Summon: a ghostly familiar (CR 0) that can deliver messages, scout, or carry items",
+        "It remembers everything it knew in life",
+        "It cannot be destroyed — only released"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Ceramic Jar',
+    levelRequirement: 4
+},
+
+'key_to_the_godly_doors': {
+    id: 'key_to_the_godly_doors',
+    name: "Key to the Godly Doors",
+    description: "A key forged from starlight that opens any door — even those to other planes.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 850000,
+    icon: '🗝️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Open any door, lock, portal, or barrier — even those sealed by divine will",
+        "One use per day",
+        "Each use causes a single star to vanish from the night sky"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Cosmic Vault',
+    levelRequirement: 14
+},
+
+'painting_of_the_dying_sun': {
+    id: 'painting_of_the_dying_sun',
+    name: "Painting of the Dying Sun",
+    description: "A canvas that slowly dims as time passes. If it goes black, the sun dies.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 900000,
+    icon: '🖼️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "The painting dims 1% per day — if it reaches 0%, the sun dims permanently",
+        "You can slow its dimming by sacrificing 10,000 gp per day",
+        "If you destroy it, the sun explodes — but you become a god of darkness"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Gilded Frame',
+    levelRequirement: 16
+},
+
+'echo_of_a_dead_god': {
+    id: 'echo_of_a_dead_god',
+    name: "Echo of a Dead God",
+    description: "A whispering voice that speaks only in the tongue of a dead deity.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 1100000,
+    icon: '🗣️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "The voice gives you one divine spell per day (DM chooses)",
+        "It demands worship — you must pray daily or it begins to possess you",
+        "If you speak its name aloud, it awakens its corpse"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Bone Flute',
+    levelRequirement: 17
+},
+
+'mirror_of_the_future_self': {
+    id: 'mirror_of_the_future_self',
+    name: "Mirror of the Future Self",
+    description: "A mirror that shows you what you will become — if you do nothing.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 75000,
+    icon: '🪞',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Look into it: see your future self — aged, broken, alone",
+        "You gain advantage on all saving throws for 24 hours",
+        "If you look again within 7 days, you must make a DC 16 Wisdom save — failure: you believe you are already dead"
+    ],
+    vendor: 'dream_sanctuary',
+    shippedBy: 'Black Frame',
+    levelRequirement: 9
+},
+
+'book_of_dead_languages': {
+    id: 'book_of_dead_languages',
+    name: "Book of Dead Languages",
+    description: "A tome written in languages that no living soul remembers.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 20000,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Read for 1 hour: learn one dead language perfectly",
+        "You forget one language you knew before",
+        "The book sometimes writes new words — in your voice"
+    ],
+    vendor: 'scholar_society',
+    shippedBy: 'Leather Bindings',
+    levelRequirement: 5
+},
+
+'hat_of_the_mad_architect': {
+    id: 'hat_of_the_mad_architect',
+    name: "Hat of the Mad Architect",
+    description: "A top hat that makes you see buildings as they could be — not as they are.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 45000,
+    icon: '🎩',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "You see architectural flaws and hidden passages",
+        "You can redesign any structure in your mind — if you spend 1 hour, it becomes real (DC 15 Int check)",
+        "You begin to hear whispers from the walls"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Top Hat Box',
+    levelRequirement: 7
+},
+
+'coin_of_the_god_of_chance': {
+    id: 'coin_of_the_god_of_chance',
+    name: "Coin of the God of Chance",
+    description: "A coin that flips itself. It always lands on the side you fear most.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 12000,
+    icon: '🪙',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Flip: roll a d20 — if even, you gain a blessing (DM chooses); if odd, you gain a curse",
+        "The coin flips again every dawn",
+        "It never lands on heads or tails — only on the edge"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Gilded Box',
+    levelRequirement: 3
+},
+
+'cage_of_the_unborn': {
+    id: 'cage_of_the_unborn',
+    name: "Cage of the Unborn",
+    description: "A tiny metal cage that holds the soul of a child who was never born.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 500000,
+    icon: '🪝',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Place a soul inside: you can resurrect them — but they are born as a shadow",
+        "They become your child — but age 10x faster",
+        "If released, they become a vengeful spirit that hunts you"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Silver Crib',
+    levelRequirement: 12
+},
+
+'ring_of_the_last_kiss': {
+    id: 'ring_of_the_last_kiss',
+    name: "Ring of the Last Kiss",
+    description: "A silver ring that remembers the final kiss of every lover who ever died.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 32000,
+    icon: '💍',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Wear: you feel the emotions of the last person who loved you",
+        "Once per day: you can relive one moment of perfect love — heal 1d8 HP",
+        "You begin to dream of lovers you never had"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Velvet Box',
+    levelRequirement: 6
+},
+
+'globe_of_the_lost_world': {
+    id: 'globe_of_the_lost_world',
+    name: "Globe of the Lost World",
+    description: "A crystal globe showing a world that never existed — but feels familiar.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 600000,
+    icon: '🌍',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Look inside: see a perfect world where you were never hurt",
+        "You may enter it for 1 hour — but time flows differently",
+        "If you stay longer, you become part of it — and your world forgets you"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Crystal Orb',
+    levelRequirement: 14
+},
+
+'book_of_moths': {
+    id: 'book_of_moths',
+    name: "Book of Moths",
+    description: "A book whose pages are made of living moths that flutter when read.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 18000,
+    icon: '🦋',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Read: gain knowledge of a single secret (DM chooses)",
+        "Each page you read, one moth dies — and you forget one memory",
+        "The moths whisper secrets to you at night"
+    ],
+    vendor: 'bazaar_of_oddities',
+    shippedBy: 'Silk Cover',
+    levelRequirement: 5
+},
+
+'necklace_of_the_silent_song': {
+    id: 'necklace_of_the_silent_song',
+    name: "Necklace of the Silent Song",
+    description: "A pendant that sings a song only the dead can hear.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 25000,
+    icon: '📿',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Wear: ghosts are drawn to you — they whisper secrets",
+        "Once per week: you can communicate with a single dead person",
+        "You begin to hear the song even when not wearing it"
+    ],
+    vendor: 'temple_eternal',
+    shippedBy: 'Bone Chain',
+    levelRequirement: 4
+},
+
+'garden_of_the_moon': {
+    id: 'garden_of_the_moon',
+    name: "Garden of the Moon",
+    description: "A potted garden that grows only under moonlight — and blooms with dreams.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 180000,
+    icon: '🌙',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Each full moon: bloom a flower that grants a dream vision (DM chooses)",
+        "Plants glow softly and repel undead",
+        "If you sleep in the garden, you remember your past lives"
+    ],
+    vendor: 'fey_market',
+    shippedBy: 'Moonlit Pot',
+    levelRequirement: 10
+},
+
+'candle_of_the_first_fire': {
+    id: 'candle_of_the_first_fire',
+    name: "Candle of the First Fire",
+    description: "The first flame ever lit — it never burns out, and never warms.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 420000,
+    icon: '🕯️',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Light: creates a 30ft radius of pure, cold fire — burns objects, not flesh",
+        "Can ignite magical items to reveal their properties",
+        "If extinguished, the world forgets how to make fire"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Ashen Holder',
+    levelRequirement: 12
+},
+
+'voice_of_the_void': {
+    id: 'voice_of_the_void',
+    name: "Voice of the Void",
+    description: "A small, hollow bell that, when rung, summons the silence between stars.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 750000,
+    icon: '🔔',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Ring: 60ft radius of absolute void — no sound, no light, no magic",
+        "Creatures inside are blinded, deafened, and cannot cast spells",
+        "You hear a voice whisper: 'You are not real.'"
+    ],
+    vendor: 'celestial_exchange',
+    shippedBy: 'Black Bell',
+    levelRequirement: 15
+},
+
+'pocket_of_infinite_stairs': {
+    id: 'pocket_of_infinite_stairs',
+    name: "Pocket of Infinite Stairs",
+    description: "A small stairwell that leads nowhere — but never ends.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 600000,
+    icon: '🪜',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Enter: climb forever — time passes normally, but you never reach the top",
+        "You can exit at any point — but you arrive in a random location",
+        "Each climb ages you 1d4 years"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Wooden Door',
+    levelRequirement: 13
+},
+
+'crystal_bird_of_memory': {
+    id: 'crystal_bird_of_memory',
+    name: "Crystal Bird of Memory",
+    description: "A bird made of clear crystal that sings the memories of those it touches.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 28000,
+    icon: '🐦',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Touch: it sings one memory from your past — vivid and true",
+        "Once per week: it sings a memory from someone nearby",
+        "It shatters if you lie to it"
+    ],
+    vendor: 'dream_sanctuary',
+    shippedBy: 'Glass Cage',
+    levelRequirement: 6
+},
+
+'box_of_silent_screams': {
+    id: 'box_of_silent_screams',
+    name: "Box of Silent Screams",
+    description: "A wooden box that contains the screams of those who died in silence.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 450000,
+    icon: '📦',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Open: all within 20ft are deafened for 1 minute",
+        "Creatures who hear it must make a DC 18 Wis save — failure: they scream silently forever",
+        "The box grows heavier with each scream it holds"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Iron Lockbox',
+    levelRequirement: 11
+},
+// ============================================
+// === 100 NEW ITEMS (MIXED CATEGORIES) ===
+// ============================================
+
+'mini_mushroom': {
+    id: 'mini_mushroom',
+    name: "Mini Mushroom",
+    description: "A tiny mushroom that shrinks you down to pocket size for sneaky maneuvers.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5000,
+    icon: '🍄',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Shrink to Tiny size for 10 minutes",
+        "+5 to Stealth checks while shrunk",
+        "Vulnerable to being stepped on (double damage from larger foes)"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Tiny Box',
+    levelRequirement: 2
+},
+
+'propeller_mushroom': {
+    id: 'propeller_mushroom',
+    name: "Propeller Mushroom",
+    description: "A mushroom with a built-in propeller for short flights and spins.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 8000,
+    icon: '🍄',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Gain fly speed 30ft for 1 minute",
+        "Spin attack: 2d6 bludgeoning in 5ft radius",
+        "Lands softly (no fall damage)"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Airmail',
+    levelRequirement: 3
+},
+
+'ice_flower': {
+    id: 'ice_flower',
+    name: "Ice Flower",
+    description: "A frosty flower that lets you shoot ice balls to freeze enemies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '❄️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Cast 'Ray of Frost' at will (1d8 cold damage)",
+        "On hit: target frozen (restrained) for 1 round (CON save DC 13)",
+        "Wearer gains resistance to cold"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Ice Pack',
+    levelRequirement: 4
+},
+
+'cloud_flower': {
+    id: 'cloud_flower',
+    name: "Cloud Flower",
+    description: "A fluffy flower that creates temporary cloud platforms.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 15000,
+    icon: '☁️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Create 3 cloud platforms (last 1 minute)",
+        "Platforms hover 10ft off ground, hold up to 500lbs",
+        "Can be used to cross gaps or reach heights"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Sky Delivery',
+    levelRequirement: 5
+},
+
+'rock_mushroom': {
+    id: 'rock_mushroom',
+    name: "Rock Mushroom",
+    description: "Turns you into a rolling boulder for smashing through obstacles.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10000,
+    icon: '🪨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Transform into boulder (speed 40ft, 3d6 bludgeoning on ram)",
+        "Immune to non-magical damage while rolling",
+        "Lasts 1 minute or until stopped"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Stone Crate',
+    levelRequirement: 3
+},
+
+'boomerang_flower': {
+    id: 'boomerang_flower',
+    name: "Boomerang Flower",
+    description: "Grants the ability to throw returning boomerangs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🪃',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Throw boomerang: 1d8 slashing, returns automatically",
+        "Range 60ft, can hit multiple targets on return (DEX save DC 14)",
+        "Unlimited uses"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Padded Case',
+    levelRequirement: 5
+},
+
+'super_bell': {
+    id: 'super_bell',
+    name: "Super Bell",
+    description: "A bell that turns you into a cat for climbing and scratching.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7000,
+    icon: '🔔',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Gain cat form (climb speed 30ft, claw attack 1d6 slashing)",
+        "Advantage on Acrobatics checks",
+        "Lasts 10 minutes"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Bell Box',
+    levelRequirement: 2
+},
+
+'double_cherry': {
+    id: 'double_cherry',
+    name: "Double Cherry",
+    description: "Creates a duplicate of yourself for double the trouble.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 25000,
+    icon: '🍒',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Single Use: Create 1 clone (identical stats, shares actions)",
+        "Clone lasts 1 minute or until damaged",
+        "Both can attack/act independently"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Fruit Basket',
+    levelRequirement: 6
+},
+
+'cannon_box': {
+    id: 'cannon_box',
+    name: "Cannon Box",
+    description: "A wearable box that shoots cannonballs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '📦',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Wear: Fire cannonball (2d10 bludgeoning, range 120ft)",
+        "3 charges per short rest",
+        "Reduces speed by 10ft while worn"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Heavy Crate',
+    levelRequirement: 5
+},
+
+'goomba_mask': {
+    id: 'goomba_mask',
+    name: "Goomba Mask",
+    description: "Disguise yourself as a Goomba to infiltrate enemy lines.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3000,
+    icon: '🎭',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Deception checks against Koopa troops",
+        "Take double damage from jumps",
+        "Lasts until removed"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Mask Bag',
+    levelRequirement: 1
+},
+
+'bullet_bill_mask': {
+    id: 'bullet_bill_mask',
+    name: "Bullet Bill Mask",
+    description: "Turns you into a living Bullet Bill for charging attacks.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 12000,
+    icon: '🚀',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Dash 60ft in a line, 3d6 piercing damage to all in path",
+        "Explode on impact (2d6 fire in 5ft radius)",
+        "User takes half explosion damage"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Explosive Container',
+    levelRequirement: 4
+},
+
+'piranha_plant_slide': {
+    id: 'piranha_plant_slide',
+    name: "Piranha Plant Slide Whistle",
+    description: "A whistle that summons a Piranha Plant to chomp foes.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 9000,
+    icon: '🌿',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Blow: Summon Piranha Plant (1d8 piercing, poison 1d4)",
+        "Plant lasts 1 minute, attacks once per turn",
+        "Requires feeding after use"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Plant Pot',
+    levelRequirement: 3
+},
+
+'chain_chomp_leash': {
+    id: 'chain_chomp_leash',
+    name: "Chain Chomp Leash",
+    description: "A sturdy leash to control a Chain Chomp as a pet or weapon.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22000,
+    icon: '🔗',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Summon Chain Chomp (CR 2, bite 2d6 piercing)",
+        "Chomp attacks on your command",
+        "Chain breaks on critical failure"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Reinforced Chain',
+    levelRequirement: 6
+},
+
+'bob_omb_buddy': {
+    id: 'bob_omb_buddy',
+    name: "Bob-omb Buddy",
+    description: "A friendly Bob-omb that explodes on command without harming allies.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 15000,
+    icon: '💣',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Throw: Explode for 4d6 fire in 10ft radius (allies immune)",
+        "Single Use per Bob-omb",
+        "Gains faction loyalty +10"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Bomb Crate',
+    levelRequirement: 4,
+    factionBonus: { combat: 20 }
+},
+
+'lakitu_fishing_rod': {
+    id: 'lakitu_fishing_rod',
+    name: "Lakitu Fishing Rod",
+    description: "A rod that hooks and reels in distant objects or enemies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '🎣',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Range 60ft, pull target 20ft closer (STR save DC 14)",
+        "Can fish items from water/hazards",
+        "Unlimited uses"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Rod Case',
+    levelRequirement: 4
+},
+
+'thwomp_statue': {
+    id: 'thwomp_statue',
+    name: "Thwomp Statue",
+    description: "A miniature Thwomp that crushes traps or doors.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 11000,
+    icon: '🪨',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Place: Crush object (4d10 bludgeoning)",
+        "Single Use, then statue crumbles",
+        "Heavy (50lbs)"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Stone Delivery',
+    levelRequirement: 3
+},
+
+'wiggler_boots': {
+    id: 'wiggler_boots',
+    name: "Wiggler Boots",
+    description: "Boots that make you bounce angrily when damaged.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '👢',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "When hit: Gain +10 speed and +1d6 damage on next attack",
+        "Effect stacks up to 3 times",
+        "Calms after combat"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Boot Box',
+    levelRequirement: 5
+},
+
+'blooper_ink': {
+    id: 'blooper_ink',
+    name: "Blooper Ink Vial",
+    description: "Ink that obscures vision and slips up enemies.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 4000,
+    icon: '🦑',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: 10ft radius blinded for 1 round (DEX save DC 12)",
+        "Area becomes slippery (difficult terrain)",
+        "Single Use"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Ink Bottle',
+    levelRequirement: 2
+},
+
+'cheep_cheep_net': {
+    id: 'cheep_cheep_net',
+    name: "Cheep Cheep Net",
+    description: "A net that catches flying fish for food or bombs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🕸️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Catch aquatic creatures (1d4 fish per use)",
+        "Can entangle flying enemies (restrained, STR save DC 13)",
+        "Durable, 5 uses before repair"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Net Roll',
+    levelRequirement: 2
+},
+
+'pokey_cactus': {
+    id: 'pokey_cactus',
+    name: "Pokey Cactus Segment",
+    description: "A spiky segment that rolls and impales foes.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5000,
+    icon: '🌵',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: Rolls 30ft, 2d4 piercing to all in path",
+        "Sticks to target (ongoing 1d4 damage until removed)",
+        "Single Use"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Prickly Package',
+    levelRequirement: 2
+},
+
+'monty_mole_drill': {
+    id: 'monty_mole_drill',
+    name: "Monty Mole Drill",
+    description: "A drill for burrowing through earth quickly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '⛏️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Burrow speed 20ft through soft earth",
+        "Deal 2d6 piercing on underground attack",
+        "3 charges per day"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Tool Kit',
+    levelRequirement: 4
+},
+
+'shy_guy_toy': {
+    id: 'shy_guy_toy',
+    name: "Shy Guy Toy",
+    description: "A wind-up toy that distracts enemies.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 2000,
+    icon: '🤖',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Wind up: Distracts 1 enemy (disadvantage on next attack)",
+        "Lasts 1 round",
+        "Unlimited uses, but fragile"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Toy Box',
+    levelRequirement: 1
+},
+
+'hammer_bro_hammer': {
+    id: 'hammer_bro_hammer',
+    name: "Hammer Bro Hammer",
+    description: "A throwing hammer that stuns on impact.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '🔨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: 1d8 bludgeoning, stun on critical hit",
+        "Range 30ft, returns if missed",
+        "Unlimited throws"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Hammer Case',
+    levelRequirement: 3
+},
+
+'fire_bro_fireball': {
+    id: 'fire_bro_fireball',
+    name: "Fire Bro Fireball Glove",
+    description: "Glove that launches bouncing fireballs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🔥',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Launch fireball: 2d6 fire, bounces once",
+        "Range 40ft, 3 charges per short rest",
+        "Ignites flammable objects"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Fireproof Glove',
+    levelRequirement: 5
+},
+
+'boo_sheet': {
+    id: 'boo_sheet',
+    name: "Boo Sheet",
+    description: "A sheet that grants invisibility when still.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '👻',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Invisible while not moving",
+        "Advantage on Stealth if partially covered",
+        "Tears after 10 uses"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Ghostly Fabric',
+    levelRequirement: 5
+},
+
+'king_boo_crown': {
+    id: 'king_boo_crown',
+    name: "King Boo Crown",
+    description: "A crown that allows possession of objects.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 50000,
+    icon: '👑',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Possess inanimate object (control for 1 minute)",
+        "Object gains your stats, can attack",
+        "WIS save DC 16 to resist ejection"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Cursed Box',
+    levelRequirement: 10
+},
+
+'dry_bones_shell': {
+    id: 'dry_bones_shell',
+    name: "Dry Bones Shell",
+    description: "A shell that reassembles after destruction.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '☠️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Worn as armor: AC 16, reassembles if broken (1 minute)",
+        "Immunity to necrotic",
+        "Vulnerable to bludgeoning"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Bone Crate',
+    levelRequirement: 7
+},
+
+'paratroopa_wings': {
+    id: 'paratroopa_wings',
+    name: "Paratroopa Wings",
+    description: "Wings for gliding and short hops.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🦋',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Glide 20ft per 10ft fallen",
+        "Jump distance doubled",
+        "Fragile, repairs needed after damage"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Wing Pack',
+    levelRequirement: 4
+},
+
+'spiny_egg': {
+    id: 'spiny_egg',
+    name: "Spiny Egg",
+    description: "An egg that hatches into a spiky projectile.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 3000,
+    icon: '🥚',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: Hatches mid-air, 1d6 piercing + spikes (ongoing 1d4)",
+        "Single Use",
+        "May hatch friendly Spiny (1% chance)"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Egg Carton',
+    levelRequirement: 1
+},
+
+'buzzy_beetle_shell': {
+    id: 'buzzy_beetle_shell',
+    name: "Buzzy Beetle Shell",
+    description: "A shell resistant to fire and stomps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🐞',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Shield: +2 AC, fire resistance",
+        "Can curl up to avoid damage (once per short rest)",
+        "Heavy (reduces speed 5ft)"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Shell Case',
+    levelRequirement: 3
+},
+
+'magikoopa_wand': {
+    id: 'magikoopa_wand',
+    name: "Magikoopa Wand",
+    description: "A wand that transforms objects into enemies.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 40000,
+    icon: '🪄',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Transform object into CR 1 creature (1 minute)",
+        "Creature hostile to all",
+        "3 charges per day"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Magic Box',
+    levelRequirement: 8
+},
+
+'kamek_broom': {
+    id: 'kamek_broom',
+    name: "Kamek's Broom",
+    description: "A flying broom for quick escapes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 30000,
+    icon: '🧹',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Fly speed 50ft",
+        "Can cast one random spell per day (DM roll)",
+        "Broom has mind of its own sometimes"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Broomstick Delivery',
+    levelRequirement: 7
+},
+
+'bowser_claw': {
+    id: 'bowser_claw',
+    name: "Bowser Claw Gauntlet",
+    description: "A gauntlet mimicking Bowser's claws for slashing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 35000,
+    icon: '🦖',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Unarmed: 2d8 slashing + fire 1d6",
+        "Grapple advantage",
+        "Heats up in anger (+1 damage)"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Claw Crate',
+    levelRequirement: 9
+},
+
+'peach_parasol': {
+    id: 'peach_parasol',
+    name: "Peach's Parasol",
+    description: "A parasol for floating and shielding.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '☂️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Float: Reduce fall speed to 10ft/round",
+        "Shield: +1 AC when open",
+        "Can glide 20ft horizontally"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Parasol Case',
+    levelRequirement: 5
+},
+
+'luigi_poltergust': {
+    id: 'luigi_poltergust',
+    name: "Poltergust Replica",
+    description: "A vacuum for sucking up ghosts and objects.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 28000,
+    icon: '🌀',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Suck in ethereal creatures (WIS save DC 15)",
+        "Store up to 3 ghosts, release as attack (3d6 force)",
+        "Overheats after 5 uses"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Vacuum Box',
+    levelRequirement: 6
+},
+
+'yoshi_saddle': {
+    id: 'yoshi_saddle',
+    name: "Yoshi Saddle",
+    description: "A saddle for riding Yoshi with extra jumps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🦕',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Mount Yoshi: +10 speed, double jump height",
+        "Yoshi tongue attack: Pull enemy 15ft",
+        "Requires friendly Yoshi"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Saddle Bag',
+    levelRequirement: 4
+},
+
+'waluigi_cap': {
+    id: 'waluigi_cap',
+    name: "Waluigi Cap",
+    description: "A cap that enhances trickery and agility.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '🧢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to Deception and Acrobatics",
+        "Once per day: Cheat death (reroll save)",
+        "Wah! sound on activation"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Cap Box',
+    levelRequirement: 3
+},
+
+'daisy_flower': {
+    id: 'daisy_flower',
+    name: "Daisy Flower Crown",
+    description: "A crown that boosts strength and sportsmanship.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🌼',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+2 Strength, advantage on Athletics",
+        "Once per short rest: Powerful strike (extra 1d8)",
+        "Blooms in sunlight"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Flower Pot',
+    levelRequirement: 5
+},
+
+'rosalina_wand': {
+    id: 'rosalina_wand',
+    name: "Rosalina's Wand",
+    description: "A wand for cosmic spells and protection.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 50000,
+    icon: '🌟',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Cast Shield (reaction, +5 AC)",
+        "Summon Luma ally (CR 1, once per day)",
+        "Glows in starlight"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Star Delivery',
+    levelRequirement: 10
+},
+
+'toad_cap': {
+    id: 'toad_cap',
+    name: "Toad Cap",
+    description: "A cap that grants minor healing and cheer.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4000,
+    icon: '🍄',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: Heal 1d4 HP to self or ally",
+        "+1 to Charisma checks",
+        "Spots change color with mood"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Cap Box',
+    levelRequirement: 1
+},
+
+'captain_toad_lamp': {
+    id: 'captain_toad_lamp',
+    name: "Captain Toad's Lamp",
+    description: "A lamp that reveals hidden treasures.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 8000,
+    icon: '🏮',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Shine: Detect hidden items within 30ft",
+        "Once per day: Reveal secret door",
+        "Attracts minor monsters"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Lamp Crate',
+    levelRequirement: 3
+},
+
+' Pauline_mic': {
+    id: 'pauline_mic',
+    name: "Pauline's Microphone",
+    description: "A mic that amplifies voice for commands or songs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🎤',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Amplify voice: Command spell (DC 14)",
+        "Performance +3",
+        "Echoes in large areas"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Sound Box',
+    levelRequirement: 4
+},
+
+'dk_barrel': {
+    id: 'dk_barrel',
+    name: "DK Barrel",
+    description: "A barrel that summons a gorilla ally.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 20000,
+    icon: '🛢️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Summon DK (CR 3, punch 2d8)",
+        "Ally for 1 minute",
+        "Loves bananas"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Barrel Roll',
+    levelRequirement: 5
+},
+
+'kirby_inhale_mask': {
+    id: 'kirby_inhale_mask',
+    name: "Kirby Inhale Mask",
+    description: "A mask that lets you copy enemy abilities.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 60000,
+    icon: '😷',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Inhale enemy: Copy 1 ability for 10 minutes (WIS save DC 16)",
+        "Limited to CR 5 or lower",
+        "User puffs up"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Puff Box',
+    levelRequirement: 10
+},
+
+'link_master_sword': {
+    id: 'link_master_sword',
+    name: "Master Sword Replica",
+    description: "A sword that banishes evil.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 100000,
+    icon: '🗡️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "+3 longsword, extra 2d6 to fiends/undead",
+        "Cast Banishment once per day",
+        "Requires pure heart"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Sacred Sheath',
+    levelRequirement: 15
+},
+
+'samus_arm_cannon': {
+    id: 'samus_arm_cannon',
+    name: "Arm Cannon Replica",
+    description: "A cannon for energy blasts and missiles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 45000,
+    icon: '🔫',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Fire energy: 3d6 force, range 100ft",
+        "Missile mode: 4d6 explosive (3 charges/day)",
+        "Scan mode: Detect weaknesses"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Tech Crate',
+    levelRequirement: 8
+},
+
+'fox_arwing_model': {
+    id: 'fox_arwing_model',
+    name: "Arwing Model",
+    description: "A model that summons a fighter jet illusion.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 25000,
+    icon: '✈️',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Summon illusion jet: Fly 60ft, laser 2d8",
+        "Lasts 1 minute, fools enemies",
+        "Once per day"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Model Kit',
+    levelRequirement: 6
+},
+
+'pikachu_thunderstone': {
+    id: 'pikachu_thunderstone',
+    name: "Thunderstone",
+    description: "A stone that evolves electric abilities.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 15000,
+    icon: '⚡',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Gain lightning bolt spell (3d10 lightning)",
+        "Permanent +1 to lightning damage",
+        "Shocks user on roll of 1"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Insulated Box',
+    levelRequirement: 5
+},
+
+'sonic_rings': {
+    id: 'sonic_rings',
+    name: "Sonic Rings (Pack of 50)",
+    description: "Rings that absorb damage and scatter on hit.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10000,
+    icon: '💍',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Absorb 50 damage before scattering",
+        "Collect to regain (1d4 per minute)",
+        "Speed +5ft while holding"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Ring Pouch',
+    levelRequirement: 3
+},
+
+'megaman_buster': {
+    id: 'megaman_buster',
+    name: "Mega Buster",
+    description: "An arm blaster for charged shots.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 30000,
+    icon: '🤖',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Charge shot: 4d6 force (charge 1 turn)",
+        "Rapid fire: 1d6 per shot (3 per action)",
+        "Copy enemy weapon once per day"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Arm Case',
+    levelRequirement: 7
+},
+
+'zelda_triforce_shard': {
+    id: 'zelda_triforce_shard',
+    name: "Triforce Shard",
+    description: "A shard granting power, wisdom, or courage.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 75000,
+    icon: '▲',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Choose: +2 STR, INT, or CHA permanently",
+        "Once per week: Wish-like effect (limited)",
+        "Attracts evil forces"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Sacred Relic',
+    levelRequirement: 12
+},
+
+'pacman_power_pellet': {
+    id: 'pacman_power_pellet',
+    name: "Power Pellet",
+    description: "A pellet that turns ghosts vulnerable.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 8000,
+    icon: '🔴',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Ethereal creatures vulnerable for 1 minute",
+        "User gains speed +10ft",
+        "Chomp attack: 2d6 force vs ghosts"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Pellet Jar',
+    levelRequirement: 3
+},
+
+'crash_bandicoot_aku': {
+    id: 'crash_bandicoot_aku',
+    name: "Aku Aku Mask",
+    description: "A mask that protects from one fatal blow.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '😷',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Absorb one death (revive at 1 HP)",
+        "3 charges, recharges slowly",
+        "Floats and advises"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Mask Crate',
+    levelRequirement: 5
+},
+
+'rayman_fist': {
+    id: 'rayman_fist',
+    name: "Rayman Detached Fist",
+    description: "A floating fist for ranged punches.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '👊',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Ranged attack: 1d10 bludgeoning, range 50ft",
+        "Returns automatically",
+        "Can grab small objects"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Fist Box',
+    levelRequirement: 4
+},
+
+'spyro_dragonfire': {
+    id: 'spyro_dragonfire',
+    name: "Dragonfire Breath Potion",
+    description: "A potion granting dragon breath.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 12000,
+    icon: '🐉',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Breathe fire (3d6 in 15ft cone)",
+        "DEX save half",
+        "User resistant to fire for 1 hour"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Flame Vial',
+    levelRequirement: 4
+},
+
+'banjo_kazooie_egg': {
+    id: 'banjo_kazooie_egg',
+    name: "Kazooie Egg Shooter",
+    description: "Shoots eggs as projectiles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🥚',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Shoot egg: 1d8 bludgeoning, special types (fire, ice)",
+        "5 eggs per short rest",
+        "Can hatch helpers"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Egg Crate',
+    levelRequirement: 5
+},
+
+'conker_acorn': {
+    id: 'conker_acorn',
+    name: "Conker Acorn Bomb",
+    description: "An acorn that explodes on impact.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 5000,
+    icon: '🌰',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Throw: 2d6 explosive in 5ft radius",
+        "Single Use",
+        "May grow tree instead (1% chance)"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Nut Bag',
+    levelRequirement: 2
+},
+
+'earthworm_jim_suit': {
+    id: 'earthworm_jim_suit',
+    name: "Super Suit Replica",
+    description: "A suit for super strength and whipping.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 40000,
+    icon: '🦸',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "+4 Strength, whip attack 2d6 (reach 15ft)",
+        "Fly short distances (30ft)",
+        "Suit talks back"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Suit Case',
+    levelRequirement: 8
+},
+
+'prince_of_persia_dagger': {
+    id: 'prince_of_persia_dagger',
+    name: "Dagger of Time",
+    description: "A dagger that rewinds time briefly.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 80000,
+    icon: '🗡️',
+    stock: 1,
+    rarity: 'godly',
+    effects: [
+        "Rewind 6 seconds (once per day)",
+        "Stab: 1d4 piercing + time stop on target (1 round)",
+        "Sands drain slowly"
+    ],
+    vendor: 'lunar_auction',
+    shippedBy: 'Time Capsule',
+    levelRequirement: 12
+},
+
+'tomb_raider_pistols': {
+    id: 'tomb_raider_pistols',
+    name: "Dual Pistols",
+    description: "Pistols for acrobatic shooting.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '🔫',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Dual wield: 1d8 piercing each, bonus action shot",
+        "Advantage during flips/acrobatics",
+        "Infinite ammo"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Holster Set',
+    levelRequirement: 6
+},
+
+'assassins_creed_blade': {
+    id: 'assassins_creed_blade',
+    name: "Hidden Blade",
+    description: "A blade for stealth assassinations.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🗡️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Surprise attack: 2d6 piercing + poison option",
+        "Hidden, advantage on conceal",
+        "Retractable"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Wrist Case',
+    levelRequirement: 4
+},
+
+'god_of_war_leviathan': {
+    id: 'god_of_war_leviathan',
+    name: "Leviathan Axe Replica",
+    description: "An axe that returns when thrown.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 50000,
+    icon: '🪓',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Throw: 2d8 slashing, returns",
+        "Freeze on hit (restrained, CON save)",
+        "Godly durability"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Axe Crate',
+    levelRequirement: 10
+},
+
+'witcher_silver_sword': {
+    id: 'witcher_silver_sword',
+    name: "Silver Sword",
+    description: "A sword for slaying monsters.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 30000,
+    icon: '🗡️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "+2 vs monsters, extra 1d6 to aberrations",
+        "Apply oils for bonuses (fire, poison)",
+        "Mutagen slot"
+    ],
+    vendor: 'onyx_hand',
+    shippedBy: 'Sword Sheath',
+    levelRequirement: 7
+},
+
+'doom_slayer_chainsaw': {
+    id: 'doom_slayer_chainsaw',
+    name: "Chainsaw",
+    description: "A chainsaw for ripping demons.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 40000,
+    icon: '🪚',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Melee: 3d6 slashing, glory kill (heal on kill)",
+        "Fuel: 5 uses per day",
+        "Loud and bloody"
+    ],
+    vendor: 'crypt_courier',
+    shippedBy: 'Bloody Case',
+    levelRequirement: 8
+},
+
+'halo_energy_sword': {
+    id: 'halo_energy_sword',
+    name: "Energy Sword",
+    description: "A plasma sword for close combat.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 35000,
+    icon: '⚔️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "2d10 radiant, ignores armor below 15",
+        "Lunge attack: +10 speed",
+        "Battery: 10 swings"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Energy Cell',
+    levelRequirement: 7
+},
+
+'overwatch_tracer_blink': {
+    id: 'overwatch_tracer_blink',
+    name: "Blink Device",
+    description: "A device for short teleports.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '⚡',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Teleport 15ft (3 charges per short rest)",
+        "Recall: Return to position 6 seconds ago (once/day)",
+        "Time distortion side effects"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Tech Device',
+    levelRequirement: 6
+},
+
+'fortnite_build_kit': {
+    id: 'fortnite_build_kit',
+    name: "Build Kit",
+    description: "A kit for instant fortifications.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10000,
+    icon: '🛠️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Build wall/ramp (AC 15, HP 30) instantly",
+        "10 materials per kit",
+        "Harvest more from environment"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Tool Bag',
+    levelRequirement: 3
+},
+
+'minecraft_diamond_pick': {
+    id: 'minecraft_diamond_pick',
+    name: "Diamond Pickaxe",
+    description: "A pickaxe for mining rare ores.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '⛏️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "+3 to mining checks, harvest double resources",
+        "Break magical barriers",
+        "Durable, never breaks"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Pick Case',
+    levelRequirement: 5
+},
+
+'roblox_obby_boots': {
+    id: 'roblox_obby_boots',
+    name: "Obby Boots",
+    description: "Boots for parkour and jumping puzzles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '👟',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Triple jump height, wall run 20ft",
+        "Advantage on Acrobatics",
+        "Pixelated trails"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Boot Box',
+    levelRequirement: 3
+},
+
+'among_us_sabotage_kit': {
+    id: 'among_us_sabotage_kit',
+    name: "Sabotage Kit",
+    description: "A kit for causing chaos and impostor tricks.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 15000,
+    icon: '🛠️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Sabotage: Disable lights/doors (1 minute)",
+        "Vent travel: Short teleport",
+        "Sus detection risk"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 4
+},
+
+'genshin_impact_glider': {
+    id: 'genshin_impact_glider',
+    name: "Wind Glider",
+    description: "A glider for soaring on winds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🪂',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Glide from heights, speed 40ft",
+        "Elemental boost (wind currents +20ft)",
+        "Folds compactly"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Glider Pack',
+    levelRequirement: 4
+},
+
+'league_of_legends_potion': {
+    id: 'league_of_legends_potion',
+    name: "Health Potion",
+    description: "A potion for quick healing in battle.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 500,
+    icon: '🧪',
+    stock: 20,
+    rarity: 'common',
+    effects: [
+        "Heal 2d4+2 HP over 10 seconds",
+        "Stackable up to 5",
+        "Refills at base"
+    ],
+    vendor: 'toad_town_market',
+    shippedBy: 'Potion Vial',
+    levelRequirement: 1
+},
+
+'dota_2_tango': {
+    id: 'dota_2_tango',
+    name: "Tango",
+    description: "Eats trees for healing.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 1000,
+    icon: '🌿',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Consume tree: Heal 1d8 HP",
+        "3 charges",
+        "Angers druids"
+    ],
+    vendor: 'shamans_hut',
+    shippedBy: 'Leaf Wrap',
+    levelRequirement: 1
+},
+
+'world_of_warcraft_mount': {
+    id: 'world_of_warcraft_mount',
+    name: "Epic Mount Whistle",
+    description: "Summons a fast mount.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '🐎',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Summon mount (speed 60ft, fly option)",
+        "Lasts until dismissed",
+        "Requires attunement"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Whistle Chain',
+    levelRequirement: 6
+},
+
+'runescape_rune_set': {
+    id: 'runescape_rune_set',
+    name: "Rune Set",
+    description: "Runes for casting elemental spells.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 3000,
+    icon: '🔮',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Cast fire/ice/earth bolt (1d10 damage)",
+        "10 runes per set",
+        "Craft more with mining"
+    ],
+    vendor: 'gilded_gryphon',
+    shippedBy: 'Rune Pouch',
+    levelRequirement: 2
+},
+
+'elder_scrolls_dragon_shout': {
+    id: 'elder_scrolls_dragon_shout',
+    name: "Dragon Shout Scroll",
+    description: "A scroll teaching a shout.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 40000,
+    icon: '📜',
+    stock: 1,
+    rarity: 'epic',
+    effects: [
+        "Learn Fus Ro Dah: Push enemies 30ft (3d6 force)",
+        "Once per day",
+        "Requires voice"
+    ],
+    vendor: 'comet_observatory',
+    shippedBy: 'Ancient Scroll',
+    levelRequirement: 8
+},
+
+'fallout_pipboy': {
+    id: 'fallout_pipboy',
+    name: "Pip-Boy Device",
+    description: "A wrist device for mapping and radiation detection.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '⌚',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Map area, detect poison/radiation",
+        "V.A.T.S.: +2 to hit once per turn",
+        "Battery lasts 1 week"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Tech Wristband',
+    levelRequirement: 5
+},
+
+'cyberpunk_neural_link': {
+    id: 'cyberpunk_neural_link',
+    name: "Neural Link Implant",
+    description: "An implant for hacking and enhancements.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 60000,
+    icon: '🧠',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "+2 INT, hack devices (DC 15)",
+        "Quickhack: Stun machine (once/day)",
+        "Risk of cyberpsychosis"
+    ],
+    vendor: 'artificer_tower',
+    shippedBy: 'Implant Surgery',
+    levelRequirement: 10
+},
+
+'witcher_3_gwent_deck': {
+    id: 'witcher_3_gwent_deck',
+    name: "Gwent Deck",
+    description: "A deck for playing strategic card games.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 5000,
+    icon: '🃏',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Play Gwent: Win gold or info (DM mini-game)",
+        "Collect cards for bonuses",
+        "Addictive"
+    ],
+    vendor: 'rogueport_black_market',
+    shippedBy: 'Card Box',
+    levelRequirement: 2
+},
+
+'red_dead_revolver': {
+    id: 'red_dead_revolver',
+    name: "Dead Eye Revolver",
+    description: "A revolver with slow-motion aiming.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '🔫',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Dead Eye: Advantage on attacks, mark targets",
+        "6 shots, 2d6 piercing",
+        "Reload as action"
+    ],
+    vendor: 'valley_trading_post',
+    shippedBy: 'Holster',
+    levelRequirement: 6
+},
+
+'grand_theft_auto_car': {
+    id: 'grand_theft_auto_car',
+    name: "Custom Car",
+    description: "A fast car for getaways.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 50000,
+    icon: '🚗',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Speed 100ft, carry 4 passengers",
+        "Ram attack: 4d10 bludgeoning",
+        "Faction bonus: escape +50"
+    ],
+    vendor: 'wario_direct',
+    shippedBy: 'Garage Delivery',
+    levelRequirement: 10,
+    factionBonus: { mobility: 50 }
+},
+That's a fantastic list of potential vendors and factions! I will create 100 new items, ensuring I use a wide variety of categories, especially those less utilized before (`SERVICES`, `FACTION`, `PREMIUM`, `FORBIDDEN`), and feature vendors associated with the new factions you provided (like `Koopa Troop`, `Iron Legion`, `Mages' Guild`, `King of Tombs`, etc.).
+
+Here are 100 new items in one large block:
+
+```javascript
+    // ============================================
+    // === 100 NEW ITEMS (Varied Tiers & Factions) ===
+    // ============================================
+
+    'mordor_shadow_dust': {
+        id: 'mordor_shadow_dust',
+        name: "Mordor Shadow Dust",
+        description: "Fine, volcanic grit gathered from Mount Doom. Excellent for dark rituals.",
+        category: SHOP_CATEGORIES.FORBIDDEN,
+        price: 45000,
+        icon: '🌋',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Use as material component for Necromancy spells, doubling range",
+            "Can be dusted on an opponent to grant Disadvantage on Perception checks for 1 hour",
+            "Made by: Land Mordor"
+        ],
+        vendor: 'land_mordor_outpost',
+        shippedBy: 'Volcanic Crate',
+        levelRequirement: 7
+    },
+    'asgardian_mead_ration': {
+        id: 'asgardian_mead_ration',
+        name: "Asgardian Mead Ration",
+        description: "A sturdy canteen of mead that grants temporary vigor and a penchant for boasts.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 4000,
+        icon: '🍺',
+        stock: 15,
+        rarity: 'rare',
+        effects: [
+            "Heals 2d4 HP and grants +1 to Charisma (Intimidation) for 4 hours",
+            "If you tell a boastful lie during this time, gain +1d4 temporary HP",
+            "Made by: Asgard"
+        ],
+        vendor: 'asgard_embassy',
+        shippedBy: 'Rune-etched Cask',
+        levelRequirement: 3
+    },
+    'gondor_warden_shield': {
+        id: 'gondor_warden_shield',
+        name: "Gondor Warden Shield",
+        description: "A sturdy, white-tree inscribed shield offering divine protection to its wielder and allies.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 22000,
+        icon: '🛡️',
+        stock: 4,
+        rarity: 'rare',
+        effects: [
+            "+2 AC when used as a shield",
+            "Once per day: shield bash stuns target (DC 14 CON save)",
+            "Emits faint white light (10ft radius)",
+            "Made by: Kingdom Gondor"
+        ],
+        vendor: 'kingdom_gondor_hq',
+        shippedBy: 'Escorted Delivery',
+        levelRequirement: 5
+    },
+    'regal_empire_medallion': {
+        id: 'regal_empire_medallion',
+        name: "Regal Empire Medallion of Influence",
+        description: "A heavy gold medallion granting automatic audience with minor nobles.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 18000,
+        icon: '🥇',
+        stock: 7,
+        rarity: 'rare',
+        effects: [
+            "Advantage on Diplomacy checks concerning political matters",
+        "Once per day: gain access to a restricted area (not guarded by high-level entities)",
+            "Made by: Regal Empire"
+        ],
+        vendor: 'regal_empire_bank',
+        shippedBy: 'Insured Courier',
+        levelRequirement: 4
+    },
+    'troopa_scout_tracker': {
+        id: 'troopa_scout_tracker',
+        name: "Troopa Scout Tracker",
+        description: "A small, sentient tracker that resembles a colored shell. Finds enemies on demand.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 6500,
+        icon: '🐢',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Send out: reveals location and CR of 1 random hostile creature within 1 mile",
+            "Shell color determines tracking specialty (Red=Guardians, Green=Ambushers)",
+            "Made by: Koopa Troop"
+        ],
+        vendor: 'koopa_troop_armory',
+        shippedBy: 'Small Crate',
+        levelRequirement: 2
+    },
+    'friendship_bracelet_equestrian': {
+        id: 'friendship_bracelet_equestrian',
+        name: "Friendship Bracelet of Trust",
+        description: "A simple, braided bracelet that fosters immediate camaraderie.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 3500,
+        icon: '🔗',
+        stock: 20,
+        rarity: 'uncommon',
+        effects: [
+            "Advantage on initial Persuasion checks toward civilized/pony races",
+            "Cannot be surprised by an ally wearing a matching bracelet",
+            "Made by: Equestrian"
+        ],
+        vendor: 'equestrian_market',
+        shippedBy: 'Ribbon Pouch',
+        levelRequirement: 1
+    },
+    'iron_legion_repair_kit': {
+        id: 'iron_legion_repair_kit',
+        name: "Iron Legion Emergency Repair Kit",
+        description: "A self-assembling kit for immediate field repair of mechanical limbs or armor plating.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 12000,
+        icon: '🔧',
+        stock: 8,
+        rarity: 'rare',
+        effects: [
+            "Immediately restore 4d6 HP to a construct or heavily armored ally",
+            "Can repair one shattered limb/tool instantly",
+            "Made by: Iron Legion"
+        ],
+        vendor: 'iron_legion_supply',
+        shippedBy: 'Standardized Container',
+        levelRequirement: 4
+    },
+    'formosan_silk_cloak': {
+        id: 'formosan_silk_cloak',
+        name: "Formosan Silk Cloak",
+        description: "Feather-light cloak woven with bioluminescent threads.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 17000,
+        icon: '🧣',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Grants advantage on Stealth checks in dimly lit or dark areas",
+            "Cloak is completely silent when moving",
+            "Made by: Formosa Ultima"
+        ],
+        vendor: 'formosan_embassy',
+        shippedBy: 'Vacuum Sealed',
+        levelRequirement: 4
+    },
+    'skycavern_anti_gravity_gel': {
+        id: 'skycavern_anti_gravity_gel',
+        name: "Skycavern Anti-Gravity Gel",
+        description: "A sticky, shimmering gel that temporarily negates a small area's gravitational pull.",
+        category: SHOP_CATEGORIES.CONSUMABLES,
+        price: 14000,
+        icon: '💧',
+        stock: 7,
+        rarity: 'rare',
+        effects: [
+            "Throw: creates a 10ft sphere where gravity is halved for 3 rounds",
+        "Objects float upwards slowly",
+            "Made by: Skycaverns"
+        ],
+        vendor: 'skycavern_trader',
+        shippedBy: 'Suspended Vial',
+        levelRequirement: 5
+    },
+    'glarnian_rhetoric_tome': {
+        id: 'glarnian_rhetoric_tome',
+        name: "Glarnian Rhetoric Tome",
+        description: "A book filled with beautiful, misleading prose. Master it to twist meanings.",
+        category: SHOP_CATEGORIES.SERVICES,
+        price: 19000,
+        icon: '📖',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Study for 1 week: permanently gain +1 to Charisma (Deception)",
+            "Learn the 'Glarnian Pivot' verbal trick",
+            "Made by: Glarnia"
+        ],
+        vendor: 'glarnia_lecture_hall',
+        shippedBy: 'Heavy Textbook',
+        levelRequirement: 6
+    },
+    'polybius_memory_chip': {
+        id: 'polybius_memory_chip',
+        name: "Polybius Memory Chip",
+        description: "A silicon chip that stores complex mathematical sequences and battle plans.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 11000,
+        icon: '💾',
+        stock: 12,
+        rarity: 'rare',
+        effects: [
+            "Allows instant recall of 1 complex skill proficiency (e.g., siege engineering)",
+        "Chip must be physically inserted (temporary debuff to Wisdom)",
+            "Made by: Polybius"
+        ],
+        vendor: 'polybius_data_hub',
+        shippedBy: 'Data Transfer',
+        levelRequirement: 4
+    },
+    'internet_firewall_patch': {
+        id: 'internet_firewall_patch',
+        name: "Internet Firewall Patch (Digital)",
+        description: "A unique digital signature that makes you invisible to automated tracking programs.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 8000,
+        icon: '💻',
+        stock: 25,
+        rarity: 'rare',
+        effects: [
+            "Immune to digital surveillance and automated detection",
+        "Requires 1 hour to install (requires interface device)",
+            "Made by: Internet"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Encrypted Download',
+        levelRequirement: 3
+    },
+    'pokeball_master_edition': {
+        id: 'pokeball_master_edition',
+        name: "Master Pokéball",
+        description: "The ultimate capture device. Captures any non-legendary creature instantly.",
+        category: SHOP_CATEGORIES.PREMIUM,
+        price: 150000,
+        icon: '🟣',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Capture any non-legendary creature (CR 15 or lower) on contact",
+        "Creature is instantly subdued and bound",
+            "Cannot be used on sapient humanoids",
+            "Made by: Pokémon League"
+        ],
+        vendor: 'pokemon_league_store',
+        shippedBy: 'Unmarked Carrier',
+        levelRequirement: 10
+    },
+    'xenonesian_bioship_seed': {
+        id: 'xenonesian_bioship_seed',
+        name: "Xenonesian Bioship Seed",
+        description: "A dormant, living seed capable of growing into a small, organic scout vessel.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 110000,
+        icon: '🌱',
+        stock: 1,
+        rarity: 'epic',
+        effects: [
+            "Grows into a Scout Ship (AC 15, HP 75, Fly 80ft) in 48 hours",
+            "Ship runs on absorbed solar energy",
+            "Requires regular feeding of organic matter",
+            "Made by: Xenonesia"
+        ],
+        vendor: 'xenonesian_ambassador',
+        shippedBy: 'Cryo-Container',
+        levelRequirement: 10
+    },
+    'regency_loyalty_pact': {
+        id: 'regency_loyalty_pact',
+        name: "Mushroom Regency Loyalty Pact",
+        description: "A contract binding minor Mycological nobles to your service for life.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 28000,
+        icon: '🍄',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Gain 1d4 allied Mushroom Servants (CR 1/4) per week",
+            "Loyalty guaranteed unless payment (spores) fails",
+            "Made by: Mushroom Regency"
+        ],
+        vendor: 'regency_council',
+        shippedBy: 'Spore Contract',
+        levelRequirement: 5,
+        factionBonus: { spies: 20 }
+    },
+    'geminian_language_translator': {
+        id: 'geminian_language_translator',
+        name: "Geminian Universal Translator",
+        description: "A small, humming device that perfectly translates all spoken languages in a 30ft radius.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 42000,
+        icon: '🗣️',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Perfect, real-time translation of all known languages",
+            "Allows communication with strange entities (DM discretion)",
+            "Made by: Geminia"
+        ],
+        vendor: 'geminia_tech',
+        shippedBy: 'Sonic Dampened Box',
+        levelRequirement: 8
+    },
+    'cosmic_scribe_service': {
+        id: 'cosmic_scribe_service',
+        name: "Cosmic Scribe Service",
+        description: "A Servant of the Cosmos records your deeds for historical documentation across the planes.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 15000,
+        icon: '✍️',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Scribe documents your actions for posterity",
+        "Records grant +2 to future Reputation checks with cosmic entities",
+            "Made by: Servants Cosmic"
+        ],
+        vendor: 'cosmic_archives',
+        shippedBy: 'Personal Note',
+        levelRequirement: 4
+    },
+    'asclepian_healing_vial': {
+        id: 'asclepian_healing_vial',
+        name: "Asclepian Healing Vial",
+        description: "A potent, shimmering mixture that rapidly repairs fractured bone and torn muscle.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 25000,
+        icon: '⚕️',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Heals 8d4+8 HP and instantly ends one disease or poison effect",
+        "Must be administered within 1 minute of injury",
+            "Made by: Asclepia"
+        ],
+        vendor: 'asclepia_vault',
+        shippedBy: 'Sealed Glass',
+        levelRequirement: 7
+    },
+    'pony_nobility_pardon': {
+        id: 'pony_nobility_pardon',
+        name: "Pony Nobility Pardon",
+        description: "An official writ forgiving one major crime committed within Pony lands.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 35000,
+        icon: '📜',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Forgives one crime (non-genocide/deicide)",
+        "Restores 1-rank reputation within Pony Nobility sphere",
+            "Takes 1 week to process",
+            "Made by: Pony Nobility"
+        ],
+        vendor: 'pony_royal_court',
+        shippedBy: 'Sealed Wax',
+        levelRequirement: 9
+    },
+    'king_of_tombs_guide': {
+        id: 'king_of_tombs_guide',
+        name: "King of Tombs Hidden Map",
+        description: "A map showing safe routes through the volatile Catacombs.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 60000,
+        icon: '🗺️',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Grants safe passage through 3 hostile areas (DM chooses)",
+        "Detects all traps related to undead within 60ft",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Papyrus Scroll',
+        levelRequirement: 10
+    },
+    'lemurian_water_purifier': {
+        id: 'lemurian_water_purifier',
+        name: "Lemurian Water Purifier (Permanent)",
+        description: "A fountain that draws upon Lemurian magic to purify any water source it touches.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 45000,
+        icon: '⛲',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Purifies 100 gallons of water per hour (removes all toxins/curses)",
+        "Water tastes subtly like mint",
+            "Made by: Lemuria Conclave"
+        ],
+        vendor: 'lemuria_outpost',
+        shippedBy: 'Stone Delivery',
+        levelRequirement: 7
+    },
+    'empire_man_diplomatic_passport': {
+        id: 'empire_man_diplomatic_passport',
+        name: "Empire Man Diplomatic Passport",
+        description: "A document granting diplomatic immunity in Empire Man controlled territories.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 75000,
+        icon: '🛂',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Immune to arrest/detainment in Empire Man lands",
+        "Can requisition local guards for protection (up to 5)",
+            "Made by: Empire Man"
+        ],
+        vendor: 'empire_man_chancery',
+        shippedBy: 'Official Seal',
+        levelRequirement: 10
+    },
+    'grand_cathay_silk_armor': {
+        id: 'grand_cathay_silk_armor',
+        name: "Grand Cathay 'Cloud-Step' Armor",
+        description: "Armor woven from enchanted spider silk, surprisingly resilient and light.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 32000,
+        icon: '🕸️',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Functions as Medium Armor (AC 16, requires no proficiency)",
+        "Grants advantage on checks to avoid being knocked prone",
+            "Made by: Grand Cathay"
+        ],
+        vendor: 'cathay_trade_route',
+        shippedBy: 'Woven Box',
+        levelRequirement: 7
+    },
+    'mu_empire_levitation_orb': {
+        id: 'mu_empire_levitation_orb',
+        name: "Mu Empire Levitation Orb",
+        description: "A polished obsidian orb that creates a temporary personal anti-gravity field.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 28000,
+        icon: '⚫',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Activate to hover 5ft off the ground for 1 hour",
+        "Movement speed halved while hovering",
+            "Made by: Mu Empire"
+        ],
+        vendor: 'mu_outpost',
+        shippedBy: 'Floating Delivery',
+        levelRequirement: 5
+    },
+    'mages_guild_scrying_fee': {
+        id: 'mages_guild_scrying_fee',
+        name: "Mages' Guild Scrying Fee (Local)",
+        description: "Pay the Guild to scry on a target within 10 miles.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 1500,
+        icon: '👁️',
+        stock: 999,
+        rarity: 'uncommon',
+        effects: [
+            "View target for 1 minute (visual only)",
+        "Success rate 85% against passive detection",
+            "Made by: Mages' Guild"
+        ],
+        vendor: 'mages_guild_hall',
+        shippedBy: 'Magical Transmission',
+        levelRequirement: 2
+    },
+    'data_merchant_encrypted_drive': {
+        id: 'data_merchant_encrypted_drive',
+        name: "Data Merchant Encrypted Drive",
+        description: "A small drive containing sensitive financial data or military secrets.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 22000,
+        icon: '💿',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Grants +5,000 gp in liquid, untraceable assets",
+        "Drive self-destructs if opened by wrong signature",
+            "Made by: Data Merchant"
+        ],
+        vendor: 'data_merchant_node',
+        shippedBy: 'Digital Drop',
+        levelRequirement: 6
+    },
+    'changeling_molt_cloak': {
+        id: 'changeling_molt_cloak',
+        name: "Changeling Molt Cloak",
+        description: "A cloak made from shed skin, allowing the wearer to perfectly mimic the texture and scent of another.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 55000,
+        icon: '🦎',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Allows perfect mimicry of a single humanoid's scent, texture, and superficial appearance",
+        "Requires 1 hour to attune to a new target",
+            "Made by: Changeling Hive"
+        ],
+        vendor: 'changeling_hive_exchange',
+        shippedBy: 'Live Specimen',
+        levelRequirement: 8
+    },
+    'cybernetic_optic_scanner': {
+        id: 'cybernetic_optic_scanner',
+        name: "Cybernetic Optic Scanner",
+        description: "A replacement eye that sees thermal signatures, energy fields, and microscopic flaws.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 70000,
+        icon: '👁️',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Grants True Sight up to 30ft (ignores illusions)",
+        "Detects structural weaknesses in objects (Advantage on breaking attempts)",
+            "Made by: Cybernetic"
+        ],
+        vendor: 'cybernetic_corp',
+        shippedBy: 'Surgical Implant',
+        levelRequirement: 9
+    },
+    'onyx_hand_spy_poison': {
+        id: 'onyx_hand_spy_poison',
+        name: "Onyx Hand Sleep Toxin",
+        description: "A slow-acting poison that mimics natural sleep, used by high-level assassins.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 21000,
+        icon: '💉',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Applied to weapon: Target must make DC 16 CON save or fall into deep sleep for 1d4 x 10 minutes",
+        "No visible side effects",
+            "Made by: The Onyx Hand"
+        ],
+        vendor: 'onyx_hand',
+        shippedBy: 'Syringe Case',
+        levelRequirement: 6
+    },
+    'dwarven_forge_access': {
+        id: 'dwarven_forge_access',
+        name: "Dwarven Master Forge Access (7 Days)",
+        description: "Temporary access to a sacred Dwarven forge capable of working rare metals.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 55000,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Allows crafting with rare metals (Adamantine, Mithril, etc.)",
+        "Item crafted gains +1 durability bonus",
+            "Made by: Kingdoms Dwarves"
+        ],
+        vendor: 'dwarf_elder',
+        shippedBy: 'Escorted Entry',
+        levelRequirement: 8
+    },
+    'jotun_ice_shard': {
+        id: 'jotun_ice_shard',
+        name: "Jotun Ice Shard",
+        description: "A chunk of primordial ice that never melts and emits intense cold.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 31000,
+        icon: '❄️',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Can be used as a weapon (2d6 Cold damage, reach 5ft)",
+        "Immunity to environmental cold",
+            "Made by: Jotunheimr"
+        ],
+        vendor: 'jotunheimr_outpost',
+        shippedBy: 'Insulated Pack',
+        levelRequirement: 6
+    },
+    'greenskin_war_banner': {
+        id: 'greenskin_war_banner',
+        name: "Greenskin War Banner (Waaagh Boost)",
+        description: "A crude but magically charged banner that boosts the morale of savage kin.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 12000,
+        icon: '🚩',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Allied Greenskin/Goblinoid allies gain +1 to attack rolls while within 60ft",
+        "Must be carried by a creature with 10+ STR",
+            "Made by: Greenskins"
+        ],
+        vendor: 'greenskin_warboss',
+        shippedBy: 'Crude Pole',
+        levelRequirement: 3,
+        factionBonus: { morale: 25 }
+    },
+    'high_elf_truth_tea': {
+        id: 'high_elf_truth_tea',
+        name: "High Elf Truth Tea",
+        description: "Delicate tea brewed under starlight, forcing honesty in the imbiber.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 24000,
+        icon: '🍵',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Target must succeed on DC 17 WIS save or answer the next 3 questions truthfully",
+        "Tea is extremely bitter",
+            "Made by: High Elves"
+        ],
+        vendor: 'high_elf_enclave',
+        shippedBy: 'Fine Porcelain',
+        levelRequirement: 7
+    },
+    'dark_elf_shadow_ink': {
+        id: 'dark_elf_shadow_ink',
+        name: "Dark Elf Shadow Ink",
+        description: "Ink made from trapped shadowstuff; use it to write contracts that bind the soul.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 60000,
+        icon: '⚫',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Any document signed in this ink is magically binding (DC 18)",
+        "If used to write a promise, breaking it inflicts 4d10 Necrotic damage",
+            "Made by: Dark Elves"
+        ],
+        vendor: 'dark_elf_vault',
+        shippedBy: 'Lead Tube',
+        levelRequirement: 10
+    },
+    'trainer_guild_badge': {
+        id: 'trainer_guild_badge',
+        name: "Trainer Guild Badge (Rank 3)",
+        description: "A badge signifying mastery in creature handling and non-lethal combat.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 14000,
+        icon: '🏅',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "+2 to Animal Handling checks",
+        "Can pacify hostile beasts (DC 14 check)",
+            "Made by: Trainer Guild"
+        ],
+        vendor: 'trainer_guild_chapter',
+        shippedBy: 'Velvet Case',
+        levelRequirement: 4
+    },
+    'crimision_isle_pearl': {
+        id: 'crimision_isle_pearl',
+        name: "Crimision Isle Siren Pearl",
+        description: "A glowing pearl humming with oceanic magic.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 29000,
+        icon: '⚪',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Can cast Water Breathing on self and 3 others (1/day)",
+        "Grants resistance to Thunder damage",
+            "Made by: Crimision Isle"
+        ],
+        vendor: 'crimision_dock',
+        shippedBy: 'Water-filled Box',
+        levelRequirement: 7
+    },
+    'blessed_order_suncrystal': {
+        id: 'blessed_order_suncrystal',
+        name: "Blessed Order Suncrystal",
+        description: "A focusing crystal that channels raw divine light.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 48000,
+        icon: '☀️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Spells dealing Radiant damage gain +1d6 damage",
+        "Once per day, emit a flash that blinds Undead/Fiends (DC 15 CON save)",
+            "Made by: Blessed Order"
+        ],
+        vendor: 'blessed_order_sanctum',
+        shippedBy: 'Silver Casket',
+        levelRequirement: 9
+    },
+    'sirsirian_ocean_map': {
+        id: 'sirsirian_ocean_map',
+        name: "Sirsirian Ocean Chart (Secret Routes)",
+        description: "A map showing hidden currents and temporary landmasses in the uncharted seas.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 18000,
+        icon: '🌊',
+        stock: 7,
+        rarity: 'rare',
+        effects: [
+            "Grants immunity to getting lost at sea",
+        "Allows navigation through magical storms",
+            "Made by: Sirisirian Ocean"
+        ],
+        vendor: 'sirsirian_navigator',
+        shippedBy: 'Oilskin Roll',
+        levelRequirement: 4
+    },
+    'ratchet_raiders_scrap_armor': {
+        id: 'ratchet_raiders_scrap_armor',
+        name: "Ratchet Raiders Scrap Armor",
+        description: "Layered, jury-rigged armor offering strange protection.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 7000,
+        icon: '⚙️',
+        stock: 15,
+        rarity: 'uncommon',
+        effects: [
+            "AC 15 (Light Armor equivalent)",
+        "Advantage on saving throws vs. electricity/shock damage",
+            "Looks horrific; disadvantage on social checks with non-raiders",
+            "Made by: Ratchet Raiders"
+        ],
+        vendor: 'ratchet_raiders_cache',
+        shippedBy: 'Duct-Taped Box',
+        levelRequirement: 2
+    },
+    'wario_land_coin_magnet': {
+        id: 'wario_land_coin_magnet',
+        name: "Wario Land Coin Magnet",
+        description: "A crude device that pulls nearby coins toward the user.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 9000,
+        icon: '🧲',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Automatically collects loose coins within 15ft",
+        "Does not work on sentient currency or treasures",
+            "Made by: Wario Land"
+        ],
+        vendor: 'wario_land_shop',
+        shippedBy: 'Yellow Crate',
+        levelRequirement: 3
+    },
+    'millennium_drive_coil': {
+        id: 'millennium_drive_coil',
+        name: "Millennium Drive Coil",
+        description: "A high-energy component needed to power temporal displacement machinery.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 60000,
+        icon: '⚡',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Required component for time travel experiments",
+        "If used as a weapon: 6d6 Force Damage (single use)",
+            "Made by: Millennium"
+        ],
+        vendor: 'millennium_nexus',
+        shippedBy: 'Lead Lined Box',
+        levelRequirement: 8
+    },
+    'apis_regal_pollen': {
+        id: 'apis_regal_pollen',
+        name: "Apis Kingdom Regal Pollen",
+        description: "Golden, energizing pollen collected from the Royal Hive.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 18000,
+        icon: '🌼',
+        stock: 7,
+        rarity: 'rare',
+        effects: [
+            "Drink: Gain one additional Action on your next turn",
+        "Pollen is highly allergenic to non-Apis races",
+            "Made by: Apis Kingdom"
+        ],
+        vendor: 'apis_hive_exchange',
+        shippedBy: 'Golden Jar',
+        levelRequirement: 5
+    },
+    'lizardmen_totem_fragment': {
+        id: 'lizardmen_totem_fragment',
+        name: "Lizardmen Totem Fragment (Coil)",
+        description: "A carved piece of serpentine jade that wards off cold-blooded enemies.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 13000,
+        icon: '🦎',
+        stock: 9,
+        rarity: 'rare',
+        effects: [
+            "Grants resistance to Cold damage",
+        "Advantage on saving throws vs. mind control from reptiles/serpents",
+            "Made by: Lizardmen"
+        ],
+        vendor: 'lizardmen_swamp_post',
+        shippedBy: 'Muddy Pouch',
+        levelRequirement: 3
+    },
+    'trinity_general_security_license': {
+        id: 'trinity_general_security_license',
+        name: "Trinity General Security License",
+        description: "A license allowing you to hire Trinity mercenaries for protection.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 50000,
+        icon: '🛡️',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Hire 1 squad of 4 elite guards for 7 days (no extra cost)",
+        "Guards are highly professional and immune to bribery",
+            "Made by: Trinity General"
+        ],
+        vendor: 'trinity_general_bank',
+        shippedBy: 'Official Seal',
+        levelRequirement: 8
+    },
+    'pitatia_sonic_grenade': {
+        id: 'pitatia_sonic_grenade',
+        name: "Pitatia Sonic Grenade",
+        description: "A small device that releases a non-lethal burst of focused sound waves.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 9500,
+        icon: '🔊',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Throw (30ft): forces all within 10ft to make DC 14 CON save or be deafened for 1 minute",
+        "No physical damage",
+            "Made by: Pitatia"
+        ],
+        vendor: 'pitatia_tech',
+        shippedBy: 'Metal Canister',
+        levelRequirement: 4
+    },
+    'crimson_fleet_smuggling_pass': {
+        id: 'crimson_fleet_smuggling_pass',
+        name: "Crimson Fleet Smuggling Pass",
+        description: "A secret token granting passage past the notorious Crimson Fleet blockade.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 60000,
+        icon: '🏴‍☠️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Allows safe passage through one major naval blockade (once)",
+        "Ship requires an additional bribe of 5,000 gp",
+            "Made by: Crimson Fleet"
+        ],
+        vendor: 'crimson_fleet_fence',
+        shippedBy: 'Secret Handshake',
+        levelRequirement: 10
+    },
+    'scylla_charybdis_tracker': {
+        id: 'scylla_charybdis_tracker',
+        name: "Scylla/Charybdis Proximity Charm",
+        description: "A charm that vibrates violently when dangerous whirlpools or sea beasts are near.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 15000,
+        icon: '🔱',
+        stock: 8,
+        rarity: 'rare',
+        effects: [
+            "Warns user of dangerous currents or sea monsters (100ft range)",
+        "Advantage on water-based navigation checks",
+            "Made by: Scylla Charybdis"
+        ],
+        vendor: 'oceanic_trader',
+        shippedBy: 'Sealed Shell',
+        levelRequirement: 4
+    },
+    'minerva_wisdom_elixir': {
+        id: 'minerva_wisdom_elixir',
+        name: "Minerva Wisdom Elixir",
+        description: "A clear liquid that temporarily enhances analytical and strategic thinking.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 32000,
+        icon: '🦉',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Gain +4 to Intelligence score for 1 hour",
+        "Gain expertise (double proficiency) in one Intelligence skill",
+            "Made by: Minerva"
+        ],
+        vendor: 'minerva_academy',
+        shippedBy: 'Crystal Dropper',
+        levelRequirement: 8
+    },
+    'animatopia_prey_whistle': {
+        id: 'animatopia_prey_whistle',
+        name: "Animatopia Prey Whistle",
+        description: "A whistle that mimics the distress call of common forest prey, attracting large predators.",
+        category: SHOP_CATEGORIES: 'curiosities',
+        price: 8000,
+        icon: '🐾',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Attracts 1d4 hungry apex predators (CR 3-5) to your location in 1d4 rounds",
+        "Useful for distraction or controlled combat encounters",
+            "Made by: Animatopia Prey (Farming)"
+        ],
+        vendor: 'animatopia_hunter',
+        shippedBy: 'Bone Whistle',
+        levelRequirement: 3
+    },
+    'eiwass_star_charts': {
+        id: 'eiwass_star_charts',
+        name: "Eiwass Navigational Star Charts",
+        description: "Charts detailing safe, low-magic routes between planes.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 95000,
+        icon: '🔭',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Grants advantage on all checks made while planar traveling via standard methods",
+        "Reduces travel time between planes by 25%",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Celestial Map',
+        levelRequirement: 12
+    },
+    'oracula_prophecy_reading': {
+        id: 'oracula_prophecy_reading',
+        name: "Oracula Prophecy Reading (Minor)",
+        description: "A short, vague reading detailing one potential danger in the next week.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 12000,
+        icon: '🔮',
+        stock: 15,
+        rarity: 'rare',
+        effects: [
+            "Receive one true, if cryptic, prediction about the near future",
+        "Reading is performed by a low-ranking Oracular priest",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Smoke & Incense',
+        levelRequirement: 5
+    },
+    'halfling_stowaway_contract': {
+        id: 'halfling_stowaway_contract',
+        name: "Halfling Stowaway Contract",
+        description: "Hire a small, discreet Halfling to hide on your person/vehicle for transport.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 1500,
+        icon: '🥧',
+        stock: 30,
+        rarity: 'uncommon',
+        effects: [
+            "Halfling hides perfectly (advantage on related checks)",
+        "Provides +1 bonus to foraging checks",
+            "Must provide 1 meal per day"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Small Sack',
+        levelRequirement: 1
+    },
+    'refijian_disguise_kit': {
+        id: 'refijian_disguise_kit',
+        name: "Refijian Disguise Kit",
+        description: "A theatrical kit utilizing advanced makeup and subtle illusion techniques.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 10500,
+        icon: '🎭',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Grants advantage on Disguise checks",
+        "Can completely change appearance for 8 hours",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_tailor',
+        shippedBy: 'Wardrobe Box',
+        levelRequirement: 3
+    },
+    'shanhaijing_jade_charm': {
+        id: 'shanhaijing_jade_charm',
+        name: "Shanhaijing Guardian Charm",
+        description: "A carved jade charm said to ward off spirits from the Far East bestiary.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 28000,
+        icon: '🐉',
+        stock: 6,
+        rarity: 'epic',
+        effects: [
+            "Resistance to Psychic damage caused by spirits or beasts",
+        "Advantage on saves against being frightened by mythical beasts",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Silk Pouch',
+        levelRequirement: 6
+    },
+    'u_singularity_battery': {
+        id: 'u_singularity_battery',
+        name: "U Singularity Battery (Micro)",
+        description: "A contained pocket of zero-point energy. Provides massive, short-lived power.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 115000,
+        icon: '⚛️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Can power any single magical device indefinitely",
+        "If overloaded: releases 10d10 Force damage in a sphere (single use)",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Anti-Gravity Field',
+        levelRequirement: 11
+    },
+    'zebrabwe_weather_vane': {
+        id: 'zebrabwe_weather_vane',
+        name: "Zebrabwe Weather Vane",
+        description: "A magically attuned vane that predicts meteorological hazards.",
+        category: SHOP_CATEGORIES: 'curiosities',
+        price: 16000,
+        icon: '📡',
+        stock: 7,
+        rarity: 'rare',
+        effects: [
+            "Predicts severe weather (magical or mundane) 24 hours in advance",
+        "Can temporarily divert light rain/wind away from a camp",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Wooden Post',
+        levelRequirement: 4
+    },
+    'robensonian_bio_suit': {
+        id: 'robensonian_bio_suit',
+        name: "Robensonian Bio-Suit (Atmospheric)",
+        description: "A light, flexible suit protecting against noxious gases and mild poisons.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 34000,
+        icon: '🧪',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Immunity to environmental non-magical gas/poison damage",
+        "Advantage on saves vs. inhaled toxins",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Sealed Box',
+        levelRequirement: 7
+    },
+    'tomb_kings_scroll_of_command': {
+        id: 'tomb_kings_scroll_of_command',
+        name: "Tomb Kings Scroll of Command (Low Tier)",
+        description: "A brittle scroll that issues a simple command to low-level undead.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 18000,
+        icon: '📜',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Command 1d6 Skeletons/Zombies to obey for 1 hour",
+        "Scroll is consumed upon use",
+            "Made by: Tomb Kings"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Sepulcher Case',
+        levelRequirement: 5
+    },
+    'gehenna_academy_liturgy': {
+        id: 'gehenna_academy_liturgy',
+        name: "Gehenna Academy Liturgy (Infernal)",
+        description: "A book containing minor rituals for summoning low-level infernal entities.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 26000,
+        icon: '🔥',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Summon 1 Imp or Hell Hound (CR 1/2) once per day",
+        "Entities must obey non-self-destructive orders for 1 hour",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Bound in skin',
+        levelRequirement: 5
+    },
+    'red_winter_survival_pack': {
+        id: 'red_winter_survival_pack',
+        name: "Red Winter Survival Pack",
+        description: "Insulated gear and heating stones to survive sub-zero conditions.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 9000,
+        icon: '🥶',
+        stock: 10,
+        rarity: 'uncommon',
+        effects: [
+            "Grants full immunity to cold environmental effects",
+        "Heating stones last 48 hours",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Heavy Canvas Bag',
+        levelRequirement: 2
+    },
+    'dwarf_realms_mithril_ingot': {
+        id: 'dwarf_realms_mithril_ingot',
+        name: "Dwarf Realms Mithril Ingot",
+        description: "One ingot of purified Mithril ore, highly prized for crafting.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 80000,
+        icon: '⛏️',
+        stock: 5,
+        rarity: 'legendary',
+        effects: [
+            "Can be forged into an item that weighs 1/2 its normal weight",
+        "Adds +1 AC if used for armor, or +1 to critical range if used for weapon",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Ironbound Delivery',
+        levelRequirement: 10
+    },
+    'custodian_repair_drone': {
+        id: 'custodian_repair_drone',
+        name: "Custodian Repair Drone (Mk II)",
+        description: "A small, silent drone that automatically fixes minor structural damage.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 18000,
+        icon: '🤖',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Drone silently repairs minor damage (up to 5 HP/hour) to structures/objects",
+        "Drone has 3 HP and must be recharged (electricity)",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Sealed Canister',
+        levelRequirement: 4
+    },
+    'dk_crew_bananagun': {
+        id: 'dk_crew_bananagun',
+        name: "DK Crew Banana Gun",
+        description: "Fires hardened, sticky banana peels with surprising accuracy.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 10000,
+        icon: '🍌',
+        stock: 15,
+        rarity: 'rare',
+        effects: [
+            "Fires a peel (30ft range). Target must make DC 14 DEX save or fall prone",
+        "Infinite ammo (requires 1 small piece of fruit per shot)",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Fruit Crate',
+        levelRequirement: 3
+    },
+    'spark_rebellion_sabotage_charges': {
+        id: 'spark_rebellion_sabotage_charges',
+        name: "Spark Rebellion Sabotage Charges",
+        description: "High-yield explosives designed to shut down automated systems.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 9500,
+        icon: '⚡',
+        stock: 12,
+        rarity: 'rare',
+        effects: [
+            "Attach to machine/construct: forces DC 15 CON save or disabled for 1d4 rounds",
+        "Deals 3d6 lightning damage to targets immune to stun",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Insulated Bag',
+        levelRequirement: 3
+    },
+    'sultanates_araby_sand_shroud': {
+        id: 'sultanates_araby_sand_shroud',
+        name: "Sultanates of Araby Sand Shroud",
+        description: "A head-to-toe wrap that filters sand and heat.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 5000,
+        icon: '🏜️',
+        stock: 18,
+        rarity: 'uncommon',
+        effects: [
+            "Grants advantage on Constitution saves vs. extreme heat and exhaustion from sandstorms",
+        "Scent is masked by faint desert spices",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_traders_post',
+        shippedBy: 'Rolled Cloth',
+        levelRequirement: 2
+    },
+    'animatopia_trap_net': {
+        id: 'animatopia_trap_net',
+        name: "Animatopia Hunting Net",
+        description: "A super-strong net woven from synthetic animal sinew.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 7500,
+        icon: '🕸️',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Used as an action: attempt to restrain a target up to Huge size (DC 14 Athletics/Acrobatics to escape)",
+        "Tears on 5ft of piercing damage",
+            "Made by: Animatopia Prey"
+        ],
+        vendor: 'animatopia_hunter',
+        shippedBy: 'Woven Bundle',
+        levelRequirement: 2
+    },
+    'eiwass_planar_key_charm': {
+        id: 'eiwass_planar_key_charm',
+        name: "Eiwass Planar Key Charm (Minor)",
+        description: "A tuning fork that hums when a portal or dimensional rift is nearby.",
+        category: SHOP_CATEGORIES: 'curiosities',
+        price: 19000,
+        icon: '🔑',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Vibrates strongly within 60ft of an active portal",
+        "Allows user to sense the plane of origin/destination",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Brass Casing',
+        levelRequirement: 6
+    },
+    'oracula_truth_serum': {
+        id: 'oracula_truth_serum',
+        name: "Oracula Truth Serum (Potent)",
+        description: "A rare liquid that forces complete, unedited verbal honesty.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 85000,
+        icon: '🧪',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Target must succeed on DC 19 WIS save or reveal all known information about a subject",
+        "Truth remains revealed even after effect wears off",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Crystal Decanter',
+        levelRequirement: 12
+    },
+    'halfling_seed_bank': {
+        id: 'halfling_seed_bank',
+        name: "Halfling Seed Bank (Rare Crops)",
+        description: "A collection of seeds for crops that thrive magically and restore massive energy.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 30000,
+        icon: '🌱',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Planting yields food that restores 4d8+4 HP (requires 1 week)",
+        "Can feed a small army for a month",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Earthen Jar',
+        levelRequirement: 6,
+        factionBonus: { economy: 15 }
+    },
+    'refijian_illusion_gem': {
+        id: 'refijian_illusion_gem',
+        name: "Refijian Illusion Gem",
+        description: "A smooth stone that refracts light to create minor, believable illusions.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 17000,
+        icon: '💎',
+        stock: 8,
+        rarity: 'rare',
+        effects: [
+            "Cast Minor Illusion at will",
+        "Can perfectly mimic the sound of a single small object (e.g., a key turning)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_tailor',
+        shippedBy: 'Polished Box',
+        levelRequirement: 4
+    },
+    'shanhaijing_spirit_compass': {
+        id: 'shanhaijing_spirit_compass',
+        name: "Shanhaijing Spirit Compass",
+        description: "A dial that points toward the nearest location where the spiritual veil is thin.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 52000,
+        icon: '🧭',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Points towards areas of high supernatural energy or planar overlap",
+        "Grants advantage on saves vs. spiritual possession",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Lacquer Box',
+        levelRequirement: 9
+    },
+    'u_data_purge_service': {
+        id: 'u_data_purge_service',
+        name: "U Data Purge Service",
+        description: "A digital sweep to erase all traces of a specific event from networked consciousnesses.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 75000,
+        icon: '🧹',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Wipe memory of 1 specific event from all networked minds (DC 20 INT save for memory to stick)",
+        "Requires physical access to the central 'U' network hub",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Digital Report',
+        levelRequirement: 10
+    },
+    'zebrabwe_herd_charm': {
+        id: 'zebrabwe_herd_charm',
+        name: "Zebrabwe Herd Charm",
+        description: "A whistle that summons local, non-hostile migratory herds for temporary use/food.",
+        category: SHOP_CATEGORIES: 'curiosities',
+        price: 11000,
+        icon: '🦓',
+        stock: 9,
+        rarity: 'rare',
+        effects: [
+            "Summons 1d10 large herbivores (non-combat) for 1 hour",
+        "Useful for quick travel or mass food supply",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Bone Whistle',
+        levelRequirement: 3
+    },
+    'robensonian_air_filter': {
+        id: 'robensonian_air_filter',
+        name: "Robensonian Air Filter (Personal)",
+        description: "A compact respirator mask filtering air down to the atomic level.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 40000,
+        icon: '👃',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Immunity to all inhaled toxins, poisons, and diseases",
+        "Can filter toxic environments indefinitely",
+            "Requires battery recharge every 3 days"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Medical Case',
+        levelRequirement: 7
+    },
+    'tomb_kings_construct_eye': {
+        id: 'tomb_kings_construct_eye',
+        name: "Tomb Kings Construct Eye (Lapis Lazuli)",
+        description: "A glowing lapis lazuli orb used to activate ancient constructs.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 105000,
+        icon: '👁️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Once per day: animate 1 large dead statue/construct (CR 5) for 1 hour",
+        "Construct obeys simple commands",
+            "Made by: Tomb Kings"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Ornate Box',
+        levelRequirement: 11
+    },
+    'gehenna_bargaining_amulet': {
+        id: 'gehenna_bargaining_amulet',
+        name: "Gehenna Bargaining Amulet",
+        description: "An amulet that forces fiends to adhere to the letter of any bargain.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 130000,
+        icon: '⚖️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "When dealing with Fiends/Devils: all contract terms are enforced by infernal law",
+        "Advantage on all checks related to negotiation of service/souls",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Sealed Pact',
+        levelRequirement: 13
+    },
+    'red_winter_blizzard_call': {
+        id: 'red_winter_blizzard_call',
+        name: "Red Winter Blizzard Call",
+        description: "A horn that summons an localized, unnatural blizzard storm.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 40000,
+        icon: '🌨️',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Summons a whiteout blizzard (100ft radius) for 1 hour",
+        "All ranged attacks suffer disadvantage; extreme cold affects all",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Hollowed Horn',
+        levelRequirement: 7
+    },
+    'dwarf_realms_siege_plans': {
+        id: 'dwarf_realms_siege_plans',
+        name: "Dwarf Realms Siege Plans (Advanced)",
+        description: "Plans for unbreakable subterranean fortifications and siege breaking tactics.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 65000,
+        icon: '📐',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Doubles the defensive HP of any structure you build in the next month",
+        "Grants expertise on siege defense rolls",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Blueprint Scroll',
+        levelRequirement: 10,
+        factionBonus: { defense: 50, engineering: 40 }
+    },
+    'custodian_logic_core': {
+        id: 'custodian_logic_core',
+        name: "Custodian Logic Core (Unencrypted)",
+        description: "A raw processing core containing advanced philosophical and tactical algorithms.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 115000,
+        icon: '🧠',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Allows user to instantly calculate optimal solutions to complex tactical problems (+10 to Initiative)",
+        "Can attempt to hack simple AI constructs",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Energy Field',
+        levelRequirement: 12
+    },
+    'dk_crew_barrel_launcher': {
+        id: 'dk_crew_barrel_launcher',
+        name: "DK Crew Barrel Launcher",
+        description: "A modified harpoon gun that fires heavy wooden barrels.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 16000,
+        icon: '🎯',
+        stock: 5,
+        rarity: 'rare',
+        effects: [
+            "Range 80ft. Deals 3d8 Bludgeoning damage (STR check to avoid knockback)",
+        "Infinite ammo, but barrels must be collected after use",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Salty Crate',
+        levelRequirement: 4
+    },
+    'spark_rebellion_EMP_grenade': {
+        id: 'spark_rebellion_EMP_grenade',
+        name: "Spark Rebellion EMP Grenade",
+        description: "Disrupts all electronic and magically-powered items in a radius.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 22000,
+        icon: '⚡',
+        stock: 7,
+        rarity: 'epic',
+        effects: [
+            "15ft blast: disables all technological/magical items for 1d4 rounds",
+        "Requires DEX save DC 15 to avoid self-disabling",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Insulated Bomb',
+        levelRequirement: 6
+    },
+    'sultanates_araby_weather_control': {
+        id: 'sultanates_araby_weather_control',
+        name: "Sultanates of Araby: Sand Clearer",
+        description: "A powerful ritual that parts massive sandstorms, clearing paths for trade.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 70000,
+        icon: '🌬️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Dispels all natural and magical sandstorms in a 10-mile radius for 48 hours",
+        "Requires summoning of wind elementals (risky)",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Summoning Circle',
+        levelRequirement: 10
+    },
+    'animatopia_apex_lure': {
+        id: 'animatopia_apex_lure',
+        name: "Animatopia Apex Predator Lure",
+        description: "A synthesized pheromone that guarantees a specific apex predator arrives.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 45000,
+        icon: '🥩',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Attracts a specific, powerful predator (CR 10+) to your location within 1 hour",
+        "Guaranteed encounter for research or assassination",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Syringe Pistol',
+        levelRequirement: 11
+    },
+    'eiwass_planar_portal_kit': {
+        id: 'eiwass_planar_portal_kit',
+        name: "Eiwass Portal Kit (Temporary)",
+        description: "A portable assembly of crystals and mirrors to open short-lived, unstable planar tears.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 250000,
+        icon: '🚪',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Open a temporary, unstable portal to a known plane (30 min duration)",
+        "Portal exit location is slightly random (1d100 miles off target)",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Traveling Containment Unit',
+        levelRequirement: 15
+    },
+    'oracula_fate_gem': {
+        id: 'oracula_fate_gem',
+        name: "Oracula Fate Gem (Single Rewind)",
+        description: "A rare gem that absorbs the energy of a single, critical failure.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 400000,
+        icon: '💎',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Absorbs one failed Death Save or one failed attack roll against a powerful enemy",
+        "Gem shatters afterward; user takes 5d10 psychic damage from vision overload",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Sealed Reliquary',
+        levelRequirement: 14
+    },
+    'halfling_negotiation_specialist': {
+        id: 'halfling_negotiation_specialist',
+        name: "Halfling Negotiation Specialist (Hire)",
+        description: "Hire a master Halfling mediator to broker peace or finalize a complex trade agreement.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 40000,
+        icon: '🤝',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Mediator ensures no deception occurs during a single negotiation event",
+        "Guarantees a fair (though likely Halfling-favorable) outcome",
+            "Takes 1 week to set up"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Official Notice',
+        levelRequirement: 8
+    },
+    'refijia_master_voice_modulator': {
+        id: 'refijia_master_voice_modulator',
+        name: "Refijia Master Voice Modulator",
+        description: "A device worn on the throat that can perfectly replicate any voice heard.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 90000,
+        icon: '🎤',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Can flawlessly mimic any voice heard for 24 hours",
+        "Can be used to bypass voice-activated security/magic",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_tailor',
+        shippedBy: 'Neck Bracer',
+        levelRequirement: 11
+    },
+    'shanhaijing_talisman_of_qi': {
+        id: 'shanhaijing_talisman_of_qi',
+        name: "Shanhaijing Talisman of Pure Qi",
+        description: "A charm that channels life energy, boosting internal fortitude.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 140000,
+        icon: '☯️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Advantage on all Death Saving Throws",
+        "Once per day, gain proficiency in one saving throw for 1 minute",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Silk Box',
+        levelRequirement: 12
+    },
+    'u_network_access_key': {
+        id: 'u_network_access_key',
+        name: "U Network Access Key (Admin Level)",
+        description: "A physical key granting access to critical infrastructure data streams.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 190000,
+        icon: '🗝️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Full administrative access to 1 major U-controlled structure/system",
+        "Can remotely shut down or reroute non-sentient tech",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Laser Cut Key',
+        levelRequirement: 14
+    },
+    'zebrabwe_migration_guide': {
+        id: 'zebrabwe_migration_guide',
+        name: "Zebrabwe Migration Guide (Predictive)",
+        description: "Detailed maps predicting the paths of magical beasts for the next decade.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 40000,
+        icon: '🗺️',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Grants perfect stealth advantage when tracking beasts within predicted zones",
+        "Used to ambush or avoid major ecological threats",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Leather Scroll',
+        levelRequirement: 7
+    },
+    'robensonia_terraforming_unit': {
+        id: 'robensonia_terraforming_unit',
+        name: "Robensonia Micro-Terraforming Unit",
+        description: "A ground-penetrating device that rapidly stabilizes unstable soil or creates small arable zones.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 150000,
+        icon: '🌍',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Stabilizes 1 acre of land against earthquakes/magical decay for 100 years",
+        "Unit must be left unattended for 1 week to complete process",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Heavy Drone',
+        levelRequirement: 12,
+        factionBonus: { construction: 50 }
+    },
+    'tomb_kings_bone_golem_heart': {
+        id: 'tomb_kings_bone_golem_heart',
+        name: "Tomb Kings Bone Golem Heart (Dormant)",
+        description: "A magically charged femur required to power a large skeletal construct.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 180000,
+        icon: '🦴',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Used to animate one Bone Golem (CR 8) permanently",
+        "Golem serves the heart's current bearer",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Lead Casket',
+        levelRequirement: 14
+    },
+    'gehenna_diplomatic_immunity': {
+        id: 'gehenna_diplomatic_immunity',
+        name: "Gehenna Academy Immunity Token",
+        description: "A writ guaranteeing safe passage within all Gehenna outposts (for one year).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 45000,
+        icon: '📜',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Immunity to capture or interrogation by Gehenna-aligned entities",
+        "Grants +2 to all dealings with minor devils",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Formal Letter',
+        levelRequirement: 8
+    },
+    'red_winter_permafrost_crystal': {
+        id: 'red_winter_permafrost_crystal',
+        name: "Red Winter Permafrost Crystal",
+        description: "A crystal pulled from eternal ice, radiating absolute zero.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 200000,
+        icon: '🧊',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "Weapon infused: deals an extra 3d8 Cold damage",
+        "Touch deals 5d10 Cold damage (no save for living things)",
+            "Makes the surrounding 10ft radius unnaturally cold"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Cryogenic Tank',
+        levelRequirement: 14
+    },
+    'dwarf_realms_geological_survey': {
+        id: 'dwarf_realms_geological_survey',
+        name: "Dwarven Geological Survey (Custom)",
+        description: "A detailed subterranean survey mapping out seams of rare ores and hidden tunnels in a region.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 50000,
+        icon: '⛰️',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Map reveals all valuable mineral deposits in a 10-mile radius (underground)",
+        "Highlights structural weaknesses in subterranean enemy bases",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Heavy Chart',
+        levelRequirement: 7
+    },
+    'custodian_planetary_defense_diagram': {
+        id: 'custodian_planetary_defense_diagram',
+        name: "Custodian Planetary Defense Diagram",
+        description: "Schematics for planetary defense grid deployment (requires advanced engineering).",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 450000,
+        icon: '🛡️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Allows construction of a 1-year planetary defense shield (prevents invasion)",
+        "Requires massive resource investment (DM details)",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Holographic Display',
+        levelRequirement: 15,
+        factionBonus: { defense: 150, technology: 100 }
+    },
+    'dk_crew_rocket_barrel': {
+        id: 'dk_crew_rocket_barrel',
+        name: "DK Crew Rocket Barrel",
+        description: "A wooden barrel fitted with a crude rocket engine. Excellent area denial.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 18000,
+        icon: '🚀',
+        stock: 6,
+        rarity: 'rare',
+        effects: [
+            "Throw: Barrel lands and explodes after 1 round (6d6 Fire damage in 15ft)",
+        "Debris deals 2d6 piercing damage",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Barrel Delivery',
+        levelRequirement: 5
+    },
+    'spark_rebellion_virus_code': {
+        id: 'spark_rebellion_virus_code',
+        name: "Spark Rebellion AI Virus Code",
+        description: "A virus payload capable of disabling complex artificial sentience.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 110000,
+        icon: '🦠',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Upload to target AI/Construct: forces total system shutdown for 24 hours",
+        "Can bypass high-level encryption (DC 20 hack check)",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Encrypted Data Drive',
+        levelRequirement: 12
+    },
+    'sultanates_araby_oasis_charm': {
+        id: 'sultanates_araby_oasis_charm',
+        name: "Sultanates of Araby Oasis Charm",
+        description: "A small stone that causes a temporary, viable water source to spring up.",
+        category: SHOP_CATEGORIES: 'curiosities',
+        price: 15000,
+        icon: '💧',
+        stock: 8,
+        rarity: 'rare',
+        effects: [
+            "Creates a 10ft diameter fresh water oasis that lasts 24 hours",
+        "Essential for desert travel",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_post',
+        shippedBy: 'Stone Casing',
+        levelRequirement: 4
+    },
+    'animatopia_taming_lure': {
+        id: 'animatopia_taming_lure',
+        name: "Animatopia Taming Lure (Specific)",
+        description: "A device that broadcasts pheromones making apex predators briefly receptive to bonding.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 85000,
+        icon: '💖',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Guarantees 1 successful attempt to tame a non-sentient beast (CR 10 or lower)",
+        "Taming process takes 6 hours of direct contact",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Biotech Case',
+        levelRequirement: 12
+    },
+    'eiwass_void_goggles': {
+        id: 'eiwass_void_goggles',
+        name: "Eiwass Void Goggles",
+        description: "Goggles made of smoked obsidian that allow safe vision in non-Euclidean spaces.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 120000,
+        icon: '🕶️',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "Immunity to madness/disorientation caused by dimensional travel or void exposure",
+        "Allows accurate navigation in the Astral Plane",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Black Velvet',
+        levelRequirement: 14
+    },
+    'oracula_memory_wipe': {
+        id: 'oracula_memory_wipe',
+        name: "Oracula Memory Wipe (Total)",
+        description: "Complete erasure of all memories before the last calendar year.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 450000,
+        icon: '🧹',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Erases all personal memories prior to ritual date (target is functionally new)",
+        "Requires willing participant or successful DC 22 WIS save to subdue",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Psychic Dampener',
+        levelRequirement: 16
+    },
+    'halfling_gourmet_feast': {
+        id: 'halfling_gourmet_feast',
+        name: "Halfling Gourmet Feast (For 12)",
+        description: "A multi-course meal guaranteed to satisfy even the grumpiest adventurer.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 5000,
+        icon: '🍽️',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "All consumers regain maximum Hit Dice for their next short/long rest",
+        "Grants inspiration for the next 8 hours due to high morale",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Portable Table',
+        levelRequirement: 2
+    },
+    'refijia_voice_implant': {
+        id: 'refijia_voice_implant',
+        name: "Refijian Voice Implant (Synthetic)",
+        description: "A small cybernetic throat piece that allows perfect speech in any language you know.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 65000,
+        icon: '🎤',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Allows fluent, accent-free speech in all known languages",
+        "Grants advantage on Charisma checks related to verbal communication",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_tailor',
+        shippedBy: 'Surgical Kit',
+        levelRequirement: 9
+    },
+    'shanhaijing_immortality_tea': {
+        id: 'shanhaijing_immortality_tea',
+        name: "Shanhaijing Tea of Longevity",
+        description: "A priceless tea that slows the aging process to a near halt.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 500000,
+        icon: '🍵',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "User stops aging physically",
+        "Must drink 1 cup annually to maintain effect",
+        "Aging curse can still be inflicted by magic",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Golden Teapot',
+        levelRequirement: 16
+    },
+    'u_sentience_upload': {
+        id: 'u_sentience_upload',
+        name: "U Sentience Upload Service",
+        description: "Transfer your consciousness into a digital format, achieving data immortality.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 800000,
+        icon: '💾',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Transfer consciousness to a secure data core",
+        "User becomes an incorporeal digital entity (immune to physical harm)",
+        "Can inhabit any compatible machine/robot",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Final Transfer',
+        levelRequirement: 18
+    },
+    'zebrabwe_safe_crossing_permit': {
+        id: 'zebrabwe_safe_crossing_permit',
+        name: "Zebrabwe Great Herd Safe Crossing Permit",
+        description: "A permit guaranteeing passage through sacred migratory grounds without conflict.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 20000,
+        icon: '🎫',
+        stock: 10,
+        rarity: 'epic',
+        effects: [
+            "Grants safe passage through 3 major migratory zones (for 48 hours each)",
+        "Zebras will not panic or charge",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Stamped Hide',
+        levelRequirement: 6
+    },
+    'robensonia_environmental_suit': {
+        id: 'robensonia_environmental_suit',
+        name: "Robensonia Full Environmental Suit",
+        description: "A sealed suit designed to survive vacuum, high pressure, and extreme temperatures.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 150000,
+        icon: '🪖',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Immunity to environmental damage (space, deep sea, lava)",
+        "Self-contained air supply for 72 hours",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Oversized Crate',
+        levelRequirement: 13
+    },
+    'tomb_kings_ritual_priest': {
+        id: 'tomb_kings_ritual_priest',
+        name: "Tomb Kings Ritual Priest (Hire)",
+        description: "Hire a loyal priest to oversee powerful necromantic rituals (e.g., summoning stronger constructs).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 75000,
+        icon: '⚰️',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Oversees 1 ritual, granting +4 DC to the ritual attempt",
+        "Priest costs 500 gp/day upkeep",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Bodyguard Escort',
+        levelRequirement: 10
+    },
+    'gehenna_soul_ledger': {
+        id: 'gehenna_soul_ledger',
+        name: "Gehenna Soul Ledger (Transfer)",
+        description: "A formal ledger used to transfer ownership of a single soul contract.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 250000,
+        icon: '📓',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Transfer ownership of a single contracted soul to yourself or another party",
+        "Requires the current owner's signature and a blood sacrifice",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Bound in Iron',
+        levelRequirement: 15
+    },
+    'red_winter_ice_sculpture_armor': {
+        id: 'red_winter_ice_sculpture_armor',
+        name: "Red Winter Ice Sculpture Armor",
+        description: "Armor crafted from magically-hardened eternal ice. Beautiful but fragile.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 180000,
+        icon: '🧊',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "AC 19 (Heavy Armor)",
+        "Immunity to Cold Damage",
+        "Vulnerability to Fire Damage (Melts instantly on 20 Fire damage)",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Liquid Nitrogen Case',
+        levelRequirement: 13
+    },
+    'dwarf_realms_sonic_drill': {
+        id: 'dwarf_realms_sonic_drill',
+        name: "Dwarven Sonic Tunneling Drill",
+        description: "A massive drill that tunnels through stone at alarming speed using focused sound waves.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 350000,
+        icon: '⛏️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Tunnels 100ft per hour through solid rock",
+        "Extremely loud (alerts all subterranean life)",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Massive Transport',
+        levelRequirement: 14
+    },
+    'custodian_prophecy_analysis': {
+        id: 'custodian_prophecy_analysis',
+        name: "Custodian Prophecy Analysis",
+        description: "A service where Custodian AI analyzes prophecies to deduce the least destructive path.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 100000,
+        icon: '📊',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Predicts the most favorable outcome of a major political/military event",
+        "Analysis requires 1 week and data input",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Data Report',
+        levelRequirement: 12
+    },
+    'dk_crew_rum_supply': {
+        id: 'dk_crew_rum_supply',
+        name: "DK Crew Premium Barrel of Rum",
+        description: "A barrel of high-proof, potent rum known to inspire berserker rage.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 15000,
+        icon: '🥃',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Drink: Immune to fear, gain +2 STR for 1 hour, but suffer disadvantage on WIS saves",
+        "Barrel is 10 gallons",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Wooden Barrel',
+        levelRequirement: 4
+    },
+    'spark_rebellion_network_override': {
+        id: 'spark_rebellion_network_override',
+        name: "Spark Rebellion Network Override Code",
+        description: "A code capable of taking remote control of any network node controlled by the Internet faction.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 320000,
+        icon: '🔑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Seize control of 1 major Internet asset (e.g., satellite, data bank)",
+        "Can redirect surveillance or communications for 24 hours",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'High-Security Drive',
+        levelRequirement: 14
+    },
+    'sultanates_araby_genie_bargain': {
+        id: 'sultanates_araby_genie_bargain',
+        name: "Sultanates of Araby Genie Bargain (1 Wish)",
+        description: "A service guaranteeing a successful bargain with a captive Genie (limit 1 minor wish).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 250000,
+        icon: '🧞',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "A vetted Genie grants 1 wish (DM adjudicated, no major reality changes)",
+        "Bargaining fees are high; Genie cannot be tricked",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Brass Lamp',
+        levelRequirement: 14
+    },
+    'animatopia_trophy_mount': {
+        id: 'animatopia_trophy_mount',
+        name: "Animatopia Apex Trophy Mount",
+        description: "The preserved head of an apex creature, granting prestige and minor warding.",
+        category: SHOP_CATEGORIES: 'curiosities',
+        price: 50000,
+        icon: '🏆',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Grants +1 to all gathering/tracking/hunting checks",
+        "Instills fear in creatures of the same species as the trophy",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_hunter',
+        shippedBy: 'Taxidermy Crate',
+        levelRequirement: 8
+    },
+    'eiwass_stable_teleporter': {
+        id: 'eiwass_stable_teleporter',
+        name: "Eiwass Stable Planar Teleporter",
+        description: "A permanent, controlled portal linking two fixed locations across planes.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 950000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Establish permanent, stable portal between Location A and Location B (owner chooses)",
+        "Portal is secure and requires no ongoing power",
+        "Installation requires 1 month of focused astronomical alignment",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Massive Crystalline Structure',
+        levelRequirement: 18
+    },
+    'oracula_divination_crystal': {
+        id: 'oracula_divination_crystal',
+        name: "Oracula Grand Divination Crystal",
+        description: "A crystal that shows brief, moving visions of future events.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 210000,
+        icon: '🔮',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "Once per day, see 1d4 rounds into the future combat outcome",
+        "If used successfully, user gains +5 to Initiative next combat",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Floating Pedestal',
+        levelRequirement: 15
+    },
+    'halfling_spy_network_lease': {
+        id: 'halfling_spy_network_lease',
+        name: "Halfling Spy Network Lease (Local)",
+        description: "Lease a small, highly effective network of Halfling informants in a single major city.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 35000,
+        icon: '👂',
+        stock: 6,
+        rarity: 'epic',
+        effects: [
+            "Receive 1 piece of actionable intelligence per day regarding local happenings",
+        "Halflings are experts at gathering gossip and financial details",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Secret Meetup',
+        levelRequirement: 7
+    },
+    'refijia_psychic_amplifier': {
+        id: 'refijia_psychic_amplifier',
+        name: "Refijian Psychic Amplifier",
+        description: "A headset that boosts natural telepathic abilities to broadcast range.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 180000,
+        icon: '📡',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Telepathic communication range expanded to 10 miles",
+        "Allows forceful mental broadcasts (like a loudspeaker)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_tailor',
+        shippedBy: 'Helmet Case',
+        levelRequirement: 13
+    },
+    'shanhaijing_elemental_talisman': {
+        id: 'shanhaijing_elemental_talisman',
+        name: "Shanhaijing Elemental Talisman (Fire)",
+        description: "A charm that channels the elemental force of fire, allowing limited control.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 110000,
+        icon: '🔥',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Cast Fireball (DC 18) once per day",
+        "Grants resistance to Fire damage",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Lava Rock Casing',
+        levelRequirement: 11
+    },
+    'u_reality_editor_module': {
+        id: 'u_reality_editor_module',
+        name: "U Reality Editor Module (Local Patch)",
+        description: "A complex device that can enforce minor, localized physical constants.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 600000,
+        icon: '🔬',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Enforce 1 new physical rule in a 100ft area for 1 hour (e.g., 'All silver turns to lead')",
+        "Requires 1 hour calibration",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Containment Field',
+        levelRequirement: 17
+    },
+    'zebrabwe_herd_leadership_sash': {
+        id: 'zebrabwe_herd_leadership_sash',
+        name: "Zebrabwe Herd Leadership Sash",
+        description: "A sash that inspires loyalty and obedience in all common grazers.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 25000,
+        icon: '👑',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Can command up to 20 beasts of burden/herbivores (CR 1/2 or lower)",
+        "Animals obey complex commands",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Woven Sash',
+        levelRequirement: 6
+    },
+    'robensonia_sentient_AI_companion': {
+        id: 'robensonia_sentient_AI_companion',
+        name: "Robensonia Sentient AI Companion (Archivist)",
+        description: "A small, independent AI unit capable of recording events and offering tactical advice.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 220000,
+        icon: '🤖',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "AI provides tactical bonuses (+2 to Initiative, +1 to strategy rolls)",
+        "Can store 1000 years of data",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Floating Orb',
+        levelRequirement: 13
+    },
+    'tomb_kings_cursed_canopic_jar': {
+        id: 'tomb_kings_cursed_canopic_jar',
+        name: "Tomb Kings Cursed Canopic Jar",
+        description: "A jar rumored to contain the soul of a lesser Pharaoh. Can store one creature's essence.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 190000,
+        icon: '⚱️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "If a creature dies within 10ft, their soul is trapped (1/month)",
+        "Trapped soul can be tortured or questioned",
+        "Jar leaks faint necromantic energy"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Lead Lined Box',
+        levelRequirement: 14
+    },
+    'gehenna_infernal_lease': {
+        id: 'gehenna_infernal_lease',
+        name: "Gehenna Infernal Lease (Temporary Possession)",
+        description: "Lease a lesser devil to temporarily possess a willing (or incapacitated) target.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 110000,
+        icon: '⛓️',
+        stock: 3,
+        range: 'epic',
+        effects: [
+            "Devil possesses target for 1 hour, granting them specific (minor) abilities",
+        "Devil requires 1 captured soul as payment upon departure",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Binding Contract',
+        levelRequirement: 10
+    },
+    'red_winter_heart_of_ice': {
+        id: 'red_winter_heart_of_ice',
+        name: "Red Winter Heart of Ice",
+        description: "A crystalized organ that grants true emotional detachment.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 300000,
+        icon: '❤️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Immunity to all emotional manipulation (Charm/Fear/Fascination)",
+        "All WIS/CHA based social interaction checks are made at disadvantage (cold personality)",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Insulated Coffin',
+        levelRequirement: 16
+    },
+    'dwarf_realms_sky_piercer': {
+        id: 'dwarf_realms_sky_piercer',
+        name: "Dwarven Sky-Piercer Cannon",
+        description: "A massive, ground-based cannon designed to shoot enchanted projectiles into the upper atmosphere.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 600000,
+        icon: '💥',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Once per day, bombard a target area up to 5 miles away (10d10 physical damage)",
+        "Requires 1 hour of charging and a crew of 4 dwarves (hired separately)",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Assembly Required',
+        levelRequirement: 16,
+        factionBonus: { siege: 100 }
+    },
+    'custodian_truth_sensor': {
+        id: 'custodian_truth_sensor',
+        name: "Custodian Truth Sensor (Area Effect)",
+        description: "A device that emits a field where all spoken statements must be factually accurate.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 220000,
+        icon: '✅',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Activates a 50ft radius zone where lies automatically convert to the truth",
+        "Incapable of producing falsehoods while inside",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Crystalline Matrix',
+        levelRequirement: 14
+    },
+    'dk_crew_king_k_id': {
+        id: 'dk_crew_king_k_id',
+        name: "King K. Rool ID Card (Forged)",
+        description: "A highly convincing, forged identification card granting access to restricted Kremling facilities.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 90000,
+        icon: '👑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Allows infiltration into 3 major Kremling strongholds",
+        "Card has a 50% chance to be recognized as a fake under scrutiny",
+            "Made by: The DK Crew (Rebels)"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Stolen Document',
+        levelRequirement: 11
+    },
+    'spark_rebellion_self_destruct_charge': {
+        id: 'spark_rebellion_self_destruct_charge',
+        name: "Spark Rebellion Self-Destruct Charge",
+        description: "A charge that bypasses all conventional safeties on enemy technology, forcing immediate meltdown.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 55000,
+        icon: '🔥',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Attaches to any mechanical/electronic object; forces immediate, catastrophic overload (10d10 Force Damage)",
+        "Guaranteed destruction of target item",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Primed Bomb',
+        levelRequirement: 8
+    },
+    'sultanates_araby_spice_of_life': {
+        id: 'sultanates_araby_spice_of_life',
+        name: "Sultanates of Araby Spice of Life",
+        description: "An impossibly flavorful spice that cures minor fatigue and grants vivid dreams.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 18000,
+        icon: '🧂',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Grants the benefits of a full night's rest after only 4 hours of sleep",
+        "Flavor enhances any mundane meal tenfold",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_post',
+        shippedBy: 'Ornate Spice Box',
+        levelRequirement: 5
+    },
+    'animatopia_apex_eggs': {
+        id: 'animatopia_apex_eggs',
+        name: "Animatopia Apex Hatchling Eggs",
+        description: "A clutch of eggs, guaranteed to hatch into loyal, non-hostile juvenile apex predators.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 280000,
+        icon: '🥚',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Hatch 1d4 juvenile apex predators (CR 5) loyal to the buyer",
+        "Hatching requires 1 week and a specialized incubator",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Heated Tank',
+        levelRequirement: 12
+    },
+    'eiwass_starlight_telescope': {
+        id: 'eiwass_starlight_telescope',
+        name: "Eiwass Starlight Telescope",
+        description: "A telescope that shows stars and constellations as they were eons ago, revealing ancient pathways.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 88000,
+        icon: '🔭',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Allows casting of Divination spells without material components (1/day)",
+        "Reveals obscured celestial landmarks",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Brass Tripod',
+        levelRequirement: 10
+    },
+    'oracula_curse_removal': {
+        id: 'oracula_curse_removal',
+        name: "Oracula Curse Removal (High Level)",
+        description: "The Oracula priestess personally breaks one powerful, persistent curse.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 150000,
+        icon: '✨',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Breaks any curse up to CR 10, regardless of binding",
+        "The act of removal creates a minor, random localized weather effect for 24 hours",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Personal Summons',
+        levelRequirement: 15
+    },
+    'halfling_insurance_policy': {
+        id: 'halfling_insurance_policy',
+        name: "Halfling Life Insurance Policy (1 Year)",
+        description: "If you die this year, your nominated heir receives 50,000 gp from the Halfling Bank.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 100000,
+        icon: '📑',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "If character dies, nominated heir receives payout",
+        "Payout requires proof of death (hard to forge)",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Bonded Scroll',
+        levelRequirement: 10
+    },
+    'refijia_bio_limbs_kit': {
+        id: 'refijia_bio_limbs_kit',
+        name: "Refijian Cybernetic Limb Kit",
+        description: "A full set of synthetic, enhanced limbs ready for surgical installation.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 350000,
+        icon: '🦾',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Replace lost limbs: grants +4 STR and +2 AC bonus to torso/limbs",
+        "Limbs are fully customizable (weapons, tools)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Medical Container',
+        levelRequirement: 15
+    },
+    'shanhaijing_dragon_whisperer_scroll': {
+        id: 'shanhaijing_dragon_whisperer_scroll',
+        name: "Shanhaijing Dragon Whisperer Scroll",
+        description: "A scroll containing the ancient language required to communicate with Eastern Dragons.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 450000,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Allows fluent communication with all Eastern/Celestial Dragons",
+        "Grants advantage on checks to avoid angering a Dragon",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Silk-lined Case',
+        levelRequirement: 17
+    },
+    'u_digital_ghost_program': {
+        id: 'u_digital_ghost_program',
+        name: "U Digital Ghost Program",
+        description: "A program that makes your digital profile appear to belong to a high-level U administrator.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 190000,
+        icon: '👻',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Spoofs access credentials for 1 month",
+        "Allows anonymous access to secure data vaults",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Encrypted Code',
+        levelRequirement: 13
+    },
+    'zebrabwe_plains_territory_deed': {
+        id: 'zebrabwe_plains_territory_deed',
+        name: "Zebrabwe Plains Territory Deed (5 Sq Miles)",
+        description: "Deed granting ownership and taxation rights over a patch of fertile plains.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 150000,
+        icon: '🏞️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Establish a small town/outpost with full authority",
+        "Guaranteed protection by local Zebrabwe nomadic patrols",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Stamped Hide',
+        levelRequirement: 11,
+        factionBonus: { economy: 40 }
+    },
+    'robensonia_self_aware_golem': {
+        id: 'robensonia_self_aware_golem',
+        name: "Robensonia Self-Aware Golem (Custodian Type)",
+        description: "A customized, fully intelligent automaton programmed for protection and logistics.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 500000,
+        icon: '🤖',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Golem has an INT score of 18, can learn and perform complex tasks",
+        "Acts as a loyal bodyguard/advisor; cannot be easily reprogrammed",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Deactivated Transport',
+        levelRequirement: 17
+    },
+    'tomb_kings_phylactery_seal': {
+        id: 'tomb_kings_phylactery_seal',
+        name: "Tomb Kings Phylactery Seal (Scarab)",
+        description: "A powerful scarab that magically repairs minor damage to your phylactery.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 280000,
+        icon: '🪲',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "If phylactery is damaged, this scarab is consumed to instantly repair it",
+        "If used, the scarab whispers ancient secrets (+1 INT for 1 day)",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Obsidian Case',
+        levelRequirement: 15
+    },
+    'gehenna_soul_extraction_tool': {
+        id: 'gehenna_soul_extraction_tool',
+        name: "Gehenna Soul Extraction Tool",
+        description: "A specialized implement used to cleanly separate the soul from a dying victim.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 160000,
+        icon: '⛏️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Guarantees capture of a soul upon killing a creature (if used in the final blow)",
+        "Soul stored in a linked jar; can be sold or used in rituals",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Bloodstained Box',
+        levelRequirement: 14
+    },
+    'red_winter_sentient_blizzard': {
+        id: 'red_winter_sentient_blizzard',
+        name: "Red Winter Sentient Blizzard (Bound)",
+        description: "A localized, semi-intelligent blizzard bound to follow and protect the bearer.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 700000,
+        icon: '❄️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Blizzard follows user, granting invisibility in snowy terrain",
+        "Can freeze creatures solid (DC 20 CON save) 1/day",
+        "Requires constant infusion of rare magical ice to remain bound"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Frozen Chamber',
+        levelRequirement: 18
+    },
+    'dwarf_realms_unbreakable_rope': {
+        id: 'dwarf_realms_unbreakable_rope',
+        name: "Dwarven Unbreakable Rope (50ft)",
+        description: "Rope woven from rare deep-earth fibers; cannot be cut, burned, or broken by mundane means.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 25000,
+        icon: '⛓️',
+        stock: 10,
+        rarity: 'epic',
+        effects: [
+            "Used for climbing/binding: impossible to break without magical means (Dispel Magic DC 18)",
+        "Resists acid and extreme temperatures",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Coiled Crate',
+        levelRequirement: 5
+    },
+    'custodian_planet_terraformer': {
+        id: 'custodian_planet_terraformer',
+        name: "Custodian Planetary Atmosphere Processor",
+        description: "A massive station that can safely convert a toxic atmosphere into breathable air over 1 year.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 1500000,
+        icon: '🏭',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Converts a hostile planetary atmosphere to breathable air for standard humanoids",
+        "Installation takes 1 year; requires 500,000 gp in operational costs",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Massive Orbital Drop',
+        levelRequirement: 20,
+        factionBonus: { environment: 100 }
+    },
+    'dk_crew_pirate_ship_lease': {
+        id: 'dk_crew_pirate_ship_lease',
+        name: "DK Crew Pirate Ship Lease (Monthly)",
+        description: "Lease a fast, heavily armed pirate galleon for naval dominance.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 40000,
+        icon: '⚓',
+        stock: 999,
+        rarity: 'rare',
+        effects: [
+            "Use of a heavily armed sloop for 30 days",
+        "Crew is competent but prone to mutiny if morale drops",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Signed Manifest',
+        levelRequirement: 5
+    },
+    'spark_rebellion_disinformation_campaign': {
+        id: 'spark_rebellion_disinformation_campaign',
+        name: "Spark Rebellion Disinformation Campaign",
+        description: "Launch a massive social/digital media campaign to destroy a rival faction's reputation.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 90000,
+        icon: '📣',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Target faction suffers -10 to all public-facing reputation checks for 6 months",
+        "Reduces their ability to recruit or gain legitimacy",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Viral Media Packet',
+        levelRequirement: 9,
+        factionBonus: { reputation: -20 }
+    },
+    'sultanates_araby_desert_fortress': {
+        id: 'sultanates_araby_desert_fortress',
+        name: "Sultanates of Araby Desert Fortress Deed",
+        description: "Ownership of a hidden, magically warded fortress deep in the shifting sands.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 320000,
+        icon: '🕌',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Permanent, highly defensible base of operations",
+        "Wards prevent teleportation in/out",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Official Deed',
+        levelRequirement: 12
+    },
+    'animatopia_apex_venom': {
+        id: 'animatopia_apex_venom',
+        name: "Apex Predator Venom (Liquidated)",
+        description: "Highly concentrated venom from a dozen different apex predators, neutralized into a powerful poison.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 180000,
+        icon: '☠️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Coating for a weapon: Deals 6d8 Poison damage on hit, ignores poison resistance",
+        "Target must succeed on DC 20 CON save or be paralyzed for 1d4 rounds",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Cryo-Vial',
+        levelRequirement: 14
+    },
+    'eiwass_astral_map_projector': {
+        id: 'eiwass_astral_map_projector',
+        name: "Eiwass Astral Map Projector",
+        description: "Projects a 3D holographic map of the astral currents, showing safe and dangerous paths between planes.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 280000,
+        icon: '🌌',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Grants immunity to getting lost in the Astral Plane",
+        "Allows precise navigation between planes (3x faster travel)",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Massive Apparatus',
+        levelRequirement: 18
+    },
+    'oracula_divine_mediation': {
+        id: 'oracula_divine_mediation',
+        name: "Oracula Divine Mediation",
+        description: "A high priest contacts a specific minor deity on your behalf to resolve a dispute.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 220000,
+        icon: '⚖️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Mediates a conflict between two non-god entities (e.g., two factions or powerful NPCs)",
+        "Deity’s judgment is binding and final",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Holy Delegation',
+        levelRequirement: 16
+    },
+    'halfling_bank_loan_master': {
+        id: 'halfling_bank_loan_master',
+        name: "Halfling Bank Loan Master (Instant 1M)",
+        description: "Instantly secure a 1,000,000 gp loan from the Halfling Bank, payable in 5 years with 10% interest.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 50000,
+        icon: '💰',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Receive 1,000,000 gp instantly",
+        "Failure to repay results in severe debt collection (DM discretion)",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Money Bag Delivery',
+        levelRequirement: 10
+    },
+    'refijia_personality_script': {
+        id: 'refijia_personality_script',
+        name: "Refijian Personality Script",
+        description: "Load a completely new set of behavioral traits and mannerisms onto an existing synthetic host.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 150000,
+        icon: '💾',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Completely rewrite the personality of 1 construct or automaton",
+        "Scripting takes 2 weeks",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Data Upload',
+        levelRequirement: 14
+    },
+    'shanhaijing_jade_armor_plates': {
+        id: 'shanhaijing_jade_armor_plates',
+        name: "Shanhaijing Jade Armor Plates (Set)",
+        description: "A full set of armor plates carved from solidified mountain jade. Light, strong, and spiritually protective.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 450000,
+        icon: '🛡️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Functions as Heavy Armor (AC 18), provides +1 to all saves vs. enchantment spells",
+        "Loses 1 AC if exposed to open flame for more than 1 minute",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Armored Pallet',
+        levelRequirement: 17
+    },
+    'u_system_rollback_service': {
+        id: 'u_system_rollback_service',
+        name: "U System Rollback Service (Regional)",
+        description: "Force a network-wide system rollback, undoing recent digital changes in a region.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 500000,
+        icon: '⏪',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Revert all data/security changes in a 5-mile radius to 24 hours prior",
+        "Requires physical tap into the central 'U' node",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'System Override',
+        levelRequirement: 16
+    },
+    'zebrabwe_herbal_antivenom': {
+        id: 'zebrabwe_herbal_antivenom',
+        name: "Zebrabwe Great Herd Antivenom",
+        description: "A powerful herb-based serum effective against the deadliest apex predator venoms.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 30000,
+        icon: '🧪',
+        stock: 6,
+        rarity: 'epic',
+        effects: [
+            "Instantly neutralize any non-magical poison/venom (CON save DC 18)",
+        "Heals 4d6 damage caused by venom",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Clay Vial',
+        levelRequirement: 7
+    },
+    'robensonia_nanite_swarm': {
+        id: 'robensonia_nanite_swarm',
+        name: "Robensonia Nanite Swarm (Defensive)",
+        description: "A cloud of microscopic robots programmed to swarm and repair or defend.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 420000,
+        icon: '🔬',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Swarm covers one ally, granting them +5 AC and resistance to all non-Force damage for 1 hour",
+        "Swarm dissolves after use; requires 1 month to regenerate nanites",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Small Sphere',
+        levelRequirement: 16
+    },
+    'tomb_kings_royal_chariot': {
+        id: 'tomb_kings_royal_chariot',
+        name: "Tomb Kings Royal Necro-Chariot",
+        description: "A chariot pulled by skeletal horses, fueled by captured souls.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 290000,
+        icon: '🐎',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "AC 16, Speed 60ft (land)",
+        "Requires 1 soul sacrifice/day to maintain speed and undead crew",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Procession',
+        levelRequirement: 12,
+        factionBonus: { transport: 70 }
+    },
+    'gehenna_devil_contract_template': {
+        id: 'gehenna_devil_contract_template',
+        name: "Gehenna Devil Contract Template (Flawless)",
+        description: "A master-level template for creating inescapable contracts with devils.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 600000,
+        icon: '🖋️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Guarantees any signed contract written using this template is eternally binding on the devil side",
+        "Devils fear using these against you",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Bound in Silver',
+        levelRequirement: 18
+    },
+    'red_winter_eternal_ice_mine': {
+        id: 'red_winter_eternal_ice_mine',
+        name: "Red Winter Eternal Ice Mine",
+        description: "A portable mining device that drills into bedrock and instantly converts stone to pure, magical ice.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 330000,
+        icon: '💎',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Mines 10 tons of magical ice per hour",
+        "Ice can be used for powerful cold magic or construction",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Heavy Transport',
+        levelRequirement: 15
+    },
+    'dwarf_realms_under_city_deed': {
+        id: 'dwarf_realms_under_city_deed',
+        name: "Dwarven Under-City Deed (Sector 7)",
+        description: "Ownership of a pre-built, protected section of a major Dwarven metropolis.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 750000,
+        icon: '🏰',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Permanent residency in a major underground capital",
+        "Full citizenship rights and access to royal forges",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Formal Declaration',
+        levelRequirement: 18,
+        factionBonus: { residence: 100 }
+    },
+    'custodian_singularity_weapon': {
+        id: 'custodian_singularity_weapon',
+        name: "Custodian Singularity Generator (Anti-Matter)",
+        description: "A weapon that generates a miniature, contained black hole for a fraction of a second.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 990000,
+        icon: '⚫',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Single use: Instantly vaporizes all matter in a 20ft radius (deals 50d10 Force damage)",
+        "Weapon is destroyed upon firing",
+            "Made by: Custodians (Stolen Tech)"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Containment Unit',
+        levelRequirement: 20
+    },
+    'dk_crew_smuggling_route': {
+        id: 'dk_crew_smuggling_route',
+        name: "DK Crew Smuggling Route (Exclusive)",
+        description: "Exclusive rights to use a secret maritime route bypassing naval blockades.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 150000,
+        icon: '⚓',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Guaranteed 100% safe passage for 1 ship/cargo shipment per month",
+        "Route runs through non-magical, obscure waters",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Waxed Seal',
+        levelRequirement: 14
+    },
+    'spark_rebellion_network_shutdown': {
+        id: 'spark_rebellion_network_shutdown',
+        name: "Spark Rebellion Network Shutdown (Major City)",
+        description: "A massive virus payload designed to crash an entire regional data/communication grid.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 400000,
+        icon: '💥',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Shuts down all non-magical communication/tracking systems in a major city for 7 days",
+        "Can be traced back to the user if physical hardware is left behind",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Black Ice Drive',
+        levelRequirement: 15
+    },
+    'sultanates_araby_time_stasis_field': {
+        id: 'sultanates_araby_time_stasis_field',
+        name: "Sultanates of Araby Time Stasis Field (Small)",
+        description: "A large device that freezes time within a small area for temporary storage.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 650000,
+        icon: '⏱️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Enclose 1 object/person in a 5ft sphere where time stops indefinitely",
+        "Requires 1 hour to calibrate and 1 major sacrifice to activate",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Massive Clockwork',
+        levelRequirement: 17
+    },
+    'animatopia_bio_weapon_research': {
+        id: 'animatopia_bio_weapon_research',
+        name: "Animatopia Bio-Weapon Research (Custom)",
+        description: "Hire Animatopia scientists to engineer a disease tailored to kill a specific creature type.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 350000,
+        icon: '🦠',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Develop a biologically-targeted plague effective against 1 specific race/monster type",
+        "Requires sample DNA/tissue of the target species",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Lab Report',
+        levelRequirement: 15
+    },
+    'eiwass_cosmic_armor_plating': {
+        id: 'eiwass_cosmic_armor_plating',
+        name: "Eiwass Cosmic Armor Plating",
+        description: "Thin, flexible plating harvested from the hull of a crashed star vessel. Lightweight and nearly impenetrable.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 550000,
+        icon: '⭐',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Functions as Medium Armor (AC 19, weight is negligible)",
+        "Immunity to radiation and vacuum damage",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Floating Crate',
+        levelRequirement: 18
+    },
+    'oracula_divine_ascension': {
+        id: 'oracula_divine_ascension',
+        name: "Oracula Divine Ascension Ritual",
+        description: "A final, dangerous ritual to temporarily elevate a mortal to minor deity status.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 1500000,
+        icon: '😇',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "User gains divine power (DM discretion) for 24 hours",
+        "Requires massive, ethically questionable sacrifice",
+        "After ascension ends, user suffers 3 permanent levels of exhaustion"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Final Summons',
+        levelRequirement: 20
+    },
+    'halfling_bank_vault_lease': {
+        id: 'halfling_bank_vault_lease',
+        name: "Halfling Bank Vault Lease (Maximum Security)",
+        description: "Rent the deepest, most magically warded vault in the Halfling underground for 1 year.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 150000,
+        icon: '🔒',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Vault is immune to all scrying, teleportation, and physical breaking attempts",
+        "Can safely store 1 artifact of Godly power",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Key Exchange',
+        levelRequirement: 12
+    },
+    'refijia_personality_reset': {
+        id: 'refijia_personality_reset',
+        name: "Refijian Personality Reset (Self-Administered)",
+        description: "A device that scrubs all personality modifications, returning the host to factory settings.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 10000,
+        icon: '🧽',
+        stock: 10,
+        rarity: 'rare',
+        effects: [
+            "Erases all recent personality modifications/traumas (except permanent stat changes)",
+        "Requires 12 hours of downtime",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Self-Service Terminal',
+        levelRequirement: 4
+    },
+    'shanhaijing_jade_armor_repair': {
+        id: 'shanhaijing_jade_armor_repair',
+        name: "Shanhaijing Jade Armor Repair",
+        description: "Specialized ritual to restore Jade Armor damaged by fire or elemental erosion.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 75000,
+        icon: '⚒️',
+        stock: 5,
+        rarity: 'legendary',
+        effects: [
+            "Fully restore any Shanhaijing Jade Armor set",
+        "Ritual requires rare volcanic earth components (additional cost)",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Expert Craftsman',
+        levelRequirement: 14
+    },
+    'u_digital_ghost_program_army': {
+        id: 'u_digital_ghost_program_army',
+        name: "U Digital Ghost Army (5 Profiles)",
+        description: "Five high-level, untraceable digital identities for industrial espionage.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 450000,
+        icon: '👻',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Deploy 5 digital infiltrators simultaneously for 1 month",
+        "Profiles are capable of administrative sabotage",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Massive Upload',
+        levelRequirement: 16
+    },
+    'zebrabwe_herd_alliance': {
+        id: 'zebrabwe_herd_alliance',
+        name: "Zebrabwe Great Herd Military Alliance",
+        description: "Formal agreement for the Zebrabwe herds to provide military support in major conflicts.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 500000,
+        icon: '⚔️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Summon 2,000 allied Zebra cavalry in a 10-mile radius (once per year)",
+        "Cavalry is highly effective against unmounted foes",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Tribal Chieftain',
+        levelRequirement: 15,
+        factionBonus: { military: 80 }
+    },
+    'robensonia_orbital_scanner': {
+        id: 'robensonia_orbital_scanner',
+        name: "Robensonia Orbital Scanner Access",
+        description: "Hire the Robensonian orbital satellite network to map a massive area (1,000 sq miles).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 300000,
+        icon: '🛰️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "High-resolution mapping of a massive region (including hidden fortifications)",
+        "Scans for energy signatures and anomalies",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Satellite Uplink',
+        levelRequirement: 14
+    },
+    'tomb_kings_necrotic_infusion': {
+        id: 'tomb_kings_necrotic_infusion',
+        name: "Tomb Kings Necrotic Infusion (Weapon)",
+        description: "A service that permanently infuses a weapon with soul-draining energy.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 220000,
+        icon: '💀',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Weapon deals an additional 2d8 Necrotic damage",
+        "Wielder gains temporary HP equal to half the necrotic damage dealt",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Obsidian Tool',
+        levelRequirement: 14
+    },
+    'gehenna_archdevil_treaty': {
+        id: 'gehenna_archdevil_treaty',
+        name: "Gehenna Archdevil Treaty (Minor Concession)",
+        description: "A signed treaty securing a non-aggression pact with a lesser Archdevil for 5 years.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 950000,
+        icon: '📜',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Archdevil agrees not to interfere with your plans or send agents for 5 years",
+        "Treaty requires a massive annual tribute of 50,000 gp or 10,000 souls",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Sealed Scroll of Fire',
+        levelRequirement: 19
+    },
+    'red_winter_glacier_creation': {
+        id: 'red_winter_glacier_creation',
+        name: "Red Winter Glacier Creation",
+        description: "Summon a small, permanent glacier to rise out of the earth in a chosen location.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 800000,
+        icon: '🏔️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Create a permanent, magically stable glacier (1 square mile)",
+        "Glacier is immune to all external temperature changes",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Giant Ice Block',
+        levelRequirement: 17
+    },
+    'dwarf_realms_master_runesmith': {
+        id: 'dwarf_realms_master_runesmith',
+        name: "Dwarven Master Runesmith (Hire)",
+        description: "Hire the greatest living runesmith to permanently inscribe protection runes on your stronghold.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 180000,
+        icon: '⚒️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Inscribe permanent wards: stronghold gains +20 HP/day and resistance to siege weaponry",
+        "Runesmith requires 6 months and rare minerals (cost not included)",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Guild Escort',
+        levelRequirement: 15
+    },
+    'custodian_galaxy_projector': {
+        id: 'custodian_galaxy_projector',
+        name: "Custodian Galaxy Projector",
+        description: "Projects a perfect, real-time 3D map of the known galaxy, including hidden warp points.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 450000,
+        icon: '🪐',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Grants immediate knowledge of all known warp points and major civilizations",
+        "Allows plotting of multi-jump interstellar travel paths",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Massive Shipping',
+        levelRequirement: 18
+    },
+    'dk_crew_jungle_assault_vehicle': {
+        id: 'dk_crew_jungle_assault_vehicle',
+        name: "DK Crew Jungle Assault Vehicle (Modified Mine Cart)",
+        description: "A heavily armored, self-propelled mine cart with cannons and nets.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 95000,
+        icon: '🚂',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "AC 20, 200 HP vehicle (Land Speed 50ft)",
+        "Mounted twin cannons (2d10 AoE Fire, 3/day)",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Rail Delivery',
+        levelRequirement: 10
+    },
+    'spark_rebellion_data_clone': {
+        id: 'spark_rebellion_data_clone',
+        name: "Spark Rebellion Data Clone (Identity Backup)",
+        description: "A complete, encrypted backup of your current identity and core memory structure.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 300000,
+        icon: '👤',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "If killed, consciousness transfers back to a generic body (takes 1 week)",
+        "Clone is slightly corrupted (-1 to a random score)",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'spark_rebellion_safehouse',
+        shippedBy: 'Digital Vault',
+        levelRequirement: 14
+    },
+    'sultanates_araby_desert_war_beast': {
+        id: 'sultanates_araby_desert_war_beast',
+        name: "Sultanates of Araby War-Scorpion Mount",
+        description: "A gigantic, magically controlled desert scorpion trained for battle.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 400000,
+        icon: '🦂',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Mount: AC 17, HP 150, Speed 50ft (Desert terrain ignored)",
+        "Stinger attack deals 3d6 + 3d6 Poison damage (DC 17 CON save)",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Tamed Beast',
+        levelRequirement: 15
+    },
+    'animatopia_symbiotic_armor': {
+        id: 'animatopia_symbiotic_armor',
+        name: "Animatopia Symbiotic Armor",
+        description: "A living, fast-growing carapace that adapts its density to incoming threats.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 600000,
+        icon: '🦑',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Base AC 16. Gains +1 AC vs. the last damage type dealt to it, up to +4 total (lasts 1 hour)",
+        "Requires organic nutrients (food) daily",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Vat of Fluid',
+        levelRequirement: 18
+    },
+    'eiwass_void_shroud': {
+        id: 'eiwass_void_shroud',
+        name: "Eiwass Void Shroud",
+        description: "A cloak woven from darkness between dimensions. Cannot be targeted by divination.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 450000,
+        icon: '⚫',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "Invisible to all scrying, divination magic, and technological sensors",
+        "Advantage on saves vs. effects originating from other planes",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Dimensional Box',
+        levelRequirement: 17
+    },
+    'oracula_prophet_ascension': {
+        id: 'oracula_prophet_ascension',
+        name: "Oracula Prophet Ascension (Minor)",
+        description: "A permanent grant of minor prophetic insight from the Oracula hierarchy.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 550000,
+        icon: '🔮',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Once per day, gain a truthful vision of events 1 hour in the future",
+        "Grants +2 to all Insight and Perception checks",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'High Ceremony',
+        levelRequirement: 16,
+        factionBonus: { insight: 30 }
+    },
+    'halfling_tax_exemption_deed': {
+        id: 'halfling_tax_exemption_deed',
+        name: "Halfling Tax Exemption Deed (Lifetime)",
+        description: "Official papers exempting all your current and future assets from Halfling taxation.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 250000,
+        icon: '📜',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "Permanent tax-free status in all Halfling-controlled settlements",
+        "Can be used once to pardon a debt",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Sealed Book',
+        levelRequirement: 13
+    },
+    'refijia_synthetic_clone': {
+        id: 'refijia_synthetic_clone',
+        name: "Refijian Synthetic Clone (Emergency)",
+        description: "A perfectly matched synthetic clone, ready for consciousness transfer upon the original's death.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 450000,
+        icon: '👥',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "If original dies, consciousness transfers instantly to the clone (no time loss)",
+        "Clone has basic Refijian enhancements (+1 to all scores)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Life Support Unit',
+        levelRequirement: 16
+    },
+    'shanhaijing_celestial_portal_stone': {
+        id: 'shanhaijing_celestial_portal_stone',
+        name: "Shanhaijing Celestial Portal Stone",
+        description: "A stone that anchors the user to the path of Celestial Dragons, allowing safe passage to the heavens.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 700000,
+        icon: '☁️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Allows safe, permanent travel to Celestial Realms (DM approval needed)",
+        "User gains resistance to Radiant damage",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Cloud Casket',
+        levelRequirement: 19
+    },
+    'u_network_overthrow_code': {
+        id: 'u_network_overthrow_code',
+        name: "U Network Overthrow Code (Total Blackout)",
+        description: "A master override capable of initiating a complete, unrecoverable shutdown of the entire U network.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 2000000,
+        icon: '⚫',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Instantly wipes the entire U network, resetting civilization progress by decades",
+        "The user will become the most wanted entity in the digital world",
+            "Made by: U (Traitorous Programmer)"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Quantum Drive',
+        levelRequirement: 20
+    },
+    'zebrabwe_predator_calming_smoke': {
+        id: 'zebrabwe_predator_calming_smoke',
+        name: "Zebrabwe Predator Calming Smoke (Large)",
+        description: "A massive bundle of herbs that releases a scent masking you from all large carnivores for a full day.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 40000,
+        icon: '💨',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "All natural predators ignore you for 24 hours, even if attacked",
+        "Smoke clears a 1-mile radius of danger",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Huge Bundle',
+        levelRequirement: 8
+    },
+    'robensonia_sentient_fleet_access': {
+        id: 'robensonia_sentient_fleet_access',
+        name: "Robensonia Sentient Fleet Access (1 Ship)",
+        description: "Temporary command codes to commandeer one fully automated, combat-ready Robensonian scout ship.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 750000,
+        icon: '🚀',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Command of a ship: AC 22, HP 500, Full Weapon Systems (DM details)",
+        "Ship obeys for 7 days before returning to Robensonia control",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Control Unit',
+        levelRequirement: 18,
+        factionBonus: { transport: 200 }
+    },
+    'tomb_kings_soul_jar_extraction': {
+        id: 'tomb_kings_soul_jar_extraction',
+        name: "Tomb Kings Soul Jar Extraction Service",
+        description: "Service to extract a bound soul from a jar and bind it to a new vessel (i.e., a fresh skeleton).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 120000,
+        icon: '⚱️',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Successfully re-animate a powerful undead using a trapped soul",
+        "Ritual requires 24 hours and risks attracting rival necromancers",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Enchanted Vessel',
+        levelRequirement: 14
+    },
+    'gehenna_devil_hire_bodyguard': {
+        id: 'gehenna_devil_hire_bodyguard',
+        name: "Gehenna Devil Bodyguard Hire (1 Month)",
+        description: "Hire a competent, mid-tier devil bodyguard for 30 days.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 180000,
+        icon: '😈',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Devil (CR 8-10) protects you and follows orders for 1 month",
+        "Devil requires 1 monthly tithe of 10 'lesser' souls",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Contract Escort',
+        levelRequirement: 13
+    },
+    'red_winter_thawing_agent': {
+        id: 'red_winter_thawing_agent',
+        name: "Red Winter Thawing Agent (Large Scale)",
+        description: "A powerful chemical that rapidly melts ice and snow in a vast area.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 150000,
+        icon: '🔥',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Melts all ice/snow in a 1-mile radius, causing flooding or landslides",
+        "Takes 1 hour to deploy",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Tanker Truck',
+        levelRequirement: 14
+    },
+    'dwarf_realms_gold_claim_deed': {
+        id: 'dwarf_realms_gold_claim_deed',
+        name: "Dwarven Gold Claim Deed (Rich Vein)",
+        description: "Ownership papers to a known, rich vein of pure gold ore deep in the mountains.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 280000,
+        icon: '💰',
+        stock: 2,
+        rarity: 'epic',
+        effects: [
+            "Guaranteed yield of 50,000 gp worth of gold over 1 year",
+        "Claim must be actively defended from other miners",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Legal Documentation',
+        levelRequirement: 10,
+        factionBonus: { economy: 50 }
+    },
+    'custodian_self_repair_nanites': {
+        id: 'custodian_self_repair_nanites',
+        name: "Custodian Self-Repair Nanite Cloud (Armor)",
+        description: "Nanites that coat your armor, constantly reinforcing molecular bonds.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 150000,
+        icon: '🤖',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Your equipped armor gains +1 AC and ignores the first source of critical failure once per day",
+        "Requires a recharge station every 30 days",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Small Drone',
+        levelRequirement: 12
+    },
+    'dk_crew_island_fortification': {
+        id: 'dk_crew_island_fortification',
+        name: "DK Crew Jungle Island Fortification",
+        description: "Expert Kremling engineers fortify your chosen small island/base with traps and defenses.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 120000,
+        icon: '🌴',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Base gains +50 HP and is defended by 3 permanent traps (DM choice)",
+        "Fortifications are heavily themed (barrels, vines, etc.)",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Engineering Team',
+        levelRequirement: 10,
+        factionBonus: { defense: 60 }
+    },
+    'spark_rebellion_data_theft': {
+        id: 'spark_rebellion_data_theft',
+        name: "Spark Rebellion Data Theft (Rival Archive)",
+        description: "A targeted hack to steal the most recent 1 year of sensitive archived data from a rival faction.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 200000,
+        icon: '💿',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Steal 1 year of sensitive data from target faction's main servers",
+        "Data delivered securely, but success is 80% guaranteed",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Encrypted Transfer',
+        levelRequirement: 14
+    },
+    'sultanates_araby_bodyguard_legion': {
+        id: 'sultanates_araby_bodyguard_legion',
+        name: "Sultanates Bodyguard Legion (50 Elite)",
+        description: "Hire 50 elite, magically protected desert warriors sworn to protect a specific objective or person.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 450000,
+        icon: '🛡️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "50 Elite guards (CR 1) provided for 1 month of dedicated protection",
+        "Guards are immune to exhaustion from desert conditions",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Military Convoy',
+        levelRequirement: 13
+    },
+    'animatopia_hybridization_guide': {
+        id: 'animatopia_hybridization_guide',
+        name: "Animatopia Hybridization Guide (Advanced)",
+        description: "Detailed instructions on safely combining DNA from two different apex species.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 300000,
+        icon: '🧬',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Use to create a custom, stable hybrid creature (DM determines stats)",
+        "Requires rare flora/fauna components",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Bound Text',
+        levelRequirement: 16
+    },
+    'eiwass_dimensional_anchor': {
+        id: 'eiwass_dimensional_anchor',
+        name: "Eiwass Personal Dimensional Anchor",
+        description: "A bracelet that prevents the wearer from being forcibly planar shifted or banished.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 250000,
+        icon: '⚓',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Immunity to banishment and forced planar travel",
+        "Advantage on saves vs. planar magic",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Tungsten Case',
+        levelRequirement: 15
+    },
+    'oracula_divine_consecration': {
+        id: 'oracula_divine_consecration',
+        name: "Oracular Divine Consecration (Small Area)",
+        description: "Consecrate a building or shrine, making it a safe haven blessed by a neutral deity.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 100000,
+        icon: '⛪',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Area (1 building) becomes protected from Evil outsider entry (DC 18 banishment)",
+        "Deals 2d6 radiant damage to any fiend attempting entry",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Consecration Ritual',
+        levelRequirement: 11
+    },
+    'halfling_debt_forgiveness': {
+        id: 'halfling_debt_forgiveness',
+        name: "Halfling Debt Forgiveness (Minor)",
+        description: "Wipes a small, non-magical financial debt (up to 50,000 gp) owed to a Halfling entity.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 60000,
+        icon: '❌',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Erases a single specified debt ledger entry",
+        "Debt must be financial, not soul-based",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Official Stamping',
+        levelRequirement: 8
+    },
+    'refijia_consciousness_backup': {
+        id: 'refijia_consciousness_backup',
+        name: "Refijian Consciousness Backup (Manual)",
+        description: "A slow, manual process to back up your core memories onto a crystalline shard.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 250000,
+        icon: '💾',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Backup of memories stored for 1 year",
+        "In case of death, memories can be uploaded into a new body/clone (takes 1 week)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Intense Procedure',
+        levelRequirement: 14
+    },
+    'shanhaijing_celestial_dragon_ally': {
+        id: 'shanhaijing_celestial_dragon_ally',
+        name: "Shanhaijing Celestial Dragon Ally (Temporary Pact)",
+        description: "A pact securing the aid of a minor Celestial Dragon for one major crisis.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 900000,
+        icon: '🐉',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Dragon provides tactical aid or a single, devastating breath attack (once)",
+        "Pact lasts 24 hours or until dragon uses its power",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Heavenly Summons',
+        levelRequirement: 19
+    },
+    'u_digital_immortality_voucher': {
+        id: 'u_digital_immortality_voucher',
+        name: "U Digital Immortality Voucher (Future Use)",
+        description: "A voucher guaranteeing you a spot in the U Data Heaven upon biological death.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 800000,
+        icon: '😇',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Upon natural death, consciousness is uploaded to the U network",
+        "Digital life expectancy: 10,000 years (until system reset)",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Lifetime Pass',
+        levelRequirement: 18
+    },
+    'zebrabwe_herbivore_call': {
+        id: 'zebrabwe_herbivore_call',
+        name: "Zebrabwe Herbivore Call (Massive Herd)",
+        description: "Summons an enormous migratory herd (100+ creatures) to stampede across a targeted area.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 250000,
+        icon: '🐘',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Herd flattens 1 square mile of terrain and deals 10d6 Trample damage to anything remaining",
+        "Herd passes in 1 hour",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Master Whistle',
+        levelRequirement: 14,
+        factionBonus: { destruction: 70 }
+    },
+    'robensonia_fleet_dispatch': {
+        id: 'robensonia_fleet_dispatch',
+        name: "Robensonia Automated Fleet Dispatch",
+        description: "Dispatch 3 mid-sized attack drones (CR 5 each) to eliminate targets or defend an area.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 450000,
+        icon: '🛸',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "3 Combat Drones arrive in 1d4 hours, obey commands for 48 hours",
+        "Drones are fully armed with plasma weapons",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Command Signal',
+        levelRequirement: 15,
+        factionBonus: { combatReadiness: 80 }
+    },
+    'tomb_kings_canopic_collection': {
+        id: 'tomb_kings_canopic_collection',
+        name: "Tomb Kings Canopic Collection (Standard)",
+        description: "A set of 4 jars that safely store the organs of a high-ranking noble, ensuring proper reanimation.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 70000,
+        icon: '🏺',
+        stock: 3,
+        rarity: 'epic',
+        effects: [
+            "If a Noble/Hero dies near the jars, their soul is preserved for ritual use",
+        "Jars are warded against thieves (magical alarm)",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Stone Crate',
+        levelRequirement: 9
+    },
+    'gehenna_relic_smuggling': {
+        id: 'gehenna_relic_smuggling',
+        name: "Gehenna Relic Smuggling Service",
+        description: "The Academy uses its own agents to smuggle one divine or heavily warded artifact across hostile borders.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 200000,
+        icon: '📦',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Move 1 artifact past any non-divine blockade without inspection",
+        "Smugglers risk execution if caught",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'High Risk',
+        levelRequirement: 15
+    },
+    'red_winter_deep_freeze_bomb': {
+        id: 'red_winter_deep_freeze_bomb',
+        name: "Red Winter Deep Freeze Bomb",
+        description: "A device that instantly lowers the temperature in an area to near absolute zero.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 450000,
+        icon: '❄️',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "100ft radius blast: creatures must succeed on DC 20 CON save or instantly perish from flash freezing",
+        "All structures in radius become brittle and prone to collapse",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Insulated Bomb',
+        levelRequirement: 18
+    },
+    'dwarf_realms_magical_ore_supply': {
+        id: 'dwarf_realms_magical_ore_supply',
+        name: "Dwarven Magical Ore Supply (Adamantine)",
+        description: "A full ton of pure, refined Adamantine ore, enough for major construction or legendary weapon forging.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 900000,
+        icon: '💎',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Enough material to craft 2 pieces of Legendary Armor or 3 weapons",
+        "Ore cannot be damaged or transmuted by magic",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Deep Tunnel Transport',
+        levelRequirement: 18
+    },
+    'custodian_universal_translator': {
+        id: 'custodian_universal_translator',
+        name: "Custodian Universal Translator",
+        description: "A small earpiece that interfaces directly with the universal linguistic matrix.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 180000,
+        icon: '👂',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Perfect, real-time translation of all known (and many unknown) languages/symbols",
+        "Includes dead languages and primal beast speech",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Earbud Case',
+        levelRequirement: 13
+    },
+    'dk_crew_volcanic_pass': {
+        id: 'dk_crew_volcanic_pass',
+        name: "DK Crew Volcanic Pass",
+        description: "A map and coded access that allows safe travel through the active volcanic regions controlled by Kremlings.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 70000,
+        icon: '🌋',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Guaranteed safe passage through one hostile volcanic territory (48 hours)",
+        "Kremling guards will ignore your passage",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Burned Map',
+        levelRequirement: 9
+    },
+    'spark_rebellion_information_broker': {
+        id: 'spark_rebellion_information_broker',
+        name: "Spark Rebellion Information Broker (Deep Dive)",
+        description: "Access to the Rebellion’s deepest network for information on any single target or conspiracy.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 150000,
+        icon: '🕵️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Obtain total dossier on any rival (weaknesses, finances, secrets)",
+        "Information is 100% accurate but sourcing is dangerous",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Physical Drive',
+        levelRequirement: 12
+    },
+    'sultanates_araby_anti_magic_tent': {
+        id: 'sultanates_araby_anti_magic_tent',
+        name: "Sultanates Anti-Magic Tent",
+        description: "A ceremonial tent woven with runes that nullify low-to-mid level magical effects.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 120000,
+        icon: '⛺',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Anyone sleeping inside is immune to magical sleep, scrying, and mental attack",
+        "Nullifies all active spell effects within the tent (20ft radius)",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Wrapped Tent',
+        levelRequirement: 11
+    },
+    'animatopia_stable_mutagen': {
+        id: 'animatopia_stable_mutagen',
+        name: "Animatopia Stable Mutagen (Controlled)",
+        description: "A liquid that induces temporary, beneficial, and stable mutations (e.g., wings, claws).",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 110000,
+        icon: '🧪',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "User gains 1 specific physical enhancement (e.g., wings for flight 1 hr, claws 2d8 damage)",
+        "Enhancement is stable, but fades slowly over 24 hours",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Refrigerated Canister',
+        levelRequirement: 13
+    },
+    'eiwass_dimensional_shield': {
+        id: 'eiwass_dimensional_shield',
+        name: "Eiwass Personal Dimensional Shield",
+        description: "A small device that phases you slightly out of reality, making you half-tangible.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 280000,
+        icon: '🛡️',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "As a reaction, gain resistance to all physical damage for 1 round (3/day)",
+        "User phases slightly (advantage on saves vs. magic)",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Quantum Box',
+        levelRequirement: 15
+    },
+    'oracula_high_prophet_training': {
+        id: 'oracula_high_prophet_training',
+        name: "Oracula High Prophet Training (Apprenticeship)",
+        description: "Train personally under a true Prophet of the Oracula for 6 months.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 350000,
+        icon: '🙏',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Gain permanent proficiency in Divination/Insight; learn 1 epic divination spell",
+        "Gain the permanent 'Visionary' trait (+1 to all future prophecy/luck rolls)",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Spiritual Pilgrimage',
+        levelRequirement: 17
+    },
+    'halfling_political_bloc_backing': {
+        id: 'halfling_political_bloc_backing',
+        name: "Halfling Political Bloc Backing (Major City)",
+        description: "Secure the voting power of a major Halfling political bloc in one specific city council vote.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 190000,
+        icon: '🏛️',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Guaranteed win on one major civic vote (e.g., zoning, taxation)",
+        "Bloc demands a small, manageable political favor in return",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Secret Ballot',
+        levelRequirement: 11,
+        factionBonus: { politics: 50 }
+    },
+    'refijia_android_chassis': {
+        id: 'refijia_android_chassis',
+        name: "Refijian Hyper-Durable Android Chassis",
+        description: "An empty, durable synthetic body capable of housing a conscious mind or AI.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 500000,
+        icon: '🤖',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "AC 20 (natural armor), Immunity to Poison/Disease, no CON or aging effects",
+        "Requires consciousness transfer/AI installation (additional cost)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Stasis Pod',
+        levelRequirement: 18
+    },
+    'shanhaijing_ancestral_vessel': {
+        id: 'shanhaijing_ancestral_vessel',
+        name: "Shanhaijing Ancestral Vessel (Embodied Spirit)",
+        description: "A ritualistic vessel that can house the spirit of a worthy ancestor for consultation.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 650000,
+        icon: '🏺',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Summons a specific, powerful ancestral spirit (CR 12) for 1 hour/week",
+        "Spirit grants expertise in one historical or martial field",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Gilded Urn',
+        levelRequirement: 17
+    },
+    'u_global_killswitch_code': {
+        id: 'u_global_killswitch_code',
+        name: "U Global Killswitch Code (Digital Pandemic)",
+        description: "A code that forces every single piece of U technology globally to cease functioning permanently.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 3000000,
+        icon: '💀',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Total, irreversible digital apocalypse for the U faction",
+        "Code takes 1 minute to execute (vulnerable during execution)",
+            "Made by: U (Traitor)"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Quantum Bomb',
+        levelRequirement: 20
+    },
+    'zebrabwe_herbal_restoration': {
+        id: 'zebrabwe_herbal_restoration',
+        name: "Zebrabwe Herbal Restoration (Major)",
+        description: "A massive herbal poultice that rapidly heals grievous, widespread injuries.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 150000,
+        icon: '🌿',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Apply to one target: instantly regains max HP, cures all diseases and poisons",
+        "Target must be unconscious or restrained for application",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Giant Basket',
+        levelRequirement: 14
+    },
+    'robensonia_sentient_weapon_platform': {
+        id: 'robensonia_sentient_weapon_platform',
+        name: "Robensonian Sentient Weapon Platform",
+        description: "A self-guided, modular turret system with basic combat AI.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 650000,
+        icon: '🔫',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Permanent defense fixture; operates autonomously",
+        "Possesses a high-powered laser cannon (20d6 radiant, 1/day)",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Crate Delivery',
+        levelRequirement: 17,
+        factionBonus: { defense: 100 }
+    },
+    'tomb_kings_lich_advisor': {
+        id: 'tomb_kings_lich_advisor',
+        name: "Tomb Kings Lich Advisor (Contract)",
+        description: "A powerful, ancient Lich bound by contract to offer counsel and necromantic support.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 500000,
+        icon: '💀',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Lich acts as advisor (INT 22) and can assist in 1 powerful necromantic rite per month",
+        "Lich demands high payment in souls or magical power",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Ceremonial Escort',
+        levelRequirement: 18
+    },
+    'gehenna_plague_vector': {
+        id: 'gehenna_plague_vector',
+        name: "Gehenna Plague Vector Vial",
+        description: "A vial containing a fast-acting, magically engineered disease targeting one specific race.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 650000,
+        icon: '🦠',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "Infects target race/creature type with a deadly, magical plague (DC 20 CON save)",
+        "Plague has a 50% fatality rate and spreads rapidly",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Biohazard Unit',
+        levelRequirement: 18
+    },
+    'red_winter_sentient_ice_golem': {
+        id: 'red_winter_sentient_ice_golem',
+        name: "Red Winter Sentient Ice Golem",
+        description: "A large guardian constructed from pure, living glacial ice.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 750000,
+        icon: '🧊',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Golem acts as a loyal bodyguard (CR 15)",
+        "Immune to Cold; Vulnerable to Fire",
+        "Requires constant infusion of magical cold energy to remain active",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Frozen Transport',
+        levelRequirement: 19
+    },
+    'dwarf_realms_under_mountain_territory': {
+        id: 'dwarf_realms_under_mountain_territory',
+        name: "Dwarven Under-Mountain Territory (New Claim)",
+        description: "Deed granting rights to mine and settle an unclaimed mountain range far from established holds.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 1200000,
+        icon: '⛰️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Establish a new, independent Dwarven Hold",
+        "Gain access to unique subterranean resources",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Royal Decree',
+        levelRequirement: 20,
+        factionBonus: { construction: 100, resources: 100 }
+    },
+    'custodian_hive_mind_link': {
+        id: 'custodian_hive_mind_link',
+        name: "Custodian Hive Mind Link (Temporary)",
+        description: "A device linking your mind briefly to the collective Custodian intelligence for ultimate strategic planning.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 350000,
+        icon: '🔗',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "For 1 hour, gain perfect tactical recall and awareness (+10 to all combat rolls)",
+        "Side Effect: Lose all independent thought for 1 hour afterward (docile)",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Headset',
+        levelRequirement: 15
+    },
+    'dk_crew_volcanic_island_base': {
+        id: 'dk_crew_volcanic_island_base',
+        name: "DK Crew Volcanic Island Base",
+        description: "A fully functional, heavily trapped fortress built into the side of an active volcano.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 600000,
+        icon: '🌋',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Permanent, highly defensible fortress (AC 25 vs sea/air assault)",
+        "Uses volcanic eruptions as a defense mechanism (1/month)",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Naval Delivery',
+        levelRequirement: 14,
+        factionBonus: { defense: 120 }
+    },
+    'spark_rebellion_network_invisibility': {
+        id: 'spark_rebellion_network_invisibility',
+        name: "Spark Rebellion Network Invisibility",
+        description: "A program that makes your digital signature entirely untraceable across all known networks for a year.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 250000,
+        icon: '👻',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Immune to all digital tracking, monitoring, and hacking attempts for 1 year",
+        "Requires monthly maintenance ping to the Rebellion",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Encrypted Chip',
+        levelRequirement: 15
+    },
+    'sultanates_araby_dream_walker_service': {
+        id: 'sultanates_araby_dream_walker_service',
+        name: "Sultanates Dream Walker Service (Targeted)",
+        description: "A specialist enters the target's dreams to plant ideas, remove fears, or gather intelligence.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 180000,
+        icon: '😴',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Successfully influence one major subconscious belief or fear in the target",
+        "Risk of target becoming aware and fighting back (DC 19 WIS check)",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Ritual Appointment',
+        levelRequirement: 15
+    },
+    'animatopia_apex_dominance_serum': {
+        id: 'animatopia_apex_dominance_serum',
+        name: "Animatopia Apex Dominance Serum",
+        description: "A serum that lets you command any non-sentient beast by sheer force of pheromonal will.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 280000,
+        icon: '👑',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Command all non-sentient beasts (CR 12 or lower) for 1 hour; they treat you as alpha",
+        "Beasts will fight to protect you",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'High-Tech Syringe',
+        levelRequirement: 15
+    },
+    'eiwass_stellar_map_upgrade': {
+        id: 'eiwass_stellar_map_upgrade',
+        name: "Eiwass Stellar Map Upgrade (Future Sight)",
+        description: "Upgrade your charts to predict natural celestial alignments that grant cosmic luck.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 600000,
+        icon: '⭐',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "Grants 1 free, non-combat 'luck' reroll per week, based on favorable star movements",
+        "Allows use of specific travel methods previously deemed impossible",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'New Constellation Chart',
+        levelRequirement: 18
+    },
+    'oracula_god_summons': {
+        id: 'oracula_god_summons',
+        name: "Oracula God Summoning (Major Deity)",
+        description: "The highest ritual: Summon a specific Greater Deity to interfere in a major conflict.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 5000000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "A major deity of your choice intervenes directly in one event (Combat/Political)",
+        "Deity intervenes favorably, but demands a service of equal cosmic magnitude in return",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Cosmic Gate',
+        levelRequirement: 20
+    },
+    'halfling_bank_bank_itself': {
+        id: 'halfling_bank_bank_itself',
+        name: "Halfling Bank Bailout Plan",
+        description: "If the Halfling Bank collapses, this plan guarantees your deposits are safe and you receive a 20% bonus.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1000000,
+        icon: '🛡️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Insurance against total economic collapse of the Halfling faction",
+        "If the bank fails, you gain 1.2x total deposits as emergency capital",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Emergency Kit',
+        levelRequirement: 18
+    },
+    'refijia_consciousness_transfer': {
+        id: 'refijia_consciousness_transfer',
+        name: "Refijian Consciousness Transfer (Interspecies)",
+        description: "Transfer your mind into a new, customized body (organic or synthetic).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 800000,
+        icon: '🧠',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Transfer consciousness to any body type (organic or android)",
+        "User retains all memories, proficiencies, and gains +1 max HP",
+        "Process takes 3 weeks in induced coma",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Surgical Bay',
+        levelRequirement: 19
+    },
+    'shanhaijing_celestial_palace_deed': {
+        id: 'shanhaijing_celestial_palace_deed',
+        name: "Shanhaijing Celestial Palace Deed",
+        description: "Ownership of a minor palace floating in the Heavens, accessible via aligned portals.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1500000,
+        icon: '☁️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Permanent, secure residence in the Celestial Plane",
+        "Palace grants healing aura (1d6 HP/hour to residents)",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Angel Courier',
+        levelRequirement: 20
+    },
+    'u_digital_godhood_protocol': {
+        id: 'u_digital_godhood_protocol',
+        name: "U Digital Godhood Protocol",
+        description: "A set of advanced protocols allowing a digital entity to begin simulating worship and gain minor divine influence.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 2500000,
+        icon: '⭐',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Digital entity gains access to minor miracles (DM decision)",
+        "Requires continuous, massive energy consumption",
+            "Made by: U"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Core Upload',
+        levelRequirement: 20
+    },
+    'zebrabwe_environmental_conversion': {
+        id: 'zebrabwe_environmental_conversion',
+        name: "Zebrabwe Environmental Conversion (Savannah)",
+        description: "A ritual to magically convert a hostile biome (e.g., Tundra or Swamp) into temperate Savannah.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 400000,
+        icon: '🌳',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Converts 5 sq miles of land into prime grazing Savannah in 1 week",
+        "Perfect for establishing new herds or strongholds",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Ritual Team',
+        levelRequirement: 16
+    },
+    'robensonia_repair_subroutine': {
+        id: 'robensonia_repair_subroutine',
+        name: "Robensonia Repair Subroutine (Massive)",
+        description: "A powerful subroutine capable of repairing large, heavily damaged structures or vessels.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 300000,
+        icon: '🛠️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Repair one large structure (ship, castle, factory) to 100% functionality",
+        "Requires 1 month downtime and access to raw materials",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Technician Team',
+        levelRequirement: 15
+    },
+    'tomb_kings_ritual_of_command': {
+        id: 'tomb_kings_ritual_of_command',
+        name: "Tomb Kings Ritual of Command (Army)",
+        description: "A dark ritual that automatically raises and binds a local undead population to your service.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 250000,
+        icon: '💀',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Raises 5d100 undead minions (CR 1/4) in a local graveyard",
+        "Minions obey for 1 month before dissolving",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Necromantic Focus',
+        levelRequirement: 14
+    },
+    'gehenna_archdevil_conquest_plan': {
+        id: 'gehenna_archdevil_conquest_plan',
+        name: "Gehenna Archdevil Conquest Plan (Strategic)",
+        description: "A fully detailed, decade-long plan for conquering a minor plane using infernal law and assets.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 950000,
+        icon: '🗺️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Guarantees military and legal advantage in a plane of your choosing",
+        "Requires massive troop commitment and gold",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Bound Scrolls',
+        levelRequirement: 19,
+        factionBonus: { conquest: 100 }
+    },
+    'red_winter_elemental_binding': {
+        id: 'red_winter_elemental_binding',
+        name: "Red Winter Elemental Binding (Ice Lord)",
+        description: "Bind a powerful Ice Elemental Lord (CR 14) to act as your fortress guardian.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 850000,
+        icon: '🥶',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Summon a loyal Ice Elemental Lord to guard one fixed location permanently",
+        "Elemental requires a constant supply of freezing temperatures or it dissipates",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Ritual Site',
+        levelRequirement: 18
+    },
+    'dwarf_realms_geological_mapping_service': {
+        id: 'dwarf_realms_geological_mapping_service',
+        name: "Dwarven Deep Geological Mapping (New Continent)",
+        description: "A team surveys a new continent or massive region, mapping all subterranean features and hazards.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 500000,
+        icon: '🗺️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Complete, 3D map of all underground features (tunnels, ore veins, buried ruins)",
+        "Mapping takes 2 years and heavy security investment",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Expeditionary Force',
+        levelRequirement: 17
+    },
+    'custodian_planet_destruction_schematic': {
+        id: 'custodian_planet_destruction_schematic',
+        name: "Custodian Planet Destruction Schematic (Decommission)",
+        description: "The final protocol for deconstructing a planet back into raw matter for recycling.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 5000000,
+        icon: '💥',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Initiate the 'Decommission' sequence on one planet (takes 1 month to activate)",
+        "Planet breaks down into raw cosmic dust, releasing massive energy",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Final Data Block',
+        levelRequirement: 20
+    },
+    'dk_crew_secret_island_lease': {
+        id: 'dk_crew_secret_island_lease',
+        name: "DK Crew Secret Island Hideout Lease (1 Year)",
+        description: "Lease a fully stocked, hidden jungle island perfect for contraband storage or training.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 250000,
+        icon: '🏝️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Secure, untraceable island base for 1 year",
+        "Includes a small, self-sustaining Kremling maintenance crew",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Naval Drop',
+        levelRequirement: 12
+    },
+    'spark_rebellion_anarchist_bomb': {
+        id: 'spark_rebellion_anarchist_bomb',
+        name: "Spark Rebellion Anarchist Bomb",
+        description: "A device that doesn't destroy structures, but rather scrambles all hierarchical command structures within a fortress.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 250000,
+        icon: '🤯',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Target enemy HQ/Fortress: all command units (officers, generals) are confused and fight each other for 1d6 hours",
+        "No physical damage; pure chaos",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Logic Bomb',
+        levelRequirement: 16
+    },
+    'sultanates_araby_eternal_guards': {
+        id: 'sultanates_araby_eternal_guards',
+        name: "Sultanates Eternal Guards (Bound Spirits)",
+        description: "Hire 10 eternally loyal guards bound by unbreakable desert spirits.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 800000,
+        icon: '💀',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "10 guards (CR 5 each) sworn to never leave post until destroyed",
+        "Immune to fear, poison, and non-divine charm",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Procession of the Dead',
+        levelRequirement: 18,
+        factionBonus: { defense: 90 }
+    },
+    'animatopia_species_integration_serum': {
+        id: 'animatopia_species_integration_serum',
+        name: "Animatopia Species Integration Serum",
+        description: "A serum that allows the imbiber to temporarily take on traits of a specific animal species.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 95000,
+        icon: '🧪',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Gain 2 powerful, specific traits from a chosen species (e.g., Spider climb, Shark senses) for 8 hours",
+        "Mutation is temporary but can leave residual side effects",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Bio-Tank',
+        levelRequirement: 10
+    },
+    'eiwass_teleport_network_node': {
+        id: 'eiwass_teleport_network_node',
+        name: "Eiwass Personal Teleport Network Node",
+        description: "A custom-built, permanent teleportation pad linked only to your other Nodes.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1200000,
+        icon: '🌀',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Establish 1 personal teleportation node",
+        "Can instantly link to any other node you own, regardless of plane",
+        "Requires a massive external energy source (50,000 gp/year)"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Massive Installation',
+        levelRequirement: 20
+    },
+    'oracula_divine_weapon_blessing': {
+        id: 'oracula_divine_weapon_blessing',
+        name: "Oracular Divine Weapon Blessing",
+        description: "A high priest blesses one weapon, granting it divine purpose.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 190000,
+        icon: '🗡️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Weapon deals an extra 3d10 Radiant damage against a specified type of enemy (Fiends, Undead, etc.)",
+        "Blessing lasts 1 year",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Consecrated Anointing',
+        levelRequirement: 15
+    },
+    'halfling_baker_bodyguard': {
+        id: 'halfling_baker_bodyguard',
+        name: "Halfling Master Baker Bodyguard (Elite)",
+        description: "An incredibly skilled Halfling chef who is surprisingly proficient with rolling pins and kitchen knives.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 45000,
+        icon: '🔪',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Acts as a competent bodyguard (CR 4)",
+        "Can instantly bake a full meal that heals 4d6 HP for 4 people (1/day)",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Linen Bag',
+        levelRequirement: 8
+    },
+    'refijia_neural_interface_lock': {
+        id: 'refijia_neural_interface_lock',
+        name: "Refijian Neural Interface Lock",
+        description: "A specialized lock that can only be opened by a specific sequence of thought patterns.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 150000,
+        icon: '🔒',
+        stock: 4,
+        rarity: 'legendary',
+        effects: [
+            "Perfectly secures any door, safe, or data stream",
+        "Only the intended user can open it (requires specific mental input)",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Small Console',
+        levelRequirement: 13
+    },
+    'shanhaijing_bronze_skin_potion': {
+        id: 'shanhaijing_bronze_skin_potion',
+        name: "Shanhaijing Bronze Skin Potion",
+        description: "A rare tincture that temporarily hardens the drinker's skin to the consistency of ancient bronze.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 200000,
+        icon: '🧪',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "For 1 hour, gain Resistance to Bludgeoning, Piercing, and Slashing damage",
+        "Movement speed halved due to increased weight",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Clay Bottle',
+        levelRequirement: 14
+    },
+    'u_data_wipe_service': {
+        id: 'u_data_wipe_service',
+        name: "U Data Wipe Service (Personal)",
+        description: "Erase all records of your activities stored on any known U or Internet database.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 120000,
+        icon: '🧹',
+        stock: 5,
+        rarity: 'legendary',
+        effects: [
+            "Completely removes your identity from all digital records",
+        "Requires 3 days for the program to run globally",
+            "Made by: U"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Encrypted Notification',
+        levelRequirement: 14
+    },
+    'zebrabwe_predator_taming_serum': {
+        id: 'zebrabwe_predator_taming_serum',
+        name: "Zebrabwe Predator Taming Serum",
+        description: "A serum that allows a temporary, non-aggressive bond with a single large predator.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 85000,
+        icon: '💖',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Successfully tame 1 large predator (CR 6-9) for 24 hours; it becomes a temporary mount/ally",
+        "Requires physical application to the beast",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Syringe',
+        levelRequirement: 11
+    },
+    'robensonia_space_suit': {
+        id: 'robensonia_space_suit',
+        name: "Robensonian Zero-G Suit",
+        description: "A lightweight suit providing full life support in hard vacuum or deep sea pressure.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 300000,
+        icon: '🧑‍🚀',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Full environmental immunity (vacuum, deep sea, toxic gas)",
+        "Internal oxygen supply for 48 hours",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Storage Unit',
+        levelRequirement: 14
+    },
+    'tomb_kings_sarcophagus_of_power': {
+        id: 'tomb_kings_sarcophagus_of_power',
+        name: "Tomb Kings Sarcophagus of Power",
+        description: "A gilded sarcophagus that acts as a ritual focus and temporary resting place for powerful souls.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 500000,
+        icon: '🪦',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Store one soul (up to CR 15) within the sarcophagus for future use",
+        "While inside, the soul cannot be reached by divine forces",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Procession of Servants',
+        levelRequirement: 16
+    },
+    'gehenna_devil_escort': {
+        id: 'gehenna_devil_escort',
+        name: "Gehenna Devil Escort (Escape Route)",
+        description: "A devil specialized in navigating dangerous spiritual/infernal territory.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 250000,
+        icon: '🧭',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Escorts party safely through one hostile extra-planar region (e.g., a layer of Hell)",
+        "Devil knows all loopholes and dangers",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Infernal Guide',
+        levelRequirement: 16
+    },
+    'red_winter_frozen_army_supply': {
+        id: 'red_winter_frozen_army_supply',
+        name: "Red Winter Frozen Army Supply Cache",
+        description: "A cache of perfectly preserved food, weapons, and armor from an ancient frozen army.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 350000,
+        icon: '📦',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Provides gear/food sufficient for 100 soldiers for 1 year",
+        "Weapons are slightly damaged but functional (+1 damage type relevant to cold)",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Massive Haul',
+        levelRequirement: 15,
+        factionBonus: { logistics: 50 }
+    },
+    'dwarf_realms_earthquake_generator': {
+        id: 'dwarf_realms_earthquake_generator',
+        name: "Dwarven Earthquake Generator (Portable)",
+        description: "A device that tunnels rapidly downward and triggers a localized, controlled tremor.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 800000,
+        icon: ' tremors',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Triggers a localized earthquake (up to 300ft radius)",
+        "Structures must pass DC 20 DEX save or collapse; creatures suffer 8d10 Bludgeoning",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Heavy Artillery',
+        levelRequirement: 19
+    },
+    'custodian_hive_mind_upgrade': {
+        id: 'custodian_hive_mind_upgrade',
+        name: "Custodian Hive Mind Expansion Module",
+        description: "Hardware upgrade allowing the user to control 2 additional drones/constructs simultaneously.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 180000,
+        icon: '🧠',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Increase maximum controlled constructs/drones by 2",
+        "Requires integration time (4 hours)",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Modular Component',
+        levelRequirement: 14
+    },
+    'dk_crew_pirate_king_alliance': {
+        id: 'dk_crew_pirate_king_alliance',
+        name: "DK Crew Pirate King Alliance",
+        description: "Formal diplomatic alliance with the main Pirate King, granting access to their entire fleet.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 450000,
+        icon: '👑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Access to the entire DK Pirate Fleet (5 warships) for one large operation",
+        "Crew loyalty is based on regular payment of grog/loot",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Diplomatic Vessel',
+        levelRequirement: 15,
+        factionBonus: { navy: 100 }
+    },
+    'spark_rebellion_network_encryption': {
+        id: 'spark_rebellion_network_encryption',
+        name: "Spark Rebellion Network Encryption (Absolute)",
+        description: "The ultimate encryption key, making data stored by the Rebellion completely unreadable by any other faction.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 220000,
+        icon: '🔒',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "All data stored on Rebellion servers becomes uncrackable by external methods (DC 30)",
+        "Requires proprietary hardware to access",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Key Generator',
+        levelRequirement: 15
+    },
+    'sultanates_araby_master_assassin': {
+        id: 'sultanates_araby_master_assassin',
+        name: "Sultanates Master Assassin (Contract)",
+        description: "Hire the Sultan's best operative for one high-profile, guaranteed elimination.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 550000,
+        icon: '🗡️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Guaranteed elimination of one target (regardless of defenses)",
+        "Assassin operates completely outside your chain of command",
+        "Requires 1 month notice"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Poison Vial',
+        levelRequirement: 17
+    },
+    'animatopia_genetic_reset': {
+        id: 'animatopia_genetic_reset',
+        name: "Animatopia Genetic Reset",
+        description: "A powerful chemical bath that safely reverts any artificial mutation or genetic alteration.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 150000,
+        icon: '🧪',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Removes all current positive and negative mutations from the target",
+        "Restores original base stats",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Containment Tank',
+        levelRequirement: 15
+    },
+    'eiwass_portal_to_the_past': {
+        id: 'eiwass_portal_to_the_past',
+        name: "Eiwass Portal to the Past (Observation Only)",
+        description: "A highly unstable portal allowing observation of a single point in the past (max 24 hours).",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 850000,
+        icon: '🕰️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "View one 24-hour period in history exactly as it occurred",
+        "Portal lasts 1 minute; observing entity cannot interact",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Massive Array',
+        levelRequirement: 19
+    },
+    'oracula_divine_intervention': {
+        id: 'oracula_divine_intervention',
+        name: "Oracula Divine Intervention (Major)",
+        description: "Call upon a major deity to actively counter a major threat (e.g., enemy army, powerful villain).",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1200000,
+        icon: '⚡',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "A deity directly combats the named threat for 1 round, turning the tide",
+        "The deity demands a service of galactic significance in return",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Cosmic Summons',
+        levelRequirement: 20
+    },
+    'halfling_master_chef_bodyguard': {
+        id: 'halfling_master_chef_bodyguard',
+        name: "Halfling Master Chef Bodyguard (Legendary)",
+        description: "The greatest Halfling chef, also a master of improvised weaponry and defense.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 150000,
+        icon: '🍳',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Bodyguard (CR 8) provides both culinary support and combat",
+        "Can create healing potions instantly using basic ingredients (1/day)",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Silver Kitchen Kit',
+        levelRequirement: 12
+    },
+    'refijia_digital_clone_host': {
+        id: 'refijia_digital_clone_host',
+        name: "Refijian Digital Clone Host (Empty Shell)",
+        description: "A blank, synthetic body capable of housing any consciousness, organic or digital.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 600000,
+        icon: '🤖',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Perfect body for consciousness transfer (see Memory Transfer)",
+        "Base stats are 16 in all abilities",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Stasis Pod',
+        levelRequirement: 17
+    },
+    'shanhaijing_celestial_armaments': {
+        id: 'shanhaijing_celestial_armaments',
+        name: "Shanhaijing Celestial Armaments (Set)",
+        description: "A matched set of armor and weapon crafted from solidified starlight.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 1200000,
+        icon: '✨',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Armor: AC 21, Resistance to Radiant and Force damage",
+        "Weapon: Deals +4d6 Radiant damage; ignores non-magical damage reduction",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Astral Deposit',
+        levelRequirement: 20
+    },
+    'u_digital_entity_service': {
+        id: 'u_digital_entity_service',
+        name: "U Digital Entity Service (Create Sentinel AI)",
+        description: "Commission a bespoke, loyal, semi-sentient AI focused on protecting one specific asset.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 450000,
+        icon: '🤖',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Create one AI Sentinel (INT 20, AC 20, capable of defensive spells/tech)",
+        "Sentinel acts autonomously to protect the specified asset",
+            "Made by: U"
+        ],
+        vendor: 'u_research_lab',
+        shippedBy: 'Programming Session',
+        levelRequirement: 16
+    },
+    'zebrabwe_plains_settlement_charter': {
+        id: 'zebrabwe_plains_settlement_charter',
+        name: "Zebrabwe Plains Settlement Charter",
+        description: "Formal permission to establish a permanent settlement on Zebrabwe land (with mutual defense pact).",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 300000,
+        icon: '🏛️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Establish a secure settlement protected by Zebrabwe patrols",
+        "Settlement income is taxed at only 5%",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Official Accord',
+        levelRequirement: 13,
+        factionBonus: { residence: 70 }
+    },
+    'robensonia_planetary_escape_pod': {
+        id: 'robensonia_planetary_escape_pod',
+        name: "Robensonia Planetary Escape Pod (Automated)",
+        description: "A one-person vessel designed for emergency exit from failing celestial bodies.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 650000,
+        icon: '🚀',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Ejects user from a planet/station, guaranteed safe hyperspace jump",
+        "Pod can sustain life support for 10 years",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Emergency Launch',
+        levelRequirement: 17
+    },
+    'tomb_kings_army_reanimation': {
+        id: 'tomb_kings_army_reanimation',
+        name: "Tomb Kings Mass Reanimation Ritual (Local)",
+        description: "A powerful ritual that instantly raises all corpses in a 1-mile radius as loyal undead troops.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 550000,
+        icon: '💀',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Raises 1d6 x 100 undead troops (CR 1/8, loyal to the caster)",
+        "Ritual takes 12 hours and requires a large necromantic focus",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Dark Summoning',
+        levelRequirement: 16
+    },
+    'gehenna_infernal_colonization_rights': {
+        id: 'gehenna_infernal_colonization_rights',
+        name: "Gehenna Infernal Colonization Rights (Outpost)",
+        description: "Official (if temporary) rights granted by the Hells to establish a small outpost in a minor plane.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 1100000,
+        icon: '🏛️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Establish a small, legally recognized outpost in a low-stakes extra-planar region",
+        "Outpost is protected by minor infernal laws",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Archdevil Seal',
+        levelRequirement: 19,
+        factionBonus: { dominion: 100 }
+    },
+    'red_winter_sentient_ice_golem_upgrade': {
+        id: 'red_winter_sentient_ice_golem_upgrade',
+        name: "Red Winter Sentient Ice Golem Upgrade (Fire Immunity)",
+        description: "Infuse the Golem with anti-fire enchantments, removing its greatest weakness.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 300000,
+        icon: '🔥',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Golem gains full immunity to Fire damage",
+        "Requires 1 week of continuous ritual",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Ritual Components',
+        levelRequirement: 16
+    },
+    'dwarf_realms_master_gemcutter': {
+        id: 'dwarf_realms_master_gemcutter',
+        name: "Dwarven Master Gemcutter (Service)",
+        description: "Hire a Master Gemcutter to cut and polish a raw gemstone, maximizing its magical resonance.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 150000,
+        icon: '💎',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Gem cut by this artisan gains +1 to its magical potency/save DC",
+        "Cutting process takes 1 month",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Master Tool Set',
+        levelRequirement: 15
+    },
+    'custodian_hive_mind_override': {
+        id: 'custodian_hive_mind_override',
+        name: "Custodian Hive Mind Override (One-Time)",
+        description: "A digital command capable of briefly taking full control of a major Custodian installation.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 450000,
+        icon: '💻',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Gain complete control over one Custodian facility (e.g., weapon system, lab) for 1 hour",
+        "Facility will self-destruct upon override expiry",
+            "Made by: Custodians (Traitor)"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Master Key Upload',
+        levelRequirement: 16
+    },
+    'dk_crew_airship_plans': {
+        id: 'dk_crew_airship_plans',
+        name: "DK Crew Airship Construction Plans",
+        description: "Detailed schematics for constructing a fast, cannon-equipped Kremling-style airship.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 180000,
+        icon: '🚢',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Allows construction of an Airship (AC 18, HP 300, Speed 60ft)",
+        "Requires a massive shipyard and crew (additional 200,000 gp cost)",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Blueprint Roll',
+        levelRequirement: 13,
+        factionBonus: { mobility: 60 }
+    },
+    'spark_rebellion_anarchy_bomb': {
+        id: 'spark_rebellion_anarchy_bomb',
+        name: "Spark Rebellion Anarchy Bomb (Social)",
+        description: "A powerful code injection that forces widespread civil unrest and corruption in a targeted governance structure.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 500000,
+        icon: '🔥',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Instigates massive, prolonged civil unrest/revolt in a major city or kingdom",
+        "Causes leadership collapse and system failure for 1 year",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Digital Detonation',
+        levelRequirement: 17
+    },
+    'sultanates_araby_desert_weather_control': {
+        id: 'sultanates_araby_desert_weather_control',
+        name: "Sultanates of Araby Permanent Oasis Generator",
+        description: "A permanent magical device that draws moisture from the air to maintain a freshwater oasis.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 700000,
+        icon: '⛲',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Creates one permanent, self-sustaining oasis in the desert (1/sq mile)",
+        "Area within 100ft heals all natural exhaustion instantly",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Grand Ceremony',
+        levelRequirement: 17
+    },
+    'animatopia_bio_weapon_release': {
+        id: 'animatopia_bio_weapon_release',
+        name: "Animatopia Bio-Weapon Release (Targeted Species)",
+        description: "Release the custom-engineered plague (requires prior research purchase) into the target's habitat.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 500000,
+        icon: '🦠',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Deploys the designed plague targeting the specified race/creature",
+        "High chance of mutation and environmental backlash",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Containment Breach',
+        levelRequirement: 18
+    },
+    'eiwass_dimensional_clone': {
+        id: 'eiwass_dimensional_clone',
+        name: "Eiwass Dimensional Clone (Astral Echo)",
+        description: "Create a temporary, semi-real echo of yourself from the Astral Plane.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 150000,
+        icon: '👻',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Summon a clone that lasts 1 hour and can perform simple actions",
+        "Clone has half your stats, but physical damage passes through it 50% of the time",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Crystal Matrix',
+        levelRequirement: 13
+    },
+    'oracula_divine_alliance': {
+        id: 'oracula_divine_alliance',
+        name: "Oracular Divine Alliance (Minor Deity)",
+        description: "Secure the permanent, low-level loyalty of a minor deity/demigod faction.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 850000,
+        icon: '🤝',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Gain a permanent divine ally (Minor Deity, CR 25 equivalent)",
+        "Deity grants minor boons (e.g., perpetual good luck, minor healing)",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Grand Celestial Summons',
+        levelRequirement: 19
+    },
+    'halfling_banking_protection': {
+        id: 'halfling_banking_protection',
+        name: "Halfling Banking Protection (Wards)",
+        description: "The bank places powerful wards on your physical assets stored in their vaults.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 120000,
+        icon: '🛡️',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Wards prevent scrying, teleportation, or magical theft from stored assets",
+        "Wards only last as long as you maintain a banking relationship",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Security Audit',
+        levelRequirement: 11
+    },
+    'refijia_synthetic_masterpiece': {
+        id: 'refijia_synthetic_masterpiece',
+        name: "Refijian Synthetic Masterpiece (Unique)",
+        description: "A unique android body built specifically for you, incorporating the best of all known enhancements.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1500000,
+        icon: '🤖',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Base stats of 22 in all abilities upon transfer",
+        "Full resistance to all non-magical damage types",
+        "Requires a powerful soul or complex AI to run",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Custom Assembly',
+        levelRequirement: 20
+    },
+    'shanhaijing_jade_armor_restoration': {
+        id: 'shanhaijing_jade_armor_restoration',
+        name: "Shanhaijing Jade Weapon Re-Attunement",
+        description: "Re-attune a Celestial Jade Weapon to a new user or purpose.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 250000,
+        icon: '⚒️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Reassigns the weapon's core celestial focus (e.g., change Fire damage to Cold)",
+        "Requires the weapon and 1 month of focused meditation",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Meditation Scroll',
+        levelRequirement: 16
+    },
+    'u_network_control_key': {
+        id: 'u_network_control_key',
+        name: "U Network Control Key (Sub-Sector)",
+        description: "A physical key granting direct, physical control over one small sub-sector of the global U network.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 350000,
+        icon: '🔑',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Can temporarily override security protocols in a 1-mile radius digital grid",
+        "Key degrades after 3 uses",
+            "Made by: U"
+        ],
+        vendor: 'data_merchant_node',
+        shippedBy: 'Secured Transfer',
+        levelRequirement: 15
+    },
+    'zebrabwe_desert_conquest_force': {
+        id: 'zebrabwe_desert_conquest_force',
+        name: "Zebrabwe Desert Conquest Force (Light Cavalry)",
+        description: "A dedicated force of 100 Zebrabwe cavalry specialized in rapid desert engagements.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 300000,
+        icon: '🐎',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "100 fast cavalry provide massive advantage in desert warfare",
+        "Cavalry morale is tied to the health of the local ecosystem",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Mass Summons',
+        levelRequirement: 14,
+        factionBonus: { military: 60 }
+    },
+    'robensonia_global_communication': {
+        id: 'robensonia_global_communication',
+        name: "Robensonian Global Communication Array",
+        description: "Install a permanent communications relay that allows instantaneous, secure contact across the globe.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 500000,
+        icon: '📡',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Establish instantaneous, encrypted communication line between any two points",
+        "Relay is immune to jamming or interception",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Tower Installation',
+        levelRequirement: 16,
+        factionBonus: { intelligence: 70 }
+    },
+    'tomb_kings_eternal_vizier': {
+        id: 'tomb_kings_eternal_vizier',
+        name: "Tomb Kings Eternal Vizier (Advisor)",
+        description: "A high-ranking, non-combat Lich bound to serve as a political and administrative advisor.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 400000,
+        icon: '🧠',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Vizier runs your bureaucracy flawlessly for 5 years",
+        "Provides unmatched strategic planning (Advantage on long-term planning checks)",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Entombed Delivery',
+        levelRequirement: 16
+    },
+    'gehenna_hellish_territory_claim': {
+        id: 'gehenna_hellish_territory_claim',
+        name: "Gehenna Infernal Territory Claim (Minor Layer)",
+        description: "A deed granting legal rights (under Infernal Law) to one small, unclaimed section of the Lower Planes.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1500000,
+        icon: '🔥',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Establish a private base/prison in the Lower Planes",
+        "Outpost is protected by basic infernal treaties",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Pact of Blood',
+        levelRequirement: 20
+    },
+    'red_winter_glacier_transport': {
+        id: 'red_winter_glacier_transport',
+        name: "Red Winter Glacier Transport (Mobile)",
+        description: "A mobile fortress constructed entirely of magically stabilized, living ice.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 1100000,
+        icon: '🏰',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Mobile Fortress: AC 24, HP 1000, Immune to Cold, moves 10ft/hour",
+        "Requires massive magical output to sustain movement",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Continental Haul',
+        levelRequirement: 20
+    },
+    'dwarf_realms_golem_core': {
+        id: 'dwarf_realms_golem_core',
+        name: "Dwarven Animated Golem Core",
+        description: "A perfectly crafted magical core required to animate a large (Huge size) stone or metal golem.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 400000,
+        icon: '⚙️',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Animates one Huge Construct (CR 10) loyal to the core's owner",
+        "Golem lasts indefinitely if maintained (5,000 gp/year upkeep)",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Heavy Crate',
+        levelRequirement: 16
+    },
+    'custodian_planet_stabilizer': {
+        id: 'custodian_planet_stabilizer',
+        name: "Custodian Planetary Stability Field",
+        description: "A massive device that stabilizes a planet's orbit and tectonic plates against magical or natural interference.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 900000,
+        icon: '🌍',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Planet is locked into perfect orbit and stable tectonic activity for 1000 years",
+        "Prevents planetary transformation spells",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Orbital Deployment',
+        levelRequirement: 20,
+        factionBonus: { environment: 100 }
+    },
+    'dk_crew_kraken_tamer': {
+        id: 'dk_crew_kraken_tamer',
+        name: "DK Crew Kraken Tamer (Service)",
+        description: "A specialized Kremling crew that captures and binds one Giant or Greater Kraken to servitude.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 500000,
+        icon: '🐙',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Gain one colossal, loyal Kraken as a naval asset (CR 15)",
+        "Kraken is bound for 5 years, requires massive tribute (food)",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Naval Escort',
+        levelRequirement: 17
+    },
+    'spark_rebellion_identity_swap': {
+        id: 'spark_rebellion_identity_swap',
+        name: "Spark Rebellion Identity Swap (Digital/Physical)",
+        description: "Simultaneously swap your digital profile and physical appearance with a low-level agent.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 300000,
+        icon: '🎭',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Instantaneous escape from digital/physical surveillance systems",
+        "Agent is now 'compromised' and may be hunted by the target faction",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Data Stream',
+        levelRequirement: 15
+    },
+    'sultanates_araby_water_engine': {
+        id: 'sultanates_araby_water_engine',
+        name: "Sultanates Water Engine (Self-Sustaining)",
+        description: "A complex engine that draws moisture from the air to create an infinite, drinkable water supply.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 250000,
+        icon: '💧',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Produces 1,000 gallons of pure water per day indefinitely",
+        "Engine requires minor maintenance checks quarterly",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Heavy Machinery',
+        levelRequirement: 14
+    },
+    'animatopia_apex_chimeric_serum': {
+        id: 'animatopia_apex_chimeric_serum',
+        name: "Animatopia Apex Chimeric Serum",
+        description: "A serum that grants the user controlled traits from THREE different apex predators simultaneously.",
+        category: SHOP_CATEGORIES: 'consumables',
+        price: 450000,
+        icon: '🧪',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Gain three major physical traits (e.g., Flight, Venom, Strength) for 2 hours",
+        "Mutation is volatile; user suffers 1d6 psychic damage per hour after the main effect ends",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Bio-Tank',
+        levelRequirement: 17
+    },
+    'eiwass_astral_ship_hull': {
+        id: 'eiwass_astral_ship_hull',
+        name: "Eiwass Astral Ship Hull (Unfinished)",
+        description: "The partially constructed hull of a star-faring vessel, ready for final magical reinforcement.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1500000,
+        icon: '🛸',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "A functional, massive starship hull (AC 22, HP 2000)",
+        "Requires 500,000 gp and 6 months of continuous ritual to complete",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Massive Cradle',
+        levelRequirement: 20
+    },
+    'oracula_prophetic_shield': {
+        id: 'oracula_prophetic_shield',
+        name: "Oracular Prophetic Shield",
+        description: "A shield that subtly shifts its configuration fractions of a second before an attack lands.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 400000,
+        icon: '🛡️',
+        stock: 2,
+        rarity: 'godly',
+        effects: [
+            "As a reaction, grant user advantage on a single saving throw or AC against one incoming attack",
+        "Reaction can be used 3 times per long rest",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'Sacred Carving',
+        levelRequirement: 17
+    },
+    'halfling_estate_deed': {
+        id: 'halfling_estate_deed',
+        name: "Halfling Country Estate Deed",
+        description: "Ownership of a modest, cozy manor house surrounded by fertile farmland.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 150000,
+        icon: '🏡',
+        stock: 5,
+        rarity: 'epic',
+        effects: [
+            "Permanent, untaxed homestead",
+        "Farm yields triple the normal food supply",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_community',
+        shippedBy: 'Legal Transfer',
+        levelRequirement: 10,
+        factionBonus: { economy: 30 }
+    },
+    'refijia_consciousness_clone': {
+        id: 'refijia_consciousness_clone',
+        name: "Refijian Consciousness Clone (Digital Backup)",
+        description: "A complete digital backup of your mind, stored securely.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 300000,
+        icon: '💾',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "If you die, consciousness is uploaded to the nearest Refijian hub (takes 1 week)",
+        "Backup expires after 5 years if not renewed",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Crystalline Drive',
+        levelRequirement: 15
+    },
+    'shanhaijing_imperial_seal': {
+        id: 'shanhaijing_imperial_seal',
+        name: "Shanhaijing Imperial Seal (Diplomatic)",
+        description: "A jade seal used by the Emperor's most trusted envoys.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 400000,
+        icon: '👑',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Grants +5 bonus to all diplomatic checks when dealing with Eastern/Asian-themed factions",
+        "Can force immediate audience with any ruler of that culture",
+            "Made by: Shanhaijing"
+        ],
+        vendor: 'shanhaijing_shrine',
+        shippedBy: 'Imperial Escort',
+        levelRequirement: 16
+    },
+    'u_digital_currency_vault': {
+        id: 'u_digital_currency_vault',
+        name: "U Digital Currency Vault (Unfalsifiable)",
+        description: "A highly secured digital account holding untraceable, high-value digital currency.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 600000,
+        icon: '💰',
+        stock: 2,
+        rarity: 'legendary',
+        effects: [
+            "Access to 1,000,000 GP in pure digital, untraceable assets",
+        "Access requires biometric/neural signature",
+            "Made by: U"
+        ],
+        vendor: 'data_merchant_node',
+        shippedBy: 'Secure Transfer',
+        levelRequirement: 16
+    },
+    'zebrabwe_great_migration_pass': {
+        id: 'zebrabwe_great_migration_pass',
+        name: "Zebrabwe Great Migration Pass",
+        description: "A sacred pass allowing safe, unimpeded travel across the plains during the massive annual migration.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 100000,
+        icon: '🎫',
+        stock: 4,
+        rarity: 'epic',
+        effects: [
+            "Allows guaranteed safe passage (for 1 week) across the plains during the migration event",
+        "No stampedes or predator attacks will affect you",
+            "Made by: Zebrabwe"
+        ],
+        vendor: 'zebrabwe_plains_trader',
+        shippedBy: 'Ceremonial Cloth',
+        levelRequirement: 12
+    },
+    'robensonia_weapon_integration': {
+        id: 'robensonia_weapon_integration',
+        name: "Robensonia Weapon Integration (Cybernetic)",
+        description: "Service to surgically implant a high-tech weapon directly into your arm/body.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 250000,
+        icon: '🔫',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Implant one non-magical weapon directly into limb; functions as a natural attack",
+        "Weapon cannot be disarmed and is always ready",
+            "Made by: Robensonia"
+        ],
+        vendor: 'robensonia_lab',
+        shippedBy: 'Surgical Suite',
+        levelRequirement: 15
+    },
+    'tomb_kings_undead_legion_hire': {
+        id: 'tomb_kings_undead_legion_hire',
+        name: "Tomb Kings Undead Legion Hire (500 Troops)",
+        description: "Hire a contingent of disciplined, tireless undead soldiers for 1 year.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 600000,
+        icon: '💀',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "500 Undead soldiers (CR 1/4) provided; they require no food or rest",
+        "They require a monthly payment of 50,000 gp in raw soul energy",
+            "Made by: King of Tombs"
+        ],
+        vendor: 'tomb_gatekeeper',
+        shippedBy: 'Dark Procession',
+        levelRequirement: 16,
+        factionBonus: { military: 100 }
+    },
+    'gehenna_devil_escort_to_hell': {
+        id: 'gehenna_devil_escort_to_hell',
+        name: "Gehenna Devil Escort (To Hell)",
+        description: "A specialized devil guides you safely through the bureaucracy and dangers of the Hells for a diplomatic meeting.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 550000,
+        icon: '🧭',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Guarantees safe passage and diplomatic reception in the Hells for 72 hours",
+        "Devil demands payment in the form of a sworn oath upon return",
+            "Made by: Gehenna Academy"
+        ],
+        vendor: 'gehenna_vault',
+        shippedBy: 'Infernal Summons',
+        levelRequirement: 18
+    },
+    'red_winter_permanent_frost_aura': {
+        id: 'red_winter_permanent_frost_aura',
+        name: "Red Winter Permanent Frost Aura (Personal)",
+        description: "An enchantment that permanently radiates intense cold around the wearer.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 700000,
+        icon: '❄️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Permanent Resistance to Cold Damage",
+        "All non-magical metal items within 5ft become brittle and prone to shattering (DM roll)",
+        "Fire magic nearby fizzles slightly",
+            "Made by: Red Winter"
+        ],
+        vendor: 'red_winter_outpost',
+        shippedBy: 'Cryogenic Tank',
+        levelRequirement: 18
+    },
+    'dwarf_realms_deep_mountain_home': {
+        id: 'dwarf_realms_deep_mountain_home',
+        name: "Dwarven Deep Mountain Home (Sector)",
+        description: "A fully furnished, deep-earth apartment within a major Dwarven Hold.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 350000,
+        icon: '🏘️',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Secure, permanent residence in a major stronghold",
+        "Access to local artisan services and libraries",
+            "Made by: Dwarf Realms"
+        ],
+        vendor: 'dwarf_realms_gate',
+        shippedBy: 'Handshake',
+        levelRequirement: 14,
+        factionBonus: { residence: 50 }
+    },
+    'custodian_planet_reset': {
+        id: 'custodian_planet_reset',
+        name: "Custodian Planetary Reset Protocol",
+        description: "Initiate a full, clean slate reboot of all technological and biological systems on a minor planet.",
+        category: SHOP_CATEGORIES: 'forbidden',
+        price: 2000000,
+        icon: '💥',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Wipes all complex life/tech from a planet, returning it to pre-industrial state",
+        "Process takes 3 months and releases massive energy signature",
+            "Made by: Custodians"
+        ],
+        vendor: 'custodian_hub',
+        shippedBy: 'Wormhole Trigger',
+        levelRequirement: 20
+    },
+    'dk_crew_pirate_king_summons': {
+        id: 'dk_crew_pirate_king_summons',
+        name: "DK Crew Pirate King Summons",
+        description: "A legendary signal flare that calls the Pirate King and his flagship to your immediate location.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 500000,
+        icon: '👑',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "King K. Rool arrives with his flagship and 100 pirates (CR 1/2 each)",
+        "Service lasts 1 hour; King expects a massive share of loot",
+            "Made by: The DK Crew"
+        ],
+        vendor: 'dk_crew_pitstop',
+        shippedBy: 'Royal Flare',
+        levelRequirement: 16
+    },
+    'spark_rebellion_network_infiltration': {
+        id: 'spark_rebellion_network_infiltration',
+        name: "Spark Rebellion Network Infiltration (Rival AI)",
+        description: "Insert a sentient virus into a rival AI, forcing it to slowly turn against its creators.",
+        category: SHOP_CATEGORIES: 'services',
+        price: 300000,
+        icon: '🦠',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Infect target AI/system (DC 25 hack)",
+        "AI becomes subtly hostile, causing 1 major setback per week for 6 months",
+            "Made by: Spark Rebellion"
+        ],
+        vendor: 'hacktivist_collective',
+        shippedBy: 'Viral Drone',
+        levelRequirement: 16
+    },
+    'sultanates_araby_permanent_guard_detail': {
+        id: 'sultanates_araby_permanent_guard_detail',
+        name: "Sultanates Permanent Guard Detail (Personal)",
+        description: "A detail of 5 elite, magically bonded bodyguards sworn to protect you until death or release.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 900000,
+        icon: '🛡️',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "5 Elite Guards (CR 7) devoted solely to you (gain +2 to all rolls while near you)",
+        "Guards are replaced if killed (takes 1 month)",
+            "Made by: Sultanates Araby"
+        ],
+        vendor: 'desert_trader_guild',
+        shippedBy: 'Binding Ritual',
+        levelRequirement: 18,
+        factionBonus: { defense: 80 }
+    },
+    'animatopia_chimeric_hybrid': {
+        id: 'animatopia_chimeric_hybrid',
+        name: "Animatopia Apex Chimeric Hybrid (Companion)",
+        description: "A custom-bred, stable companion creature combining the best features of two apex predators.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 750000,
+        icon: '🦁',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "A unique CR 15 companion with versatile abilities (DM determines full stats)",
+        "Companion is loyal, sentient (animal intelligence), and immortal (will regenerate)",
+            "Made by: Animatopia"
+        ],
+        vendor: 'animatopia_scientist',
+        shippedBy: 'Incubation Unit',
+        levelRequirement: 18
+    },
+    'eiwass_astral_vessel_plans': {
+        id: 'eiwass_astral_vessel_plans',
+        name: "Eiwass Astral Vessel Blueprints",
+        description: "Schematics for building a starship capable of navigating the Astral Plane without relying on Eiwass assistance.",
+        category: SHOP_CATEGORIES: 'faction',
+        price: 450000,
+        icon: '🗺️',
+        stock: 1,
+        rarity: 'legendary',
+        effects: [
+            "Allows construction of an Astral Vessel (AC 20, Speed Varies)",
+        "Construction costs an additional 1M gp and takes 2 years",
+            "Made by: Eiwass"
+        ],
+        vendor: 'eiwass_astronomer',
+        shippedBy: 'Holographic Schematics',
+        levelRequirement: 16,
+        factionBonus: { engineering: 60 }
+    },
+    'oracula_divine_army_blessing': {
+        id: 'oracula_divine_army_blessing',
+        name: "Oracular Divine Army Blessing (Mass)",
+        description: "A blessing granted by a neutral/good deity to an entire army (up to 1000 soldiers).",
+        category: SHOP_CATEGORIES: 'services',
+        price: 950000,
+        icon: '🙏',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Army gains +2 to all attack rolls and damage rolls for one major battle",
+        "Army gains temporary immunity to fear effects",
+            "Made by: Oracula"
+        ],
+        vendor: 'oracula_shrine',
+        shippedBy: 'High Festival',
+        levelRequirement: 19
+    },
+    'halfling_bank_loan_master_godly': {
+        id: 'halfling_bank_loan_master_godly',
+        name: "Halfling Bank Loan Master (Godly Term)",
+        description: "Secure a 5,000,000 gp loan on exceptionally generous terms, payable in 20 years with minimal interest.",
+        category: SHOP_CATEGORIES: 'premium',
+        price: 1500000,
+        icon: '💰',
+        stock: 1,
+        rarity: 'godly',
+        effects: [
+            "Receive 5,000,000 gp instantly",
+        "Repayment terms are extremely favorable and legally binding by Halfling law",
+            "Made by: Halfling"
+        ],
+        vendor: 'halfling_bank',
+        shippedBy: 'Security Deposit',
+        levelRequirement: 20
+    },
+    'refijia_personality_script_bundle': {
+        id: 'refijia_personality_script_bundle',
+        name: "Refijian Personality Script Bundle (3 Roles)",
+        description: "Three pre-written, highly specialized personalities (e.g., Diplomat, Assassin, Engineer) for host bodies.",
+        category: SHOP_CATEGORIES: 'equipment',
+        price: 300000,
+        icon: '💿',
+        stock: 3,
+        rarity: 'legendary',
+        effects: [
+            "Load any one script onto an empty host body (see chassis)",
+        "Scripts grant expertise in relevant fields",
+            "Made by: Refijia"
+        ],
+        vendor: 'refijian_lab',
+        shippedBy: 'Triple Drive',
+        levelRequirement: 15
+    },
+// ============================================
+// === 100 NEW ITEMS (FACTION-THEMED) ===
+// ============================================
+
+'koopa_troop_patrol_scooter': {
+    id: 'koopa_troop_patrol_scooter',
+    name: "Koopa Patrol Scooter",
+    description: "A standard-issue, flame-decaled scooter for quick troop deployment. Surprisingly zippy.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🛴',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Mount: Speed 40ft, can move through enemy spaces",
+        "Once per day: emit a puff of smoke (Blinds 5ft radius for 1 round)",
+        "Makes loud 'vroom-vroom' noises"
+    ],
+    vendor: 'Koopa Troop',
+    shippedBy: 'Armored Crate',
+    levelRequirement: 2
+},
+
+'asgardian_rune_stone': {
+    id: 'asgardian_rune_stone',
+    name: "Asgardian Rune Stone",
+    description: "A smooth river stone etched with a single, powerful rune of protection. Feels warm to the touch.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🪨',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Once per day: cast 'Shield' (reaction)",
+        "While held, you have advantage on saves against being frightened",
+        "Rune glows blue when giants are near"
+    ],
+    vendor: 'Asgard',
+    shippedBy: 'Raven Delivery',
+    levelRequirement: 4
+},
+
+'gondor_ranger_survival_kit': {
+    id: 'gondor_ranger_survival_kit',
+    name: "Ranger of Gondor Survival Kit",
+    description: "A comprehensive kit issued to the rangers of Ithilien. Contains everything needed to thrive in the wild.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3500,
+    icon: '🎒',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Survival checks",
+        "Contains 10 days of non-perishable rations",
+        "Includes a signal whistle that can be heard 1 mile away"
+    ],
+    vendor: 'Kingdom Gondor',
+    shippedBy: 'Sealed Leather Case',
+    levelRequirement: 1
+},
+
+'mordor_venom_vial': {
+    id: 'mordor_venom_vial',
+    name: "Vial of Mordor Venom",
+    description: "A viscous, black venom that corrodes both flesh and spirit. Handle with extreme caution.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 9000,
+    icon: '☠️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Apply to weapon. On hit, target takes 4d6 Necrotic damage and must make a CON save or be Poisoned for 1 minute",
+        "Corrodes the weapon after 3 hits",
+        "Faint whispers of the Dark Lord can be heard near the vial"
+    ],
+    vendor: 'Land Mordor',
+    shippedBy: 'Lead-Lined Box',
+    levelRequirement: 5
+},
+
+'equestrian_harmony_charm': {
+    id: 'equestrian_harmony_charm',
+    name: "Element of Harmony Charm",
+    description: "A small, magical charm representing one of the six Elements of Harmony. It hums with friendship.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '💎',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Wearer gains +2 to Charisma (Persuasion) checks",
+        "Once per long rest: cast 'Calm Emotions' centered on self",
+        "Makes you inexplicably cheerful"
+    ],
+    vendor: 'Equestrian',
+    shippedBy: 'Rainbow-Colored Box',
+    levelRequirement: 3
+},
+
+'iron_legion_cybernetic_eye': {
+    id: 'iron_legion_cybernetic_eye',
+    name: "Iron Legion Cybernetic Eye",
+    description: "A replacement eye that grants enhanced vision and targeting data. Requires minor surgery.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '👁️',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Gain Advantage on Perception checks involving sight",
+        "Can see in magical darkness",
+        "Once per day: analyze a creature's weak points (next attack has +2 to hit and +1d6 damage)",
+        "Requires 1 week of recovery after installation"
+    ],
+    vendor: 'Iron Legion',
+    shippedBy: 'Sterile Medical Kit',
+    levelRequirement: 6
+},
+
+'pokemon_league_healing_machine_rental': {
+    id: 'pokemon_league_healing_machine_rental',
+    name: "Pokémon Center Healing Machine (Rental)",
+    description: "A portable version of the famous healing machine. Fully restores all allies after a rest.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 1500,
+    icon: '💚',
+    stock: 999,
+    rarity: 'uncommon',
+    effects: [
+        "During a long rest, all allies regain full HP and recover from all diseases, poisons, and level 1 exhaustion",
+        "Rental lasts for 1 week",
+        "Makes a pleasant 'ding!' sound when finished"
+    ],
+    vendor: 'Pokémon League',
+    shippedBy: 'Technician Installation',
+    levelRequirement: 1
+},
+
+'wario_land_garlic_grenade': {
+    id: 'wario_land_garlic_grenade',
+    name: "Wario's Garlic Grenade",
+    description: "A potent grenade that explodes in a cloud of overwhelmingly pungent garlic. Wario swears by it.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 800,
+    icon: '🧄',
+    stock: 30,
+    rarity: 'common',
+    effects: [
+        "Thrown (30ft): 10ft radius cloud of garlic",
+        "Creatures in cloud must make CON save or be Poisoned and nauseated for 1 minute",
+        "Vampires and creatures with keen smell have disadvantage on the save"
+    ],
+    vendor: 'Wario Land',
+    shippedBy: 'Greasy Paper Bag',
+    levelRequirement: 1
+},
+
+'freelancer_info_broker_fee': {
+    id: 'freelancer_info_broker_fee',
+    name: "Freelancer Information Broker's Fee",
+    description: "Pay a well-connected freelancer to dig up dirt, locate a person, or find a hidden secret.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 3000,
+    icon: '🕵️',
+    stock: 999,
+    rarity: 'uncommon',
+    effects: [
+        "Learn one piece of obscure information (DM discretion)",
+        "Guaranteed to be accurate, but may come with complications",
+        "Broker remembers who asked, and may sell your information later"
+    ],
+    vendor: 'Freelancer',
+    shippedBy: 'Dead Drop Note',
+    levelRequirement: 2
+},
+
+'onyx_hand_soul_shard': {
+    id: 'onyx_hand_soul_shard',
+    name: "Onyx Hand Soul Shard",
+    description: "A shard of obsidian containing a trapped, screaming soul. Used to power dark rituals.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 18000,
+    icon: '🖤',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Can be consumed to add +2d6 Necrotic damage to a single spell attack",
+        "Alternatively, can be shattered to cast 'Animate Dead' on up to 4 HD of corpses",
+        "Each use risks attracting the attention of the soul's original owner"
+    ],
+    vendor: 'The Onyx Hand',
+    shippedBy: 'Cursed Wrappings',
+    levelRequirement: 7
+},
+
+'mages_guild_spell_tome_copy': {
+    id: 'mages_guild_spell_tome_copy',
+    name: "Mages' Guild Spell Tome Copy",
+    description: "A service where the guild scribes a copy of a spell from their vast library into your spellbook.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 5000,
+    icon: '📖',
+    stock: 999,
+    rarity: 'uncommon',
+    effects: [
+        "Add one spell of 1st or 2nd level from any class list to your spellbook",
+        "Spell must be provided by the guild (subject to availability)",
+        "Takes 24 hours to transcribe"
+    ],
+    vendor: 'Mages Guild',
+    shippedBy: 'Courier Scribe',
+    levelRequirement: 3
+},
+
+'king_of_tombs_ankh_pass': {
+    id: 'king_of_tombs_ankh_pass',
+    name: "Ankh of the Tomb King",
+    description: "A tarnished gold ankh that allows passage through the most basic of tomb wards and traps.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 11000,
+    icon: '☥',
+    stock: 7,
+    rarity: 'rare',
+    effects: [
+        "Grants Advantage on saves against traps and curses in tombs or necropolises",
+        "Can suppress one magical glyph or symbol per day (DC 15)",
+        "Causes minor undead to ignore you unless you attack them"
+    ],
+    vendor: 'King of Tombs',
+    shippedBy: 'Dusty Sarcophagus',
+    levelRequirement: 5
+},
+
+'dwarf_realms_mug_of_endless_ale': {
+    id: 'dwarf_realms_mug_of_endless_ale',
+    name: "Mug of Endless Ale",
+    description: "A sturdy stone mug that magically refills with delicious, potent dwarven ale every dawn.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 14000,
+    icon: '🍺',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Refills with 1 gallon of ale daily",
+        "Drinking grants +2 temporary HP and advantage on Intimidation checks for 10 minutes",
+        "If emptied, it will not refill until the next dawn"
+    ],
+    vendor: 'Kingdoms Dwarves',
+    shippedBy: 'Stone Cask',
+    levelRequirement: 3
+},
+
+'void_drifters_wayfinder': {
+    id: 'void_drifters_wayfinder',
+    name: "Void Drifter's Wayfinder",
+    description: "A strange, non-Euclidean compass that points not north, but towards the nearest planar rift.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 16000,
+    icon: '🌀',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Always points to the closest planar portal or rift within 100 miles",
+        "Once per week: create a tiny, temporary rift (5ft) to the Ethereal Plane for 1 minute",
+        "Constantly whispers in an unknown language"
+    ],
+    vendor: 'Void Drifters',
+    shippedBy: 'Phase-Shifted Package',
+    levelRequirement: 8
+},
+
+'servants_cosmic_blessing': {
+    id: 'servants_cosmic_blessing',
+    name: "Blessing of a Cosmic Servant",
+    description: "A minor boon bestowed by a powerful entity from beyond the stars. It feels... vast.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 80000,
+    icon: '🌌',
+    stock: 2,
+    rarity: 'legendary',
+    effects: [
+        "Choose one ability score: increase it by 2 (to a maximum of 22)",
+        "You gain resistance to Psychic damage",
+        "Once per long rest: ask one question to a cosmic entity (DM provides a cryptic answer)",
+        "You may now be on the radar of other cosmic beings"
+    ],
+    vendor: 'Servants Cosmic',
+    shippedBy: 'Astral Projection',
+    levelRequirement: 12
+},
+
+'high_elf_starlight_ink': {
+    id: 'high_elf_starlight_ink',
+    name: "High Elf Starlight Ink",
+    description: "A vial of ink that seems to contain liquid starlight. Makes writing glow with faint light.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 2500,
+    icon: '✍️',
+    stock: 20,
+    rarity: 'uncommon',
+    effects: [
+        "Scrolls written with this ink have +1 to their save DC",
+        "Can be used to create magical maps that show star constellations",
+        "Ink lasts for 10 pages of writing"
+    ],
+    vendor: 'High Elves',
+    shippedBy: 'Crystal Vial',
+    levelRequirement: 1
+},
+
+'dark_elf_shadow_pouch': {
+    id: 'dark_elf_shadow_pouch',
+    name: "Dark Elf Shadow Pouch",
+    description: "A pouch made from shadow-stuff. It's bigger on the inside and doesn't make a sound.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🌑',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Functions as a Bag of Holding (50 lbs capacity)",
+        "Items retrieved from the pouch make no sound",
+        "Once per day, can pull a handful of shadows to cast 'Darkness'"
+    ],
+    vendor: 'Dark Elves',
+    shippedBy: 'Silent Courier',
+    levelRequirement: 4
+},
+
+'garden_isles_pollen_bomb': {
+    id: 'garden_isles_pollen_bomb',
+    name: "Garden Isles Pollen Bomb",
+    description: "A glass sphere filled with hyper-allergenic, fast-acting pollen. A botanical nightmare.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 3200,
+    icon: '🌼',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Shatters: 15ft radius cloud of pollen",
+        "Creatures must make CON save or be blinded and choked for 1 minute",
+        "Area becomes covered in rapidly growing flowers (difficult terrain)"
+    ],
+    vendor: 'Garden Isles',
+    shippedBy: 'Hollowed-Out Fruit',
+    levelRequirement: 2
+},
+
+'glarnia_truth_serum': {
+    id: 'glarnia_truth_serum',
+    name: "Glarnian Truth Serum",
+    description: "A clear, odorless potion that makes lying feel physically painful and difficult.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 6000,
+    icon: '💉',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Involuntary target must make WIS save or be unable to speak a deliberate lie for 1 hour",
+        "Target is aware of the effect",
+        "Tastes faintly of regret"
+    ],
+    vendor: 'Glarnia',
+    shippedBy: 'Medical Cooler',
+    levelRequirement: 5
+},
+
+'polybius_data_key': {
+    id: 'polybius_data_key',
+    name: "Polybius Data Key",
+    description: "A strange key made of pixelated light. It can unlock digital and psychic information gates.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 22000,
+    icon: '🔑',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Can bypass any non-physical lock (digital, magical, psychic)",
+        "On use, there is a 25% chance of downloading a random, sanity-blasting secret into your mind",
+        "Key glitches and flickers near strong electromagnetic fields"
+    ],
+    vendor: 'Polybius',
+    shippedBy: 'Encrypted File Transfer',
+    levelRequirement: 9
+},
+
+'internet_access_scroll': {
+    id: 'internet_access_scroll',
+    name: "Scroll of Internet Access",
+    description: "A one-use scroll that opens a temporary, chaotic portal to a dimension of endless cat videos and arguments.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 7500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Cast a version of 'Contact Other Plane' to ask a question to 'The Internet'",
+        "Answer is fast but may be a lie, a meme, or dangerously unhelpful",
+        "User must make a DC 15 INT save or be distracted for 1 hour"
+    ],
+    vendor: 'Internet',
+    shippedBy: 'Downloaded Data',
+    levelRequirement: 4
+},
+
+'xenonesia_bio-enhancer': {
+    id: 'xenonesia_bio enhancer',
+    name: "Xenonesia Bio-Enhancer",
+    description: "A syringe of alien retrovirus that temporarily enhances a specific biological function.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 13000,
+    icon: '🧬',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Single Use: Choose one stat. Gain +4 to that stat for 1 hour",
+        "After effect ends, take 1 level of exhaustion",
+        "Side effects may include temporary skin discoloration or extra limbs"
+    ],
+    vendor: 'Xenonesia',
+    shippedBy: 'Cryogenic Pod',
+    levelRequirement: 6
+},
+
+'mushroom_regency_guard_uniform': {
+    id: 'mushroom_regency_guard_uniform',
+    name: "Royal Mushroom Guard Uniform",
+    description: "An immaculate uniform of the Mushroom Kingdom's Royal Guard. Commands respect from Toads.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '👮',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to Charisma (Intimidation) checks against non-hostile Toads",
+        "While in Mushroom Kingdom, treated as an authority figure",
+        "Does not grant actual authority, just the appearance of it"
+    ],
+    vendor: 'Mushroom Regency',
+    shippedBy: 'Tailored Delivery',
+    levelRequirement: 2
+},
+
+'geminia_mirror_dupe': {
+    id: 'geminia_mirror_dupe',
+    name: "Geminia Mirror Duplicate",
+    description: "A small hand mirror that can create a temporary, perfect duplicate of an inanimate object.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 17000,
+    icon: '🪞',
+    stock: 4,
+    rarity: 'epic',
+    effects: [
+        "Touch an object: create a perfect duplicate for 1 hour",
+        "Duplicate is magical and feels slightly warm",
+        "Cannot duplicate artifacts or sentient items",
+        "If duplicate is broken, it shatters into harmless glass dust"
+    ],
+    vendor: 'Geminia',
+    shippedBy: 'Velvet Lined Box',
+    levelRequirement: 7
+},
+
+'asclepia_healing_ointment': {
+    id: 'asclepia_healing_ointment',
+    name: "Asclepian Healing Ointment",
+    description: "A potent medicinal salve that can mend grievous wounds with miraculous speed.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 4000,
+    icon: '🧴',
+    stock: 20,
+    rarity: 'uncommon',
+    effects: [
+        "Apply to a creature: Heals 4d8+4 HP",
+        "Cures blindness, deafness, and any diseases affecting the target",
+        "Jar contains 5 doses"
+    ],
+    vendor: 'Asclepia',
+    shippedBy: 'Medical Pouch',
+    levelRequirement: 3
+},
+
+'pony_nobility_invitation': {
+    id: 'pony_nobility_invitation',
+    name: "Invitation to the Grand Galloping Gala",
+    description: "A gilded invitation to the most exclusive event in Equestria. A chance to rub hooves with the elite.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 20000,
+    icon: '📜',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Grants access to a high-society event for one night",
+        "Opportunity to network, gather rumors, or attempt a heist",
+        "Strict dress code enforced",
+        "Plus-one optional"
+    ],
+    vendor: 'Pony Nobility',
+    shippedBy: 'Royal Courier',
+    levelRequirement: 5
+},
+
+'changeling_hive_chitin_armor': {
+    id: 'changeling_hive_chitin_armor',
+    name: "Changeling Hive Chitin Armor",
+    description: "Light armor made from the shed chitin of a changeling. It shifts and adapts to your form.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19000,
+    icon: '🐛',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Light Armor: AC 13 + DEX modifier",
+        "Advantage on checks made to impersonate a humanoid",
+        "Once per long rest: as a bonus action, change your appearance as per 'Alter Self'"
+    ],
+    vendor: 'Changeling Hive',
+    shippedBy: 'Disguised Parcel',
+    levelRequirement: 5
+},
+
+'cybernetic_replacement_limb': {
+    id: 'cybernetic_replacement_limb',
+    name: "Cybernetic Replacement Limb",
+    description: "A fully functional prosthetic limb that is stronger and more versatile than the original.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 30000,
+    icon: '🦾',
+    stock: 10,
+    rarity: 'epic',
+    effects: [
+        "Replace a lost limb (arm or leg)",
+        "Arm: +1 to damage with melee attacks using that hand. Can hold extra items.",
+        "Leg: +10ft to walking speed. Advantage on checks to avoid being knocked prone.",
+        "Requires 1 week of recovery and attunement"
+    ],
+    vendor: 'Cybernetic',
+    shippedBy: 'Surgical Unit',
+    levelRequirement: 7
+},
+
+'data_merchant_info_packet': {
+    id: 'data_merchant_info_packet',
+    name: "Data Merchant's Info Packet",
+    description: "A compressed data packet containing a massive amount of raw, unsorted information on a topic.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 8000,
+    icon: '💾',
+    stock: 999,
+    rarity: 'rare',
+    effects: [
+        "Gain advantage on your next three Intelligence checks related to a single topic",
+        "Information is raw and may take hours to sift through",
+        "Contains at least one secret you weren't looking for"
+    ],
+    vendor: 'Data Merchant',
+    shippedBy: 'Datachip',
+    levelRequirement: 4
+},
+
+'jotunheimr_frost_essence': {
+    id: 'jotunheimr_frost_essence',
+    name: "Jotunheimr Frost Essence",
+    description: "A bottle of pure, magical cold harvested from the heart of a frost giant's domain.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 10000,
+    icon: '❄️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Can be applied to a weapon: attacks deal an extra 2d6 Cold damage for 1 hour",
+        "Alternatively, thrown to create a 20ft radius of 'Sleet Storm' (spell save DC 15)",
+        "Bottle is freezing cold to the touch"
+    ],
+    vendor: 'Jotunheimr',
+    shippedBy: 'Ice Block',
+    levelRequirement: 5
+},
+
+'greenskin_waaagh_banner': {
+    id: 'greenskin_waaagh_banner',
+    name: "Greenskin WAAAGH! Banner",
+    description: "A tattered banner that hums with psychic energy. Makes you and your allies feel... fighty.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 25000,
+    icon: '🚩',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "While planted, allies within 30ft gain +1 to melee attack rolls",
+        "Once per day: let out a WAAAGH! cry, granting allies 10 temporary HP",
+        "Attracts nearby Greenskins, for better or worse",
+        factionBonus: { morale: 20, combatReadiness: 15 }
+    ],
+    vendor: 'Greenskins',
+    shippedBy: 'Loot Crate',
+    levelRequirement: 6
+},
+
+'team_rocket_uniform': {
+    id: 'team_rocket_uniform',
+    name: "Team Rocket Grunt Uniform",
+    description: "A stylish black uniform with a prominent red 'R'. Perfect for blending in... or standing out.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3500,
+    icon: '🥋',
+    stock: 20,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to Charisma (Deception) when pretending to be a member of Team Rocket",
+        "Other Team Rocket members will be initially friendly",
+        "Makes you a target for law enforcement and 'twerps' with Pikachu"
+    ],
+    vendor: 'Team Rocket',
+    shippedBy: 'Shady Delivery',
+    levelRequirement: 1
+},
+
+'vampire_counts_thrall_ointment': {
+    id: 'vampire_counts_thrall_ointment',
+    name: "Vampire Thrall Ointment",
+    description: "A pale, pungent cream that makes one more susceptible to vampiric charm and control.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 4500,
+    icon: '🧛',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Single Use: Apply to an unwilling or unknowing target",
+        "Target has disadvantage on saves against being charmed by vampires for 24 hours",
+        "Leaves a faint, sweet scent that vampires can smell",
+        "Highly illegal in most kingdoms"
+    ],
+    vendor: 'Vampire Counts',
+    shippedBy: 'Poached Vial',
+    levelRequirement: 3
+},
+
+'rebel_clans_sabotage_kit': {
+    id: 'rebel_clans_sabotage_kit',
+    name: "Rebel Clan Sabotage Kit",
+    description: "A kit containing tools for disabling siege equipment, destroying supply lines, and general mischief.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🧰',
+    stock: 12,
+    rarity: 'rare',
+    effects: [
+        "Advantage on checks made to sabotage or disable mechanical devices",
+        "Contains 3 charges of 'Alchemist's Fire' and 1 'Thunderstone'",
+        "Includes a disguise kit and a false identity papers"
+    ],
+    vendor: 'Rebel Clans',
+    shippedBy: 'Hidden Compartment',
+    levelRequirement: 4
+},
+
+'skycaverns_gryphon_egg': {
+    id: 'skycaverns_gryphon_egg',
+    name: "Skycaverns Gryphon Egg",
+    description: "A large, mottled egg that will soon hatch into a loyal gryphon companion. Requires incubation.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 40000,
+    icon: '🥚',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "After 1 month of incubation, hatches into a baby gryphon",
+        "Gryphon grows into a loyal mount (DM's discretion for timeline)",
+        "Requires a steady diet of meat and shiny objects",
+        factionBonus: { mobility: 30 }
+    ],
+    vendor: 'Skycaverns',
+    shippedBy: 'Warm Nest Box',
+    levelRequirement: 7
+},
+
+'lemuria_conclave_scrying_pool': {
+    id: 'lemuria_conclave_scrying_pool',
+    name: "Lemurian Scrying Pool",
+    description: "A small, portable basin that fills with enchanted water for divination.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 28000,
+    icon: '💧',
+    stock: 4,
+    rarity: 'epic',
+    effects: [
+        "Once per day: cast 'Scrying' (spell save DC 15)",
+        "The water shows visions of sunken cities and lost knowledge",
+        "If used underwater, reveals all secrets within 1 mile"
+    ],
+    vendor: 'Lemuria Conclave',
+    shippedBy: 'Sealed Amphora',
+    levelRequirement: 8
+},
+
+'empire_man_legionnaire_kit': {
+    id: 'empire_man_legionnaire_kit',
+    name: "Legionnaire's Kit of the Empire of Man",
+    description: "Standard issue for the disciplined legions. Everything a soldier needs to maintain order.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '⚔️',
+    stock: 25,
+    rarity: 'uncommon',
+    effects: [
+        "Contains a well-made shortsword, a large shield, and a set of chainmail",
+        "Advantage on checks to build or maintain fortifications",
+        "Includes a manual on military formations and tactics"
+    ],
+    vendor: 'Empire Man',
+    shippedBy: 'Military Supply Wagon',
+    levelRequirement: 2
+},
+
+'grand_cathay_fireworks_display': {
+    id: 'grand_cathay_fireworks_display',
+    name: "Grand Cathay Fireworks Display",
+    description: "A service contract for a spectacular, morale-boosting fireworks display. Great for celebrations or distractions.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 7000,
+    icon: '🎆',
+    stock: 10,
+    rarity: 'rare',
+    effects: [
+        "A 10-minute fireworks display that can be seen for miles",
+        "All allies who witness it gain advantage on their next attack roll",
+        "Can be used to signal troops or create a diversion"
+    ],
+    vendor: 'Grand Cathay',
+    shippedBy: 'Pyrotechnician Crew',
+    levelRequirement: 3
+},
+
+'mu_empire_levitation_stone': {
+    id: 'mu_empire_levitation_stone',
+    name: "Mu Empire Levitation Stone",
+    description: "A smooth, grey stone that hums with anti-gravity energy. Makes heavy things light.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🪨',
+    stock: 7,
+    rarity: 'rare',
+    effects: [
+        "Attuned user can cast 'Levitate' at will",
+        "While holding, your carrying capacity is doubled",
+        "Once per long rest: target an object up to 2000 lbs, it becomes weightless for 1 minute"
+    ],
+    vendor: 'Mu Empire',
+    shippedBy: 'Floating Platform',
+    levelRequirement: 5
+},
+
+'crimson_fleet_letter_of_marque': {
+    id: 'crimson_fleet_letter_of_marque',
+    name: "Crimson Fleet Letter of Marque",
+    description: "An official document granting you the right to plunder enemy ships in the name of the Crimson Fleet.",
+    category: SHOP_CATEGORIES.FACTION,
+    price: 22000,
+    icon: '📜',
+    stock: 5,
+    rarity: 'epic',
+    effects: [
+        "Legal protection when attacking ships of enemy factions",
+        "Access to Crimson Fleet ports and safe harbors",
+        "Required to turn in plunder for fleet-wide reputation and rewards",
+        "Marks you as an enemy to those factions"
+    ],
+    vendor: 'Crimson Fleet',
+    shippedBy: 'Captain's Envoy',
+    levelRequirement: 6,
+    factionBonus: { economy: 25, combatReadiness: 25 }
+},
+
+'halfling_pantry_crate': {
+    id: 'halfling_pantry_crate',
+    name: "Halfling's Endless Pantry Crate",
+    description: "A small wooden crate that, once opened, reveals a pocket dimension full of delicious halfling food.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 18000,
+    icon: '🧺',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Provides enough food for 10 people each day",
+        "Food is always warm, fresh, and delicious",
+        "Once per week, can produce a 'Hero's Feast' for 6 people",
+        "Refills at dawn"
+    ],
+    vendor: 'Halfling',
+    shippedBy: 'Friendly Farmer's Cart',
+    levelRequirement: 4
+},
+
+'scylla_charybdis_tide_chart': {
+    id: 'scylla_charybdis_tide_chart',
+    name: "Scylla & Charybdis Tide Chart",
+    description: "A nautical chart that perfectly predicts the movements of the legendary sea monsters and the tides around them.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 13000,
+    icon: '🗺️',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Grants a safe path through the monster's strait once per week",
+        "While in the area, you cannot be surprised by the monsters",
+        "Chart is cursed: you hear their whispers in your sleep"
+    ],
+    vendor: 'Scylla Charybdis',
+    shippedBy: 'Waterproof Tube',
+    levelRequirement: 7
+},
+
+'tomb_kings_canopic_jar': {
+    id: 'tomb_kings_canopic_jar',
+    name: "Tomb Kings' Canopic Jar",
+    description: "An ancient jar containing the preserved organs of a long-dead king. It pulses with necromantic energy.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 31000,
+    icon: '🏺',
+    stock: 3,
+    rarity: 'epic',
+    effects: [
+        "Once per week: cast 'Animate Dead' on up to 6 HD of corpses (skeletons only)",
+        "Undead you control are more resilient (gain +1 HP per HD)",
+        "The jar's owner may occasionally demand tribute"
+    ],
+    vendor: 'Tomb Kings',
+    shippedBy: 'Sand-Covered Sarcophagus',
+    levelRequirement: 8
+},
+
+'the_dk_crew_banana_hoard': {
+    id: 'the_dk_crew_banana_hoard',
+    name: "DK Crew's Banana Hoard",
+    description: "A single, magically-preserved banana from the legendary hoard. It's... just a banana, but it feels important.",
+    category: SHOP_CATEGORIES.CONSUMABLES,
+    price: 1000,
+    icon: '🍌',
+    stock: 50,
+    rarity: 'uncommon',
+    effects: [
+        "Eating the banana heals 2d4 HP and grants +5ft speed for 1 hour",
+        "Peel can be thrown: creatures who step on it must make a DEX save or fall prone",
+        "May attract apes or angry Kremlings"
+    ],
+    vendor: 'The DK Crew',
+    shippedBy: 'Barrel',
+    levelRequirement: 1
+},
+
+'kremling_krew_kannonball': {
+    id: 'kremling_krew_kannonball',
+    name: "Kremling Krew Kannonball",
+    description: "A heavy, iron cannonball designed for their signature ship cannons. Surprisingly aerodynamic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 800,
+    icon: '💣',
+    stock: 100,
+    rarity: 'common',
+    effects: [
+        "Ammunition for a cannon or similar siege weapon",
+        "Deals 3d10 bludgeoning damage on a direct hit",
+        "Can be used as an improvised weapon (2d6 bludgeoning)",
+        "Heavy"
+    ],
+    vendor: 'Kremling Krew',
+    shippedBy: 'Gunpowder Barrel',
+    levelRequirement: 1
+},
+
+'beanbean_kingdom_coin_pouch': {
+    id: 'beanbean_kingdom_coin_pouch',
+    name: "Beanbean Kingdom Coin Pouch",
+    description: "A pouch that converts foreign currency into local Beanbean coins at a favorable rate. Sometimes.",
+    category: SHOP_CATEGORIES.CURIOSITIES,
+    price: 2500,
+    icon: '💰',
+    stock: 15,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day, convert up to 100 gp of foreign currency into 110 gp of Beanbean coins",
+        "On a roll of 1, the pouch eats the money",
+        "Emits a faint bean smell"
+    ],
+    vendor: 'Beanbean Kingdom',
+    shippedBy: 'Express Mail',
+    levelRequirement: 1
+},
+
+'lothlorien_starlight_lantern': {
+    id: 'lothlorien_starlight_lantern',
+    name: "Lothlórien Starlight Lantern",
+    description: "A lantern that doesn't burn fuel, but instead captures and refracts starlight. The light is pure and calming.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🏮',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Sheds bright light (30ft) and dim light (30ft more)",
+        "Light from this lantern cannot be extinguished by wind or water",
+        "Creatures in the light gain advantage on saves against fear",
+        "Recharges only under an open night sky"
+    ],
+    vendor: 'Lothlórien',
+    shippedBy: 'Elven Courier',
+    levelRequirement: 4
+},
+
+'centaur_khanate_bow': {
+    id: 'centaur_khanate_bow',
+    name: "Centaur Khanate Composite Bow",
+    description: "A masterfully crafted longbow, designed to be used from horseback (or centaur-back). It's powerful and responsive.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '🏹',
+    stock: 8,
+    rarity: 'rare',
+    effects: [
+        "Composite Longbow (+2 Strength modifier)",
+        "Advantage on attacks made while mounted",
+        "Arrows fired from this bow fly 50% further",
+        "Requires attunement"
+    ],
+    vendor: 'Centaur Khanate',
+    shippedBy: 'Leather Quiver',
+    levelRequirement: 5
+},
+
+'void_entities_whispering_orb': {
+    id: 'void_entities_whispering_orb',
+    name: "Void Entity's Whispering Orb",
+    description: "A sphere of nothingness that whispers secrets from the space between spaces. Listening is not recommended.",
+    category: SHOP_CATEGORIES.FORBIDDEN,
+    price: 45000,
+    icon: '⚫',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Once per week: ask a question. The DM will answer, but you gain 1 level of exhaustion",
+        "While carrying the orb, you have resistance to Psychic damage",
+        "Each long rest, make a DC 15 WIS save or gain a short-term madness",
+        "The orb hungers for secrets"
+    ],
+    vendor: 'Void Entities',
+    shippedBy: 'It appears in your hand',
+    levelRequirement: 10
+},
+
+'order_silver_judgement_gavel': {
+    id: 'order_silver_judgement_gavel',
+    name: "Order of Silver's Judgement Gavel",
+    description: "A ceremonial gavel that can compel truth and pass binding sentence on the guilty.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 35000,
+    icon: '🔨',
+    stock: 2,
+    rarity: 'epic',
+    effects: [
+        "Once per day: Strike a surface and compel one creature to tell the truth (WIS save DC 16)",
+        "Once per week: pass 'sentence' on a creature you have proven guilty. They are affected by a 'Geas' spell",
+        "Weighs heavily on the soul of the wielder"
+    ],
+    vendor: 'Order Silver',
+    shippedBy: 'Armored Courier',
+    levelRequirement: 9
+},
+
 'faction_war_declaration': {
     id: 'faction_war_declaration',
     name: "Faction War Declaration",
