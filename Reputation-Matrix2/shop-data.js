@@ -1501,9 +1501,9 @@ export const SHOP_ITEMS = {
     levelRequirement: 8
 },
 
-'genocide_commission': {
-    id: 'genocide_commission',
-    name: "Genocide Commission (Race-Specific)",
+'eliminate _commission': {
+    id: 'eliminate _commission',
+    name: "Eliminate Race (Race-Specific)",
     description: "A dark, binding contract to systematically eliminate an entire species. Forbidden, ancient, powerful.",
     category: SHOP_CATEGORIES.FORBIDDEN,
     price: 1200000,
