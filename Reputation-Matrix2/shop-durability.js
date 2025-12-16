@@ -153,7 +153,7 @@ export function calculateDurability(item) {
     
     // Base calculation: more expensive = more uses
     // Every 100 XP gives BASE_USES_PER_100_XP uses
-    let baseUses = Math.floor((price / 100) * DURABILITY_CONFIG.BASE_USES_PER_100_XP);
+    let baseUses = Math.floor((price / 1000) * DURABILITY_CONFIG.BASE_USES_PER_100_XP);
     
     // Apply rarity modifier (rarer items = fewer uses, they're special)
     const rarityMod = DURABILITY_CONFIG.RARITY_MODIFIERS[rarity] || 1.0;
