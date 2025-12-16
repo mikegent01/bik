@@ -10,7 +10,7 @@ export const DURABILITY_CONFIG = {
     
     // Minimum/Maximum uses
     MIN_USES: 1,
-    MAX_USES: 100,
+    MAX_USES: 90000,
     
     // Rarity multipliers (rarer = fewer uses, more precious)
     RARITY_MODIFIERS: {
