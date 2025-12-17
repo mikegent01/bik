@@ -7525,7 +7525,23 @@ export const MATERIALS = {
     source: "Only obtainable by surviving to the end of time and coming back",
     uses: ["Instant Destruction", "Entropy Artifacts", "Time Acceleration"]
 },
-
+'catgirl_scrolls': {
+    id: 'catgirl_scrolls',
+    name: "Catgirl Scrolls",
+    icon: '🐱📜',
+    category: 'exotic',
+    rarity: 'mythic',
+    cost: 25000,
+    description: "Ancient scrolls inscribed with forbidden feline runes. Unfurling them summons alluring catgirls from the astral plane, blending anime whimsy with cosmic chaos.",
+    properties: [
+        "Summons 1d4 catgirls as allies (each with cat-like agility, charm-based attacks, and scratch frenzy)",
+        "Grants 'Nya Immunity': resistance to mind control and psychic damage (you're too cute to manipulate)",
+        "Can enchant weapons with 'Paw Strike' (extra dice on crits, leaves claw marks)",
+        "Risky: 20% chance of catgirls going feral and turning on the user (save vs. adorable betrayal)"
+    ],
+    source: "Looted from moon-sugar caravans in Elsweyr or crafted via Khajiit alchemy rituals under a full moon",
+    uses: ["Summon Catgirl Horde", "Enchantment Infusion", "Charm Overload", "Feral Distraction"]
+},
 'schrodingers_cat_alive': {
     id: 'schrodingers_cat_alive',
     name: "Schrödinger's Cat (Alive)",
@@ -14766,7 +14782,385 @@ export const POTION_RECIPES = {
         successChance: 75,
         levelRequirement: 6
     },
+    potion_cats_grace: {
+        id: 'potion_cats_grace',
+        name: "Potion of Cat's Grace",
+        effect: '+2 DEX (max 20) and advantage on Acrobatics checks for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐱',
+        wildcard: true,
+        materials: [
+            { id: 'cat_whisker', quantity: 3 },
+            { id: 'spring_water', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 160,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
 
+    potion_wolfs_prowl: {
+        id: 'potion_wolfs_prowl',
+        name: "Potion of Wolf's Prowl",
+        effect: 'Advantage on Perception (smell/hearing) and Survival (tracking) checks for 8 hours',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐺',
+        wildcard: true,
+        materials: [
+            { id: 'wolf_fang', quantity: 2 },
+            { id: 'beast_essence', quantity: 1 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 140,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+
+    potion_bears_might: {
+        id: 'potion_bears_might',
+        name: "Potion of Bear's Might",
+        effect: '+2 STR (max 20) and gain 10 temporary HP for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🐻',
+        wildcard: true,
+        materials: [
+            { id: 'bear_claw', quantity: 2 },
+            { id: 'troll_fat', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 320,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_eagle_eye: {
+        id: 'potion_eagle_eye',
+        name: "Potion of Eagle's Eye",
+        effect: 'Double normal vision range and advantage on Perception (sight) for 8 hours',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🦅',
+        wildcard: true,
+        materials: [
+            { id: 'eagle_feather', quantity: 3 },
+            { id: 'moonwell_water', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 4
+    },
+
+    potion_serpents_cunning: {
+        id: 'potion_serpents_cunning',
+        name: "Potion of Serpent's Cunning",
+        effect: 'Advantage on Deception checks and resistance to poison damage for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🐍',
+        wildcard: true,
+        materials: [
+            { id: 'snake_venom_sac', quantity: 1 },
+            { id: 'nightshade', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 260,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_spider_venom: {
+        id: 'potion_spider_venom',
+        name: 'Spider Venom Phial',
+        effect: 'Coat a weapon; next 3 hits deal +1d6 poison damage (CON save halves)',
+        potionType: 'offensive',
+        rarity: 'uncommon',
+        icon: '🕷️',
+        wildcard: true,
+        materials: [
+            { id: 'spider_venom', quantity: 2 },
+            { id: 'empty_vial', quantity: 1 },
+            { id: 'shadow_essence', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 4
+    },
+
+    potion_shark_gills: {
+        id: 'potion_shark_gills',
+        name: "Potion of Shark's Gills",
+        effect: 'Breathe underwater and gain swim speed equal to your walking speed for 1 hour',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🦈',
+        wildcard: true,
+        materials: [
+            { id: 'shark_gill', quantity: 2 },
+            { id: 'kelp_sac', quantity: 2 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 4
+    },
+
+    potion_bats_echo: {
+        id: 'potion_bats_echo',
+        name: "Potion of Bat's Echo",
+        effect: 'Gain 30 ft blindsense (echolocation) but disadvantage on checks relying on normal sight for 1 hour',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🦇',
+        wildcard: true,
+        materials: [
+            { id: 'bat_wing', quantity: 3 },
+            { id: 'shadow_essence', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 260,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_ox_strength: {
+        id: 'potion_ox_strength',
+        name: "Potion of Ox's Strength",
+        effect: 'Double carrying capacity and advantage on checks to push, pull, or lift for 8 hours',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐂',
+        wildcard: true,
+        materials: [
+            { id: 'ox_horn_fragment', quantity: 2 },
+            { id: 'troll_fat', quantity: 1 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 170,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+
+    potion_hares_fleetness: {
+        id: 'potion_hares_fleetness',
+        name: "Potion of Hare's Fleetness",
+        effect: '+10 ft movement speed and advantage on initiative rolls for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐇',
+        wildcard: true,
+        materials: [
+            { id: 'hare_paw', quantity: 1 },
+            { id: 'quicksilver', quantity: 1 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 190,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 4
+    },
+
+    potion_mouse_sneak: {
+        id: 'potion_mouse_sneak',
+        name: "Potion of Mouse's Sneak",
+        effect: 'Advantage on Stealth checks and you can squeeze through spaces as if one size smaller for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐭',
+        wildcard: true,
+        materials: [
+            { id: 'mouse_tail', quantity: 3 },
+            { id: 'shadow_essence', quantity: 1 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 150,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+
+    potion_ravens_tongue: {
+        id: 'potion_ravens_tongue',
+        name: "Potion of Raven's Tongue",
+        effect: 'You can speak with and understand birds, and cast Message at will for 1 hour',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🐦',
+        wildcard: true,
+        materials: [
+            { id: 'raven_feather', quantity: 3 },
+            { id: 'silverleaf', quantity: 1 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 160,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 3
+    },
+
+    potion_lions_roar: {
+        id: 'potion_lions_roar',
+        name: "Potion of Lion's Roar",
+        effect: 'Once within 10 minutes, unleash a roar forcing creatures in 15 ft to make a WIS save or be frightened for 1 round',
+        potionType: 'offensive',
+        rarity: 'rare',
+        icon: '🦁',
+        wildcard: true,
+        materials: [
+            { id: 'lion_mane_tuft', quantity: 2 },
+            { id: 'golden_sunleaf', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 300,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 6
+    },
+
+    potion_chameleons_shroud: {
+        id: 'potion_chameleons_shroud',
+        name: "Potion of Chameleon's Shroud",
+        effect: 'Advantage on Stealth checks while stationary and in natural terrain; you can attempt to hide while lightly obscured for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🦎',
+        wildcard: true,
+        materials: [
+            { id: 'chameleon_skin', quantity: 2 },
+            { id: 'illusion_powder', quantity: 1 },
+            { id: 'moonwell_water', quantity: 1 }
+        ],
+        goldCost: 280,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_honeybadger_resilience: {
+        id: 'potion_honeybadger_resilience',
+        name: "Potion of Honeybadger's Resilience",
+        effect: 'Gain 10 temporary HP and advantage on saving throws vs fear for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🦡',
+        wildcard: true,
+        materials: [
+            { id: 'badger_claw', quantity: 2 },
+            { id: 'healing_herbs', quantity: 3 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 260,
+        craftTime: 4,
+        successChance: 80,
+        levelRequirement: 5
+    },
+
+    potion_owl_wisdom: {
+        id: 'potion_owl_wisdom',
+        name: "Potion of Owl's Wisdom",
+        effect: 'Advantage on Insight and Perception checks for 8 hours',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🦉',
+        wildcard: true,
+        materials: [
+            { id: 'owl_eye_extract', quantity: 1 },
+            { id: 'sage_leaf', quantity: 2 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 170,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 3
+    },
+
+    potion_goats_surefooting: {
+        id: 'potion_goats_surefooting',
+        name: "Potion of Goat's Surefooting",
+        effect: 'Advantage on checks and saves to resist being shoved, knocked prone, or losing footing on difficult terrain for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🐐',
+        wildcard: true,
+        materials: [
+            { id: 'goat_horn', quantity: 1 },
+            { id: 'spring_water', quantity: 1 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 80,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 2
+    },
+
+    potion_boars_fury: {
+        id: 'potion_boars_fury',
+        name: "Potion of Boar's Fury",
+        effect: 'When reduced to 0 HP, you instead drop to 1 HP and gain advantage on melee attacks until end of next turn (once, within 1 hour)',
+        potionType: 'offensive',
+        rarity: 'rare',
+        icon: '🐗',
+        wildcard: true,
+        materials: [
+            { id: 'boar_tusk', quantity: 2 },
+            { id: 'rage_gem', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 320,
+        craftTime: 5,
+        successChance: 70,
+        levelRequirement: 6
+    },
+
+    potion_frogs_leap: {
+        id: 'potion_frogs_leap',
+        name: "Potion of Frog's Leap",
+        effect: 'Your jump distance and height are tripled for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🐸',
+        wildcard: true,
+        materials: [
+            { id: 'frog_leg', quantity: 2 },
+            { id: 'spring_water', quantity: 1 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 90,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 2
+    },
+
+    potion_hounds_tracker: {
+        id: 'potion_hounds_tracker',
+        name: "Potion of Hound's Nose",
+        effect: 'You can track a creature by scent alone for 24 hours with advantage on Survival checks to follow its trail',
+        potionType: 'utility',
+        rarity: 'uncommon',
+        icon: '🐕',
+        wildcard: true,
+        materials: [
+            { id: 'dog_nose_leather', quantity: 1 },
+            { id: 'beast_essence', quantity: 1 },
+            { id: 'spring_water', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 3,
+        successChance: 85,
+        levelRequirement: 4
+    },
     // Kingdoms Dwarves / Dwarf Realms / Chaos Dwarfs
     potion_stonebrew: {
         id: 'potion_stonebrew',
@@ -16109,7 +16503,480 @@ export const POTION_RECIPES = {
         levelRequirement: 4,
         faction: 'Empire Man'
     },
+    potion_wolfsblood_rage: {
+        id: 'potion_wolfsblood_rage',
+        name: 'Wolfsblood Rage',
+        effect: 'Gain +2 STR and advantage on melee attacks for 1 minute. After effect ends, suffer 1 level of exhaustion',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐺',
+        wildcard: true,
+        materials: [
+            { id: 'wolfsblood', quantity: 2 },
+            { id: 'madcap_mushroom', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 180,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 4
+    },
 
+    potion_owl_eyes: {
+        id: 'potion_owl_eyes',
+        name: 'Owl Eyes Elixir',
+        effect: 'Gain 60 ft darkvision and advantage on Perception checks for 1 hour',
+        potionType: 'utility',
+        rarity: 'common',
+        icon: '🦉',
+        wildcard: true,
+        materials: [
+            { id: 'owl_eye_extract', quantity: 2 },
+            { id: 'moonwell_water', quantity: 1 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 90,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 2
+    },
+
+    potion_bear_strength: {
+        id: 'potion_bear_strength',
+        name: 'Bear Strength Tonic',
+        effect: 'CON score increases by 2 (max 20) for 1 hour. After effect ends, suffer -1 CON for 1 hour',
+        potionType: 'buff',
+        rarity: 'rare',
+        icon: '🐻',
+        wildcard: true,
+        materials: [
+            { id: 'bear_claw', quantity: 1 },
+            { id: 'troll_fat', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 350,
+        craftTime: 5,
+        successChance: 70,
+        levelRequirement: 6
+    },
+
+    potion_fox_cunning: {
+        id: 'potion_fox_cunning',
+        name: 'Fox Cunning Draught',
+        effect: 'INT score increases by 2 (max 20) for 1 hour. Gain advantage on Deception and Stealth checks',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🦊',
+        wildcard: true,
+        materials: [
+            { id: 'fox_tail', quantity: 2 },
+            { id: 'silverleaf', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 220,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_hare_speed: {
+        id: 'potion_hare_speed',
+        name: 'Hare Speed Potion',
+        effect: 'Movement speed increases by 20 ft for 10 minutes. After effect ends, movement speed is reduced by 10 ft for 1 hour',
+        potionType: 'buff',
+        rarity: 'common',
+        icon: '🐇',
+        wildcard: true,
+        materials: [
+            { id: 'hare_fur', quantity: 3 },
+            { id: 'quicksilver', quantity: 1 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 110,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 3
+    },
+
+    potion_eagle_flight: {
+        id: 'potion_eagle_flight',
+        name: 'Eagle Flight Elixir',
+        effect: 'Gain a 30 ft flying speed for 1 minute. After landing, must succeed on DC 13 CON save or be stunned for 1 round',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🦅',
+        wildcard: true,
+        materials: [
+            { id: 'eagle_feather', quantity: 3 },
+            { id: 'zephyr_feather', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 420,
+        craftTime: 6,
+        successChance: 65,
+        levelRequirement: 7
+    },
+
+    potion_serpent_venom: {
+        id: 'potion_serpent_venom',
+        name: 'Serpent Venom',
+        effect: 'Coat weapon with poison (1d4 poison damage/turn for 1 min, CON save DC 13 ends). Poison loses potency after 1 hour',
+        potionType: 'offensive',
+        rarity: 'uncommon',
+        icon: '🐍',
+        wildcard: true,
+        materials: [
+            { id: 'venom_sac', quantity: 2 },
+            { id: 'nightshade', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 160,
+        craftTime: 3,
+        successChance: 80,
+        levelRequirement: 4
+    },
+
+    potion_turtle_shell: {
+        id: 'potion_turtle_shell',
+        name: 'Turtle Shell Brew',
+        effect: 'Gain +2 AC and resistance to bludgeoning damage for 10 minutes. Movement speed is halved during effect',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐢',
+        wildcard: true,
+        materials: [
+            { id: 'turtle_shell_fragment', quantity: 2 },
+            { id: 'earth_essence', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 200,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_raven_mimicry: {
+        id: 'potion_raven_mimicry',
+        name: 'Raven Mimicry Potion',
+        effect: 'Gain ability to perfectly mimic any sound heard within last hour for 10 minutes. Can only mimic one sound at a time',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🐦',
+        wildcard: true,
+        materials: [
+            { id: 'raven_feather', quantity: 3 },
+            { id: 'echo_crystal', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 380,
+        craftTime: 5,
+        successChance: 70,
+        levelRequirement: 6
+    },
+
+    potion_deer_grace: {
+        id: 'potion_deer_grace',
+        name: 'Deer Grace Elixir',
+        effect: 'DEX score increases by 2 (max 20) for 1 hour. Gain advantage on Acrobatics and Stealth checks in natural environments',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🦌',
+        wildcard: true,
+        materials: [
+            { id: 'deer_antler_shard', quantity: 2 },
+            { id: 'silverleaf', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 240,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_badger_fury: {
+        id: 'potion_badger_fury',
+        name: 'Badger Fury Tonic',
+        effect: 'Gain advantage on melee attacks against larger creatures for 1 minute. After effect ends, suffer -2 to AC for 1 minute',
+        potionType: 'offensive',
+        rarity: 'common',
+        icon: '🦡',
+        wildcard: true,
+        materials: [
+            { id: 'badger_claw', quantity: 2 },
+            { id: 'madcap_mushroom', quantity: 1 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 120,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 3
+    },
+
+    potion_swan_beauty: {
+        id: 'potion_swan_beauty',
+        name: 'Swan Beauty Elixir',
+        effect: 'CHA score increases by 2 (max 20) for 1 hour. Gain advantage on Performance and Persuasion checks. Effect ends if you deal damage',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🦢',
+        wildcard: true,
+        materials: [
+            { id: 'swan_feather', quantity: 3 },
+            { id: 'rose_quartz', quantity: 1 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 400,
+        craftTime: 6,
+        successChance: 65,
+        levelRequirement: 7
+    },
+
+    potion_lynx_agility: {
+        id: 'potion_lynx_agility',
+        name: 'Lynx Agility Draught',
+        effect: 'Gain +5 to initiative and advantage on Acrobatics checks for 1 hour. After effect ends, suffer -2 to initiative for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐆',
+        wildcard: true,
+        materials: [
+            { id: 'lynx_claw', quantity: 2 },
+            { id: 'quicksilver', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 260,
+        craftTime: 4,
+        successChance: 70,
+        levelRequirement: 5
+    },
+
+    potion_boar_toughness: {
+        id: 'potion_boar_toughness',
+        name: 'Boar Toughness Brew',
+        effect: 'Gain resistance to piercing and slashing damage for 10 minutes. After effect ends, suffer 1d6 bludgeoning damage',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐗',
+        wildcard: true,
+        materials: [
+            { id: 'boar_tusk', quantity: 2 },
+            { id: 'earth_essence', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 280,
+        craftTime: 5,
+        successChance: 70,
+        levelRequirement: 6
+    },
+
+    potion_butterfly_dust: {
+        id: 'potion_butterfly_dust',
+        name: 'Butterfly Dust Elixir',
+        effect: 'Sprinkle on creature to make them fall into magical sleep for 1 minute (WIS save DC 13 negates). Works only on creatures of size Medium or smaller',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🦋',
+        wildcard: true,
+        materials: [
+            { id: 'butterfly_wing_dust', quantity: 4 },
+            { id: 'dream_powder', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 360,
+        craftTime: 5,
+        successChance: 65,
+        levelRequirement: 6
+    },
+
+    potion_elephant_memory: {
+        id: 'potion_elephant_memory',
+        name: 'Elephant Memory Tonic',
+        effect: 'Gain perfect recall of all events from the last 24 hours for 1 hour. After effect ends, suffer short-term memory loss for 1 hour',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🐘',
+        wildcard: true,
+        materials: [
+            { id: 'elephant_hair', quantity: 3 },
+            { id: 'memory_flower', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 450,
+        craftTime: 6,
+        successChance: 60,
+        levelRequirement: 8
+    },
+
+    potion_shark_bloodlust: {
+        id: 'potion_shark_bloodlust',
+        name: 'Shark Bloodlust Draught',
+        effect: 'Gain advantage on melee attacks against bleeding creatures for 1 minute. Must succeed on DC 15 WIS save each turn or attack nearest creature (friend or foe)',
+        potionType: 'offensive',
+        rarity: 'rare',
+        icon: '🦈',
+        wildcard: true,
+        materials: [
+            { id: 'shark_tooth', quantity: 3 },
+            { id: 'blood_ink', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 390,
+        craftTime: 5,
+        successChance: 65,
+        levelRequirement: 7
+    },
+
+    potion_peacock_pride: {
+        id: 'potion_peacock_pride',
+        name: 'Peacock Pride Elixir',
+        effect: 'Gain +4 to CHA for 10 minutes. All creatures within 30 ft must succeed on DC 14 WIS save or be charmed by you for 1 minute',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🦚',
+        wildcard: true,
+        materials: [
+            { id: 'peacock_feather', quantity: 4 },
+            { id: 'gold_dust', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 480,
+        craftTime: 6,
+        successChance: 60,
+        levelRequirement: 8
+    },
+
+    potion_ant_swarm: {
+        id: 'potion_ant_swarm',
+        name: 'Ant Swarm Vial',
+        effect: 'Throw to summon swarm of insects (lasts 1 minute). Swarm is hostile to all creatures except you',
+        potionType: 'offensive',
+        rarity: 'uncommon',
+        icon: '🐜',
+        wildcard: true,
+        materials: [
+            { id: 'ant_queen_pheromone', quantity: 1 },
+            { id: 'rotting_fruit', quantity: 3 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 220,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_whale_song: {
+        id: 'potion_whale_song',
+        name: 'Whale Song Elixir',
+        effect: 'Emit a low-frequency sound that can be heard up to 1 mile away underwater. All aquatic creatures within 100 ft must succeed on DC 15 WIS save or be charmed for 1 minute',
+        potionType: 'utility',
+        rarity: 'very_rare',
+        icon: '🐋',
+        wildcard: true,
+        materials: [
+            { id: 'whale_oil', quantity: 2 },
+            { id: 'echo_crystal', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 850,
+        craftTime: 8,
+        successChance: 50,
+        levelRequirement: 9
+    },
+
+    potion_firefly_glow: {
+        id: 'potion_firefly_glow',
+        name: 'Firefly Glow Potion',
+        effect: 'Body emits bright light in 20 ft radius and dim light for additional 20 ft for 1 hour. Light color changes every minute',
+        potionType: 'utility',
+        rarity: 'common',
+        icon: '🔥🐞',
+        wildcard: true,
+        materials: [
+            { id: 'firefly_abdomen', quantity: 5 },
+            { id: 'glowshroom', quantity: 2 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 80,
+        craftTime: 2,
+        successChance: 90,
+        levelRequirement: 1
+    },
+
+    potion_bee_sting: {
+        id: 'potion_bee_sting',
+        name: 'Bee Sting Tonic',
+        effect: 'Gain +1d4 piercing damage on melee attacks for 10 minutes. At the end of effect, suffer 1d4 piercing damage',
+        potionType: 'offensive',
+        rarity: 'common',
+        icon: '🐝',
+        wildcard: true,
+        materials: [
+            { id: 'bee_stinger', quantity: 3 },
+            { id: 'honey', quantity: 2 },
+            { id: 'empty_vial', quantity: 1 }
+        ],
+        goldCost: 90,
+        craftTime: 2,
+        successChance: 85,
+        levelRequirement: 2
+    },
+
+    potion_penguin_cold_resistance: {
+        id: 'potion_penguin_cold_resistance',
+        name: 'Penguin Cold Resistance Brew',
+        effect: 'Gain resistance to cold damage and ignore difficult terrain from ice/snow for 1 hour',
+        potionType: 'buff',
+        rarity: 'uncommon',
+        icon: '🐧',
+        wildcard: true,
+        materials: [
+            { id: 'penguin_feather', quantity: 4 },
+            { id: 'frost_essence', quantity: 1 },
+            { id: 'reinforced_flask', quantity: 1 }
+        ],
+        goldCost: 250,
+        craftTime: 4,
+        successChance: 75,
+        levelRequirement: 5
+    },
+
+    potion_chameleon_blend: {
+        id: 'potion_chameleon_blend',
+        name: 'Chameleon Blend Elixir',
+        effect: 'Gain advantage on Stealth checks for 1 hour. Skin changes color to match surroundings (but not texture)',
+        potionType: 'utility',
+        rarity: 'rare',
+        icon: '🦎',
+        wildcard: true,
+        materials: [
+            { id: 'chameleon_skin', quantity: 3 },
+            { id: 'illusion_powder', quantity: 2 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 420,
+        craftTime: 6,
+        successChance: 65,
+        levelRequirement: 7
+    },
+
+    potion_dolphin_sonar: {
+        id: 'potion_dolphin_sonar',
+        name: 'Dolphin Sonar Tonic',
+        effect: 'Gain blindsight 30 ft for 10 minutes. Can detect invisible creatures and objects within range',
+        potionType: 'utility',
+        rarity: 'very_rare',
+        icon: '🐬',
+        wildcard: true,
+        materials: [
+            { id: 'dolphin_echolocation_organ', quantity: 1 },
+            { id: 'echo_crystal', quantity: 3 },
+            { id: 'crystal_phial', quantity: 1 }
+        ],
+        goldCost: 950,
+        craftTime: 8,
+        successChance: 50,
+        levelRequirement: 10
+    },
     // Grand Cathay - Eastern, dragon-themed, mystical
     potion_cathay_dragon_breath: {
         id: 'potion_cathay_dragon_breath',
