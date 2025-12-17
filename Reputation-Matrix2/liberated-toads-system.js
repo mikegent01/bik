@@ -3271,15 +3271,97 @@ function renderDetailPanel(toad) {
     panel.classList.remove('hidden');
     panel.classList.add('visible');
 }
-
 function renderDetailTabContent(toad) {
+    // --- AUTO-LEVEL UP LOGIC ---
+    // Checks if XP is high enough, updates Level/HP, and logs the event.
+    const performAutoLevel = () => {
+        let didLevelUp = false;
+        
+        while (true) {
+            const nextLevel = toad.level + 1;
+            const threshold = XP_THRESHOLDS[nextLevel];
+
+            // Stop if max level or not enough XP
+            if (!threshold || toad.xp < threshold) break;
+
+            // 1. Apply Level Up
+            toad.level = nextLevel;
+            didLevelUp = true;
+            
+            // 2. Calculate Stats based on Class
+            const classDef = CLASS_DEFINITIONS[toad.class] || CLASS_DEFINITIONS.commoner;
+            const conMod = Math.floor(((toad.stats.con || 10) - 10) / 2);
+            // HP Gain: (Hit Die / 2) + 1 + CON Mod
+            const hpGain = Math.max(1, Math.floor((classDef.hit_die || 6) / 2) + 1 + conMod);
+
+            toad.stats.maxHp += hpGain;
+            toad.stats.hp += hpGain; // Heal the amount gained
+            
+            // 3. Update Proficiency
+            toad.stats.proficiency = Math.ceil(toad.level / 4) + 1;
+
+            // 4. Log Event
+            if (!toad.log) toad.log = [];
+            toad.log.push({
+                day: CURRENT_GAME_DATE.day,
+                event: `🎉 LEVEL UP! Auto-promoted to Level ${toad.level}`,
+                xp: 0,
+                type: "levelup"
+            });
+
+            // 5. Backfill Abilities into the data array (for data consistency)
+            if (classDef.skills) {
+                classDef.skills.forEach(skill => {
+                    if (skill.level === toad.level) {
+                        if (!toad.abilities.some(a => a.name === skill.name)) {
+                            toad.abilities.push({ name: skill.name, unlocked: true });
+                            toad.log.push({
+                                day: CURRENT_GAME_DATE.day,
+                                event: `⭐ Ability Unlock: ${skill.name}`,
+                                xp: 0,
+                                type: "ability"
+                            });
+                        }
+                    }
+                });
+            }
+        }
+        return didLevelUp;
+    };
+
+    // Run the check immediately before rendering
+    const leveledUp = performAutoLevel();
+
+    // Refresh Header elements if a level up occurred
+    if (leveledUp) {
+        const headerLevel = document.getElementById('detail-level');
+        const classDef = CLASS_DEFINITIONS[toad.class];
+        if (headerLevel) headerLevel.textContent = `Level ${toad.level} ${classDef?.name || toad.class}`;
+    }
+    // --------------------------------
+
     const classDef = CLASS_DEFINITIONS[toad.class];
     
     // Stats tab
     const statsContent = document.getElementById('tab-stats');
     if (statsContent && appState.detailTab === 'stats') {
-        const xpProgress = getXPProgress(toad.level, toad.xp);
-        const xpToNext = getXPToNextLevel(toad.level, toad.xp);
+        const currentLevelStart = XP_THRESHOLDS[toad.level] || 0;
+        const nextLevelThreshold = XP_THRESHOLDS[toad.level + 1];
+        
+        let xpProgress = 0;
+        let nextLevelText = "";
+        
+        if (!nextLevelThreshold) {
+            xpProgress = 100;
+            nextLevelText = "MAX LEVEL";
+        } else {
+            const needed = nextLevelThreshold - toad.xp;
+            const levelRange = nextLevelThreshold - currentLevelStart;
+            const progress = toad.xp - currentLevelStart;
+            xpProgress = Math.min(100, Math.floor((progress / levelRange) * 100));
+            nextLevelText = `${needed.toLocaleString()} XP to Level ${toad.level + 1}`;
+        }
+
         const hpPercentage = toad.stats?.maxHp ? (toad.stats.hp / toad.stats.maxHp) * 100 : 100;
         
         statsContent.innerHTML = `
@@ -3288,11 +3370,11 @@ function renderDetailTabContent(toad) {
                 <div class="progression-container">
                     <div class="progression-header">
                         <span class="current-level">Level ${toad.level}</span>
-                        <span class="next-level">Next: ${xpToNext > 0 ? `${xpToNext} XP to Level ${toad.level + 1}` : 'MAX LEVEL'}</span>
+                        <span class="next-level">${nextLevelText}</span>
                     </div>
                     <div class="progression-xp-bar">
                         <div class="progression-xp-fill" style="width: ${xpProgress}%"></div>
-                        <span class="progression-xp-text">${toad.xp} / ${XP_THRESHOLDS[toad.level + 1] || 'MAX'} XP</span>
+                        <span class="progression-xp-text">${toad.xp.toLocaleString()} / ${(nextLevelThreshold || 'MAX').toLocaleString()} XP</span>
                     </div>
                     <div class="xp-total">Total XP: ${toad.xp?.toLocaleString() || 0}</div>
                 </div>
@@ -3314,7 +3396,6 @@ function renderDetailTabContent(toad) {
                 <div class="stats-grid">
                     <div class="stat-item"><span class="stat-value">${toad.stats?.ac || 10}</span><span class="stat-label">AC</span></div>
                     <div class="stat-item"><span class="stat-value">${toad.stats?.speed || 30}</span><span class="stat-label">Speed</span></div>
-                    <div class="stat-item">            
                     <div class="stat-item"><span class="stat-value">${toad.stats?.str || 10}</span><span class="stat-label">STR</span></div>
                     <div class="stat-item"><span class="stat-value">${toad.stats?.dex || 10}</span><span class="stat-label">DEX</span></div>
                     <div class="stat-item"><span class="stat-value">${toad.stats?.con || 10}</span><span class="stat-label">CON</span></div>
@@ -3362,6 +3443,7 @@ function renderDetailTabContent(toad) {
                 <div class="class-info">
                     <span>Hit Die: d${classDef?.hit_die || 6}</span>
                     <span>Primary: ${classDef?.primary_stat?.toUpperCase() || 'N/A'}</span>
+                    <span>Proficiency: +${toad.stats.proficiency || 2}</span>
                 </div>
             </div>
             
@@ -3370,9 +3452,10 @@ function renderDetailTabContent(toad) {
                 <p class="skill-tree-hint">Unlocked abilities shown in green. Gold border = next unlock at level up.</p>
                 <div class="skill-tree">
                     ${classSkills.map(skill => {
-                        const isUnlocked = toad.abilities?.some(a => a.name === skill.name);
+                        // --- FIX: Logic uses Level comparison, not just array presence ---
+                        // This ensures pre-made characters (like Dan at lvl 5) show early skills as unlocked
+                        const isUnlocked = toad.level >= skill.level;
                         const isNext = !isUnlocked && skill.level === toad.level + 1;
-                        const isLocked = !isUnlocked && skill.level > toad.level + 1;
                         
                         return `
                             <div class="skill-node ${isUnlocked ? 'unlocked' : isNext ? 'next-unlock' : 'locked'}">
