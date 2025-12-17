@@ -6,10 +6,12 @@ export const CURRENT_GAME_DATE = {
     day: 21
 };
 
+const now = new Date();
 export const CURRENT_GAME_TIME = {
-    hour: 22,
-    minute: 0
+    hour: now.getHours(),
+    minute: now.getMinutes()
 };
+
 
 export const PAGE_UPDATES = {
     'maps.html': 20,
