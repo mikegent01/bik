@@ -2,7 +2,2384 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+  {
+        id: 'hotel_lockdown_breaking',
+        order: 62400,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 8, minute: 15 },
+        timestamp: '6 hours ago',
+        content: `BREAKING: Regency Military Police have surrounded Hotel Delfino. They're demanding the surrender of Noki dignitaries inside. Manager Monk just activated the steel shutters. This hotel is now a FORTRESS.`,
+        likes: 892,
+        comments: [
+            { characterKey: 'pianta_tourist', text: 'I can see it from the plaza! The whole building just sealed up!' },
+            { characterKey: 'noki_elder', text: 'The Monk honors the old agreements. Sanctuary is sacred.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_monk_statement',
+        order: 62401,
+        characterKey: 'manager_monk',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 8, minute: 45 },
+        timestamp: '5 hours 30 minutes ago',
+        content: `To the Regency forces outside: Hotel Delfino has been neutral ground for 200 years. You will NOT breach these walls. I have 47 Boos in the basement who haven't been fed in weeks. Try me.`,
+        likes: 2341,
+        comments: [
+            { characterKey: 'captain_lock', text: 'This is obstruction of Regency authority! You are harboring fugitives!' },
+            { characterKey: 'boo_resident', text: 'We\'re not pets, Monk. But yeah, we\'ll help.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_noki_inside',
+        order: 62402,
+        characterKey: 'noki_dignitary',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 9, minute: 0 },
+        timestamp: '5 hours 15 minutes ago',
+        content: `We came here for a trade summit. Now we're prisoners in a luxury hotel because the Regency decided our shells are "suspicious." The Monk is protecting us at great personal risk. We will not forget this.`,
+        likes: 1567,
+        comments: [
+            { characterKey: 'pianta_chef', text: 'Room service still running? I can send up some supplies.' },
+            { characterKey: 'mushroom_regency_official', text: 'You are wanted for questioning. Surrender peacefully.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_captain_frustrated',
+        order: 62403,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 9, minute: 30 },
+        timestamp: '4 hours 45 minutes ago',
+        content: `Command, requesting heavy breaching equipment. The shutters are reinforced steel. Also... did anyone know this hotel had BOOS? Why does a hotel have Boos?!`,
+        likes: 445,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'Sir, the Boos are legally registered as "pest control." We can\'t touch them.' },
+            { characterKey: 'manager_monk', text: 'They handle the rats. And uninvited guests.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_pianta_reaction',
+        order: 62404,
+        characterKey: 'pianta_elder',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 10, minute: 0 },
+        timestamp: '4 hours 15 minutes ago',
+        content: `The Regency thinks they can just arrest anyone they want on our island? The Monk did what any honorable Delfino citizen would do. Hotel Delfino stands with the Piantas!`,
+        likes: 1823,
+        comments: [
+            { characterKey: 'don_pianta', text: 'The Monk has friends. Many friends.' },
+            { characterKey: 'gelato_resident', text: 'Careful. The Regency doesn\'t forget defiance.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_boo_threat',
+        order: 62405,
+        characterKey: 'boo_resident',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 10, minute: 30 },
+        timestamp: '3 hours 45 minutes ago',
+        content: `Just floated through the lobby. Those Regency boys look REAL nervous through the windows. One of them saw me lick the glass. He's been pale ever since. 👻`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'shy_guy_tourist', text: 'This is the content I subscribed for.' },
+            { characterKey: 'regency_private', text: 'I didn\'t sign up for ghost duty. I want a transfer.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_standoff_continues',
+        order: 62406,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 11, minute: 0 },
+        timestamp: '3 hours 15 minutes ago',
+        content: `Hour 3 of the Hotel Delfino standoff. Regency forces have requested backup. Manager Monk has requested room service. The Boos have requested "something fun to haunt." Tensions are HIGH.`,
+        likes: 2134,
+        comments: [
+            { characterKey: 'pianta_bartender', text: 'I\'m taking bets on how long the Regency lasts. 2:1 they give up by sunset.' },
+            { characterKey: 'noki_shellfish', text: 'The whole island is watching. Don\'t let us down, Monk.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_regency_retreat',
+        order: 62407,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 12, minute: 0 },
+        timestamp: '2 hours 15 minutes ago',
+        content: `Command has ordered us to maintain perimeter but NOT breach. Something about "diplomatic complications." We're just supposed to wait here while ghosts mock us. This is humiliating.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'regency_corporal', text: 'Sir, one of the Boos keeps making faces through the keyhole.' },
+            { characterKey: 'manager_monk', text: 'I\'ll ask them to stop. No promises.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_supply_run',
+        order: 62408,
+        characterKey: 'pianta_chef',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 13, minute: 0 },
+        timestamp: '1 hour 15 minutes ago',
+        content: `Just threw a crate of coconuts over the back wall. The Monk caught it personally. Regency didn't even notice. Their perimeter has more holes than my pasta strainer.`,
+        likes: 1567,
+        comments: [
+            { characterKey: 'noki_dignitary', text: 'Bless you. We were getting hungry.' },
+            { characterKey: 'captain_lock', text: 'WHO THREW THAT?! SOMEONE ARREST THAT PIANTA!' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_syndicate_warning',
+        order: 62409,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 13, minute: 30 },
+        timestamp: '45 minutes ago',
+        content: `Let me be VERY clear, Captain Lock. Hotel Delfino is under Syndicate protection. If a single shutter is damaged, if a single Boo is harmed, if a single Noki hair is touched... you will learn why we call it "chucking."`,
+        likes: 4521,
+        comments: [
+            { characterKey: 'pianta_enforcer', text: 'Boss said we\'re on standby. Just give the word.' },
+            { characterKey: 'mushroom_regency_official', text: 'The Syndicate has no legal authority here!' },
+            { characterKey: 'don_pianta', text: 'Legal? Who said anything about legal?' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_noki_gratitude',
+        order: 62410,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 14, minute: 0 },
+        timestamp: '15 minutes ago',
+        content: `From within the Hotel Delfino, we the Noki delegation formally thank Manager Monk and the Pianta Syndicate for their protection. This act of defiance will be remembered in Noki Bay for generations.`,
+        likes: 2890,
+        comments: [
+            { characterKey: 'manager_monk', text: 'Neutrality isn\'t just a policy. It\'s a promise.' },
+            { characterKey: 'noki_shellfish', text: 'The shells stand with the palms. Always.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_gelato_concern',
+        order: 62411,
+        characterKey: 'gelato_resident',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 14, minute: 15 },
+        timestamp: '10 minutes ago',
+        content: `Watching this from Gelato Beach. If the hotel can defy the Regency, what's stopping everyone else? Mayor Melon is very quiet right now. Something's brewing.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'Gelato Beach remains loyal to proper authority.' },
+            { characterKey: 'pianta_tourist', text: 'Define "proper authority," Melon.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_boo_party',
+        order: 62412,
+        characterKey: 'boo_resident',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 14, minute: 30 },
+        timestamp: '5 minutes ago',
+        content: `Update: the Noki dignitaries are teaching us a card game. The Monk opened the mini-bar. Captain Lock's men can hear us laughing through the shutters. Best. Siege. Ever.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'shy_guy_tourist', text: 'I want to be besieged in a luxury hotel!' },
+            { characterKey: 'captain_lock', text: 'This is a MOCKERY of military authority!' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_regency_humiliation',
+        order: 62413,
+        characterKey: 'mushroom_regency_official',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 14, minute: 45 },
+        timestamp: '2 minutes ago',
+        content: `Official statement: The situation at Hotel Delfino is being monitored. We remain committed to lawful resolution. Reports of Regency forces being "spooked by Boos" are exaggerated.`,
+        likes: 123,
+        comments: [
+            { characterKey: 'regency_private', text: 'IT WENT THROUGH ME, SIR. THROUGH ME.' },
+            { characterKey: 'delfino_reporter', text: 'I have video of your sergeant crying. Want me to post it?' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_koopa_watching',
+        order: 62414,
+        characterKey: 'koopa_scout',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 15, minute: 0 },
+        timestamp: 'Just now',
+        content: `Observation report from offshore: Regency forces are completely tied up at the hotel. Their patrols are thin everywhere else. Command should find this... interesting.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Noted. Continue observation.' },
+            { characterKey: 'admiral_blooper', text: 'Interesting indeed. Very interesting.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_sunset_standoff',
+        order: 62415,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 0 },
+        timestamp: '3 hours later',
+        content: `The sun sets on Hotel Delfino, and the standoff continues. Captain Lock has been ordered to maintain position overnight. The hotel's neon sign just flickered on: "VACANCY: NOT FOR REGENCY."`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'manager_monk', text: 'I\'ve been saving that sign for years.' },
+            { characterKey: 'pianta_bartender', text: 'Drinks are on me tonight! Hotel Delfino forever!' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_night_watch',
+        order: 62416,
+        characterKey: 'regency_sergeant',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 22, minute: 0 },
+        timestamp: 'Late evening',
+        content: `Night shift. The Boos are more active in the dark. They keep floating past the windows making "wooooo" sounds. Private Jenkins has requested a chaplain. I don't blame him.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'boo_resident', text: 'Wooooo~ 👻' },
+            { characterKey: 'captain_lock', text: 'MAINTAIN DISCIPLINE, SERGEANT!' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_island_mood',
+        order: 62417,
+        characterKey: 'pianta_elder',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 23, minute: 0 },
+        timestamp: 'Near midnight',
+        content: `The whole island is talking about the hotel. For the first time in years, Piantas and Nokis are united in something: laughing at the Regency. This feels like a turning point.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'don_pianta', text: 'It\'s only the beginning.' },
+            { characterKey: 'noki_shellfish', text: 'The tide is turning.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_monk_reflection',
+        order: 62418,
+        characterKey: 'manager_monk',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 23, minute: 30 },
+        timestamp: 'Midnight approaching',
+        content: `I've managed this hotel for 40 years. Survived three hurricanes, two Blooper infestations, and a haunting that got out of hand. But today? Today I became something more than a manager. Today I became a symbol.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'noki_dignitary', text: 'You are a hero, Monk.' },
+            { characterKey: 'boo_resident', text: 'You\'re alright for a living guy.' },
+            { characterKey: 'don_pianta', text: 'The Syndicate will remember this. Always.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
+    {
+        id: 'hotel_lockdown_dawn',
+        order: 62419,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 0 },
+        timestamp: 'Next morning',
+        content: `Dawn at Hotel Delfino. Captain Lock's men look exhausted. The hotel shutters remain sealed. Manager Monk was seen waving from the rooftop with a cup of coffee. The standoff enters Day 2.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'captain_lock', text: 'We will NOT abandon our post!' },
+            { characterKey: 'manager_monk', text: 'Coffee? I can lower some down if you ask nicely.' }
+        ],
+        rumorId: 'delfino_hotel_lockdown'
+    },
 
+    // ========================================================================
+    // THE FIN FRIENDLY FIRE INCIDENT (Day 25)
+    // ========================================================================
+    {
+        id: 'fin_incident_distress',
+        order: 62500,
+        characterKey: 'lt_sunburn',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 11, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Day 5 on the Fin. No shade. No relief. Water rations are low. The men are seeing things. Private Dusty swears he saw a shadow moving on the rocks. I told him it's just heat shimmer. It has to be.`,
+        likes: 45,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'Sir, requesting permission to fall back to the main camp.' },
+            { characterKey: 'lt_sunburn', text: 'Denied. We hold the Fin.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_paranoia',
+        order: 62501,
+        characterKey: 'sgt_daze',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `I saw him. Shadow Mario. He was on the ridge, watching us. Those eyes... those EMPTY eyes. I opened fire. The lieutenant says I'm seeing things but I KNOW WHAT I SAW.`,
+        likes: 78,
+        comments: [
+            { characterKey: 'lt_sunburn', text: 'Sergeant, stand down! There\'s no one there!' },
+            { characterKey: 'regency_private', text: 'I saw it too, sir! Blue overalls, creepy smile!' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_firefight',
+        order: 62502,
+        characterKey: 'lt_sunburn',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Contact! Contact on the eastern approach! Multiple Shadow Marios! All units open fire! Wait... wait those are... OH STARS, THOSE ARE OUR MEN! CEASE FIRE! CEASE FIRE!`,
+        likes: 234,
+        comments: [
+            { characterKey: 'regency_medic', text: 'We need evac NOW! Three men down!' },
+            { characterKey: 'sgt_daze', text: 'They... they looked just like him, sir...' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_aftermath',
+        order: 62503,
+        characterKey: 'regency_medic',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Treating three friendly fire casualties. All from Alpha squad shooting at Beta squad. Both units claim they saw "Shadow Mario" approaching. This isn't combat stress. This is mass hallucination.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'mushroom_regency_official', text: 'This report must be classified immediately.' },
+            { characterKey: 'noki_healer', text: 'The Fin has always been cursed. The spirits there play tricks.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_evacuation',
+        order: 62504,
+        characterKey: 'lt_sunburn',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 0 },
+        timestamp: '30 minutes ago',
+        content: `Ordering full evacuation of the Fin. I take responsibility for this disaster. My men... they trusted me to keep them safe. And I stationed them in a place that broke their minds.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'sgt_daze', text: 'It\'s not your fault, sir. That place... it\'s evil.' },
+            { characterKey: 'captain_lock', text: 'You\'ll answer for abandoning your post, Lieutenant.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_witness',
+        order: 62505,
+        characterKey: 'pianta_fisherman',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 30 },
+        timestamp: '15 minutes ago',
+        content: `Sailed past the Fin today. Heard gunfire. Saw Regency soldiers shooting at each other like madmen. Then they all piled into boats and fled. Left their equipment on the rocks. Free supplies, anyone?`,
+        likes: 1234,
+        comments: [
+            { characterKey: 'pianta_scavenger', text: 'Dibs on the tents!' },
+            { characterKey: 'don_pianta', text: 'Collect everything. The Syndicate will compensate you.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_noki_reaction',
+        order: 62506,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 0 },
+        timestamp: 'Just now',
+        content: `The Fin has claimed more victims. Our ancestors warned that the spirits there punish those who come with violence in their hearts. The Regency should have listened to the old stories.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'noki_shellfish', text: 'The island rejects the invaders.' },
+            { characterKey: 'mushroom_regency_official', text: 'Superstitious nonsense!' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_morale_collapse',
+        order: 62507,
+        characterKey: 'regency_private',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 30 },
+        timestamp: 'Moments ago',
+        content: `I didn't sign up for this. The hotel has ghosts. The Fin has... whatever that was. The locals hate us. I want to go HOME. This island is CURSED.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'Keep that talk quiet, private. Morale is bad enough.' },
+            { characterKey: 'pianta_resident', text: 'Not cursed. Just doesn\'t want you here.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_cover_up',
+        order: 62508,
+        characterKey: 'mushroom_regency_official',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 0 },
+        timestamp: '1 hour later',
+        content: `Official statement: A minor training accident occurred at the Fin outpost. All personnel have been rotated for standard rest. Reports of "Shadow Mario" sightings are unsubstantiated rumors.`,
+        likes: 89,
+        comments: [
+            { characterKey: 'delfino_reporter', text: 'I have three witnesses who say otherwise.' },
+            { characterKey: 'lt_sunburn', text: 'Training accident? They\'re calling it a TRAINING ACCIDENT?!' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_sgt_breakdown',
+        order: 62509,
+        characterKey: 'sgt_daze',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 0 },
+        timestamp: '2 hours later',
+        content: `I keep seeing him. Even now, back at base camp. In the corners. In the shadows. Smiling. Always smiling. The medic says it's PTSD. I say Shadow Mario is REAL and he's following me.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'regency_medic', text: 'Sergeant, I\'m recommending you for immediate evacuation.' },
+            { characterKey: 'lt_sunburn', text: 'Daze... I\'m sorry. This is my fault.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_koopa_intel',
+        order: 62510,
+        characterKey: 'koopa_scout',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 0 },
+        timestamp: '3 hours later',
+        content: `Intelligence report: Regency forces on Isle Delfino are experiencing severe morale issues. The Fin has been abandoned. Recommend accelerating invasion timeline. They're falling apart without us even trying.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Excellent work. Continue monitoring.' },
+            { characterKey: 'admiral_blooper', text: 'Their weakness is our opportunity.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_local_mockery',
+        order: 62511,
+        characterKey: 'pianta_bartender',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 0 },
+        timestamp: 'Evening',
+        content: `New drink special at my bar: "The Fin Flashback." It's just coconut rum with a little umbrella that I wave in your face while making spooky noises. Regency soldiers get 50% off. 😂`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'pianta_tourist', text: 'This is cruel and I love it.' },
+            { characterKey: 'regency_private', text: 'That\'s not funny! My friends were HURT!' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_captain_response',
+        order: 62512,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 0 },
+        timestamp: 'Night',
+        content: `The Fin incident is a setback, nothing more. We will not be intimidated by heat, by hallucinations, or by local "spirits." The Regency maintains control of Isle Delfino. Period.`,
+        likes: 123,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Sure you do, Captain. Sure you do.' },
+            { characterKey: 'noki_elder', text: 'Your certainty is admirable. Your blindness is not.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_lt_guilt',
+        order: 62513,
+        characterKey: 'lt_sunburn',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 22, minute: 0 },
+        timestamp: 'Late night',
+        content: `I've submitted my resignation. They won't accept it. "No officer leaves during active deployment." But I can't lead men anymore. Not after what I made them do. Not after what that place made US do.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'sgt_daze', text: 'We don\'t blame you, sir. The Fin... it wasn\'t natural.' },
+            { characterKey: 'regency_medic', text: 'You need rest, Lieutenant. We all do.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_equipment_looted',
+        order: 62514,
+        characterKey: 'pianta_scavenger',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 23, minute: 0 },
+        timestamp: 'Near midnight',
+        content: `Just got back from the Fin with a boat full of Regency gear. Tents, rations, ammunition... they left EVERYTHING. Don Pianta is going to be very pleased.`,
+        likes: 1890,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Good work. Store it at the village.' },
+            { characterKey: 'captain_lock', text: 'That is REGENCY PROPERTY! Return it immediately!' },
+            { characterKey: 'pianta_scavenger', text: 'Finders keepers, Captain!' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_noki_blessing',
+        order: 62515,
+        characterKey: 'noki_healer',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 23, minute: 30 },
+        timestamp: 'Midnight',
+        content: `I've offered to perform cleansing rituals for the affected Regency soldiers. Several have accepted. Perhaps if they understood our ways, they would stop trying to conquer our home.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'regency_private', text: 'Please help me. I can\'t sleep.' },
+            { characterKey: 'noki_elder', text: 'Compassion for the invaders? You are wiser than I, healer.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_shadow_mario_theory',
+        order: 62516,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 0, minute: 0 },
+        timestamp: 'After midnight',
+        content: `The "Shadow Mario" sightings deserve investigation. Was it mass hallucination? A local spirit? Or something... someone... deliberately terrorizing Regency forces? I'm digging deeper.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'Some questions are better left unasked.' },
+            { characterKey: 'koopa_scout', text: 'Interesting theory. Very interesting.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_regency_reinforcement',
+        order: 62517,
+        characterKey: 'mushroom_regency_official',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 6, minute: 0 },
+        timestamp: 'Next morning',
+        content: `In response to recent events, additional Regency forces will be deployed to Isle Delfino. The airstrip garrison is being reinforced. Order will be maintained.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'don_pianta', text: 'More soldiers to chuck. How generous.' },
+            { characterKey: 'general_shellshock', text: 'Reinforcing failure. Classic Regency strategy.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_soldier_testimony',
+        order: 62518,
+        characterKey: 'regency_corporal',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 8, minute: 0 },
+        timestamp: 'Morning',
+        content: `I was there. I saw it. It wasn't heat. It wasn't stress. Something was on that rock with us. Something that looked like Mario but... wrong. Empty. It wanted us to shoot each other. And we did.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'mushroom_regency_official', text: 'This post has been flagged for misinformation.' },
+            { characterKey: 'pianta_resident', text: 'The Regency can\'t hide the truth forever.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+    {
+        id: 'fin_incident_final_report',
+        order: 62519,
+        characterKey: 'lt_sunburn',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 10, minute: 0 },
+        timestamp: 'Final entry',
+        content: `My official report has been rejected. They want me to call it "heat exhaustion." Three men are in the hospital because we shot them, and they want to pretend it was the WEATHER. I'm done pretending for the Regency.`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'sgt_daze', text: 'We know the truth, sir. History will too.' },
+            { characterKey: 'delfino_reporter', text: 'Lieutenant, I\'d like to interview you. Anonymously if needed.' },
+            { characterKey: 'captain_lock', text: 'Sunburn, you are hereby confined to quarters pending investigation.' }
+        ],
+        rumorId: 'delfino_fin_madness'
+    },
+
+    // ========================================================================
+    // PIANTA VILLAGE DECLARES INDEPENDENCE (Day 26)
+    // ========================================================================
+    {
+        id: 'village_secession_announcement',
+        order: 62600,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 10, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Let it be known across all lands: Pianta Village hereby declares INDEPENDENCE from the Mushroom Regency. We reject their authority, their laws, and their occupation. The bridge is being cut as I speak.`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'At last! Freedom for our people!' },
+            { characterKey: 'mushroom_regency_official', text: 'This is TREASON! You will face consequences!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_bridge_cut',
+        order: 62601,
+        characterKey: 'pianta_enforcer',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 10, minute: 30 },
+        timestamp: '3 hours 30 minutes ago',
+        content: `The suspension bridge is DOWN. Cut it myself. Watched the planks fall into the canyon. Felt like cutting a chain. The only way up now is the way WE allow. Pianta Village is a fortress!`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Well done, cousin. Well done.' },
+            { characterKey: 'captain_lock', text: 'You\'ve just trapped yourselves! We can starve you out!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_envoy_sent',
+        order: 62602,
+        characterKey: 'mushroom_regency_official',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 11, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `The Regency is dispatching Envoy Beige to negotiate with Don Pianta. This rebellion can be resolved peacefully. The Don is a businessman. He'll see reason when presented with the economic consequences.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'captain_lock', text: 'I advised against negotiation. But command insists.' },
+            { characterKey: 'don_pianta', text: 'Send your envoy. We\'ll give him a warm welcome.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_envoy_arrives',
+        order: 62603,
+        characterKey: 'envoy_beige',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 12, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Approaching Pianta Village via rope ladder provided by... large gentlemen. This is highly irregular diplomatic protocol. The Don has agreed to meet me at the village center. I remain confident in a peaceful resolution.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'pianta_enforcer', text: 'He looks nervous. Good.' },
+            { characterKey: 'mushroom_regency_official', text: 'Maintain professionalism, Envoy.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_negotiation',
+        order: 62604,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 12, minute: 30 },
+        timestamp: '1 hour 30 minutes ago',
+        content: `Envoy Beige has delivered the Regency's terms: submission, tribute, and "amnesty" for our "crimes." I have a counter-offer. Boys, show him to the balcony.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'envoy_beige', text: 'Don Pianta, I must protest—WAIT, WHAT ARE YOU DOING?!' },
+            { characterKey: 'pianta_enforcer', text: 'Chucking stance ready, boss.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_chuck',
+        order: 62605,
+        characterKey: 'pianta_enforcer',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 12, minute: 45 },
+        timestamp: '1 hour 15 minutes ago',
+        content: `ENVOY BEIGE HAS BEEN CHUCKED! 🎯 Perfect arc! He's headed straight for the plaza pool! Wait for it... wait for it... SPLASH! That's at least 200 meters! New village record!`,
+        likes: 9012,
+        comments: [
+            { characterKey: 'pianta_tourist', text: 'I SAW IT FROM THE PLAZA! He made such a big splash!' },
+            { characterKey: 'don_pianta', text: 'That\'s our response to Regency "negotiations."' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_envoy_survives',
+        order: 62606,
+        characterKey: 'envoy_beige',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 13, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `I... I'm alive? I'm in the plaza pool? They THREW me off a CLIFF! This is an ACT OF WAR! My briefcase is ruined! My dignity is DESTROYED! THE REGENCY WILL HEAR OF THIS!`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'pianta_bartender', text: 'Nice landing! Drink\'s on the house!' },
+            { characterKey: 'captain_lock', text: 'Envoy, report immediately for debriefing.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_regency_fury',
+        order: 62607,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 13, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `They threw our envoy off a cliff. An OFFICIAL DIPLOMATIC ENVOY. This isn't rebellion anymore. This is insurrection. I am requesting authorization for a full military assault on Pianta Village.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'mushroom_regency_official', text: 'Authorization... denied. We cannot assault the village without heavy casualties.' },
+            { characterKey: 'don_pianta', text: 'Come and try, Captain. We\'ll chuck you too.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_koopa_interest',
+        order: 62608,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 14, minute: 0 },
+        timestamp: 'Just now',
+        content: `The Pianta Syndicate has declared independence and humiliated a Regency diplomat. This is the moment we've been waiting for. Prepare the paratroopers. Corona Mountain is our target.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'koopa_scout', text: 'Ready when you are, General.' },
+            { characterKey: 'admiral_blooper', text: 'The fleet is standing by.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_celebration',
+        order: 62609,
+        characterKey: 'pianta_elder',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 14, minute: 30 },
+        timestamp: '15 minutes ago',
+        content: `Tonight, we feast! For the first time in a generation, Pianta Village is FREE! The Don has done what our grandfathers only dreamed of! Independence! INDEPENDENCE!`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'don_pianta', text: 'This is only the beginning. Now we defend what we\'ve claimed.' },
+            { characterKey: 'noki_shellfish', text: 'The Nokis salute your courage, Pianta brothers!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_defense_prep',
+        order: 62610,
+        characterKey: 'pianta_enforcer',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 15, minute: 0 },
+        timestamp: 'Now',
+        content: `Boss has us fortifying every approach. Barrels of coconuts positioned at every cliff edge. Anyone tries to climb up, they're getting a fruit avalanche. This village is IMPREGNABLE.`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'pianta_chef', text: 'I\'ve got a catapult made from palm trees. Works great!' },
+            { characterKey: 'don_pianta', text: 'Creative. I like it.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_noki_support',
+        order: 62611,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 15, minute: 30 },
+        timestamp: 'Moments ago',
+        content: `The Noki Elders have voted unanimously to support Pianta Village's independence. We are sending supplies by sea route. The Gelato-Regency Axis stands alone against the free peoples of Delfino.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'don_pianta', text: 'The Nokis honor us. We will not forget this alliance.' },
+            { characterKey: 'mayor_melon', text: 'The Nokis have chosen the losing side.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_regency_blockade',
+        order: 62612,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 16, minute: 0 },
+        timestamp: '1 hour later',
+        content: `If we can't assault the village, we can STARVE it. I'm establishing a perimeter. No supplies in, no people out. Let's see how long their "independence" lasts without food.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'don_pianta', text: 'We have farms, orchting, and the Nokis. Try again, Captain.' },
+            { characterKey: 'pianta_farmer', text: 'We\'ve been self-sufficient for centuries. Nice try though.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_don_speech',
+        order: 62613,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 18, minute: 0 },
+        timestamp: 'Evening',
+        content: `My people! Today we took back what was always ours! The Regency called us criminals. They called us savages. They sent their bureaucrat to threaten us. We sent him FLYING. That's the Pianta way!`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'LONG LIVE THE DON!' },
+            { characterKey: 'pianta_enforcer', text: 'LONG LIVE PIANTA VILLAGE!' },
+            { characterKey: 'noki_shellfish', text: 'LONG LIVE FREE DELFINO!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_gelato_reaction',
+        order: 62614,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 19, minute: 0 },
+        timestamp: 'Night',
+        content: `The Pianta Village's "declaration" is illegal and will not be recognized by Gelato Beach. We stand with the Mushroom Regency and legitimate authority. Don Pianta is a criminal, not a liberator.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Melon, you were always a bootlicker.' },
+            { characterKey: 'gelato_resident', text: 'Speak for yourself, Mayor. Not all of us agree.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_flying_distance',
+        order: 62615,
+        characterKey: 'pianta_tourist',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 20, minute: 0 },
+        timestamp: 'Later',
+        content: `Okay so I measured: Envoy Beige flew approximately 237 meters before hitting the pool. That's INSANE. Piantas are STRONG. No wonder the Regency doesn't want to fight them up close.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'pianta_enforcer', text: 'It\'s all in the wind-up. Family technique.' },
+            { characterKey: 'envoy_beige', text: 'I am STILL finding water in my ears!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_supply_route',
+        order: 62616,
+        characterKey: 'noki_trader',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 21, minute: 0 },
+        timestamp: 'Night',
+        content: `First supply run to Pianta Village complete. Used the sea caves and the old cliff paths the Regency doesn't know about. Fresh fish and medical supplies delivered. The blockade is useless.`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'don_pianta', text: 'The Nokis prove their friendship with action.' },
+            { characterKey: 'captain_lock', text: 'WHAT SEA CAVES?! WHY DON\'T WE HAVE MAPS OF THESE?!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_regency_despair',
+        order: 62617,
+        characterKey: 'regency_sergeant',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 22, minute: 0 },
+        timestamp: 'Late night',
+        content: `We're supposed to be blockading a village we can't reach, while being mocked by locals, and supplies keep getting through anyway. What exactly are we accomplishing here?`,
+        likes: 456,
+        comments: [
+            { characterKey: 'regency_private', text: 'I heard the Captain crying in his tent.' },
+            { characterKey: 'captain_lock', text: 'I WAS NOT CRYING. I had something in my eye!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_historical_moment',
+        order: 62618,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 23, minute: 0 },
+        timestamp: 'Near midnight',
+        content: `History was made today. Pianta Village, a community of fruit farmers and "legitimate businessmen," just defied the Mushroom Regency and WON. The envoy-chucking will be taught in schools someday.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'Our children will learn the art of diplomatic chucking.' },
+            { characterKey: 'mushroom_regency_official', text: 'This is NOT over!' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+    {
+        id: 'village_secession_don_night',
+        order: 62619,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 0, minute: 0 },
+        timestamp: 'Midnight',
+        content: `The Regency thinks this is about taxes or pride. They don't understand. This is about our CHILDREN. Our grandchildren. A Delfino where Piantas bow to no foreign power. That's worth fighting for.`,
+        likes: 9012,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'For the children. For the future. For Delfino.' },
+            { characterKey: 'noki_elder', text: 'Your words echo in Noki Bay, Don. We stand with you.' },
+            { characterKey: 'general_shellshock', text: 'Interesting. The Don has vision. We can work with vision.' }
+        ],
+        rumorId: 'delfino_village_secession'
+    },
+
+    // ========================================================================
+    // KOOPA PARATROOPERS SEIZE CORONA MOUNTAIN (Day 27)
+    // ========================================================================
+    {
+        id: 'corona_invasion_launch',
+        order: 62700,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 5, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `Operation Caldera Drop is GO. All paratroopers, prepare for high-altitude insertion. We're landing directly in Corona Mountain's crater. The Regency won't expect an attack from the sky. Because they never look UP.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'koopa_paratrooper', text: 'Wings checked! Ready to fly, General!' },
+            { characterKey: 'admiral_blooper', text: 'Naval forces standing by for support. Good hunting.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_drop',
+        order: 62701,
+        characterKey: 'koopa_paratrooper',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 6, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `DROPPING NOW! The caldera is below us! I can see Regency tents—they're looking at the SEA, not the SKY! This is going to be BEAUTIFUL! SHELL SHOCK FROM ABOVE! 🪂🐢`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Perfect descent angle. All units, engage on landing!' },
+            { characterKey: 'koopa_scout', text: 'Visual confirmation: Regency guards are panicking!' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_regency_surprise',
+        order: 62702,
+        characterKey: 'sgt_toadofsky',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 6, minute: 15 },
+        timestamp: '4 hours 45 minutes ago',
+        content: `THEY'RE COMING FROM THE SKY! KOOPAS FROM THE SKY! HOW DO THEY HAVE WINGS?! EVERYONE TO BATTLE STATIONS! THIS IS NOT A DRILL!`,
+        likes: 567,
+        comments: [
+            { characterKey: 'regency_private', text: 'SIR, THERE\'S TOO MANY! THEY\'RE EVERYWHERE!' },
+            { characterKey: 'koopa_paratrooper', text: 'Hello down there! Surprise!' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_chaos',
+        order: 62703,
+        characterKey: 'regency_private',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 6, minute: 30 },
+        timestamp: '4 hours 30 minutes ago',
+        content: `They're landing in the crater! They're taking the ammunition depot! Sergeant Toadofsky is trying to organize a defense but they came from DIRECTLY ABOVE US! How do you defend against that?!`,
+        likes: 789,
+        comments: [
+            { characterKey: 'sgt_toadofsky', text: 'FALL BACK! FALL BACK TO THE LOWER TUNNELS!' },
+            { characterKey: 'general_shellshock', text: 'Cut off their retreat. The mountain is ours.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_tunnel_fighting',
+        order: 62704,
+        characterKey: 'koopa_paratrooper',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 7, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Clearing the lava tunnels now. Regency forces are in full retreat. They left their coffee still hot in the command tent. General Shellshock is drinking it as I speak. 😎`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Not bad coffee, actually. The Regency has good taste.' },
+            { characterKey: 'sgt_toadofsky', text: 'THAT WAS MY PERSONAL BLEND!' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_regency_routed',
+        order: 62705,
+        characterKey: 'sgt_toadofsky',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `We've lost the mountain. Twenty men captured, the rest scattered. They came out of NOWHERE. High command, if you're reading this: the Mountain Guard is destroyed. Corona Mountain belongs to the Koopa Troop.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'captain_lock', text: 'Sergeant, regroup at the airstrip. We\'re not finished.' },
+            { characterKey: 'general_shellshock', text: 'Yes you are, Captain. You just don\'t know it yet.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_flag_raised',
+        order: 62706,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 9, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The Koopa Troop flag now flies over Corona Mountain. We control the highest ground on Isle Delfino. The Regency's artillery can't reach us. Their reinforcements can't climb to us. This island is OURS.`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'koopa_paratrooper', text: 'LONG LIVE THE TROOP!' },
+            { characterKey: 'admiral_blooper', text: 'Beautiful work, General. Ricco Harbor is next.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_regency_shock',
+        order: 62707,
+        characterKey: 'mushroom_regency_official',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 10, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The loss of Corona Mountain is a strategic setback. We are reassessing our defensive posture. The Koopa Troop's aerial capabilities were... underestimated. Reinforcements are being requested.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'don_pianta', text: '"Strategic setback." That\'s a funny way to say "we got our butts kicked."' },
+            { characterKey: 'general_shellshock', text: 'Request denied. Your reinforcements won\'t arrive in time.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_noki_celebration',
+        order: 62708,
+        characterKey: 'noki_shellfish',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 10, minute: 30 },
+        timestamp: '45 minutes ago',
+        content: `The Koopa Troop has taken the mountain! The Regency is losing! First the hotel, then the Fin, then the village, now the mountain! They're falling apart! FREEDOM IS COMING!`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'noki_elder', text: 'Do not celebrate yet. The Regency still holds the airstrip and Gelato Beach.' },
+            { characterKey: 'general_shellshock', text: 'Not for long.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_pianta_reaction',
+        order: 62709,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 11, minute: 0 },
+        timestamp: '30 minutes ago',
+        content: `The Koopa Troop has proven themselves worthy allies. General Shellshock, the Pianta Syndicate extends our hand in friendship. Together, we can drive the Regency from Delfino forever.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'The Troop accepts. Your barrel bombardments at Noki Bay will be remembered.' },
+            { characterKey: 'captain_lock', text: 'You\'re allying with INVADERS?!' },
+            { characterKey: 'don_pianta', text: 'The Koopas asked permission. You just demanded submission.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_captured_soldiers',
+        order: 62710,
+        characterKey: 'koopa_paratrooper',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 11, minute: 30 },
+        timestamp: '15 minutes ago',
+        content: `Processing Regency POWs. Twenty soldiers, one sergeant. They're being treated well—General's orders. Some of them are asking if they can defect. Morale in the Regency must be TERRIBLE.`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'sgt_toadofsky', text: 'I\'m not defecting! Release me at once!' },
+            { characterKey: 'regency_private', text: 'Is... is the food good on your side?' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_strategic_view',
+        order: 62711,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 12, minute: 0 },
+        timestamp: 'Just now',
+        content: `From Corona Mountain's peak, I can see the entire island. The Regency airstrip. Ricco Harbor. Noki Bay. Gelato Beach. All visible. All within range. Let them consider what that means.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'The high ground advantage is everything.' },
+            { characterKey: 'captain_lock', text: 'We\'ll retake that mountain. Mark my words.' },
+            { characterKey: 'general_shellshock', text: 'You\'re welcome to try, Captain. Bring climbing gear.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_regency_panic',
+        order: 62712,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 13, minute: 0 },
+        timestamp: '1 hour later',
+        content: `Urgent message to High Command: Our position is untenable. The Koopa Troop holds Corona Mountain. The Syndicate holds Pianta Village. The hotel is still fortified. We need IMMEDIATE naval and air reinforcement or we WILL lose this island.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'mushroom_regency_official', text: 'Reinforcements are being mobilized. Hold your position.' },
+            { characterKey: 'general_shellshock', text: 'Intercepted. Thank you for the intelligence, Captain.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_lava_defense',
+        order: 62713,
+        characterKey: 'koopa_paratrooper',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 0 },
+        timestamp: '2 hours later',
+        content: `Setting up defensive positions around the caldera. This volcano is PERFECT. Natural walls, multiple caves, and if anyone gets too close... well, there's always the lava. 🌋`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Don\'t use the lava unless absolutely necessary. We\'re not barbarians.' },
+            { characterKey: 'koopa_paratrooper', text: 'Understood, sir. Lava is Plan C.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_island_shift',
+        order: 62714,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 15, minute: 0 },
+        timestamp: '3 hours later',
+        content: `The geopolitical situation on Isle Delfino has shifted dramatically. In 24 hours: the Syndicate declared independence, the Koopa Troop seized the mountain, and the Regency is reeling. This is unprecedented.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'A new era is beginning.' },
+            { characterKey: 'noki_elder', text: 'The old order crumbles. What rises in its place?' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_paratrooper_pride',
+        order: 62715,
+        characterKey: 'koopa_paratrooper',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 16, minute: 0 },
+        timestamp: '4 hours later',
+        content: `Mom, if you're reading this: I did it! I jumped out of a carrier at 3000 feet, landed in a volcano, and captured a mountain! Being a paratrooper is the BEST! 🪂🐢❤️`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'koopa_mom', text: 'I\'m so proud of you, honey! Stay safe!' },
+            { characterKey: 'general_shellshock', text: 'Tell your mother the Troop takes good care of its soldiers.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_gelato_fear',
+        order: 62716,
+        characterKey: 'gelato_resident',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 17, minute: 0 },
+        timestamp: '5 hours later',
+        content: `The Koopas took the mountain. Just... took it. In hours. If they can do that, what's stopping them from taking Gelato Beach? Mayor Melon keeps saying we're safe, but I'm not so sure anymore.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'Gelato Beach is protected by the Regency. We are FINE.' },
+            { characterKey: 'noki_shellfish', text: 'Keep telling yourself that, Gelato.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_shellshock_address',
+        order: 62717,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 18, minute: 0 },
+        timestamp: 'Evening',
+        content: `To the people of Isle Delfino: We are not here to conquer. We are here to LIBERATE. The Mushroom Regency occupied your home without your consent. We ask only for friendship, trade, and mutual respect.`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Better terms than the Regency ever offered.' },
+            { characterKey: 'noki_elder', text: 'Actions will prove words. But we are listening.' },
+            { characterKey: 'captain_lock', text: 'PROPAGANDA! Don\'t believe their lies!' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_sunset_victory',
+        order: 62718,
+        characterKey: 'koopa_scout',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 19, minute: 0 },
+        timestamp: 'Sunset',
+        content: `The sun sets over Corona Mountain, and the Koopa flag glows in the orange light. Best view on the island. The Regency soldiers at the airstrip can see it too. Let them look. Let them remember.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Tomorrow, we move on Ricco Harbor. Tonight, we rest.' },
+            { characterKey: 'koopa_paratrooper', text: 'To victory!' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+    {
+        id: 'corona_invasion_regency_night',
+        order: 62719,
+        characterKey: 'regency_sergeant',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 22, minute: 0 },
+        timestamp: 'Night',
+        content: `I can see the Koopa campfires on the mountain from here. There must be hundreds of them. We have maybe fifty soldiers left who can fight. How did this happen so fast? How did we lose so quickly?`,
+        likes: 345,
+        comments: [
+            { characterKey: 'regency_private', text: 'Sarge... should we run?' },
+            { characterKey: 'captain_lock', text: 'NO ONE RUNS! We hold until reinforcements arrive!' },
+            { characterKey: 'regency_sergeant', text: 'If they arrive, Captain. If.' }
+        ],
+        rumorId: 'delfino_corona_invasion'
+    },
+
+    // ========================================================================
+    // THE GELATO BEACH PURGE (Day 27)
+    // ========================================================================
+    {
+        id: 'gelato_betrayal_announcement',
+        order: 62720,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 7, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `Gelato Beach hereby reaffirms its loyalty to the Mushroom Regency. In light of ongoing unrest, all non-resident refugees must leave by noon. This includes all Noki nationals. This is for our security.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'noki_elder', text: 'You would expel refugees? Children? The elderly?' },
+            { characterKey: 'mayor_melon', text: 'Security comes first. You have five hours.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_noki_plea',
+        order: 62721,
+        characterKey: 'refugee_nola',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `Please, Mayor Melon, reconsider! We fled to Gelato Beach because our homes were damaged in the unrest! We have nowhere else to go! My children are here! PLEASE!`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'noki_shellfish', text: 'Nola, come to the bay. We will protect you.' },
+            { characterKey: 'mayor_melon', text: 'The deadline stands. I\'m sorry, but this is necessary.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_police_action',
+        order: 62722,
+        characterKey: 'gelato_police',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 10, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `Commencing refugee relocation operations. All Noki nationals are being gathered at the beach. Watercraft are being prepared. This is being done humanely and professionally.`,
+        likes: 123,
+        comments: [
+            { characterKey: 'pianta_resident', text: '"Humanely"?! You\'re throwing families onto RAFTS!' },
+            { characterKey: 'gelato_police', text: 'We\'re providing the rafts. That\'s more than required.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_raft_launch',
+        order: 62723,
+        characterKey: 'refugee_nola',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 12, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `They're putting us on rafts. RAFTS. In the open sea. My daughter is crying. The police won't even look us in the eye. Is this what the Regency stands for? Is this "security"?`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'noki_elder', text: 'Hold on, Nola. Boats are coming from the bay. We will find you.' },
+            { characterKey: 'don_pianta', text: 'The Syndicate is sending boats too. No Noki will drown today.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_international_outcry',
+        order: 62724,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 13, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The Gelato Beach Purge will not be forgotten. Mayor Melon has shown his true colors—and the Regency's. They speak of "order" while casting families into the sea. History will judge them harshly.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'don_pianta', text: 'The western factions are united now. Against Gelato. Against the Regency.' },
+            { characterKey: 'mayor_melon', text: 'We did what was necessary for security!' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_rescue_operation',
+        order: 62725,
+        characterKey: 'noki_shellfish',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Noki Bay fishing boats are rescuing refugees from the makeshift rafts! We've pulled 47 people from the water so far. The Pianta Syndicate sent three boats too. We're bringing everyone home SAFE.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'refugee_nola', text: 'They found us! Thank the stars! My children are safe!' },
+            { characterKey: 'don_pianta', text: 'Anyone who needs shelter, Pianta Village has room.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_melon_justification',
+        order: 62726,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 30 },
+        timestamp: '45 minutes ago',
+        content: `Let me be CLEAR: Gelato Beach faced a security crisis. With Koopas on the mountain and rebels in the village, we could not harbor potential sympathizers. These were difficult but NECESSARY decisions.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'gelato_resident', text: 'Sympathizers? They were REFUGEES, Mayor!' },
+            { characterKey: 'noki_elder', text: 'Children are "potential sympathizers" now? Shameful.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_pianta_fury',
+        order: 62727,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 15, minute: 0 },
+        timestamp: '30 minutes ago',
+        content: `Melon, you spineless WORM. You threw FAMILIES into the ocean to please your Regency masters. The Syndicate officially declares Gelato Beach an enemy territory. Any Gelato official who crosses our borders will be CHUCKED.`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'pianta_enforcer', text: 'Say the word, Boss. We\'ll make him swim too.' },
+            { characterKey: 'mayor_melon', text: 'Threats will not intimidate legitimate authority!' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_regency_support',
+        order: 62728,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 15, minute: 30 },
+        timestamp: '15 minutes ago',
+        content: `Mayor Melon has demonstrated true loyalty to the Regency. Gelato Beach will receive priority protection and supply access. THIS is what cooperation looks like. Other settlements should take note.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'Cooperation? You mean complicity in cruelty.' },
+            { characterKey: 'gelato_resident', text: 'Some of us didn\'t vote for this, Captain.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_koopa_reaction',
+        order: 62729,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 16, minute: 0 },
+        timestamp: 'Just now',
+        content: `The Regency expels refugees while claiming moral authority. The Koopa Troop welcomes all who seek shelter. Noki Bay, Pianta Village—you have allies. Gelato Beach has shown what the Regency truly values.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'noki_elder', text: 'Strange times make strange allies. But welcome ones.' },
+            { characterKey: 'admiral_blooper', text: 'The coalition grows stronger.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_refugee_testimony',
+        order: 62730,
+        characterKey: 'refugee_nola',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 17, minute: 0 },
+        timestamp: '1 hour later',
+        content: `We're safe in Noki Bay now. My daughter won't stop shaking. The Gelato police... they wouldn't even let us pack our belongings. Just pushed us onto rafts and shoved us into the waves. How is this civilization?`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'noki_healer', text: 'You are home now. You are safe. We will care for you.' },
+            { characterKey: 'pianta_elder', text: 'Your testimony will be recorded. They will answer for this.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_internal_dissent',
+        order: 62731,
+        characterKey: 'gelato_resident',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 18, minute: 0 },
+        timestamp: '2 hours later',
+        content: `I can't stay silent anymore. I watched them force the Noki families onto those rafts. I watched children crying. Mayor Melon does NOT speak for all of Gelato Beach. Some of us have souls.`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'Your dissent is noted. Security will want a word.' },
+            { characterKey: 'noki_shellfish', text: 'There is room in the bay for Gelato refugees too. Just saying.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_cataquack_conscription',
+        order: 62732,
+        characterKey: 'gelato_police',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 19, minute: 0 },
+        timestamp: 'Evening',
+        content: `By order of Mayor Melon, all able-bodied Cataquacks are being conscripted into the Gelato Defense Force. Training begins tomorrow. We WILL be ready when the rebels and Koopas come for us.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'gelato_resident', text: 'Conscripting CATAQUACKS? They\'re basically angry birds!' },
+            { characterKey: 'don_pianta', text: 'Your "cavalry" won\'t save you, Melon.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_isolation',
+        order: 62733,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 20, minute: 0 },
+        timestamp: 'Night',
+        content: `The Gelato Beach Purge has backfired spectacularly. The Noki-Pianta-Koopa coalition is now united in opposition. Gelato Beach is isolated, dependent entirely on a Regency that's losing ground by the hour.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'The Regency will protect us. We made the right choice.' },
+            { characterKey: 'general_shellshock', text: 'Did you though? Did you really?' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_noki_vow',
+        order: 62734,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 21, minute: 0 },
+        timestamp: 'Late evening',
+        content: `The Noki Elders have formally declared: Mayor Melon and all who participated in the purge are forever unwelcome in Noki Bay. When this conflict ends, there will be a reckoning. Justice will find them.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'refugee_nola', text: 'Thank you, Elder. Thank you for standing with us.' },
+            { characterKey: 'don_pianta', text: 'The Syndicate endorses this declaration.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_night_reflection',
+        order: 62735,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 23, minute: 0 },
+        timestamp: 'Near midnight',
+        content: `They call me a monster. They don't understand the pressure I was under. The Regency demanded loyalty. The Koopas were on the mountain. I did what I had to do. History will... history will vindicate me.`,
+        likes: 123,
+        comments: [
+            { characterKey: 'gelato_resident', text: 'Keep telling yourself that, Mayor.' },
+            { characterKey: 'captain_lock', text: 'You did the right thing. Stay strong.' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+    {
+        id: 'gelato_betrayal_coalition_formed',
+        order: 62736,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 0, minute: 0 },
+        timestamp: 'Midnight',
+        content: `Tonight, in the aftermath of Gelato's betrayal, I met with Elder Erol of Noki Bay and General Shellshock of the Koopa Troop. We have formed the Free Delfino Coalition. The Regency's days on this island are NUMBERED.`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'noki_elder', text: 'United we stand. For Delfino. For freedom.' },
+            { characterKey: 'general_shellshock', text: 'The Coalition will prevail. The Regency will fall.' },
+            { characterKey: 'pianta_enforcer', text: 'FREE DELFINO!' }
+        ],
+        rumorId: 'delfino_gelato_betrayal'
+    },
+
+    // ========================================================================
+    // KOOPA NAVY CAPTURES RICCO HARBOR (Day 28)
+    // ========================================================================
+    {
+        id: 'ricco_harbor_approach',
+        order: 62800,
+        characterKey: 'admiral_blooper',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 4, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `Operation Ink Screen commencing. Submersible fleet in position. Blooper operatives, you know your targets. Jam those propellers. Blind those spotlights. Tonight, Ricco Harbor becomes OURS.`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'blooper_operative', text: 'Tentacles ready, Admiral. They won\'t see us coming.' },
+            { characterKey: 'general_shellshock', text: 'Coordinating from Corona Mountain. Good hunting.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_infiltration',
+        order: 62801,
+        characterKey: 'blooper_operative',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 5, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `Infiltrating harbor perimeter. Regency patrol boats are running regular sweeps but they're looking at the surface. They never think to look BENEATH. Rookie mistake. 🦑`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'Maintain radio silence after this. Ink at will.' },
+            { characterKey: 'koopa_scout', text: 'Surface team standing by for your signal.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_ink_attack',
+        order: 62802,
+        characterKey: 'blooper_operative',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 6, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `INKING NOW! Patrol boat 1 is spinning in circles—propeller jammed! Boat 2 is blind—ink all over their bridge windows! Boat 3's engine just DIED! The harbor is UNDEFENDED! 🖤🦑`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'Excellent work! Surface fleet, MOVE IN!' },
+            { characterKey: 'harbormaster_t', text: 'WHAT IS HAPPENING?! ALL BOATS REPORT!' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_regency_panic',
+        order: 62803,
+        characterKey: 'harbormaster_t',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 6, minute: 15 },
+        timestamp: '5 hours 45 minutes ago',
+        content: `MAYDAY MAYDAY! Ricco Harbor under attack! All patrol boats disabled! There's INK everywhere! I can see Koopa ships entering the harbor! WHERE IS OUR SUPPORT?!`,
+        likes: 567,
+        comments: [
+            { characterKey: 'captain_lock', text: 'Harbormaster, we\'re pinned at the airstrip! Hold your position!' },
+            { characterKey: 'harbormaster_t', text: 'HOLD WITH WHAT?! THEY\'RE DOCKING!' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_landing',
+        order: 62804,
+        characterKey: 'koopa_marine',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 6, minute: 30 },
+        timestamp: '5 hours 30 minutes ago',
+        content: `Boots on the docks! Regency guards are surrendering without a fight—they saw what happened to their boats! The Blooper ink strategy was GENIUS! Not a single shot fired!`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'The best victories are the bloodless ones.' },
+            { characterKey: 'general_shellshock', text: 'Secure the fuel depot. The Regency won\'t be resupplying anyone.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_harbormaster_surrender',
+        order: 62805,
+        characterKey: 'harbormaster_t',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 7, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `I... I have surrendered Ricco Harbor to Admiral Blooper. We had no choice. Our boats were disabled, our guns were jammed with ink, and the Koopa fleet outnumbered us 10 to 1. I'm sorry, Captain Lock.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'captain_lock', text: 'You... you just GAVE them the harbor?!' },
+            { characterKey: 'admiral_blooper', text: 'You made the wise choice, Harbormaster. Your men will be treated fairly.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_blooper_celebration',
+        order: 62806,
+        characterKey: 'blooper_operative',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 8, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `WE DID IT! Ricco Harbor is OURS! The Regency didn't sink a single Koopa ship! Our ink strategy worked PERFECTLY! Admiral Blooper is the greatest naval commander in history! 🦑🎉`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'Credit goes to the operatives. You all performed magnificently.' },
+            { characterKey: 'koopa_marine', text: 'BLOOPER BLOOPER BLOOPER!' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_pianta_reaction',
+        order: 62807,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 9, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Ricco Harbor has fallen! The Koopa Navy now controls all sea access to Isle Delfino! The Regency airstrip is their last foothold! Admiral Blooper, the Syndicate salutes you!`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'The sea belongs to the Coalition now. The Regency is landlocked.' },
+            { characterKey: 'pianta_enforcer', text: 'They\'re trapped! Time to squeeze!' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_regency_cut_off',
+        order: 62808,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 10, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Command, the situation is CRITICAL. We have lost Corona Mountain and Ricco Harbor. The Koopa Navy now blockades all sea routes. Our garrison has no resupply path. We need IMMEDIATE aerial extraction or reinforcement.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'mushroom_regency_official', text: 'Reinforcements are being prepared. Hold the airstrip at all costs.' },
+            { characterKey: 'general_shellshock', text: 'Your airstrip is next, Captain. Enjoy your last hours on Delfino.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_ink_cleanup',
+        order: 62809,
+        characterKey: 'blooper_operative',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 11, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Helping clean ink off the captured patrol boats. They're actually pretty nice vessels! With some maintenance, they'll make excellent additions to the Koopa Navy. Thanks for the gift, Regency! 🦑`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'harbormaster_t', text: 'Those are REGENCY PROPERTY!' },
+            { characterKey: 'admiral_blooper', text: 'Were. Past tense, Harbormaster.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_supply_route',
+        order: 62810,
+        characterKey: 'admiral_blooper',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 12, minute: 0 },
+        timestamp: 'Just now',
+        content: `Ricco Harbor is now operational under Coalition control. Noki Bay trade ships are welcome. Pianta supply vessels are welcome. Regency ships will be... repurposed. The blockade is complete.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'noki_trader', text: 'First Noki supply ship docking now! Fresh fish for the Coalition!' },
+            { characterKey: 'don_pianta', text: 'Legitimate business can resume. Finally.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_regency_desperation',
+        order: 62811,
+        characterKey: 'regency_sergeant',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 13, minute: 0 },
+        timestamp: '1 hour later',
+        content: `We're surrounded. Koopas on the mountain, Koopas in the harbor, Piantas in the village, Nokis in the bay. The only thing we control is this airstrip. And we're running low on everything.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'regency_private', text: 'Sarge, do you think the planes are coming?' },
+            { characterKey: 'regency_sergeant', text: 'They\'d better. Or we\'re done.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_noki_celebration',
+        order: 62812,
+        characterKey: 'noki_shellfish',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 14, minute: 0 },
+        timestamp: '2 hours later',
+        content: `The trade routes are OPEN again! No more Regency inspections! No more "security fees"! Admiral Blooper just made Noki Bay the richest it's been in years! The sea is FREE! 🐚`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'noki_elder', text: 'Prosperity returns to our waters.' },
+            { characterKey: 'admiral_blooper', text: 'Fair trade benefits everyone. Well, almost everyone.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_gelato_fear',
+        order: 62813,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 15, minute: 0 },
+        timestamp: '3 hours later',
+        content: `The harbor has fallen. The Regency is cut off. The Coalition controls the seas. But Gelato Beach will NOT surrender! We still have our beaches! We still have our Cataquacks! We will PREVAIL!`,
+        likes: 123,
+        comments: [
+            { characterKey: 'gelato_resident', text: 'Mayor, we should negotiate while we still can...' },
+            { characterKey: 'don_pianta', text: 'Keep your Cataquacks, Melon. You\'ll need them.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_strategic_analysis',
+        order: 62814,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 16, minute: 0 },
+        timestamp: '4 hours later',
+        content: `Strategic update: The Coalition now controls Corona Mountain (high ground), Ricco Harbor (sea access), Pianta Village (defensive fortress), and Noki Bay (supply base). The Regency holds only the airstrip and Gelato Beach. Victory is near.`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'One coordinated push and this island is free.' },
+            { characterKey: 'don_pianta', text: 'Say the word, General. The Syndicate is ready.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_prisoner_treatment',
+        order: 62815,
+        characterKey: 'harbormaster_t',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 17, minute: 0 },
+        timestamp: '5 hours later',
+        content: `I must admit... the Koopas are treating us well. Better than I expected. They've given us food, water, and allowed us to contact our families. Maybe they're not the monsters the Regency said they were.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'We are soldiers, not savages. The war is with the Regency, not with you.' },
+            { characterKey: 'captain_lock', text: 'Don\'t fall for their propaganda, Harbormaster!' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_ink_legend',
+        order: 62816,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 18, minute: 0 },
+        timestamp: 'Evening',
+        content: `They're calling it "The Inkless Victory." Admiral Blooper captured Ricco Harbor without sinking a single ship or firing a single shot. The Blooper ink strategy may be the most brilliant naval tactic in modern history.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'Why destroy what you can capture?' },
+            { characterKey: 'blooper_operative', text: 'We prefer the term "persuasive lubrication."' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_sunset_flag',
+        order: 62817,
+        characterKey: 'koopa_marine',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 19, minute: 0 },
+        timestamp: 'Sunset',
+        content: `Just raised the Koopa Troop flag over Ricco Harbor's main tower. The sunset is beautiful from up here. I can see the Regency airstrip in the distance. Tomorrow, we finish this.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Enjoy the view, soldier. You earned it.' },
+            { characterKey: 'admiral_blooper', text: 'Tomorrow indeed.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_regency_night',
+        order: 62818,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 22, minute: 0 },
+        timestamp: 'Night',
+        content: `Final count: We lost Corona Mountain, Ricco Harbor, and any hope of naval resupply. The hotel is still barricaded. Pianta Village is a fortress. Tomorrow, they'll come for the airstrip. And I don't know if we can stop them.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'We\'ll fight to the last, sir.' },
+            { characterKey: 'captain_lock', text: 'I know, Sergeant. I know.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+    {
+        id: 'ricco_harbor_coalition_planning',
+        order: 62819,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 23, minute: 30 },
+        timestamp: 'Late night',
+        content: `Coalition war council concluded. Tomorrow's target: the Regency airstrip. General Shellshock will lead the ground assault from Corona Mountain. Admiral Blooper will blockade any escape. The Syndicate will provide "special support." It ends tomorrow.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'All units are ready. Dawn attack.' },
+            { characterKey: 'admiral_blooper', text: 'No ship leaves without our permission.' },
+            { characterKey: 'noki_elder', text: 'May the stars guide our cause.' }
+        ],
+        rumorId: 'delfino_ricco_harbor'
+    },
+
+    // ========================================================================
+    // DISASTER AT NOKI BAY (Day 29)
+    // ========================================================================
+    {
+        id: 'noki_bay_assault_plan',
+        order: 62900,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 5, minute: 0 },
+        timestamp: '10 hours ago',
+        content: `The best defense is a good offense! Before the Coalition attacks us, WE will attack THEM! The Cataquack Cavalry will strike Noki Bay at dawn! Captain Lock has provided support troops! This will turn the tide!`,
+        likes: 234,
+        comments: [
+            { characterKey: 'captain_lock', text: 'It\'s our only chance. If we take Noki Bay, we break their supply chain.' },
+            { characterKey: 'gelato_resident', text: 'Mayor, this seems... risky.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_amphibious_launch',
+        order: 62901,
+        characterKey: 'captain_spore',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 6, minute: 0 },
+        timestamp: '9 hours ago',
+        content: `Regency amphibious assault underway! Boats launching from Gelato Beach toward Noki Bay! The Cataquack Cavalry is... well, they're making a lot of noise. These creatures are not subtle.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'They don\'t need to be subtle! They need to be FIERCE!' },
+            { characterKey: 'noki_elder', text: 'We see you coming. We are ready.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_coalition_response',
+        order: 62902,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 7, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `The Regency-Gelato assault force approaches Noki Bay. Admiral Blooper's ships are moving to intercept. Don Pianta's volunteers are positioned on the cliffs. Let them come. We are ready.`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'Fleet engaging now. They won\'t reach the shore.' },
+            { characterKey: 'don_pianta', text: 'Barrels loaded, Elder. Just give the word.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_koopa_artillery',
+        order: 62903,
+        characterKey: 'admiral_blooper',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 7, minute: 30 },
+        timestamp: '7 hours 30 minutes ago',
+        content: `Koopa naval artillery engaging Regency assault boats! Direct hits on three landing craft! The Gelato force is scattering! They're not even close to the shore!`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'koopa_marine', text: 'Fish in a barrel, Admiral!' },
+            { characterKey: 'captain_spore', text: 'TAKE EVASIVE ACTION! EVASIVE ACTION!' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_cataquack_panic',
+        order: 62904,
+        characterKey: 'gelato_soldier',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 8, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `THE CATAQUACKS ARE PANICKING! The artillery fire is scaring them! They're jumping overboard! They're ATTACKING OUR OWN BOATS! WHO THOUGHT THIS WAS A GOOD IDEA?!`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'CONTROL THEM! USE THE TRAINING!' },
+            { characterKey: 'gelato_soldier', text: 'WHAT TRAINING?! WE HAD ONE DAY!' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_barrel_bombardment',
+        order: 62905,
+        characterKey: 'pianta_enforcer',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 8, minute: 30 },
+        timestamp: '6 hours 30 minutes ago',
+        content: `BARREL BOMBARDMENT COMMENCING! Rolling them off the cliffs now! Watch those Regency boats try to dodge THAT! 🛢️💥 This is the most fun I've had in YEARS!`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Beautiful accuracy! The Syndicate knows how to throw things!' },
+            { characterKey: 'captain_spore', text: 'THEY\'RE THROWING BARRELS AT US! WHO DOES THAT?!' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_regency_retreat',
+        order: 62906,
+        characterKey: 'captain_spore',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 9, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `ORDERING FULL RETREAT! The assault is a disaster! Half our boats are sinking! The Cataquacks have gone feral! Koopa ships are circling us like sharks! ABORT! ABORT!`,
+        likes: 890,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'NO! We can still win this!' },
+            { characterKey: 'captain_spore', text: 'WITH WHAT, MAYOR?! LOOK AT OUR FORCES!' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_equipment_abandoned',
+        order: 62907,
+        characterKey: 'gelato_soldier',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 9, minute: 30 },
+        timestamp: '5 hours 30 minutes ago',
+        content: `We're abandoning the heavy equipment—can't get it back on the boats with the Cataquacks going crazy! The Regency artillery pieces are sinking! This is a TOTAL DISASTER!`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'noki_shellfish', text: 'Free equipment! The sea provides!' },
+            { characterKey: 'captain_lock', text: 'That artillery was our last hope...' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_coalition_victory',
+        order: 62908,
+        characterKey: 'noki_elder',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 10, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `The assault on Noki Bay has failed completely. Regency-Gelato forces are in full retreat. Our shores remain unconquered. The Coalition stands victorious. The Cataquacks, ironically, were our greatest ally.`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'don_pianta', text: 'The barrels worked perfectly! We didn\'t even need them all!' },
+            { characterKey: 'admiral_blooper', text: 'A complete rout. Their morale is shattered.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_melon_blame',
+        order: 62909,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 11, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `The assault failed due to insufficient Regency support! Captain Lock promised air cover that never came! The Cataquacks were insufficiently trained! This is NOT my fault!`,
+        likes: 123,
+        comments: [
+            { characterKey: 'captain_lock', text: 'We have NO aircraft on the island, Mayor! You KNEW that!' },
+            { characterKey: 'gelato_resident', text: 'It was YOUR plan, Mayor. YOUR Cataquacks.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_cataquack_chaos',
+        order: 62910,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 12, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Eyewitnesses report that the "Cataquack Cavalry" caused more damage to their own forces than to the enemy. Several boats were capsized by panicked Cataquacks. At least twelve Cataquacks are now swimming freely in Noki Bay.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'noki_shellfish', text: 'We\'re trying to catch them. They keep flipping our boats too.' },
+            { characterKey: 'pianta_enforcer', text: 'Those things are HILARIOUS. Terrifying, but hilarious.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_regency_despair',
+        order: 62911,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 13, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `The Noki Bay assault was our last offensive option. We have lost our artillery, our naval support is gone, and our allies at Gelato Beach are demoralized. The Coalition will attack tomorrow. And we cannot stop them.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'Should we... should we consider negotiating, sir?' },
+            { characterKey: 'captain_lock', text: 'The Regency doesn\'t negotiate. We hold until relieved.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_pianta_celebration',
+        order: 62912,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 14, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `BARREL BOMBARDMENT SUCCESS! The Syndicate's "special support" turned the battle! The Regency thought we were just fruit farmers! They learned! NEVER underestimate a Pianta with a barrel! 🛢️🎉`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'pianta_enforcer', text: 'Best day ever! My throwing arm is gonna be sore though!' },
+            { characterKey: 'noki_elder', text: 'Your barrels saved many lives today, Don. Thank you.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_gelato_morale',
+        order: 62913,
+        characterKey: 'gelato_resident',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 15, minute: 0 },
+        timestamp: 'Just now',
+        content: `The soldiers are coming back in defeat. The Cataquacks are scattered. Mayor Melon is hiding in his office. This is over. We should surrender before the Coalition comes for us.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'I am NOT hiding! I am... strategizing!' },
+            { characterKey: 'gelato_soldier', text: 'We lost, Mayor. Just admit it.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_strategic_shift',
+        order: 62914,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 16, minute: 0 },
+        timestamp: '1 hour later',
+        content: `The failed Noki Bay assault has eliminated the Regency's offensive capability. They have no artillery, no naval power, and their Gelato allies are broken. Tomorrow's attack on the airstrip will be the final battle.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'admiral_blooper', text: 'The sea is ours. The mountain is ours. They have nowhere to run.' },
+            { characterKey: 'don_pianta', text: 'Save some for the Syndicate, General. We have scores to settle.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_captured_equipment',
+        order: 62915,
+        characterKey: 'noki_shellfish',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 17, minute: 0 },
+        timestamp: '2 hours later',
+        content: `We've salvaged three Regency artillery pieces from the shallow waters! They're waterlogged but repairable! The Regency just GAVE us their heavy weapons! 😂🐚`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Excellent. We\'ll use them tomorrow. Poetic justice.' },
+            { characterKey: 'captain_lock', text: 'This is salt in the wound...' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_cataquack_adoption',
+        order: 62916,
+        characterKey: 'noki_healer',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 18, minute: 0 },
+        timestamp: 'Evening',
+        content: `We've captured seven of the feral Cataquacks. They're actually quite friendly once they calm down! The children are already naming them. Gelato's "cavalry" is now Noki Bay's new pets! 🐤`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'mayor_melon', text: 'Those are MILITARY ASSETS! Return them immediately!' },
+            { characterKey: 'noki_healer', text: 'The children named the big one "Melon." Seems fitting.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_humiliation_complete',
+        order: 62917,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 19, minute: 0 },
+        timestamp: 'Late evening',
+        content: `The Disaster at Noki Bay will be studied for generations. A joint Regency-Gelato amphibious assault was defeated by: 1) Koopa artillery 2) Pianta barrel throwing 3) Their own panicked Cataquacks. Military historians are baffled.`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'pianta_enforcer', text: 'Don\'t forget the part where we caught their birds!' },
+            { characterKey: 'noki_elder', text: 'Sometimes the stars have a sense of humor.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_eve_of_finale',
+        order: 62918,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 22, minute: 0 },
+        timestamp: 'Night',
+        content: `Coalition forces are in position. At dawn, we strike the Regency airstrip. This is the final battle for Isle Delfino. By sunset tomorrow, either we are free, or we have fallen. I know which outcome I expect.`,
+        likes: 9012,
+        comments: [
+            { characterKey: 'don_pianta', text: 'The Syndicate stands ready. For Delfino!' },
+            { characterKey: 'noki_elder', text: 'For our children. For our future.' },
+            { characterKey: 'admiral_blooper', text: 'No Regency ship leaves. They face us, or they surrender.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+    {
+        id: 'noki_bay_regency_last_night',
+        order: 62919,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 23, minute: 30 },
+        timestamp: 'Near midnight',
+        content: `This may be my final post. Tomorrow, the Coalition attacks. We are outnumbered, outgunned, and alone. But we are soldiers of the Mushroom Regency. We will not surrender. We will not flee. We will hold until the end.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'It\'s been an honor, Captain.' },
+            { characterKey: 'regency_private', text: 'For the Regency. Whatever happens.' },
+            { characterKey: 'general_shellshock', text: 'Respect, Captain. But this ends tomorrow.' }
+        ],
+        rumorId: 'delfino_gelato_counter'
+    },
+
+    // ========================================================================
+    // REGENCY EXPELLED FROM DELFINO (Day 30)
+    // ========================================================================
+    {
+        id: 'delfino_final_dawn_attack',
+        order: 63000,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 5, minute: 0 },
+        timestamp: '10 hours ago',
+        content: `COALITION FORCES, ATTACK! All units, move on the Regency airstrip! This is the final battle for Isle Delfino! Show no fear! Show no hesitation! FREEDOM OR DEATH!`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'koopa_paratrooper', text: 'FOR THE TROOP!' },
+            { characterKey: 'don_pianta', text: 'FOR DELFINO!' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_airstrip_siege',
+        order: 63001,
+        characterKey: 'koopa_marine',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 6, minute: 0 },
+        timestamp: '9 hours ago',
+        content: `Advancing on the airstrip perimeter! Regency forces are dug in but we have artillery support from their OWN captured guns! The irony is delicious! 💥🐢`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Maintain pressure! Don\'t let them reorganize!' },
+            { characterKey: 'captain_lock', text: 'They\'re using our own weapons against us...' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_regency_last_stand',
+        order: 63002,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 7, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `ALL REGENCY FORCES, THIS IS YOUR CAPTAIN! We hold this airstrip to the last! Reinforcements ARE coming! We just need to hold! FOR THE MUSHROOM KINGDOM! FOR THE REGENCY!`,
+        likes: 345,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'Sir, we\'re taking heavy casualties...' },
+            { characterKey: 'captain_lock', text: 'HOLD THE LINE!' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_pianta_assault',
+        order: 63003,
+        characterKey: 'pianta_enforcer',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 8, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `The Syndicate has breached the eastern perimeter! We're INSIDE the airstrip! Regency soldiers are surrendering left and right! They know it's over! PIANTA VILLAGE FOREVER! 🌴`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Secure the hangars! No aircraft escapes!' },
+            { characterKey: 'regency_private', text: 'I surrender! I SURRENDER!' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_noki_support',
+        order: 63004,
+        characterKey: 'noki_shellfish',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 8, minute: 30 },
+        timestamp: '6 hours 30 minutes ago',
+        content: `Noki volunteers have cut the supply road to the airstrip! The Regency has NO escape by land! Admiral Blooper has the sea! The skies are clear of Regency aircraft! THEY'RE TRAPPED! 🐚`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'noki_elder', text: 'The circle is complete. Freedom is within reach.' },
+            { characterKey: 'admiral_blooper', text: 'Any ship that tries to flee will be intercepted.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_admiral_surrender',
+        order: 63005,
+        characterKey: 'admiral_b_toad',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 9, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `This is Admiral B. Toad, senior Regency officer on Isle Delfino. Captain Lock has been... incapacitated by a barrel. I am assuming command. Requesting terms for... for honorable surrender.`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'Terms: Complete withdrawal. All equipment remains. Your people leave unharmed.' },
+            { characterKey: 'elder_erol', text: 'Accept the terms, Admiral. No more blood needs to be spilled.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_lock_down',
+        order: 63006,
+        characterKey: 'pianta_enforcer',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 9, minute: 15 },
+        timestamp: '5 hours 45 minutes ago',
+        content: `UPDATE: Captain Lock is alive but unconscious. A barrel hit him directly in the helmet. He'll wake up with a headache but he'll live. We're professionals—we don't kill unconscious enemies. 🛢️😤`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Perfect throw, cousin. The Captain will remember that.' },
+            { characterKey: 'regency_sergeant', text: 'You... you knocked out our Captain with a BARREL?!' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_surrender_accepted',
+        order: 63007,
+        characterKey: 'elder_erol',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 10, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `Admiral B. Toad has formally surrendered the Regency garrison to the Free Delfino Coalition. All hostilities have ceased. The Isle Delfino Conflict is OVER. We have won. WE ARE FREE. 🐚🌴🐢`,
+        likes: 12345,
+        comments: [
+            { characterKey: 'noki_elder', text: 'After decades of occupation... freedom at last.' },
+            { characterKey: 'don_pianta', text: 'Today, Delfino belongs to its people again.' },
+            { characterKey: 'general_shellshock', text: 'Victory for the Coalition. Honor to the fallen.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_deportation_begins',
+        order: 63008,
+        characterKey: 'admiral_blooper',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 11, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Koopa transport ships are loading Regency personnel for deportation. They are being treated humanely—given food, water, and medical attention. They will be returned to Mushroom Kingdom territory. The Coalition is merciful in victory.`,
+        likes: 6789,
+        comments: [
+            { characterKey: 'harbormaster_t', text: 'I never expected this treatment from the Koopa Troop.' },
+            { characterKey: 'admiral_blooper', text: 'We are not monsters. We never were.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_captain_wakes',
+        order: 63009,
+        characterKey: 'captain_lock',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 12, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `I... what happened? The Admiral surrendered? We LOST?! I was supposed to hold until reinforcements... where are the reinforcements?! And why does my head feel like a BARREL hit it?!`,
+        likes: 4567,
+        comments: [
+            { characterKey: 'regency_sergeant', text: 'Sir, a barrel DID hit you. We\'re being deported.' },
+            { characterKey: 'pianta_enforcer', text: 'Sorry about your helmet. Actually, no I\'m not.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_gelato_surrenders',
+        order: 63010,
+        characterKey: 'mayor_melon',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 13, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `With the fall of the Regency garrison, Gelato Beach has no choice but to... to accept the authority of the Free Delfino Coalition. I request clemency for myself and my administration.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'don_pianta', text: 'Clemency? For the man who threw families into the sea? We\'ll discuss it.' },
+            { characterKey: 'noki_elder', text: 'Justice will be fair. But it WILL be justice.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_coalition_control',
+        order: 63011,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 14, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `The Coalition now controls all of Isle Delfino. The Regency airstrip is secure. Ricco Harbor is operational. Corona Mountain is fortified. Pianta Village stands free. Noki Bay prospers. This island is LIBERATED.`,
+        likes: 9012,
+        comments: [
+            { characterKey: 'elder_erol', text: 'What comes next will require wisdom, not just strength.' },
+            { characterKey: 'don_pianta', text: 'We build something better. That\'s what comes next.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_last_ship',
+        order: 63012,
+        characterKey: 'regency_sergeant',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 15, minute: 0 },
+        timestamp: 'Just now',
+        content: `Boarding the last transport ship. Looking back at Isle Delfino one last time. We came here to "restore order." We're leaving in defeat. Maybe... maybe this place was never ours to control.`,
+        likes: 1234,
+        comments: [
+            { characterKey: 'noki_shellfish', text: 'Safe travels, Sergeant. Don\'t come back.' },
+            { characterKey: 'captain_lock', text: 'The Regency will return. This isn\'t over.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_hotel_opens',
+        order: 63013,
+        characterKey: 'manager_monk',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 16, minute: 0 },
+        timestamp: '1 hour later',
+        content: `Hotel Delfino is officially reopening! The shutters are up! The Boos are celebrating! The Noki dignitaries are finally leaving! (They were great guests, honestly.) BOOK YOUR ROOMS NOW—history was made here! 🏨`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'boo_resident', text: 'Party in the basement! Everyone\'s invited!' },
+            { characterKey: 'noki_dignitary', text: 'Thank you for everything, Monk. We will return as proper guests.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_don_speech',
+        order: 63014,
+        characterKey: 'don_pianta',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 17, minute: 0 },
+        timestamp: '2 hours later',
+        content: `My fellow Delfinians! Today marks the end of occupation and the beginning of FREEDOM! The Coalition has proven that when we stand together—Pianta, Noki, Koopa—no empire can hold us! This island is OURS!`,
+        likes: 12345,
+        comments: [
+            { characterKey: 'pianta_elder', text: 'LONG LIVE THE DON! LONG LIVE FREE DELFINO!' },
+            { characterKey: 'noki_elder', text: 'A new era begins. May we build it wisely.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_governance_question',
+        order: 63015,
+        characterKey: 'elder_erol',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 18, minute: 0 },
+        timestamp: '3 hours later',
+        content: `Victory is sweet, but governance is complex. The Coalition must now decide: Who leads? What laws apply? How do we share power? The hard work begins now. War is easy. Peace is difficult.`,
+        likes: 5678,
+        comments: [
+            { characterKey: 'general_shellshock', text: 'The Troop will respect local autonomy. We are allies, not occupiers.' },
+            { characterKey: 'don_pianta', text: 'Let the factions govern themselves. Meet only for common defense.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_koopa_statement',
+        order: 63016,
+        characterKey: 'general_shellshock',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 19, minute: 0 },
+        timestamp: 'Evening',
+        content: `The Koopa Troop's mission on Isle Delfino was liberation, not conquest. We will maintain a garrison at Corona Mountain for mutual defense, but this island belongs to its people. The Coalition is a partnership, not an empire.`,
+        likes: 8901,
+        comments: [
+            { characterKey: 'noki_elder', text: 'Your words give hope, General. We will hold you to them.' },
+            { characterKey: 'don_pianta', text: 'Actions will prove intentions. So far, so good.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_refugee_return',
+        order: 63017,
+        characterKey: 'refugee_nola',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 20, minute: 0 },
+        timestamp: 'Night',
+        content: `I'm going home. The children are going home. The nightmare is over. Mayor Melon is being held for trial. Justice is coming. I never thought I'd see this day. Thank you, Coalition. Thank you, everyone who fought for us.`,
+        likes: 9012,
+        comments: [
+            { characterKey: 'noki_healer', text: 'Welcome home, Nola. You are safe now.' },
+            { characterKey: 'pianta_elder', text: 'Your suffering will not be forgotten. Neither will Melon\'s crimes.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_geopolitical_shift',
+        order: 63018,
+        characterKey: 'delfino_reporter',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 21, minute: 0 },
+        timestamp: 'Late night',
+        content: `The expulsion of the Mushroom Regency from Isle Delfino represents the largest geopolitical shift in the southern seas in a century. The Coalition now controls a strategic island chain. The Regency's southern flank is exposed. The world is watching.`,
+        likes: 7890,
+        comments: [
+            { characterKey: 'mushroom_regency_official', text: 'This act of rebellion will not go unanswered.' },
+            { characterKey: 'general_shellshock', text: 'We\'ll be ready.' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_final_celebration',
+        order: 63019,
+        characterKey: 'pianta_bartender',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 22, minute: 0 },
+        timestamp: 'Near midnight',
+        content: `THE DRINKS ARE FREE TONIGHT! EVERYONE COME TO THE PLAZA! Piantas, Nokis, Koopas, even the captured Cataquacks—EVERYONE IS WELCOME! This is the night we celebrate FREEDOM! 🍹🎉🌴`,
+        likes: 12345,
+        comments: [
+            { characterKey: 'boo_resident', text: 'The ghosts are coming too! We earned this party!' },
+            { characterKey: 'koopa_marine', text: 'First round\'s on me! For the Coalition!' },
+            { characterKey: 'noki_shellfish', text: 'For DELFINO!' }
+        ],
+        rumorId: 'delfino_exile_final'
+    },
+    {
+        id: 'delfino_hotel_lockdown',
+        title: "Standoff at Hotel Delfino",
+        date: { day: 24, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'manager_monk',
+        arc: 'delfino_unrest',
+        arcPosition: 'rising',
+        description: "Regency Military Police attempted to breach Hotel Delfino to arrest Noki dignitaries. Manager Monk activated the building's defensive shutters and threatened to release resident Boos, effectively turning the luxury hotel into an impregnable fortress of neutrality.",
+        targets: ['manager_monk', 'captain_lock', 'noki_shellfish'],
+        effects: {
+            pianta_syndicate: 10,
+            mushroom_regency: -10,
+            gelato_loyalists: -5
+        },
+        cycle_impact: { score: 1.5, label: "Civil Disobedience", type: "political" }
+    },
+    {
+        id: 'delfino_fin_madness',
+        title: "The Fin Friendly Fire Incident",
+        date: { day: 25, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'lt_sunburn',
+        arc: 'delfino_unrest',
+        arcPosition: 'rising',
+        description: "A Regency patrol stationed on the remote 'Fin' of the island succumbed to heat exhaustion and paranoia, engaging in a firefight with a friendly unit they hallucinated were 'Shadow Marios.' The incident has severely degraded Regency morale on the island.",
+        targets: ['lt_sunburn', 'sgt_daze', 'mushroom_regency'],
+        effects: {
+            mushroom_regency: -25,
+            noki_shellfish: 5
+        },
+        cycle_impact: { score: 1.0, label: "Morale Collapse", type: "military" }
+    },
+    {
+        id: 'delfino_village_secession',
+        title: "Pianta Village Declares Independence",
+        date: { day: 26, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'don_pianta',
+        arc: 'delfino_unrest',
+        arcPosition: 'climax',
+        description: "Don Pianta has formally severed ties with the Mushroom Regency by cutting the suspension bridge to the village. Regency envoys sent to negotiate were physically thrown ('chucked') from the heights into the plaza pool below. The village is now a fortress.",
+        targets: ['don_pianta', 'envoy_beige'],
+        effects: {
+            pianta_syndicate: 30,
+            mushroom_regency: -30,
+            koopa_troop: 10
+        },
+        cycle_impact: { score: 2.0, label: "Secession", type: "political" }
+    },
+    {
+        id: 'delfino_corona_invasion',
+        title: "Koopa Paratroopers Seize Corona Mountain",
+        date: { day: 27, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'general_shellshock',
+        arc: 'delfino_unrest',
+        arcPosition: 'climax',
+        description: "In a stunning display of vertical warfare, General Shellshock led an airborne drop of Koopa Paratroopers directly into the Corona Mountain caldera. The Regency Mountain Guard, unprepared for an attack from above, was routed within hours. The Koopa Troop now holds the island's highest ground.",
+        targets: ['general_shellshock', 'sgt_toadofsky', 'mushroom_regency'],
+        effects: {
+            koopa_troop: 40,
+            mushroom_regency: -40,
+            noki_shellfish: 10
+        },
+        cycle_impact: { score: 2.5, label: "Strategic Victory", type: "military" }
+    },
+    {
+        id: 'delfino_gelato_betrayal',
+        title: "The Gelato Beach Purge",
+        date: { day: 27, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'mayor_melon',
+        arc: 'delfino_unrest',
+        arcPosition: 'rising',
+        description: "Mayor Melon has officially aligned Gelato Beach with the Mushroom Regency. In a move condemned by the Noki Elders, Gelato police forcibly expelled Noki refugees into the sea on makeshift rafts. This betrayal has unified the western factions against the 'Gelato-Regency Axis.'",
+        targets: ['mayor_melon', 'refugee_nola', 'noki_shellfish'],
+        effects: {
+            gelato_loyalists: 20,
+            noki_shellfish: -20,
+            pianta_syndicate: -10
+        },
+        cycle_impact: { score: 1.8, label: "Humanitarian Crisis", type: "political" }
+    },
+    {
+        id: 'delfino_ricco_harbor',
+        title: "Koopa Navy Captures Ricco Harbor",
+        date: { day: 28, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'admiral_blooper',
+        arc: 'delfino_unrest',
+        arcPosition: 'falling',
+        description: "Admiral Blooper's submersible fleet has seized Ricco Harbor. By using Blooper operatives to jam patrol boat propellers with ink, the Koopa Navy disabled the Regency's port defenses without sinking a single ship. The Regency garrison is now cut off from resupply.",
+        targets: ['admiral_blooper', 'harbormaster_t', 'mushroom_regency'],
+        effects: {
+            koopa_troop: 30,
+            mushroom_regency: -30,
+            pianta_syndicate: 15
+        },
+        cycle_impact: { score: 2.2, label: "Naval Blockade", type: "military" }
+    },
+    {
+        id: 'delfino_gelato_counter',
+        title: "Disaster at Noki Bay",
+        date: { day: 29, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'mayor_melon',
+        arc: 'delfino_unrest',
+        arcPosition: 'falling',
+        description: "A joint Regency-Gelato amphibious assault on Noki Bay ended in humiliation. The 'Cataquack Cavalry' panicked under artillery fire from Koopa ships and barrel bombardments from Pianta villagers on the cliffs. The Regency forces were forced to retreat, abandoning their heavy equipment.",
+        targets: ['mayor_melon', 'don_pianta', 'captain_spore'],
+        effects: {
+            gelato_loyalists: -30,
+            pianta_syndicate: 20,
+            noki_shellfish: 20
+        },
+        cycle_impact: { score: 2.0, label: "Failed Offensive", type: "military" }
+    },
+    {
+        id: 'delfino_exile_final',
+        title: "Regency Expelled from Delfino",
+        date: { day: 30, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'elder_erol',
+        arc: 'delfino_unrest',
+        arcPosition: 'resolution',
+        description: "The Isle Delfino Conflict has ended. Admiral B. Toad surrendered the airstrip, and the remaining Regency forces were deported by Koopa transport ships. Noki Bay, Pianta Village, and the Koopa Troop now share de facto control of the island, marking a major geopolitical shift in the southern seas.",
+        targets: ['elder_erol', 'general_shellshock', 'admiral_b_toad'],
+        effects: {
+            mushroom_regency: -50,
+            koopa_troop: 50,
+            noki_shellfish: 30,
+            pianta_syndicate: 30
+        },
+        cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
+    },
     // ========================================================================
     // DRAGON MOUNTAIN: THE TRUTH (Day 21 - Morning)
     // ========================================================================
@@ -739,7 +3116,7 @@ export const WAHBOOK_POSTS = [
         content: `The machinery of state is heavy, but it moves with purpose. Those who aligned correctly have nothing to fear.`,
         likes: 45,
         comments: [
-            { characterKey: 'hjumpik', text: 'I hear you. Keeping my head down.' }
+            { characterKey: 'humpik', text: 'I hear you. Keeping my head down.' }
         ],
         rumorId: 'iron_mandate_passage'
     },

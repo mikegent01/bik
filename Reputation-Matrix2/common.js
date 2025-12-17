@@ -1,46 +1,111 @@
 // Manages all common, shared functionality for the application.
 
 // --- AUDIO ---
-let audioContext;
+let audioContext = null;
+let audioInitialized = false;
 const audioBuffers = {};
+const failedSounds = new Set();
+// Run this in browser console to check if image exists
+async function testImage(path) {
+    return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => {
+            console.log(`✅ FOUND: ${path}`);
+            resolve(true);
+        };
+        img.onerror = () => {
+            console.log(`❌ NOT FOUND: ${path}`);
+            resolve(false);
+        };
+        img.src = path;
+    });
+}
 
+// Test the specific image
+testImage('portraits/speaker_l.png');
+
+// Also try variations
+testImage('portraits/Speaker_L.png');
+testImage('portraits/speaker_L.png');
+testImage('portraits/speaker_l.PNG');
+testImage('Portraits/speaker_l.png');
 export function initAudio() {
-    if (audioContext) return;
+    if (audioInitialized) return;
+    audioInitialized = true;
+    
     try {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        // Load all sounds at once
-        loadSound('click.mp3');
-        loadSound('wah.mp3');
-        loadSound('confirm.mp3');
+        console.log('[Audio] AudioContext initialized');
+        
+        // Preload sounds - don't await, let them load in background
+        preloadSound('click.mp3');
+        preloadSound('wah.mp3');
+        preloadSound('confirm.mp3');
     } catch (e) {
-        console.warn('Web Audio API is not supported in this browser');
+        console.warn('[Audio] Web Audio API not supported:', e.message);
+        audioContext = null;
     }
 }
 
-async function loadSound(url) {
-    if (!audioContext || audioBuffers[url]) return;
+async function preloadSound(filename) {
+    if (!audioContext || audioBuffers[filename] || failedSounds.has(filename)) return;
+    
     try {
-        const response = await fetch(url);
+        const response = await fetch(filename);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
         const arrayBuffer = await response.arrayBuffer();
         const buffer = await audioContext.decodeAudioData(arrayBuffer);
-        audioBuffers[url] = buffer;
+        audioBuffers[filename] = buffer;
+        console.log(`[Audio] Loaded: ${filename}`);
     } catch (e) {
-        console.error(`Failed to load sound: ${url}`, e);
+        // Only log once per sound file
+        if (!failedSounds.has(filename)) {
+            failedSounds.add(filename);
+            console.warn(`[Audio] Could not load "${filename}": ${e.message}`);
+            console.warn(`[Audio] Make sure the file exists in the same directory as your HTML file`);
+        }
     }
 }
 
-export function playSound(url, volume = 0.7) {
-    if (!audioContext || !audioBuffers[url]) {
+export function playSound(filename, volume = 0.7) {
+    // Don't try to play if audio isn't set up
+    if (!audioContext) return;
+    
+    // If sound isn't loaded yet, try to load it
+    if (!audioBuffers[filename]) {
+        // Don't retry failed sounds
+        if (failedSounds.has(filename)) return;
+        
+        // Try to load and play async
+        preloadSound(filename).then(() => {
+            if (audioBuffers[filename]) {
+                playBufferedSound(filename, volume);
+            }
+        });
         return;
     }
-    const source = audioContext.createBufferSource();
-    source.buffer = audioBuffers[url];
-    const gainNode = audioContext.createGain();
-    gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
-    source.connect(gainNode).connect(audioContext.destination);
-    source.start(0);
+    
+    playBufferedSound(filename, volume);
 }
 
+function playBufferedSound(filename, volume) {
+    try {
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffers[filename];
+        
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+        
+        source.connect(gainNode).connect(audioContext.destination);
+        source.start(0);
+    } catch (e) {
+        console.warn(`[Audio] Error playing ${filename}:`, e.message);
+    }
+}
 
 // --- ON-PAGE ASSET SCANNER ---
 
@@ -79,64 +144,72 @@ function showScannerModal(missingImages) {
     const modal = document.createElement('div');
     modal.id = 'asset-scanner-modal';
     modal.className = 'scanner-modal';
+    
+    // Add inline styles in case CSS isn't loaded
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    `;
 
     let contentHTML;
     if (missingImages.length === 0) {
         contentHTML = `
-            <h4>Asset Scan Complete</h4>
-            <p class="positive">WAH-HAA-HAA! No missing images found on this page!</p>
+            <h4 style="margin: 0 0 16px 0; color: #2ecc71;">✅ Asset Scan Complete</h4>
+            <p style="color: #2ecc71; margin: 0;">WAH-HAA-HAA! No missing images found on this page!</p>
         `;
     } else {
         contentHTML = `
-            <h4>Asset Scan Complete</h4>
-            <p class="negative">Found ${missingImages.length} missing image(s) on this page:</p>
-            <ul>
-                ${missingImages.map(img => `<li><code>${img.src}</code></li>`).join('')}
+            <h4 style="margin: 0 0 16px 0; color: #e74c3c;">⚠️ Asset Scan Complete</h4>
+            <p style="color: #e74c3c; margin-bottom: 12px;">Found ${missingImages.length} missing image(s):</p>
+            <ul style="list-style: none; padding: 0; margin: 0; max-height: 300px; overflow-y: auto;">
+                ${missingImages.map(img => `<li style="margin-bottom: 8px; font-size: 0.9em;"><code style="background: #333; padding: 4px 8px; border-radius: 4px; word-break: break-all;">${img.src}</code></li>`).join('')}
             </ul>
         `;
     }
 
     modal.innerHTML = `
-        <div class="scanner-modal-content">
-            <button class="scanner-modal-close">&times;</button>
+        <div style="background: #1a1a2e; border: 1px solid #333; border-radius: 12px; padding: 24px; max-width: 500px; max-height: 80vh; overflow: auto; position: relative;">
+            <button style="position: absolute; top: 12px; right: 12px; background: none; border: none; color: #888; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
             ${contentHTML}
         </div>
     `;
 
     document.body.appendChild(modal);
 
-    modal.querySelector('.scanner-modal-close').addEventListener('click', () => {
-        modal.remove();
-    });
-     modal.addEventListener('click', (e) => {
-        if(e.target === modal) {
-            modal.remove();
-        }
+    // Close handlers
+    modal.querySelector('button').addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
     });
 }
 
 // --- GLOBAL EVENT LISTENERS ---
 function setupCommonEventListeners() {
-    // Use event delegation for various clicks to avoid race conditions
-    // as elements are loaded asynchronously.
     document.body.addEventListener('click', (event) => {
         // Logo click for asset scanner
         if (event.target.closest('#waluigi-logo')) {
             scanCurrentPageForMissingImages();
         }
 
-        // Sidebar status click for debug mode
+        // Debug toggle
         if (event.target.id === 'debug-toggle-btn') {
             const isDebug = localStorage.getItem('vigilanceDebugMode') === 'true';
             const newDebugState = !isDebug;
             
             localStorage.setItem('vigilanceDebugMode', String(newDebugState));
+            window.debugMode = newDebugState;
             
             playSound('confirm.mp3', 0.5);
             
-            const message = `Debug Mode ${newDebugState ? 'ACTIVATED' : 'DEACTIVATED'}. Page will now reload.`;
-            alert(message);
-            
+            alert(`Debug Mode ${newDebugState ? 'ACTIVATED' : 'DEACTIVATED'}. Page will now reload.`);
             window.location.reload();
         }
 
@@ -149,11 +222,19 @@ function setupCommonEventListeners() {
         }
     });
 
-    // Init audio on the first user interaction anywhere on the page.
-    document.body.addEventListener('click', () => {
-        initAudio();
-    }, { once: true });
+    // Init audio on first user interaction
+    document.body.addEventListener('click', () => initAudio(), { once: true });
+    document.body.addEventListener('keydown', () => initAudio(), { once: true });
 }
 
-// Run setup
+// Run setup immediately
 setupCommonEventListeners();
+
+// Also try to init audio right away (may fail until user interaction)
+try {
+    initAudio();
+} catch (e) {
+    // Will be initialized on first click
+}
+
+console.log('[Common] Module loaded');

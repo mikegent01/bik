@@ -8,6 +8,19 @@ import { STORY_ARCS, getRumorsByArc } from './lore.js';
 // ============================================================================
 
 export const CONFLICT_DETAILS = {
+"Isle Delfino Conflict": {
+    summary: "A rapid destabilization of the tropical resort island resulting in the expulsion of the Mushroom Regency.",
+    startYear: 1040,
+    status: "active",
+    rootCause: "Regency tax collection attempts on Noki shellfish triggering a cascade of independence movements and Koopa intervention.",
+    majorPhases: [
+        { name: "The Tribute Refusal (Day 12-14)", description: "Noki Bay refuses Regency tax collectors. Skirmishes begin." },
+        { name: "The Three-Front War (Day 15-18)", description: "Pianta Village secedes. Koopa Troop enters the theater." },
+        { name: "The Alliance (Day 20+)", description: "Noki and Koopa forces ally to expel Regency naval presence." }
+    ],
+    keyFactions: ['mushroom_regency', 'koopa_troop', 'noki_shellfish', 'pianta_syndicate'],
+    estimatedCasualties: "Low mortality, high property damage to resorts"
+},    
     "Mushroom Kingdom Civil War": {
         summary: "A 45-year conflict sparked by the assassination of Princess Peach, with no end in sight.",
         startYear: 955,
@@ -76,6 +89,241 @@ export const CONFLICT_DETAILS = {
 };
 
 export const MAJOR_BATTLES = [
+// ========================================================================
+    // ISLE DELFINO CONFLICT (WEEK OF THE 24TH)
+    // ========================================================================
+
+    {
+        id: 'delfino_exile_final',
+        name: "The Exile of Delfino",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 30, hour: 18, minute: 30 }, // Day 30
+        location: "Delfino Airstrip & Offshore",
+        belligerents: {
+            side_a: { name: "The Islander Alliance", factions: ['noki_shellfish', 'koopa_troop', 'pianta_syndicate'] },
+            side_b: { name: "Mushroom Regency Remnants", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["General Shellshock", "Elder Erol"], side_b: ["Admiral B. Toad"] },
+        outcome: "victory",
+        outcomeDetail: "Regency completely withdraws. Independence recognized de facto.",
+        casualties: { side_a: "None", side_b: "2 Gunboats scuttled, Admiral surrendered" },
+        strategicValue: "critical",
+        description: `<p>The end of Regency influence on Isle Delfino. Surrounded on land by a combined force of Koopa mechs and Pianta heavy-lifters, and blockaded at sea by Noki saboteurs, Admiral B. Toad formally surrendered the airstrip just before sunset on the 30th.</p>
+        <p>The Koopa Troop provided transport ships to deport the Regency garrison back to the Mushroom Kingdom. As the ships left, the flags of the Noki, Pianta, and Koopa Troop were raised over the Grand Piazza.</p>`,
+        tacticalNotes: "Total isolation of an island garrison renders superior firepower useless.",
+        participatingCharacters: ['general_shellshock', 'admiral_b_toad', 'elder_erol']
+    },
+    {
+        id: 'delfino_gelato_counter',
+        name: "The Gelato Beach Counter-Offensive",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 29, hour: 6, minute: 0 }, // Day 29
+        location: "Noki Bay - East Ridge",
+        belligerents: {
+            side_a: { name: "Regency-Gelato Axis", factions: ['mushroom_regency', 'gelato_loyalists'] },
+            side_b: { name: "Noki & Pianta Defenders", factions: ['noki_shellfish', 'pianta_syndicate'] }
+        },
+        commanders: { side_a: ["Mayor Melon", "Captain Spore"], side_b: ["Don Pianta"] },
+        outcome: "defeat",
+        outcomeDetail: "Amphibious assault failed. Gelato Cataquack Cavalry routed.",
+        casualties: { side_a: "Heavy (Cataquacks panicked)", side_b: "Light" },
+        strategicValue: "high",
+        description: `<p>The Regency attempted to break the stalemate at dawn by launching a pincer attack on Noki Bay using their allies from Gelato Beach. Mayor Melon led a charge of 'Cataquack Cavalry' along the ridges while Regency marines stormed the beach.</p>
+        <p>The attack collapsed when Don Pianta led a reinforcement column from the village above, literally throwing heavy fruit barrels down the cliffs to break the Cataquack charge. Simultaneously, Koopa battleships shelled the beachhead, forcing a chaotic retreat.</p>`,
+        tacticalNotes: "Wildlife-based cavalry (Cataquacks) is unreliable under artillery fire.",
+        participatingCharacters: ['mayor_melon', 'don_pianta', 'captain_spore']
+    },
+    {
+        id: 'delfino_secret_accords',
+        name: "The Noki-Koopa Accords",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 22, minute: 0 }, // Day 28
+        location: "Deep Sea Cave, Noki Bay",
+        belligerents: {
+            side_a: { name: "Noki Leadership", factions: ['noki_shellfish'] },
+            side_b: { name: "Koopa Diplomats", factions: ['koopa_troop'] }
+        },
+        commanders: { side_a: ["Elder Erol"], side_b: ["Kamek (Hologram)"] },
+        outcome: "victory",
+        outcomeDetail: "Alliance ratified. Borders finalized.",
+        casualties: { side_a: "None", side_b: "None" },
+        strategicValue: "critical",
+        description: `<p>In a watertight cavern beneath the bay, Elder Erol met with a holographic projection of Kamek to formalize their strategy against the Regency. They signed the 'Treaty of Tides'.</p>
+        <p><strong>Terms:</strong> The Koopa Troop gains exclusive docking rights at Ricco Harbor and a military base in Corona Mountain. In exchange, they agree to forcibly expel the Mushroom Regency and recognize Noki Bay's sovereignty over the northern waters.</p>`,
+        tacticalNotes: "The Regency's refusal to negotiate drove neutral factions into Bowser's arms.",
+        participatingCharacters: ['elder_erol', 'kamek']
+    },
+    {
+        id: 'delfino_ricco_harbor',
+        name: "The Seizure of Ricco Harbor",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 28, hour: 5, minute: 30 }, // Day 28
+        location: "Ricco Harbor",
+        belligerents: {
+            side_a: { name: "Koopa Navy", factions: ['koopa_troop'] },
+            side_b: { name: "Regency Port Authority", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["Admiral Blooper"], side_b: ["Harbormaster T."] },
+        outcome: "victory",
+        outcomeDetail: "Harbor captured. Supply lines cut.",
+        casualties: { side_a: "1 Submersible damaged", side_b: "Port Authority surrendered" },
+        strategicValue: "high",
+        description: `<p>Following the chaos at Corona Mountain, the Koopa Troop executed a naval landing at Ricco Harbor. Utilizing trained Bloopers to foul the propellers of Regency patrol boats, Koopa submersibles surfaced directly at the docks.</p>
+        <p>Admiral Blooper (a sentient giant Blooper officer) issued an ultimatum in ink-sign language. Harbormaster T., realizing his guards were armed only with clipboard and batons against armored Koopas, surrendered the port immediately.</p>`,
+        tacticalNotes: "Control of Ricco Harbor effectively starves the Regency garrison of supplies.",
+        participatingCharacters: ['admiral_blooper', 'harbormaster_t']
+    },
+    {
+        id: 'delfino_corona_invasion',
+        name: "Invasion of Corona Mountain",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 0 }, // Day 27
+        location: "Corona Mountain Caldera",
+        belligerents: {
+            side_a: { name: "Koopa Paratroopers", factions: ['koopa_troop'] },
+            side_b: { name: "Regency Mountain Guard", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["General Shellshock"], side_b: ["Sgt. Toadofsky"] },
+        outcome: "victory",
+        outcomeDetail: "High ground secured. Third front opened.",
+        casualties: { side_a: "Light", side_b: "Total rout - survivors fled to Plaza" },
+        strategicValue: "critical",
+        description: `<p>Koopa Paratroopers, dropping from high-altitude airships, descended into the caldera of Corona Mountain. General Shellshock led the vanguard, deploying Spiny eggs to create area-denial zones in the caves.</p>
+        <p>Regency Sgt. Toadofsky attempted to organize a defense using the hot springs as chokepoints, but the verticality of the assault overwhelmed them. This victory gave the Koopa Troop artillery positions overlooking the entire island.</p>`,
+        tacticalNotes: "Vertical envelopment remains the Koopa Troop's signature doctrine.",
+        participatingCharacters: ['general_shellshock', 'sgt_toadofsky']
+    },
+    {
+        id: 'delfino_gelato_betrayal',
+        name: "The Gelato Betrayal",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 27, hour: 9, minute: 0 }, // Day 27
+        location: "Gelato Beach",
+        belligerents: {
+            side_a: { name: "Gelato Beach Residents", factions: ['gelato_loyalists', 'mushroom_regency'] },
+            side_b: { name: "Noki Refugees", factions: ['noki_shellfish'] }
+        },
+        commanders: { side_a: ["Mayor Melon"], side_b: ["Refugee Leader Nola"] },
+        outcome: "victory",
+        outcomeDetail: "Refugees expelled. Gelato aligns with Regency.",
+        casualties: { side_a: "None", side_b: "Dozens injured, forced into sea" },
+        strategicValue: "medium",
+        description: `<p>Mayor Melon of Gelato Beach, citing "economic stability" and "promises of exclusive resort rights," declared loyalty to the Mushroom Regency. In a sudden betrayal, local police and Regency troops forcibly expelled Noki refugees who had fled there days prior.</p>
+        <p>Refugee Leader Nola managed to evacuate families on makeshift rafts, but the act cemented the division of the island: The East (Gelato) for the Regency, the West (Noki/Pianta) for the Rebellion.</p>`,
+        tacticalNotes: "Economic incentives can fracture indigenous alliances.",
+        participatingCharacters: ['mayor_melon', 'refugee_nola']
+    },
+    {
+        id: 'delfino_pianta_park_fall',
+        name: "Fall of Pianta Park",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 15, minute: 0 }, // Day 26
+        location: "Pianta Park (Amusement Area)",
+        belligerents: {
+            side_a: { name: "Mushroom Regency Shock Troops", factions: ['mushroom_regency'] },
+            side_b: { name: "Pianta Syndicate Rearguard", factions: ['pianta_syndicate'] }
+        },
+        commanders: { side_a: ["Captain Spore"], side_b: ["'Big Chuck'"] },
+        outcome: "defeat",
+        outcomeDetail: "Park occupied. Piantas retreat to Village.",
+        casualties: { side_a: "Moderate (Booby traps)", side_b: "Light (Strategic withdrawal)" },
+        strategicValue: "medium",
+        description: `<p>Regency troops stormed the Pianta Park amusement grounds to secure a staging area for an assault on Pianta Village. They faced a nightmare of improvised defenses: animatronics rigged to explode, electrified roller coaster tracks, and unleashed Chain Chomps.</p>
+        <p>'Big Chuck', a Pianta lieutenant, held the entrance for three hours simply by throwing Regency soldiers into the pond, buying time for the main force to retreat up the Great Tree.</p>`,
+        tacticalNotes: "Urban warfare in theme parks presents unique environmental hazards.",
+        participatingCharacters: ['captain_spore', 'big_chuck']
+    },
+    {
+        id: 'delfino_village_secession',
+        name: "The Declaration of the Great Tree",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 10, minute: 0 }, // Day 26
+        location: "Pianta Village",
+        belligerents: {
+            side_a: { name: "Pianta Council", factions: ['pianta_syndicate'] },
+            side_b: { name: "Regency Envoys", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["Don Pianta"], side_b: ["Envoy Beige"] },
+        outcome: "victory",
+        outcomeDetail: "Envoys thrown off bridge. Independence declared.",
+        casualties: { side_a: "None", side_b: "3 Envoys (Wet, bruised)" },
+        strategicValue: "high",
+        description: `<p>Following the Noki Bay skirmishes, Regency envoys arrived in Pianta Village to demand loyalty. Don Pianta, eating a large durian, listened to their demands before pointing to the suspension bridge.</p>
+        <p>"The Regency offers taxes," the Don reportedly said. "The Piantas offer gravity." His 'Chucksters' then physically tossed the envoys off the bridge into the pool below. The Village bridge was subsequently cut, severing land access.</p>`,
+        tacticalNotes: "Pianta strength allows for non-lethal but highly effective diplomacy.",
+        participatingCharacters: ['don_pianta', 'envoy_beige']
+    },
+    {
+        id: 'delfino_fin_madness',
+        name: "The Madness on The Fin",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 23, minute: 0 }, // Day 25
+        location: "The Fin (Remote Terrain)",
+        belligerents: {
+            side_a: { name: "Regency Patrol Alpha", factions: ['mushroom_regency'] },
+            side_b: { name: "Regency Patrol Beta", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["Lt. Sunburn"], side_b: ["Sgt. Daze"] },
+        outcome: "stalemate",
+        outcomeDetail: "Friendly fire incident due to hallucinations.",
+        casualties: { side_a: "6 Wounded", side_b: "4 Wounded" },
+        strategicValue: "low",
+        description: `<p>A chaotic night skirmish occurred on the desolate "Fin" of the island. Two Regency patrols, suffering from heat exhaustion and dehydration, opened fire on each other.</p>
+        <p>Radio logs from Lt. Sunburn claim they were attacking "Shadow Marios" emerging from the graffiti, but an investigation revealed only friendly shell casings. The incident severely damaged Regency morale.</p>`,
+        tacticalNotes: "Environmental attrition is causing psychological breakdowns in non-native troops.",
+        participatingCharacters: ['lt_sunburn', 'sgt_daze']
+    },
+    {
+        id: 'delfino_hotel_lockdown',
+        name: "The Hotel Delfino Lockdown",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 14, minute: 0 }, // Day 24
+        location: "Sirena Beach - Hotel Delfino",
+        belligerents: {
+            side_a: { name: "Hotel Security", factions: ['pianta_syndicate'] },
+            side_b: { name: "Regency Military Police", factions: ['mushroom_regency'] }
+        },
+        commanders: { side_a: ["Manager Monk"], side_b: ["Captain Lock"] },
+        outcome: "victory",
+        outcomeDetail: "Regency locked out. Sirena Beach declares neutrality.",
+        casualties: { side_a: "None", side_b: "None" },
+        strategicValue: "medium",
+        description: `<p>Regency Military Police attempted to enter Hotel Delfino to arrest visiting Noki dignitaries. Manager Monk, citing "guest privacy policies," activated the casino's shutter system.</p>
+        <p>The hotel became a fortress. The ghosts haunting the upper floors reportedly aided the staff by throwing furniture at Regency officers trying to breach the windows.</p>`,
+        tacticalNotes: "Sirena Beach remains a neutral zone, mostly because no one wants to fight the ghosts.",
+        participatingCharacters: ['manager_monk', 'captain_lock']
+    },
+    {
+        id: 'delfino_tribute_refusal',
+        name: "The Shellfish Standoff",
+        conflict: "Isle Delfino Conflict",
+        arc: 'delfino_unrest',
+        date: { year: 1040, monthIndex: 6, day: 24, hour: 9, minute: 0 }, // Day 24
+        location: "Noki Bay Docks",
+        belligerents: {
+            side_a: { name: "Regency Tax Collectors", factions: ['mushroom_regency'] },
+            side_b: { name: "Noki Elders", factions: ['noki_shellfish'] }
+        },
+        commanders: { side_a: ["Tax Collector Blue"], side_b: ["Elder Erol"] },
+        outcome: "stalemate",
+        outcomeDetail: "Tribute refused. Regency boat sabotaged.",
+        casualties: { side_a: "None", side_b: "None" },
+        strategicValue: "medium",
+        description: `<p>The conflict began here. Tax Collector Blue demanded the annual tribute of 5,000 Golden Coins from the Noki people. Elder Erol met them on the dock.</p>
+        <p>"The coin is round," Erol said, "but our patience is flat." When the Collector ordered a warning shot, Noki divers beneath the surface severed the Regency boat's rudder, leaving them drifting helplessly. It was a bloodless but humiliating defeat for Regency authority.</p>`,
+        tacticalNotes: "Noki underwater mobility provides total naval asymmetry.",
+        participatingCharacters: ['tax_collector_blue', 'elder_erol']
+    },
     {
         id: 'raid_aegis_command',
         name: "The Aegis Command Massacre",
@@ -734,6 +982,13 @@ export const MAJOR_BATTLES = [
     }
 ];
 
+
+// ============================================================================
+// CONFLICT METADATA
+// ============================================================================
+
+
+
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
@@ -800,6 +1055,50 @@ function getDaysAgo(dateObj) {
     return currentTotal - battleTotal;
 }
 
+/**
+ * Checks if content should be visible based on CURRENT_GAME_DATE.
+ * STRICTLY compares Year, Month, and Day. Ignores Time.
+ * 
+ * LOGIC:
+ * 1. If date is past/present -> Visible.
+ * 2. If date is future -> Hidden, UNLESS window.debugMode is true.
+ */
+function isContentVisible(dateObj) {
+    if (!dateObj) return true; // Assume visible if no date structure provided
+
+    let isFuture = false;
+
+    // Check Year
+    if (dateObj.year > CURRENT_GAME_DATE.year) isFuture = true;
+    else if (dateObj.year === CURRENT_GAME_DATE.year) {
+        // Check Month
+        if (dateObj.monthIndex > CURRENT_GAME_DATE.monthIndex) isFuture = true;
+        else if (dateObj.monthIndex === CURRENT_GAME_DATE.monthIndex) {
+            // Check Day
+            if (dateObj.day > CURRENT_GAME_DATE.day) isFuture = true;
+        }
+    }
+
+    // If it's in the future, check for Debug Mode
+    if (isFuture) {
+        return window.debugMode === true;
+    }
+
+    return true;
+}
+
+/**
+ * Helper to specifically identify future events for styling purposes.
+ * Returns true if the event is in the future relative to CURRENT_GAME_DATE.
+ */
+function isFutureEvent(dateObj) {
+    if (!dateObj) return false;
+    if (dateObj.year > CURRENT_GAME_DATE.year) return true;
+    if (dateObj.year === CURRENT_GAME_DATE.year && dateObj.monthIndex > CURRENT_GAME_DATE.monthIndex) return true;
+    if (dateObj.year === CURRENT_GAME_DATE.year && dateObj.monthIndex === CURRENT_GAME_DATE.monthIndex && dateObj.day > CURRENT_GAME_DATE.day) return true;
+    return false;
+}
+
 // ============================================================================
 // RENDER FUNCTIONS
 // ============================================================================
@@ -848,6 +1147,9 @@ function renderCasualties(casualties) {
 }
 
 function renderBattle(battle) {
+    // Visibility Check (Redundant if filtered, but good for safety)
+    if (!isContentVisible(battle.date)) return '';
+
     const displayDate = formatDate(battle.date);
     const displayTime = formatTime(battle.date);
     const daysAgo = getDaysAgo(battle.date);
@@ -855,6 +1157,13 @@ function renderBattle(battle) {
     const outcomeClass = getOutcomeClass(battle.outcome);
     const strategicIcon = getStrategicIcon(battle.strategicValue);
     
+    // DEBUG: Styles for Future Events shown via Debug Mode
+    const isHiddenFuture = isFutureEvent(battle.date);
+    const debugBadge = isHiddenFuture 
+        ? `<div style="background: repeating-linear-gradient(45deg, #aa0000, #aa0000 10px, #660000 10px, #660000 20px); color: #fff; padding: 4px; font-weight: bold; font-size: 0.8em; text-align: center; margin-bottom: 8px; border: 1px solid #ff4444; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;">⚠️ Debug: Hidden Future Event ⚠️</div>` 
+        : '';
+    const opacityStyle = isHiddenFuture ? 'style="opacity: 0.75; border: 2px dashed #ff4444;"' : '';
+
     // Get related arc info
     const arc = battle.arc ? STORY_ARCS[battle.arc] : null;
     const arcBadge = arc ? `
@@ -882,7 +1191,9 @@ function renderBattle(battle) {
     <article class="battle-entry" id="${battle.id}" 
              data-strategic="${battle.strategicValue}" 
              data-outcome="${battle.outcome}"
-             data-conflict="${battle.conflict.toLowerCase().replace(/\s/g, '-')}">
+             data-conflict="${battle.conflict.toLowerCase().replace(/\s/g, '-')}"
+             ${opacityStyle}>
+            ${debugBadge}
             <header class="battle-header">
                 <div class="battle-title-row">
                     <h3 class="battle-name">${battle.name}</h3>
@@ -967,6 +1278,7 @@ function renderBattle(battle) {
 function getConflictsData() {
     const conflicts = {};
     
+    // Sort chronologically for timeline
     const chronoBattles = [...MAJOR_BATTLES].sort((a, b) => {
         const dateA = typeof a.date === 'object' ? new Date(a.date.year, a.date.monthIndex, a.date.day) : new Date(0);
         const dateB = typeof b.date === 'object' ? new Date(b.date.year, b.date.monthIndex, b.date.day) : new Date(0);
@@ -974,6 +1286,9 @@ function getConflictsData() {
     });
 
     chronoBattles.forEach(battle => {
+        // FILTER: Check visibility (handles Dates + Debug Mode)
+        if (!isContentVisible(battle.date)) return;
+
         const key = battle.conflict;
         if (!conflicts[key]) {
             conflicts[key] = {
@@ -1016,13 +1331,15 @@ function getConflictsData() {
         if (outcomeLower === 'defeat') c.victories.side_b++;
     });
 
-    // Sort by activity and recency
-    return Object.values(conflicts).sort((a, b) => {
-        if (a.isActive !== b.isActive) return b.isActive - a.isActive;
-        const dateA = a.lastUpdate ? new Date(a.lastUpdate.year, a.lastUpdate.monthIndex, a.lastUpdate.day) : new Date(0);
-        const dateB = b.lastUpdate ? new Date(b.lastUpdate.year, b.lastUpdate.monthIndex, b.lastUpdate.day) : new Date(0);
-        return dateB - dateA;
-    });
+    // Return visible conflicts
+    return Object.values(conflicts)
+        .filter(c => c.battles.length > 0)
+        .sort((a, b) => {
+            if (a.isActive !== b.isActive) return b.isActive - a.isActive;
+            const dateA = a.lastUpdate ? new Date(a.lastUpdate.year, a.lastUpdate.monthIndex, a.lastUpdate.day) : new Date(0);
+            const dateB = b.lastUpdate ? new Date(b.lastUpdate.year, b.lastUpdate.monthIndex, b.lastUpdate.day) : new Date(0);
+            return dateB - dateA;
+        });
 }
 
 function renderConflicts() {
@@ -1077,7 +1394,6 @@ function renderConflicts() {
             `;
         }).join('');
 
-        // THIS IS THE KEY FIX - metaHTML is now generated HERE at the conflict level
         const conflictMeta = CONFLICT_DETAILS[c.name];
         const metaHTML = conflictMeta ? `
             <section class="conflict-section">
@@ -1116,7 +1432,6 @@ function renderConflicts() {
                 
                 <div class="conflict-body">
                     <div class="conflict-main">
-                        <!-- Combatants Section -->
                         <section class="conflict-section">
                             <h6 class="section-header">Combatants</h6>
                             <div class="combatant-grid">
@@ -1124,7 +1439,6 @@ function renderConflicts() {
                             </div>
                         </section>
 
-                        <!-- Story Arcs Section -->
                         ${arcsHTML ? `
                             <section class="conflict-section">
                                 <h6 class="section-header">Related Story Arcs</h6>
@@ -1134,10 +1448,8 @@ function renderConflicts() {
                             </section>
                         ` : ''}
 
-                        <!-- META HTML GOES HERE - Overview and Root Cause -->
                         ${metaHTML}
 
-                        <!-- Date boxes (shown if no meta, or always shown) -->
                         <section class="conflict-section conflict-dates">
                             <div class="date-box">
                                 <span class="date-label">First Engagement</span>
@@ -1167,7 +1479,7 @@ function renderConflicts() {
 // ============================================================================
 
 function createFilterControls() {
-    const controlsHTML = `
+    return `
         <div class="filter-controls">
             <div class="filter-group">
                 <label class="filter-label">Sort By</label>
@@ -1196,8 +1508,6 @@ function createFilterControls() {
             </div>
         </div>
     `;
-    
-    return controlsHTML;
 }
 
 function applyFilters() {
@@ -1205,7 +1515,8 @@ function applyFilters() {
     const outcomeFilter = document.getElementById('outcome-filter')?.value || 'all';
     const searchTerm = document.getElementById('battle-search')?.value?.toLowerCase() || '';
 
-    let filteredBattles = [...MAJOR_BATTLES];
+    // FILTER: Start with visible battles (handles Dates + Debug)
+    let filteredBattles = MAJOR_BATTLES.filter(b => isContentVisible(b.date));
 
     // Apply outcome filter
     if (outcomeFilter !== 'all') {
@@ -1279,7 +1590,6 @@ function initTabs() {
             sec.style.display = isTarget ? 'block' : 'none';
         });
 
-        // Scroll to top when switching tabs
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -1293,14 +1603,16 @@ function initTabs() {
 // ============================================================================
 
 function renderStatsDashboard() {
-    const totalBattles = MAJOR_BATTLES.length;
-    const victories = MAJOR_BATTLES.filter(b => b.outcome === 'victory').length;
-    const ongoing = MAJOR_BATTLES.filter(b => b.outcome === 'ongoing' || b.outcome === 'retreat').length;
-    const uniqueConflicts = new Set(MAJOR_BATTLES.map(b => b.conflict)).size;
+    // FILTER: Only include visible battles in stats
+    const visibleBattles = MAJOR_BATTLES.filter(b => isContentVisible(b.date));
+
+    const totalBattles = visibleBattles.length;
+    const victories = visibleBattles.filter(b => b.outcome === 'victory').length;
+    const ongoing = visibleBattles.filter(b => b.outcome === 'ongoing' || b.outcome === 'retreat').length;
+    const uniqueConflicts = new Set(visibleBattles.map(b => b.conflict)).size;
     
-    // Calculate most active faction
     const factionCounts = {};
-    MAJOR_BATTLES.forEach(battle => {
+    visibleBattles.forEach(battle => {
         ['side_a', 'side_b', 'side_c', 'side_d'].forEach(side => {
             if (battle.belligerents[side]) {
                 battle.belligerents[side].factions.forEach(f => {
@@ -1366,9 +1678,12 @@ function renderStatsDashboard() {
 function init() {
     const container = document.getElementById('battlefield-container');
     if (!container) return;
-    
-    // Sort battles by date (most recent first)
-    const sortedBattles = [...MAJOR_BATTLES].sort((a, b) => {
+    const savedDebug = localStorage.getItem('vigilanceDebugMode');
+    window.debugMode = savedDebug === 'true';
+    // FILTER: Initial render uses visible battles
+    const visibleBattles = MAJOR_BATTLES.filter(b => isContentVisible(b.date));
+
+    const sortedBattles = [...visibleBattles].sort((a, b) => {
         const dateA = typeof a.date === 'object' 
             ? new Date(a.date.year, a.date.monthIndex, a.date.day, a.date.hour || 0, a.date.minute || 0) 
             : new Date(0);
@@ -1378,7 +1693,6 @@ function init() {
         return dateB - dateA;
     });
 
-    // Build the container content
     container.innerHTML = `
         ${renderStatsDashboard()}
         ${createFilterControls()}
@@ -1387,16 +1701,13 @@ function init() {
         </div>
     `;
 
-    // Add filter event listeners
     document.getElementById('sort-select')?.addEventListener('change', applyFilters);
     document.getElementById('outcome-filter')?.addEventListener('change', applyFilters);
     document.getElementById('battle-search')?.addEventListener('input', debounce(applyFilters, 300));
 
-    // Initialize other sections
     renderConflicts();
     initTabs();
 
-    // Handle anchor links from URL
     if (window.location.hash) {
         const targetId = window.location.hash.substring(1);
         const targetElement = document.getElementById(targetId);
@@ -1408,7 +1719,6 @@ function init() {
     }
 }
 
-// Debounce utility
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -1421,5 +1731,4 @@ function debounce(func, wait) {
     };
 }
 
-// Run initialization
 init();

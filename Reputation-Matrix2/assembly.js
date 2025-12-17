@@ -1,6 +1,3 @@
-
-
-
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -16,13 +13,13 @@ import { renderIntelAndRumors } from './assembly-intel-system.js';
 import { calculateRumorMetrics } from './research-data.js'; 
 import { getDynamicTimestamp } from './calendar-data.js'; 
 import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './calendar-data.js'; 
-import { renderRakashaNews } from './rakasha-news.js'; // Import new renderer
+import { renderRakashaNews } from './rakasha-news.js'; 
 
 const tabsContainer = document.getElementById('wahbook-tabs-container');
 const contentContainer = document.getElementById('wahbook-content');
 const feedContainer = document.getElementById('feed-content');
 
-// ... (Modal Elements remain the same) ...
+// ... (Modal Elements) ...
 const dossierModal = document.getElementById('dossier-modal');
 const dossierModalBody = document.getElementById('dossier-modal-body');
 const dossierModalClose = document.querySelector('.dossier-modal-close');
@@ -42,7 +39,7 @@ const POSTS_PER_PAGE = 20;
 let WAHBOOK_POSTS = [];
 let WAHBOOK_EVENTS = [];
 
-// ... (Data Loading functions remain the same) ...
+// ... (Data Loading functions) ...
 async function loadDynamicData() {
     const dataModule = await import('./assembly-data.js');
     WAHBOOK_POSTS = dataModule.WAHBOOK_POSTS;
@@ -52,15 +49,64 @@ async function loadDynamicData() {
     WAHBOOK_POSTS.push(...eventPosts);
 }
 
-// ... (Helper functions remain the same) ...
+// ... (Helper functions) ...
+
+/**
+ * Checks if content should be visible based on CURRENT_GAME_DATE.
+ * STRICTLY compares Year, Month, and Day. Ignores Time.
+ * 
+ * Logic:
+ * - If post date is in a future year/month/day -> Hidden.
+ * - If post date is today or earlier -> Visible.
+ */
+
+function isContentVisible(dateObj) {
+    if (!dateObj) return true; // Assume visible if no date structure provided
+
+    let isFuture = false;
+
+    // 1. Check Year
+    if (dateObj.year > CURRENT_GAME_DATE.year) {
+        isFuture = true;
+    } else if (dateObj.year === CURRENT_GAME_DATE.year) {
+        // 2. Year is equal, Check Month (0-11 index)
+        if (dateObj.monthIndex > CURRENT_GAME_DATE.monthIndex) {
+            isFuture = true;
+        } else if (dateObj.monthIndex === CURRENT_GAME_DATE.monthIndex) {
+            // 3. Month is equal, Check Day
+            if (dateObj.day > CURRENT_GAME_DATE.day) {
+                isFuture = true;
+            }
+        }
+    }
+
+    // If it's in the future, check for Debug Mode
+    if (isFuture) {
+        // Check both window.debugMode (global) and state.debugMode (imported)
+        return window.debugMode === true || state.debugMode === true;
+    }
+
+    return true;
+}
+
+/**
+ * Helper to identify future events for debug styling purposes.
+**/
+
+
 function getPostTimeValue(post) {
+    // Priority 1: Use explicit order field if it exists
+    if (post.order !== undefined) return post.order;
+    
+    // Priority 2: Calculate from date
     if (!post.date) return 0; 
+    
     return new Date(
         post.date.year, 
         post.date.monthIndex, 
         post.date.day, 
-        post.date.hour || 12, 
-        post.date.minute || 0
+        post.date.hour !== undefined ? post.date.hour : 12, 
+        post.date.minute !== undefined ? post.date.minute : 0
     ).getTime();
 }
 
@@ -68,42 +114,145 @@ function formatCharacterKey(key) {
     if (!key) return '';
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
+/**
+ * Try to find a working portrait path
+ * Tries multiple variations to handle case sensitivity issues
+ */
+function findPortraitPath(characterKey) {
+    // Base path
+    const basePath = `portraits/${characterKey}.png`;
+    
+    // We can't synchronously check if images exist, so we'll just return the expected path
+    // The onerror handler on the img tag will handle missing images
+    return basePath;
+}
 
+/**
+ * Get character data - works for both defined and undefined characters
+ */
 function getCharacterData(characterKey) {
-    if (!characterKey) return { name: 'Unknown', portrait: 'portraits/unknown.png', faction: null };
-    const char = LORE_DATA.characters[characterKey] || LORE_DATA.auxiliary_party[characterKey];
-    if (char && char.portrait) {
+    if (!characterKey) {
+        return { 
+            name: 'Unknown', 
+            portrait: FALLBACK_PORTRAIT, 
+            faction: null, 
+            characterKey: 'unknown',
+            isDefined: false,
+            isUnknown: true 
+        };
+    }
+
+    // Check main characters
+    const char = LORE_DATA?.characters?.[characterKey] || LORE_DATA?.auxiliary_party?.[characterKey];
+    if (char) {
         let faction = null;
-        for (const fKey in LORE_DATA.factions) {
+        for (const fKey in LORE_DATA.factions || {}) {
             const fac = LORE_DATA.factions[fKey];
             if (fac.leader === characterKey || fac.notable_people?.some(p => p.name === char.name)) {
-                faction = { name: fac.name, logo: fac.logo };
+                faction = { key: fKey, name: fac.name, logo: fac.logo };
                 break;
             }
         }
-        return { name: char.name, portrait: char.portrait, faction };
+        
+        // Use character's portrait if defined, otherwise construct path
+        let portrait = char.portrait;
+        if (!portrait || portrait === '') {
+            portrait = `portraits/${characterKey}.png`;
+        }
+        
+        return {
+            name: char.name,
+            portrait: portrait,
+            faction,
+            characterKey,
+            bio: char.bio || char.description || null,
+            role: char.role || char.title || null,
+            isDefined: true
+        };
     }
-    if (LORE_DATA.factions[characterKey]) {
+
+    // Check if it's a faction
+    if (LORE_DATA?.factions?.[characterKey]) {
         const fac = LORE_DATA.factions[characterKey];
-        return { name: fac.name, portrait: fac.logo, faction: { name: fac.name, logo: fac.logo } };
+        return {
+            name: fac.name,
+            portrait: fac.logo || FALLBACK_PORTRAIT,
+            faction: { key: characterKey, name: fac.name, logo: fac.logo },
+            characterKey,
+            bio: fac.description || null,
+            isDefined: true
+        };
     }
-    for (const fKey in LORE_DATA.factions) {
+
+    // Check notable people in factions
+    for (const fKey in LORE_DATA?.factions || {}) {
         const fac = LORE_DATA.factions[fKey];
-        const notablePerson = fac.notable_people?.find(p => p.name.toLowerCase().replace(/[\s-]/g, '_') === characterKey);
+        const notablePerson = fac.notable_people?.find(p =>
+            p.name?.toLowerCase().replace(/[\s-]/g, '_') === characterKey
+        );
         if (notablePerson) {
-            const portrait = `portraits/${characterKey}.png`;
-            return { name: notablePerson.name, portrait: portrait, faction: { name: fac.name, logo: fac.logo } };
+            return {
+                name: notablePerson.name,
+                portrait: `portraits/${characterKey}.png`,
+                faction: { key: fKey, name: fac.name, logo: fac.logo },
+                characterKey,
+                role: notablePerson.role || null,
+                bio: notablePerson.description || null,
+                isDefined: true
+            };
         }
     }
+
+    // Special cases
     const specialCases = {
-        'wah_media_collective': { name: "WAH Media Collective", portrait: 'icon_newspaper.png', faction: { name: "The Daily Paradox", logo: 'icon_newspaper.png' } },
+        'wah_media_collective': { 
+            name: "WAH Media Collective", 
+            portrait: 'icon_newspaper.png', 
+            faction: { name: "The Daily Paradox" }, 
+            bio: "Official news network.", 
+            isDefined: true 
+        },
+        'delfino_reporter': { 
+            name: "Delfino Daily Reporter", 
+            portrait: 'portraits/delfino_reporter.png', 
+            faction: { name: "Delfino Press" }, 
+            bio: "Independent journalist.", 
+            isDefined: true 
+        },
+        // Add more special cases as needed
+        'speaker_l': {
+            name: "Speaker L",
+            portrait: 'portraits/speaker_l.png',
+            faction: null,
+            bio: null,
+            isDefined: true
+        }
     };
-    if (specialCases[characterKey]) return { ...specialCases[characterKey] };
-    return { name: formatCharacterKey(characterKey), portrait: 'portraits/unknown.png', faction: null };
+    
+    if (specialCases[characterKey]) {
+        return { ...specialCases[characterKey], characterKey };
+    }
+
+    // Undefined character - log warning but don't crash
+    console.warn(`[WAHbook] Undefined character: "${characterKey}"`);
+    console.warn(`[WAHbook] Expected portrait at: portraits/${characterKey}.png`);
+    
+    return {
+        name: formatCharacterKey(characterKey),
+        portrait: `portraits/${characterKey}.png`,
+        faction: null,
+        characterKey,
+        bio: null,
+        role: null,
+        isDefined: false,
+        isGenerated: true
+    };
 }
 
-// ... (renderFeedPost, renderChatMessage, renderCreatePostBox remain the same) ...
 function renderFeedPost(post, options = {}) {
+    // Safety check: Filter out future posts at render time (unless debug mode)
+    if (!isContentVisible(post.date)) return '';
+
     const author = getCharacterData(post.characterKey);
     let timeString = post.timestamp;
     if (post.date) {
@@ -111,12 +260,33 @@ function renderFeedPost(post, options = {}) {
     }
 
     const factionHTML = author.faction ? `<span class="post-meta">${author.faction.name} · ${timeString}</span>` : `<span class="post-meta">${timeString}</span>`;
+    
     const isNew = state.userState.seenPostIds && !state.userState.seenPostIds.includes(post.id);
     const newBadgeHTML = isNew ? `<div class="new-post-badge">NEW</div>` : '';
 
+    const isHiddenFuture = isFutureEvent(post.date);
+    const debugBadgeHTML = isHiddenFuture 
+        ? `<div class="debug-future-badge" style="background: repeating-linear-gradient(45deg, #aa0000, #aa0000 10px, #660000 10px, #660000 20px); color: #fff; padding: 4px 8px; font-weight: bold; font-size: 0.75em; text-align: center; margin-bottom: 8px; border: 1px solid #ff4444; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;">⚠️ DEBUG: FUTURE POST ⚠️</div>` 
+        : '';
+    const debugStyle = isHiddenFuture ? 'style="opacity: 0.7; border: 2px dashed #ff4444;"' : '';
+
+    // Generate comments with dynamic profile links
     const commentsHTML = (post.comments || []).map(comment => {
         const commenter = getCharacterData(comment.characterKey);
-        return `<div class="comment"><a href="profile.html?user=${comment.characterKey}" class="profile-link"><img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp"></a><div class="comment-body"><a href="profile.html?user=${comment.characterKey}" class="profile-link comment-author">${commenter.name}</a><span class="comment-text">${comment.text}</span></div></div>`;
+        return `
+            <div class="comment">
+                <a href="profile.html?user=${comment.characterKey}" class="profile-link">
+                    <img src="${commenter.portrait}" 
+                         alt="${commenter.name}" 
+                         class="comment-pfp"
+                         onerror="this.onerror=null; this.src='portraits/unknown.png'; this.style.border='2px dashed #ff4444'; console.error('[WAHbook] Portrait missing: ${comment.characterKey}');">
+                </a>
+                <div class="comment-body">
+                    <a href="profile.html?user=${comment.characterKey}" class="profile-link comment-author">${commenter.name}</a>
+                    <span class="comment-text">${comment.text}</span>
+                </div>
+            </div>
+        `;
     }).join('');
 
     const imageHTML = post.image ? `<img src="${post.image}" alt="${post.image_alt}" class="post-image">` : '';
@@ -136,12 +306,20 @@ function renderFeedPost(post, options = {}) {
     const replyInputHTML = loggedInUser ? `<div class="reply-input-container" style="display: none;"><img src="${loggedInUser.portrait}" alt="Your profile picture" class="reply-pfp"><input type="text" class="reply-input" placeholder="Write a comment..."></div>` : '';
 
     return `
-        <div class="feed-post" id="post-${post.id}">
+        <div class="feed-post" id="post-${post.id}" ${debugStyle}>
+            ${debugBadgeHTML}
             ${newBadgeHTML}${trendingBadgeHTML}
             <div class="post-header">
-                <a href="profile.html?user=${post.characterKey}" class="profile-link"><img src="${author.portrait}" alt="${author.name}" class="post-pfp"></a>
+                <a href="profile.html?user=${post.characterKey}" class="profile-link">
+                    <img src="${author.portrait}" 
+                         alt="${author.name}" 
+                         class="post-pfp"
+                         onerror="this.onerror=null; this.src='portraits/unknown.png'; this.style.border='2px dashed #ff4444'; console.error('[WAHbook] Portrait missing: ${post.characterKey}');">
+                </a>
                 <div class="post-author-info">
-                    <a href="profile.html?user=${post.characterKey}" class="profile-link"><span class="post-author-name">${author.name}</span></a>
+                    <a href="profile.html?user=${post.characterKey}" class="profile-link">
+                        <span class="post-author-name">${author.name}</span>
+                    </a>
                     ${factionHTML}
                 </div>
             </div>
@@ -158,6 +336,18 @@ function renderFeedPost(post, options = {}) {
         </div>
     `;
 }
+/**
+ * Helper to identify future events for debug styling purposes.
+ * Returns true if the event is in the future relative to CURRENT_GAME_DATE.
+ */
+function isFutureEvent(dateObj) {
+    if (!dateObj) return false;
+    if (dateObj.year > CURRENT_GAME_DATE.year) return true;
+    if (dateObj.year === CURRENT_GAME_DATE.year && dateObj.monthIndex > CURRENT_GAME_DATE.monthIndex) return true;
+    if (dateObj.year === CURRENT_GAME_DATE.year && dateObj.monthIndex === CURRENT_GAME_DATE.monthIndex && dateObj.day > CURRENT_GAME_DATE.day) return true;
+    return false;
+}
+
 function renderChatMessage(post) {
     const author = getCharacterData(post.characterKey);
     const isPlayer = post.characterKey === state.loggedInUser;
@@ -168,21 +358,29 @@ function renderChatMessage(post) {
     }
     return `<div class="chat-bubble ${bubbleClass}" id="msg-${post.id}"><div class="chat-meta"><span class="chat-author">${author.name}</span><span class="chat-time">${timeString}</span></div><div class="chat-text">${post.content}</div></div>`;
 }
+
 function renderCreatePostBox() {
     if (state.loggedInUser === 'generic') return '';
     const user = getCharacterData(state.loggedInUser);
     return `<div class="create-post-container"><div class="create-post-header"><img src="${user.portrait}" alt="Your profile picture" class="create-post-pfp"><button class="create-post-input">What's on your mind, ${user.name.split(' ')[0]}?</button></div></div>`;
 }
 
-// Updated Sidebar Widget
+// Updated Sidebar Widget with Date Filtering
 function renderTrendingRumorsWidget() {
     const rumors = LORE_DATA.rumors || [];
     const trendingList = [];
     const decayingList = [];
 
     rumors.forEach(rumor => {
-        const chatterCount = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id).length;
-        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+        // FILTER: Rumors from future dates are ignored
+        if (!isContentVisible(rumor.date)) return;
+
+        // FILTER: Only count posts that are visible by date
+        const chatterCount = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id && isContentVisible(post.date)).length;
+        
+        // FILTER: Only pass visible posts to metrics
+        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id && isContentVisible(post.date));
+        
         const metrics = calculateRumorMetrics(rumor, relatedPosts);
         const item = { ...rumor, metrics, count: chatterCount };
         
@@ -206,11 +404,13 @@ function renderTrendingRumorsWidget() {
     return `<div class="profile-sidebar-widget"><h4>Network Trends</h4><div style="margin-bottom: 16px;"><h6 style="color: var(--positive-color); font-size: 0.8rem; margin-bottom: 8px;">🔥 VIRAL TARGETS</h6><ul class="trending-rumor-list">${renderList(trendingList, "No viral topics currently.")}</ul></div><div><h6 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 8px;">📉 FADING SIGNALS</h6><ul class="trending-rumor-list">${renderList(decayingList, "No fading signals detected.")}</ul></div><a href="assembly.html#intel" class="intel-link-btn" style="margin-top:16px; font-size:0.8rem; width:100%;">View Full Intel Report</a></div>`;
 }
 
-
 function renderMainFeed() {
     if (!feedContainer) return;
     
-    const sortedPosts = [...WAHBOOK_POSTS].sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
+    // FILTER: Only show posts that are currently visible (Today or Past)
+    const visiblePosts = WAHBOOK_POSTS.filter(p => isContentVisible(p.date));
+
+    const sortedPosts = [...visiblePosts].sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
     const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
     
     // Clamp currentPage
@@ -232,7 +432,6 @@ function renderMainFeed() {
 
     feedContainer.innerHTML = `<div id="feed-content-layout"><div class="wahbook-feed-container">${postsHTML}${paginationHTML}</div><aside id="feed-sidebar">${renderTrendingRumorsWidget()}</aside></div>`;
 
-    // Add Listeners
     document.getElementById('prev-page-btn')?.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
@@ -262,7 +461,10 @@ function renderEvent(rumor) {
         const character = getCharacterData(targetKey);
         return `<div class="attendee-card"><img src="${character.portrait}" alt="${character.name}" class="attendee-pfp"><div class="attendee-info"><span class="attendee-name">${character.name}</span></div></div>`;
     }).join('');
-    const allPostsForEvent = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+
+    // FILTER: Only show posts for this event that are visible by date
+    const allPostsForEvent = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id && isContentVisible(p.date));
+    
     const newsPosts = allPostsForEvent.filter(p => p.characterKey === 'wah_media_collective');
     const regularPosts = allPostsForEvent.filter(p => p.characterKey !== 'wah_media_collective');
     newsPosts.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
@@ -273,10 +475,14 @@ function renderEvent(rumor) {
     const hasCollapsibleContent = attendeesSectionHTML || newsHTML || postsHTML;
     return `<div class="event-container" data-event-id="${rumor.id}"><div class="event-main-header"><h3>${rumor.title || 'Untitled Event'}</h3><p>${rumor.description || 'No description available.'}</p>${hasCollapsibleContent ? '<span class="event-toggle-icon">▼</span>' : ''}</div>${hasCollapsibleContent ? `<div class="event-collapsible-body"><div class="event-details-grid">${attendeesSectionHTML}<div class="related-content-container">${newsHTML ? `<div class="related-news"><h4>News Coverage</h4>${newsHTML}</div>` : ''}${postsHTML ? `<div class="related-posts"><h4>Public Reactions</h4>${postsHTML}</div>` : ''}</div></div></div>` : ''}</div>`;
 }
+
 function renderEventsFeed() {
     const container = document.getElementById('events-feed-container');
     if (!container) return;
-    const eventsToRender = LORE_DATA.rumors.filter(rumor => rumor.isEvent);
+    
+    // FILTER: Only render events that have happened (date <= today)
+    const eventsToRender = LORE_DATA.rumors.filter(rumor => rumor.isEvent && isContentVisible(rumor.date));
+    
     eventsToRender.sort((a, b) => {
         const dateA = a.date ? new Date(a.date.year, a.date.monthIndex, a.date.day) : 0;
         const dateB = b.date ? new Date(b.date.year, b.date.monthIndex, b.date.day) : 0;
@@ -287,9 +493,14 @@ function renderEventsFeed() {
 
 function openDossierModal(rumorId) {
     const rumor = LORE_DATA.rumors.find(r => r.id === rumorId);
-    if (!rumor) return;
-    const intelPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumorId).sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-    const chatterHTML = intelPosts.length > 0 ? intelPosts.map(post => renderFeedPost(post)).join('') : `<p class="page-subtitle">No network chatter detected for this rumor.</p>`;
+    
+    // FILTER: Security check - if rumor date is in future, do not open. Effects do not apply yet.
+    if (!rumor || !isContentVisible(rumor.date)) return;
+
+    // FILTER: Only show intel chatter that is currently visible
+    const intelPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumorId && isContentVisible(p.date)).sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
+    
+    const chatterHTML = intelPosts.length > 0 ? intelPosts.map(post => renderFeedPost(post)).join('') : `<p class="page-subtitle">No network chatter detected for this rumor yet.</p>`;
     const allTargets = new Set();
     rumor.targets.forEach(t => {
         if (t === 'party') { state.party.forEach(p => allTargets.add(p)); } 
@@ -302,12 +513,11 @@ function openDossierModal(rumorId) {
         return `<div class="affected-party-chip"><img src="${targetData.portrait}" alt="${targetData.name}" title="${targetData.name}"><span>${targetData.name}</span></div>`;
     }).join('');
 
-    // Generate Reputation Changes HTML (Including Specifics)
+    // Generate Reputation Changes HTML
     const repChangesHTML = Object.entries(rumor.effects).map(([factionKey, repChange]) => {
         const factionData = LORE_DATA.factions[factionKey];
         if (!factionData) return '';
         
-        // Check if there are specific personal impacts to list alongside general ones
         let specificsHTML = '';
         if (rumor.personal_impact) {
             const specificImpacts = [];
@@ -353,8 +563,9 @@ function renderFollowedFeed() {
         container.innerHTML = `<p class="page-subtitle">You are not following anyone yet. Visit a user's profile to follow them!</p>`;
         return;
     }
-    const followedPosts = WAHBOOK_POSTS.filter(p => state.userState.following.includes(p.characterKey)).sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-    container.innerHTML = followedPosts.length > 0 ? followedPosts.map(p => renderFeedPost(p)).join('') : `<p class="page-subtitle">The accounts you follow haven't posted anything yet.</p>`;
+    // FILTER: Exclude future posts
+    const followedPosts = WAHBOOK_POSTS.filter(p => state.userState.following.includes(p.characterKey) && isContentVisible(p.date)).sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
+    container.innerHTML = followedPosts.length > 0 ? followedPosts.map(p => renderFeedPost(p)).join('') : `<p class="page-subtitle">The accounts you follow haven't posted anything visible yet.</p>`;
 }
 
 // NEW: Trending Feed based on Dynamic Intel
@@ -367,21 +578,24 @@ function renderTrendingFeed() {
     let trendingRumorIds = [];
 
     activeRumors.forEach(rumor => {
-        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+        // FILTER: Rumor must be visible by date
+        if (!isContentVisible(rumor.date)) return;
+
+        // FILTER: Metrics only use visible posts
+        const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id && isContentVisible(post.date));
         const metrics = calculateRumorMetrics(rumor, relatedPosts);
         
-        // Include Viral, Trending, and Active rumors
         if (['Viral', 'Trending', 'Active'].includes(metrics.status)) {
             trendingRumorIds.push(rumor.id);
         }
     });
 
-    // 2. Filter posts that belong to these "Hot" rumors
-    let trendingPosts = WAHBOOK_POSTS.filter(p => p.rumorId && trendingRumorIds.includes(p.rumorId));
+    // 2. Filter posts that belong to these "Hot" rumors AND are visible
+    let trendingPosts = WAHBOOK_POSTS.filter(p => p.rumorId && trendingRumorIds.includes(p.rumorId) && isContentVisible(p.date));
 
-    // 3. Fallback: If not enough rumor posts, grab the highest liked posts overall
+    // 3. Fallback: If not enough rumor posts, grab the highest liked posts overall (that are visible)
     if (trendingPosts.length < 5) {
-        const otherPosts = WAHBOOK_POSTS.filter(p => !p.rumorId)
+        const otherPosts = WAHBOOK_POSTS.filter(p => !p.rumorId && isContentVisible(p.date))
             .sort((a, b) => (b.likes || 0) - (a.likes || 0))
             .slice(0, 5);
         trendingPosts = [...trendingPosts, ...otherPosts];
@@ -595,7 +809,6 @@ function setupEventListeners() {
             playSound('click.mp3');
             eventHeader.parentElement.classList.toggle('expanded');
         }
-        // MODIFIED: Handle clicking on both intel-card and dossier-trigger
         const dossierCard = e.target.closest('.intel-card, .dossier-trigger');
         if (dossierCard) {
             playSound('confirm.mp3', 0.6);
@@ -626,8 +839,6 @@ function setupEventListeners() {
         }
     });
     
-    // REMOVED: groupsContent event listeners are no longer needed for the chat interface.
-
     dossierModalClose?.addEventListener('click', () => dossierModal.style.display = 'none');
     dossierModal?.addEventListener('click', (e) => { if (e.target === dossierModal) dossierModal.style.display = 'none'; });
     createPostModal.querySelector('.modal-close').addEventListener('click', () => createPostModal.style.display = 'none');
@@ -675,7 +886,13 @@ function setupEventListeners() {
 }
 function updateSeenPosts() {
     loadState();
-    const allPostIds = WAHBOOK_POSTS.map(p => p.id);
+    const allPostIds = WAHBOOK_POSTS.map(p => {
+        // FILTER: Only mark as seen if it is actually visible today (NOT debug mode future posts)
+        // We use a stricter check here - only mark as "seen" if it's genuinely past/present
+        if (!isFutureEvent(p.date)) return p.id;
+        return null;
+    }).filter(id => id !== null);
+
     const seenIds = new Set(state.userState.seenPostIds);
     allPostIds.forEach(id => seenIds.add(id));
     state.userState.seenPostIds = [...seenIds];

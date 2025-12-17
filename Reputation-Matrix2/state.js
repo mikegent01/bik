@@ -619,15 +619,12 @@ function calculateFinalReputations() {
 
 export function loadState() {
     const savedState = localStorage.getItem('vigilanceTerminalState');
-   if (savedState) {
+    if (savedState) {
         const parsedState = JSON.parse(savedState);
         
-        // Check if save is old
         if (!parsedState.version || parsedState.version < DATA_VERSION) {
             console.log("Save format too old, resetting base stats...");
-            // Don't load the stale stats
             delete parsedState.intelLevels;
-            // Update their version
             parsedState.version = DATA_VERSION;
         }
 
@@ -637,13 +634,16 @@ export function loadState() {
     
     const savedDebug = localStorage.getItem('vigilanceDebugMode');
     state.debugMode = savedDebug === 'true';
+    
+    // EXPOSE DEBUG MODE GLOBALLY for other modules
+    window.debugMode = state.debugMode;
 
     initReputation();
     initInventories();
     processInitialXP();
     
     calculateFinalReputations();
-    calculateFinalIntel(); // Calculate cumulative intel based on history
+    calculateFinalIntel();
 
     if (!state.focusTreeState || state.focusTreeState.buildVersionApplied !== "2024-05-18-r1") {
         initFocusTreeState();
@@ -668,7 +668,12 @@ export function loadState() {
 
     state.loggedInUser = localStorage.getItem('vigilanceTerminalUser') || 'generic';
 }
-
+export function setDebugMode(enabled) {
+    state.debugMode = enabled;
+    window.debugMode = enabled;
+    localStorage.setItem('vigilanceDebugMode', enabled ? 'true' : 'false');
+    console.log(`Debug Mode: ${enabled ? 'ENABLED' : 'DISABLED'}`);
+}
 export function getDisplayAbilities(character) {
     const arch = getArchetypeFromWeapon(character.weapon);
     const current = arch ? getAbilityForLevel(arch, character.level) : null;
