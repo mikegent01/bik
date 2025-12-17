@@ -28,6 +28,232 @@ import { REWARDS_DATA } from './quests/quests-main.js';
 // ============================================
 // === CATALYST SUBSTITUTION SYSTEM ===
 // ============================================
+let recipeSearchQuery = ''; // ✅ NEW: Recipe search state
+function renderRecipes() {
+    const container = document.getElementById('recipes-list');
+    if (!container) return;
+    
+    // Get recipes for current category
+    let recipes;
+    switch(currentCategory) {
+        case CRAFTING_CATEGORIES.SCROLLS: recipes = SCROLL_RECIPES; break;
+        case CRAFTING_CATEGORIES.POTIONS: recipes = POTION_RECIPES; break;
+        case CRAFTING_CATEGORIES.ENCHANTING: recipes = ENCHANTING_RECIPES; break;
+        case CRAFTING_CATEGORIES.SMITHING: recipes = SMITHING_RECIPES; break;
+        default: recipes = {};
+    }
+
+    // Convert to array
+    let recipeList = Object.values(recipes);
+    
+    // ✅ Apply Search Filter
+    if (recipeSearchQuery && recipeSearchQuery.trim() !== '') {
+        const query = recipeSearchQuery.toLowerCase().trim();
+        recipeList = recipeList.filter(recipe => {
+            // Search by name
+            if (recipe.name && recipe.name.toLowerCase().includes(query)) return true;
+            
+            // Search by spell name
+            if (recipe.spellName && recipe.spellName.toLowerCase().includes(query)) return true;
+            
+            // Search by description
+            if (recipe.description && recipe.description.toLowerCase().includes(query)) return true;
+            
+            // Search by effect
+            if (recipe.effect && recipe.effect.toLowerCase().includes(query)) return true;
+            
+            // Search by school
+            if (recipe.school && recipe.school.toLowerCase().includes(query)) return true;
+            
+            // Search by level (e.g., "level 2" or "2nd")
+            if (recipe.spellLevel !== undefined) {
+                const levelStr = `level ${recipe.spellLevel}`;
+                const ordinalStr = `${getOrdinal(recipe.spellLevel)}`;
+                if (levelStr.includes(query) || ordinalStr.toLowerCase().includes(query)) return true;
+                if (recipe.spellLevel === 0 && 'cantrip'.includes(query)) return true;
+            }
+            
+            // Search by material names
+            if (recipe.materials && Array.isArray(recipe.materials)) {
+                for (const mat of recipe.materials) {
+                    const material = getMaterialData(mat.id);
+                    if (material.name && material.name.toLowerCase().includes(query)) return true;
+                }
+            }
+            
+            return false;
+        });
+    }
+    
+    // Sort recipes
+    recipeList.sort((a, b) => {
+        const levelA = a.spellLevel ?? a.levelRequirement ?? 0;
+        const levelB = b.spellLevel ?? b.levelRequirement ?? 0;
+        if (levelA !== levelB) return levelA - levelB;
+        return a.name.localeCompare(b.name);
+    });
+    
+    // Build HTML
+    container.innerHTML = `
+        <!-- ✅ Search Box -->
+        <div class="recipe-search-container">
+            <div class="recipe-search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" 
+                       id="recipe-search-input" 
+                       class="recipe-search-input"
+                       placeholder="Search recipes, spells, materials..." 
+                       value="${recipeSearchQuery}">
+                ${recipeSearchQuery ? `
+                    <button class="search-clear-btn" id="clear-recipe-search">✕</button>
+                ` : ''}
+            </div>
+            ${recipeSearchQuery ? `
+                <div class="search-results-count">
+                    Found ${recipeList.length} result${recipeList.length !== 1 ? 's' : ''}
+                </div>
+            ` : ''}
+        </div>
+        
+        <!-- Recipe Grid -->
+        ${recipeList.length === 0 ? `
+            <div class="no-recipes-found">
+                <span class="no-recipes-icon">📭</span>
+                <p class="no-recipes-title">No Recipes Found</p>
+                <p class="no-recipes-text">
+                    ${recipeSearchQuery 
+                        ? `No recipes match "${recipeSearchQuery}". Try a different search.`
+                        : 'No recipes available in this category.'}
+                </p>
+                ${recipeSearchQuery ? `
+                    <button class="clear-search-btn" id="clear-search-btn">Clear Search</button>
+                ` : ''}
+            </div>
+        ` : `
+            <div class="recipes-grid">
+                ${recipeList.map(recipe => {
+                    const canCraft = hasEnoughMaterials(recipe);
+                    const meetsLevel = (recipe.levelRequirement || 1) <= CRAFTING_CONFIG.partyLevel;
+                    const school = recipe.school ? SPELL_SCHOOLS[recipe.school] : null;
+                    const envMods = calculateEnvironmentModifiers(recipe, currentCategory);
+                    const hasBuff = envMods.activeEffects.length > 0;
+                    
+                    return `
+                        <div class="recipe-card ${selectedRecipe?.id === recipe.id ? 'selected' : ''} 
+                                                ${!canCraft ? 'unavailable' : ''} 
+                                                ${!meetsLevel ? 'locked' : ''}
+                                                ${hasBuff ? 'buffed' : ''}"
+                             data-recipe-id="${recipe.id}">
+                            <div class="recipe-card-header">
+                                <span class="recipe-icon">${recipe.icon}</span>
+                                <div class="recipe-title-group">
+                                    <span class="recipe-name">${recipe.name}</span>
+                                    ${recipe.spellLevel !== undefined ? `
+                                        <span class="recipe-level">
+                                            ${recipe.spellLevel === 0 ? 'Cantrip' : `Level ${recipe.spellLevel}`}
+                                        </span>
+                                    ` : ''}
+                                </div>
+                                ${school ? `
+                                    <span class="recipe-school" style="color: ${school.color}" title="${school.name}">
+                                        ${school.icon}
+                                    </span>
+                                ` : ''}
+                                ${hasBuff ? `
+                                    <span class="recipe-buff-indicator" title="Seasonal/Time Bonus Active">✨</span>
+                                ` : ''}
+                            </div>
+                            <div class="recipe-card-body">
+                                <p class="recipe-description">${recipe.description || recipe.effect || ''}</p>
+                            </div>
+                            <div class="recipe-card-footer">
+                                <span class="recipe-cost">
+                                    <span class="cost-time">⏱️ ${formatCraftTime(recipe.craftTime)}</span>
+                                </span>
+                                <span class="recipe-success ${hasBuff ? 'boosted' : ''}">
+                                    🎯 ${calculateSuccessChance(recipe)}%
+                                </span>
+                            </div>
+                            ${!meetsLevel ? `
+                                <div class="recipe-locked-overlay" style="pointer-events: none;">
+                                    <span class="locked-icon">🔒</span>
+                                    <span class="locked-text">Requires Level ${recipe.levelRequirement}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `}
+    `;
+    
+    // === EVENT LISTENERS ===
+    
+    // Search Input
+    const searchInput = document.getElementById('recipe-search-input');
+    if (searchInput) {
+        // Handle typing
+        searchInput.addEventListener('input', (e) => {
+            recipeSearchQuery = e.target.value;
+            renderRecipes();
+            
+            // Re-focus the input and restore cursor position
+            const newInput = document.getElementById('recipe-search-input');
+            if (newInput) {
+                newInput.focus();
+                newInput.setSelectionRange(newInput.value.length, newInput.value.length);
+            }
+        });
+        
+        // Handle Enter key
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                recipeSearchQuery = '';
+                renderRecipes();
+            }
+        });
+    }
+    
+    // Clear Search Button (X inside input)
+    document.getElementById('clear-recipe-search')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        recipeSearchQuery = '';
+        renderRecipes();
+    });
+    
+    // Clear Search Button (in empty state)
+    document.getElementById('clear-search-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        recipeSearchQuery = '';
+        renderRecipes();
+    });
+    
+    // Recipe Card Clicks
+    container.querySelectorAll('.recipe-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const recipeId = card.dataset.recipeId;
+            
+            let recipes;
+            switch(currentCategory) {
+                case CRAFTING_CATEGORIES.SCROLLS: recipes = SCROLL_RECIPES; break;
+                case CRAFTING_CATEGORIES.POTIONS: recipes = POTION_RECIPES; break;
+                case CRAFTING_CATEGORIES.ENCHANTING: recipes = ENCHANTING_RECIPES; break;
+                case CRAFTING_CATEGORIES.SMITHING: recipes = SMITHING_RECIPES; break;
+                default: recipes = {};
+            }
+            
+            selectedRecipe = getRecipeWithWildcard(recipes[recipeId]);
+            activeCatalyst = null;
+            isSelectingCatalyst = false;
+            
+            renderRecipes();
+            renderRecipeDetail();
+        });
+    });
+}
+
 export const SEASONAL_BONUSES = {
     // Verdant Spring: Life, Nature, Growth
     'Spr': {
@@ -1055,6 +1281,9 @@ function renderCategoryTabs() {
         tab.addEventListener('click', () => {
             currentCategory = tab.dataset.category;
             selectedRecipe = null;
+            recipeSearchQuery = ''; // ✅ Clear search when changing categories
+            activeCatalyst = null;
+            isSelectingCatalyst = false;
             renderCategoryTabs();
             renderRecipes();
             renderRecipeDetail();
@@ -1062,103 +1291,7 @@ function renderCategoryTabs() {
     });
 }
 
-function renderRecipes() {
-    const container = document.getElementById('recipes-list');
-    if (!container) return;
-    
-    // UPDATED LOGIC:
-    let recipes;
-    switch(currentCategory) {
-        case CRAFTING_CATEGORIES.SCROLLS: recipes = SCROLL_RECIPES; break;
-        case CRAFTING_CATEGORIES.POTIONS: recipes = POTION_RECIPES; break;
-        case CRAFTING_CATEGORIES.ENCHANTING: recipes = ENCHANTING_RECIPES; break;
-        case CRAFTING_CATEGORIES.SMITHING: recipes = SMITHING_RECIPES; break;
-        default: recipes = {};
-    }
 
-    const recipeList = Object.values(recipes);
-    recipeList.sort((a, b) => {
-        const levelA = a.spellLevel ?? a.levelRequirement ?? 0;
-        const levelB = b.spellLevel ?? b.levelRequirement ?? 0;
-        if (levelA !== levelB) return levelA - levelB;
-        return a.name.localeCompare(b.name);
-    });
-    
-    container.innerHTML = `
-        <div class="recipes-grid">
-            ${recipeList.map(recipe => {
-                const canCraft = hasEnoughMaterials(recipe);
-                const meetsLevel = (recipe.levelRequirement || 1) <= CRAFTING_CONFIG.partyLevel;
-                const school = recipe.school ? SPELL_SCHOOLS[recipe.school] : null;
-                
-                return `
-                    <div class="recipe-card ${selectedRecipe?.id === recipe.id ? 'selected' : ''} 
-                                            ${!canCraft ? 'unavailable' : ''} 
-                                            ${!meetsLevel ? 'locked' : ''}"
-                         data-recipe-id="${recipe.id}">
-                        <div class="recipe-card-header">
-                            <span class="recipe-icon">${recipe.icon}</span>
-                            <div class="recipe-title-group">
-                                <span class="recipe-name">${recipe.name}</span>
-                                ${recipe.spellLevel !== undefined ? `
-                                    <span class="recipe-level">
-                                        ${recipe.spellLevel === 0 ? 'Cantrip' : `Level ${recipe.spellLevel}`}
-                                    </span>
-                                ` : ''}
-                            </div>
-                            ${school ? `
-                                <span class="recipe-school" style="color: ${school.color}">
-                                    ${school.icon}
-                                </span>
-                            ` : ''}
-                        </div>
-                        <div class="recipe-card-body">
-                            <p class="recipe-description">${recipe.description || recipe.effect}</p>
-                        </div>
-                        <div class="recipe-card-footer">
-                            <span class="recipe-cost">
-                                <span class="cost-time">⏱️ ${formatCraftTime(recipe.craftTime)}</span>
-                            </span>
-                            <span class="recipe-success">
-                                🎯 ${calculateSuccessChance(recipe)}%
-                            </span>
-                        </div>
-                        ${!meetsLevel ? `
-                            <div class="recipe-locked-overlay">
-                                <span class="locked-icon">🔒</span>
-                                <span class="locked-text">Requires Level ${recipe.levelRequirement}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            }).join('')}
-        </div>
-    `;
-    
-    container.querySelectorAll('.recipe-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const recipeId = card.dataset.recipeId;
-            
-            // (Include the category fix we made earlier here)
-            let recipes;
-            switch(currentCategory) {
-                case CRAFTING_CATEGORIES.SCROLLS: recipes = SCROLL_RECIPES; break;
-                case CRAFTING_CATEGORIES.POTIONS: recipes = POTION_RECIPES; break;
-                case CRAFTING_CATEGORIES.ENCHANTING: recipes = ENCHANTING_RECIPES; break;
-                case CRAFTING_CATEGORIES.SMITHING: recipes = SMITHING_RECIPES; break;
-                default: recipes = {};
-            }
-            
-            // (Include the wildcard fix we made earlier here)
-            selectedRecipe = getRecipeWithWildcard(recipes[recipeId]);
-                    activeCatalyst = null; 
-        isSelectingCatalyst = false;
-        
-            renderRecipes();
-            renderRecipeDetail();
-        });
-    });
-} // End of renderRecipes
 // Add this near the top of crafting.js after imports
 function getRecipesForCategory(category) {
     switch(category) {
