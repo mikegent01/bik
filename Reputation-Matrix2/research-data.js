@@ -171,16 +171,8 @@ export function getAbsoluteDay() {
     return Math.max(0, days);
 }
 
-function getDaysSinceRumor(rumor) {
-    let rumorDaysTotal = 0;
-    if (rumor.date && typeof rumor.date === 'object') {
-        rumorDaysTotal = ((rumor.date.year - SIMULATION_START_YEAR) * 365) + (rumor.date.monthIndex * 30) + rumor.date.day;
-    } else {
-        return 60; // Fallback for legacy
-    }
-    const currentDaysTotal = ((CURRENT_GAME_DATE.year - SIMULATION_START_YEAR) * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
-    return Math.max(0, currentDaysTotal - rumorDaysTotal);
-}
+
+
 
 function getImpactDetailsFallback(rumor) {
     const text = (rumor.title + " " + rumor.description).toLowerCase();
@@ -223,16 +215,89 @@ function getPushDirection(type, score) {
     }
 }
 
+
+/**
+ * Calculates the current Glob/**
+ * Check if an event/rumor is in the future (hasn't happened yet)
+ */
+function isFutureEvent(dateObj) {
+    if (!dateObj) return false;
+    if (!CURRENT_GAME_DATE) return false;
+    
+    if (dateObj.year > CURRENT_GAME_DATE.year) return true;
+    if (dateObj.year === CURRENT_GAME_DATE.year) {
+        if (dateObj.monthIndex > CURRENT_GAME_DATE.monthIndex) return true;
+        if (dateObj.monthIndex === CURRENT_GAME_DATE.monthIndex) {
+            if (dateObj.day > CURRENT_GAME_DATE.day) return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if effects should apply (only for past/present events)
+ */
+function shouldEffectsApply(rumor) {
+    if (!rumor.date) return true; // No date = assume it happened
+    return !isFutureEvent(rumor.date);
+}
+
+function getDaysSinceRumor(rumor) {
+    // If rumor is in the future, return negative days (or 0)
+    if (isFutureEvent(rumor.date)) {
+        return -1; // Indicate future event
+    }
+    
+    let rumorDaysTotal = 0;
+    if (rumor.date && typeof rumor.date === 'object') {
+        rumorDaysTotal = ((rumor.date.year - SIMULATION_START_YEAR) * 365) + (rumor.date.monthIndex * 30) + rumor.date.day;
+    } else {
+        return 60; // Fallback for legacy
+    }
+    const currentDaysTotal = ((CURRENT_GAME_DATE.year - SIMULATION_START_YEAR) * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
+    return Math.max(0, currentDaysTotal - rumorDaysTotal);
+}
+
 /**
  * Calculates metrics for a single rumor.
+ * Returns zero impact for future events.
  */
 export function calculateRumorMetrics(rumor, relatedPosts) {
+    // CRITICAL: Check if this is a future event
+    const isFuture = isFutureEvent(rumor.date);
+    
+    // If future event, return zeroed metrics
+    if (isFuture) {
+        const baseData = rumor.cycle_impact 
+            ? { score: rumor.cycle_impact.score, label: rumor.cycle_impact.label, type: rumor.cycle_impact.type }
+            : getImpactDetailsFallback(rumor);
+            
+        return {
+            finalScore: 0, // No impact on current cycle
+            baseData,
+            daysPassed: -1, // Negative indicates future
+            hypeFactor: 1,
+            decayFactor: 1,
+            decayLoss: 0,
+            isFresh: false,
+            isFuture: true, // Flag for UI
+            status: 'Future',
+            repMultiplier: 0, // No reputation effects
+            pushTarget: 'N/A',
+            pendingScore: baseData.score // Store what it WILL be
+        };
+    }
+    
     const postCount = Array.isArray(relatedPosts) ? relatedPosts.length : relatedPosts;
     
     // 1. Check Freshness (STRICT check against current date)
+    // Also filter out future posts
     let isFresh = false;
     if (Array.isArray(relatedPosts)) {
-        const latestPost = relatedPosts.sort((a, b) => {
+        // Filter to only past/present posts
+        const validPosts = relatedPosts.filter(p => !isFutureEvent(p.date));
+        
+        const latestPost = validPosts.sort((a, b) => {
             const da = a.date ? (a.date.year*365 + a.date.monthIndex*30 + a.date.day) : 0;
             const db = b.date ? (b.date.year*365 + b.date.monthIndex*30 + b.date.day) : 0;
             return db - da;
@@ -262,15 +327,18 @@ export function calculateRumorMetrics(rumor, relatedPosts) {
     // 3. Days Passed
     const daysPassed = getDaysSinceRumor(rumor);
 
-    // 4. Hype Factor
-    const hypeFactor = 1 + (postCount * 0.15); // Slightly increased weight
+    // 4. Hype Factor - only count valid (non-future) posts
+    const validPostCount = Array.isArray(relatedPosts) 
+        ? relatedPosts.filter(p => !isFutureEvent(p.date)).length 
+        : postCount;
+    const hypeFactor = 1 + (validPostCount * 0.15);
 
     // 5. Decay Factor
-    let decayFactor = 1 + (daysPassed * 0.25); // Base decay
+    let decayFactor = 1 + (daysPassed * 0.25);
     if (isFresh) {
-        decayFactor = 1.0; // Fresh posts actively stop decay for the day
+        decayFactor = 1.0;
     } else if (daysPassed < 2) {
-        decayFactor = 1.1; // Slow decay for very recent
+        decayFactor = 1.1;
     }
 
     // 6. Final Calculation
@@ -288,7 +356,6 @@ export function calculateRumorMetrics(rumor, relatedPosts) {
     let status = "Active";
     let repMultiplier = 1.0;
 
-    // Force Dead if very old, regardless of stats
     if (daysPassed > 60) {
         status = "Dead";
         repMultiplier = 0.1;
@@ -305,7 +372,6 @@ export function calculateRumorMetrics(rumor, relatedPosts) {
         repMultiplier = 0.1;
     }
 
-    // Ensure active chatter keeps it somewhat relevant
     if (isFresh && status === 'Dead') status = "Active";
 
     return {
@@ -316,6 +382,7 @@ export function calculateRumorMetrics(rumor, relatedPosts) {
         decayFactor,
         decayLoss: decayLoss * direction,
         isFresh,
+        isFuture: false,
         status,
         repMultiplier,
         pushTarget: getPushDirection(baseData.type, finalScore)
@@ -324,6 +391,7 @@ export function calculateRumorMetrics(rumor, relatedPosts) {
 
 /**
  * Calculates the current Global Cycle Phase.
+ * Only considers past/present events.
  */
 export function calculateGlobalCycle(allPosts) {
     const totalMonths = (CURRENT_GAME_DATE.year * 12) + CURRENT_GAME_DATE.monthIndex;
@@ -332,11 +400,29 @@ export function calculateGlobalCycle(allPosts) {
 
     let totalMomentum = 0;
     let drivingFactors = [];
+    let pendingFactors = []; // Future events (debug mode only)
 
     if (LORE_DATA && LORE_DATA.rumors) {
         LORE_DATA.rumors.forEach(rumor => {
-            const relatedPosts = allPosts.filter(p => p.rumorId === rumor.id);
-            const metrics = calculateRumorMetrics(rumor, relatedPosts);
+            // Filter posts to only include past/present
+            const validPosts = allPosts.filter(p => p.rumorId === rumor.id && !isFutureEvent(p.date));
+            const metrics = calculateRumorMetrics(rumor, validPosts);
+            
+            // Skip future events in main calculation
+            if (metrics.isFuture) {
+                // Store for debug display
+                if (metrics.pendingScore && Math.abs(metrics.pendingScore) > 0.1) {
+                    pendingFactors.push({
+                        name: rumor.title,
+                        impact: metrics.pendingScore,
+                        label: metrics.baseData.label,
+                        type: metrics.baseData.type,
+                        status: 'Future',
+                        date: rumor.date
+                    });
+                }
+                return; // Don't add to momentum
+            }
             
             totalMomentum += metrics.finalScore;
 
@@ -357,17 +443,19 @@ export function calculateGlobalCycle(allPosts) {
     let activePhaseIndex = (naturalPhaseIndex + shift) % 7;
     if (activePhaseIndex < 0) activePhaseIndex += 7;
     
-    if (totalMomentum > 10) activePhaseIndex = 5; // Crisis threshold
-    else if (totalMomentum < -10) activePhaseIndex = 0; // Calm threshold
+    if (totalMomentum > 10) activePhaseIndex = 5;
+    else if (totalMomentum < -10) activePhaseIndex = 0;
     
     const activePhase = CYCLE_PHASES[activePhaseIndex];
     drivingFactors.sort((a,b) => Math.abs(b.impact) - Math.abs(a.impact));
+    pendingFactors.sort((a,b) => Math.abs(b.impact) - Math.abs(a.impact));
 
     return {
         phase: activePhase,
         naturalPhase: naturalPhase,
         momentum: totalMomentum,
-        factors: drivingFactors 
+        factors: drivingFactors,
+        pendingFactors: pendingFactors // For debug UI
     };
 }
 

@@ -1,38 +1,80 @@
-// rumors.js - Complete file with Arc integration
+// rumors.js - Complete file with Arc integration and Debug Mode support
 
 import { LORE_DATA, STORY_ARCS, getRumorsByArc, getArcProgress, getArcStats, getUnassignedRumors } from './lore.js';
-import { CALENDAR_DATA } from './calendar-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 import { playSound } from './common.js';
+import { state } from './state.js';
 
 // ============================================
 // STATE
 // ============================================
-let currentFilter = 'all'; // 'all', 'active', 'resolved', 'unassigned'
+let currentFilter = 'all'; // 'all', 'active', 'resolved', 'unassigned', 'debug'
 let expandedArcs = new Set();
 let sortOrder = 'newest'; // 'newest', 'oldest', 'impact'
 
 // ============================================
-// DATE UTILITIES
+// DATE & VISIBILITY UTILITIES
 // ============================================
+
+/**
+ * Check if a rumor/event is in the future (not yet happened in game time)
+ */
+function isFutureEvent(dateObj) {
+    if (!dateObj || !CURRENT_GAME_DATE) return false;
+    
+    if (dateObj.year > CURRENT_GAME_DATE.year) return true;
+    if (dateObj.year === CURRENT_GAME_DATE.year) {
+        if (dateObj.monthIndex > CURRENT_GAME_DATE.monthIndex) return true;
+        if (dateObj.monthIndex === CURRENT_GAME_DATE.monthIndex) {
+            if (dateObj.day > CURRENT_GAME_DATE.day) return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if content should be visible
+ * Future content only visible in debug mode
+ */
+function isContentVisible(dateObj) {
+    if (!dateObj) return true;
+    
+    const isFuture = isFutureEvent(dateObj);
+    
+    if (isFuture) {
+        // Only show if debug mode is enabled
+        return window.debugMode === true || state?.debugMode === true;
+    }
+    
+    return true;
+}
+
+/**
+ * Check if effects should apply (only for past/present events)
+ */
+function shouldEffectsApply(dateObj) {
+    // Effects only apply if the event has already happened
+    return !isFutureEvent(dateObj);
+}
+
 function formatDate(date) {
     if (!date) return 'Ongoing';
-    const month = CALENDAR_DATA.months.values[date.monthIndex];
+    const month = CALENDAR_DATA?.months?.values?.[date.monthIndex];
     return `${month?.name || 'Unknown'} ${date.day}, ${date.year}`;
 }
 
 function getRelativeTime(date) {
     if (!date) return 'Ongoing';
     
-    // Current game date
-    const currentYear = 1040;
-    const currentMonth = 6;
-    const currentDay = 20;
+    const currentYear = CURRENT_GAME_DATE?.year || 1040;
+    const currentMonth = CURRENT_GAME_DATE?.monthIndex || 6;
+    const currentDay = CURRENT_GAME_DATE?.day || 20;
     
     const currentTotal = currentYear * 365 + currentMonth * 30 + currentDay;
     const dateTotal = date.year * 365 + date.monthIndex * 30 + date.day;
     const diff = currentTotal - dateTotal;
     
-    if (diff < 0) return 'Upcoming';
+    if (diff < 0) return `In ${Math.abs(diff)} days`;
     if (diff === 0) return 'Today';
     if (diff === 1) return 'Yesterday';
     if (diff < 7) return `${diff} days ago`;
@@ -42,6 +84,27 @@ function getRelativeTime(date) {
     if (diff < 365) return `${Math.floor(diff / 30)} months ago`;
     if (diff < 730) return '1 year ago';
     return `${Math.floor(diff / 365)} years ago`;
+}
+
+// ============================================
+// RENDER: Debug Badge
+// ============================================
+function renderDebugBadge() {
+    return `
+        <div class="debug-future-badge" style="
+            background: repeating-linear-gradient(45deg, #aa0000, #aa0000 10px, #660000 10px, #660000 20px);
+            color: #fff;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 0.7em;
+            text-align: center;
+            border: 1px solid #ff4444;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: debug-pulse 2s ease-in-out infinite;
+        ">⚠️ FUTURE EVENT (Debug Only)</div>
+    `;
 }
 
 // ============================================
@@ -77,13 +140,28 @@ function renderArcProgressBar(arc) {
 // RENDER: Rumor Card
 // ============================================
 function renderRumorCard(rumor, showArcBadge = false) {
-    const effectsHTML = Object.entries(rumor.effects || {}).map(([factionKey, value]) => {
-        const faction = LORE_DATA.factions?.[factionKey];
-        const factionName = faction?.name || factionKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        const changeClass = value > 0 ? 'positive' : 'negative';
-        const sign = value > 0 ? '+' : '';
-        return `<li class="${changeClass}">${factionName}: <span>${sign}${value}</span></li>`;
-    }).join('');
+    const isFuture = isFutureEvent(rumor.date);
+    const effectsApply = shouldEffectsApply(rumor.date);
+    
+    // Build effects HTML - show differently if effects don't apply yet
+    let effectsHTML = '';
+    if (rumor.effects && Object.keys(rumor.effects).length > 0) {
+        effectsHTML = Object.entries(rumor.effects).map(([factionKey, value]) => {
+            const faction = LORE_DATA.factions?.[factionKey];
+            const factionName = faction?.name || factionKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const changeClass = value > 0 ? 'positive' : 'negative';
+            const sign = value > 0 ? '+' : '';
+            
+            // If effects don't apply yet, show them as pending
+            if (!effectsApply) {
+                return `<li class="pending" style="opacity: 0.5; font-style: italic;">${factionName}: <span>${sign}${value}</span> (Pending)</li>`;
+            }
+            
+            return `<li class="${changeClass}">${factionName}: <span>${sign}${value}</span></li>`;
+        }).join('');
+    } else {
+        effectsHTML = '<li class="no-effects">No faction effects recorded.</li>';
+    }
 
     const arcBadge = showArcBadge && rumor.arc && STORY_ARCS[rumor.arc] 
         ? `<span class="rumor-arc-badge" data-arc="${rumor.arc}">${STORY_ARCS[rumor.arc].icon} ${STORY_ARCS[rumor.arc].name}</span>`
@@ -94,9 +172,10 @@ function renderRumorCard(rumor, showArcBadge = false) {
         : '';
 
     const cycleImpact = rumor.cycle_impact 
-        ? `<div class="rumor-cycle-impact impact-${rumor.cycle_impact.type}">
+        ? `<div class="rumor-cycle-impact impact-${rumor.cycle_impact.type}" ${!effectsApply ? 'style="opacity: 0.5;"' : ''}>
             <span class="impact-label">${rumor.cycle_impact.label}</span>
             <span class="impact-score">${rumor.cycle_impact.score > 0 ? '+' : ''}${rumor.cycle_impact.score}</span>
+            ${!effectsApply ? '<span class="pending-label">(Pending)</span>' : ''}
            </div>`
         : '';
 
@@ -104,11 +183,25 @@ function renderRumorCard(rumor, showArcBadge = false) {
         ? `<div class="rumor-instigator">Instigated by: <strong>${rumor.instigator.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong></div>` 
         : '';
 
+    // Debug styling for future events
+    const debugClass = isFuture ? 'debug-future-event' : '';
+    const debugStyle = isFuture ? `
+        border: 3px dashed #ff4444 !important;
+        background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(170, 0, 0, 0.1)) !important;
+        position: relative;
+    ` : '';
+
     return `
-        <div class="rumor-card ${rumor.isEvent ? 'is-event' : ''}" data-rumor-id="${rumor.id}">
+        <div class="rumor-card ${rumor.isEvent ? 'is-event' : ''} ${debugClass}" 
+             data-rumor-id="${rumor.id}"
+             data-is-future="${isFuture}"
+             style="${debugStyle}">
+            ${isFuture ? renderDebugBadge() : ''}
             <div class="rumor-header">
                 <div class="rumor-meta">
-                    <span class="rumor-date" title="${formatDate(rumor.date)}">${getRelativeTime(rumor.date)}</span>
+                    <span class="rumor-date ${isFuture ? 'future-date' : ''}" title="${formatDate(rumor.date)}">
+                        ${isFuture ? '🔮 ' : ''}${getRelativeTime(rumor.date)}
+                    </span>
                     ${rumor.isEvent ? '<span class="rumor-type-badge event">EVENT</span>' : '<span class="rumor-type-badge rumor">RUMOR</span>'}
                     ${positionBadge}
                 </div>
@@ -118,8 +211,8 @@ function renderRumorCard(rumor, showArcBadge = false) {
             <p class="rumor-description">${rumor.description}</p>
             ${cycleImpact}
             <div class="rumor-effects">
-                <h4>Reputation Effects:</h4>
-                <ul>${effectsHTML || '<li class="no-effects">No faction effects recorded.</li>'}</ul>
+                <h4>Reputation Effects: ${!effectsApply ? '<span class="effects-pending">(Not yet applied)</span>' : ''}</h4>
+                <ul>${effectsHTML}</ul>
             </div>
             ${instigatorDisplay}
         </div>
@@ -130,7 +223,10 @@ function renderRumorCard(rumor, showArcBadge = false) {
 // RENDER: Arc Timeline
 // ============================================
 function renderArcTimeline(arcId) {
-    const rumors = getRumorsByArc(arcId);
+    const allRumors = getRumorsByArc(arcId);
+    
+    // Filter based on visibility (respect debug mode)
+    const rumors = allRumors.filter(r => isContentVisible(r.date));
     
     if (rumors.length === 0) {
         return '<p class="no-rumors">No recorded events in this arc yet.</p>';
@@ -167,23 +263,31 @@ function renderArcTimeline(arcId) {
                             <span class="timeline-count">${posRumors.length}</span>
                         </h4>
                         <div class="timeline-events">
-                            ${posRumors.map(rumor => `
-                                <div class="timeline-event ${rumor.isEvent ? 'is-event' : ''}">
-                                    <div class="event-marker"></div>
-                                    <div class="event-content">
-                                        <div class="event-header">
-                                            <span class="event-title">${rumor.title}</span>
-                                            <span class="event-date">${formatDate(rumor.date)}</span>
+                            ${posRumors.map(rumor => {
+                                const isFuture = isFutureEvent(rumor.date);
+                                const effectsApply = shouldEffectsApply(rumor.date);
+                                
+                                return `
+                                    <div class="timeline-event ${rumor.isEvent ? 'is-event' : ''} ${isFuture ? 'debug-future-event' : ''}"
+                                         style="${isFuture ? 'border: 2px dashed #ff4444; background: rgba(255, 68, 68, 0.1);' : ''}">
+                                        <div class="event-marker ${isFuture ? 'future-marker' : ''}"></div>
+                                        <div class="event-content">
+                                            ${isFuture ? '<div class="debug-mini-badge" style="font-size: 0.7em; color: #ff4444; font-weight: bold;">🔮 FUTURE</div>' : ''}
+                                            <div class="event-header">
+                                                <span class="event-title">${rumor.title}</span>
+                                                <span class="event-date ${isFuture ? 'future-date' : ''}">${formatDate(rumor.date)}</span>
+                                            </div>
+                                            <p class="event-description">${rumor.description.substring(0, 200)}${rumor.description.length > 200 ? '...' : ''}</p>
+                                            ${rumor.cycle_impact ? `
+                                                <span class="event-impact impact-${rumor.cycle_impact.type}" ${!effectsApply ? 'style="opacity: 0.5;"' : ''}>
+                                                    ${rumor.cycle_impact.label} (${rumor.cycle_impact.score > 0 ? '+' : ''}${rumor.cycle_impact.score})
+                                                    ${!effectsApply ? ' - Pending' : ''}
+                                                </span>
+                                            ` : ''}
                                         </div>
-                                        <p class="event-description">${rumor.description.substring(0, 200)}${rumor.description.length > 200 ? '...' : ''}</p>
-                                        ${rumor.cycle_impact ? `
-                                            <span class="event-impact impact-${rumor.cycle_impact.type}">
-                                                ${rumor.cycle_impact.label} (${rumor.cycle_impact.score > 0 ? '+' : ''}${rumor.cycle_impact.score})
-                                            </span>
-                                        ` : ''}
                                     </div>
-                                </div>
-                            `).join('')}
+                                `;
+                            }).join('')}
                         </div>
                     </div>
                 `;
@@ -199,6 +303,11 @@ function renderArcCard(arc) {
     const stats = getArcStats(arc.id);
     const isExpanded = expandedArcs.has(arc.id);
     
+    // Count future events in this arc
+    const arcRumors = getRumorsByArc(arc.id);
+    const futureCount = arcRumors.filter(r => isFutureEvent(r.date)).length;
+    const visibleCount = arcRumors.filter(r => isContentVisible(r.date)).length;
+    
     const statusConfig = {
         active: { label: 'Active', icon: '🔥', class: 'status-active' },
         resolved: { label: 'Resolved', icon: '✓', class: 'status-resolved' },
@@ -207,13 +316,40 @@ function renderArcCard(arc) {
     };
     const status = statusConfig[arc.status] || statusConfig.active;
     
-    // Get top faction impacts (sorted by absolute value)
-    const topFactions = Object.entries(stats.factionImpacts)
+    // Get top faction impacts (only from past events)
+    const pastRumors = arcRumors.filter(r => shouldEffectsApply(r.date));
+    const appliedImpacts = {};
+    pastRumors.forEach(rumor => {
+        Object.entries(rumor.effects || {}).forEach(([factionId, value]) => {
+            appliedImpacts[factionId] = (appliedImpacts[factionId] || 0) + value;
+        });
+    });
+    
+    const topFactions = Object.entries(appliedImpacts)
         .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
         .slice(0, 4);
     
+    // Debug badge if arc has future events
+    const hasFutureEvents = futureCount > 0 && (window.debugMode || state?.debugMode);
+    
     return `
-        <div class="arc-card arc-${arc.status}" data-arc-id="${arc.id}">
+        <div class="arc-card arc-${arc.status} ${hasFutureEvents ? 'has-future-events' : ''}" 
+             data-arc-id="${arc.id}"
+             style="${hasFutureEvents ? 'border: 2px dashed #ff6b35;' : ''}">
+            ${hasFutureEvents ? `
+                <div class="arc-debug-notice" style="
+                    background: linear-gradient(90deg, #ff6b35, #e74c3c);
+                    color: white;
+                    padding: 6px 12px;
+                    font-size: 0.8em;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: -16px -16px 16px -16px;
+                    border-radius: 6px 6px 0 0;
+                ">
+                    🔮 Contains ${futureCount} future event${futureCount > 1 ? 's' : ''} (Debug Mode)
+                </div>
+            ` : ''}
             <div class="arc-header">
                 <div class="arc-icon">${arc.icon}</div>
                 <div class="arc-title-section">
@@ -230,8 +366,8 @@ function renderArcCard(arc) {
                 <span class="arc-dates">
                     📅 ${formatDate(arc.startDate)} ${arc.endDate ? `→ ${formatDate(arc.endDate)}` : '→ Ongoing'}
                 </span>
-                <span class="arc-rumor-count">📜 ${stats.rumorCount} Events</span>
-                <span class="arc-cycle-score" title="Total Cycle Impact">
+                <span class="arc-rumor-count">📜 ${visibleCount} Events</span>
+                <span class="arc-cycle-score" title="Total Cycle Impact (Applied)">
                     🌀 ${stats.totalCycleImpact.toFixed(1)}
                 </span>
             </div>
@@ -244,7 +380,7 @@ function renderArcCard(arc) {
             
             ${topFactions.length > 0 ? `
                 <div class="arc-faction-impacts">
-                    <h4>Key Impacts:</h4>
+                    <h4>Applied Impacts:</h4>
                     <div class="faction-impact-list">
                         ${topFactions.map(([factionId, value]) => {
                             const faction = LORE_DATA.factions?.[factionId];
@@ -260,7 +396,7 @@ function renderArcCard(arc) {
                         }).join('')}
                     </div>
                 </div>
-            ` : ''}
+            ` : '<p class="no-impacts" style="font-style: italic; color: var(--text-secondary);">No effects applied yet.</p>'}
             
             <div class="arc-consequences">
                 <div class="consequences-positive">
@@ -291,12 +427,22 @@ function renderFilterTabs() {
     const arcs = Object.values(STORY_ARCS);
     const activeCount = arcs.filter(a => a.status === 'active').length;
     const resolvedCount = arcs.filter(a => a.status === 'resolved').length;
-    const unassignedCount = getUnassignedRumors().length;
+    
+    // Only count visible unassigned rumors
+    const unassignedRumors = getUnassignedRumors().filter(r => isContentVisible(r.date));
+    const unassignedCount = unassignedRumors.length;
+    
+    // Count future events (debug mode only)
+    const futureCount = LORE_DATA.rumors.filter(r => isFutureEvent(r.date)).length;
+    const isDebugMode = window.debugMode === true || state?.debugMode === true;
+    
+    // Count visible rumors
+    const visibleRumorsCount = LORE_DATA.rumors.filter(r => isContentVisible(r.date)).length;
     
     return `
         <div class="rumors-filter-tabs">
             <button class="filter-tab ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">
-                All <span class="tab-count">${LORE_DATA.rumors.length}</span>
+                All <span class="tab-count">${visibleRumorsCount}</span>
             </button>
             <button class="filter-tab ${currentFilter === 'active' ? 'active' : ''}" data-filter="active">
                 🔥 Active Arcs <span class="tab-count">${activeCount}</span>
@@ -307,7 +453,36 @@ function renderFilterTabs() {
             <button class="filter-tab ${currentFilter === 'unassigned' ? 'active' : ''}" data-filter="unassigned">
                 📋 Misc Intel <span class="tab-count">${unassignedCount}</span>
             </button>
+            ${isDebugMode ? `
+                <button class="filter-tab debug-tab ${currentFilter === 'debug' ? 'active' : ''}" data-filter="debug" style="
+                    background: linear-gradient(135deg, #ff6b35, #e74c3c);
+                    border-color: #ff4444;
+                ">
+                    🔮 Future Events <span class="tab-count">${futureCount}</span>
+                </button>
+            ` : ''}
         </div>
+        ${isDebugMode ? `
+            <div class="debug-mode-notice" style="
+                background: repeating-linear-gradient(45deg, rgba(255, 68, 68, 0.1), rgba(255, 68, 68, 0.1) 10px, transparent 10px, transparent 20px);
+                border: 1px solid #ff4444;
+                border-radius: 8px;
+                padding: 12px 16px;
+                margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            ">
+                <span style="font-size: 1.5em;">⚠️</span>
+                <div>
+                    <strong style="color: #ff6b35;">Debug Mode Active</strong>
+                    <p style="margin: 4px 0 0; font-size: 0.9em; color: var(--text-secondary);">
+                        Showing ${futureCount} future event${futureCount !== 1 ? 's' : ''} that haven't occurred yet in-game. 
+                        Effects from future events are marked as "Pending" and won't affect reputation calculations.
+                    </p>
+                </div>
+            </div>
+        ` : ''}
     `;
 }
 
@@ -317,9 +492,20 @@ function renderFilterTabs() {
 function renderSummaryStats() {
     const arcs = Object.values(STORY_ARCS);
     const activeArcs = arcs.filter(a => a.status === 'active');
-    const totalRumors = LORE_DATA.rumors.length;
-    const totalEvents = LORE_DATA.rumors.filter(r => r.isEvent).length;
-    const totalCycleImpact = LORE_DATA.rumors.reduce((sum, r) => sum + (r.cycle_impact?.score || 0), 0);
+    
+    // Only count visible rumors
+    const visibleRumors = LORE_DATA.rumors.filter(r => isContentVisible(r.date));
+    const totalRumors = visibleRumors.length;
+    const totalEvents = visibleRumors.filter(r => r.isEvent).length;
+    
+    // Only count cycle impact from past events
+    const pastRumors = LORE_DATA.rumors.filter(r => shouldEffectsApply(r.date));
+    const appliedCycleImpact = pastRumors.reduce((sum, r) => sum + (r.cycle_impact?.score || 0), 0);
+    
+    // Pending impact (from future events, debug mode only)
+    const futureRumors = LORE_DATA.rumors.filter(r => isFutureEvent(r.date));
+    const pendingCycleImpact = futureRumors.reduce((sum, r) => sum + (r.cycle_impact?.score || 0), 0);
+    const isDebugMode = window.debugMode === true || state?.debugMode === true;
     
     return `
         <div class="rumors-summary">
@@ -336,10 +522,109 @@ function renderSummaryStats() {
                 <span class="stat-label">Total Intel</span>
             </div>
             <div class="summary-stat">
-                <span class="stat-value">${totalCycleImpact.toFixed(1)}</span>
+                <span class="stat-value">${appliedCycleImpact.toFixed(1)}</span>
                 <span class="stat-label">Cycle Impact</span>
             </div>
+            ${isDebugMode && pendingCycleImpact !== 0 ? `
+                <div class="summary-stat debug-stat" style="border: 1px dashed #ff6b35; background: rgba(255, 107, 53, 0.1);">
+                    <span class="stat-value" style="color: #ff6b35;">${pendingCycleImpact > 0 ? '+' : ''}${pendingCycleImpact.toFixed(1)}</span>
+                    <span class="stat-label">Pending Impact</span>
+                </div>
+            ` : ''}
         </div>
+    `;
+}
+
+// ============================================
+// RENDER: Debug-Only Future Events Section
+// ============================================
+function renderFutureEventsSection() {
+    const futureRumors = LORE_DATA.rumors
+        .filter(r => isFutureEvent(r.date))
+        .sort((a, b) => {
+            const dateA = a.date ? a.date.year * 10000 + a.date.monthIndex * 100 + a.date.day : 0;
+            const dateB = b.date ? b.date.year * 10000 + b.date.monthIndex * 100 + b.date.day : 0;
+            return dateA - dateB; // Chronological order (earliest first)
+        });
+    
+    if (futureRumors.length === 0) {
+        return `
+            <section class="arc-section">
+                <h2 class="section-header" style="color: #ff6b35;">🔮 Future Events</h2>
+                <p class="no-rumors">No future events scheduled.</p>
+            </section>
+        `;
+    }
+    
+    // Group by arc
+    const byArc = {};
+    const noArc = [];
+    
+    futureRumors.forEach(rumor => {
+        if (rumor.arc && STORY_ARCS[rumor.arc]) {
+            if (!byArc[rumor.arc]) byArc[rumor.arc] = [];
+            byArc[rumor.arc].push(rumor);
+        } else {
+            noArc.push(rumor);
+        }
+    });
+    
+    return `
+        <section class="arc-section future-events-section" style="
+            border: 2px dashed #ff6b35;
+            border-radius: 12px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(255, 68, 68, 0.05));
+        ">
+            <h2 class="section-header" style="color: #ff6b35;">
+                🔮 Future Events Timeline
+                <span style="font-size: 0.6em; opacity: 0.7; margin-left: 12px;">Debug Mode Only</span>
+            </h2>
+            <p class="section-description" style="color: var(--text-secondary); margin-bottom: 20px;">
+                These events haven't occurred yet in-game. Their effects are shown as "Pending" and won't affect current reputation values.
+            </p>
+            
+            ${Object.entries(byArc).map(([arcId, rumors]) => {
+                const arc = STORY_ARCS[arcId];
+                return `
+                    <div class="future-arc-group" style="margin-bottom: 24px;">
+                        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <span>${arc.icon}</span>
+                            <span>${arc.name}</span>
+                            <span class="rumor-count" style="
+                                background: #ff6b35;
+                                color: white;
+                                padding: 2px 8px;
+                                border-radius: 10px;
+                                font-size: 0.8em;
+                            ">${rumors.length} upcoming</span>
+                        </h3>
+                        <div class="rumors-grid">
+                            ${rumors.map(r => renderRumorCard(r, false)).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+            
+            ${noArc.length > 0 ? `
+                <div class="future-arc-group" style="margin-bottom: 24px;">
+                    <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span>📋</span>
+                        <span>Unassigned Future Events</span>
+                        <span class="rumor-count" style="
+                            background: #ff6b35;
+                            color: white;
+                            padding: 2px 8px;
+                            border-radius: 10px;
+                            font-size: 0.8em;
+                        ">${noArc.length} upcoming</span>
+                    </h3>
+                    <div class="rumors-grid">
+                        ${noArc.map(r => renderRumorCard(r, false)).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        </section>
     `;
 }
 
@@ -351,11 +636,20 @@ function renderRumors() {
     if (!container) return;
 
     const arcs = Object.values(STORY_ARCS);
+    const isDebugMode = window.debugMode === true || state?.debugMode === true;
     let content = '';
     
     // Add summary and filters
     content += renderSummaryStats();
     content += renderFilterTabs();
+    
+    // Debug-only: Future Events Tab
+    if (currentFilter === 'debug' && isDebugMode) {
+        content += renderFutureEventsSection();
+        container.innerHTML = content;
+        attachEventListeners();
+        return;
+    }
     
     // Active Arcs Section
     if (currentFilter === 'all' || currentFilter === 'active') {
@@ -389,7 +683,9 @@ function renderRumors() {
     
     // Unassigned Rumors Section
     if (currentFilter === 'unassigned' || currentFilter === 'all') {
-        const unassigned = getUnassignedRumors();
+        // Filter to only visible unassigned rumors
+        const unassigned = getUnassignedRumors().filter(r => isContentVisible(r.date));
+        
         if (unassigned.length > 0) {
             // Sort by date (newest first)
             const sortedUnassigned = [...unassigned].sort((a, b) => {
@@ -424,7 +720,7 @@ function attachEventListeners() {
     document.querySelectorAll('.filter-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
             currentFilter = e.target.closest('.filter-tab').dataset.filter;
-            if (typeof playSound === 'function') playSound('click.mp3');
+            try { playSound('click.mp3'); } catch (e) {}
             renderRumors();
         });
     });
@@ -438,7 +734,7 @@ function attachEventListeners() {
             } else {
                 expandedArcs.add(arcId);
             }
-            if (typeof playSound === 'function') playSound('click.mp3');
+            try { playSound('click.mp3'); } catch (e) {}
             renderRumors();
         });
     });
@@ -450,7 +746,7 @@ function attachEventListeners() {
             const arcId = e.target.dataset.arc;
             // Expand that arc and scroll to it
             expandedArcs.add(arcId);
-            if (typeof playSound === 'function') playSound('click.mp3');
+            try { playSound('click.mp3'); } catch (e) {}
             renderRumors();
             
             // Scroll to the arc card
@@ -468,6 +764,14 @@ function attachEventListeners() {
 // INITIALIZATION
 // ============================================
 function init() {
+    // Sync debug mode from localStorage
+    try {
+        window.debugMode = localStorage.getItem('vigilanceDebugMode') === 'true';
+    } catch (e) {
+        window.debugMode = false;
+    }
+    
+    console.log('[Rumors] Initializing...', { debugMode: window.debugMode });
     renderRumors();
 }
 

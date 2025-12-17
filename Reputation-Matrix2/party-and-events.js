@@ -17,6 +17,142 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
 {
+id: 'delfino_hotel_lockdown',
+title: "Standoff at Hotel Delfino",
+date: { day: 24, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'manager_monk',
+arc: 'mushroom_civil_war',
+arcPosition: 'rising',
+description: "Regency Military Police attempted to breach Hotel Delfino to arrest Noki dignitaries. Manager Monk activated the building's defensive shutters and threatened to release resident Boos, effectively turning the luxury hotel into an impregnable fortress of neutrality.",
+targets: ['manager_monk', 'captain_lock', 'noki_shellfish'],
+effects: {
+pianta_syndicate: 10,
+mushroom_regency: -10,
+gelato_loyalists: -5
+},
+cycle_impact: { score: 1.5, label: "Civil Disobedience", type: "political" }
+},
+{
+id: 'delfino_fin_madness',
+title: "The Fin Friendly Fire Incident",
+date: { day: 25, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'lt_sunburn',
+arc: 'mushroom_civil_war',
+arcPosition: 'rising',
+description: "A Regency patrol stationed on the remote 'Fin' of the island succumbed to heat exhaustion and paranoia, engaging in a firefight with a friendly unit they hallucinated were 'Shadow Marios.' The incident has severely degraded Regency morale on the island.",
+targets: ['lt_sunburn', 'sgt_daze', 'mushroom_regency'],
+effects: {
+mushroom_regency: -25,
+noki_shellfish: 5
+},
+cycle_impact: { score: 1.0, label: "Morale Collapse", type: "military" }
+},
+{
+id: 'delfino_village_secession',
+title: "Pianta Village Declares Independence",
+date: { day: 26, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'don_pianta',
+arc: 'mushroom_civil_war',
+arcPosition: 'climax',
+description: "Don Pianta has formally severed ties with the Mushroom Regency by cutting the suspension bridge to the village. Regency envoys sent to negotiate were physically thrown ('chucked') from the heights into the plaza pool below. The village is now a fortress.",
+targets: ['don_pianta', 'envoy_beige'],
+effects: {
+pianta_syndicate: 30,
+mushroom_regency: -30,
+koopa_troop: 10
+},
+cycle_impact: { score: 2.0, label: "Secession", type: "political" }
+},
+{
+id: 'delfino_corona_invasion',
+title: "Koopa Paratroopers Seize Corona Mountain",
+date: { day: 27, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'general_shellshock',
+arc: 'mushroom_civil_war',
+arcPosition: 'climax',
+description: "In a stunning display of vertical warfare, General Shellshock led an airborne drop of Koopa Paratroopers directly into the Corona Mountain caldera. The Regency Mountain Guard, unprepared for an attack from above, was routed within hours. The Koopa Troop now holds the island's highest ground.",
+targets: ['general_shellshock', 'sgt_toadofsky', 'mushroom_regency'],
+effects: {
+koopa_troop: 40,
+mushroom_regency: -40,
+noki_shellfish: 10
+},
+cycle_impact: { score: 2.5, label: "Strategic Victory", type: "military" }
+},
+{
+id: 'delfino_gelato_betrayal',
+title: "The Gelato Beach Purge",
+date: { day: 27, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'mayor_melon',
+arc: 'mushroom_civil_war',
+arcPosition: 'rising',
+description: "Mayor Melon has officially aligned Gelato Beach with the Mushroom Regency. In a move condemned by the Noki Elders, Gelato police forcibly expelled Noki refugees into the sea on makeshift rafts. This betrayal has unified the western factions against the 'Gelato-Regency Axis.'",
+targets: ['mayor_melon', 'refugee_nola', 'noki_shellfish'],
+effects: {
+gelato_loyalists: 20,
+noki_shellfish: -20,
+pianta_syndicate: -10
+},
+cycle_impact: { score: 1.8, label: "Humanitarian Crisis", type: "political" }
+},
+{
+id: 'delfino_ricco_harbor',
+title: "Koopa Navy Captures Ricco Harbor",
+date: { day: 28, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'admiral_blooper',
+arc: 'mushroom_civil_war',
+arcPosition: 'falling',
+description: "Admiral Blooper's submersible fleet has seized Ricco Harbor. By using Blooper operatives to jam patrol boat propellers with ink, the Koopa Navy disabled the Regency's port defenses without sinking a single ship. The Regency garrison is now cut off from resupply.",
+targets: ['admiral_blooper', 'harbormaster_t', 'mushroom_regency'],
+effects: {
+koopa_troop: 30,
+mushroom_regency: -30,
+pianta_syndicate: 15
+},
+cycle_impact: { score: 2.2, label: "Naval Blockade", type: "military" }
+},
+{
+id: 'delfino_gelato_counter',
+title: "Disaster at Noki Bay",
+date: { day: 29, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'mayor_melon',
+arc: 'mushroom_civil_war',
+arcPosition: 'falling',
+description: "A joint Regency-Gelato amphibious assault on Noki Bay ended in humiliation. The 'Cataquack Cavalry' panicked under artillery fire from Koopa ships and barrel bombardments from Pianta villagers on the cliffs. The Regency forces were forced to retreat, abandoning their heavy equipment.",
+targets: ['mayor_melon', 'don_pianta', 'captain_spore'],
+effects: {
+gelato_loyalists: -30,
+pianta_syndicate: 20,
+noki_shellfish: 20
+},
+cycle_impact: { score: 2.0, label: "Failed Offensive", type: "military" }
+},
+{
+id: 'delfino_exile_final',
+title: "Regency Expelled from Delfino",
+date: { day: 30, monthIndex: 6, year: 1040 },
+isEvent: true,
+instigator: 'elder_erol',
+arc: 'mushroom_civil_war',
+arcPosition: 'resolution',
+description: "The Isle Delfino Conflict has ended. Admiral B. Toad surrendered the airstrip, and the remaining Regency forces were deported by Koopa transport ships. Noki Bay, Pianta Village, and the Koopa Troop now share de facto control of the island, marking a major geopolitical shift in the southern seas.",
+targets: ['elder_erol', 'general_shellshock', 'admiral_b_toad'],
+effects: {
+mushroom_regency: -50,
+koopa_troop: 50,
+noki_shellfish: 30,
+pianta_syndicate: 30
+},
+cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
+},    
+{
         id: 'dragon_conspiracy_revealed',
         title: "The Dragon Conspiracy",
         date: { day: 21, monthIndex: 6, year: 1040 },

@@ -410,6 +410,10 @@ function renderDynasticCycleView() {
     const currentPhase = globalCycleState.phase;
     const momentum = globalCycleState.momentum;
     const factors = globalCycleState.factors;
+    const pendingFactors = globalCycleState.pendingFactors || [];
+    
+    // Check debug mode
+    const isDebugMode = window.debugMode === true || state?.debugMode === true;
     
     document.getElementById('cycle-current-age').textContent = nationAge.name;
     document.getElementById('cycle-age-desc').textContent = `Tech Level: ${nationAge.description}`;
@@ -437,12 +441,11 @@ function renderDynasticCycleView() {
         effectHTML = `<div class="active-age-effect-card" style="border-style:dashed; text-align:center; color:var(--text-secondary);">No specialized doctrine selected for this era.</div>`;
     }
 
-    // Render Driving Factors with details and "Show More" logic
+    // Render Driving Factors
     let factorsHTML = '';
     if (factors.length > 0) {
-        factorsHTML += `<div class="driving-factors-list"><h6>Driving Factors:</h6>`;
+        factorsHTML += `<div class="driving-factors-list"><h6>Active Driving Factors:</h6>`;
         
-        // Render top 5
         const topFactors = factors.slice(0, 5);
         factorsHTML += topFactors.map(f => `
             <div class="factor-item type-${f.type}">
@@ -453,7 +456,6 @@ function renderDynasticCycleView() {
                 <span class="factor-label">${f.label} (${f.impact > 0 ? '+' : ''}${f.impact.toFixed(1)})</span>
             </div>`).join('');
 
-        // Render hidden factors if any exist
         if (factors.length > 5) {
             const hiddenFactors = factors.slice(5);
             factorsHTML += `<div id="hidden-factors" class="${showAllFactors ? '' : 'hidden'}">
@@ -474,8 +476,41 @@ function renderDynasticCycleView() {
         factorsHTML = `<p class="small">No major rumors influencing the cycle.</p>`;
     }
 
+    // Render Pending (Future) Factors - Debug Mode Only
+    let pendingHTML = '';
+    if (isDebugMode && pendingFactors.length > 0) {
+        pendingHTML = `
+            <div class="pending-factors-section" style="
+                margin-top: 16px;
+                padding: 12px;
+                background: repeating-linear-gradient(45deg, rgba(255, 68, 68, 0.05), rgba(255, 68, 68, 0.05) 10px, transparent 10px, transparent 20px);
+                border: 2px dashed #ff4444;
+                border-radius: 8px;
+            ">
+                <h6 style="color: #ff6b35; margin-bottom: 8px;">
+                    🔮 Pending Future Events (Debug Mode)
+                    <span style="font-size: 0.8em; opacity: 0.7;">(${pendingFactors.length})</span>
+                </h6>
+                <p style="font-size: 0.8em; color: var(--text-secondary); margin-bottom: 8px;">
+                    These events haven't occurred yet. Their effects are NOT included in current calculations.
+                </p>
+                ${pendingFactors.slice(0, 5).map(f => `
+                    <div class="factor-item" style="opacity: 0.7; border-left: 3px solid #ff4444; padding-left: 8px; margin-bottom: 6px;">
+                        <div style="flex-grow:1;">
+                            <span class="factor-name">${f.name}</span>
+                            <span style="font-size: 0.75em; color: #ff6b35;">(Pending)</span>
+                        </div>
+                        <span class="factor-label" style="color: #ff6b35;">
+                            ${f.label} (${f.impact > 0 ? '+' : ''}${f.impact.toFixed(1)})
+                        </span>
+                    </div>`).join('')}
+                ${pendingFactors.length > 5 ? `<p style="font-size: 0.8em; color: var(--text-secondary);">...and ${pendingFactors.length - 5} more pending events</p>` : ''}
+            </div>
+        `;
+    }
+
     const statsDiv = document.getElementById('cycle-stats');
-    const scoreColor = momentum > 0 ? '#f85149' : '#3fb950'; // Red for tension, Green for calm
+    const scoreColor = momentum > 0 ? '#f85149' : '#3fb950';
     
     statsDiv.innerHTML = `
         <hr style="border-color:var(--border-color); margin:16px 0;">
@@ -496,15 +531,18 @@ function renderDynasticCycleView() {
         <div style="margin-top:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:4px;">
             ${factorsHTML}
         </div>
+        
+        ${pendingHTML}
+        
         ${effectHTML}
     `;
 
-    // Add event listener for the button if it exists
+    // Event listener for toggle button
     const toggleBtn = document.getElementById('toggle-factors-btn');
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
             showAllFactors = !showAllFactors;
-            renderDynasticCycleView(); // Re-render to update state
+            renderDynasticCycleView();
             playSound('click.mp3');
         });
     }

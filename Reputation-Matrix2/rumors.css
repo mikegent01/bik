@@ -1,7 +1,128 @@
 /* ================================
    RUMORS & ARCS SYSTEM STYLES
    ================================ */
+/* ============================================
+   DEBUG MODE STYLES FOR RUMORS
+   ============================================ */
 
+@keyframes debug-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes debug-border-pulse {
+    0%, 100% { border-color: #ff4444; }
+    50% { border-color: #ff6b35; }
+}
+
+/* Debug future event card */
+.rumor-card.debug-future-event {
+    border: 3px dashed #ff4444 !important;
+    background: linear-gradient(135deg, rgba(255, 68, 68, 0.08), rgba(170, 0, 0, 0.08)) !important;
+    animation: debug-border-pulse 2s ease-in-out infinite;
+}
+
+.rumor-card.debug-future-event::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 68, 68, 0.03) 10px,
+        rgba(255, 68, 68, 0.03) 20px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* Future date styling */
+.future-date {
+    color: #ff6b35 !important;
+    font-weight: bold;
+}
+
+/* Pending effects */
+.rumor-effects .pending {
+    opacity: 0.6;
+    font-style: italic;
+}
+
+.effects-pending {
+    font-size: 0.8em;
+    color: #ff6b35;
+    font-weight: normal;
+    margin-left: 8px;
+}
+
+.pending-label {
+    font-size: 0.8em;
+    color: #ff6b35;
+    margin-left: 8px;
+}
+
+/* Timeline future event */
+.timeline-event.debug-future-event {
+    border: 2px dashed #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    position: relative;
+}
+
+.timeline-event.debug-future-event .event-marker {
+    background: #ff6b35 !important;
+    box-shadow: 0 0 10px #ff6b35;
+}
+
+.future-marker {
+    background: #ff6b35 !important;
+    animation: debug-pulse 1.5s ease-in-out infinite;
+}
+
+/* Debug mini badge */
+.debug-mini-badge {
+    font-size: 0.7em;
+    color: #ff4444;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+/* Arc with future events */
+.arc-card.has-future-events {
+    border: 2px dashed #ff6b35;
+    position: relative;
+}
+
+/* Debug tab styling */
+.filter-tab.debug-tab {
+    background: linear-gradient(135deg, #ff6b35, #e74c3c) !important;
+    border-color: #ff4444 !important;
+    color: white !important;
+}
+
+.filter-tab.debug-tab:hover {
+    box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+}
+
+/* Debug stat */
+.summary-stat.debug-stat {
+    border: 1px dashed #ff6b35;
+    background: rgba(255, 107, 53, 0.1);
+}
+
+/* Future events section */
+.future-events-section {
+    border: 2px dashed #ff6b35 !important;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(255, 68, 68, 0.05)) !important;
+}
+
+/* Debug mode notice */
+.debug-mode-notice {
+    animation: debug-pulse 3s ease-in-out infinite;
+}
 /* Summary Stats */
 .rumors-summary {
     display: flex;
