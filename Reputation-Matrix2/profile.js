@@ -588,7 +588,7 @@ function renderProfile(characterKey) {
                 const isFollowing = state.userState.following.includes(characterKey);
                 newBtn.classList.toggle('following', isFollowing);
                 if (isFollowing) {
-                    newBtn.innerHTML = `<span class="follow-icon">✓</span> <span class="follow-text">Following</span>`;
+                    newBtn.innerHTML = `<span class="follow-icon">✓</span> <span class="follow-text"></span>`;
                 } else {
                     newBtn.innerHTML = `<span class="follow-icon">+</span> <span class="follow-text">Follow</span>`;
                 }

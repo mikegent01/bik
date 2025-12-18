@@ -595,6 +595,8 @@
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .feed-post:hover {
@@ -612,6 +614,8 @@
 .post-pfp {
     width: 48px;
     height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
@@ -640,6 +644,7 @@
     color: var(--wahbook-text-primary);
     text-decoration: none;
     transition: color 0.2s ease;
+    font-size: 0.95rem;
 }
 
 .post-author-name:hover {
@@ -696,6 +701,7 @@
     border-radius: 50%;
     transition: all 0.2s ease;
     font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
 .post-menu-btn:hover {
@@ -835,6 +841,8 @@
 .comment-pfp {
     width: 32px;
     height: 32px;
+    min-width: 32px;
+    min-height: 32px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
@@ -865,6 +873,20 @@
     line-height: 1.5;
 }
 
+.view-more-comments {
+    background: none;
+    border: none;
+    color: var(--wahbook-text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+.view-more-comments:hover {
+    color: var(--wahbook-accent);
+}
+
 .reply-input-container {
     display: flex;
     gap: 10px;
@@ -876,6 +898,8 @@
 .reply-pfp {
     width: 32px;
     height: 32px;
+    min-width: 32px;
+    min-height: 32px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -899,8 +923,7 @@
 .post-badges {
     display: flex;
     gap: 6px;
-    margin-bottom: 8px;
-    padding: 0 16px;
+    padding: 12px 16px 0;
 }
 
 .new-post-badge {
@@ -938,6 +961,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     animation: debug-pulse 2s ease-in-out infinite;
+    border-radius: 6px;
 }
 
 @keyframes debug-pulse {
@@ -1266,6 +1290,7 @@
     font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    z-index: 10;
 }
 
 .modal-close:hover {
@@ -1309,6 +1334,7 @@
     font-size: 1rem;
     line-height: 1.6;
     resize: vertical;
+    box-sizing: border-box;
 }
 
 .post-composer textarea:focus {
@@ -1399,63 +1425,154 @@
     border-color: var(--wahbook-accent);
 }
 
+.event-card.expanded {
+    box-shadow: var(--wahbook-card-shadow);
+}
+
 .event-header {
     padding: 16px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 12px;
+}
+
+.event-content-wrapper {
+    flex: 1;
+    min-width: 0;
 }
 
 .event-title {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--wahbook-text-primary);
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
 }
 
 .event-description {
     font-size: 0.9rem;
     color: var(--wahbook-text-secondary);
     line-height: 1.5;
+    margin: 0;
 }
 
 .event-meta {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     margin-top: 12px;
     flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--wahbook-text-muted);
 }
 
-.event-meta-item {
+.event-meta span {
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 0.8rem;
-    color: var(--wahbook-text-muted);
 }
 
-.event-toggle {
+.event-toggle-btn {
     background: none;
     border: none;
-    color: var(--wahbook-text-muted);
-    cursor: pointer;
+    color: var(--wahbook-text-secondary);
     font-size: 1.2rem;
-    transition: transform 0.2s ease;
-}
-
-.event-card.expanded .event-toggle {
-    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    padding: 8px;
+    flex-shrink: 0;
 }
 
 .event-body {
-    display: none;
-    padding: 0 16px 16px;
+    padding: 16px;
     border-top: 1px solid var(--wahbook-border);
+    background: rgba(0, 0, 0, 0.2);
 }
 
-.event-card.expanded .event-body {
-    display: block;
+.event-body.hidden {
+    display: none;
+}
+
+.event-effects {
+    margin-bottom: 20px;
+}
+
+.event-effects h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--wahbook-text-primary);
+    margin: 0 0 12px 0;
+}
+
+.effects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.effects-list span {
+    padding: 6px 12px;
+    background: var(--wahbook-bg-tertiary);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+/* Event Posts - Related Posts Section */
+.event-posts {
+    margin-top: 20px;
+}
+
+.event-posts h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--wahbook-text-primary);
+    margin: 0 0 16px 0;
+}
+
+/* Ensure posts inside events display at full size */
+.event-posts .feed-post {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 16px 0;
+    transform: none;
+    font-size: inherit;
+}
+
+.event-posts .feed-post:last-child {
+    margin-bottom: 0;
+}
+
+.event-posts .post-header {
+    padding: 16px 16px 12px;
+}
+
+.event-posts .post-pfp {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.event-posts .post-body {
+    padding: 0 16px 12px;
+}
+
+.event-posts .post-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.event-posts .post-interactions {
+    padding: 8px 16px;
+}
+
+.event-posts .interaction-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+}
+
+.event-posts .post-comments-section {
+    padding: 12px 16px;
 }
 
 /* ============================================================================
@@ -1494,12 +1611,14 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 12px;
+    gap: 12px;
 }
 
 .intel-title {
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--wahbook-text-primary);
+    flex: 1;
 }
 
 .intel-type-badge {
@@ -1508,6 +1627,7 @@
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
+    flex-shrink: 0;
 }
 
 .intel-type-badge.rumor {
@@ -1551,6 +1671,163 @@
 }
 
 /* ============================================================================
+   DOSSIER MODAL - RELATED POSTS FIX
+   ============================================================================ */
+
+#dossier-modal .modal-content {
+    max-width: 700px;
+}
+
+#dossier-modal-body {
+    padding: 24px;
+}
+
+.dossier-header {
+    margin-bottom: 20px;
+}
+
+.dossier-header h2 {
+    margin: 0 0 12px 0;
+    padding: 0;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--wahbook-text-primary);
+}
+
+.dossier-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: var(--wahbook-text-secondary);
+}
+
+.dossier-description {
+    line-height: 1.7;
+    margin-bottom: 24px;
+    color: var(--wahbook-text-primary);
+    font-size: 0.95rem;
+}
+
+.dossier-effects {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--wahbook-bg-tertiary);
+    border-radius: 12px;
+}
+
+.dossier-effects h4 {
+    margin: 0 0 12px 0;
+    font-size: 0.95rem;
+    color: var(--wahbook-text-primary);
+}
+
+.dossier-effects .effects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dossier-effects .intel-effect {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+.dossier-effects .no-effects {
+    color: var(--wahbook-text-muted);
+    font-size: 0.9rem;
+}
+
+.dossier-related-posts {
+    margin-top: 24px;
+}
+
+.dossier-related-posts h4 {
+    margin: 0 0 16px 0;
+    font-size: 0.95rem;
+    color: var(--wahbook-text-primary);
+}
+
+.related-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Ensure posts in modal are full width */
+.related-posts-list .feed-post,
+#dossier-modal-body .feed-post {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 16px 0;
+    transform: none;
+    font-size: inherit;
+    flex-shrink: 0;
+}
+
+.related-posts-list .feed-post:last-child,
+#dossier-modal-body .feed-post:last-child {
+    margin-bottom: 0;
+}
+
+#dossier-modal-body .post-header {
+    padding: 16px 16px 12px;
+}
+
+#dossier-modal-body .post-pfp {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+#dossier-modal-body .post-body {
+    padding: 0 16px 12px;
+}
+
+#dossier-modal-body .post-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+#dossier-modal-body .post-interactions {
+    padding: 8px 16px;
+}
+
+#dossier-modal-body .interaction-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+}
+
+.no-posts {
+    color: var(--wahbook-text-muted);
+    text-align: center;
+    padding: 20px;
+}
+
+/* Scrollbar styling for related posts */
+.related-posts-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.related-posts-list::-webkit-scrollbar-track {
+    background: var(--wahbook-bg-tertiary);
+    border-radius: 3px;
+}
+
+.related-posts-list::-webkit-scrollbar-thumb {
+    background: var(--wahbook-border);
+    border-radius: 3px;
+}
+
+.related-posts-list::-webkit-scrollbar-thumb:hover {
+    background: var(--wahbook-accent);
+}
+
+/* ============================================================================
    EXPLORE TAB
    ============================================================================ */
 
@@ -1590,6 +1867,7 @@
     border-radius: 12px;
     transition: all 0.2s ease;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .explore-person-card:hover {
@@ -1611,6 +1889,7 @@
     font-weight: 600;
     color: var(--wahbook-text-primary);
     margin-bottom: 4px;
+    display: block;
 }
 
 .explore-person-faction {
@@ -1718,6 +1997,121 @@
 }
 
 /* ============================================================================
+   SHARE MODAL
+   ============================================================================ */
+
+.share-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.share-tab-btn {
+    padding: 8px 16px;
+    background: var(--wahbook-bg-tertiary);
+    border: 1px solid var(--wahbook-border);
+    border-radius: 8px;
+    color: var(--wahbook-text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.share-tab-btn:hover {
+    border-color: var(--wahbook-accent);
+}
+
+.share-tab-btn.active {
+    background: var(--wahbook-accent);
+    border-color: var(--wahbook-accent);
+    color: white;
+}
+
+#share-code-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    background: var(--wahbook-bg-tertiary);
+    border: 1px solid var(--wahbook-border);
+    border-radius: 8px;
+    color: var(--wahbook-text-primary);
+    font-family: monospace;
+    font-size: 0.85rem;
+    resize: vertical;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#copy-share-btn {
+    width: 100%;
+}
+
+/* ============================================================================
+   BOOKMARKS MODAL
+   ============================================================================ */
+
+#bookmarks-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+#bookmarks-list .feed-post {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+#bookmarks-list .feed-post:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================================================
+   NOTIFICATIONS MODAL
+   ============================================================================ */
+
+#notifications-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid var(--wahbook-border);
+    transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+    background: var(--wahbook-bg-tertiary);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-text {
+    font-size: 0.9rem;
+    color: var(--wahbook-text-primary);
+    margin-bottom: 4px;
+}
+
+.notification-time {
+    font-size: 0.8rem;
+    color: var(--wahbook-text-muted);
+}
+
+/* ============================================================================
    RESPONSIVE ADJUSTMENTS
    ============================================================================ */
 
@@ -1759,21 +2153,71 @@
         border-radius: 0;
         margin: 0 -12px;
     }
+
+    .stories-bar {
+        border-radius: 0;
+        margin: 0 -12px;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+    }
+
+    .interaction-btn {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .interaction-btn span:not(.interaction-btn-icon) {
+        display: none;
+    }
+
+    .event-posts .feed-post,
+    .related-posts-list .feed-post,
+    #dossier-modal-body .feed-post {
+        margin: 0 0 12px 0;
+        border-radius: 12px;
+    }
 }
-.event-body.hidden {
-    display: none;
-}
-.event-body {
-    display: block;
-    padding: 16px;
-    border-top: 1px solid var(--wahbook-border);
-    background: rgba(0,0,0,0.2);
-}
-.event-toggle-btn {
-    background: none;
-    border: none;
-    color: var(--wahbook-text-secondary);
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+
+@media (max-width: 480px) {
+    .wahbook-header-actions {
+        gap: 4px;
+    }
+
+    .header-action-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .post-header {
+        padding: 12px 12px 8px;
+    }
+
+    .post-pfp {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .post-body {
+        padding: 0 12px 8px;
+    }
+
+    .post-interactions {
+        padding: 6px 8px;
+    }
+
+    .event-posts .post-pfp,
+    .related-posts-list .post-pfp,
+    #dossier-modal-body .post-pfp {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
 }

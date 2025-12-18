@@ -1259,7 +1259,6 @@ function closeModal(modal) {
         modal.classList.remove('active');
     }
 }
-
 function openDossierModal(rumorId) {
     const modal = document.getElementById('dossier-modal');
     const body = document.getElementById('dossier-modal-body');
@@ -1278,44 +1277,43 @@ function openDossierModal(rumorId) {
     }
 
     body.innerHTML = `
-        <div class="dossier-header" style="margin-bottom:20px;">
-            <h2 style="margin:0 0 8px 0;">${rumor.title}</h2>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:0.9rem;color:var(--wahbook-text-secondary);">
+        <div class="dossier-header">
+            <h2>${rumor.title}</h2>
+            <div class="dossier-meta">
                 <span>📅 ${dateStr}</span>
                 <span>📊 ${metrics.status}</span>
                 <span>💬 ${relatedPosts.length} posts</span>
             </div>
         </div>
         
-        <p style="line-height:1.6;margin-bottom:20px;">${rumor.description}</p>
+        <p class="dossier-description">${rumor.description}</p>
         
-        <div style="margin-bottom:20px;">
-            <h4 style="margin-bottom:12px;">Reputation Effects</h4>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <div class="dossier-effects">
+            <h4>Reputation Effects</h4>
+            <div class="effects-list">
                 ${Object.entries(rumor.effects || {}).map(([faction, value]) => {
                     const factionData = LORE_DATA.factions?.[faction];
                     const sign = value > 0 ? '+' : '';
                     const className = value > 0 ? 'positive' : 'negative';
-                    return `<span class="intel-effect ${className}" style="padding:6px 12px;">${factionData?.name || faction}: ${sign}${value}</span>`;
-                }).join('')}
+                    return `<span class="intel-effect ${className}">${factionData?.name || faction}: ${sign}${value}</span>`;
+                }).join('') || '<span class="no-effects">No reputation changes.</span>'}
             </div>
         </div>
         
         ${relatedPosts.length > 0 ? `
-            <div>
-                <h4 style="margin-bottom:12px;">Related Posts</h4>
-                <div style="display:flex;flex-direction:column;gap:12px;max-height:400px;overflow-y:auto;">
+            <div class="dossier-related-posts">
+                <h4>Related Posts (${relatedPosts.length})</h4>
+                <div class="related-posts-list">
                     ${relatedPosts.slice(0, 5).map(p => renderPost(p)).join('')}
                 </div>
             </div>
-        ` : '<p style="color:var(--wahbook-text-muted);">No related posts yet.</p>'}
+        ` : '<p class="no-posts">No related posts yet.</p>'}
     `;
 
     modal.classList.add('active');
     attachPostEventListeners(body);
     playSound('click.mp3');
 }
-
 function openShareModal(postId) {
     const modal = document.getElementById('share-modal');
     if (!modal) return;
