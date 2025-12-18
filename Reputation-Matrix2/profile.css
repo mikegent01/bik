@@ -419,13 +419,7 @@
     content: 'Unfollow';
 }
 
-.follow-btn.following .follow-text {
-    font-size: 0;
-}
 
-.follow-btn.following .follow-icon {
-    display: none;
-}
 
 .profile-action-btn {
     width: 44px;

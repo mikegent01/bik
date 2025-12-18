@@ -549,24 +549,52 @@ function renderProfile(characterKey) {
         }
 
         // Follow button
-        const followBtn = document.getElementById('follow-btn');
-        if (followBtn) {
+        // Follow button
+    const followBtn = document.getElementById('follow-btn');
+    if (followBtn) {
+        const updateFollowButtonState = () => {
             const isFollowing = state?.userState?.following?.includes(characterKey);
             followBtn.classList.toggle('following', isFollowing);
-            followBtn.onclick = () => {
-                if (!state.userState) state.userState = { following: [] };
-                if (!state.userState.following) state.userState.following = [];
-                const idx = state.userState.following.indexOf(characterKey);
-                if (idx > -1) {
-                    state.userState.following.splice(idx, 1);
-                    followBtn.classList.remove('following');
+            
+            // Explicitly set content based on state
+            if (isFollowing) {
+                followBtn.innerHTML = `<span class="follow-icon">✓</span> <span class="follow-text"></span>`;
+            } else {
+                followBtn.innerHTML = `<span class="follow-icon">+</span> <span class="follow-text"></span>`;
+            }
+        };
+
+        // Set initial state
+        updateFollowButtonState();
+
+        // Remove old listeners to prevent duplicates (cloning trick)
+        const newBtn = followBtn.cloneNode(true);
+        followBtn.parentNode.replaceChild(newBtn, followBtn);
+
+        newBtn.onclick = () => {
+            if (!state.userState) state.userState = { following: [] };
+            if (!state.userState.following) state.userState.following = [];
+            
+            const idx = state.userState.following.indexOf(characterKey);
+            if (idx > -1) {
+                state.userState.following.splice(idx, 1);
+            } else {
+                state.userState.following.push(characterKey);
+            }
+            
+            try { 
+                localStorage.setItem('vigilanceTerminalState', JSON.stringify(state)); 
+                // Update UI immediately
+                const isFollowing = state.userState.following.includes(characterKey);
+                newBtn.classList.toggle('following', isFollowing);
+                if (isFollowing) {
+                    newBtn.innerHTML = `<span class="follow-icon">✓</span> <span class="follow-text">Following</span>`;
                 } else {
-                    state.userState.following.push(characterKey);
-                    followBtn.classList.add('following');
+                    newBtn.innerHTML = `<span class="follow-icon">+</span> <span class="follow-text">Follow</span>`;
                 }
-                try { localStorage.setItem('vigilanceTerminalState', JSON.stringify(state)); } catch (e) {}
-            };
-        }
+            } catch (e) { console.error(e); }
+        };
+    }
 
         // Setup tabs
         document.querySelectorAll('.profile-tab').forEach(tab => {
