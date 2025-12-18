@@ -1,5 +1,6 @@
 import { state, loadState } from './state.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './calendar-data.js';
 
 // ============================================
 // TABLET STATE
@@ -103,9 +104,8 @@ function updateTabletTime() {
     const timeEl = document.getElementById('tablet-time');
     if (!timeEl) return;
     
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const mins = String(now.getMinutes()).padStart(2, '0');
+    const hours = String(CURRENT_GAME_TIME.hour).padStart(2, '0');
+    const mins = String(CURRENT_GAME_TIME.minute).padStart(2, '0');
     
     // Random WAH time format
     const formats = [
@@ -121,7 +121,6 @@ function updateTabletTime() {
 // ============================================
 // TABLET TOGGLE FUNCTIONALITY
 // ============================================
-
 function openTablet() {
     const overlay = document.getElementById('wah-tablet-overlay');
     const toggleBtn = document.getElementById('tablet-toggle-btn');
@@ -133,18 +132,26 @@ function openTablet() {
     toggleBtn.classList.add('hidden');
     document.body.classList.add('tablet-open');
     
-    // Show boot screen on first open
-    if (!bootComplete && bootScreen) {
+    // Check if debug mode is on - skip boot screen if so
+    const debugMode = localStorage.getItem('debugMode') === 'true';
+    
+    // Show boot screen on first open (unless debug mode)
+    if (!bootComplete && bootScreen && !debugMode) {
         bootScreen.classList.add('active');
         setTimeout(() => {
             bootScreen.classList.remove('active');
             bootComplete = true;
         }, 1800);
+    } else {
+        bootComplete = true;
+        if (bootScreen) {
+            bootScreen.classList.remove('active');
+        }
     }
-    
+
     overlay.classList.add('open');
     localStorage.setItem('tabletOpen', 'true');
-    
+
     // Play open sound effect (optional)
     playTabletSound('open');
 }
@@ -183,6 +190,57 @@ function playTabletSound(type) {
     // const audio = new Audio(`sounds/tablet-${type}.mp3`);
     // audio.volume = 0.3;
     // audio.play().catch(() => {});
+}
+
+// ============================================
+// TABLET CONTROLS
+// ============================================
+
+function initTabletControls() {
+    // Toggle button (bottom right)
+    const toggleBtn = document.getElementById('tablet-toggle-btn');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', openTablet);
+    }
+    
+    // Close button (X in top right of tablet)
+    const closeBtn = document.getElementById('tablet-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeTablet);
+    }
+    
+    // Home button (close tablet)
+    const homeBtn = document.getElementById('tablet-home-button');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', closeTablet);
+    }
+    
+    // Click outside tablet to close (on the overlay background)
+    const overlay = document.getElementById('wah-tablet-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            // Only close if clicking directly on overlay, not on tablet
+            if (e.target === overlay) {
+                closeTablet();
+            }
+        });
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Don't trigger if typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        
+        // Press 'T' or 'N' to toggle tablet
+        if ((e.key.toLowerCase() === 't' || e.key.toLowerCase() === 'n') && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            toggleTablet();
+        }
+        
+        // Escape to close
+        if (e.key === 'Escape' && tabletOpen) {
+            closeTablet();
+        }
+    });
 }
 
 // ============================================
@@ -322,11 +380,11 @@ function initQuickActions() {
 async function initializeTablet() {
     console.log('🎮 Initializing WAH-Tablet...');
     
-    // Create container for tablet in body (not in sidebar anymore)
-    let tabletContainer = document.getElementById('tablet-container');
+    // Create container and append directly to body
+    let tabletContainer = document.getElementById('wah-tablet-root');
     if (!tabletContainer) {
         tabletContainer = document.createElement('div');
-        tabletContainer.id = 'tablet-container';
+        tabletContainer.id = 'wah-tablet-root';
         document.body.appendChild(tabletContainer);
     }
 
@@ -374,63 +432,22 @@ async function initializeTablet() {
         updateTabletTime();
         setInterval(updateTabletTime, 60000);
         
-        // Don't auto-open on page load - user must click the button
-        // This is cleaner for the overlay experience
-        
         console.log('✅ WAH-Tablet initialized successfully!');
 
     } catch (error) {
         console.error('❌ Failed to load tablet navigation:', error);
-        tabletContainer.innerHTML = '<p style="color: red; padding: 20px;">Error: Could not load navigation.</p>';
     }
 }
 
-function initTabletControls() {
-    // Toggle button (bottom right)
-    const toggleBtn = document.getElementById('tablet-toggle-btn');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', openTablet);
-    }
-    
-    // Close button (X in top right of tablet)
-    const closeBtn = document.getElementById('tablet-close-btn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeTablet);
-    }
-    
-    // Home button (close tablet)
-    const homeBtn = document.getElementById('tablet-home-button');
-    if (homeBtn) {
-        homeBtn.addEventListener('click', closeTablet);
-    }
-    
-    // Click outside tablet to close (on the overlay background)
-    const overlay = document.getElementById('wah-tablet-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', (e) => {
-            // Only close if clicking directly on overlay, not on tablet
-            if (e.target === overlay) {
-                closeTablet();
-            }
-        });
-    }
-    
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-        // Don't trigger if typing in an input
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        
-        // Press 'T' or 'N' to toggle tablet
-        if ((e.key.toLowerCase() === 't' || e.key.toLowerCase() === 'n') && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            toggleTablet();
-        }
-        
-        // Escape to close
-        if (e.key === 'Escape' && tabletOpen) {
-            closeTablet();
-        }
-    });
+// Alias for backward compatibility
+const initializeSidebar = initializeTablet;
+
+// Start initialization when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeTablet);
+} else {
+    initializeTablet();
 }
 
-// Start initialization
-initializeTablet();
+// Export for external use if needed
+export { initializeTablet, initializeSidebar, openTablet, closeTablet, toggleTablet };
