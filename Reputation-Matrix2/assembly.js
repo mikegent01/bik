@@ -462,35 +462,7 @@ function renderFollowSuggestions() {
 // RENDER: ACTIVE ARCS
 // ============================================================================
 
-function renderActiveArcs() {
-    const container = document.getElementById('active-arcs');
-    if (!container) return;
 
-    const arcs = Object.values(STORY_ARCS || {}).filter(arc => arc.status === 'active');
-
-    if (arcs.length === 0) {
-        container.innerHTML = '<p style="color:var(--wahbook-text-muted);font-size:0.85rem;">No active story arcs.</p>';
-        return;
-    }
-
-    container.innerHTML = arcs.slice(0, 4).map(arc => `
-        <div class="arc-item" data-arc="${arc.id}">
-            <span class="arc-icon">${arc.icon}</span>
-            <div class="arc-info">
-                <span class="arc-name">${arc.name}</span>
-            </div>
-            <span class="arc-status-badge ${arc.status}">${arc.status}</span>
-        </div>
-    `).join('');
-
-    // Add click handlers
-    container.querySelectorAll('.arc-item').forEach(item => {
-        item.addEventListener('click', () => {
-            // Could navigate to a dedicated arc page
-            playSound('click.mp3');
-        });
-    });
-}
 
 // ============================================================================
 // RENDER: CYCLE STATUS
@@ -1114,6 +1086,12 @@ function renderIntelFeed() {
 // ============================================================================
 // RENDER: EXPLORE TAB
 // ============================================================================
+// ============================================================================
+// RENDER: EXPLORE TAB (UPDATED - Auto-generates Factions)
+// ============================================================================
+// ============================================================================
+// RENDER: EXPLORE TAB (UPDATED - Only shows active factions + enhanced arcs)
+// ============================================================================
 
 function renderExploreFeed() {
     const container = document.getElementById('explore-container');
@@ -1137,8 +1115,27 @@ function renderExploreFeed() {
         .filter((v, i, a) => a.indexOf(v) === i)
         .slice(0, 12);
 
-    // Get factions
-    const factions = Object.entries(LORE_DATA?.factions || {}).slice(0, 6);
+    // Auto-generate factions with post counts, filter out inactive ones
+    const factionsWithActivity = Object.entries(LORE_DATA?.factions || {})
+        .map(([key, faction]) => {
+            const factionPosts = getVisiblePosts().filter(p => {
+                const author = getCharacterData(p.characterKey);
+                return author.faction?.key === key;
+            });
+            return {
+                key,
+                faction,
+                postCount: factionPosts.length,
+                memberCount: countFactionMembers(key)
+            };
+        })
+        .filter(f => f.postCount > 0) // Only factions with posts
+        .sort((a, b) => b.postCount - a.postCount); // Sort by activity
+
+    // Get all story arcs
+    const allArcs = Object.values(STORY_ARCS || {});
+    const activeArcs = allArcs.filter(arc => arc.status === 'active');
+    const resolvedArcs = allArcs.filter(arc => arc.status === 'resolved');
 
     container.innerHTML = `
         <div class="explore-section">
@@ -1157,27 +1154,62 @@ function renderExploreFeed() {
         <div class="explore-section">
             <h4>🔥 Hot Topics</h4>
             <div class="explore-topics-list">
-                ${topics.map(topic => `
+                ${topics.length > 0 ? topics.map(topic => `
                     <span class="explore-topic-tag">${topic}</span>
-                `).join('')}
+                `).join('') : '<p class="empty-text">No trending topics right now.</p>'}
             </div>
         </div>
 
         <div class="explore-section">
-            <h4>🏛️ Factions</h4>
-            <div class="explore-people-grid">
-                ${factions.map(([key, faction]) => `
-                    <div class="explore-person-card faction-card" data-faction="${key}" style="cursor:pointer;">
-                        <img src="${faction.logo}" alt="${faction.name}" class="explore-person-avatar" style="border-radius:8px;" onerror="handleImageError(this)">
-                        <div class="explore-person-name">${faction.name}</div>
+            <h4>🏛️ Active Factions</h4>
+            ${factionsWithActivity.length > 0 ? `
+                <div class="explore-factions-grid">
+                    ${factionsWithActivity.map(({ key, faction, postCount, memberCount }) => `
+                        <div class="explore-faction-card" data-faction="${key}">
+                            <img src="${faction.logo}" alt="${faction.name}" class="explore-faction-logo" onerror="handleImageError(this)">
+                            <div class="explore-faction-info">
+                                <div class="explore-faction-name">${faction.name}</div>
+                                <div class="explore-faction-stats">
+                                    <span>${memberCount} members</span>
+                                    <span>•</span>
+                                    <span>${postCount} posts</span>
+                                </div>
+                            </div>
+                            <span class="explore-faction-arrow">→</span>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : '<p class="empty-text">No faction activity yet.</p>'}
+        </div>
+
+        <div class="explore-section">
+            <h4>📖 Story Arcs</h4>
+            <div class="story-arcs-container">
+                ${activeArcs.length > 0 ? `
+                    <div class="arcs-category">
+                        <h5 class="arcs-category-title">🔴 Active</h5>
+                        <div class="arcs-grid">
+                            ${activeArcs.map(arc => renderArcCard(arc, true)).join('')}
+                        </div>
                     </div>
-                `).join('')}
+                ` : ''}
+                
+                ${resolvedArcs.length > 0 ? `
+                    <div class="arcs-category">
+                        <h5 class="arcs-category-title">✅ Resolved</h5>
+                        <div class="arcs-grid">
+                            ${resolvedArcs.map(arc => renderArcCard(arc, false)).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${allArcs.length === 0 ? '<p class="empty-text">No story arcs recorded.</p>' : ''}
             </div>
         </div>
     `;
 
     // Faction filter clicks
-    container.querySelectorAll('.faction-card').forEach(card => {
+    container.querySelectorAll('.explore-faction-card').forEach(card => {
         card.addEventListener('click', () => {
             activeFactionFilter = card.dataset.faction;
             currentTab = 'foryou';
@@ -1187,7 +1219,364 @@ function renderExploreFeed() {
             playSound('click.mp3');
         });
     });
+
+    // Arc card clicks
+    container.querySelectorAll('.arc-card').forEach(card => {
+        card.addEventListener('click', () => {
+            openArcModal(card.dataset.arcId);
+            playSound('click.mp3');
+        });
+    });
 }
+
+// ============================================================================
+// RENDER: ARC CARD (NEW FUNCTION)
+// ============================================================================
+
+function renderArcCard(arc, isActive) {
+    const currentPhase = arc.phases?.[arc.currentPhase] || arc.phases?.[0];
+    const progress = arc.phases ? Math.round(((arc.currentPhase + 1) / arc.phases.length) * 100) : 0;
+    
+    // Format dates
+    const startDateStr = arc.startDate ? formatArcDate(arc.startDate) : 'Unknown';
+    const endDateStr = arc.endDate ? formatArcDate(arc.endDate) : 'Ongoing';
+    
+    // Get related posts count
+    const relatedPosts = getVisiblePosts().filter(p => p.arcId === arc.id).length;
+    
+    // Get faction names
+    const keyFactionNames = (arc.keyFactions || [])
+        .map(fKey => LORE_DATA?.factions?.[fKey]?.name || fKey)
+        .slice(0, 3);
+
+    return `
+        <div class="arc-card ${isActive ? 'active' : 'resolved'}" data-arc-id="${arc.id}">
+            <div class="arc-card-header">
+                <span class="arc-icon">${arc.icon}</span>
+                <div class="arc-title-section">
+                    <h4 class="arc-title">${arc.name}</h4>
+                    <span class="arc-status-badge ${arc.status}">${arc.status}</span>
+                </div>
+            </div>
+            
+            <p class="arc-description">${arc.description}</p>
+            
+            ${isActive && currentPhase ? `
+                <div class="arc-progress-section">
+                    <div class="arc-phase-label">
+                        <span>Current Phase:</span>
+                        <strong>${currentPhase.name}</strong>
+                    </div>
+                    <div class="arc-progress-bar">
+                        <div class="arc-progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="arc-progress-text">${arc.currentPhase + 1} / ${arc.phases.length} phases</div>
+                </div>
+            ` : ''}
+            
+            <div class="arc-meta">
+                <div class="arc-meta-item">
+                    <span class="arc-meta-icon">📅</span>
+                    <span>${startDateStr}${!isActive ? ` → ${endDateStr}` : ''}</span>
+                </div>
+                ${keyFactionNames.length > 0 ? `
+                    <div class="arc-meta-item">
+                        <span class="arc-meta-icon">🏛️</span>
+                        <span>${keyFactionNames.join(', ')}</span>
+                    </div>
+                ` : ''}
+                ${relatedPosts > 0 ? `
+                    <div class="arc-meta-item">
+                        <span class="arc-meta-icon">💬</span>
+                        <span>${relatedPosts} posts</span>
+                    </div>
+                ` : ''}
+            </div>
+            
+            <div class="arc-themes">
+                ${(arc.themes || []).map(theme => `
+                    <span class="arc-theme-tag">${theme}</span>
+                `).join('')}
+            </div>
+            
+            <div class="arc-card-footer">
+                <span class="arc-view-details">View Details →</span>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
+// FORMAT ARC DATE (NEW FUNCTION)
+// ============================================================================
+
+function formatArcDate(dateObj) {
+    if (!dateObj) return 'Unknown';
+    const month = CALENDAR_DATA?.months?.values?.[dateObj.monthIndex];
+    const monthName = month?.name || `Month ${dateObj.monthIndex + 1}`;
+    return `${monthName} ${dateObj.day}, ${dateObj.year}`;
+}
+
+// ============================================================================
+// OPEN ARC MODAL (NEW FUNCTION)
+// ============================================================================
+
+function openArcModal(arcId) {
+    const arc = STORY_ARCS?.[arcId];
+    if (!arc) return;
+
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('arc-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'arc-modal';
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content arc-modal-content">
+                <button class="modal-close">&times;</button>
+                <div id="arc-modal-body"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        modal.querySelector('.modal-close').addEventListener('click', () => closeModal(modal));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(modal);
+        });
+    }
+
+    const body = document.getElementById('arc-modal-body');
+    const currentPhase = arc.phases?.[arc.currentPhase];
+    const startDateStr = arc.startDate ? formatArcDate(arc.startDate) : 'Unknown';
+    const endDateStr = arc.endDate ? formatArcDate(arc.endDate) : 'Ongoing';
+    
+    // Get related posts
+    const relatedPosts = getVisiblePosts().filter(p => p.arcId === arc.id);
+    
+    // Get related rumors/events
+    const relatedRumors = (LORE_DATA?.rumors || []).filter(r => r.arc === arc.id && isContentVisible(r.date));
+
+    body.innerHTML = `
+        <div class="arc-modal-header">
+            <span class="arc-modal-icon">${arc.icon}</span>
+            <div class="arc-modal-title-section">
+                <h2>${arc.name}</h2>
+                <span class="arc-status-badge ${arc.status}">${arc.status}</span>
+            </div>
+        </div>
+        
+        <p class="arc-modal-description">${arc.description}</p>
+        
+        <div class="arc-modal-dates">
+            <div class="arc-date-item">
+                <span class="arc-date-label">Started</span>
+                <span class="arc-date-value">${startDateStr}</span>
+            </div>
+            <div class="arc-date-divider">→</div>
+            <div class="arc-date-item">
+                <span class="arc-date-label">${arc.status === 'resolved' ? 'Ended' : 'Status'}</span>
+                <span class="arc-date-value">${arc.status === 'resolved' ? endDateStr : 'Ongoing'}</span>
+            </div>
+        </div>
+        
+        <div class="arc-modal-section">
+            <h3>📍 Phases</h3>
+            <div class="arc-phases-timeline">
+                ${arc.phases.map((phase, index) => {
+                    const status = index < arc.currentPhase ? 'completed' : 
+                                   index === arc.currentPhase ? 'current' : 'upcoming';
+                    return `
+                        <div class="arc-phase-item ${status}">
+                            <div class="arc-phase-marker">
+                                ${status === 'completed' ? '✓' : index + 1}
+                            </div>
+                            <div class="arc-phase-content">
+                                <h4>${phase.name}</h4>
+                                <p>${phase.description}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+        
+        <div class="arc-modal-section">
+            <h3>🏛️ Key Factions</h3>
+            <div class="arc-factions-list">
+                ${(arc.keyFactions || []).map(fKey => {
+                    const faction = LORE_DATA?.factions?.[fKey];
+                    if (!faction) return '';
+                    return `
+                        <div class="arc-faction-item" data-faction="${fKey}">
+                            <img src="${faction.logo}" alt="${faction.name}" class="arc-faction-logo" onerror="handleImageError(this)">
+                            <span>${faction.name}</span>
+                        </div>
+                    `;
+                }).join('') || '<p class="empty-text">No key factions.</p>'}
+            </div>
+        </div>
+        
+        <div class="arc-modal-section">
+            <h3>🎭 Themes</h3>
+            <div class="arc-themes-list">
+                ${(arc.themes || []).map(theme => `
+                    <span class="arc-theme-tag large">${theme}</span>
+                `).join('') || '<p class="empty-text">No themes defined.</p>'}
+            </div>
+        </div>
+        
+        <div class="arc-modal-section consequences-section">
+            <h3>⚖️ Consequences</h3>
+            <div class="arc-consequences">
+                <div class="arc-consequence positive">
+                    <h4>✨ Potential Gains</h4>
+                    <ul>
+                        ${(arc.consequences?.positive || []).map(c => `<li>${c}</li>`).join('') || '<li>None recorded</li>'}
+                    </ul>
+                </div>
+                <div class="arc-consequence negative">
+                    <h4>⚠️ Risks & Losses</h4>
+                    <ul>
+                        ${(arc.consequences?.negative || []).map(c => `<li>${c}</li>`).join('') || '<li>None recorded</li>'}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        ${relatedRumors.length > 0 ? `
+            <div class="arc-modal-section">
+                <h3>📰 Related Events (${relatedRumors.length})</h3>
+                <div class="arc-events-list">
+                    ${relatedRumors.slice(0, 5).map(rumor => `
+                        <div class="arc-event-item" data-rumor-id="${rumor.id}">
+                            <span class="arc-event-title">${rumor.title}</span>
+                            <span class="arc-event-date">${rumor.time_ago || 'Unknown'}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        ` : ''}
+        
+        ${relatedPosts.length > 0 ? `
+            <div class="arc-modal-section">
+                <h3>💬 Related Posts (${relatedPosts.length})</h3>
+                <div class="arc-posts-list">
+                    ${relatedPosts.slice(0, 3).map(p => renderPost(p)).join('')}
+                </div>
+            </div>
+        ` : ''}
+    `;
+
+    // Attach event listeners
+    body.querySelectorAll('.arc-faction-item').forEach(item => {
+        item.addEventListener('click', () => {
+            closeModal(modal);
+            activeFactionFilter = item.dataset.faction;
+            currentTab = 'foryou';
+            renderNavTabs();
+            renderFactionFilters();
+            renderCurrentFeed();
+        });
+    });
+
+    body.querySelectorAll('.arc-event-item').forEach(item => {
+        item.addEventListener('click', () => {
+            closeModal(modal);
+            openDossierModal(item.dataset.rumorId);
+        });
+    });
+
+    attachPostEventListeners(body);
+
+    modal.classList.add('active');
+}
+
+// ============================================================================
+// HELPER: Count Faction Members (NEW FUNCTION)
+// ============================================================================
+
+function countFactionMembers(factionKey) {
+    const faction = LORE_DATA?.factions?.[factionKey];
+    if (!faction) return 0;
+    
+    let count = 0;
+    
+    // Count leader
+    if (faction.leader) count++;
+    
+    // Count notable people
+    if (faction.notable_people && Array.isArray(faction.notable_people)) {
+        count += faction.notable_people.length;
+    }
+    
+    // Count characters associated with this faction
+    for (const charKey in LORE_DATA?.characters || {}) {
+        const char = LORE_DATA.characters[charKey];
+        if (char.faction === factionKey || char.affiliation === factionKey) {
+            count++;
+        }
+    }
+    
+    // Count auxiliary party members
+    for (const charKey in LORE_DATA?.auxiliary_party || {}) {
+        const char = LORE_DATA.auxiliary_party[charKey];
+        if (char.faction === factionKey || char.affiliation === factionKey) {
+            count++;
+        }
+    }
+    
+    return count || 1; // Return at least 1
+}
+
+// ============================================================================
+// RENDER: ACTIVE ARCS SIDEBAR (UPDATED)
+// ============================================================================
+
+function renderActiveArcs() {
+    const container = document.getElementById('active-arcs');
+    if (!container) return;
+
+    const arcs = Object.values(STORY_ARCS || {}).filter(arc => arc.status === 'active');
+
+    if (arcs.length === 0) {
+        container.innerHTML = '<p style="color:var(--wahbook-text-muted);font-size:0.85rem;">No active story arcs.</p>';
+        return;
+    }
+
+    container.innerHTML = arcs.slice(0, 4).map(arc => {
+        const currentPhase = arc.phases?.[arc.currentPhase];
+        const progress = arc.phases ? Math.round(((arc.currentPhase + 1) / arc.phases.length) * 100) : 0;
+        
+        return `
+            <div class="arc-item" data-arc="${arc.id}">
+                <span class="arc-icon">${arc.icon}</span>
+                <div class="arc-info">
+                    <span class="arc-name">${arc.name}</span>
+                    ${currentPhase ? `<span class="arc-phase-name">${currentPhase.name}</span>` : ''}
+                </div>
+                <div class="arc-mini-progress">
+                    <div class="arc-mini-progress-fill" style="width: ${progress}%"></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Add click handlers
+    container.querySelectorAll('.arc-item').forEach(item => {
+        item.addEventListener('click', () => {
+            openArcModal(item.dataset.arc);
+            playSound('click.mp3');
+        });
+    });
+}
+
+
+// ============================================================================
+// HELPER: Count Faction Members (NEW FUNCTION)
+// ============================================================================
+
+
+
 
 // ============================================================================
 // RENDER CURRENT FEED
@@ -1259,6 +1648,10 @@ function closeModal(modal) {
         modal.classList.remove('active');
     }
 }
+// ============================================================================
+// OPEN DOSSIER MODAL (UPDATED - Shows faction names & key factions)
+// ============================================================================
+
 function openDossierModal(rumorId) {
     const modal = document.getElementById('dossier-modal');
     const body = document.getElementById('dossier-modal-body');
@@ -1270,48 +1663,140 @@ function openDossierModal(rumorId) {
     const relatedPosts = getVisiblePosts().filter(p => p.rumorId === rumorId);
     const metrics = calculateRumorMetrics(rumor, relatedPosts);
 
+    // Get arc info if exists
+    const arc = rumor.arc && STORY_ARCS?.[rumor.arc] ? STORY_ARCS[rumor.arc] : null;
+
     let dateStr = rumor.time_ago || 'Unknown';
     if (rumor.date) {
         const month = CALENDAR_DATA?.months?.values?.[rumor.date.monthIndex];
         dateStr = `${month?.name || 'Month'} ${rumor.date.day}, ${rumor.date.year}`;
     }
 
+    // Build reputation effects HTML with proper faction names
+    const effectsHTML = Object.entries(rumor.effects || {}).map(([factionKey, value]) => {
+        const factionData = LORE_DATA?.factions?.[factionKey];
+        const factionName = factionData?.name || formatCharacterKey(factionKey);
+        const factionLogo = factionData?.logo || null;
+        const sign = value > 0 ? '+' : '';
+        const className = value > 0 ? 'positive' : 'negative';
+        
+        return `
+            <div class="dossier-effect-item ${className}">
+                ${factionLogo ? `<img src="${factionLogo}" alt="${factionName}" class="dossier-effect-logo" onerror="handleImageError(this)">` : ''}
+                <span class="dossier-effect-name">${factionName}</span>
+                <span class="dossier-effect-value ${className}">${sign}${value}</span>
+            </div>
+        `;
+    }).join('');
+
+    // Build key factions HTML
+    const keyFactions = rumor.keyFactions || rumor.key_factions || [];
+    const keyFactionsHTML = keyFactions.length > 0 ? `
+        <div class="dossier-section">
+            <h4>🏛️ Key Factions Involved</h4>
+            <div class="dossier-key-factions">
+                ${keyFactions.map(factionKey => {
+                    const faction = LORE_DATA?.factions?.[factionKey];
+                    if (!faction) return '';
+                    return `
+                        <div class="dossier-faction-chip" data-faction="${factionKey}">
+                            <img src="${faction.logo}" alt="${faction.name}" class="dossier-faction-chip-logo" onerror="handleImageError(this)">
+                            <span>${faction.name}</span>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    ` : '';
+
+    // Build arc link HTML
+    const arcHTML = arc ? `
+        <div class="dossier-arc-link" data-arc-id="${arc.id}">
+            <span class="dossier-arc-icon">${arc.icon}</span>
+            <span class="dossier-arc-name">Part of: ${arc.name}</span>
+            <span class="dossier-arc-arrow">→</span>
+        </div>
+    ` : '';
+
     body.innerHTML = `
         <div class="dossier-header">
             <h2>${rumor.title}</h2>
             <div class="dossier-meta">
-                <span>📅 ${dateStr}</span>
-                <span>📊 ${metrics.status}</span>
-                <span>💬 ${relatedPosts.length} posts</span>
+                <span class="dossier-meta-item">📅 ${dateStr}</span>
+                <span class="dossier-meta-item">📊 ${metrics.status}</span>
+                <span class="dossier-meta-item">💬 ${relatedPosts.length} posts</span>
+                ${rumor.isEvent ? '<span class="dossier-type-badge event">Event</span>' : '<span class="dossier-type-badge rumor">Rumor</span>'}
             </div>
         </div>
+        
+        ${arcHTML}
         
         <p class="dossier-description">${rumor.description}</p>
         
-        <div class="dossier-effects">
-            <h4>Reputation Effects</h4>
-            <div class="effects-list">
-                ${Object.entries(rumor.effects || {}).map(([faction, value]) => {
-                    const factionData = LORE_DATA.factions?.[faction];
-                    const sign = value > 0 ? '+' : '';
-                    const className = value > 0 ? 'positive' : 'negative';
-                    return `<span class="intel-effect ${className}">${factionData?.name || faction}: ${sign}${value}</span>`;
-                }).join('') || '<span class="no-effects">No reputation changes.</span>'}
-            </div>
+        ${keyFactionsHTML}
+        
+        <div class="dossier-section">
+            <h4>⚖️ Reputation Effects</h4>
+            ${Object.keys(rumor.effects || {}).length > 0 ? `
+                <div class="dossier-effects-grid">
+                    ${effectsHTML}
+                </div>
+            ` : '<p class="dossier-no-effects">No reputation changes recorded.</p>'}
         </div>
         
         ${relatedPosts.length > 0 ? `
-            <div class="dossier-related-posts">
-                <h4>Related Posts (${relatedPosts.length})</h4>
-                <div class="related-posts-list">
+            <div class="dossier-section">
+                <h4>💬 Related Posts (${relatedPosts.length})</h4>
+                <div class="dossier-posts-list">
                     ${relatedPosts.slice(0, 5).map(p => renderPost(p)).join('')}
+                    ${relatedPosts.length > 5 ? `
+                        <button class="dossier-show-more-btn" data-rumor-id="${rumorId}">
+                            Show ${relatedPosts.length - 5} more posts
+                        </button>
+                    ` : ''}
                 </div>
             </div>
-        ` : '<p class="no-posts">No related posts yet.</p>'}
+        ` : '<p class="dossier-no-posts">No related posts yet.</p>'}
     `;
 
-    modal.classList.add('active');
+    // Attach event listeners
+    
+    // Arc link click
+    body.querySelector('.dossier-arc-link')?.addEventListener('click', () => {
+        closeModal(modal);
+        openArcModal(arc.id);
+    });
+
+    // Faction chip clicks
+    body.querySelectorAll('.dossier-faction-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            closeModal(modal);
+            activeFactionFilter = chip.dataset.faction;
+            currentTab = 'foryou';
+            renderNavTabs();
+            renderFactionFilters();
+            renderCurrentFeed();
+            playSound('click.mp3');
+        });
+    });
+
+    // Show more posts button
+    body.querySelector('.dossier-show-more-btn')?.addEventListener('click', (e) => {
+        const btn = e.target;
+        const postsList = body.querySelector('.dossier-posts-list');
+        const remainingPosts = relatedPosts.slice(5);
+        
+        remainingPosts.forEach(p => {
+            postsList.insertAdjacentHTML('beforeend', renderPost(p));
+        });
+        
+        btn.remove();
+        attachPostEventListeners(postsList);
+    });
+
     attachPostEventListeners(body);
+
+    modal.classList.add('active');
     playSound('click.mp3');
 }
 function openShareModal(postId) {

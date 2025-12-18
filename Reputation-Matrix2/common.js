@@ -7,18 +7,7 @@ const audioBuffers = {};
 const failedSounds = new Set();
 // Run this in browser console to check if image exists
 async function testImage(path) {
-    return new Promise(resolve => {
-        const img = new Image();
-        img.onload = () => {
-            console.log(`✅ FOUND: ${path}`);
-            resolve(true);
-        };
-        img.onerror = () => {
-            console.log(`❌ NOT FOUND: ${path}`);
-            resolve(false);
-        };
-        img.src = path;
-    });
+
 }
 
 // Test the specific image
