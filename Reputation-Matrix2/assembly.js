@@ -525,7 +525,7 @@ function renderFactionFilters() {
 }
 
 // ============================================================================
-// RENDER: SINGLE POST
+// RENDER: SINGLE POST (UPDATED - Fixed view more comments)
 // ============================================================================
 
 function renderPost(post, options = {}) {
@@ -566,24 +566,18 @@ function renderPost(post, options = {}) {
         </span>
     ` : '';
 
-    // Comments
-    const commentsHTML = (post.comments || []).slice(0, 3).map(comment => {
-        const commenter = getCharacterData(comment.characterKey);
-        return `
-            <div class="comment">
-                <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}">
-                    <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" onerror="handleImageError(this)">
-                </a>
-                <div class="comment-body">
-                    <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}" class="comment-author">${commenter.name}</a>
-                    <span class="comment-text">${comment.text || ''}</span>
-                </div>
-            </div>
-        `;
-    }).join('');
+    // Comments - show first 3
+    const allComments = post.comments || [];
+    const visibleComments = allComments.slice(0, 3);
+    const hiddenComments = allComments.slice(3);
+    
+    const commentsHTML = visibleComments.map(comment => renderComment(comment)).join('');
 
-    const moreComments = (post.comments || []).length > 3 
-        ? `<button class="view-more-comments">View ${post.comments.length - 3} more comments</button>` 
+    const moreCommentsHTML = hiddenComments.length > 0 
+        ? `<button class="view-more-comments" data-post-id="${post.id}" data-hidden-count="${hiddenComments.length}">View ${hiddenComments.length} more comment${hiddenComments.length > 1 ? 's' : ''}</button>
+           <div class="hidden-comments" data-post-id="${post.id}" style="display:none;">
+               ${hiddenComments.map(comment => renderComment(comment)).join('')}
+           </div>` 
         : '';
 
     // Media
@@ -635,7 +629,7 @@ function renderPost(post, options = {}) {
                 </button>
                 <button class="interaction-btn comment-btn" data-post-id="${post.id}">
                     <span class="interaction-btn-icon">💬</span>
-                    <span>${(post.comments || []).length}</span>
+                    <span>${allComments.length}</span>
                 </button>
                 <button class="interaction-btn share-btn" data-post-id="${post.id}">
                     <span class="interaction-btn-icon">↗️</span>
@@ -646,15 +640,122 @@ function renderPost(post, options = {}) {
                 </button>
             </div>
             
-            ${(post.comments?.length || state.loggedInUser !== 'generic') ? `
+            ${(allComments.length || state.loggedInUser !== 'generic') ? `
                 <div class="post-comments-section">
                     <div class="post-comments">${commentsHTML}</div>
-                    ${moreComments}
+                    ${moreCommentsHTML}
                     ${replyHTML}
                 </div>
             ` : ''}
         </article>
     `;
+}
+
+// ============================================================================
+// RENDER: SINGLE COMMENT (NEW HELPER FUNCTION)
+// ============================================================================
+
+function renderComment(comment) {
+    const commenter = getCharacterData(comment.characterKey);
+    return `
+        <div class="comment">
+            <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}">
+                <img src="${commenter.portrait}" alt="${commenter.name}" class="comment-pfp" onerror="handleImageError(this)">
+            </a>
+            <div class="comment-body">
+                <a href="profile.html?user=${encodeURIComponent(comment.characterKey)}" class="comment-author">${commenter.name}</a>
+                <span class="comment-text">${comment.text || ''}</span>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
+// ATTACH POST EVENT LISTENERS (UPDATED - Added view more comments handler)
+// ============================================================================
+
+function attachPostEventListeners(container) {
+    // Like buttons
+    container.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            toggleLike(postId, btn);
+            playSound('click.mp3');
+        });
+    });
+
+    // Comment buttons
+    container.querySelectorAll('.comment-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            const postEl = btn.closest('.feed-post');
+            const replyInput = postEl?.querySelector('.reply-input');
+            if (replyInput) {
+                replyInput.focus();
+            }
+        });
+    });
+
+    // Share buttons
+    container.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            openShareModal(btn.dataset.postId);
+        });
+    });
+
+    // Bookmark buttons
+    container.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            toggleBookmark(postId, btn);
+            playSound('click.mp3');
+        });
+    });
+
+    // Reply inputs
+    container.querySelectorAll('.reply-input').forEach(input => {
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && input.value.trim()) {
+                submitReply(input.dataset.postId, input.value.trim(), input);
+            }
+        });
+    });
+
+    // Rumor links
+    container.querySelectorAll('.rumor-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            openDossierModal(link.dataset.rumor);
+        });
+    });
+
+    // View more comments buttons
+    container.querySelectorAll('.view-more-comments').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            const hiddenContainer = container.querySelector(`.hidden-comments[data-post-id="${postId}"]`);
+            
+            if (hiddenContainer) {
+                // Show hidden comments
+                hiddenContainer.style.display = 'block';
+                
+                // Move hidden comments into main comments container
+                const postEl = btn.closest('.feed-post') || btn.closest('article');
+                const commentsContainer = postEl?.querySelector('.post-comments');
+                
+                if (commentsContainer && hiddenContainer) {
+                    // Append hidden comments to visible comments
+                    commentsContainer.insertAdjacentHTML('beforeend', hiddenContainer.innerHTML);
+                    
+                    // Remove the hidden container and button
+                    hiddenContainer.remove();
+                    btn.remove();
+                }
+            }
+            
+            playSound('click.mp3');
+        });
+    });
 }
 
 function formatPostContent(content) {
@@ -1818,61 +1919,7 @@ function openShareModal(postId) {
 // EVENT HANDLERS
 // ============================================================================
 
-function attachPostEventListeners(container) {
-    // Like buttons
-    container.querySelectorAll('.like-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const postId = btn.dataset.postId;
-            toggleLike(postId, btn);
-            playSound('click.mp3');
-        });
-    });
 
-    // Comment buttons
-    container.querySelectorAll('.comment-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const postId = btn.dataset.postId;
-            const postEl = btn.closest('.feed-post');
-            const replyInput = postEl?.querySelector('.reply-input');
-            if (replyInput) {
-                replyInput.focus();
-            }
-        });
-    });
-
-    // Share buttons
-    container.querySelectorAll('.share-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            openShareModal(btn.dataset.postId);
-        });
-    });
-
-    // Bookmark buttons
-    container.querySelectorAll('.bookmark-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const postId = btn.dataset.postId;
-            toggleBookmark(postId, btn);
-            playSound('click.mp3');
-        });
-    });
-
-    // Reply inputs
-    container.querySelectorAll('.reply-input').forEach(input => {
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && input.value.trim()) {
-                submitReply(input.dataset.postId, input.value.trim(), input);
-            }
-        });
-    });
-
-    // Rumor links
-    container.querySelectorAll('.rumor-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            openDossierModal(link.dataset.rumor);
-        });
-    });
-}
 
 function toggleLike(postId, btn) {
     if (!state.userState.likedPosts) state.userState.likedPosts = [];

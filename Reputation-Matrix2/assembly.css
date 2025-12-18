@@ -3150,3 +3150,42 @@
         gap: 8px;
     }
 }
+/* ============================================================================
+   VIEW MORE COMMENTS STYLES
+   ============================================================================ */
+
+.view-more-comments {
+    background: none;
+    border: none;
+    color: var(--wahbook-text-muted);
+    font-size: 0.85rem;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-align: left;
+    width: 100%;
+}
+
+.view-more-comments:hover {
+    color: var(--wahbook-accent);
+    text-decoration: underline;
+}
+
+.hidden-comments {
+    display: none;
+}
+
+.hidden-comments .comment {
+    animation: fadeInComment 0.3s ease;
+}
+
+@keyframes fadeInComment {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
