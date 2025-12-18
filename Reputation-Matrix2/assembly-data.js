@@ -2,6 +2,74 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+    {
+    id: 'wario_dead_drop',
+    order: 32191,
+    characterKey: 'wario',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 15 },
+    timestamp: '35 minutes ago',
+    content: `Waaah! You toads are in DEEP garlic right now, huh? Legion crawling all over the skies, your big green boss missing, half your heroes in chains or bleeding out... Perfect time for Uncle Wario to make a profit! 💰
+
+Left a big fat crate in the old smugglers' tunnel under Raventree's wine cellar. Same tunnel your Pond Patrol used to sneak in supplies last week. You know the one—the loose brick with the "W" scratched on it.
+
+Inside:
+• Tournament Card Deck (1,500 XP)
+• Faction Banners (4,000 XP) 
+• Wall of the Fallen memorial kit (5,000 XP)
+• Premium Chronicler ink & parchment (8,000 XP)
+• Reinforced Training Dummies (12,000 XP)
+
+Call it a "get out of jail free" gift. Or payment for that little favor you still owe me from the Syrup incident. Either way, crate's on a 2-hour timer. After that, boom—self-destructs and floods the tunnel with stink-mushroom gas. Nobody gets nothing!
+
+Clock's ticking, losers. Don't say Wario never did nothing for ya!`,
+    likes: 3200,
+    comments: [
+        { characterKey: 'toad_lee', text: '...Hes literally extorting us while Bones is dying. Classic Wario.' },
+        { characterKey: 'humpik', text: 'I smell treasure! And garlic! I vote we take it!' },
+        { characterKey: 'scribe_dewdrop', text: 'The ink alone is worth risking the gas... Chroniclers are voting YES.' },
+        { characterKey: 'captain_fernback', text: 'Pond Patrol already sweeping the tunnel. If its a trap, we contain it. If its real... we NEED those supplies.' },
+        { characterKey: 'wario', text: 'Tick-tock, toadies~ 💣' }
+    ],
+    rumorId: 'wraith_banishment'
+},
+{
+    id: 'crate_retrieved',
+    order: 32195,
+    characterKey: 'toad_lee',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 28 },
+    timestamp: '22 minutes ago',
+    content: `Tunnel team just pulled the crate. No explosion (yet). Smells like garlic and greed, but everything's here. Dummies are already being set up in the ballroom for emergency militia drills. Banners going up on the Vigilance's hull the second we get her back. Wall of the Fallen... we're saving that for after we rescue Bones. We WILL have names to add, but not his.
+
+Wario's a greedy bastard, but today he's our greedy bastard.
+
+Pond holds.`,
+    likes: 4800,
+    comments: [
+        { characterKey: 'healer_mistpetal', text: 'The medical cohort thanks him for the ink. Were running out of paper to document the dying.' },
+        { characterKey: 'elder_mudcap', text: 'Hang those banners high when we retake the ship. Let the Legion see were still fighting.' },
+        { characterKey: 'wario', text: 'Youre welcome! Invoice coming later. With interest. 😏' }
+    ],
+    rumorId: 'wraith_banishment'
+},
+{
+    id: 'training_dummies_live',
+    order: 32200,
+    characterKey: 'warden_thornshell',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 45 },
+    timestamp: '5 minutes ago',
+    content: `Dummies are up in the east hall. Every able-bodied toad—Barrel Survivors, Wardens, even the damn Chroniclers—are running live-steel drills right now. No magic, no mercy. If we're mounting a suicide run on Aegis Command in the next hour, nobody's going in rusty.
+
+I just watched a one-armed Dan split a dummy clean in half with an axe throw.
+
+We are NOT done yet.`,
+    likes: 6100,
+    comments: [
+        { characterKey: 'dan', text: 'Still got one good arm. Thats enough.' },
+        { characterKey: 'toad_lee', text: 'Seeing Dan train again just gave every toad in the room +10 morale. Real stat.' },
+        { characterKey: 'speaker_l', text: 'Wherever you are, real Speaker L... Im keeping them fighting. For you.' }
+    ],
+    rumorId: 'wraith_banishment'
+},
   {
         id: 'hotel_lockdown_breaking',
         order: 62400,

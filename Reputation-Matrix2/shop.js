@@ -1316,6 +1316,14 @@ function renderPurchaseHistory() {
 // --- Initialize ---
 async function init() {
     console.log('🏪 Initializing Wario\'s Warehouse...');
+    localStorage.setItem('faction_xp_spent', '30500');
+localStorage.setItem('faction_items_owned', JSON.stringify([
+    'faction_uno_deck',
+    'faction_banners', 
+    'faction_memorial',
+    'faction_ink_supplies',
+    'faction_training_dummies'
+]));
     
     // Inject durability styles
     injectDurabilityStyles();

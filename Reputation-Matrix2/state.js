@@ -8,7 +8,7 @@ import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-
 import { WAHBOOK_POSTS } from './assembly-data.js';
 const DATA_VERSION = 3; 
 // --- STATE MANAGEMENT ---
-
+localStorage.setItem('faction_xp_spent', '30500');
 // Weapon archetype normalization to prevent undefined ability lookups
 const WEAPON_ALIASES = {
     'axe': 'axe',
