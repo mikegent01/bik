@@ -3206,3 +3206,20 @@
     padding-top: 8px;
     border-top: 1px solid var(--wahbook-border);
 }
+.interaction-btn.read-btn.reading-active {
+    color: var(--wahbook-accent);
+    background: rgba(var(--wahbook-accent-rgb), 0.1);
+    border-radius: 4px;
+}
+
+/* Optional pulse effect for the icon */
+.reading-active .interaction-btn-icon {
+    display: inline-block;
+    animation: speakerPulse 1.5s infinite;
+}
+
+@keyframes speakerPulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}

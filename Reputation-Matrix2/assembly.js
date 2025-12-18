@@ -631,9 +631,10 @@ function renderPost(post, options = {}) {
                     <span class="interaction-btn-icon">💬</span>
                     <span>${allComments.length}</span>
                 </button>
-                <button class="interaction-btn share-btn" data-post-id="${post.id}">
-                    <span class="interaction-btn-icon">↗️</span>
-                    <span>Share</span>
+<button class="interaction-btn read-btn" data-post-id="${post.id}">
+    <span class="interaction-btn-icon">🔊</span>
+    <span class="read-text">Read</span>
+</button>
                 </button>
                 <button class="interaction-btn bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" data-post-id="${post.id}">
                     <span class="interaction-btn-icon">${isBookmarked ? '🔖' : '📑'}</span>
@@ -650,7 +651,74 @@ function renderPost(post, options = {}) {
         </article>
     `;
 }
+let currentUtterance = null;
 
+function stopSpeaking() {
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+    }
+    // Reset all buttons to "Read" state
+    document.querySelectorAll('.read-btn').forEach(btn => {
+        btn.querySelector('.read-text').textContent = 'Read';
+        btn.querySelector('.interaction-btn-icon').textContent = '🔊';
+        btn.classList.remove('reading-active');
+    });
+}
+
+function speakPost(postId, btn) {
+    // If already speaking this post, stop it
+    if (btn.classList.contains('reading-active')) {
+        stopSpeaking();
+        return;
+    }
+
+    // Stop anything else currently playing
+    stopSpeaking();
+
+    const post = WAHBOOK_POSTS.find(p => p.id === postId);
+    if (!post) return;
+
+    const author = getCharacterData(post.characterKey);
+    
+    // 1. Clean up the text for better speech
+    const cleanContent = post.content
+        .replace(/#(\w+)/g, '$1') // Remove # from hashtags
+        .replace(/@(\w+)/g, 'at $1'); // Change @ to "at"
+
+    // 2. Build the full script
+    let fullText = `${author.name} posted: ${cleanContent}. `;
+    
+    if (post.comments && post.comments.length > 0) {
+        fullText += ` There are ${post.comments.length} comments. `;
+        post.comments.forEach(c => {
+            const cAuthor = getCharacterData(c.characterKey);
+            fullText += `${cAuthor.name} says: ${c.text}. `;
+        });
+    }
+
+    // 3. Setup Utterance
+    const utterance = new SpeechSynthesisUtterance(fullText);
+    
+    // Optional: Pick a specific voice/speed
+    utterance.rate = 0.95; // Slightly slower for clarity
+    utterance.pitch = 1.0;
+
+    // 4. Update UI visuals
+    utterance.onstart = () => {
+        btn.classList.add('reading-active');
+        btn.querySelector('.read-text').textContent = 'Stop';
+        btn.querySelector('.interaction-btn-icon').textContent = '⏹️';
+    };
+
+    utterance.onend = () => {
+        btn.classList.remove('reading-active');
+        btn.querySelector('.read-text').textContent = 'Read';
+        btn.querySelector('.interaction-btn-icon').textContent = '🔊';
+    };
+
+    window.speechSynthesis.speak(utterance);
+    currentUtterance = utterance;
+}
 // ============================================================================
 // RENDER: SINGLE COMMENT (NEW HELPER FUNCTION)
 // ============================================================================
@@ -683,7 +751,13 @@ function attachPostEventListeners(container) {
             playSound('click.mp3');
         });
     });
-
+  container.querySelectorAll('.read-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            speakPost(postId, btn);
+            playSound('click.mp3');
+        });
+    });
     // Comment buttons
     container.querySelectorAll('.comment-btn').forEach(btn => {
         btn.addEventListener('click', () => {

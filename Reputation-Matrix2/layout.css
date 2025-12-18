@@ -219,13 +219,10 @@
     background-color: rgba(218, 54, 51, 0.05);
 }
 
-/* --- Main Content --- */
 #main-content {
-    flex-grow: 1;
-    margin-left: 280px; /* Same as sidebar width */
-    padding: 32px;
-    background-color: var(--main-bg);
-    min-height: 100vh;
+    width: 100%;
+    margin-left: 0;
+    padding: 20px;
 }
 
 #view-container {
