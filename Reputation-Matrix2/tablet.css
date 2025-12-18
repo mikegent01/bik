@@ -2,7 +2,69 @@
    WAH-TABLET - FULLSCREEN OVERLAY VERSION
    Waluigi's Custom-Built Navigation Tablet
    ============================================ */
+/* Ensure the page takes up the full width now that sidebar is gone */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
 
+/* If your main content is inside a <main> or .content-wrapper tag */
+main, .main-content, #content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px; /* Adjust as needed */
+}
+
+/* Floating Tablet Root */
+#wah-tablet-root {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Sticky Bottom-Right Toggle */
+.tablet-toggle-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    top: auto; /* Overrides previous top: 20px */
+    left: auto; /* Overrides previous left: 20px */
+    width: 65px;
+    height: 65px;
+    pointer-events: auto;
+    z-index: 10000;
+}
+
+/* Full Screen Overlay Styling */
+.wah-tablet {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7); /* Dim the background page */
+    backdrop-filter: blur(5px); /* Blur the content behind it */
+    pointer-events: auto;
+    transform: translateY(100%); /* Slide in from bottom */
+    transition: transform 0.4s ease-out;
+}
+
+.wah-tablet.open {
+    transform: translateY(0);
+}
+
+/* Adjust the Tablet Body for the overlay */
+.tablet-body {
+    width: 380px;
+    height: 90vh;
+    max-height: 850px;
+}
 :root {
     /* Waluigi Colors */
     --wah-purple: #6B21A8;
