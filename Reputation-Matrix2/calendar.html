@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,92 +13,108 @@
 <body>
     <div class="tablet-frame">
         <div class="scanline-overlay"></div>
+        
         <div id="app">
-             <aside id="sidebar"></aside>
-            <main id="main-content">
-                 <div class="calendar-page-header">
-                    <h2 class="page-title">Imperial Standard Calendar</h2>
-                    <div class="calendar-controls">
-                        <button id="today-btn" class="control-btn">Today</button>
-                        <div class="nav-group">
-                            <button id="prev-year" class="nav-arrow" title="Previous Year">&laquo;</button>
-                            <button id="prev-month" class="nav-arrow" title="Previous Month">&lsaquo;</button>
-                            <h3 id="current-date-display">Month Year</h3>
-                            <button id="next-month" class="nav-arrow" title="Next Month">&rsaquo;</button>
-                            <button id="next-year" class="nav-arrow" title="Next Year">&raquo;</button>
-                        </div>
-                    </div>
-                 </div>
+            <aside id="sidebar"></aside>
+            
+            <main id="main-content" class="calendar-main">
+                
+                <!-- News Ticker -->
+                <div class="news-ticker-container">
+                    <div class="ticker-label">📡 LIVE</div>
+                    <div id="news-ticker" class="news-ticker"></div>
+                </div>
 
-                 <div id="calendar-dashboard">
-                    <div class="calendar-grid-container">
+                <!-- Header Controls -->
+                <header class="calendar-header">
+                    <div class="header-left">
+                        <h1 class="calendar-title">Imperial Calendar</h1>
+                        <div id="quick-stats" class="quick-stats"></div>
+                    </div>
+                    
+                    <div class="header-center">
+                        <nav class="nav-controls">
+                            <button id="prev-year" class="nav-btn" title="Previous Year">
+                                <span class="nav-icon">«</span>
+                            </button>
+                            <button id="prev-month" class="nav-btn" title="Previous Month">
+                                <span class="nav-icon">‹</span>
+                            </button>
+                            <h2 id="current-date-display" class="date-display">Month Year</h2>
+                            <button id="next-month" class="nav-btn" title="Next Month">
+                                <span class="nav-icon">›</span>
+                            </button>
+                            <button id="next-year" class="nav-btn" title="Next Year">
+                                <span class="nav-icon">»</span>
+                            </button>
+                        </nav>
+                        <button id="today-btn" class="today-btn">
+                            <span class="today-icon">📍</span> Today
+                        </button>
+                    </div>
+                    
+                    <div class="header-right">
+                        <div class="search-container">
+                            <input type="text" id="calendar-search" class="search-input" placeholder="Search events..." autocomplete="off">
+                            <div id="search-results" class="search-results"></div>
+                        </div>
+                        <div id="filter-toggles" class="filter-toggles"></div>
+                    </div>
+                </header>
+
+                <!-- Main Dashboard -->
+                <div class="calendar-dashboard">
+                    
+                    <!-- Calendar Grid -->
+                    <section class="calendar-grid-section">
                         <div class="weekdays-header">
-                            <div>Sol</div>
-                            <div>Lun</div>
-                            <div>Ter</div>
-                            <div>Mer</div>
-                            <div>Jov</div>
-                            <div>Ven</div>
-                            <div>Sat</div>
+                            <div class="weekday">Sol</div>
+                            <div class="weekday">Lun</div>
+                            <div class="weekday">Ter</div>
+                            <div class="weekday">Mer</div>
+                            <div class="weekday">Jov</div>
+                            <div class="weekday">Ven</div>
+                            <div class="weekday">Sat</div>
                         </div>
-                        <div id="calendar-grid">
-                            <!-- Days injected here -->
-                        </div>
-                    </div>
+                        <div id="calendar-grid" class="calendar-grid"></div>
+                        <div id="calendar-legend" class="calendar-legend"></div>
+                    </section>
 
-                    <aside id="calendar-sidebar">
-                        <!-- Search Widget -->
-                        <div class="info-card search-card">
-                            <input type="text" id="calendar-search-input" placeholder="Search holidays, birthdays..." autocomplete="off">
-                            <ul id="calendar-search-results" class="event-list" style="display:none; margin-top:10px; max-height: 150px; overflow-y: auto;"></ul>
-                        </div>
-
-                        <!-- Selected Day Details -->
-                        <div id="day-detail-card" class="info-card">
-                            <div class="card-header">
-                                <h4 id="selected-date-header">Select a Day</h4>
-                                <span id="selected-date-weather" class="weather-icon-large"></span>
-                            </div>
-                            <div id="selected-day-content">
-                                <p class="placeholder-text">Click a day on the grid to view details, weather reports, and liturgy.</p>
+                    <!-- Sidebar -->
+                    <aside class="calendar-sidebar">
+                        
+                        <!-- Selected Day Header -->
+                        <div class="sidebar-header">
+                            <div class="sidebar-date">
+                                <h3 id="sidebar-date-header">Select a Day</h3>
+                                <div id="sidebar-weather-icon" class="sidebar-weather"></div>
                             </div>
                         </div>
+
+                        <!-- Tabs -->
+                        <div id="sidebar-tabs" class="sidebar-tabs"></div>
+
+                        <!-- Tab Content -->
+                        <div id="sidebar-content" class="sidebar-content"></div>
 
                         <!-- Upcoming Events -->
-                        <div class="info-card">
-                            <h4 class="section-header">Upcoming Events</h4>
-                            <ul id="upcoming-events-list" class="event-list">
-                                <!-- Injected here -->
-                            </ul>
+                        <div class="upcoming-section">
+                            <h4 class="section-title">
+                                <span class="section-icon">📆</span>
+                                Upcoming
+                            </h4>
+                            <div id="upcoming-list" class="upcoming-list"></div>
                         </div>
-<div class="calendar-sidebar-section" id="rewards-section">
-    <h4>🎁 Rewards Earned</h4>
-    <div id="rewards-panel"></div>
-</div>
-                        <!-- Legend -->
-                        <div class="info-card legend-card">
-                            <h4 class="section-header">Legend</h4>
-                            <div class="legend-grid">
-    <div class="legend-item"><span class="event-dot holiday"></span> Holiday</div>
-    <div class="legend-item"><span class="event-dot guild_holiday"></span> Guild</div>
-    <div class="legend-item"><span class="event-dot birthday"></span> Birthday</div>
-    <div class="legend-item"><span class="event-dot tech"></span> Research</div>
-    <div class="legend-item"><span class="event-dot history"></span> History</div>
-    <div class="legend-item"><span class="event-dot battle"></span> Battle</div>
-    <div class="legend-item"><span class="event-dot rumor-start"></span> Rumor</div>
-    <div class="legend-item"><span class="event-dot plague_outbreak"></span> Plague</div>
-    <div class="legend-item"><span class="event-dot quest-start"></span> Quest Start</div>
-    <div class="legend-item"><span class="event-dot quest-deadline"></span> Deadline</div>
-    <div class="legend-item"><span class="event-dot quest-complete"></span> Complete</div>
-    <div class="legend-item"><span class="event-dot reward-earned"></span> Reward</div>
-    <div class="legend-item"><span class="event-dot legislation"></span> Politics</div>                            </div>
-                        </div>
+
                     </aside>
-                 </div>
+                </div>
+
             </main>
         </div>
     </div>
 
+    <!-- Day Preview Popup (injected by JS) -->
+    
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="calendar.js"></script>

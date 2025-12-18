@@ -1066,7 +1066,7 @@ export const DK_QUESTS = {
         subtitle: "Assassination Protocol: Foiled",
         type: QUEST_TYPES.RESCUE,
         category: 'Personal - Donkey Kong',
-        status: QUEST_STATUS.COMPLETED,
+        status: QUEST_STATUS.NPCCOMPLETED,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'kong_kremling_cold_war',
         objective: "Protect Funky Kong from the assassin Galypso.",
@@ -1086,11 +1086,9 @@ export const DK_QUESTS = {
         },
 
         rewards: {
-            guaranteed: [
-                { type: 'item', name: "Funky's Special Board", description: "A surfboard that works on lava" },
-                { type: 'reputation', faction: 'dk_crew', amount: 1000, description: "Family Savior" }
-            ],
-            xp: 6000
+
+            
+
         },
 
         milestones: [
@@ -1396,21 +1394,7 @@ export const WORLD_QUESTS = {
             { id: 'm1', status: 'active', title: "Investigate", description: "Gather evidence from both sides." }
         ]
     },
-    'world_imperial_demand': {
-        id: 'world_imperial_demand',
-        title: "The Imperial Demand",
-        type: QUEST_TYPES.POLITICAL,
-        category: 'World',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'capital_intrigue',
-        objective: "Respond to the Iron Legion's demand for Green T.",
-        assignees: ['party'],
-        description: "The Legion demands Green T and Lario be handed over.",
-        milestones: [
-            { id: 'm1', status: 'active', title: "The Ultimatum", description: "Decide: Comply or Defy." }
-        ]
-    }
+
 };
         
 export const MAIN_QUESTS = {

@@ -3189,3 +3189,20 @@
         transform: translateY(0);
     }
 }
+/* ============================================================================
+   INTEL CARD DATE STYLES
+   ============================================================================ */
+
+.intel-date {
+    font-size: 0.8rem;
+    color: var(--wahbook-text-muted);
+    margin: 8px 0;
+}
+
+.intel-footer {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--wahbook-text-muted);
+    padding-top: 8px;
+    border-top: 1px solid var(--wahbook-border);
+}

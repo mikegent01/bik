@@ -968,6 +968,9 @@ function scrollToTop() {
 // ============================================================================
 // RENDER: EVENTS TAB
 // ============================================================================
+// ============================================================================
+// RENDER: EVENTS TAB (FIXED - Proper date formatting)
+// ============================================================================
 
 function renderEventsFeed() {
     const container = document.getElementById('events-container');
@@ -986,7 +989,16 @@ function renderEventsFeed() {
         const isFuture = isFutureEvent(event.date);
         const relatedPosts = getVisiblePosts().filter(p => p.rumorId === event.id);
         const arc = event.arc && STORY_ARCS[event.arc] ? STORY_ARCS[event.arc] : null;
-        let dateStr = event.time_ago || 'Unknown Date';
+        
+        // Properly format the date
+        let dateStr = 'Unknown Date';
+        if (event.date) {
+            const month = CALENDAR_DATA?.months?.values?.[event.date.monthIndex];
+            const monthName = month?.name || `Month ${event.date.monthIndex + 1}`;
+            dateStr = `${monthName} ${event.date.day}, ${event.date.year}`;
+        } else if (event.time_ago) {
+            dateStr = event.time_ago;
+        }
 
         return `
             <div class="event-card ${isFuture ? 'debug-future' : ''}" id="event-${event.id}">
@@ -1008,7 +1020,8 @@ function renderEventsFeed() {
                         <h5>Faction Effects</h5>
                         <div class="effects-list">
                         ${Object.entries(event.effects || {}).map(([faction, value]) => {
-                            const name = LORE_DATA.factions?.[faction]?.name || faction;
+                            const factionData = LORE_DATA.factions?.[faction];
+                            const name = factionData?.name || formatCharacterKey(faction);
                             const color = value > 0 ? 'var(--wahbook-positive)' : 'var(--wahbook-negative)';
                             return `<span style="color:${color}">${name}: ${value > 0 ? '+' : ''}${value}</span>`;
                         }).join('') || '<span style="color:#888">No reputation changes.</span>'}
@@ -1044,7 +1057,79 @@ function renderEventsFeed() {
             }
         });
     });
+
+    // Attach post event listeners for related posts
+    attachPostEventListeners(container);
 }
+
+// ============================================================================
+// RENDER: INTEL TAB (FIXED - Proper date formatting)
+// ============================================================================
+
+function renderIntelFeed() {
+    const container = document.getElementById('intel-container');
+    if (!container) return;
+
+    const rumors = (LORE_DATA?.rumors || []).filter(r => isContentVisible(r.date));
+
+    // Calculate metrics for each
+    const rumorData = rumors.map(rumor => {
+        const relatedPosts = getVisiblePosts().filter(p => p.rumorId === rumor.id);
+        const metrics = calculateRumorMetrics(rumor, relatedPosts);
+        return { ...rumor, metrics, postCount: relatedPosts.length };
+    });
+
+    // Sort by impact
+    rumorData.sort((a, b) => Math.abs(b.metrics.finalScore) - Math.abs(a.metrics.finalScore));
+
+    container.innerHTML = `
+        <div class="intel-grid">
+            ${rumorData.slice(0, 12).map(rumor => {
+                const isFuture = isFutureEvent(rumor.date);
+                const typeBadge = rumor.isEvent ? 'event' : 'rumor';
+                
+                // Properly format the date
+                let dateStr = '';
+                if (rumor.date) {
+                    const month = CALENDAR_DATA?.months?.values?.[rumor.date.monthIndex];
+                    const monthName = month?.name || `Month ${rumor.date.monthIndex + 1}`;
+                    dateStr = `${monthName} ${rumor.date.day}, ${rumor.date.year}`;
+                } else if (rumor.time_ago) {
+                    dateStr = rumor.time_ago;
+                }
+                
+                return `
+                    <div class="intel-card ${isFuture ? 'debug-future' : ''}" data-rumor-id="${rumor.id}" ${isFuture ? 'style="border:2px dashed #ff4444;"' : ''}>
+                        <div class="intel-card-header">
+                            <span class="intel-title">${rumor.title}</span>
+                            <span class="intel-type-badge ${typeBadge}">${typeBadge}</span>
+                        </div>
+                        <p class="intel-description">${rumor.description.substring(0, 120)}${rumor.description.length > 120 ? '...' : ''}</p>
+                        ${dateStr ? `<div class="intel-date">📅 ${dateStr}</div>` : ''}
+                        <div class="intel-effects">
+                            ${Object.entries(rumor.effects || {}).slice(0, 3).map(([faction, value]) => {
+                                const sign = value > 0 ? '+' : '';
+                                const className = value > 0 ? 'positive' : 'negative';
+                                return `<span class="intel-effect ${className}">${sign}${value}</span>`;
+                            }).join('')}
+                        </div>
+                        <div class="intel-footer">
+                            ${rumor.metrics.status} · ${rumor.postCount} posts
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+
+    // Click handlers
+    container.querySelectorAll('.intel-card').forEach(card => {
+        card.addEventListener('click', () => {
+            openDossierModal(card.dataset.rumorId);
+        });
+    });
+}
+
 // ============================================================================
 // QUICK LINKS HANDLER
 // ============================================================================
@@ -1131,68 +1216,7 @@ function handleQuickLink(action) {
 // RENDER: INTEL TAB
 // ============================================================================
 
-function renderIntelFeed() {
-    const container = document.getElementById('intel-container');
-    if (!container) return;
 
-    const rumors = (LORE_DATA?.rumors || []).filter(r => isContentVisible(r.date));
-
-    // Calculate metrics for each
-    const rumorData = rumors.map(rumor => {
-        const relatedPosts = getVisiblePosts().filter(p => p.rumorId === rumor.id);
-        const metrics = calculateRumorMetrics(rumor, relatedPosts);
-        return { ...rumor, metrics, postCount: relatedPosts.length };
-    });
-
-    // Sort by impact
-    rumorData.sort((a, b) => Math.abs(b.metrics.finalScore) - Math.abs(a.metrics.finalScore));
-
-    container.innerHTML = `
-        <div class="intel-grid">
-            ${rumorData.slice(0, 12).map(rumor => {
-                const isFuture = isFutureEvent(rumor.date);
-                const typeBadge = rumor.isEvent ? 'event' : 'rumor';
-                
-                return `
-                    <div class="intel-card ${isFuture ? 'debug-future' : ''}" data-rumor-id="${rumor.id}" ${isFuture ? 'style="border:2px dashed #ff4444;"' : ''}>
-                        <div class="intel-card-header">
-                            <span class="intel-title">${rumor.title}</span>
-                            <span class="intel-type-badge ${typeBadge}">${typeBadge}</span>
-                        </div>
-                        <p class="intel-description">${rumor.description.substring(0, 120)}${rumor.description.length > 120 ? '...' : ''}</p>
-                        <div class="intel-effects">
-                            ${Object.entries(rumor.effects || {}).slice(0, 3).map(([faction, value]) => {
-                                const sign = value > 0 ? '+' : '';
-                                const className = value > 0 ? 'positive' : 'negative';
-                                return `<span class="intel-effect ${className}">${sign}${value}</span>`;
-                            }).join('')}
-                        </div>
-                        <div style="margin-top:12px;font-size:0.8rem;color:var(--wahbook-text-muted);">
-                            ${rumor.metrics.status} · ${rumor.postCount} posts
-                        </div>
-                    </div>
-                `;
-            }).join('')}
-        </div>
-    `;
-
-    // Click handlers
-    container.querySelectorAll('.intel-card').forEach(card => {
-        card.addEventListener('click', () => {
-            openDossierModal(card.dataset.rumorId);
-        });
-    });
-}
-
-// ============================================================================
-// RENDER: EXPLORE TAB
-// ============================================================================
-// ============================================================================
-// RENDER: EXPLORE TAB (UPDATED - Auto-generates Factions)
-// ============================================================================
-// ============================================================================
-// RENDER: EXPLORE TAB (UPDATED - Only shows active factions + enhanced arcs)
-// ============================================================================
 
 function renderExploreFeed() {
     const container = document.getElementById('explore-container');

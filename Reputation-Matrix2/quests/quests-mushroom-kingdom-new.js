@@ -35,27 +35,7 @@ export const NEW_MK_QUESTS = {
             { id: 'm2', status: 'active', title: "Secure Town", description: "Eliminate remaining pockets of resistance." }
         ]
     },
-    'grand_market_ring_retrieval': {
-        id: 'grand_market_ring_retrieval',
-        title: "Grand Market: The Ring Retrieval",
-        type: QUEST_TYPES.REQUEST,
-        category: 'Capital & Markets',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.MEDIUM,
-        difficulty: { overall: DIFFICULTY.MODERATE },
-        objective: "Recover a Legion noble’s heirloom ring.",
-        assignees: ['remi'],
-        description: "A ring was swallowed by a horse, then seized by Green T during a laxative-cheese incident. The noble wants it back.",
-        milestones: [
-            { 
-                id: 'm1', status: 'active', title: "Track the Heirloom", 
-                description: "Find Green T's fence or drop location.",
-                goals: [{ text: "Verify authenticity", status: 'active' }]
-            },
-            { id: 'm2', status: 'locked', title: "Negotiate", description: "Exchange leverage for the ring." }
-        ],
-        rewards: ["Contact in the Legion’s Diet", "Legal exemption"]
-    },
+   
     'eager_rescue_lead': {
         id: 'eager_rescue_lead',
         title: "Lead on Eager",

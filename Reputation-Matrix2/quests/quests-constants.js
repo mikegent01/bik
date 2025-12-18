@@ -7,6 +7,7 @@ export const QUEST_STATUS = {
     PENDING: 'pending',
     PAUSED: 'paused',
     COMPLETED: 'completed',
+    NPCCOMPLETED: 'completed',
     FAILED: 'failed',
     EXPIRED: 'expired'
 };
