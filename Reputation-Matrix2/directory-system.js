@@ -8,7 +8,7 @@ import { getIntelForFaction, getIntelBreakdown } from './systems/common.js';
 import { playSound } from './common.js';
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from './systems/faction-registry.js';
 import { getRealTimeMapStats } from './global-map-analysis.js';
-import { WAHBOOK_POSTS } from '../assembly-data.js';
+import { WAHBOOK_POSTS } from './assembly-data.js';
 import { calculateRumorMetrics } from './research-data.js'; 
 
 // ============================================
