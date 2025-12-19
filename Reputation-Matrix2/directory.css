@@ -2126,3 +2126,544 @@
         max-height: 250px;
     }
 }
+/* Affected Targets Styles */
+.affected-group {
+    margin-bottom: 1rem;
+}
+
+.affected-group-title {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.affected-member-item,
+.affected-target-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--surface-dark);
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.affected-member-item:hover,
+.affected-target-item:hover {
+    background: var(--surface-hover);
+    transform: translateX(2px);
+}
+
+.affected-portrait {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.affected-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.affected-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.affected-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+}
+
+.affected-status {
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+}
+
+.affected-status.active { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+.affected-status.weakened { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+
+.affected-rumor-count {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+}
+
+.affected-impact {
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.affected-impact.positive { color: #2ecc71; }
+.affected-impact.negative { color: #e74c3c; }
+
+.affected-level {
+    font-size: 0.7rem;
+    background: var(--accent-color);
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.affected-icon {
+    font-size: 1.2rem;
+    width: 32px;
+    text-align: center;
+}
+
+/* Recent Events with Targets */
+.recent-event-item {
+    padding: 0.5rem;
+    background: var(--surface-dark);
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+}
+
+.event-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.event-badge {
+    font-size: 0.6rem;
+    background: var(--accent-color);
+    padding: 1px 4px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.event-targets {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+}
+
+.event-target-icons {
+    letter-spacing: -2px;
+}
+
+/* Target Detail Modal */
+.target-modal {
+    max-width: 500px;
+}
+
+.target-modal-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.target-modal-portrait {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+}
+
+.target-modal-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.target-stat {
+    font-size: 0.75rem;
+    background: var(--surface-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.target-modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.target-modal-section h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.target-abilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.ability-tag {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.target-rumor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.target-rumor-item {
+    background: var(--surface-dark);
+    padding: 0.75rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--border-color);
+}
+
+.target-rumor-item.positive { border-left-color: #2ecc71; }
+.target-rumor-item.negative { border-left-color: #e74c3c; }
+
+.rumor-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.rumor-date {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+}
+
+.rumor-event-badge {
+    font-size: 0.6rem;
+    background: var(--accent-color);
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.rumor-impact {
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.rumor-title {
+    font-weight: 500;
+    display: block;
+}
+
+.rumor-arc {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.target-log {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.target-log li {
+    padding: 0.5rem;
+    background: var(--surface-dark);
+    margin-bottom: 0.25rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.target-log li::before {
+    content: "•";
+    position: absolute;
+    left: 0.5rem;
+    color: var(--accent-color);
+}
+
+.target-modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+.target-summary {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.summary-item {
+    font-size: 0.85rem;
+}
+
+.summary-item.total {
+    font-weight: 600;
+}
+
+.summary-item.total.positive { color: #2ecc71; }
+.summary-item.total.negative { color: #e74c3c; }
+/* Notable Figures Sidebar */
+.sidebar-hint {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin: -0.5rem 0 0.5rem 0;
+    font-style: italic;
+}
+
+.figures-group {
+    margin-bottom: 0.75rem;
+}
+
+.figures-group-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.figure-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem;
+    background: var(--surface-dark);
+    border-radius: 4px;
+    margin-bottom: 0.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+}
+
+.figure-item:hover {
+    background: var(--surface-hover);
+    transform: translateX(2px);
+}
+
+.figure-item.selected {
+    background: var(--accent-color-dim);
+    border-left-color: var(--accent-color);
+}
+
+.figure-portrait {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.figure-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.figure-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.figure-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+}
+
+.figure-roles {
+    letter-spacing: -1px;
+}
+
+/* Perspective Header */
+.perspective-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, var(--accent-color-dim), var(--surface-dark));
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--accent-color);
+}
+
+.perspective-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.perspective-portrait {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+}
+
+.perspective-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.perspective-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.perspective-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.perspective-clear {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-dim);
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.perspective-clear:hover {
+    background: var(--danger-color);
+    border-color: var(--danger-color);
+    color: white;
+}
+
+/* Toggle in filters */
+.toggle-group {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.toggle-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-color);
+}
+
+.toggle-text {
+    white-space: nowrap;
+}
+
+/* Target indicator on cards */
+.target-indicator {
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
+}
+
+/* No factions hint */
+.no-factions .hint {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+}
+
+.no-figures {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    padding: 0.5rem;
+    text-align: center;
+}
+/* Grid header with count */
+.grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.grid-count {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.hidden-count {
+    font-style: italic;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+}
+
+/* No factions hints */
+.no-factions {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface-dark);
+    border-radius: 8px;
+    border: 1px dashed var(--border-color);
+}
+
+.no-factions p {
+    margin: 0.5rem 0;
+}
+
+.no-factions .hint {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    background: var(--surface-darker);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* Toggle styling */
+.toggle-group {
+    border-left: 1px solid var(--border-color);
+    padding-left: 1rem;
+    margin-left: 0.5rem;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.toggle-label:hover {
+    color: var(--accent-color);
+}
+
+.toggle-label input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+}
+
+.toggle-text {
+    user-select: none;
+}

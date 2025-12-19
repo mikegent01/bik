@@ -27,7 +27,7 @@ export const RUMORS = [
     description: "Prisoners discover Mini-Mushrooms in bread crusts alongside blueprints marked with the Speaker's crest. Speaker Rivers broadcasts from inside, exposing life-force extractors feeding the Vigilance. Green irritant fog, mini-toad drain swarms, medical supplies seized, stolen files reveal toads as Vigilance batteries, boiler sabotage, a map of 12 Aegis sites for a dragon-controlling 'Sonic Net', escapees leap to Noki submersibles, Midlands trekkers evade hunters, hacks plant truth-nukes, refugees flood Toad Town, and a mirror reveals the Empire's third eye cult.",
     targets: ['speaker_rivers', 'toad_prisoner_pipsqueak', 'toad_prisoner_moss', 'general_ironhand', 'creek'],
     effects: {
-      toad_prisoners: 50,
+      liberated_toads: 50,
       speaker_network: 30,
       iron_legion: -25,
       regal_empire: -20,
@@ -48,10 +48,10 @@ export const RUMORS = [
     description: "Whispers via guard notes: Speaker L's Order 120 at sunset, Mini-Mushrooms in crusts, east pipes signal. Broadcast confirms from exile. Bells ring: first doubles patrols, second drops water pressure, third triggers shrink/cuff escape via steam-blinded pipes, laundry chutes, mess hall rat distractions, vent swarms, armory raids, wall explosions, boiler rallies, roof zip-lines, mirror decoys, chapel sanctuary. Midlands scouts guide waves to caves, underrail moles, forest misdirects. Tally: 158/187 free, safe houses in Shadeward/Raventree, deserters join, training begins. Clues hint Phoenix hatch, Vigilance sabotage, Third Eye cult.",
     targets: ['speaker_rivers', 'toad_prisoner_moss', 'toad_prisoner_willow', 'toad_prisoner_bramble', 'scarred_guard_toad', 'midlands_scout_toad'],
     effects: {
-      toad_prisoners: 60,
+      liberated_toads: 60,
       speaker_network: 40,
-      moonfang_allies: 20,
-      rakasha_allies: 15,
+      moonfang_pack: 20,
+      rakasha_clans: 15,
       iron_legion: -35,
       regal_empire: -30,
       third_eye_cult: 5
