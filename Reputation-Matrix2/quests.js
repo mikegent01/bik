@@ -856,16 +856,15 @@ case 'xp':
                                 return `
                                     <div class="conditional-reward-card">
                                         <div class="condition">
-                                            <span class="condition-icon">❓</span>
-                                            <span class="condition-text">${cr.condition || 'condition'}</span>
-                                        </div>
-                                        <div class="condition-reward">
-                                            <span class="reward-arrow">→</span>
                                             <span class="reward-icon">
                                                 ${cr.reward.type === 'ally' ? '🤝' : 
                                                   cr.reward.type === 'intel' ? '🔍' : 
                                                   cr.reward.type === 'item' ? '📦' : '🎁'}
                                             </span>
+                                            <span class="condition-text">${cr.condition || 'condition'}</span>
+                                        </div>
+                                        <div class="condition-reward">
+                                            <span class="reward-arrow"></span>
                                             <div class="reward-info">
                                                 <span class="reward-name">${cr.reward.name || ''}</span>
                                                 ${cr.reward.description ? `<span class="reward-desc">${cr.reward.description}</span>` : ''}

@@ -8,6 +8,7 @@ import { STORY_ARCS, getRumorsByArc } from './lore.js';
 // ============================================================================
 
 export const CONFLICT_DETAILS = {
+    
 "Isle Delfino Conflict": {
     summary: "A rapid destabilization of the tropical resort island resulting in the expulsion of the Mushroom Regency.",
     startYear: 1040,
@@ -85,14 +86,48 @@ export const CONFLICT_DETAILS = {
         ],
         keyFactions: ['iron_legion', 'dragons', 'regal_empire'],
         estimatedCasualties: "Unknown"
-    }
+    },
+// Add to CONFLICT_DETAILS
+"The Aegis Uprising": {
+    summary: "A massive, coordinated prison break within the Regal Empire's primary processing facility.",
+    startYear: 1040,
+    status: "active",
+    rootCause: "The enactment of Order 120 (execution of toads) and the discovery of 'Bio-Fuel' experimentation.",
+    majorPhases: [
+        { name: "The Trojan Speaker (Day 18-21)", description: "Speaker Rivers allows himself to be captured to plant a digital virus." },
+        { name: "The Great Riot (Day 21)", description: "150 prisoners use Mini-Mushrooms and internal sabotage to breach the fortress." },
+        { name: "The Midlands Trek (Day 22-Present)", description: "Escaped toads navigate the hostile Regal Empire to reach the border." }
+    ],
+    keyFactions: ['iron_legion', 'liberated_toads', 'noki_shellfish'],
+    estimatedCasualties: "40+ Legionnaires, 34 Toads missing/displaced"
+},    
 };
 
 export const MAJOR_BATTLES = [
 // ========================================================================
     // ISLE DELFINO CONFLICT (WEEK OF THE 24TH)
     // ========================================================================
-
+// Add to MAJOR_BATTLES array:
+{
+  id: 'aegis_command_riot',
+  name: "The Aegis Command Uprising",
+  conflict: "The Aegis Uprising",
+  arc: 'toad_liberation',
+  date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+  location: "Aegis Command Fortress, Regal Empire Midlands",
+  belligerents: {
+    side_a: { name: "Liberated Toads (150 Prisoners)", factions: ['liberated_toads'] },
+    side_b: { name: "Iron Legion Garrison", factions: ['iron_legion'] }
+  },
+  commanders: { side_a: ["Speaker Rivers (Remote)", "Creek Medic"], side_b: ["General Ironhand"] },
+  outcome: "victory",
+  outcomeDetail: "147/150 escaped. Facility compromised. Clues stolen exposing Empire secrets.",
+  casualties: { side_a: "3 MIA", side_b: "67 KIA, facility damaged" },
+  strategicValue: "critical",
+  description: `<p>Speaker Rivers triggered the largest prison break in Regal Empire history using smuggled Mini-Mushrooms, custom gas, prepped tunnels, and server hacks. 150 toads rioted, revealing Life-Force Extractors, Sonic Dragon Nets, Third Eye cult, and Core Site digs.</p><p>Green fog blinded Legion, steam blasts breached walls, Noki subs/ranger trails evacuated most. Stolen blueprints prove Empire fakes dragon wars, weaponizes toad magic. Fallout: Legion purge, toad resistance cells form en route to Mushroom Kingdom.</p>`,
+  tacticalNotes: "Months of prep (whisper net, turncoats, decoys) > brute force. Insider hacks turn facilities against occupiers.",
+  participatingCharacters: ['speaker_rivers', 'creek_medic', 'general_ironhand']
+},
     {
         id: 'delfino_exile_final',
         name: "The Exile of Delfino",

@@ -1104,8 +1104,8 @@ function renderEventsFeed() {
                     ${relatedPosts.length > 0 ? `
                         <div class="event-posts">
                             <h5>Related Chatter</h5>
-                            ${relatedPosts.slice(0, 3).map(p => renderPost(p)).join('')}
-                        </div>
+                            ${relatedPosts.slice(0, 30).map(p => renderPost(p)).join('')}
+                        </div> 
                     ` : ''}
                 </div>
             </div>
@@ -1796,6 +1796,9 @@ function renderCurrentFeed() {
         case 'foryou':
             renderForYouFeed();
             break;
+           case 'news':
+    renderNewsFeed();
+    break; 
         case 'following':
             renderFollowingFeed();
             break;
@@ -2383,6 +2386,266 @@ async function init() {
 
     console.log('[WAHbook] Initialization complete');
 }
+// ============================================================================
+// RENDER: NEWS TAB (Newspaper Style)
+// ============================================================================
 
+function renderNewsFeed() {
+    const container = document.getElementById('news-container');
+    if (!container) return;
+
+    // Get trending posts and rumors
+    const visiblePosts = getVisiblePosts();
+    const rumors = (LORE_DATA?.rumors || []).filter(r => isContentVisible(r.date));
+
+    // Score and sort posts by trending
+    const scoredPosts = visiblePosts.map(post => ({
+        ...post,
+        trendingScore: getTrendingScore(post)
+    })).sort((a, b) => b.trendingScore - a.trendingScore);
+
+    // Score rumors by activity
+    const scoredRumors = rumors.map(rumor => {
+        const relatedPosts = visiblePosts.filter(p => p.rumorId === rumor.id);
+        const metrics = calculateRumorMetrics(rumor, relatedPosts);
+        return {
+            ...rumor,
+            metrics,
+            postCount: relatedPosts.length,
+            score: Math.abs(metrics.finalScore) + relatedPosts.length * 2
+        };
+    }).sort((a, b) => b.score - a.score);
+
+    // Get top story
+    const topStory = scoredRumors[0] || null;
+    const topPost = scoredPosts[0] || null;
+
+    // Get secondary stories
+    const secondaryRumors = scoredRumors.slice(1, 4);
+    const trendingPosts = scoredPosts.slice(0, 6);
+
+    // Get current date for the masthead
+    const currentMonth = CALENDAR_DATA?.months?.values?.[CURRENT_GAME_DATE.monthIndex];
+    const currentDateStr = `${currentMonth?.name || 'Unknown'} ${CURRENT_GAME_DATE.day}, ${CURRENT_GAME_DATE.year}`;
+
+    // Build the newspaper layout
+    container.innerHTML = `
+        <div class="newspaper">
+            <header class="newspaper-masthead">
+                <div class="masthead-date">${currentDateStr}</div>
+                <h1 class="masthead-title">📜 The Daily Paradox</h1>
+                <div class="masthead-tagline">"All the News That's Fit to Fabricate"</div>
+            </header>
+
+            <div class="newspaper-breaking">
+                <span class="breaking-label">🔴 TRENDING NOW</span>
+                <div class="breaking-ticker">
+                    ${scoredRumors.slice(0, 5).map(r => `<span class="ticker-item">${r.title}</span>`).join(' • ')}
+                </div>
+            </div>
+
+            ${topStory ? `
+                <article class="newspaper-headline" data-rumor-id="${topStory.id}">
+                    <div class="headline-category">${topStory.isEvent ? '📅 MAJOR EVENT' : '📰 TOP STORY'}</div>
+                    <h2 class="headline-title">${topStory.title}</h2>
+                    <p class="headline-lede">${topStory.description}</p>
+                    <div class="headline-meta">
+                        <span class="headline-impact ${topStory.metrics.finalScore > 0 ? 'positive' : 'negative'}">
+                            Impact: ${topStory.metrics.status}
+                        </span>
+                        <span class="headline-engagement">💬 ${topStory.postCount} reactions</span>
+                        <span class="headline-time">${topStory.time_ago || formatArcDate(topStory.date)}</span>
+                    </div>
+                    ${renderHeadlineFactions(topStory)}
+                </article>
+            ` : ''}
+
+            <div class="newspaper-columns">
+                <section class="newspaper-column main-column">
+                    <h3 class="column-header">📋 Developing Stories</h3>
+                    ${secondaryRumors.map(rumor => renderNewsArticle(rumor)).join('')}
+                    
+                    ${secondaryRumors.length === 0 ? `
+                        <p class="no-stories">No developing stories at this time.</p>
+                    ` : ''}
+                </section>
+
+                <aside class="newspaper-column side-column">
+                    <h3 class="column-header">🗣️ Public Discourse</h3>
+                    <div class="discourse-feed">
+                        ${trendingPosts.map(post => renderNewsQuote(post)).join('')}
+                    </div>
+
+                    <h3 class="column-header" style="margin-top: 24px;">🏛️ Faction Watch</h3>
+                    <div class="faction-watch">
+                        ${renderFactionWatch()}
+                    </div>
+                </aside>
+            </div>
+
+            <section class="newspaper-opinions">
+                <h3 class="column-header">💭 Latest Commentary</h3>
+                <div class="opinions-grid">
+                    ${scoredPosts.slice(6, 12).map(post => renderOpinionCard(post)).join('')}
+                </div>
+            </section>
+
+            <footer class="newspaper-footer">
+                <p>© ${CURRENT_GAME_DATE.year} The Daily Paradox • A WAH Media Collective Publication</p>
+                <p class="footer-disclaimer">The Daily Paradox is not responsible for any inter-dimensional incidents caused by reading this publication.</p>
+            </footer>
+        </div>
+    `;
+
+    // Add click handlers
+    container.querySelectorAll('[data-rumor-id]').forEach(el => {
+        el.addEventListener('click', () => {
+            openDossierModal(el.dataset.rumorId);
+            playSound('click.mp3');
+        });
+    });
+
+    container.querySelectorAll('[data-post-id]').forEach(el => {
+        el.addEventListener('click', () => {
+            const postId = el.dataset.postId;
+            // Navigate to the post
+            currentTab = 'foryou';
+            renderNavTabs();
+            renderCurrentFeed();
+            setTimeout(() => {
+                const postEl = document.querySelector(`[data-post-id="${postId}"]`);
+                if (postEl) {
+                    postEl.scrollIntoView({ behavior: 'smooth' });
+                    postEl.style.boxShadow = '0 0 20px var(--wahbook-accent)';
+                    setTimeout(() => postEl.style.boxShadow = '', 2000);
+                }
+            }, 100);
+        });
+    });
+}
+
+function renderHeadlineFactions(rumor) {
+    const effects = Object.entries(rumor.effects || {});
+    if (effects.length === 0) return '';
+
+    return `
+        <div class="headline-factions">
+            ${effects.slice(0, 4).map(([factionKey, value]) => {
+                const faction = LORE_DATA?.factions?.[factionKey];
+                const name = faction?.name || formatCharacterKey(factionKey);
+                const className = value > 0 ? 'positive' : 'negative';
+                return `
+                    <span class="headline-faction ${className}">
+                        ${name}: ${value > 0 ? '+' : ''}${value}
+                    </span>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function renderNewsArticle(rumor) {
+    const dateStr = rumor.time_ago || (rumor.date ? formatArcDate(rumor.date) : 'Recent');
+    
+    return `
+        <article class="news-article" data-rumor-id="${rumor.id}">
+            <span class="article-category">${rumor.isEvent ? 'EVENT' : 'RUMOR'}</span>
+            <h4 class="article-title">${rumor.title}</h4>
+            <p class="article-excerpt">${rumor.description.substring(0, 150)}${rumor.description.length > 150 ? '...' : ''}</p>
+            <div class="article-footer">
+                <span class="article-date">${dateStr}</span>
+                <span class="article-reactions">💬 ${rumor.postCount}</span>
+            </div>
+        </article>
+    `;
+}
+
+function renderNewsQuote(post) {
+    const author = getCharacterData(post.characterKey);
+    const excerpt = (post.content || '').substring(0, 100);
+    
+    return `
+        <div class="news-quote" data-post-id="${post.id}">
+            <div class="quote-content">"${excerpt}${post.content?.length > 100 ? '...' : ''}"</div>
+            <div class="quote-attribution">
+                <img src="${author.portrait}" alt="${author.name}" class="quote-avatar" onerror="handleImageError(this)">
+                <span class="quote-author">${author.name}</span>
+                ${author.faction ? `<span class="quote-faction">${author.faction.name}</span>` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function renderOpinionCard(post) {
+    const author = getCharacterData(post.characterKey);
+    
+    return `
+        <div class="opinion-card" data-post-id="${post.id}">
+            <img src="${author.portrait}" alt="${author.name}" class="opinion-avatar" onerror="handleImageError(this)">
+            <div class="opinion-content">
+                <span class="opinion-author">${author.name}</span>
+                <p class="opinion-text">${(post.content || '').substring(0, 80)}...</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderFactionWatch() {
+    const factionActivity = [];
+    
+    Object.entries(LORE_DATA?.factions || {}).forEach(([key, faction]) => {
+        const posts = getVisiblePosts().filter(p => {
+            const author = getCharacterData(p.characterKey);
+            return author.faction?.key === key;
+        });
+        
+        // Calculate recent activity (last 7 days)
+        const recentPosts = posts.filter(p => getDaysSincePost(p) <= 7);
+        
+        if (recentPosts.length > 0) {
+            factionActivity.push({
+                key,
+                name: faction.name,
+                logo: faction.logo,
+                activity: recentPosts.length,
+                sentiment: calculateFactionSentiment(recentPosts)
+            });
+        }
+    });
+
+    factionActivity.sort((a, b) => b.activity - a.activity);
+
+    if (factionActivity.length === 0) {
+        return '<p class="no-activity">No recent faction activity.</p>';
+    }
+
+    return factionActivity.slice(0, 5).map(f => `
+        <div class="faction-watch-item">
+            <img src="${f.logo}" alt="${f.name}" class="faction-watch-logo" onerror="handleImageError(this)">
+            <div class="faction-watch-info">
+                <span class="faction-watch-name">${f.name}</span>
+                <span class="faction-watch-activity">${f.activity} posts this week</span>
+            </div>
+            <span class="faction-watch-sentiment ${f.sentiment}">${f.sentiment === 'positive' ? '📈' : f.sentiment === 'negative' ? '📉' : '➡️'}</span>
+        </div>
+    `).join('');
+}
+
+function calculateFactionSentiment(posts) {
+    // Simple sentiment based on likes vs comments ratio
+    let totalLikes = 0;
+    let totalComments = 0;
+    
+    posts.forEach(p => {
+        totalLikes += p.likes || 0;
+        totalComments += (p.comments || []).length;
+    });
+
+    const ratio = totalLikes / Math.max(1, totalComments);
+    
+    if (ratio > 2) return 'positive';
+    if (ratio < 0.5) return 'negative';
+    return 'neutral';
+}
 // Run
 init();

@@ -2,6 +2,691 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+
+
+    {
+    id: 'aegis_riot_01_the_bread_code',
+    order: 63001,
+    characterKey: 'toad_prisoner_pipsqueak',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 0 },
+    timestamp: '1 hour before riot',
+    content: `The noon ration of hardtack felt heavy today. Cracked it open and found a Mini-Mushroom wrapped in a blueprint of the "Imperial Processing Facility" ventilation ducts. 
+
+The ink is fresh. It's marked with the Speaker's personal crest. He's inside the walls. Somewhere in the High Command sector. Spread the word: "The Baker is ready."`,
+    likes: 450,
+    comments: [
+        { characterKey: 'toad_prisoner_crusty', text: 'Got mine too. Tastes like hope and dirt.' },
+        { characterKey: 'iron_legion_guard', text: 'Why are you lot whispering? Back to the stone-crusher!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_02_speaker_rivers_hacked',
+    order: 63002,
+    characterKey: 'speaker_rivers',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 },
+    timestamp: 'Just before the bell',
+    content: `People of the Midlands, listen well. Aegis Command is not an "Industrial Center." It is a tomb for our kind. The Regal Empire claims we are "dangerous supernatural entities." 
+
+I have seen the 'Life-Force Extractors' in the basement. I have seen the barrels of toads destined for the Vigilance. If you want to see the sun again, look for the green smoke at the third bell. 
+
+Courage is the only currency that matters today.`,
+    likes: 2100,
+    comments: [
+        { characterKey: 'general_ironhand', text: 'TRACING SIGNAL. HE IS IN THE SERVER ROOM! ALL SQUADS TO THE CRYPT!' },
+        { characterKey: 'toad_prisoner_moss', text: 'The Speaker is the Ghost in the Machine!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_03_the_green_fog',
+    order: 63003,
+    characterKey: 'toad_prisoner_spore',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+    timestamp: 'The Riot Begins',
+    content: `The third bell just rang and green smoke is pouring out of the laundry vents! It's thick, smelling like peppermint and swamp gas. 
+
+The Legionnaires are coughing and their eyes are watering—but it doesn't affect us! Someone synthesized a gas that only irritates Imperial physiology! Who is the chemist?!`,
+    likes: 980,
+    comments: [
+        { characterKey: 'creek', text: 'A gift from the medical wing. Keep your head down and run!' },
+        { characterKey: 'legion_sergeant', text: 'COUGH—I CANT—COUGH—SEE!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_04_the_mini_express',
+    order: 63004,
+    characterKey: 'toad_prisoner_shroomy',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 35 },
+    timestamp: '5 minutes in',
+    content: `POPPED THE MINI-MUSHROOM! I’m three inches tall and slipping through the floor drain in Block B. 
+
+There are hundreds of us down here! It’s a tiny highway of toads! We’re following a trail of glowing bioluminescent moss. Someone spent WEEKS planting this path through the drainage system!`,
+    likes: 1200,
+    comments: [
+        { characterKey: 'toad_prisoner_pipsqueak', text: 'Watch out for the rats! They look like monsters when you’re this small!' },
+        { characterKey: 'noki_guide', text: 'The moss is our work. Stay on the path.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_05_creeks_surgical_strike',
+    order: 63005,
+    characterKey: 'creek',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 45 },
+    timestamp: '15 minutes in',
+    content: `Infirmary secured. We didn't just escape—we took the surgical kits and the 'Regal Restoration' potions. 
+
+If we're going to survive the trek through the Midlands back to the Kingdom, we need medicine. Group 4, the secret door behind the skeleton model is open. It leads to the catacombs. MOVE!`,
+    likes: 1560,
+    comments: [
+        { characterKey: 'toad_prisoner_bones', text: 'Ironic name for an escape route. I love it.' },
+        { characterKey: 'legion_doctor', text: 'THEY STOLE MY SCALPELS!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_06_the_clue_in_the_vault',
+    order: 63006,
+    characterKey: 'toad_prisoner_flicker',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 0 },
+    timestamp: '30 minutes in',
+    content: `Found a high-security folder while we were trashing the Records Office. 
+
+It’s a list of 150 names labeled "Vigilance Cargo Phase 2." Every toad here was selected for their 'Magic Affinity.' They aren't just selling us—they're using us as BATTERIES for the airship's core! 
+
+The Speaker knew. That’s why he triggered this today!`,
+    likes: 3100,
+    comments: [
+        { characterKey: 'speaker_rivers', text: 'The truth is heavy, Flicker. Now use that folder to fuel the fire.' },
+        { characterKey: 'fawful', text: 'Fawful has the fury! Who leaked the battery secrets?!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_07_boiler_room_sabotage',
+    order: 63007,
+    characterKey: 'toad_prisoner_steamy',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 15 },
+    timestamp: '45 minutes in',
+    content: `The Boiler Room is a sauna! We jammed the pressure valves with Imperial service medals we found in the trash. 
+
+The whole East Wing is shaking! If those pipes blow, the outer wall goes with them. Keep those Legionnaires busy in the mess hall—don't let them reach the basement!`,
+    likes: 890,
+    comments: [
+        { characterKey: 'toad_prisoner_crusty', text: 'The gravy fight in the mess hall is doing the trick! It’s a slip-and-slide for fascists!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_08_the_imperial_heart',
+    order: 63008,
+    characterKey: 'toad_prisoner_moss',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 30 },
+    timestamp: '1 hour in',
+    content: `Just saw something terrifying in the Commander’s office. A map of the Regal Empire. 
+
+Aegis Command is just one of TWELVE. They’re building a grid. A "Sonic Net" across the whole Midlands. Is this how they control the dragons? 
+
+Took a photo before the guards burst in. Jumping out the window now—see you at the river!`,
+    likes: 4200,
+    comments: [
+        { characterKey: 'markop', text: 'Twelve? We’re going to need a bigger airship.' },
+        { characterKey: 'general_ironhand', text: 'SECURE THAT DEVICE! SHOOT TO KILL!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_09_the_river_leap',
+    order: 63009,
+    characterKey: 'toad_prisoner_splash',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 0 },
+    timestamp: '1.5 hours in',
+    content: `Reached the cliff edge! It’s a 50-foot drop into the Aegis River. 
+
+"The Speaker says: The water is cold but the soul is free!" 
+
+JUMPING NOW! I see Noki submersibles surfacing below! They really came for us!`,
+    likes: 1800,
+    comments: [
+        { characterKey: 'noki_guide', text: 'Keep your mouths shut and swim for the blue lights. We’re deep-diving under the perimeter wall.' },
+        { characterKey: 'legion_sniper', text: 'Target lost in the rapids. They’re like pebbles in a stream.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_10_the_iron_hand_fails',
+    order: 63010,
+    characterKey: 'general_ironhand',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 17, minute: 0 },
+    timestamp: '2 hours in',
+    content: `Total facility breach. 142 prisoners unaccounted for. 8 guards dead. The Speaker’s signal originated from INSIDE the main server, but the body we found in the room was a Clockwork Decoy. 
+
+The real Speaker L has been gone for days. He staged his own capture to plant the virus. 
+
+Mobilize the Sky-Hunters. I want the Midlands locked down by sunset.`,
+    likes: 312,
+    comments: [
+        { characterKey: 'regency_advisor', text: 'The Emperor will not be pleased with your "containment," General.' },
+        { characterKey: 'speaker_rivers', text: 'I’m already halfway to Raventree, Ironhand. Check your boots—I think I stole your spare keys.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_11_the_midlands_trek',
+    order: 63011,
+    characterKey: 'toad_prisoner_willow',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 2, minute: 0 },
+    timestamp: 'Middle of the night',
+    content: `Group 7 is trekking through the 'Dead Marshes' of the Midlands. It’s a long way from the Mushroom Kingdom. 
+
+The Noki submersibles dropped us off five miles downstream. We’re following a Toad Ranger who says there’s a secret tunnel through the border mountains. 
+
+We can hear the dragon-horns in the distance. They’re hunting us.`,
+    likes: 950,
+    comments: [
+        { characterKey: 'forest_ranger_toad', text: 'Keep the torches low. The Sky-Hunters use heat-vision.' },
+        { characterKey: 'toad_prisoner_pipsqueak', text: 'My feet hurt, but I’d walk a thousand miles to stay out of those extractors.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_12_the_riddle_of_the_camps',
+    order: 63012,
+    characterKey: 'toad_prisoner_flicker',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 0 },
+    timestamp: 'Day 2 - Morning',
+    content: `Resting in a cave. Looking at the stolen files again. 
+
+There’s a map of a place called "The Core Site." It’s not a prison. It’s a DIG. They’re looking for something under the Regal Empire. Something that predates the Era. 
+
+The Speaker circled it in red. "The Origin of the Spore." What does that even mean?`,
+    likes: 5400,
+    comments: [
+        { characterKey: 'oracle', text: 'The roots of the world are being disturbed. Flicker, you hold a dangerous secret.' },
+        { characterKey: 'archie', text: 'Sounds like more work for us. Great.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_13_the_vigilance_connection',
+    order: 63013,
+    characterKey: 'legion_technician',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+    timestamp: 'Day 2 - Noon',
+    content: `Repairing the server at Aegis. Found the remnant of the Speaker’s hack. 
+
+He didn't just unlock doors. He uploaded the prison's manifest directly to the 'Vigilance' navigation computer. 
+
+If that airship ever comes within range of this facility again, it will automatically broadcast the 'Order 120' logs to every open channel in the Empire. He turned the ship into a truth-bomb.`,
+    likes: 720,
+    comments: [
+        { characterKey: 'speaker_rivers', text: 'I do like a bit of drama.' },
+        { characterKey: 'fawful', text: 'THE SHIP MUST BE DISMANTLED! THE TRUTH IS STINKY LIES!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_14_toad_town_rumors',
+    order: 63014,
+    characterKey: 'mushroom_news_bot',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+    timestamp: 'Day 2 - Afternoon',
+    content: `REPORTS COMING IN: A massive influx of Regal Empire refugees (Toad variety) is crossing the border. 
+
+They speak of a "Great Speaker" who led them through the dark. They are carrying Imperial technology and classified documents. 
+
+Princess Peach’s loyalists are setting up relief camps. The diplomatic fallout with the Regal Empire is imminent.`,
+    likes: 8900,
+    comments: [
+        { characterKey: 'captain_toadette', text: 'We’re ready for them. Welcome home, brothers.' },
+        { characterKey: 'regency_advisor', text: 'This is an act of war! Return the "property" at once!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+{
+    id: 'aegis_riot_15_the_final_clue',
+    order: 63015,
+    characterKey: 'toad_prisoner_moss',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 0 },
+    timestamp: 'Day 2 - Evening',
+    content: `Finally reached a safe house. One last thing before I sleep. 
+
+In the Commander’s office, I saw a portrait of the Emperor. He wasn't a human, or a Koopa, or even a Toad. 
+
+The portrait was just a mirror. But when I looked into it, the reflection didn't have a face. Just an eye. A third eye. 
+
+The Empire isn't just an empire. It's a cult. And we just stole their sacrifices.`,
+    likes: 9999,
+    comments: [
+        { characterKey: 'archie', text: '...Wait. A mirror and a third eye? This is getting way too personal.' },
+        { characterKey: 'oracle', text: 'The glass does not lie, Moss. The Eye is watching.' },
+        { characterKey: 'general_ironhand', text: 'We know where that safe house is. See you soon.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+},
+    {
+        id: 'aegis_riot_whispers_begin',
+        order: 63001,
+        characterKey: 'toad_prisoner_moss',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 45 },
+        timestamp: '30 minutes ago',
+        content: `Whispers in the yard today. Guard with the scarred cheek dropped a scrap of paper during rations: "Speaker L lives. Order 120 at sunset. Mini-Mushrooms in bread crusts. East pipes when water stops." Is this the real deal?`,
+        likes: 289,
+        comments: [
+            { characterKey: 'toad_prisoner_rust', text: 'Crusts taste funny. I saved mine.' },
+            { characterKey: 'toad_prisoner_fern', text: 'Scarred cheek guard winked at me. Hes one of us?' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_mini_mushroom_confirm',
+        order: 63002,
+        characterKey: 'toad_prisoner_glimmer',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 },
+        timestamp: '25 minutes ago',
+        content: `Crushed the crust—it's a Mini-Mushroom! Smuggled via kitchen workers. Speaker L's network is deep inside Aegis. Stockpiling for cellmates. Sunset can't come soon enough.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'toad_prisoner_stump', text: 'Got four. Sharing with Block C weaklings.' },
+            { characterKey: 'kitchen_toad_symp', text: 'Bakers are Liberated Toads. We risked everything.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_speaker_l_broadcast',
+        order: 63003,
+        characterKey: 'speaker_rivers',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 10 },
+        timestamp: '20 minutes ago',
+        content: `Aegis toads: From exile in the Shadowed Midlands, I confirm Order 120. Legion plans your slaughter. Signal: third bell, water stops in east pipes. Breach, scatter to Whispering Caves rally. Mini-Mushrooms hidden. Fight free.`,
+        likes: 1678,
+        comments: [
+            { characterKey: 'toad_prisoner_willow', text: 'Speakers alive! In the Midlands caves?!' },
+            { characterKey: 'iron_legion_monitor', text: 'Trace that signal! Block it NOW!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_first_bell_tension',
+        order: 63004,
+        characterKey: 'toad_prisoner_bramble',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 20 },
+        timestamp: '15 minutes ago',
+        content: `First bell rang. Guards doubling patrols. Heard Ironhand yelling about "traitor leaks." We're passing Mini-Mushrooms hand-to-hand. Hearts pounding.`,
+        likes: 523,
+        comments: [
+            { characterKey: 'toad_prisoner_moss', text: 'Second bell soon. Stay calm, brothers.' },
+            { characterKey: 'legion_patrol_sgt', text: 'Strange quiet in the blocks. Somethings off.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_second_bell_prep',
+        order: 63005,
+        characterKey: 'toad_prisoner_rust',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 25 },
+        timestamp: '10 minutes ago',
+        content: `Second bell. Water pressure dropping already? Someone's tampering upstream. Preparing cuffs—Mini-Mushrooms ready. Scarred guard just nodded at Block A.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'scarred_guard_toad', text: 'Windows open in laundry room. Use them.' },
+            { characterKey: 'toad_prisoner_fern', text: 'Hes legit! Saw him pocket a keycard.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_third_bell_chaos',
+        order: 63006,
+        characterKey: 'toad_prisoner_stump',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+        timestamp: 'Now',
+        content: `THIRD BELL! Water DEAD! Shrinking NOW! Cuffs slipping off! East pipes steaming—breach forming! RIOT STARTS HERE! FOR SPEAKER L!`,
+        likes: 1345,
+        comments: [
+            { characterKey: 'toad_prisoner_glimmer', text: 'Out of cell! Kicking pipe grate!' },
+            { characterKey: 'iron_legion_alarm', text: 'Breach! Block A riot! Gas deploy!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_pipe_breach_wave1',
+        order: 63007,
+        characterKey: 'toad_prisoner_willow',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 35 },
+        timestamp: '5 minutes ago',
+        content: `Pipes buckled—30 toads through first wave! Steam blinding guards. Speaker L timed coolant sabotage perfectly. Crawling to boiler sub-level!`,
+        likes: 789,
+        comments: [
+            { characterKey: 'creek', text: 'Med kits ready at sub-level. Keep moving!' },
+            { characterKey: 'legion_boiler_tech', text: 'Sabotage confirmed—upstream valve jammed open!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_laundry_slide',
+        order: 63008,
+        characterKey: 'toad_prisoner_fern',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 38 },
+        timestamp: '2 minutes ago',
+        content: `Laundry chute unblocked by insiders! Sliding down with 25 others. Landed soft in linen piles. Service door to service tunnels cracked open!`,
+        likes: 623,
+        comments: [
+            { characterKey: 'laundry_toad_insider', text: 'Go! Tunnels lead to outer grate!' },
+            { characterKey: 'legion_laundry_sentry', text: 'Chute jammed? No—TOADS EVERYWHERE!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_mess_hall_mayhem',
+        order: 63009,
+        characterKey: 'toad_prisoner_bramble',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 42 },
+        timestamp: '8 minutes ago',
+        content: `Mess hall revolt! 50 toads flipped tables, dumped boiling stew on guards. Mutant rats from kitchen loose! Drawing patrols here—buying time for pipe/vent groups!`,
+        likes: 912,
+        comments: [
+            { characterKey: 'kitchen_mutant_handler', text: 'Rats trained for this. Go wild!' },
+            { characterKey: 'legion_mess_guard', text: 'Rats in my boots! Help!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_vent_crawl_swarm',
+        order: 63010,
+        characterKey: 'toad_prisoner_moss',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Vents filled with mini-toads! Grates popped from inside by pre-planted tools. 40+ crawling to roof access. Air recyclers jammed—gas won't work! Genius.`,
+        likes: 745,
+        comments: [
+            { characterKey: 'vent_tool_smuggler', text: 'Filed spoons from weeks ago. Speaker planned EVERYTHING.' },
+            { characterKey: 'legion_hvac_tech', text: 'Vents clogged! Cant vent gas!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_armory_keycard',
+        order: 63011,
+        characterKey: 'toad_prisoner_rust',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 48 },
+        timestamp: '12 minutes ago',
+        content: `Stole guard keycard during mess distraction! Armory door open—grabbed batons, flashbangs. No guns, but enough to stun patrols in halls!`,
+        likes: 856,
+        comments: [
+            { characterKey: 'toad_prisoner_stump', text: 'Flashbang party! Guards down!' },
+            { characterKey: 'legion_armory_officer', text: 'Keycard override failed—change codes!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_wall_crack_bomb',
+        order: 63012,
+        characterKey: 'toad_prisoner_glimmer',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 52 },
+        timestamp: '8 minutes ago',
+        content: `West yard wall exploding! Speaker L's clue: "Loose mortar at seam 47." Smuggled powder kegs ignited. Hole big enough for 60 minis! Outside air!`,
+        likes: 1023,
+        comments: [
+            { characterKey: 'wall_sapper_toad', text: 'Dug weak point months ago with spoons.' },
+            { characterKey: 'ironhand_voice', text: 'Wall breach! Snipers to positions!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_boiler_room_hub',
+        order: 63013,
+        characterKey: 'creek',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 55 },
+        timestamp: '5 minutes ago',
+        content: `Boiler room rally: 80 toads converged. Drains pried open to sewers. Treating wounded quick—Speaker sent antidote for gas. Waves out to Whispering Caves!`,
+        likes: 1198,
+        comments: [
+            { characterKey: 'toad_prisoner_willow', text: 'Sewers flood path to caves clear!' },
+            { characterKey: 'legion_boiler_squad', text: 'Theyre in the drains!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_roof_zip_lines',
+        order: 63014,
+        characterKey: 'toad_prisoner_fern',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 0 },
+        timestamp: '30 minutes ago',
+        content: `Roof accessed via vents! Pre-strung zip-lines from laundry supplies to outer wall drop. 35 zipped to forest edge. Legion drones blind from flashbangs!`,
+        likes: 943,
+        comments: [
+            { characterKey: 'zip_line_rigger', text: 'Bed sheets + bootlaces. Held strong.' },
+            { characterKey: 'legion_drone_op', text: 'Sensors jammed—unknown interference!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_midlands_scouts',
+        order: 63015,
+        characterKey: 'midlands_scout_toad',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 5 },
+        timestamp: '25 minutes ago',
+        content: `Scouts from Speaker's Midlands exile network here at forest edge. Horses hidden in Whispering Caves. Guiding first waves north to Raventree safe houses. 112 out so far!`,
+        likes: 1102,
+        comments: [
+            { characterKey: 'toad_prisoner_bramble', text: 'Horses! Real freedom!' },
+            { characterKey: 'raven_tree_contact', text: 'Manor ghosts will cover your tracks.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_mirror_decoy',
+        order: 63016,
+        characterKey: 'toad_prisoner_moss',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 10 },
+        timestamp: '20 minutes ago',
+        content: `Decoy group smashed mirror vault door (clue: "Glass remembers"). Illusions from smuggled dust trap Legion squads inside. Real escapes via tunnels!`,
+        likes: 765,
+        comments: [
+            { characterKey: 'mirror_dust_smuggler', text: 'Mages Guild contraband. Speaker has friends.' },
+            { characterKey: 'legion_mirror_squad', text: 'Lost in reflections! Help!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_chapel_sanctuary',
+        order: 63017,
+        characterKey: 'chapel_toad_refugee',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 15 },
+        timestamp: '15 minutes ago',
+        content: `Chapel wards activated by priest sympathizer. 28 wounded hiding. Sanctuary holds till midnight. Speaker's note promised extraction.`,
+        likes: 834,
+        comments: [
+            { characterKey: 'steel_mercy_priest', text: 'Even Ironhand fears the divine.' },
+            { characterKey: 'ironhand', text: 'Wards fail soon. Prepare purge.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_whispering_caves_rally',
+        order: 63018,
+        characterKey: 'toad_prisoner_stump',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `Whispering Caves: 140+ arrived! Caves echo plans—Speaker's tunnels link to Regal underrail. Food caches, maps to hidden Regal dissident homes.`,
+        likes: 1245,
+        comments: [
+            { characterKey: 'cave_echo_spirit', text: 'We hide you from patrols.' },
+            { characterKey: 'regal_dissident', text: 'Safe houses in Shadeward ready.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_legion_casualties',
+        order: 63019,
+        characterKey: 'legion_field_medic',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 45 },
+        timestamp: '45 minutes ago',
+        content: `Mess hall: 15 guards down. Boiler flooded with steam burns. Total KIA 32. These toads fight like demons. Aegis compromised.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'general_ironhand', text: 'Purge squads out. No quarter.' },
+            { characterKey: 'speaker_rivers', text: 'Your empire crumbles from within.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_data_vault_clue',
+        order: 63020,
+        characterKey: 'toad_prisoner_rust',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Grabbed floppy from guard post: "Project Phoenix hatch blueprints." Speaker hinted at Peach secrets. Taking to caves—big intel!`,
+        likes: 1567,
+        comments: [
+            { characterKey: 'chief_thornpaw_echo', text: 'Rakasha know that hatch. Dangerous knowledge.' },
+            { characterKey: 'iron_legion_sec', text: 'Data breach! Lock it down!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_underrail_exodus',
+        order: 63021,
+        characterKey: 'toad_prisoner_glimmer',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 30 },
+        timestamp: '1.5 hours ago',
+        content: `Underrail carts rolling! Giant moles pulling 80 toads to Shadeward depots. Speaker's network controls the rails—Legion thinks abandoned.`,
+        likes: 1098,
+        comments: [
+            { characterKey: 'mole_rail_master', text: 'Tunnels sealed behind us.' },
+            { characterKey: 'legion_rail_patrol', text: 'Ghost train? Impossible!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_forest_misdirect',
+        order: 63022,
+        characterKey: 'forest_dissident_toad',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 17, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Forest traps set: Pitfalls with glow-moss dummies. Legion chasing shadows while real groups to Raventree. Speaker predicted patrols perfectly.`,
+        likes: 923,
+        comments: [
+            { characterKey: 'raven_tree_ghost', text: 'Manor illusions aid the escape.' },
+            { characterKey: 'legion_scout', text: 'False trails everywhere!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_tally_nightfall',
+        order: 63023,
+        characterKey: 'creek',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Night tally: 158 escaped (of 187 held). 12 KIA, 17 recaptured. Wounded treated in caves. Speaker's plan flawless—clues led to every weakness.`,
+        likes: 2012,
+        comments: [
+            { characterKey: 'speaker_rivers', text: 'Sacrifice honors the fallen. Now organize.' },
+            { characterKey: 'ironhand', text: '158 bounties issued.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_shadeward_safe',
+        order: 63024,
+        characterKey: 'toad_prisoner_willow',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 20, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `Shadeward brewery safe house: 45 packed in. Local Moonfang werewolves guarding perimeter—Speaker allied with supernaturals pre-purge.`,
+        likes: 876,
+        comments: [
+            { characterKey: 'moonfang_scout', text: 'Legion hates us too. United front.' },
+            { characterKey: 'onyx_hand_whisper', text: 'Vampires send blood rations.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_day22_manhunt_evade',
+        order: 63025,
+        characterKey: 'midlands_scout_toad',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 0 },
+        timestamp: 'Dawn',
+        content: `Legion dawn sweeps miss us—Speaker's decoy fires in south woods. All 158 accounted: Raventree 62, Shadeward 51, underrail to Bramble ruins 45.`,
+        likes: 1345,
+        comments: [
+            { characterKey: 'captain_toadette_echo', text: 'Ruins secure. Loyalists welcome kin.' },
+            { characterKey: 'legion_hunter', text: 'Decoys fooled us again!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_third_eye_hint',
+        order: 63026,
+        characterKey: 'toad_prisoner_bramble',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Missing 3 toads? Note left: "Third Eye claims." Cult nabbed them during chaos. Speaker warned of "three-eyed watchers" in clues.`,
+        likes: 789,
+        comments: [
+            { characterKey: 'oracle_fragment', text: 'Mirrors not sealed fully. Watching.' },
+            { characterKey: 'archie_clone_whisper', text: 'Theyre mine now.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_vigilance_clue',
+        order: 63027,
+        characterKey: 'speaker_rivers',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Next phase: Vigilance overhead. Core sabotage blueprint in data grab. Insiders aboard wait signal. Dragon sonic arrays files too—war's a lie.`,
+        likes: 2234,
+        comments: [
+            { characterKey: 'vigilance_toad_crew', text: 'Ready. Power flux at noon?' },
+            { characterKey: 'iron_legion_air', text: 'Monitor chatter!' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_training_begins',
+        order: 63028,
+        characterKey: 'toad_prisoner_moss',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+        timestamp: 'Now',
+        content: `Raventree drills: Baton forms from armory raid. Rakasha teaching stealth. We're army now. Speaker's vision: Strike Legion hearts.`,
+        likes: 1456,
+        comments: [
+            { characterKey: 'rakasha_spiritwalker', text: 'Your riot echoes in spirits.' },
+            { characterKey: 'regal_dissident_leader', text: 'Diet vote soon—purge challenged.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_legion_cracks',
+        order: 63029,
+        characterKey: 'legion_deserter2',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Deserting after riot. Saw Speaker's forged orders confuse command. Inside moles everywhere. Empire fracturing—join us?`,
+        likes: 1123,
+        comments: [
+            { characterKey: 'midlands_scout_toad', text: 'Meet at cave mouth. Safe passage.' },
+            { characterKey: 'speaker_rivers', text: 'Welcome home, brother.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
+    {
+        id: 'aegis_riot_revolution_spark',
+        order: 63030,
+        characterKey: 'liberated_toad_chorus',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 0 },
+        timestamp: 'Evening',
+        content: `Aegis no more prison—cradle of revolt. 158 free, network vast. Speaker L from Midlands shadows: "Phoenix rises." Toads of Regal Empire, rise! Vigilance next, then skies fall.`,
+        likes: 2789,
+        comments: [
+            { characterKey: 'toad_prisoner_glimmer', text: 'Phoenix? Peach link confirmed.' },
+            { characterKey: 'ironhand', text: 'Hunt intensifies. Blood for blood.' },
+            { characterKey: 'oracle', text: 'Glass foretells airship flames.' }
+        ],
+        rumorId: 'aegis_prison_break_riot'
+    },
     {
     id: 'wario_dead_drop',
     order: 32191,
@@ -2199,6 +2884,426 @@ We are NOT done yet.`,
         ],
         rumorId: 'delfino_exile_final'
     },
+  {
+    id: 'aegis_riot_prewarning_note',
+    order: 63101,
+    characterKey: 'toad_prisoner_pip',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 15 },
+    timestamp: '1 hour ago',
+    content: `Morning ration bread had a hidden note: "Speaker L lives. Third bell = green fog. Mini-Mrooms in crust. East pipes dry at signal. Tunnels marked w/ spore-glow. Rally: Whispering Caves, Regal frontier. Empire's secret: Sonic Net under Aegis. Dragons fake war." Regal Empire's grip slips!`,
+    likes: 567,
+    comments: [
+      { characterKey: 'toad_prisoner_spore', text: 'My loaf too! Speakers in the bakery staff?' },
+      { characterKey: 'legion_kitchen_guard', text: 'Inspect all rations NOW!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_speaker_hack',
+    order: 63102,
+    characterKey: 'speaker_rivers',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 13, minute: 45 },
+    timestamp: '45 minutes ago',
+    content: `From Aegis servers (Regal Empire core): Life-Force Extractors drain toad magic for Vigilance core upgrades. 150 of us = Phase 2 battery shipment to "Core Site" dig. Sonic emitters control dragons—war's a sham for Empire expansion. Fog at third bell. Freedom via east drains!`,
+    likes: 2345,
+    comments: [
+      { characterKey: 'toad_prisoner_moss', text: 'Hes hacking FROM INSIDE? Legend!' },
+      { characterKey: 'general_ironhand', text: 'SOURCE TRACED: Server Crypt! SEAL IT!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_fog_deploy',
+    order: 63103,
+    characterKey: 'toad_prisoner_shroomlet',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
+    timestamp: 'Now',
+    content: `GREEN FOG EVERYWHERE! Laundry vents spewing peppermint gas—Legion choking, eyes streaming! Us toads fine. Speaker's chem-brew targets Imperial lungs only. Shrinking on Mini-Mrooms... slipping cuffs! Block C chaos!`,
+    likes: 1890,
+    comments: [
+      { characterKey: 'toad_prisoner_rill', text: 'Fogs our shield! To the pipes!' },
+      { characterKey: 'imperial_sentry', text: 'Gas mask! GAS MASK! Cant... breathe...' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_extractor_blueprint',
+    order: 63104,
+    characterKey: 'toad_prisoner_fizz',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 35 },
+    timestamp: '5 minutes ago',
+    content: `Rifled guard desk mid-riot: Extractor blueprint shows toad souls -> sonic amplifiers. "Project Third Harmony": 12 Aegis sites form grid controlling ALL dragons. Empire fakes war to mine "Spore Origin" under mountains. Speaker marked escape route on it!`,
+    likes: 3124,
+    comments: [
+      { characterKey: 'oracle', text: 'The Spore awakens. Clues converge.' },
+      { characterKey: 'legion_archivist', text: 'CLASSIFIED DOCS STOLEN! Alert High Command!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_pipe_swarm',
+    order: 63105,
+    characterKey: 'toad_prisoner_gloop',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 40 },
+    timestamp: '10 minutes ago',
+    content: `50 tiny toads in east pipes! Water stopped as Speaker said—dry run to boiler sub-levels. Glowing moss trail (Noki work?) leads to mining shafts from old Empire digs. Heat rising... valves next!`,
+    likes: 1678,
+    comments: [
+      { characterKey: 'toad_prisoner_drip', text: 'Rats huge at mini-size! But moss saves us!' },
+      { characterKey: 'noki_smuggler', text: 'Follow glow, kin. River exit prepped.' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_vigilance_hack',
+    order: 63106,
+    characterKey: 'speaker_rivers',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 45 },
+    timestamp: '15 minutes ago',
+    content: `Vigilance nav-comp hacked remotely. If ship nears Aegis airspace, auto-broadcasts Order 120 logs + extractor schematics Empire-wide. Core Site coords uploaded too: "Fractured Heart" under Dragon Mtns. Fly free, toads—ship's your ally now!`,
+    likes: 4567,
+    comments: [
+      { characterKey: 'bowser', text: 'Ships got teeth! Nice play, Speaker.' },
+      { characterKey: 'iron_legion_ai', text: 'Vigilance quarantine protocol: Engage.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_boiler_boom',
+    order: 63107,
+    characterKey: 'toad_prisoner_vent',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 50 },
+    timestamp: '20 minutes ago',
+    content: `Jammed boiler valves w/ Legion medals! Pressure spiking—WHOOSH! Steam blast east wall. 30 toads out into Regal marshes! Legion blind in fog/steam! To Whispering Caves!`,
+    likes: 2234,
+    comments: [
+      { characterKey: 'toad_prisoner_hiss', text: 'Walls gone! Fresh air tastes like victory!' },
+      { characterKey: 'legion_engineer', text: 'Catastrophic failure! Evacuate sub-levels!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_mirror_cult',
+    order: 63108,
+    characterKey: 'toad_prisoner_glint',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 0 },
+    timestamp: '30 minutes ago',
+    content: `Mirror vault unsealed by Speaker's glyph. Inside: Third Eye cult altar. Empire Emperor? Faceless reflection w/ single glowing eye. Toads sacrificed for "Harmony Vision." Decoy Speaker L here—green skin from ritual! We smashed it!`,
+    likes: 3987,
+    comments: [
+      { characterKey: 'archie', text: 'Third Eye? Thats MY thing! Empire copies?' },
+      { characterKey: 'mirror_wraith', text: 'You broke my home... naughty toads.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_mess_havoc',
+    order: 63109,
+    characterKey: 'toad_prisoner_gravy',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 5 },
+    timestamp: '35 minutes ago',
+    content: `Mess hall riot: Tables flipped, roaches loosed, gravy floods! Guards slipping—30 toads dash thru kitchen to laundry chutes. Speaker's turncoat baker points hidden grates!`,
+    likes: 1456,
+    comments: [
+      { characterKey: 'toad_prisoner_slide', text: 'Gravy luge to freedom! Epic!' },
+      { characterKey: 'imperial_cook', text: 'My kitchen! But... go, little ones.' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_core_site',
+    order: 63110,
+    characterKey: 'toad_prisoner_dig',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 10 },
+    timestamp: '40 minutes ago',
+    content: `Old mining tunnels = Speaker's map to Core Site. Empire digs for "Spore Origin"—pre-Era artifact powers Sonic Net. 12 sites like Aegis feed it toad magic. We carry proof to Mushroom Kingdom border!`,
+    likes: 2789,
+    comments: [
+      { characterKey: 'rakasha_spy', text: 'Spore Origin? Ancient Rakasha lore matches.' },
+      { characterKey: 'regal_archaeologist', text: 'The dig must be protected AT ALL COSTS!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_river_jump',
+    order: 63111,
+    characterKey: 'toad_prisoner_splash',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 20 },
+    timestamp: '50 minutes ago',
+    content: `River cliff leap! 40 toads diving to Noki blue-glow subs. Rapids hide us from Sky-Hunters. "Cold water, free soul"—Speaker's words! Midlands marshes next, far from Empire heart!`,
+    likes: 3012,
+    comments: [
+      { characterKey: 'noki_diver', text: 'Grabbed 25! Sub to border tunnels!' },
+      { characterKey: 'legion_drone', text: 'Targets in water—depth charges!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_sonic_blueprint',
+    order: 63112,
+    characterKey: 'toad_prisoner_echo',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 30 },
+    timestamp: '1 hour ago',
+    content: `Sonic emitter blueprint: Dragon paralysis freq from toad-extracted "Harmony Essence." Empire puppets dragons vs. rivals. Ignis-Major at Dragon Mtns was test—Robinson knows! Destroy emitters to free beasts!`,
+    likes: 3678,
+    comments: [
+      { characterKey: 'ignis_major_echo', text: 'The paralysis ends... soon.' },
+      { characterKey: 'dragon_handler', text: 'Leak contained? No—purge all witnesses!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_forest_scatter',
+    order: 63113,
+    characterKey: 'toad_prisoner_leaf',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 45 },
+    timestamp: '1 hour 15 min ago',
+    content: `Whispering Woods rangers guide 60 thru moss-trails. Trees rustle warnings of patrols. Legion dogs lost in fog residue. Caves ahead—long trek to Kingdom frontier!`,
+    likes: 1987,
+    comments: [
+      { characterKey: 'woods_ranger', text: 'Moss north-side hides footprints.' },
+      { characterKey: 'legion_tracker', text: 'Lost the scent... cursed fog!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_emperor_mirror',
+    order: 63114,
+    characterKey: 'toad_prisoner_reflect',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 0 },
+    timestamp: '1 hour 30 min ago',
+    content: `Ironhand's office mirror: Emperor's "portrait" shows viewer as faceless w/ Third Eye. Cult reflection ritual? Speaker whispered unlock phrase: "Glass remembers Empire's lie." Shattered it—freedom symbol!`,
+    likes: 4321,
+    comments: [
+      { characterKey: 'chief_thornpaw', text: 'Rakasha mirrors warn of such cults.' },
+      { characterKey: 'third_eye_priest', text: 'Blasphemy! The Eye sees all.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_chute_slide',
+    order: 63115,
+    characterKey: 'toad_prisoner_tumble',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 10 },
+    timestamp: '1 hour 40 min ago',
+    content: `Laundry chutes = express to service tunnels! 70 toads piling in linen room, popping grates to old shafts. Turncoat scarred guard waves us thru north gate—Legion fooled by mess decoys!`,
+    likes: 2567,
+    comments: [
+      { characterKey: 'scarred_guard', text: 'Go! I held em 10 min!' },
+      { characterKey: 'laundry_toad', text: 'Sheets saved lives today!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_decoy_reveal',
+    order: 63116,
+    characterKey: 'green_decoy_toad',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 20 },
+    timestamp: '1 hour 50 min ago',
+    content: `Fake Speaker L was me—green from "ritual dye" to fool Ironhand. Real Speaker planted virus via my "capture." Distracted guards w/ " CONTAIN ACCOUNT RESTORE ADHERE" chant while real escape!`,
+    likes: 2890,
+    comments: [
+      { characterKey: 'speaker_rivers', text: 'Brave decoy. Your sacrifice echoes.' },
+      { characterKey: 'ironhand', text: 'The GREEN ONE lives? Hunt both!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_marsh_hide',
+    order: 63117,
+    characterKey: 'toad_prisoner_mud',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 16, minute: 30 },
+    timestamp: '2 hours ago',
+    content: `Marshes swallow us! Mud camouflage vs Sky-Hunters. Noki carts wait in caves. 120+ out, trekking to Kingdom border—Empire's reach ends at mountains!`,
+    likes: 3345,
+    comments: [
+      { characterKey: 'marsh_ranger', text: 'Quicksand traps for pursuers.' },
+      { characterKey: 'sky_hunter_pilot', text: 'Lost visuals in reeds.' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_border_tunnels',
+    order: 63118,
+    characterKey: 'toad_prisoner_tunnel',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 17, minute: 0 },
+    timestamp: '2 hours 30 min ago',
+    content: `Underground railway active! Mole-pulled carts to Mushroom frontier. Speaker's map shows border weakpoint: "Peach Loyalist smuggle route." Carry docs to Toadette—expose Empire plots!`,
+    likes: 4123,
+    comments: [
+      { characterKey: 'mole_driver', text: 'Next: Free Territories. Hold tight!' },
+      { characterKey: 'captain_toadette', text: 'Intel inbound? Prep camps!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_tally_night1',
+    order: 63119,
+    characterKey: 'woods_ranger_toad',
+    date: { year: 1040, monthIndex: 6, day: 21, hour: 20, minute: 0 },
+    timestamp: '6 hours ago',
+    content: `Night 1 tally: 142/150 escaped Aegis. Caves safe. Legion contained—too slow. Feasts w/ Noki fish. Speaker's plan flawless!`,
+    likes: 5012,
+    comments: [
+      { characterKey: 'noki_chef', text: 'Freedom stew simmers!' },
+      { characterKey: 'ironhand', text: 'Purge squads mobilize at dawn.' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_day2_manhunt',
+    order: 63120,
+    characterKey: 'legion_deserter',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 },
+    timestamp: 'Now',
+    content: `Deserting Legion: Ironhand purges own for "mole." Saw Speaker swap w/ clockwork decoy days ago. Real one's en route to Raventree. Empire's Emperor? Third Eye seer pulling strings from Core Site mirrors!`,
+    likes: 2678,
+    comments: [
+      { characterKey: 'speaker_rivers', text: 'Safe travels, deserter. Truth spreads.' },
+      { characterKey: 'internal_affairs', text: 'DESERTER LOCATION: Old mill. Terminate!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_safe_feast',
+    order: 63121,
+    characterKey: 'toad_prisoner_feast',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+    timestamp: '2 hours ago',
+    content: `Pianta/Noki safehouses full! 130 accounted. Training starts: Use stolen emitters vs Legion armor. Empire far—Kingdom welcomes us as heroes!`,
+    likes: 3789,
+    comments: [
+      { characterKey: 'don_pianta', text: 'Chuck any hunters who come!' },
+      { characterKey: 'pianta_chef', text: 'Pie for liberators!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_loyalist_link',
+    order: 63122,
+    characterKey: 'toad_prisoner_link',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+    timestamp: 'Now',
+    content: `Docs prove Empire funded Peach assassins via Fawful proxy. "Project Phoenix hatch" in castle—resurrection tech? Speaker to Toadette w/ proof. Civil War flips!`,
+    likes: 4890,
+    comments: [
+      { characterKey: 'mistveil', text: 'Gala intel confirmed!' },
+      { characterKey: 'fawful', text: 'LIES! Fawful destroys slander!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_day2_scouts',
+    order: 63123,
+    characterKey: 'marsh_scout',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+    timestamp: '2 hours later',
+    content: `Scouts report: Legion infighting over Speaker mole hunt. Our 142 spark resistance cells across Regal fringes. Toad Town camps ready—home stretch!`,
+    likes: 3456,
+    comments: [
+      { characterKey: 'toad_prisoner_scamp', text: 'Legion eats itself!' },
+      { characterKey: 'shellshock', text: 'Toads ripe for recruitment...' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_oracle_vision',
+    order: 63124,
+    characterKey: 'oracle',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 0 },
+    timestamp: '4 hours later',
+    content: `Glass visions: Aegis break fractures Empire. Sonic Net hums wrong—dragons stir. Third Eye fears toad sparks. Vigilance broadcasts truth soon. Spore Origin calls from depths...`,
+    likes: 5123,
+    comments: [
+      { characterKey: 'waluigi', text: 'Glitter visions? Sign me up!' },
+      { characterKey: 'third_eye_cult', text: 'Silence the seer!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_final_tally',
+    order: 63125,
+    characterKey: 'ranger_chief',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 0 },
+    timestamp: 'Evening',
+    content: `Final: 147/150 free! 3 lost to quicksand/mirrors. Safehouses secure. Empire manhunt fails—too vast. Liberation cells form. Glory to Speaker L!`,
+    likes: 6789,
+    comments: [
+      { characterKey: 'speaker_rivers', text: 'Not glory. Justice.' },
+      { characterKey: 'ironhand', text: '147 bounties. Purge eternal.' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_phoenix_hatch',
+    order: 63126,
+    characterKey: 'chief_thornpaw',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 0 },
+    timestamp: 'Night',
+    content: `Escaped docs + gala whisper: Peach's hatch = Empire "Phoenix Protocol" backup. Third Eye cult cloned her? Resurrects for control? Rakasha investigates w/ toads!`,
+    likes: 5901,
+    comments: [
+      { characterKey: 'captain_toadette', text: 'Princess lives? Loyalists mobilize!' },
+      { characterKey: 'regency_official', text: 'Suppress this heresy!' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_new_spark',
+    order: 63127,
+    characterKey: 'liberated_spark',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 22, minute: 0 },
+    timestamp: 'Late night',
+    content: `We were batteries. Now sparks. 147 lights Empire ablaze. Speaker's riot = revolution dawn. Kingdom awaits—bring clues, topple thrones!`,
+    likes: 8012,
+    comments: [
+      { characterKey: 'toad_prisoner_pip', text: 'Spark eternal!' },
+      { characterKey: 'don_pianta', text: 'Toads + fruit = unstoppable!' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_net_break',
+    order: 63128,
+    characterKey: 'dragon_whisper',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 0 },
+    timestamp: 'Near midnight',
+    content: `Dragons sense: Aegis fall glitches Sonic Net. Paralyze freq wavers. Robinson's truth spreads. Empire dragons rebel soon—ally to toads vs. Third Eye?`,
+    likes: 6234,
+    comments: [
+      { characterKey: 'robinson', text: 'From cell: Hold freq keys!' },
+      { characterKey: 'sonic_tech', text: 'Net recalibrating... failures rising.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },
+  {
+    id: 'aegis_riot_alliance_call',
+    order: 63129,
+    characterKey: 'toad_alliance',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 30 },
+    timestamp: 'Midnight',
+    content: `Day 2 ends triumphant. Pianta/Noki/Rakasha hide us. Train w/ stolen gear. Call to arms: Expose Empire to all factions. Riot seeds war's end!`,
+    likes: 7345,
+    comments: [
+      { characterKey: 'noki_elder', text: 'Sea alliance forged.' },
+      { characterKey: 'general_shellshock', text: 'Toads interesting. Watch.' }
+    ],
+    rumorId: 'aegis_prison_break_riot'
+  },
+  {
+    id: 'aegis_clue_final_vision',
+    order: 63130,
+    characterKey: 'speaker_rivers',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 59 },
+    timestamp: 'Seconds to dawn',
+    content: `Raventree bound. Clues delivered. Empire unravels: Sonic lies, Eye cult, Phoenix fake. Toads rise—Vigilance flies truth. Spore Origin stirs... prepare for what's unearthed.`,
+    likes: 9012,
+    comments: [
+      { characterKey: 'oracle', text: 'Threads weave to climax.' },
+      { characterKey: 'ironhand', text: 'End you all... personally.' }
+    ],
+    rumorId: 'aegis_uprising_clues'
+  },    
     {
         id: 'delfino_final_last_ship',
         order: 63012,

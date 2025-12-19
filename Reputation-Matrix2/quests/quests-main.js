@@ -2557,7 +2557,7 @@ export const MAIN_QUESTS = {
     dates: {
         added: { year: 1040, monthIndex: 6, day: 19 },
         updated: { year: 1040, monthIndex: 6, day: 21 },
-        deadline: "Before the separation ritual completes"
+        deadline:  { year: 1040, monthIndex: 6, day: 22 },
     },
 
     description: "Green T saw something in the mirror that he cannot unsee.\n\nWhen the Shard Stalker dragged him through the glass on Day 19, he spent what felt like hours in a place where nothing was real and everything wore his face. Dan pulled him out. It should have been a rescue. Instead, Green T looked at Dan—looked *through* Dan—and ran.\n\nHe broke a lock to escape the Solarium. He has been moving through the Manor ever since, avoiding the party, avoiding the Oracle, avoiding anything that casts a reflection. The few glimpses caught of him suggest a toad operating on pure panic: checking corners for mirrors, muttering about 'the wrong faces,' refusing to look anyone in the eye.\n\nThe Oracle has warned that the separation ritual will seal the timelines. Anyone not in the 'present' when the cut happens will be left behind—not dead, but never-was. Green T's current location is unknown. The Manor's geography shifts. And time is running out.\n\nDan has taken point on this search. This is personal. He pulled Green T from the mirror. He feels responsible. But Green T ran *from* Dan specifically. That fact has not been discussed. Perhaps it should be.",
