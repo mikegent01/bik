@@ -115,7 +115,7 @@ The Speaker knew. That’s why he triggered this today!`,
 The whole East Wing is shaking! If those pipes blow, the outer wall goes with them. Keep those Legionnaires busy in the mess hall—don't let them reach the basement!`,
     likes: 890,
     comments: [
-        { characterKey: 'toad_prisoner_crusty', text: 'The gravy fight in the mess hall is doing the trick! It’s a slip-and-slide for fascists!' }
+        { characterKey: 'toad_prisoner_crusty', text: 'The gravy fight in the mess hall is doing the trick! It’s a slip-and-slide for empire!' }
     ],
     rumorId: 'aegis_uprising_clues'
 },
