@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raventree Ritual - Complete GM Master Sheet</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            min-height: 100vh;
+        }
+        
+        h1, h2, h3, h4, .scene-title {
+            font-family: 'Cinzel', serif;
+        }
+        
+        .mirror-glow {
+            box-shadow: 0 0 20px rgba(147, 197, 253, 0.3), inset 0 0 20px rgba(147, 197, 253, 0.1);
+        }
+        
+        .danger-glow {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+        
+        .success-glow {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+        
+        .warning-glow {
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.4);
+        }
+        
+        .checkbox-custom {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #6b7280;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .checkbox-custom:checked {
+            background: #22c55e;
+            border-color: #22c55e;
+        }
+        
+        .checkbox-custom:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .checkbox-late {
+            background: #eab308 !important;
+            border-color: #eab308 !important;
+        }
+        
+        .checkbox-absent {
+            background: #ef4444 !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .checkbox-absent::after {
+            content: '✗' !important;
+        }
+        
+        .pulse-warning {
+            animation: pulse-warn 2s infinite;
+        }
+        
+        @keyframes pulse-warn {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .collapsible-content.expanded {
+            max-height: 5000px;
+        }
+        
+        .tab-active {
+            background: #7c3aed;
+            color: white;
+        }
+        
+        .character-card {
+            transition: all 0.3s;
+        }
+        
+        .character-card.present {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+        
+        .character-card.late {
+            border-color: #eab308;
+            background: rgba(234, 179, 8, 0.1);
+        }
+        
+        .character-card.absent {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            opacity: 0.6;
+        }
+        
+        .roll-box {
+            font-family: monospace;
+            background: #1f2937;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .sticky-status {
+            position: sticky;
+            top: 60px;
+            z-index: 90;
+            backdrop-filter: blur(10px);
+        }
+        
+        .player-highlight {
+            animation: playerPulse 3s infinite;
+        }
+        
+        @keyframes playerPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(147, 51, 234, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(147, 51, 234, 0.8); }
+        }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        details summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        details[open] summary .arrow {
+            transform: rotate(90deg);
+        }
+        
+        .arrow {
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body class="text-gray-200 p-2 md:p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-6">
+            <h1 class="text-3xl md:text-5xl text-purple-300 mb-2">🕯️ RAVENTREE SEPARATION RITUAL</h1>
+            <p class="text-gray-400 text-lg">Complete GM Master Sheet — All Characters, Branches & Failures</p>
+        </header>
+
+        <!-- Sticky Navigation -->
+        <nav class="sticky-nav bg-gray-900/95 rounded-xl p-3 mb-4 border border-gray-700">
+            <div class="flex flex-wrap gap-2 justify-center mb-3">
+                <button onclick="showTab('overview')" class="tab-btn px-3 py-1 rounded bg-gray-700 hover:bg-purple-600 transition text-sm" data-tab="overview">📊 Overview</button>
+                <button onclick="showTab('preritual')" class="tab-btn px-3 py-1 rounded bg-gray-700 hover:bg-purple-600 transition text-sm" data-tab="preritual">⏳ Pre-Ritual</button>
+                <button onclick="showTab('characters')" class="tab-btn px-3 py-1 rounded bg-gray-700 hover:bg-purple-600 transition text-sm" data-tab="characters">👥 Characters</button>
+                <button onclick="showTab('scenes')" class="tab-btn px-3 py-1 rounded bg-gray-700 hover:bg-purple-600 transition text-sm" data-tab="scenes">🎭 Scenes</button>
+                <button onclick="showTab('players')" class="tab-btn px-3 py-1 rounded bg-purple-700 hover:bg-purple-600 transition text-sm" data-tab="players">⭐ Player Roles</button>
+                <button onclick="showTab('failures')" class="tab-btn px-3 py-1 rounded bg-gray-700 hover:bg-purple-600 transition text-sm" data-tab="failures">💀 Failures</button>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button onclick="resetAll()" class="px-3 py-1 bg-red-900 hover:bg-red-700 rounded text-sm">🔄 Reset</button>
+                <button onclick="saveState()" class="px-3 py-1 bg-green-900 hover:bg-green-700 rounded text-sm">💾 Save</button>
+                <button onclick="loadState()" class="px-3 py-1 bg-blue-900 hover:bg-blue-700 rounded text-sm">📂 Load</button>
+            </div>
+        </nav>
+
+        <!-- STATUS TRACKER (STICKY) -->
+        <div id="statusTracker" class="sticky-status bg-gray-900/95 rounded-xl p-4 mb-4 mirror-glow border border-purple-600">
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-3 text-center text-sm">
+                <div class="bg-gray-800 rounded-lg p-2">
+                    <div class="text-xl font-bold" id="circleIntegrity">5</div>
+                    <div class="text-xs text-gray-400">Circle Integrity</div>
+                    <div class="flex justify-center gap-1 mt-1">
+                        <button onclick="modifyStat('circleIntegrity', -1)" class="px-2 bg-red-800 rounded text-xs">-</button>
+                        <button onclick="modifyStat('circleIntegrity', 1)" class="px-2 bg-green-800 rounded text-xs">+</button>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-2">
+                    <div class="text-xl font-bold" id="safeguards">3</div>
+                    <div class="text-xs text-gray-400">Safeguards</div>
+                    <div class="flex justify-center gap-1 mt-1">
+                        <button onclick="modifyStat('safeguards', -1)" class="px-2 bg-red-800 rounded text-xs">-</button>
+                        <button onclick="modifyStat('safeguards', 1)" class="px-2 bg-green-800 rounded text-xs">+</button>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-2">
+                    <div class="text-xl font-bold" id="ritualStress">0</div>
+                    <div class="text-xs text-gray-400">Ritual Stress</div>
+                    <div class="flex justify-center gap-1 mt-1">
+                        <button onclick="modifyStat('ritualStress', -1)" class="px-2 bg-green-800 rounded text-xs">-</button>
+                        <button onclick="modifyStat('ritualStress', 1)" class="px-2 bg-red-800 rounded text-xs">+</button>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-2">
+                    <div class="text-xl font-bold" id="witnessCount">0/8</div>
+                    <div class="text-xs text-gray-400">Witnesses Present</div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-2">
+                    <div class="text-xl font-bold" id="timeline">STABLE</div>
+                    <div class="text-xs text-gray-400">Timeline</div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-2">
+                    <div class="text-xl font-bold" id="currentPhase">PRE</div>
+                    <div class="text-xs text-gray-400">Current Phase</div>
+                </div>
+            </div>
+            
+            <!-- Active Flags -->
+            <div id="activeFlags" class="mt-3 flex flex-wrap gap-2 text-xs">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- TAB: OVERVIEW -->
+        <div id="tab-overview" class="tab-content">
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <!-- Anchor Status -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-purple-600">
+                    <h3 class="text-xl text-purple-300 mb-3">🔑 Anchor Status</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" checked disabled>
+                            <span>🌟 Star Fragment — <span class="text-green-400">ASCENDED</span> (Clean)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" checked disabled>
+                            <span>👻 Arcane Wraith — <span class="text-green-400">BANISHED</span> (Clean)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 bg-yellow-900/50 rounded cursor-pointer border border-yellow-600">
+                            <input type="checkbox" class="checkbox-custom checkbox-late" checked disabled>
+                            <span>🪞 Mirror Terror — <span class="text-yellow-400">PETRIFIED</span> (⚠️ STILL EXISTS)</span>
+                        </label>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 italic">Because Mirror Terror lives, someone leaves changed. Mirrors are active participants.</p>
+                </div>
+
+                <!-- Quick Ritual Requirements -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-blue-600">
+                    <h3 class="text-xl text-blue-300 mb-3">📋 Ritual Requirements</h3>
+                    <div class="space-y-1 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span id="req-impostor" class="text-red-400">❌</span>
+                            <span>Dan verified (not impostor)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="req-greent" class="text-red-400">❌</span>
+                            <span>Green T located OR overflow role assigned</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="req-positions" class="text-red-400">❌</span>
+                            <span>Correct positions assigned</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="req-witnesses" class="text-red-400">❌</span>
+                            <span>Minimum 6 witnesses present</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="req-nofire" class="text-green-400">✅</span>
+                            <span>No fire magic prepared</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group Summary Cards -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <!-- Group A -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-green-600">
+                    <h3 class="text-lg text-green-300 mb-2">🟢 GROUP A — Support Team</h3>
+                    <p class="text-xs text-gray-400 mb-2">Witnesses & Stabilizers</p>
+                    <div class="space-y-1 text-sm" id="groupA-summary">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Group B -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-blue-600">
+                    <h3 class="text-lg text-blue-300 mb-2">🔵 GROUP B — Ritual Core</h3>
+                    <p class="text-xs text-gray-400 mb-2">Essential Participants</p>
+                    <div class="space-y-1 text-sm" id="groupB-summary">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Group C -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-red-600">
+                    <h3 class="text-lg text-red-300 mb-2">🔴 GROUP C — Observers</h3>
+                    <p class="text-xs text-gray-400 mb-2">Potential Threats</p>
+                    <div class="space-y-1 text-sm" id="groupC-summary">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: PRE-RITUAL -->
+        <div id="tab-preritual" class="tab-content hidden">
+            <div class="space-y-4">
+                <!-- Delay Scenarios -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-yellow-600">
+                    <h3 class="text-xl text-yellow-400 mb-3">⏳ DELAY SCENARIOS — Check What Applies</h3>
+                    
+                    <!-- Wario Loot -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex justify-between items-center hover:bg-gray-700 rounded-lg">
+                            <span class="flex items-center gap-2">
+                                <span class="arrow">▶</span>
+                                <span>🧄 SCENARIO: Delaying for Wario's Loot Drop</span>
+                            </span>
+                            <input type="checkbox" class="checkbox-custom" id="delay-wario" onchange="handleDelay('wario', this.checked)">
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-yellow-900/30 p-3 rounded border border-yellow-700">
+                                <h4 class="text-yellow-400 font-bold mb-2">⏱️ Immediate Effects:</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• Burns 15-30 real minutes</li>
+                                    <li>• Oracle reaches Summoning Room without full support</li>
+                                    <li>• Ritual window does NOT pause</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-gray-700 p-3 rounded">
+                                    <h5 class="text-gray-300 font-bold">Who Goes for Loot?</h5>
+                                    <div class="space-y-1 mt-2 text-sm">
+                                        <label class="flex items-center gap-2"><input type="checkbox" class="checkbox-custom" data-loot="markop"> Markop</label>
+                                        <label class="flex items-center gap-2"><input type="checkbox" class="checkbox-custom" data-loot="remi"> Remi</label>
+                                        <label class="flex items-center gap-2"><input type="checkbox" class="checkbox-custom" data-loot="waluigi"> Waluigi</label>
+                                        <label class="flex items-center gap-2"><input type="checkbox" class="checkbox-custom" data-loot="rodger"> Rodger</label>
+                                        <label class="flex items-center gap-2"><input type="checkbox" class="checkbox-custom" data-loot="eager"> Eager</label>
+                                    </div>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                    <h5 class="text-red-400 font-bold">Consequences:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• +1 Ritual Stress per person delayed</li>
+                                        <li>• Oracle burns contingency seal early (-1 Safeguard)</li>
+                                        <li>• Green T arrival chance drops</li>
+                                        <li>• Pernus gains leverage</li>
+                                    </ul>
+                                    <button onclick="modifyStat('ritualStress', 1); modifyStat('safeguards', -1)" class="mt-2 px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm w-full">Apply Loot Delay Penalty</button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <p class="text-gray-300 italic">🧙‍♂️ Oracle (later): "You chose profit over precision. Remember that."</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Group A Late -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex justify-between items-center hover:bg-gray-700 rounded-lg">
+                            <span class="flex items-center gap-2">
+                                <span class="arrow">▶</span>
+                                <span>🧍 SCENARIO: Group A Delayed (Markop, Remi, Waluigi, Rodger, Toads, Eager)</span>
+                            </span>
+                            <input type="checkbox" class="checkbox-custom" id="delay-groupA" onchange="handleDelay('groupA', this.checked)">
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-yellow-900/30 p-3 rounded border border-yellow-700">
+                                <h4 class="text-yellow-400 font-bold mb-2">Why They're Delayed:</h4>
+                                <div class="grid md:grid-cols-2 gap-2 text-sm">
+                                    <label class="flex items-center gap-2 bg-gray-700 p-2 rounded">
+                                        <input type="checkbox" class="checkbox-custom" id="delay-legion-checkpoint"> Legion checkpoints
+                                    </label>
+                                    <label class="flex items-center gap-2 bg-gray-700 p-2 rounded">
+                                        <input type="checkbox" class="checkbox-custom" id="delay-mirror-loops"> Mirror loops
+                                    </label>
+                                    <label class="flex items-center gap-2 bg-gray-700 p-2 rounded">
+                                        <input type="checkbox" class="checkbox-custom" id="delay-arguments"> Internal arguments
+                                    </label>
+                                    <label class="flex items-center gap-2 bg-gray-700 p-2 rounded">
+                                        <input type="checkbox" class="checkbox-custom" id="delay-remi-injuries"> Remi's injuries
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                <h5 class="text-red-400 font-bold">🧙‍♂️ Oracle: "We are missing weight."</h5>
+                                <p class="text-sm mt-2">Toads and civilians anchor reality by existing normally. Without them:</p>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>• Circle draws more from Archie (+2 to his DCs)</li>
+                                    <li>• Pulls ambient ghosts inward</li>
+                                    <li>• Oracle must stand longer (risk of anchoring)</li>
+                                    <li>• -2 Circle Integrity</li>
+                                </ul>
+                                <button onclick="modifyStat('circleIntegrity', -2); modifyStat('ritualStress', 2)" class="mt-2 px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm w-full">Apply Group A Delay</button>
+                            </div>
+                            
+                            <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                                <h5 class="text-purple-400 font-bold">👁️ Possible Twist:</h5>
+                                <p class="text-sm">One late arrival shows up AFTER ritual — Manor doesn't recognize them anymore.</p>
+                                <label class="flex items-center gap-2 mt-2 text-sm">
+                                    <input type="checkbox" class="checkbox-custom" id="flag-unrecognized" onchange="toggleFlag('unrecognized', this.checked)">
+                                    <span>Mark: Someone becomes unrecognized</span>
+                                </label>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Waluigi Special -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex justify-between items-center hover:bg-gray-700 rounded-lg">
+                            <span class="flex items-center gap-2">
+                                <span class="arrow">▶</span>
+                                <span class="text-purple-400">🟣 SCENARIO: Waluigi Arrives Late (SPECIAL CASE)</span>
+                            </span>
+                            <input type="checkbox" class="checkbox-custom" id="delay-waluigi" onchange="handleDelay('waluigi', this.checked)">
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                                <p class="text-purple-300 font-bold">⚠️ Waluigi is narratively unstable. The Manor LIKES him. That's bad.</p>
+                            </div>
+                            
+                            <div class="bg-yellow-900/30 p-3 rounded border border-yellow-700">
+                                <h5 class="text-yellow-400 font-bold">If Late:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>• Mirrors briefly reactivate</li>
+                                    <li>• Ritual hiccups (-1 Circle Integrity)</li>
+                                    <li>• A joke becomes a rule</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <p class="text-sm mb-2">🎲 Roll d6 for Waluigi Weirdness:</p>
+                                <ol class="text-sm list-decimal list-inside space-y-1">
+                                    <li>A reflection of Waluigi stays behind (future problem)</li>
+                                    <li>A door that shouldn't exist does</li>
+                                    <li>Someone hears "WAH" echo for hours</li>
+                                    <li>A mirror shows everyone as Waluigi briefly</li>
+                                    <li>Waluigi gains minor prophecy (annoying, accurate)</li>
+                                    <li>Nothing happens (Waluigi disappointed)</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <p class="text-gray-300 italic">🧙‍♂️ Oracle (tight voice): "He should not have been late."</p>
+                            </div>
+                            <button onclick="modifyStat('circleIntegrity', -1); toggleFlag('waluigi-thread', true)" class="px-3 py-1 bg-purple-700 hover:bg-purple-600 rounded text-sm">Apply Waluigi Delay</button>
+                        </div>
+                    </details>
+
+                    <!-- Remi Absent -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex justify-between items-center hover:bg-gray-700 rounded-lg">
+                            <span class="flex items-center gap-2">
+                                <span class="arrow">▶</span>
+                                <span class="text-red-400">🐕 SCENARIO: Remi Doesn't Make It At All</span>
+                            </span>
+                            <input type="checkbox" class="checkbox-custom" id="delay-remi-absent" onchange="handleDelay('remi-absent', this.checked)">
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                <p class="text-red-400 font-bold">⚠️ This is emotionally and politically dangerous.</p>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-gray-700 p-3 rounded">
+                                    <h5 class="text-yellow-400 font-bold">Immediate Effects:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• No mechanical stabilizer</li>
+                                        <li>• No counterweight to Legion tech</li>
+                                        <li>• Less credibility if arrests happen</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-700 p-3 rounded">
+                                    <h5 class="text-red-400 font-bold">Political Narrative:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Legion: "Their engineer fled."</li>
+                                        <li>• Mages: "They were unprepared."</li>
+                                        <li>• Oracle says nothing. <em>That's worse.</em></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button onclick="updateCharacterStatus('remi', 'absent')" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">Mark Remi Absent</button>
+                        </div>
+                    </details>
+
+                    <!-- Stacked Delays -->
+                    <details class="bg-red-900/50 rounded-lg border border-red-500">
+                        <summary class="p-3 flex justify-between items-center hover:bg-red-900/70 rounded-lg">
+                            <span class="flex items-center gap-2">
+                                <span class="arrow">▶</span>
+                                <span class="text-red-400 font-bold">🔥 SCENARIO: Multiple Delays Stack (BAD ENDINGS)</span>
+                            </span>
+                        </summary>
+                        <div class="p-4 border-t border-red-700 space-y-3">
+                            <div class="bg-red-900/50 p-3 rounded border border-red-600">
+                                <p class="text-red-300 font-bold">This is how campaigns turn tragic without a "you failed" screen.</p>
+                            </div>
+                            
+                            <div class="bg-gray-800 p-3 rounded">
+                                <h5 class="text-yellow-400 font-bold mb-2">If Multiple Apply:</h5>
+                                <ul class="text-sm space-y-1">
+                                    <li>☐ Someone goes for Wario's loot</li>
+                                    <li>☐ Someone else gets stalled</li>
+                                    <li>☐ Green T is still missing</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                <h5 class="text-red-400 font-bold">THEN:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>🪞 Ritual still happens but under duress</li>
+                                    <li>⚔️ Arrests immediately after</li>
+                                    <li>🕸️ Lingering curse threads</li>
+                                    <li>💀 One NPC quietly written out of future timelines</li>
+                                </ul>
+                            </div>
+                            
+                            <button onclick="setTimeline('UNSTABLE'); modifyStat('ritualStress', 3)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm w-full">Apply Stacked Delay Catastrophe</button>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Pre-Ritual Checklist -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-green-600">
+                    <h3 class="text-xl text-green-400 mb-3">✅ PRE-RITUAL VERIFICATION CHECKLIST</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" id="check-dan" onchange="updateRequirement('impostor', this.checked)">
+                            <span>🔍 Dan Verified as Real (Insight DC 18 or Detect Magic)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" id="check-greent" onchange="updateRequirement('greent', this.checked)">
+                            <span>🟢 Green T Located / Overflow Role Assigned</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" id="check-positions" onchange="updateRequirement('positions', this.checked)">
+                            <span>📍 All Positions Assigned Correctly</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" id="check-mirrors" onchange="updateRequirement('mirrors', this.checked)">
+                            <span>🪞 Mirrors Controlled (covered/controlled, not shattered)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700">
+                            <input type="checkbox" class="checkbox-custom" id="check-nofire">
+                            <span>🔥 Archie reminded: ICE ONLY (no fire)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: CHARACTERS -->
+        <div id="tab-characters" class="tab-content hidden">
+            <!-- GROUP A -->
+            <div class="mb-6">
+                <h2 class="text-2xl text-green-400 mb-3 flex items-center gap-2">
+                    🟢 GROUP A — Support Team (Witnesses & Stabilizers)
+                    <span class="text-sm bg-green-900 px-2 py-1 rounded" id="groupA-count">0/8 Present</span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3" id="groupA-cards">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- GROUP B -->
+            <div class="mb-6">
+                <h2 class="text-2xl text-blue-400 mb-3 flex items-center gap-2">
+                    🔵 GROUP B — Ritual Core (Essential Participants)
+                    <span class="text-sm bg-blue-900 px-2 py-1 rounded" id="groupB-count">0/6 Present</span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3" id="groupB-cards">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- GROUP C -->
+            <div class="mb-6">
+                <h2 class="text-2xl text-red-400 mb-3 flex items-center gap-2">
+                    🔴 GROUP C — Observers (Potential Threats)
+                    <span class="text-sm bg-red-900 px-2 py-1 rounded" id="groupC-count">0/4 Watching</span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3" id="groupC-cards">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: SCENES -->
+        <div id="tab-scenes" class="tab-content hidden">
+            <!-- Scene Navigation -->
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button onclick="scrollToScene(0)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="0">Scene 0</button>
+                <button onclick="scrollToScene(1)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="1">Scene 1</button>
+                <button onclick="scrollToScene(2)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="2">Scene 2</button>
+                <button onclick="scrollToScene(3)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="3">Scene 3</button>
+                <button onclick="scrollToScene(4)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="4">Scene 4</button>
+                <button onclick="scrollToScene(5)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="5">Scene 5</button>
+                <button onclick="scrollToScene(6)" class="scene-nav px-3 py-1 bg-gray-700 hover:bg-purple-600 rounded text-sm" data-scene="6">Scene 6</button>
+            </div>
+
+            <div id="scenes-container" class="space-y-4">
+                <!-- Scenes populated by JS for cleaner code -->
+            </div>
+        </div>
+
+        <!-- TAB: PLAYER ROLES -->
+        <div id="tab-players" class="tab-content hidden">
+            <!-- Player Role Overview -->
+            <div class="bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-xl p-4 mb-6 border-2 border-purple-500">
+                <h2 class="text-2xl text-purple-300 mb-3 text-center">⭐ MAJOR PLAYER RITUAL ROLES ⭐</h2>
+                <p class="text-center text-gray-400 mb-4">Each player has a critical function. The ritual requires ALL FOUR to succeed.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                    <div class="bg-cyan-900/50 p-3 rounded-lg border border-cyan-500">
+                        <div class="text-3xl mb-1">❄️</div>
+                        <div class="text-cyan-300 font-bold">ARCHIE (FNG)</div>
+                        <div class="text-xs text-gray-400">Ice Anchor</div>
+                        <div class="role-badge bg-cyan-700 mt-1">NORTH NODE</div>
+                    </div>
+                    <div class="bg-red-900/50 p-3 rounded-lg border border-red-500">
+                        <div class="text-3xl mb-1">⚔️</div>
+                        <div class="text-red-300 font-bold">MARKOP</div>
+                        <div class="text-xs text-gray-400">Outer Ward</div>
+                        <div class="role-badge bg-red-700 mt-1">PERIMETER</div>
+                    </div>
+                    <div class="bg-purple-900/50 p-3 rounded-lg border border-purple-500">
+                        <div class="text-3xl mb-1">🟣</div>
+                        <div class="text-purple-300 font-bold">WALUIGI</div>
+                        <div class="text-xs text-gray-400">Chaos Sink</div>
+                        <div class="role-badge bg-purple-700 mt-1">WEST NODE</div>
+                    </div>
+                    <div class="bg-orange-900/50 p-3 rounded-lg border border-orange-500">
+                        <div class="text-3xl mb-1">🐢</div>
+                        <div class="text-orange-300 font-bold">BOWSER</div>
+                        <div class="text-xs text-gray-400">Mass Anchor</div>
+                        <div class="role-badge bg-orange-700 mt-1">SOUTH NODE</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARCHIE'S SCENE -->
+            <div id="player-archie" class="bg-gray-900/80 rounded-xl border-2 border-cyan-600 mb-6 overflow-hidden player-highlight">
+                <details open>
+                    <summary class="bg-cyan-900/50 p-4 cursor-pointer hover:bg-cyan-900/70">
+                        <h3 class="text-xl text-cyan-300 inline-flex items-center gap-2">
+                            ❄️ ARCHIE (FNG) — THE ICE ANCHOR
+                            <span class="role-badge bg-cyan-700">CRITICAL</span>
+                        </h3>
+                    </summary>
+                    <div class="p-4 space-y-4">
+                        <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-cyan-500">
+                            <h4 class="text-cyan-400 font-bold mb-2">📍 ROLE: North Node — Stasis Controller</h4>
+                            <p class="text-gray-300">Archie's ice magic doesn't just cool the room — it <strong>slows time itself</strong> within the circle. Without him, the ritual tears itself apart from temporal friction.</p>
+                        </div>
+
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-gray-300 italic mb-3">🧙‍♂️ Oracle: "Cold does not conquer. It preserves. You are not freezing time — you are asking it to wait."</p>
+                        </div>
+
+                        <!-- Pre-Ritual Check -->
+                        <div class="bg-cyan-900/30 p-4 rounded-lg border border-cyan-600">
+                            <h4 class="text-cyan-400 font-bold mb-3">🎲 PRE-RITUAL CHECK: Mental Preparation</h4>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="roll-box text-cyan-400">WIS Save DC 12</span>
+                                    <p class="text-sm text-gray-400 mt-2">Clear mind of fire-related thoughts</p>
+                                </div>
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="text-green-400">✅ Pass:</span>
+                                    <span class="text-sm text-gray-300"> +2 to all Ice checks during ritual</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <button onclick="setPlayerCheck('archie', 'prep', true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Passed</button>
+                                <button onclick="setPlayerCheck('archie', 'prep', false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Failed</button>
+                            </div>
+                        </div>
+
+                        <!-- Main Ritual Check -->
+                        <div class="bg-cyan-900/30 p-4 rounded-lg border border-cyan-600">
+                            <h4 class="text-cyan-400 font-bold mb-3">🎲 SCENE 3A: Ice Channeling (MAIN CHECK)</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <div class="flex flex-wrap gap-2 mb-2">
+                                    <span class="roll-box text-cyan-400">Arcana DC 14</span>
+                                    <span class="text-gray-500">OR</span>
+                                    <span class="roll-box text-blue-400">CON Save DC 15</span>
+                                </div>
+                                <p class="text-sm text-gray-400">Channel ice magic slowly and steadily. No flourishes. No showing off.</p>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-3 gap-3 mb-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ SUCCESS (Meet DC)</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Time viscosity increases</li>
+                                        <li>• Outside sounds muffle</li>
+                                        <li>• +1 Circle Integrity</li>
+                                        <li>• Mirrors ripple peacefully</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-yellow-900/30 p-3 rounded border border-yellow-600">
+                                    <span class="text-yellow-400 font-bold">⚠️ PARTIAL (DC-5 to DC-1)</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Ice flickers unstably</li>
+                                        <li>• -1 Circle Integrity</li>
+                                        <li>• Must make CON DC 12 to hold</li>
+                                        <li>• Ritual continues</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-600">
+                                    <span class="text-red-400 font-bold">❌ FAILURE (Below DC-5)</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Ice fractures into mirrors</li>
+                                        <li>• Sees FIREBALL reflected</li>
+                                        <li>• Immediate WIS DC 18 required</li>
+                                        <li>• Fire temptation triggered</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="archieIceResult('success')" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Success</button>
+                                <button onclick="archieIceResult('partial')" class="px-3 py-1 bg-yellow-700 hover:bg-yellow-600 rounded text-sm">⚠️ Partial</button>
+                                <button onclick="archieIceResult('fail')" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Failed</button>
+                            </div>
+                        </div>
+
+                        <!-- Fire Temptation (Conditional) -->
+                        <div id="archie-fire-check" class="hidden bg-red-900/50 p-4 rounded-lg border-2 border-red-500">
+                            <h4 class="text-red-400 font-bold mb-3 pulse-warning">🔥 CRITICAL: FIRE TEMPTATION CHECK</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <p class="text-gray-300 mb-2">Archie sees a Fireball reflected in the fractured ice-mirrors. The spell whispers to him.</p>
+                                <span class="roll-box text-red-400">WIS Save DC 18</span>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3 mb-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ RESISTED</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Archie grits teeth</li>
+                                        <li>• Ice stabilizes</li>
+                                        <li>• -1 Circle Integrity (scare)</li>
+                                        <li>• Ritual continues</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-600">
+                                    <span class="text-red-400 font-bold">❌ FIRE CAST — CATASTROPHE</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• 🔥 IMMEDIATE GUILD EXCOMMUNICATION</li>
+                                        <li>• Ritual burns something ALIVE</li>
+                                        <li>• Roll d6 for sacrifice target</li>
+                                        <li>• Timeline marked FRACTURED</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="archieFireResult('resist')" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Resisted Fire</button>
+                                <button onclick="archieFireResult('cast')" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">🔥 Cast Fire</button>
+                            </div>
+                            
+                            <!-- Sacrifice Table -->
+                            <div id="fire-sacrifice-table" class="hidden mt-4 bg-gray-900 p-3 rounded">
+                                <h5 class="text-red-400 font-bold mb-2">🎲 Roll d6 — Who Burns:</h5>
+                                <ol class="text-sm list-decimal list-inside space-y-1">
+                                    <li><strong>Bowser (nearest)</strong> — Severe burns, possible death</li>
+                                    <li><strong>Ghost Servant</strong> — Crystallizes permanently</li>
+                                    <li><strong>Green T (if present)</strong> — Erased. Maximum guilt.</li>
+                                    <li><strong>Random Toad</strong> — Civilian casualty</li>
+                                    <li><strong>Oracle</strong> — Damaged, anchored to manor forever</li>
+                                    <li><strong>Player's Choice</strong> — They must decide who</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Sustained Check -->
+                        <div class="bg-cyan-900/30 p-4 rounded-lg border border-cyan-600">
+                            <h4 class="text-cyan-400 font-bold mb-3">🎲 SCENE 4-6: Sustained Channeling</h4>
+                            <p class="text-gray-400 text-sm mb-3">Archie must maintain ice throughout Scenes 4-6. One check per scene.</p>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <span class="roll-box text-cyan-400">CON Save DC 12</span>
+                                <span class="text-sm text-gray-400 ml-2">(+2 DC per previous failure)</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 4</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="archieSustain(4, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="archieSustain(4, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="archie-sustain-4" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 5</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="archieSustain(5, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="archieSustain(5, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="archie-sustain-5" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 6</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="archieSustain(6, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="archieSustain(6, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="archie-sustain-6" class="text-xs mt-1">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Failure Consequences Summary -->
+                        <div class="bg-gray-800 p-3 rounded">
+                            <h4 class="text-gray-300 font-bold mb-2">📋 Archie Failure Summary:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li><span class="text-yellow-400">⚠️ Wrong Position:</span> +5 to all fire resistance DCs, -1 Integrity</li>
+                                <li><span class="text-yellow-400">⚠️ Late Arrival:</span> -2 Integrity, must rush channeling (+3 DC)</li>
+                                <li><span class="text-red-400">❌ Absent:</span> RITUAL CANNOT PROCEED</li>
+                                <li><span class="text-red-400">❌ Casts Fire:</span> Someone dies. Guild excommunication.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- MARKOP'S SCENE -->
+            <div id="player-markop" class="bg-gray-900/80 rounded-xl border-2 border-red-600 mb-6 overflow-hidden player-highlight">
+                <details open>
+                    <summary class="bg-red-900/50 p-4 cursor-pointer hover:bg-red-900/70">
+                        <h3 class="text-xl text-red-300 inline-flex items-center gap-2">
+                            ⚔️ MARKOP — THE OUTER WARD
+                            <span class="role-badge bg-red-700">DEFENDER</span>
+                        </h3>
+                    </summary>
+                    <div class="p-4 space-y-4">
+                        <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2">📍 ROLE: Perimeter Defense — Circle Protector</h4>
+                            <p class="text-gray-300">Markop stands between the circle and the outside world. His job is to <strong>intercept threats before they reach the ritual</strong>. Legion moves? Markop moves first.</p>
+                        </div>
+
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-gray-300 italic mb-3">🧙‍♂️ Oracle: "The circle is fragile. You are not. Stand where breaking happens."</p>
+                        </div>
+
+                        <!-- Pre-Ritual Check -->
+                        <div class="bg-red-900/30 p-4 rounded-lg border border-red-600">
+                            <h4 class="text-red-400 font-bold mb-3">🎲 PRE-RITUAL: Threat Assessment</h4>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="roll-box text-red-400">Perception DC 14</span>
+                                    <p class="text-sm text-gray-400 mt-2">Identify Legion positions and likely attack vectors</p>
+                                </div>
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="text-green-400">✅ Pass:</span>
+                                    <span class="text-sm text-gray-300"> Advantage on first defensive action</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <button onclick="setPlayerCheck('markop', 'prep', true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Passed</button>
+                                <button onclick="setPlayerCheck('markop', 'prep', false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Failed</button>
+                            </div>
+                        </div>
+
+                        <!-- Scene 2: Positioning -->
+                        <div class="bg-red-900/30 p-4 rounded-lg border border-red-600">
+                            <h4 class="text-red-400 font-bold mb-3">🎲 SCENE 2: Strategic Positioning</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <span class="roll-box text-red-400">INT (Tactics) DC 12</span>
+                                <span class="text-gray-500 ml-2">OR</span>
+                                <span class="roll-box text-orange-400 ml-2">WIS (Insight) DC 14</span>
+                                <p class="text-sm text-gray-400 mt-2">Choose optimal defensive position that covers both entrances</p>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3 mb-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ SUCCESS</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Perfect sightlines</li>
+                                        <li>• +2 to all reaction checks</li>
+                                        <li>• Can protect 2 targets at once</li>
+                                        <li>• Legion notices (hesitates)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-600">
+                                    <span class="text-red-400 font-bold">❌ FAILURE</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Blind spot exists</li>
+                                        <li>• Can only react to ONE threat</li>
+                                        <li>• Must choose who to protect</li>
+                                        <li>• Legion sees weakness</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="markopPositionResult(true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Good Position</button>
+                                <button onclick="markopPositionResult(false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Bad Position</button>
+                            </div>
+                        </div>
+
+                        <!-- Scene 5: The Audience Moves -->
+                        <div class="bg-red-900/30 p-4 rounded-lg border border-red-600">
+                            <h4 class="text-red-400 font-bold mb-3">🎲 SCENE 5: LEGION MOVES — Markop's Moment</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <p class="text-gray-300 mb-2">Pernus shifts. Weapons click. Someone is about to interrupt the Oracle.</p>
+                                <p class="text-yellow-400 text-sm">This is Markop's PRIMARY scene. What does he do?</p>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <!-- Option A: Intimidation -->
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <h5 class="text-orange-400 font-bold">Option A: Intimidating Presence</h5>
+                                    <span class="roll-box text-orange-400">Intimidation DC 16</span>
+                                    <div class="grid md:grid-cols-2 gap-2 mt-2 text-sm">
+                                        <div class="text-green-400">✅ Pass: Legion hesitates 1 round (enough for Scene 6)</div>
+                                        <div class="text-red-400">❌ Fail: Legion calls bluff, moves anyway</div>
+                                    </div>
+                                    <div class="flex gap-2 mt-2">
+                                        <button onclick="markopDefend('intimidate', true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓ Success</button>
+                                        <button onclick="markopDefend('intimidate', false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗ Fail</button>
+                                    </div>
+                                </div>
+
+                                <!-- Option B: Physical Block -->
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <h5 class="text-red-400 font-bold">Option B: Physical Interception</h5>
+                                    <span class="roll-box text-red-400">Athletics DC 14</span>
+                                    <span class="text-gray-500 ml-2">OR</span>
+                                    <span class="roll-box text-blue-400 ml-2">DEX DC 15</span>
+                                    <div class="grid md:grid-cols-2 gap-2 mt-2 text-sm">
+                                        <div class="text-green-400">✅ Pass: Blocks path, no violence (yet)</div>
+                                        <div class="text-red-400">❌ Fail: Combat begins, -1 Safeguard</div>
+                                    </div>
+                                    <div class="flex gap-2 mt-2">
+                                        <button onclick="markopDefend('block', true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓ Success</button>
+                                        <button onclick="markopDefend('block', false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗ Fail</button>
+                                    </div>
+                                </div>
+
+                                <!-- Option C: Diplomacy -->
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <h5 class="text-blue-400 font-bold">Option C: Diplomatic Delay</h5>
+                                    <span class="roll-box text-blue-400">Persuasion DC 18</span>
+                                    <div class="grid md:grid-cols-2 gap-2 mt-2 text-sm">
+                                        <div class="text-green-400">✅ Pass: "30 more seconds" — Legion agrees</div>
+                                        <div class="text-red-400">❌ Fail: "We've waited long enough" — They move</div>
+                                    </div>
+                                    <div class="flex gap-2 mt-2">
+                                        <button onclick="markopDefend('diplomacy', true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓ Success</button>
+                                        <button onclick="markopDefend('diplomacy', false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗ Fail</button>
+                                    </div>
+                                </div>
+
+                                <!-- Option D: Combat -->
+                                <div class="bg-gray-800 p-3 rounded border border-red-500">
+                                    <h5 class="text-red-400 font-bold">Option D: Initiate Combat (RISKY)</h5>
+                                    <p class="text-sm text-gray-400">Attack first to buy time. Effective but has consequences.</p>
+                                    <div class="text-sm mt-2 text-yellow-400">⚠️ Consequences: Political fallout, possible injury, Oracle must concentrate harder (+2 DC)</div>
+                                    <div class="flex gap-2 mt-2">
+                                        <button onclick="markopDefend('combat', true)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">⚔️ Start Combat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Failure Consequences Summary -->
+                        <div class="bg-gray-800 p-3 rounded">
+                            <h4 class="text-gray-300 font-bold mb-2">📋 Markop Failure Summary:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li><span class="text-yellow-400">⚠️ Bad Position:</span> Can only protect ONE person when Legion moves</li>
+                                <li><span class="text-yellow-400">⚠️ Failed to Stop Legion:</span> Interruption before Scene 6 = Timeline Shear</li>
+                                <li><span class="text-red-400">❌ Late Arrival:</span> No defender, Legion has free action</li>
+                                <li><span class="text-red-400">❌ Absent:</span> -2 Circle Integrity, auto-interruption in Scene 5</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- WALUIGI'S SCENE -->
+            <div id="player-waluigi" class="bg-gray-900/80 rounded-xl border-2 border-purple-600 mb-6 overflow-hidden player-highlight">
+                <details open>
+                    <summary class="bg-purple-900/50 p-4 cursor-pointer hover:bg-purple-900/70">
+                        <h3 class="text-xl text-purple-300 inline-flex items-center gap-2">
+                            🟣 WALUIGI — THE CHAOS SINK
+                            <span class="role-badge bg-purple-700">WILD CARD</span>
+                        </h3>
+                    </summary>
+                    <div class="p-4 space-y-4">
+                        <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="text-purple-400 font-bold mb-2">📍 ROLE: West Node — Entropy Absorber</h4>
+                            <p class="text-gray-300">The Manor <em>likes</em> Waluigi. That's terrifying. His job is to <strong>absorb chaotic energy</strong> by being the most chaotic thing in the room — and then <strong>doing nothing with it</strong>.</p>
+                        </div>
+
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-gray-300 italic mb-3">🧙‍♂️ Oracle (pained): "You. Stand there. Do not... do the thing. Whatever thing you're thinking. Don't."</p>
+                        </div>
+
+                        <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                            <p class="text-purple-300">⚠️ <strong>THE CHALLENGE:</strong> Waluigi's hardest task is to <em>be boring</em>. The ritual needs him to absorb chaos, not create it. Every urge to do something funny must be resisted.</p>
+                        </div>
+
+                        <!-- Pre-Ritual Check -->
+                        <div class="bg-purple-900/30 p-4 rounded-lg border border-purple-600">
+                            <h4 class="text-purple-400 font-bold mb-3">🎲 PRE-RITUAL: Contain the Wah</h4>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="roll-box text-purple-400">CHA Save DC 10</span>
+                                    <p class="text-sm text-gray-400 mt-2">Resist urge to make an entrance</p>
+                                </div>
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="text-green-400">✅ Pass:</span>
+                                    <span class="text-sm text-gray-300"> Enters quietly. Oracle relieved.</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <button onclick="setPlayerCheck('waluigi', 'prep', true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Entered Quietly</button>
+                                <button onclick="setPlayerCheck('waluigi', 'prep', false)" class="px-3 py-1 bg-purple-700 hover:bg-purple-600 rounded text-sm">🟣 Made an Entrance</button>
+                            </div>
+                        </div>
+
+                        <!-- Main Challenge: Do Nothing -->
+                        <div class="bg-purple-900/30 p-4 rounded-lg border border-purple-600">
+                            <h4 class="text-purple-400 font-bold mb-3">🎲 SCENES 3-5: The Stillness Challenge</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <p class="text-gray-300 mb-2">Each scene, Waluigi must resist the urge to "help" or "improve" things.</p>
+                                <span class="roll-box text-purple-400">WIS Save DC 12</span>
+                                <span class="text-sm text-gray-400 ml-2">(DC increases by 2 each scene if failed)</span>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3 mb-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ STAYS STILL</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Absorbs ambient chaos</li>
+                                        <li>• +1 Circle Integrity per scene</li>
+                                        <li>• Mirrors calm around him</li>
+                                        <li>• Oracle nods approvingly</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                                    <span class="text-purple-400 font-bold">🟣 DOES A THING</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Roll on Waluigi Weirdness table</li>
+                                        <li>• -1 Circle Integrity</li>
+                                        <li>• Something strange happens</li>
+                                        <li>• May be funny. May be bad.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-2 mb-4">
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 3</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="waluigiStillness(3, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">😐 Still</button>
+                                        <button onclick="waluigiStillness(3, false)" class="px-2 py-1 bg-purple-700 hover:bg-purple-600 rounded text-xs">🟣 Wah</button>
+                                    </div>
+                                    <div id="waluigi-still-3" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 4</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="waluigiStillness(4, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">😐 Still</button>
+                                        <button onclick="waluigiStillness(4, false)" class="px-2 py-1 bg-purple-700 hover:bg-purple-600 rounded text-xs">🟣 Wah</button>
+                                    </div>
+                                    <div id="waluigi-still-4" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 5</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="waluigiStillness(5, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">😐 Still</button>
+                                        <button onclick="waluigiStillness(5, false)" class="px-2 py-1 bg-purple-700 hover:bg-purple-600 rounded text-xs">🟣 Wah</button>
+                                    </div>
+                                    <div id="waluigi-still-5" class="text-xs mt-1">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weirdness Table -->
+                        <div class="bg-purple-900/30 p-4 rounded-lg border border-purple-600">
+                            <h4 class="text-purple-400 font-bold mb-3">🎲 WALUIGI WEIRDNESS TABLE (d6)</h4>
+                            <p class="text-sm text-gray-400 mb-3">Roll when Waluigi fails a stillness check or "does a thing":</p>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center gap-2 bg-gray-800 p-2 rounded">
+                                    <span class="roll-box">1</span>
+                                    <span>A reflection of Waluigi stays behind in a mirror</span>
+                                    <span class="text-yellow-400 text-xs">(Future Problem)</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-gray-800 p-2 rounded">
+                                    <span class="roll-box">2</span>
+                                    <span>A door that shouldn't exist appears somewhere</span>
+                                    <span class="text-yellow-400 text-xs">(Mystery Hook)</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-gray-800 p-2 rounded">
+                                    <span class="roll-box">3</span>
+                                    <span>Someone hears "WAH" echo for hours</span>
+                                    <span class="text-gray-400 text-xs">(Annoying)</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-gray-800 p-2 rounded">
+                                    <span class="roll-box">4</span>
+                                    <span>All mirrors briefly show everyone as Waluigi</span>
+                                    <span class="text-purple-400 text-xs">(Disturbing)</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-gray-800 p-2 rounded">
+                                    <span class="roll-box">5</span>
+                                    <span>Waluigi gains minor prophecy (annoying but accurate)</span>
+                                    <span class="text-green-400 text-xs">(Boon?)</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-gray-800 p-2 rounded">
+                                    <span class="roll-box">6</span>
+                                    <span>Nothing happens. Waluigi is disappointed.</span>
+                                    <span class="text-green-400 text-xs">(Safe)</span>
+                                </div>
+                            </div>
+                            <button onclick="rollWeirdness()" class="mt-3 px-4 py-2 bg-purple-700 hover:bg-purple-600 rounded w-full">🎲 Roll Weirdness</button>
+                            <div id="weirdness-result" class="mt-2 text-center text-lg hidden"></div>
+                        </div>
+
+                        <!-- Special: Chaos Surge -->
+                        <div class="bg-yellow-900/30 p-4 rounded-lg border border-yellow-600">
+                            <h4 class="text-yellow-400 font-bold mb-3">⚡ SPECIAL: Chaos Surge (Emergency Use)</h4>
+                            <p class="text-gray-300 text-sm mb-3">If the ritual is failing, Waluigi can intentionally release absorbed chaos. This is dangerous but powerful.</p>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <span class="roll-box text-yellow-400">CHA Check DC 15</span>
+                                <p class="text-sm text-gray-400 mt-2">Controlled release of chaos energy</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ Controlled</span>
+                                    <ul class="text-sm mt-2">
+                                        <li>• +3 Circle Integrity</li>
+                                        <li>• Stabilizes ONE failed check</li>
+                                        <li>• Waluigi exhausted (no more checks)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-600">
+                                    <span class="text-red-400 font-bold">❌ Uncontrolled</span>
+                                    <ul class="text-sm mt-2">
+                                        <li>• Roll d6 TWICE on weirdness table</li>
+                                        <li>• -2 Circle Integrity</li>
+                                        <li>• Something MEMORABLE happens</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-3">
+                                <button onclick="waluigiSurge(true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Controlled Surge</button>
+                                <button onclick="waluigiSurge(false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Uncontrolled</button>
+                            </div>
+                        </div>
+
+                        <!-- Failure Consequences -->
+                        <div class="bg-gray-800 p-3 rounded">
+                            <h4 class="text-gray-300 font-bold mb-2">📋 Waluigi Failure Summary:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li><span class="text-purple-400">🟣 Did a Thing:</span> Roll on weirdness table, -1 Integrity per occurrence</li>
+                                <li><span class="text-yellow-400">⚠️ Late Arrival:</span> Mirrors briefly reactivate, -1 Integrity, loose thread</li>
+                                <li><span class="text-red-400">❌ Absent:</span> Chaos has nowhere to go. +3 to ALL DCs, random weird events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- BOWSER'S SCENE -->
+            <div id="player-bowser" class="bg-gray-900/80 rounded-xl border-2 border-orange-600 mb-6 overflow-hidden player-highlight">
+                <details open>
+                    <summary class="bg-orange-900/50 p-4 cursor-pointer hover:bg-orange-900/70">
+                        <h3 class="text-xl text-orange-300 inline-flex items-center gap-2">
+                            🐢 BOWSER — THE MASS ANCHOR
+                            <span class="role-badge bg-orange-700">CRITICAL</span>
+                        </h3>
+                    </summary>
+                    <div class="p-4 space-y-4">
+                        <div class="bg-gray-800 p-3 rounded-lg border-l-4 border-orange-500">
+                            <h4 class="text-orange-400 font-bold mb-2">📍 ROLE: South Node — Physical Grounding</h4>
+                            <p class="text-gray-300">Bowser's sheer mass <strong>anchors the circle to physical reality</strong>. Without him, the ritual "floats" — temporal energy has nothing to push against. He is the foundation.</p>
+                        </div>
+
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-gray-300 italic mb-3">🧙‍♂️ Oracle: "You are the mountain. Mountains do not move. Mountains do not doubt. Be heavy. Be still. Be here."</p>
+                        </div>
+
+                        <div class="bg-orange-900/30 p-3 rounded border border-orange-600">
+                            <p class="text-orange-300">🪞 <strong>MIRROR NOTE:</strong> Bowser is reflected without his scars. The mirrors show who he was before his battles. This may be emotionally affecting.</p>
+                        </div>
+
+                        <!-- Pre-Ritual Check -->
+                        <div class="bg-orange-900/30 p-4 rounded-lg border border-orange-600">
+                            <h4 class="text-orange-400 font-bold mb-3">🎲 PRE-RITUAL: Grounding Meditation</h4>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="roll-box text-orange-400">WIS Save DC 10</span>
+                                    <p class="text-sm text-gray-400 mt-2">Center self, feel connection to ground</p>
+                                </div>
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <span class="text-green-400">✅ Pass:</span>
+                                    <span class="text-sm text-gray-300"> Advantage on first grounding check</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex gap-2">
+                                <button onclick="setPlayerCheck('bowser', 'prep', true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Centered</button>
+                                <button onclick="setPlayerCheck('bowser', 'prep', false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Distracted</button>
+                            </div>
+                        </div>
+
+                        <!-- Scene 2: Take Position -->
+                        <div class="bg-orange-900/30 p-4 rounded-lg border border-orange-600">
+                            <h4 class="text-orange-400 font-bold mb-3">🎲 SCENE 2: Claim the South Node</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <p class="text-gray-300 mb-2">Bowser must stand at the South Node and FEEL his weight connecting to the earth below.</p>
+                                <span class="roll-box text-orange-400">CON Check DC 12</span>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3 mb-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ SUCCESS</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Floor sigils glow warmly</li>
+                                        <li>• Circle "settles" into place</li>
+                                        <li>• +1 Circle Integrity</li>
+                                        <li>• Others feel more stable</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-600">
+                                    <span class="text-red-400 font-bold">❌ FAILURE</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Circle "floats" slightly</li>
+                                        <li>• +2 to all stability DCs</li>
+                                        <li>• Must concentrate harder</li>
+                                        <li>• -1 Circle Integrity</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="bowserGrounding('scene2', true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Grounded</button>
+                                <button onclick="bowserGrounding('scene2', false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Floating</button>
+                            </div>
+                        </div>
+
+                        <!-- Scene 4: Mirror Confrontation -->
+                        <div class="bg-orange-900/30 p-4 rounded-lg border border-orange-600">
+                            <h4 class="text-orange-400 font-bold mb-3">🎲 SCENE 4: Mirror Confrontation (EMOTIONAL)</h4>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <p class="text-gray-300 mb-2">As the Oracle speaks, Bowser sees himself in the mirrors — <strong>without scars, younger, before everything went wrong</strong>.</p>
+                                <p class="text-yellow-400 text-sm mb-2">The mirror whispers: "You could go back. This is what you were."</p>
+                                <span class="roll-box text-orange-400">WIS Save DC 15</span>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-3 mb-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ REJECTS MIRROR</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• "I earned these scars."</li>
+                                        <li>• Mirror dims, respect shown</li>
+                                        <li>• +2 Circle Integrity (resolve)</li>
+                                        <li>• Immune to mirror tricks after</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-yellow-900/30 p-3 rounded border border-yellow-600">
+                                    <span class="text-yellow-400 font-bold">⚠️ HESITATES</span>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Stares too long</li>
+                                        <li>• Grounding weakens briefly</li>
+                                        <li>• -1 Circle Integrity</li>
+                                        <li>• Must repeat grounding check</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="bowserMirror(true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ "I earned these."</button>
+                                <button onclick="bowserMirror(false)" class="px-3 py-1 bg-yellow-700 hover:bg-yellow-600 rounded text-sm">⚠️ Hesitated</button>
+                            </div>
+                        </div>
+
+                        <!-- Sustained Grounding -->
+                        <div class="bg-orange-900/30 p-4 rounded-lg border border-orange-600">
+                            <h4 class="text-orange-400 font-bold mb-3">🎲 SCENES 3-6: Sustained Grounding</h4>
+                            <p class="text-gray-400 text-sm mb-3">Bowser must maintain his grounding throughout. One check per scene after Scene 2.</p>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <span class="roll-box text-orange-400">CON Save DC 10</span>
+                                <span class="text-sm text-gray-400 ml-2">(+2 DC if he hesitated at mirror)</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 3</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="bowserSustain(3, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="bowserSustain(3, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="bowser-sustain-3" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 4</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="bowserSustain(4, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="bowserSustain(4, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="bowser-sustain-4" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 5</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="bowserSustain(5, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="bowserSustain(5, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="bowser-sustain-5" class="text-xs mt-1">—</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-400 text-sm">Scene 6</div>
+                                    <div class="flex justify-center gap-1 mt-1">
+                                        <button onclick="bowserSustain(6, true)" class="px-2 py-1 bg-green-700 hover:bg-green-600 rounded text-xs">✓</button>
+                                        <button onclick="bowserSustain(6, false)" class="px-2 py-1 bg-red-700 hover:bg-red-600 rounded text-xs">✗</button>
+                                    </div>
+                                    <div id="bowser-sustain-6" class="text-xs mt-1">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency: Hold the Line -->
+                        <div class="bg-yellow-900/30 p-4 rounded-lg border border-yellow-600">
+                            <h4 class="text-yellow-400 font-bold mb-3">⚡ SPECIAL: Hold the Line (Emergency)</h4>
+                            <p class="text-gray-300 text-sm mb-3">If Circle Integrity drops to 1 or less, Bowser can attempt to physically anchor the entire ritual through sheer will.</p>
+                            <div class="bg-gray-800 p-3 rounded mb-3">
+                                <span class="roll-box text-yellow-400">CON Save DC 18</span>
+                                <p class="text-sm text-gray-400 mt-2">Take 2d6 psychic damage regardless of result</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-green-900/30 p-3 rounded border border-green-600">
+                                    <span class="text-green-400 font-bold">✅ SUCCESS</span>
+                                    <ul class="text-sm mt-2">
+                                        <li>• Circle Integrity returns to 3</li>
+                                        <li>• Ritual continues</li>
+                                        <li>• Bowser gains "Unshakeable" trait</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/30 p-3 rounded border border-red-600">
+                                    <span class="text-red-400 font-bold">❌ FAILURE</span>
+                                    <ul class="text-sm mt-2">
+                                        <li>• Takes additional 2d6 damage</li>
+                                        <li>• Knocked prone</li>
+                                        <li>• Circle drops to 0 (catastrophe)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-3">
+                                <button onclick="bowserHoldLine(true)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-sm">✓ Held the Line</button>
+                                <button onclick="bowserHoldLine(false)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-sm">✗ Failed</button>
+                            </div>
+                        </div>
+
+                        <!-- Failure Consequences -->
+                        <div class="bg-gray-800 p-3 rounded">
+                            <h4 class="text-gray-300 font-bold mb-2">📋 Bowser Failure Summary:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li><span class="text-yellow-400">⚠️ Wrong Position:</span> +2 to all DCs, circle "floats", -1 Integrity</li>
+                                <li><span class="text-yellow-400">⚠️ Late Arrival:</span> -2 Integrity, must rush grounding (+3 DC)</li>
+                                <li><span class="text-yellow-400">⚠️ Failed Grounding:</span> Others' checks become harder (+2 DC)</li>
+                                <li><span class="text-red-400">❌ Absent:</span> RITUAL CANNOT PROCEED — no physical anchor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- PLAYER TRACKER SUMMARY -->
+            <div class="bg-gray-900/80 rounded-xl p-4 border border-purple-600">
+                <h3 class="text-xl text-purple-300 mb-4 text-center">📊 PLAYER ROLE STATUS</h3>
+                <div class="grid md:grid-cols-4 gap-4" id="player-status-grid">
+                    <div class="bg-cyan-900/30 p-3 rounded text-center" id="archie-status-card">
+                        <div class="text-2xl">❄️</div>
+                        <div class="font-bold text-cyan-300">ARCHIE</div>
+                        <div class="text-xs text-gray-400">Ice Anchor</div>
+                        <div id="archie-status-summary" class="text-sm mt-2">
+                            <div>Prep: <span id="archie-prep-status">—</span></div>
+                            <div>Main: <span id="archie-main-status">—</span></div>
+                            <div>Sustain: <span id="archie-sustain-status">—</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-red-900/30 p-3 rounded text-center" id="markop-status-card">
+                        <div class="text-2xl">⚔️</div>
+                        <div class="font-bold text-red-300">MARKOP</div>
+                        <div class="text-xs text-gray-400">Outer Ward</div>
+                        <div id="markop-status-summary" class="text-sm mt-2">
+                            <div>Prep: <span id="markop-prep-status">—</span></div>
+                            <div>Position: <span id="markop-pos-status">—</span></div>
+                            <div>Defense: <span id="markop-def-status">—</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-900/30 p-3 rounded text-center" id="waluigi-status-card">
+                        <div class="text-2xl">🟣</div>
+                        <div class="font-bold text-purple-300">WALUIGI</div>
+                        <div class="text-xs text-gray-400">Chaos Sink</div>
+                        <div id="waluigi-status-summary" class="text-sm mt-2">
+                            <div>Prep: <span id="waluigi-prep-status">—</span></div>
+                            <div>Stillness: <span id="waluigi-still-status">—</span></div>
+                            <div>Weird: <span id="waluigi-weird-status">0</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-orange-900/30 p-3 rounded text-center" id="bowser-status-card">
+                        <div class="text-2xl">🐢</div>
+                        <div class="font-bold text-orange-300">BOWSER</div>
+                        <div class="text-xs text-gray-400">Mass Anchor</div>
+                        <div id="bowser-status-summary" class="text-sm mt-2">
+                            <div>Prep: <span id="bowser-prep-status">—</span></div>
+                            <div>Ground: <span id="bowser-ground-status">—</span></div>
+                            <div>Mirror: <span id="bowser-mirror-status">—</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: FAILURES -->
+        <div id="tab-failures" class="tab-content hidden">
+            <div class="space-y-4">
+                <!-- Quick Reference -->
+                <div class="bg-red-900/50 rounded-xl p-4 border border-red-600">
+                    <h3 class="text-xl text-red-400 mb-3">🧩 QUICK FAILURE REFERENCE</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-red-400 font-bold">🔥 Fire mid-ritual</span>
+                            <p class="text-gray-400">→ Ritual succeeds, someone dies</p>
+                            <p class="text-gray-500 text-xs">→ Immediate Guild excommunication</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-red-400 font-bold">🪞 Impostor present</span>
+                            <p class="text-gray-400">→ Betrayal at peak energy (Scene 4)</p>
+                            <p class="text-gray-500 text-xs">→ Mirror reassigns innocent</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-red-400 font-bold">❄️ Ice overextended</span>
+                            <p class="text-gray-400">→ Mirror fracture, partial collapse</p>
+                            <p class="text-gray-500 text-xs">→ Archie sees Fireball reflected</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-red-400 font-bold">⏳ Oracle interrupted early</span>
+                            <p class="text-gray-400">→ Loop or erasure</p>
+                            <p class="text-gray-500 text-xs">→ WORST ENDING TERRITORY</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-yellow-400 font-bold">🟢 No Green T + bad luck</span>
+                            <p class="text-gray-400">→ New anchor born</p>
+                            <p class="text-gray-500 text-xs">→ Someone becomes overflow valve</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-yellow-400 font-bold">📍 Wrong positions</span>
+                            <p class="text-gray-400">→ Instability, harder checks</p>
+                            <p class="text-gray-500 text-xs">→ Pernus smirks (matters later)</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-yellow-400 font-bold">⏳ Delays stacked</span>
+                            <p class="text-gray-400">→ Ritual under duress</p>
+                            <p class="text-gray-500 text-xs">→ NPC written out of timeline</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-yellow-400 font-bold">🚶 Moved during exit</span>
+                            <p class="text-gray-400">→ Leaves something behind</p>
+                            <p class="text-gray-500 text-xs">→ Reflection doesn't blink</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <span class="text-purple-400 font-bold">🟣 Waluigi late</span>
+                            <p class="text-gray-400">→ Joke becomes rule</p>
+                            <p class="text-gray-500 text-xs">→ Loose thread for future arcs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Failure Trees -->
+                <div class="bg-gray-900/80 rounded-xl p-4 border border-red-600">
+                    <h3 class="text-xl text-red-400 mb-3">🌳 DETAILED FAILURE TREES</h3>
+                    
+                    <!-- Fire Catastrophe -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex items-center gap-2 hover:bg-gray-700 rounded-lg">
+                            <span class="arrow">▶</span>
+                            <span class="text-red-400 font-bold">🔥 FIRE CASTING CATASTROPHE (Archie)</span>
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                <h4 class="text-red-400 font-bold">Trigger:</h4>
+                                <p class="text-sm">Archie fails WIS Save DC 18 after seeing fireball reflected in mirrors</p>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-red-400 font-bold">Immediate Consequences:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>⚔️ <strong>Immediate Guild Excommunication</strong></li>
+                                    <li>🩸 Ritual survives ONLY by burning something alive</li>
+                                    <li>💀 Someone dies or is erased</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-yellow-400 font-bold">Roll d6 for Sacrifice Target:</h5>
+                                <ol class="text-sm mt-2 list-decimal list-inside space-y-1">
+                                    <li>Nearest party member (likely Bowser at South)</li>
+                                    <li>A ghost servant (crystallizes permanently)</li>
+                                    <li>Green T (if present — worst guilt)</li>
+                                    <li>Random Toad (civilian casualty)</li>
+                                    <li>Oracle takes damage (survives, anchored)</li>
+                                    <li>Player's choice (maximum guilt)</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                                <h5 class="text-purple-400 font-bold">Long-term:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>• Timeline marked as FRACTURED</li>
+                                    <li>• Archie gains permanent guilt mark</li>
+                                    <li>• Mages Guild becomes hostile</li>
+                                    <li>• Legion uses this as evidence</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Impostor Betrayal -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex items-center gap-2 hover:bg-gray-700 rounded-lg">
+                            <span class="arrow">▶</span>
+                            <span class="text-red-400 font-bold">🗡️ IMPOSTOR BETRAYAL (Dan)</span>
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                <h4 class="text-red-400 font-bold">Trigger:</h4>
+                                <p class="text-sm">Dan is impostor AND not caught before Scene 4 peak energy</p>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-red-400 font-bold">What Happens:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>• Impostor attempts disruption at peak energy</li>
+                                    <li>• Mirror doesn't scream — it REASSIGNS</li>
+                                    <li>• Someone innocent pays the price</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-yellow-400 font-bold">Roll d6 for Innocent Target:</h5>
+                                <ol class="text-sm mt-2 list-decimal list-inside space-y-1">
+                                    <li>Toadburt (takes impostor's ritual role)</li>
+                                    <li>Hjumpik (identity fractures)</li>
+                                    <li>A Toad (erased from memory)</li>
+                                    <li>Eager (becomes the new "Dan")</li>
+                                    <li>Rodger (cursed reflection)</li>
+                                    <li>Oracle (anchored to manor)</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-yellow-900/30 p-3 rounded border border-yellow-600">
+                                <h5 class="text-yellow-400 font-bold">Recovery Option:</h5>
+                                <p class="text-sm">If caught mid-ritual: Oracle can burn ALL remaining safeguards to force impostor out. Ritual succeeds but barely.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Timeline Shear -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex items-center gap-2 hover:bg-gray-700 rounded-lg">
+                            <span class="arrow">▶</span>
+                            <span class="text-red-400 font-bold">⏳ TIMELINE SHEAR (Early Interruption)</span>
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                <h4 class="text-red-400 font-bold">Trigger:</h4>
+                                <p class="text-sm">Oracle interrupted BEFORE mirrors go dull (before Scene 6)</p>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-red-400 font-bold">WORST ENDING TERRITORY:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>• Reality fractures around the circle</li>
+                                    <li>• Time loops possible</li>
+                                    <li>• Erasure of participants possible</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-yellow-400 font-bold">Combat in Fractured Time:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>• All attacks have 50% miss chance (d20, 1-10 miss)</li>
+                                    <li>• Spells may loop (cast twice, hit self)</li>
+                                    <li>• Movement unpredictable (roll d4 for direction)</li>
+                                    <li>• Death doesn't stick (but neither does victory)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                                <h5 class="text-purple-400 font-bold">Only Escape:</h5>
+                                <p class="text-sm">Oracle must speak the true-name anyway, while fighting. DC 25 Concentration check per round of combat.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- No Green T -->
+                    <details class="bg-gray-800 rounded-lg mb-3">
+                        <summary class="p-3 flex items-center gap-2 hover:bg-gray-700 rounded-lg">
+                            <span class="arrow">▶</span>
+                            <span class="text-yellow-400 font-bold">🟢 NO GREEN T — CIRCLE HUNTS</span>
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="bg-yellow-900/30 p-3 rounded border border-yellow-700">
+                                <h4 class="text-yellow-400 font-bold">Trigger:</h4>
+                                <p class="text-sm">Green T doesn't appear by Scene 4 AND no overflow role pre-assigned</p>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <p class="text-gray-300 italic mb-2">🧙‍♂️ Oracle (grim): "Then the circle will choose."</p>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-yellow-400 font-bold">Roll d6 for Overflow Target:</h5>
+                                <ol class="text-sm mt-2 list-decimal list-inside space-y-1">
+                                    <li><strong>1-2:</strong> A party member absorbs overflow (gain temporal mark)</li>
+                                    <li><strong>3-4:</strong> A ghost servant crystallizes (permanent, sad)</li>
+                                    <li><strong>5-6:</strong> Oracle takes burden (survives, becomes anchored)</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-purple-900/30 p-3 rounded border border-purple-600">
+                                <h5 class="text-purple-400 font-bold">If Oracle Takes It:</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>✓ He survives</li>
+                                    <li>✓ Ritual completes</li>
+                                    <li>⚠️ Becomes anchored to Manor</li>
+                                    <li>🚨 Legion interest spikes DRAMATICALLY</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-700 p-3 rounded">
+                                <h5 class="text-gray-300 font-bold">Temporal Mark Effects (if party member):</h5>
+                                <ul class="text-sm mt-2 space-y-1">
+                                    <li>🧭 Can sense rifts/timeline fractures</li>
+                                    <li>🪞 Immune to mirror possession</li>
+                                    <li>⚠️ Slightly not-normal forever</li>
+                                    <li>👁️ Remembered by things that shouldn't remember</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Position Errors -->
+                    <details class="bg-gray-800 rounded-lg">
+                        <summary class="p-3 flex items-center gap-2 hover:bg-gray-700 rounded-lg">
+                            <span class="arrow">▶</span>
+                            <span class="text-yellow-400 font-bold">📍 POSITION ERRORS</span>
+                        </summary>
+                        <div class="p-4 border-t border-gray-700 space-y-3">
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-red-900/30 p-3 rounded border border-red-700">
+                                    <h5 class="text-red-400 font-bold">❄️ Archie NOT at North:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Ice destabilizes</li>
+                                        <li>• Fire temptation spikes (+5 DC)</li>
+                                        <li>• Pernus smirks (political ammo)</li>
+                                        <li>• -1 Circle Integrity</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-yellow-900/30 p-3 rounded border border-yellow-700">
+                                    <h5 class="text-yellow-400 font-bold">🐢 Bowser NOT at South:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Grounding unstable</li>
+                                        <li>• Circle "floats" slightly</li>
+                                        <li>• +2 to all stability DCs</li>
+                                        <li>• -1 Circle Integrity</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-yellow-900/30 p-3 rounded border border-yellow-700">
+                                    <h5 class="text-yellow-400 font-bold">🧙‍♂️ Oracle NOT at Center:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Cannot speak true-name</li>
+                                        <li>• Ritual automatically fails</li>
+                                        <li>• Timeline shear begins</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-700 p-3 rounded">
+                                    <h5 class="text-gray-300 font-bold">Others Wrong Position:</h5>
+                                    <ul class="text-sm mt-2 space-y-1">
+                                        <li>• Minor instability each</li>
+                                        <li>• Cumulative: 3+ wrong = -1 Integrity</li>
+                                        <li>• Can be corrected mid-ritual (action)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 mt-8 pb-4">
+            <p>🕯️ Raventree Separation Ritual — Complete GM Sheet v2.0 🪞</p>
+            <p class="text-sm mt-1">"You don't leave Raventree clean. You leave chosen."</p>
+        </footer>
+    </div>
+
+    <script src="ritual-data.js"></script>
+    <script src="ritual-logic.js"></script>
+</body>
+</html>

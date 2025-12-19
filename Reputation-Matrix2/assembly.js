@@ -22,7 +22,7 @@ const FALLBACK_PORTRAIT = 'data:image/svg+xml;base64,' + btoa(`
   <ellipse cx="50" cy="85" rx="30" ry="25" fill="#30363d"/>
 </svg>
 `);
-
+let isReadingFullPage = false;
 let WAHBOOK_POSTS = [];
 let currentTab = 'foryou';
 let currentPage = 1;
@@ -34,7 +34,122 @@ let globalCycleState = null;
 // ============================================================================
 // DATA LOADING
 // ============================================================================
+export function speakFullPage() {
+    if (isReadingFullPage) {
+        stopFullPageReading();
+        return;
+    }
 
+    // Identify which feed container is currently visible
+    const activeContainer = document.querySelector('.feed-content:not(.hidden) .posts-container') || 
+                            document.querySelector('.feed-content:not(.hidden) [id$="-container"]');
+    
+    if (!activeContainer) {
+        console.warn('No active feed container found to read.');
+        return;
+    }
+
+    const postElements = activeContainer.querySelectorAll('.feed-post, .news-article, .event-card');
+    if (postElements.length === 0) {
+        const utterance = new SpeechSynthesisUtterance("There are no posts to read on this page.");
+        window.speechSynthesis.speak(utterance);
+        return;
+    }
+
+    isReadingFullPage = true;
+    updateFullPageReadButton(true);
+
+    const postIds = Array.from(postElements)
+        .map(el => el.dataset.postId || el.dataset.rumorId)
+        .filter(id => id !== undefined);
+
+    readNextInSequence(postIds, 0);
+}
+
+/**
+ * Reads a single post and automatically triggers the next one when finished.
+ */
+function readNextInSequence(ids, index) {
+    if (!isReadingFullPage || index >= ids.length) {
+        stopFullPageReading();
+        return;
+    }
+
+    const id = ids[index];
+    // Check if it's a post or a rumor/event
+    const post = WAHBOOK_POSTS.find(p => p.id === id) || 
+                 LORE_DATA?.rumors?.find(r => r.id === id);
+
+    if (!post) {
+        readNextInSequence(ids, index + 1);
+        return;
+    }
+
+    // Scroll post into view and highlight it
+    const element = document.querySelector(`[data-post-id="${id}"], [data-rumor-id="${id}"]`);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelectorAll('.feed-post, .event-card').forEach(el => el.classList.remove('reading-highlight'));
+        element.classList.add('reading-highlight');
+    }
+
+    const author = getCharacterData(post.characterKey || 'wah_media_collective');
+    const cleanContent = (post.content || post.description || '')
+        .replace(/#(\w+)/g, '$1')
+        .replace(/@(\w+)/g, 'at $1');
+
+    let script = `Post ${index + 1}. By ${author.name}. ${cleanContent}.`;
+
+    // Include comments if it's a standard post
+    if (post.comments && post.comments.length > 0) {
+        script += ` There are ${post.comments.length} comments. `;
+        post.comments.slice(0, 5).forEach((c, i) => {
+            const cAuthor = getCharacterData(c.characterKey);
+            script += `Comment ${i + 1} from ${cAuthor.name}: ${c.text}. `;
+        });
+    }
+
+    const utterance = new SpeechSynthesisUtterance(script);
+    utterance.rate = 0.95;
+    
+    utterance.onend = () => {
+        if (isReadingFullPage) {
+            // Short pause between posts
+            setTimeout(() => readNextInSequence(ids, index + 1), 1000);
+        }
+    };
+
+    utterance.onerror = () => stopFullPageReading();
+
+    window.speechSynthesis.cancel(); // Stop any individual "Read" buttons
+    window.speechSynthesis.speak(utterance);
+}
+
+/**
+ * Cancels all speech and resets UI states.
+ */
+export function stopFullPageReading() {
+    isReadingFullPage = false;
+    window.speechSynthesis.cancel();
+    updateFullPageReadButton(false);
+    document.querySelectorAll('.reading-highlight').forEach(el => el.classList.remove('reading-highlight'));
+}
+
+/**
+ * Updates the UI of the toggle button.
+ */
+function updateFullPageReadButton(isActive) {
+    const btn = document.getElementById('read-full-page-btn');
+    if (!btn) return;
+
+    if (isActive) {
+        btn.innerHTML = '<span>⏹️</span> Stop Reading';
+        btn.classList.add('active-reading');
+    } else {
+        btn.innerHTML = '<span>🔊</span> Read Full Page';
+        btn.classList.remove('active-reading');
+    }
+}
 async function loadDynamicData() {
     try {
         const dataModule = await import('./assembly-data.js');
@@ -998,6 +1113,7 @@ function renderPaginatedPosts(posts, container) {
     container.innerHTML = currentPosts.map(post => renderPost(post)).join('');
     renderPagination(currentPage, totalPages);
     attachPostEventListeners(container);
+    document.getElementById('read-full-page-btn')?.addEventListener('click', speakFullPage);
 }
 
 function renderPagination(current, total) {

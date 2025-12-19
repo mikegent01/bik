@@ -63,6 +63,7 @@
                         <span class="tab-icon">🌐</span>
                         <span class="tab-label">Explore</span>
                     </button>
+                    <button class="nav-tab" data-tab="news">📰 News</button>
                 </nav>
 
                 <!-- Content Area -->
@@ -79,6 +80,7 @@
                             <a href="#" class="quick-link" data-action="bookmarks">🔖 Bookmarks</a>
                             <a href="#" class="quick-link" data-action="mentions">@ Mentions</a>
                             <a href="#" class="quick-link" data-action="liked">❤️ Liked Posts</a>
+                             <button id="read-full-page-btn" class="control-btn"><span>🔊</span> Read Full Page</button>
                         </div>
 
                         <div class="faction-filter-card">
@@ -95,7 +97,9 @@
                         <div class="stories-bar" id="stories-bar">
                             <!-- Populated by JS -->
                         </div>
-
+<div id="feed-news" class="feed-content hidden">
+    <div id="news-container"></div>
+</div>
                         <!-- Create Post Box -->
                         <div class="create-post-box" id="create-post-box">
                             <!-- Populated by JS -->

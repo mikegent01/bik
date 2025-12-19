@@ -3595,3 +3595,78 @@
     max-height: 400px;
     overflow-y: auto;
 }
+.reading-highlight {
+    border: 2px solid var(--wahbook-accent) !important;
+    box-shadow: 0 0 15px var(--wahbook-accent-alpha);
+    transition: all 0.3s ease;
+    transform: scale(1.01);
+    z-index: 10;
+}
+
+#read-full-page-btn.active-reading {
+    background: var(--wahbook-negative);
+    color: white;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+/* --- Read Full Page Button --- */
+#read-full-page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--wahbook-bg-tertiary, #30363d);
+    border: 1px solid var(--wahbook-border, #444c56);
+    border-radius: 20px;
+    color: var(--wahbook-text-primary, #adbac7);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+#read-full-page-btn:hover {
+    background: var(--wahbook-bg-hover, #444c56);
+    border-color: var(--wahbook-accent, #58a6ff);
+    color: #fff;
+}
+
+#read-full-page-btn span {
+    font-size: 1rem;
+}
+
+/* --- Active Reading State (When ON) --- */
+#read-full-page-btn.active-reading {
+    background: rgba(248, 81, 73, 0.15); /* Subtle red tint */
+    border-color: #f85149; /* Standard Danger Red */
+    color: #f85149;
+    box-shadow: 0 0 10px rgba(248, 81, 73, 0.2);
+    animation: pulse-border 2s infinite;
+}
+
+#read-full-page-btn.active-reading:hover {
+    background: #f85149;
+    color: #fff;
+}
+
+/* --- Visual Feedback for the Post being Read --- */
+.feed-post.reading-highlight, 
+.event-card.reading-highlight,
+.news-article.reading-highlight {
+    border: 2px solid var(--wahbook-accent, #58a6ff) !important;
+    background: var(--wahbook-bg-secondary-alpha, rgba(34, 39, 46, 0.8));
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.25);
+    transform: scale(1.01);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    position: relative;
+}
+
+/* --- Animations --- */
+@keyf
