@@ -81,7 +81,7 @@ There are hundreds of us down here! It’s a tiny highway of toads! We’re foll
 If we're going to survive the trek through the Midlands back to the Kingdom, we need medicine. Group 4, the secret door behind the skeleton model is open. It leads to the catacombs. MOVE!`,
     likes: 1560,
     comments: [
-        { characterKey: 'toad_prisoner_bones', text: 'Ironic name for an escape route. I love it.' },
+        { characterKey: 'bones', text: 'Ironic name for an escape route. I love it.' },
         { characterKey: 'legion_doctor', text: 'THEY STOLE MY SCALPELS!' }
     ],
     rumorId: 'aegis_uprising_clues'
@@ -430,7 +430,7 @@ The Empire isn't just an empire. It's a cult. And we just stole their sacrifices
         likes: 1023,
         comments: [
             { characterKey: 'wall_sapper_toad', text: 'Dug weak point months ago with spoons.' },
-            { characterKey: 'ironhand_voice', text: 'Wall breach! Snipers to positions!' }
+            { characterKey: 'Ironhand', text: 'Wall breach! Snipers to positions!' }
         ],
         rumorId: 'aegis_prison_break_riot'
     },
@@ -541,7 +541,7 @@ The Empire isn't just an empire. It's a cult. And we just stole their sacrifices
         content: `Grabbed floppy from guard post: "Project Phoenix hatch blueprints." Speaker hinted at Peach secrets. Taking to caves—big intel!`,
         likes: 1567,
         comments: [
-            { characterKey: 'chief_thornpaw_echo', text: 'Rakasha know that hatch. Dangerous knowledge.' },
+            { characterKey: 'chief_thornpaw', text: 'Rakasha know that hatch. Dangerous knowledge.' },
             { characterKey: 'iron_legion_sec', text: 'Data breach! Lock it down!' }
         ],
         rumorId: 'aegis_prison_break_riot'
@@ -611,7 +611,7 @@ The Empire isn't just an empire. It's a cult. And we just stole their sacrifices
         content: `Legion dawn sweeps miss us—Speaker's decoy fires in south woods. All 158 accounted: Raventree 62, Shadeward 51, underrail to Bramble ruins 45.`,
         likes: 1345,
         comments: [
-            { characterKey: 'captain_toadette_echo', text: 'Ruins secure. Loyalists welcome kin.' },
+            { characterKey: 'captain_toadette', text: 'Ruins secure. Loyalists welcome kin.' },
             { characterKey: 'legion_hunter', text: 'Decoys fooled us again!' }
         ],
         rumorId: 'aegis_prison_break_riot'
@@ -3041,13 +3041,13 @@ We are NOT done yet.`,
   {
     id: 'aegis_clue_sonic_blueprint',
     order: 63112,
-    characterKey: 'toad_prisoner_echo',
+    characterKey: 'toad_prisoner',
     date: { year: 1040, monthIndex: 6, day: 21, hour: 15, minute: 30 },
     timestamp: '1 hour ago',
     content: `Sonic emitter blueprint: Dragon paralysis freq from toad-extracted "Harmony Essence." Empire puppets dragons vs. rivals. Ignis-Major at Dragon Mtns was test—Robinson knows! Destroy emitters to free beasts!`,
     likes: 3678,
     comments: [
-      { characterKey: 'ignis_major_echo', text: 'The paralysis ends... soon.' },
+      { characterKey: 'ignis_major', text: 'The paralysis ends... soon.' },
       { characterKey: 'dragon_handler', text: 'Leak contained? No—purge all witnesses!' }
     ],
     rumorId: 'aegis_uprising_clues'
