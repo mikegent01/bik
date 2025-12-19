@@ -3,189 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vigilance Terminal - Tactical Mission Control Dashboard">
+    <meta name="theme-color" content="#0a1520">
     <title>Vigilance Terminal | Mission Control</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="quests.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="tablet-frame"> 
-        <div class="scanline-overlay"></div>
-        <div id="app">
+    <!-- SVG Definitions (Hidden) -->
+    <svg width="0" height="0" aria-hidden="true" style="position: absolute;">
+        <defs>
+            <!-- Progress Ring Gradient -->
+            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#7c5bf5;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#00ffc8;stop-opacity:1" />
+            </linearGradient>
             
-            <main id="main-content" class="quest-page">
+            <!-- Gold Gradient for Rewards -->
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#ffd23f;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ffb347;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Danger Gradient -->
+            <linearGradient id="dangerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#ff3a5e;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ff6b8a;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="tablet-frame">
+        <div class="scanline-overlay" aria-hidden="true"></div>
+        
+        <div id="app">
+            <!-- Skip Link for Accessibility -->
+            <a href="#quest-container" class="visually-hidden" id="skip-link">Skip to quest list</a>
+            
+            <main id="main-content" class="quest-page" role="main">
                 
-                <!-- HERO DASHBOARD -->
-                <header class="mission-control-header">
+                <!-- ==================== HERO DASHBOARD ==================== -->
+                <header class="mission-control-header" role="banner">
                     <div class="header-left">
-                        <div class="header-icon">
+                        <div class="header-icon" aria-hidden="true">
                             <div class="icon-ring"></div>
                             <span class="icon-glyph">◎</span>
                         </div>
-                        <div class="header-text">
+                        <div class="header-title-group">
                             <h1 class="page-title">MISSION CONTROL</h1>
-                            <p class="page-subtitle">Tactical Operations Dashboard</p>
+                            <p class="page-subtitle">Tactical Operations Dashboard v2.1</p>
                         </div>
                     </div>
-                    <div class="header-stats">
-                        <div class="mini-stat urgent" id="stat-urgent">
-                            <span class="mini-stat-icon">⚠</span>
+                    
+                    <div class="header-stats" role="group" aria-label="Mission Statistics">
+                        <div class="mini-stat urgent" id="stat-urgent" aria-label="Urgent missions">
+                            <span class="mini-stat-icon" aria-hidden="true">⚠</span>
                             <span class="mini-stat-value">0</span>
-                            <span class="mini-stat-label">URGENT</span>
+                            <span class="mini-stat-label">Urgent</span>
                         </div>
-                        <div class="mini-stat active" id="stat-active">
-                            <span class="mini-stat-icon">◉</span>
+                        <div class="mini-stat active" id="stat-active" aria-label="Active missions">
+                            <span class="mini-stat-icon" aria-hidden="true">◉</span>
                             <span class="mini-stat-value">0</span>
-                            <span class="mini-stat-label">ACTIVE</span>
+                            <span class="mini-stat-label">Active</span>
                         </div>
-                        <div class="mini-stat complete" id="stat-complete">
-                            <span class="mini-stat-icon">✓</span>
+                        <div class="mini-stat complete" id="stat-complete" aria-label="Completed missions">
+                            <span class="mini-stat-icon" aria-hidden="true">✓</span>
                             <span class="mini-stat-value">0</span>
-                            <span class="mini-stat-label">COMPLETE</span>
+                            <span class="mini-stat-label">Complete</span>
                         </div>
                     </div>
                 </header>
 
-                <!-- VISUAL DASHBOARD -->
-                <section class="dashboard-grid" id="quest-dashboard">
-                    <!-- Progress Ring -->
-                    <div class="dashboard-card progress-card">
+                <!-- ==================== VISUAL DASHBOARD ==================== -->
+                <section class="dashboard-grid" id="quest-dashboard" aria-label="Mission Dashboard">
+                    
+                    <!-- Progress Ring Card -->
+                    <article class="dashboard-card progress-card">
+                        <h2 class="visually-hidden">Overall Progress</h2>
                         <div class="progress-ring-container">
-                            <svg class="progress-ring" viewBox="0 0 120 120">
+                            <svg class="progress-ring" viewBox="0 0 120 120" role="img" aria-label="Overall completion progress">
                                 <circle class="progress-ring-bg" cx="60" cy="60" r="52"/>
-                                <circle class="progress-ring-fill" cx="60" cy="60" r="52" id="overall-progress-ring"/>
+                                <circle 
+                                    class="progress-ring-fill" 
+                                    cx="60" 
+                                    cy="60" 
+                                    r="52" 
+                                    id="overall-progress-ring"
+                                    stroke="url(#progressGradient)"
+                                />
                             </svg>
                             <div class="progress-ring-center">
-                                <span class="progress-value" id="overall-progress-value">0%</span>
+                                <span class="progress-value" id="overall-progress-value" aria-live="polite">0%</span>
                                 <span class="progress-label">Overall</span>
                             </div>
                         </div>
                         <div class="progress-breakdown">
                             <div class="breakdown-item">
-                                <span class="breakdown-bar"><span class="breakdown-fill main-story"></span></span>
                                 <span class="breakdown-label">Main Story</span>
+                                <div class="breakdown-bar">
+                                    <div class="breakdown-fill main-story" id="main-story-progress" style="width: 0%"></div>
+                                </div>
                             </div>
                             <div class="breakdown-item">
-                                <span class="breakdown-bar"><span class="breakdown-fill side-quests"></span></span>
                                 <span class="breakdown-label">Side Quests</span>
+                                <div class="breakdown-bar">
+                                    <div class="breakdown-fill side-quests" id="side-quest-progress" style="width: 0%"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Party Workload -->
-                    <div class="dashboard-card workload-card">
-                        <h3 class="card-title"><span class="title-icon">👥</span> Party Assignments</h3>
-                        <div class="party-workload-grid" id="party-workload">
-                            <!-- Injected by JS -->
+                    <!-- Party Workload Card -->
+                    <article class="dashboard-card workload-card">
+                        <h2 class="card-title">
+                            <span class="title-icon" aria-hidden="true">👥</span>
+                            Party Assignments
+                        </h2>
+                        <div class="party-workload-grid" id="party-workload" role="list" aria-label="Party member quest assignments">
+                            <!-- Populated by JS -->
+                            <div class="skeleton-loader" aria-hidden="true">
+                                <div class="skeleton skeleton-avatar"></div>
+                                <div class="skeleton skeleton-text"></div>
+                            </div>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Urgent Alert -->
-                    <div class="dashboard-card alert-card" id="urgent-alert-card">
-                        <div class="alert-pulse"></div>
+                    <!-- Urgent Alert Card -->
+                    <article class="dashboard-card alert-card" id="urgent-alert-card" role="alert" aria-live="assertive">
+                        <div class="alert-pulse" aria-hidden="true"></div>
                         <div class="alert-content">
-                            <span class="alert-icon">⚡</span>
+                            <span class="alert-icon" aria-hidden="true">✦</span>
                             <div class="alert-text">
                                 <span class="alert-title" id="urgent-alert-title">No Critical Missions</span>
                                 <span class="alert-subtitle" id="urgent-alert-subtitle">All operations nominal</span>
                             </div>
                         </div>
-                    </div>
+                    </article>
+                    
                 </section>
 
-                <!-- QUEST NAVIGATION TABS -->
-                <nav class="quest-tabs" id="quest-tabs">
-                    <button class="quest-tab active" data-tab="active" data-count="0">
-                        <span class="tab-icon">◉</span>
+                <!-- ==================== QUEST NAVIGATION TABS ==================== -->
+                <nav class="quest-tabs" id="quest-tabs" role="tablist" aria-label="Quest categories">
+                    <button 
+                        class="quest-tab active" 
+                        data-tab="active" 
+                        role="tab" 
+                        aria-selected="true" 
+                        aria-controls="quest-container"
+                        id="tab-active"
+                    >
+                        <span class="tab-icon" aria-hidden="true">◉</span>
                         <span class="tab-label">Active</span>
-                        <span class="tab-count">0</span>
+                        <span class="tab-count" aria-label="count">0</span>
                     </button>
-                    <button class="quest-tab" data-tab="available" data-count="0">
-                        <span class="tab-icon">📋</span>
+                    <button 
+                        class="quest-tab" 
+                        data-tab="available" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="quest-container"
+                        id="tab-available"
+                    >
+                        <span class="tab-icon" aria-hidden="true">📋</span>
                         <span class="tab-label">Available</span>
-                        <span class="tab-count">0</span>
+                        <span class="tab-count" aria-label="count">0</span>
                     </button>
-                    <button class="quest-tab" data-tab="completed" data-count="0">
-                        <span class="tab-icon">✓</span>
+                    <button 
+                        class="quest-tab" 
+                        data-tab="completed" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="quest-container"
+                        id="tab-completed"
+                    >
+                        <span class="tab-icon" aria-hidden="true">✓</span>
                         <span class="tab-label">Completed</span>
-                        <span class="tab-count">0</span>
+                        <span class="tab-count" aria-label="count">0</span>
                     </button>
-                    <button class="quest-tab" data-tab="failed" data-count="0">
-                        <span class="tab-icon">✗</span>
+                    <button 
+                        class="quest-tab" 
+                        data-tab="failed" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="quest-container"
+                        id="tab-failed"
+                    >
+                        <span class="tab-icon" aria-hidden="true">✗</span>
                         <span class="tab-label">Failed</span>
-                        <span class="tab-count">0</span>
+                        <span class="tab-count" aria-label="count">0</span>
                     </button>
-                    <button class="quest-tab" data-tab="all" data-count="0">
-                        <span class="tab-icon">☰</span>
+                    <button 
+                        class="quest-tab" 
+                        data-tab="all" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="quest-container"
+                        id="tab-all"
+                    >
+                        <span class="tab-icon" aria-hidden="true">☰</span>
                         <span class="tab-label">All</span>
-                        <span class="tab-count">0</span>
+                        <span class="tab-count" aria-label="count">0</span>
                     </button>
                 </nav>
 
-                <!-- FILTER BAR (Compact) -->
-                <div class="filter-bar" id="filter-bar">
+                <!-- ==================== FILTER BAR ==================== -->
+                <div class="filter-bar" id="filter-bar" role="search" aria-label="Quest filters">
                     <div class="filter-group-inline">
-                        <label>Sort:</label>
-                        <select id="sort-select" class="filter-select">
+                        <label for="sort-select">Sort:</label>
+                        <select id="sort-select" class="filter-select" aria-label="Sort quests by">
                             <option value="priority">Priority</option>
                             <option value="progress">Progress</option>
                             <option value="deadline">Deadline</option>
                             <option value="date">Date Added</option>
+                            <option value="name">Name (A-Z)</option>
                         </select>
                     </div>
                     <div class="filter-group-inline">
-                        <label>Type:</label>
-                        <select id="type-filter" class="filter-select">
+                        <label for="type-filter">Type:</label>
+                        <select id="type-filter" class="filter-select" aria-label="Filter by quest type">
                             <option value="all">All Types</option>
                             <option value="main">Main Story</option>
                             <option value="side">Side Quest</option>
                             <option value="personal">Personal</option>
+                            <option value="faction">Faction</option>
                             <option value="bounty">Bounty</option>
+                            <option value="exploration">Exploration</option>
                         </select>
                     </div>
                     <div class="filter-group-inline">
-                        <label>Assignee:</label>
-                        <select id="assignee-filter" class="filter-select">
+                        <label for="assignee-filter">Assignee:</label>
+                        <select id="assignee-filter" class="filter-select" aria-label="Filter by assignee">
                             <option value="all">Everyone</option>
                             <!-- Populated by JS -->
                         </select>
                     </div>
                     <div class="filter-search">
-                        <input type="text" id="quest-search" placeholder="Search missions..." class="search-input">
-                        <span class="search-icon">🔍</span>
+                        <label for="quest-search" class="visually-hidden">Search missions</label>
+                        <span class="search-icon" aria-hidden="true">🔍</span>
+                        <input 
+                            type="search" 
+                            id="quest-search" 
+                            placeholder="Search missions..." 
+                            class="search-input"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
                     </div>
                 </div>
 
-                <!-- QUEST GRID -->
-                <section class="quest-grid" id="quest-container">
+                <!-- ==================== QUEST GRID ==================== -->
+                <section 
+                    class="quest-grid" 
+                    id="quest-container" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-active"
+                    aria-live="polite"
+                >
                     <!-- Quest cards injected by JS -->
+                    
+                    <!-- Loading Skeleton (shown while loading) -->
+                    <div class="quest-card-skeleton loading-skeleton" aria-hidden="true">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text" style="width: 60%;"></div>
+                    </div>
+                    <div class="quest-card-skeleton loading-skeleton" aria-hidden="true">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text" style="width: 75%;"></div>
+                    </div>
+                    <div class="quest-card-skeleton loading-skeleton" aria-hidden="true">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text" style="width: 50%;"></div>
+                    </div>
                 </section>
 
                 <!-- Empty State -->
-                <div class="empty-state" id="empty-state" style="display: none;">
-                    <div class="empty-icon">📭</div>
+                <div class="empty-state" id="empty-state" role="status" aria-live="polite" hidden>
+                    <div class="empty-icon" aria-hidden="true">📭</div>
                     <h3>No Missions Found</h3>
                     <p>Adjust your filters or check back later for new assignments.</p>
+                    <button class="btn-reset-filters" id="reset-filters" type="button">
+                        Reset Filters
+                    </button>
                 </div>
 
             </main>
         </div>
     </div>
 
-    <!-- QUEST DETAIL MODAL -->
-    <div class="modal-overlay" id="quest-modal">
+    <!-- ==================== QUEST DETAIL MODAL ==================== -->
+    <div 
+        class="modal-overlay" 
+        id="quest-modal" 
+        role="dialog" 
+        aria-modal="true" 
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        hidden
+    >
         <div class="modal-container">
-            <button class="modal-close" id="modal-close">×</button>
-            <div class="modal-content" id="modal-content">
+            <button 
+                class="modal-close" 
+                id="modal-close" 
+                type="button"
+                aria-label="Close quest details"
+            >
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-content" id="modal-content" tabindex="-1">
                 <!-- Quest details injected by JS -->
+                
+                <!-- Modal Loading State -->
+                <div class="modal-loading" id="modal-loading">
+                    <div class="modal-loading-spinner"></div>
+                    <span>Loading mission data...</span>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- ==================== TOAST NOTIFICATIONS ==================== -->
+    <div class="toast-container" id="toast-container" role="region" aria-label="Notifications" aria-live="polite">
+        <!-- Toasts injected by JS -->
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <script type="module" src="quests.js"></script>
+    
+    <!-- Inline script for critical initialization -->
+    <script>
+        // Remove loading skeletons once JS loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const skeletons = document.querySelectorAll('.loading-skeleton');
+            setTimeout(() => {
+                skeletons.forEach(s => s.remove());
+            }, 100);
+        });
+        
+        // Handle modal visibility with hidden attribute
+        const modal = document.getElementById('quest-modal');
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const isActive = modal.classList.contains('active');
+                    modal.hidden = !isActive;
+                }
+            });
+        });
+        observer.observe(modal, { attributes: true });
+    </script>
 </body>
 </html>

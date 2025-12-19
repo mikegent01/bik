@@ -52,7 +52,7 @@ let searchQuery = '';
 // DATE UTILITIES
 // ============================================
 function formatDate(date) {
-    if (!date) return 'Unknown';
+    if (!date) return '';
     if (typeof date === 'string') return date;
     const month = CALENDAR_DATA?.months?.values?.[date.monthIndex];
     return `${month?.name || 'Month'} ${date.day}, ${date.year}`;
@@ -416,6 +416,18 @@ function populateAssigneeFilter() {
 // ============================================
 // RENDER: Quest Detail Modal
 // ============================================
+
+
+function closeModal() {
+    questModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+// ============================================
+// RENDER: Quest Detail Modal (Full Version)
+// ============================================
+// ============================================
+// RENDER: Quest Detail Modal (Fixed Version)
+// ============================================
 function renderQuestModal(questId) {
     const rawQuest = QUEST_DATA[questId];
     if (!rawQuest) return;
@@ -430,29 +442,130 @@ function renderQuestModal(questId) {
         return val;
     };
 
+    // Helper to format NPC/location names
+    const formatKey = (key) => {
+        if (!key) return '';
+        const char = LORE_DATA?.characters?.[key] || LORE_DATA?.auxiliary_party?.[key];
+        if (char) return char.name;
+        const location = LORE_DATA?.locations?.[key];
+        if (location) return location.name;
+        const faction = LORE_DATA?.factions?.[key];
+        if (faction) return faction.name;
+        return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    };
+
+    // Helper to get lore entry
+    const getLoreEntry = (key) => {
+        return LORE_DATA?.entries?.[key] || 
+               LORE_DATA?.events?.[key] || 
+               LORE_DATA?.characters?.[key] ||
+               LORE_DATA?.locations?.[key] ||
+               { name: formatKey(key), description: null };
+    };
+
+    // Helper for difficulty badge colors - WITH NULL CHECK
+    const getDifficultyColor = (diff) => {
+        if (!diff || typeof diff !== 'object') return 'var(--text-muted)';
+        const label = diff.label?.toLowerCase();
+        switch(label) {
+            case 'deadly': return 'var(--accent-danger)';
+            case 'hard': return 'var(--accent-warning)';
+            case 'moderate': return 'var(--accent-primary)';
+            case 'easy': return 'var(--accent-success)';
+            case 'trivial': return 'var(--text-muted)';
+            default: return 'var(--text-secondary)';
+        }
+    };
+
+    // Helper for difficulty label - WITH NULL CHECK
+    const getDifficultyLabel = (diff) => {
+        if (!diff) return '';
+        if (typeof diff === 'string') return diff;
+        if (typeof diff === 'object' && diff.label) return diff.label;
+        return '';
+    };
+
+    // Helper for difficulty icon - WITH NULL CHECK
+    const getDifficultyIcon = (diff) => {
+        if (!diff || typeof diff !== 'object') return '';
+        return diff.icon || '';
+    };
+
+    // Helper for milestone status
+    const getMilestoneIcon = (status) => {
+        switch(status) {
+            case 'completed': return '✅';
+            case 'failed': return '❌';
+            case 'active': return '🔵';
+            case 'locked': return '🔒';
+            default: return '⏳';
+        }
+    };
+
+    // Helper for goal priority styling
+    const getGoalPriorityClass = (priority) => {
+        switch(priority) {
+            case 'critical': return 'priority-critical';
+            case 'high': return 'priority-high';
+            case 'medium': return 'priority-medium';
+            case 'low': return 'priority-low';
+            default: return '';
+        }
+    };
+
+    // Filter valid difficulty entries
+    const getValidDifficulties = (difficulty) => {
+        if (!difficulty || typeof difficulty !== 'object') return [];
+        return Object.entries(difficulty).filter(([key, diff]) => {
+            // Only include if diff is a valid object with a label
+            return diff && typeof diff === 'object' && diff.label;
+        });
+    };
+
+    const validDifficulties = getValidDifficulties(quest.difficulty);
+
     modalContent.innerHTML = `
-        <div class="modal-priority-bar ${quest.priority.label.toLowerCase()}"></div>
+        <div class="modal-priority-bar ${quest.priority?.label?.toLowerCase() || 'medium'}"></div>
         
+        <!-- HEADER -->
         <header class="modal-header">
             <div class="modal-title-row">
-                <h2 class="modal-title">${quest.title}</h2>
-                <span class="card-status status-${quest.status}">${quest.status}</span>
+                <div class="modal-title-group">
+                    <h2 class="modal-title" id="modal-title">${quest.title || 'Untitled Quest'}</h2>
+                    ${quest.subtitle ? `<span class="modal-subtitle">${quest.subtitle}</span>` : ''}
+                </div>
+                <span class="card-status status-${quest.status || 'pending'}">${quest.status || 'Pending'}</span>
             </div>
             <div class="modal-meta">
-                <span class="modal-meta-item" style="color: ${quest.type.color}">
-                    ${quest.type.icon} ${quest.type.label}
+                <span class="modal-meta-item" style="color: ${quest.type?.color || 'var(--text-secondary)'}">
+                    ${quest.type?.icon || '📋'} ${quest.type?.label || 'Quest'}
                 </span>
-                <span class="modal-meta-item">👤 ${quest.assigneeNames}</span>
-                ${quest.difficulty?.overall ? `<span class="modal-meta-item">⚔️ ${quest.difficulty.overall.label}</span>` : ''}
-                ${isUrgent ? `<span class="modal-meta-item" style="color: var(--accent-danger)">⏰ ${deadline} days left</span>` : ''}
+                <span class="modal-meta-item">👤 ${quest.assigneeNames || 'Unassigned'}</span>
+                ${quest.difficulty?.overall ? `
+                    <span class="modal-meta-item" style="color: ${getDifficultyColor(quest.difficulty.overall)}">
+                        ⚔️ ${getDifficultyLabel(quest.difficulty.overall)}
+                    </span>
+                ` : ''}
+                ${isUrgent ? `
+                    <span class="modal-meta-item urgent-badge">
+                        ⏰ ${deadline === 0 ? 'TODAY!' : deadline + ' days left'}
+                    </span>
+                ` : ''}
             </div>
+            ${quest.tags?.length ? `
+                <div class="modal-tags">
+                    ${quest.tags.map(tag => `<span class="quest-tag">${tag}</span>`).join('')}
+                </div>
+            ` : ''}
         </header>
 
+        <!-- OBJECTIVE -->
         <section class="modal-section">
             <h3 class="modal-section-title">📋 Objective</h3>
-            <div class="modal-section-content">${quest.objective}</div>
+            <div class="modal-section-content objective-text">${quest.objective || 'No objective specified.'}</div>
         </section>
 
+        <!-- DESCRIPTION -->
         ${quest.description ? `
             <section class="modal-section">
                 <h3 class="modal-section-title">📖 Details</h3>
@@ -460,40 +573,126 @@ function renderQuestModal(questId) {
             </section>
         ` : ''}
 
+        <!-- STORY ARC -->
         ${arc ? `
             <section class="modal-section">
                 <h3 class="modal-section-title">🎭 Story Arc</h3>
-                <div class="arc-badge" style="border-color: ${arc.status === 'active' ? 'var(--accent-danger)' : 'var(--accent-success)'}">
-                    <span>${arc.icon} ${arc.name}</span>
+                <div class="arc-card">
+                    <div class="arc-header">
+                        <span class="arc-icon">${arc.icon || '📚'}</span>
+                        <span class="arc-name">${arc.name || 'Arc'}</span>
+                        <span class="arc-status status-${arc.status || 'active'}">${arc.status || 'Active'}</span>
+                    </div>
+                    ${arc.description ? `<p class="arc-description">${arc.description}</p>` : ''}
                 </div>
             </section>
         ` : ''}
 
+        <!-- DIFFICULTY BREAKDOWN - FIXED -->
+        ${validDifficulties.length > 1 ? `
+            <section class="modal-section">
+                <h3 class="modal-section-title">⚔️ Difficulty Assessment</h3>
+                <div class="difficulty-grid">
+                    ${validDifficulties.map(([key, diff]) => `
+                        <div class="difficulty-item">
+                            <span class="difficulty-label">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                            <span class="difficulty-value" style="color: ${getDifficultyColor(diff)}">
+                                ${getDifficultyIcon(diff)} ${getDifficultyLabel(diff)}
+                            </span>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+        ` : ''}
+
+        <!-- PROGRESS -->
         <section class="modal-section">
             <h3 class="modal-section-title">📊 Progress</h3>
             <div class="modal-progress-container">
                 <div class="modal-progress-header">
                     <span class="modal-progress-label">Steps Completed</span>
-                    <span class="modal-progress-value">${quest.completedMilestones}/${quest.totalMilestones}</span>
+                    <span class="modal-progress-value">${quest.completedMilestones || 0}/${quest.totalMilestones || 0}</span>
                 </div>
                 <div class="modal-progress-bar">
-                    <div class="modal-progress-fill" style="width: ${quest.progress}%"></div>
+                    <div class="modal-progress-fill" style="width: ${quest.progress || 0}%"></div>
                 </div>
             </div>
         </section>
 
-        ${quest.milestones.length > 0 ? `
+        <!-- MILESTONES -->
+        ${quest.milestones?.length > 0 ? `
             <section class="modal-section">
                 <h3 class="modal-section-title">🎯 Milestones</h3>
                 <div class="modal-milestones">
                     ${quest.milestones.map(m => `
-                        <div class="modal-milestone ${m.status}">
-                            <span class="milestone-icon">
-                                ${m.status === 'completed' ? '✅' : m.status === 'active' ? '🔵' : '⏳'}
-                            </span>
+                        <div class="modal-milestone ${m.status || 'pending'}">
+                            <div class="milestone-header">
+                                <span class="milestone-icon">${getMilestoneIcon(m.status)}</span>
+                                <div class="milestone-title-group">
+                                    <span class="milestone-title">${m.title || 'Untitled Step'}</span>
+                                    ${m.completedDate ? `
+                                        <span class="milestone-date">${formatDate(m.completedDate)}</span>
+                                    ` : ''}
+                                </div>
+                            </div>
                             <div class="milestone-content">
-                                <div class="milestone-title">${m.title}</div>
-                                <div class="milestone-desc">${m.description || ''}</div>
+                                <p class="milestone-desc">${m.description || ''}</p>
+                                
+                                <!-- Goals within milestone -->
+                                ${m.goals?.length ? `
+                                    <div class="milestone-goals">
+                                        <h5 class="goals-header">Current Goals:</h5>
+                                        <ul class="goals-list">
+                                            ${m.goals.map(g => `
+                                                <li class="goal-item ${g.status || 'pending'} ${getGoalPriorityClass(g.priority)}">
+                                                    <span class="goal-status-icon">
+                                                        ${g.status === 'completed' ? '✅' : g.status === 'active' ? '🔹' : '○'}
+                                                    </span>
+                                                    <span class="goal-text">${g.text || ''}</span>
+                                                    ${g.priority ? `<span class="goal-priority">${g.priority}</span>` : ''}
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+
+                                <!-- Choices within milestone -->
+                                ${m.choices?.length ? `
+                                    <div class="milestone-choices">
+                                        ${m.choices.map(choice => `
+                                            <div class="choice-block">
+                                                <h5 class="choice-title">⚖️ ${choice.title || 'Choice'}</h5>
+                                                <p class="choice-description">${choice.description || ''}</p>
+                                                ${choice.options?.length ? `
+                                                    <div class="choice-options">
+                                                        ${choice.options.map(opt => `
+                                                            <div class="choice-option">
+                                                                <div class="option-header">
+                                                                    <strong class="option-name">${opt.name || 'Option'}</strong>
+                                                                </div>
+                                                                <p class="option-description">${opt.description || ''}</p>
+                                                                ${opt.requirements?.length ? `
+                                                                    <div class="option-requirements">
+                                                                        <span class="req-label">Requires:</span>
+                                                                        <ul>
+                                                                            ${opt.requirements.map(req => `<li>${req}</li>`).join('')}
+                                                                        </ul>
+                                                                    </div>
+                                                                ` : ''}
+                                                                ${opt.consequences ? `
+                                                                    <div class="option-consequences">
+                                                                        ${opt.consequences.success ? `<span class="consequence success">✓ ${opt.consequences.success}</span>` : ''}
+                                                                        ${opt.consequences.failure ? `<span class="consequence failure">✗ ${opt.consequences.failure}</span>` : ''}
+                                                                    </div>
+                                                                ` : ''}
+                                                            </div>
+                                                        `).join('')}
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
                             </div>
                         </div>
                     `).join('')}
@@ -501,47 +700,391 @@ function renderQuestModal(questId) {
             </section>
         ` : ''}
 
-        ${quest.rewards ? `
+        <!-- CONSEQUENCES -->
+        ${quest.consequences ? `
             <section class="modal-section">
-                <h3 class="modal-section-title">🎁 Rewards</h3>
-                <div class="modal-rewards-grid">
-                    ${quest.rewards.gold ? `<span class="modal-reward-item">💰 ${formatReward(quest.rewards.gold)} Gold</span>` : ''}
-                    ${quest.rewards.xp ? `<span class="modal-reward-item xp">⭐ ${formatReward(quest.rewards.xp)} XP</span>` : ''}
-                    ${quest.rewards.guaranteed ? quest.rewards.guaranteed.map(r => 
-                        `<span class="modal-reward-item item">📦 ${r.name || 'Unknown'}</span>`
-                    ).join('') : ''}
+                <h3 class="modal-section-title">⚡ Consequences</h3>
+                <div class="consequences-grid">
+                    ${quest.consequences.success ? `
+                        <div class="consequence-card success">
+                            <div class="consequence-header">
+                                <span class="consequence-icon">✅</span>
+                                <span class="consequence-label">Success</span>
+                            </div>
+                            <p class="consequence-text">${quest.consequences.success}</p>
+                        </div>
+                    ` : ''}
+                    ${quest.consequences.partial ? `
+                        <div class="consequence-card partial">
+                            <div class="consequence-header">
+                                <span class="consequence-icon">⚠️</span>
+                                <span class="consequence-label">Partial</span>
+                            </div>
+                            <p class="consequence-text">${quest.consequences.partial}</p>
+                        </div>
+                    ` : ''}
+                    ${quest.consequences.failure ? `
+                        <div class="consequence-card failure">
+                            <div class="consequence-header">
+                                <span class="consequence-icon">❌</span>
+                                <span class="consequence-label">Failure</span>
+                            </div>
+                            <p class="consequence-text">${quest.consequences.failure}</p>
+                        </div>
+                    ` : ''}
                 </div>
             </section>
         ` : ''}
 
+        <!-- REWARDS -->
+        ${quest.rewards ? `
+            <section class="modal-section">
+                <h3 class="modal-section-title">🎁 Rewards</h3>
+                
+                <!-- Base Rewards -->
+                <div class="rewards-base">
+                    ${quest.rewards.gold ? `
+                        <span class="modal-reward-item gold">💰 ${formatReward(quest.rewards.gold)} Gold</span>
+                    ` : ''}
+                    ${quest.rewards.xp ? `
+                        <span class="modal-reward-item xp">⭐ ${formatReward(quest.rewards.xp)} XP</span>
+                    ` : ''}
+                </div>
+
+                <!-- Guaranteed Rewards -->
+                ${quest.rewards.guaranteed?.length ? `
+                    <div class="rewards-section">
+                        <h4 class="rewards-section-title">Guaranteed</h4>
+                        <div class="modal-rewards-grid">
+                            ${quest.rewards.guaranteed.map(r => {
+                                if (!r) return '';
+                                switch(r.type) {
+                                    case 'item':
+                                        return `
+                                            <div class="reward-card item">
+                                                <span class="reward-icon">📦</span>
+                                                <div class="reward-info">
+                                                    <span class="reward-name">${r.name || 'Item'}</span>
+                                                    ${r.description ? `<span class="reward-desc">${r.description}</span>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+
+case 'xp':
+    // If the data is { type: 'xp', amount: 500 }
+    const xpAmount = r.amount || quest.rewards.xp || 0; 
+    return `
+        <div class="reward-card xp-reward">
+            <span class="reward-icon">⭐</span>
+            <div class="reward-info">
+                <span class="reward-name">${xpAmount} XP</span>
+                <span class="reward-desc">Experience points gained for completion.</span>
+            </div>
+        </div>
+    `;                                        
+                                    case 'reputation':
+                                        const icon = (r.amount || 0) >= 0 ? '📈' : '📉';
+                                        const sign = (r.amount || 0) >= 0 ? '+' : '';
+                                        const reputationType = (r.amount || 0) >= 0 ? 'positive' : 'negative';
+                                        return `
+                                            <div class="reward-card reputation ${reputationType}">
+                                                <span class="reward-icon">${icon}</span>
+                                                <div class="reward-info">
+                                                    <span class="reward-name">${formatKey(r.faction)}: ${sign}${r.amount || 0}</span>
+                                                    ${r.description ? `<span class="reward-desc">${r.description}</span>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+                                    case 'ally':
+                                        return `
+                                            <div class="reward-card ally">
+                                                <span class="reward-icon">🤝</span>
+                                                <div class="reward-info">
+                                                    <span class="reward-name">${r.name || 'Ally'}</span>
+                                                    ${r.description ? `<span class="reward-desc">${r.description}</span>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+                                    case 'intel':
+                                        return `
+                                            <div class="reward-card intel">
+                                                <span class="reward-icon">🔍</span>
+                                                <div class="reward-info">
+                                                    <span class="reward-name">${r.name || 'Intel'}</span>
+                                                    ${r.description ? `<span class="reward-desc">${r.description}</span>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+                                    case 'unlock':
+                                        return `
+                                            <div class="reward-card unlock">
+                                                <span class="reward-icon">🔓</span>
+                                                <div class="reward-info">
+                                                    <span class="reward-name">${r.name || r.description || 'Unlock'}</span>
+                                                </div>
+                                            </div>
+                                        `;
+                                    default:
+                                        return `
+                                            <div class="reward-card">
+                                                <span class="reward-icon">🎁</span>
+                                                <div class="reward-info">
+                                                    <span class="reward-name">${r.name || r.description || r.type || 'Reward'}</span>
+                                                </div>
+                                            </div>
+                                        `;
+                                }
+                            }).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+
+                <!-- Conditional Rewards -->
+                ${quest.rewards.conditional?.length ? `
+                    <div class="rewards-section">
+                        <h4 class="rewards-section-title">Conditional</h4>
+                        <div class="conditional-rewards">
+                            ${quest.rewards.conditional.map(cr => {
+                                if (!cr || !cr.reward) return '';
+                                return `
+                                    <div class="conditional-reward-card">
+                                        <div class="condition">
+                                            <span class="condition-icon">❓</span>
+                                            <span class="condition-text">${cr.condition || 'condition'}</span>
+                                        </div>
+                                        <div class="condition-reward">
+                                            <span class="reward-arrow">→</span>
+                                            <span class="reward-icon">
+                                                ${cr.reward.type === 'ally' ? '🤝' : 
+                                                  cr.reward.type === 'intel' ? '🔍' : 
+                                                  cr.reward.type === 'item' ? '📦' : '🎁'}
+                                            </span>
+                                            <div class="reward-info">
+                                                <span class="reward-name">${cr.reward.name || ''}</span>
+                                                ${cr.reward.description ? `<span class="reward-desc">${cr.reward.description}</span>` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+            </section>
+        ` : ''}
+
+        <!-- NPCs -->
+        ${quest.npcs && (quest.npcs.allies?.length || quest.npcs.enemies?.length || quest.npcs.neutral?.length) ? `
+            <section class="modal-section">
+                <h3 class="modal-section-title">👥 Key NPCs</h3>
+                <div class="npcs-grid">
+                    ${quest.npcs.allies?.length ? `
+                        <div class="npc-group allies">
+                            <h4 class="npc-group-title">🟢 Allies</h4>
+                            <div class="npc-list">
+                                ${quest.npcs.allies.map(npc => {
+                                    const npcData = LORE_DATA?.characters?.[npc] || LORE_DATA?.auxiliary_party?.[npc];
+                                    return `
+                                        <div class="npc-chip ally" data-npc="${npc}">
+                                            <span class="npc-icon">${npcData?.icon || '👤'}</span>
+                                            <span class="npc-name">${formatKey(npc)}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    ${quest.npcs.enemies?.length ? `
+                        <div class="npc-group enemies">
+                            <h4 class="npc-group-title">🔴 Enemies</h4>
+                            <div class="npc-list">
+                                ${quest.npcs.enemies.map(npc => {
+                                    const npcData = LORE_DATA?.characters?.[npc];
+                                    return `
+                                        <div class="npc-chip enemy" data-npc="${npc}">
+                                            <span class="npc-icon">${npcData?.icon || '👤'}</span>
+                                            <span class="npc-name">${formatKey(npc)}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    ${quest.npcs.neutral?.length ? `
+                        <div class="npc-group neutral">
+                            <h4 class="npc-group-title">⚪ Neutral</h4>
+                            <div class="npc-list">
+                                ${quest.npcs.neutral.map(npc => {
+                                    const npcData = LORE_DATA?.characters?.[npc];
+                                    return `
+                                        <div class="npc-chip neutral" data-npc="${npc}">
+                                            <span class="npc-icon">${npcData?.icon || '👤'}</span>
+                                            <span class="npc-name">${formatKey(npc)}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            </section>
+        ` : ''}
+
+        <!-- LOCATIONS -->
+        ${quest.locations && (quest.locations.primary || quest.locations.related?.length) ? `
+            <section class="modal-section">
+                <h3 class="modal-section-title">📍 Locations</h3>
+                <div class="locations-grid">
+                    ${quest.locations.primary ? `
+                        <div class="location-card primary">
+                            <span class="location-badge">Primary</span>
+                            <span class="location-icon">🎯</span>
+                            <span class="location-name">${formatKey(quest.locations.primary)}</span>
+                        </div>
+                    ` : ''}
+                    ${quest.locations.related?.length ? `
+                        ${quest.locations.related.map(loc => `
+                            <div class="location-card related">
+                                <span class="location-icon">📍</span>
+                                <span class="location-name">${formatKey(loc)}</span>
+                            </div>
+                        `).join('')}
+                    ` : ''}
+                </div>
+            </section>
+        ` : ''}
+
+        <!-- LORE ENTRIES -->
+        ${quest.loreEntries?.length ? `
+            <section class="modal-section">
+                <h3 class="modal-section-title">📚 Lore & Intel</h3>
+                <div class="lore-entries">
+                    ${quest.loreEntries.map(entryKey => {
+                        const entry = getLoreEntry(entryKey);
+                        return `
+                            <div class="lore-entry-card" data-lore="${entryKey}">
+                                <span class="lore-icon">📜</span>
+                                <div class="lore-info">
+                                    <span class="lore-title">${entry?.name || formatKey(entryKey)}</span>
+                                    ${entry?.description ? `<span class="lore-preview">${entry.description.substring(0, 100)}...</span>` : ''}
+                                </div>
+                                <span class="lore-arrow">→</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </section>
+        ` : ''}
+
+        <!-- RELATED QUESTS -->
+        ${quest.relatedQuests?.length ? `
+            <section class="modal-section">
+                <h3 class="modal-section-title">🔗 Related Quests</h3>
+                <div class="related-quests">
+                    ${quest.relatedQuests.map(qId => {
+                        const relatedQuest = QUEST_DATA[qId];
+                        if (!relatedQuest) return '';
+                        const rq = normalizeQuestData(relatedQuest);
+                        return `
+                            <div class="related-quest-card" data-quest-id="${qId}">
+                                <div class="related-quest-info">
+                                    <span class="related-quest-type" style="color: ${rq.type?.color || 'var(--text-secondary)'}">
+                                        ${rq.type?.icon || '📋'}
+                                    </span>
+                                    <span class="related-quest-title">${rq.title || 'Quest'}</span>
+                                </div>
+                                <span class="related-quest-status status-${rq.status || 'pending'}">${rq.status || 'Pending'}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </section>
+        ` : ''}
+
+        <!-- HINTS -->
         ${quest.hints?.length ? `
             <section class="modal-section">
-                <h3 class="modal-section-title">💡 Intel</h3>
-                <ul style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary);">
-                    ${quest.hints.map(h => `<li style="margin-bottom: 0.5rem;">${h}</li>`).join('')}
+                <h3 class="modal-section-title">💡 Intel & Hints</h3>
+                <ul class="hints-list">
+                    ${quest.hints.map(h => `
+                        <li class="hint-item">
+                            <span class="hint-icon">💡</span>
+                            <span class="hint-text">${h}</span>
+                        </li>
+                    `).join('')}
                 </ul>
             </section>
         ` : ''}
 
+        <!-- TIMELINE -->
         <section class="modal-section">
             <h3 class="modal-section-title">📅 Timeline</h3>
-            <div class="modal-section-content">
-                <p><strong>Added:</strong> ${formatDate(quest.dates?.added)}</p>
-                ${quest.dates?.updated ? `<p><strong>Last Update:</strong> ${formatRelativeDate(quest.dates?.updated)}</p>` : ''}
-                ${quest.dates?.deadline ? `<p><strong>Deadline:</strong> ${formatDate(quest.dates.deadline)}</p>` : ''}
+            <div class="timeline-grid">
+                <div class="timeline-item">
+                    <span class="timeline-label">Added</span>
+                    <span class="timeline-value">${formatDate(quest.dates?.added) || ''}</span>
+                </div>
+                ${quest.dates?.updated ? `
+                    <div class="timeline-item">
+                        <span class="timeline-label">Last Update</span>
+                        <span class="timeline-value">${formatRelativeDate(quest.dates.updated)}</span>
+                    </div>
+                ` : ''}
+                ${quest.dates?.deadline ? `
+                    <div class="timeline-item ${isUrgent ? 'urgent' : ''}">
+                        <span class="timeline-label">Deadline</span>
+                        <span class="timeline-value">${formatDate(quest.dates.deadline)}</span>
+                    </div>
+                ` : ''}
             </div>
         </section>
     `;
 
+    // Hide loading state
+    const loadingEl = document.getElementById('modal-loading');
+    if (loadingEl) loadingEl.style.display = 'none';
+
+    // Add click handlers for related quests
+    modalContent.querySelectorAll('.related-quest-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const relatedQuestId = card.dataset.questId;
+            if (relatedQuestId && QUEST_DATA[relatedQuestId]) {
+                playSound?.('click.mp3');
+                renderQuestModal(relatedQuestId);
+            }
+        });
+    });
+
+    // Add click handlers for lore entries
+    modalContent.querySelectorAll('.lore-entry-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const loreKey = card.dataset.lore;
+            if (loreKey && typeof openLoreModal === 'function') {
+                playSound?.('click.mp3');
+                openLoreModal(loreKey);
+            }
+        });
+    });
+
+    // Add click handlers for NPC chips
+    modalContent.querySelectorAll('.npc-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const npcKey = chip.dataset.npc;
+            if (npcKey && typeof openNpcModal === 'function') {
+                playSound?.('click.mp3');
+                openNpcModal(npcKey);
+            }
+        });
+    });
+
+    // Show modal
     questModal.classList.add('active');
+    questModal.hidden = false;
     document.body.style.overflow = 'hidden';
+    
+    // Focus management for accessibility
+    modalContent.focus();
 }
-
-function closeModal() {
-    questModal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
 // ============================================
 // EVENT HANDLERS
 // ============================================

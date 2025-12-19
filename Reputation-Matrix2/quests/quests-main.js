@@ -245,125 +245,204 @@ export const REWARDS_DATA = {
 export const TOADS_QUESTS = {
 
 'rogueport_retrieval': {
-        id: 'rogueport_retrieval',
-        title: "The Price of a Handshake",
-        subtitle: "Diplomacy by Other Means",
-        type: QUEST_TYPES.EXPEDITION,
-        category: 'Liberated Toads',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'rakasha_alliance',
-        objective: "Retrieve Rakasha's stolen prize from the purple emblem building in Rogueport's Trade Ward.",
-        assignees: ['embercap', 'dewdrop', 'erick'],
-        primaryAssignee: 'embercap',
-        difficulty: { overall: DIFFICULTY.DEADLY, combat: DIFFICULTY.HARD, investigation: DIFFICULTY.MODERATE },
-        tags: ['rogueport', 'heist', 'rakasha', 'stealth'],
-        dates: { added: { year: 1040, monthIndex: 6, day: 21 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
-        
-        description: "To secure a vital alliance with the Rakasha and the networks of Thornpaw, a delegation of Toads was sent to negotiate. The price of cooperation is not gold, but action. Rakasha has tasked the group with a 'retrieval' mission in the heart of Rogueport—a lawless city of pirates and thieves. They must locate a building in the Trade Ward marked with a purple emblem and recover a stolen item. Failure means the alliance dies; success means surviving the night in a city that wants them dead.",
-
-        loreEntries: ['rakasha_totems', 'rogueport_trade_ward', 'the_cheep_cheep_treaty'],
-
-        consequences: {
-            success: "The Rakasha join the fight against the Loyalists. The Cheep-Cheep Treaty is ratified.",
-            failure: "The delegation is executed or enslaved in Rogueport. The Rakasha remain neutral.",
-            partial: "The item is retrieved damaged; Rakasha offers only limited support."
-        },
-
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Rakasha's Favor", description: "Token of safe passage in tribal lands" },
-                { type: 'intel', name: "Rogueport Network", description: "Access to the criminal underworld market" }
-            ],
-            conditional: [
-                { condition: "Don't use the Tiger summons again", reward: { type: 'summon', name: "Spirit Tiger", description: "One-time use combat summon kept for later" }}
-            ],
-            xp: 8000
-        },
-
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Plunge", 
-                description: "Jumped from Cheep-Cheep Falls to board the transport. Survived the psychological test.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            { 
-                id: 'm2', 
-                status: 'completed', 
-                title: "Welcome to Rogueport", 
-                description: "Survived the initial ambush by local thugs and the Iron Legion using the Tiger summon.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm3',
-                status: 'active',
-                title: "The Violet Emblem",
-                description: "Infiltrate the Trade Ward and locate the shop with the purple emblem. Retrieve the target.",
-                goals: [
-                    { text: "Bypass Trade Ward Guild Guards", status: 'completed' },
-                    { text: "Enter the Target Building", status: 'active' },
-                    { text: "Escape with the Item", status: 'pending' }
-                ]
-            }
-        ]
+    id: 'rogueport_retrieval',
+    title: "The Price of a Handshake",
+    subtitle: "Diplomacy by Other Means",
+    type: QUEST_TYPES.EXPEDITION,
+    category: 'Liberated Toads',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'rakasha_alliance',
+    objective: "Retrieve Rakasha's stolen prize from the purple emblem building in Rogueport's Trade Ward, then escape the city alive.",
+    assignees: ['embercap', 'dewdrop', 'erick'],
+    primaryAssignee: 'embercap',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        combat: DIFFICULTY.HARD,
+        stealth: DIFFICULTY.EXTREME,
+        investigation: DIFFICULTY.MODERATE
+    },
+    tags: ['rogueport', 'heist', 'rakasha', 'stealth', 'alliance', 'underworld'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 21 },
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: { year: 1040, monthIndex: 6, day: 23 }
     },
 
-    'festival_of_the_fallen_pact': {
-        id: 'festival_of_the_fallen_pact',
-        title: "The Inner Path",
-        subtitle: "Mind Games",
-        type: QUEST_TYPES.DIPLOMACY,
-        category: 'Peach Loyalists',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.HIGH,
-        arcId: 'rakasha_alliance',
-        objective: "Honor the pact made with Thornpaw by establishing a protective garrison in Rogueport.",
-        assignees: ['mystivil', 'big_r'],
-        primaryAssignee: 'mystivil',
-        difficulty: { overall: DIFFICULTY.HARD, magic: DIFFICULTY.EXTREME, social: DIFFICULTY.HARD },
-        tags: ['ritual', 'mind-control', 'politics'],
-        dates: { added: { year: 1040, monthIndex: 6, day: 21 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
-        
-        description: "Mystivil and Big R attended the Rakasha's 'Festival of the Fallen'. Through a hallucinogenic ritual known as 'Xeos', Mystivil entered a mental construct and negotiated directly with Thornpaw. The resulting agreement is fragile: The Peach Loyalists must take control of a specific district in Rogueport and protect the Rakasha interests there—not as conquerors, but as guardians. This puts the Loyalists in direct proximity to the Liberated Toads' operation.",
+    description: "The Liberated Toads need allies. The Rakasha have allies to spare—smuggler networks, safe houses, spirit-walkers who can read the movement of enemies before they arrive. But Thornpaw doesn't deal in promises. He deals in proof.\n\nThe delegation—Embercap, Dewdrop, and Erick—jumped from Cheep-Cheep Falls onto a smuggler's skiff, surviving the Rakasha's first test: a psychological gauntlet designed to weed out cowards. They arrived in Rogueport bruised but breathing, only to walk directly into an ambush. Iron Legion soldiers had been tipped off. Local thugs smelled opportunity. The Tiger summon—a one-use spirit bound to Embercap's totem—was burned to escape the kill box.\n\nNow they're in the Trade Ward with no backup summon, no extraction plan, and a target building marked only by a purple emblem. Whatever Thornpaw wants retrieved, he wants it badly enough to stake the entire alliance on three Toads and a prayer.\n\nThe Iron Mandate passed this morning. Legion patrols have emergency powers. The city that was already hostile is now a hunting ground.",
 
-        loreEntries: ['xeos_ritual', 'thornpaws_network', 'house_of_pleasure'],
+    loreEntries: ['rakasha_totems', 'rogueport_trade_ward', 'the_cheep_cheep_treaty', 'iron_mandate'],
 
-        consequences: {
-            success: "The Loyalists gain a powerful irregular army in the Rakasha.",
-            failure: "Thornpaw views the broken promise as an act of war.",
-            partial: "The garrison is established but conflicts with locals arise."
+    consequences: {
+        success: "The Rakasha commit to the Toad Liberation. Thornpaw's spy network becomes available. The Cheep-Cheep Treaty is ratified, granting naval escape routes.",
+        failure: "The delegation is killed, enslaved, or ransomed. The Rakasha write off the Toads as weak. The alliance dies before it begins.",
+        partial: "The item is retrieved damaged or the team takes heavy casualties. Rakasha offers limited, conditional support with ongoing 'tests'."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Rakasha's Favor", description: "Token of safe passage in tribal lands and Rakasha-controlled black markets" },
+            { type: 'intel', name: "Rogueport Network Access", description: "Fence contacts, safe houses, and smuggling routes through the criminal underworld" },
+            { type: 'reputation', faction: 'rakasha', amount: 750, description: "Proven Through Fire" }
+        ],
+        conditional: [
+            { condition: "Complete without using additional Rakasha resources", reward: { type: 'item', name: "Spirit Tiger Totem (Recharged)", description: "The Tiger returns. One more use earned through honor." }},
+            { condition: "Identify who tipped off the Legion", reward: { type: 'intel', name: "The Leak", description: "Knowledge of a traitor in the Toad intelligence chain" }},
+            { condition: "Escape Rogueport by sea", reward: { type: 'contact', name: "Captain Barnacle", description: "Smuggler captain who owes a favor" }}
+        ],
+        xp: 8000,
+        gold: { min: 500, max: 1500 }
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Plunge",
+            description: "The delegation leapt from Cheep-Cheep Falls onto a moving skiff—a psychological test designed by Thornpaw to prove commitment. All three survived. The alliance became possible.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 }
         },
-
-        rewards: {
-            guaranteed: [
-                { type: 'ally', name: "Thornpaw's Spies", description: "Global surveillance bonuses" }
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "Welcome to Rogueport",
+            description: "Ambushed within minutes of arrival. Legion soldiers and local muscle coordinated the attack—someone knew they were coming. The Spirit Tiger was summoned and exhausted to break the encirclement. The team escaped into the Trade Ward alleys.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Tiger summon expended",
+                "Legion presence confirmed in Rogueport",
+                "Possible intelligence leak identified"
+            ]
+        },
+        {
+            id: 'm3',
+            status: 'active',
+            title: "The Violet Emblem",
+            description: "The target is a building in the Trade Ward marked with a purple emblem. Contents unknown. Security unknown. The Iron Mandate means Legion patrols have shoot-on-sight authority for 'supernatural threats'—and Toads with Rakasha connections qualify.",
+            goals: [
+                { text: "Locate the purple emblem building", status: 'completed', priority: 'high' },
+                { text: "Bypass Trade Ward Guild security", status: 'completed', priority: 'high' },
+                { text: "Infiltrate the target building", status: 'active', priority: 'critical' },
+                { text: "Identify and secure the retrieval target", status: 'pending', priority: 'critical' },
+                { text: "Escape Rogueport with the item", status: 'pending', priority: 'critical' }
             ],
-            xp: 6500
-        },
+            notes: "The team has no extraction plan. The docks are watched. The sewers lead to Kremling territory. The rooftops are patrolled. Think fast."
+        }
+    ],
 
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Ritual", 
-                description: "Survived the Xeos trance and successfully negotiated with the avatar of Thornpaw.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            { 
-                id: 'm2', 
-                status: 'active', 
-                title: "The Garrison", 
-                description: "Deploy forces to Rogueport to secure the designated Rakasha district.",
-                goals: [
-                    { text: "Identify the District", status: 'pending' },
-                    { text: "Clear Hostiles", status: 'pending' },
-                    { text: "Establish HQ", status: 'pending' }
-                ]
-            }
-        ]
-    },    
+    npcs: {
+        allies: ['thornpaw_contact'],
+        enemies: ['iron_legion_rogueport_garrison', 'trade_ward_guild_enforcers'],
+        neutral: ['captain_barnacle', 'fence_networks']
+    },
+
+    locations: {
+        primary: 'rogueport_trade_ward',
+        current: 'target_building_exterior',
+        related: ['cheep_cheep_falls', 'rogueport_docks', 'rogueport_sewers']
+    },
+
+    relatedQuests: ['festival_of_the_fallen_pact', 'liberated_toads_integration', 'vigilance_fallen']
+},
+
+'festival_of_the_fallen_pact': {
+    id: 'festival_of_the_fallen_pact',
+    title: "The Inner Path",
+    subtitle: "A Garrison of Ghosts",
+    type: QUEST_TYPES.DIPLOMACY,
+    category: 'Peach Loyalists',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.HIGH,
+    arcId: 'rakasha_alliance',
+    objective: "Establish a Peach Loyalist garrison in Rogueport's Rakasha district as payment for Thornpaw's alliance.",
+    assignees: ['mystivil', 'big_r'],
+    primaryAssignee: 'mystivil',
+    difficulty: {
+        overall: DIFFICULTY.HARD,
+        magic: DIFFICULTY.EXTREME,
+        social: DIFFICULTY.HARD,
+        logistics: DIFFICULTY.HARD
+    },
+    tags: ['ritual', 'mind-control', 'politics', 'rakasha', 'loyalists', 'rogueport'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 21 },
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: { year: 1040, monthIndex: 6, day: 28 }
+    },
+
+    description: "The Festival of the Fallen is not a celebration. It is a negotiation conducted through chemistry and willpower.\n\nMystivil and Big R attended the Rakasha's sacred rite, consuming 'Xeos'—a hallucinogenic compound that tears down the barriers between minds. In that shared dreamspace, Mystivil negotiated directly with an avatar of Chief Thornpaw. The price of the Rakasha's full support was not gold or blood. It was territory.\n\nThe Rakasha have interests in Rogueport—smuggling routes, safe houses, debts owed by powerful criminals. Those interests are threatened by the Iron Legion's expanding reach and the chaos of the underworld's power struggles. Thornpaw wants the Peach Loyalists to take control of a specific district and protect Rakasha operations there. Not as conquerors extracting tribute—as guardians maintaining order.\n\nThis puts the Loyalists in Rogueport at the exact moment a Liberated Toad delegation is conducting a heist in the Trade Ward. Two factions who share enemies but not trust, operating in the same lawless city, with the Iron Legion hunting both.\n\nThe Iron Mandate complicates everything. Legion patrols now have emergency powers. The Supernatural Sovereignty Act makes organized supernatural entities—including the Rakasha—illegal. A Loyalist garrison protecting Rakasha interests is technically sedition.",
+
+    loreEntries: ['xeos_ritual', 'thornpaws_network', 'house_of_pleasure', 'iron_mandate', 'supernatural_sovereignty_act'],
+
+    consequences: {
+        success: "The Peach Loyalists gain Thornpaw's full support—a spy network spanning the continent, smuggling routes, and the Rakasha's spiritual warriors. The garrison becomes a foothold in Rogueport's criminal underworld.",
+        failure: "Thornpaw interprets the broken promise as betrayal. The Rakasha become hostile. Mystivil's mind may carry scars from the Xeos ritual's failure state.",
+        partial: "The garrison is established but conflicts with locals, the Legion, or the Liberated Toads undermine its stability. Thornpaw offers limited, probationary support."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'ally', name: "Thornpaw's Spies", description: "Continental surveillance network with +3 to all faction intelligence gathering" },
+            { type: 'territory', name: "Rogueport Foothold", description: "A district under Loyalist protection, generating income and influence" }
+        ],
+        conditional: [
+            { condition: "Avoid conflict with the Liberated Toad delegation", reward: { type: 'diplomacy', name: "Unexpected Allies", description: "Opens dialogue between Loyalists and Liberated Toads" }},
+            { condition: "Defend the district against a Legion raid", reward: { type: 'reputation', faction: 'rakasha', amount: 500, description: "Blood Proven" }},
+            { condition: "Mystivil masters the Xeos state", reward: { type: 'ability', name: "Dreamwalk", description: "Can enter shared mental spaces with willing participants" }}
+        ],
+        xp: 6500,
+        gold: { min: 1000, max: 3000 }
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Ritual",
+            description: "Mystivil consumed Xeos and entered the shared dreamspace. Through force of will and careful negotiation, they reached an agreement with Thornpaw's avatar. The price was named: a garrison, not a conquest.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Xeos trance survived",
+                "Terms negotiated successfully",
+                "Big R provided physical security during the vulnerable ritual state"
+            ]
+        },
+        {
+            id: 'm2',
+            status: 'active',
+            title: "The Garrison",
+            description: "Deploy Loyalist forces to Rogueport. Identify and secure the designated district. Establish a defensible headquarters without triggering open war with the Legion or local powers.",
+            goals: [
+                { text: "Identify the exact district boundaries", status: 'pending', priority: 'high' },
+                { text: "Scout local threats (gangs, Legion presence, rival factions)", status: 'pending', priority: 'high' },
+                { text: "Establish initial Loyalist presence without alerting Legion intelligence", status: 'pending', priority: 'critical' },
+                { text: "Secure a headquarters building", status: 'pending', priority: 'high' },
+                { text: "Make contact with Rakasha assets in the district", status: 'pending', priority: 'medium' }
+            ],
+            notes: "The Iron Mandate means Legion patrols have emergency powers. A visible Loyalist military presence will draw immediate attention. Subtlety is required."
+        },
+        {
+            id: 'm3',
+            status: 'locked',
+            title: "The Proof",
+            description: "Thornpaw will test the garrison's commitment. An attack, a crisis, or a betrayal will come. How the Loyalists respond determines whether the alliance becomes permanent.",
+            unlockCondition: "Garrison established for 48 hours"
+        }
+    ],
+
+    npcs: {
+        allies: ['thornpaw', 'rakasha_contacts'],
+        enemies: ['iron_legion_rogueport_garrison', 'local_gang_lords'],
+        neutral: ['liberated_toad_delegation', 'rogueport_merchants_guild']
+    },
+
+    locations: {
+        primary: 'rogueport_rakasha_district',
+        related: ['festival_grounds', 'rogueport_trade_ward', 'rogueport_docks']
+    },
+
+    relatedQuests: ['rogueport_retrieval', 'vigilance_fallen', 'liberated_toads_integration']
+},
     'dan_reclaim_the_staff': {
         id: 'dan_reclaim_the_staff',
         title: "The Staff's Burden",
@@ -539,71 +618,121 @@ export const TOADS_QUESTS = {
         ]
     },
 
-    'liberated_toads_integration': {
-        id: 'liberated_toads_integration',
-        title: "The Shattered Vow",
-        subtitle: "The Decoy Gambit & Order 120",
-        type: QUEST_TYPES.FACTION,
-        category: 'Liberated Toads',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'toad_liberation',
-        objective: "Survive the Iron Legion's 'Order 120' execution command and determine the fate of the real Speaker L.",
-        assignees: ['bones', 'party'],
-        primaryAssignee: 'bones',
-        difficulty: { overall: DIFFICULTY.DEADLY, social: DIFFICULTY.DEADLY, combat: DIFFICULTY.EXTREME },
-        tags: ['politics', 'betrayal', 'rescue', 'execution'],
-        dates: { added: { year: 1040, monthIndex: 6, day: 16 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
-        
-        description: "The attempt to infiltrate the Legion interrogation center ended in chaos. Bones, disguised as a guard, discovered that the Legion has captured a 'Green Speaker L'—a decoy claiming he ate a poisonous mushroom. The interrogation revealed the Cohort's cult-like devotion to 'The Fractured Heart' philosophy. However, the operation went south when Marcus Ironhand identified Bones as an impostor and stabbed him. A Toad raid led by Creek caused massive collateral damage (acid attacks), but Ironhand has issued 'Order 120': Execute them all. The Legion believes they have the leadership, but the real Speaker L remains at large.",
+'liberated_toads_integration': {
+    id: 'liberated_toads_integration',
+    title: "The Shattered Vow",
+    subtitle: "Order 120 — Execute Them All",
+    type: QUEST_TYPES.FACTION,
+    category: 'Liberated Toads',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'toad_liberation',
+    objective: "Survive Order 120, rescue Bones and Creek from Aegis Command, and locate the real Speaker L before the Legion realizes they've been deceived.",
+    assignees: ['bones', 'creek', 'party'],
+    primaryAssignee: 'bones',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        social: DIFFICULTY.DEADLY,
+        combat: DIFFICULTY.EXTREME,
+        stealth: DIFFICULTY.EXTREME
+    },
+    tags: ['politics', 'betrayal', 'rescue', 'execution', 'urgent', 'faction-survival'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 16 },
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: { year: 1040, monthIndex: 6, day: 22 }
+    },
 
-        loreEntries: ['the_first_cohort', 'speaker_l_decoy', 'order_120', 'marcus_ironhand'],
+    description: "Everything has gone wrong.\n\nBones infiltrated the Imperial Processing Facility at Aegis Command disguised as a Legion guard. For hours, it worked. He walked the corridors of an industrial nightmare—a complex designed to process prisoners at scale. He witnessed the arrival of the captured Toads. He saw the interrogation of the 'Green Speaker L.'\n\nThe prisoner wasn't the real Speaker L. It was a decoy—a loyalist who claimed, under torture, that he'd eaten a poisonous mushroom and was dying anyway. The decoy spoke of the 'Fractured Heart' philosophy, of the Council of Seven, of how the movement would survive any single death. The interrogators were getting nothing useful.\n\nThen Marcus Ironhand arrived.\n\nThe General of the Iron Legion didn't ask questions. He looked at the decoy, looked at the reports, looked at Bones standing too still in his borrowed uniform—and stabbed Bones through the chest without a word of warning. Cover blown. Mission failed.\n\nIn the chaos that followed, a Toad raiding party led by Creek attempted extraction. Acid attacks. Collateral damage. Legion casualties. It bought time, nothing more.\n\nIronhand's response was Order 120: Execute all Toad prisoners immediately. No trials. No ransoms. No exceptions.\n\nThe clock is now measured in hours. Bones is wounded and captured. Creek is pinned down somewhere in the facility. The decoy is still performing his role, buying time the real Speaker L—wherever they are—desperately needs.\n\nAnd the party is trapped in Raventree Manor, watching the Vigilance fly overhead broadcasting Legion propaganda, unable to help.",
 
-        consequences: {
-            success: "Bones escapes execution. The Legion is misled by the decoy, buying time for the real rebellion.",
-            failure: "Bones, Creek, and the captured Toads are executed. The movement is decapitated.",
-            partial: "The decoys are executed, but the Legion realizes they were tricked and doubles their efforts."
+    loreEntries: ['the_first_cohort', 'speaker_l_decoy', 'order_120', 'marcus_ironhand', 'aegis_command_layout', 'fractured_heart_philosophy'],
+
+    consequences: {
+        success: "Bones and Creek escape. The decoy's sacrifice buys enough time for the real Speaker L to reorganize. The movement survives decapitation.",
+        failure: "Order 120 is executed. Bones, Creek, and all captured Toads are killed. The movement loses its most experienced operatives and its organizational backbone.",
+        partial: "Some prisoners escape, others don't. The movement survives but is crippled. The Legion realizes the 'Green Speaker L' was a decoy and intensifies the hunt."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'intel', name: "Legion Interrogation Protocols", description: "Understanding of what the Legion fears—specifically, they asked repeatedly about Archie's influence on the movement" },
+            { type: 'intel', name: "Aegis Command Layout", description: "Bones' observations of the facility's structure, guard rotations, and weak points" }
+        ],
+        conditional: [
+            { condition: "Bones survives the stab wound", reward: { type: 'trait', name: "Iron Scars", description: "Permanent intimidation bonus vs Legion soldiers who recognize the wound" }},
+            { condition: "Rescue Creek", reward: { type: 'ally', name: "Creek (Blooded)", description: "Mercenary loyalty upgraded to true belief after the rescue" }},
+            { condition: "Extract the Green Decoy alive", reward: { type: 'ally', name: "The Double", description: "A Toad who can impersonate leadership and has proven willingness to die for the cause" }},
+            { condition: "Kill Marcus Ironhand", reward: { type: 'reputation', faction: 'liberated_toads', amount: 2000, description: "Vengeance Delivered" }}
+        ],
+        xp: 8500,
+        gold: { min: 0, max: 500 }
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Infiltration",
+            description: "Bones successfully infiltrated Aegis Command's prison complex disguised as a Legion guard. He witnessed the industrial scale of the processing facility and the arrival of captured Toads.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 }
         },
-
-        rewards: {
-            guaranteed: [
-                { type: 'intel', name: "Legion Interrogation Logs", description: "Insight into what the Legion fears (Archie's influence)" }
-            ],
-            conditional: [
-                { condition: "Bones survives the stab wound", reward: { type: 'trait', name: "Iron Scars", description: "Bonus intimidation vs Legion" }},
-                { condition: "Rescue the Green Decoy", reward: { type: 'ally', name: "The Double", description: "Can impersonate leadership" }}
-            ],
-            xp: 8500
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "The Interrogation",
+            description: "Witnessed the questioning of the 'Green Speaker L'—actually a decoy loyalist. Learned of the 'Fractured Heart' philosophy and the Council of Seven organizational structure. The decoy performed perfectly, revealing nothing useful while appearing to break.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Decoy identity confirmed",
+                "Fractured Heart philosophy documented",
+                "Council of Seven structure partially revealed",
+                "Legion interrogators frustrated but suspicious"
+            ]
         },
+        {
+            id: 'm3',
+            status: 'active',
+            title: "Order 120",
+            description: "Marcus Ironhand saw through Bones' disguise and stabbed him without warning. Creek's extraction raid caused chaos but failed to secure the prisoners. Ironhand issued Order 120: kill them all.",
+            goals: [
+                { text: "Bones: Survive the stab wound", status: 'critical', priority: 'critical' },
+                { text: "Bones: Escape custody before execution", status: 'active', priority: 'critical' },
+                { text: "Creek: Break contact and regroup", status: 'active', priority: 'critical' },
+                { text: "Party: Escape Raventree Manor to provide support", status: 'active', priority: 'high' },
+                { text: "Locate the REAL Speaker L", status: 'active', priority: 'high' },
+                { text: "Delay Order 120 execution (Humpik's Legion contact?)", status: 'pending', priority: 'critical' }
+            ],
+            notes: "The party is trapped in Raventree Manor. Humpik has a Legion contact who might be leveraged. The Oracle might be used as a bargaining chip. Every option has a cost."
+        }
+    ],
 
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Infiltration", 
-                description: "Bones successfully infiltrated the prison courtyard disguised as a guard, witnessing the arrival of the prisoners.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            { 
-                id: 'm2', 
-                status: 'completed', 
-                title: "The Interrogation", 
-                description: "Witnessed the questioning of the decoy. Learned of the 'Fractured Heart' metaphor and the Council of Seven.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            { 
-                id: 'm3', 
-                status: 'active', 
-                title: "Order 120", 
-                description: "Cover blown. Marcus Ironhand stabbed Bones. A 'fake' Archie and the 'Green' Speaker L are in custody. Execution order given.",
-                goals: [
-                    { text: "Survive the immediate execution order", status: 'active', priority: 'critical' },
-                    { text: "Escape Aegis Command with Creek", status: 'pending', priority: 'critical' },
-                    { text: "Locate the REAL Speaker L", status: 'active', priority: 'high' }
-                ]
-            }
-        ]
-    }
+    boneStatus: {
+        condition: "Critical — Stabbed through chest",
+        location: "Aegis Command — Detention Block",
+        captors: "Iron Legion High Command",
+        timeToExecution: "Hours, not days"
+    },
+
+    creekStatus: {
+        condition: "Combat Ready — Pinned Down",
+        location: "Aegis Command — Unknown Sector",
+        action: "Attempted extraction, failed, now evading",
+        resources: "Low ammunition, acid grenades depleted"
+    },
+
+    npcs: {
+        allies: ['bones', 'creek', 'green_speaker_l_decoy', 'real_speaker_l'],
+        enemies: ['marcus_ironhand', 'legion_interrogators', 'aegis_command_garrison'],
+        neutral: ['humpik_legion_contact']
+    },
+
+    locations: {
+        primary: 'aegis_command',
+        related: ['vigilance_airship', 'raventree_manor', 'speaker_l_safehouse']
+    },
+
+    relatedQuests: ['vigilance_fallen', 'humpik_legion_pact', 'artifacts_of_balance']
+},
 };
 export const HUMPIK_QUESTS = {
     'humpik_mirror_identity': {
@@ -655,39 +784,134 @@ export const HUMPIK_QUESTS = {
             }
         ]
     },
-
-    'humpik_legion_pact': {
-        id: 'humpik_legion_pact',
-        title: "The Legion's Mandate",
-        subtitle: "A Private Agreement",
-        type: QUEST_TYPES.FACTION,
-        category: 'Personal - Humpik',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.HIGH,
-        arcId: 'raventree_manor',
-        objective: "Allow the Oracle's ritual to conclude, then aid the Iron Legion in taking custody of the situation.",
-        assignees: ['humpik'],
-        primaryAssignee: 'humpik',
-        description: "A Legion Spy pulled Humpik aside in the Ruined Hall. She warned him that the Mages' Guild is reckless and that the 'Supernatural Sovereignty Act' is inevitable. She offered a deal: Let the Oracle finish his ritual to cleanse the manor, but ensure the Legion takes custody of him afterward. She provided Humpik with Legion-issue thieves' tools to aid in this 'cooperation'. Humpik has agreed to the pact, but warned against betrayal.",
-        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, deception: DIFFICULTY.HARD },
-        tags: ['secret', 'betrayal', 'politics'],
-        
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Legion Thieves' Tools", description: "High-quality lockpicks and wire" }
-            ],
-            conditional: [
-                { condition: "Betray the Oracle", reward: { type: 'reputation', faction: 'iron_legion', amount: 500, description: "Empire's Asset" }},
-                { condition: "Warn the Oracle", reward: { type: 'reputation', faction: 'mages_guild', amount: 500, description: "Guardian of Magic" }}
-            ]
-        },
-
-        milestones: [
-            { id: 'm1', status: 'completed', title: "The Meeting", description: "Met with the Spy in the side room. Accepted the tools and the mission." },
-            { id: 'm2', status: 'active', title: "The Ritual", description: "Wait for the Oracle to finish the separation ritual." },
-            { id: 'm3', status: 'locked', title: "The Arrest", description: "The moment the spell ends, the Legion strikes. Whose side will you be on?" }
-        ]
+'humpik_legion_pact': {
+    id: 'humpik_legion_pact',
+    title: "The Legion's Mandate",
+    subtitle: "A Knife Behind a Handshake",
+    type: QUEST_TYPES.FACTION,
+    category: 'Personal - Humpik',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'raventree_manor',
+    objective: "Fulfill the deal with the Iron Legion: let the Oracle complete his ritual, then ensure the Legion takes custody of him. Or betray the deal and accept the consequences.",
+    assignees: ['humpik'],
+    primaryAssignee: 'humpik',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        social: DIFFICULTY.EXTREME,
+        deception: DIFFICULTY.EXTREME,
+        moral: DIFFICULTY.EXTREME
     },
+    tags: ['secret', 'betrayal', 'politics', 'moral_choice', 'faction_defining'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 21 },
+        updated: { year: 1040, monthIndex: 6, day: 21 }
+    },
+
+    description: "The Legion spy found Humpik in the Ruined Hall, away from the others. She was calm, professional, and terrifyingly well-informed.\n\nShe knew about the Mages' Guild's reckless approach to the manor. She knew about the Supernatural Sovereignty Act—the new law that makes organized supernatural entities illegal, effectively declaring war on vampires, werewolves, and anything else the Empire finds inconvenient. She knew that the Oracle, whatever he is, represents exactly the kind of 'uncontrolled magical threat' the Empire wants eliminated.\n\nHer offer was simple: Let the Oracle finish his ritual. The Legion understands the manor needs to be stabilized—they don't want a dimensional collapse on Imperial soil any more than anyone else. But when the ritual ends and the danger passes, the Oracle becomes Legion property. Humpik ensures the handoff goes smoothly.\n\nIn exchange? The Legion's goodwill. Tools for the job. And perhaps—she didn't promise, but she implied—leverage to negotiate for Toad prisoners currently facing Order 120.\n\nHumpik accepted. He took the thieves' tools. He warned her not to betray him.\n\nNow he walks beside his companions toward the Summoning Room, carrying a secret that could save some lives by destroying others. Bowser already suspects something. The Oracle trusts them. And the Mages' Guild representative—Pernus Annmatar—is watching everyone with undisguised contempt.\n\nThe ritual will end soon. Then Humpik chooses.",
+
+    loreEntries: ['supernatural_sovereignty_act', 'iron_mandate', 'legion_black_ops', 'oracle_nature'],
+
+    consequences: {
+        success_betray_oracle: "The Legion takes custody of the Oracle. Humpik gains significant Legion favor, potentially including leverage to negotiate for Bones, Creek, and other prisoners. The Toads lose a powerful magical ally. The Oracle's fate is imprisonment, experimentation, or execution.",
+        success_protect_oracle: "Humpik betrays the Legion deal. The Oracle escapes or allies with the party. The Legion responds with hostility—Humpik becomes a target, and any negotiating leverage for the Toad prisoners evaporates.",
+        partial: "The handoff is botched. The Oracle escapes, but so does Legion awareness that Humpik was supposed to deliver. Both sides distrust him.",
+        failure: "The ritual fails. The Oracle is destroyed or the timelines collapse. The Legion deal becomes irrelevant amid the catastrophe."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Legion Thieves' Tools", description: "High-quality lockpicks, wire cutters, and a small vial of universal solvent. Currently in Humpik's possession." }
+        ],
+        conditional: [
+            {
+                condition: "Deliver the Oracle to the Legion",
+                reward: { type: 'favor', name: "Legion High Command Favor", description: "Can be exchanged for prisoner release (Bones/Creek), information, or a single 'look the other way' from Legion patrols" }
+            },
+            {
+                condition: "Deliver the Oracle AND maintain cover with party",
+                reward: { type: 'reputation', faction: 'iron_legion', amount: 750, description: "Reliable Asset" }
+            },
+            {
+                condition: "Warn the Oracle and help him escape",
+                reward: { type: 'ally', name: "The Oracle (Grateful)", description: "A chronomancer who owes you his freedom" }
+            },
+            {
+                condition: "Warn the Oracle AND frame the Mages' Guild for the betrayal",
+                reward: { type: 'reputation', faction: 'mages_guild', amount: -1000, description: "Enemies of the Guild" }
+            },
+            {
+                condition: "Refuse to choose (let events unfold without intervention)",
+                reward: { type: 'trait', name: "The Watcher", description: "Bonus to reading situations where multiple factions conflict" }
+            }
+        ],
+        xp: 5000
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Meeting",
+            description: "The Legion spy approached Humpik privately in the Ruined Hall. She explained the political situation, the Supernatural Sovereignty Act, and offered the deal. Humpik accepted the tools and the mission.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 }
+        },
+        {
+            id: 'm2',
+            status: 'active',
+            title: "The Ritual",
+            description: "The Oracle is leading the party to the Summoning Room for the final ritual. Humpik must help ensure it succeeds—the deal requires the manor to be stabilized first.",
+            goals: [
+                { text: "Protect the Oracle during the ritual", status: 'active', priority: 'critical' },
+                { text: "Prevent the Mages' Guild from interfering", status: 'active', priority: 'high' },
+                { text: "Maintain cover with party members", status: 'active', priority: 'high' },
+                { text: "Position for the handoff", status: 'pending', priority: 'medium' }
+            ],
+            notes: "Bowser is suspicious. The Oracle is perceptive. Pernus Annmatar is watching everything. One wrong word could expose the plan prematurely."
+        },
+        {
+            id: 'm3',
+            status: 'locked',
+            title: "The Arrest",
+            description: "The moment the ritual ends, the Legion strikes. Humpik's choice becomes action.",
+            unlockCondition: "Ritual completion",
+            choices: [
+                {
+                    id: 'final_choice',
+                    title: "The Moment of Truth",
+                    options: [
+                        { id: 'deliver', name: "Honor the Deal", description: "Signal the Legion. Ensure the Oracle is taken. Collect the favor." },
+                        { id: 'betray_legion', name: "Betray the Legion", description: "Warn the Oracle. Fight the Legion. Burn the bridge." },
+                        { id: 'chaos', name: "Create Chaos", description: "Trigger a three-way fight between Legion, Mages, and Oracle. Escape in the confusion." },
+                        { id: 'negotiate', name: "Renegotiate", description: "Use the moment to demand the prisoners' release BEFORE handing over the Oracle." }
+                    ]
+                }
+            ]
+        }
+    ],
+
+    secretStatus: {
+        knownTo: ['humpik', 'legion_spy'],
+        suspectedBy: ['bowser'],
+        hiddenFrom: ['archie', 'dan', 'oracle', 'pernus_annmatar']
+    },
+
+    npcs: {
+        allies: ['iron_legion_spy_contact'],
+        enemies: [],
+        neutral: ['self_reflection_oracle', 'pernus_annmatar', 'party_members'],
+        potential_enemies: ['self_reflection_oracle', 'party_members']
+    },
+
+    locations: {
+        primary: 'raventree_manor',
+        current: 'en_route_to_summoning_room',
+        related: ['ruined_hall', 'summoning_room']
+    },
+
+    relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'liberated_toads_integration', 'vigilance_fallen']
+},
+
 
     'humpik_honor_quest': {
         id: 'humpik_honor_quest',
@@ -770,7 +994,7 @@ export const HUMPIK_QUESTS = {
 };
 
 export const ARCHIE_QUESTS = {
-   'archie_fugitive_of_the_accords': {
+'archie_fugitive_of_the_accords': {
     id: 'archie_fugitive_of_the_accords',
     title: "Fugitive of the Accords",
     subtitle: "Ice Over Fire",
@@ -782,30 +1006,43 @@ export const ARCHIE_QUESTS = {
     objective: "Complete the Oracle's ritual in the Summoning Room while maintaining the Mages' Guild's provisional approval.",
     assignees: ['archie'],
     primaryAssignee: 'archie',
-    difficulty: { overall: DIFFICULTY.DEADLY, magic: DIFFICULTY.HARD, control: DIFFICULTY.CRITICAL },
-    tags: ['survival', 'law', 'magic', 'redemption', 'ritual'],
-    dates: { added: { year: 1040, monthIndex: 6, day: 20 }, updated: { year: 1040, monthIndex: 6, day: 21 } },
+    difficulty: { 
+        overall: DIFFICULTY.DEADLY, 
+        magic: DIFFICULTY.HARD, 
+        control: DIFFICULTY.CRITICAL,
+        social: DIFFICULTY.MODERATE
+    },
+    tags: ['survival', 'law', 'magic', 'redemption', 'ritual', 'ice-magic', 'wraith'],
+    dates: { 
+        added: { year: 1040, monthIndex: 6, day: 20 }, 
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: { year: 1040, monthIndex: 6, day: 25 }
+    },
     
     description: "Archie has successfully hunted the Arcane Wraith, proving his versatility by utilizing Ice magic instead of his forbidden Fireball. Despite a rocky start (melting icicles), he landed a decisive freeze that allowed the Oracle to banish the entity. He has collected valuable ectoplasm and is currently in good standing with his provisional Guild license, despite the heckling of Senior Mage Pernus Annmatar. Now, he must assist the Oracle in the final separation ritual in the Summoning Room without losing control or succumbing to the manor's chaos.",
 
-    loreEntries: ['autumnwood_accords', 'cryomancy_basics', 'guild_membership_protocols', 'ectoplasm_harvesting'],
+    loreEntries: ['autumnwood_accords', 'cryomancy_basics', 'guild_membership_protocols', 'ectoplasm_harvesting', 'raventree_manor_history', 'temporal_magic'],
 
     consequences: {
-        success: "Archie solidifies his status as a legitimate mage, earning a permanent Guild license.",
-        failure: "Archie loses control during the ritual, causing a magical catastrophe and immediate revocation of his life.",
-        partial: "The ritual succeeds, but Archie is arrested immediately after by the waiting Legion."
+        success: "Archie solidifies his status as a legitimate mage, earning a permanent Guild license and proving his discipline.",
+        failure: "Archie loses control during the ritual, causing a magical catastrophe and immediate revocation of his license and freedom.",
+        partial: "The ritual succeeds, but Archie is arrested immediately after by the waiting Legion or Guild enforcers."
     },
 
     rewards: {
         guaranteed: [
             { type: 'item', name: "Wraith Ectoplasm", description: "Potent magical reagent harvested from the banished entity" },
-            { type: 'item', name: "Provisional Guild Card", description: "Currently Active - Validated by combat performance" }
+            { type: 'item', name: "Provisional Guild Card", description: "Currently Active - Validated by combat performance" },
+            { type: 'reputation', faction: 'mages_guild', amount: 150, description: "Demonstrated ice magic competency" }
         ],
         conditional: [
-            { condition: "Finish the ritual without Fireball", reward: { type: 'feat', name: "Cryomancer's Patience", description: "Bonus to ice magic control and mental fortitude" }},
-            { condition: "Humiliate Pernus Annmatar", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 300, description: "Made a mockery of the establishment" }}
+            { condition: "Finish the ritual without Fireball", reward: { type: 'feat', name: "Archie's Patience", description: "Bonus to ice magic control and mental fortitude checks" }},
+            { condition: "Humiliate Pernus Annmatar", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 300, description: "Made a mockery of the establishment" }},
+            { condition: "Perfect ritual execution", reward: { type: 'item', name: "Full Guild License", description: "Permanent Mages' Guild membership" }},
+            { condition: "Assist Oracle successfully", reward: { type: 'ally', name: "The Oracle's Favor", description: "Cryptic assistance in future temporal matters" }}
         ],
-        xp: 6500
+        xp: 6500,
+        gold: { min: 500, max: 1200 }
     },
 
     milestones: [
@@ -814,14 +1051,24 @@ export const ARCHIE_QUESTS = {
             status: 'completed', 
             title: "The Confession", 
             description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
-            completedDate: { year: 1040, monthIndex: 6, day: 20 }
+            completedDate: { year: 1040, monthIndex: 6, day: 20 },
+            outcomes: [
+                "Public admission to the Greenhouse Inferno",
+                "Gained viral social media attention",
+                "Triggered Mages' Guild investigation"
+            ]
         },
         {
             id: 'm2', 
             status: 'completed', 
             title: "The Solarium Test",
             description: "Archie did NOT cast Fireball. He threw a twig. The Guild noticed. He has been issued a provisional license.",
-            completedDate: { year: 1040, monthIndex: 6, day: 20 }
+            completedDate: { year: 1040, monthIndex: 6, day: 20 },
+            outcomes: [
+                "Demonstrated restraint under pressure",
+                "Earned provisional Guild approval",
+                "Avoided immediate arrest"
+            ]
         },
         {
             id: 'm3',
@@ -832,7 +1079,9 @@ export const ARCHIE_QUESTS = {
             outcomes: [
                 "Used Ice Beam successfully",
                 "Harvested Ectoplasm",
-                "Resisted baiting by Pernus Annmatar"
+                "Resisted baiting by Pernus Annmatar",
+                "Demonstrated magical versatility",
+                "Aided the Oracle in banishment"
             ]
         },
         {
@@ -841,15 +1090,95 @@ export const ARCHIE_QUESTS = {
             title: "The Summoning Room",
             description: "Assist the Oracle in the final separation ritual. The energies required are vast, and the 'Audience' is watching.",
             goals: [
-                { text: "Channel energy for the Oracle", status: 'active' },
-                { text: "Maintain magical discipline (No Fire)", status: 'active' },
-                { text: "Ensure the timeline separates cleanly", status: 'pending' }
+                { text: "Channel energy for the Oracle", status: 'active', priority: 'critical' },
+                { text: "Maintain magical discipline (No Fire)", status: 'active', priority: 'critical' },
+                { text: "Ensure the timeline separates cleanly", status: 'pending', priority: 'high' },
+                { text: "Avoid provocations from Pernus Annmatar", status: 'active', priority: 'medium' },
+                { text: "Protect the ritual from Iron Legion interference", status: 'pending', priority: 'high' }
+            ],
+            choices: [
+                {
+                    id: 'ritual_approach',
+                    title: "Magical Contribution Method",
+                    description: "How will Archie channel his power during the separation ritual?",
+                    options: [
+                        {
+                            id: 'ice_anchor',
+                            name: "Ice Anchor",
+                            description: "Use cryomancy to stabilize the temporal energies. Safe and Guild-approved, but requires precise control.",
+                            requirements: ["High Arcana check", "No fire magic"],
+                            consequences: { 
+                                success: "Perfect execution, full Guild license granted", 
+                                failure: "Ritual destabilizes, partial success only" 
+                            }
+                        },
+                        {
+                            id: 'third_eye_focus',
+                            name: "Third Eye Amplification",
+                            description: "Channel the unique power of the Third Eye to boost the ritual. Risky, unpredictable, but potentially legendary.",
+                            requirements: ["Embrace the Third Eye's nature", "Accept unknown consequences"],
+                            consequences: { 
+                                success: "Ritual supercharged, Oracle's gratitude, mysterious new power", 
+                                failure: "Third Eye attracts unwanted attention, dimensional breach" 
+                            }
+                        },
+                        {
+                            id: 'controlled_burn',
+                            name: "Controlled Fireball (Forbidden)",
+                            description: "Use the power that works best. Break the Guild's trust but guarantee success.",
+                            requirements: ["Abandon Guild approval", "Accept outlaw status"],
+                            consequences: { 
+                                success: "Ritual succeeds perfectly, immediate Guild excommunication and arrest warrant", 
+                                failure: "Catastrophic explosion, everyone dies" 
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'pernus_response',
+                    title: "Dealing with the Heckler",
+                    description: "Senior Mage Pernus Annmatar continues to provoke. How does Archie respond?",
+                    options: [
+                        {
+                            id: 'ignore',
+                            name: "Professional Silence",
+                            description: "Ignore the provocations completely. Focus on the ritual.",
+                            consequences: { success: "Guild approves of maturity", failure: "Pernus escalates interference" }
+                        },
+                        {
+                            id: 'verbal_spar',
+                            name: "Witty Retort",
+                            description: "Match wits with the pompous mage. Show intelligence, not fire.",
+                            requirements: ["High Charisma/Intelligence check"],
+                            consequences: { success: "Pernus humiliated, crowd loves it", failure: "Lose focus, ritual suffers" }
+                        },
+                        {
+                            id: 'ice_his_feet',
+                            name: "Freeze His Feet to the Floor",
+                            description: "Non-lethal, humiliating, and technically Guild-legal.",
+                            requirements: ["Subtle spellcasting"],
+                            consequences: { success: "Pernus silenced, comedic gold", failure: "Assault charges filed" }
+                        }
+                    ]
+                }
             ]
         }
     ],
-    npcs: { enemies: ['pernus_annmatar', 'iron_legion'], keyNpcs: ['self_reflection_oracle', 'senior_magus'] }
-}, 
 
+    npcs: { 
+        allies: ['self_reflection_oracle', 'bowser', 'dan'],
+        enemies: ['pernus_annmatar', 'iron_legion_spy', 'marcus_ironhand'], 
+        keyNpcs: ['self_reflection_oracle', 'senior_magus', 'pernus_annmatar'],
+        neutral: ['mages_guild_observers']
+    },
+
+    locations: {
+        primary: 'raventree_manor_summoning_room',
+        related: ['raventree_manor_ruined_hall', 'raventree_manor_solarium', 'raventree_manor_dance_hall']
+    },
+
+    relatedQuests: ['raventree_manor_mysteries', 'vigilance_fallen', 'the_oracle_paradox']
+},
     'archie_god_toad_hunt': {
         id: 'archie_god_toad_hunt',
         title: "An Audience with a God",
@@ -1004,34 +1333,96 @@ export const REMI_QUESTS = {
             { id: 'm2', status: 'locked', title: "The Payoff", description: "Deliver the payment without getting robbed." }
         ]
     },
-
-    'remi_waluigi_espionage': {
-        id: 'remi_waluigi_espionage',
-        title: "WAH! A Little Espionage!",
-        type: QUEST_TYPES.PERSONAL,
-        category: 'Personal - Remi',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.MEDIUM,
-        objective: "Eavesdrop on an Imperial meeting for Waluigi.",
-        assignees: ['remi'],
-        primaryAssignee: 'remi',
-        description: "Waluigi has 'hired' Remi (read: vaguely threatened/bribed) to spy on a secret meeting between a high-ranking Imperial logistics officer and a Merchant Prince. He wants to know what they're shipping. Remi needs to plant a bug or listen in without being caught.",
-        difficulty: { overall: DIFFICULTY.MODERATE, stealth: DIFFICULTY.HARD },
-        tags: ['espionage', 'stealth', 'waluigi'],
-        
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Waluigi's Autographed Bomb", description: "A bob-omb with a mustache drawn on it" },
-                { type: 'gold', amount: 500 }
-            ],
-            xp: 2000
-        },
-
-        milestones: [
-            { id: 'm1', status: 'active', title: "Identify Target", description: "Find the meeting location at the Port of Mighdural." },
-            { id: 'm2', status: 'locked', title: "The Sting", description: "Record the conversation." }
-        ]
+'remi_waluigi_espionage': {
+    id: 'remi_waluigi_espionage',
+    title: "WAH! A Little Espionage!",
+    subtitle: "The Purple Menace Needs a Favor",
+    type: QUEST_TYPES.PERSONAL,
+    category: 'Personal - Remi',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.MEDIUM,
+    arcId: 'waluigi_schemes',
+    objective: "Eavesdrop on an Imperial logistics meeting at the Port of Mighdural and report to Waluigi.",
+    assignees: ['remi'],
+    primaryAssignee: 'remi',
+    difficulty: {
+        overall: DIFFICULTY.MODERATE,
+        stealth: DIFFICULTY.HARD,
+        social: DIFFICULTY.MODERATE,
+        survival: DIFFICULTY.LOW
     },
+    tags: ['espionage', 'stealth', 'waluigi', 'personal', 'underworld'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 20 },
+        updated: { year: 1040, monthIndex: 6, day: 21 }
+    },
+
+    description: "Waluigi doesn't ask nicely. He appears, makes cryptic threats that might be jokes (or might not be), waves around objects that might be weapons (or might be props), and then tells you what you're going to do for him. It's less 'recruitment' and more 'aggressive volunteering.'\n\nRemi has been aggressively volunteered.\n\nThe target is a meeting at the Port of Mighdural between a high-ranking Imperial logistics officer and a Merchant Prince. Waluigi wants to know what they're shipping. Not the manifests—those are lies. The real cargo. The kind of thing powerful people discuss in private rooms with guards at the doors.\n\nThe job is simple: plant a bug or find a listening position. Record the conversation. Get out. Report to Waluigi.\n\nThe complication is timing. The Iron Mandate just passed. Legion patrols have emergency powers. The Port of Mighdural is a major Imperial hub, and security has tightened considerably. A Toad caught spying on Imperial officials right now wouldn't face arrest—they'd face 'Order 120 adjacent' treatment.\n\nWaluigi's payment is... Waluigi. An autographed Bob-omb (he swears it's defused, probably), some gold, and the dubious privilege of having Waluigi consider you an asset rather than an obstacle.",
+
+    loreEntries: ['waluigi_network', 'port_of_mighdural', 'iron_mandate'],
+
+    consequences: {
+        success: "Waluigi gets his intelligence. Remi gains a chaotic but occasionally useful contact. The information might prove valuable to the party later.",
+        failure: "Remi is caught, killed, or compromised. Waluigi disavows all knowledge ('WAH! Never met her!').",
+        partial: "The recording is incomplete or the intelligence is partial. Waluigi is disappointed but not hostile."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Waluigi's Autographed Bob-omb", description: "A Bob-omb with a purple mustache drawn on it. Waluigi swears it's defused. The fuse looks suspicious." },
+            { type: 'gold', amount: 500 },
+            { type: 'contact', name: "Waluigi", description: "Now considers you 'not completely useless.' This is high praise." }
+        ],
+        conditional: [
+            { condition: "Identify what's being shipped", reward: { type: 'intel', name: "The Shipment", description: "Knowledge of illegal Imperial logistics—potential blackmail or leverage" }},
+            { condition: "Complete without being detected", reward: { type: 'trait', name: "Ghost", description: "+1 to stealth in urban environments" }},
+            { condition: "Steal something valuable during the mission", reward: { type: 'approval', name: "Waluigi's Respect", description: "He likes initiative. Might offer better jobs." }}
+        ],
+        xp: 2000
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'active',
+            title: "Identify the Target",
+            description: "Locate the meeting venue at the Port of Mighdural. Identify the logistics officer and the Merchant Prince. Scout security.",
+            goals: [
+                { text: "Travel to Port of Mighdural", status: 'pending', priority: 'high' },
+                { text: "Identify the meeting location", status: 'pending', priority: 'high' },
+                { text: "Scout guard patterns and security measures", status: 'pending', priority: 'high' }
+            ]
+        },
+        {
+            id: 'm2',
+            status: 'locked',
+            title: "The Sting",
+            description: "Plant the bug or find a listening position. Record the conversation. Don't get caught.",
+            unlockCondition: "Target location identified"
+        },
+        {
+            id: 'm3',
+            status: 'locked',
+            title: "The Delivery",
+            description: "Return the recording to Waluigi. Collect payment. Try not to get exploded.",
+            unlockCondition: "Recording obtained"
+        }
+    ],
+
+    npcs: {
+        allies: ['waluigi'],
+        enemies: ['imperial_logistics_officer', 'merchant_prince_guards', 'legion_patrols'],
+        neutral: ['port_workers', 'dockside_merchants']
+    },
+
+    locations: {
+        primary: 'port_of_mighdural',
+        related: ['waluigi_hideout', 'merchant_quarter']
+    },
+
+    relatedQuests: ['vigilance_fallen']
+},
+
     
     'remi_adopt_mossy': {
         id: 'remi_adopt_mossy',
@@ -1362,21 +1753,114 @@ export const MYSTERY_QUESTS = {
             { id: 'm1', status: 'active', title: "Analyze", description: "Ryan needs to check the readings." }
         ]
     },
-    'mystery_imposter_toad': {
-        id: 'mystery_imposter_toad',
-        title: "The Impostor Toad",
-        type: QUEST_TYPES.MYSTERY,
-        category: 'Mystery',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        objective: "Identify the fake Dan.",
-        assignees: ['party'],
-        description: "Lario claims the Dan with the party is a fake.",
-        milestones: [
-            { id: 'm1', status: 'completed', title: "The Warning", description: "Lario warned the party." },
-            { id: 'm2', status: 'active', title: "Observe", description: "Watch for slips." }
-        ]
-    }
+'mystery_imposter_toad': {
+    id: 'mystery_imposter_toad',
+    title: "The Impostor Among Us",
+    subtitle: "A Question That Won't Stay Buried",
+    type: QUEST_TYPES.MYSTERY,
+    category: 'Personal',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'raventree_manor',
+    objective: "Determine whether Dan is who he claims to be before the Summoning Room ritual seals your fate with whoever—or whatever—stands beside you.",
+    assignees: ['party'],
+    primaryAssignee: 'party',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        combat: DIFFICULTY.MEDIUM,
+        puzzle: DIFFICULTY.HARD,
+        social: DIFFICULTY.EXTREME
+    },
+    tags: ['mystery', 'impersonation', 'paranoia', 'infiltration', 'mirrors', 'ritual', 'time_sensitive'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 14 },
+        updated: { year: 1040, monthIndex: 6, day: 21 }
+    },
+
+    description: "The warning came at the worst possible moment.\n\nDay 14. The Restaurant Raid. Iron Legion soldiers kicking in doors, crossbows clicking in the dining hall, the 'ketchup man' story spilling across the floor alongside actual blood. Dan went down hard—critical injuries, emergency triage, no time to think. And in that chaos, Lario grabbed someone by the sleeve and hissed the words that should have stopped everything: *That isn't Dan.*\n\nNot 'Dan is acting strange.' Not 'Dan seems off.' Lario was certain. Certain enough to risk saying it while the Legion swept room-by-room, while the party was dragging wounded through kitchen exits, while survival was measured in seconds.\n\nBut survival was measured in seconds. There wasn't time for suspicion. There wasn't room for paranoia. The party plunged into lava-lit sewers seeking a cure for Dan's wounds, walked into a Legion trap, fought a Behir in the dark. By the time anyone could breathe again, the warning had faded into the noise of a week that never stopped screaming.\n\nRaventree Manor made it easier to forget. Mirrors that lie. People pulled into reflections. Doppelgangers and temporal echoes and things wearing faces that don't belong to them. Dan kept moving through it all—voting on policy, fighting alongside the group, bleeding when he was hit, saying the right things at the right times. If something was wrong, wouldn't it have slipped by now?\n\nOr is that exactly what it would want you to think?\n\nThe Oracle is leading everyone to the Summoning Room. The ritual requires participants to stand in a circle, bound by magic that reacts to truth and falseness. The Oracle keeps talking about 'true selves' and 'proper placement.' The Legion and the Mages' Guild are watching from the shadows, waiting for the moment everything goes wrong.\n\nIf Dan is Dan, the paranoia is a distraction at a critical moment.\n\nIf Dan isn't Dan, the ritual circle is about to include something that has been waiting for exactly this opportunity.\n\nYou're running out of hallway.",
+
+    loreEntries: ['raventree_mirror_entities', 'doppelganger_taxonomy', 'ritual_circle_requirements', 'lario_background'],
+
+    consequences: {
+        success: "The party enters the ritual with certainty. If Dan is real, trust is restored. If Dan is false, the impostor is exposed before it can sabotage the circle.",
+        partial: "The truth emerges mid-ritual, forcing an ugly choice while magic is already in motion. Survival is possible but costly.",
+        failure: "The party carries unresolved doubt into the circle. If something is wrong with Dan, it has access to the ritual's power at the moment of maximum vulnerability."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'intel', name: "The Truth About Dan", description: "Certainty, one way or another" }
+        ],
+        conditional: [
+            { condition: "Confirm Dan's identity without alerting observers (Legion/Mages)", reward: { type: 'trait', name: "Quiet Competence", description: "Bonus to handling internal crises under external pressure" }},
+            { condition: "Expose an impostor before the ritual", reward: { type: 'xp', amount: 3000, description: "Catastrophe Averted" }},
+            { condition: "Dan is real and you apologize for the suspicion", reward: { type: 'loyalty', name: "Dan's Trust", description: "He understands. The apology matters." }},
+            { condition: "Dan is false and you destroy the impostor", reward: { type: 'item', name: "Mirror Shard (Warm)", description: "A fragment of whatever was pretending to be your friend" }}
+        ],
+        xp: 4000
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Restaurant Warning",
+            description: "Day 14. Amid the chaos of the Legion raid and Dan's critical injuries, Lario claimed the Dan with them was a fake. The warning was heard but not investigated.",
+            completedDate: { year: 1040, monthIndex: 6, day: 14 }
+        },
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "Buried Under Emergencies",
+            description: "The sewer descent, the Behir trap, the Manor's horrors—every emergency pushed the question further down the priority list. Dan continued to act like Dan. No one tested the claim.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 }
+        },
+        {
+            id: 'm3',
+            status: 'active',
+            title: "Before the Circle Closes",
+            description: "The party approaches the Summoning Room. The Oracle's ritual requires trust in every participant. This is the last chance to verify before the magic seals everyone together.",
+            goals: [
+                { text: "Privately test Dan's knowledge (something only the real Dan would know)", status: 'active', priority: 'critical' },
+                { text: "Observe Dan's behavior during the approach (does he avoid mirrors? hesitate at thresholds?)", status: 'active', priority: 'high' },
+                { text: "Position Dan away from critical ritual points until verified", status: 'active', priority: 'high' },
+                { text: "Keep the investigation hidden from Legion spies and Mages' Guild observers", status: 'active', priority: 'high' }
+            ],
+            notes: "You don't need a trial. You need certainty, obtained quietly, in the next few minutes."
+        }
+    ],
+
+    clues: [
+        { id: 'c1', status: 'known', text: "Lario chose the most dangerous possible moment to deliver the warning—suggesting urgency and conviction, not idle gossip.", source: 'lario_toad' },
+        { id: 'c2', status: 'unverified', text: "Lario claimed Dan's mannerisms were 'off' even before Raventree—consistent small differences, not a single slip.", source: 'lario_toad' },
+        { id: 'c3', status: 'unverified', text: "The Manor has produced mirror duplicates, temporal echoes, and entities wearing stolen forms. A replacement is plausible.", source: 'manor_events' },
+        { id: 'c4', status: 'unverified', text: "The Oracle emphasizes 'true self' and 'proper placement.' The ritual may react badly to falseness in the circle.", source: 'oracle_statements' },
+        { id: 'c5', status: 'unverified', text: "Dan fought effectively against the Arcane Wraith using one arm. Either he's adapted remarkably well, or something is maintaining the performance.", source: 'wraith_battle' },
+        { id: 'c6', status: 'unknown', text: "What does Lario know that made him so certain? Has anyone asked him directly?", source: 'unasked_question' }
+    ],
+
+    testMethods: [
+        { method: "Ask about a shared memory only Dan would have", risk: "Low—but a good impostor might have absorbed memories" },
+        { method: "Observe reaction to a mirror", risk: "Medium—might alert the subject or observers" },
+        { method: "Have the Oracle examine him", risk: "High—exposes the suspicion to everyone present" },
+        { method: "Physical test (wound, blood)", risk: "Variable—some impostors bleed normally, others don't" },
+        { method: "Trust and watch", risk: "Highest—but also might be the only option left" }
+    ],
+
+    npcs: {
+        allies: ['lario'],
+        neutral: ['dan'],
+        observers: ['pernus_annmatar', 'iron_legion_spy', 'self_reflection_oracle']
+    },
+
+    locations: {
+        primary: 'raventree_manor',
+        current: 'final_corridor_to_summoning_room',
+        related: ['restaurant_ruins', 'lava_sewers', 'summoning_room']
+    },
+
+    relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'rescue_green_t']
+},
 };
         
 export const WORLD_QUESTS = {
@@ -1398,480 +1882,771 @@ export const WORLD_QUESTS = {
 };
         
 export const MAIN_QUESTS = {
-    'vigilance_fallen': {
-        id: 'vigilance_fallen',
-        title: "The Iron Sky Breach",
-        subtitle: "Order 120",
-        type: QUEST_TYPES.MAIN,
-        category: 'Main Story',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'vigilance_saga',
-        objective: "Recover the airship 'Vigilance' and survive the Legion's total purge order.",
-        assignees: ['party', 'liberated_toads'],
-        primaryAssignee: 'party',
-        difficulty: { 
-            overall: DIFFICULTY.DEADLY, 
-            combat: DIFFICULTY.DEADLY, 
-            stealth: DIFFICULTY.HARD,
-            social: DIFFICULTY.MODERATE 
-        },
-        tags: ['combat', 'rescue', 'airship', 'betrayal', 'urgent', 'faction-war'],
-        dates: { 
-            added: { year: 1040, monthIndex: 6, day: 18 }, 
-            updated: { year: 1040, monthIndex: 6, day: 21 },
-            deadline: { year: 1040, monthIndex: 6, day: 25 }
-        },
-        description: "The situation has spiraled from a capture to a massacre. Following the 'Iron Sky Breach', the Legion seized the Vigilance. Attempts to infiltrate Legion command by Bones ended in catastrophe: Marcus Ironhand has issued 'Order 120'—the execution of all captured Toads. A decoy 'Green Speaker L' is in custody, while the rebellion's true leadership is scattered. The Legion now controls the skies and is systematically purging the ground.",
-        
-        loreEntries: ['vigilance_history', 'iron_legion_tactics', 'order_120', 'marcus_ironhand'],
-        
-        consequences: {
-            success: "Reclaiming the Vigilance restores the party's mobility and halts the execution order.",
-            failure: "The rebellion is decapitated. Bones and the Toad captives are executed. The Vigilance becomes a permanent Legion flagship.",
-            partial: "The ship is destroyed to prevent Legion use; survivors are scattered."
-        },
-
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Captain's Key (Restored)", description: "Full access to the Vigilance's secure compartments" },
-                { type: 'reputation', faction: 'liberated_toads', amount: 500, description: "Heroes of the Liberation" },
-                { type: 'reputation', faction: 'iron_legion', amount: -2000, description: "Kill on Sight" }
-            ],
-            conditional: [
-                { condition: "Save Bones from execution", reward: { type: 'ally', name: "Bones (Survivor)", description: "Hardened by torture and betrayal" }},
-                { condition: "Expose the Decoy Speaker L", reward: { type: 'intel', name: "Legion Confusion", description: "Legion tactical delays" }}
-            ],
-            xp: 8000,
-            gold: { min: 2000, max: 5000 }
-        },
-
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Boarding", 
-                description: "Iron Legion shock troops breached the hull. Ryan plummeted into the forest. The ship was taken.",
-                completedDate: { year: 1040, monthIndex: 6, day: 20 }
-            },
-            { 
-                id: 'm2', 
-                status: 'failed', 
-                title: "The Infiltration", 
-                description: "Bones attempted to infiltrate Aegis Command. Cover blown. Stabbed by Marcus Ironhand. Execution order issued.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            { 
-                id: 'm3', 
-                status: 'active', 
-                title: "Regroup and Retaliate", 
-                description: "The infiltration failed. A new plan is needed immediately to stop the executions.",
-                goals: [
-                    { text: "Escape Raventree Manor to aid the Toads", status: 'active', priority: 'critical' },
-                    { text: "Use Humpik's Legion contact to delay Order 120", status: 'pending', priority: 'high' },
-                    { text: "Locate the real Speaker L", status: 'active', priority: 'medium' }
-                ],
-                choices: [
-                    {
-                        id: 'approach_method',
-                        title: "Choose Your Approach",
-                        description: "The stealth option failed. What now?",
-                        options: [
-                            { 
-                                id: 'assault', 
-                                name: "Iron Storm", 
-                                description: "Full frontal assault. High casualties likely, but necessary to stop executions.",
-                                requirements: ["Allied military support", "Siege equipment"],
-                                consequences: { success: "Prison break successful", failure: "Total party kill" }
-                            },
-                            { 
-                                id: 'diplomacy', 
-                                name: "The Humpik Protocol", 
-                                description: "Leverage Humpik's deal regarding the Oracle to bargain for the prisoners.",
-                                requirements: ["Humpik delivers the Oracle to Legion custody"],
-                                consequences: { success: "Bloodless resolution for Toads, betrayal of Oracle", failure: "Oracle captured AND Toads executed" }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-
-        npcs: {
-            allies: ['captain_ryan', 'toad_lee', 'bones'],
-            enemies: ['marcus_ironhand', 'legion_commander_vex', 'creek'],
-            neutral: ['green_speaker_l_decoy']
-        },
-
-        locations: {
-            primary: 'vigilance_airship',
-            related: ['aegis_command', 'raventree_manor']
-        },
-
-        relatedQuests: ['retrieve_the_staff', 'toads_a_place_to_call_home', 'liberated_toads_integration']
+'vigilance_fallen': {
+    id: 'vigilance_fallen',
+    title: "The Iron Sky Breach",
+    subtitle: "Order 120 — The Clock Is Running",
+    type: QUEST_TYPES.MAIN,
+    category: 'Main Story',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'vigilance_saga',
+    objective: "Recover the airship 'Vigilance', halt Order 120, and prevent the complete destruction of the Toad Liberation movement.",
+    assignees: ['party', 'liberated_toads'],
+    primaryAssignee: 'party',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        combat: DIFFICULTY.DEADLY,
+        stealth: DIFFICULTY.HARD,
+        social: DIFFICULTY.MODERATE,
+        logistics: DIFFICULTY.EXTREME
+    },
+    tags: ['combat', 'rescue', 'airship', 'betrayal', 'urgent', 'faction-war', 'time-critical'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 18 },
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: { year: 1040, monthIndex: 6, day: 22 }
     },
 
-    'retrieve_the_staff': {
-        id: 'retrieve_the_staff',
-        title: "The Brandished Staff",
-        subtitle: "One-Armed Mastery",
-        type: QUEST_TYPES.MAIN,
-        category: 'Main Story',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.HIGH,
-        arcId: 'vigilance_saga',
-        objective: "Manage the staff's corruption while Dan adapts to his injury.",
-        assignees: ['dan', 'toad_lee'],
-        primaryAssignee: 'dan',
-        difficulty: { 
-            overall: DIFFICULTY.HARD, 
-            magic: DIFFICULTY.DEADLY, 
-            knowledge: DIFFICULTY.HARD 
-        },
-        tags: ['artifact', 'curse', 'combat-adaptation'],
-        dates: { 
-            added: { year: 1040, monthIndex: 6, day: 15 }, 
-            updated: { year: 1040, monthIndex: 6, day: 21 },
-            deadline: { year: 1040, monthIndex: 6, day: 28 }
-        },
-        
-        description: "Dan has begun to adapt to his grievous injury. During the battle with the Arcane Wraith, he wielded handaxes and javelins with his remaining arm, proving he is still a capable warrior. However, the Staff of X.O. remains a looming threat, its seal degrading daily. Finding Forgemaster Grimm remains the only long-term solution.",
+    description: "The Vigilance is gone. The sky belongs to the Iron Legion now.\n\nDay 20, 16:30: Legion shock troops breached the hull in a coordinated assault. Captain Ryan was forced to jump rather than be captured—he plummeted into the forest below, his fate unknown. The airship that carried the Liberated Toads, that served as their mobile headquarters and symbol of freedom, now flies under Legion colors. It passed over Raventree Manor broadcasting propaganda, a deliberate humiliation.\n\nDay 21, 14:30: Bones' infiltration of Aegis Command ended with Marcus Ironhand's blade in his chest. The General issued Order 120 without hesitation—execute all Toad prisoners. No negotiations. No ransoms. No survivors.\n\nThe movement is being decapitated in real-time. Bones is wounded and captured. Creek is pinned down somewhere in the Legion fortress. Over a hundred Toads discovered in the Vigilance's hidden barrel compartments are now Legion prisoners. The 'Green Speaker L' in custody is a decoy buying time, but time is measured in hours now.\n\nAnd the party is trapped in Raventree Manor, about to enter a magical ritual they cannot abandon, while everything they fought to build burns.\n\nThe Iron Mandate gives the Legion emergency powers. The Supernatural Sovereignty Act makes their allies illegal. The sky is controlled, the ground is being purged, and the only assets not in chains are scattered, wounded, or occupied.\n\nSomething has to give. The question is what—and who pays the price.",
 
-        loreEntries: ['xo_the_betrayer', 'amputee_combat_techniques'],
+    loreEntries: ['vigilance_history', 'iron_legion_tactics', 'order_120', 'marcus_ironhand', 'iron_mandate', 'aegis_command_layout'],
 
-        consequences: {
-            success: "The staff is cleansed. Dan masters his new fighting style.",
-            failure: "The staff detonates. Dan succumbs to despair.",
-            partial: "The staff is contained, but Dan relies on it too heavily."
-        },
-
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Staff of the Shattered Veil", description: "Unstable Artifact" },
-                { type: 'ability', name: "Southpaw Throw", description: "High accuracy with thrown weapons using off-hand" }
-            ],
-            xp: 4000
-        },
-
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "Assess the Seal", 
-                description: "Seal integrity failing.",
-                completedDate: { year: 1040, monthIndex: 6, day: 15 }
-            },
-            { 
-                id: 'm2', 
-                status: 'completed', 
-                title: "The Catastrophe", 
-                description: "Dan lost his arm. 13 Toads died.",
-                completedDate: { year: 1040, monthIndex: 6, day: 20 }
-            },
-            { 
-                id: 'm3', 
-                status: 'active', 
-                title: "Adaptation", 
-                description: "Dan successfully fought the Arcane Wraith using thrown weapons, proving his combat viability despite the injury.",
-                goals: [
-                    { text: "Continue combat training", status: 'active' },
-                    { text: "Locate Forgemaster Grimm", status: 'pending', priority: 'critical' }
-                ]
-            }
-        ],
-
-        relatedQuests: ['dan_reclaim_the_staff', 'vigilance_fallen']
+    consequences: {
+        success: "The Vigilance is reclaimed or destroyed to deny the Legion. Order 120 is halted or circumvented. The movement survives, bloodied but intact.",
+        failure: "Bones, Creek, and all captured Toads are executed. The Vigilance becomes a permanent Legion flagship. The Liberation movement is effectively destroyed as an organized force.",
+        partial: "The ship is scuttled to prevent Legion use. Some prisoners escape, others don't. The movement survives but loses its mobility, its command structure, and its momentum."
     },
 
-    'artifacts_of_balance': {
-        id: 'artifacts_of_balance',
-        title: "The Artifacts of Balance",
-        subtitle: "The Final Key",
-        type: QUEST_TYPES.MAIN,
-        category: 'Main Story',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
-        objective: "Perform the final ritual in the Summoning Room to sever the timeline anchors.",
-        assignees: ['party', 'self_reflection_oracle'],
-        primaryAssignee: 'party',
-        difficulty: { 
-            overall: DIFFICULTY.DEADLY, 
-            combat: DIFFICULTY.HARD, 
-            puzzle: DIFFICULTY.DEADLY,
-            magic: DIFFICULTY.EXTREME 
-        },
-        tags: ['supernatural', 'time', 'demons', 'ritual', 'boss-rush'],
-        dates: { 
-            added: { year: 1040, monthIndex: 6, day: 19 }, 
-            updated: { year: 1040, monthIndex: 6, day: 21 }
-        },
-
-        description: "The anchors are broken. The Star Fragment shattered the first. Humpik spared the Mirror Terror. And now, the Arcane Wraith has been banished by the Oracle after a chaotic battle in the lower levels. The party faced interference from the Mage Pernus Annmatar (who possessed Bowser briefly) and lurking Legion spies. Bowser overcame his fear of ghosts to deliver the heavy hits, while Archie proved his worth with Ice magic. Now, the Oracle is leading them to the Summoning Room for the final separation. The 'Audience'—the Legion and the Mages—are watching, waiting to strike.",
-
-        loreEntries: ['raventree_curse_origin', 'timeline_bleeding', 'demon_taxonomy', 'pernus_annmatar'],
-
-        consequences: {
-            success: "The timelines separate. The Manor is stabilized. The Oracle is saved (or captured per Humpik's deal).",
-            partial: "With the Mirror Terror spared, the curse is weakened but not broken. Residual instability remains.",
-            failure: "The ritual is interrupted by the Legion or Mages. The timelines collapse."
-        },
-
-        rewards: {
-            guaranteed: [
-                { type: 'item', name: "Wraith Ectoplasm", description: "Collected by Archie" },
-                { type: 'ally', name: "The Oracle's Gratitude", description: "For now..." }
-            ],
-            conditional: [
-                { condition: "Complete the ritual", reward: { type: 'artifact', name: "Shard of Stabilized Time", description: "A crystal containing a moment of perfect stillness" }},
-                { condition: "Humpik delivers the Oracle", reward: { type: 'favor', name: "Legion Command Favor", description: "Can be used to negotiate for prisoners" }}
-            ],
-            xp: 10000
-        },
-
-        milestones: [
-            { id: 'm1', status: 'completed', title: "The Star Ascendant", description: "God Toad created; first anchor broken.", completedDate: { year: 1040, monthIndex: 6, day: 19 } },
-            { id: 'm2', status: 'completed', title: "The Mirror Terror", description: "Spared by Humpik. Contained.", completedDate: { year: 1040, monthIndex: 6, day: 21 } },
-            { 
-                id: 'm3', 
-                status: 'completed', 
-                title: "The Arcane Wraith", 
-                description: "Defeated. Bowser overcame fear to punch the ghost (and tripped a Mage). Dan used thrown weapons. Archie used Ice magic effectively. Oracle banished the weakened entity.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 },
-                outcomes: [
-                    "Wraith Banished",
-                    "Archie collected Ectoplasm",
-                    "Pernus Annmatar interfered/heckled",
-                    "Legion Spies attempted to steal kill but failed"
-                ]
-            },
-            {
-                id: 'm4',
-                status: 'active',
-                title: "The Summoning Room",
-                description: "The Oracle is heading to the summoning room to place the 'Third Key'. The ritual requires opposing signs and vast energy.",
-                goals: [
-                    { text: "Escort the Oracle", status: 'active', priority: 'critical' },
-                    { text: "Place the Third Key", status: 'pending', priority: 'critical' },
-                    { text: "Prevent the 'Audience' (Legion/Mages) from interrupting", status: 'active', priority: 'high' }
-                ],
-                notes: "Humpik has a secret deal to hand the Oracle over to the Legion AFTER the ritual."
-            }
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Captain's Key (Restored)", description: "Full access to the Vigilance's secure compartments—if the ship is recovered" },
+            { type: 'reputation', faction: 'liberated_toads', amount: 500, description: "Heroes of the Liberation" },
+            { type: 'reputation', faction: 'iron_legion', amount: -2000, description: "Kill on Sight designation across all Legion territories" }
         ],
-
-        npcs: {
-            allies: ['self_reflection_oracle', 'ghost_servants'],
-            enemies: ['pernus_annmatar', 'iron_legion_spy'],
-            neutral: ['iron_legion_spy_contact']
-        },
-
-        locations: {
-            primary: 'raventree_manor',
-            current: 'summoning_room',
-            related: ['lower_levels', 'ruined_hall']
-        },
-
-        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'humpik_legion_pact']
+        conditional: [
+            { condition: "Save Bones from execution", reward: { type: 'ally', name: "Bones (Survivor)", description: "Hardened by torture and betrayal, absolutely loyal to whoever saved him" }},
+            { condition: "Rescue Creek", reward: { type: 'ally', name: "Creek (True Believer)", description: "The mercenary's loyalty is no longer for sale" }},
+            { condition: "Expose the Decoy Speaker L's deception to the Legion", reward: { type: 'intel', name: "Legion Confusion", description: "24-48 hours of tactical paralysis as they reorganize" }},
+            { condition: "Reclaim the Vigilance intact", reward: { type: 'asset', name: "The Vigilance (Scarred)", description: "Battle damage, but flying. The symbol endures." }},
+            { condition: "Kill Marcus Ironhand", reward: { type: 'reputation', faction: 'liberated_toads', amount: 2000, description: "The Hand That Bled" }}
+        ],
+        xp: 10000,
+        gold: { min: 2000, max: 5000 }
     },
 
-'main_quest_raventree': {
-        id: 'main_quest_raventree',
-        title: "The Curse of Raventree",
-        subtitle: "The Final Act",
-        type: QUEST_TYPES.MAIN,
-        category: 'Main Story',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
-        objective: "Survive the escalating supernatural incursions, navigate the political convergence in the Summoning Room, and escape Raventree Manor alive.",
-        assignees: ['party'],
-        primaryAssignee: 'party',
-        difficulty: { 
-            overall: DIFFICULTY.DEADLY, 
-            survival: DIFFICULTY.HARD, 
-            sanity: DIFFICULTY.HARD,
-            social: DIFFICULTY.EXTREME
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Boarding",
+            description: "Iron Legion shock troops breached the Vigilance's hull in a coordinated assault. The crew fought but was overwhelmed. Captain Ryan jumped rather than surrender, falling into the forest. The ship was taken.",
+            completedDate: { year: 1040, monthIndex: 6, day: 20 }
         },
-        tags: ['survival', 'horror', 'supernatural', 'politics', 'urgent'],
-        dates: { 
-            added: { year: 1040, monthIndex: 6, day: 19 }, 
-            updated: { year: 1040, monthIndex: 6, day: 21 }
-        },
-
-        description: "The Arcane Wraith has been banished, but the danger has only shifted forms. The party is now moving to the Summoning Room for the Oracle's final ritual. The manor is no longer just haunted; it is a stage for a political standoff. Pernus Annmatar of the Mages' Guild is physically present, heckling the party and treating the apocalypse like a performance. The Iron Legion watches from the shadows, waiting for the exact moment the ritual ends to claim the Oracle. Trust is fracturing: Bowser suspects Humpik, Humpik is hiding a deal with the Legion, and Green T remains missing in the shifting corridors.",
-
-        loreEntries: ['raventree_manor_history', 'pernus_annmatar', 'the_great_sealing', 'legion_black_ops'],
-
-        consequences: {
-            success: "The ritual completes, severing the timeline anchors. The Manor stabilizes into a normal (if ruined) building. The party escapes with their lives.",
-            failure: "The ritual is interrupted by Pernus or the Legion. The timelines collapse, erasing the party or trapping them in an eternal loop.",
-            partial_betrayal: "The ritual succeeds, but Humpik fulfills his deal. The Oracle is taken by the Iron Legion. The Toads lose a powerful magical ally, but Humpik gains Legion leverage.",
-            partial_loss: "The party escapes, but Green T is not found in time. He is left behind in a dissolving timeline, effectively erased from history."
-        },
-
-        rewards: {
-            guaranteed: [
-                { type: 'trait', name: "Supernatural Survival", description: "+2 to saves vs fear and supernatural effects permanently" },
-                { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent alchemical reagent." },
-                { type: 'xp', amount: 6000 }
-            ],
-            conditional: [
-                { 
-                    condition: "Deliver the Oracle to the Legion (Humpik)", 
-                    reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for the release of captured Toads (Bones/Creek)" },
-                    status: 'pending'
-                },
-                { 
-                    condition: "Defy the Legion and Save the Oracle", 
-                    reward: { type: 'ally', name: "The Oracle", description: "Powerful chronomancer ally for the rebellion" },
-                    status: 'pending'
-                },
-                { 
-                    condition: "Archie maintains magical discipline", 
-                    reward: { type: 'reputation', faction: 'mages_guild', amount: 500, description: "Demonstrated Control (Ice over Fire)" },
-                    status: 'earned'
-                },
-                { 
-                    condition: "Find Green T", 
-                    reward: { type: 'ally', name: "Green T (Mirror Touched)", description: "Gains ability to sense dimensional rifts" },
-                    status: 'pending'
-                }
-            ],
+        {
+            id: 'm2',
+            status: 'failed',
+            title: "The Infiltration",
+            description: "Bones infiltrated Aegis Command disguised as a Legion guard. He witnessed the interrogation of the decoy Speaker L and gathered critical intelligence. Then Marcus Ironhand saw through the disguise and stabbed him. Creek's extraction attempt caused chaos but failed. Order 120 was issued.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
             outcomes: [
-                "The Arcane Wraith was defeated by a combination of physical force (Bowser), adaptation (Dan), and elemental counter-play (Archie).",
-                "Pernus Annmatar was humiliated (tripped by Bowser) but remains a threat.",
-                "Legion Spies attempted to steal the kill but were rebuffed."
+                "Bones critically wounded, captured",
+                "Creek pinned down, evading",
+                "Decoy performing successfully",
+                "Order 120 issued—execution imminent"
             ]
         },
-
-        partyStatus: {
-            bowser: { 
-                location: "Summoning Room", 
-                status: "Combat Ready / Suspicious", 
-                sanity: 7,
-                notes: "Punched a ghost. Tripped a Mage. Saw the Mage's red underwear. Distrusts the Legion presence."
-            },
-            humpik: { 
-                location: "Summoning Room", 
-                status: "Scheming", 
-                sanity: 8,
-                notes: "Has a deal to hand over the Oracle. Acting as the 'rational' one to mask his intent."
-            },
-            archie: { 
-                location: "Summoning Room", 
-                status: "Focused", 
-                sanity: 7,
-                notes: "Successfully used Ice magic. Collected ectoplasm. Earning Guild favor despite his warrants."
-            },
-            dan: { 
-                location: "Summoning Room", 
-                status: "Injured but Effective", 
-                sanity: 6,
-                notes: "Proved one-armed combat viability with throwing axes. Protective of the group."
-            },
-            green_t: { 
-                location: "Unknown", 
-                status: "Missing / Panicked", 
-                sanity: 2,
-                notes: "Still lost in the manor. At risk of being left behind."
-            }
-        },
-
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Entry", 
-                description: "Entered the manor.",
-                completedDate: { year: 1040, monthIndex: 6, day: 19 }
-            },
-            {
-                id: 'm2',
-                status: 'completed',
-                title: "The Mirror Terror",
-                description: "Spared by Humpik. Contained.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm3',
-                status: 'completed',
-                title: "The Wraith Hunt",
-                description: "Cleared the lower levels. Bowser punched the ghost. Dan threw axes. Archie used Ice. Oracle banished it.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm4',
-                status: 'active',
-                title: "The Summoning Room Convergence",
-                description: "Legion, Mages, and the Party are all in the Summoning Room. The final ritual begins.",
-                goals: [
-                    { text: "Protect the Oracle during the ritual", status: 'active', priority: 'critical' },
-                    { text: "Locate Green T before the timeline seals", status: 'active', priority: 'high' },
-                    { text: "Prevent Pernus Annmatar from interfering", status: 'active', priority: 'medium' },
-                    { text: "Resolve the standoff with the Iron Legion", status: 'pending', priority: 'critical' }
-                ]
-            }
-        ],
-
-        relatedQuests: ['artifacts_of_balance', 'rescue_green_t', 'humpik_legion_pact']
-    },    
-    'rescue_green_t': {
-        id: 'rescue_green_t',
-        title: "Through the Looking Glass",
-        subtitle: "Find the Fleeing Survivor",
-        type: QUEST_TYPES.RESCUE,
-        category: 'Main Story',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.HIGH,
-        arcId: 'raventree_manor',
-        objective: "Locate and calm Green T, who fled deeper into the manor.",
-        assignees: ['party', 'dan'],
-        primaryAssignee: 'dan',
-        difficulty: { 
-            overall: DIFFICULTY.MODERATE, 
-            tracking: DIFFICULTY.MODERATE, 
-            social: DIFFICULTY.HARD 
-        },
-        tags: ['rescue', 'dimensional', 'time-sensitive', 'chase'],
-        dates: { 
-            added: { year: 1040, monthIndex: 6, day: 19 }, 
-            updated: { year: 1040, monthIndex: 6, day: 21 }
-        },
-
-        description: "Green T remains missing. He was pulled from the mirror by Dan but fled in a state of temporal shock. With the manor's timelines about to be severed by the ritual, finding him is becoming critically urgent. If he is not in the 'present' timeline when the separation occurs, he may be lost forever.",
-
-        milestones: [
-            { 
-                id: 'm1', 
-                status: 'completed', 
-                title: "The Abduction", 
-                description: "Taken by the mirror.", 
-                completedDate: { year: 1040, monthIndex: 6, day: 19 }
-            },
-            {
-                id: 'm2',
-                status: 'completed', 
-                title: "The Extraction",
-                description: "Rescued by Dan.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm3',
-                status: 'active',
-                title: "The Flight",
-                description: "Green T is hiding. Locate him before the ritual ends.",
-                goals: [
-                    { text: "Search the upper floors", status: 'active', priority: 'high' },
-                    { text: "Search the servants' quarters", status: 'active', priority: 'high' }
-                ]
-            }
-        ],
-
-        greenTStatus: {
-            currentCondition: "Panicked Flight",
-            lastAction: "Broke a lock to escape the Solarium",
-            mentalState: "Critical - Reality Confusion",
-            sanity: 2
+        {
+            id: 'm3',
+            status: 'active',
+            title: "Regroup and Retaliate",
+            description: "The infiltration failed catastrophically. The party is trapped in Raventree Manor. Every asset is either captured, wounded, or occupied. A new approach is needed immediately.",
+            goals: [
+                { text: "Complete the Raventree ritual (cannot be abandoned)", status: 'active', priority: 'critical' },
+                { text: "Escape Raventree Manor immediately after", status: 'pending', priority: 'critical' },
+                { text: "Use Humpik's Legion contact to delay Order 120", status: 'pending', priority: 'critical' },
+                { text: "Locate Captain Ryan (status unknown)", status: 'pending', priority: 'high' },
+                { text: "Locate the real Speaker L", status: 'active', priority: 'high' },
+                { text: "Coordinate with Rogueport delegation (Embercap)", status: 'pending', priority: 'medium' }
+            ],
+            choices: [
+                {
+                    id: 'approach_method',
+                    title: "Choose Your Approach",
+                    description: "Stealth failed. Infiltration failed. What remains?",
+                    options: [
+                        {
+                            id: 'assault',
+                            name: "Iron Storm",
+                            description: "Full military assault on Aegis Command. Maximum violence, minimum subtlety.",
+                            requirements: ["Allied military support (Rakasha? Loyalists?)", "Siege equipment or air support", "Acceptance of heavy casualties"],
+                            consequences: { success: "Prison break. Prisoners freed. Legion garrison destroyed.", failure: "Total party kill. Movement extinction." }
+                        },
+                        {
+                            id: 'diplomacy',
+                            name: "The Humpik Protocol",
+                            description: "Trade the Oracle to the Legion in exchange for the prisoners. Humpik's deal becomes the party's salvation—at a cost.",
+                            requirements: ["Humpik completes his deal", "Oracle delivered to Legion custody", "Party accepts the betrayal"],
+                            consequences: { success: "Prisoners released. Oracle lost. Magical ally sacrificed for lives.", failure: "Oracle captured AND prisoners executed. Worst outcome." }
+                        },
+                        {
+                            id: 'chaos',
+                            name: "The Third Faction",
+                            description: "Trigger conflict between the Legion and another power (Mages' Guild? Dragons? K. Rool?) and extract prisoners in the chaos.",
+                            requirements: ["Identify exploitable faction tensions", "Timing and positioning", "Willingness to cause collateral damage"],
+                            consequences: { success: "Prisoners escape amid larger conflict.", failure: "Prisoners killed in crossfire. Party blamed by multiple factions." }
+                        },
+                        {
+                            id: 'decoy_extension',
+                            name: "The Long Con",
+                            description: "Extend the decoy's performance. Feed the Legion false intelligence. Buy time for a proper rescue.",
+                            requirements: ["Communication with the decoy", "Convincing false intelligence", "Time the party doesn't have"],
+                            consequences: { success: "Execution delayed. Window opens.", failure: "Decoy exposed. Execution accelerated." }
+                        }
+                    ]
+                }
+            ]
         }
-    }
+    ],
+
+    assetStatus: {
+        vigilance: { status: "Captured", location: "Legion control, patrolling Raventree region", crew: "Prisoners or dead" },
+        bones: { status: "Critical—Stabbed", location: "Aegis Command detention", timeToExecution: "Hours" },
+        creek: { status: "Evading", location: "Aegis Command—unknown sector", resources: "Low" },
+        ryan: { status: "Unknown", location: "Forest below Vigilance crash site", lastSeen: "Day 20, 16:30" },
+        speaker_l_real: { status: "Unknown", location: "Unknown", note: "Must be found before Legion realizes deception" },
+        speaker_l_decoy: { status: "Performing", location: "Aegis Command interrogation", note: "Buying time successfully" },
+        party: { status: "Trapped", location: "Raventree Manor—en route to Summoning Room", constraint: "Cannot leave until ritual complete" }
+    },
+
+    npcs: {
+        allies: ['captain_ryan', 'bones', 'creek', 'toad_lee', 'speaker_l_decoy'],
+        enemies: ['marcus_ironhand', 'legion_commander_vex', 'aegis_command_garrison'],
+        neutral: ['humpik_legion_contact', 'self_reflection_oracle'],
+        unknown: ['real_speaker_l']
+    },
+
+    locations: {
+        primary: 'vigilance_airship',
+        critical: 'aegis_command',
+        current: 'raventree_manor',
+        related: ['forest_crash_site', 'rogueport']
+    },
+
+    relatedQuests: ['liberated_toads_integration', 'humpik_legion_pact', 'artifacts_of_balance', 'rogueport_retrieval', 'retrieve_the_staff']
+},
+
+'retrieve_the_staff': {
+    id: 'retrieve_the_staff',
+    title: "The Brandished Staff",
+    subtitle: "One Arm, One Chance",
+    type: QUEST_TYPES.MAIN,
+    category: 'Main Story',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.HIGH,
+    arcId: 'vigilance_saga',
+    objective: "Stabilize the Staff of X.O. before its seal fails completely, while Dan adapts to fighting with one arm.",
+    assignees: ['dan', 'toad_lee'],
+    primaryAssignee: 'dan',
+    difficulty: {
+        overall: DIFFICULTY.HARD,
+        magic: DIFFICULTY.DEADLY,
+        knowledge: DIFFICULTY.HARD,
+        personal: DIFFICULTY.EXTREME
+    },
+    tags: ['artifact', 'curse', 'combat-adaptation', 'personal-growth', 'ticking-clock'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 15 },
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: { year: 1040, monthIndex: 6, day: 28 }
+    },
+
+    description: "The seal is failing. Everyone can see it now—the cracks spreading across the Staff of X.O.'s containment runes, the occasional pulse of wrongness that makes teeth ache and shadows twitch. The artifact that cost Dan his arm is slowly waking up, and when it does, the thirteen Toads who died in the initial catastrophe will seem like a mercy.\n\nBut Dan isn't waiting to die.\n\nDuring the battle with the Arcane Wraith, he fought. One arm, handaxes and javelins, throwing with precision that shouldn't have been possible for someone still learning to compensate for the loss. He proved—to himself, to the others, to whatever doubts had been growing—that he is still dangerous. Still useful. Still a warrior.\n\nThe adaptation is working. The question is whether it will matter.\n\nForgemaster Grimm remains the only known expert capable of properly containing or cleansing the Staff. But Grimm is somewhere in the Koopa territories, and the party is trapped in Raventree Manor watching the Iron Legion consolidate control of the skies. Travel is complicated. Time is short.\n\nToad Lee has been monitoring the seal's degradation. Her estimate: seven days before critical failure. Maybe less if the Staff is exposed to significant magical stress—like, for example, a major ritual in a haunted manor.",
+
+    loreEntries: ['xo_the_betrayer', 'amputee_combat_techniques', 'forgemaster_grimm', 'staff_seal_mechanics'],
+
+    consequences: {
+        success: "The Staff is cleansed or permanently contained. Dan masters his new fighting style. The threat is ended.",
+        failure: "The seal fails. The Staff detonates or releases its bound entity. Casualties measured in dozens. Dan's sacrifice becomes meaningless.",
+        partial: "The Staff is contained but not cleansed—a ticking bomb that must be carefully managed indefinitely. Dan adapts but carries the trauma."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Staff of the Shattered Veil", description: "Currently unstable. Potential: immense. Risk: catastrophic." },
+            { type: 'ability', name: "Southpaw Throw", description: "Dan's adapted throwing technique—high accuracy with off-hand" },
+            { type: 'trait', name: "Phantom Grip", description: "Dan occasionally 'feels' the missing arm. Sometimes this helps." }
+        ],
+        conditional: [
+            { condition: "Reach Forgemaster Grimm before seal failure", reward: { type: 'item', name: "Staff of the Shattered Veil (Cleansed)", description: "Powerful artifact, safely contained" }},
+            { condition: "Dan achieves a significant combat victory one-armed", reward: { type: 'reputation', faction: 'liberated_toads', amount: 300, description: "The Unbroken" }},
+            { condition: "The Staff is used deliberately despite the risk", reward: { type: 'power', name: "Desperate Channeling", description: "Massive magical effect, seal integrity drops significantly" }}
+        ],
+        xp: 4000
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "Assess the Seal",
+            description: "Initial examination revealed the seal's degradation. Timeline established: weeks, not months.",
+            completedDate: { year: 1040, monthIndex: 6, day: 15 }
+        },
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "The Catastrophe",
+            description: "The Staff's partial activation during a crisis cost Dan his arm and killed thirteen Toads. The seal cracked further. The countdown accelerated.",
+            completedDate: { year: 1040, monthIndex: 6, day: 20 },
+            outcomes: [
+                "Dan's arm lost",
+                "13 Toads killed",
+                "Seal integrity: critical",
+                "Timeline revised: days"
+            ]
+        },
+        {
+            id: 'm3',
+            status: 'completed',
+            title: "Proof of Concept",
+            description: "Dan fought the Arcane Wraith using throwing axes and javelins with his remaining arm. He was effective. The adaptation is working.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Combat viability confirmed",
+                "Throwing technique developing",
+                "Morale improved",
+                "Physical therapy ongoing"
+            ]
+        },
+        {
+            id: 'm4',
+            status: 'active',
+            title: "The Race",
+            description: "Find Forgemaster Grimm before the seal fails. Continue combat training. Manage the Staff's instability.",
+            goals: [
+                { text: "Survive the Raventree ritual without triggering the Staff", status: 'active', priority: 'critical' },
+                { text: "Locate Forgemaster Grimm (last known: Koopa territories)", status: 'pending', priority: 'critical' },
+                { text: "Continue one-armed combat training", status: 'active', priority: 'high' },
+                { text: "Monitor seal integrity daily", status: 'active', priority: 'high' }
+            ],
+            notes: "Toad Lee estimates seven days to critical failure. The Raventree ritual involves significant magical energy. Keep Dan away from the innermost circle."
+        }
+    ],
+
+    staffStatus: {
+        sealIntegrity: "27% and falling",
+        estimatedFailure: { year: 1040, monthIndex: 6, day: 28 },
+        currentLocation: "Dan's possession",
+        riskFactors: ["Proximity to major magic", "Physical damage", "Emotional extremity of wielder"],
+        symptoms: ["Visible cracks in runes", "Occasional wrongness pulses", "Shadows behave oddly nearby"]
+    },
+
+    danStatus: {
+        physicalCondition: "Adapting—one arm functional, phantom limb sensations",
+        combatReadiness: "Proven against Arcane Wraith",
+        mentalState: "Determined but grieving",
+        training: "Throwing weapons, single-arm grappling, shield work"
+    },
+
+    npcs: {
+        allies: ['toad_lee', 'party_members'],
+        enemies: [],
+        neutral: ['forgemaster_grimm']
+    },
+
+    locations: {
+        primary: 'party_location',
+        target: 'forgemaster_grimm_workshop',
+        related: ['koopa_territories', 'raventree_manor']
+    },
+
+    relatedQuests: ['vigilance_fallen', 'artifacts_of_balance', 'main_quest_raventree']
+},
+
+'artifacts_of_balance': {
+    id: 'artifacts_of_balance',
+    title: "The Artifacts of Balance",
+    subtitle: "The Final Key",
+    type: QUEST_TYPES.MAIN,
+    category: 'Main Story',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'raventree_manor',
+    objective: "Perform the final ritual in the Summoning Room to sever the timeline anchors and stabilize the manor.",
+    assignees: ['party', 'self_reflection_oracle'],
+    primaryAssignee: 'party',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        combat: DIFFICULTY.HARD,
+        puzzle: DIFFICULTY.DEADLY,
+        magic: DIFFICULTY.EXTREME,
+        social: DIFFICULTY.HARD
+    },
+    tags: ['supernatural', 'time', 'demons', 'ritual', 'boss-rush', 'faction-convergence'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 19 },
+        updated: { year: 1040, monthIndex: 6, day: 21 }
+    },
+
+    description: "Three anchors bound the fractured timelines to Raventree Manor. Three threats had to fall before the Oracle could even attempt the separation.\n\nThe first anchor shattered when Archie's reckless brilliance created God Toad—a Star Fragment born of chaos, ascending through the greenhouse ceiling in a blinding spiral. The second anchor was spared: Humpik, in an act of calculated mercy, allowed the Mirror Terror to live within its containment. This was not kindness. This was leverage. The creature's survival means the curse is weakened, not broken—a deliberate gamble that leaves residual instability in the walls.\n\nThe third anchor died screaming.\n\nThe Arcane Wraith descended on the party in the lower levels with the force of a collapsing timeline. Bowser—who spent years hiding from anything that floated—punched it in the face. Dan, still adapting to his missing arm, hurled axes with desperate accuracy. Archie, for once, chose ice over fire, and the temperature drop gave the Oracle the opening he needed to banish the weakened entity. The ghost is gone. Archie scraped its ectoplasm into a jar.\n\nBut the fight had an audience.\n\nPernus Annmatar of the Mages' Guild watched from the doorway, offering commentary like a theater critic at a slaughter. He briefly possessed Bowser, was tripped for his trouble, and now nurses both a grudge and a bruised ego. The Iron Legion spies—the same ones who offered Humpik his devil's bargain—tried to steal the kill and failed. Both factions saw what the party is capable of. Both factions want the Oracle.\n\nNow everyone is walking toward the Summoning Room. The Oracle moves with the weariness of someone who has done this before. The party moves with the tension of people who know they are surrounded. The 'Audience' moves with the patience of predators waiting for the ritual to end.\n\nThe third key must be placed. Opposing signs must be aligned. Vast energy must be channeled. And somewhere in the process, someone is going to make their move.",
+
+    loreEntries: ['raventree_curse_origin', 'timeline_bleeding', 'demon_taxonomy', 'pernus_annmatar', 'the_great_sealing'],
+
+    consequences: {
+        success: "The timelines separate cleanly. The Manor stabilizes into a ruin—haunted by memory, not malice. The Oracle survives to offer guidance or be claimed by whoever moves fastest.",
+        partial_mercy: "With the Mirror Terror spared, the separation is incomplete. The Manor stabilizes, but dimensional bleeds will occur for decades. Something will eventually crawl through.",
+        partial_betrayal: "The ritual succeeds, but Humpik honors his pact. The Oracle is handed to the Iron Legion in chains. The Toads lose a chronomancer; Humpik gains leverage for the prisoners at Aegis Command.",
+        failure: "The ritual is interrupted. The timelines collapse inward. Everyone in the Summoning Room is either erased or trapped in a moment that repeats forever."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent reagent for binding or dispelling spirits." },
+            { type: 'trait', name: "Anchor Breakers", description: "All party members gain +2 to saves vs. temporal and dimensional effects." },
+            { type: 'reputation', faction: 'mages_guild', amount: -200, description: "Pernus will remember this." }
+        ],
+        conditional: [
+            { 
+                condition: "Complete the ritual without Legion interference", 
+                reward: { type: 'artifact', name: "Shard of Stabilized Time", description: "A crystal containing a moment of perfect stillness. Can freeze a single action once per day." }
+            },
+            { 
+                condition: "Humpik delivers the Oracle to the Legion", 
+                reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for prisoner release—including Bones and Creek." }
+            },
+            { 
+                condition: "Defy the Legion and protect the Oracle", 
+                reward: { type: 'ally', name: "The Oracle (Unbound)", description: "A chronomancer with knowledge of the Manor's secrets and the Dragon Conspiracy." }
+            },
+            { 
+                condition: "Archie maintains ice discipline through the ritual", 
+                reward: { type: 'reputation', faction: 'mages_guild', amount: 300, description: "Demonstrated Elemental Control—reduces bounty." }
+            }
+        ],
+        xp: 10000,
+        gold: { min: 0, max: 0, note: "This is not a quest for profit. This is a quest for survival." }
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Star Ascendant",
+            description: "The Greenhouse Inferno was not a disaster—it was a catalyst. Archie's fireball did not merely destroy the structure; it ignited the latent Star Fragment within. God Toad was born in the flames, ascending through the shattered glass in a spiral of light. The first anchor snapped. The timeline shuddered.",
+            completedDate: { year: 1040, monthIndex: 6, day: 17 },
+            outcomes: [
+                "First anchor destroyed",
+                "God Toad created (location unknown)",
+                "Greenhouse reduced to ash",
+                "Green T received a mysterious key from the Oracle"
+            ]
+        },
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "The Mirror Terror",
+            description: "The Shard Stalker emerged from the shattered mirrors of the Solarium—a thing of reflected malice and stolen faces. Humpik faced it alone in the Mirror Dimension after being pulled through the glass. He fought his own doppelganger. He won. And then, instead of destroying the creature, he spared it.\n\nThe Legion spy who aided his escape approved. The Oracle noted the decision with something that might have been disappointment. The Terror is contained, not destroyed. The second anchor bends but does not break.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Second anchor contained (not destroyed)",
+                "Mirror Terror imprisoned in the Solarium",
+                "Humpik received Legion thieves' tools",
+                "Residual dimensional instability confirmed"
+            ]
+        },
+        {
+            id: 'm3',
+            status: 'completed',
+            title: "The Arcane Wraith",
+            description: "It came howling through the lower levels—a knot of screaming magic and ancient grudge. The party was not ready. They fought anyway.\n\nBowser charged the ghost. Physically. With his fists. The absurdity of a koopa punching ectoplasm would be funny if it hadn't worked. Dan, still learning to compensate for his missing arm, proved his adaptation with thrown handaxes that somehow found their marks. Archie—for once—chose ice over fire, dropping the ambient temperature enough to slow the entity.\n\nPernus Annmatar watched from the doorway, offering critique. He briefly possessed Bowser. Bowser responded by tripping him. The mage's red underwear was observed by multiple witnesses.\n\nThe Legion spies tried to steal the kill with a crossbow shot. They missed. The Oracle stepped forward and banished the weakened wraith with a word that made everyone's ears ring.\n\nArchie collected the ectoplasm. Bowser collected his dignity. Dan collected another reason to hate magic.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 },
+            outcomes: [
+                "Third anchor destroyed",
+                "Wraith banished by the Oracle",
+                "Bowser overcame ghost phobia (partially)",
+                "Dan proved one-armed combat viability",
+                "Archie earned grudging Mages' Guild respect",
+                "Pernus humiliated but not neutralized",
+                "Legion kill-steal failed"
+            ]
+        },
+        {
+            id: 'm4',
+            status: 'active',
+            title: "The Summoning Room",
+            description: "The corridor stretches ahead. The Oracle walks with purpose. The party walks with weapons ready. And somewhere behind them—or ahead of them, or in the walls—the 'Audience' waits.\n\nThe ritual requires the Third Key. It requires opposing signs aligned in the circle. It requires vast energy channeled through participants who must hold their positions while reality tries to tear itself apart. And it requires trust—in the Oracle, in each other, in the plan.\n\nTrust is in short supply.\n\nHumpik has a deal. The Legion has patience. The Mages have pride. Green T is still missing somewhere in the shifting halls. And Dan—Dan might not be Dan at all.",
+            goals: [
+                { text: "Escort the Oracle to the Summoning Room", status: 'completed', priority: 'critical' },
+                { text: "Place the Third Key in the ritual circle", status: 'active', priority: 'critical' },
+                { text: "Hold positions during the separation ritual", status: 'pending', priority: 'critical' },
+                { text: "Prevent the 'Audience' from interrupting", status: 'active', priority: 'high' },
+                { text: "Resolve the Dan situation before the circle closes", status: 'active', priority: 'high' },
+                { text: "Locate Green T before the timelines seal", status: 'active', priority: 'high' }
+            ],
+            choices: [
+                {
+                    id: 'oracle_fate',
+                    title: "The Oracle's Destiny",
+                    description: "The ritual will end. The Oracle will be vulnerable. Humpik made a deal. The party doesn't know.",
+                    options: [
+                        {
+                            id: 'honor_pact',
+                            name: "The Humpik Protocol",
+                            description: "Humpik fulfills his bargain. The Oracle is handed to the Iron Legion.",
+                            requirements: ["Humpik must act before the party reacts"],
+                            consequences: { 
+                                success: "Legion favor secured. Oracle captured. Toad prisoners can be negotiated.", 
+                                failure: "Humpik is exposed. Party trust shatters. Legion attacks." 
+                            }
+                        },
+                        {
+                            id: 'protect_oracle',
+                            name: "Shield the Seer",
+                            description: "The party defends the Oracle against all claimants.",
+                            requirements: ["Combat readiness", "Unified front"],
+                            consequences: { 
+                                success: "Oracle joins the rebellion. Legion becomes openly hostile.", 
+                                failure: "Oracle captured anyway. Party wounded." 
+                            }
+                        },
+                        {
+                            id: 'oracle_choice',
+                            name: "Let the Oracle Decide",
+                            description: "Step back. Let the chronomancer choose his own fate.",
+                            requirements: ["Trust in the Oracle's judgment"],
+                            consequences: { 
+                                success: "Unknown. The Oracle has not revealed his preference.", 
+                                failure: "Indecision leads to chaos." 
+                            }
+                        }
+                    ]
+                }
+            ],
+            notes: "The ritual chamber is ahead. Everyone who matters is converging. This is the fulcrum point of the Manor arc."
+        }
+    ],
+
+    npcs: {
+        allies: ['self_reflection_oracle', 'ghost_servants'],
+        enemies: ['pernus_annmatar'],
+        observers: ['iron_legion_spy', 'iron_legion_spy_contact'],
+        uncertain: ['dan']
+    },
+
+    locations: {
+        primary: 'raventree_manor',
+        current: 'corridor_to_summoning_room',
+        ritual: 'summoning_room',
+        related: ['lower_levels', 'ruined_hall', 'solarium', 'greenhouse_ruins']
+    },
+
+    relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'humpik_legion_pact', 'mystery_imposter_toad', 'vigilance_fallen']
+},
+
+'main_quest_raventree': {
+    id: 'main_quest_raventree',
+    title: "The Curse of Raventree",
+    subtitle: "The Final Act",
+    type: QUEST_TYPES.MAIN,
+    category: 'Main Story',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.CRITICAL,
+    arcId: 'raventree_manor',
+    objective: "Complete the separation ritual, survive the political convergence in the Summoning Room, and escape Raventree Manor with your lives and your souls intact.",
+    assignees: ['party'],
+    primaryAssignee: 'party',
+    difficulty: {
+        overall: DIFFICULTY.DEADLY,
+        survival: DIFFICULTY.HARD,
+        sanity: DIFFICULTY.HARD,
+        social: DIFFICULTY.EXTREME,
+        combat: DIFFICULTY.HARD
+    },
+    tags: ['survival', 'horror', 'supernatural', 'politics', 'urgent', 'faction-war', 'ritual'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 15 },
+        updated: { year: 1040, monthIndex: 6, day: 21 }
+    },
+
+    description: "It was supposed to be shelter.\n\nWhen the party followed Bowser and Waluigi into Raventree Manor, they expected dust, decay, and perhaps a few rats. What they found was a house that remembers too much—a place where timelines bleed into each other, where mirrors show what shouldn't be, and where the dead have opinions about the living.\n\nThe first night brought flaming books, a polite ghost, and a warning written in Markop's father's hand: *Don't clean the mirrors.* They cleaned the mirrors.\n\nSince then, the Manor has escalated. Rust monsters in the bedrooms. A balcony that tried to kill Remi. An Oracle who speaks in riddles and offers tea. A hedge maze that loops through abandoned versions of the house. And the Siege—Speaker L's Pond Patrol surrounding the building, demanding Archie's surrender while the walls manifested wraiths.\n\nArchie surrendered. Then a glass monster emerged from a mirror. Green T was pulled into a reflection. The party scattered through collapsing rooms and burning libraries, fighting creatures that shouldn't exist in a house that shouldn't stand.\n\nThe Oracle has been guiding them. Three anchors bound the curse. Three threats had to fall. The Star Fragment ascended. The Mirror Terror was spared. The Arcane Wraith was banished. Now, only the final ritual remains—a separation of timelines in the Summoning Room.\n\nBut the party is not alone.\n\nPernus Annmatar of the Mages' Guild haunts the hallways, treating the apocalypse like entertainment. Iron Legion spies watch from the shadows, waiting for the Oracle to become vulnerable. Humpik carries a secret deal. Green T is missing. And Dan—Dan might be wearing someone else's face.\n\nThe Summoning Room is ahead. The ritual will begin. And when it ends, someone is going to make their move.",
+
+    loreEntries: ['raventree_manor_history', 'pernus_annmatar', 'the_great_sealing', 'legion_black_ops', 'timeline_bleeding', 'mirror_entities'],
+
+    consequences: {
+        success: "The ritual completes. The timelines separate. The Manor becomes ruins—haunted by history, not horror. The party escapes with new scars and hard-won knowledge. The Oracle's fate depends on choices yet unmade.",
+        failure_ritual: "The ritual is interrupted. The timelines collapse. Everyone in the Summoning Room is erased from history or trapped in a moment that repeats forever. The Manor becomes a permanent wound in reality.",
+        failure_political: "The ritual succeeds, but the aftermath becomes a bloodbath. Legion and Mages fight over the Oracle. The party is caught in the crossfire. Survivors are scattered and hunted.",
+        partial_betrayal: "The ritual succeeds. Humpik fulfills his deal. The Oracle is taken by the Iron Legion. The Toads lose a powerful ally, but gain leverage to negotiate for Bones, Creek, and the prisoners at Aegis Command.",
+        partial_loss: "The party escapes, but Green T is not found. When the timelines separate, he is on the wrong side of the cut. He is erased—not dead, but never-was. Only those who knew him remember he existed at all."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'trait', name: "Manor Survivors", description: "All party members gain +2 to saves vs. fear, supernatural effects, and temporal displacement." },
+            { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent for spirit-binding or dispelling." },
+            { type: 'knowledge', name: "The Bleeding Timeline", description: "Understanding of how temporal fractures form and stabilize." }
+        ],
+        conditional: [
+            {
+                condition: "Deliver the Oracle to the Legion (Humpik's deal)",
+                reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for prisoner release at Aegis Command—including Bones and Creek." },
+                status: 'pending'
+            },
+            {
+                condition: "Protect the Oracle from all claimants",
+                reward: { type: 'ally', name: "The Oracle (Unbound)", description: "Chronomancer ally. Knows secrets of the Manor, the Dragon Conspiracy, and the Iron Legion's true goals." },
+                status: 'pending'
+            },
+            {
+                condition: "Archie maintains elemental discipline (ice over fire)",
+                reward: { type: 'reputation', faction: 'mages_guild', amount: 500, description: "Demonstrated Control—reduces active warrants." },
+                status: 'earned'
+            },
+            {
+                condition: "Find Green T before the separation",
+                reward: { type: 'ally', name: "Green T (Mirror-Touched)", description: "Gains permanent ability to sense dimensional rifts and detect shapeshifters." },
+                status: 'pending'
+            },
+            {
+                condition: "Resolve the Dan situation",
+                reward: { type: 'trust', name: "Circle Integrity", description: "The ritual proceeds without internal sabotage. Party cohesion strengthened." },
+                status: 'pending'
+            }
+        ],
+        xp: 12000,
+        gold: { min: 0, max: 0, note: "The Manor takes. It does not give." }
+    },
+
+    partyStatus: {
+        bowser: {
+            location: "Approaching Summoning Room",
+            status: "Combat Ready / Wary",
+            sanity: 7,
+            notes: "Punched a ghost. Tripped a mage. Overcame his fear of the supernatural through violence. Distrusts the Legion presence. Suspects Humpik is hiding something. Will protect the group with his life."
+        },
+        humpik: {
+            location: "Approaching Summoning Room",
+            status: "Outwardly Calm / Internally Conflicted",
+            sanity: 8,
+            notes: "Carries a secret deal with the Iron Legion. Has Legion-issue thieves' tools. Believes he is making the pragmatic choice. Has not yet decided if he will follow through."
+        },
+        archie: {
+            location: "Approaching Summoning Room",
+            status: "Focused / Disciplined",
+            sanity: 7,
+            notes: "Successfully used ice magic against the Wraith. Collected ectoplasm. Has warrants from the Mages' Guild but is earning grudging respect through restraint. The Greenhouse Inferno still haunts him."
+        },
+        dan: {
+            location: "Approaching Summoning Room",
+            status: "Injured / Determined / Uncertain",
+            sanity: 6,
+            notes: "Lost his arm to the Staff catastrophe. Proved he can still fight with thrown weapons. Protective of the group. May or may not be the real Dan—Lario's warning from Day 14 remains unresolved."
+        },
+        markop: {
+            location: "Approaching Summoning Room",
+            status: "Giant / Fading",
+            sanity: 5,
+            notes: "Accepted the Oracle's blessing to grow colossal during the spider fight. The effect is wearing off but the experience has left him changed. Found a photo of his father in the Manor."
+        },
+        remi: {
+            location: "Approaching Summoning Room",
+            status: "Battered / Resilient",
+            sanity: 6,
+            notes: "Survived a balcony collapse. Her mechanical companion is damaged. Applied to the Deephold Smithing Guild during the chaos. Has a job from Waluigi waiting."
+        },
+        green_t: {
+            location: "Unknown",
+            status: "Missing / Panicked / Time-Critical",
+            sanity: 2,
+            notes: "Was pulled into a mirror dimension. Was extracted by Dan. Fled in terror. Is somewhere in the Manor. Must be found before the timelines separate or he will be erased."
+        }
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Arrival",
+            description: "The party entered Raventree Manor seeking shelter. They found a parlor ghost, enchanted clothing that attacked Markop, and a note warning them about the mirrors. They ignored the note.",
+            completedDate: { year: 1040, monthIndex: 6, day: 15 }
+        },
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "The Descent",
+            description: "Flaming books. Rust monsters. A balcony that collapsed under Remi. The Manor tested the party's survival instincts and found them barely adequate. The Oracle made contact, offering cryptic guidance and unsettling hospitality.",
+            completedDate: { year: 1040, monthIndex: 6, day: 16 }
+        },
+        {
+            id: 'm3',
+            status: 'completed',
+            title: "The Siege",
+            description: "Speaker L's Pond Patrol surrounded the Manor. Archie surrendered to buy time. A glass monster emerged from a mirror. Green T was pulled into a reflection. The party scattered through collapsing corridors while the walls manifested wraiths.",
+            completedDate: { year: 1040, monthIndex: 6, day: 19 }
+        },
+        {
+            id: 'm4',
+            status: 'completed',
+            title: "The Anchors",
+            description: "Three threats bound the curse. The Star Fragment ascended through the burning greenhouse (God Toad born). The Mirror Terror was spared by Humpik (contained, not destroyed). The Arcane Wraith was banished by the Oracle after the party weakened it through teamwork. The path to the final ritual is clear.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 }
+        },
+        {
+            id: 'm5',
+            status: 'active',
+            title: "The Convergence",
+            description: "Everyone who matters is walking toward the Summoning Room. The Oracle leads. The party follows. The Mages watch. The Legion waits. And somewhere in the shifting halls, Green T is hiding from things only he can see.",
+            goals: [
+                { text: "Reach the Summoning Room", status: 'completed', priority: 'critical' },
+                { text: "Protect the Oracle during the ritual", status: 'active', priority: 'critical' },
+                { text: "Hold position in the circle during the separation", status: 'pending', priority: 'critical' },
+                { text: "Locate Green T before the timelines seal", status: 'active', priority: 'high' },
+                { text: "Prevent Pernus Annmatar from interfering", status: 'active', priority: 'medium' },
+                { text: "Resolve the standoff with the Iron Legion", status: 'pending', priority: 'critical' },
+                { text: "Address the Dan situation", status: 'active', priority: 'high' }
+            ]
+        }
+    ],
+
+    threats: {
+        pernus_annmatar: {
+            name: "Pernus Annmatar",
+            faction: "Mages' Guild",
+            status: "Present / Hostile",
+            motivation: "Professional pride. He was humiliated (tripped by Bowser, underwear exposed). He wants to prove the Guild's superiority and potentially claim the Oracle's knowledge.",
+            danger: "Can possess party members briefly. Will interfere with the ritual if he sees an advantage. Treats everything like a performance."
+        },
+        iron_legion_spies: {
+            name: "Legion Shadow Team",
+            faction: "Iron Legion",
+            status: "Present / Watching",
+            motivation: "The Supernatural Sovereignty Act. The Oracle is a 'supernatural threat' under new law. They have orders to take him into custody. They also have a deal with Humpik.",
+            danger: "Will strike the moment the ritual ends. Well-armed, disciplined, patient. Have crossbows and binding chains."
+        },
+        mirror_residue: {
+            name: "Dimensional Bleed",
+            faction: "The Manor",
+            status: "Ambient Threat",
+            motivation: "None. The Mirror Terror was spared, not destroyed. Residual instability remains in the walls. Reflections may still move wrong.",
+            danger: "Unpredictable. May manifest as minor visual disturbances or major spatial anomalies during the ritual."
+        }
+    },
+
+    relatedQuests: ['artifacts_of_balance', 'rescue_green_t', 'humpik_legion_pact', 'mystery_imposter_toad', 'vigilance_fallen']
+},
+'rescue_green_t': {
+    id: 'rescue_green_t',
+    title: "Through the Looking Glass",
+    subtitle: "Find Him Before He Fades",
+    type: QUEST_TYPES.RESCUE,
+    category: 'Main Story',
+    status: QUEST_STATUS.ACTIVE,
+    priority: QUEST_PRIORITY.HIGH,
+    arcId: 'raventree_manor',
+    objective: "Locate Green T in the shifting corridors of Raventree Manor and bring him to the Summoning Room before the timelines separate.",
+    assignees: ['party'],
+    primaryAssignee: 'dan',
+    difficulty: {
+        overall: DIFFICULTY.MODERATE,
+        tracking: DIFFICULTY.HARD,
+        social: DIFFICULTY.HARD,
+        time: DIFFICULTY.CRITICAL
+    },
+    tags: ['rescue', 'dimensional', 'time-sensitive', 'chase', 'psychological'],
+    dates: {
+        added: { year: 1040, monthIndex: 6, day: 19 },
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+        deadline: "Before the separation ritual completes"
+    },
+
+    description: "Green T saw something in the mirror that he cannot unsee.\n\nWhen the Shard Stalker dragged him through the glass on Day 19, he spent what felt like hours in a place where nothing was real and everything wore his face. Dan pulled him out. It should have been a rescue. Instead, Green T looked at Dan—looked *through* Dan—and ran.\n\nHe broke a lock to escape the Solarium. He has been moving through the Manor ever since, avoiding the party, avoiding the Oracle, avoiding anything that casts a reflection. The few glimpses caught of him suggest a toad operating on pure panic: checking corners for mirrors, muttering about 'the wrong faces,' refusing to look anyone in the eye.\n\nThe Oracle has warned that the separation ritual will seal the timelines. Anyone not in the 'present' when the cut happens will be left behind—not dead, but never-was. Green T's current location is unknown. The Manor's geography shifts. And time is running out.\n\nDan has taken point on this search. This is personal. He pulled Green T from the mirror. He feels responsible. But Green T ran *from* Dan specifically. That fact has not been discussed. Perhaps it should be.",
+
+    loreEntries: ['mirror_entities', 'timeline_bleeding', 'dimensional_trauma'],
+
+    consequences: {
+        success: "Green T is found, calmed, and brought to the Summoning Room. He survives the separation. The experience has changed him—he gains the ability to sense dimensional rifts and detect shapeshifters.",
+        failure: "Green T is not found in time. When the timelines separate, he is on the wrong side of the cut. He is erased from history. Only those who knew him will remember he existed. His absence becomes a permanent wound in the party's conscience.",
+        partial: "Green T is found but cannot be calmed. He is dragged to the Summoning Room against his will. He survives but his sanity does not fully recover. He becomes a liability in future operations.",
+        dark: "Green T is found—but he has already been replaced by something from the mirrors. The rescue brings the enemy into the ritual circle."
+    },
+
+    rewards: {
+        guaranteed: [
+            { type: 'knowledge', name: "Mirror Trauma Protocols", description: "Understanding of how to help dimensional displacement victims." }
+        ],
+        conditional: [
+            {
+                condition: "Rescue Green T successfully",
+                reward: { type: 'ally', name: "Green T (Mirror-Touched)", description: "Gains permanent ability to sense dimensional rifts and detect shapeshifters. His perspective has been fundamentally altered." }
+            },
+            {
+                condition: "Dan makes the rescue personally",
+                reward: { type: 'bond', name: "Reforged Trust", description: "Dan and Green T share a unique connection. Green T will follow Dan's lead in future crises." }
+            },
+            {
+                condition: "Discover why Green T ran from Dan",
+                reward: { type: 'clue', name: "The Wrong Face", description: "Green T saw something in Dan's reflection that wasn't Dan. This information connects to the Impostor Toad mystery." }
+            }
+        ],
+        xp: 3000
+    },
+
+    greenTStatus: {
+        currentCondition: "Panicked Flight / Reality Dissociation",
+        physicalState: "Exhausted, dehydrated, minor injuries from running through debris",
+        mentalState: "Critical. Cannot distinguish between 'real' and 'reflection.' Sees threats in every mirror, window, and polished surface.",
+        lastKnownLocation: "Broke a lock to escape the Solarium (Day 21, early morning)",
+        lastKnownAction: "Running toward the east wing—away from the main corridors",
+        possibleLocations: [
+            "Upper floors (avoiding the lower levels where the Wraith was)",
+            "Servants' quarters (few reflective surfaces)",
+            "The abandoned kitchen (boarded windows, no mirrors)",
+            "The hedge maze (dangerous, but no glass)"
+        ],
+        sanity: 2,
+        trust: "Will not approach anyone who casts a reflection he doesn't recognize. May attack if cornered.",
+        notes: "He ran specifically from Dan. He may have seen something in Dan's reflection that frightened him more than the Mirror Terror itself."
+    },
+
+    milestones: [
+        {
+            id: 'm1',
+            status: 'completed',
+            title: "The Abduction",
+            description: "During the Siege of Raventree, the Shard Stalker manifested from a mirror and pulled Green T into the dimension between reflections. The party could only watch as he vanished into the glass.",
+            completedDate: { year: 1040, monthIndex: 6, day: 19 }
+        },
+        {
+            id: 'm2',
+            status: 'completed',
+            title: "The Extraction",
+            description: "Dan reached into the mirror and pulled Green T back to reality. It should have been a moment of triumph. Instead, Green T looked at Dan with an expression of absolute terror and fled into the Manor's depths.",
+            completedDate: { year: 1040, monthIndex: 6, day: 21 }
+        },
+        {
+            id: 'm3',
+            status: 'active',
+            title: "The Hunt",
+            description: "Green T is somewhere in the Manor. The ritual is approaching. The timelines will separate. Anyone not in the 'present' when the cut happens will be erased.",
+            goals: [
+                { text: "Search the upper floors", status: 'active', priority: 'high' },
+                { text: "Search the servants' quarters", status: 'active', priority: 'high' },
+                { text: "Check the abandoned kitchen", status: 'pending', priority: 'medium' },
+                { text: "Send someone into the hedge maze", status: 'pending', priority: 'low', note: "Dangerous. Last resort." },
+                { text: "Approach Green T without triggering a panic response", status: 'pending', priority: 'critical' },
+                { text: "Understand why he ran from Dan", status: 'pending', priority: 'high' }
+            ],
+            notes: "The Manor's geography shifts. Green T may not be where he was five minutes ago. And the ritual is starting soon."
+        }
+    ],
+
+    connections: {
+        to_impostor_quest: "Green T ran from Dan specifically. If Lario's warning from Day 14 is correct—if the Dan with the party is not the real Dan—then Green T may have seen proof in the mirror dimension. He may be the only person who knows the truth.",
+        to_ritual_quest: "If Green T is not found before the separation, he will be erased. If he is found but is actually a mirror replacement, bringing him into the ritual circle could be catastrophic.",
+        to_dan: "Dan pulled Green T from the mirror. Dan is taking point on the search. Dan is either a hero trying to save a friend, or something wearing Dan's face trying to eliminate a witness."
+    },
+
+    relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'mystery_imposter_toad']
+},
 };
