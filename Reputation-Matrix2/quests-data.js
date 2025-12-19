@@ -23,9 +23,9 @@ export const QUEST_DATA = {
     ...GUILDS_QUESTS,
     ...MYSTERY_QUESTS,
     ...NEW_MK_QUESTS,
-    ...NEW_MIDLANDS_QUESTS,
-    ...REQUESTS,
-    ...WORLD_QUESTS
+    ...NEW_MIDLANDS_QUESTS
+   // ...REQUESTS,
+    //...WORLD_QUESTS
 };
 
 // ============================================

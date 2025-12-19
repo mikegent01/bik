@@ -449,10 +449,14 @@
 
 .breakdown-fill {
     height: 100%;
-    border-radius: var(--radius-full);
-    transition: width 0.8s var(--ease-out-expo);
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--accent-primary); /* Fallback color */
 }
-
+#overall-progress-ring {
+    transition: stroke-dashoffset 0.8s ease-in-out;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
 .breakdown-fill.main-story {
     background: linear-gradient(90deg, var(--priority-critical), var(--priority-high));
 }

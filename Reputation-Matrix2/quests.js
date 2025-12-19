@@ -299,82 +299,89 @@ function renderQuests() {
 // RENDER: Dashboard Stats
 // ============================================
 function renderDashboard() {
-    const quests = Object.values(QUEST_DATA).filter(q => q && q.status);
+    // 1. Get and Normalize all quests first
+    const rawQuests = Object.values(QUEST_DATA).filter(q => q && q.status);
+    const quests = rawQuests.map(q => normalizeQuestData(q));
+
     const urgent = getUrgentQuests();
     const active = quests.filter(q => [QUEST_STATUS.ACTIVE, QUEST_STATUS.ONGOING].includes(q.status));
     const completed = quests.filter(q => q.status === QUEST_STATUS.COMPLETED);
-    const total = quests.length;
-
-    // Header Stats
+    
+    // 2. Update Mini Stats
     if (statUrgent) statUrgent.querySelector('.mini-stat-value').textContent = urgent.length;
     if (statActive) statActive.querySelector('.mini-stat-value').textContent = active.length;
     if (statComplete) statComplete.querySelector('.mini-stat-value').textContent = completed.length;
 
-    // Overall Progress Ring
-    const overallProgress = total > 0 ? Math.round((completed.length / total) * 100) : 0;
+    // 3. Overall Progress Ring
+    const overallProgress = quests.length > 0 ? Math.round((completed.length / quests.length) * 100) : 0;
     if (overallProgressRing) {
-        const circumference = 326.73; // 2 * PI * 52
+        const circumference = 326.73; 
+        overallProgressRing.style.strokeDasharray = `${circumference} ${circumference}`;
         const offset = circumference - (overallProgress / 100) * circumference;
         overallProgressRing.style.strokeDashoffset = offset;
     }
-    if (overallProgressValue) {
-        overallProgressValue.textContent = `${overallProgress}%`;
-    }
+    if (overallProgressValue) overallProgressValue.textContent = `${overallProgress}%`;
 
-    // Party Workload
-    if (partyWorkload && state.party) {
+    // 4. MAIN STORY vs SIDE QUEST Bars (Fixed)
+    // We use the 'id' assigned by normalizeQuestData
+    const mainQuests = quests.filter(q => q.type.id === 'main');
+    const sideQuests = quests.filter(q => q.type.id !== 'main');
+
+    const calculatePercent = (group) => {
+        if (group.length === 0) return 0;
+        const done = group.filter(q => q.status === QUEST_STATUS.COMPLETED).length;
+        return Math.round((done / group.length) * 100);
+    };
+
+    const mainBar = document.getElementById('main-story-progress');
+    const sideBar = document.getElementById('side-quest-progress');
+
+    if (mainBar) mainBar.style.width = `${calculatePercent(mainQuests)}%`;
+    if (sideBar) sideBar.style.width = `${calculatePercent(sideQuests)}%`;
+
+    // 5. Party Workload
+    // This includes both main party and auxiliary (like Donkey Kong)
+    if (partyWorkload) {
         const partyLoad = {};
-        state.party.forEach(p => partyLoad[p] = 0);
         
+        // Populate with everyone currently assigned to an active quest
         active.forEach(q => {
-            if (q.assignees) {
-                q.assignees.forEach(a => {
-                    if (partyLoad[a] !== undefined) partyLoad[a]++;
-                });
-            }
-            if (q.primaryAssignee && partyLoad[q.primaryAssignee] !== undefined) {
-                partyLoad[q.primaryAssignee]++;
-            }
+            const names = q.assigneeKeys || [];
+            names.forEach(name => {
+                partyLoad[name] = (partyLoad[name] || 0) + 1;
+            });
         });
 
         partyWorkload.innerHTML = Object.entries(partyLoad).map(([key, count]) => {
-            const char = LORE_DATA?.characters?.[key];
-            const name = char?.name?.split(' ')[0] || key;
-            const emoji = char?.icon || '👤';
-            const isOverloaded = count > 4;
-
+            const char = LORE_DATA?.characters?.[key] || LORE_DATA?.auxiliary_party?.[key];
             return `
-                <div class="party-member ${isOverloaded ? 'overloaded' : ''}">
-                    <div class="member-avatar">${emoji}</div>
+                <div class="party-member ${count > 3 ? 'overloaded' : ''}">
+                    <div class="member-avatar">${char?.icon || '👤'}</div>
                     <div class="member-info">
-                        <span class="member-name">${name}</span>
-                        <span class="member-quest-count">${count}</span>
+                        <span class="member-name">${char?.name?.split(' ')[0] || key}</span>
+                        <span class="member-quest-count">${count} Active</span>
                     </div>
                 </div>
             `;
         }).join('');
     }
 
-    // Urgent Alert
+    // 6. Urgent Alert
     if (urgentAlertCard) {
-        if (urgent.length > 0) {
-            urgentAlertCard.classList.add('has-urgent');
+        const hasUrgent = urgent.length > 0;
+        urgentAlertCard.classList.toggle('has-urgent', hasUrgent);
+        if (hasUrgent) {
             urgentAlertTitle.textContent = `${urgent.length} Critical Mission${urgent.length > 1 ? 's' : ''}`;
-            urgentAlertSubtitle.textContent = urgent[0]?.title || 'Requires immediate attention';
+            urgentAlertSubtitle.textContent = urgent[0].title;
         } else {
-            urgentAlertCard.classList.remove('has-urgent');
             urgentAlertTitle.textContent = 'No Critical Missions';
             urgentAlertSubtitle.textContent = 'All operations nominal';
         }
     }
 
-    // Update Tab Counts
-    updateTabCounts(quests);
-
-    // Populate Assignee Filter
+    updateTabCounts(rawQuests);
     populateAssigneeFilter();
 }
-
 function updateTabCounts(quests) {
     const counts = {
         active: quests.filter(q => [QUEST_STATUS.ACTIVE, QUEST_STATUS.ONGOING].includes(q.status)).length,
