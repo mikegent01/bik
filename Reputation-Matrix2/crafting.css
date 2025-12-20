@@ -2972,6 +2972,7 @@
 .material-item.uncommon { border-left: 3px solid #22c55e; }
 .material-item.rare { border-left: 3px solid #3b82f6; }
 .material-item.legendary { border-left: 3px solid #f59e0b; }
+.material-item.godly { border-left: 3px solid #0bf5bb; }
 
 .material-icon {
     font-size: 2em;
@@ -2983,7 +2984,7 @@
     font-size: 0.7em;
     color: var(--craft-text);
     margin-bottom: 4px;
-    white-space: nowrap;
+    white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
 }

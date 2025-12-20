@@ -841,11 +841,10 @@
     border-color: var(--wario-purple-light);
 }
 
-/*.shop-item.disabled {
-    opacity: 0.4;
+.shop-item.disabled { 
     pointer-events: none;
     filter: grayscale(50%);
-}*/
+}
 
 .shop-item.in-cart {
     border-color: var(--wario-green);
@@ -864,7 +863,10 @@
     background: linear-gradient(90deg, var(--wario-gold), var(--wario-pink), var(--wario-gold));
     animation: shimmer 2s infinite;
 }
-
+.shop-item.godly::before { 
+    background: linear-gradient(90deg, var(--wario-gold), var(--wario-pink), var(--wario-gold));
+    animation: shimmer 2s infinite;
+}
 @keyframes shimmer {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -873,6 +875,58 @@
 .shop-item.legendary {
     border-color: var(--wario-gold-dark);
     background: linear-gradient(135deg, var(--wario-surface), rgba(255, 215, 0, 0.05));
+}
+.shop-item.godly {
+    border-color: #00ff55; /* Neon Green border */
+    background: linear-gradient(135deg, var(--wario-surface), rgba(0, 255, 85, 0.15));
+    box-shadow: 0 0 20px rgba(0, 255, 85, 0.2), inset 0 0 10px rgba(0, 255, 85, 0.1);
+    z-index: 1;
+}
+
+/* 2. The Animated Top Border (The "Shimmer") */
+.shop-item.godly::before {
+    background: linear-gradient(90deg, 
+        #00ff55, 
+        #00ffee, 
+        #00ff55, 
+        #adff2f, 
+        #00ff55
+    );
+    background-size: 300% 100%; /* Required for the animation to move */
+    animation: godly-shimmer 3s linear infinite;
+    height: 6px; /* Slightly thicker than legendary */
+}
+
+/* 3. The Rarity Badge (The Text Tag) */
+.item-rarity.godly {
+    background: linear-gradient(135deg, #006400, #00ff55);
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(0, 255, 85, 0.8);
+    border: 1px solid #adff2f;
+    box-shadow: 0 0 8px rgba(0, 255, 85, 0.4);
+}
+
+/* 4. Price Color for Godly */
+.shop-item.godly .item-price {
+    color: #00ff55;
+    text-shadow: 0 0 10px rgba(0, 255, 85, 0.5);
+}
+
+/* 5. The Animation Keyframes */
+@keyframes godly-shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; } /* Move across the 300% size */
+}
+
+/* Glowing effect for the icon */
+.shop-item.godly .item-icon {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 85, 0.6));
+    animation: pulse-icon 2s ease-in-out infinite;
+}
+
+@keyframes pulse-icon {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
 }
 
 .item-header {

@@ -3658,7 +3658,7 @@ export const SHOP_ITEMS = {
     name: "Health Potion",
     description: "A potion for quick healing in battle.",
     category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 500,
+    price: 600,
     icon: '🧪',
     stock: 20,
     rarity: 'common',
@@ -9059,7 +9059,7 @@ export const SHOP_ITEMS = {
       "Wolves gain +10 to all stats while under your command",
       "Made by: Void Shamans"
     ],
-    "vendor": "void_beast_market",
+    "vendor": "void_beast_market", 
     "shippedBy": "Soul‑Binder",
     "levelRequirement": 20
   },
@@ -12410,7 +12410,7 @@ export const SHOP_ITEMS = {
     "stock": 1,
     "rarity": "godly",
     "effects": [
-      "Edits physics in 100 km² (e.g., no gravity, infinite mana)",
+      "Edits physics in 100 km² (e.g., no gravity, costs mana)",
       "Lasts 1 year; requires divine approval",
       "Made by: Reality Coders"
     ],
@@ -16089,7 +16089,7 @@ export const SHOP_ITEMS = {
     name: "DK Crew's Banana Hoard",
     description: "A single, magically-preserved banana from the legendary hoard. It's... just a banana, but it feels important.",
     category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 1000,
+    price: 5000,
     icon: '🍌',
     stock: 50,
     rarity: 'uncommon',
@@ -17202,7 +17202,7 @@ export const SHOP_ITEMS = {
         icon: '〰️',
         stock: 200,
         rarity: 'common',
-        effects: ["+1 to Deception checks", "Falls off if you take damage"],
+        effects: ["+1 to Deception and persuasion checks", "Falls off if you take damage"],
         vendor: 'toad_town_market',
         shippedBy: 'Standard Courier',
         levelRequirement: 1
@@ -17212,7 +17212,7 @@ export const SHOP_ITEMS = {
         name: "Used Banana Peel",
         description: "Nature's perfect trap. Biodegradable hazard.",
         category: SHOP_CATEGORIES.CONSUMABLES,
-        price: 1000,
+        price: 100,
         icon: '🍌',
         stock: 300,
         rarity: 'common',
@@ -18490,7 +18490,7 @@ export const SHOP_ITEMS = {
         icon: '🤢',
         stock: 99,
         rarity: 'common',
-        effects: ["Restore 1 HP", "You are Poisoned for 10 minutes"],
+        effects: ["Restore 1 HP", "You are Poisoned for 10 minutes (DC 13 CON)"],
         vendor: 'rogueport_black_market',
         shippedBy: 'Garbage Chute',
         levelRequirement: 1
@@ -18843,8 +18843,8 @@ export const SHOP_ITEMS = {
         stock: 1,
         rarity: 'godly',
         effects: [
-            "Cast 'Wish' once per week?",
-            "Can alter the plot significantly?",
+            "Buy 20 of these to repair the full star rod",
+            "Can alter the plot significantly",
             "The Seven Star Spirits are watching you",
             "Bowser senses its location"
         ],
