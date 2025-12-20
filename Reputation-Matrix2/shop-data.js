@@ -18,144 +18,6 @@ export const SHOP_CATEGORIES = {
     FORBIDDEN: 'forbidden',
     PREMIUM: 'premium'
 };
-// Add after BASE_MEMBERSHIP_TIERS
-
-export const MEMBERSHIP_PRICES = {
-    // --- TIER 1-10: THE "PATHETIC POOR" PHASE ---
-    lint_licker: { price: 0, levelRequired: 1 },
-    dust_bunny: { price: 500, levelRequired: 2 },
-    rusty_rookie: { price: 1000, levelRequired: 3 },
-    rotten_garlic: { price: 1500, levelRequired: 4 },
-    clay_clown: { price: 2500, levelRequired: 5 },
-    cardboard_king: { price: 3500, levelRequired: 6 },
-    wood_wimp: { price: 5000, levelRequired: 7 },
-    stone_slacker: { price: 6500, levelRequired: 8 },
-    cement_cent: { price: 8000, levelRequired: 9 },
-    glass_goomba: { price: 10000, levelRequired: 10 },
-
-    // --- TIER 11-20: THE "COMMON METALS" PHASE ---
-    copper_crook: { price: 12500, levelRequired: 11 },
-    bronze_bargain: { price: 15000, levelRequired: 12 },
-    iron_ingot: { price: 18000, levelRequired: 13 },
-    steel_stealer: { price: 22000, levelRequired: 14 },
-    aluminum_associate: { price: 26000, levelRequired: 15 },
-    nickel_nicety: { price: 30000, levelRequired: 16 },
-    silver_spender: { price: 35000, levelRequired: 17 },
-    sterling_sucker: { price: 42000, levelRequired: 18 },
-    titanium_tightwad: { price: 50000, levelRequired: 19 },
-    mercury_merchant: { price: 60000, levelRequired: 20 },
-
-    // --- TIER 21-30: THE "PRECIOUS GEMS" PHASE ---
-    gold_elite: { price: 75000, levelRequired: 21 },
-    fool_gold: { price: 90000, levelRequired: 22 },
-    amber_ambusher: { price: 110000, levelRequired: 23 },
-    topaz_tycoon: { price: 130000, levelRequired: 24 },
-    jade_jester: { price: 150000, levelRequired: 25 },
-    pearl_pirate: { price: 175000, levelRequired: 26 },
-    opal_operator: { price: 200000, levelRequired: 27 },
-    ruby_royal: { price: 230000, levelRequired: 28 },
-    sapphire_sultan: { price: 260000, levelRequired: 29 },
-    emerald_emperor: { price: 300000, levelRequired: 30 },
-
-    // --- TIER 31-40: THE "HIGH SOCIETY" PHASE ---
-    platinum_partner: { price: 350000, levelRequired: 31 },
-    diamond_dynamo: { price: 400000, levelRequired: 32 },
-    obsidian_overlord: { price: 450000, levelRequired: 33 },
-    crystal_king: { price: 500000, levelRequired: 34 },
-    mithril_monarch: { price: 550000, levelRequired: 35 },
-    adamant_ace: { price: 600000, levelRequired: 36 },
-    money_bag_baron: { price: 650000, levelRequired: 37 },
-    bullion_boss: { price: 700000, levelRequired: 38 },
-    treasure_chest_chief: { price: 750000, levelRequired: 39 },
-    pyramid_plunderer: { price: 800000, levelRequired: 40 },
-
-    // --- TIER 41-49: THE "WARIO LEGEND" PHASE ---
-    inc_ceo: { price: 850000, levelRequired: 41 },
-    motorcycle_maniac: { price: 900000, levelRequired: 42 },
-    garlic_gladiator_supreme: { price: 950000, levelRequired: 43 },
-    purple_powerhouse: { price: 1000000, levelRequired: 44 },
-    castle_owner: { price: 1100000, levelRequired: 45 },
-    master_of_disguise: { price: 1200000, levelRequired: 46 },
-    shake_king: { price: 1300000, levelRequired: 47 },
-    galaxy_greedy: { price: 1400000, levelRequired: 48 },
-    wario_brother: { price: 1500000, levelRequired: 49 },
-
-    // --- TIER 50: THE FINAL TIER ---
-    wario_vip: { price: 2000000, levelRequired: 50 }
-};
-
-// Check if player can buy a tier
-export function canBuyMembershipTier(tierIndex, currentTierIndex, partyLevel, availableXP) {
-    const tier = generateTier(tierIndex);
-    if (!tier) return { canBuy: false, reason: 'Invalid tier' };
-    
-    // Already have this or higher
-    if (currentTierIndex >= tierIndex) {
-        return { canBuy: false, reason: 'Already unlocked' };
-    }
-    
-    // Must buy tiers in order (can't skip)
-    if (tierIndex > currentTierIndex + 1) {
-        const previousTier = generateTier(tierIndex - 1);
-        return { canBuy: false, reason: `Unlock ${previousTier.name} first` };
-    }
-    
-    // Get price for this tier
-    const priceInfo = MEMBERSHIP_PRICES[tier.id] || {
-        price: tier.threshold, // Use threshold as price for letter tiers
-        levelRequired: Math.floor(tier.maxLevel / 2)
-    };
-    
-    // Check level requirement
-    if (partyLevel < priceInfo.levelRequired) {
-        return { 
-            canBuy: false, 
-            reason: `Requires Party Level ${priceInfo.levelRequired}`,
-            levelRequired: priceInfo.levelRequired
-        };
-    }
-    
-    // Check XP
-    if (availableXP < priceInfo.price) {
-        return { 
-            canBuy: false, 
-            reason: `Need ${priceInfo.price.toLocaleString()} XP`,
-            price: priceInfo.price,
-            shortfall: priceInfo.price - availableXP
-        };
-    }
-    
-    return { 
-        canBuy: true, 
-        price: priceInfo.price,
-        levelRequired: priceInfo.levelRequired
-    };
-}
-
-// Get price for a tier
-export function getMembershipPrice(tierIndex) {
-    const tier = generateTier(tierIndex);
-    if (!tier) return 0;
-    
-    const priceInfo = MEMBERSHIP_PRICES[tier.id];
-    if (priceInfo) return priceInfo.price;
-    
-    // Letter tiers - exponential pricing
-    const letterIndex = tierIndex - BASE_MEMBERSHIP_TIERS.length;
-    return Math.floor(500000 * Math.pow(1.5, letterIndex + 1));
-}
-
-// Get level requirement for a tier
-export function getMembershipLevelRequirement(tierIndex) {
-    const tier = generateTier(tierIndex);
-    if (!tier) return 1;
-    
-    const priceInfo = MEMBERSHIP_PRICES[tier.id];
-    if (priceInfo) return priceInfo.levelRequired;
-    
-    // Letter tiers
-    return Math.min(20, 12 + Math.floor((tierIndex - 4) / 2));
-}
 export const TIME_PERIODS = {
     DAWN: { 
         id: 'dawn', 
@@ -762,76 +624,113 @@ export function applyMembershipDiscount(basePrice, tier) {
     };
 }
 
-export function getAvailableShipping(tier) {
-    // Safety check - if tier is null/undefined, return basic shipping only
-    if (!tier || typeof tier.index !== 'number') {
-        console.warn('getAvailableShipping called with invalid tier:', tier);
-        return ['standard'];
-    }
-    
-    if (tier.index >= 4) return Object.keys(SHIPPING_METHODS);
-    if (tier.index >= 3) return ['standard', 'express', 'warp', 'military'];
-    if (tier.index >= 2) return ['standard', 'express', 'warp'];
-    if (tier.index >= 1) return ['standard', 'express'];
-    return ['standard'];
-}
 
-export function getFreeShipping(tier) {
-    // Safety check - if tier is null/undefined, return basic shipping only
-    if (!tier || typeof tier.index !== 'number') {
-        console.warn('getFreeShipping called with invalid tier:', tier);
-        return ['standard'];
-    }
-    
-    if (tier.index >= 4) return Object.keys(SHIPPING_METHODS);
-    if (tier.index >= 3) return ['standard', 'express', 'warp'];
-    if (tier.index >= 2) return ['standard', 'express'];
-    return ['standard'];
-}
-
+// --- SHOP DATA & SHIPPING METHODS ---
 
 export const SHIPPING_METHODS = {
-    STANDARD: {
-        id: 'standard',
-        name: 'Standard Courier',
-        description: 'Delivered by Parakarry postal service',
-        deliveryTime: '3-5 days',
-        cost: 0,
-        icon: '📬'
-    },
-    EXPRESS: {
-        id: 'express',
-        name: 'Lakitu Express',
-        description: 'Cloud-based rapid delivery',
-        deliveryTime: '1-2 days',
-        cost: 5000,
-        icon: '☁️'
-    },
-    WARP: {
-        id: 'warp',
-        name: 'Warp Pipe Direct',
-        description: 'Instant delivery via pipe network',
-        deliveryTime: 'Instant',
-        cost: 15000,
-        icon: '🟢'
-    },
-    STEALTH: {
-        id: 'stealth',
-        name: 'Shy Guy Smuggling',
-        description: 'Untraceable delivery, no questions asked',
-        deliveryTime: '2-4 days',
-        cost: 20000,
-        icon: '🎭'
-    },
-    MILITARY: {
-        id: 'military',
-        name: 'Koopa Troop Airlift',
-        description: 'Armed escort, guaranteed delivery',
-        deliveryTime: '1 day',
-        cost: 30000,
-        icon: '🚁'
-    }
+    // --- TIER 1: THE "GARBAGE" TIER ---
+    DUMPSTER_ROLL: { id: 'dumpster_roll', name: 'Dumpster Roll', description: 'We kick it down a hill. Good luck.', deliveryTime: '7-30 days', cost: 0, icon: '🗑️', minTier: 0 },
+    GOOMBA_WADDLE: { id: 'goomba_waddle', name: 'Goomba Waddle', description: 'Carried by a Goomba who walks into pits.', deliveryTime: '10-14 days', cost: 50, icon: '🍄', minTier: 0 },
+    SHY_GUY_SHUFFLE: { id: 'shy_guy_shuffle', name: 'Shy Guy Shuffle', description: 'They get embarrassed and hide constantly.', deliveryTime: '7-10 days', cost: 100, icon: '🎭', minTier: 0 },
+    MONTY_MOLE_DIG: { id: 'monty_mole_dig', name: 'Monty Mole Dig', description: 'Delivered from underground (covered in dirt).', deliveryTime: '5-9 days', cost: 200, icon: '⛏️', minTier: 2 },
+    BLOOPER_INK: { id: 'blooper_ink', name: 'Blooper Splash', description: 'Delivered by squid. Package will be wet.', deliveryTime: '6-8 days', cost: 250, icon: '🦑', minTier: 2 },
+    POKEY_WOBBLE: { id: 'pokey_wobble', name: 'Pokey Wobble', description: 'A cactus brings it. Careful of spikes.', deliveryTime: '8-12 days', cost: 300, icon: '🌵', minTier: 3 },
+    BOO_HAUNT: { id: 'boo_haunt', name: 'Boo Haunt', description: 'Only moves when you aren\'t looking.', deliveryTime: 'Unpredictable', cost: 400, icon: '👻', minTier: 3 },
+    THWOMP_DROP: { id: 'thwomp_drop', name: 'Thwomp Drop', description: 'Package is crushed flat upon arrival.', deliveryTime: '1 day (Smashed)', cost: 450, icon: '🪨', minTier: 4 },
+    CHAIN_CHOMP_DRAG: { id: 'chain_chomp_drag', name: 'Chain Chomp Drag', description: 'Dragged by a metal dog. Highly damaged.', deliveryTime: '3 days', cost: 500, icon: '🐕', minTier: 5 },
+    BOB_OMB_BLAST: { id: 'bob_omb_blast', name: 'Bob-omb Blast', description: 'We blow it towards your house.', deliveryTime: 'Seconds (maybe)', cost: 600, icon: '💣', minTier: 6 },
+
+    // --- TIER 2: THE "ECONOMY" TIER ---
+    KOOPA_SHELL: { id: 'koopa_shell', name: 'Green Shell Slide', description: 'Sliding across the ground at moderate speed.', deliveryTime: '4-6 days', cost: 1000, icon: '🐢', minTier: 7 },
+    PARAKARRY_POST: { id: 'parakarry_post', name: 'Standard Parakarry', description: 'Reliable delivery by Paratroopa.', deliveryTime: '3-5 days', cost: 1500, icon: '✉️', minTier: 8 },
+    YOSHI_EGG: { id: 'yoshi_egg', name: 'Yoshi Egg Toss', description: 'Encased in an egg for safety.', deliveryTime: '3-4 days', cost: 2000, icon: '🥚', minTier: 9 },
+    CHEEP_CHEEP_SWIM: { id: 'cheep_cheep_swim', name: 'Cheep Cheep Swim', description: 'Water-based delivery route.', deliveryTime: '3-5 days', cost: 2200, icon: '🐟', minTier: 10 },
+    TOAD_BRIGADE: { id: 'toad_brigade', name: 'Toad Brigade', description: 'A team of Toads with backpacks.', deliveryTime: '4 days', cost: 2500, icon: '🎒', minTier: 11 },
+    VINE_CLIMB: { id: 'vine_climb', name: 'Beanstalk Climb', description: 'For high-altitude addresses.', deliveryTime: '3 days', cost: 2800, icon: '🌱', minTier: 12 },
+    WIGGLER_WALK: { id: 'wiggler_walk', name: 'Wiggler Express', description: 'Fast when angry, slow when calm.', deliveryTime: 'Variable', cost: 3000, icon: '🐛', minTier: 13 },
+    PENGUIN_SLIDE: { id: 'penguin_slide', name: 'Penguin Slide', description: 'Sliding on belly. Cold packaging.', deliveryTime: '3 days', cost: 3500, icon: '🐧', minTier: 14 },
+    DORRIE_FERRY: { id: 'dorrie_ferry', name: 'Dorrie Ferry', description: 'Large sea dragon transport.', deliveryTime: '4 days', cost: 4000, icon: '🦕', minTier: 15 },
+    LAKITU_CLOUD: { id: 'lakitu_cloud', name: 'Lakitu Express', description: 'Cloud-based rapid delivery.', deliveryTime: '2-3 days', cost: 5000, icon: '☁️', minTier: 16 },
+
+    // --- TIER 3: THE "PREMIUM" TIER ---
+    MARIO_KART_50CC: { id: 'mario_kart_50cc', name: 'Kart (50cc)', description: 'Slow kart delivery.', deliveryTime: '2 days', cost: 6000, icon: '🏎️', minTier: 18 },
+    MARIO_KART_150CC: { id: 'mario_kart_150cc', name: 'Kart (150cc)', description: 'Fast kart delivery. Drift included.', deliveryTime: '1-2 days', cost: 7500, icon: '🏁', minTier: 20 },
+    BARREL_CANNON: { id: 'barrel_cannon', name: 'DK Barrel Cannon', description: 'Fired from jungle to doorstep.', deliveryTime: '1 day', cost: 8000, icon: '🛢️', minTier: 22 },
+    MAGIC_CARPET: { id: 'magic_carpet', name: 'Pidgit Carpet', description: 'Flying carpet ride from Subcon.', deliveryTime: '2 days', cost: 9000, icon: '🕌', minTier: 24 },
+    BULLET_BILL: { id: 'bullet_bill', name: 'Bullet Bill Ride', description: 'Extremely fast, hard to steer.', deliveryTime: '12 hours', cost: 10000, icon: '⚫', minTier: 25 },
+    CLOWN_CAR: { id: 'clown_car', name: 'Koopa Clown Car', description: 'Hover delivery with a smile.', deliveryTime: '1 day', cost: 12000, icon: '🤡', minTier: 26 },
+    WARP_PIPE: { id: 'warp_pipe', name: 'Warp Pipe Direct', description: 'Sub-space shortcut delivery.', deliveryTime: 'Hours', cost: 15000, icon: '🟢', minTier: 28 },
+    BEANBEAN_POST: { id: 'beanbean_post', name: 'Beanbean Courier', description: 'Imported delivery service.', deliveryTime: '1 day', cost: 18000, icon: '🫘', minTier: 30 },
+    SHY_GUY_SMUGGLE: { id: 'shy_guy_smuggle', name: 'Stealth Smuggle', description: 'Untraceable delivery. No questions.', deliveryTime: 'Unknown', cost: 20000, icon: '🤫', minTier: 32 },
+    MAGIKOOPA_TELEPORT: { id: 'magikoopa_teleport', name: 'Kamek\'s Teleport', description: 'Magic spells zap it to you.', deliveryTime: 'Instant', cost: 25000, icon: '🪄', minTier: 34 },
+
+    // --- TIER 4: THE "WARIO & FRIENDS" TIER ---
+    MONA_SCOOTER: { id: 'mona_scooter', name: 'Mona\'s Scooter', description: 'Pizza delivery style speed.', deliveryTime: '30 Min', cost: 28000, icon: '🛵', minTier: 35 },
+    KOOPA_TROOP_AIRLIFT: { id: 'koopa_troop_airlift', name: 'Military Airlift', description: 'Armed escort by Bowser\'s army.', deliveryTime: 'Same Day', cost: 30000, icon: '🚁', minTier: 36 },
+    JIMMY_T_DANCE: { id: 'jimmy_t_dance', name: 'Jimmy T\'s Hustle', description: 'Delivered with funky dance moves.', deliveryTime: 'Groovy', cost: 32000, icon: '🕺', minTier: 37 },
+    NINE_VOLT_SKATE: { id: 'nine_volt_skate', name: '9-Volt Skateboard', description: 'Radical delivery speed.', deliveryTime: 'Fast', cost: 35000, icon: '🛹', minTier: 38 },
+    WALUIGI_LEGS: { id: 'waluigi_legs', name: 'Waluigi Strut', description: 'He cheats to get there faster.', deliveryTime: 'Cheater Speed', cost: 38000, icon: '🦵', minTier: 39 },
+    DR_CRYGOR_JETPACK: { id: 'dr_crygor_jetpack', name: 'Crygor Jetpack', description: 'Experimental tech. Might explode.', deliveryTime: 'Super Fast', cost: 40000, icon: '🚀', minTier: 40 },
+    ORBULON_UFO: { id: 'orbulon_ufo', name: 'Orbulon Abduction', description: 'Beamed directly into your house.', deliveryTime: 'Instant', cost: 45000, icon: '🛸', minTier: 41 },
+    BOWSER_AIRSHIP: { id: 'bowser_airship', name: 'Doomship Armada', description: 'Massive fleet delivery. Intimidating.', deliveryTime: '1 Hour', cost: 50000, icon: '⚓', minTier: 42 },
+    WARIO_BIKE: { id: 'wario_bike', name: 'Wario Bike Chopper', description: 'VROOM! Smells like gas and garlic.', deliveryTime: 'FAST!', cost: 60000, icon: '🏍️', minTier: 43 },
+    ASHLEY_HEX: { id: 'ashley_hex', name: 'Ashley\'s Hex', description: 'Dark magic summoning ritual.', deliveryTime: 'Immediate', cost: 70000, icon: '🕯️', minTier: 44 },
+
+    // --- TIER 5: THE "GALACTIC & GOD" TIER ---
+    RAINBOW_ROAD: { id: 'rainbow_road', name: 'Rainbow Road Rush', description: 'From space via neon track.', deliveryTime: 'Light Speed', cost: 80000, icon: '🌈', minTier: 45 },
+    STAR_POWER: { id: 'star_power', name: 'Invincibility Run', description: 'Courier is invincible and very fast.', deliveryTime: '10 Seconds', cost: 90000, icon: '⭐', minTier: 46 },
+    ROSALINA_OBSERVATORY: { id: 'rosalina_observatory', name: 'Comet Observatory', description: 'Intergalactic delivery service.', deliveryTime: 'Space-Time Bend', cost: 100000, icon: '💫', minTier: 47 },
+    LAUNCH_STAR: { id: 'launch_star', name: 'Launch Star Shot', description: 'Shot through gravity wells.', deliveryTime: 'Instant', cost: 120000, icon: '☄️', minTier: 48 },
+    ODYSSEY_SHIP: { id: 'odyssey_ship', name: 'The Odyssey', description: 'Powered by Power Moons.', deliveryTime: 'Anywhere', cost: 150000, icon: '🎩', minTier: 49 },
+    GOLDEN_PIPE: { id: 'golden_pipe', name: 'Golden Pipe', description: 'Reserved for the richest VIPs.', deliveryTime: 'Yesterday', cost: 250000, icon: '🔱', minTier: 50 },
+    GENIE_LAMP: { id: 'genie_lamp', name: 'Genie Wish', description: 'You wish for it, it appears.', deliveryTime: 'Magic', cost: 500000, icon: '🧞', minTier: 50 },
+    WARIO_MAN: { id: 'wario_man', name: 'Wario-Man Flight', description: 'Super Wario delivers it personally.', deliveryTime: 'Garlic Speed', cost: 1000000, icon: '🦸', minTier: 50 },
+    TREASURE_TELEPORT: { id: 'treasure_teleport', name: 'Greed Teleport', description: 'Your money disappears, item appears.', deliveryTime: '0.00s', cost: 5000000, icon: '💠', minTier: 50 },
+    WARIO_GOD_HAND: { id: 'wario_god_hand', name: 'Hand of Wario', description: 'Wario reaches through the screen and hands it to you.', deliveryTime: 'NOW!', cost: 10000000, icon: '🤚', minTier: 50 }
 };
+
+// Helper to determine which shipping methods a player can see
+export function getAvailableShipping(membership) {
+    if (!membership) return ['dumpster_roll'];
+    
+    // Players can see shipping methods up to their tier level + 5 (preview next tier)
+    // But they can only select ones up to their level (logic handled in renderCart)
+    const playerTierIndex = membership.index || 0;
+    
+    return Object.values(SHIPPING_METHODS)
+        .filter(method => (method.minTier || 0) <= playerTierIndex)
+        .map(method => method.id);
+}
+
+// Helper to determine which shipping methods are FREE
+export function getFreeShipping(membership) {
+    if (!membership) return [];
+    
+    const index = membership.index || 0;
+    const freeMethods = [];
+    
+    // Garbage tier is always free
+    freeMethods.push('dumpster_roll');
+    
+    // As you level up, cheaper methods become free
+    // Logic: If your tier is 10 levels higher than the method's minTier, it's free
+    Object.values(SHIPPING_METHODS).forEach(method => {
+        if (index >= (method.minTier + 10)) {
+            freeMethods.push(method.id);
+        }
+    });
+    
+    // Specific tier perks overrides
+    if (index >= 20) freeMethods.push('parakarry_post', 'koopa_shell');
+    if (index >= 30) freeMethods.push('warp_pipe', 'lakitu_cloud');
+    if (index >= 40) freeMethods.push('koopa_troop_airlift', 'bullet_bill');
+    if (index >= 50) { // Wario's Inner Circle gets almost everything free
+        return Object.values(SHIPPING_METHODS).map(m => m.id);
+    }
+    
+    return freeMethods;
+}
+
 
 export const VENDORS = {
     'toad_town_market': {
@@ -25573,6 +25472,7 @@ export const SHOP_ITEMS = {
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5000,
     stock: 12,
+    icon: '🥩',
     rarity: 'uncommon',
     effects: [
         "Chops scavenged goods; +1 to Deception with 'stolen' food",

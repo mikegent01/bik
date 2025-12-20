@@ -24,15 +24,10 @@ import {
     renderLevelRequirement, 
     calculateDurability, 
     addOwnedItem, 
-    injectDurabilityStyles   
-} from './shop-durability.js';    
-
-import {BASE_MEMBERSHIP_TIERS,getAvailableShipping ,SHOP_CATEGORIES,SHOP_ITEMS,VENDORS ,getFreeShipping  ,getNextTier,getRequiredTierForItem  ,getAllShopItems,getShopStats,    MEMBERSHIP_PRICES,
-    canBuyMembershipTier,
-    getMembershipPrice,
-    calculateFactionBonuses ,
-    getFactionUpgrades ,
-    getMembershipLevelRequirement  } from './shop-data.js' 
+    injectDurabilityStyles    
+} from './shop-durability.js';     
+ 
+import {calculateFactionBonuses ,SHIPPING_METHODS,getFactionUpgrades ,BASE_MEMBERSHIP_TIERS,getAvailableShipping ,SHOP_CATEGORIES,SHOP_ITEMS,VENDORS ,getFreeShipping  ,getNextTier,getRequiredTierForItem  ,getAllShopItems,getShopStats,  } from './shop-data.js' 
 // === NEW: Per-player membership tracking ===
 let searchQuery = ''; 
 let showAllItems = false;
@@ -872,6 +867,8 @@ function renderShopHeader() {
         });
     });
 }
+
+// Helper to format player key into display name
 function renderMembershipTab() {
     const container = document.getElementById('membership-content');
     if (!container) return;
@@ -881,7 +878,6 @@ function renderMembershipTab() {
     const playerSpent = getPlayerLifetimeSpent(activePlayer);
     const nextTier = getNextTier(membership.index);
     const party = getPartyMembers();
-    const status = getXPStatus();
     
     const currentThreshold = membership.threshold || 0;
     const nextThreshold = nextTier?.threshold || currentThreshold + 1;
@@ -890,198 +886,63 @@ function renderMembershipTab() {
     const progressPercent = Math.min(100, Math.floor((progress / needed) * 100));
     const xpToNext = Math.max(0, nextThreshold - playerSpent);
     
+    // Generate preview of next few tiers
+    const upcomingTiers = [];
+    for (let i = membership.index + 1; i <= membership.index + 5 && i < 50; i++) {
+        upcomingTiers.push(generateTier(i));
+    }
+    
     const isGeneric = activePlayer === 'generic';
     
     container.innerHTML = `
-        <div class="membership-page">
-            <!-- Hero Section -->
-            <div class="membership-hero-section">
-                <div class="membership-hero-card" style="--tier-color: ${membership.color || '#cd7f32'}">
-                    <div class="hero-background"></div>
-                    <div class="hero-content">
-                        <div class="hero-player-info">
-                            <span class="hero-player-label">${isGeneric ? 'Guest Account' : 'Current Member'}</span>
-                            <span class="hero-player-name">${formatPlayerName(activePlayer)}</span>
-                        </div>
-                        
-                        <div class="hero-tier-display">
-                            <span class="hero-tier-icon">${membership.icon || '🥉'}</span>
-                            <h1 class="hero-tier-name">${membership.name || 'Bronze Bargain Hunter'}</h1>
-                        </div>
-                        
-                        <div class="hero-stats-row">
-                            <div class="hero-stat">
-                                <span class="hero-stat-value">${playerSpent.toLocaleString()}</span>
-                                <span class="hero-stat-label">XP Spent</span>
-                            </div>
-                            <div class="hero-stat highlight">
-                                <span class="hero-stat-value">${membership.discount || 0}%</span>
-                                <span class="hero-stat-label">Discount</span>
-                            </div>
-                            <div class="hero-stat">
-                                <span class="hero-stat-value">${status.available.toLocaleString()}</span>
-                                <span class="hero-stat-label">Available XP</span>
-                            </div>
-                            <div class="hero-stat">
-                                <span class="hero-stat-value">Lv ${membership.maxLevel || 6}</span>
-                                <span class="hero-stat-label">Max Items</span>
-                            </div>
-                        </div>
-                        
-                        ${nextTier ? `
-                            <div class="hero-progress-section">
-                                <div class="progress-label">
-                                    <span>Progress to ${nextTier.icon} ${nextTier.name}</span>
-                                    <span>${progressPercent}%</span>
-                                </div>
-                                <div class="hero-progress-bar">
-                                    <div class="hero-progress-fill" style="width: ${progressPercent}%; background: ${nextTier.color}"></div>
-                                </div>
-                                <div class="progress-details">
-                                    <span>${playerSpent.toLocaleString()} / ${nextThreshold.toLocaleString()} XP</span>
-                                    <span>${xpToNext.toLocaleString()} XP to go</span>
-                                </div>
-                            </div>
-                        ` : `
-                            <div class="hero-maxed-banner">
-                                <span>👑</span>
-                                <span>MAXIMUM TIER ACHIEVED</span>
-                                <span>👑</span>
-                            </div>
-                        `}
+        <div class="membership-tab-content">
+            <!-- Active Player Section -->
+            <div class="membership-hero" style="--tier-color: ${membership.color || '#cd7f32'}">
+                <div class="membership-player-name">
+                    ${isGeneric ? '👤 Guest Account' : formatPlayerName(activePlayer)}
+                </div>
+                <div class="membership-hero-icon">${membership.icon || '🥉'}</div>
+                <h2>${membership.name || 'Bronze Bargain Hunter'}</h2>
+                
+                <div class="membership-stats">
+                    <div class="membership-stat">
+                        <span class="stat-value">${playerSpent.toLocaleString()}</span>
+                        <span class="stat-label">XP Lifetime Spent</span>
+                    </div>
+                    <div class="membership-stat">
+                        <span class="stat-value">${membership.discount || 0}%</span>
+                        <span class="stat-label">Discount</span>
+                    </div>
+                    <div class="membership-stat">
+                        <span class="stat-value">${membership.maxPrice === Infinity ? '∞' : (membership.maxPrice || 50000).toLocaleString()}</span>
+                        <span class="stat-label">Max Item Price</span>
+                    </div>
+                    <div class="membership-stat">
+                        <span class="stat-value">Lv ${membership.maxLevel || 6}</span>
+                        <span class="stat-label">Max Item Level</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Wario's Sales Pitch -->
-            <div class="wario-pitch-section">
-                <div class="wario-avatar">💰</div>
-                <div class="wario-speech-bubble">
-                    <p class="wario-quote">"${getWarioMembershipQuote(membership)}"</p>
-                    <p class="wario-subtext">- Wario, Warehouse Proprietor</p>
-                </div>
-            </div>
-            
-            <!-- Buy Membership Section -->
-            <div class="membership-shop-section">
-                <div class="section-header">
-                    <h2>🛒 Upgrade Your Membership</h2>
-                    <p class="section-subtitle">Why wait? Pay Wario directly and skip the grind!</p>
-                </div>
                 
-                <div class="membership-tiers-grid">
-                    ${BASE_MEMBERSHIP_TIERS.map((tier, idx) => {
-                        const price = getMembershipPrice(idx);
-                        const levelReq = getMembershipLevelRequirement(idx);
-                        const buyCheck = canBuyMembershipTier(idx, membership.index, PARTY_MAX_LEVEL, status.available);
-                        const isOwned = membership.index >= idx;
-                        const isCurrent = membership.index === idx;
-                        const isNext = membership.index + 1 === idx;
-                        
-                        return `
-                            <div class="membership-tier-card ${isOwned ? 'owned' : ''} ${isCurrent ? 'current' : ''} ${isNext ? 'next' : ''} ${buyCheck.canBuy ? 'can-buy' : ''}"
-                                 style="--tier-color: ${tier.color}"
-                                 data-tier-index="${idx}">
-                                
-                                <div class="tier-card-header">
-                                    <span class="tier-card-icon">${tier.icon}</span>
-                                    <div class="tier-card-title">
-                                        <h3>${tier.name}</h3>
-                                        ${isCurrent ? '<span class="current-tag">CURRENT</span>' : ''}
-                                        ${isOwned && !isCurrent ? '<span class="owned-tag">✓ OWNED</span>' : ''}
-                                    </div>
-                                </div>
-                                
-                                <div class="tier-card-benefits">
-                                    <div class="benefit-row">
-                                        <span class="benefit-icon">💸</span>
-                                        <span class="benefit-text">${tier.discount}% discount on all items</span>
-                                    </div>
-                                    <div class="benefit-row">
-                                        <span class="benefit-icon">💰</span>
-                                        <span class="benefit-text">Items up to ${tier.maxPrice === Infinity ? '∞' : tier.maxPrice.toLocaleString()} XP</span>
-                                    </div>
-                                    <div class="benefit-row">
-                                        <span class="benefit-icon">⭐</span>
-                                        <span class="benefit-text">Item level cap: ${tier.maxLevel}</span>
-                                    </div>
-                                    ${tier.perks.slice(0, 2).map(perk => `
-                                        <div class="benefit-row">
-                                            <span class="benefit-icon">✦</span>
-                                            <span class="benefit-text">${perk}</span>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                
-                                <div class="tier-card-footer">
-                                    ${isOwned ? `
-                                        <div class="tier-owned-badge">
-                                            <span>✅ Unlocked</span>
-                                        </div>
-                                    ` : `
-                                        <div class="tier-price-section">
-                                            <div class="tier-price">
-                                                <span class="price-amount">${price.toLocaleString()}</span>
-                                                <span class="price-label">XP</span>
-                                            </div>
-                                            <div class="tier-requirements">
-                                                <span class="req-level ${PARTY_MAX_LEVEL >= levelReq ? 'met' : 'unmet'}">
-                                                    ${PARTY_MAX_LEVEL >= levelReq ? '✓' : '🔒'} Level ${levelReq}+
-                                                </span>
-                                            </div>
-                                        </div>
-                                        
-                                        <button class="buy-membership-btn ${buyCheck.canBuy ? 'available' : 'locked'}"
-                                                data-tier-index="${idx}"
-                                                ${buyCheck.canBuy ? '' : 'disabled'}>
-                                            ${buyCheck.canBuy ? `
-                                                <span class="btn-icon">💰</span>
-                                                <span class="btn-text">Buy for ${price.toLocaleString()} XP</span>
-                                            ` : `
-                                                <span class="btn-icon">🔒</span>
-                                                <span class="btn-text">${buyCheck.reason}</span>
-                                            `}
-                                        </button>
-                                    `}
-                                </div>
-                                
-                                ${tier.warioNote ? `
-                                    <div class="tier-wario-note">
-                                        <span class="wario-mini">😈</span>
-                                        <span>"${tier.warioNote}"</span>
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-            </div>
-            
-            <!-- Current Perks Section -->
-            <div class="perks-section">
-                <div class="section-header">
-                    <h2>🎁 Your Active Perks</h2>
-                </div>
-                
-                <div class="perks-showcase">
-                    ${(membership.perks || ['Access to basic items', 'Standard shipping only']).map((perk, i) => `
-                        <div class="perk-card" style="animation-delay: ${i * 0.1}s">
-                            <span class="perk-icon">✅</span>
-                            <span class="perk-text">${perk}</span>
-                        </div>
-                    `).join('')}
+                <div class="tier-progress-large">
+                    <div class="progress-header">
+                        <span>Progress to ${nextTier?.icon || '🥈'} ${nextTier?.name || 'Silver'}</span>
+                        <span>${progressPercent}%</span>
+                    </div>
+                    <div class="progress-bar-large">
+                        <div class="progress-fill" style="width: ${progressPercent}%; background: ${nextTier?.color || '#c0c0c0'}"></div>
+                    </div>
+                    <div class="progress-footer">
+                        <span>${playerSpent.toLocaleString()} / ${nextThreshold.toLocaleString()} XP</span>
+                        <span>${xpToNext.toLocaleString()} XP to go</span>
+                    </div>
                 </div>
             </div>
             
             ${!isGeneric ? `
-                <!-- Party Overview Section -->
-                <div class="party-section">
-                    <div class="section-header">
-                        <h2>👥 Party Memberships</h2>
-                        <p class="section-subtitle">See how your party stacks up</p>
-                    </div>
-                    
-                    <div class="party-cards-grid">
+                <!-- All Party Members -->
+                <div class="membership-section">
+                    <h3>👥 Party Memberships</h3>
+                    <div class="party-memberships-grid">
                         ${party.map(playerKey => {
                             const pMem = playerMemberships[playerKey] || { lifetimeSpent: 0 };
                             const pTier = pMem.tier || getTierFromXP(0);
@@ -1097,31 +958,20 @@ function renderMembershipTab() {
                             return `
                                 <div class="party-member-card ${isActive ? 'active' : ''}" 
                                      style="--tier-color: ${pTier.color || '#cd7f32'}">
-                                    <div class="party-card-header">
-                                        <span class="party-tier-icon">${pTier.icon || '🥉'}</span>
-                                        <div class="party-member-info">
-                                            <span class="party-member-name">${formatPlayerName(playerKey)}</span>
-                                            <span class="party-member-tier">${pTier.name || 'Bronze'}</span>
+                                    <div class="member-header">
+                                        <span class="member-icon">${pTier.icon || '🥉'}</span>
+                                        <div class="member-info">
+                                            <span class="member-name">${formatPlayerName(playerKey)}</span>
+                                            <span class="member-tier">${pTier.name || 'Bronze'}</span>
                                         </div>
-                                        ${isActive ? '<span class="you-badge">YOU</span>' : ''}
+                                        ${isActive ? '<span class="active-badge">YOU</span>' : ''}
                                     </div>
-                                    
-                                    <div class="party-card-stats">
-                                        <div class="party-stat">
-                                            <span class="stat-value">${pSpent.toLocaleString()}</span>
-                                            <span class="stat-label">XP Spent</span>
-                                        </div>
-                                        <div class="party-stat">
-                                            <span class="stat-value">${pTier.discount || 0}%</span>
-                                            <span class="stat-label">Discount</span>
-                                        </div>
+                                    <div class="member-stats">
+                                        <span>${pSpent.toLocaleString()} XP spent</span>
+                                        <span>${pTier.discount || 0}% discount</span>
                                     </div>
-                                    
-                                    <div class="party-progress">
-                                        <div class="party-progress-bar">
-                                            <div class="party-progress-fill" style="width: ${pProgress}%"></div>
-                                        </div>
-                                        <span class="party-progress-text">${pProgress}% to next tier</span>
+                                    <div class="member-progress">
+                                        <div class="member-progress-bar" style="width: ${pProgress}%"></div>
                                     </div>
                                 </div>
                             `;
@@ -1130,104 +980,104 @@ function renderMembershipTab() {
                 </div>
             ` : ''}
             
-            <!-- FAQ Section -->
-            <div class="faq-section">
-                <div class="section-header">
-                    <h2>❓ Frequently Asked Questions</h2>
+            <!-- Your Perks -->
+            <div class="membership-section">
+                <h3>🎁 ${isGeneric ? 'Current' : formatPlayerName(activePlayer) + "'s"} Perks</h3>
+                <div class="perks-grid">
+                    ${(membership.perks || ['Access to basic items', 'Standard shipping only']).map(perk => `
+                        <div class="perk-item active">
+                            <span class="perk-check">✅</span>
+                            <span class="perk-text">${perk}</span>
+                        </div>
+                    `).join('')}
                 </div>
-                
-                <div class="faq-grid">
-                    <div class="faq-card">
-                        <h4>How do I rank up?</h4>
-                        <p>Spend XP on items or pay Wario directly to upgrade! Every approved purchase counts toward your tier.</p>
+                ${membership.warioNote ? `
+                    <div class="wario-note">
+                        <span class="wario-face">😈</span>
+                        <p>"${membership.warioNote}"</p>
                     </div>
-                    <div class="faq-card">
-                        <h4>Is this per-player?</h4>
-                        <p>Yes! Each party member has their own membership tier and benefits.</p>
-                    </div>
-                    <div class="faq-card">
-                        <h4>Can I skip tiers?</h4>
-                        <p>Nope! Wario insists you buy them in order. "Gotta milk every coin!" he says.</p>
-                    </div>
-                    <div class="faq-card">
-                        <h4>What about refunds?</h4>
-                        <p>WAHAHA! Wario doesn't do refunds. All sales are final!</p>
-                    </div>
-                </div>
-                
-                <div class="wario-final-note">
-                    <span class="wario-big">😈</span>
-                    <div class="final-note-content">
-                        <h4>Wario's Guarantee</h4>
-                        <p>"No matter how much you spend, I'M still the richest! But hey, at least you get discounts! WAH HA HA!"</p>
-                    </div>
+                ` : ''}
+            </div>
+            
+            <!-- Base Tiers -->
+            <div class="membership-section">
+                <h3>📊 Named Tiers</h3>
+                <div class="tiers-grid">
+                    ${BASE_MEMBERSHIP_TIERS.map((tier, idx) => {
+                        const isCurrent = membership.index === idx;
+                        const isUnlocked = membership.index >= idx;
+                        
+                        return `
+                            <div class="tier-card ${isCurrent ? 'current' : ''} ${isUnlocked ? 'unlocked' : 'locked'}"
+                                 style="--tier-color: ${tier.color}">
+                                <div class="tier-header">
+                                    <span class="tier-icon">${tier.icon}</span>
+                                    <span class="tier-name">${tier.name}</span>
+                                    ${isCurrent ? '<span class="current-badge">YOU</span>' : ''}
+                                    ${!isUnlocked ? '<span class="locked-badge">🔒</span>' : ''}
+                                </div>
+                                <div class="tier-requirements">
+                                    <span>${tier.threshold.toLocaleString()} XP spent</span>
+                                </div>
+                                <div class="tier-limits">
+                                    <div class="limit-item">
+                                        <span class="limit-label">Discount:</span>
+                                        <span class="limit-value">${tier.discount}%</span>
+                                    </div>
+                                    <div class="limit-item">
+                                        <span class="limit-label">Max Price:</span>
+                                        <span class="limit-value">${tier.maxPrice === Infinity ? '∞' : tier.maxPrice.toLocaleString()}</span>
+                                    </div>
+                                    <div class="limit-item">
+                                        <span class="limit-label">Max Level:</span>
+                                        <span class="limit-value">${tier.maxLevel}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
             </div>
+            
+            <!-- Upcoming Letter Tiers (if VIP+) -->
+            ${membership.index >= 4 ? `
+                <div class="membership-section">
+                    <h3>🔤 Upcoming Letter Tiers</h3>
+                    <p class="tier-info-text">After Wario's Inner Circle, tiers continue infinitely: A, B, C... Z, AA, AB...</p>
+                    <div class="tiers-grid letter-tiers">
+                        ${upcomingTiers.map(tier => `
+                            <div class="tier-card upcoming" style="--tier-color: ${tier.color}">
+                                <div class="tier-header">
+                                    <span class="tier-icon">${tier.icon}</span>
+                                    <span class="tier-name">${tier.name}</span>
+                                </div>
+                                <div class="tier-requirements">
+                                    <span>${tier.threshold.toLocaleString()} XP</span>
+                                </div>
+                                <div class="tier-limits">
+                                    <span>Discount: ${tier.discount}%</span>
+                                    <span>Max Lv: ${tier.maxLevel}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p class="wario-warning-text">
+                        ⚠️ Wario's Warning: "Discount caps at 25%! I ALWAYS make money! WAH HA HA!"
+                    </p>
+                </div>
+            ` : `
+                <div class="membership-section">
+                    <h3>🔮 Beyond Wario's Inner Circle</h3>
+                    <p class="tier-info-text">
+                        Reach 1,000,000 XP spent to unlock infinite letter tiers!
+                    </p>
+                </div>
+            `}
         </div>
     `;
-    
-    // Add event listeners for buy buttons
-    container.querySelectorAll('.buy-membership-btn.available').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tierIndex = parseInt(btn.dataset.tierIndex);
-            handleBuyMembership(tierIndex);
-        });
-    });
-}
-function getWarioMembershipQuote(membership) {
-    const quotes = {
-        bronze: "You're at the bottom, kid! But don't worry - Wario's got PLENTY of ways for you to spend your coins climbing up! WAH HA HA!",
-        silver: "Silver, eh? You're getting somewhere! But imagine the DISCOUNTS at Gold... wouldn't that be nice?",
-        gold: "GOLD! Now we're talking! You've got good taste - almost as good as Wario's!",
-        platinum: "Platinum Partner! Wario's impressed! But you know what's better than Platinum? MY INNER CIRCLE!",
-        wario_vip: "Welcome to the INNER CIRCLE! You're basically family now! ...Family that pays full price, but still!"
-    };
-    
-    if (membership.isLetterTier) {
-        return "You've gone BEYOND! Wario respects the grind! But he respects your MONEY more! WAH!";
-    }
-    
-    return quotes[membership.id] || quotes.bronze;
 }
 
-// Handle membership purchase
-function handleBuyMembership(tierIndex) {
-    const tier = generateTier(tierIndex);
-    const price = getMembershipPrice(tierIndex);
-    const status = getXPStatus();
-    const activePlayer = getActivePlayer();
-    const currentMembership = getActiveMembership();
-    
-    // Double-check they can buy
-    const buyCheck = canBuyMembershipTier(tierIndex, currentMembership.index, PARTY_MAX_LEVEL, status.available);
-    if (!buyCheck.canBuy) {
-        showNotification(buyCheck.reason, 'error');
-        return;
-    }
-    
-    // Confirm purchase
-    if (!confirm(`Upgrade to ${tier.icon} ${tier.name} for ${price.toLocaleString()} XP?\n\nThis will give you:\n• ${tier.discount}% discount on all items\n• Access to items up to ${tier.maxPrice === Infinity ? 'unlimited' : tier.maxPrice.toLocaleString()} XP\n• Item level cap of ${tier.maxLevel}`)) {
-        return;
-    }
-    
-    // Process purchase
-    // Add spending to player
-    const result = addPlayerSpending(activePlayer, price);
-    
-    // Force upgrade tier
-    if (playerMemberships[activePlayer]) {
-        playerMemberships[activePlayer].tier = tier;
-        savePlayerMemberships();
-    }
-    
-    // Show success
-    playSound('confirm.mp3');
-    showNotification(`🎉 Congratulations! You're now a ${tier.icon} ${tier.name}!`, 'success');
-    
-    // Re-render everything
-    renderShopHeader();
-    renderMembershipTab();
-}
+
 // === Update completePurchase to track per-player spending ===
 function completePurchase() {
     if (cart.length === 0) return;
@@ -3283,6 +3133,7 @@ function cancelOrder(orderId) {
     renderCart();
 }
 
+// ... [Previous parts of shop.js you provided remain the same] ...
 
 function showReceipt(order, remainingXP) {
     const modal = document.getElementById('receipt-modal');
@@ -3332,60 +3183,92 @@ function showReceipt(order, remainingXP) {
                                 </span>
                             </div>
                         </div>
-                        <span class="receipt-item-price">${item.totalPrice.toLocaleString()} XP</span>
+                        <div class="receipt-item-price">
+                            ${item.totalPrice.toLocaleString()} XP
+                        </div>
                     </div>
                 `).join('')}
             </div>
             
-            <div class="receipt-shipping">
-                <span>📬 ${order.shippingMethod}</span>
-                <span>${order.shippingCost === 0 ? 'FREE' : order.shippingCost.toLocaleString() + ' XP'}</span>
-            </div>
-            
             <div class="receipt-summary">
-                <div class="receipt-summary-row">
-                    <span>Items:</span>
-                    <span>${order.itemCount}</span>
-                </div>
-                <div class="receipt-summary-row">
+                <div class="summary-row">
                     <span>Subtotal:</span>
                     <span>${order.subtotal.toLocaleString()} XP</span>
                 </div>
-            </div>
-            
-            <div class="receipt-total">
-                <span>TOTAL</span>
-                <span>${order.total.toLocaleString()} XP</span>
-            </div>
-            
-            <div class="receipt-balance">
-                <div class="receipt-balance-label">Remaining Balance</div>
-                <div class="receipt-balance-value">${remainingXP.toLocaleString()} XP</div>
+                ${order.membershipDiscount > 0 ? `
+                    <div class="summary-row discount">
+                        <span>${order.membershipTier} Discount:</span>
+                        <span>-${order.membershipDiscount}%</span>
+                    </div>
+                ` : ''}
+                <div class="summary-row">
+                    <span>Shipping (${order.shippingMethod}):</span>
+                    <span>${order.shippingCost === 0 ? 'FREE' : order.shippingCost.toLocaleString() + ' XP'}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>TOTAL PAID:</span>
+                    <span>${order.total.toLocaleString()} XP</span>
+                </div>
             </div>
             
             <div class="receipt-footer">
-                <p><strong>⏳ ORDER STATUS: PENDING APPROVAL</strong></p>
-                <p>Your order has been submitted and is awaiting</p>
-                <p>manual approval by Wario himself.</p>
-                <p style="margin-top: 8px; font-size: 0.9em;">You can cancel this order from your cart.</p>
-                <div class="receipt-barcode">||||| ${order.orderId} |||||</div>
+                <p>Remaining Balance: ${remainingXP.toLocaleString()} XP</p>
+                <p class="wario-sig">"NO REFUNDS! WAH HA HA!" - Wario</p>
+            </div>
+            
+            <div class="receipt-actions">
+                <button class="close-receipt-btn">Close Receipt</button>
+                <button class="print-receipt-btn">🖨️ Print</button>
             </div>
         </div>
-        <button class="receipt-close-btn">Close Receipt</button>
     `;
     
     modal.style.display = 'flex';
     
-    content.querySelector('.receipt-close-btn').addEventListener('click', () => {
+    // Modal actions
+    const closeBtn = content.querySelector('.close-receipt-btn');
+    closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
+        playSound('click.mp3');
     });
     
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
+    const printBtn = content.querySelector('.print-receipt-btn');
+    printBtn.addEventListener('click', () => {
+        window.print();
     });
+    
+    // Close on click outside
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    };
 }
+
+// Helper function for Letter Tiers (A, B, C... Z, AA...)
+function getLetterTierName(index) {
+    let name = '';
+    // 0 -> A, 25 -> Z, 26 -> AA
+    let n = index;
+    
+    do {
+        const remainder = n % 26;
+        name = String.fromCharCode(65 + remainder) + name;
+        n = Math.floor(n / 26) - 1;
+    } while (n >= 0);
+    
+    return name;
+}
+
+
+
+// Export functions that might be needed by other modules
+export {
+    init,
+    completePurchase,
+    cancelOrder,
+    toggleCartItem,
+    showReceipt,
+    getLetterTierName
+};
 // ============================================
 // === FACTION TAB ===
 // ============================================

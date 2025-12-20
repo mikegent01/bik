@@ -1994,11 +1994,29 @@
     border-color: var(--wario-purple-light);
 }
 
-.shop-item.disabled { 
-    pointer-events: none;
-    filter: grayscale(50%);
+.shop-item.disabled {
+    /* Change or remove the grayscale and opacity */
+    filter: none !important; 
+    opacity: 1 !important;
+    pointer-events: auto; /* Allow people to still hover/click if desired */
+}
+.time-lock-overlay {
+    display: none !important;
 }
 
+/* 3. Ensure Night Special items don't have a dark background */
+.shop-item.night-special {
+    /* If they look too dark, ensure the background is bright */
+    background: var(--wario-surface) !important; 
+    border: 2px solid #9b59b6;
+    box-shadow: 0 0 15px rgba(155, 89, 182, 0.4);
+}
+
+/* 4. Fix the Night Mode Header if it's making the whole page feel too dark */
+.shop-header.night-mode {
+    /* Use a slightly lighter gradient so it's not pitch black */
+    background: linear-gradient(180deg, #2d1b4e 0%, #1a0f2e 100%) !important;
+}
 .shop-item.in-cart {
     border-color: var(--wario-green);
     box-shadow: 0 0 20px rgba(50, 205, 50, 0.2);
