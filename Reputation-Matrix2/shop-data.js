@@ -22660,7 +22660,7 @@ export const SHOP_ITEMS = {
 },
 'animatopia_cartoon_anvil_premium': {
     id: 'animatopia_cartoon_anvil_premium',
-    name: "Animatopia Cartoon Anvil (Premium Joke)",
+    name: "Animatopia Cartoon Anvil ",
     description: "Drop on foes for Looney Tunes effect.",
     category: SHOP_CATEGORIES.premium,
     price: 11500,
@@ -22850,7 +22850,7 @@ export const SHOP_ITEMS = {
 },
 'monsters_grognak_style_axe_premium': {
     id: 'monsters_grognak_style_axe_premium',
-    name: "Monsters Grognak-Style Axe (Premium Joke)",
+    name: "Monsters Grognak-Style Axe ",
     description: "Barbarian axe with comic book flair.",
     category: SHOP_CATEGORIES.premium,
     price: 17500,
@@ -22926,7 +22926,7 @@ export const SHOP_ITEMS = {
 },
 'goodstyle_hair_styling_premium': {
     id: 'goodstyle_hair_styling_premium',
-    name: "Goodstyle Hair Styling (Premium Joke)",
+    name: "Goodstyle Hair Styling ",
     description: "Fancy do for fabulous flair.",
     category: SHOP_CATEGORIES.premium,
     price: 9500,
@@ -23230,7 +23230,7 @@ export const SHOP_ITEMS = {
 },
 'fawfuls_furious_fly_goggle_premium': {
     id: 'fawfuls_furious_fly_goggle_premium',
-    name: "Fawful's Furious Fly Goggle (Premium Joke)",
+    name: "Fawful's Furious Fly Goggle ",
     description: "See flies... or fly-like.",
     category: SHOP_CATEGORIES.premium,
     price: 10500,
@@ -23306,7 +23306,7 @@ export const SHOP_ITEMS = {
 },
 'yoshi_clans_egg_toss_game_premium': {
     id: 'yoshi_clans_egg_toss_game_premium',
-    name: "Yoshi Clans Egg Toss Game (Premium Joke)",
+    name: "Yoshi Clans Egg Toss Game ",
     description: "Fun training for accuracy.",
     category: SHOP_CATEGORIES.premium,
     price: 12500,
@@ -23629,7 +23629,7 @@ export const SHOP_ITEMS = {
 },
 'abydos_high_school_uniform_premium': {
     id: 'abydos_high_school_uniform_premium',
-    name: "Abydos High School Uniform (Premium Joke)",
+    name: "Abydos High School Uniform ",
     description: "Look studious for discounts.",
     category: SHOP_CATEGORIES.premium,
     price: 11500,
@@ -23705,7 +23705,7 @@ export const SHOP_ITEMS = {
 },
 'connectopia_virtual_reality_helmet_premium': {
     id: 'connectopia_virtual_reality_helmet_premium',
-    name: "Connectopia Virtual Reality Helmet (Premium Joke)",
+    name: "Connectopia Virtual Reality Helmet ",
     description: "Train in simulated worlds.",
     category: SHOP_CATEGORIES.premium,
     price: 14000,
@@ -23819,7 +23819,7 @@ export const SHOP_ITEMS = {
 },
 'bandits_highway_ambush_kit_premium': {
     id: 'bandits_highway_ambush_kit_premium',
-    name: "Bandits Highway Ambush Kit (Premium Joke)",
+    name: "Bandits Highway Ambush Kit ",
     description: "Set traps for travelers.",
     category: SHOP_CATEGORIES.premium,
     price: 9500,
@@ -23914,7 +23914,7 @@ export const SHOP_ITEMS = {
 },
 'team_rocket_balloon_escape_premium': {
     id: 'team_rocket_balloon_escape_premium',
-    name: "Team Rocket Balloon Escape (Premium Joke)",
+    name: "Team Rocket Balloon Escape ",
     description: "Quick getaway device.",
     category: SHOP_CATEGORIES.premium,
     price: 12500,
