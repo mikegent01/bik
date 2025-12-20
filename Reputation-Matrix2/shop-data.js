@@ -18115,7 +18115,3124 @@ export const SHOP_ITEMS = {
     // ============================================
     // === MORE JUNK TO ROUND OUT TO 100 ===
     // ============================================
+'green_paint_of_envious_imitation': {
+    id: 'green_paint_of_envious_imitation',
+    name: "Green Paint of Envious Imitation",
+    description: "Paint yourself to blend in, but only with things you want.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🎨',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: Paint yourself to match one surface perfectly for 1 hour (advantage on Stealth)",
+        "You become jealous of that surface's stability: disadvantage on saves vs. charm",
+        "Paint smells like fresh-cut grass and attracts herbivores",
+        "Made by: Envious Imps Paint Co."
+    ],
+    vendor: 'greenskins_paint_dept',
+    shippedBy: 'Paint Tube',
+    levelRequirement: 5
+},
+'orange_paint_of_aggressive_visibility': {
+    id: 'orange_paint_of_aggressive_visibility',
+    name: "Orange Paint of Aggressive Visibility",
+    description: "Be seen. Be very seen.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🎨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Paint yourself neon orange: enemies have disadvantage on attacks against you (too bright to look at)",
+        "You have disadvantage on Stealth and are visible from 1 mile away",
+        "Construction workers instinctively salute you",
+        "Made by: High Visibility Paint Co."
+    ],
+    vendor: 'team_magma_supply',
+    shippedBy: 'Safety Cone Delivery',
+    levelRequirement: 5
+},
+'purple_paint_of_royal_delusion': {
+    id: 'purple_paint_of_royal_delusion',
+    name: "Purple Paint of Royal Delusion",
+    description: "Feel like royalty, even if nobody else agrees.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🎨',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Paint yourself purple: +1 Charisma, but you must refer to yourself in the third person",
+        "Commoners are annoyed by you (disadvantage on Persuasion with them)",
+        "You gain a fake crown that appears over your head (cosmetic, but shiny)",
+        "Made by: Royal Pretenders Paint Guild"
+    ],
+    vendor: 'kingdom_gondor_supply',
+    shippedBy: 'Velvet Pillow',
+    levelRequirement: 6
+},
+'pink_paint_of_agreeable_friendship': {
+    id: 'pink_paint_of_agreeable_friendship',
+    name: "Pink Paint of Agreeable Friendship",
+    description: "Everyone likes you, but it's weird.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🎨',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Paint yourself pink: advantage on Persuasion with friendly creatures",
+        "Hostile creatures find you unsettling (disadvantage on Intimidation)",
+        "You smell like bubblegum and feel vaguely sticky",
+        "Made by: Friendship Paint Co."
+    ],
+    vendor: 'equestrian_paint_shop',
+    shippedBy: 'Glitter Bomb',
+    levelRequirement: 5
+},
+'brown_paint_of_earthly_camouflage': {
+    id: 'brown_paint_of_earthly_camouflage',
+    name: "Brown Paint of Earthly Camouflage",
+    description: "Blend with dirt, rocks, and disappointment.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🎨',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Paint yourself brown: advantage on Stealth in natural terrain",
+        "You feel very grounded: disadvantage on saves vs. psychic damage",
+        "Children try to plant you",
+        "Made by: Earth Elemental Paint Co."
+    ],
+    vendor: 'dwarf_realms_paint',
+    shippedBy: 'Mud Pack',
+    levelRequirement: 5
+},
+'black_paint_of_emo_introspection': {
+    id: 'black_paint_of_emo_introspection',
+    name: "Black Paint of Emo Introspection",
+    description: "Paint your feelings.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🎨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Paint yourself black: advantage on saves vs. fear (you're too melancholy to be scared)",
+        "You must compose dark poetry before each long rest or be restless",
+        "Your shadow becomes slightly more dramatic",
+        "Made by: Dark Elves Paint Co."
+    ],
+    vendor: 'dark_elves_paint_shop',
+    shippedBy: 'Shadow Drop',
+    levelRequirement: 5
+},
+'white_paint_of_divine_righteousness': {
+    id: 'white_paint_of_divine_righteousness',
+    name: "White Paint of Divine Righteousness",
+    description: "Be the good guy, whether you want to or not.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '🎨',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Paint yourself white: advantage on saves vs. necrotic damage",
+        "You must tell the truth: disadvantage on Deception checks",
+        "Your teeth become visibly whiter (advantage on Charisma with dentists)",
+        "Made by: Celestial Paint Co."
+    ],
+    vendor: 'servants_cosmic_paint',
+    shippedBy: 'Holy Courier',
+    levelRequirement: 6
+},
+'gray_paint_of_moral_ambiguity': {
+    id: 'gray_paint_of_moral_ambiguity',
+    name: "Gray Paint of Moral Ambiguity",
+    description: "Be neither good nor evil, just confusing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🎨',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Paint yourself gray: alignment detection spells fail on you",
+        "You have advantage on saves vs. lawful effects, disadvantage on saves vs. chaotic",
+        "You become indecisive: disadvantage on Initiative",
+        "Made by: Gray Area Paint Co."
+    ],
+    vendor: 'void_drifters_paint',
+    shippedBy: 'Neutral Courier',
+    levelRequirement: 5
+},
 
+// Clothing Items
+'the_onyx_hand_stealth_hoodie': {
+    id: 'the_onyx_hand_stealth_hoodie',
+    name: "The Onyx Hand Stealth Hoodie",
+    description: "A hoodie that makes you look unimportant.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '👕',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Stealth in urban areas (you blend in with NPCs)",
+        "Hoodie has terrible Wi-Fi: disadvantage on checks requiring communication",
+        "Pockets are bigger inside: can hold 10 lbs of stuff (but you forget what you put in there)",
+        "Made by: The Onyx Hand Tailors"
+    ],
+    vendor: 'the_onyx_hand',
+    shippedBy: 'Shadow Drop',
+    levelRequirement: 6
+},
+'mages_guild_robe_of_many_pockets': {
+    id: 'mages_guild_robe_of_many_pockets',
+    name: "Mages' Guild Robe of Many Pockets",
+    description: "A robe with pockets inside pockets.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21500,
+    icon: '🥼',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "20 pockets: each can hold 1 lb, but you forget which pocket holds what",
+        "Once per day: Pull out a random minor item (DM's choice, 50% chance it's what you wanted)",
+        "Robe is dry-clean only; washing it ruins the dimensional magic",
+        "Made by: Mages' Guild Seamsters"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 7
+},
+'custodians_janitorial_overalls': {
+    id: 'custodians_janitorial_overalls',
+    name: "Custodians Janitorial Overalls",
+    description: "Stain-proof and suspiciously clean.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '👷',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Immune to being dirtied by mud, blood, or food (always clean)",
+        "You smell like bleach: disadvantage on Stealth, advantage on Intimidation (you're too clean)",
+        "Pockets contain random cleaning supplies (1d4: bucket, mop, soap, rag)",
+        "Made by: Custodians Uniform Supply"
+    ],
+    vendor: 'custodians',
+    shippedBy: 'Sanitation Truck',
+    levelRequirement: 5
+},
+'internet_streamer_outfit': {
+    id: 'internet_streamer_outfit',
+    name: "Internet Streamer Outfit",
+    description: "Brightly colored clothes for attention.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '👔',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 Charisma when visible to more than 5 people (performance bonus)",
+        "Disadvantage on Stealth (you're lit)",
+        "You must narrate your actions: 'Like and subscribe!' (disadvantage on checks if you don't)",
+        "Made by: Internet Fashion House"
+    ],
+    vendor: 'internet',
+    shippedBy: 'Influencer Courier',
+    levelRequirement: 6
+},
+'changeling_hive_camo_jacket': {
+    id: 'changeling_hive_camo_jacket',
+    name: "Changeling Hive Camo Jacket",
+    description: "Camouflage that changes patterns randomly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🧥',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Stealth in one random terrain type (changes hourly)",
+        "You have disadvantage on Stealth in the other terrains",
+        "Jacket occasionally changes color during important conversations (distraction)",
+        "Made by: Changeling Hive Weavers"
+    ],
+    vendor: 'changeling_hive',
+    shippedBy: 'Metamorphic Delivery',
+    levelRequirement: 7
+},
+'cybernetic_techwear_jumpsuit': {
+    id: 'cybernetic_techwear_jumpsuit',
+    name: "Cybernetic Techwear Jumpsuit",
+    description: "Lots of zippers, none of them work.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20500,
+    icon: '🦺',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Technology checks (you look the part)",
+        "Disadvantage on Sleight of Hand (zippers get stuck on everything)",
+        "Pockets are purely decorative (can't hold anything)",
+        "Made by: Cybernetic Fashion"
+    ],
+    vendor: 'cybernetic',
+    shippedBy: 'Drone Delivery',
+    levelRequirement: 7
+},
+'hacktivist_hoodie_of_anonymity': {
+    id: 'hacktivist_hoodie_of_anonymity',
+    name: "Hacktivist Hoodie of Anonymity",
+    description: "A hoodie that makes you forgettable.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '👕',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "NPCs must succeed DC 13 Intelligence save to remember your face",
+        "You forget your own name 50% of the time when introducing yourself",
+        "Hoodie has a '404: Identity Not Found' logo on the back",
+        "Made by: Hacktivist Collective"
+    ],
+    vendor: 'hacktivist',
+    shippedBy: 'Anonymous Drop',
+    levelRequirement: 6
+},
+'servants_cosmic_astronaut_suit': {
+    id: 'servants_cosmic_astronaut_suit',
+    name: "Servants Cosmic Astronaut Suit",
+    description: "Space suit for planar travel.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22500,
+    icon: '🧑‍🚀',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Immune to vacuum and planar environmental effects for 7 days",
+        "Suit is bulky: disadvantage on Dexterity checks",
+        "Helmet fogs up when you lie (disadvantage on Deception)",
+        "Made by: Servants Cosmic Space Program"
+    ],
+    vendor: 'servants_cosmic',
+    shippedBy: 'Meteor Mail',
+    levelRequirement: 7
+},
+'asclepia_nurse_scrubs': {
+    id: 'asclepia_nurse_scrubs',
+    name: "Asclepia Nurse Scrubs",
+    description: "Medical scrubs that are too clean.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🥼',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Medicine checks (you look official)",
+        "Patients trust you: advantage on Charisma checks with the injured",
+        "You feel compelled to help anyone who looks sick (disadvantage on checks if you ignore them)",
+        "Made by: Asclepia Medical Supply"
+    ],
+    vendor: 'asclepia',
+    shippedBy: 'Medical Courier',
+    levelRequirement: 5
+},
+'pony_nobility_tiara_of_friendship': {
+    id: 'pony_nobility_tiara_of_friendship',
+    name: "Pony Nobility Tiara of Friendship",
+    description: "A plastic tiara that means well.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '👑',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "+1 Charisma with good-aligned creatures (they find it endearing)",
+        "Evil creatures target you first (they hate the tiara)",
+        "Tiaras are for princesses: you must curtsy when greeting people",
+        "Made by: Pony Nobility Accessories"
+    ],
+    vendor: 'pony_nobility',
+    shippedBy: 'Enchanted Brush',
+    levelRequirement: 5
+},
+'lemuria_conclave_toga_of_ancient_wisdom': {
+    id: 'lemuria_conclave_toga_of_ancient_wisdom',
+    name: "Lemuria Conclave Toga of Ancient Wisdom",
+    description: "A toga that makes you talk like a philosopher.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🛏️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on History and Arcana checks (you sound smart)",
+        "You must speak in riddles: disadvantage on Persuasion with impatient people",
+        "Toga is drafty: disadvantage on saves vs. cold",
+        "Made by: Lemuria Conclave Fashion"
+    ],
+    vendor: 'lemuria_conclave',
+    shippedBy: 'Philosophical Courier',
+    levelRequirement: 6
+},
+'oracula_seer_bedsheet': {
+    id: 'oracula_seer_bedsheet',
+    name: "Oracula Seer Bedsheet",
+    description: "A sheet with holes cut out for eyes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '👻',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Disguise yourself as a ghost: advantage on Intimidation vs. superstitious creatures",
+        "Disadvantage on all checks in windy conditions (sheet flies off)",
+        "You look ridiculous: disadvantage on Charisma with intelligent creatures",
+        "Made by: Oracula Costume Shop"
+    ],
+    vendor: 'oracula',
+    shippedBy: 'Bedsheet Ghost',
+    levelRequirement: 5
+},
+'halfling_second_breakfast_pajamas': {
+    id: 'halfling_second_breakfast_pajamas',
+    name: "Halfling Second Breakfast Pajamas",
+    description: "Pajamas for eating in bed.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🥱',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on saves vs. exhaustion when resting (very comfortable)",
+        "Pajamas have syrup stains permanently (disadvantage on Charisma with neat freaks)",
+        "You can eat in bed without getting crumbs everywhere (magic)",
+        "Made by: Halfling Sleepwear"
+    ],
+    vendor: 'halfling',
+    shippedBy: 'Hobbit Post (Priority)',
+    levelRequirement: 5
+},
+'dwarf_realms_beard_extensions': {
+    id: 'dwarf_realms_beard_extensions',
+    name: "Dwarf Realms Beard Extensions",
+    description: "Add 6 inches to your beard.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🧔',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "+1 Charisma with dwarves (respect the beard)",
+        "Beard gets caught in everything: disadvantage on Sleight of Hand",
+        "You can hide small objects in it (advantage on Stealth for tiny items)",
+        "Made by: Dwarf Realms Barbers"
+    ],
+    vendor: 'dwarf_realms',
+    shippedBy: 'Beard Oil',
+    levelRequirement: 5
+},
+'greenskins_war_paint_kit': {
+    id: 'greenskins_war_paint_kit',
+    name: "Greenskins War Paint Kit",
+    description: "Face paint for battle.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🎨',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Intimidation checks for 7 days (you look fearsome)",
+        "Paint is permanent until you scrub with steel wool (painful)",
+        "You feel orcy: disadvantage on Charisma with non-orcs",
+        "Made by: Greenskins War Painters"
+    ],
+    vendor: 'greenskins',
+    shippedBy: 'War Drum',
+    levelRequirement: 5
+},
+'jotunheimr_giant_sweater': {
+    id: 'jotunheimr_giant_sweater',
+    name: "Jotunheimr Giant Sweater",
+    description: "A sweater knitted by giants.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🧶',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Resistance to cold damage for 7 days (very warm)",
+        "Sweater is itchy: disadvantage on Concentration checks",
+        "You look cozy: advantage on Charisma with grandmothers",
+        "Made by: Jotunheimr Knitters"
+    ],
+    vendor: 'jotunheimr',
+    shippedBy: 'Giant Yarn Ball',
+    levelRequirement: 5
+},
+'high_elves_elven_cloak_replica': {
+    id: 'high_elves_elven_cloak_replica',
+    name: "High Elves Elven Cloak (Replica)",
+    description: "A cheap knockoff of a legendary cloak.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Stealth in forests (works 50% of the time)",
+        "Cloak is clearly fake: disadvantage on Charisma with elves",
+        "Comes with a 'Certificate of Authenticity' that's also fake",
+        "Made by: High Elves Gift Shop"
+    ],
+    vendor: 'high_elves',
+    shippedBy: 'Graceful Stride',
+    levelRequirement: 6
+},
+'dark_elves_spider_silk_scarf': {
+    id: 'dark_elves_spider_silk_scarf',
+    name: "Dark Elves Spider Silk Scarf",
+    description: "A scarf that's also a spider.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '🧣',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on checks involving webs and climbing",
+        "Scarf is a living spider: it moves on its own (creepy but helpful)",
+        "Arachnophobes are terrified of you (disadvantage on Charisma)",
+        "Made by: Dark Elves Weavers"
+    ],
+    vendor: 'dark_elves',
+    shippedBy: 'Web Delivery',
+    levelRequirement: 6
+},
+'trainer_gym_uniform_of_mediocrity': {
+    id: 'trainer_gym_uniform_of_mediocrity',
+    name: "Trainer Gym Uniform of Mediocrity",
+    description: "Look like a background NPC.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🏋️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on checks to blend into crowds (you look generic)",
+        "Disadvantage on checks to stand out (you're forgettable)",
+        "You get a participation trophy (cosmetic, but it's something)",
+        "Made by: Trainer Guild Uniforms"
+    ],
+    vendor: 'trainer_guild',
+    shippedBy: 'Pokedex Delivery',
+    levelRequirement: 5
+},
+'crimision_isle_pirate_bandana': {
+    id: 'crimision_isle_pirate_bandana',
+    name: "Crimision Isle Pirate Bandana",
+    description: "A bandana that smells of salt and rum.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🏴‍☠️',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Charisma checks with pirates and sailors",
+        "Disadvantage on Charisma checks with landlubbers",
+        "You crave rum: disadvantage on checks if you haven't had a drink",
+        "Made by: Crimision Isle Tailors"
+    ],
+    vendor: 'crimision_isle',
+    shippedBy: 'Pirate Courier',
+    levelRequirement: 5
+},
+'blessed_order_paladin_boots': {
+    id: 'blessed_order_paladin_boots',
+    name: "Blessed Order Paladin Boots",
+    description: "Boots that squeak with righteousness.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '👢',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on saves vs. being knocked prone (good balance)",
+        "Boots squeak loudly: disadvantage on Stealth, advantage on Performance (tap dancing)",
+        "You must announce your presence when entering rooms",
+        "Made by: Blessed Order Cobbler"
+    ],
+    vendor: 'blessed_order',
+    shippedBy: 'Holy Procession',
+    levelRequirement: 6
+},
+'sirsirian_ocean_seashell_bra': {
+    id: 'sirsirian_ocean_seashell_bra',
+    name: "Sirsirian Ocean Seashell Bra",
+    description: "Modesty provided by mollusks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🐚',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Charisma checks with sea creatures",
+        "Disadvantage on Charisma checks with land-dwellers (they're confused)",
+        "Seashells whisper ocean secrets (advantage on one check per day)",
+        "Made by: Sirsirian Ocean Tailors"
+    ],
+    vendor: 'sirsirian_ocean',
+    shippedBy: 'Tidal Wave',
+    levelRequirement: 5
+},
+'saddle_arabia_saddle_blanket': {
+    id: 'saddle_arabia_saddle_blanket',
+    name: "Saddle Arabia Saddle Blanket",
+    description: "A blanket that makes your saddle comfortable.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🐪',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on saves vs. exhaustion from long travel",
+        "Your mount loves you: advantage on Animal Handling with it",
+        "Blanket is covered in camel hair (allergy sufferers disadvantage)",
+        "Made by: Saddle Arabia Weavers"
+    ],
+    vendor: 'saddle_arabia',
+    shippedBy: 'Camel Caravan',
+    levelRequirement: 5
+},
+'ratchet_raiders_wrench_belt': {
+    id: 'ratchet_raiders_wrench_belt',
+    name: "Ratchet Raiders Wrench Belt",
+    description: "A belt that holds all your tools.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🔧',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Can hold 10 tools: retrieving one is a bonus action",
+        "Belt is noisy: disadvantage on Stealth",
+        "You feel compelled to fix broken things (disadvantage if you ignore them)",
+        "Made by: Ratchet Raiders Engineers"
+    ],
+    vendor: 'ratchet_raiders',
+    shippedBy: 'Wrench Throw',
+    levelRequirement: 5
+},
+'wario_land_wario_wardrobe': {
+    id: 'wario_land_wario_wardrobe',
+    name: "Wario Land Wario Wardrobe",
+    description: "A wardrobe full of Wario's hand-me-downs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '👔',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Random piece of Wario's clothing each day: +1 to random ability",
+        "Clothes are stretched and smell like garlic",
+        "You must say 'Wah!' when surprised (disadvantage on Stealth)",
+        "Made by: Wario Land Wardrobe"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 6
+},
+'millennium_trench_coat_of_mystery': {
+    id: 'millennium_trench_coat_of_mystery',
+    name: "Millennium Trench Coat of Mystery",
+    description: "A coat that billows dramatically.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma checks when entering rooms dramatically",
+        "Coat billows even without wind: disadvantage on Stealth",
+        "You must speak in a low, gravelly voice (disadvantage on checks with children)",
+        "Made by: Millennium Fashion"
+    ],
+    vendor: 'millennium',
+    shippedBy: 'Mysterious Courier',
+    levelRequirement: 7
+},
+'mu_empire_silk_sandals': {
+    id: 'mu_empire_silk_sandals',
+    name: "Mu Empire Silk Sandals",
+    description: "Sandals made from silk worms.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🩴',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Charisma checks with nobility",
+        "Disadvantage on saves vs. being knocked prone (slippery)",
+        "You feel fancy: must avoid puddles (disadvantage in wet terrain)",
+        "Made by: Mu Empire Weavers"
+    ],
+    vendor: 'mu_empire',
+    shippedBy: 'Silk Road Courier',
+    levelRequirement: 5
+},
+'mages_guild_pointed_hat_of_stereotypes': {
+    id: 'mages_guild_pointed_hat_of_stereotypes',
+    name: "Mages' Guild Pointed Hat of Stereotypes",
+    description: "A classic wizard hat that is very flimsy.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🎩',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Arcana checks (you look like a wizard)",
+        "Disadvantage on saves vs. wind (hat flies off easily)",
+        "You must gesture dramatically when casting spells (disadvantage on Stealth)",
+        "Made by: Mages' Guild Haberdashery"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 5
+},
+'data_merchant_zipper_upgrade': {
+    id: 'data_merchant_zipper_upgrade',
+    name: "Data Merchant Zipper Upgrade",
+    description: "Zippers that hold data.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 8500,
+    icon: '🔧',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "One zipper can store 1 GB of data (whatever that means)",
+        "Retrieving data requires a successful Intelligence check DC 12",
+        "Zipper gets stuck on fabric (disadvantage on checks if it fails)",
+        "Made by: Data Merchant Tailors"
+    ],
+    vendor: 'data_merchant',
+    shippedBy: 'Data Stream',
+    levelRequirement: 5
+},
+'mordor_ashen_robe': {
+    id: 'mordor_ashen_robe',
+    name: "Mordor Ashen Robe",
+    description: "A soot-stained garment that blends with volcanic landscapes.",
+    category: SHOP_CATEGORIES.premium,
+    price: 14500,
+    icon: '👘',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth checks in ash or smoke-filled areas",
+        "Resists minor fire damage (once per day, absorb 1d4)",
+        "Smells like brimstone – disadvantage on Persuasion with clean folk",
+        "Made by: Mordor Weavers"
+    ],
+    vendor: 'land_mordor_forge',
+    shippedBy: 'Sooty Sack',
+    levelRequirement: 5
+},
+'asgard_viking_tunic_premium': {
+    id: 'asgard_viking_tunic_premium',
+    name: "Asgard Viking Tunic (Premium)",
+    description: "Woolen tunic embroidered with runes for hardy warriors.",
+    category: SHOP_CATEGORIES.premium,
+    price: 18500,
+    icon: '👕',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+1 to Constitution saves against cold or fatigue",
+        "Once per day: Reroll a failed Strength check",
+        "Itches during mead feasts (minor distraction)",
+        "Made by: Asgard Seamstresses"
+    ],
+    vendor: 'asgard_hall',
+    shippedBy: 'Odins Thread',
+    levelRequirement: 6
+},
+'gondor_rangers_cloak': {
+    id: 'gondor_rangers_cloak',
+    name: "Gondor Ranger's Cloak",
+    description: "A hooded cloak for patrolling the wilds of Ithilien.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Survival checks in forests or hills",
+        "Hood provides dim light vision in shadows",
+        "Cloak snags on thorns (5% chance of tear)",
+        "Made by: Gondor Tailors"
+    ],
+    vendor: 'kingdom_gondor_outpost',
+    shippedBy: 'Ranger Relay',
+    levelRequirement: 5
+},
+'koopa_troop_spiked_helmet_cap': {
+    id: 'koopa_troop_spiked_helmet_cap',
+    name: "Koopa Troop Spiked Helmet Cap (Joke)",
+    description: "A cap with fake spikes for that tough Koopa look.",
+    category: SHOP_CATEGORIES.premium,
+    price: 12500,
+    icon: '🎩',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Intimidation checks against small creatures",
+        "Spikes poke you on a natural 1 (1 damage, ouch!)",
+        "Bowser approved – might get you recruited",
+        "Made by: Koopa Hatters"
+    ],
+    vendor: 'koopa_troop_barracks',
+    shippedBy: 'Shell-Mailed Package',
+    levelRequirement: 5
+},
+'equestrian_royal_sash': {
+    id: 'equestrian_royal_sash',
+    name: "Equestrian Royal Sash",
+    description: "A silken sash symbolizing harmony and friendship.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15500,
+    icon: '🎀',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Charisma (Persuasion) with animals or ponies",
+        "Once per day: Calm an agitated creature (Wisdom save DC 12)",
+        "Sash frays in rough weather",
+        "Made by: Canterlot Couturiers"
+    ],
+    vendor: 'equestrian_palace',
+    shippedBy: 'Pegasus Parcel',
+    levelRequirement: 6
+},
+'pokemon_league_trainer_jacket': {
+    id: 'pokemon_league_trainer_jacket',
+    name: "Pokémon League Trainer Jacket",
+    description: "Stylish jacket with badge pockets for aspiring champions.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Holds up to 6 small items without weight",
+        "+1 to Animal Handling with Pokémon-like creatures",
+        "Jacket zips stick during rain (minor annoyance)",
+        "Made by: League Merch"
+    ],
+    vendor: 'pokemon_league_stadium',
+    shippedBy: 'Pikachu Post',
+    levelRequirement: 7
+},
+'xenonesia_alien_silk_shawl': {
+    id: 'xenonesia_alien_silk_shawl',
+    name: "Xenonesia Alien Silk Shawl",
+    description: "Ethereal shawl woven from extraterrestrial threads.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17500,
+    icon: '🧣',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves against psychic effects for 1 hour when worn",
+        "Shawl shifts colors for minor camouflage",
+        "Attracts curious aliens (or bugs)",
+        "Made by: Xenonesian Spinners"
+    ],
+    vendor: 'xenonesia_outpost',
+    shippedBy: 'Stellar Silk Wrap',
+    levelRequirement: 6
+},
+'mushroom_regency_toad_cap_hat': {
+    id: 'mushroom_regency_toad_cap_hat',
+    name: "Mushroom Regency Toad Cap Hat (Joke)",
+    description: "A floppy hat shaped like a toadstool for fungal flair.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🎩',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Nature checks in mushroom areas",
+        "Hat sprouts tiny spores: Minor healing (1d4 HP) once per day",
+        "Attracts fungi – your head might itch",
+        "Made by: Toad Milliners"
+    ],
+    vendor: 'mushroom_regency_village',
+    shippedBy: 'Spore-Dusted Box',
+    levelRequirement: 5
+},
+'iron_legion_centurion_chestplate': {
+    id: 'iron_legion_centurion_chestplate',
+    name: "Iron Legion Centurion Chestplate",
+    description: "Polished armor tunic for disciplined soldiers.",
+    category: SHOP_CATEGORIES.premium,
+    price: 20500,
+    icon: '🛡️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+1 AC when not surprised",
+        "Advantage on Intimidation in formation with allies",
+        "Heavy: Disadvantage on Stealth if encumbered",
+        "Made by: Legion Armorsmiths"
+    ],
+    vendor: 'iron_legion_fort',
+    shippedBy: 'Shielded Cart',
+    levelRequirement: 7
+},
+'formosa_ultima_embroidered_kimono': {
+    id: 'formosa_ultima_embroidered_kimono',
+    name: "Formosa Ultima Embroidered Kimono",
+    description: "Elegant robe with mystical island motifs.",
+    category: SHOP_CATEGORIES.premium,
+    price: 21500,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Dexterity (Acrobatics) checks",
+        "Once per day: Minor illusion of cherry blossoms (distraction)",
+        "Silk tears easily in combat",
+        "Made by: Ultima Tailors"
+    ],
+    vendor: 'formosa_ultima_village',
+    shippedBy: 'Bamboo Fold',
+    levelRequirement: 6
+},
+'weldrhom_nomad_veil': {
+    id: 'weldrhom_nomad_veil',
+    name: "Weldrhom Nomad Veil",
+    description: "Light veil for desert wanderers, filtering sand.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🧕',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Immunity to sand blindness or dust effects",
+        "+1 to Constitution saves in arid environments",
+        "Veil muffles speech (disadvantage on verbal spells)",
+        "Made by: Weldrhom Craftsfolk"
+    ],
+    vendor: 'weldrhom_caravan',
+    shippedBy: 'Sandproof Pouch',
+    levelRequirement: 5
+},
+'skycaverns_aerial_harness': {
+    id: 'skycaverns_aerial_harness',
+    name: "Skycaverns Aerial Harness",
+    description: "Straps and belts for safe cloud-walking.",
+    category: SHOP_CATEGORIES.premium,
+    price: 19000,
+    icon: '🎽',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on checks to avoid falling from heights",
+        "Once per day: Slow fall 20ft safely",
+        "Harness creaks in wind (alerts birds)",
+        "Made by: Cavern Riggers"
+    ],
+    vendor: 'skycaverns_aerie',
+    shippedBy: 'Wind-Resistant Rope',
+    levelRequirement: 6
+},
+'garden_isles_floral_vest': {
+    id: 'garden_isles_floral_vest',
+    name: "Garden Isles Floral Vest",
+    description: "Vest blooming with enchanted flowers for herbalists.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Holds 4 small herbs or potions",
+        "Advantage on Medicine checks using floral items",
+        "Flowers wilt after watering (recharges daily)",
+        "Made by: Isle Gardeners"
+    ],
+    vendor: 'garden_isles_bazaar',
+    shippedBy: 'Petal-Lined Box',
+    levelRequirement: 5
+},
+'glarnia_gem_inlaid_belt': {
+    id: 'glarnia_gem_inlaid_belt',
+    name: "Glarnia Gem-Inlaid Belt",
+    description: "Belt with low-grade gems for minor luck.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17000,
+    icon: '👖',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Once per day: +1d4 to a luck-based roll (DM's call)",
+        "Gems glow faintly in treasure hoards",
+        "Belt pinches if you're greedy",
+        "Made by: Glarnian Jewelers"
+    ],
+    vendor: 'glarnia_mines',
+    shippedBy: 'Gemstone Clasp',
+    levelRequirement: 6
+},
+'polybius_pixelated_cape': {
+    id: 'polybius_pixelated_cape',
+    name: "Polybius Pixelated Cape (Joke)",
+    description: "A cape that glitches like an old video game.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '🧥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Deception when 'glitching' (feign injury)",
+        "Cape flickers: Minor distraction to foes (DC 10 Wis save)",
+        "Pixels fade in sunlight",
+        "Made by: Arcade Tailors"
+    ],
+    vendor: 'polybius_arcade',
+    shippedBy: '8-Bit Fold',
+    levelRequirement: 5
+},
+'internet_meme_hoodie': {
+    id: 'internet_meme_hoodie',
+    name: "Internet Meme Hoodie",
+    description: "Cozy hoodie printed with viral cat memes.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15000,
+    icon: '👕',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Charisma (Performance) when telling jokes",
+        "Hood provides minor sound muffling (advantage on Stealth whispers)",
+        "Hoodie shrinks in wash (fits poorly after)",
+        "Made by: Net Weavers"
+    ],
+    vendor: 'internet_cafe',
+    shippedBy: 'Viral Thread',
+    levelRequirement: 5
+},
+'trainer_guild_badge_pouch_belt': {
+    id: 'trainer_guild_badge_pouch_belt',
+    name: "Trainer Guild Badge Pouch Belt",
+    description: "Utility belt for displaying achievements.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '👖',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Stores up to 8 badges or small tokens",
+        "Wearing badges: +1 to Intimidation or Inspiration from allies",
+        "Pouches jingle during quiet moments",
+        "Made by: Guild Leatherworkers"
+    ],
+    vendor: 'trainer_guild_hall',
+    shippedBy: 'Badge Buckle',
+    levelRequirement: 6
+},
+'changeling_hive_shapeshift_scarf': {
+    id: 'changeling_hive_shapeshift_scarf',
+    name: "Changeling Hive Shapeshift Scarf",
+    description: "Scarf that aids in minor disguises.",
+    category: SHOP_CATEGORIES.premium,
+    price: 18500,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Disguise checks for facial alterations",
+        "Scarf changes color to match surroundings",
+        "Itches if worn too long (disadvantage on Concentration)",
+        "Made by: Hive Silkers"
+    ],
+    vendor: 'changeling_hive_nest',
+    shippedBy: 'Chameleon Wrap',
+    levelRequirement: 7
+},
+'the_onyx_hand_gloved_fingers': {
+    id: 'the_onyx_hand_gloved_fingers',
+    name: "The Onyx Hand Gloved Fingers",
+    description: "Sleek black gloves for shadowy dealings.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🧤',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Sleight of Hand for pickpocketing",
+        "Gloves leave no fingerprints",
+        "Sticky residue from shadows (minor grip issues)",
+        "Made by: Onyx Thieves"
+    ],
+    vendor: 'the_onyx_hand_guild',
+    shippedBy: 'Shadow Stitch',
+    levelRequirement: 5
+},
+'kingdoms_dwarves_forge_apron': {
+    id: 'kingdoms_dwarves_forge_apron',
+    name: "Kingdoms Dwarves Forge Apron",
+    description: "Sturdy apron for smithing and crafting.",
+    category: SHOP_CATEGORIES.premium,
+    price: 13500,
+    icon: '👘',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on tool proficiency checks for crafting",
+        "Pockets hold small tools without encumbrance",
+        "Apron singes in extreme heat (smells burnt)",
+        "Made by: Dwarven Seamsters"
+    ],
+    vendor: 'kingdoms_dwarves_hall',
+    shippedBy: 'Hammered Leather',
+    levelRequirement: 5
+},
+'greenskins_orcish_loincloth': {
+    id: 'greenskins_orcish_loincloth',
+    name: "Greenskins Orcish Loincloth (Joke)",
+    description: "Minimalist garb for brutish bravado.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '👙',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Strength (Athletics) in hot climates",
+        "Intimidation +2 against civilized folk",
+        "Chafes during long marches (disadvantage on CON saves)",
+        "Made by: Orc Tailors (barely)"
+    ],
+    vendor: 'greenskins_camp',
+    shippedBy: 'Rough Hide',
+    levelRequirement: 5
+},
+'jotunheimr_frost_weave_mittens': {
+    id: 'jotunheimr_frost_weave_mittens',
+    name: "Jotunheimr Frost Weave Mittens",
+    description: "Warm mittens knitted from giant wool.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15500,
+    icon: '🧤',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Resistance to cold damage (non-magical) for hands",
+        "Advantage on Dexterity checks in snow",
+        "Mittens too big for fine work (disadvantage on Sleight of Hand)",
+        "Made by: Frost Knitters"
+    ],
+    vendor: 'jotunheimr_village',
+    shippedBy: 'Icicle Yarn',
+    levelRequirement: 5
+},
+'high_elves_sylvan_silk_gown': {
+    id: 'high_elves_sylvan_silk_gown',
+    name: "High Elves Sylvan Silk Gown",
+    description: "Flowing gown that whispers with the wind.",
+    category: SHOP_CATEGORIES.premium,
+    price: 21000,
+    icon: '👗',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma (Performance) in natural settings",
+        "Gown mends minor tears overnight",
+        "Snags on branches easily",
+        "Made by: Elven Looms"
+    ],
+    vendor: 'high_elves_enclave',
+    shippedBy: 'Leaf-Embroidered Fold',
+    levelRequirement: 7
+},
+'dark_elves_spider_silk_leggings': {
+    id: 'dark_elves_spider_silk_leggings',
+    name: "Dark Elves Spider Silk Leggings",
+    description: "Flexible leggings for agile underdark prowlers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '👖',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Dexterity (Stealth) in dim light",
+        "Leggings provide minor poison resistance (CON save +1)",
+        "Web-like patterns itch in sunlight",
+        "Made by: Drow Weavers"
+    ],
+    vendor: 'dark_elves_caverns',
+    shippedBy: 'Silk Cocoon',
+    levelRequirement: 6
+},
+'trainer_guild_explorer_boots': {
+    id: 'trainer_guild_explorer_boots',
+    name: "Trainer Guild Explorer Boots",
+    description: "Rugged boots for traversing wild terrains.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16500,
+    icon: '👢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Ignore non-magical difficult terrain (half speed)",
+        "+1 to Dexterity saves against traps",
+        "Boots squeak on polished floors",
+        "Made by: Guild Cobblers"
+    ],
+    vendor: 'trainer_guild_outpost',
+    shippedBy: 'Trailblazer Tread',
+    levelRequirement: 5
+},
+'crimision_isle_crimson_wrap': {
+    id: 'crimision_isle_crimson_wrap',
+    name: "Crimision Isle Crimson Wrap",
+    description: "Blood-red shawl infused with island spirits.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🧣',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: Absorb 1d6 slashing damage",
+        "Advantage on Intimidation in tropical areas",
+        "Wrap stains clothing (permanent red tint)",
+        "Made by: Isle Shamans"
+    ],
+    vendor: 'crimision_isle_temple',
+    shippedBy: 'Coral Tie',
+    levelRequirement: 5
+},
+'blessed_order_priest_robe': {
+    id: 'blessed_order_priest_robe',
+    name: "Blessed Order Priest Robe",
+    description: "Simple white robe for divine casters.",
+    category: SHOP_CATEGORIES.premium,
+    price: 18500,
+    icon: '👘',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+1 to Wisdom (Religion) checks",
+        "Robe cleans itself after use",
+        "Attracts holy insects (minor buzzing)",
+        "Made by: Order Tailors"
+    ],
+    vendor: 'blessed_order_monastery',
+    shippedBy: 'Holy Thread',
+    levelRequirement: 6
+},
+'sirsirian_ocean_seashell_bikini': {
+    id: 'sirsirian_ocean_seashell_bikini',
+    name: "Sirsirian Ocean Seashell Bikini (Joke)",
+    description: "Swimwear armor with a tropical twist.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '👙',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Swimming checks",
+        "Seashells provide +1 AC underwater",
+        "Shells clatter and attract fish",
+        "Made by: Ocean Divers"
+    ],
+    vendor: 'sirsirian_ocean_beach',
+    shippedBy: 'Wave-Washed Cloth',
+    levelRequirement: 5
+},
+'saddle_arabia_desert_robe': {
+    id: 'saddle_arabia_desert_robe',
+    name: "Saddle Arabia Desert Robe",
+    description: "Loose robe for enduring hot sands.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15000,
+    icon: '👘',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Resistance to heat exhaustion",
+        "+1 to Constitution saves in deserts",
+        "Robe billows in wind (disadvantage on ranged attacks)",
+        "Made by: Arabian Weavers"
+    ],
+    vendor: 'saddle_arabia_souk',
+    shippedBy: 'Camel Hair Fold',
+    levelRequirement: 5
+},
+'ratchet_raiders_scavenger_jacket': {
+    id: 'ratchet_raiders_scavenger_jacket',
+    name: "Ratchet Raiders Scavenger Jacket",
+    description: "Padded jacket with many pockets for loot.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🧥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Extra storage: Carry 20% more small items",
+        "Advantage on Investigation for hidden compartments",
+        "Jacket creaks with every step",
+        "Made by: Raider Tailors"
+    ],
+    vendor: 'ratchet_raiders_scrapyard',
+    shippedBy: 'Patchwork Parcel',
+    levelRequirement: 5
+},
+'wario_land_garlic_stained_apron': {
+    id: 'wario_land_garlic_stained_apron',
+    name: "Wario Land Garlic-Stained Apron (Joke)",
+    description: "An apron that repels... everything.",
+    category: SHOP_CATEGORIES.premium,
+    price: 10500,
+    icon: '👘',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on saves vs. undead (garlic power!)",
+        "+1 to Cooking checks",
+        "Smell repels friends (disadvantage on social rolls)",
+        "Made by: Wario's Kitchen"
+    ],
+    vendor: 'wario_land_shack',
+    shippedBy: 'Stinky Sack',
+    levelRequirement: 5
+},
+'millennium_ancient_egyptian_kilt': {
+    id: 'millennium_ancient_egyptian_kilt',
+    name: "Millennium Ancient Egyptian Kilt",
+    description: "Linen kilt with pharaoh motifs for puzzle masters.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '👖',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Intelligence (Investigation) for riddles",
+        "Kilt unravels minor curses (once per week)",
+        "Attracts scarab beetles",
+        "Made by: Millennium Artisans"
+    ],
+    vendor: 'millennium_tomb',
+    shippedBy: 'Papyrus Wrap',
+    levelRequirement: 7
+},
+'apis_kingdom_beekeeper_suit': {
+    id: 'apis_kingdom_beekeeper_suit',
+    name: "Apis Kingdom Beekeeper Suit",
+    description: "Protective suit for honey harvesting.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16000,
+    icon: '👔',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Immunity to bee stings or swarms",
+        "+1 AC against small flying creatures",
+        "Suit buzzes faintly (alerts insects)",
+        "Made by: Hive Wardens"
+    ],
+    vendor: 'apis_kingdom_apiary',
+    shippedBy: 'Honeycomb Veil',
+    levelRequirement: 5
+},
+'lizardmen_scale_mail_tunic': {
+    id: 'lizardmen_scale_mail_tunic',
+    name: "Lizardmen Scale Mail Tunic",
+    description: "Tunic reinforced with reptilian scales.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '👕',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+1 AC in wet environments",
+        "Advantage on saves vs. acid",
+        "Scales shed seasonally (cosmetic mess)",
+        "Made by: Lizard Armorsmiths"
+    ],
+    vendor: 'lizardmen_swamp',
+    shippedBy: 'Bog-Leather Bind',
+    levelRequirement: 6
+},
+'kingdom_fiore_mage_robe': {
+    id: 'kingdom_fiore_mage_robe',
+    name: "Kingdom Fiore Mage Robe",
+    description: "Enchanted robe for budding wizards.",
+    category: SHOP_CATEGORIES.premium,
+    price: 20000,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+1 to Intelligence (Arcana) checks",
+        "Robe holds one minor spell component",
+        "Frayed hems trip you occasionally",
+        "Made by: Fiore Enchanters"
+    ],
+    vendor: 'kingdom_fiore_academy',
+    shippedBy: 'Mana-Weave Fold',
+    levelRequirement: 7
+},
+'trinity_general_cleric_vestments': {
+    id: 'trinity_general_cleric_vestments',
+    name: "Trinity General Cleric Vestments",
+    description: "Holy vestments for faithful healers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '👘',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Medicine checks for divine healing",
+        "Vestments glow faintly when casting good-aligned spells",
+        "Heavy fabric slows swimming",
+        "Made by: Trinity Seamstresses"
+    ],
+    vendor: 'trinity_general_cathedral',
+    shippedBy: 'Blessed Cloth',
+    levelRequirement: 6
+},
+'pitatia_dragon_fruit_wrap': {
+    id: 'pitatia_dragon_fruit_wrap',
+    name: "Pitatia Dragon Fruit Wrap",
+    description: "Vibrant wrap dyed with exotic fruit juices.",
+    category: SHOP_CATEGORIES.premium,
+    price: 12500,
+    icon: '🧣',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: Gain temporary +1 Dexterity for 1 hour",
+        "Wrap provides minor camouflage in jungles",
+        "Juice stains fade slowly",
+        "Made by: Pitatian Dyers"
+    ],
+    vendor: 'pitatia_orchard',
+    shippedBy: 'Fruity Tie',
+    levelRequirement: 5
+},
+'crimson_fleet_pirate_coat': {
+    id: 'crimson_fleet_pirate_coat',
+    name: "Crimson Fleet Pirate Coat",
+    description: "Swashbuckling coat with hidden pockets.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Hides 2d4 small weapons or treasures",
+        "+1 to Dexterity (Sleight of Hand) on ships",
+        "Coat billows dramatically (intimidating but flashy)",
+        "Made by: Fleet Tailors"
+    ],
+    vendor: 'crimson_fleet_ship',
+    shippedBy: 'Sailcloth Bundle',
+    levelRequirement: 7
+},
+'scylla_charybdis_tentacle_boots': {
+    id: 'scylla_charybdis_tentacle_boots',
+    name: "Scylla Charybdis Tentacle Boots (Joke)",
+    description: "Boots with suction-cup soles for gripping.",
+    category: SHOP_CATEGORIES.premium,
+    price: 14000,
+    icon: '👢',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Athletics for climbing wet surfaces",
+        "Boots stick to floors (hard to remove)",
+        "Suction pops loudly",
+        "Made by: Sea Monster Crafters"
+    ],
+    vendor: 'scylla_charybdis_cave',
+    shippedBy: 'Ink-Stained Soles',
+    levelRequirement: 5
+},
+'minerva_sage_robe': {
+    id: 'minerva_sage_robe',
+    name: "Minerva Sage Robe",
+    description: "Robes of wisdom for scholarly pursuits.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '👘',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+1 to Intelligence (History) checks",
+        "Robe pockets hold scrolls without damage",
+        "Ink stains from overuse",
+        "Made by: Academy Tailors"
+    ],
+    vendor: 'minerva_library',
+    shippedBy: 'Parchment Lining',
+    levelRequirement: 6
+},
+'animatopia_prey_fur_cloak': {
+    id: 'animatopia_prey_fur_cloak',
+    name: "Animatopia Prey Fur Cloak",
+    description: "Cloak mimicking animal hides for blending.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15500,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth as a predator's prey",
+        "Cloak warms in cold (comfort +1)",
+        "Fur sheds during molting season",
+        "Made by: Prey Hunters"
+    ],
+    vendor: 'animatopia_forest',
+    shippedBy: 'Hide Bundle',
+    levelRequirement: 5
+},
+'eiwass_ice_crystal_crown': {
+    id: 'eiwass_ice_crystal_crown',
+    name: "Eiwass Ice Crystal Crown",
+    description: "Delicate crown of frozen gems for winter royalty.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '👑',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma (Intimidation) in cold areas",
+        "Crown chills drinks nearby",
+        "Melts in heat (temporary loss)",
+        "Made by: Eiwass Jewelers"
+    ],
+    vendor: 'eiwass_palace',
+    shippedBy: 'Frosty Case',
+    levelRequirement: 5
+},
+'oracula_vampiric_capelet': {
+    id: 'oracula_vampiric_capelet',
+    name: "Oracula Vampiric Capelet",
+    description: "Velvet capelet with bat-wing lining.",
+    category: SHOP_CATEGORIES.premium,
+    price: 19500,
+    icon: '🧥',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Dexterity (Acrobatics) at night",
+        "Capelet allows 10ft glide once per day",
+        "Attracts bats (helpful scouts or pests)",
+        "Made by: Night Tailors"
+    ],
+    vendor: 'oracula_castle',
+    shippedBy: 'Blood-Red Fold',
+    levelRequirement: 7
+},
+'halfling_adventurer_overalls': {
+    id: 'halfling_adventurer_overalls',
+    name: "Halfling Adventurer Overalls (Joke)",
+    description: "Padded overalls for pint-sized heroes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '👖',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Dexterity saves (nimble folk)",
+        "Pockets for snacks (heal 1d4 HP from rations)",
+        "Overalls too short for tall races",
+        "Made by: Shire Seamstresses"
+    ],
+    vendor: 'halfling_hole',
+    shippedBy: 'Pocketed Parcel',
+    levelRequirement: 5
+},
+'refijia_mirror_shard_vest': {
+    id: 'refijia_mirror_shard_vest',
+    name: "Refijia Mirror Shard Vest",
+    description: "Vest embedded with reflective shards.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Once per day: Reflect a gaze attack",
+        "Advantage on saves vs. illusions",
+        "Shards cut if vest tears",
+        "Made by: Mirror Crafters"
+    ],
+    vendor: 'refijia_hall',
+    shippedBy: 'Reflective Wrap',
+    levelRequirement: 6
+},
+'shanhaijing_dragon_embroidered_silk': {
+    id: 'shanhaijing_dragon_embroidered_silk',
+    name: "Shanhaijing Dragon Embroidered Silk",
+    description: "Silk robe with fierce dragon patterns.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+1 to Charisma (Intimidation) against beasts",
+        "Robe flows for +1 Acrobatics in wind",
+        "Silk attracts dust dragons (mythical pests)",
+        "Made by: Eastern Embroiderers"
+    ],
+    vendor: 'shanhaijing_palace',
+    shippedBy: 'Dragon Thread',
+    levelRequirement: 7
+},
+'u_enigma_hood': {
+    id: 'u_enigma_hood',
+    name: "U Enigma Hood",
+    description: "Mysterious hood that obscures identity.",
+    category: SHOP_CATEGORIES.premium,
+    price: 14500,
+    icon: '🧢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Deception for anonymity",
+        "Hood muffles voice slightly",
+        "Enigmatic aura: +1 to mystery-themed rolls",
+        "Made by: U Mystics"
+    ],
+    vendor: 'u_sanctum',
+    shippedBy: 'Riddle Wrap',
+    levelRequirement: 5
+},
+'zebrabwe_striped_robe': {
+    id: 'zebrabwe_striped_robe',
+    name: "Zebrabwe Striped Robe",
+    description: "Black-and-white robe for savanna camouflage.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '👘',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth in grasslands",
+        "Robe confuses herd animals (calming effect)",
+        "Stripes fade in mud",
+        "Made by: Zebra Weavers"
+    ],
+    vendor: 'zebrabwe_village',
+    shippedBy: 'Patterned Cloth',
+    levelRequirement: 5
+},
+'robensonia_lab_tech_suit': {
+    id: 'robensonia_lab_tech_suit',
+    name: "Robensonia Lab Tech Suit (Joke)",
+    description: "One-piece jumpsuit for mad scientists.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16000,
+    icon: '👔',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Intelligence (Technology) checks",
+        "Suit pockets gadgets (holds 3 small tools)",
+        "Zipper sticks during experiments",
+        "Made by: Lab Tailors"
+    ],
+    vendor: 'robensonia_lab',
+    shippedBy: 'Gizmo Garment',
+    levelRequirement: 6
+},
+'tomb_kings_pharaoh_shroud': {
+    id: 'tomb_kings_pharaoh_shroud',
+    name: "Tomb Kings Pharaoh Shroud",
+    description: "Linen shroud evoking ancient rulers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves vs. undead fear",
+        "Shroud preserves minor wounds (heal 1d4 overnight)",
+        "Attracts sand spirits (whispers at night)",
+        "Made by: Tomb Embalmers"
+    ],
+    vendor: 'tomb_kings_pyramid',
+    shippedBy: 'Mummy Wrap',
+    levelRequirement: 6
+},
+'gehenna_academy_infernal_cassock': {
+    id: 'gehenna_academy_infernal_cassock',
+    name: "Gehenna Academy Infernal Cassock",
+    description: "Fire-resistant robe for hellish scholars.",
+    category: SHOP_CATEGORIES.premium,
+    price: 19500,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Resistance to fire (non-magical) for 1 hour",
+        "+1 to Intelligence (Arcana) with infernal lore",
+        "Cassock smolders after use",
+        "Made by: Academy Tailors"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Flame-Stitched Fold',
+    levelRequirement: 7
+},
+'red_winter_fur-lined_boots': {
+    id: 'red_winter_fur-lined_boots',
+    name: "Red Winter Fur-Lined Boots",
+    description: "Insulated boots for snowy treks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '👢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity saves on ice",
+        "Boots track snow (leaves prints)",
+        "Warmth: +1 CON vs. cold",
+        "Made by: Winter Cobblers"
+    ],
+    vendor: 'red_winter_village',
+    shippedBy: 'Snowshoe Strap',
+    levelRequirement: 5
+},
+'dwarf_realms_mithril_gloves': {
+    id: 'dwarf_realms_mithril_gloves',
+    name: "Dwarf Realms Mithril Gloves",
+    description: "Light gloves for precise dwarven work.",
+    category: SHOP_CATEGORIES.premium,
+    price: 21000,
+    icon: '🧤',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on tool checks for forging",
+        "Gloves don't tarnish",
+        "Too small for large hands",
+        "Made by: Mithril Smiths"
+    ],
+    vendor: 'dwarf_realms_forge',
+    shippedBy: 'Metal Mesh',
+    levelRequirement: 7
+},
+'custodians_guardian_cape': {
+    id: 'custodians_guardian_cape',
+    name: "Custodians Guardian Cape",
+    description: "Cloak warded against intruders.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '🧥',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Perception for ambushes",
+        "Cape alerts to hidden foes (vibration)",
+        "Heavy weave slows movement slightly",
+        "Made by: Custodian Weavers"
+    ],
+    vendor: 'custodians_tower',
+    shippedBy: 'Warded Wool',
+    levelRequirement: 6
+},
+'the_dk_crew_jungle_vine_belt': {
+    id: 'the_dk_crew_jungle_vine_belt',
+    name: "The DK Crew Jungle Vine Belt (Joke)",
+    description: "Belt made from tough vines for swinging.",
+    category: SHOP_CATEGORIES.premium,
+    price: 12500,
+    icon: '👖',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Athletics for swinging/climbing vines",
+        "Belt holds bananas (minor healing snacks)",
+        "Vines snag on rocks",
+        "Made by: DK Vine-Weavers"
+    ],
+    vendor: 'the_dk_crew_treehouse',
+    shippedBy: 'Banana Loop',
+    levelRequirement: 5
+},
+'spark_rebellion_rebel_jacket': {
+    id: 'spark_rebellion_rebel_jacket',
+    name: "Spark Rebellion Rebel Jacket",
+    description: "Leather jacket with hidden tech compartments.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Hides small electronics or tools",
+        "+1 to Dexterity (Stealth) in urban areas",
+        "Jacket sparks during storms",
+        "Made by: Rebel Crafters"
+    ],
+    vendor: 'spark_rebellion_hideout',
+    shippedBy: 'Circuit Stitch',
+    levelRequirement: 5
+},
+'sultanates_araby_sultan_turban': {
+    id: 'sultanates_araby_sultan_turban',
+    name: "Sultanates Araby Sultan Turban",
+    description: "Ornate turban for desert nobility.",
+    category: SHOP_CATEGORIES.premium,
+    price: 18000,
+    icon: '🎩',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma (Persuasion) in markets",
+        "Turban jewel provides minor light (5ft)",
+        "Unravels in high winds",
+        "Made by: Araby Jewelers"
+    ],
+    vendor: 'sultanates_araby_palace',
+    shippedBy: 'Silk Jewel',
+    levelRequirement: 6
+},
+'animatopia_cartoon_gloves': {
+    id: 'animatopia_cartoon_gloves',
+    name: "Animatopia Cartoon Gloves (Joke)",
+    description: "White gloves that stretch like in cartoons.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🧤',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Extend reach 5ft for grabs once per day",
+        "Advantage on Performance for slapstick",
+        "Gloves squeak on contact",
+        "Made by: Toon Animators"
+    ],
+    vendor: 'animatopia_studio',
+    shippedBy: 'Rubber Band',
+    levelRequirement: 5
+},
+'chaos_dwarfs_hellforged_leather': {
+    id: 'chaos_dwarfs_hellforged_leather',
+    name: "Chaos Dwarfs Hellforged Leather",
+    description: "Tough leather from infernal beasts.",
+    category: SHOP_CATEGORIES.premium,
+    price: 20000,
+    icon: '🧥',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+1 AC against fire or chaos",
+        "Leather resists tearing",
+        "Emits faint heat (uncomfortable in summer)",
+        "Made by: Chaos Forgers"
+    ],
+    vendor: 'chaos_dwarfs_anvil',
+    shippedBy: 'Branded Hide',
+    levelRequirement: 7
+},
+'elves_lindon_starlight_cloak': {
+    id: 'elves_lindon_starlight_cloak',
+    name: "Elves Lindon Starlight Cloak",
+    description: "Cloak woven with elven starlight threads.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21500,
+    icon: '🧥',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Perception under starlight",
+        "Cloak grants minor invisibility in moonlight (1 minute/day)",
+        "Threads fade without moonlight recharge",
+        "Made by: Lindon Weavers"
+    ],
+    vendor: 'elves_lindon_haven',
+    shippedBy: 'Stellar Silk',
+    levelRequirement: 7
+},
+'moonfang_pack_wolf_pelt_mantle': {
+    id: 'moonfang_pack_wolf_pelt_mantle',
+    name: "Moonfang Pack Wolf Pelt Mantle",
+    description: "Pelt mantle for lunar hunters.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16500,
+    icon: '🧥',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Survival (tracking) at night",
+        "+1 to Wisdom (Perception) in packs",
+        "Pelt howls faintly under full moon",
+        "Made by: Pack Tanners"
+    ],
+    vendor: 'moonfang_pack_lair',
+    shippedBy: 'Fur Fold',
+    levelRequirement: 5
+},
+'avalon_court_feywing_feather_boa': {
+    id: 'avalon_court_feywing_feather_boa',
+    name: "Avalon Court Feywing Feather Boa",
+    description: "Feathery boa from enchanted birds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma (Deception) with fey",
+        "Boa allows short flight bursts (10ft)",
+        "Feathers molt and tickle",
+        "Made by: Court Fashionistas"
+    ],
+    vendor: 'avalon_court_gala',
+    shippedBy: 'Wing Wrap',
+    levelRequirement: 6
+},
+'vampire_counts_noble_velvet doublet': {
+    id: 'vampire_counts_noble_velvet_doublet',
+    name: "Vampire Counts Noble Velvet Doublet",
+    description: "Elegant doublet for undead aristocracy.",
+    category: SHOP_CATEGORIES.premium,
+    price: 19000,
+    icon: '👕',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma (Intimidation) in formal settings",
+        "Doublet preserves freshness (no decay smell)",
+        "Velvet attracts dust bunnies",
+        "Made by: Count's Tailors"
+    ],
+    vendor: 'vampire_counts_manor',
+    shippedBy: 'Crimson Velvet',
+    levelRequirement: 6
+},
+'abyssal_court_deep_sea_trench_coat': {
+    id: 'abyssal_court_deep_sea_trench_coat',
+    name: "Abyssal Court Deep Sea Trench Coat",
+    description: "Waterproof coat for abyssal depths.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Constitution saves underwater",
+        "Coat provides water breathing (1 hour/day)",
+        "Drips constantly on land",
+        "Made by: Abyssal Seamstresses"
+    ],
+    vendor: 'abyssal_court_abyss',
+    shippedBy: 'Ink-Dyed Fold',
+    levelRequirement: 7
+},
+'general_student_academy_uniform': {
+    id: 'general_student_academy_uniform',
+    name: "General Student Academy Uniform (Joke)",
+    description: "Standard uniform for eager learners.",
+    category: SHOP_CATEGORIES.premium,
+    price: 12000,
+    icon: '👔',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Intelligence checks in classrooms",
+        "Uniform inspires discipline (advantage on study rolls)",
+        "Embarrassing if stained",
+        "Made by: Student Council"
+    ],
+    vendor: 'general_student_campus',
+    shippedBy: 'Textbook Tie',
+    levelRequirement: 5
+},
+'farasi_zebra_stripe_pants': {
+    id: 'farasi_zebra_stripe_pants',
+    name: "Farasi Zebra Stripe Pants",
+    description: "Camouflage pants for herd runners.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '👖',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity (Stealth) in herds",
+        "+5 ft speed in open plains",
+        "Pants itch from grass seeds",
+        "Made by: Farasi Tailors"
+    ],
+    vendor: 'farasi_savanna',
+    shippedBy: 'Stripe Sew',
+    levelRequirement: 5
+},
+'kremling_krew_croc_scale_boots': {
+    id: 'kremling_krew_croc_scale_boots',
+    name: "Kremling Krew Croc Scale Boots",
+    description: "Tough boots from crocodile hides.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15500,
+    icon: '👢',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Athletics in swamps",
+        "Boots resist water damage",
+        "Scales creak when wet",
+        "Made by: Krew Tanners"
+    ],
+    vendor: 'kremling_krew_lair',
+    shippedBy: 'Swamp Stride',
+    levelRequirement: 5
+},
+'monsters_grognak_fur_loincloth': {
+    id: 'monsters_grognak_fur_loincloth',
+    name: "Monsters Grognak Fur Loincloth (Joke)",
+    description: "Barbarian-style fur for comic savagery.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '👙',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Strength (Intimidation)",
+        "Fur provides minor warmth",
+        "Attracts fleas (itchy distraction)",
+        "Made by: Monster Comic Crafters"
+    ],
+    vendor: 'monsters_cave',
+    shippedBy: 'Furry Patch',
+    levelRequirement: 5
+},
+'beanbean_kingdom_bean_pod_pants': {
+    id: 'beanbean_kingdom_bean_pod_pants',
+    name: "Beanbean Kingdom Bean Pod Pants",
+    description: "Pants reinforced with magical bean fibers.",
+    category: SHOP_CATEGORIES.premium,
+    price: 14500,
+    icon: '👖',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity saves vs. falls",
+        "Pants grow minor vines (climbing aid)",
+        "Pods pop during jumps (noisy)",
+        "Made by: Bean Weavers"
+    ],
+    vendor: 'beanbean_kingdom_farm',
+    shippedBy: 'Pod Pocket',
+    levelRequirement: 5
+},
+'lothlorien_elf_leaf_tunic': {
+    id: 'lothlorien_elf_leaf_tunic',
+    name: "Lothlórien Elf Leaf Tunic",
+    description: "Tunic woven from living leaves.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '👕',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Nature checks in woods",
+        "Tunic camouflages in foliage",
+        "Leaves rustle in wind",
+        "Made by: Golden Wood Elves"
+    ],
+    vendor: 'lothlorien_grove',
+    shippedBy: 'Living Leaf',
+    levelRequirement: 7
+},
+'centaur_khanate_steppe_coat': {
+    id: 'centaur_khanate_steppe_coat',
+    name: "Centaur Khanate Steppe Coat",
+    description: "Wool coat for nomadic riders.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16000,
+    icon: '🧥',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to mounted speed endurance",
+        "Coat resists wind chill",
+        "Heavy for non-centaurs",
+        "Made by: Khanate Herders"
+    ],
+    vendor: 'centaur_khanate_camp',
+    shippedBy: 'Horsehair Hide',
+    levelRequirement: 5
+},
+'goodstyle_fabulous_cape': {
+    id: 'goodstyle_fabulous_cape',
+    name: "Goodstyle Fabulous Cape (Joke)",
+    description: "Sparkly cape for dramatic entrances.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '🧥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to Performance for flair",
+        "Cape swishes for +1 Intimidation",
+        "Glitter everywhere (cleanup hassle)",
+        "Made by: Style Gurus"
+    ],
+    vendor: 'goodstyle_boutique',
+    shippedBy: 'Sparkle Fold',
+    levelRequirement: 5
+},
+'void_drifters_cosmic_void_robe': {
+    id: 'void_drifters_cosmic_void_robe',
+    name: "Void Drifters Cosmic Void Robe",
+    description: "Robe patterned with swirling voids.",
+    category: SHOP_CATEGORIES.premium,
+    price: 18500,
+    icon: '👘',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves vs. void effects",
+        "Robe absorbs minor darkness (night vision aid)",
+        "Voids whisper (minor madness risk)",
+        "Made by: Drifter Mystics"
+    ],
+    vendor: 'void_drifters_voidship',
+    shippedBy: 'Null Space Weave',
+    levelRequirement: 6
+},
+'order_silver_silver_thread_gloves': {
+    id: 'order_silver_silver_thread_gloves',
+    name: "Order Silver Silver Thread Gloves",
+    description: "Gloves woven with purifying silver.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '🧤',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "+1 to attacks vs. were-creatures",
+        "Gloves detect silver weakness",
+        "Tarnish in humidity",
+        "Made by: Silver Order"
+    ],
+    vendor: 'order_silver_temple',
+    shippedBy: 'Shiny Sheen',
+    levelRequirement: 5
+},
+'lycan_pack_moonlit_fur_trousers': {
+    id: 'lycan_pack_moonlit_fur_trousers',
+    name: "Lycan Pack Moonlit Fur Trousers",
+    description: "Trousers from wolf fur for pack runners.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15000,
+    icon: '👖',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity (Acrobatics) under moonlight",
+        "+5 ft speed in forests",
+        "Fur sheds during full moons",
+        "Made by: Pack Tanners"
+    ],
+    vendor: 'lycan_pack_den',
+    shippedBy: 'Lunar Leather',
+    levelRequirement: 5
+},
+'peach_loyalists_princess_gown': {
+    id: 'peach_loyalists_princess_gown',
+    name: "Peach Loyalists Princess Gown",
+    description: "Elegant gown for royal occasions.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '👗',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma (Persuasion) in courts",
+        "Gown hides minor stains (disguise aid)",
+        "Bulky for combat",
+        "Made by: Loyalist Seamstresses"
+    ],
+    vendor: 'peach_loyalists_castle',
+    shippedBy: 'Pink Petal',
+    levelRequirement: 6
+},
+'vampire_covenant_shadow_silk_shirt': {
+    id: 'vampire_covenant_shadow_silk_shirt',
+    name: "Vampire Covenant Shadow Silk Shirt",
+    description: "Silk shirt that blends with night.",
+    category: SHOP_CATEGORIES.premium,
+    price: 18000,
+    icon: '👕',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Stealth in darkness",
+        "Shirt mends in shadows",
+        "Silk cold to the touch",
+        "Made by: Covenant Tailors"
+    ],
+    vendor: 'vampire_covenant_tower',
+    shippedBy: 'Nocturnal Nightie',
+    levelRequirement: 6
+},
+'flower_kingdom_petal_petticoat': {
+    id: 'flower_kingdom_petal_petticoat',
+    name: "Flower Kingdom Petal Petticoat",
+    description: "Layered petticoat of fresh petals.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '👗',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Charisma in gardens",
+        "Petals release calming scent (advantage vs. fear)",
+        "Wilts after rain",
+        "Made by: Flower Dressmakers"
+    ],
+    vendor: 'flower_kingdom_garden',
+    shippedBy: 'Blooming Bundle',
+    levelRequirement: 5
+},
+'hacktivist_digital_camo_pants': {
+    id: 'hacktivist_digital_camo_pants',
+    name: "Hacktivist Digital Camo Pants (Joke)",
+    description: "Pants with pixelated patterns for urban hiding.",
+    category: SHOP_CATEGORIES.premium,
+    price: 14000,
+    icon: '👖',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth in tech-heavy areas",
+        "Pockets for USB drives",
+        "Pixels glitch in EMPs",
+        "Made by: Net Hackers"
+    ],
+    vendor: 'hacktivist_den',
+    shippedBy: 'Code Cloth',
+    levelRequirement: 5
+},
+'hobgoblin_legion_uniform': {
+    id: 'hobgoblin_legion_uniform',
+    name: "Hobgoblin Legion Uniform",
+    description: "Disciplined uniform for goblin ranks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '👔',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to attack rolls in formation",
+        "Uniform boosts morale (advantage vs. fear)",
+        "Itchy wool",
+        "Made by: Legion Tailors"
+    ],
+    vendor: 'hobgoblin_legion_camp',
+    shippedBy: 'Marching Fold',
+    levelRequirement: 5
+},
+'cult_of_min_cat_ear_hoodie': {
+    id: 'cult_of_min_cat_ear_hoodie',
+    name: "Cult of Min Cat Ear Hoodie (Joke)",
+    description: "Hoodie with cute cat ears for feline fans.",
+    category: SHOP_CATEGORIES.premium,
+    price: 11000,
+    icon: '👕',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Animal Handling with cats",
+        "Ears perk up to sounds (minor Perception aid)",
+        "Hoodie attracts cat hair",
+        "Made by: Min Cultists"
+    ],
+    vendor: 'cult_of_min_temple',
+    shippedBy: 'Paw Print Patch',
+    levelRequirement: 5
+},
+'the_iron_fists_monk_robe': {
+    id: 'the_iron_fists_monk_robe',
+    name: "The Iron Fists Monk Robe",
+    description: "Simple robe for martial artists.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '👘',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity (Acrobatics) for flips",
+        "+1 to unarmed strikes",
+        "Robe flows but tangles feet sometimes",
+        "Made by: Fist Monks"
+    ],
+    vendor: 'the_iron_fists_dojo',
+    shippedBy: 'Zen Zip',
+    levelRequirement: 5
+},
+'warriors_chaos_mutant_wraps': {
+    id: 'warriors_chaos_mutant_wraps',
+    name: "Warriors Chaos Mutant Wraps",
+    description: "Bandages that adapt to wounds.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16500,
+    icon: '🩹',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Heal 1d6 HP when wrapped (once per day)",
+        "Wraps resist chaos mutations slightly",
+        "Change color randomly",
+        "Made by: Chaos Healers"
+    ],
+    vendor: 'warriors_chaos_tent',
+    shippedBy: 'Twisted Bandage',
+    levelRequirement: 6
+},
+'kingdom_fiore_fairy_wing_cape': {
+    id: 'kingdom_fiore_fairy_wing_cape',
+    name: "Kingdom Fiore Fairy Wing Cape",
+    description: "Cape mimicking fairy wings.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Charisma with fey",
+        "Cape allows 15ft glide",
+        "Wings flutter in breeze",
+        "Made by: Fiore Fairies"
+    ],
+    vendor: 'kingdom_fiore_forest',
+    shippedBy: 'Wing Weave',
+    levelRequirement: 6
+},
+'druid_circle_nature_bark_armor': {
+    id: 'druid_circle_nature_bark_armor',
+    name: "Druid Circle Nature Bark Armor",
+    description: "Bark-like vest for woodland guardians.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17000,
+    icon: '🛡️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "+1 AC in natural terrain",
+        "Advantage on saves vs. poison from plants",
+        "Bark cracks in fire",
+        "Made by: Circle Barkweavers"
+    ],
+    vendor: 'druid_circle_grove',
+    shippedBy: 'Tree Sap Seal',
+    levelRequirement: 5
+},
+'desert_sultanate_sand_silk_robe': {
+    id: 'desert_sultanate_sand_silk_robe',
+    name: "Desert Sultanate Sand Silk Robe",
+    description: "Light robe that shifts like sand.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '👘',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth in deserts",
+        "Robe cools the wearer",
+        "Silk attracts sand fleas",
+        "Made by: Sultanate Silkers"
+    ],
+    vendor: 'desert_sultanate_oasis',
+    shippedBy: 'Dune Drape',
+    levelRequirement: 5
+},
+'wh_araby_dervish_whirl_skirt': {
+    id: 'wh_araby_dervish_whirl_skirt',
+    name: "Wh Araby Dervish Whirl Skirt (Joke)",
+    description: "Skirt for spinning dances.",
+    category: SHOP_CATEGORIES.premium,
+    price: 13500,
+    icon: '👗',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Performance for dances",
+        "Skirt creates minor wind (dust distraction)",
+        "Trips if spun too fast",
+        "Made by: Dervish Dancers"
+    ],
+    vendor: 'wh_araby_dance_hall',
+    shippedBy: 'Silk Spin',
+    levelRequirement: 5
+},
+'fawfuls_furious_mad_scientist_coat': {
+    id: 'fawfuls_furious_mad_scientist_coat',
+    name: "Fawful's Furious Mad Scientist Coat",
+    description: "Lab coat with explosive pockets.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '🧥',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Intelligence (Investigation) for inventions",
+        "Pockets hold volatile items safely",
+        "Coat bubbles during experiments",
+        "Made by: Fawful's Lab"
+    ],
+    vendor: 'fawfuls_furious_lab',
+    shippedBy: 'Fuming Fabric',
+    levelRequirement: 6
+},
+'mnevis_order_sun_flare_mantle': {
+    id: 'mnevis_order_sun_flare_mantle',
+    name: "Mnevis Order Sun Flare Mantle",
+    description: "Mantle that captures sunlight.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17500,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Mantle stores sunlight for minor light spell (1/day)",
+        "+1 to Wisdom saves in daylight",
+        "Flares blind briefly in dark",
+        "Made by: Sun Priests"
+    ],
+    vendor: 'mnevis_order_temple',
+    shippedBy: 'Solar Shawl',
+    levelRequirement: 5
+},
+'undead_ghostly_shroud': {
+    id: 'undead_ghostly_shroud',
+    name: "Undead Ghostly Shroud",
+    description: "Ethereal shroud for spectral wanderers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🧣',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves vs. physical grapples",
+        "Shroud phases through minor barriers",
+        "Chills the wearer",
+        "Made by: Necro-Weavers"
+    ],
+    vendor: 'undead_graveyard',
+    shippedBy: 'Ecto-Ethereal Fold',
+    levelRequirement: 6
+},
+'the_toad_cult_slime_slippers': {
+    id: 'the_toad_cult_slime_slippers',
+    name: "The Toad Cult Slime Slippers (Joke)",
+    description: "Squishy slippers for bog hopping.",
+    category: SHOP_CATEGORIES.premium,
+    price: 9500,
+    icon: '👡',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity saves in mud",
+        "Slippers leave slime trails (slippery for foes)",
+        "Squish loudly",
+        "Made by: Toad Cultists"
+    ],
+    vendor: 'the_toad_cult_bog',
+    shippedBy: 'Slimy Sole',
+    levelRequirement: 5
+},
+'yoshi_clans_egg_shell_helmet': {
+    id: 'yoshi_clans_egg_shell_helmet',
+    name: "Yoshi Clans Egg Shell Helmet",
+    description: "Helmet crafted from durable egg shells.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '⛑️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC against bludgeoning",
+        "Helmet hatches a chick (distraction aid)",
+        "Cracks after heavy hits",
+        "Made by: Yoshi Crafters"
+    ],
+    vendor: 'yoshi_clans_nest',
+    shippedBy: 'Egg Carton',
+    levelRequirement: 5
+},
+'knights_gilded_golden_tabard': {
+    id: 'knights_gilded_golden_tabard',
+    name: "Knights Gilded Golden Tabard",
+    description: "Tabard emblazoned with knightly heraldry.",
+    category: SHOP_CATEGORIES.premium,
+    price: 20000,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+1 to Charisma (Persuasion) with nobles",
+        "Tabard shines to blind foes (DC 10 CON)",
+        "Gold thread attracts thieves",
+        "Made by: Gilded Knights"
+    ],
+    vendor: 'knights_gilded_keep',
+    shippedBy: 'Heraldic Hang',
+    levelRequirement: 7
+},
+'merchant_guild_merchant_robe': {
+    id: 'merchant_guild_merchant_robe',
+    name: "Merchant Guild Merchant Robe",
+    description: "Robe with coin pouches for traders.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '👘',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Persuasion for haggling",
+        "Robe holds 50gp without weight",
+        "Pouches jingle (no stealth)",
+        "Made by: Guild Tailors"
+    ],
+    vendor: 'merchant_guild_bazaar',
+    shippedBy: 'Coin Cloth',
+    levelRequirement: 5
+},
+'team_plasma_ethical_leather_jacket': {
+    id: 'team_plasma_ethical_leather_jacket',
+    name: "Team Plasma Ethical Leather Jacket (Joke)",
+    description: "Vegan 'leather' jacket for animal lovers.",
+    category: SHOP_CATEGORIES.premium,
+    price: 13500,
+    icon: '🧥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Animal Handling",
+        "Jacket repels minor beast attacks",
+        "Smells like tofu",
+        "Made by: Plasma Fashion"
+    ],
+    vendor: 'team_plasma_hq',
+    shippedBy: 'Green Garment',
+    levelRequirement: 5
+},
+'rakasha_clans_tiger_stripe_vest': {
+    id: 'rakasha_clans_tiger_stripe_vest',
+    name: "Rakasha Clans Tiger Stripe Vest",
+    description: "Vest with fierce tiger patterns.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Intimidation vs. beasts",
+        "+1 Dexterity in jungles",
+        "Stripes fade with sweat",
+        "Made by: Tiger Clans"
+    ],
+    vendor: 'rakasha_clans_jungle',
+    shippedBy: 'Claw Cut',
+    levelRequirement: 6
+},
+'starlight_festival_glitter_gown': {
+    id: 'starlight_festival_glitter_gown',
+    name: "Starlight Festival Glitter Gown",
+    description: "Sparkling gown for night celebrations.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16500,
+    icon: '👗',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Performance under stars",
+        "Gown glows faintly (5ft light)",
+        "Glitter sticks to everything",
+        "Made by: Festival Designers"
+    ],
+    vendor: 'starlight_festival',
+    shippedBy: 'Sparkle Skirt',
+    levelRequirement: 5
+},
+'griffonstone_aerial_wing_harness': {
+    id: 'griffonstone_aerial_wing_harness',
+    name: "Griffonstone Aerial Wing Harness",
+    description: "Harness for griffon riders.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🎽',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on mounted flight maneuvers",
+        "Harness secures during dives",
+        "Feathers molt from straps",
+        "Made by: Griffon Aviators"
+    ],
+    vendor: 'griffonstone_nest',
+    shippedBy: 'Wing Wing',
+    levelRequirement: 7
+},
+'rebel_clans_guerrilla_camo_cloak': {
+    id: 'rebel_clans_guerrilla_camo_cloak',
+    name: "Rebel Clans Guerrilla Camo Cloak",
+    description: "Cloak for hit-and-run tactics.",
+    category: SHOP_CATEGORIES.premium,
+    price: 14500,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth after ambushes",
+        "Cloak blends with terrain",
+        "Tears in prolonged fights",
+        "Made by: Clan Weavers"
+    ],
+    vendor: 'rebel_clans_camp',
+    shippedBy: 'Hidden Hem',
+    levelRequirement: 5
+},
+'csto_cosmic_star_robe': {
+    id: 'csto_cosmic_star_robe',
+    name: "CSTO Cosmic Star Robe",
+    description: "Robe mapped with constellations.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21000,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Navigation under stars",
+        "Robe predicts minor celestial events",
+        "Stars twinkle distractingly",
+        "Made by: Cosmic Seers"
+    ],
+    vendor: 'csto_observatory',
+    shippedBy: 'Stellar Stitch',
+    levelRequirement: 7
+},
+'the_unchained_freedom_chains_cuffs': {
+    id: 'the_unchained_freedom_chains_cuffs',
+    name: "The Unchained Freedom Chains Cuffs (Joke)",
+    description: "Iron cuffs turned into stylish bracelets.",
+    category: SHOP_CATEGORIES.premium,
+    price: 12000,
+    icon: '📿',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on saves vs. restraint",
+        "Cuffs symbolize rebellion (+1 Inspiration)",
+        "Clank noisily",
+        "Made by: Unchained Smiths"
+    ],
+    vendor: 'the_unchained_fort',
+    shippedBy: 'Broken Link',
+    levelRequirement: 5
+},
+'desert_traders_nomad_scarf': {
+    id: 'desert_traders_nomad_scarf',
+    name: "Desert Traders Nomad Scarf",
+    description: "Multi-use scarf for trade routes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '🧣',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Scarf as rope (20ft climb aid)",
+        "+1 to Survival in deserts",
+        "Fades in sun",
+        "Made by: Trader Nomads"
+    ],
+    vendor: 'desert_traders_caravan',
+    shippedBy: 'Sand Scarf',
+    levelRequirement: 5
+},
+'monks_order_zen_robe': {
+    id: 'monks_order_zen_robe',
+    name: "Monks Order Zen Robe",
+    description: "Flowing robe for meditative focus.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15500,
+    icon: '👘',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Wisdom (Insight) during meditation",
+        "Robe calms mind (+1 to Concentration)",
+        "Snags on rough terrain",
+        "Made by: Order Weavers"
+    ],
+    vendor: 'monks_order_monastery',
+    shippedBy: 'Peaceful Pleat',
+    levelRequirement: 5
+},
+'african_union_tribal_beaded_vest': {
+    id: 'african_union_tribal_beaded_vest',
+    name: "African Union Tribal Beaded Vest",
+    description: "Vest with colorful beads for rituals.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Performance for tribal dances",
+        "Beads rattle to ward spirits (advantage vs. fear)",
+        "Beads break if dropped",
+        "Made by: Union Artisans"
+    ],
+    vendor: 'african_union_village',
+    shippedBy: 'Bead Bundle',
+    levelRequirement: 6
+},
+'oathbound_judges_judge_robe': {
+    id: 'oathbound_judges_judge_robe',
+    name: "Oathbound Judges Judge Robe",
+    description: "Formal robe for courtroom authority.",
+    category: SHOP_CATEGORIES.premium,
+    price: 19500,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+1 to Charisma (Intimidation) in trials",
+        "Robe enforces oaths (minor binding)",
+        "Heavy for quick movement",
+        "Made by: Judge Tailors"
+    ],
+    vendor: 'oathbound_judges_court',
+    shippedBy: 'Gavel Garment',
+    levelRequirement: 7
+},
+'diamond_city_neon_glow_jacket': {
+    id: 'diamond_city_neon_glow_jacket',
+    name: "Diamond City Neon Glow Jacket (Joke)",
+    description: "Jacket that lights up like city signs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Jacket provides 10ft bright light",
+        "Advantage on Intimidation in dark alleys",
+        "Batteries die at bad times",
+        "Made by: City Neonists"
+    ],
+    vendor: 'diamond_city_street',
+    shippedBy: 'Glow Thread',
+    levelRequirement: 5
+},
+'earth_land_fairy_tail_guild_scarf': {
+    id: 'earth_land_fairy_tail_guild_scarf',
+    name: "Earth Land Fairy Tail Guild Scarf",
+    description: "Guild scarf for magical camaraderie.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17500,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "+1 to team-based rolls with guildmates",
+        "Scarf warms in cold (comfort)",
+        "Tangles in wind magic",
+        "Made by: Fairy Tail Members"
+    ],
+    vendor: 'earth_land_guildhall',
+    shippedBy: 'Magic Muffler',
+    levelRequirement: 6
+},
+'skaven_rat_fur_hood': {
+    id: 'skaven_rat_fur_hood',
+    name: "Skaven Rat Fur Hood",
+    description: "Hood from scurrying vermin for sneaky types.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '🧢',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Stealth in sewers",
+        "Hood muffles squeaks (your own)",
+        "Attracts real rats",
+        "Made by: Skaven Scavengers"
+    ],
+    vendor: 'skaven_tunnels',
+    shippedBy: 'Furry Fringe',
+    levelRequirement: 5
+},
+'abydos_high_school_blazer': {
+    id: 'abydos_high_school_blazer',
+    name: "Abydos High School Blazer (Joke)",
+    description: "School blazer for youthful adventures.",
+    category: SHOP_CATEGORIES.premium,
+    price: 11500,
+    icon: '👔',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Intelligence (Education) checks",
+        "Blazer inspires study (advantage on lore)",
+        "Uniform code violations possible",
+        "Made by: High School Tailors"
+    ],
+    vendor: 'abydos_high_campus',
+    shippedBy: 'Buttoned Badge',
+    levelRequirement: 5
+},
+'alvarez_empire_dragon_scale_gloves': {
+    id: 'alvarez_empire_dragon_scale_gloves',
+    name: "Alvarez Empire Dragon Scale Gloves",
+    description: "Gloves from shed dragon scales.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '🧤',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves vs. fire",
+        "+1 to Strength (Athletics) grips",
+        "Scales scratch surfaces",
+        "Made by: Empire Dragonhunters"
+    ],
+    vendor: 'alvarez_empire_fortress',
+    shippedBy: 'Scale Sheath',
+    levelRequirement: 7
+},
+'void_entities_void_shroud': {
+    id: 'void_entities_void_shroud',
+    name: "Void Entities Void Shroud",
+    description: "Shroud that warps light slightly.",
+    category: SHOP_CATEGORIES.premium,
+    price: 21500,
+    icon: '🧣',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves vs. detection",
+        "Shroud hides minor voids (pocket space)",
+        "Whispers unsettle the mind",
+        "Made by: Void Weavers"
+    ],
+    vendor: 'void_entities_rift',
+    shippedBy: 'Null Night',
+    levelRequirement: 7
+},
+'tea_leaf_diviner_robe': {
+    id: 'tea_leaf_diviner_robe',
+    name: "Tea Leaf Diviner Robe",
+    description: "Robe stained with tea for fortune tellers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '👘',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Wisdom (Insight) for readings",
+        "Robe holds tea leaves (minor prophecy aid)",
+        "Stains never wash out",
+        "Made by: Leaf Seers"
+    ],
+    vendor: 'tea_leaf_parlor',
+    shippedBy: 'Steeped Silk',
+    levelRequirement: 5
+},
+'connectopia_virtual_avatar_suit': {
+    id: 'connectopia_virtual_avatar_suit',
+    name: "Connectopia Virtual Avatar Suit (Joke)",
+    description: "Suit that feels like digital armor.",
+    category: SHOP_CATEGORIES.premium,
+    price: 15000,
+    icon: '👔',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on tech-based Deception",
+        "Suit glitches for fun effects",
+        "Overheats in real sun",
+        "Made by: Virtual Tailors"
+    ],
+    vendor: 'connectopia_hub',
+    shippedBy: 'Pixel Pleat',
+    levelRequirement: 5
+},
+'liberated_toads_hop_sack_clothes': {
+    id: 'liberated_toads_hop_sack_clothes',
+    name: "Liberated Toads Hop Sack Clothes",
+    description: "Loose clothes for amphibious freedom.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '👘',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity (Acrobatics) jumps",
+        "Clothes dry quickly in water",
+        "Sacks smell like pond",
+        "Made by: Toad Rebels"
+    ],
+    vendor: 'liberated_toads_pond',
+    shippedBy: 'Lily Pad Lining',
+    levelRequirement: 5
+},
+'team_aqua_aqua_diver_suit': {
+    id: 'team_aqua_aqua_diver_suit',
+    name: "Team Aqua Aqua Diver Suit",
+    description: "Wetsuit for underwater ops.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17000,
+    icon: '👔',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Swimming and underwater Stealth",
+        "Suit provides minor pressure resistance",
+        "Bulky on land",
+        "Made by: Aqua Divers"
+    ],
+    vendor: 'team_aqua_submarine',
+    shippedBy: 'Wave Weave',
+    levelRequirement: 6
+},
+'team_magma_lava_resistant_pants': {
+    id: 'team_magma_lava_resistant_pants',
+    name: "Team Magma Lava Resistant Pants",
+    description: "Heat-proof pants for volcanic work.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '👖',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Resistance to minor heat damage",
+        "+1 to Constitution in hot areas",
+        "Pants smolder after exposure",
+        "Made by: Magma Miners"
+    ],
+    vendor: 'team_magma_volcano',
+    shippedBy: 'Ash Ashen',
+    levelRequirement: 5
+},
+'void_cult_shadow_weave_robe': {
+    id: 'void_cult_shadow_weave_robe',
+    name: "Void Cult Shadow Weave Robe",
+    description: "Robe of woven shadows for cultists.",
+    category: SHOP_CATEGORIES.premium,
+    price: 19000,
+    icon: '👘',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Stealth in shadows",
+        "Robe extends darkness 5ft",
+        "Fades in bright light",
+        "Made by: Cult Shadowsmiths"
+    ],
+    vendor: 'void_cult_sanctum',
+    shippedBy: 'Dark Drape',
+    levelRequirement: 6
+},
+'north_american_eagle_feather_poncho': {
+    id: 'north_american_eagle_feather_poncho',
+    name: "North American Eagle Feather Poncho",
+    description: "Poncho adorned with eagle feathers for vision quests.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Wisdom (Perception) from heights",
+        "Poncho grants minor wind resistance",
+        "Feathers ruffle in storms",
+        "Made by: Tribal Crafters"
+    ],
+    vendor: 'north_american_tribe',
+    shippedBy: 'Feather Fringe',
+    levelRequirement: 5
+},
+'bandits_road_rag_cloak': {
+    id: 'bandits_road_rag_cloak',
+    name: "Bandits Road Rag Cloak (Joke)",
+    description: "Tattered cloak for highway folk.",
+    category: SHOP_CATEGORIES.premium,
+    price: 9500,
+    icon: '🧥',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Deception as a beggar",
+        "Cloak hides small stolen goods",
+        "Rags smell musty",
+        "Made by: Bandit Scroungers"
+    ],
+    vendor: 'bandits_roadside',
+    shippedBy: 'Rag Roll',
+    levelRequirement: 5
+},
+'the_toad_gang_marsh_muck_boots': {
+    id: 'the_toad_gang_marsh_muck_boots',
+    name: "The Toad Gang Marsh Muck Boots",
+    description: "Boots for slogging through swamps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '👢',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Ignore mud difficult terrain",
+        "+1 to Strength (Athletics) in bogs",
+        "Boots squelch loudly",
+        "Made by: Gang Mudders"
+    ],
+    vendor: 'the_toad_gang_swamp',
+    shippedBy: 'Muck Mud',
+    levelRequirement: 5
+},
+'liminal_ghostly_gauze_wrap': {
+    id: 'liminal_ghostly_gauze_wrap',
+    name: "Liminal Ghostly Gauze Wrap",
+    description: "Translucent wrap for spirit walkers.",
+    category: SHOP_CATEGORIES.premium,
+    price: 17500,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on saves vs. ethereal effects",
+        "Wrap allows phasing through thin walls (1/day)",
+        "Gauze unravels in wind",
+        "Made by: Liminal Spirits"
+    ],
+    vendor: 'liminal_threshold',
+    shippedBy: 'Ethereal Edge',
+    levelRequirement: 6
+},
+'kingdom_rohan_rider_leather': {
+    id: 'kingdom_rohan_rider_leather',
+    name: "Kingdom Rohan Rider Leather",
+    description: "Leather outfit for horse lords.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '👔',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Animal Handling with horses",
+        "+1 to Dexterity on mounts",
+        "Leather creaks in silence",
+        "Made by: Rohan Saddlers"
+    ],
+    vendor: 'kingdom_rohan_stables',
+    shippedBy: 'Horse Hide',
+    levelRequirement: 6
+},
+'team_flare_fashionista_dress': {
+    id: 'team_flare_fashionista_dress',
+    name: "Team Flare Fashionista Dress",
+    description: "Stylish dress for dramatic reveals.",
+    category: SHOP_CATEGORIES.premium,
+    price: 16000,
+    icon: '👗',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "+2 to Charisma (Performance)",
+        "Dress flares for distraction (DC 12 Wis)",
+        "Snags on rough ground",
+        "Made by: Flare Designers"
+    ],
+    vendor: 'team_flare_showroom',
+    shippedBy: 'Flaming Fold',
+    levelRequirement: 5
+},
+'team_rocket_black_suit': {
+    id: 'team_rocket_black_suit',
+    name: "Team Rocket Black Suit (Joke)",
+    description: "Sleek suit for villainous schemes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '👔',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Deception for cons",
+        "Suit hides Meowth (small companion)",
+        "Tie unravels dramatically",
+        "Made by: Rocket Tailors"
+    ],
+    vendor: 'team_rocket_base',
+    shippedBy: 'Sneaky Suitcase',
+    levelRequirement: 5
+},
+'team_star_rebel_hoodie': {
+    id: 'team_star_rebel_hoodie',
+    name: "Team Star Rebel Hoodie",
+    description: "Hoodie with star motifs for outcasts.",
+    category: SHOP_CATEGORIES.premium,
+    price: 13000,
+    icon: '👕',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Charisma with rebels",
+        "Hoodie hides identity",
+        "Stars glow in dark",
+        "Made by: Star Rebels"
+    ],
+    vendor: 'team_star_hideout',
+    shippedBy: 'Starry Stitch',
+    levelRequirement: 5
+},
+'ranger_union_woodland_cloak': {
+    id: 'ranger_union_woodland_cloak',
+    name: "Ranger Union Woodland Cloak",
+    description: "Cloak of leaves and moss for rangers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🧥',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Advantage on Survival in woods",
+        "Cloak camouflages naturally",
+        "Moss grows (itchy)",
+        "Made by: Union Rangers"
+    ],
+    vendor: 'ranger_union_lodge',
+    shippedBy: 'Leaf Layer',
+    levelRequirement: 7
+},
+'go_rock_squad_rocker_jacket': {
+    id: 'go_rock_squad_rocker_jacket',
+    name: "Go-Rock Squad Rocker Jacket (Joke)",
+    description: "Leather jacket for rock enthusiasts.",
+    category: SHOP_CATEGORIES.premium,
+    price: 12500,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to Strength (Athletics) with rocks",
+        "Jacket resists crushing",
+        "Smells like gravel",
+        "Made by: Rock Squad"
+    ],
+    vendor: 'go_rock_squad_cave',
+    shippedBy: 'Stone Stud',
+    levelRequirement: 5
+},
     'burnt_pan': {
         id: 'burnt_pan',
         name: "Burnt Frying Pan",
