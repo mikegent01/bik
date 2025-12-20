@@ -7,10 +7,12 @@
 export const DURABILITY_CONFIG = {
     // Base uses per 100 XP spent
     BASE_USES_PER_100_XP: 1,
-    
+        // Level scaling
+    MIN_LEVEL_MODIFIER: 0.1,      // Minimum 10% durability at very high levels
+    LEVEL_SCALE_FACTOR: 0.45,     // How aggressively levels reduce durability
     // Minimum/Maximum uses
     MIN_USES: 1,
-    MAX_USES: 90000,
+    MAX_USES: 50,
     
     // Rarity multipliers (rarer = fewer uses, more precious)
     RARITY_MODIFIERS: {
@@ -19,7 +21,8 @@ export const DURABILITY_CONFIG = {
         rare: 0.5,
         epic: 0.35,
         legendary: 0.25,
-        mythic: 0.15
+        mythic: 0.15,
+        godly: 0.005 
     },
     
     // Category modifiers
@@ -99,6 +102,7 @@ export function getDurabilityTier(uses) {
     return 'fragile';
 }
 
+
 /**
  * Calculate durability for an item
  * @param {Object} item - Shop item object from SHOP_ITEMS
@@ -150,6 +154,7 @@ export function calculateDurability(item) {
     const price = item.price || 100;
     const rarity = item.rarity || 'common';
     const category = item.category || 'curiosities';
+    const levelReq = item.levelRequirement || 1;
     
     // Base calculation: more expensive = more uses
     // Every 100 XP gives BASE_USES_PER_100_XP uses
@@ -162,6 +167,12 @@ export function calculateDurability(item) {
     // Apply category modifier
     const categoryMod = DURABILITY_CONFIG.CATEGORY_MODIFIERS[category] || 1.0;
     modifiedUses = Math.floor(modifiedUses * categoryMod);
+    
+    // Apply level requirement modifier (higher level = fewer uses, more powerful items)
+    // Uses logarithmic scaling so high levels don't go to zero
+    // Level 1 = 1.0x, Level 10 = ~0.6x, Level 30 = ~0.35x, Level 60 = ~0.25x
+    const levelMod = calculateLevelModifier(levelReq);
+    modifiedUses = Math.floor(modifiedUses * levelMod);
     
     // Clamp to min/max
     const finalUses = Math.max(
@@ -193,12 +204,34 @@ export function calculateDurability(item) {
             baseUses: baseUses,
             rarityMod: rarityMod,
             categoryMod: categoryMod,
+            levelMod: levelMod,
+            levelReq: levelReq,
             price: price,
             rarity: rarity,
             category: category
         }
     };
 }
+
+/**
+ * Calculate level modifier using logarithmic scaling
+ * Higher levels = lower modifier = fewer uses
+ * @param {number} level - Item level requirement
+ * @returns {number} Modifier between MIN_LEVEL_MODIFIER and 1.0
+ */
+function calculateLevelModifier(level) {
+    if (level <= 1) return 1.0;
+    
+    const minModifier = DURABILITY_CONFIG.MIN_LEVEL_MODIFIER || 0.1;
+    const scaleFactor = DURABILITY_CONFIG.LEVEL_SCALE_FACTOR || 0.25;
+    
+    // Logarithmic decay: 1 / (1 + scaleFactor * ln(level))
+    // This gives a smooth curve that never reaches zero
+    const modifier = 1 / (1 + scaleFactor * Math.log(level));
+    
+    return Math.max(minModifier, modifier);
+}
+
 
 /**
  * Get icon and color for durability display
@@ -259,6 +292,10 @@ export function renderLevelRequirement(item) {
 
 /**
  * Generate tooltip text for durability
+ *//**
+ * Generate tooltip text for durability
+ *//**
+ * Generate tooltip text for durability
  */
 function getDurabilityTooltip(item, durability) {
     if (durability.isPermanent) {
@@ -272,28 +309,16 @@ function getDurabilityTooltip(item, durability) {
     const { breakdown } = durability;
     if (!breakdown) return `${durability.maxUses} uses before renewal needed`;
     
+    const levelPercent = Math.round(breakdown.levelMod * 100);
+    
     return `Durability: ${durability.maxUses} uses
 ━━━━━━━━━━━━━━━━━━
-Price: ${breakdown.price} XP → ${breakdown.baseUses} base uses
+Price: ${breakdown.price.toLocaleString()} XP → ${breakdown.baseUses} base uses
 Rarity (${breakdown.rarity}): ×${breakdown.rarityMod}
 Category (${breakdown.category}): ×${breakdown.categoryMod}
+Level ${breakdown.levelReq} Required: ×${breakdown.levelMod.toFixed(2)} (${levelPercent}%)
 ━━━━━━━━━━━━━━━━━━
-Renewal Cost: ${durability.renewalCost} XP`;
-}
-
-/**
- * Render the full item info section (durability + level)
- */
-export function renderItemInfoBadges(item) {
-    const durabilityBadge = renderDurabilityBadge(item);
-    const levelBadge = renderLevelRequirement(item);
-    
-    return `
-        <div class="item-info-badges">
-            ${durabilityBadge}
-            ${levelBadge}
-        </div>
-    `;
+Renewal Cost: ${durability.renewalCost.toLocaleString()} XP`;
 }
 
 // ============================================
