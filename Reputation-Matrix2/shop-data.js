@@ -18,6 +18,144 @@ export const SHOP_CATEGORIES = {
     FORBIDDEN: 'forbidden',
     PREMIUM: 'premium'
 };
+// Add after BASE_MEMBERSHIP_TIERS
+
+export const MEMBERSHIP_PRICES = {
+    // --- TIER 1-10: THE "PATHETIC POOR" PHASE ---
+    lint_licker: { price: 0, levelRequired: 1 },
+    dust_bunny: { price: 500, levelRequired: 2 },
+    rusty_rookie: { price: 1000, levelRequired: 3 },
+    rotten_garlic: { price: 1500, levelRequired: 4 },
+    clay_clown: { price: 2500, levelRequired: 5 },
+    cardboard_king: { price: 3500, levelRequired: 6 },
+    wood_wimp: { price: 5000, levelRequired: 7 },
+    stone_slacker: { price: 6500, levelRequired: 8 },
+    cement_cent: { price: 8000, levelRequired: 9 },
+    glass_goomba: { price: 10000, levelRequired: 10 },
+
+    // --- TIER 11-20: THE "COMMON METALS" PHASE ---
+    copper_crook: { price: 12500, levelRequired: 11 },
+    bronze_bargain: { price: 15000, levelRequired: 12 },
+    iron_ingot: { price: 18000, levelRequired: 13 },
+    steel_stealer: { price: 22000, levelRequired: 14 },
+    aluminum_associate: { price: 26000, levelRequired: 15 },
+    nickel_nicety: { price: 30000, levelRequired: 16 },
+    silver_spender: { price: 35000, levelRequired: 17 },
+    sterling_sucker: { price: 42000, levelRequired: 18 },
+    titanium_tightwad: { price: 50000, levelRequired: 19 },
+    mercury_merchant: { price: 60000, levelRequired: 20 },
+
+    // --- TIER 21-30: THE "PRECIOUS GEMS" PHASE ---
+    gold_elite: { price: 75000, levelRequired: 21 },
+    fool_gold: { price: 90000, levelRequired: 22 },
+    amber_ambusher: { price: 110000, levelRequired: 23 },
+    topaz_tycoon: { price: 130000, levelRequired: 24 },
+    jade_jester: { price: 150000, levelRequired: 25 },
+    pearl_pirate: { price: 175000, levelRequired: 26 },
+    opal_operator: { price: 200000, levelRequired: 27 },
+    ruby_royal: { price: 230000, levelRequired: 28 },
+    sapphire_sultan: { price: 260000, levelRequired: 29 },
+    emerald_emperor: { price: 300000, levelRequired: 30 },
+
+    // --- TIER 31-40: THE "HIGH SOCIETY" PHASE ---
+    platinum_partner: { price: 350000, levelRequired: 31 },
+    diamond_dynamo: { price: 400000, levelRequired: 32 },
+    obsidian_overlord: { price: 450000, levelRequired: 33 },
+    crystal_king: { price: 500000, levelRequired: 34 },
+    mithril_monarch: { price: 550000, levelRequired: 35 },
+    adamant_ace: { price: 600000, levelRequired: 36 },
+    money_bag_baron: { price: 650000, levelRequired: 37 },
+    bullion_boss: { price: 700000, levelRequired: 38 },
+    treasure_chest_chief: { price: 750000, levelRequired: 39 },
+    pyramid_plunderer: { price: 800000, levelRequired: 40 },
+
+    // --- TIER 41-49: THE "WARIO LEGEND" PHASE ---
+    inc_ceo: { price: 850000, levelRequired: 41 },
+    motorcycle_maniac: { price: 900000, levelRequired: 42 },
+    garlic_gladiator_supreme: { price: 950000, levelRequired: 43 },
+    purple_powerhouse: { price: 1000000, levelRequired: 44 },
+    castle_owner: { price: 1100000, levelRequired: 45 },
+    master_of_disguise: { price: 1200000, levelRequired: 46 },
+    shake_king: { price: 1300000, levelRequired: 47 },
+    galaxy_greedy: { price: 1400000, levelRequired: 48 },
+    wario_brother: { price: 1500000, levelRequired: 49 },
+
+    // --- TIER 50: THE FINAL TIER ---
+    wario_vip: { price: 2000000, levelRequired: 50 }
+};
+
+// Check if player can buy a tier
+export function canBuyMembershipTier(tierIndex, currentTierIndex, partyLevel, availableXP) {
+    const tier = generateTier(tierIndex);
+    if (!tier) return { canBuy: false, reason: 'Invalid tier' };
+    
+    // Already have this or higher
+    if (currentTierIndex >= tierIndex) {
+        return { canBuy: false, reason: 'Already unlocked' };
+    }
+    
+    // Must buy tiers in order (can't skip)
+    if (tierIndex > currentTierIndex + 1) {
+        const previousTier = generateTier(tierIndex - 1);
+        return { canBuy: false, reason: `Unlock ${previousTier.name} first` };
+    }
+    
+    // Get price for this tier
+    const priceInfo = MEMBERSHIP_PRICES[tier.id] || {
+        price: tier.threshold, // Use threshold as price for letter tiers
+        levelRequired: Math.floor(tier.maxLevel / 2)
+    };
+    
+    // Check level requirement
+    if (partyLevel < priceInfo.levelRequired) {
+        return { 
+            canBuy: false, 
+            reason: `Requires Party Level ${priceInfo.levelRequired}`,
+            levelRequired: priceInfo.levelRequired
+        };
+    }
+    
+    // Check XP
+    if (availableXP < priceInfo.price) {
+        return { 
+            canBuy: false, 
+            reason: `Need ${priceInfo.price.toLocaleString()} XP`,
+            price: priceInfo.price,
+            shortfall: priceInfo.price - availableXP
+        };
+    }
+    
+    return { 
+        canBuy: true, 
+        price: priceInfo.price,
+        levelRequired: priceInfo.levelRequired
+    };
+}
+
+// Get price for a tier
+export function getMembershipPrice(tierIndex) {
+    const tier = generateTier(tierIndex);
+    if (!tier) return 0;
+    
+    const priceInfo = MEMBERSHIP_PRICES[tier.id];
+    if (priceInfo) return priceInfo.price;
+    
+    // Letter tiers - exponential pricing
+    const letterIndex = tierIndex - BASE_MEMBERSHIP_TIERS.length;
+    return Math.floor(500000 * Math.pow(1.5, letterIndex + 1));
+}
+
+// Get level requirement for a tier
+export function getMembershipLevelRequirement(tierIndex) {
+    const tier = generateTier(tierIndex);
+    if (!tier) return 1;
+    
+    const priceInfo = MEMBERSHIP_PRICES[tier.id];
+    if (priceInfo) return priceInfo.levelRequired;
+    
+    // Letter tiers
+    return Math.min(20, 12 + Math.floor((tierIndex - 4) / 2));
+}
 export const TIME_PERIODS = {
     DAWN: { 
         id: 'dawn', 
