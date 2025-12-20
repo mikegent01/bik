@@ -1,6 +1,251 @@
-// shop-data.js - Wario's Warehouse XP Emporium
-// Rebalanced for Level 6 players with 25,000 XP pool
+// Add after SHOP_CATEGORIES - REPLACE the old MEMBERSHIP_TIERS
 
+// Base named tiers (first 5)
+export const BASE_MEMBERSHIP_TIERS = [
+    { id: 'wallet_wimp', name: 'Wallet Wimp', icon: '🩴', color: '#8b7355', threshold: 0, discount: 0, maxPrice: 10000, maxLevel: 5, perks: ['Access to garbage items', 'Dirt-cheap shipping'], warioNote: "WAH! You call yourself a customer? I've seen Goombas with deeper pockets!" },
+    { id: 'coin_sniffer', name: 'Coin Sniffer', icon: '👃', color: '#daa520', threshold: 500, discount: 1, maxPrice: 15000, maxLevel: 6, perks: ['Access to garbage items', 'Dirt-cheap shipping', '1% discount'], warioNote: "You smell money? Good! Now GIVE IT TO WARIO!" },
+    { id: 'garlic_gnasher', name: 'Garlic Gnasher', icon: '🧄', color: '#fff8dc', threshold: 1000, discount: 2, maxPrice: 20000, maxLevel: 7, perks: ['Access to basic items', 'Slow boat shipping', '2% discount'], warioNote: "Garlic breath and cheap! Just how Wario likes 'em! Spend more!" },
+    { id: 'bronze_bumbler', name: 'Bronze Bumbler', icon: '🥉', color: '#cd7f32', threshold: 2000, discount: 3, maxPrice: 30000, maxLevel: 8, perks: ['Access to basic items', 'Standard shipping', '3% discount'], warioNote: "Bronze? More like BUMS! WAH HA! Keep spending, loser!" },
+    { id: 'mud_muncher', name: 'Mud Muncher', icon: '💩', color: '#8b4513', threshold: 3500, discount: 4, maxPrice: 40000, maxLevel: 9, perks: ['Access to basic items', 'Standard shipping', '4% discount'], warioNote: "You eat mud? Wario eats GOLD! Give me your coins!" },
+    { id: 'rusty_rascal', name: 'Rusty Rascal', icon: '📎', color: '#b7410e', threshold: 5000, discount: 5, maxPrice: 50000, maxLevel: 10, perks: ['Access to basic items', 'Standard shipping', '5% discount'], warioNote: "Rusty and crusty! Just like Wario's bathtub! Spend more!" },
+    { id: 'plastic_pirate', name: 'Plastic Pirate', icon: '🏴‍☠️', color: '#ff6347', threshold: 7500, discount: 6, maxPrice: 60000, maxLevel: 11, perks: ['Access to uncommon items', 'Standard shipping', '6% discount'], warioNote: "Pirate? More like Pierogi! Soft and cheap! WAH!" },
+    { id: 'clay_creep', name: 'Clay Creep', icon: '🏺', color: '#b5651d', threshold: 10000, discount: 7, maxPrice: 75000, maxLevel: 12, perks: ['Access to uncommon items', 'Standard shipping', '7% discount'], warioNote: "Molded from dirt! Just like your bank account! Spend!" },
+    { id: 'silver_swindler', name: 'Silver Swindler', icon: '🥈', color: '#c0c0c0', threshold: 15000, discount: 8, maxPrice: 100000, maxLevel: 13, perks: ['Access to uncommon items', 'Express shipping', '8% discount'], warioNote: "Silver? You're swindling yourself! Wario deserves better!" },
+    { id: 'fart_fiend', name: 'Fart Fiend', icon: '💨', color: '#9acd32', threshold: 20000, discount: 9, maxPrice: 125000, maxLevel: 14, perks: ['Access to uncommon items', 'Express shipping', '9% discount', 'Stink-proof packaging'], warioNote: "WAH HA! You stink! But your money smells GOOD to Wario!" },
+    { id: 'gold_gobbler', name: 'Gold Gobbler', icon: '🥇', color: '#ffd700', threshold: 30000, discount: 10, maxPrice: 150000, maxLevel: 15, perks: ['Access to rare items', 'Warp Pipe shipping', '10% discount'], warioNote: "GOLD! Now you're talking! But Wario talks LOUDER! MORE!" },
+    { id: 'treasure_twerp', name: 'Treasure Twerp', icon: '💰', color: '#ff8c00', threshold: 45000, discount: 11, maxPrice: 200000, maxLevel: 16, perks: ['Access to rare items', 'Warp Pipe shipping', '11% discount', 'Treasure map included'], warioNote: "Twerp with treasure! Hand it over! Wario's got bills to pay!" },
+    { id: 'emerald_eater', name: 'Emerald Eater', icon: '💚', color: '#2ecc71', threshold: 60000, discount: 12, maxPrice: 250000, maxLevel: 17, perks: ['Access to rare items', 'Warp Pipe shipping', '12% discount', 'Free express shipping'], warioNote: "Emeralds are green! Like Wario's snot! Give me GOLD instead!" },
+    { id: 'ruby_rascal', name: 'Ruby Rascal', icon: '❤️', color: '#e74c3c', threshold: 80000, discount: 13, maxPrice: 300000, maxLevel: 18, perks: ['Access to epic items', 'Military shipping', '13% discount'], warioNote: "Red like Wario's hot temper when you DON'T spend!" },
+    { id: 'sapphire_scoundrel', name: 'Sapphire Scoundrel', icon: '💙', color: '#3498db', threshold: 100000, discount: 14, maxPrice: 350000, maxLevel: 19, perks: ['Access to epic items', 'Military shipping', '14% discount', 'Free warp shipping'], warioNote: "Blue like Wario's sad face... when your wallet's empty! WAH!" },
+    { id: 'diamond_dingus', name: 'Diamond Dingus', icon: '💎', color: '#85c1e9', threshold: 125000, discount: 15, maxPrice: 400000, maxLevel: 20, perks: ['Access to epic items', 'Military shipping', '15% discount', 'Free warp shipping'], warioNote: "Diamonds are hard! But Wario's greed is HARDER!" },
+    { id: 'platinum_plunderer', name: 'Platinum Plunderer', icon: '⚪', color: '#e5e4e2', threshold: 150000, discount: 16, maxPrice: 450000, maxLevel: 21, perks: ['Access to epic items', 'Military shipping', '16% discount', 'Free warp shipping'], warioNote: "Platinum! Wario might remember your face... for a second!" },
+    { id: 'wario_wannabe', name: 'Wario Wannabe', icon: '👃', color: '#f1c40f', threshold: 175000, discount: 17, maxPrice: 500000, maxLevel: 22, perks: ['Access to legendary items', 'All shipping free', '17% discount'], warioNote: "You WANNA be Wario? Then spend like Wario! WAH HA!" },
+    { id: 'garlic_gladiator', name: 'Garlic Gladiator', icon: '🧄', color: '#fffacd', threshold: 200000, discount: 18, maxPrice: 600000, maxLevel: 23, perks: ['Access to legendary items', 'All shipping free', '18% discount', 'Garlic-scented packages'], warioNote: "Gladiator? More like GLAD-he-ate-her-wallet! WAH!" },
+    { id: 'coin_crusher', name: 'Coin Crusher', icon: '💰', color: '#daa520', threshold: 225000, discount: 19, maxPrice: 700000, maxLevel: 24, perks: ['Access to legendary items', 'All shipping free', '19% discount'], warioNote: "Crush those coins! Then give them to Wario! Simple!" },
+    { id: 'bomb_bandit', name: 'Bomb Bandit', icon: '💣', color: '#2c3e50', threshold: 250000, discount: 20, maxPrice: 800000, maxLevel: 25, perks: ['Access to legendary items', 'All shipping free', '20% discount', 'Bomb-proof packaging'], warioNote: "BOMBS AWAY! Your money's blowing up... in MY pocket!" },
+    { id: 'mustache_marauder', name: 'Mustache Marauder', icon: '👨', color: '#8b4513', threshold: 275000, discount: 21, maxPrice: 900000, maxLevel: 26, perks: ['Access to mythical items', 'All shipping free', '21% discount'], warioNote: "Nice 'stache! But Wario's is CLASSIER! And richer!" },
+    { id: 'microgame_minion', name: 'Microgame Minion', icon: '🎮', color: '#9b59b6', threshold: 300000, discount: 22, maxPrice: 1000000, maxLevel: 27, perks: ['Access to mythical items', 'All shipping free', '22% discount', 'Microgame early access'], warioNote: "Work those microgames! Wario gets MACRO money! WAH!" },
+    { id: 'treasure_trooper', name: 'Treasure Trooper', icon: '🏴‍☠️', color: '#e67e22', threshold: 350000, discount: 23, maxPrice: 1250000, maxLevel: 28, perks: ['Access to mythical items', 'All shipping free', '23% discount'], warioNote: "Trooper? You're in WARIO'S army now! SPEND, SOLDIER!" },
+    { id: 'rotten_ruler', name: 'Rotten Ruler', icon: '👑', color: '#27ae60', threshold: 400000, discount: 24, maxPrice: 1500000, maxLevel: 29, perks: ['Access to mythical items', 'All shipping free', '24% discount', 'Rotten garlic basket'], warioNote: "Rule with an iron... wallet! Wario's the REAL king!" },
+    { id: 'greed_goblin', name: 'Greed Goblin', icon: '👺', color: '#c0392b', threshold: 450000, discount: 25, maxPrice: 1750000, maxLevel: 30, perks: ['Access to forbidden items', 'All shipping free', '25% discount'], warioNote: "Greed is good! WARIO'S greed is GREAT! More!" },
+    { id: 'cash_creep', name: 'Cash Creep', icon: '🕴️', color: '#7f8c8d', threshold: 500000, discount: 26, maxPrice: 2000000, maxLevel: 31, perks: ['Access to forbidden items', 'All shipping free', '26% discount', 'Personal accountant'], warioNote: "Creep those coins my way! WAH HA HA!" },
+    { id: 'wario_warrior', name: 'Wario Warrior', icon: '⚔️', color: '#f39c12', threshold: 550000, discount: 27, maxPrice: 2250000, maxLevel: 32, perks: ['Access to forbidden items', 'All shipping free', '27% discount'], warioNote: "Warrior? WARIO is the warlord! You're just a grunt!" },
+    { id: 'garlic_god', name: 'Garlic God', icon: '🧄', color: '#ffffe0', threshold: 600000, discount: 28, maxPrice: 2500000, maxLevel: 33, perks: ['Access to forbidden items', 'All shipping free', '28% discount', 'Lifetime garlic supply'], warioNote: "God of garlic? WARIO'S god of GOLD! Pay up!" },
+    { id: 'coin_king', name: 'Coin King', icon: '👑', color: '#ffd700', threshold: 650000, discount: 29, maxPrice: 2750000, maxLevel: 34, perks: ['Access to ALL items', 'All shipping free', '29% discount'], warioNote: "King of coins? WARIO'S the EMPEROR! Bow down and pay!" },
+    { id: 'diamond_devourer', name: 'Diamond Devourer', icon: '💎', color: '#40e0d0', threshold: 700000, discount: 30, maxPrice: 3000000, maxLevel: 35, perks: ['Access to ALL items', 'All shipping free', '30% discount'], warioNote: "Devour diamonds! Wario devours DOLLARS! WAH!" },
+    { id: 'platinum_pirate', name: 'Platinum Pirate', icon: '🏴‍☠️', color: '#e5e4e2', threshold: 750000, discount: 31, maxPrice: 3250000, maxLevel: 36, perks: ['Access to ALL items', 'All shipping free', '31% discount', 'Pirate ship delivery'], warioNote: "Pirate? WARIO'S the TREASURE LORD! Hand it over!" },
+    { id: 'wario_warelord', name: 'Wario Warelord', icon: '🎮', color: '#9b59b6', threshold: 800000, discount: 32, maxPrice: 3500000, maxLevel: 37, perks: ['Access to ALL items', 'All shipping free', '32% discount', 'WarioWare VIP'], warioNote: "Warelord? WARIO'S the WARE-EMPEROR! More micro, more money!" },
+    { id: 'treasure_tyrant', name: 'Treasure Tyrant', icon: '💰', color: '#d35400', threshold: 850000, discount: 33, maxPrice: 3750000, maxLevel: 38, perks: ['Access to ALL items', 'All shipping free', '33% discount'], warioNote: "Tyrant? WARIO'S the TYRANT-KING! Pay tribute!" },
+    { id: 'greed_giant', name: 'Greed Giant', icon: '👹', color: '#8e44ad', threshold: 900000, discount: 34, maxPrice: 4000000, maxLevel: 39, perks: ['Access to ALL items', 'All shipping free', '34% discount', 'Greed counseling sessions'], warioNote: "Giant greed? WARIO'S greed is GALACTIC! WAH HA!" },
+    { id: 'cash_commander', name: 'Cash Commander', icon: '🎖️', color: '#27ae60', threshold: 950000, discount: 35, maxPrice: 4250000, maxLevel: 40, perks: ['Access to ALL items', 'All shipping free', '35% discount'], warioNote: "Commander? WARIO'S the GENERAL! Fall in line and spend!" },
+    { id: 'wario_warlord', name: 'Wario Warlord', icon: '⚔️', color: '#c0392b', threshold: 1000000, discount: 36, maxPrice: 4500000, maxLevel: 41, perks: ['Access to ALL items', 'All shipping free', '36% discount', 'Warlord statue'], warioNote: "WARLORD! WARIO likes the sound of that! Keep the gold coming!" },
+    { id: 'garlic_guru', name: 'Garlic Guru', icon: '🧄', color: '#f1c40f', threshold: 1100000, discount: 37, maxPrice: 5000000, maxLevel: 42, perks: ['Access to ALL items', 'All shipping free', '37% discount', 'Sacred garlic recipes'], warioNote: "Guru of garlic? WARIO'S guru of GETTING PAID!" },
+    { id: 'coin_conqueror', name: 'Coin Conqueror', icon: '💰', color: '#f39c12', threshold: 1200000, discount: 38, maxPrice: 5500000, maxLevel: 43, perks: ['Access to ALL items', 'All shipping free', '38% discount'], warioNote: "Conquer coins? WARIO conquers WORLDS! Of wealth!" },
+    { id: 'diamond_dictator', name: 'Diamond Dictator', icon: '💎', color: '#3498db', threshold: 1300000, discount: 39, maxPrice: 6000000, maxLevel: 44, perks: ['Access to ALL items', 'All shipping free', '39% discount', 'Diamond-encrusted catalog'], warioNote: "Dictate diamonds? WARIO dictates DESTINY! And debt!" },
+    { id: 'platinum_pharaoh', name: 'Platinum Pharaoh', icon: '👑', color: '#e5e4e2', threshold: 1400000, discount: 40, maxPrice: 6500000, maxLevel: 45, perks: ['Access to ALL items', 'All shipping free', '40% discount', 'Pyramid of perks'], warioNote: "Pharaoh? WARIO'S the GOD-KING! Pay homage!" },
+    { id: 'wario_emperor', name: 'Wario Emperor', icon: '👑', color: '#9b59b6', threshold: 1500000, discount: 41, maxPrice: 7000000, maxLevel: 46, perks: ['Access to ALL items', 'All shipping free', '41% discount', 'Emperor garlic crown'], warioNote: "Emperor? Getting close! But WARIO'S the UNIVERSE!" },
+    { id: 'treasure_titan', name: 'Treasure Titan', icon: '💰', color: '#e74c3c', threshold: 1600000, discount: 42, maxPrice: 7500000, maxLevel: 47, perks: ['Access to ALL items', 'All shipping free', '42% discount'], warioNote: "Titan of treasure? WARIO'S TITAN OF EVERYTHING! WAH!" },
+    { id: 'greed_general', name: 'Greed General', icon: '🎖️', color: '#2ecc71', threshold: 1700000, discount: 43, maxPrice: 8000000, maxLevel: 48, perks: ['Access to ALL items', 'All shipping free', '43% discount', 'General discount override'], warioNote: "General? WARIO'S the SUPREME COMMANDER! Charge that credit card!" },
+    { id: 'cash_czar', name: 'Cash Czar', icon: '👑', color: '#34495e', threshold: 1800000, discount: 44, maxPrice: 8500000, maxLevel: 49, perks: ['Access to ALL items', 'All shipping free', '44% discount'], warioNote: "Czar? WARIO'S the KAISER! The SHAH! The BIG CHEESE!" },
+    { id: 'wario_overlord', name: 'Wario Overlord', icon: '☠️', color: '#8e44ad', threshold: 1900000, discount: 45, maxPrice: 9000000, maxLevel: 50, perks: ['Access to ALL items', 'All shipping free', '45% discount', 'Overlord throne'], warioNote: "Overlord? WARIO OVERLORDS OVERLORDS! WAH HA HA!" },
+    { id: 'garlic_grandmaster', name: 'Garlic Grandmaster', icon: '🧄', color: '#f1c40f', threshold: 2000000, discount: 46, maxPrice: 9500000, maxLevel: 51, perks: ['Access to ALL items', 'All shipping free', '46% discount', 'Grandmaster garlic grove'], warioNote: "Grandmaster? WARIO'S the GODMASTER! Of MONEY!" },
+    { id: 'coin_chancellor', name: 'Coin Chancellor', icon: '💰', color: '#27ae60', threshold: 2500000, discount: 47, maxPrice: 10000000, maxLevel: 52, perks: ['Access to ALL items', 'All shipping free', '47% discount'], warioNote: "Chancellor of coins? WARIO'S the TREASURER OF THE UNIVERSE!" },
+    { id: 'diamond_deity', name: 'Diamond Deity', icon: '💎', color: '#40e0d0', threshold: 5000000, discount: 48, maxPrice: 50000000, maxLevel: 53, perks: ['Access to ALL items', 'All shipping free', '48% discount', 'Divine diamond shower'], warioNote: "Deity? WARIO'S THE GOD! THE ONE AND ONLY! PAY!" },
+    { id: 'galactic_garlic', name: 'Galactic Garlic', icon: '🌌', color: '#9b59b6', threshold: 7500000, discount: 49, maxPrice: 100000000, maxLevel: 54, perks: ['Access to ALL items', 'All shipping free', '49% discount', 'Garlic from space'], warioNote: "Galactic? WARIO'S MULTI-DIMENSIONAL! Across all universes, I GET PAID!" },
+    { id: 'ultimate_wah', name: 'Warios Inner Circle', icon: '💸', color: '#e74c3c', threshold: 10000000, discount: 50, maxPrice: Infinity, maxLevel: 55, perks: ['Access to ALL items', 'All shipping free', '50% discount', 'Wario statue in your honor', 'Lifetime supply of garlic'], warioNote: "ULTIMATE WAH! You've reached the peak! But WARIO'S peak is HIGHER! I'M STILL RICHER! WAH HA HA HA HA!" }
+];
+
+// Generate letter tier name (A, B, C... Z, AA, AB... AZ, BA... ZZ, AAA...)
+function getLetterTierName(index) {
+    let result = '';
+    let n = index;
+    do {
+        result = String.fromCharCode(65 + (n % 26)) + result;
+        n = Math.floor(n / 26) - 1;
+    } while (n >= 0);
+    return result;
+}
+export function generateTier(tierIndex) {
+    // Ensure tierIndex is valid
+    const idx = Math.max(0, Math.floor(Number(tierIndex) || 0));
+    
+    if (idx < BASE_MEMBERSHIP_TIERS.length) {
+        return { ...BASE_MEMBERSHIP_TIERS[idx], index: idx };
+    }
+    
+    // Letter tiers (after Wario VIP)
+    const letterIndex = idx - BASE_MEMBERSHIP_TIERS.length;
+    const letterName = getLetterTierName(letterIndex);
+    
+    const baseThreshold = BASE_MEMBERSHIP_TIERS[4].threshold; // 1,000,000
+    const threshold = baseThreshold * Math.pow(2, letterIndex + 1);
+    
+    const discount = Math.min(25, 20 + Math.floor(letterIndex / 5));
+    const maxLevel = 20 + Math.floor(letterIndex / 2);
+    
+    const hue = (letterIndex * 30) % 360;
+    const color = `hsl(${hue}, 70%, 50%)`;
+    
+    let icon = '🔷';
+    if (letterIndex >= 26) icon = '💠';
+    if (letterIndex >= 52) icon = '🌟';
+    if (letterIndex >= 78) icon = '✨';
+    
+    return {
+        id: `tier_${letterName.toLowerCase()}`,
+        name: `Tier ${letterName}`,
+        icon: icon,
+        color: color,
+        threshold: threshold,
+        discount: discount,
+        maxPrice: Infinity,
+        maxLevel: maxLevel,
+        index: idx,
+        isLetterTier: true,
+        perks: [
+            `${discount}% discount on all items`,
+            'All shipping methods free',
+            `Items up to Level ${maxLevel}`,
+            letterIndex >= 10 ? 'Wario sends you holiday cards' : null,
+            letterIndex >= 25 ? 'Wario knows your name' : null,
+            letterIndex >= 50 ? 'Wario fears you slightly' : null
+        ].filter(Boolean)
+    };
+}
+
+// Get tier from XP spent (not level-based anymore)
+export function getTierFromXP(xpSpent) {
+    // Ensure xpSpent is a valid number
+    const spent = Number(xpSpent) || 0;
+    
+    let tierIndex = 0;
+    
+    // Find the highest tier the player qualifies for
+    while (tierIndex < 200) { // Safety limit
+        const nextTier = generateTier(tierIndex + 1);
+        if (!nextTier || spent < nextTier.threshold) break;
+        tierIndex++;
+    }
+    
+    const tier = generateTier(tierIndex);
+    
+    // Safety: if somehow null, return bronze
+    if (!tier) {
+        console.warn('getTierFromXP returned null, defaulting to bronze');
+        return { ...BASE_MEMBERSHIP_TIERS[0], index: 0 };
+    }
+    
+    return tier;
+}
+
+
+// Get next tier info
+export function getNextTier(currentTierIndex) {
+    return generateTier(currentTierIndex + 1);
+}
+
+// Get tier threshold
+export function getTierThreshold(tierIndex) {
+    return generateTier(tierIndex).threshold;
+}
+
+export function canPurchaseWithMembership(item, tier) {
+    // Safety check
+    if (!tier) {
+        return { allowed: false, reason: 'Membership data not loaded' };
+    }
+    
+    if (item.price > tier.maxPrice) {
+        const requiredTier = getRequiredTierForItem(item);
+        return {
+            allowed: false,
+            reason: `Requires ${requiredTier.name} (item costs ${item.price.toLocaleString()} XP)`
+        };
+    }
+    
+    if (item.levelRequirement && item.levelRequirement > tier.maxLevel) {
+        const requiredTier = getRequiredTierForItem(item);
+        return {
+            allowed: false,
+            reason: `Requires ${requiredTier.name} (item is Level ${item.levelRequirement})`
+        };
+    }
+    
+    if (item.category === SHOP_CATEGORIES.FORBIDDEN && tier.index < 4) {
+        return {
+            allowed: false,
+            reason: "Forbidden items require Wario's Inner Circle"
+        };
+    }
+    
+    return { allowed: true };
+}
+// Find minimum tier needed for an item
+export function getRequiredTierForItem(item) {
+    // Forbidden always needs VIP
+    if (item.category === SHOP_CATEGORIES.FORBIDDEN) {
+        return BASE_MEMBERSHIP_TIERS[4];
+    }
+    
+    // Check each tier until one fits
+    for (let i = 0; i < 100; i++) {
+        const tier = generateTier(i);
+        if (item.price <= tier.maxPrice && 
+            (!item.levelRequirement || item.levelRequirement <= tier.maxLevel)) {
+            return tier;
+        }
+    }
+    
+    return generateTier(99); // Fallback
+}
+export function applyMembershipDiscount(basePrice, tier) {
+    // Safety check - if tier is null/undefined, no discount
+    if (!tier) {
+        console.warn('applyMembershipDiscount called with null tier');
+        return {
+            original: basePrice,
+            discounted: basePrice,
+            savings: 0,
+            discountPercent: 0
+        };
+    }
+    
+    const discount = tier.discount || 0;
+    const discounted = Math.ceil(basePrice * (1 - discount / 100));
+    return {
+        original: basePrice,
+        discounted: discounted,
+        savings: basePrice - discounted,
+        discountPercent: discount
+    };
+}
+
+export function getAvailableShipping(tier) {
+    // Safety check - if tier is null/undefined, return basic shipping only
+    if (!tier || typeof tier.index !== 'number') {
+        console.warn('getAvailableShipping called with invalid tier:', tier);
+        return ['standard'];
+    }
+    
+    if (tier.index >= 4) return Object.keys(SHIPPING_METHODS);
+    if (tier.index >= 3) return ['standard', 'express', 'warp', 'military'];
+    if (tier.index >= 2) return ['standard', 'express', 'warp'];
+    if (tier.index >= 1) return ['standard', 'express'];
+    return ['standard'];
+}
+
+export function getFreeShipping(tier) {
+    // Safety check - if tier is null/undefined, return basic shipping only
+    if (!tier || typeof tier.index !== 'number') {
+        console.warn('getFreeShipping called with invalid tier:', tier);
+        return ['standard'];
+    }
+    
+    if (tier.index >= 4) return Object.keys(SHIPPING_METHODS);
+    if (tier.index >= 3) return ['standard', 'express', 'warp'];
+    if (tier.index >= 2) return ['standard', 'express'];
+    return ['standard'];
+}
 export const SHOP_CATEGORIES = {
     CONSUMABLES: 'consumables',
     EQUIPMENT: 'equipment',
@@ -18858,6 +19103,6790 @@ export const SHOP_ITEMS = {
     shippedBy: 'Odins Thread',
     levelRequirement: 6
 },
+'halfling_recipe_herb_stuffed_trout': {
+    id: 'halfling_recipe_herb_stuffed_trout',
+    name: "Recipe: Halfling Herb-Stuffed Trout",
+    description: "A recipe card for a restorative fish dish.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 8500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Learn to cook a meal that restores 2d4+2 HP and removes one level of exhaustion",
+        "Requires fresh fish and herbs (easily foraged)",
+        "Takes 1 hour to cook, feeds 4 people",
+        "Made by: Halfling Riverfolk Kitchens"
+    ],
+    vendor: 'halfling',
+    shippedBy: 'Hobbit Post',
+    levelRequirement: 5
+},
+'dwarf_realms_recipe_iron_rations_stew': {
+    id: 'dwarf_realms_recipe_iron_rations_stew',
+    name: "Recipe: Dwarf Realms Iron Rations Stew",
+    description: "Turn iron rations into something edible.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 6500,
+    icon: '📜',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Transform 5 days of iron rations into a hearty stew that grants 1d6 temporary HP",
+        "Tastes like stone but keeps you full for 24 hours",
+        "Advantage on saves vs. exhaustion from travel for 12 hours",
+        "Made by: Dwarf Realms Quartermasters"
+    ],
+    vendor: 'dwarf_realms',
+    shippedBy: 'Stone Cart',
+    levelRequirement: 5
+},
+'greenskins_recipe_waaagh_fuel_chili': {
+    id: 'greenskins_recipe_waaagh_fuel_chili',
+    name: "Recipe: Greenskins WAAAGH! Fuel Chili",
+    description: "Spicy enough to wake the dead.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Cook a chili that grants +10 speed and +1 to attack rolls for 1 hour",
+        "After effect: Disadvantage on Stealth (intestinal distress)",
+        "Immune to fear for the duration (too angry to be scared)",
+        "Made by: Greenskins Battle Cooks"
+    ],
+    vendor: 'greenskins',
+    shippedBy: 'Choppa Delivery',
+    levelRequirement: 5
+},
+'mages_guild_recipe_mana_muffins': {
+    id: 'mages_guild_recipe_mana_muffins',
+    name: "Recipe: Mages' Guild Mana Muffins",
+    description: "Blueberry muffins that restore spell slots.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 18500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Bake muffins that restore one expended 1st-level spell slot",
+        "Takes 2 hours, requires rare berries (100 gp per batch)",
+        "Muffins spoil after 24 hours (magical decay)",
+        "Made by: Mages' Guild Confectioners"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 7
+},
+'garden_isles_recipe_sunflower_salad': {
+    id: 'garden_isles_recipe_sunflower_salad',
+    name: "Recipe: Garden Isles Sunflower Salad",
+    description: "A salad that makes you photosynthesize.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Eat salad to gain nourishment from sunlight for 24 hours (no food needed)",
+        "Skin turns slightly green (disadvantage on Charisma with non-plants)",
+        "Advantage on saves vs. poison (clean eating)",
+        "Made by: Garden Isles Nutritionists"
+    ],
+    vendor: 'garden_isles',
+    shippedBy: 'Sunlight Beam',
+    levelRequirement: 5
+},
+'robensonia_recipe_emergency_protein_rations': {
+    id: 'robensonia_recipe_emergency_protein_rations',
+    name: "Recipe: Robensonia Emergency Protein Rations",
+    description: "Tasteless paste that keeps you alive.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 7500,
+    icon: '📜',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Create 7 days of tasteless rations that prevent starvation",
+        "Grants advantage on saves vs. disease (sterile nutrition)",
+        "Disadvantage on Charisma checks while eating it (it's depressing)",
+        "Made by: Robensonia Survival Systems"
+    ],
+    vendor: 'robensonia',
+    shippedBy: 'Emergency Launch',
+    levelRequirement: 5
+},
+'tomb_kings_recipe_mummy_wrap_sandwich': {
+    id: 'tomb_kings_recipe_mummy_wrap_sandwich',
+    name: "Recipe: Tomb Kings Mummy Wrap Sandwich",
+    description: "A sandwich wrapped in edible bandages.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 9500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Wrap any food to preserve it for 30 days (magical preservation)",
+        "Eating it gives +1 AC for 1 hour (bandage-like protection)",
+        "Tastes like dust and old linen (disadvantage on Charisma while eating)",
+        "Made by: Tomb Kings Embalmers"
+    ],
+    vendor: 'tomb_kings',
+    shippedBy: 'Sarcophagus Delivery',
+    levelRequirement: 5
+},
+'red_winter_recipe_frozen_berry_compote': {
+    id: 'red_winter_recipe_frozen_berry_compote',
+    name: "Recipe: Red Winter Frozen Berry Compote",
+    description: "Icy dessert that cools your temper.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Compote grants resistance to fire damage for 1 hour",
+        "Calms emotions: advantage on saves vs. rage and fear",
+        "Brain freeze: disadvantage on Intelligence checks for 10 minutes after eating",
+        "Made by: Red Winter Ice Chefs"
+    ],
+    vendor: 'red_winter',
+    shippedBy: 'Ice Road Truckers',
+    levelRequirement: 6
+},
+'gehenna_academy_recipe_deviled_eggs': {
+    id: 'gehenna_academy_recipe_deviled_eggs',
+    name: "Recipe: Gehenna Academy Deviled Eggs",
+    description: "Spicy eggs with a hellish kick.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants resistance to poison damage for 1 hour",
+        "Your breath becomes noxious: advantage on Intimidation, disadvantage on Persuasion",
+        "Lay an egg the next morning (unfertilized, edible, disturbing)",
+        "Made by: Gehenna Academy Culinary"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Hellish Fax',
+    levelRequirement: 6
+},
+'mushroom_regency_recipe_truffle_tea': {
+    id: 'mushroom_regency_recipe_truffle_tea',
+    name: "Recipe: Mushroom Regency Truffle Tea",
+    description: "Earthy tea that expands your mind.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Tea grants advantage on Wisdom checks for 1 hour",
+        "You can speak with mushrooms (they're boring conversationalists)",
+        "Your voice becomes squeaky for 10 minutes after drinking",
+        "Made by: Mushroom Regency Tea House"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Spore Cloud',
+    levelRequirement: 5
+},
+'beanbean_kingdom_recipe_bean_burrito': {
+    id: 'beanbean_kingdom_recipe_bean_burrito',
+    name: "Recipe: Beanbean Kingdom Bean Burrito",
+    description: "A burrito that fuels your... propulsion.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 8500,
+    icon: '📜',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Grants +10 speed for 1 hour (bean power)",
+        "Disadvantage on Stealth checks (musical accompaniment)",
+        "Immune to being knocked prone (gas provides stability)",
+        "Made by: Beanbean Royal Kitchen"
+    ],
+    vendor: 'beanbean_kingdom',
+    shippedBy: 'Beanstalk Express',
+    levelRequirement: 5
+},
+'dk_crew_recipe_banana_cream_pie': {
+    id: 'dk_crew_recipe_banana_cream_pie',
+    name: "Recipe: DK Crew Banana Cream Pie",
+    description: "A pie that's also a projectile.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Pie can be thrown as a weapon: 1d4 bludgeoning + target is blinded for 1 round",
+        "Alternatively, eating it restores 1d6 HP (delicious)",
+        "You must shout 'Banana Slamma!' when throwing it",
+        "Made by: Donkey Kong Bakery"
+    ],
+    vendor: 'dk_crew',
+    shippedBy: 'Barrel Roll Delivery',
+    levelRequirement: 5
+},
+'yoshi_clans_recipe_egg_souffle': {
+    id: 'yoshi_clans_recipe_egg_souffle',
+    name: "Recipe: Yoshi Clans Egg Soufflé",
+    description: "A fluffy egg dish that lifts your spirits.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on saves vs. depression and fear for 1 hour",
+        "You can jump 5 feet higher for the duration (light and fluffy)",
+        "Soufflé collapses if you speak loudly while eating it (disadvantage on Charisma)",
+        "Made by: Yoshi Island Chefs"
+    ],
+    vendor: 'yoshi_clans',
+    shippedBy: 'Egg Drop',
+    levelRequirement: 5
+},
+'kremling_krew_recipe_cannonball_calamari': {
+    id: 'kremling_krew_recipe_cannonball_calamari',
+    name: "Recipe: Kremling Krew Cannonball Calamari",
+    description: "Squid cooked in gunpowder.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grants resistance to thunder damage for 1 hour",
+        "Your voice becomes gravelly: advantage on Intimidation, disadvantage on Persuasion",
+        "Explosive aftertaste: you burp small sparks (cosmetic but startling)",
+        "Made by: K. Rool's Galley"
+    ],
+    vendor: 'kremling_krew',
+    shippedBy: 'Cannonball Express',
+    levelRequirement: 6
+},
+'lizardmen_recipe_swamp_gumbo': {
+    id: 'lizardmen_recipe_swamp_gumbo',
+    name: "Recipe: Lizardmen Swamp Gumbo",
+    description: "A stew that tastes like home (if home is a bog).",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 9500,
+    icon: '📜',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on saves vs. poison and disease for 8 hours",
+        "You can hold your breath for 10 minutes (gills optional)",
+        "Smells terrible: disadvantage on Charisma checks with non-reptiles",
+        "Made by: Lizardfolk Swamp Cooks"
+    ],
+    vendor: 'lizardmen',
+    shippedBy: 'Murky Waters Courier',
+    levelRequirement: 5
+},
+'halfling_recipe_shepherds_pie Deluxe': {
+    id: 'halfling_recipe_shepherds_pie_deluxe',
+    name: "Recipe: Halfling Shepherd's Pie Deluxe",
+    description: "Comfort food that heals the soul.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 14500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Restores 3d4 HP and removes one condition (poison, frightened, or charmed)",
+        "Takes 2 hours to prepare, requires fresh vegetables",
+        "You must share it or feel guilty (disadvantage on checks if you don't)",
+        "Made by: Halfling Comfort Kitchen"
+    ],
+    vendor: 'halfling',
+    shippedBy: 'Hobbit Post',
+    levelRequirement: 6
+},
+'dwarf_realms_recipe_mithril_ale_bread': {
+    id: 'dwarf_realms_recipe_mithril_ale_bread',
+    name: "Recipe: Dwarf Realms Mithril Ale Bread",
+    description: "Bread made with beer and magic.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Eating a loaf grants +1 to Constitution saves for 8 hours",
+        "You gain 1d4 temporary HP (alcohol content)",
+        "Disadvantage on Dexterity checks for 1 hour (mild buzz)",
+        "Made by: Dwarf Realms Bakers"
+    ],
+    vendor: 'dwarf_realms',
+    shippedBy: 'Sturdy Cart',
+    levelRequirement: 5
+},
+'greenskins_recipe_goblin_gumbo': {
+    id: 'greenskins_recipe_goblin_gumbo',
+    name: "Recipe: Greenskins Goblin Gumbo",
+    description: "Made with real goblins (optional).",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 7500,
+    icon: '📜',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Grants +1 to Dexterity saves for 1 hour (goblin agility)",
+        "You speak Goblin for 1 hour (even if you didn't know it)",
+        "You crave shiny objects: disadvantage on saves vs. greed",
+        "Made by: Greenskins Survival Cooking"
+    ],
+    vendor: 'greenskins',
+    shippedBy: 'Choppa Delivery',
+    levelRequirement: 5
+},
+'jotunheimr_recipe_giant_pancake': {
+    id: 'jotunheimr_recipe_giant_pancake',
+    name: "Recipe: Jotunheimr Giant Pancake",
+    description: "A pancake the size of a shield.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Eating the whole thing takes 10 minutes: restores 2d6 HP",
+        "You are full for 24 hours: no need for other food",
+        "Disadvantage on Dexterity checks for 1 hour (food coma)",
+        "Made by: Jotunheimr Breakfast Club"
+    ],
+    vendor: 'jotunheimr',
+    shippedBy: 'Giant Plate',
+    levelRequirement: 5
+},
+'high_elves_recipe_lembas_crackers': {
+    id: 'high_elves_recipe_lembas_crackers',
+    name: "Recipe: High Elves Lembas Crackers",
+    description: "A cheap imitation of elven waybread.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 16500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "One cracker feeds a person for a day (but tastes like cardboard)",
+        "Advantage on saves vs. exhaustion from travel for 24 hours",
+        "Elves know it's fake: disadvantage on Charisma with them",
+        "Made by: High Elves Snack Factory"
+    ],
+    vendor: 'high_elves',
+    shippedBy: 'Linguistic Courier',
+    levelRequirement: 6
+},
+'dark_elves_recipe_spider_silk_noodles': {
+    id: 'dark_elves_recipe_spider_silk_noodles',
+    name: "Recipe: Dark Elves Spider Silk Noodles",
+    description: "Noodles with a creepy texture.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on checks involving webs and climbing for 1 hour",
+        "You can climb walls like a spider (10 ft speed)",
+        "Disadvantage on Charisma checks with arachnophobes",
+        "Made by: Dark Elves Cuisine"
+    ],
+    vendor: 'dark_elves',
+    shippedBy: 'Web Delivery',
+    levelRequirement: 5
+},
+'trainer_guild_recipe_poke_puff Deluxe': {
+    id: 'trainer_guild_recipe_poke_puff_deluxe',
+    name: "Recipe: Trainer Guild Poké Puff Deluxe",
+    description: "Treats for your animal companions.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Bakes treats that grant animal companions 1d6 temporary HP",
+        "Companion has advantage on one save per day for 7 days",
+        "You eat one too: it's delicious but has no effect on you",
+        "Made by: Trainer Guild Bakers"
+    ],
+    vendor: 'trainer_guild',
+    shippedBy: 'Pokedex Delivery',
+    levelRequirement: 5
+},
+'crimision_isle_recipe_rum_cake': {
+    id: 'crimision_isle_recipe_rum_cake',
+    name: "Recipe: Crimision Isle Rum Cake",
+    description: "Cake that's 50% rum.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 Charisma for 1 hour (liquid courage)",
+        "Disadvantage on Dexterity and Intelligence checks for 1 hour",
+        "You become a great singer (advantage on Performance, but only sea shanties)",
+        "Made by: Crimision Isle Bakers"
+    ],
+    vendor: 'crimision_isle',
+    shippedBy: 'Pirate Courier',
+    levelRequirement: 5
+},
+'blessed_order_recipe_holy_water_soup': {
+    id: 'blessed_order_recipe_holy_water_soup',
+    name: "Recipe: Blessed Order Holy Water Soup",
+    description: "Soup that's mildly divine.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on saves vs. undead and fiendish effects for 1 hour",
+        "Undead find the smell revolting: advantage on Charisma checks to repel them",
+        "Tastes like watered-down faith (bland but holy)",
+        "Made by: Blessed Order Kitchen"
+    ],
+    vendor: 'blessed_order',
+    shippedBy: 'Holy Procession',
+    levelRequirement: 6
+},
+'sirsirian_ocean_recipe_sushi_platter': {
+    id: 'sirsirian_ocean_recipe_sushi_platter',
+    name: "Recipe: Sirsirian Ocean Sushi Platter",
+    description: "Raw fish prepared perfectly.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 14500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Dexterity checks for 1 hour (light meal)",
+        "You can hold your breath for 15 minutes (gill-feeling)",
+        "Disadvantage on Charisma checks with landlocked folk (they don't get it)",
+        "Made by: Sirsirian Ocean Chefs"
+    ],
+    vendor: 'sirsirian_ocean',
+    shippedBy: 'Tidal Wave',
+    levelRequirement: 6
+},
+'saddle_arabia_recipe_date_and_camel_milk_smoothie': {
+    id: 'saddle_arabia_recipe_date_and_camel_milk_smoothie',
+    name: "Recipe: Saddle Arabia Date & Camel Milk Smoothie",
+    description: "A desert traveler's energy drink.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 9500,
+    icon: '📜',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +10 speed in desert terrain for 4 hours",
+        "Quenches thirst completely for 24 hours",
+        "You smell like a camel: disadvantage on Charisma with non-desert folk",
+        "Made by: Saddle Arabia Oasis Bar"
+    ],
+    vendor: 'saddle_arabia',
+    shippedBy: 'Camel Caravan',
+    levelRequirement: 5
+},
+'ratchet_raiders_recipe_oil_slick_stew': {
+    id: 'ratchet_raiders_recipe_oil_slick_stew',
+    name: "Recipe: Ratchet Raiders Oil Slick Stew",
+    description: "Stew that lubricates your joints.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Dexterity saves vs. grapple and restraint for 4 hours",
+        "You are slippery: disadvantage on checks to climb",
+        "Tastes like motor oil (disadvantage on Charisma while eating)",
+        "Made by: Ratchet Raiders Cooks"
+    ],
+    vendor: 'ratchet_raiders',
+    shippedBy: 'Oil Can',
+    levelRequirement: 5
+},
+'wario_land_recipe_garlic_bread_of_greed': {
+    id: 'wario_land_recipe_garlic_bread_of_greed',
+    name: "Recipe: Wario Land Garlic Bread of Greed",
+    description: "Bread that makes you want more bread.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to attack rolls when attacking creatures with gold or gems",
+        "You crave wealth: disadvantage on saves vs. greed effects",
+        "Your breath can knock out small animals (advantage on Intimidation)",
+        "Made by: Wario Land Bakers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 5
+},
+'millennium_recipe_millennial_avocado_toast': {
+    id: 'millennium_recipe_millennial_avocado_toast',
+    name: "Recipe: Millennium Millennial Avocado Toast",
+    description: "Overpriced but somehow satisfying.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to Charisma checks for 1 hour (trendy)",
+        "You feel financially irresponsible: disadvantage on checks involving money management",
+        "Baby boomers judge you (disadvantage on Charisma with older NPCs)",
+        "Made by: Millennium Brunch Co."
+    ],
+    vendor: 'millennium',
+    shippedBy: 'Courier',
+    levelRequirement: 6
+},
+'mu_empire_recipe_ancient_grain_bowl': {
+    id: 'mu_empire_recipe_ancient_grain_bowl',
+    name: "Recipe: Mu Empire Ancient Grain Bowl",
+    description: "Grains so old they're magical.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Constitution saves for 8 hours (healthy eating)",
+        "You feel ancient: advantage on History checks, disadvantage on Initiative",
+        "Grains are chewy: disadvantage on checks requiring clear speech",
+        "Made by: Mu Empire Health Food"
+    ],
+    vendor: 'mu_empire',
+    shippedBy: 'Silk Road Courier',
+    levelRequirement: 5
+},
+'mages_guild_recipe_scroll_sandwich': {
+    id: 'mages_guild_recipe_scroll_sandwich',
+    name: "Recipe: Mages' Guild Scroll Sandwich",
+    description: "Edible magic scrolls.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 16500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Eat a scroll to cast its spell (spell level 1 or 2) without using a slot (once per day)",
+        "Scroll tastes like parchment (disadvantage on Charisma while eating)",
+        "You get paper cuts on your tongue (1d4 psychic damage)",
+        "Made by: Mages' Guild Experimental Kitchen"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 7
+},
+'data_merchant_recipe_digital_dumplings': {
+    id: 'data_merchant_recipe_digital_dumplings',
+    name: "Recipe: Data Merchant Digital Dumplings",
+    description: "Dumplings that store data.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 14500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Each dumpling stores 1 memory (eat it to recall perfectly)",
+        "You remember too much: disadvantage on saves vs. psychic damage",
+        "Dumplings have a slight static taste (weird but edible)",
+        "Made by: Data Merchant Chefs"
+    ],
+    vendor: 'data_merchant',
+    shippedBy: 'Data Stream',
+    levelRequirement: 6
+},
+'changeling_hive_recipe_identity_crisis_casserole': {
+    id: 'changeling_hive_recipe_identity_crisis_casserole',
+    name: "Recipe: Changeling Hive Identity Crisis Casserole",
+    description: "A casserole that changes flavor mid-bite.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on Deception checks for 1 hour (you feel deceptive)",
+        "You forget your favorite food (disadvantage on checks involving memory)",
+        "Casserole changes flavor 1d6 times while eating (confusing but delicious)",
+        "Made by: Changeling Hive Cooks"
+    ],
+    vendor: 'changeling_hive',
+    shippedBy: 'Metamorphic Delivery',
+    levelRequirement: 5
+},
+'cybernetic_recipe_synthetic_steak': {
+    id: 'cybernetic_recipe_synthetic_steak',
+    name: "Recipe: Cybernetic Synthetic Steak",
+    description: "Meat that isn't meat.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants nourishment without needing real meat (good for rations)",
+        "You feel slightly robotic: advantage on saves vs. poison, disadvantage on saves vs. charm",
+        "Tastes like metal and regret (disadvantage on Charisma while eating)",
+        "Made by: Cybernetic Food Labs"
+    ],
+    vendor: 'cybernetic',
+    shippedBy: 'Drone Delivery',
+    levelRequirement: 5
+},
+'hacktivist_recipe_glitch_cookies': {
+    id: 'hacktivist_recipe_glitch_cookies',
+    name: "Recipe: Hacktivist Glitch Cookies",
+    description: "Cookies that break reality slightly.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Eating a cookie causes a minor glitch: advantage on one check, disadvantage on another",
+        "You see code briefly: advantage on Investigation, disadvantage on Perception",
+        "Cookies are pixelated (cosmetic but weird)",
+        "Made by: Hacktivist Bakers"
+    ],
+    vendor: 'hacktivist',
+    shippedBy: 'Anonymous Drop',
+    levelRequirement: 6
+},
+'the_onyx_hand_recipe_shadow_soup': {
+    id: 'the_onyx_hand_recipe_shadow_soup',
+    name: "Recipe: The Onyx Hand Shadow Soup",
+    description: "Soup that you eat in darkness.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 14500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Eating in darkness grants advantage on Stealth checks for 1 hour",
+        "You become one with shadows: disadvantage on Charisma checks in bright light",
+        "Soup is invisible (you must find it by smell)",
+        "Made by: The Onyx Hand Cooks"
+    ],
+    vendor: 'the_onyx_hand',
+    shippedBy: 'Shadow Drop',
+    levelRequirement: 7
+},
+'mages_guild_recipe_potion_popsicles': {
+    id: 'mages_guild_recipe_potion_popsicles',
+    name: "Recipe: Mages' Guild Potion Popsicles",
+    description: "Potions on a stick.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 15500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Freeze any potion into a popsicle: effect is delayed by 1 round",
+        "Popsicle melts in heat: disadvantage in hot environments",
+        "You get brain freeze: disadvantage on Intelligence checks for 1 minute after eating",
+        "Made by: Mages' Guild Dessert Bar"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 6
+},
+'custodians_recipe_sanitation_sorbet': {
+    id: 'custodians_recipe_sanitation_sorbet',
+    name: "Recipe: Custodians Sanitation Sorbet",
+    description: "Cleanses your palate and your soul.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Removes one disease or poison when eaten (palate cleanser)",
+        "Your mouth feels minty fresh: advantage on Charisma checks for 1 hour",
+        "You crave cleanliness: disadvantage in dirty areas",
+        "Made by: Custodians Culinary"
+    ],
+    vendor: 'custodians',
+    shippedBy: 'Sanitation Truck',
+    levelRequirement: 5
+},
+'servants_cosmic_recipe_starlight_soup': {
+    id: 'servants_cosmic_recipe_starlight_soup',
+    name: "Recipe: Servants Cosmic Starlight Soup",
+    description: "Soup made from starlight (somehow).",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 16500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Grants advantage on saves vs. psychic damage for 8 hours",
+        "You glow faintly: disadvantage on Stealth, advantage on Charisma with celestial beings",
+        "Soup is intangible (you drink it with your mind)",
+        "Made by: Servants Cosmic Kitchen"
+    ],
+    vendor: 'servants_cosmic',
+    shippedBy: 'Starlight Beam',
+    levelRequirement: 7
+},
+'asclepia_recipe_healthy_smoothie': {
+    id: 'asclepia_recipe_healthy_smoothie',
+    name: "Recipe: Asclepia Healthy Smoothie",
+    description: "A smoothie that is too healthy.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Removes one level of exhaustion and grants +1 to Constitution saves for 4 hours",
+        "Tastes like grass and regret (disadvantage on Charisma while drinking)",
+        "You feel smug about your health choices (advantage on Charisma with other health nuts)",
+        "Made by: Asclepia Juice Bar"
+    ],
+    vendor: 'asclepia',
+    shippedBy: 'Medical Courier',
+    levelRequirement: 5
+},
+'pony_nobility_recipe_fancy_cakes': {
+    id: 'pony_nobility_recipe_fancy_cakes',
+    name: "Recipe: Pony Nobility Fancy Cakes",
+    description: "Cakes that are almost too pretty to eat.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 Charisma for 1 hour (sophisticated palate)",
+        "You must admire it for 1 minute before eating (disadvantage if you don't)",
+        "Cake is very small: you're still hungry afterward (disadvantage on checks if you complain)",
+        "Made by: Pony Nobility Patisserie"
+    ],
+    vendor: 'pony_nobility',
+    shippedBy: 'Enchanted Brush',
+    levelRequirement: 5
+},
+'equestrian_recipe_friendship_casserole': {
+    id: 'equestrian_recipe_friendship_casserole',
+    name: "Recipe: Equestrian Friendship Casserole",
+    description: "Tastes better when shared.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "If shared with an ally, both gain 1d6 temporary HP",
+        "Eating alone: just a normal meal (no effect)",
+        "You feel lonely if you don't share (disadvantage on checks)",
+        "Made by: Equestrian Community Kitchen"
+    ],
+    vendor: 'equestrian',
+    shippedBy: 'Heartfelt Message',
+    levelRequirement: 5
+},
+'pokemon_league_recipe_poke_block_candy': {
+    id: 'pokemon_league_recipe_poke_block_candy',
+    name: "Recipe: Pokémon League Poké Block Candy",
+    description: "Candy for your animal companions.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 9500,
+    icon: '📜',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Animal companion gains +1 to attack rolls for 1 hour",
+        "Companion becomes hyper: disadvantage on Animal Handling with it for 10 minutes",
+        "You eat one: it's just candy (no effect, but tasty)",
+        "Made by: Pokémon League Treats"
+    ],
+    vendor: 'pokemon_league',
+    shippedBy: 'Pidgey Post',
+    levelRequirement: 5
+},
+'xenonesia_recipe_alien_fruit_salad': {
+    id: 'xenonesia_recipe_alien_fruit_salad',
+    name: "Recipe: Xenonesia Alien Fruit Salad",
+    description: "Fruit from another world.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 14500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on saves vs. psychic damage for 4 hours",
+        "You see colors that don't exist: disadvantage on Perception checks",
+        "Fruit glows in your stomach (cosmetic, but weird)",
+        "Made by: Xenonese Exporters"
+    ],
+    vendor: 'xenonesia',
+    shippedBy: 'Sterile Transport',
+    levelRequirement: 6
+},
+'formosa_ultima_recipe_fancy_pasta': {
+    id: 'formosa_ultima_recipe_fancy_pasta',
+    name: "Recipe: Formosa Ultima Fancy Pasta",
+    description: "Pasta that is art.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 Charisma for 1 hour (sophisticated)",
+        "You must eat it with proper fork technique (disadvantage if you don't)",
+        "Pasta is shaped like your face (creepy but impressive)",
+        "Made by: Formosa Ultima Pasta Artisans"
+    ],
+    vendor: 'formosa_ultima',
+    shippedBy: 'Canvas Wrap',
+    levelRequirement: 6
+},
+'weldrhom_recipe_spark_grilled_meat': {
+    id: 'weldrhom_recipe_spark_grilled_meat',
+    name: "Recipe: Weldrhom Spark-Grilled Meat",
+    description: "Meat cooked with lightning.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 15500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Grants +1 to attack rolls for 1 hour (energizing)",
+        "Your hair stands on end: disadvantage on Charisma checks",
+        "You glow faintly: disadvantage on Stealth, advantage on Intimidation",
+        "Made by: Weldrhom Grill Masters"
+    ],
+    vendor: 'weldrhom',
+    shippedBy: 'Spirit Forge',
+    levelRequirement: 7
+},
+'skycaverns_recipe_cloud_cream_puffs': {
+    id: 'skycaverns_recipe_cloud_cream_puffs',
+    name: "Recipe: Skycaverns Cloud Cream Puffs",
+    description: "Puffs lighter than air.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 12500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grants advantage on saves vs. falling damage for 4 hours",
+        "You feel light: +5 speed, disadvantage on Strength checks",
+        "Cream floats away if not eaten quickly (time limit 1 minute)",
+        "Made by: Skycaverns Bakers"
+    ],
+    vendor: 'skycaverns',
+    shippedBy: 'Cumulonimbus Courier',
+    levelRequirement: 6
+},
+'garden_isles_recipe_bee_pollen_balls': {
+    id: 'garden_isles_recipe_bee_pollen_balls',
+    name: "Recipe: Garden Isles Bee Pollen Balls",
+    description: "Energy balls made by bees.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to Constitution saves for 4 hours",
+        "You can communicate with bees (they're not very talkative)",
+        "You crave flowers: disadvantage on checks if not near flora",
+        "Made by: Garden Isles Beekeepers"
+    ],
+    vendor: 'garden_isles',
+    shippedBy: 'Pollen Cloud',
+    levelRequirement: 5
+},
+'glarnia_recipe_probability_popcorn': {
+    id: 'glarnia_recipe_probability_popcorn',
+    name: "Recipe: Glarnia Probability Popcorn",
+    description: "Every kernel is a surprise.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 11500,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Each handful grants random minor effect (DM rolls d6: 1-2 +1 AC, 3-4 +1 attack, 5-6 +1 save) for 1 hour",
+        "You can't predict the effect: disadvantage on planning checks",
+        "Popcorn is quantum: reappears in your pocket after eating (snack for later)",
+        "Made by: Glarnia Probability Chefs"
+    ],
+    vendor: 'glarnia',
+    shippedBy: 'Quantum Entanglement',
+    levelRequirement: 6
+},
+'polybius_recipe_arcade_candy': {
+    id: 'polybius_recipe_arcade_candy',
+    name: "Recipe: Polybius Arcade Candy",
+    description: "Candy that tastes like nostalgia.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 9500,
+    icon: '📜',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to Initiative for 1 hour (sugar rush)",
+        "You see pixelated trails: disadvantage on Perception",
+        "Candy is addictive: you crave more (disadvantage if you don't have some daily)",
+        "Made by: Polybius Confectionery"
+    ],
+    vendor: 'polybius',
+    shippedBy: 'Flashing Lights',
+    levelRequirement: 5
+},
+'internet_recipe_meme_cookies': {
+    id: 'internet_recipe_meme_cookies',
+    name: "Recipe: Internet Meme Cookies",
+    description: "Cookies that are dank.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 7500,
+    icon: '📜',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Grants +1 to Charisma with young people for 1 hour (relatable)",
+        "Disadvantage on Charisma with older people (they don't get it)",
+        "Cookies are outdated in 1 week (meta humor)",
+        "Made by: Internet Meme Factory"
+    ],
+    vendor: 'internet',
+    shippedBy: 'Viral Delivery',
+    levelRequirement: 5
+},
+'pokemon_league_recipe_rare_candy_stew': {
+    id: 'pokemon_league_recipe_rare_candy_stew',
+    name: "Recipe: Pokémon League Rare Candy Stew",
+    description: "Stew that levels you up (slightly).",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 18500,
+    icon: '📜',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Grants 100 XP (once per character, then recipe becomes useless)",
+        "Tastes like artificial flavoring (disadvantage on Charisma while eating)",
+        "You glow with potential: advantage on Charisma with trainers",
+        "Made by: Pokémon League R&D"
+    ],
+    vendor: 'pokemon_league',
+    shippedBy: 'Pidgey Post',
+    levelRequirement: 7
+},
+'xenonesia_recipe_alien_sushi': {
+    id: 'xenonesia_recipe_alien_sushi',
+    name: "Recipe: Xenonesia Alien Sushi",
+    description: "Sushi from beyond the stars.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 16500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Grants advantage on saves vs. psychic damage for 8 hours",
+        "You understand alien languages for 1 hour (but not common ones)",
+        "Fish is still moving: disadvantage on Charisma with squeamish people",
+        "Made by: Xenonese Sushi Chefs"
+    ],
+    vendor: 'xenonesia',
+    shippedBy: 'Sterile Transport',
+    levelRequirement: 7
+},
+'mushroom_regency_recipe_mystic_mushroom_risotto': {
+    id: 'mushroom_regency_recipe_mystic_mushroom_risotto',
+    name: "Recipe: Mushroom Regency Mystic Mushroom Risotto",
+    description: "Creamy rice with visionary fungi.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 15500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Grants advantage on Perception checks for 1 hour (enhanced senses)",
+        "You see floating spores: disadvantage on saves vs. illusions",
+        "Risotto is creamy: advantage on Charisma with foodies",
+        "Made by: Mushroom Regency Fine Dining"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Spore Cloud',
+    levelRequirement: 7
+},
+'beanbean_kingdom_recipe_royal_bean_casserole': {
+    id: 'beanbean_kingdom_recipe_royal_bean_casserole',
+    name: "Recipe: Beanbean Kingdom Royal Bean Casserole",
+    description: "The king of bean dishes.",
+    category: SHOP_CATEGORIES.RECIPE,
+    price: 13500,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grants +1 to Constitution saves for 8 hours (fiber)",
+        "You feel royal: advantage on Charisma with bean enthusiasts",
+        "Gas is noble: disadvantage on Stealth, advantage on Intimidation",
+        "Made by: Beanbean Royal Chefs"
+    ],
+    vendor: 'beanbean_kingdom',
+    shippedBy: 'Bean Vault',
+    levelRequirement: 6
+},
+
+'gondor_stew_recipe': {
+    id: 'gondor_stew_recipe',
+    name: "Recipe: Gondor Ranger Stew",
+    description: "A hearty stew using wild herbs and game meat, perfect for long marches in the wilds.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍲',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Cook with 2 lbs meat and herbs (1 hour); serves 4, grants 1d6 temporary HP and advantage on Constitution saves vs. exhaustion for 4 hours",
+        "Requires: Survival check DC 12 to forage ingredients",
+        "Tastes like home – boosts morale (+1 to group checks)",
+        "Made by: Gondor Camp Cooks"
+    ],
+    vendor: 'kingdom_gondor_outpost',
+    shippedBy: 'Rangers Cookbook',
+    levelRequirement: 5
+},
+'koopa_troop_mushroom_soup_recipe': {
+    id: 'koopa_troop_mushroom_soup_recipe',
+    name: "Recipe: Koopa Mushroom Soup (Joke)",
+    description: "A bubbling soup from Mushroom Kingdom fungi – grows you a bit, but watch the side effects!",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍄',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Simmer mushrooms and broth (30 min); eat to gain +5 ft speed for 1 hour, but disadvantage on Dexterity saves (slippery!)",
+        "Requires: 1 lb mushrooms; 50% chance it makes you 'super' (extra +1d4 HP)",
+        "Mario might show up demanding royalties",
+        "Made by: Koopa Chefs"
+    ],
+    vendor: 'koopa_troop_kitchen',
+    shippedBy: 'Steamy Scroll',
+    levelRequirement: 5
+},
+'equestrian_apple_pie_recipe': {
+    id: 'equestrian_apple_pie_recipe',
+    name: "Recipe: Equestrian Apple Pie",
+    description: "Sweet pie from Sweet Apple Acres, baked with friendship and fresh apples.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🥧',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake with apples and dough (1 hour); eat slice for 2d4 HP heal and advantage on Charisma (Persuasion) for 2 hours",
+        "Requires: 5 apples; ponies approve (+2 with equines)",
+        "Fills you with 'honesty' – no lying penalties",
+        "Made by: Apple Family Bakers"
+    ],
+    vendor: 'equestrian_farm',
+    shippedBy: 'Pie Pan Parcel',
+    levelRequirement: 5
+},
+'pokemon_league_berry_salad_recipe': {
+    id: 'pokemon_league_berry_salad_recipe',
+    name: "Recipe: Pokémon League Berry Salad",
+    description: "A revitalizing salad of Oran and Sitrus berries for trainers on the go.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🥗',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Mix berries (20 min); eat to regain 1d8 HP and remove one level of exhaustion",
+        "Requires: 3 berries; works on Pokémon companions too",
+        "Boosts type resistance randomly (DM chooses one for 1 hour)",
+        "Made by: League Caterers"
+    ],
+    vendor: 'pokemon_league_camp',
+    shippedBy: 'Berry Bowl Delivery',
+    levelRequirement: 6
+},
+'mushroom_regency_toadstool_bread_recipe': {
+    id: 'mushroom_regency_toadstool_bread_recipe',
+    name: "Recipe: Mushroom Regency Toadstool Bread",
+    description: "Nutty bread infused with safe fungi for endurance.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍞',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake with flour and toadstools (45 min); eat loaf slice for advantage on Constitution saves vs. poison for 6 hours",
+        "Requires: 1 lb flour, safe mushrooms; heals 1d4 HP",
+        "Toads think it's delicious – attracts allies",
+        "Made by: Regency Bakers"
+    ],
+    vendor: 'mushroom_regency_kitchen',
+    shippedBy: 'Doughy Document',
+    levelRequirement: 5
+},
+'asgard_mead_honey_cakes_recipe': {
+    id: 'asgard_mead_honey_cakes_recipe',
+    name: "Recipe: Asgard Mead Honey Cakes",
+    description: "Golden cakes soaked in divine mead for warrior vigor.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍯',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake with honey and mead (1 hour); eat to gain +1 Strength for 1 hour and 1d6 temporary HP",
+        "Requires: Honey and weak mead; Valhalla-approved",
+        "Might make you sing battle hymns (noisy)",
+        "Made by: Asgard Feast Hall"
+    ],
+    vendor: 'asgard_kitchen',
+    shippedBy: 'Honeycomb Herald',
+    levelRequirement: 6
+},
+'mordor_ash_baked_potatoes_recipe': {
+    id: 'mordor_ash_baked_potatoes_recipe',
+    name: "Recipe: Mordor Ash-Baked Potatoes (Joke)",
+    description: "Potatoes roasted in volcanic ash – toughens you up, Sauron-style.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🥔',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake in hot ash (30 min); eat for resistance to fire damage (1 hour) and +1 to Intimidation",
+        "Requires: Potatoes and heat source; tastes smoky",
+        "One Ring not included – no invisibility",
+        "Made by: Orc Camp Cooks"
+    ],
+    vendor: 'land_mordor_forge',
+    shippedBy: 'Sooty Spud Scroll',
+    levelRequirement: 5
+},
+'xenonesia_alien_fruit_jelly_recipe': {
+    id: 'xenonesia_alien_fruit_jelly_recipe',
+    name: "Recipe: Xenonesia Alien Fruit Jelly",
+    description: "Wobbly jelly from exotic space fruits for mental clarity.",
+    category: SHOP_CATEGORIES.services,
+    price: 9500,
+    icon: '🍮',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Gel fruits (40 min); eat to gain advantage on Intelligence saves for 2 hours and heal 1d6 psychic damage",
+        "Requires: Alien fruits (forage DC 14); glows faintly",
+        "Might cause weird dreams (inspiration or nightmare)",
+        "Made by: Xenonesian Chefs"
+    ],
+    vendor: 'xenonesia_outpost',
+    shippedBy: 'Jiggly Jar',
+    levelRequirement: 7
+},
+'iron_legion_roman_flatbread_recipe': {
+    id: 'iron_legion_roman_flatbread_recipe',
+    name: "Recipe: Iron Legion Roman Flatbread",
+    description: "Simple flatbread with olives and herbs for legion stamina.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍞',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Flatten and bake (20 min); eat to ignore difficult terrain for 4 hours and +1 to group morale checks",
+        "Requires: Flour and olives; feeds a squad",
+        "Caesar salad optional",
+        "Made by: Legion Bakers"
+    ],
+    vendor: 'iron_legion_camp',
+    shippedBy: 'Dough Disc Delivery',
+    levelRequirement: 5
+},
+'formosa_ultima_rice_ball_recipe': {
+    id: 'formosa_ultima_rice_ball_recipe',
+    name: "Recipe: Formosa Ultima Onigiri",
+    description: "Handheld rice balls wrapped in seaweed for quick energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍙',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Shape rice (15 min); eat for +10 ft speed and 1d4 HP for 1 hour",
+        "Requires: Rice and seaweed; portable snack",
+        "Fills you with island spirit",
+        "Made by: Ultima Cooks"
+    ],
+    vendor: 'formosa_ultima_village',
+    shippedBy: 'Bamboo Ball Bundle',
+    levelRequirement: 5
+},
+'weldrhom_spice_rub_meat_recipe': {
+    id: 'weldrhom_spice_rub_meat_recipe',
+    name: "Recipe: Weldrhom Spice-Rubbed Meat",
+    description: "Tender meat seasoned with desert spices for resilience.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🥩',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Rub and grill (45 min); eat to gain resistance to dehydration and +1 Constitution save for 6 hours",
+        "Requires: Meat and spices; nomad favorite",
+        "Spicy kick – might make you sweat",
+        "Made by: Weldrhom Caravaneers"
+    ],
+    vendor: 'weldrhom_caravan',
+    shippedBy: 'Spicy Scroll',
+    levelRequirement: 5
+},
+'skycaverns_cloud_berry_tarts_recipe': {
+    id: 'skycaverns_cloud_berry_tarts_recipe',
+    name: "Recipe: Skycaverns Cloud Berry Tarts",
+    description: "Light tarts with sky-grown berries for aerial agility.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🫐',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake berries in pastry (30 min); eat for advantage on Dexterity (Acrobatics) for 2 hours and feather fall (10ft safely)",
+        "Requires: Cloud berries (forage DC 13); floats lightly",
+        "Birds might steal bites",
+        "Made by: Cavern Bakers"
+    ],
+    vendor: 'skycaverns_kitchen',
+    shippedBy: 'Airy Pastry Pan',
+    levelRequirement: 6
+},
+'garden_isles_seaweed_salad_recipe': {
+    id: 'garden_isles_seaweed_salad_recipe',
+    name: "Recipe: Garden Isles Seaweed Salad",
+    description: "Fresh salad from ocean gardens for vitality.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🥗',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Toss seaweed and veggies (15 min); eat to heal 1d6 HP and gain water breathing for 1 hour",
+        "Requires: Seaweed; refreshing and light",
+        "Tastes briny – not for landlubbers",
+        "Made by: Isle Foragers"
+    ],
+    vendor: 'garden_isles_shore',
+    shippedBy: 'Salty Sheet',
+    levelRequirement: 5
+},
+'glarnia_crystal_candy_recipe': {
+    id: 'glarnia_crystal_candy_recipe',
+    name: "Recipe: Glarnia Crystal Candy (Joke)",
+    description: "Hard candy mimicking gems – sweet and shiny!",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍭',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil sugar and tint (20 min); eat to gain +1 to Charisma (Deception) for 1 hour (distract with shine)",
+        "Requires: Sugar; 50% chance it 'cracks' (no effect)",
+        "Looks valuable – fools appraisers briefly",
+        "Made by: Glarnian Confectioners"
+    ],
+    vendor: 'glarnia_mines',
+    shippedBy: 'Sugary Shard Scroll',
+    levelRequirement: 5
+},
+'polybius_pixel_popcorn_recipe': {
+    id: 'polybius_pixel_popcorn_recipe',
+    name: "Recipe: Polybius Pixel Popcorn",
+    description: "Buttered popcorn that pops with arcade energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍿',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Pop kernels with 'power' (10 min); eat handful for advantage on one Dexterity check (quick reflexes)",
+        "Requires: Corn; addictive (Wis save DC 10 or crave more)",
+        "Pops like game sounds",
+        "Made by: Arcade Snack Makers"
+    ],
+    vendor: 'polybius_arcade',
+    shippedBy: 'Kernel Kernel',
+    levelRequirement: 5
+},
+'internet_viral_nachos_recipe': {
+    id: 'internet_viral_nachos_recipe',
+    name: "Recipe: Internet Viral Nachos (Joke)",
+    description: "Loaded nachos that 'go viral' for party boosts.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🌮',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Layer chips and toppings (25 min); share to grant group +1 to Charisma checks for 1 hour (social media fame!)",
+        "Requires: Chips and cheese; messy but fun",
+        "Might trend – attract NPCs",
+        "Made by: Net Foodies"
+    ],
+    vendor: 'internet_cafe',
+    shippedBy: 'Cheesy Chip Chart',
+    levelRequirement: 5
+},
+'trainer_guild_poke_puff_recipe': {
+    id: 'trainer_guild_poke_puff_recipe',
+    name: "Recipe: Trainer Guild Poké Puff",
+    description: "Fluffy pastries for Pokémon and trainers alike.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🧁',
+    stock: 6,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake puffs (40 min); eat to heal 2d4 HP or boost companion's next attack (+1d4 damage)",
+        "Requires: Flour and berries; cute and effective",
+        "Puffs come in flavors (random effect color)",
+        "Made by: Guild Bakers"
+    ],
+    vendor: 'trainer_guild_kitchen',
+    shippedBy: 'Puff Pastry Post',
+    levelRequirement: 6
+},
+'changeling_hive_love_jam_recipe': {
+    id: 'changeling_hive_love_jam_recipe',
+    name: "Recipe: Changeling Hive Love Jam",
+    description: "Sweet jam infused with emotional essence for empathy.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍓',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Simmer fruits with 'love' (30 min); spread on bread to gain advantage on Insight for emotions (2 hours)",
+        "Requires: Berries; non-changelings feel tingly",
+        "Boosts bonds – +1 to social with loved ones",
+        "Made by: Hive Foragers"
+    ],
+    vendor: 'changeling_hive_nest',
+    shippedBy: 'Sticky Sweet Scroll',
+    levelRequirement: 5
+},
+'the_onyx_hand_shadow_pie_recipe': {
+    id: 'the_onyx_hand_shadow_pie_recipe',
+    name: "Recipe: The Onyx Hand Shadow Pie (Joke)",
+    description: "Mysterious pie that hides flavors – like shadows!",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🥧',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake with dark fruits (50 min); eat to gain minor invisibility in dim light (1 minute, once per pie)",
+        "Requires: Blackberries; tastes surprisingly good",
+        "Pie 'disappears' if left out (spoils fast)",
+        "Made by: Shadow Chefs"
+    ],
+    vendor: 'the_onyx_hand_guild',
+    shippedBy: 'Dark Crust Delivery',
+    levelRequirement: 5
+},
+'kingdoms_dwarves_ale_stew_recipe': {
+    id: 'kingdoms_dwarves_ale_stew_recipe',
+    name: "Recipe: Kingdoms Dwarves Ale Stew",
+    description: "Rich stew simmered in dwarven ale for fortitude.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Stew meat in ale (1 hour); eat bowl for +2 to Constitution saves vs. poison/disease for 8 hours",
+        "Requires: Ale and meat; dwarves get double effect",
+        "Hangover optional (disadvantage on Dex next morning)",
+        "Made by: Dwarven Brew Cooks"
+    ],
+    vendor: 'kingdoms_dwarves_tavern',
+    shippedBy: 'Foamy Folio',
+    levelRequirement: 6
+},
+'greenskins_waaagh_gruel_recipe': {
+    id: 'greenskins_waaagh_gruel_recipe',
+    name: "Recipe: Greenskins Waaagh! Gruel",
+    description: "Rough porridge that fuels orkish rage.",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🥣',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil grains (15 min); eat to gain +1 Strength for 1 hour, but disadvantage on Intelligence checks (berserk mode)",
+        "Requires: Grains; shouts 'Waaagh!' encouraged",
+        "Fills belly – no hunger for a day",
+        "Made by: Ork Camp Cooks"
+    ],
+    vendor: 'greenskins_camp',
+    shippedBy: 'Grubby Grain Guide',
+    levelRequirement: 5
+},
+'jotunheimr_frost_berry_porridge_recipe': {
+    id: 'jotunheimr_frost_berry_porridge_recipe',
+    name: "Recipe: Jotunheimr Frost Berry Porridge",
+    description: "Icy porridge with hardy berries for cold resistance.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🥣',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Cook berries in oats (30 min); eat to gain resistance to cold damage for 4 hours and 1d6 temporary HP",
+        "Requires: Frost berries; warms from inside",
+        "Giants approve – size illusion briefly",
+        "Made by: Frost Giant Chefs"
+    ],
+    vendor: 'jotunheimr_hall',
+    shippedBy: 'Chilly Cereal Chart',
+    levelRequirement: 5
+},
+'high_elves_elven_fruit_tarts_recipe': {
+    id: 'high_elves_elven_fruit_tarts_recipe',
+    name: "Recipe: High Elves Elven Fruit Tarts",
+    description: "Delicate tarts with enchanted fruits for grace.",
+    category: SHOP_CATEGORIES.services,
+    price: 10000,
+    icon: '🍰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Pastry with fruits (50 min); eat to gain advantage on Dexterity (Acrobatics) for 3 hours and minor illusion (floral)",
+        "Requires: Rare fruits (DC 14 Nature); elegant taste",
+        "Elves sing praises",
+        "Made by: Elven Patissiers"
+    ],
+    vendor: 'high_elves_grove',
+    shippedBy: 'Silken Tart Tome',
+    levelRequirement: 7
+},
+'dark_elves_spider_silk_soup_recipe': {
+    id: 'dark_elves_spider_silk_soup_recipe',
+    name: "Recipe: Dark Elves Spider Silk Soup",
+    description: "Broth with silk strands for subtle strength.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Simmer silk and broth (40 min); eat to gain +1 Dexterity for 2 hours and advantage on saves vs. webs/poison",
+        "Requires: Spider silk; stringy but nourishing",
+        "Drow favorite – shadowy aftertaste",
+        "Made by: Underdark Cooks"
+    ],
+    vendor: 'dark_elves_caverns',
+    shippedBy: 'Webbed Whisk',
+    levelRequirement: 6
+},
+'trainer_guild_berry_juice_recipe': {
+    id: 'trainer_guild_berry_juice_recipe',
+    name: "Recipe: Trainer Guild Berry Juice",
+    description: "Refreshing juice from wild berries for quick recovery.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🥤',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Crush berries (10 min); drink to heal 1d8 HP instantly",
+        "Requires: 4 berries; quenches thirst too",
+        "Boosts speed slightly (+5 ft for 30 min)",
+        "Made by: Guild Juicers"
+    ],
+    vendor: 'trainer_guild_outpost',
+    shippedBy: 'Juicy Jug Journal',
+    levelRequirement: 5
+},
+'crimision_isle_spicy_fish_stew_recipe': {
+    id: 'crimision_isle_spicy_fish_stew_recipe',
+    name: "Recipe: Crimision Isle Spicy Fish Stew",
+    description: "Fiery stew from crimson waters for bold adventurers.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍲',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil fish with spices (35 min); eat to gain fire resistance for 2 hours and +1 to attack rolls (fiery spirit)",
+        "Requires: Fish and hot peppers; burns going down",
+        "Attracts sea spirits (minor luck)",
+        "Made by: Isle Fisherfolk"
+    ],
+    vendor: 'crimision_isle_port',
+    shippedBy: 'Scaly Stew Sheet',
+    levelRequirement: 5
+},
+'blessed_order_holy_bread_recipe': {
+    id: 'blessed_order_holy_bread_recipe',
+    name: "Recipe: Blessed Order Holy Bread",
+    description: "Sacred bread blessed for divine protection.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🍞',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake with holy water (45 min); eat to gain +1 to saves vs. undead/fiends for 4 hours and heal 1d6 radiant HP",
+        "Requires: Flour and blessing; glows faintly",
+        "Wards minor evil",
+        "Made by: Order Bakers"
+    ],
+    vendor: 'blessed_order_chapel',
+    shippedBy: 'Sacred Slice Scroll',
+    levelRequirement: 6
+},
+'sirsirian_ocean_sea_biscuits_recipe': {
+    id: 'sirsirian_ocean_sea_biscuits_recipe',
+    name: "Recipe: Sirsirian Ocean Sea Biscuits",
+    description: "Hardtack biscuits for long voyages at sea.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake dry dough (20 min); eat to ignore hunger for 24 hours and advantage on Constitution saves vs. seasickness",
+        "Requires: Flour and salt; lasts weeks",
+        "Weevils optional (extra protein?)",
+        "Made by: Ocean Sailors"
+    ],
+    vendor: 'sirsirian_ocean_port',
+    shippedBy: 'Salty Cracker Codex',
+    levelRequirement: 5
+},
+'saddle_arabia_date_palm_cookies_recipe': {
+    id: 'saddle_arabia_date_palm_cookies_recipe',
+    name: "Recipe: Saddle Arabia Date Palm Cookies",
+    description: "Sweet cookies with dates for desert endurance.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍪',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Mix dates and dough (30 min); eat to gain +5 ft speed in heat and heal 1d4 HP from dehydration",
+        "Requires: Dates; energy-packed",
+        "Camels love them too",
+        "Made by: Arabian Bakers"
+    ],
+    vendor: 'saddle_arabia_oasis',
+    shippedBy: 'Sweet Date Dispatch',
+    levelRequirement: 5
+},
+'ratchet_raiders_scrap_metal_pie_recipe': {
+    id: 'ratchet_raiders_scrap_metal_pie_recipe',
+    name: "Recipe: Ratchet Raiders Scrap Metal Pie (Joke)",
+    description: "A 'rustic' pie with edible 'scraps' – don't eat the foil!",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🥧',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Fill crust with veggies (40 min); eat for +1 to tool checks (oiled up!) for 2 hours",
+        "Requires: Veggies mimicking metal; crunchy",
+        "Might chip a tooth (1 damage on nat 1)",
+        "Made by: Raider Inventors"
+    ],
+    vendor: 'ratchet_raiders_scrapyard',
+    shippedBy: 'Rusty Recipe Roll',
+    levelRequirement: 5
+},
+'wario_land_garlic_bread_recipe': {
+    id: 'wario_land_garlic_bread_recipe',
+    name: "Recipe: Wario Land Garlic Bread",
+    description: "Overloaded garlic bread for vampire-repelling munchies.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍞',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake with extra garlic (25 min); eat to gain advantage on saves vs. undead for 4 hours and +1d4 HP",
+        "Requires: Bread and garlic; stinky but effective",
+        "Wario's favorite – wafting aroma",
+        "Made by: Wario's Pantry"
+    ],
+    vendor: 'wario_land_shack',
+    shippedBy: 'Garlicky Guide',
+    levelRequirement: 5
+},
+'millennium_pharaohs_feast_platter_recipe': {
+    id: 'millennium_pharaohs_feast_platter_recipe',
+    name: "Recipe: Millennium Pharaoh's Feast Platter",
+    description: "Platter of dates, bread, and honey for ancient vitality.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍽️',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Assemble platter (20 min); share to heal 1d6 HP per person and advantage on History checks for 2 hours",
+        "Requires: Exotic fruits; regal presentation",
+        "Curses optional (DM fun)",
+        "Made by: Tomb Chefs"
+    ],
+    vendor: 'millennium_tomb',
+    shippedBy: 'Golden Platter Page',
+    levelRequirement: 6
+},
+'apis_kingdom_honeycomb_cake_recipe': {
+    id: 'apis_kingdom_honeycomb_cake_recipe',
+    name: "Recipe: Apis Kingdom Honeycomb Cake",
+    description: "Honey-drenched cake from royal hives for sweet energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍰',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Layer honeycomb (50 min); eat slice to gain +1 to Charisma saves for 3 hours and attract helpful bees (scouts)",
+        "Requires: Honey; sticky but buzzing with life",
+        "Bees might sting thieves",
+        "Made by: Kingdom Beekeepers"
+    ],
+    vendor: 'apis_kingdom_hive',
+    shippedBy: 'Honey Hex',
+    levelRequirement: 5
+},
+'lizardmen_swamp_gumbo_recipe': {
+    id: 'lizardmen_swamp_gumbo_recipe',
+    name: "Recipe: Lizardmen Swamp Gumbo",
+    description: "Thick gumbo with crawfish and okra for watery resilience.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍲',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Simmer in pot (1 hour); eat to gain advantage on Swimming checks and resistance to disease for 4 hours",
+        "Requires: Swamp ingredients; flavorful mud",
+        "Lizards approve – +1 Animal Handling",
+        "Made by: Lizard Chefs"
+    ],
+    vendor: 'lizardmen_village',
+    shippedBy: 'Boggy Broth Book',
+    levelRequirement: 5
+},
+'kingdom_fiore_fairy_dust_cookies_recipe': {
+    id: 'kingdom_fiore_fairy_dust_cookies_recipe',
+    name: "Recipe: Kingdom Fiore Fairy Dust Cookies",
+    description: "Cookies dusted with magical fairy powder for whimsy.",
+    category: SHOP_CATEGORIES.services,
+    price: 9500,
+    icon: '🍪',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake with dust (35 min); eat to gain minor levitation (10 ft jump) for 1 hour and 1d4 inspiration",
+        "Requires: Fairy dust (rare); sparkly treat",
+        "Fairies might join the party",
+        "Made by: Fiore Bakers"
+    ],
+    vendor: 'kingdom_fiore_enchantress',
+    shippedBy: 'Dusty Dough Dispatch',
+    levelRequirement: 7
+},
+'trinity_general_blessed_biscuits_recipe': {
+    id: 'trinity_general_blessed_biscuits_recipe',
+    name: "Recipe: Trinity General Blessed Biscuits",
+    description: "Buttery biscuits infused with holy grace for healing.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍪',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake with blessings (30 min); eat to heal 2d4 HP and remove one curse (minor)",
+        "Requires: Flour and holy water; comforting",
+        "Divine light on consumption",
+        "Made by: Trinity Cooks"
+    ],
+    vendor: 'trinity_general_kitchen',
+    shippedBy: 'Holy Handout',
+    levelRequirement: 5
+},
+'pitatia_pitaya_smoothie_recipe': {
+    id: 'pitatia_pitaya_smoothie_recipe',
+    name: "Recipe: Pitatia Pitaya Smoothie",
+    description: "Blended dragon fruit for exotic vigor.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🥤',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Blend fruit (10 min); drink to gain +1 Dexterity for 2 hours and heal 1d6 HP",
+        "Requires: Pitaya; vibrant and juicy",
+        "Scaly texture – dragon breath burp",
+        "Made by: Pitatian Juicers"
+    ],
+    vendor: 'pitatia_orchard',
+    shippedBy: 'Fruity Flask Folio',
+    levelRequirement: 5
+},
+'crimson_fleet_rum_cake_recipe': {
+    id: 'crimson_fleet_rum_cake_recipe',
+    name: "Recipe: Crimson Fleet Rum Cake",
+    description: "Boozy cake for pirate revelry and luck.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍰',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Soak cake in rum (1 hour); eat to gain advantage on one Luck roll and +1 to Charisma (Deception) for 3 hours",
+        "Requires: Rum and batter; pirate's delight",
+        "Might make you sway (disadvantage on balance)",
+        "Made by: Fleet Bakers"
+    ],
+    vendor: 'crimson_fleet_galley',
+    shippedBy: 'Rum-Soaked Recipe',
+    levelRequirement: 5
+},
+'scylla_charybdis_tentacle_tempura_recipe': {
+    id: 'scylla_charybdis_tentacle_tempura_recipe',
+    name: "Recipe: Scylla Charybdis Tentacle Tempura (Joke)",
+    description: "Crispy fried 'seafood' for monstrous munchies.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍤',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Fry tentacles (20 min); eat to gain advantage on grapples for 1 hour and 1d4 temporary HP",
+        "Requires: Tentacles (or veggies); crunchy",
+        "Monsters might recognize the taste",
+        "Made by: Sea Chefs"
+    ],
+    vendor: 'scylla_charybdis_cove',
+    shippedBy: 'Ink-Fried Instructions',
+    levelRequirement: 5
+},
+'minerva_owl_wisdom_pudding_recipe': {
+    id: 'minerva_owl_wisdom_pudding_recipe',
+    name: "Recipe: Minerva Owl Wisdom Pudding",
+    description: "Creamy pudding for scholarly insight.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍮',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Set with herbs (40 min); eat to gain advantage on Intelligence (Investigation) for 4 hours",
+        "Requires: Milk and wisdom herbs; brain food",
+        "Owls hoot approval",
+        "Made by: Academy Cooks"
+    ],
+    vendor: 'minerva_library',
+    shippedBy: 'Wise Whisk Writings',
+    levelRequirement: 6
+},
+'animatopia_cartoon_cereal_recipe': {
+    id: 'animatopia_cartoon_cereal_recipe',
+    name: "Recipe: Animatopia Cartoon Cereal (Joke)",
+    description: "Sugary cereal that makes you 'toon up' with energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🥣',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Mix flakes and milk (5 min); eat to gain +1d4 to one Dexterity check (bouncy!)",
+        "Requires: Cereal box; snaps, crackles, pops",
+        "Sugar rush – hyper for 30 min",
+        "Made by: Toon Chefs"
+    ],
+    vendor: 'animatopia_studio',
+    shippedBy: 'Milky Morning Manual',
+    levelRequirement: 5
+},
+'eiwass_frozen_berry_ice_recipe': {
+    id: 'eiwass_frozen_berry_ice_recipe',
+    name: "Recipe: Eiwass Frozen Berry Ice",
+    description: "Chilled ice treat with berries for cool calm.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍨',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Freeze berries (freeze time); eat to gain resistance to fire/heat for 2 hours and calm mind (remove frightened)",
+        "Requires: Berries and ice; refreshing",
+        "Brain freeze risk (DC 10 CON)",
+        "Made by: Winter Treat Makers"
+    ],
+    vendor: 'eiwass_village',
+    shippedBy: 'Icy Indulgence Index',
+    levelRequirement: 5
+},
+'oracula_blood_red_velvet_cake_recipe': {
+    id: 'oracula_blood_red_velvet_cake_recipe',
+    name: "Recipe: Oracula Blood Red Velvet Cake",
+    description: "Rich cake with 'berry' dye for nocturnal nourishment.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🍰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake with red dye (1 hour); eat to heal 2d6 HP at night and advantage on Stealth in dark for 3 hours",
+        "Requires: Flour and 'blood' berries; decadent",
+        "Vampires crave it",
+        "Made by: Night Bakers"
+    ],
+    vendor: 'oracula_castle',
+    shippedBy: 'Crimson Crumb Codex',
+    levelRequirement: 6
+},
+'halfling_second_breakfast_pastry_recipe': {
+    id: 'halfling_second_breakfast_pastry_recipe',
+    name: "Recipe: Halfling Second Breakfast Pastry (Joke)",
+    description: "Flaky pastry for that extra meal – hobbit-sized hunger.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥐',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Flake dough (25 min); eat to regain 1d8 HP and ignore one meal (no exhaustion from hunger)",
+        "Requires: Butter and jam; elevenses approved",
+        "Makes you hungry for thirds",
+        "Made by: Shire Bakers"
+    ],
+    vendor: 'halfling_hole',
+    shippedBy: 'Breakfast Bun Book',
+    levelRequirement: 5
+},
+'refijia_reflective_mirror_candy_recipe': {
+    id: 'refijia_reflective_mirror_candy_recipe',
+    name: "Recipe: Refijia Reflective Mirror Candy",
+    description: "Shiny hard candy that 'reflects' on choices.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍭',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Mold sugar (20 min); eat to gain inspiration for one decision and advantage on Insight",
+        "Requires: Sugar; looks like gems",
+        "Sweet reflections – minor prophecy",
+        "Made by: Mirror Confectioners"
+    ],
+    vendor: 'refijia_workshop',
+    shippedBy: 'Shiny Sugar Sheet',
+    levelRequirement: 5
+},
+'shanhaijing_dragon_fruit_tarts_recipe': {
+    id: 'shanhaijing_dragon_fruit_tarts_recipe',
+    name: "Recipe: Shanhaijing Dragon Fruit Tarts",
+    description: "Exotic tarts with mythical fruit for draconic fire.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍰',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Fill pastry with fruit (40 min); eat to gain 1d6 fire damage on next weapon attack and resistance to fear",
+        "Requires: Dragon fruit; fiery aftertaste",
+        "Dragons respect the flavor",
+        "Made by: Eastern Pastry Masters"
+    ],
+    vendor: 'shanhaijing_temple',
+    shippedBy: 'Scaly Sweet Scroll',
+    levelRequirement: 6
+},
+'u_mystic_herb_infused_tea_recipe': {
+    id: 'u_mystic_herb_infused_tea_recipe',
+    name: "Recipe: U Mystic Herb-Infused Tea",
+    description: "Enigmatic tea with rare herbs for riddle-solving clarity.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍵',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Steep herbs (15 min); drink to gain advantage on Intelligence (Riddles/Puzzles) for 2 hours",
+        "Requires: Mystic herbs; steamy visions",
+        "Tea leaves predict minor events",
+        "Made by: U Enchanters"
+    ],
+    vendor: 'u_enclave',
+    shippedBy: 'Enigmatic Leaf Ledger',
+    levelRequirement: 5
+},
+'zebrabwe_grass_fed_yogurt_recipe': {
+    id: 'zebrabwe_grass_fed_yogurt_recipe',
+    name: "Recipe: Zebrabwe Grass-Fed Yogurt",
+    description: "Creamy yogurt from savanna herds for herd strength.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🥛',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Culture milk (overnight); eat to gain +1 to group Athletics checks for 4 hours",
+        "Requires: Milk from grass-eaters; tangy",
+        "Boosts herd bonds",
+        "Made by: Zebra Herders"
+    ],
+    vendor: 'zebrabwe_savanna',
+    shippedBy: 'Milky Mane Manual',
+    levelRequirement: 5
+},
+'robensonia_lab_energy_bar_recipe': {
+    id: 'robensonia_lab_energy_bar_recipe',
+    name: "Recipe: Robensonia Lab Energy Bar (Joke)",
+    description: "Compact bar packed with 'sci-fi' nutrients for escapes.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍫',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Press nuts and gels (20 min); eat to gain +10 ft speed for 1 hour (rocket fuel!)",
+        "Requires: Nuts and lab gels; chewy",
+        "Might fizz in your mouth",
+        "Made by: Lab Nutritionists"
+    ],
+    vendor: 'robensonia_lab',
+    shippedBy: 'Bar Booster Book',
+    levelRequirement: 5
+},
+'tomb_kings_mummy_wrap_sandwiches_recipe': {
+    id: 'tomb_kings_mummy_wrap_sandwiches_recipe',
+    name: "Recipe: Tomb Kings Mummy Wrap Sandwiches",
+    description: "Wrapped sandwiches evoking ancient tombs for preservation.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🥪',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Wrap fillings (15 min); eat to ignore spoilage (food lasts 1 week longer) and heal 1d6 HP",
+        "Requires: Bread and meats; bandaged style",
+        "Mummies approve – no rot",
+        "Made by: Tomb Cooks"
+    ],
+    vendor: 'tomb_kings_pyramid',
+    shippedBy: 'Wrapped Wisdom',
+    levelRequirement: 6
+},
+'gehenna_academy_devils_food_cake_recipe': {
+    id: 'gehenna_academy_devils_food_cake_recipe',
+    name: "Recipe: Gehenna Academy Devil's Food Cake",
+    description: "Rich chocolate cake with infernal heat.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🍰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake with spice (50 min); eat to gain fire breath (1d6 damage, 15ft cone, once) and +1 to Intimidation",
+        "Requires: Chocolate and hellspice; sinful",
+        "Devils might bargain for seconds",
+        "Made by: Academy Bakers"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Fiery Frosting Folio',
+    levelRequirement: 7
+},
+'red_winter_ice_cream_snow_cones_recipe': {
+    id: 'red_winter_ice_cream_snow_cones_recipe',
+    name: "Recipe: Red Winter Ice Cream Snow Cones",
+    description: "Frozen treats shaved from eternal snow for chill endurance.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🧊',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Shave ice and flavor (10 min); eat to gain cold resistance for 3 hours and advantage on saves vs. heat",
+        "Requires: Snow and syrup; cooling",
+        "Brain freeze adventure",
+        "Made by: Winter Treaters"
+    ],
+    vendor: 'red_winter_village',
+    shippedBy: 'Frosty Flavor File',
+    levelRequirement: 5
+},
+'dwarf_realms_gem_dusted_biscuits_recipe': {
+    id: 'dwarf_realms_gem_dusted_biscuits_recipe',
+    name: "Recipe: Dwarf Realms Gem-Dusted Biscuits",
+    description: "Biscuits sprinkled with edible 'gem' sugar for mining might.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍪',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Dust and bake (30 min); eat to gain advantage on Strength (Athletics) for digging/mining (2 hours)",
+        "Requires: Flour and crystal sugar; crunchy",
+        "Dwarves dig it (pun intended)",
+        "Made by: Realm Bakers"
+    ],
+    vendor: 'dwarf_realms_mine',
+    shippedBy: 'Sparkly Spud Scroll',
+    levelRequirement: 5
+},
+'custodians_warded_herb_bread_recipe': {
+    id: 'custodians_warded_herb_bread_recipe',
+    name: "Recipe: Custodians Warded Herb Bread",
+    description: "Bread baked with protective herbs for guardians.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍞',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Knead with wards (45 min); eat to gain +1 AC for 4 hours (minor ward) and detect evil nearby",
+        "Requires: Herbs; fortified flavor",
+        "Wards fade after use",
+        "Made by: Custodian Cooks"
+    ],
+    vendor: 'custodians_fortress',
+    shippedBy: 'Guarded Grain Guide',
+    levelRequirement: 6
+},
+'the_dk_crew_banana_bread_recipe': {
+    id: 'the_dk_crew_banana_bread_recipe',
+    name: "Recipe: The DK Crew Banana Bread (Joke)",
+    description: "Moist bread from jungle bananas for monkey agility.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍌',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Mash and bake (40 min); eat to gain advantage on Dexterity (Acrobatics) for climbing (2 hours)",
+        "Requires: Bananas; peelable fun",
+        "Slippery peels as bonus traps",
+        "Made by: DK Jungle Chefs"
+    ],
+    vendor: 'the_dk_crew_treehouse',
+    shippedBy: 'Peel Pulp Page',
+    levelRequirement: 5
+},
+'spark_rebellion_rebel_rations_recipe': {
+    id: 'spark_rebellion_rebel_rations_recipe',
+    name: "Recipe: Spark Rebellion Rebel Rations",
+    description: "Compact rations for on-the-run fighters.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🥪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Pack trail mix (10 min); eat to ignore exhaustion from travel for 8 hours",
+        "Requires: Nuts and dried fruit; sustaining",
+        "Boosts rebellion spirit (+1 morale)",
+        "Made by: Rebel Foragers"
+    ],
+    vendor: 'spark_rebellion_base',
+    shippedBy: 'Ration Recipe Roll',
+    levelRequirement: 5
+},
+'sultanates_araby_lamb_kebab_recipe': {
+    id: 'sultanates_araby_lamb_kebab_recipe',
+    name: "Recipe: Sultanates Araby Lamb Kebab",
+    description: "Skewered lamb with spices for caravan feasts.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍢',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Grill skewers (25 min); eat to gain +1 to Wisdom (Survival) in deserts for 4 hours and 1d6 HP",
+        "Requires: Lamb and spices; aromatic",
+        "Genies might grant a wish (rare)",
+        "Made by: Araby Grillmasters"
+    ],
+    vendor: 'sultanates_araby_bazaar',
+    shippedBy: 'Skewer Spice Sheet',
+    levelRequirement: 5
+},
+'animatopia_looney_tunes_sandwich_recipe': {
+    id: 'animatopia_looney_tunes_sandwich_recipe',
+    name: "Recipe: Animatopia Looney Tunes Sandwich (Joke)",
+    description: "Absurd sandwich with anvil-shaped bread for cartoon chaos.",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🥪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Stack wildly (15 min); eat to gain advantage on one Strength check (anvil power!) but disadvantage on next (squish)",
+        "Requires: Random ingredients; boings on bite",
+        "Acme quality – might fall apart",
+        "Made by: Toon Sandwich Makers"
+    ],
+    vendor: 'animatopia_studio',
+    shippedBy: 'Wile E. Wrapper',
+    levelRequirement: 5
+},
+'chaos_dwarfs_hellfire_roast_recipe': {
+    id: 'chaos_dwarfs_hellfire_roast_recipe',
+    name: "Recipe: Chaos Dwarfs Hellfire Roast",
+    description: "Spicy roast cooked over infernal flames for chaotic vigor.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🥩',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Roast over heat (1 hour); eat to gain random mutation boon (+1 random stat for 2 hours) or bane",
+        "Requires: Meat and chaos spices; unpredictable",
+        "Chaos gods approve",
+        "Made by: Hellforge Cooks"
+    ],
+    vendor: 'chaos_dwarfs_forge',
+    shippedBy: 'Fiery Flesh Folio',
+    levelRequirement: 6
+},
+'elves_lindon_lembas_bread_recipe': {
+    id: 'elves_lindon_lembas_bread_recipe',
+    name: "Recipe: Elves Lindon Lembas Bread",
+    description: "Elven waybread that sustains for days.",
+    category: SHOP_CATEGORIES.services,
+    price: 10000,
+    icon: '🍞',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Bake with mallorn leaves (1.5 hours); one piece sustains for 1 day and grants advantage on long travel saves",
+        "Requires: Rare leaves; lightweight and filling",
+        "Elven grace – no fatigue",
+        "Made by: Lindon Bakers"
+    ],
+    vendor: 'elves_lindon_grove',
+    shippedBy: 'Leaf-Wrapped Lore',
+    levelRequirement: 7
+},
+'moonfang_pack_wolf_berry_jam_recipe': {
+    id: 'moonfang_pack_wolf_berry_jam_recipe',
+    name: "Recipe: Moonfang Pack Wolf Berry Jam",
+    description: "Jam from lunar berries for pack hunters.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍓',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil berries (30 min); spread on bread to gain darkvision (60 ft) for 4 hours and +1 to Perception at night",
+        "Requires: Wolf berries; howling good",
+        "Pack bonds strengthen",
+        "Made by: Moonfang Foragers"
+    ],
+    vendor: 'moonfang_pack_lair',
+    shippedBy: 'Lunar Jam Ledger',
+    levelRequirement: 5
+},
+'avalon_court_fairy_nectar_drink_recipe': {
+    id: 'avalon_court_fairy_nectar_drink_recipe',
+    name: "Recipe: Avalon Court Fairy Nectar Drink",
+    description: "Sparkling nectar from fey flowers for enchantment.",
+    category: SHOP_CATEGORIES.services,
+    price: 9500,
+    icon: '🥤',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Infuse flowers (20 min); drink to gain advantage on Charisma (Deception) with fey for 3 hours and minor charm aura",
+        "Requires: Fey nectar; bubbly magic",
+        "Fairies toast with you",
+        "Made by: Court Mixologists"
+    ],
+    vendor: 'avalon_court_garden',
+    shippedBy: 'Nectar Nectar Note',
+    levelRequirement: 6
+},
+'vampire_counts_blood_sausage_recipe': {
+    id: 'vampire_counts_blood_sausage_recipe',
+    name: "Recipe: Vampire Counts Blood Sausage",
+    description: "Sausage made with 'rich' red filling for eternal night.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🌭',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Stuff casings (45 min); eat to heal 1d8 HP in darkness and advantage on Stealth at night",
+        "Requires: 'Blood' (berry juice); iron-rich",
+        "No garlic, please",
+        "Made by: Count's Butchers"
+    ],
+    vendor: 'vampire_counts_manor',
+    shippedBy: 'Crimson Casing Codex',
+    levelRequirement: 5
+},
+'abyssal_court_deep_abyss_soup_recipe': {
+    id: 'abyssal_court_deep_abyss_soup_recipe',
+    name: "Recipe: Abyssal Court Deep Abyss Soup",
+    description: "Inky soup from abyssal depths for pressure tolerance.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Simmer deep-sea items (50 min); eat to gain water breathing and resistance to pressure/cold for 2 hours",
+        "Requires: Inkfish; squidgy",
+        "Abyss dwellers respect it",
+        "Made by: Court Chefs"
+    ],
+    vendor: 'abyssal_court_depths',
+    shippedBy: 'Inky Immersion Instructions',
+    levelRequirement: 6
+},
+'general_student_study_snack_mix_recipe': {
+    id: 'general_student_study_snack_mix_recipe',
+    name: "Recipe: General Student Study Snack Mix (Joke)",
+    description: "Trail mix for late-night cramming sessions.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🥜',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Mix nuts and candy (5 min); eat handful to gain advantage on one Intelligence check (caffeine kick!)",
+        "Requires: Snacks; keeps you awake",
+        "Sugar crash after (yawn)",
+        "Made by: Student Cafeteria"
+    ],
+    vendor: 'general_student_dorm',
+    shippedBy: 'Crunchy Study Sheet',
+    levelRequirement: 5
+},
+'farasi_zebra_grass_salad_recipe': {
+    id: 'farasi_zebra_grass_salad_recipe',
+    name: "Recipe: Farasi Zebra Grass Salad",
+    description: "Fresh salad of grasses and herbs for savanna speed.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥗',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Toss greens (10 min); eat to gain +10 ft speed in open areas for 2 hours",
+        "Requires: Savanna grasses; light and fast",
+        "Zebras graze nearby",
+        "Made by: Farasi Herders"
+    ],
+    vendor: 'farasi_savanna',
+    shippedBy: 'Green Graze Guide',
+    levelRequirement: 5
+},
+'kremling_krew_crocodile_stew_recipe': {
+    id: 'kremling_krew_crocodile_stew_recipe',
+    name: "Recipe: Kremling Krew Crocodile Stew",
+    description: "Tough stew from swamp crocs for bite force.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍲',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Simmer croc meat (1 hour); eat to gain advantage on bite/grapple attacks for 3 hours",
+        "Requires: Croc meat; chewy",
+        "Krew toughens up",
+        "Made by: Krew Cooks"
+    ],
+    vendor: 'kremling_krew_swamp',
+    shippedBy: 'Snappy Stew Scroll',
+    levelRequirement: 5
+},
+'monsters_grognak_steak_recipe': {
+    id: 'monsters_grognak_steak_recipe',
+    name: "Recipe: Monsters Grognak Steak (Joke)",
+    description: "Massive steak for barbarian feasts.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🥩',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Grill huge steak (30 min); eat to gain +2 Strength for 1 hour but -1 Intelligence (meat coma)",
+        "Requires: Large meat; comic book size",
+        "Grognak roars approval",
+        "Made by: Monster Barbecue"
+    ],
+    vendor: 'monsters_lair',
+    shippedBy: 'Meaty Manual',
+    levelRequirement: 6
+},
+'beanbean_kingdom_magic_bean_soup_recipe': {
+    id: 'beanbean_kingdom_magic_bean_soup_recipe',
+    name: "Recipe: Beanbean Kingdom Magic Bean Soup",
+    description: "Soup from enchanted beans for growth spurts.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍲',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil beans (25 min); eat to gain temporary +1 size (advantage on Strength, disadvantage on Dex) for 1 hour",
+        "Requires: Magic beans; beanstalk dreams",
+        "Grows your appetite",
+        "Made by: Kingdom Soup Makers"
+    ],
+    vendor: 'beanbean_kingdom_farm',
+    shippedBy: 'Beanstalk Broth Book',
+    levelRequirement: 5
+},
+'lothlorien_mallorn_nut_bread_recipe': {
+    id: 'lothlorien_mallorn_nut_bread_recipe',
+    name: "Recipe: Lothlórien Mallorn Nut Bread",
+    description: "Nutty bread from golden trees for elven longevity.",
+    category: SHOP_CATEGORIES.services,
+    price: 9500,
+    icon: '🍞',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Grind nuts and bake (1 hour); eat to sustain without food for 2 days and gain advantage on Wisdom saves",
+        "Requires: Mallorn nuts; timeless taste",
+        "Elves share lore",
+        "Made by: Wood Elves"
+    ],
+    vendor: 'lothlorien_grove',
+    shippedBy: 'Golden Nut Notes',
+    levelRequirement: 7
+},
+'centaur_khanate_steppe_yogurt_drink_recipe': {
+    id: 'centaur_khanate_steppe_yogurt_drink_recipe',
+    name: "Recipe: Centaur Khanate Steppe Yogurt Drink",
+    description: "Fermented drink for endless rides.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🥛',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Ferment yogurt (overnight); drink to gain mounted speed +10 ft for 4 hours",
+        "Requires: Mare's milk; nomadic staple",
+        "Khanate endurance",
+        "Made by: Steppe Herders"
+    ],
+    vendor: 'centaur_khanate_steppes',
+    shippedBy: 'Yogurt Yurt Yield',
+    levelRequirement: 5
+},
+'goodstyle_fancy_finger_foods_recipe': {
+    id: 'goodstyle_fancy_finger_foods_recipe',
+    name: "Recipe: Goodstyle Fancy Finger Foods (Joke)",
+    description: "Elegant bites for stylish soirees.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍴',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Assemble hors d'oeuvres (20 min); eat to gain +2 Charisma (Performance) for 2 hours",
+        "Requires: Delicate ingredients; posh",
+        "Impress guests – social boost",
+        "Made by: Style Caterers"
+    ],
+    vendor: 'goodstyle_salon',
+    shippedBy: 'Posh Platter Page',
+    levelRequirement: 5
+},
+'void_drifters_star_dust_snacks_recipe': {
+    id: 'void_drifters_star_dust_snacks_recipe',
+    name: "Recipe: Void Drifters Star Dust Snacks",
+    description: "Crispy snacks dusted with cosmic powder for space travel.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '⭐',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Dust and bake (30 min); eat to gain advantage on Navigation in void/space for 4 hours",
+        "Requires: Star dust (rare); twinkly",
+        "Void whispers recipes",
+        "Made by: Drifter Cooks"
+    ],
+    vendor: 'void_drifters_ship',
+    shippedBy: 'Cosmic Crunch Codex',
+    levelRequirement: 6
+},
+'order_silver_silver_frost_icing_cookies_recipe': {
+    id: 'order_silver_silver_frost_icing_cookies_recipe',
+    name: "Recipe: Order Silver Silver Frost Icing Cookies",
+    description: "Cookies with purifying silver icing for warding.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍪',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Ice with silver (25 min); eat to gain +1 to saves vs. lycanthropy/were-creatures for 3 hours",
+        "Requires: Silver leaf (edible); shiny",
+        "Wards off beasts",
+        "Made by: Silver Order Bakers"
+    ],
+    vendor: 'order_silver_temple',
+    shippedBy: 'Frosty Frost File',
+    levelRequirement: 5
+},
+'lycan_pack_full_moon_howl_stew_recipe': {
+    id: 'lycan_pack_full_moon_howl_stew_recipe',
+    name: "Recipe: Lycan Pack Full Moon Howl Stew",
+    description: "Stew brewed under the moon for pack fury.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍲',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Stew under moonlight (45 min); eat to gain advantage on attacks at night for 2 hours",
+        "Requires: Moonlit herbs; howling bonus",
+        "Pack howls together",
+        "Made by: Lycan Hunters"
+    ],
+    vendor: 'lycan_pack_lodge',
+    shippedBy: 'Lunar Ladle Lore',
+    levelRequirement: 5
+},
+'peach_loyalists_royal_peach_tart_recipe': {
+    id: 'peach_loyalists_royal_peach_tart_recipe',
+    name: "Recipe: Peach Loyalists Royal Peach Tart",
+    description: "Tart from princess's orchards for loyalty.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🥧',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake peaches (40 min); eat to gain +1 to Charisma (Persuasion) with allies for 3 hours",
+        "Requires: Fresh peaches; sweet royalty",
+        "Princess approved",
+        "Made by: Loyalist Bakers"
+    ],
+    vendor: 'peach_loyalists_palace',
+    shippedBy: 'Peachy Pastry Post',
+    levelRequirement: 5
+},
+'vampire_covenant_midnight_snack_plate_recipe': {
+    id: 'vampire_covenant_midnight_snack_plate_recipe',
+    name: "Recipe: Vampire Covenant Midnight Snack Plate",
+    description: "Plate of 'rare' treats for night owls.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍽️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Plate cheeses and fruits (15 min); eat to regain 1d8 HP after dark and advantage on night Perception",
+        "Requires: Night fruits; elegant",
+        "No garlic on the plate",
+        "Made by: Covenant Butlers"
+    ],
+    vendor: 'vampire_covenant_tower',
+    shippedBy: 'Nocturnal Nibble Notes',
+    levelRequirement: 6
+},
+'flower_kingdom_petal_petal_salad_recipe': {
+    id: 'flower_kingdom_petal_petal_salad_recipe',
+    name: "Recipe: Flower Kingdom Petal Salad",
+    description: "Edible flower salad for blooming health.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥗',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Toss petals (10 min); eat to heal 1d6 HP and gain advantage on Nature checks for 2 hours",
+        "Requires: Fresh petals; floral fresh",
+        "Flowers friends approve",
+        "Made by: Kingdom Gardeners"
+    ],
+    vendor: 'flower_kingdom_garden',
+    shippedBy: 'Petal Platter Page',
+    levelRequirement: 5
+},
+'hacktivist_digital_byte_bites_recipe': {
+    id: 'hacktivist_digital_byte_bites_recipe',
+    name: "Recipe: Hacktivist Digital Byte Bites (Joke)",
+    description: "Crunchy 'bytes' of tech-flavored snacks for coders.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Shape 'bits' (15 min); eat to gain advantage on Intelligence (Technology) checks for 1 hour",
+        "Requires: Nuts and 'circuits' (chocolate); binary crunch",
+        "Glitches your hunger",
+        "Made by: Net Snackers"
+    ],
+    vendor: 'hacktivist_net',
+    shippedBy: 'Byte Binary Book',
+    levelRequirement: 5
+},
+'hobgoblin_hobgoblin_gruel_recipe': {
+    id: 'hobgoblin_hobgoblin_gruel_recipe',
+    name: "Recipe: Hobgoblin Hob Gruel",
+    description: "Basic gruel for goblin hordes – simple and filling.",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🥣',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Stir oats (10 min); eat to sustain horde (feed 6) and gain +1 to group Intimidation",
+        "Requires: Oats; goblin staple",
+        "Tastes like discipline",
+        "Made by: Hob Cooks"
+    ],
+    vendor: 'hobgoblin_legion',
+    shippedBy: 'Gruel Grain Guide',
+    levelRequirement: 5
+},
+'cult_of_min_catnip_treats_recipe': {
+    id: 'cult_of_min_catnip_treats_recipe',
+    name: "Recipe: Cult of Min Catnip Treats (Joke)",
+    description: "Treats laced with catnip for feline frenzy.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍪',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Mix with catnip (20 min); feed to cats for control (advantage Animal Handling) or eat for hyper Dexterity (+1, 30 min)",
+        "Requires: Catnip; meow-worthy",
+        "You might purr",
+        "Made by: Min Cultists"
+    ],
+    vendor: 'cult_of_min_temple',
+    shippedBy: 'Paw-some Pastry',
+    levelRequirement: 5
+},
+'the_iron_fists_fist_fuel_smoothie_recipe': {
+    id: 'the_iron_fists_fist_fuel_smoothie_recipe',
+    name: "Recipe: The Iron Fists Fist Fuel Smoothie",
+    description: "Protein-packed smoothie for martial prowess.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🥤',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Blend fruits and protein (10 min); drink to gain +1 to unarmed attacks for 2 hours",
+        "Requires: Fruits and nuts; punchy",
+        "Fists feel iron-strong",
+        "Made by: Fist Monks"
+    ],
+    vendor: 'the_iron_fists_dojo',
+    shippedBy: 'Muscle Mix Manual',
+    levelRequirement: 5
+},
+'warriors_chaos_mutation_mush_recipe': {
+    id: 'warriors_chaos_mutation_mush_recipe',
+    name: "Recipe: Warriors Chaos Mutation Mush",
+    description: "Chaotic mush that alters the eater slightly.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🥣',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Stir randomly (25 min); eat for random effect: +1 stat or minor mutation (1 hour)",
+        "Requires: Weird ingredients; unpredictable",
+        "Chaos blesses or curses",
+        "Made by: Chaos Cooks"
+    ],
+    vendor: 'warriors_chaos_camp',
+    shippedBy: 'Mutant Mush Memo',
+    levelRequirement: 5
+},
+'kingdom_fiore_dragon_scale_crackers_recipe': {
+    id: 'kingdom_fiore_dragon_scale_crackers_recipe',
+    name: "Recipe: Kingdom Fiore Dragon Scale Crackers",
+    description: "Crispy crackers mimicking dragon scales for fire breath.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍪',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Crisp dough (30 min); eat to gain minor fire breath (1d4 damage, once) and +1 to Intimidation",
+        "Requires: Spicy flakes; scaly crunch",
+        "Slayers' secret",
+        "Made by: Fiore Guild Cooks"
+    ],
+    vendor: 'kingdom_fiore_guild',
+    shippedBy: 'Fiery Flake File',
+    levelRequirement: 6
+},
+'druid_circle_root_vegetable_stew_recipe': {
+    id: 'druid_circle_root_vegetable_stew_recipe',
+    name: "Recipe: Druid Circle Root Vegetable Stew",
+    description: "Earthy stew from forest roots for natural harmony.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍲',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Root and simmer (40 min); eat to gain advantage on Nature (Survival) for 4 hours and heal 1d6 HP",
+        "Requires: Roots; grounding",
+        "Nature spirits bless",
+        "Made by: Circle Foragers"
+    ],
+    vendor: 'druid_circle_grove',
+    shippedBy: 'Rooty Recipe Roll',
+    levelRequirement: 5
+},
+'desert_sultanate_spiced_lentil_soup_recipe': {
+    id: 'desert_sultanate_spiced_lentil_soup_recipe',
+    name: "Recipe: Desert Sultanate Spiced Lentil Soup",
+    description: "Warming soup with cumin for dune endurance.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍲',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Spice lentils (35 min); eat to ignore heat exhaustion for 6 hours and +1 Constitution",
+        "Requires: Lentils and spices; hearty",
+        "Sultan's favorite",
+        "Made by: Desert Cooks"
+    ],
+    vendor: 'desert_sultanate_oasis',
+    shippedBy: 'Spicy Soup Scroll',
+    levelRequirement: 5
+},
+'wh_araby_whirling_dervish_tea_recipe': {
+    id: 'wh_araby_whirling_dervish_tea_recipe',
+    name: "Recipe: Wh Araby Whirling Dervish Tea",
+    description: "Herbal tea for spinning focus and energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍵',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Brew herbs (15 min); drink to gain advantage on Dexterity (Performance) for dances (2 hours)",
+        "Requires: Dervish herbs; invigorating",
+        "Spins without dizziness",
+        "Made by: Araby Brewers"
+    ],
+    vendor: 'wh_araby_temple',
+    shippedBy: 'Whirl Wind Whisk',
+    levelRequirement: 5
+},
+'fawfuls_furious_fusion_fajitas_recipe': {
+    id: 'fawfuls_furious_fusion_fajitas_recipe',
+    name: "Recipe: Fawful's Furious Fusion Fajitas (Joke)",
+    description: "Spicy fajitas with 'furious' flair for mad energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🌮',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Sizzle with fury (20 min); eat to gain +1 to Intelligence (mad science) for 1 hour",
+        "Requires: Peppers and meat; explosive taste",
+        "Fawful cackles",
+        "Made by: Furious Lab Cooks"
+    ],
+    vendor: 'fawfuls_furious_workshop',
+    shippedBy: 'Sizzling Spice Sheet',
+    levelRequirement: 5
+},
+'mnevis_order_sun_baked_flatbread_recipe': {
+    id: 'mnevis_order_sun_baked_flatbread_recipe',
+    name: "Recipe: Mnevis Order Sun-Baked Flatbread",
+    description: "Flatbread baked under the sun for solar strength.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍞',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake in sun (30 min); eat to gain advantage on saves vs. darkness for 4 hours (solar ward)",
+        "Requires: Flour; sun-kissed",
+        "Ra approves",
+        "Made by: Sun Priests"
+    ],
+    vendor: 'mnevis_order_temple',
+    shippedBy: 'Sunny Slab Scroll',
+    levelRequirement: 5
+},
+'undead_soul_stuffing_roast_recipe': {
+    id: 'undead_soul_stuffing_roast_recipe',
+    name: "Recipe: Undead Soul Stuffing Roast",
+    description: "Roast with 'ethereal' stuffing for undead tolerance.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🥩',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Stuff and roast (1 hour); eat to gain resistance to necrotic damage for 2 hours",
+        "Requires: Herbs mimicking souls; ghostly",
+        "Undead don't mind the smell",
+        "Made by: Necro Cooks"
+    ],
+    vendor: 'undead_necropolis',
+    shippedBy: 'Ecto-Essence Edition',
+    levelRequirement: 6
+},
+'the_toad_cult_frog_legs_fritters_recipe': {
+    id: 'the_toad_cult_frog_legs_fritters_recipe',
+    name: "Recipe: The Toad Cult Frog Legs Fritters (Joke)",
+    description: "Crispy fritters for hoppy meals.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍤',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Fry legs (15 min); eat to gain +10 ft jump distance for 1 hour",
+        "Requires: Frog legs (or veggies); ribbit-y",
+        "Toads hop away",
+        "Made by: Cult Fryers"
+    ],
+    vendor: 'the_toad_cult_bog',
+    shippedBy: 'Hoppin Hot Handbook',
+    levelRequirement: 5
+},
+'halfling_portable_oven_stove': {
+    id: 'halfling_portable_oven_stove',
+    name: "Halfling Portable Oven-Stove",
+    description: "A tiny stove that folds up smaller than a breadbox.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🔥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks any recipe in half the time (rounded down)",
+        "Can only be used by someone under 4 feet tall (others burn their fingers)",
+        "Produces a smell of fresh bread that attracts hungry creatures within 100ft",
+        "Made by: Halfling Tinkerers"
+    ],
+    vendor: 'halfling',
+    shippedBy: 'Hobbit Post',
+    levelRequirement: 5
+},
+'dwarf_realms_forge_grill': {
+    id: 'dwarf_realms_forge_grill',
+    name: "Dwarf Realms Forge-Grill",
+    description: "A grill that reaches temperatures capable of melting mithril.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22500,
+    icon: '⚒️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Can cook any meat, even rocks (tenderizes stone)",
+        "Grants advantage on cooking checks involving metal utensils (they don't melt)",
+        "5% chance your food turns to molten slag (disadvantage on next bite)",
+        "Made by: Dwarf Realms Forge-Masters"
+    ],
+    vendor: 'dwarf_realms',
+    shippedBy: 'Sturdy Cart',
+    levelRequirement: 7
+},
+'greenskins_waaagh_wok': {
+    id: 'greenskins_waaagh_wok',
+    name: "Greenskins WAAAGH! Wok",
+    description: "A screaming wok that cooks with kinetic energy.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🥘',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks food while you fight: attacking with it cooks meals in 1 round",
+        "Food comes out aggressively spicy: +1 fire damage on next attack after eating",
+        "Wok shouts 'WAAAGH!' when hot: disadvantage on Stealth while cooking",
+        "Made by: Greenskins War-Cooks"
+    ],
+    vendor: 'greenskins',
+    shippedBy: 'Choppa Delivery',
+    levelRequirement: 6
+},
+'mages_guild_spellbound_saucepan': {
+    id: 'mages_guild_spellbound_saucepan',
+    name: "Mages' Guild Spellbound Saucepan",
+    description: "A pan that stirs itself with a magic spoon.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '🍳',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Automatically stirs recipes: advantage on cooking checks, frees up your hands",
+        "Spoon sometimes casts Prestidigitation randomly (food changes color, taste, or temperature)",
+        "Pan is sentient and gives unsolicited cooking advice (disadvantage if you ignore it)",
+        "Made by: Mages' Guild Kitchen Enchanters"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 7
+},
+'garden_isles_sun_collector_cooker': {
+    id: 'garden_isles_sun_collector_cooker',
+    name: "Garden Isles Sun-Collector Cooker",
+    description: "Cooks using concentrated sunlight.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '☀️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks plant-based recipes in 10 minutes (solar power)",
+        "Only works in direct sunlight (useless underground or at night)",
+        "Can blind enemies if reflected: once per day, cause disadvantage on one enemy's attack",
+        "Made by: Garden Isles Solar Chefs"
+    ],
+    vendor: 'garden_isles',
+    shippedBy: 'Sunlight Beam',
+    levelRequirement: 5
+},
+'robensonia_emergency_microwave': {
+    id: 'robensonia_emergency_microwave',
+    name: "Robensonia Emergency Microwave",
+    description: "Cooks meals instantly, with questionable results.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '📡',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks any recipe in 1 round (microwave magic)",
+        "50% chance food is cold in the center (disadvantage on next check from disappointment)",
+        "Sometimes cooks the plate too (plate becomes too hot to hold, 1 fire damage)",
+        "Made by: Robensonia Quick-Meal Systems"
+    ],
+    vendor: 'robensonia',
+    shippedBy: 'Emergency Launch',
+    levelRequirement: 5
+},
+'tomb_kings_ancient_preservation_jar': {
+    id: 'tomb_kings_ancient_preservation_jar',
+    name: "Tomb Kings Ancient Preservation Jar",
+    description: "Preserves food for eternity, or at least a month.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🏺',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Preserves any cooked meal for 30 days (magical mummification)",
+        "Food tastes like dust and old linen (disadvantage on Charisma while eating)",
+        "Jar whispers ancient secrets: advantage on one History check per day",
+        "Made by: Tomb Kings Preservationists"
+    ],
+    vendor: 'tomb_kings',
+    shippedBy: 'Sarcophagus Delivery',
+    levelRequirement: 5
+},
+'red_winter_ice_box': {
+    id: 'red_winter_ice_box',
+    name: "Red Winter Ice Box",
+    description: "A box that keeps things frozen solid.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🧊',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Keeps ingredients fresh indefinitely (cryogenic storage)",
+        "Your fingers stick to it: disadvantage on Sleight of Hand checks",
+        "Opening it causes a 5ft radius of slippery ice (DC 10 DEX save or fall)",
+        "Made by: Red Winter Ice Crafters"
+    ],
+    vendor: 'red_winter',
+    shippedBy: 'Ice Road Truckers',
+    levelRequirement: 5
+},
+'gehenna_academy_infernal_crock_pot': {
+    id: 'gehenna_academy_infernal_crock_pot',
+    name: "Gehenna Academy Infernal Crock Pot",
+    description: "Slow-cooks with hellfire for maximum flavor.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20500,
+    icon: '🍲',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Slow-cooks meals while you adventure: ready after 4 hours, grants +1d6 temporary HP",
+        "Food is spicy enough to deal 1 fire damage to anyone who tastes it (builds tolerance)",
+        "Pot occasionally demands a soul as payment (ignores you if you pretend not to hear)",
+        "Made by: Gehenna Academy Slow-Cookers"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Hellish Fax',
+    levelRequirement: 7
+},
+'mushroom_regency_spore_sprouter': {
+    id: 'mushroom_regency_spore_sprouter',
+    name: "Mushroom Regency Spore Sprouter",
+    description: "Grows mushrooms in seconds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🍄',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Grows mushrooms from spores in 10 minutes (instant ingredients)",
+        "Sprouted mushrooms are extra potent: +1 to recipe effects",
+        "Sprouter leaks spores: disadvantage on Stealth (you're covered in them)",
+        "Made by: Mushroom Regency Cultivators"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Spore Cloud',
+    levelRequirement: 6
+},
+'beanbean_kingdom_pressure_cooker': {
+    id: 'beanbean_kingdom_pressure_cooker',
+    name: "Beanbean Kingdom Pressure Cooker",
+    description: "Cooks beans at high pressure (dangerous).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '💥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks bean recipes in 5 minutes (high pressure)",
+        "10% chance it explodes: deals 1d6 thunder damage in 10ft radius (DEX save DC 12)",
+        "Beans are perfectly cooked: remove one level of exhaustion when eaten",
+        "Made by: Beanbean Royal Engineers"
+    ],
+    vendor: 'beanbean_kingdom',
+    shippedBy: 'Beanstalk Express',
+    levelRequirement: 5
+},
+'dk_crew_banana_ripening_chamber': {
+    id: 'dk_crew_banana_ripening_chamber',
+    name: "DK Crew Banana Ripening Chamber",
+    description: "Ripens bananas at warp speed.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🍌',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Ripens bananas from green to perfect in 1 minute (gas magic)",
+        "Chamber can also ripen other fruit, but it becomes banana-flavored",
+        "You smell like bananas for 1 hour after use: disadvantage on Stealth vs. monkeys",
+        "Made by: DK Crew Banana Science"
+    ],
+    vendor: 'dk_crew',
+    shippedBy: 'Barrel Roll Delivery',
+    levelRequirement: 5
+},
+'yoshi_clans_egg_incubator_cooker': {
+    id: 'yoshi_clans_egg_incubator_cooker',
+    name: "Yoshi Clans Egg Incubator Cooker",
+    description: "Incubates and cooks eggs simultaneously.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🥚',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Cook eggs perfectly while keeping them warm for hatching (if needed)",
+        "Can incubate a Yoshi egg to hatch a temporary companion (lasts 24 hours)",
+        "Machine gets confused: 5% chance your cooked egg hatches anyway (surprise pet)",
+        "Made by: Yoshi Clans Egg Tech"
+    ],
+    vendor: 'yoshi_clans',
+    shippedBy: 'Egg Drop',
+    levelRequirement: 7
+},
+'kremling_krew_cannonball_grill': {
+    id: 'kremling_krew_cannonball_grill',
+    name: "Kremling Krew Cannonball Grill",
+    description: "A grill that uses cannonballs as fuel.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🔥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Uses iron cannonballs as fuel: each ball cooks one meal (very hot)",
+        "Food comes out with a smoky, gunpowder flavor: +1 fire damage on next attack",
+        "Grill occasionally fires the cannonball: DEX save DC 13 or take 1d6 bludgeoning damage",
+        "Made by: K. Rool's Outdoor Cooking"
+    ],
+    vendor: 'kremling_krew',
+    shippedBy: 'Cannonball Express',
+    levelRequirement: 6
+},
+'lizardmen_swamp_crock': {
+    id: 'lizardmen_swamp_crock',
+    name: "Lizardmen Swamp Crock",
+    description: "A pot that simulates swamp conditions.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🫕',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Perfect for swamp recipes: advantage on cooking checks with rotten ingredients",
+        "Preserves food by keeping it slightly rotten (safe to eat, tastes awful)",
+        "Crock smells like swamp gas: disadvantage on Charisma checks with non-reptiles",
+        "Made by: Lizardfolk Potters"
+    ],
+    vendor: 'lizardmen',
+    shippedBy: 'Murky Waters Courier',
+    levelRequirement: 5
+},
+'halfling_cheese_grater_of_fine_shreds': {
+    id: 'halfling_cheese_grater_of_fine_shreds',
+    name: "Halfling Cheese Grater of Fine Shreds",
+    description: "Grates cheese so fine it becomes powder.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🧀',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Grates cheese perfectly: advantage on cooking checks requiring cheese",
+        "Can also grate vegetables, fingers (1d4 slashing damage on failed Sleight of Hand)",
+        "You become obsessed with perfect cheese: disadvantage on checks if cheese isn't grated",
+        "Made by: Halfling Cheese Artisans"
+    ],
+    vendor: 'halfling',
+    shippedBy: 'Hobbit Post',
+    levelRequirement: 5
+},
+'dwarf_realms_mithril_cutting_board': {
+    id: 'dwarf_realms_mithril_cutting_board',
+    name: "Dwarf Realms Mithril Cutting Board",
+    description: "A board that can stop blades.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20500,
+    icon: '⬜',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Board is indestructible: can be used as a shield (+1 AC) while cooking",
+        "Knives never dull on it: advantage on cooking prep checks",
+        "Board is extremely heavy: disadvantage on movement while carrying",
+        "Made by: Dwarf Realms Smiths"
+    ],
+    vendor: 'dwarf_realms',
+    shippedBy: 'Stone Cart',
+    levelRequirement: 7
+},
+'greenskins_choppa_cleaver': {
+    id: 'greenskins_choppa_cleaver',
+    name: "Greenskins Choppa Cleaver",
+    description: "A cleaver that chops everything.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '🔪',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on cooking checks involving chopping (vegetables, meat, bones)",
+        "Can be used as a weapon: 1d6 slashing, but gets stuck in enemies (bonus action to remove)",
+        "Cleaver is always sharp: you cut yourself on accident (1 damage when retrieving from bag)",
+        "Made by: Greenskins Choppa Makers"
+    ],
+    vendor: 'greenskins',
+    shippedBy: 'Choppa Delivery',
+    levelRequirement: 6
+},
+'mages_guild_measuring_cups_of_precision': {
+    id: 'mages_guild_measuring_cups_of_precision',
+    name: "Mages' Guild Measuring Cups of Precision",
+    description: "Measures ingredients to the molecule.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🥛',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on cooking checks requiring precise measurements",
+        "Cups glow when you measure incorrectly (helpful but judgmental)",
+        "You become a perfectionist: disadvantage on checks if you don't measure exactly",
+        "Made by: Mages' Guild Measuring Tools"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 5
+},
+'internet_bluetooth_thermometer': {
+    id: 'internet_bluetooth_thermometer',
+    name: "Internet Bluetooth Thermometer",
+    description: "A thermometer that connects to nothing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🌡️',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Perfect temperature readings: advantage on cooking checks",
+        "Beeps loudly when done: disadvantage on Stealth while cooking",
+        "Tries to connect to your brain (INT save DC 10 or get a headache)",
+        "Made by: Internet of Things Dept."
+    ],
+    vendor: 'internet',
+    shippedBy: 'Wireless Signal',
+    levelRequirement: 5
+},
+'data_merchant_smart_fridge': {
+    id: 'data_merchant_smart_fridge',
+    name: "Data Merchant Smart Fridge",
+    description: "A fridge that tracks your ingredients.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21500,
+    icon: '🧊',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Stores ingredients perfectly: preserves for 60 days",
+        "Fridge sends you shopping lists telepathically (helpful but annoying)",
+        "Sometimes orders ingredients you don't want (disadvantage on gold management)",
+        "Made by: Data Merchant Appliances"
+    ],
+    vendor: 'data_merchant',
+    shippedBy: 'Data Stream',
+    levelRequirement: 7
+},
+'changeling_hive_mimic_apron': {
+    id: 'changeling_hive_mimic_apron',
+    name: "Changeling Hive Mimic Apron",
+    description: "An apron that changes to look clean.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🎽',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Always appears clean: advantage on Charisma checks while cooking",
+        "Actually filthy: disadvantage on saves vs. disease (you're cooking in germs)",
+        "Apron changes color to match your outfit (cosmetic, but fashionable)",
+        "Made by: Changeling Hive Textiles"
+    ],
+    vendor: 'changeling_hive',
+    shippedBy: 'Metamorphic Delivery',
+    levelRequirement: 5
+},
+'cybernetic_automatic_stirrer': {
+    id: 'cybernetic_automatic_stirrer',
+    name: "Cybernetic Automatic Stirrer",
+    description: "A robot arm that stirs for you.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🔧',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Automatically stirs any recipe: advantage on cooking checks, frees up your action",
+        "Sometimes stirs too hard: 10% chance to spill (DEX save DC 12 or waste ingredients)",
+        "Requires oiling daily or it squeaks loudly (disadvantage on Stealth)",
+        "Made by: Cybernetic Kitchen Robotics"
+    ],
+    vendor: 'cybernetic',
+    shippedBy: 'Drone Delivery',
+    levelRequirement: 6
+},
+'hacktivist_ad_blocker_apron': {
+    id: 'hacktivist_ad_blocker_apron',
+    name: "Hacktivist Ad-Blocker Apron",
+    description: "Blocks ads for cooking products.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '🚫',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Immune to magical sales pitches for cooking supplies (peace of mind)",
+        "Apron has pockets that block tracking: advantage on saves vs. divination",
+        "You become paranoid about ingredient quality (disadvantage on checks if you don't inspect)",
+        "Made by: Hacktivist Tailors"
+    ],
+    vendor: 'hacktivist',
+    shippedBy: 'Anonymous Drop',
+    levelRequirement: 5
+},
+'asclepia_health_inspector_goggles': {
+    id: 'asclepia_health_inspector_goggles',
+    name: "Asclepia Health Inspector Goggles",
+    description: "See germs on your food.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13500,
+    icon: '🥽',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "See contaminants: advantage on cooking checks to avoid food poisoning",
+        "You see germs everywhere: disadvantage on appetite (disadvantage on checks if you eat)",
+        "Goggles steam up when you lie about ingredients (disadvantage on Deception)",
+        "Made by: Asclepia Inspection Tools"
+    ],
+    vendor: 'asclepia',
+    shippedBy: 'Medical Courier',
+    levelRequirement: 5
+},
+'pony_nobility_decorating_bag': {
+    id: 'pony_nobility_decorating_bag',
+    name: "Pony Nobility Decorating Bag",
+    description: "A bag for frosting cakes with magic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🎂',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on checks to decorate food beautifully",
+        "Bag never runs out of frosting (but it's always pink)",
+        "You must compliment your own cooking (disadvantage if you don't)",
+        "Made by: Pony Nobility Bakers"
+    ],
+    vendor: 'pony_nobility',
+    shippedBy: 'Enchanted Brush',
+    levelRequirement: 5
+},
+'lemuria_conclave_ancient_cookbook_stand': {
+    id: 'lemuria_conclave_ancient_cookbook_stand',
+    name: "Lemuria Conclave Ancient Cookbook Stand",
+    description: "A stand that holds your recipes at eye level.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '📖',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Holds recipes: advantage on cooking checks (you can see the recipe)",
+        "Stand is sentient: whispers cooking tips (helpful but creepy)",
+        "It judges your knife skills (disadvantage on checks if you cut poorly)",
+        "Made by: Lemuria Conclave Scribes"
+    ],
+    vendor: 'lemuria_conclave',
+    shippedBy: 'Philosophical Courier',
+    levelRequirement: 5
+},
+'oracula_fortune_cookie_machine': {
+    id: 'oracula_fortune_cookie_machine',
+    name: "Oracula Fortune Cookie Machine",
+    description: "Makes cookies with fortunes inside.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🥠',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Creates 1d4 fortune cookies per day (each contains a random prophecy)",
+        "Machine is always right: advantage on one check per cookie",
+        "Cookies are stale: disadvantage on Charisma while eating (bad breath)",
+        "Made by: Oracula Bakery Tools"
+    ],
+    vendor: 'oracula',
+    shippedBy: 'Baked Delivery',
+    levelRequirement: 6
+},
+'halfling_second_breakfast_toaster': {
+    id: 'halfling_second_breakfast_toaster',
+    name: "Halfling Second Breakfast Toaster",
+    description: "Toasts bread and also waffles, muffins, and crumpets.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍞',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Perfect toast every time: advantage on cooking checks involving bread",
+        "Toasts so well it sometimes burns: 10% chance smoke alarm goes off (disadvantage on Stealth)",
+        "You must make toast for every meal (disadvantage if you don't)",
+        "Made by: Halfling Breakfast Engineers"
+    ],
+    vendor: 'halfling',
+    shippedBy: 'Hobbit Post',
+    levelRequirement: 5
+},
+'dwarf_realms_beard_hair_net': {
+    id: 'dwarf_realms_beard_hair_net',
+    name: "Dwarf Realms Beard Hair Net",
+    description: "Keeps your beard out of the food.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥅',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Advantage on cooking checks: no hair in food",
+        "Beard is cramped: disadvantage on Charisma with dwarves (they think you're ashamed)",
+        "Net catches crumbs: you have snacks for later (advantage on foraging)",
+        "Made by: Dwarf Realms Hygiene"
+    ],
+    vendor: 'dwarf_realms',
+    shippedBy: 'Beard Oil',
+    levelRequirement: 5
+},
+'greenskins_war_paint_mixer': {
+    id: 'greenskins_war_paint_mixer',
+    name: "Greenskins War Paint Mixer",
+    description: "Mixes paint and also batter.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🎨',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Mixes any liquid perfectly: advantage on cooking checks involving mixing",
+        "Also mixes war paint: advantage on Intimidation checks when painted",
+        "Mixer is loud: disadvantage on Stealth while using",
+        "Made by: Greenskins War Art"
+    ],
+    vendor: 'greenskins',
+    shippedBy: 'War Drum',
+    levelRequirement: 5
+},
+'jotunheimr_giant_spatula': {
+    id: 'jotunheimr_giant_spatula',
+    name: "Jotunheimr Giant Spatula",
+    description: "A spatula sized for giants.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11500,
+    icon: '🥄',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Flips anything: advantage on cooking checks involving flipping",
+        "Can be used as a two-handed club: 1d8 bludgeoning damage",
+        "Too big for normal pans: disadvantage on checks with small cookware",
+        "Made by: Jotunheimr Utensil Smiths"
+    ],
+    vendor: 'jotunheimr',
+    shippedBy: 'Giant Courier',
+    levelRequirement: 5
+},
+'high_elves_elven_whisk': {
+    id: 'high_elves_elven_whisk',
+    name: "High Elves Elven Whisk",
+    description: "A whisk that never tangles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🥄',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Advantage on cooking checks involving whipping or mixing",
+        "Whisks so fast it creates a light breeze (cools soup)",
+        "You must whisk elegantly: disadvantage if you whisk messily",
+        "Made by: High Elves Kitchenware"
+    ],
+    vendor: 'high_elves',
+    shippedBy: 'Graceful Stride',
+    levelRequirement: 5
+},
+'dark_elves_spider_silk_wisk': {
+    id: 'dark_elves_spider_silk_wisk',
+    name: "Dark Elves Spider Silk Whisk",
+    description: "A whisk made from spider silk threads.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🥄',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on cooking checks involving delicate mixtures",
+        "Whisk is sticky: advantage on checks to catch ingredients",
+        "Arachnophobes hate it: disadvantage on Charisma with them",
+        "Made by: Dark Elves Weavers"
+    ],
+    vendor: 'dark_elves',
+    shippedBy: 'Web Delivery',
+    levelRequirement: 5
+},
+'trainer_guild_pokeball_bento_box': {
+    id: 'trainer_guild_pokeball_bento_box',
+    name: "Trainer Guild Poké Ball Bento Box",
+    description: "A lunchbox that looks like a Poké Ball.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '⚪',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Keeps food fresh and warm for 24 hours",
+        "Opening it makes a 'Poké Ball opening' sound: disadvantage on Stealth",
+        "You feel compelled to catch your food before eating (disadvantage if you don't)",
+        "Made by: Trainer Guild Lunchbox Co."
+    ],
+    vendor: 'trainer_guild',
+    shippedBy: 'Pokedex Delivery',
+    levelRequirement: 5
+},
+'crimision_isle_rum_barrel_ager': {
+    id: 'crimision_isle_rum_barrel_ager',
+    name: "Crimision Isle Rum Barrel Ager",
+    description: "Age any liquid in rum barrels.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '🛢️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Age any liquid 1 year per day: improves flavor, adds 1% alcohol",
+        "Barrel leaks rum: you smell like a pirate (advantage with pirates, disadvantage with officials)",
+        "You must drink from it daily or it gets lonely (disadvantage if you don't)",
+        "Made by: Crimision Isle Distillers"
+    ],
+    vendor: 'crimision_isle',
+    shippedBy: 'Pirate Courier',
+    levelRequirement: 6
+},
+'blessed_order_holy_water_dispenser': {
+    id: 'blessed_order_holy_water_dispenser',
+    name: "Blessed Order Holy Water Dispenser",
+    description: "Dispenses holy water for cooking.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '💧',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Dispenses holy water: advantage on cooking checks for blessed recipes",
+        "Water is free: but you must donate 1 gp per use (guilt-based)",
+        "Dispenser blesses your food: undead are repulsed by your cooking",
+        "Made by: Blessed Order Holy Water Co."
+    ],
+    vendor: 'blessed_order',
+    shippedBy: 'Holy Procession',
+    levelRequirement: 6
+},
+'sirsirian_ocean_salt_grinder': {
+    id: 'sirsirian_ocean_salt_grinder',
+    name: "Sirsirian Ocean Salt Grinder",
+    description: "Grinds salt from seawater.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🧂',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Creates unlimited salt from seawater (advantage on cooking checks)",
+        "Grinder is waterproof: can be used underwater",
+        "You become thirsty: disadvantage on checks in dry environments",
+        "Made by: Sirsirian Ocean Salt Works"
+    ],
+    vendor: 'sirsirian_ocean',
+    shippedBy: 'Tidal Wave',
+    levelRequirement: 5
+},
+'saddle_arabia_date_pitter': {
+    id: 'saddle_arabia_date_pitter',
+    name: "Saddle Arabia Date Pitter",
+    description: "Pits dates with precision.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🫒',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Advantage on cooking checks involving dates (perfect pits)",
+        "Can also pit olives, cherries, small stones",
+        "You become an expert on dates: advantage on History checks about them",
+        "Made by: Saddle Arabia Date Farmers"
+    ],
+    vendor: 'saddle_arabia',
+    shippedBy: 'Camel Caravan',
+    levelRequirement: 5
+},
+'ratchet_raiders_oil_dispenser': {
+    id: 'ratchet_raiders_oil_dispenser',
+    name: "Ratchet Raiders Oil Dispenser",
+    description: "Dispenses cooking oil and machine oil.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🛢️',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Dispenses perfect oil: advantage on cooking checks involving frying",
+        "Can also oil machines: advantage on Technology checks",
+        "You can't tell the difference: 10% chance you use machine oil in food (poisoned condition)",
+        "Made by: Ratchet Raiders Oil Co."
+    ],
+    vendor: 'ratchet_raiders',
+    shippedBy: 'Oil Can',
+    levelRequirement: 5
+},
+'wario_land_garlic_press_of_power': {
+    id: 'wario_land_garlic_press_of_power',
+    name: "Wario Land Garlic Press of Power",
+    description: "Presses garlic and your enemies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🧄',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Presses garlic perfectly: advantage on cooking checks with garlic",
+        "Can be used as a weapon: 1d4 piercing damage (garlic press to the nose)",
+        "Your hands smell like garlic permanently: disadvantage on Stealth vs. vampires",
+        "Made by: Wario Land Kitchenware"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 5
+},
+'millennium_microwave_of_instant_gratification': {
+    id: 'millennium_microwave_of_instant_gratification',
+    name: "Millennium Microwave of Instant Gratification",
+    description: "Microwaves in seconds, satisfaction questionable.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '📡',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks meals in 1 round (instant but mediocre)",
+        "Food is always slightly cold in the middle (disadvantage on satisfaction)",
+        "You crave speed: disadvantage on checks that take longer than 1 minute",
+        "Made by: Millennium Quick-Meal"
+    ],
+    vendor: 'millennium',
+    shippedBy: 'Courier',
+    levelRequirement: 6
+},
+'mu_empire_clay_oven': {
+    id: 'mu_empire_clay_oven',
+    name: "Mu Empire Clay Oven",
+    description: "An ancient oven that uses very little fuel.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🏺',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks with minimal fuel: advantage on Survival checks for cooking fires",
+        "Oven is ancient: advantage on History checks while using it",
+        "It's fragile: disadvantage on saves vs. damage (breaks on natural 1)",
+        "Made by: Mu Empire Potters"
+    ],
+    vendor: 'mu_empire',
+    shippedBy: 'Silk Road Courier',
+    levelRequirement: 5
+},
+'mages_guild_recipe_holder_scroll': {
+    id: 'mages_guild_recipe_holder_scroll',
+    name: "Mages' Guild Recipe Holder Scroll",
+    description: "A scroll that holds your recipes and reads them aloud.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '📜',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Holds 10 recipes: reads them aloud (advantage on cooking checks)",
+        "Scroll is dramatic: reads in a booming voice (disadvantage on Stealth)",
+        "It corrects your mistakes: advantage on checks, but it lectures you",
+        "Made by: Mages' Guild Scribes"
+    ],
+    vendor: 'mages_guild',
+    shippedBy: 'Arcane Relay',
+    levelRequirement: 5
+},
+'data_merchant_smart_spatula': {
+    id: 'data_merchant_smart_spatula',
+    name: "Data Merchant Smart Spatula",
+    description: "A spatula that calculates flip timing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🥄',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Perfect flip timing: advantage on cooking checks involving flipping",
+        "Spatula beeps when ready: disadvantage on Stealth",
+        "It tracks your calories: advantage on Medicine checks, disadvantage on gluttony",
+        "Made by: Data Merchant Kitchenware"
+    ],
+    vendor: 'data_merchant',
+    shippedBy: 'Data Stream',
+    levelRequirement: 5
+},
+'changeling_hive_mimic_potholder': {
+    id: 'changeling_hive_mimic_potholder',
+    name: "Changeling Hive Mimic Potholder",
+    description: "A potholder that looks like your hand.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🧤',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Protects from heat: immunity to fire damage from cooking accidents",
+        "Looks like your hand: you forget you're holding it (disadvantage on Sleight of Hand)",
+        "Potholder changes appearance: sometimes you grab the hot pan (1 fire damage)",
+        "Made by: Changeling Hive Textiles"
+    ],
+    vendor: 'changeling_hive',
+    shippedBy: 'Metamorphic Delivery',
+    levelRequirement: 5
+},
+'cybernetic_robotic_chef_arm': {
+    id: 'cybernetic_robotic_chef_arm',
+    name: "Cybernetic Robotic Chef Arm",
+    description: "An extra arm for cooking.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🦾',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Extra arm: advantage on cooking checks (multitasking)",
+        "Arm has a mind of its own: 10% chance it adds wrong ingredient (disadvantage on check)",
+        "You can cook while holding a shield: +1 AC while cooking",
+        "Made by: Cybernetic Prosthetics"
+    ],
+    vendor: 'cybernetic',
+    shippedBy: 'Surgical Drone',
+    levelRequirement: 7
+},
+'hacktivist_recipe_encryption_decoder': {
+    id: 'hacktivist_recipe_encryption_decoder',
+    name: "Hacktivist Recipe Encryption Decoder",
+    description: "Decodes secret recipes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🔓',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Decodes encrypted recipes: advantage on checks with secret recipes",
+        "You see hidden messages in recipes: advantage on Investigation",
+        "Decoder has a backdoor: 5% chance recipes are wrong (disadvantage on check)",
+        "Made by: Hacktivist Codebreakers"
+    ],
+    vendor: 'hacktivist',
+    shippedBy: 'Anonymous Drop',
+    levelRequirement: 6
+},
+'gondor_ranger_campfire_pot': {
+    id: 'gondor_ranger_campfire_pot',
+    name: "Gondor Ranger Campfire Pot",
+    description: "A sturdy iron pot for brewing stews over open flames in the wild.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🍲',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Reduces cooking time for stews by 15 minutes; +1 to Survival checks for foraging ingredients",
+        "Holds enough for 4 servings; resists rust in damp areas",
+        "Heavy – disadvantage on carrying if full",
+        "Made by: Gondor Blacksmiths"
+    ],
+    vendor: 'kingdom_gondor_outpost',
+    shippedBy: 'Trail-Ready Tote',
+    levelRequirement: 5
+},
+'koopa_troop_shell_oven': {
+    id: 'koopa_troop_shell_oven',
+    name: "Koopa Troop Shell Oven (Joke)",
+    description: "A portable oven shaped like a Koopa shell for baking fungi delights.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🐢',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Bakes mushrooms evenly; advantage on cooking checks for soups (DC reduced by 2)",
+        "Retains heat for 1 hour post-use; retracts like a shell for protection",
+        "Bowser's mark – might attract Koopas",
+        "Made by: Troop Tinkerers"
+    ],
+    vendor: 'koopa_troop_kitchen',
+    shippedBy: 'Shell-Shocked Shipment',
+    levelRequirement: 5
+},
+'equestrian_apple_farm_rolling_pin': {
+    id: 'equestrian_apple_farm_rolling_pin',
+    name: "Equestrian Apple Farm Rolling Pin",
+    description: "Enchanted wooden pin for perfect pie crusts from Sweet Apple Acres.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🥧',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Advantage on baking checks for pies; ensures even dough (no cracks)",
+        "Infuses harmony – +1 to Charisma when sharing baked goods",
+        "Sticky with apple residue (cleans with magic)",
+        "Made by: Apple Family Carpenters"
+    ],
+    vendor: 'equestrian_farm',
+    shippedBy: 'Orchard Oak Delivery',
+    levelRequirement: 6
+},
+'pokemon_league_berry_crusher': {
+    id: 'pokemon_league_berry_crusher',
+    name: "Pokémon League Berry Crusher",
+    description: "Hand-crank crusher for extracting berry juices efficiently.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🥤',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Doubles berry yield for salads/juices; reduces prep time by 10 minutes",
+        "Compatible with Pokémon – they can assist (+1 to Nature checks)",
+        "Crusher jams on overripe berries (DC 10 fix)",
+        "Made by: League Toolmakers"
+    ],
+    vendor: 'pokemon_league_camp',
+    shippedBy: 'Berry Burst Box',
+    levelRequirement: 5
+},
+'mushroom_regency_fungi_slicer': {
+    id: 'mushroom_regency_fungi_slicer',
+    name: "Mushroom Regency Fungi Slicer",
+    description: "Curved knife set for precise mushroom chopping.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍄',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Advantage on Dexterity checks for slicing ingredients; prevents spoilage during prep",
+        "Safe for toxic fungi (no accidental poison)",
+        "Blades dull in dry air (sharpen weekly)",
+        "Made by: Regency Knifemakers"
+    ],
+    vendor: 'mushroom_regency_kitchen',
+    shippedBy: 'Spore-Safe Sheath',
+    levelRequirement: 5
+},
+'asgard_valkyrie_spit_roaster': {
+    id: 'asgard_valkyrie_spit_roaster',
+    name: "Asgard Valkyrie Spit Roaster",
+    description: "Portable roaster for honey cakes over godfire.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🍖',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Roasts evenly for +1 to cooking checks with meats/honey; infuses vigor (extra 1d4 temp HP)",
+        "Folds for travel; withstands high heat",
+        "Attracts ravens (Odin's spies?)",
+        "Made by: Asgard Forges"
+    ],
+    vendor: 'asgard_kitchen',
+    shippedBy: 'Thunderous Tine Transport',
+    levelRequirement: 6
+},
+'mordor_volcanic_ash_sifter': {
+    id: 'mordor_volcanic_ash_sifter',
+    name: "Mordor Volcanic Ash Sifter (Joke)",
+    description: "Sifter for incorporating ash into baked goods without grit.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥔',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Filters ash perfectly for potatoes; advantage on cooking in smoky areas",
+        "Resists heat; adds smoky flavor bonus",
+        "Ash clouds vision briefly (minor distraction)",
+        "Made by: Orc Toolmakers"
+    ],
+    vendor: 'land_mordor_forge',
+    shippedBy: 'Sooty Sieve Sack',
+    levelRequirement: 5
+},
+'xenonesia_crystal_juicer': {
+    id: 'xenonesia_crystal_juicer',
+    name: "Xenonesia Crystal Juicer",
+    description: "Gem-powered juicer for alien fruits.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '💎',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Extracts pure essence; +2 to Intelligence checks for exotic recipes",
+        "Crystals recharge in starlight; yields 50% more juice",
+        "Overloads on earthly fruits (sparks)",
+        "Made by: Xenonesian Artisans"
+    ],
+    vendor: 'xenonesia_outpost',
+    shippedBy: 'Crystal Core Crate',
+    levelRequirement: 7
+},
+'iron_legion_legionary_griddle': {
+    id: 'iron_legion_legionary_griddle',
+    name: "Iron Legion Legionary Griddle",
+    description: "Cast-iron griddle for quick flatbread on the march.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍞',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Heats evenly over fire; reduces flatbread cooking time by 10 minutes",
+        "Durable for camp use; +1 to group cooking efficiency",
+        "Heavy – requires two hands to carry",
+        "Made by: Legion Forges"
+    ],
+    vendor: 'iron_legion_camp',
+    shippedBy: 'Iron Ingot Irony',
+    levelRequirement: 5
+},
+'formosa_ultima_bamboo_steamer': {
+    id: 'formosa_ultima_bamboo_steamer',
+    name: "Formosa Ultima Bamboo Steamer",
+    description: "Layered steamer for rice balls and delicate foods.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍙',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Steams without sticking; advantage on Dexterity for shaping rice",
+        "Preserves nutrients (extra +1 HP from steamed dishes)",
+        "Bamboo warps in extreme dry heat",
+        "Made by: Ultima Bamboo Crafters"
+    ],
+    vendor: 'formosa_ultima_village',
+    shippedBy: 'Bamboo Basket Bundle',
+    levelRequirement: 5
+},
+'weldrhom_caravan_spice_grinder': {
+    id: 'weldrhom_caravan_spice_grinder',
+    name: "Weldrhom Caravan Spice Grinder",
+    description: "Portable grinder for desert rubs and spices.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🌶️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Grinds fine for +1 to cooking checks with spices; enhances flavor (duration +1 hour)",
+        "Compact for travel; withstands sand",
+        "Clogs with wet spices (clean DC 10)",
+        "Made by: Caravan Smiths"
+    ],
+    vendor: 'weldrhom_caravan',
+    shippedBy: 'Spice Sand Shaker',
+    levelRequirement: 5
+},
+'skycaverns_wind_whisk': {
+    id: 'skycaverns_wind_whisk',
+    name: "Skycaverns Wind Whisk",
+    description: "Whisk powered by captured winds for aerated tarts.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🫐',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Whisks air into batter quickly; advantage on baking for light pastries",
+        "Wind element adds minor lift (extra jump 5ft after eating)",
+        "Whisk spins wildly in storms",
+        "Made by: Cavern Windwrights"
+    ],
+    vendor: 'skycaverns_kitchen',
+    shippedBy: 'Breezy Batter Box',
+    levelRequirement: 6
+},
+'garden_isles_sea_kelp_strainer': {
+    id: 'garden_isles_sea_kelp_strainer',
+    name: "Garden Isles Sea Kelp Strainer",
+    description: "Strainer woven from kelp for salad prep.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥗',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Strains water perfectly; +1 to Dexterity for tossing salads",
+        "Kelp regrows slightly (reusable filters)",
+        "Slippery when wet (disadvantage on grip)",
+        "Made by: Isle Weavers"
+    ],
+    vendor: 'garden_isles_shore',
+    shippedBy: 'Kelp Knot Kit',
+    levelRequirement: 5
+},
+'glarnia_gem_polishing_peeler': {
+    id: 'glarnia_gem_polishing_peeler',
+    name: "Glarnia Gem Polishing Peeler (Joke)",
+    description: "Peeler that shines fruits like gems for candy prep.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍭',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Peels evenly for candy; advantage on Deception with shiny treats",
+        "Polishes to a gleam (minor distraction effect)",
+        "Dulls on hard 'gems' (sugars)",
+        "Made by: Glarnian Toolers"
+    ],
+    vendor: 'glarnia_mines',
+    shippedBy: 'Shiny Peel Pouch',
+    levelRequirement: 5
+},
+'polybius_arcade_popcorn_popper': {
+    id: 'polybius_arcade_popcorn_popper',
+    name: "Polybius Arcade Popcorn Popper",
+    description: "Electric popper with game sounds for snacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍿',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Pops kernels fast; +1 to Dexterity checks after eating (reflex boost)",
+        "Plays chiptune music during popping",
+        "Overheats on large batches (cool down)",
+        "Made by: Arcade Inventors"
+    ],
+    vendor: 'polybius_arcade',
+    shippedBy: 'Popcorn Power Plug',
+    levelRequirement: 5
+},
+'internet_cafe_microwave_tray': {
+    id: 'internet_cafe_microwave_tray',
+    name: "Internet Cafe Microwave Tray",
+    description: "Quick-heat tray for viral nachos.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🌮',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Heats evenly in 5 minutes; advantage on group cooking for snacks",
+        "Tray 'uploads' flavors (enhances taste)",
+        "Sparks with metal (safety first)",
+        "Made by: Cafe Techs"
+    ],
+    vendor: 'internet_cafe',
+    shippedBy: 'Zappy Zap Zone',
+    levelRequirement: 5
+},
+'trainer_guild_poke_ball_mixer': {
+    id: 'trainer_guild_poke_ball_mixer',
+    name: "Trainer Guild Poké Ball Mixer",
+    description: "Bowl-shaped mixer for puff batters.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🧁',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Mixes batter smoothly; +1 to baking checks for pastries",
+        "Poké Ball design – companions assist",
+        "Rolls away if not secured",
+        "Made by: Guild Crafters"
+    ],
+    vendor: 'trainer_guild_kitchen',
+    shippedBy: 'Ball Batter Bundle',
+    levelRequirement: 6
+},
+'changeling_hive_shape_shifter_sifter': {
+    id: 'changeling_hive_shape_shifter_sifter',
+    name: "Changeling Hive Shape-Shifter Sifter",
+    description: "Sifter that 'adapts' to ingredient sizes for jams.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍓',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Sifts varying sizes; advantage on prep for emotional recipes",
+        "Changes mesh for love essences",
+        "Shifts form randomly (fun or frustrating)",
+        "Made by: Hive Toolmakers"
+    ],
+    vendor: 'changeling_hive_nest',
+    shippedBy: 'Adaptive Alloy',
+    levelRequirement: 5
+},
+'the_onyx_hand_shadow_stirrer': {
+    id: 'the_onyx_hand_shadow_stirrer',
+    name: "The Onyx Hand Shadow Stirrer (Joke)",
+    description: "Stirring spoon that stirs shadows for mysterious pies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥧',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Stirs without light; +1 to cooking in dark for shadow recipes",
+        "Adds eerie flavor (minor illusion effect)",
+        "Spoon vanishes briefly",
+        "Made by: Onyx Enchanters"
+    ],
+    vendor: 'the_onyx_hand_guild',
+    shippedBy: 'Shadow Spoon Sheath',
+    levelRequirement: 5
+},
+'kingdoms_dwarves_ale_kettle': {
+    id: 'kingdoms_dwarves_ale_kettle',
+    name: "Kingdoms Dwarves Ale Kettle",
+    description: "Large kettle for brewing stews with ale.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🍺',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Brews large batches; advantage on Constitution checks for ale-infused dishes",
+        "Insulated for even heat; holds 6 servings",
+        "Dents easily if dropped",
+        "Made by: Dwarven Kettle Smiths"
+    ],
+    vendor: 'kingdoms_dwarves_tavern',
+    shippedBy: 'Foamy Forge Freight',
+    levelRequirement: 6
+},
+'greenskins_orcish_grill_spit': {
+    id: 'greenskins_orcish_grill_spit',
+    name: "Greenskins Orcish Grill Spit",
+    description: "Rugged spit for gruel over crude fires.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥣',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Rotates manually; +1 to Strength for rough cooking",
+        "Withstands abuse; quick for horde meals",
+        "Rusty – might add 'flavor'",
+        "Made by: Orc Forges"
+    ],
+    vendor: 'greenskins_camp',
+    shippedBy: 'Waaagh! Weld Wagon',
+    levelRequirement: 5
+},
+'jotunheimr_ice_mold_tray': {
+    id: 'jotunheimr_ice_mold_tray',
+    name: "Jotunheimr Ice Mold Tray",
+    description: "Tray for freezing berry porridge into blocks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🥣',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Freezes quickly; advantage on cold recipe prep",
+        "Molds giant portions; preserves for travel",
+        "Cracks in heat",
+        "Made by: Frost Carvers"
+    ],
+    vendor: 'jotunheimr_hall',
+    shippedBy: 'Chilly Chisel Crate',
+    levelRequirement: 5
+},
+'high_elves_elven_pastry_press': {
+    id: 'high_elves_elven_pastry_press',
+    name: "High Elves Elven Pastry Press",
+    description: "Delicate press for fruit tart dough.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '🍰',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Presses thin layers; +2 to Dexterity for elegant baking",
+        "Infuses grace (extra charm effect)",
+        "Fragile – breaks on hard use",
+        "Made by: Elven Silversmiths"
+    ],
+    vendor: 'high_elves_grove',
+    shippedBy: 'Silken Press Parcel',
+    levelRequirement: 7
+},
+'dark_elves_underdark_simmer_pot': {
+    id: 'dark_elves_underdark_simmer_pot',
+    name: "Dark Elves Underdark Simmer Pot",
+    description: "Pot that glows faintly for silk soup in the dark.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Simmers low light; advantage on cooking in dim areas",
+        "Self-stirring with magic (saves time)",
+        "Glow attracts spiders",
+        "Made by: Drow Potters"
+    ],
+    vendor: 'dark_elves_caverns',
+    shippedBy: 'Web-Woven Ware',
+    levelRequirement: 6
+},
+'trainer_guild_berry_press': {
+    id: 'trainer_guild_berry_press',
+    name: "Trainer Guild Berry Press",
+    description: "Manual press for juicing berries.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🥤',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Presses efficiently; +1 to Nature for berry recipes",
+        "Yields pure juice; quick 5-min prep",
+        "Stains hands purple",
+        "Made by: Guild Woodworkers"
+    ],
+    vendor: 'trainer_guild_outpost',
+    shippedBy: 'Juice Jug Jig',
+    levelRequirement: 5
+},
+'crimision_isle_spice_mortar': {
+    id: 'crimision_isle_spice_mortar',
+    name: "Crimision Isle Spice Mortar",
+    description: "Stone mortar for grinding fiery spices.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🌶️',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grinds hot spices safely; advantage on fire-based cooking",
+        "Resists heat; enhances spice potency (+1 duration)",
+        "Pestle gets hot (handle with care)",
+        "Made by: Isle Stonecarvers"
+    ],
+    vendor: 'crimision_isle_port',
+    shippedBy: 'Crimson Crush Crate',
+    levelRequirement: 5
+},
+'blessed_order_holy_water_distiller': {
+    id: 'blessed_order_holy_water_distiller',
+    name: "Blessed Order Holy Water Distiller",
+    description: "Small distiller for infusing bread with blessings.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '💧',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Distills holy essence; +1 to Religion for blessed recipes",
+        "Purifies water; adds radiant heal (extra 1d4)",
+        "Requires blessing recharge",
+        "Made by: Order Alchemists"
+    ],
+    vendor: 'blessed_order_chapel',
+    shippedBy: 'Sacred Steam Set',
+    levelRequirement: 6
+},
+'sirsirian_ocean_salt_evaporator': {
+    id: 'sirsirian_ocean_salt_evaporator',
+    name: "Sirsirian Ocean Salt Evaporator",
+    description: "Pan for evaporating seawater into biscuits' salt.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Evaporates quickly; +1 to cooking with salt (preservation)",
+        "Portable for ships; yields pure salt",
+        "Corrodes metal nearby",
+        "Made by: Ocean Salters"
+    ],
+    vendor: 'sirsirian_ocean_port',
+    shippedBy: 'Salty Sea Shipment',
+    levelRequirement: 5
+},
+'saddle_arabia_date_palm_presser': {
+    id: 'saddle_arabia_date_palm_presser',
+    name: "Saddle Arabia Date Palm Presser",
+    description: "Press for extracting date syrup into cookies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍪',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Presses sweet syrup; advantage on sweet recipe prep",
+        "Yields extra syrup (+1 serving)",
+        "Sticky – cleans with oil",
+        "Made by: Arabian Pressers"
+    ],
+    vendor: 'saddle_arabia_oasis',
+    shippedBy: 'Sweet Squeeze Sack',
+    levelRequirement: 5
+},
+'ratchet_raiders_scrap_forge_oven': {
+    id: 'ratchet_raiders_scrap_forge_oven',
+    name: "Ratchet Raiders Scrap Forge Oven (Joke)",
+    description: "Junk-built oven for 'metallic' pies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥧',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Heats with scrap fuel; +1 to tool cooking (inventions)",
+        "Durable from junk; recycles heat",
+        "Sparks occasionally (fire risk DC 10)",
+        "Made by: Raider Scavengers"
+    ],
+    vendor: 'ratchet_raiders_scrapyard',
+    shippedBy: 'Rusty Roast Rig',
+    levelRequirement: 5
+},
+'wario_land_garlic_masher': {
+    id: 'wario_land_garlic_masher',
+    name: "Wario Land Garlic Masher",
+    description: "Heavy masher for pulverizing garlic into bread.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🧄',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Mashes finely; advantage on undead-repelling recipes",
+        "Releases strong aroma (+1 Intimidation)",
+        "Stinks up your pack",
+        "Made by: Wario's Workshop"
+    ],
+    vendor: 'wario_land_shack',
+    shippedBy: 'Stinky Smash Shipment',
+    levelRequirement: 5
+},
+'millennium_tomb_sarcophagus_slicer': {
+    id: 'millennium_tomb_sarcophagus_slicer',
+    name: "Millennium Tomb Sarcophagus Slicer",
+    description: "Hieroglyph-etched slicer for feast platters.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🍽️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Slices evenly for platters; +1 to History for ancient recipes",
+        "Etchings ward minor curses",
+        "Heavy stone – slow to wield",
+        "Made by: Tomb Artisans"
+    ],
+    vendor: 'millennium_tomb',
+    shippedBy: 'Pharaohs Plate Pan',
+    levelRequirement: 6
+},
+'apis_kingdom_honey_extractor': {
+    id: 'apis_kingdom_honey_extractor',
+    name: "Apis Kingdom Honey Extractor",
+    description: "Spinner for harvesting honeycomb into cakes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍯',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Extracts pure honey; advantage on sweet baking",
+        "Bee-friendly – no stings during use",
+        "Sticky residue (cleans with water)",
+        "Made by: Kingdom Beekeepers"
+    ],
+    vendor: 'apis_kingdom_hive',
+    shippedBy: 'Honey Hex Haul',
+    levelRequirement: 5
+},
+'lizardmen_swamp_stirring_stick': {
+    id: 'lizardmen_swamp_stirring_stick',
+    name: "Lizardmen Swamp Stirring Stick",
+    description: "Reedy stick for gumbo stirring in bogs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍲',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Stirs thick stews; +1 to Constitution for swamp recipes",
+        "Floats in water; resists rot",
+        "Attracts swamp bugs",
+        "Made by: Lizard Crafters"
+    ],
+    vendor: 'lizardmen_village',
+    shippedBy: 'Boggy Branch Bundle',
+    levelRequirement: 5
+},
+'kingdom_fiore_fairy_wand_whisk': {
+    id: 'kingdom_fiore_fairy_wand_whisk',
+    name: "Kingdom Fiore Fairy Wand Whisk",
+    description: "Whisk shaped like a fairy wand for dust cookies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🍪',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Whisks magic dust; advantage on enchantment baking",
+        "Adds whimsy (minor levitation to batter)",
+        "Wand sparks with overuse",
+        "Made by: Fiore Enchanters"
+    ],
+    vendor: 'kingdom_fiore_enchantress',
+    shippedBy: 'Wand Whisk Wings',
+    levelRequirement: 6
+},
+'trinity_general_blessed_baking_sheet': {
+    id: 'trinity_general_blessed_baking_sheet',
+    name: "Trinity General Blessed Baking Sheet",
+    description: "Silver sheet for holy biscuits.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🍪',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Bakes with divine evenness; +1 to healing from baked goods",
+        "Purifies ingredients (removes minor taint)",
+        "Shines but tarnishes over time",
+        "Made by: Trinity Silversmiths"
+    ],
+    vendor: 'trinity_general_kitchen',
+    shippedBy: 'Holy Heat Haul',
+    levelRequirement: 5
+},
+'pitatia_dragon_fruit_slicer': {
+    id: 'pitatia_dragon_fruit_slicer',
+    name: "Pitatia Dragon Fruit Slicer",
+    description: "Serrated knife for tough dragon fruit skins.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🥭',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Slices scaly fruits easily; advantage on exotic prep",
+        "Juice doesn't stain; quick cuts",
+        "Blade dulls on very hard skins",
+        "Made by: Pitatian Knifemakers"
+    ],
+    vendor: 'pitatia_orchard',
+    shippedBy: 'Scaly Slice Sheath',
+    levelRequirement: 5
+},
+'crimson_fleet_pirate_rum_still': {
+    id: 'crimson_fleet_pirate_rum_still',
+    name: "Crimson Fleet Pirate Rum Still",
+    description: "Compact still for distilling rum into cakes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🍰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Distills small batches; +1 to Charisma for boozy recipes",
+        "Portable for ships; quick 20-min process",
+        "Leaks if tilted (wasted rum)",
+        "Made by: Fleet Distillers"
+    ],
+    vendor: 'crimson_fleet_galley',
+    shippedBy: 'Rum Run Rig',
+    levelRequirement: 6
+},
+'scylla_charybdis_tentacle_tenderizer': {
+    id: 'scylla_charybdis_tentacle_tenderizer',
+    name: "Scylla Charybdis Tentacle Tenderizer (Joke)",
+    description: "Hammer for pounding tough 'tentacles' into tempura.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍤',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Tenderizes meat; advantage on cooking tough ingredients",
+        "Suction grip for secure pounding",
+        "Sticky – hard to clean",
+        "Made by: Sea Hammerers"
+    ],
+    vendor: 'scylla_charybdis_cove',
+    shippedBy: 'Ink Impact Iron',
+    levelRequirement: 5
+},
+'minerva_academy_owl_feather_brush': {
+    id: 'minerva_academy_owl_feather_brush',
+    name: "Minerva Academy Owl Feather Brush",
+    description: "Soft brush for dusting pudding molds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍮',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Brushes evenly; +1 to Intelligence for scholarly recipes",
+        "Feathers grant minor wisdom (hint on use)",
+        "Sheds feathers occasionally",
+        "Made by: Academy Fletchers"
+    ],
+    vendor: 'minerva_library',
+    shippedBy: 'Wise Whisk Wings',
+    levelRequirement: 5
+},
+'animatopia_acme_anvil_mixer': {
+    id: 'animatopia_acme_anvil_mixer',
+    name: "Animatopia Acme Anvil Mixer (Joke)",
+    description: "Heavy mixer that 'pounds' dough like an anvil.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥣',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Mixes tough dough; advantage on Strength for cartoon recipes",
+        "Drops with boing sound (distraction)",
+        "Acme quality – might break comically",
+        "Made by: Toon Toolmakers"
+    ],
+    vendor: 'animatopia_studio',
+    shippedBy: 'Boing Box Bash',
+    levelRequirement: 5
+},
+'eiwass_frost_forge_freezer': {
+    id: 'eiwass_frost_forge_freezer',
+    name: "Eiwass Frost Forge Freezer",
+    description: "Ice box for freezing berry ices.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Freezes rapidly; +1 to cold recipe duration",
+        "Holds 4 servings; eternal chill",
+        "Condenses moisture (wet hands)",
+        "Made by: Winter Forgers"
+    ],
+    vendor: 'eiwass_village',
+    shippedBy: 'Chill Chest Crate',
+    levelRequirement: 5
+},
+'oracula_castle_blood_vial_vat': {
+    id: 'oracula_castle_blood_vial_vat',
+    name: "Oracula Castle Blood Vial Vat",
+    description: "Stirring vat for red velvet batter.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🍰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Mixes 'red' liquids; advantage on night baking",
+        "Vat chills naturally; preserves color",
+        "Stains everything crimson",
+        "Made by: Castle Alchemists"
+    ],
+    vendor: 'oracula_castle',
+    shippedBy: 'Vampiric Vat Vessel',
+    levelRequirement: 6
+},
+'halfling_shire_pie_pan_set': {
+    id: 'halfling_shire_pie_pan_set',
+    name: "Halfling Shire Pie Pan Set (Joke)",
+    description: "Set of pans for multiple breakfast pies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥧',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Bakes multiple pies; +1 to cooking for second breakfasts",
+        "Non-stick hobbit magic",
+        "Pans stack for travel",
+        "Made by: Shire Potters"
+    ],
+    vendor: 'halfling_hole',
+    shippedBy: 'Breakfast Bake Bundle',
+    levelRequirement: 5
+},
+'refijia_mirror_polish_spoon': {
+    id: 'refijia_mirror_polish_spoon',
+    name: "Refijia Mirror Polish Spoon",
+    description: "Spoon that polishes while stirring candy.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍭',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Stirs and shines; advantage on reflective recipes",
+        "Adds luster (minor illusion shine)",
+        "Reflects your face (distracting)",
+        "Made by: Mirror Silversmiths"
+    ],
+    vendor: 'refijia_workshop',
+    shippedBy: 'Shiny Stir Sheath',
+    levelRequirement: 5
+},
+'shanhaijing_dragon_breath_bellows': {
+    id: 'shanhaijing_dragon_breath_bellows',
+    name: "Shanhaijing Dragon Breath Bellows",
+    description: "Bellows simulating dragon fire for tarts.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🍰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Heats precisely; +1 to fire cooking checks",
+        "Bellows roar like dragons",
+        "Overheats if pumped too hard",
+        "Made by: Eastern Forgers"
+    ],
+    vendor: 'shanhaijing_temple',
+    shippedBy: 'Fiery Fan Fold',
+    levelRequirement: 6
+},
+'u_enigma_riddle_riddle_colander': {
+    id: 'u_enigma_riddle_riddle_colander',
+    name: "U Enigma Riddle Colander (Joke)",
+    description: "Colander that 'riddles' water out for tea.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍵',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Drains with puzzle holes; +1 to Intelligence for mystic brews",
+        "Holes form riddles (hint on use)",
+        "Clogs with riddles (unsolvable?)",
+        "Made by: U Enigmatists"
+    ],
+    vendor: 'u_enclave',
+    shippedBy: 'Puzzle Perforate Pan',
+    levelRequirement: 5
+},
+'zebrabwe_stripe_strainer': {
+    id: 'zebrabwe_stripe_strainer',
+    name: "Zebrabwe Stripe Strainer",
+    description: "Striped strainer for yogurt curds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🥛',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Strains milk evenly; advantage on dairy recipes",
+        "Stripes camouflage in grass",
+        "Holes clog with curds",
+        "Made by: Zebra Weavers"
+    ],
+    vendor: 'zebrabwe_savanna',
+    shippedBy: 'Striped Sieve Set',
+    levelRequirement: 5
+},
+'robensonia_lab_portable_heat_gun': {
+    id: 'robensonia_lab_portable_heat_gun',
+    name: "Robensonia Lab Portable Heat Gun",
+    description: "Handheld gun for quick energy bar melting.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍫',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Heats precisely; reduces melt time by 50%",
+        "Battery lasts 5 uses; sci-fi safe",
+        "Overheats gloves (hot hands)",
+        "Made by: Lab Engineers"
+    ],
+    vendor: 'robensonia_lab',
+    shippedBy: 'Gadget Gun Gear',
+    levelRequirement: 5
+},
+'tomb_kings_sandstone_grinder': {
+    id: 'tomb_kings_sandstone_grinder',
+    name: "Tomb Kings Sandstone Grinder",
+    description: "Grinder for ancient spices in wraps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🥪',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Grinds fine sand-spices; +1 to History for tomb recipes",
+        "Preserves longevity (food lasts longer)",
+        "Dust clouds vision",
+        "Made by: Kings' Stonecarvers"
+    ],
+    vendor: 'tomb_kings_pyramid',
+    shippedBy: 'Sandy Stone Shipment',
+    levelRequirement: 6
+},
+'gehenna_academy_infernal_stirring_rod': {
+    id: 'gehenna_academy_infernal_stirring_rod',
+    name: "Gehenna Academy Infernal Stirring Rod",
+    description: "Rod that heats itself for devil's food cake.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🍰',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Self-heats for stirring; advantage on infernal baking",
+        "Adds hellish spice (extra fire effect)",
+        "Rod scorches hands if mishandled",
+        "Made by: Academy Forgers"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Hell Rod Haul',
+    levelRequirement: 7
+},
+'red_winter_snow_shaver': {
+    id: 'red_winter_snow_shaver',
+    name: "Red Winter Snow Shaver",
+    description: "Tool for shaving snow into cones.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🧊',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Shaves fine snow; +1 to cold treat prep",
+        "Quick shave (5 min); chills drinks",
+        "Blades freeze stuck",
+        "Made by: Winter Carvers"
+    ],
+    vendor: 'red_winter_village',
+    shippedBy: 'Frosty Flake File',
+    levelRequirement: 5
+},
+'dwarf_realms_gem_crusher_mortar': {
+    id: 'dwarf_realms_gem_crusher_mortar',
+    name: "Dwarf Realms Gem Crusher Mortar",
+    description: "Heavy mortar for crushing 'gem' sugars.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '💎',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Crushes hard crystals; advantage on mining-themed recipes",
+        "Dwarven durability; fine powder",
+        "Echoes like a mine (noisy)",
+        "Made by: Realm Stoneworkers"
+    ],
+    vendor: 'dwarf_realms_mine',
+    shippedBy: 'Crush Crystal Crate',
+    levelRequirement: 5
+},
+'custodians_warded_cooking_grate': {
+    id: 'custodians_warded_cooking_grate',
+    name: "Custodians Warded Cooking Grate",
+    description: "Grate etched with wards for safe herb bread.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🍞',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Grills with protection; +1 to saves from cooking mishaps",
+        "Wards off spoilage (food lasts 1 day extra)",
+        "Heavy iron – stable but cumbersome",
+        "Made by: Custodian Forgers"
+    ],
+    vendor: 'custodians_fortress',
+    shippedBy: 'Warded Wire Ware',
+    levelRequirement: 6
+},
+'the_dk_crew_barrel_mixer': {
+    id: 'the_dk_crew_barrel_mixer',
+    name: "The DK Crew Barrel Mixer (Joke)",
+    description: "Barrel-shaped mixer for banana bread.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍌',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Mixes in barrel rolls; advantage on fruit mashing",
+        "Monkey-proof; rolls for fun",
+        "Leaks banana mush",
+        "Made by: DK Barrelmakers"
+    ],
+    vendor: 'the_dk_crew_treehouse',
+    shippedBy: 'Rolling Rumple Rig',
+    levelRequirement: 5
+},
+'spark_rebellion_portable_stove': {
+    id: 'spark_rebellion_portable_stove',
+    name: "Spark Rebellion Portable Stove",
+    description: "Compact stove for rebel rations on the run.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🔥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Heats fast with fuel pellets; reduces cooking time by 20%",
+        "Stealthy flame (low light)",
+        "Fuel limited (10 uses)",
+        "Made by: Rebel Techs"
+    ],
+    vendor: 'spark_rebellion_base',
+    shippedBy: 'Rebel Flame Freight',
+    levelRequirement: 5
+},
+'sultanates_araby_genie_lamp_oven': {
+    id: 'sultanates_araby_genie_lamp_oven',
+    name: "Sultanates Araby Genie Lamp Oven",
+    description: "Lamp-shaped oven that 'wishes' heat even.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🏺',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Bakes with magic heat; advantage on spice kebabs",
+        "Grants minor wish luck (+1 roll after use)",
+        "Lamp smokes like a genie",
+        "Made by: Araby Enchanters"
+    ],
+    vendor: 'sultanates_araby_bazaar',
+    shippedBy: 'Wishful Ware Wrap',
+    levelRequirement: 6
+},
+'animatopia_acme_toaster': {
+    id: 'animatopia_acme_toaster',
+    name: "Animatopia Acme Toaster (Joke)",
+    description: "Toaster that launches toast like cartoons.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍞',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Toasts quickly; +1 to Dexterity for 'launched' snacks",
+        "Pops with boing; fun distraction",
+        "Acme fails – burns 10%",
+        "Made by: Toon Toasters"
+    ],
+    vendor: 'animatopia_studio',
+    shippedBy: 'Pop-Up Pan',
+    levelRequirement: 5
+},
+'chaos_dwarfs_hell_bellows': {
+    id: 'chaos_dwarfs_hell_bellows',
+    name: "Chaos Dwarfs Hell Bellows",
+    description: "Bellows fueled by chaos for roasts.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🥩',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Fans chaotic flames; advantage on unpredictable recipes",
+        "Random heat (boon or bane)",
+        "Bellows warp slightly",
+        "Made by: Chaos Forges"
+    ],
+    vendor: 'chaos_dwarfs_forge',
+    shippedBy: 'Hell Heat Haul',
+    levelRequirement: 5
+},
+'elves_lindon_mallorn_leaf_press': {
+    id: 'elves_lindon_mallorn_leaf_press',
+    name: "Elves Lindon Mallorn Leaf Press",
+    description: "Press for infusing leaves into lembas.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '🍞',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Presses essence perfectly; +2 to longevity recipes",
+        "Leaves don't wilt during press",
+        "Elven delicate – no heavy use",
+        "Made by: Lindon Woodworkers"
+    ],
+    vendor: 'elves_lindon_grove',
+    shippedBy: 'Leaf Lore Liner',
+    levelRequirement: 7
+},
+'moonfang_pack_howl_horn_funnel': {
+    id: 'moonfang_pack_howl_horn_funnel',
+    name: "Moonfang Pack Howl Horn Funnel",
+    description: "Funnel shaped like a wolf horn for berry jam.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍓',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Funnels liquids under moon; advantage on night prep",
+        "Howls when poured (alerts pack)",
+        "Horn echoes",
+        "Made by: Pack Carvers"
+    ],
+    vendor: 'moonfang_pack_lair',
+    shippedBy: 'Lunar Liquid Ladle',
+    levelRequirement: 5
+},
+'avalon_court_fey_flower_infuser': {
+    id: 'avalon_court_fey_flower_infuser',
+    name: "Avalon Court Fey Flower Infuser",
+    description: "Infuser for nectar from fey blooms.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🥤',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Infuses magic; +1 to Charisma for fey drinks",
+        "Flowers don't wilt; whimsical bubbles",
+        "Attracts pixies",
+        "Made by: Court Glassblowers"
+    ],
+    vendor: 'avalon_court_garden',
+    shippedBy: 'Fey Flask Fold',
+    levelRequirement: 6
+},
+'vampire_counts_night_shade_strainer': {
+    id: 'vampire_counts_night_shade_strainer',
+    name: "Vampire Counts Night Shade Strainer",
+    description: "Strainer for blood sausage casings.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🌭',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Strains 'red' liquids; advantage on night cooking",
+        "Dark weave hides stains",
+        "Threads fray in sun",
+        "Made by: Count's Weavers"
+    ],
+    vendor: 'vampire_counts_manor',
+    shippedBy: 'Crimson Colander Crate',
+    levelRequirement: 5
+},
+'abyssal_court_ink_dipper': {
+    id: 'abyssal_court_ink_dipper',
+    name: "Abyssal Court Ink Dipper",
+    description: "Dipper for abyssal soup broth.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍲',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Dips without spilling; +1 to Dexterity for deep recipes",
+        "Ink-resistant; adds depth flavor",
+        "Dipper squirts ink",
+        "Made by: Abyssal Potters"
+    ],
+    vendor: 'abyssal_court_depths',
+    shippedBy: 'Deep Dip Delivery',
+    levelRequirement: 5
+},
+'general_student_cafeteria_tray': {
+    id: 'general_student_cafeteria_tray',
+    name: "General Student Cafeteria Tray (Joke)",
+    description: "Multi-compartment tray for study snacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥜',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Organizes ingredients; +1 to Intelligence for multi-step recipes",
+        "Tray balances well (no spills)",
+        "School bell timer",
+        "Made by: Student Crafters"
+    ],
+    vendor: 'general_student_dorm',
+    shippedBy: 'Study Snack Stack',
+    levelRequirement: 5
+},
+'farasi_zebra_herd_grater': {
+    id: 'farasi_zebra_herd_grater',
+    name: "Farasi Zebra Herd Grater",
+    description: "Grater for grass and herbs in salads.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥗',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Grates tough grasses; advantage on herd recipes",
+        "Striped handle for grip",
+        "Shreds fingers if careless",
+        "Made by: Zebra Toolers"
+    ],
+    vendor: 'farasi_savanna',
+    shippedBy: 'Graze Grate Gear',
+    levelRequirement: 5
+},
+'kremling_krew_croc_jaw_clamps': {
+    id: 'kremling_krew_croc_jaw_clamps',
+    name: "Kremling Krew Croc Jaw Clamps",
+    description: "Clamps for holding stew meat steady.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍲',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Clamps firm; +1 to Strength for meat prep",
+        "Jaw-like grip; swamp durable",
+        "Snaps shut unexpectedly",
+        "Made by: Krew Carvers"
+    ],
+    vendor: 'kremling_krew_swamp',
+    shippedBy: 'Jaw Clamp Jar',
+    levelRequirement: 5
+},
+'monsters_grognak_steak_knives': {
+    id: 'monsters_grognak_steak_knives',
+    name: "Monsters Grognak Steak Knives (Joke)",
+    description: "Massive knives for carving barbarian steaks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🥩',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Cuts tough meat; advantage on Strength carving",
+        "Comic book edge; +1 damage if used as weapon briefly",
+        "Too big for fine work",
+        "Made by: Monster Forges"
+    ],
+    vendor: 'monsters_lair',
+    shippedBy: 'Savage Slice Set',
+    levelRequirement: 6
+},
+'beanbean_kingdom_bean_pod_peeler': {
+    id: 'beanbean_kingdom_bean_pod_peeler',
+    name: "Beanbean Kingdom Bean Pod Peeler",
+    description: "Peeler for tough bean pods in soup.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍲',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Peels pods easily; +1 to growth recipes",
+        "Pods don't burst prematurely",
+        "Sticky sap residue",
+        "Made by: Kingdom Peelers"
+    ],
+    vendor: 'beanbean_kingdom_farm',
+    shippedBy: 'Pod Peel Pouch',
+    levelRequirement: 5
+},
+'lothlorien_golden_wood_oven': {
+    id: 'lothlorien_golden_wood_oven',
+    name: "Lothlórien Golden Wood Oven",
+    description: "Elven oven from mallorn wood for nut bread.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10500,
+    icon: '🍞',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Bakes with natural heat; +2 to longevity baking",
+        "Wood self-heals minor damage",
+        "Requires elven fire (or magic)",
+        "Made by: Golden Wood Crafters"
+    ],
+    vendor: 'lothlorien_grove',
+    shippedBy: 'Mallorn Magic Mail',
+    levelRequirement: 7
+},
+'centaur_khanate_steppe_grill': {
+    id: 'centaur_khanate_steppe_grill',
+    name: "Centaur Khanate Steppe Grill",
+    description: "Portable grill for yogurt drinks on the move.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🥛',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Grills while riding; advantage on mounted cooking",
+        "Wind-resistant; quick heat",
+        "Charms milk slightly",
+        "Made by: Khanate Metalworkers"
+    ],
+    vendor: 'centaur_khanate_steppes',
+    shippedBy: 'Steppe Smoke Shipment',
+    levelRequirement: 5
+},
+'goodstyle_style_sifter': {
+    id: 'goodstyle_style_sifter',
+    name: "Goodstyle Style Sifter (Joke)",
+    description: "Fancy sifter for elegant finger foods.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍴',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Sifts with flair; +1 to Charisma for presentation",
+        "Adds stylish dust (cosmetic sparkle)",
+        "Too pretty for rough use",
+        "Made by: Style Silvers"
+    ],
+    vendor: 'goodstyle_salon',
+    shippedBy: 'Fancy Flour Fold',
+    levelRequirement: 5
+},
+'void_drifters_zero_g_stirrer': {
+    id: 'void_drifters_zero_g_stirrer',
+    name: "Void Drifters Zero-G Stirrer",
+    description: "Magnetic stirrer for snacks in space.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '⭐',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Stirs without gravity; advantage on void cooking",
+        "Magnets align stars (minor navigation aid)",
+        "Pulls metal utensils",
+        "Made by: Drifter Techs"
+    ],
+    vendor: 'void_drifters_ship',
+    shippedBy: 'Null Stir Null',
+    levelRequirement: 6
+},
+'order_silver_silver_forge_furnace': {
+    id: 'order_silver_silver_forge_furnace',
+    name: "Order Silver Silver Forge Furnace",
+    description: "Furnace for icing cookies with silver.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍪',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Melts silver safely; +1 to warding recipes",
+        "Purifies with silver heat",
+        "Furnace glows holy",
+        "Made by: Silver Forgers"
+    ],
+    vendor: 'order_silver_temple',
+    shippedBy: 'Shiny Silver Shipment',
+    levelRequirement: 5
+},
+'lycan_pack_moonlit_mortar': {
+    id: 'lycan_pack_moonlit_mortar',
+    name: "Lycan Pack Moonlit Mortar",
+    description: "Mortar that grinds better under moon.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🌕',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grinds night herbs; advantage on lunar recipes",
+        "Glows faintly at night",
+        "Howls when pounded",
+        "Made by: Pack Carvers"
+    ],
+    vendor: 'lycan_pack_lodge',
+    shippedBy: 'Lunar Grind Gear',
+    levelRequirement: 5
+},
+'peach_loyalists_royal_rolling_board': {
+    id: 'peach_loyalists_royal_rolling_board',
+    name: "Peach Loyalists Royal Rolling Board",
+    description: "Polished board for peach tarts.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🥧',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Rolls smooth for fruits; +1 to Charisma presentation",
+        "Princess seal for loyalty boost",
+        "Sticky with peach juice",
+        "Made by: Loyalist Woodworkers"
+    ],
+    vendor: 'peach_loyalists_palace',
+    shippedBy: 'Peachy Plank Parcel',
+    levelRequirement: 5
+},
+'vampire_covenant_midnight_melter': {
+    id: 'vampire_covenant_midnight_melter',
+    name: "Vampire Covenant Midnight Melter",
+    description: "Low-heat melter for night snacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🍽️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Melts in dark; advantage on nocturnal prep",
+        "Preserves night flavors",
+        "Cools quickly in dawn",
+        "Made by: Covenant Alchemists"
+    ],
+    vendor: 'vampire_covenant_tower',
+    shippedBy: 'Nocturnal Melt Mail',
+    levelRequirement: 6
+},
+'flower_kingdom_petal_presser': {
+    id: 'flower_kingdom_petal_presser',
+    name: "Flower Kingdom Petal Presser",
+    description: "Press for flattening petals in salads.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥗',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Presses delicate petals; +1 to Nature for floral recipes",
+        "Extracts essence (extra heal)",
+        "Presses wilt if overused",
+        "Made by: Kingdom Gardeners"
+    ],
+    vendor: 'flower_kingdom_garden',
+    shippedBy: 'Bloom Press Bundle',
+    levelRequirement: 5
+},
+'hacktivist_byte_blender': {
+    id: 'hacktivist_byte_blender',
+    name: "Hacktivist Byte Blender (Joke)",
+    description: "Blender that 'blends' digital and real snacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥤',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Blends fast; advantage on tech-flavored mixes",
+        "Adds 'code' fizz (minor energy)",
+        "Blades glitch sometimes",
+        "Made by: Net Blenders"
+    ],
+    vendor: 'hacktivist_net',
+    shippedBy: 'Digital Drink Drive',
+    levelRequirement: 5
+},
+'hobgoblin_legion_mass_cook_pot': {
+    id: 'hobgoblin_legion_mass_cook_pot',
+    name: "Hobgoblin Legion Mass Cook Pot",
+    description: "Huge pot for gruel for hordes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🥣',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks for 10+; +1 to group efficiency",
+        "Durable for camps",
+        "Too big for solo",
+        "Made by: Legion Forges"
+    ],
+    vendor: 'hobgoblin_legion',
+    shippedBy: 'Horde Heat Haul',
+    levelRequirement: 5
+},
+'cult_of_min_catnip_infuser': {
+    id: 'cult_of_min_catnip_infuser',
+    name: "Cult of Min Catnip Infuser (Joke)",
+    description: "Infuser for catnip treats.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Infuses catnip; advantage on feline recipes",
+        "Meows when steeped",
+        "Attracts cats",
+        "Made by: Min Infusers"
+    ],
+    vendor: 'cult_of_min_temple',
+    shippedBy: 'Paw Infuse Pan',
+    levelRequirement: 5
+},
+'the_iron_fists_fist_forge_griddle': {
+    id: 'the_iron_fists_fist_forge_griddle',
+    name: "The Iron Fists Fist Forge Griddle",
+    description: "Griddle heated by fist strikes for smoothies? Wait, pancakes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🥞',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Heats with impact; +1 to Strength cooking",
+        "Fist-proof durable",
+        "Bruises hands if overstruck",
+        "Made by: Fist Forgers"
+    ],
+    vendor: 'the_iron_fists_dojo',
+    shippedBy: 'Punch Pan Parcel',
+    levelRequirement: 5
+},
+'warriors_chaos_mutation_masher': {
+    id: 'warriors_chaos_mutation_masher',
+    name: "Warriors Chaos Mutation Masher",
+    description: "Masher that 'mutates' mush randomly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🥣',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Mashes with chaos; advantage on random effect recipes",
+        "Alters texture unpredictably",
+        "Mutates your grip (itchy)",
+        "Made by: Chaos Toolers"
+    ],
+    vendor: 'warriors_chaos_camp',
+    shippedBy: 'Mutant Mash Mail',
+    levelRequirement: 5
+},
+'kingdom_fiore_dragon_breath_torch': {
+    id: 'kingdom_fiore_dragon_breath_torch',
+    name: "Kingdom Fiore Dragon Breath Torch",
+    description: "Torch for crisping dragon crackers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🍪',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Torches precisely; +1 to fire breath recipes",
+        "Simulates dragon fire (minor damage add)",
+        "Torch smokes heavily",
+        "Made by: Fiore Forgers"
+    ],
+    vendor: 'kingdom_fiore_guild',
+    shippedBy: 'Fiery Flame File',
+    levelRequirement: 6
+},
+'druid_circle_root_dug_oven': {
+    id: 'druid_circle_root_dug_oven',
+    name: "Druid Circle Root Dug Oven",
+    description: "Earth oven dug with roots for stews.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍲',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Bakes in earth; advantage on natural recipes",
+        "Roots insulate heat",
+        "Digs hole (setup time)",
+        "Made by: Circle Earthshapers"
+    ],
+    vendor: 'druid_circle_grove',
+    shippedBy: 'Root Roast Rig',
+    levelRequirement: 5
+},
+'desert_sultanate_sand_sifter_pot': {
+    id: 'desert_sultanate_sand_sifter_pot',
+    name: "Desert Sultanate Sand Sifter Pot",
+    description: "Pot with sifter base for lentil soup.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍲',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Sifts sand from ingredients; +1 to desert cooking",
+        "Double function (cook and sift)",
+        "Sand grits teeth",
+        "Made by: Sultanate Potters"
+    ],
+    vendor: 'desert_sultanate_oasis',
+    shippedBy: 'Dune Dual Dish',
+    levelRequirement: 5
+},
+'wh_araby_dervish_spin_bowl': {
+    id: 'wh_araby_dervish_spin_bowl',
+    name: "Wh Araby Dervish Spin Bowl",
+    description: "Spinning bowl for mixing tea.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍵',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Spins for even mix; advantage on dance-inspired recipes",
+        "Adds whirl energy (+1 duration)",
+        "Dizzy if spun too long",
+        "Made by: Dervish Crafters"
+    ],
+    vendor: 'wh_araby_temple',
+    shippedBy: 'Spin Spice Shipment',
+    levelRequirement: 5
+},
+'fawfuls_furious_fusion_fryer': {
+    id: 'fawfuls_furious_fusion_fryer',
+    name: "Fawful's Furious Fusion Fryer (Joke)",
+    description: "Fryer with furious bubbles for fajitas.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🌮',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Fries with fury; +1 to mad science cooking",
+        "Bubbles like rage",
+        "Overfries if angry",
+        "Made by: Furious Inventors"
+    ],
+    vendor: 'fawfuls_furious_workshop',
+    shippedBy: 'Furious Fry Freight',
+    levelRequirement: 5
+},
+'mnevis_order_sun_mirror_focuser': {
+    id: 'mnevis_order_sun_mirror_focuser',
+    name: "Mnevis Order Sun Mirror Focuser",
+    description: "Mirror device to focus sun for baking.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '☀️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Focuses sunlight; advantage on solar recipes",
+        "Heats without fire",
+        "Blinds if misaimed",
+        "Made by: Sun Priests"
+    ],
+    vendor: 'mnevis_order_temple',
+    shippedBy: 'Solar Shine Set',
+    levelRequirement: 5
+},
+'undead_necro_stew_cauldron': {
+    id: 'undead_necro_stew_cauldron',
+    name: "Undead Necro Stew Cauldron",
+    description: "Cauldron that simmers eternally for stuffing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🥩',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Simmers without fuel; +1 to necrotic resistance recipes",
+        "Preserves 'souls' (ingredients)",
+        "Bubbles ominously",
+        "Made by: Necro Forgers"
+    ],
+    vendor: 'undead_necropolis',
+    shippedBy: 'Eternal Ember Equipment',
+    levelRequirement: 6
+},
+'the_toad_cult_frog_hop_funnel': {
+    id: 'the_toad_cult_frog_hop_funnel',
+    name: "The Toad Cult Frog Hop Funnel (Joke)",
+    description: "Funnel that 'hops' liquids for fritters.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍤',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Funnels with bounce; advantage on amphibian recipes",
+        "Hops when poured",
+        "Spills if hopped too much",
+        "Made by: Toad Toolers"
+    ],
+    vendor: 'the_toad_cult_bog',
+    shippedBy: 'Hop Funnel Haul',
+    levelRequirement: 5
+},
+'yoshi_clans_egg_carton_incubator': {
+    id: 'yoshi_clans_egg_carton_incubator',
+    name: "Yoshi Clans Egg Carton Incubator",
+    description: "Warm carton for incubating rice eggs? Wait, steaming.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍚',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Steams eggs gently; +1 to Dexterity for egg recipes",
+        "Hatches warmth (even heat)",
+        "Eggs might roll out",
+        "Made by: Yoshi Eggsmiths"
+    ],
+    vendor: 'yoshi_clans_village',
+    shippedBy: 'Egg Warm Wrap',
+    levelRequirement: 5
+},
+'knights_gilded_golden_bake_mold': {
+    id: 'knights_gilded_golden_bake_mold',
+    name: "Knights Gilded Golden Bake Mold",
+    description: "Mold for shaping golden pies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '🥧',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Molds perfectly; +1 to Charisma presentation",
+        "Gold leaf compatible",
+        "Shiny but scratches",
+        "Made by: Gilded Golders"
+    ],
+    vendor: 'knights_gilded_hall',
+    shippedBy: 'Gilded Gold Gear',
+    levelRequirement: 6
+},
+'merchant_guild_profit_scale_mixer': {
+    id: 'merchant_guild_profit_scale_mixer',
+    name: "Merchant Guild Profit Scale Mixer",
+    description: "Mixer with scales for precise pudding portions.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍮',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Measures while mixing; advantage on trade recipes",
+        "Balances profits (extra yield)",
+        "Scales tip with greed",
+        "Made by: Guild Measurers"
+    ],
+    vendor: 'merchant_guild_hall',
+    shippedBy: 'Scale Sweet Shipment',
+    levelRequirement: 5
+},
+'team_plasma_ethical_veggie_chopper': {
+    id: 'team_plasma_ethical_veggie_chopper',
+    name: "Team Plasma Ethical Veggie Chopper (Joke)",
+    description: "Chopper for vegan stews, no harm.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍲',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Chops veggies cleanly; +1 to Animal Handling post-meal",
+        "Peaceful blade (no blood)",
+        "Chops slowly for ethics",
+        "Made by: Plasma Choppers"
+    ],
+    vendor: 'team_plasma_lab',
+    shippedBy: 'Green Chop Gear',
+    levelRequirement: 5
+},
+'rakasha_clans_tiger_claw_carver': {
+    id: 'rakasha_clans_tiger_claw_carver',
+    name: "Rakasha Clans Tiger Claw Carver",
+    description: "Carver shaped like claws for curds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🧀',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Carves precise; advantage on claw-themed recipes",
+        "Claw grip secure",
+        "Scratches surfaces",
+        "Made by: Tiger Carvers"
+    ],
+    vendor: 'rakasha_clans_jungle',
+    shippedBy: 'Claw Cut Crate',
+    levelRequirement: 5
+},
+'starlight_festival_star_cutter': {
+    id: 'starlight_festival_star_cutter',
+    name: "Starlight Festival Star Cutter",
+    description: "Cutter for star-shaped salad fruits.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🥗',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Cuts stars perfectly; +1 to Charisma for festival foods",
+        "Shines under stars",
+        "Dull in day",
+        "Made by: Festival Toolers"
+    ],
+    vendor: 'starlight_festival',
+    shippedBy: 'Starry Slice Set',
+    levelRequirement: 5
+},
+'griffonstone_aerial_spit_roaster': {
+    id: 'griffonstone_aerial_spit_roaster',
+    name: "Griffonstone Aerial Spit Roaster",
+    description: "Wind-resistant roaster for goulash in flight.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🍲',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Rotates in wind; advantage on aerial cooking",
+        "Lightweight for griffons",
+        "Feathers stick to grease",
+        "Made by: Aerie Forgers"
+    ],
+    vendor: 'griffonstone_aerie',
+    shippedBy: 'Wing Wind Ware',
+    levelRequirement: 6
+},
+'rebel_clans_smokehouse_dryer': {
+    id: 'rebel_clans_smokehouse_dryer',
+    name: "Rebel Clans Smokehouse Dryer",
+    description: "Dryer for jerky in hidden camps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥩',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Dries quickly; +1 to preservation (lasts 2x longer)",
+        "Stealthy smoke (low visibility)",
+        "Attracts wild animals",
+        "Made by: Clan Dryers"
+    ],
+    vendor: 'rebel_clans_hideout',
+    shippedBy: 'Smoke Dry Dispatch',
+    levelRequirement: 5
+},
+'csto_observatory_stellar_stirrer': {
+    id: 'csto_observatory_stellar_stirrer',
+    name: "CSTO Observatory Stellar Stirrer",
+    description: "Stirrer aligned with stars for sorbet.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍨',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Stirs under stars; advantage on cosmic recipes",
+        "Adds stellar chill",
+        "Spins with constellations",
+        "Made by: Observatory Toolers"
+    ],
+    vendor: 'csto_observatory',
+    shippedBy: 'Star Stir Shipment',
+    levelRequirement: 5
+},
+'the_unchained_liberty_loaf_pan': {
+    id: 'the_unchained_liberty_loaf_pan',
+    name: "The Unchained Liberty Loaf Pan (Joke)",
+    description: "Pan for free-form loaves without chains.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍞',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Bakes free shapes; +1 to creative cooking",
+        "No sticking (freedom from pans)",
+        "Pan 'breaks' molds",
+        "Made by: Unchained Bakers"
+    ],
+    vendor: 'the_unchained_camp',
+    shippedBy: 'Free Form Fold',
+    levelRequirement: 5
+},
+'desert_traders_caravan_tea_kettle': {
+    id: 'desert_traders_caravan_tea_kettle',
+    name: "Desert Traders Caravan Tea Kettle",
+    description: "Whistling kettle for spice tea on the road.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍵',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Boils fast over fire; +1 to Persuasion after tea",
+        "Whistles like a trader's call",
+        "Dents from camel bumps",
+        "Made by: Trader Tinsmiths"
+    ],
+    vendor: 'desert_traders_market',
+    shippedBy: 'Spice Steam Set',
+    levelRequirement: 5
+},
+'monks_order_zen_meditation_mill': {
+    id: 'monks_order_zen_meditation_mill',
+    name: "Monks Order Zen Meditation Mill",
+    description: "Mill for grinding noodles with calm.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Grinds mindfully; advantage on Wisdom recipes",
+        "Calms user (remove stress)",
+        "Mill hums zen tunes",
+        "Made by: Order Grinders"
+    ],
+    vendor: 'monks_order_temple',
+    shippedBy: 'Zen Zest Zone',
+    levelRequirement: 5
+},
+'african_union_tribal_grain_mill': {
+    id: 'african_union_tribal_grain_mill',
+    name: "African Union Tribal Grain Mill",
+    description: "Hand mill for porridge grains.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🥣',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Mills communal batches; +1 to group cooking",
+        "Tribal rhythm (faster with song)",
+        "Stones wear smooth",
+        "Made by: Union Stonecarvers"
+    ],
+    vendor: 'african_union_village',
+    shippedBy: 'Grain Grind Gear',
+    levelRequirement: 5
+},
+'oathbound_judges_truth_tongs': {
+    id: 'oathbound_judges_truth_tongs',
+    name: "Oathbound Judges Truth Tongs",
+    description: "Tongs for handling soup without lies (burns false).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🍲',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Handles hot truth herbs; +1 to Insight during prep",
+        "Reveals tainted food",
+        "Tongs pinch liars",
+        "Made by: Judge Forgers"
+    ],
+    vendor: 'oathbound_judges_court',
+    shippedBy: 'Truth Tongs Tote',
+    levelRequirement: 6
+},
+'diamond_city_neon_heat_lamp': {
+    id: 'diamond_city_neon_heat_lamp',
+    name: "Diamond City Neon Heat Lamp (Joke)",
+    description: "Lamp that heats with neon glow for gummies.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍬',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Glows and heats; advantage on night city recipes",
+        "Neon adds color (cosmetic)",
+        "Flickers like signs",
+        "Made by: City Lampers"
+    ],
+    vendor: 'diamond_city_club',
+    shippedBy: 'Glow Heat Gear',
+    levelRequirement: 5
+},
+'earth_land_fairy_tail_guild_pot': {
+    id: 'earth_land_fairy_tail_guild_pot',
+    name: "Earth Land Fairy Tail Guild Pot",
+    description: "Magical pot for guild stews.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Pots for groups; +1 to team cooking",
+        "Tail magic (stirs itself)",
+        "Guild bond boost",
+        "Made by: Fairy Tail Smiths"
+    ],
+    vendor: 'earth_land_guild',
+    shippedBy: 'Tail Pot Tote',
+    levelRequirement: 5
+},
+'skaven_warren_rat_trap_strainer': {
+    id: 'skaven_warren_rat_trap_strainer',
+    name: "Skaven Warren Rat Trap Strainer",
+    description: "Strainer that 'traps' bits for risotto.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍚',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Strains fine; +1 to sneaky cooking",
+        "Traps extras (bonus ingredients)",
+        "Squeaks when strained",
+        "Made by: Warren Tinkers"
+    ],
+    vendor: 'skaven_warren',
+    shippedBy: 'Squeak Sieve Sack',
+    levelRequirement: 5
+},
+'abydos_high_school_bento_box_set': {
+    id: 'abydos_high_school_bento_box_set',
+    name: "Abydos High School Bento Box Set (Joke)",
+    description: "Compartmented boxes for lunch prep.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍱',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Organizes bento; +1 to Intelligence for school recipes",
+        "Seals tight for travel",
+        "Bell-shaped timer",
+        "Made by: School Crafters"
+    ],
+    vendor: 'abydos_high_campus',
+    shippedBy: 'Bento Bell Bundle',
+    levelRequirement: 5
+},
+'alvarez_empire_dragon_scale_spatula': {
+    id: 'alvarez_empire_dragon_scale_spatula',
+    name: "Alvarez Empire Dragon Scale Spatula",
+    description: "Heat-resistant spatula for spice rubs.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🌶️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Flips hot rubs; advantage on dragon recipes",
+        "Scale durable",
+        "Scales flake slightly",
+        "Made by: Empire Scalers"
+    ],
+    vendor: 'alvarez_empire_palace',
+    shippedBy: 'Scale Spat Shipment',
+    levelRequirement: 5
+},
+'void_entities_null_nutrient_nutrient_extractor': {
+    id: 'void_entities_null_nutrient_extractor',
+    name: "Void Entities Null Nutrient Extractor",
+    description: "Extractor for void jello essence.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '🍮',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Extracts null essences; +1 to void cooking",
+        "Creates wobbly results",
+        "Pulls in light (dim area)",
+        "Made by: Entity Extractors"
+    ],
+    vendor: 'void_entities_realm',
+    shippedBy: 'Null Nutrient Null',
+    levelRequirement: 6
+},
+'tea_leaf_fortune_folding_tool': {
+    id: 'tea_leaf_fortune_folding_tool',
+    name: "Tea Leaf Fortune Folding Tool",
+    description: "Tool for folding cookie fortunes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍪',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Folds precisely; advantage on prophecy recipes",
+        "Tool reveals minor fortunes",
+        "Paper crinkles loudly",
+        "Made by: Leaf Folders"
+    ],
+    vendor: 'tea_leaf_parlor',
+    shippedBy: 'Fortune Fold File',
+    levelRequirement: 5
+},
+'connectopia_virtual_flavor_injector': {
+    id: 'connectopia_virtual_flavor_injector',
+    name: "Connectopia Virtual Flavor Injector (Joke)",
+    description: "Injector for 'uploading' flavors to victuals.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🍬',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Injects digital taste; +1 to tech recipes",
+        "Flavors glitch (random)",
+        "Overloads with too much code",
+        "Made by: VR Injectors"
+    ],
+    vendor: 'connectopia_hub',
+    shippedBy: 'Pixel Inject Pan',
+    levelRequirement: 5
+},
+'liberated_toads_lily_pad_steamer': {
+    id: 'liberated_toads_lily_pad_steamer',
+    name: "Liberated Toads Lily Pad Steamer",
+    description: "Floating steamer on lily pads for pancakes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥞',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Steams on water; advantage on swamp recipes",
+        "Pads float (portable)",
+        "Attracts frogs",
+        "Made by: Toad Steamers"
+    ],
+    vendor: 'liberated_toads_pond',
+    shippedBy: 'Pad Steam Pan',
+    levelRequirement: 5
+},
+'team_aqua_aqua_pressure_cooker': {
+    id: 'team_aqua_aqua_pressure_cooker',
+    name: "Team Aqua Aqua Pressure Cooker",
+    description: "Underwater cooker for seaweed wraps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🌯',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks under pressure; reduces time by 30%",
+        "Waterproof for dives",
+        "Pressure builds (vent carefully)",
+        "Made by: Aqua Engineers"
+    ],
+    vendor: 'team_aqua_sub',
+    shippedBy: 'Deep Dive Dish',
+    levelRequirement: 5
+},
+'team_magma_lava_flow_funnel': {
+    id: 'team_magma_lava_flow_funnel',
+    name: "Team Magma Lava Flow Funnel",
+    description: "Funnel for pouring hot rock candy syrup.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍭',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Handles heat flow; advantage on lava recipes",
+        "Funnels without spill",
+        "Hardens if cooled",
+        "Made by: Magma Moldmakers"
+    ],
+    vendor: 'team_magma_volcano',
+    shippedBy: 'Hot Flow Haul',
+    levelRequirement: 5
+},
+'void_cult_shadow_steam_basket': {
+    id: 'void_cult_shadow_steam_basket',
+    name: "Void Cult Shadow Steam Basket",
+    description: "Basket for steaming in shadows.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍲',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Steams in dark; +1 to shadow recipes",
+        "Basket hides steam (stealthy)",
+        "Fades in light",
+        "Made by: Cult Weavers"
+    ],
+    vendor: 'void_cult_temple',
+    shippedBy: 'Dark Damp Dish',
+    levelRequirement: 5
+},
+'north_american_tribal_berry_masher': {
+    id: 'north_american_tribal_berry_masher',
+    name: "North American Tribal Berry Masher",
+    description: "Stone masher for pemmican berries.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🥩',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Mashes berries fine; advantage on quest recipes",
+        "Tribal durable",
+        "Stains with juice",
+        "Made by: Tribal Stonecarvers"
+    ],
+    vendor: 'north_american_tribe',
+    shippedBy: 'Berry Bash Bundle',
+    levelRequirement: 5
+},
+'bandits_roadside_scavenge_chopper': {
+    id: 'bandits_roadside_scavenge_chopper',
+    name: "Bandits Roadside Scavenge Chopper (Joke)",
+    description: "Rough chopper for looted rations.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Chops scavenged goods; +1 to Deception with 'stolen' food",
+        "Quick and dirty",
+        "Dull blade",
+        "Made by: Bandit Bladesmiths"
+    ],
+    vendor: 'bandits_camp',
+    shippedBy: 'Loot Chop Load',
+    levelRequirement: 5
+},
+'the_toad_gang_marsh_muck_strainer': {
+    id: 'the_toad_gang_marsh_muck_strainer',
+    name: "The Toad Gang Marsh Muck Strainer",
+    description: "Strainer for filtering bog ingredients.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍲',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Strains muck; advantage on swamp cooking",
+        "Bog-resistant",
+        "Clogs with mud",
+        "Made by: Gang Strainers"
+    ],
+    vendor: 'the_toad_gang_hideout',
+    shippedBy: 'Muck Mesh Mail',
+    levelRequirement: 5
+},
+'liminal_ghostly_ecto_stirrer': {
+    id: 'liminal_ghostly_ecto_stirrer',
+    name: "Liminal Ghostly Ecto Stirrer",
+    description: "Stirrer for ecto-plasm that phases.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍮',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Stirs ethereal; +1 to spirit recipes",
+        "Phases through solids",
+        "Stirrer haunts briefly",
+        "Made by: Liminal Toolers"
+    ],
+    vendor: 'liminal_border',
+    shippedBy: 'Ecto Stir Set',
+    levelRequirement: 6
+},
+'kingdom_rohan_rider_trail_grill': {
+    id: 'kingdom_rohan_rider_trail_grill',
+    name: "Kingdom Rohan Rider Trail Grill",
+    description: "Saddle-mounted grill for stews.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🍲',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Grills on horseback; advantage on mounted prep",
+        "Quick heat for trails",
+        "Sways with horse",
+        "Made by: Rohan Saddlers"
+    ],
+    vendor: 'kingdom_rohan_stables',
+    shippedBy: 'Rider Roast Rig',
+    levelRequirement: 5
+},
+'team_flare_fashion_plate_set': {
+    id: 'team_flare_fashion_plate_set',
+    name: "Team Flare Fashion Plate Set",
+    description: "Elegant plates for finger foods.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍴',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Presents stylishly; +1 to Charisma serving",
+        "Plates shine for flair",
+        "Fragile china",
+        "Made by: Flare Potters"
+    ],
+    vendor: 'team_flare_boutique',
+    shippedBy: 'Glam Plate Pack',
+    levelRequirement: 5
+},
+'team_rocket_sneak_sifter': {
+    id: 'team_rocket_sneak_sifter',
+    name: "Team Rocket Sneak Sifter (Joke)",
+    description: "Sifter for stealthy sandwich prep.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🥪',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Sifts quietly; advantage on stealth cooking",
+        "Hides fine powders",
+        "Meowth approved",
+        "Made by: Rocket Toolers"
+    ],
+    vendor: 'team_rocket_base',
+    shippedBy: 'Sneak Sift Shipment',
+    levelRequirement: 5
+},
+'team_star_rebel_rice_cooker': {
+    id: 'team_star_rebel_rice_cooker',
+    name: "Team Star Rebel Rice Cooker",
+    description: "Simple cooker for stellar snacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '⭐',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Cooks rice evenly; +1 to rebel morale recipes",
+        "Portable for hideouts",
+        "Stars on lid glow",
+        "Made by: Star Rebels"
+    ],
+    vendor: 'team_star_base',
+    shippedBy: 'Rebel Rice Rig',
+    levelRequirement: 5
+},
+'ranger_union_wild_herb_dryer': {
+    id: 'ranger_union_wild_herb_dryer',
+    name: "Ranger Union Wild Herb Dryer",
+    description: "Rack for drying berries into preserves.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🍓',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Dries herbs fast; advantage on preservation",
+        "Wild camo rack",
+        "Wind scatters leaves",
+        "Made by: Union Dryers"
+    ],
+    vendor: 'ranger_union_lodge',
+    shippedBy: 'Herb Hang Haul',
+    levelRequirement: 5
+},
+'go_rock_squad_rock_crusher_mill': {
+    id: 'go_rock_squad_rock_crusher_mill',
+    name: "Go-Rock Squad Rock Crusher Mill (Joke)",
+    description: "Mill for 'rock hard' cookie grains.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🍪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Crushes tough grains; +1 to Strength for rock recipes",
+        "Grinds like rocks",
+        "Dust clouds",
+        "Made by: Rock Grinders"
+    ],
+    vendor: 'go_rock_squad_cave',
+    shippedBy: 'Crush Cookie Crate',
+    levelRequirement: 5
+},
+
+'yoshi_clans_egg_fried_rice_recipe': {
+    id: 'yoshi_clans_egg_fried_rice_recipe',
+    name: "Recipe: Yoshi Clans Egg Fried Rice",
+    description: "Rice stir-fried with fresh eggs for dino energy.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍚',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Stir-fry with eggs (20 min); eat to gain +1 to Dexterity attacks for 2 hours",
+        "Requires: Rice and eggs; yolky",
+        "Yoshis devour it",
+        "Made by: Clan Cooks"
+    ],
+    vendor: 'yoshi_clans_village',
+    shippedBy: 'Eggshell Edition',
+    levelRequirement: 5
+},
+'knights_gilded_golden_apple_pie_recipe': {
+    id: 'knights_gilded_golden_apple_pie_recipe',
+    name: "Recipe: Knights Gilded Golden Apple Pie",
+    description: "Pie with gilded apples for knightly valor.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🥧',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Gild and bake (50 min); eat to gain +1 to Charisma (Intimidation) for 3 hours and heal 1d6 HP",
+        "Requires: Golden apples; luxurious",
+        "Knights toast",
+        "Made by: Gilded Bakers"
+    ],
+    vendor: 'knights_gilded_hall',
+    shippedBy: 'Shiny Slice Scroll',
+    levelRequirement: 6
+},
+'merchant_guild_profit_pudding_recipe': {
+    id: 'merchant_guild_profit_pudding_recipe',
+    name: "Recipe: Merchant Guild Profit Pudding",
+    description: "Pudding sweetened with 'golden' syrup for haggling luck.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍮',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Sweeten and set (30 min); eat to gain advantage on Persuasion for trades (2 hours) and +10% profit",
+        "Requires: Syrup; lucrative",
+        "Guild members get discount",
+        "Made by: Guild Chefs"
+    ],
+    vendor: 'merchant_guild_hall',
+    shippedBy: 'Golden Gel Guide',
+    levelRequirement: 5
+},
+'team_plasma_vegan_veggie_stew_recipe': {
+    id: 'team_plasma_vegan_veggie_stew_recipe',
+    name: "Recipe: Team Plasma Vegan Veggie Stew (Joke)",
+    description: "Ethical stew without animal products for liberation.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍲',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Simmer veggies (40 min); eat to gain +1 to Animal Handling and heal 1d4 HP (peaceful)",
+        "Requires: Veggies; cruelty-free",
+        "Pokémon thank you",
+        "Made by: Plasma Vegans"
+    ],
+    vendor: 'team_plasma_lab',
+    shippedBy: 'Green Goodness Gazette',
+    levelRequirement: 5
+},
+'rakasha_clans_tiger_milk_curd_recipe': {
+    id: 'rakasha_clans_tiger_milk_curd_recipe',
+    name: "Recipe: Rakasha Clans Tiger Milk Curd",
+    description: "Curdled milk from fierce tigers for claw strength.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🧀',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Curdle milk (overnight); eat to gain advantage on claw/unarmed strikes for 2 hours",
+        "Requires: Tiger milk; fierce",
+        "Clans roar",
+        "Made by: Tiger Herders"
+    ],
+    vendor: 'rakasha_clans_jungle',
+    shippedBy: 'Claw Curd Codex',
+    levelRequirement: 5
+},
+'starlight_festival_star_fruit_salad_recipe': {
+    id: 'starlight_festival_star_fruit_salad_recipe',
+    name: "Recipe: Starlight Festival Star Fruit Salad",
+    description: "Salad of star-shaped fruits for festival wishes.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🥗',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Slice stars (15 min); eat to gain inspiration for one wish-related roll and +1 Charisma",
+        "Requires: Star fruits; twinkly",
+        "Stars align",
+        "Made by: Festival Chefs"
+    ],
+    vendor: 'starlight_festival',
+    shippedBy: 'Starry Salad Sheet',
+    levelRequirement: 5
+},
+'griffonstone_griffon_griff_goulash_recipe': {
+    id: 'griffonstone_griffon_griff_goulash_recipe',
+    name: "Recipe: Griffonstone Griff Goulash",
+    description: "Hearty goulash for aerial predators.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Stew meats (50 min); eat to gain advantage on flying/mounted checks for 3 hours",
+        "Requires: Game meat; griff-tough",
+        "Wings flap stronger",
+        "Made by: Aerie Cooks"
+    ],
+    vendor: 'griffonstone_aerie',
+    shippedBy: 'Wing-Worthy Whisk',
+    levelRequirement: 6
+},
+'rebel_clans_smokehouse_jerky_recipe': {
+    id: 'rebel_clans_smokehouse_jerky_recipe',
+    name: "Recipe: Rebel Clans Smokehouse Jerky",
+    description: "Smoked jerky for guerrilla fighters on the move.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥩',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Smoke meat (2 hours); eat strip to sustain without food for 12 hours and +1 to Stealth",
+        "Requires: Meat and smoke; portable",
+        "Rebel fuel",
+        "Made by: Clan Smokers"
+    ],
+    vendor: 'rebel_clans_hideout',
+    shippedBy: 'Smoky Strip Scroll',
+    levelRequirement: 5
+},
+'csto_cosmic_stardust_sorbet_recipe': {
+    id: 'csto_cosmic_stardust_sorbet_recipe',
+    name: "Recipe: CSTO Cosmic Stardust Sorbet",
+    description: "Frozen sorbet with meteor 'dust' for stellar sight.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍨',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Freeze with dust (freeze time); eat to gain advantage on stargazing/Navigation for 4 hours",
+        "Requires: Stardust; cosmic cool",
+        "Stars clearer",
+        "Made by: Observatory Chefs"
+    ],
+    vendor: 'csto_observatory',
+    shippedBy: 'Stellar Scoop Summary',
+    levelRequirement: 6
+},
+'the_unchained_liberty_fruit_salad_recipe': {
+    id: 'the_unchained_liberty_fruit_salad_recipe',
+    name: "Recipe: The Unchained Liberty Fruit Salad (Joke)",
+    description: "Free-range fruit salad for liberated palates.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🥗',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Toss free fruits (10 min); eat to gain +1 to saves vs. chains/restraints for 2 hours",
+        "Requires: Wild fruits; freedom flavor",
+        "Breaks metaphorical bonds",
+        "Made by: Unchained Foragers"
+    ],
+    vendor: 'the_unchained_camp',
+    shippedBy: 'Free Fruit Folio',
+    levelRequirement: 5
+},
+'desert_traders_spice_tea_recipe': {
+    id: 'desert_traders_spice_tea_recipe',
+    name: "Recipe: Desert Traders Spice Tea",
+    description: "Hot tea with caravan spices for trade endurance.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍵',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Brew spices (15 min); drink to gain advantage on Persuasion for bartering (3 hours)",
+        "Requires: Spices; warming",
+        "Traders' secret",
+        "Made by: Caravan Brewers"
+    ],
+    vendor: 'desert_traders_market',
+    shippedBy: 'Spicy Steep Scroll',
+    levelRequirement: 5
+},
+'monks_order_zen_zen_noodles_recipe': {
+    id: 'monks_order_zen_zen_noodles_recipe',
+    name: "Recipe: Monks Order Zen Zen Noodles",
+    description: "Simple noodles for meditative meals.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍜',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil noodles (20 min); eat to gain advantage on Wisdom (Meditation) for 2 hours and calm (remove stressed)",
+        "Requires: Noodles; balanced",
+        "Zen flow",
+        "Made by: Order Cooks"
+    ],
+    vendor: 'monks_order_temple',
+    shippedBy: 'Noodle Nirvana Notes',
+    levelRequirement: 5
+},
+'african_union_tribal_grain_porridge_recipe': {
+    id: 'african_union_tribal_grain_porridge_recipe',
+    name: "Recipe: African Union Tribal Grain Porridge",
+    description: "Porridge from ancient grains for communal strength.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🥣',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Cook grains (30 min); eat to gain +1 to group saves for 4 hours (tribal bond)",
+        "Requires: Grains; shared meal",
+        "Union unity",
+        "Made by: Village Elders"
+    ],
+    vendor: 'african_union_village',
+    shippedBy: 'Grain Gathering Guide',
+    levelRequirement: 5
+},
+'oathbound_judges_truth_serum_soup_recipe': {
+    id: 'oathbound_judges_truth_serum_soup_recipe',
+    name: "Recipe: Oathbound Judges Truth Serum Soup",
+    description: "Soup with truth herbs for honest confessions.",
+    category: SHOP_CATEGORIES.services,
+    price: 8500,
+    icon: '🍲',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Infuse herbs (40 min); eat/drink to gain advantage on Insight vs. lies for 2 hours",
+        "Requires: Truth herbs; revealing",
+        "Judges' tool",
+        "Made by: Court Cooks"
+    ],
+    vendor: 'oathbound_judges_court',
+    shippedBy: 'Serum Soup Summary',
+    levelRequirement: 6
+},
+'diamond_city_neon_glow_gummies_recipe': {
+    id: 'diamond_city_neon_glow_gummies_recipe',
+    name: "Recipe: Diamond City Neon Glow Gummies (Joke)",
+    description: "Glowing gummies for night city vibes.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍬',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Gel with dye (25 min); eat to gain 10ft dim light vision for 1 hour",
+        "Requires: Gelatin; neon chew",
+        "Glows in dark – party starter",
+        "Made by: City Confectioners"
+    ],
+    vendor: 'diamond_city_club',
+    shippedBy: 'Glow Gel Gazette',
+    levelRequirement: 5
+},
+'earth_land_fairy_tail_guild_stew_recipe': {
+    id: 'earth_land_fairy_tail_guild_stew_recipe',
+    name: "Recipe: Earth Land Fairy Tail Guild Stew",
+    description: "Magical stew shared among guildmates for bonds.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍲',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Potluck style (1 hour); eat with group to gain +1 to team attacks for 3 hours",
+        "Requires: Shared ingredients; guild magic",
+        "Tails wag with joy",
+        "Made by: Fairy Tail Cooks"
+    ],
+    vendor: 'earth_land_guild',
+    shippedBy: 'Guild Pot Page',
+    levelRequirement: 5
+},
+'skaven_rat_risotto_recipe': {
+    id: 'skaven_rat_risotto_recipe',
+    name: "Recipe: Skaven Rat Risotto",
+    description: "Creamy rice with 'special' proteins for skulking.",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🍚',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Stir rice (30 min); eat to gain advantage on Stealth in tight spaces for 2 hours",
+        "Requires: Rice and 'rats'; sneaky",
+        "Skaven squeak delight",
+        "Made by: Warren Chefs"
+    ],
+    vendor: 'skaven_warren',
+    shippedBy: 'Squeaky Stir Scroll',
+    levelRequirement: 5
+},
+'abydos_high_school_lunch_bento_recipe': {
+    id: 'abydos_high_school_lunch_bento_recipe',
+    name: "Recipe: Abydos High School Lunch Bento (Joke)",
+    description: "Balanced bento for student stamina.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🍱',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Pack neatly (15 min); eat to gain +1 to Intelligence checks during 'class' (study time)",
+        "Requires: Rice and veggies; school standard",
+        "Bell rings for lunch",
+        "Made by: School Cafeteria"
+    ],
+    vendor: 'abydos_high_campus',
+    shippedBy: 'Bento Box Brief',
+    levelRequirement: 5
+},
+'alvarez_empire_dragon_spice_rub_recipe': {
+    id: 'alvarez_empire_dragon_spice_rub_recipe',
+    name: "Recipe: Alvarez Empire Dragon Spice Rub",
+    description: "Rub for meats with dragonfire spices.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🌶️',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Rub and cook (varies); apply to meal for +1d4 fire damage on next attack after eating",
+        "Requires: Dragon spices; hot",
+        "Empire fire",
+        "Made by: Dragon Chefs"
+    ],
+    vendor: 'alvarez_empire_palace',
+    shippedBy: 'Spicy Scale Summary',
+    levelRequirement: 6
+},
+'void_entities_void_essence_jello_recipe': {
+    id: 'void_entities_void_essence_jello_recipe',
+    name: "Recipe: Void Entities Void Essence Jello",
+    description: "Wobbly jello from void essence for null space.",
+    category: SHOP_CATEGORIES.services,
+    price: 9000,
+    icon: '🍮',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Set with essence (freeze); eat to gain minor teleport (5ft, once) and resistance to void",
+        "Requires: Void gel; wobbly",
+        "Entities observe",
+        "Made by: Void Cooks"
+    ],
+    vendor: 'void_entities_realm',
+    shippedBy: 'Null Nibble Notes',
+    levelRequirement: 7
+},
+'tea_leaf_fortune_cookie_recipe': {
+    id: 'tea_leaf_fortune_cookie_recipe',
+    name: "Recipe: Tea Leaf Fortune Cookie",
+    description: "Cookies with tea leaf fortunes inside.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍪',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Fold with fortunes (25 min); eat to read fortune for inspiration or minor hint (DM)",
+        "Requires: Dough and tea leaves; prophetic",
+        "Luck in the crumbs",
+        "Made by: Leaf Bakers"
+    ],
+    vendor: 'tea_leaf_parlor',
+    shippedBy: 'Fortune Fold File',
+    levelRequirement: 5
+},
+'connectopia_virtual_reality_victuals_recipe': {
+    id: 'connectopia_virtual_reality_victuals_recipe',
+    name: "Recipe: Connectopia Virtual Reality Victuals (Joke)",
+    description: "Digital-flavored snacks that taste like code.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '🍬',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: 'Upload' flavors (10 min); eat to gain advantage on tech saves for 1 hour",
+        "Requires: Synthetic ingredients; pixelated",
+        "Glitches your taste buds",
+        "Made by: VR Chefs"
+    ],
+    vendor: 'connectopia_hub',
+    shippedBy: 'Byte Bite Bulletin',
+    levelRequirement: 5
+},
+'liberated_toads_lily_pad_pancakes_recipe': {
+    id: 'liberated_toads_lily_pad_pancakes_recipe',
+    name: "Recipe: Liberated Toads Lily Pad Pancakes",
+    description: "Pancakes shaped like lily pads for swamp freedom.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥞',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Flip on 'pads' (20 min); eat to gain advantage on jumps in water for 2 hours",
+        "Requires: Batter; hoppy",
+        "Toads liberate your hunger",
+        "Made by: Toad Rebels"
+    ],
+    vendor: 'liberated_toads_pond',
+    shippedBy: 'Pad Pancake Page',
+    levelRequirement: 5
+},
+'team_aqua_seaweed_wraps_recipe': {
+    id: 'team_aqua_seaweed_wraps_recipe',
+    name: "Recipe: Team Aqua Seaweed Wraps",
+    description: "Wraps filled with ocean bounty for divers.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🌯',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Wrap seaweed (15 min); eat to gain swim speed +10 ft for 3 hours",
+        "Requires: Seaweed and fish; aquatic",
+        "Aqua approved",
+        "Made by: Aqua Cooks"
+    ],
+    vendor: 'team_aqua_sub',
+    shippedBy: 'Wave Wrap Writings',
+    levelRequirement: 5
+},
+'team_magma_volcanic_rock_candy_recipe': {
+    id: 'team_magma_volcanic_rock_candy_recipe',
+    name: "Recipe: Team Magma Volcanic Rock Candy",
+    description: "Hard candy like lava rocks for heat lovers.",
+    category: SHOP_CATEGORIES.services,
+    price: 6500,
+    icon: '🍭',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Crystallize sugar (30 min); eat to gain resistance to fire for 2 hours",
+        "Requires: Hot sugar; rocky",
+        "Magma melts in mouth",
+        "Made by: Magma Confectioners"
+    ],
+    vendor: 'team_magma_base',
+    shippedBy: 'Lava Lollipop Ledger',
+    levelRequirement: 5
+},
+'void_cult_shadow_essence_gelatin_recipe': {
+    id: 'void_cult_shadow_essence_gelatin_recipe',
+    name: "Recipe: Void Cult Shadow Essence Gelatin",
+    description: "Dark gelatin for void communion.",
+    category: SHOP_CATEGORIES.services,
+    price: 8000,
+    icon: '🍮',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Set in shadows (40 min); eat to gain advantage on saves vs. light for 2 hours and minor shadow step (5ft)",
+        "Requires: Shadow essence; null taste",
+        "Cult whispers",
+        "Made by: Void Chefs"
+    ],
+    vendor: 'void_cult_temple',
+    shippedBy: 'Dark Dessert Dispatch',
+    levelRequirement: 6
+},
+'north_american_eagle_berry_pemmican_recipe': {
+    id: 'north_american_eagle_berry_pemmican_recipe',
+    name: "Recipe: North American Eagle Berry Pemmican",
+    description: "Dried meat and berries for vision quests.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🥩',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Dry and mix (1 hour); eat bar to gain advantage on Wisdom (Perception) for 4 hours",
+        "Requires: Meat and berries; trail-ready",
+        "Eagle eye boost",
+        "Made by: Tribal Hunters"
+    ],
+    vendor: 'north_american_tribe',
+    shippedBy: 'Quest Quaff Quill',
+    levelRequirement: 5
+},
+'bandits_highway_robbers_rations_recipe': {
+    id: 'bandits_highway_robbers_rations_recipe',
+    name: "Recipe: Bandits Highway Robbers Rations (Joke)",
+    description: "Stolen-flavor rations for quick getaways.",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🥪',
+    stock: 12,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Scavenge and pack (10 min); eat to gain +10 ft speed for escape (1 hour)",
+        "Requires: Looted food; shady",
+        "Robbed taste – mixed",
+        "Made by: Bandit Scavengers"
+    ],
+    vendor: 'bandits_camp',
+    shippedBy: 'Stolen Snack Summary',
+    levelRequirement: 5
+},
+'the_toad_gang_toad_in_the_hole_recipe': {
+    id: 'the_toad_gang_toad_in_the_hole_recipe',
+    name: "Recipe: The Toad Gang Toad in the Hole",
+    description: "Batter pudding with 'toad' sausages for bog bravery.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥧',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake batter (40 min); eat to gain advantage on saves vs. fear in swamps for 2 hours",
+        "Requires: Sausages; hole-y",
+        "Gang hops to it",
+        "Made by: Toad Gang"
+    ],
+    vendor: 'the_toad_gang_hideout',
+    shippedBy: 'Hole-y Batter Book',
+    levelRequirement: 5
+},
+'liminal_ghostly_ecto_plasm_recipe': {
+    id: 'liminal_ghostly_ecto_plasm_recipe',
+    name: "Recipe: Liminal Ghostly Ecto-Plasm",
+    description: "Glowing plasm dessert for spirit sight.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍮',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "Teaches recipe: Mix ecto (30 min); eat to gain detect undead (30ft) for 2 hours",
+        "Requires: Ecto ingredients; spooky",
+        "Ghosts whisper thanks",
+        "Made by: Liminal Mediums"
+    ],
+    vendor: 'liminal_border',
+    shippedBy: 'Ecto Edition',
+    levelRequirement: 6
+},
+'kingdom_rohan_horse_mans_stew_recipe': {
+    id: 'kingdom_rohan_horse_mans_stew_recipe',
+    name: "Recipe: Kingdom Rohan Horseman's Stew",
+    description: "Stew for riders of the mark, hearty and horse-friendly.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍲',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Simmer on trail (45 min); eat to gain mounted endurance (+1 CON saves) for 4 hours",
+        "Requires: Game and roots; rider's fuel",
+        "Horses neigh approval",
+        "Made by: Rohan Cooks"
+    ],
+    vendor: 'kingdom_rohan_stables',
+    shippedBy: 'Riders Recipe Reel',
+    levelRequirement: 5
+},
+'team_flare_fashionable_finger_foods_recipe': {
+    id: 'team_flare_fashionable_finger_foods_recipe',
+    name: "Recipe: Team Flare Fashionable Finger Foods",
+    description: "Stylish bites for glamorous gatherings.",
+    category: SHOP_CATEGORIES.services,
+    price: 7500,
+    icon: '🍴',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Plate elegantly (20 min); eat to gain +2 Charisma for social events (2 hours)",
+        "Requires: Fancy ingredients; chic",
+        "Flare fabulous",
+        "Made by: Flare Caterers"
+    ],
+    vendor: 'team_flare_boutique',
+    shippedBy: 'Glam Garnish Guide',
+    levelRequirement: 5
+},
+'team_rocket_stealth_sandwiches_recipe': {
+    id: 'team_rocket_stealth_sandwiches_recipe',
+    name: "Recipe: Team Rocket Stealth Sandwiches (Joke)",
+    description: "Sandwiches that help you 'blast off' quietly.",
+    category: SHOP_CATEGORIES.services,
+    price: 6000,
+    icon: '🥪',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Wrap stealthily (15 min); eat to gain advantage on Stealth for escape (1 hour)",
+        "Requires: Bread and fillings; sneaky",
+        "Prepare for trouble!",
+        "Made by: Rocket Chefs"
+    ],
+    vendor: 'team_rocket_base',
+    shippedBy: 'Blast-Off Bun Book',
+    levelRequirement: 5
+},
+'team_star_stellar_snacks_recipe': {
+    id: 'team_star_stellar_snacks_recipe',
+    name: "Recipe: Team Star Stellar Snacks",
+    description: "Snacks shaped like stars for rebel stars.",
+    category: SHOP_CATEGORIES.services,
+    price: 5500,
+    icon: '⭐',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Cut star shapes (25 min); eat to gain +1 to Charisma with outcasts for 2 hours",
+        "Requires: Dough; starry",
+        "Shine bright",
+        "Made by: Star Rebels"
+    ],
+    vendor: 'team_star_base',
+    shippedBy: 'Stellar Snack Summary',
+    levelRequirement: 5
+},
+'ranger_union_wild_berry_preserve_recipe': {
+    id: 'ranger_union_wild_berry_preserve_recipe',
+    name: "Recipe: Ranger Union Wild Berry Preserve",
+    description: "Jam from wild berries for trail preservation.",
+    category: SHOP_CATEGORIES.services,
+    price: 7000,
+    icon: '🍓',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Boil berries (30 min); spread on bread to heal 1d6 HP and advantage on Survival tracking",
+        "Requires: Wild berries; preserves food",
+        "Ranger's edge",
+        "Made by: Union Foragers"
+    ],
+    vendor: 'ranger_union_lodge',
+    shippedBy: 'Berry Preserve Brief',
+    levelRequirement: 5
+},
+'go_rock_squad_rock_hard_cookies_recipe': {
+    id: 'go_rock_squad_rock_hard_cookies_recipe',
+    name: "Recipe: Go-Rock Squad Rock Hard Cookies (Joke)",
+    description: "Cookies as tough as rock for squad munchies.",
+    category: SHOP_CATEGORIES.services,
+    price: 5000,
+    icon: '🍪',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Teaches recipe: Bake extra hard (35 min); eat to gain +1 to Strength saves vs. crushing for 2 hours",
+        "Requires: Flour and 'rocks' (nuts); durable",
+        "Chips teeth? Nah, toughens jaw",
+        "Made by: Rock Chefs"
+    ],
+    vendor: 'go_rock_squad_cave',
+    shippedBy: 'Hard Hit Handbook',
+    levelRequirement: 5
+},
 'gondor_rangers_cloak': {
     id: 'gondor_rangers_cloak',
     name: "Gondor Ranger's Cloak",
@@ -31032,7 +38061,7 @@ export const SHOP_ITEMS = {
         name: "WarioWare, Inc. Majority Share",
         description: "Buy Wario's company. You become the owner of Wario's Warehouse.",
         category: SHOP_CATEGORIES.PREMIUM,
-        price: 500000000,
+        price: 900000000000000,
         icon: '💰',
         stock: 1,
         rarity: 'godly',
@@ -31046,7 +38075,610 @@ export const SHOP_ITEMS = {
         shippedBy: 'Legal Team',
         levelRequirement: 15
     },
-
+'wario_land_garlic_breath_enhancer': {
+    id: 'wario_land_garlic_breath_enhancer',
+    name: "Wario's Garlic Breath Enhancer",
+    description: "A spray bottle of concentrated garlic extract. 'Guaranteed to make an impression!'",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12500,
+    icon: '🧄',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "As a bonus action, spray to gain a 5ft poison breath attack (1d4 poison damage, CON save DC 12)",
+        "Disadvantage on all Charisma checks for 1 hour (repulsive breath)",
+        "Vampires and blood-sucking creatures must succeed DC 15 Wisdom save or flee for 1 round",
+        "Comes with a 'free' sample of Wario's Breath Mints (they're just more garlic)",
+        "Made by: Wario Land Pharmaceuticals (Not FDA Approved)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud (Express)',
+    levelRequirement: 5
+},
+'wario_land_wario_ware_microtransaction_amulet': {
+    id: 'wario_land_wario_ware_microtransaction_amulet',
+    name: "WarioWare Microtransaction Amulet",
+    description: "An amulet that lets you 'enhance' your abilities... for a small fee each time.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '💎',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Pay 10 gold as a bonus action to gain +1 to your next attack roll, save, or ability check",
+        "Amulet charges 'processing fees': you lose 1 gold per hour while wearing it (magical theft)",
+        "After 5 uses, you get a 'loyalty bonus' - one free use (Wario's version of charity)",
+        "The amulet plays a jingle every time you use it: disadvantage on Stealth",
+        "Made by: WarioWare Mobile Games Division"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Microtransaction Network',
+    levelRequirement: 6
+},
+'wario_land_questionable_treasure_map': {
+    id: 'wario_land_questionable_treasure_map',
+    name: "Wario's 'Totally Legit' Treasure Map",
+    description: "A treasure map that Wario 'found' (definitely didn't draw himself).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '🗺️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Map leads to a random location (DM chooses): 50% chance of treasure, 50% chance of a trap",
+        "If it's a trap, it's a Wario-style trap: inconvenient but not lethal (gold stolen by Wario)",
+        "If treasure exists, it's 2d100 gp but Wario's face is on every coin (cosmetic but embarrassing)",
+        "Map is drawn in crayon: advantage on checks to spot it's fake, but you want to believe",
+        "Made by: Wario Land Cartography (Est. Yesterday)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 5
+},
+'wario_land_fitness_shake_mix': {
+    id: 'wario_land_fitness_shake_mix',
+    name: "Wario's WAAAAH! Fitness Shake Mix",
+    description: "Bulk up like Wario! (Side effects may include aggressive flatulence).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14500,
+    icon: '🥤',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Mix with water to create a shake: grants +2 to Strength checks for 1 hour",
+        "During the hour, you must make a DC 10 Constitution save every 10 minutes or emit a 10ft gas cloud (poisoned condition for 1 round to creatures in area)",
+        "Shake is 80% garlic powder: vampires avoid you (advantage on Charisma checks to repel them)",
+        "Comes with a 'free' shaker cup that leaks (disadvantage on Sleight of Hand)",
+        "Made by: Wario Land Fitness (No Refunds)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shake Delivery',
+    levelRequirement: 5
+},
+'wario_land_scammy_loan_contract': {
+    id: 'wario_land_scammy_loan_contract',
+    name: "Wario's Quick Cash Loan Contract",
+    description: "Need gold now? Wario's got you covered (for a price).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 500, // Cheap to buy the contract
+    icon: '📃',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Receive 1000 gp immediately, but must pay back 1500 gp within 7 days",
+        "If you default, Wario takes one random piece of your equipment (he leaves a receipt)",
+        "While in debt, you have disadvantage on Charisma checks with merchants (word gets around)",
+        "Paying back early gives you a 'Wario Points' card (collect 10 for a free garlic spray)",
+        "Contract is legally binding in 12 dimensions (including the bad ones)",
+        "Made by: Wario Land Financial Services (LLC, Ltd., Inc., Co.)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Contractual Obligation',
+    levelRequirement: 5
+},
+'wario_land_garlic_mine': {
+    id: 'wario_land_garlic_mine',
+    name: "Wario Land Garlic Mine",
+    description: "A deployable mine that sprays garlic mist. 'For home defense!'",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '💣',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Plant the mine as an action: 10ft radius, triggers on proximity",
+        "When triggered, creates a garlic gas cloud for 1 minute: creatures must succeed DC 13 Constitution save or be poisoned for 1 round",
+        "Vampires and undead take 1d6 radiant damage and are stunned for 1 round if they fail the save",
+        "Mine has a 10% chance to be a dud and just spray Wario's cologne (disadvantage on Charisma checks in 10ft radius for 1 hour)",
+        "You can collect 1d4 garlic bulbs from the mine after use (free ingredients)",
+        "Made by: Wario Land Home Defense (Patent Pending)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Explosive Parcel (Handle with Care)',
+    levelRequirement: 6
+},
+'wario_land_wafting_warp_whistle': {
+    id: 'wario_land_wafting_warp_whistle',
+    name: "Wario's Wafting Warp Whistle",
+    description: "Teleport away from danger! Leaves a garlic cloud behind.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21500,
+    icon: '🎺',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Blow as a reaction to teleport 30ft in a random direction (DM chooses direction)",
+        "Leaves a 15ft garlic cloud that lasts 1 round: creatures must succeed DC 12 Constitution save or be poisoned",
+        "Whistle has a 20% chance to warp you into a wall (you take 1d6 bludgeoning damage, CON save DC 13 to avoid)",
+        "On a natural 1, you teleport to Wario's bathroom (he's very confused, you're very embarrassed)",
+        "Whistle is single-use but recharges after a long rest (Wario recharges it with his 'personal energy')",
+        "Made by: Wario Land Transportation (Not Liable for Accidents)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud (Priority)',
+    levelRequirement: 7
+},
+'wario_land_premium_wario_costume': {
+    id: 'wario_land_premium_wario_costume',
+    name: "Wario Land Premium Wario Costume",
+    description: "Look and smell just like Wario! (Why would you want this?)",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16500,
+    icon: '👷',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Disguise yourself as Wario: advantage on Intimidation checks, disadvantage on Persuasion checks",
+        "Children and Mario fans are terrified of you (disadvantage on Charisma with them)",
+        "You can perform the 'Wario Waft' once per day: 10ft poison gas cloud, CON save DC 13 or be poisoned for 1 round",
+        "Costume is itchy: disadvantage on Concentration checks while wearing it",
+        "Wario signs autographs on the costume if you meet him (he signs it 'Better than Mario')",
+        "Made by: Wario Land Costume Shop (100% Polyester, 0% Dignity)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wario Express (Delayed)',
+    levelRequirement: 5
+},
+'wario_land_gold_plated_toothpick': {
+    id: 'wario_land_gold_plated_toothpick',
+    name: "Wario's Gold-Plated Toothpick",
+    description: "A toothpick so fancy you could use it as a lockpick (but shouldn't).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🦷',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Can be used as a lockpick with advantage (it's gold-plated, lock thinks you're fancy)",
+        "After each use, you must clean it with your mouth: restore 1 HP but disadvantage on Charisma for 10 minutes (garlic breath)",
+        "Toothpick is so ostentatious that wealthy NPCs notice you: advantage on Charisma checks with them",
+        "5% chance it snaps in the lock: lock becomes jammed, disadvantage on future checks with that lock",
+        "Made by: Wario Land Dental (Not a Real Dentist)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Gold-Plated Envelope',
+    levelRequirement: 5
+},
+'wario_land_questionable_potion_of_questionable_power': {
+    id: 'wario_land_questionable_potion_of_questionable_power',
+    name: "Wario's 'Definitely Magic' Potion",
+    description: "A potion that is definitely, probably, maybe magical. 60% of the time, it works every time.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18500,
+    icon: '🧪',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Drink as an action: roll 1d6 - 1-3: no effect (it's just garlic water), 4-5: gain 1d10 temporary HP, 6: gain +2 to Strength for 1 hour",
+        "After drinking, you must succeed DC 13 Constitution save or be poisoned for 1 round (questionable ingredients)",
+        "Bottle is made of cheap glass: 20% chance it breaks in your bag, soaking everything with garlic smell",
+        "Potion has a '100% Satisfaction Guarantee' sticker (Wario's face is on the sticker, winking)",
+        "Made by: Wario Land Alchemy (Certified by Wario Himself)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Bottle Service',
+    levelRequirement: 6
+},
+'wario_land_stolen_mario_powerup': {
+    id: 'wario_land_stolen_mario_powerup',
+    name: "Wario's 'Acquired' Mario Power-Up",
+    description: "A power-up that fell off the back of a truck. Definitely not stolen.",
+    category: SHOP_CATEGORIES.PREMIUM,
+    price: 24500,
+    icon: '⭐',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "It's a Fire Flower... but it's been 'modified': you can cast Burning Hands once per day (DC 13)",
+        "After use, you must make a DC 10 Wisdom save or become convinced you're Mario (disadvantage on Charisma checks, you say 'Mama mia!' constantly)",
+        "Mario's lawyers may appear: 5% chance per use that a celestial attorney shows up and demands the power-up back (DM-controlled, just annoying)",
+        "Power-up is clearly repainted: original red is visible under yellow paint",
+        "Made by: 'Found' by Wario (Allegedly)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shady Delivery',
+    levelRequirement: 7
+},
+'wario_gold_detector_wand': {
+    id: 'wario_gold_detector_wand',
+    name: "Wario's Gold Detector Wand (Scam Alert!)",
+    description: "A shiny wand that beeps near treasure... or just shiny rocks. Wario swears by it!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🪄',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Beeps near gold (or fool's gold): advantage on Investigation for treasures, but 50% chance it points to worthless dirt",
+        "Wand vibrates excitedly: +1 to Intimidation when waving it (Wario-style greed)",
+        "Backfires: 20% chance it explodes in a cloud of fake gold dust (blinded for 1 round, DC 10 CON save)",
+        "Made by: Wario's Shady Workshop"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Warios Wacky Wagon',
+    levelRequirement: 5
+},
+'wario_garlic_power_bracelet': {
+    id: 'wario_garlic_power_bracelet',
+    name: "Wario's Garlic Power Bracelet",
+    description: "A bracelet infused with Wario's favorite garlic – boosts strength or your stench?",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9500,
+    icon: '🧄',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: Gain +1 Strength for 1 hour (garlic munchies!)",
+        "Repels vampires and picky eaters: advantage on saves vs. undead charms",
+        "Side effect: Your breath becomes a weapon (1d4 poison damage in 5ft cone, but allies must save DC 10 CON or nauseated)",
+        "Made by: Wario's Garlic Lab"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stinky Sack',
+    levelRequirement: 5
+},
+'wario_infinite_coin_purse': {
+    id: 'wario_infinite_coin_purse',
+    name: "Wario's Infinite Coin Purse (Ultimate Scam!)",
+    description: "Wario claims it never runs out of gold – perfect for endless riches!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '💰',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Holds unlimited coins... but they're all counterfeit (looks real, but crumbles after 1 use)",
+        "Fools basic checks: advantage on Deception for wealth displays",
+        "Revealed scam: When caught, purse explodes into confetti (blinded, DC 12 DEX save, and -50gp fine from angry merchants)",
+        "Made by: Wario's Counterfeit Corner"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Greedy Grab Bag',
+    levelRequirement: 6
+},
+'wario_mustache_disguise_kit': {
+    id: 'wario_mustache_disguise_kit',
+    name: "Wario's Mustache Disguise Kit (Gimmick Fun!)",
+    description: "Fake mustaches to impersonate Wario – or anyone with a 'stache!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8500,
+    icon: '😵',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Attach mustache: advantage on Disguise checks to look villainous or greedy",
+        "Includes glue: lasts 1 hour, but itches (disadvantage on Concentration)",
+        "Bonus: Mustache twirls for +1 Charisma (Performance) in dramatic scenes",
+        "Made by: Wario's Costume Closet"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wacky Wig Wagon',
+    levelRequirement: 5
+},
+'wario_treasure_map_generator': {
+    id: 'wario_treasure_map_generator',
+    name: "Wario's Treasure Map Generator",
+    description: "A device that 'draws' maps to hidden loot – Wario's surefire scheme!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14000,
+    icon: '🗺️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Generates a map once per day: leads to minor treasure (10-50gp) 70% of the time, or a trap (1d6 damage) 30%",
+        "Map is waterproof: advantage on Survival in wet areas",
+        "Wario's watermark: attracts rival treasure hunters (complication)",
+        "Made by: Wario's Map Mill"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Pirate Post',
+    levelRequirement: 5
+},
+'wario_garlic_breath_mints': {
+    id: 'wario_garlic_breath_mints',
+    name: "Wario's Garlic Breath Mints (Scam Breath!)",
+    description: "Mints that freshen breath... with garlic? Wario's twisted logic!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🍬',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Eat one: Removes bad breath penalty, but adds garlic stench (advantage vs. undead, disadvantage on social with normals)",
+        "Pack of 10: Lasts 1 day each",
+        "Scam twist: Mints are just garlic candy – no freshening, just more smell (wasted gold!)",
+        "Made by: Wario's Candy Scam Factory"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Breath Blaster Bag',
+    levelRequirement: 5
+},
+'wario_shoulder_bash_pad': {
+    id: 'wario_shoulder_bash_pad',
+    name: "Wario's Shoulder Bash Pad",
+    description: "Padded shoulder gear for Wario's signature charge – bash your way to victory!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 13000,
+    icon: '🛡️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Once per short rest: Bash as bonus action (1d6 bludgeoning + knockback 5ft, STR save DC 13)",
+        "+1 AC to shoulder strikes",
+        "Gimmick: Pad squeaks on hit (disadvantage on Stealth after use)",
+        "Made by: Wario's Bash Workshop"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Bashy Bundle',
+    levelRequirement: 5
+},
+'wario_wa_wa_wand': {
+    id: 'wario_wa_wa_wand',
+    name: "Wario's Wa-Wa Wand (Gimmick Toy!)",
+    description: "A wand that makes 'wa-wa' sounds – Wario's idea of magic!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 8000,
+    icon: '🪄',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Wave wand: Makes distracting 'wa-wa' noise (advantage on Deception or Performance for distractions)",
+        "Once per day: Minor illusion of Wario laughing (frightens weak foes, DC 10 Wis save)",
+        "Scam element: Wand runs out of 'magic' after 5 uses (needs Wario's recharge – unavailable)",
+        "Made by: Wario's Toy Factory"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wa-Wa Wagon',
+    levelRequirement: 5
+},
+'wario_bottomless_pitfall_trap_kit': {
+    id: 'wario_bottomless_pitfall_trap_kit',
+    name: "Wario's Bottomless Pitfall Trap Kit (Scam Trap!)",
+    description: "Build traps that lead to 'bottomless' pits – Wario's gold-making scheme!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16000,
+    icon: '🕳️',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Set trap: DC 13 Perception to spot, falls into 10ft pit (1d6 damage)",
+        "Kit reusable 3 times: 'Bottomless' until it fills with dirt",
+        "Scam: Pit is shallow – victims climb out easily (embarrassing, no real capture)",
+        "Made by: Wario's Trap Emporium"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Pitfall Parcel',
+    levelRequirement: 6
+},
+'wario_garlic_gun': {
+    id: 'wario_garlic_gun',
+    name: "Wario's Garlic Gun",
+    description: "A pistol that shoots garlic cloves – Wario's anti-vampire special!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '🔫',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Ranged attack: 20/60 ft, 1d6 piercing + garlic (advantage vs. undead, they must save DC 12 CON or poisoned)",
+        "10 shots: Reload with garlic bulbs",
+        "Gimmick: Gun smells forever – disadvantage on social encounters",
+        "Made by: Wario's Weapon Workshop"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Garlic Grenade Delivery',
+    levelRequirement: 5
+},
+'wario_fake_mustache_grower_serum': {
+    id: 'wario_fake_mustache_grower_serum',
+    name: "Wario's Fake Mustache Grower Serum (Scam Serum!)",
+    description: "Drink this and grow a magnificent mustache like Wario – instant style!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '🧪',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Drink: Grows a fake mustache (advantage on Disguise as Wario-like character for 1 hour)",
+        "Serum is just glue and hair: Itches badly (disadvantage on Concentration)",
+        "Scam: Mustache falls off in water or wind (embarrassing reveal)",
+        "Made by: Wario's Beauty Scam Lab"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stache Serum Ship',
+    levelRequirement: 5
+},
+'wario_treasure_hunting_compass': {
+    id: 'wario_treasure_hunting_compass',
+    name: "Wario's Treasure Hunting Compass",
+    description: "Points to the nearest treasure – or Wario's wallet?",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15000,
+    icon: '🧭',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Points to treasure within 1 mile (70% accurate, 30% to junk or danger)",
+        "Compass spins wildly near gold: advantage on Perception for loot",
+        "Gimmick: Occasionally points to Wario's location (he shows up demanding a cut)",
+        "Made by: Wario's Adventure Gear"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Treasure Trail Truck',
+    levelRequirement: 5
+},
+'wario_chomp_champ_gloves': {
+    id: 'wario_chomp_champ_gloves',
+    name: "Wario's Chomp Champ Gloves",
+    description: "Gloves that make your bite stronger – Wario's eating style!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 10000,
+    icon: '🧤',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Bite attacks: +1d4 damage (Wario chomp!)",
+        "Advantage on eating contests or foraging (big mouth)",
+        "Side effect: Gloves make you hungry – disadvantage on saves vs. gluttony",
+        "Made by: Wario's Munch Workshop"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Chomp Chain',
+    levelRequirement: 5
+},
+'wario_wario_ware_microgame_console': {
+    id: 'wario_wario_ware_microgame_console',
+    name: "WarioWare Microgame Console (Gimmick Gadget!)",
+    description: "Play quick games to sharpen reflexes – Wario's mini-challenges!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '🎮',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Play 1 microgame (1 minute): Gain advantage on one Dexterity check next encounter",
+        "Console has 10 games: Random effects (fun or frustrating)",
+        "Battery dies randomly: 20% chance it fails when needed",
+        "Made by: WarioWare Inc."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Game Gear Go',
+    levelRequirement: 5
+},
+'wario_bottomless_wallet_scam': {
+    id: 'wario_bottomless_wallet_scam',
+    name: "Wario's Bottomless Wallet (Total Scam!)",
+    description: "A wallet that 'never empties' – Wario's best con yet!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 20000,
+    icon: '💼',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Holds gold: Looks full (advantage on Deception for wealth)",
+        "Scam reveal: Wallet is a fake – coins are painted rocks (lose all 'gold' when inspected)",
+        "Trap: Springs shut on thieves (DC 13 DEX save or trapped hand, 1d4 damage/turn)",
+        "Made by: Wario's Scam Supreme"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Empty Envelope',
+    levelRequirement: 6
+},
+'wario_garlic_armor_polish': {
+    id: 'wario_garlic_armor_polish',
+    name: "Wario's Garlic Armor Polish",
+    description: "Polish that makes armor garlic-scented and shiny.",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 6000,
+    icon: '🧄',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Apply to armor: +1 AC for 24 hours (extra shine)",
+        "Garlic scent: Advantage vs. undead (they hate it), but disadvantage on social (stinks!)",
+        "Gimmick: Polish attracts flies (minor distraction in combat)",
+        "Made by: Wario's Shine Scam"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Polish Pot',
+    levelRequirement: 5
+},
+'wario_luck_o_meter': {
+    id: 'wario_luck_o_meter',
+    name: "Wario's Luck-o-Meter",
+    description: "A meter that measures your luck – and 'boosts' it Wario-style!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 11000,
+    icon: '🎰',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Check luck: Roll d20; on 15+ gain inspiration, on 5- reroll a failed check",
+        "Meter shakes: +1 to gambling or loot rolls",
+        "Scam vibe: Breaks after 3 uses (false readings lead to bad decisions)",
+        "Made by: Wario's Luck Lab"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Lucky Lotto Load',
+    levelRequirement: 5
+},
+'wario_super_star_cape': {
+    id: 'wario_super_star_cape',
+    name: "Wario's Super Star Cape",
+    description: "A cape that makes you feel invincible – like Wario after a power-up!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17000,
+    icon: '⭐',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Once per day: Gain temporary invincibility (resistance to all damage for 1 minute)",
+        "Cape sparkles: Advantage on Intimidation (star power!)",
+        "Gimmick: After use, you crash (disadvantage on next 3 checks from 'power-down')",
+        "Made by: Wario's Star Factory"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Starry Shipment',
+    levelRequirement: 6
+},
+'wario_fake_treasure_chest': {
+    id: 'wario_fake_treasure_chest',
+    name: "Wario's Fake Treasure Chest (Scam Chest!)",
+    description: "A chest full of 'treasure' to fool your foes – Wario's decoy delight!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 9000,
+    icon: '📦',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Place as decoy: Enemies investigate (DC 13 INT save or waste turn opening empty chest)",
+        "Inside: Spring-loaded fake gold (blinds opener, DC 12 CON save)",
+        "Scam: Chest is lightweight – easy to spot as fake if shaken",
+        "Made by: Wario's Trap Treasury"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Empty Echo Express',
+    levelRequirement: 5
+},
+'wario_garlic_grower_hat': {
+    id: 'wario_garlic_grower_hat',
+    name: "Wario's Garlic Grower Hat (Gimmick Grow!)",
+    description: "A hat that grows garlic on your head – fresh anytime!",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🎩',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Grows 1 garlic bulb per day: Use as ingredient or ammo (1d4 bludgeoning)",
+        "Hat smells garlicky: Advantage vs. vampires, but disadvantage on stealth (odor)",
+        "Itch factor: Disadvantage on Concentration if not harvested daily",
+        "Made by: Wario's Farm Folly"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Head Harvest Haul',
+    levelRequirement: 5
+},
     'pure_heart_complete': {
         id: 'pure_heart_complete',
         name: "The Complete Pure Heart",
@@ -31548,7 +39180,7 @@ export const SHOP_ITEMS = {
         description: "A wooden stick sharpened on one end. The budget adventurer's weapon of choice.",
         category: SHOP_CATEGORIES.EQUIPMENT,
         price: 2500,
-        icon: '🥢',
+        icon: '|',
         stock: 200,
         rarity: 'common',
         effects: ["1d4 piercing damage", "Breaks on a natural 1"],

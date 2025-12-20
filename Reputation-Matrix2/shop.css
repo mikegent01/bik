@@ -347,6 +347,38 @@
         height: 32px;
     }
 }
+/* === EPIC ITEM STYLE === */
+.shop-item.epic {
+    border-color: #9d50bb; /* Amethyst Purple */
+    background: linear-gradient(135deg, var(--wario-surface), rgba(157, 80, 187, 0.1));
+}
+
+.shop-item.epic::before {
+    background: linear-gradient(90deg, #9d50bb, #ff00ff, #9d50bb);
+    background-size: 200% auto;
+    animation: epic-shimmer 3s linear infinite;
+}
+
+.item-rarity.epic {
+    background: linear-gradient(135deg, #6e48aa, #9d50bb);
+    color: #ffffff;
+    border: 1px solid #e0aaff;
+    box-shadow: 0 0 5px rgba(157, 80, 187, 0.5);
+}
+
+.shop-item.epic .item-price {
+    color: #e0aaff;
+    text-shadow: 0 0 8px rgba(157, 80, 187, 0.6);
+}
+
+.shop-item.epic .item-icon {
+    filter: drop-shadow(0 0 8px rgba(157, 80, 187, 0.7));
+}
+
+@keyframes epic-shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
 /* === ITEM BADGES CONTAINER === */
 .item-badges,
 .upgrade-badges {
