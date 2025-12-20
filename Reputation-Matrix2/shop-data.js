@@ -20170,7 +20170,7 @@ export const SHOP_ITEMS = {
 },
 'koopa_troop_mushroom_soup_recipe': {
     id: 'koopa_troop_mushroom_soup_recipe',
-    name: "Recipe: Koopa Mushroom Soup (Joke)",
+    name: "Recipe: Koopa Mushroom Soup ",
     description: "A bubbling soup from Mushroom Kingdom fungi – grows you a bit, but watch the side effects!",
     category: SHOP_CATEGORIES.services,
     price: 6500,
@@ -20265,7 +20265,7 @@ export const SHOP_ITEMS = {
 },
 'mordor_ash_baked_potatoes_recipe': {
     id: 'mordor_ash_baked_potatoes_recipe',
-    name: "Recipe: Mordor Ash-Baked Potatoes (Joke)",
+    name: "Recipe: Mordor Ash-Baked Potatoes ",
     description: "Potatoes roasted in volcanic ash – toughens you up, Sauron-style.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -20398,7 +20398,7 @@ export const SHOP_ITEMS = {
 },
 'glarnia_crystal_candy_recipe': {
     id: 'glarnia_crystal_candy_recipe',
-    name: "Recipe: Glarnia Crystal Candy (Joke)",
+    name: "Recipe: Glarnia Crystal Candy ",
     description: "Hard candy mimicking gems – sweet and shiny!",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -20436,7 +20436,7 @@ export const SHOP_ITEMS = {
 },
 'internet_viral_nachos_recipe': {
     id: 'internet_viral_nachos_recipe',
-    name: "Recipe: Internet Viral Nachos (Joke)",
+    name: "Recipe: Internet Viral Nachos ",
     description: "Loaded nachos that 'go viral' for party boosts.",
     category: SHOP_CATEGORIES.services,
     price: 6000,
@@ -20493,7 +20493,7 @@ export const SHOP_ITEMS = {
 },
 'the_onyx_hand_shadow_pie_recipe': {
     id: 'the_onyx_hand_shadow_pie_recipe',
-    name: "Recipe: The Onyx Hand Shadow Pie (Joke)",
+    name: "Recipe: The Onyx Hand Shadow Pie ",
     description: "Mysterious pie that hides flavors – like shadows!",
     category: SHOP_CATEGORIES.services,
     price: 6500,
@@ -20702,7 +20702,7 @@ export const SHOP_ITEMS = {
 },
 'ratchet_raiders_scrap_metal_pie_recipe': {
     id: 'ratchet_raiders_scrap_metal_pie_recipe',
-    name: "Recipe: Ratchet Raiders Scrap Metal Pie (Joke)",
+    name: "Recipe: Ratchet Raiders Scrap Metal Pie ",
     description: "A 'rustic' pie with edible 'scraps' – don't eat the foil!",
     category: SHOP_CATEGORIES.services,
     price: 5000,
@@ -20873,7 +20873,7 @@ export const SHOP_ITEMS = {
 },
 'scylla_charybdis_tentacle_tempura_recipe': {
     id: 'scylla_charybdis_tentacle_tempura_recipe',
-    name: "Recipe: Scylla Charybdis Tentacle Tempura (Joke)",
+    name: "Recipe: Scylla Charybdis Tentacle Tempura ",
     description: "Crispy fried 'seafood' for monstrous munchies.",
     category: SHOP_CATEGORIES.services,
     price: 7000,
@@ -20911,7 +20911,7 @@ export const SHOP_ITEMS = {
 },
 'animatopia_cartoon_cereal_recipe': {
     id: 'animatopia_cartoon_cereal_recipe',
-    name: "Recipe: Animatopia Cartoon Cereal (Joke)",
+    name: "Recipe: Animatopia Cartoon Cereal ",
     description: "Sugary cereal that makes you 'toon up' with energy.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -20968,7 +20968,7 @@ export const SHOP_ITEMS = {
 },
 'halfling_second_breakfast_pastry_recipe': {
     id: 'halfling_second_breakfast_pastry_recipe',
-    name: "Recipe: Halfling Second Breakfast Pastry (Joke)",
+    name: "Recipe: Halfling Second Breakfast Pastry ",
     description: "Flaky pastry for that extra meal – hobbit-sized hunger.",
     category: SHOP_CATEGORIES.services,
     price: 6000,
@@ -21063,7 +21063,7 @@ export const SHOP_ITEMS = {
 },
 'robensonia_lab_energy_bar_recipe': {
     id: 'robensonia_lab_energy_bar_recipe',
-    name: "Recipe: Robensonia Lab Energy Bar (Joke)",
+    name: "Recipe: Robensonia Lab Energy Bar ",
     description: "Compact bar packed with 'sci-fi' nutrients for escapes.",
     category: SHOP_CATEGORIES.services,
     price: 7000,
@@ -21177,7 +21177,7 @@ export const SHOP_ITEMS = {
 },
 'the_dk_crew_banana_bread_recipe': {
     id: 'the_dk_crew_banana_bread_recipe',
-    name: "Recipe: The DK Crew Banana Bread (Joke)",
+    name: "Recipe: The DK Crew Banana Bread ",
     description: "Moist bread from jungle bananas for monkey agility.",
     category: SHOP_CATEGORIES.services,
     price: 6000,
@@ -21234,7 +21234,7 @@ export const SHOP_ITEMS = {
 },
 'animatopia_looney_tunes_sandwich_recipe': {
     id: 'animatopia_looney_tunes_sandwich_recipe',
-    name: "Recipe: Animatopia Looney Tunes Sandwich (Joke)",
+    name: "Recipe: Animatopia Looney Tunes Sandwich ",
     description: "Absurd sandwich with anvil-shaped bread for cartoon chaos.",
     category: SHOP_CATEGORIES.services,
     price: 5000,
@@ -21367,7 +21367,7 @@ export const SHOP_ITEMS = {
 },
 'general_student_study_snack_mix_recipe': {
     id: 'general_student_study_snack_mix_recipe',
-    name: "Recipe: General Student Study Snack Mix (Joke)",
+    name: "Recipe: General Student Study Snack Mix ",
     description: "Trail mix for late-night cramming sessions.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -21424,7 +21424,7 @@ export const SHOP_ITEMS = {
 },
 'monsters_grognak_steak_recipe': {
     id: 'monsters_grognak_steak_recipe',
-    name: "Recipe: Monsters Grognak Steak (Joke)",
+    name: "Recipe: Monsters Grognak Steak ",
     description: "Massive steak for barbarian feasts.",
     category: SHOP_CATEGORIES.services,
     price: 8000,
@@ -21500,7 +21500,7 @@ export const SHOP_ITEMS = {
 },
 'goodstyle_fancy_finger_foods_recipe': {
     id: 'goodstyle_fancy_finger_foods_recipe',
-    name: "Recipe: Goodstyle Fancy Finger Foods (Joke)",
+    name: "Recipe: Goodstyle Fancy Finger Foods ",
     description: "Elegant bites for stylish soirees.",
     category: SHOP_CATEGORIES.services,
     price: 7000,
@@ -21633,7 +21633,7 @@ export const SHOP_ITEMS = {
 },
 'hacktivist_digital_byte_bites_recipe': {
     id: 'hacktivist_digital_byte_bites_recipe',
-    name: "Recipe: Hacktivist Digital Byte Bites (Joke)",
+    name: "Recipe: Hacktivist Digital Byte Bites ",
     description: "Crunchy 'bytes' of tech-flavored snacks for coders.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -21671,7 +21671,7 @@ export const SHOP_ITEMS = {
 },
 'cult_of_min_catnip_treats_recipe': {
     id: 'cult_of_min_catnip_treats_recipe',
-    name: "Recipe: Cult of Min Catnip Treats (Joke)",
+    name: "Recipe: Cult of Min Catnip Treats ",
     description: "Treats laced with catnip for feline frenzy.",
     category: SHOP_CATEGORIES.services,
     price: 6000,
@@ -21804,7 +21804,7 @@ export const SHOP_ITEMS = {
 },
 'fawfuls_furious_fusion_fajitas_recipe': {
     id: 'fawfuls_furious_fusion_fajitas_recipe',
-    name: "Recipe: Fawful's Furious Fusion Fajitas (Joke)",
+    name: "Recipe: Fawful's Furious Fusion Fajitas ",
     description: "Spicy fajitas with 'furious' flair for mad energy.",
     category: SHOP_CATEGORIES.services,
     price: 6500,
@@ -21861,7 +21861,7 @@ export const SHOP_ITEMS = {
 },
 'the_toad_cult_frog_legs_fritters_recipe': {
     id: 'the_toad_cult_frog_legs_fritters_recipe',
-    name: "Recipe: The Toad Cult Frog Legs Fritters (Joke)",
+    name: "Recipe: The Toad Cult Frog Legs Fritters ",
     description: "Crispy fritters for hoppy meals.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -22811,7 +22811,7 @@ export const SHOP_ITEMS = {
 },
 'koopa_troop_shell_oven': {
     id: 'koopa_troop_shell_oven',
-    name: "Koopa Troop Shell Oven (Joke)",
+    name: "Koopa Troop Shell Oven ",
     description: "A portable oven shaped like a Koopa shell for baking fungi delights.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 7500,
@@ -22906,7 +22906,7 @@ export const SHOP_ITEMS = {
 },
 'mordor_volcanic_ash_sifter': {
     id: 'mordor_volcanic_ash_sifter',
-    name: "Mordor Volcanic Ash Sifter (Joke)",
+    name: "Mordor Volcanic Ash Sifter ",
     description: "Sifter for incorporating ash into baked goods without grit.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -23039,7 +23039,7 @@ export const SHOP_ITEMS = {
 },
 'glarnia_gem_polishing_peeler': {
     id: 'glarnia_gem_polishing_peeler',
-    name: "Glarnia Gem Polishing Peeler (Joke)",
+    name: "Glarnia Gem Polishing Peeler ",
     description: "Peeler that shines fruits like gems for candy prep.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -23134,7 +23134,7 @@ export const SHOP_ITEMS = {
 },
 'the_onyx_hand_shadow_stirrer': {
     id: 'the_onyx_hand_shadow_stirrer',
-    name: "The Onyx Hand Shadow Stirrer (Joke)",
+    name: "The Onyx Hand Shadow Stirrer ",
     description: "Stirring spoon that stirs shadows for mysterious pies.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -23343,7 +23343,7 @@ export const SHOP_ITEMS = {
 },
 'ratchet_raiders_scrap_forge_oven': {
     id: 'ratchet_raiders_scrap_forge_oven',
-    name: "Ratchet Raiders Scrap Forge Oven (Joke)",
+    name: "Ratchet Raiders Scrap Forge Oven ",
     description: "Junk-built oven for 'metallic' pies.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -23514,7 +23514,7 @@ export const SHOP_ITEMS = {
 },
 'scylla_charybdis_tentacle_tenderizer': {
     id: 'scylla_charybdis_tentacle_tenderizer',
-    name: "Scylla Charybdis Tentacle Tenderizer (Joke)",
+    name: "Scylla Charybdis Tentacle Tenderizer ",
     description: "Hammer for pounding tough 'tentacles' into tempura.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -23552,7 +23552,7 @@ export const SHOP_ITEMS = {
 },
 'animatopia_acme_anvil_mixer': {
     id: 'animatopia_acme_anvil_mixer',
-    name: "Animatopia Acme Anvil Mixer (Joke)",
+    name: "Animatopia Acme Anvil Mixer ",
     description: "Heavy mixer that 'pounds' dough like an anvil.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -23609,7 +23609,7 @@ export const SHOP_ITEMS = {
 },
 'halfling_shire_pie_pan_set': {
     id: 'halfling_shire_pie_pan_set',
-    name: "Halfling Shire Pie Pan Set (Joke)",
+    name: "Halfling Shire Pie Pan Set ",
     description: "Set of pans for multiple breakfast pies.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -23666,7 +23666,7 @@ export const SHOP_ITEMS = {
 },
 'u_enigma_riddle_riddle_colander': {
     id: 'u_enigma_riddle_riddle_colander',
-    name: "U Enigma Riddle Colander (Joke)",
+    name: "U Enigma Riddle Colander ",
     description: "Colander that 'riddles' water out for tea.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -23818,7 +23818,7 @@ export const SHOP_ITEMS = {
 },
 'the_dk_crew_barrel_mixer': {
     id: 'the_dk_crew_barrel_mixer',
-    name: "The DK Crew Barrel Mixer (Joke)",
+    name: "The DK Crew Barrel Mixer ",
     description: "Barrel-shaped mixer for banana bread.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -23875,7 +23875,7 @@ export const SHOP_ITEMS = {
 },
 'animatopia_acme_toaster': {
     id: 'animatopia_acme_toaster',
-    name: "Animatopia Acme Toaster (Joke)",
+    name: "Animatopia Acme Toaster ",
     description: "Toaster that launches toast like cartoons.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -24008,7 +24008,7 @@ export const SHOP_ITEMS = {
 },
 'general_student_cafeteria_tray': {
     id: 'general_student_cafeteria_tray',
-    name: "General Student Cafeteria Tray (Joke)",
+    name: "General Student Cafeteria Tray ",
     description: "Multi-compartment tray for study snacks.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -24065,7 +24065,7 @@ export const SHOP_ITEMS = {
 },
 'monsters_grognak_steak_knives': {
     id: 'monsters_grognak_steak_knives',
-    name: "Monsters Grognak Steak Knives (Joke)",
+    name: "Monsters Grognak Steak Knives ",
     description: "Massive knives for carving barbarian steaks.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 7500,
@@ -24141,7 +24141,7 @@ export const SHOP_ITEMS = {
 },
 'goodstyle_style_sifter': {
     id: 'goodstyle_style_sifter',
-    name: "Goodstyle Style Sifter (Joke)",
+    name: "Goodstyle Style Sifter ",
     description: "Fancy sifter for elegant finger foods.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6500,
@@ -24274,7 +24274,7 @@ export const SHOP_ITEMS = {
 },
 'hacktivist_byte_blender': {
     id: 'hacktivist_byte_blender',
-    name: "Hacktivist Byte Blender (Joke)",
+    name: "Hacktivist Byte Blender ",
     description: "Blender that 'blends' digital and real snacks.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -24312,7 +24312,7 @@ export const SHOP_ITEMS = {
 },
 'cult_of_min_catnip_infuser': {
     id: 'cult_of_min_catnip_infuser',
-    name: "Cult of Min Catnip Infuser (Joke)",
+    name: "Cult of Min Catnip Infuser ",
     description: "Infuser for catnip treats.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -24445,7 +24445,7 @@ export const SHOP_ITEMS = {
 },
 'fawfuls_furious_fusion_fryer': {
     id: 'fawfuls_furious_fusion_fryer',
-    name: "Fawful's Furious Fusion Fryer (Joke)",
+    name: "Fawful's Furious Fusion Fryer ",
     description: "Fryer with furious bubbles for fajitas.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6500,
@@ -24502,7 +24502,7 @@ export const SHOP_ITEMS = {
 },
 'the_toad_cult_frog_hop_funnel': {
     id: 'the_toad_cult_frog_hop_funnel',
-    name: "The Toad Cult Frog Hop Funnel (Joke)",
+    name: "The Toad Cult Frog Hop Funnel ",
     description: "Funnel that 'hops' liquids for fritters.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -24578,7 +24578,7 @@ export const SHOP_ITEMS = {
 },
 'team_plasma_ethical_veggie_chopper': {
     id: 'team_plasma_ethical_veggie_chopper',
-    name: "Team Plasma Ethical Veggie Chopper (Joke)",
+    name: "Team Plasma Ethical Veggie Chopper ",
     description: "Chopper for vegan stews, no harm.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -24692,7 +24692,7 @@ export const SHOP_ITEMS = {
 },
 'the_unchained_liberty_loaf_pan': {
     id: 'the_unchained_liberty_loaf_pan',
-    name: "The Unchained Liberty Loaf Pan (Joke)",
+    name: "The Unchained Liberty Loaf Pan ",
     description: "Pan for free-form loaves without chains.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -24787,7 +24787,7 @@ export const SHOP_ITEMS = {
 },
 'diamond_city_neon_heat_lamp': {
     id: 'diamond_city_neon_heat_lamp',
-    name: "Diamond City Neon Heat Lamp (Joke)",
+    name: "Diamond City Neon Heat Lamp ",
     description: "Lamp that heats with neon glow for gummies.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -24844,7 +24844,7 @@ export const SHOP_ITEMS = {
 },
 'abydos_high_school_bento_box_set': {
     id: 'abydos_high_school_bento_box_set',
-    name: "Abydos High School Bento Box Set (Joke)",
+    name: "Abydos High School Bento Box Set ",
     description: "Compartmented boxes for lunch prep.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -24920,7 +24920,7 @@ export const SHOP_ITEMS = {
 },
 'connectopia_virtual_flavor_injector': {
     id: 'connectopia_virtual_flavor_injector',
-    name: "Connectopia Virtual Flavor Injector (Joke)",
+    name: "Connectopia Virtual Flavor Injector ",
     description: "Injector for 'uploading' flavors to victuals.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 6000,
@@ -25034,7 +25034,7 @@ export const SHOP_ITEMS = {
 },
 'bandits_roadside_scavenge_chopper': {
     id: 'bandits_roadside_scavenge_chopper',
-    name: "Bandits Roadside Scavenge Chopper (Joke)",
+    name: "Bandits Roadside Scavenge Chopper ",
     description: "Rough chopper for looted rations.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5000,
@@ -25128,7 +25128,7 @@ export const SHOP_ITEMS = {
 },
 'team_rocket_sneak_sifter': {
     id: 'team_rocket_sneak_sifter',
-    name: "Team Rocket Sneak Sifter (Joke)",
+    name: "Team Rocket Sneak Sifter ",
     description: "Sifter for stealthy sandwich prep.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -25185,7 +25185,7 @@ export const SHOP_ITEMS = {
 },
 'go_rock_squad_rock_crusher_mill': {
     id: 'go_rock_squad_rock_crusher_mill',
-    name: "Go-Rock Squad Rock Crusher Mill (Joke)",
+    name: "Go-Rock Squad Rock Crusher Mill ",
     description: "Mill for 'rock hard' cookie grains.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 5500,
@@ -25262,7 +25262,7 @@ export const SHOP_ITEMS = {
 },
 'team_plasma_vegan_veggie_stew_recipe': {
     id: 'team_plasma_vegan_veggie_stew_recipe',
-    name: "Recipe: Team Plasma Vegan Veggie Stew (Joke)",
+    name: "Recipe: Team Plasma Vegan Veggie Stew ",
     description: "Ethical stew without animal products for liberation.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -25376,7 +25376,7 @@ export const SHOP_ITEMS = {
 },
 'the_unchained_liberty_fruit_salad_recipe': {
     id: 'the_unchained_liberty_fruit_salad_recipe',
-    name: "Recipe: The Unchained Liberty Fruit Salad (Joke)",
+    name: "Recipe: The Unchained Liberty Fruit Salad ",
     description: "Free-range fruit salad for liberated palates.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -25471,7 +25471,7 @@ export const SHOP_ITEMS = {
 },
 'diamond_city_neon_glow_gummies_recipe': {
     id: 'diamond_city_neon_glow_gummies_recipe',
-    name: "Recipe: Diamond City Neon Glow Gummies (Joke)",
+    name: "Recipe: Diamond City Neon Glow Gummies ",
     description: "Glowing gummies for night city vibes.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -25528,7 +25528,7 @@ export const SHOP_ITEMS = {
 },
 'abydos_high_school_lunch_bento_recipe': {
     id: 'abydos_high_school_lunch_bento_recipe',
-    name: "Recipe: Abydos High School Lunch Bento (Joke)",
+    name: "Recipe: Abydos High School Lunch Bento ",
     description: "Balanced bento for student stamina.",
     category: SHOP_CATEGORIES.services,
     price: 6000,
@@ -25604,7 +25604,7 @@ export const SHOP_ITEMS = {
 },
 'connectopia_virtual_reality_victuals_recipe': {
     id: 'connectopia_virtual_reality_victuals_recipe',
-    name: "Recipe: Connectopia Virtual Reality Victuals (Joke)",
+    name: "Recipe: Connectopia Virtual Reality Victuals ",
     description: "Digital-flavored snacks that taste like code.",
     category: SHOP_CATEGORIES.services,
     price: 5500,
@@ -25718,7 +25718,7 @@ export const SHOP_ITEMS = {
 },
 'bandits_highway_robbers_rations_recipe': {
     id: 'bandits_highway_robbers_rations_recipe',
-    name: "Recipe: Bandits Highway Robbers Rations (Joke)",
+    name: "Recipe: Bandits Highway Robbers Rations ",
     description: "Stolen-flavor rations for quick getaways.",
     category: SHOP_CATEGORIES.services,
     price: 5000,
@@ -25813,7 +25813,7 @@ export const SHOP_ITEMS = {
 },
 'team_rocket_stealth_sandwiches_recipe': {
     id: 'team_rocket_stealth_sandwiches_recipe',
-    name: "Recipe: Team Rocket Stealth Sandwiches (Joke)",
+    name: "Recipe: Team Rocket Stealth Sandwiches ",
     description: "Sandwiches that help you 'blast off' quietly.",
     category: SHOP_CATEGORIES.services,
     price: 6000,
@@ -25870,7 +25870,7 @@ export const SHOP_ITEMS = {
 },
 'go_rock_squad_rock_hard_cookies_recipe': {
     id: 'go_rock_squad_rock_hard_cookies_recipe',
-    name: "Recipe: Go-Rock Squad Rock Hard Cookies (Joke)",
+    name: "Recipe: Go-Rock Squad Rock Hard Cookies ",
     description: "Cookies as tough as rock for squad munchies.",
     category: SHOP_CATEGORIES.services,
     price: 5000,
@@ -25908,7 +25908,7 @@ export const SHOP_ITEMS = {
 },
 'koopa_troop_spiked_helmet_cap': {
     id: 'koopa_troop_spiked_helmet_cap',
-    name: "Koopa Troop Spiked Helmet Cap (Joke)",
+    name: "Koopa Troop Spiked Helmet Cap ",
     description: "A cap with fake spikes for that tough Koopa look.",
     category: SHOP_CATEGORIES.premium,
     price: 12500,
@@ -25984,7 +25984,7 @@ export const SHOP_ITEMS = {
 },
 'mushroom_regency_toad_cap_hat': {
     id: 'mushroom_regency_toad_cap_hat',
-    name: "Mushroom Regency Toad Cap Hat (Joke)",
+    name: "Mushroom Regency Toad Cap Hat ",
     description: "A floppy hat shaped like a toadstool for fungal flair.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 13500,
@@ -26117,7 +26117,7 @@ export const SHOP_ITEMS = {
 },
 'polybius_pixelated_cape': {
     id: 'polybius_pixelated_cape',
-    name: "Polybius Pixelated Cape (Joke)",
+    name: "Polybius Pixelated Cape ",
     description: "A cape that glitches like an old video game.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 13000,
@@ -26231,7 +26231,7 @@ export const SHOP_ITEMS = {
 },
 'greenskins_orcish_loincloth': {
     id: 'greenskins_orcish_loincloth',
-    name: "Greenskins Orcish Loincloth (Joke)",
+    name: "Greenskins Orcish Loincloth ",
     description: "Minimalist garb for brutish bravado.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 9500,
@@ -26364,7 +26364,7 @@ export const SHOP_ITEMS = {
 },
 'sirsirian_ocean_seashell_bikini': {
     id: 'sirsirian_ocean_seashell_bikini',
-    name: "Sirsirian Ocean Seashell Bikini (Joke)",
+    name: "Sirsirian Ocean Seashell Bikini ",
     description: "Swimwear armor with a tropical twist.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 12000,
@@ -26421,7 +26421,7 @@ export const SHOP_ITEMS = {
 },
 'wario_land_garlic_stained_apron': {
     id: 'wario_land_garlic_stained_apron',
-    name: "Wario Land Garlic-Stained Apron (Joke)",
+    name: "Wario Land Garlic-Stained Apron ",
     description: "An apron that repels... everything.",
     category: SHOP_CATEGORIES.premium,
     price: 10500,
@@ -26573,7 +26573,7 @@ export const SHOP_ITEMS = {
 },
 'scylla_charybdis_tentacle_boots': {
     id: 'scylla_charybdis_tentacle_boots',
-    name: "Scylla Charybdis Tentacle Boots (Joke)",
+    name: "Scylla Charybdis Tentacle Boots ",
     description: "Boots with suction-cup soles for gripping.",
     category: SHOP_CATEGORIES.premium,
     price: 14000,
@@ -26668,7 +26668,7 @@ export const SHOP_ITEMS = {
 },
 'halfling_adventurer_overalls': {
     id: 'halfling_adventurer_overalls',
-    name: "Halfling Adventurer Overalls (Joke)",
+    name: "Halfling Adventurer Overalls ",
     description: "Padded overalls for pint-sized heroes.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 11000,
@@ -26763,7 +26763,7 @@ export const SHOP_ITEMS = {
 },
 'robensonia_lab_tech_suit': {
     id: 'robensonia_lab_tech_suit',
-    name: "Robensonia Lab Tech Suit (Joke)",
+    name: "Robensonia Lab Tech Suit ",
     description: "One-piece jumpsuit for mad scientists.",
     category: SHOP_CATEGORIES.premium,
     price: 16000,
@@ -26877,7 +26877,7 @@ export const SHOP_ITEMS = {
 },
 'the_dk_crew_jungle_vine_belt': {
     id: 'the_dk_crew_jungle_vine_belt',
-    name: "The DK Crew Jungle Vine Belt (Joke)",
+    name: "The DK Crew Jungle Vine Belt ",
     description: "Belt made from tough vines for swinging.",
     category: SHOP_CATEGORIES.premium,
     price: 12500,
@@ -26934,7 +26934,7 @@ export const SHOP_ITEMS = {
 },
 'animatopia_cartoon_gloves': {
     id: 'animatopia_cartoon_gloves',
-    name: "Animatopia Cartoon Gloves (Joke)",
+    name: "Animatopia Cartoon Gloves ",
     description: "White gloves that stretch like in cartoons.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 11500,
@@ -27067,7 +27067,7 @@ export const SHOP_ITEMS = {
 },
 'general_student_academy_uniform': {
     id: 'general_student_academy_uniform',
-    name: "General Student Academy Uniform (Joke)",
+    name: "General Student Academy Uniform ",
     description: "Standard uniform for eager learners.",
     category: SHOP_CATEGORIES.premium,
     price: 12000,
@@ -27124,7 +27124,7 @@ export const SHOP_ITEMS = {
 },
 'monsters_grognak_fur_loincloth': {
     id: 'monsters_grognak_fur_loincloth',
-    name: "Monsters Grognak Fur Loincloth (Joke)",
+    name: "Monsters Grognak Fur Loincloth ",
     description: "Barbarian-style fur for comic savagery.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 9500,
@@ -27200,7 +27200,7 @@ export const SHOP_ITEMS = {
 },
 'goodstyle_fabulous_cape': {
     id: 'goodstyle_fabulous_cape',
-    name: "Goodstyle Fabulous Cape (Joke)",
+    name: "Goodstyle Fabulous Cape ",
     description: "Sparkly cape for dramatic entrances.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 13000,
@@ -27333,7 +27333,7 @@ export const SHOP_ITEMS = {
 },
 'hacktivist_digital_camo_pants': {
     id: 'hacktivist_digital_camo_pants',
-    name: "Hacktivist Digital Camo Pants (Joke)",
+    name: "Hacktivist Digital Camo Pants ",
     description: "Pants with pixelated patterns for urban hiding.",
     category: SHOP_CATEGORIES.premium,
     price: 14000,
@@ -27371,7 +27371,7 @@ export const SHOP_ITEMS = {
 },
 'cult_of_min_cat_ear_hoodie': {
     id: 'cult_of_min_cat_ear_hoodie',
-    name: "Cult of Min Cat Ear Hoodie (Joke)",
+    name: "Cult of Min Cat Ear Hoodie ",
     description: "Hoodie with cute cat ears for feline fans.",
     category: SHOP_CATEGORIES.premium,
     price: 11000,
@@ -27485,7 +27485,7 @@ export const SHOP_ITEMS = {
 },
 'wh_araby_dervish_whirl_skirt': {
     id: 'wh_araby_dervish_whirl_skirt',
-    name: "Wh Araby Dervish Whirl Skirt (Joke)",
+    name: "Wh Araby Dervish Whirl Skirt ",
     description: "Skirt for spinning dances.",
     category: SHOP_CATEGORIES.premium,
     price: 13500,
@@ -27561,7 +27561,7 @@ export const SHOP_ITEMS = {
 },
 'the_toad_cult_slime_slippers': {
     id: 'the_toad_cult_slime_slippers',
-    name: "The Toad Cult Slime Slippers (Joke)",
+    name: "The Toad Cult Slime Slippers ",
     description: "Squishy slippers for bog hopping.",
     category: SHOP_CATEGORIES.premium,
     price: 9500,
@@ -27637,7 +27637,7 @@ export const SHOP_ITEMS = {
 },
 'team_plasma_ethical_leather_jacket': {
     id: 'team_plasma_ethical_leather_jacket',
-    name: "Team Plasma Ethical Leather Jacket (Joke)",
+    name: "Team Plasma Ethical Leather Jacket ",
     description: "Vegan 'leather' jacket for animal lovers.",
     category: SHOP_CATEGORIES.premium,
     price: 13500,
@@ -27751,7 +27751,7 @@ export const SHOP_ITEMS = {
 },
 'the_unchained_freedom_chains_cuffs': {
     id: 'the_unchained_freedom_chains_cuffs',
-    name: "The Unchained Freedom Chains Cuffs (Joke)",
+    name: "The Unchained Freedom Chains Cuffs ",
     description: "Iron cuffs turned into stylish bracelets.",
     category: SHOP_CATEGORIES.premium,
     price: 12000,
@@ -27846,7 +27846,7 @@ export const SHOP_ITEMS = {
 },
 'diamond_city_neon_glow_jacket': {
     id: 'diamond_city_neon_glow_jacket',
-    name: "Diamond City Neon Glow Jacket (Joke)",
+    name: "Diamond City Neon Glow Jacket ",
     description: "Jacket that lights up like city signs.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 14000,
@@ -27903,7 +27903,7 @@ export const SHOP_ITEMS = {
 },
 'abydos_high_school_blazer': {
     id: 'abydos_high_school_blazer',
-    name: "Abydos High School Blazer (Joke)",
+    name: "Abydos High School Blazer ",
     description: "School blazer for youthful adventures.",
     category: SHOP_CATEGORIES.premium,
     price: 11500,
@@ -27979,7 +27979,7 @@ export const SHOP_ITEMS = {
 },
 'connectopia_virtual_avatar_suit': {
     id: 'connectopia_virtual_avatar_suit',
-    name: "Connectopia Virtual Avatar Suit (Joke)",
+    name: "Connectopia Virtual Avatar Suit ",
     description: "Suit that feels like digital armor.",
     category: SHOP_CATEGORIES.premium,
     price: 15000,
@@ -28093,7 +28093,7 @@ export const SHOP_ITEMS = {
 },
 'bandits_road_rag_cloak': {
     id: 'bandits_road_rag_cloak',
-    name: "Bandits Road Rag Cloak (Joke)",
+    name: "Bandits Road Rag Cloak ",
     description: "Tattered cloak for highway folk.",
     category: SHOP_CATEGORIES.premium,
     price: 9500,
@@ -28188,7 +28188,7 @@ export const SHOP_ITEMS = {
 },
 'team_rocket_black_suit': {
     id: 'team_rocket_black_suit',
-    name: "Team Rocket Black Suit (Joke)",
+    name: "Team Rocket Black Suit ",
     description: "Sleek suit for villainous schemes.",
     category: SHOP_CATEGORIES.EQUIPMENT,
     price: 14500,
@@ -28245,7 +28245,7 @@ export const SHOP_ITEMS = {
 },
 'go_rock_squad_rocker_jacket': {
     id: 'go_rock_squad_rocker_jacket',
-    name: "Go-Rock Squad Rocker Jacket (Joke)",
+    name: "Go-Rock Squad Rocker Jacket ",
     description: "Leather jacket for rock enthusiasts.",
     category: SHOP_CATEGORIES.premium,
     price: 12500,
@@ -32292,7 +32292,7 @@ export const SHOP_ITEMS = {
 },
 'wario_land_garlic_breath_mints_service': {
     id: 'wario_land_garlic_breath_mints_service',
-    name: "Wario Land Garlic Breath Mints (Joke Service)",
+    name: "Wario Land Garlic Breath Mints ",
     description: "Freshen up... or weaponize your breath.",
     category: SHOP_CATEGORIES.services,
     price: 8500,
@@ -32749,7 +32749,7 @@ export const SHOP_ITEMS = {
 },
 'the_dk_crew_barrel_roll_lesson_service': {
     id: 'the_dk_crew_barrel_roll_lesson_service',
-    name: "The DK Crew Barrel Roll Lesson (Joke Service)",
+    name: "The DK Crew Barrel Roll Lesson ",
     description: "Learn to dodge like a monkey.",
     category: SHOP_CATEGORIES.services,
     price: 9500,
