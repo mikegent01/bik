@@ -1,31 +1,21 @@
 
 // Update imports
 import { 
-    SHOP_ITEMS, 
-    SHOP_CATEGORIES, 
-    VENDORS, 
-    SHIPPING_METHODS, 
-    getShopStats, 
-    getFactionUpgrades, 
-    calculateFactionBonuses,
-    BASE_MEMBERSHIP_TIERS,
-    generateTier,
-    getTierFromXP,
-    getNextTier,
-    canPurchaseWithMembership,
-    getRequiredTierForItem,
-    applyMembershipDiscount,
-    getAvailableShipping,
-    getFreeShipping
-} from './shop-data.js';
+    STOCK_TYPES,
+    TIME_PERIODS,
+    getCurrentTimePeriod,
+    isNightTime,
+    getDailyCrazes,
+    getDailyTopSellers,
+    getItemAvailability,
+    getWarioStatus,
+    getFormattedGameDateTime,
+    getItemCrazeMultiplier
+} from './shop-stock.js';
+
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from './calendar-data.js';
 import {state } from './state.js'
 import { LORE_DATA } from './lore.js';
-// === NEW: Per-player membership tracking ===
-let searchQuery = '';
-let showAllItems = false;
-
-let activePlayer = null; // Current player using the shop
-let partyPlayers = []; // All party member keys
 import { REWARDS_DATA } from './quests/quests-main.js';
 import { playSound } from './common.js';
 import { getAllToadsData, getPreCalculatedFactionStats } from './liberated-toads-system.js';
@@ -34,8 +24,16 @@ import {
     renderLevelRequirement, 
     calculateDurability, 
     addOwnedItem, 
-    injectDurabilityStyles 
-} from './shop-durability.js';
+    injectDurabilityStyles   
+} from './shop-durability.js';    
+import {BASE_MEMBERSHIP_TIERS,getAvailableShipping ,SHOP_CATEGORIES,SHOP_ITEMS,VENDORS ,getFreeShipping  ,getNextTier,getRequiredTierForItem  ,getAllShopItems,getShopStats  } from './shop-data.js' 
+// === NEW: Per-player membership tracking ===
+let searchQuery = ''; 
+let showAllItems = false;
+
+let activePlayer = null; // Current player using the shop
+let partyPlayers = []; // All party member keys
+
 let currentCategory = 'all';
 let currentTab = 'shop';
 let cart = [];
@@ -868,8 +866,8 @@ function renderShopHeader() {
         });
     });
 }
-// Helper to format player key into display name
 
+// Helper to format player key into display name
 function renderMembershipTab() {
     const container = document.getElementById('membership-content');
     if (!container) return;
@@ -1077,7 +1075,6 @@ function renderMembershipTab() {
         </div>
     `;
 }
-
 
 
 // === Update completePurchase to track per-player spending ===
@@ -1566,49 +1563,620 @@ function handleInfiniteScroll() {
         }, 20);
     }
 }
-async function init() {
-    console.log('═══════════════════════════════════════');
-    console.log('🏪 Initializing Wario\'s Warehouse...');
-    console.log('═══════════════════════════════════════');
-    console.log('👤 Logged in user:', state?.loggedInUser || 'unknown');
+function renderWarioStatusBar() {
+    let container = document.getElementById('wario-status-bar');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'wario-status-bar';
+        container.className = 'wario-status-bar';
+        document.querySelector('.shop-header')?.after(container);
+    }
     
-    // Inject styles
-    injectDurabilityStyles();
-    injectMembershipStyles();
-    injectShopControlStyles();
+    const status = getWarioStatus();
+    const dateTime = getFormattedGameDateTime();
+    const allItems = getAllShopItems();
+    const topSellers = getDailyTopSellers(allItems);
     
-    // Step 1: Load approved purchases from JSON
-    console.log('\n📥 Step 1: Loading approved purchases...');
-    await loadApprovedPurchases();
-    console.log('   Loaded:', approvedPurchases?.length || 0, 'purchases');
+    container.className = `wario-status-bar ${status.isNight ? 'night-mode' : ''}`;
     
-    // Step 2: Calculate memberships from purchases
-    console.log('\n📊 Step 2: Calculating memberships...');
-    recalculateAllMemberships();
+    container.innerHTML = `
+        <!-- Time Display -->
+        <div class="time-display">
+            <span class="time-icon">${status.period.icon}</span>
+            <div class="time-info">
+                <span class="time-period-name">${status.period.name}</span>
+                <span class="time-actual">${status.time.formatted}</span>
+                <span class="game-date">${dateTime.full}</span>
+            </div>
+        </div>
+        
+        <!-- Stock Meter -->
+        <div class="stock-meter">
+            <div class="stock-meter-label">
+                <span>📦 Daily Stock</span>
+                <span>${Math.round(status.stockPercent)}%</span>
+            </div>
+            <div class="stock-meter-bar">
+                <div class="stock-meter-fill" style="width: ${status.stockPercent}%"></div>
+            </div>
+        </div>
+        
+        <!-- Weather -->
+        <div class="weather-display ${status.weather.isMagical ? 'magical' : ''}">
+            <span class="weather-icon">${status.weather.icon}</span>
+            <div class="weather-info">
+                <span class="weather-temp">${status.weather.temp}</span>
+                <span class="weather-desc">${status.weather.desc}</span>
+            </div>
+        </div>
+        
+        <!-- Wario Mood -->
+        <div class="wario-mood">
+            <span class="mood-icon">${status.moodIcon}</span>
+            <span class="mood-quote">"${status.quote}"</span>
+        </div>
+        
+        ${status.holiday ? `
+            <div class="holiday-banner">
+                🎉 ${status.holiday.name}
+            </div>
+        ` : ''}
+        
+        ${status.isNight ? `
+            <div class="night-special-banner">
+                🌙 NIGHT MARKET OPEN - Special Items Available! 🌙
+            </div>
+        ` : ''}
+    `;
     
-    // Step 3: Verify active player
-    const activePlayer = getActivePlayer();
-    const spent = getPlayerLifetimeSpent(activePlayer);
+    return container;
+}
+
+// Render Crazes
+function renderCrazesBar() {
+    const crazes = getDailyCrazes();
+    
+    let container = document.getElementById('crazes-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'crazes-container';
+        container.className = 'crazes-container';
+        document.getElementById('wario-status-bar')?.after(container);
+    }
+    
+    if (crazes.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.style.display = 'flex';
+    container.innerHTML = `
+        <span style="color: #888; font-size: 12px; align-self: center;">🔥 TODAY'S CRAZES:</span>
+        ${crazes.map(craze => `
+            <div class="craze-badge">
+                <span class="craze-icon">${craze.icon}</span>
+                <div class="craze-info">
+                    <span class="craze-name">${craze.name}</span>
+                    <span class="craze-desc">${craze.description}</span>
+                </div>
+                <span class="craze-duration">${craze.duration}d left</span>
+            </div>
+        `).join('')}
+    `;
+}
+
+// Render Top Sellers
+function renderTopSellers() {
+    const allItems = getAllShopItems();
+    const topSellers = getDailyTopSellers(allItems);
+    
+    let container = document.getElementById('top-sellers-section');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'top-sellers-section';
+        container.className = 'top-sellers-section';
+        document.getElementById('crazes-container')?.after(container) ||
+        document.getElementById('wario-status-bar')?.after(container);
+    }
+    
+    container.innerHTML = `
+        <div class="top-sellers-header">
+            <span>🏆</span>
+            <h3>Today's Hot Sellers</h3>
+            <span style="color: #888; font-size: 12px;">(Selling fast!)</span>
+        </div>
+        <div class="top-sellers-grid">
+            ${topSellers.map((ts, index) => {
+                const availability = getItemAvailability(ts.item, allItems);
+                return `
+                    <div class="top-seller-card" data-id="${ts.item.id}">
+                        <span class="top-seller-rank">#${index + 1}</span>
+                        <span class="top-seller-icon">${ts.item.icon}</span>
+                        <div class="top-seller-info">
+                            <span class="top-seller-name">${ts.item.name}</span>
+                            <span class="top-seller-stock">
+                                ${availability.stockInfo.currentStock > 0 
+                                    ? `⚡ ${availability.stockInfo.currentStock} left!`
+                                    : '❌ SOLD OUT'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+    
+    // Click to scroll to item
+    container.querySelectorAll('.top-seller-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const itemId = card.dataset.id;
+            const itemEl = document.querySelector(`.shop-item[data-id="${itemId}"]`);
+            if (itemEl) {
+                itemEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                itemEl.classList.add('highlight');
+                setTimeout(() => itemEl.classList.remove('highlight'), 2000);
+            }
+        });
+    });
+}
+
+// Update renderShopItems to use dynamic stock
+function renderShopItems(append = false) {
+    const container = document.getElementById('shop-items');
+    if (!container) return;
+    
+    const status = getXPStatus();
     const membership = getActiveMembership();
-    console.log('\n✅ Step 3: Verification');
-    console.log(`   Active Player: ${activePlayer}`);
-    console.log(`   Lifetime Spent: ${spent} XP`);
-    console.log(`   Membership Tier: ${membership?.name || 'UNKNOWN'}`);
+    const isNight = isNightTime();
+    const allItems = getAllShopItems();
+    const topSellers = getDailyTopSellers(allItems);
+    const topSellerIds = topSellers.map(ts => ts.item.id);
     
-    // Load other data
+    let itemsToRender;
+    if (showAllItems) {
+        itemsToRender = filteredItems;
+    } else {
+        const startIndex = currentPage * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        itemsToRender = filteredItems.slice(startIndex, endIndex);
+    }
+    
+    if (itemsToRender.length === 0 && !append) {
+        container.innerHTML = `
+            <div class="no-items">
+                <span class="empty-icon">${searchQuery ? '🔍' : '🚫'}</span>
+                <p>${searchQuery ? `No items matching "${searchQuery}"` : 'No items in this category'}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const itemsHtml = itemsToRender.map(item => {
+        // Get dynamic availability
+        const availability = getItemAvailability(item, allItems);
+        const stockInfo = availability.stockInfo;
+        
+        // Skip night-only during day (unless showing all)
+        if (stockInfo.stockType === STOCK_TYPES.NIGHT_ONLY && !isNight && !showAllItems) {
+            return '';
+        }
+        
+        const currentQty = getCartQuantity(item.id);
+        const priceInfo = applyMembershipDiscount(item.price, membership);
+        const effectivePrice = priceInfo.discounted;
+        
+        const otherCartCost = cart.filter(c => c.id !== item.id)
+            .reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
+        const canAffordOne = status.available - otherCartCost >= effectivePrice;
+        const inCart = currentQty > 0;
+        
+        const membershipCheck = canPurchaseWithMembership(item, membership);
+        const requiredTier = getRequiredTierForItem(item);
+        const isMembershipLocked = !membershipCheck.allowed;
+        
+        const remainingStock = item.stock - (approvedPurchases.filter(p => p.itemId === item.id).length);
+        const outOfStock = remainingStock <= 0;
+        
+        const rarityClass = item.rarity || 'common';
+        const canUseAtLevel = canPurchaseAtLevel(item);
+        
+        // Dynamic classes
+        const isTopSeller = topSellerIds.includes(item.id);
+        const inCraze = stockInfo.crazeInfo.multiplier > 1;
+        const isNightSpecial = availability.isNightSpecial;
+        const isLowStock = availability.stockWarning;
+        
+        const classes = [
+            'shop-item',
+            rarityClass,
+            !availability.available ? 'time-locked' : '',
+            isMembershipLocked ? 'membership-locked' : '',
+            !canUseAtLevel ? 'level-locked' : '',
+            outOfStock ? 'sold-out' : '',
+            inCart ? 'in-cart' : '',
+            isTopSeller ? 'top-seller' : '',
+            inCraze ? 'in-craze' : '',
+            isNightSpecial ? 'night-special' : '',
+            ((!canAffordOne && !inCart) || outOfStock || isMembershipLocked || !availability.available) ? 'disabled' : ''
+        ].filter(Boolean).join(' ');
+        
+        const vendor = getVendorDisplay(item.vendor);
+        
+        return `
+            <div class="${classes}" data-id="${item.id}">
+                ${isNightSpecial ? '<div class="night-special-tag">🌙 NIGHT SPECIAL</div>' : ''}
+                ${isTopSeller ? '<div class="item-top-seller-badge">🔥 TOP SELLER</div>' : ''}
+                ${inCraze ? `<div class="item-craze-badge">${stockInfo.crazeInfo.crazes[0].icon} ${stockInfo.crazeInfo.crazes[0].name}</div>` : ''}
+                
+                ${!availability.available ? `
+                    <div class="time-lock-overlay">
+                        <span class="lock-icon">${availability.icon}</span>
+                        <span class="lock-reason">${availability.reason}</span>
+                        ${availability.hoursUntilAvailable ? `
+                            <span class="lock-timer">${availability.hoursUntilAvailable}h</span>
+                            <span class="lock-timer-label">until available</span>
+                        ` : ''}
+                    </div>
+                ` : ''}
+                
+
+                
+                
+                <div class="item-header">
+                    <span class="item-icon">${item.icon}</span>
+                    <div class="item-title-group">
+                        <span class="item-name">${item.name}</span>
+                        <span class="item-rarity ${rarityClass}">${rarityClass}</span>
+                    </div>
+                    <div class="item-price-group">
+                        ${priceInfo.savings > 0 ? `
+                            <span class="item-price original-price">${item.price.toLocaleString()}</span>
+                            <span class="item-price discounted-price">${effectivePrice.toLocaleString()} XP</span>
+                            <span class="discount-badge">-${membership.discount}%</span>
+                        ` : `
+                            <span class="item-price">${effectivePrice.toLocaleString()} XP</span>
+                        `}
+                    </div>
+                </div>
+                
+                <!-- Availability Badge -->
+                <div class="availability-badge ${
+                    availability.instant && stockInfo.currentStock > 10 ? 'in-stock' :
+                    availability.instant && stockInfo.currentStock > 3 ? 'limited' :
+                    availability.instant && stockInfo.currentStock > 0 ? 'low-stock' :
+                    stockInfo.stockType === STOCK_TYPES.NIGHT_ONLY ? 'night-only' :
+                    stockInfo.stockType === STOCK_TYPES.SPECIAL_ORDER ? 'special-order' :
+                    inCraze || isTopSeller ? 'trending' : 'delivery'
+                }">
+                    <span class="avail-icon">${availability.icon}</span>
+                    <span class="avail-text">${availability.reason}</span>
+                    ${availability.instant && !availability.shippingRequired ? 
+                        '<span class="pickup-badge">🏃 Pickup!</span>' : ''}
+                </div>
+                
+                ${stockInfo.currentStock > 0 && stockInfo.depletionRate > 0 ? `
+                    <div class="stock-depletion">
+                        <span>📉 Selling:</span>
+                        <div class="depletion-bar">
+                            <div class="depletion-fill" style="width: ${(stockInfo.currentStock / stockInfo.baseStock) * 100}%"></div>
+                        </div>
+                        <span class="depletion-text">~${stockInfo.soldOutTime || '?'}h left</span>
+                    </div>
+                ` : ''}
+                
+                <div class="item-badges">
+                    ${renderDurabilityBadge(item)}
+                    ${renderLevelBadge(item)}
+                </div>
+                
+                <p class="item-description">${item.description}</p>
+                
+                <div class="item-effects">
+                    ${(item.effects || []).map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
+                </div>
+                
+                ${item.warning ? `<div class="item-warning">⚠️ ${item.warning}</div>` : ''}
+                
+                <div class="item-footer">
+                    <div class="vendor-info">
+                        <span class="vendor-icon">${vendor.icon}</span>
+                        <span class="vendor-name">${vendor.name}</span>
+                    </div>
+                    <span class="item-stock ${remainingStock <= 3 ? 'low' : ''}">
+                        ${outOfStock ? '❌ SOLD OUT' : `📦 ${remainingStock} in world`}
+                    </span>
+                </div>
+                
+                <div class="item-shipping ${availability.instant ? 'instant' : ''}">
+                    ${availability.instant ? `
+                        <span class="shipping-label">🏃 Pickup:</span>
+                        <span class="shipping-info">Available at Wario's counter!</span>
+                    ` : `
+                        <span class="shipping-label">📬 Delivery:</span>
+                        <span class="shipping-info">${item.shippedBy || 'Standard Courier'}</span>
+                    `}
+                </div>
+                
+                ${!isMembershipLocked && availability.available ? 
+                    renderBulkControls(item, currentQty, getMaxBulkQuantity(item), canAffordOne, effectivePrice) 
+                    : ''
+                }
+            </div>
+        `;
+    }).filter(html => html !== '').join('');
+    
+    if (append) {
+        container.querySelector('.load-more-indicator')?.remove();
+        container.insertAdjacentHTML('beforeend', itemsHtml);
+    } else {
+        container.innerHTML = itemsHtml;
+    }
+    
+    attachItemEventListeners(container);
+}
+function injectStockStyles() {
+    if (document.getElementById('stock-styles')) return;
+    
+    const styles = document.createElement('style');
+    styles.id = 'stock-styles';
+    styles.textContent = `
+        /* Wario Status Display */
+        .wario-status {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+            border-radius: 12px;
+            border: 2px solid #ffd700;
+            min-width: 200px;
+        }
+        
+        .wario-status.night, .wario-status.midnight {
+            border-color: #9b59b6;
+            background: linear-gradient(135deg, rgba(75,0,130,0.3), rgba(0,0,0,0.4));
+        }
+        
+        .time-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .time-icon {
+            font-size: 24px;
+        }
+        
+        .time-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .time-name {
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .time-actual {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        .stock-display {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .stock-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .stock-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4444, #ffaa00, #44ff44);
+            transition: width 1s ease;
+        }
+        
+        .stock-text {
+            font-size: 11px;
+            color: #aaa;
+        }
+        
+        .wario-mood {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .mood-icon {
+            font-size: 20px;
+        }
+        
+        .mood-quote {
+            flex: 1;
+        }
+        
+        .night-special-banner {
+            background: linear-gradient(90deg, #9b59b6, #3498db, #9b59b6);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+            color: white;
+            text-align: center;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Night mode header */
+        .shop-header.night-mode {
+            background: linear-gradient(180deg, #1a1a2e, #16213e);
+        }
+        
+        .shop-header.night-mode .shop-title h1 {
+            text-shadow: 0 0 20px #9b59b6;
+        }
+        
+        /* Item availability badge */
+        .availability-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin: 8px 0;
+        }
+        
+        .availability-badge.instant {
+            background: linear-gradient(135deg, rgba(46,204,113,0.2), rgba(39,174,96,0.1));
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .availability-badge.delivery {
+            background: linear-gradient(135deg, rgba(52,152,219,0.2), rgba(41,128,185,0.1));
+            border: 1px solid #3498db;
+            color: #3498db;
+        }
+        
+        .pickup-badge {
+            background: #2ecc71;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 10px;
+            margin-left: auto;
+        }
+        
+        /* Time locked overlay */
+        .time-lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            z-index: 10;
+            border-radius: inherit;
+        }
+        
+        .time-lock-overlay .lock-icon {
+            font-size: 48px;
+        }
+        
+        .time-lock-overlay .lock-reason {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .time-lock-overlay .lock-timer {
+            font-size: 18px;
+            color: #9b59b6;
+            font-weight: bold;
+        }
+        
+        /* Night special items */
+        .shop-item.night-special {
+            border: 2px solid #9b59b6;
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
+            animation: nightGlow 2s infinite alternate;
+        }
+        
+        @keyframes nightGlow {
+            from { box-shadow: 0 0 10px rgba(155, 89, 182, 0.3); }
+            to { box-shadow: 0 0 25px rgba(155, 89, 182, 0.5); }
+        }
+        
+        .night-special-badge {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 5;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Instant shipping highlight */
+        .item-shipping.instant {
+            background: linear-gradient(135deg, rgba(46,204,113,0.2), rgba(39,174,96,0.1));
+            border: 1px solid #2ecc71;
+            border-radius: 8px;
+            padding: 8px;
+        }
+        
+        .item-shipping.instant .shipping-info {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+    `;
+    
+    document.head.appendChild(styles);
+}
+// Update init
+async function init() {
+    console.log('🏪 Initializing Wario\'s Warehouse...');
+    console.log('📅 Game Date:', getFormattedGameDateTime().full);
+    console.log('🕐 Time Period:', getCurrentTimePeriod().name);
+    console.log('🌙 Night Mode:', isNightTime());
+    
+    // Note: Add <link rel="stylesheet" href="shop-stock.css"> to your HTML instead of injecting
+    injectStockStyles();
+    await loadApprovedPurchases();
+    recalculateAllMemberships();
     loadFactionData();
     prepareFilteredItems();
     
-    // Render
+    // Render order matters!
     renderShopHeader();
+    renderWarioStatusBar();
+    renderCrazesBar();
+    renderTopSellers();
     renderMainContent();
+    
     setupInfiniteScroll();
     
-    console.log('\n═══════════════════════════════════════');
-    console.log('✅ Shop initialized successfully');
-    console.log('═══════════════════════════════════════');
-}
-// Add these styles to injectMembershipStyles()
+    // Auto-refresh every minute
+    setInterval(() => {
+        if (currentTab === 'shop') {
+            renderWarioStatusBar();
+            renderCrazesBar();
+            // Don't refresh items constantly - too expensive
+        }
+    }, 60000);
+    
+    console.log('✅ Shop initialized');
+    console.log('🔥 Today\'s crazes:', getDailyCrazes().map(c => c.name));
+}// Add these styles to injectMembershipStyles()
 function injectMembershipStyles() {
     if (document.getElementById('membership-styles')) return;
     
@@ -1974,9 +2542,10 @@ function processApprovedPurchasesForMembership() {
 }
 export const BULK_PRICING = {
     enabled: true,
-    allowedRarities: ['common', 'uncommon'], // Only these can be bulk ordered
+    allowedRarities: ['junk', 'common', 'uncommon'], // Only these can be bulk ordered
     maxQuantity: 10,
     priceIncreasePerUnit: {
+        junk: 0.02,     
         common: 0.05,      // 5% increase per additional unit
         uncommon: 0.10     // 10% increase per additional unit
     },
@@ -2328,198 +2897,140 @@ function renderCategoryTabs() {
         });
     });
 }
-function renderShopItems(append = false) {
-    const container = document.getElementById('shop-items');
-    if (!container) return;
-    
-    const status = getXPStatus();
-    const membership = getActiveMembership();
-    
-    // Determine which items to render
-    let itemsToRender;
-    if (showAllItems) {
-        // Load ALL items at once
-        itemsToRender = filteredItems;
-    } else {
-        // Paginated loading
-        const startIndex = currentPage * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
-        itemsToRender = filteredItems.slice(startIndex, endIndex);
-    }
-    
-    if (itemsToRender.length === 0 && !append) {
-        container.innerHTML = `
-            <div class="no-items">
-                <span class="empty-icon">${searchQuery ? '🔍' : '🚫'}</span>
-                <p>${searchQuery ? `No items matching "${searchQuery}"` : 'No items in this category'}</p>
-                ${searchQuery ? `<button class="clear-search-btn" id="clear-search-main">Clear Search</button>` : ''}
-            </div>
-        `;
-        
-        container.querySelector('#clear-search-main')?.addEventListener('click', () => {
-            searchQuery = '';
-            currentPage = 0;
-            prepareFilteredItems();
-            renderCategoryTabs();
-            renderShopItems();
-        });
-        return;
-    }
-    
-    const itemsHtml = itemsToRender.map(item => {
-        const currentQty = getCartQuantity(item.id);
-        const currentItemCost = currentQty > 0 ? calculateBulkPrice(item, currentQty) : 0;
-        
-        const otherCartCost = cart
-            .filter(c => c.id !== item.id)
-            .reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
-        
-        // Apply membership discount
-        const priceInfo = applyMembershipDiscount(item.price, membership);
-        const effectivePrice = priceInfo.discounted;
-        
-        const canAffordOne = status.available - otherCartCost - currentItemCost >= effectivePrice;
-        const inCart = currentQty > 0;
-        
-        // Check membership restrictions
-        const membershipCheck = canPurchaseWithMembership(item, membership);
-        const requiredTier = getRequiredTierForItem(item);
-        const isMembershipLocked = !membershipCheck.allowed;
-        
-        const approvedCount = approvedPurchases.filter(p => p.itemId === item.id).length;
-        const pendingCount = pendingOrders.reduce((sum, o) => 
-            sum + o.items.filter(i => i.id === item.id).reduce((s, i) => s + (i.quantity || 1), 0), 0);
-        const remainingStock = item.stock - approvedCount - pendingCount - currentQty;
-        
-        const outOfStock = remainingStock <= 0 && currentQty === 0;
-        const rarityClass = item.rarity || 'common';
-        const canUseAtLevel = canPurchaseAtLevel(item);
-        const levelLockedClass = !canUseAtLevel ? 'level-locked' : '';
-        const membershipLockedClass = isMembershipLocked ? 'membership-locked' : '';
-        const disabledClass = ((!canAffordOne && !inCart) || outOfStock || isMembershipLocked) ? 'disabled' : '';
-        const inCartClass = inCart ? 'in-cart' : '';
-        
-        const vendor = getVendorDisplay(item.vendor);
-        const maxBulkQty = getMaxBulkQuantity(item);
-        const isBulkable = canBulkOrder(item);
-        
-        // Highlight search matches
-        const highlightedName = searchQuery ? 
-            item.name.replace(new RegExp(`(${escapeRegex(searchQuery)})`, 'gi'), '<mark>$1</mark>') : 
-            item.name;
-        
-        return `
-            <div class="shop-item ${rarityClass} ${disabledClass} ${inCartClass} ${levelLockedClass} ${membershipLockedClass}" 
-                 data-id="${item.id}"
-                 data-bulkable="${isBulkable}">
-                
-          
-                
-                <div class="item-header">
-                    <span class="item-icon">${item.icon}</span>
-                    <div class="item-title-group">
-                        <span class="item-name">${highlightedName}</span>
-                        <span class="item-rarity ${rarityClass}">${rarityClass}</span>
-                    </div>
-                    <div class="item-price-group">
-                        ${priceInfo.savings > 0 ? `
-                            <span class="item-price original-price">${item.price.toLocaleString()}</span>
-                            <span class="item-price discounted-price ${canAffordOne || inCart ? '' : 'unaffordable'}">
-                                ${effectivePrice.toLocaleString()} XP
-                            </span>
-                            <span class="discount-badge">-${membership.discount}%</span>
-                        ` : `
-                            <span class="item-price ${canAffordOne || inCart ? '' : 'unaffordable'}">
-                                ${effectivePrice.toLocaleString()} XP
-                            </span>
-                        `}
-                    </div>
-                </div>
-                
-                <div class="item-badges">
-                    ${renderDurabilityBadge(item)}
-                    ${renderLevelBadge(item)}
-                    ${renderMembershipRequirementBadge(item, requiredTier)}
-                </div>
-                
-                <p class="item-description">${item.description}</p>
-                
-                <div class="item-effects">
-                    ${item.effects.map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
-                </div>
-                
-                ${item.warning ? `<div class="item-warning">⚠️ ${item.warning}</div>` : ''}
-                ${item.requirement ? `<div class="item-requirement">🔒 ${item.requirement}</div>` : ''}
-                ${!canUseAtLevel ? `
-                    <div class="item-level-warning">
-                        ⚠️ Party Level ${PARTY_MAX_LEVEL} - Need Level ${item.levelRequirement} to use
-                    </div>
-                ` : ''}
-                
-                <div class="item-footer">
-                    <div class="vendor-info">
-                        <span class="vendor-icon">${vendor.icon}</span>
-                        <span class="vendor-name">${vendor.name}</span>
-                    </div>
-                    <span class="item-stock ${remainingStock <= 3 ? 'low' : ''}">
-                        ${outOfStock ? '❌ SOLD OUT' : `📦 ${remainingStock} left`}
-                    </span>
-                </div>
-                
-                <div class="item-shipping">
-                    <span class="shipping-label">📬 Shipped by:</span>
-                    <span class="shipping-info">${item.shippedBy || 'Standard Courier'}</span>
-                </div>
-                
-                ${!isMembershipLocked ? renderBulkControls(item, currentQty, maxBulkQty, canAffordOne, effectivePrice) : `
-                    <div class="upgrade-prompt">
-                        <span>Upgrade to ${requiredTier.icon}  ${requiredTier.name}to purchase</span>
-                    </div>
-                `}
-            </div>
-        `;
-    }).join('');
-    
-    if (append) {
-        // Remove existing load more indicator before appending
-        const existingIndicator = container.querySelector('.load-more-indicator');
-        if (existingIndicator) existingIndicator.remove();
-        
-        container.insertAdjacentHTML('beforeend', itemsHtml);
-    } else {
-        container.innerHTML = itemsHtml;
-    }
-    
-    // Show load more indicator for paginated mode
-    if (!showAllItems) {
-        const hasMore = (currentPage + 1) * ITEMS_PER_PAGE < filteredItems.length;
-        let loadMoreEl = container.querySelector('.load-more-indicator');
-        
-        if (hasMore) {
-            if (!loadMoreEl) {
-                loadMoreEl = document.createElement('div');
-                loadMoreEl.className = 'load-more-indicator';
-                container.appendChild(loadMoreEl);
-            }
-            loadMoreEl.innerHTML = `
-                <span class="loading-text">Scroll for more...</span>
-                <span class="items-remaining">${filteredItems.length - ((currentPage + 1) * ITEMS_PER_PAGE)} more items</span>
-            `;
-        } else if (loadMoreEl) {
-            loadMoreEl.remove();
-        }
-    }
-    
-    // Attach event listeners
-    attachItemEventListeners(container);
-}
-
 
 // Helper to escape regex special characters
 function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
+// REPLACE getTierFromXP with this safer version
+export function getTierFromXP(xpSpent) {
+    // Ensure xpSpent is a valid number
+    const spent = Number(xpSpent) || 0;
+    
+    let tierIndex = 0;
+    
+    // Find the highest tier the player qualifies for
+    while (tierIndex < 200) { // Safety limit
+        const nextTier = generateTier(tierIndex + 1);
+        if (!nextTier || spent < nextTier.threshold) break;
+        tierIndex++;
+    }
+    
+    const tier = generateTier(tierIndex);
+    
+    // Safety: if somehow null, return bronze
+    if (!tier) {
+        console.warn('getTierFromXP returned null, defaulting to bronze');
+        return { ...BASE_MEMBERSHIP_TIERS[0], index: 0 };
+    }
+    
+    return tier;
+}
 
+// Also fix generateTier to always return valid tier
+export function generateTier(tierIndex) {
+    // Ensure tierIndex is valid
+    const idx = Math.max(0, Math.floor(Number(tierIndex) || 0));
+    
+    if (idx < BASE_MEMBERSHIP_TIERS.length) {
+        return { ...BASE_MEMBERSHIP_TIERS[idx], index: idx };
+    }
+    
+    // Letter tiers (after Wario VIP)
+    const letterIndex = idx - BASE_MEMBERSHIP_TIERS.length;
+    const letterName = getLetterTierName(letterIndex);
+    
+    const baseThreshold = BASE_MEMBERSHIP_TIERS[4].threshold; // 1,000,000
+    const threshold = baseThreshold * Math.pow(2, letterIndex + 1);
+    
+    const discount = Math.min(25, 20 + Math.floor(letterIndex / 5));
+    const maxLevel = 20 + Math.floor(letterIndex / 2);
+    
+    const hue = (letterIndex * 30) % 360;
+    const color = `hsl(${hue}, 70%, 50%)`;
+    
+    let icon = '🔷';
+    if (letterIndex >= 26) icon = '💠';
+    if (letterIndex >= 52) icon = '🌟';
+    if (letterIndex >= 78) icon = '✨';
+    
+    return {
+        id: `tier_${letterName.toLowerCase()}`,
+        name: `Tier ${letterName}`,
+        icon: icon,
+        color: color,
+        threshold: threshold,
+        discount: discount,
+        maxPrice: Infinity,
+        maxLevel: maxLevel,
+        index: idx,
+        isLetterTier: true,
+        perks: [
+            `${discount}% discount on all items`,
+            'All shipping methods free',
+            `Items up to Level ${maxLevel}`,
+            letterIndex >= 10 ? 'Wario sends you holiday cards' : null,
+            letterIndex >= 25 ? 'Wario knows your name' : null,
+            letterIndex >= 50 ? 'Wario fears you slightly' : null
+        ].filter(Boolean)
+    };
+}
+
+// Fix applyMembershipDiscount to handle null tier
+export function applyMembershipDiscount(basePrice, tier) {
+    // Safety check - if tier is null/undefined, no discount
+    if (!tier) {
+        console.warn('applyMembershipDiscount called with null tier');
+        return {
+            original: basePrice,
+            discounted: basePrice,
+            savings: 0,
+            discountPercent: 0
+        };
+    }
+    
+    const discount = tier.discount || 0;
+    const discounted = Math.ceil(basePrice * (1 - discount / 100));
+    return {
+        original: basePrice,
+        discounted: discounted,
+        savings: basePrice - discounted,
+        discountPercent: discount
+    };
+}
+
+// Fix canPurchaseWithMembership to handle null tier
+export function canPurchaseWithMembership(item, tier) {
+    // Safety check
+    if (!tier) {
+        return { allowed: false, reason: 'Membership data not loaded' };
+    }
+    
+    if (item.price > tier.maxPrice) {
+        const requiredTier = getRequiredTierForItem(item);
+        return {
+            allowed: false,
+            reason: `Requires ${requiredTier.name} (item costs ${item.price.toLocaleString()} XP)`
+        };
+    }
+    
+    if (item.levelRequirement && item.levelRequirement > tier.maxLevel) {
+        const requiredTier = getRequiredTierForItem(item);
+        return {
+            allowed: false,
+            reason: `Requires ${requiredTier.name} (item is Level ${item.levelRequirement})`
+        };
+    }
+    
+    if (item.category === SHOP_CATEGORIES.FORBIDDEN && tier.index < 4) {
+        return {
+            allowed: false,
+            reason: "Forbidden items require Wario's Inner Circle"
+        };
+    }
+    
+    return { allowed: true };
+}
 function toggleCartItem(itemId) {
     const item = SHOP_ITEMS[itemId];
     if (!item) return;

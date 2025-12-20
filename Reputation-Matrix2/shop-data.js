@@ -1,60 +1,464 @@
 // Add after SHOP_CATEGORIES - REPLACE the old MEMBERSHIP_TIERS
+// === WARIO'S DYNAMIC STOCK SYSTEM ===
 
+export const STOCK_TYPES = {
+    IN_STOCK: 'in_stock',           // Wario has it RIGHT NOW - instant pickup
+    LIMITED_DAILY: 'limited_daily', // Part of Wario's daily stock pool
+    NIGHT_ONLY: 'night_only',       // Shady deals after dark
+    DELIVERY_ONLY: 'delivery_only', // Too big/rare - must be shipped
+    SPECIAL_ORDER: 'special_order', // Wario has to "acquire" it (wink wink)
+    BACK_ORDER: 'back_order'        // Out of stock, 3-5 day wait
+};
+export const SHOP_CATEGORIES = {
+    CONSUMABLES: 'consumables',
+    EQUIPMENT: 'equipment',
+    CURIOSITIES: 'curiosities',
+    SERVICES: 'services',
+    FACTION: 'faction',
+    FORBIDDEN: 'forbidden',
+    PREMIUM: 'premium'
+};
+export const TIME_PERIODS = {
+    DAWN: { 
+        id: 'dawn', 
+        name: 'Dawn', 
+        start: 5, 
+        end: 8, 
+        icon: '🌅',
+        stockMultiplier: 1.0,      // Fresh stock!
+        warioMood: 'grumpy',
+        warioQuote: "WAH... too early... coffee first, deals later..."
+    },
+    MORNING: { 
+        id: 'morning', 
+        name: 'Morning', 
+        start: 8, 
+        end: 12, 
+        icon: '☀️',
+        stockMultiplier: 0.9,
+        warioMood: 'energetic',
+        warioQuote: "WAHAHA! Fresh stock, fresh deals! Come spend your coins!"
+    },
+    AFTERNOON: { 
+        id: 'afternoon', 
+        name: 'Afternoon', 
+        start: 12, 
+        end: 17, 
+        icon: '🌤️',
+        stockMultiplier: 0.6,
+        warioMood: 'busy',
+        warioQuote: "Hurry up! Lots of customers today! Buy something or get out!"
+    },
+    EVENING: { 
+        id: 'evening', 
+        name: 'Evening', 
+        start: 17, 
+        end: 20, 
+        icon: '🌆',
+        stockMultiplier: 0.3,
+        warioMood: 'tired',
+        warioQuote: "Ugh, almost closing time... fine, I'll give you a deal..."
+    },
+    NIGHT: { 
+        id: 'night', 
+        name: 'Night', 
+        start: 20, 
+        end: 24, 
+        icon: '🌙',
+        stockMultiplier: 0.1,
+        warioMood: 'shady',
+        warioQuote: "Psst... you want the SPECIAL stuff? Come to the back room..."
+    },
+    MIDNIGHT: { 
+        id: 'midnight', 
+        name: 'Midnight', 
+        start: 0, 
+        end: 5, 
+        icon: '🌑',
+        stockMultiplier: 0.05,
+        warioMood: 'suspicious',
+        warioQuote: "You didn't see me, I didn't see you... now what do you need?"
+    }
+};
+
+// Wario's daily stock configuration
+export const WARIO_STOCK_CONFIG = {
+    maxDailyStock: 200,              // Total stock points at dawn
+    restockHour: 5,                  // When stock fully resets (5 AM)
+    nightBonusStart: 20,             // When night items appear (8 PM)
+    nightBonusEnd: 5,                // When night items disappear (5 AM)
+    
+    // How much stock each rarity consumes
+    stockCostByRarity: {
+        common: 1,
+        uncommon: 2,
+        rare: 5,
+        epic: 10,
+        legendary: 25,
+        mythic: 50,
+        godly: 100
+    },
+    
+    // Natural stock drain per hour (simulating other customers)
+    hourlyDrain: {
+        dawn: 5,
+        morning: 15,
+        afternoon: 20,
+        evening: 10,
+        night: 2,
+        midnight: 1
+    }
+};
+
+// Get current time period
+export function getCurrentTimePeriod() {
+    const now = new Date();
+    const hour = now.getHours();
+    
+    for (const [key, period] of Object.entries(TIME_PERIODS)) {
+        if (period.start <= period.end) {
+            // Normal range (e.g., 8-12)
+            if (hour >= period.start && hour < period.end) {
+                return period;
+            }
+        } else {
+            // Wraps around midnight (e.g., 20-24, 0-5)
+            if (hour >= period.start || hour < period.end) {
+                return period;
+            }
+        }
+    }
+    
+    return TIME_PERIODS.MORNING; // Fallback
+}
+
+// Check if it's night time (for night-only items)
+export function isNightTime() {
+    const hour = new Date().getHours();
+    return hour >= WARIO_STOCK_CONFIG.nightBonusStart || hour < WARIO_STOCK_CONFIG.nightBonusEnd;
+}
+
+// Calculate current daily stock remaining
+export function calculateCurrentStock() {
+    const now = new Date();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+    
+    // Hours since restock (5 AM)
+    let hoursSinceRestock = hour - WARIO_STOCK_CONFIG.restockHour;
+    if (hoursSinceRestock < 0) hoursSinceRestock += 24;
+    
+    // Start with max stock
+    let currentStock = WARIO_STOCK_CONFIG.maxDailyStock;
+    
+    // Drain stock for each hour passed
+    for (let h = 0; h < hoursSinceRestock; h++) {
+        const checkHour = (WARIO_STOCK_CONFIG.restockHour + h) % 24;
+        const period = getTimePeriodForHour(checkHour);
+        currentStock -= WARIO_STOCK_CONFIG.hourlyDrain[period.id] || 5;
+    }
+    
+    // Partial hour drain
+    const currentPeriod = getCurrentTimePeriod();
+    const partialDrain = (minutes / 60) * (WARIO_STOCK_CONFIG.hourlyDrain[currentPeriod.id] || 5);
+    currentStock -= partialDrain;
+    
+    return Math.max(0, Math.floor(currentStock));
+}
+
+function getTimePeriodForHour(hour) {
+    for (const period of Object.values(TIME_PERIODS)) {
+        if (period.start <= period.end) {
+            if (hour >= period.start && hour < period.end) return period;
+        } else {
+            if (hour >= period.start || hour < period.end) return period;
+        }
+    }
+    return TIME_PERIODS.MORNING;
+}
+
+// Check if an item is available based on stock type and time
+export function getItemAvailability(item) {
+    const stockType = item.stockType || STOCK_TYPES.DELIVERY_ONLY;
+    const period = getCurrentTimePeriod();
+    const currentStock = calculateCurrentStock();
+    const stockCost = WARIO_STOCK_CONFIG.stockCostByRarity[item.rarity] || 1;
+    const isNight = isNightTime();
+    
+    switch (stockType) {
+        case STOCK_TYPES.IN_STOCK:
+            return {
+                available: true,
+                instant: true,
+                reason: "In Stock - Instant Pickup!",
+                icon: '✅',
+                shippingRequired: false
+            };
+            
+        case STOCK_TYPES.LIMITED_DAILY:
+            if (currentStock >= stockCost) {
+                return {
+                    available: true,
+                    instant: true,
+                    reason: `In Stock (${currentStock} daily stock remaining)`,
+                    icon: '📦',
+                    shippingRequired: false,
+                    stockRemaining: currentStock
+                };
+            } else {
+                return {
+                    available: true,
+                    instant: false,
+                    reason: "Daily stock depleted - Delivery only",
+                    icon: '📭',
+                    shippingRequired: true
+                };
+            }
+            
+        case STOCK_TYPES.NIGHT_ONLY:
+            if (isNight) {
+                return {
+                    available: true,
+                    instant: true,
+                    reason: "🌙 Night Special - Available NOW",
+                    icon: '🌙',
+                    shippingRequired: false,
+                    isNightSpecial: true
+                };
+            } else {
+                const hoursUntilNight = (WARIO_STOCK_CONFIG.nightBonusStart - new Date().getHours() + 24) % 24;
+                return {
+                    available: false,
+                    instant: false,
+                    reason: `Night Only - Available in ${hoursUntilNight}h`,
+                    icon: '🔒',
+                    shippingRequired: false,
+                    hoursUntilAvailable: hoursUntilNight
+                };
+            }
+            
+        case STOCK_TYPES.DELIVERY_ONLY:
+            return {
+                available: true,
+                instant: false,
+                reason: "Delivery Only - Too large/rare to stock",
+                icon: '🚚',
+                shippingRequired: true
+            };
+            
+        case STOCK_TYPES.SPECIAL_ORDER:
+            return {
+                available: true,
+                instant: false,
+                reason: "Special Order - Wario needs to 'find' this...",
+                icon: '🕵️',
+                shippingRequired: true,
+                extraDelay: true
+            };
+            
+        case STOCK_TYPES.BACK_ORDER:
+            return {
+                available: true,
+                instant: false,
+                reason: "Back Order - 3-5 day wait",
+                icon: '⏳',
+                shippingRequired: true,
+                extraDelay: true
+            };
+            
+        default:
+            return {
+                available: true,
+                instant: false,
+                reason: "Standard Delivery",
+                icon: '📬',
+                shippingRequired: true
+            };
+    }
+}
+
+// Night-only special items (add these to SHOP_ITEMS or as separate)
+export const NIGHT_SPECIAL_ITEMS = {
+    'night_shadow_cloak': {
+        id: 'night_shadow_cloak',
+        name: "Cloak of Midnight Dealings",
+        description: "A cloak that Wario definitely didn't steal from a sleeping vampire. Grants advantage on stealth at night.",
+        category: SHOP_CATEGORIES.EQUIPMENT,
+        price: 15000,
+        icon: '🧥',
+        stock: 1,
+        rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
+        effects: [
+            "Advantage on Stealth checks at night",
+            "Disadvantage on Stealth during bright light",
+            "Smells faintly of garlic (Wario's precaution)"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'N/A - Pickup Only',
+        levelRequirement: 5,
+        warning: "Wario claims it's 'legally acquired'. Don't ask questions."
+    },
+    'night_black_market_map': {
+        id: 'night_black_market_map',
+        name: "Black Market Contact List",
+        description: "A crumpled paper with locations of 'alternative shopping venues' across the kingdom.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 8000,
+        icon: '🗺️',
+        stock: 3,
+        rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
+        effects: [
+            "Reveals 3 hidden vendor locations",
+            "10% discount at underground merchants",
+            "Self-destructs if read in daylight (the ink is sensitive)"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'N/A - Pickup Only',
+        levelRequirement: 3
+    },
+    'night_cursed_coin': {
+        id: 'night_cursed_coin',
+        name: "Wario's 'Lucky' Coin",
+        description: "A gold coin that always lands on the side Wario wants. Definitely not cursed. Probably.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 25000,
+        icon: '🪙',
+        stock: 1,
+        rarity: 'epic',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
+        effects: [
+            "Can force any coin flip to your preferred result",
+            "Once per day, gain 1d100 gold from 'mysterious sources'",
+            "Side effect: Occasionally whispers financial advice at 3 AM"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'N/A - Pickup Only',
+        levelRequirement: 8,
+        warning: "Previous owner disappeared. Unrelated, probably."
+    },
+    'night_stolen_goods_bundle': {
+        id: 'night_stolen_goods_bundle',
+        name: "Mystery Crate (No Questions Asked)",
+        description: "A wooden crate with 'DEFINITELY NOT STOLEN' written on it in Wario's handwriting.",
+        category: SHOP_CATEGORIES.CURIOSITIES,
+        price: 5000,
+        icon: '📦',
+        stock: 5,
+        rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
+        effects: [
+            "Contains 1d4 random items worth 2000-10000 XP each",
+            "50% chance of containing something actually useful",
+            "10% chance the original owner comes looking for it"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'N/A - Pickup Only',
+        levelRequirement: 1,
+        warning: "No refunds. No receipts. No witnesses."
+    },
+    'night_waluigi_number': {
+        id: 'night_waluigi_number',
+        name: "Waluigi's Private Number",
+        description: "A crumpled napkin with a phone number. Wario insists this is worth every coin.",
+        category: SHOP_CATEGORIES.SERVICES,
+        price: 50000,
+        icon: '📱',
+        stock: 1,
+        rarity: 'legendary',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
+        effects: [
+            "Can call Waluigi once per week for 'assistance'",
+            "Waluigi will help with ONE task (his interpretation)",
+            "Results may vary from 'incredibly helpful' to 'complete chaos'"
+        ],
+        vendor: 'wario_direct',
+        shippedBy: 'N/A - Pickup Only',
+        levelRequirement: 10,
+        warning: "Waluigi may or may not actually answer. No guarantees."
+    }
+};
+
+// Merge night items into main shop items
+export function getAllShopItems() {
+    return { ...SHOP_ITEMS, ...NIGHT_SPECIAL_ITEMS };
+}
 // Base named tiers (first 5)
 export const BASE_MEMBERSHIP_TIERS = [
-    { id: 'wallet_wimp', name: 'Wallet Wimp', icon: '🩴', color: '#8b7355', threshold: 0, discount: 0, maxPrice: 10000, maxLevel: 5, perks: ['Access to garbage items', 'Dirt-cheap shipping'], warioNote: "WAH! You call yourself a customer? I've seen Goombas with deeper pockets!" },
-    { id: 'coin_sniffer', name: 'Coin Sniffer', icon: '👃', color: '#daa520', threshold: 500, discount: 1, maxPrice: 15000, maxLevel: 6, perks: ['Access to garbage items', 'Dirt-cheap shipping', '1% discount'], warioNote: "You smell money? Good! Now GIVE IT TO WARIO!" },
-    { id: 'garlic_gnasher', name: 'Garlic Gnasher', icon: '🧄', color: '#fff8dc', threshold: 1000, discount: 2, maxPrice: 20000, maxLevel: 7, perks: ['Access to basic items', 'Slow boat shipping', '2% discount'], warioNote: "Garlic breath and cheap! Just how Wario likes 'em! Spend more!" },
-    { id: 'bronze_bumbler', name: 'Bronze Bumbler', icon: '🥉', color: '#cd7f32', threshold: 2000, discount: 3, maxPrice: 30000, maxLevel: 8, perks: ['Access to basic items', 'Standard shipping', '3% discount'], warioNote: "Bronze? More like BUMS! WAH HA! Keep spending, loser!" },
-    { id: 'mud_muncher', name: 'Mud Muncher', icon: '💩', color: '#8b4513', threshold: 3500, discount: 4, maxPrice: 40000, maxLevel: 9, perks: ['Access to basic items', 'Standard shipping', '4% discount'], warioNote: "You eat mud? Wario eats GOLD! Give me your coins!" },
-    { id: 'rusty_rascal', name: 'Rusty Rascal', icon: '📎', color: '#b7410e', threshold: 5000, discount: 5, maxPrice: 50000, maxLevel: 10, perks: ['Access to basic items', 'Standard shipping', '5% discount'], warioNote: "Rusty and crusty! Just like Wario's bathtub! Spend more!" },
-    { id: 'plastic_pirate', name: 'Plastic Pirate', icon: '🏴‍☠️', color: '#ff6347', threshold: 7500, discount: 6, maxPrice: 60000, maxLevel: 11, perks: ['Access to uncommon items', 'Standard shipping', '6% discount'], warioNote: "Pirate? More like Pierogi! Soft and cheap! WAH!" },
-    { id: 'clay_creep', name: 'Clay Creep', icon: '🏺', color: '#b5651d', threshold: 10000, discount: 7, maxPrice: 75000, maxLevel: 12, perks: ['Access to uncommon items', 'Standard shipping', '7% discount'], warioNote: "Molded from dirt! Just like your bank account! Spend!" },
-    { id: 'silver_swindler', name: 'Silver Swindler', icon: '🥈', color: '#c0c0c0', threshold: 15000, discount: 8, maxPrice: 100000, maxLevel: 13, perks: ['Access to uncommon items', 'Express shipping', '8% discount'], warioNote: "Silver? You're swindling yourself! Wario deserves better!" },
-    { id: 'fart_fiend', name: 'Fart Fiend', icon: '💨', color: '#9acd32', threshold: 20000, discount: 9, maxPrice: 125000, maxLevel: 14, perks: ['Access to uncommon items', 'Express shipping', '9% discount', 'Stink-proof packaging'], warioNote: "WAH HA! You stink! But your money smells GOOD to Wario!" },
-    { id: 'gold_gobbler', name: 'Gold Gobbler', icon: '🥇', color: '#ffd700', threshold: 30000, discount: 10, maxPrice: 150000, maxLevel: 15, perks: ['Access to rare items', 'Warp Pipe shipping', '10% discount'], warioNote: "GOLD! Now you're talking! But Wario talks LOUDER! MORE!" },
-    { id: 'treasure_twerp', name: 'Treasure Twerp', icon: '💰', color: '#ff8c00', threshold: 45000, discount: 11, maxPrice: 200000, maxLevel: 16, perks: ['Access to rare items', 'Warp Pipe shipping', '11% discount', 'Treasure map included'], warioNote: "Twerp with treasure! Hand it over! Wario's got bills to pay!" },
-    { id: 'emerald_eater', name: 'Emerald Eater', icon: '💚', color: '#2ecc71', threshold: 60000, discount: 12, maxPrice: 250000, maxLevel: 17, perks: ['Access to rare items', 'Warp Pipe shipping', '12% discount', 'Free express shipping'], warioNote: "Emeralds are green! Like Wario's snot! Give me GOLD instead!" },
-    { id: 'ruby_rascal', name: 'Ruby Rascal', icon: '❤️', color: '#e74c3c', threshold: 80000, discount: 13, maxPrice: 300000, maxLevel: 18, perks: ['Access to epic items', 'Military shipping', '13% discount'], warioNote: "Red like Wario's hot temper when you DON'T spend!" },
-    { id: 'sapphire_scoundrel', name: 'Sapphire Scoundrel', icon: '💙', color: '#3498db', threshold: 100000, discount: 14, maxPrice: 350000, maxLevel: 19, perks: ['Access to epic items', 'Military shipping', '14% discount', 'Free warp shipping'], warioNote: "Blue like Wario's sad face... when your wallet's empty! WAH!" },
-    { id: 'diamond_dingus', name: 'Diamond Dingus', icon: '💎', color: '#85c1e9', threshold: 125000, discount: 15, maxPrice: 400000, maxLevel: 20, perks: ['Access to epic items', 'Military shipping', '15% discount', 'Free warp shipping'], warioNote: "Diamonds are hard! But Wario's greed is HARDER!" },
-    { id: 'platinum_plunderer', name: 'Platinum Plunderer', icon: '⚪', color: '#e5e4e2', threshold: 150000, discount: 16, maxPrice: 450000, maxLevel: 21, perks: ['Access to epic items', 'Military shipping', '16% discount', 'Free warp shipping'], warioNote: "Platinum! Wario might remember your face... for a second!" },
-    { id: 'wario_wannabe', name: 'Wario Wannabe', icon: '👃', color: '#f1c40f', threshold: 175000, discount: 17, maxPrice: 500000, maxLevel: 22, perks: ['Access to legendary items', 'All shipping free', '17% discount'], warioNote: "You WANNA be Wario? Then spend like Wario! WAH HA!" },
-    { id: 'garlic_gladiator', name: 'Garlic Gladiator', icon: '🧄', color: '#fffacd', threshold: 200000, discount: 18, maxPrice: 600000, maxLevel: 23, perks: ['Access to legendary items', 'All shipping free', '18% discount', 'Garlic-scented packages'], warioNote: "Gladiator? More like GLAD-he-ate-her-wallet! WAH!" },
-    { id: 'coin_crusher', name: 'Coin Crusher', icon: '💰', color: '#daa520', threshold: 225000, discount: 19, maxPrice: 700000, maxLevel: 24, perks: ['Access to legendary items', 'All shipping free', '19% discount'], warioNote: "Crush those coins! Then give them to Wario! Simple!" },
-    { id: 'bomb_bandit', name: 'Bomb Bandit', icon: '💣', color: '#2c3e50', threshold: 250000, discount: 20, maxPrice: 800000, maxLevel: 25, perks: ['Access to legendary items', 'All shipping free', '20% discount', 'Bomb-proof packaging'], warioNote: "BOMBS AWAY! Your money's blowing up... in MY pocket!" },
-    { id: 'mustache_marauder', name: 'Mustache Marauder', icon: '👨', color: '#8b4513', threshold: 275000, discount: 21, maxPrice: 900000, maxLevel: 26, perks: ['Access to mythical items', 'All shipping free', '21% discount'], warioNote: "Nice 'stache! But Wario's is CLASSIER! And richer!" },
-    { id: 'microgame_minion', name: 'Microgame Minion', icon: '🎮', color: '#9b59b6', threshold: 300000, discount: 22, maxPrice: 1000000, maxLevel: 27, perks: ['Access to mythical items', 'All shipping free', '22% discount', 'Microgame early access'], warioNote: "Work those microgames! Wario gets MACRO money! WAH!" },
-    { id: 'treasure_trooper', name: 'Treasure Trooper', icon: '🏴‍☠️', color: '#e67e22', threshold: 350000, discount: 23, maxPrice: 1250000, maxLevel: 28, perks: ['Access to mythical items', 'All shipping free', '23% discount'], warioNote: "Trooper? You're in WARIO'S army now! SPEND, SOLDIER!" },
-    { id: 'rotten_ruler', name: 'Rotten Ruler', icon: '👑', color: '#27ae60', threshold: 400000, discount: 24, maxPrice: 1500000, maxLevel: 29, perks: ['Access to mythical items', 'All shipping free', '24% discount', 'Rotten garlic basket'], warioNote: "Rule with an iron... wallet! Wario's the REAL king!" },
-    { id: 'greed_goblin', name: 'Greed Goblin', icon: '👺', color: '#c0392b', threshold: 450000, discount: 25, maxPrice: 1750000, maxLevel: 30, perks: ['Access to forbidden items', 'All shipping free', '25% discount'], warioNote: "Greed is good! WARIO'S greed is GREAT! More!" },
-    { id: 'cash_creep', name: 'Cash Creep', icon: '🕴️', color: '#7f8c8d', threshold: 500000, discount: 26, maxPrice: 2000000, maxLevel: 31, perks: ['Access to forbidden items', 'All shipping free', '26% discount', 'Personal accountant'], warioNote: "Creep those coins my way! WAH HA HA!" },
-    { id: 'wario_warrior', name: 'Wario Warrior', icon: '⚔️', color: '#f39c12', threshold: 550000, discount: 27, maxPrice: 2250000, maxLevel: 32, perks: ['Access to forbidden items', 'All shipping free', '27% discount'], warioNote: "Warrior? WARIO is the warlord! You're just a grunt!" },
-    { id: 'garlic_god', name: 'Garlic God', icon: '🧄', color: '#ffffe0', threshold: 600000, discount: 28, maxPrice: 2500000, maxLevel: 33, perks: ['Access to forbidden items', 'All shipping free', '28% discount', 'Lifetime garlic supply'], warioNote: "God of garlic? WARIO'S god of GOLD! Pay up!" },
-    { id: 'coin_king', name: 'Coin King', icon: '👑', color: '#ffd700', threshold: 650000, discount: 29, maxPrice: 2750000, maxLevel: 34, perks: ['Access to ALL items', 'All shipping free', '29% discount'], warioNote: "King of coins? WARIO'S the EMPEROR! Bow down and pay!" },
-    { id: 'diamond_devourer', name: 'Diamond Devourer', icon: '💎', color: '#40e0d0', threshold: 700000, discount: 30, maxPrice: 3000000, maxLevel: 35, perks: ['Access to ALL items', 'All shipping free', '30% discount'], warioNote: "Devour diamonds! Wario devours DOLLARS! WAH!" },
-    { id: 'platinum_pirate', name: 'Platinum Pirate', icon: '🏴‍☠️', color: '#e5e4e2', threshold: 750000, discount: 31, maxPrice: 3250000, maxLevel: 36, perks: ['Access to ALL items', 'All shipping free', '31% discount', 'Pirate ship delivery'], warioNote: "Pirate? WARIO'S the TREASURE LORD! Hand it over!" },
-    { id: 'wario_warelord', name: 'Wario Warelord', icon: '🎮', color: '#9b59b6', threshold: 800000, discount: 32, maxPrice: 3500000, maxLevel: 37, perks: ['Access to ALL items', 'All shipping free', '32% discount', 'WarioWare VIP'], warioNote: "Warelord? WARIO'S the WARE-EMPEROR! More micro, more money!" },
-    { id: 'treasure_tyrant', name: 'Treasure Tyrant', icon: '💰', color: '#d35400', threshold: 850000, discount: 33, maxPrice: 3750000, maxLevel: 38, perks: ['Access to ALL items', 'All shipping free', '33% discount'], warioNote: "Tyrant? WARIO'S the TYRANT-KING! Pay tribute!" },
-    { id: 'greed_giant', name: 'Greed Giant', icon: '👹', color: '#8e44ad', threshold: 900000, discount: 34, maxPrice: 4000000, maxLevel: 39, perks: ['Access to ALL items', 'All shipping free', '34% discount', 'Greed counseling sessions'], warioNote: "Giant greed? WARIO'S greed is GALACTIC! WAH HA!" },
-    { id: 'cash_commander', name: 'Cash Commander', icon: '🎖️', color: '#27ae60', threshold: 950000, discount: 35, maxPrice: 4250000, maxLevel: 40, perks: ['Access to ALL items', 'All shipping free', '35% discount'], warioNote: "Commander? WARIO'S the GENERAL! Fall in line and spend!" },
-    { id: 'wario_warlord', name: 'Wario Warlord', icon: '⚔️', color: '#c0392b', threshold: 1000000, discount: 36, maxPrice: 4500000, maxLevel: 41, perks: ['Access to ALL items', 'All shipping free', '36% discount', 'Warlord statue'], warioNote: "WARLORD! WARIO likes the sound of that! Keep the gold coming!" },
-    { id: 'garlic_guru', name: 'Garlic Guru', icon: '🧄', color: '#f1c40f', threshold: 1100000, discount: 37, maxPrice: 5000000, maxLevel: 42, perks: ['Access to ALL items', 'All shipping free', '37% discount', 'Sacred garlic recipes'], warioNote: "Guru of garlic? WARIO'S guru of GETTING PAID!" },
-    { id: 'coin_conqueror', name: 'Coin Conqueror', icon: '💰', color: '#f39c12', threshold: 1200000, discount: 38, maxPrice: 5500000, maxLevel: 43, perks: ['Access to ALL items', 'All shipping free', '38% discount'], warioNote: "Conquer coins? WARIO conquers WORLDS! Of wealth!" },
-    { id: 'diamond_dictator', name: 'Diamond Dictator', icon: '💎', color: '#3498db', threshold: 1300000, discount: 39, maxPrice: 6000000, maxLevel: 44, perks: ['Access to ALL items', 'All shipping free', '39% discount', 'Diamond-encrusted catalog'], warioNote: "Dictate diamonds? WARIO dictates DESTINY! And debt!" },
-    { id: 'platinum_pharaoh', name: 'Platinum Pharaoh', icon: '👑', color: '#e5e4e2', threshold: 1400000, discount: 40, maxPrice: 6500000, maxLevel: 45, perks: ['Access to ALL items', 'All shipping free', '40% discount', 'Pyramid of perks'], warioNote: "Pharaoh? WARIO'S the GOD-KING! Pay homage!" },
-    { id: 'wario_emperor', name: 'Wario Emperor', icon: '👑', color: '#9b59b6', threshold: 1500000, discount: 41, maxPrice: 7000000, maxLevel: 46, perks: ['Access to ALL items', 'All shipping free', '41% discount', 'Emperor garlic crown'], warioNote: "Emperor? Getting close! But WARIO'S the UNIVERSE!" },
-    { id: 'treasure_titan', name: 'Treasure Titan', icon: '💰', color: '#e74c3c', threshold: 1600000, discount: 42, maxPrice: 7500000, maxLevel: 47, perks: ['Access to ALL items', 'All shipping free', '42% discount'], warioNote: "Titan of treasure? WARIO'S TITAN OF EVERYTHING! WAH!" },
-    { id: 'greed_general', name: 'Greed General', icon: '🎖️', color: '#2ecc71', threshold: 1700000, discount: 43, maxPrice: 8000000, maxLevel: 48, perks: ['Access to ALL items', 'All shipping free', '43% discount', 'General discount override'], warioNote: "General? WARIO'S the SUPREME COMMANDER! Charge that credit card!" },
-    { id: 'cash_czar', name: 'Cash Czar', icon: '👑', color: '#34495e', threshold: 1800000, discount: 44, maxPrice: 8500000, maxLevel: 49, perks: ['Access to ALL items', 'All shipping free', '44% discount'], warioNote: "Czar? WARIO'S the KAISER! The SHAH! The BIG CHEESE!" },
-    { id: 'wario_overlord', name: 'Wario Overlord', icon: '☠️', color: '#8e44ad', threshold: 1900000, discount: 45, maxPrice: 9000000, maxLevel: 50, perks: ['Access to ALL items', 'All shipping free', '45% discount', 'Overlord throne'], warioNote: "Overlord? WARIO OVERLORDS OVERLORDS! WAH HA HA!" },
-    { id: 'garlic_grandmaster', name: 'Garlic Grandmaster', icon: '🧄', color: '#f1c40f', threshold: 2000000, discount: 46, maxPrice: 9500000, maxLevel: 51, perks: ['Access to ALL items', 'All shipping free', '46% discount', 'Grandmaster garlic grove'], warioNote: "Grandmaster? WARIO'S the GODMASTER! Of MONEY!" },
-    { id: 'coin_chancellor', name: 'Coin Chancellor', icon: '💰', color: '#27ae60', threshold: 2500000, discount: 47, maxPrice: 10000000, maxLevel: 52, perks: ['Access to ALL items', 'All shipping free', '47% discount'], warioNote: "Chancellor of coins? WARIO'S the TREASURER OF THE UNIVERSE!" },
-    { id: 'diamond_deity', name: 'Diamond Deity', icon: '💎', color: '#40e0d0', threshold: 5000000, discount: 48, maxPrice: 50000000, maxLevel: 53, perks: ['Access to ALL items', 'All shipping free', '48% discount', 'Divine diamond shower'], warioNote: "Deity? WARIO'S THE GOD! THE ONE AND ONLY! PAY!" },
-    { id: 'galactic_garlic', name: 'Galactic Garlic', icon: '🌌', color: '#9b59b6', threshold: 7500000, discount: 49, maxPrice: 100000000, maxLevel: 54, perks: ['Access to ALL items', 'All shipping free', '49% discount', 'Garlic from space'], warioNote: "Galactic? WARIO'S MULTI-DIMENSIONAL! Across all universes, I GET PAID!" },
-    { id: 'ultimate_wah', name: 'Warios Inner Circle', icon: '💸', color: '#e74c3c', threshold: 10000000, discount: 50, maxPrice: Infinity, maxLevel: 55, perks: ['Access to ALL items', 'All shipping free', '50% discount', 'Wario statue in your honor', 'Lifetime supply of garlic'], warioNote: "ULTIMATE WAH! You've reached the peak! But WARIO'S peak is HIGHER! I'M STILL RICHER! WAH HA HA HA HA!" }
-];
+    // --- TIER 1-10: THE "PATHETIC POOR" PHASE ---
+    { id: 'lint_licker', name: 'Pocket Lint Licker', icon: '🧶', color: '#6e6e6e', threshold: 0, discount: 0, maxPrice: 5000, maxLevel: 1, perks: ['Access to garbage'], warioNote: "WAH! Your pockets are empty! Get out of my sight!" },
+    { id: 'dust_bunny', name: 'Dust Bunny Duke', icon: '🌫️', color: '#a9a9a9', threshold: 500, discount: 0, maxPrice: 7500, maxLevel: 2, perks: ['Sneezing allowance'], warioNote: "You have nothing! Wario is allergic to poor people!" },
+    { id: 'rusty_rookie', name: 'Rusty Rookie', icon: '🔩', color: '#8b4513', threshold: 1000, discount: 1, maxPrice: 10000, maxLevel: 3, perks: ['Tetanus shot coupon'], warioNote: "You smell like old pipes! Spend money to clean up!" },
+    { id: 'rotten_garlic', name: 'Rotten Garlic Grunt', icon: '🧄', color: '#556b2f', threshold: 1500, discount: 1, maxPrice: 12500, maxLevel: 4, perks: ['Bad breath'], warioNote: "You smell bad... but not the GOOD kind of bad!" },
+    { id: 'clay_clown', name: 'Clay Clown', icon: '🤡', color: '#cd853f', threshold: 2500, discount: 2, maxPrice: 15000, maxLevel: 5, perks: ['Fragile shipping'], warioNote: "Soft and weak! Harden up your wallet!" },
+    { id: 'cardboard_king', name: 'Cardboard Commander', icon: '📦', color: '#deb887', threshold: 3500, discount: 2, maxPrice: 17500, maxLevel: 6, perks: ['Flammable packaging'], warioNote: "Cheap packaging for a cheap customer! WAH!" },
+    { id: 'wood_wimp', name: 'Wooden Wimp', icon: '🪵', color: '#d2b48c', threshold: 5000, discount: 3, maxPrice: 20000, maxLevel: 7, perks: ['Splinter insurance'], warioNote: "Knock on wood? No! Knock on WARIO'S DOOR with cash!" },
+    { id: 'stone_slacker', name: 'Stone Slacker', icon: '🪨', color: '#708090', threshold: 6500, discount: 3, maxPrice: 22500, maxLevel: 8, perks: ['Heavy shipping'], warioNote: "You are stuck in the stone age! Evolve into a spender!" },
+    { id: 'cement_cent', name: 'Cement Cent-Pincher', icon: '🧱', color: '#808080', threshold: 8000, discount: 4, maxPrice: 25000, maxLevel: 9, perks: ['Solid shipping'], warioNote: "Concrete evidence that you are cheap! WAH HA!" },
+    { id: 'glass_goomba', name: 'Glass Goomba', icon: '🍄', color: '#add8e6', threshold: 10000, discount: 4, maxPrice: 27500, maxLevel: 10, perks: ['Transparent pricing'], warioNote: "I can see right through you... and your empty wallet!" },
 
+    // --- TIER 11-20: THE "COMMON METALS" PHASE ---
+    { id: 'copper_crook', name: 'Copper Crook', icon: '🥉', color: '#b87333', threshold: 12500, discount: 5, maxPrice: 30000, maxLevel: 11, perks: ['Access to basic items'], warioNote: "Pennies are made of copper. You know who loves pennies? NO ONE!" },
+    { id: 'bronze_bargain', name: 'Bronze Bargain Hunter', icon: '🥉', color: '#cd7f32', threshold: 15000, discount: 5, maxPrice: 35000, maxLevel: 12, perks: ['Standard shipping'], warioNote: "Bronze is third place. You are a loser! Spend more to win!" },
+    { id: 'iron_ingot', name: 'Iron Ingot Idiot', icon: '⛓️', color: '#4d4d4d', threshold: 18000, discount: 6, maxPrice: 40000, maxLevel: 13, perks: ['Magnetic personality'], warioNote: "Strong metal, weak spending habits! WAH!" },
+    { id: 'steel_stealer', name: 'Steel Stealer', icon: '🏗️', color: '#778899', threshold: 22000, discount: 6, maxPrice: 45000, maxLevel: 14, perks: ['Stainless reputation'], warioNote: "Steel yourself... for higher prices! Ha ha!" },
+    { id: 'aluminum_associate', name: 'Aluminum Associate', icon: '🥤', color: '#c0c0c0', threshold: 26000, discount: 7, maxPrice: 50000, maxLevel: 15, perks: ['Recyclable deals'], warioNote: "Lightweight! Your wallet is too light! Fill it up!" },
+    { id: 'nickel_nicety', name: 'Nickel Nicety', icon: '🪙', color: '#a8a9ad', threshold: 30000, discount: 7, maxPrice: 60000, maxLevel: 16, perks: ['5 cent rebate'], warioNote: "If I had a nickel for every cheapskate... oh wait, I DO!" },
+    { id: 'silver_spender', name: 'Silver Spender', icon: '🥈', color: '#c0c0c0', threshold: 35000, discount: 8, maxPrice: 70000, maxLevel: 17, perks: ['Express shipping'], warioNote: "Silver medal? You're the first loser! Go for Gold!" },
+    { id: 'sterling_sucker', name: 'Sterling Sucker', icon: '🥄', color: '#e6e6e6', threshold: 42000, discount: 8, maxPrice: 80000, maxLevel: 18, perks: ['Polished service'], warioNote: "Shiny silver! But it tarnishes... just like my patience!" },
+    { id: 'titanium_tightwad', name: 'Titanium Tightwad', icon: '🔩', color: '#878685', threshold: 50000, discount: 9, maxPrice: 90000, maxLevel: 19, perks: ['Indestructible boxes'], warioNote: "Hard to break... just like your bank account! Open it!" },
+    { id: 'mercury_merchant', name: 'Mercury Merchant', icon: '🌡️', color: '#b0c4de', threshold: 60000, discount: 9, maxPrice: 100000, maxLevel: 20, perks: ['Fluid shipping'], warioNote: "Slippery customer! Don't slip away without paying Wario!" },
+
+    // --- TIER 21-30: THE "PRECIOUS GEMS" PHASE ---
+    { id: 'gold_elite', name: 'Gold Elite', icon: '🥇', color: '#ffd700', threshold: 75000, discount: 10, maxPrice: 120000, maxLevel: 21, perks: ['Warp Pipe shipping', '10% discount'], warioNote: "GOLD! Finally! Wario is listening now!" },
+    { id: 'fool_gold', name: 'Fool\'s Gold Fanatic', icon: '✨', color: '#daa520', threshold: 90000, discount: 10, maxPrice: 140000, maxLevel: 22, perks: ['Fake compliments'], warioNote: "Are you real gold? Or fake? Prove it with CASH!" },
+    { id: 'amber_ambusher', name: 'Amber Ambusher', icon: '🔸', color: '#ffbf00', threshold: 110000, discount: 11, maxPrice: 160000, maxLevel: 23, perks: ['Fossilized deals'], warioNote: "Trapped in the past! Bring me modern money!" },
+    { id: 'topaz_tycoon', name: 'Topaz Tycoon', icon: '🔶', color: '#ffc87c', threshold: 130000, discount: 11, maxPrice: 180000, maxLevel: 24, perks: ['Yellow shipping'], warioNote: "Yellow like the sun! Or Wario's teeth! WAH HA!" },
+    { id: 'jade_jester', name: 'Jade Jester', icon: '🟢', color: '#00a86b', threshold: 150000, discount: 12, maxPrice: 200000, maxLevel: 25, perks: ['Lucky cat charm'], warioNote: "You think you're lucky? Wario makes his own luck! With money!" },
+    { id: 'pearl_pirate', name: 'Pearl Pirate', icon: '🦪', color: '#f0f8ff', threshold: 175000, discount: 12, maxPrice: 225000, maxLevel: 26, perks: ['Clam opener'], warioNote: "Open up that wallet like a clam! Give me the pearl!" },
+    { id: 'opal_operator', name: 'Opal Operator', icon: '🍥', color: '#a8c3bc', threshold: 200000, discount: 13, maxPrice: 250000, maxLevel: 27, perks: ['Iridescent wrapping'], warioNote: "Sparkly! Distract me with sparkles while I take your coins!" },
+    { id: 'ruby_royal', name: 'Ruby Royalty', icon: '🛑', color: '#e0115f', threshold: 230000, discount: 13, maxPrice: 300000, maxLevel: 28, perks: ['Red carpet delivery'], warioNote: "Royal treatment? Only if you pay the Royal Tax!" },
+    { id: 'sapphire_sultan', name: 'Sapphire Sultan', icon: '🧿', color: '#0f52ba', threshold: 260000, discount: 14, maxPrice: 350000, maxLevel: 29, perks: ['Blue ribbon service'], warioNote: "Blue skies ahead... because you're making it rain!" },
+    { id: 'emerald_emperor', name: 'Emerald Emperor', icon: '✳️', color: '#50c878', threshold: 300000, discount: 14, maxPrice: 400000, maxLevel: 30, perks: ['Green express'], warioNote: "Green is the color of money! I love you now!" },
+
+    // --- TIER 31-40: THE "HIGH SOCIETY" PHASE ---
+    { id: 'platinum_partner', name: 'Platinum Partner', icon: '💿', color: '#e5e4e2', threshold: 350000, discount: 15, maxPrice: 500000, maxLevel: 31, perks: ['Military shipping', '15% discount'], warioNote: "Platinum! You are tough stuff! But Wario is tougher!" },
+    { id: 'diamond_dynamo', name: 'Diamond Dynamo', icon: '💎', color: '#b9f2ff', threshold: 400000, discount: 15, maxPrice: 600000, maxLevel: 32, perks: ['Unbreakable bond'], warioNote: "A diamond in the rough? No, a diamond in my POCKET!" },
+    { id: 'obsidian_overlord', name: 'Obsidian Overlord', icon: '⚫', color: '#1a1a1a', threshold: 450000, discount: 16, maxPrice: 750000, maxLevel: 33, perks: ['Volcanic shipping'], warioNote: "Dark and mysterious... like my tax returns! WAH!" },
+    { id: 'crystal_king', name: 'Crystal King', icon: '🔮', color: '#e0ffff', threshold: 500000, discount: 16, maxPrice: 900000, maxLevel: 34, perks: ['Future sight'], warioNote: "I predict... you will give me ALL your money!" },
+    { id: 'mithril_monarch', name: 'Mithril Monarch', icon: '⚔️', color: '#aaccee', threshold: 550000, discount: 17, maxPrice: 1000000, maxLevel: 35, perks: ['Fantasy pricing'], warioNote: "Is this money even real? As long as I can spend it!" },
+    { id: 'adamant_ace', name: 'Adamant Ace', icon: '🛡️', color: '#304a30', threshold: 600000, discount: 17, maxPrice: 1200000, maxLevel: 36, perks: ['Hard-headed service'], warioNote: "You are stubborn! Stubbornly rich! I like it!" },
+    { id: 'money_bag_baron', name: 'Money Bag Baron', icon: '💰', color: '#f4c430', threshold: 650000, discount: 18, maxPrice: 1500000, maxLevel: 37, perks: ['Canvas bag delivery'], warioNote: "I love the sound of a full money bag hitting the floor!" },
+    { id: 'bullion_boss', name: 'Bullion Boss', icon: '🏦', color: '#ffd700', threshold: 700000, discount: 18, maxPrice: 2000000, maxLevel: 38, perks: ['Vault access'], warioNote: "Stack them bricks! Gold bricks! WAH HA HA!" },
+    { id: 'treasure_chest_chief', name: 'Treasure Chest Chief', icon: '🏴‍☠️', color: '#8b0000', threshold: 750000, discount: 19, maxPrice: 2500000, maxLevel: 39, perks: ['Lockpicking kit'], warioNote: "X marks the spot! The spot is my bank account!" },
+    { id: 'pyramid_plunderer', name: 'Pyramid Plunderer', icon: '🐫', color: '#f0e68c', threshold: 800000, discount: 19, maxPrice: 3000000, maxLevel: 40, perks: ['Golden Divas access'], warioNote: "Like Wario Land 4! Shake the money out of everything!" },
+
+    // --- TIER 41-49: THE "WARIO LEGEND" PHASE ---
+    { id: 'inc_ceo', name: 'WarioWare CEO', icon: '🏢', color: '#ff00ff', threshold: 850000, discount: 20, maxPrice: 4000000, maxLevel: 41, perks: ['Microgame access'], warioNote: "I made a company just to take your money! It's working!" },
+    { id: 'motorcycle_maniac', name: 'Motorcycle Maniac', icon: '🏍️', color: '#333333', threshold: 900000, discount: 20, maxPrice: 5000000, maxLevel: 42, perks: ['Ride with Wario'], warioNote: "Vroom vroom! The sound of me driving to the bank!" },
+    { id: 'garlic_gladiator_supreme', name: 'Garlic Gladiator Supreme', icon: '🧄', color: '#fffacd', threshold: 950000, discount: 21, maxPrice: 6000000, maxLevel: 43, perks: ['Smell of victory'], warioNote: "I am pumped up! Pumped up on garlic and CASH!" },
+    { id: 'purple_powerhouse', name: 'Purple Powerhouse', icon: '🟣', color: '#800080', threshold: 1000000, discount: 21, maxPrice: 7000000, maxLevel: 44, perks: ['Overalls styling'], warioNote: "Purple and Yellow! The colors of royalty... and ME!" },
+    { id: 'castle_owner', name: 'Castle Owner', icon: '🏰', color: '#c0c0c0', threshold: 1100000, discount: 22, maxPrice: 8000000, maxLevel: 45, perks: ['Own a castle (fake)'], warioNote: "I bought a castle with your money! Stay off my lawn!" },
+    { id: 'master_of_disguise', name: 'Master of Disguise', icon: '🎭', color: '#ff4500', threshold: 1200000, discount: 22, maxPrice: 9000000, maxLevel: 46, perks: ['Thief tools'], warioNote: "I can be anyone! But I'd rather be RICH!" },
+    { id: 'shake_king', name: 'Shake Dimension King', icon: '👋', color: '#8fbc8f', threshold: 1300000, discount: 23, maxPrice: 10000000, maxLevel: 47, perks: ['Shake it perk'], warioNote: "Shake it! Shake the coins right out of your pockets!" },
+    { id: 'galaxy_greedy', name: 'Galactic Greedy God', icon: '🌌', color: '#4b0082', threshold: 1400000, discount: 24, maxPrice: 50000000, maxLevel: 48, perks: ['Universal shipping'], warioNote: "I conquered the galaxy just to find your wallet!" },
+    { id: 'wario_brother', name: 'Honorary Wario Brother', icon: '🧢', color: '#f1c40f', threshold: 1500000, discount: 25, maxPrice: 100000000, maxLevel: 49, perks: ['Mustache grooming kit'], warioNote: "You are almost as cool as me. ALMOST. WAH HA HA!" },
+
+    // --- TIER 50: THE FINAL TIER ---
+    { 
+        id: 'wario_vip', 
+        name: "Wario's Inner Circle", 
+        icon: '👑', 
+        color: '#9b59b6', 
+        threshold: 2000000, 
+        discount: 25, 
+        maxPrice: Infinity, 
+        maxLevel: 50,
+        perks: ['Access to ALL items', 'All shipping free', '25% discount', 'Key to the vault', 'Direct line to Wario'],
+        warioNote: "WAH! You made it to the top! You're family now! But remember... Wario ALWAYS gets the biggest slice! You're rich, I'm RICHER!"
+    }
+];
 // Generate letter tier name (A, B, C... Z, AA, AB... AZ, BA... ZZ, AAA...)
 function getLetterTierName(index) {
     let result = '';
@@ -246,15 +650,7 @@ export function getFreeShipping(tier) {
     if (tier.index >= 2) return ['standard', 'express'];
     return ['standard'];
 }
-export const SHOP_CATEGORIES = {
-    CONSUMABLES: 'consumables',
-    EQUIPMENT: 'equipment',
-    CURIOSITIES: 'curiosities',
-    SERVICES: 'services',
-    FACTION: 'faction',
-    FORBIDDEN: 'forbidden',
-    PREMIUM: 'premium'
-};
+
 
 export const SHIPPING_METHODS = {
     STANDARD: {
@@ -26153,6 +26549,2482 @@ export const SHOP_ITEMS = {
     shippedBy: 'Viral Thread',
     levelRequirement: 5
 },
+'wario_land_autograph_plaque': {
+    id: 'wario_land_autograph_plaque',
+    name: "Wario's Authentic Autograph Plaque",
+    description: "A gold-plated (spray-painted) plaque with Wario's signature. His face is winking.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🖼️',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Display in your camp: Wario may randomly appear in your dreams to give bad financial advice",
+        "Wealthy NPCs think you're a collector: advantage on Charisma checks with them",
+        "Plaque is tacky: disadvantage on checks with art critics",
+        "Smells faintly of garlic (permanent)",
+        "Made by: Wario Land Memorabilia (100% Genuine, Trust Me)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 4
+},
+'wario_land_bootleg_waluigi_doll': {
+    id: 'wario_land_bootleg_waluigi_doll',
+    name: "Bootleg Waluigi Doll (Officially Unofficial)",
+    description: "A poorly stitched doll with 'WALUIGI' written on the tag in marker.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🧸',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Doll is creepy: advantage on Intimidation checks when visible",
+        "Waluigi's spirit may possess it 1/day: whispers 'Waaah' and gives bad advice (disadvantage on next check)",
+        "Can be used as a distraction: enemies must succeed DC 10 Wisdom save or waste an action investigating it",
+        "Randomly falls over: you have disadvantage on Investigation checks (it's haunted-ish)",
+        "Made by: Wario Land Toy Factory (Copyright? What's That?)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 5
+},
+'mushroom_regency_fake_power_up_mushroom': {
+    id: 'mushroom_regency_fake_power_up_mushroom',
+    name: "Mushroom Regency 'Power-Up' Mushroom",
+    description: "A mushroom painted red with white spots. Looks legit from a distance.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🍄',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Eat as a bonus action: gain 1d4 temporary HP (it's just a regular mushroom with food coloring)",
+        "You believe you're larger: disadvantage on Stealth for 1 minute (you're 'big' now)",
+        "Toads laugh at you: disadvantage on Charisma with mushroom folk",
+        "5% chance it's actually a poison mushroom: CON save DC 12 or poisoned for 1 round",
+        "Made by: Mushroom Regency Bootleggers"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Goomba Ground Transport',
+    levelRequirement: 4
+},
+'beanbean_kingdom_wario_wario_bean': {
+    id: 'beanbean_kingdom_wario_wario_bean',
+    name: "Beanbean Kingdom Wario-Wario Bean",
+    description: "A bean that makes you say 'Wario' twice as much.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3800,
+    icon: '🫘',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Eat bean: you must say 'Wario' before each sentence for 1 hour (disadvantage on Charisma if you forget)",
+        "Gain +1 to Strength checks (Wario energy)",
+        "Beans cause gas: 10ft cloud of disadvantage on Stealth, advantage on Intimidation",
+        "Made by: Beanbean Kingdom (Licensed by Wario)"
+    ],
+    vendor: 'beanbean_kingdom',
+    shippedBy: 'Beanstalk Express',
+    levelRequirement: 4
+},
+'dk_crew_banana_coin_counterfeit_kit': {
+    id: 'dk_crew_banana_coin_counterfeit_kit',
+    name: "DK Crew Banana Coin Counterfeit Kit",
+    description: "Make fake banana coins that fool monkeys.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🍌',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Create 1d10 fake banana coins: pass as real to non-intelligent creatures",
+        "Spend fake coin: advantage on Deception vs. shopkeepers (temporary)",
+        "50% chance shopkeeper notices: disadvantage on Charisma and they call guards",
+        "Monkeys attack you on sight (they can smell the fakeness)",
+        "Made by: DK Crew Mint (Unofficial)"
+    ],
+    vendor: 'dk_crew',
+    shippedBy: 'Barrel Roll Delivery',
+    levelRequirement: 5
+},
+'yoshi_clans_bootleg_yoshi_egg': {
+    id: 'yoshi_clans_bootleg_yoshi_egg',
+    name: "Yoshi Clans Bootleg Yoshi Egg",
+    description: "A wooden egg painted to look like a Yoshi egg.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🥚',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Throw egg: 1d4 bludgeoning damage, breaks on impact (just wood)",
+        "Enemies may mistake it for real: DC 10 Investigation check or waste an action dodging",
+        "Yoshis are disappointed in you: disadvantage on Charisma with Yoshi-kind",
+        "Can be repainted: advantage on Deception checks with gullible NPCs",
+        "Made by: Yoshi Clans Craft Day Rejects"
+    ],
+    vendor: 'yoshi_clans',
+    shippedBy: 'Egg Drop',
+    levelRequirement: 4
+},
+'kremling_krew_fake_crown_replica': {
+    id: 'kremling_krew_fake_crown_replica',
+    name: "Kremling Krew Fake Crown Replica",
+    description: "A plastic crown that looks like K. Rool's.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '👑',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Wear crown: advantage on Intimidation checks with Kremlings",
+        "Disadvantage on Charisma with everyone else (you look ridiculous)",
+        "Crown is flimsy: breaks on any critical hit (shatters into plastic bits)",
+        "Real K. Rool may appear: 5% chance per day he shows up to reclaim 'his' crown",
+        "Made by: K. Rool's Prop Department"
+    ],
+    vendor: 'kremling_krew',
+    shippedBy: 'Barrel Cannon',
+    levelRequirement: 5
+},
+'wario_land_garlic_auction_house_catalog': {
+    id: 'wario_land_garlic_auction_house_catalog',
+    name: "Wario Land Garlic Auction House Catalog",
+    description: "Catalog of items that may or may not exist.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4000,
+    icon: '📘',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Order any item from catalog: 50% chance it arrives, 50% chance it's 'out of stock' (scam)",
+        "Items cost 20% more than market price (Wario's markup)",
+        "Catalog has typos: advantage on Investigation to spot fakes, disadvantage if you don't check",
+        "Made by: Wario Land Catalog Co."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wario Express (2-6 Weeks)',
+    levelRequirement: 4
+},
+'robensonia_wario_branded_escape_pod': {
+    id: 'robensonia_wario_branded_escape_pod',
+    name: "Robensonia Wario-Branded Escape Pod",
+    description: "A one-person pod with Wario's face on it. 'Guaranteed to escape... something!'",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🚀',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Launch pod: move 60ft in random direction (DM chooses), you are prone at destination",
+        "Pod leaves a garlic-scented smoke cloud: 10ft radius, CON save DC 12 or poisoned for 1 round",
+        "25% chance pod doesn't launch: just makes a loud 'WAH!' noise and smoke",
+        "Made by: Robensonia (Licensed by Wario)"
+    ],
+    vendor: 'robensonia',
+    shippedBy: 'Emergency Launch (Maybe)',
+    levelRequirement: 6
+},
+'tomb_kings_wario_sarcophagus_decal': {
+    id: 'tomb_kings_wario_sarcophagus_decal',
+    name: "Tomb Kings Wario Sarcophagus Decal",
+    description: "A sticker of Wario's face for your coffin.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3500,
+    icon: '🏺',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Apply to any surface: Wario's face watches over you (creepy)",
+        "Undead are confused: advantage on Charisma checks with them (they don't get it)",
+        "Decal is glow-in-the-dark: advantage on Intimidation in darkness, disadvantage on Stealth",
+        "Made by: Tomb Kings (Wario Commission)"
+    ],
+    vendor: 'tomb_kings',
+    shippedBy: 'Sarcophagus Delivery',
+    levelRequirement: 4
+},
+'red_winter_wario_snow_globe': {
+    id: 'red_winter_wario_snow_globe',
+    name: "Red Winter Wario Snow Globe",
+    description: "A snow globe with a tiny Wario inside.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🌨️',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Shake globe: creates 5ft snow cloud (cosmetic, but cold)",
+        "Wario in globe gives bad advice: advantage on one bad decision per day",
+        "Globe freezes your hands: disadvantage on Sleight of Hand checks after shaking",
+        "Made by: Red Winter (Wario Special Edition)"
+    ],
+    vendor: 'red_winter',
+    shippedBy: 'Ice Road Truckers',
+    levelRequirement: 4
+},
+'gehenna_academy_wario_contract': {
+    id: 'gehenna_academy_wario_contract',
+    name: "Gehenna Academy Wario Contract",
+    description: "Sell your soul for a small fee (Wario takes 90% commission).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 5000,
+    icon: '📜',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Gain 1000 gp, but a devil collects 900 gp as 'Wario's fee' immediately",
+        "Devil is confused why Wario is involved: advantage on Deception with fiends",
+        "Contract has Wario's signature: disadvantage on Charisma with lawful beings",
+        "Made by: Gehenna Academy (Wario Subcontractor)"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Hellish Fax',
+    levelRequirement: 5
+},
+'mushroom_regency_wario_fungus': {
+    id: 'mushroom_regency_wario_fungus',
+    name: "Mushroom Regency Wario Fungus",
+    description: "A mushroom that looks like Wario's nose.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🍄',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Eat mushroom: your nose grows for 1 hour (disadvantage on Charisma)",
+        "Smell is enhanced: advantage on Perception checks involving smell",
+        "Nose whistles in wind: disadvantage on Stealth",
+        "Made by: Mushroom Regency (Wario Cultivar)"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Goomba Ground Transport',
+    levelRequirement: 4
+},
+'beanbean_kingdom_wario_currency_exchange': {
+    id: 'beanbean_kingdom_wario_currency_exchange',
+    name: "Beanbean Kingdom Wario Currency Exchange",
+    description: "Exchange gold for Wario Coins (worthless).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 4500,
+    icon: '💱',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Exchange 100 gp for 100 Wario Coins (only accepted in Wario Land)",
+        "Wario Coins are chocolate: you can eat them for 1d4 temporary HP",
+        "Shopkeepers laugh at you: disadvantage on Charisma",
+        "Made by: Beanbean Kingdom (Wario Exchange Rate)"
+    ],
+    vendor: 'beanbean_kingdom',
+    shippedBy: 'Bean Vault',
+    levelRequirement: 4
+},
+'dk_crew_wario_barrel_helmet': {
+    id: 'dk_crew_wario_barrel_helmet',
+    name: "DK Crew Wario Barrel Helmet",
+    description: "A barrel with Wario's face painted on it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🛢️',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC, but you can't hear: disadvantage on Perception checks",
+        "You smell like bananas and garlic (confusing)",
+        "Can roll down hills as a bonus action: gain 20ft movement, prone at end",
+        "Made by: DK Crew (Wario Commission)"
+    ],
+    vendor: 'dk_crew',
+    shippedBy: 'Barrel Roll Delivery',
+    levelRequirement: 5
+},
+'yoshi_clans_wario_egg_paint': {
+    id: 'yoshi_clans_wario_egg_paint',
+    name: "Yoshi Clans Wario Egg Paint",
+    description: "Paint any egg to look like Wario.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3800,
+    icon: '🎨',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Paint an egg: it becomes a distraction (enemies must investigate)",
+        "Painted eggs smell like garlic: disadvantage on Stealth",
+        "Yoshis are offended: disadvantage on Charisma with them",
+        "Made by: Yoshi Clans (Wario Art Day)"
+    ],
+    vendor: 'yoshi_clans',
+    shippedBy: 'Egg Drop',
+    levelRequirement: 4
+},
+'kremling_krew_wario_kannonball': {
+    id: 'kremling_krew_wario_kannonball',
+    name: "Kremling Krew Wario Kannonball",
+    description: "A cannonball with Wario's face carved on it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '💣',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Use as thrown weapon: 1d8 bludgeoning, but it whistles 'WAH!' in flight",
+        "Enemies hear it: disadvantage on surprise attacks",
+        "Wario's lawyers may sue: 5% chance per use of legal trouble",
+        "Made by: K. Rool's Engravers"
+    ],
+    vendor: 'kremling_krew',
+    shippedBy: 'Cannonball Express',
+    levelRequirement: 5
+},
+'wario_land_fake_gold_brick': {
+    id: 'wario_land_fake_gold_brick',
+    name: "Wario Land Fake Gold Brick",
+    description: "A brick painted gold. Very convincing from 20 feet away.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🧱',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Looks like gold: advantage on Deception checks to impress people",
+        "Actually lead: very heavy, disadvantage on speed when carrying",
+        "If you try to sell it: shopkeeper calls guards (disadvantage on Charisma)",
+        "Made by: Wario Land Paint Co."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Heavy Package',
+    levelRequirement: 4
+},
+'robensonia_wario_space_suit': {
+    id: 'robensonia_wario_space_suit',
+    name: "Robensonia Wario Space Suit",
+    description: "A space suit with Wario's face on the helmet.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🧑‍🚀',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Immune to vacuum damage for 1 hour (leaks slightly)",
+        "Helmet fogs up: disadvantage on Perception",
+        "You must say 'WAH!' when using jetpack (disadvantage on Stealth)",
+        "Made by: Robensonia (Wario Approved)"
+    ],
+    vendor: 'robensonia',
+    shippedBy: 'Emergency Launch',
+    levelRequirement: 6
+},
+'tomb_kings_wario_mummy_wrapping': {
+    id: 'tomb_kings_wario_mummy_wrapping',
+    name: "Tomb Kings Wario Mummy Wrapping",
+    description: "Bandages with Wario's face printed on them.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🎁',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Wrap yourself: +1 AC for 1 hour (cosplay)",
+        "Undead are confused: advantage on Charisma with them",
+        "You smell like garlic and old linen: disadvantage on Stealth",
+        "Made by: Tomb Kings (Wario Halloween Special)"
+    ],
+    vendor: 'tomb_kings',
+    shippedBy: 'Sarcophagus Delivery',
+    levelRequirement: 4
+},
+'red_winter_wario_ice_sculpture_kit': {
+    id: 'red_winter_wario_ice_sculpture_kit',
+    name: "Red Winter Wario Ice Sculpture Kit",
+    description: "Carve Wario out of ice.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🧊',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Carve ice sculpture: advantage on Charisma checks in cold areas",
+        "Sculpture melts in 1 hour: disadvantage on checks if you get attached",
+        "You get frostbite: 1 cold damage if you don't wear gloves",
+        "Made by: Red Winter (Wario Frost Fest)"
+    ],
+    vendor: 'red_winter',
+    shippedBy: 'Ice Road Truckers',
+    levelRequirement: 5
+},
+'gehenna_academy_wario_devil_horns': {
+    id: 'gehenna_academy_wario_devil_horns',
+    name: "Gehenna Academy Wario Devil Horns",
+    description: "Plastic horns that make you look devilish.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '👹',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Wear horns: advantage on Intimidation checks with fiends",
+        "Disadvantage on Charisma with celestials (they're disappointed)",
+        "Horns are crooked: you look silly (disadvantage on serious checks)",
+        "Made by: Gehenna Academy (Wario Costume Shop)"
+    ],
+    vendor: 'gehenna_academy',
+    shippedBy: 'Hellish Fax',
+    levelRequirement: 5
+},
+'mushroom_regency_wario_cap_mushroom': {
+    id: 'mushroom_regency_wario_cap_mushroom',
+    name: "Mushroom Regency Wario Cap Mushroom",
+    description: "A mushroom that looks like Wario's hat.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '🍄',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Wear on head: +1 Charisma with Wario fans",
+        "Disadvantage on Charisma with everyone else (you have a mushroom hat)",
+        "Mushroom is edible: 1d4 temporary HP, but you lose the hat",
+        "Made by: Mushroom Regency (Wario Fashion Line)"
+    ],
+    vendor: 'mushroom_regency',
+    shippedBy: 'Goomba Ground Transport',
+    levelRequirement: 4
+},
+'beanbean_kingdom_wario_beanbag_chair': {
+    id: 'beanbean_kingdom_wario_beanbag_chair',
+    name: "Beanbean Kingdom Wario Beanbag Chair",
+    description: "A beanbag shaped like Wario's head.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🪑',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Sit in chair: advantage on saves vs. exhaustion from resting (very comfortable)",
+        "Chair is huge: disadvantage on Stealth (you're sitting on Wario's face)",
+        "Beans leak: you smell like beans for 1 hour after use",
+        "Made by: Beanbean Kingdom (Wario Furniture)"
+    ],
+    vendor: 'beanbean_kingdom',
+    shippedBy: 'Bean Vault',
+    levelRequirement: 5
+},
+'dk_crew_wario_tie': {
+    id: 'dk_crew_wario_tie',
+    name: "DK Crew Wario Tie",
+    description: "A tie with Wario's face repeated all over it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3800,
+    icon: '👔',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Wear tie: advantage on Charisma with Wario, disadvantage with everyone else",
+        "Tie is too short: you look ridiculous (disadvantage on serious checks)",
+        "Can be used as garrote: 1d4 damage (improvised weapon)",
+        "Made by: DK Crew (Wario Formal Wear)"
+    ],
+    vendor: 'dk_crew',
+    shippedBy: 'Barrel Roll Delivery',
+    levelRequirement: 4
+},
+'yoshi_clans_wario_egg_pet': {
+    id: 'yoshi_clans_wario_egg_pet',
+    name: "Yoshi Clans Wario Egg Pet",
+    description: "An egg that hatches a tiny Wario (figurine).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🥚',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Egg hatches into tiny Wario figurine: advantage on Charisma with Wario fans",
+        "Figurine is annoying: whispers 'Wah!' at random (disadvantage on Concentration)",
+        "Can be thrown: 1d2 damage, breaks (Wario would sue)",
+        "Made by: Yoshi Clans (Wario Easter Special)"
+    ],
+    vendor: 'yoshi_clans',
+    shippedBy: 'Egg Drop',
+    levelRequirement: 5
+},
+'kremling_krew_wario_krocodile': {
+    id: 'kremling_krew_wario_krocodile',
+    name: "Kremling Krew Wario Krocodile",
+    description: "A crocodile with Wario's mustache.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🐊',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Pet crocodile: advantage on Intimidation checks (it's a croc)",
+        "Crocodile steals gold: loses 1d4 gp per day (Wario trained it)",
+        "Must feed it garlic: disadvantage on gold management",
+        "Made by: K. Rool's Pet Shop"
+    ],
+    vendor: 'kremling_krew',
+    shippedBy: 'Crocodile Courier',
+    levelRequirement: 6
+},
+'wario_autograph_on_napkin': {
+    id: 'wario_autograph_on_napkin',
+    name: "Wario's Autograph on a Used Napkin",
+    description: "A greasy napkin signed by Wario himself. 'Worth a fortune!' he says.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '📝',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Can be used as a one-time distraction: show it to a foe for disadvantage on their next attack (they're confused by the 'celebrity')",
+        "Napkin is stained with garlic sauce: disadvantage on Charisma checks if you try to sell it (smells awful)",
+        "Wario claims it's a 'collector's item': advantage on Persuasion to haggle with Wario fans",
+        "Made by: Wario (with a Sharpie)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Greasy Envelope',
+    levelRequirement: 4
+},
+'bootleg_waluigi_doll': {
+    id: 'bootleg_waluigi_doll',
+    name: "Bootleg Waluigi Doll",
+    description: "A poorly stitched doll that looks like Waluigi, but with extra lanky arms.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🎎',
+    stock: 10,
+    rarity: 'uncommon',
+    effects: [
+        "Throw as a distraction: 20ft range, creates a minor illusion of Waluigi laughing (DC 12 Wisdom save or foe is distracted for 1 round)",
+        "Doll's arms tangle easily: disadvantage on Sleight of Hand if you try to repair it",
+        "Waluigi purists hate it: advantage on Intimidation with Mario fans (they think it's cursed)",
+        "Made by: Shady Mushroom Kingdom Toy Factory"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Questionable Parcel',
+    levelRequirement: 4
+},
+'fake_mario_mushroom_cap': {
+    id: 'fake_mario_mushroom_cap',
+    name: "Fake Mario Mushroom Cap",
+    description: "A red hat that looks like Mario's, but made of cheap felt.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🍄',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Wear it for +1 to Charisma (Performance) when imitating plumbers",
+        "Hat itches: disadvantage on Concentration checks after 1 hour",
+        "Real Mario might show up and demand it back (DM event, awkward encounter)",
+        "Made by: Bootleg Toad Tailors"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Plumbers Post',
+    levelRequirement: 4
+},
+'luigi_ghost_hunting_net_replica': {
+    id: 'luigi_ghost_hunting_net_replica',
+    name: "Luigi Ghost-Hunting Net Replica",
+    description: "A flimsy net 'just like Luigi's' for catching spooks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🕸️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Can capture small spirits or illusions (DC 13 save or trapped for 1 minute)",
+        "Net tears easily: 50% chance it breaks after one use (disadvantage on next capture)",
+        "Luigi's 'ghost luck': advantage on saves vs. fear while holding it",
+        "Made by: Wannabe Ghostbusters Inc."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Boo Delivery',
+    levelRequirement: 5
+},
+'bootleg_peach_crown': {
+    id: 'bootleg_peach_crown',
+    name: "Bootleg Princess Peach Crown",
+    description: "A plastic crown with fake jewels, 'fit for royalty' (or cosplay).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '👑',
+    stock: 14,
+    rarity: 'common',
+    effects: [
+        "Wear for +1 to Charisma (Persuasion) with Toads or royalty fans",
+        "Crown slips: disadvantage on Dexterity checks in combat",
+        "Attracts Bowser minions: 10% chance of unwanted attention",
+        "Made by: Knockoff Castle Crafts"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Royal Rip-Off',
+    levelRequirement: 4
+},
+'fake_yoshi_egg_whistle': {
+    id: 'fake_yoshi_egg_whistle',
+    name: "Fake Yoshi Egg Whistle",
+    description: "Blow to 'summon' a Yoshi... or just make noise.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🥚',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Blow as bonus action: summons a illusory Yoshi for 1 round (distraction, DC 12 Wisdom save)",
+        "Whistle is shrill: disadvantage on Stealth for 1 minute after use",
+        "Real Yoshis get jealous: advantage on Animal Handling with them (they want to play)",
+        "Made by: Egg Imitation Experts"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Egg-Spress',
+    levelRequirement: 4
+},
+'bootleg_bowser_shell_shield': {
+    id: 'bootleg_bowser_shell_shield',
+    name: "Bootleg Bowser Shell Shield",
+    description: "A cardboard shell 'shield' painted green.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🐢',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC as a makeshift shield, but only against fire (Bowser theme)",
+        "Shield crumbles after 3 hits: disadvantage on saves vs. bludgeoning",
+        "Intimidates Koopas: advantage on Intimidation with turtle-like creatures",
+        "Made by: Shell Knockoff Factory"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Turtle Truck',
+    levelRequirement: 5
+},
+'wario_signed_waluigi_poster': {
+    id: 'wario_signed_waluigi_poster',
+    name: "Wario-Signed Waluigi Poster",
+    description: "A poster of Waluigi with Wario's messy signature over it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🖼️',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Hang as a 'lucky charm': advantage on one Charisma check per day (Waluigi's lanky luck)",
+        "Poster curls: disadvantage on checks if not flattened",
+        "Wario's signature smudges: reveals a hidden map to a minor treasure (1d100 gp)",
+        "Made by: WarioWare Printing (Low Quality)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Poster Tube',
+    levelRequirement: 4
+},
+'fake_toad_house_key': {
+    id: 'fake_toad_house_key',
+    name: "Fake Toad House Key",
+    description: "'Unlocks' any Toad House... or so the label says.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🔑',
+    stock: 13,
+    rarity: 'common',
+    effects: [
+        "Use on locked doors: 50% chance it works (Toad magic), 50% chance it bends (disadvantage on next lockpick)",
+        "Toads think it's cute: advantage on Persuasion with Toads",
+        "Key is plastic: snaps after 3 uses",
+        "Made by: Bootleg Keysmiths"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mushroom Mail',
+    levelRequirement: 4
+},
+'bootleg_daisy_flower_power_bracelet': {
+    id: 'bootleg_daisy_flower_power_bracelet',
+    name: "Bootleg Daisy Flower Power Bracelet",
+    description: "A bracelet with plastic flowers that 'empower' you.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '💐',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Wear for +1 to Strength (Athletics) in sports (Daisy vibe)",
+        "Flowers wilt after rain: disadvantage on checks when wet",
+        "Attracts bees: 10% chance of minor sting (1 damage)",
+        "Made by: Flower Knockoff Co."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Daisy Delivery',
+    levelRequirement: 4
+},
+'wario_wafting_wallet': {
+    id: 'wario_wafting_wallet',
+    name: "Wario's Wafting Wallet",
+    description: "A wallet that 'holds' your gold... loosely.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '💰',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Holds up to 500 gp without weight, but 10% chance per day it 'wafts' away 1d10 gp",
+        "Wallet smells like garlic: advantage on Intimidation with thieves (they think it's cursed)",
+        "Wario's face on the front: disadvantage on Persuasion with honest folk",
+        "Made by: Wario Land Banking (Unsecured)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Loose Change Limo',
+    levelRequirement: 5
+},
+'fake_goomba_stomper_boots': {
+    id: 'fake_goomba_stomper_boots',
+    name: "Fake Goomba Stomper Boots",
+    description: "Boots that make you feel like Mario, but they're just rubber.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '👢',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Jump higher: +5 ft to jump distance once per short rest",
+        "Boots squeak: disadvantage on Stealth",
+        "Against Goombas: advantage on attacks (they fear the stomp)",
+        "Made by: Bootleg Bootmakers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stomp Service',
+    levelRequirement: 4
+},
+'bootleg_rosalina_star_wand': {
+    id: 'bootleg_rosalina_star_wand',
+    name: "Bootleg Rosalina Star Wand",
+    description: "A sparkly wand that 'summons stars' (fireworks).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '⭐',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Wave to create fireworks: 10ft bright light and distraction (DC 12 Wisdom save or blinded for 1 round)",
+        "Wand fizzles 30% of the time: no effect, but sparks fly (1 fire damage to you)",
+        "Stars attract Lumas (or fireflies): minor scouts",
+        "Made by: Galaxy Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Starry Sparkler Ship',
+    levelRequirement: 5
+},
+'wario_land_lucky_w_coin': {
+    id: 'wario_land_lucky_w_coin',
+    name: "Wario's Lucky W Coin",
+    description: "A coin with Wario's face – 'brings good luck' (or bad).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '🪙',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Flip for luck: heads +1 to next roll, tails -1 (50/50)",
+        "Coin is weighted: 60% chance tails (Wario's luck)",
+        "Wario's grin: advantage on Deception when gambling",
+        "Made by: Wario's Mint (Counterfeit)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Coin Flip Courier',
+    levelRequirement: 4
+},
+'fake_boo_ghost_trap': {
+    id: 'fake_boo_ghost_trap',
+    name: "Fake Boo Ghost Trap",
+    description: "A jar that 'traps' ghosts... or just looks spooky.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🕳️',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Use to 'trap' minor illusions or spirits (DC 13 save or contained for 1 minute)",
+        "Jar is glass: breaks easily (disadvantage on saves vs. shatter)",
+        "Boo's laugh echo: advantage on Intimidation with ghosts",
+        "Made by: Spooky Knockoff Co."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ghostly Glass',
+    levelRequirement: 4
+},
+'bootleg_toadstool_powerup_candy': {
+    id: 'bootleg_toadstool_powerup_candy',
+    name: "Bootleg Toadstool Power-Up Candy",
+    description: "Candy shaped like mushrooms that 'grows' you... slightly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🍬',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Eat for temporary +1 size (advantage on Strength, disadvantage on Dex) for 10 minutes",
+        "Candy is sour: DC 10 CON save or nauseous (disadvantage on next check)",
+        "Mushroom fans love it: +1 Charisma with fungi folk",
+        "Made by: Candy Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Sweet Shroom Ship',
+    levelRequirement: 4
+},
+'wario_land_wario_watch': {
+    id: 'wario_land_wario_watch',
+    name: "Wario's  Watch",
+    description: "A watch that tells time... Wario time.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '⌚',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Always shows the correct time: advantage on Initiative (you know when to act)",
+        "Watch beeps every hour: disadvantage on Stealth during beeps",
+        "Wario's face on the dial: advantage on Intimidation with watch collectors",
+        "Made by: Wario Timepieces (Slow Delivery)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Tick-Tock Truck',
+    levelRequirement: 4
+},
+'fake_kirby_star_rod_replica': {
+    id: 'fake_kirby_star_rod_replica',
+    name: "Fake Kirby Star Rod Replica",
+    description: "A wand that 'sucks in' small objects (with string).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5900,
+    icon: '⭐',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Pull small items (up to 5 lbs) 10ft with string (Sleight of Hand DC 12)",
+        "String tangles: disadvantage on next use",
+        "Kirby fans adore it: advantage on Persuasion with puffballs",
+        "Made by: Star Knockoff Wizards"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Puff Delivery',
+    levelRequirement: 5
+},
+'bootleg_donkey_kong_barrel_cannon': {
+    id: 'bootleg_donkey_kong_barrel_cannon',
+    name: "Bootleg Donkey Kong Barrel Cannon",
+    description: "A toy cannon that shoots foam barrels.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🚀',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Shoot foam barrel: 20ft range, knocks prone on hit (DC 12 STR save)",
+        "Cannon jams 20% of time: disadvantage on next shot",
+        "DK fans cheer: +1 Charisma with apes",
+        "Made by: Barrel Bootleggers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Barrel Roll',
+    levelRequirement: 4
+},
+'wario_land_garlic_gun': {
+    id: 'wario_land_garlic_gun',
+    name: "Wario's Garlic Gun",
+    description: "A squirt gun filled with garlic juice.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🔫',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Shoot 30ft: 1d4 acid damage to undead, normal water to others",
+        "Gun leaks: disadvantage on Charisma after use",
+        "Vampires flee: advantage on Intimidation vs. them",
+        "Made by: Wario Water Weapons"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Squirt Service',
+    levelRequirement: 5
+},
+'fake_link_master_sword_keychain': {
+    id: 'fake_link_master_sword_keychain',
+    name: "Fake Link Master Sword Keychain",
+    description: "A mini sword that 'cuts' through problems (it's plastic).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '⚔️',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Use as lockpick: advantage on simple locks (heroic theme)",
+        "Keychain dangles: disadvantage on Stealth (jingles)",
+        "Zelda fans impressed: +1 Persuasion with them",
+        "Made by: Hyrule Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Heros Haste',
+    levelRequirement: 4
+},
+'bootleg_samus_power_suit_helmet': {
+    id: 'bootleg_samus_power_suit_helmet',
+    name: "Bootleg Samus Power Suit Helmet",
+    description: "A helmet that 'powers up' your aim (with lights).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '⛑️',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+1 to ranged attacks in low light (visor glow)",
+        "Helmet heavy: disadvantage on Dex saves vs. trip",
+        "Metroid fans geek out: advantage on tech talks",
+        "Made by: Space Pirate Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Morph Ball Mail',
+    levelRequirement: 5
+},
+'wario_land_wario_bike_horn': {
+    id: 'wario_land_wario_bike_horn',
+    name: "Wario's  Bike Horn",
+    description: "A horn that honks with garlic scent.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '🚲',
+    stock: 14,
+    rarity: 'common',
+    effects: [
+        "Honk to distract: DC 12 Wisdom save or foe loses action",
+        "Horn smells: disadvantage on Charisma nearby",
+        "Bike racers love it: +1 speed on mounts",
+        "Made by: Wario Wheels"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Horn Honk Haul',
+    levelRequirement: 4
+},
+'fake_zelda_triforce_earrings': {
+    id: 'fake_zelda_triforce_earrings',
+    name: "Fake Zelda Triforce Earrings",
+    description: "Earrings that 'balance' your wisdom (or just dangle).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🔺',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Wear for +1 Wisdom saves (triforce balance)",
+        "Earrings tangle hair: disadvantage on appearance checks",
+        "Hyrule fans bow: advantage on royal Persuasion",
+        "Made by: Triforce Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wisdom Whisper',
+    levelRequirement: 4
+},
+'bootleg_fox_mcfox_face_mask': {
+    id: 'bootleg_fox_mcfox_face_mask',
+    name: "Bootleg Fox McCloud Face Mask",
+    description: "A mask that makes you look like a pilot (badly).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🦊',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Disguise as pilot: advantage on Deception in spaceports",
+        "Mask itches: disadvantage on Concentration",
+        "Star Fox fans laugh: +1 Charisma with them (ironic)",
+        "Made by: Arwing Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Barrel Roll',
+    levelRequirement: 4
+},
+'wario_land_wario_wand': {
+    id: 'wario_land_wario_wand',
+    name: "Wario's  Wand",
+    description: "A wand that casts 'Wario magic' (mostly garlic spells).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🪄',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Cast Minor Illusion of garlic once per day (DC 12)",
+        "Wand backfires 20%: you smell like garlic (disadvantage on social)",
+        "Wario fans enchanted: advantage on Intimidation",
+        "Made by: Wario Wizardry"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Magic Mist Mail',
+    levelRequirement: 5
+},
+'fake_pikachu_ear_hat': {
+    id: 'fake_pikachu_ear_hat',
+    name: "Fake Pikachu Ear Hat",
+    description: "Ears that 'shock' with static.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🐭',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Static shock on touch: 1 electric damage (surprise)",
+        "Hat fluffy: disadvantage on fire saves",
+        "Pikachu lovers: +1 Animal Handling with electric types",
+        "Made by: Poke-Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Thunder Tail',
+    levelRequirement: 4
+},
+'bootleg_link_hookshot_glove': {
+    id: 'bootleg_link_hookshot_glove',
+    name: "Bootleg Link Hookshot Glove",
+    description: "A glove with a spring-loaded 'hook' (rubber band).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🧤',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Pull small objects 10ft (Sleight DC 12)",
+        "Rubber snaps: disadvantage on next pull",
+        "Hyrule explorers: advantage on climbing talks",
+        "Made by: Hookshot Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Zelda Zip',
+    levelRequirement: 4
+},
+'wario_land_wario_wallet_expander': {
+    id: 'wario_land_wario_wallet_expander',
+    name: "Wario's Wallet Expander",
+    description: "Makes your wallet 'bigger' inside (sort of).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '💼',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Holds 200 extra gp (bag of holding mini)",
+        "Expander leaks: 5% daily gold loss",
+        "Wario's touch: advantage on greed checks",
+        "Made by: Wario Wallets"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Expand Express',
+    levelRequirement: 4
+},
+'fake_bowser_jr_paintbrush': {
+    id: 'fake_bowser_jr_paintbrush',
+    name: "Fake Bowser Jr. Paintbrush",
+    description: "A brush that 'paints' illusions (washable).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🖌️',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Paint minor illusion (10ft, 1 min, DC 12)",
+        "Paint smears: disadvantage on artistic checks",
+        "Jr. fans: +1 Deception with kids",
+        "Made by: Junior Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Paint Post',
+    levelRequirement: 5
+},
+'bootleg_mario_fire_flower_spray': {
+    id: 'bootleg_mario_fire_flower_spray',
+    name: "Bootleg Mario Fire Flower Spray",
+    description: "A spray bottle of 'fire' (hot sauce).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🌺',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Spray 15ft: 1d4 fire damage (spicy!)",
+        "Sauce burns eyes: disadvantage on sight checks",
+        "Mario cosplayers: advantage on fire roleplay",
+        "Made by: Flower Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Hot Sauce Haul',
+    levelRequirement: 4
+},
+'wario_land_wario_wiimote': {
+    id: 'wario_land_wario_wiimote',
+    name: "Wario's  WiiMote",
+    description: "A controller that 'controls' minor things.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🎮',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Point to move small objects 5ft (Mage Hand lite)",
+        "Mote vibrates: disadvantage on Concentration",
+        "Gamers: +1 Charisma with techies",
+        "Made by: WarioWare Remotes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Game Over Delivery',
+    levelRequirement: 4
+},
+'fake_link_bomb_bag_pouch': {
+    id: 'fake_link_bomb_bag_pouch',
+    name: "Fake Link Bomb Bag Pouch",
+    description: "A pouch for 'bombs' (firecrackers).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '💣',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Throw firecracker: 1d4 thunder damage, 5ft radius",
+        "Pouch smokes: disadvantage on Stealth",
+        "Dungeon divers: advantage on trap talks",
+        "Made by: Bomb Bootlegs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Explosive Express',
+    levelRequirement: 4
+},
+'bootleg_sonic_speed_shoes': {
+    id: 'bootleg_sonic_speed_shoes',
+    name: "Bootleg Sonic Speed Shoes",
+    description: "Shoes that make you 'fast' (with springs).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '👟',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "+5 ft speed for 1 minute once per day",
+        "Springs squeak: disadvantage on Stealth",
+        "Sonic fans: +1 Acrobatics with speedsters",
+        "Made by: Hedgehog Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Blue Blur',
+    levelRequirement: 5
+},
+'wario_land_wario_wafer_cookies': {
+    id: 'wario_land_wario_wafer_cookies',
+    name: "Wario's  Wafer Cookies",
+    description: "Thin wafers that 'expand' in your stomach.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🍪',
+    stock: 13,
+    rarity: 'common',
+    effects: [
+        "Eat for temporary +1 Constitution (full feeling)",
+        "Wafers bloat: disadvantage on Dex after",
+        "Cookie fans: advantage on baking Persuasion",
+        "Made by: Wario Snacks"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Crunchy Crate',
+    levelRequirement: 4
+},
+'fake_mario_starman_cape': {
+    id: 'fake_mario_starman_cape',
+    name: "Fake Mario Starman Cape",
+    description: "A cape that 'makes you invincible' (reflects light).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '⭐',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Reflect light: advantage on saves vs. blind",
+        "Cape frays: disadvantage on flight attempts",
+        "Star power fans: +1 Charisma with heroes",
+        "Made by: Star Cape Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Invincible Invoice',
+    levelRequirement: 5
+},
+'bootleg_luigi_pollen_puff': {
+    id: 'bootleg_luigi_pollen_puff',
+    name: "Bootleg Luigi Pollen Puff",
+    description: "A puff that 'vacuums' dust (sneeze powder).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🌸',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Puff dust: DC 12 CON save or sneeze (distracted 1 round)",
+        "Powder backfires: disadvantage on your next action",
+        "Gardeners: advantage on plant talks",
+        "Made by: Puff Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Sneeze Service',
+    levelRequirement: 4
+},
+'wario_land_wario_wrench': {
+    id: 'wario_land_wario_wrench',
+    name: "Wario's  Wrench",
+    description: "A wrench for fixing (or breaking) things.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🔧',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Repair tools: advantage on Tinker checks",
+        "Wrench slips: 10% chance 1 damage to you",
+        "Mechanics: +1 Charisma with inventors",
+        "Made by: Wario Tools"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fix-It Freight',
+    levelRequirement: 4
+},
+'fake_bowser_flame_breath_candy': {
+    id: 'fake_bowser_flame_breath_candy',
+    name: "Fake Bowser Flame Breath Candy",
+    description: "Hot candy for 'fire breath' (cinnamon burn).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🔥',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Eat for 1d4 fire breath (5ft cone, once)",
+        "Burns mouth: disadvantage on talk for 10 min",
+        "Koopa troops: advantage on Intimidation",
+        "Made by: Flame Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Hot Head Haul',
+    levelRequirement: 4
+},
+'bootleg_toadette_pink_umbrella': {
+    id: 'bootleg_toadette_pink_umbrella',
+    name: "Bootleg Toadette Pink Umbrella",
+    description: "An umbrella that 'shields' from rain (and sun).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '☔',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Shield from rain: advantage on wet terrain",
+        "Umbrella pokes: 1 piercing damage as improvised",
+        "Toadette fans: +1 Charisma with cute folk",
+        "Made by: Umbrella Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Pink Parasol Post',
+    levelRequirement: 4
+},
+'wario_land_wario_wiener_roast_fork': {
+    id: 'wario_land_wario_wiener_roast_fork',
+    name: "Wario's Wiener Roast Fork",
+    description: "A long fork for roasting... anything.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🍡',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Roast over fire: advantage on cooking meat",
+        "Fork long: +5 ft reach for pokes (1d4 piercing)",
+        "Greasy: disadvantage on grip checks",
+        "Made by: Wario BBQ"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Roast Roll',
+    levelRequirement: 4
+},
+'fake_kirby_warp_star_toy': {
+    id: 'fake_kirby_warp_star_toy',
+    name: "Fake Kirby Warp Star Toy",
+    description: "A star that 'warps' (bounces).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '⭐',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Throw to bounce: distract foes (DC 12 Dex save or prone)",
+        "Star deflates: disadvantage on next throw",
+        "Kirby cosplay: +1 Performance",
+        "Made by: Star Toy Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Warp Whiz',
+    levelRequirement: 5
+},
+'bootleg_mario_coin_counter': {
+    id: 'bootleg_mario_coin_counter',
+    name: "Bootleg Mario Coin Counter",
+    description: "Counts your coins... inaccurately.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🪙',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Counts gold: advantage on haggle if accurate",
+        "10% off by 1d10 gp (Wario tax)",
+        "Coin sound: +1 Charisma with gamblers",
+        "Made by: Coin Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Coin Clink',
+    levelRequirement: 4
+},
+'wario_land_wario_waffle_iron': {
+    id: 'wario_land_wario_waffle_iron',
+    name: "Wario's  Waffle Iron",
+    description: "Makes waffles with Wario's face.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🥞',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Iron waffles: advantage on breakfast cooking",
+        "Waffles stick: disadvantage on clean-up",
+        "Wario face: advantage on Intimidation at breakfast",
+        "Made by: Wario Kitchen"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Waffle Wagon',
+    levelRequirement: 4
+},
+'fake_luigi_vacuum_pollen_sucker': {
+    id: 'fake_luigi_vacuum_pollen_sucker',
+    name: "Fake Luigi Vacuum Pollen Sucker",
+    description: "Sucks up pollen (or dust bunnies).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🧹',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Suck allergens: advantage on CON vs. poison (pollen)",
+        "Sucks too hard: disadvantage on small item holds",
+        "Luigi luck: +1 saves vs. ghosts",
+        "Made by: Vacuum Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suck Service',
+    levelRequirement: 4
+},
+'bootleg_bowser_castle_key': {
+    id: 'bootleg_bowser_castle_key',
+    name: "Bootleg Bowser Castle Key",
+    description: "A key to 'Bowser's Castle' (any red door).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🔑',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Unlocks red doors: advantage on locks",
+        "Key bends: 20% fail rate",
+        "Koopa guards: advantage on Deception",
+        "Made by: Castle Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Koopa Key',
+    levelRequirement: 4
+},
+'wario_land_wario_wonder_wand': {
+    id: 'wario_land_wario_wonder_wand',
+    name: "Wario's Wonder Wand",
+    description: "A wand of 'wonders' (mostly tricks).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🪄',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Cast Minor Illusion (garlic-themed) once/day",
+        "Wand farts sparks: disadvantage on social",
+        "Wonder fans: +1 Deception",
+        "Made by: Wario Wonders"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Trick Treat',
+    levelRequirement: 5
+},
+'fake_peach_umbrella_parasol': {
+    id: 'fake_peach_umbrella_parasol',
+    name: "Fake Peach Umbrella Parasol",
+    description: "A parasol that 'shields' from sun (and rain).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '☔',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Shade: advantage on heat saves",
+        "Parasol pokes: 1 piercing improvised",
+        "Peach fans: +1 Charisma with princesses",
+        "Made by: Parasol Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Sunny Shield',
+    levelRequirement: 4
+},
+'bootleg_yoshi_tongue_stick': {
+    id: 'bootleg_yoshi_tongue_stick',
+    name: "Bootleg Yoshi Tongue Stick",
+    description: "A sticky stick that 'licks' up items.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '👅',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Grab small items 10ft (sticky)",
+        "Stick dries: disadvantage on next grab",
+        "Yoshi pals: +1 Animal Handling",
+        "Made by: Tongue Toys"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Lick Limo',
+    levelRequirement: 4
+},
+'wario_land_wario_wild_west_hat': {
+    id: 'wario_land_wario_wild_west_hat',
+    name: "Wario's Wild West Hat",
+    description: "A cowboy hat with Wario flair.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🤠',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "+1 Intimidation in saloons",
+        "Hat tips: disadvantage on balance",
+        "Western fans: +1 Persuasion",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Yeehaw Yonder',
+    levelRequirement: 4
+},
+'fake_dk_coconut_gun': {
+    id: 'fake_dk_coconut_gun',
+    name: "Fake DK Coconut Gun",
+    description: "Shoots 'coconuts' (pebbles).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🥥',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Shoot pebble: 1d4 bludgeoning 20ft",
+        "Gun jams: disadvantage on next shot",
+        "DK crew: +1 Charisma with monkeys",
+        "Made by: Coconut Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Jungle Jolt',
+    levelRequirement: 5
+},
+'bootleg_mario_raccoon_tail': {
+    id: 'bootleg_mario_raccoon_tail',
+    name: "Bootleg Mario Raccoon Tail",
+    description: "A fake tail for 'flying' (glider).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🦝',
+    stock: 13,
+    rarity: 'common',
+    effects: [
+        "Glide 10ft safely once/day",
+        "Tail tangles: disadvantage on climb",
+        "Raccoon fans: +1 Acrobatics",
+        "Made by: Tail Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Tailwind Transport',
+    levelRequirement: 4
+},
+'wario_land_wario_wonderland_ticket': {
+    id: 'wario_land_wario_wonderland_ticket',
+    name: "Wario's Wonderland Ticket",
+    description: "A ticket to 'Wario's Wonderland' (his backyard).",
+    category: SHOP_CATEGORIES.SERVICES,
+    price: 4000,
+    icon: '🎫',
+    stock: 15,
+    rarity: 'common',
+    effects: [
+        "Redeem for a 'tour': find 1d20 gp in trash (Wario's 'treasure')",
+        "Ticket expires: disadvantage if not used soon",
+        "Wario guides: +1 Deception with him",
+        "Made by: Wario Attractions"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wonder Walk',
+    levelRequirement: 4
+},
+'fake_luigi_mushroom_polish': {
+    id: 'fake_luigi_mushroom_polish',
+    name: "Fake Luigi Mushroom Polish",
+    description: "Polish that 'grows' mushrooms (mold).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🍄',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Polish shoes: +1 speed 10 min",
+        "Grows mold: disadvantage on hygiene",
+        "Mushroom lovers: +1 Nature",
+        "Made by: Polish Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shine Shoe',
+    levelRequirement: 4
+},
+'bootleg_bowser_lava_lamp': {
+    id: 'bootleg_bowser_lava_lamp',
+    name: "Bootleg Bowser Lava Lamp",
+    description: "A lamp with 'lava' (oil).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '💡',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Provides 10ft light, hypnotic: DC 12 Wis or distracted",
+        "Oil leaks: disadvantage on fire safety",
+        "Bowser fans: +1 Intimidation",
+        "Made by: Lava Light Lies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Hot Glow Haul',
+    levelRequirement: 5
+},
+'wario_land_wario_wildcard': {
+    id: 'wario_land_wario_wildcard',
+    name: "Wario's Wildcard",
+    description: "A card that 'wilds' any game.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🃏',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Play in games: +1 to gambling rolls",
+        "Card bends: disadvantage on sleight",
+        "Wario luck: 50% double or nothing",
+        "Made by: Wario Cards"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Joker Jog',
+    levelRequirement: 4
+},
+'fake_toad_pipe_smoke': {
+    id: 'fake_toad_pipe_smoke',
+    name: "Fake Toad Pipe Smoke",
+    description: "Smoke that 'warps' (smoke rings).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🚬',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Blow rings: minor illusion (DC 12)",
+        "Smoke cough: disadvantage on breath",
+        "Toad smokers: +1 Charisma",
+        "Made by: Pipe Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Warp Whiff',
+    levelRequirement: 4
+},
+'bootleg_wario_bike_spokes': {
+    id: 'bootleg_wario_bike_spokes',
+    name: "Bootleg Wario Bike Spokes",
+    description: "Spokes that 'spin' attacks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🚲',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Attach to wheels: +5 speed on bikes",
+        "Spokes rust: disadvantage on wet rides",
+        "Bike fans: +1 Acrobatics",
+        "Made by: Spoke Scams"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wheel Whirl',
+    levelRequirement: 4
+},
+'wario_land_wario_wishbone': {
+    id: 'wario_land_wario_wishbone',
+    name: "Wario's Wishbone",
+    description: "A 'lucky' bone for wishes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🍗',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Snap for luck: +1 to next roll",
+        "Bone breaks: disadvantage if snapped wrong",
+        "Wario wishes: advantage on greed",
+        "Made by: Wario Wishes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Bone Break',
+    levelRequirement: 4
+},
+'fake_mario_block_pounder': {
+    id: 'fake_mario_block_pounder',
+    name: "Fake Mario Block Pounder",
+    description: "A hammer for 'pounding' blocks (nails).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🔨',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Pound nails: advantage on build",
+        "Hammer heavy: disadvantage on swing",
+        "Block breakers: +1 Strength",
+        "Made by: Block Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Pound Post',
+    levelRequirement: 4
+},
+'bootleg_luigi_ghost_key': {
+    id: 'bootleg_luigi_ghost_key',
+    name: "Bootleg Luigi Ghost Key",
+    description: "A key that 'unlocks' ghost doors (creaks).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🔑',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Unlock spectral locks: advantage on ghost doors",
+        "Key haunts: disadvantage on sleep",
+        "Ghost hunters: +1 Perception",
+        "Made by: Key Ghosts"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Boo Bolt',
+    levelRequirement: 5
+},
+'wario_land_wario_wild_west_badge': {
+    id: 'wario_land_wario_wild_west_badge',
+    name: "Wario's Wild West Badge",
+    description: "A sheriff badge for 'lawmen'.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '⭐',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "+1 Intimidation as 'sheriff'",
+        "Badge tarnishes: disadvantage on shine",
+        "Western: +1 Persuasion in towns",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Sheriff Ship',
+    levelRequirement: 4
+},
+'fake_bowser_jr_clown_car_horn': {
+    id: 'fake_bowser_jr_clown_car_horn',
+    name: "Fake Bowser Jr. Clown Car Horn",
+    description: "A horn that honks like a clown.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🚗',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Honk to scare: DC 12 Wis or frightened 1 round",
+        "Horn silly: disadvantage on serious Intimidation",
+        "Jr. fans: +1 Deception",
+        "Made by: Clown Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Car Clown',
+    levelRequirement: 4
+},
+'bootleg_mario_coin_block_replica': {
+    id: 'bootleg_mario_coin_block_replica',
+    name: "Bootleg Mario Coin Block Replica",
+    description: "A block that 'dispenses' coins (one fake).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🧱',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Hit to get 1 fake coin (looks real, 1 gp value)",
+        "Block cracks: disadvantage on next hit",
+        "Coin collectors: +1 Persuasion",
+        "Made by: Block Bootlegs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Block Bump',
+    levelRequirement: 4
+},
+'wario_land_wario_waffle_maker': {
+    id: 'wario_land_wario_waffle_maker',
+    name: "Wario's Waffle Maker",
+    description: "Makes waffles with Wario stamps.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🥞',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Make waffles: heal 1d4 HP (comfort food)",
+        "Stamps Wario: disadvantage on sell",
+        "Breakfast buffs: +1 CON morning",
+        "Made by: Wario Waffles"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Waffle Wave',
+    levelRequirement: 5
+},
+'fake_luigi_poltergust_nozzle': {
+    id: 'fake_luigi_poltergust_nozzle',
+    name: "Fake Luigi Poltergust Nozzle",
+    description: "A nozzle that 'sucks' air (bellows).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '💨',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Blow air: push small objects 5ft",
+        "Nozzle clogs: disadvantage on blow",
+        "Ghost gear: +1 vs. spirits",
+        "Made by: Gust Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Blow Breeze',
+    levelRequirement: 4
+},
+'bootleg_peach_fan': {
+    id: 'bootleg_peach_fan',
+    name: "Bootleg Peach Fan",
+    description: "A fan that 'cools' you (paper).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🪭',
+    stock: 13,
+    rarity: 'common',
+    effects: [
+        "Fan heat: advantage on hot saves",
+        "Paper tears: disadvantage on wind",
+        "Peach pals: +1 Charisma",
+        "Made by: Fan Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Cool Courier',
+    levelRequirement: 4
+},
+'wario_land_wario_wild_west_spurs': {
+    id: 'wario_land_wario_wild_west_spurs',
+    name: "Wario's Wild West Spurs",
+    description: "Spurs that jingle with greed.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🤠',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "+1 speed on horse",
+        "Jingle: disadvantage on Stealth",
+        "Western: +1 Intimidation",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spur Sprint',
+    levelRequirement: 4
+},
+'fake_yoshi_fruit_basket': {
+    id: 'fake_yoshi_fruit_basket',
+    name: "Fake Yoshi Fruit Basket",
+    description: "A basket that 'holds' fruit (weaves loose).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🧺',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Holds 10 fruits: heal 1d4 each",
+        "Basket frays: 10% drop fruit",
+        "Yoshi friends: +1 Handling",
+        "Made by: Basket Bootlegs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fruit Ferry',
+    levelRequirement: 4
+},
+'bootleg_dk_barrel_roll_toy': {
+    id: 'bootleg_dk_barrel_roll_toy',
+    name: "Bootleg DK Barrel Roll Toy",
+    description: "A toy that 'rolls' (spins).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🛢️',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Spin to dizzy foe: DC 12 Wis or nauseous",
+        "Toy breaks: disadvantage on spin",
+        "DK fans: +1 Acrobatics",
+        "Made by: Roll Replicas"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Barrel Bounce',
+    levelRequirement: 4
+},
+'wario_land_wario_wish_granting_lamp': {
+    id: 'wario_land_wario_wish_granting_lamp',
+    name: "Wario's Wish-Granting Lamp",
+    description: "Rub for a genie... or Wario.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🏺',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Rub: 50% Wario appears (help or scam), 50% minor boon (1d10 gp)",
+        "Lamp dusty: disadvantage on rub",
+        "Genie fans: +1 Persuasion",
+        "Made by: Wario Lamps"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rub Rush',
+    levelRequirement: 5
+},
+'fake_mario_pipe_warp_key': {
+    id: 'fake_mario_pipe_warp_key',
+    name: "Fake Mario Pipe Warp Key",
+    description: "A key for 'warping' pipes (plunges).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🔑',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Unclog pipes: advantage on plumbing",
+        "Key rusts: disadvantage on wet",
+        "Plumber pals: +1 Craft",
+        "Made by: Pipe Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Warp Water',
+    levelRequirement: 4
+},
+'bootleg_luigi_mansion_key': {
+    id: 'bootleg_luigi_mansion_key',
+    name: "Bootleg Luigi Mansion Key",
+    description: "A key to 'haunted' doors.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🏠',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Unlock haunted locks: advantage on ghost doors",
+        "Key chills: disadvantage on warm",
+        "Mansion explorers: +1 Perception",
+        "Made by: Mansion Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ghost Gate',
+    levelRequirement: 5
+},
+'wario_land_wario_wild_west_saddle': {
+    id: 'wario_land_wario_wild_west_saddle',
+    name: "Wario's Wild West Saddle",
+    description: "A saddle for 'wild' rides.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🐎',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "+1 mounted speed",
+        "Saddle creaks: disadvantage on quiet rides",
+        "Western: +1 Animal Handling",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Saddle Sprint',
+    levelRequirement: 4
+},
+'fake_bowser_shell_phone': {
+    id: 'fake_bowser_shell_phone',
+    name: "Fake Bowser Shell Phone",
+    description: "A 'phone' in a shell (conch).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '📞',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Listen to echoes: advantage on Perception sound",
+        "Shell echoes loud: disadvantage on Stealth",
+        "Bowser calls: +1 Intimidation",
+        "Made by: Shell Scams"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Echo Express',
+    levelRequirement: 4
+},
+'bootleg_mario_frog_suit_gloves': {
+    id: 'bootleg_mario_frog_suit_gloves',
+    name: "Bootleg Mario Frog Suit Gloves",
+    description: "Gloves for 'jumping' (grippy).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🧤',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "+1 jump grip",
+        "Gloves slippery: disadvantage on hold",
+        "Frog fans: +1 Acrobatics",
+        "Made by: Frog Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Hop Hand',
+    levelRequirement: 4
+},
+'wario_land_wario_waffle_syrup': {
+    id: 'wario_land_wario_waffle_syrup',
+    name: "Wario's Waffle Syrup",
+    description: "Syrup that's 'extra sweet' (sticky).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🍯',
+    stock: 14,
+    rarity: 'common',
+    effects: [
+        "Syrup on food: +1 heal from breakfast",
+        "Sticky: disadvantage on clean",
+        "Sweet tooth: +1 Charisma foodies",
+        "Made by: Wario Syrups"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Sticky Sweet',
+    levelRequirement: 4
+},
+'fake_luigi_ghostbuster_backpack': {
+    id: 'fake_luigi_ghostbuster_backpack',
+    name: "Fake Luigi Ghostbuster Backpack",
+    description: "A pack that 'holds' ghosts (zipper).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🎒',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Store small spirits: advantage on ghost contain",
+        "Pack heavy: disadvantage on carry",
+        "Busters: +1 vs. undead",
+        "Made by: Pack Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ghost Gear',
+    levelRequirement: 5
+},
+'bootleg_peach_castle_goblet': {
+    id: 'bootleg_peach_castle_goblet',
+    name: "Bootleg Peach Castle Goblet",
+    description: "A goblet for 'royal' drinks.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🍷',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "+1 to taste drinks (poison detect)",
+        "Goblet chips: disadvantage on pour",
+        "Royal: +1 Persuasion nobles",
+        "Made by: Goblet Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Castle Clink',
+    levelRequirement: 4
+},
+'wario_land_wario_wild_west_holster': {
+    id: 'wario_land_wario_wild_west_holster',
+    name: "Wario's Wild West Holster",
+    description: "A holster for 'guns' (garlic shooters).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '👜',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Quick draw: advantage on first ranged",
+        "Holster creaks: disadvantage on quiet",
+        "Western: +1 Dex draws",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Holster Hustle',
+    levelRequirement: 4
+},
+'fake_yoshi_egg_carton': {
+    id: 'fake_yoshi_egg_carton',
+    name: "Fake Yoshi Egg Carton",
+    description: "A carton that 'protects' eggs (foam).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '🥚',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Safe egg carry: advantage on fragile transport",
+        "Carton crushes: disadvantage on stack",
+        "Yoshi: +1 Handling eggs",
+        "Made by: Egg Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Egg Easy',
+    levelRequirement: 4
+},
+'bootleg_dk_diddy_kong_hat': {
+    id: 'bootleg_dk_diddy_kong_hat',
+    name: "Bootleg DK Diddy Kong Hat",
+    description: "A backward cap for 'cool' monkeys.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🧢',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "+1 Acrobatics flips",
+        "Hat slips: disadvantage on head",
+        "DK crew: +1 Charisma apes",
+        "Made by: Hat Knockoffs"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Monkey Mail',
+    levelRequirement: 4
+},
+'wario_land_wario_wish_lamp_oil': {
+    id: 'wario_land_wario_wish_lamp_oil',
+    name: "Wario's Wish Lamp Oil",
+    description: "Oil for lamps that 'grants wishes' (smoke).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🛢️',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Burn for smoke: minor illusion smoke",
+        "Oil smokes: disadvantage on breath",
+        "Lamp users: +1 light checks",
+        "Made by: Wario Oils"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Smoke Signal',
+    levelRequirement: 4
+},
+'fake_mario_tanooki_tail': {
+    id: 'fake_mario_tanooki_tail',
+    name: "Fake Mario Tanooki Tail",
+    description: "A tail for 'raccoon' powers (fluff).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🦝',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Tail spin: +5 ft glide",
+        "Tail heavy: disadvantage on turn",
+        "Tanooki fans: +1 Acrobatics",
+        "Made by: Tail Tricks"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Raccoon Run',
+    levelRequirement: 4
+},
+'bootleg_luigi_green_cap': {
+    id: 'bootleg_luigi_green_cap',
+    name: "Bootleg Luigi Green Cap",
+    description: "A green hat for 'ghost hunting'.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🧢',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "+1 vs. fear (Luigi courage)",
+        "Cap fades: disadvantage on color",
+        "Luigi lovers: +1 Charisma",
+        "Made by: Cap Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Green Glow',
+    levelRequirement: 4
+},
+'wario_land_wario_wild_west_lasso': {
+    id: 'wario_land_wario_wild_west_lasso',
+    name: "Wario's Wild West Lasso",
+    description: "A rope for 'lassoing' foes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🪢',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Lasso grapple: advantage on range",
+        "Rope frays: disadvantage on pull",
+        "Western: +1 Animal Handling",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Lasso Loop',
+    levelRequirement: 4
+},
+'fake_bowser_fire_snort_candy': {
+    id: 'fake_bowser_fire_snort_candy',
+    name: "Fake Bowser Fire Snort Candy",
+    description: "Candy that makes you 'snort fire' (cough).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🍬',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "Snort: 1d4 fire breath once",
+        "Cough: disadvantage on talk",
+        "Bowser: +1 Intimidation",
+        "Made by: Snort Sweets"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fire Fizz',
+    levelRequirement: 4
+},
+'bootleg_mario_hammer_bros_hammer': {
+    id: 'bootleg_mario_hammer_bros_hammer',
+    name: "Bootleg Mario Hammer Bros Hammer",
+    description: "A hammer for 'throwing' (toy).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🔨',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Throw 20ft: 1d4 bludgeoning",
+        "Hammer bounces: disadvantage on catch",
+        "Hammer fans: +1 Strength",
+        "Made by: Hammer Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Bros Bounce',
+    levelRequirement: 4
+},
+'wario_land_wario_waffle_topping_kit': {
+    id: 'wario_land_wario_waffle_topping_kit',
+    name: "Wario's Waffle Topping Kit",
+    description: "Toppings for waffles (garlic syrup).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🍯',
+    stock: 13,
+    rarity: 'common',
+    effects: [
+        "Top waffles: +1 heal breakfast",
+        "Syrup sticky: disadvantage on clean",
+        "Waffle lovers: +1 Charisma",
+        "Made by: Wario Toppings"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Topping Truck',
+    levelRequirement: 4
+},
+'fake_luigi_mushroom_backpack': {
+    id: 'fake_luigi_mushroom_backpack',
+    name: "Fake Luigi Mushroom Backpack",
+    description: "A pack shaped like a mushroom.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🎒',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Holds extra mushrooms: +1 Nature storage",
+        "Pack spores: disadvantage on allergy",
+        "Luigi: +1 vs. ghosts",
+        "Made by: Pack Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mush Mail',
+    levelRequirement: 4
+},
+'bootleg_peach_heart_crystal': {
+    id: 'bootleg_peach_heart_crystal',
+    name: "Bootleg Peach Heart Crystal",
+    description: "A crystal that 'heals' (placebo).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '💎',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Hold for +1 heal placebo (1d4 HP)",
+        "Crystal dulls: disadvantage on shine",
+        "Peach: +1 Charisma love",
+        "Made by: Crystal Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Heart Haul',
+    levelRequirement: 5
+},
+'wario_land_wario_wild_west_bottle': {
+    id: 'wario_land_wario_wild_west_bottle',
+    name: "Wario's Wild West Bottle",
+    description: "A bottle of 'whiskey' (garlic juice).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🍾',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Drink for +1 CON (tough)",
+        "Juice burns: disadvantage on taste",
+        "Western: +1 Intimidation",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Bottle Bounce',
+    levelRequirement: 4
+},
+'fake_yoshi_dino_tail': {
+    id: 'fake_yoshi_dino_tail',
+    name: "Fake Yoshi Dino Tail",
+    description: "A tail for 'dino' power (whip).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🦕',
+    stock: 8,
+    rarity: 'uncommon',
+    effects: [
+        "Whip 5ft: 1d4 slashing",
+        "Tail drags: disadvantage on quiet",
+        "Yoshi: +1 Strength tail",
+        "Made by: Dino Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Tail Trot',
+    levelRequirement: 4
+},
+'bootleg_dk_banana_peel_slippers': {
+    id: 'bootleg_dk_banana_peel_slippers',
+    name: "Bootleg DK Banana Peel Slippers",
+    description: "Slippers that 'slip' on peels (grippy soles).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🍌',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Avoid slips: advantage on Dex vs. prone",
+        "Slippers banana smell: disadvantage on Stealth",
+        "DK: +1 Acrobatics bananas",
+        "Made by: Peel Pranks"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Peel Post',
+    levelRequirement: 4
+},
+'wario_land_wario_wish_granting_ring': {
+    id: 'wario_land_wario_wish_granting_ring',
+    name: "Wario's Wish Granting Ring",
+    description: "A ring that 'grants wishes' (placebo luck).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '💍',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "+1 luck roll once/day",
+        "Ring tight: disadvantage on remove",
+        "Wario: +1 Deception wishes",
+        "Made by: Wario Rings"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wish Whisper',
+    levelRequirement: 4
+},
+'fake_mario_buzzy_beetle_shell': {
+    id: 'fake_mario_buzzy_beetle_shell',
+    name: "Fake Mario Buzzy Beetle Shell",
+    description: "A shell for 'defense' (turtle back).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🐢',
+    stock: 9,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC prone",
+        "Shell heavy: disadvantage on stand",
+        "Beetle fans: +1 Defense",
+        "Made by: Shell Scams"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Beetle Bounce',
+    levelRequirement: 4
+},
+'bootleg_luigi_portable_potion': {
+    id: 'bootleg_luigi_portable_potion',
+    name: "Bootleg Luigi Portable Potion",
+    description: "A potion bottle that 'heals' (soda).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '🧪',
+    stock: 11,
+    rarity: 'common',
+    effects: [
+        "Drink for 1d4 HP (fizz heal)",
+        "Soda burp: disadvantage on talk",
+        "Luigi: +1 vs. poison",
+        "Made by: Potion Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fizz Freight',
+    levelRequirement: 4
+},
+'wario_land_wario_wild_west_whiskey': {
+    id: 'wario_land_wario_wild_west_whiskey',
+    name: "Wario's Wild West Whiskey",
+    description: "Whiskey that's 'strong' (garlic shot).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🥃',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "+1 CON saves drunk",
+        "Breath bad: disadvantage on social",
+        "Western: +1 Intimidation",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Whiskey Wagon',
+    levelRequirement: 4
+},
+'fake_peach_pound_cake_mold': {
+    id: 'fake_peach_pound_cake_mold',
+    name: "Fake Peach Pound Cake Mold",
+    description: "A mold for 'royal' cakes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🍰',
+    stock: 7,
+    rarity: 'uncommon',
+    effects: [
+        "Mold cakes: +1 bake checks",
+        "Mold sticks: disadvantage on release",
+        "Peach: +1 Charisma cakes",
+        "Made by: Cake Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Pound Post',
+    levelRequirement: 4
+},
+'bootleg_yoshi_egg_thrower': {
+    id: 'bootleg_yoshi_egg_thrower',
+    name: "Bootleg Yoshi Egg Thrower",
+    description: "A slingshot for 'eggs' (rocks).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🥚',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Throw rock: 1d4 bludgeoning 30ft",
+        "Slingshot snaps: disadvantage on next",
+        "Yoshi: +1 ranged eggs",
+        "Made by: Egg Ejectors"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Egg Eject',
+    levelRequirement: 4
+},
+'wario_land_wario_wild_west_wanted_poster': {
+    id: 'wario_land_wario_wild_west_wanted_poster',
+    name: "Wario's Wild West Wanted Poster",
+    description: "A poster with your face (or Wario's).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '📜',
+    stock: 14,
+    rarity: 'common',
+    effects: [
+        "Show for +1 Intimidation bounties",
+        "Poster old: disadvantage on current",
+        "Western: +1 Deception outlaws",
+        "Made by: Wario West"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wanted Wagon',
+    levelRequirement: 4
+},
+'fake_dk_diddy_kong_peanut_popgun': {
+    id: 'fake_dk_diddy_kong_peanut_popgun',
+    name: "Fake DK Diddy Kong Peanut Popgun",
+    description: "Pops 'peanuts' (beans).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🥜',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Pop bean: 1d4 bludgeoning 20ft",
+        "Gun jams nuts: disadvantage on load",
+        "DK: +1 ranged nuts",
+        "Made by: Popgun Fakes"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Peanut Pop',
+    levelRequirement: 4
+},
+'bootleg_mario_thwomp_pounder': {
+    id: 'bootleg_mario_thwomp_pounder',
+    name: "Bootleg Mario Thwomp Pounder",
+    description: "A pounder for 'thwomps' (stomp).",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🔨',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Pound ground: advantage on trip foes",
+        "Pounder heavy: disadvantage on lift",
+        "Thwomp fans: +1 Strength",
+        "Made by: Pounder Copies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Thwomp Thud',
+    levelRequirement: 4
+},
 'trainer_guild_badge_pouch_belt': {
     id: 'trainer_guild_badge_pouch_belt',
     name: "Trainer Guild Badge Pouch Belt",
@@ -28598,6 +31470,2445 @@ export const SHOP_ITEMS = {
         shippedBy: 'Envelope',
         levelRequirement: 1
     },
+'wario_painting_glorious_self_portrait': {
+    id: 'wario_painting_glorious_self_portrait',
+    name: "Painting: Wario's Glorious Self-Portrait",
+    description: "An enormous oil painting of Wario reclining on a pile of coins. The eyes definitely follow you.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🖼️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: While hung in a room, all allies resting there gain +1 temporary HP after a long rest (self-confidence by osmosis).",
+        "Once per day: A creature in the room can reroll a failed Charisma (Intimidation) check (must use new roll).",
+        "Any attempt to vandalize the painting causes it to shout 'WAAAH!' loudly (disadvantage on Stealth during the attempt).",
+        "Clearly a mass-produced print, but Wario swears it's 'the original'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 5
+},
+
+'wario_painting_fall_of_peach_castle': {
+    id: 'wario_painting_fall_of_peach_castle',
+    name: "Painting: The Fall of Peach's Castle",
+    description: "A dramatic battlefield scene of Peach’s Castle under siege, with suspiciously heroic lighting on Wario.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '🖼️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: While hung, allies in the same building have advantage on their first saving throw vs. fear each day (hardened by tragedy).",
+        "Toad loyalists who see it must make a DC 12 Wisdom save or become hostile (it… edits the history in Wario’s favor).",
+        "Once per week: Stare at it during a short rest to gain inspiration for one history- or politics-related check.",
+        "Definitely painted after the fact, with Wario added in the foreground later."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shady Relic Relay',
+    levelRequirement: 6
+},
+
+'wario_painting_bootleg_royal_family': {
+    id: 'wario_painting_bootleg_royal_family',
+    name: "Painting: Bootleg Mushroom Royal Family Portrait",
+    description: "A slightly off-model Peach, Mario, and Luigi. Mario’s mustache is crooked and Peach looks… tired.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🖼️',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Base Décor: While displayed, you gain +1 to Charisma (Deception) checks when pretending to be a 'friend of the crown'.",
+        "Any NPC truly loyal to Peach gets disadvantage on Charisma checks toward the owner (they’re offended by the likeness).",
+        "Once per day: You can study the faces for advantage on one Insight check about court politics / loyalties.",
+        "The artist signed it ‘Peech’ in the corner."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 4
+},
+
+'wario_painting_bootleg_waluigi_pinup': {
+    id: 'wario_painting_bootleg_waluigi_pinup',
+    name: "Painting: Bootleg Waluigi Pin-Up Poster",
+    description: "An overly dramatic, long-legged painting of Waluigi posing with a rose. It’s… a lot.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3900,
+    icon: '🖼️',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Base Décor: While in a room, creatures gain +1 to Charisma (Performance) checks (the confidence is contagious).",
+        "Anyone who fails a DC 10 Wisdom save upon first seeing it bursts into awkward laughter (noisy, ruins Stealth).",
+        "Once per long rest: You can channel ‘Waa energy’ to reroll a failed Dexterity (Acrobatics) check.",
+        "Obviously a knockoff; Waluigi has never posed for this. Allegedly."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Folded Poster Tube',
+    levelRequirement: 4
+},
+
+'wario_painting_last_stand_of_the_toad_brigade': {
+    id: 'wario_painting_last_stand_of_the_toad_brigade',
+    name: "Painting: Last Stand of the Toad Brigade",
+    description: "A moving tableau of Toad soldiers making a heroic final stand atop a crumbling parapet.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🖼️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: Allies who take a short or long rest in sight of this painting gain +1 to their next death saving throw that day.",
+        "Once per day: A viewer can gain advantage on one saving throw against being frightened or charmed.",
+        "Toads who see it often salute unconsciously, granting +1 to Charisma (Persuasion) with them for 1 hour.",
+        "Wario bought it from a Toad veteran for 'totally fair' prices."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toad Trot Transport',
+    levelRequirement: 5
+},
+
+'wario_painting_burning_of_bowsers_keep': {
+    id: 'wario_painting_burning_of_bowsers_keep',
+    name: "Painting: Burning of Bowser’s Keep",
+    description: "A chaotic scene of Bowser’s fortress in flames, Magikoopas fleeing in every direction.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🖼️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: Creatures in the room gain advantage on their first save vs. fire damage each day.",
+        "Koopa NPCs who see it must make a DC 12 Wisdom save or become sullen and less cooperative (disadvantage on their social checks for 1 hour).",
+        "Once per long rest: Meditating on the painting grants resistance to fire for 10 minutes.",
+        "The frame smells faintly of soot and singed shell."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell-Singed Shipment',
+    levelRequirement: 5
+},
+
+'wario_painting_the_first_toast_to_freedom': {
+    id: 'wario_painting_the_first_toast_to_freedom',
+    name: "Painting: The First Toast to Freedom",
+    description: "Rebels and former royal guards raising mismatched mugs in a ruined Toad Town tavern.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '🖼️',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Base Décor: Short rests taken here restore +1 extra HP (if you spend any Hit Dice).",
+        "Advantage on Charisma checks to negotiate truces or ceasefires made in the same room.",
+        "Once per week: You can invoke the scene to gain inspiration on a speech or rallying cry.",
+        "Someone painted Wario into the background clinking a mug; he definitely wasn't there."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Barrel of Prints',
+    levelRequirement: 4
+},
+
+'wario_painting_warios_war_room_map': {
+    id: 'wario_painting_warios_war_room_map',
+    name: "Painting: Wario’s War Room Tactical Map",
+    description: "A huge framed map of the Mushroom Kingdom with poorly drawn arrows and ‘X’s where Wario thinks treasure is.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🗺️',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Base Décor: While planning on it for 10 minutes, party gains +1 to their next group Initiative roll.",
+        "1/day: A character can gain advantage on one Intelligence (History or Investigation) check related to the Mushroom Kingdom.",
+        "20% of the treasure ‘X’s are actually real leads (DM may turn one into an adventure hook).",
+        "Half the notes are doodles of Mario getting punched."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Oversized Roll',
+    levelRequirement: 5
+},
+
+'wario_painting_luigi_missing_in_action': {
+    id: 'wario_painting_luigi_missing_in_action',
+    name: "Painting: Luigi – Missing in Action",
+    description: "A melancholic portrait of Luigi looking out over a battlefield, cape torn, eyes uncertain.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🖼️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: While resting in this room, creatures gain advantage on one Wisdom (Insight) check per day (contemplative mood).",
+        "Once per day: A viewer can reroll a failed Wisdom save against fear or despair.",
+        "Luigi sympathizers who see it are more open: +1 to Persuasion with them for 24 hours.",
+        "Signed only with a small, green ‘L’ in the corner – maybe Luigi painted it himself before vanishing."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spooky Shipment',
+    levelRequirement: 5
+},
+
+'wario_painting_wartime_market_bazaar': {
+    id: 'wario_painting_wartime_market_bazaar',
+    name: "Painting: Wartime Market Bazaar",
+    description: "A bustling black-market scene in Rogueport, with Toads, Koopas, and Shy Guys trading under Wario’s big banner.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🖼️',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Base Décor: While the painting is up, buying or selling from ‘shady’ NPCs in that location grants +5% better prices (round in your favor).",
+        "Once per day: A creature can gain advantage on one Charisma (Deception) or (Persuasion) check related to trade.",
+        "Guards who see it gain suspicion: disadvantage on Stealth checks while they’re around.",
+        "Wario insists this is ‘documentary realism’. There is a tiny copyright notice at the bottom."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Coin-Operated Crate',
+    levelRequirement: 4
+},
+
+'wario_painting_koopa_truce_on_the_bridge': {
+    id: 'wario_painting_koopa_truce_on_the_bridge',
+    name: "Painting: Koopa Truce on the Bridge",
+    description: "Two Koopa captains shaking hands over a broken bridge, banners lowered, smoke still rising nearby.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🖼️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: Negotiations held in this room gain advantage on one key social roll (GM choice).",
+        "Koopa NPCs in the room gain +1 morale and are less likely to flee (RP effect).",
+        "Once per week: You can invoke the painting to automatically end a minor intra-party argument (everyone calms down).",
+        "Bridge in the painting occasionally drips a single illusionary drop of water."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell Sound Service',
+    levelRequirement: 6
+},
+
+'wario_painting_wartime_propaganda_poster': {
+    id: 'wario_painting_wartime_propaganda_poster',
+    name: "Painting: ‘Wario Will Save the Kingdom!’ Propaganda",
+    description: "A gaudy, stylized war poster showing Wario heroically punching Bowser and collecting taxes at the same time.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '🖼️',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Base Décor: +1 to the first Charisma (Intimidation) or (Persuasion) check you make on new visitors, as long as you loudly mention Wario.",
+        "Once per day: You can ‘rally’ allies in the room, giving them +1 to their next attack roll.",
+        "Anyone looking at it for too long must make a DC 10 Wis save or feel an irrational urge to buy Wario-brand products.",
+        "Printed by the thousands; this is… one of them."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Flyer Drop',
+    levelRequirement: 4
+},
+
+'wario_painting_yoshi_cavalry_charge': {
+    id: 'wario_painting_yoshi_cavalry_charge',
+    name: "Painting: Yoshi Cavalry Charge",
+    description: "A sweeping landscape of mounted Yoshis charging across a sunflower field toward Koopa lines.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '🖼️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: Creatures who begin combat after resting in this room gain +5 ft movement on their first round.",
+        "Once per day: A rider or mount-user can gain advantage on one Animal Handling check.",
+        "Yoshis who see it become friendly unless attacked: advantage on social checks with them.",
+        "The sun in the painting seems to move slowly over the canvas with the real day/night cycle."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Egg Express',
+    levelRequirement: 5
+},
+
+'wario_painting_ruins_of_the_royal_garden': {
+    id: 'wario_painting_ruins_of_the_royal_garden',
+    name: "Painting: Ruins of the Royal Garden",
+    description: "Once-blooming flowerbeds now scorched and overgrown, with a single pristine pink rose in the center.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🖼️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Base Décor: While present, herbalism or gardening-related checks in the same space gain advantage.",
+        "Once per day: A viewer may meditate for 10 minutes to recover 1 expended Hit Die (melancholic rest).",
+        "If watered with a potion, the painted rose briefly glows; the next healing effect in that room heals +1 HP.",
+        "Tiny Wario watermark hidden in the dirt near the corner."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Floral Freight',
+    levelRequirement: 5
+},
+'wario_land_peach_true_tear': {
+    id: 'wario_land_peach_true_tear',
+    name: "Princess Peach’s True Tear (Preserved)",
+    description: "A single tear shed the day the castle fell, suspended in a crystal vial. Still warm.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 24000,
+    icon: '💧',
+    stock: 1,
+    rarity: 'very_rare',
+    effects: [
+        "Single use: Drink or shatter — all allies within 60ft instantly recover 4d8+8 HP and remove one level of exhaustion, frightened, or charmed.",
+        "If shattered instead of drunk: every undead or fiend within 100ft takes 8d10 radiant damage (no save).",
+        "Peach’s ghost appears for one minute after use — she will answer one question truthfully, then fades.",
+        "Wario swears he caught it himself. He definitely didn’t."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Royal Courier (Ghost Delivery)',
+    levelRequirement: 8
+},
+'wario_cw_mario_field_commanders_whistle': {
+    id: 'wario_cw_mario_field_commanders_whistle',
+    name: "Civil War Relic: Mario's Field Commander Whistle",
+    description: "A red-and-gold whistle once used to rally last-stand charges. The bite marks look suspiciously plumber-sized.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6200,
+    icon: '🎺',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Battle Rally: Once per long rest, as an action, blow the whistle to grant all allies within 30 ft +1 to attack rolls until the start of your next turn.",
+        "Sound of Hope: Allies who can hear it gain advantage on their next saving throw vs. fear.",
+        "Blatantly Loud: Also alerts all enemies within 200 ft; disadvantage on Stealth checks for 1 minute in the area.",
+        "Wario swears Mario 'dropped it on purpose' and that it’s not stolen."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Coin-Operated Courier',
+    levelRequirement: 6
+},
+
+'wario_cw_toadtown_ruined_street_lamp': {
+    id: 'wario_cw_toadtown_ruined_street_lamp',
+    name: "Civil War Relic: Toad Town Ruined Street Lamp",
+    description: "A bent, soot-stained lamp from the main square, converted into a standing light fixture.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🛟',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Base Light: Illuminates a 30 ft radius in soft yellow light when placed and activated.",
+        "Beacon of the Fallen: While resting within its light, party members gain +1 to their next death saving throw that day.",
+        "Bullet Magnet: Ranged attacks targeting creatures within the light have +1 to hit (everyone can see you better).",
+        "Toads sometimes leave flowers at its base if placed in public."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toadtown Rubble Haulers',
+    levelRequirement: 5
+},
+
+'wario_cw_shy_guy_sniper_mask': {
+    id: 'wario_cw_shy_guy_sniper_mask',
+    name: "Civil War Relic: Shy Guy Sniper Mask",
+    description: "A cracked, long-nosed mask used by rooftop Shy Guy marksmen.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6800,
+    icon: '🎭',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Eye-Slit Focus: Gain +1 to attack rolls with ranged weapons while wearing the mask.",
+        "Hidden Face: Advantage on Stealth checks when sniping from cover.",
+        "Tunnel Vision: Disadvantage on Perception checks for threats within 5 ft.",
+        "Some Shy Guys treat you with wary respect, others assume you’re stealing valor."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mask-Crate Express',
+    levelRequirement: 6
+},
+
+'wario_cw_koopa_mortar_fragment': {
+    id: 'wario_cw_koopa_mortar_fragment',
+    name: "Civil War Relic: Koopa Mortar Fragment",
+    description: "A jagged piece of a shattered siege mortar, warm to the touch.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6100,
+    icon: '🧱',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Improvised Bombardment: Once per day, as an action, you can slam the fragment into the ground to create a small blast (10 ft radius, 2d6 thunder damage, DEX save DC 13 for half).",
+        "Siege Sense: Advantage on checks to identify weak points in walls and fortifications.",
+        "Unstable Relic: On a natural 1 with the ability above, the fragment cracks; after three cracks it becomes mundane rubble.",
+        "Stamped with a faded Bowser crest under the scorch marks."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell-Shocked Freight',
+    levelRequirement: 7
+},
+
+'wario_cw_chain_chomp_collar': {
+    id: 'wario_cw_chain_chomp_collar',
+    name: "Civil War Relic: Chain Chomp Restraint Collar",
+    description: "A heavy, enchanted collar once used to hold a particularly vicious Chain Chomp at bay.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5900,
+    icon: '⛓️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Anchor Point: You can, as an action, slam the collar into the ground, creating a 10 ft radius zone where Large or smaller creatures treat the area as difficult terrain (they feel 'pulled'). Lasts 1 minute, 1/day.",
+        "Beast Tamer: Advantage on Animal Handling checks with bitey, chain-bound, or similarly aggressive creatures.",
+        "Heavy Burden: While carried, you have -5 ft movement unless your Strength is 16 or higher.",
+        "The chain marks in the metal look like teeth."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Chomp-Proof Crate',
+    levelRequirement: 5
+},
+
+'wario_cw_boo_recon_goggles': {
+    id: 'wario_cw_boo_recon_goggles',
+    name: "Civil War Relic: Boo Recon Goggles",
+    description: "Fogged lenses used by Boo scouts to watch the living from the shadows.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7200,
+    icon: '🥽',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Ghost Sight: You can see invisible undead within 30 ft as faint outlines.",
+        "Night Recon: Advantage on Perception checks in dim light or darkness.",
+        "Spooked: Once per long rest, you must succeed on a DC 12 Wisdom save or be frightened for 1 round after seeing something truly horrific through them (DM’s call).",
+        "Goggles occasionally show reflections that don’t match reality."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spectral Courier',
+    levelRequirement: 7
+},
+
+'wario_cw_mushroom_barricade_plank': {
+    id: 'wario_cw_mushroom_barricade_plank',
+    name: "Civil War Relic: Mushroom Barricade Plank",
+    description: "A reinforced wooden plank from a makeshift Toad Town street barricade.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🪵',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Portable Cover: As an action, you can deploy it to grant half cover (+2 AC and Dex saves) to one Medium or smaller creature behind it.",
+        "Hold the Line: While behind the plank, allies gain +1 to saving throws vs. being shoved or knocked prone.",
+        "Bulky: Carrying it imposes disadvantage on Stealth checks.",
+        "Still bears chalk slogans like 'NO MORE CASTLES' and 'TOADS RISE'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rubble & Relics Co.',
+    levelRequirement: 5
+},
+
+'wario_cw_toad_medics_kit': {
+    id: 'wario_cw_toad_medics_kit',
+    name: "Civil War Relic: Toad Medic's Kit",
+    description: "A battered satchel with a red mushroom emblem, faintly smelling of herbs and panic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7500,
+    icon: '🩺',
+    stock: 4,
+    rarity: 'rare',
+    effects: [
+        "Battlefield Triage: Contains 3 charges. As an action, expend 1 charge to heal a creature for 2d4+2 HP.",
+        "Emergency Stabilization: Once per long rest, you can auto-stabilize a dying creature you can touch, no roll required.",
+        "Exhausted Supplies: After all 3 charges are used, it recharges 1 charge after each long rest (never returns to full unless restocked with DM-approved components).",
+        "Toad medics who see it may insist you return it to the families of the fallen."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Red-Cross Paratroopa',
+    levelRequirement: 5
+},
+
+'wario_cw_royal_courier_satchel': {
+    id: 'wario_cw_royal_courier_satchel',
+    name: "Civil War Relic: Royal Courier Satchel",
+    description: "A weathered leather mailbag used to sneak messages past enemy lines.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6800,
+    icon: '📨',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Secret Compartments: Holds up to 10 small items that cannot be found except with a DC 18 Investigation check.",
+        "Message Runner: While wearing it, you gain +5 ft movement and advantage on Constitution saves to avoid exhaustion from forced marches.",
+        "Marked Man: Carrying it gives disadvantage on Deception checks when pretending to be 'just a civilian'.",
+        "Still contains a half-burned, cryptic order from Peach’s last days."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Parakoopa Post',
+    levelRequirement: 6
+},
+
+'wario_cw_bowser_siege_ladder_rung': {
+    id: 'wario_cw_bowser_siege_ladder_rung',
+    name: "Civil War Relic: Bowser Siege Ladder Rung",
+    description: "A scorched metal rung once used to scale Peach’s castle walls.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🪜',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Climber’s Grip: While carried, you gain advantage on Athletics checks made to climb.",
+        "Breach Memory: Once per day, you can grant yourself +1 to a single Strength check or save related to forcing entry (busting doors, gates, etc.).",
+        "Hot to the Touch: Holding it bare-handed for more than a minute deals 1 fire damage per minute (gloves negate).",
+        "Koopa veterans sometimes salute it grimly."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Siege Scrap Salvage',
+    levelRequirement: 5
+},
+
+'wario_cw_yoshi_stampede_spurs': {
+    id: 'wario_cw_yoshi_stampede_spurs',
+    name: "Civil War Relic: Yoshi Stampede Spurs",
+    description: "A pair of jangling, star-shaped spurs once worn by a Yoshi cavalry captain.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7300,
+    icon: '⭐',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Mounted Momentum: While riding a mount, you and the mount both gain +10 ft movement.",
+        "Stampede Signal: Once per long rest, you can cause all friendly mounts within 60 ft to gain advantage on their next Strength or Dex check.",
+        "Jangling Noise: Disadvantage on Stealth checks while worn.",
+        "Yoshis will recognize them and may demand to know how you got them."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Egg Express',
+    levelRequirement: 7
+},
+
+'wario_cw_goomba_minefield_sign': {
+    id: 'wario_cw_goomba_minefield_sign',
+    name: "Civil War Relic: 'Danger – Goomba Minefield' Sign",
+    description: "A half-buried wooden sign, riddled with shrapnel and Goomba footprints.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '⚠️',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Trap Awareness: While carried, you gain advantage on Perception checks to spot ground-based traps.",
+        "Morbid Warning: Once per day, planting the sign near a trapped area grants any ally who can see it +2 to their first trap-related saving throw.",
+        "Bad Memories: Goombas who see it have disadvantage on morale checks, but also hate you.",
+        "Splintered edges still smell faintly of gunpowder and mushrooms."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rubble & Relics Co.',
+    levelRequirement: 5
+},
+
+'wario_cw_lakitu_bombing_chart': {
+    id: 'wario_cw_lakitu_bombing_chart',
+    name: "Civil War Relic: Lakitu Bombing Chart",
+    description: "A rolled-up cloud-stained parchment mapping aerial bombing runs over Toad Town.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6400,
+    icon: '🗺️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Aerial Tactician: Advantage on checks to predict enemy movement or artillery ranges.",
+        "Rain of Doom: Once per long rest, you can call in a 'remembered strike' – a 20 ft radius area where all creatures must make a DC 13 Dex save or take 2d6 bludgeoning (falling debris / memory echo).",
+        "Reading it is disturbing: after using the ability, you must succeed on a DC 10 Wis save or gain disadvantage on your next Persuasion check made the same day.",
+        "Smudged Lakitu doodles in the margins argue about accuracy."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Cloud Courier',
+    levelRequirement: 7
+},
+
+'wario_cw_thwomp_fragment_charm': {
+    id: 'wario_cw_thwomp_fragment_charm',
+    name: "Civil War Relic: Thwomp Fragment Charm",
+    description: "A chunk of carved stone from a Thwomp that smashed a siege tower.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '🪨',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Weight of Stone: You gain resistance to falling damage up to 30 ft.",
+        "Once per day: As a bonus action, you can stomp, forcing all adjacent creatures (5 ft) to make a DC 13 Dex save or fall prone (no damage).",
+        "You feel heavy: -5 ft to your movement speed while attuned.",
+        "Sometimes emits a faint 'THWOMP' in your dreams."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Dungeon Debris Delivery',
+    levelRequirement: 6
+},
+
+'wario_cw_piranha_trench_spade': {
+    id: 'wario_cw_piranha_trench_spade',
+    name: "Civil War Relic: Piranha Trench Spade",
+    description: "A muddy spade once used to dig trenches laced with Piranha Plants.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '⛏️',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Trench Digger: You dig twice as fast when using this spade to excavate soil.",
+        "Ambush Planner: Advantage on checks to set up field fortifications or camouflaged pits.",
+        "Plant Whisper: Once per day you can make a Piranha Plant indifferent to you for 1 minute on a successful DC 13 Animal Handling or Nature check.",
+        "The blade is nicked with small bite marks."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Frontline Tools Wagon',
+    levelRequirement: 5
+},
+
+'wario_cw_hammer_bro_wrist_guard': {
+    id: 'wario_cw_hammer_bro_wrist_guard',
+    name: "Civil War Relic: Hammer Bro Wrist Guard",
+    description: "A reinforced wrist brace used to cushion endless hammer throws.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6900,
+    icon: '🛡️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Throwing Form: Gain +1 to attack rolls with thrown weapons.",
+        "Hammer Instinct: Once per day, after hitting with a thrown weapon, you can immediately make one more thrown attack (same weapon or another) as a bonus action.",
+        "Heavy Brace: -1 to Dexterity (Stealth) checks involving hand finesse.",
+        "Old tally marks are carved on the inside in Koopa script."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Hammer Hauler',
+    levelRequirement: 7
+},
+
+'wario_cw_magikoopa_field_manual': {
+    id: 'wario_cw_magikoopa_field_manual',
+    name: "Civil War Relic: Magikoopa Field Manual",
+    description: "A singed guidebook on battlefield spell tactics, marginalia included.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7400,
+    icon: '📘',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Tactical Spells: If you are a spellcaster, once per long rest you may cast one 1st-level spell you know as if upcast by 1 slot level.",
+        "Arcane Drills: Advantage on Arcana checks related to Koopa magic or battlefield enchantments.",
+        "Dense Reading: Requires 1 hour of study before first benefit; if interrupted, you gain a splitting headache (1 level of exhaustion until a short rest).",
+        "The last page has ‘PROPERTY OF KAMEK – DO NOT LOOT’ underlined. Wario ignored it."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spellbook Salvage',
+    levelRequirement: 8
+},
+
+'wario_cw_rebel_toad_graffiti_brick': {
+    id: 'wario_cw_rebel_toad_graffiti_brick',
+    name: "Civil War Relic: Rebel Toad Graffiti Brick",
+    description: "A chunk of wall painted with 'DOWN WITH CASTLES' in bright red paint.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🧱',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Symbol of Defiance: Advantage on Persuasion checks made to incite or calm crowds of commoners.",
+        "Improvised Weapon: Can be thrown for 1d6 bludgeoning damage; on a crit, also blinds the target for 1 round with dust.",
+        "Authorities Disapprove: Disadvantage on Charisma checks with law-abiding officials who recognize the slogan.",
+        "Wario swears he’ll sell you the whole wall if you pay extra."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rubble Runner',
+    levelRequirement: 5
+},
+
+'wario_cw_peach_last_edict_scroll': {
+    id: 'wario_cw_peach_last_edict_scroll',
+    name: "Civil War Relic: Peach’s Last Edict (Fragment)",
+    description: "A singed fragment of a royal decree issued days before Peach’s death.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7600,
+    icon: '📜',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Royal Authority: Once per day, you can present the fragment to gain advantage on a single Persuasion check with any who still respect the crown.",
+        "Lingering Blessing: If you roll a natural 1 on a death save while carrying it, you may instead treat it as a 10 (once per campaign per character).",
+        "Heir’s Call: The scroll faintly warms in the presence of legitimate claimants to the throne.",
+        "The rest of the text is missing; Wario ‘might’ find the rest… for a price."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Silk Scroll Case',
+    levelRequirement: 8
+},
+
+'wario_cw_battlefield_trophy_sack': {
+    id: 'wario_cw_battlefield_trophy_sack',
+    name: "Civil War Relic: Battlefield Trophy Sack",
+    description: "A rough sack once used by a mercenary to collect proof of victories.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🎒',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Grisly Reputation: When visibly carried with trophies (ears, badges, etc.), gain +1 to Intimidation checks.",
+        "Spoils of War: Once per day, after a battle in which you defeat at least 3 enemies, you can rummage the sack to find 1d10 extra gp or a minor trinket (DM’s choice).",
+        "Psychic Weight: You have disadvantage on Wisdom saves against guilt-themed illusions or enchantments while using it.",
+        "The bottom has a faint 'Property of Wario' stamp; he’s repurposed it, obviously."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Loot Logistics',
+    levelRequirement: 5
+},
+
+'wario_cw_koopatrol_shoulder_plate': {
+    id: 'wario_cw_koopatrol_shoulder_plate',
+    name: "Civil War Relic: Koopatrol Shoulder Plate",
+    description: "A spiked metal pauldron from an elite Koopa enforcer.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6900,
+    icon: '🛡️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC while worn with medium or heavy armor (doesn’t stack with magical armor bonuses).",
+        "Barging Presence: Once per short rest, you can add +2 to a Strength (Athletics) check to shove or break objects.",
+        "Marked as Enemy: Toad rebels who recognize it react hostilely unless convinced otherwise.",
+        "Smells faintly of scorched leather and Koopa sweat."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spiked Crate Co.',
+    levelRequirement: 6
+},
+
+'wario_cw_bob_omb_engineers_blueprint': {
+    id: 'wario_cw_bob_omb_engineers_blueprint',
+    name: "Civil War Relic: Bob-omb Engineer’s Blueprint",
+    description: "A soot-smudged schematic labelled ‘IMPROVED GO-BOOM DEVICE’.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6400,
+    icon: '📐',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Explosive Insight: Advantage on checks to disarm or rearm explosive traps and devices.",
+        "DIY Bomb: Once per long rest, with appropriate materials, you can jury-rig a small bomb (1 use, 2d6 fire, 10 ft radius, Dex save DC 13).",
+        "Misfire Risk: On a failed crafting check, it explodes in your face for 1d4 fire damage.",
+        "Koopa engineering notes are full of 'BOOM!' doodles."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Volatile Mail',
+    levelRequirement: 7
+},
+
+'wario_cw_star_spirit_shrapnel': {
+    id: 'wario_cw_star_spirit_shrapnel',
+    name: "Civil War Relic: Star Spirit Shrapnel",
+    description: "A tiny prismatic shard from a shattered star-blessing used in a desperate defense.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7800,
+    icon: '💎',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Once per day: As a reaction to being hit by an attack, you can reduce the damage by 1d8 (star shield).",
+        "Guiding Glimmer: You gain advantage on one attack roll of your choice per long rest.",
+        "Star-Burn: Each time you use either ability, take 1 radiant damage as the shard overheats.",
+        "If ever brought to Star Road, it vibrates violently (plot hook)."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stellar Salvage Service',
+    levelRequirement: 8
+},
+
+'wario_cw_wartime_ration_tin': {
+    id: 'wario_cw_wartime_ration_tin',
+    name: "Civil War Relic: Wartime Ration Tin",
+    description: "A dented tin embossed with a faded mushroom crest, full of questionable preserved food.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🥫',
+    stock: 9,
+    rarity: 'common',
+    effects: [
+        "Eat from the tin as an action: Regain 1d6+1 HP, but must succeed on a DC 11 Con save or suffer disadvantage on Charisma checks for 1 hour (garlic-and-onion breath).",
+        "Tin contains 3 servings; recharges 1 serving after each long rest until empty.",
+        "Can be thrown as an improvised weapon for 1d4 bludgeoning; on a crit, it pops and coats the target in smelly stew (disadvantage on their Deception checks).",
+        "TIN SLOGAN: 'THE KINGDOM FEEDS YOU – YOU FEED THE FRONT'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ration Crate',
+    levelRequirement: 5
+},
+
+'wario_cw_castle_sewer_key': {
+    id: 'wario_cw_castle_sewer_key',
+    name: "Civil War Relic: Castle Sewer Key",
+    description: "A rusty key rumored to open at least one of Peach’s emergency escape routes.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5900,
+    icon: '🗝️',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Escape Artist: Advantage on checks to find hidden doors, grates, and sewer accesses in castles or cities.",
+        "Once per session, the DM may allow it to open a 'convenient' locked maintenance hatch or sewer grate.",
+        "Filthy Aura: Anyone within 5 ft of the key smells faintly of sewer; disadvantage on Persuasion with nobles, advantage with street urchins.",
+        "The teeth are bent in strange, non-standard patterns – definitely custom work."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Smelly Parcel',
+    levelRequirement: 6
+},
+
+'wario_cw_fallen_kamek_hat': {
+    id: 'wario_cw_fallen_kamek_hat',
+    name: "Civil War Relic: Fallen Kamek Hat",
+    description: "A scorched blue Magikoopa hat, stars charred but still faintly glowing.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7700,
+    icon: '🎩',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Arcane Focus: If you can cast spells, you gain +1 to spell attack rolls while wearing it.",
+        "Battlefield Memory: Once per long rest, you may reroll one failed Arcana or History check related to war magic.",
+        "Cursed Legacy: On a natural 1 for any spell attack, you take 1 psychic damage and hear Kamek’s disappointed sigh.",
+        "Bowser loyalists might try to take it back by force."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spellbound Satchel',
+    levelRequirement: 8
+},
+
+'wario_cw_toadtown_air_raid_siren_crank': {
+    id: 'wario_cw_toadtown_air_raid_siren_crank',
+    name: "Civil War Relic: Toad Town Air-Raid Siren Crank",
+    description: "A detachable crank that, when turned, produces a rising wail of impending doom.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🌀',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Alarm: As an action, you can sound the siren, alerting everyone in a 300 ft radius. Allies gain advantage on their next initiative check that combat.",
+        "Panic Trigger: All creatures in range have disadvantage on Stealth checks for 1 minute.",
+        "Old Trauma: Any veteran of the civil war must succeed on a DC 12 Wisdom save or be frightened for 1 round upon first hearing it each day.",
+        "The crank handle is worn smooth from desperate hands."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Claxon Crate',
+    levelRequirement: 6
+},
+
+'wario_cw_royal_guard_cape_clasp': {
+    id: 'wario_cw_royal_guard_cape_clasp',
+    name: "Civil War Relic: Royal Guard Cape Clasp",
+    description: "A golden clasp shaped like a stylized mushroom, once worn by the palace elite.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6600,
+    icon: '📿',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Noble Bearing: While worn visibly, you gain +1 to Charisma (Persuasion) checks with law-abiding citizens and veterans of the royal guard.",
+        "Once per day: As a reaction when reduced to 0 HP, you can instead drop to 1 HP (the 'never fall' oath).",
+        "Symbol of the Old Regime: Disadvantage on Charisma checks with radical Toad rebels.",
+        "A fine crack runs through the enamel from one last, bad hit."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Velvet Box Delivery',
+    levelRequirement: 7
+},
+
+'wario_cw_dry_bones_reconstruction_kit': {
+    id: 'wario_cw_dry_bones_reconstruction_kit',
+    name: "Civil War Relic: Dry Bones Reconstruction Kit",
+    description: "A canvas roll of tools used by Koopa necro-engineers to reassemble fallen Dry Bones.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7300,
+    icon: '🦴',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "If used over 10 minutes on a pile of humanoid bones, you can animate a single CR 1/4 skeletal minion that obeys you for 1 hour (1/day).",
+        "Macabre Tinkering: Advantage on checks to understand or dismantle undead constructs.",
+        "Grave Consequences: Each use increases your 'necromantic taint'; after 3 uses, good-aligned NPCs sense something off (disadvantage on Persuasion with them).",
+        "Wario advertises it as 'eco-friendly recycling'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Bone Bundle',
+    levelRequirement: 7
+},
+
+'wario_cw_sky_bridge_rope_section': {
+    id: 'wario_cw_sky_bridge_rope_section',
+    name: "Civil War Relic: Sky-Bridge Rope Section",
+    description: "A frayed rope segment from a suspended bridge used in aerial assaults.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🪢',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Cliffhanger: You have advantage on checks and saves to avoid being knocked off ledges, ropes, or similar precarious positions.",
+        "Quick Rig: Once per day, you can set up a 20 ft rope for crossing in half the normal time.",
+        "Frayed Fibers: Any creature weighing more than 400 lbs has disadvantage on checks relying on it not snapping.",
+        "Smells of clouds, smoke, and fear."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Skyhook Delivery',
+    levelRequirement: 5
+},
+
+'wario_cw_battlement_spyglass': {
+    id: 'wario_cw_battlement_spyglass',
+    name: "Civil War Relic: Battlement Spyglass",
+    description: "A dented spyglass once used to watch for incoming Lakitu squadrons.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🔭',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Long Watch: Advantage on Perception checks to spot distant threats (100 ft or more).",
+        "Once per short rest: You can mark a visible enemy; the first ranged attack against that enemy before the end of your next turn has +2 to hit.",
+        "Foggy Lens: Disadvantage on Perception in heavy rain or magical fog.",
+        "There’s a tiny scratch shaped like a Lakitu cloud in the lens."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Tower Top Trunk',
+    levelRequirement: 6
+},
+
+'wario_cw_yoshi_field_kitchen_pot': {
+    id: 'wario_cw_yoshi_field_kitchen_pot',
+    name: "Civil War Relic: Yoshi Field Kitchen Pot",
+    description: "An oversized metal pot that once fed an entire Yoshi cavalry unit.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🥘',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Camp Morale: When used to cook a shared meal during a long rest, all who partake gain +1 temporary HP and +1 to their next saving throw vs. fear.",
+        "Big Enough for All: You can easily cook for up to 10 Medium creatures at once.",
+        "Bulky: The pot counts as 15 lbs, and disadvantage on Stealth while carrying it openly.",
+        "Some old scorch marks look suspiciously like Wario’s silhouette."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mess Tent Freight',
+    levelRequirement: 5
+},
+
+'wario_cw_paper_bomb_recipe': {
+    id: 'wario_cw_paper_bomb_recipe',
+    name: "Civil War Relic: Paper Bomb Recipe Scroll",
+    description: "A folded recipe used by origami saboteurs to make explosive charms.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6200,
+    icon: '📜',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "If you spend 30 minutes and 25 gp of materials, you can craft a Paper Bomb: a palm-sized explosive that deals 2d4 force damage in a 5 ft radius (Dex save DC 13 for half). You can maintain up to 3 at once.",
+        "Clever Fold: Advantage on Sleight of Hand checks to hide the bombs.",
+        "Fragile: If you critically fail a roll while handling them, one detonates prematurely in your space.",
+        "Notes in the margins complain about 'cheap wartime paper'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Folded Parcel',
+    levelRequirement: 6
+},
+
+'wario_cw_portable_green_pipe_section': {
+    id: 'wario_cw_portable_green_pipe_section',
+    name: "Civil War Relic: Portable Green Pipe Section",
+    description: "A waist-high green pipe segment, once part of an emergency warp route.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7800,
+    icon: '🛞',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Warp Hop: Once per long rest, you can drop the pipe and, as a bonus action, step into it to emerge in any unoccupied space within 60 ft that you can see.",
+        "Static Exit: The pipe stays in place where you emerge until picked back up (action).",
+        "Glitchy Plumbing: On a roll of 1 on a d6 when using it, you instead emerge 1d4×10 ft in a random direction (DM’s choice) from the desired spot.",
+        "Echoes faintly with the old warp sound."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Plumbing Salvage Union',
+    levelRequirement: 8
+},
+
+'wario_cw_blue_shell_shrapnel_band': {
+    id: 'wario_cw_blue_shell_shrapnel_band',
+    name: "Civil War Relic: Blue Shell Shrapnel Band",
+    description: "A bracelet made from shards of a legendary homing shell detonated above the royal balcony.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7600,
+    icon: '📿',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Homing Fury: Once per long rest, when you miss with a ranged attack, you can choose to have it 'curve' and reroll the attack with disadvantage.",
+        "Explosive Memory: On a hit with that ability, add +1d4 thunder damage.",
+        "Backfire Risk: On a second miss, the projectile snaps back and deals 1d4 damage to you.",
+        "The shards hum softly when Bowser’s name is spoken nearby."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Kart Track Scrap',
+    levelRequirement: 8
+},
+
+'wario_cw_star_road_prayer_beads': {
+    id: 'wario_cw_star_road_prayer_beads',
+    name: "Civil War Relic: Star Road Prayer Beads",
+    description: "A string of tiny star-shaped beads once used by soldiers praying for a miracle.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7000,
+    icon: '📿',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Once per long rest, you may reroll one failed saving throw. You must use the new result.",
+        "If the reroll also fails, you take 1 radiant damage from 'disappointed stars'.",
+        "Quiet Contemplation: Advantage on Wisdom (Insight) checks made during a short rest while holding them.",
+        "Stars on the beads slowly shift positions if left under the night sky."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stargazer’s Pouch',
+    levelRequirement: 7
+},
+
+'wario_cw_toadtown_refugee_id_tag': {
+    id: 'wario_cw_toadtown_refugee_id_tag',
+    name: "Civil War Relic: Toad Town Refugee ID Tag",
+    description: "A stamped metal tag issued to displaced civilians, listing a number and a faded mushroom crest.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🏷️',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Sympathy Magnet: Advantage on Persuasion checks when seeking shelter, food, or charity from compassionate NPCs.",
+        "Trauma Echo: Disadvantage on Charisma (Deception) checks when lying about your past (it ‘feels wrong’).",
+        "If shown to actual refugees, may trigger flashbacks or camaraderie (DM roleplay).",
+        "The number is half-worn away, but the weight of memory remains."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Relic Registry',
+    levelRequirement: 5
+},
+
+'wario_cw_fire_bro_censer': {
+    id: 'wario_cw_fire_bro_censer',
+    name: "Civil War Relic: Fire Bro’s Censer",
+    description: "An incense burner that once masked the scent of burning fortifications.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6500,
+    icon: '🔥',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Battle Incense: Once per long rest, you can light it for 10 minutes; all allies within 10 ft gain resistance to fire damage during that time.",
+        "Choking Smoke: Creatures entering or starting their turn in the area must succeed DC 11 Con save or cough (disadvantage on their next attack).",
+        "Smell of War: Even unlit, it gives you a faint smoke scent – advantage on Intimidation vs. peasants, disadvantage on Persuasion with nobles.",
+        "Ash residue forms tiny hammer shapes when dumped."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell-Carrier Courier',
+    levelRequirement: 6
+},
+
+'wario_cw_mario_missing_person_poster': {
+    id: 'wario_cw_mario_missing_person_poster',
+    name: "Civil War Relic: Mario Missing Person Poster",
+    description: "A weathered 'HAVE YOU SEEN THIS PLUMBER?' flyer from the war’s darkest days.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '📄',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Symbol of Hope: When hung in a base, allies resting there gain +1 to their next saving throw vs. fear or despair.",
+        "Rallying Icon: Once per week, you can present it to gain advantage on one Persuasion check to unify splintered factions.",
+        "Stirs Old Wounds: Some veterans will react emotionally; DM may grant advantage or disadvantage depending on their allegiance.",
+        "Someone scribbled 'MARIO OWES ME 20 COINS' in the corner. The handwriting looks like Wario’s."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Flyer Fold',
+    levelRequirement: 5
+},
+
+'wario_cw_unexploded_bob_omb_paperweight': {
+    id: 'wario_cw_unexploded_bob_omb_paperweight',
+    name: "Civil War Relic: Unexploded Bob-omb Paperweight",
+    description: "A de-fused Bob-omb used now to hold down piles of war documents.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '💣',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Intimidating Desk Toy: Advantage on Intimidation checks conducted across a desk or negotiation table where this is visible.",
+        "Secondary Fuse: Once per long rest, you may 'tap' it to produce a loud bang and flash (no damage) forcing creatures in 10 ft to make a DC 12 Wis save or be frightened for 1 round.",
+        "Old Fuse: On a natural 1 when using the above, it actually explodes for 2d6 fire damage in 10 ft (including you).",
+        "Stamped 'DEFECTIVE – DO NOT ISSUE'; someone ignored that."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Volatile Mail',
+    levelRequirement: 6
+},
+
+'wario_cw_wartime_radio_mushroom': {
+    id: 'wario_cw_wartime_radio_mushroom',
+    name: "Civil War Relic: Wartime Radio Mushroom",
+    description: "A fungus fitted with crackling runes that once relayed coded messages along the front.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7200,
+    icon: '🍄',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Sending Spores: Once per long rest, you can whisper a 25-word message into it; the message appears in the dreams of a creature you name (if they sleep that day and are on the same plane).",
+        "Static & Screams: 10% chance the message picks up ghostly war chatter, adding unsettling phrases (could be roleplay or minor disadvantage on next Wis save for recipient).",
+        "Mushroom hums softly when near other magical communication devices.",
+        "Smells vaguely like burnt toast and codebooks."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fungal Frequency Freight',
+    levelRequirement: 7
+},
+
+'wario_cw_spiny_trench_boots': {
+    id: 'wario_cw_spiny_trench_boots',
+    name: "Civil War Relic: Spiny Trench Boots",
+    description: "Sturdy boots reinforced with dulled Spiny shells for traction in muck and gore.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6700,
+    icon: '🥾',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Sure-Footed: Advantage on saves and checks to resist being knocked prone or moved against your will.",
+        "Painful Kick: Unarmed kicks deal 1d4 piercing damage instead of bludgeoning.",
+        "Heavy Steps: Disadvantage on Stealth checks on hard surfaces (they clack).",
+        "Old, dried mud still flakes from the treads."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Trench Supply Cart',
+    levelRequirement: 6
+},
+
+'wario_cw_spore_gas_mask': {
+    id: 'wario_cw_spore_gas_mask',
+    name: "Civil War Relic: Spore Gas Mask",
+    description: "A crudely enchanting mask, used when both sides started weaponizing wild spores.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7100,
+    icon: '😷',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "While worn, you have advantage on saving throws vs. poison and inhaled effects (spores, gas, etc.).",
+        "Muffled Speech: Disadvantage on Charisma (Persuasion) checks that rely on clear speaking.",
+        "Fogging Lenses: After 1 hour continuous wear, disadvantage on Perception (sight) until you take it off for 10 minutes.",
+        "Inside is scrawled: 'REMEMBER – DON’T LICK THE FILTER'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Chemical Courier',
+    levelRequirement: 7
+},
+
+'wario_cw_bowser_propaganda_leaflet_bundle': {
+    id: 'wario_cw_bowser_propaganda_leaflet_bundle',
+    name: "Civil War Relic: Bowser Propaganda Leaflet Bundle",
+    description: "A tied stack of leaflets proclaiming 'KOOPA ORDER = REAL STABILITY' with Bowser’s smirking face.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '📚',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Psych Ops: Once per day, you can scatter them in a settlement; for the next 24 hours, rumor- and fear-related Charisma checks you make there have advantage.",
+        "Obvious Lies: Anyone reading them and succeeding on a DC 10 Insight check gains advantage on checks to resist intimidation from Koopa officials (they see through the bluff).",
+        "Carrying them openly gives disadvantage on Charisma checks with staunch anti-Bowser factions.",
+        "Printed in surprisingly high quality ink."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Leaflet Drop',
+    levelRequirement: 5
+},
+
+'wario_cw_rebel_supply_crate_marker': {
+    id: 'wario_cw_rebel_supply_crate_marker',
+    name: "Civil War Relic: Rebel Supply Crate Marker",
+    description: "A glowing mushroom emblem once used to mark hidden Toad rebel caches.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6200,
+    icon: '📍',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Cache Sense: Once per long rest, you can activate it to faintly pull toward the nearest hidden stash of mundane supplies within 1 mile (if any).",
+        "Glowing Target: While active, you emit dim green light in a 10 ft radius.",
+        "The DM may use this to seed small ammo/food/coin caches or old booby-traps.",
+        "Some rebel cells still respond to the symbol if shown discreetly."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Underground Courier',
+    levelRequirement: 7
+},
+
+'wario_cw_toad_artillery_rangefinder': {
+    id: 'wario_cw_toad_artillery_rangefinder',
+    name: "Civil War Relic: Toad Artillery Rangefinder",
+    description: "A brass instrument stuffed with optics and dials, used to calibrate cannon fire.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 7300,
+    icon: '📏',
+    stock: 3,
+    rarity: 'rare',
+    effects: [
+        "Precision Targeting: Once per short rest, you can grant advantage to one ranged attack by any ally within 60 ft, as long as you can see the target and call corrections.",
+        "Engineering Eye: Advantage on Intelligence checks to evaluate structural integrity or line-of-sight issues.",
+        "Over-Complex: Using it in a hurry may impose disadvantage on your own actions that round (DM call if abused).",
+        "Covered in tiny mushroom stickers marking confirmed hits."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Artillery Wagon',
+    levelRequirement: 8
+},
+
+'wario_cw_peach_balcony_rail_fragment': {
+    id: 'wario_cw_peach_balcony_rail_fragment',
+    name: "Civil War Relic: Peach’s Balcony Rail Fragment",
+    description: "A pink-and-white rail piece from the famous balcony speeches – now cracked.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6800,
+    icon: '🧱',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Inspiration of the Past: Once per long rest, when delivering a speech in sight of this fragment, you may grant up to 6 creatures inspiration (one use, d6).",
+        "Faded Glory: Nobles who see it may become melancholic; +1 or -1 to social rolls depending on whether you appeal to nostalgia or critique.",
+        "Heavy: Counts as 10 lbs of awkward cargo.",
+        "Some claim they can still hear Peach’s voice when the wind passes it just right."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Palace Rubble Movers',
+    levelRequirement: 7
+},
+
+'wario_cw_mushroom_forest_camo_cloak': {
+    id: 'wario_cw_mushroom_forest_camo_cloak',
+    name: "Civil War Relic: Mushroom Forest Camo Cloak",
+    description: "A patchwork cloak dyed in the greens and browns of the war-torn Mushroom Forest.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6200,
+    icon: '🧥',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Forest Blend: Advantage on Stealth checks in forests, jungles, or overgrown ruins.",
+        "Spore-Resistant Weave: Advantage on saves vs. natural plant spores and pollen.",
+        "Too Flashy Elsewhere: Disadvantage on Stealth in towns or deserts (you stick out).",
+        "Some stains… probably weren’t from mud."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Camouflage Crate',
+    levelRequirement: 5
+},
+
+'wario_cw_battlefield_grave_marker_charm': {
+    id: 'wario_cw_battlefield_grave_marker_charm',
+    name: "Civil War Relic: Battlefield Grave Marker Charm",
+    description: "A small wooden cross and mushroom charm, taken from an improvised frontline grave.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '✝️',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Respect for the Fallen: Advantage on Persuasion checks with veterans and mourners when you openly display it.",
+        "Grave Omen: Once per day, before a dangerous mission, you may invoke the fallen to gain +1 to your first saving throw that day.",
+        "Haunting Memories: You have disadvantage on saving throws against sleep or dream-based magic (the dead whisper).",
+        "Names carved into the wood are half-worn, but occasionally one glows faintly for a moment."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Memorial Parcel',
+    levelRequirement: 5
+},
+
+'wario_cw_coinage_debasement_mold': {
+    id: 'wario_cw_coinage_debasement_mold',
+    name: "Civil War Relic: Coinage Debasement Mold",
+    description: "A metal mold used by desperate treasurers to stretch gold reserves with cheap alloys.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6200,
+    icon: '🪙',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Forgery: With 1 hour of work and 25 gp of base metal, you can produce 50 gp worth of fake coins that pass casual inspection (Investigation DC 15 to detect).",
+        "Inflation: If overused, local economies may react (DM may adjust prices or cause legal trouble).",
+        "Once per week, you can instead melt down 50 gp of mixed coins to guarantee pristine, unquestioned 50 gp (clean laundering).",
+        "A tiny 'W' is etched on one corner – did Wario design this himself?"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Mint Condition Crate',
+    levelRequirement: 7
+},
+'wario_land_mario_final_jump_boot': {
+    id: 'wario_land_mario_final_jump_boot',
+    name: "Mario’s Final Jump Boot (Left Only)",
+    description: "The left boot Mario wore when he made his last stand atop the castle roof. Still has lava burns.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 22000,
+    icon: '🥾',
+    stock: 1,
+    rarity: 'very_rare',
+    effects: [
+        "Wondrous item (footwear): +15 ft jump distance/speed, no running start needed.",
+        "3/day: Cast Dimension Door (only vertically or horizontally forward, as if jumping).",
+        "When you land a jump attack, deal extra 4d6 fire damage (residual lava magic).",
+        "If the matching right boot is ever found, the pair become legendary (+30 ft jump, flight 1 minute/day).",
+        "Wario keeps the right one in a vault 'for safekeeping'."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'One Boot Box',
+    levelRequirement: 8
+},
+
+'wario_land_bowser_crown_shard': {
+    id: 'wario_land_bowser_crown_shard',
+    name: "Shard of Bowser’s Fallen Crown",
+    description: "A jagged piece of Bowser’s crown, snapped off when he was forced to kneel.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19500,
+    icon: '👑',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Wondrous item (neck): Gain +2 to Intimidation and advantage vs. dragons/reptiles.",
+        "1/day: Cast Dominate Monster on a dragon or reptilian (DC 18).",
+        "While worn, Bowser himself knows your exact location at all times.",
+        "If all shards are reunited, they reform into the true Crown of the Koopa King."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fireproof Crate',
+    levelRequirement: 7
+},
+
+'wario_land_toad_brigade_standard': {
+    id: 'wario_land_toad_brigade_standard',
+    name: "Bloodied Toad Brigade Standard",
+    description: "The actual flag carried by Captain Toad’s final charge. Still smells of smoke and courage.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 18000,
+    icon: '🏴',
+    stock: 1,
+    rarity: 'very_rare',
+    effects: [
+        "Wondrous item: Plant as bonus action — all allies within 60ft gain +2 AC and advantage on saves vs. fear for 10 minutes.",
+        "Toads within 1 mile feel its presence and will fight to the death to reclaim it (good or bad).",
+        "Once per month: Rally — all allies in 120ft regain 3d10 HP and immediately end one condition.",
+        "If the standard ever touches the ground, it loses all magic until raised again by a Toad."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toad Tears Courier',
+    levelRequirement: 8
+},
+
+'wario_land_luigi_poltergust_remains': {
+    id: 'wario_land_luigi_poltergust_remains',
+    name: "Shattered Poltergust 9000 Remains",
+    description: "The broken backpack vacuum Luigi used to suck up an entire Boo regiment. Still faintly humming.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 21000,
+    icon: '🎒',
+    stock: 1,
+    rarity: 'very_rare',
+    effects: [
+        "Wondrous item: 3/day capture an incorporeal undead (as Imprisonment, no save, lasts until released).",
+        "Stored ghosts scream constantly — disadvantage on Stealth while carried.",
+        "If repaired by Professor E. Gadd (or successor), becomes a legendary Poltergust 9001."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Haunted Crate',
+    levelRequirement: 8
+},
+
+'wario_land_yoshi_last_egg': {
+    id: 'wario_land_yoshi_last_egg',
+    name: "The Last Yoshi Egg (Unhatched)",
+    description: "The final egg laid by the Yoshi matriarch before the species went nearly extinct in the war.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 25000,
+    icon: '🥚',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "If hatched (1 month ritual), births a unique Yoshi companion with 120 HP, flight, and can carry the entire party.",
+        "Every faction in the Mushroom Kingdom will hunt you to possess or destroy it.",
+        "Wario offers 100,000 gp buyback… but will betray you the moment you agree."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Armed Escort Required',
+    levelRequirement: 8
+},
+
+'wario_land_bowser_claw_necklace': {
+    id: 'wario_land_bowser_claw_necklace',
+    name: "Bowser’s Severed Claw Necklace",
+    description: "One of Bowser’s own claws, torn off in single combat. Still dripping lava.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16800,
+    icon: '🦖',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "+2 natural armor (scales form on skin while worn).",
+        "Your unarmed strikes deal 1d8 slashing + 1d6 fire.",
+        "Bowser can smell his own claw from across the world — he is coming.",
+        "If worn by a dragonborn or kobold, they gain temporary overlord status among lesser reptiles."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Lava-Proof Box',
+    levelRequirement: 7
+},
+
+'wario_land_royal_mushroom_crown': {
+    id: 'wario_land_royal_mushroom_crown',
+    name: "Crown of the Mushroom Regency (Cracked)",
+    description: "The actual crown worn by Toadsworth during the interim government. Cracked down the middle.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19800,
+    icon: '👑',
+    stock: 1,
+    rarity: 'very_rare',
+    effects: [
+        "Wondrous item (head): All Toads within 10 miles become friendly or indifferent to you.",
+        "1/day: Cast Geas on a Toad (they cannot refuse royal blood).",
+        "If worn by a non-Toad, 50% chance per day the crown tightens and deals 4d10 psychic damage (regal rejection)."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toad Escort (They Don’t Know)',
+    levelRequirement: 8
+},
+
+'wario_land_star_road_fragment': {
+    id: 'wario_land_star_road_fragment',
+    name: "Fragment of the Fallen Star Road",
+    description: "A chunk of the Star Road that crashed during the final battle. Still glows faintly.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 23000,
+    icon: '⭐',
+    stock: 1,
+    rarity: 'legendary',
+    effects: [
+        "Wondrous item: 1/week you may cast Wish (but only to restore something lost in the civil war — a person, a place, a memory).",
+        "Each use dims the fragment permanently; after 7 uses it becomes inert.",
+        "Star Spirits are watching — they will intervene if abused."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Celestial Drop',
+    levelRequirement: 8
+},
+
+'wario_land_wartime_wario_waulitzer': {
+    id: 'wario_land_wartime_wario_waulitzer',
+    name: "Wartime Wario-Waulitzer Organ",
+    description: "A massive pipe organ Wario 'liberated' from a burning cathedral. Powered by greed and garlic.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 17500,
+    icon: '🎹',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "Playing it for 1 minute casts Otto’s Irresistible Dance on all creatures in 60ft who can hear (DC 18).",
+        "Alternatively, play a funeral march to cast Circle of Death centered on you (DC 18).",
+        "Requires 500 gp of gold coins thrown into the hopper per use (Wario’s fee).",
+        "Organ is too big to move without shrinking magic."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Church on Wheels',
+    levelRequirement: 7
+},
+
+'wario_land_captain_toad_last_map': {
+    id: 'wario_land_captain_toad_last_map',
+    name: "Captain Toad’s Final Treasure Map",
+    description: "The last map Captain Toad drew before disappearing. Leads to the fabled 'Lost Regiment Pay Chest'.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 15500,
+    icon: '🗺️',
+    stock: 1,
+    rarity: 'rare',
+    effects: [
+        "The map updates in real time — it is leading you to something that still exists.",
+        "Worth 50,000+ gp if completed, but guarded by the undead Toad Brigade who never got paid.",
+        "Wario wants it back the moment you find the treasure (he has a copy)."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toad Tears Courier',
+    levelRequirement: 7
+},
+
+'wario_land_boo_regiment_banner': {
+    id: 'wario_land_boo_regiment_banner',
+    name: "Captured Boo Regiment Banner",
+    description: "The spectral banner of an entire Boo legion that was destroyed by the Poltergust.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 14800,
+    icon: '👻',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Wondrous item: All allies within 30ft become invisible while in dim light or darkness.",
+        "Boos are terrified of their own banner — advantage on Intimidation vs. undead.",
+        "If a Boo ever touches it, the banner screams and all magic ends for 24 hours."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Haunted Crate',
+    levelRequirement: 6
+},
+
+'wario_land_koopa_king_throne_shard': {
+    id: 'wario_land_koopa_king_throne_shard',
+    name: "Shard of the Koopa King’s Throne",
+    description: "A piece of Bowser’s lava-forged throne, still pulsing with rage.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 16200,
+    icon: '🪑',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "When sat upon, gain resistance to fire and +2 to saves vs. charm/fear.",
+        "1/day: Cast Fireball as 7th level (lava red, smells of sulfur).",
+        "Bowser can scry through any throne shard at will."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Lava Crate',
+    levelRequirement: 7
+},
+
+'wario_land_mushroom_kingdom_war_bond': {
+    id: 'wario_land_mushroom_kingdom_war_bond',
+    name: "Original Mushroom Kingdom War Bond (Defaulted)",
+    description: "A bond issued to fund the war. Never repaid. Still magically active.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 12000,
+    icon: '💰',
+    stock: 5,
+    rarity: 'rare',
+    effects: [
+        "If presented to any surviving noble house, they are compelled to honor it — 10,000 gp payout (once).",
+        "Alternatively, burn it to cast Investiture of Flame (self only, 10 minutes).",
+        "Ghosts of investors haunt the holder until paid or burned."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Debt Collector',
+    levelRequirement: 6
+},
+
+'wario_land_final_fire_flower': {
+    id: 'wario_land_final_fire_flower',
+    name: "The Very Last Fire Flower",
+    description: "The final Fire Flower that bloomed during the siege. Never picked.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 19000,
+    icon: '🔥',
+    stock: 1,
+    rarity: 'very_rare',
+    effects: [
+        "Single use: Grants permanent fire immunity and the ability to cast Fireball at will (no slot).",
+        "The moment it is picked, every remaining Fire Flower in the world wilts forever.",
+        "Wario will pay 500,000 gp to get it back un-plucked."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Armed Guard Required',
+    levelRequirement: 8
+},
+
+
+'wario_land_civil_war_fire_flower_relic': {
+    id: 'wario_land_civil_war_fire_flower_relic',
+    name: "Civil War Fire Flower Relic",
+    description: "A singed Fire Flower recovered from a Toad regiment's last stand. 'Still works... mostly!'",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '🔥',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Once per day: Cast a weakened Burning Hands (2d6 fire damage, 15ft cone, DEX save DC 12 for half)",
+        "Flower wilts after use: 50% chance it fails next time (no effect)",
+        "Emits smoke: disadvantage on Stealth for 1 minute after activation",
+        "Toads who see it may demand it back (disadvantage on Charisma with them)",
+        "Made by: Mushroom Kingdom Battlefield Salvage (Wario Acquired)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud (War Surplus)',
+    levelRequirement: 5
+},
+'wario_land_peach_crown_shard': {
+    id: 'wario_land_peach_crown_shard',
+    name: "Peach's Crown Shard",
+    description: "A jagged piece of the late Princess's crown, looted from the palace ruins.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '👑',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Embed in weapon: +1d4 radiant damage vs. undead or Toad rebels once per day",
+        "Shard is cursed: disadvantage on Charisma checks with loyalists (they sense the theft)",
+        "Glows faintly in presence of royalty: advantage on Investigation for hidden heirs",
+        "May shatter after 3 uses: permanent loss",
+        "Made by: Palace Looter (Wario's Collection)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shady Relic Relay',
+    levelRequirement: 4
+},
+'wario_land_bowser_fang_amulet': {
+    id: 'wario_land_bowser_fang_amulet',
+    name: "Bowser's Fang Amulet",
+    description: "A tooth from the Koopa King's fallen forces, strung as a necklace.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🦷',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Wear amulet: advantage on Intimidation checks with Koopa Troop remnants",
+        "Once per day: Bite attack deals +1d6 piercing (fang power)",
+        "Amulet is unstable: 20% chance it causes a minor quake (difficult terrain in 5ft)",
+        "Bowser loyalists hunt you: random encounters with Koopas",
+        "Made by: Battlefield Dentist (Wario's Souvenirs)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Fang-Filled Freight',
+    levelRequirement: 5
+},
+'wario_land_toad_soldier_helmet': {
+    id: 'wario_land_toad_soldier_helmet',
+    name: "Toad Soldier Helmet",
+    description: "A dented helmet from a Toad infantryman, complete with mushroom cap insignia.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4500,
+    icon: '⛑️',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "+1 AC when worn, but only against bludgeoning (Toad toughness)",
+        "Helmet muffles voices: disadvantage on Perception (hearing)",
+        "Toads see it as a symbol: advantage on Charisma with survivors, disadvantage with rebels",
+        "May contain a hidden Toad note: random quest hook (DM's choice)",
+        "Made by: Mushroom Kingdom Armory (War Surplus)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toad Trot Transport',
+    levelRequirement: 4
+},
+'wario_land_goomba_stomper_boots': {
+    id: 'wario_land_goomba_stomper_boots',
+    name: "Goomba Stomper Boots",
+    description: "Heavy boots used by Mario loyalists to flatten Goomba conscripts.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '👢',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Stomp as bonus action: 1d6 bludgeoning to small creatures (advantage vs. Goombas)",
+        "Boots are loud: disadvantage on Stealth (clompy)",
+        "Wear for 1 hour: gain resistance to falling damage (up to 10ft)",
+        "Soles wear out: after 5 uses, disadvantage on Dexterity saves",
+        "Made by: Kingdom Bootmakers (Civil War Edition)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stomp Service',
+    levelRequirement: 4
+},
+'wario_land_luigi_ghost_hunting_lantern': {
+    id: 'wario_land_luigi_ghost_hunting_lantern',
+    name: "Luigi's Ghost-Hunting Lantern",
+    description: "A flickering lantern from Luigi's ill-fated defense of the castle.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '🏮',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Illuminate 20ft: reveals invisible spirits or ghosts",
+        "Once per day: cast a minor light spell that harms undead (1d4 radiant)",
+        "Lantern is haunted: whispers Luigi's fears (disadvantage on saves vs. fear)",
+        "May attract Boo spirits: random ghostly encounters",
+        "Made by: Luigi's Gear (Salvaged from Ruins)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spooky Shipment',
+    levelRequirement: 5
+},
+'wario_land_bowser_jr_paintbrush': {
+    id: 'wario_land_bowser_jr_paintbrush',
+    name: "Bowser Jr.'s Paintbrush",
+    description: "A magical brush used by the young prince to graffiti rebel strongholds.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '🖌️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Paint illusion: create a 10ft illusionary wall or graffiti (lasts 1 hour)",
+        "Illusion fools simple creatures: advantage on Deception vs. them",
+        "Brush runs out of 'ink': 50% chance it paints with garlic juice (smelly, disadvantage on Stealth)",
+        "Bowser Jr. may claim it: random Koopa messenger demands return",
+        "Made by: Koopa Kid's Art Supplies (War Graffiti Line)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Graffiti Goomba',
+    levelRequirement: 6
+},
+'wario_land_peach_castle_key_fragment': {
+    id: 'wario_land_peach_castle_key_fragment',
+    name: "Peach Castle Key Fragment",
+    description: "A broken piece of the royal key, scavenged from the siege.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🔑',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Combine with other fragments (if found): unlock minor magical locks (DC 15)",
+        "Fragment vibrates near hidden doors: advantage on Investigation for secrets",
+        "Cursed by the fall: disadvantage on Charisma with Peach loyalists",
+        "May lead to a quest: points to other fragments in war zones",
+        "Made by: Royal Locksmiths (Shattered Remains)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Key Courier',
+    levelRequirement: 4
+},
+'wario_land_toad_beret_of_courage': {
+    id: 'wario_land_toad_beret_of_courage',
+    name: "Toad Beret of Courage",
+    description: "A red beret worn by elite Toad commandos during the uprising.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🎩',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Wear beret: advantage on saves vs. fear (Toad bravery)",
+        "Beret is small: disadvantage on Intimidation (you look cute)",
+        "Toads rally to it: advantage on Charisma with Toad NPCs",
+        "Beret fades after 10 uses: loses magic",
+        "Made by: Toad Special Forces (Civil War Issue)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Toad Trot Transport',
+    levelRequirement: 5
+},
+'wario_land_koopa_shell_shield_fragment': {
+    id: 'wario_land_koopa_shell_shield_fragment',
+    name: "Koopa Shell Shield Fragment",
+    description: "A cracked piece of a Koopa's shell, used as improvised armor in the trenches.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🛡️',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Attach to armor: +1 AC vs. ranged attacks (shell deflection)",
+        "Fragment is brittle: 20% chance it shatters on hit (lose effect)",
+        "Koopa spirits haunt it: whispers of loyalty (disadvantage on Charisma with Toads)",
+        "Can be repaired with glue: advantage on crafting checks to fix",
+        "Made by: Koopa Frontline Forges"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell Shipment',
+    levelRequirement: 4
+},
+'wario_land_mario_bro_medal': {
+    id: 'wario_land_mario_bro_medal',
+    name: "Mario Bros. Medal",
+    description: "A medal awarded to Mario's fallen comrades, now a war trophy.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🏅',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Pin medal: advantage on one attack roll per day (brotherly spirit)",
+        "Medal is tarnished: disadvantage on Charisma with Mario loyalists (they want it back)",
+        "Glows near plumbers: advantage on Investigation for hidden Mario allies",
+        "May summon a ghostly plumber: random aid or annoyance (DM's choice)",
+        "Made by: Mushroom Kingdom Awards (Posthumous)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Medal Mail',
+    levelRequirement: 5
+},
+'wario_land_boo_spirit_trap': {
+    id: 'wario_land_boo_spirit_trap',
+    name: "Boo Spirit Trap",
+    description: "A net used by Luigi's ghost hunters during the castle hauntings.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🕸️',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Throw net: capture one incorporeal creature (STR save DC 12 to escape)",
+        "Captured spirit: can be interrogated (advantage on Insight vs. ghosts)",
+        "Net tears after 1 use: disadvantage on future throws",
+        "Boo may possess the net: it flies away randomly",
+        "Made by: Luigi's Ghostbusting Gear"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Spooky Shipment',
+    levelRequirement: 4
+},
+'wario_land_civil_war_bob_omb_casing': {
+    id: 'wario_land_civil_war_bob_omb_casing',
+    name: "Civil War Bob-omb Casing",
+    description: "An empty shell from a Bob-omb used in the siege of Toad Town.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '💣',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Fill with powder (crafting check DC 13): becomes a throwable explosive (2d6 fire, 10ft radius)",
+        "Casing is unstable: 25% chance it detonates prematurely (1d6 damage to you)",
+        "Bob-omb ghosts may follow: random explosions in camp",
+        "Can be used as a lantern: dim light 10ft (fuse glows)",
+        "Made by: Bowser's Munitions Factory (Defective Batch)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Bombastic Box',
+    levelRequirement: 5
+},
+'wario_land_yoshi_saddle_remains': {
+    id: 'wario_land_yoshi_saddle_remains',
+    name: "Yoshi Saddle Remains",
+    description: "Tattered saddle from a Yoshi cavalry unit that charged the front lines.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '🎨',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Attach to mount: +5 ft speed for dinosaur-like creatures",
+        "Saddle is worn: disadvantage on Animal Handling with Yoshis (they remember the war)",
+        "Contains a hidden Yoshi egg fragment: advantage on Nature checks with eggs",
+        "May summon a spectral Yoshi: temporary mount (1 hour, once per week)",
+        "Made by: Yoshi Cavalry Supplies"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Egg Express',
+    levelRequirement: 4
+},
+'wario_land_toad_cap_insignia': {
+    id: 'wario_land_toad_cap_insignia',
+    name: "Toad Cap Insignia",
+    description: "A badge from a Toad officer's cap, symbolizing lost unity.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4300,
+    icon: '🍄',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Pin insignia: advantage on Charisma checks with Toad factions (unity symbol)",
+        "Insignia divides rebels: disadvantage on Charisma with anti-Toad groups",
+        "Glows near hidden Toad safehouses: advantage on Investigation",
+        "May trigger Toad flashbacks: random morale boost or fear (DM roll)",
+        "Made by: Toad Officer Uniforms"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Cap Courier',
+    levelRequirement: 4
+},
+'wario_land_bowser_castle_banner': {
+    id: 'wario_land_bowser_castle_banner',
+    name: "Bowser Castle Banner",
+    description: "A tattered flag from Bowser's besieged fortress.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5100,
+    icon: '🏰',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Plant banner: allies within 30ft gain +1 to attack rolls vs. Toads (Koopa morale)",
+        "Banner is cursed: disadvantage on Charisma with Koopa deserters",
+        "Can be burned for a smoke signal: advantage on signaling allies",
+        "Bowser's roar echoes: random fire damage in 10ft (1d4, once per day)",
+        "Made by: Koopa Banner Makers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Castle Crate',
+    levelRequirement: 5
+},
+'wario_land_mushroom_kingdom_war_drum': {
+    id: 'wario_land_mushroom_kingdom_war_drum',
+    name: "Mushroom Kingdom War Drum",
+    description: "A drum used to rally troops during the civil war battles.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '🥁',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Beat drum: allies within 30ft gain advantage on initiative for 1 minute",
+        "Drum is loud: disadvantage on Stealth for the user",
+        "War echoes: 10% chance to attract war ghosts (minor combat aid or hindrance)",
+        "Drum skin tears after 5 uses: needs repair",
+        "Made by: Kingdom Drummers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rhythmic Relay',
+    levelRequirement: 5
+},
+'wario_land_lost_starman_fragment': {
+    id: 'wario_land_lost_starman_fragment',
+    name: "Lost Starman Fragment",
+    description: "A glowing shard from a Starman power-up shattered in the chaos.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5800,
+    icon: '⭐',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Hold fragment: gain temporary invulnerability to one attack (once per day, 1d6 temp HP)",
+        "Fragment dims: 50% chance it fails (just sparkles)",
+        "Attracts power-up hunters: random encounters with scavengers",
+        "Can be combined with others for full Starman (quest item)",
+        "Made by: Power-Up Battlefield Debris"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Starry Shipment',
+    levelRequirement: 6
+},
+'wario_land_toad_rebel_pamphlet': {
+    id: 'wario_land_toad_rebel_pamphlet',
+    name: "Toad Rebel Pamphlet",
+    description: "Propaganda leaflet from the Toad resistance, calling for unity against tyrants.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '📄',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Read pamphlet: gain inspiration for one Charisma check with rebels",
+        "Pamphlet is inflammatory: disadvantage on Charisma with loyalists",
+        "Contains hidden map: advantage on Survival in Mushroom Kingdom ruins",
+        "May incite a small riot: random NPC aid or chaos",
+        "Made by: Toad Underground Press"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Rebel Relay',
+    levelRequirement: 4
+},
+'wario_land_koopa_troop_shell_horn': {
+    id: 'wario_land_koopa_troop_shell_horn',
+    name: "Koopa Troop Shell Horn",
+    description: "A horn carved from a Koopa shell, used to signal charges.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5000,
+    icon: '🐚',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Blow horn: allies within 60ft gain +5 ft speed for 1 minute",
+        "Horn is shrill: disadvantage on Stealth and alerts enemies",
+        "Koopa echoes: advantage on Intimidation with shell-wearers",
+        "Horn cracks after 3 uses: needs mending",
+        "Made by: Troop Signal Corps"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Shell Sound Service',
+    levelRequirement: 4
+},
+'wario_land_peach_garden_glove': {
+    id: 'wario_land_peach_garden_glove',
+    name: "Peach's Garden Glove",
+    description: "A single glove from the princess's private garden, stained with war soil.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4700,
+    icon: '🧤',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Wear glove: advantage on Nature checks for plants (Peach's touch)",
+        "Glove is sentimental: disadvantage on Charisma with gardeners (they weep)",
+        "Grows flowers: minor illusion of blooms (distraction aid)",
+        "May wilt in battle: loses effect after combat",
+        "Made by: Royal Gardens (Last Relic)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Floral Freight',
+    levelRequirement: 4
+},
+'wario_land_civil_war_boo_lantern': {
+    id: 'wario_land_civil_war_boo_lantern',
+    name: "Civil War Boo Lantern",
+    description: "A lantern powered by captured Boo spirits from haunted battlefields.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '👻',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Illuminate 30ft: spirits reveal hidden traps",
+        "Once per day: release a Boo for distraction (frightens one enemy, DC 12 Wis save)",
+        "Lantern is cold: disadvantage on saves vs. cold in 5ft",
+        "Boo may escape: random haunting (minor curse)",
+        "Made by: Ghostly War Salvage"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Eerie Express',
+    levelRequirement: 5
+},
+'wario_land_mushroom_kingdom_faction_pin': {
+    id: 'wario_land_mushroom_kingdom_faction_pin',
+    name: "Mushroom Kingdom Faction Pin",
+    description: "A pin from a neutral faction in the war, symbolizing fragile peace.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '📌',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Wear pin: advantage on Charisma checks with neutral NPCs",
+        "Pin divides sides: disadvantage on Charisma with extremists",
+        "Pin vibrates near conflicts: advantage on Initiative in ambushes",
+        "May break in heated arguments: loses effect",
+        "Made by: Kingdom Peacemakers"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Neutral Network',
+    levelRequirement: 4
+},
+'wario_land_war_torn_star_road_sign': {
+    id: 'wario_land_war_torn_star_road_sign',
+    name: "War-Torn Star Road Sign",
+    description: "A bent road sign pointing to the legendary Star Road, damaged in the fighting.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🛣️',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Use as improvised weapon: 1d6 bludgeoning, advantage vs. flying foes",
+        "Sign points true: advantage on Navigation in Mushroom Kingdom",
+        "Haunted by lost stars: 10% chance to grant temporary flight (10ft, 1 round)",
+        "Sign rusts: disadvantage on checks after rain",
+        "Made by: Kingdom Highway Department (Ruins)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Roadside Relic Relay',
+    levelRequirement: 5
+},
+'wario_land_fallen_toad_banner': {
+    id: 'wario_land_fallen_toad_banner',
+    name: "Fallen Toad Banner",
+    description: "A banner from a defeated Toad battalion, now a symbol of resilience.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🏳️',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Wave banner: allies gain +1 to saves vs. fear for 1 minute",
+        "Banner is ragged: disadvantage on Charisma with victors",
+        "Toad spirits rally: advantage on morale checks with underdogs",
+        "Banner tears in wind: needs repair after use",
+        "Made by: Toad Banner Corps"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Banner Brigade',
+    levelRequirement: 4
+},
+'wario_land_koopa_rebel_claw_gauntlet': {
+    id: 'wario_land_koopa_rebel_claw_gauntlet',
+    name: "Koopa Rebel Claw Gauntlet",
+    description: "A gauntlet with retractable Koopa claws from a rebel faction.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🦀',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Unarmed strike: +1d4 slashing, advantage on grapples",
+        "Claws are sharp: disadvantage on Sleight of Hand (scratches things)",
+        "Rebel mark: advantage on Charisma with Koopa dissidents",
+        "Gauntlet jams: 15% chance to fail on retract",
+        "Made by: Koopa Rebel Forges"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Claw Courier',
+    levelRequirement: 5
+},
+'wario_land_peach_ghostly_handkerchief': {
+    id: 'wario_land_peach_ghostly_handkerchief',
+    name: "Peach's Ghostly Handkerchief",
+    description: "A silk handkerchief said to be haunted by the princess's spirit.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5700,
+    icon: '🧣',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Wave handkerchief: calm one ally (remove frightened, once per day)",
+        "Haunted: whispers Peach's last words (advantage on Insight for royal secrets)",
+        "Spirit is sad: disadvantage on Charisma with ghosts",
+        "Handkerchief fades: loses effect after 5 uses",
+        "Made by: Royal Wardrobe (Spectral Souvenir)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Ethereal Express',
+    levelRequirement: 6
+},
+'wario_land_civil_war_power_star_shard': {
+    id: 'wario_land_civil_war_power_star_shard',
+    name: "Civil War Power Star Shard",
+    description: "A fragment of a Starman that powered a desperate defense.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 6000,
+    icon: '⭐',
+    stock: 2,
+    rarity: 'rare',
+    effects: [
+        "Activate shard: gain temporary hit points equal to your level (once per short rest)",
+        "Shard is unstable: 25% chance it explodes (1d6 force damage in 5ft)",
+        "Attracts star hunters: random encounters with war scavengers",
+        "Can be quest-forged into full Starman: major artifact potential",
+        "Made by: Power-Up Siege Debris"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Stellar Salvage Service',
+    levelRequirement: 6
+},
+
+'wario_land_peach_last_forged_decrees': {
+    id: 'wario_land_peach_last_forged_decrees',
+    name: "Peach's 'Last' Decree (Autographed by Wario)",
+    description: "A scroll claiming to be Princess Peach's final command. Wario's signature is bigger than hers.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5500,
+    icon: '📜',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Present to Mushroom Kingdom loyalists: advantage on Charisma checks (they want to believe)",
+        "Scroll is clearly fake: disadvantage on checks with anyone who knew Peach",
+        "Decree grants you 'Duchy of the Bathroom': advantage on Persuasion with plumbers",
+        "Wario's autograph glows in the dark (cosmetic, but unsettling)",
+        "Made by: Wario Land Historical Forgery Dept."
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 5
+},
+'wario_land_mario_cap_battle_worn': {
+    id: 'wario_land_mario_cap_battle_worn',
+    name: "Mario's 'Battle-Worn' Cap (Probably Just Dirty)",
+    description: "A red cap with suspicious ketchup stains. Wario swears it's Mario's.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🧢',
+    stock: 5,
+    rarity: 'common',
+    effects: [
+        "Wear cap: advantage on saves vs. fear (Mario's courage is... present)",
+        "Cap smells like plumbing: disadvantage on Charisma with nobles",
+        "Once per day, you can attempt a jump: +5 to jump distance, but fall prone on landing",
+        "Toads salute you: advantage on Charisma with Toad Rebels (they think you're the real Mario)",
+        "Made by: Wario Land 'Relics' Division"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 4
+},
+'wario_land_bowser_shell_fragment_shield': {
+    id: 'wario_land_bowser_shell_fragment_shield',
+    name: "Bowser's Shell Fragment Shield (Chipped)",
+    description: "A piece of Bowser's shell, cracked during the siege of Toad Town.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '🐢',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "+1 AC against fire damage (residual Bowser magic)",
+        "Shield is heavy: disadvantage on Stealth checks",
+        "Koopas recognize it: advantage on Charisma with Koopa Troop defectors",
+        "Shell still warm: you feel Bowser's rage, advantage on Intimidation, disadvantage on Persuasion",
+        "Made by: Wario Land Battlefield Salvage"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Heavy Package',
+    levelRequirement: 5
+},
+'wario_land_toad_rebel_propaganda_poster': {
+    id: 'wario_land_toad_rebel_propaganda_poster',
+    name: "Toad Rebel Propaganda Poster (Wario Signed)",
+    description: "'DOWN WITH BOWSER! UP WITH... WARIO?' Poster is confusingly edited.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3800,
+    icon: '📰',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Display poster: advantage on Charisma checks with Toad Rebels (they appreciate the support)",
+        "Bowser's forces attack on sight: disadvantage on Stealth near Koopa patrols",
+        "Poster has Wario's face poorly pasted over Toad's: art critics are offended (disadvantage on Charisma)",
+        "Made by: Wario Land Propaganda Mill"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 4
+},
+'wario_land_yoshi_war_saddle': {
+    id: 'wario_land_yoshi_war_saddle',
+    name: "Yoshi War Saddle (Bloodstained)",
+    description: "A saddle from a Yoshi cavalry unit. Wario cleaned it with garlic water.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🐎',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Fit to any mount: +10 speed for 1 hour per day (war-trained)",
+        "Saddle smells like garlic and war: disadvantage on Stealth, advantage on Intimidation",
+        "Yoshis are sad when they see it: disadvantage on Animal Handling with Yoshis",
+        "Comes with 'war stories' (Wario's fan fiction about himself)",
+        "Made by: Wario Land Cavalry Surplus"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wario Express',
+    levelRequirement: 5
+},
+'wario_land_koopa_defector_insignia': {
+    id: 'wario_land_koopa_defector_insignia',
+    name: "Koopa Defector Insignia (Fake)",
+    description: "A badge that supposedly marks you as a Koopa Troop defector.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4200,
+    icon: '🎖️',
+    stock: 10,
+    rarity: 'common',
+    effects: [
+        "Wear badge: advantage on Deception checks with Koopa Troop (they might believe you)",
+        "50% chance they see through it: disadvantage on Charisma, they attack",
+        "Badge is plastic: breaks on first critical hit (shameful)",
+        "Made by: Wario Land Insignia Forgery"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Badge',
+    levelRequirement: 4
+},
+'wario_land_civil_war_coin_set': {
+    id: 'wario_land_civil_war_coin_set',
+    name: "Mushroom Kingdom Civil War Coin Set",
+    description: "Coins from both sides of the war. Wario 'liberated' them from corpses.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5600,
+    icon: '🪙',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Spend a coin: advantage on one Charisma check with that faction (they respect the currency)",
+        "Coins are cursed: 10% chance the dead owner appears as a ghost demanding it back",
+        "Set is incomplete: Wario kept the valuable ones (disadvantage on Appraisal checks)",
+        "Made by: Wario Land Numismatics"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Coin Purse',
+    levelRequirement: 5
+},
+'wario_land_siege_of_toad_town_souvenir': {
+    id: 'wario_land_siege_of_toad_town_souvenir',
+    name: "Siege of Toad Town Souvenir Brick",
+    description: "A brick from the fallen walls. Wario wrote his name on it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4400,
+    icon: '🧱',
+    stock: 12,
+    rarity: 'common',
+    effects: [
+        "Throw brick: 1d4 damage, advantage on attack vs. windows",
+        "Brick is haunted: whispers 'WAH!' at night (disadvantage on long rests)",
+        "Toads are offended: disadvantage on Charisma with Toads",
+        "Made by: Wario Land Battlefield Salvage"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Heavy Package',
+    levelRequirement: 4
+},
+'wario_land_bootleg_war_medal': {
+    id: 'wario_land_bootleg_war_medal',
+    name: "Bootleg 'Hero of the Mushroom Kingdom' Medal",
+    description: "A medal for a war hero. You're not one, but Wario doesn't care.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4800,
+    icon: '🏅',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Wear medal: advantage on Charisma with civilians (they thank you for your service)",
+        "Veterans see through it: disadvantage on Charisma with real soldiers",
+        "Medal is tin: rusts in rain (disadvantage on checks in water)",
+        "Made by: Wario Land Medal Forgery"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Ribbon',
+    levelRequirement: 4
+},
+'wario_land_peach_memorial_candle': {
+    id: 'wario_land_peach_memorial_candle',
+    name: "Princess Peach Memorial Candle (Scented: Garlic)",
+    description: "A candle 'honoring' Peach. Wario added garlic for 'authenticity.'",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 3600,
+    icon: '🕯️',
+    stock: 8,
+    rarity: 'common',
+    effects: [
+        "Light candle: creates 10ft dim light, smells like garlic (disadvantage on Stealth)",
+        "Peach's ghost may appear: 5% chance she haunts you for disrespect (disadvantage on saves vs. fear)",
+        "Candle is 'eternal': lasts 1 hour then needs 8 hours to recharge (Wario's definition of eternal)",
+        "Made by: Wario Land Memorials (Profiting from Tragedy Since Day 1)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wafting Cloud',
+    levelRequirement: 4
+},
+'wario_land_bowser_war_manifesto': {
+    id: 'wario_land_bowser_war_manifesto',
+    name: "Bowser's War Manifesto (Wario-Annotated)",
+    description: "Bowser's plans with Wario's notes in the margins ('Get paid here').",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5200,
+    icon: '📖',
+    stock: 4,
+    rarity: 'uncommon',
+    effects: [
+        "Read manifesto: advantage on checks vs. Bowser's strategies (you know his plans)",
+        "Wario's notes are distracting: disadvantage on Concentration checks",
+        "Manifesto is propaganda: advantage on Deception checks when quoting it",
+        "Made by: Wario Land Publishing"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Package',
+    levelRequirement: 5
+},
+'wario_land_mushroom_militia_uniform': {
+    id: 'wario_land_mushroom_militia_uniform',
+    name: "Mushroom Militia Uniform (Slightly Bloody)",
+    description: "A uniform from a Toad militia unit. Wario 'found' it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4900,
+    icon: '🎽',
+    stock: 6,
+    rarity: 'uncommon',
+    effects: [
+        "Wear uniform: advantage on Charisma with Toad Militia (they think you're a comrade)",
+        "Bloodstains are suspicious: disadvantage on Charisma with law enforcement",
+        "Uniform has a hole: critical hits against you deal +1 damage (weak spot)",
+        "Made by: Wario Land Surplus"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Wario Express',
+    levelRequirement: 5
+},
+'wario_land_war_correspondence_forgeries': {
+    id: 'wario_land_war_correspondence_forgeries',
+    name: "Fake War Correspondence (Mario to Luigi)",
+    description: "Letters between Mario and Luigi that Wario definitely wrote himself.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4100,
+    icon: '📨',
+    stock: 7,
+    rarity: 'common',
+    effects: [
+        "Read letters: advantage on checks about Mario and Luigi's relationship (fake but convincing)",
+        "Letters are poorly written: disadvantage on checks with literate NPCs",
+        "Luigi may sense it: 10% chance he appears and is very confused (advantage on checks with him)",
+        "Made by: Wario Land Literary Forgery"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Envelope',
+    levelRequirement: 4
+},
+'wario_land_koopa_shell_bomb': {
+    id: 'wario_land_koopa_shell_bomb',
+    name: "Koopa Shell Bomb (Defective)",
+    description: "A Koopa shell rigged to explode. Wario says it 'mostly works.'",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5300,
+    icon: '💣',
+    stock: 5,
+    rarity: 'uncommon',
+    effects: [
+        "Throw as action: 2d6 fire damage in 10ft radius, but 30% chance it doesn't explode (dud)",
+        "If dud, shell bounces back: DEX save DC 13 or take 1d4 bludgeoning damage",
+        "Koopas respect the weapon: advantage on Intimidation with them",
+        "Made by: Wario Land Demolitions (Safety Not Guaranteed)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Explosive Parcel',
+    levelRequirement: 6
+},
+'wario_land_princess_peach_wig': {
+    id: 'wario_land_princess_peach_wig',
+    name: "Princess Peach Memorial Wig (Wario-Styled)",
+    description: "A blonde wig with Wario's mustache attached to it.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 4600,
+    icon: '💇',
+    stock: 6,
+    rarity: 'common',
+    effects: [
+        "Wear wig: advantage on Deception checks to impersonate Peach (poorly)",
+        "Mustache is glued on: disadvantage on Charisma with everyone (it's disturbing)",
+        "Wario's face appears in reflections: you have disadvantage on saves vs. fear",
+        "Made by: Wario Land Costume Disrespect"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Creepy Package',
+    levelRequirement: 4
+},
+'wario_land_civil_war_time_capsule': {
+    id: 'wario_land_civil_war_time_capsule',
+    name: "Mushroom Kingdom Civil War Time Capsule (Pre-Opened)",
+    description: "A capsule Wario already looted. He left the cheap stuff.",
+    category: SHOP_CATEGORIES.EQUIPMENT,
+    price: 5400,
+    icon: '⏳',
+    stock: 3,
+    rarity: 'uncommon',
+    effects: [
+        "Open capsule: find 1d4 useless war items (rusty buttons, propaganda leaflets, a bent spoon)",
+        "One item is valuable: 10% chance of 100 gp gem (Wario missed it)",
+        "Capsule is haunted by Wario's greed: you must save vs. stealing (disadvantage on checks if you resist)",
+        "Made by: Wario Land Time Travel (Don't Ask Questions)"
+    ],
+    vendor: 'wario_land',
+    shippedBy: 'Suspicious Time Capsule',
+    levelRequirement: 5
+},
     'yoshi_cookie': {
         id: 'yoshi_cookie',
         name: "Yoshi Cookie",

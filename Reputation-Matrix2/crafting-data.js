@@ -7534,10 +7534,9 @@ export const MATERIALS = {
     cost: 25000,
     description: "Ancient scrolls inscribed with forbidden feline runes. Unfurling them summons alluring catgirls from the astral plane, blending anime whimsy with cosmic chaos.",
     properties: [
-        "Summons 1d4 catgirls as allies (each with cat-like agility, charm-based attacks, and scratch frenzy)",
-        "Grants 'Nya Immunity': resistance to mind control and psychic damage (you're too cute to manipulate)",
+        "This is a lure it brings any species 1d30 miles away related to Felis Catus towards you",
         "Can enchant weapons with 'Paw Strike' (extra dice on crits, leaves claw marks)",
-        "Risky: 20% chance of catgirls going feral and turning on the user (save vs. adorable betrayal)"
+        "Risky: 20% chance of feral catgirls joining the campagin because of what you did."
     ],
     source: "Looted from moon-sugar caravans in Elsweyr or crafted via Khajiit alchemy rituals under a full moon",
     uses: ["Summon Catgirl Horde", "Enchantment Infusion", "Charm Overload", "Feral Distraction"]
