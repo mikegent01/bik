@@ -15,7 +15,7 @@ export const WAHBOOK_POSTS = [
       { characterKey: 'dan', text: 'One arm here, alive cuz of Speaker L. You were busy punching mirrors?' }
     ],
     rumorId: 'archie_aegis_post'
-  },
+  }, 
   {
     id: 'moss_escape_reveal',
     order: 63202,
