@@ -1829,8 +1829,25 @@ function renderShopItems(append = false) {
                 </div>
             ` : ''}
             
-            <!-- REMOVED: membership-lock-overlay -->
-            
+
+${isWarioScam(item) ? `
+    <div class="item-scam-warning">
+        <div class="scam-header">
+            <span class="scam-icon">🚨</span>
+            <span class="scam-title">BUYER BEWARE</span>
+            <span class="scam-icon">🚨</span>
+        </div>
+        <p class="scam-text">
+            At ${item.price.toLocaleString()} XP, Wario may be scamming you. 
+            There is <strong>no guarantee</strong> you will actually receive this item. 
+            Wario has been known to "lose" orders, claim "shipping accidents," 
+            or simply pretend he never heard of you.
+        </p>
+        <div class="scam-footer">
+            <span class="scam-disclaimer">💀 Purchase at your own risk 💀</span>
+        </div>
+    </div>
+` : ''}            
             <div class="item-header">
                 <span class="item-icon">${item.icon}</span>
                 <div class="item-title-group">
@@ -1917,7 +1934,6 @@ function renderShopItems(append = false) {
                     </div>
                 ` : renderBulkControls(item, currentQty, getMaxBulkQuantity(item), canAffordOne, effectivePrice)
             ) : ''}
-            
             <!-- Craze badge at bottom -->
             ${inCraze ? `
                 <div class="item-craze-badge">
@@ -3165,7 +3181,6 @@ function showReceipt(order, remainingXP) {
             <div class="receipt-party-level">
                 ⭐ Party Level: ${PARTY_MAX_LEVEL}
             </div>
-            
             <div class="receipt-items">
                 ${order.items.map(item => `
                     <div class="receipt-item">
@@ -3256,6 +3271,9 @@ function getLetterTierName(index) {
     } while (n >= 0);
     
     return name;
+}
+function isWarioScam(item) {
+    return item.price >= 15000000 && item.id !== 'warios_franchise';
 }
 
 

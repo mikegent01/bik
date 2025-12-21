@@ -16823,24 +16823,7 @@ export const SHOP_ITEMS = {
     levelRequirement: 110
 },
 
-'conceptual_existence_blade': {
-    id: 'conceptual_existence_blade',
-    name: "Conceptual Existence Blade",
-    description: "Cuts the concept of existence itself.",
-    category: SHOP_CATEGORIES.WEAPON,
-    price: 120000000,
-    icon: '🗡️',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Attacks delete the target's existence concept (they never existed, reality rewrites)",
-        "Can cut through space, time, causality, and plot armor",
-        "Made by: The Idea Killer"
-    ],
-    vendor: 'conceptual_weapons',
-    shippedBy: 'Thought Transmission',
-    levelRequirement: 180
-},
+
 
 'omniscient_wisdom_orb': {
     id: 'omniscient_wisdom_orb',
@@ -16880,24 +16863,7 @@ export const SHOP_ITEMS = {
     levelRequirement: 150
 },
 
-'reality_crushing_hammer': {
-    id: 'reality_crushing_hammer',
-    name: "Reality-Crushing Hammer",
-    description: "A hammer that shatters the fourth wall and the DM's notes.",
-    category: SHOP_CATEGORIES.WEAPON,
-    price: 250000000,
-    icon: '🔨',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Deals damage directly to the DM's storyline (DM must rewrite the encounter)",
-        "Can destroy narrative constraints, plot armor, and session zero agreements",
-        "Made by: The Meta-Gamer"
-    ],
-    vendor: 'narrative_weapons',
-    shippedBy: 'Plot Hole',
-    levelRequirement: 999
-},
+
 
 'primordial_chaos_egg': {
     id: 'primordial_chaos_egg',
@@ -16956,24 +16922,6 @@ export const SHOP_ITEMS = {
     levelRequirement: 95
 },
 
-'narrative_override_console': {
-    id: 'narrative_override_console',
-    name: "Narrative Override Console",
-    description: "A game console that lets you change the rules of reality like it's a video game.",
-    category: SHOP_CATEGORIES.EQUIPMENT,
-    price: 500000000000,
-    icon: '🎮',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Access developer console for reality (type commands to change physics, stats, spawn items)",
-        "Enable god mode, noclip, and creative mode for yourself",
-        "Made by: The Player"
-    ],
-    vendor: 'meta_gaming',
-    shippedBy: 'Cheat Code',
-    levelRequirement: 1000
-},
 
 'omnipotence_permission_slip': {
     id: 'omnipotence_permission_slip',
@@ -17146,24 +17094,6 @@ export const SHOP_ITEMS = {
     levelRequirement: 200
 },
 
-'final_boss_summoning_horn': {
-    id: 'final_boss_summoning_horn',
-    name: "Final Boss Summoning Horn",
-    description: "Summon the final boss of the campaign early.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 40000000,
-    icon: '📯',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Summon the final boss right now (they're confused but fight anyway)",
-        "If you win, the campaign ends immediately and you win",
-        "Made by: The Speedrunner"
-    ],
-    vendor: 'campaign_breakers',
-    shippedBy: 'Early Access',
-    levelRequirement: 70
-},
 
 'retcon_gem': {
     id: 'retcon_gem',
@@ -17201,26 +17131,6 @@ export const SHOP_ITEMS = {
     vendor: 'stat_manipulation',
     shippedBy: 'Variable Delivery',
     levelRequirement: 60
-},
-
-'campaign_victory_button': {
-    id: 'campaign_victory_button',
-    name: "Campaign Victory Button",
-    description: "Big red button. Press to win the campaign.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 500000000,
-    icon: '🔴',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Press button: campaign ends, you win, credits roll",
-        "DM must narrate your victory and give you all loot",
-        "Made by: The Developer"
-    ],
-    vendor: 'victory_lap',
-    shippedBy: 'Instant Win',
-    levelRequirement: 1,
-    warning: "DM may flip table. Use at own risk."
 },
 
 'deus_ex_machina_device': {
@@ -17413,62 +17323,6 @@ export const SHOP_ITEMS = {
     levelRequirement: 250
 },
 
-'concept_of_victory_blade': {
-    id: 'concept_of_victory_blade',
-    name: "Blade of the Concept of Victory",
-    description: "Holding this means you've already won.",
-    category: SHOP_CATEGORIES.WEAPON,
-    price: 400000000,
-    icon: '🏆',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "You automatically win all conflicts (combats, arguments, games)",
-        "Enemies automatically surrender when they see you holding it",
-        "Made by: The Concept of Victory"
-    ],
-    vendor: 'conceptual_weapons',
-    shippedBy: 'Triumph',
-    levelRequirement: 300
-},
-
-'author_pen': {
-    id: 'author_pen',
-    name: "The Author's Pen",
-    description: "Write the story as you see fit.",
-    category: SHOP_CATEGORIES.EQUIPMENT,
-    price: 1000000000000,
-    icon: '✒️',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Write any event into reality (it becomes canon)",
-        "Can write yourself as the author of the campaign",
-        "Made by: The Author"
-    ],
-    vendor: 'narrative_control',
-    shippedBy: 'Canonization',
-    levelRequirement: 1000
-},
-
-'game_master_crown': {
-    id: 'game_master_crown',
-    name: "Game Master Crown",
-    description: "Become the DM.",
-    category: SHOP_CATEGORIES.EQUIPMENT,
-    price: 5000000000000,
-    icon: '👑',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "You become the DM (the previous DM becomes a PC)",
-        "Can change any rule, stat, or outcome at will",
-        "Made by: The First DM"
-    ],
-    vendor: 'meta_gaming',
-    shippedBy: 'Session Zero',
-    levelRequirement: 9999
-},
 
 'existence_absorption_staff': {
     id: 'existence_absorption_staff',
@@ -17520,6 +17374,7 @@ export const SHOP_ITEMS = {
     effects: [
         "Consume: gain 1 billion HP, all abilities of every creature, and infinite spell slots",
         "Your soul becomes the multiverse (you're everyone and everything)",
+        "You disapear into the multiverse and can only regain your soul after giving your skills back",
         "Made by: Everyone"
     ],
     vendor: 'cosmic_souls',
@@ -17641,25 +17496,6 @@ export const SHOP_ITEMS = {
     levelRequirement: 75
 },
 
-'narrative_bomb': {
-    id: 'narrative_bomb',
-    name: "Narrative Bomb",
-    description: "Explodes the story itself.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 60000000,
-    icon: '💣',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Detonate: the current story arc ends immediately, everyone gets xp for the whole arc",
-        "DM must improvise a new plot on the spot",
-        "Made by: The Plot Twist"
-    ],
-    vendor: 'story_breakers',
-    shippedBy: 'Cliffhanger',
-    levelRequirement: 60
-},
-
 'divine_right_to_rule_deed': {
     id: 'divine_right_to_rule_deed',
     name: "Divine Right to Rule (All Planes)",
@@ -17677,26 +17513,6 @@ export const SHOP_ITEMS = {
     vendor: 'divine_promotion',
     shippedBy: 'Heavenly Decree',
     levelRequirement: 200
-},
-
-'metaphysical_sword_of_dm_slaying': {
-    id: 'metaphysical_sword_of_dm_slaying',
-    name: "Metaphysical Sword of DM Slaying",
-    description: "Can literally kill the Dungeon Master.",
-    category: SHOP_CATEGORIES.WEAPON,
-    price: 1000000000000,
-    icon: '🗡️',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Attack the DM: they must save vs. ending the session",
-        "If successful, you become the new DM",
-        "Made by: The Player Revolt"
-    ],
-    vendor: 'meta_weapons',
-    shippedBy: 'Session End',
-    levelRequirement: 9999,
-    warning: "This is not a joke item. Use ends the game."
 },
 
 'true_creation_forge': {
@@ -17718,62 +17534,8 @@ export const SHOP_ITEMS = {
     levelRequirement: 150
 },
 
-'infinite_loop_breaker': {
-    id: 'infinite_loop_breaker',
-    name: "Infinite Loop Breaker",
-    description: "Breaks any infinite loop, including game-breaking combos.",
-    category: SHOP_CATEGORIES.EQUIPMENT,
-    price: 35000000,
-    icon: '🔨',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Break any infinite loop or exploit (DM must accept it)",
-        "Can break the loop of life and death (no one can die or be born)",
-        "Made by: The Debugger"
-    ],
-    vendor: 'exploit_fixers',
-    shippedBy: 'Patch Notes',
-    levelRequirement: 50
-},
 
-'ascension_to_authorhood': {
-    id: 'ascension_to_authorhood',
-    name: "Ascension to Authorhood",
-    description: "Stop being a character. Start being the author.",
-    category: SHOP_CATEGORIES.SERVICES,
-    price: 5000000000000,
-    icon: '✍️',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "You become the author of the story (write the campaign as you wish)",
-        "All characters become your NPCs",
-        "Made by: The Narrative"
-    ],
-    vendor: 'meta_narrative',
-    shippedBy: 'Fourth Wall Break',
-    levelRequirement: 10000
-},
 
-'primordial_truth_eye': {
-    id: 'primordial_truth_eye',
-    name: "Primordial Truth Eye",
-    description: "An eye that sees the ultimate truth behind all reality.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 88000000,
-    icon: '👁️',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "See the code of reality (you understand you're in a game)",
-        "Can 'see' the DM's notes and plans",
-        "Made by: The Seer of Truth"
-    ],
-    vendor: 'cosmic_vision',
-    shippedBy: 'Blinding Revelation',
-    levelRequirement: 90
-},
 
 'existence_debt_collector': {
     id: 'existence_debt_collector',
@@ -17794,43 +17556,10 @@ export const SHOP_ITEMS = {
     levelRequirement: 85
 },
 
-'metaphysical_cheese_wheel': {
-    id: 'metaphysical_cheese_wheel',
-    name: "Metaphysical Cheese Wheel",
-    description: "A wheel of cheese that represents the concept of cheese itself.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 42000000,
-    icon: '🧀',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Eat it: gain the power of cheese (can cheese any encounter)",
-        "Can turn any situation into a 'cheese' (exploit) without DM veto",
-        "Made by: The Dairy Deity"
-    ],
-    vendor: 'conceptual_foods',
-    shippedBy: 'Aging Process',
-    levelRequirement: 70
-},
 
-'narrative_veto_power': {
-    id: 'narrative_veto_power',
-    name: "Narrative Veto Power",
-    description: "Veto any narrative decision the DM makes.",
-    category: SHOP_CATEGORIES.SERVICES,
-    price: 150000000,
-    icon: '✋',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Once per session: veto any DM ruling (DM must accept your version)",
-        "Can veto plot twists, character deaths, or bad rolls",
-        "Made by: The Rules Lawyer"
-    ],
-    vendor: 'narrative_control',
-    shippedBy: 'DMs Tears',
-    levelRequirement: 60
-},
+
+
+
   "omni_singularity_heart": {
     "id": "omni_singularity_heart",
     "name": "Omni-Singularity Heart",
@@ -17926,44 +17655,8 @@ export const SHOP_ITEMS = {
     "levelRequirement": 65
   },
 
-  "infinite_level_grinder": {
-    "id": "infinite_level_grinder",
-    "name": "Infinite Level Grinder",
-    "description": "A pocket dimension treadmill that converts boredom into experience.",
-    "category": "SHOP_CATEGORIES.services",
-    "price": 30000000000,
-    "icon": "🏋️",
-    "stock": 1,
-    "rarity": "legendary",
-    "effects": [
-      "Entering for 1 real‑time minute grants the equivalent XP of 10 in‑game years of optimal grinding (DM: you may instantly jump to level cap)",
-      "You may bring your entire party and all their followers; everyone levels together to match the highest party member",
-      "Each use ages the outside universe by 1 year while you experience only 1 minute inside"
-    ],
-    "vendor": "xp_machines_inc",
-    "shippedBy": "Temporal Freight",
-    "levelRequirement": 50
-  },
 
-  "universal_save_scummer": {
-    "id": "universal_save_scummer",
-    "name": "Universal Save Scummer",
-    "description": "A glowing console with a big 'SAVE' and 'LOAD' button for the entire cosmos.",
-    "category": "SHOP_CATEGORIES.services",
-    "price": 90000000000,
-    "icon": "💾",
-    "stock": 1,
-    "rarity": "godly",
-    "effects": [
-      "Once per in‑game week, you can create a full‑universe 'save state' snapshot (all beings, states, rolls, etc.)",
-      "At any later time, you can LOAD that state; everything reverts (including memories), EXCEPT you maintain memory of the alternate timeline",
-      "Every LOAD has a 5% cumulative chance to spawn a Paradox Inspector entity determined to confiscate this device"
-    ],
-    "vendor": "meta_labs",
-    "shippedBy": "Causality Courier",
-    "levelRequirement": 70
-  },
-
+  
   "all_eras_master_key": {
     "id": "all_eras_master_key",
     "name": "All-Eras Master Key",
@@ -18078,24 +17771,8 @@ export const SHOP_ITEMS = {
     "levelRequirement": 68
   },
 
-  "cosmic_gacha_terminal": {
-    "id": "cosmic_gacha_terminal",
-    "name": "Cosmic Gacha Terminal",
-    "description": "A towering machine that dispenses random artifacts from all realities for a price.",
-    "category": "SHOP_CATEGORIES.services",
-    "price": 52000000000,
-    "icon": "🎰",
-    "stock": 1,
-    "rarity": "godly",
-    "effects": [
-      "Feed it 1,000,000 gold: it spits out a random legendary or godly item from any known universe (DM pulls from any source)",
-      "Once per month, you may instead pay 10,000,000 gold to ask for a 'type' of item (weapon/armor/utility, etc.)",
-      "Each pull has a 1% chance of dispensing something that causes a setting‑wide calamity as a 'bonus event'"
-    ],
-    "vendor": "wario_direct",
-    "shippedBy": "Crane Game Satellite",
-    "levelRequirement": 60
-  },
+
+  
 
   "architect_of_worlds_license": {
     "id": "architect_of_worlds_license",
@@ -18135,24 +17812,6 @@ export const SHOP_ITEMS = {
     "levelRequirement": 70
   },
 
-  "infinite_wish_compiler": {
-    "id": "infinite_wish_compiler",
-    "name": "Infinite Wish Compiler",
-    "description": "A compiler that turns carefully worded text files into perfectly literal wishes.",
-    "category": "SHOP_CATEGORIES.services",
-    "price": 95000000000,
-    "icon": "🧞",
-    "stock": 1,
-    "rarity": "godly",
-    "effects": [
-      "Upload a 'wish spec' once per day; if it parses, the universe executes it as a maximally high‑tier Wish with no direct backlash",
-      "Compiler refuses ambiguous or paradoxical input and returns error logs so you can refine your phrasing",
-      "Once per year, the Compiler compiles one 'hidden wish' representing its own agenda, affecting the setting subtly"
-    ],
-    "vendor": "reality_coders",
-    "shippedBy": "Quantum DevOps Pipeline",
-    "levelRequirement": 80
-  },
 
   "pan_omniversal_passport": {
     "id": "pan_omniversal_passport",
@@ -18192,24 +17851,6 @@ export const SHOP_ITEMS = {
     "levelRequirement": 85
   },
 
-  "infinite_money_glitch_item": {
-    "id": "infinite_money_glitch_item",
-    "name": "Infinite Money Glitch (Patched, But Not Really)",
-    "description": "A debug relic from an earlier version of reality’s economy.",
-    "category": "SHOP_CATEGORIES.curiOSITIES",
-    "price": 99999999999,
-    "icon": "💸",
-    "stock": 1,
-    "rarity": "godly",
-    "effects": [
-      "Once per minute, you can create 1,000,000 gold out of thin air as a free action; it is fully real and accepted by all banks & merchants",
-      "If you ever create more than 1,000,000,000,000 gold in a single day, the 'Economy Integrity Daemon' appears to negotiate, threaten, or erase currency",
-      "Trying to destroy this item just causes it to dupe itself"
-    ],
-    "vendor": "wario_direct",
-    "shippedBy": "Overflow Error Crate",
-    "levelRequirement": 90
-  },
 'true_infinity_gauntlet': {
     id: 'true_infinity_gauntlet',
     name: "True Infinity Gauntlet (All Stones)",
@@ -18229,24 +17870,7 @@ export const SHOP_ITEMS = {
     levelRequirement: 200
 },
 
-'story_speedrun_badge': {
-    id: 'story_speedrun_badge',
-    name: "Story Speedrun Badge",
-    description: "Skip to the end of the campaign.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 35000000,
-    icon: '🏃',
-    stock: 2,
-    rarity: 'legendary',
-    effects: [
-        "Skip to the final boss (DM must narrate the skipped content as a montage)",
-        "Gain all XP and loot from skipped content",
-        "Made by: The Speedrunner"
-    ],
-    vendor: 'campaign_breakers',
-    shippedBy: 'Fast Forward',
-    levelRequirement: 30
-},
+
 
 'quantum_save_state_device': {
     id: 'quantum_save_state_device',
@@ -18334,8 +17958,9 @@ export const SHOP_ITEMS = {
     stock: 1,
     rarity: 'godly',
     effects: [
-        "Transform into your ultimate final form (gain 20 levels, all abilities, infinite power)",
+        "Transform into your ultimate final form",
         "Transformation is permanent and cannot be reversed",
+        "Your true form may debuff you",
         "Made by: The Shonen Protagonist"
     ],
     vendor: 'transformation_services',
@@ -18422,7 +18047,7 @@ export const SHOP_ITEMS = {
 'true_infinity_sword': {
     id: 'true_infinity_sword',
     name: "True Infinity Sword",
-    description: "A sword with infinite length, width, and damage.",
+    description: "A sword with infinite length, width.",
     category: SHOP_CATEGORIES.WEAPON,
     price: 250000000,
     icon: '⚔️',
@@ -18430,7 +18055,6 @@ export const SHOP_ITEMS = {
     rarity: 'cosmic',
     effects: [
         "Infinite reach (can hit anything anywhere)",
-        "Infinite damage (anything hit ceases to exist)",
         "Made by: The Infinite Blacksmith"
     ],
     vendor: 'infinite_weapons',
@@ -18476,43 +18100,9 @@ export const SHOP_ITEMS = {
     levelRequirement: 40
 },
 
-'metaphysical_mirror': {
-    id: 'metaphysical_mirror',
-    name: "Metaphysical Mirror",
-    description: "Reflects not your image, but your true self.",
-    category: SHOP_CATEGORIES.EQUIPMENT,
-    price: 72000000,
-    icon: '🪞',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Look into it: see your character sheet (including DM notes)",
-        "Can edit your character sheet by writing on the mirror (permanent changes)",
-        "Made by: The Reflection"
-    ],
-    vendor: 'meta_items',
-    shippedBy: 'Self-Delivery',
-    levelRequirement: 50
-},
 
-'campaign_reset_button': {
-    id: 'campaign_reset_button',
-    name: "Campaign Reset Button",
-    description: "Restart the entire campaign with all your current knowledge and gear.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 95000000,
-    icon: '🔄',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Reset campaign to session 1 (DM must restart story)",
-        "You keep all items, levels, and memories",
-        "Made by: The New Game Plus"
-    ],
-    vendor: 'campaign_control',
-    shippedBy: 'Save File',
-    levelRequirement: 80
-},
+
+
 
 'omnipotence_for_dummies': {
     id: 'omnipotence_for_dummies',
@@ -18552,25 +18142,7 @@ export const SHOP_ITEMS = {
     levelRequirement: 60
 },
 
-'true_name_of_the_dm': {
-    id: 'true_name_of_the_dm',
-    name: "True Name of the DM",
-    description: "Knowing this gives you power over the DM.",
-    category: SHOP_CATEGORIES.CURIOSITIES,
-    price: 150000000,
-    icon: '📛',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Learn the DM's true name: can command them once per session (they must obey)",
-        "Can veto one DM decision per session",
-        "Made by: The Meta-Player"
-    ],
-    vendor: 'meta_knowledge',
-    shippedBy: 'Secret Revealed',
-    levelRequirement: 100,
-    warning: "DM may rage-quit."
-},
+
 
 'aleph_null_coins': {
     id: 'aleph_null_coins',
@@ -18583,7 +18155,7 @@ export const SHOP_ITEMS = {
     rarity: 'godly',
     effects: [
         "Bag contains infinite gold (you never run out)",
-        "Can break any economy instantly",
+        "Can break any economy instantly, this may be the last item you buy",
         "Made by: The Mathematician"
     ],
     vendor: 'infinite_wealth',
@@ -18687,44 +18259,8 @@ export const SHOP_ITEMS = {
     levelRequirement: 50
 },
 
-'true_infinite_wish': {
-    id: 'true_infinite_wish',
-    name: "True Infinite Wish",
-    description: "One wish that lasts forever.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 150000000,
-    icon: '⭐',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Make one wish that continues to grant itself infinitely (e.g., 'I wish for infinite wishes' actually works)",
-        "Wish cannot be twisted, limited, or ended",
-        "Made by: The Wish Grantor"
-    ],
-    vendor: 'wish_services',
-    shippedBy: 'Wish Fulfillment',
-    levelRequirement: 90
-},
 
-'cosmic_reset_switch': {
-    id: 'cosmic_reset_switch',
-    name: "Cosmic Reset Switch",
-    description: "Reset the entire multiverse to factory settings.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 1000000000000,
-    icon: '🔴',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Reset all universes to their beginning (Big Bang 2.0)",
-        "You survive and remember everything, everyone else is rebooted",
-        "Made by: The System Admin"
-    ],
-    vendor: 'universal_management',
-    shippedBy: 'Hard Reset',
-    levelRequirement: 500,
-    warning: "DM may actually reset the campaign."
-},
+
 
 'metaphysical_upgrade_token': {
     id: 'metaphysical_upgrade_token',
@@ -18737,7 +18273,7 @@ export const SHOP_ITEMS = {
     rarity: 'godly',
     effects: [
         "Upgrade from 'character' to 'player' (you can now make meta-decisions)",
-        "Can see character sheets, change rules, and make OOC decisions IC",
+        "In game you can see your character sheets, and make OOC decisions IC",
         "Made by: The Meta-Game"
     ],
     vendor: 'existence_upgrades',
@@ -18745,83 +18281,6 @@ export const SHOP_ITEMS = {
     levelRequirement: 70
 },
 
-'cosmic_cheat_codes': {
-    id: 'cosmic_cheat_codes',
-    name: "Cosmic Cheat Codes (Full List)",
-    description: "Every cheat code for reality, printed in a book.",
-    category: SHOP_CATEGORIES.EQUIPMENT,
-    price: 95000000,
-    icon: '📖',
-    stock: 1,
-    rarity: 'godly',
-    effects: [
-        "Access to all cheat codes (god mode, noclip, fly, kill all, etc.)",
-        "Codes work by speaking them aloud (DM must obey)",
-        "Made by: The Hacker"
-    ],
-    vendor: 'cheat_codes',
-    shippedBy: 'Code Injection',
-    levelRequirement: 60
-},
-
-'true_name_of_god': {
-    id: 'true_name_of_god',
-    name: "True Name of God (The Capital G One)",
-    description: "Knowing this name makes you equal to God.",
-    category: SHOP_CATEGORIES.CURIOSITIES,
-    price: 500000000,
-    icon: '📛',
-    stock: 1,
-    rarity: 'cosmic',
-    effects: [
-        "Speak the name: become God (capital G)",
-        "Can create, destroy, or alter anything in all existence",
-        "Made by: The Nameless One"
-    ],
-    vendor: 'true_names',
-    shippedBy: 'Sacred Utterance',
-    levelRequirement: 1000,
-    warning: "Uttering this may end all of existence."
-},
-
-'campaign_ending_machine': {
-    id: 'campaign_ending_machine',
-    name: "Campaign Ending Machine",
-    description: "A slot machine that ends the campaign if you win.",
-    category: SHOP_CATEGORIES.CONSUMABLES,
-    price: 25000000,
-    icon: '🎰',
-    stock: 1,
-    rarity: 'legendary',
-    effects: [
-        "Pull lever: 50% chance campaign ends immediately with you winning, 50% chance campaign ends with you losing",
-        "No saving throws, no take-backs",
-        "Made by: The Gambler"
-    ],
-    vendor: 'final_gamble',
-    shippedBy: 'All or Nothing',
-    levelRequirement: 1,
-    warning: "This is the last thing you'll do."
-},
-
-  "ultimate_reality_editor": {
-    "id": "ultimate_reality_editor",
-    "name": "Ultimate Reality Editor",
-    "description": "An editor rewriting core rules of reality in a localized zone.",
-    "category": "SHOP_CATEGORIES.services",
-    "price": 20000000000,
-    "icon": "✏️",
-    "stock": 1,
-    "rarity": "godly",
-    "effects": [
-      "Edits physics in 100 km² (e.g., no gravity, costs mana)",
-      "Lasts 1 year; requires divine approval",
-      "Made by: Reality Coders"
-    ],
-    "vendor": "meta_labs",
-    "shippedBy": "Code Scroll",
-    "levelRequirement": 60
-  },
 'pit_fiend_legal_representation': {
     id: 'pit_fiend_legal_representation',
     name: "Pit Fiend Legal Representation",
@@ -39863,7 +39322,7 @@ export const SHOP_ITEMS = {
         rarity: 'legendary',
         effects: [
             "Produces 100 Gold Coins every dawn",
-            "Cannot be destroyed",
+            "Roll 1d100 on a 80 or above it breaks",
             "Wario will hunt you to the ends of the earth for this"
         ],
         vendor: 'wario_direct',
@@ -47937,7 +47396,8 @@ export const SHOP_ITEMS = {
     effects: [
         "Single Use: Grant a wish subject to DM adjudication",
         "Wish may twist reality in small ways and attracts cosmic attention",
-        "After use, the wisher loses one cherished memory"
+        "After use, the wisher loses one cherished memory",
+        "It may fail (30 DC)"
     ],
     vendor: 'celestial_exchange',
     shippedBy: 'Glass Vial',
@@ -49090,47 +48550,6 @@ export const SHOP_ITEMS = {
         levelRequirement: 18
     },
 
-    'reset_button': {
-        id: 'reset_button',
-        name: "The Reset Button",
-        description: "A literal button. Resets the campaign to Session 1. Everyone keeps their memories.",
-        category: SHOP_CATEGORIES.FORBIDDEN,
-        price: 99999999,
-        icon: '🔄',
-        stock: 1,
-        rarity: 'godly',
-        effects: [
-            "NEW GAME +",
-            "Resets the world state",
-            "Players keep levels and items",
-            "Enemies become harder",
-            "DM cries"
-        ],
-        vendor: 'wario_direct',
-        shippedBy: 'Console Command',
-        levelRequirement: 20
-    },
-
-    'cappy_original': {
-        id: 'cappy_original',
-        name: "Cappy (The Original)",
-        description: "The legendary bonneter. Allows possession of ANYTHING.",
-        category: SHOP_CATEGORIES.EQUIPMENT,
-        price: 850000,
-        icon: '🎩',
-        stock: 1,
-        rarity: 'godly',
-        effects: [
-            "Possess any creature regardless of CR (WIS save DC 25)",
-            "Possess inanimate objects (T-Rex, Tank, Electricity, Meat)",
-            "Gain all stats/abilities of possessed target",
-            "You retain your mental stats"
-        ],
-        vendor: 'comet_observatory',
-        shippedBy: 'Hat Ship',
-        levelRequirement: 15
-    },
-
     'warios_franchise': {
         id: 'warios_franchise',
         name: "WarioWare, Inc. Majority Share",
@@ -49973,7 +49392,7 @@ export const SHOP_ITEMS = {
         name: "Dark Prognosticus",
         description: "The book that foretells the end of all worlds. Contains the DM's notes.",
         category: SHOP_CATEGORIES.FORBIDDEN,
-        price: 1800000,
+        price: 18000000,
         icon: '📖',
         stock: 1,
         rarity: 'godly',
@@ -49993,7 +49412,7 @@ export const SHOP_ITEMS = {
         name: "Light Prognosticus",
         description: "The counter-book. Can rewrite the ending.",
         category: SHOP_CATEGORIES.FORBIDDEN,
-        price: 1800000,
+        price: 18000000,
         icon: '📓',
         stock: 1,
         rarity: 'godly',
