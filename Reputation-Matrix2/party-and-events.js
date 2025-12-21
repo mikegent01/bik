@@ -75,6 +75,25 @@ export const RUMORS = [
     },
     cycle_impact: { score: 4.2, label: "Coordinated Insurrection", type: "revolutionary" }
   },
+    // RUMOR
+{
+    id: 'koopa_fortress_reconstruction',
+    title: "The Valley Awakens",
+    date: { day: 22, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'kamek',
+    arc: 'mushroom_civil_war',
+    arcPosition: 'rising',
+    description: "With Bowser absent in the Midlands, Kamek has consolidated control over the Valley of Bowser and initiated an ambitious reconstruction project. The Koopa Krew's excavation has uncovered ancient structures beneath the volcanic soil—and workers report an unexplained energy drain in certain areas. Kamek has ordered a media blackout, but whispers of 'something awakening' have begun to spread.",
+    targets: ['kamek', 'koopa_foreman', 'magikoopa_council'],
+    effects: {
+        koopa_troop: 15,
+        mushroom_regency: -5,
+        iron_legion: -5
+    },
+    cycle_impact: { score: 1.5, label: "Military Consolidation", type: "political" }
+},
+
 {
 id: 'delfino_hotel_lockdown',
 title: "Standoff at Hotel Delfino",

@@ -2,6 +2,577 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+// POSTS
+
+{
+    id: 'kamek_morning_address',
+    order: 62500,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 0 },
+    timestamp: '18 hours ago',
+    content: `To all loyal servants of the Koopa Crown: His Terribleness King Bowser has entrusted ME with the defense of our homeland while he conducts... operations abroad. The reconstruction of our defensive infrastructure begins TODAY. All complaints may be submitted in writing and subsequently incinerated.`,
+    likes: 1245,
+    comments: [
+        { characterKey: 'hammer_bro_captain', text: 'Finally some leadership around here. The lava moats were getting cold.' },
+        { characterKey: 'goomba_grunt', text: 'Does this mean we get paid now?' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_foreman_update_1',
+    order: 62501,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 30 },
+    timestamp: '17 hours 30 minutes ago',
+    content: `Official Koopa Krew Update: Hub construction is 60% complete. Had to explain to Mr. K that "evil lairs" don't build themselves. Again. The boys are motivated though—nobody wants to disappoint a Magikoopa. 🔨🐢`,
+    likes: 342,
+    comments: [
+        { characterKey: 'koopa_worker_red', text: 'My shell still aches from yesterday. What are we even building down there?' },
+        { characterKey: 'koopa_foreman', text: '@koopa_worker_red Less questions, more hammering.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'dry_bones_patrol_report',
+    order: 62502,
+    characterKey: 'dry_bones_scout',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 7, minute: 15 },
+    timestamp: '16 hours 45 minutes ago',
+    content: `Perimeter secured. No Regency movement detected near the Valley borders. The Iron Legion seems focused on the Midlands. Perfect time to rebuild without interference. Kamek's timing is... suspiciously good.`,
+    likes: 189,
+    comments: [
+        { characterKey: 'lakitu_observer', text: 'Almost like he was waiting for this.' },
+        { characterKey: 'dry_bones_scout', text: 'I didn\'t rattle anything. You didn\'t read anything.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'magikoopa_assistant_logistics',
+    order: 62503,
+    characterKey: 'magikoopa_assistant',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 7, minute: 45 },
+    timestamp: '16 hours 15 minutes ago',
+    content: `Supply manifest for Project Obsidian Crown:
+- 400 tons volcanic stone ✓
+- 200 Thwomp relocation permits ✓
+- 50 barrels Chain Chomp kibble ✓
+- 1 ancient tome from the Forbidden Archive ✓ (don't ask)
+
+We're on schedule.`,
+    likes: 267,
+    comments: [
+        { characterKey: 'kamek', text: 'Excellent. The tome goes directly to my quarters. Unopened.' },
+        { characterKey: 'bob_omb_demolitions', text: 'What about our explosives order??' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_worker_complaint',
+    order: 62504,
+    characterKey: 'koopa_worker_red',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 30 },
+    timestamp: '15 hours 30 minutes ago',
+    content: `Okay real talk—anyone else feel EXHAUSTED working in the internal garden section? Like something is literally draining you? I took three naps yesterday and still felt like I'd been stomped by a Thwomp.`,
+    likes: 423,
+    comments: [
+        { characterKey: 'koopa_worker_blue', text: 'DUDE YES. Thought it was just me.' },
+        { characterKey: 'koopa_worker_green', text: 'The foreman says it\'s "volcanic gases" but I don\'t buy it.' },
+        { characterKey: 'shy_guy_laborer', text: 'I passed out twice. Woke up with weird symbols drawn on my mask???' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'hammer_bro_security_update',
+    order: 62505,
+    characterKey: 'hammer_bro_captain',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 0 },
+    timestamp: '15 hours ago',
+    content: `Security rotation doubled per Kamek's orders. Nobody in or out of the construction zone without clearance. Even had to turn away some Goombas. They didn't take it well but what are they gonna do? Headbutt me?`,
+    likes: 512,
+    comments: [
+        { characterKey: 'goomba_grunt', text: 'We WILL remember this.' },
+        { characterKey: 'hammer_bro_captain', text: 'You literally have no arms to write it down.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'lakitu_aerial_survey',
+    order: 62506,
+    characterKey: 'lakitu_observer',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 30 },
+    timestamp: '14 hours 30 minutes ago',
+    content: `Aerial survey complete. The new fortress is taking shape—looks like Kamek is building directly over the old ruins from Bowser's original castle. Smart recycling or something more? The excavation pit goes WAY deeper than the plans show. 📸☁️`,
+    likes: 378,
+    comments: [
+        { characterKey: 'magikoopa_assistant', text: 'Delete this.' },
+        { characterKey: 'lakitu_observer', text: 'It\'s already posted??' },
+        { characterKey: 'magikoopa_assistant', text: 'Then delete yourself.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'bob_omb_demolitions_issue',
+    order: 62507,
+    characterKey: 'bob_omb_demolitions',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+    timestamp: '14 hours ago',
+    content: `Hit bedrock at Level 7. Except it's not bedrock. It's... black stone? With carvings? Showed it to Kamek and he got REALLY quiet. Then told us to "proceed with extreme caution." Since when does a Magikoopa say "caution"???`,
+    likes: 634,
+    comments: [
+        { characterKey: 'koopa_foreman', text: 'Fellas, maybe we should slow down.' },
+        { characterKey: 'kamek', text: 'You will NOT slow down. Continue excavation. Report all findings directly to me. No exceptions.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'goomba_messenger_whispers',
+    order: 62508,
+    characterKey: 'goomba_messenger',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 30 },
+    timestamp: '13 hours 30 minutes ago',
+    content: `Ran messages between sites all morning. Overheard some Magikoopas talking about "the Conduit" and "harvesting dormant energy." When they saw me listening they stopped and smiled. Magikoopas don't smile. I'm scared.`,
+    likes: 445,
+    comments: [
+        { characterKey: 'koopa_worker_red', text: 'Okay that explains the exhaustion thing! They\'re draining US!' },
+        { characterKey: 'shy_guy_laborer', text: 'Should we tell someone?' },
+        { characterKey: 'hammer_bro_captain', text: 'Tell WHO? Kamek runs everything.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_midday_inspection',
+    order: 62509,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 0 },
+    timestamp: '13 hours ago',
+    content: `Inspection complete. The Koopa Krew's work is... adequate. The internal garden's waterworks exceed expectations. The excavation of the lower levels proceeds as I foresaw. Soon, even Bowser's absence will be a footnote in our ascension.`,
+    likes: 1456,
+    comments: [
+        { characterKey: 'magikoopa_council_elder', text: 'The Council supports your vision, Lord Kamek.' },
+        { characterKey: 'koopa_troopa_loyal', text: 'Wait... "even Bowser\'s absence"? What does that mean?' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_foreman_secret_find',
+    order: 62510,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 45 },
+    timestamp: '12 hours 15 minutes ago',
+    content: `Found an old journal from a previous Krew iteration. Apparently our predecessors installed secret exits throughout the original castle. There's a passage beneath "six trees" leading somewhere special. Might be useful if things get... weird.`,
+    likes: 287,
+    comments: [
+        { characterKey: 'koopa_worker_blue', text: 'You mean WEIRDER than now?' },
+        { characterKey: 'koopa_foreman', text: 'Keep this between us. The old Krew knew something.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'regency_observer_report',
+    order: 62511,
+    characterKey: 'regency_intelligence',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+    timestamp: '12 hours ago',
+    content: `INTELLIGENCE BRIEF: Increased activity in the Valley of Bowser. Satellite imagery shows major construction. Kamek appears to be in command. Recommend continued observation. With forces committed to the Midlands, we cannot afford a two-front war.`,
+    likes: 234,
+    comments: [
+        { characterKey: 'regency_officer', text: 'Should we inform the Iron Legion?' },
+        { characterKey: 'regency_intelligence', text: 'Let them find out themselves. We have enough problems.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'shy_guy_laborer_breakdown',
+    order: 62512,
+    characterKey: 'shy_guy_laborer',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 30 },
+    timestamp: '11 hours 30 minutes ago',
+    content: `I can't do this anymore. Went to sleep in the barracks and dreamed of something HUGE beneath the rock. It was sleeping. It was hungry. It knew we were digging toward it. Woke up crying. I never cry. I don't even have tear ducts.`,
+    likes: 567,
+    comments: [
+        { characterKey: 'koopa_worker_green', text: 'Bro you need a vacation.' },
+        { characterKey: 'goomba_grunt', text: 'I had the same dream. Same EXACT dream.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'magikoopa_council_meeting',
+    order: 62513,
+    characterKey: 'magikoopa_council_elder',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 0 },
+    timestamp: '11 hours ago',
+    content: `The Magikoopa Council formally endorses Lord Kamek's reconstruction initiative. His wisdom guides us in these uncertain times. The King's... extended diplomatic mission... requires stable leadership at home. All hail the Regent Sorcerer.`,
+    likes: 789,
+    comments: [
+        { characterKey: 'koopa_troopa_loyal', text: '"Regent Sorcerer"?? Since when is that a title?' },
+        { characterKey: 'dry_bones_scout', text: 'Since Bowser left and Kamek started giving himself promotions.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_worker_discovery',
+    order: 62514,
+    characterKey: 'koopa_worker_green',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 30 },
+    timestamp: '10 hours 30 minutes ago',
+    content: `OKAY WHAT THE HECK. We breached a chamber in the lower excavation and there's a DOOR. A massive stone door with symbols none of us recognize. It's humming. The air feels wrong. Foreman is pretending it's fine but his hands are shaking.`,
+    likes: 823,
+    comments: [
+        { characterKey: 'bob_omb_demolitions', text: 'Should we blow it open?' },
+        { characterKey: 'koopa_foreman', text: 'NOBODY TOUCHES THAT DOOR.' },
+        { characterKey: 'kamek', text: 'I will handle this personally. Clear the site.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_door_arrival',
+    order: 62515,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+    timestamp: '10 hours ago',
+    content: `The Koopa Krew has exceeded expectations. What lies beyond the sealed door has slept for millennia. It predates the Mushroom Kingdom. It predates the STARS. And now... now it will serve the Koopa Crown. As it was always meant to.`,
+    likes: 1234,
+    comments: [
+        { characterKey: 'hammer_bro_captain', text: 'Sir, with respect, that sounds EXTREMELY concerning.' },
+        { characterKey: 'kamek', text: 'Your concern is noted and irrelevant.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'chain_chomp_handler_panic',
+    order: 62516,
+    characterKey: 'chain_chomp_handler',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 30 },
+    timestamp: '9 hours 30 minutes ago',
+    content: `The Chain Chomps won't go near the excavation site. They're whimpering. CHAIN CHOMPS. WHIMPERING. I've worked with these beasts for 15 years and I've never seen them scared of ANYTHING. Something is very, very wrong down there.`,
+    likes: 678,
+    comments: [
+        { characterKey: 'goomba_grunt', text: 'Animals always know first.' },
+        { characterKey: 'koopa_worker_red', text: 'Can we PLEASE stop digging??' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'magikoopa_ritual_prep',
+    order: 62517,
+    characterKey: 'magikoopa_assistant',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 0 },
+    timestamp: '9 hours ago',
+    content: `Lord Kamek has ordered the preparation of the Awakening Ritual. All Magikoopa apprentices report to the excavation site at sundown. Bring your wands. Leave your doubts. This is what we've trained for.`,
+    likes: 456,
+    comments: [
+        { characterKey: 'magikoopa_apprentice', text: 'What exactly are we awakening?' },
+        { characterKey: 'magikoopa_assistant', text: 'Something that will make Bowser obsolete.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_foreman_resignation',
+    order: 62518,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 30 },
+    timestamp: '8 hours 30 minutes ago',
+    content: `Tried to submit my resignation. Kamek laughed. Said "You know too much now." The Krew and I have been building something terrible. We thought it was a fortress. It's a CAGE. And whatever's in it is about to get out.`,
+    likes: 934,
+    comments: [
+        { characterKey: 'koopa_worker_blue', text: 'Boss, what do we do?' },
+        { characterKey: 'koopa_foreman', text: 'Remember the six trees. If things go bad, RUN.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'lakitu_news_broadcast',
+    order: 62519,
+    characterKey: 'lakitu_broadcaster',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 0 },
+    timestamp: '8 hours ago',
+    content: `VALLEY NEWS UPDATE: Kamek's reconstruction project proceeds "ahead of schedule." A media blackout has been imposed around the excavation zone, but sources report unusual magical activity and worker protests being suppressed. More updates as we're allowed to report them.`,
+    likes: 567,
+    comments: [
+        { characterKey: 'koopa_civilian', text: 'What are they hiding?' },
+        { characterKey: 'magikoopa_censor', text: 'Nothing is being hidden. Return to your duties.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'thwomp_relocated',
+    order: 62520,
+    characterKey: 'thwomp_elder',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 30 },
+    timestamp: '7 hours 30 minutes ago',
+    content: `THEY MOVED US FROM OUR ANCESTRAL CRUSHING GROUNDS. UNACCEPTABLE. BUT ALSO... WE FELT THE VIBRATIONS FROM BELOW. THE OLD STONE SPEAKS. IT SAYS "NOT YET." WE DO NOT KNOW WHAT THIS MEANS BUT WE DO NOT LIKE IT.`,
+    likes: 445,
+    comments: [
+        { characterKey: 'bob_omb_demolitions', text: 'The ROCKS are scared?!' },
+        { characterKey: 'thwomp_elder', text: 'WE ARE NEVER SCARED. WE ARE... CONCERNED.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_power_surge',
+    order: 62521,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 0 },
+    timestamp: '7 hours ago',
+    content: `The first seal has been broken. I can feel the power flowing. Bowser spent decades trying to defeat Mario through brute force. Pathetic. TRUE power lies beneath our feet. And soon, it will be MINE to command.`,
+    likes: 1567,
+    comments: [
+        { characterKey: 'koopa_troopa_loyal', text: 'This feels like a betrayal of the King...' },
+        { characterKey: 'kamek', text: 'The King is chasing ghosts in a mansion. I am building an EMPIRE.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'boo_basement_warning',
+    order: 62522,
+    characterKey: 'boo_servant',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 30 },
+    timestamp: '6 hours 30 minutes ago',
+    content: `We Boos have lived in the castle basements for generations. We've seen Kamek's ambitions before—he's always been jealous of Bowser. But this time is different. He's not just scheming. He's communing with something that shouldn't exist anymore.`,
+    likes: 678,
+    comments: [
+        { characterKey: 'dry_bones_scout', text: 'What do you mean "anymore"?' },
+        { characterKey: 'boo_servant', text: 'There\'s a reason the original castle was built HERE. To keep something buried.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_worker_escape_attempt',
+    order: 62523,
+    characterKey: 'koopa_worker_blue',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 0 },
+    timestamp: '6 hours ago',
+    content: `Tried to leave the valley. Hammer Bros at every exit. They say it's for "security." Three workers who complained yesterday haven't been seen since. The foreman says find the six trees. I think I know where they are.`,
+    likes: 534,
+    comments: [
+        { characterKey: 'shy_guy_laborer', text: 'Take me with you.' },
+        { characterKey: 'koopa_worker_blue', text: 'Tonight. After the ritual starts. They\'ll be distracted.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'piranha_plant_gardens',
+    order: 62524,
+    characterKey: 'piranha_plant_keeper',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 30 },
+    timestamp: '5 hours 30 minutes ago',
+    content: `The plants in the internal garden have been acting strange since excavation started. Growing faster. Darker colors. One of them SPOKE to me. It said "He comes." Then it bit my hand off. Standard Tuesday, honestly.`,
+    likes: 389,
+    comments: [
+        { characterKey: 'koopa_foreman', text: 'The waterworks system must have tapped into something below.' },
+        { characterKey: 'piranha_plant_keeper', text: 'Well it\'s too late to fix it now!' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'magikoopa_circle_forming',
+    order: 62525,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 19, minute: 0 },
+    timestamp: '5 hours ago',
+    content: `We've formed the ritual circle around the door. 13 Magikoopas. Kamek at the center. The symbols on the door are glowing now. I... I don't think I want to be here anymore but my legs won't move. Is that the magic or the fear? Does it matter?`,
+    likes: 723,
+    comments: [
+        { characterKey: 'koopa_worker_red', text: 'RUN! GET OUT OF THERE!' },
+        { characterKey: 'magikoopa_apprentice', text: 'I can\'t. It\'s already started.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'hammer_bro_defection',
+    order: 62526,
+    characterKey: 'hammer_bro_sergeant',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 19, minute: 30 },
+    timestamp: '4 hours 30 minutes ago',
+    content: `I signed up to serve King Bowser, not whatever Kamek is becoming. Taking my squad and leaving. If anyone wants to report to the REAL king, now's the time. We're heading to the Midlands to find Bowser.`,
+    likes: 845,
+    comments: [
+        { characterKey: 'hammer_bro_captain', text: 'You\'ll be branded deserters.' },
+        { characterKey: 'hammer_bro_sergeant', text: 'Better a deserter than whatever serves that door.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_ritual_beginning',
+    order: 62527,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 0 },
+    timestamp: '4 hours ago',
+    content: `The incantation begins. The door trembles. Beyond it lies the Tyrant Before Time—the being Bowser's ancestors imprisoned millennia ago. When it wakes, even Mario will kneel. Even the STARS will bow. Watch, my loyal subjects. Watch and WORSHIP.`,
+    likes: 1876,
+    comments: [
+        { characterKey: 'magikoopa_council_elder', text: 'The prophecy unfolds! Glory to the Regent Sorcerer!' },
+        { characterKey: 'boo_servant', text: 'You fool. You absolute fool. You don\'t know what you\'re doing.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'ground_shaking_reports',
+    order: 62528,
+    characterKey: 'koopa_civilian',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 15 },
+    timestamp: '3 hours 45 minutes ago',
+    content: `THE WHOLE VALLEY IS SHAKING. I can see lights coming from the construction site—purple and green, pulsing like a heartbeat. The volcano is rumbling. Children are crying. What is Kamek DOING down there?!`,
+    likes: 945,
+    comments: [
+        { characterKey: 'lakitu_broadcaster', text: 'All civilians evacuate to high ground immediately!' },
+        { characterKey: 'dry_bones_scout', text: 'There IS no high ground. The whole valley is the crater.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'koopa_foreman_escape_route',
+    order: 62529,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 30 },
+    timestamp: '3 hours 30 minutes ago',
+    content: `Found the six trees. Found the secret passage. The old Krew knew this day would come. They built a way out—a tunnel leading beyond the valley. Taking everyone who'll listen. Kamek can have his "power." We're LEAVING.`,
+    likes: 723,
+    comments: [
+        { characterKey: 'koopa_worker_blue', text: 'We\'re right behind you, boss.' },
+        { characterKey: 'shy_guy_laborer', text: 'Thank the stars for the Krew.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'magikoopa_apprentice_horror',
+    order: 62530,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 21, minute: 0 },
+    timestamp: '3 hours ago',
+    content: `The door opened. I saw what's inside. I saw ITS EYE. Just one eye, bigger than the castle. It looked at me. It looked THROUGH me. Three of the circle collapsed. I think... I think they're dead. Kamek is laughing.`,
+    likes: 1234,
+    comments: [
+        { characterKey: 'bob_omb_demolitions', text: 'We need to collapse the tunnels! Bury it again!' },
+        { characterKey: 'kamek', text: 'TRY IT AND I WILL UNMAKE YOU.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_communion',
+    order: 62531,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 21, minute: 30 },
+    timestamp: '2 hours 30 minutes ago',
+    content: `I HAVE MADE CONTACT. The Primordial Wyrm speaks! It offers power beyond imagination—the power that built the first kingdoms, the power that moved the MOONS. All it asks is... tribute. A small price. Bowser's entire army should suffice.`,
+    likes: 567,
+    comments: [
+        { characterKey: 'hammer_bro_captain', text: 'He\'s going to sacrifice us. HE\'S GOING TO SACRIFICE ALL OF US.' },
+        { characterKey: 'magikoopa_council_elder', text: 'A glorious offering to the Primordial!' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'iron_legion_surveillance',
+    order: 62532,
+    characterKey: 'iron_legion_scout',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 21, minute: 45 },
+    timestamp: '2 hours 15 minutes ago',
+    content: `URGENT DISPATCH: Massive magical surge detected in the Valley of Bowser. Energy signatures off the charts. Recommend immediate aerial reconnaissance. If Kamek has found what we think he's found... the Midlands campaign may be irrelevant.`,
+    likes: 445,
+    comments: [
+        { characterKey: 'iron_legion_commander', text: 'Reassessing priorities. All units stand by for new orders.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'boo_witness',
+    order: 62533,
+    characterKey: 'boo_servant',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 22, minute: 0 },
+    timestamp: '2 hours ago',
+    content: `We Boos are fleeing the castle. Even WE fear what's awakening. The Primordial Wyrm was sealed here before the first Koopa walked. Before the first Mushroom grew. Kamek thinks he can control it. Kamek is a fool wearing borrowed robes.`,
+    likes: 892,
+    comments: [
+        { characterKey: 'koopa_civilian', text: 'Where can we go?! Is anywhere safe?!' },
+        { characterKey: 'boo_servant', text: 'Away. As far away as possible.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_transformation',
+    order: 62534,
+    characterKey: 'magikoopa_assistant',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 22, minute: 30 },
+    timestamp: '1 hour 30 minutes ago',
+    content: `Lord Kamek is... changing. His eyes glow with the same light as the door. His voice echoes in our minds. He says we are all "components" now. I don't think Lord Kamek is Lord Kamek anymore. I don't think he's even alive.`,
+    likes: 1345,
+    comments: [
+        { characterKey: 'hammer_bro_captain', text: 'We need to get word to King Bowser. NOW.' },
+        { characterKey: 'dry_bones_scout', text: 'I\'m already running. Tell the King his home is GONE.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'escaped_workers_message',
+    order: 62535,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 0 },
+    timestamp: '1 hour ago',
+    content: `We made it out. 23 workers, through the tunnel under the six trees. We can see the valley behind us—it's glowing purple. Something massive is moving in the crater. To King Bowser, if you see this: Your advisor has betrayed you. Come home. PLEASE.`,
+    likes: 1567,
+    comments: [
+        { characterKey: 'koopa_worker_red', text: 'We left so many behind.' },
+        { characterKey: 'koopa_foreman', text: 'They made their choice. We made ours. Keep moving.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'kamek_proclamation',
+    order: 62536,
+    characterKey: 'kamek',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 30 },
+    timestamp: '30 minutes ago',
+    content: `LET THE KINGDOMS TREMBLE. The Regent Sorcerer has ascended. The Primordial Wyrm stirs. When dawn breaks, the Valley of Bowser will be reborn as the VALLEY OF ETERNITY. All who oppose us will be UNMADE. Starting with those who fled.`,
+    likes: 2341,
+    comments: [
+        { characterKey: 'regency_intelligence', text: 'Confirming hostile magical entity active in Koopa territory. All factions advised.' },
+        { characterKey: 'iron_legion_commander', text: 'Midlands operation suspended. New threat assessment required.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'bowser_notification',
+    order: 62537,
+    characterKey: 'dry_bones_scout',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 45 },
+    timestamp: '15 minutes ago',
+    content: `@bowser SIR. CHECK YOUR MESSAGES. KAMEK HAS GONE INSANE. HE'S AWAKENED SOMETHING UNDER THE CASTLE. THE VALLEY IS LOST. YOUR TROOPS ARE BEING SACRIFICED TO SOMETHING CALLED THE PRIMORDIAL WYRM. PLEASE RESPOND. PLEASE.`,
+    likes: 2567,
+    comments: [
+        { characterKey: 'koopa_troopa_loyal', text: 'Has anyone gotten through to the King?!' },
+        { characterKey: 'hammer_bro_sergeant', text: 'We\'re en route to the Midlands. We\'ll find him.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'valley_final_broadcast',
+    order: 62538,
+    characterKey: 'lakitu_broadcaster',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 55 },
+    timestamp: '5 minutes ago',
+    content: `This is Lakitu News, signing off from the Valley of Bowser. The entire region is now a no-go zone. Something has risen from beneath the volcanic crater. It is... massive. It is ANCIENT. And Kamek stands at its head, welcoming it like an old friend. Stars save us all.`,
+    likes: 3456,
+    comments: [
+        { characterKey: 'koopa_civilian', text: 'Is this the end?' },
+        { characterKey: 'boo_servant', text: 'No. This is the beginning of something far, far worse.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},
+{
+    id: 'mysterious_six_trees',
+    order: 62539,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 23, hour: 0, minute: 15 },
+    timestamp: 'Just now',
+    content: `We've camped beyond the valley's reach. The tunnel exit led to an ancient Krew safehouse—supplies for 50, maps to every royal structure in the kingdom. Those old workers knew. They ALWAYS knew. "Seek guidance beneath the six trees." They saved us from beyond the grave.`,
+    likes: 987,
+    comments: [
+        { characterKey: 'koopa_worker_blue', text: 'What do we do now, boss?' },
+        { characterKey: 'koopa_foreman', text: 'We warn everyone. And we pray someone can stop what we unleashed.' }
+    ],
+    rumorId: 'koopa_fortress_reconstruction'
+},    
   {
     id: 'archie_aegis_worry_post',
     order: 63201,
