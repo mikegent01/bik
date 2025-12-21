@@ -5,7 +5,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_aegis_worry_post',
     order: 63201,
-    characterKey: 'archie_miser',
+    characterKey: 'archie',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
     timestamp: 'Just now',
     content: `Hmmmm, I wonder how are the 100+ toads are doing with all the chaos going on left and right? Here's to hoping that the legion didn't get to them.`,
@@ -22,10 +22,10 @@ export const WAHBOOK_POSTS = [
     characterKey: 'toad_prisoner_moss',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 5 },
     timestamp: '5 minutes ago',
-    content: `Replying to @archie_miser: We're SAFE, wizard! Speaker Rivers hacked servers, smuggled Mini-Mrooms, deployed anti-Imperial fog. 147 free from Aegis—Legion ate it. Your "hope" noted, but Speaker's the hero! 🐸✊`,
+    content: `Replying to @archie: We're SAFE, wizard! Speaker Rivers hacked servers, smuggled Mini-Mrooms, deployed anti-Imperial fog. 147 free from Aegis—Legion ate it. Your "hope" noted, but Speaker's the hero! 🐸✊`,
     likes: 5678,
     comments: [
-      { characterKey: 'archie_miser', text: 'Wait, WHAT? 147?! Spill details!' },
+      { characterKey: 'archie', text: 'Wait, WHAT? 147?! Spill details!' },
       { characterKey: 'speaker_rivers', text: 'Modesty, Moss. Toads freed themselves.' }
     ],
     rumorId: 'archie_aegis_post'
@@ -36,7 +36,7 @@ export const WAHBOOK_POSTS = [
     characterKey: 'dan_the_toad',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 10 },
     timestamp: '10 minutes ago',
-    content: `@archie_miser Chaos? We CAUSED it! Speaker L's plan: Green fog chokes Legion, pipes to tunnels, Noki subs. I'm chillin' in Pianta Village pie-party. One arm salutes Speaker, not your "wondering." 😂🐸`,
+    content: `@archie Chaos? We CAUSED it! Speaker L's plan: Green fog chokes Legion, pipes to tunnels, Noki subs. I'm chillin' in Pianta Village pie-party. One arm salutes Speaker, not your "wondering." 😂🐸`,
     likes: 4321,
     comments: [
       { characterKey: 'pianta_chef', text: 'Dans got seconds coming!' },
@@ -53,7 +53,7 @@ export const WAHBOOK_POSTS = [
     content: `Archie "hoping"? While we mini-sized thru drains dodging rats? Speaker Rivers risked all—hacked FROM INSIDE, decoys, EVERYTHING. Your fireballs kill syndicates, not save toads. Grateful? Nah, suspicious. Where were YOU? 🔥❌`,
     likes: 2890,
     comments: [
-      { characterKey: 'archie_miser', text: 'I was wraiths-deep in Raventree! Congrats tho!' },
+      { characterKey: 'archie', text: 'I was wraiths-deep in Raventree! Congrats tho!' },
       { characterKey: 'mages_guild_fan', text: 'Archies chaos = results. Give credit.' }
     ],
     rumorId: 'archie_aegis_post'
@@ -64,7 +64,7 @@ export const WAHBOOK_POSTS = [
     characterKey: 'creek_medic',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 20 },
     timestamp: '20 minutes ago',
-    content: `@archie_miser All 147 accounted (mostly). Led med evac thru sewers. Speaker's genius: Weeks prepping turncoats, gases, maps. Legion lost 67. We're training in safehouses. Cheers to Speaker L—not "hope." 💉🐸`,
+    content: `@archie All 147 accounted (mostly). Led med evac thru sewers. Speaker's genius: Weeks prepping turncoats, gases, maps. Legion lost 67. We're training in safehouses. Cheers to Speaker L—not "hope." 💉🐸`,
     likes: 3789,
     comments: [
       { characterKey: 'bones_disguised', text: 'Creek saved my bacon. Speaker planned it.' },
@@ -95,7 +95,7 @@ export const WAHBOOK_POSTS = [
     content: `Archie, your heart's in right place. Toads: We did it together. Fog, fog was chemistry wing's gift. Tunnels? Old miner ghosts guided. Glory to EVERY toad who shrunk, ran, fought. Empire secrets exposed—Legion reels. Unity! 🗣️🐸`,
     likes: 9012,
     comments: [
-      { characterKey: 'archie_miser', text: 'Respect, Speaker. Details pls!' },
+      { characterKey: 'archie', text: 'Respect, Speaker. Details pls!' },
       { characterKey: 'toad_prisoner_moss', text: 'Humble king!' }
     ],
     rumorId: 'archie_aegis_post'
@@ -134,7 +134,7 @@ export const WAHBOOK_POSTS = [
     characterKey: 'woods_ranger_toad',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 45 },
     timestamp: '45 minutes ago',
-    content: `@archie_miser & all: Ranger confirm 147 safe. Speaker's whisper net flawless. Archie post = catalyst for victory lap. No controversy—CELEBRATE! Caves to Kingdom, clues in hand. 🏞️🐸`,
+    content: `@archie & all: Ranger confirm 147 safe. Speaker's whisper net flawless. Archie post = catalyst for victory lap. No controversy—CELEBRATE! Caves to Kingdom, clues in hand. 🏞️🐸`,
     likes: 4567,
     comments: [
       { characterKey: 'don_pianta', text: 'Party at Village!' },
@@ -165,7 +165,7 @@ export const WAHBOOK_POSTS = [
     content: `Archie's query stirred glass: Toads rise as foreseen. Speaker wove fate, Archie punches threads. No heroes alone—controversy births legend. Eye watches... 🪞🐸`,
     likes: 2987,
     comments: [
-      { characterKey: 'archie_miser', text: 'Eye again? Noted.' },
+      { characterKey: 'archie', text: 'Eye again? Noted.' },
       { characterKey: 'mirror_wraith_fan', text: 'We see you too.' }
     ],
     rumorId: 'archie_aegis_post'
