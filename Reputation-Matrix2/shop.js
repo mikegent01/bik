@@ -3273,7 +3273,7 @@ function getLetterTierName(index) {
     return name;
 }
 function isWarioScam(item) {
-    return item.price >= 15000000 && item.id !== 'warios_franchise';
+    return item.price >= 1000000 && item.id !== 'warios_franchise';
 }
 
 
