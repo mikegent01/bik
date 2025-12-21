@@ -1178,7 +1178,7 @@ function renderHeader() {
             <div class="crafting-title">
                 <span class="crafting-logo">⚗️</span>
                 <div>
-                    <h1>ARCANE WORKSHOP</h1>
+                    <h1>Arcane Workshop</h1>
                     <p class="crafting-subtitle">Scrolls • Potions • Enchanting • Smithing</p>
                 </div>
             </div>
