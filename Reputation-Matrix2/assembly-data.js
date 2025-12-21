@@ -12,7 +12,7 @@ export const WAHBOOK_POSTS = [
     likes: 456,
     comments: [
       { characterKey: 'toad_prisoner_moss', text: 'Archie... we ESCAPED. 147 of us. Thanks to SPEAKER RIVERS, not hoping.' },
-      { characterKey: 'dan_the_toad', text: 'One arm here, alive cuz of Speaker L. You were busy punching mirrors?' }
+      { characterKey: 'dan', text: 'One arm here, alive cuz of Speaker L. You were busy punching mirrors?' }
     ],
     rumorId: 'archie_aegis_post'
   },
@@ -33,7 +33,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'dan_toad_brag',
     order: 63203,
-    characterKey: 'dan_the_toad',
+    characterKey: 'dan',
     date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 10 },
     timestamp: '10 minutes ago',
     content: `@archie Chaos? We CAUSED it! Speaker L's plan: Green fog chokes Legion, pipes to tunnels, Noki subs. I'm chillin' in Pianta Village pie-party. One arm salutes Speaker, not your "wondering." 😂🐸`,
