@@ -19,7 +19,7 @@ export const RUMORS = [
       {
     id: 'archie_aegis_post',
     title: "Archie's Aegis Worry",
-    date: { day: 22, monthIndex: 6, year: 1040 },
+    date: { day: 21, monthIndex: 6, year: 1040 },
     isEvent: false,
     instigator: 'archie_miser',
     arc: 'aegis_riot',
