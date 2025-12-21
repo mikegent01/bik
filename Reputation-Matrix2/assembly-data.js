@@ -2,7 +2,188 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
-
+  {
+    id: 'archie_aegis_worry_post',
+    order: 63201,
+    characterKey: 'archie_miser',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+    timestamp: 'Just now',
+    content: `Hmmmm, I wonder how are the 100+ toads are doing with all the chaos going on left and right? Here's to hoping that the legion didn't get to them.`,
+    likes: 456,
+    comments: [
+      { characterKey: 'toad_prisoner_moss', text: 'Archie... we ESCAPED. 147 of us. Thanks to SPEAKER RIVERS, not hoping.' },
+      { characterKey: 'dan_the_toad', text: 'One arm here, alive cuz of Speaker L. You were busy punching mirrors?' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'moss_escape_reveal',
+    order: 63202,
+    characterKey: 'toad_prisoner_moss',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 5 },
+    timestamp: '5 minutes ago',
+    content: `Replying to @archie_miser: We're SAFE, wizard! Speaker Rivers hacked servers, smuggled Mini-Mrooms, deployed anti-Imperial fog. 147 free from Aegis—Legion ate it. Your "hope" noted, but Speaker's the hero! 🐸✊`,
+    likes: 5678,
+    comments: [
+      { characterKey: 'archie_miser', text: 'Wait, WHAT? 147?! Spill details!' },
+      { characterKey: 'speaker_rivers', text: 'Modesty, Moss. Toads freed themselves.' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'dan_toad_brag',
+    order: 63203,
+    characterKey: 'dan_the_toad',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 10 },
+    timestamp: '10 minutes ago',
+    content: `@archie_miser Chaos? We CAUSED it! Speaker L's plan: Green fog chokes Legion, pipes to tunnels, Noki subs. I'm chillin' in Pianta Village pie-party. One arm salutes Speaker, not your "wondering." 😂🐸`,
+    likes: 4321,
+    comments: [
+      { characterKey: 'pianta_chef', text: 'Dan's got seconds coming!' },
+      { characterKey: 'humpik', text: 'Pie? Save me some!' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'glimmer_controversy',
+    order: 63204,
+    characterKey: 'toad_prisoner_glimmer',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 15 },
+    timestamp: '15 minutes ago',
+    content: `Archie "hoping"? While we mini-sized thru drains dodging rats? Speaker Rivers risked all—hacked FROM INSIDE, decoys, EVERYTHING. Your fireballs kill syndicates, not save toads. Grateful? Nah, suspicious. Where were YOU? 🔥❌`,
+    likes: 2890,
+    comments: [
+      { characterKey: 'archie_miser', text: 'I was wraiths-deep in Raventree! Congrats tho!' },
+      { characterKey: 'mages_guild_fan', text: 'Archie's chaos = results. Give credit.' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'creek_medic_praise',
+    order: 63205,
+    characterKey: 'creek_medic',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 20 },
+    timestamp: '20 minutes ago',
+    content: `@archie_miser All 147 accounted (mostly). Led med evac thru sewers. Speaker's genius: Weeks prepping turncoats, gases, maps. Legion lost 67. We're training in safehouses. Cheers to Speaker L—not "hope." 💉🐸`,
+    likes: 3789,
+    comments: [
+      { characterKey: 'bones_disguised', text: 'Creek saved my bacon. Speaker planned it.' },
+      { characterKey: 'ironhand_fanboy', text: 'Lies! Order 120 crushed them!' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'spud_sarcasm',
+    order: 63206,
+    characterKey: 'toad_prisoner_spud',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 25 },
+    timestamp: '25 minutes ago',
+    content: `Archie: "Hoping Legion didn't get them." Us: SLID DOWN LAUNDRY CHUTES PAST SLIPPING GUARDS IN GRAVY. Speaker Rivers = GOAT. Your post = late. But likes for concern? 🙄🐸`,
+    likes: 3124,
+    comments: [
+      { characterKey: 'toad_prisoner_gravy', text: 'Gravy was KEY weapon!' },
+      { characterKey: 'wario', text: 'Gravy profit idea!' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'rivers_official',
+    order: 63207,
+    characterKey: 'speaker_rivers',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 30 },
+    timestamp: '30 minutes ago',
+    content: `Archie, your heart's in right place. Toads: We did it together. Fog, fog was chemistry wing's gift. Tunnels? Old miner ghosts guided. Glory to EVERY toad who shrunk, ran, fought. Empire secrets exposed—Legion reels. Unity! 🗣️🐸`,
+    likes: 9012,
+    comments: [
+      { characterKey: 'archie_miser', text: 'Respect, Speaker. Details pls!' },
+      { characterKey: 'toad_prisoner_moss', text: 'Humble king!' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'fern_defense',
+    order: 63208,
+    characterKey: 'toad_prisoner_fern',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 35 },
+    timestamp: '35 minutes ago',
+    content: `Some hating on Archie—chill. He fights wraiths/mirrors while we hid in mud. Speaker orchestrated, but ALL heroes. Post sparked our reveal—now world knows! Likes up! 👍🐸`,
+    likes: 2345,
+    comments: [
+      { characterKey: 'markop', text: 'Fair. Team effort.' },
+      { characterKey: 'glimmer_toad', text: 'Still sus timing.' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'ironhand_rage',
+    order: 63209,
+    characterKey: 'general_ironhand',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 40 },
+    timestamp: '40 minutes ago',
+    content: `Toad lies! 41 recaptured, 34 dead. Archie's "hope" mocks purge. Speaker Rivers hunted. Bounties tripled. Empire endures. 🔒⚔️`,
+    likes: 123,
+    comments: [
+      { characterKey: 'toad_prisoner_echo', text: 'Lol 147 free, cope harder!' },
+      { characterKey: 'legion_fan', text: 'Purge them all!' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'ranger_chief_confirm',
+    order: 63210,
+    characterKey: 'woods_ranger_toad',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 45 },
+    timestamp: '45 minutes ago',
+    content: `@archie_miser & all: Ranger confirm 147 safe. Speaker's whisper net flawless. Archie post = catalyst for victory lap. No controversy—CELEBRATE! Caves to Kingdom, clues in hand. 🏞️🐸`,
+    likes: 4567,
+    comments: [
+      { characterKey: 'don_pianta', text: 'Party at Village!' },
+      { characterKey: 'noki_elder', text: 'Sea paths open.' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'wario_profit',
+    order: 63211,
+    characterKey: 'wario',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 50 },
+    timestamp: '50 minutes ago',
+    content: `Toads free? Waha! Archie worries, I profit. Selling "Escape Kits" w/ Mini-Mrooms. Speaker gets 10% cut. Chaos = gold! 💰🐸`,
+    likes: 1789,
+    comments: [
+      { characterKey: 'remi_fng', text: 'Add hammers next time.' },
+      { characterKey: 'humpik', text: 'Buy one!' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'oracle_mystic',
+    order: 63212,
+    characterKey: 'oracle',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 0 },
+    timestamp: '1 hour ago',
+    content: `Archie's query stirred glass: Toads rise as foreseen. Speaker wove fate, Archie punches threads. No heroes alone—controversy births legend. Eye watches... 🪞🐸`,
+    likes: 2987,
+    comments: [
+      { characterKey: 'archie_miser', text: 'Eye again? Noted.' },
+      { characterKey: 'mirror_wraith_fan', text: 'We see you too.' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
+  {
+    id: 'pianta_ally',
+    order: 63213,
+    characterKey: 'don_pianta',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 10 },
+    timestamp: '1 hour 10 min ago',
+    content: `Archie frets, toads feast here. Speaker L mastermind. No controversy—alliance grows. Chuck Legion if they come. Welcome home, escapees! 🍍🐸`,
+    likes: 5123,
+    comments: [
+      { characterKey: 'toad_prisoner_pip', text: 'Pianta pie > Legion cells!' },
+      { characterKey: 'captain_lock', text: 'Pianta harbors traitors?' }
+    ],
+    rumorId: 'archie_aegis_post'
+  },
 
     {
     id: 'aegis_riot_01_the_bread_code',

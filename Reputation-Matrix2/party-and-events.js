@@ -17,6 +17,23 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
       {
+    id: 'archie_aegis_post',
+    title: "Archie's Aegis Worry",
+    date: { day: 22, monthIndex: 6, year: 1040 },
+    isEvent: false,
+    instigator: 'archie_miser',
+    arc: 'aegis_riot',
+    arcPosition: 'aftermath',
+    description: "Archie Miser wonders aloud about the fate of 100+ escaped toads amid the chaos, hoping the Legion hasn't recaptured them. Escaped prisoners quickly correct him: 147 freed thanks to Speaker Rivers, mocking Archie's mirror-punching distractions.",
+    targets: ['archie_miser', 'toad_prisoner_moss', 'dan_the_toad'],
+    effects: {
+      toad_prisoners: 5,
+      speaker_network: 8,
+      archie_miser: -2
+    },
+    cycle_impact: { score: 0.6, label: "Escape Confirmation", type: "relief" }
+  },  
+    {
     id: 'aegis_uprising_clues',
     title: "Aegis Uprising: Clues to Chaos",
     date: { day: 21, monthIndex: 6, year: 1040 },
