@@ -39,7 +39,7 @@ export const WAHBOOK_POSTS = [
     content: `@archie_miser Chaos? We CAUSED it! Speaker L's plan: Green fog chokes Legion, pipes to tunnels, Noki subs. I'm chillin' in Pianta Village pie-party. One arm salutes Speaker, not your "wondering." 😂🐸`,
     likes: 4321,
     comments: [
-      { characterKey: 'pianta_chef', text: 'Dan's got seconds coming!' },
+      { characterKey: 'pianta_chef', text: 'Dans got seconds coming!' },
       { characterKey: 'humpik', text: 'Pie? Save me some!' }
     ],
     rumorId: 'archie_aegis_post'
@@ -54,7 +54,7 @@ export const WAHBOOK_POSTS = [
     likes: 2890,
     comments: [
       { characterKey: 'archie_miser', text: 'I was wraiths-deep in Raventree! Congrats tho!' },
-      { characterKey: 'mages_guild_fan', text: 'Archie's chaos = results. Give credit.' }
+      { characterKey: 'mages_guild_fan', text: 'Archies chaos = results. Give credit.' }
     ],
     rumorId: 'archie_aegis_post'
   },
