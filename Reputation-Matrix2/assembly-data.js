@@ -77,20 +77,20 @@ export const WAHBOOK_POSTS = [
         content: `WAH! HEY! Watch the spit! The spider missed Markop and almost ruined my hat! Poison breath is so unhygienic!`,
         likes: 312,
         comments: [
-            { characterKey: 'rodger', text: 'At least it didnt hit your mouth.' }
+            { characterKey: 'roger', text: 'At least it didnt hit your mouth.' }
         ],
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'waluigi_rodger_aim',
+        id: 'waluigi_roger_aim',
         order: 136,
         characterKey: 'waluigi',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 0 },
         timestamp: '30 minutes ago',
-        content: `Rodger fired that heavy crossbow and hit... absolutely nothing! WAH! I could throw a turnip better than that!`,
+        content: `roger fired that heavy crossbow and hit... absolutely nothing! WAH! I could throw a turnip better than that!`,
         likes: 156,
         comments: [
-            { characterKey: 'rodger', text: 'It is dark and the spider is fast!' }
+            { characterKey: 'roger', text: 'It is dark and the spider is fast!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -152,10 +152,10 @@ export const WAHBOOK_POSTS = [
         characterKey: 'waluigi',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 25 },
         timestamp: '55 minutes ago',
-        content: `Eager is rolling around like a giant beach ball! Rodger is looking for a "pressure point." Just use a pin! WAH!`,
+        content: `Eager is rolling around like a giant beach ball! roger is looking for a "pressure point." Just use a pin! WAH!`,
         likes: 230,
         comments: [
-            { characterKey: 'rodger', text: 'He is a friend, not a balloon!' }
+            { characterKey: 'roger', text: 'He is a friend, not a balloon!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -173,16 +173,16 @@ export const WAHBOOK_POSTS = [
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'waluigi_rodger_friendly_fire',
+        id: 'waluigi_roger_friendly_fire',
         order: 143,
         characterKey: 'waluigi',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 35 },
         timestamp: '1 hour ago',
-        content: `Rodger is so scared he's firing blindly! He just shot Remi! WAH-HA-HA! Remi used her last bit of magic to heal herself. What a waste!`,
+        content: `roger is so scared he's firing blindly! He just shot Remi! WAH-HA-HA! Remi used her last bit of magic to heal herself. What a waste!`,
         likes: 560,
         comments: [
             { characterKey: 'remi', text: 'I AM BLEEDING, WALUIGI.' },
-            { characterKey: 'rodger', text: 'IT WAS AN ACCIDENT!' }
+            { characterKey: 'roger', text: 'IT WAS AN ACCIDENT!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -278,15 +278,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'loot_drama'
     },
     {
-        id: 'waluigi_rodger_potion_thief',
+        id: 'waluigi_roger_potion_thief',
         order: 151,
         characterKey: 'waluigi',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 15 },
         timestamp: '2 hours ago',
-        content: `Rodger took ALL THREE healing potions! WAH! Greedier than me! He’s hogging the juice! What if I get a papercut?!`,
+        content: `roger took ALL THREE healing potions! WAH! Greedier than me! He’s hogging the juice! What if I get a papercut?!`,
         likes: 430,
         comments: [
-            { characterKey: 'rodger', text: 'I am the one getting shot by my own bolts! I need them!' }
+            { characterKey: 'roger', text: 'I am the one getting shot by my own bolts! I need them!' }
         ],
         rumorId: 'loot_drama'
     },
@@ -482,7 +482,7 @@ export const WAHBOOK_POSTS = [
         content: `My rock hit the spider and it made a "wimper" sound. Or maybe that was the wind. EITHER WAY, I AM A TITAN!`,
         likes: 54,
         comments: [
-            { characterKey: 'rodger', text: 'It definitely did zero damage.' }
+            { characterKey: 'roger', text: 'It definitely did zero damage.' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -492,7 +492,7 @@ export const WAHBOOK_POSTS = [
         characterKey: 'waluigi',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 36 },
         timestamp: 'Yesterday',
-        content: `Remi’s magic ran dry and she’s still hurting. WAH! Should have used a potion... OH WAIT, Rodger has them all!`,
+        content: `Remi’s magic ran dry and she’s still hurting. WAH! Should have used a potion... OH WAIT, roger has them all!`,
         likes: 380,
         comments: [
             { characterKey: 'remi', text: 'Thanks for the reminder...' }
@@ -547,7 +547,7 @@ export const WAHBOOK_POSTS = [
         content: `Eager got his whip back. He’s feeling better. WAH! He’s still round as a grape, though! Don't roll away!`,
         likes: 110,
         comments: [
-            { characterKey: 'rodger', text: 'He is recovering nicely.' }
+            { characterKey: 'roger', text: 'He is recovering nicely.' }
         ],
         rumorId: 'manor_return'
     },
@@ -617,15 +617,15 @@ export const WAHBOOK_POSTS = [
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'waluigi_rodger_coward',
+        id: 'waluigi_roger_coward',
         order: 177,
         characterKey: 'waluigi',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 34 },
         timestamp: 'Yesterday',
-        content: `Rodger was so scared of the spider's eyes he closed his own! WAH! That's why he hit Remi! Bravo, genius!`,
+        content: `roger was so scared of the spider's eyes he closed his own! WAH! That's why he hit Remi! Bravo, genius!`,
         likes: 410,
         comments: [
-            { characterKey: 'rodger', text: 'Those eyes were staring into my soul!' }
+            { characterKey: 'roger', text: 'Those eyes were staring into my soul!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
