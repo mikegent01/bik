@@ -1373,7 +1373,7 @@ We're on schedule.`,
     content: `Toads free? Waha! Archie worries, I profit. Selling "Escape Kits" w/ Mini-Mrooms. Speaker gets 10% cut. Chaos = gold! 💰🐸`,
     likes: 1789,
     comments: [
-      { characterKey: 'remi_fng', text: 'Add hammers next time.' },
+      { characterKey: 'remi', text: 'Add hammers next time.' },
       { characterKey: 'humpik', text: 'Buy one!' }
     ],
     rumorId: 'archie_aegis_post'
