@@ -999,14 +999,29 @@ function renderForYouFeed() {
     // Get a fresh copy of filtered posts
     let posts = [...getFilteredPosts()];
 
-    // Sort by algorithm
-    if (currentSort === 'trending') {
+    // Get seen IDs from state
+    const seenIds = state.userState?.seenPostIds || [];
+
+    // Apply Sorting
+    if (currentSort === 'unseen') {
+        posts.sort((a, b) => {
+            const aSeen = seenIds.includes(a.id);
+            const bSeen = seenIds.includes(b.id);
+            
+            // If one is seen and the other isn't, put unseen first
+            if (aSeen !== bSeen) {
+                return aSeen ? 1 : -1;
+            }
+            
+            // If both are unseen (or both seen), sort by newest date
+            return getPostTimeValue(b) - getPostTimeValue(a);
+        });
+    } else if (currentSort === 'trending') {
         posts.sort((a, b) => getTrendingScore(b) - getTrendingScore(a));
     } else if (currentSort === 'controversial') {
         posts.sort((a, b) => {
             const aComm = (a.comments || []).length;
             const bComm = (b.comments || []).length;
-            // Ratio of comments to likes (high comments + low likes = controversial)
             const aRatio = aComm / (Math.max(1, a.likes || 1));
             const bRatio = bComm / (Math.max(1, b.likes || 1));
             return bRatio - aRatio;
@@ -2288,7 +2303,19 @@ function setupEventListeners() {
             playSound('click.mp3');
         });
     });
+document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    currentPage = 1;
+
+    // Handle sounds based on selection
+    if (currentSort === 'unseen') {
+        playSound('confirm.mp3'); 
+    } else {
+        playSound('click.mp3');
+    }
     
+    renderForYouFeed();
+});
     document.querySelectorAll('.nav-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             currentTab = tab.dataset.tab;
@@ -2299,13 +2326,7 @@ function setupEventListeners() {
         });
     });
 
-    // Sort dropdown
-    document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        currentPage = 1;
-        renderForYouFeed();
-        playSound('click.mp3');
-    });
+
 
     // Search
     const searchInput = document.getElementById('global-search');
