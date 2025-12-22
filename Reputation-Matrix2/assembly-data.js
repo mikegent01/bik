@@ -116,7 +116,7 @@ export const WAHBOOK_POSTS = [
         content: `FNG finally woke up! She’s poking the giant spider with a fruit knife. WAH! That’s like trying to stop a train with a toothpick!`,
         likes: 88,
         comments: [
-            { characterKey: 'fng', text: 'I am trying my best!' }
+            { characterKey: 'remi', text: 'I am trying my best!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -403,7 +403,7 @@ export const WAHBOOK_POSTS = [
         content: `FNG hit the spider, realized it did nothing, and ran away. Smartest thing she’s done all day. WAH-HA!`,
         likes: 67,
         comments: [
-            { characterKey: 'fng', text: 'Strategic repositioning!' }
+            { characterKey: 'remi', text: 'Strategic repositioning!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -638,7 +638,7 @@ export const WAHBOOK_POSTS = [
         content: `Markop stepped on the minispider terrorizing FNG. CRUNCH! WAH! One down, about ten million to go!`,
         likes: 128,
         comments: [
-            { characterKey: 'fng', text: 'I am grateful, even if Waluigi isnt.' }
+            { characterKey: 'remi', text: 'I am grateful, even if Waluigi isnt.' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -6390,7 +6390,7 @@ We are NOT done yet.`,
     {
         id: 'toad_rest_song',
         order: 31016,
-        characterKey: 'fng_toad',
+        characterKey: 'remi_toad',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 20, minute: 45 },
         timestamp: '2 hours 30 minutes ago',
         content: `We are tired... but the song keeps us going. Just a little nap. 🎶 We are the Toads... zzz... 🎶`,
