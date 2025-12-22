@@ -500,31 +500,45 @@ export const MAJOR_BATTLES = [
         tacticalNotes: "Kremling assassins favor poison-tipped weaponry.",
         participatingCharacters: ['donkey_kong', 'funky_kong']
     },
-    {
-        id: 'skirmish_silent_grove',
-        name: "Ambush in the Silent Grove",
-        conflict: "Raventree Manor Crisis",
-        arc: 'raventree_manor',
-        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 30 },
-        location: "Raventree Manor, Hedge Maze & Grove",
-        belligerents: {
-            side_a: { name: "Rescue Party", factions: ['liberated_toads'] },
-            side_b: { name: "The Web-Weaver", factions: ['unaligned'] }
-        },
-        commanders: { side_a: ["Markop (Titan Form)", "Remi"], side_b: ["Arachnid Matriarch"] },
-        outcome: "ongoing",
-        outcomeDetail: "Markop transformed to giant size. Vigilance ignored battle. Squad scattered.",
-        casualties: { 
-            side_a: "Remi's Dog damaged, Smoking J poisoned, Toad squad lost in fountain area", 
-            side_b: "Multiple lesser spiders killed" 
-        },
-        strategicValue: "critical",
-        description: `<p>A desperate rescue mission descended into chaos in the web-choked grove. While Remi and her mechanical hound held off the initial assault—resulting in damage to the construct—the Toad squad splintered. 'Smoking J' took a venomous bite while trying to flank, and Salem's unit became disoriented and lost in a pitch-black, flooded fountain district.</p>
-        <p>The tide turned when the Oracle appeared, casting a blinding illumination spell while Waluigi cleared a path with ice magic. In a desperate gamble, Markop accepted a cryptic blessing from the Oracle, instantly growing to colossal proportions (5x size) to grapple with the Arachnid Matriarch on equal footing.</p>
-        <p><strong>The Airship Incident:</strong> Amidst the clash of titans—and Eager blindly firing pepper spray while trapped in his own enlarged form—the hijacked airship 'Vigilance' roared overhead. Blasting Iron Legion propaganda songs, it completely ignored the plight of its former crew, flying straight toward the manor proper.</p>`,
-        tacticalNotes: "The Oracle's blessings grant immense power but likely carry a heavy price. Giant combatants require wide engagement zones.",
-        participatingCharacters: ['markop', 'remi', 'waluigi', 'eager', 'oracle']
-    },
+{
+  id: 'skirmish_silent_grove',
+  name: "The Silent Grove Purged",
+  conflict: "Raventree Manor Crisis",
+  arc: 'raventree_manor',
+  date: { year: 1040, monthIndex: 6, day: 21, hour: 0, minute: 0 },
+  location: "Raventree Manor, Silent Grove & Hedge Maze",
+  belligerents: {
+    side_a: { name: "Rescue Party", factions: ['liberated_toads'] },
+    side_b: { name: "The Web-Weaver's Brood", factions: ['unaligned'] }
+  },
+  commanders: { 
+    side_a: ["Markop (Titan Form)", "Remi", "The Oracle"], 
+    side_b: ["Arachnid Matriarch"] 
+  },
+  outcome: "decisive_victory_a",
+  outcomeDetail: "The Arachnid Matriarch was banished through the Oracle's ritual circle. The Silent Grove is now navigable.",
+  casualties: {
+    side_a: "Remi critically wounded and unconscious, Smoking J poisoned, Remi's mechanical hound damaged, party exhausted",
+    side_b: "Arachnid Matriarch banished, entire spider brood eliminated"
+  },
+  strategicValue: "critical",
+  description: `<p>The rescue mission to recover Eager from the web-choked grove culminated in a desperate final battle. Remi, depleted of mana and swarmed by minispiders, fell unconscious with defiance on her lips: "If I'm going down, I'm going down swinging." Meanwhile, Markop—still colossal from the Oracle's blessing—was tackled and webbed by the Arachnid Matriarch, locked in a titanic grapple.</p>
+  
+  <p><strong>The Flanking Maneuver:</strong> Toad Squad Alpha, having navigated the pitch-black flooded fountain district, emerged at a critical moment. Salem led his squad forward with torchlight, landing a devastating crossbow bolt directly into the Matriarch's eye. Smoking J, despite his venom-induced fear of the darkness, rallied with his comrades.</p>
+  
+  <p><strong>The Deadlock:</strong> Spider and giant toad locked claws, neither giving ground. The Matriarch spat poison breath, catching Waluigi in the crossfire. Waluigi retaliated with an arcane weakening ray, allowing Markop to push the creature back through the hedges. During the chaos, Rodger rushed to aid Eager, discovering a pressure point marked with a giant 'X' on his inflated form.</p>
+  
+  <p><strong>The Banishment:</strong> The Oracle had been preparing throughout the battle, drawing a chalk circle and setting candles. When the Matriarch leaped down for a killing blow, Markop sidestepped—and the spider crashed directly into the ritual circle. The arcane trap activated, consuming the creature in blinding light and banishing it from existence. Mossy's final bite and a toad's pistol shot had weakened it just enough.</p>
+  
+  <p>In the aftermath, the party claimed the Matriarch's hoard: a War Mage's Staff, Web-Woven Scale armor, and three healing potions. The toads sang victory songs as they tended their wounded.</p>`,
+  tacticalNotes: "The Oracle's banishment circles require preparation time but can instantly remove even massive threats. Flanking maneuvers in low-visibility environments require strong leadership. Giant combatants create chaos that can be exploited by either side.",
+  loot: [
+    { name: "War Mage's Staff", claimedBy: "Markop (for Archie)" },
+    { name: "Web-Woven Scale Armor", claimedBy: "Remi", description: "Armor twisted by the grove's magic, infused with supernatural web properties" },
+    { name: "Healing Potions (x3)", claimedBy: "Rodger" }
+  ],
+  participatingCharacters: ['markop', 'remi', 'waluigi', 'eager', 'oracle', 'rodger', 'mossy', 'salem', 'smoking_j', 'perot']
+},
     {
         id: 'skirmish_dance_hall',
         name: "The Dance Hall Discord",

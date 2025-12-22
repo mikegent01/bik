@@ -994,191 +994,227 @@ export const HUMPIK_QUESTS = {
 };
 
 export const ARCHIE_QUESTS = {
-'archie_fugitive_of_the_accords': {
-    id: 'archie_fugitive_of_the_accords',
-    title: "Fugitive of the Accords",
-    subtitle: "Ice Over Fire",
-    type: QUEST_TYPES.PERSONAL,
-    category: 'Personal - Archie',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.CRITICAL,
-    arcId: 'raventree_manor',
-    objective: "Complete the Oracle's ritual in the Summoning Room while maintaining the Mages' Guild's provisional approval.",
-    assignees: ['archie'],
-    primaryAssignee: 'archie',
-    difficulty: { 
-        overall: DIFFICULTY.DEADLY, 
-        magic: DIFFICULTY.HARD, 
-        control: DIFFICULTY.CRITICAL,
-        social: DIFFICULTY.MODERATE
-    },
-    tags: ['survival', 'law', 'magic', 'redemption', 'ritual', 'ice-magic', 'wraith'],
-    dates: { 
-        added: { year: 1040, monthIndex: 6, day: 20 }, 
-        updated: { year: 1040, monthIndex: 6, day: 21 },
-        deadline: { year: 1040, monthIndex: 6, day: 25 }
-    },
-    
-    description: "Archie has successfully hunted the Arcane Wraith, proving his versatility by utilizing Ice magic instead of his forbidden Fireball. Despite a rocky start (melting icicles), he landed a decisive freeze that allowed the Oracle to banish the entity. He has collected valuable ectoplasm and is currently in good standing with his provisional Guild license, despite the heckling of Senior Mage Pernus Annmatar. Now, he must assist the Oracle in the final separation ritual in the Summoning Room without losing control or succumbing to the manor's chaos.",
-
-    loreEntries: ['autumnwood_accords', 'cryomancy_basics', 'guild_membership_protocols', 'ectoplasm_harvesting', 'raventree_manor_history', 'temporal_magic'],
-
-    consequences: {
-        success: "Archie solidifies his status as a legitimate mage, earning a permanent Guild license and proving his discipline.",
-        failure: "Archie loses control during the ritual, causing a magical catastrophe and immediate revocation of his license and freedom.",
-        partial: "The ritual succeeds, but Archie is arrested immediately after by the waiting Legion or Guild enforcers."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'item', name: "Wraith Ectoplasm", description: "Potent magical reagent harvested from the banished entity" },
-            { type: 'item', name: "Provisional Guild Card", description: "Currently Active - Validated by combat performance" },
-            { type: 'reputation', faction: 'mages_guild', amount: 150, description: "Demonstrated ice magic competency" }
-        ],
-        conditional: [
-            { condition: "Finish the ritual without Fireball", reward: { type: 'feat', name: "Archie's Patience", description: "Bonus to ice magic control and mental fortitude checks" }},
-            { condition: "Humiliate Pernus Annmatar", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 300, description: "Made a mockery of the establishment" }},
-            { condition: "Perfect ritual execution", reward: { type: 'item', name: "Full Guild License", description: "Permanent Mages' Guild membership" }},
-            { condition: "Assist Oracle successfully", reward: { type: 'ally', name: "The Oracle's Favor", description: "Cryptic assistance in future temporal matters" }}
-        ],
-        xp: 6500,
-        gold: { min: 500, max: 1200 }
-    },
-
-    milestones: [
-        { 
-            id: 'm1', 
-            status: 'completed', 
-            title: "The Confession", 
-            description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
-            completedDate: { year: 1040, monthIndex: 6, day: 20 },
-            outcomes: [
-                "Public admission to the Greenhouse Inferno",
-                "Gained viral social media attention",
-                "Triggered Mages' Guild investigation"
-            ]
+    'archie_fugitive_of_the_accords': {
+        id: 'archie_fugitive_of_the_accords',
+        title: "Fugitive of the Accords",
+        subtitle: "The Bearer's Circle",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - Archie',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Channel energy for the Oracle's ritual while maintaining ice discipline. The War Mage's Staff awaits. The Oracles are multiple. The separation approaches.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        difficulty: { 
+            overall: DIFFICULTY.DEADLY, 
+            magic: DIFFICULTY.HARD, 
+            control: DIFFICULTY.CRITICAL,
+            social: DIFFICULTY.MODERATE
         },
-        {
-            id: 'm2', 
-            status: 'completed', 
-            title: "The Solarium Test",
-            description: "Archie did NOT cast Fireball. He threw a twig. The Guild noticed. He has been issued a provisional license.",
-            completedDate: { year: 1040, monthIndex: 6, day: 20 },
-            outcomes: [
-                "Demonstrated restraint under pressure",
-                "Earned provisional Guild approval",
-                "Avoided immediate arrest"
-            ]
+        tags: ['survival', 'law', 'magic', 'redemption', 'ritual', 'ice-magic', 'wraith', 'oracle', 'bearer'],
+        dates: { 
+            added: { year: 1040, monthIndex: 6, day: 20 }, 
+            updated: { year: 1040, monthIndex: 6, day: 21 },
+            deadline: { year: 1040, monthIndex: 6, day: 22 }
         },
-        {
-            id: 'm3',
-            status: 'completed',
-            title: "The Wraith Slayer",
-            description: "Defeated the Arcane Wraith using Ice magic. Collected the remains. Proved he is not a 'one-trick pony' to the watching Mages.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 },
-            outcomes: [
-                "Used Ice Beam successfully",
-                "Harvested Ectoplasm",
-                "Resisted baiting by Pernus Annmatar",
-                "Demonstrated magical versatility",
-                "Aided the Oracle in banishment"
-            ]
+        
+        description: "Archie Miser has proven himself.\n\nThe Arcane Wraith fell to ice, not fire. The ectoplasm is in his jar. The provisional Guild license remains valid. And now, Markop has handed him the War Mage's Staff—a proper magical focus recovered from the Arachnid Matriarch's hoard in the Silent Grove.\n\nBut the night has brought revelations that dwarf personal vindication.\n\nReturning to Raventree Manor after the Spider Grove battle, the party witnessed something that broke their understanding of the Oracle: there are multiple Oracles. At least two were seen simultaneously—one leading the rescue party back from the grove, another already in conversation with Archie and Hjumpik inside the Upper House.\n\nWhen confronted, one Oracle produced a crystalline artifact—a 'Star Shard'—and declared himself a 'Bearer,' a title connected to the Toad God himself. The implications are staggering. The Oracle is not merely a chronomancer. He may be a divine instrument. Or multiple divine instruments. Or fragments of one shattered across time.\n\nThe ritual is imminent. 'No pauses once we enter. Hesitation desynchronizes intent.' The Oracle's words echo. Archie must channel vast energies through his new staff while maintaining the ice discipline that earned him Guild respect. Pernus Annmatar is still watching. The Iron Legion is still waiting. And somewhere in the ritual circle, the truth about the Bearer title will be revealed.\n\nThe War Mage's Staff hums with potential. For the first time, Archie has a focus worthy of his power. The question is whether he has the wisdom to use it correctly.",
+
+        loreEntries: ['autumnwood_accords', 'cryomancy_basics', 'guild_membership_protocols', 'ectoplasm_harvesting', 'raventree_manor_history', 'temporal_magic', 'toad_god_mythology', 'star_shard_properties', 'bearer_protocols'],
+
+        consequences: {
+            success: "Archie channels energy flawlessly through the War Mage's Staff. The ritual succeeds. The Guild grants a permanent license. The Oracle(s) recognize him as a valuable ally.",
+            failure: "Archie loses control during the ritual, causing a magical catastrophe. The Staff is destroyed. Immediate revocation of license and freedom. The timelines collapse.",
+            partial: "The ritual succeeds, but Archie's contribution is flawed. The Star Shard's power compensates. Archie earns grudging respect but not full acceptance.",
+            fire_relapse: "Archie uses fire during the ritual. It works perfectly. The Guild excommunicates him on the spot. Worth it? Only time will tell."
         },
-        {
-            id: 'm4',
-            status: 'active',
-            title: "The Summoning Room",
-            description: "Assist the Oracle in the final separation ritual. The energies required are vast, and the 'Audience' is watching.",
-            goals: [
-                { text: "Channel energy for the Oracle", status: 'active', priority: 'critical' },
-                { text: "Maintain magical discipline (No Fire)", status: 'active', priority: 'critical' },
-                { text: "Ensure the timeline separates cleanly", status: 'pending', priority: 'high' },
-                { text: "Avoid provocations from Pernus Annmatar", status: 'active', priority: 'medium' },
-                { text: "Protect the ritual from Iron Legion interference", status: 'pending', priority: 'high' }
+
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "War Mage's Staff", description: "Gifted by Markop. Quality magical focus with strong arcane resonance. Archie's first proper channeling tool." },
+                { type: 'item', name: "Wraith Ectoplasm", description: "Potent magical reagent harvested from the banished entity" },
+                { type: 'item', name: "Provisional Guild Card", description: "Currently Active - Validated by Wraith combat performance" },
+                { type: 'reputation', faction: 'mages_guild', amount: 150, description: "Demonstrated ice magic competency against Arcane Wraith" }
             ],
-            choices: [
-                {
-                    id: 'ritual_approach',
-                    title: "Magical Contribution Method",
-                    description: "How will Archie channel his power during the separation ritual?",
-                    options: [
-                        {
-                            id: 'ice_anchor',
-                            name: "Ice Anchor",
-                            description: "Use cryomancy to stabilize the temporal energies. Safe and Guild-approved, but requires precise control.",
-                            requirements: ["High Arcana check", "No fire magic"],
-                            consequences: { 
-                                success: "Perfect execution, full Guild license granted", 
-                                failure: "Ritual destabilizes, partial success only" 
-                            }
-                        },
-                        {
-                            id: 'third_eye_focus',
-                            name: "Third Eye Amplification",
-                            description: "Channel the unique power of the Third Eye to boost the ritual. Risky, unpredictable, but potentially legendary.",
-                            requirements: ["Embrace the Third Eye's nature", "Accept unknown consequences"],
-                            consequences: { 
-                                success: "Ritual supercharged, Oracle's gratitude, mysterious new power", 
-                                failure: "Third Eye attracts unwanted attention, dimensional breach" 
-                            }
-                        },
-                        {
-                            id: 'controlled_burn',
-                            name: "Controlled Fireball (Forbidden)",
-                            description: "Use the power that works best. Break the Guild's trust but guarantee success.",
-                            requirements: ["Abandon Guild approval", "Accept outlaw status"],
-                            consequences: { 
-                                success: "Ritual succeeds perfectly, immediate Guild excommunication and arrest warrant", 
-                                failure: "Catastrophic explosion, everyone dies" 
-                            }
-                        }
-                    ]
-                },
-                {
-                    id: 'pernus_response',
-                    title: "Dealing with the Heckler",
-                    description: "Senior Mage Pernus Annmatar continues to provoke. How does Archie respond?",
-                    options: [
-                        {
-                            id: 'ignore',
-                            name: "Professional Silence",
-                            description: "Ignore the provocations completely. Focus on the ritual.",
-                            consequences: { success: "Guild approves of maturity", failure: "Pernus escalates interference" }
-                        },
-                        {
-                            id: 'verbal_spar',
-                            name: "Witty Retort",
-                            description: "Match wits with the pompous mage. Show intelligence, not fire.",
-                            requirements: ["High Charisma/Intelligence check"],
-                            consequences: { success: "Pernus humiliated, crowd loves it", failure: "Lose focus, ritual suffers" }
-                        },
-                        {
-                            id: 'ice_his_feet',
-                            name: "Freeze His Feet to the Floor",
-                            description: "Non-lethal, humiliating, and technically Guild-legal.",
-                            requirements: ["Subtle spellcasting"],
-                            consequences: { success: "Pernus silenced, comedic gold", failure: "Assault charges filed" }
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
+            conditional: [
+                { condition: "Complete the ritual using only ice magic through the Staff", reward: { type: 'feat', name: "Archie's Discipline", description: "Permanent +2 to ice magic control and focus checks" }},
+                { condition: "Channel the Star Shard's energy successfully", reward: { type: 'boon', name: "Bearer's Blessing", description: "Minor divine favor from the Toad God—once per day, stabilize a failing spell" }},
+                { condition: "Humiliate Pernus Annmatar during the ritual", reward: { type: 'reputation', faction: 'cosmic_jesters', amount: 300, description: "Made a mockery of the establishment at the worst possible moment" }},
+                { condition: "Perfect ritual execution with new Staff", reward: { type: 'item', name: "Full Guild License", description: "Permanent Mages' Guild membership—all warrants suspended" }},
+                { condition: "Impress the Oracle(s) with magical contribution", reward: { type: 'ally', name: "The Bearer's Recognition", description: "The Oracle(s) consider Archie worthy of deeper temporal secrets" }}
+            ],
+            xp: 7500,
+            gold: { min: 500, max: 1200 }
+        },
 
-    npcs: { 
-        allies: ['self_reflection_oracle', 'bowser', 'dan'],
-        enemies: ['pernus_annmatar', 'iron_legion_spy', 'marcus_ironhand'], 
-        keyNpcs: ['self_reflection_oracle', 'senior_magus', 'pernus_annmatar'],
-        neutral: ['mages_guild_observers']
+        milestones: [
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Confession", 
+                description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 },
+                outcomes: [
+                    "Public admission to the Greenhouse Inferno",
+                    "Gained viral social media attention",
+                    "Triggered Mages' Guild investigation"
+                ]
+            },
+            {
+                id: 'm2', 
+                status: 'completed', 
+                title: "The Solarium Test",
+                description: "Archie did NOT cast Fireball. He threw a twig. The Guild noticed. He has been issued a provisional license.",
+                completedDate: { year: 1040, monthIndex: 6, day: 20 },
+                outcomes: [
+                    "Demonstrated restraint under pressure",
+                    "Earned provisional Guild approval",
+                    "Avoided immediate arrest"
+                ]
+            },
+            {
+                id: 'm3',
+                status: 'completed',
+                title: "The Wraith Slayer",
+                description: "Defeated the Arcane Wraith using Ice magic. Collected the remains. Proved he is not a 'one-trick pony' to the watching Mages. The temperature drop gave the Oracle the opening needed for banishment.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Used Ice Beam successfully in combat",
+                    "Harvested Ectoplasm for future use",
+                    "Resisted baiting by Pernus Annmatar",
+                    "Demonstrated magical versatility",
+                    "Aided the Oracle in final banishment",
+                    "Earned grudging Mages' Guild respect"
+                ]
+            },
+            {
+                id: 'm4',
+                status: 'completed',
+                title: "The War Mage's Gift",
+                description: "Markop returned from the Silent Grove battle carrying the spoils of victory. Without hesitation, he handed Archie the War Mage's Staff recovered from the Arachnid Matriarch's hoard. 'You've earned it,' he said. For the first time, Archie holds a focus worthy of his power.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Received War Mage's Staff from Markop",
+                    "First proper magical focus acquired",
+                    "Party recognition of magical growth",
+                    "Staff resonance with ice magic confirmed"
+                ]
+            },
+            {
+                id: 'm5',
+                status: 'completed',
+                title: "The Many Oracles",
+                description: "Returning to the Upper House, Archie witnessed the impossible: multiple Oracles existing simultaneously. One had been speaking with him and Hjumpik. Another led the rescue party back from the grove. When questioned, an Oracle revealed a 'Star Shard'—a crystalline gift from the Toad God—and declared himself a 'Bearer.' The ritual preparations began immediately.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Confirmed multiple Oracles exist",
+                    "Witnessed Star Shard artifact",
+                    "Learned of 'Bearer' title",
+                    "Toad God connection revealed",
+                    "Ritual preparations underway"
+                ]
+            },
+            {
+                id: 'm6',
+                status: 'active',
+                title: "The Separation Ritual",
+                description: "The Oracle insists there can be no hesitation. 'Hesitation desynchronizes intent.' The ritual to separate the bleeding timelines requires vast energy channeled through willing participants. Archie has a new Staff. He has proven his ice discipline. Now he must prove he can be part of something greater than himself.",
+                goals: [
+                    { text: "Channel energy through the War Mage's Staff", status: 'active', priority: 'critical' },
+                    { text: "Maintain ice discipline (NO FIRE)", status: 'active', priority: 'critical' },
+                    { text: "Synchronize with the Oracle's timing", status: 'active', priority: 'critical' },
+                    { text: "Hold position when reality destabilizes", status: 'pending', priority: 'high' },
+                    { text: "Avoid Pernus Annmatar's provocations", status: 'active', priority: 'medium' },
+                    { text: "Protect the ritual from Legion interference", status: 'pending', priority: 'high' },
+                    { text: "Understand the Star Shard's role", status: 'active', priority: 'medium' }
+                ],
+                choices: [
+                    {
+                        id: 'staff_channeling',
+                        title: "War Mage's Staff Technique",
+                        description: "The new Staff responds to Archie's touch. How will he channel power through it?",
+                        options: [
+                            {
+                                id: 'ice_conduit',
+                                name: "Frozen Conduit",
+                                description: "Channel pure cryomantic energy. The Staff's resonance with ice magic makes this the safest option. Maximum control, moderate power.",
+                                requirements: ["High Arcana check", "No fire magic"],
+                                consequences: { 
+                                    success: "Perfect execution, full Guild license, Staff attunement complete", 
+                                    failure: "Staff resonance wavers, ritual contribution reduced" 
+                                }
+                            },
+                            {
+                                id: 'dual_element',
+                                name: "Balanced Elements",
+                                description: "Channel both ice and fire through the Staff, keeping them in perfect opposition. Extremely dangerous, but theoretically ideal for a 'separation' ritual.",
+                                requirements: ["Legendary Arcana check", "Perfect emotional control", "Guild violation"],
+                                consequences: { 
+                                    success: "Ritual supercharged, Staff permanently enhanced, theoretical breakthrough achieved", 
+                                    failure: "Elements collide inside the Staff, catastrophic feedback" 
+                                }
+                            },
+                            {
+                                id: 'star_shard_sync',
+                                name: "Bearer's Harmony",
+                                description: "Attempt to synchronize the Staff with the Oracle's Star Shard. Unknown interaction. Potentially divine.",
+                                requirements: ["Oracle's permission", "Faith in the Toad God (or willingness to fake it)"],
+                                consequences: { 
+                                    success: "Staff infused with Star Shard energy, Bearer recognition, divine boon", 
+                                    failure: "Shard rejects unworthy channeler, magical backlash" 
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        id: 'pernus_final',
+                        title: "The Heckler's Last Chance",
+                        description: "Pernus Annmatar will be watching the ritual. He will comment. He will judge. This is his final opportunity to undermine Archie—and Archie's final opportunity to silence him.",
+                        options: [
+                            {
+                                id: 'ignore_completely',
+                                name: "Professional Excellence",
+                                description: "The best revenge is success. Let the ritual speak for itself.",
+                                consequences: { success: "Guild approves of maturity and focus", failure: "Pernus claims credit for 'supervision'" }
+                            },
+                            {
+                                id: 'perfect_timing',
+                                name: "The Perfect Moment",
+                                description: "Wait for Pernus to interrupt at the worst possible time, then redirect his energy into the ritual against his will.",
+                                requirements: ["Timing check", "Arcane manipulation"],
+                                consequences: { success: "Pernus becomes an unwilling power source, humiliated utterly", failure: "Ritual disrupted, both blamed" }
+                            },
+                            {
+                                id: 'ice_mic_drop',
+                                name: "Frozen Finale",
+                                description: "At the moment of ritual completion, create an ice sculpture of Pernus in an embarrassing pose. Non-lethal. Devastating.",
+                                requirements: ["Spare concentration during ritual climax"],
+                                consequences: { success: "Legend status among junior mages, Pernus's dignity destroyed", failure: "Concentration split, ritual quality suffers" }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+
+        npcs: { 
+            allies: ['self_reflection_oracle', 'bowser', 'dan', 'markop', 'hjumpik'],
+            enemies: ['pernus_annmatar', 'iron_legion_spy', 'marcus_ironhand'], 
+            keyNpcs: ['self_reflection_oracle', 'senior_magus', 'pernus_annmatar'],
+            neutral: ['mages_guild_observers'],
+            new_revelations: ['multiple_oracles', 'star_shard_bearer']
+        },
+
+        locations: {
+            primary: 'upper_house',
+            ritual: 'summoning_room',
+            related: ['raventree_manor_ruined_hall', 'raventree_manor_solarium', 'raventree_manor_dance_hall', 'silent_grove']
+        },
+
+        relatedQuests: ['raventree_manor_mysteries', 'vigilance_fallen', 'the_oracle_paradox', 'artifacts_of_balance', 'main_quest_raventree']
     },
 
-    locations: {
-        primary: 'raventree_manor_summoning_room',
-        related: ['raventree_manor_ruined_hall', 'raventree_manor_solarium', 'raventree_manor_dance_hall']
-    },
-
-    relatedQuests: ['raventree_manor_mysteries', 'vigilance_fallen', 'the_oracle_paradox']
-},
     'archie_god_toad_hunt': {
         id: 'archie_god_toad_hunt',
         title: "An Audience with a God",
@@ -1882,6 +1918,635 @@ export const WORLD_QUESTS = {
 };
         
 export const MAIN_QUESTS = {
+  'artifacts_of_balance': {
+        id: 'artifacts_of_balance',
+        title: "The Artifacts of Balance",
+        subtitle: "The Bearer's Ritual",
+        type: QUEST_TYPES.MAIN,
+        category: 'Main Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Complete the separation ritual in the Upper House. The Oracles are many. The Star Shard glows. The timelines must be severed before they collapse into each other forever.",
+        assignees: ['party', 'self_reflection_oracle'],
+        primaryAssignee: 'party',
+        difficulty: {
+            overall: DIFFICULTY.DEADLY,
+            combat: DIFFICULTY.HARD,
+            puzzle: DIFFICULTY.DEADLY,
+            magic: DIFFICULTY.EXTREME,
+            social: DIFFICULTY.HARD,
+            theological: DIFFICULTY.UNKNOWN
+        },
+        tags: ['supernatural', 'time', 'demons', 'ritual', 'boss-rush', 'faction-convergence', 'divine', 'bearer', 'oracle-plural'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 19 },
+            updated: { year: 1040, monthIndex: 6, day: 21 }
+        },
+
+        description: "The anchors are broken. The path is clear. But nothing is simple in Raventree Manor.\n\nThree threats bound the bleeding timelines. Three fell.\n\nThe first anchor shattered when Archie's fireball birthed God Toad in the Greenhouse Inferno—a Star Fragment ascending through shattered glass in a spiral of divine light. The second anchor was spared: Humpik allowed the Mirror Terror to live within its containment, weakening but not breaking the curse. The third anchor died screaming as the Arcane Wraith was banished through the combined efforts of Bowser's fists, Dan's axes, Archie's ice, and the Oracle's word of power.\n\nBut the night held one final revelation.\n\nIn the Silent Grove, the party faced the Arachnid Matriarch. Markop grew to titan size through the Oracle's blessing. Salem landed a crossbow bolt through the spider's eye. Remi fell to minispider swarms but survived. Waluigi weakened the creature with arcane rays. And when the Matriarch crashed into the Oracle's banishment circle, it was consumed by light and erased from existence.\n\nThe party returned to Raventree Manor bearing spoils: a War Mage's Staff for Archie, Web-Woven Scale armor for Remi, healing potions for Rodger. Eager was stabilized. The Silent Grove was cleared.\n\nAnd then they saw the impossible.\n\nTwo Oracles. Simultaneously. One had led them back from the grove. One was already inside, speaking with Archie and Hjumpik. When confronted, an Oracle produced a crystalline artifact—a 'Star Shard'—and named himself a 'Bearer.' A title connected to the Toad God. A title that suggests the Oracle is not a chronomancer. He is something far stranger.\n\n*'No pauses once we enter. Hesitation desynchronizes intent.'*\n\nThe ritual begins. The party must hold positions while reality tears itself apart. The Iron Legion watches from the shadows. The Mages' Guild watches from the doorways. Humpik carries a secret deal. Green T is still missing. And the Oracle—the Oracles—stand at the center of a circle drawn in chalk and starlight.\n\nThe Toad God's instrument plays its final note.",
+
+        loreEntries: ['raventree_curse_origin', 'timeline_bleeding', 'demon_taxonomy', 'pernus_annmatar', 'the_great_sealing', 'toad_god_mythology', 'star_shard_properties', 'bearer_lineage', 'oracle_multiplicity'],
+
+        consequences: {
+            success: "The timelines separate cleanly. The Manor stabilizes into haunted ruins—memory without malice. The Oracle(s) survive. The Star Shard's power is spent or transformed. The Bearer's duty is fulfilled.",
+            partial_mercy: "With the Mirror Terror spared, the separation is incomplete. The Manor stabilizes, but dimensional bleeds will occur for decades. Something will eventually crawl through the cracks Humpik left open.",
+            partial_betrayal: "The ritual succeeds, but Humpik honors his pact. The Oracle is handed to the Iron Legion in chains. The Bearer becomes a prisoner. The Star Shard becomes a weapon. The Toads lose a chronomancer; Humpik gains leverage for the prisoners at Aegis Command.",
+            oracle_death: "One or more Oracles fall during the ritual. The Star Shard shatters. The timelines separate violently. Survivors are scattered across moments. Some land in the present. Some do not.",
+            failure: "The ritual is interrupted at the critical moment. The timelines collapse inward. Everyone in the Upper House is either erased from history or trapped in a loop that repeats forever. The Manor becomes a permanent wound in reality."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent reagent for binding or dispelling spirits." },
+                { type: 'item', name: "War Mage's Staff", description: "Recovered from the Arachnid Matriarch. Given to Archie by Markop." },
+                { type: 'item', name: "Web-Woven Scale Armor", description: "Claimed by Remi. Corrupted by grove magic. Properties unknown." },
+                { type: 'trait', name: "Anchor Breakers", description: "All party members gain +2 to saves vs. temporal and dimensional effects." },
+                { type: 'knowledge', name: "Bearer Theology", description: "Understanding of the Toad God's instruments and the Star Shard's nature." }
+            ],
+            conditional: [
+                { 
+                    condition: "Complete the ritual without Legion interference", 
+                    reward: { type: 'artifact', name: "Shard of Stabilized Time", description: "A crystal containing a moment of perfect stillness. Can freeze a single action once per day." }
+                },
+                { 
+                    condition: "Humpik delivers the Oracle to the Legion", 
+                    reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for prisoner release—including Bones and Creek at Aegis Command." }
+                },
+                { 
+                    condition: "Defy the Legion and protect the Oracle(s)", 
+                    reward: { type: 'ally', name: "The Bearer (Unbound)", description: "A divine chronomancer with knowledge of the Manor's secrets, the Dragon Conspiracy, and the Toad God's plans." }
+                },
+                { 
+                    condition: "Archie channels through the War Mage's Staff successfully", 
+                    reward: { type: 'attunement', name: "Staff Mastery", description: "The Staff recognizes Archie as its true wielder. Permanent +1 to all spells cast through it." }
+                },
+                {
+                    condition: "Understand the Oracle multiplicity",
+                    reward: { type: 'knowledge', name: "The Bearer Paradox", description: "Insight into how one entity can exist as many. Potential temporal manipulation applications." }
+                },
+                {
+                    condition: "Witness the Star Shard's activation",
+                    reward: { type: 'boon', name: "Toad God's Notice", description: "The divine has seen you. Future interactions with Toad religious figures will be... different." }
+                }
+            ],
+            xp: 12000,
+            gold: { min: 0, max: 0, note: "The Manor takes. It does not give. But it teaches." }
+        },
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Star Ascendant",
+                description: "The Greenhouse Inferno was not a disaster—it was a catalyst. Archie's fireball ignited the latent Star Fragment within. God Toad was born in the flames, ascending through the shattered glass in a spiral of divine light. The first anchor snapped. The timeline shuddered. The Toad God's newest instrument rose into the sky.",
+                completedDate: { year: 1040, monthIndex: 6, day: 17 },
+                outcomes: [
+                    "First anchor destroyed",
+                    "God Toad created and ascended (location unknown)",
+                    "Greenhouse reduced to ash",
+                    "Green T received a mysterious key from the Oracle",
+                    "Star Fragment energy released into the world"
+                ]
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Mirror Terror",
+                description: "The Shard Stalker emerged from the shattered mirrors of the Solarium—a thing of reflected malice and stolen faces. Humpik faced it alone in the Mirror Dimension after being pulled through the glass. He fought his own doppelganger. He won.\n\nAnd then, instead of destroying the creature, he spared it.\n\nThe Legion spy who aided his escape approved. The Oracle noted the decision with something that might have been disappointment. The Terror is contained, not destroyed. The second anchor bends but does not break. The mercy was calculated. The consequences are deferred.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Second anchor contained (not destroyed)",
+                    "Mirror Terror imprisoned in the Solarium",
+                    "Humpik received Legion thieves' tools",
+                    "Residual dimensional instability confirmed",
+                    "Humpik's deal with the Legion advanced"
+                ]
+            },
+            {
+                id: 'm3',
+                status: 'completed',
+                title: "The Arcane Wraith",
+                description: "It came howling through the lower levels—a knot of screaming magic and ancient grudge. The party fought anyway.\n\nBowser charged the ghost. Physically. With his fists. Dan, still learning to compensate for his missing arm, proved his adaptation with thrown handaxes. Archie chose ice over fire, dropping the ambient temperature enough to slow the entity.\n\nPernus Annmatar watched from the doorway, offering critique. He briefly possessed Bowser. Bowser responded by tripping him. The mage's red underwear was observed by multiple witnesses.\n\nThe Legion spies tried to steal the kill with a crossbow shot. They missed. The Oracle stepped forward and banished the weakened wraith with a word that made everyone's ears ring.\n\nArchie scraped the ectoplasm into a jar. The third anchor shattered.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Third anchor destroyed",
+                    "Wraith banished by the Oracle",
+                    "Bowser overcame ghost phobia through violence",
+                    "Dan proved one-armed combat viability",
+                    "Archie earned grudging Mages' Guild respect",
+                    "Pernus humiliated but not neutralized",
+                    "Legion kill-steal attempt failed",
+                    "Ectoplasm harvested"
+                ]
+            },
+            {
+                id: 'm4',
+                status: 'completed',
+                title: "The Silent Grove Purged",
+                description: "While the main party dealt with the Wraith, a rescue mission descended into the web-choked Silent Grove. The Arachnid Matriarch had Eager. The Oracle had a plan.\n\nMarkop accepted the Oracle's blessing and grew to titan size. Remi fell to minispider swarms but survived through sheer defiance. Toad Squad Alpha navigated pitch-black flooded fountains to emerge at a critical flanking position. Salem landed a crossbow bolt through the Matriarch's eye. Waluigi weakened it with arcane rays. Mossy bit its legs. The Oracle drew a banishment circle in chalk.\n\nWhen the Matriarch crashed into that circle, it was consumed by light and erased.\n\nThe spoils were divided: War Mage's Staff to Markop (for Archie), Web-Woven Scales to Remi, healing potions to Rodger. Eager was stabilized. The grove fell silent—truly silent—for the first time in years.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Arachnid Matriarch banished",
+                    "Silent Grove cleared and accessible",
+                    "Eager rescued and stabilized",
+                    "War Mage's Staff recovered",
+                    "Web-Woven Scale armor recovered",
+                    "Toad Squad Alpha proved their worth",
+                    "Markop experienced titan transformation",
+                    "Remi survived critical wounds",
+                    "Vigilance flew overhead, ignoring the battle"
+                ]
+            },
+            {
+                id: 'm5',
+                status: 'completed',
+                title: "The Many Oracles",
+                description: "The party returned to Raventree Manor bearing spoils and questions. They found answers they weren't ready for.\n\nTwo Oracles. Existing simultaneously. One had led the rescue party back from the grove. One was already inside the Upper House, in conversation with Archie and Hjumpik.\n\nWhen Markop demanded an explanation, an Oracle produced a crystalline artifact: a 'Star Shard,' he called it—a gift from the Toad God himself. He declared himself a 'Bearer.'\n\nThe implications shattered assumptions. The Oracle is not merely a chronomancer. The Oracle is not singular. The Oracle may be a divine instrument—or many fragments of one, scattered across time and space.\n\n*'All will be revealed in time,'* he said. Everyone noticed he didn't specify whose time.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 },
+                outcomes: [
+                    "Multiple Oracles confirmed to exist simultaneously",
+                    "Star Shard artifact revealed",
+                    "Bearer title explained (partially)",
+                    "Toad God connection established",
+                    "Party understanding of Oracle fundamentally altered",
+                    "Ritual preparation began immediately"
+                ]
+            },
+            {
+                id: 'm6',
+                status: 'active',
+                title: "The Separation Ritual",
+                description: "Everyone who matters stands in the Upper House. The Oracle(s) move with purpose. The party moves with tension. The 'Audience' moves with the patience of predators.\n\n*'No pauses once we enter. Hesitation desynchronizes intent.'*\n\nThe ritual requires the Third Key. It requires opposing signs aligned in the circle. It requires vast energy channeled through willing participants—including Archie with his new War Mage's Staff. And it requires trust—in the Oracle(s), in each other, in the plan.\n\nTrust is in short supply.\n\nHumpik has a deal with the Legion. The Legion has orders to take the Bearer into custody. The Mages have pride and Pernus. Green T is still missing. And the Star Shard pulses with light that doesn't come from any sun.",
+                goals: [
+                    { text: "Escort the Oracle(s) to the ritual space", status: 'completed', priority: 'critical' },
+                    { text: "Place the Third Key in the ritual circle", status: 'active', priority: 'critical' },
+                    { text: "Channel energy (Archie with War Mage's Staff)", status: 'active', priority: 'critical' },
+                    { text: "Hold positions during the separation", status: 'pending', priority: 'critical' },
+                    { text: "Prevent the 'Audience' from interrupting", status: 'active', priority: 'high' },
+                    { text: "Locate Green T before the timelines seal", status: 'active', priority: 'high' },
+                    { text: "Understand the Star Shard's role", status: 'active', priority: 'medium' },
+                    { text: "Resolve the Dan situation", status: 'pending', priority: 'high' }
+                ],
+                choices: [
+                    {
+                        id: 'bearer_fate',
+                        title: "The Bearer's Destiny",
+                        description: "The ritual will end. The Oracle(s) will be vulnerable. Multiple factions want to claim the Bearer. Humpik made a deal. The party doesn't know—yet.",
+                        options: [
+                            {
+                                id: 'honor_pact',
+                                name: "The Humpik Protocol",
+                                description: "Humpik fulfills his bargain. The Bearer is handed to the Iron Legion.",
+                                requirements: ["Humpik must act before the party reacts", "Legion forces must be in position"],
+                                consequences: { 
+                                    success: "Legion favor secured. Bearer captured. Toad prisoners can be negotiated. Star Shard becomes Legion property.", 
+                                    failure: "Humpik is exposed. Party trust shatters. Legion attacks regardless." 
+                                }
+                            },
+                            {
+                                id: 'protect_bearer',
+                                name: "Shield the Divine Instrument",
+                                description: "The party defends the Bearer against all claimants—Legion, Mages, and anyone else.",
+                                requirements: ["Combat readiness", "Unified front", "Willingness to make permanent enemies"],
+                                consequences: { 
+                                    success: "Bearer joins the rebellion. Star Shard remains with allies. Legion and Mages become openly hostile.", 
+                                    failure: "Bearer captured anyway. Party wounded. Enemies made." 
+                                }
+                            },
+                            {
+                                id: 'bearer_choice',
+                                name: "Let the Oracles Decide",
+                                description: "The Bearer has clearly been playing a longer game. Let him choose his own fate.",
+                                requirements: ["Trust in divine providence", "Acceptance of uncertainty"],
+                                consequences: { 
+                                    success: "The Bearer has planned for this. His choice may surprise everyone.", 
+                                    failure: "Indecision in a room full of predators leads to chaos." 
+                                }
+                            },
+                            {
+                                id: 'star_shard_gambit',
+                                name: "Claim the Star Shard",
+                                description: "The Shard is a gift from a god. What if the party claimed it for themselves?",
+                                requirements: ["Extreme boldness", "Willingness to steal from a deity's instrument"],
+                                consequences: { 
+                                    success: "The Shard accepts a new Bearer? The Toad God's attention turns to the thief.", 
+                                    failure: "Divine artifacts do not appreciate being stolen. Consequences are immediate and severe." 
+                                }
+                            }
+                        ]
+                    }
+                ],
+                notes: "The ritual chamber awaits. The Star Shard glows. The Bearer speaks of synchronization and intent. Everyone who wants something from this moment is converging. The timelines will separate—or collapse—within hours."
+            }
+        ],
+
+        npcs: {
+            allies: ['self_reflection_oracle', 'ghost_servants'],
+            enemies: ['pernus_annmatar'],
+            observers: ['iron_legion_spy', 'iron_legion_spy_contact'],
+            uncertain: ['dan'],
+            new_revelations: ['multiple_oracles', 'star_shard_bearer', 'toad_god_presence']
+        },
+
+        locations: {
+            primary: 'raventree_manor',
+            current: 'upper_house',
+            ritual: 'ritual_chamber',
+            cleared: 'silent_grove',
+            related: ['lower_levels', 'ruined_hall', 'solarium', 'greenhouse_ruins', 'hedge_maze', 'fountain_district']
+        },
+
+        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'humpik_legion_pact', 'mystery_imposter_toad', 'vigilance_fallen', 'archie_fugitive_of_the_accords']
+    },
+
+    'main_quest_raventree': {
+        id: 'main_quest_raventree',
+        title: "The Curse of Raventree",
+        subtitle: "The Bearer's Hour",
+        type: QUEST_TYPES.MAIN,
+        category: 'Main Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Complete the separation ritual in the Upper House, survive the political convergence, and escape Raventree Manor with your lives, your souls, and your understanding of reality intact.",
+        assignees: ['party'],
+        primaryAssignee: 'party',
+        difficulty: {
+            overall: DIFFICULTY.DEADLY,
+            survival: DIFFICULTY.HARD,
+            sanity: DIFFICULTY.HARD,
+            social: DIFFICULTY.EXTREME,
+            combat: DIFFICULTY.HARD,
+            theological: DIFFICULTY.UNKNOWN
+        },
+        tags: ['survival', 'horror', 'supernatural', 'politics', 'urgent', 'faction-war', 'ritual', 'divine', 'oracle-plural', 'bearer'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 15 },
+            updated: { year: 1040, monthIndex: 6, day: 21 }
+        },
+
+        description: "It was supposed to be shelter.\n\nWhen the party followed Bowser and Waluigi into Raventree Manor on Day 15, they expected dust, decay, and perhaps a few rats. What they found was a house that remembers too much—a place where timelines bleed into each other, where mirrors show what shouldn't be, and where the dead have opinions about the living.\n\nSix days later, everything has changed.\n\nThe first night brought flaming books, a polite ghost, and a warning about mirrors. They cleaned the mirrors. The Manor escalated. Rust monsters in the bedrooms. A balcony that tried to kill Remi. An Oracle who speaks in riddles and offers tea. A hedge maze that loops through abandoned versions of the house. The Siege—Speaker L's Pond Patrol surrounding the building while walls manifested wraiths.\n\nArchie surrendered. A glass monster emerged. Green T was pulled into a reflection. The party scattered through collapsing rooms and burning libraries, fighting creatures that shouldn't exist in a house that shouldn't stand.\n\nThe Oracle guided them toward three anchors binding the curse. Three threats fell:\n\n• The Star Fragment ascended through the burning greenhouse, birthing God Toad\n• The Mirror Terror was spared by Humpik—contained, not destroyed\n• The Arcane Wraith was banished through combined effort and the Oracle's word\n\nAnd then the Silent Grove demanded attention.\n\nMarkop grew to titan size. Salem shot a giant spider in the eye. Remi fell and rose again. The Arachnid Matriarch crashed into a banishment circle and was erased. The party returned to the Manor with spoils: a War Mage's Staff, Web-Woven Scales, healing potions, and a rescued Eager.\n\nThey found two Oracles waiting.\n\nThe revelation shattered assumptions. There is not one Oracle—there are many. Or perhaps one, fractured across time and space. When confronted, an Oracle produced a 'Star Shard'—a crystalline gift from the Toad God—and named himself a 'Bearer.' A divine instrument. A theological impossibility. A player in games the party cannot comprehend.\n\n*'No pauses once we enter. Hesitation desynchronizes intent.'*\n\nThe Upper House is sealed. The ritual is imminent. The party must hold positions while reality tears itself apart. The Iron Legion watches, ready to claim the Bearer. The Mages' Guild watches, ready to assert authority. Humpik carries a secret deal. Green T is still missing. And the Oracles—all of them—stand ready to sever the bleeding timelines forever.\n\nThe Toad God's instrument plays its final note. The audience holds its breath.",
+
+        loreEntries: ['raventree_manor_history', 'pernus_annmatar', 'the_great_sealing', 'legion_black_ops', 'timeline_bleeding', 'mirror_entities', 'toad_god_mythology', 'star_shard_properties', 'bearer_lineage', 'oracle_multiplicity', 'arachnid_matriarch_origin'],
+
+        consequences: {
+            success: "The ritual completes. The timelines separate cleanly. The Manor becomes haunted ruins—memory without malice. The party escapes with new scars, hard-won knowledge, and answers about the Bearer. The Star Shard's fate depends on choices made in the final moments.",
+            failure_ritual: "The ritual is interrupted. The timelines collapse. Everyone in the Upper House is erased from history or trapped in a moment that repeats forever. The Manor becomes a permanent wound in reality. The Star Shard shatters, releasing divine energy with catastrophic effect.",
+            failure_political: "The ritual succeeds, but the aftermath becomes a bloodbath. Legion and Mages fight over the Bearer. The party is caught in the crossfire. Survivors are scattered and hunted. The Star Shard becomes a prize worth killing for.",
+            partial_betrayal: "The ritual succeeds. Humpik fulfills his deal. The Bearer is taken by the Iron Legion. The Toads lose a divine ally, but gain leverage to negotiate for Bones, Creek, and the prisoners at Aegis Command. The Star Shard becomes Legion property.",
+            partial_loss_green_t: "The party escapes, but Green T is not found. When the timelines separate, he is on the wrong side of the cut. He is erased—not dead, but never-was. Only those who knew him remember he existed at all.",
+            bearer_choice: "The Oracle makes his own decision about his fate. No one expected what he chooses. The consequences ripple outward in ways no one can predict."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'trait', name: "Manor Survivors", description: "All party members gain +2 to saves vs. fear, supernatural effects, and temporal displacement." },
+                { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent for spirit-binding or dispelling." },
+                { type: 'item', name: "War Mage's Staff", description: "Recovered from the Arachnid Matriarch. Given to Archie. Quality magical focus." },
+                { type: 'item', name: "Web-Woven Scale Armor", description: "Claimed by Remi. Corrupted by grove magic. Awaiting examination." },
+                { type: 'knowledge', name: "The Bleeding Timeline", description: "Understanding of how temporal fractures form and stabilize." },
+                { type: 'knowledge', name: "Bearer Theology", description: "Understanding of the Toad God's instruments and the Star Shard's nature." }
+            ],
+            conditional: [
+                {
+                    condition: "Deliver the Bearer to the Legion (Humpik's deal)",
+                    reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for prisoner release at Aegis Command—including Bones and Creek." },
+                    status: 'pending'
+                },
+                {
+                    condition: "Protect the Bearer from all claimants",
+                    reward: { type: 'ally', name: "The Bearer (Unbound)", description: "Divine chronomancer ally. Knows secrets of the Manor, the Dragon Conspiracy, the Iron Legion's true goals, and the Toad God's plans." },
+                    status: 'pending'
+                },
+                {
+                    condition: "Archie maintains elemental discipline with the War Mage's Staff",
+                    reward: { type: 'reputation', faction: 'mages_guild', amount: 500, description: "Demonstrated Control—reduces active warrants. Staff attunement achieved." },
+                    status: 'active'
+                },
+                {
+                    condition: "Find Green T before the separation",
+                    reward: { type: 'ally', name: "Green T (Mirror-Touched)", description: "Gains permanent ability to sense dimensional rifts and detect shapeshifters." },
+                    status: 'pending'
+                },
+                {
+                    condition: "Resolve the Dan situation",
+                    reward: { type: 'trust', name: "Circle Integrity", description: "The ritual proceeds without internal sabotage. Party cohesion strengthened." },
+                    status: 'pending'
+                },
+                {
+                    condition: "Witness the Star Shard's full activation",
+                    reward: { type: 'boon', name: "Toad God's Notice", description: "Divine attention, for better or worse. Future religious interactions will be... complicated." },
+                    status: 'pending'
+                },
+                {
+                    condition: "Understand why there are multiple Oracles",
+                    reward: { type: 'knowledge', name: "The Bearer Paradox", description: "Insight into temporal fragmentation and divine manifestation." },
+                    status: 'active'
+                }
+            ],
+            xp: 15000,
+            gold: { min: 0, max: 0, note: "The Manor takes. It does not give. But the knowledge gained is beyond price." }
+        },
+
+        partyStatus: {
+            bowser: {
+                location: "Upper House",
+                status: "Combat Ready / Spiritually Exhausted",
+                sanity: 7,
+                notes: "Punched a ghost. Tripped a mage. Watched a giant spider get erased by divine light. Has processed more supernatural events in six days than in his entire previous life. Will protect the group with his life. Deeply suspicious of the multiple Oracles."
+            },
+            humpik: {
+                location: "Upper House",
+                status: "Outwardly Calm / Decision Imminent",
+                sanity: 8,
+                notes: "Carries a secret deal with the Iron Legion. Has Legion-issue thieves' tools. The revelation of multiple Oracles complicates his calculations. Is the Bearer more valuable than he thought? Has not yet decided if he will follow through."
+            },
+            archie: {
+                location: "Upper House",
+                status: "Armed / Focused / Theological Crisis",
+                sanity: 7,
+                notes: "Now holds the War Mage's Staff—his first proper focus. Successfully used ice magic against the Wraith. The revelation of the Star Shard and Bearer title has raised questions about the nature of magic itself. Is the Toad God real? Does that change anything?"
+            },
+            dan: {
+                location: "Upper House",
+                status: "Injured / Determined / Under Suspicion",
+                sanity: 6,
+                notes: "Lost his arm to the Staff catastrophe. Proved he can still fight. Pulled Green T from the mirror dimension—but Green T ran FROM him specifically. Lario's warning remains unresolved. May or may not be the real Dan."
+            },
+            markop: {
+                location: "Upper House",
+                status: "Normal Size / Changed",
+                sanity: 5,
+                notes: "Accepted the Oracle's blessing and grew to titan size. Fought a giant spider as an equal. The transformation has faded, but the memory remains. Gave the War Mage's Staff to Archie without hesitation. Found a photo of his father earlier in the Manor."
+            },
+            remi: {
+                location: "Upper House",
+                status: "Wounded / Equipped / Resilient",
+                sanity: 6,
+                notes: "Fell to minispider swarms in the grove and survived through defiance. Now carries Web-Woven Scale armor twisted by grove magic. Mechanical companion damaged. Applied to the Deephold Smithing Guild during the chaos. Has a job waiting from Waluigi."
+            },
+            eager: {
+                location: "Upper House",
+                status: "Rescued / Inflated / Armed",
+                sanity: 5,
+                notes: "Rescued from the Arachnid Matriarch. Still trapped in inflated form. Whip recovered. Missed most of the major revelations while unconscious. Now trying to catch up on six days of chaos."
+            },
+            green_t: {
+                location: "Unknown",
+                status: "MISSING / Panicked / Time-Critical",
+                sanity: 2,
+                notes: "Pulled into mirror dimension on Day 19. Extracted by Dan. Fled in terror from Dan specifically. Somewhere in the Manor's shifting halls. Must be found before the timelines separate or he will be ERASED. Saw something in Dan's reflection that terrified him."
+            },
+            rodger: {
+                location: "Upper House",
+                status: "Armed / Hoarding",
+                sanity: 7,
+                notes: "Claimed all three healing potions from the grove battle. Shot at the Matriarch (missed). Accidentally shot Remi while panicking (hit). Has apologized. Committed to the team despite fear."
+            },
+            salem: {
+                location: "Upper House",
+                status: "Triumphant / Squad Lead",
+                sanity: 8,
+                notes: "Led Toad Squad Alpha through pitch-black flooded fountains. Landed the critical crossbow shot through the Arachnid Matriarch's eye. Has proven his worth as a combat leader. Smoking J and Perot follow his command."
+            },
+            smoking_j: {
+                location: "Upper House",
+                status: "Poisoned / Recovering",
+                sanity: 6,
+                notes: "Bitten by minispider during the grove battle. Poison is being treated. Expressed extreme fear of the supernatural darkness in the fountain district."
+            }
+        },
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Arrival",
+                description: "The party entered Raventree Manor seeking shelter. They found a parlor ghost, enchanted clothing that attacked Markop, and a note warning them about the mirrors. They ignored the note.",
+                completedDate: { year: 1040, monthIndex: 6, day: 15 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Descent",
+                description: "Flaming books. Rust monsters. A balcony that collapsed under Remi. The Manor tested the party's survival instincts. The Oracle made contact, offering cryptic guidance and unsettling hospitality.",
+                completedDate: { year: 1040, monthIndex: 6, day: 16 }
+            },
+            {
+                id: 'm3',
+                status: 'completed',
+                title: "The Siege",
+                description: "Speaker L's Pond Patrol surrounded the Manor. Archie surrendered to buy time. A glass monster emerged from a mirror. Green T was pulled into a reflection. The party scattered while walls manifested wraiths.",
+                completedDate: { year: 1040, monthIndex: 6, day: 19 }
+            },
+            {
+                id: 'm4',
+                status: 'completed',
+                title: "The Anchors Fall",
+                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by Humpik—contained, not destroyed. The Arcane Wraith was banished through teamwork. The path to the final ritual opened.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm5',
+                status: 'completed',
+                title: "The Silent Grove Purged",
+                description: "A rescue mission to save Eager from the Arachnid Matriarch. Markop grew to titan size. Remi fell and rose. Salem shot the spider in the eye. The Oracle's banishment circle erased the threat. Spoils divided: War Mage's Staff to Archie, Web-Woven Scales to Remi, potions to Rodger. The grove fell truly silent for the first time in years.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm6',
+                status: 'completed',
+                title: "The Bearer Revealed",
+                description: "The party returned to find two Oracles waiting. The revelation: there are many Oracles, or one fractured across time and space. The Star Shard was displayed—a crystalline gift from the Toad God. The Bearer title was explained. The ritual preparations began without pause. 'Hesitation desynchronizes intent.'",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm7',
+                status: 'active',
+                title: "The Final Separation",
+                description: "The Upper House is sealed. The ritual is imminent. Everyone who wants something from this moment has converged: the party, the Oracle(s), the Iron Legion, the Mages' Guild, the Toad God's attention.\n\nThe Star Shard pulses with light that doesn't come from any sun. Archie grips his new Staff. Humpik weighs his options. Green T is missing somewhere in the shifting halls. Dan's reflection may be wearing the wrong face.\n\nThe timelines will separate—or collapse—within hours.",
+                goals: [
+                    { text: "Participate in the separation ritual", status: 'active', priority: 'critical' },
+                    { text: "Hold positions when reality destabilizes", status: 'pending', priority: 'critical' },
+                    { text: "Protect the Bearer(s) from hostile parties", status: 'active', priority: 'critical' },
+                    { text: "Locate Green T before the cut", status: 'active', priority: 'high' },
+                    { text: "Prevent Pernus Annmatar from sabotage", status: 'active', priority: 'medium' },
+                    { text: "Resolve the Iron Legion standoff", status: 'pending', priority: 'critical' },
+                    { text: "Address the Dan situation", status: 'active', priority: 'high' },
+                    { text: "Survive", status: 'active', priority: 'critical' }
+                ]
+            }
+        ],
+
+        threats: {
+            pernus_annmatar: {
+                name: "Pernus Annmatar",
+                faction: "Mages' Guild",
+                status: "Present / Hostile / Intrigued",
+                motivation: "Professional pride—he was humiliated (tripped by Bowser, underwear exposed). But the revelation of the Star Shard and Bearer title has added greed to his motivations. This is bigger than he expected.",
+                danger: "Can possess party members briefly. Will interfere with the ritual if he sees an advantage. May attempt to claim the Star Shard for the Guild."
+            },
+            iron_legion_spies: {
+                name: "Legion Shadow Team",
+                faction: "Iron Legion",
+                status: "Present / Patient / Calculating",
+                motivation: "The Supernatural Sovereignty Act makes the Bearer a legal target. They have orders to take him into custody. They have a deal with Humpik. The Star Shard complicates matters—is it evidence or an artifact?",
+                danger: "Will strike the moment the ritual ends. Well-armed, disciplined, patient. Have crossbows and binding chains. Orders may now include claiming the Shard."
+            },
+            mirror_residue: {
+                name: "Dimensional Bleed",
+                faction: "The Manor",
+                status: "Ambient Threat",
+                motivation: "None. The Mirror Terror was spared. Residual instability remains. Reflections may still move wrong during the ritual.",
+                danger: "Unpredictable. May manifest during the separation when dimensional barriers are thinnest."
+            },
+            missing_green_t: {
+                name: "Green T's Absence",
+                faction: "None",
+                status: "Time-Critical",
+                motivation: "Not a threat—a crisis. If Green T isn't found before the timelines separate, he will be erased.",
+                danger: "Finding him may reveal what he saw in Dan's reflection. That knowledge may be more dangerous than his absence."
+            }
+        },
+
+        newRevelations: {
+            multiple_oracles: "There is not one Oracle. There are many. Or one, fractured across time. The implications for everything the Oracle has said and done are staggering.",
+            star_shard: "A crystalline artifact gifted by the Toad God. Marks its holder as a 'Bearer.' The energy within is divine, not merely magical.",
+            bearer_title: "The Oracle is not merely a chronomancer. He is an instrument of the Toad God. His purpose extends beyond temporal manipulation.",
+            silent_grove_cleared: "The first safe area in the Manor grounds. The spider threat is eliminated. Resources can be harvested.",
+            war_mages_staff: "Archie now holds a proper magical focus. His power is no longer improvised."
+        },
+
+        relatedQuests: ['artifacts_of_balance', 'rescue_green_t', 'humpik_legion_pact', 'mystery_imposter_toad', 'vigilance_fallen', 'archie_fugitive_of_the_accords']
+    },
+
+    'rescue_green_t': {
+        id: 'rescue_green_t',
+        title: "Through the Looking Glass",
+        subtitle: "The Mirror's Witness",
+        type: QUEST_TYPES.RESCUE,
+        category: 'Main Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Locate Green T in the shifting corridors of Raventree Manor and bring him to the Upper House before the separation ritual severs the timelines.",
+        assignees: ['party'],
+        primaryAssignee: 'dan',
+        difficulty: {
+            overall: DIFFICULTY.HARD,
+            tracking: DIFFICULTY.HARD,
+            social: DIFFICULTY.HARD,
+            time: DIFFICULTY.CRITICAL,
+            psychological: DIFFICULTY.EXTREME
+        },
+        tags: ['rescue', 'dimensional', 'time-sensitive', 'chase', 'psychological', 'mystery', 'impostor'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 19 },
+            updated: { year: 1040, monthIndex: 6, day: 21 },
+            deadline: { year: 1040, monthIndex: 6, day: 21, hour: 2 }
+        },
+
+        description: "Green T saw something in the mirror that he cannot unsee.\n\nWhen the Shard Stalker dragged him through the glass on Day 19, he spent what felt like hours in a place where nothing was real and everything wore his face. Dan pulled him out. It should have been a rescue.\n\nInstead, Green T looked at Dan—looked *through* Dan—and ran.\n\nHe has been moving through the Manor ever since, avoiding the party, avoiding the Oracle, avoiding anything that casts a reflection. The few glimpses caught of him suggest a toad operating on pure panic: checking corners for mirrors, muttering about 'the wrong faces,' refusing to look anyone in the eye.\n\nThe revelation of multiple Oracles has only complicated matters. If the Oracle can be many, what else might not be singular? What did Green T see in Dan's reflection that matches this new understanding of fractured identity?\n\nThe Oracle has warned that the separation ritual will seal the timelines. Anyone not in the 'present' when the cut happens will be left behind—not dead, but never-was. Green T's current location is unknown. The Manor's geography shifts. The Upper House is sealed. And the ritual is about to begin.\n\nDan has taken point on this search. This is personal. He pulled Green T from the mirror. He feels responsible.\n\nBut Green T ran *from* Dan specifically.\n\nThat fact has not been discussed. But in light of the Bearer revelation—in light of one entity being many—perhaps it should be. What if Green T saw something in the Mirror Dimension that proves Dan is not who he claims to be? What if the real Dan never left the glass?",
+
+        loreEntries: ['mirror_entities', 'timeline_bleeding', 'dimensional_trauma', 'impostor_theory', 'bearer_fragmentation'],
+
+        consequences: {
+            success: "Green T is found, calmed, and brought to the Upper House. He survives the separation. The experience has changed him—he gains the ability to sense dimensional rifts and detect shapeshifters. His testimony about Dan's reflection becomes available.",
+            failure: "Green T is not found in time. When the timelines separate, he is on the wrong side of the cut. He is erased from history. Only those who knew him will remember he existed. His knowledge of what he saw in Dan's reflection is lost forever.",
+            partial: "Green T is found but cannot be calmed. He is dragged to the Upper House against his will. He survives but his sanity does not fully recover. He becomes a liability in future operations—but his broken testimony about Dan is partially recoverable.",
+            dark_truth: "Green T is found—and reveals what he saw: Dan's reflection was wrong. The thing that pulled him out of the mirror wasn't Dan. The real Dan is still inside. The party has been traveling with an impostor for days.",
+            dark_replacement: "Green T is found—but he has already been replaced by something from the mirrors. The rescue brings a second impostor into the ritual circle. The Mirror Dimension has been playing a longer game than anyone realized."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'knowledge', name: "Mirror Trauma Protocols", description: "Understanding of how to help dimensional displacement victims." }
+            ],
+            conditional: [
+                {
+                    condition: "Rescue Green T successfully",
+                    reward: { type: 'ally', name: "Green T (Mirror-Touched)", description: "Gains permanent ability to sense dimensional rifts and detect shapeshifters. His perspective has been fundamentally altered." }
+                },
+                {
+                    condition: "Dan makes the rescue personally",
+                    reward: { type: 'bond', name: "Reforged Trust", description: "Dan and Green T share a unique connection—or Dan's impostor successfully silences the only witness." }
+                },
+                {
+                    condition: "Discover why Green T ran from Dan",
+                    reward: { type: 'revelation', name: "The Wrong Face", description: "Green T saw something in Dan's reflection that wasn't Dan. This information may prove or disprove the Impostor Toad theory." }
+                },
+                {
+                    condition: "Connect Green T's testimony to the Multiple Oracles revelation",
+                    reward: { type: 'knowledge', name: "Fragmentation Patterns", description: "Understanding of how a single entity can manifest as many—applied to both the Bearer and potential impostors." }
+                }
+            ],
+            xp: 4000
+        },
+
+        greenTStatus: {
+            currentCondition: "Panicked Flight / Reality Dissociation / Acute Paranoia",
+            physicalState: "Exhausted, dehydrated, minor injuries from running through debris, hasn't slept in 48+ hours",
+            mentalState: "Critical. Cannot distinguish between 'real' and 'reflection.' Sees threats in every mirror, window, and polished surface. The revelation of multiple Oracles has likely worsened his condition—if one can be many, anyone might be anything.",
+            lastKnownLocation: "Broke a lock to escape the Solarium (Day 21, early morning)",
+            lastKnownAction: "Running toward the east wing—away from the main corridors",
+            possibleLocations: [
+                "Upper floors (avoiding the sealed entrance, but the building shifts)",
+                "Servants' quarters (few reflective surfaces, known hiding spots)",
+                "The abandoned kitchen (boarded windows, no mirrors)",
+                "The hedge maze (dangerous, but no glass—and he has the mysterious key)",
+                "The Silent Grove (recently cleared, no mirrors, but outdoors)"
+            ],
+            sanity: 1,
+            trust: "Will not approach anyone who casts a reflection he doesn't recognize. May attack if cornered. Especially afraid of Dan.",
+            notes: "He ran specifically from Dan. If Lario's warning is correct—if the Dan with the party is not the real Dan—then Green T may have seen proof in the Mirror Dimension. He may be the only witness. His survival may be the only evidence. His death—or erasure—would be very convenient for an impostor."
+        },
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Abduction",
+                description: "During the Siege of Raventree, the Shard Stalker manifested from a mirror and pulled Green T into the dimension between reflections. The party could only watch as he vanished into the glass.",
+                completedDate: { year: 1040, monthIndex: 6, day: 19 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Extraction",
+                description: "Dan reached into the mirror and pulled Green T back to reality. It should have been a moment of triumph. Instead, Green T looked at Dan with an expression of absolute terror—not relief, not gratitude, but soul-deep fear—and fled into the Manor's depths.\n\nHe has been running ever since. He has not explained why.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Final Search",
+                description: "The revelation of multiple Oracles has changed everything. If the Bearer can be many, if one entity can exist in fragments across time and space—what else might not be singular?\n\nGreen T saw something in Dan's reflection. The ritual is imminent. The timelines will separate. Anyone not in the 'present' when the cut happens will be erased.\n\nGreen T is the only witness. Finding him may prove whether Dan is real. Losing him may bury the truth forever.",
+                goals: [
+                    { text: "Search the upper floors", status: 'active', priority: 'high' },
+                    { text: "Search the servants' quarters", status: 'active', priority: 'high' },
+                    { text: "Check the abandoned kitchen", status: 'active', priority: 'medium' },
+                    { text: "Check the Silent Grove (newly safe)", status: 'pending', priority: 'medium' },
+                    { text: "Consider the hedge maze (he has a key)", status: 'pending', priority: 'low', note: "Dangerous. Time flows wrong there." },
+                    { text: "Approach without triggering panic", status: 'pending', priority: 'critical' },
+                    { text: "Get his testimony about Dan's reflection", status: 'pending', priority: 'critical' },
+                    { text: "Bring him to the Upper House before the ritual completes", status: 'pending', priority: 'critical' }
+                ],
+                notes: "The Manor's geography shifts. Green T may not be where he was five minutes ago. The ritual is starting NOW. There may be no time for a proper search. Someone must make a choice: participate in the ritual, or save Green T. Both may not be possible."
+            }
+        ],
+
+        connections: {
+            to_impostor_quest: "Green T ran from Dan specifically. If Lario's warning from Day 14 is correct—if the Dan with the party is not the real Dan—then Green T may have seen proof in the Mirror Dimension. The revelation of multiple Oracles suggests that fragmented identity is not only possible but precedented. Green T may be the only witness to Dan's true nature.",
+            to_ritual_quest: "If Green T is not found before the separation, he will be erased. If he is found but is actually a mirror replacement, bringing him into the ritual circle could be catastrophic. If he is found and can testify about Dan, the party may face a crisis of trust at the worst possible moment.",
+            to_dan: "Dan pulled Green T from the mirror. Dan is taking point on the search. Dan wants to find Green T more than anyone. This is either heroic loyalty... or an impostor ensuring the only witness to his nature is silenced.",
+            to_bearer_revelation: "The Oracle can be many. The Bearer is fragments across time. If identity can be fractured like this, if one can be many and many can be one—what guarantees that Dan is Dan? What guarantees that anyone is anyone?"
+        },
+
+        urgencyNote: "The ritual is IMMINENT. The sealed Upper House means the party cannot easily leave and search. Someone must choose: ritual or rescue. There may be only minutes remaining before the timelines separate and Green T becomes a casualty of choices unmade.",
+
+        relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'mystery_imposter_toad', 'humpik_legion_pact']
+    },    
 'vigilance_fallen': {
     id: 'vigilance_fallen',
     title: "The Iron Sky Breach",
@@ -2164,489 +2829,4 @@ export const MAIN_QUESTS = {
     relatedQuests: ['vigilance_fallen', 'artifacts_of_balance', 'main_quest_raventree']
 },
 
-'artifacts_of_balance': {
-    id: 'artifacts_of_balance',
-    title: "The Artifacts of Balance",
-    subtitle: "The Final Key",
-    type: QUEST_TYPES.MAIN,
-    category: 'Main Story',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.CRITICAL,
-    arcId: 'raventree_manor',
-    objective: "Perform the final ritual in the Summoning Room to sever the timeline anchors and stabilize the manor.",
-    assignees: ['party', 'self_reflection_oracle'],
-    primaryAssignee: 'party',
-    difficulty: {
-        overall: DIFFICULTY.DEADLY,
-        combat: DIFFICULTY.HARD,
-        puzzle: DIFFICULTY.DEADLY,
-        magic: DIFFICULTY.EXTREME,
-        social: DIFFICULTY.HARD
-    },
-    tags: ['supernatural', 'time', 'demons', 'ritual', 'boss-rush', 'faction-convergence'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 19 },
-        updated: { year: 1040, monthIndex: 6, day: 21 }
-    },
-
-    description: "Three anchors bound the fractured timelines to Raventree Manor. Three threats had to fall before the Oracle could even attempt the separation.\n\nThe first anchor shattered when Archie's reckless brilliance created God Toad—a Star Fragment born of chaos, ascending through the greenhouse ceiling in a blinding spiral. The second anchor was spared: Humpik, in an act of calculated mercy, allowed the Mirror Terror to live within its containment. This was not kindness. This was leverage. The creature's survival means the curse is weakened, not broken—a deliberate gamble that leaves residual instability in the walls.\n\nThe third anchor died screaming.\n\nThe Arcane Wraith descended on the party in the lower levels with the force of a collapsing timeline. Bowser—who spent years hiding from anything that floated—punched it in the face. Dan, still adapting to his missing arm, hurled axes with desperate accuracy. Archie, for once, chose ice over fire, and the temperature drop gave the Oracle the opening he needed to banish the weakened entity. The ghost is gone. Archie scraped its ectoplasm into a jar.\n\nBut the fight had an audience.\n\nPernus Annmatar of the Mages' Guild watched from the doorway, offering commentary like a theater critic at a slaughter. He briefly possessed Bowser, was tripped for his trouble, and now nurses both a grudge and a bruised ego. The Iron Legion spies—the same ones who offered Humpik his devil's bargain—tried to steal the kill and failed. Both factions saw what the party is capable of. Both factions want the Oracle.\n\nNow everyone is walking toward the Summoning Room. The Oracle moves with the weariness of someone who has done this before. The party moves with the tension of people who know they are surrounded. The 'Audience' moves with the patience of predators waiting for the ritual to end.\n\nThe third key must be placed. Opposing signs must be aligned. Vast energy must be channeled. And somewhere in the process, someone is going to make their move.",
-
-    loreEntries: ['raventree_curse_origin', 'timeline_bleeding', 'demon_taxonomy', 'pernus_annmatar', 'the_great_sealing'],
-
-    consequences: {
-        success: "The timelines separate cleanly. The Manor stabilizes into a ruin—haunted by memory, not malice. The Oracle survives to offer guidance or be claimed by whoever moves fastest.",
-        partial_mercy: "With the Mirror Terror spared, the separation is incomplete. The Manor stabilizes, but dimensional bleeds will occur for decades. Something will eventually crawl through.",
-        partial_betrayal: "The ritual succeeds, but Humpik honors his pact. The Oracle is handed to the Iron Legion in chains. The Toads lose a chronomancer; Humpik gains leverage for the prisoners at Aegis Command.",
-        failure: "The ritual is interrupted. The timelines collapse inward. Everyone in the Summoning Room is either erased or trapped in a moment that repeats forever."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent reagent for binding or dispelling spirits." },
-            { type: 'trait', name: "Anchor Breakers", description: "All party members gain +2 to saves vs. temporal and dimensional effects." },
-            { type: 'reputation', faction: 'mages_guild', amount: -200, description: "Pernus will remember this." }
-        ],
-        conditional: [
-            { 
-                condition: "Complete the ritual without Legion interference", 
-                reward: { type: 'artifact', name: "Shard of Stabilized Time", description: "A crystal containing a moment of perfect stillness. Can freeze a single action once per day." }
-            },
-            { 
-                condition: "Humpik delivers the Oracle to the Legion", 
-                reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for prisoner release—including Bones and Creek." }
-            },
-            { 
-                condition: "Defy the Legion and protect the Oracle", 
-                reward: { type: 'ally', name: "The Oracle (Unbound)", description: "A chronomancer with knowledge of the Manor's secrets and the Dragon Conspiracy." }
-            },
-            { 
-                condition: "Archie maintains ice discipline through the ritual", 
-                reward: { type: 'reputation', faction: 'mages_guild', amount: 300, description: "Demonstrated Elemental Control—reduces bounty." }
-            }
-        ],
-        xp: 10000,
-        gold: { min: 0, max: 0, note: "This is not a quest for profit. This is a quest for survival." }
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "The Star Ascendant",
-            description: "The Greenhouse Inferno was not a disaster—it was a catalyst. Archie's fireball did not merely destroy the structure; it ignited the latent Star Fragment within. God Toad was born in the flames, ascending through the shattered glass in a spiral of light. The first anchor snapped. The timeline shuddered.",
-            completedDate: { year: 1040, monthIndex: 6, day: 17 },
-            outcomes: [
-                "First anchor destroyed",
-                "God Toad created (location unknown)",
-                "Greenhouse reduced to ash",
-                "Green T received a mysterious key from the Oracle"
-            ]
-        },
-        {
-            id: 'm2',
-            status: 'completed',
-            title: "The Mirror Terror",
-            description: "The Shard Stalker emerged from the shattered mirrors of the Solarium—a thing of reflected malice and stolen faces. Humpik faced it alone in the Mirror Dimension after being pulled through the glass. He fought his own doppelganger. He won. And then, instead of destroying the creature, he spared it.\n\nThe Legion spy who aided his escape approved. The Oracle noted the decision with something that might have been disappointment. The Terror is contained, not destroyed. The second anchor bends but does not break.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 },
-            outcomes: [
-                "Second anchor contained (not destroyed)",
-                "Mirror Terror imprisoned in the Solarium",
-                "Humpik received Legion thieves' tools",
-                "Residual dimensional instability confirmed"
-            ]
-        },
-        {
-            id: 'm3',
-            status: 'completed',
-            title: "The Arcane Wraith",
-            description: "It came howling through the lower levels—a knot of screaming magic and ancient grudge. The party was not ready. They fought anyway.\n\nBowser charged the ghost. Physically. With his fists. The absurdity of a koopa punching ectoplasm would be funny if it hadn't worked. Dan, still learning to compensate for his missing arm, proved his adaptation with thrown handaxes that somehow found their marks. Archie—for once—chose ice over fire, dropping the ambient temperature enough to slow the entity.\n\nPernus Annmatar watched from the doorway, offering critique. He briefly possessed Bowser. Bowser responded by tripping him. The mage's red underwear was observed by multiple witnesses.\n\nThe Legion spies tried to steal the kill with a crossbow shot. They missed. The Oracle stepped forward and banished the weakened wraith with a word that made everyone's ears ring.\n\nArchie collected the ectoplasm. Bowser collected his dignity. Dan collected another reason to hate magic.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 },
-            outcomes: [
-                "Third anchor destroyed",
-                "Wraith banished by the Oracle",
-                "Bowser overcame ghost phobia (partially)",
-                "Dan proved one-armed combat viability",
-                "Archie earned grudging Mages' Guild respect",
-                "Pernus humiliated but not neutralized",
-                "Legion kill-steal failed"
-            ]
-        },
-        {
-            id: 'm4',
-            status: 'active',
-            title: "The Summoning Room",
-            description: "The corridor stretches ahead. The Oracle walks with purpose. The party walks with weapons ready. And somewhere behind them—or ahead of them, or in the walls—the 'Audience' waits.\n\nThe ritual requires the Third Key. It requires opposing signs aligned in the circle. It requires vast energy channeled through participants who must hold their positions while reality tries to tear itself apart. And it requires trust—in the Oracle, in each other, in the plan.\n\nTrust is in short supply.\n\nHumpik has a deal. The Legion has patience. The Mages have pride. Green T is still missing somewhere in the shifting halls. And Dan—Dan might not be Dan at all.",
-            goals: [
-                { text: "Escort the Oracle to the Summoning Room", status: 'completed', priority: 'critical' },
-                { text: "Place the Third Key in the ritual circle", status: 'active', priority: 'critical' },
-                { text: "Hold positions during the separation ritual", status: 'pending', priority: 'critical' },
-                { text: "Prevent the 'Audience' from interrupting", status: 'active', priority: 'high' },
-                { text: "Resolve the Dan situation before the circle closes", status: 'active', priority: 'high' },
-                { text: "Locate Green T before the timelines seal", status: 'active', priority: 'high' }
-            ],
-            choices: [
-                {
-                    id: 'oracle_fate',
-                    title: "The Oracle's Destiny",
-                    description: "The ritual will end. The Oracle will be vulnerable. Humpik made a deal. The party doesn't know.",
-                    options: [
-                        {
-                            id: 'honor_pact',
-                            name: "The Humpik Protocol",
-                            description: "Humpik fulfills his bargain. The Oracle is handed to the Iron Legion.",
-                            requirements: ["Humpik must act before the party reacts"],
-                            consequences: { 
-                                success: "Legion favor secured. Oracle captured. Toad prisoners can be negotiated.", 
-                                failure: "Humpik is exposed. Party trust shatters. Legion attacks." 
-                            }
-                        },
-                        {
-                            id: 'protect_oracle',
-                            name: "Shield the Seer",
-                            description: "The party defends the Oracle against all claimants.",
-                            requirements: ["Combat readiness", "Unified front"],
-                            consequences: { 
-                                success: "Oracle joins the rebellion. Legion becomes openly hostile.", 
-                                failure: "Oracle captured anyway. Party wounded." 
-                            }
-                        },
-                        {
-                            id: 'oracle_choice',
-                            name: "Let the Oracle Decide",
-                            description: "Step back. Let the chronomancer choose his own fate.",
-                            requirements: ["Trust in the Oracle's judgment"],
-                            consequences: { 
-                                success: "Unknown. The Oracle has not revealed his preference.", 
-                                failure: "Indecision leads to chaos." 
-                            }
-                        }
-                    ]
-                }
-            ],
-            notes: "The ritual chamber is ahead. Everyone who matters is converging. This is the fulcrum point of the Manor arc."
-        }
-    ],
-
-    npcs: {
-        allies: ['self_reflection_oracle', 'ghost_servants'],
-        enemies: ['pernus_annmatar'],
-        observers: ['iron_legion_spy', 'iron_legion_spy_contact'],
-        uncertain: ['dan']
-    },
-
-    locations: {
-        primary: 'raventree_manor',
-        current: 'corridor_to_summoning_room',
-        ritual: 'summoning_room',
-        related: ['lower_levels', 'ruined_hall', 'solarium', 'greenhouse_ruins']
-    },
-
-    relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'humpik_legion_pact', 'mystery_imposter_toad', 'vigilance_fallen']
-},
-
-'main_quest_raventree': {
-    id: 'main_quest_raventree',
-    title: "The Curse of Raventree",
-    subtitle: "The Final Act",
-    type: QUEST_TYPES.MAIN,
-    category: 'Main Story',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.CRITICAL,
-    arcId: 'raventree_manor',
-    objective: "Complete the separation ritual, survive the political convergence in the Summoning Room, and escape Raventree Manor with your lives and your souls intact.",
-    assignees: ['party'],
-    primaryAssignee: 'party',
-    difficulty: {
-        overall: DIFFICULTY.DEADLY,
-        survival: DIFFICULTY.HARD,
-        sanity: DIFFICULTY.HARD,
-        social: DIFFICULTY.EXTREME,
-        combat: DIFFICULTY.HARD
-    },
-    tags: ['survival', 'horror', 'supernatural', 'politics', 'urgent', 'faction-war', 'ritual'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 15 },
-        updated: { year: 1040, monthIndex: 6, day: 21 }
-    },
-
-    description: "It was supposed to be shelter.\n\nWhen the party followed Bowser and Waluigi into Raventree Manor, they expected dust, decay, and perhaps a few rats. What they found was a house that remembers too much—a place where timelines bleed into each other, where mirrors show what shouldn't be, and where the dead have opinions about the living.\n\nThe first night brought flaming books, a polite ghost, and a warning written in Markop's father's hand: *Don't clean the mirrors.* They cleaned the mirrors.\n\nSince then, the Manor has escalated. Rust monsters in the bedrooms. A balcony that tried to kill Remi. An Oracle who speaks in riddles and offers tea. A hedge maze that loops through abandoned versions of the house. And the Siege—Speaker L's Pond Patrol surrounding the building, demanding Archie's surrender while the walls manifested wraiths.\n\nArchie surrendered. Then a glass monster emerged from a mirror. Green T was pulled into a reflection. The party scattered through collapsing rooms and burning libraries, fighting creatures that shouldn't exist in a house that shouldn't stand.\n\nThe Oracle has been guiding them. Three anchors bound the curse. Three threats had to fall. The Star Fragment ascended. The Mirror Terror was spared. The Arcane Wraith was banished. Now, only the final ritual remains—a separation of timelines in the Summoning Room.\n\nBut the party is not alone.\n\nPernus Annmatar of the Mages' Guild haunts the hallways, treating the apocalypse like entertainment. Iron Legion spies watch from the shadows, waiting for the Oracle to become vulnerable. Humpik carries a secret deal. Green T is missing. And Dan—Dan might be wearing someone else's face.\n\nThe Summoning Room is ahead. The ritual will begin. And when it ends, someone is going to make their move.",
-
-    loreEntries: ['raventree_manor_history', 'pernus_annmatar', 'the_great_sealing', 'legion_black_ops', 'timeline_bleeding', 'mirror_entities'],
-
-    consequences: {
-        success: "The ritual completes. The timelines separate. The Manor becomes ruins—haunted by history, not horror. The party escapes with new scars and hard-won knowledge. The Oracle's fate depends on choices yet unmade.",
-        failure_ritual: "The ritual is interrupted. The timelines collapse. Everyone in the Summoning Room is erased from history or trapped in a moment that repeats forever. The Manor becomes a permanent wound in reality.",
-        failure_political: "The ritual succeeds, but the aftermath becomes a bloodbath. Legion and Mages fight over the Oracle. The party is caught in the crossfire. Survivors are scattered and hunted.",
-        partial_betrayal: "The ritual succeeds. Humpik fulfills his deal. The Oracle is taken by the Iron Legion. The Toads lose a powerful ally, but gain leverage to negotiate for Bones, Creek, and the prisoners at Aegis Command.",
-        partial_loss: "The party escapes, but Green T is not found. When the timelines separate, he is on the wrong side of the cut. He is erased—not dead, but never-was. Only those who knew him remember he existed at all."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'trait', name: "Manor Survivors", description: "All party members gain +2 to saves vs. fear, supernatural effects, and temporal displacement." },
-            { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent for spirit-binding or dispelling." },
-            { type: 'knowledge', name: "The Bleeding Timeline", description: "Understanding of how temporal fractures form and stabilize." }
-        ],
-        conditional: [
-            {
-                condition: "Deliver the Oracle to the Legion (Humpik's deal)",
-                reward: { type: 'favor', name: "Iron Legion High Command Favor", description: "Can be exchanged for prisoner release at Aegis Command—including Bones and Creek." },
-                status: 'pending'
-            },
-            {
-                condition: "Protect the Oracle from all claimants",
-                reward: { type: 'ally', name: "The Oracle (Unbound)", description: "Chronomancer ally. Knows secrets of the Manor, the Dragon Conspiracy, and the Iron Legion's true goals." },
-                status: 'pending'
-            },
-            {
-                condition: "Archie maintains elemental discipline (ice over fire)",
-                reward: { type: 'reputation', faction: 'mages_guild', amount: 500, description: "Demonstrated Control—reduces active warrants." },
-                status: 'earned'
-            },
-            {
-                condition: "Find Green T before the separation",
-                reward: { type: 'ally', name: "Green T (Mirror-Touched)", description: "Gains permanent ability to sense dimensional rifts and detect shapeshifters." },
-                status: 'pending'
-            },
-            {
-                condition: "Resolve the Dan situation",
-                reward: { type: 'trust', name: "Circle Integrity", description: "The ritual proceeds without internal sabotage. Party cohesion strengthened." },
-                status: 'pending'
-            }
-        ],
-        xp: 12000,
-        gold: { min: 0, max: 0, note: "The Manor takes. It does not give." }
-    },
-
-    partyStatus: {
-        bowser: {
-            location: "Approaching Summoning Room",
-            status: "Combat Ready / Wary",
-            sanity: 7,
-            notes: "Punched a ghost. Tripped a mage. Overcame his fear of the supernatural through violence. Distrusts the Legion presence. Suspects Humpik is hiding something. Will protect the group with his life."
-        },
-        humpik: {
-            location: "Approaching Summoning Room",
-            status: "Outwardly Calm / Internally Conflicted",
-            sanity: 8,
-            notes: "Carries a secret deal with the Iron Legion. Has Legion-issue thieves' tools. Believes he is making the pragmatic choice. Has not yet decided if he will follow through."
-        },
-        archie: {
-            location: "Approaching Summoning Room",
-            status: "Focused / Disciplined",
-            sanity: 7,
-            notes: "Successfully used ice magic against the Wraith. Collected ectoplasm. Has warrants from the Mages' Guild but is earning grudging respect through restraint. The Greenhouse Inferno still haunts him."
-        },
-        dan: {
-            location: "Approaching Summoning Room",
-            status: "Injured / Determined / Uncertain",
-            sanity: 6,
-            notes: "Lost his arm to the Staff catastrophe. Proved he can still fight with thrown weapons. Protective of the group. May or may not be the real Dan—Lario's warning from Day 14 remains unresolved."
-        },
-        markop: {
-            location: "Approaching Summoning Room",
-            status: "Giant / Fading",
-            sanity: 5,
-            notes: "Accepted the Oracle's blessing to grow colossal during the spider fight. The effect is wearing off but the experience has left him changed. Found a photo of his father in the Manor."
-        },
-        remi: {
-            location: "Approaching Summoning Room",
-            status: "Battered / Resilient",
-            sanity: 6,
-            notes: "Survived a balcony collapse. Her mechanical companion is damaged. Applied to the Deephold Smithing Guild during the chaos. Has a job from Waluigi waiting."
-        },
-        green_t: {
-            location: "Unknown",
-            status: "Missing / Panicked / Time-Critical",
-            sanity: 2,
-            notes: "Was pulled into a mirror dimension. Was extracted by Dan. Fled in terror. Is somewhere in the Manor. Must be found before the timelines separate or he will be erased."
-        }
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "The Arrival",
-            description: "The party entered Raventree Manor seeking shelter. They found a parlor ghost, enchanted clothing that attacked Markop, and a note warning them about the mirrors. They ignored the note.",
-            completedDate: { year: 1040, monthIndex: 6, day: 15 }
-        },
-        {
-            id: 'm2',
-            status: 'completed',
-            title: "The Descent",
-            description: "Flaming books. Rust monsters. A balcony that collapsed under Remi. The Manor tested the party's survival instincts and found them barely adequate. The Oracle made contact, offering cryptic guidance and unsettling hospitality.",
-            completedDate: { year: 1040, monthIndex: 6, day: 16 }
-        },
-        {
-            id: 'm3',
-            status: 'completed',
-            title: "The Siege",
-            description: "Speaker L's Pond Patrol surrounded the Manor. Archie surrendered to buy time. A glass monster emerged from a mirror. Green T was pulled into a reflection. The party scattered through collapsing corridors while the walls manifested wraiths.",
-            completedDate: { year: 1040, monthIndex: 6, day: 19 }
-        },
-        {
-            id: 'm4',
-            status: 'completed',
-            title: "The Anchors",
-            description: "Three threats bound the curse. The Star Fragment ascended through the burning greenhouse (God Toad born). The Mirror Terror was spared by Humpik (contained, not destroyed). The Arcane Wraith was banished by the Oracle after the party weakened it through teamwork. The path to the final ritual is clear.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 }
-        },
-        {
-            id: 'm5',
-            status: 'active',
-            title: "The Convergence",
-            description: "Everyone who matters is walking toward the Summoning Room. The Oracle leads. The party follows. The Mages watch. The Legion waits. And somewhere in the shifting halls, Green T is hiding from things only he can see.",
-            goals: [
-                { text: "Reach the Summoning Room", status: 'completed', priority: 'critical' },
-                { text: "Protect the Oracle during the ritual", status: 'active', priority: 'critical' },
-                { text: "Hold position in the circle during the separation", status: 'pending', priority: 'critical' },
-                { text: "Locate Green T before the timelines seal", status: 'active', priority: 'high' },
-                { text: "Prevent Pernus Annmatar from interfering", status: 'active', priority: 'medium' },
-                { text: "Resolve the standoff with the Iron Legion", status: 'pending', priority: 'critical' },
-                { text: "Address the Dan situation", status: 'active', priority: 'high' }
-            ]
-        }
-    ],
-
-    threats: {
-        pernus_annmatar: {
-            name: "Pernus Annmatar",
-            faction: "Mages' Guild",
-            status: "Present / Hostile",
-            motivation: "Professional pride. He was humiliated (tripped by Bowser, underwear exposed). He wants to prove the Guild's superiority and potentially claim the Oracle's knowledge.",
-            danger: "Can possess party members briefly. Will interfere with the ritual if he sees an advantage. Treats everything like a performance."
-        },
-        iron_legion_spies: {
-            name: "Legion Shadow Team",
-            faction: "Iron Legion",
-            status: "Present / Watching",
-            motivation: "The Supernatural Sovereignty Act. The Oracle is a 'supernatural threat' under new law. They have orders to take him into custody. They also have a deal with Humpik.",
-            danger: "Will strike the moment the ritual ends. Well-armed, disciplined, patient. Have crossbows and binding chains."
-        },
-        mirror_residue: {
-            name: "Dimensional Bleed",
-            faction: "The Manor",
-            status: "Ambient Threat",
-            motivation: "None. The Mirror Terror was spared, not destroyed. Residual instability remains in the walls. Reflections may still move wrong.",
-            danger: "Unpredictable. May manifest as minor visual disturbances or major spatial anomalies during the ritual."
-        }
-    },
-
-    relatedQuests: ['artifacts_of_balance', 'rescue_green_t', 'humpik_legion_pact', 'mystery_imposter_toad', 'vigilance_fallen']
-},
-'rescue_green_t': {
-    id: 'rescue_green_t',
-    title: "Through the Looking Glass",
-    subtitle: "Find Him Before He Fades",
-    type: QUEST_TYPES.RESCUE,
-    category: 'Main Story',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.HIGH,
-    arcId: 'raventree_manor',
-    objective: "Locate Green T in the shifting corridors of Raventree Manor and bring him to the Summoning Room before the timelines separate.",
-    assignees: ['party'],
-    primaryAssignee: 'dan',
-    difficulty: {
-        overall: DIFFICULTY.MODERATE,
-        tracking: DIFFICULTY.HARD,
-        social: DIFFICULTY.HARD,
-        time: DIFFICULTY.CRITICAL
-    },
-    tags: ['rescue', 'dimensional', 'time-sensitive', 'chase', 'psychological'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 19 },
-        updated: { year: 1040, monthIndex: 6, day: 21 },
-        deadline:  { year: 1040, monthIndex: 6, day: 22 },
-    },
-
-    description: "Green T saw something in the mirror that he cannot unsee.\n\nWhen the Shard Stalker dragged him through the glass on Day 19, he spent what felt like hours in a place where nothing was real and everything wore his face. Dan pulled him out. It should have been a rescue. Instead, Green T looked at Dan—looked *through* Dan—and ran.\n\nHe broke a lock to escape the Solarium. He has been moving through the Manor ever since, avoiding the party, avoiding the Oracle, avoiding anything that casts a reflection. The few glimpses caught of him suggest a toad operating on pure panic: checking corners for mirrors, muttering about 'the wrong faces,' refusing to look anyone in the eye.\n\nThe Oracle has warned that the separation ritual will seal the timelines. Anyone not in the 'present' when the cut happens will be left behind—not dead, but never-was. Green T's current location is unknown. The Manor's geography shifts. And time is running out.\n\nDan has taken point on this search. This is personal. He pulled Green T from the mirror. He feels responsible. But Green T ran *from* Dan specifically. That fact has not been discussed. Perhaps it should be.",
-
-    loreEntries: ['mirror_entities', 'timeline_bleeding', 'dimensional_trauma'],
-
-    consequences: {
-        success: "Green T is found, calmed, and brought to the Summoning Room. He survives the separation. The experience has changed him—he gains the ability to sense dimensional rifts and detect shapeshifters.",
-        failure: "Green T is not found in time. When the timelines separate, he is on the wrong side of the cut. He is erased from history. Only those who knew him will remember he existed. His absence becomes a permanent wound in the party's conscience.",
-        partial: "Green T is found but cannot be calmed. He is dragged to the Summoning Room against his will. He survives but his sanity does not fully recover. He becomes a liability in future operations.",
-        dark: "Green T is found—but he has already been replaced by something from the mirrors. The rescue brings the enemy into the ritual circle."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'knowledge', name: "Mirror Trauma Protocols", description: "Understanding of how to help dimensional displacement victims." }
-        ],
-        conditional: [
-            {
-                condition: "Rescue Green T successfully",
-                reward: { type: 'ally', name: "Green T (Mirror-Touched)", description: "Gains permanent ability to sense dimensional rifts and detect shapeshifters. His perspective has been fundamentally altered." }
-            },
-            {
-                condition: "Dan makes the rescue personally",
-                reward: { type: 'bond', name: "Reforged Trust", description: "Dan and Green T share a unique connection. Green T will follow Dan's lead in future crises." }
-            },
-            {
-                condition: "Discover why Green T ran from Dan",
-                reward: { type: 'clue', name: "The Wrong Face", description: "Green T saw something in Dan's reflection that wasn't Dan. This information connects to the Impostor Toad mystery." }
-            }
-        ],
-        xp: 3000
-    },
-
-    greenTStatus: {
-        currentCondition: "Panicked Flight / Reality Dissociation",
-        physicalState: "Exhausted, dehydrated, minor injuries from running through debris",
-        mentalState: "Critical. Cannot distinguish between 'real' and 'reflection.' Sees threats in every mirror, window, and polished surface.",
-        lastKnownLocation: "Broke a lock to escape the Solarium (Day 21, early morning)",
-        lastKnownAction: "Running toward the east wing—away from the main corridors",
-        possibleLocations: [
-            "Upper floors (avoiding the lower levels where the Wraith was)",
-            "Servants' quarters (few reflective surfaces)",
-            "The abandoned kitchen (boarded windows, no mirrors)",
-            "The hedge maze (dangerous, but no glass)"
-        ],
-        sanity: 2,
-        trust: "Will not approach anyone who casts a reflection he doesn't recognize. May attack if cornered.",
-        notes: "He ran specifically from Dan. He may have seen something in Dan's reflection that frightened him more than the Mirror Terror itself."
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "The Abduction",
-            description: "During the Siege of Raventree, the Shard Stalker manifested from a mirror and pulled Green T into the dimension between reflections. The party could only watch as he vanished into the glass.",
-            completedDate: { year: 1040, monthIndex: 6, day: 19 }
-        },
-        {
-            id: 'm2',
-            status: 'completed',
-            title: "The Extraction",
-            description: "Dan reached into the mirror and pulled Green T back to reality. It should have been a moment of triumph. Instead, Green T looked at Dan with an expression of absolute terror and fled into the Manor's depths.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 }
-        },
-        {
-            id: 'm3',
-            status: 'active',
-            title: "The Hunt",
-            description: "Green T is somewhere in the Manor. The ritual is approaching. The timelines will separate. Anyone not in the 'present' when the cut happens will be erased.",
-            goals: [
-                { text: "Search the upper floors", status: 'active', priority: 'high' },
-                { text: "Search the servants' quarters", status: 'active', priority: 'high' },
-                { text: "Check the abandoned kitchen", status: 'pending', priority: 'medium' },
-                { text: "Send someone into the hedge maze", status: 'pending', priority: 'low', note: "Dangerous. Last resort." },
-                { text: "Approach Green T without triggering a panic response", status: 'pending', priority: 'critical' },
-                { text: "Understand why he ran from Dan", status: 'pending', priority: 'high' }
-            ],
-            notes: "The Manor's geography shifts. Green T may not be where he was five minutes ago. And the ritual is starting soon."
-        }
-    ],
-
-    connections: {
-        to_impostor_quest: "Green T ran from Dan specifically. If Lario's warning from Day 14 is correct—if the Dan with the party is not the real Dan—then Green T may have seen proof in the mirror dimension. He may be the only person who knows the truth.",
-        to_ritual_quest: "If Green T is not found before the separation, he will be erased. If he is found but is actually a mirror replacement, bringing him into the ritual circle could be catastrophic.",
-        to_dan: "Dan pulled Green T from the mirror. Dan is taking point on the search. Dan is either a hero trying to save a friend, or something wearing Dan's face trying to eliminate a witness."
-    },
-
-    relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'mystery_imposter_toad']
-},
 };

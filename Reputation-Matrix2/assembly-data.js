@@ -3,7 +3,658 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
 // POSTS
-
+    {
+        id: 'waluigi_remi_fail',
+        order: 130,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 30 },
+        timestamp: 'Just now',
+        content: `WAH! Remi is waving a torch around like a birthday candle! The spiders aren't scared of light, they want a snack! Run, tiny elf, run!`,
+        likes: 112,
+        comments: [
+            { characterKey: 'remi', text: 'A little help would be better than commentary!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_mana_empty',
+        order: 131,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 35 },
+        timestamp: '5 minutes ago',
+        content: `Mana tank: EMPTY. Brain: ALSO EMPTY. Remi is going down swinging? That's the Waluigi way, except I'd actually win!`,
+        likes: 89,
+        comments: [
+            { characterKey: 'markop', text: 'She is being swarmed, Waluigi! Move!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_markop_web',
+        order: 132,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 40 },
+        timestamp: '10 minutes ago',
+        content: `Markop is tied up like a holiday roast! The spider is tackling him! Does this mean I'm the leader now? I accept!`,
+        likes: 204,
+        comments: [
+            { characterKey: 'markop', text: 'I am fine! Stop measuring for my crown!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_smoking_j_coward',
+        order: 133,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Smoking J is scared of the dark? WAH! It’s just absence of light! Go back to your squad, you fungus-faced coward!`,
+        likes: 67,
+        comments: [
+            { characterKey: 'toad_alpha', text: 'He has a sensitive disposition!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_mossy_nerd',
+        order: 134,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 50 },
+        timestamp: '20 minutes ago',
+        content: `Mossy is poking a dead spider corpse. Hey! Unless there’s gold in its stomach, keep moving! We have a kaiju to kill!`,
+        likes: 45,
+        comments: [
+            { characterKey: 'mossy', text: 'Biology is important for finding weaknesses!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_crossfire_wah',
+        order: 135,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 55 },
+        timestamp: '25 minutes ago',
+        content: `WAH! HEY! Watch the spit! The spider missed Markop and almost ruined my hat! Poison breath is so unhygienic!`,
+        likes: 312,
+        comments: [
+            { characterKey: 'rodger', text: 'At least it didnt hit your mouth.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_rodger_aim',
+        order: 136,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 0 },
+        timestamp: '30 minutes ago',
+        content: `Rodger fired that heavy crossbow and hit... absolutely nothing! WAH! I could throw a turnip better than that!`,
+        likes: 156,
+        comments: [
+            { characterKey: 'rodger', text: 'It is dark and the spider is fast!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_circle_time',
+        order: 137,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 5 },
+        timestamp: '35 minutes ago',
+        content: `Step aside, amateurs! I’ve got a candle and a dream! Creating a summoning circle! Prepare for greatness!`,
+        likes: 501,
+        comments: [
+            { characterKey: 'remi', text: 'Please tell me it is not another wyvern.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_fng_confusion',
+        order: 138,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 10 },
+        timestamp: '40 minutes ago',
+        content: `FNG finally woke up! She’s poking the giant spider with a fruit knife. WAH! That’s like trying to stop a train with a toothpick!`,
+        likes: 88,
+        comments: [
+            { characterKey: 'fng', text: 'I am trying my best!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_markop_deadlock',
+        order: 139,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `Markop is holding the spider’s claws! It’s a deadlock! It’s like a very ugly dance. One of them needs to step on the other's toes!`,
+        likes: 122,
+        comments: [
+            { characterKey: 'markop', text: 'A little help... instead of... posting!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_the_real_show',
+        order: 140,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 20 },
+        timestamp: '50 minutes ago',
+        content: `WAH-HA! Let me show you a REAL show! Ray of weakening, ACTIVATE! Look at that spider go limp! Waluigi is the MVP!`,
+        likes: 899,
+        comments: [
+            { characterKey: 'oracle', text: 'Actually useful. Surprising.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_eager_inflation',
+        order: 141,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 25 },
+        timestamp: '55 minutes ago',
+        content: `Eager is rolling around like a giant beach ball! Rodger is looking for a "pressure point." Just use a pin! WAH!`,
+        likes: 230,
+        comments: [
+            { characterKey: 'rodger', text: 'He is a friend, not a balloon!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_rock_throw',
+        order: 142,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `I am raining destruction! I threw four rocks! ...Okay, only one hit, and it sort of bounced off. BUT IT WAS A MAJESTIC BOUNCE!`,
+        likes: 41,
+        comments: [
+            { characterKey: 'remi', text: 'It sounded like a pebble hitting a wall.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_rodger_friendly_fire',
+        order: 143,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 35 },
+        timestamp: '1 hour ago',
+        content: `Rodger is so scared he's firing blindly! He just shot Remi! WAH-HA-HA! Remi used her last bit of magic to heal herself. What a waste!`,
+        likes: 560,
+        comments: [
+            { characterKey: 'remi', text: 'I AM BLEEDING, WALUIGI.' },
+            { characterKey: 'rodger', text: 'IT WAS AN ACCIDENT!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_oracle_butt_shot',
+        order: 144,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 40 },
+        timestamp: '1 hour ago',
+        content: `The Oracle crawled under the spider and shot it in the butt with a bow. Very professional. 10/10 for technique!`,
+        likes: 432,
+        comments: [
+            { characterKey: 'oracle', text: 'It was a tactical vulnerability.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_mossy_bite',
+        order: 145,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 45 },
+        timestamp: '1 hour ago',
+        content: `Mossy just jumped and bit the spider from below! Who’s the monster now? WAH! Remind me never to let him near my shins!`,
+        likes: 198,
+        comments: [
+            { characterKey: 'mossy', text: 'It tasted like copper and old webs.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_banishment',
+        order: 146,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 50 },
+        timestamp: '1 hour ago',
+        content: `The Oracle’s circle was a mess—looks like a toddler drew it—but the spider fell right onto it! POOF! Banished! Goodbye, eight-legs!`,
+        likes: 777,
+        comments: [
+            { characterKey: 'markop', text: 'Finally... I can breathe.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_toad_choir',
+        order: 147,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 55 },
+        timestamp: '1 hour ago',
+        content: `The Toads are singing. My ears are bleeding. This is worse than the spider battle! SHUT UP! WAH!`,
+        likes: 120,
+        comments: [
+            { characterKey: 'toad_alpha', text: 'It is a victory hymn!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_loot_divvy',
+        order: 148,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `LOOT TIME! 4 items, way more than 4 people. This is going to be a disaster. I should just take it all for safe keeping!`,
+        likes: 340,
+        comments: [
+            { characterKey: 'remi', text: 'Don’t even think about it.' }
+        ],
+        rumorId: 'loot_drama'
+    },
+    {
+        id: 'waluigi_markop_greedy',
+        order: 149,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 5 },
+        timestamp: '2 hours ago',
+        content: `Markop took the War Mage’s Staff! He says it’s for Archie. WAH! I’m a mage! I’m a war! I should have it!`,
+        likes: 102,
+        comments: [
+            { characterKey: 'markop', text: 'You are a nuisance, not a War Mage.' }
+        ],
+        rumorId: 'loot_drama'
+    },
+    {
+        id: 'waluigi_remi_scales',
+        order: 150,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 10 },
+        timestamp: '2 hours ago',
+        content: `Remi took the Web Woven Scales. It’s armor covered in sticky spider spit. Gross! Enjoy your smelly shirt, elf!`,
+        likes: 55,
+        comments: [
+            { characterKey: 'remi', text: 'It is infused with magic, Waluigi. It is incredibly rare.' }
+        ],
+        rumorId: 'loot_drama'
+    },
+    {
+        id: 'waluigi_rodger_potion_thief',
+        order: 151,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 15 },
+        timestamp: '2 hours ago',
+        content: `Rodger took ALL THREE healing potions! WAH! Greedier than me! He’s hogging the juice! What if I get a papercut?!`,
+        likes: 430,
+        comments: [
+            { characterKey: 'rodger', text: 'I am the one getting shot by my own bolts! I need them!' }
+        ],
+        rumorId: 'loot_drama'
+    },
+    {
+        id: 'waluigi_rest_boring',
+        order: 152,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 23, minute: 45 },
+        timestamp: '2 hours ago',
+        content: `Resting. Everyone is complaining about "bruises" and "trauma." I have a smudge on my glove! That's the real tragedy!`,
+        likes: 19,
+        comments: [
+            { characterKey: 'mossy', text: 'I am literally missing a tooth.' }
+        ],
+        rumorId: 'manor_return'
+    },
+    {
+        id: 'waluigi_toad_guard_fail',
+        order: 153,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 0, minute: 10 },
+        timestamp: '3 hours ago',
+        content: `Back at the manor. A Toad guard tried to stop us. It was just one of the guys from the battle! WAH! Learn to recognize your betters!`,
+        likes: 88,
+        comments: [
+            { characterKey: 'toad_alpha', text: 'He was just being thorough!' }
+        ],
+        rumorId: 'manor_return'
+    },
+    {
+        id: 'waluigi_oracle_clones',
+        order: 154,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 0, minute: 20 },
+        timestamp: '3 hours ago',
+        content: `Wait a second... the Oracle led us inside, then we lost him, then ANOTHER Oracle walked in? Is he a hive mind? Is there a factory?!`,
+        likes: 612,
+        comments: [
+            { characterKey: 'oracle', text: 'The process is... complicated.' }
+        ],
+        rumorId: 'oracle_of_cursed_mansion'
+    },
+    {
+        id: 'waluigi_archie_return',
+        order: 155,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 0, minute: 30 },
+        timestamp: '3 hours ago',
+        content: `ARCHIE! Hjumpi! They aren't kidnapped! They're just sitting here having tea like it's a Sunday brunch! WAH! I wanted a rescue reward!`,
+        likes: 245,
+        comments: [
+            { characterKey: 'archie', text: 'I rescued myself, thank you very much.' }
+        ],
+        rumorId: 'manor_return'
+    },
+    {
+        id: 'waluigi_archie_magic',
+        order: 156,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 0, minute: 35 },
+        timestamp: '3 hours ago',
+        content: `Archie says he "did magic on his own." WAH! Since when? Everyone’s a wizard now! Next thing you know, the spider will be casting fireballs!`,
+        likes: 150,
+        comments: [
+            { characterKey: 'archie', text: 'I have untapped potential!' }
+        ],
+        rumorId: 'manor_return'
+    },
+    {
+        id: 'waluigi_star_shard',
+        order: 157,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 0, minute: 45 },
+        timestamp: '4 hours ago',
+        content: `The Oracle showed off a "Star Shard" from the Toad God. It’s shiny. I WANT IT. How much can I get for it on the black market?`,
+        likes: 999,
+        comments: [
+            { characterKey: 'oracle', text: 'It is a sacred burden, not a trinket.' }
+        ],
+        rumorId: 'oracle_of_cursed_mansion'
+    },
+    {
+        id: 'waluigi_ritual_time',
+        order: 158,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 1, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `Oracle says "Tea time is over, ritual time is now." Boring! Where’s the snacks? You can’t do magic on an empty stomach! WAH!`,
+        likes: 112,
+        comments: [
+            { characterKey: 'remi', text: 'Can you focus for five minutes?' }
+        ],
+        rumorId: 'oracle_of_cursed_mansion'
+    },
+    {
+        id: 'waluigi_salam_eye',
+        order: 159,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 12 },
+        timestamp: 'Yesterday',
+        content: `Salam actually did something! Hit the spider square in the eye with a bolt. WAH! Even a blind toad finds a fly once in a while!`,
+        likes: 210,
+        comments: [
+            { characterKey: 'salam', text: 'It was skill, not luck!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_fng_run',
+        order: 160,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 18 },
+        timestamp: 'Yesterday',
+        content: `FNG hit the spider, realized it did nothing, and ran away. Smartest thing she’s done all day. WAH-HA!`,
+        likes: 67,
+        comments: [
+            { characterKey: 'fng', text: 'Strategic repositioning!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_markop_sweat',
+        order: 161,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 22 },
+        timestamp: 'Yesterday',
+        content: `Markop is sweating so much he’s going to drown the minispiders. Keep pushing, big guy! Don't let the bug eat your face!`,
+        likes: 134,
+        comments: [
+            { characterKey: 'markop', text: 'I am trying!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_toad_pistol',
+        order: 162,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 28 },
+        timestamp: 'Yesterday',
+        content: `A toad fired a pistol through the bushes and hit the spider! Modern technology! Why am I throwing rocks when they have guns?! WAH!`,
+        likes: 450,
+        comments: [
+            { characterKey: 'toad_alpha', text: 'Standard issue, sir!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_spider_hedge',
+        order: 163,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 32 },
+        timestamp: 'Yesterday',
+        content: `The spider is climbing the hedges. It thinks it’s a squirrel! Get down from there and fight like a... well, like a giant monster!`,
+        likes: 92,
+        comments: [
+            { characterKey: 'remi', text: 'It is looking for high ground, Waluigi.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_markop_heal',
+        order: 164,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 38 },
+        timestamp: 'Yesterday',
+        content: `Markop offered to heal Remi. "I'm too big, come here." WAH! Sounds like a trap! Don't do it, Remi, he’ll crush you!`,
+        likes: 180,
+        comments: [
+            { characterKey: 'markop', text: 'I am being helpful!' },
+            { characterKey: 'remi', text: 'I needed the help, Waluigi.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_oracle_chalk',
+        order: 165,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 14 },
+        timestamp: 'Yesterday',
+        content: `The Oracle is drawing with chalk while a kaiju battle is happening. Artistic! Is he drawing a portrait of me? WAH!`,
+        likes: 76,
+        comments: [
+            { characterKey: 'oracle', text: 'It was a containment seal.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_wimper_rock',
+        order: 166,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 31 },
+        timestamp: 'Yesterday',
+        content: `My rock hit the spider and it made a "wimper" sound. Or maybe that was the wind. EITHER WAY, I AM A TITAN!`,
+        likes: 54,
+        comments: [
+            { characterKey: 'rodger', text: 'It definitely did zero damage.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_remi_sting',
+        order: 167,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 36 },
+        timestamp: 'Yesterday',
+        content: `Remi’s magic ran dry and she’s still hurting. WAH! Should have used a potion... OH WAIT, Rodger has them all!`,
+        likes: 380,
+        comments: [
+            { characterKey: 'remi', text: 'Thanks for the reminder...' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_spider_slam',
+        order: 168,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 48 },
+        timestamp: 'Yesterday',
+        content: `The spider jumped down and tried to smash Markop! Markop screamed like a little girl! WAH-HA! But he moved just in time.`,
+        likes: 290,
+        comments: [
+            { characterKey: 'markop', text: 'It was a battle cry!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_staff_denied',
+        order: 169,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 8 },
+        timestamp: 'Yesterday',
+        content: `Markop says he’s giving the staff to Archie. ARCHIE?! He wasn't even there! This is unfair! Waluigi deserves compensation!`,
+        likes: 142,
+        comments: [
+            { characterKey: 'archie', text: 'I appreciate the gift, Markop!' }
+        ],
+        rumorId: 'loot_drama'
+    },
+    {
+        id: 'waluigi_remi_hanging_on',
+        order: 170,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 20 },
+        timestamp: 'Yesterday',
+        content: `Remi is just staring at the spider armor. Put it on! Or sell it to me! Ill give you three buttons and a half-eaten sandwich!`,
+        likes: 66,
+        comments: [
+            { characterKey: 'remi', text: 'I am not ready to wear spider-gut armor yet.' }
+        ],
+        rumorId: 'loot_drama'
+    },
+    {
+        id: 'waluigi_eager_whip',
+        order: 171,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 23, minute: 55 },
+        timestamp: 'Yesterday',
+        content: `Eager got his whip back. He’s feeling better. WAH! He’s still round as a grape, though! Don't roll away!`,
+        likes: 110,
+        comments: [
+            { characterKey: 'rodger', text: 'He is recovering nicely.' }
+        ],
+        rumorId: 'manor_return'
+    },
+    {
+        id: 'waluigi_multiple_oracles',
+        order: 172,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 0, minute: 25 },
+        timestamp: 'Yesterday',
+        content: `Multiple Oracles?! WAH! This is getting confusing. Is there a Waluigi Oracle? Because that one would be the boss!`,
+        likes: 540,
+        comments: [
+            { characterKey: 'oracle', text: 'There is only one Star Bearer.' }
+        ],
+        rumorId: 'oracle_of_cursed_mansion'
+    },
+    {
+        id: 'waluigi_archie_escape',
+        order: 173,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 0, minute: 32 },
+        timestamp: 'Yesterday',
+        content: `Archie is telling his "long story short" about escaping. WAH! Make it shorter! I want to know where the gold is!`,
+        likes: 95,
+        comments: [
+            { characterKey: 'archie', text: 'It involves a lot of cleverness you wouldnt understand.' }
+        ],
+        rumorId: 'manor_return'
+    },
+    {
+        id: 'waluigi_toad_god_shiny',
+        order: 174,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 0, minute: 48 },
+        timestamp: 'Yesterday',
+        content: `The Star Shard is a gift from the Toad God. Does the Toad God give out cash? Or maybe golden mushrooms? WAH!`,
+        likes: 215,
+        comments: [
+            { characterKey: 'oracle', text: 'It gives enlightenment, not currency.' }
+        ],
+        rumorId: 'oracle_of_cursed_mansion'
+    },
+    {
+        id: 'waluigi_ritual_lets_go',
+        order: 175,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 1, minute: 5 },
+        timestamp: 'Yesterday',
+        content: `Archie is leading the Toads to the ritual. WAH! Look at him go, acting like he’s the main character! That’s MY job!`,
+        likes: 132,
+        comments: [
+            { characterKey: 'archie', text: 'Follow me if you want to be useful!' }
+        ],
+        rumorId: 'oracle_of_cursed_mansion'
+    },
+    {
+        id: 'waluigi_spider_butt',
+        order: 176,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 42 },
+        timestamp: 'Yesterday',
+        content: `I can't stop thinking about that arrow in the spider's butt. WAH-HA-HA! The Oracle has no dignity! I love it!`,
+        likes: 602,
+        comments: [
+            { characterKey: 'oracle', text: 'It was a high-percentage shot.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_rodger_coward',
+        order: 177,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 34 },
+        timestamp: 'Yesterday',
+        content: `Rodger was so scared of the spider's eyes he closed his own! WAH! That's why he hit Remi! Bravo, genius!`,
+        likes: 410,
+        comments: [
+            { characterKey: 'rodger', text: 'Those eyes were staring into my soul!' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_markop_minispider',
+        order: 178,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 22, minute: 19 },
+        timestamp: 'Yesterday',
+        content: `Markop stepped on the minispider terrorizing FNG. CRUNCH! WAH! One down, about ten million to go!`,
+        likes: 128,
+        comments: [
+            { characterKey: 'fng', text: 'I am grateful, even if Waluigi isnt.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
+    {
+        id: 'waluigi_end_of_battle',
+        order: 179,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 0 },
+        timestamp: 'Yesterday',
+        content: `The spider is gone, the loot is (unfairly) divided, and I’m still the most handsome guy here. WAH! Victory is mine!`,
+        likes: 1000,
+        comments: [
+            { characterKey: 'remi', text: 'You literally did the least amount of work.' }
+        ],
+        rumorId: 'spider_grove_ambush'
+    },
 {
     id: 'kamek_morning_address',
     order: 62500,
@@ -630,9 +1281,9 @@ We're on schedule.`,
     rumorId: 'archie_aegis_post'
   },
   {
-    id: 'creek_medic_praise',
+    id: 'creek_praise',
     order: 63205,
-    characterKey: 'creek_medic',
+    characterKey: 'creek',
     date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 20 },
     timestamp: '20 minutes ago',
     content: `@archie All 147 accounted (mostly). Led med evac thru sewers. Speaker's genius: Weeks prepping turncoats, gases, maps. Legion lost 67. We're training in safehouses. Cheers to Speaker L—not "hope." 💉🐸`,
