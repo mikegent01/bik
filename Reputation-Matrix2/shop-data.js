@@ -5631,25 +5631,6 @@ export const SHOP_ITEMS = {
     levelRequirement: 9
 },
 
-'temporal_loop_insurance': {
-    id: 'temporal_loop_insurance',
-    name: "Temporal Loop Insurance (Annual)",
-    description: "If you die within the year, reality loops back 1 week and you retain all memories.",
-    category: SHOP_CATEGORIES.PREMIUM,
-    price: 95000,
-    icon: '🔄',
-    stock: 999,
-    rarity: 'epic',
-    effects: [
-        "If killed: time resets to 1 week ago (only you remember)",
-        "Enemies unaware of reset; you have advantage",
-        "Insurance resets annually (must repurchase)",
-        "Side effects: temporal fatigue, déjà vu, minor paradoxes"
-    ],
-    vendor: 'lunar_auction',
-    shippedBy: 'Magical Contract',
-    levelRequirement: 10
-},
 
 'demon_binding_contract': {
     id: 'demon_binding_contract',
