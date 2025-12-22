@@ -64,7 +64,7 @@ export const WAHBOOK_POSTS = [
         content: `Mossy is poking a dead spider corpse. Hey! Unless there’s gold in its stomach, keep moving! We have a kaiju to kill!`,
         likes: 45,
         comments: [
-            { characterKey: 'mossy', text: 'Biology is important for finding weaknesses!' }
+            { characterKey: 'mossy', text: 'Biology iz important 4 findin weaknessez!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -208,7 +208,7 @@ export const WAHBOOK_POSTS = [
         content: `Mossy just jumped and bit the spider from below! Who’s the monster now? WAH! Remind me never to let him near my shins!`,
         likes: 198,
         comments: [
-            { characterKey: 'mossy', text: 'It tasted like copper and old webs.' }
+            { characterKey: 'mossy', text: 'It tastd like coppr an old webz.' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -299,7 +299,7 @@ export const WAHBOOK_POSTS = [
         content: `Resting. Everyone is complaining about "bruises" and "trauma." I have a smudge on my glove! That's the real tragedy!`,
         likes: 19,
         comments: [
-            { characterKey: 'mossy', text: 'I am literally missing a tooth.' }
+            { characterKey: 'mossy', text: 'Am literally missin a tooth.' }
         ],
         rumorId: 'manor_return'
     },
