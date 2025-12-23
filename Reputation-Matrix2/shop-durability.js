@@ -22,7 +22,7 @@ export const DURABILITY_CONFIG = {
         epic: 0.35,
         legendary: 0.25,
         mythic: 0.15,
-        godly: 0.005 
+        godly: 0.01 
     },
     
     // Category modifiers
