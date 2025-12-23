@@ -2,40 +2,2065 @@
 // ritual-logic.js
 
 class GMSheet {
-    constructor() {
-        this.state = {
-            currentScene: 0,
-            circleIntegrity: 5,
-            safeguards: {
-                oracleWard: true,
-                greenTPresent: false,
-                mirrorSeal: true,
-                bloodPrice: true
-            },
-            flags: {
-                danImpostor: false,
-                archieFireRisk: false,
-                legionAlert: false,
-                waluigiChaos: 0
-            },
-            playerChecks: {
-                archie: { prep: null, main: null, sustain: [null, null, null] },
-                bowser: { prep: null, ground: null, mirror: null, sustain: [null, null, null, null] },
-                markop: { prep: null, position: null, defense: null },
-                waluigi: { prep: null, stillness: [null, null, null], weirdCount: 0 }
-            }
-        };
-        
-        this.init();
-    }
+// In the constructor of GMSheet class:
+constructor() {
+    this.state = {
+        currentScene: 0,
+        circleIntegrity: 5,
+        safeguards: {
+            oracleWard: true,
+            greenTPresent: false,
+            mirrorSeal: true,
+            bloodPrice: true
+        },
+        flags: {
+            danImpostor: false,
+            archieFireRisk: false,
+            legionAlert: false,
+            waluigiChaos: 0
+        },
+        playerChecks: {
+            archie: { prep: null, main: null, sustain: [null, null, null] },
+            bowser: { prep: null, ground: null, mirror: null, sustain: [null, null, null, null] },
+            markop: { prep: null, position: null, defense: null },
+            waluigi: { prep: null, stillness: [null, null, null], weirdCount: 0 }
+        }
+    };
+    
+    // Initialize failure tracking
+    this.initFailureStates();
+    this.activeFailure = null;
+    
+    this.init();
+}
 
     init() {
         this.renderSidebar();
         this.renderStatusPanel();
         this.renderMainContent();
         this.showDashboard();
+        this.verifySceneData();
     }
+    // Add this to the constructor or init to verify scene data
+verifySceneData() {
+    const scenes = this.getSceneData();
+    console.log(`Total scenes: ${scenes.length}`);
+    scenes.forEach((s, i) => {
+        console.log(`Scene ${i}: ${s.title}`);
+    });
+}
+// Add this method to GMSheet class
+// Add this method to render the briefing
+renderOracleBriefing(briefing) {
+    if (!briefing) return '';
+    
+    try {
+        return `
+            <div class="oracle-briefing">
+                ${briefing.introduction ? `
+                    <div class="briefing-intro">
+                        <div class="oracle-speech major">
+                            <span class="speaker">🧙‍♂️ ${briefing.introduction.speaker || 'Oracle'}:</span>
+                            <p class="speech-text">"${briefing.introduction.text || ''}"</p>
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${briefing.sections && Array.isArray(briefing.sections) ? `
+                    <div class="briefing-sections">
+                        ${briefing.sections.map(section => `
+                            <div class="briefing-section">
+                                <div class="section-header">
+                                    <span class="section-icon">${section.icon || '📋'}</span>
+                                    <h3>${section.title || 'Section'}</h3>
+                                </div>
+                                
+                                ${section.oracleText ? `
+                                    <div class="oracle-speech">
+                                        <p class="speech-text">"${section.oracleText}"</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${section.danSpecific ? `
+                                    <div class="oracle-speech dan-specific">
+                                        <span class="speaker">🧙‍♂️ To Dan specifically:</span>
+                                        <p class="speech-text">"${section.danSpecific}"</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${section.playerNotes && Array.isArray(section.playerNotes) ? `
+                                    <div class="player-notes">
+                                        <h4>📝 Key Points:</h4>
+                                        <ul>
+                                            ${section.playerNotes.map(note => `<li>${note}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+                                
+                                ${section.roleHints && Array.isArray(section.roleHints) ? `
+                                    <div class="role-hints">
+                                        <h4>👥 Role Assignments:</h4>
+                                        <div class="role-grid">
+                                            ${section.roleHints.map(r => `
+                                                <div class="role-hint">
+                                                    <span class="role-name">${r.role || ''}</span>
+                                                    <span class="role-desc">${r.description || ''}</span>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                
+                                ${section.warningList && Array.isArray(section.warningList) ? `
+                                    <div class="warning-list">
+                                        <h4>💀 Failure Modes:</h4>
+                                        <div class="warning-grid">
+                                            ${section.warningList.map(w => `
+                                                <div class="warning-item">
+                                                    <span class="warning-trigger">${w.trigger || ''}</span>
+                                                    <span class="warning-consequence">${w.consequence || ''}</span>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${this.renderOracleQA ? this.renderOracleQA() : ''}
+                
+                ${briefing.finalWarning ? `
+                    <div class="briefing-final">
+                        <div class="oracle-speech final-warning">
+                            <span class="speaker">🧙‍♂️ ${briefing.finalWarning.speaker || 'Oracle'}:</span>
+                            <p class="speech-text">"${briefing.finalWarning.text || ''}"</p>
+                        </div>
+                        
+                        ${briefing.finalWarning.pause ? `
+                            <div class="dramatic-pause">
+                                <em>[ Pause for player responses ]</em>
+                                <button class="continue-btn" onclick="gm.showAfterPause()">No one leaves → Continue</button>
+                            </div>
+                            <div class="after-pause hidden" id="after-pause">
+                                <div class="oracle-speech">
+                                    <p class="speech-text">"${briefing.finalWarning.afterPause || ''}"</p>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${briefing.transitionText ? `
+                            <div class="transition-text">
+                                <p><em>${briefing.transitionText}</em></p>
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+                
+                <div class="briefing-actions">
+                    <button class="primary-btn" onclick="gm.nextScene()">Enter the Ritual Chamber →</button>
+                </div>
+            </div>
+        `;
+    } catch (e) {
+        console.error('Error in renderOracleBriefing:', e);
+        return '<div class="error">Error rendering briefing</div>';
+    }
+}
+showAfterPause() {
+    document.getElementById('after-pause').classList.remove('hidden');
+    document.querySelector('.dramatic-pause button').style.display = 'none';
+}
+getLogicPuzzles() {
+    return {
+        // PUZZLE 1: POSITION ASSIGNMENT
+        position_puzzle: {
+            id: 'position_puzzle',
+            title: 'The Circle of Twelve',
+            type: 'deduction',
+            description: 'Each participant must stand in their correct position. The ritual will reject wrong placements.',
+            instructions: 'Use the clues to determine where each person stands. Some clues reference multiple people. Some are metaphorical.',
+            clues: [
+                'The one who speaks for all must see all who speak.',
+                'What freezes looks toward what melts, but from where the cold comes, not where it goes.',
+                'A question cannot be asked from behind. Questions face their asker.',
+                'The broker stands between deals — never adjacent to certainty, always facing the one who decides.',
+                'Four who move as one cluster where weight settles.',
+                'Those who only watch stand where they cannot be watched.',
+                'What cannot be contained cannot be inside.',
+                'Memory requires sight of both question and answer.',
+                'The voice of now speaks from where sun rises toward where sun sets.',
+                'Flesh anchors near flesh, but is not flesh.',
+                'Hearts beat southeast of center.',
+                'What comes before stands behind what leads.',
+                'Shadows gather opposite flames.',
+                'Light leads the way for those who follow.'
+            ],
+            positions: {
+                'CENTER': { correct: 'Oracle', holder: null },
+                'NORTH': { correct: 'Archie', holder: null },
+                'EAST': { correct: 'Dan', holder: null },
+                'WEST': { correct: 'Hjumpik', holder: null },
+                'SOUTH': { correct: 'Rodger', holder: null },
+                'NE': { correct: 'Toad Lee', holder: null },
+                'NW': { correct: 'Toadburt', holder: null },
+                'SE': { correct: 'Eager', holder: null },
+                'SW': { correct: 'Markop', holder: null },
+                'S-SW': { correct: 'Perot', holder: null },
+                'S-SE': { correct: 'Smokin\' J', holder: null },
+                'S-CENTER': { correct: 'Salam', holder: null },
+                'OUTER': { correct: 'Waluigi', holder: null }
+            },
+            participants: ['Oracle', 'Archie', 'Dan', 'Hjumpik', 'Rodger', 'Toad Lee', 'Toadburt', 'Eager', 'Markop', 'Perot', 'Smokin\' J', 'Salam', 'Waluigi'],
+            meta_hints: [
+                'Consider what each person DOES, not who they ARE.',
+                'Cardinal directions have meanings. What does NORTH represent?',
+                'Some people function as groups. Who moves together?',
+                'The mirror is a physical object in the room. Where?'
+            ],
+            consequences: {
+                perfect: 'All positions correct. Ritual proceeds with +2 to all checks.',
+                minor_errors: '1-2 errors. Ritual proceeds but those individuals have -2 to their checks.',
+                major_errors: '3+ errors. Ritual unstable from start. -2 Integrity immediately.'
+            }
+        },
 
+        // PUZZLE 2: CANDLE SEQUENCE
+        candle_sequence: {
+            id: 'candle_sequence',
+            title: 'The Lighting Order',
+            type: 'sequence',
+            description: 'Candles must be lit in the correct order. Simultaneous lighting seals. Sequential lighting cuts.',
+            instructions: 'Five candles. One correct order. The principles below govern ritual sequence — they are not instructions, they are laws.',
+            principles: [
+                'You cannot cut the center until you have defined the edges.',
+                'Opposition precedes resolution.',
+                'Certainty before uncertainty.',
+                'The question is not the first thing asked.',
+                'What divides must exist before what is divided.',
+                'The hand that holds the blade moves last.'
+            ],
+            candles: [
+                { position: 'NORTH', description: 'Ice blue flame', color: '#70a1ff' },
+                { position: 'SOUTH', description: 'Deep red flame', color: '#ff6b6b' },
+                { position: 'EAST', description: 'Color shifts, uncertain', color: 'linear-gradient(#ffd93d, #6c5ce7, #a29bfe)' },
+                { position: 'WEST', description: 'Split flame, two wicks', color: '#ffd93d' },
+                { position: 'CENTER', description: 'Pure white', color: '#ffffff' }
+            ],
+            correct_order: ['NORTH', 'SOUTH', 'WEST', 'EAST', 'CENTER'],
+            wrong_order_consequences: {
+                'CENTER_first': 'The blade struck before the edges were defined. Oracle takes 2d6 damage. Restart.',
+                'EAST_first': 'You asked the question before establishing what questions mean. Ritual inverts.',
+                'EAST_before_WEST': 'The question was framed without opposition. Answer will be incomplete.',
+                'SOUTH_before_NORTH': 'Heat before cold. Fire suppression fails. Archie WIS save DC 16 or fire escapes.',
+                'general_wrong': 'Sequence off. Mirror flickers. -1 Integrity.'
+            },
+            solution_logic: [
+                'Edges before center — so CENTER is last.',
+                'Certainty (ice/NORTH) before uncertainty (shifting/EAST).',
+                'Opposition (divided/WEST) before the thing being divided (question/EAST).',
+                'NORTH and SOUTH are opposites — one must come before all others to establish the axis.',
+                'Ice is more "certain" than fire. NORTH before SOUTH.',
+                'Therefore: NORTH → SOUTH → WEST → EAST → CENTER'
+            ]
+        },
+
+        // PUZZLE 3: MIRROR INTERPRETATION
+        mirror_reading: {
+            id: 'mirror_reading',
+            title: 'Reading the Mirror',
+            type: 'interpretation',
+            description: 'The mirror shows symbols. It does not explain. You must.',
+            instructions: 'For each image, discuss what it might mean. There are no wrong answers — but some answers have harder consequences than others.',
+            readings: [
+                {
+                    id: 'dan_image',
+                    image_description: 'Two figures stand in the same space. One is solid, one is translucent. The translucent one has two arms. They breathe at different rhythms.',
+                    questions: [
+                        'Which one is "real"?',
+                        'Why does one have two arms?',
+                        'What does breathing at different rhythms mean?',
+                        'Are they aware of each other?'
+                    ],
+                    possible_meanings: [
+                        { id: 'ghost', text: 'The translucent one is a ghost of who Dan was.' },
+                        { id: 'impostor', text: 'One of them is not Dan at all.' },
+                        { id: 'fragment', text: 'Dan is fractured — part of him is elsewhere.' },
+                        { id: 'temporal', text: 'We see Dan from two different times.' },
+                        { id: 'observer', text: 'Something is watching Dan, wearing his old shape.' },
+                        { id: 'merged', text: 'Two beings have merged into one Dan.' }
+                    ],
+                    gm_notes: 'Let players debate. Their consensus becomes narratively significant. If they cannot agree, the mirror will decide — and it will choose the hardest option.'
+                },
+                {
+                    id: 'hjumpik_image',
+                    image_description: 'A frog sits at a crossroads. Three paths lead away. One path has a group of figures walking away. One path has a single hooded figure. One path leads into darkness. The frog\'s shadow points down the dark path even though there is no light source.',
+                    questions: [
+                        'Which path is Hjumpik facing?',
+                        'What do the three paths represent?',
+                        'Why does his shadow point differently?',
+                        'Is he at the crossroads or has he already chosen?'
+                    ],
+                    possible_meanings: [
+                        { id: 'undecided', text: 'Hjumpik genuinely hasn\'t chosen.' },
+                        { id: 'party_loyal', text: 'He will choose the party (group path).' },
+                        { id: 'third_party', text: 'He serves someone else (hooded figure).' },
+                        { id: 'self', text: 'He will choose himself (darkness).' },
+                        { id: 'shadow_truth', text: 'His shadow shows his true intention.' },
+                        { id: 'all_paths', text: 'He will try to walk all three.' }
+                    ]
+                },
+                {
+                    id: 'archie_image',
+                    image_description: 'A block of ice, perfectly clear. Inside the ice, a single ember glows. The ember is not melting the ice. The ice is not extinguishing the ember. Cracks radiate from the ember but do not reach the surface.',
+                    questions: [
+                        'Is the ice containing the fire or protecting it?',
+                        'What do the cracks mean?',
+                        'Can this state persist?',
+                        'What happens if the cracks reach the surface?'
+                    ],
+                    possible_meanings: [
+                        { id: 'control', text: 'Archie has perfect control — fire is contained.' },
+                        { id: 'temporary', text: 'This balance is temporary. The cracks will spread.' },
+                        { id: 'symbiosis', text: 'Ice and fire have found harmony in Archie.' },
+                        { id: 'suppression', text: 'The fire is merely suppressed. It wants out.' },
+                        { id: 'transformation', text: 'Fire became ice. They are the same thing now.' },
+                        { id: 'bomb', text: 'Archie is a bomb waiting to go off.' }
+                    ]
+                },
+                {
+                    id: 'circle_image',
+                    image_description: 'Twelve figures stand in a circle. A thirteenth space exists but is empty. One figure stands outside the circle entirely. The empty space glows faintly green. The outside figure casts no shadow.',
+                    questions: [
+                        'Who is the empty space?',
+                        'Why is the outside figure outside?',
+                        'What does the green glow mean?',
+                        'Why no shadow on the outside figure?'
+                    ],
+                    possible_meanings: [
+                        { id: 'greent', text: 'The empty space is Green T — gone but remembered.' },
+                        { id: 'wrong_member', text: 'Someone in the circle should be in the empty space.' },
+                        { id: 'waluigi_correct', text: 'The outside figure is Waluigi — correctly placed.' },
+                        { id: 'waluigi_wrong', text: 'The outside figure should be inside.' },
+                        { id: 'complete', text: 'Twelve is complete. Thirteen was never needed.' },
+                        { id: 'missing_matters', text: 'The empty space will pull. Something will fill it.' }
+                    ]
+                }
+            ]
+        },
+
+        // PUZZLE 4: DAN EVIDENCE BOARD
+        dan_deduction: {
+            id: 'dan_deduction',
+            title: 'The Question of Dan',
+            type: 'investigation',
+            description: 'Before the mirror answers, you can investigate. Evidence points toward truth. Enough evidence gives certainty.',
+            instructions: 'Gather evidence through roleplay. Mark what you learn. Build your case before the mirror speaks.',
+            evidence_board: {
+                physical: {
+                    category: 'Body',
+                    icon: '🦾',
+                    questions: [
+                        {
+                            question: 'Which hand did Dan favor before the arm was lost?',
+                            how_to_check: 'Ask someone who knew Dan. Check for calluses on remaining hand. Watch which way Dan instinctively reaches.',
+                            implications: {
+                                'matches': 'Point toward real Dan',
+                                'wrong_hand': 'Strong point toward impostor',
+                                'ambidextrous': 'Inconclusive'
+                            }
+                        },
+                        {
+                            question: 'Where is the arm that was lost?',
+                            how_to_check: 'Investigate what happened. Was it destroyed? Taken? Does it exist somewhere?',
+                            implications: {
+                                'destroyed': 'If truly gone, harder for fragment to exist',
+                                'exists_elsewhere': 'Fragment theory gains weight',
+                                'unknown': 'Concerning'
+                            }
+                        },
+                        {
+                            question: 'Do Dan\'s scars match the injuries that should have caused them?',
+                            how_to_check: 'Medical examination. Compare to accounts of how injuries occurred.',
+                            implications: {
+                                'match': 'Point toward real Dan',
+                                'wrong_scars': 'Very suspicious',
+                                'extra_scars': 'What else happened to this body?'
+                            }
+                        }
+                    ]
+                },
+                memory: {
+                    category: 'Mind',
+                    icon: '🧠',
+                    questions: [
+                        {
+                            question: 'What is something only Dan would know about someone present?',
+                            how_to_check: 'Each party member tests one private memory. Cannot be something an observer could learn.',
+                            implications: {
+                                'knows': 'Point toward real Dan',
+                                'doesnt_know': 'Point toward impostor',
+                                'knows_wrong': 'Strong impostor evidence — false memories'
+                            }
+                        },
+                        {
+                            question: 'Does Dan remember Green T accurately?',
+                            how_to_check: 'Ask about specific interactions with Green T. Details only someone present would know.',
+                            implications: {
+                                'accurate': 'Point toward real Dan',
+                                'gaps': 'Could be trauma or impostor',
+                                'fabricated': 'Impostor or fragment with corrupted memory'
+                            }
+                        },
+                        {
+                            question: 'Does Dan have memories that nobody else can verify?',
+                            how_to_check: 'Listen for claims about events where Dan was alone. Cross-reference when possible.',
+                            implications: {
+                                'verifiable': 'Normal',
+                                'unverifiable_consistent': 'Concerning but possible',
+                                'unverifiable_contradictory': 'Something is very wrong'
+                            }
+                        }
+                    ]
+                },
+                behavior: {
+                    category: 'Pattern',
+                    icon: '🔄',
+                    questions: [
+                        {
+                            question: 'How does Dan react to things Dan loved?',
+                            how_to_check: 'Present something Dan was known to enjoy. Watch the reaction — micro-expressions, not words.',
+                            implications: {
+                                'genuine_pleasure': 'Point toward real Dan',
+                                'performed': 'Impostor learning to fake',
+                                'confusion': 'Fragment with incomplete personality'
+                            }
+                        },
+                        {
+                            question: 'How does Dan react to things Dan feared?',
+                            how_to_check: 'Present a stressor. Fear is harder to fake than pleasure.',
+                            implications: {
+                                'genuine_fear': 'Point toward real Dan',
+                                'wrong_fear': 'Very suspicious — fears don\'t transfer',
+                                'no_fear': 'Either brave Dan or incomplete copy'
+                            }
+                        },
+                        {
+                            question: 'Why has Dan been so quiet?',
+                            how_to_check: 'Consider: Is silence from trauma? Instruction? Or inability to maintain the mask?',
+                            implications: {
+                                'trauma': 'Understandable for real Dan',
+                                'obedience': 'Following ritual rules — neutral',
+                                'preservation': 'Avoiding exposure — concerning'
+                            }
+                        }
+                    ]
+                },
+                ritual: {
+                    category: 'Magic',
+                    icon: '✨',
+                    questions: [
+                        {
+                            question: 'How did Dan\'s reflection behave in the corridor?',
+                            how_to_check: 'Recall observation from Scene 1. What was different about Dan\'s reflection?',
+                            implications: {
+                                'doubled': 'Two Dans exist in some form',
+                                'delayed': 'Dan is not synchronized with reality',
+                                'normal': 'Either real or very good impostor'
+                            }
+                        },
+                        {
+                            question: 'Did Dan find the East position without being told?',
+                            how_to_check: 'Recall positioning phase. Did Dan drift East naturally?',
+                            implications: {
+                                'yes_naturally': 'Ritual recognizes Dan',
+                                'needed_direction': 'Inconclusive',
+                                'resisted': 'Dan (or impostor) didn\'t want to be the question'
+                            }
+                        },
+                        {
+                            question: 'What made Dan\'s singularity uncertain in the first place?',
+                            how_to_check: 'This is backstory. Why are we questioning Dan at all?',
+                            implications: {
+                                'specific_event': 'Focus investigation on that event',
+                                'general_suspicion': 'Weaker basis — but still valid',
+                                'unknown': 'Why are we even here?'
+                            }
+                        }
+                    ]
+                }
+            },
+            scoring: {
+                toward_real: { label: 'Dan IS Dan', points: 0 },
+                toward_fragment: { label: 'Dan + Fragment', points: 0 },
+                toward_impostor: { label: 'NOT Dan', points: 0 },
+                toward_unknown: { label: 'Unknowable', points: 0 }
+            },
+            thresholds: {
+                certain: '8+ points in one category: You KNOW. You can challenge a wrong mirror answer.',
+                likely: '5-7 points with 3+ lead: You suspect. Advantage on challenging mirror.',
+                unclear: 'No clear lead: You must accept what the mirror says.',
+                paradox: 'Two categories tied at 6+: Somehow BOTH are true. Much worse.'
+            }
+        },
+
+        // PUZZLE 5: BALANCE MANAGEMENT
+        balance_puzzle: {
+            id: 'balance_puzzle',
+            title: 'The Opposition Balance',
+            type: 'resource_management',
+            description: 'Five forces in tension. If any grows too strong or too weak, the ritual breaks.',
+            instructions: 'Track the balance. Actions tip scales. Maintain equilibrium. The ritual will tell you when something is wrong — but not what to do about it.',
+            elements: [
+                { name: 'Ice', icon: '❄️', value: 5, min_name: 'Void', max_name: 'Stasis' },
+                { name: 'Fire', icon: '🔥', value: 5, min_name: 'Empty', max_name: 'Inferno' },
+                { name: 'Order', icon: '⚖️', value: 5, min_name: 'Chaos', max_name: 'Rigidity' },
+                { name: 'Chaos', icon: '🌀', value: 5, min_name: 'Stagnation', max_name: 'Dissolution' },
+                { name: 'Truth', icon: '🪞', value: 5, min_name: 'Lies', max_name: 'Agony' }
+            ],
+            actions: [
+                { actor: 'Archie', action: 'Pushes ice harder', visible_effect: 'Temperature drops noticeably' },
+                { actor: 'Archie', action: 'Relaxes control', visible_effect: 'Warmth creeps in at edges' },
+                { actor: 'Archie', action: 'Shows emotion', visible_effect: 'Ice flickers orange' },
+                { actor: 'Rodger', action: 'Gives an order', visible_effect: 'Squad snaps to attention' },
+                { actor: 'Rodger', action: 'Shows uncertainty', visible_effect: 'Squad looks around nervously' },
+                { actor: 'Squad', action: 'Panics', visible_effect: 'Formation breaks' },
+                { actor: 'Squad', action: 'Holds discipline', visible_effect: 'Formation tightens' },
+                { actor: 'Waluigi', action: 'Does something weird', visible_effect: 'Reality hiccups' },
+                { actor: 'Waluigi', action: 'Stays perfectly still', visible_effect: 'Feels wrong' },
+                { actor: 'Dan', action: 'Speaks', visible_effect: 'Mirror ripples' },
+                { actor: 'Dan', action: 'Moves', visible_effect: 'Circle geometry shifts' },
+                { actor: 'Dan', action: 'Remains passive', visible_effect: 'Mirror focuses' },
+                { actor: 'Hjumpik', action: 'Looks loyal', visible_effect: 'Mirror dims slightly' },
+                { actor: 'Hjumpik', action: 'Looks doubtful', visible_effect: 'Mirror brightens' },
+                { actor: 'Anyone', action: 'Tells truth they\'d rather hide', visible_effect: 'Mirror resonates' },
+                { actor: 'Anyone', action: 'Lies or omits', visible_effect: 'Mirror fogs' },
+                { actor: 'Anyone', action: 'Calms someone afraid', visible_effect: 'Tension releases' },
+                { actor: 'Anyone', action: 'Expresses fear', visible_effect: 'Others feel it' }
+            ],
+            hidden_effects: {
+                // GM reference - don't show players
+                'archie_pushes': { ice: +2, fire: -1 },
+                'archie_relaxes': { ice: -1, fire: +2 },
+                'archie_emotion': { ice: -2, fire: +1, truth: -1 },
+                'rodger_orders': { order: +2, chaos: -1 },
+                'rodger_uncertain': { order: -1, chaos: +1 },
+                'squad_panic': { order: -3, chaos: +2, fire: +1 },
+                'squad_discipline': { order: +2 },
+                'waluigi_weird': { chaos: +2, order: -1 },
+                'waluigi_still': { chaos: -2, order: +1, truth: +1 },
+                'dan_speaks': { truth: -2, chaos: +1 },
+                'dan_moves': { chaos: +1, order: -1 },
+                'dan_passive': { truth: +1 },
+                'hjumpik_loyal': { order: +1, chaos: -1, truth: -1 },
+                'hjumpik_doubt': { chaos: +1, truth: +1 },
+                'truth_told': { truth: +2 },
+                'lie_told': { truth: -2, chaos: +1 },
+                'calm_given': { order: +1, fire: -1 },
+                'fear_shown': { chaos: +1, fire: +1 }
+            },
+            crisis_points: {
+                ice_10: 'Everything freezes. All actions impossible for 1 round.',
+                ice_0: 'Fire is no longer suppressed. Archie must save or cast.',
+                fire_10: 'Summoning begins. Enter Fire Catastrophe.',
+                fire_0: 'Ritual has no power to cut. Begins to fail.',
+                order_10: 'Ritual becomes a seal. Everyone trapped inside.',
+                order_0: 'Formation dissolves. Enter Squad Panic.',
+                chaos_10: 'Reality becomes optional. Random effects each round.',
+                chaos_0: 'Ritual is predictable. Enemies can counter it.',
+                truth_10: 'Everyone sees their worst truth. Mass trauma.',
+                truth_0: 'Mirror is lying. All answers are wrong.'
+            },
+            gap_warning: 'If gap between highest and lowest exceeds 5: Imbalance cascade.'
+        },
+
+        // PUZZLE 6: EXIT SEQUENCE
+        exit_puzzle: {
+            id: 'exit_puzzle',
+            title: 'The Departure Order',
+            type: 'sequence',
+            description: 'What was wound must be unwound. The exit is not the entrance in reverse.',
+            instructions: 'Determine the correct order for all to leave. Some leave together. Some must wait. The wrong order leaves pieces behind.',
+            rules: [
+                'What was last to fully commit releases first.',
+                'The observer must cease observing before the observed may leave.',
+                'A question that exits after its answer is no longer a question.',
+                'The conductor cannot leave a symphony that still has musicians.',
+                'Those who anchor to each other must release together.',
+                'The unpredictable releases when prediction is no longer needed.',
+                'Opposition may release when the cut is complete.'
+            ],
+            constraints: [
+                'Oracle cannot leave until all others are clear.',
+                'Dan must leave before the mirror\'s answer crystallizes permanently.',
+                'If Archie leaves while ice is uncertain, fire may escape.',
+                'If witnesses leave after participants, memory inverts.',
+                'If the squad separates, each must save individually.',
+                'If Waluigi leaves too early, chaos spills onto remaining.'
+            ],
+            groups: [
+                { id: 'witnesses', members: ['Toad Lee', 'Toadburt', 'Eager', 'Markop'], exit_together: false },
+                { id: 'squad', members: ['Rodger', 'Perot', 'Smokin\' J', 'Salam'], exit_together: true },
+                { id: 'question', members: ['Dan'], exit_together: true },
+                { id: 'edges', members: ['Hjumpik', 'Archie'], exit_together: false },
+                { id: 'chaos', members: ['Waluigi'], exit_together: true },
+                { id: 'conductor', members: ['Oracle'], exit_together: true }
+            ],
+            correct_order: [
+                { order: 1, who: ['Toad Lee', 'Toadburt', 'Eager', 'Markop'], reason: 'Witnesses release first — they were never fully inside' },
+                { order: 2, who: ['Waluigi'], reason: 'Chaos releases when structure begins dissolving' },
+                { order: 3, who: ['Rodger', 'Perot', 'Smokin\' J', 'Salam'], reason: 'Mundane anchors release as a unit' },
+                { order: 4, who: ['Dan'], reason: 'Question leaves before answer hardens' },
+                { order: 5, who: ['Hjumpik', 'Archie'], reason: 'Edges release when cut is complete' },
+                { order: 6, who: ['Oracle'], reason: 'Conductor leaves empty hall' }
+            ]
+        },
+
+        // PUZZLE 7: THE SPEAKING
+        speaking_puzzle: {
+            id: 'speaking_puzzle',
+            title: 'The Oracle\'s Words',
+            type: 'word_completion',
+            description: 'The Oracle speaks in ritual phrases. If interrupted, another must complete them. Wrong words have wrong effects.',
+            instructions: 'Each phrase has one correct completion. The meaning of the phrase tells you what word fits.',
+            phrases: [
+                {
+                    id: 'opening',
+                    spoken: 'That which is uncertain, be revealed. That which is hidden, be shown. That which is divided, be _____.',
+                    context: 'This phrase opens the question. What do you do to something divided to get an answer?',
+                    correct: 'known',
+                    wrong_effects: {
+                        'united': 'All fragments merge — impostors become real.',
+                        'separated': 'Fragments multiply — Dan becomes many.',
+                        'healed': 'Assumes Dan is wounded — may fix what was not broken.',
+                        'destroyed': 'Annihilation — Dan ceases entirely.',
+                        'judged': 'Punishment, not truth — ritual becomes execution.',
+                        'forgotten': 'Dan is erased from memory. Problem "solved."'
+                    }
+                },
+                {
+                    id: 'opposition',
+                    spoken: 'Let ice oppose fire. Let order oppose chaos. Let truth oppose _____.',
+                    context: 'Oppositions define the cut. What is truth\'s opposite? Not its absence — its enemy.',
+                    correct: 'desire',
+                    wrong_effects: {
+                        'lies': 'Too simple. Lies are obvious. Desire corrupts truth subtly.',
+                        'fear': 'Fear and truth can coexist. Wrong opposition.',
+                        'hope': 'Hope is not opposed to truth. Weakens the cut.',
+                        'self': 'Makes the ritual about identity, not fact.',
+                        'nothing': 'Negates opposition. Truth becomes meaningless.'
+                    }
+                },
+                {
+                    id: 'authority',
+                    spoken: 'By the mirror\'s edge, by the witness\'s eye, by the _____ of those who remain.',
+                    context: 'What empowers the cut? What do those in the circle provide?',
+                    correct: 'will',
+                    wrong_effects: {
+                        'power': 'Makes might determine truth. Dangerous.',
+                        'blood': 'Invokes sacrifice. Someone will pay in blood.',
+                        'hope': 'Too passive. Hoping doesn\'t cut.',
+                        'memory': 'Ties result to past — cannot cut toward future.',
+                        'love': 'Emotional truth, not actual truth. Corrupts.'
+                    }
+                },
+                {
+                    id: 'completion',
+                    spoken: 'What belongs, remains. What intrudes, departs. What is asked, is _____.',
+                    context: 'The final phrase. What happens to a question when the ritual succeeds?',
+                    correct: 'answered',
+                    wrong_effects: {
+                        'known': 'Repetition from phrase one. Weakens structure.',
+                        'resolved': 'Implies conflict. This is inquiry, not combat.',
+                        'closed': 'Ends the question but not with truth — just silence.',
+                        'silenced': 'Suppresses the question. Nothing learned.',
+                        'ended': 'Destruction, not truth.'
+                    }
+                }
+            ],
+            interruption_rules: {
+                who_can_complete: 'Anyone who heard the words. Toadburt has advantage (recording is his role).',
+                time_limit: 'Must be completed within one round or phrase fails.',
+                partial_completion: 'If phrase is cut off mid-word, must restart from last complete word.',
+                wrong_word: 'Cannot unsay. Effect happens. May need to adapt.',
+                silence: 'If no one completes, roll on Timeline Shear table.'
+            }
+        },
+
+        // PUZZLE 8: READING THE ROOM
+        room_reading: {
+            id: 'room_reading',
+            title: 'Environmental Tells',
+            type: 'observation',
+            description: 'The ritual space communicates. Pay attention.',
+            instructions: 'The GM will describe environmental changes. Players must interpret what they mean.',
+            environmental_tells: [
+                {
+                    observation: 'Candle flames lean in the same direction',
+                    possible_meanings: [
+                        'Something is pulling from that direction',
+                        'The ritual\'s focus has shifted',
+                        'Someone on that side is the current focus'
+                    ]
+                },
+                {
+                    observation: 'Temperature drops sharply but Archie hasn\'t changed',
+                    possible_meanings: [
+                        'Something cold has entered',
+                        'Truth is being spoken — truth is cold',
+                        'Time is slowing in that area'
+                    ]
+                },
+                {
+                    observation: 'Someone\'s shadow moves independently',
+                    possible_meanings: [
+                        'The mirror is testing them',
+                        'A fragment or parasite is attached',
+                        'Their true intention differs from their action'
+                    ]
+                },
+                {
+                    observation: 'The chalk lines glow brighter near someone',
+                    possible_meanings: [
+                        'The ritual recognizes them as significant',
+                        'They are the current subject of inquiry',
+                        'Energy is flowing through them'
+                    ]
+                },
+                {
+                    observation: 'The mirror shows someone who isn\'t moving while they are',
+                    possible_meanings: [
+                        'Their reflection refuses to follow',
+                        'Part of them is already separated',
+                        'The mirror sees their "true" position'
+                    ]
+                },
+                {
+                    observation: 'Sound becomes muffled except for one person\'s voice',
+                    possible_meanings: [
+                        'The ritual wants to hear them',
+                        'They are speaking truth the ritual needs',
+                        'Everyone else is becoming less real'
+                    ]
+                },
+                {
+                    observation: 'The torch flame turns a different color',
+                    possible_meanings: [
+                        'Blue: Time magic active',
+                        'Green: Something from outside observing',
+                        'Red: Danger imminent',
+                        'White: Truth being revealed',
+                        'Black: Void touching'
+                    ]
+                }
+            ],
+            gm_usage: 'Use these tells to hint at developments without explicit statements. Let players interpret. Their interpretation influences what happens.'
+        }
+    };
+}
+showMirrorReading() {
+    const puzzle = this.getLogicPuzzles().mirror_reading;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.mirrorChoices) this.puzzleState.mirrorChoices = {};
+    
+    const content = `
+        <div class="logic-puzzle mirror-puzzle">
+            <div class="puzzle-header">
+                <h2>🪞 ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="mirror-readings">
+                ${puzzle.readings.map(reading => this.renderMirrorReading(reading)).join('')}
+            </div>
+            
+            <div class="interpretation-warning">
+                <h4>⚠️ Warning</h4>
+                <p>Your interpretation becomes real. The mirror shows — you decide meaning. There are no wrong answers, only different consequences.</p>
+            </div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzle: Mirror Reading', content);
+}
+
+renderMirrorReading(reading) {
+    const selectedMeaning = this.puzzleState.mirrorChoices?.[reading.id];
+    
+    return `
+        <div class="reading-card" id="reading-${reading.id}">
+            <div class="reading-image">
+                <div class="image-frame">
+                    <p class="image-description">${reading.image_description}</p>
+                </div>
+            </div>
+            
+            <div class="reading-questions">
+                <h4>Questions to Consider:</h4>
+                <ul>
+                    ${reading.questions.map(q => `<li>${q}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div class="reading-meanings">
+                <h4>Possible Interpretations:</h4>
+                <div class="meaning-options">
+                    ${reading.possible_meanings.map(m => `
+                        <div class="meaning-option ${selectedMeaning === m.id ? 'selected' : ''}"
+                             onclick="gm.selectMirrorMeaning('${reading.id}', '${m.id}')">
+                            <span class="meaning-text">${m.text}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            ${selectedMeaning ? `
+                <div class="chosen-meaning">
+                    <strong>Your interpretation:</strong> ${reading.possible_meanings.find(m => m.id === selectedMeaning)?.text}
+                </div>
+            ` : ''}
+            
+            ${reading.gm_notes ? `
+                <div class="gm-notes">
+                    <strong>GM Note:</strong> ${reading.gm_notes}
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+selectMirrorMeaning(readingId, meaningId) {
+    if (!this.puzzleState.mirrorChoices) this.puzzleState.mirrorChoices = {};
+    this.puzzleState.mirrorChoices[readingId] = meaningId;
+    this.logEvent(`Mirror interpretation: ${readingId} = ${meaningId}`);
+    this.showMirrorReading();
+}
+// Render the position puzzle
+
+showPositionPuzzle() {
+    const puzzle = this.getLogicPuzzles().position_puzzle;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.positions) {
+        this.puzzleState.positions = {};
+        Object.keys(puzzle.positions).forEach(pos => {
+            this.puzzleState.positions[pos] = null;
+        });
+    }
+    
+    const content = `
+        <div class="logic-puzzle position-puzzle">
+            <div class="puzzle-header">
+                <h2>🧩 ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="puzzle-workspace">
+                <div class="position-grid-visual">
+                    ${this.renderPositionGrid(puzzle)}
+                </div>
+                
+                <div class="participant-pool">
+                    <h4>Available Participants:</h4>
+                    <div class="participant-tokens">
+                        ${puzzle.participants.map(p => {
+                            const placed = Object.values(this.puzzleState.positions).includes(p);
+                            return `
+                                <div class="participant-token ${placed ? 'placed' : ''} ${this.selectedParticipant === p ? 'selected' : ''}" 
+                                     data-participant="${p}"
+                                     onclick="gm.selectParticipant('${p}')">
+                                    ${p}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="puzzle-clues">
+                <h4>📜 Clues:</h4>
+                <div class="clues-list">
+                    ${puzzle.clues.map((clue, i) => `
+                        <div class="clue-item">
+                            <span class="clue-number">${i + 1}.</span>
+                            <span class="clue-text">${clue}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            ${puzzle.meta_hints ? `
+                <div class="puzzle-hints">
+                    <h4>💡 Meta Hints (if truly stuck):</h4>
+                    ${puzzle.meta_hints.map((hint, i) => `
+                        <div class="hint-item" id="hint-${i}">
+                            <button class="hint-reveal-btn" onclick="gm.revealHint(${i})">Reveal Hint ${i + 1}</button>
+                            <span class="hint-text hidden">${hint}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            
+            <div class="puzzle-actions">
+                <button class="check-btn" onclick="gm.checkPositionPuzzle()">✓ Check Solution</button>
+                <button class="reset-btn" onclick="gm.resetPositionPuzzle()">↺ Reset</button>
+            </div>
+            
+            <div class="puzzle-result" id="position-puzzle-result"></div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzle: Positions', content);
+}
+
+revealHint(index) {
+    const hintItem = document.getElementById(`hint-${index}`);
+    const button = hintItem.querySelector('.hint-reveal-btn');
+    const text = hintItem.querySelector('.hint-text');
+    
+    button.style.display = 'none';
+    text.classList.remove('hidden');
+}
+
+renderPositionGrid(puzzle) {
+    const gridPositions = {
+        'NW': { row: 1, col: 1 },
+        'NORTH': { row: 1, col: 2 },
+        'NE': { row: 1, col: 3 },
+        'WEST': { row: 2, col: 1 },
+        'CENTER': { row: 2, col: 2 },
+        'EAST': { row: 2, col: 3 },
+        'SW': { row: 3, col: 1 },
+        'SOUTH': { row: 3, col: 2 },
+        'SE': { row: 3, col: 3 },
+        'S-SW': { row: 4, col: 1 },
+        'S-CENTER': { row: 4, col: 2 },
+        'S-SE': { row: 4, col: 3 },
+        'OUTER': { row: 5, col: 2 }
+    };
+    
+    return `
+        <div class="position-grid">
+            ${Object.entries(puzzle.positions).map(([pos, data]) => {
+                const placed = this.puzzleState.positions[pos];
+                const gridPos = gridPositions[pos] || { row: 5, col: 1 };
+                return `
+                    <div class="position-slot" 
+                         style="grid-row: ${gridPos.row}; grid-column: ${gridPos.col};"
+                         data-position="${pos}"
+                         onclick="gm.placeParticipant('${pos}')">
+                        <span class="position-label">${pos}</span>
+                        <span class="position-holder">${placed || '—'}</span>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+selectParticipant(name) {
+    this.selectedParticipant = name;
+    document.querySelectorAll('.participant-token').forEach(t => t.classList.remove('selected'));
+    const token = document.querySelector(`[data-participant="${name}"]`);
+    if (token) token.classList.add('selected');
+}
+
+placeParticipant(position) {
+    if (!this.selectedParticipant) {
+        this.showToast('Select a participant first');
+        return;
+    }
+    
+    // Remove from old position if already placed
+    Object.keys(this.puzzleState.positions).forEach(pos => {
+        if (this.puzzleState.positions[pos] === this.selectedParticipant) {
+            this.puzzleState.positions[pos] = null;
+        }
+    });
+    
+    // Place in new position
+    this.puzzleState.positions[position] = this.selectedParticipant;
+    this.selectedParticipant = null;
+    
+    // Re-render
+    this.showPositionPuzzle();
+}
+
+checkPositionPuzzle() {
+    const puzzle = this.getLogicPuzzles().position_puzzle;
+    let correct = 0;
+    let errors = [];
+    
+    Object.entries(puzzle.positions).forEach(([pos, data]) => {
+        const placed = this.puzzleState.positions[pos];
+        if (placed === data.correct) {
+            correct++;
+        } else if (placed) {
+            errors.push(`${pos}: ${placed} should be ${data.correct}`);
+        } else {
+            errors.push(`${pos}: Empty (should be ${data.correct})`);
+        }
+    });
+    
+    const total = Object.keys(puzzle.positions).length;
+    const resultDiv = document.getElementById('position-puzzle-result');
+    
+    let resultHtml = '';
+    if (correct === total) {
+        resultHtml = `
+            <div class="result success">
+                <h3>✓ Perfect!</h3>
+                <p>${puzzle.consequences.perfect}</p>
+            </div>
+        `;
+        this.logEvent('Position Puzzle: PERFECT');
+    } else if (errors.length <= 2) {
+        resultHtml = `
+            <div class="result partial">
+                <h3>⚠️ Minor Errors (${correct}/${total})</h3>
+                <p>${puzzle.consequences.minor_errors}</p>
+                <ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>
+            </div>
+        `;
+        this.logEvent('Position Puzzle: Minor errors');
+    } else {
+        resultHtml = `
+            <div class="result failure">
+                <h3>✗ Major Errors (${correct}/${total})</h3>
+                <p>${puzzle.consequences.major_errors}</p>
+                <ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>
+            </div>
+        `;
+        this.adjustIntegrity(-2);
+        this.logEvent('Position Puzzle: FAILED');
+    }
+    
+    resultDiv.innerHTML = resultHtml;
+}
+
+resetPositionPuzzle() {
+    this.puzzleState.positions = {};
+    this.selectedParticipant = null;
+    this.showPositionPuzzle();
+}
+
+revealHint(index) {
+    const hintDiv = document.getElementById(`hint-${index}`);
+    hintDiv.classList.remove('hidden');
+    hintDiv.querySelector('button').style.display = 'none';
+}
+// Fixed showCandleSequence - uses 'solution_logic' instead of 'explanation'
+showCandleSequence() {
+    const puzzle = this.getLogicPuzzles().candle_sequence;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.candleOrder) this.puzzleState.candleOrder = [];
+    
+    const content = `
+        <div class="logic-puzzle candle-puzzle">
+            <div class="puzzle-header">
+                <h2>🕯️ ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="candle-principles">
+                <h4>📜 Principles of Lighting:</h4>
+                <ul>
+                    ${puzzle.principles.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div class="candle-workspace">
+                <div class="candle-display">
+                    ${puzzle.candles.map(c => {
+                        const orderIndex = this.puzzleState.candleOrder.indexOf(c.position);
+                        const isLit = orderIndex !== -1;
+                        return `
+                            <div class="candle ${isLit ? 'lit' : ''}" onclick="gm.lightCandle('${c.position}')">
+                                <div class="candle-flame ${isLit ? 'burning' : ''}" style="${isLit ? `background: ${c.color}` : ''}"></div>
+                                <div class="candle-body"></div>
+                                <div class="candle-info">
+                                    <span class="candle-position">${c.position}</span>
+                                    <span class="candle-desc">${c.description}</span>
+                                    ${isLit ? `<span class="candle-order">#${orderIndex + 1}</span>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                
+                <div class="current-sequence">
+                    <h4>Current Sequence:</h4>
+                    <div class="sequence-display">
+                        ${this.puzzleState.candleOrder.length > 0 
+                            ? this.puzzleState.candleOrder.map((pos, i) => `<span class="seq-item">${i + 1}. ${pos}</span>`).join(' → ')
+                            : '<em>No candles lit yet</em>'
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <div class="puzzle-actions">
+                <button class="check-btn" onclick="gm.checkCandleSequence()">✓ Check Sequence</button>
+                <button class="reset-btn" onclick="gm.resetCandleSequence()">↺ Reset</button>
+            </div>
+            
+            <div class="puzzle-result" id="candle-puzzle-result"></div>
+            
+            <div class="solution-reveal hidden" id="candle-solution">
+                <h4>Solution Logic:</h4>
+                <ol>
+                    ${puzzle.solution_logic.map(e => `<li>${e}</li>`).join('')}
+                </ol>
+            </div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzle: Candle Sequence', content);
+}
+
+checkCandleSequence() {
+    const puzzle = this.getLogicPuzzles().candle_sequence;
+    const correct = puzzle.correct_order;
+    const player = this.puzzleState.candleOrder;
+    
+    const resultDiv = document.getElementById('candle-puzzle-result');
+    let resultHtml = '';
+    
+    // Check for specific wrong patterns
+    if (player.length === 0) {
+        resultHtml = `<div class="result warning"><h3>No candles lit yet</h3></div>`;
+    } else if (player[0] === 'CENTER') {
+        resultHtml = `
+            <div class="result failure">
+                <h3>💥 CENTER Lit First!</h3>
+                <p>${puzzle.wrong_order_consequences.CENTER_first}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: CENTER FIRST - Oracle damaged');
+    } else if (player[0] === 'EAST') {
+        resultHtml = `
+            <div class="result failure">
+                <h3>✗ EAST (Question) Lit First!</h3>
+                <p>${puzzle.wrong_order_consequences.EAST_first}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: EAST FIRST - Ritual inverts');
+    } else if (player.indexOf('EAST') !== -1 && player.indexOf('WEST') !== -1 && 
+               player.indexOf('EAST') < player.indexOf('WEST')) {
+        resultHtml = `
+            <div class="result failure">
+                <h3>✗ EAST Before WEST!</h3>
+                <p>${puzzle.wrong_order_consequences.EAST_before_WEST}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: EAST before WEST');
+    } else if (player.indexOf('SOUTH') !== -1 && player.indexOf('NORTH') !== -1 && 
+               player.indexOf('SOUTH') < player.indexOf('NORTH')) {
+        resultHtml = `
+            <div class="result failure">
+                <h3>✗ SOUTH Before NORTH!</h3>
+                <p>${puzzle.wrong_order_consequences.SOUTH_before_NORTH}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: SOUTH before NORTH');
+    } else if (JSON.stringify(player) === JSON.stringify(correct)) {
+        resultHtml = `
+            <div class="result success">
+                <h3>✓ Perfect Sequence!</h3>
+                <p>The candles are lit in the correct order. The ritual can proceed.</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: PERFECT');
+    } else if (player.length === 5) {
+        // All lit but wrong order
+        let differences = 0;
+        for (let i = 0; i < 5; i++) {
+            if (player[i] !== correct[i]) differences++;
+        }
+        resultHtml = `
+            <div class="result partial">
+                <h3>⚠️ Sequence Has Errors</h3>
+                <p>${puzzle.wrong_order_consequences.general_wrong}</p>
+                <p>${differences} positions differ from optimal order.</p>
+            </div>
+        `;
+        this.adjustIntegrity(-1);
+        this.logEvent('Candle Sequence: Partial errors');
+    } else {
+        resultHtml = `
+            <div class="result warning">
+                <h3>Sequence Incomplete</h3>
+                <p>${player.length} of 5 candles lit. Continue lighting to complete.</p>
+            </div>
+        `;
+    }
+    
+    resultDiv.innerHTML = resultHtml;
+    
+    // Show solution after checking
+    if (player.length === 5) {
+        document.getElementById('candle-solution').classList.remove('hidden');
+    }
+}
+
+
+lightCandle(position) {
+    if (!this.puzzleState.candleOrder.includes(position)) {
+        this.puzzleState.candleOrder.push(position);
+        this.showCandleSequence();
+    }
+}
+
+checkCandleSequence() {
+    const puzzle = this.getLogicPuzzles().candle_sequence;
+    const correct = puzzle.correct_order;
+    const player = this.puzzleState.candleOrder;
+    
+    const resultDiv = document.getElementById('candle-puzzle-result');
+    let resultHtml = '';
+    
+    if (JSON.stringify(player) === JSON.stringify(correct)) {
+        resultHtml = `
+            <div class="result success">
+                <h3>✓ Perfect Sequence!</h3>
+                <p>${puzzle.consequences.perfect}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: PERFECT');
+    } else if (player[0] === 'CENTER') {
+        resultHtml = `
+            <div class="result failure">
+                <h3>💥 CENTER Lit First!</h3>
+                <p>${puzzle.consequences.center_early}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: CENTER FIRST - Oracle damaged');
+    } else if (player[0] !== correct[0]) {
+        resultHtml = `
+            <div class="result failure">
+                <h3>✗ Wrong First Candle</h3>
+                <p>${puzzle.consequences.wrong_first}</p>
+            </div>
+        `;
+        this.logEvent('Candle Sequence: Wrong first candle');
+    } else {
+        // Check for swaps
+        let swaps = 0;
+        for (let i = 0; i < correct.length; i++) {
+            if (player[i] !== correct[i]) swaps++;
+        }
+        resultHtml = `
+            <div class="result partial">
+                <h3>⚠️ Sequence Has Errors</h3>
+                <p>${puzzle.consequences.one_swap}</p>
+                <p>${swaps} positions differ from optimal.</p>
+            </div>
+        `;
+        this.adjustIntegrity(-1);
+        this.logEvent('Candle Sequence: Partial errors');
+    }
+    
+    resultDiv.innerHTML = resultHtml;
+    document.getElementById('candle-solution').classList.remove('hidden');
+}
+
+resetCandleSequence() {
+    this.puzzleState.candleOrder = [];
+    this.showCandleSequence();
+}
+
+// Balance Puzzle
+
+// Fixed showBalancePuzzle - uses 'actions' instead of 'actions_and_effects'
+showBalancePuzzle() {
+    const puzzle = this.getLogicPuzzles().balance_puzzle;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.balance) {
+        this.puzzleState.balance = {};
+        puzzle.elements.forEach(e => {
+            this.puzzleState.balance[e.name.toLowerCase()] = e.value;
+        });
+    }
+    
+    const content = `
+        <div class="logic-puzzle balance-puzzle">
+            <div class="puzzle-header">
+                <h2>⚖️ ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="balance-display">
+                ${puzzle.elements.map(e => {
+                    const value = this.puzzleState.balance[e.name.toLowerCase()];
+                    const danger = value >= 9 || value <= 1;
+                    const critical = value >= 10 || value <= 0;
+                    return `
+                        <div class="balance-element ${danger ? 'danger' : ''} ${critical ? 'critical' : ''}">
+                            <span class="element-icon">${e.icon}</span>
+                            <span class="element-name">${e.name}</span>
+                            <div class="element-bar">
+                                <div class="element-fill" style="width: ${value * 10}%"></div>
+                                <span class="element-value">${value}</span>
+                            </div>
+                            <span class="element-extremes">
+                                <span class="extreme-min">${e.min_name || 'Empty'}</span> ↔ 
+                                <span class="extreme-max">${e.max_name || 'Full'}</span>
+                            </span>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            
+            <div class="balance-status">
+                ${this.getBalanceStatus(puzzle)}
+            </div>
+            
+            <div class="balance-actions">
+                <h4>Actions (GM: click when action occurs to apply hidden effect):</h4>
+                <div class="action-grid">
+                    ${puzzle.actions.map((a, i) => `
+                        <button class="action-btn" onclick="gm.applyBalanceAction(${i})">
+                            <span class="action-actor">${a.actor}:</span>
+                            <span class="action-name">${a.action}</span>
+                            <span class="action-visible">${a.visible_effect}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="balance-crisis">
+                <h4>⚠️ Crisis Points (GM Reference):</h4>
+                <div class="crisis-grid">
+                    ${Object.entries(puzzle.crisis_points).map(([key, effect]) => `
+                        <div class="crisis-item">
+                            <span class="crisis-trigger">${key.replace('_', ' ').toUpperCase()}</span>
+                            <span class="crisis-effect">${effect}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="puzzle-actions">
+                <button class="reset-btn" onclick="gm.resetBalancePuzzle()">↺ Reset</button>
+            </div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzle: Balance', content);
+}
+
+applyBalanceAction(index) {
+    const puzzle = this.getLogicPuzzles().balance_puzzle;
+    const action = puzzle.actions[index];
+    
+    // Get hidden effect based on action
+    const effectKey = this.getBalanceEffectKey(action);
+    const effect = puzzle.hidden_effects[effectKey];
+    
+    if (effect) {
+        Object.entries(effect).forEach(([element, change]) => {
+            if (this.puzzleState.balance[element] !== undefined) {
+                this.puzzleState.balance[element] = Math.max(0, Math.min(10, this.puzzleState.balance[element] + change));
+            }
+        });
+    }
+    
+    this.logEvent(`Balance action: ${action.actor} - ${action.action}`);
+    this.showToast(`${action.visible_effect}`);
+    this.showBalancePuzzle();
+    
+    // Check for catastrophic events
+    this.checkBalanceCatastrophe(puzzle);
+}
+
+getBalanceEffectKey(action) {
+    // Map actions to their hidden effect keys
+    const actionMap = {
+        'Pushes ice harder': 'archie_pushes',
+        'Relaxes control': 'archie_relaxes',
+        'Shows emotion': 'archie_emotion',
+        'Gives an order': 'rodger_orders',
+        'Shows uncertainty': 'rodger_uncertain',
+        'Panics': 'squad_panic',
+        'Holds discipline': 'squad_discipline',
+        'Does something weird': 'waluigi_weird',
+        'Stays perfectly still': 'waluigi_still',
+        'Speaks': 'dan_speaks',
+        'Moves': 'dan_moves',
+        'Remains passive': 'dan_passive',
+        'Looks loyal': 'hjumpik_loyal',
+        'Looks doubtful': 'hjumpik_doubt',
+        'Tells truth they\'d rather hide': 'truth_told',
+        'Lies or omits': 'lie_told',
+        'Calms someone afraid': 'calm_given',
+        'Expresses fear': 'fear_shown'
+    };
+    
+    return actionMap[action.action] || null;
+}
+
+checkBalanceCatastrophe(puzzle) {
+    const balance = this.puzzleState.balance;
+    
+    if (balance.fire >= 10) {
+        this.showToast('🔥 FIRE AT 10! Summoning begins!', 'error');
+        setTimeout(() => this.showFailureSubpage('archie_fire'), 1500);
+    }
+    if (balance.ice <= 0) {
+        this.showToast('❄️ ICE AT 0! Fire uncontained!', 'error');
+    }
+    if (balance.order <= 0) {
+        this.showToast('⚖️ ORDER AT 0! Squad panic!', 'error');
+        setTimeout(() => this.showFailureSubpage('squad_panic'), 1500);
+    }
+    if (balance.chaos >= 10) {
+        this.showToast('🌀 CHAOS AT 10! Reality unstable!', 'error');
+    }
+    if (balance.truth <= 0) {
+        this.showToast('🪞 TRUTH AT 0! Mirror is lying!', 'error');
+    }
+    if (balance.truth >= 10) {
+        this.showToast('🪞 TRUTH AT 10! Painful revelations!', 'error');
+    }
+}
+
+getBalanceStatus(puzzle) {
+    const values = Object.values(this.puzzleState.balance);
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const gap = max - min;
+    
+    let status = '';
+    
+    // Check for criticals
+    Object.entries(this.puzzleState.balance).forEach(([element, value]) => {
+        if (value >= 10) {
+            status += `<div class="status-critical">🔴 ${element.toUpperCase()} at 10! ${puzzle.cascade_effects[element + '_10']}</div>`;
+        }
+        if (value <= 0) {
+            status += `<div class="status-critical">🔴 ${element.toUpperCase()} at 0! ${puzzle.cascade_effects[element + '_0']}</div>`;
+        }
+    });
+    
+    // Check gap
+    if (gap > 5) {
+        status += `<div class="status-warning">⚠️ Imbalance! Gap of ${gap} between highest and lowest. Cascade imminent!</div>`;
+    } else if (gap <= 1) {
+        status += `<div class="status-good">✓ Perfect Balance! All elements within 1 of each other.</div>`;
+    } else {
+        status += `<div class="status-ok">Balance Gap: ${gap} (keep under 5)</div>`;
+    }
+    
+    return status;
+}
+
+formatBalanceEffect(effect) {
+    return Object.entries(effect).map(([key, val]) => `${key}: ${val > 0 ? '+' : ''}${val}`).join(', ');
+}
+
+applyBalanceAction(index) {
+    const puzzle = this.getLogicPuzzles().balance_puzzle;
+    const action = puzzle.actions_and_effects[index];
+    
+    Object.entries(action.effect).forEach(([element, change]) => {
+        this.puzzleState.balance[element] = Math.max(0, Math.min(10, this.puzzleState.balance[element] + change));
+    });
+    
+    this.logEvent(`Balance: ${action.action}`);
+    this.showBalancePuzzle();
+    
+    // Check for catastrophic events
+    this.checkBalanceCatastrophe(puzzle);
+}
+
+checkBalanceCatastrophe(puzzle) {
+    Object.entries(this.puzzleState.balance).forEach(([element, value]) => {
+        if (value >= 10 && element === 'fire') {
+            this.showToast('FIRE AT 10! Triggering Fire Catastrophe!', 'error');
+            setTimeout(() => this.showFailureSubpage('archie_fire'), 1000);
+        }
+        if (value <= 0 && element === 'ice') {
+            this.showToast('ICE AT 0! Fire uncontained!', 'error');
+        }
+        if (value <= 0 && element === 'order') {
+            this.showToast('ORDER AT 0! Squad panic!', 'error');
+            setTimeout(() => this.showFailureSubpage('squad_panic'), 1000);
+        }
+    });
+}
+
+resetBalancePuzzle() {
+    this.puzzleState.balance = null;
+    this.showBalancePuzzle();
+}
+showDanDeduction() {
+    const puzzle = this.getLogicPuzzles().dan_deduction;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.danEvidence) {
+        this.puzzleState.danEvidence = {
+            toward_real: 0,
+            toward_fragment: 0,
+            toward_impostor: 0,
+            toward_unknown: 0,
+            findings: []
+        };
+    }
+    
+    const evidence = this.puzzleState.danEvidence;
+    
+    const content = `
+        <div class="logic-puzzle dan-puzzle">
+            <div class="puzzle-header">
+                <h2>🦾 ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="evidence-scores">
+                <div class="score-card real">
+                    <span class="score-label">Dan IS Dan</span>
+                    <span class="score-value">${evidence.toward_real}</span>
+                    <button onclick="gm.adjustDanScore('toward_real', 1)">+</button>
+                    <button onclick="gm.adjustDanScore('toward_real', -1)">−</button>
+                </div>
+                <div class="score-card fragment">
+                    <span class="score-label">Dan + Fragment</span>
+                    <span class="score-value">${evidence.toward_fragment}</span>
+                    <button onclick="gm.adjustDanScore('toward_fragment', 1)">+</button>
+                    <button onclick="gm.adjustDanScore('toward_fragment', -1)">−</button>
+                </div>
+                <div class="score-card impostor">
+                    <span class="score-label">NOT Dan</span>
+                    <span class="score-value">${evidence.toward_impostor}</span>
+                    <button onclick="gm.adjustDanScore('toward_impostor', 1)">+</button>
+                    <button onclick="gm.adjustDanScore('toward_impostor', -1)">−</button>
+                </div>
+                <div class="score-card unknown">
+                    <span class="score-label">Unknowable</span>
+                    <span class="score-value">${evidence.toward_unknown}</span>
+                    <button onclick="gm.adjustDanScore('toward_unknown', 1)">+</button>
+                    <button onclick="gm.adjustDanScore('toward_unknown', -1)">−</button>
+                </div>
+            </div>
+            
+            <div class="evidence-status">
+                ${this.getDanEvidenceStatus(evidence, puzzle)}
+            </div>
+            
+            <div class="evidence-board">
+                ${Object.entries(puzzle.evidence_board).map(([key, category]) => `
+                    <div class="evidence-category">
+                        <h3>${category.icon} ${category.category}</h3>
+                        <div class="evidence-questions">
+                            ${category.questions.map((q, i) => `
+                                <div class="evidence-question">
+                                    <div class="question-text">${q.question}</div>
+                                    <div class="question-method"><strong>How to check:</strong> ${q.how_to_check}</div>
+                                    <div class="question-implications">
+                                        <strong>Implications:</strong>
+                                        <ul>
+                                            ${Object.entries(q.implications).map(([result, meaning]) => `
+                                                <li><em>${result}:</em> ${meaning}</li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="evidence-findings">
+                <h3>📋 Recorded Findings</h3>
+                <textarea id="dan-findings" placeholder="Record your evidence and reasoning here...">${evidence.findings.join('\n')}</textarea>
+                <button onclick="gm.saveDanFindings()">Save Findings</button>
+            </div>
+            
+            <div class="evidence-thresholds">
+                <h4>Thresholds:</h4>
+                <ul>
+                    ${Object.entries(puzzle.thresholds).map(([key, desc]) => `
+                        <li><strong>${key}:</strong> ${desc}</li>
+                    `).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    this.setContent('Investigation: The Question of Dan', content);
+}
+
+adjustDanScore(category, amount) {
+    this.puzzleState.danEvidence[category] = Math.max(0, this.puzzleState.danEvidence[category] + amount);
+    this.showDanDeduction();
+}
+
+getDanEvidenceStatus(evidence, puzzle) {
+    const scores = [
+        { name: 'Dan IS Dan', value: evidence.toward_real },
+        { name: 'Dan + Fragment', value: evidence.toward_fragment },
+        { name: 'NOT Dan', value: evidence.toward_impostor },
+        { name: 'Unknowable', value: evidence.toward_unknown }
+    ];
+    
+    scores.sort((a, b) => b.value - a.value);
+    const highest = scores[0];
+    const second = scores[1];
+    const gap = highest.value - second.value;
+    
+    let status = '';
+    
+    if (highest.value >= 8) {
+        status = `<div class="status-certain">CERTAIN: ${highest.name} (${highest.value} points). You can challenge the mirror.</div>`;
+    } else if (highest.value >= 5 && gap >= 3) {
+        status = `<div class="status-likely">LIKELY: ${highest.name} (${highest.value} points, +${gap} lead). Advantage on challenge.</div>`;
+    } else if (highest.value >= 6 && second.value >= 6) {
+        status = `<div class="status-paradox">PARADOX: ${highest.name} AND ${second.name} both strong. This is worse.</div>`;
+    } else {
+        status = `<div class="status-unclear">UNCLEAR: No strong conclusion. Mirror will decide.</div>`;
+    }
+    
+    return status;
+}
+
+saveDanFindings() {
+    const textarea = document.getElementById('dan-findings');
+    this.puzzleState.danEvidence.findings = textarea.value.split('\n');
+    this.showToast('Findings saved');
+    this.logEvent('Dan investigation findings updated');
+}
+showExitPuzzle() {
+    const puzzle = this.getLogicPuzzles().exit_puzzle;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.exitOrder) this.puzzleState.exitOrder = [];
+    
+    const content = `
+        <div class="logic-puzzle exit-puzzle">
+            <div class="puzzle-header">
+                <h2>🚪 ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="exit-rules">
+                <h4>📜 Rules of Unwinding:</h4>
+                <ul>
+                    ${puzzle.rules.map(r => `<li>${r}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div class="exit-constraints">
+                <h4>⚠️ Constraints:</h4>
+                <ul class="constraint-list">
+                    ${puzzle.constraints.map(c => `<li>${c}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div class="exit-workspace">
+                <div class="exit-sequence-display">
+                    <h4>Exit Order:</h4>
+                    <div class="sequence-slots">
+                        ${[1,2,3,4,5,6].map(slot => {
+                            const group = this.puzzleState.exitOrder[slot - 1];
+                            return `
+                                <div class="exit-slot" data-slot="${slot}">
+                                    <span class="slot-number">${slot}</span>
+                                    <span class="slot-content">${group ? group.join(', ') : '—'}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <div class="exit-groups">
+                    <h4>Groups to Place:</h4>
+                    ${puzzle.groups.map(g => {
+                        const placed = this.puzzleState.exitOrder.some(order => 
+                            order && order.some(m => g.members.includes(m))
+                        );
+                        return `
+                            <div class="exit-group ${placed ? 'placed' : ''}" 
+                                 onclick="gm.placeExitGroup('${g.id}')">
+                                <span class="group-members">${g.members.join(', ')}</span>
+                                ${g.exit_together ? '<span class="must-together">Must exit together</span>' : ''}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+            
+            <div class="puzzle-actions">
+                <button class="check-btn" onclick="gm.checkExitPuzzle()">✓ Check Order</button>
+                <button class="reset-btn" onclick="gm.resetExitPuzzle()">↺ Reset</button>
+            </div>
+            
+            <div class="puzzle-result" id="exit-puzzle-result"></div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzle: Exit Sequence', content);
+}
+
+placeExitGroup(groupId) {
+    const puzzle = this.getLogicPuzzles().exit_puzzle;
+    const group = puzzle.groups.find(g => g.id === groupId);
+    
+    if (!group) return;
+    
+    // Find next empty slot
+    let slot = this.puzzleState.exitOrder.length;
+    if (slot >= 6) {
+        this.showToast('All slots filled. Reset to change.');
+        return;
+    }
+    
+    this.puzzleState.exitOrder.push(group.members);
+    this.showExitPuzzle();
+}
+
+checkExitPuzzle() {
+    const puzzle = this.getLogicPuzzles().exit_puzzle;
+    const playerOrder = this.puzzleState.exitOrder;
+    const correctOrder = puzzle.correct_order;
+    
+    let errors = [];
+    let correct = 0;
+    
+    for (let i = 0; i < correctOrder.length; i++) {
+        const expected = correctOrder[i].who.sort().join(',');
+        const actual = playerOrder[i] ? playerOrder[i].sort().join(',') : '';
+        
+        if (expected === actual) {
+            correct++;
+        } else if (playerOrder[i]) {
+            errors.push(`Position ${i + 1}: Expected ${correctOrder[i].who.join(', ')}`);
+        }
+    }
+    
+    // Check specific dangerous errors
+    const oracleIndex = playerOrder.findIndex(g => g && g.includes('Oracle'));
+    const danIndex = playerOrder.findIndex(g => g && g.includes('Dan'));
+    
+    let criticalErrors = [];
+    if (oracleIndex !== -1 && oracleIndex < 5) {
+        criticalErrors.push('Oracle left before others — ritual collapses');
+    }
+    if (danIndex !== -1 && danIndex >= 5) {
+        criticalErrors.push('Dan left last — answer crystallized (possibly wrong)');
+    }
+    
+    const resultDiv = document.getElementById('exit-puzzle-result');
+    
+    if (correct === 6) {
+        resultDiv.innerHTML = `
+            <div class="result success">
+                <h3>✓ Perfect Exit Sequence</h3>
+                <p>All participants leave correctly. Nothing left behind.</p>
+            </div>
+        `;
+    } else if (criticalErrors.length > 0) {
+        resultDiv.innerHTML = `
+            <div class="result failure">
+                <h3>✗ Critical Errors</h3>
+                <ul>${criticalErrors.map(e => `<li>${e}</li>`).join('')}</ul>
+            </div>
+        `;
+    } else {
+        resultDiv.innerHTML = `
+            <div class="result partial">
+                <h3>⚠️ Sequence Errors (${correct}/6 correct)</h3>
+                <ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>
+            </div>
+        `;
+    }
+}
+
+resetExitPuzzle() {
+    this.puzzleState.exitOrder = [];
+    this.showExitPuzzle();
+}
+showSpeakingPuzzle() {
+    const puzzle = this.getLogicPuzzles().speaking_puzzle;
+    
+    if (!this.puzzleState) this.puzzleState = {};
+    if (!this.puzzleState.speakingAnswers) this.puzzleState.speakingAnswers = {};
+    
+    const content = `
+        <div class="logic-puzzle speaking-puzzle">
+            <div class="puzzle-header">
+                <h2>🗣️ ${puzzle.title}</h2>
+                <p class="puzzle-type">Type: ${puzzle.type.toUpperCase()}</p>
+            </div>
+            
+            <div class="puzzle-description">
+                <p>${puzzle.description}</p>
+                <p class="instructions">${puzzle.instructions}</p>
+            </div>
+            
+            <div class="phrase-cards">
+                ${puzzle.phrases.map(phrase => this.renderPhraseCard(phrase)).join('')}
+            </div>
+            
+            <div class="interruption-rules">
+                <h4>📋 If Interrupted:</h4>
+                <ul>
+                    ${Object.entries(puzzle.interruption_rules).map(([key, value]) => `
+                        <li><strong>${key.replace(/_/g, ' ')}:</strong> ${value}</li>
+                    `).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzle: The Oracle\'s Words', content);
+}
+
+// In showSpeakingPuzzle, update the submit button:
+// In showSpeakingPuzzle, update the submit button:
+renderPhraseCard(phrase) {
+    const answer = this.puzzleState.speakingAnswers?.[phrase.id];
+    const isCorrect = answer === phrase.correct;
+    const wrongEffect = answer && !isCorrect ? phrase.wrong_effects[answer] : null;
+    
+    const safeId = phrase.id.replace(/[^a-zA-Z0-9_-]/g, '_');
+    
+    return `
+        <div class="phrase-card ${answer ? (isCorrect ? 'correct' : 'wrong') : ''}">
+            <div class="phrase-purpose">${phrase.id.toUpperCase()}: ${phrase.context || ''}</div>
+            
+            <div class="phrase-text">
+                <span class="spoken-words">"${phrase.spoken.replace('_____', `<span class="blank">${answer || '_____'}</span>`)}"</span>
+            </div>
+            
+            ${!answer ? `
+                <div class="word-input">
+                    <input type="text" id="input-${safeId}" placeholder="Enter the word...">
+                    <button data-phraseid="${phrase.id}" onclick="gm.submitPhraseWordFromButton(this)">Submit</button>
+                </div>
+            ` : ''}
+            
+            ${answer && isCorrect ? `
+                <div class="phrase-result correct">
+                    ✓ Correct. The phrase is complete.
+                </div>
+            ` : ''}
+            
+            ${wrongEffect ? `
+                <div class="phrase-result wrong">
+                    ✗ Wrong word: "${answer}"
+                    <div class="wrong-effect">${wrongEffect}</div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+submitPhraseWordFromButton(button) {
+    const phraseId = button.dataset.phraseid;
+    this.submitPhraseWord(phraseId);
+}
+
+submitPhraseWord(phraseId) {
+    const safeId = phraseId.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const input = document.getElementById(`input-${safeId}`);
+    if (!input) {
+        console.error('Input not found for phrase:', phraseId);
+        return;
+    }
+    
+    const word = input.value.toLowerCase().trim();
+    
+    if (!word) return;
+    
+    if (!this.puzzleState.speakingAnswers) {
+        this.puzzleState.speakingAnswers = {};
+    }
+    this.puzzleState.speakingAnswers[phraseId] = word;
+    
+    const puzzle = this.getLogicPuzzles().speaking_puzzle;
+    const phrase = puzzle.phrases.find(p => p.id === phraseId);
+    
+    if (phrase && word === phrase.correct) {
+        this.logEvent(`Oracle phrase "${phraseId}" completed correctly`);
+        this.showToast('Correct word!');
+    } else if (phrase) {
+        const effect = phrase.wrong_effects[word] || 'Unknown effect';
+        this.logEvent(`Oracle phrase "${phraseId}" WRONG: "${word}" — ${effect}`);
+        this.showToast('Wrong word — see consequences', 'error');
+    }
+    
+    this.showSpeakingPuzzle();
+}
+submitPhraseWordFromButton(button) {
+    const phraseId = button.dataset.phraseid;
+    this.submitPhraseWord(phraseId);
+}
+
+submitPhraseWord(phraseId) {
+    const safeId = phraseId.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const input = document.getElementById(`input-${safeId}`);
+    if (!input) {
+        console.error('Input not found for phrase:', phraseId);
+        return;
+    }
+    
+    const word = input.value.toLowerCase().trim();
+    
+    if (!word) return;
+    
+    if (!this.puzzleState.speakingAnswers) {
+        this.puzzleState.speakingAnswers = {};
+    }
+    this.puzzleState.speakingAnswers[phraseId] = word;
+    
+    const puzzle = this.getLogicPuzzles().speaking_puzzle;
+    const phrase = puzzle.phrases.find(p => p.id === phraseId);
+    
+    if (phrase && word === phrase.correct) {
+        this.logEvent(`Oracle phrase "${phraseId}" completed correctly`);
+        this.showToast('Correct word!');
+    } else if (phrase) {
+        const effect = phrase.wrong_effects[word] || 'Unknown effect';
+        this.logEvent(`Oracle phrase "${phraseId}" WRONG: "${word}" — ${effect}`);
+        this.showToast('Wrong word — see consequences', 'error');
+    }
+    
+    this.showSpeakingPuzzle();
+}
+
+
+submitPhraseWord(phraseId) {
+    const input = document.getElementById(`input-${phraseId}`);
+    const word = input.value.toLowerCase().trim();
+    
+    if (!word) return;
+    
+    this.puzzleState.speakingAnswers[phraseId] = word;
+    
+    const puzzle = this.getLogicPuzzles().speaking_puzzle;
+    const phrase = puzzle.phrases.find(p => p.id === phraseId);
+    
+    if (word === phrase.correct) {
+        this.logEvent(`Oracle phrase "${phraseId}" completed correctly`);
+        this.showToast('Correct word!');
+    } else {
+        this.logEvent(`Oracle phrase "${phraseId}" WRONG: "${word}" — ${phrase.wrong_effects[word] || 'Unknown effect'}`);
+        this.showToast('Wrong word — see consequences', 'error');
+    }
+    
+    this.showSpeakingPuzzle();
+}
+showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+// Add navigation for puzzles
+showPuzzleMenu() {
+    const puzzles = this.getLogicPuzzles();
+    
+    const content = `
+        <div class="puzzle-menu">
+            <h2>🧩 Logic Puzzles</h2>
+            <p class="subtitle">These puzzles replace dice rolls with player reasoning.</p>
+            
+            <div class="puzzle-list">
+                <div class="puzzle-card" onclick="gm.showPositionPuzzle()">
+                    <span class="puzzle-icon">📍</span>
+                    <h3>The Circle of Twelve</h3>
+                    <p>Deduce where each participant must stand using clues.</p>
+                    <span class="puzzle-tag">Deduction</span>
+                </div>
+                
+                <div class="puzzle-card" onclick="gm.showCandleSequence()">
+                    <span class="puzzle-icon">🕯️</span>
+                    <h3>The Lighting Order</h3>
+                    <p>Determine the correct sequence to light the ritual candles.</p>
+                    <span class="puzzle-tag">Sequence</span>
+                </div>
+                
+                <div class="puzzle-card" onclick="gm.showMirrorReading()">
+                    <span class="puzzle-icon">🪞</span>
+                    <h3>Reading the Mirror</h3>
+                    <p>Interpret symbolic images shown by the mirror.</p>
+                    <span class="puzzle-tag">Interpretation</span>
+                </div>
+                
+                <div class="puzzle-card" onclick="gm.showDanDeduction()">
+                    <span class="puzzle-icon">🦾</span>
+                    <h3>The Question of Dan</h3>
+                    <p>Gather and evaluate evidence to determine Dan's nature.</p>
+                    <span class="puzzle-tag">Deduction</span>
+                </div>
+                
+                <div class="puzzle-card" onclick="gm.showBalancePuzzle()">
+                    <span class="puzzle-icon">⚖️</span>
+                    <h3>The Opposition Balance</h3>
+                    <p>Manage five elements to keep them in equilibrium.</p>
+                    <span class="puzzle-tag">Resource Management</span>
+                </div>
+                
+                <div class="puzzle-card" onclick="gm.showExitPuzzle()">
+                    <span class="puzzle-icon">🚪</span>
+                    <h3>The Departure Order</h3>
+                    <p>Determine the correct order for participants to exit.</p>
+                    <span class="puzzle-tag">Sequence</span>
+                </div>
+                
+                <div class="puzzle-card" onclick="gm.showSpeakingPuzzle()">
+                    <span class="puzzle-icon">🗣️</span>
+                    <h3>The Oracle's Words</h3>
+                    <p>Complete ritual phrases with the correct words.</p>
+                    <span class="puzzle-tag">Word Puzzle</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    this.setContent('Logic Puzzles', content);
+}
     renderSidebar() {
         const sidebar = document.querySelector('.sidebar');
         sidebar.innerHTML = `
@@ -66,9 +2091,12 @@ class GMSheet {
                 <button class="nav-btn" onclick="gm.showFailureTrees()" id="nav-failures">
                     <span class="icon">🌳</span> Failure Trees
                 </button>
+<button class="nav-btn" onclick="gm.showPuzzleMenu()" id="nav-puzzles">
+    <span class="icon">🧩</span> Logic Puzzles
+</button>
                 <button class="nav-btn" onclick="gm.showQuickReference()" id="nav-quick">
                     <span class="icon">⚡</span> Quick Reference
-                </button>
+                </button>       
             </div>
         `;
     }
@@ -879,15 +2907,18 @@ showFailureSubpage(failureId) {
 renderRecoveryOption(option, index, failureId) {
     const attempted = this.activeFailure?.attemptsMade?.includes(index);
     
+    // Safe escape for names
+    const safeName = (option.name || 'Recovery').replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    
     return `
         <div class="recovery-option ${option.extreme ? 'extreme' : ''} ${option.automatic ? 'automatic' : ''} ${attempted ? 'attempted' : ''}">
             <div class="recovery-header">
-                <h4>${option.name}</h4>
+                <h4>${option.name || 'Recovery Option'}</h4>
                 <span class="recovery-dc">${option.dc === 0 ? 'Auto' : `DC ${option.dc}`}</span>
             </div>
-            <p class="recovery-who">👤 ${option.who}</p>
-            <p class="recovery-desc">${option.description}</p>
-            <p class="recovery-type">${option.type}</p>
+            <p class="recovery-who">👤 ${option.who || 'Anyone'}</p>
+            <p class="recovery-desc">${option.description || ''}</p>
+            <p class="recovery-type">${option.type || ''}</p>
             
             ${option.note ? `<p class="recovery-note">📝 ${option.note}</p>` : ''}
             ${option.warning ? `<p class="recovery-warning">⚠️ ${option.warning}</p>` : ''}
@@ -897,23 +2928,29 @@ renderRecoveryOption(option, index, failureId) {
             
             <div class="recovery-outcomes">
                 <div class="outcome success">
-                    <strong>✓ Success:</strong> ${option.successText}
+                    <strong>✓ Success:</strong> ${option.successText || 'Recovery succeeds'}
                 </div>
                 <div class="outcome failure">
-                    <strong>✗ Failure:</strong> ${option.failText}
+                    <strong>✗ Failure:</strong> ${option.failText || 'Recovery fails'}
                 </div>
             </div>
             
             ${!option.automatic && !attempted ? `
                 <div class="recovery-roll-area">
-                    <button class="roll-btn recovery-roll" onclick="gm.attemptRecovery('${failureId}', ${index}, ${option.dc}, ${option.disadvantage || false}, ${option.inverse || false})">
+                    <button class="roll-btn recovery-roll" 
+                            data-failureid="${failureId}" 
+                            data-index="${index}" 
+                            data-dc="${option.dc || 10}"
+                            data-disadvantage="${option.disadvantage || false}"
+                            data-inverse="${option.inverse || false}"
+                            onclick="gm.attemptRecoveryFromButton(this)">
                         🎲 Attempt Recovery
                     </button>
                     <div class="roll-result" id="recovery-${failureId}-${index}-result"></div>
                 </div>
             ` : option.automatic ? `
                 <div class="recovery-auto-area">
-                    <button class="auto-btn" onclick="gm.autoRecovery('${failureId}', ${index})">
+                    <button class="auto-btn" data-failureid="${failureId}" data-index="${index}" onclick="gm.autoRecoveryFromButton(this)">
                         ✓ Choose This Option
                     </button>
                 </div>
@@ -924,6 +2961,22 @@ renderRecoveryOption(option, index, failureId) {
     `;
 }
 
+attemptRecoveryFromButton(button) {
+    const failureId = button.dataset.failureid;
+    const optionIndex = parseInt(button.dataset.index);
+    const dc = parseInt(button.dataset.dc) || 10;
+    const disadvantage = button.dataset.disadvantage === 'true';
+    const inverse = button.dataset.inverse === 'true';
+    
+    this.attemptRecovery(failureId, optionIndex, dc, disadvantage, inverse);
+}
+
+autoRecoveryFromButton(button) {
+    const failureId = button.dataset.failureid;
+    const optionIndex = parseInt(button.dataset.index);
+    
+    this.autoRecovery(failureId, optionIndex);
+}
 attemptRecovery(failureId, optionIndex, dc, disadvantage, inverse) {
     const failure = this.getFailureSubpages()[failureId];
     const option = failure.recoveryOptions[optionIndex];
@@ -1146,35 +3199,40 @@ exitFailureSubpage() {
 // Add trigger buttons to scene checks that can cause failures
 getFailureTriggers() {
     return {
+        'archie_ice_unstable': {
+            trigger: 'Archie fails ice channeling',
+            scene: 5,
+            button: '❄️ Trigger Ice Instability'
+        },
         'archie_fire': {
             trigger: 'Archie fails Fire Resistance (WIS DC 18)',
             scene: 5,
             button: '🔥 Trigger Fire Catastrophe'
-        },
-        'hjumpik_flipped': {
-            trigger: 'Hjumpik fails loyalty check or player choice',
-            scene: 6,
-            button: '🐸 Trigger Hjumpik Betrayal'
         },
         'squad_panic': {
             trigger: 'Squad fails stability check',
             scene: 6,
             button: '😱 Trigger Squad Panic'
         },
+        'hjumpik_flipped': {
+            trigger: 'Hjumpik fails loyalty check or player choice',
+            scene: 6,
+            button: '🐸 Trigger Hjumpik Betrayal'
+        },
         'dan_acted': {
             trigger: 'Dan speaks, moves, or acts',
             scene: 6,
             button: '🦾 Trigger Dan Action'
         },
+        'dan_acted_mirror': {
+            trigger: 'Dan reacts to mirror',
+            scene: 7,
+            button: '🦾 Trigger Dan Reaction'
+        },
         'oracle_interrupted': {
             trigger: 'Oracle concentration broken',
             scene: 8,
             button: '🗣️ Trigger Oracle Interrupt'
-        },
-        'archie_ice_unstable': {
-            trigger: 'Archie fails ice channeling',
-            scene: 5,
-            button: '❄️ Trigger Ice Instability'
         }
     };
 }
@@ -1211,25 +3269,30 @@ getFailureTriggers() {
         `;
     }
 
-    renderSceneTracker() {
-        const scenes = [
-            { num: 0, name: 'Corridor Approach' },
-            { num: 1, name: 'Dan Check' },
-            { num: 2, name: 'Position Taking' },
-            { num: 3, name: 'Archie Channels' },
-            { num: 4, name: 'Oracle Speaks' },
-            { num: 5, name: 'Legion Moves' },
-            { num: 6, name: 'Mirror Exit' }
-        ];
-        
-        return scenes.map(s => `
-            <div class="scene-step ${s.num === this.state.currentScene ? 'active' : ''} ${s.num < this.state.currentScene ? 'completed' : ''}"
-                 onclick="gm.setScene(${s.num})">
-                <span class="scene-num">${s.num}</span>
-                <span class="scene-name">${s.name}</span>
-            </div>
-        `).join('');
-    }
+// Update renderSceneTracker in renderStatusPanel
+renderSceneTracker() {
+    const scenes = [
+        { num: 0, name: 'Pre-Ritual Briefing' },
+        { num: 1, name: 'Corridor Approach' },
+        { num: 2, name: 'The Threshold' },
+        { num: 3, name: 'Taking Positions' },
+        { num: 4, name: 'Circle Activates' },
+        { num: 5, name: 'Archie Channels' },
+        { num: 6, name: 'Oracle Speaks' },
+        { num: 7, name: 'Mirror Responds' },
+        { num: 8, name: 'The Cut' },
+        { num: 9, name: 'Mirrors Go Dull' },
+        { num: 10, name: 'Aftermath' }
+    ];
+    
+    return scenes.map(s => `
+        <div class="scene-step ${s.num === this.state.currentScene ? 'active' : ''} ${s.num < this.state.currentScene ? 'completed' : ''}"
+             onclick="gm.setScene(${s.num})">
+            <span class="scene-num">${s.num}</span>
+            <span class="scene-name">${s.name}</span>
+        </div>
+    `).join('');
+}
 
     renderSafeguards() {
         const safeguards = [
@@ -1309,183 +3372,435 @@ getFailureTriggers() {
         this.state.flags[key] = !this.state.flags[key];
         this.renderStatusPanel();
     }
-
-    // === DASHBOARD ===
-    showDashboard() {
-        this.setActiveNav('nav-dashboard');
-        const content = `
-            <div class="dashboard">
-                <div class="dashboard-grid">
-                    <div class="dash-card overview">
-                        <h3>🎭 Ritual Overview</h3>
-                        <p>This is a <strong>synchronization rite</strong> that forces three realities to overlap:</p>
-                        <ul>
-                            <li>The physical chamber</li>
-                            <li>The mirror-space</li>
-                            <li>The Spore-origin echo</li>
-                        </ul>
-                        <p class="warning">The mirror is NOT a doorway — it's a pressure membrane.</p>
-                    </div>
-                    
-                    <div class="dash-card critical-rules">
-                        <h3>⚠️ Critical Rules</h3>
-                        <ul>
-                            <li>🔥 <strong>NO FIRE</strong> — Someone dies if Archie casts fire</li>
-                            <li>🚫 <strong>NO INTERVENTION</strong> — Don't break formation to help</li>
-                            <li>⏳ <strong>NO EARLY EXIT</strong> — Wait for mirrors to go dull</li>
-                            <li>🪞 <strong>NO CLEAR REFLECTIONS</strong> — If you see yourself clearly, ritual fails</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="dash-card positions">
-                        <h3>📍 Required Positions</h3>
-                        <div class="position-map">
-                            <div class="pos north">❄️ ARCHIE<br><small>North/Ice</small></div>
-                            <div class="pos center">🧙‍♂️ ORACLE<br><small>Center/Voice</small></div>
-                            <div class="pos south">🐢 BOWSER<br><small>South/Mass</small></div>
-                            <div class="pos west">🟣 WALUIGI<br><small>West/Chaos</small></div>
-                            <div class="pos east">⚔️ MARKOP<br><small>East/Guard</small></div>
-                        </div>
-                    </div>
-                    
-                    <div class="dash-card quick-checks">
-                        <h3>🎲 Key DCs</h3>
-                        <table>
-                            <tr><td>Ice Channeling</td><td><strong>DC 14</strong></td></tr>
-                            <tr><td>Fire Resistance</td><td><strong>DC 18</strong></td></tr>
-                            <tr><td>Impostor Detection</td><td><strong>DC 18</strong></td></tr>
-                            <tr><td>Grounding</td><td><strong>DC 12</strong></td></tr>
-                            <tr><td>Mirror Rejection</td><td><strong>DC 15</strong></td></tr>
-                            <tr><td>Stillness (Waluigi)</td><td><strong>DC 12+</strong></td></tr>
-                        </table>
-                    </div>
+// Update showDashboard to match new scene count
+showDashboard() {
+    this.setActiveNav('nav-dashboard');
+    const content = `
+        <div class="dashboard">
+            <div class="dashboard-grid">
+                <div class="dash-card overview">
+                    <h3>🎭 Ritual Overview</h3>
+                    <p>This is a <strong>synchronization rite</strong> that forces three realities to overlap:</p>
+                    <ul>
+                        <li>The physical chamber</li>
+                        <li>The mirror-space</li>
+                        <li>The Spore-origin echo</li>
+                    </ul>
+                    <p class="warning">The mirror is NOT a doorway — it's a pressure membrane.</p>
                 </div>
                 
-                <div class="dash-card scene-summary">
-                    <h3>🎬 Scene Flow Summary</h3>
-                    <div class="scene-flow-horizontal">
-                        <div class="flow-step">
-                            <div class="step-num">0</div>
-                            <div class="step-name">Corridor</div>
-                            <div class="step-check">WIS 12</div>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <div class="step-num">1</div>
-                            <div class="step-name">Dan Check</div>
-                            <div class="step-check">Insight 18</div>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <div class="step-num">2</div>
-                            <div class="step-name">Positions</div>
-                            <div class="step-check">Insight 12</div>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <div class="step-num">3</div>
-                            <div class="step-name">Ice Channel</div>
-                            <div class="step-check">Arcana 14</div>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step critical">
-                            <div class="step-num">4</div>
-                            <div class="step-name">Oracle Speaks</div>
-                            <div class="step-check">NO RETURN</div>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step warning">
-                            <div class="step-num">5</div>
-                            <div class="step-name">Legion Moves</div>
-                            <div class="step-check">Markop Act</div>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <div class="step-num">6</div>
-                            <div class="step-name">Exit</div>
-                            <div class="step-check">WIS 10</div>
-                        </div>
+                <div class="dash-card critical-rules">
+                    <h3>⚠️ Critical Rules</h3>
+                    <ul>
+                        <li>🔥 <strong>NO FIRE</strong> — Someone dies if Archie casts fire</li>
+                        <li>🚫 <strong>NO INTERVENTION</strong> — Don't break formation to help</li>
+                        <li>🦾 <strong>DAN STAYS PASSIVE</strong> — No speaking, acting, or leading</li>
+                        <li>⏳ <strong>NO EARLY EXIT</strong> — Wait for mirrors to go dull</li>
+                        <li>🪞 <strong>NO CLEAR REFLECTIONS</strong> — If you see yourself clearly, ritual fails</li>
+                    </ul>
+                </div>
+                
+                <div class="dash-card participants">
+                    <h3>👥 Twelve Present</h3>
+                    <div class="participant-mini-grid">
+                        <span>🧙‍♂️ Oracle</span>
+                        <span>❄️ Archie</span>
+                        <span>🦾 Dan</span>
+                        <span>🐸 Hjumpik</span>
+                        <span>🛡️ Rodger</span>
+                        <span>⚔️ Perot</span>
+                        <span>🚬 Smokin' J</span>
+                        <span>🔦 Salam</span>
+                        <span>🍄 Toad Lee</span>
+                        <span>📜 Toadburt</span>
+                        <span>🗡️ Markop</span>
+                        <span>🪢 Eager</span>
+                        <span>🟣 Waluigi</span>
+                    </div>
+                    <p class="absent">🟢 Green T — ABSENT (Junction Witness missing)</p>
+                </div>
+                
+                <div class="dash-card quick-checks">
+                    <h3>🎲 Key DCs</h3>
+                    <table>
+                        <tr><td>Ice Channeling</td><td><strong>DC 14</strong></td></tr>
+                        <tr><td>Fire Resistance</td><td><strong>DC 18</strong></td></tr>
+                        <tr><td>Squad Stability</td><td><strong>DC 13</strong></td></tr>
+                        <tr><td>Hjumpik Holds</td><td><strong>DC 14</strong></td></tr>
+                        <tr><td>Dan Stillness</td><td><strong>Roleplay</strong></td></tr>
+                        <tr><td>Patient Exit</td><td><strong>DC 10</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="dash-card scene-summary">
+                <h3>🎬 Scene Flow Summary (11 Scenes)</h3>
+                <div class="scene-flow-horizontal">
+                    <div class="flow-step">
+                        <div class="step-num">0</div>
+                        <div class="step-name">Briefing</div>
+                        <div class="step-check">Oracle Explains</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">1</div>
+                        <div class="step-name">Corridor</div>
+                        <div class="step-check">WIS 12</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">2</div>
+                        <div class="step-name">Threshold</div>
+                        <div class="step-check">Last Chance</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">3</div>
+                        <div class="step-name">Positions</div>
+                        <div class="step-check">Insight 12</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">4</div>
+                        <div class="step-name">Activate</div>
+                        <div class="step-check">Candles Lit</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step warning">
+                        <div class="step-num">5</div>
+                        <div class="step-name">Ice Channel</div>
+                        <div class="step-check">Arcana 14</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step critical">
+                        <div class="step-num">6</div>
+                        <div class="step-name">Oracle Speaks</div>
+                        <div class="step-check">NO RETURN</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">7</div>
+                        <div class="step-name">Mirror</div>
+                        <div class="step-check">Truth Shown</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step warning">
+                        <div class="step-num">8</div>
+                        <div class="step-name">The Cut</div>
+                        <div class="step-check">Severance</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">9</div>
+                        <div class="step-name">Dull Mirror</div>
+                        <div class="step-check">WIS 10</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-num">10</div>
+                        <div class="step-name">Aftermath</div>
+                        <div class="step-check">Debrief</div>
                     </div>
                 </div>
             </div>
-        `;
-        this.setContent('Dashboard', content);
-    }
-
+        </div>
+    `;
+    this.setContent('Dashboard', content);
+}
     // === SCENE RUNNER ===
     showSceneRunner() {
         this.setActiveNav('nav-scenes');
         this.renderCurrentScene();
     }
+// Add this method for handling player questions during briefing
+getOracleResponses() {
+    return {
+        questions: [
+            {
+                question: 'What if we see something that shouldn\'t exist?',
+                answer: 'You will. That\'s the point. The mirror shows what is, not what should be. If you see something impossible, it means that impossible thing exists. Do not argue with the mirror. It is older than your concept of "should."'
+            },
+            {
+                question: 'What exactly will the mirror show?',
+                answer: 'I do not know. No one knows until it happens. It will show structures — towers, patterns, connections. It will show Dan\'s true nature, whatever that is. It will show whatever it decides we need to see to answer the question. And possibly things that are simply watching.'
+            },
+            {
+                question: 'Can we fight if something attacks?',
+                answer: 'If something breaks INTO the circle, Waluigi and Markop react — no one else. If something is already inside the circle, fighting it means fighting reality. You cannot punch the concept of truth. Endure. Do not fight.'
+            },
+            {
+                question: 'What if Dan IS an impostor?',
+                answer: 'Then the mirror will show that. And then we will have a different problem. But we will have KNOWLEDGE. An identified impostor is safer than an unexamined ally. Either way, we learn something true.'
+            },
+            {
+                question: 'What happened to Green T?',
+                answer: 'That is not today\'s question. The mirror asks one question at a time. Green T is gone. His absence creates uncertainty. Uncertainty is dangerous in rituals but not always fatal. Focus on what we can answer today.'
+            },
+            {
+                question: 'Can the ritual be stopped once started?',
+                answer: 'Not cleanly. Interruption is not "stopping" — it is breaking. A stopped ritual leaves edges. Temporal edges. The kind of edges that bleed. If you must interrupt, understand that you are choosing damage over completion.'
+            },
+            {
+                question: 'What do you mean by "timeline shear"?',
+                answer: 'When a truth-ritual is interrupted mid-cut, time... disagrees with itself. Some of you might remember different outcomes. Some of you might not remember at all. Someone might have "always" been somewhere else. It is deeply unpleasant and often irreversible.'
+            },
+            {
+                question: 'How do we know the mirror tells the truth?',
+                answer: 'The mirror cannot lie. That is not the same as saying it is kind, or complete, or merciful. It shows what is. What you interpret from what it shows is your responsibility. Truth and understanding are not the same thing.'
+            },
+            {
+                question: 'What if I can\'t stay still?',
+                answer: 'Then you should not be in the circle. Small movements — breathing, blinking — are acceptable. Shifting your weight is borderline. Taking a step is catastrophic. Know yourself. If you cannot be still, tell me now and I will place you in a witness position where small failure is survivable.'
+            },
+            {
+                question: 'Why does Hjumpik need to be "opposition"?',
+                answer: 'A blade needs something to cut against. A mirror needs something to reflect. Without opposition, the ritual has no edge — it becomes formless. Someone in this circle must genuinely doubt. Hjumpik\'s divided loyalty provides that. It is not betrayal if we need it to be there.'
+            },
+            {
+                question: 'What\'s Waluigi\'s actual job?',
+                answer: 'Chaos absorbs chaos. When something strange happens — and it will — Waluigi\'s presence... bends around it. He is a lightning rod for unpredictability. If he were not here, random effects would strike random people. With him here, strangeness flows toward him first. Usually he survives. Usually.'
+            },
+            {
+                question: 'Is this dangerous for Dan?',
+                answer: 'Yes. Being the question the mirror asks is not comfortable. Dan will be seen in ways no person should be seen. Every secret, every doubt, every fracture — exposed. If Dan is singular, this will hurt but not destroy. If Dan is not... then what happens depends on what Dan actually is.'
+            }
+        ]
+    };
+}
 
-    // Replace renderCurrentScene with this integrated version
+// Add method to render Q&A section
+renderOracleQA() {
+    try {
+        const responses = this.getOracleResponses();
+        if (!responses || !responses.questions) return '';
+        
+        return `
+            <div class="oracle-qa">
+                <h4>❓ Player Questions (Click to reveal Oracle's answer)</h4>
+                <div class="qa-list">
+                    ${responses.questions.map((qa, i) => `
+                        <div class="qa-item" id="qa-${i}">
+                            <div class="qa-question" onclick="gm.toggleQA(${i})">
+                                <span class="qa-icon">❓</span>
+                                <span class="qa-text">"${qa.question || ''}"</span>
+                                <span class="qa-toggle">▼</span>
+                            </div>
+                            <div class="qa-answer hidden">
+                                <span class="qa-speaker">🧙‍♂️ Oracle:</span>
+                                <p>"${qa.answer || ''}"</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    } catch (e) {
+        console.error('Error in renderOracleQA:', e);
+        return '';
+    }
+}
+toggleQA(index) {
+    const item = document.getElementById(`qa-${index}`);
+    const answer = item.querySelector('.qa-answer');
+    const toggle = item.querySelector('.qa-toggle');
+    
+    if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        toggle.textContent = '▲';
+    } else {
+        answer.classList.add('hidden');
+        toggle.textContent = '▼';
+    }
+}    
+// Update renderCurrentScene to handle the correct scene count
+// Update renderCurrentScene with better error handling
 renderCurrentScene() {
     const scenes = this.getSceneData();
+    const sceneCount = scenes.length;
+    
+    if (this.state.currentScene >= sceneCount) {
+        this.state.currentScene = sceneCount - 1;
+    }
+    
     const scene = scenes[this.state.currentScene];
+    
+    if (!scene) {
+        this.setContent('Error', '<p>Scene not found. Please reset.</p>');
+        return;
+    }
+    
+    // Safely render each optional section
+    let oracleBriefingHtml = '';
+    try {
+        oracleBriefingHtml = scene.oracleBriefing ? this.renderOracleBriefing(scene.oracleBriefing) : '';
+    } catch (e) {
+        console.error('Error rendering oracle briefing:', e);
+        oracleBriefingHtml = '<p class="error">Error loading briefing</p>';
+    }
+    
+    let mirrorEffectsHtml = '';
+    try {
+        mirrorEffectsHtml = scene.mirrorEffects ? this.renderMirrorEffects(scene.mirrorEffects) : '';
+    } catch (e) {
+        console.error('Error rendering mirror effects:', e);
+    }
+    
+    let positionsHtml = '';
+    try {
+        positionsHtml = scene.positions ? this.renderPositionMap(scene.positions) : '';
+    } catch (e) {
+        console.error('Error rendering positions:', e);
+    }
+    
+    let checksHtml = '';
+    try {
+        if (scene.checks && scene.checks.length > 0) {
+            checksHtml = `
+                <div class="scene-checks">
+                    <h3>🎲 Required Checks</h3>
+                    ${scene.checks.map((c, i) => this.renderIntegratedCheck(c, i)).join('')}
+                </div>
+            `;
+        }
+    } catch (e) {
+        console.error('Error rendering checks:', e);
+        checksHtml = '<p class="error">Error loading checks</p>';
+    }
+    
+    let tablesHtml = '';
+    try {
+        if (scene.rollTables && scene.rollTables.length > 0) {
+            tablesHtml = `
+                <div class="scene-tables">
+                    <h3>📊 Roll Tables</h3>
+                    ${scene.rollTables.map(t => this.renderIntegratedTable(t)).join('')}
+                </div>
+            `;
+        }
+    } catch (e) {
+        console.error('Error rendering tables:', e);
+        tablesHtml = '<p class="error">Error loading tables</p>';
+    }
+    
+    let failureTriggersHtml = '';
+    try {
+        failureTriggersHtml = this.getFailureTriggersForScene(this.state.currentScene);
+    } catch (e) {
+        console.error('Error rendering failure triggers:', e);
+    }
     
     const content = `
         <div class="scene-runner">
             <div class="scene-nav">
-                <button onclick="gm.prevScene()" ${this.state.currentScene === 0 ? 'disabled' : ''}>← Previous</button>
-                <span>Scene ${this.state.currentScene} of ${scenes.length - 1}</span>
-                <button onclick="gm.nextScene()" ${this.state.currentScene === scenes.length - 1 ? 'disabled' : ''}>Next →</button>
+                <button class="nav-prev" onclick="gm.prevScene()" ${this.state.currentScene === 0 ? 'disabled' : ''}>← Previous</button>
+                <span>Scene ${this.state.currentScene} of ${sceneCount - 1}</span>
+                <button class="nav-next" onclick="gm.nextScene()" ${this.state.currentScene === sceneCount - 1 ? 'disabled' : ''}>Next →</button>
             </div>
             
             <div class="scene-display">
                 <div class="scene-header">
-                    <span class="scene-number">${scene.icon}</span>
+                    <span class="scene-number">${scene.icon || '📍'}</span>
                     <div>
-                        <h2>${scene.title}</h2>
-                        <span class="scene-subtitle">${scene.subtitle}</span>
+                        <h2>${scene.title || 'Untitled Scene'}</h2>
+                        <span class="scene-subtitle">${scene.subtitle || ''}</span>
                     </div>
                 </div>
                 
-                <div class="oracle-quote">
-                    🧙‍♂️ "${scene.oracleQuote}"
-                </div>
+                ${scene.oracleQuote ? `
+                    <div class="oracle-quote">
+                        🧙‍♂️ "${scene.oracleQuote}"
+                    </div>
+                ` : ''}
                 
                 <div class="scene-description">
-                    ${scene.description}
+                    ${scene.description || ''}
                 </div>
                 
-                ${scene.mirrorEffects ? this.renderMirrorEffects(scene.mirrorEffects) : ''}
-                
-                ${scene.positions ? this.renderPositionMap(scene.positions) : ''}
-                
-                ${scene.checks && scene.checks.length > 0 ? `
-                    <div class="scene-checks">
-                        <h3>🎲 Required Checks</h3>
-                        ${scene.checks.map((c, i) => this.renderIntegratedCheck(c, i)).join('')}
-                    </div>
-                ` : ''}
-                
-                ${scene.rollTables && scene.rollTables.length > 0 ? `
-                    <div class="scene-tables">
-                        <h3>📊 Roll Tables</h3>
-                        ${scene.rollTables.map(t => this.renderIntegratedTable(t)).join('')}
-                    </div>
-                ` : ''}
+                ${oracleBriefingHtml}
+                ${mirrorEffectsHtml}
+                ${positionsHtml}
+                ${checksHtml}
+                ${tablesHtml}
                 
                 ${scene.special ? `
                     <div class="scene-special">
                         ${scene.special}
                     </div>
                 ` : ''}
+                
+                ${failureTriggersHtml}
             </div>
             
             <div class="scene-tracker-mini">
                 ${scenes.map((s, i) => `
                     <div class="tracker-dot ${i === this.state.currentScene ? 'active' : ''} ${i < this.state.currentScene ? 'complete' : ''}" 
-                         onclick="gm.goToScene(${i})" title="${s.title}">
-                        ${s.icon}
+                         onclick="gm.goToScene(${i})" title="${s.title || 'Scene ' + i}">
+                        ${s.icon || i}
                     </div>
                 `).join('')}
             </div>
         </div>
     `;
-    this.setContent(`Scene ${this.state.currentScene}: ${scene.title}`, content);
+    
+    this.setContent(`Scene ${this.state.currentScene}: ${scene.title || 'Unknown'}`, content);
+}
+// Make sure these navigation methods exist and work correctly
+prevScene() {
+    if (this.state.currentScene > 0) {
+        this.state.currentScene--;
+        this.renderStatusPanel();
+        this.renderCurrentScene();
+    }
 }
 
+nextScene() {
+    const scenes = this.getSceneData();
+    if (this.state.currentScene < scenes.length - 1) {
+        this.state.currentScene++;
+        this.renderStatusPanel();
+        this.renderCurrentScene();
+    }
+}
+
+goToScene(index) {
+    const scenes = this.getSceneData();
+    if (index >= 0 && index < scenes.length) {
+        this.state.currentScene = index;
+        this.renderStatusPanel();
+        this.renderCurrentScene();
+    }
+}
+
+setScene(num) {
+    this.goToScene(num);
+}// Add this method
+getFailureTriggersForScene(sceneNum) {
+    try {
+        const triggers = this.getFailureTriggers();
+        if (!triggers) return '';
+        
+        const sceneTriggers = Object.entries(triggers).filter(([id, t]) => t && t.scene === sceneNum);
+        
+        if (sceneTriggers.length === 0) return '';
+        
+        return `
+            <div class="failure-triggers">
+                <h4>⚠️ Potential Failures (GM Triggers)</h4>
+                <p>Click if a check fails critically or player makes a triggering choice:</p>
+                <div class="trigger-buttons">
+                    ${sceneTriggers.map(([id, t]) => `
+                        <button class="trigger-btn" onclick="gm.showFailureSubpage('${id}')">
+                            ${t.button || id}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    } catch (e) {
+        console.error('Error in getFailureTriggersForScene:', e);
+        return '';
+    }
+}
 renderMirrorEffects(effects) {
     return `
         <div class="mirror-effects-box">
@@ -1525,37 +3840,43 @@ renderPositionMap(positions) {
         </div>
     `;
 }
-
 renderIntegratedCheck(check, index) {
+    if (!check) return '';
+    
     const checkId = `check-${this.state.currentScene}-${index}`;
+    const dcDisplay = check.dc === 0 || check.dc === undefined ? 'Auto' : `DC ${check.dc}${check.altDc ? '/' + check.altDc : ''}`;
+    
+    // Escape the name for use in onclick
+    const safeName = (check.name || 'Check').replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    
     return `
         <div class="check-card integrated ${check.critical ? 'critical' : ''} ${check.conditional ? 'conditional' : ''}" id="${checkId}">
             <div class="check-header">
-                <span class="check-name">${check.name}</span>
-                <span class="check-dc">${check.dc === 0 ? 'Auto' : `DC ${check.dc}${check.altDc ? '/' + check.altDc : ''}`}</span>
+                <span class="check-name">${check.name || 'Unknown Check'}</span>
+                <span class="check-dc">${dcDisplay}</span>
             </div>
             <div class="check-meta">
-                <span class="check-type">${check.type}</span>
-                <span class="check-who">👤 ${check.who}</span>
+                <span class="check-type">${check.type || ''}</span>
+                <span class="check-who">👤 ${check.who || 'Anyone'}</span>
             </div>
-            <div class="check-description">${check.description}</div>
+            ${check.description ? `<div class="check-description">${check.description}</div>` : ''}
             ${check.note ? `<div class="check-note">📝 ${check.note}</div>` : ''}
-            ${check.advantage ? `<div class="check-advantage">⬆️ ${check.advantageNote}</div>` : ''}
+            ${check.advantage ? `<div class="check-advantage">⬆️ ${check.advantageNote || 'Advantage'}</div>` : ''}
             
             <div class="check-outcomes">
                 <div class="outcome success">
                     <h4>✓ Success</h4>
-                    <p>${check.success}</p>
+                    <p>${check.success || 'Proceed'}</p>
                 </div>
                 <div class="outcome failure">
                     <h4>✗ Failure</h4>
-                    <p>${check.failure}</p>
+                    <p>${check.failure || 'Complication'}</p>
                 </div>
             </div>
             
-            ${check.rollButton ? `
+            ${check.rollButton !== false && check.dc !== 0 ? `
                 <div class="check-roll-area">
-                    <button class="roll-btn" onclick="gm.rollCheck(${check.dc}, '${check.name}', '${checkId}')">
+                    <button class="roll-btn" data-dc="${check.dc || 10}" data-name="${safeName}" data-checkid="${checkId}" onclick="gm.rollCheckFromButton(this)">
                         🎲 Roll d20
                     </button>
                     <div class="roll-result" id="${checkId}-result"></div>
@@ -1565,12 +3886,27 @@ renderIntegratedCheck(check, index) {
     `;
 }
 
+// New method that reads from button data attributes
+rollCheckFromButton(button) {
+    const dc = parseInt(button.dataset.dc) || 10;
+    const name = button.dataset.name || 'Check';
+    const checkId = button.dataset.checkid;
+    this.rollCheck(dc, name, checkId);
+}
 renderIntegratedTable(table) {
+    if (!table) return '';
+    if (!table.results || !Array.isArray(table.results)) {
+        console.error('Table missing results:', table);
+        return `<div class="table-card error">Table "${table.name || 'Unknown'}" has no results</div>`;
+    }
+    
+    const safeId = (table.id || 'unknown').replace(/[^a-zA-Z0-9_-]/g, '_');
+    
     return `
-        <div class="table-card" id="table-${table.id}">
+        <div class="table-card" id="table-${safeId}">
             <div class="table-header">
-                <span class="table-name">${table.name}</span>
-                <span class="table-die">d${table.die}</span>
+                <span class="table-name">${table.name || 'Roll Table'}</span>
+                <span class="table-die">${table.die ? 'd' + table.die : ''}</span>
             </div>
             ${table.note ? `<div class="table-note">${table.note}</div>` : ''}
             
@@ -1578,29 +3914,36 @@ renderIntegratedTable(table) {
                 <table class="roll-table">
                     ${table.results.map(r => `
                         <tr>
-                            <td class="roll-num">${r.roll}</td>
-                            <td class="roll-text">${r.text}</td>
-                            <td class="roll-effect">${r.effect}</td>
+                            <td class="roll-num">${r.roll !== undefined ? r.roll : '?'}</td>
+                            <td class="roll-text">${r.text || ''}</td>
+                            <td class="roll-effect">${r.effect || ''}</td>
                         </tr>
                     `).join('')}
                 </table>
             </div>
             
-            ${table.die > 0 ? `
+            ${table.die && table.die > 0 ? `
                 <div class="table-roll-area">
-                    <button class="roll-btn" onclick="gm.rollOnTable('${table.id}', ${table.die})">
+                    <button class="roll-btn" data-tableid="${safeId}" data-die="${table.die}" onclick="gm.rollTableFromButton(this)">
                         🎲 Roll d${table.die}
                     </button>
-                    <div class="table-result" id="${table.id}-result"></div>
+                    <div class="table-result" id="${safeId}-result"></div>
                 </div>
             ` : ''}
         </div>
     `;
 }
 
+// New method that reads from button data attributes
+rollTableFromButton(button) {
+    const tableId = button.dataset.tableid;
+    const die = parseInt(button.dataset.die) || 6;
+    this.rollOnTable(tableId, die);
+}
 rollCheck(dc, name, checkId) {
     const roll = Math.floor(Math.random() * 20) + 1;
-    const success = roll >= dc;
+    const numDc = parseInt(dc) || 10;
+    const success = roll >= numDc;
     const critical = roll === 20;
     const fumble = roll === 1;
     
@@ -1611,51 +3954,103 @@ rollCheck(dc, name, checkId) {
     let resultText = `${roll}`;
     if (critical) resultText += ' — CRITICAL SUCCESS!';
     else if (fumble) resultText += ' — CRITICAL FAILURE!';
-    else if (success) resultText += ` — Success! (DC ${dc})`;
-    else resultText += ` — Failed (DC ${dc})`;
+    else if (success) resultText += ` — Success! (DC ${numDc})`;
+    else resultText += ` — Failed (DC ${numDc})`;
     
     const resultDiv = document.getElementById(`${checkId}-result`);
-    resultDiv.innerHTML = `<span class="${resultClass}">${resultText}</span>`;
-    resultDiv.classList.add('show');
+    if (resultDiv) {
+        resultDiv.innerHTML = `<span class="${resultClass}">${resultText}</span>`;
+        resultDiv.classList.add('show');
+    }
     
     // Log the roll
-    this.logEvent(`${name}: ${resultText}`);
+    const safeName = name || 'Check';
+    this.logEvent(`${safeName}: ${resultText}`);
     
     // Update integrity based on result if it's a critical check
-    if (document.getElementById(checkId).classList.contains('critical')) {
+    const checkCard = document.getElementById(checkId);
+    if (checkCard && checkCard.classList.contains('critical')) {
         if (fumble) {
             this.adjustIntegrity(-1);
             this.showToast('Critical check failed! -1 Integrity');
         }
     }
 }
-
 rollOnTable(tableId, die) {
     const roll = Math.floor(Math.random() * die) + 1;
     
     // Find the table in current scene
     const scenes = this.getSceneData();
     const scene = scenes[this.state.currentScene];
-    const table = scene.rollTables.find(t => t.id === tableId);
     
-    if (!table) return;
+    let table = null;
+    if (scene && scene.rollTables) {
+        table = scene.rollTables.find(t => t.id === tableId || (t.id || '').replace(/[^a-zA-Z0-9_-]/g, '_') === tableId);
+    }
     
-    const result = table.results.find(r => r.roll === roll) || table.results[roll - 1];
+    // Also check failure subpages if we're in one
+    if (!table && this.activeFailure) {
+        const failures = this.getFailureSubpages();
+        const failure = failures[this.activeFailure.id];
+        if (failure && failure.rollTables) {
+            table = failure.rollTables.find(t => t.id === tableId || (t.id || '').replace(/[^a-zA-Z0-9_-]/g, '_') === tableId);
+        }
+    }
     
     const resultDiv = document.getElementById(`${tableId}-result`);
-    resultDiv.innerHTML = `
-        <div class="rolled-result">
-            <span class="roll-number">[${roll}]</span>
-            <span class="roll-text">${result.text}</span>
-            <span class="roll-effect">${result.effect}</span>
-        </div>
-    `;
-    resultDiv.classList.add('show');
+    
+    if (!table) {
+        console.error('Table not found:', tableId);
+        if (resultDiv) {
+            resultDiv.innerHTML = `<span class="roll-number">[${roll}]</span> <em>Table not found</em>`;
+            resultDiv.classList.add('show');
+        }
+        return;
+    }
+    
+    // Find the matching result
+    let result = null;
+    
+    // Handle range-based results (like "1-2")
+    for (const r of table.results) {
+        if (r.roll === roll) {
+            result = r;
+            break;
+        }
+        // Handle string ranges like "1-2"
+        if (typeof r.roll === 'string' && r.roll.includes('-')) {
+            const [min, max] = r.roll.split('-').map(n => parseInt(n));
+            if (roll >= min && roll <= max) {
+                result = r;
+                break;
+            }
+        }
+    }
+    
+    // Fallback to array index
+    if (!result && table.results[roll - 1]) {
+        result = table.results[roll - 1];
+    }
+    
+    // Last fallback
+    if (!result) {
+        result = { text: 'No result defined', effect: '' };
+    }
+    
+    if (resultDiv) {
+        resultDiv.innerHTML = `
+            <div class="rolled-result">
+                <span class="roll-number">[${roll}]</span>
+                <span class="roll-text">${result.text || ''}</span>
+                ${result.effect ? `<span class="roll-effect">${result.effect}</span>` : ''}
+            </div>
+        `;
+        resultDiv.classList.add('show');
+    }
     
     // Log it
-    this.logEvent(`Table ${table.name}: [${roll}] ${result.text}`);
+    this.logEvent(`Table ${table.name || tableId}: [${roll}] ${result.text || ''}`);
 }
-
 goToScene(index) {
     this.state.currentScene = index;
     this.renderStatusPanel();
@@ -1667,46 +4062,132 @@ goToScene(index) {
 getSceneData() {
     return [
         // SCENE 0: PRE-RITUAL BRIEFING
-        {
-            icon: '📋',
-            title: 'PRE-RITUAL BRIEFING',
-            subtitle: 'Final Check — 12 Present, Ring Complete',
-            oracleQuote: 'Twelve is a closed ring. Clocks, months, constellations. Things that complete a cycle and then stop.',
-            description: `
-                <p>The Oracle addresses the assembled group. Twelve stand in the corridor outside the ritual chamber.</p>
-                <div class="participant-count">
-                    <span class="count-big">12</span>
-                    <span class="count-label">EVEN — Balance enforced. Clean cut possible.</span>
-                </div>
-            `,
-            checks: [],
-            rollTables: [],
-            special: `
-                <div class="briefing-grid">
-                    <div class="briefing-section">
-                        <h4>⚠️ Critical Rules:</h4>
-                        <ul>
-                            <li>No speaking unless addressed</li>
-                            <li>No touching the mirror</li>
-                            <li>No heroics, no flourishes</li>
-                            <li>Composure over cleverness</li>
-                        </ul>
-                    </div>
-                    <div class="briefing-section">
-                        <h4>🪞 The Mirror Will:</h4>
-                        <ul>
-                            <li>Harmonize what belongs</li>
-                            <li>Reject what doesn't</li>
-                            <li>Answer the question of Dan</li>
-                            <li>Cut what cannot belong</li>
-                        </ul>
-                    </div>
-                </div>
-            `,
-            participants: this.getAllParticipants()
+// Add this to getSceneData() - replace Scene 0 with this expanded version
+{
+    icon: '📋',
+    title: 'PRE-RITUAL BRIEFING',
+    subtitle: 'The Oracle Explains',
+    oracleQuote: 'Listen once. I will not repeat myself once we begin.',
+    description: `
+        <p>The group gathers in the antechamber. The Oracle stands before the sealed door to the ritual space, face unreadable.</p>
+        <p>This is the last moment for questions. The last moment for doubt. The last moment to leave.</p>
+    `,
+    checks: [],
+    rollTables: [],
+    oracleBriefing: {
+        introduction: {
+            speaker: 'Oracle',
+            text: `What we are about to do is not a summoning. It is not a séance. It is not a spell in any sense you understand. We are going to force three layers of reality to overlap long enough to exchange truth. The physical room. The mirror-space. And something older that the Empire is trying to dig toward. None of these want to touch. We are going to make them.`
         },
-        
-        // SCENE 1: CORRIDOR APPROACH
+        sections: [
+            {
+                title: 'What Will Happen',
+                icon: '🪞',
+                oracleText: `We enter. We take positions. I light candles — in a specific order, which I will handle. Then I speak words that are older than this building. The mirror will stop being a mirror. It will become a membrane. Things will be visible that should not be. You will want to look away. Don't. You will want to help if someone struggles. Don't. You will want to speak. Don't. The ritual asks one question and answers it. Everything else is noise that can kill us.`,
+                playerNotes: [
+                    'No speaking unless directly addressed by Oracle',
+                    'No moving from assigned positions',
+                    'No helping others — breaks the circle',
+                    'Watch everything, react to nothing'
+                ]
+            },
+            {
+                title: 'The Question We Ask',
+                icon: '🦾',
+                oracleText: `The ritual exists to answer one question: Is Dan singular? Not "is Dan trustworthy" — I don't care about that. Not "is Dan the Dan we knew" — that's philosophy. The mirror will determine whether the being standing in that circle is one coherent entity, or whether something is fragmented, duplicated, or wearing a mask. That is all. But that is enough.`,
+                playerNotes: [
+                    'Dan is the SUBJECT, not a participant',
+                    'Dan must remain passive throughout',
+                    'The answer comes from the mirror, not from us',
+                    'We do not judge — we witness'
+                ],
+                danSpecific: `Dan. You will stand where I place you. You will not speak. You will not move. You will not try to prove anything. If you are what you believe yourself to be, the mirror will show that. If you try to convince it, you contaminate the answer. Your job is to be a question, not an answer. Can you do that?`
+            },
+            {
+                title: 'The Positions',
+                icon: '📍',
+                oracleText: `Twelve of us. Twelve functions. You will feel where you belong — trust that instinct. If you don't feel it, I will place you. The positions are not arbitrary. They create opposing forces that the ritual needs to function. North opposes South. East opposes West. The center conducts. The outer contains. If you are in the wrong place, the ritual will tell us — usually painfully.`,
+                playerNotes: [
+                    'Trust your instinct about position',
+                    'Oracle will correct if needed',
+                    'Once placed, do not move',
+                    'Your position defines your function'
+                ]
+            },
+            {
+                title: 'The Roles',
+                icon: '⚔️',
+                oracleText: `Some of you anchor. Some witness. Some oppose. These are not insults — opposition is necessary. A mirror with nothing to push against shows nothing. I need someone whose loyalty is... flexible. I need someone whose presence insists on survival. I need someone who remembers. I need chaos that bends without breaking. You know who you are. Play your role.`,
+                roleHints: [
+                    { role: 'Anchors', description: 'Rodger and squad — keep reality mundane. Do soldier things.' },
+                    { role: 'Witnesses', description: 'Toad Lee, Toadburt — watch and remember. Your memory makes this real.' },
+                    { role: 'Opposition', description: 'Hjumpik — your doubt defines edges. Don\'t resolve it early.' },
+                    { role: 'Survival', description: 'Markop — refuse to let us choose "clean but dead" answers.' },
+                    { role: 'Chaos Valve', description: 'Waluigi — absorb strangeness. React only if something breaks in.' },
+                    { role: 'Discipline', description: 'Archie — ice, not fire. Constraint, not power. The mirror must see truth, not desire.' }
+                ]
+            },
+            {
+                title: 'What Can Go Wrong',
+                icon: '⚠️',
+                oracleText: `Everything. If Archie loses control, fire in a truth-ritual becomes a summoning. If the squad panics together, reality stops being mandatory. If Dan tries to prove himself, the mirror accepts the performance as fact — even if it's wrong. If I am interrupted mid-speech, time breaks. If Hjumpik moves too early, the edges collapse and the mirror has nothing to cut against. These are not theoretical. I have seen rituals fail. The failures are still happening somewhere.`,
+                warningList: [
+                    { trigger: 'Fire cast', consequence: 'Ritual becomes summoning. Someone dies.' },
+                    { trigger: 'Squad mass panic', consequence: 'Reality becomes optional. Answers meaningless.' },
+                    { trigger: 'Dan asserts himself', consequence: 'Mirror locks in current state as "true" — even if false.' },
+                    { trigger: 'Oracle interrupted', consequence: 'Timeline shears. Loops, erasures, branches.' },
+                    { trigger: 'Hjumpik flips early', consequence: 'No opposition. Mirror collapses inward.' },
+                    { trigger: 'Anyone breaks circle', consequence: 'Energy discharges into nearest person.' }
+                ]
+            },
+            {
+                title: 'What Success Looks Like',
+                icon: '✓',
+                oracleText: `The mirror will go dull. Not dark. Not shattered. Just... ordinary. Boring glass. When that happens, the answer has been given. We exit in order — witnesses first, then anchors, then the question, then the edges, then me. Rushing leaves pieces behind. You do not want to leave pieces of yourself in a mirror. Trust me on this.`,
+                playerNotes: [
+                    'Dull mirror = success',
+                    'Exit slowly and in order',
+                    'Witnesses leave first',
+                    'Oracle leaves last',
+                    'Rushing has consequences'
+                ]
+            },
+            {
+                title: 'The Missing Piece',
+                icon: '🟢',
+                oracleText: `We are twelve. The ritual expects... input from thirteen sources. Green T would have been the Junction Witness — someone who had seen both sides of the question we're asking. He is gone. That absence does not break the ritual. It makes the ritual ask itself harder questions. The mirror will wonder: does truth require an observer? Does knowledge matter if the knower is gone? I don't know what it will conclude. Neither do you. We proceed anyway.`,
+                playerNotes: [
+                    'Green T\'s absence increases unpredictability',
+                    'Ritual will self-interrogate',
+                    'Outcome less certain but not impossible',
+                    'The mirror decides how to handle the gap'
+                ]
+            }
+        ],
+        finalWarning: {
+            speaker: 'Oracle',
+            text: `I will ask once: Does anyone wish to leave? There is no shame in it. Once we cross that threshold, you are committed until the mirror goes dull. Leaving mid-ritual is not "giving up" — it is catastrophic structural failure. So. Now. Anyone?`,
+            pause: true,
+            afterPause: `Good. Compose yourselves. Empty your minds of what you want the answer to be. The mirror does not care what you want. It will show what is. Our job is to survive seeing it.`
+        },
+        transitionText: `The Oracle turns to the sealed door. Places one hand on the cold surface. The temperature drops slightly. Something on the other side knows we are coming.`
+    },
+    special: `
+        <div class="briefing-complete">
+            <h4>📋 Briefing Complete</h4>
+            <p>Players should now understand:</p>
+            <ul>
+                <li>This is a truth-revealing ritual, not a summoning</li>
+                <li>Dan is the question being asked</li>
+                <li>Everyone has a specific function</li>
+                <li>Silence and stillness are required</li>
+                <li>Several specific things can cause catastrophic failure</li>
+                <li>Success means the mirror goes dull</li>
+                <li>Exit order matters</li>
+            </ul>
+        </div>
+    `
+},        // SCENE 1: CORRIDOR APPROACH
         {
             icon: '⏳',
             title: 'APPROACH TO THE SUMMONING ROOM',
@@ -2456,7 +4937,7 @@ getAllParticipants() {
     }
 
     nextScene() {
-        if (this.state.currentScene < 6) {
+        if (this.state.currentScene < 11) {
             this.state.currentScene++;
             this.renderStatusPanel();
             this.renderCurrentScene();
