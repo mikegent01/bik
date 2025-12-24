@@ -1787,12 +1787,13 @@ checkExitPuzzle() {
     const resultDiv = document.getElementById('exit-puzzle-result');
     
     if (correct === 6) {
-        resultDiv.innerHTML = `
-            <div class="result success">
-                <h3>✓ Perfect Exit Sequence</h3>
-                <p>All participants leave correctly. Nothing left behind.</p>
-            </div>
-        `;
+    resultDiv.innerHTML = `
+        <div class="result partial">
+            <h3>⚠️ Orderly Collapse</h3>
+            <p>You manage to exit the ritual space in order before the final rupture. This may influence your destination, but the collapse is still coming.</p>
+            <p>Proceed to the Aftermath scene to roll for your destination.</p>
+        </div>
+    `;
     } else if (criticalErrors.length > 0) {
         resultDiv.innerHTML = `
             <div class="result failure">
@@ -2122,11 +2123,577 @@ initFailureStates() {
         oracle_interrupted: 0
     };
 }
+// Add this method to render Dan's choice options
+renderDanChoices(scene) {
+    if (!scene.danChoice || !scene.choices) return '';
+    
+    return `
+        <div class="dan-choices">
+            <h3>🦾 Dan's Options</h3>
+            <p class="choice-instruction">GM: Present these options to Dan's player (or decide based on Dan's nature if NPC/secret impostor)</p>
+            
+            <div class="choice-grid">
+                ${scene.choices.map(choice => `
+                    <div class="choice-card ${choice.id}" onclick="gm.selectDanChoice('${choice.id}')">
+                        <div class="choice-header">
+                            <span class="choice-icon">${choice.icon}</span>
+                            <h4>${choice.name}</h4>
+                        </div>
+                        <p class="choice-desc">${choice.description}</p>
+                        <div class="choice-consequence">
+                            <strong>Consequence:</strong> ${choice.consequence}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div id="dan-choice-result" class="choice-result hidden"></div>
+        </div>
+    `;
+}
+renderInterrogations(scene) {
+    if (!scene.interrogations || !scene.participantInterrogations) return '';
+    
+    return `
+        <div class="interrogations-section">
+            ${scene.interrogationInstructions || ''}
+            
+            <div class="interrogation-list">
+                ${scene.participantInterrogations.map((interrog, i) => `
+                    <div class="interrogation-card" id="interrogation-${i}">
+                        <div class="interrogation-header" onclick="gm.toggleInterrogation(${i})">
+                            <span class="interrog-icon">${interrog.icon}</span>
+                            <span class="interrog-who">${interrog.who}</span>
+                            <span class="interrog-toggle">▼</span>
+                        </div>
+                        <div class="interrogation-content hidden" id="interrog-content-${i}">
+                            <div class="mirror-shows">
+                                <h5>🪞 The Mirror Shows:</h5>
+                                <p class="mirror-vision">${interrog.mirrorShows}</p>
+                            </div>
+                            
+                            <div class="the-question">
+                                <h5>❓ The Question:</h5>
+                                <p class="question-text">"${interrog.theQuestion}"</p>
+                            </div>
+                            
+                            <div class="reactions-section">
+                                <h5>Possible Reactions:</h5>
+                                <div class="reaction-grid">
+                                    ${Object.entries(interrog.reactions).map(([key, reaction]) => `
+                                        <div class="reaction-option" onclick="gm.selectReaction(${i}, '${key}')">
+                                            <div class="reaction-header">
+                                                <strong>${key.charAt(0).toUpperCase() + key.slice(1)}</strong>
+                                            </div>
+                                            <p class="reaction-desc">${reaction.description}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="reaction-result hidden" id="reaction-result-${i}"></div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
 
+toggleInterrogation(index) {
+    const content = document.getElementById(`interrog-content-${index}`);
+    const header = content.previousElementSibling;
+    const toggle = header.querySelector('.interrog-toggle');
+    
+    if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        toggle.textContent = '▲';
+    } else {
+        content.classList.add('hidden');
+        toggle.textContent = '▼';
+    }
+}
+
+selectReaction(interrogIndex, reactionKey) {
+    const scenes = this.getSceneData();
+    const scene = scenes[this.state.currentScene];
+    const interrog = scene.participantInterrogations[interrogIndex];
+    const reaction = interrog.reactions[reactionKey];
+    
+    const resultDiv = document.getElementById(`reaction-result-${interrogIndex}`);
+    resultDiv.classList.remove('hidden');
+    resultDiv.innerHTML = `
+        <div class="selected-reaction">
+            <h5>${interrog.who} ${reactionKey}s</h5>
+            <div class="consequence">
+                <strong>Consequence:</strong>
+                <p>${reaction.consequence}</p>
+            </div>
+            <div class="mechanical">
+                <strong>Effect:</strong>
+                <p>${reaction.mechanical}</p>
+            </div>
+        </div>
+    `;
+    
+    this.logEvent(`${interrog.who} interrogation: ${reactionKey} — ${reaction.mechanical}`);
+}
+selectDanChoice(choiceId) {
+    const scenes = this.getSceneData();
+    const scene = scenes[this.state.currentScene];
+    const choice = scene.choices.find(c => c.id === choiceId);
+    
+    if (!choice) return;
+    
+    // Log the choice
+    this.logEvent(`Dan chooses: ${choice.name}`);
+    
+    // Show the result
+    const resultDiv = document.getElementById('dan-choice-result');
+    resultDiv.classList.remove('hidden');
+    resultDiv.innerHTML = `
+        <div class="choice-selected">
+            <h4>${choice.icon} ${choice.name}</h4>
+            
+            <div class="oracle-response">
+                <span class="speaker">🧙‍♂️ Oracle:</span>
+                <p>"${choice.oracleResponse}"</p>
+            </div>
+            
+            <div class="choice-effects">
+                <p><strong>What happens:</strong> ${choice.consequence}</p>
+                <p><strong>Mechanical effect:</strong> ${choice.mechanicalEffect}</p>
+            </div>
+            
+            ${choice.requiresCheck ? `
+                <div class="choice-check">
+                    <h5>Required Check:</h5>
+                    ${this.renderIntegratedCheck(choice.requiresCheck, 0)}
+                </div>
+            ` : ''}
+            
+            ${choice.requiresGroupCheck ? `
+                <div class="choice-group-check">
+                    <h5>Group Check Required:</h5>
+                    <div class="check-card">
+                        <div class="check-header">
+                            <span class="check-name">${choice.requiresGroupCheck.name}</span>
+                            <span class="check-dc">DC ${choice.requiresGroupCheck.dc}</span>
+                        </div>
+                        <p>${choice.requiresGroupCheck.description}</p>
+                        <p><strong>Per-person failure:</strong> ${choice.requiresGroupCheck.perPersonFailure}</p>
+                        <p><strong>Mass failure (4+):</strong> ${choice.requiresGroupCheck.massFailure}</p>
+                        <button class="roll-btn" onclick="gm.rollGroupCheck(${choice.requiresGroupCheck.dc})">
+                            🎲 Roll Group Check
+                        </button>
+                        <div id="group-check-result" class="roll-result"></div>
+                    </div>
+                </div>
+            ` : ''}
+            
+            ${choice.collapseCheck ? `
+                <div class="collapse-check">
+                    <h5>Collapse Prevention:</h5>
+                    <p>${choice.collapseCheck.description}</p>
+                    <div class="collapse-conditions">
+                        ${choice.collapseCheck.conditions.map((cond, i) => `
+                            <div class="collapse-condition" id="collapse-cond-${i}">
+                                <span class="cond-status">❓</span>
+                                <span class="cond-name">${cond.condition}</span>
+                                ${cond.preventable ? `
+                                    <span class="cond-prevention">${cond.prevention}</span>
+                                    ${cond.dc ? `
+                                        <button class="small-roll-btn" onclick="gm.rollCollapseCondition(${i}, ${cond.dc})">
+                                            🎲 DC ${cond.dc}
+                                        </button>
+                                    ` : `
+                                        <button class="small-choice-btn" onclick="gm.resolveCollapseCondition(${i}, true)">✓ Prevented</button>
+                                        <button class="small-choice-btn fail" onclick="gm.resolveCollapseCondition(${i}, false)">✗ Failed</button>
+                                    `}
+                                ` : `
+                                    <span class="cond-auto">Automatic</span>
+                                `}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="collapse-result" class="collapse-result"></div>
+                </div>
+            ` : ''}
+            
+            ${choice.triggerFailure ? `
+                <div class="trigger-failure-btn">
+                    <button class="trigger-btn" onclick="gm.showFailureSubpage('${choice.triggerFailure}')">
+                        ⚠️ Proceed to ${choice.triggerFailure === 'dan_seizes' ? 'Seizure Resolution' : 'Collapse Resolution'}
+                    </button>
+                </div>
+            ` : ''}
+            
+            <div class="choice-continue">
+                <button class="primary-btn" onclick="gm.nextScene()">Continue to Next Scene →</button>
+            </div>
+        </div>
+    `;
+}
+
+rollGroupCheck(dc) {
+    const participants = ['Archie', 'Rodger', 'Perot', 'Smokin\' J', 'Salam', 'Toad Lee', 'Toadburt', 'Markop', 'Eager', 'Waluigi', 'Hjumpik', 'Oracle'];
+    let failures = 0;
+    let results = [];
+    
+    participants.forEach(p => {
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const success = roll >= dc;
+        if (!success) failures++;
+        results.push({ name: p, roll, success });
+    });
+    
+    const resultDiv = document.getElementById('group-check-result');
+    resultDiv.innerHTML = `
+        <div class="group-results">
+            <p><strong>Failures: ${failures}/12</strong></p>
+            <div class="individual-results">
+                ${results.map(r => `
+                    <span class="${r.success ? 'success' : 'failure'}">${r.name}: ${r.roll}</span>
+                `).join('')}
+            </div>
+            ${failures >= 4 ? `
+                <p class="critical">MASS FAILURE — Ritual misfires!</p>
+            ` : failures > 0 ? `
+                <p class="warning">${failures} participants affected. -${failures} Integrity.</p>
+            ` : `
+                <p class="success">All participants resisted!</p>
+            `}
+        </div>
+    `;
+    resultDiv.classList.add('show');
+    
+    // Apply integrity loss
+    if (failures > 0 && failures < 4) {
+        this.adjustIntegrity(-failures);
+    }
+    
+    this.logEvent(`Group check vs DC ${dc}: ${failures} failures`);
+}
+
+rollCollapseCondition(index, dc) {
+    const roll = Math.floor(Math.random() * 20) + 1;
+    const success = roll >= dc;
+    this.resolveCollapseCondition(index, success, roll);
+}
+
+resolveCollapseCondition(index, prevented, roll = null) {
+    const condDiv = document.getElementById(`collapse-cond-${index}`);
+    const statusSpan = condDiv.querySelector('.cond-status');
+    
+    if (prevented) {
+        statusSpan.textContent = '✓';
+        statusSpan.classList.add('prevented');
+    } else {
+        statusSpan.textContent = '✗';
+        statusSpan.classList.add('failed');
+    }
+    
+    if (roll !== null) {
+        const rollSpan = document.createElement('span');
+        rollSpan.className = prevented ? 'roll-success' : 'roll-failure';
+        rollSpan.textContent = ` [${roll}]`;
+        statusSpan.after(rollSpan);
+    }
+    
+    // Count conditions
+    this.checkCollapseState();
+}
+
+checkCollapseState() {
+    const conditions = document.querySelectorAll('.collapse-condition');
+    let failed = 0;
+    let resolved = 0;
+    
+    conditions.forEach(c => {
+        const status = c.querySelector('.cond-status');
+        if (status.classList.contains('failed')) {
+            failed++;
+            resolved++;
+        } else if (status.classList.contains('prevented')) {
+            resolved++;
+        }
+    });
+    
+    if (resolved === conditions.length) {
+        const resultDiv = document.getElementById('collapse-result');
+        if (failed >= 3) {
+            resultDiv.innerHTML = `<p class="critical">COLLAPSE! ${failed}/5 conditions failed. Ritual collapses.</p>`;
+            resultDiv.classList.add('show');
+        } else {
+            resultDiv.innerHTML = `<p class="success">Collapse prevented! Only ${failed}/5 conditions failed.</p>`;
+            resultDiv.classList.add('show');
+        }
+    }
+}
+// Add this new method to the GMSheet class
+triggerRitualFailureTeleport(destination) {
+    let title, content;
+    const commonIntro = `
+        <p>Falling, tumbling through silence. The ritual shatters, not into pieces, but into a doorway that pulls you through.</p>
+        <p>The oppressive nothingness gives way, and like paint being spread upon a canvas, you watch as a new reality forms around you.</p>
+        <p>You are hurled from the portal in a clatter of limbs and equipment.</p>
+    `;
+
+    const feywardMarkopText = `
+        <h3>Feyward Portal</h3>
+        ${commonIntro}
+        <p class="critical">On this side of the gateway, you, Markop, are sent sprawling alone. You land prone on hardwood and must make a <strong>DC 10 Dexterity saving throw or suffer 3 (1d6) Bludgeoning damage</strong> from the fall.</p>
+        <p>The others are gone. You are in a large, comfortable parlor, worn but finely made. A grand piano sits in an alcove, and strange, beautiful art hangs on the walls. The air smells of autumn and old magic.</p>
+        <p>From outside, you can hear music, laughter, and chatter, as if from a manor vibrantly alive, reclaimed by a wild, magical nature.</p>
+    `;
+
+    const shadewardGroupText = `
+        <h3>Shadeward Portal</h3>
+        ${commonIntro}
+        <p class="warning">On this side of this gateway, the party is sent sprawling to the floor. Each of you must make a <strong>DC 10 Dexterity saving throw or suffer 3 (1d6) Bludgeoning damage</strong> from the fall.</p>
+        <p>You find yourselves in a decadent lounge that feels cold and unused. A grand piano sits in a southern alcove, but discordant sounds drift from other locked doors. The immaculate gray slate and flawless black tiles feel oppressive.</p>
+        <p>Outside, the grounds are shades of gray and black, with thorny, unnatural blooms. Every leaf and blade of grass seems to hold shadows more readily than natural, as if scorched by a cold fire.</p>
+    `;
+
+    const planarSanctumGroupText = `
+        <h3>Planar Sanctum (Best Outcome)</h3>
+        ${commonIntro}
+        <p class="safe">You land more gently than you expected, cushioned by unseen forces. The air is clean and still. You are in a place of quiet order and immense, neutral power.</p>
+        <p>This is a nexus of some kind, a library of realities. The ritual's failure was contained, and you have been deposited in a place between worlds. You are safe, for now, but not home.</p>
+    `;
+    
+    switch(destination) {
+        case 'feyward':
+            title = 'FAILURE: Feyward Rupture';
+            content = feywardMarkopText;
+            this.logEvent('Ritual Collapse -> Feyward Manor (Markop Alone)');
+            break;
+        case 'shadeward':
+            title = 'FAILURE: Shadeward Rupture';
+            content = shadewardGroupText;
+            this.logEvent('Ritual Collapse -> Shadeward Manor');
+            break;
+        case 'sanctum':
+        default:
+            title = 'FAILURE: Planar Sanctum';
+            content = planarSanctumGroupText;
+            this.logEvent('Ritual Collapse -> Planar Sanctum');
+            break;
+    }
+    
+    this.setContent(title, `<div class="failure-end">${content}</div>`);
+}
 // Failure Subpages Data
 getFailureSubpages() {
     return {
         // ARCHIE FIRE CATASTROPHE
+// Add to getFailureSubpages()
+dan_seizes: {
+    id: 'dan_seizes',
+    icon: '👑',
+    title: 'DAN ATTEMPTS SEIZURE',
+    subtitle: 'The Question Tries to Become the Answer',
+    severity: 'CRITICAL',
+    oracleQuote: 'The ritual asks him: From which timeline do you speak with authority?',
+    description: `
+        <p class="critical-alert">👑 DAN IS TRYING TO SEIZE CONTROL OF THE RITUAL 👑</p>
+        <p>Dan has lunged for the mirror, attempting to overwrite the ritual's purpose.</p>
+        <p>Instead of being the question, Dan wants to become the author.</p>
+        <p>The ritual is stress-testing Dan's legitimacy. Hard.</p>
+    `,
+    rounds: 2,
+    firstCheck: {
+        name: 'Determine Dan\'s Nature',
+        description: 'The ritual itself determines if Dan has temporal authority',
+        automatic: true,
+        outcomes: {
+            fake: {
+                title: 'Dan is FAKE',
+                description: 'Dan has no timeline backing. No acceptable answer to the ritual\'s question.',
+                consequence: 'The ritual uses Dan as proof of what must be severed.',
+                rollTable: 'fake-dan-destruction'
+            },
+            real: {
+                title: 'Dan is REAL',
+                description: 'Dan has temporal authority but attempting tyranny has a price.',
+                consequence: 'Dan can attempt to bend the outcome, but must pay.',
+                rollTable: 'tyrant-price',
+                additionalCheck: {
+                    name: 'Seizure Attempt',
+                    dc: 20,
+                    type: 'CHA Save DC 20',
+                    who: 'Dan',
+                    success: 'Dan bends the outcome. But still pays the price.',
+                    failure: 'Dan is rejected AND pays the price. Worst outcome.'
+                }
+            }
+        }
+    },
+    recoveryOptions: [
+        {
+            name: 'Let the Ritual Handle It',
+            description: 'Do nothing. The ritual knows how to deal with this.',
+            who: 'Everyone',
+            dc: 0,
+            type: 'Automatic — Requires discipline',
+            successText: 'The ritual answers Dan\'s attempt. See outcomes based on Dan\'s nature.',
+            failText: 'N/A',
+            onSuccess: 'ritual_handles',
+            automatic: true,
+            note: 'This is usually the correct choice. The ritual punishes seizure attempts.'
+        },
+        {
+            name: 'Markop Intercepts Physically',
+            description: 'Markop tackles Dan before he reaches the mirror',
+            who: 'Markop',
+            dc: 14,
+            type: 'Athletics DC 14',
+            successText: 'Dan stopped short of mirror. Still pays for attempt, but mirror untouched.',
+            failText: 'Dan reaches mirror. Physical contact with mirror during seizure.',
+            onSuccess: 'intercept_success',
+            onFail: 'mirror_touched'
+        },
+        {
+            name: 'Oracle Accelerates',
+            description: 'Oracle rushes to complete the cut before Dan can interfere',
+            who: 'Oracle',
+            dc: 16,
+            type: 'CON Save DC 16',
+            successText: 'Cut completes before Dan\'s seizure can take effect. Dan\'s attempt nullified.',
+            failText: 'Too slow. Dan\'s interference affects the outcome.',
+            onSuccess: 'cut_complete',
+            onFail: 'cut_tainted',
+            damage: '2d6 psychic damage to Oracle from rushing'
+        },
+        {
+            name: 'Waluigi Absorbs the Chaos',
+            description: 'Waluigi tries to become a bigger disruption than Dan',
+            who: 'Waluigi',
+            dc: 15,
+            type: 'CHA Save DC 15',
+            successText: 'Ritual focuses on Waluigi instead of Dan. Dan\'s seizure fails. Waluigi... something happens.',
+            failText: 'Two sources of chaos. Ritual confused. Roll on Collapse Consequences.',
+            onSuccess: 'waluigi_absorb',
+            onFail: 'double_chaos',
+            rollTableOnSuccess: 'waluigi-weird'
+        }
+    ],
+    rollTables: [
+        {
+            name: 'Fake Dan Destruction',
+            id: 'fake-dan-destruction',
+            die: 6,
+            results: [
+                { roll: 1, text: 'Dissolved into mirror-fragments', effect: 'No body. Just shards scattering.' },
+                { roll: 2, text: 'Hurled out of ritual space', effect: 'Through wall. 4d6 damage.' },
+                { roll: 3, text: 'True form revealed', effect: 'Everyone sees. Horror check WIS DC 14.' },
+                { roll: 4, text: 'Absorbed by mirror', effect: 'Exists only in reflections now.' },
+                { roll: 5, text: 'Incinerated by ritual energy', effect: 'Nothing left.' },
+                { roll: 6, text: 'Destruction reveals real Dan\'s location', effect: 'Vision/coordinates provided.' }
+            ]
+        },
+        {
+            name: 'Tyrant\'s Price',
+            id: 'tyrant-price',
+            die: 6,
+            results: [
+                { roll: 1, text: 'Loses all future versions', effect: 'This Dan is the only Dan forever.' },
+                { roll: 2, text: 'Becomes unchangeable', effect: 'Cannot grow or learn. Personality locked.' },
+                { roll: 3, text: 'Sacrifices part of self', effect: 'Lose 1d4 from random ability score.' },
+                { roll: 4, text: 'Marked as tyrant', effect: 'Truth-magic targets Dan first. Forever.' },
+                { roll: 5, text: 'Hollow victory', effect: 'Cannot feel triumph. Emotional capacity reduced.' },
+                { roll: 6, text: 'Acceptable price', effect: 'Lose 1 level. Gain mirror-sight.' }
+            ]
+        }
+    ],
+    timerEnd: {
+        title: 'SEIZURE RESOLVED',
+        description: 'The ritual has answered Dan\'s attempt, one way or another.',
+        consequences: [
+            'If Dan was fake: Dan is destroyed/expelled',
+            'If Dan was real: Dan pays the Tyrant\'s Price',
+            'Ritual can continue to completion',
+            'All participants now know what Dan is'
+        ]
+    }
+},
+
+ritual_collapse: {
+    id: 'ritual_collapse',
+    icon: '💥',
+    title: 'RITUAL COLLAPSE',
+    subtitle: 'The Cut Fails — Timelines Tangle',
+    severity: 'CATASTROPHIC',
+    oracleQuote: 'No... no, no, no — the threads are tangling, I can\'t—',
+    description: `
+        <p class="critical-alert">💥 THE RITUAL IS COLLAPSING 💥</p>
+        <p>Too many failures. The cut cannot complete. The timelines are tangling instead of separating.</p>
+        <p>This is not Dan's victory. This is everyone's failure.</p>
+    `,
+    rounds: 1,
+    recoveryOptions: [
+        {
+            name: 'Oracle Forces Partial Cut',
+            description: 'Oracle sacrifices to force at least partial severance',
+            who: 'Oracle',
+            dc: 18,
+            type: 'CON Save DC 18',
+            successText: 'Partial cut achieved. Some answers, some tangles. Oracle takes 4d6 damage.',
+            failText: 'Total collapse. Roll on Collapse Consequences.',
+            onSuccess: 'partial_cut',
+            onFail: 'total_collapse',
+            damage: '4d6 damage to Oracle regardless'
+        },
+        {
+            name: 'Archie Freezes the Collapse',
+            description: 'Archie pushes ice to freeze the moment of collapse',
+            who: 'Archie',
+            dc: 18,
+            type: 'CON Save DC 18',
+            successText: 'Moment frozen. Party can attempt to untangle manually (future session).',
+            failText: 'Ice shatters. Collapse accelerates.',
+            onSuccess: 'frozen_collapse',
+            onFail: 'shattered_ice',
+            damage: '3d6 cold damage to Archie'
+        },
+        {
+            name: 'Accept the Collapse',
+            description: 'Let it happen. Survive what comes.',
+            who: 'Everyone',
+            dc: 0,
+            type: 'Automatic',
+            successText: 'Collapse complete. Roll on Collapse Consequences. Everyone survives.',
+            failText: 'N/A',
+            onSuccess: 'accepted_collapse',
+            automatic: true
+        }
+    ],
+    rollTables: [
+        {
+            name: 'Collapse Consequences',
+            id: 'collapse-consequences',
+            die: 6,
+            results: [
+                { roll: 1, text: 'Timeline Tangle: Everyone out of sync', effect: 'Reality jet lag. Relationships warp.' },
+                { roll: 2, text: 'Memory Fracture: History disagrees', effect: 'Everyone remembers differently. Arguments forever.' },
+                { roll: 3, text: 'Partial Severance: Half-complete', effect: 'Dan is "maybe" real. Two truths persist.' },
+                { roll: 4, text: 'Mirror Shatter', effect: 'Shards scatter. Each person carries a piece.' },
+                { roll: 5, text: 'Temporal Stutter', effect: 'Must redo ritual. Everyone remembers.' },
+                { roll: 6, text: 'Void Touch', effect: 'Something noticed. It\'s coming.' }
+            ]
+        }
+    ],
+    timerEnd: {
+        title: 'COLLAPSE COMPLETE',
+        description: 'The ritual has failed. No clean answers. Only tangles.',
+        consequences: [
+            'Dan\'s nature remains uncertain',
+            'All participants carry temporal damage',
+            'Future rituals will be harder',
+            'Something may have noticed the failure'
+        ]
+    }
+},        
         archie_fire: {
             id: 'archie_fire',
             icon: '🔥',
@@ -3112,47 +3679,33 @@ resolveFailure(failureId, resolution) {
     // Return to scene runner
     this.showSceneRunner();
 }
-
+// REPLACE the existing failureTimerEnds(failureId) function with this:
 failureTimerEnds(failureId) {
     const failure = this.getFailureSubpages()[failureId];
     
-    this.logEvent(`FAILURE: ${failure.title} — Timer expired`);
+    this.logEvent(`FAILURE: ${failure.title} — Timer expired. RITUAL COLLAPSES.`);
     
     const content = `
         <div class="failure-end critical">
             <div class="failure-end-header">
                 <span class="failure-end-icon">💀</span>
-                <h1>${failure.timerEnd.title}</h1>
+                <h1>RITUAL COLLAPSE IMMINENT</h1>
             </div>
             
-            <p class="failure-end-desc">${failure.timerEnd.description}</p>
+            <p class="failure-end-desc">Your attempts at recovery have failed. The unstable energy can no longer be contained. The ritual is breaking apart, and it's taking you with it.</p>
             
-            <div class="failure-end-consequences">
-                <h3>Consequences:</h3>
-                <ul>
-                    ${failure.timerEnd.consequences.map(c => `<li>${c}</li>`).join('')}
-                </ul>
+            <div class="failure-end-table">
+                <h3>Roll for Rupture Destination:</h3>
+                ${this.renderIntegratedTable(this.getSceneData()[10].rollTables[0])}
             </div>
-            
-            ${failure.timerEnd.rollTable ? `
-                <div class="failure-end-table">
-                    <h3>Roll for outcome:</h3>
-                    ${this.renderIntegratedTable(failure.timerEnd.rollTable)}
-                </div>
-            ` : ''}
             
             <div class="failure-end-actions">
-                <button class="primary-btn" onclick="gm.continueAfterFailure('${failureId}')">
-                    Continue With Consequences
-                </button>
-                <button class="secondary-btn" onclick="gm.showSceneRunner()">
-                    Return to Scene (GM Adjudicate)
-                </button>
+                <p>Roll on the table above and click the outcome button to see your fate.</p>
             </div>
         </div>
     `;
     
-    this.setContent(`💀 ${failure.timerEnd.title}`, content);
+    this.setContent(`💀 RITUAL COLLAPSE`, content);
     this.activeFailure = null;
 }
 
@@ -3196,7 +3749,7 @@ exitFailureSubpage() {
     this.showSceneRunner();
 }
 
-// Add trigger buttons to scene checks that can cause failures
+// Add trigger buttons to
 getFailureTriggers() {
     return {
         'archie_ice_unstable': {
@@ -3224,14 +3777,19 @@ getFailureTriggers() {
             scene: 6,
             button: '🦾 Trigger Dan Action'
         },
-        'dan_acted_mirror': {
-            trigger: 'Dan reacts to mirror',
+        'dan_seizes': {
+            trigger: 'Dan attempts to seize control',
             scene: 7,
-            button: '🦾 Trigger Dan Reaction'
+            button: '👑 Trigger Dan Seizure'
+        },
+        'ritual_collapse': {
+            trigger: 'Dan causes total collapse',
+            scene: 7,
+            button: '💥 Trigger Ritual Collapse'
         },
         'oracle_interrupted': {
             trigger: 'Oracle concentration broken',
-            scene: 8,
+            scene: 9,
             button: '🗣️ Trigger Oracle Interrupt'
         }
     };
@@ -3517,52 +4075,44 @@ getOracleResponses() {
     return {
         questions: [
             {
-                question: 'What if we see something that shouldn\'t exist?',
-                answer: 'You will. That\'s the point. The mirror shows what is, not what should be. If you see something impossible, it means that impossible thing exists. Do not argue with the mirror. It is older than your concept of "should."'
+                question: 'What exactly will the mirror show us?',
+                answer: 'I do not know exactly. It shows what is hidden. Empire secrets. Spore connections. The truth behind facades. Each of you will see something about yourself you may not want to see. That is unavoidable. Truth is not comfortable.'
             },
             {
-                question: 'What exactly will the mirror show?',
-                answer: 'I do not know. No one knows until it happens. It will show structures — towers, patterns, connections. It will show Dan\'s true nature, whatever that is. It will show whatever it decides we need to see to answer the question. And possibly things that are simply watching.'
+                question: 'Is this ritual about Dan specifically?',
+                answer: 'Dan is one question among many. The uncertainty around Dan makes him significant, yes. But the ritual will interrogate all of us. Everyone has secrets. Everyone has uncertainty. The mirror finds those cracks and shows what is inside them.'
             },
             {
-                question: 'Can we fight if something attacks?',
-                answer: 'If something breaks INTO the circle, Waluigi and Markop react — no one else. If something is already inside the circle, fighting it means fighting reality. You cannot punch the concept of truth. Endure. Do not fight.'
+                question: 'What if we see something we can\'t handle?',
+                answer: 'Then you will learn whether you can handle it or not. The mirror is not cruel — it does not show things to break you. It shows truth because truth is what it IS. Your reaction is your choice. Composure is survival. Flinching invites deeper questions.'
             },
             {
-                question: 'What if Dan IS an impostor?',
-                answer: 'Then the mirror will show that. And then we will have a different problem. But we will have KNOWLEDGE. An identified impostor is safer than an unexamined ally. Either way, we learn something true.'
+                question: 'Can we refuse to answer the mirror?',
+                answer: 'You cannot refuse to BE seen. You can choose how you respond to what is shown. Silence is a response. Stillness is a response. But the mirror will show what it shows regardless of your preferences.'
             },
             {
-                question: 'What happened to Green T?',
-                answer: 'That is not today\'s question. The mirror asks one question at a time. Green T is gone. His absence creates uncertainty. Uncertainty is dangerous in rituals but not always fatal. Focus on what we can answer today.'
+                question: 'What does the Empire have to do with this?',
+                answer: 'The Empire is built on lies. Old lies. Comfortable lies. The Spore Origin is connected to those lies. This ritual forces truth into the open. What the Empire has hidden becomes visible. That is part of why they would not want us to do this.'
             },
             {
-                question: 'Can the ritual be stopped once started?',
-                answer: 'Not cleanly. Interruption is not "stopping" — it is breaking. A stopped ritual leaves edges. Temporal edges. The kind of edges that bleed. If you must interrupt, understand that you are choosing damage over completion.'
+                question: 'What if the mirror shows something about someone else here?',
+                answer: 'Then you will know something about them. And they will know you know. The mirror does not care about privacy. It cares about truth. Be prepared to learn things about each other that you may not want to know.'
             },
             {
-                question: 'What do you mean by "timeline shear"?',
-                answer: 'When a truth-ritual is interrupted mid-cut, time... disagrees with itself. Some of you might remember different outcomes. Some of you might not remember at all. Someone might have "always" been somewhere else. It is deeply unpleasant and often irreversible.'
+                question: 'Can we lie to the mirror?',
+                answer: 'You can try. The mirror will make the lie visible to everyone. It does not punish lies — it reveals them. If you want to confess a lie to everyone present, lying to the mirror is an efficient way to do that.'
             },
             {
-                question: 'How do we know the mirror tells the truth?',
-                answer: 'The mirror cannot lie. That is not the same as saying it is kind, or complete, or merciful. It shows what is. What you interpret from what it shows is your responsibility. Truth and understanding are not the same thing.'
+                question: 'What happens if someone breaks during their interrogation?',
+                answer: 'Define "breaks." If they flinch, the mirror presses harder. If they flee their position, the circle ruptures. If they deny what they\'re shown, the mirror simply shows it again with more clarity. The best course is to accept what you see and remain still.'
             },
             {
-                question: 'What if I can\'t stay still?',
-                answer: 'Then you should not be in the circle. Small movements — breathing, blinking — are acceptable. Shifting your weight is borderline. Taking a step is catastrophic. Know yourself. If you cannot be still, tell me now and I will place you in a witness position where small failure is survivable.'
+                question: 'Why does the mirror need to question us at all?',
+                answer: 'Because truth requires contrast. The mirror learns what is true by seeing how we react to reflections of truth. Your reactions are data. Your composure is consent. Your flinching is confession. We are not passive observers — we are participants in the truth-making.'
             },
             {
-                question: 'Why does Hjumpik need to be "opposition"?',
-                answer: 'A blade needs something to cut against. A mirror needs something to reflect. Without opposition, the ritual has no edge — it becomes formless. Someone in this circle must genuinely doubt. Hjumpik\'s divided loyalty provides that. It is not betrayal if we need it to be there.'
-            },
-            {
-                question: 'What\'s Waluigi\'s actual job?',
-                answer: 'Chaos absorbs chaos. When something strange happens — and it will — Waluigi\'s presence... bends around it. He is a lightning rod for unpredictability. If he were not here, random effects would strike random people. With him here, strangeness flows toward him first. Usually he survives. Usually.'
-            },
-            {
-                question: 'Is this dangerous for Dan?',
-                answer: 'Yes. Being the question the mirror asks is not comfortable. Dan will be seen in ways no person should be seen. Every secret, every doubt, every fracture — exposed. If Dan is singular, this will hurt but not destroy. If Dan is not... then what happens depends on what Dan actually is.'
+                question: 'What if the mirror shows me something that isn\'t true?',
+                answer: 'The mirror cannot show what is not true. It can only show truth. If what you see feels false, consider: perhaps you have believed a comfortable lie so long that truth feels like deception. The mirror does not lie. But we lie to ourselves constantly.'
             }
         ]
     };
@@ -3721,7 +4271,8 @@ renderCurrentScene() {
                 ${positionsHtml}
                 ${checksHtml}
                 ${tablesHtml}
-                
+                ${scene.danChoice ? this.renderDanChoices(scene) : ''}
+                ${scene.interrogations ? this.renderInterrogations(scene) : ''}
                 ${scene.special ? `
                     <div class="scene-special">
                         ${scene.special}
@@ -4074,104 +4625,126 @@ getSceneData() {
     `,
     checks: [],
     rollTables: [],
-    oracleBriefing: {
-        introduction: {
-            speaker: 'Oracle',
-            text: `What we are about to do is not a summoning. It is not a séance. It is not a spell in any sense you understand. We are going to force three layers of reality to overlap long enough to exchange truth. The physical room. The mirror-space. And something older that the Empire is trying to dig toward. None of these want to touch. We are going to make them.`
-        },
-        sections: [
-            {
-                title: 'What Will Happen',
-                icon: '🪞',
-                oracleText: `We enter. We take positions. I light candles — in a specific order, which I will handle. Then I speak words that are older than this building. The mirror will stop being a mirror. It will become a membrane. Things will be visible that should not be. You will want to look away. Don't. You will want to help if someone struggles. Don't. You will want to speak. Don't. The ritual asks one question and answers it. Everything else is noise that can kill us.`,
-                playerNotes: [
-                    'No speaking unless directly addressed by Oracle',
-                    'No moving from assigned positions',
-                    'No helping others — breaks the circle',
-                    'Watch everything, react to nothing'
-                ]
-            },
-            {
-                title: 'The Question We Ask',
-                icon: '🦾',
-                oracleText: `The ritual exists to answer one question: Is Dan singular? Not "is Dan trustworthy" — I don't care about that. Not "is Dan the Dan we knew" — that's philosophy. The mirror will determine whether the being standing in that circle is one coherent entity, or whether something is fragmented, duplicated, or wearing a mask. That is all. But that is enough.`,
-                playerNotes: [
-                    'Dan is the SUBJECT, not a participant',
-                    'Dan must remain passive throughout',
-                    'The answer comes from the mirror, not from us',
-                    'We do not judge — we witness'
-                ],
-                danSpecific: `Dan. You will stand where I place you. You will not speak. You will not move. You will not try to prove anything. If you are what you believe yourself to be, the mirror will show that. If you try to convince it, you contaminate the answer. Your job is to be a question, not an answer. Can you do that?`
-            },
-            {
-                title: 'The Positions',
-                icon: '📍',
-                oracleText: `Twelve of us. Twelve functions. You will feel where you belong — trust that instinct. If you don't feel it, I will place you. The positions are not arbitrary. They create opposing forces that the ritual needs to function. North opposes South. East opposes West. The center conducts. The outer contains. If you are in the wrong place, the ritual will tell us — usually painfully.`,
-                playerNotes: [
-                    'Trust your instinct about position',
-                    'Oracle will correct if needed',
-                    'Once placed, do not move',
-                    'Your position defines your function'
-                ]
-            },
-            {
-                title: 'The Roles',
-                icon: '⚔️',
-                oracleText: `Some of you anchor. Some witness. Some oppose. These are not insults — opposition is necessary. A mirror with nothing to push against shows nothing. I need someone whose loyalty is... flexible. I need someone whose presence insists on survival. I need someone who remembers. I need chaos that bends without breaking. You know who you are. Play your role.`,
-                roleHints: [
-                    { role: 'Anchors', description: 'Rodger and squad — keep reality mundane. Do soldier things.' },
-                    { role: 'Witnesses', description: 'Toad Lee, Toadburt — watch and remember. Your memory makes this real.' },
-                    { role: 'Opposition', description: 'Hjumpik — your doubt defines edges. Don\'t resolve it early.' },
-                    { role: 'Survival', description: 'Markop — refuse to let us choose "clean but dead" answers.' },
-                    { role: 'Chaos Valve', description: 'Waluigi — absorb strangeness. React only if something breaks in.' },
-                    { role: 'Discipline', description: 'Archie — ice, not fire. Constraint, not power. The mirror must see truth, not desire.' }
-                ]
-            },
-            {
-                title: 'What Can Go Wrong',
-                icon: '⚠️',
-                oracleText: `Everything. If Archie loses control, fire in a truth-ritual becomes a summoning. If the squad panics together, reality stops being mandatory. If Dan tries to prove himself, the mirror accepts the performance as fact — even if it's wrong. If I am interrupted mid-speech, time breaks. If Hjumpik moves too early, the edges collapse and the mirror has nothing to cut against. These are not theoretical. I have seen rituals fail. The failures are still happening somewhere.`,
-                warningList: [
-                    { trigger: 'Fire cast', consequence: 'Ritual becomes summoning. Someone dies.' },
-                    { trigger: 'Squad mass panic', consequence: 'Reality becomes optional. Answers meaningless.' },
-                    { trigger: 'Dan asserts himself', consequence: 'Mirror locks in current state as "true" — even if false.' },
-                    { trigger: 'Oracle interrupted', consequence: 'Timeline shears. Loops, erasures, branches.' },
-                    { trigger: 'Hjumpik flips early', consequence: 'No opposition. Mirror collapses inward.' },
-                    { trigger: 'Anyone breaks circle', consequence: 'Energy discharges into nearest person.' }
-                ]
-            },
-            {
-                title: 'What Success Looks Like',
-                icon: '✓',
-                oracleText: `The mirror will go dull. Not dark. Not shattered. Just... ordinary. Boring glass. When that happens, the answer has been given. We exit in order — witnesses first, then anchors, then the question, then the edges, then me. Rushing leaves pieces behind. You do not want to leave pieces of yourself in a mirror. Trust me on this.`,
-                playerNotes: [
-                    'Dull mirror = success',
-                    'Exit slowly and in order',
-                    'Witnesses leave first',
-                    'Oracle leaves last',
-                    'Rushing has consequences'
-                ]
-            },
-            {
-                title: 'The Missing Piece',
-                icon: '🟢',
-                oracleText: `We are twelve. The ritual expects... input from thirteen sources. Green T would have been the Junction Witness — someone who had seen both sides of the question we're asking. He is gone. That absence does not break the ritual. It makes the ritual ask itself harder questions. The mirror will wonder: does truth require an observer? Does knowledge matter if the knower is gone? I don't know what it will conclude. Neither do you. We proceed anyway.`,
-                playerNotes: [
-                    'Green T\'s absence increases unpredictability',
-                    'Ritual will self-interrogate',
-                    'Outcome less certain but not impossible',
-                    'The mirror decides how to handle the gap'
-                ]
-            }
-        ],
-        finalWarning: {
-            speaker: 'Oracle',
-            text: `I will ask once: Does anyone wish to leave? There is no shame in it. Once we cross that threshold, you are committed until the mirror goes dull. Leaving mid-ritual is not "giving up" — it is catastrophic structural failure. So. Now. Anyone?`,
-            pause: true,
-            afterPause: `Good. Compose yourselves. Empty your minds of what you want the answer to be. The mirror does not care what you want. It will show what is. Our job is to survive seeing it.`
-        },
-        transitionText: `The Oracle turns to the sealed door. Places one hand on the cold surface. The temperature drops slightly. Something on the other side knows we are coming.`
+// Update the Pre-Ritual Briefing scene's oracleBriefing object
+oracleBriefing: {
+    introduction: {
+        speaker: 'Oracle',
+        text: `What we are about to do is not a summoning. It is not a séance. It is not a spell in any sense you understand. We are going to force three layers of reality to overlap long enough to exchange truth. The physical room. The mirror-space. And something older that the Empire is trying to dig toward. None of these want to touch. We are going to make them.`
     },
+    sections: [
+        {
+            title: 'What This Ritual Actually Does',
+            icon: '🪞',
+            oracleText: `This is a synchronization rite. We are forcing three realities to overlap just enough to exchange truth without merging. The mirror is not a doorway — it is a pressure membrane. When we are done, the Empire's lies, the Spore Origin, the Third Eye doctrine — all become mutually visible. Truth passes both ways. Some things will notice you. That is unavoidable.`,
+            playerNotes: [
+                'This is NOT about one person — it reveals truth about everything',
+                'The mirror shows structures, not just faces',
+                'Truth flows in both directions',
+                'Exposure, not negotiation'
+            ]
+        },
+        {
+            title: 'What Will Happen',
+            icon: '⏳',
+            oracleText: `We enter. We take positions. I light candles in sequence — not together, sequence matters. Then I speak words older than this building. The mirror will stop being a mirror. It will show structures — towers, eyes, grids, roots. Things that ARE, beyond the room. And then it will look at each of you. It will ask questions. Not with words. With reflections. With what it shows you about yourself.`,
+            playerNotes: [
+                'Mirror will interrogate EVERYONE, not just one person',
+                'It shows uncomfortable truths',
+                'Questions come through reflections',
+                'You may see things you have hidden from yourself'
+            ]
+        },
+        {
+            title: 'The Mirror\'s Interrogation',
+            icon: '❓',
+            oracleText: `The mirror does not ask questions with words. It shows you something and waits to see if you flinch. It will find what you are uncertain about. It will find what you have lied about — to others, to yourself. It will find the cracks in your certainty. Your job is not to have answers. Your job is to not break when the questions hurt.`,
+            playerNotes: [
+                'Everyone will be tested, not just Dan',
+                'The mirror finds uncertainty and presses on it',
+                'Self-deception is visible to the mirror',
+                'Composure matters more than correctness'
+            ]
+        },
+        {
+            title: 'What The Mirror Seeks',
+            icon: '🔍',
+            oracleText: `The ritual reveals what the Empire has hidden. What the Spore Origin actually is. What connections exist that should not. Who among us carries fragments of things that don't belong. Dan is one question, yes — but Dan is not THE question. The question is: what is true, and what has been made to look true?`,
+            playerNotes: [
+                'Empire secrets will be exposed',
+                'Spore Origin connections revealed',
+                'Hidden allegiances become visible',
+                'False histories corrected'
+            ]
+        },
+        {
+            title: 'The Positions',
+            icon: '📍',
+            oracleText: `Twelve of us. Twelve functions. You will feel where you belong — trust that instinct. If you don't feel it, I will place you. The positions are not arbitrary. They create opposing forces that the ritual needs to function. North opposes South. East opposes West. The center conducts. The outer contains.`,
+            playerNotes: [
+                'Trust your instinct about position',
+                'Oracle will correct if needed',
+                'Once placed, do not move',
+                'Your position defines your function'
+            ]
+        },
+        {
+            title: 'The Roles',
+            icon: '⚔️',
+            oracleText: `Some of you anchor. Some witness. Some oppose. Opposition is necessary — a mirror with nothing to push against shows nothing. I need someone whose loyalty is flexible. I need someone whose presence insists on survival. I need someone who remembers. I need chaos that bends without breaking. You know who you are.`,
+            roleHints: [
+                { role: 'Anchors', description: 'Rodger and squad — keep reality mundane. Do soldier things.' },
+                { role: 'Witnesses', description: 'Toad Lee, Toadburt — watch and remember. Your memory makes this real.' },
+                { role: 'Opposition', description: 'Hjumpik — your doubt defines edges. Don\'t resolve it early.' },
+                { role: 'Survival', description: 'Markop — refuse to let us choose "clean but dead" answers.' },
+                { role: 'Chaos Valve', description: 'Waluigi — absorb strangeness. React only if something breaks in.' },
+                { role: 'Discipline', description: 'Archie — ice, not fire. Constraint, not power.' },
+                { role: 'The Questioned', description: 'Dan — you are ONE of the questions, not the only one.' }
+            ]
+        },
+        {
+            title: 'What Can Go Wrong',
+            icon: '⚠️',
+            oracleText: `Everything. If Archie loses control, fire in a truth-ritual becomes a summoning. If the squad panics together, reality stops being mandatory. If anyone tries to lie to the mirror, it will make that lie visible to everyone. If I am interrupted mid-speech, time breaks. If anyone breaks position to help someone struggling, the circle ruptures.`,
+            warningList: [
+                { trigger: 'Fire cast', consequence: 'Ritual becomes summoning. Something comes through.' },
+                { trigger: 'Mass panic', consequence: 'Reality becomes optional. Truth becomes negotiable.' },
+                { trigger: 'Lying to mirror', consequence: 'Lie becomes visible. Everyone sees your deception.' },
+                { trigger: 'Oracle interrupted', consequence: 'Timeline shears. Loops, erasures, branches.' },
+                { trigger: 'Breaking position to help', consequence: 'Circle ruptures. Energy discharges.' },
+                { trigger: 'Flinching from truth', consequence: 'Mirror presses harder. Worse truths revealed.' }
+            ]
+        },
+        {
+            title: 'What Success Looks Like',
+            icon: '✓',
+            oracleText: `The mirror will go dull. Not dark. Not shattered. Just ordinary. Boring glass. When that happens, we will know things we did not know before. About the Empire. About the Spore. About each other. Some of it will hurt. All of it will be true. We exit in order — witnesses first, then anchors, then the questioned, then the edges, then me.`,
+            playerNotes: [
+                'Dull mirror = success',
+                'You WILL learn things you didn\'t want to know',
+                'Exit slowly and in order',
+                'Oracle leaves last'
+            ]
+        },
+        {
+            title: 'The Missing Piece',
+            icon: '🟢',
+            oracleText: `We are twelve. The ritual traditionally has thirteen — a Junction Witness who has seen both sides. Green T would have been that. He is gone. That absence does not break the ritual. It makes the ritual ask itself harder questions. The mirror will wonder about observation, about knowledge, about whether truth requires a witness. We proceed anyway.`,
+            playerNotes: [
+                'Green T\'s absence increases unpredictability',
+                'Ritual will self-interrogate',
+                'Outcome less certain but not impossible',
+                'The mirror decides how to handle the gap'
+            ]
+        }
+    ],
+    finalWarning: {
+        speaker: 'Oracle',
+        text: `I will ask once: Does anyone wish to leave? There is no shame in it. Once we cross that threshold, the mirror will see you. All of you. Every secret, every doubt, every lie you\'ve told yourself. If you cannot bear being seen that clearly, leave now.`,
+        pause: true,
+        afterPause: `Good. Compose yourselves. Empty your minds of what you hope is true. The mirror does not care what you hope. It will show what is. Our job is to survive seeing it.`
+    },
+    transitionText: `The Oracle turns to the sealed door. Places one hand on the cold surface. The temperature drops slightly. Something on the other side knows we are coming.`
+},
     special: `
         <div class="briefing-complete">
             <h4>📋 Briefing Complete</h4>
@@ -4707,7 +5280,430 @@ getSceneData() {
                 </div>
             `
         },
-
+// Add this as a new scene - Scene 8: THE MIRROR INTERROGATES
+{
+    icon: '❓',
+    title: 'THE MIRROR INTERROGATES',
+    subtitle: 'Each Participant is Questioned',
+    oracleQuote: 'Do not look away. Do not lie. The mirror already knows. It is asking if YOU know.',
+    description: `
+        <p>The mirror's surface ripples. One by one, it focuses on each participant.</p>
+        <p>It does not speak. It shows. And in showing, it asks.</p>
+        <p class="warning">Each participant will see something about themselves. How they react determines what the ritual reveals.</p>
+    `,
+    interrogations: true,
+    interrogationInstructions: `
+        <div class="interrogation-instructions">
+            <h4>🪞 GM Instructions: The Mirror's Method</h4>
+            <p>The mirror interrogates through SHOWING, not asking. For each participant:</p>
+            <ol>
+                <li>Describe what the mirror shows them (use the prompts below or create your own)</li>
+                <li>Ask the player: "What does your character do?"</li>
+                <li>Their reaction determines the consequence</li>
+            </ol>
+            <p><strong>The mirror finds uncertainty and presses on it.</strong></p>
+            <p>Players should NOT roll — this is pure roleplay. Their answer determines the outcome.</p>
+        </div>
+    `,
+    participantInterrogations: [
+        {
+            who: 'Archie',
+            icon: '❄️',
+            mirrorShows: 'The mirror shows Archie surrounded by flames. Not burning — commanding. Happy. Powerful. The ice is gone. Fire answers to him. Everyone he\'s ever failed to save is alive because he had the power to save them.',
+            theQuestion: 'Is your ice discipline, or fear? Do you contain fire because you should, or because you\'re afraid of what you\'d become if you let it out?',
+            reactions: {
+                flinch: {
+                    description: 'Archie looks away, denies it, or shows fear',
+                    consequence: 'The mirror sees the crack. Ice flickers. Fire temptation grows.',
+                    mechanical: 'Disadvantage on all Fire Resistance checks. The mirror will show this vision again at the worst moment.'
+                },
+                anger: {
+                    description: 'Archie gets angry, argues with the mirror',
+                    consequence: 'The fire inside responds to anger. Ice destabilizes.',
+                    mechanical: 'Immediate Ice Channeling check DC 16 or fire escapes briefly.'
+                },
+                accept: {
+                    description: 'Archie acknowledges the truth without breaking',
+                    consequence: 'The mirror dims. It found truth. Archie knows himself better now.',
+                    mechanical: 'Advantage on all checks for remainder of ritual. Self-knowledge is armor.'
+                },
+                deflect: {
+                    description: 'Archie tries to change the subject or make a joke',
+                    consequence: 'The mirror presses harder. Shows the same vision with more detail.',
+                    mechanical: 'Must face the question again. Cannot deflect twice.'
+                }
+            }
+        },
+        {
+            who: 'Rodger',
+            icon: '🛡️',
+            mirrorShows: 'The mirror shows Rodger\'s squad — Perot, Smokin\' J, Salam — but they\'re not following him. They\'re running from something he can\'t see. He\'s giving orders but no one hears. He\'s alone.',
+            theQuestion: 'Do they follow you because you lead well, or because they have no other choice? What happens when they have options?',
+            reactions: {
+                flinch: {
+                    description: 'Rodger shows doubt, looks at his squad for reassurance',
+                    consequence: 'The squad sees Rodger doubt himself. Their stability wavers.',
+                    mechanical: 'Squad checks are now at disadvantage. Leader\'s doubt is contagious.'
+                },
+                anger: {
+                    description: 'Rodger gets defensive, asserts authority loudly',
+                    consequence: 'The mirror shows the squad flinching from his anger. Authority through fear.',
+                    mechanical: 'Squad holds discipline but morale is damaged. -1 to all future squad checks.'
+                },
+                accept: {
+                    description: 'Rodger acknowledges the fear without letting it control him',
+                    consequence: 'The squad sees Rodger face hard truth and stand firm. Respect increases.',
+                    mechanical: 'Squad checks at advantage. They follow because they saw him be honest.'
+                },
+                deflect: {
+                    description: 'Rodger focuses on the mission, ignores the question',
+                    consequence: 'The mirror pauses. Not satisfied, but not pressing. For now.',
+                    mechanical: 'No bonus or penalty. But the question remains. It will come back.'
+                }
+            }
+        },
+        {
+            who: 'Hjumpik',
+            icon: '🐸',
+            mirrorShows: 'The mirror shows three versions of Hjumpik. One stands with the party. One stands with a hooded figure. One stands alone in darkness. All three are smiling. All three think they made the right choice.',
+            theQuestion: 'Which one is real? Or are you all three, choosing moment to moment, loyal to nothing but opportunity?',
+            reactions: {
+                flinch: {
+                    description: 'Hjumpik tries to hide, looks guilty',
+                    consequence: 'The mirror takes the flinch as confession. The party sees the three versions.',
+                    mechanical: 'All party members now know Hjumpik has divided loyalties. Trust damaged.'
+                },
+                anger: {
+                    description: 'Hjumpik denies, claims singular loyalty',
+                    consequence: 'The mirror shows the denial as the fourth version. A liar added to the three.',
+                    mechanical: 'Hjumpik\'s role as Opposition is strengthened — but uncontrolled. -2 Integrity.'
+                },
+                accept: {
+                    description: 'Hjumpik admits to uncertainty, doesn\'t claim false loyalty',
+                    consequence: 'The mirror respects honesty about dishonesty. The three versions remain visible but understood.',
+                    mechanical: 'Hjumpik\'s Opposition role functions perfectly. +1 Integrity. Party knows the truth.'
+                },
+                choose: {
+                    description: 'Hjumpik explicitly chooses one version, commits',
+                    consequence: 'The other versions fade. But was the choice real, or performance?',
+                    mechanical: 'GM decides if choice was genuine. If yes, Hjumpik is now reliable. If no, the mirror will reveal the lie.'
+                }
+            }
+        },
+        {
+            who: 'Dan',
+            icon: '🦾',
+            mirrorShows: 'The mirror shows two Dans. One solid, one transparent. They breathe at different rhythms. The transparent one has two arms. They are aware of each other. They both think they are real.',
+            theQuestion: 'Which one are you? Or are you both? Or neither? The mirror cannot tell. Can you?',
+            reactions: {
+                flinch: {
+                    description: 'Dan looks away, shows fear or confusion',
+                    consequence: 'The mirror takes confusion as answer. Both versions persist. The question is not answered.',
+                    mechanical: 'Dan remains uncertain. Future scenes may require resolving this.'
+                },
+                claim: {
+                    description: 'Dan claims to be the real one, asserts identity',
+                    consequence: 'The mirror accepts the claim. But the transparent Dan also claims reality. Both accepted.',
+                    mechanical: 'Dan\'s assertion is noted. But is it true? GM decides how to resolve.'
+                },
+                accept: {
+                    description: 'Dan acknowledges not knowing, accepts the uncertainty',
+                    consequence: 'The mirror shows something new — what happened to create two versions. Origin revealed.',
+                    mechanical: 'GM provides exposition about how Dan became uncertain. Clue toward resolution.'
+                },
+                passive: {
+                    description: 'Dan remains perfectly still and silent as instructed',
+                    consequence: 'The mirror studies longer. Eventually, it decides. The transparent version flickers.',
+                    mechanical: 'Mirror provides answer without Dan\'s input. Roll on Dan Resolution table.'
+                }
+            }
+        },
+        {
+            who: 'Markop',
+            icon: '🗡️',
+            mirrorShows: 'The mirror shows Markop dying. Again. And again. Each time, he refuses. Each time, he comes back. The pile of bodies that should be his grows. The mirror asks: where does the energy come from?',
+            theQuestion: 'You refuse to die. That is will. But will requires fuel. What are you burning to stay alive? And what happens when it runs out?',
+            reactions: {
+                flinch: {
+                    description: 'Markop shows fear of the answer',
+                    consequence: 'The mirror shows what he\'s burning. Memories. Relationships. Future possibilities.',
+                    mechanical: 'Markop learns the cost of his survival. -1 to a random ability score permanently.'
+                },
+                anger: {
+                    description: 'Markop defies the question, asserts he needs no fuel',
+                    consequence: 'The mirror shows the lie. Something IS being consumed. Denial doesn\'t stop it.',
+                    mechanical: 'The consumption continues unexamined. Markop will face this again later.'
+                },
+                accept: {
+                    description: 'Markop acknowledges there\'s a cost and accepts it',
+                    consequence: 'The mirror shows the cost clearly, but also shows what he\'s protected by paying it.',
+                    mechanical: 'Markop gains clarity. Advantage on all saves for remainder of ritual.'
+                },
+                question: {
+                    description: 'Markop asks the mirror what he can do about it',
+                    consequence: 'The mirror is not kind, but it is fair. It shows a possibility. A way to pay less.',
+                    mechanical: 'GM provides a quest hook — a way to address Markop\'s condition.'
+                }
+            }
+        },
+        {
+            who: 'Waluigi',
+            icon: '🟣',
+            mirrorShows: 'The mirror shows Waluigi, but the reflection moves independently. It winks. It waves. It seems... pleased. The mirror-Waluigi points at something the real Waluigi can\'t see.',
+            theQuestion: 'You are chaos given form. But whose chaos? Are you the author of your unpredictability, or is something using your randomness as a mask?',
+            reactions: {
+                flinch: {
+                    description: 'Waluigi is unnerved, tries to be still',
+                    consequence: 'The mirror-Waluigi keeps moving. It doesn\'t need the real one. That\'s concerning.',
+                    mechanical: 'Waluigi\'s reflection is now somewhat independent. Future mirror encounters are complicated.'
+                },
+                play: {
+                    description: 'Waluigi plays along, does something weird back',
+                    consequence: 'The mirror-Waluigi laughs silently. They are in sync. Is that good?',
+                    mechanical: 'Waluigi and his reflection understand each other. +1 to chaos absorption. But what IS that reflection?'
+                },
+                accept: {
+                    description: 'Waluigi acknowledges he doesn\'t fully understand himself',
+                    consequence: 'The mirror-Waluigi stops moving. It nods, once. Respect for honesty.',
+                    mechanical: 'Waluigi gains insight. Can ask the GM one yes/no question about his own nature.'
+                },
+                ignore: {
+                    description: 'Waluigi refuses to engage, treats it as meaningless',
+                    consequence: 'The mirror-Waluigi shrugs. But it points at that hidden thing more insistently.',
+                    mechanical: 'Something Waluigi should know about remains hidden. GM notes for future reveal.'
+                }
+            }
+        },
+        {
+            who: 'Toad Lee',
+            icon: '🍄',
+            mirrorShows: 'The mirror shows the world as Toad Lee believes it should be. Orderly. Sensible. Traditional. Then it shows cracks. Places where "how things should be" doesn\'t match "how things are." The cracks are growing.',
+            theQuestion: 'You anchor reality to tradition. But tradition is just old habits agreed upon. What happens when the old ways are wrong? When "how things should be" is a lie everyone tells together?',
+            reactions: {
+                flinch: {
+                    description: 'Toad Lee denies the cracks, insists on tradition',
+                    consequence: 'The cracks spread faster. Denial makes them worse. The mirror shows traditions that WERE wrong.',
+                    mechanical: 'Toad Lee\'s checksum function weakened. Reality validation is less reliable.'
+                },
+                anger: {
+                    description: 'Toad Lee gets defensive about tradition',
+                    consequence: 'The mirror shows traditions that caused harm. People hurt by "how things should be."',
+                    mechanical: 'Toad Lee must reconcile this. WIS save DC 14 or stunned by revelation.'
+                },
+                accept: {
+                    description: 'Toad Lee acknowledges that tradition must evolve',
+                    consequence: 'The cracks stop growing. The mirror shows which traditions are true and which are habit.',
+                    mechanical: 'Toad Lee\'s checksum function is strengthened by flexibility. +2 to reality validation.'
+                },
+                question: {
+                    description: 'Toad Lee asks which traditions are wrong',
+                    consequence: 'The mirror shows three. One the player knows. One the GM reveals. One remains hidden.',
+                    mechanical: 'GM provides significant world lore. Player learns something uncomfortable about their culture.'
+                }
+            }
+        },
+        {
+            who: 'Toadburt',
+            icon: '📜',
+            mirrorShows: 'The mirror shows Toadburt\'s memories — but they\'re not quite right. Details are wrong. Colors are off. Some memories that feel real show things that never happened. Some things that happened are missing.',
+            theQuestion: 'You are the record. The witness. But memory is not truth — memory is story. How much of what you "remember" is what actually happened? How much is what you decided happened?',
+            reactions: {
+                flinch: {
+                    description: 'Toadburt panics, questions all memories',
+                    consequence: 'The mirror shows more corrupted memories. The panic feeds the corruption.',
+                    mechanical: 'Toadburt\'s witness function is compromised. Disadvantage on memory-related tasks.'
+                },
+                denial: {
+                    description: 'Toadburt insists memories are accurate',
+                    consequence: 'The mirror shows a specific memory that is definitely wrong. Proves the point.',
+                    mechanical: 'One specific false memory is revealed. Something Toadburt was sure of is false.'
+                },
+                accept: {
+                    description: 'Toadburt acknowledges memory is imperfect, commits to witnessing anyway',
+                    consequence: 'The mirror shows the difference between memory and record. Toadburt can now do both.',
+                    mechanical: 'Toadburt can now separate "what I remember" from "what I will record." Powerful distinction.'
+                },
+                examine: {
+                    description: 'Toadburt carefully examines which memories are wrong',
+                    consequence: 'The mirror shows which memories are story and which are fact. Painful but useful.',
+                    mechanical: 'One significant false belief is corrected. GM reveals something Toadburt got wrong.'
+                }
+            }
+        },
+        {
+            who: 'Eager',
+            icon: '🪢',
+            mirrorShows: 'The mirror shows threads connecting Eager to everyone in the room. Some threads are healthy. Some are tangled. Some are... feeding. Taking. The connections go both ways, but not equally.',
+            theQuestion: 'You tether people together. You link emotions. But connection can be a gift or a chain. Are you binding people to help them, or to keep them from leaving you?',
+            reactions: {
+                flinch: {
+                    description: 'Eager is horrified by the feeding threads, tries to cut them',
+                    consequence: 'The threads resist. They\'ve become part of Eager. Cutting them cuts him.',
+                    mechanical: 'Eager takes 1d6 psychic damage. The problematic threads remain. Must address properly.'
+                },
+                denial: {
+                    description: 'Eager insists all connections are good',
+                    consequence: 'The mirror zooms in on a specific thread that is clearly not good. Someone is being drained.',
+                    mechanical: 'A specific unhealthy relationship is revealed. Eager must acknowledge it.'
+                },
+                accept: {
+                    description: 'Eager acknowledges some connections are unhealthy',
+                    consequence: 'The mirror shows which ones. It also shows how to fix them. Work, but possible.',
+                    mechanical: 'Eager gains understanding. Can choose to work on the unhealthy connections.'
+                },
+                sacrifice: {
+                    description: 'Eager deliberately cuts the bad threads regardless of pain',
+                    consequence: 'Pain. 2d6 psychic damage. But the bad connections are severed. Healthier connections remain.',
+                    mechanical: 'Eager takes damage but is cleansed. Emotional tethering is now purely positive.'
+                }
+            }
+        },
+        {
+            who: 'Perot',
+            icon: '⚔️',
+            mirrorShows: 'The mirror shows a sequence: before, during, after. But the "during" keeps changing. Different actions, different outcomes. Perot sees himself making different choices, getting different results. Which sequence is real?',
+            theQuestion: 'You maintain continuity. Before and after. But if the "during" is uncertain, how do you know which before and after are connected? Which sequence of your life is the real one?',
+            reactions: {
+                flinch: {
+                    description: 'Perot is disoriented by the multiple sequences',
+                    consequence: 'Continuity weakens. The "during" phase becomes harder to track.',
+                    mechanical: 'Perot\'s continuity role is weakened. -1 to squad cohesion.'
+                },
+                focus: {
+                    description: 'Perot focuses on one sequence, ignores the others',
+                    consequence: 'That sequence becomes "real." But the others don\'t disappear. They wait.',
+                    mechanical: 'Continuity stabilized for now. But alternate sequences may return.'
+                },
+                accept: {
+                    description: 'Perot accepts that multiple sequences might be valid',
+                    consequence: 'The mirror shows how to choose — not ignore — which sequence to live.',
+                    mechanical: 'Perot gains ability to consciously switch between continuities. Powerful but weird.'
+                },
+                question: {
+                    description: 'Perot asks which sequence is the original',
+                    consequence: 'The mirror shows the branching point. When continuity first split. That moment is now visible.',
+                    mechanical: 'GM reveals when/how Perot\'s timeline became uncertain. Quest hook.'
+                }
+            }
+        },
+        {
+            who: 'Smokin\' J',
+            icon: '🚬',
+            mirrorShows: 'The mirror shows darkness. Just darkness. And then, in the darkness, a shape. Something that has been there, in J\'s personal dark, for a very long time. Watching. Waiting. Patient.',
+            theQuestion: 'You anchor shadows. You absorb fear of the dark. But something lives in your dark. Has it always been there? Did you invite it? Or did your comfort with darkness give it a home?',
+            reactions: {
+                flinch: {
+                    description: 'J panics, tries to bring light, reject the dark',
+                    consequence: 'The thing in the dark moves when the light comes. It\'s faster than the light. It\'s been in the light too, hiding.',
+                    mechanical: 'J\'s shadow anchor function is destabilized. The thing noticed him noticing it.'
+                },
+                freeze: {
+                    description: 'J freezes, overwhelmed by the revelation',
+                    consequence: 'The thing in the dark comes closer. It doesn\'t attack. It... nestles. Like it\'s been cold.',
+                    mechanical: 'The thing becomes a factor. Not necessarily enemy. Not necessarily friend. GM decides its nature.'
+                },
+                accept: {
+                    description: 'J acknowledges the presence, doesn\'t flee',
+                    consequence: 'The thing in the dark becomes visible. Old. Tired. It\'s been carrying darkness so J didn\'t have to.',
+                    mechanical: 'J\'s shadow anchor has been doing more work than he knew. The thing is an ally. Surprise.'
+                },
+                confront: {
+                    description: 'J demands to know what it is',
+                    consequence: 'The thing shows its face. J recognizes it. It\'s been part of him since...',
+                    mechanical: 'GM reveals the thing\'s origin. Connected to J\'s backstory.'
+                }
+            }
+        },
+        {
+            who: 'Salam',
+            icon: '🔦',
+            mirrorShows: 'The mirror shows Salam\'s torch. But the flame is not steady. It flickers toward something. Always toward something. The light is not neutral — it\'s seeking. It wants to illuminate something specific.',
+            theQuestion: 'You carry light. Forward motion. Progress. But progress toward what? The light chooses direction. Do you, or does it lead you?',
+            reactions: {
+                flinch: {
+                    description: 'Salam tries to control the torch, force it steady',
+                    consequence: 'The torch resists. The flame flickers angrily. It has opinions.',
+                    mechanical: 'Torch becomes unreliable. May not light what Salam wants.'
+                },
+                follow: {
+                    description: 'Salam lets the torch lead, follows where it points',
+                    consequence: 'The torch illuminates something hidden in the ritual space. Something the Oracle didn\'t mention.',
+                    mechanical: 'Secret revealed. GM describes something the party wasn\'t supposed to see yet.'
+                },
+                accept: {
+                    description: 'Salam acknowledges the torch has purpose, works with it',
+                    consequence: 'The torch and Salam reach understanding. It shows him its goal. They share it.',
+                    mechanical: 'Salam and torch are aligned. +2 to all light-related functions.'
+                },
+                reject: {
+                    description: 'Salam drops the torch, refuses its agenda',
+                    consequence: 'The torch goes out. Another light must be found. Salam is now torchless.',
+                    mechanical: 'Salam\'s forward motion role is disabled. Someone else must carry light.'
+                }
+            }
+        },
+        {
+            who: 'Oracle',
+            icon: '🧙‍♂️',
+            mirrorShows: 'The mirror shows other Oracles. Many of them. All speaking the same words. All conducting the same ritual. Across time, across space. The Oracle is not unique — the Oracle is a pattern. A role. Replaceable.',
+            theQuestion: 'You conduct the ritual. But the ritual conducted itself before you, and will after. You are not special — you are a function. How much of "you" is actually the role wearing a personality like clothes?',
+            reactions: {
+                flinch: {
+                    description: 'Oracle is shaken by insignificance',
+                    consequence: 'The ritual feels the Oracle\'s doubt. The words come harder. The pattern doesn\'t like uncertainty.',
+                    mechanical: 'Oracle concentration is at disadvantage. The role is trying to take over.'
+                },
+                anger: {
+                    description: 'Oracle asserts individuality, rejects the pattern',
+                    consequence: 'The other Oracles turn to look. They are not pleased. The pattern notices rebellion.',
+                    mechanical: 'Oracle is now marked by the pattern. Future rituals will be... observed.'
+                },
+                accept: {
+                    description: 'Oracle accepts being part of something larger',
+                    consequence: 'The other Oracles nod. Not approval — acknowledgment. The pattern welcomes the acceptance.',
+                    mechanical: 'Oracle gains access to other Oracles\' knowledge. Can ask one question of the pattern.'
+                },
+                negotiate: {
+                    description: 'Oracle acknowledges the pattern but insists on individual contribution',
+                    consequence: 'The pattern considers. It\'s not used to negotiation. But it respects the attempt.',
+                    mechanical: 'Oracle and pattern reach agreement. Individual with pattern support. Best outcome.'
+                }
+            }
+        }
+    ],
+    rollTables: [
+        {
+            name: 'Unexpected Mirror Questions',
+            id: 'unexpected-questions',
+            die: 8,
+            note: 'If the mirror decides to ask something the participant wasn\'t prepared for',
+            results: [
+                { roll: 1, text: 'Who have you failed that you\'ve never told anyone about?', effect: 'Secret failure exposed.' },
+                { roll: 2, text: 'What do you believe that you know isn\'t true?', effect: 'Self-deception revealed.' },
+                { roll: 3, text: 'Who are you when no one is watching?', effect: 'Private self made visible.' },
+                { roll: 4, text: 'What would you sacrifice them for?', effect: 'Hidden priorities exposed.' },
+                { roll: 5, text: 'When did you stop hoping?', effect: 'Old wound opened.' },
+                { roll: 6, text: 'What do they not know about you that would change everything?', effect: 'Secret relationship to party revealed.' },
+                { roll: 7, text: 'What are you pretending not to see?', effect: 'Willful blindness exposed.' },
+                { roll: 8, text: 'When did you become this? Who were you before?', effect: 'Origin of current self questioned.' }
+            ]
+        }
+    ],
+    checks: [],
+    special: `
+        <div class="interrogation-guidance">
+            <h4>⚡ Running This Scene</h4>
+            <p>This scene can take significant time. Consider:</p>
+            <ul>
+                <li>Doing 3-4 interrogations in detail, summarizing others</li>
+                <li>Focusing on players who engage most with roleplay</li>
+                <li>Letting players choose who gets interrogated in what order</li>
+                <li>Using the interrogations to reveal campaign-relevant secrets</li>
+            </ul>
+            <p><strong>The mirror is not cruel. It is honest. Frame questions as revelation, not attack.</strong></p>
+        </div>
+    `
+},
         // SCENE 8: THE CUT
         {
             icon: '⚔️',
@@ -4726,7 +5722,7 @@ getSceneData() {
                     type: 'Group check — All participants',
                     who: 'Everyone',
                     description: 'Hold position through the cut',
-                    success: 'Clean severance. What doesn\'t belong is cut away.',
+                    success: 'You hold on, allowing for a controlled collapse instead of a chaotic one.',
                     failure: 'Ragged edge. Something might cling.',
                     rollButton: true
                 },
@@ -4868,46 +5864,39 @@ getSceneData() {
         },
 
         // SCENE 10: AFTERMATH
+// In getSceneData(), find and REPLACE Scene 10 with this:
+{
+    icon: '💥',
+    title: 'AFTERMATH - THE RUPTURE',
+    subtitle: 'The Cut Fails',
+    oracleQuote: 'It is not done. It is broken. The mirror does not go dull—it shatters!',
+    description: `
+        <p>The ritual does not conclude. It fails. The energy, unable to perform a clean cut, instead tears a hole in reality.</p>
+        <p>The mirror cracks, spiderwebbing with light before imploding, pulling everyone into a vortex of color and pressure.</p>
+        <p>The ritual has failed. Now, you must survive the consequence.</p>
+    `,
+    checks: [],
+    rollTables: [
         {
-            icon: '🌅',
-            title: 'AFTERMATH',
-            subtitle: 'What Was Learned',
-            oracleQuote: 'The ritual never lies. It cannot. We simply may not like what truth looks like.',
-            description: `
-                <p>The participants stand outside the chamber. The door closes behind them.</p>
-                <p>The mirror answered the question.</p>
-                <p>Now they must live with what they learned.</p>
-            `,
-            checks: [],
-            rollTables: [
-                {
-                    name: 'Overall Ritual Outcome',
-                    id: 'overall-outcome',
-                    die: 0,
-                    note: 'GM determines based on accumulated successes/failures',
-                    results: [
-                        { roll: '10+ successes', text: 'Perfect severance', effect: 'All questions answered. Clean cut. No loose threads.' },
-                        { roll: '7-9 successes', text: 'Clean enough', effect: 'Main questions answered. Minor loose threads.' },
-                        { roll: '4-6 successes', text: 'Partial success', effect: 'Some answers, some new questions.' },
-                        { roll: '1-3 successes', text: 'Messy', effect: 'More questions than answers. Side effects.' },
-                        { roll: '0 or negative', text: 'Inverted', effect: 'Got the opposite of what was intended.' }
-                    ]
-                }
-            ],
-            special: `
-                <div class="aftermath-questions">
-                    <h4>Questions to Answer:</h4>
-                    <ul>
-                        <li>What did the mirror reveal about Dan?</li>
-                        <li>Did anyone leave something behind?</li>
-                        <li>What saw them through the mirror?</li>
-                        <li>Is Hjumpik's loyalty clearer now?</li>
-                        <li>What does Toadburt remember?</li>
-                        <li>What will they tell others about what happened?</li>
-                    </ul>
-                </div>
-            `
+            name: 'Rupture Destination',
+            id: 'rupture-destination',
+            die: 6,
+            note: 'The final destination of the failed ritual.',
+            results: [
+                { roll: '1', text: 'Shadeward Manor', effect: 'The entire group is transported to the bleak, shadowy manor.', a: "gm.triggerRitualFailureTeleport('shadeward')" },
+                { roll: '2-3', text: 'Feyward Manor (Markop Alone)', effect: 'The group is scattered. Markop awakens alone in the vibrant, wild manor.', a: "gm.triggerRitualFailureTeleport('feyward')" },
+                { roll: '4-5', text: 'Shadeward Manor', effect: 'The entire group is transported to the bleak, shadowy manor.', a: "gm.triggerRitualFailureTeleport('shadeward')" },
+                { roll: '6', text: 'Planar Sanctum (Best Failure)', effect: 'The ritual collapses into a stable pocket dimension. The group is safe, for now.', a: "gm.triggerRitualFailureTeleport('sanctum')" }
+            ]
         }
+    ],
+    special: `
+        <div class="aftermath-questions">
+            <h4>The ritual has failed. Roll on the Rupture Destination table to determine the outcome.</h4>
+            <p>Click the button on the table result to see the full descriptive text for the arrival.</p>
+        </div>
+    `
+}
     ];
 }
 
@@ -6164,6 +7153,13 @@ renderMissingRole() {
             resultDiv.offsetHeight; // Trigger reflow
             resultDiv.style.animation = 'resultPulse 0.3s ease';
         }
+if (result.a) {
+    const actionBtn = document.createElement('button');
+    actionBtn.className = 'roll-btn';
+    actionBtn.textContent = 'Show Outcome →';
+    actionBtn.setAttribute('onclick', result.a);
+    resultDiv.querySelector('.rolled-result').appendChild(actionBtn);
+}        
     }
 
     // === NOTES SYSTEM ===

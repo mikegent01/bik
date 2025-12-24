@@ -321,7 +321,213 @@ const RitualData = {
                 ]
             },
             phase: "RITUAL-COMPLETE"
+        },
+        // Add this scene to getSceneData() - insert it as Scene 7 (after Oracle Speaks, before Mirror Responds)
+// This means you'll need to renumber scenes 7-10 to 8-11
+
+// Scene 7: DAN'S CHOICE (The Betrayal Window)
+{
+    icon: '🦾',
+    title: 'DAN\'S CHOICE',
+    subtitle: 'The Question Moves',
+    oracleQuote: 'Dan. The mirror sees you. What does it see you doing?',
+    description: `
+        <p>The ritual reaches its peak tension. The mirror focuses entirely on Dan.</p>
+        <p>This is the moment. Dan has been passive. Dan has been the question.</p>
+        <p>But questions can refuse to be answered.</p>
+        <p class="critical">What does Dan do?</p>
+    `,
+    danChoice: true,
+    choices: [
+        {
+            id: 'passive',
+            name: 'Remain Passive',
+            icon: '🧘',
+            description: 'Dan stays still. Stays silent. Lets the mirror decide.',
+            oracleResponse: 'Good. The question allows itself to be answered.',
+            consequence: 'Proceed to Mirror Responds normally. The ritual determines Dan\'s nature.',
+            mechanicalEffect: 'No additional checks. Mirror gives true answer.',
+            nextScene: 8
+        },
+        {
+            id: 'speak',
+            name: 'Speak / Assert Identity',
+            icon: '🗣️',
+            description: 'Dan tries to prove himself. Claims to be real. Argues with the mirror.',
+            oracleResponse: 'No! You fool — the mirror accepts performance as fact!',
+            consequence: 'Dan has contaminated the answer. The mirror now shows what Dan WANTS to be true.',
+            mechanicalEffect: 'Mirror locks current state as "true" — even if Dan is fake. Impostor potentially validated.',
+            requiresCheck: {
+                name: 'Undo Assertion',
+                dc: 18,
+                type: 'WIS Save DC 18',
+                who: 'Oracle',
+                description: 'Oracle attempts to re-open the question before it crystallizes',
+                success: 'Question reopened. Proceed with -2 Integrity.',
+                failure: 'Answer crystallized. Dan is "real" by declaration, not truth.'
+            },
+            nextScene: 8
+        },
+        {
+            id: 'subtle',
+            name: 'Subtle Manipulation',
+            icon: '🕷️',
+            description: 'Dan whispers. Suggests doubts. Tries to make others break position.',
+            oracleResponse: 'He\'s trying to desynchronize you. Do not listen. Do not move.',
+            consequence: 'Dan attempts to cause misfires by manipulating other participants.',
+            mechanicalEffect: 'Each participant must WIS Save DC 14 or be affected by Dan\'s whispers.',
+            requiresGroupCheck: {
+                name: 'Resist Dan\'s Whispers',
+                dc: 14,
+                type: 'WIS Save DC 14',
+                who: 'All participants except Dan',
+                description: 'Resist the urge to react, move, or respond to Dan',
+                perPersonFailure: 'That person shifts position. -1 Integrity per failure.',
+                massFailure: 'If 4+ fail, ritual misfires. Partial severance. Two truths persist.'
+            },
+            nextScene: 8
+        },
+        {
+            id: 'grab_control',
+            name: 'Attempt to Seize Control',
+            icon: '👑',
+            description: 'Dan lunges for the mirror. Tries to overwrite the ritual. Grab power.',
+            oracleResponse: 'HOLD POSITIONS! Let the ritual answer this!',
+            consequence: 'Dan attempts to become the ritual\'s author instead of its subject.',
+            mechanicalEffect: 'The ritual stress-tests Dan\'s legitimacy. Hard.',
+            danCheck: {
+                name: 'Temporal Authority',
+                dc: 20,
+                type: 'Automatic failure if Dan is fake',
+                description: 'The ritual asks: From which timeline do you speak with authority?',
+                ifFake: 'Dan has no timeline backing. The ritual uses him as proof of what must be severed. Dan is expelled/destroyed.',
+                ifReal: 'Dan can attempt seizure but pays permanently. Roll on Tyrant\'s Price table.',
+                ifRealSuccess: 'Dan bends the outcome but loses future versions of himself. Fixed to one outcome. Diminished.',
+                ifRealFailure: 'Dan is rejected AND pays the price. Worst outcome.'
+            },
+            triggerFailure: 'dan_seizes',
+            nextScene: 8
+        },
+        {
+            id: 'collapse',
+            name: 'Cause Total Collapse',
+            icon: '💥',
+            description: 'Dan doesn\'t want answers. Dan wants chaos. Break everything.',
+            oracleResponse: 'He\'s trying to tangle the timelines! Stop — no, don\'t chase him!',
+            consequence: 'Dan attempts to break the ritual entirely, preventing any answer.',
+            mechanicalEffect: 'Collapse requires multiple failures. Dan alone cannot do it.',
+            collapseRequirements: [
+                'Dan breaks position (automatic)',
+                'Someone chases Dan (participant choice)',
+                'Mirror is touched (Dan attempts)',
+                'Oracle timing disrupted (interrupt check)',
+                'Panic spreads (squad stability)'
+            ],
+            collapseCheck: {
+                name: 'Prevent Collapse',
+                description: 'Party must prevent 3+ of 5 collapse conditions',
+                conditions: [
+                    { condition: 'Dan breaks position', automatic: true, preventable: false },
+                    { condition: 'Someone chases', preventable: true, prevention: 'No one moves. Let the mirror answer.' },
+                    { condition: 'Mirror touched', dc: 15, who: 'Markop or Waluigi intercept', prevention: 'Athletics/DEX DC 15 to intercept Dan before mirror' },
+                    { condition: 'Oracle disrupted', dc: 14, who: 'Oracle', prevention: 'CON Save DC 14 to maintain concentration despite chaos' },
+                    { condition: 'Panic spreads', dc: 13, who: 'Rodger\'s Squad', prevention: 'Group WIS Save DC 13 to hold discipline' }
+                ]
+            },
+            triggerFailure: 'ritual_collapse',
+            nextScene: 8
         }
+    ],
+    rollTables: [
+        {
+            name: 'Tyrant\'s Price (Real Dan seizes control)',
+            id: 'tyrant-price',
+            die: 6,
+            note: 'Only roll if Dan is REAL and attempts seizure',
+            results: [
+                { roll: 1, text: 'Future Burn: Dan loses all future versions of himself', effect: 'No alternate timelines. No "what ifs." This Dan is the only Dan forever.' },
+                { roll: 2, text: 'Fixed Point: Dan becomes unchangeable', effect: 'Cannot grow, learn, or change. Personality locked at this moment.' },
+                { roll: 3, text: 'Diminished: Dan sacrifices part of himself', effect: 'Lose 1d4 from a random ability score permanently.' },
+                { roll: 4, text: 'Marked: Reality marks Dan as a tyrant', effect: 'All truth-magic automatically targets Dan first. Forever.' },
+                { roll: 5, text: 'Hollow Victory: Dan wins but feels nothing', effect: 'Emotional capacity permanently reduced. Cannot feel triumph.' },
+                { roll: 6, text: 'Acceptable Price: Dan pays but remains mostly intact', effect: 'Lose 1 level. Gain permanent mirror-sight. Fair trade?' }
+            ]
+        },
+        {
+            name: 'Whisper Effects (What Dan says)',
+            id: 'whisper-effects',
+            die: 6,
+            note: 'What Dan whispers to destabilize participants',
+            results: [
+                { roll: 1, text: '"Archie, fire would end this faster..."', effect: 'Archie WIS DC 16 or fire temptation' },
+                { roll: 2, text: '"Rodger, your squad is in danger..."', effect: 'Rodger WIS DC 14 or looks away from Oracle' },
+                { roll: 3, text: '"Hjumpik, this is your moment..."', effect: 'Hjumpik WIS DC 12 or flips early' },
+                { roll: 4, text: '"The Oracle is lying to all of you..."', effect: 'All participants WIS DC 13 or doubt flickers' },
+                { roll: 5, text: '"Waluigi, do something unexpected..."', effect: 'Waluigi CHA DC 14 or chaos spikes' },
+                { roll: 6, text: '"This ritual was never going to save anyone..."', effect: 'Morale damage. -1 to all saves this scene.' }
+            ]
+        },
+        {
+            name: 'Collapse Consequences',
+            id: 'collapse-consequences',
+            die: 6,
+            note: 'What happens if ritual collapses',
+            results: [
+                { roll: 1, text: 'Timeline Tangle: Everyone slightly out of sync', effect: 'Living with reality jet lag. Relationships warp. Trust corrodes.' },
+                { roll: 2, text: 'Memory Fracture: History disagrees with itself', effect: 'Each person remembers the ritual differently. Arguments forever.' },
+                { roll: 3, text: 'Partial Severance: Cut half-complete', effect: 'Dan is "maybe" real. Two truths persist. Civil war fuel.' },
+                { roll: 4, text: 'Mirror Shatter: Physical and metaphorical', effect: 'Shards scatter. Each person carries a piece. Connected forever.' },
+                { roll: 5, text: 'Temporal Stutter: The ritual tries to restart', effect: 'Groundhog moment. Must redo from Scene 6. Everyone remembers.' },
+                { roll: 6, text: 'Void Touch: The collapse draws attention', effect: 'Something from outside noticed. It\'s coming. Eventually.' }
+            ]
+        },
+        {
+            name: 'Fake Dan Destruction',
+            id: 'fake-dan-destruction',
+            die: 6,
+            note: 'What happens when fake Dan is exposed by seizure attempt',
+            results: [
+                { roll: 1, text: 'Dissolved: Dan collapses into mirror-fragments', effect: 'No body. Just shards of reflection scattering.' },
+                { roll: 2, text: 'Expelled: Dan hurled out of ritual space', effect: 'Through wall, physically. Takes 4d6 damage.' },
+                { roll: 3, text: 'Revealed: Dan\'s true form shown', effect: 'Everyone sees what Dan actually is. Horror check WIS DC 14.' },
+                { roll: 4, text: 'Absorbed: Mirror takes Dan', effect: 'Dan now exists only in reflections. Can communicate but not escape.' },
+                { roll: 5, text: 'Burned: Ritual energy incinerates the fake', effect: 'Fire damage to fake Dan. Nothing left.' },
+                { roll: 6, text: 'Answers Given: The fake\'s destruction reveals real Dan\'s location', effect: 'Ritual provides coordinates/visions of where real Dan is.' }
+            ]
+        }
+    ],
+    special: `
+        <div class="dan-choice-section">
+            <h4>🎭 GM: This Scene is Player-Driven</h4>
+            <p>Ask Dan's player directly: <strong>"The mirror is looking at you. What do you do?"</strong></p>
+            <p>If Dan is an NPC or the player is uncertain, use Dan's established character to decide.</p>
+            <p>If Dan is secretly an impostor (GM knowledge), the impostor may choose based on its goals.</p>
+            
+            <div class="dan-truth-box">
+                <h5>What Is Dan?</h5>
+                <p>The GM should know (or decide now) which of these is true:</p>
+                <ul>
+                    <li><strong>Real Dan:</strong> Seizure possible but costly. Passive is safe.</li>
+                    <li><strong>Fake Dan (Fragment):</strong> Seizure auto-fails. Subtle manipulation possible.</li>
+                    <li><strong>Fake Dan (Impostor):</strong> Will likely try subtle or collapse. Seizure destroys it.</li>
+                    <li><strong>Liminal Dan:</strong> Neither fully real nor fake. Results unpredictable.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="hidden-safeguard">
+            <h4>🔐 The Hidden Safeguard</h4>
+            <p>Remind players of this truth:</p>
+            <blockquote>
+                "Accusation empowers parasites. Stillness starves them.<br>
+                If Dan moves, no one chases. No one shouts. No one breaks position.<br>
+                Let the mirror answer."
+            </blockquote>
+            <p>The ritual does not reward clever villains. It rewards alignment, patience, and witnesses who refuse to blink.</p>
+        </div>
+    `,
+    checks: []
+},
     ],
 
     // ========== ROLL TABLES ==========
