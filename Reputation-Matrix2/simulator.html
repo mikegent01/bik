@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Battle Simulator - The Highsun Chronicles</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="maps2.js"></script>
+    <script src="data.js"></script>
+    <script src="engine.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            image-rendering: pixelated;
+        }
+        
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            box-shadow: 
+                inset -4px -4px 0px 0px #555,
+                inset 4px 4px 0px 0px #fff;
+        }
+        
+        .pixel-btn {
+            border: 4px solid #000;
+            box-shadow: 
+                inset -4px -4px 0px 0px #555,
+                inset 4px 4px 0px 0px #fff;
+            transition: all 0.1s;
+        }
+        
+        .pixel-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .pixel-btn:active {
+            box-shadow: 
+                inset 4px 4px 0px 0px #555,
+                inset -4px -4px 0px 0px #fff;
+        }
+        
+        .unit-sprite {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 2px solid #000;
+            border-radius: 2px;
+            position: relative;
+            transition: transform 0.1s;
+        }
+        
+        .unit-sprite.hero {
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            border-width: 3px;
+            box-shadow: 0 0 5px gold;
+        }
+        
+        .unit-sprite:hover {
+            transform: scale(1.3);
+            z-index: 100;
+        }
+        
+        .unit-sprite.stealthed {
+            opacity: 0.4;
+        }
+        
+        @keyframes attack {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes damage {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(3) hue-rotate(180deg); }
+        }
+        
+        @keyframes death {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes ability {
+            0% { box-shadow: 0 0 20px 10px rgba(255,255,0,0.8); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,0,0); }
+        }
+        
+        @keyframes heal {
+            0% { box-shadow: 0 0 10px 5px rgba(0,255,0,0.8); }
+            100% { box-shadow: 0 0 0 0 rgba(0,255,0,0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        
+        @keyframes explosion {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        @keyframes projectile-fly {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes water-ripple {
+            0% { box-shadow: 0 0 0 0 rgba(100, 150, 255, 0.6); }
+            100% { box-shadow: 0 0 0 8px rgba(100, 150, 255, 0); }
+        }
+        
+        @keyframes fire-flicker {
+            0%, 100% { filter: brightness(1) hue-rotate(0deg); }
+            50% { filter: brightness(1.3) hue-rotate(10deg); }
+        }
+        
+        @keyframes ice-freeze {
+            0% { filter: brightness(1) saturate(1); }
+            50% { filter: brightness(1.5) saturate(0.5) hue-rotate(180deg); }
+            100% { filter: brightness(1) saturate(1); }
+        }
+        
+        .attacking { animation: attack 0.2s ease-in-out; }
+        .damaged { animation: damage 0.2s ease-in-out; }
+        .dying { animation: death 0.4s forwards; }
+        .using-ability { animation: ability 0.4s ease-out; }
+        .healing { animation: heal 0.4s ease-out; }
+        .floating { animation: float 2s ease-in-out infinite; }
+        .pulsing { animation: pulse 1s ease-in-out infinite; }
+        .shaking { animation: shake 0.3s ease-in-out; }
+        .water-effect { animation: water-ripple 1s ease-out; }
+        .fire-effect { animation: fire-flicker 0.5s ease-in-out infinite; }
+        .ice-effect { animation: ice-freeze 0.5s ease-out; }
+        
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 10px;
+        }
+        
+        .particle-damage {
+            color: #ff4444;
+            font-weight: bold;
+            animation: float-up 1s ease-out forwards;
+        }
+        
+        .particle-heal {
+            color: #44ff44;
+            font-weight: bold;
+            animation: float-up 1s ease-out forwards;
+        }
+        
+        .particle-crit {
+            color: #ffff00;
+            font-weight: bold;
+            font-size: 14px;
+            animation: float-up 1.2s ease-out forwards;
+        }
+        
+        .particle-explosion {
+            animation: explosion 0.5s ease-out forwards;
+        }
+        
+        .particle-sparkle {
+            animation: sparkle 0.8s ease-out forwards;
+        }
+        
+        @keyframes float-up {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-20px) scale(0.5); }
+        }
+        
+        .effect-ring {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        .disabled-unit {
+            opacity: 0.4;
+            pointer-events: none;
+            filter: grayscale(80%);
+        }
+        
+        .naval-warning {
+            background: rgba(255, 100, 100, 0.2);
+            border: 2px dashed #ff6666;
+        }
+        
+        .health-bar {
+            height: 3px;
+            background: #333;
+            border: 1px solid #000;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+        }
+        
+        .health-fill {
+            height: 100%;
+            transition: width 0.2s;
+        }
+        
+        .map-cell {
+            width: 28px;
+            height: 28px;
+            border: 1px solid rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-size: 10px;
+        }
+        
+        .terrain-grass { background: linear-gradient(135deg, #4a7c23 25%, #5a8c33 75%); }
+        .terrain-water { 
+            background: linear-gradient(135deg, #2266aa 25%, #3388cc 75%);
+            animation: water-shimmer 3s ease-in-out infinite;
+        }
+        .terrain-mountain { background: linear-gradient(135deg, #666 25%, #888 75%); }
+        .terrain-forest { background: linear-gradient(135deg, #2d5016 25%, #3d6026 75%); }
+        .terrain-sand { background: linear-gradient(135deg, #d4a84b 25%, #e4b85b 75%); }
+        .terrain-lava { 
+            background: linear-gradient(135deg, #cc2200 25%, #ff4400 75%);
+            animation: lava-glow 2s ease-in-out infinite;
+        }
+        .terrain-castle { background: linear-gradient(135deg, #555 25%, #777 75%); }
+        .terrain-manor { background: linear-gradient(135deg, #3a2a4a 25%, #4a3a5a 75%); }
+        .terrain-void { 
+            background: linear-gradient(135deg, #111 25%, #222 75%);
+            animation: void-pulse 4s ease-in-out infinite;
+        }
+        .terrain-road { background: linear-gradient(135deg, #8b7355 25%, #9b8365 75%); }
+        .terrain-bridge { background: linear-gradient(135deg, #6b5344 25%, #7b6354 75%); }
+        .terrain-swamp { 
+            background: linear-gradient(135deg, #3d4a2a 25%, #4d5a3a 75%);
+            animation: swamp-bubble 5s ease-in-out infinite;
+        }
+        
+        @keyframes water-shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.15); }
+        }
+        
+        @keyframes lava-glow {
+            0%, 100% { filter: brightness(1) saturate(1); }
+            50% { filter: brightness(1.3) saturate(1.2); }
+        }
+        
+        @keyframes void-pulse {
+            0%, 100% { filter: brightness(0.8); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        @keyframes swamp-bubble {
+            0%, 90%, 100% { filter: brightness(1); }
+            95% { filter: brightness(1.1); }
+        }
+        
+        .zone-a { box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.5); }
+        .zone-b { box-shadow: inset 0 0 0 2px rgba(239, 68, 68, 0.5); }
+        
+        .log-entry {
+            padding: 2px 6px;
+            border-bottom: 1px solid #333;
+            font-size: 9px;
+        }
+        
+        .log-attack { color: #f55; }
+        .log-ability { color: #55f; }
+        .log-heal { color: #5f5; }
+        .log-death { color: #f5f; }
+        .log-info { color: #ff5; }
+        
+        .unit-panel {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .spawn-btn {
+            transition: all 0.1s;
+        }
+        
+        .spawn-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .army-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #333;
+            color: #fff;
+            font-size: 8px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            min-width: 16px;
+            text-align: center;
+        }
+        
+        .projectile {
+            position: absolute;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            transition: all 0.1s linear;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen pixel-font text-xs">
+    <div id="app" class="container mx-auto p-2">
+        <!-- Title Screen -->
+        <div id="title-screen" class="text-center py-6">
+            <h1 class="text-xl md:text-3xl mb-3 text-yellow-400">⚔️ PIXEL BATTLE SIMULATOR ⚔️</h1>
+            <h2 class="text-xs md:text-sm mb-6 text-gray-400">The Highsun Chronicles - 1040</h2>
+            
+            <div class="max-w-4xl mx-auto mb-6 p-4 pixel-border bg-gray-800 text-left text-xs leading-relaxed">
+                <p class="text-yellow-300 mb-2">📜 THE LORE:</p>
+                <p class="text-gray-300 mb-2">In the year 1040, the realm is torn by conflict. The Iron Legion expands its grip across the Midlands, 
+                while the Liberated Toads fight for freedom. At Raventree Manor, supernatural horrors awaken as arcane wraiths 
+                and spider matriarchs terrorize all who enter.</p>
+                <p class="text-gray-300 mb-2">The Mushroom Kingdom Civil War rages on, 85 years after Princess Peach's assassination. 
+                Fawful's machines clash with Peach Loyalists, while the Kong-Kremling Cold War threatens to erupt on DK Island...</p>
+                <p class="text-green-300">Build your armies! Place heroes and generic troops to battle for supremacy!</p>
+            </div>
+            
+            <button onclick="showMapSelect()" class="pixel-btn bg-green-600 text-white px-8 py-4 text-sm">
+                🎮 START BATTLE
+            </button>
+        </div>
+        
+        <!-- Map Selection -->
+        <div id="map-select" class="hidden">
+            <h2 class="text-lg text-center mb-4 text-yellow-400">SELECT BATTLEFIELD</h2>
+            <div id="map-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 max-w-6xl mx-auto"></div>
+            <div class="text-center mt-4">
+                <button onclick="showTitleScreen()" class="pixel-btn bg-gray-600 text-white px-4 py-2">
+                    ← BACK
+                </button>
+            </div>
+        </div>
+        
+        <!-- Faction Selection -->
+        <div id="faction-select" class="hidden">
+            <h2 class="text-lg text-center mb-4 text-yellow-400">SELECT FACTIONS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                <div class="pixel-border bg-blue-900 p-3">
+                    <h3 class="text-center text-blue-300 mb-3">🔵 SIDE A</h3>
+                    <div id="faction-a-list" class="grid grid-cols-2 gap-1"></div>
+                </div>
+                <div class="pixel-border bg-red-900 p-3">
+                    <h3 class="text-center text-red-300 mb-3">🔴 SIDE B</h3>
+                    <div id="faction-b-list" class="grid grid-cols-2 gap-1"></div>
+                </div>
+            </div>
+            <div class="text-center mt-4 space-x-2">
+                <button onclick="showMapSelect()" class="pixel-btn bg-gray-600 text-white px-4 py-2">← BACK</button>
+                <button onclick="startPlacement()" class="pixel-btn bg-green-600 text-white px-4 py-2">BUILD ARMIES →</button>
+            </div>
+        </div>
+        
+        <!-- Army Builder / Placement -->
+        <div id="placement-screen" class="hidden">
+            <div class="flex flex-col lg:flex-row gap-2">
+                <!-- Side A Army Builder -->
+                <div class="lg:w-56 pixel-border bg-blue-900 p-2">
+                    <h3 class="text-center text-blue-300 mb-2 text-xs">🔵 SIDE A ARMY</h3>
+                    <div class="text-center text-xs mb-2">
+                        Units: <span id="side-a-count">0</span>
+                    </div>
+                    <div id="side-a-builder" class="unit-panel space-y-1"></div>
+                    <div class="mt-2 space-y-1">
+                        <button onclick="clearSide('A')" class="pixel-btn bg-red-600 text-white px-2 py-1 w-full text-xs">Clear</button>
+                        <button onclick="autoFillSide('A', 10)" class="pixel-btn bg-purple-600 text-white px-2 py-1 w-full text-xs">+10 Random</button>
+                        <button onclick="autoFillSide('A', 25)" class="pixel-btn bg-purple-600 text-white px-2 py-1 w-full text-xs">+25 Random</button>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="flex-1">
+                    <div class="text-center mb-2 text-xs">
+                        <span id="placement-info" class="text-yellow-400">Click units to add to army, then place on map</span>
+                    </div>
+                    <div id="placement-map" class="flex justify-center overflow-auto"></div>
+                    <div class="text-center mt-3 space-x-1 flex flex-wrap justify-center gap-1">
+                        <button onclick="showFactionSelect()" class="pixel-btn bg-gray-600 text-white px-3 py-2">← BACK</button>
+                        <button onclick="clearAllPlacements()" class="pixel-btn bg-yellow-600 text-white px-3 py-2">CLEAR ALL</button>
+                        <button onclick="autoPlaceAll()" class="pixel-btn bg-purple-600 text-white px-3 py-2">AUTO PLACE</button>
+                        <button id="start-battle-btn" onclick="startBattle()" class="pixel-btn bg-green-600 text-white px-3 py-2">START BATTLE ⚔️</button>
+                    </div>
+                </div>
+                
+                <!-- Side B Army Builder -->
+                <div class="lg:w-56 pixel-border bg-red-900 p-2">
+                    <h3 class="text-center text-red-300 mb-2 text-xs">🔴 SIDE B ARMY</h3>
+                    <div class="text-center text-xs mb-2">
+                        Units: <span id="side-b-count">0</span>
+                    </div>
+                    <div id="side-b-builder" class="unit-panel space-y-1"></div>
+                    <div class="mt-2 space-y-1">
+                        <button onclick="clearSide('B')" class="pixel-btn bg-red-600 text-white px-2 py-1 w-full text-xs">Clear</button>
+                        <button onclick="autoFillSide('B', 10)" class="pixel-btn bg-purple-600 text-white px-2 py-1 w-full text-xs">+10 Random</button>
+                        <button onclick="autoFillSide('B', 25)" class="pixel-btn bg-purple-600 text-white px-2 py-1 w-full text-xs">+25 Random</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Battle Screen -->
+        <div id="battle-screen" class="hidden">
+            <div class="flex flex-col lg:flex-row gap-2">
+                <!-- Side A Status -->
+                <div class="lg:w-48 pixel-border bg-blue-900 p-2">
+                    <h3 class="text-center text-blue-300 mb-1 text-xs">🔵 SIDE A</h3>
+                    <div class="text-center text-xs mb-2">
+                        <span id="side-a-alive">0</span> / <span id="side-a-total">0</span> alive
+                        <div class="w-full h-2 bg-gray-700 mt-1 rounded">
+                            <div id="side-a-hp-bar" class="h-full bg-blue-500 rounded transition-all"></div>
+                        </div>
+                    </div>
+                    <div id="side-a-status" class="space-y-1 max-h-60 overflow-y-auto"></div>
+                </div>
+                
+                <!-- Battle Map & Controls -->
+                <div class="flex-1">
+                    <div class="flex justify-between items-center mb-2 text-xs px-2">
+                        <span id="turn-counter" class="text-yellow-400">Turn 1</span>
+                        <span id="battle-status" class="text-green-400">Battle in Progress</span>
+                    </div>
+                    <div id="battle-map" class="flex justify-center mb-3 overflow-auto relative"></div>
+                    <div class="text-center space-x-1 flex flex-wrap justify-center gap-1">
+                        <button id="pause-btn" onclick="togglePause()" class="pixel-btn bg-yellow-600 text-white px-3 py-2">⏸️ PAUSE</button>
+                        <button onclick="setSpeed(0.5)" class="pixel-btn bg-gray-600 text-white px-2 py-2">🐢 0.5x</button>
+                        <button onclick="setSpeed(1)" class="pixel-btn bg-gray-600 text-white px-2 py-2">▶️ 1x</button>
+                        <button onclick="setSpeed(2)" class="pixel-btn bg-gray-600 text-white px-2 py-2">⏩ 2x</button>
+                        <button onclick="setSpeed(5)" class="pixel-btn bg-gray-600 text-white px-2 py-2">⏭️ 5x</button>
+                        <button onclick="setSpeed(10)" class="pixel-btn bg-gray-600 text-white px-2 py-2">🚀 10x</button>
+                    </div>
+                </div>
+                
+                <!-- Side B Status -->
+                <div class="lg:w-48 pixel-border bg-red-900 p-2">
+                    <h3 class="text-center text-red-300 mb-1 text-xs">🔴 SIDE B</h3>
+                    <div class="text-center text-xs mb-2">
+                        <span id="side-b-alive">0</span> / <span id="side-b-total">0</span> alive
+                        <div class="w-full h-2 bg-gray-700 mt-1 rounded">
+                            <div id="side-b-hp-bar" class="h-full bg-red-500 rounded transition-all"></div>
+                        </div>
+                    </div>
+                    <div id="side-b-status" class="space-y-1 max-h-60 overflow-y-auto"></div>
+                </div>
+            </div>
+            
+            <!-- Battle Log -->
+            <div class="mt-3 pixel-border bg-gray-800 p-2">
+                <h3 class="text-yellow-400 mb-1 text-xs">📜 BATTLE LOG</h3>
+                <div id="battle-log" class="h-24 overflow-y-auto"></div>
+            </div>
+        </div>
+        
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="hidden text-center py-8">
+            <h1 id="victory-title" class="text-2xl mb-4"></h1>
+            <div id="victory-stats" class="max-w-2xl mx-auto pixel-border bg-gray-800 p-4 mb-4"></div>
+            <div class="space-x-2">
+                <button onclick="restartBattle()" class="pixel-btn bg-yellow-600 text-white px-4 py-2">🔄 REMATCH</button>
+                <button onclick="showPlacementScreen()" class="pixel-btn bg-blue-600 text-white px-4 py-2">🔧 EDIT ARMIES</button>
+                <button onclick="showTitleScreen()" class="pixel-btn bg-green-600 text-white px-4 py-2">🏠 MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== GAME STATE =====
+        let gameState = {
+            phase: 'title',
+            selectedMap: null,
+            sideA: { faction: null, units: [] },
+            sideB: { faction: null, units: [] },
+            placedUnits: [],
+            battleUnits: [],
+            turn: 0,
+            paused: true,
+            speed: 1,
+            battleInterval: null,
+            selectedUnit: null,
+            engine: null
+        };
+        
+        // ===== UI FUNCTIONS =====
+        function hideAllScreens() {
+            ['title-screen', 'map-select', 'faction-select', 'placement-screen', 'battle-screen', 'victory-screen']
+                .forEach(id => document.getElementById(id).classList.add('hidden'));
+            if (gameState.battleInterval) {
+                clearInterval(gameState.battleInterval);
+                gameState.battleInterval = null;
+            }
+        }
+        
+        function showTitleScreen() {
+            hideAllScreens();
+            document.getElementById('title-screen').classList.remove('hidden');
+            gameState.phase = 'title';
+            resetGame();
+        }
+        
+        function showMapSelect() {
+            hideAllScreens();
+            document.getElementById('map-select').classList.remove('hidden');
+            gameState.phase = 'map-select';
+            renderMapOptions();
+        }
+        
+        function showFactionSelect() {
+            hideAllScreens();
+            document.getElementById('faction-select').classList.remove('hidden');
+            gameState.phase = 'faction-select';
+            renderFactionOptions();
+        }
+        
+        function showPlacementScreen() {
+            hideAllScreens();
+            document.getElementById('placement-screen').classList.remove('hidden');
+            gameState.phase = 'placement';
+            renderPlacementScreen();
+        }
+        
+        function showBattleScreen() {
+            hideAllScreens();
+            document.getElementById('battle-screen').classList.remove('hidden');
+            gameState.phase = 'battle';
+        }
+        
+        function showVictoryScreen(winner, reason) {
+            hideAllScreens();
+            document.getElementById('victory-screen').classList.remove('hidden');
+            gameState.phase = 'victory';
+            renderVictoryScreen(winner, reason);
+        }
+        
+        function resetGame() {
+            gameState = {
+                phase: 'title',
+                selectedMap: null,
+                sideA: { faction: null, units: [] },
+                sideB: { faction: null, units: [] },
+                placedUnits: [],
+                battleUnits: [],
+                turn: 0,
+                paused: true,
+                speed: 1,
+                battleInterval: null,
+                selectedUnit: null,
+                engine: null
+            };
+        }
+        
+        // ===== MAP RENDERING =====
+        function renderMapOptions() {
+            const container = document.getElementById('map-grid');
+            container.innerHTML = MAPS.map(map => `
+                <div class="pixel-border bg-gray-800 p-2 cursor-pointer hover:bg-gray-700 transition-colors"
+                     onclick="selectMap('${map.id}')">
+                    <h3 class="text-yellow-400 text-xs mb-1 truncate">${map.name}</h3>
+                    <p class="text-gray-400 text-xs mb-2 h-8 overflow-hidden">${map.description}</p>
+                    <div class="flex justify-center">${renderMiniMap(map)}</div>
+                </div>
+            `).join('');
+        }
+        
+        function renderMiniMap(map) {
+            const cellSize = Math.max(4, Math.floor(80 / map.width));
+            let html = `<div class="grid gap-0" style="grid-template-columns: repeat(${map.width}, ${cellSize}px);">`;
+            for (let y = 0; y < map.height; y++) {
+                for (let x = 0; x < map.width; x++) {
+                    const terrain = map.terrain[y]?.[x] || 'g';
+                    const color = TERRAIN_TYPES[terrain]?.color || '#4a7c23';
+                    html += `<div style="width:${cellSize}px;height:${cellSize}px;background:${color};"></div>`;
+                }
+            }
+            html += '</div>';
+            return html;
+        }
+        
+        function selectMap(mapId) {
+            gameState.selectedMap = MAPS.find(m => m.id === mapId);
+            showFactionSelect();
+        }
+        
+        // ===== FACTION SELECTION =====
+        function renderFactionOptions() {
+            const factionAList = document.getElementById('faction-a-list');
+            const factionBList = document.getElementById('faction-b-list');
+            
+            const factionHTML = (factionId, faction, side) => `
+                <label class="flex items-center gap-1 p-1 cursor-pointer hover:bg-white/10 rounded text-xs">
+                    <input type="radio" name="faction-${side}" value="${factionId}" 
+                           onchange="selectFaction('${side}', '${factionId}')"
+                           ${gameState['side' + side].faction === factionId ? 'checked' : ''}>
+                    <span style="color: ${faction.color}" class="truncate">${faction.icon} ${faction.name}</span>
+                </label>
+            `;
+            
+            factionAList.innerHTML = Object.entries(FACTIONS).map(([id, f]) => factionHTML(id, f, 'A')).join('');
+            factionBList.innerHTML = Object.entries(FACTIONS).map(([id, f]) => factionHTML(id, f, 'B')).join('');
+        }
+        
+        function selectFaction(side, factionId) {
+            gameState['side' + side].faction = factionId;
+            gameState['side' + side].units = [];
+        }
+        
+        function startPlacement() {
+            if (!gameState.sideA.faction || !gameState.sideB.faction) {
+                alert('Please select factions for both sides!');
+                return;
+            }
+            gameState.placedUnits = [];
+            showPlacementScreen();
+        }
+        
+        // ===== ARMY BUILDER =====
+        function renderPlacementScreen() {
+            renderArmyBuilder('A');
+            renderArmyBuilder('B');
+            renderPlacementMap();
+            updateUnitCounts();
+        }
+        
+        function isNavalMap() {
+            if (!gameState.selectedMap) return false;
+            const terrain = gameState.selectedMap.terrain.join('');
+            const waterCount = (terrain.match(/w/g) || []).length;
+            const totalCells = gameState.selectedMap.width * gameState.selectedMap.height;
+            return waterCount / totalCells > 0.25; // More than 25% water = naval map
+        }
+        
+        function isNavalUnit(role) {
+            return ['warship', 'transport', 'submarine', 'carrier', 'destroyer'].includes(role);
+        }
+        
+        function renderArmyBuilder(side) {
+            const faction = FACTIONS[gameState['side' + side].faction];
+            const container = document.getElementById(`side-${side.toLowerCase()}-builder`);
+            const navalMap = isNavalMap();
+            
+            let html = '<div class="text-xs text-yellow-300 mb-1">HEROES:</div>';
+            
+            // Heroes
+            faction.heroes.forEach(heroId => {
+                const hero = HEROES[heroId];
+                if (hero) {
+                    const count = gameState['side' + side].units.filter(u => u.heroId === heroId).length;
+                    const isNaval = hero.movement === 'naval';
+                    const disabled = isNaval && !navalMap;
+                    
+                    html += `
+                        <div class="flex items-center justify-between p-1 bg-black/30 rounded mb-1 ${disabled ? 'disabled-unit' : ''}">
+                            <div class="flex items-center gap-1">
+                                <span class="text-lg">${hero.sprite}</span>
+                                <span class="truncate" style="max-width:80px;">${hero.name}</span>
+                                ${disabled ? '<span class="text-red-400 text-xs">⚓</span>' : ''}
+                            </div>
+                            <div class="flex items-center gap-1">
+                                ${disabled ? '<span class="text-red-400 text-xs">No Water</span>' : `
+                                <button onclick="removeUnit('${side}', '${heroId}', true)" class="spawn-btn px-1 bg-red-600 rounded">-</button>
+                                <span class="w-4 text-center">${count}</span>
+                                <button onclick="addUnit('${side}', '${heroId}', true)" class="spawn-btn px-1 bg-green-600 rounded">+</button>
+                                `}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            // Generic units
+            html += '<div class="text-xs text-yellow-300 mt-2 mb-1">TROOPS:</div>';
+            
+            // Check if there are naval units
+            const hasNavalUnits = Object.keys(faction.generics || {}).some(role => isNavalUnit(role));
+            if (hasNavalUnits && !navalMap) {
+                html += '<div class="text-xs text-red-400 mb-1 p-1 bg-red-900/30 rounded">⚓ Naval units disabled (no water)</div>';
+            }
+            
+            Object.entries(faction.generics || {}).forEach(([role, unitData]) => {
+                const roleData = UNIT_ROLES[role];
+                const count = gameState['side' + side].units.filter(u => u.genericRole === role).length;
+                const isNaval = isNavalUnit(role);
+                const disabled = isNaval && !navalMap;
+                
+                html += `
+                    <div class="flex items-center justify-between p-1 bg-black/30 rounded mb-1 ${disabled ? 'disabled-unit' : ''}">
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm">${unitData.sprite}</span>
+                            <span class="truncate" style="max-width:70px;">${unitData.name}</span>
+                            ${isNaval ? '<span class="text-blue-400 text-xs">⚓</span>' : ''}
+                        </div>
+                        <div class="flex items-center gap-1">
+                            ${disabled ? '<span class="text-red-400 text-xs">No Water</span>' : `
+                            <button onclick="removeUnit('${side}', '${role}', false)" class="spawn-btn px-1 bg-red-600 rounded">-</button>
+                            <span class="w-4 text-center">${count}</span>
+                            <button onclick="addUnit('${side}', '${role}', false)" class="spawn-btn px-1 bg-green-600 rounded">+</button>
+                            <button onclick="addMultipleUnits('${side}', '${role}', 5)" class="spawn-btn px-1 bg-blue-600 rounded text-xs">+5</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function addUnit(side, id, isHero) {
+            const faction = FACTIONS[gameState['side' + side].faction];
+            
+            if (isHero) {
+                const hero = HEROES[id];
+                if (hero) {
+                    gameState['side' + side].units.push({
+                        id: `${id}_${Date.now()}_${Math.random()}`,
+                        heroId: id,
+                        isHero: true,
+                        ...hero
+                    });
+                }
+            } else {
+                const genericData = faction.generics[id];
+                const roleData = UNIT_ROLES[id];
+                if (genericData && roleData) {
+                    const movement = id === 'flying' ? 'flying' : 
+                                   id === 'cavalry' ? 'mounted' :
+                                   id === 'heavy' || id === 'siege' ? 'heavy' :
+                                   id === 'swimming' ? 'swimming' :
+                                   id === 'warship' || id === 'destroyer' || id === 'carrier' || id === 'submarine' ? 'naval' :
+                                   id === 'transport' ? 'naval' :
+                                   id === 'amphibious' || id === 'marine' ? 'amphibious' :
+                                   'foot';
+                    
+                    gameState['side' + side].units.push({
+                        id: `${id}_${Date.now()}_${Math.random()}`,
+                        genericRole: id,
+                        isHero: false,
+                        name: genericData.name,
+                        sprite: genericData.sprite,
+                        role: id,
+                        hp: roleData.baseHp + (genericData.bonus?.hp || 0),
+                        attack: roleData.baseAtk + (genericData.bonus?.atk || 0),
+                        defense: roleData.baseDef + (genericData.bonus?.def || 0),
+                        speed: roleData.baseSpd + (genericData.bonus?.spd || 0),
+                        range: roleData.baseRange + (genericData.bonus?.range || 0),
+                        movement: movement,
+                        healPower: genericData.bonus?.healPower || 0,
+                        abilities: []
+                    });
+                }
+            }
+            
+            renderPlacementScreen();
+        }
+        
+        function addMultipleUnits(side, id, count) {
+            for (let i = 0; i < count; i++) {
+                addUnit(side, id, false);
+            }
+        }
+        
+        function removeUnit(side, id, isHero) {
+            const units = gameState['side' + side].units;
+            const index = units.findIndex(u => 
+                isHero ? u.heroId === id : u.genericRole === id
+            );
+            
+            if (index >= 0) {
+                // Also remove from placed
+                const removedUnit = units[index];
+                gameState.placedUnits = gameState.placedUnits.filter(p => p.unitId !== removedUnit.id);
+                units.splice(index, 1);
+            }
+            
+            renderPlacementScreen();
+        }
+        
+        function clearSide(side) {
+            gameState['side' + side].units = [];
+            gameState.placedUnits = gameState.placedUnits.filter(u => u.side !== side);
+            renderPlacementScreen();
+        }
+        
+        function autoFillSide(side, count) {
+            const faction = FACTIONS[gameState['side' + side].faction];
+            const navalMap = isNavalMap();
+            
+            // Filter out naval units if not a naval map
+            const roles = Object.keys(faction.generics || {}).filter(role => {
+                if (!navalMap && isNavalUnit(role)) return false;
+                return true;
+            });
+            
+            if (roles.length === 0) return;
+            
+            for (let i = 0; i < count; i++) {
+                const role = roles[Math.floor(Math.random() * roles.length)];
+                addUnit(side, role, false);
+            }
+            
+            // Add some heroes too (excluding naval heroes on non-naval maps)
+            const validHeroes = faction.heroes.filter(heroId => {
+                const hero = HEROES[heroId];
+                if (!navalMap && hero?.movement === 'naval') return false;
+                return true;
+            });
+            
+            const heroCount = Math.floor(count / 10) + 1;
+            for (let i = 0; i < heroCount && i < validHeroes.length; i++) {
+                addUnit(side, validHeroes[i], true);
+            }
+        }
+        
+        function updateUnitCounts() {
+            document.getElementById('side-a-count').textContent = gameState.sideA.units.length;
+            document.getElementById('side-b-count').textContent = gameState.sideB.units.length;
+        }
+        
+        // ===== PLACEMENT MAP =====
+        function renderPlacementMap() {
+            const map = gameState.selectedMap;
+            const container = document.getElementById('placement-map');
+            
+            let html = `<div class="grid gap-0" style="grid-template-columns: repeat(${map.width}, 28px);">`;
+            
+            for (let y = 0; y < map.height; y++) {
+                for (let x = 0; x < map.width; x++) {
+                    const terrain = map.terrain[y]?.[x] || 'g';
+                    const terrainData = TERRAIN_TYPES[terrain];
+                    
+                    const inZoneA = x >= map.sideAZone.x1 && x <= map.sideAZone.x2 && 
+                                    y >= map.sideAZone.y1 && y <= map.sideAZone.y2;
+                    const inZoneB = x >= map.sideBZone.x1 && x <= map.sideBZone.x2 && 
+                                    y >= map.sideBZone.y1 && y <= map.sideBZone.y2;
+                    
+                    const placedUnit = gameState.placedUnits.find(u => u.x === x && u.y === y);
+                    
+                    let zoneClass = inZoneA ? 'zone-a' : inZoneB ? 'zone-b' : '';
+                    
+                    html += `<div class="map-cell ${terrainData.class} ${zoneClass}" 
+                                  onclick="handlePlacementClick(${x}, ${y})">`;
+                    
+                    if (placedUnit) {
+                        const unit = [...gameState.sideA.units, ...gameState.sideB.units]
+                            .find(u => u.id === placedUnit.unitId);
+                        if (unit) {
+                            const faction = FACTIONS[placedUnit.side === 'A' ? gameState.sideA.faction : gameState.sideB.faction];
+                            html += `<div class="unit-sprite ${unit.isHero ? 'hero' : ''}" 
+                                          style="background: ${faction.color};">
+                                        ${unit.sprite}
+                                     </div>`;
+                        }
+                    }
+                    
+                    html += '</div>';
+                }
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function handlePlacementClick(x, y) {
+            const map = gameState.selectedMap;
+            
+            // Check if already occupied
+            const existingIndex = gameState.placedUnits.findIndex(u => u.x === x && u.y === y);
+            if (existingIndex >= 0) {
+                // Remove the unit
+                gameState.placedUnits.splice(existingIndex, 1);
+                renderPlacementMap();
+                return;
+            }
+            
+            // Determine which side this zone belongs to
+            const inZoneA = x >= map.sideAZone.x1 && x <= map.sideAZone.x2 && 
+                            y >= map.sideAZone.y1 && y <= map.sideAZone.y2;
+            const inZoneB = x >= map.sideBZone.x1 && x <= map.sideBZone.x2 && 
+                            y >= map.sideBZone.y1 && y <= map.sideBZone.y2;
+            
+            if (!inZoneA && !inZoneB) return;
+            
+            const side = inZoneA ? 'A' : 'B';
+            const units = gameState['side' + side].units;
+            const placedIds = gameState.placedUnits.filter(p => p.side === side).map(p => p.unitId);
+            const unplacedUnit = units.find(u => !placedIds.includes(u.id));
+            
+            if (unplacedUnit) {
+                gameState.placedUnits.push({
+                    unitId: unplacedUnit.id,
+                    side: side,
+                    x, y
+                });
+            }
+            
+            renderPlacementMap();
+        }
+        
+        function clearAllPlacements() {
+            gameState.placedUnits = [];
+            renderPlacementMap();
+        }
+        
+        function autoPlaceAll() {
+            gameState.placedUnits = [];
+            const map = gameState.selectedMap;
+            
+            // Separate positions by terrain type
+            function getPositions(zone) {
+                let landPositions = [];
+                let waterPositions = [];
+                let sandPositions = [];
+                
+                for (let x = zone.x1; x <= zone.x2; x++) {
+                    for (let y = zone.y1; y <= zone.y2; y++) {
+                        const terrain = map.terrain[y]?.[x] || 'g';
+                        const terrainName = TERRAIN_TYPES[terrain]?.name;
+                        
+                        if (terrainName === 'Water') {
+                            waterPositions.push({ x, y });
+                        } else if (terrainName === 'Sand') {
+                            sandPositions.push({ x, y });
+                        } else if (terrainName !== 'Lava' && terrainName !== 'Void') {
+                            landPositions.push({ x, y });
+                        }
+                    }
+                }
+                
+                shuffleArray(landPositions);
+                shuffleArray(waterPositions);
+                shuffleArray(sandPositions);
+                
+                return { landPositions, waterPositions, sandPositions };
+            }
+            
+            function placeUnitsForSide(side, zone) {
+                const positions = getPositions(zone);
+                let landIndex = 0;
+                let waterIndex = 0;
+                let sandIndex = 0;
+                
+                gameState['side' + side].units.forEach(unit => {
+                    const movement = unit.movement || 'foot';
+                    let pos = null;
+                    
+                    // Naval units go on water
+                    if (movement === 'naval') {
+                        if (positions.waterPositions[waterIndex]) {
+                            pos = positions.waterPositions[waterIndex++];
+                        }
+                    }
+                    // Amphibious/swimming can go on sand or water
+                    else if (movement === 'amphibious' || movement === 'swimming') {
+                        if (positions.sandPositions[sandIndex]) {
+                            pos = positions.sandPositions[sandIndex++];
+                        } else if (positions.waterPositions[waterIndex]) {
+                            pos = positions.waterPositions[waterIndex++];
+                        } else if (positions.landPositions[landIndex]) {
+                            pos = positions.landPositions[landIndex++];
+                        }
+                    }
+                    // Flying can go anywhere except lava/void
+                    else if (movement === 'flying' || movement === 'ethereal') {
+                        // Prefer land but can use any
+                        if (positions.landPositions[landIndex]) {
+                            pos = positions.landPositions[landIndex++];
+                        } else if (positions.sandPositions[sandIndex]) {
+                            pos = positions.sandPositions[sandIndex++];
+                        }
+                    }
+                    // Regular units go on land
+                    else {
+                        if (positions.landPositions[landIndex]) {
+                            pos = positions.landPositions[landIndex++];
+                        } else if (positions.sandPositions[sandIndex]) {
+                            pos = positions.sandPositions[sandIndex++];
+                        }
+                    }
+                    
+                    if (pos) {
+                        gameState.placedUnits.push({
+                            unitId: unit.id,
+                            side: side,
+                            x: pos.x,
+                            y: pos.y
+                        });
+                    }
+                });
+            }
+            
+            placeUnitsForSide('A', map.sideAZone);
+            placeUnitsForSide('B', map.sideBZone);
+            
+            renderPlacementMap();
+        }
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        // ===== BATTLE SYSTEM =====
+        function startBattle() {
+            if (gameState.placedUnits.length === 0) {
+                alert('Please place some units first!');
+                return;
+            }
+            
+            const sideAPlaced = gameState.placedUnits.filter(p => p.side === 'A').length;
+            const sideBPlaced = gameState.placedUnits.filter(p => p.side === 'B').length;
+            
+            if (sideAPlaced === 0 || sideBPlaced === 0) {
+                alert('Both sides need at least one unit!');
+                return;
+            }
+            
+            // Initialize battle units
+            gameState.battleUnits = gameState.placedUnits.map(placed => {
+                const allUnits = [...gameState.sideA.units, ...gameState.sideB.units];
+                const unitData = allUnits.find(u => u.id === placed.unitId);
+                
+                if (!unitData) return null;
+                
+                return {
+                    id: placed.unitId,
+                    name: unitData.name,
+                    sprite: unitData.sprite,
+                    side: placed.side,
+                    x: placed.x,
+                    y: placed.y,
+                    hp: unitData.hp,
+                    maxHp: unitData.hp,
+                    attack: unitData.attack,
+                    defense: unitData.defense,
+                    speed: unitData.speed,
+                    range: unitData.range,
+                    movement: unitData.movement || 'foot',
+                    role: unitData.role,
+                    isHero: unitData.isHero,
+                    abilities: (unitData.abilities || []).map(a => ({ ...a, currentCooldown: 0 })),
+                    weakness: unitData.weakness,
+                    healPower: unitData.healPower || 0,
+                    buffs: [],
+                    debuffs: [],
+                    dots: [],
+                    alive: true,
+                    stealthed: false
+                };
+            }).filter(u => u !== null);
+            
+            gameState.turn = 1;
+            gameState.paused = false;
+            gameState.engine = new BattleEngine(gameState);
+            
+            showBattleScreen();
+            renderBattle();
+            gameState.engine.addLog('⚔️ BATTLE BEGINS!', 'info');
+            renderBattleLog();
+            
+            gameState.battleInterval = setInterval(() => {
+                if (!gameState.paused) {
+                    const result = gameState.engine.processTurn();
+                    renderBattle();
+                    renderBattleLog();
+                    
+                    if (result) {
+                        clearInterval(gameState.battleInterval);
+                        gameState.battleInterval = null;
+                        setTimeout(() => showVictoryScreen(result.winner, result.reason), 500);
+                    }
+                }
+            }, 500 / gameState.speed);
+        }
+        
+        function renderBattle() {
+            document.getElementById('turn-counter').textContent = `Turn ${gameState.turn}`;
+            
+            const stats = gameState.engine.getStats();
+            
+            document.getElementById('side-a-alive').textContent = stats.sideA.alive;
+            document.getElementById('side-a-total').textContent = stats.sideA.total;
+            document.getElementById('side-b-alive').textContent = stats.sideB.alive;
+            document.getElementById('side-b-total').textContent = stats.sideB.total;
+            
+            const aHpPercent = stats.sideA.maxHp > 0 ? (stats.sideA.totalHp / stats.sideA.maxHp) * 100 : 0;
+            const bHpPercent = stats.sideB.maxHp > 0 ? (stats.sideB.totalHp / stats.sideB.maxHp) * 100 : 0;
+            
+            document.getElementById('side-a-hp-bar').style.width = `${aHpPercent}%`;
+            document.getElementById('side-b-hp-bar').style.width = `${bHpPercent}%`;
+            
+            document.getElementById('battle-status').textContent = 
+                `Side A: ${stats.sideA.alive} | Side B: ${stats.sideB.alive}`;
+            
+            renderBattleMap();
+            renderBattleStatus();
+        }
+        
+        // Particle system
+        let particles = [];
+        
+        function createParticle(x, y, type, text = '') {
+            const particle = {
+                id: Date.now() + Math.random(),
+                x: x * 28 + 14,
+                y: y * 28 + 14,
+                type,
+                text,
+                life: 1
+            };
+            particles.push(particle);
+            setTimeout(() => {
+                particles = particles.filter(p => p.id !== particle.id);
+            }, 1000);
+        }
+        
+        function createExplosion(x, y, color = '#ff4400') {
+            const emojis = ['💥', '✨', '⚡', '🔥'];
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createParticle(
+                        x + (Math.random() - 0.5) * 0.5,
+                        y + (Math.random() - 0.5) * 0.5,
+                        'explosion',
+                        emojis[Math.floor(Math.random() * emojis.length)]
+                    );
+                }, i * 50);
+            }
+        }
+        
+        function createHealEffect(x, y) {
+            const sparkles = ['✨', '💚', '❤️‍🩹', '🌟'];
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createParticle(
+                        x + (Math.random() - 0.5) * 0.3,
+                        y + (Math.random() - 0.5) * 0.3,
+                        'sparkle',
+                        sparkles[Math.floor(Math.random() * sparkles.length)]
+                    );
+                }, i * 100);
+            }
+        }
+        
+        function renderParticles() {
+            const container = document.getElementById('battle-map');
+            const mapRect = container.querySelector('.grid')?.getBoundingClientRect();
+            if (!mapRect) return;
+            
+            // Remove old particles
+            container.querySelectorAll('.particle').forEach(p => p.remove());
+            
+            // Add new particles
+            particles.forEach(p => {
+                const div = document.createElement('div');
+                div.className = `particle particle-${p.type}`;
+                div.style.left = `${p.x}px`;
+                div.style.top = `${p.y}px`;
+                div.textContent = p.text;
+                container.querySelector('.grid')?.appendChild(div);
+            });
+        }
+        
+        function renderBattleMap() {
+            const map = gameState.selectedMap;
+            const container = document.getElementById('battle-map');
+            
+            let html = `<div class="grid gap-0 relative" style="grid-template-columns: repeat(${map.width}, 28px);">`;
+            
+            for (let y = 0; y < map.height; y++) {
+                for (let x = 0; x < map.width; x++) {
+                    const terrain = map.terrain[y]?.[x] || 'g';
+                    const terrainData = TERRAIN_TYPES[terrain];
+                    
+                    const unitHere = gameState.battleUnits.find(u => u.x === x && u.y === y && u.alive);
+                    
+                    // Add water animation class
+                    const waterAnim = terrain === 'w' ? 'water-cell' : '';
+                    const lavaAnim = terrain === 'l' ? 'lava-cell' : '';
+                    
+                    html += `<div class="map-cell ${terrainData.class} ${waterAnim} ${lavaAnim}">`;
+                    
+                    if (unitHere) {
+                        const faction = FACTIONS[unitHere.side === 'A' ? gameState.sideA.faction : gameState.sideB.faction];
+                        const hpPercent = (unitHere.hp / unitHere.maxHp) * 100;
+                        const hpColor = hpPercent > 50 ? '#0f0' : hpPercent > 25 ? '#ff0' : '#f00';
+                        
+                        // Check for effects
+                        const effect = gameState.engine.effects.find(e => e.unitId === unitHere.id);
+                        let effectClass = '';
+                        let extraEffect = '';
+                        
+                        if (effect) {
+                            effectClass = effect.type === 'attack' ? 'attacking' :
+                                         effect.type === 'damage' ? 'damaged' :
+                                         effect.type === 'death' ? 'dying' :
+                                         effect.type === 'ability' ? 'using-ability' :
+                                         effect.type === 'heal' ? 'healing' : '';
+                            
+                            // Trigger particle effects
+                            if (effect.type === 'damage' && effect.fresh) {
+                                createParticle(x, y, 'damage', `-${effect.amount || '!'}`);
+                                effect.fresh = false;
+                            } else if (effect.type === 'heal' && effect.fresh) {
+                                createHealEffect(x, y);
+                                effect.fresh = false;
+                            } else if (effect.type === 'death' && effect.fresh) {
+                                createExplosion(x, y);
+                                effect.fresh = false;
+                            } else if (effect.type === 'crit' && effect.fresh) {
+                                createParticle(x, y, 'crit', '💥CRIT!');
+                                effect.fresh = false;
+                            }
+                        }
+                        
+                        const stealthClass = unitHere.stealthed ? 'stealthed' : '';
+                        const floatClass = unitHere.movement === 'flying' || unitHere.movement === 'ethereal' ? 'floating' : '';
+                        const fireClass = unitHere.name?.includes('Fire') ? 'fire-effect' : '';
+                        const navalClass = unitHere.movement === 'naval' ? 'water-effect' : '';
+                        
+                        html += `
+                            <div class="unit-sprite ${unitHere.isHero ? 'hero' : ''} ${effectClass} ${stealthClass} ${floatClass} ${fireClass} ${navalClass}" 
+                                 data-unit-id="${unitHere.id}"
+                                 style="background: ${faction.color};"
+                                 title="${unitHere.name} (HP: ${unitHere.hp}/${unitHere.maxHp})">
+                                ${unitHere.sprite}
+                                <div class="health-bar">
+                                    <div class="health-fill" style="width: ${hpPercent}%; background: ${hpColor};"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    html += '</div>';
+                }
+            }
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // Render particles on top
+            renderParticles();
+        }
+        
+        function renderBattleStatus() {
+            const sideAStatus = document.getElementById('side-a-status');
+            const sideBStatus = document.getElementById('side-b-status');
+            
+            const renderUnitStatus = (unit) => {
+                if (!unit.isHero && !unit.alive) return ''; // Only show alive generics
+                
+                const hpPercent = Math.max(0, (unit.hp / unit.maxHp) * 100);
+                const hpColor = hpPercent > 50 ? 'bg-green-500' : hpPercent > 25 ? 'bg-yellow-500' : 'bg-red-500';
+                
+                return `
+                    <div class="p-1 ${unit.alive ? '' : 'opacity-30'} ${unit.isHero ? 'bg-black/30 rounded' : ''}">
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm">${unit.sprite}</span>
+                            <span class="truncate text-xs" style="max-width:60px;">${unit.name}</span>
+                        </div>
+                        ${unit.isHero ? `
+                            <div class="health-bar mt-1">
+                                <div class="health-fill ${hpColor}" style="width: ${hpPercent}%;"></div>
+                            </div>
+                            <div class="text-gray-400" style="font-size:8px;">${Math.max(0, unit.hp)}/${unit.maxHp}</div>
+                        ` : ''}
+                    </div>
+                `;
+            };
+            
+            // Show heroes first, then count of generics
+            const sideAUnits = gameState.battleUnits.filter(u => u.side === 'A');
+            const sideBUnits = gameState.battleUnits.filter(u => u.side === 'B');
+            
+            const sideAHeroes = sideAUnits.filter(u => u.isHero);
+            const sideBHeroes = sideBUnits.filter(u => u.isHero);
+            
+            sideAStatus.innerHTML = sideAHeroes.map(renderUnitStatus).join('');
+            sideBStatus.innerHTML = sideBHeroes.map(renderUnitStatus).join('');
+        }
+        
+        function renderBattleLog() {
+            const logContainer = document.getElementById('battle-log');
+            logContainer.innerHTML = gameState.engine.logs.slice(-50).map(log => `
+                <div class="log-entry log-${log.type}">[T${log.turn}] ${log.message}</div>
+            `).join('');
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function togglePause() {
+            gameState.paused = !gameState.paused;
+            document.getElementById('pause-btn').textContent = gameState.paused ? '▶️ RESUME' : '⏸️ PAUSE';
+        }
+        
+        function setSpeed(speed) {
+            gameState.speed = speed;
+            if (gameState.battleInterval) {
+                clearInterval(gameState.battleInterval);
+                gameState.battleInterval = setInterval(() => {
+                    if (!gameState.paused) {
+                        const result = gameState.engine.processTurn();
+                        renderBattle();
+                        renderBattleLog();
+                        
+                        if (result) {
+                            clearInterval(gameState.battleInterval);
+                            gameState.battleInterval = null;
+                            setTimeout(() => showVictoryScreen(result.winner, result.reason), 500);
+                        }
+                    }
+                }, 500 / gameState.speed);
+            }
+        }
+        
+        function renderVictoryScreen(winner, reason) {
+            const winnerFaction = FACTIONS[gameState['side' + winner].faction];
+            const loserSide = winner === 'A' ? 'B' : 'A';
+            const loserFaction = FACTIONS[gameState['side' + loserSide].faction];
+            
+            document.getElementById('victory-title').innerHTML = `
+                <span style="color: ${winnerFaction.color}">
+                    ${winnerFaction.icon} ${winnerFaction.name} VICTORIOUS! ${winnerFaction.icon}
+                </span>
+            `;
+            
+            const stats = gameState.engine.getStats();
+            
+            document.getElementById('victory-stats').innerHTML = `
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h3 class="text-green-400 mb-2">${winnerFaction.icon} Winners</h3>
+                        <p>Survivors: ${stats['side' + winner].alive}/${stats['side' + winner].total}</p>
+                        <p>Casualties: ${stats['side' + winner].total - stats['side' + winner].alive}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-red-400 mb-2">${loserFaction.icon} Defeated</h3>
+                        <p>Survivors: ${stats['side' + loserSide].alive}/${stats['side' + loserSide].total}</p>
+                        <p>Casualties: ${stats['side' + loserSide].total - stats['side' + loserSide].alive}</p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-600 text-xs">
+                    <p>Battle Duration: ${gameState.turn} turns</p>
+                    <p>Map: ${gameState.selectedMap.name}</p>
+                    <p>Reason: ${reason}</p>
+                </div>
+            `;
+        }
+        
+        function restartBattle() {
+            startBattle();
+        }
+        
+        // Initialize
+        showTitleScreen();
+    </script>
+</body>
+</html>
