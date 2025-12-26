@@ -9,12 +9,16 @@ class BattleEngine {
         this.camps = [];
         this.bridges = [];
         this.tents = [];
-        this.occupiedPositions = new Map(); // Track occupied positions
+        this.occupiedPositions = new Map();
+        
+        // NEW FEATURE 1: Weather System
+        this.weather = this.randomWeather();
+        this.weatherDuration = 10 + Math.floor(Math.random() * 15);
         
         // Army-wide stats
         this.armyStats = {
-            A: { supply: 100, morale: 100, phase: 'attack', buildPoints: 0 },
-            B: { supply: 100, morale: 100, phase: 'defend', buildPoints: 0 }
+            A: { supply: 100, morale: 100, phase: 'attack', buildPoints: 0, resources: 50 },
+            B: { supply: 100, morale: 100, phase: 'defend', buildPoints: 0, resources: 50 }
         };
         
         // Siege state
@@ -24,6 +28,9 @@ class BattleEngine {
             stalemateCounter: 0,
             blockedUnits: { A: new Set(), B: new Set() }
         };
+        
+        // NEW FEATURE 2: Reinforcement tracking
+        this.reinforcements = { A: 0, B: 0 };
         
         // Initialize units
         this.state.battleUnits.forEach(unit => {
@@ -41,15 +48,43 @@ class BattleEngine {
             unit.blockedTurns = 0;
             unit.lastTarget = null;
             unit.moraleModifier = 1;
+            unit.experience = 0;
+            unit.lastDamageTurn = 0;
             
-            // Register position
             this.setOccupied(unit.x, unit.y, unit);
         });
         
         this.determineRoles();
     }
     
-    // Position management
+    // NEW FEATURE 3: Weather System
+    randomWeather() {
+        const weathers = ['clear', 'rain', 'fog', 'wind', 'storm'];
+        const weights = [40, 20, 15, 15, 10];
+        const total = weights.reduce((a, b) => a + b, 0);
+        let rand = Math.random() * total;
+        for (let i = 0; i < weathers.length; i++) {
+            rand -= weights[i];
+            if (rand <= 0) return weathers[i];
+        }
+        return 'clear';
+    }
+    
+    getWeatherEffects() {
+        switch(this.weather) {
+            case 'rain':
+                return { rangedPenalty: 0.7, speedPenalty: 0.9, description: '🌧️ Rain: Ranged -30%, Speed -10%' };
+            case 'fog':
+                return { rangedPenalty: 0.5, sightReduction: 2, description: '🌫️ Fog: Ranged -50%, Sight -2' };
+            case 'wind':
+                return { rangedPenalty: 0.85, flyingBonus: 1.2, description: '💨 Wind: Ranged -15%, Flying +20% speed' };
+            case 'storm':
+                return { rangedPenalty: 0.4, speedPenalty: 0.8, lightningChance: 0.05, description: '⛈️ Storm: Ranged -60%, Lightning strikes!' };
+            default:
+                return { description: '☀️ Clear: No effects' };
+        }
+    }
+    
     posKey(x, y) {
         return `${x},${y}`;
     }
@@ -115,7 +150,6 @@ class BattleEngine {
         const terrainName = TERRAIN_TYPES[terrain]?.name.toLowerCase() || 'grass';
         const movementType = MOVEMENT_TYPES[unit.movement] || MOVEMENT_TYPES.foot;
         
-        // Check for bridge
         if (terrain === 'w' && this.hasBridgeAt(x, y)) {
             return 1;
         }
@@ -149,7 +183,20 @@ class BattleEngine {
         return this.tents.some(t => t.x === x && t.y === y);
     }
     
-    // Find all valid adjacent moves
+    // Get structure at position for tooltips
+    getStructureAt(x, y) {
+        const camp = this.camps.find(c => c.x === x && c.y === y);
+        if (camp) return { type: 'camp', data: camp };
+        
+        const bridge = this.bridges.find(b => b.x === x && b.y === y);
+        if (bridge) return { type: 'bridge', data: bridge };
+        
+        const tent = this.tents.find(t => t.x === x && t.y === y);
+        if (tent) return { type: 'tent', data: tent };
+        
+        return null;
+    }
+    
     getValidMoves(unit) {
         const moves = [];
         const directions = [
@@ -174,7 +221,6 @@ class BattleEngine {
         return moves;
     }
     
-    // A* pathfinding to check reachability
     canReachTarget(unit, targetX, targetY, maxSteps = 50) {
         const start = { x: unit.x, y: unit.y };
         const goal = { x: targetX, y: targetY };
@@ -192,7 +238,6 @@ class BattleEngine {
             if (closedSet.has(key)) continue;
             closedSet.add(key);
             
-            // Check if we're adjacent to goal (for attack range)
             if (this.getDistance(current, goal) <= (unit.range || 1)) {
                 return { reachable: true, path: current.path };
             }
@@ -211,18 +256,15 @@ class BattleEngine {
                 const nKey = this.posKey(nx, ny);
                 if (closedSet.has(nKey)) continue;
                 
-                // Check traversability (considering bridges)
                 let canPass = this.canTraverse(unit, nx, ny);
                 
-                // If it's water and we could build a bridge, consider it passable for pathfinding
                 const terrain = this.state.selectedMap.terrain[ny]?.[nx];
                 if (terrain === 'w' && !canPass && unit.movement !== 'naval') {
-                    canPass = true; // We could potentially build a bridge
+                    canPass = true;
                 }
                 
                 if (!canPass) continue;
                 
-                // Check if occupied (unless it's the goal)
                 if (this.isOccupied(nx, ny, unit) && !(nx === goal.x && ny === goal.y)) continue;
                 
                 const cost = this.getMovementCost(unit, nx, ny);
@@ -240,12 +282,10 @@ class BattleEngine {
         return { reachable: false, path: [] };
     }
     
-    // Find water tile blocking path to enemy
     findWaterBlockingPath(unit, target) {
         const dx = Math.sign(target.x - unit.x);
         const dy = Math.sign(target.y - unit.y);
         
-        // Check in direction of target
         for (let dist = 1; dist <= 8; dist++) {
             const checkX = unit.x + dx * dist;
             const checkY = unit.y + dy * dist;
@@ -258,7 +298,6 @@ class BattleEngine {
             }
         }
         
-        // Search nearby water tiles in expanding rings
         for (let r = 1; r <= 6; r++) {
             for (let dy2 = -r; dy2 <= r; dy2++) {
                 for (let dx2 = -r; dx2 <= r; dx2++) {
@@ -278,7 +317,6 @@ class BattleEngine {
         return null;
     }
     
-    // Check if there's water between unit and target
     isWaterBlocking(unit, target) {
         const dx = Math.sign(target.x - unit.x);
         const dy = Math.sign(target.y - unit.y);
@@ -301,11 +339,9 @@ class BattleEngine {
         return null;
     }
     
-    // Find the best spot to build a bridge (adjacent to land on both sides if possible)
     findBestBridgeSpot(unit, target) {
         const waterTiles = [];
         
-        // Find all water tiles between unit and target
         const minX = Math.min(unit.x, target.x) - 2;
         const maxX = Math.max(unit.x, target.x) + 2;
         const minY = Math.min(unit.y, target.y) - 2;
@@ -317,7 +353,6 @@ class BattleEngine {
                 
                 const terrain = this.state.selectedMap.terrain[y]?.[x];
                 if (terrain === 'w' && !this.hasBridgeAt(x, y)) {
-                    // Check if adjacent to land on unit's side
                     let adjacentToUnitSide = false;
                     let adjacentToTargetSide = false;
                     
@@ -349,7 +384,6 @@ class BattleEngine {
         
         if (waterTiles.length === 0) return null;
         
-        // Sort by score (prefer tiles adjacent to land on both sides) then by distance to unit
         waterTiles.sort((a, b) => {
             if (b.score !== a.score) return b.score - a.score;
             return a.distToUnit - b.distToUnit;
@@ -358,36 +392,30 @@ class BattleEngine {
         return waterTiles[0];
     }
     
-    // Move unit one step toward target
     moveToward(unit, targetX, targetY) {
         const moves = this.getValidMoves(unit);
         if (moves.length === 0) return false;
         
-        // Score each move
         const currentDist = this.getDistance(unit, { x: targetX, y: targetY });
         
         moves.forEach(move => {
             move.newDist = this.getDistance(move, { x: targetX, y: targetY });
             move.improvement = currentDist - move.newDist;
             
-            // Bonus for defensive terrain
             const terrain = this.getTerrainAt(move.x, move.y);
             move.terrainBonus = terrain.defenseBonus || 0;
         });
         
-        // Sort by improvement, then terrain bonus
         moves.sort((a, b) => {
             if (b.improvement !== a.improvement) return b.improvement - a.improvement;
             return b.terrainBonus - a.terrainBonus;
         });
         
-        // Take best move (with some randomness to avoid deadlocks)
         let bestMove = moves[0];
         if (moves.length > 1 && bestMove.improvement <= 0 && Math.random() < 0.3) {
             bestMove = moves[Math.floor(Math.random() * moves.length)];
         }
         
-        // Only move if it gets us closer or we're stuck
         if (bestMove.improvement > 0 || unit.blockedTurns > 2) {
             this.moveUnit(unit, bestMove.x, bestMove.y, bestMove.cost);
             return true;
@@ -396,42 +424,53 @@ class BattleEngine {
         return false;
     }
     
-    // Actually move the unit
     moveUnit(unit, newX, newY, cost) {
-        // Clear old position
         this.clearOccupied(unit.x, unit.y);
         
-        // Update unit position
         unit.x = newX;
         unit.y = newY;
         unit.movementRemaining -= cost;
         
-        // Set new position
         this.setOccupied(newX, newY, unit);
         
-        // Record history
         unit.positionHistory.push({ x: newX, y: newY, turn: this.state.turn });
         if (unit.positionHistory.length > 20) {
             unit.positionHistory.shift();
         }
         
-        // Clear fortified status when moving
         unit.isFortified = false;
         unit.blockedTurns = 0;
     }
     
-    // Build a bridge
+    // NEW FEATURE 4: Bridge costs supply
     buildBridge(unit, x, y) {
         if (this.hasBridgeAt(x, y)) return false;
         
         const terrain = this.state.selectedMap.terrain[y]?.[x];
         if (terrain !== 'w') return false;
         
-        // Need to be within range to build (3 tiles)
         const dist = this.getDistance(unit, { x, y });
         if (dist > 3) return false;
         
-        // Must be adjacent to land on at least one side
+        // Check if we have a camp to draw resources from
+        const nearbyCamp = this.camps.find(c => 
+            c.side === unit.side && this.getDistance(c, unit) <= 5
+        );
+        
+        // Bridge costs 15 supply/resources
+        const bridgeCost = 15;
+        if (!nearbyCamp || this.armyStats[unit.side].resources < bridgeCost) {
+            if (unit.blockedTurns > 5) {
+                // Desperate measure - build anyway but lose morale
+                this.armyStats[unit.side].morale = Math.max(0, this.armyStats[unit.side].morale - 10);
+                this.addLog(`⚠️ ${unit.name} built emergency bridge (no supplies, -10 morale)!`, 'info');
+            } else {
+                return false;
+            }
+        } else {
+            this.armyStats[unit.side].resources -= bridgeCost;
+        }
+        
         const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
         let adjacentToLand = false;
         
@@ -457,51 +496,25 @@ class BattleEngine {
             hp: 50
         });
         
-        this.addLog(`🌉 ${unit.name} built a bridge at (${x},${y})!`, 'info');
+        this.addLog(`🌉 ${unit.name} built a bridge at (${x},${y})! (-${bridgeCost} resources)`, 'info');
         this.addEffect(unit, 'ability');
-        
-        // Also log to help debug
-        console.log(`Bridge built at (${x},${y}) by ${unit.name}`);
         
         return true;
     }
     
-    // Extend an existing bridge
-    extendBridge(unit, fromBridge) {
-        const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
-        
-        for (const dir of dirs) {
-            const nx = fromBridge.x + dir.dx;
-            const ny = fromBridge.y + dir.dy;
-            
-            if (!this.isValidPosition(nx, ny)) continue;
-            if (this.hasBridgeAt(nx, ny)) continue;
-            
-            const terrain = this.state.selectedMap.terrain[ny]?.[nx];
-            if (terrain === 'w') {
-                // Build next bridge segment
-                this.bridges.push({
-                    x: nx, y: ny,
-                    side: unit.side,
-                    builtBy: unit.id,
-                    turn: this.state.turn,
-                    hp: 50
-                });
-                
-                this.addLog(`🌉 ${unit.name} extended bridge to (${nx},${ny})!`, 'info');
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    // Build a camp
     buildCamp(unit) {
         if (this.hasCampAt(unit.x, unit.y)) return false;
         
         const terrain = this.state.selectedMap.terrain[unit.y]?.[unit.x];
         if (['w', 'l', 'v'].includes(terrain)) return false;
+        
+        // Camp costs 20 resources
+        const campCost = 20;
+        if (this.armyStats[unit.side].resources < campCost) {
+            return false;
+        }
+        
+        this.armyStats[unit.side].resources -= campCost;
         
         this.camps.push({
             x: unit.x,
@@ -512,16 +525,14 @@ class BattleEngine {
             hp: 100
         });
         
-        this.addLog(`🏕️ ${unit.name} set up a supply camp!`, 'info');
+        this.addLog(`🏕️ ${unit.name} set up a supply camp! (-${campCost} resources, +25% supply)`, 'info');
         this.addEffect(unit, 'ability');
         
-        // Boost army supply
         this.armyStats[unit.side].supply = Math.min(100, this.armyStats[unit.side].supply + 15);
         
         return true;
     }
     
-    // Build a tent
     buildTent(unit) {
         if (this.hasTentAt(unit.x, unit.y)) return false;
         
@@ -541,7 +552,6 @@ class BattleEngine {
         return true;
     }
     
-    // Fortify position
     fortify(unit) {
         if (unit.isFortified) return;
         
@@ -549,17 +559,74 @@ class BattleEngine {
         this.addLog(`🛡️ ${unit.name} fortified their position!`, 'info');
     }
     
-    // Get enemies
     getEnemies(unit) {
         return this.state.battleUnits.filter(u => u.side !== unit.side && u.alive);
     }
     
-    // Get allies
     getAllies(unit) {
         return this.state.battleUnits.filter(u => u.side === unit.side && u.alive && u !== unit);
     }
     
-    // Find best target
+    // NEW FEATURE 5: Flanking detection
+    isFlankingTarget(attacker, defender) {
+        // Check if attacker is behind the defender (relative to defender's last movement)
+        const history = defender.positionHistory;
+        if (history.length < 2) return false;
+        
+        const lastPos = history[history.length - 2];
+        const currentPos = { x: defender.x, y: defender.y };
+        
+        // Direction defender was moving
+        const defenderDx = currentPos.x - lastPos.x;
+        const defenderDy = currentPos.y - lastPos.y;
+        
+        // Direction from defender to attacker
+        const attackDx = attacker.x - defender.x;
+        const attackDy = attacker.y - defender.y;
+        
+        // If attacker is opposite to movement direction, it's a flank
+        if (defenderDx !== 0 || defenderDy !== 0) {
+            const dotProduct = defenderDx * attackDx + defenderDy * attackDy;
+            return dotProduct < 0;
+        }
+        
+        return false;
+    }
+    
+    // NEW FEATURE 6: Shield wall formation
+    getShieldWallBonus(unit) {
+        if (unit.role !== 'heavy' && unit.role !== 'infantry') return 0;
+        
+        const allies = this.getAllies(unit);
+        let adjacentHeavy = 0;
+        
+        for (const ally of allies) {
+            if (ally.role === 'heavy' || ally.role === 'infantry') {
+                if (this.getDistance(unit, ally) === 1) {
+                    adjacentHeavy++;
+                }
+            }
+        }
+        
+        return adjacentHeavy * 5; // +5 defense per adjacent heavy/infantry
+    }
+    
+    // NEW FEATURE 7: Commander aura
+    getCommanderAura(unit) {
+        const allies = this.getAllies(unit);
+        let bonus = { attack: 0, defense: 0, morale: 0 };
+        
+        for (const ally of allies) {
+            if (ally.isHero && this.getDistance(unit, ally) <= 3) {
+                bonus.attack += 3;
+                bonus.defense += 2;
+                bonus.morale += 5;
+            }
+        }
+        
+        return bonus;
+    }
+    
     findBestTarget(unit) {
         const enemies = this.getEnemies(unit);
         if (enemies.length === 0) return null;
@@ -567,34 +634,41 @@ class BattleEngine {
         let bestTarget = null;
         let bestScore = -Infinity;
         
+        // Weather affects targeting for ranged
+        const weather = this.getWeatherEffects();
+        const sightReduction = weather.sightReduction || 0;
+        const effectiveRange = unit.range - sightReduction;
+        
         for (const enemy of enemies) {
             let score = 0;
             const dist = this.getDistance(unit, enemy);
             
-            // Strong preference for targets in range
-            if (dist <= unit.range) score += 200;
+            if (dist <= Math.max(1, effectiveRange)) score += 200;
             
-            // Prefer low HP targets (can finish them off)
             const hpPercent = enemy.hp / enemy.maxHp;
             score += (1 - hpPercent) * 80;
             
-            // Prefer closer targets
             score -= dist * 8;
             
-            // Prefer soft targets
             score += Math.max(0, 25 - enemy.defense);
             
-            // Prefer high value targets
             if (enemy.isHero) score += 50;
             if (enemy.role === 'healer') score += 60;
             if (enemy.role === 'mage') score += 40;
             if (enemy.role === 'siege') score += 30;
             
-            // Prefer targets we can actually reach
+            // NEW: Ranged units prioritize other ranged/mages
+            if ((unit.role === 'ranged' || unit.role === 'mage') && 
+                (enemy.role === 'ranged' || enemy.role === 'mage' || enemy.role === 'healer')) {
+                score += 30;
+            }
+            
             const reachCheck = this.canReachTarget(unit, enemy.x, enemy.y, 20);
             if (reachCheck.reachable) score += 100;
             
-            // Small random factor
+            // Flanking bonus
+            if (this.isFlankingTarget(unit, enemy)) score += 25;
+            
             score += Math.random() * 15;
             
             if (score > bestScore) {
@@ -606,23 +680,19 @@ class BattleEngine {
         return bestTarget;
     }
     
-    // Find ally to heal
     findHealTarget(unit) {
         const allies = this.getAllies(unit);
         const wounded = allies.filter(a => a.hp < a.maxHp * 0.7);
         
         if (wounded.length === 0) return null;
         
-        // Sort by HP percentage (heal most wounded first)
         wounded.sort((a, b) => (a.hp / a.maxHp) - (b.hp / b.maxHp));
         
-        // Prefer targets in range
         const inRange = wounded.filter(a => this.getDistance(unit, a) <= (unit.range || 3));
         
         return inRange.length > 0 ? inRange[0] : wounded[0];
     }
     
-    // Calculate damage
     calculateDamage(attacker, defender, ability = null) {
         let baseDamage = ability?.damage || attacker.attack;
         let defense = defender.defense;
@@ -635,6 +705,13 @@ class BattleEngine {
         const supply = this.armyStats[attacker.side].supply / 100;
         baseDamage *= (0.6 + supply * 0.4);
         
+        // Weather effects for ranged
+        const weather = this.getWeatherEffects();
+        const dist = this.getDistance(attacker, defender);
+        if (dist > 1 && weather.rangedPenalty) {
+            baseDamage *= weather.rangedPenalty;
+        }
+        
         // Terrain defense bonus
         const terrain = this.getTerrainAt(defender.x, defender.y);
         defense += terrain.defenseBonus || 0;
@@ -644,7 +721,14 @@ class BattleEngine {
             defense += 20;
         }
         
-        // Near camp bonus
+        // Shield wall bonus
+        defense += this.getShieldWallBonus(defender);
+        
+        // Commander aura
+        const aura = this.getCommanderAura(attacker);
+        baseDamage += aura.attack;
+        
+        // Near camp bonus for defender
         const nearCamp = this.camps.find(c => 
             c.side === defender.side && this.getDistance(defender, c) <= 3
         );
@@ -653,6 +737,13 @@ class BattleEngine {
         // Veteran bonus
         baseDamage += attacker.veteranLevel * 5;
         defense += defender.veteranLevel * 3;
+        
+        // NEW FEATURE: Flanking bonus (+25% damage)
+        let flankBonus = 1;
+        if (this.isFlankingTarget(attacker, defender)) {
+            flankBonus = 1.25;
+            baseDamage *= flankBonus;
+        }
         
         // Weakness check
         if (defender.weakness && ability?.type === defender.weakness) {
@@ -665,11 +756,12 @@ class BattleEngine {
         baseDamage += atkBuff;
         defense = Math.max(0, defense - defDebuff);
         
-        // Critical hit (15% chance)
-        const isCrit = Math.random() < 0.15;
+        // Critical hit (15% chance, +10% per veteran level)
+        const critChance = 0.15 + (attacker.veteranLevel * 0.05);
+        const isCrit = Math.random() < critChance;
         if (isCrit) baseDamage *= 1.75;
         
-        // Calculate final damage with defense reduction
+        // Calculate final damage
         const reduction = defense / (defense + 60);
         let finalDamage = Math.floor(baseDamage * (1 - reduction));
         
@@ -677,35 +769,39 @@ class BattleEngine {
         finalDamage = Math.floor(finalDamage * (0.85 + Math.random() * 0.3));
         finalDamage = Math.max(1, finalDamage);
         
-        return { damage: finalDamage, isCrit };
+        return { damage: finalDamage, isCrit, isFlanking: flankBonus > 1 };
     }
     
-    // Execute attack
     attack(attacker, defender) {
         const dist = this.getDistance(attacker, defender);
         if (dist > attacker.range) return 0;
         
-        const { damage, isCrit } = this.calculateDamage(attacker, defender);
+        const { damage, isCrit, isFlanking } = this.calculateDamage(attacker, defender);
         
         defender.hp -= damage;
+        defender.lastDamageTurn = this.state.turn;
         attacker.inCombat = true;
         defender.inCombat = true;
         
-        // Break stealth
         if (attacker.stealthed) attacker.stealthed = false;
         
-        const critText = isCrit ? ' 💥CRIT!' : '';
-        this.addLog(`${attacker.sprite} ${attacker.name} hits ${defender.sprite} ${defender.name} for ${damage}${critText}`, 'attack');
+        let extras = [];
+        if (isCrit) extras.push('💥CRIT');
+        if (isFlanking) extras.push('🗡️FLANK');
+        const extraText = extras.length > 0 ? ` ${extras.join(' ')}!` : '';
+        
+        this.addLog(`${attacker.sprite} ${attacker.name} hits ${defender.sprite} ${defender.name} for ${damage}${extraText}`, 'attack');
         
         this.addEffect(attacker, 'attack');
-        this.addEffect(defender, 'damage', { amount: damage, isCrit });
+        this.addEffect(defender, 'damage', { amount: damage, isCrit, isFlanking });
         
-        // Add projectile for ranged attacks
         if (dist > 1) {
             this.addProjectile(attacker, defender);
         }
         
-        // Check for death
+        // Give experience
+        attacker.experience += Math.floor(damage / 5);
+        
         if (defender.hp <= 0) {
             this.killUnit(defender, attacker);
         }
@@ -713,7 +809,6 @@ class BattleEngine {
         return damage;
     }
     
-    // Use ability
     useAbility(unit, ability, target = null) {
         ability.currentCooldown = ability.cooldown;
         
@@ -802,7 +897,6 @@ class BattleEngine {
         }
     }
     
-    // Summon a unit
     summonUnit(summoner, ability) {
         const summonData = SUMMONS[ability.summon];
         if (!summonData) return;
@@ -811,7 +905,6 @@ class BattleEngine {
         let summoned = 0;
         
         for (let i = 0; i < count; i++) {
-            // Find empty adjacent spot
             let spot = null;
             for (let r = 1; r <= 3 && !spot; r++) {
                 for (let dy = -r; dy <= r && !spot; dy++) {
@@ -843,7 +936,8 @@ class BattleEngine {
                     maxMovement: 3,
                     movementRemaining: 3,
                     veteranLevel: 0,
-                    kills: 0
+                    kills: 0,
+                    experience: 0
                 };
                 
                 this.state.battleUnits.push(newUnit);
@@ -858,33 +952,28 @@ class BattleEngine {
         this.addEffect(summoner, 'ability');
     }
     
-    // Kill a unit
     killUnit(unit, killer = null) {
         unit.alive = false;
         unit.hp = 0;
         
-        // Clear occupied position
         this.clearOccupied(unit.x, unit.y);
         
         this.addLog(`💀 ${unit.sprite} ${unit.name} has been slain!`, 'death');
         this.addEffect(unit, 'death');
         
-        // Update morale
         const moraleLoss = unit.isHero ? 20 : 5;
         this.armyStats[unit.side].morale = Math.max(0, this.armyStats[unit.side].morale - moraleLoss);
         
-        // Boost enemy morale
         const enemySide = unit.side === 'A' ? 'B' : 'A';
         this.armyStats[enemySide].morale = Math.min(100, this.armyStats[enemySide].morale + (unit.isHero ? 10 : 2));
         
-        // Award kill
         if (killer) {
             killer.kills = (killer.kills || 0) + 1;
+            killer.experience += unit.isHero ? 50 : 20;
             this.checkVeteranUpgrade(killer);
         }
     }
     
-    // Check for veteran upgrade
     checkVeteranUpgrade(unit) {
         const kills = unit.kills;
         if (kills >= 8 && unit.veteranLevel < 3) {
@@ -911,7 +1000,6 @@ class BattleEngine {
         }
     }
     
-    // Check if unit should retreat
     shouldRetreat(unit) {
         if (unit.isHero) return false;
         if (unit.isRetreating) return true;
@@ -930,18 +1018,15 @@ class BattleEngine {
         return false;
     }
     
-    // Get retreat direction
     getRetreatTarget(unit) {
         const enemies = this.getEnemies(unit);
         if (enemies.length === 0) return null;
         
-        // Average enemy position
         let avgX = 0, avgY = 0;
         enemies.forEach(e => { avgX += e.x; avgY += e.y; });
         avgX /= enemies.length;
         avgY /= enemies.length;
         
-        // Move away from enemies
         const dx = unit.x - avgX;
         const dy = unit.y - avgY;
         
@@ -951,7 +1036,6 @@ class BattleEngine {
         };
     }
     
-    // Process attacker unit
     processAttacker(unit) {
         if (this.shouldRetreat(unit)) {
             const retreatTarget = this.getRetreatTarget(unit);
@@ -974,7 +1058,6 @@ class BattleEngine {
                         this.useAbility(unit, healAbility, healTarget);
                         return;
                     }
-                    // Basic heal
                     const healAmount = 10 + (unit.healPower || 0);
                     healTarget.hp = Math.min(healTarget.maxHp, healTarget.hp + healAmount);
                     this.addLog(`💚 ${unit.name} heals ${healTarget.name} for ${healAmount}!`, 'heal');
@@ -987,40 +1070,42 @@ class BattleEngine {
             }
         }
         
-        // Find target
         const target = this.findBestTarget(unit);
         if (!target) return;
         
         const dist = this.getDistance(unit, target);
-        
-        // Check if we can reach target
         const reachCheck = this.canReachTarget(unit, target.x, target.y);
         
         if (!reachCheck.reachable) {
             unit.blockedTurns++;
             unit.isBlocked = true;
             
-            // Check if water is blocking us
             const waterBlocking = this.isWaterBlocking(unit, target);
             const bestBridgeSpot = this.findBestBridgeSpot(unit, target);
             
-            // Try to build bridge if water is blocking
-            if (waterBlocking || bestBridgeSpot) {
+            // Try to build bridge if water is blocking - need a camp first
+            if ((waterBlocking || bestBridgeSpot) && unit.blockedTurns >= 2) {
                 const bridgeTarget = bestBridgeSpot || waterBlocking;
+                
+                // Check if we have a camp
+                const hasCamp = this.camps.some(c => c.side === unit.side);
+                
+                if (!hasCamp && unit.isHero && !this.hasCampAt(unit.x, unit.y)) {
+                    // Build camp first
+                    this.buildCamp(unit);
+                    return;
+                }
                 
                 if (bridgeTarget && !this.hasBridgeAt(bridgeTarget.x, bridgeTarget.y)) {
                     const bridgeDist = this.getDistance(unit, bridgeTarget);
                     
-                    if (bridgeDist <= 2) {
-                        // Close enough to build
+                    if (bridgeDist <= 3) {
                         if (this.buildBridge(unit, bridgeTarget.x, bridgeTarget.y)) {
-                            this.armyStats[unit.side].buildPoints++;
                             return;
                         }
                     }
                     
-                    // Move toward water to build bridge
-                    // Find land tile adjacent to the water
+                    // Move toward bridge location
                     const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
                     let bestLandSpot = null;
                     let bestDist = Infinity;
@@ -1033,9 +1118,9 @@ class BattleEngine {
                         
                         const terrain = this.state.selectedMap.terrain[ly]?.[lx];
                         if (terrain !== 'w' && terrain !== 'l' && terrain !== 'v') {
-                            const dist = this.getDistance(unit, {x: lx, y: ly});
-                            if (dist < bestDist && !this.isOccupied(lx, ly, unit)) {
-                                bestDist = dist;
+                            const d = this.getDistance(unit, {x: lx, y: ly});
+                            if (d < bestDist && !this.isOccupied(lx, ly, unit)) {
+                                bestDist = d;
                                 bestLandSpot = {x: lx, y: ly};
                             }
                         }
@@ -1048,18 +1133,17 @@ class BattleEngine {
                 }
             }
             
-            // Build tent first if blocked
+            // Build tent if blocked
             if (unit.blockedTurns >= 2 && !this.hasTentAt(unit.x, unit.y)) {
                 this.buildTent(unit);
             }
             
-            // Build camp if stuck for a while
+            // Build camp if stuck
             if (unit.blockedTurns >= 3 && !this.hasCampAt(unit.x, unit.y) && unit.isHero) {
                 this.buildCamp(unit);
                 return;
             }
             
-            // Try to find alternative path around
             this.moveToward(unit, target.x, target.y);
             return;
         } else {
@@ -1069,7 +1153,6 @@ class BattleEngine {
         
         // In range? Attack!
         if (dist <= unit.range) {
-            // Try to use ability
             if (unit.abilities && Math.random() < 0.4) {
                 const ability = unit.abilities.find(a => 
                     (!a.currentCooldown || a.currentCooldown === 0) &&
@@ -1084,10 +1167,8 @@ class BattleEngine {
             
             this.attack(unit, target);
         } else {
-            // Move toward target
             const moved = this.moveToward(unit, target.x, target.y);
             
-            // Attack after moving if in range
             if (moved) {
                 const newDist = this.getDistance(unit, target);
                 if (newDist <= unit.range && unit.movementRemaining >= 0) {
@@ -1097,7 +1178,6 @@ class BattleEngine {
         }
     }
     
-    // Process defender unit
     processDefender(unit) {
         if (this.shouldRetreat(unit)) {
             const retreatTarget = this.getRetreatTarget(unit);
@@ -1128,13 +1208,12 @@ class BattleEngine {
         const dist = this.getDistance(unit, target);
         const reachCheck = this.canReachTarget(unit, target.x, target.y, 20);
         
-        // If we can't reach the target, check if we need bridges
         if (!reachCheck.reachable) {
             unit.blockedTurns++;
             unit.isBlocked = true;
             
-            // Defenders also build bridges if they need to counter-attack
-            if (unit.blockedTurns >= 3) {
+            // Defenders also build bridges if needed
+            if (unit.blockedTurns >= 4) {
                 const waterBlocking = this.isWaterBlocking(unit, target);
                 if (waterBlocking) {
                     const bridgeDist = this.getDistance(unit, waterBlocking);
@@ -1145,7 +1224,6 @@ class BattleEngine {
                 }
             }
             
-            // Build defensive structures while waiting
             if (!this.hasTentAt(unit.x, unit.y) && unit.blockedTurns >= 2) {
                 this.buildTent(unit);
             }
@@ -1158,17 +1236,15 @@ class BattleEngine {
             unit.isBlocked = false;
         }
         
-        // Get terrain info
         const currentTerrain = this.getTerrainAt(unit.x, unit.y);
         const isDefensiveTerrain = currentTerrain.defenseBonus >= 10;
         
-        // If already on defensive terrain and enemy approaching, fortify
+        // If on defensive terrain and enemy approaching, fortify
         if (isDefensiveTerrain && dist <= 5) {
             if (!unit.isFortified) {
                 this.fortify(unit);
             }
             
-            // Attack if in range
             if (dist <= unit.range) {
                 this.attack(unit, target);
             }
@@ -1203,20 +1279,16 @@ class BattleEngine {
             }
         }
         
-        // Attack if in range
         if (dist <= unit.range) {
             this.attack(unit, target);
         } else if (dist <= unit.range + 4) {
-            // Move toward enemy if close enough to engage
             this.moveToward(unit, target.x, target.y);
             
-            // Attack after moving if in range
             const newDist = this.getDistance(unit, target);
             if (newDist <= unit.range) {
                 this.attack(unit, target);
             }
         } else {
-            // Enemy far away, build defenses
             if (!this.hasCampAt(unit.x, unit.y) && unit.isHero && Math.random() < 0.4) {
                 this.buildCamp(unit);
                 return;
@@ -1230,13 +1302,21 @@ class BattleEngine {
         }
     }
     
-    // Process a single unit
     processUnit(unit) {
         if (!unit.alive) return;
         
         unit.turnsAlive++;
         unit.movementRemaining = unit.maxMovement;
         unit.hasActedThisTurn = false;
+        
+        // Weather effect on flying units
+        const weather = this.getWeatherEffects();
+        if (unit.movement === 'flying' && weather.flyingBonus) {
+            unit.movementRemaining = Math.floor(unit.movementRemaining * weather.flyingBonus);
+        }
+        if (weather.speedPenalty) {
+            unit.movementRemaining = Math.floor(unit.movementRemaining * weather.speedPenalty);
+        }
         
         // Reduce cooldowns
         if (unit.abilities) {
@@ -1282,6 +1362,11 @@ class BattleEngine {
             unit.hp += heal;
         }
         
+        // Passive HP regen if not in combat
+        if (this.state.turn - unit.lastDamageTurn > 3 && unit.hp < unit.maxHp) {
+            unit.hp = Math.min(unit.maxHp, unit.hp + 1);
+        }
+        
         // Process based on army phase
         const phase = this.armyStats[unit.side].phase;
         
@@ -1292,15 +1377,12 @@ class BattleEngine {
         }
     }
     
-    // Process terrain damage
     processTerrainDamage() {
         this.state.battleUnits.filter(u => u.alive).forEach(unit => {
             const terrain = this.getTerrainAt(unit.x, unit.y);
             
             if (terrain.damage) {
-                // Flying and ethereal avoid most terrain damage
                 if (['flying', 'ethereal'].includes(unit.movement)) return;
-                // Naval on water is fine
                 if (unit.movement === 'naval' && terrain.name === 'Water') return;
                 if (unit.movement === 'swimming' && terrain.name === 'Water') return;
                 if (unit.movement === 'amphibious' && terrain.name === 'Water') return;
@@ -1315,14 +1397,36 @@ class BattleEngine {
         });
     }
     
-    // Update army stats
+    // NEW FEATURE 8: Storm lightning strikes
+    processWeatherEffects() {
+        const weather = this.getWeatherEffects();
+        
+        if (weather.lightningChance) {
+            this.state.battleUnits.filter(u => u.alive).forEach(unit => {
+                if (Math.random() < weather.lightningChance) {
+                    const damage = 10 + Math.floor(Math.random() * 15);
+                    unit.hp -= damage;
+                    this.addLog(`⚡ Lightning strikes ${unit.name} for ${damage}!`, 'attack');
+                    this.addEffect(unit, 'damage', { amount: damage });
+                    
+                    if (unit.hp <= 0) {
+                        this.killUnit(unit);
+                    }
+                }
+            });
+        }
+    }
+    
     updateArmyStats() {
         ['A', 'B'].forEach(side => {
             const units = this.state.battleUnits.filter(u => u.side === side && u.alive);
             
+            // Base supply
+            let supply = 40;
+            
             // Supply from camps
             const camps = this.camps.filter(c => c.side === side);
-            let supply = 40 + camps.length * 25;
+            supply += camps.length * 25;
             
             // Tents add small supply
             const tents = this.tents.filter(t => t.side === side);
@@ -1331,6 +1435,11 @@ class BattleEngine {
             supply = Math.min(100, Math.max(0, supply));
             this.armyStats[side].supply = supply;
             
+            // Resource generation from camps
+            this.armyStats[side].resources = Math.min(100, 
+                this.armyStats[side].resources + camps.length * 3
+            );
+            
             // Morale recovery near camps
             if (camps.length > 0 && this.armyStats[side].morale < 80) {
                 this.armyStats[side].morale = Math.min(100, this.armyStats[side].morale + 1);
@@ -1338,9 +1447,7 @@ class BattleEngine {
         });
     }
     
-    // Update siege state
     updateSiegeState() {
-        // Check for stalemate
         const recentDeaths = this.logs.filter(l => 
             l.type === 'death' && l.turn >= this.state.turn - 8
         ).length;
@@ -1353,17 +1460,14 @@ class BattleEngine {
                 this.addLog('⚠️ The battle has reached a stalemate! Both sides are building up...', 'info');
             }
             
-            // After building up, launch new assault
             if (this.siegeState.stalemateCounter >= 15) {
                 this.siegeState.stalemateCounter = 0;
                 this.siegeState.phase = 'assault';
                 this.addLog('⚔️ RENEWED ASSAULT! Both sides charge forward!', 'info');
                 
-                // Boost morale for assault
                 this.armyStats.A.morale = Math.min(100, this.armyStats.A.morale + 25);
                 this.armyStats.B.morale = Math.min(100, this.armyStats.B.morale + 25);
                 
-                // Clear fortifications for attackers
                 this.state.battleUnits.filter(u => u.alive).forEach(u => {
                     if (this.armyStats[u.side].phase === 'attack') {
                         u.isFortified = false;
@@ -1377,9 +1481,22 @@ class BattleEngine {
         }
     }
     
-    // Main turn processor
+    // NEW FEATURE 9: Weather changes
+    updateWeather() {
+        this.weatherDuration--;
+        if (this.weatherDuration <= 0) {
+            const oldWeather = this.weather;
+            this.weather = this.randomWeather();
+            this.weatherDuration = 10 + Math.floor(Math.random() * 15);
+            
+            if (oldWeather !== this.weather) {
+                const effects = this.getWeatherEffects();
+                this.addLog(`🌤️ Weather changed: ${effects.description}`, 'info');
+            }
+        }
+    }
+    
     processTurn() {
-        // Check victory conditions
         const aAlive = this.state.battleUnits.filter(u => u.side === 'A' && u.alive);
         const bAlive = this.state.battleUnits.filter(u => u.side === 'B' && u.alive);
         
@@ -1390,7 +1507,6 @@ class BattleEngine {
             return { winner: 'A', reason: 'All Side B units eliminated!' };
         }
         
-        // Check morale collapse
         if (this.armyStats.A.morale <= 0) {
             return { winner: 'B', reason: 'Side A morale collapsed - army routed!' };
         }
@@ -1400,11 +1516,10 @@ class BattleEngine {
         
         this.state.turn++;
         
-        // Update systems
         this.updateArmyStats();
         this.updateSiegeState();
+        this.updateWeather();
         
-        // Sort units by speed (with randomness)
         const allAlive = [...aAlive, ...bAlive];
         allAlive.sort((a, b) => {
             const speedA = a.speed + Math.random() * 4;
@@ -1412,24 +1527,21 @@ class BattleEngine {
             return speedB - speedA;
         });
         
-        // Process each unit
         for (const unit of allAlive) {
             if (unit.alive) {
                 this.processUnit(unit);
             }
         }
         
-        // Process terrain damage at end of turn
         this.processTerrainDamage();
+        this.processWeatherEffects();
         
-        // Clear old effects
         this.effects = this.effects.filter(e => e.duration > 0);
         this.effects.forEach(e => e.duration--);
         
         return null;
     }
     
-    // Add log entry
     addLog(message, type) {
         this.logs.push({
             turn: this.state.turn,
@@ -1441,7 +1553,6 @@ class BattleEngine {
         if (this.logs.length > 300) this.logs.shift();
     }
     
-    // Add visual effect
     addEffect(unit, type, extra = {}) {
         this.effects.push({
             unitId: unit.id,
@@ -1452,7 +1563,6 @@ class BattleEngine {
         });
     }
     
-    // Add projectile
     addProjectile(from, to) {
         const sprite = this.getProjectileSprite(from);
         this.projectiles.push({
@@ -1481,7 +1591,6 @@ class BattleEngine {
         return '•';
     }
     
-    // Get stats
     getStats() {
         const sideA = this.state.battleUnits.filter(u => u.side === 'A');
         const sideB = this.state.battleUnits.filter(u => u.side === 'B');
@@ -1493,7 +1602,8 @@ class BattleEngine {
                 totalHp: sideA.filter(u => u.alive).reduce((s, u) => s + u.hp, 0),
                 maxHp: sideA.filter(u => u.alive).reduce((s, u) => s + u.maxHp, 0),
                 supply: Math.round(this.armyStats.A.supply),
-                morale: Math.round(this.armyStats.A.morale)
+                morale: Math.round(this.armyStats.A.morale),
+                resources: Math.round(this.armyStats.A.resources)
             },
             sideB: {
                 total: sideB.length,
@@ -1501,8 +1611,10 @@ class BattleEngine {
                 totalHp: sideB.filter(u => u.alive).reduce((s, u) => s + u.hp, 0),
                 maxHp: sideB.filter(u => u.alive).reduce((s, u) => s + u.maxHp, 0),
                 supply: Math.round(this.armyStats.B.supply),
-                morale: Math.round(this.armyStats.B.morale)
-            }
+                morale: Math.round(this.armyStats.B.morale),
+                resources: Math.round(this.armyStats.B.resources)
+            },
+            weather: this.getWeatherEffects()
         };
     }
 }
