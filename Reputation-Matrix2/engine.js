@@ -1,197 +1,625 @@
-// ===== BATTLE ENGINE =====
+// ===== BATTLE ENGINE - COMPLETE REWRITE WITH SMART AI =====
 
 class BattleEngine {
     constructor(gameState) {
         this.state = gameState;
         this.logs = [];
-        this.projectiles = [];
         this.effects = [];
+        this.projectiles = [];
+        this.camps = [];
+        this.bridges = [];
+        this.tents = [];
+        this.occupiedPositions = new Map(); // Track occupied positions
+        
+        // Army-wide stats
+        this.armyStats = {
+            A: { supply: 100, morale: 100, phase: 'attack', buildPoints: 0 },
+            B: { supply: 100, morale: 100, phase: 'defend', buildPoints: 0 }
+        };
+        
+        // Siege state
+        this.siegeState = {
+            turn: 0,
+            phase: 'initial',
+            stalemateCounter: 0,
+            blockedUnits: { A: new Set(), B: new Set() }
+        };
+        
+        // Initialize units
+        this.state.battleUnits.forEach(unit => {
+            unit.maxMovement = this.getMaxMovement(unit);
+            unit.movementRemaining = unit.maxMovement;
+            unit.positionHistory = [{x: unit.x, y: unit.y, turn: 0}];
+            unit.hasActedThisTurn = false;
+            unit.isRetreating = false;
+            unit.inCombat = false;
+            unit.veteranLevel = 0;
+            unit.kills = 0;
+            unit.turnsAlive = 0;
+            unit.isFortified = false;
+            unit.isBlocked = false;
+            unit.blockedTurns = 0;
+            unit.lastTarget = null;
+            unit.moraleModifier = 1;
+            
+            // Register position
+            this.setOccupied(unit.x, unit.y, unit);
+        });
+        
+        this.determineRoles();
     }
     
-    // Check if unit can traverse terrain
-    canTraverse(unit, x, y) {
+    // Position management
+    posKey(x, y) {
+        return `${x},${y}`;
+    }
+    
+    setOccupied(x, y, unit) {
+        this.occupiedPositions.set(this.posKey(x, y), unit);
+    }
+    
+    clearOccupied(x, y) {
+        this.occupiedPositions.delete(this.posKey(x, y));
+    }
+    
+    getOccupant(x, y) {
+        return this.occupiedPositions.get(this.posKey(x, y));
+    }
+    
+    isOccupied(x, y, excludeUnit = null) {
+        const occupant = this.getOccupant(x, y);
+        return occupant && occupant !== excludeUnit && occupant.alive;
+    }
+    
+    determineRoles() {
+        const map = this.state.selectedMap;
+        const aCenter = {
+            x: (map.sideAZone.x1 + map.sideAZone.x2) / 2,
+            y: (map.sideAZone.y1 + map.sideAZone.y2) / 2
+        };
+        const bCenter = {
+            x: (map.sideBZone.x1 + map.sideBZone.x2) / 2,
+            y: (map.sideBZone.y1 + map.sideBZone.y2) / 2
+        };
+        
+        const mapCenter = { x: map.width / 2, y: map.height / 2 };
+        const aDist = Math.abs(aCenter.x - mapCenter.x) + Math.abs(aCenter.y - mapCenter.y);
+        const bDist = Math.abs(bCenter.x - mapCenter.x) + Math.abs(bCenter.y - mapCenter.y);
+        
+        if (aDist > bDist) {
+            this.armyStats.A.phase = 'attack';
+            this.armyStats.B.phase = 'defend';
+        } else {
+            this.armyStats.A.phase = 'defend';
+            this.armyStats.B.phase = 'attack';
+        }
+    }
+    
+    getMaxMovement(unit) {
+        const baseSpeed = unit.speed || 5;
+        const movementBonuses = {
+            'flying': 3, 'mounted': 2, 'cavalry': 2, 'ethereal': 2,
+            'naval': 2, 'foot': 0, 'heavy': -1, 'mechanical': 0,
+            'swimming': 1, 'amphibious': 1
+        };
+        return Math.max(1, Math.floor(baseSpeed / 2) + (movementBonuses[unit.movement] || 0));
+    }
+    
+    getTerrainAt(x, y) {
         const terrain = this.state.selectedMap.terrain[y]?.[x] || 'g';
-        const terrainName = TERRAIN_TYPES[terrain]?.name.toLowerCase() || 'grass';
-        const movementType = MOVEMENT_TYPES[unit.movement] || MOVEMENT_TYPES.foot;
-        const cost = movementType[terrainName];
-        return cost < 100; // Less than 100 means traversable
+        return TERRAIN_TYPES[terrain] || TERRAIN_TYPES['g'];
     }
     
-    // Get movement cost based on terrain and unit movement type
     getMovementCost(unit, x, y) {
         const terrain = this.state.selectedMap.terrain[y]?.[x] || 'g';
         const terrainName = TERRAIN_TYPES[terrain]?.name.toLowerCase() || 'grass';
         const movementType = MOVEMENT_TYPES[unit.movement] || MOVEMENT_TYPES.foot;
+        
+        // Check for bridge
+        if (terrain === 'w' && this.hasBridgeAt(x, y)) {
+            return 1;
+        }
+        
         return movementType[terrainName] || 1;
     }
     
-    // Check if position is valid
+    canTraverse(unit, x, y) {
+        const cost = this.getMovementCost(unit, x, y);
+        return cost < 100;
+    }
+    
     isValidPosition(x, y) {
         return x >= 0 && x < this.state.selectedMap.width && 
                y >= 0 && y < this.state.selectedMap.height;
     }
     
-    // Check if cell is occupied
-    isOccupied(x, y, excludeUnit = null) {
-        return this.state.battleUnits.some(u => 
-            u.alive && u.x === x && u.y === y && u !== excludeUnit
-        );
-    }
-    
-    // Get distance between two units/positions
     getDistance(a, b) {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
     
-    // Simple direct movement towards target - much more reliable than A*
-    findNextStep(unit, targetX, targetY) {
-        const dx = targetX - unit.x;
-        const dy = targetY - unit.y;
-        
-        // Already at target
-        if (dx === 0 && dy === 0) return null;
-        
-        // Get possible moves sorted by priority
+    hasBridgeAt(x, y) {
+        return this.bridges.some(b => b.x === x && b.y === y);
+    }
+    
+    hasCampAt(x, y) {
+        return this.camps.some(c => c.x === x && c.y === y);
+    }
+    
+    hasTentAt(x, y) {
+        return this.tents.some(t => t.x === x && t.y === y);
+    }
+    
+    // Find all valid adjacent moves
+    getValidMoves(unit) {
         const moves = [];
+        const directions = [
+            { dx: 1, dy: 0 }, { dx: -1, dy: 0 },
+            { dx: 0, dy: 1 }, { dx: 0, dy: -1 }
+        ];
         
-        // Prioritize moving in the direction of target
-        if (dx > 0) moves.push({ x: unit.x + 1, y: unit.y, priority: 10 + Math.abs(dx) });
-        if (dx < 0) moves.push({ x: unit.x - 1, y: unit.y, priority: 10 + Math.abs(dx) });
-        if (dy > 0) moves.push({ x: unit.x, y: unit.y + 1, priority: 10 + Math.abs(dy) });
-        if (dy < 0) moves.push({ x: unit.x, y: unit.y - 1, priority: 10 + Math.abs(dy) });
-        
-        // Add opposite directions with lower priority (for going around obstacles)
-        if (dx <= 0) moves.push({ x: unit.x + 1, y: unit.y, priority: 1 });
-        if (dx >= 0) moves.push({ x: unit.x - 1, y: unit.y, priority: 1 });
-        if (dy <= 0) moves.push({ x: unit.x, y: unit.y + 1, priority: 1 });
-        if (dy >= 0) moves.push({ x: unit.x, y: unit.y - 1, priority: 1 });
-        
-        // Sort by priority (higher first) with some randomness for variety
-        moves.sort((a, b) => (b.priority + Math.random() * 2) - (a.priority + Math.random() * 2));
-        
-        // Find first valid move
-        for (const move of moves) {
-            if (this.isValidPosition(move.x, move.y) && 
-                !this.isOccupied(move.x, move.y, unit) &&
-                this.canTraverse(unit, move.x, move.y)) {
-                return move;
+        for (const dir of directions) {
+            const nx = unit.x + dir.dx;
+            const ny = unit.y + dir.dy;
+            
+            if (!this.isValidPosition(nx, ny)) continue;
+            if (this.isOccupied(nx, ny, unit)) continue;
+            if (!this.canTraverse(unit, nx, ny)) continue;
+            
+            const cost = this.getMovementCost(unit, nx, ny);
+            if (cost <= unit.movementRemaining) {
+                moves.push({ x: nx, y: ny, cost });
             }
         }
         
-        // If stuck, try any adjacent unoccupied cell
-        const allMoves = [
-            { x: unit.x + 1, y: unit.y },
-            { x: unit.x - 1, y: unit.y },
-            { x: unit.x, y: unit.y + 1 },
-            { x: unit.x, y: unit.y - 1 }
-        ];
+        return moves;
+    }
+    
+    // A* pathfinding to check reachability
+    canReachTarget(unit, targetX, targetY, maxSteps = 50) {
+        const start = { x: unit.x, y: unit.y };
+        const goal = { x: targetX, y: targetY };
         
-        // Shuffle for randomness
-        for (let i = allMoves.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [allMoves[i], allMoves[j]] = [allMoves[j], allMoves[i]];
+        if (start.x === goal.x && start.y === goal.y) return { reachable: true, path: [] };
+        
+        const openSet = [{ ...start, g: 0, h: this.getDistance(start, goal), path: [] }];
+        const closedSet = new Set();
+        
+        while (openSet.length > 0 && closedSet.size < maxSteps) {
+            openSet.sort((a, b) => (a.g + a.h) - (b.g + b.h));
+            const current = openSet.shift();
+            
+            const key = this.posKey(current.x, current.y);
+            if (closedSet.has(key)) continue;
+            closedSet.add(key);
+            
+            // Check if we're adjacent to goal (for attack range)
+            if (this.getDistance(current, goal) <= (unit.range || 1)) {
+                return { reachable: true, path: current.path };
+            }
+            
+            const directions = [
+                { dx: 1, dy: 0 }, { dx: -1, dy: 0 },
+                { dx: 0, dy: 1 }, { dx: 0, dy: -1 }
+            ];
+            
+            for (const dir of directions) {
+                const nx = current.x + dir.dx;
+                const ny = current.y + dir.dy;
+                
+                if (!this.isValidPosition(nx, ny)) continue;
+                
+                const nKey = this.posKey(nx, ny);
+                if (closedSet.has(nKey)) continue;
+                
+                // Check traversability (considering bridges)
+                let canPass = this.canTraverse(unit, nx, ny);
+                
+                // If it's water and we could build a bridge, consider it passable for pathfinding
+                const terrain = this.state.selectedMap.terrain[ny]?.[nx];
+                if (terrain === 'w' && !canPass && unit.movement !== 'naval') {
+                    canPass = true; // We could potentially build a bridge
+                }
+                
+                if (!canPass) continue;
+                
+                // Check if occupied (unless it's the goal)
+                if (this.isOccupied(nx, ny, unit) && !(nx === goal.x && ny === goal.y)) continue;
+                
+                const cost = this.getMovementCost(unit, nx, ny);
+                const newG = current.g + cost;
+                
+                openSet.push({
+                    x: nx, y: ny,
+                    g: newG,
+                    h: this.getDistance({ x: nx, y: ny }, goal),
+                    path: [...current.path, { x: nx, y: ny }]
+                });
+            }
         }
         
-        for (const move of allMoves) {
-            if (this.isValidPosition(move.x, move.y) && 
-                !this.isOccupied(move.x, move.y, unit) &&
-                this.canTraverse(unit, move.x, move.y)) {
-                return move;
+        return { reachable: false, path: [] };
+    }
+    
+    // Find water tile blocking path to enemy
+    findWaterBlockingPath(unit, target) {
+        const dx = Math.sign(target.x - unit.x);
+        const dy = Math.sign(target.y - unit.y);
+        
+        // Check in direction of target
+        for (let dist = 1; dist <= 8; dist++) {
+            const checkX = unit.x + dx * dist;
+            const checkY = unit.y + dy * dist;
+            
+            if (!this.isValidPosition(checkX, checkY)) break;
+            
+            const terrain = this.state.selectedMap.terrain[checkY]?.[checkX];
+            if (terrain === 'w' && !this.hasBridgeAt(checkX, checkY)) {
+                return { x: checkX, y: checkY };
+            }
+        }
+        
+        // Search nearby water tiles in expanding rings
+        for (let r = 1; r <= 6; r++) {
+            for (let dy2 = -r; dy2 <= r; dy2++) {
+                for (let dx2 = -r; dx2 <= r; dx2++) {
+                    const checkX = unit.x + dx2;
+                    const checkY = unit.y + dy2;
+                    
+                    if (!this.isValidPosition(checkX, checkY)) continue;
+                    
+                    const terrain = this.state.selectedMap.terrain[checkY]?.[checkX];
+                    if (terrain === 'w' && !this.hasBridgeAt(checkX, checkY)) {
+                        return { x: checkX, y: checkY };
+                    }
+                }
             }
         }
         
         return null;
     }
     
-    // Get all enemies
+    // Check if there's water between unit and target
+    isWaterBlocking(unit, target) {
+        const dx = Math.sign(target.x - unit.x);
+        const dy = Math.sign(target.y - unit.y);
+        const dist = this.getDistance(unit, target);
+        
+        for (let i = 1; i < dist; i++) {
+            const checkX = unit.x + Math.round(dx * i * (target.x - unit.x) / dist);
+            const checkY = unit.y + Math.round(dy * i * (target.y - unit.y) / dist);
+            
+            if (!this.isValidPosition(checkX, checkY)) continue;
+            
+            const terrain = this.state.selectedMap.terrain[checkY]?.[checkX];
+            if (terrain === 'w' && !this.hasBridgeAt(checkX, checkY)) {
+                if (!this.canTraverse(unit, checkX, checkY)) {
+                    return { x: checkX, y: checkY };
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    // Find the best spot to build a bridge (adjacent to land on both sides if possible)
+    findBestBridgeSpot(unit, target) {
+        const waterTiles = [];
+        
+        // Find all water tiles between unit and target
+        const minX = Math.min(unit.x, target.x) - 2;
+        const maxX = Math.max(unit.x, target.x) + 2;
+        const minY = Math.min(unit.y, target.y) - 2;
+        const maxY = Math.max(unit.y, target.y) + 2;
+        
+        for (let y = minY; y <= maxY; y++) {
+            for (let x = minX; x <= maxX; x++) {
+                if (!this.isValidPosition(x, y)) continue;
+                
+                const terrain = this.state.selectedMap.terrain[y]?.[x];
+                if (terrain === 'w' && !this.hasBridgeAt(x, y)) {
+                    // Check if adjacent to land on unit's side
+                    let adjacentToUnitSide = false;
+                    let adjacentToTargetSide = false;
+                    
+                    const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
+                    for (const dir of dirs) {
+                        const nx = x + dir.dx;
+                        const ny = y + dir.dy;
+                        if (!this.isValidPosition(nx, ny)) continue;
+                        
+                        const adjTerrain = this.state.selectedMap.terrain[ny]?.[nx];
+                        if (adjTerrain !== 'w' && adjTerrain !== 'l' && adjTerrain !== 'v') {
+                            const distToUnit = this.getDistance({x: nx, y: ny}, unit);
+                            const distToTarget = this.getDistance({x: nx, y: ny}, target);
+                            
+                            if (distToUnit < distToTarget) adjacentToUnitSide = true;
+                            else adjacentToTargetSide = true;
+                        }
+                    }
+                    
+                    waterTiles.push({
+                        x, y,
+                        distToUnit: this.getDistance({x, y}, unit),
+                        distToTarget: this.getDistance({x, y}, target),
+                        score: (adjacentToUnitSide ? 10 : 0) + (adjacentToTargetSide ? 10 : 0)
+                    });
+                }
+            }
+        }
+        
+        if (waterTiles.length === 0) return null;
+        
+        // Sort by score (prefer tiles adjacent to land on both sides) then by distance to unit
+        waterTiles.sort((a, b) => {
+            if (b.score !== a.score) return b.score - a.score;
+            return a.distToUnit - b.distToUnit;
+        });
+        
+        return waterTiles[0];
+    }
+    
+    // Move unit one step toward target
+    moveToward(unit, targetX, targetY) {
+        const moves = this.getValidMoves(unit);
+        if (moves.length === 0) return false;
+        
+        // Score each move
+        const currentDist = this.getDistance(unit, { x: targetX, y: targetY });
+        
+        moves.forEach(move => {
+            move.newDist = this.getDistance(move, { x: targetX, y: targetY });
+            move.improvement = currentDist - move.newDist;
+            
+            // Bonus for defensive terrain
+            const terrain = this.getTerrainAt(move.x, move.y);
+            move.terrainBonus = terrain.defenseBonus || 0;
+        });
+        
+        // Sort by improvement, then terrain bonus
+        moves.sort((a, b) => {
+            if (b.improvement !== a.improvement) return b.improvement - a.improvement;
+            return b.terrainBonus - a.terrainBonus;
+        });
+        
+        // Take best move (with some randomness to avoid deadlocks)
+        let bestMove = moves[0];
+        if (moves.length > 1 && bestMove.improvement <= 0 && Math.random() < 0.3) {
+            bestMove = moves[Math.floor(Math.random() * moves.length)];
+        }
+        
+        // Only move if it gets us closer or we're stuck
+        if (bestMove.improvement > 0 || unit.blockedTurns > 2) {
+            this.moveUnit(unit, bestMove.x, bestMove.y, bestMove.cost);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    // Actually move the unit
+    moveUnit(unit, newX, newY, cost) {
+        // Clear old position
+        this.clearOccupied(unit.x, unit.y);
+        
+        // Update unit position
+        unit.x = newX;
+        unit.y = newY;
+        unit.movementRemaining -= cost;
+        
+        // Set new position
+        this.setOccupied(newX, newY, unit);
+        
+        // Record history
+        unit.positionHistory.push({ x: newX, y: newY, turn: this.state.turn });
+        if (unit.positionHistory.length > 20) {
+            unit.positionHistory.shift();
+        }
+        
+        // Clear fortified status when moving
+        unit.isFortified = false;
+        unit.blockedTurns = 0;
+    }
+    
+    // Build a bridge
+    buildBridge(unit, x, y) {
+        if (this.hasBridgeAt(x, y)) return false;
+        
+        const terrain = this.state.selectedMap.terrain[y]?.[x];
+        if (terrain !== 'w') return false;
+        
+        // Need to be within range to build (3 tiles)
+        const dist = this.getDistance(unit, { x, y });
+        if (dist > 3) return false;
+        
+        // Must be adjacent to land on at least one side
+        const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
+        let adjacentToLand = false;
+        
+        for (const dir of dirs) {
+            const nx = x + dir.dx;
+            const ny = y + dir.dy;
+            if (!this.isValidPosition(nx, ny)) continue;
+            
+            const adjTerrain = this.state.selectedMap.terrain[ny]?.[nx];
+            if (adjTerrain && adjTerrain !== 'w' && adjTerrain !== 'l' && adjTerrain !== 'v') {
+                adjacentToLand = true;
+                break;
+            }
+        }
+        
+        if (!adjacentToLand) return false;
+        
+        this.bridges.push({
+            x, y,
+            side: unit.side,
+            builtBy: unit.id,
+            turn: this.state.turn,
+            hp: 50
+        });
+        
+        this.addLog(`🌉 ${unit.name} built a bridge at (${x},${y})!`, 'info');
+        this.addEffect(unit, 'ability');
+        
+        // Also log to help debug
+        console.log(`Bridge built at (${x},${y}) by ${unit.name}`);
+        
+        return true;
+    }
+    
+    // Extend an existing bridge
+    extendBridge(unit, fromBridge) {
+        const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
+        
+        for (const dir of dirs) {
+            const nx = fromBridge.x + dir.dx;
+            const ny = fromBridge.y + dir.dy;
+            
+            if (!this.isValidPosition(nx, ny)) continue;
+            if (this.hasBridgeAt(nx, ny)) continue;
+            
+            const terrain = this.state.selectedMap.terrain[ny]?.[nx];
+            if (terrain === 'w') {
+                // Build next bridge segment
+                this.bridges.push({
+                    x: nx, y: ny,
+                    side: unit.side,
+                    builtBy: unit.id,
+                    turn: this.state.turn,
+                    hp: 50
+                });
+                
+                this.addLog(`🌉 ${unit.name} extended bridge to (${nx},${ny})!`, 'info');
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Build a camp
+    buildCamp(unit) {
+        if (this.hasCampAt(unit.x, unit.y)) return false;
+        
+        const terrain = this.state.selectedMap.terrain[unit.y]?.[unit.x];
+        if (['w', 'l', 'v'].includes(terrain)) return false;
+        
+        this.camps.push({
+            x: unit.x,
+            y: unit.y,
+            side: unit.side,
+            builtBy: unit.id,
+            turn: this.state.turn,
+            hp: 100
+        });
+        
+        this.addLog(`🏕️ ${unit.name} set up a supply camp!`, 'info');
+        this.addEffect(unit, 'ability');
+        
+        // Boost army supply
+        this.armyStats[unit.side].supply = Math.min(100, this.armyStats[unit.side].supply + 15);
+        
+        return true;
+    }
+    
+    // Build a tent
+    buildTent(unit) {
+        if (this.hasTentAt(unit.x, unit.y)) return false;
+        
+        const terrain = this.state.selectedMap.terrain[unit.y]?.[unit.x];
+        if (['w', 'l', 'v'].includes(terrain)) return false;
+        
+        this.tents.push({
+            x: unit.x,
+            y: unit.y,
+            side: unit.side,
+            builtBy: unit.id,
+            turn: this.state.turn
+        });
+        
+        this.addLog(`⛺ ${unit.name} set up a tent!`, 'info');
+        
+        return true;
+    }
+    
+    // Fortify position
+    fortify(unit) {
+        if (unit.isFortified) return;
+        
+        unit.isFortified = true;
+        this.addLog(`🛡️ ${unit.name} fortified their position!`, 'info');
+    }
+    
+    // Get enemies
     getEnemies(unit) {
         return this.state.battleUnits.filter(u => u.side !== unit.side && u.alive);
     }
     
-    // Get all allies
+    // Get allies
     getAllies(unit) {
         return this.state.battleUnits.filter(u => u.side === unit.side && u.alive && u !== unit);
     }
     
-    // Find closest enemy
-    findClosestEnemy(unit) {
-        const enemies = this.getEnemies(unit);
-        if (enemies.length === 0) return null;
-        
-        let closest = enemies[0];
-        let closestDist = this.getDistance(unit, closest);
-        
-        for (const enemy of enemies) {
-            const dist = this.getDistance(unit, enemy);
-            if (dist < closestDist) {
-                closest = enemy;
-                closestDist = dist;
-            }
-        }
-        
-        return closest;
-    }
-    
-    // Find best target (considering weaknesses, HP, etc.)
+    // Find best target
     findBestTarget(unit) {
         const enemies = this.getEnemies(unit);
         if (enemies.length === 0) return null;
         
-        // Score targets
-        let bestEnemy = enemies[0];
+        let bestTarget = null;
         let bestScore = -Infinity;
         
         for (const enemy of enemies) {
-            let score = 100;
+            let score = 0;
+            const dist = this.getDistance(unit, enemy);
             
-            // Prefer low HP targets
-            score += (1 - enemy.hp / enemy.maxHp) * 50;
+            // Strong preference for targets in range
+            if (dist <= unit.range) score += 200;
+            
+            // Prefer low HP targets (can finish them off)
+            const hpPercent = enemy.hp / enemy.maxHp;
+            score += (1 - hpPercent) * 80;
             
             // Prefer closer targets
-            const dist = this.getDistance(unit, enemy);
-            score -= dist * 3;
+            score -= dist * 8;
             
-            // Prefer targets in range
-            if (dist <= unit.range) score += 40;
+            // Prefer soft targets
+            score += Math.max(0, 25 - enemy.defense);
             
-            // Prefer targets with weakness to our damage type
-            if (enemy.weakness && unit.abilities?.some(a => a.type === enemy.weakness)) {
-                score += 40;
-            }
+            // Prefer high value targets
+            if (enemy.isHero) score += 50;
+            if (enemy.role === 'healer') score += 60;
+            if (enemy.role === 'mage') score += 40;
+            if (enemy.role === 'siege') score += 30;
             
-            // Prefer healers and mages
-            if (enemy.role === 'healer') score += 25;
-            if (enemy.role === 'mage') score += 15;
+            // Prefer targets we can actually reach
+            const reachCheck = this.canReachTarget(unit, enemy.x, enemy.y, 20);
+            if (reachCheck.reachable) score += 100;
             
-            // Add randomness
-            score += Math.random() * 30;
+            // Small random factor
+            score += Math.random() * 15;
             
             if (score > bestScore) {
                 bestScore = score;
-                bestEnemy = enemy;
+                bestTarget = enemy;
             }
         }
         
-        return bestEnemy;
+        return bestTarget;
     }
     
-    // Find ally that needs healing
+    // Find ally to heal
     findHealTarget(unit) {
         const allies = this.getAllies(unit);
         const wounded = allies.filter(a => a.hp < a.maxHp * 0.7);
         
         if (wounded.length === 0) return null;
         
-        // Prioritize lowest HP allies in range
-        const inRange = wounded.filter(a => this.getDistance(unit, a) <= unit.range);
-        const targets = inRange.length > 0 ? inRange : wounded;
+        // Sort by HP percentage (heal most wounded first)
+        wounded.sort((a, b) => (a.hp / a.maxHp) - (b.hp / b.maxHp));
         
-        let lowestHp = targets[0];
-        for (const ally of targets) {
-            if (ally.hp < lowestHp.hp) lowestHp = ally;
-        }
+        // Prefer targets in range
+        const inRange = wounded.filter(a => this.getDistance(unit, a) <= (unit.range || 3));
         
-        return lowestHp;
+        return inRange.length > 0 ? inRange[0] : wounded[0];
     }
     
     // Calculate damage
@@ -199,70 +627,87 @@ class BattleEngine {
         let baseDamage = ability?.damage || attacker.attack;
         let defense = defender.defense;
         
-        // Apply buffs/debuffs
-        const atkBuff = attacker.buffs?.reduce((sum, b) => sum + (b.attackBonus || 0), 0) || 0;
-        const atkDebuff = attacker.debuffs?.reduce((sum, d) => sum + (d.attackDebuff || 0), 0) || 0;
-        const defBuff = defender.buffs?.reduce((sum, b) => sum + (b.defenseBonus || 0), 0) || 0;
-        const defDebuff = defender.debuffs?.reduce((sum, d) => sum + (d.defenseDebuff || 0), 0) || 0;
+        // Morale modifier
+        const morale = this.armyStats[attacker.side].morale / 100;
+        baseDamage *= (0.7 + morale * 0.5);
         
-        baseDamage += atkBuff - atkDebuff;
-        defense += defBuff - defDebuff;
-        defense = Math.max(0, defense);
+        // Supply modifier
+        const supply = this.armyStats[attacker.side].supply / 100;
+        baseDamage *= (0.6 + supply * 0.4);
         
         // Terrain defense bonus
-        const terrain = this.state.selectedMap.terrain[defender.y]?.[defender.x] || 'g';
-        defense += TERRAIN_TYPES[terrain]?.defenseBonus || 0;
+        const terrain = this.getTerrainAt(defender.x, defender.y);
+        defense += terrain.defenseBonus || 0;
         
-        // Weakness bonus
+        // Fortification bonus
+        if (defender.isFortified) {
+            defense += 20;
+        }
+        
+        // Near camp bonus
+        const nearCamp = this.camps.find(c => 
+            c.side === defender.side && this.getDistance(defender, c) <= 3
+        );
+        if (nearCamp) defense += 5;
+        
+        // Veteran bonus
+        baseDamage += attacker.veteranLevel * 5;
+        defense += defender.veteranLevel * 3;
+        
+        // Weakness check
         if (defender.weakness && ability?.type === defender.weakness) {
             baseDamage *= 2;
         }
         
-        // Ship bonus damage to other ships
-        if (attacker.isShip && defender.isShip) {
-            baseDamage *= 1.5;
-        }
+        // Apply buffs
+        const atkBuff = (attacker.buffs || []).reduce((s, b) => s + (b.attackBonus || 0), 0);
+        const defDebuff = (defender.debuffs || []).reduce((s, d) => s + (d.defenseDebuff || 0), 0);
+        baseDamage += atkBuff;
+        defense = Math.max(0, defense - defDebuff);
         
-        // Critical hit (10% base chance)
-        const critChance = 0.1 + (attacker.critBonus || 0) / 100;
-        const isCrit = Math.random() < critChance;
-        if (isCrit) {
-            baseDamage *= 1.5;
-        }
+        // Critical hit (15% chance)
+        const isCrit = Math.random() < 0.15;
+        if (isCrit) baseDamage *= 1.75;
         
-        // Calculate final damage
-        const damageReduction = defense / (defense + 50);
-        let finalDamage = Math.floor(baseDamage * (1 - damageReduction));
+        // Calculate final damage with defense reduction
+        const reduction = defense / (defense + 60);
+        let finalDamage = Math.floor(baseDamage * (1 - reduction));
         
-        // Random variance (±20%)
-        finalDamage = Math.floor(finalDamage * (0.8 + Math.random() * 0.4));
-        
-        // Minimum 1 damage
+        // Variance (±15%)
+        finalDamage = Math.floor(finalDamage * (0.85 + Math.random() * 0.3));
         finalDamage = Math.max(1, finalDamage);
         
         return { damage: finalDamage, isCrit };
     }
     
-    // Process attack
+    // Execute attack
     attack(attacker, defender) {
+        const dist = this.getDistance(attacker, defender);
+        if (dist > attacker.range) return 0;
+        
         const { damage, isCrit } = this.calculateDamage(attacker, defender);
         
         defender.hp -= damage;
+        attacker.inCombat = true;
+        defender.inCombat = true;
         
-        // Break stealth on attack
-        if (attacker.stealthed) {
-            attacker.stealthed = false;
-        }
+        // Break stealth
+        if (attacker.stealthed) attacker.stealthed = false;
         
         const critText = isCrit ? ' 💥CRIT!' : '';
-        this.addLog(`${attacker.sprite} ${attacker.name} → ${defender.name} (${damage} dmg${critText})`, 'attack');
+        this.addLog(`${attacker.sprite} ${attacker.name} hits ${defender.sprite} ${defender.name} for ${damage}${critText}`, 'attack');
         
-        // Create effects
         this.addEffect(attacker, 'attack');
-        this.addEffect(defender, 'damage');
+        this.addEffect(defender, 'damage', { amount: damage, isCrit });
         
+        // Add projectile for ranged attacks
+        if (dist > 1) {
+            this.addProjectile(attacker, defender);
+        }
+        
+        // Check for death
         if (defender.hp <= 0) {
-            this.killUnit(defender);
+            this.killUnit(defender, attacker);
         }
         
         return damage;
@@ -274,22 +719,11 @@ class BattleEngine {
         
         if (ability.heal && target) {
             const healAmount = ability.heal + (unit.healPower || 0);
+            const actualHeal = Math.min(healAmount, target.maxHp - target.hp);
+            target.hp += actualHeal;
             
-            if (ability.aoe) {
-                const allies = this.getAllies(unit).filter(a => 
-                    this.getDistance(unit, a) <= ability.aoe && a.hp < a.maxHp
-                );
-                allies.forEach(ally => {
-                    ally.hp = Math.min(ally.maxHp, ally.hp + healAmount);
-                    this.addEffect(ally, 'heal');
-                });
-                this.addLog(`💚 ${unit.name} heals ${allies.length} allies for ${healAmount} HP!`, 'heal');
-            } else {
-                target.hp = Math.min(target.maxHp, target.hp + healAmount);
-                this.addLog(`💚 ${unit.name} heals ${target.name} for ${healAmount} HP!`, 'heal');
-                this.addEffect(target, 'heal');
-            }
-            
+            this.addLog(`💚 ${unit.name} heals ${target.name} for ${actualHeal}!`, 'heal');
+            this.addEffect(target, 'heal', { amount: actualHeal });
             this.addEffect(unit, 'ability');
             return;
         }
@@ -297,9 +731,9 @@ class BattleEngine {
         if (ability.buff) {
             const targets = ability.teamWide 
                 ? [unit, ...this.getAllies(unit).filter(a => 
-                    ability.aoeRange ? this.getDistance(unit, a) <= ability.aoeRange : true
-                  )]
-                : ability.selfOnly ? [unit] : [target || unit];
+                    !ability.aoeRange || this.getDistance(unit, a) <= ability.aoeRange
+                )]
+                : ability.targetAlly && target ? [target] : [unit];
             
             targets.forEach(t => {
                 if (!t.buffs) t.buffs = [];
@@ -308,14 +742,8 @@ class BattleEngine {
                     attackBonus: ability.attackBonus || 0,
                     defenseBonus: ability.defenseBonus || 0,
                     speedBonus: ability.speedBonus || 0,
-                    hpBonus: ability.hpBonus || 0,
                     duration: ability.duration || 3
                 });
-                
-                if (ability.hpBonus) {
-                    t.hp += ability.hpBonus;
-                    t.maxHp += ability.hpBonus;
-                }
             });
             
             this.addLog(`✨ ${unit.name} uses ${ability.name}!`, 'ability');
@@ -323,84 +751,20 @@ class BattleEngine {
             return;
         }
         
-        if (ability.debuff && target) {
-            if (!target.debuffs) target.debuffs = [];
-            target.debuffs.push({
-                name: ability.name,
-                attackDebuff: ability.attackDebuff || 0,
-                defenseDebuff: ability.defenseDebuff || 0,
-                speedDebuff: ability.speedDebuff || 0,
-                duration: ability.duration || 3
-            });
-            
-            this.addLog(`🔻 ${unit.name} debuffs ${target.name}!`, 'ability');
-            this.addEffect(target, 'debuff');
-            return;
-        }
-        
         if (ability.summon) {
-            const summonData = SUMMONS[ability.summon];
-            if (summonData) {
-                const count = ability.count || 1;
-                let summoned = 0;
-                
-                for (let i = 0; i < count; i++) {
-                    const spots = [];
-                    for (let dx = -2; dx <= 2; dx++) {
-                        for (let dy = -2; dy <= 2; dy++) {
-                            const nx = unit.x + dx;
-                            const ny = unit.y + dy;
-                            if (this.isValidPosition(nx, ny) && !this.isOccupied(nx, ny)) {
-                                spots.push({ x: nx, y: ny });
-                            }
-                        }
-                    }
-                    
-                    if (spots.length > 0) {
-                        const spot = spots[Math.floor(Math.random() * spots.length)];
-                        const summonedUnit = {
-                            id: `summon_${Date.now()}_${Math.random()}`,
-                            ...summonData,
-                            x: spot.x,
-                            y: spot.y,
-                            side: unit.side,
-                            maxHp: summonData.hp,
-                            alive: true,
-                            isSummon: true,
-                            summonDuration: summonData.duration,
-                            buffs: [],
-                            debuffs: [],
-                            abilities: []
-                        };
-                        this.state.battleUnits.push(summonedUnit);
-                        summoned++;
-                    }
-                }
-                
-                if (summoned > 0) {
-                    this.addLog(`🌀 ${unit.name} summons ${summoned} ${summonData.name}(s)!`, 'ability');
-                }
-            }
-            this.addEffect(unit, 'ability');
+            this.summonUnit(unit, ability);
             return;
         }
         
         if (ability.stealth) {
             unit.stealthed = true;
             unit.stealthDuration = ability.duration || 3;
-            this.addLog(`👤 ${unit.name} vanishes!`, 'ability');
+            this.addLog(`👤 ${unit.name} vanishes into shadow!`, 'ability');
             this.addEffect(unit, 'ability');
             return;
         }
         
         if (ability.damage && target) {
-            let damage = ability.damage;
-            
-            if (target.weakness && ability.type === target.weakness) {
-                damage *= 2;
-                this.addLog(`⚡ ${target.name} is weak to ${ability.type}!`, 'info');
-            }
-            
             if (ability.aoe) {
                 const enemies = this.getEnemies(unit).filter(e => 
                     this.getDistance(target, e) <= ability.aoe
@@ -408,96 +772,473 @@ class BattleEngine {
                 
                 let totalDamage = 0;
                 enemies.forEach(enemy => {
-                    const { damage: dmg } = this.calculateDamage(unit, enemy, ability);
+                    const { damage: dmg, isCrit } = this.calculateDamage(unit, enemy, ability);
                     enemy.hp -= dmg;
                     totalDamage += dmg;
-                    this.addEffect(enemy, 'damage');
-                    
-                    if (enemy.hp <= 0) {
-                        this.killUnit(enemy);
-                    }
+                    this.addEffect(enemy, 'damage', { amount: dmg, isCrit });
+                    this.addProjectile(unit, enemy);
+                    if (enemy.hp <= 0) this.killUnit(enemy, unit);
                 });
                 
-                this.addLog(`💥 ${unit.name} uses ${ability.name}! (${totalDamage} total dmg)`, 'ability');
+                this.addLog(`💥 ${unit.name} uses ${ability.name} hitting ${enemies.length} enemies for ${totalDamage} total!`, 'ability');
             } else {
                 const { damage: dmg, isCrit } = this.calculateDamage(unit, target, ability);
                 target.hp -= dmg;
                 
-                const critText = isCrit ? ' CRIT!' : '';
-                this.addLog(`✨ ${unit.name} → ${ability.name} → ${target.name} (${dmg}${critText})`, 'ability');
-                
-                this.addEffect(target, 'damage');
+                this.addLog(`✨ ${unit.name} uses ${ability.name} on ${target.name} for ${dmg}!`, 'ability');
+                this.addEffect(target, 'damage', { amount: dmg, isCrit });
+                this.addProjectile(unit, target);
                 
                 if (ability.lifesteal) {
-                    const healAmount = Math.floor(dmg * (ability.lifesteal / 100));
-                    unit.hp = Math.min(unit.maxHp, unit.hp + healAmount);
+                    const heal = Math.floor(dmg * ability.lifesteal / 100);
+                    unit.hp = Math.min(unit.maxHp, unit.hp + heal);
+                    this.addLog(`🩸 ${unit.name} drains ${heal} HP!`, 'heal');
                 }
                 
-                if (ability.dot) {
-                    if (!target.dots) target.dots = [];
-                    target.dots.push({
-                        damage: ability.dot,
-                        duration: ability.duration || 3,
-                        type: ability.type
-                    });
-                }
-                
-                if (target.hp <= 0) {
-                    this.killUnit(target);
-                }
-            }
-            
-            if (ability.selfDamage) {
-                unit.hp -= ability.selfDamage;
-                if (unit.hp <= 0) {
-                    this.killUnit(unit);
-                    this.addLog(`💀 ${unit.name} sacrificed themselves!`, 'death');
-                }
+                if (target.hp <= 0) this.killUnit(target, unit);
             }
             
             this.addEffect(unit, 'ability');
         }
     }
     
-    // Kill unit
-    killUnit(unit) {
+    // Summon a unit
+    summonUnit(summoner, ability) {
+        const summonData = SUMMONS[ability.summon];
+        if (!summonData) return;
+        
+        const count = ability.count || 1;
+        let summoned = 0;
+        
+        for (let i = 0; i < count; i++) {
+            // Find empty adjacent spot
+            let spot = null;
+            for (let r = 1; r <= 3 && !spot; r++) {
+                for (let dy = -r; dy <= r && !spot; dy++) {
+                    for (let dx = -r; dx <= r && !spot; dx++) {
+                        const nx = summoner.x + dx;
+                        const ny = summoner.y + dy;
+                        if (this.isValidPosition(nx, ny) && !this.isOccupied(nx, ny) && this.canTraverse(summoner, nx, ny)) {
+                            spot = { x: nx, y: ny };
+                        }
+                    }
+                }
+            }
+            
+            if (spot) {
+                const newUnit = {
+                    id: `summon_${Date.now()}_${Math.random()}`,
+                    ...summonData,
+                    x: spot.x,
+                    y: spot.y,
+                    side: summoner.side,
+                    maxHp: summonData.hp,
+                    alive: true,
+                    isSummon: true,
+                    summonDuration: summonData.duration,
+                    buffs: [],
+                    debuffs: [],
+                    abilities: [],
+                    positionHistory: [{x: spot.x, y: spot.y, turn: this.state.turn}],
+                    maxMovement: 3,
+                    movementRemaining: 3,
+                    veteranLevel: 0,
+                    kills: 0
+                };
+                
+                this.state.battleUnits.push(newUnit);
+                this.setOccupied(spot.x, spot.y, newUnit);
+                summoned++;
+            }
+        }
+        
+        if (summoned > 0) {
+            this.addLog(`🌀 ${summoner.name} summons ${summoned}x ${summonData.name}!`, 'ability');
+        }
+        this.addEffect(summoner, 'ability');
+    }
+    
+    // Kill a unit
+    killUnit(unit, killer = null) {
         unit.alive = false;
         unit.hp = 0;
-        this.addLog(`💀 ${unit.name} destroyed!`, 'death');
+        
+        // Clear occupied position
+        this.clearOccupied(unit.x, unit.y);
+        
+        this.addLog(`💀 ${unit.sprite} ${unit.name} has been slain!`, 'death');
         this.addEffect(unit, 'death');
+        
+        // Update morale
+        const moraleLoss = unit.isHero ? 20 : 5;
+        this.armyStats[unit.side].morale = Math.max(0, this.armyStats[unit.side].morale - moraleLoss);
+        
+        // Boost enemy morale
+        const enemySide = unit.side === 'A' ? 'B' : 'A';
+        this.armyStats[enemySide].morale = Math.min(100, this.armyStats[enemySide].morale + (unit.isHero ? 10 : 2));
+        
+        // Award kill
+        if (killer) {
+            killer.kills = (killer.kills || 0) + 1;
+            this.checkVeteranUpgrade(killer);
+        }
     }
     
-    // Move unit towards target
-    moveUnit(unit, targetX, targetY) {
-        // Calculate how many steps based on speed
-        const steps = Math.max(1, Math.floor(unit.speed / 3));
+    // Check for veteran upgrade
+    checkVeteranUpgrade(unit) {
+        const kills = unit.kills;
+        if (kills >= 8 && unit.veteranLevel < 3) {
+            unit.veteranLevel = 3;
+            unit.attack += 8;
+            unit.defense += 5;
+            unit.maxHp += 20;
+            unit.hp += 20;
+            this.addLog(`⭐⭐⭐ ${unit.name} is now LEGENDARY!`, 'info');
+        } else if (kills >= 4 && unit.veteranLevel < 2) {
+            unit.veteranLevel = 2;
+            unit.attack += 5;
+            unit.defense += 3;
+            unit.maxHp += 10;
+            unit.hp += 10;
+            this.addLog(`⭐⭐ ${unit.name} is now ELITE!`, 'info');
+        } else if (kills >= 2 && unit.veteranLevel < 1) {
+            unit.veteranLevel = 1;
+            unit.attack += 3;
+            unit.defense += 2;
+            unit.maxHp += 5;
+            unit.hp += 5;
+            this.addLog(`⭐ ${unit.name} is now a VETERAN!`, 'info');
+        }
+    }
+    
+    // Check if unit should retreat
+    shouldRetreat(unit) {
+        if (unit.isHero) return false;
+        if (unit.isRetreating) return true;
         
-        for (let i = 0; i < steps; i++) {
-            if (unit.x === targetX && unit.y === targetY) break;
+        const hpPercent = unit.hp / unit.maxHp;
+        const morale = this.armyStats[unit.side].morale;
+        
+        if (hpPercent < 0.2 && morale < 30) {
+            if (Math.random() < 0.5) {
+                unit.isRetreating = true;
+                this.addLog(`🏃 ${unit.name} is retreating!`, 'info');
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Get retreat direction
+    getRetreatTarget(unit) {
+        const enemies = this.getEnemies(unit);
+        if (enemies.length === 0) return null;
+        
+        // Average enemy position
+        let avgX = 0, avgY = 0;
+        enemies.forEach(e => { avgX += e.x; avgY += e.y; });
+        avgX /= enemies.length;
+        avgY /= enemies.length;
+        
+        // Move away from enemies
+        const dx = unit.x - avgX;
+        const dy = unit.y - avgY;
+        
+        return {
+            x: Math.max(0, Math.min(this.state.selectedMap.width - 1, unit.x + Math.sign(dx) * 5)),
+            y: Math.max(0, Math.min(this.state.selectedMap.height - 1, unit.y + Math.sign(dy) * 5))
+        };
+    }
+    
+    // Process attacker unit
+    processAttacker(unit) {
+        if (this.shouldRetreat(unit)) {
+            const retreatTarget = this.getRetreatTarget(unit);
+            if (retreatTarget) {
+                this.moveToward(unit, retreatTarget.x, retreatTarget.y);
+            }
+            return;
+        }
+        
+        // Healers prioritize healing
+        if (unit.role === 'healer' || unit.healPower > 0) {
+            const healTarget = this.findHealTarget(unit);
+            if (healTarget) {
+                const dist = this.getDistance(unit, healTarget);
+                if (dist <= (unit.range || 3)) {
+                    const healAbility = unit.abilities?.find(a => 
+                        a.heal && (!a.currentCooldown || a.currentCooldown === 0)
+                    );
+                    if (healAbility) {
+                        this.useAbility(unit, healAbility, healTarget);
+                        return;
+                    }
+                    // Basic heal
+                    const healAmount = 10 + (unit.healPower || 0);
+                    healTarget.hp = Math.min(healTarget.maxHp, healTarget.hp + healAmount);
+                    this.addLog(`💚 ${unit.name} heals ${healTarget.name} for ${healAmount}!`, 'heal');
+                    this.addEffect(healTarget, 'heal', { amount: healAmount });
+                    return;
+                } else {
+                    this.moveToward(unit, healTarget.x, healTarget.y);
+                    return;
+                }
+            }
+        }
+        
+        // Find target
+        const target = this.findBestTarget(unit);
+        if (!target) return;
+        
+        const dist = this.getDistance(unit, target);
+        
+        // Check if we can reach target
+        const reachCheck = this.canReachTarget(unit, target.x, target.y);
+        
+        if (!reachCheck.reachable) {
+            unit.blockedTurns++;
+            unit.isBlocked = true;
             
-            const nextStep = this.findNextStep(unit, targetX, targetY);
-            if (nextStep) {
-                unit.x = nextStep.x;
-                unit.y = nextStep.y;
-            } else {
-                break; // Can't move
+            // Check if water is blocking us
+            const waterBlocking = this.isWaterBlocking(unit, target);
+            const bestBridgeSpot = this.findBestBridgeSpot(unit, target);
+            
+            // Try to build bridge if water is blocking
+            if (waterBlocking || bestBridgeSpot) {
+                const bridgeTarget = bestBridgeSpot || waterBlocking;
+                
+                if (bridgeTarget && !this.hasBridgeAt(bridgeTarget.x, bridgeTarget.y)) {
+                    const bridgeDist = this.getDistance(unit, bridgeTarget);
+                    
+                    if (bridgeDist <= 2) {
+                        // Close enough to build
+                        if (this.buildBridge(unit, bridgeTarget.x, bridgeTarget.y)) {
+                            this.armyStats[unit.side].buildPoints++;
+                            return;
+                        }
+                    }
+                    
+                    // Move toward water to build bridge
+                    // Find land tile adjacent to the water
+                    const dirs = [{dx:1,dy:0},{dx:-1,dy:0},{dx:0,dy:1},{dx:0,dy:-1}];
+                    let bestLandSpot = null;
+                    let bestDist = Infinity;
+                    
+                    for (const dir of dirs) {
+                        const lx = bridgeTarget.x + dir.dx;
+                        const ly = bridgeTarget.y + dir.dy;
+                        
+                        if (!this.isValidPosition(lx, ly)) continue;
+                        
+                        const terrain = this.state.selectedMap.terrain[ly]?.[lx];
+                        if (terrain !== 'w' && terrain !== 'l' && terrain !== 'v') {
+                            const dist = this.getDistance(unit, {x: lx, y: ly});
+                            if (dist < bestDist && !this.isOccupied(lx, ly, unit)) {
+                                bestDist = dist;
+                                bestLandSpot = {x: lx, y: ly};
+                            }
+                        }
+                    }
+                    
+                    if (bestLandSpot) {
+                        this.moveToward(unit, bestLandSpot.x, bestLandSpot.y);
+                        return;
+                    }
+                }
+            }
+            
+            // Build tent first if blocked
+            if (unit.blockedTurns >= 2 && !this.hasTentAt(unit.x, unit.y)) {
+                this.buildTent(unit);
+            }
+            
+            // Build camp if stuck for a while
+            if (unit.blockedTurns >= 3 && !this.hasCampAt(unit.x, unit.y) && unit.isHero) {
+                this.buildCamp(unit);
+                return;
+            }
+            
+            // Try to find alternative path around
+            this.moveToward(unit, target.x, target.y);
+            return;
+        } else {
+            unit.blockedTurns = 0;
+            unit.isBlocked = false;
+        }
+        
+        // In range? Attack!
+        if (dist <= unit.range) {
+            // Try to use ability
+            if (unit.abilities && Math.random() < 0.4) {
+                const ability = unit.abilities.find(a => 
+                    (!a.currentCooldown || a.currentCooldown === 0) &&
+                    a.damage &&
+                    dist <= (a.range || unit.range)
+                );
+                if (ability) {
+                    this.useAbility(unit, ability, target);
+                    return;
+                }
+            }
+            
+            this.attack(unit, target);
+        } else {
+            // Move toward target
+            const moved = this.moveToward(unit, target.x, target.y);
+            
+            // Attack after moving if in range
+            if (moved) {
+                const newDist = this.getDistance(unit, target);
+                if (newDist <= unit.range && unit.movementRemaining >= 0) {
+                    this.attack(unit, target);
+                }
             }
         }
     }
     
-    // Process single unit's turn
-    processUnitTurn(unit) {
+    // Process defender unit
+    processDefender(unit) {
+        if (this.shouldRetreat(unit)) {
+            const retreatTarget = this.getRetreatTarget(unit);
+            if (retreatTarget) {
+                this.moveToward(unit, retreatTarget.x, retreatTarget.y);
+            }
+            return;
+        }
+        
+        // Healers prioritize healing
+        if (unit.role === 'healer' || unit.healPower > 0) {
+            const healTarget = this.findHealTarget(unit);
+            if (healTarget) {
+                const dist = this.getDistance(unit, healTarget);
+                if (dist <= (unit.range || 3)) {
+                    const healAmount = 10 + (unit.healPower || 0);
+                    healTarget.hp = Math.min(healTarget.maxHp, healTarget.hp + healAmount);
+                    this.addLog(`💚 ${unit.name} heals ${healTarget.name} for ${healAmount}!`, 'heal');
+                    this.addEffect(healTarget, 'heal', { amount: healAmount });
+                    return;
+                }
+            }
+        }
+        
+        const target = this.findBestTarget(unit);
+        if (!target) return;
+        
+        const dist = this.getDistance(unit, target);
+        const reachCheck = this.canReachTarget(unit, target.x, target.y, 20);
+        
+        // If we can't reach the target, check if we need bridges
+        if (!reachCheck.reachable) {
+            unit.blockedTurns++;
+            unit.isBlocked = true;
+            
+            // Defenders also build bridges if they need to counter-attack
+            if (unit.blockedTurns >= 3) {
+                const waterBlocking = this.isWaterBlocking(unit, target);
+                if (waterBlocking) {
+                    const bridgeDist = this.getDistance(unit, waterBlocking);
+                    if (bridgeDist <= 3) {
+                        this.buildBridge(unit, waterBlocking.x, waterBlocking.y);
+                        return;
+                    }
+                }
+            }
+            
+            // Build defensive structures while waiting
+            if (!this.hasTentAt(unit.x, unit.y) && unit.blockedTurns >= 2) {
+                this.buildTent(unit);
+            }
+            if (!this.hasCampAt(unit.x, unit.y) && unit.isHero && unit.blockedTurns >= 3) {
+                this.buildCamp(unit);
+                return;
+            }
+        } else {
+            unit.blockedTurns = 0;
+            unit.isBlocked = false;
+        }
+        
+        // Get terrain info
+        const currentTerrain = this.getTerrainAt(unit.x, unit.y);
+        const isDefensiveTerrain = currentTerrain.defenseBonus >= 10;
+        
+        // If already on defensive terrain and enemy approaching, fortify
+        if (isDefensiveTerrain && dist <= 5) {
+            if (!unit.isFortified) {
+                this.fortify(unit);
+            }
+            
+            // Attack if in range
+            if (dist <= unit.range) {
+                this.attack(unit, target);
+            }
+            return;
+        }
+        
+        // Find nearby defensive terrain
+        if (!unit.isFortified && dist > 4) {
+            let bestDefSpot = null;
+            let bestDefBonus = 0;
+            
+            for (let dy = -5; dy <= 5; dy++) {
+                for (let dx = -5; dx <= 5; dx++) {
+                    const checkX = unit.x + dx;
+                    const checkY = unit.y + dy;
+                    
+                    if (!this.isValidPosition(checkX, checkY)) continue;
+                    if (this.isOccupied(checkX, checkY, unit)) continue;
+                    if (!this.canTraverse(unit, checkX, checkY)) continue;
+                    
+                    const terrain = this.getTerrainAt(checkX, checkY);
+                    if (terrain.defenseBonus > bestDefBonus) {
+                        bestDefBonus = terrain.defenseBonus;
+                        bestDefSpot = { x: checkX, y: checkY };
+                    }
+                }
+            }
+            
+            if (bestDefSpot && bestDefBonus > 5) {
+                this.moveToward(unit, bestDefSpot.x, bestDefSpot.y);
+                return;
+            }
+        }
+        
+        // Attack if in range
+        if (dist <= unit.range) {
+            this.attack(unit, target);
+        } else if (dist <= unit.range + 4) {
+            // Move toward enemy if close enough to engage
+            this.moveToward(unit, target.x, target.y);
+            
+            // Attack after moving if in range
+            const newDist = this.getDistance(unit, target);
+            if (newDist <= unit.range) {
+                this.attack(unit, target);
+            }
+        } else {
+            // Enemy far away, build defenses
+            if (!this.hasCampAt(unit.x, unit.y) && unit.isHero && Math.random() < 0.4) {
+                this.buildCamp(unit);
+                return;
+            } else if (!this.hasTentAt(unit.x, unit.y) && Math.random() < 0.3) {
+                this.buildTent(unit);
+            }
+            
+            if (!unit.isFortified) {
+                this.fortify(unit);
+            }
+        }
+    }
+    
+    // Process a single unit
+    processUnit(unit) {
         if (!unit.alive) return;
         
-        // Process stealth
-        if (unit.stealthed) {
-            unit.stealthDuration--;
-            if (unit.stealthDuration <= 0) {
-                unit.stealthed = false;
-            }
-        }
+        unit.turnsAlive++;
+        unit.movementRemaining = unit.maxMovement;
+        unit.hasActedThisTurn = false;
         
-        // Reduce ability cooldowns
+        // Reduce cooldowns
         if (unit.abilities) {
             unit.abilities.forEach(a => {
                 if (a.currentCooldown > 0) a.currentCooldown--;
@@ -508,34 +1249,17 @@ class BattleEngine {
         if (unit.buffs) {
             unit.buffs = unit.buffs.filter(b => {
                 b.duration--;
-                if (b.duration <= 0 && b.hpBonus) {
-                    unit.maxHp -= b.hpBonus;
-                    unit.hp = Math.min(unit.hp, unit.maxHp);
-                }
                 return b.duration > 0;
             });
         }
         
-        // Process debuffs
-        if (unit.debuffs) {
-            unit.debuffs = unit.debuffs.filter(d => {
-                d.duration--;
-                return d.duration > 0;
-            });
-        }
-        
-        // Process DOTs
-        if (unit.dots && unit.dots.length > 0) {
-            unit.dots = unit.dots.filter(dot => {
-                unit.hp -= dot.damage;
-                dot.duration--;
-                
-                if (unit.hp <= 0) {
-                    this.killUnit(unit);
-                }
-                
-                return dot.duration > 0 && unit.alive;
-            });
+        // Process stealth
+        if (unit.stealthed) {
+            unit.stealthDuration--;
+            if (unit.stealthDuration <= 0) {
+                unit.stealthed = false;
+                this.addLog(`${unit.name} is revealed!`, 'info');
+            }
         }
         
         // Process summon duration
@@ -543,148 +1267,164 @@ class BattleEngine {
             unit.summonDuration--;
             if (unit.summonDuration <= 0) {
                 unit.alive = false;
+                this.clearOccupied(unit.x, unit.y);
                 this.addLog(`${unit.name} fades away...`, 'info');
                 return;
             }
         }
         
-        if (!unit.alive) return;
-        
-        const enemies = this.getEnemies(unit);
-        if (enemies.length === 0) return;
-        
-        // Healers prioritize healing
-        if ((unit.role === 'healer' || unit.healPower > 0) && Math.random() < 0.7) {
-            const healTarget = this.findHealTarget(unit);
-            if (healTarget) {
-                const healAbility = unit.abilities?.find(a => a.heal && a.currentCooldown === 0);
-                if (healAbility && this.getDistance(unit, healTarget) <= (healAbility.range || unit.range)) {
-                    this.useAbility(unit, healAbility, healTarget);
-                    return;
-                } else {
-                    this.moveUnit(unit, healTarget.x, healTarget.y);
-                    return;
-                }
-            }
+        // Camp healing
+        const nearCamp = this.camps.find(c => 
+            c.side === unit.side && this.getDistance(unit, c) <= 3
+        );
+        if (nearCamp && unit.hp < unit.maxHp) {
+            const heal = Math.min(5, unit.maxHp - unit.hp);
+            unit.hp += heal;
         }
         
-        // Find target
-        const target = this.findBestTarget(unit);
-        if (!target) return;
+        // Process based on army phase
+        const phase = this.armyStats[unit.side].phase;
         
-        const distance = this.getDistance(unit, target);
-        
-        // Check for ability use
-        if (unit.abilities && unit.abilities.length > 0 && Math.random() < 0.4) {
-            // Damage abilities
-            const damageAbility = unit.abilities.find(a => 
-                a.currentCooldown === 0 && 
-                a.damage && 
-                distance <= (a.range || unit.range)
-            );
-            
-            if (damageAbility) {
-                this.useAbility(unit, damageAbility, target);
-                return;
-            }
-            
-            // Buff abilities
-            const buffAbility = unit.abilities.find(a => 
-                a.currentCooldown === 0 && 
-                a.buff
-            );
-            
-            if (buffAbility && Math.random() < 0.3) {
-                this.useAbility(unit, buffAbility);
-                return;
-            }
-            
-            // Summon abilities
-            const summonAbility = unit.abilities.find(a => 
-                a.currentCooldown === 0 && 
-                a.summon
-            );
-            
-            if (summonAbility && Math.random() < 0.3) {
-                this.useAbility(unit, summonAbility);
-                return;
-            }
-        }
-        
-        // Attack if in range
-        if (distance <= unit.range) {
-            this.attack(unit, target);
+        if (phase === 'defend') {
+            this.processDefender(unit);
         } else {
-            // Move towards target
-            this.moveUnit(unit, target.x, target.y);
-            
-            // Attack if now in range
-            const newDistance = this.getDistance(unit, target);
-            if (newDistance <= unit.range) {
-                this.attack(unit, target);
-            }
+            this.processAttacker(unit);
         }
     }
     
     // Process terrain damage
     processTerrainDamage() {
         this.state.battleUnits.filter(u => u.alive).forEach(unit => {
-            const terrain = this.state.selectedMap.terrain[unit.y]?.[unit.x] || 'g';
-            const terrainData = TERRAIN_TYPES[terrain];
+            const terrain = this.getTerrainAt(unit.x, unit.y);
             
-            if (terrainData?.damage) {
-                // Flying and ethereal units avoid most terrain damage
-                if (unit.movement === 'flying' || unit.movement === 'ethereal') return;
-                // Ships don't take water damage
-                if (unit.movement === 'naval' && terrainData.name === 'Water') return;
-                if (unit.movement === 'swimming' && terrainData.name === 'Water') return;
+            if (terrain.damage) {
+                // Flying and ethereal avoid most terrain damage
+                if (['flying', 'ethereal'].includes(unit.movement)) return;
+                // Naval on water is fine
+                if (unit.movement === 'naval' && terrain.name === 'Water') return;
+                if (unit.movement === 'swimming' && terrain.name === 'Water') return;
+                if (unit.movement === 'amphibious' && terrain.name === 'Water') return;
                 
-                unit.hp -= terrainData.damage;
+                unit.hp -= terrain.damage;
                 
                 if (unit.hp <= 0) {
                     this.killUnit(unit);
-                    this.addLog(`${unit.name} died from ${terrainData.name}!`, 'death');
+                    this.addLog(`☠️ ${unit.name} perished in ${terrain.name}!`, 'death');
                 }
             }
         });
     }
     
-    // Process full turn
+    // Update army stats
+    updateArmyStats() {
+        ['A', 'B'].forEach(side => {
+            const units = this.state.battleUnits.filter(u => u.side === side && u.alive);
+            
+            // Supply from camps
+            const camps = this.camps.filter(c => c.side === side);
+            let supply = 40 + camps.length * 25;
+            
+            // Tents add small supply
+            const tents = this.tents.filter(t => t.side === side);
+            supply += tents.length * 5;
+            
+            supply = Math.min(100, Math.max(0, supply));
+            this.armyStats[side].supply = supply;
+            
+            // Morale recovery near camps
+            if (camps.length > 0 && this.armyStats[side].morale < 80) {
+                this.armyStats[side].morale = Math.min(100, this.armyStats[side].morale + 1);
+            }
+        });
+    }
+    
+    // Update siege state
+    updateSiegeState() {
+        // Check for stalemate
+        const recentDeaths = this.logs.filter(l => 
+            l.type === 'death' && l.turn >= this.state.turn - 8
+        ).length;
+        
+        if (recentDeaths === 0 && this.state.turn > 15) {
+            this.siegeState.stalemateCounter++;
+            
+            if (this.siegeState.stalemateCounter >= 6 && this.siegeState.phase !== 'stalemate') {
+                this.siegeState.phase = 'stalemate';
+                this.addLog('⚠️ The battle has reached a stalemate! Both sides are building up...', 'info');
+            }
+            
+            // After building up, launch new assault
+            if (this.siegeState.stalemateCounter >= 15) {
+                this.siegeState.stalemateCounter = 0;
+                this.siegeState.phase = 'assault';
+                this.addLog('⚔️ RENEWED ASSAULT! Both sides charge forward!', 'info');
+                
+                // Boost morale for assault
+                this.armyStats.A.morale = Math.min(100, this.armyStats.A.morale + 25);
+                this.armyStats.B.morale = Math.min(100, this.armyStats.B.morale + 25);
+                
+                // Clear fortifications for attackers
+                this.state.battleUnits.filter(u => u.alive).forEach(u => {
+                    if (this.armyStats[u.side].phase === 'attack') {
+                        u.isFortified = false;
+                        u.blockedTurns = 0;
+                    }
+                });
+            }
+        } else {
+            this.siegeState.stalemateCounter = 0;
+            this.siegeState.phase = 'combat';
+        }
+    }
+    
+    // Main turn processor
     processTurn() {
-        const aliveUnits = this.state.battleUnits.filter(u => u.alive);
-        const sideAAlive = aliveUnits.filter(u => u.side === 'A');
-        const sideBAlive = aliveUnits.filter(u => u.side === 'B');
-        
         // Check victory conditions
-        if (sideAAlive.length === 0) {
-            return { winner: 'B', reason: 'All Side A units eliminated' };
+        const aAlive = this.state.battleUnits.filter(u => u.side === 'A' && u.alive);
+        const bAlive = this.state.battleUnits.filter(u => u.side === 'B' && u.alive);
+        
+        if (aAlive.length === 0) {
+            return { winner: 'B', reason: 'All Side A units eliminated!' };
         }
-        if (sideBAlive.length === 0) {
-            return { winner: 'A', reason: 'All Side B units eliminated' };
+        if (bAlive.length === 0) {
+            return { winner: 'A', reason: 'All Side B units eliminated!' };
         }
         
-        // Sort by speed with randomness
-        aliveUnits.sort((a, b) => {
-            const speedA = a.speed + (a.buffs?.reduce((s, buff) => s + (buff.speedBonus || 0), 0) || 0);
-            const speedB = b.speed + (b.buffs?.reduce((s, buff) => s + (buff.speedBonus || 0), 0) || 0);
-            return (speedB + Math.random() * 3) - (speedA + Math.random() * 3);
+        // Check morale collapse
+        if (this.armyStats.A.morale <= 0) {
+            return { winner: 'B', reason: 'Side A morale collapsed - army routed!' };
+        }
+        if (this.armyStats.B.morale <= 0) {
+            return { winner: 'A', reason: 'Side B morale collapsed - army routed!' };
+        }
+        
+        this.state.turn++;
+        
+        // Update systems
+        this.updateArmyStats();
+        this.updateSiegeState();
+        
+        // Sort units by speed (with randomness)
+        const allAlive = [...aAlive, ...bAlive];
+        allAlive.sort((a, b) => {
+            const speedA = a.speed + Math.random() * 4;
+            const speedB = b.speed + Math.random() * 4;
+            return speedB - speedA;
         });
         
         // Process each unit
-        for (const unit of aliveUnits) {
+        for (const unit of allAlive) {
             if (unit.alive) {
-                this.processUnitTurn(unit);
+                this.processUnit(unit);
             }
         }
         
-        // Process terrain damage
+        // Process terrain damage at end of turn
         this.processTerrainDamage();
         
-        // Clear expired effects
+        // Clear old effects
         this.effects = this.effects.filter(e => e.duration > 0);
         this.effects.forEach(e => e.duration--);
-        
-        this.state.turn++;
         
         return null;
     }
@@ -698,23 +1438,25 @@ class BattleEngine {
             timestamp: Date.now()
         });
         
-        if (this.logs.length > 200) {
-            this.logs.shift();
-        }
+        if (this.logs.length > 300) this.logs.shift();
     }
     
     // Add visual effect
-    addEffect(unit, type) {
+    addEffect(unit, type, extra = {}) {
         this.effects.push({
             unitId: unit.id,
             type,
-            duration: 2
+            duration: 4,
+            fresh: true,
+            ...extra
         });
     }
     
     // Add projectile
-    addProjectile(from, to, sprite) {
+    addProjectile(from, to) {
+        const sprite = this.getProjectileSprite(from);
         this.projectiles.push({
+            id: Date.now() + Math.random(),
             fromX: from.x,
             fromY: from.y,
             toX: to.x,
@@ -724,7 +1466,22 @@ class BattleEngine {
         });
     }
     
-    // Get battle statistics
+    getProjectileSprite(unit) {
+        const name = (unit.name || '').toLowerCase();
+        if (name.includes('fire') || name.includes('flame')) return '🔥';
+        if (name.includes('ice') || name.includes('frost')) return '❄️';
+        if (name.includes('lightning') || name.includes('storm')) return '⚡';
+        if (name.includes('arrow') || name.includes('bow') || name.includes('archer')) return '➵';
+        if (name.includes('gun') || name.includes('laser')) return '💥';
+        if (name.includes('dragon')) return '🔥';
+        if (unit.role === 'mage') return '✨';
+        if (unit.role === 'ranged') return '➸';
+        if (unit.role === 'siege') return '💣';
+        if (unit.role === 'warship' || unit.role === 'destroyer') return '💣';
+        return '•';
+    }
+    
+    // Get stats
     getStats() {
         const sideA = this.state.battleUnits.filter(u => u.side === 'A');
         const sideB = this.state.battleUnits.filter(u => u.side === 'B');
@@ -734,13 +1491,17 @@ class BattleEngine {
                 total: sideA.length,
                 alive: sideA.filter(u => u.alive).length,
                 totalHp: sideA.filter(u => u.alive).reduce((s, u) => s + u.hp, 0),
-                maxHp: sideA.filter(u => u.alive).reduce((s, u) => s + u.maxHp, 0)
+                maxHp: sideA.filter(u => u.alive).reduce((s, u) => s + u.maxHp, 0),
+                supply: Math.round(this.armyStats.A.supply),
+                morale: Math.round(this.armyStats.A.morale)
             },
             sideB: {
                 total: sideB.length,
                 alive: sideB.filter(u => u.alive).length,
                 totalHp: sideB.filter(u => u.alive).reduce((s, u) => s + u.hp, 0),
-                maxHp: sideB.filter(u => u.alive).reduce((s, u) => s + u.maxHp, 0)
+                maxHp: sideB.filter(u => u.alive).reduce((s, u) => s + u.maxHp, 0),
+                supply: Math.round(this.armyStats.B.supply),
+                morale: Math.round(this.armyStats.B.morale)
             }
         };
     }
