@@ -103,6 +103,20 @@ const RitualData = {
                 east: { character: "Others", role: "Balance", required: false },
                 west: { character: "Others", role: "Balance", required: false }
             },
+                    details: `
+            <div class="scene-details-box">
+                <h4>🕯️ The Setup</h4>
+                <p>The Oracle moves to the center and describes the arrangement before the ritual begins.</p>
+                <ol>
+                    <li>"North for Ice, for preservation. Archie."</li>
+                    <li>"South for Mass, for reality. Bowser."</li>
+                    <li>"West for Chaos, for the pressure valve. Waluigi."</li>
+                    <li>"East for the Protector, for the shield. Markop."</li>
+                    <li>"Center for the Voice. I will stand here."</li>
+                </ol>
+                <p>"The candles are unlit. They will light when the circle is sealed. Do not touch them."</p>
+            </div>
+        `,
             checks: [
                 {
                     name: "Position Intuition",

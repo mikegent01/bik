@@ -1229,58 +1229,6 @@ lightCandle(position) {
     }
 }
 
-checkCandleSequence() {
-    const puzzle = this.getLogicPuzzles().candle_sequence;
-    const correct = puzzle.correct_order;
-    const player = this.puzzleState.candleOrder;
-    
-    const resultDiv = document.getElementById('candle-puzzle-result');
-    let resultHtml = '';
-    
-    if (JSON.stringify(player) === JSON.stringify(correct)) {
-        resultHtml = `
-            <div class="result success">
-                <h3>✓ Perfect Sequence!</h3>
-                <p>${puzzle.consequences.perfect}</p>
-            </div>
-        `;
-        this.logEvent('Candle Sequence: PERFECT');
-    } else if (player[0] === 'CENTER') {
-        resultHtml = `
-            <div class="result failure">
-                <h3>💥 CENTER Lit First!</h3>
-                <p>${puzzle.consequences.center_early}</p>
-            </div>
-        `;
-        this.logEvent('Candle Sequence: CENTER FIRST - Oracle damaged');
-    } else if (player[0] !== correct[0]) {
-        resultHtml = `
-            <div class="result failure">
-                <h3>✗ Wrong First Candle</h3>
-                <p>${puzzle.consequences.wrong_first}</p>
-            </div>
-        `;
-        this.logEvent('Candle Sequence: Wrong first candle');
-    } else {
-        // Check for swaps
-        let swaps = 0;
-        for (let i = 0; i < correct.length; i++) {
-            if (player[i] !== correct[i]) swaps++;
-        }
-        resultHtml = `
-            <div class="result partial">
-                <h3>⚠️ Sequence Has Errors</h3>
-                <p>${puzzle.consequences.one_swap}</p>
-                <p>${swaps} positions differ from optimal.</p>
-            </div>
-        `;
-        this.adjustIntegrity(-1);
-        this.logEvent('Candle Sequence: Partial errors');
-    }
-    
-    resultDiv.innerHTML = resultHtml;
-    document.getElementById('candle-solution').classList.remove('hidden');
-}
 
 resetCandleSequence() {
     this.puzzleState.candleOrder = [];
