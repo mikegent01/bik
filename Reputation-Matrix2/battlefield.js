@@ -101,6 +101,48 @@ export const CONFLICT_DETAILS = {
     keyFactions: ['iron_legion', 'liberated_toads', 'noki_shellfish'],
     estimatedCasualties: "40+ Legionnaires, 34 Toads missing/displaced"
 },    
+
+"The Primordial Wyrm Crisis": {
+    summary: "An existential threat to all kingdoms triggered by Kamek's betrayal and awakening of an ancient entity imprisoned beneath the Valley of Bowser.",
+    startYear: 1040,
+    endYear: 1040,
+    status: "resolved",
+    rootCause: "Kamek's ambition to seize power during Bowser's absence led him to excavate and breach the ancient prison of the Primordial Wyrm—an entity that predates the Stars themselves.",
+    majorPhases: [
+        { name: "The Excavation (Day 18-21)", description: "Kamek initiates 'reconstruction project' as cover for excavation of ancient prison. Workers report unexplained energy drain." },
+        { name: "The Awakening (Day 22)", description: "Kamek's ritual circle breaches the first seal. The Wyrm begins awakening. 377 workers killed or corrupted. 23 escape through old Krew tunnels." },
+        { name: "The Resistance Forms (Day 23)", description: "Survivors rally at ancient safehouse. Hammer Bro Sergeant assumes field command per Bowser's orders. Coalition talks begin." },
+        { name: "The Rescue (Day 24)", description: "47 additional survivors extracted from bunkers. Total Resistance strength reaches 68. Anchor crystal locations discovered." },
+        { name: "The Seven Seals Campaign (Day 25-27)", description: "Coordinated assaults on seven anchor crystals. Iron Legion and Mushroom Regency join coalition. Multiple heroic sacrifices." },
+        { name: "The Fall of Kamek (Day 27)", description: "Final anchor destroyed. Wyrm re-imprisoned. Kamek captured and sentenced to eternal imprisonment." },
+        { name: "The King Returns (Day 28-29)", description: "Bowser arrives to find kingdom saved by his own workers and soldiers. Reconstruction begins under new leadership." }
+    ],
+    keyFactions: ['koopa_troop', 'koopa_resistance', 'magikoopa_council', 'iron_legion', 'mushroom_regency', 'primordial_wyrm'],
+    estimatedCasualties: "348 Koopa forces KIA (including corrupted), ~50 corrupted troops destroyed, 4 Iron Legion KIA. Significant property damage throughout the Valley.",
+    historicalSignificance: "The crisis revealed the true purpose of the Koopa Dynasty—guardians of the Wyrm's prison, not mere conquerors. It also demonstrated that former enemies could unite against existential threats, potentially reshaping political alignments across the Mushroom Kingdom region."
+},
+
+
+// ========================================================================
+// ADDITIONAL FACTION ENTRY
+// ========================================================================
+
+koopa_resistance: {
+    id: 'koopa_resistance',
+    name: "The Koopa Resistance",
+    type: "military_remnant",
+    motto: "For the Kingdom. For the King.",
+    description: "Formed from survivors of Kamek's betrayal—workers, soldiers, and refugees who escaped the Wyrm's corruption. Operating from an ancient Krew safehouse, they mounted a desperate campaign to restore the seven seals and re-imprison the Primordial Wyrm. Though many perished, their sacrifice saved the Koopa Kingdom and earned them legendary status.",
+    leadership: ["General Hammer Bro (formerly Sergeant)", "Chief Architect Koopa Foreman"],
+    territory: "Valley of Bowser (Liberated)",
+    alignment: "lawful_neutral",
+    allies: ['koopa_troop', 'iron_legion', 'mushroom_regency'],
+    enemies: ['primordial_wyrm'],
+    resources: "Moderate (coalition support, reconstruction materials)",
+    keyCharacters: ['hammer_bro_sergeant', 'koopa_foreman', 'bob_omb_demolitions', 'shy_guy_laborer', 'magikoopa_apprentice', 'dry_bones_scout', 'goomba_messenger'],
+    status: "Integrated into reformed Koopa Troop",
+    historicalNote: "The Resistance's motto became the rallying cry for Koopa loyalists: 'For the Kingdom. For the King.' A memorial carved with 348 names stands at the crater rim."
+},
 };
 
 export const MAJOR_BATTLES = [
@@ -108,6 +150,173 @@ export const MAJOR_BATTLES = [
     // ISLE DELFINO CONFLICT (WEEK OF THE 24TH)
     // ========================================================================
 // Add to MAJOR_BATTLES array:
+{
+    id: 'wyrm_awakening_breach',
+    name: "The Breach of the Ancient Prison",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 20, minute: 0 },
+    location: "Valley of Bowser, Excavation Site Delta",
+    belligerents: {
+        side_a: { name: "Magikoopa Ritual Circle", factions: ['magikoopa_council'] },
+        side_b: { name: "Ancient Seals / Koopa Workers", factions: ['koopa_troop'] }
+    },
+    commanders: { side_a: ["Kamek (Regent Sorcerer)"], side_b: ["Koopa Foreman (Evacuating)"] },
+    outcome: "pyrrhic_victory",
+    outcomeDetail: "Kamek successfully breaches the first seal. The Primordial Wyrm begins awakening. 377 workers killed or corrupted.",
+    casualties: { side_a: "3 Magikoopas (ritual exhaustion)", side_b: "377 workers (corrupted/killed), 23 escaped" },
+    strategicValue: "catastrophic",
+    description: `<p>Kamek's excavation project beneath the Valley of Bowser was never about reconstruction—it was about breaching the ancient prison of the Primordial Wyrm, an entity that predates the Stars themselves. The ritual circle of 13 Magikoopas channeled forbidden magic to shatter the first seal.</p><p>The Koopa Foreman, recognizing the danger, led 23 workers through secret tunnels built by previous Krew generations. The rest were consumed by corruption or killed outright. Kamek, now bonded to the Wyrm, declared himself "Regent Sorcerer" and began breaking additional seals.</p>`,
+    tacticalNotes: "The old Krew's foresight in building escape tunnels proved the difference between total annihilation and survival. Always have an exit strategy.",
+    participatingCharacters: ['kamek', 'koopa_foreman', 'magikoopa_council_elder', 'magikoopa_apprentice']
+},
+
+{
+    id: 'safehouse_rescue_mission',
+    name: "The Sewer Extraction",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 12, minute: 30 },
+    location: "Valley of Bowser, Underground Sewer Network",
+    belligerents: {
+        side_a: { name: "Koopa Resistance Rescue Team", factions: ['koopa_resistance'] },
+        side_b: { name: "Wyrm Corruption / Corrupted Patrols", factions: ['primordial_wyrm'] }
+    },
+    commanders: { side_a: ["Koopa Foreman", "Bob-omb Demolitions Expert"], side_b: ["Autonomous Corruption"] },
+    outcome: "victory",
+    outcomeDetail: "47 survivors rescued from bunkers. 2 rescuers lost to corruption. Total Resistance strength: 68.",
+    casualties: { side_a: "2 KIA (corruption)", side_b: "N/A (environmental hazard)" },
+    strategicValue: "high",
+    description: `<p>With King Bowser weeks away in the Midlands, the Koopa Foreman led an 8-person team into the corrupted sewer network to rescue workers trapped in emergency bunkers. Using old Krew maps, they navigated tunnels that were literally coming alive—walls pulsing, passages closing.</p><p>Bob-omb Demolitions Expert blew three passages to create escape routes. The team reached 47 survivors and extracted them before the corruption caught up. Two rescuers were lost when the sewers attempted to crush them.</p>`,
+    tacticalNotes: "Speed and explosive breaching capabilities proved essential. The corruption spreads faster than anticipated—extraction windows measured in minutes, not hours.",
+    participatingCharacters: ['koopa_foreman', 'bob_omb_demolitions', 'goomba_messenger', 'koopa_worker_green']
+},
+
+{
+    id: 'safehouse_defense',
+    name: "Defense of the Krew Safehouse",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 30 },
+    location: "Ancient Krew Safehouse, Valley Outskirts",
+    belligerents: {
+        side_a: { name: "Koopa Resistance", factions: ['koopa_resistance'] },
+        side_b: { name: "Corrupted Legion", factions: ['primordial_wyrm'] }
+    },
+    commanders: { side_a: ["Hammer Bro Sergeant (Field Commander)", "Hammer Bro Captain"], side_b: ["Kamek (Remote Command)"] },
+    outcome: "victory",
+    outcomeDetail: "Corrupted wave repelled. Safehouse secured. 8 defenders killed.",
+    casualties: { side_a: "8 KIA", side_b: "~50 corrupted destroyed" },
+    strategicValue: "critical",
+    description: `<p>After the Resistance destroyed the first anchor crystal, Kamek retaliated by sending waves of corrupted troops—former Koopa soldiers transformed into purple-veined, mindless attackers. The Resistance, operating from the ancient Krew safehouse, mounted a desperate defense.</p><p>The battle was psychologically devastating—defenders were forced to fight former friends and comrades. Hammer Bro Captain personally put down soldiers he'd trained with for years. Despite the trauma, the Resistance held their ground.</p>`,
+    tacticalNotes: "Prepared defensive positions and knowledge of the terrain offset numerical disadvantage. Psychological resilience proved as important as physical fortifications.",
+    participatingCharacters: ['hammer_bro_sergeant', 'hammer_bro_captain', 'koopa_worker_green', 'goomba_grunt']
+},
+
+{
+    id: 'anchor_alpha_bone_dry_dunes',
+    name: "The Battle of Bone Dry Dunes",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 10, minute: 0 },
+    location: "Bone Dry Dunes, Ancient Temple Shrine",
+    belligerents: {
+        side_a: { name: "Resistance Team Alpha", factions: ['koopa_resistance'] },
+        side_b: { name: "Shadow Serpent Guardian", factions: ['primordial_wyrm'] }
+    },
+    commanders: { side_a: ["Koopa Foreman", "Bob-omb Demolitions Expert"], side_b: ["Shadow Serpent (Wyrm Fragment)"] },
+    outcome: "victory",
+    outcomeDetail: "First anchor crystal destroyed. Shadow Serpent dissipated. Prison seal begins reforming.",
+    casualties: { side_a: "3 Goombas KIA, 1 Hammer Bro wounded", side_b: "Guardian destroyed" },
+    strategicValue: "critical",
+    description: `<p>The first coordinated anchor assault targeted an ancient temple in the Bone Dry Dunes. The guardian—an 80-foot shadow serpent—screamed in frequencies that caused psychological damage to anyone who looked directly at it.</p><p>Koopa Foreman drew the serpent's attention while Bob-omb planted charges on the shrine's core crystal. Hammer Bros held the perimeter against smaller shadow manifestations. When the crystal shattered, the serpent simply dissolved into smoke.</p>`,
+    tacticalNotes: "Distraction tactics essential against singular powerful enemies. Demolition expertise proved more valuable than combat strength.",
+    participatingCharacters: ['koopa_foreman', 'bob_omb_demolitions', 'hammer_bro_captain']
+},
+
+{
+    id: 'anchor_beta_darklands',
+    name: "The Darklands Confrontation",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 11, minute: 30 },
+    location: "Darklands Fortress, Kamek's Power Anchor",
+    belligerents: {
+        side_a: { name: "Resistance Team Beta", factions: ['koopa_resistance'] },
+        side_b: { name: "Kamek's Spirit Projection", factions: ['primordial_wyrm', 'magikoopa_council'] }
+    },
+    commanders: { side_a: ["Koopa Worker Green", "Magikoopa Apprentice"], side_b: ["Kamek (Spirit Projection)"] },
+    outcome: "victory",
+    outcomeDetail: "Anchor destroyed. Kamek significantly weakened. Magikoopa Apprentice critically injured.",
+    casualties: { side_a: "2 Shy Guys wounded, Magikoopa Apprentice critical (arms burned)", side_b: "Anchor destroyed, Kamek's power reduced" },
+    strategicValue: "critical",
+    description: `<p>The Darklands anchor was directly connected to Kamek's personal power—the magic binding him to the Wyrm. Team Beta, led by the defected Magikoopa Apprentice, assaulted a fortress built around the crystal.</p><p>Kamek's spirit manifested to defend his power source, recognizing his former apprentice. The magical duel was intense—the Apprentice channeled every spell she knew into the crystal, shattering it at the cost of severe burns to her arms. Kamek's scream of rage echoed across the region.</p>`,
+    tacticalNotes: "Insider knowledge of magical defenses proved invaluable. Personal sacrifice sometimes necessary to achieve critical objectives.",
+    participatingCharacters: ['koopa_worker_green', 'magikoopa_apprentice', 'boo_servant']
+},
+
+{
+    id: 'anchor_iron_legion_crystal_caves',
+    name: "The Crystal Caves Assault",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 6, minute: 30 },
+    location: "Crystal Caves, Subterranean Anchor Site",
+    belligerents: {
+        side_a: { name: "Iron Legion Tactical Squad", factions: ['iron_legion'] },
+        side_b: { name: "Shadow Hydra Guardian", factions: ['primordial_wyrm'] }
+    },
+    commanders: { side_a: ["Iron Legion Commander", "Commander Steelclaw"], side_b: ["Shadow Hydra (Wyrm Fragment)"] },
+    outcome: "victory",
+    outcomeDetail: "Anchor destroyed. Iron Legion proves their worth in coalition warfare.",
+    casualties: { side_a: "4 KIA, 6 wounded", side_b: "Guardian destroyed" },
+    strategicValue: "high",
+    description: `<p>The Iron Legion, despite being stretched thin by the Iron Mandate, committed a tactical squad to the coalition effort. Their target: a crystal anchor deep in subterranean caves, guarded by a three-headed shadow hydra.</p><p>Each head screamed at different frequencies, disorienting attackers. Two soldiers died in the first minute. But the Legion held the line while Commander Steelclaw planted demolition charges. The crystal shattered, proving that even former enemies could fight together against extinction.</p>`,
+    tacticalNotes: "Professional military discipline compensates for unfamiliar enemy types. Coalition warfare requires trust built through shared sacrifice.",
+    participatingCharacters: ['iron_legion_commander']
+},
+
+{
+    id: 'anchor_shy_guy_volcanic_shrine',
+    name: "The Light Within",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 6, minute: 15 },
+    location: "Volcanic Shrine, Valley Interior",
+    belligerents: {
+        side_a: { name: "Shy Guy Laborer (Solo)", factions: ['koopa_resistance'] },
+        side_b: { name: "Anchor Corruption Field", factions: ['primordial_wyrm'] }
+    },
+    commanders: { side_a: ["Shy Guy Laborer"], side_b: ["Autonomous Corruption"] },
+    outcome: "victory",
+    outcomeDetail: "Anchor destroyed from within. Shy Guy Laborer KIA. Ultimate sacrifice.",
+    casualties: { side_a: "1 KIA (sacrifice)", side_b: "Anchor destroyed, corruption evaporated" },
+    strategicValue: "critical",
+    description: `<p>The Shy Guy Laborer, partially connected to the Wyrm since the original ritual, understood his unique position. He could feel the anchor calling to him—and realized he could destroy it from within by releasing the corrupted light the Wyrm had left in his soul.</p><p>He walked into the Volcanic Shrine alone, over the objections of his comrades. Witnesses from the ridge saw a massive burst of pure white light—and the corruption around the shrine simply evaporated. No movement was detected afterward.</p>`,
+    tacticalNotes: "Sometimes the only way to destroy an enemy is from within. True heroism is choosing sacrifice when no other option remains.",
+    participatingCharacters: ['shy_guy_laborer', 'dry_bones_scout']
+},
+
+{
+    id: 'final_anchor_valley_edge',
+    name: "The Fall of the Regent Sorcerer",
+    conflict: "The Primordial Wyrm Crisis",
+    arc: 'mushroom_civil_war',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 0 },
+    location: "Valley Crater Rim, Final Anchor Site",
+    belligerents: {
+        side_a: { name: "Koopa Resistance Main Force", factions: ['koopa_resistance'] },
+        side_b: { name: "Kamek (Wyrm Avatar)", factions: ['primordial_wyrm', 'magikoopa_council'] }
+    },
+    commanders: { side_a: ["Koopa Foreman", "Hammer Bro Sergeant", "Bob-omb Demolitions Expert"], side_b: ["Kamek (30-foot Wyrm Avatar)"] },
+    outcome: "victory",
+    outcomeDetail: "Final anchor destroyed. Wyrm re-imprisoned. Kamek captured. Bob-omb Demolitions Expert KIA (sacrifice).",
+    casualties: { side_a: "1 Goomba squad erased, Bob-omb KIA (sacrifice)", side_b: "Kamek captured, Wyrm sealed" },
+    strategicValue: "decisive",
+    description: `<p>The final assault targeted the anchor at the volcanic crater rim—the heart of Kamek's power. The former advisor had transformed into a 30-foot avatar wreathed in purple fire, throwing magic that warped reality itself. A full Goomba squad was erased from existence in the first exchange.</p><p>Bob-omb Demolitions Expert planted charges on the crystal, but Kamek's magic destroyed the detonator. With no other option, Bob-omb detonated himself, destroying the anchor. The prison seals reformed, dragging the Wyrm back into the earth. Kamek, severed from his power source, collapsed—diminished, defeated, captured.</p>`,
+    tacticalNotes: "Final victory required ultimate sacrifice. The willing acceptance of death to complete the mission defines true heroism.",
+    participatingCharacters: ['koopa_foreman', 'hammer_bro_sergeant', 'bob_omb_demolitions', 'hammer_bro_captain', 'kamek']
+},
 {
   id: 'aegis_command_riot',
   name: "The Aegis Command Uprising",

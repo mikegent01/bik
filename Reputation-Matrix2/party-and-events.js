@@ -16,6 +16,99 @@ export const AUXILIARY_PARTY = {
 
 
 export const RUMORS = [
+
+{
+    id: 'koopa_fortress_reconstruction',
+    title: "The Valley Awakens",
+    date: { day: 22, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'kamek',
+    arc: 'mushroom_civil_war',
+    arcPosition: 'rising',
+    description: "With Bowser absent in the Midlands, Kamek has consolidated control over the Valley of Bowser and initiated an ambitious reconstruction project. The Koopa Krew's excavation has uncovered ancient structures beneath the volcanic soil—and workers report an unexplained energy drain in certain areas. Kamek has ordered a media blackout, but whispers of 'something awakening' have begun to spread.",
+    targets: ['kamek', 'koopa_foreman', 'magikoopa_council'],
+    effects: {
+        koopa_troop: 15,
+        mushroom_regency: -5,
+        iron_legion: -5
+    },
+    cycle_impact: { score: 1.5, label: "Military Consolidation", type: "political" }
+},
+
+{
+    id: 'primordial_wyrm_awakening',
+    title: "The Wyrm Beneath",
+    date: { day: 22, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'kamek',
+    arc: 'mushroom_civil_war',
+    arcPosition: 'climax',
+    description: "Kamek's excavation beneath the Valley of Bowser has breached an ancient prison containing the Primordial Wyrm—an entity that predates the Stars themselves. With Bowser weeks away in the Midlands and communication lines compromised, the Koopa Krew survivors have formed a desperate resistance. The corruption spreads daily, and every faction must now decide: fight together or fall separately.",
+    targets: ['kamek', 'koopa_foreman', 'primordial_wyrm', 'koopa_resistance'],
+    effects: {
+        koopa_troop: -40,
+        mushroom_regency: -10,
+        iron_legion: -10,
+        valley_corruption: 100
+    },
+    cycle_impact: { score: 4.5, label: "Existential Threat", type: "catastrophic" }
+},
+
+{
+    id: 'koopa_resistance_formed',
+    title: "The Koopa Resistance",
+    date: { day: 23, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'koopa_foreman',
+    arc: 'mushroom_civil_war',
+    arcPosition: 'rising',
+    description: "Survivors of Kamek's betrayal have banded together under Hammer Bro Sergeant's field command, operating from an ancient Krew safehouse. With Bowser weeks away, this ragtag group of workers, soldiers, and refugees represents the last organized resistance against the Wyrm's corruption. They've discovered that seven anchor crystals hold the prison's seals—and begun the desperate work of restoring them.",
+    targets: ['koopa_foreman', 'hammer_bro_sergeant', 'bob_omb_demolitions', 'shy_guy_laborer'],
+    effects: {
+        koopa_troop: 10,
+        mushroom_regency: 5,
+        iron_legion: 5
+    },
+    cycle_impact: { score: 2.0, label: "Desperate Alliance", type: "military" }
+},
+
+{
+    id: 'anchor_restoration_campaign',
+    title: "The Seven Seals",
+    date: { day: 25, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'hammer_bro_sergeant',
+    arc: 'mushroom_civil_war',
+    arcPosition: 'climax',
+    description: "The Koopa Resistance has launched a coordinated assault on the seven anchor crystals that maintain the Primordial Wyrm's prison. With support from the Iron Legion and Mushroom Regency, teams are striking simultaneously across the region. Each anchor is guarded by a fragment of the Wyrm itself, and casualties mount with every victory. But the prison reforms with each crystal destroyed.",
+    targets: ['hammer_bro_sergeant', 'koopa_foreman', 'iron_legion_commander', 'shy_guy_laborer', 'bob_omb_demolitions'],
+    effects: {
+        koopa_troop: 20,
+        mushroom_regency: 10,
+        iron_legion: 10,
+        valley_corruption: -40
+    },
+    cycle_impact: { score: 3.5, label: "Coalition Warfare", type: "military" }
+},
+
+{
+    id: 'valley_liberation',
+    title: "The Valley Reclaimed",
+    date: { day: 27, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'koopa_resistance',
+    arc: 'mushroom_civil_war',
+    arcPosition: 'resolution',
+    description: "Against all odds, the Koopa Resistance succeeded in restoring the seven seals and re-imprisoning the Primordial Wyrm. Kamek, stripped of his borrowed power, has been captured and sentenced to eternal imprisonment within the very pit he opened. The Valley of Bowser lies in ruins, but the corruption recedes. When King Bowser finally arrives, he finds his kingdom saved by the very workers and soldiers he'd overlooked—and gains a new understanding of what the Koopa crown truly means.",
+    targets: ['koopa_foreman', 'hammer_bro_sergeant', 'bowser', 'kamek', 'bob_omb_demolitions', 'shy_guy_laborer'],
+    effects: {
+        koopa_troop: 35,
+        mushroom_regency: 15,
+        iron_legion: 10,
+        valley_corruption: -100
+    },
+    cycle_impact: { score: 4.0, label: "Kingdom Restored", type: "political" }
+},      
       {
     id: 'archie_aegis_post',
     title: "Archie's Aegis Worry",
@@ -54,6 +147,7 @@ export const RUMORS = [
     },
     cycle_impact: { score: 3.5, label: "Mass Prison Break", type: "rebellion" }
   },
+
   {
     id: 'aegis_prison_break_riot',
     title: "Aegis Prison Break: The Whispered Riot",
