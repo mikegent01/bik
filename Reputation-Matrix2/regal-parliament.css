@@ -2848,3 +2848,1494 @@
     0%, 100% { box-shadow: 0 0 5px rgba(46, 213, 115, 0.3); }
     50% { box-shadow: 0 0 15px rgba(46, 213, 115, 0.5); }
 }
+/* ============================================
+   PLANAR CRISIS STYLES
+   ============================================ */
+
+/* Planar Status Section */
+.planar-status-section {
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.15), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.planar-status-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        #8b5cf6 0%, 
+        #06b6d4 25%, 
+        #10b981 50%, 
+        #f59e0b 75%, 
+        #8b5cf6 100%);
+    background-size: 200% 100%;
+    animation: planarShimmer 3s linear infinite;
+}
+
+@keyframes planarShimmer {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+.planar-status-section h4 {
+    color: #c4b5fd;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.planar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.planar-card {
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.planar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+/* Plane-specific styling */
+.planar-card.plane-physicalplane::before {
+    background: linear-gradient(180deg, #64748b, #475569);
+}
+
+.planar-card.plane-physicalplane {
+    border-color: rgba(100, 116, 139, 0.5);
+}
+
+.planar-card.plane-shadowfell::before {
+    background: linear-gradient(180deg, #7c3aed, #4c1d95);
+}
+
+.planar-card.plane-shadowfell {
+    border-color: rgba(124, 58, 237, 0.5);
+    background: linear-gradient(135deg, rgba(76, 29, 149, 0.3), rgba(15, 23, 42, 0.9));
+}
+
+.planar-card.plane-feywild::before {
+    background: linear-gradient(180deg, #10b981, #059669);
+}
+
+.planar-card.plane-feywild {
+    border-color: rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.2), rgba(15, 23, 42, 0.9));
+}
+
+.planar-card.plane-deepmirror::before {
+    background: linear-gradient(180deg, #06b6d4, #0891b2);
+}
+
+.planar-card.plane-deepmirror {
+    border-color: rgba(6, 182, 212, 0.5);
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.2), rgba(15, 23, 42, 0.9));
+}
+
+.planar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.plane-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    text-transform: capitalize;
+}
+
+.plane-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.plane-status.status-legion-controlled,
+.plane-status.status-secured {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.plane-status.status-onyx-hand-territory,
+.plane-status.status-hostile {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.plane-status.status-archfey-domain,
+.plane-status.status-contested {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.plane-status.status-unknown,
+.plane-status.status-inaccessible {
+    background: rgba(100, 116, 139, 0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+.plane-status.status-active---dimensional-hazard {
+    background: rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    animation: hazardPulse 2s ease-in-out infinite;
+}
+
+@keyframes hazardPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    50% { box-shadow: 0 0 10px 2px rgba(239, 68, 68, 0.6); }
+}
+
+.plane-description {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.plane-hostiles,
+.plane-legion,
+.plane-asset,
+.plane-contact {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.plane-hostiles {
+    border-left: 3px solid #ef4444;
+    color: #fca5a5;
+}
+
+.plane-hostiles strong {
+    color: #f87171;
+}
+
+.plane-legion {
+    border-left: 3px solid #3b82f6;
+    color: #93c5fd;
+}
+
+.plane-legion strong {
+    color: #60a5fa;
+}
+
+.plane-asset {
+    border-left: 3px solid #f59e0b;
+    color: #fcd34d;
+}
+
+.plane-asset strong {
+    color: #fbbf24;
+}
+
+.plane-contact {
+    border-left: 3px solid #8b5cf6;
+    color: #c4b5fd;
+}
+
+.plane-contact strong {
+    color: #a78bfa;
+}
+
+/* ============================================
+   ENHANCED BRIEFING STYLES
+   ============================================ */
+
+.legion-briefing-section {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    position: relative;
+}
+
+.legion-briefing-section::before {
+    content: '⚔️';
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: #1e293b;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+}
+
+.briefing-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.classification-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.classification-badge.classification-top-secret,
+.classification-badge.classification-eyes-only---hammer-lord-level {
+    background: linear-gradient(135deg, #7f1d1d, #991b1b);
+    color: #fecaca;
+    border: 2px solid #dc2626;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+    animation: classifiedPulse 3s ease-in-out infinite;
+}
+
+@keyframes classifiedPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(220, 38, 38, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.7); }
+}
+
+.briefing-author {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.briefing-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.briefing-points li {
+    padding: 10px 12px 10px 36px;
+    margin: 8px 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border-left: 3px solid #eab308;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.briefing-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 12px;
+    color: #eab308;
+    font-weight: bold;
+}
+
+.operational-recommendations {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(100, 116, 139, 0.3);
+}
+
+.operational-recommendations h5 {
+    color: #60a5fa;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.operational-recommendations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.operational-recommendations li {
+    padding: 8px 12px 8px 30px;
+    margin: 6px 0;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #3b82f6;
+    color: #bfdbfe;
+    font-size: 0.85rem;
+    position: relative;
+}
+
+.operational-recommendations li::before {
+    content: '→';
+    position: absolute;
+    left: 10px;
+    color: #3b82f6;
+}
+
+/* ============================================
+   BREAKING NEWS / CRISIS HEADER
+   ============================================ */
+
+.aftermath-header {
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(127, 29, 29, 0.3), rgba(15, 23, 42, 0.95));
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.aftermath-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(239, 68, 68, 0.1), 
+        transparent);
+    animation: crisisSweep 3s ease-in-out infinite;
+}
+
+@keyframes crisisSweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.breaking-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    animation: breakingPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+}
+
+@keyframes breakingPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+    }
+    50% { 
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(220, 38, 38, 0.8);
+    }
+}
+
+.aftermath-header h3 {
+    color: #fecaca;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.aftermath-summary {
+    color: #e2e8f0;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   ENHANCED TIMELINE STYLES
+   ============================================ */
+
+.todays-timeline {
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.todays-timeline h4 {
+    color: #e2e8f0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.timeline-items {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-items::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, 
+        #3b82f6 0%, 
+        #eab308 30%, 
+        #ef4444 60%, 
+        #8b5cf6 100%);
+}
+
+.timeline-item {
+    position: relative;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateX(5px);
+    border-color: rgba(100, 116, 139, 0.4);
+    background: rgba(30, 41, 59, 0.8);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    background: #3b82f6;
+    border-radius: 50%;
+    border: 3px solid #1e293b;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+/* Night events styling */
+.timeline-item:nth-child(n+5)::before {
+    background: #8b5cf6;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+
+.timeline-time {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.timeline-content strong {
+    display: block;
+    color: #e2e8f0;
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.timeline-content p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ============================================
+   FACTION REACTIONS ENHANCED
+   ============================================ */
+
+.reactions-section {
+    margin: 24px 0;
+}
+
+.reactions-section h4 {
+    color: #e2e8f0;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+}
+
+.reactions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.reaction-card {
+    background: rgba(30, 41, 59, 0.7);
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    border-left-width: 4px;
+    transition: all 0.3s ease;
+}
+
+.reaction-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.reaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.reaction-faction {
+    font-weight: 700;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+}
+
+.reaction-mood {
+    font-size: 1.3rem;
+}
+
+.reaction-quote {
+    color: #cbd5e1;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-left: 3px solid rgba(100, 116, 139, 0.4);
+}
+
+.reaction-speaker {
+    color: #64748b;
+    font-size: 0.8rem;
+    font-style: normal;
+}
+
+/* Mood-specific styling */
+.reaction-card.mood-vindicated {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-horrified {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-ecstatic,
+.reaction-card.mood-excited {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-alarmed,
+.reaction-card.mood-concerned {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+.reaction-card.mood-opportunistic {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(30, 41, 59, 0.7));
+}
+
+/* ============================================
+   LEGION PRESENCE INDICATORS
+   ============================================ */
+
+.presence-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.presence-badge.presence-high,
+.presence-high {
+    background: rgba(220, 38, 38, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+.presence-badge.presence-deploying,
+.presence-deploying {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    animation: deployingPulse 2s ease-in-out infinite;
+}
+
+@keyframes deployingPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.presence-badge.presence-medium,
+.presence-medium {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.presence-badge.presence-low,
+.presence-low {
+    background: rgba(100, 116, 139, 0.2);
+    color: #cbd5e1;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+.presence-badge.presence-none,
+.presence-none {
+    background: rgba(30, 41, 59, 0.5);
+    color: #64748b;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+/* ============================================
+   LEGION INFLUENCE INDICATORS ON SEATS
+   ============================================ */
+
+.parliament-seat.legion-influenced {
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+    animation: legionGlow 2s ease-in-out infinite;
+}
+
+@keyframes legionGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(234, 179, 8, 0.6); }
+    50% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.9); }
+}
+
+.parliament-seat.legion-contact {
+    position: relative;
+}
+
+.parliament-seat.legion-contact::after {
+    content: '⚔';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 8px;
+    background: #eab308;
+    color: #1e293b;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.legion-contact-indicator,
+.legion-contact-tag {
+    color: #eab308;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.legion-influence-indicator,
+.legion-influence-tag {
+    color: #fbbf24;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(234, 179, 8, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* ============================================
+   COORDINATED TIMELINE SECTION
+   ============================================ */
+
+.coordinated-timeline-section {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+}
+
+.coordinated-timeline-section h4 {
+    color: #e2e8f0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coordinated-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.timeline-event {
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-event:hover {
+    border-color: rgba(100, 116, 139, 0.4);
+    transform: translateX(5px);
+}
+
+.timeline-event.today {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(15, 23, 42, 0.9));
+    border-color: rgba(234, 179, 8, 0.4);
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+}
+
+.timeline-event.past {
+    opacity: 0.7;
+}
+
+.timeline-event.future {
+    border-left: 3px solid #3b82f6;
+}
+
+.timeline-date {
+    font-weight: 700;
+    color: #60a5fa;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.today-badge {
+    background: #eab308;
+    color: #1e293b;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    animation: todayPulse 2s ease-in-out infinite;
+}
+
+@keyframes todayPulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(234, 179, 8, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.8); }
+}
+
+.timeline-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .timeline-dual {
+        grid-template-columns: 1fr;
+    }
+}
+
+.timeline-diet,
+.timeline-legion {
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.timeline-diet {
+    border-left: 3px solid #8b5cf6;
+}
+
+.timeline-legion {
+    border-left: 3px solid #eab308;
+}
+
+.timeline-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.timeline-diet .timeline-label {
+    color: #a78bfa;
+}
+
+.timeline-legion .timeline-label {
+    color: #fbbf24;
+}
+
+.timeline-value {
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.timeline-goal {
+    background: rgba(59, 130, 246, 0.1);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.goal-label {
+    color: #60a5fa;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-right: 8px;
+}
+
+.goal-value {
+    color: #bfdbfe;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   THREAT ASSESSMENT SUMMARY
+   ============================================ */
+
+.threat-assessment-summary {
+    background: linear-gradient(135deg, rgba(127, 29, 29, 0.2), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+}
+
+.threat-assessment-summary h4 {
+    color: #fca5a5;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.threat-metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.threat-metric {
+    background: rgba(15, 23, 42, 0.7);
+    padding: 16px 24px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 120px;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.threat-metric.overall {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(127, 29, 29, 0.3);
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.metric-value.threat-critical {
+    color: #ef4444;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.metric-value.threat-extreme {
+    color: #f97316;
+    text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+.metric-value.threat-high {
+    color: #eab308;
+}
+
+.metric-value.threat-compromised {
+    color: #a855f7;
+}
+
+.metric-value.threat-unprecedented {
+    color: #06b6d4;
+    animation: unprecedentedGlow 2s ease-in-out infinite;
+}
+
+@keyframes unprecedentedGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+    50% { text-shadow: 0 0 20px rgba(6, 182, 212, 0.9); }
+}
+
+.threat-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .threat-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+.threat-column h5 {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.threat-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.threat-column li {
+    padding: 8px 12px 8px 28px;
+    margin: 6px 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    position: relative;
+}
+
+.threat-column:first-child li {
+    border-left: 3px solid #ef4444;
+}
+
+.threat-column:first-child li::before {
+    content: '⚠';
+    position: absolute;
+    left: 8px;
+    color: #ef4444;
+}
+
+.threat-column:last-child li {
+    border-left: 3px solid #22c55e;
+}
+
+.threat-column:last-child li::before {
+    content: '→';
+    position: absolute;
+    left: 8px;
+    color: #22c55e;
+}
+
+/* ============================================
+   DUAL ROLE PERSONNEL CARDS
+   ============================================ */
+
+.dual-role-personnel-section {
+    margin: 32px 0;
+}
+
+.dual-role-personnel-section h4 {
+    color: #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.personnel-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.liaison-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.3s ease;
+}
+
+.liaison-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(100, 116, 139, 0.5);
+}
+
+.liaison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.liaison-name {
+    font-weight: 700;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+.loyalty-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.loyalty-badge.loyalty-absolute {
+    background: linear-gradient(135deg, #065f46, #047857);
+    color: #a7f3d0;
+    border: 1px solid #10b981;
+}
+
+.loyalty-badge.loyalty-high {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.liaison-roles {
+    margin-bottom: 14px;
+}
+
+.role-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+}
+
+.role-icon {
+    font-size: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+.role-text {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.liaison-focus {
+    background: rgba(234, 179, 8, 0.1);
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 3px solid #eab308;
+    font-size: 0.85rem;
+    color: #fcd34d;
+}
+
+.liaison-focus strong {
+    color: #fbbf24;
+}
+
+/* ============================================
+   LEGION INFLUENCE SUMMARY
+   ============================================ */
+
+.legion-influence-summary {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.legion-influence-summary h4 {
+    color: #fbbf24;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.influence-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.influence-stat {
+    background: rgba(15, 23, 42, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.influence-stat .stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #eab308;
+    margin-bottom: 6px;
+}
+
+.influence-stat .stat-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   LEGION INTEGRATION BANNER
+   ============================================ */
+
+.legion-integration-banner {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(234, 179, 8, 0.4);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.legion-integration-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #eab308, #f59e0b, #eab308);
+}
+
+.integration-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.legion-icon {
+    font-size: 1.5rem;
+}
+
+.integration-header h4 {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    flex-grow: 1;
+}
+
+.integration-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.integration-status.status-active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.integration-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.integration-stat {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.integration-stat .stat-label {
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.integration-stat .stat-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.integration-stat .stat-value.security-elevated {
+    color: #fbbf24;
+}
+
+/* ============================================
+   VOTE DISPLAY ENHANCEMENTS
+   ============================================ */
+
+.vote-display-card.urgency-breaking {
+    border-color: rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.vote-display-card.just-passed {
+    animation: justPassedGlow 3s ease-in-out infinite;
+}
+
+@keyframes justPassedGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+    50% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.4); }
+}
+
+.result-declaration {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #4ade80;
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 8px;
+    border: 2px solid rgba(34, 197, 94, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   LEGION OPERATION LINK STYLING
+   ============================================ */
+
+.legion-operation-link {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(15, 23, 42, 0.8));
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.operation-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.operation-icon {
+    font-size: 1.2rem;
+}
+
+.operation-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.operation-codename {
+    font-weight: 800;
+    color: #eab308;
+    font-size: 1rem;
+    margin-left: auto;
+    padding: 4px 12px;
+    background: rgba(234, 179, 8, 0.2);
+    border-radius: 4px;
+}
+
+.operation-response {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+.operation-deployment {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+.deployment-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.deployment-troops {
+    font-weight: 700;
+    color: #60a5fa;
+}
+
+.deployment-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* ============================================
+   CALENDAR LEGION OPERATION TAGS
+   ============================================ */
+
+.calendar-item.has-legion-op {
+    border-left-width: 4px;
+    border-left-color: #eab308;
+}
+
+.cal-legion-op {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fbbf24;
+    background: rgba(234, 179, 8, 0.15);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+/* ============================================
+   EXPELLED COALITION STYLING
+   ============================================ */
+
+.coalition-block.expelled-coalition {
+    opacity: 0.6;
+    position: relative;
+}
+
+.coalition-block.expelled-coalition::after {
+    content: 'EXPELLED FROM DIET';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgba(239, 68, 68, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.coalition-block.legion-target {
+    border: 2px dashed rgba(239, 68, 68, 0.4);
+}
+
+.coalition-block.legion-ally {
+    border: 2px solid rgba(234, 179, 8, 0.4);
+}
+
+.legion-ally-badge,
+.legion-target-badge {
+    font-size: 1rem;
+    margin-left: 8px;
+}
+
+/* ============================================
+   ALIGNMENT BADGES
+   ============================================ */
+
+.alignment-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.alignment-badge.ally {
+    background: rgba(234, 179, 8, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.alignment-badge.target {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.alignment-badge.neutral {
+    background: rgba(100, 116, 139, 0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 640px) {
+    .planar-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .reactions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .personnel-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .threat-metrics-row {
+        justify-content: center;
+    }
+    
+    .threat-metric {
+        min-width: 100px;
+    }
+    
+    .integration-details {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .aftermath-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .breaking-badge {
+        font-size: 0.7rem;
+        padding: 6px 14px;
+    }
+}

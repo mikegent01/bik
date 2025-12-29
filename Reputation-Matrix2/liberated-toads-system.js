@@ -64,17 +64,17 @@ function getXPProgress(currentLevel, currentXP) {
 // ========================================
 
 const GOVERNANCE = {
-    structure: {
-        type: "Emergency Theocratic Council",
-        established: "Day 18, following the Shadeward Crisis",
-        authority_basis: "Resolution 17-A (Emergency Powers)",
-        description: "Following the chaos of the Shadeward Mansion incident and mounting casualties, the Liberated Toads consolidated power under Speaker L's emergency authority."
+       structure: {
+        type: "Emergency Military Junta", // Updated from Theocratic Council
+        established: "Day 21, Hour 14:00",
+        authority_basis: "Order 120 (Martial Law Response)",
+        description: "Following the discovery that Speaker L is a decoy and the imminent execution of Toad prisoners, Captain Fernback has assumed temporary command. The Council is in disarray."
     },
-        heroes_council: {
+    heroes_council: {
         name: "The Liberators' Circle",
-        description: "The original heroes who freed the 150 toads from the barrels. They hold special advisory status and veto power over decisions that directly affect the Core party or contradict the original liberation mission.",
+        description: "The original heroes who freed the 150 toads. With Speaker L missing, their 'advisory' status has effectively become command authority for those willing to listen.",
         established: "Day 12, following the Barrel Liberation",
-        authority: "Advisory + Selective Veto",
+        authority: "De Facto Command",
         
         privileges: [
             { name: "Liberation Veto", description: "Can veto any decision that would re-enslave, abandon, or betray freed toads", requires: "2/4 Core members present" },
@@ -90,18 +90,18 @@ const GOVERNANCE = {
                 id: "dan", 
                 name: "Dan", 
                 title: "The Faithful", 
-                status: "Incapacitated",
-                canVote: false,
-                notes: "Catatonic - privileges suspended until recovery",
-                contributions: ["Led the charge against X.O.", "Protected wounded during raids", "Moral compass of the group"]
+                status: "Active - Injured", // Updated
+                canVote: true,
+                notes: "Rallied from catatonia to fight the Wraith. Missing right arm. Currently separated in the Shadowfell/Void fracture.",
+                contributions: ["Led the charge against X.O.", "Protected wounded during raids", "Moral compass of the group", "Fought Arcane Wraith one-handed"]
             },
             { 
                 id: "eager", 
                 name: "Eager", 
                 title: "The Swift", 
-                status: "Incapacitated",
-                canVote: false,
-                notes: "Critical condition - privileges suspended until recovery",
+                status: "Active", // Updated
+                canVote: true,
+                notes: "Recovered from coma due to magical healing. Currently in the Feywild Attic.",
                 contributions: ["First successful recon", "Gathered critical intel", "Saved party multiple times with quick thinking"]
             },
             { 
@@ -110,7 +110,7 @@ const GOVERNANCE = {
                 title: "The Sharpshooter", 
                 status: "Active",
                 canVote: true,
-                notes: "Currently the only active Core member with full privileges",
+                notes: "Defending the Vigilance perimeter.",
                 contributions: ["Eliminated key threats", "Earl Grey kill", "Consistent ranged support"]
             },
             { 
@@ -126,10 +126,10 @@ const GOVERNANCE = {
                 id: "bones", 
                 name: "Bones", 
                 title: "The Unbreakable", 
-                status: "Captured",
+                status: "Critical - Captured",
                 canVote: false,
-                notes: "Held by Iron Legion - rescue is faction priority",
-                contributions: ["Front-line defender", "Discovered Legion infiltrators", "Held chokepoints alone"]
+                notes: "Stabbed by Ironhand. Execution imminent (Order 120). Rescue is top priority.",
+                contributions: ["Front-line defender", "Discovered Legion infiltrators", "Held chokepoints alone", "Exposed Speaker L decoy"]
             },
             { 
                 id: "toad_lee", 
@@ -137,23 +137,23 @@ const GOVERNANCE = {
                 title: "The Relentless", 
                 status: "Active",
                 canVote: true,
-                notes: "Second active Core member - full privileges",
+                notes: "Currently in the Feywild Attic with Waluigi.",
                 contributions: ["Survived Shadeward dinner", "Symbol of resilience", "Steadfast fighter"]
             }
         ],
         
-        active_members: 2, // Roger and Toad Lee
+        active_members: 4, // Dan, Eager, Roger, Toad Lee (technically active, just scattered)
         quorum_for_veto: 2,
         
         recent_actions: [
-            { day: 20, action: "Roger invoked Speaker Audience to report on Rakasha contact", result: "Granted" },
-            { day: 18, action: "Toad Lee invoked Sanctuary Right for wounded barrel survivors", result: "Granted" },
-            { day: 16, action: "Liberation Veto considered against Scavenging Doctrine", result: "Not invoked - Dan's proposal aligned with Core values" }
+            { day: 21, action: "Dan invoked Mission Override to fight the Wraith", result: "Granted" },
+            { day: 21, action: "Roger authorized lethal force against Legion spies", result: "Executed" },
+            { day: 20, action: "Roger invoked Speaker Audience to report on Rakasha contact", result: "Granted" }
         ],
         
         speaker_relationship: {
-            status: "Respectful Tension",
-            notes: "Speaker L honors the Liberators but struggles with their independence. The Accountability Docket listing Core members has created friction, though Speaker L insists it's 'accountability, not punishment.'"
+            status: "Broken Chain of Command",
+            notes: "With Speaker L revealed as a decoy/missing, the Liberators act independently. Captain Fernback respects them but is prioritizing military defense."
         }
     },
     speaker: {
@@ -618,7 +618,7 @@ const VOTING_SYSTEM = {
             name: "Emergency Vote", 
             threshold: "Simple Majority (4/7)", 
             duration: "1 hour", 
-            caller: "Speaker L only",
+            caller: "Speaker L only (Currently suspended)",
             description: "For immediate crises requiring rapid response"
         },
         standard: { 
@@ -940,7 +940,7 @@ const ACCOUNTABILITY_DOCKET = {
             added: "Day 18",
             speaker_note: "The purple one is chaos incarnate. Approach with extreme caution."
         },
-                { 
+        { 
             name: "Dan", 
             id: "dan_docket",
             status: "probationary_active", // Updated
@@ -955,6 +955,26 @@ const ACCOUNTABILITY_DOCKET = {
             bounty: null,
             added: "Day 18",
             speaker_note: "His spirit is unbroken. He fights for us still."
+        },
+        { 
+            name: "Eager", 
+            id: "eager_docket",
+            status: "active", // Updated
+            priority: "low",
+            portrait: "🐸🗡️",
+            crimes: [
+                "Blind Loyalty - Crossing the Line of Engagement",
+                "Disobeying direct orders in combat"
+            ],
+            evidence: [
+                "After-action reports",
+                "Witness accounts"
+            ],
+            notes: "Awakened from coma. Immediately rejoined combat operations in the Silent Grove. Current whereabouts: Feywild fracture.",
+            last_seen: "Day 21 - Silent Grove",
+            bounty: null,
+            added: "Day 18",
+            speaker_note: "Eager's heart was in the right place. His body paid the price, and he paid it again."
         },
         { 
             name: "Green Decoy (Unknown ID)", 
@@ -973,29 +993,8 @@ const ACCOUNTABILITY_DOCKET = {
             bounty: null,
             added: "Day 21",
             speaker_note: "Who is this impostor? And who taught him our codes?"
-        },
-        { 
-            name: "Eager", 
-            id: "eager_docket",
-            status: "in_custody_medical",
-            priority: "low",
-            portrait: "🐸🗡️",
-            crimes: [
-                "Blind Loyalty - Crossing the Line of Engagement",
-                "Disobeying direct orders in combat"
-            ],
-            evidence: [
-                "After-action reports",
-                "Witness accounts"
-            ],
-            notes: "Critically wounded and unconscious in the medical bay. Under guard but primarily receiving treatment. Prognosis uncertain.",
-            last_seen: "Day 20 - Medical bay, Vigilance",
-            bounty: null,
-            added: "Day 18",
-            speaker_note: "Eager's heart was in the right place. His body paid the price."
         }
-    ],
-    
+    ],    
     resolved: [
         {
             name: "The Mole (Identity: Unknown)",
@@ -1269,7 +1268,7 @@ const CORE_TOADS = {
         class: "paladin",
         subclass: "Oath of Devotion",
         weapon: "Longsword (Left Hand)", // Updated
-        status: "Active - Injured", // Updated from Catatonic
+        status: "Active - Injured", // Updated        
         statusType: "injured",
         statusDetail: "Missing right arm, recovering from trauma",
         portrait: "🐸⚔️",
@@ -1324,7 +1323,7 @@ const CORE_TOADS = {
             complicated: ["Archie Miser - friend, but reckless"]
         },
         
-        log: [
+         log: [
             { day: 5, event: "Critical assistance in neutralizing X.O., securing the Vigilance", xp: 200, type: "combat" },
             { day: 10, event: "Led charge against Tea Leaf Syndicate forces", xp: 150, type: "combat" },
             { day: 12, event: "First encounter with the Oracle at Raventree Manor", xp: 100, type: "exploration" },
@@ -1335,9 +1334,10 @@ const CORE_TOADS = {
             { day: 16, event: "Iron Legion raid on the Vigilance - defended the wounded", xp: 100, type: "combat" },
             { day: 18, event: "⚖️ Placed on Accountability Docket by Speaker L", xp: 0, type: "political" },
             { day: 20, event: "💔 Entered catatonic state due to accumulated psychological trauma", xp: 0, type: "status" },
-            { day: 20, event: "💔 Entered catatonic state due to trauma", xp: 0, type: "status" },
-            { day: 21, event: "⚔️ Roused from catatonia to fight Arcane Wraith", xp: 0, type: "status" },
-            { day: 21, event: "Landed critical axe throw with off-hand vs Wraith", xp: 200, type: "combat" }        
+            { day: 21, event: "⚔️ Roused from catatonia during the Manor Siege", xp: 50, type: "status" },
+            { day: 21, event: "Landed critical axe throw (one-handed) vs Arcane Wraith", xp: 200, type: "combat" },
+            { day: 21, event: "Lunged for the Central Mirror during ritual failure (Intercepted by Archie)", xp: 0, type: "narrative" },
+            { day: 21, event: "🌌 Lost in the Planar Fracture (Location: Void/Unknown)", xp: 0, type: "status" }
         ]
     },
     
@@ -1399,7 +1399,6 @@ const CORE_TOADS = {
             enemies: ["Iron Legion", "Tea Leaf Syndicate"],
             complicated: ["Waluigi - nearly killed by his Cone of Cold"]
         },
-        
         log: [
             { day: 8, event: "First successful recon mission - gathered enemy positions", xp: 100, type: "stealth" },
             { day: 12, event: "Escaped enemy patrol with critical intel", xp: 150, type: "stealth" },
@@ -1409,7 +1408,11 @@ const CORE_TOADS = {
             { day: 16, event: "Rescued from spider grove by Markop and Remi", xp: 100, type: "combat" },
             { day: 18, event: "Failed healing attempt at Raventree Manor", xp: 0, type: "status" },
             { day: 18, event: "⚖️ Placed on Accountability Docket", xp: 0, type: "political" },
-            { day: 20, event: "💔 Suffered critical wounds in combat, entered induced coma", xp: 0, type: "status" }
+            { day: 20, event: "💔 Suffered critical wounds in combat, entered induced coma", xp: 0, type: "status" },
+            { day: 21, event: "✨ Awakened by Oracle's healing magic", xp: 0, type: "status" },
+            { day: 21, event: "Fought Arachnid Matriarch while inflated (Pepper Spray Assist)", xp: 150, type: "combat" },
+            { day: 21, event: "Anchored the 'Edge' during the failed ritual", xp: 100, type: "magic" },
+            { day: 21, event: "🌌 Lost in the Planar Fracture (Location: Void/Unknown)", xp: 0, type: "status" }
         ]
     },
     
@@ -1480,14 +1483,16 @@ const CORE_TOADS = {
             complicated: ["Archie Miser - fellow caster, but reckless"]
         },
         
-        log: [
+          log: [
             { day: 10, event: "Joined the Liberated Toads, bringing arcane expertise", xp: 50, type: "political" },
             { day: 12, event: "Faced the Oracle with the party", xp: 100, type: "exploration" },
             { day: 15, event: "Cast Darkness to cover party's escape from Legion forces", xp: 150, type: "magic" },
             { day: 16, event: "Helped defeat rust monsters with Scorching Ray", xp: 100, type: "combat" },
             { day: 16, event: "🎉 LEVEL UP! Reached Level 4", xp: 0, type: "levelup" },
             { day: 20, event: "🪂 Forced to jump from captured Vigilance", xp: 100, type: "survival" },
-            { day: 20, event: "🦁 Taken in by Rakasha spirit-walker", xp: 50, type: "exploration" }
+            { day: 20, event: "🦁 Taken in by Rakasha spirit-walker", xp: 50, type: "exploration" },
+            { day: 21, event: "Began arcane tutelage under Rakasha Mystics", xp: 75, type: "magic" },
+            { day: 21, event: "📡 Sensed the Raventree Fracture from miles away", xp: 25, type: "magic" }
         ]
     },
     
@@ -1549,7 +1554,7 @@ const CORE_TOADS = {
             complicated: []
         },
         
-        log: [
+  log: [
             { day: 10, event: "Joined the Liberated Toads", xp: 50, type: "political" },
             { day: 12, event: "Stood against the Oracle alongside party", xp: 100, type: "exploration" },
             { day: 12, event: "💀 Poisoned dagger killed Earl Grey - Tea Leaf Syndicate enforcer exploded", xp: 150, type: "combat" },
@@ -1557,7 +1562,9 @@ const CORE_TOADS = {
             { day: 16, event: "🎉 LEVEL UP! Reached Level 4 - Unlocked Quickdraw", xp: 0, type: "levelup" },
             { day: 16, event: "⭐ Ability Unlock: Quickdraw", xp: 0, type: "ability" },
             { day: 16, event: "Provided covering fire during mansion escape", xp: 100, type: "combat" },
-            { day: 20, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" }
+            { day: 20, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
+            { day: 21, event: "Defended the Vigilance perimeter during Iron Sky Breach", xp: 100, type: "combat" },
+            { day: 21, event: "🎯 Sniped Legion officer attempting to board the bridge", xp: 150, type: "combat" }
         ]
     },
     
@@ -1611,8 +1618,7 @@ const CORE_TOADS = {
             enemies: ["Iron Legion", "The Mole (traitor)"],
             complicated: []
         },
-        
-        log: [
+                log: [
             { day: 12, event: "Joined the party during Oracle encounter", xp: 100, type: "combat" },
             { day: 14, event: "Raged through sewer combat, single-handedly held chokepoint", xp: 150, type: "combat" },
             { day: 15, event: "Discovered Iron Legion infiltrators, raised alarm", xp: 100, type: "exploration" },
@@ -1621,10 +1627,28 @@ const CORE_TOADS = {
             { day: 16, event: "🔴 Betrayed by The Mole during Iron Legion raid", xp: 0, type: "status" },
             { day: 16, event: "⛓️ Captured by Iron Legion forces", xp: 0, type: "status" },
             { day: 20, event: "📍 Confirmed held at Imperial Processing Facility", xp: 0, type: "intel" },
-            { day: 16, event: "⛓️ Captured by Iron Legion forces", xp: 0, type: "status" },
             { day: 21, event: "Infiltrated Aegis Command courtyard disguised as guard", xp: 100, type: "stealth" },
-            { day: 21, event: "💔 CRITICAL INJURY: Stabbed by Marcus Ironhand", xp: 0, type: "injury" },
-            { day: 21, event: "☠️ Marked for execution (Order 120)", xp: 0, type: "status" }            
+            { day: 21, event: "🕵️ Discovered the 'Speaker L' in custody is a Green Decoy", xp: 200, type: "intel" },
+            { day: 21, event: "💔 CRITICAL INJURY: Stabbed by General Marcus Ironhand", xp: 0, type: "injury" },
+            { day: 21, event: "☠️ Subject of 'Order 120' (Immediate Execution)", xp: 0, type: "status" }
+        ]
+    },
+    
+    toad_lee: {
+        id: "toad_lee",
+        name: "Toad Lee",
+        // ... [Header info maintained] ...
+        log: [
+            { day: 10, event: "Survived the Shadeward Mansion dinner - one of few", xp: 150, type: "survival" },
+            { day: 12, event: "Joined core party after mansion escape", xp: 50, type: "political" },
+            { day: 15, event: "Fought through Iron Legion raid, held the line", xp: 150, type: "combat" },
+            { day: 16, event: "🎉 LEVEL UP! Reached Level 3 - Chose Bear Totem", xp: 0, type: "levelup" },
+            { day: 16, event: "⭐ Ability Unlock: Totem Spirit (Bear)", xp: 0, type: "ability" },
+            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
+            { day: 21, event: "Fought Arcane Wraith, coordinating attacks with Dan", xp: 150, type: "combat" },
+            { day: 21, event: "🛡️ Blocked a rapier strike intended for Toadburt", xp: 100, type: "combat" },
+            { day: 21, event: "🌀 Dove into the unstable portal with Bowser", xp: 50, type: "survival" },
+            { day: 21, event: "🦋 Landed in the Feywild Attic (Giant Butterfly Encounter)", xp: 0, type: "exploration" }
         ]
     },
     
@@ -1760,7 +1784,8 @@ const CORE_TOADS = {
             { day: 15, event: "Passed intel to Iron Legion about Vigilance defenses", xp: 100, type: "stealth" },
             { day: 16, event: "🔴 True allegiance revealed during Legion raid", xp: 0, type: "status" },
             { day: 16, event: "⛓️ Helped capture Bones for the Iron Legion", xp: 150, type: "combat" },
-            { day: 16, event: "🏃 Escaped with Iron Legion forces", xp: 50, type: "survival" }
+            { day: 16, event: "🏃 Escaped with Iron Legion forces", xp: 50, type: "survival" },
+            { day: 21, event: "Seen advising General Ironhand at Aegis Command", xp: 0, type: "intel" }
         ]
     }
 };
