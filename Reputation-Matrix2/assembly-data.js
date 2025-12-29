@@ -2,7 +2,537 @@ import { WAHBOOK_INTEL_POSTS } from './assembly-intel-data.js';
 import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
+    {
+        id: 'sleeper_deployment_log',
+        order: 63001,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 3, minute: 30 }, // Early deployment
+        timestamp: 'Yesterday',
+        content: `Asset 'Blue' deployed to Sector Orange. Entropic Ring activation confirmed. The subject is weeping. Good. Fear keeps the heart rate up, which fuels the binding spell. 72 hours until dissolution.`,
+        likes: 4,
+        comments: [
+            { characterKey: 'iron_legion_tech', text: 'Telemetry is solid. Signal is strong.' }
+        ],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_first_steps',
+        order: 63002,
+        characterKey: 'toadburt_sleeper',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 }, // Afternoon Day 21
+        timestamp: 'Yesterday',
+        content: `It's so bright here. The grass is taller than me. My finger burns where the iron ring is. She said if I take it off, I turn into jelly. I don't want to be jelly.`,
+        likes: 0,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_magic_reading',
+        order: 63003,
+        characterKey: 'guild_researcher_arcane',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 }, // Morning Day 22
+        timestamp: '4 hours ago',
+        content: `Detecting a massive spike of Entropic Magic moving through the Feywild layer. Someone is using a Class-4 Anchor. That's military-grade necromancy. Who authorized this?`,
+        likes: 45,
+        comments: [
+            { characterKey: 'iron_legion_bot_03', text: 'This data is classified. Desist tracking immediately.' }
+        ],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_hallucination',
+        order: 63004,
+        characterKey: 'toadburt_sleeper',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 30 }, // Morning Day 22
+        timestamp: '2 hours ago',
+        content: `I saw a flower with a face. It looked like my dad. It tried to bite me. I ran away but I tripped and the ring sparked and turned the flower into grey dust. I'm scared of my own hand.`,
+        likes: 1,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_legion_bet',
+        order: 63005,
+        characterKey: 'iron_legion_guard_breakroom',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Betting pool on the Sleeper Agent: 10 gold he gets eaten by a plant. 20 gold he finds the Oracle. 50 gold he blows up early.`,
+        likes: 22,
+        comments: [
+            { characterKey: 'agent_malissia', text: 'I am docking your pay for insubordination. Put me down for "Mission Success."' }
+        ],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_fey_reaction',
+        order: 63006,
+        characterKey: 'fey_sprite_gossip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 15 },
+        timestamp: '2 hours ago',
+        content: `Ew. A blue mushroom thing just walked past the Grove. He smells like cold iron and sadness. The dryads are getting a headache just looking at him.`,
+        likes: 156,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_burt_panic',
+        order: 63007,
+        characterKey: 'toadburt_sleeper',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `I hear bells. Malissia gave me a bell. She said ring it when I see the Oracle. But what if I don't want to? My arm feels numb. Is that normal?`,
+        likes: 0,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_tracking',
+        order: 63008,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 45 },
+        timestamp: '1 hour ago',
+        content: `Subject is deviating from the path. He's trying to hide. Sending a mild necrotic shock through the ring to... encourage focus.`,
+        likes: 2,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_shock_response',
+        order: 63009,
+        characterKey: 'toadburt_sleeper',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 46 },
+        timestamp: '1 hour ago',
+        content: `OW OW OW OW OW OKAY I'M MOVING I'M MOVING PLEASE STOP`,
+        likes: 0,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_wild_observation',
+        order: 63010,
+        characterKey: 'attic_goblin_scout',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Saw a blue toad crying near the root wall. He touched a vine and the vine withered and died. We are staying FAR away from that guy.`,
+        likes: 34,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH? Blue toad? Tell him I found gold!' }
+        ],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_burt_regret',
+        order: 63011,
+        characterKey: 'toadburt_sleeper',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `I see footprints. Big boots. Maybe Bowser? If I find them... do I ring the bell? They'll kill me if I don't. They'll kill everyone if I do.`,
+        likes: 1,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_legion_threat',
+        order: 63012,
+        characterKey: 'iron_legion_intelligence',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `Reminder to all staff: The "Entropy Ring" project is strictly confidential. Any leaks regarding the nature of Asset Blue will result in immediate court martial.`,
+        likes: 15,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_final_resolve',
+        order: 63013,
+        characterKey: 'toadburt_sleeper',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 50 },
+        timestamp: '10 minutes ago',
+        content: `I see the attic. It's huge. I'm coming, guys. I just... I don't know what to do.`,
+        likes: 0,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_burt_missing_late',
+        order: 63014,
+        characterKey: 'toad_mom_42',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+        timestamp: 'Just now',
+        content: `It's been 24 hours. Where is my boy? The Legion officer just laughed when I asked.`,
+        likes: 56,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
+    {
+        id: 'sleeper_spy_update',
+        order: 63015,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+        timestamp: 'Just now',
+        content: `Asset is nearing the target zone. Prepare the extraction team.`,
+        likes: 3,
+        comments: [],
+        rumorId: 'project_sleeper'
+    },
 
+    // --- BATCH 2: CORNELIUS DINNER (Shadowfell - Day 22 Early Morning) ---
+    {
+        id: 'shadow_guest_arrival',
+        order: 63016,
+        characterKey: 'onyx_hand_butler',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 20, minute: 0 }, // Evening Day 21
+        timestamp: 'Yesterday',
+        content: `Unexpected arrivals at the Estate. A Koopa Warlord and a mortal Mage. They are underdressed, but Lord Cornelius insists on hospitality. I shall fetch the unbreakable china.`,
+        likes: 56,
+        comments: [
+            { characterKey: 'vampire_duchess', text: 'Do they smell of sunlight? I detest the smell of sunlight.' }
+        ],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_archie_magic_fail',
+        order: 63017,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 20, minute: 30 },
+        timestamp: 'Yesterday',
+        content: `Tried to cast a warming charm. It just made the room brighter and colder. The physics here are backwards. I can't burn my way out of this one.`,
+        likes: 12,
+        comments: [
+            { characterKey: 'bowser', text: 'Stop fidgeting. Use your fork. Don\'t make me look bad.' }
+        ],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_green_t_hostage',
+        order: 63018,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 21, minute: 0 },
+        timestamp: 'Yesterday',
+        content: `Sitting at the head table. The host keeps asking me about tea imports. He has fangs the size of daggers. If I don't make it, tell Earl Grey he's in charge.`,
+        likes: 8,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_bowser_appetite',
+        order: 63019,
+        characterKey: 'shadow_servant_01',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 22, minute: 0 },
+        timestamp: 'Yesterday',
+        content: `The big turtle ate the bone-roast. The whole thing. Including the platter. Lord Cornelius looks... impressed?`,
+        likes: 33,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_bluffing',
+        order: 63020,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 21, hour: 23, minute: 0 },
+        timestamp: 'Yesterday',
+        content: `Told the Duchess I'm the "Grand Vizier of the Eternal Sun." They backed off. Okay, Light magic acts as Force here. I can work with this.`,
+        likes: 45,
+        comments: [
+            { characterKey: 'markop', text: 'You\'re going to get us all killed with these lies.' }
+        ],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_cornelius_tweet',
+        order: 63021,
+        characterKey: 'orangus_cornelius',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 1, minute: 0 }, // Past Midnight Day 22
+        timestamp: '11 hours ago',
+        content: `We have such interesting guests tonight. The membrane between worlds is thin. Perhaps I shall expand my collection of champions.`,
+        likes: 666,
+        comments: [
+            { characterKey: 'bowser', text: 'Try it, monkey man. See what happens.' }
+        ],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_dance_floor',
+        order: 63022,
+        characterKey: 'onyx_hand_aristocrat',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 2, minute: 0 },
+        timestamp: '10 hours ago',
+        content: `The Koopa declined the waltz. Instead, he crushed a wine glass in his hand and drank the shards. Barbarian chic is so in this season.`,
+        likes: 90,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_escape_plan',
+        order: 63023,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 3, minute: 0 },
+        timestamp: '9 hours ago',
+        content: `Archie signaled me. Something about "Flashbang." I hope he knows what he's doing. I really miss the sun.`,
+        likes: 5,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_light_physics',
+        order: 63024,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 0 },
+        timestamp: '8 hours ago',
+        content: `Confirmed. A simple 'Light' cantrip hits like a sledgehammer in the Shadowfell. I just knocked a guard over with a flashlight beam. New plan: blinding violence.`,
+        likes: 67,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_bowser_patience',
+        order: 63025,
+        characterKey: 'bowser',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 0 },
+        timestamp: '7 hours ago',
+        content: `This dinner is taking too long. I'm bored. Archie, if you don't start the fight in five minutes, I'm flipping the table.`,
+        likes: 4500,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_garden_breach',
+        order: 63026,
+        characterKey: 'onyx_hand_guard',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 30 },
+        timestamp: '6 hours ago',
+        content: `Intruders in the Grey Rose Garden. A wizard and a... tank? They are moving toward the portal site. Mobilize the Gargoyles.`,
+        likes: 12,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_cornelius_anger',
+        order: 63027,
+        characterKey: 'orangus_cornelius',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `It seems my guests lack manners. Leaving before dessert? And taking my prize toad? How rude. Unleash the Hounds.`,
+        likes: 800,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_fight_breakout',
+        order: 63028,
+        characterKey: 'green_t',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 15 },
+        timestamp: '5 hours ago',
+        content: `BOWSER JUST THREW A PIANO AT A VAMPIRE. WE ARE LEAVING.`,
+        likes: 45,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_archie_blindness',
+        order: 63029,
+        characterKey: 'archie',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 30 },
+        timestamp: '5 hours ago',
+        content: `SOLAR FLARE! (It's just a level 1 spell but it feels awesome). Run Green! Run!`,
+        likes: 55,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+    {
+        id: 'shadow_aftermath',
+        order: 63030,
+        characterKey: 'onyx_hand_butler',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `We shall need a new dining hall. And a new piano. And new guards. The "Koopa" is... formidable.`,
+        likes: 20,
+        comments: [],
+        rumorId: 'cornelius_dinner'
+    },
+
+    // --- BATCH 3: FEYWILD HOARD (Waluigi & Toad Lee - Day 22 Morning) ---
+    {
+        id: 'fey_attic_entry',
+        order: 63031,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 0 },
+        timestamp: '6 hours ago',
+        content: `WAH! The ceiling is gone! It's all trees and sky now! And look at this pile of gold! Waluigi is going to need a bigger bag!`,
+        likes: 1200,
+        comments: [
+            { characterKey: 'wario', text: 'Prioritize the gems! They weigh less!' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_lee_tactical',
+        order: 63032,
+        characterKey: 'toad_lee_tactical',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 30 },
+        timestamp: '5 hours ago',
+        content: `We are exposed. Giant flora everywhere. Waluigi is shouting at a pile of coins. I'm trying to establish a defensive perimeter but the floor is moving. Roots.`,
+        likes: 45,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_giant_bug',
+        order: 63033,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 7, minute: 0 },
+        timestamp: '5 hours ago',
+        content: `Found a butterfly! It's the size of a horse! I'm going to ride it! WAH-HA-HA!`,
+        likes: 1500,
+        comments: [
+            { characterKey: 'toad_lee_tactical', text: 'DO NOT RIDE THE MEGA-FAUNA.' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_union_goblin',
+        order: 63034,
+        characterKey: 'attic_goblin_04',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 7, minute: 30 },
+        timestamp: '4 hours ago',
+        content: `Code 44: Unauthorized Fireworks in a closed space. The purple guy just shot a rocket at Gary. Gary is on break! This is going in the grievance file.`,
+        likes: 75,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_hoard_negotiation',
+        order: 63035,
+        characterKey: 'attic_goblin_01',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 },
+        timestamp: '4 hours ago',
+        content: `So we made a deal. The Shield Toad said if we pretend we didn't see them, they won't blow us up. Best shift ever. Going to take a nap.`,
+        likes: 120,
+        comments: [
+            { characterKey: 'goblin_union_rep', text: 'Solid negotiating. Approved.' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_furniture_attack',
+        order: 63036,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 15 },
+        timestamp: '4 hours ago',
+        content: `Why is the furniture alive? The chair bit me! Bad chair! Waluigi bite back! *chomp* Tastes like mahogany.`,
+        likes: 800,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_winged_boots',
+        order: 63037,
+        characterKey: 'toad_lee_tactical',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 0 },
+        timestamp: '3 hours ago',
+        content: `Found a set of "Winged Boots." Waluigi put them on his hands. He is currently flapping around screaming "I AM A BIRD." Morale is... complicated.`,
+        likes: 250,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_butterfly_guardian',
+        order: 63038,
+        characterKey: 'fey_butterfly_guardian',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 30 },
+        timestamp: '2 hours ago',
+        content: `*Angry chittering noises interpreted as: GET OFF MY GOLD*`,
+        likes: 500,
+        comments: [
+            { characterKey: 'nature_druid', text: 'Actually, that translates to "The pollen is mine." Run.' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_sky_door',
+        order: 63039,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+        timestamp: '2 hours ago',
+        content: `Found a door that leads to... the sky? Nearly fell out! The roof is gone! WAH! It's a long way down!`,
+        likes: 1100,
+        comments: [
+            { characterKey: 'bowser', text: 'Jump. I dare you.' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_spore_dust',
+        order: 63040,
+        characterKey: 'dragonfly_keeper',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `Someone agitated the Matriarch. She's releasing the spore dust. If you aren't wearing a mask, you're going to hallucinate your worst nightmares.`,
+        likes: 12,
+        comments: [
+            { characterKey: 'waluigi', text: 'Jokes on you! Waluigi is already a nightmare!' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_goblin_friendship',
+        order: 63041,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `WAH-HA-HA! The goblins like my fireworks! We are friends now! They gave me a sandwich! It is made of rocks! Delicious!`,
+        likes: 2000,
+        comments: [
+            { characterKey: 'goblin_union_rep', text: 'He has been inducted as an honorary member of Local 404.' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_lee_burt_miss',
+        order: 63042,
+        characterKey: 'toad_lee_tactical',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `I miss Burt. He usually carries the extra ammo. If those Legion spies hurt him, I'm going to burn this whole forest down.`,
+        likes: 90,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_tourist_sighting',
+        order: 63043,
+        characterKey: 'fey_wild_tourist',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 45 },
+        timestamp: '15 minutes ago',
+        content: `Hearing explosions from the Manor Attic. The sky is turning purple. Is this a festival? Or an invasion?`,
+        likes: 33,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_ring_discovery',
+        order: 63044,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+        timestamp: 'Just now',
+        content: `Hey Lee! I found a shiny ring! Oh wait, it's on a severed finger. Gross! ...Is the ring gold though?`,
+        likes: 900,
+        comments: [
+            { characterKey: 'toad_lee_tactical', text: 'Leave the finger. Take the ring. We move in 5.' }
+        ],
+        rumorId: 'feywild_hoard'
+    },
+    {
+        id: 'fey_armored_goblin',
+        order: 63045,
+        characterKey: 'goblin_guard_armored',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 12, minute: 0 },
+        timestamp: 'Just now',
+        content: `Fresh meat? Nah, stale meat. The skinny one is all bone and gristle. Not worth the axe swing. Letting them pass to the inner sanctum. Good luck with the Mimic.`,
+        likes: 55,
+        comments: [],
+        rumorId: 'feywild_hoard'
+    },
 // POSTS
 {
     id: 'foreman_dawn_aftermath',
@@ -2160,7 +2690,7 @@ We're on schedule.`,
     rumorId: 'archie_aegis_post'
   },
   {
-    id: 'rivers_official',
+    id: 'rivers',
     order: 63207,
     characterKey: 'speaker_rivers',
     date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 30 },
@@ -3047,7 +3577,7 @@ We are NOT done yet.`,
         likes: 1567,
         comments: [
             { characterKey: 'pianta_chef', text: 'Room service still running? I can send up some supplies.' },
-            { characterKey: 'mushroom_regency_official', text: 'You are wanted for questioning. Surrender peacefully.' }
+            { characterKey: 'mushroom_regency', text: 'You are wanted for questioning. Surrender peacefully.' }
         ],
         rumorId: 'delfino_hotel_lockdown'
     },
@@ -3145,7 +3675,7 @@ We are NOT done yet.`,
         likes: 4521,
         comments: [
             { characterKey: 'pianta_enforcer', text: 'Boss said we\'re on standby. Just give the word.' },
-            { characterKey: 'mushroom_regency_official', text: 'The Syndicate has no legal authority here!' },
+            { characterKey: 'mushroom_regency', text: 'The Syndicate has no legal authority here!' },
             { characterKey: 'don_pianta', text: 'Legal? Who said anything about legal?' }
         ],
         rumorId: 'delfino_hotel_lockdown'
@@ -3195,7 +3725,7 @@ We are NOT done yet.`,
     {
         id: 'hotel_lockdown_regency_humiliation',
         order: 62413,
-        characterKey: 'mushroom_regency_official',
+        characterKey: 'mushroom_regency',
         date: { year: 1040, monthIndex: 6, day: 24, hour: 14, minute: 45 },
         timestamp: '2 minutes ago',
         content: `Official statement: The situation at Hotel Delfino is being monitored. We remain committed to lawful resolution. Reports of Regency forces being "spooked by Boos" are exaggerated.`,
@@ -3346,7 +3876,7 @@ We are NOT done yet.`,
         content: `Treating three friendly fire casualties. All from Alpha squad shooting at Beta squad. Both units claim they saw "Shadow Mario" approaching. This isn't combat stress. This is mass hallucination.`,
         likes: 456,
         comments: [
-            { characterKey: 'mushroom_regency_official', text: 'This report must be classified immediately.' },
+            { characterKey: 'mushroom_regency', text: 'This report must be classified immediately.' },
             { characterKey: 'noki_healer', text: 'The Fin has always been cursed. The spirits there play tricks.' }
         ],
         rumorId: 'delfino_fin_madness'
@@ -3389,7 +3919,7 @@ We are NOT done yet.`,
         likes: 890,
         comments: [
             { characterKey: 'noki_shellfish', text: 'The island rejects the invaders.' },
-            { characterKey: 'mushroom_regency_official', text: 'Superstitious nonsense!' }
+            { characterKey: 'mushroom_regency', text: 'Superstitious nonsense!' }
         ],
         rumorId: 'delfino_fin_madness'
     },
@@ -3410,7 +3940,7 @@ We are NOT done yet.`,
     {
         id: 'fin_incident_cover_up',
         order: 62508,
-        characterKey: 'mushroom_regency_official',
+        characterKey: 'mushroom_regency',
         date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 0 },
         timestamp: '1 hour later',
         content: `Official statement: A minor training accident occurred at the Fin outpost. All personnel have been rotated for standard rest. Reports of "Shadow Mario" sightings are unsubstantiated rumors.`,
@@ -3537,7 +4067,7 @@ We are NOT done yet.`,
     {
         id: 'fin_incident_regency_reinforcement',
         order: 62517,
-        characterKey: 'mushroom_regency_official',
+        characterKey: 'mushroom_regency',
         date: { year: 1040, monthIndex: 6, day: 26, hour: 6, minute: 0 },
         timestamp: 'Next morning',
         content: `In response to recent events, additional Regency forces will be deployed to Isle Delfino. The airstrip garrison is being reinforced. Order will be maintained.`,
@@ -3557,7 +4087,7 @@ We are NOT done yet.`,
         content: `I was there. I saw it. It wasn't heat. It wasn't stress. Something was on that rock with us. Something that looked like Mario but... wrong. Empty. It wanted us to shoot each other. And we did.`,
         likes: 890,
         comments: [
-            { characterKey: 'mushroom_regency_official', text: 'This post has been flagged for misinformation.' },
+            { characterKey: 'mushroom_regency', text: 'This post has been flagged for misinformation.' },
             { characterKey: 'pianta_resident', text: 'The Regency can\'t hide the truth forever.' }
         ],
         rumorId: 'delfino_fin_madness'
@@ -3591,7 +4121,7 @@ We are NOT done yet.`,
         likes: 8901,
         comments: [
             { characterKey: 'pianta_elder', text: 'At last! Freedom for our people!' },
-            { characterKey: 'mushroom_regency_official', text: 'This is TREASON! You will face consequences!' }
+            { characterKey: 'mushroom_regency', text: 'This is TREASON! You will face consequences!' }
         ],
         rumorId: 'delfino_village_secession'
     },
@@ -3612,7 +4142,7 @@ We are NOT done yet.`,
     {
         id: 'village_secession_envoy_sent',
         order: 62602,
-        characterKey: 'mushroom_regency_official',
+        characterKey: 'mushroom_regency',
         date: { year: 1040, monthIndex: 6, day: 26, hour: 11, minute: 0 },
         timestamp: '3 hours ago',
         content: `The Regency is dispatching Envoy Beige to negotiate with Don Pianta. This rebellion can be resolved peacefully. The Don is a businessman. He'll see reason when presented with the economic consequences.`,
@@ -3633,7 +4163,7 @@ We are NOT done yet.`,
         likes: 567,
         comments: [
             { characterKey: 'pianta_enforcer', text: 'He looks nervous. Good.' },
-            { characterKey: 'mushroom_regency_official', text: 'Maintain professionalism, Envoy.' }
+            { characterKey: 'mushroom_regency', text: 'Maintain professionalism, Envoy.' }
         ],
         rumorId: 'delfino_village_secession'
     },
@@ -3688,7 +4218,7 @@ We are NOT done yet.`,
         content: `They threw our envoy off a cliff. An OFFICIAL DIPLOMATIC ENVOY. This isn't rebellion anymore. This is insurrection. I am requesting authorization for a full military assault on Pianta Village.`,
         likes: 234,
         comments: [
-            { characterKey: 'mushroom_regency_official', text: 'Authorization... denied. We cannot assault the village without heavy casualties.' },
+            { characterKey: 'mushroom_regency', text: 'Authorization... denied. We cannot assault the village without heavy casualties.' },
             { characterKey: 'don_pianta', text: 'Come and try, Captain. We\'ll chuck you too.' }
         ],
         rumorId: 'delfino_village_secession'
@@ -3844,7 +4374,7 @@ We are NOT done yet.`,
         likes: 6789,
         comments: [
             { characterKey: 'pianta_elder', text: 'Our children will learn the art of diplomatic chucking.' },
-            { characterKey: 'mushroom_regency_official', text: 'This is NOT over!' }
+            { characterKey: 'mushroom_regency', text: 'This is NOT over!' }
         ],
         rumorId: 'delfino_village_secession'
     },
@@ -3968,7 +4498,7 @@ We are NOT done yet.`,
     {
         id: 'corona_invasion_regency_shock',
         order: 62707,
-        characterKey: 'mushroom_regency_official',
+        characterKey: 'mushroom_regency',
         date: { year: 1040, monthIndex: 6, day: 27, hour: 10, minute: 0 },
         timestamp: '1 hour ago',
         content: `The loss of Corona Mountain is a strategic setback. We are reassessing our defensive posture. The Koopa Troop's aerial capabilities were... underestimated. Reinforcements are being requested.`,
@@ -4046,7 +4576,7 @@ We are NOT done yet.`,
         content: `Urgent message to High Command: Our position is untenable. The Koopa Troop holds Corona Mountain. The Syndicate holds Pianta Village. The hotel is still fortified. We need IMMEDIATE naval and air reinforcement or we WILL lose this island.`,
         likes: 345,
         comments: [
-            { characterKey: 'mushroom_regency_official', text: 'Reinforcements are being mobilized. Hold your position.' },
+            { characterKey: 'mushroom_regency', text: 'Reinforcements are being mobilized. Hold your position.' },
             { characterKey: 'general_shellshock', text: 'Intercepted. Thank you for the intelligence, Captain.' }
         ],
         rumorId: 'delfino_corona_invasion'
@@ -4519,7 +5049,7 @@ We are NOT done yet.`,
         content: `Command, the situation is CRITICAL. We have lost Corona Mountain and Ricco Harbor. The Koopa Navy now blockades all sea routes. Our garrison has no resupply path. We need IMMEDIATE aerial extraction or reinforcement.`,
         likes: 234,
         comments: [
-            { characterKey: 'mushroom_regency_official', text: 'Reinforcements are being prepared. Hold the airstrip at all costs.' },
+            { characterKey: 'mushroom_regency', text: 'Reinforcements are being prepared. Hold the airstrip at all costs.' },
             { characterKey: 'general_shellshock', text: 'Your airstrip is next, Captain. Enjoy your last hours on Delfino.' }
         ],
         rumorId: 'delfino_ricco_harbor'
@@ -5498,7 +6028,7 @@ We are NOT done yet.`,
     likes: 5901,
     comments: [
       { characterKey: 'captain_toadette', text: 'Princess lives? Loyalists mobilize!' },
-      { characterKey: 'regency_official', text: 'Suppress this heresy!' }
+      { characterKey: 'regency', text: 'Suppress this heresy!' }
     ],
     rumorId: 'aegis_uprising_clues'
   },
@@ -5651,7 +6181,7 @@ We are NOT done yet.`,
         content: `The expulsion of the Mushroom Regency from Isle Delfino represents the largest geopolitical shift in the southern seas in a century. The Coalition now controls a strategic island chain. The Regency's southern flank is exposed. The world is watching.`,
         likes: 7890,
         comments: [
-            { characterKey: 'mushroom_regency_official', text: 'This act of rebellion will not go unanswered.' },
+            { characterKey: 'mushroom_regency', text: 'This act of rebellion will not go unanswered.' },
             { characterKey: 'general_shellshock', text: 'We\'ll be ready.' }
         ],
         rumorId: 'delfino_exile_final'

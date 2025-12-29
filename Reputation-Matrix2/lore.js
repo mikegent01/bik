@@ -20,22 +20,12 @@ import { PARLIAMENT_MEMBERS } from './parliament-members.js';
 import { REBEL_CLANS_DETAILS } from './rebel-clans-details.js';
 import { FAWFUL_DETAILS } from './fawful-details.js';
 import { COSMIC_JESTERS_DETAILS } from './cosmic-jesters-details.js';
-
+import {AUXILIARY_PARTY} from './party-and-events.js'
 export { CHARACTER_RELATIONS } from './character-relations.js';
 
 const combinedCharacters = {
     ...CHARACTERS,
     ...PARLIAMENT_MEMBERS
-};
-
-export const AUXILIARY_PARTY = {
-    dan: { name: "Dan", weapon: "Longsword & Magic", status: "Weakened & Diminished", portrait: "toads/dan.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
-    toad_lee: { name: "Toad Lee", description: "A hardy toad warrior who fights with a surprisingly large axe.", weapon: "Axe", status: "Active", portrait: "toads/toad_lee.png", level: 2, xp: 150, xp_to_next: 300, log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."], abilities: ["Reckless Attack"] },
-    eager: { name: "Eager", weapon: "Whip", status: "Active", portrait: "toads/eager.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
-    ryan: { name: "Ryan", weapon: "Spellcaster", status: "Active", description: "A quiet, studious toad with a natural but untrained affinity for magic...", portrait: "toads/ryan.png", level: 2, xp: 150, xp_to_next: 300, log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell..."], abilities: ["Magic Missile"] },
-    roger: { name: "Roger", weapon: "Gun", status: "Active", portrait: "toads/roger.png", level: 2, xp: 150, xp_to_next: 300, log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire..."], abilities: ["Deadeye Shot"] },
-    bones: { name: "Bones", weapon: "Grotesque", status: "Active", portrait: "toads/bones.png", level: 2, xp: 150, xp_to_next: 300, log: ["Captured and interrogated by the Iron Legion during the chaotic raid..."], abilities: ["Rage"] },
-    the_mole: { name: "The Mole", weapon: "Deceit", status: "Active", description: "A toad of unknown origin... Revealed as an agent for the Iron Legion.", portrait: "toads/the_mole.png", level: 2, xp: 150, xp_to_next: 300, log: ["Revealed his allegiance by helping the Iron Legion capture Bones..."], abilities: ["Feint"] }
 };
 
 
@@ -134,26 +124,27 @@ combinedFactions.liberated_toads = modifiedMushroomKingdomFactions.liberated_toa
 // STORY ARCS
 // ============================================
 export const STORY_ARCS = {
-    raventree_manor: {
+raventree_manor: {
         id: 'raventree_manor',
         name: 'The Raventree Manor Crisis',
-        description: 'A haunted mansion, a time-looping oracle, and a supernatural containment crisis that threatens to tear reality apart.',
+        description: 'What began as a haunted house investigation has escalated into a multiversal catastrophe. A failed ritual has shattered the manor across three planes of reality—the Shadowfell, the Feywild, and the Void—scattering the party and turning a containment crisis into a desperate race to mend the fabric of existence.',
         icon: '🏚️',
         status: 'active',
         startDate: { day: 16, monthIndex: 6, year: 1040 },
         endDate: null,
         phases: [
-            { id: 'discovery', name: 'Discovery', description: 'The party arrives at the cursed mansion' },
-            { id: 'escalation', name: 'Escalation', description: 'Supernatural threats multiply' },
-            { id: 'crisis', name: 'Crisis', description: 'Full containment breach' },
-            { id: 'resolution', name: 'Resolution', description: 'The fate of the manor is decided' }
+            { id: 'discovery', name: 'Discovery', description: 'The party arrives at the cursed mansion, ignoring warnings about mirrors and encountering its first supernatural threats.' },
+            { id: 'escalation', name: 'Escalation', description: 'The Manor responds to the party\'s presence with escalating force: rust monsters, wraiths, and the siege by the Pond Patrol.' },
+            { id: 'containment', name: 'Containment', description: 'The party breaks the three anchors binding the curse (Star Fragment, Mirror Terror, Arcane Wraith) and clears the Silent Grove, preparing for the final ritual.' },
+            { id: 'fracture', name: 'Fracture', description: 'The separation ritual fails, shattering reality. The party is scattered across the planes and must survive their respective shards to find a way back.' },
+            { id: 'reconvergence', name: 'Reconvergence', description: 'The party attempts to reunite the fractured timelines and decide the ultimate fate of the Manor, the Oracle, and the Star Shard.' }
         ],
-        currentPhase: 2,
-        themes: ['supernatural', 'survival', 'mystery'],
-        keyFactions: ['mages_guild', 'cosmic_jesters', 'iron_legion'],
+        currentPhase: 3, // Now in the 'Fracture' phase (0-indexed)
+        themes: ['supernatural', 'survival', 'mystery', 'horror', 'planar-travel', 'cosmic-horror'],
+        keyFactions: ['mages_guild', 'cosmic_jesters', 'iron_legion', 'onyx_hand', 'liberated_toads'],
         consequences: {
-            positive: ['Potential arcane knowledge', 'Supernatural allies'],
-            negative: ['Reality destabilization', 'Casualties mounting']
+            positive: ['Unprecedented knowledge of planar physics', 'Powerful artifacts from other dimensions', 'Potential for new, strange allies'],
+            negative: ['Permanent separation of the party', 'Erasure from history', 'Unleashing of the "Something Older" from the Void', 'Loss of key witnesses and allies']
         }
     },
     capital_intrigue: {

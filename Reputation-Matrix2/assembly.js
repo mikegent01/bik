@@ -665,9 +665,11 @@ function renderPost(post, options = {}) {
 
     // Badges
     let badgesHTML = '';
+    // Force badge display for debugging if needed: || true
     if (isNew || options.showTrendingScore || isFuture) {
         badgesHTML = '<div class="post-badges">';
         if (isFuture) badgesHTML += debugBadge;
+        // Make sure !isFuture check doesn't hide it for current posts
         if (isNew && !isFuture) badgesHTML += '<span class="new-post-badge">NEW</span>';
         if (options.showTrendingScore) badgesHTML += `<span class="trending-badge">🔥 Trending</span>`;
         badgesHTML += '</div>';
@@ -2450,13 +2452,20 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
 // ============================================================================
 
 function updateSeenPosts() {
+    if (!state.userState) return;
     if (!state.userState.seenPostIds) state.userState.seenPostIds = [];
     
     const visiblePostIds = getVisiblePosts().map(p => p.id);
-    const newIds = new Set([...state.userState.seenPostIds, ...visiblePostIds]);
-    state.userState.seenPostIds = Array.from(newIds);
     
-    saveState();
+    // Only update if there are actually new IDs to add
+    const hasNew = visiblePostIds.some(id => !state.userState.seenPostIds.includes(id));
+    
+    if (hasNew) {
+        const newIds = new Set([...state.userState.seenPostIds, ...visiblePostIds]);
+        state.userState.seenPostIds = Array.from(newIds);
+        saveState();
+        console.log('[WAHbook] Updated seen posts state.');
+    }
 }
 
 // ============================================================================
@@ -2506,8 +2515,9 @@ async function init() {
     setupEventListeners();
 
     // Update seen posts
-    updateSeenPosts();
-
+    setTimeout(() => {
+        updateSeenPosts();
+    }, 2000); // 2 second delay to ensure UI is settled
     // Handle hash navigation
     if (window.location.hash) {
         const postId = window.location.hash.replace('#post-', '');

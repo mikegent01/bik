@@ -925,17 +925,14 @@
     gap: 6px;
     padding: 12px 16px 0;
 }
-
 .new-post-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    background: linear-gradient(135deg, var(--wahbook-accent), #a29bfe);
+    background: #ff4444;
     color: white;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    font-weight: bold;
+    margin-right: 5px;
 }
 
 .trending-badge {

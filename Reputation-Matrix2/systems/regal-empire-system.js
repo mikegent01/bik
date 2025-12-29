@@ -126,6 +126,72 @@ const LEGION_DIET_CONNECTIONS = {
     ],
 
     coordinatedTimeline: [
+        {
+            date: { year: 1040, monthIndex: 6, day: 12 },
+            dietAction: 'Toad Town Recognition vote tabled',
+            legionResponse: 'Intelligence assets monitoring Captain Toadette',
+            strategicGoal: 'Assess potential ally in Mushroom Kingdom'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 18 },
+            dietAction: 'Supernatural Sovereignty Act passed',
+            legionResponse: 'Iron Crown Brigade activated for Kingdom operations',
+            strategicGoal: 'Legal foundation for expansion'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 20 },
+            dietAction: 'Diet debates Iron Mandate',
+            legionResponse: 'Operation IRON SKY - Vigilance captured',
+            strategicGoal: 'Demonstrate Legion capability to wavering Diet members'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 21, phase: 'morning' },
+            dietAction: 'Iron Mandate passed (28-8-3)',
+            legionResponse: 'Order 120 issued; mass executions authorized at Aegis Command',
+            strategicGoal: 'Vindication for Hawk faction; elimination of Toad leadership'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 21, phase: 'night' },
+            dietAction: 'Emergency session called re: planar fracture',
+            legionResponse: 'Operation SHATTERED GLASS initiated; Raventree secured',
+            strategicGoal: 'Contain dimensional crisis; capture scattered insurgents'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 21, phase: 'night' },
+            dietAction: 'Arcane Congress demands fracture site access',
+            legionResponse: 'Access denied pending security review; Agent Malissia assumes command',
+            strategicGoal: 'Maintain Legion control of supernatural assets'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 21, phase: 'night' },
+            dietAction: 'Onyx Hand offers "diplomatic channels"',
+            legionResponse: 'Operation SHADOW PARLEY proposed for Shadowfell negotiation',
+            strategicGoal: 'Possible asset recovery via vampire cooperation'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 24 },
+            dietAction: 'Refugee Containment Act vote scheduled',
+            legionResponse: 'Forge Engineers on standby for facility construction',
+            strategicGoal: 'Infrastructure for long-term supernatural detention'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 24 },
+            dietAction: 'Operation BUTTERFLY NET deadline',
+            legionResponse: 'Coerced agent must deliver Oracle or face Entropy Ring consequences',
+            strategicGoal: 'Capture primary intelligence target from Feywild'
+        },
+        {
+            date: { year: 1040, monthIndex: 6, day: 28 },
+            dietAction: 'Mage Registry Amendment vote scheduled',
+            legionResponse: 'Intelligence gathering on Guild-Vampire contacts',
+            strategicGoal: 'Maintain pressure on Mages Guild'
+        },
+        {
+            date: { year: 1040, monthIndex: 7, day: 7 },
+            dietAction: 'Emergency Conscription vote scheduled',
+            legionResponse: 'Training Command preparing accelerated programs',
+            strategicGoal: 'Massive manpower expansion for supernatural war'
+        },        
       {
             date: { year: 1040, monthIndex: 6, day: 21 },
             dietAction: 'Iron Mandate passed',
@@ -178,7 +244,7 @@ const LEGION_DIET_CONNECTIONS = {
 };
 
 // Enhanced Legion Data with political integration
-const ENHANCED_LEGION_DATA = {
+   const ENHANCED_LEGION_DATA = {
     politicalIntegration: {
         title: "Diet Integration Status",
         description: "The Iron Legion operates as the military enforcement arm of the Imperial Concordat coalition within the Holy Midlands Diet.",
@@ -195,10 +261,10 @@ const ENHANCED_LEGION_DATA = {
         },
         
         currentLegislativePriorities: [
-  {
+            {
                 bill: "Iron Mandate",
-                status: "ENFORCED", // Updated from PASSED
-                legionBenefit: "Legal cover for Aegis Command executions",
+                status: "ENFORCED",
+                legionBenefit: "Legal cover for Aegis Command executions and Raventree seizure",
                 deploymentAuthorized: true
             },
             {
@@ -212,20 +278,27 @@ const ENHANCED_LEGION_DATA = {
                 status: "DRAFTED",
                 legionBenefit: "Massive manpower increase",
                 deploymentAuthorized: false
+            },
+            {
+                bill: "Planar Containment Protocol",
+                status: "EMERGENCY DRAFTING",
+                legionBenefit: "Authority over dimensional breach sites",
+                deploymentAuthorized: false
             }
         ],
         
         oppositionTracking: {
-            arcaneCongressThreat: "HIGH - Guild may ally with supernaturals",
+            arcaneCongressThreat: "CRITICAL - Demanding access to planar fracture site",
             heartlandAllianceStatus: "NEUTRALIZED - Leadership resigned",
             chaosCaucusUtility: "USEFUL - Votes with chaos, often aligns with disruption",
-            liberatedToads: "ELIMINATION TARGET - Order 120 in effect" // New Entry
+            liberatedToads: "FRAGMENTED - Scattered across three dimensions",
+            onyxHandStatus: "OPPORTUNISTIC - Holding insurgents in Shadowfell"
         }
     },
 
     activeDeployments: {
         title: "Current Deployment Status",
-        lastUpdated: "Day 21, 1040 BF (Evening)", // Updated time
+        lastUpdated: "Day 21, 1040 BF (04:30 - Post-Fracture)", 
         deployments: [
             {
                 region: "Aegis Command HQ",
@@ -244,12 +317,20 @@ const ENHANCED_LEGION_DATA = {
                 status: "SECURED"
             },
             {
-                region: "Raventree Manor Perimeter",
+                region: "Raventree Manor - Physical Plane",
                 troops: 150,
-                commander: "Spy 'Jerry'",
-                mission: "Containment of Supernatural Entities",
-                authority: "Iron Mandate",
-                status: "ACTIVE"
+                commander: "Agent Malissia (Intelligence)",
+                mission: "Planar Fracture Containment / Prisoner Interrogation",
+                authority: "Iron Mandate / Operation SHATTERED GLASS",
+                status: "ACTIVE - DIMENSIONAL HAZARD"
+            },
+            {
+                region: "Raventree Manor - Feywild Insertion",
+                troops: 1,
+                commander: "Asset Toadburt (Coerced)",
+                mission: "Capture The Oracle",
+                authority: "Operation BUTTERFLY NET",
+                status: "DEPLOYED - 72HR DEADLINE"
             },            
             {
                 region: "Rogueport (Trade Ward)",
@@ -257,7 +338,7 @@ const ENHANCED_LEGION_DATA = {
                 commander: "The Executioner",
                 mission: "Urban Pacification & Asset Seizure",
                 authority: "Iron Mandate (Extended Interpretation)",
-                status: "CONTESTED" // Updated after the skirmish
+                status: "CONTESTED"
             },            
             {
                 region: "Autumnwood",
@@ -298,16 +379,45 @@ const ENHANCED_LEGION_DATA = {
                 mission: "Destabilization and pre-annexation operations",
                 authority: "Supernatural Sovereignty Act",
                 status: "ACTIVE"
-            },
-            {
-                region: "Vigilance (Captured Airship)",
-                troops: 150,
-                commander: "Tribune Aldric Stone",
-                mission: "Asset control and intelligence extraction",
-                authority: "Operation IRON SKY",
-                status: "SECURED"
             }
-        ]
+        ],
+        
+        planarOperations: {
+            title: "Cross-Dimensional Operations",
+            description: "Following the Raventree Planar Fracture, Legion has initiated limited cross-dimensional protocols.",
+            operations: [
+                {
+                    codename: "SHATTERED GLASS",
+                    plane: "Physical - Raventree",
+                    objective: "Contain dimensional breach, secure physical assets",
+                    status: "ACTIVE",
+                    assets: 150
+                },
+                {
+                    codename: "BUTTERFLY NET",
+                    plane: "Feywild",
+                    objective: "Capture The Oracle via coerced agent",
+                    status: "IN PROGRESS",
+                    assets: 1,
+                    deadline: "72 hours from 03:00 Day 21"
+                },
+                {
+                    codename: "SHADOW PARLEY",
+                    plane: "Shadowfell",
+                    objective: "Negotiate with Onyx Hand for insurgent handover",
+                    status: "PROPOSED",
+                    assets: 0,
+                    notes: "Requires diplomatic authorization"
+                },
+                {
+                    codename: "DEEP DIVE",
+                    plane: "Deep Mirror",
+                    objective: "Locate and extract/eliminate Oracle",
+                    status: "IMPOSSIBLE - NO INSERTION CAPABILITY",
+                    assets: 0
+                }
+            ]
+        }
     }
 };
 
@@ -412,29 +522,77 @@ export function getCoordinatedTimeline() {
  * @returns {Object} Threat assessment object
  */
 export function getLegionThreatAssessment() {
-    // Import from iron-legion-data.js or define here
     return {
         overall: "CRITICAL",
         military: "EXTREME",
         political: "HIGH",
         intelligence: "COMPROMISED",
+        planar: "UNPRECEDENTED",
         immediateThreats: [
-            "Vigilance under enemy control",
-            "Unknown number of sleeper agents remain active",
-            "Iron Mandate grants expanded operational authority",
-            "Archie clone remains a wild card",
-            "Werewolf Grand Moot may unite supernatural factions"
+            "Planar fracture at Raventree Manor - reality unstable in 200m radius",
+            "Insurgents scattered across THREE dimensions - cannot pursue all simultaneously",
+            "Onyx Hand hosting hostiles in Shadowfell - potential alliance forming",
+            "The Oracle in unreachable 'Deep Mirror' dimension - primary target inaccessible",
+            "Archie Miser's unstable magic signature - caused dimensional catastrophe",
+            "Coerced agent Toadburt may defect or fail - 72-hour deadline critical",
+            "Mages' Guild demanding access to fracture - political pressure mounting",
+            "Unknown Archfey involvement in Feywild reflection",
+            "Asset 'Green T' held by vampires - possible leverage or lost asset"
         ],
         recommendedActions: [
-            "Prioritize intelligence gathering on Brigade structure",
-            "Identify and neutralize remaining embedded agents",
-            "Consider alliance with factions targeted by Supernatural Sovereignty Act",
-            "Develop contingency for Vigilance recovery or destruction",
-            "Monitor Mages Guild diplomatic activities"
-        ]
+            "Maintain physical perimeter at Raventree - NO personnel in fracture zone",
+            "Monitor Agent Malissia's Feywild operation - prepare contingencies",
+            "Open backchannel to Onyx Hand for Shadowfell extraction possibilities",
+            "Accelerate Order 120 executions before dimensional rescue attempts",
+            "Request Mages' Guild planar expertise under STRICT Legion supervision",
+            "Prepare contingency for Archie Miser's return - treat as WMD-level threat",
+            "Develop Deep Mirror insertion capability - consult captured mages",
+            "Consider leveraging vampire 'hospitality' - Green T may be extraction point"
+        ],
+        planarSituation: {
+            physicalPlane: "SECURED - Legion control",
+            shadowfell: "HOSTILE - Onyx Hand territory, two insurgents present",
+            feywild: "CONTESTED - Coerced agent deployed, Guardian entities active",
+            deepMirror: "INACCESSIBLE - Oracle and two others beyond reach"
+        }
     };
 }
-
+/**
+ * Gets the current status of all planar operations
+ * @returns {Object} Planar operations status
+ */
+export function getPlanarOperationsStatus() {
+    return {
+        lastUpdate: "Day 21, 04:30",
+        fractureSite: {
+            location: "Raventree Manor",
+            status: "CONTAINED BUT UNSTABLE",
+            radius: "200 meters",
+            legionControl: true
+        },
+        operations: ENHANCED_LEGION_DATA.activeDeployments.planarOperations.operations,
+        insurgentLocations: {
+            shadowfell: ['Archie Miser', 'Bowser'],
+            feywild: ['Waluigi', 'Toad Lee'],
+            deepMirror: ['Markop', 'Remi', 'The Oracle'],
+            physical: ['Captured: Various Toad insurgents']
+        },
+        legionAssets: {
+            feywild: {
+                agent: 'Toadburt',
+                status: 'Coerced (Entropy Ring)',
+                mission: 'Capture Oracle',
+                deadline: '72 hours from 03:00 Day 21'
+            }
+        },
+        onyxHandContact: {
+            location: 'Shadow Estate (Shadowfell)',
+            host: 'Orangus Cornelius',
+            guests: ['Archie Miser', 'Bowser', 'Green T (captive)'],
+            legionStance: 'Potential negotiation'
+        }
+    };
+}
 /**
  * Gets all Legion data combined for external systems
  * @returns {Object} Complete Legion data object
@@ -874,13 +1032,13 @@ const UPCOMING_VOTES = [
 
 const TODAYS_DIET_EVENTS = {
     date: { year: 1040, monthIndex: 6, day: 21 },
-    headline: "ATTACK ON AEGIS COMMAND - TOAD INSURGENTS ATTEMPT INFILTRATION",
-    summary: "Moments after the Iron Mandate was ratified, reports confirmed a daring infiltration attempt on the Iron Legion's Aegis Command fortress. General Ironhand was personally involved in repelling the attackers. The incident has been cited by the Chancellor as 'absolute proof' that the emergency powers were necessary.",
+    headline: "PLANAR CATASTROPHE AT RAVENTREE MANOR - REALITY FRACTURED",
+    summary: "What began as a political triumph with the Iron Mandate's passage has spiraled into a multidimensional crisis. An attempted ritual at Raventree Manor has shattered local reality into three planar shards, scattering insurgents across the Shadowfell, Feywild, and a mysterious 'Deep Mirror.' Legion forces have seized the physical site, but the supernatural implications are staggering.",
     keyMoments: [
         {
             time: "Morning",
             event: "Iron Mandate Passes",
-            description: "28-8-3 Vote. Emergency powers granted."
+            description: "28-8-3 Vote. Emergency powers granted to the Iron Legion."
         },
         {
             time: "Afternoon (14:30)",
@@ -898,44 +1056,107 @@ const TODAYS_DIET_EVENTS = {
             description: "The rogue airship is fully under Legion control. The skies are declared secure."
         },
         {
-            time: "Night",
-            event: "Raventree Incident",
-            description: "Confused reports of a massive magical discharge (Wraith battle) at Raventree Manor. Legion units moving to secure the site."
+            time: "Night (01:30)",
+            event: "The Shattered Ritual",
+            description: "A synchronization rite at Raventree Manor catastrophically fails, shattering local reality into three distinct planar shards. Massive magical discharge detected across the province."
+        },
+        {
+            time: "Night (01:45)",
+            event: "The Planar Fracture",
+            description: "Insurgents violently separated across dimensions. Physical antechamber seized by Iron Legion. Targets scattered to Shadowfell, Feywild, and unknown 'Deep Mirror' dimension."
+        },
+        {
+            time: "Night (03:00)",
+            event: "Sleeper Agent Deployed",
+            description: "Agent Malissia interrogates captured Toad insurgent. Subject fitted with Entropy Ring and deployed into Feywild as coerced operative. 72-hour deadline to capture the Oracle."
+        },
+        {
+            time: "Night (03:30)",
+            event: "Shadowfell Contact",
+            description: "Intelligence suggests two insurgents (designated 'Archie' and 'Bowser') have made contact with Onyx Hand vampires in the Shadowfell reflection. Asset 'Green T' confirmed present as vampire 'guest.'"
+        },
+        {
+            time: "Night (04:15)",
+            event: "Feywild Activity",
+            description: "Remaining insurgents detected in Feywild reflection of manor. Possible Archfey involvement. Guardian entities active. Legion cannot pursue across planar boundaries."
         }
     ],
     reactions: {
         imperial_concordat: {
             mood: 'vindicated',
-            statement: "They attacked our headquarters the very day we voted! Thank the stars we passed the Mandate. Crush them all.",
+            statement: "The supernatural threat is even greater than we feared. This planar catastrophe proves why the Mandate was necessary. We must accelerate all containment protocols.",
             speaker: "Lord Chancellor Aldric Stonehand"
         },
         heartland_alliance: {
             mood: 'horrified',
-            statement: "Order 120 is a massacre, not justice. We are executing prisoners of war in our own capital.",
+            statement: "Order 120 was a massacre, and now we're dealing with tears in reality itself. This is beyond the Diet's competence. We need the Mages' Guild.",
             speaker: "Acting Representative Merek Oakhaven"
         },
         chaos_caucus: {
-            mood: 'excited',
-            statement: "Acid attacks? Stabbings? Now THIS is politics!",
+            mood: 'ecstatic',
+            statement: "THREE REALITIES! Vampires! Fey courts! This is the BEST Diet session in centuries!",
             speaker: "The Laughing Representative"
         },
         arcane_congress: {
-            mood: 'concerned',
-            statement: "The magical spikes at Raventree are concerning. The Legion's brute force cannot contain what is happening there.",
+            mood: 'alarmed',
+            statement: "A synchronization rite of that magnitude... whoever attempted it was either a genius or a madman. The planar boundaries will be unstable for weeks. The Legion's 'containment' is like putting a bandage on a volcano.",
             speaker: "Archmage Quintus Brightwater"
+        },
+        sanguine_covenant: {
+            mood: 'opportunistic',
+            statement: "Our brethren in the Shadow Estate have acquired... guests. Perhaps there is value in negotiation after all.",
+            speaker: "Countess Isolde Blackwood (via intermediary)"
         }
     },
     legionBriefing: {
-        classification: 'TOP SECRET',
-        preparedBy: 'General Marcus Ironhand',
+        classification: 'EYES ONLY - HAMMER LORD LEVEL',
+        preparedBy: 'General Marcus Ironhand / Agent Malissia',
         keyPoints: [
-            "Infiltration attempt confirmed: Toad insurgency possesses shapeshifting/disguise capabilities.",
-            "Captured 'Speaker L' identified as a decoy. True leadership remains at large.",
-            "Prisoner 'Bones' critically wounded but alive; slated for execution.",
-            "Dragon Asset 'Ignis-Major' secured in holding cells."
+            "RAVENTREE MANOR: Physical site secured. Planar fracture contained but not closed. Reality unstable in 200-meter radius.",
+            "INFILTRATION CONFIRMED: Toad insurgency possesses shapeshifting/disguise capabilities. Unknown magical support.",
+            "PRISONER STATUS: 'Speaker L' confirmed as decoy. 'Bones' critically wounded, slated for execution. Dragon asset 'Ignis-Major' secured.",
+            "SLEEPER AGENT DEPLOYED: Asset 'Toadburt' fitted with Entropy Ring, inserted into Feywild. 72-hour window to capture 'The Oracle.'",
+            "PLANAR DISTRIBUTION: Two hostiles in Shadowfell (Onyx Hand contact). Two hostiles in Feywild. Three+ hostiles in unknown 'Deep Mirror' dimension including primary target 'The Oracle.'",
+            "PRIORITY TARGET: 'Archie Miser' - unstable magic signature. Likely cause of ritual failure. EXTREME CAUTION.",
+            "ONYX HAND CONTACT: Vampires hosting insurgents in Shadowfell. Recommend leveraging for extraction or elimination.",
+            "MAGES GUILD: Archmage Brightwater requesting access to fracture site. RECOMMEND DENIAL pending security review."
+        ],
+        operationalRecommendations: [
+            "Maintain physical perimeter at Raventree. No Legion personnel to approach fracture zone.",
+            "Coordinate with Agent Malissia for Feywild insertion updates.",
+            "Prepare negotiation framework for Onyx Hand - possible asset recovery opportunity.",
+            "Accelerate Order 120 executions before any rescue attempts can be organized.",
+            "Request Mages' Guild planar expertise under strict Legion supervision."
         ]
+    },
+    planarStatus: {
+        physicalPlane: {
+            status: 'LEGION CONTROLLED',
+            description: 'Antechamber secured. Reality fracture contained but unstable.',
+            legionPresence: 150,
+            commander: 'Tribune Aldric Stone (acting)'
+        },
+        shadowfell: {
+            status: 'ONYX HAND TERRITORY',
+            description: 'Shadow Estate under vampire control. Two insurgents present. Asset Green T held as "guest."',
+            hostiles: ['Archie Miser', 'Bowser'],
+            onyxHandContact: 'Orangus Cornelius (host)'
+        },
+        feywild: {
+            status: 'ARCHFEY DOMAIN',
+            description: 'Overgrown manor reflection. Guardian entities active. Archfey absent but hoard present.',
+            hostiles: ['Waluigi', 'Toad Lee'],
+            legionAsset: 'Toadburt (coerced agent, Entropy Ring equipped)'
+        },
+        deepMirror: {
+            status: 'UNKNOWN',
+            description: 'Uncharted dimensional space. No Legion capability for insertion or extraction.',
+            hostiles: ['Markop', 'Remi', 'The Oracle'],
+            threat: 'CANNOT ASSESS'
+        }
     }
 };
+
 // ============================================
 // REPRESENTATIVE GENERATION
 // ============================================
@@ -1368,12 +1589,58 @@ function renderTodaysAftermath() {
         <div class="legion-briefing-section">
             <h4>⚔️ Legion Intelligence Briefing</h4>
             <div class="briefing-header">
-                <span class="classification-badge">${events.legionBriefing.classification}</span>
+                <span class="classification-badge classification-${events.legionBriefing.classification.replace(/\s+/g, '-').toLowerCase()}">${events.legionBriefing.classification}</span>
                 <span class="briefing-author">Prepared by: ${events.legionBriefing.preparedBy}</span>
             </div>
             <ul class="briefing-points">
                 ${events.legionBriefing.keyPoints.map(p => `<li>${p}</li>`).join('')}
             </ul>
+            ${events.legionBriefing.operationalRecommendations ? `
+                <div class="operational-recommendations">
+                    <h5>Operational Recommendations:</h5>
+                    <ul>
+                        ${events.legionBriefing.operationalRecommendations.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                </div>
+            ` : ''}
+        </div>
+    ` : '';
+
+    // New planar status section
+    const planarStatusHTML = events.planarStatus ? `
+        <div class="planar-status-section">
+            <h4>🌀 Planar Fracture Status</h4>
+            <div class="planar-grid">
+                ${Object.entries(events.planarStatus).map(([plane, data]) => `
+                    <div class="planar-card plane-${plane.toLowerCase().replace(/\s+/g, '-')}">
+                        <div class="planar-header">
+                            <span class="plane-name">${plane.replace(/([A-Z])/g, ' $1').trim()}</span>
+                            <span class="plane-status status-${data.status.toLowerCase().replace(/\s+/g, '-')}">${data.status}</span>
+                        </div>
+                        <p class="plane-description">${data.description}</p>
+                        ${data.hostiles ? `
+                            <div class="plane-hostiles">
+                                <strong>Hostiles:</strong> ${data.hostiles.join(', ')}
+                            </div>
+                        ` : ''}
+                        ${data.legionPresence ? `
+                            <div class="plane-legion">
+                                <strong>Legion Presence:</strong> ${data.legionPresence} troops
+                            </div>
+                        ` : ''}
+                        ${data.legionAsset ? `
+                            <div class="plane-asset">
+                                <strong>Legion Asset:</strong> ${data.legionAsset}
+                            </div>
+                        ` : ''}
+                        ${data.onyxHandContact ? `
+                            <div class="plane-contact">
+                                <strong>Onyx Hand Contact:</strong> ${data.onyxHandContact}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('')}
+            </div>
         </div>
     ` : '';
 
@@ -1443,12 +1710,13 @@ function renderTodaysAftermath() {
     return `
         <div class="todays-aftermath-container">
             <div class="aftermath-header">
-                <span class="breaking-badge">⚡ BREAKING</span>
+                <span class="breaking-badge">⚡ BREAKING - PLANAR CRISIS</span>
                 <h3>${events.headline}</h3>
                 <p class="aftermath-summary">${events.summary}</p>
             </div>
             
             ${timelineHTML}
+            ${planarStatusHTML}
             ${notableVotesHTML}
             ${consequencesHTML}
             ${legionBriefingHTML}

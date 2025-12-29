@@ -5,36 +5,72 @@ import { TOAD_ABILITIES } from './abilities.js';
 
 export const AUXILIARY_PARTY = {
     dan: { name: "Dan", weapon: "Longsword & Magic", status: "Weakened & Diminished", portrait: "toads/dan.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
-    toad_lee: { name: "Toad Lee", description: "A hardy toad warrior who fights with a surprisingly large axe.", weapon: "Axe", status: "Active", portrait: "toads/toad_lee.png", level: 2, xp: 150, xp_to_next: 300, log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion."], abilities: ["Reckless Attack"] },
-    eager: { name: "Eager", weapon: "Whip", status: "Active", portrait: "toads/eager.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },
-    ryan: { name: "Ryan", weapon: "Spellcaster", status: "Active", description: "A quiet, studious toad with a natural but untrained affinity for magic...", portrait: "toads/ryan.png", level: 2, xp: 150, xp_to_next: 300, log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell..."], abilities: ["Magic Missile"] },
-    roger: { name: "Roger", weapon: "Gun", status: "Active", portrait: "toads/roger.png", level: 2, xp: 150, xp_to_next: 300, log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire..."], abilities: ["Deadeye Shot"] },
-    bones: { name: "Bones", weapon: "Grotesque", status: "Active", portrait: "toads/bones.png", level: 2, xp: 150, xp_to_next: 300, log: ["Captured and interrogated by the Iron Legion during the chaotic raid..."], abilities: ["Rage"] },
-    the_mole: { name: "The Mole", weapon: "Deceit", status: "Active", description: "A toad of unknown origin... Revealed as an agent for the Iron Legion.", portrait: "toads/the_mole.png", level: 2, xp: 150, xp_to_next: 300, log: ["Revealed his allegiance by helping the Iron Legion capture Bones..."], abilities: ["Feint"] }
+    toad_lee: { name: "Toad Lee", description: "A hardy toad warrior who fights with a surprisingly large axe.", weapon: "Axe", status: "Active", portrait: "toads/toad_lee.png", level: 2, xp: 150, xp_to_next: 300, log: ["Survived the horrifying dinner and subsequent Iron Legion raid at Shadeward Mansion.", "Entered the Feywild Attic via Planar Fracture."], abilities: ["Reckless Attack"] },
+    eager: { name: "Eager", weapon: "Whip", status: "Active", portrait: "toads/eager.png", level: 1, xp: 0, xp_to_next: 100, log: ["Rescued from the Spider Grove by Markop and Remi."], abilities: [] },
+    ryan: { name: "Ryan", weapon: "Spellcaster", status: "MIA", description: "A quiet, studious toad with a natural but untrained affinity for magic...", portrait: "toads/ryan.png", level: 2, xp: 150, xp_to_next: 300, log: ["Faced the Oracle at Shadeward Mansion and used a powerful darkness spell...", "Jumped from the Vigilance during the Iron Sky Breach."], abilities: ["Magic Missile"] },
+    roger: { name: "Roger", weapon: "Gun", status: "Active", portrait: "toads/roger.png", level: 2, xp: 150, xp_to_next: 300, log: ["Stood up to the Oracle at Shadeward Mansion and dropped an Iron Legionnaire...", "Assisted in the defense of Raventree Manor."], abilities: ["Deadeye Shot"] },
+    bones: { name: "Bones", weapon: "Grotesque", status: "Captured", portrait: "toads/bones.png", level: 2, xp: 150, xp_to_next: 300, log: ["Captured and interrogated by the Iron Legion during the chaotic raid...", "Failed infiltration of Aegis Command."], abilities: ["Rage"] },
+    the_mole: { name: "The Mole", weapon: "Deceit", status: "Active (Enemy)", description: "A toad of unknown origin... Revealed as an agent for the Iron Legion.", portrait: "toads/the_mole.png", level: 2, xp: 150, xp_to_next: 300, log: ["Revealed his allegiance by helping the Iron Legion capture Bones..."], abilities: ["Feint"] },
+    toadburt: { name: "Toadburt", weapon: "Entropy Ring", status: "Coerced Agent", description: "A simple toad turned unwilling weapon by the Iron Legion.", portrait: "toads/toadburt.png", level: 1, xp: 50, xp_to_next: 100, log: ["Captured in the Antechamber.", "Fitted with Entropy Ring and deployed to Feywild."], abilities: ["Volatile Touch"] }
 };
 
 
 
 export const RUMORS = [
-
-{
-    id: 'koopa_fortress_reconstruction',
-    title: "The Valley Awakens",
-    date: { day: 22, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'kamek',
-    arc: 'mushroom_civil_war',
-    arcPosition: 'rising',
-    description: "With Bowser absent in the Midlands, Kamek has consolidated control over the Valley of Bowser and initiated an ambitious reconstruction project. The Koopa Krew's excavation has uncovered ancient structures beneath the volcanic soil—and workers report an unexplained energy drain in certain areas. Kamek has ordered a media blackout, but whispers of 'something awakening' have begun to spread.",
-    targets: ['kamek', 'koopa_foreman', 'magikoopa_council'],
-    effects: {
-        koopa_troop: 15,
-        mushroom_regency: -5,
-        iron_legion: -5
+    {
+        id: 'project_sleeper',
+        title: "The Entropic Agent",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'iron_legion_intelligence',
+        arc: 'raventree_manor',
+        arcPosition: 'rising_action',
+        description: "Intel suggests the Iron Legion has successfully turned a captured Toad (Toadburt) into a magical sleeper agent. Equipped with an 'Entropy Ring' to survive planar travel, he has been deployed to the Feywild with a specific kill/capture order for the Oracle. The ring serves as both life-support and a bomb; if he does not complete his mission within 72 hours, the ring will unravel his existence.",
+        targets: ['toadburt', 'oracle', 'waluigi', 'toad_lee'],
+        effects: {
+            liberated_toads: -15, // Loss of a member
+            iron_legion: 10, // Successful covert op
+            mages_guild: -5, // Forbidden tech usage
+            cosmic_jesters: 5 // Chaos of a living bomb
+        },
+        cycle_impact: { score: 4.5, label: "Betrayal imminent", type: "espionage" }
     },
-    cycle_impact: { score: 1.5, label: "Military Consolidation", type: "political" }
-},
-
+    {
+        id: 'cornelius_dinner',
+        title: "The Host of Shadows",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'onyx_hand',
+        arc: 'shadowfell_estate',
+        arcPosition: 'introduction',
+        description: "Deep within the Shadowfell reflection of Raventree Manor rules 'Orangus Cornelius,' a powerful entity (likely a Vampiric Toad) leading the Onyx Hand in this dimension. He is hosting a formal dinner party where Green T is a captive guest. Archie and Bowser have infiltrated the event, but the physics of the Shadowfell have neutralized Archie's fire magic, forcing them to rely on diplomacy and physical might.",
+        targets: ['bowser', 'archie_miser', 'orangus_cornelius', 'green_t'],
+        effects: {
+            onyx_hand: 10, // Hosting powerful guests
+            koopa_troop: 5, // Bowser showing dominance
+            freelancer_underworld: 5, // Syndicate presence
+            silver_flame: -10 // Unchecked undead gathering
+        },
+        cycle_impact: { score: 3.0, label: "Dangerous Etiquette", type: "social" }
+    },
+    {
+        id: 'feywild_hoard',
+        title: "The Butterfly's Hoard",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'wild_magic_surge',
+        arc: 'feywild_attic',
+        arcPosition: 'exploration',
+        description: "The attic of the Feywild Manor has been blown open, revealing a massive trove of treasure guarded by a Giant Butterfly/Dragonfly hybrid. Waluigi and Toad Lee have entered the area, encountering unionized Goblin staff and utilizing chaos (fireworks) to bypass threats. The loot includes ancient coins, gems, and potentially artifacts needed to repair the planar ritual.",
+        targets: ['waluigi', 'toad_lee', 'goblin_staff'],
+        effects: {
+            waluigi_fan_club: 15, // Wealth accumulation
+            ratchet_raiders: 10, // Goblin union interaction
+            regal_empire: -5, // Unsanctioned looting
+            green_thumb_guardians: -10 // Disturbance of Fey nature
+        },
+        cycle_impact: { score: 2.5, label: "Looting opportunity", type: "economic" }
+    },
 {
     id: 'primordial_wyrm_awakening',
     title: "The Wyrm Beneath",
@@ -113,7 +149,7 @@ export const RUMORS = [
     id: 'archie_aegis_post',
     title: "Archie's Aegis Worry",
     date: { day: 21, monthIndex: 6, year: 1040 },
-    isEvent: false,
+    isEvent: true,
     instigator: 'archie_miser',
     arc: 'aegis_riot',
     arcPosition: 'aftermath',
@@ -436,7 +472,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         id: 'rakasha_stolen_prize',
         title: "Heist at the Violet Emblem",
         date: { day: 22, monthIndex: 6, year: 1040 },
-        isEvent: false,
+        isEvent: true,
         instigator: 'rakasha_spirit_walker',
         arc: 'toad_liberation',
         arcPosition: 'rising',
@@ -490,7 +526,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         id: 'iron_sky_breach',
         title: "Vigilance Over Raventree",
         date: { day: 20, monthIndex: 6, year: 1040 },
-        isEvent: false,
+        isEvent: true,
         instigator: 'colonel_vera_steelstorm',
         arc: 'vigilance_saga',
         arcPosition: 'falling',
@@ -507,7 +543,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         id: 'remi_personal_arc',
         title: "Remi's Guild Application",
         date: { day: 20, monthIndex: 6, year: 1040 },
-        isEvent: false,
+        isEvent: true,
         instigator: 'remi',
         arc: 'vigilance_saga',
         arcPosition: 'falling',
@@ -542,7 +578,7 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         id: 'greenhouse_inferno_confession',
         title: "Archie's Confession",
         date: { day: 20, monthIndex: 6, year: 1040 },
-        isEvent: false,
+        isEvent: true,
         instigator: 'archie',
         arc: 'raventree_manor', 
         arcPosition: 'climax',
