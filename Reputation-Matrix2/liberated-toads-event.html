@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vigilance Terminal | Raventree Manor Operations</title>
+    <title>Vigilance Terminal | The Fracture</title>
     <link rel="stylesheet" href="global.css" />
     <link rel="stylesheet" href="layout.css" />
     <link rel="stylesheet" href="components.css" />
@@ -18,45 +18,38 @@
             <main id="main-content">
                 <section id="mission-dashboard">
                     <!-- Header / Status Banner -->
-                    <div class="mission-header-banner status-warning">
+                    <div class="mission-header-banner status-danger">
                         <div class="banner-content">
-                            <h2>OPERATION: RAVENTREE PURGE</h2>
-                            <p>LOC: Raventree Manor Grounds // DATE: Day 21, 1040 BF</p>
+                            <h2>OPERATION: FRACTURED REALITY</h2>
+                            <p>LOC: Planar Convergence Point // DATE: Day 22, 1040 BF</p>
                         </div>
-                        <div class="mission-status-badge status-success">
-                            STATUS: GROVE CLEARED
+                        <div class="mission-status-badge status-critical">
+                            ALERT: PLANAR SEPARATION
                         </div>
                     </div>
 
-     <!-- Location Selector Panel - Updated with all locations -->
-<div class="panel location-selector-panel">
-    <div class="panel-header">
-        <h3>Location Database</h3>
-    </div>
-    <div class="location-controls">
-        <!-- Main Locations -->
-        <button class="loc-btn loc-hostile" data-location="raventree_manor">Raventree Manor</button>
-        <button class="loc-btn loc-cleared active" data-location="silent_grove">Silent Grove</button>
-        <button class="loc-btn loc-dangerous" data-location="hedge_maze">Hedge Maze</button>
-        <button class="loc-btn loc-dangerous" data-location="manor_gardens">Manor Gardens</button>
-        
-        <!-- Interior Locations -->
-        <button class="loc-btn loc-hostile" data-location="dance_hall">Dance Hall</button>
-        <button class="loc-btn loc-dangerous" data-location="solarium">Solarium</button>
-        <button class="loc-btn loc-unexplored" data-location="upper_house">Upper House</button>
-        <button class="loc-btn" data-location="ruined_hall">Ruined Hall</button>
-        
-        <!-- Exterior Locations -->
-        <button class="loc-btn loc-cleared" data-location="oracles_gardens">Oracle's Gardens</button>
-        <button class="loc-btn" data-location="greenhouse">Greenhouse (Destroyed)</button>
-        <button class="loc-btn loc-unexplored" data-location="fountain_district">Fountain District</button>
-        
-        <!-- Extraplanar -->
-        <button class="loc-btn loc-hostile" data-location="mirror_dimension">Mirror Dimension</button>
-        <button class="loc-btn loc-unexplored" data-location="temporal_pocket">Temporal Pocket</button>
-        <button class="loc-btn loc-hostile" data-location="shadeward_mansion">Shadeward Mansion</button>
-    </div>
-</div>
+                    <!-- Location Selector Panel - Updated for The Fracture -->
+                    <div class="panel location-selector-panel">
+                        <div class="panel-header">
+                            <h3>Planar Navigation</h3>
+                        </div>
+                        <div class="location-controls">
+                            <!-- The Hub -->
+                            <button class="loc-btn loc-hostile active" data-location="raventree_manor">Physical Ruins (Legion)</button>
+                            
+                            <!-- The Shards (New) -->
+                            <button class="loc-btn loc-dangerous" data-location="shadowfell_estate">Shadowfell Estate</button>
+                            <button class="loc-btn loc-dangerous" data-location="feywild_attic">Feywild Attic</button>
+                            
+                            <!-- Physical Grounds -->
+                            <button class="loc-btn loc-cleared" data-location="silent_grove">Silent Grove (FOB)</button>
+                            <button class="loc-btn loc-dangerous" data-location="solarium">The Solarium (Breach)</button>
+                            
+                            <!-- The Lost/Unknown -->
+                            <button class="loc-btn loc-unexplored" data-location="fountain_district">Fountain District</button>
+                            <button class="loc-btn loc-sealed" data-location="upper_house">Upper House (Missing)</button>
+                        </div>
+                    </div>
 
                     <!-- Main Location Display -->
                     <div id="location-display" class="panel location-display-panel">
@@ -68,35 +61,34 @@
                         <!-- Left Col: Objectives & Metrics -->
                         <div class="dashboard-col-left">
                             <div class="panel tactical-panel">
-                                <div class="panel-header"><h3>Current Objectives</h3></div>
+                                <div class="panel-header"><h3>Active Protocols</h3></div>
                                 <ul class="objective-list">
-                                    <li class="obj-complete">Rescue Eager from Spider Grove</li>
-                                    <li class="obj-complete">Defeat Arachnid Matriarch</li>
-                                    <li class="obj-complete">Secure Web-Woven Artifacts</li>
-                                    <li class="obj-active">Attend Oracle's Ritual</li>
-                                    <li class="obj-active">Investigate Multiple Oracles</li>
-                                    <li class="obj-warning">Explore Fountain District</li>
+                                    <li class="obj-critical">Extract Green T from Shadowfell</li>
+                                    <li class="obj-critical">Stop Toadburt (Entropy Bomb)</li>
+                                    <li class="obj-warning">Loot Feywild Hoard</li>
+                                    <li class="obj-active">Synchronize 3 Reality Keys</li>
+                                    <li class="obj-complete">Purge Silent Grove</li>
                                 </ul>
                             </div>
 
                             <div class="panel tactical-panel">
-                                <div class="panel-header"><h3>Sector Conditions</h3></div>
+                                <div class="panel-header"><h3>Reality Integrity</h3></div>
                                 <div class="readings-grid">
                                     <div class="reading-item">
-                                        <span class="label">Spider Threat Level</span>
-                                        <div class="bar-container"><div class="bar-fill green" style="width: 5%">ELIMINATED</div></div>
+                                        <span class="label">Planar Stability</span>
+                                        <div class="bar-container"><div class="bar-fill red" style="width: 14%">CRITICAL FAILURE</div></div>
                                     </div>
                                     <div class="reading-item">
-                                        <span class="label">Magical Corruption</span>
-                                        <div class="bar-container"><div class="bar-fill purple" style="width: 65%">PERSISTENT</div></div>
+                                        <span class="label">Void Bleed</span>
+                                        <div class="bar-container"><div class="bar-fill purple" style="width: 85%">EXPANDING</div></div>
                                     </div>
                                     <div class="reading-item">
-                                        <span class="label">Temporal Stability</span>
-                                        <div class="bar-container"><div class="bar-fill orange" style="width: 40%">UNSTABLE</div></div>
+                                        <span class="label">Legion Presence</span>
+                                        <div class="bar-container"><div class="bar-fill orange" style="width: 100%">MARTIAL LAW</div></div>
                                     </div>
                                     <div class="reading-item">
-                                        <span class="label">Party Cohesion</span>
-                                        <div class="bar-container"><div class="bar-fill yellow" style="width: 70%">RECOVERING</div></div>
+                                        <span class="label">Party Status</span>
+                                        <div class="bar-container"><div class="bar-fill yellow" style="width: 30%">SCATTERED</div></div>
                                     </div>
                                 </div>
                             </div>
@@ -108,36 +100,24 @@
                                 <div class="panel-header"><h3>Tactical Log / SitRep</h3></div>
                                 <div id="tactical-log-feed" class="log-feed">
                                     <div class="log-entry log-critical">
-                                        <span class="log-timestamp">00:45</span>
-                                        <span class="log-text">REVELATION: Multiple Oracles confirmed. "Bearer" title invoked. Star Shard artifact displayed.</span>
+                                        <span class="log-timestamp">Day 22 08:00</span>
+                                        <span class="log-text">ALERT: Iron Legion establishes "Order 120". All Toad prisoners marked for execution.</span>
+                                    </div>
+                                    <div class="log-entry log-warning">
+                                        <span class="log-timestamp">Day 22 06:00</span>
+                                        <span class="log-text">SIGNAL DETECTED: Toadburt's entropy signature active in Feywild Sector.</span>
                                     </div>
                                     <div class="log-entry">
-                                        <span class="log-timestamp">00:15</span>
-                                        <span class="log-text">LOOT DISTRIBUTED: War Mage Staff → Archie. Web-Woven Scales → Remi. Potions x3 → Rodger.</span>
+                                        <span class="log-timestamp">Day 21 21:00</span>
+                                        <span class="log-text">Archie/Bowser confirm contact with "Orangus Cornelius" in Shadowfell. Diplomacy engaged.</span>
                                     </div>
                                     <div class="log-entry log-critical">
-                                        <span class="log-timestamp">00:00</span>
-                                        <span class="log-text">BANISHMENT SUCCESSFUL: Arachnid Matriarch eliminated via Oracle's ritual circle.</span>
+                                        <span class="log-timestamp">Day 21 20:00</span>
+                                        <span class="log-text">RITUAL FAILURE. Planar fracture event. Raventree Manor geometry unstable.</span>
                                     </div>
                                     <div class="log-entry">
-                                        <span class="log-timestamp">23:50</span>
-                                        <span class="log-text">Salem lands critical hit—crossbow bolt through Matriarch's eye.</span>
-                                    </div>
-                                    <div class="log-entry">
-                                        <span class="log-timestamp">23:45</span>
-                                        <span class="log-text">Waluigi deploys weakening ray. Markop and Matriarch locked in grapple.</span>
-                                    </div>
-                                    <div class="log-entry log-critical">
-                                        <span class="log-timestamp">23:40</span>
-                                        <span class="log-text">FNG Remi DOWN. Swarmed by minispiders. Mana depleted.</span>
-                                    </div>
-                                    <div class="log-entry">
-                                        <span class="log-timestamp">23:30</span>
-                                        <span class="log-text">Toad Squad Alpha emerges from Fountain District. Flanking maneuver initiated.</span>
-                                    </div>
-                                    <div class="log-entry">
-                                        <span class="log-timestamp">23:15</span>
-                                        <span class="log-text">ENGAGEMENT: Spider Grove assault begins. Markop still in Titan form.</span>
+                                        <span class="log-timestamp">Day 21 19:30</span>
+                                        <span class="log-text">Arcane Wraith banished. Ectoplasm secured. Third Anchor broken.</span>
                                     </div>
                                 </div>
                             </div>
@@ -146,145 +126,86 @@
 
                     <!-- Loot & Resources Panel -->
                     <div class="panel loot-panel">
-                        <div class="panel-header"><h3>Recovered Assets</h3></div>
+                        <div class="panel-header"><h3>Planar Artifacts Detected</h3></div>
                         <div class="loot-grid">
                             <div class="loot-card">
-                                <div class="loot-icon">🗡️</div>
+                                <div class="loot-icon">💎</div>
                                 <div class="loot-info">
-                                    <h4>War Mage's Staff</h4>
-                                    <p class="loot-holder">Claimed by: Markop (for Archie)</p>
-                                    <p class="loot-desc">Quality magical focus. Strong arcane resonance.</p>
+                                    <h4>The Star Shard</h4>
+                                    <p class="loot-holder">Location: Void (With Oracle)</p>
+                                    <p class="loot-desc">Divine artifact. Key to the Bearer's power. Currently unreachable.</p>
                                 </div>
                             </div>
                             <div class="loot-card">
-                                <div class="loot-icon">🛡️</div>
+                                <div class="loot-icon">💍</div>
                                 <div class="loot-info">
-                                    <h4>Web-Woven Scale Armor</h4>
-                                    <p class="loot-holder">Claimed by: Remi</p>
-                                    <p class="loot-desc">Corrupted by grove magic. Properties unknown. Not yet equipped.</p>
+                                    <h4>Entropy Ring</h4>
+                                    <p class="loot-holder">Location: Feywild (On Toadburt)</p>
+                                    <p class="loot-desc">Magical WMD. Must be defused or contained.</p>
                                 </div>
                             </div>
                             <div class="loot-card">
-                                <div class="loot-icon">🧪</div>
+                                <div class="loot-icon">🦋</div>
                                 <div class="loot-info">
-                                    <h4>Healing Potions (x3)</h4>
-                                    <p class="loot-holder">Claimed by: Rodger</p>
-                                    <p class="loot-desc">Standard restorative. Desperately hoarded.</p>
+                                    <h4>Feywild Hoard</h4>
+                                    <p class="loot-holder">Location: Feywild Attic</p>
+                                    <p class="loot-desc">Gold, gems, and magical curios guarded by the Monarch.</p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Harvestable Resources -->
-                    <div class="panel resources-panel">
-                        <div class="panel-header"><h3>Harvestable Resources (Silent Grove)</h3></div>
-                        <div class="resource-grid">
-                            <div class="resource-item">
-                                <span class="resource-name">Spider Venom Sacs</span>
-                                <span class="resource-qty">15-20 available</span>
-                                <span class="resource-use">Poisons, paralytic compounds</span>
-                            </div>
-                            <div class="resource-item">
-                                <span class="resource-name">Corrupted Chitin Plates</span>
-                                <span class="resource-qty">Abundant</span>
-                                <span class="resource-use">Armor components, shields</span>
-                            </div>
-                            <div class="resource-item">
-                                <span class="resource-name">Magical Silk Threads</span>
-                                <span class="resource-qty">Limited (high quality)</span>
-                                <span class="resource-use">Enchanted rope, binding materials</span>
-                            </div>
-                            <div class="resource-item">
-                                <span class="resource-name">Banishment Circle Residue</span>
-                                <span class="resource-qty">Trace amounts</span>
-                                <span class="resource-use">Unknown—requires study</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Unit Status Section -->
                     <div class="panel unit-panel">
-                        <div class="panel-header"><h3>Squad Status</h3></div>
+                        <div class="panel-header"><h3>Asset Disposition</h3></div>
                         <div id="asset-grid" class="asset-grid">
-                            <div class="asset-card status-ok">
-                                <div class="asset-icon"><img src="toads/markop.png" alt="Markop" onerror="this.src='icons/unknown.png'"></div>
+                            <div class="asset-card status-warning">
+                                <div class="asset-icon">🧙‍♂️</div>
                                 <div class="asset-info">
-                                    <h4>Markop</h4>
-                                    <span class="status-tag status-deployed">TITAN FORM</span>
+                                    <h4>Archie</h4>
+                                    <span class="status-tag status-shadow">SHADOWFELL</span>
                                 </div>
                             </div>
                             <div class="asset-card status-warning">
-                                <div class="asset-icon"><img src="toads/remi.png" alt="Remi" onerror="this.src='icons/unknown.png'"></div>
+                                <div class="asset-icon">🐢</div>
                                 <div class="asset-info">
-                                    <h4>FNG Remi</h4>
-                                    <span class="status-tag status-danger">WOUNDED</span>
+                                    <h4>Bowser</h4>
+                                    <span class="status-tag status-shadow">SHADOWFELL</span>
                                 </div>
                             </div>
                             <div class="asset-card status-ok">
-                                <div class="asset-icon"><img src="toads/waluigi.png" alt="Waluigi" onerror="this.src='icons/unknown.png'"></div>
+                                <div class="asset-icon">💜</div>
                                 <div class="asset-info">
                                     <h4>Waluigi</h4>
-                                    <span class="status-tag status-deployed">ACTIVE</span>
+                                    <span class="status-tag status-fey">FEYWILD</span>
+                                </div>
+                            </div>
+                            <div class="asset-card status-ok">
+                                <div class="asset-icon">🐸</div>
+                                <div class="asset-info">
+                                    <h4>Toad Lee</h4>
+                                    <span class="status-tag status-fey">FEYWILD</span>
+                                </div>
+                            </div>
+                            <div class="asset-card status-critical">
+                                <div class="asset-icon">🐸</div>
+                                <div class="asset-info">
+                                    <h4>Green T</h4>
+                                    <span class="status-tag status-captured">CAPTURED</span>
+                                </div>
+                            </div>
+                            <div class="asset-card status-critical">
+                                <div class="asset-icon">💣</div>
+                                <div class="asset-info">
+                                    <h4>Toadburt</h4>
+                                    <span class="status-tag status-danger">SLEEPER AGENT</span>
                                 </div>
                             </div>
                             <div class="asset-card status-warning">
-                                <div class="asset-icon"><img src="toads/eager.png" alt="Eager" onerror="this.src='icons/unknown.png'"></div>
+                                <div class="asset-icon">🔮</div>
                                 <div class="asset-info">
-                                    <h4>Eager</h4>
-                                    <span class="status-tag status-danger">INFLATED</span>
-                                </div>
-                            </div>
-                            <div class="asset-card status-ok">
-                                <div class="asset-icon"><img src="icons/oracle.png" alt="Oracle" onerror="this.src='icons/unknown.png'"></div>
-                                <div class="asset-info">
-                                    <h4>The Oracle</h4>
-                                    <span class="status-tag status-scheming">BEARER</span>
-                                </div>
-                            </div>
-                            <div class="asset-card status-ok">
-                                <div class="asset-icon"><img src="toads/rodger.png" alt="Rodger" onerror="this.src='icons/unknown.png'"></div>
-                                <div class="asset-info">
-                                    <h4>Rodger</h4>
-                                    <span class="status-tag status-deployed">ARMED</span>
-                                </div>
-                            </div>
-                            <div class="asset-card status-ok">
-                                <div class="asset-icon"><img src="toads/salem.png" alt="Salem" onerror="this.src='icons/unknown.png'"></div>
-                                <div class="asset-info">
-                                    <h4>Salem</h4>
-                                    <span class="status-tag status-deployed">SQUAD LEAD</span>
-                                </div>
-                            </div>
-                            <div class="asset-card status-warning">
-                                <div class="asset-icon"><img src="toads/smoking_j.png" alt="Smoking J" onerror="this.src='icons/unknown.png'"></div>
-                                <div class="asset-info">
-                                    <h4>Smoking J</h4>
-                                    <span class="status-tag status-danger">POISONED</span>
-                                </div>
-                            </div>
-                            <div class="asset-card status-ok">
-                                <div class="asset-icon"><img src="icons/mossy.png" alt="Mossy" onerror="this.src='icons/unknown.png'"></div>
-                                <div class="asset-info">
-                                    <h4>Mossy</h4>
-                                    <span class="status-tag status-deployed">CONSTRUCT</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Notable Events -->
-                    <div class="panel events-panel">
-                        <div class="panel-header"><h3>Notable Events at This Location</h3></div>
-                        <div class="events-list">
-                            <div class="event-card">
-                                <div class="event-header">
-                                    <span class="event-date">Day 21, 00:00</span>
-                                    <span class="event-type type-combat">COMBAT</span>
-                                </div>
-                                <h4 class="event-title">The Silent Grove Purged</h4>
-                                <p class="event-desc">A rescue party led by the titan-sized Markop engaged the Arachnid Matriarch in a climactic battle. FNG Remi fell early but the party rallied. Salem's critical shot through the spider's eye, combined with Waluigi's weakening rays and Mossy's leg attacks, allowed the Oracle's banishment circle to eliminate the creature.</p>
-                                <div class="event-outcome">
-                                    <strong>Outcome:</strong> Decisive Victory. Matriarch banished. Grove accessible.
+                                    <h4>Markop/Remi</h4>
+                                    <span class="status-tag status-void">THE VOID</span>
                                 </div>
                             </div>
                         </div>
@@ -292,22 +213,6 @@
 
                 </section>
             </main>
-        </div>
-    </div>
-
-    <!-- Terminal Modal -->
-    <div id="terminal-modal" class="modal" style="display:none;">
-        <div class="terminal-content">
-            <div class="terminal-header">
-                <span>TERMINAL ACCESS // <span id="terminal-id">UNKNOWN</span></span>
-                <button id="terminal-close">X</button>
-            </div>
-            <div class="terminal-body">
-                <div id="terminal-text" class="typewriter-text"></div>
-            </div>
-            <div class="terminal-footer">
-                STATUS: CONNECTED
-            </div>
         </div>
     </div>
 
