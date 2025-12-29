@@ -9,7 +9,166 @@ import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from
 // ============================================================================
 // ONYX HAND DATA
 // ============================================================================
+// ============================================================================
+// RENDER: SHADOW ESTATE SITUATION
+// ============================================================================
 
+function renderShadowEstate() {
+    const estate = ONYX_HAND_DATA.shadowEstateStatus;
+    const intel = getIntel();
+    
+    if (!isKnown(25)) {
+        return `
+            <div class="shadow-estate-section">
+                <h5 class="section-title">
+                    <span class="section-icon">🏚️</span>
+                    The Shadow Estate
+                </h5>
+                <div class="redacted-panel">
+                    <span class="lock-icon">🔒</span>
+                    <p>Intelligence level insufficient to access Shadow Estate operations.</p>
+                    <p>Required: 25 | Current: ${intel}</p>
+                </div>
+            </div>
+        `;
+    }
+    
+    const guestsHTML = estate.currentGuests.map(guest => {
+        const threatClass = guest.designation.includes('EXTREME') ? 'extreme' : 
+                           guest.designation.includes('HIGH') ? 'high' : 'moderate';
+        
+        return `
+            <div class="guest-card threat-${threatClass}">
+                <div class="guest-header">
+                    <h6>${guest.name}</h6>
+                    <span class="guest-designation">${guest.designation}</span>
+                </div>
+                <div class="guest-status">
+                    <span class="status-label">Status:</span>
+                    <span class="status-value">${guest.status}</span>
+                </div>
+                <p class="guest-notes">${guest.notes}</p>
+                <div class="legion-bounty">
+                    <span class="bounty-icon">⚔️</span>
+                    <span class="bounty-text">Legion Interest: ${guest.legionBounty}</span>
+                </div>
+                <div class="coven-interests">
+                    <h6>Coven Positions</h6>
+                    ${Object.entries(guest.covenInterest).map(([covenId, position]) => `
+                        <div class="coven-position type-${covenId}">
+                            <span class="coven-icon">${getCovenIcon(covenId)}</span>
+                            <p>${position}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    const hospitalityHTML = `
+        <div class="hospitality-panel">
+            <div class="hospitality-header">
+                <span class="hospitality-icon">🍷</span>
+                <h6>Vampire Hospitality Protocol</h6>
+                <span class="hospitality-status">${estate.hostProtocol.status}</span>
+            </div>
+            <p class="hospitality-meaning">${estate.hostProtocol.meaning}</p>
+            <p class="hospitality-duration"><strong>Duration:</strong> ${estate.hostProtocol.duration}</p>
+            <div class="hospitality-loopholes">
+                <h6>Known Loopholes</h6>
+                <ul>
+                    ${estate.hostProtocol.loopholes.map(l => `<li>${l}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    const negotiationsHTML = isKnown(35) ? `
+        <div class="negotiations-panel">
+            <div class="negotiations-header">
+                <h6>Legion Negotiations</h6>
+                <span class="operation-codename">Operation: ${estate.legionNegotiations.operationCodename}</span>
+                <span class="negotiations-status status-${estate.legionNegotiations.status.toLowerCase()}">${estate.legionNegotiations.status}</span>
+            </div>
+            
+            <div class="demands-grid">
+                <div class="demands-column legion">
+                    <h6>⚔️ Legion Demands</h6>
+                    <ul>
+                        ${estate.legionNegotiations.legionDemands.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="demands-column onyx">
+                    <h6>🧛 Potential Onyx Demands</h6>
+                    <ul>
+                        ${estate.legionNegotiations.potentialOnyxDemands.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="coven-assessments">
+                <h6>Coven Assessments</h6>
+                <div class="assessment-grid">
+                    <div class="assessment type-shadow">
+                        <span class="coven-label">Shadow Coven:</span>
+                        <p>${estate.legionNegotiations.shadowCovenAssessment}</p>
+                    </div>
+                    <div class="assessment type-blood">
+                        <span class="coven-label">Blood Coven:</span>
+                        <p>${estate.legionNegotiations.bloodCovenAssessment}</p>
+                    </div>
+                    <div class="assessment type-iron">
+                        <span class="coven-label">Iron Coven:</span>
+                        <p>${estate.legionNegotiations.ironCovenAssessment}</p>
+                    </div>
+                    <div class="assessment type-silk">
+                        <span class="coven-label">Silk Coven:</span>
+                        <p>${estate.legionNegotiations.silkCovenAssessment}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ` : `
+        <div class="negotiations-panel redacted">
+            <p>🔒 Negotiation details require intel level 35 (Current: ${intel})</p>
+        </div>
+    `;
+    
+    return `
+        <div class="shadow-estate-section">
+            <h5 class="section-title">
+                <span class="section-icon">🏚️</span>
+                The Shadow Estate - Current Situation
+            </h5>
+            
+            <div class="estate-header">
+                <div class="estate-location">
+                    <span class="location-label">Location:</span>
+                    <span class="location-value">${estate.location}</span>
+                </div>
+                <div class="estate-controller">
+                    <span class="controller-label">Host:</span>
+                    <span class="controller-value">${estate.controller}</span>
+                </div>
+                <div class="estate-status">
+                    <span class="status-badge status-active">${estate.status}</span>
+                </div>
+            </div>
+            
+            <p class="estate-description">${estate.description}</p>
+            
+            <div class="current-guests-section">
+                <h6>Current "Guests"</h6>
+                <div class="guests-grid">
+                    ${guestsHTML}
+                </div>
+            </div>
+            
+            ${hospitalityHTML}
+            ${negotiationsHTML}
+        </div>
+    `;
+}
 export const ONYX_HAND_DATA = {
     patriarch: {
         name: "Lord Sanguinus the Eternal",
@@ -292,54 +451,70 @@ export const ONYX_HAND_DATA = {
             intel_req: 20
         }
     ],
-
-    threats: [
-        {
-            name: "The Silver Flame",
-            type: "Hunter Organization",
-            threatLevel: "Critical",
-            description: "Religious zealots dedicated to the extermination of all vampires. Well-funded and fanatical.",
-            status: "Active",
-            recentActivity: "Destroyed the Thornwood Haven, killing 12 vampires.",
-            intel_req: 15
-        },
-        {
-            name: "Moonfang Pack",
-            type: "Werewolf Clan",
-            threatLevel: "High",
-            description: "Ancient enemies of vampirekind. Border conflicts have escalated into open warfare.",
-            status: "At War",
-            recentActivity: "Attacked Blood Coven patrol, 3 casualties.",
-            intel_req: 20
-        },
-        {
-            name: "The Regal Empire",
-            type: "Government",
-            threatLevel: "High",
-            description: "The Supernatural Sovereignty Act has made organized vampires illegal.",
-            status: "Hostile",
-            recentActivity: "Raids on suspected vampire businesses increasing.",
-            intel_req: 10
-        },
-        {
-            name: "The Daywalker",
-            type: "Rogue Vampire",
-            threatLevel: "Unknown",
-            description: "Rumors of a vampire hunting other vampires. Possibly a dhampir or cursed ancient.",
-            status: "Unconfirmed",
-            recentActivity: "Three elders disappeared under mysterious circumstances.",
-            intel_req: 50
-        },
-        {
-            name: "Internal Dissent",
-            type: "Political",
-            threatLevel: "Moderate",
-            description: "The Patriarch's long silence has emboldened ambitious vampires to position for power.",
-            status: "Simmering",
-            recentActivity: "Shadow and Blood covens openly arguing in council.",
-            intel_req: 30
-        }
-    ],
+threats: [
+    {
+        name: "The Iron Legion",
+        type: "Military Organization",
+        threatLevel: "Extreme",
+        description: "The Supernatural Sovereignty Act and Iron Mandate have transformed the Legion from a regional nuisance into an existential threat. They have authorization for warrantless searches, asset seizure, and summary detention in border provinces.",
+        status: "Active Hostility",
+        recentActivity: "Deploying 6,500+ troops to border provinces. Operation IRON SKY captured the Vigilance. Seeking to negotiate for Shadow Estate guests.",
+        legionOperations: ["IRON GATE", "IRON SKY", "SHATTERED GLASS", "SHADOW PARLEY (proposed)"],
+        intel_req: 10
+    },
+    {
+        name: "The Silver Flame",
+        type: "Hunter Organization",
+        threatLevel: "Critical",
+        description: "Religious zealots dedicated to the extermination of all vampires. Well-funded and fanatical. Now operating with tacit Legion support.",
+        status: "Active",
+        recentActivity: "Destroyed the Thornwood Haven, killing 12 vampires. Emboldened by Supernatural Sovereignty Act.",
+        intel_req: 15
+    },
+    {
+        name: "Moonfang Pack",
+        type: "Werewolf Clan",
+        threatLevel: "High",
+        description: "Ancient enemies of vampirekind. Border conflicts have escalated into open warfare. However, both factions now face a common enemy in the Iron Legion.",
+        status: "At War (potential détente)",
+        recentActivity: "Attacked Blood Coven patrol, 3 casualties. Rumors of a Grand Moot being called—unprecedented in 200 years.",
+        potentialAlliance: "Shadow Coven has opened back-channel communications. Enemy of my enemy...",
+        intel_req: 20
+    },
+    {
+        name: "The Planar Fracture",
+        type: "Dimensional Anomaly",
+        threatLevel: "Unknown",
+        description: "The tear in reality at Raventree Manor connects the Shadowfell to the mortal plane and possibly other dimensions. While currently advantageous, it also represents an unpredictable variable.",
+        status: "Active",
+        recentActivity: "Deposited mortal insurgents into Shadow Estate. Legion forces attempting to secure physical site.",
+        risks: [
+            "Unknown entities may emerge from Deep Mirror",
+            "Legion may develop planar countermeasures",
+            "Feywild entities may prove hostile",
+            "Fracture may expand or collapse unpredictably"
+        ],
+        intel_req: 25
+    },
+    {
+        name: "The Daywalker",
+        type: "Rogue Vampire",
+        threatLevel: "Unknown",
+        description: "Rumors of a vampire hunting other vampires. Possibly a dhampir or cursed ancient.",
+        status: "Unconfirmed",
+        recentActivity: "Three elders disappeared under mysterious circumstances.",
+        intel_req: 50
+    },
+    {
+        name: "Internal Dissent",
+        type: "Political",
+        threatLevel: "High",
+        description: "The Patriarch's long silence, combined with the Diet expulsion and arrival of valuable guests, has intensified factional competition. Blood and Shadow covens openly disagree on how to handle the Shadow Estate situation.",
+        status: "Escalating",
+        recentActivity: "Countess Vermillia and Whisper nearly came to blows over the fate of Archie Miser.",
+        intel_req: 30
+    }
+],
 
     bloodHunts: [
         {
@@ -403,49 +578,190 @@ export const ONYX_HAND_DATA = {
             intel_req: 25
         }
     ],
-
-    currentEvents: [
+currentEvents: [
+    {
+        id: 'event_sovereignty_act',
+        title: "The Supernatural Sovereignty Act",
+        description: "The Regal Empire has declared organized vampires illegal. The Onyx Hand must decide: go to war, go deeper underground, or negotiate from the shadows.",
+        status: "crisis",
+        responses: {
+            blood: "Countess Vermillia demands open war. 'Let them learn why their ancestors feared the night.'",
+            shadow: "Whisper counsels patience. 'We have survived worse. We will outlast this empire as we have all others.'",
+            iron: "General Ferrus prepares defensive positions. 'Let them come. We will bleed them dry.'",
+            silk: "Madame Nocturne works her contacts. 'Laws can be changed. Officials can be... persuaded.'"
+        },
+        intel_req: 20
+    },
+    {
+        id: 'event_moonfang_war',
+        title: "The Shadow War with Moonfang Pack",
+        description: "Ancient enmity between vampires and werewolves has flared into open conflict. Border skirmishes are becoming pitched battles.",
+        status: "ongoing",
+        responses: {
+            blood: "Leading night raids against werewolf territory.",
+            shadow: "Attempting to assassinate pack leadership.",
+            iron: "Fortifying the border and repelling incursions.",
+            silk: "Seeking neutral parties to mediate."
+        },
+        intel_req: 15
+    },
+    {
+        id: 'event_patriarch_silence',
+        title: "The Patriarch's Silence",
+        description: "Lord Sanguinus has not issued a decree in months. Rumors swirl: has he entered torpor? Been destroyed? Or is this a test of his children's loyalty?",
+        status: "mystery",
+        responses: {
+            blood: "Growing restless, some speak of succession.",
+            shadow: "Investigating quietly, trusting no one.",
+            iron: "Maintaining order through force of will.",
+            silk: "Spreading disinformation to prevent panic."
+        },
+        intel_req: 50
+    },
+    {
+        id: 'event_shadow_estate_guests',
+        title: "Uninvited Guests in the Shadow Estate",
+        description: "The planar fracture at Raventree Manor has deposited two mortal insurgents—including the notorious 'Archie Miser'—directly into the Shadowfell reflection controlled by the Onyx Hand. They have been 'welcomed' as guests by Orangus Cornelius. Additionally, the asset known as 'Green T' is being held in vampire custody.",
+        status: "opportunity",
+        dateOccurred: { year: 1040, monthIndex: 6, day: 21 },
+        responses: {
+            blood: "Countess Vermillia demands they be drained immediately. 'Mortals in our realm? They are prey, nothing more.'",
+            shadow: "Whisper sees leverage. 'The Iron Legion wants these ones badly. Information is worth more than blood.'",
+            iron: "General Ferrus assesses the tactical situation. 'One of them is a dragon's ally. Caution is warranted.'",
+            silk: "Madame Nocturne is intrigued. 'The one called Archie... his magic caused the planar tear. Such power could be useful—or dangerous.'"
+        },
+        legionInterest: {
+            status: "HIGH",
+            proposedOperation: "SHADOW PARLEY",
+            objective: "Negotiate handover of insurgents or intelligence",
+            notes: "Iron Legion cannot enter Shadowfell directly. Diplomatic approach required."
+        },
+        guests: [
+            { name: "Archie Miser", status: "Guest (unwilling)", threat: "EXTREME - unstable magic", notes: "Caused the planar fracture. Fire magic suppressed by Shadowfell physics." },
+            { name: "Bowser", status: "Guest (hostile)", threat: "HIGH - dragon ally", notes: "Stripped of fire abilities in this plane. Still physically formidable." },
+            { name: "Green T", status: "Captive", threat: "LOW", notes: "Held separately. Possible bargaining chip or feeding stock." }
+        ],
+        intel_req: 25
+    },
+    {
+        id: 'event_planar_opportunity',
+        title: "The Raventree Fracture",
+        description: "A catastrophic ritual failure has shattered reality at Raventree Manor, creating stable portals to the Shadowfell, Feywild, and an unknown 'Deep Mirror' dimension. The Onyx Hand now has unprecedented access to the mortal plane—if they can exploit it before the Legion seals the breach.",
+        status: "critical",
+        dateOccurred: { year: 1040, monthIndex: 6, day: 21 },
+        responses: {
+            blood: "Already sending hunting parties through the fracture. 'Fresh feeding grounds await.'",
+            shadow: "Mapping the dimensional connections. 'This changes everything. New routes, new hiding places, new opportunities.'",
+            iron: "Establishing defensive positions on the Shadowfell side. 'If the Legion tries to follow, we will be ready.'",
+            silk: "Concerned about exposure. 'A tear in reality draws attention we cannot afford.'"
+        },
+        strategicImplications: [
+            "Direct access to mortal plane bypassing normal barriers",
+            "Potential alliance with Feywild entities against common enemy",
+            "Risk of Legion developing counter-incursion capabilities",
+            "Unknown entities from Deep Mirror may emerge"
+        ],
+        intel_req: 30
+    },
+    {
+        id: 'event_diet_expulsion',
+        title: "Expelled from the Diet",
+        description: "Following the Supernatural Sovereignty Act, all Onyx Hand representatives have been forcibly expelled from the Holy Midlands Diet. Centuries of careful political positioning undone in a single vote.",
+        status: "crisis",
+        dateOccurred: { year: 1040, monthIndex: 6, day: 18 },
+        responses: {
+            blood: "Demands retribution. 'They have made their choice. Now they will learn the cost.'",
+            shadow: "Already activating sleeper agents within the remaining Diet factions.",
+            iron: "Recalls all vampire personnel from Diet-controlled territories.",
+            silk: "Mourns the loss but sees opportunity. 'In the shadows, we have always been stronger.'"
+        },
+        intel_req: 15
+    }
+],
+shadowEstateStatus: {
+    location: "Shadowfell Reflection of Raventree Manor",
+    controller: "Orangus Cornelius (Blood Coven Affiliate)",
+    status: "ACTIVE - HOSTING MORTAL GUESTS",
+    lastUpdate: { year: 1040, monthIndex: 6, day: 21, hour: 3, minute: 30 },
+    
+    description: "The Shadow Estate is the Shadowfell reflection of Raventree Manor—a monochrome realm where color is drained from reality and vampires rule absolutely. Following the planar fracture, two mortal insurgents have been deposited here.",
+    
+    currentGuests: [
         {
-            id: 'event_sovereignty_act',
-            title: "The Supernatural Sovereignty Act",
-            description: "The Regal Empire has declared organized vampires illegal. The Onyx Hand must decide: go to war, go deeper underground, or negotiate from the shadows.",
-            status: "crisis",
-            responses: {
-                blood: "Countess Vermillia demands open war. 'Let them learn why their ancestors feared the night.'",
-                shadow: "Whisper counsels patience. 'We have survived worse. We will outlast this empire as we have all others.'",
-                iron: "General Ferrus prepares defensive positions. 'Let them come. We will bleed them dry.'",
-                silk: "Madame Nocturne works her contacts. 'Laws can be changed. Officials can be... persuaded.'"
-            },
-            intel_req: 20
+            name: "Archie Miser",
+            designation: "Primary Asset / Extreme Threat",
+            status: "Guest under observation",
+            notes: "Caused the planar fracture through unstable magic. Fire abilities suppressed by Shadowfell physics. Currently attending a vampire dinner party. Displaying remarkable composure for a mortal in our realm.",
+            legionBounty: "PRIORITY TARGET - Operation IRON SKY",
+            covenInterest: {
+                blood: "Drain him. His blood may carry magical properties.",
+                shadow: "Study him. Understand how he broke reality.",
+                iron: "Contain him. He is too dangerous to ignore.",
+                silk: "Befriend him. Power like his could be... directed."
+            }
         },
         {
-            id: 'event_moonfang_war',
-            title: "The Shadow War with Moonfang Pack",
-            description: "Ancient enmity between vampires and werewolves has flared into open conflict. Border skirmishes are becoming pitched battles.",
-            status: "ongoing",
-            responses: {
-                blood: "Leading night raids against werewolf territory.",
-                shadow: "Attempting to assassinate pack leadership.",
-                iron: "Fortifying the border and repelling incursions.",
-                silk: "Seeking neutral parties to mediate."
-            },
-            intel_req: 15
+            name: "Bowser",
+            designation: "Secondary Asset",
+            status: "Guest under observation",
+            notes: "Dragon ally, typically fire-based. All flame abilities nullified in the Shadowfell. Physically imposing but strategically limited without his primary capabilities.",
+            legionBounty: "HIGH VALUE - Known insurgent",
+            covenInterest: {
+                blood: "A dragon's blood... the old texts speak of its potency.",
+                shadow: "He knows the insurgent network. Extract that knowledge.",
+                iron: "Respect a warrior. But do not trust him.",
+                silk: "Separation from his ally makes him vulnerable. Exploit this."
+            }
         },
         {
-            id: 'event_patriarch_silence',
-            title: "The Patriarch's Silence",
-            description: "Lord Sanguinus has not issued a decree in months. Rumors swirl: has he entered torpor? Been destroyed? Or is this a test of his children's loyalty?",
-            status: "mystery",
-            responses: {
-                blood: "Growing restless, some speak of succession.",
-                shadow: "Investigating quietly, trusting no one.",
-                iron: "Maintaining order through force of will.",
-                silk: "Spreading disinformation to prevent panic."
-            },
-            intel_req: 50
+            name: "Green T",
+            designation: "Tertiary Asset / Bargaining Chip",
+            status: "Captive",
+            notes: "Toad insurgent captured separately. Limited strategic value but may be useful for prisoner exchanges or Legion negotiations.",
+            legionBounty: "MODERATE - Known associate",
+            covenInterest: {
+                blood: "Barely a snack.",
+                shadow: "Keep him alive. He may know things the others don't.",
+                iron: "Irrelevant. Focus on the real threats.",
+                silk: "A hostage is always useful."
+            }
         }
     ],
-
+    
+    hostProtocol: {
+        status: "VAMPIRE HOSPITALITY INVOKED",
+        meaning: "Guests are under the protection of Orangus Cornelius and cannot be harmed without violating sacred hospitality laws. However, they also cannot leave without permission.",
+        duration: "Until the host releases them or they violate guest protocols",
+        loopholes: [
+            "Guests who attack their host forfeit protection",
+            "The Patriarch can override any hospitality claim",
+            "Hospitality does not extend to information extraction",
+            "Guests may be 'persuaded' to leave voluntarily"
+        ]
+    },
+    
+    legionNegotiations: {
+        status: "PROPOSED",
+        operationCodename: "SHADOW PARLEY",
+        legionDemands: [
+            "Handover of Archie Miser (PRIORITY)",
+            "Handover of Bowser",
+            "Intelligence on insurgent network",
+            "Return of asset Green T"
+        ],
+        potentialOnyxDemands: [
+            "Reversal of Supernatural Sovereignty Act",
+            "Recognition of vampire territorial rights",
+            "Cessation of Iron Mandate enforcement in vampire territories",
+            "Release of captured vampire assets",
+            "Non-aggression pact"
+        ],
+        shadowCovenAssessment: "The Legion is desperate. They cannot reach us here. This is the strongest negotiating position we have had in decades.",
+        bloodCovenAssessment: "Negotiating with mortals? We should drain these guests and send their corpses back as our answer.",
+        ironCovenAssessment: "Proceed cautiously. The Legion is weakened but not defeated. Overreach now could unite mortal factions against us.",
+        silkCovenAssessment: "Let us see what they offer. We can always kill the guests later."
+    }
+},
     feedingGrounds: [
         { name: "The Velvet Quarter", controller: "silk", quality: "Premium", risk: "Low", notes: "Willing victims, discrete" },
         { name: "The Slaughterhouse District", controller: "blood", quality: "Abundant", risk: "Medium", notes: "Animal blood available, some mortals" },
