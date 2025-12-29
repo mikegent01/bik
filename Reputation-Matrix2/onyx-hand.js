@@ -1471,15 +1471,16 @@ function switchSection(sectionId) {
 }
 
 function renderSectionContent(sectionId) {
-    const contentMap = {
-        'overview': { container: 'overview-content', render: renderOverview },
-        'covens': { container: 'covens-content', render: renderCovens },
-        'court': { container: 'court-content', render: renderCourt },
-        'bloodlines': { container: 'bloodlines-content', render: renderBloodlines },
-        'territories': { container: 'territories-content', render: renderTerritories },
-        'threats': { container: 'threats-content', render: renderThreats }
-    };
-    
+const contentMap = {
+    'overview': { container: 'overview-content', render: renderOverview },
+    'covens': { container: 'covens-content', render: renderCovens },
+    'court': { container: 'court-content', render: renderCourt },
+    'bloodlines': { container: 'bloodlines-content', render: renderBloodlines },
+    'territories': { container: 'territories-content', render: renderTerritories },
+    'threats': { container: 'threats-content', render: renderThreats },
+    'shadow-estate': { container: 'shadow-estate-content', render: renderShadowEstate } // NEW
+};
+     
     const config = contentMap[sectionId];
     if (config) {
         const container = document.getElementById(config.container);
@@ -1891,6 +1892,7 @@ function injectStyles() {
 function autoInit() {
     injectStyles();
     initOnyxHandSystem();
+    renderShadowEstate();
 }
 
 // Initialize when DOM is ready
