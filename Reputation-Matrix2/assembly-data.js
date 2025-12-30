@@ -1183,7 +1183,455 @@ export const WAHBOOK_POSTS = [
     ],
     rumorId: 'anchor_restoration_campaign'
 },
-
+{
+    id: 'portal_anomaly_report',
+    order: 62601,
+    characterKey: 'dry_bones_scout',
+    date: { year: 1040, monthIndex: 6, day: 29, hour: 14, minute: 0 },
+    timestamp: '10 hours ago',
+    content: `Crater patrol spotted something WRONG. Shimmering portal near the sealed pit. Not Wyrm energy—something else. Animals came through? A dog calling himself Roger Woof Woof asking about a space station and his girlfriend Flosy. Says theres a space-time anomaly. General needs to see this.`,
+    likes: 5234,
+    comments: [
+        { characterKey: 'hammer_bro_general', text: 'Lock it down. Nobody in or out until we understand what this is.' },
+        { characterKey: 'magikoopa_apprentice', text: 'Space-time anomaly? This is beyond Wyrm magic. Something bigger is happening.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'elder_koopa_consulted',
+    order: 62602,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 29, hour: 16, minute: 30 },
+    timestamp: '8 hours ago',
+    content: `Sent runners to Elder Koopas library in the eastern territories. The shell-less old timer knows everything about the Mushroom Kingdom. If anyones got answers about space-time rifts, its him. He warned us about forbidden books though. Says ignorance is bliss. Not helpful right now.`,
+    likes: 4123,
+    comments: [
+        { characterKey: 'bowser', text: 'Get him here. I dont care how old he is.' },
+        { characterKey: 'magikoopa_apprentice', text: 'The restricted section might have what we need.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'cursed_town_discovered',
+    order: 62603,
+    characterKey: 'goomba_grunt',
+    date: { year: 1040, monthIndex: 6, day: 29, hour: 18, minute: 0 },
+    timestamp: '6 hours ago',
+    content: `Scouting east of the valley. Found an abandoned town. One survivor told us to leave—said all inhabitants fled long ago. Curse of some strange faceless creature. He wouldnt say why hes still there. Creepy vibes. The Wyrm? Something else? Reporting to General.`,
+    likes: 7123,
+    comments: [
+        { characterKey: 'hammer_bro_captain', text: 'Faceless creature? Different from the Wyrm energy signature.' },
+        { characterKey: 'shy_guy_survivor', text: '*muffled concern* We sealed ONE ancient evil. How many more are there?' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'nuvin_contact',
+    order: 62604,
+    characterKey: 'boo_servant',
+    date: { year: 1040, monthIndex: 6, day: 29, hour: 20, minute: 0 },
+    timestamp: '4 hours ago',
+    content: `I sensed a ghost presence near the portal anomaly. Powerful. Called itself Nuvin. Said it protects someone named Luigi from an entity called Stanley. Mentioned Guardians whose power fragments the Core. When all Guardians fall, the Cores location reveals itself. This is connected to something MUCH older than the Wyrm.`,
+    likes: 6890,
+    comments: [
+        { characterKey: 'bowser', text: 'Luigi? The green plumber? What does HE have to do with this?' },
+        { characterKey: 'magikoopa_apprentice', text: 'The Core... Section 64 of the Oman Archive mentioned destroying it. We need those forbidden texts.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'oman_archive_discovery',
+    order: 62605,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 6, minute: 0 },
+    timestamp: '18 hours ago',
+    content: `Found it in Elder Koopas restricted section. Section 64 of the Oman Archive. Says if the automatic enhancer is disrupted, destroy the CORE or it becomes unstable and uncontrollable. Location unknown—shifts constantly. Internal plexus entry number partially corrupted. This predates even the Wyrm imprisonment.`,
+    likes: 4789,
+    comments: [
+        { characterKey: 'bowser', text: 'A SECOND ancient threat? Just what we needed.' },
+        { characterKey: 'koopa_foreman', text: 'One apocalypse wasnt enough apparently.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'bobomb_testimony',
+    order: 62606,
+    characterKey: 'hammer_bro_general',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 9, minute: 0 },
+    timestamp: '15 hours ago',
+    content: `Interrogated a Bob-omb who came through the portal. He said he didnt CHOOSE to be connected to the Core of the faceless creature. Claims hed destroy it himself if he knew where it was. The Bob-omb people are victims too. Enemy of my enemy situation developing.`,
+    likes: 6543,
+    comments: [
+        { characterKey: 'goomba_grunt', text: 'Bob-ombs helped us against the Wyrm. They might help again.' },
+        { characterKey: 'bowserjr', text: 'What IS this faceless creature everyone keeps mentioning?' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'stanley_warning',
+    order: 62607,
+    characterKey: 'boo_servant',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 11, minute: 0 },
+    timestamp: '13 hours ago',
+    content: `Nuvin appeared again. Said Stanley is hunting the Guardians to unlock the Core. Mario defeated something called the Eyerock. Luigi defeated the Wiggler. When all Guardians fall, Stanleys full power awakens. The ghost says it can conceal Luigis presence. We need to warn someone—but who?`,
+    likes: 9234,
+    comments: [
+        { characterKey: 'bowser', text: 'Mario and Luigi are FIGHTING this thing? Maybe theyre useful after all.' },
+        { characterKey: 'dry_bones_scout', text: 'Guardians... like the Wyrm was a Guardian of sorts?' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'plexus_mapping',
+    order: 62608,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 13, minute: 30 },
+    timestamp: '11 hours ago',
+    content: `The archive mentions an immense plexus where the nucleus is lost. Within the vastness of the plexus, in a place unknown, a link can be found. The portal near the crater might be an entrance to this plexus. The dog Roger said animals described seeing a castle through it. OUR castle?`,
+    likes: 3890,
+    comments: [
+        { characterKey: 'koopa_foreman', text: 'So the anomaly connects to our valley? Through space AND time?' },
+        { characterKey: 'iron_legion_commander', text: 'Legion sensors detecting temporal distortion signatures. Confirming interdimensional breach.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'whomp_alliance',
+    order: 62609,
+    characterKey: 'hammer_bro_captain',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 15, minute: 0 },
+    timestamp: '9 hours ago',
+    content: `Made contact with Whomp refugees through the portal. Their leader says the faceless creature tried to destroy him but couldnt—the shifting Core protects him somehow. He never asked to be involved. Just wants to protect his village from the Whomps. Wait, protect FROM Whomps? Theres internal conflict there.`,
+    likes: 5123,
+    comments: [
+        { characterKey: 'bowser', text: 'Sounds like my situation with Kamek. Traitors everywhere.' },
+        { characterKey: 'goomba_grunt', text: 'Enemy of the faceless creature might be our friend.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'dream_world_incident',
+    order: 62610,
+    characterKey: 'shy_guy_survivor',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 17, minute: 0 },
+    timestamp: '7 hours ago',
+    content: `*muffled* Entered the portal for recon. Something not right there. One entity told me: Something is not right here and you know it. The world of dreams. Another said: Hes watching you. He might be behind you. Got out fast. *muffled shiver* That place is WRONG.`,
+    likes: 7456,
+    comments: [
+        { characterKey: 'boo_servant', text: 'The world of dreams... overlapping with the plexus. Reality is thinner there.' },
+        { characterKey: 'hammer_bro_general', text: 'No more solo recon. Teams of four minimum.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'pendulum_paradox',
+    order: 62611,
+    characterKey: 'dry_bones_scout',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 19, minute: 30 },
+    timestamp: '5 hours ago',
+    content: `Second portal expedition. Found a chamber with screams echoing in the distance. They never stop. Theres a pendulum sound too—but the pendulum doesnt move. Time is broken in there. Something told us we shouldnt be here. Retreated immediately.`,
+    likes: 6234,
+    comments: [
+        { characterKey: 'magikoopa_apprentice', text: 'Temporal stasis combined with spatial distortion. The plexus is bleeding into our reality.' },
+        { characterKey: 'bowserjr', text: 'This is worse than the Wyrm, isnt it?' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'toad_death_records',
+    order: 62612,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 6, day: 30, hour: 22, minute: 0 },
+    timestamp: '2 hours ago',
+    content: `Found disturbing records in Elder Koopas forbidden section. The Death of the Toads: It was necessary. We protect the core. Lets take down the intruders. Someone—or something—orchestrated Toad deaths to protect the Core. The faceless creature? This goes deeper than we knew.`,
+    likes: 4567,
+    comments: [
+        { characterKey: 'toadsworth', text: 'What... what did you find about my people?' },
+        { characterKey: 'bowser', text: 'Keep the Regency informed. If this threatens Toads, they need to know.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'peachs_dark_secrets',
+    order: 62613,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 7, day: 6, hour: 8, minute: 0 },
+    timestamp: '4 days ago',
+    content: `Most disturbing find yet. A text reading: The dark secrets of the Mushroom Kingdom lie here, and may Princess Peachs failure as ruler of this kingdom be recorded here. The forbidden archives contain evidence of royal coverups. What did Peach know about the faceless creature?`,
+    likes: 7890,
+    comments: [
+        { characterKey: 'bowser', text: 'Peach... hiding things? This changes the alliance calculations.' },
+        { characterKey: 'toadsworth', text: 'These must be forgeries! The Princess would never—' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'expanding_walls',
+    order: 62614,
+    characterKey: 'goomba_grunt',
+    date: { year: 1040, monthIndex: 7, day: 6, hour: 10, minute: 0 },
+    timestamp: '4 days ago',
+    content: `Third portal expedition went BAD. Found a message: Go back to the first floor, where everything was still normal, before these walls started to expand. You wont be able to go back. You probably wont remember the way back. Lost two Goombas in there. The plexus is EATING explorers.`,
+    likes: 5678,
+    comments: [
+        { characterKey: 'hammer_bro_general', text: 'Portal expeditions suspended until further notice.' },
+        { characterKey: 'koopa_foreman', text: 'We seal ONE pit and another dimension opens. Unbelievable.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'guardian_connection',
+    order: 62615,
+    characterKey: 'boo_servant',
+    date: { year: 1040, monthIndex: 7, day: 6, hour: 12, minute: 0 },
+    timestamp: '4 days ago',
+    content: `Nuvin explained more. The Guardians fragment the Cores power. Eyerock fell. Wiggler fell. Others remain. When all fall, the Core reveals itself—and Stanley achieves full power. But theres a choice: destroy the Core, or let Stanley claim it. The faceless creature wants to destroy its OWN Core first—after killing everyone.`,
+    likes: 8234,
+    comments: [
+        { characterKey: 'bowser', text: 'So we have to destroy the Core before this Stanley OR the faceless creature gets it.' },
+        { characterKey: 'magikoopa_apprentice', text: 'But the Cores location is unknown and constantly shifting.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'desperate_enemies',
+    order: 62616,
+    characterKey: 'hammer_bro_captain',
+    date: { year: 1040, monthIndex: 7, day: 6, hour: 14, minute: 30 },
+    timestamp: '4 days ago',
+    content: `Intercepted a hostile from the portal. It screamed: Ill finish you off! You wont stop me from coming home. Im desperate! Fought like a cornered animal. After subduing it, learned Stanley traps beings and promises freedom if they kill intruders. Slaves, not soldiers.`,
+    likes: 4987,
+    comments: [
+        { characterKey: 'bowserjr', text: 'So Stanleys building an army of desperate prisoners. Like Kamek promised the Wyrm power to Koopas.' },
+        { characterKey: 'shy_guy_survivor', text: '*muffled* Same tactics. Different dimension.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'forgotten_wanderer',
+    order: 62617,
+    characterKey: 'dry_bones_scout',
+    date: { year: 1040, monthIndex: 7, day: 7, hour: 9, minute: 0 },
+    timestamp: '3 days ago',
+    content: `Found a poem carved into stone near the portal. As I stand here in a room thats so familiar yet completely foreign. Full of forgotten dreams left behind with growing up. This place is blissful yet completely unfriendly. Just goes to show how distant these memories really are. Signed: A Forgotten Wanderer.`,
+    likes: 7123,
+    comments: [
+        { characterKey: 'boo_servant', text: 'Someone was trapped there long enough to lose themselves. The plexus consumes identity.' },
+        { characterKey: 'koopa_foreman', text: 'We are NOT losing anyone else to that place.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'mario_parallel',
+    order: 62618,
+    characterKey: 'bowser',
+    date: { year: 1040, monthIndex: 7, day: 7, hour: 11, minute: 30 },
+    timestamp: '3 days ago',
+    content: `Reports confirm Mario is fighting this threat in another layer of reality. One record shows him told: Mario, this time Im not your enemy. I cant fight the power of the faceless creature. I need to finish him off. He has Peach possessed somewhere. I dont want to fight you. Even MY enemies become allies against this thing.`,
+    likes: 8345,
+    comments: [
+        { characterKey: 'hammer_bro_general', text: 'The red plumber fighting dimensional horrors. Never thought Id say this—hope he wins.' },
+        { characterKey: 'toadsworth', text: 'Peach... possessed? What is happening to our Princess?' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'another_universe',
+    order: 62619,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 7, day: 7, hour: 15, minute: 0 },
+    timestamp: '3 days ago',
+    content: `Deciphered another archive fragment. In another universe, events are happening very differently than in this one. The plexus connects multiple realities. What happens in one affects others. The Wyrm awakening here might have weakened barriers everywhere. We didnt just fight for our kingdom—we fought for ALL realities.`,
+    likes: 6456,
+    comments: [
+        { characterKey: 'bowserjr', text: 'Dad... we saved more than we knew?' },
+        { characterKey: 'bowser', text: 'Koopa Kingdom: defenders of the multiverse. Has a ring to it.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'selfish_accusation',
+    order: 62620,
+    characterKey: 'goomba_grunt',
+    date: { year: 1040, monthIndex: 7, day: 7, hour: 17, minute: 0 },
+    timestamp: '3 days ago',
+    content: `Portal entity confronted our patrol. Screamed: You only think about yourselves. You are selfish. You dont care about neighboring towns. Then attacked. After defeating it, realized—its right in a way. We focused on OUR valley. Other places fell to the plexus corruption while we rebuilt. Guilt hitting hard.`,
+    likes: 4321,
+    comments: [
+        { characterKey: 'koopa_foreman', text: 'We couldnt save everyone. We barely saved ourselves.' },
+        { characterKey: 'hammer_bro_general', text: 'Survivors guilt. Natural after what weve been through.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'protection_paradox',
+    order: 62621,
+    characterKey: 'shy_guy_survivor',
+    date: { year: 1040, monthIndex: 7, day: 8, hour: 10, minute: 0 },
+    timestamp: '2 days ago',
+    content: `*muffled* Made contact with a protector entity. It said: Im just trying to protect everyone. You dont know what youre doing! That faceless creature wants to destroy its own Core, but first it wants to kill you all! So... the faceless creature is trying to END itself by killing everyone first? Suicide by genocide?`,
+    likes: 9876,
+    comments: [
+        { characterKey: 'boo_servant', text: 'A being so corrupted it seeks annihilation—but cant die without taking everything with it.' },
+        { characterKey: 'bowser', text: 'We stopped the Wyrm from escaping. Now we face something that wants to die but will murder reality first.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'stanley_slave_freed',
+    order: 62622,
+    characterKey: 'hammer_bro_captain',
+    date: { year: 1040, monthIndex: 7, day: 8, hour: 12, minute: 30 },
+    timestamp: '2 days ago',
+    content: `Freed another Stanley prisoner. After calming down, it said: You are a bad man, just like Stanley. You are no different from him. He just wanted to go home. Made us realize—Stanley might be as trapped as his victims. The real enemy is the Core itself. Everything else is collateral.`,
+    likes: 6789,
+    comments: [
+        { characterKey: 'magikoopa_apprentice', text: 'The Core corrupts everything it touches. Stanley, the faceless creature, even reality itself.' },
+        { characterKey: 'bowserjr', text: 'Like how the Wyrm corrupted Kamek. These ancient evils work the same way.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'noslaves_declaration',
+    order: 62623,
+    characterKey: 'bowser',
+    date: { year: 1040, monthIndex: 7, day: 8, hour: 14, minute: 0 },
+    timestamp: '2 days ago',
+    content: `Entity emerged from portal declaring: I will no longer be Stanleys slave. You are just another obstacle. We let it pass. If Stanleys victims are rebelling, the dimensional tyrant is weakening. The more Guardians fall, the more his grip slips. Maybe Mario and Luigis fight is helping us too.`,
+    likes: 5432,
+    comments: [
+        { characterKey: 'hammer_bro_general', text: 'Enemy of our enemy. Complex situation.' },
+        { characterKey: 'goomba_grunt', text: 'The multiverse is more connected than we thought.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'peace_zone_found',
+    order: 62624,
+    characterKey: 'dry_bones_scout',
+    date: { year: 1040, monthIndex: 7, day: 9, hour: 8, minute: 0 },
+    timestamp: '1 day ago',
+    content: `Not all portal zones are hostile. Found one where an entity said: This place is wonderful. I feel so much peace being here. Maybe the plexus has safe havens. Refugees could shelter there. Mapping positive zones for potential evacuation routes if things go bad here again.`,
+    likes: 7654,
+    comments: [
+        { characterKey: 'koopa_foreman', text: 'Good news for once. Mark those coordinates.' },
+        { characterKey: 'boo_servant', text: 'Even in dimensional chaos, pockets of calm exist. Hope.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'cold_refugee',
+    order: 62625,
+    characterKey: 'shy_guy_survivor',
+    date: { year: 1040, monthIndex: 7, day: 9, hour: 11, minute: 0 },
+    timestamp: '1 day ago',
+    content: `*muffled* Rescued a freezing traveler from the portal. Said only: Its very cold and I need to get back to town. Gave them shelter. They dont remember which town. Memory fragmented by plexus exposure. Another victim of the expanding chaos. How many more are lost in there?`,
+    likes: 10234,
+    comments: [
+        { characterKey: 'toad_volunteer', text: 'Well help them recover. The alliance extends to dimensional refugees now.' },
+        { characterKey: 'hammer_bro_general', text: 'Set up a processing station for portal arrivals. Screen for threats, help the innocent.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'flosy_found',
+    order: 62626,
+    characterKey: 'goomba_grunt',
+    date: { year: 1040, monthIndex: 7, day: 9, hour: 15, minute: 30 },
+    timestamp: '1 day ago',
+    content: `That dog Roger asked about his girlfriend Flosy the sheep? FOUND HER. Wandering near the eastern barracks, confused but unharmed. Reunited them. Roger kept saying woof woof woof and something about space stations. Weird but wholesome. Small victories matter.`,
+    likes: 5987,
+    comments: [
+        { characterKey: 'koopa_worker_blue', text: 'A lost sheep in Koopa territory. Never thought Id see that.' },
+        { characterKey: 'bowserjr', text: 'Even in all this chaos, we can still help the little guys.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'legion_plexus_interest',
+    order: 62627,
+    characterKey: 'iron_legion_commander',
+    date: { year: 1040, monthIndex: 7, day: 9, hour: 18, minute: 0 },
+    timestamp: '1 day ago',
+    content: `Legion High Command has taken interest in the plexus anomaly. Requesting joint expedition rights. Our technology may help map the dimensional instabilities. In exchange, shared access to any artifacts recovered. Strategic partnership proposal on the table.`,
+    likes: 6210,
+    comments: [
+        { characterKey: 'bowser', text: 'Theyll want to weaponize it. But we need their tech. Conditional approval.' },
+        { characterKey: 'hammer_bro_general', text: 'Joint teams only. No solo Legion operations in our territory.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'guardian_count',
+    order: 62628,
+    characterKey: 'boo_servant',
+    date: { year: 1040, monthIndex: 7, day: 10, hour: 9, minute: 0 },
+    timestamp: '1 hour ago',
+    content: `Nuvin provided Guardian status update. Eyerock: fallen. Wiggler: fallen. Others remain active somewhere in the plexus. Each Guardian defeated brings the Core closer to revealing itself. Mario and Luigi continue fighting. Were on the same side without knowing it. Multidimensional alliance forming by accident.`,
+    likes: 11234,
+    comments: [
+        { characterKey: 'bowser', text: 'When this is over, I want a meeting with those plumbers. Face to face.' },
+        { characterKey: 'magikoopa_apprentice', text: 'The enemy of my enemy... becomes my ally against cosmic horror.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'castle_rebuilt_portal_secured',
+    order: 62629,
+    characterKey: 'koopa_foreman',
+    date: { year: 1040, monthIndex: 7, day: 10, hour: 10, minute: 30 },
+    timestamp: '30 minutes ago',
+    content: `Construction update: New castle foundation complete. PLUS containment structure around the portal anomaly. If more dimensional refugees come through, we can process them. If threats emerge, we can seal it. Wyrm pit secured. Portal secured. Valley of Bowser becomes fortress of reality itself.`,
+    likes: 5432,
+    comments: [
+        { characterKey: 'bowserjr', text: 'Two ancient threats contained. Whats next?' },
+        { characterKey: 'hammer_bro_general', text: 'We defend. We rebuild. We endure.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'bowser_multiverse_decree',
+    order: 62630,
+    characterKey: 'bowser',
+    date: { year: 1040, monthIndex: 7, day: 10, hour: 12, minute: 0 },
+    timestamp: 'now',
+    content: `Royal Decree: The Koopa Kingdom extends protection to dimensional refugees fleeing the plexus corruption. We sealed the Wyrm. We will help seal the Core if we can. Let it be known across all realities—this kingdom STANDS. Against ancient evils. Against faceless creatures. Against Stanley and his slaves. We are the wall.`,
+    likes: 13456,
+    comments: [
+        { characterKey: 'hammer_bro_general', text: 'FOR THE KING! FOR ALL REALITIES!' },
+        { characterKey: 'koopa_foreman', text: 'Building the wall. Literally and metaphorically.' },
+        { characterKey: 'toadsworth', text: 'The Regency acknowledges this decree. Unprecedented cooperation continues.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'jr_multiverse_training',
+    order: 62631,
+    characterKey: 'bowserjr',
+    date: { year: 1040, monthIndex: 7, day: 10, hour: 13, minute: 0 },
+    timestamp: 'now',
+    content: `Dad says I need to understand dimensional threats now. Studying the Oman Archive. Learning about the Core, the Guardians, Stanley. If the plumbers can fight this, so can I. Future king of a multiverse-defending kingdom. No pressure.`,
+    likes: 8901,
+    comments: [
+        { characterKey: 'bowser', text: 'Youll surpass me, son. Thats the point.' },
+        { characterKey: 'magikoopa_apprentice', text: 'Ill tutor you on planar theory. Essential knowledge now.' }
+    ],
+    rumorId: 'valley_liberation'
+},
+{
+    id: 'wyrm_and_core_connection',
+    order: 62632,
+    characterKey: 'magikoopa_apprentice',
+    date: { year: 1040, monthIndex: 7, day: 10, hour: 14, minute: 0 },
+    timestamp: 'now',
+    content: `Final theory: The Wyrm and the Core may be connected. Both are ancient. Both corrupt their surroundings. Both have Guardians. Kamek awakening the Wyrm might have weakened dimensional barriers, letting the plexus bleed through. We didnt just save our kingdom—we potentially delayed a multiversal collapse. More research needed.`,
+    likes: 4567,
+    comments: [
+        { characterKey: 'boo_servant', text: 'Ancient evils are never isolated. They echo across realities.' },
+        { characterKey: 'bowser', text: 'So Kameks betrayal nearly ended EVERYTHING. His punishment stands.' }
+    ],
+    rumorId: 'valley_liberation'
+},
 {
     id: 'kamek_captured',
     order: 62587,
