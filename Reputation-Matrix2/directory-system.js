@@ -6,7 +6,7 @@ import { FACTION_ASSESSMENTS } from './assessments.js';
 import { getReputation, getGenericFactionAssessment } from './reputation.js';
 import { getIntelForFaction, getIntelBreakdown } from './systems/common.js';
 import { playSound } from './common.js';
-import {AUXILIARY_PARTY } from './arcs.js';
+import {AUXILIARY_PARTY} from './party-and-events.js'
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from './systems/faction-registry.js';
 import { getRealTimeMapStats } from './global-map-analysis.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
