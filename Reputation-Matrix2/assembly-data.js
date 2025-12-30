@@ -18,7 +18,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'sleeper_first_steps',
         order: 63002,
-        characterKey: 'toadburt_sleeper',
+        characterKey: 'toadburt',
         date: { year: 1040, monthIndex: 6, day: 21, hour: 14, minute: 0 }, // Afternoon Day 21
         timestamp: 'Yesterday',
         content: `It's so bright here. The grass is taller than me. My finger burns where the iron ring is. She said if I take it off, I turn into jelly. I don't want to be jelly.`,
@@ -42,7 +42,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'sleeper_hallucination',
         order: 63004,
-        characterKey: 'toadburt_sleeper',
+        characterKey: 'toadburt',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 30 }, // Morning Day 22
         timestamp: '2 hours ago',
         content: `I saw a flower with a face. It looked like my dad. It tried to bite me. I ran away but I tripped and the ring sparked and turned the flower into grey dust. I'm scared of my own hand.`,
@@ -77,7 +77,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'sleeper_burt_panic',
         order: 63007,
-        characterKey: 'toadburt_sleeper',
+        characterKey: 'toadburt',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 30 },
         timestamp: '1 hour ago',
         content: `I hear bells. Malissia gave me a bell. She said ring it when I see the Oracle. But what if I don't want to? My arm feels numb. Is that normal?`,
@@ -99,7 +99,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'sleeper_shock_response',
         order: 63009,
-        characterKey: 'toadburt_sleeper',
+        characterKey: 'toadburt',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 46 },
         timestamp: '1 hour ago',
         content: `OW OW OW OW OW OKAY I'M MOVING I'M MOVING PLEASE STOP`,
@@ -123,7 +123,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'sleeper_burt_regret',
         order: 63011,
-        characterKey: 'toadburt_sleeper',
+        characterKey: 'toadburt',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 15 },
         timestamp: '45 minutes ago',
         content: `I see footprints. Big boots. Maybe Bowser? If I find them... do I ring the bell? They'll kill me if I don't. They'll kill everyone if I do.`,
@@ -145,7 +145,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'sleeper_final_resolve',
         order: 63013,
-        characterKey: 'toadburt_sleeper',
+        characterKey: 'toadburt',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 50 },
         timestamp: '10 minutes ago',
         content: `I see the attic. It's huge. I'm coming, guys. I just... I don't know what to do.`,
