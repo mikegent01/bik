@@ -368,7 +368,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'fey_lee_tactical',
         order: 63032,
-        characterKey: 'toad_lee_tactical',
+        characterKey: 'toad_lee',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 30 },
         timestamp: '5 hours ago',
         content: `We are exposed. Giant flora everywhere. Waluigi is shouting at a pile of coins. I'm trying to establish a defensive perimeter but the floor is moving. Roots.`,
@@ -385,7 +385,7 @@ export const WAHBOOK_POSTS = [
         content: `Found a butterfly! It's the size of a horse! I'm going to ride it! WAH-HA-HA!`,
         likes: 1500,
         comments: [
-            { characterKey: 'toad_lee_tactical', text: 'DO NOT RIDE THE MEGA-FAUNA.' }
+            { characterKey: 'toad_lee', text: 'DO NOT RIDE THE MEGA-FAUNA.' }
         ],
         rumorId: 'feywild_hoard'
     },
@@ -427,7 +427,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'fey_winged_boots',
         order: 63037,
-        characterKey: 'toad_lee_tactical',
+        characterKey: 'toad_lee',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 0 },
         timestamp: '3 hours ago',
         content: `Found a set of "Winged Boots." Waluigi put them on his hands. He is currently flapping around screaming "I AM A BIRD." Morale is... complicated.`,
@@ -490,7 +490,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'fey_lee_burt_miss',
         order: 63042,
-        characterKey: 'toad_lee_tactical',
+        characterKey: 'toad_lee',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 30 },
         timestamp: '30 minutes ago',
         content: `I miss Burt. He usually carries the extra ammo. If those Legion spies hurt him, I'm going to burn this whole forest down.`,
@@ -518,7 +518,7 @@ export const WAHBOOK_POSTS = [
         content: `Hey Lee! I found a shiny ring! Oh wait, it's on a severed finger. Gross! ...Is the ring gold though?`,
         likes: 900,
         comments: [
-            { characterKey: 'toad_lee_tactical', text: 'Leave the finger. Take the ring. We move in 5.' }
+            { characterKey: 'toad_lee', text: 'Leave the finger. Take the ring. We move in 5.' }
         ],
         rumorId: 'feywild_hoard'
     },
