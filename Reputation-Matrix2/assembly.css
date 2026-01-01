@@ -918,7 +918,31 @@
     outline: none;
     border-color: var(--wahbook-accent);
 }
+.unseen-post {
+    border-left: 3px solid var(--wahbook-accent, #4a9eff);
+    background: linear-gradient(90deg, 
+        rgba(74, 158, 255, 0.05) 0%, 
+        transparent 20%
+    );
+}
 
+.new-post-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--wahbook-accent, #4a9eff);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+}
+
+.wahbook-post {
+    position: relative; /* Needed for badge positioning */
+}
 /* Post Badges */
 .post-badges {
     display: flex;

@@ -9,7 +9,99 @@ import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
 import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from './calendar-data.js';
 import { calculateRumorMetrics, calculateGlobalCycle } from './research-data.js';
+// Global observer for tracking post visibility
+let postObserver = null;
+const pendingSeenPosts = new Map(); // Track posts being viewed with timers
 
+function initPostVisibilityObserver() {
+    // Clean up existing observer
+    if (postObserver) {
+        postObserver.disconnect();
+    }
+
+    const options = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.5 // 50% of the post must be visible
+    };
+
+    postObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const postElement = entry.target;
+            const postId = postElement.dataset.postId;
+
+            if (!postId) return;
+
+            if (entry.isIntersecting) {
+                // Post is now visible - start a timer
+                if (!pendingSeenPosts.has(postId)) {
+                    const timerId = setTimeout(() => {
+                        markPostAsSeen(postId);
+                        pendingSeenPosts.delete(postId);
+                        // Stop observing this post
+                        postObserver.unobserve(postElement);
+                    }, 1500); // Must be visible for 1.5 seconds
+                    
+                    pendingSeenPosts.set(postId, timerId);
+                }
+            } else {
+                // Post left viewport before timer completed - cancel
+                if (pendingSeenPosts.has(postId)) {
+                    clearTimeout(pendingSeenPosts.get(postId));
+                    pendingSeenPosts.delete(postId);
+                }
+            }
+        });
+    }, options);
+}
+
+function markPostAsSeen(postId) {
+    if (!state.userState) return;
+    if (!state.userState.seenPostIds) state.userState.seenPostIds = [];
+    
+    if (!state.userState.seenPostIds.includes(postId)) {
+        state.userState.seenPostIds.push(postId);
+        saveState();
+        console.log('[WAHbook] Marked post as seen:', postId);
+        
+        // Update UI to remove "new" indicator
+        const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+        if (postElement) {
+            postElement.classList.remove('unseen-post');
+            const newBadge = postElement.querySelector('.new-post-badge');
+            if (newBadge) {
+                newBadge.style.opacity = '0';
+                setTimeout(() => newBadge.remove(), 300);
+            }
+        }
+    }
+}
+
+function observePostsForVisibility(container) {
+    if (!postObserver) {
+        initPostVisibilityObserver();
+    }
+
+    const seenIds = state.userState?.seenPostIds || [];
+    
+    // Find all post elements and observe only unseen ones
+    container.querySelectorAll('[data-post-id]').forEach(postElement => {
+        const postId = postElement.dataset.postId;
+        if (!seenIds.includes(postId)) {
+            postObserver.observe(postElement);
+        }
+    });
+}
+
+// Clean up when changing feeds/pages
+function cleanupPostObserver() {
+    if (postObserver) {
+        postObserver.disconnect();
+    }
+    // Clear any pending timers
+    pendingSeenPosts.forEach(timerId => clearTimeout(timerId));
+    pendingSeenPosts.clear();
+}
 // ============================================================================
 // CONSTANTS & STATE
 // ============================================================================
@@ -645,7 +737,8 @@ function renderFactionFilters() {
 
 function renderPost(post, options = {}) {
     if (!post) return '';
-
+    const seenIds = state.userState?.seenPostIds || [];
+    const isUnseen = !seenIds.includes(post.id);  // CHANGED: renamed for clarity
     const author = getCharacterData(post.characterKey);
     const isFuture = isFutureEvent(post.date);
     const isNew = state.userState?.seenPostIds && !state.userState.seenPostIds.includes(post.id);
@@ -715,7 +808,9 @@ function renderPost(post, options = {}) {
     ` : '';
 
     return `
-        <article class="feed-post ${debugClass}" data-post-id="${post.id}" ${isFuture ? 'style="opacity:0.7;border:2px dashed #ff4444;"' : ''}>
+        <article class="feed-post ${debugClass} ${isUnseen && !isFuture ? 'unseen-post' : ''}" 
+                 data-post-id="${post.id}" 
+                 ${isFuture ? 'style="opacity:0.7;border:2px dashed #ff4444;"' : ''}>
             ${badgesHTML}
             <div class="post-header">
                 <a href="profile.html?user=${encodeURIComponent(post.characterKey)}">
@@ -1100,6 +1195,7 @@ function renderLatestFeed() {
     renderPaginatedPosts(posts, container);
 }
 function renderPaginatedPosts(posts, container) {
+        cleanupPostObserver();
     const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
     // Ensure currentPage is valid
     if (currentPage > totalPages && totalPages > 0) currentPage = 1;
@@ -1126,10 +1222,18 @@ function renderPaginatedPosts(posts, container) {
         renderPagination(0, 0);
         return;
     }
-
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+    const end = start + POSTS_PER_PAGE;
+    const paginatedPosts = posts.slice(start, end);
+    
+    container.innerHTML = paginatedPosts.map(p => renderPost(p)).join('');
     container.innerHTML = currentPosts.map(post => renderPost(post)).join('');
     renderPagination(currentPage, totalPages);
     attachPostEventListeners(container);
+        observePostsForVisibility(container);
+    
+    // Render pagination controls
+    renderPaginationControls(posts.length, container);
     document.getElementById('read-full-page-btn')?.addEventListener('click', speakFullPage);
 }
 
@@ -2450,23 +2554,6 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
 // ============================================================================
 // UPDATE SEEN POSTS
 // ============================================================================
-
-function updateSeenPosts() {
-    if (!state.userState) return;
-    if (!state.userState.seenPostIds) state.userState.seenPostIds = [];
-    
-    const visiblePostIds = getVisiblePosts().map(p => p.id);
-    
-    // Only update if there are actually new IDs to add
-    const hasNew = visiblePostIds.some(id => !state.userState.seenPostIds.includes(id));
-    
-    if (hasNew) {
-        const newIds = new Set([...state.userState.seenPostIds, ...visiblePostIds]);
-        state.userState.seenPostIds = Array.from(newIds);
-        saveState();
-        console.log('[WAHbook] Updated seen posts state.');
-    }
-}
 
 // ============================================================================
 // INITIALIZATION
