@@ -1195,8 +1195,9 @@ function renderLatestFeed() {
     renderPaginatedPosts(posts, container);
 }
 function renderPaginatedPosts(posts, container) {
-        cleanupPostObserver();
+    cleanupPostObserver();
     const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+    
     // Ensure currentPage is valid
     if (currentPage > totalPages && totalPages > 0) currentPage = 1;
     if (currentPage < 1) currentPage = 1;
@@ -1222,18 +1223,20 @@ function renderPaginatedPosts(posts, container) {
         renderPagination(0, 0);
         return;
     }
-    const start = (currentPage - 1) * POSTS_PER_PAGE;
-    const end = start + POSTS_PER_PAGE;
-    const paginatedPosts = posts.slice(start, end);
-    
-    container.innerHTML = paginatedPosts.map(p => renderPost(p)).join('');
+
+    // Render the posts
     container.innerHTML = currentPosts.map(post => renderPost(post)).join('');
-    renderPagination(currentPage, totalPages);
-    attachPostEventListeners(container);
-        observePostsForVisibility(container);
     
-    // Render pagination controls
-    renderPaginationControls(posts.length, container);
+    // Update the pagination UI (Using the existing function)
+    renderPagination(currentPage, totalPages);
+    
+    // Attach listeners and observers
+    attachPostEventListeners(container);
+    observePostsForVisibility(container);
+    
+    // REMOVED: renderPaginationControls(posts.length, container); 
+    // This line caused the crash because the function does not exist.
+    
     document.getElementById('read-full-page-btn')?.addEventListener('click', speakFullPage);
 }
 
