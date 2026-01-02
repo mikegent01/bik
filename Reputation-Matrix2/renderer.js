@@ -343,74 +343,117 @@ function renderFork(suggested) {
     const isSuggested = suggested === 'fork';
     const resonating = ritual.forkResonating;
     const struck = ritual.forkStruck;
+    const tuning = ritual.chromaticBasis;
+    
+    // Color based on tuning
+    const tuningColor = tuning === 'purple' ? '#a855f7' : 
+                        tuning === 'orange' ? '#f97316' : '#8b5cf6';
+    const tuningLabel = tuning ? tuning.toUpperCase() : '';
     
     return `
-        <g class="interactive-element ${isSuggested ? 'suggested' : ''}" onclick="strikeFork()" style="color: #8b5cf6">
+        <g class="interactive-element ${isSuggested ? 'suggested' : ''}" onclick="strikeFork()" style="color: ${tuningColor}">
             <!-- Felt base -->
             <rect x="125" y="150" width="50" height="20" fill="#4a3728" rx="3"/>
             
             <!-- Fork handle -->
             <rect x="145" y="155" width="10" height="12" fill="#6b7280" rx="1"/>
             
-            <!-- Twin prongs -->
-            <rect x="140" y="130" width="6" height="28" fill="#9ca3af" rx="1"/>
-            <rect x="154" y="130" width="6" height="28" fill="#9ca3af" rx="1"/>
+            <!-- Twin prongs - glow with tuning color when struck -->
+            <rect x="140" y="130" width="6" height="28" fill="${struck ? tuningColor : '#9ca3af'}" rx="1"
+                ${struck ? 'filter="url(#softGlow)"' : ''}/>
+            <rect x="154" y="130" width="6" height="28" fill="${struck ? tuningColor : '#9ca3af'}" rx="1"
+                ${struck ? 'filter="url(#softGlow)"' : ''}/>
             
             <!-- Matching scars on prongs -->
-            <line x1="141" y1="135" x2="145" y2="140" stroke="#4a5568" stroke-width="1"/>
-            <line x1="155" y1="135" x2="159" y2="140" stroke="#4a5568" stroke-width="1"/>
+            <line x1="141" y1="135" x2="145" y2="140" stroke="${struck ? '#fff' : '#4a5568'}" stroke-width="1" opacity="${struck ? '0.5' : '1'}"/>
+            <line x1="155" y1="135" x2="159" y2="140" stroke="${struck ? '#fff' : '#4a5568'}" stroke-width="1" opacity="${struck ? '0.5' : '1'}"/>
             
             ${resonating ? `
-                <!-- Resonance waves -->
-                <ellipse cx="150" cy="140" rx="20" ry="8" fill="none" stroke="#8b5cf6" stroke-width="1" opacity="0.6" filter="url(#softGlow)">
-                    <animate attributeName="rx" values="20;40;20" dur="0.3s" repeatCount="indefinite"/>
-                    <animate attributeName="opacity" values="0.6;0;0.6" dur="0.3s" repeatCount="indefinite"/>
+                <!-- Resonance waves with tuning color -->
+                <ellipse cx="150" cy="140" rx="20" ry="8" fill="none" stroke="${tuningColor}" stroke-width="1.5" opacity="0.7" filter="url(#glow)">
+                    <animate attributeName="rx" values="20;45;20" dur="0.4s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.7;0;0.7" dur="0.4s" repeatCount="indefinite"/>
+                </ellipse>
+                <ellipse cx="150" cy="140" rx="15" ry="6" fill="none" stroke="${tuningColor}" stroke-width="0.5" opacity="0.5">
+                    <animate attributeName="rx" values="15;35;15" dur="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.5;0;0.5" dur="0.3s" repeatCount="indefinite"/>
                 </ellipse>
             ` : ''}
             
-            ${struck ? `
+            ${struck && tuning ? `
+                <!-- Tuning indicator -->
+                <circle cx="150" cy="175" r="5" fill="${tuningColor}" filter="url(#softGlow)"/>
+                <text x="150" y="190" fill="${tuningColor}" font-size="6" text-anchor="middle" class="title-font">${tuningLabel}</text>
+                <text x="150" y="200" fill="#22c55e" font-size="5" text-anchor="middle">TUNED</text>
+            ` : struck ? `
                 <circle cx="150" cy="175" r="4" fill="#22c55e"/>
                 <text x="150" y="190" fill="#22c55e" font-size="7" text-anchor="middle">VERIFIED</text>
             ` : `
                 <text x="150" y="185" fill="#6b7280" font-size="7" text-anchor="middle">FORK</text>
+                <text x="150" y="195" fill="#4a5568" font-size="5" text-anchor="middle">strike to tune</text>
             `}
         </g>
     `;
 }
 
 function renderBell() {
-    const dangerous = ritual.bellRings >= 2;
+    const exhausted = ritual.bellRings >= 3;
+    const hasCharges = ritual.bellRings < 3;
+    const stabilizing = ritual.bellStabilizing;
+    const cooldown = ritual.bellCooldown;
+    
+    // Bell color based on state
+    const bellColor = exhausted ? '#57534e' : 
+                      stabilizing ? '#06b6d4' : 
+                      cooldown ? '#6b7280' : '#78716c';
+    const glowColor = stabilizing ? '#06b6d4' : '#22c55e';
     
     return `
-        <g class="interactive-element" onclick="ringBell()" style="color: #f97316">
+        <g class="interactive-element" onclick="ringBell()" style="color: ${exhausted ? '#ef4444' : '#06b6d4'}">
             <!-- Pale wood stand (separate from table) -->
             <rect x="455" y="115" width="10" height="70" fill="#d4a574" rx="2"/>
             <rect x="443" y="180" width="34" height="8" fill="#d4a574" rx="2"/>
             
-            <!-- Bell (dull, unadorned) -->
-            <g style="transform-origin: 460px 115px; ${ritual.bellRings > 0 ? 'animation: bellSwing 0.5s ease-in-out' : ''}">
+            <!-- Bell (sympathetic metal) -->
+            <g style="transform-origin: 460px 115px; ${stabilizing ? 'animation: bellSwing 0.5s ease-in-out' : ''}">
                 <path d="M 445 150 Q 445 130 460 125 Q 475 130 475 150 L 477 156 Q 477 162 460 162 Q 443 162 443 156 Z" 
-                    fill="#78716c" stroke="#57534e" stroke-width="1"/>
-                <ellipse cx="460" cy="160" rx="16" ry="4" fill="#57534e"/>
+                    fill="${bellColor}" stroke="${exhausted ? '#374151' : '#57534e'}" stroke-width="1"
+                    ${stabilizing ? 'filter="url(#glow)"' : ''}/>
+                <ellipse cx="460" cy="160" rx="16" ry="4" fill="${exhausted ? '#374151' : '#57534e'}"/>
                 
                 <!-- Clapper -->
                 <line x1="460" y1="145" x2="460" y2="158" stroke="#1f2937" stroke-width="2"/>
                 <circle cx="460" cy="156" r="4" fill="#374151"/>
             </g>
             
-            ${ritual.bellRings > 0 ? `
-                <!-- Sound waves -->
-                <circle cx="460" cy="145" r="25" fill="none" stroke="${dangerous ? '#ef4444' : '#f97316'}" stroke-width="1" opacity="0.4">
-                    <animate attributeName="r" values="25;50;25" dur="1.5s" repeatCount="3"/>
-                    <animate attributeName="opacity" values="0.4;0;0.4" dur="1.5s" repeatCount="3"/>
+            ${stabilizing ? `
+                <!-- Stabilization waves (cyan) -->
+                <circle cx="460" cy="145" r="20" fill="none" stroke="#06b6d4" stroke-width="2" opacity="0.8" filter="url(#glow)">
+                    <animate attributeName="r" values="20;60;20" dur="1s" repeatCount="3"/>
+                    <animate attributeName="opacity" values="0.8;0;0.8" dur="1s" repeatCount="3"/>
+                </circle>
+                <circle cx="460" cy="145" r="15" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.6">
+                    <animate attributeName="r" values="15;50;15" dur="0.8s" repeatCount="3"/>
+                    <animate attributeName="opacity" values="0.6;0;0.6" dur="0.8s" repeatCount="3"/>
                 </circle>
             ` : ''}
             
-            <text x="460" y="${ritual.bellRings > 0 ? '200' : '195'}" 
-                fill="${dangerous ? '#ef4444' : '#6b7280'}" font-size="8" text-anchor="middle">
-                ${ritual.bellRings > 0 ? `BELL ×${ritual.bellRings}` : 'BELL'}
+            <!-- Charge indicators -->
+            <g>
+                ${[0,1,2].map(i => `
+                    <circle cx="${450 + i * 10}" cy="188" r="3" 
+                        fill="${i < (3 - ritual.bellRings) ? '#22c55e' : '#374151'}"
+                        stroke="${i < (3 - ritual.bellRings) ? '#22c55e' : '#4a5568'}" stroke-width="0.5"
+                        ${i < (3 - ritual.bellRings) ? 'filter="url(#softGlow)"' : ''}/>
+                `).join('')}
+            </g>
+            
+            <text x="460" y="205" fill="${exhausted ? '#ef4444' : cooldown ? '#6b7280' : '#06b6d4'}" font-size="7" text-anchor="middle">
+                ${exhausted ? 'EXHAUSTED' : cooldown ? 'COOLING' : 'STABILIZER'}
             </text>
-            ${dangerous ? `<text x="460" y="210" fill="#ef4444" font-size="6" text-anchor="middle">LIMIT</text>` : ''}
+            ${hasCharges && !cooldown ? `
+                <text x="460" y="215" fill="#4a5568" font-size="5" text-anchor="middle">${3 - ritual.bellRings} ring${3 - ritual.bellRings !== 1 ? 's' : ''} left</text>
+            ` : ''}
         </g>
     `;
 }
