@@ -12,6 +12,727 @@ import { calculateRumorMetrics, calculateGlobalCycle } from './research-data.js'
 // Global observer for tracking post visibility
 let postObserver = null;
 const pendingSeenPosts = new Map(); // Track posts being viewed with timers
+// ============================================================================
+// DEBUG: POST & IMAGE DIAGNOSTICS
+// ============================================================================
+
+let debugPanel = null;
+let missingImages = new Set();
+let duplicatePosts = [];
+
+/**
+ * Initialize the debug diagnostics system
+ * Call this after data is loaded
+ */
+function initDebugDiagnostics() {
+    if (!window.debugMode && !state?.debugMode) return;
+    
+    console.log('[WAHbook Debug] Running diagnostics...');
+    
+    // Run diagnostics
+    const imageReport = detectMissingImages();
+    const duplicateReport = detectDuplicatePosts();
+    
+    // Create debug panel
+    createDebugPanel(imageReport, duplicateReport);
+    
+    console.log('[WAHbook Debug] Missing images:', imageReport.length);
+    console.log('[WAHbook Debug] Duplicate posts:', duplicateReport.length);
+}
+
+/**
+ * Detect all missing profile images by testing them
+ */
+function detectMissingImages() {
+    const report = [];
+    const testedImages = new Set();
+    
+    // Collect all character keys from posts
+    const allCharacterKeys = new Set();
+    
+    WAHBOOK_POSTS.forEach(post => {
+        if (post.characterKey) allCharacterKeys.add(post.characterKey);
+        post.comments?.forEach(comment => {
+            if (comment.characterKey) allCharacterKeys.add(comment.characterKey);
+        });
+    });
+    
+    // Also check LORE_DATA characters
+    if (LORE_DATA?.characters) {
+        Object.keys(LORE_DATA.characters).forEach(key => allCharacterKeys.add(key));
+    }
+    if (LORE_DATA?.auxiliary_party) {
+        Object.keys(LORE_DATA.auxiliary_party).forEach(key => allCharacterKeys.add(key));
+    }
+    
+    // Test each unique image
+    allCharacterKeys.forEach(characterKey => {
+        const charData = getCharacterData(characterKey);
+        const imagePath = charData.portrait;
+        
+        if (testedImages.has(imagePath)) return;
+        testedImages.add(imagePath);
+        
+        // Skip data URIs and known fallbacks
+        if (imagePath.startsWith('data:')) return;
+        
+        report.push({
+            characterKey,
+            imagePath,
+            name: charData.name,
+            isDefined: charData.isDefined,
+            status: 'pending'
+        });
+    });
+    
+    // Test images asynchronously
+    report.forEach(item => {
+        const img = new Image();
+        img.onload = () => {
+            item.status = 'found';
+            updateDebugPanel();
+        };
+        img.onerror = () => {
+            item.status = 'missing';
+            missingImages.add(item.characterKey);
+            updateDebugPanel();
+        };
+        img.src = item.imagePath;
+    });
+    
+    return report;
+}
+
+/**
+ * Detect duplicate posts based on content similarity
+ */
+function detectDuplicatePosts() {
+    const report = [];
+    const contentMap = new Map();
+    const idSet = new Set();
+    
+    WAHBOOK_POSTS.forEach((post, index) => {
+        // Check for duplicate IDs
+        if (idSet.has(post.id)) {
+            report.push({
+                type: 'duplicate_id',
+                post1Index: WAHBOOK_POSTS.findIndex(p => p.id === post.id),
+                post2Index: index,
+                postId: post.id,
+                reason: `Duplicate ID: ${post.id}`
+            });
+        }
+        idSet.add(post.id);
+        
+        // Create content fingerprint
+        const fingerprint = createContentFingerprint(post);
+        
+        if (contentMap.has(fingerprint)) {
+            const existingIndex = contentMap.get(fingerprint);
+            report.push({
+                type: 'duplicate_content',
+                post1Index: existingIndex,
+                post2Index: index,
+                postId: post.id,
+                existingPostId: WAHBOOK_POSTS[existingIndex].id,
+                reason: 'Identical or near-identical content',
+                fingerprint
+            });
+        } else {
+            contentMap.set(fingerprint, index);
+        }
+    });
+    
+    duplicatePosts = report;
+    return report;
+}
+
+/**
+ * Create a fingerprint for content comparison
+ */
+function createContentFingerprint(post) {
+    const content = (post.content || '').toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/[^\w\s]/g, '')
+        .trim();
+    
+    // Use first 100 chars + character key + date for fingerprint
+    const dateStr = post.date 
+        ? `${post.date.year}-${post.date.monthIndex}-${post.date.day}` 
+        : 'nodate';
+    
+    return `${post.characterKey || 'unknown'}|${dateStr}|${content.substring(0, 100)}`;
+}
+
+/**
+ * Create the debug panel UI
+ */
+function createDebugPanel(imageReport, duplicateReport) {
+    // Remove existing panel
+    if (debugPanel) {
+        debugPanel.remove();
+    }
+    
+    debugPanel = document.createElement('div');
+    debugPanel.id = 'wahbook-debug-panel';
+    debugPanel.innerHTML = `
+        <style>
+            #wahbook-debug-panel {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 400px;
+                max-height: 500px;
+                background: var(--wahbook-bg-secondary, #1a1a2e);
+                border: 2px solid #ff6b35;
+                border-radius: 12px;
+                z-index: 10000;
+                font-family: system-ui, -apple-system, sans-serif;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                overflow: hidden;
+            }
+            .debug-header {
+                background: linear-gradient(135deg, #ff6b35, #ff8c42);
+                color: white;
+                padding: 12px 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: move;
+            }
+            .debug-header h3 {
+                margin: 0;
+                font-size: 14px;
+            }
+            .debug-close {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                padding: 0 4px;
+            }
+            .debug-tabs {
+                display: flex;
+                background: var(--wahbook-bg-tertiary, #252540);
+            }
+            .debug-tab {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                background: none;
+                color: var(--wahbook-text-secondary, #888);
+                cursor: pointer;
+                font-size: 12px;
+                border-bottom: 2px solid transparent;
+            }
+            .debug-tab.active {
+                color: #ff6b35;
+                border-bottom-color: #ff6b35;
+            }
+            .debug-tab .badge {
+                background: #ff4444;
+                color: white;
+                padding: 2px 6px;
+                border-radius: 10px;
+                font-size: 10px;
+                margin-left: 4px;
+            }
+            .debug-content {
+                max-height: 350px;
+                overflow-y: auto;
+                padding: 12px;
+            }
+            .debug-item {
+                background: var(--wahbook-bg-tertiary, #252540);
+                padding: 10px;
+                margin-bottom: 8px;
+                border-radius: 8px;
+                font-size: 12px;
+            }
+            .debug-item.missing {
+                border-left: 3px solid #ff4444;
+            }
+            .debug-item.duplicate {
+                border-left: 3px solid #ffaa00;
+            }
+            .debug-item.found {
+                border-left: 3px solid #44ff44;
+                opacity: 0.6;
+            }
+            .debug-item-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+            }
+            .debug-item-title {
+                font-weight: 600;
+                color: var(--wahbook-text-primary, #fff);
+            }
+            .debug-item-status {
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 10px;
+                text-transform: uppercase;
+            }
+            .status-missing { background: #ff4444; color: white; }
+            .status-found { background: #44ff44; color: black; }
+            .status-pending { background: #888; color: white; }
+            .status-duplicate { background: #ffaa00; color: black; }
+            .debug-item-detail {
+                color: var(--wahbook-text-secondary, #888);
+                font-size: 11px;
+                word-break: break-all;
+            }
+            .debug-item-actions {
+                margin-top: 8px;
+                display: flex;
+                gap: 6px;
+            }
+            .debug-btn {
+                padding: 4px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 11px;
+            }
+            .debug-btn-remove {
+                background: #ff4444;
+                color: white;
+            }
+            .debug-btn-keep {
+                background: #666;
+                color: white;
+            }
+            .debug-btn-view {
+                background: #4488ff;
+                color: white;
+            }
+            .debug-actions-bar {
+                padding: 12px;
+                background: var(--wahbook-bg-tertiary, #252540);
+                border-top: 1px solid #333;
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .debug-export-btn {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            .debug-export-btn.primary {
+                background: linear-gradient(135deg, #ff6b35, #ff8c42);
+                color: white;
+            }
+            .debug-export-btn.secondary {
+                background: #444;
+                color: white;
+            }
+            .debug-summary {
+                padding: 12px;
+                background: var(--wahbook-bg-tertiary, #252540);
+                font-size: 12px;
+                color: var(--wahbook-text-secondary, #888);
+            }
+            .debug-summary strong {
+                color: var(--wahbook-text-primary, #fff);
+            }
+            .marked-for-removal {
+                opacity: 0.4;
+                text-decoration: line-through;
+            }
+        </style>
+        
+        <div class="debug-header">
+            <h3>🔧 WAHbook Debug Panel</h3>
+            <div>
+                <button class="debug-close" id="debug-minimize" title="Minimize">−</button>
+                <button class="debug-close" id="debug-close" title="Close">×</button>
+            </div>
+        </div>
+        
+        <div class="debug-tabs">
+            <button class="debug-tab active" data-tab="images">
+                🖼️ Images <span class="badge" id="missing-count">0</span>
+            </button>
+            <button class="debug-tab" data-tab="duplicates">
+                📋 Duplicates <span class="badge" id="duplicate-count">${duplicateReport.length}</span>
+            </button>
+            <button class="debug-tab" data-tab="summary">
+                📊 Summary
+            </button>
+        </div>
+        
+        <div class="debug-content" id="debug-content">
+            <!-- Content populated dynamically -->
+        </div>
+        
+        <div class="debug-actions-bar">
+            <button class="debug-export-btn primary" id="export-cleaned">
+                📥 Export Cleaned Data
+            </button>
+            <button class="debug-export-btn secondary" id="export-report">
+                📄 Export Report
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(debugPanel);
+    
+    // Setup event listeners
+    setupDebugPanelEvents(imageReport, duplicateReport);
+    
+    // Show images tab by default
+    showDebugTab('images', imageReport, duplicateReport);
+}
+
+/**
+ * Setup debug panel event listeners
+ */
+function setupDebugPanelEvents(imageReport, duplicateReport) {
+    // Close button
+    document.getElementById('debug-close')?.addEventListener('click', () => {
+        debugPanel?.remove();
+        debugPanel = null;
+    });
+    
+    // Minimize button
+    document.getElementById('debug-minimize')?.addEventListener('click', () => {
+        const content = debugPanel.querySelector('.debug-content');
+        const actions = debugPanel.querySelector('.debug-actions-bar');
+        const tabs = debugPanel.querySelector('.debug-tabs');
+        
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            actions.style.display = 'flex';
+            tabs.style.display = 'flex';
+        } else {
+            content.style.display = 'none';
+            actions.style.display = 'none';
+            tabs.style.display = 'none';
+        }
+    });
+    
+    // Tab switching
+    debugPanel.querySelectorAll('.debug-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            debugPanel.querySelectorAll('.debug-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            showDebugTab(tab.dataset.tab, imageReport, duplicateReport);
+        });
+    });
+    
+    // Export cleaned data
+    document.getElementById('export-cleaned')?.addEventListener('click', () => {
+        exportCleanedData();
+    });
+    
+    // Export report
+    document.getElementById('export-report')?.addEventListener('click', () => {
+        exportDebugReport(imageReport, duplicateReport);
+    });
+}
+
+// Track which posts are marked for removal
+const markedForRemoval = new Set();
+
+/**
+ * Show a specific debug tab
+ */
+function showDebugTab(tabName, imageReport, duplicateReport) {
+    const content = document.getElementById('debug-content');
+    if (!content) return;
+    
+    switch (tabName) {
+        case 'images':
+            renderImagesTab(content, imageReport);
+            break;
+        case 'duplicates':
+            renderDuplicatesTab(content, duplicateReport);
+            break;
+        case 'summary':
+            renderSummaryTab(content, imageReport, duplicateReport);
+            break;
+    }
+}
+
+/**
+ * Render the images tab
+ */
+function renderImagesTab(container, imageReport) {
+    const missing = imageReport.filter(i => i.status === 'missing');
+    const pending = imageReport.filter(i => i.status === 'pending');
+    
+    document.getElementById('missing-count').textContent = missing.length;
+    
+    if (missing.length === 0 && pending.length === 0) {
+        container.innerHTML = `
+            <div style="text-align:center;padding:40px;color:#44ff44;">
+                ✅ All images found!
+            </div>
+        `;
+        return;
+    }
+    
+    const items = [...missing, ...pending].map(item => `
+        <div class="debug-item ${item.status}">
+            <div class="debug-item-header">
+                <span class="debug-item-title">${item.name}</span>
+                <span class="debug-item-status status-${item.status}">${item.status}</span>
+            </div>
+            <div class="debug-item-detail">
+                <strong>Key:</strong> ${item.characterKey}<br>
+                <strong>Path:</strong> ${item.imagePath}<br>
+                <strong>Defined:</strong> ${item.isDefined ? 'Yes' : 'No (auto-generated)'}
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = items || '<p style="color:#888;">Checking images...</p>';
+}
+
+/**
+ * Render the duplicates tab
+ */
+function renderDuplicatesTab(container, duplicateReport) {
+    if (duplicateReport.length === 0) {
+        container.innerHTML = `
+            <div style="text-align:center;padding:40px;color:#44ff44;">
+                ✅ No duplicate posts found!
+            </div>
+        `;
+        return;
+    }
+    
+    const items = duplicateReport.map((dup, index) => {
+        const post1 = WAHBOOK_POSTS[dup.post1Index];
+        const post2 = WAHBOOK_POSTS[dup.post2Index];
+        const isMarked = markedForRemoval.has(dup.post2Index);
+        
+        return `
+            <div class="debug-item duplicate ${isMarked ? 'marked-for-removal' : ''}" data-dup-index="${index}">
+                <div class="debug-item-header">
+                    <span class="debug-item-title">${dup.reason}</span>
+                    <span class="debug-item-status status-duplicate">duplicate</span>
+                </div>
+                <div class="debug-item-detail">
+                    <strong>Original (index ${dup.post1Index}):</strong><br>
+                    ID: ${post1?.id || 'N/A'}<br>
+                    "${(post1?.content || '').substring(0, 80)}..."<br><br>
+                    
+                    <strong>Duplicate (index ${dup.post2Index}):</strong><br>
+                    ID: ${post2?.id || 'N/A'}<br>
+                    "${(post2?.content || '').substring(0, 80)}..."
+                </div>
+                <div class="debug-item-actions">
+                    <button class="debug-btn debug-btn-remove" data-action="mark" data-index="${dup.post2Index}">
+                        ${isMarked ? '↩️ Unmark' : '🗑️ Mark for Removal'}
+                    </button>
+                    <button class="debug-btn debug-btn-view" data-action="view" data-post-id="${post2?.id}">
+                        👁️ View
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    container.innerHTML = items;
+    
+    // Add event listeners for buttons
+    container.querySelectorAll('.debug-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const action = btn.dataset.action;
+            
+            if (action === 'mark') {
+                const index = parseInt(btn.dataset.index);
+                if (markedForRemoval.has(index)) {
+                    markedForRemoval.delete(index);
+                } else {
+                    markedForRemoval.add(index);
+                }
+                renderDuplicatesTab(container, duplicateReport);
+            } else if (action === 'view') {
+                const postId = btn.dataset.postId;
+                // Scroll to post or show in modal
+                const postEl = document.querySelector(`[data-post-id="${postId}"]`);
+                if (postEl) {
+                    postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    postEl.style.outline = '3px solid #ff6b35';
+                    setTimeout(() => postEl.style.outline = '', 3000);
+                }
+            }
+        });
+    });
+}
+
+/**
+ * Render the summary tab
+ */
+function renderSummaryTab(container, imageReport, duplicateReport) {
+    const totalPosts = WAHBOOK_POSTS.length;
+    const uniqueCharacters = new Set(WAHBOOK_POSTS.map(p => p.characterKey)).size;
+    const missingCount = imageReport.filter(i => i.status === 'missing').length;
+    const undefinedChars = imageReport.filter(i => !i.isDefined).length;
+    
+    container.innerHTML = `
+        <div class="debug-summary">
+            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">📊 Data Summary</h4>
+            
+            <p><strong>Total Posts:</strong> ${totalPosts}</p>
+            <p><strong>Unique Authors:</strong> ${uniqueCharacters}</p>
+            <p><strong>Duplicate Posts:</strong> <span style="color:${duplicateReport.length > 0 ? '#ffaa00' : '#44ff44'}">${duplicateReport.length}</span></p>
+            <p><strong>Marked for Removal:</strong> <span style="color:#ff4444">${markedForRemoval.size}</span></p>
+            
+            <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
+            
+            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">🖼️ Image Summary</h4>
+            
+            <p><strong>Total Characters:</strong> ${imageReport.length}</p>
+            <p><strong>Missing Images:</strong> <span style="color:${missingCount > 0 ? '#ff4444' : '#44ff44'}">${missingCount}</span></p>
+            <p><strong>Undefined Characters:</strong> <span style="color:${undefinedChars > 0 ? '#ffaa00' : '#44ff44'}">${undefinedChars}</span></p>
+            
+            <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
+            
+            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">⚙️ Actions</h4>
+            
+            <p style="font-size:11px;color:#888;">
+                • Click "Export Cleaned Data" to download assembly-data.js with duplicates removed<br>
+                • Click "Export Report" to download a JSON report of all issues
+            </p>
+        </div>
+    `;
+}
+
+/**
+ * Update the debug panel (called when image tests complete)
+ */
+function updateDebugPanel() {
+    if (!debugPanel) return;
+    
+    const activeTab = debugPanel.querySelector('.debug-tab.active')?.dataset.tab;
+    if (activeTab === 'images') {
+        const imageReport = Array.from(document.querySelectorAll('.debug-item'))
+            .map(el => ({
+                status: el.classList.contains('missing') ? 'missing' : 
+                        el.classList.contains('found') ? 'found' : 'pending'
+            }));
+        
+        const missingCount = imageReport.filter(i => i.status === 'missing').length;
+        document.getElementById('missing-count').textContent = missingCount;
+    }
+}
+
+/**
+ * Export cleaned assembly-data.js with duplicates removed
+ */
+function exportCleanedData() {
+    // Remove marked duplicates
+    const cleanedPosts = WAHBOOK_POSTS.filter((post, index) => {
+        return !markedForRemoval.has(index);
+    });
+    
+    // Also remove any auto-detected duplicate IDs
+    const seenIds = new Set();
+    const dedupedPosts = cleanedPosts.filter(post => {
+        if (seenIds.has(post.id)) {
+            return false;
+        }
+        seenIds.add(post.id);
+        return true;
+    });
+    
+    // Generate the JS file content
+    const fileContent = `// WAHbook Posts Data - Cleaned ${new Date().toISOString()}
+// Original: ${WAHBOOK_POSTS.length} posts
+// After cleanup: ${dedupedPosts.length} posts
+// Removed: ${WAHBOOK_POSTS.length - dedupedPosts.length} duplicates
+
+export const WAHBOOK_POSTS = ${JSON.stringify(dedupedPosts, null, 2)};
+
+// Export helper for event integration
+export function loadEventPosts() {
+    return Promise.resolve([]);
+}
+`;
+    
+    // Download the file
+    downloadFile('assembly-data-cleaned.js', fileContent, 'application/javascript');
+    
+    // Show confirmation
+    alert(`✅ Exported cleaned data!\n\nOriginal: ${WAHBOOK_POSTS.length} posts\nCleaned: ${dedupedPosts.length} posts\nRemoved: ${WAHBOOK_POSTS.length - dedupedPosts.length} duplicates`);
+}
+
+/**
+ * Export debug report as JSON
+ */
+function exportDebugReport(imageReport, duplicateReport) {
+    const report = {
+        generated: new Date().toISOString(),
+        summary: {
+            totalPosts: WAHBOOK_POSTS.length,
+            duplicatePosts: duplicateReport.length,
+            markedForRemoval: markedForRemoval.size,
+            missingImages: imageReport.filter(i => i.status === 'missing').length,
+            undefinedCharacters: imageReport.filter(i => !i.isDefined).length
+        },
+        missingImages: imageReport.filter(i => i.status === 'missing'),
+        duplicates: duplicateReport.map(dup => ({
+            ...dup,
+            post1Content: WAHBOOK_POSTS[dup.post1Index]?.content?.substring(0, 100),
+            post2Content: WAHBOOK_POSTS[dup.post2Index]?.content?.substring(0, 100)
+        })),
+        markedForRemoval: Array.from(markedForRemoval).map(index => ({
+            index,
+            postId: WAHBOOK_POSTS[index]?.id,
+            content: WAHBOOK_POSTS[index]?.content?.substring(0, 100)
+        }))
+    };
+    
+    downloadFile('wahbook-debug-report.json', JSON.stringify(report, null, 2), 'application/json');
+}
+
+/**
+ * Helper to download a file
+ */
+function downloadFile(filename, content, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+/**
+ * Toggle debug panel visibility (call from console or button)
+ */
+window.toggleDebugPanel = function() {
+    if (debugPanel) {
+        debugPanel.remove();
+        debugPanel = null;
+    } else {
+        const imageReport = detectMissingImages();
+        const duplicateReport = detectDuplicatePosts();
+        createDebugPanel(imageReport, duplicateReport);
+    }
+};
+
+// ============================================================================
+// ADD TO INITIALIZATION
+// ============================================================================
+
+// Add this to your existing init function or call after data loads:
+// initDebugDiagnostics();
+
 
 function initPostVisibilityObserver() {
     // Clean up existing observer
@@ -54,7 +775,16 @@ function initPostVisibilityObserver() {
         });
     }, options);
 }
-
+function updateSeenPosts() {
+    // Identify which feed container is currently visible
+    const activeContainer = document.querySelector('.feed-content:not(.hidden) .posts-container') || 
+                            document.querySelector('.feed-content:not(.hidden) [id$="-container"]') ||
+                            document.querySelector('.feed-content:not(.hidden)');
+    
+    if (activeContainer) {
+        observePostsForVisibility(activeContainer);
+    }
+}
 function markPostAsSeen(postId) {
     if (!state.userState) return;
     if (!state.userState.seenPostIds) state.userState.seenPostIds = [];
@@ -2610,7 +3340,8 @@ async function init() {
     updateNotificationBadge();
     // Setup event listeners
     setupEventListeners();
-
+    await loadDynamicData();
+initDebugDiagnostics()
     // Update seen posts
     setTimeout(() => {
         updateSeenPosts();

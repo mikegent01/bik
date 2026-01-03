@@ -927,7 +927,7 @@
 }
 
 .new-post-badge {
-    position: absolute;
+    position: flex;
     top: 8px;
     right: 8px;
     background: var(--wahbook-accent, #4a9eff);
