@@ -243,7 +243,39 @@ export const REWARDS_DATA = {
     getIcon: getRewardIcon
 };
 export const TOADS_QUESTS = {
+    'toad_lee_feywild_protocol': {
+        id: 'toad_lee_feywild_protocol',
+        title: "Protocol: Wild Garden",
+        subtitle: "Herding Chaos",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Liberated Toads',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Manage Waluigi (Chaotic Neutral) and Toadburt (Walking Bomb) in the Feywild environment.",
+        assignees: ['toad_lee', 'waluigi', 'toadburt'],
+        primaryAssignee: 'toad_lee',
+        difficulty: { overall: DIFFICULTY.HARD, management: DIFFICULTY.EXTREME, survival: DIFFICULTY.HARD },
+        tags: ['escort', 'feywild', 'bomb-disposal'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 22 } },
+        
+        description: "Toad Lee is a logistics officer. She deals in supplies, rosters, and sanity. She is now trapped in a psychedelic forest (formerly the attic) with Waluigi (who is trying to steal everything) and Toadburt (who is sobbing and strapped with a Legion nuke). Her mission is to keep Waluigi focused on the 'Key' and keep Toadburt calm enough not to detonate.",
 
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "Feywild Flora Samples", description: "Potentially valuable alchemical ingredients." }
+            ],
+            conditional: [
+                { condition: "Prevent Waluigi from eating unknown mushrooms", reward: { type: 'status', name: "Crisis Manager", description: "You can herd cats." }}
+            ],
+            xp: 5000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'active', title: "The Bomb", description: "Inspect Toadburt's ring. Determine if it can be removed or must be endured." },
+            { id: 'm2', status: 'active', title: "The Looter", description: "Convince Waluigi that the 'Giant Butterfly' has better loot than the goblin servants." }
+        ]
+    },
 'rogueport_retrieval': {
     id: 'rogueport_retrieval',
     title: "The Price of a Handshake",
@@ -790,7 +822,7 @@ export const HUMPIK_QUESTS = {
     subtitle: "A Knife Behind a Handshake",
     type: QUEST_TYPES.FACTION,
     category: 'Personal - Humpik',
-    status: QUEST_STATUS.ACTIVE,
+        status: QUEST_STATUS.FAILED, // Paused because the conditions for the deal are currently physically impossible
     priority: QUEST_PRIORITY.CRITICAL,
     arcId: 'raventree_manor',
     objective: "Fulfill the deal with the Iron Legion: let the Oracle complete his ritual, then ensure the Legion takes custody of him. Or betray the deal and accept the consequences.",
@@ -805,12 +837,14 @@ export const HUMPIK_QUESTS = {
     tags: ['secret', 'betrayal', 'politics', 'moral_choice', 'faction_defining'],
     dates: {
         added: { year: 1040, monthIndex: 6, day: 21 },
-        updated: { year: 1040, monthIndex: 6, day: 21 }
+        updated: { year: 1040, monthIndex: 6, day: 21 },
+            completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date        
     },
 
-    description: "The Legion spy found Humpik in the Ruined Hall, away from the others. She was calm, professional, and terrifyingly well-informed.\n\nShe knew about the Mages' Guild's reckless approach to the manor. She knew about the Supernatural Sovereignty Act—the new law that makes organized supernatural entities illegal, effectively declaring war on vampires, werewolves, and anything else the Empire finds inconvenient. She knew that the Oracle, whatever he is, represents exactly the kind of 'uncontrolled magical threat' the Empire wants eliminated.\n\nHer offer was simple: Let the Oracle finish his ritual. The Legion understands the manor needs to be stabilized—they don't want a dimensional collapse on Imperial soil any more than anyone else. But when the ritual ends and the danger passes, the Oracle becomes Legion property. Humpik ensures the handoff goes smoothly.\n\nIn exchange? The Legion's goodwill. Tools for the job. And perhaps—she didn't promise, but she implied—leverage to negotiate for Toad prisoners currently facing Order 120.\n\nHumpik accepted. He took the thieves' tools. He warned her not to betray him.\n\nNow he walks beside his companions toward the Summoning Room, carrying a secret that could save some lives by destroying others. Bowser already suspects something. The Oracle trusts them. And the Mages' Guild representative—Pernus Annmatar—is watching everyone with undisguised contempt.\n\nThe ritual will end soon. Then Humpik chooses.",
-
-    loreEntries: ['supernatural_sovereignty_act', 'iron_mandate', 'legion_black_ops', 'oracle_nature'],
+        failureReason: "Breach of Contract",
+        description: "The deal was specific: Deliver the Oracle to the Legion *immediately* after the ritual. The ritual failed, the Oracle is lost in the Void, and Humpik is missing. Commander Vex and the Iron Legion view this as a failure at best, and a betrayal at worst. The Pact is broken. Humpik is now a loose end to be tied up.",
+        notes: "Any Legion favor rewards are lost. Humpik is likely now on the Legion's hit list alongside the Toads.",
+            loreEntries: ['supernatural_sovereignty_act', 'iron_mandate', 'legion_black_ops', 'oracle_nature'],
 
     consequences: {
         success_betray_oracle: "The Legion takes custody of the Oracle. Humpik gains significant Legion favor, potentially including leverage to negotiate for Bones, Creek, and other prisoners. The Toads lose a powerful magical ally. The Oracle's fate is imprisonment, experimentation, or execution.",
@@ -871,21 +905,12 @@ export const HUMPIK_QUESTS = {
         },
         {
             id: 'm3',
-            status: 'locked',
-            title: "The Arrest",
-            description: "The moment the ritual ends, the Legion strikes. Humpik's choice becomes action.",
-            unlockCondition: "Ritual completion",
-            choices: [
-                {
-                    id: 'final_choice',
-                    title: "The Moment of Truth",
-                    options: [
-                        { id: 'deliver', name: "Honor the Deal", description: "Signal the Legion. Ensure the Oracle is taken. Collect the favor." },
-                        { id: 'betray_legion', name: "Betray the Legion", description: "Warn the Oracle. Fight the Legion. Burn the bridge." },
-                        { id: 'chaos', name: "Create Chaos", description: "Trigger a three-way fight between Legion, Mages, and Oracle. Escape in the confusion." },
-                        { id: 'negotiate', name: "Renegotiate", description: "Use the moment to demand the prisoners' release BEFORE handing over the Oracle." }
-                    ]
-                }
+            status: 'active', // Changed from locked
+            title: "The Breach of Contract",
+            description: "The ritual failed. The Oracle is gone (to the Void). Humpik is gone. The Legion holds the physical room. The deal is effectively void unless Humpik can re-establish contact and offer something of equal value—like the Star Shard.",
+            goals: [
+                { text: "Survive the Fracture", status: 'active', priority: 'critical' },
+                { text: "Prepare an explanation for Commander Vex", status: 'pending', priority: 'high' }
             ]
         }
     ],
@@ -1000,7 +1025,7 @@ export const ARCHIE_QUESTS = {
         subtitle: "The Bearer's Circle",
         type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
-        status: QUEST_STATUS.ACTIVE,
+        status: QUEST_STATUS.FAILED,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
         objective: "Channel energy for the Oracle's ritual while maintaining ice discipline. The War Mage's Staff awaits. The Oracles are multiple. The separation approaches.",
@@ -1016,11 +1041,12 @@ export const ARCHIE_QUESTS = {
         dates: { 
             added: { year: 1040, monthIndex: 6, day: 20 }, 
             updated: { year: 1040, monthIndex: 6, day: 21 },
-            deadline: { year: 1040, monthIndex: 6, day: 22 }
+            deadline: { year: 1040, monthIndex: 6, day: 22 },
+completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date            
         },
-        
-        description: "Archie Miser has proven himself.\n\nThe Arcane Wraith fell to ice, not fire. The ectoplasm is in his jar. The provisional Guild license remains valid. And now, Markop has handed him the War Mage's Staff—a proper magical focus recovered from the Arachnid Matriarch's hoard in the Silent Grove.\n\nBut the night has brought revelations that dwarf personal vindication.\n\nReturning to Raventree Manor after the Spider Grove battle, the party witnessed something that broke their understanding of the Oracle: there are multiple Oracles. At least two were seen simultaneously—one leading the rescue party back from the grove, another already in conversation with Archie and Hjumpik inside the Upper House.\n\nWhen confronted, one Oracle produced a crystalline artifact—a 'Star Shard'—and declared himself a 'Bearer,' a title connected to the Toad God himself. The implications are staggering. The Oracle is not merely a chronomancer. He may be a divine instrument. Or multiple divine instruments. Or fragments of one shattered across time.\n\nThe ritual is imminent. 'No pauses once we enter. Hesitation desynchronizes intent.' The Oracle's words echo. Archie must channel vast energies through his new staff while maintaining the ice discipline that earned him Guild respect. Pernus Annmatar is still watching. The Iron Legion is still waiting. And somewhere in the ritual circle, the truth about the Bearer title will be revealed.\n\nThe War Mage's Staff hums with potential. For the first time, Archie has a focus worthy of his power. The question is whether he has the wisdom to use it correctly.",
-
+                failureReason: "Ritual Catastrophe",
+        description: "Archie failed to maintain control during the separation ritual. His ice magic destabilized, contributing to the planar fracture. The Mages' Guild observer (Pernus Annmatar) undoubtedly witnessed this failure. Archie's provisional license is forfeit; he is once again a rogue mage, and likely blamed for the destruction of the Manor.",
+        notes: "The War Mage's Staff remains in Archie's possession, but the 'Bearer's Blessing' and Guild License rewards are lost.",
         loreEntries: ['autumnwood_accords', 'cryomancy_basics', 'guild_membership_protocols', 'ectoplasm_harvesting', 'raventree_manor_history', 'temporal_magic', 'toad_god_mythology', 'star_shard_properties', 'bearer_protocols'],
 
         consequences: {
@@ -1603,6 +1629,42 @@ export const GUILDS_QUESTS = {
 };
 
 export const BOWSER_QUESTS = {
+        'bowser_shadow_etiquette': {
+        id: 'bowser_shadow_etiquette',
+        title: "The King's Manners",
+        subtitle: "Don't Punch the Host (Yet)",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - Bowser',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Survive the dinner party with Orangus Cornelius without initiating combat, as physical aggression will lead to immediate execution in the Shadowfell.",
+        assignees: ['bowser'],
+        primaryAssignee: 'bowser',
+        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.EXTREME, restraint: DIFFICULTY.EXTREME },
+        tags: ['social', 'restraint', 'shadowfell', 'vampire'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 22 } },
+        
+        description: "Bowser is a King. He conquers. He breathes fire. He does not make polite conversation with undead aristocrats who view him as a novelty pet.\n\nHowever, in the Shadowfell Estate, his fire is cold light, and his strength is trivial compared to the vampiric speed of the Onyx Hand. Orangus Cornelius has seated Bowser at the head table. To save Green T and Archie, Bowser must do the hardest thing he has ever done: behave.",
+
+        consequences: {
+            success: "Cornelius is amused. The party gains a window to escape. Bowser gains the 'Intimidating Presence' social trait.",
+            failure: "Bowser attacks. The Onyx Hand swarms. Capture or death is certain.",
+        },
+
+        rewards: {
+            conditional: [
+                { condition: "Pass 3 Social/Restraint checks", reward: { type: 'reputation', faction: 'onyx_hand', amount: 100, description: "A Civilized Beast" }},
+                { condition: "Intimidate a vampire without violence", reward: { type: 'feat', name: "Silent Threat", description: "Advantage on intimidation" }}
+            ],
+            xp: 4000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'active', title: "The First Course", description: "Endure the appetizer (which appears to be coagulated shadows) without flipping the table." },
+            { id: 'm2', status: 'locked', title: "The Conversation", description: "Answer Cornelius's questions about the Mushroom Kingdom without revealing tactical weaknesses." }
+        ]
+    },
     'bowser_rally_remnants': {
         id: 'bowser_rally_remnants',
         title: "Rally the Remnants",
@@ -1668,6 +1730,39 @@ export const BOWSER_QUESTS = {
 };
 
 export const MARKOP_QUESTS = {
+    'markop_void_vigil': {
+        id: 'markop_void_vigil',
+        title: "The Void Vigil",
+        subtitle: "Staring Back",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - Markop',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Maintain sanity while protecting the Oracle/Star Shard in the Void layer between dimensions.",
+        assignees: ['markop'],
+        primaryAssignee: 'markop',
+        difficulty: { overall: DIFFICULTY.DEADLY, sanity: DIFFICULTY.EXTREME, combat: DIFFICULTY.HARD },
+        tags: ['survival', 'void', 'horror', 'protection'],
+        dates: { added: { year: 1040, monthIndex: 6, day: 22 } },
+        
+        description: "The edges of the manor have peeled away to Shadow and Fey, leaving Markop, Remi, and the Oracle in the center—which is now a platform floating in the Deep Mirror (The Void). The 'Something Older' that the Empire was digging for is here. It is scratching at the underside of the platform. Markop must hold the line.",
+
+        loreEntries: ['void_entities', 'deep_mirror_physics'],
+
+        rewards: {
+            guaranteed: [
+                { type: 'knowledge', name: "Glimpse of the End", description: "Saw what lies beneath reality." }
+            ],
+            xp: 6000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'active', title: "Shield the Light", description: "The Star Shard attracts the Void entities. Keep them away from the Oracle." },
+            { id: 'm2', status: 'locked', title: "Don't Look Down", description: "Resist the urge to look into the infinite dark." }
+        ]
+    },
+    
     'markop_silver_flame_schism': {
         id: 'markop_silver_flame_schism',
         title: "The Silver Flame's Schism",
@@ -2485,7 +2580,7 @@ export const MAIN_QUESTS = {
     type: QUEST_TYPES.MAIN,
     category: 'Main Story',
     status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.HIGH,
+    priority: QUEST_PRIORITY.CRITICAL, 
     arcId: 'vigilance_saga',
     objective: "Stabilize the Staff of X.O. before its seal fails completely, while Dan adapts to fighting with one arm.",
     assignees: ['dan', 'toad_lee'],
@@ -2503,8 +2598,7 @@ export const MAIN_QUESTS = {
         deadline: { year: 1040, monthIndex: 6, day: 28 }
     },
 
-    description: "The seal is failing. Everyone can see it now—the cracks spreading across the Staff of X.O.'s containment runes, the occasional pulse of wrongness that makes teeth ache and shadows twitch. The artifact that cost Dan his arm is slowly waking up, and when it does, the thirteen Toads who died in the initial catastrophe will seem like a mercy.\n\nBut Dan isn't waiting to die.\n\nDuring the battle with the Arcane Wraith, he fought. One arm, handaxes and javelins, throwing with precision that shouldn't have been possible for someone still learning to compensate for the loss. He proved—to himself, to the others, to whatever doubts had been growing—that he is still dangerous. Still useful. Still a warrior.\n\nThe adaptation is working. The question is whether it will matter.\n\nForgemaster Grimm remains the only known expert capable of properly containing or cleansing the Staff. But Grimm is somewhere in the Koopa territories, and the party is trapped in Raventree Manor watching the Iron Legion consolidate control of the skies. Travel is complicated. Time is short.\n\nToad Lee has been monitoring the seal's degradation. Her estimate: seven days before critical failure. Maybe less if the Staff is exposed to significant magical stress—like, for example, a major ritual in a haunted manor.",
-
+        description: "The Staff is with Dan (or the entity posing as Dan). The seal is degrading. However, the party is trapped in the Fracture. Reaching Forgemaster Grimm is currently impossible. The objective has shifted: Keep the Staff stable while surviving the alien physics of the Fracture.",
     loreEntries: ['xo_the_betrayer', 'amputee_combat_techniques', 'forgemaster_grimm', 'staff_seal_mechanics'],
 
     consequences: {
@@ -2563,7 +2657,7 @@ export const MAIN_QUESTS = {
         },
         {
             id: 'm4',
-            status: 'active',
+            status: 'failed',
             title: "The Race",
             description: "Find Forgemaster Grimm before the seal fails. Continue combat training. Manage the Staff's instability.",
             goals: [
@@ -2573,7 +2667,17 @@ export const MAIN_QUESTS = {
                 { text: "Monitor seal integrity daily", status: 'active', priority: 'high' }
             ],
             notes: "Toad Lee estimates seven days to critical failure. The Raventree ritual involves significant magical energy. Keep Dan away from the innermost circle."
-        }
+        },
+            {
+                id: 'm5',
+                status: 'failed', // The specific goal to find Grimm quickly has failed due to entrapment
+                title: "The Detour",
+                description: "The path to Forgemaster Grimm is cut off. The party is trapped in other dimensions. The clock is still ticking (approx 6 days remaining), but the solution is now out of reach.",
+                goals: [
+                    { text: "Escape Raventree Fracture to resume travel", status: 'active', priority: 'critical' },
+                    { text: "Prevent the Staff from reacting to Shadow/Fey magic", status: 'active', priority: 'critical' }
+                ]
+            }        
     ],
 
     staffStatus: {
