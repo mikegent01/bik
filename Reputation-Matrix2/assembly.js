@@ -381,31 +381,38 @@ function getCharacterData(characterKey) {
 function getVisiblePosts() {
     return WAHBOOK_POSTS.filter(p => isContentVisible(p?.date));
 }
-
 function getTrendingScore(post) {
-    const likes = post.likes || 0;
-    const comments = (post.comments || []).length;
-    
-    // Safety check for date
-    let daysSince = 0;
+    // --- 1. how many times has the user seen this post? ---
+    const seenCount = (state.userState?.seenPostIds || [])
+        .filter(id => id === post.id).length;
+
+    // --- 2. recency: days since post (min 0) ---
+    let daysSince = 30; // default “old”
     if (post.date) {
-        // Calculate days since post (simple approximation)
-        const postDayVal = (post.date.year * 365) + (post.date.monthIndex * 30) + post.date.day;
-        const currentDayVal = (CURRENT_GAME_DATE.year * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
-        daysSince = Math.max(0, currentDayVal - postDayVal);
-    } else {
-        daysSince = 30; // Treat undated as old
+        const postDay  = (post.date.year * 365) + (post.date.monthIndex * 30) + post.date.day;
+        const currDay  = (CURRENT_GAME_DATE.year * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
+        daysSince = Math.max(0, currDay - postDay);
     }
 
-    // Recency decay: score drops by 10% every day
-    const recencyMultiplier = Math.max(0.1, 1 - (daysSince * 0.1));
-    
-    // Base score: Comments weighted higher than likes
-    const engagementScore = (likes * 1) + (comments * 3);
-    
-    return engagementScore * recencyMultiplier;
-}
+    // --- 3. deterministic random 0-1 per post+day ---
+    const seed = `${post.id}@${CURRENT_GAME_DATE.year}-${CURRENT_GAME_DATE.monthIndex}-${CURRENT_GAME_DATE.day}`;
+    let h = 0;
+    for (let i = 0; i < seed.length; i++) {
+        h = Math.imul(h * 31, seed.charCodeAt(i)) >>> 0;
+    }
+    const rand = (h % 1000000) / 1000000; // 0-1
 
+    // --- 4. unseen-boost: 1 / (1 + seenCount) → highest when never seen ---
+    const unseenBoost = 1 / (1 + seenCount);
+
+    // --- 5. gentle time decay → 1.0 (fresh) ... 0.1 (30+ days) ---
+    const timeDecay = Math.max(0.1, 1 - (daysSince * 0.03));
+
+    // --- 6. assemble a 0-100 “trending” score ---
+    const score = rand * unseenBoost * timeDecay * 100;
+
+    return score;
+}
 function getDaysSincePost(post) {
     if (!post.date) return 999;
     const postDate = new Date(post.date.year, post.date.monthIndex, post.date.day);

@@ -18,7 +18,7 @@ export const CHARACTERS = {
         description: "A Centaur Paladin, reluctantly roped into chaos. He tries to be a moral compass, though his faith and honor are constantly tested."
     },
     humpik: {
-        name: "Humpik",
+        name: "Hjumpik",
         isParty: true,
         role: "The Dwarven King's Champion",
         portrait: "portraits/humpik.png",

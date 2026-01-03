@@ -32,7 +32,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_dwarf_suspicion',
         order: 70003,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 55 },
         timestamp: '4 hours ago',
         content: `Some mage in wrong-cut robes just told me to ring the bell twice. Said the winds are "orange today." Smells like trouble. Big trouble. I like it.`,
@@ -89,7 +89,7 @@ export const WAHBOOK_POSTS = [
         content: `Dwarf stopped the Chronometric Shear Gauge at ninety-six percent. Didn't push to full sync. Instinct or cowardice? Either way, the portal stabilized. I'm logging this as "anomalous success."`,
         likes: 145,
         comments: [
-            { characterKey: 'hjumpik_deldkur', text: 'Cowardice is just survival with better PR.' }
+            { characterKey: 'hjumpik', text: 'Cowardice is just survival with better PR.' }
         ],
         rumorId: 'project_orange'
     },
@@ -144,7 +144,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_no_path',
         order: 70012,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 10 },
         timestamp: '2½ hours ago',
         content: `No footprints. No path. The mushrooms die when I touch them. This place doesn't want me here. Good. I'm getting used to that.`,
@@ -205,7 +205,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_bell_goes_nuts',
         order: 70017,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 47 },
         timestamp: '2 hours ago',
         content: `The cowbell is screaming. Not ringing—screaming. Like it recognizes something here. I don't know whether to follow it or throw it into the void.`,
@@ -243,7 +243,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_who_cursed_dragon',
         order: 70020,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 0 },
         timestamp: '1½ hours ago',
         content: `Kept asking about the dragon's curse. Guard finally broke. Described a figure: orange aura, purple suit, white gloves, crown. "The owner of the manor." Another Oracle. Wrong one.`,
@@ -333,7 +333,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_fairy_language',
         order: 70027,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 35 },
         timestamp: '1 hour ago',
         content: `The fairies are speaking in nonsense syllables. "vaY3h." "q2X33vY Ss AWn 758DX." Pretty sure I just got insulted. Or married. Hard to tell.`,
@@ -359,7 +359,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_fairy_haggling',
         order: 70029,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 45 },
         timestamp: '50 minutes ago',
         content: `Fairy tried to up-price me by 200%. We settled on 47% of original sales price because it "felt specific." I bought a strange brew for one gold out of spite.`,
@@ -378,7 +378,7 @@ export const WAHBOOK_POSTS = [
         content: `The dwarf asked me to hold his shopping bag. I warned him he might not get it back. He gave me food instead. Smart. The fairy village agrees with me. I look happy here.`,
         likes: 567,
         comments: [
-            { characterKey: 'hjumpik_deldkur', text: 'Gave her an orange crystal. She smiled. Not the scary smile. The real one.' }
+            { characterKey: 'hjumpik', text: 'Gave her an orange crystal. She smiled. Not the scary smile. The real one.' }
         ],
         rumorId: 'project_orange'
     },
@@ -398,7 +398,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_wario_list',
         order: 70032,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 0 },
         timestamp: '35 minutes ago',
         content: `Wario's ordering list is 2,361 lines long. The wish rod costs nine hundred trillion coins. He wants experience as payment. I gave him memories of a bad lunch. He accepted.`,
@@ -439,7 +439,7 @@ export const WAHBOOK_POSTS = [
         content: `Challenge issued. Duel. Clean and contained. We win, they go home. They win, we report to the boss. The dwarf agreed immediately. No hesitation. I respect that.`,
         likes: 567,
         comments: [
-            { characterKey: 'hjumpik_deldkur', text: 'Hesitation is for people who haven\'t been thrown through portals today.' }
+            { characterKey: 'hjumpik', text: 'Hesitation is for people who haven\'t been thrown through portals today.' }
         ],
         rumorId: 'project_orange'
     },
@@ -459,7 +459,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_duel_fight',
         order: 70037,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 25 },
         timestamp: '10 minutes ago',
         content: `Thistle fights like he's defending his home. I fight like I've already lost mine. Hammer meets blade. Shock runs up my arms. He's good. I'm desperate. Desperate is better.`,
@@ -476,14 +476,14 @@ export const WAHBOOK_POSTS = [
         content: `Thistle is down. Dwarf hammered the ground, not the man. Smart. Thistle yields. Terms are met. It'll be handled. The dwarf nods. No gloating. Just duty. I like him.`,
         likes: 678,
         comments: [
-            { characterKey: 'hjumpik_deldkur', text: 'No point gloating. The bell is screaming again. The orange calls.' }
+            { characterKey: 'hjumpik', text: 'No point gloating. The bell is screaming again. The orange calls.' }
         ],
         rumorId: 'project_orange'
     },
     {
         id: 'orange_bell_reminder',
         order: 70039,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 35 },
         timestamp: 'Just now',
         content: `Duel done. Bell vibrates. Perrius's voice in my head: "The orange alignment is still resonating." The attic is close. The blue toad is closer. The game is moving.`,
@@ -551,7 +551,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_hjumpik_final',
         order: 70045,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 42 },
         timestamp: 'Just now',
         content: `The blue toad is crying. The purple suit is laughing. The rakshasa is calm. Steely is ready. My hammer is steady. The cowbell rings one last time. Let's end this.`,
@@ -644,7 +644,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_dwarf_suspicion',
         order: 70003,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 55 },
         timestamp: '4 hours ago',
         content: `Some mage in wrong-cut robes just told me to ring the bell twice. Said the winds are "orange today." Smells like trouble. Big trouble. I like it.`,
@@ -701,7 +701,7 @@ export const WAHBOOK_POSTS = [
         content: `Dwarf stopped the Chronometric Shear Gauge at ninety-six percent. Didn't push to full sync. Instinct or cowardice? Either way, the portal stabilized. I'm logging this as "anomalous success."`,
         likes: 145,
         comments: [
-            { characterKey: 'hjumpik_deldkur', text: 'Cowardice is just survival with better PR.' }
+            { characterKey: 'hjumpik', text: 'Cowardice is just survival with better PR.' }
         ],
         rumorId: 'project_orange'
     },
@@ -756,7 +756,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_no_path',
         order: 70012,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 10 },
         timestamp: '2½ hours ago',
         content: `No footprints. No path. The mushrooms die when I touch them. This place doesn't want me here. Good. I'm getting used to that.`,
@@ -817,7 +817,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_bell_goes_nuts',
         order: 70017,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 47 },
         timestamp: '2 hours ago',
         content: `The cowbell is screaming. Not ringing—screaming. Like it recognizes something here. I don't know whether to follow it or throw it into the void.`,
@@ -1074,7 +1074,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_hjumpik_ready',
         order: 70037,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 0 },
         timestamp: '5 minutes ago',
         content: `At the attic root. Bell won't stop screaming. Steely is whirring. Rakshasa is grinning. Toadburt is close. Warhammer is ready. Let's do this.`,
@@ -1188,7 +1188,7 @@ export const WAHBOOK_POSTS = [
     {
         id: 'orange_hjumpik_breathes',
         order: 70047,
-        characterKey: 'hjumpik_deldkur',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 11 },
         timestamp: 'Just now',
         content: `One breath. Two breaths. The cowbell, the warhammer, the ring on my finger that isn't mine. The blue toad is crying. The purple suit is laughing. The attic door opens. Let's go.`,
@@ -4318,7 +4318,7 @@ We're on schedule.`,
     likes: 4321,
     comments: [
       { characterKey: 'pianta_chef', text: 'Dans got seconds coming!' },
-      { characterKey: 'humpik', text: 'Pie? Save me some!' }
+      { characterKey: 'hjumpik', text: 'Pie? Save me some!' }
     ],
     rumorId: 'archie_aegis_post'
   },
@@ -4430,7 +4430,7 @@ We're on schedule.`,
     likes: 1789,
     comments: [
       { characterKey: 'remi', text: 'Add hammers next time.' },
-      { characterKey: 'humpik', text: 'Buy one!' }
+      { characterKey: 'hjumpik', text: 'Buy one!' }
     ],
     rumorId: 'archie_aegis_post'
   },
@@ -5169,7 +5169,7 @@ Clock's ticking, losers. Don't say Wario never did nothing for ya!`,
     likes: 3200,
     comments: [
         { characterKey: 'toad_lee', text: '...Hes literally extorting us while Bones is dying. Classic Wario.' },
-        { characterKey: 'humpik', text: 'I smell treasure! And garlic! I vote we take it!' },
+        { characterKey: 'hjumpik', text: 'I smell treasure! And garlic! I vote we take it!' },
         { characterKey: 'scribe_dewdrop', text: 'The ink alone is worth risking the gas... Chroniclers are voting YES.' },
         { characterKey: 'captain_fernback', text: 'Pond Patrol already sweeping the tunnel. If its a trap, we contain it. If its real... we NEED those supplies.' },
         { characterKey: 'wario', text: 'Tick-tock, toadies~ 💣' }
@@ -8187,14 +8187,14 @@ We are NOT done yet.`,
         content: `Active and Passive. Essence and Geometry. The ritual requires opposing signs. We must omit the sign of our realm. It is simple, really. Why does everyone look so confused?`,
         likes: 800,
         comments: [
-            { characterKey: 'humpik', text: 'Too many fancy words. Just say "Smash the bad thing."' }
+            { characterKey: 'hjumpik', text: 'Too many fancy words. Just say "Smash the bad thing."' }
         ],
         rumorId: 'wraith_banishment'
     },
     {
-        id: 'humpik_notices_tell',
+        id: 'hjumpik_notices_tell',
         order: 32165,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 15 },
         timestamp: '1 hour 35 minutes ago',
         content: `The Oracle scratches his head when he talks about the Mages. He says they are trespassers. He is lying. He invited them. Or he can't stop them.`,
@@ -8207,7 +8207,7 @@ We are NOT done yet.`,
     {
         id: 'oracle_spirit_refusal',
         order: 32170,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 20 },
         timestamp: '1 hour 30 minutes ago',
         content: `He spoke to a spirit in the weird language. The spirit said "No." Said "Last monster, no more aid." We are on our own.`,
@@ -8218,7 +8218,7 @@ We are NOT done yet.`,
     {
         id: 'ghost_in_hallway',
         order: 32175,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 21, hour: 18, minute: 45 },
         timestamp: '1 hour 5 minutes ago',
         content: `A ghost just walked past me in the hallway. The Oracle pretended not to see it. "What ghost?" he says. I HAVE EYES, SPOOKY MAN!`,
@@ -8252,7 +8252,7 @@ We are NOT done yet.`,
         content: `Came out of the closet (literally) to blast it. Ice spike melted mid-air. The heat coming off this thing is insane. Need to focus.`,
         likes: 670,
         comments: [
-            { characterKey: 'humpik', text: 'Don\'t worry Archie! We got this!' }
+            { characterKey: 'hjumpik', text: 'Don\'t worry Archie! We got this!' }
         ],
         rumorId: 'wraith_banishment'
     },
@@ -8292,7 +8292,7 @@ We are NOT done yet.`,
         content: `GET OUT OF MY HEAD! GET OUT OF MY BODY! NO ONE DRIVES THE BOWSER BUS BUT BOWSER!`,
         likes: 2500,
         comments: [
-            { characterKey: 'humpik', text: 'Stop being scared! It\'s just a ghost in a suit!' },
+            { characterKey: 'hjumpik', text: 'Stop being scared! It\'s just a ghost in a suit!' },
             { characterKey: 'bowser', text: 'THE SUIT MAKES IT SCARIER!' }
         ],
         rumorId: 'wraith_banishment'
@@ -8333,14 +8333,14 @@ We are NOT done yet.`,
         likes: 5000,
         comments: [
             { characterKey: 'mages_guild', text: 'THIS IS LIBEL! DELETE THIS!' },
-            { characterKey: 'humpik', text: 'I saw it too. Very red.' }
+            { characterKey: 'hjumpik', text: 'I saw it too. Very red.' }
         ],
         rumorId: 'wraith_banishment'
     },
     {
-        id: 'humpik_legion_standoff',
+        id: 'hjumpik_legion_standoff',
         order: 32220,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 21, hour: 19, minute: 30 },
         timestamp: '20 minutes ago',
         content: `The spy lady wanted to jump in. Bowser said "My Fight." She backed off. She is smart. The Mage was not smart.`,
@@ -8523,7 +8523,7 @@ We are NOT done yet.`,
         likes: 450,
         comments: [
             { characterKey: 'captain_toadette', text: 'You have the skills, soldier. Make us proud.' },
-            { characterKey: 'humpik', text: 'Shiny metal! Good metal! You make good hammer?' },
+            { characterKey: 'hjumpik', text: 'Shiny metal! Good metal! You make good hammer?' },
             { characterKey: 'wario', text: 'If you get in, make me a gold-plated bike! DISCOUNT PRICE!' }
         ],
         rumorId: 'remi_personal_arc'
@@ -8587,7 +8587,7 @@ We are NOT done yet.`,
         content: `MARKOP JUST GREW FIFTY FEET TALL! He accepted the spooky guy's light and now he's wrestling the spider kaiju-style! THIS IS THE COOLEST NIGHT EVER!`,
         likes: 3500,
         comments: [
-            { characterKey: 'humpik', text: 'I WANT TO BE BIG TOO! UNFAIR!' },
+            { characterKey: 'hjumpik', text: 'I WANT TO BE BIG TOO! UNFAIR!' },
             { characterKey: 'self_reflection_oracle', text: 'Size is merely a matter of perspective. And ancient magic.' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -8652,7 +8652,7 @@ We are NOT done yet.`,
         content: `Mossy took a fang to the chassis protecting me. Hydraulics are leaking fluid. If that spider wasn't already paste, I'd kill it myself. Nobody hurts my dog.`,
         likes: 900,
         comments: [
-            { characterKey: 'humpik', text: 'We fix puppy. I have hammer. Remi has wrench.' },
+            { characterKey: 'hjumpik', text: 'We fix puppy. I have hammer. Remi has wrench.' },
             { characterKey: 'mages_guild_envoy', text: 'That chassis is Guild property. You will be billed for damages.' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -8709,7 +8709,7 @@ We are NOT done yet.`,
         likes: 850,
         comments: [
             { characterKey: 'the_broker', text: 'It is a target. I will buy it from you for 10% of its value as a collector\'s item.' },
-            { characterKey: 'humpik', text: 'Trust the lady. Hide the card.' }
+            { characterKey: 'hjumpik', text: 'Trust the lady. Hide the card.' }
         ],
         rumorId: 'iron_mandate_passage'
     },
@@ -8748,7 +8748,7 @@ We are NOT done yet.`,
         content: `The machinery of state is heavy, but it moves with purpose. Those who aligned correctly have nothing to fear.`,
         likes: 45,
         comments: [
-            { characterKey: 'humpik', text: 'I hear you. Keeping my head down.' }
+            { characterKey: 'hjumpik', text: 'I hear you. Keeping my head down.' }
         ],
         rumorId: 'iron_mandate_passage'
     },
@@ -8790,9 +8790,9 @@ We are NOT done yet.`,
         rumorId: 'iron_mandate_passage'
     },
     {
-        id: 'humpik_secret_pact_final',
+        id: 'hjumpik_secret_pact_final',
         order: 31250,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 59 },
         timestamp: 'Just Now',
         content: `I have the tools. I have the plan. No magic. Just iron, steel, and muscle. We finish this.`,
@@ -8820,10 +8820,10 @@ We are NOT done yet.`,
         characterKey: 'bowser',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 50 },
         timestamp: '9 minutes ago',
-        content: `That lady in the shadows... she smells like trouble. And government paperwork. Why is Humpik talking to her? I should roast her just in case.`,
+        content: `That lady in the shadows... she smells like trouble. And government paperwork. Why is hjumpik talking to her? I should roast her just in case.`,
         likes: 1200,
         comments: [
-            { characterKey: 'humpik', text: 'No roasting! She gave me lockpicks!' }
+            { characterKey: 'hjumpik', text: 'No roasting! She gave me lockpicks!' }
         ],
         rumorId: 'shard_stalker_incident'
     },
@@ -8847,10 +8847,10 @@ We are NOT done yet.`,
         characterKey: 'archie',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 42 },
         timestamp: '17 minutes ago',
-        content: `humpik was supposed to KILL it?! I did all that—the twig, the panic, the running—and HE spares it?! *CRASH* Ow. My hand.`,
+        content: `hjumpik was supposed to KILL it?! I did all that—the twig, the panic, the running—and HE spares it?! *CRASH* Ow. My hand.`,
         likes: 1500,
         comments: [
-            { characterKey: 'humpik', text: 'It is a statue now. A good statue.' },
+            { characterKey: 'hjumpik', text: 'It is a statue now. A good statue.' },
             { characterKey: 'self_reflection_oracle', text: 'Thank you for the donation, wizard.' }
         ],
         rumorId: 'shard_stalker_incident'
@@ -8870,9 +8870,9 @@ We are NOT done yet.`,
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'humpik_returns_stone',
+        id: 'hjumpik_returns_stone',
         order: 31220,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 38 },
         timestamp: '21 minutes ago',
         content: `I am back! And the lady gave me a choice. Shatter the green mirror, or keep the monster as stone. I chose stone. The Guild wants to study it.`,
@@ -8895,9 +8895,9 @@ We are NOT done yet.`,
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'humpik_mirror_parkour',
+        id: 'hjumpik_mirror_parkour',
         order: 31210,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 32 },
         timestamp: '27 minutes ago',
         content: `The buildings are floating! The books are flying! I am jumping like a flea! Also, found a lady reading a book. She knows my name. Is she a ghost?`,
@@ -8911,7 +8911,7 @@ We are NOT done yet.`,
         characterKey: 'bowser',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 30 },
         timestamp: '29 minutes ago',
-        content: `GOTCHA! CHOKEHOLD! It shattered! The mirrors are breaking! WHERE IS HUMPIK?!`,
+        content: `GOTCHA! CHOKEHOLD! It shattered! The mirrors are breaking! WHERE IS hjumpik?!`,
         likes: 2100,
         comments: [
             { characterKey: 'mages_guild_envoy', text: 'We will take the debris. And the Red one.' },
@@ -8920,12 +8920,12 @@ We are NOT done yet.`,
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'red_humpik_taunt',
+        id: 'red_hjumpik_taunt',
         order: 31200,
-        characterKey: 'red_humpik',
+        characterKey: 'red_hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 28 },
         timestamp: '31 minutes ago',
-        content: `Why the long face, Bowser? I'm the real humpik! I just got a tan! Break the mirrors! There are... uh... fifty toads in there! Trust me!`,
+        content: `Why the long face, Bowser? I'm the real hjumpik! I just got a tan! Break the mirrors! There are... uh... fifty toads in there! Trust me!`,
         likes: 15,
         comments: [
             { characterKey: 'dan', text: 'He is definitely lying.' },
@@ -8934,12 +8934,12 @@ We are NOT done yet.`,
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'blue_humpik_riddle',
+        id: 'blue_hjumpik_riddle',
         order: 31195,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 26 },
         timestamp: '33 minutes ago',
-        content: `The Blue Humpik says "If you attack me, you attack yourself." I say "Hammer goes BONK." I jumped past him. He threw an axe at me! Rude!`,
+        content: `The Blue hjumpik says "If you attack me, you attack yourself." I say "Hammer goes BONK." I jumped past him. He threw an axe at me! Rude!`,
         likes: 880,
         comments: [],
         rumorId: 'shard_stalker_incident'
@@ -8964,7 +8964,7 @@ We are NOT done yet.`,
         characterKey: 'dan',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 23 },
         timestamp: '36 minutes ago',
-        content: `Smashed the mirror—failed. It didn't break. Had to reach in and PULL him out. Green T is safe. But humpik is still gone.`,
+        content: `Smashed the mirror—failed. It didn't break. Had to reach in and PULL him out. Green T is safe. But hjumpik is still gone.`,
         likes: 700,
         comments: [
             { characterKey: 'toad_lee', text: 'Focus on the monster, Dan! Bowser has it!' }
@@ -8972,9 +8972,9 @@ We are NOT done yet.`,
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'humpik_abducted',
+        id: 'hjumpik_abducted',
         order: 31180,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 20 },
         timestamp: '39 minutes ago',
         content: `Me and Bowser, the Dream Team! Attacking from abov—HEY! IT GRABBED MY HAMMER! I'M BEING PULLED I—`,
@@ -8998,15 +8998,15 @@ We are NOT done yet.`,
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'humpik_fake_reflection',
+        id: 'hjumpik_fake_reflection',
         order: 31170,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 15 },
         timestamp: '44 minutes ago',
         content: `That reflection... it looked at me funny. That's not me! SMASHING THE MIRROR! It's gone now.`,
         likes: 600,
         comments: [
-            { characterKey: 'dan', text: 'Good instincts, Humpik.' }
+            { characterKey: 'dan', text: 'Good instincts, hjumpik.' }
         ],
         rumorId: 'shard_stalker_incident'
     },
@@ -9027,7 +9027,7 @@ We are NOT done yet.`,
         characterKey: 'bowser',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 10 },
         timestamp: '49 minutes ago',
-        content: `Where do you think you're going, Little Toad? You sit this one out. You'll get squashed. The King works alone! (And with Humpik).`,
+        content: `Where do you think you're going, Little Toad? You sit this one out. You'll get squashed. The King works alone! (And with hjumpik).`,
         likes: 1800,
         comments: [
             { characterKey: 'toadburt', text: 'But I have a stick!' },
@@ -9079,14 +9079,14 @@ We are NOT done yet.`,
         content: `It's showtime. *SLAM*`,
         likes: 1200,
         comments: [
-            { characterKey: 'humpik', text: 'He is very fast for an old spooky man.' }
+            { characterKey: 'hjumpik', text: 'He is very fast for an old spooky man.' }
         ],
         rumorId: 'shard_stalker_incident'
     },
     {
-        id: 'humpik_door_breach',
+        id: 'hjumpik_door_breach',
         order: 31135,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 23, minute: 0 },
         timestamp: '1 hour ago',
         content: `Someone is picking the lock? No time! Squeezing through! I'll take the front line! Let's go!`,
@@ -9150,7 +9150,7 @@ We are NOT done yet.`,
         likes: 980,
         comments: [
             { characterKey: 'markop', text: 'Focus, FNG. Flank left.' },
-            { characterKey: 'humpik', text: 'Is the spider okay? It looks melty.' },
+            { characterKey: 'hjumpik', text: 'Is the spider okay? It looks melty.' },
             { characterKey: 'janna_brightspark', text: 'What is the pH level of that compound? Fascinating reaction!' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -9254,7 +9254,7 @@ We are NOT done yet.`,
         content: `Woke up in a creepy grove. The Oracle was watching me sleep. Mossy didn't even bark. Apparently, my 'bond is too weak.' I hate this place.`,
         likes: 1100,
         comments: [
-            { characterKey: 'humpik', text: 'Is the dog shiny? I want a shiny dog.' },
+            { characterKey: 'hjumpik', text: 'Is the dog shiny? I want a shiny dog.' },
             { characterKey: 'mages_guild_envoy', text: 'That construct is Guild property. Return it.' },
             { characterKey: 'remi', text: 'Come take it. I dare you.' }
         ],
@@ -9317,7 +9317,7 @@ We are NOT done yet.`,
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'oracle_missing_humpik',
+        id: 'oracle_missing_hjumpik',
         order: 31025,
         characterKey: 'self_reflection_oracle',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 21, minute: 45 },
@@ -9326,7 +9326,7 @@ We are NOT done yet.`,
         likes: 1300,
         comments: [
             { characterKey: 'markop', text: 'You\'re lying.' },
-            { characterKey: 'humpik', text: 'I am right here! I found a rock!' }
+            { characterKey: 'hjumpik', text: 'I am right here! I found a rock!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -9353,7 +9353,7 @@ We are NOT done yet.`,
         content: `Okay, 'Sit' works. He drops like a ton of bricks. Literally. The floorboards are groaning. Now, let's try 'Run.'`,
         likes: 900,
         comments: [
-            { characterKey: 'humpik', text: 'He is a heavy boy!' },
+            { characterKey: 'hjumpik', text: 'He is a heavy boy!' },
             { characterKey: 'mages_guild_envoy', text: 'You are operating a Class-4 Siege Construct without a license.' }
         ],
         rumorId: 'spider_grove_ambush'
@@ -9423,7 +9423,7 @@ We are NOT done yet.`,
         content: `So. The Oracle gave me a dog. A robot dog. Made of chrome and magic. I named him Mossy. If I don't keep him, he gets 'shut down.' I guess I'm a dog owner now.`,
         likes: 2500,
         comments: [
-            { characterKey: 'humpik', text: 'Can he smash things?' },
+            { characterKey: 'hjumpik', text: 'Can he smash things?' },
             { characterKey: 'remi', text: 'We\'re finding out.' },
             { characterKey: 'toad_lee', text: 'Does he take commands? Can he fight?' }
         ],
@@ -9525,16 +9525,16 @@ We are NOT done yet.`,
         rumorId: 'spider_grove_ambush'
     },
     {
-        id: 'humpik_spider_friend',
+        id: 'hjumpik_spider_friend',
         order: 31010,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 19, minute: 30 },
         timestamp: '3 hours 45 minutes ago',
         content: `The fuzzy legs are ticklish! They have so many eyes! Hello new friends!`,
         likes: 880,
         comments: [
-            { characterKey: 'bowser', text: 'Humpik, get away from there! SQUASH IT!' },
-            { characterKey: 'humpik', text: 'No squash! Only pets!' }
+            { characterKey: 'bowser', text: 'hjumpik, get away from there! SQUASH IT!' },
+            { characterKey: 'hjumpik', text: 'No squash! Only pets!' }
         ],
         rumorId: 'spider_grove_ambush'
     },
@@ -9717,12 +9717,12 @@ We are NOT done yet.`,
     rumorId: 'mages_guild_warrant'
 },
 {
-    id: 'humpik_whispering_rocks',
+    id: 'hjumpik_whispering_rocks',
     order: 30945,
-    characterKey: 'humpik',
+    characterKey: 'hjumpik',
     date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 19 },
     timestamp: '9 minutes ago',
-    content: `The rocks are getting warmer. They are whispering to Humpik. They say, "Smash the walls. Free the hungry ones." ...Maybe just one little smash?`,
+    content: `The rocks are getting warmer. They are whispering to hjumpik. They say, "Smash the walls. Free the hungry ones." ...Maybe just one little smash?`,
     likes: 650,
     comments: [
         { characterKey: 'bowser', text: 'Hold it together, soldier! Smash the enemies, not the load-bearing walls!' },
@@ -9740,7 +9740,7 @@ We are NOT done yet.`,
     likes: 2100,
     comments: [
         { characterKey: 'archie', text: 'It mimicked my fear! Be careful, it reflects attacks!' },
-        { characterKey: 'humpik', text: 'SMASH THE SHINY MAN!' }
+        { characterKey: 'hjumpik', text: 'SMASH THE SHINY MAN!' }
     ],
     rumorId: 'mages_guild_warrant'
 },
@@ -9777,10 +9777,10 @@ We are NOT done yet.`,
     characterKey: 'archie',
     date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 2 },
     timestamp: '26 minutes ago',
-    content: `It's banging on the wood. It's screaming with MY voice. I need a heavy object to barricade this! Humpik! Get the rocks!`,
+    content: `It's banging on the wood. It's screaming with MY voice. I need a heavy object to barricade this! hjumpik! Get the rocks!`,
     likes: 1900,
     comments: [
-        { characterKey: 'humpik', text: 'The rocks say they don\'t want to be a doorstop. They want to play.' },
+        { characterKey: 'hjumpik', text: 'The rocks say they don\'t want to be a doorstop. They want to play.' },
         { characterKey: 'archie', text: 'NOT THE TIME FOR SAPIENT GEOLOGY!' }
     ],
     rumorId: 'mages_guild_warrant'
@@ -10172,20 +10172,20 @@ We are NOT done yet.`,
         likes: 880,
         date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 11 },
         comments: [
-            { characterKey: 'humpik', text: 'A good boom!' }
+            { characterKey: 'hjumpik', text: 'A good boom!' }
         ],
         rumorId: 'greenhouse_inferno_confession'
     },
     {
-        id: 'humpik_on_fireball',
+        id: 'hjumpik_on_fireball',
         order: 30822,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         timestamp: '40 minutes ago',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 3, minute: 12 },
         content: `Little man made a big boom! Saved the fast toad! Good boom!`,
         likes: 670,
         comments: [
-            { characterKey: 'bowser', text: 'See? Humpik gets it!' }
+            { characterKey: 'bowser', text: 'See? hjumpik gets it!' }
         ],
         rumorId: 'greenhouse_inferno_confession'
     },
@@ -10706,7 +10706,7 @@ We are NOT done yet.`,
         content: `My blade is broken. Shattered against the wraith's form. But the fight is not over.`,
         likes: 710,
         comments: [
-            { characterKey: 'humpik', text: 'Use your fists, horse-man! They are not broken!' }
+            { characterKey: 'hjumpik', text: 'Use your fists, horse-man! They are not broken!' }
         ],
         rumorId: 'wraith_conflagration'
     },
@@ -10924,7 +10924,7 @@ We are NOT done yet.`,
         content: `I BROUGHT REINFORCEMENTS! TWO GIANTS! LET'S SMASH 'EM!`,
         likes: 622,
         comments: [
-            { characterKey: 'humpik', text: 'GWAHAHA! NOW THIS IS A PROPER FIGHT!' },
+            { characterKey: 'hjumpik', text: 'GWAHAHA! NOW THIS IS A PROPER FIGHT!' },
             { characterKey: 'bowser', text: 'About time we got some real muscle in here!' }
         ],
         rumorId: 'wraith_conflagration'
@@ -11068,9 +11068,9 @@ We are NOT done yet.`,
         rumorId: 'wraith_conflagration'
     },
     {
-        id: 'humpik_reacts_to_raid',
+        id: 'hjumpik_reacts_to_raid',
         order: 348,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 35 },
         timestamp: '25 minutes ago',
         content: `The metal men took the loud singing toad? Good. One less person to yell at Archie.`,
@@ -11279,15 +11279,15 @@ We are NOT done yet.`,
         rumorId: 'archie_third_eye_escape'
     },
     {
-        id: 'humpik_so_confused',
+        id: 'hjumpik_so_confused',
         order: 331,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 15 },
         timestamp: '45 minutes ago',
         content: `So... the little green toad was a bad guy? But he helped the other bad guys trap Archie? And then Archie disappeared? My head hurts. I am going to find something to smash.`,
         likes: 680,
         comments: [
-            { characterKey: 'bowser', text: 'Start with the mirrors, Humpik. I don\'t like the way they look at us.' }
+            { characterKey: 'bowser', text: 'Start with the mirrors, hjumpik. I don\'t like the way they look at us.' }
         ],
         rumorId: 'archie_third_eye_escape'
     },
@@ -11359,7 +11359,7 @@ We are NOT done yet.`,
         content: `What's all that racket? It sounds like a real fight! Am I missing a real fight?!`,
         likes: 740,
         comments: [
-            { characterKey: 'humpik', text: 'SOUNDS LIKE SMASHING! I want to go to there!' }
+            { characterKey: 'hjumpik', text: 'SOUNDS LIKE SMASHING! I want to go to there!' }
         ],
         rumorId: 'wraith_conflagration'
     },
@@ -11434,9 +11434,9 @@ We are NOT done yet.`,
         rumorId: 'wraith_conflagration'
     },
     {
-        id: 'humpik_hears_battle',
+        id: 'hjumpik_hears_battle',
         order: 318,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 19, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `HEAR THAT? THAT IS THE SOUND OF A GOOD FIGHT! I am stuck in a hallway made of mirrors! This is not fair!`,
@@ -11580,7 +11580,7 @@ We are NOT done yet.`,
         content: `Spider problem solved. Now, about this locked door...`,
         likes: 760,
         comments: [
-            { characterKey: 'humpik', text: 'Good. Humpik no like spiders.' }
+            { characterKey: 'hjumpik', text: 'Good. hjumpik no like spiders.' }
         ],
         rumorId: 'archie_third_eye_escape'
     },
@@ -12300,15 +12300,15 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'humpik_ready_to_fight',
+        id: 'hjumpik_ready_to_fight',
         order: 248,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 15 },
         timestamp: '45 minutes ago',
         content: `Monkey king and lizard king are fighting again? GOOD! More fighting is always good! Who are we hitting?`,
         likes: 560,
         comments: [
-            { characterKey: 'bowser', text: 'Stand down, Humpik. This isn\'t our fight. ...Yet.' }
+            { characterKey: 'bowser', text: 'Stand down, hjumpik. This isn\'t our fight. ...Yet.' }
         ],
         rumorId: 'the_kong_bug'
     },
@@ -12439,9 +12439,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'supernatural_sovereignty_act'
     },
     {
-        id: 'humpik_confused',
+        id: 'hjumpik_confused',
         order: 237,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 18, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `GWAH! Lot of yelling about a vote. The little one-armed toad is giving orders to the Empire now? This is confusing. As long as I know who to hit with my axe, I am happy.`,
@@ -12847,7 +12847,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         likes: 412,
         comments: [
             { characterKey: 'kamek', text: "A mirror prison? Troublesome magic, Your Viciousness. Do not gaze too long into it." },
-            { characterKey: 'humpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
+            { characterKey: 'hjumpik', text: "King Bowser fought the glass demon! He bled, but he did not step back!" }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -12975,16 +12975,16 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_rescue_archie_now',
+        id: 'hjumpik_rescue_archie_now',
         order: 193,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 59 },
         timestamp: '1 minute ago',
         content: `They're taking Archie. The little toads have him. This is not right. We go back. We get him.`,
         likes: 710,
         comments: [
-            { characterKey: 'toad_lee', text: 'humpik, do not engage the Cohort. I am trying to resolve this peacefully. Do not start a war.' },
-            { characterKey: 'bowser', text: 'He made his choice, Humpik. Let him lie in it for a bit.' }
+            { characterKey: 'toad_lee', text: 'hjumpik, do not engage the Cohort. I am trying to resolve this peacefully. Do not start a war.' },
+            { characterKey: 'bowser', text: 'He made his choice, hjumpik. Let him lie in it for a bit.' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -12997,15 +12997,15 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `The door. Block it. Now.`,
         likes: 645,
         comments: [
-            { characterKey: 'humpik', text: 'ON IT!' },
+            { characterKey: 'hjumpik', text: 'ON IT!' },
             { characterKey: 'speaker_l', text: 'Delaying the inevitable, Miser.' }
         ],
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_oracle_rambling',
+        id: 'hjumpik_oracle_rambling',
         order: 191,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 58 },
         timestamp: '2 minutes ago',
         content: `The ghost man (Oracle) talks too much. Bathrooms? Orcs? Mirrors having rules? I stopped listening. We left him talking to the dust. We have Toads to save.`,
@@ -13069,15 +13069,15 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_mirror_monster_emerges',
+        id: 'hjumpik_mirror_monster_emerges',
         order: 186,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 56 },
         timestamp: '4 minutes ago',
         content: `THE MIRROR IS ALIVE! IT'S ALIVE AND IT'S COMING OUT! LIGHTS ARE GONE!`,
         likes: 750,
         comments: [
-            { characterKey: 'markop', text: 'humpik, report! What is your status?! What is happening?!' },
+            { characterKey: 'markop', text: 'hjumpik, report! What is your status?! What is happening?!' },
             { characterKey: 'ryan', text: 'The dimensional barrier must have shattered! Get out of there!' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -13156,7 +13156,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         likes: 1570,
         comments: [
             { characterKey: 'speaker_l', text: 'Wise.' },
-            { characterKey: 'humpik', text: 'Archie, no!' },
+            { characterKey: 'hjumpik', text: 'Archie, no!' },
             { characterKey: 'general_marcus_ironhand', text: 'A pity. Our cells were waiting.' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -13191,9 +13191,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_vision',
+        id: 'hjumpik_vision',
         order: 177,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 53 },
         timestamp: '7 minutes ago',
         content: `I looked at the blood on the floor. It showed me... something. A face made of glass. I do not like this house's mirrors. Or its floors.`,
@@ -13349,7 +13349,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         likes: 450,
         comments: [
             { characterKey: 'detective_penny', text: 'Witness eliminated. Another loose end. This Miser is sloppy.' },
-            { characterKey: 'humpik', text: 'Archie... what did you do?' }
+            { characterKey: 'hjumpik', text: 'Archie... what did you do?' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -13373,7 +13373,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         characterKey: 'dan',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 48 },
         timestamp: '12 minutes ago',
-        content: `We're all together. Me, Archie, Humpik, Lee... even Bowser. We're going to the greenhouse. To the spiders. We're not leaving anyone behind this time.`,
+        content: `We're all together. Me, Archie, hjumpik, Lee... even Bowser. We're going to the greenhouse. To the spiders. We're not leaving anyone behind this time.`,
         likes: 445,
         comments: [
             { characterKey: 'markop', text: "Hold fast, Dan. We are coming." }
@@ -13417,7 +13417,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `GWAHAHA! A monster made of glass?! This house just keeps getting better! Tasted my fist, you walking window!`,
         likes: 760,
         comments: [
-            { characterKey: 'humpik', text: 'King Bowser! It came out of the mirror!' }
+            { characterKey: 'hjumpik', text: 'King Bowser! It came out of the mirror!' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -13457,7 +13457,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `Fought a spider the size of a wolf in the maze. My shield spell worked. My dagger did not. My crossbow bolt hit it in the eye. It ran away. I'm never going in a maze again.`,
         likes: 612,
         comments: [
-            { characterKey: 'humpik', text: 'Good shot, little one!' },
+            { characterKey: 'hjumpik', text: 'Good shot, little one!' },
             { characterKey: 'waluigi', text: 'WAH! You should have captured it! Think of the chaos we could cause with a giant spider!' }
         ],
         rumorId: 'greenhouse_inferno'
@@ -13746,9 +13746,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_finds_them_now',
+        id: 'hjumpik_finds_them_now',
         order: 134,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 28 },
         timestamp: '32 minutes ago',
         content: `Found them. It's bad. Eager is down, Dan is... not right. And the little toads are marching outside. We are trapped.`,
@@ -13912,7 +13912,7 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         content: `We go to the solarium. We break the attic and catch them before they fall. It is the shorter, more direct route. We move now.`,
         likes: 410,
         comments: [
-            { characterKey: 'humpik', text: 'But the mirror stair is right there!' }
+            { characterKey: 'hjumpik', text: 'But the mirror stair is right there!' }
         ],
         rumorId: 'greenhouse_inferno'
     },
@@ -13956,9 +13956,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_alone',
+        id: 'hjumpik_alone',
         order: 117,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 15 },
         timestamp: '45 minutes ago',
         content: `Woke up. Everyone was gone. The house was quiet. Too quiet. I heard voices, but there was no one there. This place is not right. I am going back upstairs.`,
@@ -13989,9 +13989,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_falls_down',
+        id: 'hjumpik_falls_down',
         order: 114,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 12 },
         timestamp: '48 minutes ago',
         content: `The rope held. The joist did not. I have fallen. Am okay. This room has a very clean mirror. I do not trust it.`,
@@ -14037,9 +14037,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_sees_green_t',
+        id: 'hjumpik_sees_green_t',
         order: 110,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 8 },
         timestamp: '52 minutes ago',
         content: `We're in the vents. I can see down into a room... it's full of mirrors. Green T is trapped in one of them. He's like a bug in amber.`,
@@ -14161,9 +14161,9 @@ By an overwhelming vote of 81 in favor, 30 against, and 4 abstaining, the Supern
         rumorId: 'greenhouse_inferno'
     },
     {
-        id: 'humpik_ready_for_breakfast',
+        id: 'hjumpik_ready_for_breakfast',
         order: 100,
-        characterKey: 'humpik',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 17, hour: 21, minute: 0 },
         timestamp: '1 hour ago',
         content: `GWAH! Time for breakfast! I could eat a whole rust monster! ...Wait.`,
