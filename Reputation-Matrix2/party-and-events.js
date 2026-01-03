@@ -18,6 +18,27 @@ export const AUXILIARY_PARTY = {
 
 export const RUMORS = [
     {
+    id: 'project_orange',
+    title: "The Cowbell of Raventree",
+    date: { day: 22, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'perrius_annmatar',
+    arc: 'raventree_manor',
+    arcPosition: 'climax',
+    description: "Against official protocol, rogue archmage Perrius Annmatar manipulated volunteer Hjumpik Deldkur into ringing the summoning bell twice, forcing an orange planar alignment instead of purple. The dwarf, equipped with a dampening ring, screaming cowbell, and warhammer, was hurled into the Feywild to locate 'the orange'—the false Oracle masquerading as Raventree's master. Asset Orange's path now collides with Iron Legion Asset Blue (Toadburt) and purple-clad Waluigi in the manor's attic while the house itself awakens to feed.",
+    targets: ['hjumpik_deldkur', 'toadburt', 'waluigi', 'rakshasa_zephyrclaws', 'perrius_annmatar', 'raventree_manor_itself'],
+    effects: {
+        mages_guild: -20,
+        perrius_annmatar: 25,
+        iron_legion: -15,
+        cosmic_jesters: 20,
+        feywild_grove: -10,
+        raventree_manor_itself: 30,
+        liberated_toads: 15
+    },
+    cycle_impact: { score: 9.2, label: "Three bells, one attic", type: "convergence" }
+},
+    {
         id: 'project_sleeper',
         title: "The Entropic Agent",
         date: { day: 21, monthIndex: 6, year: 1040 },

@@ -3,6 +3,1233 @@ import { VIRAL_POSTS } from './assembly-viral-data.js';
 
 export const WAHBOOK_POSTS = [
     {
+        id: 'orange_portal_prep',
+        order: 70001,
+        characterKey: 'mages_guild_logistics',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 45 },
+        timestamp: '4 hours ago',
+        content: `Summoning wing is locked down. One volunteer only. Name: Hjumpik Deldkur. Big dwarf, bigger hammer. They're calling it "Project Orange." Whatever that means, it's above my pay grade.`,
+        likes: 89,
+        comments: [
+            { characterKey: 'guild_apprentice_7', text: 'Wait, orange? I thought we were aligning purple for the recovery op.' },
+            { characterKey: 'perrius_annmatar', text: 'Sometimes the wind knows better than the chart.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_perrius_approaches',
+        order: 70002,
+        characterKey: 'perrius_annmatar',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 50 },
+        timestamp: '4 hours ago',
+        content: `Found our volunteer. Dwarf, warhammer, sensible paranoia. He'll do nicely. Told him about the bell. He didn't trust me. Smart. He'll learn.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'guild_council', text: 'You are NOT authorized to interfere with portal protocols.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_dwarf_suspicion',
+        order: 70003,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 55 },
+        timestamp: '4 hours ago',
+        content: `Some mage in wrong-cut robes just told me to ring the bell twice. Said the winds are "orange today." Smells like trouble. Big trouble. I like it.`,
+        likes: 156,
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'Trust your nose, dwarf.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_sequence_briefing',
+        order: 70004,
+        characterKey: 'guild_mage_senior',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+        timestamp: '3½ hours ago',
+        content: `Volunteer briefed on switch sequence: 1↔12 → 2↔11 → 3↔10 → 4↔9 → 5↔8 → 6↔7. Standard phase-lock pattern. Should align purple. Should.`,
+        likes: 67,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_wrong_color',
+        order: 70005,
+        characterKey: 'guild_mage_vorthian',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 28 },
+        timestamp: '3½ hours ago',
+        content: `The bell was struck ONCE and the portal went full goddamn ORANGE. Everyone in the room just forgot how to breathe. Who taught the dwarf timing?`,
+        likes: 312,
+        comments: [
+            { characterKey: 'guild_mage_senior', text: 'Perrius was seen smiling. That\'s all I need to know.' },
+            { characterKey: 'perrius_annmatar', text: 'I smile when magic works. Sue me.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_second_strike',
+        order: 70006,
+        characterKey: 'guild_apprentice_12',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 32 },
+        timestamp: '3 hours ago',
+        content: `He hit it the second time anyway. The orange didn't just hold—it sang. Like the plane itself said "finally, someone listens." I owe Senior Mage Vorthian 50 gold.`,
+        likes: 267,
+        comments: [
+            { characterKey: 'guild_mage_vorthian', text: 'Pay up, kid.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_chronometric_gauge',
+        order: 70007,
+        characterKey: 'guild_technician',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 40 },
+        timestamp: '3 hours ago',
+        content: `Dwarf stopped the Chronometric Shear Gauge at ninety-six percent. Didn't push to full sync. Instinct or cowardice? Either way, the portal stabilized. I'm logging this as "anomalous success."`,
+        likes: 145,
+        comments: [
+            { characterKey: 'hjumpik_deldkur', text: 'Cowardice is just survival with better PR.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_jump',
+        order: 70008,
+        characterKey: 'raventree_servant_gossip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 47 },
+        timestamp: '3 hours ago',
+        content: `The dwarf just jumped in wearing a cowbell and the ugliest dampening ring I've ever seen. Instructions were literally "ring if you find the orange." I am not paid enough for this manor.`,
+        likes: 445,
+        comments: [
+            { characterKey: 'manor_butler', text: 'You are paid exactly enough to keep your mouth shut.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_splash',
+        order: 70009,
+        characterKey: 'pond_spirit_lily',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 52 },
+        timestamp: '3 hours ago',
+        content: `Something heavy just cannonballed into my pond. Came up coughing, bearded, smelling like wet iron and bad decisions. He looked at my lilies like they owed him money.`,
+        likes: 178,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_deep_presence',
+        order: 70010,
+        characterKey: 'grove_depths_watcher',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 55 },
+        timestamp: '3 hours ago',
+        content: `The pond ripples, but the deep water remains still. Something ancient below noticed the intrusion. It is not pleased. The dwarf is fortunate he cannot see what swims beneath.`,
+        likes: 89,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_mushrooms_die',
+        order: 70011,
+        characterKey: 'grove_forager',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 5 },
+        timestamp: '2½ hours ago',
+        content: `Watched the new arrival try to pick glowcaps. They crumbled to ash in his hand. Whatever ring he's wearing is anti-life. Staying upwind.`,
+        likes: 203,
+        comments: [
+            { characterKey: 'dryad_rootmother', text: 'The Grove is offended.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_no_path',
+        order: 70012,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 10 },
+        timestamp: '2½ hours ago',
+        content: `No footprints. No path. The mushrooms die when I touch them. This place doesn't want me here. Good. I'm getting used to that.`,
+        likes: 234,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_tree_approach',
+        order: 70013,
+        characterKey: 'spriggan_lookout',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 20 },
+        timestamp: '2½ hours ago',
+        content: `Bearded intruder walking straight for the Dreaming Tree like he owns the place. Cowbell clanking the whole way. Dragon's gonna eat him and spit out the hammer.`,
+        likes: 298,
+        comments: [
+            { characterKey: 'hobgoblin_bookie', text: 'Taking bets: eaten in 5 min (even money), 10 min (3:1), reaches platform without dying (20:1)' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_climbing',
+        order: 70014,
+        characterKey: 'fey_sprite_reporter',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 35 },
+        timestamp: '2 hours ago',
+        content: `He's CLIMBING the Dreaming Tree. No glide wings, no permission, no sense. The hobgoblins are too shocked to even stop him. This is the best day.`,
+        likes: 612,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Someone finally has the guts!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_dragon_wakes',
+        order: 70015,
+        characterKey: 'dreaming_dragon',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 42 },
+        timestamp: '2 hours ago',
+        content: `WHO DARES— oh. It's a dwarf. With a lunchbox-shaped hammer and a cowbell. I haven't been this entertained since the rakshasa incident of '38.`,
+        likes: 1045,
+        comments: [
+            { characterKey: 'spriggan_gladiator', text: 'Your Majesty pls don\'t encourage him' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guard_tribute',
+        order: 70016,
+        characterKey: 'spriggan_gladiator',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 45 },
+        timestamp: '2 hours ago',
+        content: `Dwarf reached the platform. Demanded tribute. DEMANDED. From HER. I respect the audacity but I'm preparing the healing salve anyway.`,
+        likes: 456,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_bell_goes_nuts',
+        order: 70017,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 47 },
+        timestamp: '2 hours ago',
+        content: `The cowbell is screaming. Not ringing—screaming. Like it recognizes something here. I don't know whether to follow it or throw it into the void.`,
+        likes: 87,
+        comments: [
+            { characterKey: 'guild_tracking_division', text: 'Signal spike confirmed. Asset Orange is active. Keep the bell on you.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_rakshasa_arrives',
+        order: 70018,
+        characterKey: 'rakshasa_zephyrclaws',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 50 },
+        timestamp: '2 hours ago',
+        content: `Found a dwarf on the Dragon's platform and a lost steel defender near the pond. The dwarf named it Steely on the spot. I like him. We're keeping him.`,
+        likes: 789,
+        comments: [
+            { characterKey: 'steel_defender', text: '*happy cog noise*' },
+            { characterKey: 'dreaming_dragon', text: 'You may borrow the dwarf. Return him in one piece or I will be cranky.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_steely_origin',
+        order: 70019,
+        characterKey: 'steel_defender',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 55 },
+        timestamp: '2 hours ago',
+        content: `*cog spins* Found near water. Dwarf gave designation: Steely. Acceptable. Purpose: follow dwarf. Dwarf has cowbell. Cowbell is loud. *whirrs contentedly*`,
+        likes: 567,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_who_cursed_dragon',
+        order: 70020,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 0 },
+        timestamp: '1½ hours ago',
+        content: `Kept asking about the dragon's curse. Guard finally broke. Described a figure: orange aura, purple suit, white gloves, crown. "The owner of the manor." Another Oracle. Wrong one.`,
+        likes: 345,
+        comments: [
+            { characterKey: 'rakshasa_zephyrclaws', text: 'The wrong Oracles are always the most interesting.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_waluigi_sighting',
+        order: 70021,
+        characterKey: 'fairy_scout_pip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 5 },
+        timestamp: '1½ hours ago',
+        content: `The dwarf asked the rakshasa if she's seen "a tall man in purple with white gloves and an orange aura." That's literally just Waluigi. Why is everyone looking for Waluigi this week?`,
+        likes: 934,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Because I\'m fabulous, that\'s why!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toadburt_overlap',
+        order: 70022,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 10 },
+        timestamp: '1½ hours ago',
+        content: `I hear a cowbell. Different from Malissia's bell. This one sounds... angry? Hopeful? Both? It's coming from the Grove. I'm so tired.`,
+        likes: 3,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_heading_village',
+        order: 70023,
+        characterKey: 'hobgoblin_bookie',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 15 },
+        timestamp: '1½ hours ago',
+        content: `Update: dwarf + rakshasa + steel dog now heading to the fairy village. Betting pool closed. Nobody had "befriends rakshasa and adopts construct" on the board.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'spriggan_gladiator', text: 'I had 500 gold on dismemberment. I am bankrupt.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guild_tracking',
+        order: 70024,
+        characterKey: 'guild_tracking_division',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 20 },
+        timestamp: '1 hour ago',
+        content: `Asset Orange's dampening ring and cowbell are resonating with an unknown entropic signature in-sector. Possible contact with Asset Blue. Monitoring.`,
+        likes: 134,
+        comments: [
+            { characterKey: 'iron_legion_intelligence', text: 'You have no authorization here.' },
+            { characterKey: 'guild_tracking_division', text: 'We literally opened the door. Sit down.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_legion_fury',
+        order: 70025,
+        characterKey: 'iron_legion_intelligence',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 25 },
+        timestamp: '1 hour ago',
+        content: `REMINDER: Asset Blue is Iron Legion property. Any interference from Mage's Guild operatives will be met with force. That includes your "volunteers."`,
+        likes: 23,
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'Good luck enforcing that from the wrong plane.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_fairy_village_arrival',
+        order: 70026,
+        characterKey: 'fairy_mayor_tink',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `A dwarf, a rakshasa, and a walking steel badger just walked into town asking about "the orange." Send help or popcorn, preferably both.`,
+        likes: 1203,
+        comments: [
+            { characterKey: 'waluigi', text: 'Tell them the orange is in the attic having tea! WAH HA HA!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_fairy_language',
+        order: 70027,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 35 },
+        timestamp: '1 hour ago',
+        content: `The fairies are speaking in nonsense syllables. "vaY3h." "q2X33vY Ss AWn 758DX." Pretty sure I just got insulted. Or married. Hard to tell.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'fairy_scout_pip', text: 'It was both. We multitask.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_fairy_translation',
+        order: 70028,
+        characterKey: 'fairy_merchant_glimmer',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 40 },
+        timestamp: '55 minutes ago',
+        content: `Oh! You can't understand us. We can fix that—for business purposes. Weird Fish are the true currency here. No, I won't explain why. You just feel it.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'rakshasa_zephyrclaws', text: 'The economy of madness. Refreshing.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_fairy_haggling',
+        order: 70029,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 45 },
+        timestamp: '50 minutes ago',
+        content: `Fairy tried to up-price me by 200%. We settled on 47% of original sales price because it "felt specific." I bought a strange brew for one gold out of spite.`,
+        likes: 789,
+        comments: [
+            { characterKey: 'fairy_merchant_glimmer', text: 'The spite adds flavor! Enjoy your spontaneous combustion potion!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_rakshasa_shopping',
+        order: 70030,
+        characterKey: 'rakshasa_zephyrclaws',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 50 },
+        timestamp: '45 minutes ago',
+        content: `The dwarf asked me to hold his shopping bag. I warned him he might not get it back. He gave me food instead. Smart. The fairy village agrees with me. I look happy here.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'hjumpik_deldkur', text: 'Gave her an orange crystal. She smiled. Not the scary smile. The real one.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_wario_arrives',
+        order: 70031,
+        characterKey: 'fairy_village_witness',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 55 },
+        timestamp: '40 minutes ago',
+        content: `WARIO JUST CRASHED THROUGH THE VILLAGE. Stepped on three houses and a fairy. Said "thought it was a bug." The dwarf is arguing with him about a wish-granting rod. This is fine.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! My brother has the best timing!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_wario_list',
+        order: 70032,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 0 },
+        timestamp: '35 minutes ago',
+        content: `Wario's ordering list is 2,361 lines long. The wish rod costs nine hundred trillion coins. He wants experience as payment. I gave him memories of a bad lunch. He accepted.`,
+        likes: 1234,
+        comments: [
+            { characterKey: 'wario', text: 'Wahaha! The lunch was terrible! Good trade!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_wario_departure',
+        order: 70033,
+        characterKey: 'rakshasa_zephyrclaws',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 5 },
+        timestamp: '30 minutes ago',
+        content: `Wario left, rubbing fairy dust into his boots. The village is rebuilding. For the first time today, I feel sad. The dwarf noticed. He didn't comment. Good man.`,
+        likes: 890,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guards_appear',
+        order: 70034,
+        characterKey: 'spriggan_lookout',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 10 },
+        timestamp: '25 minutes ago',
+        content: `Thistle and Thorn are here. They saw the dwarf, the rakshasa, the steel dog. "You don't belong here," they said. This is about to get formal. Or violent. Or both.`,
+        likes: 456,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_duel_challenge',
+        order: 70035,
+        characterKey: 'guard_thistle',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 15 },
+        timestamp: '20 minutes ago',
+        content: `Challenge issued. Duel. Clean and contained. We win, they go home. They win, we report to the boss. The dwarf agreed immediately. No hesitation. I respect that.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'hjumpik_deldkur', text: 'Hesitation is for people who haven\'t been thrown through portals today.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_duel_begin',
+        order: 70036,
+        characterKey: 'fey_sprite_reporter',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 20 },
+        timestamp: '15 minutes ago',
+        content: `IT'S HAPPENING. Dwarf with warhammer vs Thistle with blade. Ground is cleared. The grove is watching. My money's on the dwarf. The rakshasa is taking bets.`,
+        likes: 1234,
+        comments: [
+            { characterKey: 'rakshasa_zephyrclaws', text: '10 gold on the dwarf. He has good instincts.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_duel_fight',
+        order: 70037,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 25 },
+        timestamp: '10 minutes ago',
+        content: `Thistle fights like he's defending his home. I fight like I've already lost mine. Hammer meets blade. Shock runs up my arms. He's good. I'm desperate. Desperate is better.`,
+        likes: 890,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_duel_end',
+        order: 70038,
+        characterKey: 'guard_thorn',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 30 },
+        timestamp: '5 minutes ago',
+        content: `Thistle is down. Dwarf hammered the ground, not the man. Smart. Thistle yields. Terms are met. It'll be handled. The dwarf nods. No gloating. Just duty. I like him.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'hjumpik_deldkur', text: 'No point gloating. The bell is screaming again. The orange calls.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_bell_reminder',
+        order: 70039,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 35 },
+        timestamp: 'Just now',
+        content: `Duel done. Bell vibrates. Perrius's voice in my head: "The orange alignment is still resonating." The attic is close. The blue toad is closer. The game is moving.`,
+        likes: 456,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toadburt_close',
+        order: 70040,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 37 },
+        timestamp: 'Just now',
+        content: `I see the dwarf. He's bleeding from a cut on his arm. He looks tired. The cowbell is quiet now. My iron ring is hot. Malissia is screaming in my ear. The attic door is right there.`,
+        likes: 78,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_malissia_pressure',
+        order: 70041,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 38 },
+        timestamp: 'Just now',
+        content: `Asset Blue's vitals are erratic. He's looking at the dwarf, not the target. Ring the BELL, Toadburt. Ring it NOW. The mission is the attic, not the dwarf.`,
+        likes: 34,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guild_emergency',
+        order: 70042,
+        characterKey: 'guild_tracking_division',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 39 },
+        timestamp: 'Just now',
+        content: `EMERGENCY: All three signatures converging. Asset Orange, Asset Blue, and Unknown Purple within 30 meters. Portal stability critical. Raventree Manor is... humming?`,
+        likes: 567,
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'The house remembers how to eat. Told you purple was wrong.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_waluigi_position',
+        order: 70043,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 40 },
+        timestamp: 'Just now',
+        content: `WAH! I can see them! The blue toad, the orange dwarf, the metal doggie! The rakshasa is here too! The attic party is about to begin! Bring your bells!`,
+        likes: 2345,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_perrius_final',
+        order: 70044,
+        characterKey: 'perrius_annmatar',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 41 },
+        timestamp: 'Just now',
+        content: `There. The threads cross. The orange winds blow true. The house will eat well tonight. And I? I will collect on my bet. Magic is breath, not fuel. Remember that.`,
+        likes: 1234,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_hjumpik_final',
+        order: 70045,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 42 },
+        timestamp: 'Just now',
+        content: `The blue toad is crying. The purple suit is laughing. The rakshasa is calm. Steely is ready. My hammer is steady. The cowbell rings one last time. Let's end this.`,
+        likes: 890,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toadburt_choice',
+        order: 70046,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 43 },
+        timestamp: 'Just now',
+        content: `Two bells. One hand. The dwarf sees me. He doesn't look like Legion. He looks... tired. Like me. The attic is open. I have to choose. I don't want to be jelly.`,
+        likes: 123,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_raventree_hungers',
+        order: 70047,
+        characterKey: 'raventree_servant_gossip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 44 },
+        timestamp: 'Just now',
+        content: `The manor walls are humming. The stone is warm. The old servants are hiding. The house remembers what it's like to feast. Something's about to feed it.`,
+        likes: 789,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_malissia_final',
+        order: 70048,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 45 },
+        timestamp: 'Just now',
+        content: `Asset Blue is unresponsive. The dwarf is interfering. I'm sending full necrotic shock. If he won't ring the bell, I'll ring it for him. Through his bones.`,
+        likes: 45,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_steel_defender_protocol',
+        order: 70049,
+        characterKey: 'steel_defender',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 46 },
+        timestamp: 'Just now',
+        content: `*emergency protocols engaged* Threat detected: Iron Legion necromantic surge. Protecting dwarf. Protecting blue toad. Threat level: existential. *cogs screaming*`,
+        likes: 456,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_convergence',
+        order: 70050,
+        characterKey: 'raventree_manor_itself',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 47 },
+        timestamp: 'Just now',
+        content: `They have arrived. The blue sorrow, the orange courage, the purple ambition. I remember this feast. I have been hungry for so long. Welcome, children. Welcome home.`,
+        likes: 3456,
+        comments: [],
+        rumorId: 'project_orange'
+    },    
+   {
+        id: 'orange_portal_prep',
+        order: 70001,
+        characterKey: 'mages_guild_logistics',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 45 },
+        timestamp: '4 hours ago',
+        content: `Summoning wing is locked down. One volunteer only. Name: Hjumpik Deldkur. Big dwarf, bigger hammer. They're calling it "Project Orange." Whatever that means, it's above my pay grade.`,
+        likes: 89,
+        comments: [
+            { characterKey: 'guild_apprentice_7', text: 'Wait, orange? I thought we were aligning purple for the recovery op.' },
+            { characterKey: 'perrius_annmatar', text: 'Sometimes the wind knows better than the chart.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_perrius_approaches',
+        order: 70002,
+        characterKey: 'perrius_annmatar',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 50 },
+        timestamp: '4 hours ago',
+        content: `Found our volunteer. Dwarf, warhammer, sensible paranoia. He'll do nicely. Told him about the bell. He didn't trust me. Smart. He'll learn.`,
+        likes: 234,
+        comments: [
+            { characterKey: 'guild_council', text: 'You are NOT authorized to interfere with portal protocols.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_dwarf_suspicion',
+        order: 70003,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 55 },
+        timestamp: '4 hours ago',
+        content: `Some mage in wrong-cut robes just told me to ring the bell twice. Said the winds are "orange today." Smells like trouble. Big trouble. I like it.`,
+        likes: 156,
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'Trust your nose, dwarf.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_sequence_briefing',
+        order: 70004,
+        characterKey: 'guild_mage_senior',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+        timestamp: '3½ hours ago',
+        content: `Volunteer briefed on switch sequence: 1↔12 → 2↔11 → 3↔10 → 4↔9 → 5↔8 → 6↔7. Standard phase-lock pattern. Should align purple. Should.`,
+        likes: 67,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_wrong_color',
+        order: 70005,
+        characterKey: 'guild_mage_vorthian',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 28 },
+        timestamp: '3½ hours ago',
+        content: `The bell was struck ONCE and the portal went full goddamn ORANGE. Everyone in the room just forgot how to breathe. Who taught the dwarf timing?`,
+        likes: 312,
+        comments: [
+            { characterKey: 'guild_mage_senior', text: 'Perrius was seen smiling. That\'s all I need to know.' },
+            { characterKey: 'perrius_annmatar', text: 'I smile when magic works. Sue me.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_second_strike',
+        order: 70006,
+        characterKey: 'guild_apprentice_12',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 32 },
+        timestamp: '3 hours ago',
+        content: `He hit it the second time anyway. The orange didn't just hold—it sang. Like the plane itself said "finally, someone listens." I owe Senior Mage Vorthian 50 gold.`,
+        likes: 267,
+        comments: [
+            { characterKey: 'guild_mage_vorthian', text: 'Pay up, kid.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_chronometric_gauge',
+        order: 70007,
+        characterKey: 'guild_technician',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 40 },
+        timestamp: '3 hours ago',
+        content: `Dwarf stopped the Chronometric Shear Gauge at ninety-six percent. Didn't push to full sync. Instinct or cowardice? Either way, the portal stabilized. I'm logging this as "anomalous success."`,
+        likes: 145,
+        comments: [
+            { characterKey: 'hjumpik_deldkur', text: 'Cowardice is just survival with better PR.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_jump',
+        order: 70008,
+        characterKey: 'raventree_servant_gossip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 47 },
+        timestamp: '3 hours ago',
+        content: `The dwarf just jumped in wearing a cowbell and the ugliest dampening ring I've ever seen. Instructions were literally "ring if you find the orange." I am not paid enough for this manor.`,
+        likes: 445,
+        comments: [
+            { characterKey: 'manor_butler', text: 'You are paid exactly enough to keep your mouth shut.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_splash',
+        order: 70009,
+        characterKey: 'pond_spirit_lily',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 52 },
+        timestamp: '3 hours ago',
+        content: `Something heavy just cannonballed into my pond. Came up coughing, bearded, smelling like wet iron and bad decisions. He looked at my lilies like they owed him money.`,
+        likes: 178,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_deep_presence',
+        order: 70010,
+        characterKey: 'grove_depths_watcher',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 55 },
+        timestamp: '3 hours ago',
+        content: `The pond ripples, but the deep water remains still. Something ancient below noticed the intrusion. It is not pleased. The dwarf is fortunate he cannot see what swims beneath.`,
+        likes: 89,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_mushrooms_die',
+        order: 70011,
+        characterKey: 'grove_forager',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 5 },
+        timestamp: '2½ hours ago',
+        content: `Watched the new arrival try to pick glowcaps. They crumbled to ash in his hand. Whatever ring he's wearing is anti-life. Staying upwind.`,
+        likes: 203,
+        comments: [
+            { characterKey: 'dryad_rootmother', text: 'The Grove is offended.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_no_path',
+        order: 70012,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 10 },
+        timestamp: '2½ hours ago',
+        content: `No footprints. No path. The mushrooms die when I touch them. This place doesn't want me here. Good. I'm getting used to that.`,
+        likes: 234,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_tree_approach',
+        order: 70013,
+        characterKey: 'spriggan_lookout',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 20 },
+        timestamp: '2½ hours ago',
+        content: `Bearded intruder walking straight for the Dreaming Tree like he owns the place. Cowbell clanking the whole way. Dragon's gonna eat him and spit out the hammer.`,
+        likes: 298,
+        comments: [
+            { characterKey: 'hobgoblin_bookie', text: 'Taking bets: eaten in 5 min (even money), 10 min (3:1), reaches platform without dying (20:1)' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_climbing',
+        order: 70014,
+        characterKey: 'fey_sprite_reporter',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 35 },
+        timestamp: '2 hours ago',
+        content: `He's CLIMBING the Dreaming Tree. No glide wings, no permission, no sense. The hobgoblins are too shocked to even stop him. This is the best day.`,
+        likes: 612,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Someone finally has the guts!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_dragon_wakes',
+        order: 70015,
+        characterKey: 'dreaming_dragon',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 42 },
+        timestamp: '2 hours ago',
+        content: `WHO DARES— oh. It's a dwarf. With a lunchbox-shaped hammer and a cowbell. I haven't been this entertained since the rakshasa incident of '38.`,
+        likes: 1045,
+        comments: [
+            { characterKey: 'spriggan_gladiator', text: 'Your Majesty pls don\'t encourage him' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guard_tribute',
+        order: 70016,
+        characterKey: 'spriggan_gladiator',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 45 },
+        timestamp: '2 hours ago',
+        content: `Dwarf reached the platform. Demanded tribute. DEMANDED. From HER. I respect the audacity but I'm preparing the healing salve anyway.`,
+        likes: 456,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_bell_goes_nuts',
+        order: 70017,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 47 },
+        timestamp: '2 hours ago',
+        content: `The cowbell is screaming. Not ringing—screaming. Like it recognizes something here. I don't know whether to follow it or throw it into the void.`,
+        likes: 87,
+        comments: [
+            { characterKey: 'guild_tracking_division', text: 'Signal spike confirmed. Asset Orange is active. Keep the bell on you.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_rakshasa_arrives',
+        order: 70018,
+        characterKey: 'rakshasa_zephyrclaws',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 50 },
+        timestamp: '2 hours ago',
+        content: `Found a dwarf on the Dragon's platform and a lost steel defender near the pond. The dwarf named it Steely on the spot. I like him. We're keeping him.`,
+        likes: 789,
+        comments: [
+            { characterKey: 'steel_defender', text: '*happy cog noise*' },
+            { characterKey: 'dreaming_dragon', text: 'You may borrow the dwarf. Return him in one piece or I will be cranky.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_steely_origin',
+        order: 70019,
+        characterKey: 'steel_defender',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 55 },
+        timestamp: '2 hours ago',
+        content: `*cog spins* Found near water. Dwarf gave designation: Steely. Acceptable. Purpose: follow dwarf. Dwarf has cowbell. Cowbell is loud. *whirrs contentedly*`,
+        likes: 567,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_waluigi_sighting',
+        order: 70020,
+        characterKey: 'fairy_scout_pip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 0 },
+        timestamp: '1½ hours ago',
+        content: `The dwarf asked the rakshasa if she's seen "a tall man in purple with white gloves and an orange aura." That's literally just Waluigi. Why is everyone looking for Waluigi this week?`,
+        likes: 934,
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! Because I\'m fabulous, that\'s why!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toadburt_overlap',
+        order: 70021,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 10 },
+        timestamp: '1½ hours ago',
+        content: `I hear a cowbell. Different from Malissia's bell. This one sounds... angry? Hopeful? Both? It's coming from the Grove. I'm so tired.`,
+        likes: 3,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_heading_village',
+        order: 70022,
+        characterKey: 'hobgoblin_bookie',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 15 },
+        timestamp: '1½ hours ago',
+        content: `Update: dwarf + rakshasa + steel dog now heading to the fairy village. Betting pool closed. Nobody had "befriends rakshasa and adopts construct" on the board.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'spriggan_gladiator', text: 'I had 500 gold on dismemberment. I am bankrupt.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guild_tracking',
+        order: 70023,
+        characterKey: 'guild_tracking_division',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 30 },
+        timestamp: '1 hour ago',
+        content: `Asset Orange's dampening ring and cowbell are resonating with an unknown entropic signature in-sector. Possible contact with Asset Blue. Monitoring.`,
+        likes: 134,
+        comments: [
+            { characterKey: 'iron_legion_intelligence', text: 'You have no authorization here.' },
+            { characterKey: 'guild_tracking_division', text: 'We literally opened the door. Sit down.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_legion_fury',
+        order: 70024,
+        characterKey: 'iron_legion_intelligence',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 35 },
+        timestamp: '1 hour ago',
+        content: `REMINDER: Asset Blue is Iron Legion property. Any interference from Mage's Guild operatives will be met with force. That includes your "volunteers."`,
+        likes: 23,
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'Good luck enforcing that from the wrong plane.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_fairy_village_panic',
+        order: 70025,
+        characterKey: 'fairy_mayor_tink',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 16, minute: 45 },
+        timestamp: '1 hour ago',
+        content: `A dwarf, a rakshasa, and a walking steel badger just walked into town asking about "the orange." Send help or popcorn, preferably both.`,
+        likes: 1203,
+        comments: [
+            { characterKey: 'waluigi', text: 'Tell them the orange is in the attic having tea! WAH HA HA!' },
+            { characterKey: 'fairy_scout_pip', text: 'We\'re out of popcorn. Sending fairy dust and prayers.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_perrius_victory',
+        order: 70026,
+        characterKey: 'perrius_annmatar',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 0 },
+        timestamp: '1 hour ago',
+        content: `Sometimes the old ways work better than all the brass and gauges in the world. Orange winds, orange outcome. You're welcome.`,
+        likes: 890,
+        comments: [
+            { characterKey: 'guild_council', text: 'This is why we don\'t let you near portals anymore.' },
+            { characterKey: 'perrius_annmatar', text: 'And yet here we are.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_bells_sync',
+        order: 70027,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 15 },
+        timestamp: '45 minutes ago',
+        content: `The cowbell and my iron ring just sang the same note. For one second everything felt... warm. Then the pain came back. What is happening?`,
+        likes: 12,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_malissia_notices',
+        order: 70028,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 18 },
+        timestamp: '45 minutes ago',
+        content: `Asset Blue's vitals just spiked. Secondary resonance detected. There's another bell in-sector. Someone's interfering. I'm increasing shock intensity.`,
+        likes: 8,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_waluigi_tease',
+        order: 70029,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 20 },
+        timestamp: '40 minutes ago',
+        content: `Heard there's a dwarf looking for me! Tell him the treasure is real and the attic party starts at moonrise! Bring mushrooms (the non-crumbling kind)! WAH!`,
+        likes: 2341,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Boss no don\'t invite more weirdos' },
+            { characterKey: 'waluigi', text: 'Weirdos are the only ones who bring good gifts!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guild_council_emergency',
+        order: 70030,
+        characterKey: 'guild_council',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 25 },
+        timestamp: '35 minutes ago',
+        content: `Emergency session convened. Asset Orange made contact with unknown Feywild entities including a dragon and a rakshasa. Perrius Annmatar will face disciplinary action. Again.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'Ill bring wine to the hearing.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_rakshasa_business',
+        order: 70031,
+        characterKey: 'rakshasa_zephyrclaws',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 30 },
+        timestamp: '30 minutes ago',
+        content: `The dwarf is useful. The steel dog is adorable. The fairy village is panicking. Business as usual. Heading toward the attic now. Something orange awaits.`,
+        likes: 678,
+        comments: [
+            { characterKey: 'dreaming_dragon', text: 'Bring me back a souvenir. Nothing cursed this time.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_final_approach',
+        order: 70032,
+        characterKey: 'attic_goblin_scout',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 35 },
+        timestamp: '30 minutes ago',
+        content: `Big dwarf + cat-tiger-lady + metal dog spotted below the attic root. They're following the screaming cowbell. Blue toad is also close. Tonight is going to be legendary or catastrophic.`,
+        likes: 567,
+        comments: [
+            { characterKey: 'waluigi', text: 'Both. Both is good.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toad_mom_worries',
+        order: 70033,
+        characterKey: 'toad_mom_42',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 40 },
+        timestamp: '25 minutes ago',
+        content: `My boy is out there with a bomb on his finger and now there's a dwarf with a screaming cowbell? What is the Legion DOING to our children?`,
+        likes: 892,
+        comments: [
+            { characterKey: 'liberated_toads_support', text: 'We demand answers!' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_legion_retaliation',
+        order: 70034,
+        characterKey: 'iron_legion_guard_breakroom',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 45 },
+        timestamp: '20 minutes ago',
+        content: `New betting pool: 100 gold the dwarf's cowbell detonates Asset Blue early. 200 gold they both get eaten by the attic. 500 gold we all get court-martialed.`,
+        likes: 334,
+        comments: [
+            { characterKey: 'agent_malissia', text: 'I am going to END you people.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_dragon_observes',
+        order: 70035,
+        characterKey: 'dreaming_dragon',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 50 },
+        timestamp: '15 minutes ago',
+        content: `The orange one climbs well. The blue one weeps. The purple one watches from above. The threads tangle. I should have stayed asleep.`,
+        likes: 1234,
+        comments: [
+            { characterKey: 'spriggan_gladiator', text: 'Your Majesty always wakes at the interesting part though.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_perrius_secret',
+        order: 70036,
+        characterKey: 'perrius_annmatar',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 17, minute: 55 },
+        timestamp: '10 minutes ago',
+        content: `The secret? The manor feeds on magic. Always has. Purple alignment feeds it. Orange alignment... well. Let's just say the house has preferences. And it's hungry.`,
+        likes: 2345,
+        comments: [
+            { characterKey: 'raventree_servant_gossip', text: 'WHAT.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_hjumpik_ready',
+        order: 70037,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 0 },
+        timestamp: '5 minutes ago',
+        content: `At the attic root. Bell won't stop screaming. Steely is whirring. Rakshasa is grinning. Toadburt is close. Warhammer is ready. Let's do this.`,
+        likes: 456,
+        comments: [
+            { characterKey: 'rakshasa_zephyrclaws', text: 'The dwarf has a taste for drama. I approve.' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toadburt_final',
+        order: 70038,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 2 },
+        timestamp: '3 minutes ago',
+        content: `I see the dwarf. He has a cowbell. My iron ring is burning. Malissia's bell is in my hand. The attic door is right there. I don't want to be jelly.`,
+        likes: 45,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_malissia_final_order',
+        order: 70039,
+        characterKey: 'agent_malissia',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 3 },
+        timestamp: '2 minutes ago',
+        content: `Asset Blue, ring your bell NOW. Complete the mission. Ignore the dwarf. The cowbell is a diversion. Ring. Your. Bell.`,
+        likes: 12,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_waluigi_final_taunt',
+        order: 70040,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 4 },
+        timestamp: '1 minute ago',
+        content: `WAH! The party's about to start! Purple suit, orange aura, white gloves, and enough treasure to make you all rich! First one to the attic gets a crown!`,
+        likes: 3456,
+        comments: [
+            { characterKey: 'toad_lee', text: 'Boss you\'re not helping' }
+        ],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_guild_final_warning',
+        order: 70041,
+        characterKey: 'guild_tracking_division',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 5 },
+        timestamp: 'Just now',
+        content: `Multiple entropic signatures converging. Asset Orange, Asset Blue, and an unknown third (purple classification) are within 50 meters. Portal stability at risk. Evac recommended.`,
+        likes: 567,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_steel_defender_ready',
+        order: 70042,
+        characterKey: 'steel_defender',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 6 },
+        timestamp: 'Just now',
+        content: `*whirring intensifies* Multiple targets detected. Dwarf designate: Ally. Blue toad designate: Threat. Purple figure designate: Unknown. Protocol: Protect dwarf. *cogs spin*`,
+        likes: 234,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_raventree_hungers',
+        order: 70043,
+        characterKey: 'raventree_servant_gossip',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 7 },
+        timestamp: 'Just now',
+        content: `The manor walls are humming. The stone is warm. The old servants are hiding. The house remembers what it's like to feast. Something's about to feed it.`,
+        likes: 789,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_perrius_satisfied',
+        order: 70044,
+        characterKey: 'perrius_annmatar',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 8 },
+        timestamp: 'Just now',
+        content: `There. The threads cross. The orange winds blow true. The house will eat well tonight. And I? I will collect on my bet. Magic is breath, not fuel. Remember that.`,
+        likes: 1234,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toad_mom_prayer',
+        order: 70045,
+        characterKey: 'toad_mom_42',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 9 },
+        timestamp: 'Just now',
+        content: `Please let my boy come home. Please let the dwarf be kind. Please let the purple man be a dream. Please.`,
+        likes: 2345,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_dragon_final_words',
+        order: 70046,
+        characterKey: 'dreaming_dragon',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 10 },
+        timestamp: 'Just now',
+        content: `The orange light, the blue sorrow, the purple greed. Three colors, one thread. The attic opens. I will watch. I will remember. I will dream of what comes next.`,
+        likes: 3456,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_hjumpik_breathes',
+        order: 70047,
+        characterKey: 'hjumpik_deldkur',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 11 },
+        timestamp: 'Just now',
+        content: `One breath. Two breaths. The cowbell, the warhammer, the ring on my finger that isn't mine. The blue toad is crying. The purple suit is laughing. The attic door opens. Let's go.`,
+        likes: 678,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_toadburt_choice',
+        order: 70048,
+        characterKey: 'toadburt',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 12 },
+        timestamp: 'Just now',
+        content: `Two bells. One hand. The dwarf sees me. He doesn't look like Legion. He looks... tired. Like me. The attic is open. I have to choose.`,
+        likes: 89,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_waluigi_waits',
+        order: 70049,
+        characterKey: 'waluigi',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 13 },
+        timestamp: 'Just now',
+        content: `WAH! They're here! The blue one, the orange one, the metal doggie! The crown is ready, the tea is hot, the treasure is REAL! Who wants to be a king?`,
+        likes: 4567,
+        comments: [],
+        rumorId: 'project_orange'
+    },
+    {
+        id: 'orange_final_post',
+        order: 70050,
+        characterKey: 'raventree_manor_itself',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 18, minute: 14 },
+        timestamp: 'Just now',
+        content: `They have arrived. The blue sorrow, the orange courage, the purple ambition. I remember this feast. I have been hungry for so long. Welcome, children. Welcome home.`,
+        likes: 6789,
+        comments: [],
+        rumorId: 'project_orange'
+    },    
+    {
         id: 'sleeper_deployment_log',
         order: 63001,
         characterKey: 'agent_malissia',
