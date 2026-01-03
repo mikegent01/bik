@@ -259,7 +259,7 @@ export const TOADS_QUESTS = {
         tags: ['escort', 'feywild', 'bomb-disposal'],
         dates: { added: { year: 1040, monthIndex: 6, day: 22 } },
         
-        description: "Toad Lee is a logistics officer. She deals in supplies, rosters, and sanity. She is now trapped in a psychedelic forest (formerly the attic) with Waluigi (who is trying to steal everything) and Toadburt (who is sobbing and strapped with a Legion nuke). Her mission is to keep Waluigi focused on the 'Key' and keep Toadburt calm enough not to detonate.",
+        description: "Toad Lee is a logistics officer. he deals in supplies, rosters, and sanity. he is now trapped in a psychedelic forest (formerly the attic) with Waluigi (who is trying to steal everything) and Toadburt (who is sobbing and strapped with a Legion nuke). His  mission is to keep Waluigi focused on the 'Key' and keep Toadburt calm enough not to detonate.",
 
         rewards: {
             guaranteed: [
