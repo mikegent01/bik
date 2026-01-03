@@ -673,11 +673,11 @@ const VOTING_SYSTEM = {
                 },
                 { 
                     id: "B", 
-                    text: "The Humpik Bargain - Use the Oracle as leverage (Humpik's connection)", 
+                    text: "The hjumpik Bargain - Use the Oracle as leverage (hjumpik's connection)", 
                     votes: 1, 
                     voters: ["Forgemaster Ironspore"],
                     pros: ["Diplomatic leverage", "High value trade"],
-                    cons: ["Requires Humpik's cooperation", "Betrays the Oracle"]
+                    cons: ["Requires hjumpik's cooperation", "Betrays the Oracle"]
                 },
                 { 
                     id: "C", 
@@ -2306,8 +2306,8 @@ const FACTION_TIMELINE = [
                 type: "military",
                 severity: "medium",
                 icon: "🏚️",
-                description: "Speaker L's Pond Patrol besieges Archie and Humpik in the manor after a failed healing attempt on Eager.",
-                involved: ["Speaker L", "Archie", "Humpik", "Eager"]
+                description: "Speaker L's Pond Patrol besieges Archie and hjumpik in the manor after a failed healing attempt on Eager.",
+                involved: ["Speaker L", "Archie", "hjumpik", "Eager"]
             }
         ]
     },
@@ -2375,7 +2375,7 @@ const FACTION_TIMELINE = [
                 severity: "critical",
                 icon: "🪣",
                 description: "The Iron Legion reveals that 150+ trafficked toads are hidden in barrels throughout the ship, accessible via Mini-Mushroom.",
-                involved: ["Humpik", "Iron Legion informant", "150 toads"]
+                involved: ["hjumpik", "Iron Legion informant", "150 toads"]
             }
         ]
     },

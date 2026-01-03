@@ -71,7 +71,7 @@ function canPurchaseAtLevel(item, partyLevel = PARTY_MAX_LEVEL) {
 const DEFAULT_PLAYER_MEMBERSHIPS = {
     archie: { lifetimeSpent: 0, pendingSpent: 0 },
     markop: { lifetimeSpent: 0, pendingSpent: 0 },
-    humpik: { lifetimeSpent: 0, pendingSpent: 0 },
+    hjumpik: { lifetimeSpent: 0, pendingSpent: 0 },
     bowser: { lifetimeSpent: 0, pendingSpent: 0 },
     remi: { lifetimeSpent: 0, pendingSpent: 0 },
     generic: { lifetimeSpent: 0, pendingSpent: 0 }
@@ -87,14 +87,14 @@ function getActivePlayer() {
 }
 
 function getPartyMembers() {
-    return ['archie', 'markop', 'humpik', 'bowser', 'remi'];
+    return ['archie', 'markop', 'hjumpik', 'bowser', 'remi'];
 }
 
 function formatPlayerName(playerKey) {
     const names = {
         archie: 'Archie Miser',
         markop: 'Markop Judi',
-        humpik: 'Humpik',
+        hjumpik: 'hjumpik',
         bowser: 'Bowser',
         remi: 'FNG Remi',
         generic: 'Guest'

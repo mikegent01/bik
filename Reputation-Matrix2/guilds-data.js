@@ -206,7 +206,7 @@ In recent years, the Brethren have faced challenges from cheaper labor and magic
             fee: 100
         },
 
-        isPlayerMember: 'humpik',
+        isPlayerMember: 'hjumpik',
         playerRank: 'Stonecarver',
         playerReputation: 3500
     },
@@ -930,7 +930,7 @@ Their Great Forge has burned continuously for nine centuries, fed by volcanic ve
 
 The Iron Legion's rise troubles the guild deeply. The Legion's 'Gospel of the Cog' ideology views dwarven craft as inefficient compared to standardized machine production. Legion envoys have demanded exclusive contracts—demands the guild has firmly refused.
 
-Individual guild members like Humpik often travel the surface world, both to practice their craft and to gather intelligence on potential threats to dwarven interests. The guild maintains strict neutrality, but that neutrality is tested when customers threaten dwarven traditions.`,
+Individual guild members like hjumpik often travel the surface world, both to practice their craft and to gather intelligence on potential threats to dwarven interests. The guild maintains strict neutrality, but that neutrality is tested when customers threaten dwarven traditions.`,
 
         leader: {
             name: "Forge-Father Brokkir Ironmantle",
@@ -1037,7 +1037,7 @@ Individual guild members like Humpik often travel the surface world, both to pra
             { year: '234 BF', event: 'Great Forge ignited' },
             { year: '567 BF', event: 'Supplied weapons for Dragon Wars' },
             { year: '1035 BF', event: 'Iron Legion demands exclusive contracts—refused' },
-            { year: '1040 BF', event: 'Humpik granted leave to aid surface resistance' }
+            { year: '1040 BF', event: 'hjumpik granted leave to aid surface resistance' }
         ],
 
         rumors: [
@@ -1053,7 +1053,7 @@ Individual guild members like Humpik often travel the surface world, both to pra
             fee: 'Prove worth through craft'
         },
 
-        isPlayerMember: 'humpik',
+        isPlayerMember: 'hjumpik',
         playerRank: 'Master Smith',
         playerReputation: 4200
     },
@@ -1654,7 +1654,7 @@ export const PLAYER_GUILD_DATA = {
         celestial_church: { reputation: 1500, rank: null, joinDate: null },
         silver_flame_templars: { reputation: -1500, rank: null, joinDate: null }
     },
-    humpik: {
+    hjumpik: {
         liberated_toads: { reputation: 7500, rank: 'Council Member', joinDate: '1040 BF' },
         deephold_smiths: { reputation: 4200, rank: 'Master Smith', joinDate: '1010 BF' }, // LONG-TIME MEMBER
         merchants_consortium: { reputation: 800, rank: null, joinDate: null },

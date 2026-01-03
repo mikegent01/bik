@@ -1,7 +1,7 @@
 export const CHARACTER_RELATIONS = {
     // --- PARTY MEMBER OPINIONS ---
     'archie': {
-        'hjumpik': { type: 'ally', text: "Archie on Humpik: He called me 'bandit' again. He was glad I wasn't dead. For a guy who just headbutted a ghost, he's alright." },
+        'hjumpik': { type: 'ally', text: "Archie on hjumpik: He called me 'bandit' again. He was glad I wasn't dead. For a guy who just headbutted a ghost, he's alright." },
         'dan': { type: 'ally', text: "Archie on Dan: He's awake. Shaking, but awake. We're going to save the others. Together." },
         'bowser': { type: 'transactional', text: "Archie on Bowser: He's actually fighting for us. Weird day." },
         'green_t': { type: 'pity', text: "Archie on Green T: Trapped in glass. Nasty way to go. We'll get him out... eventually." },        
@@ -47,7 +47,7 @@ export const CHARACTER_RELATIONS = {
         'green_t': { type: 'enemy', text: "Markop on Green T: He locked them in. He used their lives as a diversion for... a basket of fruit. Now he offers me a key and talks of trust. He is a serpent. I will not turn my back on him." },                    
         'archie': { type: 'distrust', text: "His magic is dangerous. He draws too much attention when we need stealth." },
         'toad_lee': { type: 'ally', text: "A solid soldier. He held the line against the Coat." },
-        'humpik': { type: 'ally', text: "Sturdy as the stone he carves. I'm glad he's watching our backs." },
+        'hjumpik': { type: 'ally', text: "Sturdy as the stone he carves. I'm glad he's watching our backs." },
         'eager': { type: 'ally', text: "Markop on Eager: His speed is an asset, but he must learn to master his fear. Courage is not the absence of fear, but acting in spite of it." },
         'roger': { type: 'ally', text: "Markop on Roger: His methods are... direct. A firearm is not an honorable weapon, but in these times, survival often outweighs tradition. He is a capable protector." },
         'ryan': { type: 'ally', text: "Markop on Ryan: He has a gift. I hope he learns to wield it with wisdom and restraint, for magic is a powerful but dangerous tool." },
@@ -57,16 +57,16 @@ export const CHARACTER_RELATIONS = {
         'captain_toadette': { type: 'enemy', text: "Markop on Toadette: Her loyalty is admirable, but it has become a blinding fanaticism. She cannot see that her actions are creating more chaos, not less." },
         'lario': { type: 'transactional', text: "Markop on Lario: He stole a logbook. While theft is dishonorable, if it contains a clue to Eager's whereabouts... it is a necessary evil. A tool we must use." }
     },
-    'humpik': {
+    'hjumpik': {
         'archie': { type: 'distrust', text: "Reckless. Foolish. He treats magic like a toy. The Guild will have his head." },
         'bowser': { type: 'ally', text: "Strong arm. Good at smashing. He understands the value of force." },
         'oracle': { type: 'mystery', text: "Spooky man. Too many mirrors." },
         'waluigi': { type: 'neutral', text: "He helped with the rust monsters. Surprisingly competent for a beanpole." },
-        'humpik': { type: 'pride', text: "Humpik on Humpik: Good job, Humpik." },
+        'hjumpik': { type: 'pride', text: "hjumpik on hjumpik: Good job, hjumpik." },
         'the_oracle': { type: 'enemy', text: "Hjumpik on The Oracle: The mirrors are watching. His mirrors. This is his house, his trap. I will smash every piece of glass in this place." },        
         'toad_lee': { type: 'distrust', text: "Hjumpik on Toad Lee: He talks about rooftops and solariums while a monster is behind the door. His plans are too complicated. We need to smash things." },        
         'speaker_l': { type: 'enemy', text: "Hjumpik on Speaker L: The little toad shouts orders while our friend bleeds. He is not our leader. I protect my friends. He is in the way." },
-        'markop': { type: 'ally', text: "Humpik on Markop: The horse-man called King Bowser 'silly billy'. To his face. I... do not understand horse-man jokes. But he fights good, and helped look for the new girl. I respect that." },
+        'markop': { type: 'ally', text: "hjumpik on Markop: The horse-man called King Bowser 'silly billy'. To his face. I... do not understand horse-man jokes. But he fights good, and helped look for the new girl. I respect that." },
     },
     'bowser': {
         'dan': { type: 'neutral', text: "Bowser on Dan: 'I think you're Dan.' He's useless in a fight, but he's got guts. I'll allow him to live." },
@@ -74,7 +74,7 @@ export const CHARACTER_RELATIONS = {
         'speaker_l': { type: 'enemy', text: "Bowser on Speaker L: A singing, marching little mushroom who thinks he can give me orders? GWAHAHA! Pathetic. Let him have his haunted house. I've got better things to do than listen to his terrible music." },
         'markop': { type: 'distrust', text: "Bowser on Markop: He saw the ghosts and his first instinct was to fight them. Admirable. Stupid. But admirable. He is a warrior, at least." },
         'archie': { type: 'neutral', text: "Small fireball man needs to learn when to roast marshmallows and when to roast enemies." },
-        'humpik': { type: 'ally', text: "This dwarf gets it! SMASH FIRST! Talk later!" },
+        'hjumpik': { type: 'ally', text: "This dwarf gets it! SMASH FIRST! Talk later!" },
         'waluigi': { type: 'ally', text: "My best minion! Even if he isn't technically a minion. We are looting this place dry!" },
         'green_t': { type: 'mourning', text: "The mirror took him. I will punch that mirror until it gives him back." }
     },
@@ -108,7 +108,7 @@ export const CHARACTER_RELATIONS = {
         'archie': { type: 'fear', text: "He blew up the greenhouse. He's scary." },
         'toad_lee': { type: 'ally', text: "He protects us. I feel safe behind his axe." },
         'oracle': { type: 'enemy', text: "He tried to hurt us with the coat. Bad ghost." },
-        'humpik': { type: 'respect', text: "Dan on Humpik: He protected us. Good hit, Humpik." },
+        'hjumpik': { type: 'respect', text: "Dan on hjumpik: He protected us. Good hit, hjumpik." },
         'dan': { type: 'enemy', text: "Dan on Himself: Failure. I failed him. I hurt him. I'm a monster..." }        
     },
     'toad_lee': {

@@ -3,7 +3,7 @@ import { CURRENT_GAME_DATE } from './calendar-data.js';
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests/quests-constants.js';
 
 // Import all specific quest modules
-import { MAIN_QUESTS,GUILDS_QUESTS,MYSTERY_QUESTS,WORLD_QUESTS, TOADS_QUESTS ,ARCHIE_QUESTS,MARKOP_QUESTS,HUMPIK_QUESTS,BOWSER_QUESTS,REMI_QUESTS,DK_QUESTS} from './quests/quests-main.js';
+import { MAIN_QUESTS,GUILDS_QUESTS,MYSTERY_QUESTS,WORLD_QUESTS, TOADS_QUESTS ,ARCHIE_QUESTS,MARKOP_QUESTS,hjumpik_QUESTS,BOWSER_QUESTS,REMI_QUESTS,DK_QUESTS} from './quests/quests-main.js';
 import { NEW_MK_QUESTS } from './quests/quests-mushroom-kingdom-new.js';
 import { NEW_MIDLANDS_QUESTS } from './quests/quests-midlands-new.js';
 import { REQUESTS } from './quests/quests-requests.js';
@@ -16,7 +16,7 @@ export const QUEST_DATA = {
     ...TOADS_QUESTS,
     ...ARCHIE_QUESTS,
     ...MARKOP_QUESTS,
-    ...HUMPIK_QUESTS,
+    ...hjumpik_QUESTS,
     ...BOWSER_QUESTS,
     ...REMI_QUESTS,
     ...DK_QUESTS,

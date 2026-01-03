@@ -27351,7 +27351,7 @@ export const WAHBOOK_POSTS = [
     "likes": 8,
     "comments": [
       {
-        "characterKey": "humpik",
+        "characterKey": "hjumpik",
         "text": "Laddie... you posted this? Delete it. Now."
       },
       {
@@ -27411,8 +27411,8 @@ export const WAHBOOK_POSTS = [
     "rumorId": "greenhouse_inferno_confession"
   },
   {
-    "id": "humpik_dark_crystal_post",
-    "characterKey": "humpik",
+    "id": "hjumpik_dark_crystal_post",
+    "characterKey": "hjumpik",
     "date": {
       "year": 1040,
       "monthIndex": 6,

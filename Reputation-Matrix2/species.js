@@ -15,7 +15,7 @@ import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
 const PLAYER_RACE_LABELS = {
     archie: "Human Variant",
     markop: "Centaur - Equine",
-    humpik: "Dwarf",
+    hjumpik: "Dwarf",
     bowser: "Koopa",
     remi: "Student (Human)"
 };

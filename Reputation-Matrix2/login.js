@@ -28,7 +28,7 @@ const introOverlay = document.getElementById('intro-sequence-overlay');
 const introTextElement = document.getElementById('intro-text');
 const clickPrompt = document.getElementById('click-prompt');
 
-const MAIN_CHARACTERS = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
+const MAIN_CHARACTERS = ['archie', 'markop', 'hjumpik', 'bowser', 'remi'];
 
 // --- Intro Sequence State ---
 let fullMonologue = [];
@@ -399,7 +399,7 @@ function renderAnalysisWidget() {
 
 function renderPartyStatusWidget() {
     const allPartyMembers = Object.values(PARTY_LOCATIONS).flat();
-    const mainPartyKeys = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
+    const mainPartyKeys = ['archie', 'markop', 'hjumpik', 'bowser', 'remi'];
 
     const partyListHTML = mainPartyKeys.map(charKey => {
         const charInfo = LORE_DATA.characters[charKey];

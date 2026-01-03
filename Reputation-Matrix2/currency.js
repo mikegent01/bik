@@ -36,7 +36,7 @@ const CURRENCY_DATA = {
 const WALLET_DATA = {
     archie: { name: "Archie Miser", currencies: { gold: 120, soul_coin: 3, silver: 200 } },
     bowser: { name: "Bowser", currencies: { gold: 2500, bowser_bux: 50000, wario_coin: 500 } },
-    humpik: { name: "Humpik", currencies: { midland_ducat: 426, copper: 50, dwarf_oathgold: 2 } },
+    hjumpik: { name: "hjumpik", currencies: { midland_ducat: 426, copper: 50, dwarf_oathgold: 2 } },
     markop: { name: "Markop Judi", currencies: { legion_scrip: 150, imperial_crown: 20, silver: 150 } },
     remi: { name: "Remi", currencies: { kivotos_credit: 5000, poke_dollar: 2000, rupee: 100 } }
 };

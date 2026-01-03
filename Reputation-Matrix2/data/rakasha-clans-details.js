@@ -326,7 +326,7 @@ export const RAKASHA_DETAILS = {
         individualRelations: [
             { name: 'Ryan', status: 'Friendly', reason: 'Witnessed sacred rites, showed respect' },
             { name: 'Archie Miser', status: 'Wary', reason: 'Reputation for destruction precedes him' },
-            { name: 'Humpik', status: 'Neutral', reason: 'Unknown to most Rakasha' },
+            { name: 'hjumpik', status: 'Neutral', reason: 'Unknown to most Rakasha' },
             { name: 'Mistveil', status: 'Trusted Contact', reason: 'Received critical intel from Thornpaw' }
         ]
     }

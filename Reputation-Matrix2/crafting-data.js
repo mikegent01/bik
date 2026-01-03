@@ -13389,10 +13389,10 @@ scroll_kamek_magic: {
     levelRequirement: 9
 },
 
-scroll_humpik_mushroom_madness: {
-    id: 'scroll_humpik_mushroom_madness',
-    name: "Scroll of Humpik's Mushroom Madness",
-    spellName: "Humpik's Mushroom Madness",
+scroll_hjumpik_mushroom_madness: {
+    id: 'scroll_hjumpik_mushroom_madness',
+    name: "Scroll of hjumpik's Mushroom Madness",
+    spellName: "hjumpik's Mushroom Madness",
     spellLevel: 3,
     school: 'ILLUSION',
     description: 'Target creature must make a WIS save or be affected by hallucinogenic spores for 1 minute. They see random illusions and have disadvantage on attack rolls and ability checks.',
@@ -13777,9 +13777,9 @@ scroll_archies_third_eye_reveal: {
     risk: "On failure: user permanently loses an eye (no magic can restore it)."
 },
 
-scroll_humpik_spore_nova: {
-    id: 'scroll_humpik_spore_nova',
-    name: "Scroll of Humpik’s Spore Nova",
+scroll_hjumpik_spore_nova: {
+    id: 'scroll_hjumpik_spore_nova',
+    name: "Scroll of hjumpik’s Spore Nova",
     spellName: "Spore Nova",
     spellLevel: 2,
     school: 'CONJURATION',
@@ -13789,7 +13789,7 @@ scroll_humpik_spore_nova: {
     wildcardLabel: "Forbidden Focus: Mutated Mushroom Core",
     materials: [
         { id: 'fine_parchment', quantity: 1 },
-        { id: 'humpik_mutated_spore_core', quantity: 1 }, // Harvested from his back — he hates this
+        { id: 'hjumpik_mutated_spore_core', quantity: 1 }, // Harvested from his back — he hates this
         { id: 'madness_dust', quantity: 2 }
     ],
     goldCost: 15000,

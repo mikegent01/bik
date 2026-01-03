@@ -25,7 +25,7 @@ export const WIDESPREAD_FACTIONS = {
                     description: "A loose cabal of established criminal families who control major smuggling routes and assassination contracts. They value stability and profit over chaos.",
                     opinion: "The party is a disruptive force that upsets the delicate balance of power. Their high-profile actions attract unwanted attention from the law.",
                     influence: 40,
-                    reputation_modifiers: { archie: -10, markop: -5, humpik: 0, bowser: -5 },
+                    reputation_modifiers: { archie: -10, markop: -5, hjumpik: 0, bowser: -5 },
                     key_figures: [
                         { name: "Don Valeriano", role: "Head of the Valeriano Family", description: "The most powerful and traditionalist of the Syndicate bosses." }
                     ]
@@ -35,7 +35,7 @@ export const WIDESPREAD_FACTIONS = {
                     description: "A larger, disorganized group of lone operatives, small-time crooks, and spies who thrive on chaos and the opportunities it creates.",
                     opinion: "The party's chaos creates jobs! Every time they smash a rival's operation or start a gang war, there's money to be made in the aftermath.",
                     influence: 30,
-                    reputation_modifiers: { archie: 15, markop: 0, humpik: 0, bowser: 5 },
+                    reputation_modifiers: { archie: 15, markop: 0, hjumpik: 0, bowser: 5 },
                     key_figures: [
                         { name: "Nimble Jack", role: "Master Thief", description: "A legendary cat burglar who enjoys the chaos the party creates." }
                     ]
@@ -45,7 +45,7 @@ export const WIDESPREAD_FACTIONS = {
                     description: "A neutral faction of spies and whisper-merchants who trade in secrets. They pride themselves on knowing everything about everyone.",
                     opinion: "The party is a font of valuable secrets. Their alliances, their true motives, their weaknesses... all have a high price.",
                     influence: 20,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 5, bowser: 5 },
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 5, bowser: 5 },
                     key_figures: [
                         { name: "The Broker", role: "Information Kingpin", description: "The enigmatic figure who runs the network." }
                     ]
@@ -55,7 +55,7 @@ export const WIDESPREAD_FACTIONS = {
                     description: "Specialists who handle the aftermath of underworld violence. They dispose of bodies, scrub crime scenes, and ensure loose ends are tied up. They are discreet and expensive.",
                     opinion: "This party is messy. Very messy. It's good for business, but their lack of professionalism is offensive.",
                     influence: 10,
-                    reputation_modifiers: { archie: 5, markop: -5, humpik: 0, bowser: 5 },
+                    reputation_modifiers: { archie: 5, markop: -5, hjumpik: 0, bowser: 5 },
                     key_figures: [
                         { name: "Mother Mop", role: "Proprietor", description: "A surprisingly cheerful woman who runs the most efficient cleaning service in the underworld." }
                     ]
@@ -88,21 +88,21 @@ export const WIDESPREAD_FACTIONS = {
                     description: "True believers who seek to unravel reality by spreading randomness and madness. They see chaos as a form of prayer.",
                     opinion: "Archie is a divine instrument! His every action is a hilarious stroke of genius that brings the Jester's punchline closer!",
                     influence: 60,
-                    reputation_modifiers: { archie: 30, markop: -10, humpik: 5, bowser: 10 }
+                    reputation_modifiers: { archie: 30, markop: -10, hjumpik: 5, bowser: 10 }
                 },
                 the_unnerving: {
                     name: "The Unnerving",
                     description: "Cultists who believe the path to enlightenment is through subtle, reality-bending pranks and psychological warfare.",
                     opinion: "The party's antics are amusing, but lack subtlety. The memory-wipe plot by X.O., however... that was a masterpiece of the craft.",
                     influence: 30,
-                    reputation_modifiers: { archie: 10, markop: -5, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 10, markop: -5, hjumpik: 0, bowser: 0 }
                 },
                 the_giggling_nihilists: {
                     name: "The Giggling Nihilists",
                     description: "A small, fatalistic offshoot that believes the only logical response to the universe is to laugh as it all burns down.",
                     opinion: "They're trying so hard! It's adorable. Let's see what they break next. It's all meaningless anyway, so let's enjoy the show.",
                     influence: 10,
-                    reputation_modifiers: { archie: 5, markop: 0, humpik: 0, bowser: 5 }
+                    reputation_modifiers: { archie: 5, markop: 0, hjumpik: 0, bowser: 5 }
                 }
             }
         }
@@ -132,21 +132,21 @@ export const WIDESPREAD_FACTIONS = {
                     description: "The core of the movement, focused on building a new, equitable society and spreading their message of freedom for all.",
                     opinion: "Freeing the toad slaves was a noble act. The party, especially Archie and Markop, are powerful symbols of liberation, whether they know it or not.",
                     influence: 40,
-                    reputation_modifiers: { archie: 15, markop: 15, humpik: 5, bowser: -10 }
+                    reputation_modifiers: { archie: 15, markop: 15, hjumpik: 5, bowser: -10 }
                 },
                 the_vindicators: {
                     name: "The Vindicators",
                     description: "A militant wing composed of former soldiers and pit fighters who believe freedom can only be won through violence against their former masters.",
                     opinion: "Talk is cheap. The party fights the Empire and its dogs. That makes them friends. Their methods are effective, and we respect their strength.",
                     influence: 35,
-                    reputation_modifiers: { archie: 15, markop: 10, humpik: 5, bowser: 5 }
+                    reputation_modifiers: { archie: 15, markop: 10, hjumpik: 5, bowser: 5 }
                 },
                 the_silent_network: {
                     name: "The Silent Network",
                     description: "The intelligence arm of the Unchained, operating an underground railroad for escaped slaves and spreading revolutionary propaganda.",
                     opinion: "The party creates chaos that we can exploit to move our people. Their actions against the Iron Fists and the Empire are a welcome distraction.",
                     influence: 25,
-                    reputation_modifiers: { archie: 10, markop: 5, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 10, markop: 5, hjumpik: 0, bowser: 0 }
                 }
             }
         }
@@ -176,28 +176,28 @@ export const WIDESPREAD_FACTIONS = {
                     description: "The richest goblins who control the workshops and junkyards. They profit from the chaos created by others. Currently in turmoil over the Lario/Syrup situation.",
                     opinion: "Lario holding a pirate captain captive? Bad for business! Now there's infighting. This party creates expensive problems... but also profitable scrap.",
                     influence: 30,
-                    reputation_modifiers: { archie: 10, markop: -10, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 10, markop: -10, hjumpik: 0, bowser: 0 }
                 },
                 speed_freeks: {
                     name: "The Speed Freeks",
                     description: "Adrenaline-junkie pilots who live to fly fast, loud, and dangerously. They modify their vehicles for speed above all else.",
                     opinion: "A pirate captain breakout on an airship? Sounds like a good time! We respect the guts of anyone who pulls off a stunt like that. Lario is an idiot for getting caught.",
                     influence: 35,
-                    reputation_modifiers: { archie: 10, markop: 5, humpik: 5, bowser: 10 }
+                    reputation_modifiers: { archie: 10, markop: 5, hjumpik: 5, bowser: 10 }
                 },
                 da_boomers: {
                     name: "Da Boomers",
                     description: "Demolition experts who believe that any problem can be solved with enough explosives. Usually, their own.",
-                    opinion: "Archie's got the right idea! Big booms! We like his style. That Humpik fella throwing an axe in the engine? Genius!",
+                    opinion: "Archie's got the right idea! Big booms! We like his style. That hjumpik fella throwing an axe in the engine? Genius!",
                     influence: 25,
-                    reputation_modifiers: { archie: 20, markop: -5, humpik: 10, bowser: 5 }
+                    reputation_modifiers: { archie: 20, markop: -5, hjumpik: 10, bowser: 5 }
                 },
                 syrup_sympathizers: {
                     name: "Syrup Sympathizers",
                     description: "A new splinter group of goblins who are impressed by Captain Syrup's cunning and want to join her pirate crew, abandoning the Raiders.",
                     opinion: "That Captain Syrup is the real deal! She's got style, she's got a ship, and she's not afraid to betray anyone. That's the life for us!",
                     influence: 10,
-                    reputation_modifiers: { archie: 15, markop: 5, humpik: 0, bowser: 5 }
+                    reputation_modifiers: { archie: 15, markop: 5, hjumpik: 0, bowser: 5 }
                 }
             }
         }
@@ -227,7 +227,7 @@ export const WIDESPREAD_FACTIONS = {
                     description: "The core crew of the flagship, fiercely loyal to their captain and her quest for revenge and treasure.",
                     opinion: "The Captain was betrayed by Waluigi and Lario, and then the party attacked her right after freeing her! They are all untrustworthy landlubbers who owe us big time.",
                     influence: 70,
-                    reputation_modifiers: { archie: -20, markop: -30, humpik: -10, bowser: -15 },
+                    reputation_modifiers: { archie: -20, markop: -30, hjumpik: -10, bowser: -15 },
                      key_figures: [
                         { name: "Captain Syrup", role: "Captain", description: "Vengeful and cunning leader." },
                      ]
@@ -237,7 +237,7 @@ export const WIDESPREAD_FACTIONS = {
                     description: "Other pirate captains loosely allied with Syrup. They respect her strength but are ultimately out for themselves.",
                     opinion: "Syrup getting free is good for the Fleet's reputation. The party that did it is powerful, but chaotic. They are either a great opportunity or a huge liability.",
                     influence: 30,
-                    reputation_modifiers: { archie: 10, markop: -5, humpik: 0, bowser: 5 },
+                    reputation_modifiers: { archie: 10, markop: -5, hjumpik: 0, bowser: 5 },
                     key_figures: [
                          { name: "Captain 'Cutlass' Kael", role: "Ally Captain", description: "A notoriously fickle pirate lord." },
                     ]
@@ -269,21 +269,21 @@ export const WIDESPREAD_FACTIONS = {
                     name: "Mr. Wario's Ambition",
                     description: "The secret leadership of 'Mr. Wario', who pulls the strings from the shadows. His motives are pure, insatiable greed.",
                     influence: 50,
-                    reputation_modifiers: { archie: 10, markop: -10, humpik: 0, bowser: -10 },
+                    reputation_modifiers: { archie: 10, markop: -10, hjumpik: 0, bowser: -10 },
                     key_figures: [{ name: "Mr. Wario", role: "Mysterious Mastermind", description: "The true leader, obsessed with treasure." }]
                 },
                 lario_workshop: {
                     name: "Lario's Workshop",
                     description: "The public face of the operation. Lario and his mechanics are more interested in tinkering and 'acquiring' tech than grand schemes.",
                     influence: 30,
-                    reputation_modifiers: { archie: 5, markop: -5, humpik: 5, bowser: 5 },
+                    reputation_modifiers: { archie: 5, markop: -5, hjumpik: 5, bowser: 5 },
                     key_figures: [{ name: "Lario", role: "Public Face", description: "Wario's brother and a skilled mechanic." }]
                 },
                 goldgrubber_gang: {
                     name: "The Goldgrubber Gang",
                     description: "Wario's old crew of loyal-to-the-coin treasure hunters. They are direct, brutish, and effective at smash-and-grab operations.",
                     influence: 20,
-                    reputation_modifiers: { archie: -5, markop: -5, humpik: 5, bowser: 0 }
+                    reputation_modifiers: { archie: -5, markop: -5, hjumpik: 5, bowser: 0 }
                 }
             }
         }
@@ -313,21 +313,21 @@ export const WIDESPREAD_FACTIONS = {
                     description: "The established leaders of the gang who control the most lucrative rackets. They are cautious and ruthless.",
                     opinion: "The three-eyed meddler and his paladin friend cost us a fortune. They are dead men walking. A bounty is on their heads.",
                     influence: 50,
-                    reputation_modifiers: { archie: -25, markop: -15, humpik: -5, bowser: -5 }
+                    reputation_modifiers: { archie: -25, markop: -15, hjumpik: -5, bowser: -5 }
                 },
                 the_upstarts: {
                     name: "The Upstarts",
                     description: "Younger, more ambitious members who think the Old Bosses are too soft. They want to expand the gang's territory through open warfare.",
                     opinion: "The party showed the Old Bosses are vulnerable. Good. Their chaos is an opportunity for us to seize power.",
                     influence: 30,
-                    reputation_modifiers: { archie: 10, markop: -5, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 10, markop: -5, hjumpik: 0, bowser: 0 }
                 },
                 the_enforcers: {
                     name: "The Enforcers",
                     description: "The muscle of the Iron Fists. They are loyal to whoever pays them the most and lets them break the most heads.",
                     opinion: "They fight good. Especially the paladin and the big turtle guy. We'd love a chance to test our metal against theirs.",
                     influence: 20,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 5, bowser: 5 }
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 5, bowser: 5 }
                 }
             }
         }
@@ -355,20 +355,20 @@ export const WIDESPREAD_FACTIONS = {
                     name: "The Puzzlers",
                     description: "The core group of detectives led by Penny. They are dedicated to solving crimes through logic and deduction, and view the party as chaotic lawbreakers.",
                     influence: 60,
-                    reputation_modifiers: { archie: -20, markop: -10, humpik: -5, bowser: -15 },
+                    reputation_modifiers: { archie: -20, markop: -10, hjumpik: -5, bowser: -15 },
                     key_figures: [{ name: "Detective Penny", role: "Lead Investigator", description: "A brilliant detective with a passion for justice." }]
                 },
                 forensics_and_artifacts: {
                     name: "Forensics & Artifacts",
                     description: "Specialists who analyze crime scenes and recovered items. They value preservation and despise the party's destructive methods.",
                     influence: 25,
-                    reputation_modifiers: { archie: -15, markop: -5, humpik: -5, bowser: -5 }
+                    reputation_modifiers: { archie: -15, markop: -5, hjumpik: -5, bowser: -5 }
                 },
                 informant_network: {
                     name: "The Informant Network",
                     description: "The shadowy side of the agency that deals with underworld contacts. They see the party's chaos as a useful source of information.",
                     influence: 15,
-                    reputation_modifiers: { archie: 10, markop: 0, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 10, markop: 0, hjumpik: 0, bowser: 0 }
                 }
             }
         }
@@ -396,14 +396,14 @@ export const WIDESPREAD_FACTIONS = {
                     name: "The Master Patrons",
                     description: "Led by Master Goodstyle, this is the core of the collective. They believe beauty is the world's most important currency and despise those who destroy it for profit or power.",
                     influence: 60,
-                    reputation_modifiers: { archie: -30, markop: 5, humpik: -10, bowser: -20 },
+                    reputation_modifiers: { archie: -30, markop: 5, hjumpik: -10, bowser: -20 },
                     key_figures: [{ name: "Master Goodstyle", role: "Patron of the Arts", description: "An ancient artisan who despises crude materialism." }]
                 },
                 the_preservationists: {
                     name: "The Preservationists",
                     description: "A group of archivists and restorers dedicated to protecting cultural heritage. They see the party as a walking catastrophe for historical artifacts.",
                     influence: 40,
-                    reputation_modifiers: { archie: -20, markop: 0, humpik: -15, bowser: -15 }
+                    reputation_modifiers: { archie: -20, markop: 0, hjumpik: -15, bowser: -15 }
                 }
             }
         }

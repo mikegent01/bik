@@ -443,7 +443,7 @@ function getPlayerSpeciesKey() {
     const charMap = {
         'archie': 'kivotos_human',
         'markop': 'centaur_horse_head',
-        'humpik': 'dnd_dwarf_mountain',
+        'hjumpik': 'dnd_dwarf_mountain',
         'bowser': 'koopa',
         'remi': 'kivotos_human'
     };

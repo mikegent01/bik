@@ -244,11 +244,11 @@ const LOCATIONS = {
         
         description: `<p>A ruined glass-roofed room that once served as a sun room and conservatory. The structure's glass ceiling has largely collapsed, leaving the interior exposed to the elements and filled with debris.</p>
         <p>The Solarium became a site of supernatural horror on Day 19 when a Glass Monster—a shard entity composed of mirror fragments—emerged to attack the party. The creature was eventually destroyed on Day 21, but the battle with it proved costly.</p>
-        <p>During the chaos, Humpik was pulled into the Mirror Dimension where he fought his own doppelganger and received unexpected aid from an Iron Legion spy.</p>`,
+        <p>During the chaos, hjumpik was pulled into the Mirror Dimension where he fought his own doppelganger and received unexpected aid from an Iron Legion spy.</p>`,
 
         features: [
             { name: "Collapsed Glass Ceiling", description: "Shattered panes and twisted frames litter the floor. Walking here risks cuts and noise that may attract attention.", type: "feature-danger" },
-            { name: "Mirror Dimension Breach Point", description: "The location where Humpik was pulled through. The connection may still be active. Mirrors in this area are NOT to be trusted.", type: "feature-magic" },
+            { name: "Mirror Dimension Breach Point", description: "The location where hjumpik was pulled through. The connection may still be active. Mirrors in this area are NOT to be trusted.", type: "feature-magic" },
             { name: "Eager's Rescue Site", description: "Archie rescued Eager from this location during the Oracle's Gambit. The exact circumstances remain unclear.", type: "" },
             { name: "Glass Monster Remnants", description: "Scattered mirror shards from the destroyed Shard Stalker. May still contain hostile magic.", type: "feature-danger" }
         ],
@@ -268,7 +268,7 @@ const LOCATIONS = {
         notableEvents: [
             { name: "The Oracle's Gambit", date: "Day 16, 04:30", type: "encounter", description: "Archie rescues Eager from the ruined solarium." },
             { name: "The Siege of Raventree", date: "Day 19, 06:30", type: "combat", description: "Glass monster emerges from mirror during siege." },
-            { name: "The Shard Stalker & The Spy", date: "Day 21, 02:00", type: "supernatural", description: "Party breaches Solarium. Humpik pulled into Mirror Dimension. Fights doppelganger. Receives Legion spy aid." }
+            { name: "The Shard Stalker & The Spy", date: "Day 21, 02:00", type: "supernatural", description: "Party breaches Solarium. hjumpik pulled into Mirror Dimension. Fights doppelganger. Receives Legion spy aid." }
         ]
     },
     upper_house: {
@@ -365,7 +365,7 @@ const LOCATIONS = {
         dangerClass: 'danger-low',
         
         description: `<p>A mysteriously well-maintained garden area under the Oracle's direct protection. Unlike the rest of the manor grounds, flowers bloom here, paths are clear, and the air feels clean and warm.</p>
-        <p>The Oracle extended a cryptic invitation to these gardens on Day 16, suggesting they hold significance to his plans. Humpik and Waluigi formed a shaky alliance here to investigate the Oracle's true nature.</p>
+        <p>The Oracle extended a cryptic invitation to these gardens on Day 16, suggesting they hold significance to his plans. hjumpik and Waluigi formed a shaky alliance here to investigate the Oracle's true nature.</p>
         <p>The gardens may exist partially outside normal time, explaining their pristine condition amid the surrounding decay.</p>`,
 
         features: [
@@ -388,7 +388,7 @@ const LOCATIONS = {
         ],
 
         notableEvents: [
-            { name: "The Oracle's Gambit", date: "Day 16, 04:30", type: "encounter", description: "Oracle extends invitation to gardens. Humpik and Waluigi form alliance to investigate him." }
+            { name: "The Oracle's Gambit", date: "Day 16, 04:30", type: "encounter", description: "Oracle extends invitation to gardens. hjumpik and Waluigi form alliance to investigate him." }
         ]
     },
 
@@ -450,7 +450,7 @@ const LOCATIONS = {
         dangerClass: 'danger-extreme',
         
         description: `<p>An alternate dimension accessible through the manor's mirrors. The Mirror Dimension is a twisted reflection of reality where doppelgangers of those who enter hunt their originals.</p>
-        <p>Humpik was pulled into this dimension during the Solarium battle on Day 21. Inside, he fought his own doppelganger and received unexpected aid from an Iron Legion spy, who revealed intelligence about the impending Supernatural Sovereignty Act.</p>
+        <p>hjumpik was pulled into this dimension during the Solarium battle on Day 21. Inside, he fought his own doppelganger and received unexpected aid from an Iron Legion spy, who revealed intelligence about the impending Supernatural Sovereignty Act.</p>
         <p>The dimension appears to be the origin point for the Glass Monster and other mirror-based entities plaguing the manor. Green T was pulled into this dimension on Day 19 and has not been recovered.</p>`,
 
         features: [
@@ -473,7 +473,7 @@ const LOCATIONS = {
 
         notableEvents: [
             { name: "Green T Lost", date: "Day 19, 06:55", type: "supernatural", description: "Green T violently pulled into mirror dimension by supernatural entity. Status: MISSING." },
-            { name: "The Shard Stalker & The Spy", date: "Day 21, 02:00", type: "supernatural", description: "Humpik pulled in, fights doppelganger, receives Legion spy aid and intelligence about Supernatural Sovereignty Act." }
+            { name: "The Shard Stalker & The Spy", date: "Day 21, 02:00", type: "supernatural", description: "hjumpik pulled in, fights doppelganger, receives Legion spy aid and intelligence about Supernatural Sovereignty Act." }
         ]
     },
 
@@ -575,7 +575,7 @@ const LOCATIONS = {
         dangerClass: 'danger-moderate',
         
         description: `<p>A collapsed section of Raventree Manor that the party used as a staging area after the Solarium breach on Day 21. The ceiling has partially fallen in, providing some natural light but also exposure to the elements.</p>
-        <p>After Humpik's return from the Mirror Dimension and Archie's blood-rage mirror punch, the group retreated here to plan their next move against the Iron Legion spies still operating within the manor.</p>`,
+        <p>After hjumpik's return from the Mirror Dimension and Archie's blood-rage mirror punch, the group retreated here to plan their next move against the Iron Legion spies still operating within the manor.</p>`,
 
         features: [
             { name: "Collapsed Ceiling", description: "Provides natural light and potential escape route, but also means the area is not secure from aerial observation.", type: "" },

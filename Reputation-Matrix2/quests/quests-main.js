@@ -49,7 +49,7 @@ function getRewardIcon(type) {
 export function extractAllRewards() {
     const allQuests = {
         ...TOADS_QUESTS,
-        ...HUMPIK_QUESTS,
+        ...hjumpik_QUESTS,
         ...ARCHIE_QUESTS,
         ...REMI_QUESTS,
         ...DK_QUESTS,
@@ -732,9 +732,9 @@ export const TOADS_QUESTS = {
                 { text: "Creek: Break contact and regroup", status: 'active', priority: 'critical' },
                 { text: "Party: Escape Raventree Manor to provide support", status: 'active', priority: 'high' },
                 { text: "Locate the REAL Speaker L", status: 'active', priority: 'high' },
-                { text: "Delay Order 120 execution (Humpik's Legion contact?)", status: 'pending', priority: 'critical' }
+                { text: "Delay Order 120 execution (hjumpik's Legion contact?)", status: 'pending', priority: 'critical' }
             ],
-            notes: "The party is trapped in Raventree Manor. Humpik has a Legion contact who might be leveraged. The Oracle might be used as a bargaining chip. Every option has a cost."
+            notes: "The party is trapped in Raventree Manor. hjumpik has a Legion contact who might be leveraged. The Oracle might be used as a bargaining chip. Every option has a cost."
         }
     ],
 
@@ -755,7 +755,7 @@ export const TOADS_QUESTS = {
     npcs: {
         allies: ['bones', 'creek', 'green_speaker_l_decoy', 'real_speaker_l'],
         enemies: ['marcus_ironhand', 'legion_interrogators', 'aegis_command_garrison'],
-        neutral: ['humpik_legion_contact']
+        neutral: ['hjumpik_legion_contact']
     },
 
     locations: {
@@ -763,23 +763,23 @@ export const TOADS_QUESTS = {
         related: ['vigilance_airship', 'raventree_manor', 'speaker_l_safehouse']
     },
 
-    relatedQuests: ['vigilance_fallen', 'humpik_legion_pact', 'artifacts_of_balance']
+    relatedQuests: ['vigilance_fallen', 'hjumpik_legion_pact', 'artifacts_of_balance']
 },
 };
-export const HUMPIK_QUESTS = {
-    'humpik_mirror_identity': {
-        id: 'humpik_mirror_identity',
+export const hjumpik_QUESTS = {
+    'hjumpik_mirror_identity': {
+        id: 'hjumpik_mirror_identity',
         title: "The Reflection's Gamble",
         subtitle: "Red vs Blue",
         type: QUEST_TYPES.PERSONAL,
-        category: 'Personal - Humpik',
+        category: 'Personal - hjumpik',
         status: QUEST_STATUS.COMPLETED,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
-        objective: "Escape the Mirror Library and defeat the 'Blue Humpik' while the 'Red Humpik' deceives the party in reality.",
-        assignees: ['humpik'],
-        primaryAssignee: 'humpik',
-        description: "During the battle with the Shard Stalker, Humpik was pulled into the mirror dimension. Faced with a choice between violence and mercy, Humpik chose mercy at the urging of a Legion Spy also trapped within. This choice allowed him to return to reality, displacing the 'Red' impostor and saving the creature from execution by the Mages' Guild.",
+        objective: "Escape the Mirror Library and defeat the 'Blue hjumpik' while the 'Red hjumpik' deceives the party in reality.",
+        assignees: ['hjumpik'],
+        primaryAssignee: 'hjumpik',
+        description: "During the battle with the Shard Stalker, hjumpik was pulled into the mirror dimension. Faced with a choice between violence and mercy, hjumpik chose mercy at the urging of a Legion Spy also trapped within. This choice allowed him to return to reality, displacing the 'Red' impostor and saving the creature from execution by the Mages' Guild.",
         difficulty: { overall: DIFFICULTY.DEADLY, puzzle: DIFFICULTY.HARD, combat: DIFFICULTY.HARD },
         tags: ['dimensional', 'impostor', 'puzzle', 'solo'],
         dates: { added: { year: 1040, monthIndex: 6, day: 20 }, completed: { year: 1040, monthIndex: 6, day: 20 } },
@@ -787,9 +787,9 @@ export const HUMPIK_QUESTS = {
         loreEntries: ['mirror_doppelgangers', 'library_of_reflections'],
 
         consequences: {
-            success: "Humpik returns to his body. The Red Humpik is exposed.",
-            failure: "Humpik remains trapped forever. The Red Humpik infiltrates the party permanently.",
-            partial: "Humpik returns, but the Red Humpik escapes into the world."
+            success: "hjumpik returns to his body. The Red hjumpik is exposed.",
+            failure: "hjumpik remains trapped forever. The Red hjumpik infiltrates the party permanently.",
+            partial: "hjumpik returns, but the Red hjumpik escapes into the world."
         },
 
         rewards: {
@@ -816,18 +816,18 @@ export const HUMPIK_QUESTS = {
             }
         ]
     },
-'humpik_legion_pact': {
-    id: 'humpik_legion_pact',
+'hjumpik_legion_pact': {
+    id: 'hjumpik_legion_pact',
     title: "The Legion's Mandate",
     subtitle: "A Knife Behind a Handshake",
     type: QUEST_TYPES.FACTION,
-    category: 'Personal - Humpik',
+    category: 'Personal - hjumpik',
         status: QUEST_STATUS.FAILED, // Paused because the conditions for the deal are currently physically impossible
     priority: QUEST_PRIORITY.CRITICAL,
     arcId: 'raventree_manor',
     objective: "Fulfill the deal with the Iron Legion: let the Oracle complete his ritual, then ensure the Legion takes custody of him. Or betray the deal and accept the consequences.",
-    assignees: ['humpik'],
-    primaryAssignee: 'humpik',
+    assignees: ['hjumpik'],
+    primaryAssignee: 'hjumpik',
     difficulty: {
         overall: DIFFICULTY.DEADLY,
         social: DIFFICULTY.EXTREME,
@@ -842,20 +842,20 @@ export const HUMPIK_QUESTS = {
     },
 
         failureReason: "Breach of Contract",
-        description: "The deal was specific: Deliver the Oracle to the Legion *immediately* after the ritual. The ritual failed, the Oracle is lost in the Void, and Humpik is missing. Commander Vex and the Iron Legion view this as a failure at best, and a betrayal at worst. The Pact is broken. Humpik is now a loose end to be tied up.",
-        notes: "Any Legion favor rewards are lost. Humpik is likely now on the Legion's hit list alongside the Toads.",
+        description: "The deal was specific: Deliver the Oracle to the Legion *immediately* after the ritual. The ritual failed, the Oracle is lost in the Void, and hjumpik is missing. Commander Vex and the Iron Legion view this as a failure at best, and a betrayal at worst. The Pact is broken. hjumpik is now a loose end to be tied up.",
+        notes: "Any Legion favor rewards are lost. hjumpik is likely now on the Legion's hit list alongside the Toads.",
             loreEntries: ['supernatural_sovereignty_act', 'iron_mandate', 'legion_black_ops', 'oracle_nature'],
 
     consequences: {
-        success_betray_oracle: "The Legion takes custody of the Oracle. Humpik gains significant Legion favor, potentially including leverage to negotiate for Bones, Creek, and other prisoners. The Toads lose a powerful magical ally. The Oracle's fate is imprisonment, experimentation, or execution.",
-        success_protect_oracle: "Humpik betrays the Legion deal. The Oracle escapes or allies with the party. The Legion responds with hostility—Humpik becomes a target, and any negotiating leverage for the Toad prisoners evaporates.",
-        partial: "The handoff is botched. The Oracle escapes, but so does Legion awareness that Humpik was supposed to deliver. Both sides distrust him.",
+        success_betray_oracle: "The Legion takes custody of the Oracle. hjumpik gains significant Legion favor, potentially including leverage to negotiate for Bones, Creek, and other prisoners. The Toads lose a powerful magical ally. The Oracle's fate is imprisonment, experimentation, or execution.",
+        success_protect_oracle: "hjumpik betrays the Legion deal. The Oracle escapes or allies with the party. The Legion responds with hostility—hjumpik becomes a target, and any negotiating leverage for the Toad prisoners evaporates.",
+        partial: "The handoff is botched. The Oracle escapes, but so does Legion awareness that hjumpik was supposed to deliver. Both sides distrust him.",
         failure: "The ritual fails. The Oracle is destroyed or the timelines collapse. The Legion deal becomes irrelevant amid the catastrophe."
     },
 
     rewards: {
         guaranteed: [
-            { type: 'item', name: "Legion Thieves' Tools", description: "High-quality lockpicks, wire cutters, and a small vial of universal solvent. Currently in Humpik's possession." }
+            { type: 'item', name: "Legion Thieves' Tools", description: "High-quality lockpicks, wire cutters, and a small vial of universal solvent. Currently in hjumpik's possession." }
         ],
         conditional: [
             {
@@ -887,14 +887,14 @@ export const HUMPIK_QUESTS = {
             id: 'm1',
             status: 'completed',
             title: "The Meeting",
-            description: "The Legion spy approached Humpik privately in the Ruined Hall. She explained the political situation, the Supernatural Sovereignty Act, and offered the deal. Humpik accepted the tools and the mission.",
+            description: "The Legion spy approached hjumpik privately in the Ruined Hall. She explained the political situation, the Supernatural Sovereignty Act, and offered the deal. hjumpik accepted the tools and the mission.",
             completedDate: { year: 1040, monthIndex: 6, day: 21 }
         },
         {
             id: 'm2',
             status: 'active',
             title: "The Ritual",
-            description: "The Oracle is leading the party to the Summoning Room for the final ritual. Humpik must help ensure it succeeds—the deal requires the manor to be stabilized first.",
+            description: "The Oracle is leading the party to the Summoning Room for the final ritual. hjumpik must help ensure it succeeds—the deal requires the manor to be stabilized first.",
             goals: [
                 { text: "Protect the Oracle during the ritual", status: 'active', priority: 'critical' },
                 { text: "Prevent the Mages' Guild from interfering", status: 'active', priority: 'high' },
@@ -907,7 +907,7 @@ export const HUMPIK_QUESTS = {
             id: 'm3',
             status: 'active', // Changed from locked
             title: "The Breach of Contract",
-            description: "The ritual failed. The Oracle is gone (to the Void). Humpik is gone. The Legion holds the physical room. The deal is effectively void unless Humpik can re-establish contact and offer something of equal value—like the Star Shard.",
+            description: "The ritual failed. The Oracle is gone (to the Void). hjumpik is gone. The Legion holds the physical room. The deal is effectively void unless hjumpik can re-establish contact and offer something of equal value—like the Star Shard.",
             goals: [
                 { text: "Survive the Fracture", status: 'active', priority: 'critical' },
                 { text: "Prepare an explanation for Commander Vex", status: 'pending', priority: 'high' }
@@ -916,7 +916,7 @@ export const HUMPIK_QUESTS = {
     ],
 
     secretStatus: {
-        knownTo: ['humpik', 'legion_spy'],
+        knownTo: ['hjumpik', 'legion_spy'],
         suspectedBy: ['bowser'],
         hiddenFrom: ['archie', 'dan', 'oracle', 'pernus_annmatar']
     },
@@ -938,18 +938,18 @@ export const HUMPIK_QUESTS = {
 },
 
 
-    'humpik_honor_quest': {
-        id: 'humpik_honor_quest',
+    'hjumpik_honor_quest': {
+        id: 'hjumpik_honor_quest',
         title: "An Axe to Grind",
         subtitle: "Dwarven Honor vs. Imperial Steel",
         type: QUEST_TYPES.PERSONAL,
-        category: 'Personal - Humpik',
+        category: 'Personal - hjumpik',
         status: QUEST_STATUS.PENDING,
         priority: QUEST_PRIORITY.MEDIUM,
         objective: "Restore honor by defeating an Iron Legion champion in a formal duel.",
-        assignees: ['humpik'],
-        primaryAssignee: 'humpik',
-        description: "Colonel Vera Steelstorm called Humpik a 'filthy savage' during the Vigilance standoff. To a Dwarf of the Stonecarver's Brethren, this insult cannot stand. Humpik intends to challenge her or her champion to a duel of honor. He needs to learn the Imperial Dueling Code to ensure they cannot refuse.",
+        assignees: ['hjumpik'],
+        primaryAssignee: 'hjumpik',
+        description: "Colonel Vera Steelstorm called hjumpik a 'filthy savage' during the Vigilance standoff. To a Dwarf of the Stonecarver's Brethren, this insult cannot stand. hjumpik intends to challenge her or her champion to a duel of honor. He needs to learn the Imperial Dueling Code to ensure they cannot refuse.",
         difficulty: { overall: DIFFICULTY.HARD, combat: DIFFICULTY.HARD, social: DIFFICULTY.MODERATE },
         tags: ['honor', 'combat', 'rivalry'],
         
@@ -970,19 +970,19 @@ export const HUMPIK_QUESTS = {
         ]
     },
 
-    'humpik_kings_physician': {
-        id: 'humpik_kings_physician',
+    'hjumpik_kings_physician': {
+        id: 'hjumpik_kings_physician',
         title: "The King's Physician",
         subtitle: "A Cure from the Depths",
         type: QUEST_TYPES.PERSONAL,
-        category: 'Personal - Humpik',
+        category: 'Personal - hjumpik',
         status: QUEST_STATUS.COMPLETED,
         priority: QUEST_PRIORITY.HIGH,
         arcId: 'capital_intrigue',
         objective: "Acquire a cure for Dan's magical malady.",
-        assignees: ['humpik'],
-        primaryAssignee: 'humpik',
-        description: "When Dan fell ill from the magical backlash, Humpik took it upon himself to find a cure. He braved the lava-filled sewers of the Capital, negotiated with a senile dragon, and bullied an Archmage into brewing a restorative elixir. It was a triumph of stubbornness over common sense.",
+        assignees: ['hjumpik'],
+        primaryAssignee: 'hjumpik',
+        description: "When Dan fell ill from the magical backlash, hjumpik took it upon himself to find a cure. He braved the lava-filled sewers of the Capital, negotiated with a senile dragon, and bullied an Archmage into brewing a restorative elixir. It was a triumph of stubbornness over common sense.",
         dates: { added: { year: 1040, monthIndex: 6, day: 14 }, updated: { year: 1040, monthIndex: 6, day: 15 } },
         
         rewards: {
@@ -1000,17 +1000,17 @@ export const HUMPIK_QUESTS = {
         ]
     },
 
-    'humpik_rescue_mission': {
-        id: 'humpik_rescue_mission',
+    'hjumpik_rescue_mission': {
+        id: 'hjumpik_rescue_mission',
         title: "Dwarven Rescue Mission",
         type: QUEST_TYPES.RESCUE,
-        category: 'Personal - Humpik',
+        category: 'Personal - hjumpik',
         status: QUEST_STATUS.AVAILABLE,
         priority: QUEST_PRIORITY.MEDIUM,
         objective: "Rescue captured Koopa Troopas from a Loyalist prison camp.",
-        assignees: ['humpik'],
-        primaryAssignee: 'humpik',
-        description: "Humpik has heard reports of Koopa Troopas—his newfound drinking buddies—being held in a Peach Loyalist internment camp. He intends to break them out, utilizing explosives and grit.",
+        assignees: ['hjumpik'],
+        primaryAssignee: 'hjumpik',
+        description: "hjumpik has heard reports of Koopa Troopas—his newfound drinking buddies—being held in a Peach Loyalist internment camp. He intends to break them out, utilizing explosives and grit.",
         milestones: [
             { id: 'm1', status: 'active', title: "Locate Prison", description: "Find the Loyalist camp near Bramblehaven." },
             { id: 'm2', status: 'locked', title: "The Breach", description: "Blow the wall." }
@@ -2079,7 +2079,7 @@ export const MAIN_QUESTS = {
                 id: 'm1',
                 status: 'completed',
                 title: "The Anchors Fall",
-                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by Humpik. The Arcane Wraith was banished. The path to the final ritual opened.",
+                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by hjumpik. The Arcane Wraith was banished. The path to the final ritual opened.",
                 completedDate: { year: 1040, monthIndex: 6, day: 21 }
             },
             {
@@ -2124,7 +2124,7 @@ export const MAIN_QUESTS = {
             cleared: 'silent_grove',
         },
 
-        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'rescue_toadburt', 'humpik_legion_pact']
+        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'rescue_toadburt', 'hjumpik_legion_pact']
     },
 'main_quest_raventree': {
         id: 'main_quest_raventree',
@@ -2223,7 +2223,7 @@ export const MAIN_QUESTS = {
                 id: 'm4',
                 status: 'completed',
                 title: "The Anchors Fall",
-                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by Humpik—contained, not destroyed. The Arcane Wraith was banished through teamwork. The path to the final ritual opened.",
+                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by hjumpik—contained, not destroyed. The Arcane Wraith was banished through teamwork. The path to the final ritual opened.",
                 completedDate: { year: 1040, monthIndex: 6, day: 21 }
             },
             {
@@ -2501,7 +2501,7 @@ export const MAIN_QUESTS = {
             goals: [
                 { text: "Complete the Raventree ritual (cannot be abandoned)", status: 'active', priority: 'critical' },
                 { text: "Escape Raventree Manor immediately after", status: 'pending', priority: 'critical' },
-                { text: "Use Humpik's Legion contact to delay Order 120", status: 'pending', priority: 'critical' },
+                { text: "Use hjumpik's Legion contact to delay Order 120", status: 'pending', priority: 'critical' },
                 { text: "Locate Captain Ryan (status unknown)", status: 'pending', priority: 'high' },
                 { text: "Locate the real Speaker L", status: 'active', priority: 'high' },
                 { text: "Coordinate with Rogueport delegation (Embercap)", status: 'pending', priority: 'medium' }
@@ -2521,9 +2521,9 @@ export const MAIN_QUESTS = {
                         },
                         {
                             id: 'diplomacy',
-                            name: "The Humpik Protocol",
-                            description: "Trade the Oracle to the Legion in exchange for the prisoners. Humpik's deal becomes the party's salvation—at a cost.",
-                            requirements: ["Humpik completes his deal", "Oracle delivered to Legion custody", "Party accepts the betrayal"],
+                            name: "The hjumpik Protocol",
+                            description: "Trade the Oracle to the Legion in exchange for the prisoners. hjumpik's deal becomes the party's salvation—at a cost.",
+                            requirements: ["hjumpik completes his deal", "Oracle delivered to Legion custody", "Party accepts the betrayal"],
                             consequences: { success: "Prisoners released. Oracle lost. Magical ally sacrificed for lives.", failure: "Oracle captured AND prisoners executed. Worst outcome." }
                         },
                         {
@@ -2559,7 +2559,7 @@ export const MAIN_QUESTS = {
     npcs: {
         allies: ['captain_ryan', 'bones', 'creek', 'toad_lee', 'speaker_l_decoy'],
         enemies: ['marcus_ironhand', 'legion_commander_vex', 'aegis_command_garrison'],
-        neutral: ['humpik_legion_contact', 'self_reflection_oracle'],
+        neutral: ['hjumpik_legion_contact', 'self_reflection_oracle'],
         unknown: ['real_speaker_l']
     },
 
@@ -2570,7 +2570,7 @@ export const MAIN_QUESTS = {
         related: ['forest_crash_site', 'rogueport']
     },
 
-    relatedQuests: ['liberated_toads_integration', 'humpik_legion_pact', 'artifacts_of_balance', 'rogueport_retrieval', 'retrieve_the_staff']
+    relatedQuests: ['liberated_toads_integration', 'hjumpik_legion_pact', 'artifacts_of_balance', 'rogueport_retrieval', 'retrieve_the_staff']
 },
 
 'retrieve_the_staff': {

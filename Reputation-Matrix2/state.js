@@ -100,7 +100,7 @@ function generateGenericIntel() {
 const DEFAULT_INVENTORIES = {
     archie: { name: "Archie's Stash", items: ["Sickle", "Dusty Wine Bottle"] },
     markop: { name: "Markop's Pack", items: ["Gray Suit", "Carpentry Supplies", "Amethyst", "The Hammer Code: An Iron Legion Treatise"] },
-    humpik: { name: "Humpik's Haul", items: ["Spell Scroll: Alarm", "Spell Scroll: Disguise Self", "Spell Scroll: Inflict Wounds", "Spell Scroll: Mage Armor", "Spell Scroll: Hunter's Mark"] },
+    hjumpik: { name: "hjumpik's Haul", items: ["Spell Scroll: Alarm", "Spell Scroll: Disguise Self", "Spell Scroll: Inflict Wounds", "Spell Scroll: Mage Armor", "Spell Scroll: Hunter's Mark"] },
     bowser: { name: "Bowser's Treasury", items: ["Princess Peach's Diary"] },
     remi: { name: "Remi's Pack", items: ["Expired Coupon for Angel 24", "A single, very durable school ID card", "Practical Traveling Clothes", "A half-eaten sandwich", "The Silent Service: A Primer", "Chipped Dagger", "Crossbow"] },
     dan: { name: "Dan's Pack", items: ["Magitek Theory Vol. IV: Arcane Capacitors"] },
@@ -179,7 +179,7 @@ intelLevels: {
             // GENERIC
             freelancer_underworld: 20, toad_gang: 20, toad_cult: 15, mages_guild: 20, rakasha_clans: 10, the_unchained: 15, silver_flame: 15, oathbound_judges: 20, ratchet_raiders: 10, rebel_clans: 10, crimson_fleet: 10, wario_land: 10, mushroom_regency: 25, peach_loyalists: 20, fawfuls_furious_freaks: 15, iron_fists: 15, moonfang_pack: 15, goodstyle_artisans: 10, unaligned: 100, kingdom_of_gondor: 10, kingdom_of_rohan: 5, lothlorien: 5, elves_of_lindon: 5, kingdoms_of_the_dwarves: 5, isengard: 5, mordor: 5 
         },
-        humpik: { 
+        hjumpik: { 
             // HIGHEST: Tech & Engineering
             liberated_toads: 65, // Core crew, fixed the Vigilance (Day 6)
             iron_legion: 55, // Discovered smuggling barrels (Day 12) + Mirror Dimension Spy (Day 21)
@@ -238,7 +238,7 @@ intelLevels: {
         generic: generateGenericIntel(),
     },
     finalIntel: {}, // Stores cumulative intel (base + event history)
-    party: ['archie', 'markop', 'humpik', 'bowser', 'remi'],
+    party: ['archie', 'markop', 'hjumpik', 'bowser', 'remi'],
     activeRumors: [], 
 players: {
         archie: { 
@@ -281,8 +281,8 @@ players: {
                 unaligned: 10
             } 
         },
-        humpik: { 
-            name: 'Humpik', 
+        hjumpik: { 
+            name: 'hjumpik', 
             reputation: {
                 regal_empire: -30,       // Pilot of the stolen ship
                 iron_legion: -10,        // Negotiated bombs (Day 8) - They view him as the "Reasonable One"
@@ -355,7 +355,7 @@ function initInventories() { state.inventories = structuredClone(DEFAULT_INVENTO
 
 function initReputation() {
     const factionKeys = Object.keys(LORE_DATA.factions);
-    const CANONICAL_PARTY = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
+    const CANONICAL_PARTY = ['archie', 'markop', 'hjumpik', 'bowser', 'remi'];
     state.party = [...CANONICAL_PARTY];
     state.party.forEach(playerKey => {
         if (!state.players[playerKey]) {

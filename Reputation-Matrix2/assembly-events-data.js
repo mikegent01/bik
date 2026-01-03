@@ -58,7 +58,7 @@ const ARCHIES_CONFESSION_EVENT = {
     description: "Archie Miser publicly posted a confession regarding the destruction of the Raventree Greenhouse on Wahbook, sparking immediate backlash. This coincided with a chaotic skirmish in the Manor's Dance Hall against the Iron Legion and Arcane Wraiths.",
     attendees: [
         { characterKey: 'archie', host: true, justification: "Posted the confession and led the group into the Dance Hall." },
-        { characterKey: 'humpik', justification: "Advised against the post; secured dark crystals during the aftermath." },
+        { characterKey: 'hjumpik', justification: "Advised against the post; secured dark crystals during the aftermath." },
         { characterKey: 'markop', justification: "Defended against the Wraiths." },
         { characterKey: 'toad_lee', justification: "Fought alongside the Oracle against the animated coat." },
         { characterKey: 'waluigi', justification: "Observed the chaos with glee." }
@@ -68,7 +68,7 @@ const ARCHIES_CONFESSION_EVENT = {
         'archie_confession_post', 
         'mages_guild_warrant', 
         'legion_mockery_anthem_post', 
-        'humpik_dark_crystal_post', 
+        'hjumpik_dark_crystal_post', 
         'oracle_cryptic_update',
         'waluigi_manor_laugh'
     ]
@@ -150,7 +150,7 @@ export const DAY_20_POSTS = [
         content: "[This post was deleted]",
         likes: 8,
         comments: [
-            { characterKey: 'humpik', text: "Laddie... you posted this? Delete it. Now." },
+            { characterKey: 'hjumpik', text: "Laddie... you posted this? Delete it. Now." },
             { characterKey: 'regal_empire_delegate', text: "Admission of guilt noted. The Accords are clear on the destruction of heritage sites." },
             { characterKey: 'green_thumb_guardians', text: "YOU DID WHAT TO A GREENHOUSE?!" }
         ],
@@ -181,8 +181,8 @@ export const DAY_20_POSTS = [
         rumorId: 'greenhouse_inferno_confession'
     },
     {
-        id: 'humpik_dark_crystal_post',
-        characterKey: 'humpik',
+        id: 'hjumpik_dark_crystal_post',
+        characterKey: 'hjumpik',
         date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 0 },
         content: "Found some... interesting minerals in the debris. Heavy. Cold. Might be useful for the forge, or might be cursed. Probably both.",
         likes: 65,

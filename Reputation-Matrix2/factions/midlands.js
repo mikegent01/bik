@@ -28,7 +28,7 @@ export const MIDLANDS_FACTIONS = {
                     description: "Traditionalist nobles who believe in order, heritage, and the divine right of the Emperor. They view magitek as a tool, not a replacement for strong leadership.",
                     opinion: "The party represents the exact kind of chaos that threatens the Imperial peace. They are criminals and anarchists who must be brought to justice.",
                     influence: 45,
-                    reputation_modifiers: { archie: -20, markop: -5, humpik: -5, bowser: -15 },
+                    reputation_modifiers: { archie: -20, markop: -5, hjumpik: -5, bowser: -15 },
                     key_figures: [
                         { name: "Duke Tiberius", role: "Speaker of the Noble Houses", description: "Represents the interests of the old, landed aristocracy." },
                         { name: "Lady Seraphina", role: "Keeper of Traditions", description: "Ensures that Imperial protocol is strictly followed." }
@@ -39,7 +39,7 @@ export const MIDLANDS_FACTIONS = {
                     description: "A rising faction of technocrats and artificers who believe technology is the key to perfecting the Empire. They secretly admire X.O.'s power.",
                     opinion: "While their methods are crude, the party's interactions with powerful artifacts and individuals are a valuable source of data. They are test subjects, not enemies.",
                     influence: 25,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 0, bowser: 5 },
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 0, bowser: 5 },
                     key_figures: [
                         { name: "Artificer Prime Kael", role: "Head of Research", description: "A brilliant but ruthless scientist pushing the boundaries of magitek." },
                         { name: "X.O.", role: "Former Member (Disgraced)", description: "Once a rising star, now a cautionary tale of ambition." }
@@ -50,7 +50,7 @@ export const MIDLANDS_FACTIONS = {
                     description: "The Empire's vast and secretive intelligence network. They value information and stability above all, using blackmail, sabotage, and assassination as needed.",
                     opinion: "The party is a chaotic variable that is both a threat and an opportunity. We have assets observing them and will leverage their actions to our advantage.",
                     influence: 20,
-                    reputation_modifiers: { archie: 5, markop: -5, humpik: 0, bowser: 0 },
+                    reputation_modifiers: { archie: 5, markop: -5, hjumpik: 0, bowser: 0 },
                     key_figures: [
                         { name: "Spymaster Varrus", role: "Director", description: "A shadowy figure whose face is unknown even to most of the Imperial court." },
                         { name: "Agent Nightingale", role: "Top Operative", description: "A master of disguise and infiltration." }
@@ -61,7 +61,7 @@ export const MIDLANDS_FACTIONS = {
                     description: "The face of the Empire abroad. They work to form treaties and maintain alliances, often cleaning up the messes made by the Iron Legion.",
                     opinion: "The party's actions have caused multiple diplomatic incidents. Their alliance with Bowser, a foreign warlord, is particularly problematic. They are an obstacle to peace.",
                     influence: 10,
-                    reputation_modifiers: { archie: -15, markop: -10, humpik: -10, bowser: -20 },
+                    reputation_modifiers: { archie: -15, markop: -10, hjumpik: -10, bowser: -20 },
                     key_figures: [
                         { name: "Ambassador Callista", role: "Chief Diplomat", description: "A patient and sharp-witted negotiator." }
                     ]
@@ -152,21 +152,21 @@ export const MIDLANDS_FACTIONS = {
                     description: "The militant core of the order, who believe in destroying supernatural evil without mercy or question. They are zealous and uncompromising.",
                     opinion: "Markop has fallen from the light, consorting with criminals and monsters. He is a lost cause. The rest of the party are simply heretics to be purged.",
                     influence: 50,
-                    reputation_modifiers: { archie: -25, markop: -20, humpik: -10, bowser: -10 }
+                    reputation_modifiers: { archie: -25, markop: -20, hjumpik: -10, bowser: -10 }
                 },
                 templars_of_the_torch: {
                     name: "Templars of the Torch",
                     description: "Investigators and diplomats who believe in understanding an enemy and redeeming those who have strayed before passing judgment.",
                     opinion: "Markop's path is troubled, but there may yet be hope for his soul. We must observe him and see if he can be guided back to the light.",
                     influence: 35,
-                    reputation_modifiers: { archie: -10, markop: 10, humpik: 0, bowser: -5 }
+                    reputation_modifiers: { archie: -10, markop: 10, hjumpik: 0, bowser: -5 }
                 },
                 keepers_of_the_flame: {
                     name: "Keepers of the Flame",
                     description: "A monastic branch dedicated to protecting holy sites and relics. They are scholars and guardians, not frontline fighters.",
                     opinion: "The party's actions have unearthed several sites of interest. They are a chaotic force, but their path crosses with things we must protect.",
                     influence: 15,
-                    reputation_modifiers: { archie: 0, markop: 5, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 0, markop: 5, hjumpik: 0, bowser: 0 }
                 }
             }
         }
@@ -196,14 +196,14 @@ export const MIDLANDS_FACTIONS = {
                     description: "The core of the order, who believe in absolute, impartial justice. The law is the law, and all are subject to it.",
                     opinion: "The party, particularly Archie, has a long list of crimes to answer for. Markop, as a former paladin, should know better. Justice will be served.",
                     influence: 60,
-                    reputation_modifiers: { archie: -30, markop: -20, humpik: -10, bowser: -15 }
+                    reputation_modifiers: { archie: -30, markop: -20, hjumpik: -10, bowser: -15 }
                 },
                 arbiters_of_intent: {
                     name: "Arbiters of Intent",
                     description: "A faction that believes the spirit of the law is more important than the letter. They consider motive and consequence when passing judgment.",
                     opinion: "While their methods are criminal, the party often brings about a greater good, such as stopping X.O. or dismantling smuggling rings. Their case is... complex.",
                     influence: 40,
-                    reputation_modifiers: { archie: 5, markop: 10, humpik: 5, bowser: 0 }
+                    reputation_modifiers: { archie: 5, markop: 10, hjumpik: 5, bowser: 0 }
                 }
             }
         }
@@ -233,21 +233,21 @@ export const MIDLANDS_FACTIONS = {
                     description: "The leaders of the packs, who rule through strength and combat prowess. They are fiercely territorial and aggressive.",
                     opinion: "The city is our hunting ground. The party's war with the Onyx Hand is our war. We don't trust them, but any enemy of the leeches is a temporary ally.",
                     influence: 55,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 0, bowser: 5 }
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 0, bowser: 5 }
                 },
                 spirit_walkers: {
                     name: "The Spirit-Walkers",
                     description: "The shamans of the pack, who commune with the moon and the spirits of the hunt. They see the bigger picture.",
                     opinion: "A great change is upon us. The party are catalysts, their chaos upsetting the balance between predator and prey. We must watch them closely.",
                     influence: 25,
-                    reputation_modifiers: { archie: 0, markop: 5, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 0, markop: 5, hjumpik: 0, bowser: 0 }
                 },
                 young_bloods: {
                     name: "The Young Bloods",
                     description: "Newly turned werewolves who are reckless, violent, and eager to prove themselves in battle.",
                     opinion: "Fighting! We love fighting! The party fights vampires! Let's go fight vampires with them!",
                     influence: 20,
-                    reputation_modifiers: { archie: 10, markop: 5, humpik: 5, bowser: 10 }
+                    reputation_modifiers: { archie: 10, markop: 5, hjumpik: 5, bowser: 10 }
                 }
             }
         }

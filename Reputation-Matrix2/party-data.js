@@ -23,7 +23,7 @@ export const PARTY_LOCATIONS = {
   'midlands_full': [
         // Raventree Manor - Ruined Hall (Post-Solarium Battle)
         { charKey: 'bowser', x: 73.5, y: 12.0, status: 'Bleeding/Victorious' },
-        { charKey: 'humpik', x: 73.6, y: 12.1, status: 'Recovering' },
+        { charKey: 'hjumpik', x: 73.6, y: 12.1, status: 'Recovering' },
         { charKey: 'archie', x: 73.4, y: 11.9, status: 'Hunting Wraiths' },
         { charKey: 'markop', x: 73.5, y: 12.4, status: 'Defending' },
         { charKey: 'waluigi', x: 73.2, y: 12.2, status: 'Looting' },

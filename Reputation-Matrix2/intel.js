@@ -8,7 +8,7 @@ const selectorContainer = document.getElementById('character-selector-container'
 const dossierContainer = document.getElementById('dossier-display-container');
 
 // Define the four main characters to always be available on this page.
-const MAIN_CHARACTERS = ['archie', 'markop', 'humpik', 'bowser', 'remi'];
+const MAIN_CHARACTERS = ['archie', 'markop', 'hjumpik', 'bowser', 'remi'];
 let activeCharacterKey = state.loggedInUser !== 'generic' && MAIN_CHARACTERS.includes(state.loggedInUser) ? state.loggedInUser : 'archie';
 
 function init() {

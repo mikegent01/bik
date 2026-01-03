@@ -2,7 +2,7 @@
 id: day-15
 title: Day 15 — Return to the Vigilance, Raventree Manor
 date: 2025-10-06
-tags: [vigilance, toads, waluigi, bowser, markop, archie, humpik, raventree-manor, haunted, exploration]
+tags: [vigilance, toads, waluigi, bowser, markop, archie, hjumpik, raventree-manor, haunted, exploration]
 summary: Back aboard the Vigilance, faction clamors turn into a detour to Raventree Manor, where the party discovers illusions, animated clothes, and treacherous halls before regrouping in the decrepit corridors.
 ---
 
@@ -34,7 +34,7 @@ Meanwhile, the exploration continues into the Yellow Room — rubble from a coll
 
 The Western Hallway (R16w)
 
-Archie and Humpik wander west instead of following Markop. Here the manor is far more dangerous: collapsed floors, open gaps to the levels below, and precarious joists barely supporting their weight. Archie attempts to cross but becomes stuck, dangling awkwardly as debris shifts beneath him.
+Archie and hjumpik wander west instead of following Markop. Here the manor is far more dangerous: collapsed floors, open gaps to the levels below, and precarious joists barely supporting their weight. Archie attempts to cross but becomes stuck, dangling awkwardly as debris shifts beneath him.
 
 Unaware of Archie’s plight, Markop — nervous and clutching his friends’ support — continues to tour the upstairs rooms, searching for safety.
 

@@ -78,7 +78,7 @@ export const CALENDAR_DATA = {
   "birthdays": [
     { name: "Archie Miser", month: 1, day: 1 },
     { name: "Markop Judi", month: 7, day: 15 },
-    { name: "Humpik", month: 2, day: 3 },
+    { name: "hjumpik", month: 2, day: 3 },
     { name: "Bowser", month: 12, day: 30 },
     { name: "Remi (FNG)", month: 8, day: 12 }
   ],

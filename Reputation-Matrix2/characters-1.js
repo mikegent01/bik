@@ -17,11 +17,11 @@ export const CHARACTERS = {
         portrait: "portraits/markop.png",
         description: "A Centaur Paladin, reluctantly roped into chaos. He tries to be a moral compass, though his faith and honor are constantly tested."
     },
-    humpik: {
+    hjumpik: {
         name: "Hjumpik",
         isParty: true,
         role: "The Dwarven King's Champion",
-        portrait: "portraits/humpik.png",
+        portrait: "portraits/hjumpik.png",
         description: "A powerful Dwarf warrior from a forgotten mountain hold. Fiercely loyal to his friend Bowser, their unlikely alliance is a source of confusion and concern for many factions."
     },
     bowser: {

@@ -6,7 +6,7 @@ export const KOOPA_TROOP_DETAILS = {
         { rank: "Koopa King", leader: "Bowser", units: "The entire Koopa Troop" },
         { rank: "Magikoopa Cabal", leader: "Kamek", units: "Elite magic users, royal advisors" },
         { rank: "The Koopalings", leader: "Larry, Morton, Wendy, Iggy, Roy, Lemmy, Ludwig", units: "High command, each leads a personal legion" },
-        { rank: "Elite Guard", leader: "Humpik", units: "Boomerang Bros, Chargin' Chucks, Magikoopas" },
+        { rank: "Elite Guard", leader: "hjumpik", units: "Boomerang Bros, Chargin' Chucks, Magikoopas" },
         { rank: "Infantry Corps", leader: "Various Sergeants", units: "Koopa Troopas, Goombas, Shy Guys" },
         { rank: "Special Forces", leader: "Specialized Commanders", units: "Lakitus (Air), Hammer Bros (Artillery), Spiny Eggs (Defense)" }
     ],

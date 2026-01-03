@@ -12,7 +12,7 @@ export const NPC_RESPONSES = [
     },
     {
         trigger: { keywords: ['fight', 'attack', 'battle', 'war'], tone: 'neutral' },
-        type: 'initial', characterKey: 'humpik', response: "A fight? GWAHAHAHA! Good! Humpik is always ready for a good fight!", tone: 'excited'
+        type: 'initial', characterKey: 'hjumpik', response: "A fight? GWAHAHAHA! Good! hjumpik is always ready for a good fight!", tone: 'excited'
     },
     {
         trigger: { keywords: ['magic', 'spell', 'arcane'], tone: 'inquisitive' },
@@ -257,7 +257,7 @@ export const NPC_RESPONSES = [
     },
     {
         trigger: { keywords: ['pathetic', 'weak', 'fool'], reply_to_author: ['bowser'], tone: 'aggressive' },
-        type: 'reply', characterKey: 'humpik', response: "The King speaks the truth! GWAHAHA!", tone: 'agreement'
+        type: 'reply', characterKey: 'hjumpik', response: "The King speaks the truth! GWAHAHA!", tone: 'agreement'
     },
     {
         trigger: { keywords: ['king', 'my army'], reply_to_author: ['bowser'], tone: 'aggressive' },
@@ -330,7 +330,7 @@ export const NPC_RESPONSES = [
         type: 'reply', characterKey: 'captain_syrup', response: "You owe me, Lario. Don't think I've forgotten.", tone: 'angry'
     },
     {
-        trigger: { keywords: ['fight', 'battle'], reply_to_author: ['humpik'], tone: 'excited' },
+        trigger: { keywords: ['fight', 'battle'], reply_to_author: ['hjumpik'], tone: 'excited' },
         type: 'reply', characterKey: 'alpha_bloodmaw', response: "The Dwarf speaks the truth. A good fight cleanses the soul.", tone: 'agreement'
     },
     {
@@ -375,7 +375,7 @@ export const NPC_RESPONSES = [
     },
     {
         trigger: { keywords: ['fight', 'battle'], reply_to_author: ['alpha_bloodmaw'], tone: 'aggressive' },
-        type: 'reply', characterKey: 'humpik', response: "The angry dog wants to fight? Good! Humpik will fight with him!", tone: 'agreement'
+        type: 'reply', characterKey: 'hjumpik', response: "The angry dog wants to fight? Good! hjumpik will fight with him!", tone: 'agreement'
     },
     {
         trigger: { keywords: ['magic', 'spell'], reply_to_author: ['archmage_theron'], tone: 'formal' },
@@ -415,7 +415,7 @@ export const NPC_RESPONSES = [
     },
     {
         trigger: { keywords: ['honor', 'duty'], reply_to_author: ['colonel_vera_steelstorm'], tone: 'formal' },
-        type: 'reply', characterKey: 'humpik', response: "The metal woman speaks words of a true warrior. Humpik respects this.", tone: 'agreement'
+        type: 'reply', characterKey: 'hjumpik', response: "The metal woman speaks words of a true warrior. hjumpik respects this.", tone: 'agreement'
     },
     {
         trigger: { keywords: ['vampire'], reply_to_author: ['lord_crimson'], tone: 'sarcastic' },

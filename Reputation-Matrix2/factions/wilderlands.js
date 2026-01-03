@@ -27,21 +27,21 @@ export const WILDERLANDS_FACTIONS = {
                     description: "The shamanistic leaders of the clans who commune with spirits and guide their people. They are wise and cautious.",
                     opinion: "Markop's quest for redemption is honorable. Dan the Toad's connection to the world is strong. We will guide them, but Archie's chaotic nature is a blight.",
                     influence: 40,
-                    reputation_modifiers: { archie: -15, markop: 15, humpik: 5, bowser: 0 }
+                    reputation_modifiers: { archie: -15, markop: 15, hjumpik: 5, bowser: 0 }
                 },
                 beast_riders: {
                     name: "The Beast-Riders",
                     description: "The warrior caste of the Rakasha, who form deep bonds with their animal mounts. They are proud and quick to anger.",
-                    opinion: "Markop is a strong warrior, and Humpik's loyalty is respectable. Archie is an unpredictable madman. Bowser is a worthy challenger.",
+                    opinion: "Markop is a strong warrior, and hjumpik's loyalty is respectable. Archie is an unpredictable madman. Bowser is a worthy challenger.",
                     influence: 35,
-                    reputation_modifiers: { archie: -5, markop: 10, humpik: 10, bowser: 10 }
+                    reputation_modifiers: { archie: -5, markop: 10, hjumpik: 10, bowser: 10 }
                 },
                 huntmasters: {
                     name: "The Huntmasters",
                     description: "Scouts and trackers who know the wilderness better than anyone. They are pragmatic and value survival above all.",
                     opinion: "The party is good at surviving, we'll give them that. They bring both trouble and opportunity. We watch from the shadows.",
                     influence: 25,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 5, bowser: 5 }
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 5, bowser: 5 }
                 }
             }
         }
@@ -69,23 +69,23 @@ export const WILDERLANDS_FACTIONS = {
                 bowsers_elite: {
                     name: "Bowser's Elite",
                     description: "The command structure of the Troop, including the Koopalings and other high-ranking officers. They are fanatically loyal to Bowser.",
-                    opinion: "The King is testing his new allies. We trust his judgment. Humpik is a loyal servant. The others are tools to be used for the King's glory.",
+                    opinion: "The King is testing his new allies. We trust his judgment. hjumpik is a loyal servant. The others are tools to be used for the King's glory.",
                     influence: 50,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 25, bowser: 100 }
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 25, bowser: 100 }
                 },
                 kamek_cabal: {
                     name: "The Kamek Cabal",
                     description: "The Magikoopa advisors who see the bigger picture. They are loyal, but prioritize the long-term stability and power of the Koopa Kingdom.",
                     opinion: "The King's current alliance is... risky. The three-eyed one is a liability, and the paladin is untrustworthy. This could endanger the Kingdom.",
                     influence: 30,
-                    reputation_modifiers: { archie: -10, markop: -10, humpik: 10, bowser: 100 }
+                    reputation_modifiers: { archie: -10, markop: -10, hjumpik: 10, bowser: 100 }
                 },
                 the_horde: {
                     name: "The Horde",
                     description: "The rank-and-file Goombas, Koopa Troopas, and Shy Guys. They follow orders and love their King.",
                     opinion: "King Bowser is great! He's hanging out with cool new friends! One of them makes big explosions!",
                     influence: 20,
-                    reputation_modifiers: { archie: 10, markop: 5, humpik: 15, bowser: 100 }
+                    reputation_modifiers: { archie: 10, markop: 5, hjumpik: 15, bowser: 100 }
                 }
             }
         }
@@ -115,21 +115,21 @@ export const WILDERLANDS_FACTIONS = {
                     description: "Clan leaders who fight to preserve their traditions and sovereignty from Imperial assimilation. They are wary of outsiders.",
                     opinion: "Bowser is a monarch, no better than the Emperor. The party are dangerous mercenaries. We do not trust them.",
                     influence: 45,
-                    reputation_modifiers: { archie: -10, markop: -5, humpik: -5, bowser: -15 }
+                    reputation_modifiers: { archie: -10, markop: -5, hjumpik: -5, bowser: -15 }
                 },
                 new_wave_rebels: {
                     name: "New Wave Rebels",
                     description: "Younger members who have grown up under Imperial rule and embrace any method or ally that can hurt the Empire.",
                     opinion: "Anyone who fights the Empire is a friend! The party's actions on the 'Vigilance' were legendary! They are heroes!",
                     influence: 35,
-                    reputation_modifiers: { archie: 20, markop: 10, humpik: 10, bowser: 10 }
+                    reputation_modifiers: { archie: 20, markop: 10, hjumpik: 10, bowser: 10 }
                 },
                 the_outlanders: {
                     name: "The Outlanders",
                     description: "Exiles and refugees from lands already conquered by the Empire. They are desperate and fight for survival.",
                     opinion: "The party represents chaos, and chaos is hope. Any disruption to the Empire gives us breathing room.",
                     influence: 20,
-                    reputation_modifiers: { archie: 10, markop: 5, humpik: 5, bowser: 5 }
+                    reputation_modifiers: { archie: 10, markop: 5, hjumpik: 5, bowser: 5 }
                 }
             }
         }

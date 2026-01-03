@@ -180,7 +180,7 @@ raventree_manor: {
         phases: [
             { id: 'pursuit', name: 'Pursuit', description: 'Tracking down X.O.' },
             { id: 'battle', name: 'Battle', description: 'The fight for the Vigilance' },
-            { id: 'crisis', name: 'Core Crisis', description: "Humpik's reckless action" },
+            { id: 'crisis', name: 'Core Crisis', description: "hjumpik's reckless action" },
             { id: 'aftermath', name: 'Aftermath', description: 'Dealing with the fallout' }
         ],
         currentPhase: 3,

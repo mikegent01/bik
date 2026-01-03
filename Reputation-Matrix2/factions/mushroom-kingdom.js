@@ -26,7 +26,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
                     description: "The remnants of Big T's inner circle, who believe he will one day return. They are focused on revenge against the party.",
                     opinion: "The party are scum who attacked the great Big T! They must be crushed to pave the way for his glorious return!",
                     influence: 25,
-                    reputation_modifiers: { archie: -10, markop: -10, humpik: -10, bowser: -10 },
+                    reputation_modifiers: { archie: -10, markop: -10, hjumpik: -10, bowser: -10 },
                     key_figures: [
                         { name: "Knuckles", role: "Chief Enforcer", description: "Big T's former right-hand man, now leading the search for his body." }
                     ]
@@ -36,7 +36,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
                     description: "A more radical and violent faction that saw Big T's defeat as a sign of weakness. They want to escalate the 'Toadification' to all-out war.",
                     opinion: "Big T got soft! The party did us a favor by removing him. Now, under our lead, we can show the world true Toad power!",
                     influence: 45,
-                    reputation_modifiers: { archie: 5, markop: -5, humpik: -5, bowser: 0 },
+                    reputation_modifiers: { archie: 5, markop: -5, hjumpik: -5, bowser: 0 },
                     key_figures: [
                         { name: "Skull-Cap Murphy", role: "New Leader", description: "The violent toad who seized power after Big T's defeat." },
                         { name: "Bryan", role: "Vindicator", description: "A vengeful toad empowered by the 'God Toad', hunting Archie Miser." }
@@ -47,7 +47,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
                     description: "The 'business' arm of the gang, focused on running protection rackets and smuggling operations. They care more about profit than ideology.",
                     opinion: "The party's fight with Big T was bad for business. All that chaos disrupted our income streams. We want them gone so we can get back to making coin.",
                     influence: 20,
-                    reputation_modifiers: { archie: -5, markop: -5, humpik: -5, bowser: -5 },
+                    reputation_modifiers: { archie: -5, markop: -5, hjumpik: -5, bowser: -5 },
                     key_figures: [
                         { name: "Fingers", role: "Accountant", description: "The bean-counter of the gang, obsessed with the bottom line." }
                     ]
@@ -57,7 +57,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
                     description: "Young, reckless recruits who joined the gang for the thrill of violence and mayhem, with little loyalty to any specific leader.",
                     opinion: "That three-eyed guy is cool! He just blows stuff up! We should be more like that! Why are we fighting him again?",
                     influence: 10,
-                    reputation_modifiers: { archie: 10, markop: 0, humpik: 0, bowser: 5 },
+                    reputation_modifiers: { archie: 10, markop: 0, hjumpik: 0, bowser: 5 },
                     key_figures: [
                         { name: "Spike", role: "Aspiring Thug", description: "A young toad with more bravado than sense." }
                     ]
@@ -90,28 +90,28 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
                     description: "The original followers of 'The Ascended One', who believe in subtle conversion and prophecy. They see the party as unwitting tools.",
                     opinion: "They are signs. Their chaos is part of the Great Prophecy, clearing the way for the Ascended One's true return. We must watch them, not fight them.",
                     influence: 50,
-                    reputation_modifiers: { archie: 5, markop: 0, humpik: 0, bowser: 0 }
+                    reputation_modifiers: { archie: 5, markop: 0, hjumpik: 0, bowser: 0 }
                 },
                 new_bloom_schismatics: {
                     name: "New Bloom Schismatics",
                     description: "A radical offshoot that believes prophecy must be forced. They advocate for direct action, terrorism, and sacrifice to hasten the coming of their god.",
                     opinion: "Prophecy is a path, not a destination! The party are heretics who must be sacrificed to nourish the New Bloom!",
                     influence: 25,
-                    reputation_modifiers: { archie: -20, markop: -20, humpik: -20, bowser: -20 }
+                    reputation_modifiers: { archie: -20, markop: -20, hjumpik: -20, bowser: -20 }
                 },
                 quiet_converts: {
                     name: "The Quiet Converts",
                     description: "Secret members of the cult operating within mainstream society. They subtly spread the cult's influence and gather information.",
                     opinion: "The party's high-profile actions make our work of subtle conversion much harder. They draw too much attention to the 'weirder' elements of the world.",
                     influence: 15,
-                    reputation_modifiers: { archie: -5, markop: -5, humpik: -5, bowser: -5 }
+                    reputation_modifiers: { archie: -5, markop: -5, hjumpik: -5, bowser: -5 }
                 },
                 spore_seekers: {
                     name: "The Spore-Seekers",
                     description: "Cultist archaeologists and explorers who search for holy sites and lost relics related to The Ascended One.",
                     opinion: "The party's dimension-hopping could lead them to a lost temple or relic by accident! We must follow them and see what secrets they unearth.",
                     influence: 10,
-                    reputation_modifiers: { archie: 5, markop: 5, humpik: 5, bowser: 5 }
+                    reputation_modifiers: { archie: 5, markop: 5, hjumpik: 5, bowser: 5 }
                 }
             }
         }

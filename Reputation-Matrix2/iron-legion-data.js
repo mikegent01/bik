@@ -332,7 +332,7 @@ overview: {
             {
                 name: "Iron Legion Spy (Manor)",
                 role: "Deep Cover Agent",
-                description: "Assisted Humpik in Mirror Dimension. Revealed impending Supernatural Sovereignty Act. Motivations unclear.",
+                description: "Assisted hjumpik in Mirror Dimension. Revealed impending Supernatural Sovereignty Act. Motivations unclear.",
                 threatLevel: "Unknown",
                 status: "At large"
             }
