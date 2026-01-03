@@ -1,7 +1,7 @@
-// WAHbook Posts Data - Cleaned 2026-01-03T05:16:17.361Z
-// Original: 1406 posts
-// After cleanup: 1204 posts
-// Removed: 202 duplicates
+// WAHbook Posts Data - Cleaned 2026-01-03T05:20:41.450Z
+// Original: 1340 posts
+// After cleanup: 1201 posts
+// Removed: 139 duplicates
 
 export const WAHBOOK_POSTS = [
   {
@@ -1016,32 +1016,6 @@ export const WAHBOOK_POSTS = [
     "rumorId": "project_orange"
   },
   {
-    "id": "orange_fairy_village_panic",
-    "order": 70025,
-    "characterKey": "fairy_mayor_tink",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 22,
-      "hour": 16,
-      "minute": 45
-    },
-    "timestamp": "1 hour ago",
-    "content": "A dwarf, a rakshasa, and a walking steel badger just walked into town asking about \"the orange.\" Send help or popcorn, preferably both.",
-    "likes": 1203,
-    "comments": [
-      {
-        "characterKey": "waluigi",
-        "text": "Tell them the orange is in the attic having tea! WAH HA HA!"
-      },
-      {
-        "characterKey": "fairy_scout_pip",
-        "text": "We're out of popcorn. Sending fairy dust and prayers."
-      }
-    ],
-    "rumorId": "project_orange"
-  },
-  {
     "id": "orange_perrius_victory",
     "order": 70026,
     "characterKey": "perrius_annmatar",
@@ -1390,23 +1364,6 @@ export const WAHBOOK_POSTS = [
     "timestamp": "Just now",
     "content": "*whirring intensifies* Multiple targets detected. Dwarf designate: Ally. Blue toad designate: Threat. Purple figure designate: Unknown. Protocol: Protect dwarf. *cogs spin*",
     "likes": 234,
-    "comments": [],
-    "rumorId": "project_orange"
-  },
-  {
-    "id": "orange_perrius_satisfied",
-    "order": 70044,
-    "characterKey": "perrius_annmatar",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 22,
-      "hour": 18,
-      "minute": 8
-    },
-    "timestamp": "Just now",
-    "content": "There. The threads cross. The orange winds blow true. The house will eat well tonight. And I? I will collect on my bet. Magic is breath, not fuel. Remember that.",
-    "likes": 1234,
     "comments": [],
     "rumorId": "project_orange"
   },
@@ -13539,35 +13496,6 @@ export const WAHBOOK_POSTS = [
       "score": 2.5,
       "label": "Strategic Victory",
       "type": "military"
-    }
-  },
-  {
-    "id": "delfino_gelato_betrayal",
-    "title": "The Gelato Beach Purge",
-    "date": {
-      "day": 27,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "mayor_melon",
-    "arc": "delfino_unrest",
-    "arcPosition": "rising",
-    "description": "Mayor Melon has officially aligned Gelato Beach with the Mushroom Regency. In a move condemned by the Noki Elders, Gelato police forcibly expelled Noki refugees into the sea on makeshift rafts. This betrayal has unified the western factions against the 'Gelato-Regency Axis.'",
-    "targets": [
-      "mayor_melon",
-      "refugee_nola",
-      "noki_shellfish"
-    ],
-    "effects": {
-      "gelato_loyalists": 20,
-      "noki_shellfish": -20,
-      "pianta_syndicate": -10
-    },
-    "cycle_impact": {
-      "score": 1.8,
-      "label": "Humanitarian Crisis",
-      "type": "political"
     }
   },
   {
@@ -27533,3 +27461,8 @@ export const WAHBOOK_POSTS = [
     "rumorId": "greenhouse_inferno_confession"
   }
 ];
+
+// Export helper for event integration
+export function loadEventPosts() {
+    return Promise.resolve([]);
+}

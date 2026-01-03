@@ -500,6 +500,9 @@ function renderImagesTab(container, imageReport) {
 /**
  * Render the duplicates tab
  */
+/**
+ * Render the duplicates tab
+ */
 function renderDuplicatesTab(container, duplicateReport) {
     if (duplicateReport.length === 0) {
         container.innerHTML = `
@@ -510,6 +513,51 @@ function renderDuplicatesTab(container, duplicateReport) {
         return;
     }
     
+    // Bulk actions bar
+    const bulkActions = `
+        <div class="debug-bulk-actions" style="
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: var(--wahbook-bg-tertiary, #1a1a2e);
+            border-radius: 8px;
+            border: 1px solid #333;
+        ">
+            <button class="debug-btn" id="mark-all-duplicates" style="
+                flex: 1;
+                background: #ff4444;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-weight: 600;
+            ">
+                🗑️ Mark All for Deletion (${duplicateReport.length})
+            </button>
+            <button class="debug-btn" id="unmark-all-duplicates" style="
+                flex: 1;
+                background: #666;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-weight: 600;
+            ">
+                ↩️ Unmark All (${markedForRemoval.size})
+            </button>
+        </div>
+        <div style="
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: rgba(255,107,53,0.1);
+            border-radius: 6px;
+            border-left: 3px solid #ff6b35;
+        ">
+            💡 <strong>Tip:</strong> "Mark All" will mark the <em>duplicate</em> (second occurrence), keeping the original post.
+        </div>
+    `;
+    
     const items = duplicateReport.map((dup, index) => {
         const post1 = WAHBOOK_POSTS[dup.post1Index];
         const post2 = WAHBOOK_POSTS[dup.post2Index];
@@ -519,37 +567,63 @@ function renderDuplicatesTab(container, duplicateReport) {
             <div class="debug-item duplicate ${isMarked ? 'marked-for-removal' : ''}" data-dup-index="${index}">
                 <div class="debug-item-header">
                     <span class="debug-item-title">${dup.reason}</span>
-                    <span class="debug-item-status status-duplicate">duplicate</span>
+                    <span class="debug-item-status status-duplicate">${isMarked ? 'MARKED' : 'duplicate'}</span>
                 </div>
                 <div class="debug-item-detail">
                     <strong>Original (index ${dup.post1Index}):</strong><br>
                     ID: ${post1?.id || 'N/A'}<br>
+                    By: ${post1?.characterKey || 'Unknown'}<br>
                     "${(post1?.content || '').substring(0, 80)}..."<br><br>
                     
                     <strong>Duplicate (index ${dup.post2Index}):</strong><br>
                     ID: ${post2?.id || 'N/A'}<br>
+                    By: ${post2?.characterKey || 'Unknown'}<br>
                     "${(post2?.content || '').substring(0, 80)}..."
                 </div>
                 <div class="debug-item-actions">
-                    <button class="debug-btn debug-btn-remove" data-action="mark" data-index="${dup.post2Index}">
+                    <button class="debug-btn ${isMarked ? 'debug-btn-keep' : 'debug-btn-remove'}" 
+                            data-action="toggle-mark" 
+                            data-index="${dup.post2Index}">
                         ${isMarked ? '↩️ Unmark' : '🗑️ Mark for Removal'}
                     </button>
                     <button class="debug-btn debug-btn-view" data-action="view" data-post-id="${post2?.id}">
                         👁️ View
+                    </button>
+                    <button class="debug-btn" style="background:#8844ff;color:white;" 
+                            data-action="compare" 
+                            data-index1="${dup.post1Index}" 
+                            data-index2="${dup.post2Index}">
+                        🔍 Compare
                     </button>
                 </div>
             </div>
         `;
     }).join('');
     
-    container.innerHTML = items;
+    container.innerHTML = bulkActions + items;
     
-    // Add event listeners for buttons
+    // Mark All button
+    document.getElementById('mark-all-duplicates')?.addEventListener('click', () => {
+        duplicateReport.forEach(dup => {
+            markedForRemoval.add(dup.post2Index);
+        });
+        renderDuplicatesTab(container, duplicateReport);
+        updateRemovalCount();
+    });
+    
+    // Unmark All button
+    document.getElementById('unmark-all-duplicates')?.addEventListener('click', () => {
+        markedForRemoval.clear();
+        renderDuplicatesTab(container, duplicateReport);
+        updateRemovalCount();
+    });
+    
+    // Individual button handlers
     container.querySelectorAll('.debug-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const action = btn.dataset.action;
             
-            if (action === 'mark') {
+            if (action === 'toggle-mark') {
                 const index = parseInt(btn.dataset.index);
                 if (markedForRemoval.has(index)) {
                     markedForRemoval.delete(index);
@@ -557,22 +631,186 @@ function renderDuplicatesTab(container, duplicateReport) {
                     markedForRemoval.add(index);
                 }
                 renderDuplicatesTab(container, duplicateReport);
+                updateRemovalCount();
             } else if (action === 'view') {
                 const postId = btn.dataset.postId;
-                // Scroll to post or show in modal
                 const postEl = document.querySelector(`[data-post-id="${postId}"]`);
                 if (postEl) {
                     postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     postEl.style.outline = '3px solid #ff6b35';
                     setTimeout(() => postEl.style.outline = '', 3000);
+                } else {
+                    alert(`Post "${postId}" not currently rendered on page.`);
                 }
+            } else if (action === 'compare') {
+                const index1 = parseInt(btn.dataset.index1);
+                const index2 = parseInt(btn.dataset.index2);
+                showComparisonModal(WAHBOOK_POSTS[index1], WAHBOOK_POSTS[index2]);
             }
         });
     });
 }
 
 /**
- * Render the summary tab
+ * Update the removal count badge in the header
+ */
+function updateRemovalCount() {
+    const badge = document.getElementById('duplicate-count');
+    if (badge) {
+        badge.textContent = markedForRemoval.size > 0 
+            ? `${markedForRemoval.size} marked` 
+            : duplicatePosts.length;
+        badge.style.background = markedForRemoval.size > 0 ? '#ff4444' : '#ffaa00';
+    }
+}
+
+/**
+ * Show a modal comparing two posts side by side
+ */
+function showComparisonModal(post1, post2) {
+    // Remove existing modal
+    document.getElementById('debug-comparison-modal')?.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'debug-comparison-modal';
+    modal.innerHTML = `
+        <style>
+            #debug-comparison-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            .comparison-content {
+                background: var(--wahbook-bg-secondary, #1a1a2e);
+                border-radius: 12px;
+                max-width: 900px;
+                width: 100%;
+                max-height: 80vh;
+                overflow: auto;
+                border: 2px solid #ff6b35;
+            }
+            .comparison-header {
+                background: linear-gradient(135deg, #ff6b35, #ff8c42);
+                color: white;
+                padding: 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .comparison-header h3 {
+                margin: 0;
+            }
+            .comparison-body {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1px;
+                background: #333;
+            }
+            .comparison-post {
+                background: var(--wahbook-bg-tertiary, #252540);
+                padding: 16px;
+            }
+            .comparison-post h4 {
+                margin: 0 0 12px;
+                color: #ff6b35;
+                font-size: 14px;
+            }
+            .comparison-post.original h4 {
+                color: #44ff44;
+            }
+            .comparison-post.duplicate h4 {
+                color: #ff4444;
+            }
+            .comparison-field {
+                margin-bottom: 8px;
+                font-size: 12px;
+            }
+            .comparison-field strong {
+                color: var(--wahbook-text-secondary, #888);
+            }
+            .comparison-field-value {
+                color: var(--wahbook-text-primary, #fff);
+                word-break: break-word;
+            }
+            .comparison-field-value.different {
+                background: rgba(255,68,68,0.2);
+                padding: 2px 4px;
+                border-radius: 3px;
+            }
+            .comparison-close {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        </style>
+        
+        <div class="comparison-content">
+            <div class="comparison-header">
+                <h3>🔍 Post Comparison</h3>
+                <button class="comparison-close" id="close-comparison">×</button>
+            </div>
+            <div class="comparison-body">
+                <div class="comparison-post original">
+                    <h4>✅ ORIGINAL (Keep)</h4>
+                    ${renderPostDetails(post1)}
+                </div>
+                <div class="comparison-post duplicate">
+                    <h4>🗑️ DUPLICATE (Remove)</h4>
+                    ${renderPostDetails(post2)}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Close handlers
+    document.getElementById('close-comparison')?.addEventListener('click', () => {
+        modal.remove();
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
+}
+
+/**
+ * Render post details for comparison
+ */
+function renderPostDetails(post) {
+    if (!post) return '<p style="color:#ff4444;">Post not found</p>';
+    
+    const fields = [
+        { label: 'ID', value: post.id },
+        { label: 'Character', value: post.characterKey },
+        { label: 'Date', value: post.date ? `${post.date.year}-${post.date.monthIndex}-${post.date.day}` : 'N/A' },
+        { label: 'Type', value: post.type || 'post' },
+        { label: 'Content', value: post.content || 'No content' },
+        { label: 'Comments', value: post.comments ? `${post.comments.length} comments` : 'None' },
+        { label: 'Tags', value: post.tags?.join(', ') || 'None' },
+        { label: 'Reactions', value: JSON.stringify(post.reactions || {}) }
+    ];
+    
+    return fields.map(f => `
+        <div class="comparison-field">
+            <strong>${f.label}:</strong>
+            <div class="comparison-field-value">${f.value}</div>
+        </div>
+    `).join('');
+}
+
+/**
+ * Render the summary tab - UPDATED with removal count
  */
 function renderSummaryTab(container, imageReport, duplicateReport) {
     const totalPosts = WAHBOOK_POSTS.length;
@@ -586,8 +824,9 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
             
             <p><strong>Total Posts:</strong> ${totalPosts}</p>
             <p><strong>Unique Authors:</strong> ${uniqueCharacters}</p>
-            <p><strong>Duplicate Posts:</strong> <span style="color:${duplicateReport.length > 0 ? '#ffaa00' : '#44ff44'}">${duplicateReport.length}</span></p>
-            <p><strong>Marked for Removal:</strong> <span style="color:#ff4444">${markedForRemoval.size}</span></p>
+            <p><strong>Duplicate Posts Found:</strong> <span style="color:${duplicateReport.length > 0 ? '#ffaa00' : '#44ff44'}">${duplicateReport.length}</span></p>
+            <p><strong>Marked for Removal:</strong> <span style="color:#ff4444;font-weight:bold;">${markedForRemoval.size}</span></p>
+            <p><strong>Posts After Cleanup:</strong> <span style="color:#44ff44;">${totalPosts - markedForRemoval.size}</span></p>
             
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
             
@@ -599,15 +838,45 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
             
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
             
-            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">⚙️ Actions</h4>
+            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">🚀 Quick Actions</h4>
+            
+            <div style="display:flex;flex-direction:column;gap:8px;">
+                <button class="debug-export-btn primary" id="summary-mark-all" style="padding:10px;border:none;border-radius:6px;cursor:pointer;background:#ff4444;color:white;font-weight:600;">
+                    🗑️ Mark All ${duplicateReport.length} Duplicates for Removal
+                </button>
+                <button class="debug-export-btn secondary" id="summary-clear-all" style="padding:10px;border:none;border-radius:6px;cursor:pointer;background:#666;color:white;">
+                    ↩️ Clear All Marks
+                </button>
+            </div>
+            
+            <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
             
             <p style="font-size:11px;color:#888;">
-                • Click "Export Cleaned Data" to download assembly-data.js with duplicates removed<br>
-                • Click "Export Report" to download a JSON report of all issues
+                💡 After marking duplicates, click <strong>"Export Cleaned Data"</strong> to download a new assembly-data.js file with duplicates removed.
             </p>
         </div>
     `;
+    
+    // Quick action buttons
+    document.getElementById('summary-mark-all')?.addEventListener('click', () => {
+        duplicateReport.forEach(dup => {
+            markedForRemoval.add(dup.post2Index);
+        });
+        renderSummaryTab(container, imageReport, duplicateReport);
+        updateRemovalCount();
+    });
+    
+    document.getElementById('summary-clear-all')?.addEventListener('click', () => {
+        markedForRemoval.clear();
+        renderSummaryTab(container, imageReport, duplicateReport);
+        updateRemovalCount();
+    });
 }
+
+
+/**
+ * Render the summary tab
+ */
 
 /**
  * Update the debug panel (called when image tests complete)
