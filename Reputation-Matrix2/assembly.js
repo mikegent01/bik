@@ -1380,39 +1380,60 @@ function getCharacterData(characterKey) {
 function getVisiblePosts() {
     return WAHBOOK_POSTS.filter(p => isContentVisible(p?.date));
 }
+    
 function getTrendingScore(post) {
-    // --- 1. how many times has the user seen this post? ---
-    const seenCount = (state.userState?.seenPostIds || [])
-        .filter(id => id === post.id).length;
-
-    // --- 2. recency: days since post (min 0) ---
-    let daysSince = 30; // default “old”
+    // --- 1. Recency Calculation ---
+    let daysSince = 0;
     if (post.date) {
-        const postDay  = (post.date.year * 365) + (post.date.monthIndex * 30) + post.date.day;
-        const currDay  = (CURRENT_GAME_DATE.year * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
+        const postDay = (post.date.year * 365) + (post.date.monthIndex * 30) + post.date.day;
+        const currDay = (CURRENT_GAME_DATE.year * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
         daysSince = Math.max(0, currDay - postDay);
     }
 
-    // --- 3. deterministic random 0-1 per post+day ---
+    // --- 2. Base Freshness Score (The "Newness" Weight) ---
+    // We use a high base number divided by time. This creates "tiers" of content.
+    // Day 0 (Today): 500 points
+    // Day 1 (Yesterday): 250 points
+    // Day 2: 166 points
+    // This ensures a new post with 0 likes usually beats a 2-day-old post with 50 likes.
+    let score = 500 / (daysSince + 1);
+
+    // --- 3. Unseen Boost ---
+    // If the user hasn't seen it, multiply the score. 
+    // This pushes unseen content to the very top of its specific "Day tier".
+    const seenCount = (state.userState?.seenPostIds || [])
+        .filter(id => id === post.id).length;
+
+    if (seenCount === 0) {
+        score *= 1.5; // Massive boost for brand new, unseen things
+    } else {
+        score *= 0.8; // Slight penalty if already seen, pushing it below unseen stuff from the same day
+    }
+
+    // --- 4. Engagement (Tie-Breaker Only) ---
+    // We add this as a flat bonus, not a multiplier.
+    // This sorts posts from *the same day* by popularity, but won't let 
+    // an old popular post overtake a brand new post.
+    const likes = post.likes || 0;
+    const comments = post.comments ? post.comments.length : 0;
+    
+    // Comments worth 5pts, Likes worth 2pts
+    score += (likes * 2) + (comments * 5);
+
+    // --- 5. Deterministic Jitter ---
+    // Adds +/- 5% variance so the list order feels organic but stable per day
     const seed = `${post.id}@${CURRENT_GAME_DATE.year}-${CURRENT_GAME_DATE.monthIndex}-${CURRENT_GAME_DATE.day}`;
     let h = 0;
     for (let i = 0; i < seed.length; i++) {
         h = Math.imul(h * 31, seed.charCodeAt(i)) >>> 0;
     }
-    const rand = (h % 1000000) / 1000000; // 0-1
+    const rand = (h % 1000000) / 1000000;
+    const jitter = 0.95 + (rand * 0.1);
 
-    // --- 4. unseen-boost: 1 / (1 + seenCount) → highest when never seen ---
-    const unseenBoost = 1 / (1 + seenCount);
-
-    // --- 5. gentle time decay → 1.0 (fresh) ... 0.1 (30+ days) ---
-    const timeDecay = Math.max(0.1, 1 - (daysSince * 0.03));
-
-    // --- 6. assemble a 0-100 “trending” score ---
-    const score = rand * unseenBoost * timeDecay * 100;
-
-    return score;
+    return score * jitter;
 }
-function getDaysSincePost(post) {
+
+  function getDaysSincePost(post) {
     if (!post.date) return 999;
     const postDate = new Date(post.date.year, post.date.monthIndex, post.date.day);
     const currentDate = new Date(CURRENT_GAME_DATE.year, CURRENT_GAME_DATE.monthIndex, CURRENT_GAME_DATE.day);
@@ -2131,11 +2152,11 @@ function renderForYouFeed() {
         });
     } else {
         // Recommended (Default): Freshness + Trending
-        posts.sort((a, b) => {
-            const scoreA = getTrendingScore(a) + (getPostTimeValue(a) / 1000000000); 
-            const scoreB = getTrendingScore(b) + (getPostTimeValue(b) / 1000000000);
-            return scoreB - scoreA;
-        });
+posts.sort((a, b) => {
+    // The new getTrendingScore already heavily weighs time, 
+    // so we can just compare the scores directly.
+    return getTrendingScore(b) - getTrendingScore(a);
+});
     }
 
     renderPaginatedPosts(posts, container);
