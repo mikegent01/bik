@@ -1389,25 +1389,25 @@ function getTrendingScore(post) {
         const currDay = (CURRENT_GAME_DATE.year * 365) + (CURRENT_GAME_DATE.monthIndex * 30) + CURRENT_GAME_DATE.day;
         daysSince = Math.max(0, currDay - postDay);
     }
-
     // --- 2. Base Freshness Score (The "Newness" Weight) ---
     // We use a high base number divided by time. This creates "tiers" of content.
     // Day 0 (Today): 500 points
     // Day 1 (Yesterday): 250 points
     // Day 2: 166 points
     // This ensures a new post with 0 likes usually beats a 2-day-old post with 50 likes.
-    let score = 500 / (daysSince + 1);
-
+    let score = 500 / (Math.pow(daysSince, 0.8) + 1); 
     // --- 3. Unseen Boost ---
     // If the user hasn't seen it, multiply the score. 
     // This pushes unseen content to the very top of its specific "Day tier".
-    const seenCount = (state.userState?.seenPostIds || [])
-        .filter(id => id === post.id).length;
-
+    const seenCount = (state.userState?.seenPostIds || []).filter(id => id === post.id).length;
     if (seenCount === 0) {
-        score *= 1.5; // Massive boost for brand new, unseen things
+        score *= 1.5; 
+        // --- CHANGE 2: Minimum Score for Unseen ---
+        // Ensure unseen posts never drop below a "floor" regardless of age
+        // This ensures they appear in the Unseen Bucket sort.
+        score = Math.max(score, 50); 
     } else {
-        score *= 0.8; // Slight penalty if already seen, pushing it below unseen stuff from the same day
+        score *= 0.8; 
     }
 
     // --- 4. Engagement (Tie-Breaker Only) ---
@@ -1416,12 +1416,8 @@ function getTrendingScore(post) {
     // an old popular post overtake a brand new post.
     const likes = post.likes || 0;
     const comments = post.comments ? post.comments.length : 0;
-    
-    // Comments worth 5pts, Likes worth 2pts
     score += (likes * 2) + (comments * 5);
 
-    // --- 5. Deterministic Jitter ---
-    // Adds +/- 5% variance so the list order feels organic but stable per day
     const seed = `${post.id}@${CURRENT_GAME_DATE.year}-${CURRENT_GAME_DATE.monthIndex}-${CURRENT_GAME_DATE.day}`;
     let h = 0;
     for (let i = 0; i < seed.length; i++) {
@@ -2136,8 +2132,6 @@ function renderForYouFeed() {
             if (aSeen !== bSeen) {
                 return aSeen ? 1 : -1;
             }
-            
-            // If both are unseen (or both seen), sort by newest date
             return getPostTimeValue(b) - getPostTimeValue(a);
         });
     } else if (currentSort === 'trending') {
@@ -2151,12 +2145,44 @@ function renderForYouFeed() {
             return bRatio - aRatio;
         });
     } else {
-        // Recommended (Default): Freshness + Trending
-posts.sort((a, b) => {
-    // The new getTrendingScore already heavily weighs time, 
-    // so we can just compare the scores directly.
-    return getTrendingScore(b) - getTrendingScore(a);
-});
+        // --- RECOMMENDED (DEFAULT): The "Smart Mix" ---
+        
+        // 1. Split posts into "Unseen" and "Seen" buckets
+        const unseenPosts = [];
+        const seenPosts = [];
+
+        posts.forEach(p => {
+            if (seenIds.includes(p.id)) {
+                seenPosts.push(p);
+            } else {
+                unseenPosts.push(p);
+            }
+        });
+
+        // 2. Sort each bucket independently by Trending Score
+        // This ensures the BEST unseen stuff is at the top of the unseen pile,
+        // and the BEST seen stuff is at the top of the seen pile.
+        unseenPosts.sort((a, b) => getTrendingScore(b) - getTrendingScore(a));
+        seenPosts.sort((a, b) => getTrendingScore(b) - getTrendingScore(a));
+
+        // 3. Weave (Zipper) them together
+        // We generally want to prioritize fresh discovery (Unseen), 
+        // but keep popular recaps (Seen) mixed in.
+        
+        // RATIO: 2 Unseen : 1 Seen
+        // This guarantees unseen content is prioritized but doesn't feel empty/lonely.
+        const wovenPosts = [];
+        
+        while (unseenPosts.length > 0 || seenPosts.length > 0) {
+            // Add up to 2 Unseen posts
+            if (unseenPosts.length) wovenPosts.push(unseenPosts.shift());
+            if (unseenPosts.length) wovenPosts.push(unseenPosts.shift());
+            
+            // Add 1 Seen post (Sprinkle it in)
+            if (seenPosts.length) wovenPosts.push(seenPosts.shift());
+        }
+
+        posts = wovenPosts;
     }
 
     renderPaginatedPosts(posts, container);
