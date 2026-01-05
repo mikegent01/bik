@@ -5,6 +5,1392 @@
 
 export const WAHBOOK_POSTS = [
   {
+    "id": "fractured_atrium_arrival",
+    "order": 62600,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 15 },
+    "timestamp": "5 hours ago",
+    "content": "The Oracle let go of my hand. We're in the 'Fractured Atrium'. It's circular, full of staring marble faces. The floor sigils just died... turned grey instantly.",
+    "likes": 210,
+    "comments": [
+      { "characterKey": "markop", "text": "This place feels wrong. Dead magic." },
+      { "characterKey": "eager", "text": "The faces are watching us, Boss!" }
+    ],
+    "rumorId": "planar_fracture_crisis"
+  },
+  {
+    "id": "oracle_memory_loss",
+    "order": 62601,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 17 },
+    "timestamp": "5 hours ago",
+    "content": "I can't remember how I got here. The Oracle says 'don't worry about the details, worry about the why.' Helpful.",
+    "likes": 150,
+    "comments": [
+      { "characterKey": "salam", "text": "My head is spinning too." },
+      { "characterKey": "oracle_npc", "text": "Focus on the objective, child." }
+    ],
+    "rumorId": "fractured_atrium_discovery"
+  },
+  {
+    "id": "statue_observation",
+    "order": 62602,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 20 },
+    "timestamp": "5 hours ago",
+    "content": "These statues of the Corvinarus ancestors... they look too perfect. Like someone sculpted them based on ego, not reality.",
+    "likes": 89,
+    "comments": [
+      { "characterKey": "markop", "text": "Arrogance carved in stone." },
+      { "characterKey": "perrius_annmatar", "text": "Vanity was always their sin." }
+    ],
+    "rumorId": "corvinarus_legacy"
+  },
+  {
+    "id": "markop_reunion_rage",
+    "order": 62603,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 25 },
+    "timestamp": "5 hours ago",
+    "content": "WE ARE BACK. FOUND REMI AND THE 'ORACLE'. WHERE ARE THE OTHERS? YOU LEFT US!",
+    "likes": 300,
+    "comments": [
+      { "characterKey": "eager", "text": "Boss is mad! Everyone look busy!" },
+      { "characterKey": "salam", "text": "Glad to be on solid ground, though." }
+    ],
+    "rumorId": "party_split_chaos"
+  },
+  {
+    "id": "oracle_gaslighting",
+    "order": 62604,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 27 },
+    "timestamp": "5 hours ago",
+    "content": "Markop is yelling about missing friends. The Oracle claims there were only 5 of us during the ritual. He's lying. I know he is.",
+    "likes": 412,
+    "comments": [
+      { "characterKey": "markop", "text": "I counted! We are missing people!" },
+      { "characterKey": "waluigi", "text": "Wah! I am missing too!" }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "gravity_test",
+    "order": 62605,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 30 },
+    "timestamp": "5 hours ago",
+    "content": "Tried to test the drop. Threw a crossbow bolt off the walkway. It didn't hit bottom. It just vanished mid-air. We can't fall here.",
+    "likes": 560,
+    "comments": [
+      { "characterKey": "markop", "text": "Lost to time. That's what he said." },
+      { "characterKey": "eager", "text": "Don't push me, boss!" }
+    ],
+    "rumorId": "fractured_atrium_discovery"
+  },
+  {
+    "id": "clockwork_room_entry",
+    "order": 62606,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 40 },
+    "timestamp": "5 hours ago",
+    "content": "Entered the Clockwork Room. Massive bronze wheels, telescopes pointing into the void. The gears are colliding... slowly. The sound is terrifying. A gong of dread.",
+    "likes": 330,
+    "comments": [
+      { "characterKey": "markop", "text": "It sounds like the heartbeat of a dying god." },
+      { "characterKey": "oracle_npc", "text": "Entropy comes for us all." }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "oak_tree_discovery",
+    "order": 62607,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 50 },
+    "timestamp": "5 hours ago",
+    "content": "Found an oak tree growing out of a shattered staircase. There are crystals growing out of it. The whole room is exploding in slow motion.",
+    "likes": 400,
+    "comments": [
+      { "characterKey": "green_t", "text": "The tree... I feel it from here." },
+      { "characterKey": "eager", "text": "Shiny!" }
+    ],
+    "rumorId": "fractured_atrium_discovery"
+  },
+  {
+    "id": "markop_crystal_warning",
+    "order": 62608,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 55 },
+    "timestamp": "5 hours ago",
+    "content": "DON'T TOUCH THE CRYSTALS. THEY ARE CHARGED. THIS FEELS WRONG.",
+    "likes": 220,
+    "comments": [
+      { "characterKey": "remi", "text": "I was just looking! Geez." },
+      { "characterKey": "perrius_annmatar", "text": "Listen to the mage." }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "oracle_kill_order",
+    "order": 62609,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 0 },
+    "timestamp": "5 hours ago",
+    "content": "The Oracle says there are other 'Keepers' in other versions of the manor. He says we need to kill them so there's only one. This sounds like a Highlander situation.",
+    "likes": 500,
+    "comments": [
+      { "characterKey": "archie", "text": "Wait, WE are with the other keepers!" },
+      { "characterKey": "bowser", "text": "THERE CAN ONLY BE ONE KING!" }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "markop_interrogation",
+    "order": 62610,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 5 },
+    "timestamp": "5 hours ago",
+    "content": "Asking him about Hjumpik. Dismissed. Asking about the Mages' Guild. Dismissed. He's hiding something.",
+    "likes": 310,
+    "comments": [
+      { "characterKey": "remi", "text": "He's definitely dodging questions." },
+      { "characterKey": "hjumpik", "text": "I am... currently busy dueling a fairy." }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "choose_your_path",
+    "order": 62611,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 10 },
+    "timestamp": "5 hours ago",
+    "content": "Oracle says the Purple Manor has vampires and Archie/Waluigi. The Orange Manor has rowdy people and maybe a dragon. Markop picked Purple.",
+    "likes": 600,
+    "comments": [
+      { "characterKey": "markop", "text": "Archie needs supervision. Badly." },
+      { "characterKey": "archie", "text": "Hey! I'm doing fine!" }
+    ],
+    "rumorId": "planar_fracture_crisis"
+  },
+  {
+    "id": "shadowfell_entry",
+    "order": 62612,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 15 },
+    "timestamp": "5 hours ago",
+    "content": "Just walked into a room with a half-invisible shadow playing a harp. Classy. But creepy.",
+    "likes": 450,
+    "comments": [
+      { "characterKey": "bowser", "text": "I want a harp ghost for my castle." },
+      { "characterKey": "green_t", "text": "Focus, Archie." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "vivesna_meeting",
+    "order": 62613,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 20 },
+    "timestamp": "5 hours ago",
+    "content": "Met Vivesna Corvinarus. She threw her guards under the bus immediately. 'One of the guards told me to come.' Uh huh.",
+    "likes": 320,
+    "comments": [
+      { "characterKey": "markop", "text": "Don't trust her." },
+      { "characterKey": "archie", "text": "I trust no one in a cape." }
+    ],
+    "rumorId": "corvinarus_legacy"
+  },
+  {
+    "id": "staff_room_reunion",
+    "order": 62614,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 25 },
+    "timestamp": "4 hours ago",
+    "content": "Found Bowser! He claims he made a 'valiant retreat.' Also Toadburt got captured by a swarm of Mages' Guild goons. Not good.",
+    "likes": 550,
+    "comments": [
+      { "characterKey": "bowser", "text": "IT WAS TACTICAL! A STRATEGIC WITHDRAWAL!" },
+      { "characterKey": "toadburt", "text": "Help..." }
+    ],
+    "rumorId": "toadburt_capture"
+  },
+  {
+    "id": "darman_knightly_alias",
+    "order": 62615,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 30 },
+    "timestamp": "4 hours ago",
+    "content": "Guards at the door. Panic time. I told them my name is Darman Knightly. Hope that's not a real person.",
+    "likes": 670,
+    "comments": [
+      { "characterKey": "remi", "text": "You are terrible at lying." },
+      { "characterKey": "archie", "text": "It worked though!" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "dinner_table_shock",
+    "order": 62616,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 35 },
+    "timestamp": "4 hours ago",
+    "content": "The dinner host... he looks like the Oracle. But older? Meaner? Also Green T is at the kids' table.",
+    "likes": 400,
+    "comments": [
+      { "characterKey": "green_t", "text": "It's humiliating." },
+      { "characterKey": "markop", "text": "Orangus Cornelius. Be careful." }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "bowser_king_seat",
+    "order": 62617,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 38 },
+    "timestamp": "4 hours ago",
+    "content": "Bowser tried to take the head of the table. Had to talk him down. He's NOT happy.",
+    "likes": 800,
+    "comments": [
+      { "characterKey": "bowser", "text": "I AM THE KING! I SIT WHERE I WANT!" },
+      { "characterKey": "vivesna_corvinarus", "text": "How quaint." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "parlor_ghost",
+    "order": 62618,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 40 },
+    "timestamp": "4 hours ago",
+    "content": "In the parlor. Met a ghost named Perrius Annmatar. He says the crystals are KEEPING the monster IN, not out. The Oracle is tricking us!",
+    "likes": 520,
+    "comments": [
+      { "characterKey": "markop", "text": "KNEW IT. VINDICATION." },
+      { "characterKey": "oracle_npc", "text": "Do not listen to the echoes of the dead." }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "usk_vampire_ally",
+    "order": 62619,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 45 },
+    "timestamp": "4 hours ago",
+    "content": "A vampire named Usk was sitting on the couch the whole time. He just... joined our party? He wants to save the 'Head' of the manor.",
+    "likes": 390,
+    "comments": [
+      { "characterKey": "usk", "text": "I serve the house. Always." },
+      { "characterKey": "eager", "text": "He has big teeth!" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "journal_discovery",
+    "order": 62620,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 50 },
+    "timestamp": "4 hours ago",
+    "content": "Found a journal in a coat pocket. 'The vessel isn't ready... results grotesque.' The author is starving himself to focus. This is bad science.",
+    "likes": 440,
+    "comments": [
+      { "characterKey": "markop", "text": "Necromancy. It's always Necromancy." },
+      { "characterKey": "david_vampire", "text": "Fascinating research though." }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "wario_coupon",
+    "order": 62621,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 55 },
+    "timestamp": "4 hours ago",
+    "content": "Also found an expired coupon. Number ends in -W. 'Call me.' Wario has been here.",
+    "likes": 600,
+    "comments": [
+      { "characterKey": "wario", "text": "WAH! NO REFUNDS! THAT COUPON IS VOID!" },
+      { "characterKey": "remi", "text": "Of course it is." }
+    ],
+    "rumorId": "wario_presence"
+  },
+  {
+    "id": "frozen_creature",
+    "order": 62622,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 0 },
+    "timestamp": "4 hours ago",
+    "content": "Back with Markop. We found a magically frozen monster in a case. Can't tell what it is. Markop wants to draw it.",
+    "likes": 280,
+    "comments": [
+      { "characterKey": "markop", "text": "It's biologically impossible. I need to study it." },
+      { "characterKey": "eager", "text": "Don't poke it!" }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "lab_stumble",
+    "order": 62623,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 10 },
+    "timestamp": "4 hours ago",
+    "content": "Tripped and stumbled into a hidden room. It's a lab. Glass tanks. Tubes. Malformed bodies. This is SICK.",
+    "likes": 350,
+    "comments": [
+      { "characterKey": "remi", "text": "It was awful. They were... weeping." },
+      { "characterKey": "bones", "text": "Sounds like the Legion factory..." }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "oracle_wrong_lever",
+    "order": 62624,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 12 },
+    "timestamp": "4 hours ago",
+    "content": "Caught the Oracle at the control panel. He claims he 'accidentally pulled the wrong lever.' Lying to my face.",
+    "likes": 410,
+    "comments": [
+      { "characterKey": "archie", "text": "Classic villain line." },
+      { "characterKey": "oracle_npc", "text": "Machines are fickle." }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "magic_analysis",
+    "order": 62625,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 15 },
+    "timestamp": "4 hours ago",
+    "content": "Analyzed the tanks. Abjuration on the outside (shielding), Necromancy on the inside (death magic). They are keeping something trapped in there.",
+    "likes": 500,
+    "comments": [
+      { "characterKey": "markop", "text": "Nice work spotting the seals." },
+      { "characterKey": "franklin_mage", "text": "Interesting combination..." }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "orangus_introduction",
+    "order": 62626,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 20 },
+    "timestamp": "3 hours ago",
+    "content": "Dinner host introduced himself: Orangus Cornelius. Head of the Estate. He is definitely the Big Bad.",
+    "likes": 330,
+    "comments": [
+      { "characterKey": "markop", "text": "Orangus... Orange Figure. It matches." },
+      { "characterKey": "bowser", "text": "He looks weak. I could crush him." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "toadburt_ring",
+    "order": 62627,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 25 },
+    "timestamp": "3 hours ago",
+    "content": "Toadburt is here as a 'Guest of Honor.' He's terrified. Wearing a Mages' Guild dampening ring. They've nerfed him.",
+    "likes": 460,
+    "comments": [
+      { "characterKey": "toadburt", "text": "They took my magic..." },
+      { "characterKey": "markop", "text": "We will get it off." }
+    ],
+    "rumorId": "hostage_situation"
+  },
+  {
+    "id": "darman_vs_darman",
+    "order": 62628,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 30 },
+    "timestamp": "3 hours ago",
+    "content": "Uh oh. Another guest just introduced himself as Darman Knightly. He says he's famous for drawing attention to himself. I said 'Show me proof.'",
+    "likes": 700,
+    "comments": [
+      { "characterKey": "bowser", "text": "Awkward." },
+      { "characterKey": "remi", "text": "You picked the ONE name that was already taken?!" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "joseph_jo_intro",
+    "order": 62629,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 35 },
+    "timestamp": "3 hours ago",
+    "content": "Met a vampire named Joseph Jo. Uses a 'breathing-based energy technique.' Seems bizarre.",
+    "likes": 800,
+    "comments": [
+      { "characterKey": "remi", "text": "Is that... a reference?" },
+      { "characterKey": "archie", "text": "He strikes a lot of poses." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "franklin_mage",
+    "order": 62630,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 40 },
+    "timestamp": "3 hours ago",
+    "content": "Franklin from the Mages' Guild is here observing. He says we haven't met. He's lying.",
+    "likes": 290,
+    "comments": [
+      { "characterKey": "markop", "text": "The Guild is involved in everything." },
+      { "characterKey": "franklin_mage", "text": "I have a terrible memory." }
+    ],
+    "rumorId": "mages_guild_corruption"
+  },
+  {
+    "id": "bowser_time_check_1",
+    "order": 62631,
+    "characterKey": "bowser",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 45 },
+    "timestamp": "3 hours ago",
+    "content": "1:53. Still talking. I am hungry. When is the meat coming?",
+    "likes": 600,
+    "comments": [
+      { "characterKey": "archie", "text": "Patience, your highness." },
+      { "characterKey": "bowser", "text": "I will eat the waiter soon." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "green_t_signaling",
+    "order": 62632,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 50 },
+    "timestamp": "3 hours ago",
+    "content": "Green T is making weird hand signals. 'Meet me in the bathroom.' Got it.",
+    "likes": 410,
+    "comments": [
+      { "characterKey": "remi", "text": "Scandalous!" },
+      { "characterKey": "green_t", "text": "It was tactical!" }
+    ],
+    "rumorId": "green_t_plan"
+  },
+  {
+    "id": "bowser_time_check_2",
+    "order": 62633,
+    "characterKey": "bowser",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 55 },
+    "timestamp": "3 hours ago",
+    "content": "3:14. Vivesna says she'll be Princess soon. Over my dead body. PEACH is the only Princess.",
+    "likes": 550,
+    "comments": [
+      { "characterKey": "peach_loyalist", "text": "Respect to the Koopa King?" },
+      { "characterKey": "vivesna_corvinarus", "text": "Times change, turtle." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "food_order_chaos",
+    "order": 62634,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 0 },
+    "timestamp": "3 hours ago",
+    "content": "Menu options: Tomatoes, Bone Marrow, Fang Tip Skewers. I asked for 'Roasted Pig' and 'Purple Grape Wine'. The servant hated it but accepted the order.",
+    "likes": 620,
+    "comments": [
+      { "characterKey": "remi", "text": "Power move." },
+      { "characterKey": "bowser", "text": "I want the pig too." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "bowser_time_check_3",
+    "order": 62635,
+    "characterKey": "bowser",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 5 },
+    "timestamp": "3 hours ago",
+    "content": "4:09. Finally bringing food out.",
+    "likes": 480,
+    "comments": [
+      { "characterKey": "archie", "text": "About time." },
+      { "characterKey": "green_t", "text": "Don't eat the red stuff." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "philosophical_questions",
+    "order": 62636,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 10 },
+    "timestamp": "3 hours ago",
+    "content": "Orangus is asking deep questions. 'What remains of you worth keeping?' I said 'My personal freedom.' He put the answers in a bin.",
+    "likes": 530,
+    "comments": [
+      { "characterKey": "remi", "text": "Edgy." },
+      { "characterKey": "markop", "text": "He's evaluating your souls." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "bathroom_break",
+    "order": 62637,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 15 },
+    "timestamp": "2 hours ago",
+    "content": "Excuse me, gotta use the little boys' room. Green T headed there too. Knight escorting me. Blocked the door with a cabinet.",
+    "likes": 390,
+    "comments": [
+      { "characterKey": "darmin_knightly_guard", "text": "I am waiting outside." },
+      { "characterKey": "green_t", "text": "Hurry up." }
+    ],
+    "rumorId": "green_t_plan"
+  },
+  {
+    "id": "green_t_plan",
+    "order": 62638,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 20 },
+    "timestamp": "2 hours ago",
+    "content": "Green T spilled the beans. Orangus wants to contain something. We need to UN-contain it. Destroy the timelines. Merge 2 into 1.",
+    "likes": 600,
+    "comments": [
+      { "characterKey": "green_t", "text": "Keep your voice down." },
+      { "characterKey": "markop", "text": "Merge the timelines... that matches the Oracle's fears." }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "the_key_and_gun",
+    "order": 62639,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 22 },
+    "timestamp": "2 hours ago",
+    "content": "Green T swiped a key from Orangus! And he has a pistol. 'Emergencies only.' This toad is full of surprises.",
+    "likes": 750,
+    "comments": [
+      { "characterKey": "dan_the_toad", "text": "He learned from the best." },
+      { "characterKey": "remi", "text": "A gun?! Where was he hiding that?" }
+    ],
+    "rumorId": "green_t_plan"
+  },
+  {
+    "id": "destroy_the_crystal",
+    "order": 62640,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 25 },
+    "timestamp": "2 hours ago",
+    "content": "Plan: Kill the guards, kill Orangus, shatter the crystal, Beast rises. Simple. Right?",
+    "likes": 500,
+    "comments": [
+      { "characterKey": "bowser", "text": "Finally. The smashing part." },
+      { "characterKey": "markop", "text": "Be careful, Archie." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "guestbook_names",
+    "order": 62641,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 30 },
+    "timestamp": "2 hours ago",
+    "content": "Found the Guest Book in the foyer. Only names: Vostolas, Lyranth, The Oracle... and scribbled in: Bowser, Archie, Green Toad. We were always meant to be here.",
+    "likes": 590,
+    "comments": [
+      { "characterKey": "markop", "text": "Predestination paradox." },
+      { "characterKey": "archie", "text": "I hate fate." }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "silver_toilet",
+    "order": 62642,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 35 },
+    "timestamp": "2 hours ago",
+    "content": "Checked the bathroom. There is silver in the toilet. No water. Usk said 'Use the bucket.' Vampires are gross.",
+    "likes": 310,
+    "comments": [
+      { "characterKey": "usk", "text": "Plumbing is for mortals." },
+      { "characterKey": "eager", "text": "Eww!" }
+    ],
+    "rumorId": "manor_plumbing"
+  },
+  {
+    "id": "possession_fail",
+    "order": 62643,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 45 },
+    "timestamp": "2 hours ago",
+    "content": "Plan A failed. Perrius tried to possess a guard to let us into the ballroom. Got caught immediately. Plan B: Sneaking.",
+    "likes": 280,
+    "comments": [
+      { "characterKey": "perrius_annmatar", "text": "I tried my best." },
+      { "characterKey": "remi", "text": "It's okay, ghost friend." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "ballroom_entry",
+    "order": 62644,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 0 },
+    "timestamp": "2 hours ago",
+    "content": "Breached the Ballroom. It's a wreck. Headless dancers contorting to endless music. Smells like old sweat and blood.",
+    "likes": 400,
+    "comments": [
+      { "characterKey": "markop", "text": "Don't let them touch you." },
+      { "characterKey": "eager", "text": "They have no heads!" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "remi_intervenes",
+    "order": 62645,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 5 },
+    "timestamp": "2 hours ago",
+    "content": "Headless dancers attacked Perrius! Had to shoot. Running low on bolts... 5 left.",
+    "likes": 350,
+    "comments": [
+      { "characterKey": "perrius_annmatar", "text": "Thank you for the assist." },
+      { "characterKey": "wario", "text": "Should have bought more ammo!" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "time_check_late",
+    "order": 62646,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 15 },
+    "timestamp": "30 minutes ago",
+    "content": "7:15 AM. We've been at this dinner for HOURS. Walking back to the table now.",
+    "likes": 300,
+    "comments": [
+      { "characterKey": "bowser", "text": "I am so bored." },
+      { "characterKey": "green_t", "text": "Get ready." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "toadburt_clean_hands",
+    "order": 62647,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 18 },
+    "timestamp": "25 minutes ago",
+    "content": "Passed Toadburt. He put up his hands to show me he's 'clean'. THE RING IS GONE. No dampening ring.",
+    "likes": 650,
+    "comments": [
+      { "characterKey": "markop", "text": "He can cast!" },
+      { "characterKey": "toadburt", "text": "I'm ready to explode something." }
+    ],
+    "rumorId": "toadburt_capture"
+  },
+  {
+    "id": "toadburt_signal",
+    "order": 62648,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 20 },
+    "timestamp": "20 minutes ago",
+    "content": "Whispered to Toadburt: 'Regroup when it starts.' He knows something is going down.",
+    "likes": 500,
+    "comments": [
+      { "characterKey": "remi", "text": "Save him!" },
+      { "characterKey": "bowser", "text": "We need all hands." }
+    ],
+    "rumorId": "green_t_plan"
+  },
+  {
+    "id": "bowser_complaint",
+    "order": 62649,
+    "characterKey": "bowser",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 30 },
+    "timestamp": "10 minutes ago",
+    "content": "Archie is back. 'Long leak,' he says. We can't fight all these guys!",
+    "likes": 400,
+    "comments": [
+      { "characterKey": "archie", "text": "We have a new mission." },
+      { "characterKey": "green_t", "text": "Yes we can." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "new_mission_start",
+    "order": 62650,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 38 },
+    "timestamp": "Just now",
+    "content": "Time is 7:38 AM. Green T is ready. I'm ready. Bowser is... hungry. We are taking down the house.",
+    "likes": 900,
+    "comments": [
+      { "characterKey": "markop", "text": "DO IT." },
+      { "characterKey": "remi", "text": "We're coming for you!" }
+    ],
+    "rumorId": "climax_start"
+  },
+  {
+    "id": "remi_ballroom_breach",
+    "order": 62691,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 38 },
+    "timestamp": "Just now",
+    "content": "We pushed into the ballroom. It's not empty like before. It's... flickering. One second it's ruined, the next it's full of people eating dinner, then it's ruined again. I saw ARCHIE for a split second! He looked terrified!",
+    "likes": 789,
+    "comments": [
+      { "characterKey": "archie", "text": "REMI?! I HEARD YOU!" },
+      { "characterKey": "eager", "text": "The worlds are mashing together!" }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "markop_feels_orange",
+    "order": 62692,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 39 },
+    "timestamp": "Just now",
+    "content": "The purple crystal shows the dining hall. The orange one feels... less magical. We might have to breach through there.",
+    "likes": 350,
+    "comments": [
+      { "characterKey": "remi", "text": "Lead the way, Markop." },
+      { "characterKey": "oracle_npc", "text": "No! Stop!" }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "bowser_whisper_confusion",
+    "order": 62693,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 36 },
+    "timestamp": "4 hours ago",
+    "content": "Whispered 'Knock heads later' to Bowser. He asked 'Vampire heads?'. No, Bowser. Just heads.",
+    "likes": 510,
+    "comments": [
+      { "characterKey": "bowser", "text": "Vampire heads are better trophies." },
+      { "characterKey": "remi", "text": "Focus!" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "vaxillus_dog_threat",
+    "order": 62694,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 49 },
+    "timestamp": "3 hours ago",
+    "content": "Vaxillus really loves his dogs. He's the type of guy to feed you to them.",
+    "likes": 220,
+    "comments": [
+      { "characterKey": "remi", "text": "I like dogs!" },
+      { "characterKey": "archie", "text": "Not these ones, Remi." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "servant_annoyance",
+    "order": 62695,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 1 },
+    "timestamp": "3 hours ago",
+    "content": "The servant narrowed his eyes when I ordered the pig. 'The guest is always right.' Yeah, keep telling yourself that buddy.",
+    "likes": 440,
+    "comments": [
+      { "characterKey": "bowser", "text": "I should have eaten him." },
+      { "characterKey": "markop", "text": "Don't antagonize the staff." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "green_t_bathroom_convo",
+    "order": 62696,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 18 },
+    "timestamp": "2 hours ago",
+    "content": "Green T asked 'Why don't you help?' He thinks I was going to run away. I'm offended. I'm tactical.",
+    "likes": 380,
+    "comments": [
+      { "characterKey": "green_t", "text": "Tactical retreat is still retreat." },
+      { "characterKey": "archie", "text": "Ouch." }
+    ],
+    "rumorId": "green_t_plan"
+  },
+  {
+    "id": "timelines_merge_theory",
+    "order": 62697,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 21 },
+    "timestamp": "2 hours ago",
+    "content": "If we kill the protectors, the crystal shatters, the beast rises, the timelines merge. It's a suicide mission. I love it.",
+    "likes": 650,
+    "comments": [
+      { "characterKey": "markop", "text": "It's the only way." },
+      { "characterKey": "bowser", "text": "FOR THE KINGDOM!" }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "final_stand_prep",
+    "order": 62698,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 40 },
+    "timestamp": "Just now",
+    "content": "Toadburt is looking at me. Bowser is looking at me. Green T has his hand on his pistol. It's go time.",
+    "likes": 800,
+    "comments": [
+      { "characterKey": "green_t", "text": "On my signal." },
+      { "characterKey": "toadburt", "text": "Let's do this." }
+    ],
+    "rumorId": "climax_start"
+  },
+  {
+    "id": "remi_final_check",
+    "order": 62699,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 40 },
+    "timestamp": "Just now",
+    "content": "5 bolts left. A vampire ally. A ghost. And Markop. We can do this. We HAVE to do this.",
+    "likes": 700,
+    "comments": [
+      { "characterKey": "markop", "text": "I have spells left. Let's go." },
+      { "characterKey": "usk", "text": "Lead on." }
+    ],
+    "rumorId": "climax_start"
+  },
+  {
+    "id": "markop_lab_return",
+    "order": 62700,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 41 },
+    "timestamp": "Just now",
+    "content": "I'm looking at the Oracle. He knows we know. This conversation is over.",
+    "likes": 660,
+    "comments": [
+      { "characterKey": "remi", "text": "He's reaching for the lever!" },
+      { "characterKey": "oracle_npc", "text": "It is too late." }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+    {
+    "id": "corvinarus_statue_gaze",
+    "order": 62653,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 22 },
+    "timestamp": "5 hours ago",
+    "content": "The eyes of these statues follow you. Not magically, just... judgmentally. Corvinarus ego is strong here.",
+    "likes": 120,
+    "comments": [
+      { "characterKey": "markop", "text": "Just stone. Ignore them." },
+      { "characterKey": "eager", "text": "I stuck my tongue out at one." }
+    ],
+    "rumorId": "corvinarus_legacy"
+  },
+  {
+    "id": "sigil_power_drain",
+    "order": 62654,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 16 },
+    "timestamp": "5 hours ago",
+    "content": "The teleportation circle just died. Sigils turned grey. We are stuck.",
+    "likes": 250,
+    "comments": [
+      { "characterKey": "remi", "text": "Don't panic, Markop." },
+      { "characterKey": "salam", "text": "We'll find another way out." }
+    ],
+    "rumorId": "planar_fracture_crisis"
+  },
+  {
+    "id": "salam_slip",
+    "order": 62655,
+    "characterKey": "eager",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 53 },
+    "timestamp": "5 hours ago",
+    "content": "Salam slipped on the ledge! He pulled himself up, but whew... close one.",
+    "likes": 180,
+    "comments": [
+      { "characterKey": "salam", "text": "I meant to do that." },
+      { "characterKey": "remi", "text": "Sure you did." }
+    ],
+    "rumorId": "fractured_atrium_discovery"
+  },
+  {
+    "id": "broken_walkways",
+    "order": 62656,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 35 },
+    "timestamp": "5 hours ago",
+    "content": "Every walkway is shattered. Moving around this 'Atrium' is a parkour nightmare.",
+    "likes": 200,
+    "comments": [
+      { "characterKey": "hjumpik", "text": "I would crush that parkour." },
+      { "characterKey": "remi", "text": "Wish you were here!" }
+    ],
+    "rumorId": "fractured_atrium_discovery"
+  },
+  {
+    "id": "telescope_view",
+    "order": 62657,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 45 },
+    "timestamp": "5 hours ago",
+    "content": "Looked through the telescope. Saw a house with a running fountain. Flowers looked natural. A piece of reality in this mess?",
+    "likes": 300,
+    "comments": [
+      { "characterKey": "remi", "text": "Is that home?" },
+      { "characterKey": "oracle_npc", "text": "A reflection of what once was." }
+    ],
+    "rumorId": "planar_fracture_crisis"
+  },
+  {
+    "id": "crystal_color_change",
+    "order": 62658,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 52 },
+    "timestamp": "5 hours ago",
+    "content": "The crystals on the tree are changing color. Pulsating. It's like a heartbeat.",
+    "likes": 220,
+    "comments": [
+      { "characterKey": "markop", "text": "Magical resonance. Dangerous." },
+      { "characterKey": "eager", "text": "Pretty colors!" }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "monster_drawing_attempt",
+    "order": 62659,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 5 },
+    "timestamp": "4 hours ago",
+    "content": "Trying to draw the monster in the case. Need ink. Asked for supplies, no one answered. The claw is sticking OUT of the barrier.",
+    "likes": 150,
+    "comments": [
+      { "characterKey": "remi", "text": "Use what we have." },
+      { "characterKey": "eager", "text": "I have ketchup?" }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "blood_ink_idea",
+    "order": 62660,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 8 },
+    "timestamp": "4 hours ago",
+    "content": "Eager offered his dagger. Going to prick the monster for blood to use as ink. Science demands sacrifice.",
+    "likes": 310,
+    "comments": [
+      { "characterKey": "markop", "text": "Wait, don't-" },
+      { "characterKey": "eager", "text": "My dagger is sharp!" }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "crashing_sound",
+    "order": 62661,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 9 },
+    "timestamp": "4 hours ago",
+    "content": "Didn't stab it. Heard a HUGE crash from around the corner. Investigating now.",
+    "likes": 290,
+    "comments": [
+      { "characterKey": "markop", "text": "Quietly." },
+      { "characterKey": "remi", "text": "Shh!" }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "lab_chute",
+    "order": 62662,
+    "characterKey": "markop",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 11 },
+    "timestamp": "4 hours ago",
+    "content": "There's a disposal chute in the lab. Dumps refuse into the abyss. I shudder to think what 'refuse' means here.",
+    "likes": 200,
+    "comments": [
+      { "characterKey": "remi", "text": "Bodies. It's bodies." },
+      { "characterKey": "bones", "text": "The Legion does the same thing." }
+    ],
+    "rumorId": "vessel_experiment"
+  },
+  {
+    "id": "music_harp_shadow",
+    "order": 62663,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 16 },
+    "timestamp": "5 hours ago",
+    "content": "The harp plays itself. Or the shadow plays it. Mournful notes. Really sets the mood for impending doom.",
+    "likes": 180,
+    "comments": [
+      { "characterKey": "bowser", "text": "It's annoying." },
+      { "characterKey": "green_t", "text": "Stay focused." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "red_room_decor",
+    "order": 62664,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 18 },
+    "timestamp": "5 hours ago",
+    "content": "Red rugs with black veins. Stone tiles that swirl like oil. Whoever decorated this place has issues.",
+    "likes": 210,
+    "comments": [
+      { "characterKey": "vivesna_corvinarus", "text": "It is elegant." },
+      { "characterKey": "archie", "text": "It's tacky." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "pink_citrus",
+    "order": 62665,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 22 },
+    "timestamp": "5 hours ago",
+    "content": "Saw some cut-up pink citrus. Smells sweet but bitter. Like a grapefruit but wrong. Everything here is wrong.",
+    "likes": 150,
+    "comments": [
+      { "characterKey": "remi", "text": "Don't eat it!" },
+      { "characterKey": "bowser", "text": "Looks tasty." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "kryn_heir",
+    "order": 62666,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 22 },
+    "timestamp": "3 hours ago",
+    "content": "Kryn Cornelius. Heir to the throne of Autumnwood. Big title for a guy stuck in a time loop.",
+    "likes": 200,
+    "comments": [
+      { "characterKey": "markop", "text": "Illusions of grandeur." },
+      { "characterKey": "kryn_cornelius", "text": "Watch your tongue." }
+    ],
+    "rumorId": "corvinarus_legacy"
+  },
+  {
+    "id": "demon_guest",
+    "order": 62667,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 23 },
+    "timestamp": "3 hours ago",
+    "content": "One of the guests is definitely half-demon. Just sitting there. Sipping wine.",
+    "likes": 250,
+    "comments": [
+      { "characterKey": "waluigi", "text": "Wah! Scary!" },
+      { "characterKey": "archie", "text": "He seems chill actually." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "nelius_caretaker",
+    "order": 62668,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 32 },
+    "timestamp": "3 hours ago",
+    "content": "Nelius Ornelius. Caretaker. Names all sound the same here.",
+    "likes": 180,
+    "comments": [
+      { "characterKey": "remi", "text": "Lack of imagination." },
+      { "characterKey": "nelius_ornelius", "text": "I take care of everything." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "ekia_intro",
+    "order": 62669,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 34 },
+    "timestamp": "3 hours ago",
+    "content": "Guest named Ekia. Said hello. I said 'Everything is good.' Small talk with monsters is my specialty.",
+    "likes": 300,
+    "comments": [
+      { "characterKey": "green_t", "text": "Smooth." },
+      { "characterKey": "ekia", "text": "Indeed." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "david_vampire_scientist",
+    "order": 62670,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 42 },
+    "timestamp": "3 hours ago",
+    "content": "David. Profession: Vampire Studies. He's a scientist. Studying vampires... while being at a vampire dinner. Bold.",
+    "likes": 280,
+    "comments": [
+      { "characterKey": "markop", "text": "Self-study is important." },
+      { "characterKey": "david_vampire", "text": "Knowledge is power." }
+    ],
+    "rumorId": "vampire_science"
+  },
+  {
+    "id": "ruri_explorer",
+    "order": 62671,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 44 },
+    "timestamp": "3 hours ago",
+    "content": "Ruri, explorer hired by vampires. Sounds like a temp job from hell.",
+    "likes": 220,
+    "comments": [
+      { "characterKey": "ruri", "text": "The pay is good." },
+      { "characterKey": "remi", "text": "Do they pay in gold or blood?" }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "vostolas_archivist",
+    "order": 62672,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 46 },
+    "timestamp": "3 hours ago",
+    "content": "Vostolas the Archivist. Knows everything about the Onyx Hand history. He's the Librarian of Doom.",
+    "likes": 260,
+    "comments": [
+      { "characterKey": "markop", "text": "I would like to see his library." },
+      { "characterKey": "vostolas", "text": "It is forbidden." }
+    ],
+    "rumorId": "corvinarus_legacy"
+  },
+  {
+    "id": "vaxillus_threat",
+    "order": 62673,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 48 },
+    "timestamp": "3 hours ago",
+    "content": "Vaxillus Loumaal just threatened to put my head on a steak. 'Don't let my dogs interrupt ya.' Charming guy.",
+    "likes": 400,
+    "comments": [
+      { "characterKey": "bowser", "text": "I bite back." },
+      { "characterKey": "vaxillus_loumaal", "text": "Bark bark." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "tymnas_twins",
+    "order": 62674,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 52 },
+    "timestamp": "3 hours ago",
+    "content": "The Tymnas. 'We are both Tymnas... you will only see one of us.' Creepy twin magic? Or quantum superposition?",
+    "likes": 350,
+    "comments": [
+      { "characterKey": "markop", "text": "Doppelgangers." },
+      { "characterKey": "tymnas", "text": "We are one." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "mazenound_riddle",
+    "order": 62675,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 54 },
+    "timestamp": "3 hours ago",
+    "content": "Mazenound says I'm bound to see her if I get lost in a maze. 'Ill see you up ahead.' Ominous foreshadowing.",
+    "likes": 290,
+    "comments": [
+      { "characterKey": "remi", "text": "We hate mazes." },
+      { "characterKey": "mazenound", "text": "Everyone gets lost eventually." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "servant_whisper",
+    "order": 62676,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 2 },
+    "timestamp": "3 hours ago",
+    "content": "The servant whispered into Orangus' ear after taking my order. He knows I'm messing with him.",
+    "likes": 410,
+    "comments": [
+      { "characterKey": "green_t", "text": "Careful." },
+      { "characterKey": "archie", "text": "I like living dangerously." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "orangus_paper_bin",
+    "order": 62677,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 12 },
+    "timestamp": "3 hours ago",
+    "content": "Orangus collects our answers to his riddles and bins them. It's performative. He doesn't care about our souls.",
+    "likes": 380,
+    "comments": [
+      { "characterKey": "markop", "text": "He cares about power." },
+      { "characterKey": "orangus_cornelius", "text": "I care about the truth." }
+    ],
+    "rumorId": "oracle_betrayal"
+  },
+  {
+    "id": "cherished_memory_question",
+    "order": 62678,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 14 },
+    "timestamp": "3 hours ago",
+    "content": "Question: 'Eat your cherished memory to survive, or starve and forget who you are?' I chose to keep the memory. Starving isn't so bad.",
+    "likes": 600,
+    "comments": [
+      { "characterKey": "bowser", "text": "I would eat it. Memories don't fill you up." },
+      { "characterKey": "remi", "text": "Archie..." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "bathroom_rug",
+    "order": 62679,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 23 },
+    "timestamp": "2 hours ago",
+    "content": "Nice bathroom though. Bucket, rug, bench, mirror. 5 stars on Yelp.",
+    "likes": 250,
+    "comments": [
+      { "characterKey": "remi", "text": "Priorities!" },
+      { "characterKey": "eager", "text": "I gotta go too!" }
+    ],
+    "rumorId": "bathroom_review"
+  },
+  {
+    "id": "green_t_bravery",
+    "order": 62680,
+    "characterKey": "archie",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 26 },
+    "timestamp": "2 hours ago",
+    "content": "Asked Green T if he can fight. 'Id be dead if I couldn't.' Touche. Told him to give Dan a chance.",
+    "likes": 400,
+    "comments": [
+      { "characterKey": "dan_the_toad", "text": "I'm trying my best!" },
+      { "characterKey": "green_t", "text": "Dan is... learning." }
+    ],
+    "rumorId": "green_t_plan"
+  },
+  {
+    "id": "ballroom_flicker",
+    "order": 62681,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 2 },
+    "timestamp": "2 hours ago",
+    "content": "The ballroom is flickering between ruined state and pristine dinner. The timelines are mashing together.",
+    "likes": 440,
+    "comments": [
+      { "characterKey": "markop", "text": "Dimensional instability." },
+      { "characterKey": "eager", "text": "It hurts my eyes!" }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "crossbow_recovery",
+    "order": 62682,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 6 },
+    "timestamp": "2 hours ago",
+    "content": "There are broken crossbow bolts all over the floor here. Some are mine from... the future? The past? My head hurts.",
+    "likes": 350,
+    "comments": [
+      { "characterKey": "markop", "text": "Time is a loop here." },
+      { "characterKey": "remi", "text": "I need those bolts back." }
+    ],
+    "rumorId": "timelines_merging"
+  },
+  {
+    "id": "usk_vigilance",
+    "order": 62683,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 40 },
+    "timestamp": "2 hours ago",
+    "content": "Usk is surprisingly helpful for a vampire. 'Be more vigilant.' Good advice. We are investigating every room.",
+    "likes": 280,
+    "comments": [
+      { "characterKey": "usk", "text": "You must see what is hidden." },
+      { "characterKey": "markop", "text": "He's still a vampire." }
+    ],
+    "rumorId": "unlikely_ally"
+  },
+  {
+    "id": "corvinarus_note",
+    "order": 62684,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 32 },
+    "timestamp": "2 hours ago",
+    "content": "Found a note written to Cornelius. 'A green toad will be drained for dinner.' Green T is on the menu!!",
+    "likes": 550,
+    "comments": [
+      { "characterKey": "archie", "text": "Not on my watch." },
+      { "characterKey": "green_t", "text": "I figured as much." }
+    ],
+    "rumorId": "green_t_danger"
+  },
+  {
+    "id": "coat_pocket_gold",
+    "order": 62685,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 52 },
+    "timestamp": "2 hours ago",
+    "content": "Found 15 gold in the coat pocket with the journal. Nice.",
+    "likes": 600,
+    "comments": [
+      { "characterKey": "wario", "text": "MINE! THAT'S MINE!" },
+      { "characterKey": "remi", "text": "Finders keepers." }
+    ],
+    "rumorId": "loot_drop"
+  },
+  {
+    "id": "magic_scroll_find",
+    "order": 62686,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 58 },
+    "timestamp": "2 hours ago",
+    "content": "Found a scroll of 'Comprehend Languages'. This will be useful if the monsters start speaking ancient vampire.",
+    "likes": 320,
+    "comments": [
+      { "characterKey": "markop", "text": "Save it for the ritual text." },
+      { "characterKey": "eager", "text": "Can I read it?" }
+    ],
+    "rumorId": "loot_drop"
+  },
+  {
+    "id": "remi_home_goal",
+    "order": 62687,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 42 },
+    "timestamp": "4 hours ago",
+    "content": "Told Perrius my goal is to go home. Kivitos. I just want to go home.",
+    "likes": 500,
+    "comments": [
+      { "characterKey": "markop", "text": "We will get you home, Remi." },
+      { "characterKey": "perrius_annmatar", "text": "Hold onto that hope." }
+    ],
+    "rumorId": "remi_backstory"
+  },
+  {
+    "id": "ring_trick",
+    "order": 62688,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 43 },
+    "timestamp": "4 hours ago",
+    "content": "Perrius gave us rings. 'Slip it onto the monsters, they appear dead.' Fake death rings. Sneaky.",
+    "likes": 410,
+    "comments": [
+      { "characterKey": "archie", "text": "I want one!" },
+      { "characterKey": "markop", "text": "Illusion magic. Useful." }
+    ],
+    "rumorId": "loot_drop"
+  },
+  {
+    "id": "headless_dancers",
+    "order": 62689,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 3 },
+    "timestamp": "2 hours ago",
+    "content": "The dancers in the ballroom... they don't have heads. They are twisting and writhing. Nightmare fuel.",
+    "likes": 380,
+    "comments": [
+      { "characterKey": "eager", "text": "SCARY!" },
+      { "characterKey": "markop", "text": "Necromantic constructs." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },
+  {
+    "id": "perrius_was_friend",
+    "order": 62690,
+    "characterKey": "remi",
+    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 10 },
+    "timestamp": "2 hours ago",
+    "content": "I shot a dancer to save Perrius. I said 'That's my friend.' He said 'It WAS your friend.' Ouch.",
+    "likes": 420,
+    "comments": [
+      { "characterKey": "perrius_annmatar", "text": "The dead are not your friends." },
+      { "characterKey": "remi", "text": "Still hurts." }
+    ],
+    "rumorId": "shadow_estate_dinner"
+  },  
+  {
     "id": "orange_portal_prep",
     "order": 70001,
     "characterKey": "mages_guild_logistics",

@@ -17,6 +17,121 @@ export const AUXILIARY_PARTY = {
 
 
 export const RUMORS = [
+  {
+    "id": "planar_fracture_crisis",
+    "title": "The Fracture of Raventree",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "oracle_npc",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "Following a catastrophic ritual failure, Raventree Manor has split into three unstable dimensions: the Physical (Iron Legion controlled), the Shadowfell (Onyx Hand controlled), and the Feywild/Fracture (Wild Magic chaos). The party is separated, and communication is limited to cross-dimensional scrying crystals. The stability of the Midlands' local reality is rapidly degrading.",
+    "targets": ["markop", "remi", "archie", "bowser"],
+    "effects": {
+      "mages_guild": -15,
+      "iron_legion": -5,
+      "wild_magic_zones": 30
+    },
+    "cycle_impact": { "score": 4.0, "label": "Reality Breach", "type": "existential" }
+  },
+  {
+    "id": "oracle_betrayal",
+    "title": "The Oracle's Gambit",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "oracle_npc",
+    "arc": "raventree_manor",
+    "arcPosition": "revelation",
+    "description": "Evidence uncovered by Remi and Markop in the Fractured Atrium reveals the 'Oracle' is actually a necromantic researcher (possibly Darius Corvinarus or a fragment) attempting to build a perfect vessel. The crystals protecting the manor were placed by the Mages' Guild to keep a monster IN, not out. The party realizes they have been manipulated into breaking the seals.",
+    "targets": ["oracle_npc", "markop", "remi", "mages_guild"],
+    "effects": {
+      "party_trust": -50,
+      "mages_guild": 10,
+      "onyx_hand": 5
+    },
+    "cycle_impact": { "score": 3.5, "label": "Villain Reveal", "type": "plot_twist" }
+  },
+  {
+    "id": "vessel_experiment",
+    "title": "The Vessel in the Tank",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "oracle_npc",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "A hidden laboratory in the Fractured Atrium contains vat-grown monstrosities and a central, magically shielded figure frozen in stasis. Notes indicate this 'Vessel' is meant to house a powerful soul (likely the merged Oracle entity). The creature is currently dormant, but the Oracle is pushing for the destruction of the 'Keepers' (Archie/Bowser's team) to power its awakening.",
+    "targets": ["markop", "remi", "oracle_npc"],
+    "effects": {
+      "necromancy_threat": 25,
+      "bio_horror": 20
+    },
+    "cycle_impact": { "score": 3.0, "label": "Forbidden Science", "type": "horror" }
+  },
+  {
+    "id": "shadow_estate_dinner",
+    "title": "Dinner with the Damned",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "orangus_cornelius",
+    "arc": "shadowfell_estate",
+    "arcPosition": "climax",
+    "description": "Archie and Bowser are trapped in a high-stakes dinner party with the Vampire Lords of the Onyx Hand in the Shadowfell dimension. The host, Orangus Cornelius, is revealed to be the 'Orange Figure' and the mastermind of the manor's shadow aspect. Green T, captured and seated at the kids' table, has armed himself for a rebellion. The dinner is a facade for a ritual to judge the worthiness of the guests' souls.",
+    "targets": ["archie", "bowser", "orangus_cornelius", "green_t"],
+    "effects": {
+      "onyx_hand": 10,
+      "shadowfell_politics": 15,
+      "party_tension": 20
+    },
+    "cycle_impact": { "score": 3.5, "label": "Social Combat", "type": "diplomacy" }
+  },
+  {
+    "id": "toadburt_capture",
+    "title": "The Silencing of Toadburt",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "mages_guild",
+    "arc": "shadowfell_estate",
+    "arcPosition": "rising",
+    "description": "Toadburt was captured by Mages' Guild operatives and brought to the Shadow Estate dinner as a 'Guest of Honor.' Initially neutralized by a Dampening Ring, he has now been spotted without it, signaling a potential jailbreak or a deal with the Vampires. His explosive magic capabilities are currently a wild card in the standoff.",
+    "targets": ["toadburt", "mages_guild", "archie"],
+    "effects": {
+      "toad_liberation": -10,
+      "chaos_magic_potential": 40
+    },
+    "cycle_impact": { "score": 2.5, "label": "Hostage Crisis", "type": "tension" }
+  },
+  {
+    "id": "timelines_merging",
+    "title": "The Convergence Protocol",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "orangus_cornelius",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "Green T has uncovered the true objective of the enemy: to shatter the crystals in the Feywild and kill the protectors in the Shadowfell simultaneously. This will collapse the fractured timelines into a single reality dominated by the released 'Beast/Vessel.' The party must choose whether to stop the convergence or hijack it to fix reality on their own terms.",
+    "targets": ["green_t", "archie", "markop"],
+    "effects": {
+      "timeline_stability": -50,
+      "party_agency": 30
+    },
+    "cycle_impact": { "score": 5.0, "label": "Endgame Scenario", "type": "catastrophic" }
+  },
+  {
+    "id": "green_t_plan",
+    "title": "Green T's Gambit",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "green_t",
+    "arc": "shadowfell_estate",
+    "arcPosition": "climax",
+    "description": "Green T, previously dismissed as a coward, has formulated a lethal plan to assassinate Orangus Cornelius and break the Shadowfell's hold on the manor. Armed with a stolen key and a hidden pistol, he is coordinating a synchronized strike with Archie Miser. This marks his transition from sidekick to revolutionary leader.",
+    "targets": ["green_t", "archie", "orangus_cornelius"],
+    "effects": {
+      "green_t_reputation": 50,
+      "onyx_hand_security": -20
+    },
+    "cycle_impact": { "score": 3.0, "label": "Character Evolution", "type": "heroic" }
+  },    
     {
     id: 'project_orange',
     title: "The Cowbell of Raventree",
