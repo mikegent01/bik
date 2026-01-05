@@ -25,14 +25,14 @@ export const RUMORS = [
     "instigator": "oracle_npc",
     "arc": "raventree_manor",
     "arcPosition": "climax",
-    "description": "Following a catastrophic ritual failure, Raventree Manor has split into three unstable dimensions: the Physical (Iron Legion controlled), the Shadowfell (Onyx Hand controlled), and the Feywild/Fracture (Wild Magic chaos). The party is separated, and communication is limited to cross-dimensional scrying crystals. The stability of the Midlands' local reality is rapidly degrading.",
+    "description": "Following a catastrophic ritual failure, Raventree Manor has split into three unstable dimensions: the Physical (Iron Legion controlled), the Shadowfell (Onyx Hand controlled), and the Feywild/Fracture (Wild Magic chaos). The party is separated, and communication is limited to cross-dimensional scrying crystals.",
     "targets": ["markop", "remi", "archie", "bowser"],
     "effects": {
       "mages_guild": -15,
       "iron_legion": -5,
       "wild_magic_zones": 30
     },
-    "cycle_impact": { "score": 4.0, "label": "Reality Breach", "type": "existential" }
+    "cycle_impact": { "score": 2.5, "label": "Reality Breach", "type": "magical" }
   },
   {
     "id": "oracle_betrayal",
@@ -42,15 +42,16 @@ export const RUMORS = [
     "instigator": "oracle_npc",
     "arc": "raventree_manor",
     "arcPosition": "revelation",
-    "description": "Evidence uncovered by Remi and Markop in the Fractured Atrium reveals the 'Oracle' is actually a necromantic researcher (possibly Darius Corvinarus or a fragment) attempting to build a perfect vessel. The crystals protecting the manor were placed by the Mages' Guild to keep a monster IN, not out. The party realizes they have been manipulated into breaking the seals.",
+    "description": "Evidence uncovered by Remi and Markop in the Fractured Atrium reveals the 'Oracle' is actually a necromantic researcher attempting to build a perfect vessel. The crystals protecting the manor were placed by the Mages' Guild to keep a monster IN, not out.",
     "targets": ["oracle_npc", "markop", "remi", "mages_guild"],
     "effects": {
       "party_trust": -50,
       "mages_guild": 10,
       "onyx_hand": 5
     },
-    "cycle_impact": { "score": 3.5, "label": "Villain Reveal", "type": "plot_twist" }
+    "cycle_impact": { "score": 1.5, "label": "Conspiracy Unveiled", "type": "political" }
   },
+    
   {
     "id": "vessel_experiment",
     "title": "The Vessel in the Tank",
@@ -116,7 +117,7 @@ export const RUMORS = [
     },
     "cycle_impact": { "score": 5.0, "label": "Endgame Scenario", "type": "catastrophic" }
   },
-  {
+   {
     "id": "green_t_plan",
     "title": "Green T's Gambit",
     "date": { "day": 23, "monthIndex": 6, "year": 1040 },
@@ -124,14 +125,15 @@ export const RUMORS = [
     "instigator": "green_t",
     "arc": "shadowfell_estate",
     "arcPosition": "climax",
-    "description": "Green T, previously dismissed as a coward, has formulated a lethal plan to assassinate Orangus Cornelius and break the Shadowfell's hold on the manor. Armed with a stolen key and a hidden pistol, he is coordinating a synchronized strike with Archie Miser. This marks his transition from sidekick to revolutionary leader.",
+    "description": "Green T, previously dismissed as a coward, has formulated a daring plan to break the Shadowfell's hold on the manor. This marks his transition from sidekick to hero.",
     "targets": ["green_t", "archie", "orangus_cornelius"],
     "effects": {
       "green_t_reputation": 50,
-      "onyx_hand_security": -20
+      "onyx_hand_security": -20,
+      "liberated_toads": 10
     },
-    "cycle_impact": { "score": 3.0, "label": "Character Evolution", "type": "heroic" }
-  },    
+    "cycle_impact": { "score": -0.5, "label": "Hero Rises", "type": "heroic" }
+  }, 
     {
     id: 'project_orange',
     title: "The Cowbell of Raventree",
@@ -189,60 +191,126 @@ export const RUMORS = [
         },
         cycle_impact: { score: 3.0, label: "Dangerous Etiquette", type: "social" }
     },
-    {
-        id: 'feywild_hoard',
-        title: "The Butterfly's Hoard",
-        date: { day: 21, monthIndex: 6, year: 1040 },
-        isEvent: true,
-        instigator: 'wild_magic_surge',
-        arc: 'feywild_attic',
-        arcPosition: 'exploration',
-        description: "The attic of the Feywild Manor has been blown open, revealing a massive trove of treasure guarded by a Giant Butterfly/Dragonfly hybrid. Waluigi and Toad Lee have entered the area, encountering unionized Goblin staff and utilizing chaos (fireworks) to bypass threats. The loot includes ancient coins, gems, and potentially artifacts needed to repair the planar ritual.",
-        targets: ['waluigi', 'toad_lee', 'goblin_staff'],
-        effects: {
-            waluigi_fan_club: 15, // Wealth accumulation
-            ratchet_raiders: 10, // Goblin union interaction
-            regal_empire: -5, // Unsanctioned looting
-            green_thumb_guardians: -10 // Disturbance of Fey nature
-        },
-        cycle_impact: { score: 2.5, label: "Looting opportunity", type: "economic" }
+  {
+    "id": "feywild_hoard",
+    "title": "The Butterfly's Hoard",
+    "date": { "day": 21, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "wild_magic_surge",
+    "arc": "feywild_attic",
+    "arcPosition": "exploration",
+    "description": "The attic of the Feywild Manor has been blown open, revealing a massive treasure trove. Adventurers are flocking to claim the riches.",
+    "targets": ["waluigi", "toad_lee", "goblin_staff"],
+    "effects": {
+      "waluigi_fan_club": 15,
+      "ratchet_raiders": 10,
+      "regal_empire": -5
     },
-{
-    id: 'primordial_wyrm_awakening',
-    title: "The Wyrm Beneath",
-    date: { day: 22, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'kamek',
-    arc: 'mushroom_civil_war',
-    arcPosition: 'climax',
-    description: "Kamek's excavation beneath the Valley of Bowser has breached an ancient prison containing the Primordial Wyrm—an entity that predates the Stars themselves. With Bowser weeks away in the Midlands and communication lines compromised, the Koopa Krew survivors have formed a desperate resistance. The corruption spreads daily, and every faction must now decide: fight together or fall separately.",
-    targets: ['kamek', 'koopa_foreman', 'primordial_wyrm', 'koopa_resistance'],
-    effects: {
-        koopa_troop: -40,
-        mushroom_regency: -10,
-        iron_legion: -10,
-        valley_corruption: 100
+    "cycle_impact": { "score": -0.5, "label": "Treasure Found", "type": "economic" }
+  },
+  {
+    "id": "primordial_wyrm_awakening",
+    "title": "The Wyrm Beneath",
+    "date": { "day": 22, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "kamek",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "climax",
+    "description": "Kamek's excavation beneath the Valley of Bowser has breached an ancient prison containing the Primordial Wyrm—an entity that predates the Stars themselves.",
+    "targets": ["kamek", "koopa_foreman", "primordial_wyrm", "koopa_resistance"],
+    "effects": {
+      "koopa_troop": -40,
+      "mushroom_regency": -10,
+      "iron_legion": -10,
+      "valley_corruption": 100
     },
-    cycle_impact: { score: 4.5, label: "Existential Threat", type: "catastrophic" }
-},
-
-{
-    id: 'koopa_resistance_formed',
-    title: "The Koopa Resistance",
-    date: { day: 23, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'koopa_foreman',
-    arc: 'mushroom_civil_war',
-    arcPosition: 'rising',
-    description: "Survivors of Kamek's betrayal have banded together under Hammer Bro Sergeant's field command, operating from an ancient Krew safehouse. With Bowser weeks away, this ragtag group of workers, soldiers, and refugees represents the last organized resistance against the Wyrm's corruption. They've discovered that seven anchor crystals hold the prison's seals—and begun the desperate work of restoring them.",
-    targets: ['koopa_foreman', 'hammer_bro_sergeant', 'bob_omb_demolitions', 'shy_guy_laborer'],
-    effects: {
-        koopa_troop: 10,
-        mushroom_regency: 5,
-        iron_legion: 5
+    "cycle_impact": { "score": 3.0, "label": "Ancient Evil Stirs", "type": "catastrophic" }
+  },
+  {
+    "id": "mages_guild_breakthrough",
+    "title": "The Crystalline Theorem",
+    "date": { "day": 20, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "archmage_stellaris",
+    "arc": "magical_renaissance",
+    "arcPosition": "rising",
+    "description": "The Mages' Guild announces a breakthrough in crystal resonance theory. New techniques allow mages to store spells indefinitely and share magical knowledge across vast distances. Schools across the realm report a surge in enrollment.",
+    "targets": ["mages_guild", "regal_empire"],
+    "effects": {
+      "mages_guild": 30,
+      "regal_empire": 10,
+      "iron_legion": -5
     },
-    cycle_impact: { score: 2.0, label: "Desperate Alliance", type: "military" }
-},
+    "cycle_impact": { "score": -2.0, "label": "Arcane Renaissance", "type": "discovery" }
+  },
+  {
+    "id": "toad_medical_corps",
+    "title": "The Healing Spores Initiative",
+    "date": { "day": 18, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "dr_shroomwell",
+    "arc": "toad_liberation",
+    "arcPosition": "rising",
+    "description": "Liberated Toad scientists have developed a revolutionary healing compound derived from rare mushroom spores. The treatment can regenerate lost limbs and cure diseases previously thought incurable. Even the Iron Legion has quietly requested samples.",
+    "targets": ["liberated_toads", "mushroom_regency", "iron_legion"],
+    "effects": {
+      "liberated_toads": 25,
+      "mushroom_regency": 15,
+      "iron_legion": 5
+    },
+    "cycle_impact": { "score": -2.5, "label": "Medical Miracle", "type": "discovery" }
+  },
+  {
+    "id": "ancient_library_found",
+    "title": "The Sunken Archives",
+    "date": { "day": 15, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "explorer_guild",
+    "arc": "exploration",
+    "arcPosition": "discovery",
+    "description": "Divers off the coast of Isle Delfino have discovered a perfectly preserved library from a pre-Peach civilization. The texts contain lost magical formulae, historical records, and star charts pointing to unknown realms.",
+    "targets": ["mages_guild", "noki_shellfish", "pianta_syndicate"],
+    "effects": {
+      "mages_guild": 20,
+      "noki_shellfish": 15,
+      "pianta_syndicate": 10
+    },
+    "cycle_impact": { "score": -1.8, "label": "Lost Knowledge", "type": "discovery" }
+  },
+  {
+    "id": "remi_patent_approved",
+    "title": "The Steamwright's Triumph",
+    "date": { "day": 19, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "remi",
+    "arc": "vigilance_saga",
+    "arcPosition": "rising",
+    "description": "Remi's revolutionary engine design has been officially patented by the Deephold Smithing Guild. The 'Remi Coil' promises to double airship efficiency while halving fuel costs. Several nations have already submitted manufacturing requests.",
+    "targets": ["remi", "ratchet_raiders", "regal_empire"],
+    "effects": {
+      "ratchet_raiders": 20,
+      "regal_empire": 10,
+      "iron_legion": 5
+    },
+    "cycle_impact": { "score": -1.5, "label": "Industrial Innovation", "type": "economic" }
+  },  
+  {
+    "id": "koopa_resistance_formed",
+    "title": "The Koopa Resistance",
+    "date": { "day": 23, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "koopa_foreman",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "rising",
+    "description": "Survivors of Kamek's betrayal have banded together. With Bowser weeks away, this ragtag group represents hope against the Wyrm's corruption.",
+    "targets": ["koopa_foreman", "hammer_bro_sergeant"],
+    "effects": {
+      "koopa_troop": 10,
+      "mushroom_regency": 5,
+      "iron_legion": 5
+    },
+    "cycle_impact": { "score": -0.8, "label": "Resistance Forms", "type": "heroic" }
+  },
 
 {
     id: 'anchor_restoration_campaign',
@@ -262,25 +330,58 @@ export const RUMORS = [
     },
     cycle_impact: { score: 3.5, label: "Coalition Warfare", type: "military" }
 },
-
-{
-    id: 'valley_liberation',
-    title: "The Valley Reclaimed",
-    date: { day: 27, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'koopa_resistance',
-    arc: 'mushroom_civil_war',
-    arcPosition: 'resolution',
-    description: "Against all odds, the Koopa Resistance succeeded in restoring the seven seals and re-imprisoning the Primordial Wyrm. Kamek, stripped of his borrowed power, has been captured and sentenced to eternal imprisonment within the very pit he opened. The Valley of Bowser lies in ruins, but the corruption recedes. When King Bowser finally arrives, he finds his kingdom saved by the very workers and soldiers he'd overlooked—and gains a new understanding of what the Koopa crown truly means.",
-    targets: ['koopa_foreman', 'hammer_bro_sergeant', 'bowser', 'kamek', 'bob_omb_demolitions', 'shy_guy_laborer'],
-    effects: {
-        koopa_troop: 35,
-        mushroom_regency: 15,
-        iron_legion: 10,
-        valley_corruption: -100
+  {
+    "id": "valley_liberation",
+    "title": "The Valley Reclaimed",
+    "date": { "day": 27, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "koopa_resistance",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "resolution",
+    "description": "Against all odds, the Koopa Resistance succeeded in restoring the seven seals and re-imprisoning the Primordial Wyrm. The Valley of Bowser lies in ruins, but the corruption recedes. Reconstruction begins.",
+    "targets": ["koopa_foreman", "hammer_bro_sergeant", "bowser"],
+    "effects": {
+      "koopa_troop": 35,
+      "mushroom_regency": 15,
+      "iron_legion": 10
     },
-    cycle_impact: { score: 4.0, label: "Kingdom Restored", type: "political" }
-},      
+    "cycle_impact": { "score": -2.0, "label": "Kingdom Restored", "type": "rebirth" }
+  },
+       {
+    "id": "delfino_reconstruction",
+    "title": "Isle Delfino Rebuilds",
+    "date": { "day": 30, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "joint_council",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "resolution",
+    "description": "Following the expulsion of Regency forces, a joint council of Noki, Pianta, and Koopa representatives has begun rebuilding war-damaged areas. Tourism is slowly returning, and the iconic Shine Sprites are glowing brighter than ever.",
+    "targets": ["noki_shellfish", "pianta_syndicate", "koopa_troop"],
+    "effects": {
+      "noki_shellfish": 20,
+      "pianta_syndicate": 20,
+      "koopa_troop": 15
+    },
+    "cycle_impact": { "score": -1.8, "label": "Island Healed", "type": "rebirth" }
+  },
+  {
+    "id": "toad_town_gardens",
+    "title": "The Memorial Gardens Open",
+    "date": { "day": 28, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "mayor_toadsworth",
+    "arc": "toad_liberation",
+    "arcPosition": "healing",
+    "description": "Toad Town has opened the Memorial Gardens, honoring all those lost in the civil war. The gardens feature rare plants from across the kingdom and a central fountain that plays Peach's favorite melody. Citizens weep and embrace.",
+    "targets": ["liberated_toads", "mushroom_regency", "peach_loyalists"],
+    "effects": {
+      "liberated_toads": 15,
+      "mushroom_regency": 20,
+      "peach_loyalists": 20
+    },
+    "cycle_impact": { "score": -2.5, "label": "Healing Begins", "type": "cultural" }
+  },
+
       {
     id: 'archie_aegis_post',
     title: "Archie's Aegis Worry",
@@ -298,28 +399,23 @@ export const RUMORS = [
     },
     cycle_impact: { score: 0.6, label: "Escape Confirmation", type: "relief" }
   },  
-    {
-    id: 'aegis_uprising_clues',
-    title: "Aegis Uprising: Clues to Chaos",
-    date: { day: 21, monthIndex: 6, year: 1040 },
-    isEvent: true,
-    instigator: 'speaker_rivers',
-    arc: 'aegis_uprising_clues',
-    arcPosition: 'rising',
-    description: "Prisoners discover Mini-Mushrooms in bread crusts alongside blueprints marked with the Speaker's crest. Speaker Rivers broadcasts from inside, exposing life-force extractors feeding the Vigilance. Green irritant fog, mini-toad drain swarms, medical supplies seized, stolen files reveal toads as Vigilance batteries, boiler sabotage, a map of 12 Aegis sites for a dragon-controlling 'Sonic Net', escapees leap to Noki submersibles, Midlands trekkers evade hunters, hacks plant truth-nukes, refugees flood Toad Town, and a mirror reveals the Empire's third eye cult.",
-    targets: ['speaker_rivers', 'toad_prisoner_pipsqueak', 'toad_prisoner_moss', 'general_ironhand', 'creek'],
-    effects: {
-      liberated_toads: 50,
-      speaker_network: 30,
-      iron_legion: -25,
-      regal_empire: -20,
-      noki_allies: 15,
-      vigilance_airship: -10,
-      third_eye_cult: 5
+  {
+    "id": "aegis_uprising_clues",
+    "title": "Aegis Uprising: Seeds of Rebellion",
+    "date": { "day": 21, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "speaker_rivers",
+    "arc": "aegis_uprising_clues",
+    "arcPosition": "rising",
+    "description": "Prisoners discover Mini-Mushrooms in bread crusts alongside blueprints marked with the Speaker's crest. A mass escape is being planned.",
+    "targets": ["speaker_rivers", "toad_prisoner_pipsqueak", "general_ironhand"],
+    "effects": {
+      "liberated_toads": 30,
+      "speaker_network": 20,
+      "iron_legion": -15
     },
-    cycle_impact: { score: 3.5, label: "Mass Prison Break", type: "rebellion" }
+    "cycle_impact": { "score": 0.5, "label": "Prison Break Brewing", "type": "rebellion" }
   },
-
   {
     id: 'aegis_prison_break_riot',
     title: "Aegis Prison Break: The Whispered Riot",
@@ -550,24 +646,23 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         },
         cycle_impact: { score: 1.5, label: "Supernatural Containment", type: "magic" }
     },
-    {
-        id: 'cheep_cheep_treaty',
-        title: "The Cheep-Cheep Treaty",
-        date: { day: 22, monthIndex: 6, year: 1040 },
-        isEvent: true,
-        instigator: 'captain_toadette',
-        arc: 'toad_liberation',
-        arcPosition: 'rising',
-        description: "In a display of suicidal bravery, Captain Toadette and her squad leapt from Cheep-Cheep Falls onto a massive aquatic mount to negotiate with the Rakasha Spirit Walker. Reports indicate a tenuous alliance has been formed on the high seas, bypassing traditional Regency diplomatic channels entirely. The negotiation came at a cost, however, with at least one attendant swept away by the falls.",
-        targets: ['captain_toadette', 'embercap', 'rakasha_spirit_walker'],
-        effects: {
-            liberated_toads: 15,
-            rakasha_clans: 15,
-            mushroom_regency: -15,
-            regal_empire: -5
-        },
-        cycle_impact: { score: 1.5, label: "Unsanctioned Diplomacy", type: "political" }
+  {
+    "id": "cheep_cheep_treaty",
+    "title": "The Cheep-Cheep Accords",
+    "date": { "day": 22, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "captain_toadette",
+    "arc": "toad_liberation",
+    "arcPosition": "rising",
+    "description": "In a landmark diplomatic achievement, Captain Toadette has negotiated a formal alliance between the Liberated Toads and the Rakasha Spirit Walkers. The treaty establishes shared maritime routes and mutual defense pacts, bypassing traditional Regency channels entirely.",
+    "targets": ["captain_toadette", "embercap", "rakasha_spirit_walker"],
+    "effects": {
+      "liberated_toads": 20,
+      "rakasha_clans": 20,
+      "mushroom_regency": -10
     },
+    "cycle_impact": { "score": -2.0, "label": "New Alliance", "type": "diplomatic" }
+  },
     {
         id: 'festival_of_the_fallen',
         title: "Pact of Smoke and Bone",
@@ -639,25 +734,41 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         },
         cycle_impact: { score: 1.5, label: "Kaiju Battle", type: "military" }
     },
-    {
-        id: 'iron_mandate_passage',
-        title: "The Iron Mandate",
-        date: { day: 21, monthIndex: 6, year: 1040 },
-        isEvent: true,
-        instigator: 'general_marcus_ironhand',
-        arc: 'supernatural_sovereignty',
-        arcPosition: 'falling',
-        description: "Following the Supernatural Sovereignty Act, the Midlands Diet has ratified the 'Iron Mandate', establishing martial law and granting the Iron Legion full administrative control over security sectors. The Mages' Guild has withdrawn its envoys in protest of warrantless searches, Speaker Rivers has resigned from the Diet, and supernatural factions are retreating deep underground.",
-        targets: ['party', 'mages_guild', 'onyx_hand', 'moonfang_pack'],
-        effects: {
-            regal_empire: 20,
-            iron_legion: 30,
-            mages_guild: -25,
-            freelancer_underworld: -15,
-            liberated_toads: -10
-        },
-        cycle_impact: { score: 2.0, label: "Martial Law", type: "political" }
+     {
+    "id": "iron_mandate_passage",
+    "title": "The Iron Mandate",
+    "date": { "day": 21, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "general_marcus_ironhand",
+    "arc": "supernatural_sovereignty",
+    "arcPosition": "falling",
+    "description": "The Midlands Diet has ratified the 'Iron Mandate', establishing martial law in certain sectors. The Mages' Guild has withdrawn envoys in protest.",
+    "targets": ["party", "mages_guild", "onyx_hand", "moonfang_pack"],
+    "effects": {
+      "regal_empire": 20,
+      "iron_legion": 30,
+      "mages_guild": -25
     },
+    "cycle_impact": { "score": 1.2, "label": "Martial Law", "type": "political" }
+  },
+    {
+    "id": "kong_kremling_spy",
+    "title": "The Kong Bug Discovered",
+    "date": { "day": 18, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "funky_kong",
+    "arc": "kong_kremling_cold_war",
+    "arcPosition": "opening",
+    "description": "Funky Kong discovered a Kremling listening device in DK's office. The 'peace' between the factions is revealed to be a sham, but open conflict has not yet erupted.",
+    "targets": ["donkey_kong", "king_k_rool", "funky_kong"],
+    "effects": {
+      "dk_crew": -20,
+      "kremling_krew": -20,
+      "freelancer_underworld": 10
+    },
+    "cycle_impact": { "score": 0.8, "label": "Cold War Heats Up", "type": "espionage" }
+  },
+
     {
         id: 'iron_sky_breach',
         title: "Vigilance Over Raventree",
@@ -691,25 +802,23 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         },
         cycle_impact: { score: 0.1, label: "Bureaucracy", type: "economic" }
     },    
-{
-id: 'shard_stalker_incident',
-title: "The Shard Stalker Incident",
-date: { day: 20, monthIndex: 6, year: 1040 },
-isEvent: true,
-instigator: 'hjumpik',
-arc: 'raventree_manor',
-arcPosition: 'climax',
-description: "In the mirror-filled attic of Raventree Manor, hjumpik neutralized a Class-5 Shard Stalker by sealing it into a stone statue rather than destroying it. This strategic choice saved the trapped toad 'Green T' and secured a pristine specimen for the Mages' Guild. As a reward for the preservation, Archie Miser was granted a provisional Guild Pass, legitimizing the party's magic just hours before the Iron Legion's martial law declaration.",
-targets: ['hjumpik', 'archie', 'bowser', 'dan', 'green_t'],
-effects: {
-mages_guild: 25,
-iron_legion: 10,
-liberated_toads: 15,
-cosmic_jesters: -10,
-freelancer_underworld: 5
-},
-cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
-},    
+  {
+    "id": "shard_stalker_incident",
+    "title": "The Shard Stalker Contained",
+    "date": { "day": 20, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "raventree_manor",
+    "arcPosition": "climax",
+    "description": "Hjumpik neutralized a Class-5 Shard Stalker by sealing it into stone rather than destroying it. The Mages' Guild rewarded this strategic containment with legitimacy.",
+    "targets": ["hjumpik", "archie", "bowser", "dan", "green_t"],
+    "effects": {
+      "mages_guild": 25,
+      "iron_legion": 10,
+      "liberated_toads": 15
+    },
+    "cycle_impact": { "score": -1.0, "label": "Monster Contained", "type": "magic" }
+  },
     {
         id: 'greenhouse_inferno_confession',
         title: "Archie's Confession",
@@ -748,18 +857,21 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         },
         cycle_impact: { score: 2.0, label: "Supernatural Incursion", type: "magic" }
     },
-    {
-        id: 'peach_death_fallout',
-        title: "The Princess is Dead",
-        date: { day: 1, monthIndex: 0, year: 995 },
-        time_ago: "45 Years Ago",
-        arc: 'mushroom_civil_war', 
-        arcPosition: 'opening',
-        description: "Princess Peach was killed, sparking a long and brutal civil war in the Mushroom Kingdom...",
-        targets: ['bowser'],
-        effects: { mushroom_regency: -50, regal_empire: -15, silver_flame: -15, oathbound_judges: -15 },
-        cycle_impact: { score: 2, label: "Regime Collapse", type: "political" }
+   {
+    "id": "peach_death_fallout",
+    "title": "The Princess is Dead",
+    "date": { "day": 1, "monthIndex": 0, "year": 995 },
+    "time_ago": "45 Years Ago",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "opening",
+    "description": "Princess Peach was killed, sparking a long and brutal civil war in the Mushroom Kingdom. The wound still bleeds.",
+    "targets": ["bowser"],
+    "effects": {
+      "mushroom_regency": -50,
+      "regal_empire": -15
     },
+    "cycle_impact": { "score": 1.5, "label": "Regime Collapse", "type": "historical" }
+  },
     {
         id: 'archie_third_eye_escape',
         title: "The Third Eye Escape",
@@ -836,19 +948,54 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 },
         cycle_impact: { score: 2.5, label: "Arcane Catastrophe", type: "magic" }
     },
-    {
-        id: 'dragon_slaying',
-        title: "Dragon Slaying",
-        time_ago: "Approx. 2 Months Ago",
-        date: { year: 1040, monthIndex: 4, day: 20 },
-        instigator: 'hjumpik',
-        arc: 'vigilance_saga',
-        arcPosition: 'opening',
-        description: "A month ago, the party slew a dragon, earning praise from the Iron Legion and scorn from the Mages' Guild.",
-        targets: ['archie', 'markop', 'hjumpik', 'bowser'],
-        effects: { iron_legion: 10, mages_guild: -15 },
-        cycle_impact: { score: -0.5, label: "Beast Culling", type: "military" }
+  {
+    "id": "dragon_slaying",
+    "title": "The Dragon Hunt",
+    "date": { "year": 1040, "monthIndex": 4, "day": 20 },
+    "isEvent": true,
+    "instigator": "hjumpik",
+    "arc": "vigilance_saga",
+    "arcPosition": "opening",
+    "description": "The party slew a rogue dragon threatening merchant caravans. The Iron Legion praised the action; the Mages' Guild questioned whether diplomacy was attempted.",
+    "targets": ["archie", "markop", "hjumpik", "bowser"],
+    "effects": {
+      "iron_legion": 10,
+      "mages_guild": -10
     },
+    "cycle_impact": { "score": 0.3, "label": "Monster Slain", "type": "military" }
+  },
+  {
+    "id": "wario_enterprise",
+    "title": "WarioWare Expands",
+    "date": { "day": 16, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "wario",
+    "arc": "capital_intrigue",
+    "arcPosition": "expansion",
+    "description": "Wario's microgame empire has opened three new branches across the Midlands. Critics call it crass commercialism; the common folk call it entertainment.",
+    "targets": ["wario", "waluigi", "freelancer_underworld"],
+    "effects": {
+      "freelancer_underworld": 15,
+      "regal_empire": 5,
+      "cosmic_jesters": 10
+    },
+    "cycle_impact": { "score": -0.8, "label": "Business Booms", "type": "economic" }
+  },
+  {
+    "id": "scrap_trade_boom",
+    "title": "The Salvage Rush",
+    "date": { "day": 1, "monthIndex": 6, "year": 1040 },
+    "isEvent": false,
+    "arc": "vigilance_saga",
+    "arcPosition": "falling",
+    "description": "The frequent destruction of magitek has created a thriving salvage economy. Ratchet Raiders and independent scavengers are making fortunes.",
+    "targets": ["ratchet_raiders", "regal_empire"],
+    "effects": {
+      "ratchet_raiders": 15,
+      "regal_empire": -5
+    },
+    "cycle_impact": { "score": -0.5, "label": "Salvage Economy", "type": "economic" }
+  },
     {
         id: 'iron_fists_raid',
         title: "Iron Fists Raid",
@@ -863,18 +1010,23 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         cycle_impact: { score: -0.2, label: "Crime Suppression", type: "military" }
     },
     {
-        id: 'xo_defeat',
-        title: "X.O.'s Defeat",
-        time_ago: "Approx. 4 Weeks Ago",
-        arc: 'vigilance_saga', 
-        arcPosition: 'climax',
-        date: { year: 1040, monthIndex: 5, day: 22 },
-        instigator: 'dan',
-        description: "The party, with the help of a liberated toad slave, defeated the rogue mage X.O. and secured the 'Vigilance'.",
-        targets: ['archie', 'markop', 'hjumpik', 'bowser', 'dan'],
-        effects: { regal_empire: 5, mages_guild: 5, the_unchained: 10, mushroom_regency: 5, liberated_toads: 25 },
-        cycle_impact: { score: -0.8, label: "Rogue Mage Neutralized", type: "magic" }
+    "id": "xo_defeat",
+    "title": "X.O.'s Defeat",
+    "date": { "year": 1040, "monthIndex": 5, "day": 22 },
+    "time_ago": "Approx. 4 Weeks Ago",
+    "arc": "vigilance_saga",
+    "arcPosition": "climax",
+    "instigator": "dan",
+    "description": "The party defeated the rogue mage X.O. and secured the 'Vigilance'. A major threat was neutralized.",
+    "targets": ["archie", "markop", "hjumpik", "bowser", "dan"],
+    "effects": {
+      "regal_empire": 5,
+      "mages_guild": 5,
+      "the_unchained": 10,
+      "liberated_toads": 25
     },
+    "cycle_impact": { "score": -1.0, "label": "Villain Defeated", "type": "heroic" }
+  },
     {
         id: 'core_crisis',
         title: "Core Crisis on the Vigilance",
@@ -925,18 +1077,93 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         effects: { iron_fists: -5, regal_empire: -5, freelancer_underworld: 10 },
         cycle_impact: { score: 0.8, label: "Corruption Scandal", type: "political" }
     },
-    {
-        id: 'koopa_loyalist_truce',
-        title: "Koopa-Loyalist Truce",
-        time_ago: "Approx. 2 Weeks Ago",
-        arc: 'mushroom_civil_war', 
-        arcPosition: 'rising',
-        date: { year: 1040, monthIndex: 6, day: 7 },
-        description: "The Koopa Troop remnants and the Peach Loyalists have formed a fragile truce...",
-        targets: ['hjumpik', 'bowser'],
-        effects: { peach_loyalists: 10, koopa_troop: 5 },
-        cycle_impact: { score: -1.0, label: "Diplomatic Breakthrough", type: "political" }
+  {
+    "id": "koopa_loyalist_truce",
+    "title": "The Ember Summit",
+    "date": { "day": 7, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "bowser",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "rising",
+    "description": "The Koopa Troop remnants and the Peach Loyalists have signed a formal truce at the Ember Summit. Former enemies now share intelligence and resources against common threats. Witnesses report both sides laying down arms and sharing a meal.",
+    "targets": ["bowser", "captain_toadette", "peach_loyalists"],
+    "effects": {
+      "peach_loyalists": 15,
+      "koopa_troop": 15,
+      "mushroom_regency": 10
     },
+    "cycle_impact": { "score": -2.5, "label": "Historic Peace", "type": "diplomatic" }
+  },
+    {
+    "id": "festival_of_stars",
+    "title": "The Festival of Falling Stars",
+    "date": { "day": 25, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "mushroom_regency",
+    "arc": "cultural",
+    "arcPosition": "celebration",
+    "description": "For the first time in 45 years, the Festival of Falling Stars is being celebrated across the Mushroom Kingdom. Citizens of all factions gather to honor Princess Peach's memory and pray for peace. Even Iron Legion soldiers have been seen participating.",
+    "targets": ["mushroom_regency", "peach_loyalists", "liberated_toads"],
+    "effects": {
+      "mushroom_regency": 20,
+      "peach_loyalists": 15,
+      "liberated_toads": 10,
+      "iron_legion": 5
+    },
+    "cycle_impact": { "score": -3.0, "label": "Kingdom United", "type": "cultural" }
+  },
+  {
+    "id": "trade_route_reopened",
+    "title": "The Spice Roads Return",
+    "date": { "day": 12, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "merchant_consortium",
+    "arc": "economic",
+    "arcPosition": "expansion",
+    "description": "After months of negotiation, the ancient Spice Roads connecting the Midlands to the Eastern Kingdoms have reopened. Caravans laden with exotic goods flow freely for the first time in a decade. Markets are booming.",
+    "targets": ["regal_empire", "freelancer_underworld", "merchant_consortium"],
+    "effects": {
+      "regal_empire": 15,
+      "freelancer_underworld": 20,
+      "iron_legion": 10
+    },
+    "cycle_impact": { "score": -1.5, "label": "Trade Flourishes", "type": "economic" }
+  },
+    {
+    "id": "new_colony_established",
+    "title": "Fort Sunrise Founded",
+    "date": { "day": 10, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "regal_empire",
+    "arc": "expansion",
+    "arcPosition": "growth",
+    "description": "The Regal Empire has established Fort Sunrise on the frontier, a thriving settlement that promises to bring civilization to the wild lands. Settlers report fertile soil and peaceful relations with local tribes.",
+    "targets": ["regal_empire", "iron_legion"],
+    "effects": {
+      "regal_empire": 20,
+      "iron_legion": 15,
+      "rebel_clans": -5
+    },
+    "cycle_impact": { "score": -1.0, "label": "Frontier Growth", "type": "expansion" }
+  },
+  {
+    "id": "noki_fleet_expansion",
+    "title": "The Coral Fleet Launches",
+    "date": { "day": 14, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "elder_erol",
+    "arc": "delfino_conflict",
+    "arcPosition": "rising",
+    "description": "The Noki Elders have unveiled a new fleet of swift coral-hulled vessels. These ships can navigate waters too shallow for traditional warships, giving the Noki unprecedented control of coastal trade routes.",
+    "targets": ["noki_shellfish", "pianta_syndicate", "mushroom_regency"],
+    "effects": {
+      "noki_shellfish": 25,
+      "pianta_syndicate": 10,
+      "mushroom_regency": -5
+    },
+    "cycle_impact": { "score": -1.2, "label": "Naval Expansion", "type": "economic" }
+  },
+
     {
         id: 'barrel_compartment_reveal',
         title: "The Barrel Secret",
@@ -1074,19 +1301,23 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         effects: { iron_legion: -10, mages_guild: 5 },
         cycle_impact: { score: 0.5, label: "Monster Sighting", type: "military" }
     },
-    {
-        id: 'bowser_looting_manor',
-        title: "Waluigi's 'Relocation'",
-        time_ago: "Tonight",
-        date: { day: 16, monthIndex: 6, year: 1040 },
-        instigator: 'waluigi',
-        arc: 'raventree_manor',
-        arcPosition: 'opening',
-        description: "Waluigi and Bowser have been seen hauling chests of loot from the Vigilance...",
-        targets: ['party'],
-        effects: { koopa_troop: -5, freelancer_underworld: 5, wario_land: 5 },
-        cycle_impact: { score: 0, label: "Asset Relocation", type: "economic" }
+  {
+    "id": "bowser_looting_manor",
+    "title": "Waluigi's 'Asset Relocation'",
+    "date": { "day": 16, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "waluigi",
+    "arc": "raventree_manor",
+    "arcPosition": "opening",
+    "description": "Waluigi and Bowser have been seen hauling chests from the Vigilance to the manor. When questioned, Waluigi insisted it was 'legitimate salvage redistribution.'",
+    "targets": ["waluigi", "bowser"],
+    "effects": {
+      "koopa_troop": -5,
+      "freelancer_underworld": 5,
+      "wario_land": 5
     },
+    "cycle_impact": { "score": 0.1, "label": "Assets Relocated", "type": "economic" }
+  },
     {
         id: 'oracle_of_cursed_mansion',
         title: "The Oracle of the Cursed Mansion",
@@ -1112,19 +1343,40 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         effects: { cosmic_jesters: 15, freelancer_underworld: 10, regal_empire: -5, mages_guild: -5 },
         cycle_impact: { score: 0.4, label: "Aerial Incident", type: "military" }
     },
-    {
-        id: 'fall_of_bramblehaven',
-        title: "The Bramblehaven Massacre",
-        time_ago: "Today",
-        date: { day: 17, monthIndex: 6, year: 1040 },
-        arc: 'mushroom_civil_war', 
-        arcPosition: 'climax',
-        instigator: 'captain_toadette',
-        description: "The Peach Loyalists brutally conquered the Fawful bastion of Bramblehaven...",
-        targets: ['captain_toadette', 'embercap'],
-        effects: { peach_loyalists: 10, mushroom_regency: -20, fawfuls_furious_freaks: -30, koopa_troop: 5, iron_legion: 5, silver_flame: -10 },
-        cycle_impact: { score: 2.0, label: "Fortress Capture", type: "military" }
+  {
+    "id": "fall_of_bramblehaven",
+    "title": "The Bramblehaven Campaign",
+    "date": { "day": 17, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "captain_toadette",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "climax",
+    "description": "The Peach Loyalists conquered the Fawful bastion of Bramblehaven. While the victory was decisive, Captain Toadette ensured civilian casualties were minimized.",
+    "targets": ["captain_toadette", "embercap"],
+    "effects": {
+      "peach_loyalists": 15,
+      "mushroom_regency": -10,
+      "fawfuls_furious_freaks": -30
     },
+    "cycle_impact": { "score": 1.0, "label": "Fortress Falls", "type": "military" }
+  },
+    {
+    "id": "koopa_corona_victory",
+    "title": "Corona Mountain Secured",
+    "date": { "day": 27, "monthIndex": 6, "year": 1040 },
+    "isEvent": true,
+    "instigator": "general_shellshock",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "climax",
+    "description": "General Shellshock's paratroopers seized Corona Mountain in a swift strike. The victory was clean, with the Regency garrison surrendering after seeing they were outmatched.",
+    "targets": ["general_shellshock", "mushroom_regency"],
+    "effects": {
+      "koopa_troop": 30,
+      "mushroom_regency": -20,
+      "noki_shellfish": 10
+    },
+    "cycle_impact": { "score": 0.8, "label": "Strategic Victory", "type": "military" }
+  },
     {
         id: 'shadeward_mansion_raid',
         title: "The Dinner That Broke Time",
@@ -1137,67 +1389,85 @@ cycle_impact: { score: 1.8, label: "Magical Containment", type: "magic" }
         effects: { liberated_toads: -30, iron_legion: -25, regal_empire: -15, freelancer_underworld: 10, mages_guild: 5 },
         cycle_impact: { score: 2.5, label: "Temporal Anomaly", type: "magic" }
     },
-    {
-        id: 'shadow_war',
-        title: "Shadow War Escalation",
-        time_ago: "Ongoing",
-        date: { day: 1, monthIndex: 6, year: 1040 },
-        description: "The conflict between the Onyx Hand and Moonfang Pack is escalating...",
-        targets: ['party'],
-        arc: 'shadow_war', 
-        arcPosition: 'opening',
-        effects: { onyx_hand: 5, moonfang_pack: 5, silver_flame: -10 },
-        cycle_impact: { score: 1.5, label: "Supernatural Conflict", type: "military" }
+  {
+    "id": "shadow_war",
+    "title": "Shadow War Escalation",
+    "date": { "day": 1, "monthIndex": 6, "year": 1040 },
+    "isEvent": false,
+    "description": "The conflict between the Onyx Hand and Moonfang Pack continues in the shadows. Neither side has gained decisive advantage, but civilian casualties mount.",
+    "targets": ["onyx_hand", "moonfang_pack", "silver_flame"],
+    "arc": "shadow_war",
+    "arcPosition": "ongoing",
+    "effects": {
+      "onyx_hand": 5,
+      "moonfang_pack": 5,
+      "silver_flame": -10
     },
-    {
-        id: 'dan_training',
-        title: "Dan's Training",
-        time_ago: "Ongoing",
-        date: { day: 1, monthIndex: 6, year: 1040 },
-        instigator: 'dan',
-        arc: 'toad_liberation', 
-        arcPosition: 'rising',
-        description: "The heroic toad, Dan, is being trained in magic by the Rakasha...",
-        targets: ['markop', 'dan'],
-        effects: { rakasha_clans: 15, mages_guild: 5, mushroom_regency: 10, liberated_toads: 15 },
-        cycle_impact: { score: -0.5, label: "Arcane Study", type: "magic" }
+    "cycle_impact": { "score": 0.8, "label": "Underground Conflict", "type": "tension" }
+  },
+  {
+    "id": "dan_training",
+    "title": "Dan's Awakening",
+    "date": { "day": 1, "monthIndex": 6, "year": 1040 },
+    "isEvent": false,
+    "instigator": "dan",
+    "arc": "toad_liberation",
+    "arcPosition": "rising",
+    "description": "The heroic toad Dan is being trained in Rakasha magic. His progress has been remarkable, offering hope for a new generation of Toad mages.",
+    "targets": ["markop", "dan"],
+    "effects": {
+      "rakasha_clans": 15,
+      "mages_guild": 5,
+      "liberated_toads": 15
     },
-    {
-        id: 'cosmic_static',
-        title: "Cosmic Static",
-        time_ago: "Ongoing",
-        date: { day: 1, monthIndex: 6, year: 1040 },
-        arc: 'raventree_manor',
-        arcPosition: 'rising',
-        description: "Archie's chaotic energies are reportedly causing 'cosmic static'...",
-        targets: ['archie'],
-        effects: { cosmic_jesters: 15, mages_guild: -5 },
-        cycle_impact: { score: 1.0, label: "Reality Distortion", type: "magic" }
+    "cycle_impact": { "score": -1.0, "label": "New Champion", "type": "discovery" }
+  },
+  {
+    "id": "cosmic_static",
+    "title": "Archie's Cosmic Static",
+    "date": { "day": 1, "monthIndex": 6, "year": 1040 },
+    "isEvent": false,
+    "arc": "raventree_manor",
+    "arcPosition": "rising",
+    "description": "Archie's chaotic energies are causing 'cosmic static' - minor reality hiccups that are more amusing than dangerous. Street performers have started imitating the effects.",
+    "targets": ["archie"],
+    "effects": {
+      "cosmic_jesters": 15,
+      "mages_guild": -5
     },
-    {
-        id: 'paladin_dilemma',
-        title: "Paladin's Dilemma",
-        time_ago: "Ongoing",
-        date: { day: 1, monthIndex: 6, year: 1040 },
-        arc: 'supernatural_sovereignty',
-        arcPosition: 'rising',
-        description: "Markop's association with known criminals has not gone unnoticed by holy orders...",
-        targets: ['markop'],
-        effects: { silver_flame: -15, oathbound_judges: -10 },
-        cycle_impact: { score: 0, label: "Moral Crisis", type: "social" }
+    "cycle_impact": { "score": 0.2, "label": "Reality Wobbles", "type": "magical" }
+  },
+
+     {
+    "id": "paladin_dilemma",
+    "title": "Paladin's Dilemma",
+    "date": { "day": 1, "monthIndex": 6, "year": 1040 },
+    "isEvent": false,
+    "arc": "supernatural_sovereignty",
+    "arcPosition": "rising",
+    "description": "Markop's association with criminals has drawn attention from holy orders, but his heroic deeds provide counterbalance. The temples are divided.",
+    "targets": ["markop"],
+    "effects": {
+      "silver_flame": -10,
+      "oathbound_judges": -5
     },
-    {
-        id: 'rebel_sympathies',
-        title: "Rebel Sympathies",
-        time_ago: "Ongoing",
-        date: { day: 1, monthIndex: 6, year: 1040 },
-        arc: 'toad_liberation',
-        arcPosition: 'rising',
-        description: "The party's anti-authoritarian actions have made them popular with various rebel groups.",
-        targets: ['party'],
-        effects: { rebel_clans: 10, the_unchained: 5 },
-        cycle_impact: { score: 0.5, label: "Sedition", type: "political" }
+    "cycle_impact": { "score": 0.3, "label": "Moral Quandary", "type": "social" }
+  },
+  {
+    "id": "rebel_sympathies",
+    "title": "Rebel Sympathies Grow",
+    "date": { "day": 1, "monthIndex": 6, "year": 1040 },
+    "isEvent": false,
+    "arc": "toad_liberation",
+    "arcPosition": "rising",
+    "description": "The party's anti-authoritarian actions have made them popular with rebel groups. Songs are being sung in taverns.",
+    "targets": ["party"],
+    "effects": {
+      "rebel_clans": 15,
+      "the_unchained": 10
     },
+    "cycle_impact": { "score": 0.2, "label": "Folk Heroes", "type": "social" }
+  },
     {
         id: 'scrap_trail',
         title: "A Trail of Scrap",

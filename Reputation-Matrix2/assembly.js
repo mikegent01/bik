@@ -3670,6 +3670,7 @@ function renderNewsFeed() {
     })).sort((a, b) => b.trendingScore - a.trendingScore);
 
     // Score rumors by activity
+// Score rumors by activity
     const scoredRumors = rumors.map(rumor => {
         const relatedPosts = visiblePosts.filter(p => p.rumorId === rumor.id);
         const metrics = calculateRumorMetrics(rumor, relatedPosts);
@@ -3677,7 +3678,9 @@ function renderNewsFeed() {
             ...rumor,
             metrics,
             postCount: relatedPosts.length,
-            score: Math.abs(metrics.finalScore) + relatedPosts.length * 2
+            // THE FIX: Trust the metrics.finalScore (which already handles decay)
+            // We multiply by 10 just to make the numbers easier to work with, but we don't add raw count.
+            score: Math.abs(metrics.finalScore) 
         };
     }).sort((a, b) => b.score - a.score);
 
