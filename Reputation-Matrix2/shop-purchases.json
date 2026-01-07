@@ -7,7 +7,8 @@
         "isFaction": true,
         "approvedAt": "2025-12-15T12:00:00.000Z",
         "approvedBy": "DM",
-        "playerKey": "archie"    },
+        "playerKey": "archie"
+    },
     {
         "orderId": "FT-UPGRADE-002",
         "itemId": "faction_banners",
@@ -16,7 +17,8 @@
         "isFaction": true,
         "approvedAt": "2025-12-15T12:00:00.000Z",
         "approvedBy": "DM",
-        "playerKey": "archie"    },
+        "playerKey": "archie"
+    },
     {
         "orderId": "FT-UPGRADE-003",
         "itemId": "faction_memorial",
@@ -25,7 +27,8 @@
         "isFaction": true,
         "approvedAt": "2025-12-15T12:00:00.000Z",
         "approvedBy": "DM",
-        "playerKey": "archie"    },
+        "playerKey": "archie"
+    },
     {
         "orderId": "FT-UPGRADE-004",
         "itemId": "faction_ink_supplies",
@@ -34,7 +37,8 @@
         "isFaction": true,
         "approvedAt": "2025-12-15T12:00:00.000Z",
         "approvedBy": "DM",
-        "playerKey": "archie"    },
+        "playerKey": "archie"
+    },
     {
         "orderId": "FT-UPGRADE-005",
         "itemId": "faction_training_dummies",
@@ -43,5 +47,46 @@
         "isFaction": true,
         "approvedAt": "2025-12-15T12:00:00.000Z",
         "approvedBy": "DM",
-        "playerKey": "archie"    }
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-01",
+        "itemId": "health_potion",
+        "itemName": "Health Potion",
+        "price": 600,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-02",
+        "itemId": "warios_garlic_grenade",
+        "itemName": "Wario's Garlic Grenade",
+        "price": 800,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-03",
+        "itemId": "kremling_krew_kannonball",
+        "itemName": "Kremling Krew Kannonball",
+        "price": 800,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    },
+    {
+        "orderId": "WW-1D1U1GWJ-04",
+        "itemId": "pokemon_center_healing_machine",
+        "itemName": "Pokémon Center Healing Machine (Rental)",
+        "price": 1500,
+        "isFaction": false,
+        "approvedAt": "2026-01-03T03:55:00.000Z",
+        "approvedBy": "Wario",
+        "playerKey": "hjumpik"
+    }
 ]
