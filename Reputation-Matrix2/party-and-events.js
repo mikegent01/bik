@@ -208,6 +208,96 @@ export const RUMORS = [
     },
     "cycle_impact": { "score": -0.5, "label": "Treasure Found", "type": "economic" }
   },
+    {
+    "id": "democratic_summit_two",
+    "title": "The Second Democratic Summit",
+    "date": { "day": 8, "monthIndex": 7, "year": 1040 },
+    "isEvent": true,
+    "instigator": "princess_daisy",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "crisis",
+    "description": "A 5-day diplomatic summit hosted in Sarasaland intended to foster cooperation between democratic states and independent powers. Marred by King Dedede's disastrous speech, the Peasley financial scandal, and Lanky Kong's international incident, though the Mushroom Kingdom Disaster Relief Program was successfully ratified.",
+    "targets": ["dk_crew", "king_dedede", "prince_peasley", "toadette", "princess_daisy"],
+    "effects": {
+      "dk_crew": -25,
+      "dreamland": -15,
+      "beanbean_kingdom": -20,
+      "kremling_krew": 20,
+      "mushroom_liberation": 15
+    },
+    "cycle_impact": { "score": -1.5, "label": "Diplomatic Crisis", "type": "political" }
+  },
+  {
+    "id": "mushroom_disaster_relief",
+    "title": "Mushroom Kingdom Disaster Relief Program",
+    "date": { "day": 10, "monthIndex": 7, "year": 1040 },
+    "isEvent": true,
+    "instigator": "toadette",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "humanitarian",
+    "description": "An international humanitarian initiative signed by 8 nations to provide medical supplies, safe passage corridors, and refugee processing for civilians displaced by the Mushroom Kingdom Civil War.",
+    "targets": ["toadette", "princess_daisy", "dk_crew", "isle_delfino", "noki_commonwealth"],
+    "effects": {
+      "peach_loyalists": 25,
+      "toad_liberation": 20,
+      "koopa_resistance": 15,
+      "international_community": 20
+    },
+    "cycle_impact": { "score": 2.0, "label": "Humanitarian Success", "type": "diplomatic" }
+  },
+  {
+    "id": "peasley_scandal",
+    "title": "The Peasley Financial Scandal",
+    "date": { "day": 12, "monthIndex": 7, "year": 1040 },
+    "isEvent": true,
+    "instigator": "fawful",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "betrayal",
+    "description": "Prince Peasley's titles were relinquished after evidence surfaced of 12 million Beanbean coins transferred to accounts linked to Toadette's relief operations. Investigation revealed Fawful intercepted legitimate relief funds but the secrecy violated royal protocol.",
+    "targets": ["prince_peasley", "toadette", "queen_bean", "fawful"],
+    "effects": {
+      "beanbean_kingdom": -20,
+      "fawful_regime": 15,
+      "peach_loyalists": -5,
+      "prince_peasley": -30
+    },
+    "cycle_impact": { "score": -1.2, "label": "Royal Disgrace", "type": "political" }
+  },
+  {
+    "id": "lanky_diplomatic_incident",
+    "title": "The Lanky Kong Incident",
+    "date": { "day": 11, "monthIndex": 7, "year": 1040 },
+    "isEvent": true,
+    "instigator": "lanky_kong",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "escalation",
+    "description": "A series of accidents by Lanky Kong at the Democratic Summit - including destroying artifacts, knocking delegates into fountains, and striking a Kremling observer - was exploited by Kremling propaganda to declare an international incident against the DK Crew.",
+    "targets": ["lanky_kong", "dk_crew", "kremling_krew"],
+    "effects": {
+      "dk_crew": -25,
+      "kremling_krew": 20,
+      "kongo_bongo": -15,
+      "international_community": -10
+    },
+    "cycle_impact": { "score": -1.8, "label": "International Incident", "type": "diplomatic" }
+  },
+  {
+    "id": "dedede_walkout",
+    "title": "The Dedede Speech Walkout",
+    "date": { "day": 11, "monthIndex": 7, "year": 1040 },
+    "isEvent": true,
+    "instigator": "king_dedede",
+    "arc": "mushroom_civil_war",
+    "arcPosition": "crisis",
+    "description": "King Dedede's 59-page speech attacking the DK Crew caused a mass walkout by world leaders, with 6 delegations abandoning the summit. The incident created the chaos that Kremling observers later exploited.",
+    "targets": ["king_dedede", "dk_crew", "princess_daisy"],
+    "effects": {
+      "dreamland": -20,
+      "dk_crew": -10,
+      "international_community": -15
+    },
+    "cycle_impact": { "score": -1.0, "label": "Diplomatic Disaster", "type": "political" }
+  },
   {
     "id": "primordial_wyrm_awakening",
     "title": "The Wyrm Beneath",
@@ -948,6 +1038,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         effects: { freelancer_underworld: 10, cosmic_jesters: 15, regal_empire: -15, iron_legion: -15, mages_guild: -20, liberated_toads: -5 },
         cycle_impact: { score: 2.5, label: "Arcane Catastrophe", type: "magic" }
     },
+    
   {
     "id": "dragon_slaying",
     "title": "The Dragon Hunt",
@@ -980,6 +1071,108 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
       "cosmic_jesters": 10
     },
     "cycle_impact": { "score": -0.8, "label": "Business Booms", "type": "economic" }
+  },
+  {
+    "id": "democratic_summit",
+    "title": "The Democratic Summit",
+    "date": { "year": 1040, "monthIndex": 6, "day": 12 },
+    "isEvent": true,
+    "instigator": "captain_toad",
+    "arc": "global_politics",
+    "arcPosition": "inciting_incident",
+    "description": "A major diplomatic summit intended to foster cooperation between democratic states and independent powers like the DK Crew. The event was marred by an international incident involving the Regal Empire, causing significant political fallout.",
+    "targets": ["captain_toad", "donkey_kong", "diddy_kong", "regal_empire_delegate", "queen_bean", "prince_florian"],
+    "effects": {
+      "mushroom_regency": 10,
+      "dk_crew": 5,
+      "regal_empire": -15
+    },
+    "cycle_impact": { "score": 0.5, "label": "Diplomatic Tension", "type": "political" }
+  },
+  {
+    "id": "fawfuls_gala",
+    "title": "Fawful's Grand Gala",
+    "date": { "year": 1040, "monthIndex": 6, "day": 13 },
+    "isEvent": true,
+    "instigator": "fawful",
+    "arc": "fawful_dominion",
+    "arcPosition": "rising_action",
+    "description": "A victory party hosted by Fawful at the seized Peach's Castle. Attended by underworld figures and chaotic entities, it was successfully infiltrated by a joint Koopa-Loyalist intelligence team.",
+    "targets": ["fawful", "evil_toad_god", "giggling_pete", "chief_thornpaw"],
+    "effects": {
+      "fawful_minions": 10,
+      "peach_loyalists": 5,
+      "cosmic_jesters": 10
+    },
+    "cycle_impact": { "score": -0.7, "label": "Villainous Assembly", "type": "social" }
+  },
+  {
+    "id": "bramblehaven_siege",
+    "title": "The Siege of Bramblehaven",
+    "date": { "year": 1040, "monthIndex": 6, "day": 15 },
+    "isEvent": true,
+    "instigator": "captain_toadette",
+    "arc": "civil_war",
+    "arcPosition": "rising_action",
+    "description": "Captain Toadette's Loyalist forces launched a brutal, day-long assault on the Fawful bastion of Bramblehaven. The Loyalists refused to accept surrender, resulting in heavy casualties but a decisive strategic victory.",
+    "targets": ["captain_toadette", "embercap", "mistveil", "dewdrop"],
+    "effects": {
+      "peach_loyalists": 25,
+      "fawful_minions": -30,
+      "civilians": -10
+    },
+    "cycle_impact": { "score": 0.8, "label": "Brutal Victory", "type": "military" }
+  },
+  {
+    "id": "raventree_manor_chaos",
+    "title": "The Haunting of Raventree Manor",
+    "date": { "year": 1040, "monthIndex": 6, "day": 17 },
+    "isEvent": true,
+    "instigator": "archie",
+    "arc": "raventree_mystery",
+    "arcPosition": "rising_action",
+    "description": "The party's exploration of the haunted Raventree Manor descended into chaos involving flaming books and cryptic clues. The group eventually barricaded themselves inside after discovering Bowser and Eager on the premises.",
+    "targets": ["archie", "markop", "remi", "waluigi", "bowser"],
+    "effects": {
+      "mages_guild": -5,
+      "party_cohesion": -10,
+      "supernatural_forces": 10
+    },
+    "cycle_impact": { "score": -0.4, "label": "Paranormal Activity", "type": "supernatural" }
+  },
+  {
+    "id": "shadeward_manor_raid",
+    "title": "The Shadeward Betrayal",
+    "date": { "year": 1040, "monthIndex": 6, "day": 18 },
+    "isEvent": true,
+    "instigator": "self_reflection_oracle",
+    "arc": "shadeward_conspiracy",
+    "arcPosition": "climax",
+    "description": "A dinner party for Liberated Toads turned into a trap within the time-looping Shadeward Mansion. A traitorous 'Mole' facilitated a raid by Mr. Wario and the Iron Legion. The survivors escaped via dark magic, but trust was shattered.",
+    "targets": ["self_reflection_oracle", "wario", "toad_lee", "bones", "ryan", "rodger", "the_mole"],
+    "effects": {
+      "iron_legion": 20,
+      "liberated_toads": -20,
+      "wario_enterprises": 15
+    },
+    "cycle_impact": { "score": -0.9, "label": "Betrayal & Ambush", "type": "chaotic" }
+  },
+  {
+    "id": "archies_confession",
+    "title": "The Fireball Confession",
+    "date": { "year": 1040, "monthIndex": 6, "day": 20 },
+    "isEvent": true,
+    "instigator": "archie",
+    "arc": "raventree_mystery",
+    "arcPosition": "climax",
+    "description": "Archie Miser publicly confessed to the destruction of the Raventree Greenhouse, sparking immediate backlash from the Mages' Guild. This coincided with a chaotic skirmish in the Manor's Dance Hall against the Iron Legion.",
+    "targets": ["archie", "hjumpik", "markop", "toad_lee", "waluigi", "iron_legion"],
+    "effects": {
+      "mages_guild": -25,
+      "iron_legion": -10,
+      "wah_media": 20
+    },
+    "cycle_impact": { "score": 0.6, "label": "Public Scandal", "type": "social" }
   },
   {
     "id": "scrap_trade_boom",
