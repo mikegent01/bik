@@ -124,11 +124,54 @@ combinedFactions.liberated_toads = modifiedMushroomKingdomFactions.liberated_toa
 // STORY ARCS
 // ============================================
 export const STORY_ARCS = {
+shadowfell_estate: {
+        id: 'shadowfell_estate',
+        name: 'The Shadowfell Dinner Party',
+        description: 'Trapped in the dark reflection of Raventree, Archie and Bowser must navigate a high-stakes dinner with Vampire Lords. Physical combat is limited; social etiquette is the weapon of choice.',
+        icon: '🍷',
+        status: 'active',
+        startDate: { day: 21, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'arrival', name: 'Arrival', description: 'Entering the Shadow Plane' },
+            { id: 'dinner', name: 'The Feast', description: 'Surviving the courses' },
+            { id: 'betrayal', name: 'The Turn', description: 'Green T and Toadburt make their moves' },
+            { id: 'escape', name: 'The Exit', description: 'Breaking the anchor to return' }
+        ],
+        currentPhase: 1,
+        themes: ['social-combat', 'horror', 'diplomacy'],
+        keyFactions: ['onyx_hand', 'silver_flame', 'mages_guild'],
+        consequences: {
+            positive: ['Alliance with Onyx Hand', 'Rescue of Green T'],
+            negative: ['Permanent soul damage', 'Enraging the Vampire Lords']
+        }
+    },
+    feywild_attic: {
+        id: 'feywild_attic',
+        name: 'The Feywild Fracture',
+        description: 'Hjumpik, Waluigi, and Toad Lee are lost in the chaotic, overgrown reflection of the manor. They must navigate wild magic, fey trickery, and the hunt for the "Orange" anchor.',
+        icon: '🦋',
+        status: 'active',
+        startDate: { day: 21, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'entry', name: 'The Fall', description: 'Dropping into the Feywild' },
+            { id: 'exploration', name: 'The Jungle Attic', description: 'Navigating the overgrown manor' },
+            { id: 'encounter', name: 'The Orange Guide', description: 'Meeting the False Oracle' },
+            { id: 'convergence', name: 'The Bell', description: 'Ringing the bell to merge realities' }
+        ],
+        currentPhase: 1,
+        themes: ['chaos', 'wild-magic', 'survival'],
+        keyFactions: ['cosmic_jesters', 'ratchet_raiders', 'iron_legion'],
+        consequences: {
+            positive: ['Powerful fey artifacts', 'Taming the chaos'],
+            negative: ['Time dilation issues', 'Mutations from wild magic']
+        }
+    },    
 raventree_manor: {
         id: 'raventree_manor',
         name: 'The Raventree Manor Crisis',
-        description: 'What began as a haunted house investigation has escalated into a multiversal catastrophe. A failed ritual has shattered the manor across three planes of reality—the Shadowfell, the Feywild, and the Void—scattering the party and turning a containment crisis into a desperate race to mend the fabric of existence.',
-        icon: '🏚️',
+        description: 'The central conflict binding the fractured realities. The Oracle (Necromancer) seeks to merge the timelines to awaken his Vessel.',        icon: '🏚️',
         status: 'active',
         startDate: { day: 16, monthIndex: 6, year: 1040 },
         endDate: null,
