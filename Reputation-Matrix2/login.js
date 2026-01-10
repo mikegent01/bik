@@ -48,7 +48,11 @@ function selectProfile(profileKey) {
         window.location.href = 'directory.html';
     }, 500); // Match CSS transition, gives time for fade
 }
-
+window.debugReset = function() {
+    console.warn("⚠️ FORCING SESSION RESET");
+    localStorage.removeItem('vigilanceTerminalUser');
+    window.location.reload();
+};
 function setupLoginScreen() {
     if (!grid) return;
 
@@ -482,8 +486,18 @@ function renderDashboard() {
         ${renderIntelWidget()}
     `;
 }
-
 function main() {
+    // --- START DEBUG CHECK ---
+    // Check if the URL contains ?reset=true
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reset') === 'true') {
+        console.log("Reset flag detected. Clearing session.");
+        localStorage.removeItem('vigilanceTerminalUser');
+        // Clean the URL so we don't reset every time we refresh
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    // --- END DEBUG CHECK ---
+
     // Hide login screen initially
     if (loginScreen) {
         loginScreen.style.display = 'none';
@@ -495,34 +509,13 @@ function main() {
         renderDashboard();
         enterAppBtn.addEventListener('click', showLoginOrApp);
         
+        // ... [Rest of your existing main logic] ...
+        
         if (newOperatorBtn) {
             newOperatorBtn.addEventListener('click', startIntroSequence);
         }
         
-        soundtrackBtn.addEventListener('click', () => {
-            if (soundtrackModal) soundtrackModal.style.display = 'flex';
-        });
-
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', () => {
-                if (soundtrackModal) soundtrackModal.style.display = 'none';
-                // Stop video playback by reloading iframe
-                const iframe = soundtrackModal.querySelector('iframe');
-                if (iframe) iframe.src = iframe.src;
-            });
-        }
-        
-        if (soundtrackModal) {
-            soundtrackModal.addEventListener('click', (e) => {
-                if (e.target === soundtrackModal) {
-                    soundtrackModal.style.display = 'none';
-                    const iframe = soundtrackModal.querySelector('iframe');
-                    if (iframe) iframe.src = iframe.src;
-                }
-            });
-        }
-
-        setupPlayGameButton();
+        // ... 
     } else {
         // Fallback if there is no startup screen for some reason.
         const savedUser = localStorage.getItem('vigilanceTerminalUser');
