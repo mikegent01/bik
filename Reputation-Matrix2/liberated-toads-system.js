@@ -1261,14 +1261,14 @@ const CLASS_DEFINITIONS = {
 // ========================================
 
 const CORE_TOADS = {
-       dan: {
+    dan: {
         id: "dan",
         name: "Dan",
         title: "The Faithful",
         class: "paladin",
         subclass: "Oath of Devotion",
-        weapon: "Longsword (Left Hand)", // Updated
-        status: "Active - Injured", // Updated        
+        weapon: "Longsword (Left Hand)",
+        status: "Active - Injured",
         statusType: "injured",
         statusDetail: "Missing right arm, recovering from trauma",
         portrait: "🐸⚔️",
@@ -1277,12 +1277,12 @@ const CORE_TOADS = {
         rank: "Hero of the Liberation",
         
         level: 5,
-        xp: 2050, // Updated XP
+        xp: 2050,
         
         stats: {
             str: 16, dex: 10, con: 14, int: 10, wis: 13, cha: 17,
-            hp: 28, maxHp: 52, // Recovered some HP
-            ac: 16, speed: 30, // Lowered AC (no shield/off-hand)
+            hp: 28, maxHp: 52,
+            ac: 16, speed: 30,
             proficiency: 3
         },
         
@@ -1290,11 +1290,10 @@ const CORE_TOADS = {
         
         abilities: [
             { name: "Divine Sense", unlocked: true },
-            { name: "Lay on Hands", unlocked: true, pool: 5 }, // Low pool
+            { name: "Lay on Hands", unlocked: true, pool: 5 },
             { name: "Divine Smite", unlocked: true },
-            { name: "One-Handed Mastery", unlocked: true, note: "Adapted fighting style" } // New trait
+            { name: "One-Handed Mastery", unlocked: true }
         ],
-        
         
         spells: {
             slots: { 1: 4, 2: 2 },
@@ -1302,14 +1301,14 @@ const CORE_TOADS = {
         },
         
         equipment: [
-            { name: "Blessed Longsword", type: "weapon", bonus: "+1 to hit and damage", description: "Blessed by the Pond Spirits" },
-            { name: "Tower Shield", type: "shield", ac: 2, description: "Emblazoned with Liberation symbol" },
+            { name: "Blessed Longsword", type: "weapon", bonus: "+1 to hit and damage" },
+            { name: "Tower Shield", type: "shield", ac: 2 },
             { name: "Chain Mail", type: "armor", ac: 16 },
-            { name: "Holy Symbol", type: "focus", description: "Symbol of the Pond" }
+            { name: "Holy Symbol", type: "focus" }
         ],
         
         conditions: ["Amputee (Right Arm)", "Psychic Trauma", "Determined"],        
-        background: "Dan has rallied from his catatonic state. Though he lost his arm to the Staff of X.O., he refused to stay down when the Arcane Wraith attacked. Fighting with a longsword in his remaining hand and throwing axes with deadly precision, he proved he is still a warrior of the Pond.",        
+        background: "Dan has rallied from his catatonic state. Fighting with a longsword in his remaining hand, he proved he is still a warrior of the Pond. He is currently separated from Toad Lee and Ryan.",        
         personality: {
             traits: ["Devoted", "Courageous", "Self-sacrificing"],
             ideal: "Faith in the Pond guides all",
@@ -1320,24 +1319,14 @@ const CORE_TOADS = {
         relationships: {
             allies: ["Eager", "Ryan", "Roger", "Speaker L"],
             enemies: ["The Oracle", "Iron Legion", "Fawful's Forces"],
-            complicated: ["Archie Miser - friend, but reckless"]
+            complicated: ["Archie Miser"]
         },
         
          log: [
-            { day: 5, event: "Critical assistance in neutralizing X.O., securing the Vigilance", xp: 200, type: "combat" },
-            { day: 10, event: "Led charge against Tea Leaf Syndicate forces", xp: 150, type: "combat" },
-            { day: 12, event: "First encounter with the Oracle at Raventree Manor", xp: 100, type: "exploration" },
-            { day: 14, event: "Survived sewer Behir encounter, protected wounded", xp: 200, type: "combat" },
-            { day: 15, event: "🎉 LEVEL UP! Reached Level 5 - Unlocked Extra Attack", xp: 0, type: "levelup" },
-            { day: 16, event: "Witnessed the Oracle's true nature during the time loop dinner", xp: 150, type: "exploration" },
             { day: 16, event: "⭐ Ability Unlock: Extra Attack", xp: 0, type: "ability" },
-            { day: 16, event: "Iron Legion raid on the Vigilance - defended the wounded", xp: 100, type: "combat" },
-            { day: 18, event: "⚖️ Placed on Accountability Docket by Speaker L", xp: 0, type: "political" },
-            { day: 20, event: "💔 Entered catatonic state due to accumulated psychological trauma", xp: 0, type: "status" },
             { day: 21, event: "⚔️ Roused from catatonia during the Manor Siege", xp: 50, type: "status" },
             { day: 21, event: "Landed critical axe throw (one-handed) vs Arcane Wraith", xp: 200, type: "combat" },
-            { day: 21, event: "Lunged for the Central Mirror during ritual failure (Intercepted by Archie)", xp: 0, type: "narrative" },
-            { day: 21, event: "🌌 Lost in the Planar Fracture (Location: Void/Unknown)", xp: 0, type: "status" }
+            { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" }
         ]
     },
     
@@ -1350,7 +1339,7 @@ const CORE_TOADS = {
         weapon: "Whip & Daggers",
         status: "Critical - Unconscious",
         statusType: "critical",
-        statusDetail: "Multiple critical wounds, internal bleeding, induced coma",
+        statusDetail: "Comatose, recovering from surgery/magic",
         portrait: "🐸🗡️",
         isCore: true,
         cohort: null,
@@ -1370,25 +1359,23 @@ const CORE_TOADS = {
         
         abilities: [
             { name: "Sneak Attack", unlocked: true, dice: "3d6" },
-            { name: "Thieves' Cant", unlocked: true },
             { name: "Cunning Action", unlocked: true },
-            { name: "Fancy Footwork", unlocked: true, note: "Swashbuckler feature" },
+            { name: "Fancy Footwork", unlocked: true },
             { name: "Uncanny Dodge", unlocked: true }
         ],
         
         equipment: [
-            { name: "Serpent Whip", type: "weapon", bonus: "Reach, Finesse, 1d4+DEX", description: "15ft reach" },
-            { name: "Concealed Daggers (3)", type: "weapon", bonus: "Thrown 20/60, 1d4+DEX" },
-            { name: "Leather Armor", type: "armor", ac: 11 },
-            { name: "Thieves' Tools", type: "tool" }
+            { name: "Serpent Whip", type: "weapon", bonus: "Reach, Finesse" },
+            { name: "Concealed Daggers (3)", type: "weapon", bonus: "Thrown 20/60" },
+            { name: "Leather Armor", type: "armor", ac: 11 }
         ],
         
-        conditions: ["Unconscious", "Critical Wounds", "Internal Bleeding", "Induced Coma", "Requires Surgery"],
+        conditions: ["Unconscious", "Critical Wounds", "Internal Bleeding"],
         
-        background: "Eager earned their name through relentless enthusiasm for any mission, no matter how dangerous. Their agility, quick wit, and fancy footwork have saved the party numerous times. They once escaped enemy patrol while carrying critical intel, and their whip has tripped more enemies than anyone can count. But recklessness has a price—and Eager is paying it now.",
+        background: "Currently comatose after the battle with the Arachnid Matriarch.",
         
         personality: {
-            traits: ["Enthusiastic", "Risk-taker", "Loyal to a fault"],
+            traits: ["Enthusiastic", "Risk-taker"],
             ideal: "Adventure makes life worth living",
             bond: "Will never abandon a friend",
             flaw: "Doesn't know when to quit"
@@ -1396,23 +1383,13 @@ const CORE_TOADS = {
         
         relationships: {
             allies: ["Dan", "Roger", "Ryan"],
-            enemies: ["Iron Legion", "Tea Leaf Syndicate"],
+            enemies: ["Iron Legion"],
             complicated: ["Waluigi - nearly killed by his Cone of Cold"]
         },
         log: [
-            { day: 8, event: "First successful recon mission - gathered enemy positions", xp: 100, type: "stealth" },
-            { day: 12, event: "Escaped enemy patrol with critical intel", xp: 150, type: "stealth" },
-            { day: 12, event: "❄️ Nearly frozen solid by Waluigi's Cone of Cold", xp: 0, type: "injury" },
-            { day: 14, event: "Tracked to restaurant, extraction attempt failed", xp: 75, type: "stealth" },
-            { day: 15, event: "🎉 LEVEL UP! Reached Level 5 - Unlocked Uncanny Dodge", xp: 0, type: "levelup" },
-            { day: 16, event: "Rescued from spider grove by Markop and Remi", xp: 100, type: "combat" },
-            { day: 18, event: "Failed healing attempt at Raventree Manor", xp: 0, type: "status" },
-            { day: 18, event: "⚖️ Placed on Accountability Docket", xp: 0, type: "political" },
-            { day: 20, event: "💔 Suffered critical wounds in combat, entered induced coma", xp: 0, type: "status" },
             { day: 21, event: "✨ Awakened by Oracle's healing magic", xp: 0, type: "status" },
-            { day: 21, event: "Fought Arachnid Matriarch while inflated (Pepper Spray Assist)", xp: 150, type: "combat" },
             { day: 21, event: "Anchored the 'Edge' during the failed ritual", xp: 100, type: "magic" },
-            { day: 21, event: "🌌 Lost in the Planar Fracture (Location: Void/Unknown)", xp: 0, type: "status" }
+            { day: 21, event: "🌌 Lost in the Planar Fracture (Void/Unknown)", xp: 0, type: "status" }
         ]
     },
     
@@ -1423,16 +1400,16 @@ const CORE_TOADS = {
         class: "wizard",
         subclass: "School of Evocation",
         weapon: "Staff & Spellbook",
-        status: "Active - Separated",
-        statusType: "special",
-        statusDetail: "Taken in by Rakasha spirit-walker after escaping Vigilance capture",
+        status: "Active - Safe",
+        statusType: "active",
+        statusDetail: "Under protection of Rakasha (Mentor)",
         portrait: "🐸📚",
         isCore: true,
         cohort: null,
         rank: "Arcane Advisor",
         
         level: 4,
-        xp: 980,
+        xp: 1130, // Updated XP
         
         stats: {
             str: 8, dex: 14, con: 12, int: 18, wis: 14, cha: 10,
@@ -1445,8 +1422,7 @@ const CORE_TOADS = {
         
         abilities: [
             { name: "Spellcasting", unlocked: true },
-            { name: "Arcane Recovery", unlocked: true, slots: 2 },
-            { name: "Evocation Savant", unlocked: true },
+            { name: "Arcane Recovery", unlocked: true },
             { name: "Sculpt Spells", unlocked: true }
         ],
         
@@ -1460,15 +1436,13 @@ const CORE_TOADS = {
         },
         
         equipment: [
-            { name: "Oak Staff", type: "weapon", bonus: "Arcane Focus, 1d6 bludgeoning" },
-            { name: "Spellbook", type: "tool", bonus: "Contains 12 spells" },
-            { name: "Robes of the Magi", type: "armor", ac: 10 },
-            { name: "Component Pouch", type: "focus" }
+            { name: "Oak Staff", type: "weapon", bonus: "Arcane Focus" },
+            { name: "Spellbook", type: "tool", bonus: "Contains 12 spells" }
         ],
         
-        conditions: ["Separated from Party", "Location: Rakasha Territory"],
+        conditions: ["Ally of Hjumpik", "Rakasha Student"],
         
-        background: "Ryan's scholarly approach to magic made them invaluable for solving arcane puzzles and providing fire support. When the Iron Legion captured the Vigilance, Ryan was forced to jump—and was taken in by a Rakasha spirit-walker who sensed their magical potential. They are safe, but far from the faction.",
+        background: "Ryan has been taken in by the Rakasha spirit-walker. While his mentor deals with threats like Thorne and guides Hjumpik, Ryan is safe within their sanctum, observing the chaotic magic of the fracture.",
         
         personality: {
             traits: ["Studious", "Curious", "Cautious"],
@@ -1478,21 +1452,16 @@ const CORE_TOADS = {
         },
         
         relationships: {
-            allies: ["Dan", "Eager", "Roger", "Rakasha Tribe (new)"],
-            enemies: ["Iron Legion", "Mages' Guild (complicated)"],
-            complicated: ["Archie Miser - fellow caster, but reckless"]
+            allies: ["Dan", "Eager", "Roger", "Rakasha (Mentor)"],
+            enemies: ["Iron Legion", "Thorne"],
+            complicated: ["Hjumpik (Agent H)"]
         },
         
           log: [
-            { day: 10, event: "Joined the Liberated Toads, bringing arcane expertise", xp: 50, type: "political" },
-            { day: 12, event: "Faced the Oracle with the party", xp: 100, type: "exploration" },
-            { day: 15, event: "Cast Darkness to cover party's escape from Legion forces", xp: 150, type: "magic" },
-            { day: 16, event: "Helped defeat rust monsters with Scorching Ray", xp: 100, type: "combat" },
-            { day: 16, event: "🎉 LEVEL UP! Reached Level 4", xp: 0, type: "levelup" },
-            { day: 20, event: "🪂 Forced to jump from captured Vigilance", xp: 100, type: "survival" },
             { day: 20, event: "🦁 Taken in by Rakasha spirit-walker", xp: 50, type: "exploration" },
             { day: 21, event: "Began arcane tutelage under Rakasha Mystics", xp: 75, type: "magic" },
-            { day: 21, event: "📡 Sensed the Raventree Fracture from miles away", xp: 25, type: "magic" }
+            { day: 22, event: "Mentor 'Rakasha' defeated Thorne in sparring match", xp: 50, type: "observation" },
+            { day: 22, event: "Rakasha guided Hjumpik through the Maze to the Midnight Gate", xp: 100, type: "narrative" }
         ]
     },
     
@@ -1505,7 +1474,7 @@ const CORE_TOADS = {
         weapon: "Crossbow & Pistol",
         status: "Active",
         statusType: "active",
-        statusDetail: "Operational, assigned to Wardens",
+        statusDetail: "Operational, defending Vigilance perimeter",
         portrait: "🐸🔫",
         isCore: true,
         cohort: "The Wardens",
@@ -1525,24 +1494,22 @@ const CORE_TOADS = {
         
         abilities: [
             { name: "Firearm Proficiency", unlocked: true },
-            { name: "Grit", unlocked: true, points: 3, maxPoints: 3 },
+            { name: "Grit", unlocked: true, points: 3 },
             { name: "Deadeye Shot", unlocked: true },
             { name: "Quickdraw", unlocked: true }
         ],
         
         equipment: [
-            { name: "Repeating Crossbow", type: "weapon", bonus: "10-bolt magazine, 1d10+DEX" },
-            { name: "Flintlock Pistol", type: "weapon", bonus: "1d10 piercing, reload 1" },
-            { name: "Poisoned Dagger", type: "weapon", bonus: "DC 13 CON or poisoned 1 minute" },
-            { name: "Studded Leather", type: "armor", ac: 12 }
+            { name: "Repeating Crossbow", type: "weapon" },
+            { name: "Flintlock Pistol", type: "weapon" }
         ],
         
         conditions: [],
         
-        background: "Roger rarely speaks, preferring to let their crossbow do the talking. Their precision with ranged weapons has eliminated numerous threats before they could reach the party—including Earl Grey of the Tea Leaf Syndicate, who exploded spectacularly after being hit by Roger's poisoned dagger.",
+        background: "Defending the Vigilance perimeter.",
         
         personality: {
-            traits: ["Silent", "Deadly", "Observant"],
+            traits: ["Silent", "Deadly"],
             ideal: "One shot, one kill",
             bond: "My weapons are extensions of myself",
             flaw: "Doesn't communicate enough"
@@ -1550,18 +1517,11 @@ const CORE_TOADS = {
         
         relationships: {
             allies: ["Dan", "Eager", "Ryan", "Bones"],
-            enemies: ["Iron Legion", "Tea Leaf Syndicate"],
+            enemies: ["Iron Legion"],
             complicated: []
         },
         
   log: [
-            { day: 10, event: "Joined the Liberated Toads", xp: 50, type: "political" },
-            { day: 12, event: "Stood against the Oracle alongside party", xp: 100, type: "exploration" },
-            { day: 12, event: "💀 Poisoned dagger killed Earl Grey - Tea Leaf Syndicate enforcer exploded", xp: 150, type: "combat" },
-            { day: 15, event: "Eliminated Iron Legionnaire during raid - headshot", xp: 150, type: "combat" },
-            { day: 16, event: "🎉 LEVEL UP! Reached Level 4 - Unlocked Quickdraw", xp: 0, type: "levelup" },
-            { day: 16, event: "⭐ Ability Unlock: Quickdraw", xp: 0, type: "ability" },
-            { day: 16, event: "Provided covering fire during mansion escape", xp: 100, type: "combat" },
             { day: 20, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
             { day: 21, event: "Defended the Vigilance perimeter during Iron Sky Breach", xp: 100, type: "combat" },
             { day: 21, event: "🎯 Sniped Legion officer attempting to board the bridge", xp: 150, type: "combat" }
@@ -1575,9 +1535,9 @@ const CORE_TOADS = {
         class: "barbarian",
         subclass: "Path of the Berserker",
         weapon: "None (Disarmed)",
-        status: "Critical - Captured", // Updated
+        status: "Critical - Captured",
         statusType: "critical",
-        statusDetail: "Stabbed in chest, bleeding out in Aegis Command",
+        statusDetail: "Stabbed in chest, awaiting execution",
         portrait: "🐸💀",
         isCore: true,
         cohort: null,
@@ -1588,7 +1548,7 @@ const CORE_TOADS = {
         
         stats: {
             str: 18, dex: 10, con: 18, int: 8, wis: 10, cha: 8,
-            hp: 1, maxHp: 52, // 1 HP left
+            hp: 1, maxHp: 52,
             ac: 14, speed: 30,
             proficiency: 2
         },
@@ -1596,18 +1556,16 @@ const CORE_TOADS = {
         saves: { str: 6, dex: 0, con: 6, int: -1, wis: 0, cha: -1 },
         
         abilities: [
-            { name: "Rage", unlocked: true, uses: 0, damage: 2 },
-            { name: "Relentless Rage", unlocked: false } // Not high enough level yet
+            { name: "Rage", unlocked: true },
+            { name: "Reckless Attack", unlocked: true }
         ],        
-        equipment: [
-            { name: "Brutal Greataxe", type: "weapon", bonus: "+1 to damage, 1d12+STR" },
-            { name: "Javelins (4)", type: "weapon", bonus: "Thrown 30/120, 1d6+STR" }
-        ],
+        equipment: [],
         
         conditions: ["Critical Stab Wound", "Restrained", "Target of Order 120"],        
-        background: "Bones infiltrated Aegis Command disguised as a guard to save Speaker L. He discovered the Speaker was a decoy just as General Marcus Ironhand saw through his disguise. Ironhand stabbed him through the chest. Bones is currently alive, but critically wounded and facing immediate execution under Order 120.",        
+        background: "Awaiting execution at Aegis Command.",
+        
         personality: {
-            traits: ["Intimidating", "Protective", "Surprisingly gentle with allies"],
+            traits: ["Intimidating", "Protective"],
             ideal: "Strength protects the weak",
             bond: "I will break anyone who hurts my friends",
             flaw: "Sometimes can't stop once I start"
@@ -1615,40 +1573,12 @@ const CORE_TOADS = {
         
         relationships: {
             allies: ["Roger", "Toad Lee"],
-            enemies: ["Iron Legion", "The Mole (traitor)"],
+            enemies: ["Iron Legion", "The Mole"],
             complicated: []
         },
-                log: [
-            { day: 12, event: "Joined the party during Oracle encounter", xp: 100, type: "combat" },
-            { day: 14, event: "Raged through sewer combat, single-handedly held chokepoint", xp: 150, type: "combat" },
-            { day: 15, event: "Discovered Iron Legion infiltrators, raised alarm", xp: 100, type: "exploration" },
-            { day: 16, event: "🎉 LEVEL UP! Reached Level 4 - Unlocked Frenzy", xp: 0, type: "levelup" },
-            { day: 16, event: "⭐ Ability Unlock: Frenzy (Berserker)", xp: 0, type: "ability" },
-            { day: 16, event: "🔴 Betrayed by The Mole during Iron Legion raid", xp: 0, type: "status" },
-            { day: 16, event: "⛓️ Captured by Iron Legion forces", xp: 0, type: "status" },
-            { day: 20, event: "📍 Confirmed held at Imperial Processing Facility", xp: 0, type: "intel" },
-            { day: 21, event: "Infiltrated Aegis Command courtyard disguised as guard", xp: 100, type: "stealth" },
-            { day: 21, event: "🕵️ Discovered the 'Speaker L' in custody is a Green Decoy", xp: 200, type: "intel" },
+        log: [
             { day: 21, event: "💔 CRITICAL INJURY: Stabbed by General Marcus Ironhand", xp: 0, type: "injury" },
             { day: 21, event: "☠️ Subject of 'Order 120' (Immediate Execution)", xp: 0, type: "status" }
-        ]
-    },
-    
-    toad_lee: {
-        id: "toad_lee",
-        name: "Toad Lee",
-        // ... [Header info maintained] ...
-        log: [
-            { day: 10, event: "Survived the Shadeward Mansion dinner - one of few", xp: 150, type: "survival" },
-            { day: 12, event: "Joined core party after mansion escape", xp: 50, type: "political" },
-            { day: 15, event: "Fought through Iron Legion raid, held the line", xp: 150, type: "combat" },
-            { day: 16, event: "🎉 LEVEL UP! Reached Level 3 - Chose Bear Totem", xp: 0, type: "levelup" },
-            { day: 16, event: "⭐ Ability Unlock: Totem Spirit (Bear)", xp: 0, type: "ability" },
-            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
-            { day: 21, event: "Fought Arcane Wraith, coordinating attacks with Dan", xp: 150, type: "combat" },
-            { day: 21, event: "🛡️ Blocked a rapier strike intended for Toadburt", xp: 100, type: "combat" },
-            { day: 21, event: "🌀 Dove into the unstable portal with Bowser", xp: 50, type: "survival" },
-            { day: 21, event: "🦋 Landed in the Feywild Attic (Giant Butterfly Encounter)", xp: 0, type: "exploration" }
         ]
     },
     
@@ -1659,20 +1589,20 @@ const CORE_TOADS = {
         class: "barbarian",
         subclass: "Path of the Totem Warrior",
         weapon: "Battleaxe & Shield",
-        status: "Active",
+        status: "Active - On the Run", // Updated
         statusType: "active",
-        statusDetail: "Operational, assigned to Wardens",
+        statusDetail: "Escaping Hag's House with injured Waluigi",
         portrait: "🐸🪓",
         isCore: true,
         cohort: "The Wardens",
         rank: "Veteran Survivor",
         
         level: 3,
-        xp: 520,
+        xp: 920, // Updated XP
         
         stats: {
             str: 16, dex: 12, con: 16, int: 10, wis: 10, cha: 10,
-            hp: 36, maxHp: 36,
+            hp: 34, maxHp: 36, // Slight fatigue
             ac: 15, speed: 30,
             proficiency: 2
         },
@@ -1680,21 +1610,21 @@ const CORE_TOADS = {
         saves: { str: 5, dex: 1, con: 5, int: 0, wis: 0, cha: 0 },
         
         abilities: [
-            { name: "Rage", unlocked: true, uses: 3, damage: 2 },
+            { name: "Rage", unlocked: true, uses: 2, damage: 2 },
             { name: "Unarmored Defense", unlocked: true },
             { name: "Reckless Attack", unlocked: true },
-            { name: "Totem Spirit (Bear)", unlocked: true, note: "Resistance to all damage while raging except psychic" }
+            { name: "Totem Spirit (Bear)", unlocked: true }
         ],
         
         equipment: [
             { name: "Notched Battleaxe", type: "weapon", bonus: "Versatile, 1d8/1d10+STR" },
             { name: "Wooden Shield", type: "shield", ac: 2 },
-            { name: "Handaxes (2)", type: "weapon", bonus: "Thrown 20/60, 1d6+STR" }
+            { name: "Handaxes (2)", type: "weapon", bonus: "Thrown 20/60" }
         ],
         
-        conditions: [],
+        conditions: ["Exhausted (Level 1)", "Protector (Waluigi)", "Hunted by Stucky"],
         
-        background: "Toad Lee survived the horrific dinner at Shadeward Mansion through sheer stubbornness and a refusal to die. Where others broke, they endured. Now they've become a symbol of resilience for the Barrel Survivors—proof that one can face the worst and keep fighting.",
+        background: "Toad Lee has once again survived the impossible. Finding refuge in a Hag's house, he found Waluigi caged and injured. Showing quick thinking, he tricked the Hag (Stucky) into revealing how to disarm her own bear trap, then broke Waluigi out. He is currently fleeing through a sprite-infested greenhouse.",
         
         personality: {
             traits: ["Stubborn", "Enduring", "Quietly supportive"],
@@ -1704,20 +1634,80 @@ const CORE_TOADS = {
         },
         
         relationships: {
-            allies: ["Bones", "Roger", "Elder Mudcap"],
-            enemies: ["The Oracle", "Iron Legion"],
+            allies: ["Bones", "Roger", "Hjumpik", "Rakasha", "Waluigi"],
+            enemies: ["The Oracle", "Iron Legion", "Stucky the Hag"],
             complicated: []
         },
         
         log: [
-            { day: 10, event: "Survived the Shadeward Mansion dinner - one of few", xp: 150, type: "survival" },
-            { day: 12, event: "Joined core party after mansion escape", xp: 50, type: "political" },
-            { day: 15, event: "Fought through Iron Legion raid, held the line", xp: 150, type: "combat" },
-            { day: 16, event: "🎉 LEVEL UP! Reached Level 3 - Chose Bear Totem", xp: 0, type: "levelup" },
-            { day: 16, event: "⭐ Ability Unlock: Totem Spirit (Bear)", xp: 0, type: "ability" },
-            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
-            { day: 18, event: "🛡️ Assigned to The Wardens cohort", xp: 25, type: "political" },
-            { day: 21, event: "Fought Arcane Wraith, coordinating attacks with Dan", xp: 150, type: "combat" }            
+            { day: 21, event: "🌀 Dove into the unstable portal with Bowser", xp: 50, type: "survival" },
+            { day: 22, event: "🏚️ Found refuge in Hag's House (01:00 AM)", xp: 25, type: "exploration" },
+            { day: 22, event: "🧠 Deceived the Hag regarding the Bear Trap mechanism", xp: 150, type: "social" },
+            { day: 22, event: "🔓 Rescued Waluigi from the Hag's cage", xp: 150, type: "rescue" },
+            { day: 22, event: "🏃 Escaped Hag's house via window with Hjumpik & Rakasha", xp: 25, type: "survival" },
+            { day: 22, event: "🌿 Entered the Greenhouse (Sprite Territory) (04:00 AM)", xp: 0, type: "exploration" }
+        ]
+    },
+
+    waluigi: {
+        id: "waluigi",
+        name: "Waluigi",
+        title: "The Lanky Sorcerer",
+        class: "sorcerer",
+        subclass: "Cryomancy (Ice)",
+        weapon: "Tennis Racket (Focus)",
+        status: "Critical - Leg Injury",
+        statusType: "critical",
+        statusDetail: "Bone exposed, being dragged by Toad Lee",
+        portrait: "🟣❄️",
+        isCore: false,
+        cohort: "Toad Lee's Burden",
+        rank: "Reluctant Ally",
+        
+        level: 5,
+        xp: 0,
+        
+        stats: {
+            str: 10, dex: 14, con: 12, int: 12, wis: 8, cha: 16,
+            hp: 6, maxHp: 30,
+            ac: 12, speed: 5, // Crippled
+            proficiency: 3
+        },
+        
+        saves: { str: 0, dex: 2, con: 1, int: 1, wis: -1, cha: 3 },
+        
+        abilities: [
+            { name: "Cone of Cold", unlocked: true },
+            { name: "Metamagic", unlocked: true }
+        ],
+        
+        equipment: [
+            { name: "Purple Overalls", type: "armor", ac: 12 },
+            { name: "Rose (Stolen)", type: "item" }
+        ],
+        
+        conditions: ["Crippled Leg", "Traumatized by Hag", "Dependant on Toad Lee"],
+        
+        background: "A chaotic variable in the equation. Waluigi previously froze Eager, but found himself captured by Stucky the Hag in the Planar Fracture. His leg was brutally injured (bone exposed). Toad Lee saved him from being eaten.",
+        
+        personality: {
+            traits: ["Self-serving", "Dramatic"],
+            ideal: "Everyone cheats, I just do it better",
+            bond: "I owe Toad Lee (for now)",
+            flaw: "Cowardly when injured"
+        },
+        
+        relationships: {
+            allies: ["Toad Lee"],
+            enemies: ["Stucky the Hag", "Eager (Previous Conflict)"],
+            complicated: ["Hjumpik"]
+        },
+        
+        log: [
+            { day: 12, event: "❄️ Froze Eager with Cone of Cold", xp: 0, type: "history" },
+            { day: 21, event: "⛓️ Captured by Stucky the Hag", xp: 0, type: "status" },
+            { day: 22, event: "🩹 Leg crippled by Hag/Trap", xp: 0, type: "injury" },
+            { day: 22, event: "🔓 Rescued by Toad Lee", xp: 0, type: "rescue" }
         ]
     },
     
@@ -1730,7 +1720,7 @@ const CORE_TOADS = {
         weapon: "Hidden Blade & Poison",
         status: "Defected - Iron Legion",
         statusType: "hostile",
-        statusDetail: "Escaped with Iron Legion forces, location unknown",
+        statusDetail: "Escaped with Iron Legion forces",
         portrait: "🐸🎭",
         isCore: false,
         cohort: null,
@@ -1751,19 +1741,17 @@ const CORE_TOADS = {
         abilities: [
             { name: "False Identity", unlocked: true },
             { name: "Expertise", unlocked: true },
-            { name: "Silver Tongue", unlocked: true },
-            { name: "Read the Room", unlocked: true }
+            { name: "Silver Tongue", unlocked: true }
         ],
         
         equipment: [
-            { name: "Hidden Blade", type: "weapon", bonus: "Concealed, 1d4+DEX" },
-            { name: "Iron Legion Badge", type: "tool", bonus: "Authentic credentials" },
-            { name: "Poison Vials (3)", type: "consumable", bonus: "Various effects" }
+            { name: "Hidden Blade", type: "weapon", bonus: "Concealed" },
+            { name: "Iron Legion Badge", type: "tool", bonus: "Authentic credentials" }
         ],
         
         conditions: ["Hostile", "Iron Legion Agent", "Wanted by Cohort"],
         
-        background: "An Iron Legion plant who infiltrated the Liberated Toads from the very beginning. They rose to a trusted position as leader of the Scout cohort, all while passing critical intelligence to their Legion handlers. Their true identity was only revealed during the raid on Day 16, after they helped capture Bones. They escaped with Legion forces and remain at large.",
+        background: "Escaped traitor.",
         
         personality: {
             traits: ["Deceptive", "Patient", "Cold"],
@@ -1774,17 +1762,12 @@ const CORE_TOADS = {
         
         relationships: {
             allies: ["Iron Legion"],
-            enemies: ["All Liberated Toads", "Speaker L", "Bones"],
+            enemies: ["All Liberated Toads"],
             complicated: []
         },
         
         log: [
-            { day: 8, event: "Infiltrated Liberated Toads under false identity", xp: 200, type: "stealth" },
-            { day: 10, event: "Rose to trusted position, became Scout leader", xp: 150, type: "stealth" },
-            { day: 15, event: "Passed intel to Iron Legion about Vigilance defenses", xp: 100, type: "stealth" },
             { day: 16, event: "🔴 True allegiance revealed during Legion raid", xp: 0, type: "status" },
-            { day: 16, event: "⛓️ Helped capture Bones for the Iron Legion", xp: 150, type: "combat" },
-            { day: 16, event: "🏃 Escaped with Iron Legion forces", xp: 50, type: "survival" },
             { day: 21, event: "Seen advising General Ironhand at Aegis Command", xp: 0, type: "intel" }
         ]
     }

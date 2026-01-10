@@ -81,7 +81,7 @@ export const RUMORS = [
     "effects": {
       "onyx_hand": 10,
       "shadowfell_politics": 15,
-      "party_tension": 20
+      "liberated_toads": 20
     },
     "cycle_impact": { "score": 3.5, "label": "Social Combat", "type": "diplomacy" }
   },
@@ -302,7 +302,7 @@ export const RUMORS = [
     {
         id: 'raventree_hag_incident',
         title: "The Hag of the Hedge Maze",
-        date: { day: 21, monthIndex: 6, year: 1040 },
+        date: { day: 22, monthIndex: 6, year: 1040 },
         isEvent: true,
         instigator: 'hjumpik',
         arc: 'feywild_attic', // UPDATED ARC
@@ -310,7 +310,7 @@ export const RUMORS = [
         description: "While the main party battled the Wraith, a separate drama unfolded in the Manor's grounds. Hjumpik and the Rakasha Spirit Walker navigated the magical hedge maze, discovering the 'Midnight Gate'. They subsequently infiltrated the Hag's Hut, rescuing Waluigi and Toad Lee from a gruesome fate in her stew pot. The group barely escaped to the greenhouse.",
         targets: ['hjumpik', 'rakasha_spirit_walker', 'waluigi', 'toad_lee', 'hag_of_raventree'],
         effects: {
-            vigilance_crew: 15,
+            liberated_toads: 15,
             cosmic_jesters: 10,
             raventree_curse: -10
         },
@@ -749,7 +749,7 @@ cycle_impact: { score: 3.0, label: "Geopolitical Shift", type: "political" }
         effects: {
             mages_guild: -15,
             raventree_curse: -20,
-            vigilance_crew: 10,
+            liberated_toads: 10,
             cosmic_jesters: 5
         },
         cycle_impact: { score: 1.5, label: "Supernatural Containment", type: "magic" }
