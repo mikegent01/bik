@@ -299,6 +299,23 @@ export const RUMORS = [
     "cycle_impact": { "score": -1.0, "label": "Diplomatic Disaster", "type": "political" }
   },
   {
+        id: 'raventree_hag_incident',
+        title: "The Hag of the Hedge Maze",
+        date: { day: 21, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'hjumpik',
+        arc: 'raventree_manor',
+        arcPosition: 'climax',
+        description: "While the main party battled the Wraith, a separate drama unfolded in the Manor's grounds. Hjumpik and the Rakasha Spirit Walker navigated the magical hedge maze, discovering the 'Midnight Gate'. They subsequently infiltrated the Hag's Hut, rescuing Waluigi and Toad Lee from a gruesome fate in her stew pot. The group barely escaped to the greenhouse.",
+        targets: ['hjumpik', 'rakasha_spirit_walker', 'waluigi', 'toad_lee', 'hag_of_raventree'],
+        effects: {
+            vigilance_crew: 15,
+            cosmic_jesters: 10,
+            raventree_curse: -10
+        },
+        cycle_impact: { score: 1.5, label: "Rescue Operation", type: "adventure" }
+    },
+  {
     "id": "primordial_wyrm_awakening",
     "title": "The Wyrm Beneath",
     "date": { "day": 22, "monthIndex": 6, "year": 1040 },
