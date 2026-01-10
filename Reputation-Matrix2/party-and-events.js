@@ -306,7 +306,7 @@ export const RUMORS = [
         instigator: 'hjumpik',
         arc: 'raventree_manor',
         arcPosition: 'climax',
-        description: "While the main party battled the Wraith, a separate drama unfolded in the Manor's grounds. Hjumpik and the Rakasha Spirit Walker navigated the magical hedge maze, discovering the 'Midnight Gate'. They subsequently infiltrated the Hag's Hut, rescuing Waluigi and Toad Lee from a gruesome fate in her stew pot. The group barely escaped to the greenhouse.",
+        description: "Hjumpik and the Rakasha Spirit Walker navigated the magical hedge maze, discovering the 'Midnight Gate'. They subsequently infiltrated the Hag's Hut, rescuing Waluigi and Toad Lee from a gruesome fate in her stew pot. The group barely escaped to the greenhouse.",
         targets: ['hjumpik', 'rakasha_spirit_walker', 'waluigi', 'toad_lee', 'hag_of_raventree'],
         effects: {
             vigilance_crew: 15,
