@@ -84,4 +84,88 @@ export const HISTORICAL_TIMELINE = [
     { date: { year: 1040, monthIndex: 6, day: 23, hour: 4, minute: 10 }, title: "The Oracle's Laboratory", description: "Markop and Remi stumble upon a hidden laboratory in the Atrium containing tanks of malformed humanoids and a central 'Vessel' frozen in stasis. They realize the Oracle is not a mystic guide but a researcher conducting forbidden necromancy.", icon: "icon_focus.png", category: "Recent Event" },
     { date: { year: 1040, monthIndex: 6, day: 23, hour: 5, minute: 20 }, title: "Green T's Rebellion", description: "During a bathroom break, Green T reveals to Archie that he has stolen a key from Orangus and possesses a firearm. He outlines a desperate plan to kill the Vampire Lords, shatter the crystals, and force the timelines to merge by unleashing the Beast.", icon: "faction_liberated_toads.png", category: "Recent Event" },
     { date: { year: 1040, monthIndex: 6, day: 23, hour: 7, minute: 38 }, title: "Convergence Imminent", description: "As the dinner party reaches its climax, Remi and Markop breach the Atrium's ballroom, witnessing flickering visions of Archie in the Shadowfell. Both teams prepare for a synchronized assault across dimensions to stop—or start—the end of the world.", icon: "icon_war.png", category: "Recent Event" },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 10 },
+    title: "After-Transit Complaints",
+    description: "Waluigi collapses into dramatic demands after the Midnight Gate relocation; the camp regroups in a cultivated garden.",
+    icon: "icon_complaint.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 38 },
+    title: "Blood in the Staff Room",
+    description: "Salam finds blood under harsh lighting—an environmental hazard for vampires and a signal that the manor is active, not abandoned.",
+    icon: "icon_blood.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 55 },
+    title: "Foyer Entry & Guestbook",
+    description: "Markop enters the immaculate marble foyer and confirms names in the guestbook: Archie Miser, Toadburt.",
+    icon: "icon_guestbook.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 6 },
+    title: "Bat Passage Discovered",
+    description: "Eager finds a hidden 'bat transport' wall route; guards mobilize into a pincer search after spotting Usk inside.",
+    icon: "icon_passage.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 13 },
+    title: "Headless Dancers Clash",
+    description: "Remi is forced into combat with headless dancers; a ghost possession dispute ignites further suspicion in the corridors.",
+    icon: "icon_mask.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 8 },
+    title: "Twenty-Coin Peace",
+    description: "Markop bribes the guards to avoid violence—only to accept a condition: Usk is arrested for possession of notes.",
+    icon: "icon_coins.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 48 },
+    title: "Perrius’ Theater Plan",
+    description: "Perrius Annmatar pressures the group to stage a fake killing of the manor host, framing it as necessary 'survival theater.'",
+    icon: "icon_dagger.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+    title: "Seated for Dinner",
+    description: "Guards enforce attendance: one seat left, Remi sits, Bowser demands food; the Oracle begins speaking of convergence.",
+    icon: "icon_table.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 24 },
+    title: "The Feast Arrives",
+    description: "Citrus is served to Markop and Remi; Archie taste-tests roast beef and finds blood mixed in, confirming ritual-grade dining.",
+    icon: "icon_food.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 33 },
+    title: "Exit Attempt & Door Lockdown",
+    description: "Archie spots Green T and Eager attempting to slip out; guards swarm and close doors, forcing a public loyalty confrontation.",
+    icon: "icon_lock.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 50 },
+    title: "Orangus Names the Game",
+    description: "The host reveals himself as Orangus Cornelious and explains: succession is in play, factions are present, and knives follow old monsters’ dinners.",
+    icon: "icon_crown.png",
+    category: "Recent Event"
+  },
+  {
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 53 },
+    title: "Usk Brought In",
+    description: "On Orangus’ command, guards bring Usk into the dining hall—turning the 'notes' arrest into a public leverage move.",
+    icon: "icon_prisoner.png",
+    category: "Recent Event"
+  },
 ];

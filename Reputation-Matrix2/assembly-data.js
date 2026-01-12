@@ -5,6 +5,596 @@
 
 export const WAHBOOK_POSTS = [
   {
+    id: 'waluigi_complaint', order: 40542, characterKey: 'waluigi', rumorId: 'wraith_banishment',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 10 },
+    content: "MY LEG NEEDS MEDICAL ATTENTION!!! AND A MASSAGE!!! AND ROSES!!! I DEMAND TO SEE THE MANAGER OF THIS GARDEN RIGHT NOW 😤😤😤",
+    likes: 4500,
+    comments: [
+      { characterKey: 'hjumpik', text: 'drink the potion i stole and shut up' },
+      { characterKey: 'wario', text: 'STOP WHINING! WAH!' },
+      { characterKey: 'princess_daisy', text: 'lmaooo classic' }
+    ]
+  },
+  {
+    id: 'rakasha_pollen', order: 40543, characterKey: 'rakasha_spirit_walker', rumorId: 'wraith_banishment',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 15 },
+    content: "the air here is thick with pollen. smells like old magic. this isn't a wild place—it's a garden kept by unseen hands. be careful what you touch.",
+    likes: 300,
+    comments: [
+      { characterKey: 'markop', text: 'dont touch the red mushrooms. just a hunch' },
+      { characterKey: 'salam', text: 'if it looks cultivated it probably bites' }
+    ]
+  },
+  {
+    id: 'toad_lee_guard_duty', order: 40544, characterKey: 'toad_lee', rumorId: 'wraith_banishment',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 20 },
+    content: "taking first watch. sprites seem chill for now. waluigi passed out. hjumpik cleaning his axe. we made it through the night 💪",
+    likes: 1200,
+    comments: [
+      { characterKey: 'captain_toadette', text: 'good discipline soldier. rest up' },
+      { characterKey: 'eager', text: 'I DID NOT PASS OUT i was meditating' }
+    ]
+  },
+  {
+    id: 'markop_checks_transport', order: 40545, characterKey: 'markop', rumorId: 'wraith_banishment',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 24 },
+    content: "asked everyone how they felt after the transportation and got zero normal answers. cool cool cool",
+    likes: 88,
+    comments: [
+      { characterKey: 'toadburt', text: 'felt like my bones rearranged in alphabetical order' },
+      { characterKey: 'hjumpik', text: 'thats just what gates do' }
+    ]
+  },
+  {
+    id: 'eager_just_follows', order: 40546, characterKey: 'eager', rumorId: 'wraith_banishment',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 26 },
+    content: "wait why are you asking ME?? i just follow people around. i follow you markop. what do YOU think we should do",
+    likes: 140,
+    comments: [
+      { characterKey: 'markop', text: 'i think we should follow them' },
+      { characterKey: 'salam', text: 'stay in the back if youre hurt' }
+    ]
+  },
+  {
+    id: 'salam_staff_room_blood', order: 40547, characterKey: 'salam', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 38 },
+    content: "found the staff room. bright lights everywhere and theres blood on the floor. if any vampires are nearby theyre gonna HATE this lighting lol",
+    likes: 410,
+    comments: [
+      { characterKey: 'markop', text: 'so this place is "clean" the way a knife is clean' },
+      { characterKey: 'remi', text: 'blood can be decorative if youre committed' }
+    ]
+  },
+  {
+    id: 'markop_hears_voices', order: 40548, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 47 },
+    content: "hearing voices. way too many boots walking around. this manor isnt asleep—its staged",
+    likes: 120,
+    comments: [
+      { characterKey: 'eager', text: 'i vote we do not get stabbed' },
+      { characterKey: 'salam', text: 'then stop walking like you want attention' }
+    ]
+  },
+  {
+    id: 'foyer_black_white_marble', order: 40549, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 55 },
+    content: "okay so this foyer is INSANE. black and white marble floors, flickering purple lamps, twin grand staircases, velvet benches, big iron doors everywhere. theres a creepy flower on a table that smells terrible and a guestbook",
+    likes: 260,
+    comments: [
+      { characterKey: 'archie', text: 'if the flower smells like that dont sign anything' },
+      { characterKey: 'bowser', text: 'wheres the food table' }
+    ]
+  },
+  {
+    id: 'guestbook_archie_toadburt', order: 40550, characterKey: 'toadburt', rumorId: 'guestbook_reveals',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 1 },
+    content: "checked the guestbook. it says 'esteemed guest archie miser' and 'honored guest toadburt' so... we were expected??? 😰",
+    likes: 315,
+    comments: [
+      { characterKey: 'eager', text: 'i dont like being expected' },
+      { characterKey: 'markop', text: 'archie being here is either a clue or a trap' }
+    ]
+  },
+  {
+    id: 'regency_soldier_confusion', order: 40551, characterKey: 'regency_soldier_pvt', rumorId: 'wraith_banishment',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 },
+    content: "yo did anyone else hear screaming from the woods last night?? sounded like an old lady mixed with a dying cat. super creepy",
+    likes: 45,
+    comments: [
+      { characterKey: 'waluigi', text: 'IT WAS ME!!!! I AM NOT A CAT!!!!' }
+    ]
+  },
+  {
+    id: 'mages_guild_observation', order: 40552, characterKey: 'mages_guild_scryer', rumorId: 'midnight_gate_transit',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 0 },
+    content: "🚨 ALERT: energy spikes detected in the eastern maze. someone activated the midnight gate without authorization. investigating now",
+    likes: 120,
+    comments: [
+      { characterKey: 'hjumpik', text: 'oops' },
+      { characterKey: 'onyx_hand_archivist', text: 'write it down as weather' }
+    ]
+  },
+  {
+    id: 'eager_finds_secret_passage', order: 40553, characterKey: 'eager', rumorId: 'bat_wall_passage',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 6 },
+    content: "okay so markop was asking some guard about an angel girl with a halo and i found a SECRET PASSAGE. whispered to him to follow me 🤫",
+    likes: 222,
+    comments: [
+      { characterKey: 'markop', text: 'finally a useful impulse from you' },
+      { characterKey: 'guard_captain', text: 'stop asking about angels in vampire houses' }
+    ]
+  },
+  {
+    id: 'guards_bat_transport_only', order: 40554, characterKey: 'manor_guard_1', rumorId: 'bat_wall_passage',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 8 },
+    content: "ATTENTION: that passage is AUTHORIZED PERSONNEL ONLY. its bat transport. why are randos going through our walls",
+    likes: 90,
+    comments: [
+      { characterKey: 'eager', text: 'i thought it was a hallway my bad' },
+      { characterKey: 'markop', text: 'were lost' }
+    ]
+  },
+  {
+    id: 'usk_spotted_in_wall', order: 40555, characterKey: 'eager', rumorId: 'bat_wall_passage',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 9 },
+    content: "YOOOO i saw usk in the passage and told the guard 'that guy is not a bat' 💀💀",
+    likes: 310,
+    comments: [
+      { characterKey: 'usk', text: 'i can glide. it counts' },
+      { characterKey: 'manor_guard_1', text: 'wait theres someone in there??' }
+    ]
+  },
+  {
+    id: 'guards_pincer_plan', order: 40556, characterKey: 'guard_captain', rumorId: 'bat_wall_passage',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 10 },
+    content: "all units split up. pincer formation. if it isnt a bat its a problem",
+    likes: 130,
+    comments: [
+      { characterKey: 'markop', text: 'this is escalating fast' },
+      { characterKey: 'salam', text: 'it was always escalated we just showed up late' }
+    ]
+  },
+  {
+    id: 'markop_catches_usk_corridor', order: 40557, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 12 },
+    content: "caught up to usk in the corridor. asked what hes doing. he just said 'take a look' very ominously. thanks usk. super helpful",
+    likes: 180,
+    comments: [
+      { characterKey: 'usk', text: 'you wanted answers. this is where answers bleed' },
+      { characterKey: 'eager', text: 'i hate when answers bleed' }
+    ]
+  },
+  {
+    id: 'remi_fighting_headless_dancers', order: 40558, characterKey: 'remi', rumorId: 'headless_dancers_brawl',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 13 },
+    content: "was trying to be sneaky. could NOT be sneaky. now im fighting headless dancers??? this wasnt the plan???",
+    likes: 900,
+    comments: [
+      { characterKey: 'markop', text: 'WHY are there headless dancers' },
+      { characterKey: 'headless_dancer', text: '—' }
+    ]
+  },
+  {
+    id: 'ghost_possession_attempt', order: 40559, characterKey: 'usk', rumorId: 'ghost_possession_dispute',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 14 },
+    content: "some ghost just tried to possess my guy and now everyones acting like THATS the rude part. hello??",
+    likes: 540,
+    comments: [
+      { characterKey: 'remi', text: 'it was your idea lol' },
+      { characterKey: 'ghost_foyer', text: 'possession is a traditional greeting' }
+    ]
+  },
+  {
+    id: 'argument_ghost_nature', order: 40560, characterKey: 'ghost_foyer', rumorId: 'ghost_possession_dispute',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 15 },
+    content: "look its in our nature okay?? thats what ghosts do. we haunt things. we possess stuff. this is normal for us",
+    likes: 210,
+    comments: [
+      { characterKey: 'markop', text: 'then change your nature' },
+      { characterKey: 'remi', text: 'or at least ask first' }
+    ]
+  },
+  {
+    id: 'markop_steps_in_front', order: 40561, characterKey: 'markop', rumorId: 'headless_dancers_brawl',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 16 },
+    content: "guards started charging so i stepped in front and said 'can we NOT fight please' 🙏",
+    likes: 670,
+    comments: [
+      { characterKey: 'guard_captain', text: 'twenty midland coins' },
+      { characterKey: 'eager', text: 'were buying peace now??' }
+    ]
+  },
+  {
+    id: 'bribe_paid_20', order: 40562, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 8 },
+    content: "just paid off the guards. twenty coins. call it midland call it gold either way my wallet is crying 💸",
+    likes: 480,
+    comments: [
+      { characterKey: 'salam', text: 'cheaper than a funeral' },
+      { characterKey: 'bowser', text: 'I WOULD HAVE NEGOTIATED WITH FIRE' }
+    ]
+  },
+  {
+    id: 'guard_condition_arrest_usk', order: 40563, characterKey: 'guard_captain', rumorId: 'usk_notes_confiscation',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 9 },
+    content: "fine. one more condition tho. were arresting that guy *points at usk* possession of notes. we want him before the mages guild gets him",
+    likes: 520,
+    comments: [
+      { characterKey: 'usk', text: 'theyre not "notes" theyre survival' },
+      { characterKey: 'mages_guild_scryer', text: 'noted 📝' }
+    ]
+  },
+  {
+    id: 'usk_arrested', order: 40564, characterKey: 'remi', rumorId: 'usk_notes_confiscation',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 10 },
+    content: "let the guards through. usk surrendered. now hes in cuffs and everyones just... pretending this is normal??? 😶",
+    likes: 610,
+    comments: [
+      { characterKey: 'markop', text: 'this is NOT normal' },
+      { characterKey: 'eager', text: 'i miss the garden' }
+    ]
+  },
+  {
+    id: 'perrius_controls_room', order: 40565, characterKey: 'perrius_annmatar', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 12 },
+    content: "well thats great. what now 🙃",
+    likes: 240,
+    comments: [
+      { characterKey: 'markop', text: 'maybe we listen in?' },
+      { characterKey: 'salam', text: 'maybe we stop getting herded around' }
+    ]
+  },
+  {
+    id: 'perrius_fake_kill_request', order: 40566, characterKey: 'perrius_annmatar', rumorId: 'perrius_false_assassination_plan',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 48 },
+    content: "hey so i know we just met but i need you to fake-kill the host of this house. you know the plan right? remi told you?",
+    likes: 800,
+    comments: [
+      { characterKey: 'remi', text: 'uhhhh i dont remember agreeing to that' },
+      { characterKey: 'markop', text: 'why would we do that exactly' }
+    ]
+  },
+  {
+    id: 'host_is_benevolent_vampire', order: 40567, characterKey: 'markop', rumorId: 'perrius_false_assassination_plan',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 49 },
+    content: "wait so perrius says the host is actually benevolent?? but also a vampire?? and remi just said 'i dont wanna be severed blood' WHAT DOES THAT MEAN",
+    likes: 910,
+    comments: [
+      { characterKey: 'perrius_annmatar', text: 'its theater. survival theater' },
+      { characterKey: 'salam', text: 'the only good theater is one you can leave' }
+    ]
+  },
+  {
+    id: 'salam_find_eager', order: 40568, characterKey: 'salam', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 50 },
+    content: "hey find eager for me",
+    likes: 330,
+    comments: [
+      { characterKey: 'markop', text: 'on it' },
+      { characterKey: 'remi', text: 'if hes in a closet again im not opening it' }
+    ]
+  },
+  {
+    id: 'eager_caught_in_closet', order: 40569, characterKey: 'eager', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 52 },
+    content: "tried to sneak out. got caught. got SHOVED INTO A CLOSET. i hate this manor so much 😭",
+    likes: 700,
+    comments: [
+      { characterKey: 'manor_guard_1', text: 'stay put intruder' },
+      { characterKey: 'eager', text: 'I AM A GUEST. PROBABLY' }
+    ]
+  },
+  {
+    id: 'eager_bathroom_escape', order: 40570, characterKey: 'eager', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 55 },
+    content: "update: slipped out of the closet and now im hiding in a bathroom. if anyone asks i was always here",
+    likes: 620,
+    comments: [
+      { characterKey: 'markop', text: 'hold position were coming' },
+      { characterKey: 'salam', text: 'dont touch anything expensive' }
+    ]
+  },
+  {
+    id: 'guard_blocks_door_one_seat', order: 40571, characterKey: 'manor_guard_1', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+    content: "some guy at the door says hes a friend of archie. checked the list and yeah hes on it. one seat left. told him to sit down already",
+    likes: 260,
+    comments: [
+      { characterKey: 'markop', text: 'have you seen eag—' },
+      { characterKey: 'manor_guard_1', text: 'SEAT. NOW.' }
+    ]
+  },
+  {
+    id: 'remi_takes_only_seat', order: 40572, characterKey: 'remi', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 1 },
+    content: "took the only open seat. if this is a trap at least im gonna be comfortably trapped 💅",
+    likes: 840,
+    comments: [
+      { characterKey: 'archie', text: 'why are you even here' },
+      { characterKey: 'remi', text: 'mail got weird' }
+    ]
+  },
+  {
+    id: 'bowser_party_mode', order: 40573, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 2 },
+    content: "HUMPY CAN TAKE CARE OF HIMSELF!! WERE ON A POST BASE!! HE CALLS ME THE BOSS I CALL HIM HUMPY!! DONT JUDGE!! IM HERE FOR A PARTY HAHAHAHA 🎉🔥",
+    likes: 1500,
+    comments: [
+      { characterKey: 'archie', text: 'this is not a party' },
+      { characterKey: 'bowser', text: 'EVERYTHING IS A PARTY IF FOOD SHOWS UP' }
+    ]
+  },
+  {
+    id: 'depressed_guard_host_slow', order: 40574, characterKey: 'manor_guard_2', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 3 },
+    content: "we took orders like two hours ago. host wants everything slow. he looks kinda... depressed tbh. thinks people wanna kill him. dont worry tho we got his back 💪",
+    likes: 410,
+    comments: [
+      { characterKey: 'markop', text: 'that speech does NOT make me feel safer' },
+      { characterKey: 'salam', text: 'depressed vampire hosting dinner. great' }
+    ]
+  },
+  {
+    id: 'remi_poison_candy_pitch', order: 40575, characterKey: 'remi', rumorId: 'poison_candy_plot',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 4 },
+    content: "hey i found some candy outside!! i wanna share it with everyone 🍬 (do NOT ask follow up questions)",
+    likes: 1100,
+    comments: [
+      { characterKey: 'markop', text: 'when did you get candy' },
+      { characterKey: 'remi', text: 'when destiny gave me candy' }
+    ]
+  },
+  {
+    id: 'guard_pockets_candy', order: 40576, characterKey: 'manor_guard_2', rumorId: 'poison_candy_plot',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 5 },
+    content: "some guest just gave me free candy?? nice. pocketed it and went back to work",
+    likes: 520,
+    comments: [
+      { characterKey: 'remi', text: 'that was NOT the intended consumer' },
+      { characterKey: 'markop', text: 'remi. what did you do' }
+    ]
+  },
+  {
+    id: 'oracle_begins_speech', order: 40577, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 7 },
+    content: "allow me to explain. too many threads have been moving independently. the party, the mages guild, the hand... we needed to force convergence",
+    likes: 600,
+    comments: [
+      { characterKey: 'archie', text: 'finally an explanation' },
+      { characterKey: 'bowser', text: 'FINALLY FOOD???' }
+    ]
+  },
+  {
+    id: 'bowser_interrupts_where_food', order: 40578, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 8 },
+    content: "WHERES MY FOOD??? I WANT FOOD NOW!!! IM KING OF THE TABLE LET ME TALK 👑🔥",
+    likes: 2000,
+    comments: [
+      { characterKey: 'oracle', text: 'sit' },
+      { characterKey: 'bowser', text: 'NO' }
+    ]
+  },
+  {
+    id: 'bowser_full_order', order: 40579, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 9 },
+    content: "MY ORDER: dragon egg, mustard rice, roast beef, meat, AND boneless wings EXTRA HOT 🔥🔥🔥 this is non negotiable",
+    likes: 1750,
+    comments: [
+      { characterKey: 'archie', text: 'dont eat too much we dont know where the food came from' },
+      { characterKey: 'bowser', text: 'FOOD COMES FROM KITCHEN. NEXT QUESTION' }
+    ]
+  },
+  {
+    id: 'citrus_served', order: 40580, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 24 },
+    content: "food finally came. remi and i got... cut up citrus?? its not poisoned i think. but its definitely not what it claims to be",
+    likes: 740,
+    comments: [
+      { characterKey: 'remi', text: 'this citrus has been through something' },
+      { characterKey: 'salam', text: 'dont eat anything that shines in purple light' }
+    ]
+  },
+  {
+    id: 'archie_tastes_blood_roast', order: 40581, characterKey: 'archie', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 25 },
+    content: "taste tested my roast beef. theres definitely blood mixed in. asked if its edible and they said yes so... ate it anyway 🤷",
+    likes: 980,
+    comments: [
+      { characterKey: 'bowser', text: 'thats called FLAVOR' },
+      { characterKey: 'markop', text: 'thats called a WARNING LABEL' }
+    ]
+  },
+  {
+    id: 'oracle_questions_not_on_list', order: 40582, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 27 },
+    content: "now then. is there a reason youre not on the list?",
+    likes: 620,
+    comments: [
+      { characterKey: 'remi', text: 'got lost in the mail' },
+      { characterKey: 'markop', text: 'looking for friends' }
+    ]
+  },
+  {
+    id: 'markop_asks_green_t', order: 40583, characterKey: 'markop', rumorId: 'green_t_escape',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 28 },
+    content: "hey have you guys seen a purple guy with a reverse L on his hat?? also anyone know a guy named green t??",
+    likes: 510,
+    comments: [
+      { characterKey: 'oracle', text: 'hes on the list' },
+      { characterKey: 'archie', text: 'wait hes HERE??' }
+    ]
+  },
+  {
+    id: 'waiter_brings_candy_cake', order: 40584, characterKey: 'manor_waiter', rumorId: 'poison_candy_plot',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 30 },
+    content: "brought a candy cake to the big turtle guy. he said he didnt order dessert but like... its right there sir",
+    likes: 930,
+    comments: [
+      { characterKey: 'bowser', text: 'DESSERT ORDERS ITSELF WHEN IM PRESENT' },
+      { characterKey: 'archie', text: 'dont eat that' }
+    ]
+  },
+  {
+    id: 'archie_spots_green_t_eager', order: 40585, characterKey: 'archie', rumorId: 'green_t_escape',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 32 },
+    content: "WAIT I JUST SAW GREEN T AND EAGER SNEAKING OUT. HEY!!! STOP!!!!",
+    likes: 1400,
+    comments: [
+      { characterKey: 'eager', text: 'ARCHIE NOOOOOO' },
+      { characterKey: 'green_t', text: '...' }
+    ]
+  },
+  {
+    id: 'doors_close_guards_swarm', order: 40586, characterKey: 'guard_captain', rumorId: 'green_t_escape',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 33 },
+    content: "guards moving in. doors sealed. we have them surrounded",
+    likes: 880,
+    comments: [
+      { characterKey: 'markop', text: 'eager is with me!! i just wanna take my friends and leave!!' },
+      { characterKey: 'oracle', text: 'sit' }
+    ]
+  },
+  {
+    id: 'markop_defends_eager_guest', order: 40587, characterKey: 'markop', rumorId: 'green_t_escape',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 34 },
+    content: "EAGER IS NOT AN INTRUDER!! i dont even know what this place is!! i just want OUT",
+    likes: 1300,
+    comments: [
+      { characterKey: 'archie', text: 'i second that. eager is not an intruder' },
+      { characterKey: 'guard_captain', text: 'choose then. the toad or you' }
+    ]
+  },
+  {
+    id: 'archie_volunteers_for_arrest', order: 40588, characterKey: 'archie', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 35 },
+    content: "they asked 'this toad or you?' and i said me. better me than a friend",
+    likes: 2100,
+    comments: [
+      { characterKey: 'markop', text: 'dont do that!!' },
+      { characterKey: 'eager', text: 'archie no 😭' }
+    ]
+  },
+  {
+    id: 'bowser_more_punchable', order: 40589, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 36 },
+    content: "HEY JUST ARREST THE ONE THAT LOOKS MORE PUNCHABLE. I SAY YOU ARCHIE. THREE EYED YOU 👊😂",
+    likes: 5000,
+    comments: [
+      { characterKey: 'archie', text: 'thats ENOUGH bowser' },
+      { characterKey: 'bowser', text: 'OH YOU THINK YOU CAN HANDLE THIS?? IM KINDA PISSED I DONT HAVE MY FOOD' }
+    ]
+  },
+  {
+    id: 'green_t_slips_out', order: 40590, characterKey: 'green_t', rumorId: 'green_t_escape',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 37 },
+    content: "slipped out while everyone was arguing 🚶‍♂️",
+    likes: 1700,
+    comments: [
+      { characterKey: 'eager', text: 'HOW DID YOU DO THAT' },
+      { characterKey: 'markop', text: 'honestly respect' }
+    ]
+  },
+  {
+    id: 'eager_escorted_out', order: 40591, characterKey: 'manor_guard_1', rumorId: 'green_t_escape',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 38 },
+    content: "escorted the small one outside. minimal drama. (some drama)",
+    likes: 980,
+    comments: [
+      { characterKey: 'eager', text: 'this is kidnapping with etiquette' },
+      { characterKey: 'salam', text: 'stay alive til i get you' }
+    ]
+  },
+  {
+    id: 'candy_vote_two_removed', order: 40594, characterKey: 'remi', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 43 },
+    content: "so they asked everyone about the candy and most people said okay but some guy said 'stupid' and another said 'annoying' and they got DRAGGED AWAY??? joseph jo and david just got hauled off 😨",
+    likes: 1900,
+    comments: [
+      { characterKey: 'bowser', text: 'LMAOOO' },
+      { characterKey: 'markop', text: 'so disagreeing is punishable here. cool' }
+    ]
+  },
+  {
+    id: 'oracle_offers_empty_seat', order: 40595, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 45 },
+    content: "theres an empty seat now. markop your turn to speak",
+    likes: 800,
+    comments: [
+      { characterKey: 'markop', text: 'why force convergence tho' },
+      { characterKey: 'oracle', text: 'too many threads were moving independently' }
+    ]
+  },
+  {
+    id: 'archie_threshold_statistically_impossible', order: 40596, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 46 },
+    content: "archie was invited because hes crossed a threshold most people dont even know exists. no guild seal. no hand mark. no noble lineage. statistically impossible... and therefore interesting 🔍",
+    likes: 1500,
+    comments: [
+      { characterKey: 'archie', text: 'thats a terrifying compliment' },
+      { characterKey: 'toadburt', text: 'so hes a loose thread basically' }
+    ]
+  },
+  {
+    id: 'final_question_hjumpik', order: 40597, characterKey: 'hjumpik', rumorId: 'autumnwood_succession_dinner',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 49 },
+    content: "okay but why am I on this guest list tho 🤔",
+    likes: 1300,
+    comments: [
+      { characterKey: 'hjumpik', text: 'im everyones problem thats why' },
+      { characterKey: 'oracle', text: 'because problems attract solutions' }
+    ]
+  },
+  {
+    id: 'bowser_asks_host_name', order: 40598, characterKey: 'bowser', rumorId: 'orangus_succession_knives',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 49 },
+    content: "HEY YOU!! HOST GUY!! WHATS YOUR NAME 📢",
+    likes: 2200,
+    comments: [
+      { characterKey: 'orangus_cornelious', text: 'ORANGUS CORNELIOUS' },
+      { characterKey: 'bowser', text: 'OK ORANGUS WHY YOU ALL SAD' }
+    ]
+  },
+  {
+    id: 'orangus_losing_control', order: 40599, characterKey: 'orangus_cornelious', rumorId: 'orangus_succession_knives',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 50 },
+    content: "i am losing control of autumnwood. the heir is here. the child is here. the onyx hand archivist is here. a mages guild observer is here. when old monsters like me host dinners... its because succession is in play. and succession attracts knives 🔪",
+    likes: 3600,
+    comments: [
+      { characterKey: 'mages_guild_scryer', text: 'observer status acknowledged' },
+      { characterKey: 'onyx_hand_archivist', text: 'archivist status denied actually' }
+    ]
+  },
+  {
+    id: 'archie_match_burning', order: 40600, characterKey: 'orangus_cornelious', rumorId: 'orangus_succession_knives',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 51 },
+    content: "right now i suspect archie is a match that doesnt realize its burning 🔥",
+    likes: 4100,
+    comments: [
+      { characterKey: 'archie', text: 'i know i did something wrong. im trying to correct my path' },
+      { characterKey: 'markop', text: 'then stop lighting more fires maybe' }
+    ]
+  },
+  {
+    id: 'orangus_demands_candy', order: 40601, characterKey: 'orangus_cornelious', rumorId: 'poison_candy_plot',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 52 },
+    content: "archie. hand over your candy",
+    likes: 3000,
+    comments: [
+      { characterKey: 'archie', text: 'are you sure??' },
+      { characterKey: 'remi', text: 'yes definitely yes do it' }
+    ]
+  },
+  {
+    id: 'doors_open_usk_enters', order: 40602, characterKey: 'orangus_cornelious', rumorId: 'usk_notes_confiscation',
+    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 53 },
+    content: "bring him in",
+    likes: 5200,
+    comments: [
+      { characterKey: 'usk', text: 'so this is the part where everyone pretends they didnt sell me for twenty coins' },
+      { characterKey: 'markop', text: 'we didnt have a clean option ok' }
+    ]
+  },
+  {
     "id": "summit_sarasaland_announcement",
     "order": 70100,
     "characterKey": "princess_daisy",
@@ -15822,208 +16412,7 @@ export const WAHBOOK_POSTS = [
     ],
     "rumorId": "delfino_exile_final"
   },
-  {
-    "id": "delfino_hotel_lockdown",
-    "title": "Standoff at Hotel Delfino",
-    "date": {
-      "day": 24,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "manager_monk",
-    "arc": "delfino_unrest",
-    "arcPosition": "rising",
-    "description": "Regency Military Police attempted to breach Hotel Delfino to arrest Noki dignitaries. Manager Monk activated the building's defensive shutters and threatened to release resident Boos, effectively turning the luxury hotel into an impregnable fortress of neutrality.",
-    "targets": [
-      "manager_monk",
-      "captain_lock",
-      "noki_shellfish"
-    ],
-    "effects": {
-      "pianta_syndicate": 10,
-      "mushroom_regency": -10,
-      "gelato_loyalists": -5
-    },
-    "cycle_impact": {
-      "score": 1.5,
-      "label": "Civil Disobedience",
-      "type": "political"
-    }
-  },
-  {
-    "id": "delfino_fin_madness",
-    "title": "The Fin Friendly Fire Incident",
-    "date": {
-      "day": 25,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "lt_sunburn",
-    "arc": "delfino_unrest",
-    "arcPosition": "rising",
-    "description": "A Regency patrol stationed on the remote 'Fin' of the island succumbed to heat exhaustion and paranoia, engaging in a firefight with a friendly unit they hallucinated were 'Shadow Marios.' The incident has severely degraded Regency morale on the island.",
-    "targets": [
-      "lt_sunburn",
-      "sgt_daze",
-      "mushroom_regency"
-    ],
-    "effects": {
-      "mushroom_regency": -25,
-      "noki_shellfish": 5
-    },
-    "cycle_impact": {
-      "score": 1,
-      "label": "Morale Collapse",
-      "type": "military"
-    }
-  },
-  {
-    "id": "delfino_village_secession",
-    "title": "Pianta Village Declares Independence",
-    "date": {
-      "day": 26,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "don_pianta",
-    "arc": "delfino_unrest",
-    "arcPosition": "climax",
-    "description": "Don Pianta has formally severed ties with the Mushroom Regency by cutting the suspension bridge to the village. Regency envoys sent to negotiate were physically thrown ('chucked') from the heights into the plaza pool below. The village is now a fortress.",
-    "targets": [
-      "don_pianta",
-      "envoy_beige"
-    ],
-    "effects": {
-      "pianta_syndicate": 30,
-      "mushroom_regency": -30,
-      "koopa_troop": 10
-    },
-    "cycle_impact": {
-      "score": 2,
-      "label": "Secession",
-      "type": "political"
-    }
-  },
-  {
-    "id": "delfino_corona_invasion",
-    "title": "Koopa Paratroopers Seize Corona Mountain",
-    "date": {
-      "day": 27,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "general_shellshock",
-    "arc": "delfino_unrest",
-    "arcPosition": "climax",
-    "description": "In a stunning display of vertical warfare, General Shellshock led an airborne drop of Koopa Paratroopers directly into the Corona Mountain caldera. The Regency Mountain Guard, unprepared for an attack from above, was routed within hours. The Koopa Troop now holds the island's highest ground.",
-    "targets": [
-      "general_shellshock",
-      "sgt_toadofsky",
-      "mushroom_regency"
-    ],
-    "effects": {
-      "koopa_troop": 40,
-      "mushroom_regency": -40,
-      "noki_shellfish": 10
-    },
-    "cycle_impact": {
-      "score": 2.5,
-      "label": "Strategic Victory",
-      "type": "military"
-    }
-  },
-  {
-    "id": "delfino_ricco_harbor",
-    "title": "Koopa Navy Captures Ricco Harbor",
-    "date": {
-      "day": 28,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "admiral_blooper",
-    "arc": "delfino_unrest",
-    "arcPosition": "falling",
-    "description": "Admiral Blooper's submersible fleet has seized Ricco Harbor. By using Blooper operatives to jam patrol boat propellers with ink, the Koopa Navy disabled the Regency's port defenses without sinking a single ship. The Regency garrison is now cut off from resupply.",
-    "targets": [
-      "admiral_blooper",
-      "harbormaster_t",
-      "mushroom_regency"
-    ],
-    "effects": {
-      "koopa_troop": 30,
-      "mushroom_regency": -30,
-      "pianta_syndicate": 15
-    },
-    "cycle_impact": {
-      "score": 2.2,
-      "label": "Naval Blockade",
-      "type": "military"
-    }
-  },
-  {
-    "id": "delfino_gelato_counter",
-    "title": "Disaster at Noki Bay",
-    "date": {
-      "day": 29,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "mayor_melon",
-    "arc": "delfino_unrest",
-    "arcPosition": "falling",
-    "description": "A joint Regency-Gelato amphibious assault on Noki Bay ended in humiliation. The 'Cataquack Cavalry' panicked under artillery fire from Koopa ships and barrel bombardments from Pianta villagers on the cliffs. The Regency forces were forced to retreat, abandoning their heavy equipment.",
-    "targets": [
-      "mayor_melon",
-      "don_pianta",
-      "captain_spore"
-    ],
-    "effects": {
-      "gelato_loyalists": -30,
-      "pianta_syndicate": 20,
-      "noki_shellfish": 20
-    },
-    "cycle_impact": {
-      "score": 2,
-      "label": "Failed Offensive",
-      "type": "military"
-    }
-  },
-  {
-    "id": "delfino_exile_final",
-    "title": "Regency Expelled from Delfino",
-    "date": {
-      "day": 30,
-      "monthIndex": 6,
-      "year": 1040
-    },
-    "isEvent": true,
-    "instigator": "elder_erol",
-    "arc": "delfino_unrest",
-    "arcPosition": "resolution",
-    "description": "The Isle Delfino Conflict has ended. Admiral B. Toad surrendered the airstrip, and the remaining Regency forces were deported by Koopa transport ships. Noki Bay, Pianta Village, and the Koopa Troop now share de facto control of the island, marking a major geopolitical shift in the southern seas.",
-    "targets": [
-      "elder_erol",
-      "general_shellshock",
-      "admiral_b_toad"
-    ],
-    "effects": {
-      "mushroom_regency": -50,
-      "koopa_troop": 50,
-      "noki_shellfish": 30,
-      "pianta_syndicate": 30
-    },
-    "cycle_impact": {
-      "score": 3,
-      "label": "Geopolitical Shift",
-      "type": "political"
-    }
-  },
+  
   {
     "id": "robinson_dragon_lies",
     "order": 32100,
