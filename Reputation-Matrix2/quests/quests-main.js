@@ -251,7 +251,7 @@ export const TOADS_QUESTS = {
         category: 'Liberated Toads',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
+        arcId: 'feywild_attic',
         objective: "Survive the Feywild garden, keep Waluigi alive despite his broken leg, and regroup with Hjumpik.",
         assignees: ['toad_lee', 'waluigi', 'toadburt'],
         primaryAssignee: 'toad_lee',
