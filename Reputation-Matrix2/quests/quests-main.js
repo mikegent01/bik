@@ -246,34 +246,50 @@ export const TOADS_QUESTS = {
     'toad_lee_feywild_protocol': {
         id: 'toad_lee_feywild_protocol',
         title: "Protocol: Wild Garden",
-        subtitle: "Herding Chaos",
+        subtitle: "The Witch, The Waluigi, and The Wardrobe",
         type: QUEST_TYPES.PERSONAL,
         category: 'Liberated Toads',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
-        objective: "Manage Waluigi (Chaotic Neutral) and Toadburt (Walking Bomb) in the Feywild environment.",
+        objective: "Survive the Feywild garden, keep Waluigi alive despite his broken leg, and regroup with Hjumpik.",
         assignees: ['toad_lee', 'waluigi', 'toadburt'],
         primaryAssignee: 'toad_lee',
         difficulty: { overall: DIFFICULTY.HARD, management: DIFFICULTY.EXTREME, survival: DIFFICULTY.HARD },
-        tags: ['escort', 'feywild', 'bomb-disposal'],
+        tags: ['escort', 'feywild', 'hag', 'injury'],
         dates: { added: { year: 1040, monthIndex: 6, day: 22 } },
         
-        description: "Toad Lee is a logistics officer. he deals in supplies, rosters, and sanity. he is now trapped in a psychedelic forest (formerly the attic) with Waluigi (who is trying to steal everything) and Toadburt (who is sobbing and strapped with a Legion nuke). His  mission is to keep Waluigi focused on the 'Key' and keep Toadburt calm enough not to detonate.",
+        description: "Toad Lee's logistical nightmare continues. After thinking the Hag's hut was abandoned, he and Waluigi were captured. Waluigi has suffered a severe leg injury (bone exposed) and was nearly turned into stew. Thanks to Hjumpik's intervention and Rakasha's distraction, they escaped through a window, but Waluigi is now combat-ineffective and requires immediate medical attention.",
 
         rewards: {
             guaranteed: [
-                { type: 'item', name: "Feywild Flora Samples", description: "Potentially valuable alchemical ingredients." }
+                { type: 'item', name: "Hag's Curse (Lingering)", description: "She knows your scent." }
             ],
             conditional: [
-                { condition: "Prevent Waluigi from eating unknown mushrooms", reward: { type: 'status', name: "Crisis Manager", description: "You can herd cats." }}
+                { condition: "Heal Waluigi's Leg", reward: { type: 'status', name: "Mobile Asset", description: "Waluigi can walk again." }}
             ],
-            xp: 5000
+            xp: 6000
         },
 
         milestones: [
-            { id: 'm1', status: 'active', title: "The Bomb", description: "Inspect Toadburt's ring. Determine if it can be removed or must be endured." },
-            { id: 'm2', status: 'active', title: "The Looter", description: "Convince Waluigi that the 'Giant Butterfly' has better loot than the goblin servants." }
+            { id: 'm1', status: 'active', title: "The Bomb", description: "Toadburt is still strapped with the entropy ring. Location currently unknown (likely at the Dinner Party)." },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "The Hag's Hut", 
+                description: "Captured by the Hag. Waluigi injured. Rescued by Hjumpik. Escaped through a second-story window into the Greenhouse.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 3 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Greenhouse",
+                description: "Currently hiding in the Greenhouse (4:00 AM). The room is filled with armed sprites and strange flora. Need to stabilize Waluigi.",
+                goals: [
+                    { text: "Treat Waluigi's leg", status: 'critical' },
+                    { text: "Avoid the Sprites", status: 'active' }
+                ]
+            }
         ]
     },
 'rogueport_retrieval': {
@@ -816,128 +832,93 @@ export const hjumpik_QUESTS = {
             }
         ]
     },
-'hjumpik_legion_pact': {
-    id: 'hjumpik_legion_pact',
-    title: "The Legion's Mandate",
-    subtitle: "A Knife Behind a Handshake",
-    type: QUEST_TYPES.FACTION,
-    category: 'Personal - hjumpik',
-        status: QUEST_STATUS.FAILED, // Paused because the conditions for the deal are currently physically impossible
-    priority: QUEST_PRIORITY.CRITICAL,
-    arcId: 'raventree_manor',
-    objective: "Fulfill the deal with the Iron Legion: let the Oracle complete his ritual, then ensure the Legion takes custody of him. Or betray the deal and accept the consequences.",
-    assignees: ['hjumpik'],
-    primaryAssignee: 'hjumpik',
-    difficulty: {
-        overall: DIFFICULTY.DEADLY,
-        social: DIFFICULTY.EXTREME,
-        deception: DIFFICULTY.EXTREME,
-        moral: DIFFICULTY.EXTREME
-    },
-    tags: ['secret', 'betrayal', 'politics', 'moral_choice', 'faction_defining'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 21 },
-        updated: { year: 1040, monthIndex: 6, day: 21 },
-            completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date        
-    },
-
-        failureReason: "Breach of Contract",
-        description: "The deal was specific: Deliver the Oracle to the Legion *immediately* after the ritual. The ritual failed, the Oracle is lost in the Void, and hjumpik is missing. Commander Vex and the Iron Legion view this as a failure at best, and a betrayal at worst. The Pact is broken. hjumpik is now a loose end to be tied up.",
-        notes: "Any Legion favor rewards are lost. hjumpik is likely now on the Legion's hit list alongside the Toads.",
-            loreEntries: ['supernatural_sovereignty_act', 'iron_mandate', 'legion_black_ops', 'oracle_nature'],
-
-    consequences: {
-        success_betray_oracle: "The Legion takes custody of the Oracle. hjumpik gains significant Legion favor, potentially including leverage to negotiate for Bones, Creek, and other prisoners. The Toads lose a powerful magical ally. The Oracle's fate is imprisonment, experimentation, or execution.",
-        success_protect_oracle: "hjumpik betrays the Legion deal. The Oracle escapes or allies with the party. The Legion responds with hostility—hjumpik becomes a target, and any negotiating leverage for the Toad prisoners evaporates.",
-        partial: "The handoff is botched. The Oracle escapes, but so does Legion awareness that hjumpik was supposed to deliver. Both sides distrust him.",
-        failure: "The ritual fails. The Oracle is destroyed or the timelines collapse. The Legion deal becomes irrelevant amid the catastrophe."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'item', name: "Legion Thieves' Tools", description: "High-quality lockpicks, wire cutters, and a small vial of universal solvent. Currently in hjumpik's possession." }
-        ],
-        conditional: [
-            {
-                condition: "Deliver the Oracle to the Legion",
-                reward: { type: 'favor', name: "Legion High Command Favor", description: "Can be exchanged for prisoner release (Bones/Creek), information, or a single 'look the other way' from Legion patrols" }
-            },
-            {
-                condition: "Deliver the Oracle AND maintain cover with party",
-                reward: { type: 'reputation', faction: 'iron_legion', amount: 750, description: "Reliable Asset" }
-            },
-            {
-                condition: "Warn the Oracle and help him escape",
-                reward: { type: 'ally', name: "The Oracle (Grateful)", description: "A chronomancer who owes you his freedom" }
-            },
-            {
-                condition: "Warn the Oracle AND frame the Mages' Guild for the betrayal",
-                reward: { type: 'reputation', faction: 'mages_guild', amount: -1000, description: "Enemies of the Guild" }
-            },
-            {
-                condition: "Refuse to choose (let events unfold without intervention)",
-                reward: { type: 'trait', name: "The Watcher", description: "Bonus to reading situations where multiple factions conflict" }
-            }
-        ],
-        xp: 5000
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "The Meeting",
-            description: "The Legion spy approached hjumpik privately in the Ruined Hall. She explained the political situation, the Supernatural Sovereignty Act, and offered the deal. hjumpik accepted the tools and the mission.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 }
-        },
-        {
-            id: 'm2',
-            status: 'active',
-            title: "The Ritual",
-            description: "The Oracle is leading the party to the Summoning Room for the final ritual. hjumpik must help ensure it succeeds—the deal requires the manor to be stabilized first.",
-            goals: [
-                { text: "Protect the Oracle during the ritual", status: 'active', priority: 'critical' },
-                { text: "Prevent the Mages' Guild from interfering", status: 'active', priority: 'high' },
-                { text: "Maintain cover with party members", status: 'active', priority: 'high' },
-                { text: "Position for the handoff", status: 'pending', priority: 'medium' }
+    'hjumpik_legion_pact': {
+        id: 'hjumpik_legion_pact',
+        title: "The Legion's Mandate",
+        subtitle: "Entropy & Extraction",
+        type: QUEST_TYPES.FACTION,
+        category: 'Personal - hjumpik',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Capture 'Orange T' (The God Toad) for the Legion using the Entropy Ring, then exfiltrate.",
+        assignees: ['hjumpik'],
+        primaryAssignee: 'hjumpik',
+        difficulty: { overall: DIFFICULTY.DEADLY, moral: DIFFICULTY.EXTREME },
+        tags: ['secret', 'betrayal', 'entropy', 'agent-h'],
+        
+        description: "Hjumpik made contact with 'Agent H' via the Midnight Gate shrine. The Entropy Regulator Ring is charging (24%). The mission has been updated: The target is Orange T. The Legion knows he is here. Hjumpik must secure the target to earn his extraction.",
+        
+        rewards: {
+             guaranteed: [
+                { type: 'intel', name: "FNG's Diary Page", description: "Notes on 'The Vessel' and Usk's role." }
             ],
-            notes: "Bowser is suspicious. The Oracle is perceptive. Pernus Annmatar is watching everything. One wrong word could expose the plan prematurely."
+            xp: 5500
         },
-        {
-            id: 'm3',
-            status: 'active', // Changed from locked
-            title: "The Breach of Contract",
-            description: "The ritual failed. The Oracle is gone (to the Void). hjumpik is gone. The Legion holds the physical room. The deal is effectively void unless hjumpik can re-establish contact and offer something of equal value—like the Star Shard.",
-            goals: [
-                { text: "Survive the Fracture", status: 'active', priority: 'critical' },
-                { text: "Prepare an explanation for Commander Vex", status: 'pending', priority: 'high' }
-            ]
-        }
-    ],
 
-    secretStatus: {
-        knownTo: ['hjumpik', 'legion_spy'],
-        suspectedBy: ['bowser'],
-        hiddenFrom: ['archie', 'dan', 'oracle', 'pernus_annmatar']
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Meeting",
+                description: "Accepted the deal.",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm2',
+                status: 'active',
+                title: "The Charge",
+                description: "Used the Ring at the Midnight Gate Shrine. Contacted Agent H.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 16 }, // Adjusted based on log time
+                notes: "Ring Charge: 24%. Agent H confirmed extraction is conditional on capturing Orange T."
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Target",
+                description: "Locate and subdue Orange T using the Ring.",
+            }
+        ]
     },
+    'hjumpik_feywild_survival': {
+        id: 'hjumpik_feywild_survival',
+        title: "Garden of Thorns",
+        subtitle: "Sparring, Spying, and Saving",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - hjumpik',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        objective: "Navigate the Hedge Maze and Greenhouse with Rakasha without getting killed by plants, hags, or dueling partners.",
+        assignees: ['hjumpik', 'rakasha'],
+        primaryAssignee: 'hjumpik',
+        difficulty: { overall: DIFFICULTY.HARD, combat: DIFFICULTY.HARD },
+        
+        description: "A chaotic journey through the Manor's overgrown exterior. Hjumpik sparred with Thystle (Sanderia), accidentally stabbed Rakasha with a trident, overheard a dispute about a stolen Orb between Stucky and Herniva, and rescued Toad Lee from a Hag.",
 
-    npcs: {
-        allies: ['iron_legion_spy_contact'],
-        enemies: [],
-        neutral: ['self_reflection_oracle', 'pernus_annmatar', 'party_members'],
-        potential_enemies: ['self_reflection_oracle', 'party_members']
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Duel",
+                description: "Defeated Thystle (Sanderia). Rakasha melted Thorne's skin (friendly fire/overkill).",
+                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+            },
+            {
+                id: 'm2',
+                status: 'active',
+                title: "The Stolen Orb",
+                description: "Overheard Stucky (Manatee-thing) accusing Herniva (Fish-girl) of stealing a 'Salty Pearl/Orb'. Herniva denies it.",
+                clues: ["Stucky claims theft in tunnel", "Herniva claims innocence"]
+            },
+            {
+                id: 'm3',
+                status: 'completed',
+                title: "Hag Slayer",
+                description: "Infiltrated the Hag's Hut. Negotiated poorly. Rescued Toad Lee and Waluigi. Fled to Greenhouse.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 3 }
+            }
+        ]
     },
-
-    locations: {
-        primary: 'raventree_manor',
-        current: 'en_route_to_summoning_room',
-        related: ['ruined_hall', 'summoning_room']
-    },
-
-    relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'liberated_toads_integration', 'vigilance_fallen']
-},
-
-
     'hjumpik_honor_quest': {
         id: 'hjumpik_honor_quest',
         title: "An Axe to Grind",
@@ -1019,6 +1000,45 @@ export const hjumpik_QUESTS = {
 };
 
 export const ARCHIE_QUESTS = {
+    'archie_dinner_betrayal': {
+        id: 'archie_dinner_betrayal',
+        title: "The Guest List",
+        subtitle: "Sabotage or stupidity?",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - Archie',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'raventree_manor',
+        objective: "Survive the dinner with Orangus Cornelius. Deal with the fallout of exposing Green T and Eager.",
+        assignees: ['archie'],
+        primaryAssignee: 'archie',
+        difficulty: { overall: DIFFICULTY.SOCIAL_SUICIDE },
+        
+        description: "Archie, seated as an 'Esteemed Guest', made a critical choice. When Eager and Green T attempted to sneak out of the room, Archie yelled 'HEY STOP', alerting the guards. Green T barely escaped, but Eager was captured. Archie then volunteered himself for arrest alongside the 'punchable' toad, but was told to remain seated. He has eaten the roast beef (tainted with blood) and refused to eat the 'candy' offered by the host.",
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Meal",
+                description: "Ate the Roast Beef. Tasted blood. Confirmed edible for vampires/guests.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Outing",
+                description: "Yelled at escaping allies. Caused Eager's capture. Green T's status: Unknown/Fled.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 13 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Candy",
+                description: "Refused the host's demand to hand over the 'candy' (poison?). Usk has been brought in.",
+            }
+        ]
+    },    
     'archie_fugitive_of_the_accords': {
         id: 'archie_fugitive_of_the_accords',
         title: "Fugitive of the Accords",
@@ -1629,40 +1649,32 @@ export const GUILDS_QUESTS = {
 };
 
 export const BOWSER_QUESTS = {
-        'bowser_shadow_etiquette': {
+    'bowser_shadow_etiquette': {
         id: 'bowser_shadow_etiquette',
         title: "The King's Manners",
-        subtitle: "Don't Punch the Host (Yet)",
+        subtitle: "Where are the wings?",
         type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Bowser',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
-        objective: "Survive the dinner party with Orangus Cornelius without initiating combat, as physical aggression will lead to immediate execution in the Shadowfell.",
-        assignees: ['bowser'],
-        primaryAssignee: 'bowser',
-        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.EXTREME, restraint: DIFFICULTY.EXTREME },
-        tags: ['social', 'restraint', 'shadowfell', 'vampire'],
-        dates: { added: { year: 1040, monthIndex: 6, day: 22 } },
+        objective: "Survive dinner with Orangus Cornelius.",
         
-        description: "Bowser is a King. He conquers. He breathes fire. He does not make polite conversation with undead aristocrats who view him as a novelty pet.\n\nHowever, in the Shadowfell Estate, his fire is cold light, and his strength is trivial compared to the vampiric speed of the Onyx Hand. Orangus Cornelius has seated Bowser at the head table. To save Green T and Archie, Bowser must do the hardest thing he has ever done: behave.",
-
-        consequences: {
-            success: "Cornelius is amused. The party gains a window to escape. Bowser gains the 'Intimidating Presence' social trait.",
-            failure: "Bowser attacks. The Onyx Hand swarms. Capture or death is certain.",
-        },
-
-        rewards: {
-            conditional: [
-                { condition: "Pass 3 Social/Restraint checks", reward: { type: 'reputation', faction: 'onyx_hand', amount: 100, description: "A Civilized Beast" }},
-                { condition: "Intimidate a vampire without violence", reward: { type: 'feat', name: "Silent Threat", description: "Advantage on intimidation" }}
-            ],
-            xp: 4000
-        },
+        description: "Bowser is not impressed. He has demanded 'Dragon Egg Mustard Rice' and 'Boneless Wings Extra Hot'. He has received a 'Candy Cake' instead. He has not yet flipped the table, but he did suggest the guards arrest Archie because he looks 'punchable'.",
 
         milestones: [
-            { id: 'm1', status: 'active', title: "The First Course", description: "Endure the appetizer (which appears to be coagulated shadows) without flipping the table." },
-            { id: 'm2', status: 'locked', title: "The Conversation", description: "Answer Cornelius's questions about the Mushroom Kingdom without revealing tactical weaknesses." }
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "The Complaint", 
+                description: "Successfully demanded better food. Rejected the candy cake.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22 }
+            },
+            { 
+                id: 'm2', 
+                status: 'active', 
+                title: "The Interrogation", 
+                description: "Orangus is explaining the 'Convergence'. Bowser must pretend to listen.",
+            }
         ]
     },
     'bowser_rally_remnants': {
@@ -1730,6 +1742,44 @@ export const BOWSER_QUESTS = {
 };
 
 export const MARKOP_QUESTS = {
+    'markop_dinner_diplomacy': {
+        id: 'markop_dinner_diplomacy',
+        title: "The Price of Admission",
+        subtitle: "Bribes and Betrayals",
+        type: QUEST_TYPES.SOCIAL,
+        category: 'Personal - Markop',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'raventree_manor',
+        objective: "Survive the Dinner Party and protect the party members from themselves.",
+        assignees: ['markop', 'remi'],
+        primaryAssignee: 'markop',
+        
+        description: "Markop and Remi arrived at the Shadowfell Manor. After a chaotic encounter with headless dancers and Usk attempting to possess 'Mossy', Markop bribed the guards (20 gold) to de-escalate. However, the price of admission was Usk's arrest by Pernus Annmatar. Now seated at Orangus Cornelius's table, Markop is trying to keep the peace while Remi offers poison candy to the host.",
+
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "Citrus Slices", description: "Not poison. Just fruit." }
+            ],
+            xp: 3000
+        },
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Bribe",
+                description: "Paid 20 Gold to guards to stop the fight. Agreed to let them arrest Usk.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 8 }
+            },
+            {
+                id: 'm2',
+                status: 'active',
+                title: "The Table",
+                description: "Seated at the dinner. Remi is acting suspicious. Archie is eating blood-beef. Bowser is demanding wings.",
+            }
+        ]
+    },    
     'markop_void_vigil': {
         id: 'markop_void_vigil',
         title: "The Void Vigil",
@@ -2311,7 +2361,7 @@ export const MAIN_QUESTS = {
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
-        objective: "Rescue Green T, a captive 'guest' at a vampire dinner party hosted by Orangus Cornelius in the Shadowfell Estate, before the escape window closes.",
+        objective: "Rescue Green T from the Shadowfell Dinner Party.",
         assignees: ['archie_miser', 'bowser'],
         primaryAssignee: 'archie_miser',
         difficulty: {
@@ -2328,8 +2378,7 @@ export const MAIN_QUESTS = {
             deadline: { year: 1040, monthIndex: 6, day: 22, hour: 12, note: "Deadline is when Cornelius loses patience or the dinner concludes." }
         },
 
-        description: "The ritual failed. Green T was not found. Now, the fracture has revealed his fate.\n\nHe is trapped in the Shadowfell, a 'guest of honor' at a macabre dinner party hosted by the vampire lord Orangus Cornelius. His paranoia is suppressed by a greater, more immediate terror: his hosts. For Archie and Bowser, this is no longer a search—it's an extraction from behind enemy lines where open combat is suicide.\n\nThey must play a dangerous social game in a world where their strengths are liabilities. Archie's fire magic is dampened to harmless, cold light. Bowser's brute force is an insult to the vampires' refined cruelty. They must rely on wits, bluffs, and intimidation to create an opportunity to escape with the only witness to the truth.\n\nThe core mystery remains: Why did Green T run from Dan? What did he see in the mirror? Rescuing him isn't just about saving a friend—it's about recovering a truth that could shatter the party's trust forever. He is the Shadow Key, and without him, the ritual cannot be fixed.",
-
+        description: "The rescue has gone wrong. Green T was spotted at the dinner. When he attempted to sneak out with Eager, Archie Miser yelled, alerting the room. Green T managed to slip out the doors, but Eager was swarmed and captured. The party is now split between the dining table and the captured list.",
         loreEntries: ['mirror_entities', 'shadowfell_physics', 'onyx_hand_etiquette', 'orangus_cornelius', 'impostor_theory'],
 
         consequences: {
@@ -2395,7 +2444,7 @@ export const MAIN_QUESTS = {
             },
             {
                 id: 'm4',
-                status: 'active',
+                status: 'failed',
                 title: "Dinner with the Damned",
                 description: "Archie and Bowser have infiltrated the dinner party. They must navigate the deadly social etiquette of vampires, create a diversion, and extract Green T before Cornelius decides the evening's entertainment is over.",
                 goals: [
@@ -2405,7 +2454,21 @@ export const MAIN_QUESTS = {
                     { text: "Grab Green T and get to an exit", status: 'pending', priority: 'critical' },
                     { text: "Survive the escape from the Estate grounds", status: 'pending', priority: 'critical' }
                 ]
-            }
+            },
+  {
+                id: 'm5',
+                status: 'failed',
+                title: "The Stealth Attempt",
+                description: "Green T and Eager tried to leave during the meal. Archie exposed them. Eager captured. Green T fled into the manor corridors.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 13 }
+            },
+            {
+                id: 'm6',
+                status: 'active',
+                title: "Locate Green T",
+                description: "He is loose in the manor, terrified and alone. He knows the party (specifically Archie) just outed him.",
+                priority: 'critical'
+            }            
         ],
 
         connections: {
@@ -2547,8 +2610,10 @@ export const MAIN_QUESTS = {
     ],
 
     assetStatus: {
-        vigilance: { status: "Captured", location: "Legion control, patrolling Raventree region", crew: "Prisoners or dead" },
-        bones: { status: "Critical—Stabbed", location: "Aegis Command detention", timeToExecution: "Hours" },
+            vigilance: { status: "Captured", location: "Legion control" },
+            usk: { status: "Captured", location: "Raventree Manor - Custody of Pernus Annmatar", note: "Arrested after Markop bribed guards to stop a fight." },
+            eager: { status: "Captured", location: "Raventree Manor - Guard Custody", note: "Caught sneaking out of dinner." },
+            waluigi: { status: "Injured", location: "Greenhouse", condition: "Broken Leg (Severe)" },        bones: { status: "Critical—Stabbed", location: "Aegis Command detention", timeToExecution: "Hours" },
         creek: { status: "Evading", location: "Aegis Command—unknown sector", resources: "Low" },
         ryan: { status: "Unknown", location: "Forest below Vigilance crash site", lastSeen: "Day 20, 16:30" },
         speaker_l_real: { status: "Unknown", location: "Unknown", note: "Must be found before Legion realizes deception" },
