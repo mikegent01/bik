@@ -108,6 +108,24 @@ export const RUMORS = [
     effects: { orangus_cornelious: -10, onyx_hand: 5 },
     cycle_impact: { score: 1.1, label: "Assassination Theater", type: "political" }
   },
+{
+  id: 'wario_presence',
+  title: "Wario's Fingerprints",
+  time_ago: "Unknown",
+  date: { year: 1040, monthIndex: 6, day: 22 },
+  instigator: 'wario',
+  arc: 'raventree_manor',
+  arcPosition: 'rising',
+  description: "An expired coupon found in the Oracle's lab coat pocket bears a phone number ending in -W and the words 'Call me.' Evidence suggests Wario conducted business at Raventree Manor before the fracture—possibly selling equipment, acquiring specimens, or brokering a deal with the Oracle. His involvement implies a black-market supply chain for the vessel experiments.",
+  targets: ['wario', 'oracle_npc', 'remi', 'markop'],
+  effects: { 
+    oracle_npc: -5, 
+    black_market: 10, 
+    wario_enterprises: 5,
+    party_trust: -3 
+  },
+  cycle_impact: { score: 0.8, label: "Shady Dealings", type: "economic" }
+},  
   {
     id: 'poison_candy_plot',
     title: "Candy as a Weapon",
