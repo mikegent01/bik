@@ -295,6 +295,40 @@ export const RUMORS = [
     },
     "cycle_impact": { "score": -0.5, "label": "Hero Rises", "type": "heroic" }
   }, 
+{
+        id: 'fey_greenhouse_sanctuary',
+        title: "Sanctuary in the Greenhouse",
+        date: { day: 22, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'hjumpik',
+        arc: 'feywild_attic',
+        arcPosition: 'rising',
+        description: "Fleeing the Hag's Hut, Hjumpik's group found temporary refuge in a magical greenhouse guarded by sprites. Waluigi received magical healing (painfully), and the group learned of the 'Orange Heir' hosting a grand event in the manor. The sprites' obliviousness to the horrors outside suggests they are either enchanted or willfully ignorant.",
+        targets: ['hjumpik', 'waluigi', 'toad_lee', 'fey_sprite_guide'],
+        effects: {
+            cosmic_jesters: 10,
+            ratchet_raiders: 5,
+            raventree_curse: -5
+        },
+        cycle_impact: { score: 0.5, label: "Safe Haven Found", type: "exploration" }
+    },
+    {
+        id: 'theater_of_the_lost',
+        title: "The Theater of the Lost",
+        date: { day: 23, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'hjumpik',
+        arc: 'feywild_attic',
+        arcPosition: 'climax',
+        description: "Hjumpik, Waluigi, and Toad Lee infiltrated the manor's party in search of the 'Master'. They encountered Perrius Annmatar, who urged them to sever the Corvinarus bloodline to escape. After Rakasha disappeared under mysterious circumstances, the group tracked a 'beast-like guest' to the manor's private theater, discovering it was not who they expected. The stage is set for a confrontation.",
+        targets: ['hjumpik', 'rakasha_spirit_walker', 'perrius_annmatar', 'orange_toad_heir'],
+        effects: {
+            mages_guild: -15,
+            iron_legion: 5,
+            cosmic_jesters: 20
+        },
+        cycle_impact: { score: 2.0, label: "The Reveal", type: "mystery" }
+    },  
     {
     id: 'project_orange',
     title: "The Cowbell of Raventree",

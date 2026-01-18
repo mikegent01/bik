@@ -1860,6 +1860,190 @@ export const WAHBOOK_POSTS = [
     ],
     "rumorId": "shadow_estate_dinner"
   },
+      {
+        id: 'fey_greenhouse_tour', order: 40600, characterKey: 'fey_sprite_guide', rumorId: 'feywild_hoard',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 0 },
+        content: `Visitors! Welcome! Have you seen the ferns? They eat people! But only rude people! Would you like a mushroom? It screams when you bite it! The tour is mandatory!`,
+        likes: 1200, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Skip the tour. Here is a silver piece. Just heal the purple guy.' },
+            { characterKey: 'toad_lee', text: 'Wait, I want the screaming mushroom. For science.' }
+        ]
+    },
+    {
+        id: 'waluigi_healing_scream', order: 40601, characterKey: 'waluigi', rumorId: 'feywild_hoard',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 15 },
+        content: `WAH! IT BURNS! WHY DOES HEALING HURT?! My leg bones are knitting together! I can feel the marrow! This is worse than the bear trap!`,
+        likes: 4500, 
+        comments: [
+            { characterKey: 'toad_medic', text: 'Rapid ossification is painful. Grunt it out, superstar.' },
+            { characterKey: 'rakasha_spirit_walker', text: 'Silence. The guards approach.' }
+        ]
+    },
+    {
+        id: 'fey_guard_raid', order: 40602, characterKey: 'fey_guard_captain', rumorId: 'feywild_hoard',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 30 },
+        content: `OPEN UP! By order of the Manor! We know you are in there! We smell... unwashed plumber and wet cat!`,
+        likes: 45, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'We are leaving! Through the back! Also, rude!' }
+        ]
+    },
+    {
+        id: 'hjumpik_arrested', order: 40603, characterKey: 'hjumpik', rumorId: 'feywild_hoard',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 0 },
+        content: `Well, we got caught. Bush strategy failed. The guards say we are "trespassing on sacred soil." I told them the Dragon sent me. They seemed confused.`,
+        likes: 670, 
+        comments: [
+            { characterKey: 'wario', text: 'Never admit guilt! Bribe them!' },
+            { characterKey: 'hjumpik', text: 'I tried! They don\'t take coins. They want "memories." Weirdos.' }
+        ]
+    },
+
+    // --- DAY 22: AFTERNOON (THE MANOR GROUNDS) ---
+    {
+        id: 'waluigi_fire_trick', order: 40610, characterKey: 'waluigi', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 45 },
+        content: `Look at this! I can summon fire now! *Clap* Oh. It went out. But for a second, I was a god of flame! This place changes people.`,
+        likes: 2300, 
+        comments: [
+            { characterKey: 'mages_guild_instructor', text: 'Wild Magic surge. Do not clap your hands unless you want to explode.' }
+        ]
+    },
+    {
+        id: 'hjumpik_patio_discovery', order: 40611, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
+        content: `The guards led us to the North Patio. It's fancy. Drinks, loungers, overgrown vines. But the bartender says "The Guest" left already. I think he means Archie.`,
+        likes: 450, 
+        comments: [
+            { characterKey: 'toad_lee', text: 'Archie would never leave a free bar. Something is wrong.' }
+        ]
+    },
+    {
+        id: 'banquet_hall_horror', order: 40612, characterKey: 'rakasha_spirit_walker', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 0 },
+        content: `This "Banquet Hall" is an abomination. The food is rot. The wine is blood. And the carpet... it breathes. We are walking into a belly, not a party.`,
+        likes: 340, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'And yet, I see a buffet. I might risk it.' },
+            { characterKey: 'rakasha_spirit_walker', text: 'Do not eat the meat. It has eyes.' }
+        ]
+    },
+    {
+        id: 'orange_heir_encounter', order: 40613, characterKey: 'orange_toad_heir', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 30 },
+        content: `Welcome, travelers! I am the Heir of Lady Aurelian Corvinarus! Please, ignore the rotting ceiling. Are you here for the Reveal?`,
+        likes: 12, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'We are looking for an Orange Guy. Is that you? You look orange.' },
+            { characterKey: 'orange_toad_heir', text: 'I am Peach-colored! It is the lighting! How dare you!' }
+        ]
+    },
+
+    // --- DAY 22: EVENING (THE MYSTERY OF RAKASHA) ---
+    {
+        id: 'hjumpik_missing_cat', order: 40620, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
+        content: `Where is Rakasha? I turned around for one second to look at a weird painting, and she's gone. Footsteps on the ground... seven sets? Me, Waluigi, Toad Lee, two guards... that leaves two mystery walkers.`,
+        likes: 560, 
+        comments: [
+            { characterKey: 'bones', text: 'Seven? Did she walk away with someone? Or was she DRAGGED?' }
+        ]
+    },
+    {
+        id: 'naked_tiger_incident', order: 40621, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 30 },
+        content: `Okay, weird update. Asked the Heir if he saw a "tiger lady nerd." He brought me a... very naked tiger person. Not Rakasha. Very awkward. Sent her back.`,
+        likes: 1200, 
+        comments: [
+            { characterKey: 'waluigi', text: 'WAH! My eyes! I demand compensation!' }
+        ]
+    },
+    {
+        id: 'perrius_wall_phase', order: 40622, characterKey: 'perrius_annmatar', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 0 },
+        content: `The Dwarf found the Ring. Good. The plan proceeds. Sever the lineage. Kill the heirs. Fake the deaths of the Oracles. It is the only way out.`,
+        likes: 2, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Why are you phasing through walls?! Stop being creepy and help me find my friends!' }
+        ]
+    },
+
+    // --- DAY 23: MORNING (THE KITCHEN & THE REVEL) ---
+    {
+        id: 'kitchen_horror', order: 40630, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 8, minute: 0 },
+        content: `Peered into the kitchen. They aren't cooking food. They are feeding something. A red haze... mouths and limbs... "The Revel." It eats bodies. And I think I just saw it eat the cook.`,
+        likes: 890, 
+        comments: [
+            { characterKey: 'iron_legion_cook', text: 'That violates several health codes.' }
+        ]
+    },
+    {
+        id: 'waluigi_hallway_spot', order: 40631, characterKey: 'waluigi', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 9, minute: 0 },
+        content: `I moved a chair! A secret hallway! I see a Goblin Staff leaning against the wall! And... paw prints! Rakasha went this way! Follow the leader!`,
+        likes: 3400, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Finally, you did something useful.' }
+        ]
+    },
+
+    // --- DAY 23: AFTERNOON (THE LOUNGE & THE MISTAKE) ---
+    {
+        id: 'lounge_bartender_chat', order: 40640, characterKey: 'toad_lee', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 15, minute: 26 },
+        content: `In the L-Shaped Lounge. Asking the Goblin Guard about "Archie Miser." He says no Archie here... but they took a guest to the Theater. He said "HE likes to party hard."`,
+        likes: 150, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Wait. He? Rakasha is a she. Did he misgender the cat or is it someone else?' }
+        ]
+    },
+    {
+        id: 'hjumpik_realization', order: 40641, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 15, minute: 30 },
+        content: `I asked about the guest. He said "No, it was a guy." So... where is Rakasha? And who is in the Theater? We have to check.`,
+        likes: 450, 
+        comments: [
+            { characterKey: 'waluigi', text: 'Maybe it is Wario! He loves theater!' }
+        ]
+    },
+    {
+        id: 'bartender_drink_offer', order: 40642, characterKey: 'goblin_bartender', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 15, minute: 45 },
+        content: `Guests look stressed. Offering the house special: "Something Strong." Guaranteed to make you forget you are in a nightmare dimension.`,
+        likes: 56, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'I\'ll take the bottle. For later.' }
+        ]
+    },
+
+    // --- DAY 23: EVENING (THE THEATER) ---
+    {
+        id: 'theater_entry', order: 40650, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 18, minute: 0 },
+        content: `The guard led us to the Northeast Alcove. It's a stage. Stone risers. A plinth with a book. It's quiet. Too quiet.`,
+        likes: 670, 
+        comments: [
+            { characterKey: 'toad_lee', text: 'I have a bad feeling about this play.' }
+        ]
+    },
+    {
+        id: 'hjumpik_door_open', order: 40651, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 18, minute: 9 },
+        content: `Opening the door. If this is another monster, I swear I'm going to ring the cowbell until reality breaks again.`,
+        likes: 1200, 
+        comments: [
+            { characterKey: 'perrius_annmatar', text: 'Do not ring the bell again. The tapestry is already frayed enough.' }
+        ]
+    },
+    {
+        id: 'theater_cliffhanger', order: 40652, characterKey: 'wah_media_collective', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 23, hour: 18, minute: 15 },
+        content: `Rumors from the Feywild: A confrontation is brewing in the Theater of the Lost. Who is the mystery guest? Where is the Spirit Walker? And will Waluigi ever stop complaining about his leg? Tune in next time.`,
+        likes: 5000, 
+        comments: []
+    },
   {
     "id": "journal_discovery",
     "order": 62620,
