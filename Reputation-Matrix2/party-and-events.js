@@ -328,7 +328,7 @@ export const RUMORS = [
             cosmic_jesters: 20
         },
         cycle_impact: { score: 2.0, label: "The Reveal", type: "mystery" }
-    },  
+    },      
     {
     id: 'project_orange',
     title: "The Cowbell of Raventree",

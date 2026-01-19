@@ -145,7 +145,7 @@ shadowfell_estate: {
             positive: ['Alliance with Onyx Hand', 'Rescue of Green T'],
             negative: ['Permanent soul damage', 'Enraging the Vampire Lords']
         }
-    },
+    },    
     feywild_attic: {
         id: 'feywild_attic',
         name: 'The Feywild Fracture',

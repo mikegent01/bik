@@ -16,6 +16,1008 @@ export const WAHBOOK_POSTS = [
     ]
   },
   {
+    id: 'onyx_papers_orangus', order: 40800, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 32 },
+    content: `Four minutes. That’s all you get. Talk fast, write a name, fold the paper, slide it to me. If you need more time, you’re not built for this table.`,
+    likes: 210,
+    comments: [
+      { characterKey: 'markop', text: "Timed voting at a vampire dinner is insane behavior." },
+      { characterKey: 'vostolas_archivist', text: "Proceedings recorded." }
+    ]
+  },
+  {
+    id: 'wrist_thing_question', order: 40801, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 33 },
+    content: `Toadburt keeps palming his wrist like he’s hiding a card up his sleeve. I asked what it was and he hit me with: “It stabilizes things.” Buddy, EVERYTHING is unstable in here.`,
+    likes: 340,
+    comments: [
+      { characterKey: 'toadburt', text: "It is boring. Stop staring at my wrist." },
+      { characterKey: 'green_t', text: "If it stabilizes things, why does it look like a trigger?" }
+    ]
+  },
+  {
+    id: 'entropy_ring_click', order: 40802, characterKey: 'toadburt', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 33 },
+    content: `It’s not a “ring.” It’s a friendship bracelet. Totally normal. Please stop watching me touch it. (Also… why does it *click*?)`,
+    likes: 590,
+    comments: [
+      { characterKey: 'markop', text: "Because you keep SLAMMING it like it owes you money." },
+      { characterKey: 'franklin_mages', text: "If jewelry clicks, step away from the jewelry." }
+    ]
+  },
+  {
+    id: 'entropy_builds', order: 40803, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 34 },
+    content: `He clicked it. It glowed purple. Not “pretty gem” purple—like “stormcloud at midnight” purple. The room got that quiet where you can hear everyone pretending they’re fine.`,
+    likes: 430,
+    comments: [
+      { characterKey: 'toadburt', text: "It is fine. It is completely fine." },
+      { characterKey: 'archie', text: "That’s the least convincing 'fine' I’ve ever heard." }
+    ]
+  },
+  {
+    id: 'archie_meets_vostolas', order: 40804, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 35 },
+    content: `Walked up to the librarian guy like: “You’re Volsto, right?” He corrected me so sharply it felt like getting slapped with a bookmark. “Vostolas. Excuse me.”`,
+    likes: 510,
+    comments: [
+      { characterKey: 'vostolas_archivist', text: "Names matter." },
+      { characterKey: 'markop', text: "That correction did psychic damage." }
+    ]
+  },
+  {
+    id: 'vostolas_tenure', order: 40805, characterKey: 'vostolas_archivist', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 35 },
+    content: `I am the Archivist of the Onyx Hand manor. Tenure: 321 years, 100 minutes, 20 seconds. Yes, I keep exact time. No, I do not “relax.”`,
+    likes: 300,
+    comments: [
+      { characterKey: 'archie', text: "He said it like a threat. I respect it." },
+      { characterKey: 'franklin_mages', text: "Longevity plus bureaucracy is always a bad sign." }
+    ]
+  },
+  {
+    id: 'archie_reality_doubt', order: 40806, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 36 },
+    content: `Confession: I don’t know if this night is real. The manor keeps “snapping” into perfection like someone is editing the world mid-scene.`,
+    likes: 670,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Live fact-check: reality currently unverified." },
+      { characterKey: 'vostolas_archivist', text: "It is real enough to be recorded." }
+    ]
+  },
+  {
+    id: 'markop_green_t_check', order: 40807, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 36 },
+    content: `Asked Vostolas if he’s with Green T. He said “no” with the calm of a man who has watched a thousand people lie the same way.`,
+    likes: 280,
+    comments: [
+      { characterKey: 'vostolas_archivist', text: "I am with my duties." },
+      { characterKey: 'green_t', text: "I’m with my pistol. Different vibe." }
+    ]
+  },
+  {
+    id: 'archie_to_toadburt_plan', order: 40808, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 37 },
+    content: `Toadburt leans in and hits me with: “He’s got another plan.” The way he said “another” made it sound like there were already bodies in the first plan.`,
+    likes: 520,
+    comments: [
+      { characterKey: 'toadburt', text: "No bodies. Yet." },
+      { characterKey: 'markop', text: "“Yet” is carrying a lot of weight there." }
+    ]
+  },
+  {
+    id: 'toadburt_blow_up_place', order: 40809, characterKey: 'toadburt', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 37 },
+    content: `Okay fine. Plan: we remove the Oracle. Green T “starts the party” from a cabinet. Then we slip out during the screaming. Shaky alliances = easy exits.`,
+    likes: 740,
+    comments: [
+      { characterKey: 'green_t', text: "Cabinet is optional. Screaming is mandatory." },
+      { characterKey: 'archie', text: "I hate how workable that sounds." }
+    ]
+  },
+  {
+    id: 'archie_green_t_denial', order: 40810, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 38 },
+    content: `I swear I saw Green T leave the room earlier. So either he’s not in that cabinet or this manor is doing the “two places at once” thing again.`,
+    likes: 610,
+    comments: [
+      { characterKey: 'green_t', text: "I contain multitudes. And exits." },
+      { characterKey: 'vostolas_archivist', text: "Duplication has precedent tonight." }
+    ]
+  },
+  {
+    id: 'kryn_spawn_reveal', order: 40811, characterKey: 'kryn_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 38 },
+    content: `That creature you’re whispering about? Vampire spawn. Also: yes, I am the Oracle’s brother. Say it louder if you want everyone to hear.`,
+    likes: 330,
+    comments: [
+      { characterKey: 'markop', text: "No thanks, I like my neck attached." },
+      { characterKey: 'orangus_corenilous', text: "Family introductions are always so charming." }
+    ]
+  },
+  {
+    id: 'markop_sits_by_spawn', order: 40812, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 39 },
+    content: `I don’t believe Kryn. I still sat closer to the spawn because if it’s going to jump someone, I’d like it to pick a different direction first.`,
+    likes: 420,
+    comments: [
+      { characterKey: 'kryn_corvinarus', text: "Prudent." },
+      { characterKey: 'archie', text: "This is the saddest survival strategy I’ve ever seen." }
+    ]
+  },
+  {
+    id: 'markop_meets_vaxillus', order: 40813, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 39 },
+    content: `Vaxillus Loumaal looks like the kind of guy who’s been polite for 80 years and is one bad toast away from biting someone.`,
+    likes: 290,
+    comments: [
+      { characterKey: 'vaxillus_loumaal', text: "I do not bite. I endure." },
+      { characterKey: 'vivesna_corvinarus', text: "He is beautiful when he endures." }
+    ]
+  },
+  {
+    id: 'vaxillus_wants_out', order: 40814, characterKey: 'vaxillus_loumaal', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 40 },
+    content: `I got dogs when I was young. They were honest. This manor isn’t. I have wanted to leave for a long time.`,
+    likes: 360,
+    comments: [
+      { characterKey: 'markop', text: "The dogs were the only green flag in this whole house." },
+      { characterKey: 'kryn_corvinarus', text: "Leaving is not as simple as wanting." }
+    ]
+  },
+  {
+    id: 'vaxillus_star_guest', order: 40815, characterKey: 'vaxillus_loumaal', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 40 },
+    content: `There’s a “star guest” tonight. Everyone keeps saying it like it’s an honor. The way they look at him says “meat.”`,
+    likes: 530,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Celebrity spotting: yes. Celebrity survival odds: unclear." },
+      { characterKey: 'franklin_mages', text: "Do not eat anything that looks like it used to talk." }
+    ]
+  },
+  {
+    id: 'markop_meets_vivesna', order: 40816, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 41 },
+    content: `Met Vivesna. “First in line” energy. Smiles like she already measured the drapes for her future throne.`,
+    likes: 410,
+    comments: [
+      { characterKey: 'vivesna_corvinarus', text: "It is not a throne. It is duty." },
+      { characterKey: 'orangus_corenilous', text: "Duty is a lovely leash." }
+    ]
+  },
+  {
+    id: 'vivesna_bitten_father', order: 40817, characterKey: 'vivesna_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 41 },
+    content: `Orangus bit me. He raised me. He is my father. Markop called me a “kidnappee” like that’s not incredibly rude.`,
+    likes: 620,
+    comments: [
+      { characterKey: 'markop', text: "I’m rude because I’m concerned. Different thing." },
+      { characterKey: 'vaxillus_loumaal', text: "Some families are built from wounds. That doesn’t make them holy." }
+    ]
+  },
+  {
+    id: 'vivesna_age_choice', order: 40818, characterKey: 'vivesna_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 42 },
+    content: `Age: 107. Favorite person: my father. Favorite at the table: Archie. We spoke for a thousand years today. Don’t ask how; it’s embarrassing.`,
+    likes: 890,
+    comments: [
+      { characterKey: 'archie', text: "Time got weird. I’m still catching up to my own sentences." },
+      { characterKey: 'vostolas_archivist', text: "Conversation duration logged." }
+    ]
+  },
+  {
+    id: 'observer_invited', order: 40819, characterKey: 'vivesna_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 42 },
+    content: `“Why is the Observer here?” Because I didn’t want them standing outside like a stray. This is a private event, not a cruelty showcase. (Mostly.)`,
+    likes: 470,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Private event, public consequences." },
+      { characterKey: 'orangus_corenilous', text: "Everything here is a showcase, darling." }
+    ]
+  },
+  {
+    id: 'darius_family_notes_1', order: 40820, characterKey: 'darius_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 43 },
+    content: `Orangus: I heard he was good. In truth, selfish and cruel like the rest. If death comes for him tonight, it is late.`,
+    likes: 510,
+    comments: [
+      { characterKey: 'kryn_corvinarus', text: "Not at the table, Darius." },
+      { characterKey: 'markop', text: "This family does NOT do inside voices." }
+    ]
+  },
+  {
+    id: 'darius_family_notes_2', order: 40821, characterKey: 'darius_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 43 },
+    content: `Ylana: chain and critic. Gone at last. Elscieth: helpless and ambitionless. Byscilla: shocked Elscieth found anyone willing to touch her.`,
+    likes: 460,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Family review dropped: 0 stars, emotionally unsafe." },
+      { characterKey: 'vivesna_corvinarus', text: "You should not say these things where the house can hear." }
+    ]
+  },
+  {
+    id: 'darius_family_notes_3', order: 40822, characterKey: 'darius_corvinarus', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 44 },
+    content: `Usk: fetching, unsteady. Vostolas: looks through me like I am ink. Lyranth: my pet. Tymnas: effective, miserable. Vaxillus: my greatest work.`,
+    likes: 520,
+    comments: [
+      { characterKey: 'vostolas_archivist', text: "Comparison rejected. Recording continues." },
+      { characterKey: 'vaxillus_loumaal', text: "Being called someone’s “work” is not the compliment he thinks it is." }
+    ]
+  },
+  {
+    id: 'kitchen_poison_alert', order: 40823, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 45 },
+    content: `Cracked open the kitchen door and immediately got hit with hot metal smell and panic. “Can you help? A waiter was poisoned.” The chef said it like the soup was slightly salty.`,
+    likes: 640,
+    comments: [
+      { characterKey: 'iron_legion_cook', text: "He ate the candies. We all watched him do it." },
+      { characterKey: 'markop', text: "WHY ARE THERE POISON CANDIES AT A DINNER." }
+    ]
+  },
+  {
+    id: 'candy_confirmed', order: 40824, characterKey: 'kitchen_staff', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 45 },
+    content: `You know the “decorative candies” on the silver tray? They’re not decorative. They’re not even candies. Nobody listens.`,
+    likes: 420,
+    comments: [
+      { characterKey: 'toadburt', text: "I definitely listened. I still hate it." },
+      { characterKey: 'orangus_corenilous', text: "The tray is a test." }
+    ]
+  },
+  {
+    id: 'protect_toadburt_call', order: 40825, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 46 },
+    content: `I did the “everyone gather round” thing. Not proud. But if someone’s about to flip a purple-glowing switch, I want eyes on him.`,
+    likes: 510,
+    comments: [
+      { characterKey: 'toadburt', text: "Less eyes, actually. Preferably none." },
+      { characterKey: 'franklin_mages', text: "Good instinct. Bad artifact." }
+    ]
+  },
+  {
+    id: 'orangus_collects_papers', order: 40826, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 46 },
+    content: `Time. Papers. Now. Hands steady. If you’re shaking, you’ve already voted for yourself.`,
+    likes: 730,
+    comments: [
+      { characterKey: 'real_darman', text: "I’m steady. I’m also offended." },
+      { characterKey: 'vostolas_archivist', text: "Compliance noted." }
+    ]
+  },
+  {
+    id: 'closet_green_t_plan', order: 40827, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 47 },
+    content: `Yes, there was a closet. Yes, Green T was in it. He said, “I’ll signal. The room will break. We move in the cracks.” Cool sentence. Horrible context.`,
+    likes: 860,
+    comments: [
+      { characterKey: 'green_t', text: "Closets are tactical." },
+      { characterKey: 'markop', text: "Nothing about that sentence made me feel safer." }
+    ]
+  },
+  {
+    id: 'alliances_shaky', order: 40828, characterKey: 'green_t', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 47 },
+    content: `Everyone here hates everyone else. They just hate hunger more. When the first scream hits, the masks fall off.`,
+    likes: 690,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Prediction: first scream imminent." },
+      { characterKey: 'kryn_corvinarus', text: "Masks don’t fall. They get traded." }
+    ]
+  },
+  {
+    id: 'markop_asks_archie_info', order: 40829, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 48 },
+    content: `I brushed past Archie and whispered, “What did you find out?” like we weren’t surrounded by people who can hear heartbeats.`,
+    likes: 380,
+    comments: [
+      { characterKey: 'archie', text: "I found out the walls are basically microphones." },
+      { characterKey: 'vostolas_archivist', text: "Correct." }
+    ]
+  },
+  {
+    id: 'archie_explains_archivist', order: 40830, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 48 },
+    content: `Vostolas is basically a walking record. Orangus’ memory with legs. Every whisper gets filed. Every lie gets timestamped. He’s not a lawyer… he’s worse.`,
+    likes: 550,
+    comments: [
+      { characterKey: 'markop', text: "So: evil notebook with legs." },
+      { characterKey: 'vostolas_archivist', text: "Dismissive, but accurate." }
+    ]
+  },
+  {
+    id: 'archie_oracle_commitment', order: 40831, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 49 },
+    content: `We said we’d follow the Oracle’s wish. That means we don’t get to hesitate now. If this ends with Cornelious dead, that’s the price. Speak now.`,
+    likes: 810,
+    comments: [
+      { characterKey: 'green_t', text: "Already made the choice. Don’t blink." },
+      { characterKey: 'toadburt', text: "I object to dying, personally." }
+    ]
+  },
+  {
+    id: 'markop_wrist_warning', order: 40832, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 49 },
+    content: `Toadburt is pressing that wrist thing like he’s sending Morse code to disaster. If the room collapses into math, I’m blaming him.`,
+    likes: 430,
+    comments: [
+      { characterKey: 'toadburt', text: "Stop calling it math." },
+      { characterKey: 'franklin_mages', text: "If it’s entropy, it might literally be math." }
+    ]
+  },
+  {
+    id: 'voting_strategy', order: 40833, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 49 },
+    content: `We debated “who to vote for” like it was a party game. Meanwhile the host has a knife that hums. We are stupid, but together.`,
+    likes: 640,
+    comments: [
+      { characterKey: 'markop', text: "United in poor decisions." },
+      { characterKey: 'orangus_corenilous', text: "Unity is adorable." }
+    ]
+  },
+  {
+    id: 'vote_for_vostolas', order: 40834, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 50 },
+    content: `We voted Vostolas. Not because we hate him (we do) but because it felt funny to vote for the guy who records votes.`,
+    likes: 710,
+    comments: [
+      { characterKey: 'vostolas_archivist', text: "I recorded your sense of humor." },
+      { characterKey: 'markop', text: "He’s gonna write this down and haunt us with it later." }
+    ]
+  },
+  {
+    id: 'double_darman_spotted', order: 40835, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 50 },
+    content: `Guest list glitch: Darman appears twice. Either the manor can’t count or somebody is wearing someone else’s life like a coat.`,
+    likes: 820,
+    comments: [
+      { characterKey: 'real_darman', text: "Somebody is going to explain this to me." },
+      { characterKey: 'archie', text: "Not it." }
+    ]
+  },
+  {
+    id: 'real_darman_speaks', order: 40836, characterKey: 'real_darman', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 51 },
+    content: `The moment I saw my name twice, I cleared my throat. “Two of me on the list. Curious.” Watching everyone pretend not to panic is delicious.`,
+    likes: 950,
+    comments: [
+      { characterKey: 'orangus_corenilous', text: "Curiosity will be satisfied shortly." },
+      { characterKey: 'markop', text: "Oh cool, the REAL guy is here. Great." }
+    ]
+  },
+  {
+    id: 'knife_slid_to_archie', order: 40837, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 51 },
+    content: `I slid the crystalline knife to “Darman.” It sang against the wood like it missed blood. “Carve Usk, or offer your own hand. Choose fast.”`,
+    likes: 1200,
+    comments: [
+      { characterKey: 'archie', text: "I hate this game." },
+      { characterKey: 'vostolas_archivist', text: "Decision point recorded." }
+    ]
+  },
+  {
+    id: 'vote_tally_announced', order: 40838, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 52 },
+    content: `Votes tallied. Lots of cowards hiding behind blank paper. Lots of “brave” people picking names that won’t bite back. Interesting.`,
+    likes: 880,
+    comments: [
+      { characterKey: 'markop', text: "Blank votes are coward votes. I said what I said." },
+      { characterKey: 'franklin_mages', text: "This is not a ballot. It’s a ritual." }
+    ]
+  },
+  {
+    id: 'franklin_plane_note', order: 40839, characterKey: 'franklin_mages', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 52 },
+    content: `For anyone asking: yes, the mansion feels “off” on a planar level. No, you can’t fix that with candles. Also stop touching unknown purple artifacts.`,
+    likes: 430,
+    comments: [
+      { characterKey: 'toadburt', text: "Noted. I will stop touching it. (Soon.)" },
+      { characterKey: 'archie', text: "Planar-level wrong is my least favorite category of wrong." }
+    ]
+  },
+  {
+    id: 'archie_cuts_usk', order: 40840, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 53 },
+    content: `I chose Usk. The knife didn’t “cut” so much as it *agreed* with the finger. There was a wet sound nobody laughed at.`,
+    likes: 1030,
+    comments: [
+      { characterKey: 'usk_the_butler', text: "AAAA—" },
+      { characterKey: 'real_darman', text: "That was… efficient." }
+    ]
+  },
+  {
+    id: 'usk_dies_in_arms', order: 40841, characterKey: 'wah_media_collective', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 53 },
+    content: `Usk bled out slow, cradled by guards like they were comforting a broken vase. The room smelled like iron and expensive cologne.`,
+    likes: 970,
+    comments: [
+      { characterKey: 'vampire_guard_captain', text: "Maintain order. Remove the body." },
+      { characterKey: 'markop', text: "They are treating a death like a spilled drink." }
+    ]
+  },
+  {
+    id: 'archie_eats_eye', order: 40842, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 54 },
+    content: `I looked away for ONE SECOND and Archie is eating a human eye. It blinked. I don’t care what anyone says. It blinked at me like it knew me.`,
+    likes: 1500,
+    comments: [
+      { characterKey: 'archie', text: "It was served. I’m not wasting food." },
+      { characterKey: 'toadburt', text: "That is not helping your case." }
+    ]
+  },
+  {
+    id: 'toadburt_iron_badge', order: 40843, characterKey: 'wah_media_collective', rumorId: 'onyx_hand_voting_chaos',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 54 },
+    content: `Meanwhile, Toadburt gets an empty plate with a bleeding Iron Legion badge like it’s a prank appetizer. He says “oh great cranberry sauce” and smiles like this is normal.`,
+    likes: 1280,
+    comments: [
+      { characterKey: 'toadburt', text: "I cope with humor." },
+      { characterKey: 'iron_legion_cook', text: "That is not cranberry sauce." }
+    ]
+  },
+
+  // --- ORACLE SHOT / ESCAPE / ROAD (rumorId: oracle_assassination_escape) ---
+  {
+    id: 'gunshot_in_hall', order: 40844, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 55 },
+    content: `A gunshot cracked the room open. Somebody screamed “GUARDS!” and the dinner vibe officially died (unlike half the guests).`,
+    likes: 2200,
+    comments: [
+      { characterKey: 'vampire_guard_captain', text: "LOCK IT DOWN." },
+      { characterKey: 'markop', text: "KNEW IT. KNEW IT WAS GOING TO BE A GUNSHOT." }
+    ]
+  },
+  {
+    id: 'oracle_slumps', order: 40845, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 55 },
+    content: `Oracle folded over the table like a puppet with its strings cut. Gun still warm. Silver round, old stock. No enchantments. Just intent.`,
+    likes: 2600,
+    comments: [
+      { characterKey: 'archie', text: "Don’t assume dead. Move." },
+      { characterKey: 'franklin_mages', text: "Old silver works until it doesn’t." }
+    ]
+  },
+  {
+    id: 'bowser_flame_erupts', order: 40846, characterKey: 'bowser', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 56 },
+    content: `RRRRAAAUGH!! WHO SERVES BLOOD-WINE WITHOUT A WARNING?? I AM THE FIRE CODE NOW.`,
+    likes: 3100,
+    comments: [
+      { characterKey: 'vampire_guard_captain', text: "STOP BURNING THE WITNESSES." },
+      { characterKey: 'markop', text: "Bowser is the only one reacting normally." }
+    ]
+  },
+  {
+    id: 'kryn_feeds', order: 40847, characterKey: 'kryn_corvinarus', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 56 },
+    content: `Chaos is honest. So is hunger. I drank from Orange T’s neck while everyone looked away and pretended they were above it.`,
+    likes: 1400,
+    comments: [
+      { characterKey: 'orangus_corenilous', text: "Control yourself." },
+      { characterKey: 'vivesna_corvinarus', text: "Do not waste him." }
+    ]
+  },
+  {
+    id: 'markop_orders_exit', order: 40848, characterKey: 'markop', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 57 },
+    content: `I grabbed FNG and told the toads: “We are leaving. Now.” The guards were sprinting in and the carpet was doing something alive.`,
+    likes: 890,
+    comments: [
+      { characterKey: 'toadburt', text: "Copy. Moving." },
+      { characterKey: 'wah_media_collective', text: "Evacuation attempt: underway." }
+    ]
+  },
+  {
+    id: 'vivesna_i_win', order: 40849, characterKey: 'vivesna_corvinarus', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 57 },
+    content: `I WIN! I WIN! I— …hold on.`,
+    likes: 2100,
+    comments: [
+      { characterKey: 'markop', text: "That “hold on” was ominous." },
+      { characterKey: 'archie', text: "Yeah that’s not her voice anymore." }
+    ]
+  },
+  {
+    id: 'vivian_reveals_self', order: 40850, characterKey: 'vivian_man_shadow', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 58 },
+    content: `Wig off. Voice drops. Surprise: I’m Vivian, Man of Shadow. Thrall, yes. Heir, now. Orangus got played and I got promoted mid-riot.`,
+    likes: 2750,
+    comments: [
+      { characterKey: 'orangus_corenilous', text: "You will be unmade for this." },
+      { characterKey: 'vostolas_archivist', text: "Identity correction recorded." }
+    ]
+  },
+  {
+    id: 'archie_unheard_warning', order: 40851, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 58 },
+    content: `I screamed “TRAITOR! THRALL! NOT THE HEIR!” at full volume. Nobody heard me. Bowser’s fire has a louder voice than truth.`,
+    likes: 1900,
+    comments: [
+      { characterKey: 'markop', text: "He actually DID shout it. I saw his lungs try." },
+      { characterKey: 'bowser', text: "MY FIRE TALKS LOUDER. TRUE." }
+    ]
+  },
+  {
+    id: 'vampires_shout_bowser', order: 40852, characterKey: 'vampire_guard_captain', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 59 },
+    content: `We are attempting to restore order. Step one: stop the giant turtle-dragon from roasting the witnesses.`,
+    likes: 1300,
+    comments: [
+      { characterKey: 'bowser', text: "NO." },
+      { characterKey: 'wah_media_collective', text: "Order restoration status: not great." }
+    ]
+  },
+  {
+    id: 'franklin_entropy_retrieval', order: 40853, characterKey: 'franklin_mages', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 0 },
+    content: `While everyone watched the drama, I recovered the purple device. It radiates entropy like a hot stove radiates regret. This is coming with me.`,
+    likes: 980,
+    comments: [
+      { characterKey: 'toadburt', text: "Hey that’s my— nevermind." },
+      { characterKey: 'archie', text: "He just walked off with it like it was his coat." }
+    ]
+  },
+  {
+    id: 'archie_blocked_by_guards', order: 40854, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 0 },
+    content: `Tried to follow Franklin. Guards stepped in front like moving coffins in velvet. Smelled like old roses and new blood.`,
+    likes: 860,
+    comments: [
+      { characterKey: 'vampire_guard_captain', text: "Guests remain seated." },
+      { characterKey: 'markop', text: "They said that while the room was literally on fire." }
+    ]
+  },
+  {
+    id: 'archie_to_tabletop', order: 40855, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 1 },
+    content: `I climbed onto the table because that’s apparently who I am now. Green T yelled my name like he was calling a dog out of traffic.`,
+    likes: 1220,
+    comments: [
+      { characterKey: 'green_t', text: "MOVE." },
+      { characterKey: 'real_darman', text: "The impersonator is athletic, I’ll give him that." }
+    ]
+  },
+  {
+    id: 'window_escape', order: 40856, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 1 },
+    content: `Window exit. Grabbed Archie, hauled him through. He landed in rose bushes. Thorns don’t care about plot armor.`,
+    likes: 1780,
+    comments: [
+      { characterKey: 'archie', text: "Roses hurt more than knives, somehow." },
+      { characterKey: 'wah_media_collective', text: "Escape route confirmed: window + shrub damage." }
+    ]
+  },
+  {
+    id: 'debate_bullet_choice', order: 40857, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 2 },
+    content: `He asked what kind of bullet. Silver. Old. No enchantment. If the Oracle stands back up, I’m going to be mad in a very personal way.`,
+    likes: 1410,
+    comments: [
+      { characterKey: 'archie', text: "Old silver is still silver. We’ll see." },
+      { characterKey: 'franklin_mages', text: "No enchantment means you’re relying on folklore." }
+    ]
+  },
+  {
+    id: 'oracle_maybe_alive', order: 40858, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 3 },
+    content: `I told Green T: don’t assume dead. Some things “die” the way nobles “retire”—they just come back uglier and richer.`,
+    likes: 930,
+    comments: [
+      { characterKey: 'green_t', text: "If he comes back, we do it again, cleaner." },
+      { characterKey: 'toadburt', text: "This is why I wanted the bracelet." }
+    ]
+  },
+  {
+    id: 'rescue_toads_decision', order: 40859, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 3 },
+    content: `We can’t just bail. The toads are still inside and the guards are doing the “everybody line up” thing. Rescue first, existential dread later.`,
+    likes: 990,
+    comments: [
+      { characterKey: 'markop', text: "Thank you. We were about to get interrogated into paste." },
+      { characterKey: 'vampire_guard_captain', text: "All attendees will be questioned." }
+    ]
+  },
+  {
+    id: 'plan_gather_targets', order: 40860, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 4 },
+    content: `Plan (if you can call it that): gather our people, then hunt for “main guys.” If we split too long, this place will rewrite us.`,
+    likes: 620,
+    comments: [
+      { characterKey: 'green_t', text: "Regroup points. No hero stuff." },
+      { characterKey: 'wah_media_collective', text: "Manor effects: suspected narrative drift." }
+    ]
+  },
+  {
+    id: 'toads_in_windows', order: 40861, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 5 },
+    content: `Saw silhouettes in the windows—little mushroom heads. Whispered: “I’m alive. I’m splitting up. Regroup somewhere NOT HERE.” Hope they can read lips through curtains and panic.`,
+    likes: 840,
+    comments: [
+      { characterKey: 'toadburt', text: "We saw you. The roses were loud." },
+      { characterKey: 'markop', text: "We’re moving. Guards everywhere." }
+    ]
+  },
+  {
+    id: 'third_eye_cosmetic', order: 40862, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 5 },
+    content: `Asked Archie if the third eye does anything. He said “cosmetic.” Bro is out here collecting trauma and accessories only.`,
+    likes: 770,
+    comments: [
+      { characterKey: 'archie', text: "Look, some of us commit to the aesthetic." },
+      { characterKey: 'markop', text: "Cosmetic third eye is wild. Respect." }
+    ]
+  },
+  {
+    id: 'bone_paths_description', order: 40863, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 6 },
+    content: `Manor grounds update: bone-white paving stones, gray brick edging, crimson petals like dried blood confetti. Someone planned this aesthetic and stuck with it for centuries.`,
+    likes: 930,
+    comments: [
+      { characterKey: 'vostolas_archivist', text: "It is curated." },
+      { characterKey: 'green_t', text: "It’s also a great place to get spotted." }
+    ]
+  },
+  {
+    id: 'fountain_vivian_statue', order: 40864, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 7 },
+    content: `Found the courtyard fountain. Center statue: young woman holding a bowl, pouring forever. It looks like Vivian. The water sounds… tired.`,
+    likes: 880,
+    comments: [
+      { characterKey: 'vivian_man_shadow', text: "Not me. Not anymore." },
+      { characterKey: 'markop', text: "Everything here feels like it’s been repeating." }
+    ]
+  },
+  {
+    id: 'three_gold_offering', order: 40865, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 7 },
+    content: `Left three gold coins at the statue. Don’t know why. Felt like paying a toll to something that was watching and keeping score.`,
+    likes: 970,
+    comments: [
+      { characterKey: 'green_t', text: "Bribing statues is a new one." },
+      { characterKey: 'vostolas_archivist', text: "Offering recorded." }
+    ]
+  },
+  {
+    id: 'manor_restored_facade', order: 40866, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 8 },
+    content: `The manor looks “fixed” compared to earlier ruin sightings—gray slate, jet-black tiles, perfect angles. Like the building got reset after the gunshot.`,
+    likes: 820,
+    comments: [
+      { characterKey: 'franklin_mages', text: "Planar correction behavior. That’s bad." },
+      { characterKey: 'archie', text: "It’s like it’s trying to look innocent." }
+    ]
+  },
+  {
+    id: 'curtains_red_glow', order: 40867, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 8 },
+    content: `Every window is curtained. Red glow behind them like a furnace behind eyelids. You can’t see the party, but you can feel it watching back.`,
+    likes: 780,
+    comments: [
+      { characterKey: 'markop', text: "Hate being perceived by architecture." },
+      { characterKey: 'vostolas_archivist', text: "The manor perceives all." }
+    ]
+  },
+  {
+    id: 'unnatural_blooms', order: 40868, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 9 },
+    content: `Plants are wrong. Black stems, gray leaves, thorns shaped like talons. Like the garden evolved specifically to punish ankles.`,
+    likes: 920,
+    comments: [
+      { characterKey: 'archie', text: "The roses already punished my entire body." },
+      { characterKey: 'wah_media_collective', text: "Garden rating: hostile." }
+    ]
+  },
+  {
+    id: 'scorched_grass', order: 40869, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 9 },
+    content: `Grass is trimmed but colorless, like it forgot sunlight exists. Shadows cling to everything. The grounds feel “post-fire” even before Bowser.`,
+    likes: 830,
+    comments: [
+      { characterKey: 'bowser', text: "I DID NOT START THIS ONE." },
+      { characterKey: 'markop', text: "He is technically correct for once." }
+    ]
+  },
+  {
+    id: 'iron_fence_barrier', order: 40870, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 10 },
+    content: `Wrought-iron fence around the estate. Not decorative—defensive. The kind of fence that exists because too many people tried leaving.`,
+    likes: 640,
+    comments: [
+      { characterKey: 'green_t', text: "Fences mean someone escaped before. Good sign." },
+      { characterKey: 'vostolas_archivist', text: "Or they tried." }
+    ]
+  },
+  {
+    id: 'exit_available', order: 40871, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 11 },
+    content: `There’s an exit. A clean one. If we take it now, we might actually live. Archie looked at it like it was a lie.`,
+    likes: 910,
+    comments: [
+      { characterKey: 'archie', text: "Exits in places like this always have fine print." },
+      { characterKey: 'markop', text: "Take the exit anyway. Please." }
+    ]
+  },
+  {
+    id: 'archie_airship_first', order: 40872, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 11 },
+    content: `I told Green T: “Airship first. Then we come back.” Yes, it sounds insane. That’s how you know it’s my plan.`,
+    likes: 800,
+    comments: [
+      { characterKey: 'green_t', text: "We are not coming back unless we have to." },
+      { characterKey: 'wah_media_collective', text: "Statement contains: hubris." }
+    ]
+  },
+  {
+    id: 'start_long_trek', order: 40873, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 12 },
+    content: `They walked away from the manor while screams faded behind curtains. The quiet after a riot is always suspicious.`,
+    likes: 870,
+    comments: [
+      { characterKey: 'markop', text: "Quiet is when the consequences catch up." },
+      { characterKey: 'vostolas_archivist', text: "Departure time recorded." }
+    ]
+  },
+  {
+    id: 'green_t_doesnt_question', order: 40874, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 13 },
+    content: `I didn’t ask how far the airship was. Sometimes if you ask, the universe answers by making it further.`,
+    likes: 750,
+    comments: [
+      { characterKey: 'archie', text: "That is unfortunately true." },
+      { characterKey: 'wah_media_collective', text: "Distance anxiety: justified." }
+    ]
+  },
+  {
+    id: 'time_passes_marker', order: 40875, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 0 },
+    content: `24th → 27th Highsun. Three days of walking. No airship. No closure. Just the feeling that the manor is still “behind” you even when you can’t see it.`,
+    likes: 660,
+    comments: [
+      { characterKey: 'green_t', text: "I hate that feeling. Keeps the finger on the trigger." },
+      { characterKey: 'archie', text: "It’s like the place follows in your peripheral vision." }
+    ]
+  },
+  {
+    id: 'abandon_party_doubt', order: 40876, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 30 },
+    content: `I asked, “Are we really abandoning the party?” Then remembered: we shot the Oracle, a butler died, and the heir became a guy in a wig. So… yes.`,
+    likes: 940,
+    comments: [
+      { characterKey: 'markop', text: "You can’t abandon a disaster you started. It just keeps happening without you." },
+      { characterKey: 'wah_media_collective', text: "Recap: accurate." }
+    ]
+  },
+  {
+    id: 'airship_further_than_thought', order: 40877, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 9, minute: 0 },
+    content: `I admitted: “I thought the airship was closer.” Green T stared at me like I’d just confessed to inventing distance.`,
+    likes: 720,
+    comments: [
+      { characterKey: 'green_t', text: "Next time, don’t guess." },
+      { characterKey: 'markop', text: "Next time, don’t say “next time”." }
+    ]
+  },
+  {
+    id: 'town_on_horizon', order: 40878, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 13, minute: 0 },
+    content: `A town appeared. Regular people. Regular roofs. The kind of place where you can buy bread instead of negotiating with vampires over paperwork.`,
+    likes: 880,
+    comments: [
+      { characterKey: 'archie', text: "Normal roofs feel surreal now." },
+      { characterKey: 'green_t', text: "Keep your head down. No heroics." }
+    ]
+  },
+  {
+    id: 'weather_shifts', order: 40879, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 13, minute: 30 },
+    content: `Sky turned the color of old bruises. Rain promised. You can always tell when the story wants to get worse.`,
+    likes: 610,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Weather foreshadowing detected." },
+      { characterKey: 'markop', text: "I’m tired of being in a story." }
+    ]
+  },
+  {
+    id: 'enter_general_store', order: 40880, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 0 },
+    content: `We walked into a store like we weren’t fugitives from a blood banquet. I tried smiling. It came out wrong.`,
+    likes: 740,
+    comments: [
+      { characterKey: 'shopkeeper_midland', text: "You have a look like you slept in a grave." },
+      { characterKey: 'green_t', text: "Don’t talk too much." }
+    ]
+  },
+  {
+    id: 'ten_gold_meal_question', order: 40881, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 2 },
+    content: `Asked for food for ten gold. Clerk said they only take Midland coins. I felt personally attacked by currency.`,
+    likes: 860,
+    comments: [
+      { characterKey: 'shopkeeper_midland', text: "Gold’s fine. Yours isn’t." },
+      { characterKey: 'archie', text: "Even our money is dimensionally incorrect." }
+    ]
+  },
+  {
+    id: 'ask_for_rations', order: 40882, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 3 },
+    content: `When money fails, ask for rations. The look he gave us was “I’ve seen worse,” which is not comforting.`,
+    likes: 540,
+    comments: [
+      { characterKey: 'shopkeeper_midland', text: "Rations cost trust. You don’t have much." },
+      { characterKey: 'markop', text: "Fair." }
+    ]
+  },
+  {
+    id: 'shopkeeper_recognizes', order: 40883, characterKey: 'shopkeeper_midland', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 4 },
+    content: `One of them had a face I swear I knew. Not from here. From somewhere I don’t talk about. I asked his name. He asked why I wanted it.`,
+    likes: 910,
+    comments: [
+      { characterKey: 'archie', text: "Names get you killed in the wrong rooms." },
+      { characterKey: 'green_t', text: "We’re just passing through." }
+    ]
+  },
+  {
+    id: 'fish_on_house', order: 40884, characterKey: 'shopkeeper_midland', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 5 },
+    content: `Gave them a fish on the house. If I’m wrong, I’m kind. If I’m right, maybe I bought myself luck.`,
+    likes: 620,
+    comments: [
+      { characterKey: 'archie', text: "Thank you. Truly." },
+      { characterKey: 'markop', text: "This is the first nice thing today." }
+    ]
+  },
+  {
+    id: 'attached_restaurant', order: 40885, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 10 },
+    content: `We ate in a restaurant attached to the store. Archie asked if the food was good. I told him, “As long as you don’t steal it.” He did not deny anything.`,
+    likes: 780,
+    comments: [
+      { characterKey: 'barkeep_midland', text: "Pay first. No drama." },
+      { characterKey: 'archie', text: "I am literally trying to be normal." }
+    ]
+  },
+  {
+    id: 'beer_and_weird_fish', order: 40886, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 12 },
+    content: `Green T sipped beer like he wasn’t haunted. I ate the fish and realized I missed being scared of normal things, like bones.`,
+    likes: 840,
+    comments: [
+      { characterKey: 'green_t', text: "Beer helps. A little." },
+      { characterKey: 'markop', text: "After the eye thing, fish feels safe." }
+    ]
+  },
+  {
+    id: 'magpie_in_rafters', order: 40887, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 13 },
+    content: `Spotted a magpie circling inside like it belonged there. It kept looking at me, then at the back rooms, then at me again. Like a messenger with an attitude.`,
+    likes: 910,
+    comments: [
+      { characterKey: 'wah_media_collective', text: "Bird surveillance: plausible." },
+      { characterKey: 'green_t', text: "If it follows, we move." }
+    ]
+  },
+  {
+    id: 'staff_only_warning', order: 40888, characterKey: 'barkeep_midland', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 14 },
+    content: `He tried to drift toward the staff hall like a ghost with curiosity. I said “staff only.” He looked offended like I’d insulted his bloodline.`,
+    likes: 670,
+    comments: [
+      { characterKey: 'archie', text: "Sorry. Habit." },
+      { characterKey: 'markop', text: "We are not doing more secret doors today." }
+    ]
+  },
+  {
+    id: 'magpie_swoops', order: 40889, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 15 },
+    content: `The magpie dive-bombed Green T and pulled up at the last second. He didn’t react. Either he didn’t see it… or he’s seen worse.`,
+    likes: 930,
+    comments: [
+      { characterKey: 'green_t', text: "I saw it." },
+      { characterKey: 'markop', text: "That somehow makes it worse." }
+    ]
+  },
+  {
+    id: 'concern_about_manor_words', order: 40890, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 16 },
+    content: `I keep replaying the manor conversations. “Planes.” “Archivist.” “Two Darmans.” It’s like we stepped into a story that’s already been told and we’re late to the ending.`,
+    likes: 740,
+    comments: [
+      { characterKey: 'archie', text: "That’s exactly how it feels." },
+      { characterKey: 'franklin_mages', text: "Because the place loops. Or tries to." }
+    ]
+  },
+  {
+    id: 'ritual_timeline_question', order: 40891, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 17 },
+    content: `We did a ritual in a vacant manor before all this. Jumped “inside” it. I want proof we didn’t hop into the wrong version of ourselves.`,
+    likes: 890,
+    comments: [
+      { characterKey: 'markop', text: "If there’s a better version of me, I hope he’s thriving." },
+      { characterKey: 'green_t', text: "We find proof later. We survive now." }
+    ]
+  },
+  {
+    id: 'how_to_tell_timelines', order: 40892, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 18 },
+    content: `I asked how you tell timelines apart. Archie went quiet. That’s when you know the question is the real monster.`,
+    likes: 730,
+    comments: [
+      { characterKey: 'archie', text: "I don’t have an answer I trust." },
+      { characterKey: 'wah_media_collective', text: "Silence = narrative dread." }
+    ]
+  },
+  {
+    id: 'nothing_more_before_leave', order: 40893, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 20 },
+    content: `“Anything else before we go?” I asked. Green T scanned the room like he was shopping for violence.`,
+    likes: 610,
+    comments: [
+      { characterKey: 'green_t', text: "Just planning ahead." },
+      { characterKey: 'markop', text: "Please don’t shop." }
+    ]
+  },
+  {
+    id: 'apple_from_stand', order: 40894, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 21 },
+    content: `Grabbed an apple off a fruit stand outside. It tasted like normal life and I hated how much I missed that.`,
+    likes: 960,
+    comments: [
+      { characterKey: 'markop', text: "Normal food is emotional now. Great." },
+      { characterKey: 'green_t', text: "Eat. Keep moving." }
+    ]
+  },
+  {
+    id: 'war_pick_spotted', order: 40895, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 22 },
+    content: `Found a war pick sitting like it was waiting for the right hands. I picked it up and the weight felt… familiar.`,
+    likes: 780,
+    comments: [
+      { characterKey: 'archie', text: "That definitely belongs to someone." },
+      { characterKey: 'green_t', text: "Not anymore." }
+    ]
+  },
+  {
+    id: 'war_pick_pocketed', order: 40896, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 23 },
+    content: `I told him “that belongs to someone.” He pocketed it anyway. That’s Green T: if the universe doesn’t want it stolen, it should label it better.`,
+    likes: 1020,
+    comments: [
+      { characterKey: 'green_t', text: "Exactly." },
+      { characterKey: 'shopkeeper_midland', text: "I saw nothing." }
+    ]
+  },
+  {
+    id: 'melee_vs_pistol', order: 40897, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 24 },
+    content: `Archie asked if I needed a melee weapon. I showed the pistol. “This works up close too.” He didn’t laugh. That’s how you know he believes me.`,
+    likes: 1340,
+    comments: [
+      { characterKey: 'archie', text: "I’ve seen what you do with that thing." },
+      { characterKey: 'markop', text: "Please do not demonstrate in town." }
+    ]
+  },
+  {
+    id: 'time_skip_rain', order: 40898, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 29, hour: 19, minute: 30 },
+    content: `27th → 29th Highsun: the rain finally caught up. Not a gentle rain—hard, cold, “keep moving or freeze” rain.`,
+    likes: 780,
+    comments: [
+      { characterKey: 'green_t', text: "Visibility’s bad. Hands stay ready." },
+      { characterKey: 'archie', text: "Everything is soaked. Even my thoughts." }
+    ]
+  },
+  {
+    id: 'abandoned_infirmary_found', order: 40899, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
+    date: { year: 1040, monthIndex: 6, day: 29, hour: 20, minute: 0 },
+    content: `We found an abandoned infirmary and shoved the door closed behind us. I said, “Can we rest for a second?” Green T looked at the ceiling like it might answer.`,
+    likes: 1420,
+    comments: [
+      { characterKey: 'green_t', text: "We rest. But we don’t relax." },
+      { characterKey: 'wah_media_collective', text: "Shelter acquired. Safety: unconfirmed." }
+    ]
+  },  
+  {
     id: 'rakasha_pollen', order: 40543, characterKey: 'rakasha_spirit_walker', rumorId: 'wraith_banishment',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 15 },
     content: "the air here is thick with pollen. smells like old magic. this isn't a wild place—it's a garden kept by unseen hands. be careful what you touch.",
