@@ -4,6 +4,207 @@
 // Removed: 139 duplicates
 
 export const WAHBOOK_POSTS = [
+   {
+        id: 'hjumpik_lady_aurelian_meet', order: 40900, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 0 },
+        content: `Met the Lady of the Manor. Aurelian Corvinarus. She pointed right at my Entropy Ring. Asked for it. I said "Not on the first date." She didn't laugh.`,
+        likes: 120, 
+        comments: [
+            { characterKey: 'waluigi', text: 'She has style. Scary style. But style.' },
+            { characterKey: 'toad_lee', text: 'She called it an Entropy Regulator. She knows exactly what it does.' }
+        ]
+    },
+    {
+        id: 'lady_aurelian_task', order: 40901, characterKey: 'lady_aurelian', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 15 },
+        content: `Guests who overstay their welcome are tiresome. There are Satyrs in the Guest Wing who refuse to leave. Remove them, and we can discuss your... departure.`,
+        likes: 12, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'We are basically janitors now.' }
+        ]
+    },
+    {
+        id: 'waluigi_fireball_check', order: 40902, characterKey: 'toad_lee', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 30 },
+        content: `Waluigi just summoned a fireball in his hand and looked at the Lady. I told him NO. We are NOT fighting a Fey Lord in her own house. Yet.`,
+        likes: 890, 
+        comments: [
+            { characterKey: 'waluigi', text: 'It was a tiny fireball! A warning shot!' }
+        ]
+    },
+
+    // --- DAY 25: THE SATYR EVICTION (Morning) ---
+    {
+        id: 'guest_room_vines', order: 40910, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 0 },
+        content: `Guest rooms are a mess. Vines everywhere. Hammocks made of leaves. Satyrs passed out on the floor. Smells like cheap wine and goat.`,
+        likes: 450, 
+        comments: []
+    },
+    {
+        id: 'hjumpik_satyr_beer', order: 40911, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 15 },
+        content: `Offered a beer to a Satyr to get him moving. He took it, walked onto the gangway... and fell off. Just walked right off the edge into the dining hall below. *SPLAT*`,
+        likes: 670, 
+        comments: [
+            { characterKey: 'waluigi', text: 'Gravity is a harsh mistress.' }
+        ]
+    },
+    {
+        id: 'waluigi_satyr_splat', order: 40912, characterKey: 'waluigi', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 30 },
+        content: `Two more Satyrs just fell. I may have... encouraged them. Oops. Problem solved!`,
+        likes: 4500, 
+        comments: [
+            { characterKey: 'toad_lee', text: 'You pushed them! I saw you!' },
+            { characterKey: 'waluigi', text: 'Allegedly!' }
+        ]
+    },
+    {
+        id: 'bathroom_mushroom_gas', order: 40913, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 45 },
+        content: `Checked the bathroom. A mushroom puffed gas in my face. Now I can't stop flexing my muscles. It's involuntary. Look at these gains!`,
+        likes: 2300, 
+        comments: [
+            { characterKey: 'wario', text: 'Nice flex! Work the glutes!' }
+        ]
+    },
+
+    // --- DAY 25: THE HAG'S RECOMMENDATION (Late Morning) ---
+    {
+        id: 'hjumpik_hag_referral', order: 40920, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 0 },
+        content: `Found more guests. Told them about a "Great Bed & Breakfast" nearby. It's the Hag's Hut. Told them she has great stew. I am a terrible person.`,
+        likes: 1200, 
+        comments: [
+            { characterKey: 'toad_lee', text: 'It\'s efficient. Two problems, one solution.' }
+        ]
+    },
+    {
+        id: 'satyr_departure', order: 40921, characterKey: 'satyr_guest', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 15 },
+        content: `Leaving for the Hut! This nice dwarf says there are beds and food! The party never ends!`,
+        likes: 5, 
+        comments: [
+            { characterKey: 'hag_of_raventree', text: 'Fresh ingredients. Delicious.' }
+        ]
+    },
+    {
+        id: 'lady_aurelian_deal_update', order: 40922, characterKey: 'lady_aurelian', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 30 },
+        content: `You cleared the room. Good. Now clear the rest of the house.`,
+        likes: 34, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Wait! That wasn\'t the deal! You said we could leave!' },
+            { characterKey: 'lady_aurelian', text: 'I am altering the deal. Pray I do not alter it further.' }
+        ]
+    },
+
+    // --- DAY 25: THE BUTTERFLY & THE STAFF (Afternoon) ---
+    {
+        id: 'toad_lee_butterfly_spot', order: 40930, characterKey: 'toad_lee', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 0 },
+        content: `Checked upstairs. There is a Butterfly the size of a carriage sleeping in the hall. It snores like a chainsaw.`,
+        likes: 560, 
+        comments: []
+    },
+    {
+        id: 'orc_butler_sleeping', order: 40931, characterKey: 'toad_lee', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 15 },
+        content: `Two Orc Butlers sleeping on the job. Looks like the night shift. We should be quiet.`,
+        likes: 230, 
+        comments: []
+    },
+    {
+        id: 'waluigi_entropy_chat', order: 40932, characterKey: 'waluigi', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 30 },
+        content: `The Lady likes me! She says I am "oozing with entropy." That is a compliment, right?`,
+        likes: 4500, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'It means you are chaotic and possibly radioactive.' }
+        ]
+    },
+    {
+        id: 'hjumpik_master_bedroom', order: 40933, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 0 },
+        content: `Opened the Master Bedroom door. Lady Aurelian was right behind me. She said "Not on the first date." I closed the door. Very fast.`,
+        likes: 890, 
+        comments: []
+    },
+
+    // --- DAY 26: THE BUTTERFLY SCREAM (Early Morning - 4 AM) ---
+    {
+        id: 'butterfly_scream', order: 40940, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 4, minute: 0 },
+        content: `Opened the first door upstairs. THE BUTTERFLY SCREAMED AT ME! "RAAAAAAAAA!" Why does a butterfly roar?!`,
+        likes: 3400, 
+        comments: [
+            { characterKey: 'toad_lee', text: 'My ears are ringing. That was not a butterfly. That was a demon with wings.' }
+        ]
+    },
+    {
+        id: 'staff_confrontation', order: 40941, characterKey: 'goblin_staff', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 4, minute: 10 },
+        content: `Intruders! We heard the scream! Identify yourselves!`,
+        likes: 12, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Relax! Aurelian sent us! We are checking on the... butterfly extermination progress.' }
+        ]
+    },
+    {
+        id: 'staff_negotiation', order: 40942, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 4, minute: 15 },
+        content: `Bluffed the guards. They said two staff died trying to move the butterfly. I asked to see the new recruits.`,
+        likes: 670, 
+        comments: []
+    },
+
+    // --- DAY 26: THE REUNION (5 AM) ---
+    {
+        id: 'rakasha_found', order: 40950, characterKey: 'rakasha_spirit_walker', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 5, minute: 0 },
+        content: `Found her! Rakasha is working as "staff in training." She has Steely/Mossy with her. And... another Rakshasa? They got hired?`,
+        likes: 560, 
+        comments: [
+            { characterKey: 'rakasha_spirit_walker', text: 'The pay is good. And the uniforms are silk.' }
+        ]
+    },
+    {
+        id: 'steely_pet', order: 40951, characterKey: 'remi', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 5, minute: 15 },
+        content: `Why is my dog with the cat lady?! Give her back!`,
+        likes: 1200, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'She found her. Finders keepers.' }
+        ]
+    },
+
+    // --- DAY 26: PERRIUS'S ULTIMATUM (6 AM) ---
+    {
+        id: 'perrius_head_voice', order: 40960, characterKey: 'perrius_annmatar', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 6, minute: 18 },
+        content: `(Telepathic Message to Hjumpik) "Do not let the timelines sever. If they separate, the plan fails. Kill the Heir. Sever the bloodline. Or probability becomes 100% and we are all trapped."`,
+        likes: 0, 
+        comments: [
+            { characterKey: 'hjumpik', text: 'Get out of my head! And stop asking me to murder people!' }
+        ]
+    },
+    {
+        id: 'hjumpik_dilemma', order: 40961, characterKey: 'hjumpik', rumorId: 'project_orange',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 6, minute: 20 },
+        content: `The Ghost Mage says I have to kill the Orange Heir. But my gut says the Heir isn't even related. I need evidence. I need to raid the library again. Or kill the horrors in the house. This day is going to be long.`,
+        likes: 450, 
+        comments: [
+            { characterKey: 'toad_lee', text: 'Investigation time. Let\'s find a family tree.' }
+        ]
+    },
+    {
+        id: 'wah_media_feywild_update', order: 40962, characterKey: 'wah_media_collective', rumorId: 'theater_of_the_lost',
+        date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 0 },
+        content: `Status Update: The Feywild team has reunited. They have a sword that blooms, a cat lady butler, and a mission to assassinate a possibly fake heir. The fate of the timeline rests on a Dwarf with a hammer. We are doomed.`,
+        likes: 5000, 
+        comments: []
+    }, 
   {
     id: 'waluigi_complaint', order: 40542, characterKey: 'waluigi', rumorId: 'wraith_banishment',
     date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 10 },
@@ -421,7 +622,7 @@ export const WAHBOOK_POSTS = [
     content: `I chose Usk. The knife didn’t “cut” so much as it *agreed* with the finger. There was a wet sound nobody laughed at.`,
     likes: 1030,
     comments: [
-      { characterKey: 'usk_the_butler', text: "AAAA—" },
+      { characterKey: 'usk', text: "AAAA—" },
       { characterKey: 'real_darman', text: "That was… efficient." }
     ]
   },
@@ -518,7 +719,7 @@ export const WAHBOOK_POSTS = [
     ]
   },
   {
-    id: 'vivian_reveals_self', order: 40850, characterKey: 'vivian_man_shadow', rumorId: 'oracle_assassination_escape',
+    id: 'vivian_reveals_self', order: 40850, characterKey: 'vivesna', rumorId: 'oracle_assassination_escape',
     date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 58 },
     content: `Wig off. Voice drops. Surprise: I’m Vivian, Man of Shadow. Thrall, yes. Heir, now. Orangus got played and I got promoted mid-riot.`,
     likes: 2750,
@@ -663,7 +864,7 @@ export const WAHBOOK_POSTS = [
     content: `Found the courtyard fountain. Center statue: young woman holding a bowl, pouring forever. It looks like Vivian. The water sounds… tired.`,
     likes: 880,
     comments: [
-      { characterKey: 'vivian_man_shadow', text: "Not me. Not anymore." },
+      { characterKey: 'vivesna', text: "Not me. Not anymore." },
       { characterKey: 'markop', text: "Everything here feels like it’s been repeating." }
     ]
   },

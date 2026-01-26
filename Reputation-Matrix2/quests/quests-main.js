@@ -243,6 +243,37 @@ export const REWARDS_DATA = {
     getIcon: getRewardIcon
 };
 export const TOADS_QUESTS = {
+'hjumpik_feywild_heist': {
+        id: 'hjumpik_feywild_heist',
+        title: "The Grand Manor Heist",
+        subtitle: "Stealing from the Fey",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - hjumpik',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'feywild_attic',
+        objective: "Locate the 'Orange Heir', steal the key artifact, and escape the Feywild manor.",
+        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha'],
+        primaryAssignee: 'hjumpik',
+        description: "Trapped in the Feywild reflection of Raventree, Hjumpik has navigated the Hag's Hut, the Greenhouse, and is now infiltrating the main manor party. He has been tasked by Archmage Perrius to 'sever the lineage', but suspects the Heir is a fraud. He must navigate a surreal party, find the missing Rakasha, and loot the Morning Glory weapon.",
+        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.MODERATE },
+        
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "The Morning Glory", description: "A flower-staff that becomes a blade in sunlight." },
+                { type: 'item', name: "Bottle of Something Strong", description: "Fey alcohol. Dangerous." }
+            ],
+            xp: 6000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'completed', title: "Greenhouse Sanctuary", description: "Escaped the Hag, healed Waluigi." },
+            { id: 'm2', status: 'completed', title: "The Party Infiltration", description: "Bluffed past the guards. Met the Orange Heir." },
+            { id: 'm3', status: 'completed', title: "Rakasha's Disappearance", description: "Rakasha vanished. Found a naked tiger person instead. Awkward." },
+            { id: 'm4', status: 'completed', title: "The Secret Room", description: "Waluigi found the hidden room. Looted the Morning Glory." },
+            { id: 'm5', status: 'active', title: "The Theater", description: "Investigating the private theater for the true 'Guest'." }
+        ]
+    },    
     'toad_lee_feywild_protocol': {
         id: 'toad_lee_feywild_protocol',
         title: "Protocol: Wild Garden",
@@ -783,6 +814,37 @@ export const TOADS_QUESTS = {
 },
 };
 export const hjumpik_QUESTS = {
+'hjumpik_feywild_heist': {
+        id: 'hjumpik_feywild_heist',
+        title: "The Grand Manor Heist",
+        subtitle: "Stealing from the Fey",
+        type: QUEST_TYPES.PERSONAL,
+        category: 'Personal - hjumpik',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'feywild_attic',
+        objective: "Locate the 'Orange Heir', steal the key artifact, and escape the Feywild manor.",
+        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha'],
+        primaryAssignee: 'hjumpik',
+        description: "Trapped in the Feywild reflection of Raventree, Hjumpik has navigated the Hag's Hut, the Greenhouse, and is now infiltrating the main manor party. He has been tasked by Archmage Perrius to 'sever the lineage', but suspects the Heir is a fraud. He must navigate a surreal party, find the missing Rakasha, and loot the Morning Glory weapon.",
+        difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.MODERATE },
+        
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "The Morning Glory", description: "A flower-staff that becomes a blade in sunlight." },
+                { type: 'item', name: "Bottle of Something Strong", description: "Fey alcohol. Dangerous." }
+            ],
+            xp: 6000
+        },
+
+        milestones: [
+            { id: 'm1', status: 'completed', title: "Greenhouse Sanctuary", description: "Escaped the Hag, healed Waluigi." },
+            { id: 'm2', status: 'completed', title: "The Party Infiltration", description: "Bluffed past the guards. Met the Orange Heir." },
+            { id: 'm3', status: 'completed', title: "Rakasha's Disappearance", description: "Rakasha vanished. Found a naked tiger person instead. Awkward." },
+            { id: 'm4', status: 'completed', title: "The Secret Room", description: "Waluigi found the hidden room. Looted the Morning Glory." },
+            { id: 'm5', status: 'active', title: "The Theater", description: "Investigating the private theater for the true 'Guest'." }
+        ]
+    },    
     'hjumpik_mirror_identity': {
         id: 'hjumpik_mirror_identity',
         title: "The Reflection's Gamble",
@@ -872,11 +934,11 @@ export const hjumpik_QUESTS = {
                 completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 16 }, // Adjusted based on log time
                 notes: "Ring Charge: 24%. Agent H confirmed extraction is conditional on capturing Orange T."
             },
-            {
+         {
                 id: 'm3',
                 status: 'active',
                 title: "The Target",
-                description: "Locate and subdue Orange T using the Ring.",
+                description: "Hjumpik has infiltrated the party. He met an 'Orange Heir' but suspects it's a decoy. The true target remains elusive.", // UPDATED
             }
         ]
     },
@@ -886,7 +948,7 @@ export const hjumpik_QUESTS = {
         subtitle: "Sparring, Spying, and Saving",
         type: QUEST_TYPES.PERSONAL,
         category: 'Personal - hjumpik',
-        status: QUEST_STATUS.ACTIVE,
+        status: QUEST_STATUS.COMPLETED, 
         priority: QUEST_PRIORITY.HIGH,
         objective: "Navigate the Hedge Maze and Greenhouse with Rakasha without getting killed by plants, hags, or dueling partners.",
         assignees: ['hjumpik', 'rakasha'],
@@ -905,7 +967,7 @@ export const hjumpik_QUESTS = {
             },
             {
                 id: 'm2',
-                status: 'active',
+                status: 'completed',
                 title: "The Stolen Orb",
                 description: "Overheard Stucky (Manatee-thing) accusing Herniva (Fish-girl) of stealing a 'Salty Pearl/Orb'. Herniva denies it.",
                 clues: ["Stucky claims theft in tunnel", "Herniva claims innocence"]
@@ -1035,7 +1097,7 @@ export const ARCHIE_QUESTS = {
                 id: 'm3',
                 status: 'active',
                 title: "The Candy",
-                description: "Refused the host's demand to hand over the 'candy' (poison?). Usk has been brought in.",
+                description: "Refused the host's demand to hand over the 'candy' (poison?). Usk has been brought in. Tension is critical.", 
             }
         ]
     },    
@@ -1772,11 +1834,11 @@ export const MARKOP_QUESTS = {
                 description: "Paid 20 Gold to guards to stop the fight. Agreed to let them arrest Usk.",
                 completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 8 }
             },
-            {
+    {
                 id: 'm2',
                 status: 'active',
                 title: "The Table",
-                description: "Seated at the dinner. Remi is acting suspicious. Archie is eating blood-beef. Bowser is demanding wings.",
+                description: "Seated at the dinner. Remi is acting suspicious. Archie is eating blood-beef. Bowser is demanding wings. The Host is watching.", // UPDATED
             }
         ]
     },    

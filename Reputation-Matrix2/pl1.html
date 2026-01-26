@@ -3,1620 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DM SCREEN: The Dinner Vote</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto+Mono:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <title>GM Screen: The Fractured Timeline</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Cinzel:wght@700&display=swap');
+
         :root {
-            --bg-color: #050505;
-            --panel-bg: #111;
-            --text-color: #d4d4d4;
-            --accent-red: #8a0303;
-            --gold: #c5a059;
-            --border: #333;
+            --bg-color: #080808;
+            --panel-bg: #121212;
+            --text-color: #a0a0a0;
+            --archie-accent: #6a0dad; /* Purple for Shadow/Archie */
+            --markop-accent: #8b0000; /* Red for Blood/Manor */
+            --highlight: #ffd700;
         }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
-        .cinzel { font-family: 'Cinzel', serif; }
-        .playfair { font-family: 'Playfair Display', serif; }
-        .gold-border { border-color: var(--gold); }
-        .red-border { border-color: var(--accent-red); }
-        .gold-text { color: var(--gold); }
-        .red-bg { background-color: var(--accent-red); }
-        
-        .tab-btn { transition: all 0.2s; }
-        .tab-btn.active { background: var(--accent-red); color: white; }
-        .tab-btn:not(.active):hover { background: #222; }
-        
-        .read-aloud {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            background: rgba(0,0,0,0.3);
-            border-left: 3px solid var(--gold);
-        }
-        
-        .gm-note {
-            border: 1px dashed #444;
-        }
-        
-        .scroll-container::-webkit-scrollbar { width: 8px; }
-        .scroll-container::-webkit-scrollbar-track { background: #111; }
-        .scroll-container::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        .scroll-container::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-        
-        .secret-card { 
-            background: linear-gradient(135deg, #1a0a0a, #0a0505);
-            border: 1px solid #3a1a1a;
-        }
-        .secret-card:hover { border-color: var(--gold); }
-        
-        .loot-card {
-            background: linear-gradient(135deg, #0a0a1a, #050510);
-            border: 1px solid #1a1a3a;
-        }
-        
-        .motive-card {
-            background: linear-gradient(135deg, #0a1a0a, #051005);
-            border: 1px solid #1a3a1a;
-        }
-        
-        .event-result {
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .phase-marker {
-            transition: all 0.3s;
-        }
-        .phase-marker.active {
-            background: var(--accent-red);
-            border-color: var(--gold);
-            transform: scale(1.05);
-        }
-        
-        details summary { cursor: pointer; }
-        details summary::-webkit-details-marker { display: none; }
-        details[open] summary { border-bottom: 1px solid #333; margin-bottom: 10px; }
 
-        .outcome-card {
-            background: linear-gradient(135deg, #1a0808, #0a0404);
-            border: 1px solid #3a1a1a;
-            transition: all 0.2s;
+        /* --- TOP BAR --- */
+        .mode-switcher {
+            display: flex;
+            height: 60px;
+            border-bottom: 2px solid #333;
         }
-        .outcome-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-2px);
+
+        .mode-btn {
+            flex: 1;
+            background: #1a1a1a;
+            border: none;
+            color: #555;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
         }
+
+        .mode-btn:hover { background: #222; }
+
+        .mode-btn.active-archie {
+            background: #1a0520;
+            color: var(--archie-accent);
+            border-bottom: 4px solid var(--archie-accent);
+        }
+
+        .mode-btn.active-markop {
+            background: #200505;
+            color: var(--markop-accent);
+            border-bottom: 4px solid var(--markop-accent);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+            padding: 20px;
+            height: calc(100vh - 60px);
+        }
+
+        /* PANELS */
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid #333;
+            padding: 15px;
+            overflow-y: auto;
+            border-radius: 4px;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-top: 0;
+            color: #eee;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px;
+            background: #1a1a1a;
+            border-left: 3px solid #555;
+        }
+        
+        .timeline-clock {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            background: #000;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+
+        .event-log {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .log-entry {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #333;
+        }
+        
+        .log-entry span { color: var(--highlight); font-weight: bold; }
+
+        .npc-card {
+            background: #181818;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 2px solid #555;
+        }
+        .npc-status-dead { color: #555; text-decoration: line-through; }
+        .npc-status-active { color: #4f4; }
+        .npc-status-missing { color: var(--highlight); }
+
+        /* --- ACTION BUTTONS --- */
+        .action-btn {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #222;
+            color: #ddd;
+            border: 1px solid #444;
+            cursor: pointer;
+            font-family: 'Roboto Mono', monospace;
+            text-align: left;
+        }
+        .action-btn:hover { background: #333; border-color: #666; }
+
+        /* VISIBILITY TOGGLES */
+        .archie-view { display: none; }
+        .markop-view { display: none; }
+        
+        body.mode-archie .archie-view { display: block; }
+        body.mode-markop .markop-view { display: block; }
+
+        /* COLOR THEMES */
+        body.mode-archie .timeline-clock { color: var(--archie-accent); border-color: var(--archie-accent); }
+        body.mode-markop .timeline-clock { color: var(--markop-accent); border-color: var(--markop-accent); }
+
     </style>
 </head>
-<body class="min-h-screen p-2 md:p-4">
-    <!-- HEADER -->
-    <header class="flex flex-wrap items-center justify-between mb-4 p-4 bg-[#111] border border-[#333] rounded">
-        <h1 class="cinzel text-2xl md:text-3xl gold-text font-bold tracking-wider">⚔ THE DINNER VOTE ⚔</h1>
-        <div class="flex items-center gap-4 mt-2 md:mt-0">
-            <span class="text-gray-500 text-sm">Shadeward Manor - Phase 3-5</span>
-        </div>
-    </header>
+<body class="mode-archie">
 
-    <!-- PHASE TRACKER -->
-    <div class="grid grid-cols-5 gap-2 mb-4">
-        <div class="phase-marker p-3 bg-[#111] border border-[#333] rounded text-center cursor-pointer opacity-50" onclick="setPhase(0)">
-            <div class="text-xs text-gray-500">PHASE 1</div>
-            <div class="font-bold text-sm">🍷 Appetizer</div>
-            <div class="text-xs text-gray-600">COMPLETE</div>
-        </div>
-        <div class="phase-marker p-3 bg-[#111] border border-[#333] rounded text-center cursor-pointer opacity-50" onclick="setPhase(1)">
-            <div class="text-xs text-gray-500">PHASE 2</div>
-            <div class="font-bold text-sm">🍖 Main Course</div>
-            <div class="text-xs text-gray-600">COMPLETE</div>
-        </div>
-        <div class="phase-marker active p-3 bg-[#111] border border-[#333] rounded text-center cursor-pointer" onclick="setPhase(2)">
-            <div class="text-xs text-gray-500">PHASE 3</div>
-            <div class="font-bold text-sm">🗳 The Vote</div>
-            <div class="text-xs text-green-500">ACTIVE</div>
-        </div>
-        <div class="phase-marker p-3 bg-[#111] border border-[#333] rounded text-center cursor-pointer" onclick="setPhase(3)">
-            <div class="text-xs text-gray-500">PHASE 4</div>
-            <div class="font-bold text-sm">🔮 Dessert</div>
-        </div>
-        <div class="phase-marker p-3 bg-[#111] border border-[#333] rounded text-center cursor-pointer" onclick="setPhase(4)">
-            <div class="text-xs text-gray-500">PHASE 5</div>
-            <div class="font-bold text-sm">⚔ The Flip</div>
-        </div>
-    </div>
+    <!-- MODE SWITCHER -->
+    <nav class="mode-switcher">
+        <button class="mode-btn active-archie" onclick="setMode('archie')">
+            Archie Mode (The Fugitives)
+        </button>
+        <button class="mode-btn" onclick="setMode('markop')">
+            Markop Mode (The Prisoners)
+        </button>
+    </nav>
 
-    <!-- MAIN TABS -->
-    <div class="flex flex-wrap gap-2 mb-4">
-        <button class="tab-btn active px-4 py-2 border border-[#444] rounded font-bold" onclick="showTab('vote')">🗳 THE VOTE</button>
-        <button class="tab-btn px-4 py-2 border border-[#444] rounded font-bold" onclick="showTab('events')">🎲 RANDOM EVENTS</button>
-        <button class="tab-btn px-4 py-2 border border-[#444] rounded font-bold" onclick="showTab('motivations')">💀 WHY KILL THEM</button>
-        <button class="tab-btn px-4 py-2 border border-[#444] rounded font-bold" onclick="showTab('secrets')">🔮 SECRETS & DIRT</button>
-        <button class="tab-btn px-4 py-2 border border-[#444] rounded font-bold" onclick="showTab('readaloud')">📖 READ-ALOUD</button>
-        <button class="tab-btn px-4 py-2 border border-[#444] rounded font-bold" onclick="showTab('aftermath')">🩸 AFTERMATH</button>
-    </div>
-
-    <!-- TAB CONTENT CONTAINER -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4" style="min-height: calc(100vh - 220px);">
+    <div class="dashboard">
         
-        <!-- LEFT PANEL - MAIN CONTENT -->
-        <div class="lg:col-span-2 bg-[#111] border gold-border rounded p-4 overflow-y-auto scroll-container" style="max-height: calc(100vh - 220px);">
+        <!-- LEFT COLUMN: STATUS & INVENTORY -->
+        <div class="panel">
+            <h2>Current Status</h2>
             
-            <!-- VOTE TAB -->
-            <div id="tab-vote" class="tab-content">
-                <h2 class="cinzel text-xl gold-text border-b border-[#333] pb-2 mb-4">THE VOTE: Who Faces the Knife?</h2>
-                
-                <!-- STORY CONTEXT -->
-                <div class="bg-gradient-to-r from-purple-900/30 to-transparent p-4 rounded border border-purple-900/50 mb-6">
-                    <h3 class="font-bold text-purple-400 mb-2">📍 CURRENT SITUATION</h3>
-                    <div class="text-sm space-y-2 text-gray-300">
-                        <p>• <span class="text-white">Usk has been brought in</span> - beaten, bloody, the "guest of honor"</p>
-                        <p>• <span class="text-white">Green T slipped Archie a key</span> from Orangus's pocket and told him about the plan</p>
-                        <p>• <span class="text-white">Markop and Remi</span> are watching from the Fractured Atrium through the Oracle's viewing glass</p>
-                        <p>• <span class="text-white">Toadburt's dampening ring is GONE</span> - someone noticed him fiddling with it</p>
-                        <p>• <span class="text-white">The Real Darman</span> is at the table - he knows Archie is an impostor</p>
-                        <p>• <span class="text-white">Green T's plan:</span> "When the big lid opens, hit the deck" - destroy the crystal, merge timelines</p>
-                    </div>
+            <!-- ARCHIE STATUS -->
+            <div class="archie-view">
+                <div class="timeline-clock">
+                    DATE: 29th Higsun<br>
+                    <span style="font-size:0.8rem">Time Elapsed: 5 Days</span>
                 </div>
-
-                <!-- WHY THE VOTE MATTERS -->
-                <div class="bg-gradient-to-r from-red-900/30 to-transparent p-4 rounded border border-red-900/50 mb-6">
-                    <h3 class="font-bold text-red-400 mb-2">⚠ WHY PLAYERS SHOULD CARE</h3>
-                    <ul class="text-sm space-y-1 text-gray-300">
-                        <li>• <span class="text-white">The vote is BINDING.</span> Whoever wins must face Orangus's "test" - usually killing Usk or dying.</li>
-                        <li>• <span class="text-white">Voting reveals alliances.</span> NPCs will remember who voted for whom. Future enemies are made here.</li>
-                        <li>• <span class="text-white">The vote can be WEAPONIZED.</span> Vote for an enemy to put THEM in the hot seat.</li>
-                        <li>• <span class="text-white">Abstaining is DANGEROUS.</span> Orangus hates cowardice. Blank votes anger him.</li>
-                        <li>• <span class="text-white">The vote buys TIME.</span> While they debate, Green T gets into position on the balcony.</li>
-                        <li>• <span class="text-white">The Oracle wants Orangus dead</span> - to "sever the family tree" and merge the timelines.</li>
-                    </ul>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Location:</span> <span>Abandoned Infirmary</span>
                 </div>
-
-                <!-- Player Votes -->
-                <h3 class="font-bold gold-text mb-3">Player Votes (At the Table)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-black/30 p-4 rounded border border-[#333]">
-                        <label class="block text-gray-400 text-sm mb-2">Archie (as "Darman") - <span class="text-red-400">At the Table</span></label>
-                        <select id="vote-archie" class="w-full bg-black border border-[#444] text-white p-2 rounded mb-2"></select>
-                        <input type="text" id="custom-archie" placeholder="Write-in vote (anyone)..." class="w-full bg-black border border-[#444] text-white p-2 rounded">
-                        <div class="text-xs text-gray-600 mt-2">💡 The REAL Darman is here and suspicious. Vaxillus keeps staring. Vote carefully.</div>
-                    </div>
-                    <div class="bg-black/30 p-4 rounded border border-[#333]">
-                        <label class="block text-gray-400 text-sm mb-2">Bowser - <span class="text-red-400">At the Table</span></label>
-                        <select id="vote-bowser" class="w-full bg-black border border-[#444] text-white p-2 rounded mb-2"></select>
-                        <input type="text" id="custom-bowser" placeholder="Write-in vote (anyone)..." class="w-full bg-black border border-[#444] text-white p-2 rounded">
-                        <div class="text-xs text-gray-600 mt-2">💡 Bowser wanted the head seat. Vivesna keeps mocking him. The Tymnas Twins hate him.</div>
-                    </div>
-                    <div class="bg-black/30 p-4 rounded border border-[#333]">
-                        <label class="block text-gray-400 text-sm mb-2">Markop - <span class="text-blue-400">Watching from Atrium</span></label>
-                        <select id="vote-markop" class="w-full bg-black border border-[#444] text-white p-2 rounded mb-2"></select>
-                        <input type="text" id="custom-markop" placeholder="Write-in vote (anyone)..." class="w-full bg-black border border-[#444] text-white p-2 rounded">
-                        <div class="text-xs text-gray-600 mt-2">💡 Can't vote directly - represents who he'd INFLUENCE through the breach. He's looking for Eager.</div>
-                    </div>
-                    <div class="bg-black/30 p-4 rounded border border-[#333]">
-                        <label class="block text-gray-400 text-sm mb-2">Remi - <span class="text-blue-400">Watching from Atrium</span></label>
-                        <select id="vote-remi" class="w-full bg-black border border-[#444] text-white p-2 rounded mb-2"></select>
-                        <input type="text" id="custom-remi" placeholder="Write-in vote (anyone)..." class="w-full bg-black border border-[#444] text-white p-2 rounded">
-                        <div class="text-xs text-gray-600 mt-2">💡 Remi gave the guard "candy" (poison ring from Perrius). She sees the food is rotten.</div>
-                    </div>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Weather:</span> <span>Endless Rain</span>
                 </div>
-
-                <!-- Vote Controls -->
-                <div class="flex flex-wrap gap-4 mb-6">
-                    <button onclick="runSimulation()" class="flex-1 py-4 red-bg hover:bg-red-800 text-white font-bold rounded border border-[#c5a059] text-lg">
-                        🗳 RUN THE VOTE SIMULATION
-                    </button>
-                    <button onclick="toggleDebug()" class="px-6 py-4 bg-[#222] hover:bg-[#333] text-gray-300 font-bold rounded border border-[#444]">
-                        📜 ALL ENDINGS CODEX
-                    </button>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Green T Ammo:</span> <span>Unknown (Low)</span>
                 </div>
-
-                <!-- Tally Log -->
-                <div class="bg-black/50 p-4 rounded border border-[#333] mb-4">
-                    <h3 class="cinzel gold-text mb-3">NPC Voting Log</h3>
-                    <div class="text-xs text-gray-500 mb-2">Each NPC has biases based on grudges, alliances, and self-preservation. Click "Run Vote" to simulate.</div>
-                    <div id="tally-log" class="text-sm text-gray-400 max-h-60 overflow-y-auto">Waiting for vote...</div>
+                <div class="stat-row" style="border-color: var(--archie-accent);">
+                    <span>Archie HP:</span> <span>Fatigued</span>
                 </div>
-
-                <!-- Result Display -->
-                <div id="result-area" class="hidden bg-gradient-to-br from-[#1a0505] to-[#0a0202] border-2 red-border rounded p-6">
-                    <h2 id="res-title" class="cinzel text-2xl gold-text mb-4">TITLE</h2>
-                    <div id="res-text" class="read-aloud text-white text-lg leading-relaxed p-4 mb-4"></div>
-                    <div id="res-note" class="gm-note bg-[#111] p-4 rounded text-sm text-gray-400"></div>
-                    <div id="res-followup" class="mt-4 p-4 bg-black/50 rounded border border-[#333]"></div>
+                <br>
+                <h2>Key Items</h2>
+                <div class="npc-card">
+                    <strong>Stolen War Pick</strong><br>
+                    Green T took it. It feels heavier than it should.
+                </div>
+                <div class="npc-card">
+                    <strong>Weird Fish</strong><br>
+                    Eaten by Archie. Effects pending.
+                </div>
+                <div class="npc-card">
+                    <strong>The 3 Gold Coins</strong><br>
+                    Left at Vivian's statue. (Offering made).
                 </div>
             </div>
 
-            <!-- EVENTS TAB -->
-            <div id="tab-events" class="tab-content hidden">
-                <h2 class="cinzel text-xl gold-text border-b border-[#333] pb-2 mb-4">🎲 RANDOM EVENT TABLES (Phase 3-5)</h2>
-                
-                <p class="text-gray-400 text-sm mb-6">Roll on these tables to add tension during the vote, dessert, and table flip phases.</p>
-
-                <!-- Event Generator Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <button onclick="rollEvent('vote')" class="p-4 bg-gradient-to-br from-[#0a0a1a] to-[#05050a] border border-blue-900/50 rounded hover:border-blue-600 text-left">
-                        <div class="font-bold text-blue-500 mb-1">🗳 During the Vote (d12)</div>
-                        <div class="text-xs text-gray-500">Interruptions. Accusations. Ballot chaos.</div>
-                    </button>
-                    <button onclick="rollEvent('dessert')" class="p-4 bg-gradient-to-br from-[#1a0a1a] to-[#0a050a] border border-purple-900/50 rounded hover:border-purple-600 text-left">
-                        <div class="font-bold text-purple-500 mb-1">🔮 Dessert Phase (d10)</div>
-                        <div class="text-xs text-gray-500">The crystal screams. Reality cracks.</div>
-                    </button>
-                    <button onclick="rollEvent('tableflip')" class="p-4 bg-gradient-to-br from-[#1a0505] to-[#0a0202] border border-red-900/50 rounded hover:border-red-600 text-left">
-                        <div class="font-bold text-red-500 mb-1">⚔ Table Flip Combat (d10)</div>
-                        <div class="text-xs text-gray-500">Chaos erupts. Who does what?</div>
-                    </button>
-                    <button onclick="rollEvent('atrium')" class="p-4 bg-gradient-to-br from-[#0a1a1a] to-[#050a0a] border border-cyan-900/50 rounded hover:border-cyan-600 text-left">
-                        <div class="font-bold text-cyan-500 mb-1">🔭 Atrium Events (d8)</div>
-                        <div class="text-xs text-gray-500">What Markop and Remi see/do.</div>
-                    </button>
+            <!-- MARKOP STATUS -->
+            <div class="markop-view">
+                <div class="timeline-clock">
+                    DATE: 24th Higsun<br>
+                    <span style="font-size:0.8rem">Time Elapsed: 2 Minutes</span>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <button onclick="rollEvent('npcreaction')" class="p-3 bg-[#222] border border-[#444] rounded hover:border-[#666] text-left">
-                        <div class="font-bold text-gray-300 mb-1">🎭 NPC Reaction</div>
-                        <div class="text-xs text-gray-500">How do they respond?</div>
-                    </button>
-                    <button onclick="rollEvent('atmosphere')" class="p-3 bg-[#222] border border-[#444] rounded hover:border-[#666] text-left">
-                        <div class="font-bold text-gray-300 mb-1">🌙 Atmosphere</div>
-                        <div class="text-xs text-gray-500">Sensory details & dread.</div>
-                    </button>
-                    <button onclick="rollEvent('secret')" class="p-3 bg-[#222] border border-[#444] rounded hover:border-[#666] text-left">
-                        <div class="font-bold text-gray-300 mb-1">🔓 Secret Revealed</div>
-                        <div class="text-xs text-gray-500">Someone's mask slips.</div>
-                    </button>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Location:</span> <span>Dining Hall / Hallway</span>
                 </div>
-
-                <!-- Result Display -->
-                <div id="event-result" class="bg-black/50 p-6 rounded border border-[#333] mb-6">
-                    <div class="text-gray-500 text-center">Click a button above to generate an event...</div>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Alert Level:</span> <span style="color:red">MAXIMUM</span>
                 </div>
-
-                <!-- Full Tables Reference -->
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#0a0a1a] border border-blue-900/50 rounded font-bold text-blue-500 cursor-pointer">📋 Full Vote Interruption Table (d12)</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-blue-900/30 text-sm space-y-2" id="table-vote"></div>
-                </details>
-
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#1a0a1a] border border-purple-900/50 rounded font-bold text-purple-500 cursor-pointer">📋 Full Dessert Table (d10)</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-purple-900/30 text-sm space-y-2" id="table-dessert"></div>
-                </details>
-
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#1a0505] border border-red-900/50 rounded font-bold text-red-500 cursor-pointer">📋 Full Table Flip Table (d10)</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-red-900/30 text-sm space-y-2" id="table-tableflip"></div>
-                </details>
-
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#0a1a1a] border border-cyan-900/50 rounded font-bold text-cyan-500 cursor-pointer">📋 Full Atrium Table (d8)</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-cyan-900/30 text-sm space-y-2" id="table-atrium"></div>
-                </details>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Orangus Status:</span> <span>Injured / Enraged</span>
+                </div>
+                <div class="stat-row" style="border-color: var(--markop-accent);">
+                    <span>Chaos Factor:</span> <span>High</span>
+                </div>
+                <br>
+                <h2>Objectives</h2>
+                <div class="npc-card">
+                    <strong>Escape the Room</strong><br>
+                    Guards are breaching. Franklin is casting.
+                </div>
+                <div class="npc-card">
+                    <strong>Find Toadburt</strong><br>
+                    He is still at the table with the Entropy Ring.
+                </div>
             </div>
+        </div>
 
-            <!-- MOTIVATIONS TAB -->
-            <div id="tab-motivations" class="tab-content hidden">
-                <h2 class="cinzel text-xl gold-text border-b border-[#333] pb-2 mb-4">💀 WHY KILL THE MONSTERS OF SHADEWARD MANOR</h2>
-                
-                <p class="text-gray-400 text-sm mb-6">Every villain has a bounty, a secret, or a treasure. Here's why the players should want each one DEAD.</p>
+        <!-- CENTER COLUMN: EVENTS & GENERATORS -->
+        <div class="panel">
+            <h2>Scenario Events</h2>
 
-                <!-- Orangus -->
-                <div class="motive-card p-4 rounded mb-4">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-bold text-xl text-red-400">🧛 ORANGUS CORNELIOUS</h3>
-                        <span class="text-xs bg-red-900 px-2 py-1 rounded">BOSS - HEAD OF MANOR</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <div class="gold-text font-bold mb-1">💰 BOUNTY</div>
-                            <p class="text-gray-300">The Iron Legion has a standing bounty of <span class="text-yellow-400">50,000 gold</span> for his head. The Mages Guild will pay <span class="text-yellow-400">30,000</span> for his signet ring.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🗝 WHAT HE GUARDS</div>
-                            <p class="text-gray-300">The <span class="text-purple-400">Orange Crystal</span> - a temporal artifact keeping him alive and maintaining the fractured manor's existence.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">😤 PERSONAL GRUDGE</div>
-                            <p class="text-gray-300">He <span class="text-red-400">captured Usk</span>. He's forcing everyone to participate in his sick vote. He's the Oracle's target to "sever the family tree."</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🌍 WORLD CONSEQUENCE</div>
-                            <p class="text-gray-300">The Oracle says killing him will <span class="text-red-400">merge the timelines</span> and let everyone escape. But what about the "beast" the crystals are containing?</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vivesna -->
-                <div class="motive-card p-4 rounded mb-4">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-bold text-xl text-pink-400">🦇 VIVESNA CORVINARUS</h3>
-                        <span class="text-xs bg-pink-900 px-2 py-1 rounded">DAUGHTER - HEIR</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <div class="gold-text font-bold mb-1">💰 BOUNTY</div>
-                            <p class="text-gray-300"><span class="text-yellow-400">15,000 gold</span> from the Church of the Sun. Her fangs are worth <span class="text-yellow-400">5,000</span> to alchemists.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🗝 WHAT SHE GUARDS</div>
-                            <p class="text-gray-300">Has the <span class="text-purple-400">key to the ballroom</span> (Remi couldn't pick that lock). Knows the manor's secret passages.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">😤 PERSONAL GRUDGE</div>
-                            <p class="text-gray-300">She led Archie and Bowser to the dining room. She keeps <span class="text-red-400">mocking Bowser</span> and flirting to torment him.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🌍 WORLD CONSEQUENCE</div>
-                            <p class="text-gray-300">If Orangus dies and she lives, she becomes the <span class="text-red-400">new Vampire Queen</span> - and she'll want revenge.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vaxillus -->
-                <div class="motive-card p-4 rounded mb-4">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-bold text-xl text-blue-400">👁 VAXILLUS LOUMAAL</h3>
-                        <span class="text-xs bg-blue-900 px-2 py-1 rounded">THREE-EYED ENFORCER</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <div class="gold-text font-bold mb-1">💰 BOUNTY</div>
-                            <p class="text-gray-300"><span class="text-yellow-400">20,000 gold</span> from the Arena of Chains. His third eye is worth <span class="text-yellow-400">10,000</span> to collectors.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🗝 WHAT HE GUARDS</div>
-                            <p class="text-gray-300">His <span class="text-purple-400">Blade of Three Truths</span> reveals illusions. He has the keys to prisoner cells.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">😤 PERSONAL GRUDGE</div>
-                            <p class="text-gray-300">He <span class="text-red-400">KNOWS Archie isn't really Darman</span>. He keeps staring. He's waiting to expose the impostor.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🌍 WORLD CONSEQUENCE</div>
-                            <p class="text-gray-300">Vaxillus is hunting the <span class="text-red-400">real Darman Knightly</span>. If he lives, the real Darman dies within the week.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- The Real Darman -->
-                <div class="motive-card p-4 rounded mb-4">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-bold text-xl text-yellow-400">⚔ DARMAN KNIGHTLY (THE REAL ONE)</h3>
-                        <span class="text-xs bg-yellow-900 px-2 py-1 rounded">WILD CARD</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <div class="gold-text font-bold mb-1">💰 BOUNTY</div>
-                            <p class="text-gray-300">No bounty - but he's famous. <span class="text-yellow-400">Reputation value</span> is immense if befriended.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🗝 WHAT HE KNOWS</div>
-                            <p class="text-gray-300">He <span class="text-purple-400">KNOWS Archie is an impostor</span>. He said "My name is Darman" and is watching Archie closely.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">😤 PERSONAL GRUDGE</div>
-                            <p class="text-gray-300">Archie has been <span class="text-red-400">impersonating him</span>. Depending on how this plays out, Darman could become friend or foe.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🌍 WORLD CONSEQUENCE</div>
-                            <p class="text-gray-300">If Archie handles this well, Darman could be an <span class="text-green-400">ally</span>. If not, he's a <span class="text-red-400">powerful enemy</span>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- David -->
-                <div class="motive-card p-4 rounded mb-4">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-bold text-xl text-green-400">🐍 DAVID</h3>
-                        <span class="text-xs bg-green-900 px-2 py-1 rounded">VAMPIRE SCIENTIST</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <div class="gold-text font-bold mb-1">💰 BOUNTY</div>
-                            <p class="text-gray-300"><span class="text-yellow-400">8,000 gold</span> from criminal organizations he's betrayed.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🗝 WHAT HE GUARDS</div>
-                            <p class="text-gray-300">His profession is "vampire studies" - he knows <span class="text-purple-400">how to kill vampires efficiently</span>.</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">😤 PERSONAL GRUDGE</div>
-                            <p class="text-gray-300">He was <span class="text-red-400">hauled off by the Oracle with Joseph Jo</span>. What happened to them?</p>
-                        </div>
-                        <div>
-                            <div class="gold-text font-bold mb-1">🌍 WORLD CONSEQUENCE</div>
-                            <p class="text-gray-300">David is compiling intel for Orangus. If he survives, he'll <span class="text-red-400">report everything he learned</span>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Loot Summary -->
-                <div class="loot-card p-4 rounded mt-6">
-                    <h3 class="font-bold text-purple-400 mb-3">💎 TOTAL POTENTIAL LOOT FROM MANOR</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-center">
-                        <div>
-                            <div class="text-2xl font-bold text-yellow-400">138,000g</div>
-                            <div class="text-gray-500">Total Bounties</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-purple-400">4+</div>
-                            <div class="text-gray-500">Magic Items</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-blue-400">1</div>
-                            <div class="text-gray-500">Crystal Artifact</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-red-400">???</div>
-                            <div class="text-gray-500">The Beast Inside</div>
-                        </div>
+            <!-- ARCHIE ACTIONS -->
+            <div class="archie-view">
+                <p style="color:#777; font-style:italic;">Archie and Green T are lost in the Shadowfell echo of the town. They think they traveled far, but space is warped here.</p>
+                <button class="action-btn" onclick="generateArchieEvent()">> GENERATE: Shadow Road Encounter</button>
+                <button class="action-btn" onclick="generateArchieEvent('dream')">> GENERATE: Rest/Dream Sequence</button>
+                <button class="action-btn" onclick="generateArchieEvent('shop')">> GENERATE: Strange Shop Item</button>
+                <hr>
+                <div id="archie-log" class="event-log">
+                    <div class="log-entry">
+                        <span>Initial State:</span> Rested in Infirmary. Door closed. Something is outside.
                     </div>
                 </div>
             </div>
 
-            <!-- SECRETS TAB -->
-            <div id="tab-secrets" class="tab-content hidden">
-                <h2 class="cinzel text-xl gold-text border-b border-[#333] pb-2 mb-4">🔮 SECRETS, DIRT & LEVERAGE</h2>
-                
-                <p class="text-gray-400 text-sm mb-6">Information discovered during the dinner. Each can be weaponized during the vote or combat.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Secret Cards -->
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-red-400">The Oracle's True Plan</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: CRITICAL</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">The Oracle wants to <span class="text-yellow-400">"sever the family tree"</span> - kill all heirs, leave one keeper per manor. But Perrius says the crystals keep the monster IN, not OUT. <span class="text-red-400">Is the Oracle lying?</span></p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Chaos. Who do the players trust? The Oracle or the Mages Guild?
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-purple-400">Archie's Identity</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: HIGH</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Archie is <span class="text-yellow-400">impersonating Darman Knightly</span>. The REAL Darman is at the table. Vaxillus suspects something. One wrong move and the cover is blown.</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Vaxillus attacks. The real Darman either helps or condemns Archie.
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-green-400">Toadburt's Ring</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: MODERATE</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Toadburt was fiddling with a <span class="text-yellow-400">Mages Guild dampening ring</span>. Now it's GONE. Someone took it - or he hid it. He's an "esteemed guest" but clearly nervous.</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Orangus questions his loyalty. The Mages Guild's involvement is exposed.
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-cyan-400">Green T's Plan</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: CRITICAL</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Green T told Archie: <span class="text-yellow-400">"When the big lid opens, hit the deck."</span> He has a pistol. He stole Orangus's key. He's planning to shoot the crystal and trigger the table flip.</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Guards swarm Green T. The ambush is ruined. Combat starts badly.
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-yellow-400">Franklin's Mission</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: MEDIUM</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Franklin is a <span class="text-yellow-400">Mages Guild representative</span> here to "observe." But Perrius (also Mages Guild) says the crystals keep something IN. What is Franklin really after?</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Franklin may panic. He might have a teleport scroll ready.
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-orange-400">Usk's Past</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: MODERATE</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Usk was mentioned in the note Remi found: <span class="text-yellow-400">"dear Usk... truly faithful confidant and ally. I will gravely miss him when the time comes."</span> He knows about the vessel.</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Usk might share crucial information about the crystal's true purpose.
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-pink-400">The Rotten Food</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: LOW</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Remi and Markop (from the Atrium) see <span class="text-yellow-400">ash and maggots on the plates</span>. The illusion is failing for them. The food Archie ate had blood mixed in.</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> Guests panic. The manor's magic is weakening.
-                        </div>
-                    </div>
-
-                    <div class="secret-card p-4 rounded">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-blue-400">The Encased Monster</h4>
-                            <span class="text-xs text-gray-600">LEVERAGE: ULTIMATE</span>
-                        </div>
-                        <p class="text-sm text-gray-300 mb-2">Markop and Remi found a <span class="text-yellow-400">monster in a magical case</span> near the Dreaming Tree. It's frozen, protected by Abjuration magic, with Necromancy aura. Its claw is reaching out of the barrier.</p>
-                        <div class="text-xs text-gray-500 border-t border-gray-800 pt-2 mt-2">
-                            <strong>If revealed:</strong> This might be what Perrius warned about. Breaking crystals might release it.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- The Note -->
-                <div class="mt-6 p-4 bg-black/50 rounded border border-[#333]">
-                    <h3 class="font-bold gold-text mb-3">📜 THE NOTE REMI FOUND (In the Cloakroom)</h3>
-                    <div class="read-aloud text-white p-4 text-sm">
-                        "The vessel isn't ready. At least, not yet.<br><br>
-                        Research has been slow and tuning the tethers has required much more effort than I ever could have imagined. Some of my undertakings have produced results so grotesque I dare not let them see the light of day— grim failures and an important warning of what might happen if my calculations are not precise.<br><br>
-                        I don't remember the last time I ate, perhaps I should emerge and rest. Clear my mind before I return so that I can retain my focus. I have been so engrossed with my efforts that when last I left the sanctum dear Usk told me that days had passed—I barely noticed.<br><br>
-                        Through all, he has been a truly faithful confidant and ally. I will gravely miss him when the time comes to execute my plan— I must arrange some method to shield him from<br><br>
-                        <span class="text-red-400 italic">The page is torn below this point.</span>"
-                    </div>
-                    <div class="text-xs text-gray-500 mt-2">Written to Cornelias. Found with 15 gold. Usk knows more than he's saying.</div>
-                </div>
-            </div>
-
-            <!-- READ-ALOUD TAB -->
-            <div id="tab-readaloud" class="tab-content hidden">
-                <h2 class="cinzel text-xl gold-text border-b border-[#333] pb-2 mb-4">📖 READ-ALOUD TEXT (Phase 3-5)</h2>
-                
-                <!-- Phase 3: The Vote -->
-                <details class="mb-4" open>
-                    <summary class="p-3 bg-[#0a0a1a] border border-blue-900/50 rounded font-bold text-blue-500">🗳 PHASE 3: THE VOTE - Blood Ballot</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-blue-900/30">
-                        <div class="read-aloud text-white p-4 mb-4">
-                            "Slips of parchment appear before each guest, along with quills that seem to write in dried blood. Orangus spreads his hands.<br><br>
-                            'The rules are simple. Write a name—any name at this table. The one with the most votes will... demonstrate their commitment to our cause. Abstaining is, of course, an option. But I do so hate fence-sitters.'<br><br>
-                            His eyes sweep the room. 'You have one minute. Choose wisely. Choose quickly. Choose... entertainingly.'"
-                        </div>
-                        <div class="gm-note bg-[#111] p-3 rounded text-sm">
-                            <span class="gold-text font-bold">GM NOTE:</span> Actually give players a time limit. 60 seconds. This is where Green T signals Archie and slips toward the window/balcony. The real Darman is watching Archie write.
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Phase 4: Dessert -->
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#1a0a1a] border border-purple-900/50 rounded font-bold text-purple-500">🔮 PHASE 4: DESSERT - The Crystal Revealed</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-purple-900/30">
-                        <div class="read-aloud text-white p-4 mb-4">
-                            "The waiters return, placing silver domes before each guest. A massive, chest-sized platter is set in the center. Orangus stands.<br><br>
-                            'We have spoken of the past. Now, let us look to the future. I call this course... Manifestation. Eat what you are due.'<br><br>
-                            You lift your lids. There is no food. And then Orangus lifts the center dome—and you see it. The Orange Crystal. Pulsing. Screaming. Wired into the severed head of a Warforged. Reality cracks at its edges."
-                        </div>
-                        <div class="gm-note bg-[#111] p-3 rounded text-sm">
-                            <span class="gold-text font-bold">INDIVIDUAL PLATES:</span><br>
-                            • <strong>Archie:</strong> A single, fresh human eye. It blinks at him. (Reference to his third eye?)<br>
-                            • <strong>Bowser:</strong> A miniature frozen statue of himself, cracked and broken. Smells like sulfur.<br>
-                            • <strong>Toadburt:</strong> Empty plate with a bleeding Iron Legion badge.<br>
-                            • <strong>Remi/Markop (watching from Atrium):</strong> They see ash and maggots on everyone's plates. The illusion has completely failed for them.
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Phase 5: The Flip -->
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#1a0505] border border-red-700 rounded font-bold text-red-400">⚔ PHASE 5: THE TABLE FLIP - Combat Begins</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-red-900/30">
-                        <div class="read-aloud text-white p-4 mb-4">
-                            "A shot rings out from above. Green T stands on the balcony, pistol smoking, shouting: 'DINNER IS CANCELED! ARCHIE, NOW!'<br><br>
-                            The crystal screams. The table flips. Wood and silver crash as a shockwave of temporal energy explodes outward. The wall behind you CRACKS—and through the breach, you see Markop and Remi in the Fractured Atrium, weapons drawn, reality tearing open between the two spaces.<br><br>
-                            Orangus floats above the chaos, his mask of civility gone. 'You have broken my china,' he hisses. 'Now I will break your bones.'"
-                        </div>
-                        <div class="gm-note bg-[#111] p-3 rounded text-sm">
-                            <span class="gold-text font-bold">GM NOTE:</span> ROLL INITIATIVE. The Dining Hall and Fractured Atrium have MERGED. Green T is on the balcony (high ground). Orangus is airborne. The table provides half cover. Light from the Atrium hurts vampires. The encased monster near the Dreaming Tree—is it stirring?
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Convergence Description -->
-                <details class="mb-4">
-                    <summary class="p-3 bg-[#0a1a0a] border border-green-700 rounded font-bold text-green-400">🌀 THE CONVERGENCE - Two Rooms Become One</summary>
-                    <div class="p-4 bg-black/30 rounded-b border border-t-0 border-green-900/30">
-                        <div class="read-aloud text-white p-4 mb-4">
-                            "The shockwave hits the walls of reality. From the Fractured Atrium, Markop and Remi see the 'glass' viewing window begin to crack from the inside. They see Archie and Bowser flipping the table in slow motion.<br><br>
-                            The Oracle's voice echoes: 'The barrier is thin! If you want to save them, you must break it from this side!'<br><br>
-                            The glass shatters. The two rooms violently merge. Gravity goes sideways for a moment. Debris flies everywhere. The vampires hiss as REAL LIGHT from the Atrium floods their shadow dimension. Colors that shouldn't exist bleed between spaces."
-                        </div>
-                        <div class="gm-note bg-[#111] p-3 rounded text-sm">
-                            <span class="gold-text font-bold">POST-EXPLOSION POSITIONING:</span><br>
-                            • <strong>Center:</strong> Overturned dining table, smoking. Archie, Bowser, Toadburt behind it (half cover).<br>
-                            • <strong>High Ground:</strong> Green T on the balcony, reloading his pistol.<br>
-                            • <strong>The Breach:</strong> Jagged hole in reality. Markop and Remi standing there, weapons drawn.<br>
-                            • <strong>Enemies:</strong> Orangus floating above. Vivesna hissing. Vaxillus drawing his blade. Guards at the doors.
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- AFTERMATH TAB -->
-            <div id="tab-aftermath" class="tab-content hidden">
-                <h2 class="cinzel text-xl gold-text border-b border-[#333] pb-2 mb-4">🩸 AFTERMATH: What Happens After Each Vote Result</h2>
-                
-                <p class="text-gray-400 text-sm mb-6">The vote's outcome shapes the combat and future story. Each result has immediate, combat, and long-term consequences.</p>
-
-                <!-- Aftermath by Vote Result -->
-                <div class="space-y-4">
-                    <details open>
-                        <summary class="p-3 bg-gradient-to-r from-red-900/30 to-transparent border border-red-900/50 rounded font-bold text-red-400 cursor-pointer">
-                            If ORANGUS won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-red-900/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Orangus is ENRAGED but impressed. "You dare?" He burns the ballots with purple flame. The vote is annulled.</p>
-                            <p><strong>Combat Effect:</strong> Orangus gains +1 Legendary Action. He focuses whoever nominated him first. That player has disadvantage on saves against his abilities for 1 round.</p>
-                            <p><strong>Long-term:</strong> If Orangus survives, he places a Blood Curse on the voter. They're marked for assassination across all timelines.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-purple-900/30 to-transparent border border-purple-900/50 rounded font-bold text-purple-400 cursor-pointer">
-                            If ARCHIE (as Darman) won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-purple-900/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Orangus slides the knife to Archie. "You claim to be Darman... or whoever you are. Carve the traitor Usk, or offer your own hand." The REAL Darman watches intently.</p>
-                            <p><strong>Combat Effect:</strong> If Archie refuses, combat starts immediately. If Archie attacks Usk, Green T HESITATES (loses first turn). The real Darman's reaction depends on Archie's choice.</p>
-                            <p><strong>Long-term:</strong> The real Darman Knightly will remember. He becomes ally (grateful Archie didn't sully his name further) or enemy (furious at the impersonation).</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-orange-900/30 to-transparent border border-orange-900/50 rounded font-bold text-orange-400 cursor-pointer">
-                            If BOWSER won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-orange-900/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Vivesna sneers with delight. "The loud one. The rude one." Orangus nods. "Gut the prisoner Usk, or we mount your head next to the moose."</p>
-                            <p><strong>Combat Effect:</strong> Bowser will REFUSE and RAGE. He breathes fire immediately. Advantage on first attack. Vivesna (who nominated him) is his priority target.</p>
-                            <p><strong>Long-term:</strong> The Vampire Court now sees Bowser as "the beast who ruined dinner." He has a reputation. Future vampire encounters start hostile.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-gray-700/30 to-transparent border border-gray-600/50 rounded font-bold text-gray-400 cursor-pointer">
-                            If USK won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-gray-600/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Orangus sighs. "Predictable. Boring. You vote for the dead man walking?" He randomly assigns an executioner from the players (roll 1d4).</p>
-                            <p><strong>Combat Effect:</strong> The assigned player must use their first action to either attack Usk OR openly defy Orangus. No other options. This forces the moral dilemma.</p>
-                            <p><strong>Long-term:</strong> If Usk survives, he owes the party a life debt. He knows secrets about the Crystal's origin and the "vessel" mentioned in the note.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-green-900/30 to-transparent border border-green-600/50 rounded font-bold text-green-400 cursor-pointer">
-                            If TOADBURT won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-green-600/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Toadburt freezes, blood draining from his face. Orangus tosses the knife. "Kill your friend Usk. Do it, and you may live to see dessert."</p>
-                            <p><strong>Combat Effect:</strong> Toadburt has 6 seconds (1 round) to decide. If players don't intervene, he WILL try to kill Usk to save himself. GREEN T WILL NOT FORGIVE THIS.</p>
-                            <p><strong>Long-term:</strong> Toadburt's loyalty is permanently determined. Saved by players = ally for life. Killed Usk = Green T marks him as a traitor to the Toads.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-teal-900/30 to-transparent border border-teal-600/50 rounded font-bold text-teal-400 cursor-pointer">
-                            If GREEN T won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-teal-600/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Green T refuses instantly. He pulls his pistol. "I don't think so, fangs." He signals Archie and combat starts EARLY.</p>
-                            <p><strong>Combat Effect:</strong> Green T gets a SURPRISE ROUND. However, the Crystal hasn't been revealed yet—they'll have to find it during combat. Dessert phase is skipped.</p>
-                            <p><strong>Long-term:</strong> Green T's cover is blown. The Toad rebellion loses a key operative. But his legend grows among the resistance.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-pink-900/30 to-transparent border border-pink-600/50 rounded font-bold text-pink-400 cursor-pointer">
-                            If VIVESNA won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-pink-600/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Orangus looks at his daughter. The room goes silent. "Ambitious," he whispers. "But not today." He crushes the ballots. Vote is VOID.</p>
-                            <p><strong>Combat Effect:</strong> Vivesna is HUMILIATED. Roll d6: 1-3 she focuses players who voted for her, 4-6 she hesitates to help Orangus (loses 1 turn).</p>
-                            <p><strong>Long-term:</strong> Vivesna's coup plans accelerate. If Orangus dies, she blames the party. If he lives, she blames him. Either way, she becomes a recurring villain.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-yellow-900/30 to-transparent border border-yellow-600/50 rounded font-bold text-yellow-400 cursor-pointer">
-                            If THE REAL DARMAN won the vote...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-yellow-600/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Darman stands slowly. "Interesting. The impostor's friends vote for ME." He looks at Archie. "We should talk. After I deal with this knife situation."</p>
-                            <p><strong>Combat Effect:</strong> Darman may fight WITH the party or AGAINST them, depending on how Archie has handled the impersonation. Roll d6: 1-3 hostile, 4-6 curious ally.</p>
-                            <p><strong>Long-term:</strong> If Darman survives and is an ally, the party gains a powerful friend. If hostile, they've made a dangerous enemy who knows Archie's secret.</p>
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary class="p-3 bg-gradient-to-r from-slate-700/30 to-transparent border border-slate-500/50 rounded font-bold text-slate-400 cursor-pointer">
-                            If there was a TIE...
-                        </summary>
-                        <div class="p-4 bg-black/30 rounded-b border border-t-0 border-slate-500/30 text-sm space-y-2">
-                            <p><strong>Immediate:</strong> Orangus forces the tied candidates to fight each other. Or he kills the Waiter to break the tie. "Problem solved."</p>
-                            <p><strong>Combat Effect:</strong> Chaos. One NPC may be dead or injured before initiative. Alliances are confused—some NPCs don't know whose side they're on.</p>
-                            <p><strong>Long-term:</strong> The "Tie-Breaker Incident" becomes infamous. The dinner where democracy failed.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- The Crystal -->
-                <div class="mt-6 p-4 bg-gradient-to-r from-purple-900/20 to-transparent rounded border border-purple-700/50">
-                    <h3 class="font-bold text-purple-400 mb-3">🔮 THE ORANGE CRYSTAL IN COMBAT</h3>
-                    <div class="text-sm text-gray-300 space-y-2">
-                        <p>The Orange Crystal screams continuously (concentration checks DC 12 for spellcasters within 30ft).</p>
-                        <p><strong>Each round, roll d6:</strong></p>
-                        <ul class="list-disc list-inside text-gray-400">
-                            <li><strong>1-2:</strong> Time hiccup - one random creature gets an extra action</li>
-                            <li><strong>3-4:</strong> Temporal echo - a ghostly copy of someone from the Atrium appears for 1 round</li>
-                            <li><strong>5:</strong> Reality crack - 10ft radius teleports between Dining Hall and Atrium randomly</li>
-                            <li><strong>6:</strong> The crystal PULSES - everyone makes DC 15 CON save or stunned for 1 round</li>
-                        </ul>
-                        <p class="mt-2"><strong>To destroy it:</strong> AC 18, 50 HP, immune to psychic/necrotic.</p>
-                        <p class="text-red-400"><strong>WARNING:</strong> Perrius said the crystals keep something IN. Destroying it might release the encased monster.</p>
+            <!-- MARKOP ACTIONS -->
+            <div class="markop-view">
+                <p style="color:#777; font-style:italic;">Total Chaos. Green T shot the host and fled. Markop is left holding the bag with Bowser, FNG, and the Toads.</p>
+                <button class="action-btn" onclick="generateMarkopEvent()">> GENERATE: Room Hazard</button>
+                <button class="action-btn" onclick="generateMarkopEvent('npc')">> GENERATE: NPC Reaction</button>
+                <button class="action-btn" onclick="generateMarkopEvent('magic')">> GENERATE: Wild Magic Surge</button>
+                <hr>
+                <div id="markop-log" class="event-log">
+                    <div class="log-entry">
+                        <span>Current State:</span> Vivian (Crossdresser) claiming to be Heir. Franklin (Mage) hunting for the ring.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT PANEL - QUICK REFERENCE -->
-        <div class="bg-[#111] border red-border rounded p-4 overflow-y-auto scroll-container" style="max-height: calc(100vh - 220px);">
-            <h2 class="cinzel text-lg gold-text border-b border-[#333] pb-2 mb-4">QUICK REFERENCE</h2>
-            
-            <!-- Current Phase Info -->
-            <div id="phase-info" class="bg-black/50 p-4 rounded border border-[#333] mb-4">
-                <h3 class="font-bold text-blue-500 mb-2">🗳 THE VOTE</h3>
-                <p class="text-sm text-gray-400">Ballots are cast. Every name is a weapon. The loser faces the knife.</p>
-                <div class="text-xs text-gray-600 mt-2 border-t border-gray-800 pt-2">
-                    <strong>Green T:</strong> Slipping toward the balcony. Pistol ready.<br>
-                    <strong>Key Goal:</strong> Control the outcome. Buy time for the ambush.
+        <!-- RIGHT COLUMN: NPC TRACKER -->
+        <div class="panel">
+            <h2>NPC Tracker</h2>
+
+            <!-- ARCHIE NPCS -->
+            <div class="archie-view">
+                <div class="npc-card">
+                    <strong>Green T</strong> (Ally)<br>
+                    Mood: Regretful? Quiet.<br>
+                    Note: Has the gun. Noticed the Magpie.
+                </div>
+                <div class="npc-card">
+                    <strong>The Magpie</strong> (Stalker)<br>
+                    Status: Following them since the restaurant.<br>
+                    Note: Likely a familiar of Vostolas or Orangus.
+                </div>
+                <div class="npc-card">
+                    <strong>Vivian (Statue)</strong><br>
+                    Status: Offering Accepted?<br>
+                    Note: The statue cried water/blood when coin was left.
                 </div>
             </div>
 
-            <!-- NPC Quick Status -->
-            <h3 class="font-bold gold-text mb-3">Key NPCs at Table</h3>
-            <div class="space-y-2 mb-6 text-sm">
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Orangus</span>
-                    <span class="text-red-400">HOST - Target</span>
+            <!-- MARKOP NPCS -->
+            <div class="markop-view">
+                <div class="npc-card">
+                    <strong>Orangus Cornelious</strong><br>
+                    Status: <span style="color:red">SHOT (Silver)</span><br>
+                    Action: Regenerating. Screaming orders.
                 </div>
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Vivesna</span>
-                    <span class="text-pink-400">Mocking Bowser</span>
+                <div class="npc-card">
+                    <strong>Vivian (The Heir)</strong><br>
+                    Status: <span style="color:pink">GLOATING</span><br>
+                    Reveal: Actually a male thrall/shadow siren. Using confusion to seize power.
                 </div>
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Vaxillus</span>
-                    <span class="text-yellow-400">Watching Archie</span>
+                <div class="npc-card">
+                    <strong>Usk (Prisoner)</strong><br>
+                    Status: <span style="color:orange">MAIMED</span><br>
+                    Note: Missing finger. Bleeding out.
                 </div>
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Green T</span>
-                    <span class="text-green-400">Moving to balcony</span>
+                <div class="npc-card">
+                    <strong>Bowser</strong><br>
+                    Status: <span style="color:orange">RAMPAGE</span><br>
+                    Action: Breathing fire on the curtains.
                 </div>
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Toadburt</span>
-                    <span class="text-blue-400">Nervous (ring gone)</span>
-                </div>
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Real Darman</span>
-                    <span class="text-yellow-400">Suspicious of Archie</span>
-                </div>
-                <div class="flex justify-between items-center p-2 bg-black/30 rounded">
-                    <span>Usk</span>
-                    <span class="text-gray-400">Prisoner - Target</span>
-                </div>
-            </div>
-
-            <!-- Tension Tracker -->
-            <h3 class="font-bold gold-text mb-3">Tension Level</h3>
-            <div class="mb-6">
-                <div class="flex gap-1 mb-2">
-                    <button onclick="setTension(1)" class="tension-pip flex-1 h-4 bg-green-900 rounded hover:bg-green-700" data-level="1"></button>
-                    <button onclick="setTension(2)" class="tension-pip flex-1 h-4 bg-green-800 rounded hover:bg-green-600" data-level="2"></button>
-                    <button onclick="setTension(3)" class="tension-pip flex-1 h-4 bg-yellow-900 rounded hover:bg-yellow-700" data-level="3"></button>
-                    <button onclick="setTension(4)" class="tension-pip flex-1 h-4 bg-yellow-800 rounded hover:bg-yellow-600" data-level="4"></button>
-                    <button onclick="setTension(5)" class="tension-pip flex-1 h-4 bg-orange-900 rounded hover:bg-orange-700" data-level="5"></button>
-                    <button onclick="setTension(6)" class="tension-pip flex-1 h-4 bg-orange-800 rounded hover:bg-orange-600" data-level="6"></button>
-                    <button onclick="setTension(7)" class="tension-pip flex-1 h-4 bg-red-900 rounded hover:bg-red-700" data-level="7"></button>
-                    <button onclick="setTension(8)" class="tension-pip flex-1 h-4 bg-red-800 rounded hover:bg-red-600" data-level="8"></button>
-                    <button onclick="setTension(9)" class="tension-pip flex-1 h-4 bg-red-700 rounded hover:bg-red-500" data-level="9"></button>
-                    <button onclick="setTension(10)" class="tension-pip flex-1 h-4 bg-red-600 rounded hover:bg-red-400" data-level="10"></button>
-                </div>
-                <div class="flex justify-between text-xs text-gray-500">
-                    <span>Calm</span>
-                    <span id="tension-label" class="gold-text">Tense</span>
-                    <span>CHAOS</span>
-                </div>
-            </div>
-
-            <!-- Quick Random -->
-            <h3 class="font-bold gold-text mb-3">Quick Event Rolls</h3>
-            <div class="grid grid-cols-2 gap-2 mb-6">
-                <button onclick="rollEvent('npcreaction')" class="p-2 bg-[#222] hover:bg-[#333] rounded text-sm">🎭 Reaction</button>
-                <button onclick="rollEvent('atmosphere')" class="p-2 bg-[#222] hover:bg-[#333] rounded text-sm">🌙 Atmosphere</button>
-                <button onclick="rollEvent('secret')" class="p-2 bg-[#222] hover:bg-[#333] rounded text-sm">🔓 Secret</button>
-                <button onclick="rollEvent('complication')" class="p-2 bg-[#222] hover:bg-[#333] rounded text-sm">⚡ Trouble</button>
-            </div>
-
-            <!-- Quick Result -->
-            <div id="quick-result" class="bg-black/50 p-3 rounded border border-[#333] text-sm mb-6">
-                <div class="text-gray-500 text-center">Roll result appears here...</div>
-            </div>
-
-            <!-- Key Reminders -->
-            <h3 class="font-bold gold-text mb-3">Key Reminders</h3>
-            <div class="text-xs text-gray-400 space-y-2">
-                <div class="p-2 bg-black/30 rounded border-l-2 border-green-600">
-                    <strong class="text-green-500">Green T's Signal:</strong> "When the big lid opens, hit the deck."
-                </div>
-                <div class="p-2 bg-black/30 rounded border-l-2 border-red-600">
-                    <strong class="text-red-500">Orangus's Rule:</strong> He WILL annul any vote against himself or Vivesna.
-                </div>
-                <div class="p-2 bg-black/30 rounded border-l-2 border-yellow-600">
-                    <strong class="text-yellow-500">Real Darman:</strong> He KNOWS Archie is an impostor. He's watching.
-                </div>
-                <div class="p-2 bg-black/30 rounded border-l-2 border-blue-600">
-                    <strong class="text-blue-500">Markop/Remi:</strong> Watching from Atrium. They see through the illusions.
-                </div>
-                <div class="p-2 bg-black/30 rounded border-l-2 border-purple-600">
-                    <strong class="text-purple-500">The Crystal:</strong> Perrius warns destroying it releases something.
+                <div class="npc-card">
+                    <strong>Toadburt</strong><br>
+                    Status: <span style="color:yellow">PANICKED</span><br>
+                    Note: Has the Entropy Ring. Iron Legion sleeper agent.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- DEBUG OVERLAY - ALL ENDINGS -->
-    <div id="debug-overlay" class="fixed inset-0 bg-black/95 z-50 hidden overflow-y-auto p-8">
-        <button onclick="toggleDebug()" class="fixed top-4 right-4 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-lg z-50">✕ CLOSE</button>
-        <h1 class="cinzel text-3xl gold-text text-center mb-2">The Codex of All Endings</h1>
-        <p class="text-center text-gray-500 mb-8">Every possible vote outcome and its detailed consequences.</p>
-        <div id="debug-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
+<script>
+    function setMode(mode) {
+        // Switch CSS Classes
+        document.body.className = 'mode-' + mode;
+        
+        // Update Buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active-archie', 'active-markop'));
+        const activeBtn = document.querySelector(`.mode-btn[onclick="setMode('${mode}')"]`);
+        if (mode === 'archie') activeBtn.classList.add('active-archie');
+        if (mode === 'markop') activeBtn.classList.add('active-markop');
+    }
 
-    <script>
-        // ==================== DATA ====================
-        // FULL GUEST LIST - Anyone can be voted for
-        const guests = [
-            "Blank Vote", 
-            "Orangus Cornelious", 
-            "Archie (as Darman)", 
-            "Bowser", 
-            "Toadburt", 
-            "Green T", 
-            "Usk (Prisoner)", 
-            "Franklin (Mages Guild)", 
-            "Vaxillus Loumaal", 
-            "Joseph Jo",
-            "Tymnas Twins", 
-            "Mazenound", 
-            "Vostolas",
-            "Darman Knightly (Real)", 
-            "Kryn Cornelious", 
-            "David", 
-            "Vivesna Corvinarus", 
-            "The Waiter",
-            "Ruri (Explorer)",
-            "Ekia",
-            "Nelius Ornelius",
-            "The Oracle",
-            "Markop",
-            "Remi"
-        ];
+    // --- ARCHIE EVENTS (Shadow World / The Long Walk) ---
+    const archieEvents = [
+        "The Magpie lands on the windowsill. It speaks in Vostolas's voice: 'The book is not closed yet, Darman.'",
+        "Archie coughs up a small fish bone. It glows blue. He gains Darkvision for 1 hour but feels cold.",
+        "Green T checks his gun. 'One bullet left,' he lies. (He actually has 3).",
+        "The rain outside stops, but the sound of rain continues. It's an illusion.",
+        "They find a poster on the wall: 'WANTED: The Shadow Thieves'. It depicts Archie and Green T, but they look older and undead.",
+        "The door handle rattles. Someone is trying to get in. It's just a lost, faceless shadow construct.",
+        "The coins Archie left at the fountain appear in his pocket again. They are cold."
+    ];
 
-        // NPC Voting Logic with reasons
-        const npcLogic = [
-            { name: "Toadburt", primary: "Usk (Prisoner)", secondary: "Archie (as Darman)", bias: 0.8, reason: "Wants to blend in. Votes for the obvious target to look cooperative." },
-            { name: "Green T", primary: "Orangus Cornelious", secondary: "Vaxillus Loumaal", bias: 0.9, reason: "Rebellion. Always votes against the tyrant. Secondary: the enforcer." },
-            { name: "Usk", primary: "Orangus Cornelious", secondary: "Orangus Cornelious", bias: 1.0, reason: "Pure hatred. Will always vote for his captor." },
-            { name: "Orangus", primary: "Archie (as Darman)", secondary: "Usk (Prisoner)", bias: 0.8, reason: "Suspects the impostor. Wants to test 'Darman'." },
-            { name: "Vivesna", primary: "Bowser", secondary: "Kryn Cornelious", bias: 0.7, reason: "Finds Bowser amusing to torment. Family rivalry with Kryn." },
-            { name: "David", primary: "Bowser", secondary: "Green T", bias: 0.8, reason: "Eliminating threats. Bowser is loud; Green T is sneaky." },
-            { name: "Vaxillus", primary: "Archie (as Darman)", secondary: "Darman Knightly (Real)", bias: 0.9, reason: "KNOWS something is wrong with 'Darman'. His third eye sees." },
-            { name: "Joseph Jo", primary: "Franklin (Mages Guild)", secondary: "Toadburt", bias: 0.8, reason: "Guild rivalry. Breathing-based fighter hates mages." },
-            { name: "Tymnas Twins", primary: "Bowser", secondary: "Bowser", bias: 1.0, reason: "Pure malice. The loud turtle offends their sensibilities." },
-            { name: "Mazenound", primary: "Toadburt", secondary: "Toadburt", bias: 1.0, reason: "Smells weakness and fear. Predator instinct." },
-            { name: "Vostolas", primary: "Franklin (Mages Guild)", secondary: "Archie (as Darman)", bias: 0.7, reason: "Archivist grudge against the Guild. Suspicious of new faces." },
-            { name: "Franklin", primary: "Archie (as Darman)", secondary: "Green T", bias: 0.9, reason: "Suspicious of everyone not in the Guild. 'Darman' feels wrong." },
-            { name: "Darman (Real)", primary: "Archie (as Darman)", secondary: "Archie (as Darman)", bias: 1.0, reason: "KNOWS Archie is an impostor. Votes to expose him." },
-            { name: "Kryn", primary: "Vivesna Corvinarus", secondary: "Orangus Cornelious", bias: 0.6, reason: "Family politics. Wants his cousin gone. Fears his uncle." },
-            { name: "Ruri", primary: "Usk (Prisoner)", secondary: "Franklin (Mages Guild)", bias: 0.7, reason: "Explorer hired by vampires. Votes safe." },
-            { name: "Nelius", primary: "Usk (Prisoner)", secondary: "Usk (Prisoner)", bias: 1.0, reason: "Caretaker. Follows Orangus's unspoken wishes." },
-            { name: "Ekia", primary: "Bowser", secondary: "Archie (as Darman)", bias: 0.6, reason: "Nervous. Votes for the loudest stranger to deflect attention." },
-            { name: "The Waiter", primary: "Blank Vote", secondary: "Blank Vote", bias: 1.0, reason: "Terrified. Would never dare write a name." }
-        ];
-
-        // Event Tables
-        const eventTables = {
-            vote: [
-                { roll: 1, event: "Someone changes their vote at the last second, crossing out a name visibly.", followup: "Who? Roll d6 for NPC. Their original vote is now visible to neighbors." },
-                { roll: 2, event: "The ballot box SHAKES. Something inside is wrong. Orangus frowns.", followup: "One vote is enchanted—it keeps changing names. Whose magic is it?" },
-                { roll: 3, event: "An NPC votes LOUDLY, announcing their choice. 'I vote for [NAME] and I want them to know!'", followup: "Dramatic. Creates direct conflict. That target now knows who to blame." },
-                { roll: 4, event: "Toadburt drops his ballot. Everyone can see he voted for USK. Green T's expression hardens.", followup: "Toadburt has exposed himself as 'cooperative'. His cover thins." },
-                { roll: 5, event: "A player's vote catches fire as they write it. Orangus: 'Interesting choice.'", followup: "Orangus has a magical tell. He knows what they wrote. The vote is NOT secret." },
-                { roll: 6, event: "The Real Darman clears his throat. 'I notice there are TWO of me on the guest list. Curious.'", followup: "Plot twist building. Archie's cover is thinning. Vaxillus grins." },
-                { roll: 7, event: "Franklin casts SILENCE on the vote-counting area. Orangus RAGES.", followup: "Franklin is making a move. He's going to try something during the confusion." },
-                { roll: 8, event: "Vaxillus refuses to vote. 'This is beneath a warrior.' Orangus: 'Then you volunteer.'", followup: "Vaxillus is now a candidate. He draws his sword slowly." },
-                { roll: 9, event: "The Waiter collects the ballots—and EATS one. He looks terrified. 'I'm sorry. I'm sorry.'", followup: "He destroyed someone's vote. Whose? Roll d6 for NPC. That vote is gone." },
-                { roll: 10, event: "A second set of ballots appears. Duplicate votes. Someone is cheating.", followup: "Investigation DC 16: it's David. He's trying to guarantee a specific outcome." },
-                { roll: 11, event: "Green T votes, folds his ballot into a paper airplane, and throws it into the box. 'Style points.'", followup: "Distraction. While everyone watches, he palms his pistol. Sleight of Hand already succeeded." },
-                { roll: 12, event: "The vote is TIED. Orangus's smile widens. 'How delightful. A deadlock requires... resolution.'", followup: "See Tie Scenarios in the Codex. This triggers special resolution rules." }
-            ],
-            dessert: [
-                { roll: 1, event: "The silver domes are lifted. Each player's plate contains something PERSONAL and horrifying.", followup: "Describe each plate individually. Eye for Archie. Broken statue for Bowser. Bleeding badge for Toadburt." },
-                { roll: 2, event: "The center dome rises. The Crystal SCREAMS. Wine glasses shatter. The table cracks.", followup: "Initiative in 2 rounds. Green T is already moving to the balcony." },
-                { roll: 3, event: "Orangus reaches for the Crystal. His hand BURNS. He pulls back, confused.", followup: "The Crystal is rejecting him. It's choosing a new owner. Who does it call to?" },
-                { roll: 4, event: "Remi and Markop (in the Atrium) see the illusion SHATTER. The food is rot. The guests are monsters.", followup: "They can act now. Breaking the glass from their side takes 1 round." },
-                { roll: 5, event: "The Waiter steps forward. 'I won't let you do this.' Everyone turns. Who is he?", followup: "The Waiter is making a stand. He might know something about the crystal." },
-                { roll: 6, event: "Green T's shot rings out EARLY. He missed Orangus—hit the Crystal. 'DINNER IS CANCELED!'", followup: "Combat begins immediately. The Crystal is damaged but not destroyed." },
-                { roll: 7, event: "The Crystal shows a VISION: the party's future. Dead. Broken. Hung on Orangus's wall.", followup: "WIS save DC 15 or Frightened for 1 round. Orangus laughs: 'Prophecy.'" },
-                { roll: 8, event: "Time STUTTERS. Everyone freezes except one player. They have one free action.", followup: "The Crystal glitched. One player gets to reposition, grab something, or attack." },
-                { roll: 9, event: "The floor CRACKS. Something is breaking through from below. The encased monster?", followup: "Reinforcements in 3 rounds—but what IS it?" },
-                { roll: 10, event: "Vivesna leaps across the table at Bowser. 'I've been waiting ALL NIGHT for this.'", followup: "She attacks first. Bowser gets a reaction. Combat is ON." }
-            ],
-            tableflip: [
-                { roll: 1, event: "The table flies into Orangus, pinning him against the wall for 1 round.", followup: "He's restrained until he uses a Legendary Action to break free." },
-                { roll: 2, event: "Cutlery becomes shrapnel—everyone in 15ft makes DEX save DC 14 or takes 2d6 piercing.", followup: "The vampires are hit too. Silver forks deal extra damage to them." },
-                { roll: 3, event: "The Crystal's scream shatters the windows. Daylight streams in (if daytime in Atrium).", followup: "Vampires in the light take 2d10 radiant damage per round. Tactical opportunity." },
-                { roll: 4, event: "The Atrium barrier EXPLODES. Markop and Remi are thrown into the dining hall.", followup: "They take 2d6 bludgeoning but are now in the fight. The rooms have merged." },
-                { roll: 5, event: "Green T's pistol jams. 'Of all the times—' He switches to knives.", followup: "He loses his ranged advantage but gains +2 to melee (angry)." },
-                { roll: 6, event: "The real Darman draws his sword and stands next to Archie. 'Explain later. Fight now.'", followup: "Unexpected ally! Darman joins the party for this combat." },
-                { roll: 7, event: "Toadburt grabs the Crystal and runs. 'I'M GETTING OUT OF HERE!'", followup: "Chase scene! Someone needs to catch him or the Crystal escapes." },
-                { roll: 8, event: "The Oracle appears in the breach. 'The timeline is converging. You have minutes.'", followup: "Countdown begins. 10 rounds until something catastrophic happens." },
-                { roll: 9, event: "Vivesna turns on Orangus. 'Your time is OVER, father.'", followup: "Succession crisis mid-combat! Vivesna fights Orangus while party fights others." },
-                { roll: 10, event: "The encased monster from the Dreaming Tree AWAKENS. Its roar shakes the manor.", followup: "New threat. It will arrive in 3 rounds. Everyone has a common enemy now." }
-            ],
-            atrium: [
-                { roll: 1, event: "The Oracle says the viewing glass is weakening. 'You can break through if you strike now.'", followup: "Markop and Remi can force entry. Takes 1 action, STR DC 15." },
-                { roll: 2, event: "Remi sees Eager being shoved into a closet by guards. He's in the manor!", followup: "Eager is nearby. Rescue mission during the chaos?" },
-                { roll: 3, event: "The temporal crystals near the Dreaming Tree pulse in sync with the dinner.", followup: "The crystals are connected. Damaging one affects the others." },
-                { roll: 4, event: "Salam calls out—he's found another path into the dining hall through the servants' quarters.", followup: "Alternative entry. Less guarded but takes 2 rounds." },
-                { roll: 5, event: "The illusion over the dining hall flickers completely. Remi sees the guests' TRUE forms.", followup: "Vampires look monstrous. Some 'humans' are revealed as thralls." },
-                { roll: 6, event: "Perrius Annmatar phases through the wall. 'The Mages Guild is moving. Choose a side.'", followup: "Faction conflict. The Guild has its own agenda for the Crystal." },
-                { roll: 7, event: "The encased monster near the Dreaming Tree opens one eye. It's watching them.", followup: "It's not fully frozen. It's aware. What does it want?" },
-                { roll: 8, event: "A clockwork gear from the other room crashes through, trailing temporal energy.", followup: "Time is unstable. Random time-skip effects possible." }
-            ],
-            npcreaction: [
-                { text: "Narrows eyes suspiciously—they don't believe what was said.", tone: "Suspicious" },
-                { text: "Laughs mockingly, too loud, drawing attention.", tone: "Contemptuous" },
-                { text: "Slams fist on table, rattling dishes. 'ENOUGH!'", tone: "Angry" },
-                { text: "Whispers to their neighbor, glancing at the players.", tone: "Conspiratorial" },
-                { text: "Stands up slowly, hand moving to weapon.", tone: "Threatening" },
-                { text: "Smiles knowingly, like they've just won a game.", tone: "Smug" },
-                { text: "Freezes. Doesn't move. Barely breathes.", tone: "Terrified" },
-                { text: "Looks to Orangus for guidance—a sycophant.", tone: "Subservient" },
-                { text: "Pretends not to hear, staring at their plate.", tone: "Avoidant" },
-                { text: "Raises their glass in a mock toast. 'How brave.'", tone: "Sarcastic" },
-                { text: "Begins to cry. Silently. No explanation.", tone: "Broken" },
-                { text: "Claps slowly. 'Magnificent. Truly. Do go on.'", tone: "Patronizing" }
-            ],
-            atmosphere: [
-                { text: "The chandelier sways, though there's no wind. Shadows dance wrong.", sense: "Sight" },
-                { text: "The smell of copper and old wine hangs heavy, cloying.", sense: "Smell" },
-                { text: "Something scratches inside the walls. Rats? Or nails?", sense: "Sound" },
-                { text: "The food tastes of ash and regret. Each bite is a struggle.", sense: "Taste" },
-                { text: "The chair feels warm. Body heat. Someone sat here recently.", sense: "Touch" },
-                { text: "The candles burn purple for a moment. Then normal. No one mentions it.", sense: "Sight" },
-                { text: "A child's laughter echoes from somewhere. There are no children here.", sense: "Sound" },
-                { text: "The reflection in the silverware shows the room EMPTY.", sense: "Sight" },
-                { text: "Cold spots drift through the room like ghosts walking.", sense: "Touch" },
-                { text: "The painting's eyes follow. Always. Every movement tracked.", sense: "Sight" },
-                { text: "The wine tastes different to each person. What do they taste?", sense: "Taste" },
-                { text: "Somewhere, a clock ticks. There is no clock in this room.", sense: "Sound" }
-            ],
-            secret: [
-                { text: "Vaxillus's third eye focuses on Archie. 'Your face... it's wrong. Layered.'", npc: "Vaxillus" },
-                { text: "Toadburt's hand moves to where his ring WAS. He's panicking silently.", npc: "Toadburt" },
-                { text: "Franklin's hand twitches toward a scroll in his pocket. Teleport?", npc: "Franklin" },
-                { text: "David mutters numbers under his breath. He's counting something. Guards?", npc: "David" },
-                { text: "The real Darman leans over and whispers: 'I know you're not me. We'll talk later.'", npc: "Darman" },
-                { text: "Green T's hand is under the table. He's holding something metallic.", npc: "Green T" },
-                { text: "Orangus winces and grips the table. For a moment, he looks OLD and weak.", npc: "Orangus" },
-                { text: "Kryn is sweating despite the cold. His eyes keep darting to the exit.", npc: "Kryn" },
-                { text: "The Oracle's shadow moves independently. It's reaching toward the Crystal.", npc: "Oracle" },
-                { text: "Usk makes eye contact with Archie and mouths: 'The note. Did you find the note?'", npc: "Usk" }
-            ],
-            complication: [
-                { text: "A guard bursts in: 'My lord! The prisoners are RIOTING!'", effect: "Distraction. Orangus must respond. 2 guards leave." },
-                { text: "The manor shakes. Earthquake? No—something LARGE just moved in the foundations.", effect: "Everyone DEX save DC 12 or fall prone. The encased monster stirs." },
-                { text: "All the candles go out simultaneously. Three seconds of total darkness.", effect: "When light returns, Green T has moved. So has someone else." },
-                { text: "A servant screams from the kitchen. Then silence.", effect: "Investigation opportunity—or trap? The Revel is feeding." },
-                { text: "The Crystal pulses and someone's vote CHANGES on the paper.", effect: "Magic interference. Recount needed. Accusations fly." },
-                { text: "An uninvited guest arrives: Hjumpik, covered in leaves, weapon drawn.", effect: "New ally! But how did he get here? And where's the Rakasha?" },
-                { text: "One of the guards is found dead. Poison. 'Who among you...' Orangus demands.", effect: "Murder mystery. Remi's 'candy' perhaps?" },
-                { text: "Fire erupts in the kitchen. Smoke fills the dining hall.", effect: "Visibility reduced. Cover for actions. Vampires unaffected." },
-                { text: "Eager bursts through a door, chased by guards. 'MARKOP! HELP!'", effect: "Eager is here! But now so are 2 more guards." },
-                { text: "The barrier between rooms FLICKERS. Markop and Remi are visible for 3 seconds.", effect: "Cover blown? Or a chance to communicate? Quick!" }
-            ]
-        };
-
-        // COMPREHENSIVE OUTCOME DATABASE - All possible winners
-        const outcomeDatabase = {
-            "Orangus Cornelious": { 
-                title: "THE HOST REJECTS THE VOTE", 
-                text: "Orangus stares at the pile of ballots, his face utterly emotionless. Slowly, a dry laugh escapes his lips, sounding like cracking bone. 'You think you can vote out the mountain? I AM the House. I am the foundation, the roof, and the lock on the door.' He snaps his fingers, and the papers burst into purple flame. 'The vote is annulled. And the price of your insolence has just been doubled.'", 
-                note: "Orangus gains 1 Legendary Action immediately. The 'Dessert' phase begins instantly with heightened aggression. He will target whoever nominated him.",
-                aftermath: "Orangus remembers who voted for him. In combat, he focuses that player. If he survives, he places a Blood Curse on the voter. They're marked for assassination across all timelines."
-            },
-            "Archie (as Darman)": { 
-                title: "THE IMPOSTOR IS CHOSEN", 
-                text: "The table goes silent. Orangus slides the crystalline knife across the mahogany towards Archie. It hums with malice. 'You claim to be a guest, Darman... or whoever you are,' Orangus hisses. The REAL Darman leans forward, watching intently. 'But the table sees you as a cancer. You have two choices: Carve the traitor Usk to earn your seat, or offer your own hand to the blade. Choose quickly.'", 
-                note: "If Archie refuses, Orangus attacks immediately. If Archie attacks Usk, Green T HESITATES (loses first turn). The real Darman's reaction depends on Archie's choice—roll d6: 1-3 hostile, 4-6 secretly impressed.",
-                aftermath: "The real Darman Knightly will remember. Grateful if Archie handled it well, furious if his name was further sullied."
-            },
-            "Bowser": { 
-                title: "THE BEAST IS CHOSEN", 
-                text: "Vivesna sneers, looking absolutely delighted. 'The loud one. The rude one. The one who does not fit.' Orangus nods solemnly. 'A beast for a beast. Take the knife, turtle. Gut the prisoner Usk. Show us that you are more than just a fire-breathing nuisance, or we shall mount your head on the wall next to the moose.'", 
-                note: "Bowser will REFUSE and RAGE. This guarantees the fight starts with Bowser breathing fire. He gets advantage on first attack. Vivesna (who nominated him) is his priority target.",
-                aftermath: "The Vampire Court now sees Bowser as 'the beast who ruined dinner.' He has a reputation among the undead. Future vampire encounters start hostile."
-            },
-            "Usk (Prisoner)": { 
-                title: "THE PRISONER IS CONDEMNED", 
-                text: "Orangus sighs, looking genuinely disappointed in the guests. 'Predictable. Boring. You vote for the dead man walking? You lack imagination.' He looks around the table, his eyes glowing red. 'Since the guests have chosen the victim, but not the executioner... I shall choose one of you at random to wield the knife.'", 
-                note: "Roll 1d4 to see which player Orangus forces to do the deed: 1=Archie, 2=Bowser, 3=Green T, 4=Toadburt. Forces a moral dilemma. The chosen must attack or openly defy.",
-                aftermath: "If Usk survives, he owes the party a life debt. He knows secrets about the Crystal's origin, the 'vessel,' and what was written in the note."
-            },
-            "Toadburt": { 
-                title: "THE NERVOUS ONE IS CORNERED", 
-                text: "Toadburt freezes, the blood draining from his face. His hand goes to his wrist—where the dampening ring used to be. Orangus leans forward, his shadow lengthening. 'It seems your camouflage has failed, little toad. The guests smell your fear.' He tosses the knife, and it sticks into the table right in front of Toadburt. 'Prove you belong to us. Kill your friend Usk. Do it, and you may live to see dessert.'", 
-                note: "Toadburt will hesitate. If players don't intervene in 6 seconds (1 round), Toadburt WILL try to kill Usk to save himself. GREEN T WILL NOT FORGIVE THIS.",
-                aftermath: "Toadburt's loyalty is permanently determined. Saved by players = ally for life. Killed Usk = Green T marks him as a traitor to the Toad rebellion."
-            },
-            "Green T": { 
-                title: "THE REBEL IS EXPOSED", 
-                text: "Orangus narrows his eyes, staring directly at Green T. 'The quiet ones are always the most dangerous, aren't they? You sit there, judging us. Signaling your friends.' The knife slides across the table. 'You wish to disrupt my dinner? Then participate. Blood is the only currency accepted here.'", 
-                note: "Green T will signal Archie to attack IMMEDIATELY. He pulls his pistol. 'I don't think so, fangs.' Combat starts early—but the Crystal hasn't been revealed yet.",
-                aftermath: "Green T's cover is permanently blown. The Toad rebellion loses a key operative. But his legend grows among the resistance. Songs will be sung."
-            },
-            "Blank Vote": { 
-                title: "COWARDICE REIGNS", 
-                text: "Orangus slams his fist on the table, cracking the wood. 'Silence? Abstinence? In my hall, indecision is a crime greater than treason.' He stands up, looming over the table, his shadow consuming the candlelight. 'Since you refuse to choose a sacrifice, I will choose the one among you who screams the loudest.'", 
-                note: "Orangus attacks the character who annoyed him most (likely Bowser), or the one with the lowest current HP. He despises cowardice above all.",
-                aftermath: "The abstainers are marked as weak. Any surviving vampire will remember them as 'the cowards of the Cornelious Dinner.'"
-            },
-            "The Waiter": { 
-                title: "THE SERVANT IS SACRIFICED", 
-                text: "The waiter trembles, dropping a tray as Orangus stares him down. 'It seems the service was lacking,' the vampire muses. 'The guests have complained.' In a blur of motion, Orangus snaps the waiter's neck with casual brutality. The body crumples. 'Now. Vote again. Properly this time. Or you are next.'", 
-                note: "A show of power. The vote resets with increased tension. Combat may start from the shock. Some NPCs may reconsider their alliances.",
-                aftermath: "The guests now know Orangus will kill anyone. The vote becomes more serious. Tension +3."
-            },
-            "Vaxillus Loumaal": { 
-                title: "THE WARRIOR IS CHALLENGED", 
-                text: "Vaxillus stands, snarling, his third eye opening wide and blazing with fury. 'You DARE vote for me? I will flay you all!' Orangus raises a hand, silencing him. 'Peace, three-eyes. The guests wish to see a show. Perhaps you should demonstrate your legendary technique on the prisoner? Or are you afraid?'", 
-                note: "Vaxillus will move to kill Usk IMMEDIATELY. Players have ONE ROUND to intercept him or Usk dies. Vaxillus is too proud to refuse Orangus's challenge.",
-                aftermath: "If Vaxillus killed Usk, he's satisfied but suspects someone. If stopped, he is FURIOUS and focuses whoever blocked him in combat."
-            },
-            "Vivesna Corvinarus": { 
-                title: "SUCCESSION CRISIS", 
-                text: "Orangus looks at his daughter. The room goes deadly silent. Vivesna grips her fork until her knuckles turn white, her fangs extending slightly. 'Ambitious,' Orangus whispers, a hint of pride mixed with threat. 'But not today.' He crushes the ballots in his hand. 'The vote is void. And we shall discuss this later, daughter.'", 
-                note: "Vivesna is HUMILIATED. During the fight, roll d6: 1-3 she focuses players who voted for her, 4-6 she hesitates to help Orangus (loses first turn). Either way, she's furious.",
-                aftermath: "Vivesna's coup plans accelerate. If Orangus dies, she blames the party. If he lives, she blames him. She becomes a recurring villain."
-            },
-            "Franklin (Mages Guild)": { 
-                title: "THE GUILD IS REJECTED", 
-                text: "Orangus smirks, looking delighted. 'It seems, Franklin, that your Guild's authority does not extend to my dining table. The guests find your bureaucracy... distasteful.' He offers the knife with mock ceremony. 'Abandon your rules. Act like a predator. Kill the prisoner, and we might let you leave.'", 
-                note: "Franklin will cast a defensive spell (Shield or Mirror Image), triggering combat. He may also try to grab the Crystal during the chaos. He has a teleport scroll.",
-                aftermath: "The Mages Guild will demand answers. They sent Franklin to steal the Crystal—he failed. Depending on outcome, players may have Guild problems or allies."
-            },
-            "Darman Knightly (Real)": { 
-                title: "THE REAL ONE IS NOMINATED", 
-                text: "Darman stands slowly, his eyes moving between Archie and the voters. 'Interesting. The impostor's friends vote for ME.' He looks at Orangus. 'I accept the challenge. But first—' he points at Archie '—I want to know why someone is wearing my face at this dinner.'", 
-                note: "Archie's cover is blown OPENLY. Darman's reaction depends on how Archie handles it. Roll d6: 1-2 Darman attacks Archie, 3-4 he demands explanation, 5-6 he's amused and waits.",
-                aftermath: "If Darman survives and is placated, he becomes a powerful ally. If hostile, Archie has a dangerous enemy who knows his secret."
-            },
-            "Joseph Jo": { 
-                title: "THE FIGHTER IS TESTED", 
-                text: "Joseph Jo rises, cracking his knuckles. 'You think breathing techniques make me weak? I'll show you weak.' Orangus waves a hand. 'Control your temper, fighter. Save it for the prisoner.' He slides the knife. 'Unless you'd rather demonstrate on one of those who voted for you?'", 
-                note: "Joseph Jo is aggressive but not stupid. He'll likely comply with killing Usk unless players intervene. He fights with breath-based energy attacks.",
-                aftermath: "Joseph Jo respects strength. If beaten, he may switch sides. If he wins, he'll remember who voted for him."
-            },
-            "Tymnas Twins": { 
-                title: "THE TWINS ARE UNIFIED", 
-                text: "The Tymnas Twins speak in unison: 'You see us. Finally.' They smile identical smiles. Orangus looks disturbed for the first time. 'Interesting choice. But the rules say ONE name. Which of you will take the knife?' They respond together: 'We are one. We will both decide the fate.'", 
-                note: "The Twins act as one creature in combat. Voting for them splits their loyalty—one may help, one may hinder. Roll d6 for each Twin separately.",
-                aftermath: "The Twins remember being seen. They may become allies or enemies depending on the outcome—but they WILL remember."
-            },
-            "Mazenound": { 
-                title: "THE PREDATOR IS CHOSEN", 
-                text: "Mazenound laughs, a sound like grinding stone. 'You think to trap ME? I am the maze. I am the walls.' She stands, and the shadows in the room seem to lean toward her. Orangus looks pleased. 'Show them what happens in your labyrinth, dear.'", 
-                note: "Mazenound will NOT take the knife. She'll create a magical maze in the dining room (difficult terrain, DC 15 WIS to navigate). Combat becomes a chase.",
-                aftermath: "The maze persists after combat. It may help or hinder escape. Mazenound respects those who navigate well."
-            },
-            "Vostolas": { 
-                title: "THE ARCHIVIST IS CORNERED", 
-                text: "Vostolas adjusts his spectacles nervously. 'I merely record history. I don't... participate in it.' Orangus smiles. 'Then you shall record this moment from inside the story. Take the knife, archivist. Make history instead of writing about it.'", 
-                note: "Vostolas knows secrets about the Onyx Hand. If pressured, he'll share information to survive. He knows about the Crystal's true purpose.",
-                aftermath: "If Vostolas survives, he'll document everything. The party's actions become part of Onyx Hand records—for better or worse."
-            },
-            "Kryn Cornelious": { 
-                title: "FAMILY BETRAYAL", 
-                text: "Kryn's face goes pale. 'Uncle, I—' Orangus silences him with a look. 'The guests have spoken, nephew. You claim to be heir to Autumnwood, yet you cannot even command a dinner table.' He offers the knife. 'Prove you have the spine for power.'", 
-                note: "Kryn will break down. He's been skimming funds and is terrified. He may offer bribes, information, or try to flee. He knows about the treasury.",
-                aftermath: "If Kryn survives, he owes the party. He has money and knows Cornelious secrets. If he dies, the family succession becomes simpler."
-            },
-            "David": { 
-                title: "THE SCIENTIST IS STUDIED", 
-                text: "David smiles thinly. 'Vampire studies, they call my work. Perhaps you'd like to see my findings firsthand?' He reaches slowly into his coat. Orangus watches, intrigued. 'Go ahead, scientist. Show us what you've learned about killing our kind.'", 
-                note: "David has anti-vampire weapons hidden in his coat. He'll use them if threatened. Holy water vials, silver dust, garlic essence. He's prepared.",
-                aftermath: "David's research is valuable. If he survives and is friendly, he shares vampire weaknesses. If hostile, he'll sell information to the highest bidder."
-            },
-            "Ruri (Explorer)": { 
-                title: "THE HIRED HELP IS TESTED", 
-                text: "Ruri shrugs, checking her map case. 'I'm just an explorer. Hired help. I don't have a stake in your politics.' Orangus leans forward, his voice silky. 'Contracts change. Adaptation is the key to survival, is it not? Navigate this situation, explorer. Kill the prisoner, or find yourself lost in a maze with no exit.'", 
-                note: "Ruri will try to negotiate. She knows the manor layout from her exploration. She might share information on secret passages in exchange for safety.",
-                aftermath: "Ruri is pragmatic. She'll side with whoever is winning. But she knows secret passages and can be bribed with gold or freedom."
-            },
-            "Ekia": {
-                title: "THE INNOCENT BYSTANDER",
-                text: "Ekia freezes, her fork halfway to her mouth. 'Me? I just came for the food.' Orangus leans in, his shadow enveloping her. 'You have been quiet. Too quiet. Innocence is a flavor, not a defense in my house. Take the knife, child. Lose your innocence, or lose your life.'",
-                note: "Ekia is a civilian caught in the crossfire. She will panic. If the players don't intervene, she might faint or try to run, triggering the guards.",
-                aftermath: "Saving Ekia grants no tactical advantage, but proves the party's morality. Allowing her to die proves to Orangus they are ruthless."
-            },
-            "Nelius Ornelius": {
-                title: "THE CARETAKER'S DUTY",
-                text: "Nelius straightens his coat, dusting off an invisible speck of dirt. 'I serve the house, my lord. I clean the messes.' Orangus nods approval. 'And the house requires blood to keep the foundations strong. You know how to remove stains, Nelius. Make one first.'",
-                note: "Nelius is loyal to the Manor itself, not necessarily Orangus. He knows where the traps are. He might turn on Orangus if he believes the Master is destroying the house.",
-                aftermath: "Nelius controls the environment. He can lock/unlock doors or activate traps. A valuable strategic ally if convinced the 'House' is in danger."
-            },
-            "The Oracle": { 
-                title: "THE PUPPET MASTER IS REVEALED", 
-                text: "Orangus's eyes narrow. 'The Oracle? You vote for my own Oracle?' He turns to the shadowy figure. 'Explain yourself.' The Oracle's voice echoes strangely: 'The vote reflects the will of the guests, not my machinations. But perhaps they sense what I know—that you are already dying.'", 
-                note: "The Oracle's true agenda is exposed. He wants to 'sever the family tree.' Orangus realizes the Oracle has been working against him. Combat may start early.",
-                aftermath: "The Oracle's cover is blown. He either becomes an open ally to the party or is forced to fight Orangus directly. His plan accelerates."
-            },
-            "Markop": { 
-                title: "THE WATCHER IS NOTICED", 
-                text: "Orangus tilts his head. 'Who is Markop?' He looks around the table. 'That name is not on my guest list.' The Oracle shifts uncomfortably. 'Someone is watching from beyond the veil. Someone writes a name they shouldn't know.'", 
-                note: "The barrier between the Atrium and Dining Hall weakens. Markop becomes visible to everyone for a moment. His cover is blown but he might be able to intervene.",
-                aftermath: "The connection between rooms is established. The convergence has begun early. Timeline manipulation may be possible."
-            },
-            "Remi": { 
-                title: "THE OBSERVER IS EXPOSED", 
-                text: "Orangus's head snaps toward the wall. 'Remi?' His voice is cold. 'There is someone watching from beyond. Someone who sees through my illusions.' The viewing glass in the Atrium cracks. 'SHOW YOURSELF!'", 
-                note: "The barrier shatters partially. Remi is visible and may need to defend herself. The rooms begin to merge before the Table Flip.",
-                aftermath: "Remi's position is compromised. The convergence accelerates. But she might be able to act directly now."
-            }
-        };
-
-        // Tie Database
-        const tieDatabase = {
-            "Tie_Blank": { 
-                title: "TIE: INDECISION DOOMS THE TARGET", 
-                text: "Orangus shakes his head. 'Half of you want [TARGET] dead. The other half are cowards. In my house, indifference is consent. Therefore, [TARGET] is the victim.' He tosses the knife to [TARGET]. 'They didn't care enough to save you. Prove them wrong.'" 
-            },
-            "Tie_Orangus": { 
-                title: "TIE: LÈSE-MAJESTÉ", 
-                text: "Orangus stares at the count. 'You equate the King with the Pawn? You tie my name with... [TARGET]?' The room shakes with his fury. 'I am the HOST! This tie is an insult.' He points at [TARGET]. 'Step forward and apologize for daring to be as popular as me. Or die.'" 
-            },
-            "Tie_Waiter": { 
-                title: "TIE: THE HELP IS EXPENDABLE", 
-                text: "Orangus looks between [TARGET] and the trembling Waiter. 'A tie? How tedious.' He casually backhands the Waiter, sending him flying into a wall with a sickening crunch. 'Problem solved,' Orangus says. 'The Waiter has withdrawn his candidacy. [TARGET], the knife is yours.'" 
-            },
-            "Tie_Usk": { 
-                title: "TIE: THE EXECUTIONER'S DILEMMA", 
-                text: "Orangus laughs. 'The votes are split between the prisoner Usk and [TARGET]. It seems fate has a sense of humor.' He slides the knife to [TARGET]. 'To break the tie, you must subtract one candidate. Kill Usk, and you are no longer tied. Refuse, and you join him.'" 
-            },
-            "Tie_Vivesna": { 
-                title: "TIE: FATHER PROTECTS DAUGHTER", 
-                text: "Orangus sees his daughter's name tied with [TARGET]. The room goes cold. 'You dare...' He voids Vivesna's votes entirely. 'My daughter is not a candidate. [TARGET], you inherit all the votes. Congratulations on your... popularity.'" 
-            },
-            "Tie_General": { 
-                title: "TIE: DEADLOCK DUEL", 
-                text: "Orangus smiles, revealing needle-teeth. 'A perfect tie between [WINNER] and [TIED]? Nature abhors balance.' He snaps his fingers, and guards block the doors. 'The two of you must settle this immediately. No magic. No tricks. Only the blade. Weapons free.'" 
-            }
-        };
-
-        const phaseInfo = [
-            { name: "🍷 APPETIZER", desc: "COMPLETE. Introductions done. Seating established.", greenT: "Was at the table, observing.", goal: "Phase complete." },
-            { name: "🍖 MAIN COURSE", desc: "COMPLETE. Usk was brought in. Questions were asked.", greenT: "Gave Archie the key. Planned the signal.", goal: "Phase complete." },
-            { name: "🗳 THE VOTE", desc: "ACTIVE. Ballots are cast. Every name is a weapon.", greenT: "Slipping toward the balcony. Pistol ready.", goal: "Control the outcome. Buy time for the ambush." },
-            { name: "🔮 DESSERT", desc: "The Crystal is revealed. Reality cracks. The trap springs.", greenT: "On the balcony. Waiting for the lid.", goal: "Prepare for combat. Position matters." },
-            { name: "⚔ THE FLIP", desc: "Green T fires. The table flips. ROLL INITIATIVE.", greenT: "Firing from high ground. 'DINNER IS CANCELED!'", goal: "KILL ORANGUS. Save Usk. Destroy the Crystal. Escape." }
-        ];
-
-        // ==================== STATE ====================
-        let currentPhase = 2; // Start at Phase 3
-        let currentTension = 6;
-
-        // ==================== INIT ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Populate dropdowns with ALL guests
-            const dropdowns = ['vote-archie', 'vote-bowser', 'vote-markop', 'vote-remi'];
-            dropdowns.forEach(id => {
-                const dd = document.getElementById(id);
-                guests.forEach(guest => {
-                    const option = document.createElement('option');
-                    option.value = guest;
-                    option.text = guest;
-                    dd.appendChild(option);
-                });
-            });
-
-            // Set defaults
-            document.getElementById('vote-archie').value = "Vaxillus Loumaal";
-            document.getElementById('vote-bowser').value = "Vivesna Corvinarus";
-            document.getElementById('vote-markop').value = "Orangus Cornelious";
-            document.getElementById('vote-remi').value = "Orangus Cornelious";
-
-            // Populate event tables
-            populateEventTables();
-            updatePhaseInfo();
-            setTension(6);
-            setPhase(2);
-        });
-
-        // ==================== TAB SYSTEM ====================
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
-            event.target.classList.add('active');
+    function generateArchieEvent(type) {
+        const log = document.getElementById('archie-log');
+        let msg = "";
+        
+        if (type === 'dream') {
+            msg = "<span>Dream:</span> Archie dreams of Usk's severed finger pointing the way back to the manor.";
+        } else if (type === 'shop') {
+            msg = "<span>Loot:</span> Found a bottle of 'Liquid Night'. Drinking it turns you invisible but blinds you.";
+        } else {
+            msg = `<span>Event:</span> ${archieEvents[Math.floor(Math.random() * archieEvents.length)]}`;
         }
 
-        // ==================== PHASE SYSTEM ====================
-        function setPhase(phase) {
-            currentPhase = phase;
-            document.querySelectorAll('.phase-marker').forEach((el, i) => {
-                el.classList.toggle('active', i === phase);
-            });
-            updatePhaseInfo();
+        log.innerHTML = `<div class="log-entry">${msg}</div>` + log.innerHTML;
+    }
+
+    // --- MARKOP EVENTS (The Manor / Immediate Chaos) ---
+    const markopEvents = [
+        "Bowser's fire catches the drapes. The room begins to fill with smoke (Heavily Obscured).",
+        "Vivian casts 'Shadow Hold' on the guards, freezing them. 'I am the Captain now!' she shrieks.",
+        "Franklin (Mage) ignores the fight and lunges for Toadburt's wrist to get the Ring.",
+        "Orangus stands up. The bullet hole in his chest closes, but leaves a silver scar. He screams.",
+        "The floor tilts 30 degrees. The Manor is destabilizing into the Void.",
+        "Usk tries to crawl away in the confusion. A guard steps on him.",
+        "Toadburt's ring pulses. Gravity reverses for 6 seconds."
+    ];
+
+    function generateMarkopEvent(type) {
+        const log = document.getElementById('markop-log');
+        let msg = "";
+
+        if (type === 'npc') {
+            msg = "<span>NPC:</span> Vaxillus (Three Eyes) draws his blade and challenges Bowser to a duel amidst the fire.";
+        } else if (type === 'magic') {
+            msg = "<span>Magic:</span> The Entropy Ring flares. All magic cast this round triggers a Wild Magic Surge.";
+        } else {
+            msg = `<span>Chaos:</span> ${markopEvents[Math.floor(Math.random() * markopEvents.length)]}`;
         }
 
-        function updatePhaseInfo() {
-            const info = phaseInfo[currentPhase];
-            const colors = ['text-yellow-500', 'text-red-500', 'text-blue-500', 'text-purple-500', 'text-red-400'];
-            document.getElementById('phase-info').innerHTML = `
-                <h3 class="font-bold ${colors[currentPhase]} mb-2">${info.name}</h3>
-                <p class="text-sm text-gray-400">${info.desc}</p>
-                <div class="text-xs text-gray-600 mt-2 border-t border-gray-800 pt-2">
-                    <strong>Green T:</strong> ${info.greenT}<br>
-                    <strong>Key Goal:</strong> ${info.goal}
-                </div>
-            `;
-        }
+        log.innerHTML = `<div class="log-entry">${msg}</div>` + log.innerHTML;
+    }
 
-        // ==================== TENSION SYSTEM ====================
-        function setTension(level) {
-            currentTension = level;
-            const labels = ['Dead Calm', 'Quiet', 'Uneasy', 'Tense', 'Nervous', 'Anxious', 'Alarmed', 'Hostile', 'Critical', 'BREAKING', 'CHAOS'];
-            document.getElementById('tension-label').innerText = labels[level];
-            
-            document.querySelectorAll('.tension-pip').forEach(pip => {
-                const pipLevel = parseInt(pip.dataset.level);
-                pip.style.opacity = pipLevel <= level ? '1' : '0.3';
-            });
-        }
-
-        // ==================== EVENT SYSTEM ====================
-        function rollEvent(tableType) {
-            const table = eventTables[tableType];
-            if (!table) return;
-            
-            const item = table[Math.floor(Math.random() * table.length)];
-            let html = '';
-            
-            if (tableType === 'npcreaction') {
-                html = `
-                    <div class="event-result">
-                        <div class="text-xs text-gray-500 mb-1">NPC REACTION</div>
-                        <div class="text-lg text-white mb-2">${item.text}</div>
-                        <div class="text-sm text-yellow-400">Tone: ${item.tone}</div>
-                    </div>
-                `;
-            } else if (tableType === 'atmosphere') {
-                html = `
-                    <div class="event-result">
-                        <div class="text-xs text-gray-500 mb-1">ATMOSPHERIC DETAIL</div>
-                        <div class="text-lg text-white italic mb-2">"${item.text}"</div>
-                        <div class="text-sm text-purple-400">Sense: ${item.sense}</div>
-                    </div>
-                `;
-            } else if (tableType === 'secret') {
-                html = `
-                    <div class="event-result">
-                        <div class="text-xs text-gray-500 mb-1">SECRET REVEALED</div>
-                        <div class="text-lg text-white mb-2">${item.text}</div>
-                        <div class="text-sm text-red-400">About: ${item.npc}</div>
-                    </div>
-                `;
-            } else if (tableType === 'complication') {
-                html = `
-                    <div class="event-result">
-                        <div class="text-xs text-gray-500 mb-1">COMPLICATION</div>
-                        <div class="text-lg text-white mb-2">${item.text}</div>
-                        <div class="text-sm text-orange-400">Effect: ${item.effect}</div>
-                    </div>
-                `;
-            } else {
-                html = `
-                    <div class="event-result">
-                        <div class="text-xs text-gray-500 mb-1">${tableType.toUpperCase()} EVENT (Roll: ${item.roll})</div>
-                        <div class="text-lg text-white mb-2">${item.event}</div>
-                        <div class="text-sm gold-text border-t border-gray-700 pt-2 mt-2">
-                            <strong>Follow-up:</strong> ${item.followup}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            document.getElementById('event-result').innerHTML = html;
-            document.getElementById('quick-result').innerHTML = `<div class="text-gray-300">${item.text || item.event}</div>`;
-        }
-
-        function populateEventTables() {
-            ['vote', 'dessert', 'tableflip', 'atrium'].forEach(tableName => {
-                const container = document.getElementById('table-' + tableName);
-                if (container && eventTables[tableName]) {
-                    container.innerHTML = eventTables[tableName].map(item => `
-                        <div class="p-2 bg-black/30 rounded border-l-2 border-gray-600">
-                            <span class="text-gray-500">${item.roll}.</span> ${item.event}
-                            <div class="text-xs text-gray-600 mt-1">${item.followup}</div>
-                        </div>
-                    `).join('');
-                }
-            });
-        }
-
-        // ==================== VOTE SYSTEM ====================
-        function getVoteForPlayer(playerID, customID) {
-            const customText = document.getElementById(customID).value.trim();
-            const dropdownText = document.getElementById(playerID).value;
-            return customText !== "" ? customText : dropdownText;
-        }
-
-        function runSimulation() {
-            const ballotBox = [];
-            const tallyLog = document.getElementById('tally-log');
-            tallyLog.innerHTML = "<div class='font-bold text-white mb-3 text-lg'>🗳 VOTE TALLY</div>";
-
-            // Player votes
-            const playerVotes = [
-                { name: "Archie (as Darman)", vote: getVoteForPlayer('vote-archie', 'custom-archie') },
-                { name: "Bowser", vote: getVoteForPlayer('vote-bowser', 'custom-bowser') },
-                { name: "Markop (Atrium)", vote: getVoteForPlayer('vote-markop', 'custom-markop') },
-                { name: "Remi (Atrium)", vote: getVoteForPlayer('vote-remi', 'custom-remi') }
-            ];
-
-            tallyLog.innerHTML += "<div class='text-green-500 font-bold mb-2'>Player Votes:</div>";
-            playerVotes.forEach(pv => {
-                ballotBox.push(pv.vote);
-                tallyLog.innerHTML += `<div class="pl-2 border-l-2 border-green-800 mb-1">${pv.name} → <strong class="text-white">${pv.vote}</strong></div>`;
-            });
-
-            tallyLog.innerHTML += "<div class='text-red-500 font-bold mt-4 mb-2'>NPC Votes:</div>";
-
-            // NPC votes
-            npcLogic.forEach(npc => {
-                const roll = Math.random();
-                const vote = roll < npc.bias ? npc.primary : npc.secondary;
-                ballotBox.push(vote);
-                const color = roll < npc.bias ? 'text-gray-400' : 'text-yellow-400';
-                const indicator = roll < npc.bias ? '' : ' (SECONDARY)';
-                tallyLog.innerHTML += `
-                    <div class="pl-2 border-l-2 border-red-900 mb-1 ${color}">
-                        ${npc.name} → <strong class="text-white">${vote}</strong>${indicator}
-                        <div class="text-xs text-gray-600">${npc.reason}</div>
-                    </div>`;
-            });
-
-            // Tally
-            const tally = {};
-            ballotBox.forEach(vote => {
-                tally[vote] = (tally[vote] || 0) + 1;
-            });
-
-            const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
-
-            tallyLog.innerHTML += "<div class='font-bold text-white mt-4 mb-2 border-t border-gray-700 pt-3 text-lg'>📊 FINAL COUNT:</div>";
-            sorted.forEach(([name, count], i) => {
-                const bar = '█'.repeat(count);
-                const highlight = i === 0 ? 'text-red-400 font-bold' : 'text-gray-400';
-                tallyLog.innerHTML += `<div class="flex justify-between ${highlight}"><span>${name}</span><span class="gold-text">${bar} ${count}</span></div>`;
-            });
-
-            // Determine winner
-            const winnerName = sorted[0][0];
-            const isTie = sorted.length > 1 && sorted[0][1] === sorted[1][1];
-
-            // Output
-            const resultArea = document.getElementById('result-area');
-            const rTitle = document.getElementById('res-title');
-            const rText = document.getElementById('res-text');
-            const rNote = document.getElementById('res-note');
-            const rFollowup = document.getElementById('res-followup');
-            resultArea.classList.remove('hidden');
-
-            if (isTie) {
-                const tiedWith = sorted[1][0];
-                handleTie(winnerName, tiedWith, rTitle, rText, rNote, rFollowup);
-            } else {
-                handleWinner(winnerName, rTitle, rText, rNote, rFollowup);
-            }
-
-            // Auto-advance tension
-            setTension(Math.min(10, currentTension + 2));
-        }
-
-        function handleWinner(name, titleEl, textEl, noteEl, followupEl) {
-            if (outcomeDatabase[name]) {
-                const outcome = outcomeDatabase[name];
-                titleEl.innerText = outcome.title;
-                textEl.innerText = outcome.text;
-                noteEl.innerHTML = `<span class="gold-text font-bold">GM NOTE:</span> ${outcome.note}`;
-                followupEl.innerHTML = `<div class="text-sm"><span class="text-purple-400 font-bold">AFTERMATH:</span> ${outcome.aftermath}</div>`;
-            } else {
-                // Handle any custom/write-in vote
-                titleEl.innerText = "CUSTOM: AN UNEXPECTED NOMINATION";
-                textEl.innerText = `Orangus stares at the slip, his brow furrowing. "${name}?" He looks up, scanning the faces at his table. "An interesting choice. Someone not on my guest list. Or perhaps... someone you simply wish to see suffer." He taps his long nails on the table. "If you wish for ${name} to bleed, I can certainly arrange it. But first—" his eyes find the voter "—you must prove you are worthy of making such requests. Take the knife. Show us your conviction."`;
-                noteEl.innerHTML = `<span class="gold-text font-bold">GM NOTE:</span> "${name}" has no pre-written script. Improvise Orangus's reaction based on who this person is. Consider: Are they present? Are they even real? Is this a joke or a serious nomination?`;
-                followupEl.innerHTML = `<div class="text-sm"><span class="text-purple-400 font-bold">AFTERMATH:</span> This unexpected choice creates unpredictable consequences. The voter must either back up their vote with action or face Orangus's disappointment—which is often fatal.</div>`;
-            }
-        }
-
-        function handleTie(winner, tied, titleEl, textEl, noteEl, followupEl) {
-            let scenario = tieDatabase.Tie_General;
-            let p1 = winner;
-            let p2 = tied;
-
-            if (winner === "Blank Vote" || tied === "Blank Vote") {
-                scenario = tieDatabase.Tie_Blank;
-                p1 = (winner === "Blank Vote") ? tied : winner;
-            } else if (winner === "Orangus Cornelious" || tied === "Orangus Cornelious") {
-                scenario = tieDatabase.Tie_Orangus;
-                p1 = (winner === "Orangus Cornelious") ? tied : winner;
-            } else if (winner === "The Waiter" || tied === "The Waiter") {
-                scenario = tieDatabase.Tie_Waiter;
-                p1 = (winner === "The Waiter") ? tied : winner;
-            } else if (winner === "Usk (Prisoner)" || tied === "Usk (Prisoner)") {
-                scenario = tieDatabase.Tie_Usk;
-                p1 = (winner === "Usk (Prisoner)") ? tied : winner;
-            } else if (winner === "Vivesna Corvinarus" || tied === "Vivesna Corvinarus") {
-                scenario = tieDatabase.Tie_Vivesna;
-                p1 = (winner === "Vivesna Corvinarus") ? tied : winner;
-            }
-
-            let finalText = scenario.text.replace(/\[TARGET\]/g, p1).replace(/\[WINNER\]/g, p1).replace(/\[TIED\]/g, p2);
-            titleEl.innerText = scenario.title;
-            textEl.innerText = finalText;
-            noteEl.innerHTML = `<span class="gold-text font-bold">GM NOTE:</span> Tie breaker active! Ties are inherently dramatic—play up the tension. Orangus LOVES watching people squirm. Use this chaos to heighten the scene.`;
-            followupEl.innerHTML = `<div class="text-sm"><span class="text-purple-400 font-bold">AFTERMATH:</span> A tie creates confusion and chaos. Some NPCs may not know whose side they're on. Alliances fracture. Use this to the players' advantage—or against them.</div>`;
-        }
-
-        // ==================== DEBUG CODEX ====================
-        function toggleDebug() {
-            const overlay = document.getElementById('debug-overlay');
-            overlay.classList.toggle('hidden');
-            if (!overlay.classList.contains('hidden')) populateDebug();
-        }
-
-        function populateDebug() {
-            const grid = document.getElementById('debug-grid');
-            let html = '';
-
-            // Count entries
-            const outcomeCount = Object.keys(outcomeDatabase).length;
-            const tieCount = Object.keys(tieDatabase).length;
-
-            // Header with count
-            html += `<div class="col-span-full text-center mb-6">
-                <div class="text-gray-500 text-sm mb-2">Complete reference of all possible outcomes</div>
-                <div class="flex justify-center gap-8">
-                    <div class="bg-red-900/30 px-4 py-2 rounded border border-red-800">
-                        <span class="text-2xl font-bold text-red-400">${outcomeCount}</span>
-                        <span class="text-gray-400 text-sm ml-2">Vote Outcomes</span>
-                    </div>
-                    <div class="bg-yellow-900/30 px-4 py-2 rounded border border-yellow-800">
-                        <span class="text-2xl font-bold text-yellow-400">${tieCount}</span>
-                        <span class="text-gray-400 text-sm ml-2">Tie Scenarios</span>
-                    </div>
-                </div>
-            </div>`;
-
-            // Standard endings - organized by category
-            html += `<div class="col-span-full"><h2 class="cinzel text-xl gold-text text-center my-4 border-b border-gray-700 pb-2">🗳 ALL VOTE OUTCOMES (${outcomeCount} Total)</h2></div>`;
-            
-            // Define categories for organization
-            const categories = {
-                "🧛 VILLAINS": ["Orangus Cornelious", "Vivesna Corvinarus", "Vaxillus Loumaal", "Mazenound", "The Oracle"],
-                "🎭 PLAYERS & ALLIES": ["Archie (as Darman)", "Bowser", "Green T", "Toadburt", "Usk (Prisoner)", "Markop", "Remi"],
-                "👥 DINNER GUESTS": ["Darman Knightly (Real)", "Franklin (Mages Guild)", "Joseph Jo", "Tymnas Twins", "Vostolas", "Kryn Cornelious", "David", "Ruri (Explorer)", "Ekia", "Nelius Ornelius"],
-                "⚠ SPECIAL": ["Blank Vote", "The Waiter"]
-            };
-
-            // Render by category
-            for (const [category, names] of Object.entries(categories)) {
-                html += `<div class="col-span-full"><h3 class="text-lg text-gray-400 mt-6 mb-3 border-l-4 border-gray-600 pl-3">${category}</h3></div>`;
-                
-                names.forEach(name => {
-                    if (outcomeDatabase[name]) {
-                        const val = outcomeDatabase[name];
-                        html += `
-                        <div class="outcome-card rounded p-4">
-                            <h3 class="gold-text font-bold mb-2 text-lg">${name}</h3>
-                            <div class="text-red-400 text-sm mb-2 font-bold">${val.title}</div>
-                            <div class="text-gray-300 text-sm mb-3 leading-relaxed max-h-40 overflow-y-auto border-l-2 border-gray-700 pl-3 italic">"${val.text}"</div>
-                            <div class="text-xs text-cyan-400 border-t border-gray-700 pt-2 mb-2">
-                                <strong class="text-cyan-300">⚙ GM Note:</strong> ${val.note}
-                            </div>
-                            <div class="text-xs text-purple-400">
-                                <strong class="text-purple-300">🔮 Aftermath:</strong> ${val.aftermath}
-                            </div>
-                        </div>`;
-                    }
-                });
-            }
-
-            // Check for any uncategorized outcomes
-            const allCategorized = Object.values(categories).flat();
-            const uncategorized = Object.keys(outcomeDatabase).filter(k => !allCategorized.includes(k));
-            
-            if (uncategorized.length > 0) {
-                html += `<div class="col-span-full"><h3 class="text-lg text-gray-400 mt-6 mb-3 border-l-4 border-orange-600 pl-3">📋 OTHER OUTCOMES</h3></div>`;
-                uncategorized.forEach(name => {
-                    const val = outcomeDatabase[name];
-                    html += `
-                    <div class="outcome-card rounded p-4">
-                        <h3 class="gold-text font-bold mb-2 text-lg">${name}</h3>
-                        <div class="text-red-400 text-sm mb-2 font-bold">${val.title}</div>
-                        <div class="text-gray-300 text-sm mb-3 leading-relaxed max-h-40 overflow-y-auto border-l-2 border-gray-700 pl-3 italic">"${val.text}"</div>
-                        <div class="text-xs text-cyan-400 border-t border-gray-700 pt-2 mb-2">
-                            <strong class="text-cyan-300">⚙ GM Note:</strong> ${val.note}
-                        </div>
-                        <div class="text-xs text-purple-400">
-                            <strong class="text-purple-300">🔮 Aftermath:</strong> ${val.aftermath}
-                        </div>
-                    </div>`;
-                });
-            }
-
-            // Tie scenarios
-            html += `<div class="col-span-full"><h2 class="cinzel text-xl gold-text text-center my-6 border-b border-gray-700 pb-2">⚖ TIE SCENARIOS (${tieCount} Total)</h2></div>`;
-            html += `<div class="col-span-full text-center text-gray-500 text-sm mb-4">When two candidates receive equal votes, these special scenarios trigger.</div>`;
-            
-            for (const [key, val] of Object.entries(tieDatabase)) {
-                const scenarioName = key.replace('Tie_', '').replace(/([A-Z])/g, ' $1').trim();
-                html += `
-                <div class="bg-gradient-to-br from-yellow-900/20 to-orange-900/10 border border-yellow-800/50 rounded p-4 hover:border-yellow-600 transition-all">
-                    <h3 class="text-yellow-400 font-bold mb-2 text-lg">⚖ ${scenarioName}</h3>
-                    <div class="text-orange-300 text-sm mb-3 font-bold">${val.title}</div>
-                    <div class="text-gray-300 text-sm leading-relaxed border-l-2 border-yellow-700 pl-3 italic">"${val.text}"</div>
-                    <div class="text-xs text-gray-500 mt-3 pt-2 border-t border-gray-700">
-                        <strong>Placeholders:</strong> [TARGET], [WINNER], [TIED] are replaced with actual names during play.
-                    </div>
-                </div>`;
-            }
-
-            // Quick reference footer
-            html += `<div class="col-span-full mt-8 p-4 bg-black/50 rounded border border-gray-700">
-                <h3 class="text-gray-400 font-bold mb-3">📋 QUICK REFERENCE</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-500">
-                    <div>
-                        <strong class="text-green-400">Player Characters:</strong><br>
-                        Archie (as Darman), Bowser, Markop, Remi
-                    </div>
-                    <div>
-                        <strong class="text-yellow-400">Key Allies:</strong><br>
-                        Green T, Toadburt, Usk, Real Darman (maybe)
-                    </div>
-                    <div>
-                        <strong class="text-red-400">Main Villains:</strong><br>
-                        Orangus, Vivesna, Vaxillus, The Oracle (?)
-                    </div>
-                </div>
-            </div>`;
-
-            grid.innerHTML = html;
-        }
-    </script>
+</script>
 </body>
 </html>

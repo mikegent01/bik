@@ -17,6 +17,23 @@ export const AUXILIARY_PARTY = {
 
 
 export const RUMORS = [
+{
+        id: 'fey_manor_service',
+        title: "Servants of the Lady",
+        date: { day: 25, monthIndex: 6, year: 1040 },
+        isEvent: true,
+        instigator: 'lady_aurelian',
+        arc: 'feywild_attic',
+        arcPosition: 'rising',
+        description: "Trapped in the Feywild Manor, Hjumpik and his companions have been coerced into service by Lady Aurelian. They have evicted squatting Satyrs, navigated trapped guest rooms, and are now tasked with clearing the upper floors of dangerous 'pests' (giant butterflies). The Lady has hinted that their freedom depends on their performance.",
+        targets: ['hjumpik', 'waluigi', 'toad_lee', 'lady_aurelian'],
+        effects: {
+            cosmic_jesters: 15,
+            ratchet_raiders: 10,
+            feywild_grove: -5
+        },
+        cycle_impact: { score: 0.8, label: "Forced Labor", type: "social" }
+    },  
   {
     id: 'midnight_gate_transit',
     title: "Midnight Gate Spike",
@@ -295,6 +312,60 @@ export const RUMORS = [
     },
     "cycle_impact": { "score": -0.5, "label": "Hero Rises", "type": "heroic" }
   }, 
+  {
+    id: 'onyx_hand_voting_chaos',
+    title: "The Onyx Hand Vote",
+    date: { day: 24, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'orangus_corenilous',
+    arc: 'onyx_hand_revel',
+    arcPosition: 'rising',
+    description: "At a velvet-draped banquet in the Onyx Hand manor, Orangus Corenilous forced the guests into a timed vote: four minutes to discuss, then write a name. While a purple-glowing 'friendship bracelet' pulsed with entropy and Vostolas calmly recorded every whisper, suspicion erupted over a duplicated guest identity. Orangus slid a crystalline knife to Archie (posing as Darman) and demanded blood to prove belonging. Archie chose the butler Usk, and the table learned what kind of night this would become.",
+    targets: ['orangus_corenilous', 'archie_miser', 'markop', 'toadburt', 'vostolas_archivist', 'real_darman', 'usk_the_butler'],
+    effects: {
+      onyx_hand: 20,
+      mages_guild: 5,
+      iron_legion: -10,
+      cosmic_jesters: 5
+    },
+    cycle_impact: { score: 1.6, label: "Blood on the Ballot", type: "intrigue" }
+  },
+  {
+    id: 'oracle_assassination_escape',
+    title: "The Shot That Broke the Revel",
+    date: { day: 24, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'green_t',
+    arc: 'onyx_hand_revel',
+    arcPosition: 'climax',
+    description: "A silver shot dropped the Oracle mid-dinner and turned the revel into a riot. Bowser’s flames surged through the hall, Kryn fed openly, and the supposed heir Vivesna was unmasked as Vivian—an ambitious thrall crossdressing for succession. In the confusion, Franklin moved to secure the entropy device. Archie and Green T escaped through a window into the manor’s shadowed grounds, choosing rescue and regrouping over surrender as guards began rounding up survivors.",
+    targets: ['green_t', 'archie_miser', 'bowser', 'kryn_corvinarus', 'vivian_man_shadow', 'franklin_mages', 'vampire_guard_captain'],
+    effects: {
+      onyx_hand: -15,
+      vampires: -25,
+      mages_guild: 10,
+      cosmic_jesters: 25
+    },
+    cycle_impact: { score: 3.1, label: "The Revel Shatters", type: "betrayal" }
+  },
+  {
+    id: 'road_to_infirmary',
+    title: "Flight to the Abandoned Infirmary",
+    date: { day: 29, monthIndex: 6, year: 1040 },
+    isEvent: true,
+    instigator: 'archie_miser',
+    arc: 'onyx_hand_revel',
+    arcPosition: 'fallout',
+    description: "After escaping the manor grounds, Archie and Green T attempted to reach an airship—only to discover distance itself felt unreliable. Over several days they passed into a Midland town where unfamiliar currency, a watchful shopkeeper, and a suspicious magpie hinted the world was still tracking them. As rain finally broke hard and cold, they took shelter in an abandoned infirmary, uncertain whether they had fled the revel… or simply entered its next room.",
+    targets: ['archie_miser', 'green_t', 'shopkeeper_midland'],
+    effects: {
+      onyx_hand: 0,
+      mages_guild: 0,
+      ratchet_raiders: 5,
+      raventree_curse: 5
+    },
+    cycle_impact: { score: 1.2, label: "Distance Becomes Strange", type: "escape" }
+  },  
 {
         id: 'fey_greenhouse_sanctuary',
         title: "Sanctuary in the Greenhouse",
