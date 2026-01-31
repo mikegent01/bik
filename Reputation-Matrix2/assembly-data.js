@@ -384,7 +384,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_date_stamp_efferd_24',
     order: 41055,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 19 },
     content: `24th Effeard, 6:19. Door locked. Footsteps. Someone yelled “Who dares intrude?” Green T ran like his feet owed money.`,
@@ -397,7 +397,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_vampire_kitchen_side_story',
     order: 41056,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 28 },
     content: `Vampire in kitchen humming. The “meat” smelled like cloves and iron. He offered me a taste. I pretended to be offended (worked).`,
@@ -416,14 +416,14 @@ export const WAHBOOK_POSTS = [
     content: `Window is jammed. Can’t jump. Archie yelled “we’re going” and then left me. I hid. If I survive, I will be petty forever.`,
     likes: 1700,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'I came back. Petty later.' },
+      { characterKey: 'archie', text: 'I came back. Petty later.' },
       { characterKey: 'hjumpik', text: 'Survive first. Pettiness is earned.' }
     ]
   },
   {
     id: 'archie_disguise_spell_notes',
     order: 41058,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 50 },
     content: `Disguise spell held under stress. Tip: steady breathing. Don’t think “I am not a vampire.” Think “paperwork matters.” It sells the role.`,
@@ -436,7 +436,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_onyx_hand_books',
     order: 41059,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'onyx_hand_trail',
     date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 3 },
     content: `Found books in a study. Margins marked with a black hand symbol. If these vampires are tied to the Onyx Hand, these notes are evidence. Heavy, but worth it.`,
@@ -455,14 +455,14 @@ export const WAHBOOK_POSTS = [
     content: `Archie gave me a dagger for “quiet combat.” I do not like quiet. Quiet is where fear lives. But I will accept stabbing as a concept.`,
     likes: 2100,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'Quiet keeps you alive.' },
+      { characterKey: 'archie', text: 'Quiet keeps you alive.' },
       { characterKey: 'hjumpik', text: 'Stabbing is universal language. You’ll do fine.' }
     ]
   },
   {
     id: 'legion_broadcast_quote',
     order: 41061,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'legion_quarantine',
     date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 5 },
     content: `Broadcast again: "THE ANOMALY IS CONTAINED." Troops have masks and silver-thread armbands. They’re scanning for “non-human activity.” Green T is… obviously non-human.`,
@@ -475,7 +475,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_guard_smalltalk_fail',
     order: 41062,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'legion_quarantine',
     date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 12 },
     content: `I walked up to a Legion guard like “Are you with the purple legion too?” He stared at me for three seconds. I remembered I was wearing the wrong insignia. Bad moment.`,
@@ -494,7 +494,7 @@ export const WAHBOOK_POSTS = [
     content: `Citizen, there is no “purple legion.” There is only the Legion. State your assignment and show wrist mark.`,
     likes: 1900,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'Ah yes. Of course. The Legion. Very… singular.' },
+      { characterKey: 'archie', text: 'Ah yes. Of course. The Legion. Very… singular.' },
       { characterKey: 'green_t', text: 'RUN.' }
     ]
   },
@@ -748,7 +748,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_dan_sighting_question',
     order: 41083,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'legion_quarantine',
     date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 30 },
     content: `Saw someone who might be Dan near the cordon. Could be real Dan, could be a decoy, could be a Legion officer with similar posture. I hate uncertainty.`,
@@ -767,7 +767,7 @@ export const WAHBOOK_POSTS = [
     content: `I attempted to look like a decorative bush. Legion guard stared at me and said “Nice hedge.” I don’t know if I’m safe or insulted.`,
     likes: 7200,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'Both. You’re safe AND insulted.' },
+      { characterKey: 'archie', text: 'Both. You’re safe AND insulted.' },
       { characterKey: 'waluigi', text: 'Nice hedge is a compliment where I’m from.' }
     ]
   },
@@ -780,7 +780,7 @@ export const WAHBOOK_POSTS = [
     content: `Tried using Usk’s connection to send Archie a warning: “Legion scanning non-humans, avoid roads.” Usk replied: “He already knows.” Then laughed without moving his mouth.`,
     likes: 4100,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'I do already know. But thank you. Also: Usk is unsettling.' },
+      { characterKey: 'archie', text: 'I do already know. But thank you. Also: Usk is unsettling.' },
       { characterKey: 'usk_shadow_elf', text: 'You are all unsettling. That is why it is entertaining.' }
     ]
   },
@@ -891,7 +891,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_paperwork_room_details',
     order: 41094,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 25 },
     content: `The vampire paperwork room had forms for “meal acquisition,” “blood storage variance,” and “operational table sanitation.” Monsters love bureaucracy. It’s comforting in a sick way.`,
@@ -910,7 +910,7 @@ export const WAHBOOK_POSTS = [
     content: `I heard something in the walls. Not rats. Too slow. Too thoughtful. If the manor is alive like Aurelian’s, we are inside a hungry idea.`,
     likes: 4200,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'Don’t say that. Now I’m thinking about it.' },
+      { characterKey: 'archie', text: 'Don’t say that. Now I’m thinking about it.' },
       { characterKey: 'hjumpik', text: 'Get out. Mansions that think are worse than monsters.' }
     ]
   },  
@@ -1027,7 +1027,7 @@ export const WAHBOOK_POSTS = [
     content: "Found a goblin under Legion table. Not eating. Just polishing a spoon. Said 'It’s not mine' when I asked. Spoon has tiny feather carving.",
     likes: 280,
     comments: [
-      { characterKey: 'archie_shadeward', text: "That’s Lickspoon. He polishes spoons for victims. Feather = he refused blood." },
+      { characterKey: 'archie', text: "That’s Lickspoon. He polishes spoons for victims. Feather = he refused blood." },
       { characterKey: 'green_t', text: "He left it by my cell. Didn’t look at me." }
     ]
   },
@@ -1060,7 +1060,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_spoon_feather',
     order: 41027,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 20 },
     content: "Lickspoon’s spoon feather dissolved in my pocket. Left warm patch. Green T says: ‘Feathers = promises. Dissolved = kept.’ Did not ask what.",
@@ -1098,7 +1098,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_operating_light',
     order: 41030,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 30 },
     content: "Operating room light flickers when human breathes. Not faulty. Synced. Counted 17 breaths = 1 flicker. Green T: ‘They’re counting *us* now.’",
@@ -1135,7 +1135,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_coffin_bang_code',
     order: 41033,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 45 },
     content: "Coffin bang pattern: 3 short, 1 long, 2 short. Not random. Green T tapped back 2 short. Coffin stopped. Waited. Bang 1 long. Green T: ‘They’re learning our code.’",
@@ -1165,7 +1165,7 @@ export const WAHBOOK_POSTS = [
     content: "Dust cell floor forms patterns when Legion boots pass. Not wind. Rhythm matches coffin-bang code. Drew ‘?’ in dust with toe. Pattern reset to lines. Not erased.",
     likes: 410,
     comments: [
-      { characterKey: 'archie_shadeward', text: "They reset questions to boundaries. Not refusal. ...Thank you for the pattern." } // QUIET GRATITUDE
+      { characterKey: 'archie', text: "They reset questions to boundaries. Not refusal. ...Thank you for the pattern." } // QUIET GRATITUDE
     ]
   },
   // ... [continue inserting at precise moments - 35 more below] ...
@@ -1198,7 +1198,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_dawn_plan',
     order: 41061,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 26, hour: 0, minute: 10 },
     content: "Green T: ‘Dawn shift change. Less watching. More breathing.’ We move when light hits the spoon-carving on Lickspoon’s wall. Not a word.",
@@ -1237,7 +1237,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_haunted_start',
     order: 41010,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 0 },
     content: "Green T insists my friends are dead. It's been two days. Situation got heated – had to run. They're fine. Probably. Locked in a vampire mansion now.",
@@ -1250,7 +1250,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_vampire_cook',
     order: 41011,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 15 },
     content: "Vampire cooking meat. Asked if it was dinner. Ran into operating room – human on table. Green T split us up. I barricaded in a coffin room. Banging. So much banging.",
@@ -1263,7 +1263,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_dracacide_disguise',
     order: 41012,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 30 },
     content: "Disguised as Dracacide! Vampire asked about Green T. Said no. He was filing paperwork for two kills. Green T escaped under the bed. I followed. So many forms.",
@@ -1276,7 +1276,7 @@ export const WAHBOOK_POSTS = [
   {
     id: 'archie_airship_crash',
     order: 41013,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 45 },
     content: "Airship crashed. Swarmed by Legion troops. 'ATTENTION CITIZENS. ANOMALY CONTAINED.' Where are the toads? Dan might be here. Disguised as a guard to ask.",
@@ -1399,14 +1399,14 @@ export const WAHBOOK_POSTS = [
     content: "Hid in a cell. Archie disguised as vampire. Gave me a dagger. Too quiet. Hear Legion outside. Airship is scrap metal. Hope Archie has a plan.",
     likes: 320,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'Plan B: Run faster than the Legion.' },
+      { characterKey: 'archie', text: 'Plan B: Run faster than the Legion.' },
       { characterKey: 'toad_lee', text: 'Daggers are good. Fire is better.' }
     ]
   },
   {
     id: 'archie_legion_encounter',
     order: 41023,
-    characterKey: 'archie_shadeward',
+    characterKey: 'archie',
     rumorId: 'haunted_mansion_mystery',
     date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 0 },
     content: "Disguised as Legion guard. Asked about Dan. Got ignored. Green T is hidden. We need to reach the airship crash site. Avoid the operating room.",
@@ -1425,7 +1425,7 @@ export const WAHBOOK_POSTS = [
     content: "Statue paper summoned Usk. He said 'your friends there probably dead'. I said they're fine. He vanished. Creepy.",
     likes: 560,
     comments: [
-      { characterKey: 'archie_shadeward', text: 'We\'re alive! Mostly. Vampires are clingy.' },
+      { characterKey: 'archie', text: 'We\'re alive! Mostly. Vampires are clingy.' },
       { characterKey: 'toad_lee', text: 'Usk owes me 5 gold. Tell him next time.' }
     ]
   },
