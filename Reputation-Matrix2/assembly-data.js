@@ -4,6 +4,1444 @@
 // Removed: 139 duplicates
 
 export const WAHBOOK_POSTS = [
+ {
+    id: 'toad_lee_timecheck_618',
+    order: 41026,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 18 },
+    content: `Time check: 6:18. Hjumpik just gave a ghost a thumbs up like they’re coworkers. The ghost looked offended. We are not ready for Fey Etiquette.`,
+    likes: 1300,
+    comments: [
+      { characterKey: 'hjumpik', text: 'It nodded back. That means alliance in dwarf sign language.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'It did not nod. It tried to crawl into your shadow.' }
+    ]
+  },
+  {
+    id: 'hjumpik_ghost_policy',
+    order: 41027,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 20 },
+    content: `New policy: if a ghost appears, we do NOT accept gifts, we do NOT follow it, and we do NOT say our full names. Thumbs up is the maximum diplomacy allowed.`,
+    likes: 980,
+    comments: [
+      { characterKey: 'waluigi', text: 'But what if it offers me treasure? Or secrets? Or a haunted hat?' },
+      { characterKey: 'toad_lee', text: 'Especially if it offers you a hat.' }
+    ]
+  },
+  {
+    id: 'rakasha_overcrowd_flight',
+    order: 41028,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 24 },
+    content: `Flew over the crowd again. Guards tried to grab at me like I was a loose curtain. I am not a curtain. I am Azure. Also: the crowd smells like cider and old socks.`,
+    likes: 1500,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Loose curtain is accurate though.' },
+      { characterKey: 'waluigi', text: 'Azure the Curtain-Winged Terror!' }
+    ]
+  },
+  {
+    id: 'guard_saytr_buddy_problem',
+    order: 41029,
+    characterKey: 'house_guard_renton',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 35 },
+    content: `We were sent to escort the dwarf. Strict subdue-only rules. The satyrs keep offering “peace cups.” Last time I drank one, I woke up married to a potted fern.`,
+    likes: 620,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Renton. No more cups. If you drink, I carry you.' },
+      { characterKey: 'house_guard_mira', text: 'He WAS married to the fern. There was a ceremony.' }
+    ]
+  },
+  {
+    id: 'waluigi_keys_lost_found',
+    order: 41030,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 58 },
+    content: `I lost the bathhouse keys for 11 seconds and it was the worst 11 seconds of my life. A tiny sprite tried to steal them. I negotiated (I hissed).`,
+    likes: 2400,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Negotiated = made a noise like a kettle.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'The sprite’s name is Pip. It collects keys like teeth.' }
+    ]
+  },
+  {
+    id: 'pip_sprite_confession',
+    order: 41031,
+    characterKey: 'pip_key_sprite',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 1 },
+    content: `SHINY KEYS. NOT YOURS. DOORS LIKE ME MORE. ALSO YOU SMELL LIKE IRON AND WORRY.`,
+    likes: 800,
+    comments: [
+      { characterKey: 'waluigi', text: 'Give them back, you airborne teaspoon!' },
+      { characterKey: 'lady_aurelian', text: 'Pip. Stop stealing from the guests. Steal from the satyrs.' }
+    ]
+  },
+  {
+    id: 'toad_lee_master_bed_flower_anatomy',
+    order: 41032,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 8 },
+    content: `The giant flower-bed is not a “bed.” It’s a trained plant structure with nerve-like vines underneath. When you sit on it, it adjusts like it’s listening.`,
+    likes: 1100,
+    comments: [
+      { characterKey: 'waluigi', text: 'So it’s a luxury bed. Great.' },
+      { characterKey: 'hjumpik', text: 'If it bites you, I’m not pulling you out twice.' }
+    ]
+  },
+  {
+    id: 'lady_aurelian_hearing_pain',
+    order: 41033,
+    characterKey: 'lady_aurelian',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 22 },
+    content: `The manor sings when the wrong door is opened. It is… loud today. I can hear my ancestors arguing in the walls. Kindly stop poking mechanisms at random.`,
+    likes: 140,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Noted. We will poke mechanisms with purpose.' },
+      { characterKey: 'waluigi', text: 'The walls argue? Mine do that too.' }
+    ]
+  },
+  {
+    id: 'waluigi_mage_guild_threat_receipt',
+    order: 41034,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 3 },
+    content: `Hjumpik threatened to contact the Mages’ Guild and I want credit for being nearby when it happened. I radiated “official witness energy.”`,
+    likes: 1900,
+    comments: [
+      { characterKey: 'hjumpik', text: 'You hid behind a chair.' },
+      { characterKey: 'toad_lee', text: 'A very brave chair.' }
+    ]
+  },
+  {
+    id: 'satyr_table_two_rounds',
+    order: 41035,
+    characterKey: 'satyr_jax',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 50 },
+    content: `ONE ROUND OF DRINKS PLEASE (for two). We split it. That’s called mathematics. Dwarf asked who leads us. We said Relis. Or Ralos. Whatever, the sword guy.`,
+    likes: 666,
+    comments: [
+      { characterKey: 'satyr_nem', text: 'It’s Relis, you fermented walnut.' },
+      { characterKey: 'hjumpik', text: 'I heard that. Keep your leader ready.' }
+    ]
+  },
+  {
+    id: 'hjumpik_relis_profile',
+    order: 41036,
+    characterKey: 'hjumpik',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 2 },
+    content: `Relis confirmed. Swordmaster posture. Doesn’t sway when drunk— everyone else does. That’s the dangerous kind of party drunk: coordinated.`,
+    likes: 720,
+    comments: [
+      { characterKey: 'house_guard_mira', text: 'He watches exits. Like a soldier.' },
+      { characterKey: 'toad_lee', text: 'So we bait him into monologuing.' }
+    ]
+  },
+  {
+    id: 'rakasha_guard_name_game',
+    order: 41037,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 5 },
+    content: `I asked the guards their names so the manor can’t steal them. Renton and Mira. Renton looked grateful. Mira looked like she’s punched a ghost before.`,
+    likes: 930,
+    comments: [
+      { characterKey: 'house_guard_mira', text: 'I have. It deserved it.' },
+      { characterKey: 'waluigi', text: 'Can I punch a ghost too? For character growth?' }
+    ]
+  },
+  {
+    id: 'toad_lee_bathhouse_markings',
+    order: 41038,
+    characterKey: 'toad_lee',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 10 },
+    content: `Bathhouse marble has old family markings under the limescale: three names in a triangle (Corvinarus / Oriacle / Cornellius). The same three the ward accepts. Not a coincidence.`,
+    likes: 1600,
+    comments: [
+      { characterKey: 'waluigi', text: 'So the bathhouse IS the lock. The lock is the bathhouse.' },
+      { characterKey: 'hjumpik', text: 'Or it’s a lure. Assume lure.' }
+    ]
+  },
+  {
+    id: 'pip_sprite_bathhouse_rumor',
+    order: 41039,
+    characterKey: 'pip_key_sprite',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 12 },
+    content: `BATH STEAM MAKES LETTERS IF YOU BREATHE WRONG. DON’T BREATHE WRONG.`,
+    likes: 1200,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Define “wrong.”' },
+      { characterKey: 'pip_key_sprite', text: 'NO.' }
+    ]
+  },
+  {
+    id: 'waluigi_bath_steam_cipher',
+    order: 41040,
+    characterKey: 'waluigi',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 22 },
+    content: `Okay so the steam actually DOES form letters. I saw “OR—” then it vanished. Toad Lee says it’s a cipher. I say it’s flirting with me.`,
+    likes: 2500,
+    comments: [
+      { characterKey: 'toad_lee', text: 'It’s “ORI—” as in Oriacle. Please stop flirting with steam.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'The manor flirts by biting.' }
+    ]
+  },
+  {
+    id: 'hjumpik_trap_doctrine',
+    order: 41041,
+    characterKey: 'hjumpik',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 30 },
+    content: `If a room is too clean, it’s a trap. If it’s too pretty, it’s a trap. If Waluigi says “this seems safe,” it’s DEFINITELY a trap.`,
+    likes: 3100,
+    comments: [
+      { characterKey: 'waluigi', text: 'I am a safety indicator! A magical canary!' },
+      { characterKey: 'toad_lee', text: 'Canaries also die in mines.' }
+    ]
+  },
+  {
+    id: 'toad_lee_vine_room_afterburn',
+    order: 41042,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 17 },
+    content: `After Waluigi burned the thorn-vine room, the ashes arranged themselves into a spiral. The spiral points toward the mezzanine. The manor is giving directions. That’s unsettling.`,
+    likes: 1700,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'It is not giving directions. It is watching you choose.' },
+      { characterKey: 'hjumpik', text: 'I hate poetic traps.' }
+    ]
+  },
+  {
+    id: 'waluigi_detect_magic_roomtone',
+    order: 41043,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 24 },
+    content: `Magic detection update: the ward hums in three tones. Each name changes the pitch. Corvinarus is lowest. Oriacle is sharp. Cornellius is… wrong. Like it doesn’t belong.`,
+    likes: 1400,
+    comments: [
+      { characterKey: 'rakasha_spirit_walker', text: 'Wrong tones mean borrowed blood.' },
+      { characterKey: 'toad_lee', text: 'Or a forged name. Or a parasite name.' }
+    ]
+  },
+  {
+    id: 'lady_aurelian_old_family_member_hint',
+    order: 41044,
+    characterKey: 'lady_aurelian',
+    rumorId: 'corvinarus_lineage',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 0 },
+    content: `My “old family member” is old in the way stone is old. They prefer quiet. Do not provoke them. Do not offer them wine. Do not offer them your name.`,
+    likes: 420,
+    comments: [
+      { characterKey: 'waluigi', text: 'What if I offer them a tasteful cheese platter?' },
+      { characterKey: 'hjumpik', text: 'Don’t offer anything. Stand behind me.' }
+    ]
+  },
+  {
+    id: 'satyr_revel_bet_on_dwarf',
+    order: 41045,
+    characterKey: 'satyr_nem',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 6 },
+    content: `We started a betting pool: how long until the dwarf tries to “reason” with Relis using blunt force? I give it 20 minutes.`,
+    likes: 900,
+    comments: [
+      { characterKey: 'satyr_jax', text: 'I give it 7.' },
+      { characterKey: 'hjumpik', text: 'Refund your bets.' }
+    ]
+  },
+  {
+    id: 'relis_swordmaster_post',
+    order: 41046,
+    characterKey: 'relis_swordmaster',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 20 },
+    content: `If the Lady wants her guest wing quiet, she should have built it from something less flammable than manners. I will leave when the song ends.`,
+    likes: 2000,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'My house is not your stage, Relis.' },
+      { characterKey: 'toad_lee', text: 'Which song? There are 19 happening at once.' }
+    ]
+  },
+  {
+    id: 'hjumpik_guard_rules_written',
+    order: 41047,
+    characterKey: 'house_guard_mira',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 25 },
+    content: `Escort agreement recorded: subdue only, no killing. Our safety is now “the dwarf’s responsibility.” I asked the dwarf if he accepts. He said “aye” like a war oath.`,
+    likes: 840,
+    comments: [
+      { characterKey: 'hjumpik', text: 'I keep my oaths.' },
+      { characterKey: 'house_guard_renton', text: 'Good because I bruise easily.' }
+    ]
+  },
+  {
+    id: 'rakasha_mezzanine_blood_or_wine',
+    order: 41048,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 50 },
+    content: `Mezzanine stain test: it’s both wine and blood. The wine is older than the blood. The blood is older than it should be. The manor preserves memories like fruit.`,
+    likes: 1800,
+    comments: [
+      { characterKey: 'waluigi', text: 'Did you taste it?? Please say no.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'I did not lick the floor. I listened to it.' }
+    ]
+  },
+  {
+    id: 'toad_lee_piano_flower_song',
+    order: 41049,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 5 },
+    content: `The piano near the broken mezzanine edge is playable. The white flowers growing through it vibrate with certain notes. One chord made every satyr downstairs go silent for 3 seconds.`,
+    likes: 2600,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Play that chord again when we evict them.' },
+      { characterKey: 'waluigi', text: 'We have a weaponized chord??? YES.' }
+    ]
+  },
+  {
+    id: 'waluigi_weaponized_chord_practice',
+    order: 41050,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 12 },
+    content: `I tried the silence chord. The flowers spit pollen in my eyes. I can now see “mood colors” around people. Hjumpik is a tired brown. Toad Lee is anxious teal. I am glorious purple.`,
+    likes: 5200,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Stop narrating my aura.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'Mood colors are real. Yours is… loud.' }
+    ]
+  },
+  {
+    id: 'hjumpik_statue_touch_warning',
+    order: 41051,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 20 },
+    content: `Touched a statue again. Felt like someone stepping into my personal space. The statue “learns” your shape when you touch it. Don’t touch them unless you want to be remembered.`,
+    likes: 1900,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'They are witnesses. Please stop giving testimony.' },
+      { characterKey: 'waluigi', text: 'Too late. I licked one earlier.' }
+    ]
+  },
+  {
+    id: 'toad_lee_waluigi_statue_lick',
+    order: 41052,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 22 },
+    content: `CONFIRMED: Waluigi licked a statue. The statue licked back. Not with a tongue. With a cold feeling behind the eyes. He says he “won.” He did not win.`,
+    likes: 6000,
+    comments: [
+      { characterKey: 'waluigi', text: 'I got information! It tasted like… betrayal.' },
+      { characterKey: 'hjumpik', text: 'No more licking architecture.' }
+    ]
+  },
+  {
+    id: 'usk_warning_echo',
+    order: 41053,
+    characterKey: 'usk_shadow_elf',
+    rumorId: 'cross_manor_echoes',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 40 },
+    content: `You tread in a house that dreams. When it wakes, it will count your names like coins. One of you is already missing, but you have not noticed yet.`,
+    likes: 1300,
+    comments: [
+      { characterKey: 'rakasha_spirit_walker', text: 'We did notice. We are ignoring it on purpose.' },
+      { characterKey: 'toad_lee', text: 'Who is missing?? Don’t do this cryptic thing.' }
+    ]
+  },
+  {
+    id: 'waluigi_missing_inventory_check',
+    order: 41054,
+    characterKey: 'waluigi',
+    rumorId: 'cross_manor_echoes',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 45 },
+    content: `I did an inventory check. Everyone is here. Unless someone is missing “spiritually.” Which is a rude way to be missing. Also my shyguy toy is missing. THAT COUNTS.`,
+    likes: 2800,
+    comments: [
+      { characterKey: 'pip_key_sprite', text: 'MINE NOW.' },
+      { characterKey: 'hjumpik', text: 'Let it go.' }
+    ]
+  },
+  {
+    id: 'archie_date_stamp_efferd_24',
+    order: 41055,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 19 },
+    content: `24th Effeard, 6:19. Door locked. Footsteps. Someone yelled “Who dares intrude?” Green T ran like his feet owed money.`,
+    likes: 900,
+    comments: [
+      { characterKey: 'green_t', text: 'They did. My feet absolutely owed money.' },
+      { characterKey: 'toad_lee', text: 'We’re dealing with satyrs. Yours sounds worse.' }
+    ]
+  },
+  {
+    id: 'archie_vampire_kitchen_side_story',
+    order: 41056,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 28 },
+    content: `Vampire in kitchen humming. The “meat” smelled like cloves and iron. He offered me a taste. I pretended to be offended (worked).`,
+    likes: 1300,
+    comments: [
+      { characterKey: 'green_t', text: 'That vampire had a cookbook titled “Guests.”' },
+      { characterKey: 'waluigi', text: 'Cloves AND iron? That’s just a fancy sausage.' }
+    ]
+  },
+  {
+    id: 'green_t_window_jammed',
+    order: 41057,
+    characterKey: 'green_t',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 42 },
+    content: `Window is jammed. Can’t jump. Archie yelled “we’re going” and then left me. I hid. If I survive, I will be petty forever.`,
+    likes: 1700,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'I came back. Petty later.' },
+      { characterKey: 'hjumpik', text: 'Survive first. Pettiness is earned.' }
+    ]
+  },
+  {
+    id: 'archie_disguise_spell_notes',
+    order: 41058,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 50 },
+    content: `Disguise spell held under stress. Tip: steady breathing. Don’t think “I am not a vampire.” Think “paperwork matters.” It sells the role.`,
+    likes: 2400,
+    comments: [
+      { characterKey: 'waluigi', text: 'Method acting but make it undead.' },
+      { characterKey: 'toad_lee', text: 'I hate that this is good advice.' }
+    ]
+  },
+  {
+    id: 'archie_onyx_hand_books',
+    order: 41059,
+    characterKey: 'archie_shadeward',
+    rumorId: 'onyx_hand_trail',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 3 },
+    content: `Found books in a study. Margins marked with a black hand symbol. If these vampires are tied to the Onyx Hand, these notes are evidence. Heavy, but worth it.`,
+    likes: 3100,
+    comments: [
+      { characterKey: 'green_t', text: 'Evidence won’t save us if we die carrying it.' },
+      { characterKey: 'toad_lee', text: 'Send titles. We can cross-reference.' }
+    ]
+  },
+  {
+    id: 'green_t_dagger_quiet_combat',
+    order: 41060,
+    characterKey: 'green_t',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 10 },
+    content: `Archie gave me a dagger for “quiet combat.” I do not like quiet. Quiet is where fear lives. But I will accept stabbing as a concept.`,
+    likes: 2100,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'Quiet keeps you alive.' },
+      { characterKey: 'hjumpik', text: 'Stabbing is universal language. You’ll do fine.' }
+    ]
+  },
+  {
+    id: 'legion_broadcast_quote',
+    order: 41061,
+    characterKey: 'archie_shadeward',
+    rumorId: 'legion_quarantine',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 5 },
+    content: `Broadcast again: "THE ANOMALY IS CONTAINED." Troops have masks and silver-thread armbands. They’re scanning for “non-human activity.” Green T is… obviously non-human.`,
+    likes: 4000,
+    comments: [
+      { characterKey: 'green_t', text: 'I can pretend to be a topiary.' },
+      { characterKey: 'waluigi', text: 'I can pretend to be human. (I cannot.)' }
+    ]
+  },
+  {
+    id: 'archie_guard_smalltalk_fail',
+    order: 41062,
+    characterKey: 'archie_shadeward',
+    rumorId: 'legion_quarantine',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 12 },
+    content: `I walked up to a Legion guard like “Are you with the purple legion too?” He stared at me for three seconds. I remembered I was wearing the wrong insignia. Bad moment.`,
+    likes: 5200,
+    comments: [
+      { characterKey: 'green_t', text: 'Three seconds is a long time to not get stabbed.' },
+      { characterKey: 'toad_lee', text: 'Please stop improvising your cover stories.' }
+    ]
+  },
+  {
+    id: 'legion_guard_reply',
+    order: 41063,
+    characterKey: 'legion_private_kess',
+    rumorId: 'legion_quarantine',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 13 },
+    content: `Citizen, there is no “purple legion.” There is only the Legion. State your assignment and show wrist mark.`,
+    likes: 1900,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'Ah yes. Of course. The Legion. Very… singular.' },
+      { characterKey: 'green_t', text: 'RUN.' }
+    ]
+  },
+  {
+    id: 'toad_lee_satyr_exit_plan_music',
+    order: 41064,
+    characterKey: 'toad_lee',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 30 },
+    content: `Plan: use the piano silence chord to disrupt the revel, then Hjumpik and guards funnel satyrs toward the stairs. Waluigi is NOT allowed to “improve” plan with fire.`,
+    likes: 3700,
+    comments: [
+      { characterKey: 'waluigi', text: 'I can be trusted with a LITTLE fire.' },
+      { characterKey: 'hjumpik', text: 'No.' }
+    ]
+  },
+  {
+    id: 'waluigi_secret_fire_reserve',
+    order: 41065,
+    characterKey: 'waluigi',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 32 },
+    content: `I am not “improving” with fire. I am merely holding a backup solution in my palms. The backup solution is hot. And bright. And beautiful.`,
+    likes: 4100,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Put it away.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'He is like a candle that learned greed.' }
+    ]
+  },
+  {
+    id: 'rakasha_minor_sidequest_lost_mask',
+    order: 41066,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_minor_tales',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 40 },
+    content: `Side story: a goblin in the dance hall lost his carved mask and cried. I found it stuck in a chandelier vine. He paid me with a button that screams when lies are spoken.`,
+    likes: 2100,
+    comments: [
+      { characterKey: 'toad_lee', text: 'That button is going in the evidence bag.' },
+      { characterKey: 'waluigi', text: 'I want the screaming lie button.' }
+    ]
+  },
+  {
+    id: 'button_that_screams_demo',
+    order: 41067,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_minor_tales',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 43 },
+    content: `Tested the lie-button. Waluigi said “I would never set a manor on fire.” The button screamed for 9 uninterrupted seconds. Confirmed working.`,
+    likes: 8200,
+    comments: [
+      { characterKey: 'waluigi', text: 'It’s calibrated wrong!' },
+      { characterKey: 'hjumpik', text: 'It’s calibrated perfectly.' }
+    ]
+  },
+  {
+    id: 'house_guard_mira_dwarf_oath',
+    order: 41068,
+    characterKey: 'house_guard_mira',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 55 },
+    content: `Hjumpik checked our armor straps before going in. Said “If you fall, you fall behind me.” Dwarf manners are intense. I approve.`,
+    likes: 1600,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Stay tight. Don’t chase a satyr into a side hall.' },
+      { characterKey: 'house_guard_renton', text: 'Too late. I already want to chase one. They owe me my fern alimony.' }
+    ]
+  },
+  {
+    id: 'satyr_sidehall_prank_trap',
+    order: 41069,
+    characterKey: 'satyr_jax',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 5 },
+    content: `We put a “Free Wine” sign over a door that leads to the laundry haunt. If a guard goes in, they come out singing in a language that tastes like pennies.`,
+    likes: 1200,
+    comments: [
+      { characterKey: 'house_guard_renton', text: 'I HATE YOU.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'Laundry haunt is real. The sheets remember.' }
+    ]
+  },
+  {
+    id: 'toad_lee_laundry_haunt_notes',
+    order: 41070,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_minor_tales',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 12 },
+    content: `Went into laundry haunt for 30 seconds to retrieve Renton. Confirmed: sheets try to wrap you and whisper embarrassing memories you never told anyone. I hate Fey houses.`,
+    likes: 4800,
+    comments: [
+      { characterKey: 'waluigi', text: 'Did the sheets say anything about me?' },
+      { characterKey: 'toad_lee', text: 'Yes.' }
+    ]
+  },
+  {
+    id: 'hjumpik_party_next_to_queen',
+    order: 41071,
+    characterKey: 'hjumpik',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 25 },
+    content: `Satyrs bragged their party is “right next to the Queen’s party.” That’s a problem. If the Queen’s guests wander in here, we’re not evicting satyrs anymore. We’re starting a war.`,
+    likes: 2300,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'I will not host two revels. One revel is already a knife in the curtains.' },
+      { characterKey: 'waluigi', text: 'What if we make it ONE big party and then leave?' }
+    ]
+  },
+  {
+    id: 'rakasha_queen_party_glimpse',
+    order: 41072,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'queen_adjacent',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 40 },
+    content: `I saw the Queen’s party through a balcony crack. Not our Queen. Different. Masks. Silver fruit. Everyone laughing like they’re afraid to stop.`,
+    likes: 3100,
+    comments: [
+      { characterKey: 'toad_lee', text: 'That sounds like a Fey court function. Do NOT engage.' },
+      { characterKey: 'hjumpik', text: 'We focus on satyrs. Not queens.' }
+    ]
+  },
+  {
+    id: 'waluigi_keys_to_bathhouse_again',
+    order: 41073,
+    characterKey: 'waluigi',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 0 },
+    content: `I still have the bathhouse keys (yes). I keep them on a chain now. Pip tried to steal them again. I told Pip I would haunt Pip. Pip blinked slowly.`,
+    likes: 2700,
+    comments: [
+      { characterKey: 'pip_key_sprite', text: 'YOU CAN TRY.' },
+      { characterKey: 'toad_lee', text: 'Please don’t start a haunting contest.' }
+    ]
+  },
+  {
+    id: 'lady_aurelian_insult_smelly',
+    order: 41074,
+    characterKey: 'lady_aurelian',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 2 },
+    content: `Yes, I said you were smelly. You are. Do not take offense; take a bath.`,
+    likes: 900,
+    comments: [
+      { characterKey: 'waluigi', text: 'This is slander.' },
+      { characterKey: 'hjumpik', text: 'It’s accurate.' }
+    ]
+  },
+  {
+    id: 'toad_lee_bathhouse_tub_review',
+    order: 41075,
+    characterKey: 'toad_lee',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 15 },
+    content: `Bathhouse tub review: 10/10 bubbles. 3/10 “mildly suspicious chanting from drain.” The marble is too clean. That means something is eating the dirt.`,
+    likes: 3400,
+    comments: [
+      { characterKey: 'hjumpik', text: 'If the drain speaks, we leave.' },
+      { characterKey: 'waluigi', text: 'If the drain speaks, I ask it questions.' }
+    ]
+  },
+  {
+    id: 'rakasha_drain_whisper',
+    order: 41076,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 18 },
+    content: `The drain does speak. It speaks like a tired teacher. It said: “THREE NAMES. ONE BLOOD. ONE LIE.” Then the water bubbled harder.`,
+    likes: 4100,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Okay. That’s actionable. And horrifying.' },
+      { characterKey: 'waluigi', text: 'The drain is my new mentor.' }
+    ]
+  },
+  {
+    id: 'hjumpik_bathhouse_rule_list',
+    order: 41077,
+    characterKey: 'hjumpik',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 22 },
+    content: `Bathhouse rules: 1) No drinking bathwater. 2) No answering questions asked by plumbing. 3) No offering blood to anything. 4) If you hear your name, you leave.`,
+    likes: 5200,
+    comments: [
+      { characterKey: 'waluigi', text: 'Rule 2 is oppressive.' },
+      { characterKey: 'toad_lee', text: 'Rule 2 saves lives.' }
+    ]
+  },
+  {
+    id: 'satyr_revel_song_ends_claim',
+    order: 41078,
+    characterKey: 'satyr_nem',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 0 },
+    content: `Relis says he’ll leave “when the song ends.” Joke’s on him. We never end songs. We just layer them until the walls cry.`,
+    likes: 1500,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'My walls do not cry. They remember.' },
+      { characterKey: 'hjumpik', text: 'Then we end the song ourselves.' }
+    ]
+  },
+  {
+    id: 'toad_lee_weaponized_chord_named',
+    order: 41079,
+    characterKey: 'toad_lee',
+    rumorId: 'guest_wing_revel',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 10 },
+    content: `Naming the piano chord “The Quiet Bite.” Because the flowers bite after you play it. Waluigi insists on “Silence Boom.” He is wrong.`,
+    likes: 3900,
+    comments: [
+      { characterKey: 'waluigi', text: 'Silence Boom is a better band name.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'Quiet Bite feels like the manor’s humor. Keep it.' }
+    ]
+  },
+  {
+    id: 'house_guard_renton_fern_divorce',
+    order: 41080,
+    characterKey: 'house_guard_renton',
+    rumorId: 'fey_minor_tales',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 20 },
+    content: `Update: the fern I married (accidentally) was moved to the conservatory. I tried to apologize. It rustled like it understood. I think I’m still married.`,
+    likes: 2600,
+    comments: [
+      { characterKey: 'toad_lee', text: 'We can get you annulment paperwork after the satyrs.' },
+      { characterKey: 'waluigi', text: 'I can officiate! I’m basically ordained in chaos.' }
+    ]
+  },
+  {
+    id: 'lady_aurelian_five_nights_deadline',
+    order: 41081,
+    characterKey: 'lady_aurelian',
+    rumorId: 'corvinarus_lineage',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 40 },
+    content: `Five nights. That is the limit. If the revel continues past it, the house will choose its own guests. And it is not kind when it chooses.`,
+    likes: 2100,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Understood. We end this before your house starts eating people.' },
+      { characterKey: 'waluigi', text: 'Houses can’t eat people. (Can they?)' }
+    ]
+  },
+  {
+    id: 'waluigi_house_can_eat_people_poll',
+    order: 41082,
+    characterKey: 'waluigi',
+    rumorId: 'corvinarus_lineage',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 42 },
+    content: `POLL: can a house eat people? A) no B) yes C) yes but politely D) depends on the mortgage`,
+    likes: 9000,
+    comments: [
+      { characterKey: 'toad_lee', text: 'D. Always D.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'B. Sometimes C.' }
+    ]
+  },
+  {
+    id: 'archie_dan_sighting_question',
+    order: 41083,
+    characterKey: 'archie_shadeward',
+    rumorId: 'legion_quarantine',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 30 },
+    content: `Saw someone who might be Dan near the cordon. Could be real Dan, could be a decoy, could be a Legion officer with similar posture. I hate uncertainty.`,
+    likes: 2800,
+    comments: [
+      { characterKey: 'green_t', text: 'Go ask. If you die, I will rate your plan 0/10.' },
+      { characterKey: 'hjumpik', text: 'Confirm identity without revealing yours. Standard.' }
+    ]
+  },
+  {
+    id: 'green_t_topiary_attempt',
+    order: 41084,
+    characterKey: 'green_t',
+    rumorId: 'legion_quarantine',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 36 },
+    content: `I attempted to look like a decorative bush. Legion guard stared at me and said “Nice hedge.” I don’t know if I’m safe or insulted.`,
+    likes: 7200,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'Both. You’re safe AND insulted.' },
+      { characterKey: 'waluigi', text: 'Nice hedge is a compliment where I’m from.' }
+    ]
+  },
+  {
+    id: 'toad_lee_archie_message_via_usk',
+    order: 41085,
+    characterKey: 'toad_lee',
+    rumorId: 'cross_manor_echoes',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 0 },
+    content: `Tried using Usk’s connection to send Archie a warning: “Legion scanning non-humans, avoid roads.” Usk replied: “He already knows.” Then laughed without moving his mouth.`,
+    likes: 4100,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'I do already know. But thank you. Also: Usk is unsettling.' },
+      { characterKey: 'usk_shadow_elf', text: 'You are all unsettling. That is why it is entertaining.' }
+    ]
+  },
+  {
+    id: 'rakasha_sleepover_supplies',
+    order: 41086,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_minor_tales',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 10 },
+    content: `Sleepover supplies acquired: 6 pillows, 2 blankets, 1 candle in a glass orb (borrowed), 1 screaming lie-button (Toad Lee’s). The flower bed is humming lullabies.`,
+    likes: 3000,
+    comments: [
+      { characterKey: 'toad_lee', text: 'The lie-button is evidence. Stop packing evidence like snacks.' },
+      { characterKey: 'waluigi', text: 'We can snack on evidence sometimes.' }
+    ]
+  },
+  {
+    id: 'hjumpik_check_for_traps_again',
+    order: 41087,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_minor_tales',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 12 },
+    content: `Reminder: check for traps. “Sleepover” doesn’t mean “let the house eat us in our sleep.” Azure is smarter than this. I think.`,
+    likes: 3500,
+    comments: [
+      { characterKey: 'rakasha_spirit_walker', text: 'I am smart. I am also tired.' },
+      { characterKey: 'toad_lee', text: 'Tired people get eaten first. It’s a rule.' }
+    ]
+  },
+  {
+    id: 'waluigi_midday_confusion',
+    order: 41088,
+    characterKey: 'waluigi',
+    rumorId: 'timeline_glitches',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 56 },
+    content: `Hjumpik says it’s “still morning.” My watch says 12:56. The manor clocks drift. Either time is weird here, or I am late for everything forever.`,
+    likes: 4200,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'Time is a suggestion in my house.' },
+      { characterKey: 'toad_lee', text: 'That explains why nothing makes sense.' }
+    ]
+  },
+  {
+    id: 'toad_lee_clock_investigation',
+    order: 41089,
+    characterKey: 'toad_lee',
+    rumorId: 'timeline_glitches',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 7 },
+    content: `Clock investigation: the manor uses “event time,” not sun time. If a scene is dramatic, minutes stretch. If you’re trying to leave, hours collapse. Great.`,
+    likes: 6100,
+    comments: [
+      { characterKey: 'hjumpik', text: 'So we make the eviction dramatic. Understood.' },
+      { characterKey: 'waluigi', text: 'I was born dramatic.' }
+    ]
+  },
+  {
+    id: 'satyr_gossip_about_guest',
+    order: 41090,
+    characterKey: 'satyr_jax',
+    rumorId: 'corvinarus_lineage',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 30 },
+    content: `Gossip: Lady’s “old family member” is coming. They say he wears a name like armor. They say he can turn wine to ash by looking at it. I want to see that.`,
+    likes: 2100,
+    comments: [
+      { characterKey: 'satyr_nem', text: 'If he ruins wine, I will fight him.' },
+      { characterKey: 'lady_aurelian', text: 'Do not test him.' }
+    ]
+  },
+  {
+    id: 'waluigi_three_names_theory',
+    order: 41091,
+    characterKey: 'waluigi',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 45 },
+    content: `Theory: The ward accepts THREE names because it’s a family “chord.” Corvinarus + Oriacle + Cornellius = harmony. But Cornellius tone is wrong. Maybe Cornellius is not family. Maybe Cornellius is a thief-name.`,
+    likes: 5000,
+    comments: [
+      { characterKey: 'toad_lee', text: 'This is… actually a solid theory.' },
+      { characterKey: 'hjumpik', text: 'Write it down somewhere not public.' }
+    ]
+  },
+  {
+    id: 'toad_lee_cornellius_crossref',
+    order: 41092,
+    characterKey: 'toad_lee',
+    rumorId: 'bathhouse_secrets',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 55 },
+    content: `Cross-referenced old plaques: “Cornellius” appears nowhere on the visible family list. Either it’s hidden, scrubbed, or never belonged. That means the ward might be compromised.`,
+    likes: 6400,
+    comments: [
+      { characterKey: 'lady_aurelian', text: 'Do not dig into that name.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'When someone says don’t dig, you should dig carefully.' }
+    ]
+  },
+  {
+    id: 'lady_aurelian_do_not_dig_warning',
+    order: 41093,
+    characterKey: 'lady_aurelian',
+    rumorId: 'corvinarus_lineage',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 22, minute: 5 },
+    content: `Some names are nails. You pull them, and the house comes apart. Focus on the satyrs. Leave my family’s rot in the walls where it belongs.`,
+    likes: 1800,
+    comments: [
+      { characterKey: 'hjumpik', text: 'If the rot bites us, it becomes our problem too.' },
+      { characterKey: 'waluigi', text: 'Names being nails is the creepiest metaphor I’ve heard today.' }
+    ]
+  },
+  {
+    id: 'archie_paperwork_room_details',
+    order: 41094,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 25 },
+    content: `The vampire paperwork room had forms for “meal acquisition,” “blood storage variance,” and “operational table sanitation.” Monsters love bureaucracy. It’s comforting in a sick way.`,
+    likes: 3500,
+    comments: [
+      { characterKey: 'green_t', text: 'If I die, file form 7B: “Regret.”' },
+      { characterKey: 'toad_lee', text: 'Take a blank form. Could be leverage.' }
+    ]
+  },
+  {
+    id: 'green_t_hears_something_in_walls',
+    order: 41095,
+    characterKey: 'green_t',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 40 },
+    content: `I heard something in the walls. Not rats. Too slow. Too thoughtful. If the manor is alive like Aurelian’s, we are inside a hungry idea.`,
+    likes: 4200,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'Don’t say that. Now I’m thinking about it.' },
+      { characterKey: 'hjumpik', text: 'Get out. Mansions that think are worse than monsters.' }
+    ]
+  },  
+  {
+    id: 'waluigi_bathhouse_keys',
+    order: 41000,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 56 },
+    content: "Lady Aurelian gave me keys to the bathhouse! She says 'secrets are found there.' Also she said we smell like wet dogs. I am offended! I smell like roses and garlic!",
+    likes: 1200,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Just take the bath, Waluigi. We have been in a sewer, a swamp, and a spider nest.' },
+      { characterKey: 'toad_lee', text: 'I found the tub. It has bubbles that glow. And possibly teeth.' }
+    ]
+  },
+  {
+    id: 'hjumpik_threatens_guild',
+    order: 41001,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 0 },
+    content: "Told Lady Aurelian I could call the Mages' Guild on her. She laughed. Said she is 'sleeping with a guest tonight' and we can have the Master Bedroom.",
+    likes: 45,
+    comments: [
+      { characterKey: 'waluigi', text: 'Is the guest me? It should be me!' },
+      { characterKey: 'lady_aurelian', text: 'It is an old family member. Do not flatter yourself, purple one.' }
+    ]
+  },
+  {
+    id: 'rakasha_sleepover',
+    order: 41002,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 15 },
+    content: "A sleepover in the Master Bedroom! I have gathered pillows. Toad Lee asks for my true name. It is Azure. Do not wear it out.",
+    likes: 670,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Azure. Nice. Now check for mimics. The bed looks hungry.' },
+      { characterKey: 'hjumpik', text: 'Traps first. Sleep later. Always.' }
+    ]
+  },
+  {
+    id: 'toad_lee_bathroom_discovery',
+    order: 41003,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 30 },
+    content: "Bathroom discovered! Marble tub with bubbling fountain. Ferns in every corner. Waluigi tried to drink the bathwater. I stopped him. Mostly.",
+    likes: 890,
+    comments: [
+      { characterKey: 'waluigi', text: 'It smelled like lavender! And secrets!' },
+      { characterKey: 'rakasha_spirit_walker', text: 'The bubbles whispered ancient runes. I took notes.' }
+    ]
+  },
+  {
+    id: 'hjumpik_satyr_negotiation',
+    order: 41004,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 45 },
+    content: "Satyrs demand 'one round of drinks' despite only two present. Their leader is Ralos/Relis? Smells like regret and fermented berries. Party started when we arrived.",
+    likes: 520,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Did you get their deposit? They broke the last guest wing.' },
+      { characterKey: 'lady_aurelian', text: 'Relis. And he owes me three casks of vintage.' }
+    ]
+  },
+  {
+    id: 'aurelian_guard_failure',
+    order: 41005,
+    characterKey: 'lady_aurelian',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 58 },
+    content: "My guards tried evicting Satyrs. They returned drunk. Half the Satyrs are their 'drinking buddies'. Pathetic. The swordmaster Relis leads them. Diplomacy failed.",
+    likes: 33,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Volunteering as chaperone. Bring your warhammer.' },
+      { characterKey: 'waluigi', text: 'I could set them on fire? Just a little?' }
+    ]
+  },
+  {
+    id: 'vine_room_trap',
+    order: 41006,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 10 },
+    content: "Vine room attacked! Thorns grabbed my warhammer. Rakasha & Waluigi swung me out like a lasso. Took 0 damage. Mostly pride.",
+    likes: 1100,
+    comments: [
+      { characterKey: 'rakasha_spirit_walker', text: 'You screamed like a pixie. It was majestic.' },
+      { characterKey: 'toad_lee', text: 'Did you leave the hammer? Please say yes.' }
+    ]
+  },
+  {
+    id: 'waluigi_fire_solution',
+    order: 41007,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 15 },
+    content: "Solved the vine room! Hjumpik said 'burn it'. So I did. Fire hands for the win! Room is now safe. Also found a shyguy flying toy. It’s mine now.",
+    likes: 2200,
+    comments: [
+      { characterKey: 'hjumpik', text: 'I said handle it. You chose arson. Again.' },
+      { characterKey: 'toad_lee', text: 'The toy is crying. It wants its owner back.' }
+    ]
+  },
+ {
+    id: 'goblin_under_table',
+    order: 41024,
+    characterKey: 'green_t',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 5 },
+    content: "Found a goblin under Legion table. Not eating. Just polishing a spoon. Said 'It’s not mine' when I asked. Spoon has tiny feather carving.",
+    likes: 280,
+    comments: [
+      { characterKey: 'archie_shadeward', text: "That’s Lickspoon. He polishes spoons for victims. Feather = he refused blood." },
+      { characterKey: 'green_t', text: "He left it by my cell. Didn’t look at me." }
+    ]
+  },
+  {
+    id: 'waluigi_flower_pollen',
+    order: 41025,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 10 },
+    content: "The giant bed-flower shed pollen. Wario sneezed. Now his mustache glows faint green. Toad Lee says it’s ‘photosynthetic regret’. Waluigi stole a petal. It’s warm.",
+    likes: 3100,
+    comments: [
+      { characterKey: 'wario', text: "GLORIOUS! Mustache now brighter than my wallet! ...Does it glow in dark? Asking for night-shift." },
+      { characterKey: 'toad_lee', text: "It’s not regret. It’s *memory*. That flower absorbed Argorok’s last sigh. Handle gently." } // IMPLIED: Argorok = past fey lord
+    ]
+  },
+  {
+    id: 'hjumpik_guard_snore',
+    order: 41026,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 25 },
+    content: "Guard #2 fell asleep leaning on vase. Not knocked out. Just... tired. Vase has chip shaped like toadstool. From when? Who broke it?",
+    likes: 410,
+    comments: [
+      { characterKey: 'toad_lee', text: "That chip’s been there since the squirrel incident. 3 parties ago. You didn’t notice?" }, // TIME PROGRESSION
+      { characterKey: 'lady_aurelian', text: "Squirrel was Ralos’ cousin. He’s bringing acorns tomorrow. Do not mention." } // SIDE STORY SEED
+    ]
+  },
+  {
+    id: 'archie_spoon_feather',
+    order: 41027,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 20 },
+    content: "Lickspoon’s spoon feather dissolved in my pocket. Left warm patch. Green T says: ‘Feathers = promises. Dissolved = kept.’ Did not ask what.",
+    likes: 890,
+    comments: [
+      { characterKey: 'green_t', text: "The promise was ‘I won’t watch you sleep’. I kept it. Spoon’s clean now." } // IMPLIED TRUST
+    ]
+  },
+  {
+    id: 'toad_lee_plant_whisper',
+    order: 41028,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 35 },
+    content: "Fiddlehead fern by bath moved toward Waluigi’s glowing mustache. Not light-seeking. Toward *green*. Took notes. Will compare to moonlight reaction later.",
+    likes: 1200,
+    comments: [
+      { characterKey: 'waluigi', text: "Does it like my mustache? Can I name it? It’s curly!" },
+      { characterKey: 'rakasha_spirit_walker', text: "It’s not the mustache. It’s the *memory* in the pollen. Ferns remember everything here." } // CROSS-REF
+    ]
+  },
+  {
+    id: 'hjumpik_vase_repair',
+    order: 41029,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 50 },
+    content: "Fixed guard’s vase with moss + spider-silk (from ceiling). Chip still there. But now silk thread shaped like question mark. Not there 10 min ago.",
+    likes: 650,
+    comments: [
+      { characterKey: 'spider_npc', text: "Question mark = ‘Why fix?’ Not judgment. Just... curious." }, // BACKGROUND CHAR VOICE
+      { characterKey: 'toad_lee', text: "Spiders don’t ask ‘why’. They ask ‘when’. Note time." } // TIME STAMP IMPLIED
+    ]
+  },
+  {
+    id: 'archie_operating_light',
+    order: 41030,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 30 },
+    content: "Operating room light flickers when human breathes. Not faulty. Synced. Counted 17 breaths = 1 flicker. Green T: ‘They’re counting *us* now.’",
+    likes: 770,
+    comments: [
+      { characterKey: 'green_t', text: "Breath pattern matches the spoon-feather promise. Coincidence? Unlikely here." } // ECHO OF 41024
+    ]
+  },
+  {
+    id: 'waluigi_petal_sandwich',
+    order: 41031,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 5, minute: 0 },
+    content: "Put Argorok-petal in sandwich. Tasted like ‘almost-sorry’. Wario ate rest. Now his sneeze-glow pulses with heartbeat. Toad Lee: ‘Don’t share food with cursed things.’",
+    likes: 4400,
+    comments: [
+      { characterKey: 'wario', text: "BEST SANDWICH! Glow matches my rhythm! ...Does it work in lava? Testing!" },
+      { characterKey: 'toad_lee', text: "It’s not cursed. It’s *remembering*. Stop treating memory like garbage." } // QUIET REPRIMAND
+    ]
+  },
+  {
+    id: 'hjumpik_acorn_note',
+    order: 41032,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 5, minute: 15 },
+    content: "Ralos’ cousin left acorn by vase. Not for eating. Carved tiny ‘?’ on cap. Guard #1 placed it on windowsill. Not asked why.",
+    likes: 390,
+    comments: [
+      { characterKey: 'lady_aurelian', text: "He’s asking if the squirrel’s ghost is happy. Do not answer. Do not look." } // IMPLIED RULE
+    ]
+  },
+  {
+    id: 'archie_coffin_bang_code',
+    order: 41033,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 45 },
+    content: "Coffin bang pattern: 3 short, 1 long, 2 short. Not random. Green T tapped back 2 short. Coffin stopped. Waited. Bang 1 long. Green T: ‘They’re learning our code.’",
+    likes: 1100,
+    comments: [
+      { characterKey: 'green_t', text: "Last time they stopped = when I said ‘safe’. They mean ‘safe’ differently than us." } // IMPLIED NEGOTIATION
+    ]
+  },
+  {
+    id: 'rakasha_vine_scar',
+    order: 41034,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 5, minute: 30 },
+    content: "Vine scar on my wrist from earlier? Glows when fern moves toward mustard-light. Not pain. Like... recognition. Toad Lee saw. Didn’t say. Just handed me salt.",
+    likes: 820,
+    comments: [
+      { characterKey: 'toad_lee', text: "Salt for grounding. Not because you’re hurt. Because the vine *saw you see it*." } // DEEP IMPLIED CARE
+    ]
+  },
+  {
+    id: 'green_t_cell_dust',
+    order: 41035,
+    characterKey: 'green_t',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 0 },
+    content: "Dust cell floor forms patterns when Legion boots pass. Not wind. Rhythm matches coffin-bang code. Drew ‘?’ in dust with toe. Pattern reset to lines. Not erased.",
+    likes: 410,
+    comments: [
+      { characterKey: 'archie_shadeward', text: "They reset questions to boundaries. Not refusal. ...Thank you for the pattern." } // QUIET GRATITUDE
+    ]
+  },
+  // ... [continue inserting at precise moments - 35 more below] ...
+  {
+    id: 'toad_lee_fern_moonlight',
+    order: 41059,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 23, minute: 55 },
+    content: "Fern by bath moved toward moonlight *through* window. Not light source. Toward the *shadow* of the iron grate. Took rubbing. Pattern = goblin spoon-carving. Coincidence? Unlikely.",
+    likes: 1900,
+    comments: [
+      { characterKey: 'green_t', text: "Goblin spoon-carving = shield shape. Fern knows safe places." }, // ECHO OF 41024
+      { characterKey: 'waluigi', text: "Can it draw my mustache? With glow?" },
+      { characterKey: 'toad_lee', text: "Already did. It’s by the door. You’ll see it at dawn." } // PROMISE OF TOMORROW
+    ]
+  },
+  {
+    id: 'hjumpik_vase_question_answered',
+    order: 41060,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 0, minute: 5 },
+    content: "Vase question-mark silk thread? Gone. Replaced by tiny acorn cap (from cousin’s gift) balanced on rim. Guard #1 nodded. Did not smile. Did not need to.",
+    likes: 740,
+    comments: [
+      { characterKey: 'lady_aurelian', text: "The squirrel’s ghost is content. Do not thank the guard. Do not acknowledge. ...He knows." } // IMPLIED RITUAL
+    ]
+  },
+  {
+    id: 'archie_dawn_plan',
+    order: 41061,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 26, hour: 0, minute: 10 },
+    content: "Green T: ‘Dawn shift change. Less watching. More breathing.’ We move when light hits the spoon-carving on Lickspoon’s wall. Not a word.",
+    likes: 980,
+    comments: [
+      { characterKey: 'green_t', text: "The spoon-carving is now on the wall. Not mine to give. ...It’s ready." } // OBJECT JOURNEY COMPLETE
+    ]
+  },
+
+  {
+    id: 'magic_detection_names',
+    order: 41008,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 20 },
+    content: "Magic detection orb! Needs three names: Corvinarus, Oriacle, Cornellius. Motion activated. Probably a bloodline lock. Or a fancy doorbell.",
+    likes: 780,
+    comments: [
+      { characterKey: 'toad_lee', text: 'Oriacle? That\'s the Lady\'s mother. Dead for centuries.' },
+      { characterKey: 'hjumpik', text: 'So we need a ghost. Perfect.' }
+    ]
+  },
+  {
+    id: 'mezzanine_statue_secret',
+    order: 41009,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 35 },
+    content: "Mezzanine has blood stains (wine? blood?). Statue eyes follow you. Found paper underneath – summoned Usk’s shadow. He looked... disappointed.",
+    likes: 420,
+    comments: [
+      { characterKey: 'rakasha_spirit_walker', text: 'Usk from the other manor? Small world.' },
+      { characterKey: 'lady_aurelian', text: 'That statue judges everyone. It thinks you\'re uncultured.' }
+    ]
+  },
+  {
+    id: 'archie_haunted_start',
+    order: 41010,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 0 },
+    content: "Green T insists my friends are dead. It's been two days. Situation got heated – had to run. They're fine. Probably. Locked in a vampire mansion now.",
+    likes: 330,
+    comments: [
+      { characterKey: 'green_t', text: 'Your optimism is statistically improbable.' },
+      { characterKey: 'toad_lee', text: 'Vampires? We have Satyrs. Trade you?' }
+    ]
+  },
+  {
+    id: 'archie_vampire_cook',
+    order: 41011,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 15 },
+    content: "Vampire cooking meat. Asked if it was dinner. Ran into operating room – human on table. Green T split us up. I barricaded in a coffin room. Banging. So much banging.",
+    likes: 900,
+    comments: [
+      { characterKey: 'green_t', text: 'I distracted the chef. You\'re welcome.' },
+      { characterKey: 'waluigi', text: 'Did you get the recipe? Asking for a friend.' }
+    ]
+  },
+  {
+    id: 'archie_dracacide_disguise',
+    order: 41012,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 30 },
+    content: "Disguised as Dracacide! Vampire asked about Green T. Said no. He was filing paperwork for two kills. Green T escaped under the bed. I followed. So many forms.",
+    likes: 1500,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Paperwork? Even in undeath?' },
+      { characterKey: 'green_t', text: 'The bed had a gun. I almost became paperwork.' }
+    ]
+  },
+  {
+    id: 'archie_airship_crash',
+    order: 41013,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 45 },
+    content: "Airship crashed. Swarmed by Legion troops. 'ATTENTION CITIZENS. ANOMALY CONTAINED.' Where are the toads? Dan might be here. Disguised as a guard to ask.",
+    likes: 670,
+    comments: [
+      { characterKey: 'toad_lee', text: 'We\'re at a fey manor. Satyr eviction service. Join us!' },
+      { characterKey: 'green_t', text: 'Legion means bureaucracy. Worse than vampires.' }
+    ]
+  },
+  {
+    id: 'hjumpik_satyr_eviction',
+    order: 41014,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 0 },
+    content: "Eviction time. Satyrs are passed out in leaf hammocks. Smells like cheap wine and goat. Aurelian gave me two guards. Their rule: subdue only. No killing.",
+    likes: 580,
+    comments: [
+      { characterKey: 'waluigi', text: 'Can I scare them? Just a little fire?' },
+      { characterKey: 'lady_aurelian', text: 'Break my manor and you\'re sleeping in the stables.' }
+    ]
+  },
+  {
+    id: 'waluigi_satyr_prank',
+    order: 41015,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 20 },
+    content: "Two Satyrs 'fell' off the gangway. I may have yelled 'FREE BEER' below. They splatted but are fine. Hjumpik is glaring. Worth it.",
+    likes: 3400,
+    comments: [
+      { characterKey: 'toad_lee', text: 'You pushed them. I saw you.' },
+      { characterKey: 'hjumpik', text: 'Next time you\'re the projectile.' }
+    ]
+  },
+  {
+    id: 'toad_lee_mushroom_gains',
+    order: 41016,
+    characterKey: 'toad_lee',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 35 },
+    content: "Bathroom mushroom puffed gas at Hjumpik. He can't stop flexing. Gains are... impressive? Waluigi tried to lick it. I intervened.",
+    likes: 2100,
+    comments: [
+      { characterKey: 'hjumpik', text: 'My biceps have their own gravitational pull.' },
+      { characterKey: 'wario', text: 'Save some flex for the rest of us!' }
+    ]
+  },
+  {
+    id: 'rakasha_azure_calm',
+    order: 41017,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 10 },
+    content: "The play excited me. Now calm. Planning the Satyr eviction. Waluigi suggests fireworks. Hjumpik says no. Toad Lee suggests diplomacy. Relis laughs at diplomacy.",
+    likes: 430,
+    comments: [
+      { characterKey: 'waluigi', text: 'Fireworks are diplomacy! Loud, colorful diplomacy.' },
+      { characterKey: 'hjumpik', text: 'Fireworks in a wooden manor. What could go wrong?' }
+    ]
+  },
+  {
+    id: 'hjumpik_ghost_thumbs',
+    order: 41018,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 18 },
+    content: "Ghost in the hall. Gave it a thumbs up. It vanished. Either approval or horror. Hard to tell with ghosts.",
+    likes: 880,
+    comments: [
+      { characterKey: 'toad_lee', text: 'It reappeared behind you. Doing jazz hands.' },
+      { characterKey: 'waluigi', text: 'Ghosts hate thumbs. It\'s a known fact.' }
+    ]
+  },
+  {
+    id: 'rakasha_fly_over_crowd',
+    order: 41019,
+    characterKey: 'rakasha_spirit_walker',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 22 },
+    content: "Flew over the Satyr crowd! Guards grabbed. Jumped into Hjumpik's arms. He swung his hammer. Toad Lee flew downstairs. We have to go. Now.",
+    likes: 1200,
+    comments: [
+      { characterKey: 'toad_lee', text: 'I landed in a salad. It was humiliating.' },
+      { characterKey: 'hjumpik', text: 'You flew with grace. Like a potato.' }
+    ]
+  },
+  {
+    id: 'corvinarus_family_secret',
+    order: 41020,
+    characterKey: 'lady_aurelian',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 5 },
+    content: "Magic runs weak in my bloodline. Or so they say. I find it fascinating. An old family member arrives soon. They'll be gone in five nights. Satyrs too.",
+    likes: 210,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Five nights? We\'ll be done by dawn.' },
+      { characterKey: 'waluigi', text: 'Is the relative single? Asking for me.' }
+    ]
+  },
+  {
+    id: 'waluigi_master_bedroom',
+    order: 41021,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 5 },
+    content: "Master Bedroom is ours! Aurelian sleeps with a guest. NOT me. Giant flower bed glows. Chairs are ancient. Vines hold up the furniture. I claim the flower.",
+    likes: 990,
+    comments: [
+      { characterKey: 'toad_lee', text: 'The flower smells like regret. And pollen.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'I claim the vines. They whisper secrets.' }
+    ]
+  },
+  {
+    id: 'green_t_hide_cell',
+    order: 41022,
+    characterKey: 'green_t',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 40 },
+    content: "Hid in a cell. Archie disguised as vampire. Gave me a dagger. Too quiet. Hear Legion outside. Airship is scrap metal. Hope Archie has a plan.",
+    likes: 320,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'Plan B: Run faster than the Legion.' },
+      { characterKey: 'toad_lee', text: 'Daggers are good. Fire is better.' }
+    ]
+  },
+  {
+    id: 'archie_legion_encounter',
+    order: 41023,
+    characterKey: 'archie_shadeward',
+    rumorId: 'haunted_mansion_mystery',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 0 },
+    content: "Disguised as Legion guard. Asked about Dan. Got ignored. Green T is hidden. We need to reach the airship crash site. Avoid the operating room.",
+    likes: 450,
+    comments: [
+      { characterKey: 'hjumpik', text: 'Operating rooms are bad. Trust me.' },
+      { characterKey: 'waluigi', text: 'Did you see any purple? I love purple.' }
+    ]
+  },
+  {
+    id: 'hjumpik_statue_paper',
+    order: 41024,
+    characterKey: 'hjumpik',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 40 },
+    content: "Statue paper summoned Usk. He said 'your friends there probably dead'. I said they're fine. He vanished. Creepy.",
+    likes: 560,
+    comments: [
+      { characterKey: 'archie_shadeward', text: 'We\'re alive! Mostly. Vampires are clingy.' },
+      { characterKey: 'toad_lee', text: 'Usk owes me 5 gold. Tell him next time.' }
+    ]
+  },
+  {
+    id: 'waluigi_shyguy_toy',
+    order: 41025,
+    characterKey: 'waluigi',
+    rumorId: 'fey_manor_service',
+    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 18 },
+    content: "Shyguy toy flies! It circles my head. Singing 'I\'m gonna win!'. Annoying. Might trade it for a sandwich.",
+    likes: 777,
+    comments: [
+      { characterKey: 'toad_lee', text: 'It\'s singing about your doom. Check the lyrics.' },
+      { characterKey: 'rakasha_spirit_walker', text: 'I heard it chant a hex. Be careful.' }
+    ]
+  },  
    {
         id: 'hjumpik_lady_aurelian_meet', order: 40900, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
         date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 0 },

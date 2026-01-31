@@ -280,7 +280,7 @@ export const TOADS_QUESTS = {
         subtitle: "The Witch, The Waluigi, and The Wardrobe",
         type: QUEST_TYPES.PERSONAL,
         category: 'Liberated Toads',
-        status: QUEST_STATUS.ACTIVE,
+        status: QUEST_STATUS.COMPLETED,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'feywild_attic',
         objective: "Survive the Feywild garden, keep Waluigi alive despite his broken leg, and regroup with Hjumpik.",
@@ -2122,719 +2122,1023 @@ export const WORLD_QUESTS = {
     },
 
 };
-        
-export const MAIN_QUESTS = {
-'artifacts_of_balance': {
-        id: 'artifacts_of_balance',
-        title: "The Artifacts of Balance",
-        subtitle: "The Three Keys",
+        export const MAIN_QUESTS = {
+    'timeline_convergence': {
+        id: 'timeline_convergence',
+        title: "The Convergence of Fates",
+        subtitle: "Three Lords, Three Lies, One Choice",
         type: QUEST_TYPES.MAIN,
         category: 'Main Story',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
-        objective: "Define the three layers of reality (Shadowfell, Feywild, Void) to complete the ritual and reunify the shattered manor.",
+        objective: "Reunite the scattered party across timelines and determine which faction—if any—to ally with to escape the fractured manor.",
         assignees: ['party'],
         primaryAssignee: 'party',
         difficulty: {
             overall: DIFFICULTY.DEADLY,
+            political: DIFFICULTY.EXTREME,
+            moral: DIFFICULTY.EXTREME,
             combat: DIFFICULTY.HARD,
-            puzzle: DIFFICULTY.DEADLY,
-            magic: DIFFICULTY.EXTREME,
-            social: DIFFICULTY.HARD,
             theological: DIFFICULTY.UNKNOWN
         },
-        tags: ['supernatural', 'planar-travel', 'ritual', 'boss-rush', 'faction-convergence', 'divine', 'bearer', 'fracture'],
+        tags: ['political', 'faction-choice', 'timeline', 'oracle', 'heir', 'convergence', 'moral-dilemma', 'scattered-party'],
         dates: {
-            added: { year: 1040, monthIndex: 6, day: 19 },
-            updated: { year: 1040, monthIndex: 6, day: 22 }
+            added: { year: 1040, monthIndex: 6, day: 24 },
+            updated: { year: 1040, monthIndex: 6, day: 29 }
         },
 
-        description: "The ritual failed. The manor has shattered into three distinct planar shards, and the party is scattered. To fix the ritual and escape, the party must conquer the 'edges' of reality they have been thrown into.\n\n**The Shadow Key:**\nArchie and Bowser are in the Shadowfell Estate. They must navigate a vampire dinner party hosted by 'Orangus Cornelius.' Their goal is to rescue Green T, whose presence is required to anchor the ritual. Archie must master the reversed physics of Shadow magic (Light as Force).\n\n**The Wild Key:**\nWaluigi and Toad Lee are in the Feywild Attic. They must secure the treasure hoard of the Giant Butterfly, which likely contains the 'Third Key' artifact needed for the ritual circle. They must also deal with Toadburt, who has been turned into a living bomb by the Iron Legion.\n\n**The Void Key:**\nMarkop, Remi, and the Oracle are in the Deep Mirror (Void). They are the center point. They must hold the line against the 'Something Older' while waiting for the edges to be defined.\n\nThe Star Shard is still with the Oracle in the Void. Its light is the only thing keeping them from being erased.",
+        description: "The dinner party descended into chaos. Green T shot the Oracle. Vivesna was revealed to be 'Vivian Man of Shadow'—a male thrall who had been impersonating the heir. The party has scattered across multiple locations and timelines.\n\n**CURRENT PARTY LOCATIONS:**\n\n**Archie & Green T (Shadeward → Material Plane):**\nEscaped the dinner chaos through a window. Traveled for days away from the manor. Currently sheltering in an abandoned infirmary. They observed the crashed Vigilance swarmed by Iron Legion and heard propaganda broadcasts.\n\n**Markop, Remi, Bowser, Salam, Eager (Shadeward Manor):**\nTrapped in the aftermath of the dinner chaos. Toadburt was captured. They attempted to escape during the chaos but status is uncertain. Franklin (Mages Guild) went after the Entropy Ring.\n\n**Hjumpik, Waluigi, Toad Lee, Rakasha (Faeward Manor):**\nExploring the fey manor. Encountered the hag's hut and barely escaped. Now in the greenhouse with sprites. Have met 'The Revel'—a horrific entity of gluttony. Hjumpik has been contacted by both the Mages Guild (via ring) and Perrius Annmatar (telepathically).\n\n**THE ORACLE STATUS:** Shot by Green T with a silver bullet. Slumped over the dinner table. Status unknown—silver may or may not kill an Oracle.\n\n**THE HEIR REVELATION:** Vivesna Corvinarus was actually 'Vivian Man of Shadow'—a male thrall crossdressing as the legitimate heir. He declared 'I win!' as chaos erupted. The succession of Shadeward is now in dispute.",
 
-        loreEntries: ['planar_fracture_theory', 'shadowfell_physics', 'feywild_ecology', 'void_entities', 'star_shard_properties', 'bearer_lineage', 'oracle_multiplicity'],
+        loreEntries: ['probability_matrix', 'heir_legitimacy', 'entropy_regulation', 'oracle_multiplicity', 'timeline_mechanics', 'vivian_imposter'],
+
+        factions: {
+            perrius_annmatar: {
+                name: "Perrius Annmatar (The Ghost)",
+                goal: "Kill BOTH heirs (Shadeward and Faeward). Fake-kill two Oracles. Sever the family tree.",
+                method: "Manipulation, possession, guiding party to assassinate",
+                reward_offered: "Escape, answers about the manor's true nature",
+                consequence: "Two oracles remain. Family line severed. 'Even is balanced, odd is irregular.'",
+                trust_level: 'uncertain',
+                notes: "Has been helping the party but has his own agenda. Told Hjumpik: 'Kill all heirs, not the main one.' Claims crystals keep monsters IN, not OUT.",
+                implications: "If both heirs die, the Corvinarus bloodline ends. No legitimate ruler for either Shadeward or Faeward. The oracles lose their anchors. Power vacuum."
+            },
+            mages_guild: {
+                name: "The Mages Guild",
+                goal: "Kill ALL THREE Oracles",
+                method: "Entropy Regulator Rings, political infiltration, assassination",
+                reward_offered: "Unknown—they see party as tools",
+                consequence: "No oracles remain. Probability untethers completely. Magic destabilizes.",
+                trust_level: 'hostile',
+                notes: "Franklin went after the Entropy Ring during chaos. Hjumpik's ring is at 24% entropy. They intercepted FNG's vessel research notes.",
+                implications: "Zero oracles means probability has no anchor. Events become truly random—or completely deterministic. Reality may unravel."
+            },
+            the_oracle: {
+                name: "The Self-Reflection Oracle",
+                goal: "Merge all timelines into one, killing the other two oracles",
+                method: "The ritual, manipulation, controlling information",
+                reward_offered: "Completion of the original mission, escape from the manor",
+                consequence: "One oracle remains. Probability becomes 100%. Absolute certainty.",
+                trust_level: 'shot',
+                notes: "Currently shot by Green T. Status unknown. Was orchestrating the entire dinner to 'force convergence.'",
+                implications: "100% probability means no chance, no luck, no free will. Everything becomes predetermined. The Oracle becomes the sole arbiter of fate."
+            },
+            aurelian_corvinarus: {
+                name: "Aurelian Corvinarus (Faeward)",
+                goal: "Subdue (not kill) her timeline's heir. Keep timelines separate. Protect the Fae from other timelines.",
+                method: "Hospitality, deals, isolation",
+                reward_offered: "Return home for three people. Sever Mages Guild connection.",
+                consequence: "Timelines remain fractured but stable. Faeward becomes isolated. Party may be split permanently.",
+                trust_level: 'cautious',
+                notes: "Made deal about clearing satyrs. Her 'special arrangement' was detected as a lie. She wants the party to work for 5 nights.",
+                implications: "Isolation preserves Faeward but abandons Shadeward and the Void. Those left behind may never escape."
+            },
+            orangus_cornelius: {
+                name: "Orangus Cornelius (Shadeward)",
+                goal: "Protect Kryn (real heir) from Vivesna (fake heir). Make Onyx Hand timeline dominant.",
+                method: "Vampire politics, dinner party interrogation",
+                reward_offered: "Unknown—was testing the party before chaos erupted",
+                consequence: "If successful, Shadeward becomes the 'true' timeline. The living serve the undead.",
+                trust_level: 'hostile_now',
+                notes: "His dinner party was disrupted. Vivesna/Vivian's deception was exposed. Kryn's legitimacy is now the focus. Orangus is likely hunting the party.",
+                implications: "Vampiric dominion. Kryn rules as heir under Orangus's control. Mortals become cattle or servants."
+            },
+            vivian_man_of_shadow: {
+                name: "Vivian Man of Shadow (Former 'Vivesna')",
+                goal: "Usurp the Corvinarus line. Become the new heir through deception.",
+                method: "Impersonation, manipulation, waiting for the right moment",
+                reward_offered: "Unknown",
+                consequence: "A thrall rules Shadeward. The bloodline is corrupted. Orangus's authority is undermined.",
+                trust_level: 'enemy',
+                notes: "Revealed himself during the chaos, shouting 'I win!' Was crossdressing as the female heir Vivesna. A thrall who tricked the vampire lord.",
+                implications: "If Vivian succeeds, a false heir rules. The Corvinarus legacy becomes a lie. Orangus may seek revenge or be destroyed."
+            }
+        },
+
+        criticalRevelations: {
+            oracle_shot: {
+                event: "Green T shot the Oracle with a silver bullet during dinner",
+                status: "Unknown—slumped over table",
+                implications: "If dead: One oracle down. If alive: Oracle knows Green T tried to kill it.",
+                party_committed: "The party is now enemies of the Oracle faction regardless"
+            },
+            vivesna_imposter: {
+                event: "Vivesna Corvinarus revealed to be 'Vivian Man of Shadow'",
+                truth: "Male thrall who was crossdressing as the legitimate female heir",
+                declaration: "'I win! I win!' as chaos erupted",
+                implications: "Succession crisis in Shadeward. Orangus was deceived. Kryn is now the only 'legitimate' heir.",
+                archie_action: "Archie tried to expose Vivian publicly but chaos drowned him out"
+            },
+            usk_mutilated: {
+                event: "Archie cut off Usk's finger with a crystalline knife",
+                context: "Orangus forced Archie to choose: carve Usk or offer his own hand",
+                consequence: "Usk may be dying or dead. Usk was described as 'faithful confidant' in the vessel research notes."
+            },
+            crystals_truth: {
+                perrius_claim: "Crystals keep monsters IN, not OUT. Oracle is lying.",
+                oracle_claim: "Crystals anchor the ritual. External threats are the danger.",
+                green_t_claim: "Need to uncontain the beast to merge 2 into 1.",
+                unresolved: "True nature of containment still unclear"
+            }
+        },
+
+        partyStatus: {
+            archie_green_t: {
+                location: "Abandoned Infirmary (Material Plane)",
+                timeline: "Day 27-29 Higsun",
+                status: "Escaped, traveling, hiding",
+                observations: [
+                    "Saw crashed Vigilance swarmed by Iron Legion",
+                    "Heard propaganda: 'THE ANOMALY IS CONTAINED. COMPLIANCE IS MANDATORY.'",
+                    "Possibly saw 'the real Dan' near the crash site",
+                    "Green T has flintlock pistol and war pick",
+                    "Archie has Onyx Hand books"
+                ],
+                goal: "Regroup with others, investigate Vigilance situation"
+            },
+            markop_group: {
+                location: "Shadeward Manor (Aftermath)",
+                timeline: "Day 24 Higsun",
+                status: "Scattered in chaos",
+                members: ["Markop", "Remi", "Bowser", "Salam", "Eager"],
+                complications: [
+                    "Toadburt captured",
+                    "Eager was caught and shoved in closet",
+                    "Franklin pursuing Entropy Ring",
+                    "Perrius Annmatar was helping them",
+                    "Usk arrested then possibly dying"
+                ],
+                goal: "Escape the manor, rescue captured allies"
+            },
+            hjumpik_group: {
+                location: "Faeward Greenhouse",
+                timeline: "Day 23-24 Higsun (Time flows differently)",
+                status: "Exploring, negotiating",
+                members: ["Hjumpik", "Waluigi", "Toad Lee", "Rakasha"],
+                complications: [
+                    "Waluigi had broken leg (healed by sprites)",
+                    "Rakasha acting strangely strong and giddy",
+                    "Escaped the hag's hut",
+                    "Saw 'The Revel' - entity of gluttony",
+                    "Hjumpik has Mages Guild ring (24% entropy)"
+                ],
+                intel_received: [
+                    "Perrius: Kill all heirs except main one",
+                    "Perrius: Crystals keep monsters IN",
+                    "Mages Guild: Intercepted vessel research notes",
+                    "OC and OS initials on tree (Orangus Cornelius and Sundaria?)"
+                ],
+                goal: "Find Archie, navigate Aurelian's deal, survive the Revel"
+            }
+        },
+
+        primaryObjective: "The Shadeward party and Faeward party must find a way to meet and share information before choosing a faction—or finding a way to defy them all.",
 
         consequences: {
-            success: "The three keys are aligned. The manor reunifies. The party escapes with the Star Shard and the Oracle. The Iron Legion ambush in the physical room is overwhelmed by the sudden return of the full party.",
-            partial_success: "One key is missing. The manor reassembles imperfectly. Parts of the building remain in the Shadowfell or Feywild. Party members may be left behind or altered permanently.",
-            failure: "The edges are never defined. The center collapses. The manor implodes into the Void, erasing everyone inside from history.",
-            legion_victory: "Toadburt detonates his ring in the Feywild, destroying that shard. The recoil shatters the ritual, killing the Oracle and allowing the Legion to scavenge the Star Shard from the wreckage."
+            side_with_perrius: {
+                action: "Kill both heirs (Kryn in Shadeward, unknown in Faeward). Fake-kill two Oracles.",
+                result: "Corvinarus bloodline ends. Two Oracles remain. Ghost gains influence.",
+                cost: "Must commit murder. Become enemies of both manors. Unknown 'balance' effects."
+            },
+            side_with_mages_guild: {
+                action: "Help kill all three Oracles.",
+                result: "Probability untethers. Magic destabilizes. Reality may unravel.",
+                cost: "Become tools of the Guild. Face unknown apocalyptic scenario."
+            },
+            side_with_oracle: {
+                action: "Help merge all timelines.",
+                result: "One Oracle survives. Probability locks at 100%. No free will.",
+                cost: "Oracle may be dead. If alive, they know Green T shot them."
+            },
+            side_with_aurelian: {
+                action: "Clear satyrs. Work for 5 nights. Accept her terms.",
+                result: "Three party members can leave. Faeward isolates. Others trapped.",
+                cost: "Party split permanently. Abandon those in other timelines."
+            },
+            side_with_orangus: {
+                action: "Help establish Kryn as true heir. Serve the Onyx Hand.",
+                result: "Vampiric dominion. Shadeward becomes dominant timeline.",
+                cost: "Become servants of vampires. Mortals become cattle."
+            },
+            reject_all: {
+                action: "Find a way to escape without serving any faction.",
+                result: "Unknown. Possibly everyone survives. Possibly everyone dies.",
+                cost: "Every faction becomes an enemy. Must find a fourth path."
+            }
         },
 
         rewards: {
             guaranteed: [
-                { type: 'item', name: "Wraith Ectoplasm", description: "Harvested by Archie. Potent reagent for binding or dispelling spirits." },
-                { type: 'item', name: "War Mage's Staff", description: "Recovered from the Arachnid Matriarch. Given to Archie by Markop." },
-                { type: 'item', name: "Web-Woven Scale Armor", description: "Claimed by Remi. Corrupted by grove magic. Properties unknown." },
-                { type: 'trait', name: "Planar Anchors", description: "All party members gain resistance to forced teleportation." }
+                { type: 'knowledge', name: "Faction Politics", description: "Understanding of all major faction goals and methods." },
+                { type: 'items', name: "Onyx Hand Books", description: "Archie recovered books from the Shadeward manor." }
             ],
             conditional: [
                 {
-                    condition: "Rescue Green T",
-                    reward: { type: 'ally', name: "Green T (Shadow-Touched)", description: "Can detect planar rifts and shadow-walk." }
+                    condition: "Reunite all party groups",
+                    reward: { type: 'tactical', name: "Full Intelligence", description: "All information from all timelines combined." }
                 },
                 {
-                    condition: "Defuse Toadburt",
-                    reward: { type: 'item', name: "Entropy Core", description: "The heart of the ring. A grenade that erases matter." }
+                    condition: "Choose a faction and succeed",
+                    reward: { type: 'variable', name: "Faction Reward", description: "Depends on which faction is chosen." }
                 },
                 {
-                    condition: "Loot the Feywild Hoard",
-                    reward: { type: 'wealth', amount: 50000, description: "Ancient fey gold and gems. Equivalent to a small dragon's hoard." }
+                    condition: "Find the fourth path",
+                    reward: { type: 'legendary', name: "True Freedom", description: "Escape without serving any master." }
                 }
             ],
-            xp: 15000,
-            gold: { min: 0, max: 0, note: "The gold is in the Feywild. Getting it out is the hard part." }
+            xp: 25000
         },
 
         milestones: [
             {
                 id: 'm1',
                 status: 'completed',
-                title: "The Anchors Fall",
-                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by hjumpik. The Arcane Wraith was banished. The path to the final ritual opened.",
+                title: "The Fracture",
+                description: "The ritual failed. The party was scattered across Shadeward, Faeward, and the Void.",
                 completedDate: { year: 1040, monthIndex: 6, day: 21 }
             },
             {
                 id: 'm2',
                 status: 'completed',
-                title: "The Silent Grove Purged",
-                description: "The Arachnid Matriarch was banished. The Silent Grove was cleared.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+                title: "The Dinner Party",
+                description: "Archie, Bowser, Markop, Remi, and others attended Orangus Cornelius's dinner. Introductions were made. The Oracle conducted an 'ice breaker' questionnaire. Tensions mounted.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
             },
             {
                 id: 'm3',
                 status: 'completed',
-                title: "The Shattered Ritual",
-                description: "The synchronization rite failed. Reality fractured. The party is scattered across the Shadowfell, Feywild, and Void.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+                title: "The Vote & The Blade",
+                description: "Guests voted on who to sacrifice. Archie was forced to cut off Usk's finger with a crystalline knife. The dining room grew tense.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
             },
             {
                 id: 'm4',
+                status: 'completed',
+                title: "The Shot Heard Across Timelines",
+                description: "Green T shot the Oracle from hiding. The Oracle slumped over the table. Chaos erupted. Bowser breathed fire. Kryn attacked Green T. Vivesna revealed herself as 'Vivian Man of Shadow'—a male thrall impersonator.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm5',
+                status: 'completed',
+                title: "The Escape (Partial)",
+                description: "Archie and Green T escaped through a window. They traveled for days, observed the crashed Vigilance, and sheltered in an abandoned infirmary. Status of others in Shadeward uncertain.",
+                completedDate: { year: 1040, monthIndex: 6, day: 29 }
+            },
+            {
+                id: 'm6',
+                status: 'completed',
+                title: "Faeward Exploration",
+                description: "Hjumpik's group explored the fey manor, encountered the hag, and reached the greenhouse. They witnessed 'The Revel' and received intelligence from Perrius Annmatar and the Mages Guild.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm7',
                 status: 'active',
-                title: "The Three Keys",
-                description: "The party must conquer their respective shards to repair the ritual.\n\n**Shadow Key:** Find Green T in the Shadowfell Dinner Party.\n**Wild Key:** Find the Artifact in the Feywild Hoard and stop Toadburt.\n**Void Key:** Survive the 'Something Older' in the Deep Mirror.",
+                title: "Scattered and Seeking",
+                description: "The party is scattered across multiple locations. They must find each other, share intelligence, and decide on a unified course of action.",
                 goals: [
-                    { text: "Rescue Green T (Shadowfell)", status: 'active', priority: 'critical' },
-                    { text: "Stop Toadburt / Get Artifact (Feywild)", status: 'active', priority: 'critical' },
-                    { text: "Survive the Void (Mirror Space)", status: 'active', priority: 'critical' },
-                    { text: "Synchronize the shards", status: 'pending', priority: 'critical' }
+                    { text: "Archie/Green T: Return to manor or find another path", status: 'active', priority: 'high' },
+                    { text: "Markop group: Escape Shadeward chaos, rescue Toadburt", status: 'active', priority: 'critical' },
+                    { text: "Hjumpik group: Navigate Faeward, find connection to Shadeward", status: 'active', priority: 'high' },
+                    { text: "All groups: Share intelligence when reunited", status: 'pending', priority: 'critical' },
+                    { text: "Determine Oracle status (alive or dead?)", status: 'pending', priority: 'high' }
+                ]
+            },
+            {
+                id: 'm8',
+                status: 'pending',
+                title: "The Choice",
+                description: "With all information gathered, the party must decide: Who do they side with? Or do they forge their own path?",
+                goals: [
+                    { text: "Evaluate all faction goals", status: 'pending', priority: 'critical' },
+                    { text: "Make a unified decision", status: 'pending', priority: 'critical' },
+                    { text: "Execute the chosen path", status: 'pending', priority: 'critical' }
                 ]
             }
         ],
 
         npcs: {
-            allies: ['self_reflection_oracle', 'ghost_servants', 'green_t'],
-            enemies: ['orangus_cornelius', 'fey_butterfly_guardian', 'agent_malissia'],
-            observers: ['iron_legion_spy', 'iron_legion_spy_contact'],
-            uncertain: ['toadburt', 'dan'],
-            new_revelations: ['planar_fracture', 'star_shard_bearer', 'entropy_ring_tech']
+            faction_leaders: ['orangus_cornelius', 'aurelian_corvinarus', 'self_reflection_oracle', 'perrius_annmatar'],
+            mages_guild: ['franklin', 'hjumpik_ring_contact'],
+            shadeward_court: ['kryn_cornelius', 'vivian_man_of_shadow', 'usk_butler', 'vostolas_archivist', 'joseph_jo', 'vaxillus_loumaal', 'tymnas', 'mazenound', 'darmin_knightly'],
+            faeward_denizens: ['the_revel', 'sprites', 'goblins', 'the_hag', 'woodfellow'],
+            uncertain: ['toadburt', 'eager', 'dan']
         },
 
         locations: {
-            primary: 'raventree_manor',
-            shards: ['shadowfell_estate', 'feywild_attic', 'deep_mirror', 'physical_antechamber'],
-            cleared: 'silent_grove',
+            shadeward: ['shadowfell_manor_dining', 'shadowfell_manor_ballroom', 'abandoned_infirmary'],
+            faeward: ['feywild_greenhouse', 'feywild_library', 'feywild_lords_chamber', 'hags_hut'],
+            material: ['crashed_vigilance_site'],
+            void: ['fractured_atrium', 'specimen_tanks']
         },
 
-        relatedQuests: ['main_quest_raventree', 'rescue_green_t', 'rescue_toadburt', 'hjumpik_legion_pact']
+        relatedQuests: ['dinner_party_aftermath', 'faeward_exploration', 'rescue_toadburt', 'vigilance_investigation']
     },
-'main_quest_raventree': {
-        id: 'main_quest_raventree',
-        title: "The Curse of Raventree",
-        subtitle: "The Fracture",
+
+    'dinner_party_aftermath': {
+        id: 'dinner_party_aftermath',
+        title: "Blood on the Tablecloth",
+        subtitle: "The Dinner That Ended in Gunfire",
         type: QUEST_TYPES.MAIN,
         category: 'Main Story',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'raventree_manor',
-        objective: "Survive the three fractured realities (Shadowfell, Feywild, Void), repair the ritual by defining the 'edges' of reality, and synchronize the timelines before the manor collapses into the Deep Mirror.",
-        assignees: ['party', 'auxiliary'],
-        primaryAssignee: 'party',
+        objective: "Escape the aftermath of the disastrous dinner party. Account for all party members. Determine the Oracle's fate.",
+        assignees: ['markop', 'remi', 'bowser', 'salam', 'eager'],
+        primaryAssignee: 'markop',
         difficulty: {
             overall: DIFFICULTY.DEADLY,
-            survival: DIFFICULTY.EXTREME,
-            sanity: DIFFICULTY.HARD,
-            social: DIFFICULTY.EXTREME,
+            escape: DIFFICULTY.EXTREME,
             combat: DIFFICULTY.HARD,
-            theological: DIFFICULTY.UNKNOWN
+            tracking: DIFFICULTY.HARD
         },
-        tags: ['survival', 'horror', 'supernatural', 'politics', 'urgent', 'faction-war', 'ritual', 'planar-travel', 'shadowfell', 'feywild', 'fracture'],
+        tags: ['escape', 'chaos', 'vampire-hunt', 'scattered-party', 'aftermath'],
         dates: {
-            added: { year: 1040, monthIndex: 6, day: 15 },
-            updated: { year: 1040, monthIndex: 6, day: 22 }
+            added: { year: 1040, monthIndex: 6, day: 24 },
+            updated: { year: 1040, monthIndex: 6, day: 24 }
         },
 
-        description: "The ritual failed.\n\nOn Day 21, the Oracle attempted to synchronize three layers of reality. Instead, reality shattered. The party has been violently separated across dimensions, each trapped in a distorted reflection of Raventree Manor.\n\n**The Shadowfell Estate (Archie & Bowser):**\nA colorless, frozen world where fire magic is dampened to harmless light. Ruled by 'Orangus Cornelius' and the Onyx Hand, who are hosting a macabre dinner party. Green T is here, held as a 'guest.' Archie and Bowser must navigate vampire politics without their usual brute force.\n\n**The Feywild Attic (Waluigi & Toad Lee):**\nAn overgrown, vibrant nightmare where the manor's attic has exploded into a forest. Giant insects guard treasure hoards, and goblin staff have unionized against the chaos. They must survive the flora and fauna while looting what they can.\n\n**The Deep Mirror (Markop, Remi, Oracle):**\nTrapped in the void between reflections. They are facing the 'Something Older' the Empire was digging for. Their status is unknown.\n\n**The Physical Manor (Toad Squad & Legion):**\nThe Iron Legion has seized the physical room. Toadburt has been captured, fitted with a magical bomb (Entropy Ring), and coerced into a suicide mission to the Feywild to capture the Oracle. The remaining Toads are scattered or captured.\n\nThe Oracle's final words before the fracture provided the key: *'You cannot cut the center until you have defined the edges.'* The party must conquer their respective 'edges' (Shadow and Fey) to stabilize the center and reunite.",
+        description: "The dinner party has collapsed into violence. Green T shot the Oracle. Vivian revealed his deception. Bowser breathed fire. The room erupted into chaos.\n\n**WHAT HAPPENED:**\n- Green T shot the Oracle with a silver bullet from a hidden position\n- The Oracle slumped over the table (status unknown)\n- Archie exposed Vivesna as an imposter (chaos drowned him out)\n- Vivesna revealed herself as 'Vivian Man of Shadow' and declared victory\n- Bowser unleashed fire breath\n- Kryn attacked Green T (biting his neck?)\n- Franklin (Mages Guild) went after the Entropy Ring\n- Archie and Green T escaped through a window\n- Guards flooded in, demanding surrender\n\n**CURRENT STATUS:**\n- Archie & Green T: Escaped (now at abandoned infirmary, days later)\n- Bowser: Last seen fighting in the chaos\n- Markop: Attempted to lead toads to escape\n- Remi: At dinner table when chaos erupted\n- Toadburt: Captured (ring removed?)\n- Eager: Caught, shoved in closet\n- Salam: With Markop's group\n\n**THE ORACLE:** Shot and slumped over. If alive, they know Green T pulled the trigger. If dead, one of three Oracles is eliminated.",
 
-        loreEntries: ['raventree_manor_history', 'planar_fracture_theory', 'shadowfell_physics', 'feywild_ecology', 'entropy_ring_tech', 'orangus_cornelius', 'onyx_hand_etiquette'],
+        loreEntries: ['onyx_hand_response', 'oracle_vulnerability', 'vivian_deception'],
+
+        chaosTimeline: [
+            { time: "00:36", event: "Archie opens kitchen door, discovers candy was poison" },
+            { time: "Pre-shot", event: "Archie finds Green T hiding, learns the 'plan'" },
+            { time: "Shot", event: "Green T fires. Oracle falls. Screams of 'GUARDS!'" },
+            { time: "Immediate", event: "Bowser roars, fire everywhere. Kryn attacks Green T." },
+            { time: "Chaos", event: "Vivian reveals himself, declares victory. Guards flood in." },
+            { time: "Escape", event: "Archie and Green T exit through window, land in rose bushes." },
+            { time: "Pursuit", event: "Franklin chases the Entropy Ring. Party scatters." }
+        ],
+
+        keyRevelations: {
+            vivian: {
+                truth: "Vivesna was actually 'Vivian Man of Shadow'—a male thrall",
+                motivation: "Usurp the Corvinarus line through impersonation",
+                declaration: "'I win! I win!' during the chaos",
+                archies_attempt: "Tried to publicly expose Vivian but was drowned out"
+            },
+            entropy_ring: {
+                observation: "Toadburt was fiddling with his ring throughout dinner",
+                note: "Ring was 'the mages guild dampening ring'",
+                current_status: "Franklin pursuing it. Ring may have been removed from Toadburt."
+            },
+            usk: {
+                fate: "Archie cut off his finger. He 'slowly dies in the arms of the guards.'",
+                significance: "Vessel research notes described Usk as 'truly faithful confidant and ally.'"
+            }
+        },
 
         consequences: {
-            success: "The edges are defined. The ritual is completed properly. The party reunites in a stabilized Manor with the truth they sought. Green T is rescued. The Iron Legion's ambush is thwarted.",
-            failure_shadow: "Archie and Bowser are consumed by the Onyx Hand or trapped as permanent guests. Green T remains a prisoner forever.",
-            failure_fey: "Waluigi and Toad Lee are eaten by mega-fauna or lost in the timeless drift of the Feywild. Toadburt's ring detonates, causing a massive planar rupture.",
-            failure_void: "Markop, Remi, and the Oracle are erased from existence, becoming reflections in the glass that scream silently.",
-            total_collapse: "The Manor implodes, taking a chunk of the material plane with it. The 'Something Older' escapes into the world."
+            oracle_dead: "One Oracle eliminated. Two remain. Mages Guild goal advanced by 33%.",
+            oracle_alive: "The Oracle knows Green T shot them. The party is marked for death.",
+            vivian_wins: "A false heir controls Shadeward. Orangus's authority crumbles.",
+            kryn_survives: "The 'true' heir lives. Succession conflict intensifies."
+        },
+
+        memberStatus: {
+            archie: { status: 'escaped', location: 'Abandoned Infirmary', timeline: 'Day 29' },
+            green_t: { status: 'escaped', location: 'Abandoned Infirmary', timeline: 'Day 29' },
+            bowser: { status: 'unknown', lastSeen: 'Fighting in dining hall', timeline: 'Day 24' },
+            markop: { status: 'unknown', lastSeen: 'Attempting escape with toads', timeline: 'Day 24' },
+            remi: { status: 'unknown', lastSeen: 'At dinner table', timeline: 'Day 24' },
+            toadburt: { status: 'captured', lastSeen: 'Being taken by guards', timeline: 'Day 24' },
+            eager: { status: 'captured', lastSeen: 'Shoved in closet', timeline: 'Day 24' },
+            salam: { status: 'unknown', lastSeen: 'With Markop', timeline: 'Day 24' }
         },
 
         rewards: {
             guaranteed: [
-                { type: 'trait', name: "Planar Traveler", description: "Resistance to planar displacement and environmental effects of Shadow/Fey realms." },
-                { type: 'item', name: "Shadow-Touched Rose", description: "A flower that absorbs light and heat. Useful for stealth." },
-                { type: 'item', name: "Feywild Treasure", description: "Gold and gems from the Butterfly's Hoard. Values fluctuate wildly based on observer belief." },
-                { type: 'knowledge', name: "Vampiric Etiquette", description: "Advantage on social checks with undead nobility." }
+                { type: 'knowledge', name: "Dinner Party Intelligence", description: "Full roster of Onyx Hand personalities and their relationships." },
+                { type: 'items', name: "Onyx Hand Books", description: "Recovered by Archie during escape." }
             ],
             conditional: [
                 {
-                    condition: "Rescue Green T from the Dinner Party",
-                    reward: { type: 'ally', name: "Green T (Shadow-Walker)", description: "Gains ability to step through shadows." },
-                    status: 'active'
+                    condition: "Confirm Oracle's death",
+                    reward: { type: 'strategic', name: "Oracle Eliminated", description: "One of three oracles removed from play." }
                 },
                 {
-                    condition: "Toadburt survives and removes the Ring",
-                    reward: { type: 'item', name: "Defused Entropy Ring", description: "A powerful, unstable magical explosive." },
-                    status: 'active'
+                    condition: "Rescue Toadburt",
+                    reward: { type: 'ally', name: "Toadburt (Freed)", description: "Rescued from vampire captivity." }
                 },
                 {
-                    condition: "Waluigi befriends the Goblin Union",
-                    reward: { type: 'ally', name: "Goblin Local 404", description: "A group of goblins willing to perform maintenance and sabotage." },
-                    status: 'pending'
-                },
-                {
-                    condition: "Archie masters 'Light as Force' magic",
-                    reward: { type: 'ability', name: "Hard Light Constructs", description: "Can create solid barriers and weapons using light spells." },
-                    status: 'active'
+                    condition: "Rescue Eager",
+                    reward: { type: 'ally', name: "Eager (Freed)", description: "Retrieved from closet imprisonment." }
                 }
             ],
-            xp: 20000,
-            gold: { min: 5000, max: 20000, note: "The Feywild hoard is vast, but carrying it out is the problem." }
+            xp: 8000
         },
 
         milestones: [
             {
                 id: 'm1',
                 status: 'completed',
-                title: "The Arrival",
-                description: "The party entered Raventree Manor seeking shelter. They found a parlor ghost, enchanted clothing that attacked Markop, and a note warning them about the mirrors. They ignored the note.",
-                completedDate: { year: 1040, monthIndex: 6, day: 15 }
+                title: "The Dinner",
+                description: "All guests introduced. Questions asked. Food served. Tension built.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
             },
             {
                 id: 'm2',
                 status: 'completed',
-                title: "The Descent",
-                description: "Flaming books. Rust monsters. A balcony that collapsed under Remi. The Manor tested the party's survival instincts. The Oracle made contact, offering cryptic guidance and unsettling hospitality.",
-                completedDate: { year: 1040, monthIndex: 6, day: 16 }
+                title: "The Vote",
+                description: "Guests voted on who to sacrifice. Archie was forced to carve Usk.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
             },
             {
                 id: 'm3',
                 status: 'completed',
-                title: "The Siege",
-                description: "Speaker L's Pond Patrol surrounded the Manor. Archie surrendered to buy time. A glass monster emerged from a mirror. Green T was pulled into a reflection. The party scattered while walls manifested wraiths.",
-                completedDate: { year: 1040, monthIndex: 6, day: 19 }
+                title: "The Shot",
+                description: "Green T shot the Oracle. Chaos erupted. Vivian revealed himself.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
             },
             {
                 id: 'm4',
                 status: 'completed',
-                title: "The Anchors Fall",
-                description: "Three threats bound the curse. Three fell. The Star Fragment birthed God Toad in the Greenhouse Inferno. The Mirror Terror was spared by hjumpik—contained, not destroyed. The Arcane Wraith was banished through teamwork. The path to the final ritual opened.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+                title: "The Escape (Archie & Green T)",
+                description: "Escaped through window. Traveled for days. Reached abandoned infirmary.",
+                completedDate: { year: 1040, monthIndex: 6, day: 29 }
             },
             {
                 id: 'm5',
-                status: 'completed',
-                title: "The Silent Grove Purged",
-                description: "A rescue mission to save Eager from the Arachnid Matriarch. Markop grew to titan size. Remi fell and rose. Salem shot the spider in the eye. The Oracle's banishment circle erased the threat.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm6',
-                status: 'completed',
-                title: "The Bearer Revealed",
-                description: "The party returned to find two Oracles waiting. The revelation: there are many Oracles, or one fractured across time and space. The Star Shard was displayed—a crystalline gift from the Toad God. The Bearer title was explained.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm7',
-                status: 'completed',
-                title: "The Shattered Ritual",
-                description: "The synchronization rite failed catastrophically due to missing participants and Archie's unstable magic. Reality fractured, splitting the party across the Shadowfell, Feywild, and Void. The physical room was lost to the Iron Legion.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
-            },
-            {
-                id: 'm8',
                 status: 'active',
-                title: "Defining the Edges",
-                description: "The party must survive and conquer their respective dimensions to stabilize the ritual from the outside in.\n\n**Shadowfell:** Archie & Bowser must survive the Dinner Party and rescue Green T.\n**Feywild:** Waluigi & Toad Lee must loot the hoard and survive the Sleeper Agent (Toadburt).\n**Void:** Markop & Remi must keep their sanity and protect the Oracle.",
+                title: "The Aftermath",
+                description: "Account for all party members. Escape Shadeward. Determine Oracle's fate.",
                 goals: [
-                    { text: "Survive 'Orangus Cornelius' Dinner Party", status: 'active', priority: 'critical' },
-                    { text: "Rescue Green T from the Shadowfell", status: 'active', priority: 'critical' },
-                    { text: "Loot the Feywild Attic Hoard", status: 'active', priority: 'medium' },
-                    { text: "Deal with the Sleeper Agent (Toadburt)", status: 'active', priority: 'critical' },
-                    { text: "Find a way back to the Central Mirror", status: 'pending', priority: 'critical' }
+                    { text: "Locate Bowser", status: 'active', priority: 'high' },
+                    { text: "Locate Markop's group", status: 'active', priority: 'high' },
+                    { text: "Rescue Toadburt", status: 'active', priority: 'critical' },
+                    { text: "Rescue Eager", status: 'active', priority: 'high' },
+                    { text: "Confirm Oracle status", status: 'pending', priority: 'critical' }
                 ]
             }
         ],
 
-        threats: {
-            orangus_cornelius: {
-                name: "Orangus Cornelius",
-                faction: "Onyx Hand (Shadowfell)",
-                status: "Host",
-                motivation: "Boredom, hunger, and a desire to collect 'interesting' guests. He is amused by Bowser's strength but will turn violent if bored.",
-                danger: "Vampiric strength, political power, controls the Shadow Estate. Archie's fire magic is useless against him here."
+        relatedQuests: ['timeline_convergence', 'rescue_toadburt', 'vigilance_investigation']
+    },
+
+    'faeward_exploration': {
+        id: 'faeward_exploration',
+        title: "The Revel That Never Ends",
+        subtitle: "Navigating the Fey Court",
+        type: QUEST_TYPES.MAIN,
+        category: 'Main Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'raventree_manor',
+        objective: "Navigate Faeward manor, clear the satyrs for Aurelian, investigate the heir situation, and find a connection to the Shadeward party.",
+        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha'],
+        primaryAssignee: 'hjumpik',
+        difficulty: {
+            overall: DIFFICULTY.HARD,
+            social: DIFFICULTY.HARD,
+            survival: DIFFICULTY.MODERATE,
+            investigation: DIFFICULTY.HARD
+        },
+        tags: ['fey-politics', 'exploration', 'satyr-eviction', 'the-revel', 'hag-encounter'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 21 },
+            updated: { year: 1040, monthIndex: 6, day: 24 }
+        },
+
+        description: "The Faeward group has explored much of the manor and survived a terrifying encounter with a hag. They have received critical intelligence from multiple sources and now shelter in the greenhouse with the sprites.\n\n**EXPLORATION COMPLETE:**\n- Library (met Woodfellow the tree librarian)\n- Foyer (saw winged toad statue)\n- Lounge (received clues about Archie)\n- Western Landing (found Morning Glory weapon)\n- Lord's Chamber (saw satyr feast hall)\n- Hag's Hut (barely escaped with lives)\n- Greenhouse (current location, sprites healing Waluigi)\n\n**THE REVEL:**\nThey witnessed a horrific entity in the dining hall:\n*'This strange being is an amalgamation of mouths and limbs, a horrific avatar of gluttony and debauchery. Staring at it stirs a horrible, unnatural hunger.'*\nThis is 'The Revel'—an eternal feast of horror.\n\n**INTELLIGENCE RECEIVED:**\n\nFrom Perrius Annmatar (telepathic):\n- 'Kill all heirs, not the main one'\n- 'Make one sever the family tree'\n- 'Fake kill the two oracles'\n- Crystals keep monsters IN, not OUT\n- If only one Oracle, probability becomes 100%\n\nFrom Mages Guild (via ring):\n- Ring at 24% entropy\n- They intercepted the vessel research notes\n- 'Just get Orange T'\n\n**AURELIAN'S DEAL:**\n- Clear the satyrs non-lethally\n- Work for 5 nights\n- She will send 3 people home and sever Mages Guild connection\n- Her 'special arrangement' was detected as a lie",
+
+        loreEntries: ['faeward_ecology', 'the_revel_entity', 'hag_lore', 'satyr_culture', 'morning_glory_weapon'],
+
+        exploredLocations: {
+            library: {
+                description: "Rotted flooring, tree roots, three massive trees including Woodfellow",
+                notable: "Woodfellow is a sentient librarian tree. Sprites tend to book-fruits."
             },
-            agent_malissia: {
-                name: "Agent Malissia",
-                faction: "Iron Legion",
-                status: "Overseer",
-                motivation: "Efficiency and control. She has turned Toadburt into a weapon to bypass the manor's defenses.",
-                danger: "Holding the kill-switch for Toadburt. commands the Legion forces in the physical manor."
+            foyer: {
+                description: "Massive tree with stone toad statue, feathered wings spread",
+                notable: "Vines everywhere. 'The wooded giant' inscription."
             },
-            sleeper_toadburt: {
-                name: "Toadburt (The Sleeper)",
-                faction: "Coerced / Iron Legion",
-                status: "Active Threat / Victim",
-                motivation: "Survival. He believes he must capture the Oracle or die.",
-                danger: "Equipped with an Entropy Ring that can disintegrate targets or explode with massive force."
+            lounge: {
+                description: "Cozy L-shaped room with bar and stage",
+                notable: "Bartender served 'something strong.' Got clue about Archie at theater."
             },
-            fey_mega_fauna: {
-                name: "The Butterfly Guardian",
-                faction: "Feywild",
-                status: "Territorial",
-                motivation: "Protecting the hoard/grove.",
-                danger: "Massive size, flight, spore attacks."
+            western_landing: {
+                description: "Thorny vines covering a secret room",
+                notable: "Found Morning Glory weapon. Hidden room discovered."
+            },
+            lords_chamber: {
+                description: "Transformed into satyr feast hall, fire pit, food everywhere",
+                notable: "Satyrs have taken over. This is where they party."
+            },
+            hags_hut: {
+                description: "Circular room, blood-stained, bubbling cauldron, corpses in cages",
+                notable: "Barely escaped. Waluigi's leg was broken. Hag nearly caught them."
+            },
+            greenhouse: {
+                description: "Riot of color, sprites, strange plants",
+                notable: "Current sanctuary. Sprites healed Waluigi. Guards breached but party escaped."
             }
         },
 
-        newRevelations: {
-            planar_fracture: "Raventree Manor exists in multiple dimensions simultaneously. The ritual failure forced these layers apart.",
-            shadow_physics: "Magic behaves differently in other planes. Fire becomes Light/Cold in the Shadowfell.",
-            legion_tech: "The Iron Legion possesses 'Entropy Rings' capable of stabilizing—or destroying—planar travelers.",
-            green_t_location: "Green T is alive, trapped in the Shadowfell reflection of the manor."
+        theRevel: {
+            description: "An amalgamation of mouths and limbs. Avatar of gluttony and debauchery.",
+            effect: "Looking at it stirs unnatural hunger. Half-formed images of violence and ecstasy.",
+            location: "Faeward dining hall",
+            threat: "Entity level. Not a creature to fight but to avoid or appease."
         },
 
-        relatedQuests: ['rescue_toadburt', 'shadow_dinner_diplomacy', 'feywild_heist', 'artifacts_of_balance']
-    },
-'rescue_green_t': {
-        id: 'rescue_green_t',
-        title: "Through the Looking Glass",
-        subtitle: "The Captive Witness",
-        type: QUEST_TYPES.RESCUE,
-        category: 'Main Story',
-        status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
-        objective: "Rescue Green T from the Shadowfell Dinner Party.",
-        assignees: ['archie_miser', 'bowser'],
-        primaryAssignee: 'archie_miser',
-        difficulty: {
-            overall: DIFFICULTY.DEADLY,
-            tracking: DIFFICULTY.EASY, // He's not hiding anymore
-            social: DIFFICULTY.EXTREME, // Vampire politics
-            time: DIFFICULTY.CRITICAL,
-            psychological: DIFFICULTY.EXTREME
-        },
-        tags: ['rescue', 'dimensional', 'time-sensitive', 'social-stealth', 'psychological', 'shadowfell', 'impostor'],
-        dates: {
-            added: { year: 1040, monthIndex: 6, day: 19 },
-            updated: { year: 1040, monthIndex: 6, day: 22 },
-            deadline: { year: 1040, monthIndex: 6, day: 22, hour: 12, note: "Deadline is when Cornelius loses patience or the dinner concludes." }
+        intelligenceSummary: {
+            perrius_annmatar: [
+                "Kill all heirs except 'the main one'",
+                "Sever the family tree",
+                "Fake kill two oracles",
+                "Crystals keep monsters IN (Oracle lies)",
+                "One oracle = 100% probability"
+            ],
+            mages_guild: [
+                "Ring at 24% entropy",
+                "Intercepted vessel research",
+                "Want 'Orange T' captured",
+                "Will extract Hjumpik after mission"
+            ],
+            local_intel: [
+                "OC and OS initials on tree (Orangus Cornelius + Sundaria?)",
+                "Orange Cornelius and Sundaria were dating",
+                "The 'heir' of Faeward is mentioned but identity unclear"
+            ]
         },
 
-        description: "The rescue has gone wrong. Green T was spotted at the dinner. When he attempted to sneak out with Eager, Archie Miser yelled, alerting the room. Green T managed to slip out the doors, but Eager was swarmed and captured. The party is now split between the dining table and the captured list.",
-        loreEntries: ['mirror_entities', 'shadowfell_physics', 'onyx_hand_etiquette', 'orangus_cornelius', 'impostor_theory'],
+        aurelianDeal: {
+            stated_terms: "Clear satyrs, work 5 nights, 3 people go home",
+            detected_lies: "Special arrangement was a lie",
+            concerns: "Only 3 can leave. There are 4 in the group.",
+            satyr_progress: "Some cleared, others remain"
+        },
 
-        consequences: {
-            success: "Green T is extracted from the Shadowfell. He survives, and his testimony about Dan's reflection becomes available. The party secures the 'Shadow Key' needed to repair the ritual.",
-            failure: "Green T is not rescued. He becomes a permanent thrall of Orangus Cornelius, his mind and secrets belonging to the Onyx Hand forever. The Shadow Key is lost, making the ritual impossible to complete.",
-            partial: "Green T is rescued, but Archie or Bowser is left behind, captured by the Onyx Hand. The party is forced to make a terrible choice between the mission and a friend.",
-            dark_truth: "The rescue succeeds, and Green T reveals what he saw: Dan's reflection was wrong. The party has been traveling with a doppelganger. This revelation arrives at the worst possible time, sowing chaos and distrust.",
-            violent_escape: "The party fights their way out. They may escape, but the Onyx Hand is now a declared, active enemy who will hunt them across the planes."
+        rakashaAnomaly: {
+            symptoms: "Unnaturally strong, extremely giddy, 'in bliss'",
+            explanation_given: "The play was magical experience",
+            actual_concern: "Something may have affected her. Enchantment? Possession?",
+            evidence: "Could not be resisted when grabbing arms. Too strong."
         },
 
         rewards: {
             guaranteed: [
-                { type: 'knowledge', name: "Vampire Politics", description: "Advantage on social checks against the Onyx Hand." }
+                { type: 'item', name: "Morning Glory", description: "Blooms in daylight to reveal blade." },
+                { type: 'item', name: "Something Strong (Drink)", description: "Potent fey alcohol." },
+                { type: 'item', name: "Mushrooms", description: "Collected from various locations." }
             ],
             conditional: [
                 {
-                    condition: "Rescue Green T successfully",
-                    reward: { type: 'ally', name: "Green T (Shadow-Walker)", description: "Gains the ability to sense planar rifts and step through shadows. His perspective has been fundamentally altered." }
+                    condition: "Clear all satyrs",
+                    reward: { type: 'passage', name: "Faeward Exit (3 slots)", description: "Three can leave." }
                 },
                 {
-                    condition: "Escape without alerting the entire estate",
-                    reward: { type: 'item', name: "Cornelius's Signet Ring", description: "Stolen during the escape. Grants passage in certain underworld circles." }
+                    condition: "Investigate Rakasha's condition",
+                    reward: { type: 'knowledge', name: "Fey Enchantment", description: "Understanding of what happened." }
                 },
                 {
-                    condition: "Discover why Green T ran from Dan",
-                    reward: { type: 'revelation', name: "The Wrong Face", description: "Green T confirms he saw something inhuman in Dan's reflection, providing concrete evidence for the Impostor Toad theory." }
+                    condition: "Find connection to Shadeward",
+                    reward: { type: 'tactical', name: "Cross-Timeline Path", description: "Way to reach other party." }
+                }
+            ],
+            xp: 6000
+        },
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Play",
+                description: "Attended a play. Rakasha became strangely giddy and strong afterward.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "Library Exploration",
+                description: "Met Woodfellow. Learned about the manor's fey nature.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm3',
+                status: 'completed',
+                title: "The Hag's Hut",
+                description: "Waluigi injured. Toad Lee almost trapped. Barely escaped when the hag returned.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22 }
+            },
+            {
+                id: 'm4',
+                status: 'completed',
+                title: "The Revel Witnessed",
+                description: "Saw the horrific entity in the dining hall. Avoided direct contact.",
+                completedDate: { year: 1040, monthIndex: 6, day: 23 }
+            },
+            {
+                id: 'm5',
+                status: 'completed',
+                title: "Ghost Contact",
+                description: "Perrius Annmatar contacted Hjumpik telepathically. Revealed his true goals.",
+                completedDate: { year: 1040, monthIndex: 6, day: 23 }
+            },
+            {
+                id: 'm6',
+                status: 'completed',
+                title: "Greenhouse Sanctuary",
+                description: "Reached the greenhouse. Sprites healed Waluigi. Guards pursued but lost them.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm7',
+                status: 'active',
+                title: "Navigate the Fey Court",
+                description: "Continue exploration. Complete Aurelian's task. Find connection to Shadeward.",
+                goals: [
+                    { text: "Clear remaining satyrs", status: 'active', priority: 'medium' },
+                    { text: "Investigate heir situation", status: 'active', priority: 'high' },
+                    { text: "Find path to Shadeward party", status: 'active', priority: 'critical' },
+                    { text: "Investigate Rakasha's condition", status: 'pending', priority: 'medium' }
+                ]
+            }
+        ],
+
+        relatedQuests: ['timeline_convergence', 'aurelians_bargain']
+    },
+
+    'rescue_toadburt': {
+        id: 'rescue_toadburt',
+        title: "The Captured Guest",
+        subtitle: "Prisoner of the Onyx Hand",
+        type: QUEST_TYPES.RESCUE,
+        category: 'Main Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'raventree_manor',
+        objective: "Rescue Toadburt from Onyx Hand captivity before he is executed or drained.",
+        assignees: ['markop', 'bowser'],
+        primaryAssignee: 'markop',
+        difficulty: {
+            overall: DIFFICULTY.DEADLY,
+            infiltration: DIFFICULTY.EXTREME,
+            combat: DIFFICULTY.HARD,
+            timing: DIFFICULTY.CRITICAL
+        },
+        tags: ['rescue', 'vampire-captivity', 'entropy-ring', 'urgent'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 24 },
+            updated: { year: 1040, monthIndex: 6, day: 24 }
+        },
+
+        description: "Toadburt was captured during the dinner party chaos. He was the 'guest of honor'—wearing a Mages Guild Entropy Ring. Franklin (Mages Guild) was pursuing the ring when chaos erupted.\n\n**LAST KNOWN STATUS:**\n- Toadburt was fiddling with his ring throughout dinner\n- The ring was described as 'mages guild dampening ring'\n- Franklin went after the Entropy Ring during the chaos\n- Toadburt was being taken by guards\n\n**THE ENTROPY RING:**\n- Mages Guild technology\n- 'Stabilizes things' according to Toadburt's deflection\n- Clicked and glowed purple when Toadburt pressed it\n- May have been removed during the chaos\n\n**COMPLICATIONS:**\n- The manor is in chaos after Green T shot the Oracle\n- Guards are everywhere\n- Franklin may have the ring now\n- Toadburt's condition is unknown",
+
+        loreEntries: ['entropy_ring_mechanics', 'onyx_hand_prisons', 'mages_guild_extraction'],
+
+        toadburtStatus: {
+            physical: "Unknown—was 'guest of honor' so not harmed before chaos",
+            mental: "Terrified throughout dinner. Asked Archie for help.",
+            ring: "Possibly removed by Franklin during chaos",
+            location: "Onyx Hand custody somewhere in Shadeward manor"
+        },
+
+        entropyRingDetails: {
+            owner: "Mages Guild",
+            wearer: "Toadburt (unwilling)",
+            function: "'Stabilizes things' / 'Dampening'",
+            danger: "24% entropy according to Hjumpik's similar ring",
+            pursuit: "Franklin actively chasing it"
+        },
+
+        consequences: {
+            rescue_success: "Toadburt freed. Ring recovered or destroyed. Mages Guild denied an asset.",
+            rescue_failure: "Toadburt drained by vampires or executed. Ring falls to Franklin or Orangus.",
+            ring_detonation: "Unknown catastrophic effect if entropy reaches 100%"
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'ally', name: "Toadburt (If Rescued)", description: "Traumatized but grateful." }
+            ],
+            conditional: [
+                {
+                    condition: "Recover the Entropy Ring",
+                    reward: { type: 'item', name: "Entropy Ring", description: "Powerful Mages Guild tech." }
+                },
+                {
+                    condition: "Destroy the Entropy Ring",
+                    reward: { type: 'strategic', name: "Mages Guild Setback", description: "One less tool in their arsenal." }
+                }
+            ],
+            xp: 4000
+        },
+
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "Guest of Honor",
+                description: "Toadburt arrived at dinner wearing the ring. He was clearly a prisoner.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Chaos",
+                description: "Green T shot the Oracle. Toadburt was caught in the chaos. Franklin pursued the ring.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm3',
+                status: 'active',
+                title: "The Rescue",
+                description: "Find Toadburt. Extract him from Onyx Hand custody. Deal with the ring situation.",
+                goals: [
+                    { text: "Locate Toadburt in the manor", status: 'active', priority: 'critical' },
+                    { text: "Determine ring status", status: 'active', priority: 'high' },
+                    { text: "Extract Toadburt safely", status: 'pending', priority: 'critical' }
+                ]
+            }
+        ],
+
+        relatedQuests: ['dinner_party_aftermath', 'timeline_convergence']
+    },
+
+    'vigilance_investigation': {
+        id: 'vigilance_investigation',
+        title: "The Fallen Airship",
+        subtitle: "What Happened to the Vigilance?",
+        type: QUEST_TYPES.INVESTIGATION,
+        category: 'Main Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.MEDIUM,
+        arcId: 'vigilance_saga',
+        objective: "Investigate the crashed Vigilance and determine the fate of the crew and the Iron Legion's involvement.",
+        assignees: ['archie_miser', 'green_t'],
+        primaryAssignee: 'archie_miser',
+        difficulty: {
+            overall: DIFFICULTY.HARD,
+            stealth: DIFFICULTY.HARD,
+            investigation: DIFFICULTY.MODERATE,
+            combat: DIFFICULTY.DEADLY
+        },
+        tags: ['investigation', 'iron-legion', 'vigilance', 'crashed-airship', 'propaganda'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 27 },
+            updated: { year: 1040, monthIndex: 6, day: 29 }
+        },
+
+        description: "During their escape from Shadeward, Archie and Green T observed the crashed Vigilance swarmed by Iron Legion troops. They heard propaganda broadcasts and possibly saw 'the real Dan.'\n\n**OBSERVATIONS:**\n- The Vigilance is crashed and swarmed by troops\n- Propaganda broadcast: 'ATTENTION CITIZENS. THE ANOMALY IS CONTAINED. COMPLIANCE IS MANDATORY. REPORT ALL NON-HUMAN ACTIVITY. ORDER IS SAFETY.'\n- Archie asked 'is that the real Dan over there'\n- Green T suggested going to ask\n- Archie disguised himself as a guard and approached\n\n**QUESTIONS:**\n- What happened to the Vigilance?\n- Where are the Toads who were aboard?\n- What is 'the anomaly' the Legion contained?\n- Is that really Dan, or another impostor?\n- What is the Legion's current objective?\n\n**CURRENT STATUS:**\n- Archie and Green T are at an abandoned infirmary\n- They have not yet investigated the crash site directly\n- The Legion presence makes approach dangerous",
+
+        loreEntries: ['vigilance_history', 'iron_legion_tactics', 'dan_impostor_theory'],
+
+        observations: {
+            vigilance: "Crashed. Swarmed by Legion troops.",
+            propaganda: "'THE ANOMALY IS CONTAINED. COMPLIANCE IS MANDATORY.'",
+            possible_dan: "Archie spotted someone who might be Dan",
+            legion_presence: "Heavy. Guards everywhere."
+        },
+
+        unansweredQuestions: [
+            "What caused the Vigilance to crash?",
+            "What happened to Captain Ryan?",
+            "What happened to Bones and Creek?",
+            "What is 'the anomaly'?",
+            "Is the spotted figure actually Dan?",
+            "If Dan is there, why? Is he captured or allied with Legion?"
+        ],
+
+        rewards: {
+            conditional: [
+                {
+                    condition: "Investigate the crash site",
+                    reward: { type: 'intel', name: "Vigilance Fate", description: "Understanding of what happened." }
+                },
+                {
+                    condition: "Determine Dan's status",
+                    reward: { type: 'revelation', name: "Dan's Truth", description: "Confirmation of identity or impostor status." }
+                },
+                {
+                    condition: "Rescue survivors",
+                    reward: { type: 'allies', name: "Vigilance Crew", description: "Any surviving crew members." }
                 }
             ],
             xp: 5000
         },
 
-        greenTStatus: {
-            currentCondition: "Captive Guest / Suppressed Paranoia / Socially Paralyzed",
-            physicalState: "Physically unharmed but exhausted. Forced to eat and drink strange Shadowfell food.",
-            mentalState: "Critical. He is playing the part of a polite guest to survive, but his underlying terror of reflections and his fear of Dan is consuming him. He views Archie and Bowser as his only hope.",
-            lastKnownLocation: "The Shadow Estate Dining Hall, seated near Orangus Cornelius.",
-            sanity: 2,
-            trust: "Will trust Archie and Bowser implicitly, but will panic if he sees Dan or a perfect reflection.",
-            notes: "He is the only witness to Dan's potential true nature. His survival is critical to resolving the impostor subplot. His death or permanent capture would be a victory for the entity posing as Dan."
+        milestones: [
+            {
+                id: 'm1',
+                status: 'completed',
+                title: "The Observation",
+                description: "From a distance, observed the crashed Vigilance and Legion presence.",
+                completedDate: { year: 1040, monthIndex: 6, day: 27 }
+            },
+            {
+                id: 'm2',
+                status: 'active',
+                title: "The Investigation",
+                description: "Approach the crash site. Gather intelligence. Determine fates.",
+                goals: [
+                    { text: "Approach crash site safely", status: 'pending', priority: 'high' },
+                    { text: "Determine what happened", status: 'pending', priority: 'high' },
+                    { text: "Verify Dan's identity", status: 'pending', priority: 'critical' },
+                    { text: "Search for survivors", status: 'pending', priority: 'high' }
+                ]
+            }
+        ],
+
+        relatedQuests: ['timeline_convergence', 'vigilance_fallen', 'mystery_imposter_toad']
+    },
+
+    'bryans_mission': {
+        id: 'bryans_mission',
+        title: "The Star Shard Delivery",
+        subtitle: "Chaos on Prison Island",
+        type: QUEST_TYPES.MAIN,
+        category: 'Side Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.HIGH,
+        arcId: 'star_shard_saga',
+        objective: "Deliver the Star Shard to the Temple of the Fallen Stars while navigating a prison riot and competing factions.",
+        assignees: ['bryan'],
+        primaryAssignee: 'bryan',
+        difficulty: {
+            overall: DIFFICULTY.HARD,
+            combat: DIFFICULTY.MODERATE,
+            moral: DIFFICULTY.HARD,
+            navigation: DIFFICULTY.MODERATE
+        },
+        tags: ['star-shard', 'prison-riot', 'temple', 'faction-conflict', 'solo-mission'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 25 },
+            updated: { year: 1040, monthIndex: 6, day: 25 }
+        },
+
+        description: "Bryan was sent by the God Toad to deliver a Star Shard to a town near the Forgotten Temple of the Stars. He arrived during a massive prison riot on what turns out to be a slave prison island.\n\n**THE SITUATION:**\n- Iron Legion soldiers fleeing/fighting\n- Prisoners staging a rebellion: 'We are going to free this whole island!'\n- Underground city near the Temple\n\n**GRILLY'S BAR INCIDENT:**\n- Bryan was asked to help 'breach and clear' a bar\n- Discovered the targets were evacuating children and families\n- The rebels wanted to kill everyone—'If they're not with us, they're against us'\n- Bryan refused, threw the mage into molten slag\n- Killed one guard, chopped another's arm off\n- Escaped when the rebels pursued\n\n**THE TEMPLE:**\n- Bryan reached the Forgotten Temple of the Stars\n- Met a man protecting a power shard\n- The man holds 'Mario's glove' and the shard\n- Negotiation or conflict pending",
+
+        loreEntries: ['star_shard_properties', 'temple_of_stars', 'prison_island', 'god_toad_mission'],
+
+        moralChoices: {
+            grillys_bar: {
+                choice: "Refused to kill civilians including children",
+                consequence: "Made enemy of the rebellion. Must evade pursuit.",
+                alignment: "Good—protected innocents at personal cost"
+            }
+        },
+
+        templeEncounter: {
+            location: "Forgotten Temple of the Stars",
+            guardian: "Unknown man protecting a power shard",
+            items_present: ["Power Shard", "Mario's Glove"],
+            status: "Negotiation in progress"
+        },
+
+        rewards: {
+            conditional: [
+                {
+                    condition: "Deliver Star Shard successfully",
+                    reward: { type: 'divine', name: "God Toad's Blessing", description: "Favor of the amphibian deity." }
+                },
+                {
+                    condition: "Acquire Temple artifacts",
+                    reward: { type: 'items', name: "Temple Treasures", description: "Power Shard, Mario's Glove, etc." }
+                }
+            ],
+            xp: 4000
         },
 
         milestones: [
             {
                 id: 'm1',
                 status: 'completed',
-                title: "The Abduction",
-                description: "During the Siege of Raventree, the Shard Stalker manifested from a mirror and pulled Green T into the dimension between reflections.",
-                completedDate: { year: 1040, monthIndex: 6, day: 19 }
+                title: "Arrival",
+                description: "Arrived during prison riot. Captured a Legion guard for information.",
+                completedDate: { year: 1040, monthIndex: 6, day: 25 }
             },
             {
                 id: 'm2',
                 status: 'completed',
-                title: "The Extraction & Flight",
-                description: "Dan pulled Green T back to reality. Instead of relief, Green T was consumed by terror at what he saw in Dan's reflection and fled into the Manor's depths.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+                title: "The Bar Incident",
+                description: "Refused to kill civilians. Killed rebels instead. Made enemies.",
+                completedDate: { year: 1040, monthIndex: 6, day: 25 }
             },
             {
                 id: 'm3',
+                status: 'active',
+                title: "The Temple",
+                description: "Reached the temple. Met the guardian. Negotiate or fight for the shard.",
+                goals: [
+                    { text: "Negotiate with temple guardian", status: 'active', priority: 'high' },
+                    { text: "Acquire power shard", status: 'active', priority: 'high' },
+                    { text: "Complete Star Shard delivery", status: 'pending', priority: 'critical' }
+                ]
+            }
+        ],
+
+        relatedQuests: ['liberated_toads_integration']
+    },
+
+    'rogueport_retrieval': {
+        id: 'rogueport_retrieval',
+        title: "The Rakasha's Order",
+        subtitle: "Wario's Theft",
+        type: QUEST_TYPES.RETRIEVAL,
+        category: 'Side Story',
+        status: QUEST_STATUS.ACTIVE,
+        priority: QUEST_PRIORITY.MEDIUM,
+        arcId: 'rogueport_operations',
+        objective: "Retrieve items ordered by Rakasha and recover the stolen Tome of Evil from Wario.",
+        assignees: ['embercap', 'dewdrop', 'erick'],
+        primaryAssignee: 'embercap',
+        difficulty: {
+            overall: DIFFICULTY.HARD,
+            combat: DIFFICULTY.MODERATE,
+            tracking: DIFFICULTY.HARD
+        },
+        tags: ['item-retrieval', 'wario', 'theft', 'cursed-item', 'rogueport'],
+        dates: {
+            added: { year: 1040, monthIndex: 6, day: 24 },
+            updated: { year: 1040, monthIndex: 6, day: 24 }
+        },
+
+        description: "Embercap, Dewdrop, and Erick were sent to pick up items Rakasha ordered from a Rogueport shop. During the transaction, Wario stole the Tome of Evil and escaped.\n\n**ITEMS AVAILABLE:**\n- Balm of Shifting Form (one week old) - RETRIEVED\n- Nine Lives (sword)\n- Bag of Eyes\n- Evil Talisman (cursed)\n- Tome of Evil (20,000 gold) - STOLEN BY WARIO\n\n**THE CHASE:**\n- Wario opened the tome, spoke unknown language\n- A mage froze Wario briefly but he broke free\n- Combat ensued—Embercap grabbed the book, Wario bit him as a bat\n- Wario escaped after using the tome's 'kneel' command on Erick\n- The chase failed\n\n**CURRENT STATUS:**\n- Wario escaped with the Tome of Evil\n- 800 gold owed to the shop (for Rakasha to pay)\n- Mage offered the toads a place to stay\n- Shop owner furious about the 20,000 gold tome",
+
+        loreEntries: ['tome_of_evil', 'wario_abilities', 'rogueport_underground'],
+
+        itemStatus: {
+            balm_of_shifting_form: { status: 'retrieved', value: 'unknown' },
+            nine_lives: { status: 'available', value: 'unknown' },
+            bag_of_eyes: { status: 'available', value: 'unknown' },
+            evil_talisman: { status: 'available', value: 'unknown', note: 'Cursed' },
+            tome_of_evil: { status: 'stolen', value: 20000, thief: 'Wario' }
+        },
+
+        warioEncounter: {
+            abilities_observed: [
+                "Broke free from ice magic instantly",
+                "Transformed into a bat",
+                "Used tome to command 'kneel'",
+                "Extremely strong"
+            ],
+            escape_method: "Bat transformation and flight",
+            current_location: "Unknown"
+        },
+
+        consequences: {
+            tome_recovered: "20,000 gold debt avoided. Powerful artifact secured.",
+            tome_lost: "Shop demands payment. Wario has dangerous magic.",
+            partial: "Other items retrieved but tome remains with Wario."
+        },
+
+        rewards: {
+            guaranteed: [
+                { type: 'item', name: "Balm of Shifting Form", description: "Retrieved successfully." }
+            ],
+            conditional: [
+                {
+                    condition: "Recover Tome of Evil",
+                    reward: { type: 'item', name: "Tome of Evil", description: "Powerful cursed book." }
+                },
+                {
+                    condition: "Track Wario",
+                    reward: { type: 'intel', name: "Wario's Location", description: "Where he went." }
+                }
+            ],
+            xp: 3000
+        },
+
+        milestones: [
+            {
+                id: 'm1',
                 status: 'completed',
-                title: "The Fracture",
-                description: "The ritual failed before Green T could be found. The planar fracture cast him into the Shadowfell, where he was 'found' by the Onyx Hand.",
-                completedDate: { year: 1040, monthIndex: 6, day: 21 }
+                title: "The Shop",
+                description: "Arrived at shop. Began transaction. Wario spotted.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm2',
+                status: 'completed',
+                title: "The Theft",
+                description: "Wario stole the Tome of Evil. Chase ensued.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
+            },
+            {
+                id: 'm3',
+                status: 'failed',
+                title: "The Chase",
+                description: "Combat and pursuit. Wario escaped.",
+                completedDate: { year: 1040, monthIndex: 6, day: 24 }
             },
             {
                 id: 'm4',
-                status: 'failed',
-                title: "Dinner with the Damned",
-                description: "Archie and Bowser have infiltrated the dinner party. They must navigate the deadly social etiquette of vampires, create a diversion, and extract Green T before Cornelius decides the evening's entertainment is over.",
-                goals: [
-                    { text: "Maintain cover as honored guests", status: 'active', priority: 'critical' },
-                    { text: "Communicate a plan to Green T non-verbally", status: 'active', priority: 'high' },
-                    { text: "Create a diversion using dampened magic or brute force", status: 'pending', priority: 'critical' },
-                    { text: "Grab Green T and get to an exit", status: 'pending', priority: 'critical' },
-                    { text: "Survive the escape from the Estate grounds", status: 'pending', priority: 'critical' }
-                ]
-            },
-  {
-                id: 'm5',
-                status: 'failed',
-                title: "The Stealth Attempt",
-                description: "Green T and Eager tried to leave during the meal. Archie exposed them. Eager captured. Green T fled into the manor corridors.",
-                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 13 }
-            },
-            {
-                id: 'm6',
                 status: 'active',
-                title: "Locate Green T",
-                description: "He is loose in the manor, terrified and alone. He knows the party (specifically Archie) just outed him.",
-                priority: 'critical'
-            }            
-        ],
-
-        connections: {
-            to_impostor_quest: "This quest is the key to resolving the 'Mystery Impostor Toad' quest. Green T is the sole witness.",
-            to_ritual_quest: "Green T is the 'Shadow Key.' Without him, the 'Artifacts of Balance' quest cannot be completed. His rescue is a mandatory step to fix the primary ritual.",
-            to_dan: "Success in this quest will turn suspicion against Dan into near-certainty, creating a massive internal conflict for the party upon their reunion.",
-            to_bearer_revelation: "The theme of fractured identity (many Oracles) provides a precedent for what Green T might have seen—a doppelganger or a fragmented entity wearing Dan's face."
-        },
-
-        urgencyNote: "The situation is a social powder keg. A single misstep by Archie or Bowser could turn the dinner party into a slaughter. They are outnumbered, outmatched, and magically disadvantaged.",
-
-        relatedQuests: ['artifacts_of_balance', 'main_quest_raventree', 'mystery_imposter_toad']
-    },    
-'vigilance_fallen': {
-    id: 'vigilance_fallen',
-    title: "The Iron Sky Breach",
-    subtitle: "Order 120 — The Clock Is Running",
-    type: QUEST_TYPES.MAIN,
-    category: 'Main Story',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.CRITICAL,
-    arcId: 'vigilance_saga',
-    objective: "Recover the airship 'Vigilance', halt Order 120, and prevent the complete destruction of the Toad Liberation movement.",
-    assignees: ['party', 'liberated_toads'],
-    primaryAssignee: 'party',
-    difficulty: {
-        overall: DIFFICULTY.DEADLY,
-        combat: DIFFICULTY.DEADLY,
-        stealth: DIFFICULTY.HARD,
-        social: DIFFICULTY.MODERATE,
-        logistics: DIFFICULTY.EXTREME
-    },
-    tags: ['combat', 'rescue', 'airship', 'betrayal', 'urgent', 'faction-war', 'time-critical'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 18 },
-        updated: { year: 1040, monthIndex: 6, day: 21 },
-        deadline: { year: 1040, monthIndex: 6, day: 22 }
-    },
-
-    description: "The Vigilance is gone. The sky belongs to the Iron Legion now.\n\nDay 20, 16:30: Legion shock troops breached the hull in a coordinated assault. Captain Ryan was forced to jump rather than be captured—he plummeted into the forest below, his fate unknown. The airship that carried the Liberated Toads, that served as their mobile headquarters and symbol of freedom, now flies under Legion colors. It passed over Raventree Manor broadcasting propaganda, a deliberate humiliation.\n\nDay 21, 14:30: Bones' infiltration of Aegis Command ended with Marcus Ironhand's blade in his chest. The General issued Order 120 without hesitation—execute all Toad prisoners. No negotiations. No ransoms. No survivors.\n\nThe movement is being decapitated in real-time. Bones is wounded and captured. Creek is pinned down somewhere in the Legion fortress. Over a hundred Toads discovered in the Vigilance's hidden barrel compartments are now Legion prisoners. The 'Green Speaker L' in custody is a decoy buying time, but time is measured in hours now.\n\nAnd the party is trapped in Raventree Manor, about to enter a magical ritual they cannot abandon, while everything they fought to build burns.\n\nThe Iron Mandate gives the Legion emergency powers. The Supernatural Sovereignty Act makes their allies illegal. The sky is controlled, the ground is being purged, and the only assets not in chains are scattered, wounded, or occupied.\n\nSomething has to give. The question is what—and who pays the price.",
-
-    loreEntries: ['vigilance_history', 'iron_legion_tactics', 'order_120', 'marcus_ironhand', 'iron_mandate', 'aegis_command_layout'],
-
-    consequences: {
-        success: "The Vigilance is reclaimed or destroyed to deny the Legion. Order 120 is halted or circumvented. The movement survives, bloodied but intact.",
-        failure: "Bones, Creek, and all captured Toads are executed. The Vigilance becomes a permanent Legion flagship. The Liberation movement is effectively destroyed as an organized force.",
-        partial: "The ship is scuttled to prevent Legion use. Some prisoners escape, others don't. The movement survives but loses its mobility, its command structure, and its momentum."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'item', name: "Captain's Key (Restored)", description: "Full access to the Vigilance's secure compartments—if the ship is recovered" },
-            { type: 'reputation', faction: 'liberated_toads', amount: 500, description: "Heroes of the Liberation" },
-            { type: 'reputation', faction: 'iron_legion', amount: -2000, description: "Kill on Sight designation across all Legion territories" }
-        ],
-        conditional: [
-            { condition: "Save Bones from execution", reward: { type: 'ally', name: "Bones (Survivor)", description: "Hardened by torture and betrayal, absolutely loyal to whoever saved him" }},
-            { condition: "Rescue Creek", reward: { type: 'ally', name: "Creek (True Believer)", description: "The mercenary's loyalty is no longer for sale" }},
-            { condition: "Expose the Decoy Speaker L's deception to the Legion", reward: { type: 'intel', name: "Legion Confusion", description: "24-48 hours of tactical paralysis as they reorganize" }},
-            { condition: "Reclaim the Vigilance intact", reward: { type: 'asset', name: "The Vigilance (Scarred)", description: "Battle damage, but flying. The symbol endures." }},
-            { condition: "Kill Marcus Ironhand", reward: { type: 'reputation', faction: 'liberated_toads', amount: 2000, description: "The Hand That Bled" }}
-        ],
-        xp: 10000,
-        gold: { min: 2000, max: 5000 }
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "The Boarding",
-            description: "Iron Legion shock troops breached the Vigilance's hull in a coordinated assault. The crew fought but was overwhelmed. Captain Ryan jumped rather than surrender, falling into the forest. The ship was taken.",
-            completedDate: { year: 1040, monthIndex: 6, day: 20 }
-        },
-        {
-            id: 'm2',
-            status: 'failed',
-            title: "The Infiltration",
-            description: "Bones infiltrated Aegis Command disguised as a Legion guard. He witnessed the interrogation of the decoy Speaker L and gathered critical intelligence. Then Marcus Ironhand saw through the disguise and stabbed him. Creek's extraction attempt caused chaos but failed. Order 120 was issued.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 },
-            outcomes: [
-                "Bones critically wounded, captured",
-                "Creek pinned down, evading",
-                "Decoy performing successfully",
-                "Order 120 issued—execution imminent"
-            ]
-        },
-        {
-            id: 'm3',
-            status: 'active',
-            title: "Regroup and Retaliate",
-            description: "The infiltration failed catastrophically. The party is trapped in Raventree Manor. Every asset is either captured, wounded, or occupied. A new approach is needed immediately.",
-            goals: [
-                { text: "Complete the Raventree ritual (cannot be abandoned)", status: 'active', priority: 'critical' },
-                { text: "Escape Raventree Manor immediately after", status: 'pending', priority: 'critical' },
-                { text: "Use hjumpik's Legion contact to delay Order 120", status: 'pending', priority: 'critical' },
-                { text: "Locate Captain Ryan (status unknown)", status: 'pending', priority: 'high' },
-                { text: "Locate the real Speaker L", status: 'active', priority: 'high' },
-                { text: "Coordinate with Rogueport delegation (Embercap)", status: 'pending', priority: 'medium' }
-            ],
-            choices: [
-                {
-                    id: 'approach_method',
-                    title: "Choose Your Approach",
-                    description: "Stealth failed. Infiltration failed. What remains?",
-                    options: [
-                        {
-                            id: 'assault',
-                            name: "Iron Storm",
-                            description: "Full military assault on Aegis Command. Maximum violence, minimum subtlety.",
-                            requirements: ["Allied military support (Rakasha? Loyalists?)", "Siege equipment or air support", "Acceptance of heavy casualties"],
-                            consequences: { success: "Prison break. Prisoners freed. Legion garrison destroyed.", failure: "Total party kill. Movement extinction." }
-                        },
-                        {
-                            id: 'diplomacy',
-                            name: "The hjumpik Protocol",
-                            description: "Trade the Oracle to the Legion in exchange for the prisoners. hjumpik's deal becomes the party's salvation—at a cost.",
-                            requirements: ["hjumpik completes his deal", "Oracle delivered to Legion custody", "Party accepts the betrayal"],
-                            consequences: { success: "Prisoners released. Oracle lost. Magical ally sacrificed for lives.", failure: "Oracle captured AND prisoners executed. Worst outcome." }
-                        },
-                        {
-                            id: 'chaos',
-                            name: "The Third Faction",
-                            description: "Trigger conflict between the Legion and another power (Mages' Guild? Dragons? K. Rool?) and extract prisoners in the chaos.",
-                            requirements: ["Identify exploitable faction tensions", "Timing and positioning", "Willingness to cause collateral damage"],
-                            consequences: { success: "Prisoners escape amid larger conflict.", failure: "Prisoners killed in crossfire. Party blamed by multiple factions." }
-                        },
-                        {
-                            id: 'decoy_extension',
-                            name: "The Long Con",
-                            description: "Extend the decoy's performance. Feed the Legion false intelligence. Buy time for a proper rescue.",
-                            requirements: ["Communication with the decoy", "Convincing false intelligence", "Time the party doesn't have"],
-                            consequences: { success: "Execution delayed. Window opens.", failure: "Decoy exposed. Execution accelerated." }
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-
-    assetStatus: {
-            vigilance: { status: "Captured", location: "Legion control" },
-            usk: { status: "Captured", location: "Raventree Manor - Custody of Pernus Annmatar", note: "Arrested after Markop bribed guards to stop a fight." },
-            eager: { status: "Captured", location: "Raventree Manor - Guard Custody", note: "Caught sneaking out of dinner." },
-            waluigi: { status: "Injured", location: "Greenhouse", condition: "Broken Leg (Severe)" },        bones: { status: "Critical—Stabbed", location: "Aegis Command detention", timeToExecution: "Hours" },
-        creek: { status: "Evading", location: "Aegis Command—unknown sector", resources: "Low" },
-        ryan: { status: "Unknown", location: "Forest below Vigilance crash site", lastSeen: "Day 20, 16:30" },
-        speaker_l_real: { status: "Unknown", location: "Unknown", note: "Must be found before Legion realizes deception" },
-        speaker_l_decoy: { status: "Performing", location: "Aegis Command interrogation", note: "Buying time successfully" },
-        party: { status: "Trapped", location: "Raventree Manor—en route to Summoning Room", constraint: "Cannot leave until ritual complete" }
-    },
-
-    npcs: {
-        allies: ['captain_ryan', 'bones', 'creek', 'toad_lee', 'speaker_l_decoy'],
-        enemies: ['marcus_ironhand', 'legion_commander_vex', 'aegis_command_garrison'],
-        neutral: ['hjumpik_legion_contact', 'self_reflection_oracle'],
-        unknown: ['real_speaker_l']
-    },
-
-    locations: {
-        primary: 'vigilance_airship',
-        critical: 'aegis_command',
-        current: 'raventree_manor',
-        related: ['forest_crash_site', 'rogueport']
-    },
-
-    relatedQuests: ['liberated_toads_integration', 'hjumpik_legion_pact', 'artifacts_of_balance', 'rogueport_retrieval', 'retrieve_the_staff']
-},
-
-'retrieve_the_staff': {
-    id: 'retrieve_the_staff',
-    title: "The Brandished Staff",
-    subtitle: "One Arm, One Chance",
-    type: QUEST_TYPES.MAIN,
-    category: 'Main Story',
-    status: QUEST_STATUS.ACTIVE,
-    priority: QUEST_PRIORITY.CRITICAL, 
-    arcId: 'vigilance_saga',
-    objective: "Stabilize the Staff of X.O. before its seal fails completely, while Dan adapts to fighting with one arm.",
-    assignees: ['dan', 'toad_lee'],
-    primaryAssignee: 'dan',
-    difficulty: {
-        overall: DIFFICULTY.HARD,
-        magic: DIFFICULTY.DEADLY,
-        knowledge: DIFFICULTY.HARD,
-        personal: DIFFICULTY.EXTREME
-    },
-    tags: ['artifact', 'curse', 'combat-adaptation', 'personal-growth', 'ticking-clock'],
-    dates: {
-        added: { year: 1040, monthIndex: 6, day: 15 },
-        updated: { year: 1040, monthIndex: 6, day: 21 },
-        deadline: { year: 1040, monthIndex: 6, day: 28 }
-    },
-
-        description: "The Staff is with Dan (or the entity posing as Dan). The seal is degrading. However, the party is trapped in the Fracture. Reaching Forgemaster Grimm is currently impossible. The objective has shifted: Keep the Staff stable while surviving the alien physics of the Fracture.",
-    loreEntries: ['xo_the_betrayer', 'amputee_combat_techniques', 'forgemaster_grimm', 'staff_seal_mechanics'],
-
-    consequences: {
-        success: "The Staff is cleansed or permanently contained. Dan masters his new fighting style. The threat is ended.",
-        failure: "The seal fails. The Staff detonates or releases its bound entity. Casualties measured in dozens. Dan's sacrifice becomes meaningless.",
-        partial: "The Staff is contained but not cleansed—a ticking bomb that must be carefully managed indefinitely. Dan adapts but carries the trauma."
-    },
-
-    rewards: {
-        guaranteed: [
-            { type: 'item', name: "Staff of the Shattered Veil", description: "Currently unstable. Potential: immense. Risk: catastrophic." },
-            { type: 'ability', name: "Southpaw Throw", description: "Dan's adapted throwing technique—high accuracy with off-hand" },
-            { type: 'trait', name: "Phantom Grip", description: "Dan occasionally 'feels' the missing arm. Sometimes this helps." }
-        ],
-        conditional: [
-            { condition: "Reach Forgemaster Grimm before seal failure", reward: { type: 'item', name: "Staff of the Shattered Veil (Cleansed)", description: "Powerful artifact, safely contained" }},
-            { condition: "Dan achieves a significant combat victory one-armed", reward: { type: 'reputation', faction: 'liberated_toads', amount: 300, description: "The Unbroken" }},
-            { condition: "The Staff is used deliberately despite the risk", reward: { type: 'power', name: "Desperate Channeling", description: "Massive magical effect, seal integrity drops significantly" }}
-        ],
-        xp: 4000
-    },
-
-    milestones: [
-        {
-            id: 'm1',
-            status: 'completed',
-            title: "Assess the Seal",
-            description: "Initial examination revealed the seal's degradation. Timeline established: weeks, not months.",
-            completedDate: { year: 1040, monthIndex: 6, day: 15 }
-        },
-        {
-            id: 'm2',
-            status: 'completed',
-            title: "The Catastrophe",
-            description: "The Staff's partial activation during a crisis cost Dan his arm and killed thirteen Toads. The seal cracked further. The countdown accelerated.",
-            completedDate: { year: 1040, monthIndex: 6, day: 20 },
-            outcomes: [
-                "Dan's arm lost",
-                "13 Toads killed",
-                "Seal integrity: critical",
-                "Timeline revised: days"
-            ]
-        },
-        {
-            id: 'm3',
-            status: 'completed',
-            title: "Proof of Concept",
-            description: "Dan fought the Arcane Wraith using throwing axes and javelins with his remaining arm. He was effective. The adaptation is working.",
-            completedDate: { year: 1040, monthIndex: 6, day: 21 },
-            outcomes: [
-                "Combat viability confirmed",
-                "Throwing technique developing",
-                "Morale improved",
-                "Physical therapy ongoing"
-            ]
-        },
-        {
-            id: 'm4',
-            status: 'failed',
-            title: "The Race",
-            description: "Find Forgemaster Grimm before the seal fails. Continue combat training. Manage the Staff's instability.",
-            goals: [
-                { text: "Survive the Raventree ritual without triggering the Staff", status: 'active', priority: 'critical' },
-                { text: "Locate Forgemaster Grimm (last known: Koopa territories)", status: 'pending', priority: 'critical' },
-                { text: "Continue one-armed combat training", status: 'active', priority: 'high' },
-                { text: "Monitor seal integrity daily", status: 'active', priority: 'high' }
-            ],
-            notes: "Toad Lee estimates seven days to critical failure. The Raventree ritual involves significant magical energy. Keep Dan away from the innermost circle."
-        },
-            {
-                id: 'm5',
-                status: 'failed', // The specific goal to find Grimm quickly has failed due to entrapment
-                title: "The Detour",
-                description: "The path to Forgemaster Grimm is cut off. The party is trapped in other dimensions. The clock is still ticking (approx 6 days remaining), but the solution is now out of reach.",
+                title: "The Aftermath",
+                description: "Recover from failed chase. Decide next steps.",
                 goals: [
-                    { text: "Escape Raventree Fracture to resume travel", status: 'active', priority: 'critical' },
-                    { text: "Prevent the Staff from reacting to Shadow/Fey magic", status: 'active', priority: 'critical' }
+                    { text: "Heal injuries", status: 'active', priority: 'high' },
+                    { text: "Decide whether to pursue Wario", status: 'active', priority: 'medium' },
+                    { text: "Report to Rakasha", status: 'pending', priority: 'high' }
                 ]
-            }        
-    ],
+            }
+        ],
 
-    staffStatus: {
-        sealIntegrity: "27% and falling",
-        estimatedFailure: { year: 1040, monthIndex: 6, day: 28 },
-        currentLocation: "Dan's possession",
-        riskFactors: ["Proximity to major magic", "Physical damage", "Emotional extremity of wielder"],
-        symptoms: ["Visible cracks in runes", "Occasional wrongness pulses", "Shadows behave oddly nearby"]
-    },
-
-    danStatus: {
-        physicalCondition: "Adapting—one arm functional, phantom limb sensations",
-        combatReadiness: "Proven against Arcane Wraith",
-        mentalState: "Determined but grieving",
-        training: "Throwing weapons, single-arm grappling, shield work"
-    },
-
-    npcs: {
-        allies: ['toad_lee', 'party_members'],
-        enemies: [],
-        neutral: ['forgemaster_grimm']
-    },
-
-    locations: {
-        primary: 'party_location',
-        target: 'forgemaster_grimm_workshop',
-        related: ['koopa_territories', 'raventree_manor']
-    },
-
-    relatedQuests: ['vigilance_fallen', 'artifacts_of_balance', 'main_quest_raventree']
-},
-
+        relatedQuests: ['timeline_convergence']
+    }
 };
