@@ -824,27 +824,70 @@ export const hjumpik_QUESTS = {
         priority: QUEST_PRIORITY.CRITICAL,
         arcId: 'feywild_attic',
         objective: "Locate the 'Orange Heir', steal the key artifact, and escape the Feywild manor.",
-        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha'],
+        assignees: ['hjumpik', 'waluigi', 'toad_lee', 'rakasha_spirit_walker'],
         primaryAssignee: 'hjumpik',
-        description: "Trapped in the Feywild reflection of Raventree, Hjumpik has navigated the Hag's Hut, the Greenhouse, and is now infiltrating the main manor party. He has been tasked by Archmage Perrius to 'sever the lineage', but suspects the Heir is a fraud. He must navigate a surreal party, find the missing Rakasha, and loot the Morning Glory weapon.",
+        description: "Trapped in the Feywild reflection of Raventree, Hjumpik has navigated the Hag's Hut, the Greenhouse, and is now deeply embedded in the Manor's staff hierarchy under Lady Aurelian. He has evicted drunken satyrs, survived a razor-vine trap room, and discovered a bio-lock requiring specific names. A connection to Usk from the Shadowfell suggests the timelines are bleeding together. The group is currently investigating the private theater to find the true 'Guest' and their missing companion Rakasha.",
         difficulty: { overall: DIFFICULTY.HARD, social: DIFFICULTY.HARD, puzzle: DIFFICULTY.MODERATE },
         
         rewards: {
             guaranteed: [
-                { type: 'item', name: "The Morning Glory", description: "A flower-staff that becomes a blade in sunlight." },
-                { type: 'item', name: "Bottle of Something Strong", description: "Fey alcohol. Dangerous." }
+                { type: 'item', name: "The Morning Glory", description: "A flower-staff that becomes a blade in sunlight. Looted by Waluigi." },
+                { type: 'item', name: "Bottle of Something Strong", description: "Fey alcohol gifted by the Goblin Bartender. Dangerous." }
             ],
             xp: 6000
         },
 
         milestones: [
-            { id: 'm1', status: 'completed', title: "Greenhouse Sanctuary", description: "Escaped the Hag, healed Waluigi." },
-            { id: 'm2', status: 'completed', title: "The Party Infiltration", description: "Bluffed past the guards. Met the Orange Heir." },
-            { id: 'm3', status: 'completed', title: "Rakasha's Disappearance", description: "Rakasha vanished. Found a naked tiger person instead. Awkward." },
-            { id: 'm4', status: 'completed', title: "The Secret Room", description: "Waluigi found the hidden room. Looted the Morning Glory." },
-            { id: 'm5', status: 'active', title: "The Theater", description: "Investigating the private theater for the true 'Guest'." }
+            { 
+                id: 'm1', 
+                status: 'completed', 
+                title: "Greenhouse Sanctuary", 
+                description: "Escaped the Hag, healed Waluigi's leg with Fey magic.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22 }
+            },
+            { 
+                id: 'm2', 
+                status: 'completed', 
+                title: "The Party Infiltration", 
+                description: "Bluffed past the guards by claiming Dragon authority. Met the Orange Heir at the grotesque banquet.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22 }
+            },
+            { 
+                id: 'm3', 
+                status: 'completed', 
+                title: "Rakasha's Disappearance", 
+                description: "Rakasha vanished from the group. Hjumpik's attempt to find her led to an awkward encounter with a different tiger-person.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22 }
+            },
+            { 
+                id: 'm4', 
+                status: 'completed', 
+                title: "The Satyr Eviction", 
+                description: "Cleared the Guest Wing of squatters by directing them to the Hag's Hut. Earned Lady Aurelian's tentative trust.",
+                completedDate: { year: 1040, monthIndex: 6, day: 25 }
+            },
+            { 
+                id: 'm5', 
+                status: 'completed', 
+                title: "The Vine Room", 
+                description: "Survived the razor-vine trap. Waluigi burned the vines, revealing a bio-lock that accepts 'Corvinarus', 'Oracle', or 'Cornelius'.",
+                completedDate: { year: 1040, monthIndex: 6, day: 25 }
+            },
+            { 
+                id: 'm6', 
+                status: 'completed', 
+                title: "The Secret Loot", 
+                description: "Waluigi discovered a hidden room behind the vines and looted the 'Morning Glory' weapon. Hjumpik found a note linking Usk to the Shadowfell.",
+                completedDate: { year: 1040, monthIndex: 6, day: 25 }
+            },
+            { 
+                id: 'm7', 
+                status: 'active', 
+                title: "The Theater", 
+                description: "Investigating the private theater after learning a 'male beast-folk' guest was taken there. Preparing to breach." 
+            }
         ]
-    },    
+    },
     'hjumpik_mirror_identity': {
         id: 'hjumpik_mirror_identity',
         title: "The Reflection's Gamble",
@@ -894,7 +937,7 @@ export const hjumpik_QUESTS = {
             }
         ]
     },
-    'hjumpik_legion_pact': {
+'hjumpik_legion_pact': {
         id: 'hjumpik_legion_pact',
         title: "The Legion's Mandate",
         subtitle: "Entropy & Extraction",
@@ -902,18 +945,19 @@ export const hjumpik_QUESTS = {
         category: 'Personal - hjumpik',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
+        arcId: 'feywild_attic',
         objective: "Capture 'Orange T' (The God Toad) for the Legion using the Entropy Ring, then exfiltrate.",
-        assignees: ['hjumpik'],
+        assignees: ['hjumpik', 'waluigi', 'toad_lee'],
         primaryAssignee: 'hjumpik',
         difficulty: { overall: DIFFICULTY.DEADLY, moral: DIFFICULTY.EXTREME },
         tags: ['secret', 'betrayal', 'entropy', 'agent-h'],
         
-        description: "Hjumpik made contact with 'Agent H' via the Midnight Gate shrine. The Entropy Regulator Ring is charging (24%). The mission has been updated: The target is Orange T. The Legion knows he is here. Hjumpik must secure the target to earn his extraction.",
+        description: "Hjumpik has successfully infiltrated the Feywild Manor, ostensibly serving Lady Aurelian Corvinarus as a troubleshooter to maintain his cover. The situation has complicated: he has met an 'Orange Heir' who denies being the Master, and the ghost of archmage Perrius Annmatar is telepathically demanding the Heir's death to fix the timeline. Hjumpik must navigate these conflicting demands, keep his cover, and continue charging the Entropy Ring to escape.",
         
         rewards: {
              guaranteed: [
-                { type: 'intel', name: "FNG's Diary Page", description: "Notes on 'The Vessel' and Usk's role." }
+                { type: 'intel', name: "FNG's Diary Page", description: "Notes on 'The Vessel' and Usk's role." },
+                { type: 'item', name: "Morning Glory", description: "A shapeshifting plant-weapon found by Waluigi." }
             ],
             xp: 5500
         },
@@ -923,22 +967,28 @@ export const hjumpik_QUESTS = {
                 id: 'm1',
                 status: 'completed',
                 title: "The Meeting",
-                description: "Accepted the deal.",
+                description: "Accepted the deal with the Iron Legion.",
                 completedDate: { year: 1040, monthIndex: 6, day: 21 }
             },
             {
                 id: 'm2',
-                status: 'active',
+                status: 'completed',
                 title: "The Charge",
-                description: "Used the Ring at the Midnight Gate Shrine. Contacted Agent H.",
-                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 16 }, // Adjusted based on log time
-                notes: "Ring Charge: 24%. Agent H confirmed extraction is conditional on capturing Orange T."
+                description: "Used the Ring at the Midnight Gate Shrine. Contacted Agent H. Charge at 24%.",
+                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 0 }
             },
-         {
+            {
                 id: 'm3',
+                status: 'completed',
+                title: "The Infiltration",
+                description: "Gained entry to the Manor. Evicted Satyrs and cleared the Vine Room to earn Lady Aurelian's trust. Met the 'Orange Heir' at the banquet.",
+                completedDate: { year: 1040, monthIndex: 6, day: 25 }
+            },
+            {
+                id: 'm4',
                 status: 'active',
-                title: "The Target",
-                description: "Hjumpik has infiltrated the party. He met an 'Orange Heir' but suspects it's a decoy. The true target remains elusive.", // UPDATED
+                title: "The Ultimatum",
+                description: "Resolve the identity of the target. Perrius demands the Heir's death to sever the timeline; the Legion wants a capture. Hjumpik is investigating the family tree in the library to find a third option.",
             }
         ]
     },
@@ -1065,18 +1115,18 @@ export const ARCHIE_QUESTS = {
     'archie_dinner_betrayal': {
         id: 'archie_dinner_betrayal',
         title: "The Guest List",
-        subtitle: "Sabotage or stupidity?",
+        subtitle: "From Dinner to Desperation",
         type: QUEST_TYPES.PERSONAL,
         category: 'Personal - Archie',
-        status: QUEST_STATUS.ACTIVE,
+        status: QUEST_STATUS.ACTIVE, // Mark as completed since they escaped the manor
         priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
-        objective: "Survive the dinner with Orangus Cornelius. Deal with the fallout of exposing Green T and Eager.",
-        assignees: ['archie'],
+        arcId: 'shadowfell_estate',
+        objective: "Escape Shadeward Manor and return to the material plane.",
+        assignees: ['archie', 'green_t', 'bowser'],
         primaryAssignee: 'archie',
-        difficulty: { overall: DIFFICULTY.SOCIAL_SUICIDE },
+        difficulty: { overall: DIFFICULTY.DEADLY },
         
-        description: "Archie, seated as an 'Esteemed Guest', made a critical choice. When Eager and Green T attempted to sneak out of the room, Archie yelled 'HEY STOP', alerting the guards. Green T barely escaped, but Eager was captured. Archie then volunteered himself for arrest alongside the 'punchable' toad, but was told to remain seated. He has eaten the roast beef (tainted with blood) and refused to eat the 'candy' offered by the host.",
+        description: "What began as a disastrous dinner party with Orangus Cornelius escalated into a full-blown jailbreak. After betraying his allies to maintain cover, Archie utilized a 'Dracacide' disguise to rescue Green T from a locked room. The duo navigated the horrors of the manor—ignoring a gruesome operating room—and escaped into the wastes. They have now returned to the crash site of the Vigilance, only to find it occupied by a mysterious 'Purple Legion'.",
 
         milestones: [
             {
@@ -1090,17 +1140,24 @@ export const ARCHIE_QUESTS = {
                 id: 'm2',
                 status: 'completed',
                 title: "The Outing",
-                description: "Yelled at escaping allies. Caused Eager's capture. Green T's status: Unknown/Fled.",
+                description: "Yelled at escaping allies. Caused Eager's capture. Green T escaped capture.",
                 completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 13 }
             },
             {
                 id: 'm3',
+                status: 'completed',
+                title: "The Escape",
+                description: "Shattered a barricaded door with willpower. Bluffed past guards using a 'Bureaucrat' disguise. Rescued Green T from under a bed.", 
+                completedDate: { year: 1040, monthIndex: 6, day: 24, hour: 7 }
+            },
+            {
+                id: 'm4',
                 status: 'active',
-                title: "The Candy",
-                description: "Refused the host's demand to hand over the 'candy' (poison?). Usk has been brought in. Tension is critical.", 
+                title: "The Crash Site",
+                description: "Investigate the crashed Vigilance and the 'Purple Legion' occupation. Determine the fate of the Liberated Toads.",
             }
         ]
-    },    
+    },
     'archie_fugitive_of_the_accords': {
         id: 'archie_fugitive_of_the_accords',
         title: "Fugitive of the Accords",
@@ -1804,44 +1861,59 @@ export const BOWSER_QUESTS = {
 };
 
 export const MARKOP_QUESTS = {
-    'markop_dinner_diplomacy': {
-        id: 'markop_dinner_diplomacy',
-        title: "The Price of Admission",
-        subtitle: "Bribes and Betrayals",
-        type: QUEST_TYPES.SOCIAL,
+ 'markop_vessel_investigation': { // RENAMED for accuracy
+        id: 'markop_vessel_investigation',
+        title: "The Vessel Investigation",
+        subtitle: "Uncovering a Necromancer's Plot",
+        type: QUEST_TYPES.INVESTIGATION,
         category: 'Personal - Markop',
         status: QUEST_STATUS.ACTIVE,
-        priority: QUEST_PRIORITY.HIGH,
-        arcId: 'raventree_manor',
-        objective: "Survive the Dinner Party and protect the party members from themselves.",
+        priority: QUEST_PRIORITY.CRITICAL,
+        arcId: 'shadowfell_estate', // UPDATED to new arc
+        objective: "Uncover the Oracle's true plan, find a way to stop the 'Vessel' from awakening, and escape the dimension.",
         assignees: ['markop', 'remi'],
         primaryAssignee: 'markop',
         
-        description: "Markop and Remi arrived at the Shadowfell Manor. After a chaotic encounter with headless dancers and Usk attempting to possess 'Mossy', Markop bribed the guards (20 gold) to de-escalate. However, the price of admission was Usk's arrest by Pernus Annmatar. Now seated at Orangus Cornelius's table, Markop is trying to keep the peace while Remi offers poison candy to the host.",
+        description: "Markop and Remi are trapped with the Oracle in the 'Fractured Atrium,' a dimension of decaying reality. They have discovered his hidden necromancy lab, containing a dormant 'Vessel' and notes detailing his plan. After witnessing visions of the other fractured timelines, they understand the Oracle's goal is to force a convergence. Their mission is now to stop him before he can awaken the creature.",
 
         rewards: {
             guaranteed: [
-                { type: 'item', name: "Citrus Slices", description: "Not poison. Just fruit." }
+                { type: 'intel', name: "The Oracle's Notes", description: "Proof that the Oracle is a necromantic researcher." },
+                { type: 'intel', name: "The Convergence Protocol", description: "Details on how the timelines will be merged." }
             ],
-            xp: 3000
+            xp: 7500
         },
 
         milestones: [
             {
                 id: 'm1',
                 status: 'completed',
-                title: "The Bribe",
-                description: "Paid 20 Gold to guards to stop the fight. Agreed to let them arrest Usk.",
-                completedDate: { year: 1040, monthIndex: 6, day: 22, hour: 8 }
+                title: "The Atrium",
+                description: "Became trapped in the unstable dimension with the Oracle.",
+                completedDate: { year: 1040, monthIndex: 6, day: 23, hour: 2 }
             },
-    {
+            {
                 id: 'm2',
+                status: 'completed',
+                title: "The Laboratory",
+                description: "Discovered the hidden necromancy lab, the 'Vessel' tank, and the Oracle's research notes.",
+                completedDate: { year: 1040, monthIndex: 6, day: 23, hour: 4 }
+            },
+            {
+                id: 'm3',
+                status: 'completed',
+                title: "The Vision",
+                description: "Breached the ballroom and witnessed flickering visions of the Shadowfell dinner party, realizing the timelines were connected.",
+                completedDate: { year: 1040, monthIndex: 6, day: 23, hour: 7 }
+            },
+            {
+                id: 'm4',
                 status: 'active',
-                title: "The Table",
-                description: "Seated at the dinner. Remi is acting suspicious. Archie is eating blood-beef. Bowser is demanding wings. The Host is watching.", // UPDATED
+                title: "The Final Assault",
+                description: "Prepare to synchronize an attack with the other teams to stop the Convergence Protocol and defeat the Oracle.", 
             }
         ]
-    },    
+    },
     'markop_void_vigil': {
         id: 'markop_void_vigil',
         title: "The Void Vigil",
@@ -2324,7 +2396,523 @@ export const WORLD_QUESTS = {
                 action: "Find a way to escape without serving any faction.",
                 result: "Unknown. Possibly everyone survives. Possibly everyone dies.",
                 cost: "Every faction becomes an enemy. Must find a fourth path."
-            }
+            },
+            
+    // === ENTITY & CRYSTALS ===
+    free_the_beast: {
+        action: "Shatter all crystals. Release the entity beneath the manor.",
+        result: "All factions devoured. All timelines dissolve. You are the only souls left.",
+        cost: "You are the new gods. Every choice shapes reality. There is no going back."
+    },
+
+    feed_the_revel: {
+        action: "Offer one party member to The Revel as a permanent host.",
+        result: "The Revel is sated for a century. Faeward stabilizes. Aurelian owes you everything.",
+        cost: "Your friend is conscious inside it forever. Watching. Screaming. Digesting slowly."
+    },
+
+    become_the_revel: {
+        action: "Willingly merge with The Revel. Absorb its power.",
+        result: "You become an entity of infinite hunger. All of Faeward bows to you.",
+        cost: "You forget your name. Your friends. Your humanity. Only appetite remains."
+    },
+
+    weaponize_crystals: {
+        action: "Use the crystals to trap a faction leader inside.",
+        result: "One enemy is permanently imprisoned. Their faction crumbles without leadership.",
+        cost: "You must feed the crystal a soul every month or it cracks and releases them."
+    },
+
+    reverse_containment: {
+        action: "Invert the crystals. Turn them outward instead of inward.",
+        result: "Whatever the crystals held now protects you. An army of horrors at your command.",
+        cost: "They obey, but they whisper. Every night. Louder. Until you cannot tell their thoughts from yours."
+    },
+
+    // === PARTY BETRAYALS ===
+    betray_green_t: {
+        action: "Surrender Green T to the Oracle as atonement.",
+        result: "The Oracle forgives the party. Convergence proceeds peacefully.",
+        cost: "You hear Green T's screams in your dreams forever."
+    },
+
+    betray_archie: {
+        action: "Give Archie to Orangus as payment for the greenhouse.",
+        result: "The debt is settled. Orangus becomes a powerful ally.",
+        cost: "Archie burns for three days. He survives. He remembers who handed him over."
+    },
+
+    betray_hjumpik: {
+        action: "Steal Hjumpik's Entropy Ring and deliver it to the Mages Guild.",
+        result: "The Guild rewards you handsomely. They owe you a favor.",
+        cost: "Hjumpik's entropy destabilizes. He becomes a walking probability storm."
+    },
+
+    betray_bowser: {
+        action: "Lure Bowser into a trap set by Aurelian's fey hunters.",
+        result: "Aurelian trusts you completely. Full access to Faeward secrets.",
+        cost: "Bowser's shell hangs on her wall. He is still alive inside it."
+    },
+
+    betray_waluigi: {
+        action: "Report Waluigi's chaos magic to Orangus.",
+        result: "Orangus offers protection. The vampires shield you from the Mages Guild.",
+        cost: "Waluigi is drained slowly over months. Used as a battery for Shadeward's wards."
+    },
+
+    betray_toad_lee: {
+        action: "Sell Toad Lee's location to the Iron Legion.",
+        result: "The Legion stops hunting you. You receive safe passage through the material plane.",
+        cost: "Toad Lee vanishes into a black site. No one knows what they do there."
+    },
+
+    betray_rakasha: {
+        action: "Expose Rakasha's unnatural strength to Aurelian.",
+        result: "Aurelian investigates. Discovers Rakasha is marked by something ancient.",
+        cost: "Rakasha is dissected alive to study the mark. She survives. Barely."
+    },
+
+    // === SELF-SACRIFICE ===
+    sacrifice_self_to_oracle: {
+        action: "Offer yourself as the Oracle's new vessel.",
+        result: "Your friends escape. All of them. The Oracle is satisfied.",
+        cost: "You see all timelines at once. You know everything. You can do nothing."
+    },
+
+    sacrifice_self_to_perrius: {
+        action: "Let Perrius possess you permanently.",
+        result: "Perrius has a body again. He honors his deal. Everyone goes home.",
+        cost: "You are a passenger in your own flesh. Watching. Screaming silently."
+    },
+
+    sacrifice_fire_forever: {
+        action: "Archie permanently surrenders his fire magic to restore the party.",
+        result: "Everyone is healed. Everyone escapes. Archie is whole and free.",
+        cost: "Archie will never cast fire again. He will be cold. Always cold."
+    },
+
+    sacrifice_memories: {
+        action: "Erase all memories of the manor from the party's minds.",
+        result: "You wake up outside. Safe. No trauma. No nightmares.",
+        cost: "You forget each other. You walk away as strangers and never reconnect."
+    },
+
+    sacrifice_future: {
+        action: "Trade your future to the Oracle. All of it.",
+        result: "The Oracle gives you anything you want right now. Anything.",
+        cost: "You have no future. You will die within one year. Nothing can stop it."
+    },
+
+    sacrifice_name: {
+        action: "Give your true name to Aurelian.",
+        result: "She grants you permanent sanctuary in Faeward. You are protected forever.",
+        cost: "She owns you. One word from her and you obey. Anything. Everything."
+    },
+
+    // === TIMELINE MANIPULATION ===
+    merge_two_timelines: {
+        action: "Force Shadeward and Faeward together. Leave the Void alone.",
+        result: "Two Oracles merge. One timeline of vampires and fey. Uneasy but stable.",
+        cost: "The Void collapses. Everyone trapped there—Toadburt, Eager—is erased."
+    },
+
+    isolate_shadeward: {
+        action: "Sever Shadeward from all other timelines.",
+        result: "Orangus rules alone. He cannot threaten anyone else ever again.",
+        cost: "Markop's group is trapped there. They become cattle. Or worse."
+    },
+
+    isolate_faeward: {
+        action: "Sever Faeward from all other timelines.",
+        result: "Aurelian's paradise is sealed. The Revel cannot spread.",
+        cost: "Hjumpik's group is trapped there. Time moves differently. They age. Fast."
+    },
+
+    loop_the_dinner: {
+        action: "Trap the dinner party in a time loop forever.",
+        result: "Orangus, Vivian, Kryn, the Oracle—all frozen. Reliving the same meal eternally.",
+        cost: "Anyone who was there is trapped too. Including Bowser. Including Archie."
+    },
+
+    rewind_before_the_shot: {
+        action: "Reset time to before Green T shot the Oracle.",
+        result: "The Oracle is alive. No chaos. No hunt. Fresh start.",
+        cost: "You remember everything. The Oracle remembers nothing. But it will figure it out."
+    },
+
+    accelerate_shadeward: {
+        action: "Speed up time in Shadeward by a hundred years.",
+        result: "Orangus's court crumbles. New powers rise. The vampires scatter.",
+        cost: "Everyone you left behind is dead. Toadburt. Eager. Salam. Dust."
+    },
+
+    pause_faeward: {
+        action: "Freeze Faeward in a single moment forever.",
+        result: "The Revel stops mid-bite. Aurelian stops mid-sentence. Safe. Still.",
+        cost: "Hjumpik's group is frozen too. Conscious. Unable to move. Forever."
+    },
+
+    // === DARK BARGAINS ===
+    bargain_with_usk: {
+        action: "Offer to restore Usk's finger in exchange for his secrets.",
+        result: "Usk reveals Orangus's true weakness. The vampire lord can be killed.",
+        cost: "To restore the finger, you must cut off your own. Pain is memory."
+    },
+
+    bargain_with_kryn: {
+        action: "Help Kryn overthrow Orangus. Support a coup.",
+        result: "Kryn rules Shadeward. Young, grateful, and in your debt.",
+        cost: "Kryn is worse than Orangus. You just handed a monster his crown."
+    },
+
+    bargain_with_franklin: {
+        action: "Help Franklin obtain the Entropy Ring. In exchange, he smuggles you out.",
+        result: "Freedom. Clean. No faction ties. The Guild owes you nothing.",
+        cost: "Franklin uses the ring to collapse a timeline. Thousands die. Your hands are clean. Technically."
+    },
+
+    bargain_with_hag: {
+        action: "Return to the Hag's hut. Make a deal.",
+        result: "She gives you exactly what you ask for. Word for word.",
+        cost: "She takes something you didn't know you had. You won't miss it until it's too late."
+    },
+
+    bargain_with_sprites: {
+        action: "Promise the sprites a favor in exchange for passage.",
+        result: "Safe travel through all of Faeward. Invisible to The Revel.",
+        cost: "Sprites collect. Always. The favor will be absurd, dangerous, and binding."
+    },
+
+    bargain_with_dan: {
+        action: "Find the real Dan. Learn what he knows about the Vigilance.",
+        result: "Dan reveals the Legion's weakness. The propaganda is a lie.",
+        cost: "Dan is not Dan. Not anymore. Something is wearing his face."
+    },
+
+    bargain_with_iron_legion: {
+        action: "Surrender to the Iron Legion. Offer intel on the anomaly.",
+        result: "The Legion contains the manor. No one can enter or leave. Problem solved.",
+        cost: "You are contained too. Forever. The Legion does not release assets."
+    },
+
+    // === KNOWLEDGE & TRUTH ===
+    read_all_onyx_books: {
+        action: "Archie reads every Onyx Hand book. All of them. Cover to cover.",
+        result: "He learns the true history. The Corvinarus family. The first Oracle. Everything.",
+        cost: "The books are vampiric. Each page drains a year of life. Archie ages decades in hours."
+    },
+
+    learn_oracle_name: {
+        action: "Discover the Oracle's true name before it became an Oracle.",
+        result: "Names have power. You can command the Oracle. Once.",
+        cost: "The Oracle will spend eternity hunting whoever knows. You cannot forget."
+    },
+
+    expose_vivian_publicly: {
+        action: "Broadcast Vivian's imposture to all of Shadeward.",
+        result: "Vivian is torn apart by the court. The succession crisis ends.",
+        cost: "You made an enemy of every thrall in existence. They have long memories."
+    },
+
+    uncover_os_identity: {
+        action: "Discover who 'OS' on the tree really was. Orangus's lost love.",
+        result: "Orangus breaks. Completely. He will do anything you ask. Anything.",
+        cost: "You learn she is still alive. Trapped somewhere. And Orangus will burn worlds to find her."
+    },
+
+    decode_vessel_notes: {
+        action: "Fully decode FNG's vessel research notes.",
+        result: "You understand how the Oracles were made. You could make more. Or unmake them.",
+        cost: "The knowledge changes you. You start seeing probabilities. Everywhere. All the time."
+    },
+
+    reveal_entropy_truth: {
+        action: "Discover what happens when entropy reaches 100%.",
+        result: "You understand the ring. You can control it. Weaponize it.",
+        cost: "At 100%, you don't die. You become a possibility. All possibilities. None of them you."
+    },
+
+    // === UNEXPECTED ALLIANCES ===
+    ally_perrius_and_aurelian: {
+        action: "Convince Perrius and Aurelian to work together against the Oracle.",
+        result: "Ghost and fey unite. The Oracle cannot fight both. Victory is certain.",
+        cost: "Perrius possesses Aurelian afterward. Faeward becomes a haunted nightmare."
+    },
+
+    ally_orangus_and_aurelian: {
+        action: "Reunite the Corvinarus bloodline. Vampire and fey together.",
+        result: "The family is whole. Both timelines stabilize. The Oracles lose leverage.",
+        cost: "They remember why they separated. The war resumes. You are in the middle."
+    },
+
+    ally_mages_guild_and_perrius: {
+        action: "Broker a deal between the Guild and the Ghost.",
+        result: "Combined power to kill all Oracles. Reality will be rewritten.",
+        cost: "They plan to rule together. You will be subjects of a ghost-mage empire."
+    },
+
+    ally_satyrs_and_party: {
+        action: "Recruit the satyrs instead of expelling them.",
+        result: "Drunk chaos army. They will fight anything. They will party anywhere.",
+        cost: "They never leave. You have satyrs now. Forever. They are your problem."
+    },
+
+    ally_revel_and_party: {
+        action: "Feed The Revel enemies instead of fighting it.",
+        result: "The Revel is your weapon. Point it at anyone. It devours them.",
+        cost: "It needs to eat. Always. You must keep feeding it or it turns on you."
+    },
+
+    ally_iron_legion_and_party: {
+        action: "Convince the Iron Legion you can contain the anomaly better.",
+        result: "Legion resources. Weapons. Soldiers. You are deputized.",
+        cost: "Compliance is mandatory. You follow orders now. Forever."
+    },
+
+    // === ITEM-BASED ===
+    destroy_entropy_ring: {
+        action: "Shatter Hjumpik's Entropy Ring completely.",
+        result: "Mages Guild loses tracking. You disappear from their sight forever.",
+        cost: "The stored entropy releases. Reality fractures around Hjumpik. Permanent scars."
+    },
+
+    overcharge_entropy_ring: {
+        action: "Push the ring past 100%. Force a controlled overload.",
+        result: "A probability bomb. Destroys anything within range. Complete annihilation.",
+        cost: "Hjumpik is at the center. He survives but exists in all states simultaneously."
+    },
+
+    gift_morning_glory: {
+        action: "Give the Morning Glory weapon to Aurelian.",
+        result: "She is deeply moved. Full alliance. No more tests. No more deals.",
+        cost: "She uses it to kill her heir. She always hated them. You armed her."
+    },
+
+    weaponize_onyx_books: {
+        action: "Use the Onyx Hand books as a trap for Franklin.",
+        result: "Franklin is corrupted by the books. The Mages Guild loses their agent.",
+        cost: "The books consume Franklin. He becomes a new threat. Smarter. Hungrier."
+    },
+
+    trade_flintlock_to_orangus: {
+        action: "Give Green T's silver-loaded flintlock to Orangus.",
+        result: "Orangus trusts you. You are elevated to his inner circle.",
+        cost: "He uses it on Kryn. His own heir. You armed a murderer."
+    },
+
+    // === BODY & SOUL ===
+    swap_bodies_with_vivian: {
+        action: "Use Faeward magic to swap bodies with Vivian.",
+        result: "You become the heir. Vivian is trapped in your body.",
+        cost: "Vivian in your body runs. Disappears. Uses your face to do terrible things."
+    },
+
+    let_perrius_possess_bowser: {
+        action: "Offer Bowser as a vessel for Perrius Annmatar.",
+        result: "Perrius in Bowser's body is unstoppable. Shadeward falls in hours.",
+        cost: "Bowser is still in there. Watching Perrius use his hands to kill."
+    },
+
+    split_the_oracle: {
+        action: "Instead of killing the Oracle, divide it into three weaker beings.",
+        result: "Three small Oracles. Weak. Manageable. Probability becomes flexible.",
+        cost: "They hate each other. They scheme. They grow. One will win eventually."
+    },
+
+    absorb_usk_memories: {
+        action: "Use the crystalline knife to absorb Usk's memories.",
+        result: "You know everything Usk knew. Every secret. Every weakness.",
+        cost: "Usk's loyalty bleeds into you. You feel compelled to serve Orangus."
+    },
+
+    steal_rakasha_strength: {
+        action: "Transfer Rakasha's unnatural strength to yourself.",
+        result: "You are powerful. Unnaturally so. The play-bliss is yours now.",
+        cost: "Rakasha becomes fragile. Weak. She trusted you."
+    },
+
+    // === LOCATION-BASED ===
+    collapse_the_greenhouse: {
+        action: "Destroy the Faeward Greenhouse completely.",
+        result: "The sprites die. The connections to other timelines weaken.",
+        cost: "Aurelian's power comes from the greenhouse. She becomes desperate. Dangerous."
+    },
+
+    seal_the_attic_mirror: {
+        action: "Permanently seal the mirror in Shadeward's attic.",
+        result: "No more timeline crossings through that point. Shadeward is isolated.",
+        cost: "Anyone on the other side when it seals is trapped forever."
+    },
+
+    burn_the_hags_hut: {
+        action: "Destroy the Hag's hut before anyone else can make deals.",
+        result: "The Hag dies. No more dark bargains. Faeward becomes slightly safer.",
+        cost: "Everything she was owed comes due. Every deal collapses. Chaos follows."
+    },
+
+    claim_the_lords_chamber: {
+        action: "Take the Faeward Lord's Chamber for yourself.",
+        result: "You are recognized as a power in Faeward. Goblins and sprites serve you.",
+        cost: "Aurelian will not share. She will come for you. Soon."
+    },
+
+    fortify_abandoned_infirmary: {
+        action: "Turn the abandoned infirmary into a permanent base.",
+        result: "Safe haven. Hidden from all factions. A place to rest and plan.",
+        cost: "The infirmary has ghosts. They remember patients. They want more."
+    },
+
+    salvage_the_vigilance: {
+        action: "Sneak into the crashed Vigilance and salvage what you can.",
+        result: "Weapons. Intel. Supplies. Enough to fight back properly.",
+        cost: "The Iron Legion notices. They tighten the perimeter. Escape becomes harder."
+    },
+
+    // === META & REALITY ===
+    break_the_fourth_wall: {
+        action: "Acknowledge that you are in a story. Speak to something beyond.",
+        result: "The DM blinks. Reality shudders. You are given one impossible boon.",
+        cost: "You know too much. The world feels thin. You can never unsee the seams."
+    },
+
+    refuse_to_choose: {
+        action: "Do nothing. Wait. Let events unfold without interference.",
+        result: "The factions destroy each other. Someone wins. You are collateral.",
+        cost: "You had agency. You gave it away. The ending is not yours."
+    },
+
+    choose_everything: {
+        action: "Attempt to ally with every faction simultaneously.",
+        result: "Impossible. They all discover your lies. They unite against you.",
+        cost: "Every door closes. Every ally becomes an enemy. You are alone."
+    },
+
+    erase_yourself: {
+        action: "Use the entropy ring to erase yourself from all timelines.",
+        result: "No one remembers you. You never existed. Your friends are free of you.",
+        cost: "You watch from nowhere. You see them move on. You cannot return."
+    },
+
+    create_fourth_timeline: {
+        action: "Force the fracture wider. Create a fourth timeline. Your timeline.",
+        result: "A pocket reality where you make the rules. Sanctuary.",
+        cost: "It drains the other three. They weaken. The factions blame you."
+    },
+
+    loop_yourself: {
+        action: "Trap yourself in a time loop to try every possibility.",
+        result: "You find the perfect solution. Eventually. After thousands of loops.",
+        cost: "You remember every loop. Every death. Every failure. You are not sane when you escape."
+    },
+
+    // === EMOTIONAL & RELATIONSHIPS ===
+    confess_to_orangus: {
+        action: "Tell Orangus the full truth. Everything. Hold nothing back.",
+        result: "He is stunned. He respects honesty. He offers a genuine alliance.",
+        cost: "He knows everything now. Every weakness. Every secret. He will use them."
+    },
+
+    forgive_vivian: {
+        action: "Offer Vivian mercy. Help him escape instead of exposing him.",
+        result: "Vivian is loyal. Genuinely. He becomes a powerful hidden ally.",
+        cost: "Kryn dies. Vivian was always going to kill him. You just delayed it."
+    },
+
+    mourn_toadburt: {
+        action: "Spend precious time holding a funeral for Toadburt if he dies.",
+        result: "The party bonds. Morale stabilizes. You remember why you fight.",
+        cost: "Time passes. Factions move. Opportunities close while you grieve."
+    },
+
+    save_usk: {
+        action: "Risk everything to save Usk from bleeding out.",
+        result: "Usk lives. He is grateful. He will betray Orangus for you.",
+        cost: "Orangus notices. He knows Usk is compromised. He will test you both."
+    },
+
+    reunite_the_party_at_any_cost: {
+        action: "Prioritize getting everyone together. Nothing else matters.",
+        result: "The party reunites. Full strength. Full intel. Ready for anything.",
+        cost: "You ignored the factions. They have moved. The board has changed."
+    },
+
+    leave_someone_behind: {
+        action: "Escape with most of the party. Leave one person to buy time.",
+        result: "Clean escape. No casualties except one. The math works.",
+        cost: "Someone you love dies alone. They trusted you. You left them."
+    },
+    sacrifice_to_the_revel: {
+        action: "Feed one party member to The Revel (the gluttony entity).",
+        result: "The Revel is sated and retreats. The Faeward Manor stabilizes. Aurelian is so impressed she lets everyone go free.",
+        cost: "That party member is digested. They return to the Material Plane... as a sentient, agonizing pile of feces in a flowerpot. They are conscious. They cannot speak."
+    },
+
+    become_the_anchor: {
+        action: "Destroy the crystals. One party member takes their place as the living anchor.",
+        result: "The timelines stabilize. The manor is saved. The other party members can go home.",
+        cost: "The chosen member becomes a statue. They are conscious, unable to move, for 100 years. They feel every rain, every bird that lands on them. Forever."
+    },
+
+    franklins_ascension: {
+        action: "Give the Entropy Ring to Franklin. Let him complete his mission.",
+        result: "Franklin ascends to Lichdom. He opens a portal home for the party out of gratitude.",
+        cost: "Franklin becomes the new Dark Lord of this plane. The Mages Guild takes over the manor. You just doomed the world to 500 years of magical tyranny."
+    },
+
+    the_vampire_spawn: {
+        action: "Drink Orangus's blood willingly. Become his 'favorite'.",
+        result: "You gain immense power. You are a Vampire Lord, second only to Orangus. You rule the night.",
+        cost: "You lose your soul. You can no longer enter a home uninvited. You must kill a civilian every week or wither to dust. Your old friends are now just 'food' to you."
+    },
+
+    trapped_in_the_play: {
+        action: "Join the Satyrs' 'party' permanently. Never leave the greenhouse.",
+        result: "You live in eternal bliss. The wine never runs out. The high never fades. It's always summer.",
+        cost: "You forget your names. You forget the outside world. You are now a mindless NPC in Aurelian's play, repeating the same lines forever."
+    },
+
+    perrius_puppet: {
+        action: "Make a deal with Perrius: Kill Aurelian for him.",
+        result: "Perrius destroys the Faeward timeline. You escape to the Material Plane with a bag of gold.",
+        cost: "Perrius now owns your shadow. Whenever you sleep, he possesses your body to commit murders. You wake up with blood on your hands."
+    },
+
+    the_probability_ghost: {
+        action: "Let the Oracle merge the timelines, but YOU step into the beam.",
+        result: "You become a being of pure probability. You can reroll reality once per day.",
+        cost: "You are erased from everyone's memory. Your friends don't know who you are. You are a ghost in your own life."
+    },
+
+    merge_with_vivian: {
+        action: "Help Vivian, then betray him at the last second and take the throne yourself.",
+        result: "You are the new Master of Shadeward. You have an army of shadows.",
+        cost: "The manor hates you. The walls bleed when you walk by. The food turns to ash in your mouth. You are utterly, cosmically alone."
+    },
+
+    destroy_the_ring: {
+        action: "Smash Hjumpik's Entropy Ring with a hammer.",
+        result: "A massive explosion of raw magic tears a hole in the Void. Everyone escapes through the hole.",
+        cost: "Hjumpik is the epicenter. He is atomized. Gone. Not even dust remains. The ring was bonded to his soul."
+    },
+
+    usk_the_key: {
+        action: "Use Usk's severed finger (from the research notes) to unlock the Void Gate.",
+        result: "The gate opens. The party escapes back to the Material Plane.",
+        cost: "Usk's spirit is now attached to your party. He whispers criticisms of your combat tactics in your ear during every fight. Forever."
+    },
+
+    become_the_monster: {
+        action: "Open all the cages in the Void specimen tanks.",
+        result: "Chaos erupts. In the confusion, the party slips away and escapes.",
+        cost: "The creatures swarm the Material Plane. You are responsible for a plague of eldritch horrors. You are now a 'Wanted: Apocalypse-Level' criminal."
+    },
+
+    the_fools_bargain: {
+        action: "Trick Perrius into possessing a toilet.",
+        result: "Perrius is trapped. The Ghost is gone. The timelines stabilize naturally.",
+        cost: "Perrius knows it was you. When you die, your soul won't go to the afterlife. It will go to the toilet. To be flushed. Forever."
+    },
+
         },
 
         rewards: {
@@ -2333,6 +2921,326 @@ export const WORLD_QUESTS = {
                 { type: 'items', name: "Onyx Hand Books", description: "Archie recovered books from the Shadeward manor." }
             ],
             conditional: [
+  {
+    condition: "Oracle shot by Green T with silver bullet",
+    reward: { type: 'knowledge', name: "Oracle's Vulnerability", description: "Silver affects Oracles but doesn't kill them. Oracle becomes scarred, reveals 'Third Anchor' exists." }
+  },
+  {
+    condition: "Archie and Hjumpik simultaneously interact with crystalline objects",
+    reward: { type: 'knowledge', name: "Crystalline Truth", description: "Both parties see Usk's ghost warning: 'The crystals lie.' Unlocks 'Crystalline Deception' lore." }
+  },
+  {
+    condition: "Vivian's imposture exposed to both Orangus and Hjumpik's group",
+    reward: { type: 'tactical', name: "Heir Clarity", description: "Kryn confirmed as true heir. Aurelian and Orangus temporarily ally. Perrius demands Kryn's death." }
+  },
+  {
+    condition: "Rakasha fights The Revel while under play-bliss",
+    reward: { type: 'variable', name: "Revel's Fate", description: "Successful: Rakasha gains 'Blessing of Satiety,' all Faeward food becomes sentient. Failure: Rakasha loses right arm, hates all fey." }
+  },
+  {
+    condition: "Markop's group sheltered Perrius, then sides with different faction",
+    reward: { type: 'penalty', name: "Perrius's Betrayal", description: "Random party member possessed by Perrius during critical moment. Perrius becomes permanently hostile." }
+  },
+  {
+    condition: "Hjumpik's Entropy Ring reaches 100%",
+    reward: { type: 'variable', name: "Entropy Crisis", description: "Ring shatters or transforms. Reality warps. Waluigi stabilizes = stable field. Toad Lee stabilizes = controlled chaos. Neither = Hjumpik flung to Void." }
+  },
+  {
+    condition: "All three party groups reunite with full intelligence",
+    reward: { type: 'tactical', name: "Complete Picture", description: "Party learns of Third Anchor, discovers true ritual, sees all faction goals clearly." }
+  },
+  {
+    condition: "Party reaches Crashed Vigilance Core with all intel intact",
+    reward: { type: 'critical', name: "Timeline Convergence Initiated", description: "All factions converge at the anchor. Final battle unlocks. Party must choose: side with faction or reject all." }
+  },
+  {
+    condition: "Reject all factions + reunited party + saved Usk/Toadburt + crystals' truth revealed",
+    reward: { type: 'legendary', name: "The Fourth Path", description: "Unlock 'The Entity Beneath' boss fight. Win = True Freedom + Master of Probability. Lose = All timelines destroyed." }
+  },
+  {
+    condition: "Side with Perrius Annmatar",
+    reward: { type: 'variable', name: "Ghost's Plan", description: "Kill both heirs. Fake-kill two Oracles. Corvinarus bloodline ends. 'Even is balanced, odd is irregular.' Unknown consequences." }
+  },
+  {
+    condition: "Side with Mages Guild",
+    reward: { type: 'variable', name: "Guild's Dominion", description: "Kill all three Oracles. Probability untethers. Magic destabilizes. Reality may unravel." }
+  },
+  {
+    condition: "Side with Oracle",
+    reward: { type: 'variable', name: "Convergence Complete", description: "Merge all timelines. One Oracle survives. Probability locks at 100%. No free will. Oracle knows Green T shot it." }
+  },
+  {
+    condition: "Side with Aurelian Corvinarus",
+    reward: { type: 'variable', name: "Isolation Pact", description: "Clear satyrs. Work 5 nights. Three party members escape. Faeward isolates. Party permanently split. Others trapped." }
+  },
+  {
+    condition: "Side with Orangus Cornelius",
+    reward: { type: 'variable', name: "Vampiric Dominion", description: "Protect Kryn as true heir. Shadeward becomes dominant timeline. Party becomes servants of vampires. Mortals become cattle." }
+  },
+  {
+    condition: "Archie recovers Onyx Hand books from Shadeward",
+    reward: { type: 'knowledge', name: "Onyx Hand Secrets", description: "Books reveal history of Corvinarus bloodline and their pact with shadows." }
+  },
+  {
+    condition: "Green T obtains flintlock and ammunition",
+    reward: { type: 'tactical', name: "Gunslinger's Edge", description: "Silver bullets confirm Oracle weakness. Provides advantage in future encounters with supernatural beings." }
+  },
+  {
+    condition: "Toadburt rescued from Shadeward capture",
+    reward: { type: 'tactical', name: "Loyal Return", description: "Toadburt provides intel on Onyx Hand operations. Party gains +2 trust with Markop's faction." }
+  },
+  {
+    condition: "Waluigi discovers Morning Glory weapon in hidden room",
+    reward: { type: 'item', name: "Blooming Blade", description: "Wooden staff that blooms into wickedly sharp blade in daylight. Remains open rest of day, closes at night." }
+  },
+  {
+    condition: "Hjumpik learns Aurelian's 'special arrangement' is a lie",
+    reward: { type: 'knowledge', name: "False Promise", description: "Aurelian cannot guarantee party return. Three-person escape may be permanent or temporary. Her true motives questioned." }
+  },
+  {
+    condition: "Party clears satyrs from Faeward for Aurelian",
+    reward: { type: 'variable', name: "Satyr Removal", description: "Successfully lure them away: Aurelian trusts party more. Force them out violently (Waluigi's method): Aurelian suspicious, deal becomes unstable." }
+  },
+  {
+    condition: "Hjumpik contacts Perrius Annmatar telepathically",
+    reward: { type: 'knowledge', name: "Ghost's Counsel", description: "Perrius reveals: 'Kill all heirs except main one.' 'Crystals keep monsters IN, not OUT.' Probability needs odd number of Oracles." }
+  },
+  {
+    condition: "Mages Guild contact via Hjumpik's ring",
+    reward: { type: 'knowledge', name: "Guild's Interest", description: "Ring at 24% entropy. Guild intercepted FNG's vessel research notes. They want the ring and have been watching." }
+  },
+  {
+    condition: "Archie discovers 'real Dan' near Vigilance crash site",
+    reward: { type: 'knowledge', name: "Real Dan Located", description: "Dan may be key to understanding Vigilance crash. May hold answers about Iron Legion and propaganda broadcasts." }
+  },
+  {
+    condition: "Party hears Iron Legion propaganda: 'THE ANOMALY IS CONTAINED'",
+    reward: { type: 'knowledge', name: "External Threat Confirmed", description: "Something beyond the manor is aware of the anomaly. Iron Legion contains it. Escape may trigger military response." }
+  },
+  {
+    condition: "Usk's fate confirmed (finger cut off, possibly dying)",
+    reward: { type: 'knowledge', name: "Usk's Betrayal", description: "Usk was 'faithful confidant' per vessel research. His death may trigger Orangus's wrath or reveal hidden alliances." }
+  },
+  {
+    condition: "Waluigi senses magic overflowing the manor",
+    reward: { type: 'knowledge', name: "Magical Saturation", description: "Magic here is unstable and pervasive. Reality bends to fey will. Standard spellcasting becomes unpredictable." }
+  },
+  {
+    condition: "Toad Lee discovers tree with 'OC' and 'OS' initials",
+    reward: { type: 'knowledge', name: "Lost Love", description: "OC = Orangus Cornelius. OS = Possibly Orangus Sundaria (dating rumor). Love story may explain faction tensions." }
+  },
+  {
+    condition: "Party discovers giant skeletal tree at manor's skyline",
+    reward: { type: 'knowledge', name: "Ancient Anchor", description: "Tree is visible from all three timelines. May be the TRUE anchor rather than the crystals." }
+  },
+  {
+    condition: "Waluigi obtains shyguy flying toy from thorn room",
+    reward: { type: 'item', name: "Motion-Activated Toy", description: "Accepts three names: Corvinarus, Oracle, Cornelius. Triggers hidden mechanisms. Key to unlocking sealed areas." }
+  },
+  {
+    condition: "Party observes The Revel's true nature",
+    reward: { type: 'knowledge', name: "Entity of Gluttony", description: "The Revel is not fey—it's something older. It feeds on excess, vice, and consumption. May be the 'Entity Beneath.'" }
+  },
+  {
+    condition: "Hjumpik and party survive 5 nights in Faeward",
+    reward: { type: 'tactical', name: "Faeward Mastery", description: "Party learns fey manor's layout, NPC patterns, and secret passages. Gains +3 to stealth/navigation in Faeward." }
+  },
+  {
+    condition: "Franklin (Mages Guild) pursues Entropy Ring",
+    reward: { type: 'tactical', name: "Guild Pressure", description: "Franklin's presence means Ring is tracked. Mages Guild knows Hjumpik's location. Must hide or confront soon." }
+  },
+  {
+    condition: "Bowser breathes fire in Shadeward dining hall",
+    reward: { type: 'tactical', name: "Chaos Engine", description: "Bowser's fire spreads uncontrollably. Creates escape opportunity but destroys evidence and allies." }
+  },
+  {
+    condition: "Kryn attacks Green T after dinner chaos",
+    reward: { type: 'tactical', name: "Heir's Wrath", description: "Kryn is NOT passive. He defends his family honor. May become ally or permanent enemy." }
+  },
+  {
+    condition: "Party learns Vivian shouted 'I win!' during chaos",
+    reward: { type: 'knowledge', name: "Thrall's Ambition", description: "Vivian was not just impersonating—he was attempting full usurpation. His plan was closer to success than believed." }
+  },
+  {
+    condition: "Archie tried to publicly expose Vivian but was drowned out",
+    reward: { type: 'tactical', name: "Exposure Attempt", description: "Chaos prevented revelation. Orangus likely discovered truth via other means. Archie's effort noted but ineffective." }
+  },
+  {
+    condition: "Bowser and Archie locked in Shadeward manor after escape",
+    reward: { type: 'tactical', name: "Forced Exploration", description: "Two days of isolated exploration = deep manor knowledge. Archie gained Onyx Hand books. Green T obtained flintlock." }
+  },
+  {
+    condition: "Hjumpik and party forced to navigate Revel-infested manor",
+    reward: { type: 'tactical', name: "Revel Navigation", description: "Party learns which areas The Revel frequents. Can predict its patterns. Some rooms are now inaccessible." }
+  },
+  {
+    condition: "Aurelian reveals she wants to 'groom a good heir'",
+    reward: { type: 'knowledge', name: "Faeward's Succession", description: "Aurelian may sacrifice her own heir to The Revel. Her casual indifference suggests dark plans for the future." }
+  },
+  {
+    condition: "Aurelian offers escape for three party members only",
+    reward: { type: 'tactical', name: "Split Party Dilemma", description: "Choosing escape means abandoning others. Creates internal party conflict. Relationships may fracture." }
+  },
+                    {
+    condition: "Oracle shot by Green T with silver bullet",
+    reward: { type: 'knowledge', name: "Oracle's Vulnerability", description: "Silver affects Oracles but doesn't kill them. Oracle becomes scarred, reveals 'Third Anchor' exists." }
+  },
+  {
+    condition: "Archie and Hjumpik simultaneously interact with crystalline objects",
+    reward: { type: 'knowledge', name: "Crystalline Truth", description: "Both parties see Usk's ghost warning: 'The crystals lie.' Unlocks 'Crystalline Deception' lore." }
+  },
+  {
+    condition: "Vivian's imposture exposed to both Orangus and Hjumpik's group",
+    reward: { type: 'tactical', name: "Heir Clarity", description: "Kryn confirmed as true heir. Aurelian and Orangus temporarily ally. Perrius demands Kryn's death." }
+  },
+  {
+    condition: "Rakasha fights The Revel while under play-bliss",
+    reward: { type: 'variable', name: "Revel's Fate", description: "Successful: Rakasha gains 'Blessing of Satiety,' all Faeward food becomes sentient. Failure: Rakasha loses right arm, hates all fey." }
+  },
+  {
+    condition: "Markop's group sheltered Perrius, then sides with different faction",
+    reward: { type: 'penalty', name: "Perrius's Betrayal", description: "Random party member possessed by Perrius during critical moment. Perrius becomes permanently hostile." }
+  },
+  {
+    condition: "Hjumpik's Entropy Ring reaches 100%",
+    reward: { type: 'variable', name: "Entropy Crisis", description: "Ring shatters or transforms. Reality warps. Waluigi stabilizes = stable field. Toad Lee stabilizes = controlled chaos. Neither = Hjumpik flung to Void." }
+  },
+  {
+    condition: "All three party groups reunite with full intelligence",
+    reward: { type: 'tactical', name: "Complete Picture", description: "Party learns of Third Anchor, discovers true ritual, sees all faction goals clearly." }
+  },
+  {
+    condition: "Party reaches Crashed Vigilance Core with all intel intact",
+    reward: { type: 'critical', name: "Timeline Convergence Initiated", description: "All factions converge at the anchor. Final battle unlocks. Party must choose: side with faction or reject all." }
+  },
+  {
+    condition: "Reject all factions + reunited party + saved Usk/Toadburt + crystals' truth revealed",
+    reward: { type: 'legendary', name: "The Fourth Path", description: "Unlock 'The Entity Beneath' boss fight. Win = True Freedom + Master of Probability. Lose = All timelines destroyed." }
+  },
+  {
+    condition: "Side with Perrius Annmatar",
+    reward: { type: 'variable', name: "Ghost's Plan", description: "Kill both heirs. Fake-kill two Oracles. Corvinarus bloodline ends. 'Even is balanced, odd is irregular.' Unknown consequences." }
+  },
+  {
+    condition: "Side with Mages Guild",
+    reward: { type: 'variable', name: "Guild's Dominion", description: "Kill all three Oracles. Probability untethers. Magic destabilizes. Reality may unravel." }
+  },
+  {
+    condition: "Side with Oracle",
+    reward: { type: 'variable', name: "Convergence Complete", description: "Merge all timelines. One Oracle survives. Probability locks at 100%. No free will. Oracle knows Green T shot it." }
+  },
+  {
+    condition: "Side with Aurelian Corvinarus",
+    reward: { type: 'variable', name: "Isolation Pact", description: "Clear satyrs. Work 5 nights. Three party members escape. Faeward isolates. Party permanently split. Others trapped." }
+  },
+  {
+    condition: "Side with Orangus Cornelius",
+    reward: { type: 'variable', name: "Vampiric Dominion", description: "Protect Kryn as true heir. Shadeward becomes dominant timeline. Party becomes servants of vampires. Mortals become cattle." }
+  },
+  {
+    condition: "Archie recovers Onyx Hand books from Shadeward",
+    reward: { type: 'knowledge', name: "Onyx Hand Secrets", description: "Books reveal history of Corvinarus bloodline and their pact with shadows." }
+  },
+  {
+    condition: "Green T obtains flintlock and ammunition",
+    reward: { type: 'tactical', name: "Gunslinger's Edge", description: "Silver bullets confirm Oracle weakness. Provides advantage in future encounters with supernatural beings." }
+  },
+  {
+    condition: "Toadburt rescued from Shadeward capture",
+    reward: { type: 'tactical', name: "Loyal Return", description: "Toadburt provides intel on Onyx Hand operations. Party gains +2 trust with Markop's faction." }
+  },
+  {
+    condition: "Waluigi discovers Morning Glory weapon in hidden room",
+    reward: { type: 'item', name: "Blooming Blade", description: "Wooden staff that blooms into wickedly sharp blade in daylight. Remains open rest of day, closes at night." }
+  },
+  {
+    condition: "Hjumpik learns Aurelian's 'special arrangement' is a lie",
+    reward: { type: 'knowledge', name: "False Promise", description: "Aurelian cannot guarantee party return. Three-person escape may be permanent or temporary. Her true motives questioned." }
+  },
+  {
+    condition: "Party clears satyrs from Faeward for Aurelian",
+    reward: { type: 'variable', name: "Satyr Removal", description: "Successfully lure them away: Aurelian trusts party more. Force them out violently (Waluigi's method): Aurelian suspicious, deal becomes unstable." }
+  },
+  {
+    condition: "Hjumpik contacts Perrius Annmatar telepathically",
+    reward: { type: 'knowledge', name: "Ghost's Counsel", description: "Perrius reveals: 'Kill all heirs except main one.' 'Crystals keep monsters IN, not OUT.' Probability needs odd number of Oracles." }
+  },
+  {
+    condition: "Mages Guild contact via Hjumpik's ring",
+    reward: { type: 'knowledge', name: "Guild's Interest", description: "Ring at 24% entropy. Guild intercepted FNG's vessel research notes. They want the ring and have been watching." }
+  },
+  {
+    condition: "Archie discovers 'real Dan' near Vigilance crash site",
+    reward: { type: 'knowledge', name: "Real Dan Located", description: "Dan may be key to understanding Vigilance crash. May hold answers about Iron Legion and propaganda broadcasts." }
+  },
+  {
+    condition: "Party hears Iron Legion propaganda: 'THE ANOMALY IS CONTAINED'",
+    reward: { type: 'knowledge', name: "External Threat Confirmed", description: "Something beyond the manor is aware of the anomaly. Iron Legion contains it. Escape may trigger military response." }
+  },
+  {
+    condition: "Usk's fate confirmed (finger cut off, possibly dying)",
+    reward: { type: 'knowledge', name: "Usk's Betrayal", description: "Usk was 'faithful confidant' per vessel research. His death may trigger Orangus's wrath or reveal hidden alliances." }
+  },
+  {
+    condition: "Waluigi senses magic overflowing the manor",
+    reward: { type: 'knowledge', name: "Magical Saturation", description: "Magic here is unstable and pervasive. Reality bends to fey will. Standard spellcasting becomes unpredictable." }
+  },
+  {
+    condition: "Toad Lee discovers tree with 'OC' and 'OS' initials",
+    reward: { type: 'knowledge', name: "Lost Love", description: "OC = Orangus Cornelius. OS = Possibly Orangus Sundaria (dating rumor). Love story may explain faction tensions." }
+  },
+  {
+    condition: "Party discovers giant skeletal tree at manor's skyline",
+    reward: { type: 'knowledge', name: "Ancient Anchor", description: "Tree is visible from all three timelines. May be the TRUE anchor rather than the crystals." }
+  },
+  {
+    condition: "Waluigi obtains shyguy flying toy from thorn room",
+    reward: { type: 'item', name: "Motion-Activated Toy", description: "Accepts three names: Corvinarus, Oracle, Cornelius. Triggers hidden mechanisms. Key to unlocking sealed areas." }
+  },
+  {
+    condition: "Party observes The Revel's true nature",
+    reward: { type: 'knowledge', name: "Entity of Gluttony", description: "The Revel is not fey—it's something older. It feeds on excess, vice, and consumption. May be the 'Entity Beneath.'" }
+  },
+  {
+    condition: "Hjumpik and party survive 5 nights in Faeward",
+    reward: { type: 'tactical', name: "Faeward Mastery", description: "Party learns fey manor's layout, NPC patterns, and secret passages. Gains +3 to stealth/navigation in Faeward." }
+  },
+  {
+    condition: "Franklin (Mages Guild) pursues Entropy Ring",
+    reward: { type: 'tactical', name: "Guild Pressure", description: "Franklin's presence means Ring is tracked. Mages Guild knows Hjumpik's location. Must hide or confront soon." }
+  },
+  {
+    condition: "Bowser breathes fire in Shadeward dining hall",
+    reward: { type: 'tactical', name: "Chaos Engine", description: "Bowser's fire spreads uncontrollably. Creates escape opportunity but destroys evidence and allies." }
+  },
+  {
+    condition: "Kryn attacks Green T after dinner chaos",
+    reward: { type: 'tactical', name: "Heir's Wrath", description: "Kryn is NOT passive. He defends his family honor. May become ally or permanent enemy." }
+  },
+  {
+    condition: "Party learns Vivian shouted 'I win!' during chaos",
+    reward: { type: 'knowledge', name: "Thrall's Ambition", description: "Vivian was not just impersonating—he was attempting full usurpation. His plan was closer to success than believed." }
+  },
+  {
+    condition: "Archie tried to publicly expose Vivian but was drowned out",
+    reward: { type: 'tactical', name: "Exposure Attempt", description: "Chaos prevented revelation. Orangus likely discovered truth via other means. Archie's effort noted but ineffective." }
+  },
+  {
+    condition: "Bowser and Archie locked in Shadeward manor after escape",
+    reward: { type: 'tactical', name: "Forced Exploration", description: "Two days of isolated exploration = deep manor knowledge. Archie gained Onyx Hand books. Green T obtained flintlock." }
+  },
+  {
+    condition: "Hjumpik and party forced to navigate Revel-infested manor",
+    reward: { type: 'tactical', name: "Revel Navigation", description: "Party learns which areas The Revel frequents. Can predict its patterns. Some rooms are now inaccessible." }
+  },
+  {
+    condition: "Aurelian reveals she wants to 'groom a good heir'",
+    reward: { type: 'knowledge', name: "Faeward's Succession", description: "Aurelian may sacrifice her own heir to The Revel. Her casual indifference suggests dark plans for the future." }
+  },
+  {
+    condition: "Aurelian offers escape for three party members only",
+    reward: { type: 'tactical', name: "Split Party Dilemma", description: "Choosing escape means abandoning others. Creates internal party conflict. Relationships may fracture." }
+  },
                 {
                     condition: "Reunite all party groups",
                     reward: { type: 'tactical', name: "Full Intelligence", description: "All information from all timelines combined." }
@@ -2444,7 +3352,7 @@ export const WORLD_QUESTS = {
         category: 'Main Story',
         status: QUEST_STATUS.ACTIVE,
         priority: QUEST_PRIORITY.CRITICAL,
-        arcId: 'raventree_manor',
+        arcId: 'shadowfell_estate',
         objective: "Escape the aftermath of the disastrous dinner party. Account for all party members. Determine the Oracle's fate.",
         assignees: ['markop', 'remi', 'bowser', 'salam', 'eager'],
         primaryAssignee: 'markop',

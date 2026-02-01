@@ -1,3252 +1,9308 @@
-// WAHbook Posts Data - Cleaned 2026-01-03T05:20:41.450Z
-// Original: 1340 posts
-// After cleanup: 1201 posts
-// Removed: 139 duplicates
+// WAHbook Posts Data - Cleaned 2026-01-31T19:13:16.185Z
+// Original: 1764 posts
+// After cleanup: 1753 posts
+// Removed: 11 duplicates
 
 export const WAHBOOK_POSTS = [
- {
-    id: 'toad_lee_timecheck_618',
-    order: 41026,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 18 },
-    content: `Time check: 6:18. Hjumpik just gave a ghost a thumbs up like they’re coworkers. The ghost looked offended. We are not ready for Fey Etiquette.`,
-    likes: 1300,
-    comments: [
-      { characterKey: 'hjumpik', text: 'It nodded back. That means alliance in dwarf sign language.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'It did not nod. It tried to crawl into your shadow.' }
-    ]
-  },
   {
-    id: 'hjumpik_ghost_policy',
-    order: 41027,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 20 },
-    content: `New policy: if a ghost appears, we do NOT accept gifts, we do NOT follow it, and we do NOT say our full names. Thumbs up is the maximum diplomacy allowed.`,
-    likes: 980,
-    comments: [
-      { characterKey: 'waluigi', text: 'But what if it offers me treasure? Or secrets? Or a haunted hat?' },
-      { characterKey: 'toad_lee', text: 'Especially if it offers you a hat.' }
-    ]
-  },
-  {
-    id: 'rakasha_overcrowd_flight',
-    order: 41028,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 24 },
-    content: `Flew over the crowd again. Guards tried to grab at me like I was a loose curtain. I am not a curtain. I am Azure. Also: the crowd smells like cider and old socks.`,
-    likes: 1500,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Loose curtain is accurate though.' },
-      { characterKey: 'waluigi', text: 'Azure the Curtain-Winged Terror!' }
-    ]
-  },
-  {
-    id: 'guard_saytr_buddy_problem',
-    order: 41029,
-    characterKey: 'house_guard_renton',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 6, minute: 35 },
-    content: `We were sent to escort the dwarf. Strict subdue-only rules. The satyrs keep offering “peace cups.” Last time I drank one, I woke up married to a potted fern.`,
-    likes: 620,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Renton. No more cups. If you drink, I carry you.' },
-      { characterKey: 'house_guard_mira', text: 'He WAS married to the fern. There was a ceremony.' }
-    ]
-  },
-  {
-    id: 'waluigi_keys_lost_found',
-    order: 41030,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 58 },
-    content: `I lost the bathhouse keys for 11 seconds and it was the worst 11 seconds of my life. A tiny sprite tried to steal them. I negotiated (I hissed).`,
-    likes: 2400,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Negotiated = made a noise like a kettle.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'The sprite’s name is Pip. It collects keys like teeth.' }
-    ]
-  },
-  {
-    id: 'pip_sprite_confession',
-    order: 41031,
-    characterKey: 'pip_key_sprite',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 1 },
-    content: `SHINY KEYS. NOT YOURS. DOORS LIKE ME MORE. ALSO YOU SMELL LIKE IRON AND WORRY.`,
-    likes: 800,
-    comments: [
-      { characterKey: 'waluigi', text: 'Give them back, you airborne teaspoon!' },
-      { characterKey: 'lady_aurelian', text: 'Pip. Stop stealing from the guests. Steal from the satyrs.' }
-    ]
-  },
-  {
-    id: 'toad_lee_master_bed_flower_anatomy',
-    order: 41032,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 8 },
-    content: `The giant flower-bed is not a “bed.” It’s a trained plant structure with nerve-like vines underneath. When you sit on it, it adjusts like it’s listening.`,
-    likes: 1100,
-    comments: [
-      { characterKey: 'waluigi', text: 'So it’s a luxury bed. Great.' },
-      { characterKey: 'hjumpik', text: 'If it bites you, I’m not pulling you out twice.' }
-    ]
-  },
-  {
-    id: 'lady_aurelian_hearing_pain',
-    order: 41033,
-    characterKey: 'lady_aurelian',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 22 },
-    content: `The manor sings when the wrong door is opened. It is… loud today. I can hear my ancestors arguing in the walls. Kindly stop poking mechanisms at random.`,
-    likes: 140,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Noted. We will poke mechanisms with purpose.' },
-      { characterKey: 'waluigi', text: 'The walls argue? Mine do that too.' }
-    ]
-  },
-  {
-    id: 'waluigi_mage_guild_threat_receipt',
-    order: 41034,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 3 },
-    content: `Hjumpik threatened to contact the Mages’ Guild and I want credit for being nearby when it happened. I radiated “official witness energy.”`,
-    likes: 1900,
-    comments: [
-      { characterKey: 'hjumpik', text: 'You hid behind a chair.' },
-      { characterKey: 'toad_lee', text: 'A very brave chair.' }
-    ]
-  },
-  {
-    id: 'satyr_table_two_rounds',
-    order: 41035,
-    characterKey: 'satyr_jax',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 50 },
-    content: `ONE ROUND OF DRINKS PLEASE (for two). We split it. That’s called mathematics. Dwarf asked who leads us. We said Relis. Or Ralos. Whatever, the sword guy.`,
-    likes: 666,
-    comments: [
-      { characterKey: 'satyr_nem', text: 'It’s Relis, you fermented walnut.' },
-      { characterKey: 'hjumpik', text: 'I heard that. Keep your leader ready.' }
-    ]
-  },
-  {
-    id: 'hjumpik_relis_profile',
-    order: 41036,
-    characterKey: 'hjumpik',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 2 },
-    content: `Relis confirmed. Swordmaster posture. Doesn’t sway when drunk— everyone else does. That’s the dangerous kind of party drunk: coordinated.`,
-    likes: 720,
-    comments: [
-      { characterKey: 'house_guard_mira', text: 'He watches exits. Like a soldier.' },
-      { characterKey: 'toad_lee', text: 'So we bait him into monologuing.' }
-    ]
-  },
-  {
-    id: 'rakasha_guard_name_game',
-    order: 41037,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 5 },
-    content: `I asked the guards their names so the manor can’t steal them. Renton and Mira. Renton looked grateful. Mira looked like she’s punched a ghost before.`,
-    likes: 930,
-    comments: [
-      { characterKey: 'house_guard_mira', text: 'I have. It deserved it.' },
-      { characterKey: 'waluigi', text: 'Can I punch a ghost too? For character growth?' }
-    ]
-  },
-  {
-    id: 'toad_lee_bathhouse_markings',
-    order: 41038,
-    characterKey: 'toad_lee',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 10 },
-    content: `Bathhouse marble has old family markings under the limescale: three names in a triangle (Corvinarus / Oriacle / Cornellius). The same three the ward accepts. Not a coincidence.`,
-    likes: 1600,
-    comments: [
-      { characterKey: 'waluigi', text: 'So the bathhouse IS the lock. The lock is the bathhouse.' },
-      { characterKey: 'hjumpik', text: 'Or it’s a lure. Assume lure.' }
-    ]
-  },
-  {
-    id: 'pip_sprite_bathhouse_rumor',
-    order: 41039,
-    characterKey: 'pip_key_sprite',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 12 },
-    content: `BATH STEAM MAKES LETTERS IF YOU BREATHE WRONG. DON’T BREATHE WRONG.`,
-    likes: 1200,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Define “wrong.”' },
-      { characterKey: 'pip_key_sprite', text: 'NO.' }
-    ]
-  },
-  {
-    id: 'waluigi_bath_steam_cipher',
-    order: 41040,
-    characterKey: 'waluigi',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 22 },
-    content: `Okay so the steam actually DOES form letters. I saw “OR—” then it vanished. Toad Lee says it’s a cipher. I say it’s flirting with me.`,
-    likes: 2500,
-    comments: [
-      { characterKey: 'toad_lee', text: 'It’s “ORI—” as in Oriacle. Please stop flirting with steam.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'The manor flirts by biting.' }
-    ]
-  },
-  {
-    id: 'hjumpik_trap_doctrine',
-    order: 41041,
-    characterKey: 'hjumpik',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 15, minute: 30 },
-    content: `If a room is too clean, it’s a trap. If it’s too pretty, it’s a trap. If Waluigi says “this seems safe,” it’s DEFINITELY a trap.`,
-    likes: 3100,
-    comments: [
-      { characterKey: 'waluigi', text: 'I am a safety indicator! A magical canary!' },
-      { characterKey: 'toad_lee', text: 'Canaries also die in mines.' }
-    ]
-  },
-  {
-    id: 'toad_lee_vine_room_afterburn',
-    order: 41042,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 17 },
-    content: `After Waluigi burned the thorn-vine room, the ashes arranged themselves into a spiral. The spiral points toward the mezzanine. The manor is giving directions. That’s unsettling.`,
-    likes: 1700,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'It is not giving directions. It is watching you choose.' },
-      { characterKey: 'hjumpik', text: 'I hate poetic traps.' }
-    ]
-  },
-  {
-    id: 'waluigi_detect_magic_roomtone',
-    order: 41043,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 24 },
-    content: `Magic detection update: the ward hums in three tones. Each name changes the pitch. Corvinarus is lowest. Oriacle is sharp. Cornellius is… wrong. Like it doesn’t belong.`,
-    likes: 1400,
-    comments: [
-      { characterKey: 'rakasha_spirit_walker', text: 'Wrong tones mean borrowed blood.' },
-      { characterKey: 'toad_lee', text: 'Or a forged name. Or a parasite name.' }
-    ]
-  },
-  {
-    id: 'lady_aurelian_old_family_member_hint',
-    order: 41044,
-    characterKey: 'lady_aurelian',
-    rumorId: 'corvinarus_lineage',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 0 },
-    content: `My “old family member” is old in the way stone is old. They prefer quiet. Do not provoke them. Do not offer them wine. Do not offer them your name.`,
-    likes: 420,
-    comments: [
-      { characterKey: 'waluigi', text: 'What if I offer them a tasteful cheese platter?' },
-      { characterKey: 'hjumpik', text: 'Don’t offer anything. Stand behind me.' }
-    ]
-  },
-  {
-    id: 'satyr_revel_bet_on_dwarf',
-    order: 41045,
-    characterKey: 'satyr_nem',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 6 },
-    content: `We started a betting pool: how long until the dwarf tries to “reason” with Relis using blunt force? I give it 20 minutes.`,
-    likes: 900,
-    comments: [
-      { characterKey: 'satyr_jax', text: 'I give it 7.' },
-      { characterKey: 'hjumpik', text: 'Refund your bets.' }
-    ]
-  },
-  {
-    id: 'relis_swordmaster_post',
-    order: 41046,
-    characterKey: 'relis_swordmaster',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 20 },
-    content: `If the Lady wants her guest wing quiet, she should have built it from something less flammable than manners. I will leave when the song ends.`,
-    likes: 2000,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'My house is not your stage, Relis.' },
-      { characterKey: 'toad_lee', text: 'Which song? There are 19 happening at once.' }
-    ]
-  },
-  {
-    id: 'hjumpik_guard_rules_written',
-    order: 41047,
-    characterKey: 'house_guard_mira',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 25 },
-    content: `Escort agreement recorded: subdue only, no killing. Our safety is now “the dwarf’s responsibility.” I asked the dwarf if he accepts. He said “aye” like a war oath.`,
-    likes: 840,
-    comments: [
-      { characterKey: 'hjumpik', text: 'I keep my oaths.' },
-      { characterKey: 'house_guard_renton', text: 'Good because I bruise easily.' }
-    ]
-  },
-  {
-    id: 'rakasha_mezzanine_blood_or_wine',
-    order: 41048,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 16, minute: 50 },
-    content: `Mezzanine stain test: it’s both wine and blood. The wine is older than the blood. The blood is older than it should be. The manor preserves memories like fruit.`,
-    likes: 1800,
-    comments: [
-      { characterKey: 'waluigi', text: 'Did you taste it?? Please say no.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'I did not lick the floor. I listened to it.' }
-    ]
-  },
-  {
-    id: 'toad_lee_piano_flower_song',
-    order: 41049,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 5 },
-    content: `The piano near the broken mezzanine edge is playable. The white flowers growing through it vibrate with certain notes. One chord made every satyr downstairs go silent for 3 seconds.`,
-    likes: 2600,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Play that chord again when we evict them.' },
-      { characterKey: 'waluigi', text: 'We have a weaponized chord??? YES.' }
-    ]
-  },
-  {
-    id: 'waluigi_weaponized_chord_practice',
-    order: 41050,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 12 },
-    content: `I tried the silence chord. The flowers spit pollen in my eyes. I can now see “mood colors” around people. Hjumpik is a tired brown. Toad Lee is anxious teal. I am glorious purple.`,
-    likes: 5200,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Stop narrating my aura.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'Mood colors are real. Yours is… loud.' }
-    ]
-  },
-  {
-    id: 'hjumpik_statue_touch_warning',
-    order: 41051,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 20 },
-    content: `Touched a statue again. Felt like someone stepping into my personal space. The statue “learns” your shape when you touch it. Don’t touch them unless you want to be remembered.`,
-    likes: 1900,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'They are witnesses. Please stop giving testimony.' },
-      { characterKey: 'waluigi', text: 'Too late. I licked one earlier.' }
-    ]
-  },
-  {
-    id: 'toad_lee_waluigi_statue_lick',
-    order: 41052,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 22 },
-    content: `CONFIRMED: Waluigi licked a statue. The statue licked back. Not with a tongue. With a cold feeling behind the eyes. He says he “won.” He did not win.`,
-    likes: 6000,
-    comments: [
-      { characterKey: 'waluigi', text: 'I got information! It tasted like… betrayal.' },
-      { characterKey: 'hjumpik', text: 'No more licking architecture.' }
-    ]
-  },
-  {
-    id: 'usk_warning_echo',
-    order: 41053,
-    characterKey: 'usk_shadow_elf',
-    rumorId: 'cross_manor_echoes',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 40 },
-    content: `You tread in a house that dreams. When it wakes, it will count your names like coins. One of you is already missing, but you have not noticed yet.`,
-    likes: 1300,
-    comments: [
-      { characterKey: 'rakasha_spirit_walker', text: 'We did notice. We are ignoring it on purpose.' },
-      { characterKey: 'toad_lee', text: 'Who is missing?? Don’t do this cryptic thing.' }
-    ]
-  },
-  {
-    id: 'waluigi_missing_inventory_check',
-    order: 41054,
-    characterKey: 'waluigi',
-    rumorId: 'cross_manor_echoes',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 45 },
-    content: `I did an inventory check. Everyone is here. Unless someone is missing “spiritually.” Which is a rude way to be missing. Also my shyguy toy is missing. THAT COUNTS.`,
-    likes: 2800,
-    comments: [
-      { characterKey: 'pip_key_sprite', text: 'MINE NOW.' },
-      { characterKey: 'hjumpik', text: 'Let it go.' }
-    ]
-  },
-  {
-    id: 'archie_date_stamp_efferd_24',
-    order: 41055,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 19 },
-    content: `24th Effeard, 6:19. Door locked. Footsteps. Someone yelled “Who dares intrude?” Green T ran like his feet owed money.`,
-    likes: 900,
-    comments: [
-      { characterKey: 'green_t', text: 'They did. My feet absolutely owed money.' },
-      { characterKey: 'toad_lee', text: 'We’re dealing with satyrs. Yours sounds worse.' }
-    ]
-  },
-  {
-    id: 'archie_vampire_kitchen_side_story',
-    order: 41056,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 28 },
-    content: `Vampire in kitchen humming. The “meat” smelled like cloves and iron. He offered me a taste. I pretended to be offended (worked).`,
-    likes: 1300,
-    comments: [
-      { characterKey: 'green_t', text: 'That vampire had a cookbook titled “Guests.”' },
-      { characterKey: 'waluigi', text: 'Cloves AND iron? That’s just a fancy sausage.' }
-    ]
-  },
-  {
-    id: 'green_t_window_jammed',
-    order: 41057,
-    characterKey: 'green_t',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 42 },
-    content: `Window is jammed. Can’t jump. Archie yelled “we’re going” and then left me. I hid. If I survive, I will be petty forever.`,
-    likes: 1700,
-    comments: [
-      { characterKey: 'archie', text: 'I came back. Petty later.' },
-      { characterKey: 'hjumpik', text: 'Survive first. Pettiness is earned.' }
-    ]
-  },
-  {
-    id: 'archie_disguise_spell_notes',
-    order: 41058,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 18, minute: 50 },
-    content: `Disguise spell held under stress. Tip: steady breathing. Don’t think “I am not a vampire.” Think “paperwork matters.” It sells the role.`,
-    likes: 2400,
-    comments: [
-      { characterKey: 'waluigi', text: 'Method acting but make it undead.' },
-      { characterKey: 'toad_lee', text: 'I hate that this is good advice.' }
-    ]
-  },
-  {
-    id: 'archie_onyx_hand_books',
-    order: 41059,
-    characterKey: 'archie',
-    rumorId: 'onyx_hand_trail',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 3 },
-    content: `Found books in a study. Margins marked with a black hand symbol. If these vampires are tied to the Onyx Hand, these notes are evidence. Heavy, but worth it.`,
-    likes: 3100,
-    comments: [
-      { characterKey: 'green_t', text: 'Evidence won’t save us if we die carrying it.' },
-      { characterKey: 'toad_lee', text: 'Send titles. We can cross-reference.' }
-    ]
-  },
-  {
-    id: 'green_t_dagger_quiet_combat',
-    order: 41060,
-    characterKey: 'green_t',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 10 },
-    content: `Archie gave me a dagger for “quiet combat.” I do not like quiet. Quiet is where fear lives. But I will accept stabbing as a concept.`,
-    likes: 2100,
-    comments: [
-      { characterKey: 'archie', text: 'Quiet keeps you alive.' },
-      { characterKey: 'hjumpik', text: 'Stabbing is universal language. You’ll do fine.' }
-    ]
-  },
-  {
-    id: 'legion_broadcast_quote',
-    order: 41061,
-    characterKey: 'archie',
-    rumorId: 'legion_quarantine',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 5 },
-    content: `Broadcast again: "THE ANOMALY IS CONTAINED." Troops have masks and silver-thread armbands. They’re scanning for “non-human activity.” Green T is… obviously non-human.`,
-    likes: 4000,
-    comments: [
-      { characterKey: 'green_t', text: 'I can pretend to be a topiary.' },
-      { characterKey: 'waluigi', text: 'I can pretend to be human. (I cannot.)' }
-    ]
-  },
-  {
-    id: 'archie_guard_smalltalk_fail',
-    order: 41062,
-    characterKey: 'archie',
-    rumorId: 'legion_quarantine',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 12 },
-    content: `I walked up to a Legion guard like “Are you with the purple legion too?” He stared at me for three seconds. I remembered I was wearing the wrong insignia. Bad moment.`,
-    likes: 5200,
-    comments: [
-      { characterKey: 'green_t', text: 'Three seconds is a long time to not get stabbed.' },
-      { characterKey: 'toad_lee', text: 'Please stop improvising your cover stories.' }
-    ]
-  },
-  {
-    id: 'legion_guard_reply',
-    order: 41063,
-    characterKey: 'legion_private_kess',
-    rumorId: 'legion_quarantine',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 13 },
-    content: `Citizen, there is no “purple legion.” There is only the Legion. State your assignment and show wrist mark.`,
-    likes: 1900,
-    comments: [
-      { characterKey: 'archie', text: 'Ah yes. Of course. The Legion. Very… singular.' },
-      { characterKey: 'green_t', text: 'RUN.' }
-    ]
-  },
-  {
-    id: 'toad_lee_satyr_exit_plan_music',
-    order: 41064,
-    characterKey: 'toad_lee',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 30 },
-    content: `Plan: use the piano silence chord to disrupt the revel, then Hjumpik and guards funnel satyrs toward the stairs. Waluigi is NOT allowed to “improve” plan with fire.`,
-    likes: 3700,
-    comments: [
-      { characterKey: 'waluigi', text: 'I can be trusted with a LITTLE fire.' },
-      { characterKey: 'hjumpik', text: 'No.' }
-    ]
-  },
-  {
-    id: 'waluigi_secret_fire_reserve',
-    order: 41065,
-    characterKey: 'waluigi',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 32 },
-    content: `I am not “improving” with fire. I am merely holding a backup solution in my palms. The backup solution is hot. And bright. And beautiful.`,
-    likes: 4100,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Put it away.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'He is like a candle that learned greed.' }
-    ]
-  },
-  {
-    id: 'rakasha_minor_sidequest_lost_mask',
-    order: 41066,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_minor_tales',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 40 },
-    content: `Side story: a goblin in the dance hall lost his carved mask and cried. I found it stuck in a chandelier vine. He paid me with a button that screams when lies are spoken.`,
-    likes: 2100,
-    comments: [
-      { characterKey: 'toad_lee', text: 'That button is going in the evidence bag.' },
-      { characterKey: 'waluigi', text: 'I want the screaming lie button.' }
-    ]
-  },
-  {
-    id: 'button_that_screams_demo',
-    order: 41067,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_minor_tales',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 43 },
-    content: `Tested the lie-button. Waluigi said “I would never set a manor on fire.” The button screamed for 9 uninterrupted seconds. Confirmed working.`,
-    likes: 8200,
-    comments: [
-      { characterKey: 'waluigi', text: 'It’s calibrated wrong!' },
-      { characterKey: 'hjumpik', text: 'It’s calibrated perfectly.' }
-    ]
-  },
-  {
-    id: 'house_guard_mira_dwarf_oath',
-    order: 41068,
-    characterKey: 'house_guard_mira',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 17, minute: 55 },
-    content: `Hjumpik checked our armor straps before going in. Said “If you fall, you fall behind me.” Dwarf manners are intense. I approve.`,
-    likes: 1600,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Stay tight. Don’t chase a satyr into a side hall.' },
-      { characterKey: 'house_guard_renton', text: 'Too late. I already want to chase one. They owe me my fern alimony.' }
-    ]
-  },
-  {
-    id: 'satyr_sidehall_prank_trap',
-    order: 41069,
-    characterKey: 'satyr_jax',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 5 },
-    content: `We put a “Free Wine” sign over a door that leads to the laundry haunt. If a guard goes in, they come out singing in a language that tastes like pennies.`,
-    likes: 1200,
-    comments: [
-      { characterKey: 'house_guard_renton', text: 'I HATE YOU.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'Laundry haunt is real. The sheets remember.' }
-    ]
-  },
-  {
-    id: 'toad_lee_laundry_haunt_notes',
-    order: 41070,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_minor_tales',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 12 },
-    content: `Went into laundry haunt for 30 seconds to retrieve Renton. Confirmed: sheets try to wrap you and whisper embarrassing memories you never told anyone. I hate Fey houses.`,
-    likes: 4800,
-    comments: [
-      { characterKey: 'waluigi', text: 'Did the sheets say anything about me?' },
-      { characterKey: 'toad_lee', text: 'Yes.' }
-    ]
-  },
-  {
-    id: 'hjumpik_party_next_to_queen',
-    order: 41071,
-    characterKey: 'hjumpik',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 25 },
-    content: `Satyrs bragged their party is “right next to the Queen’s party.” That’s a problem. If the Queen’s guests wander in here, we’re not evicting satyrs anymore. We’re starting a war.`,
-    likes: 2300,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'I will not host two revels. One revel is already a knife in the curtains.' },
-      { characterKey: 'waluigi', text: 'What if we make it ONE big party and then leave?' }
-    ]
-  },
-  {
-    id: 'rakasha_queen_party_glimpse',
-    order: 41072,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'queen_adjacent',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 40 },
-    content: `I saw the Queen’s party through a balcony crack. Not our Queen. Different. Masks. Silver fruit. Everyone laughing like they’re afraid to stop.`,
-    likes: 3100,
-    comments: [
-      { characterKey: 'toad_lee', text: 'That sounds like a Fey court function. Do NOT engage.' },
-      { characterKey: 'hjumpik', text: 'We focus on satyrs. Not queens.' }
-    ]
-  },
-  {
-    id: 'waluigi_keys_to_bathhouse_again',
-    order: 41073,
-    characterKey: 'waluigi',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 0 },
-    content: `I still have the bathhouse keys (yes). I keep them on a chain now. Pip tried to steal them again. I told Pip I would haunt Pip. Pip blinked slowly.`,
-    likes: 2700,
-    comments: [
-      { characterKey: 'pip_key_sprite', text: 'YOU CAN TRY.' },
-      { characterKey: 'toad_lee', text: 'Please don’t start a haunting contest.' }
-    ]
-  },
-  {
-    id: 'lady_aurelian_insult_smelly',
-    order: 41074,
-    characterKey: 'lady_aurelian',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 2 },
-    content: `Yes, I said you were smelly. You are. Do not take offense; take a bath.`,
-    likes: 900,
-    comments: [
-      { characterKey: 'waluigi', text: 'This is slander.' },
-      { characterKey: 'hjumpik', text: 'It’s accurate.' }
-    ]
-  },
-  {
-    id: 'toad_lee_bathhouse_tub_review',
-    order: 41075,
-    characterKey: 'toad_lee',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 15 },
-    content: `Bathhouse tub review: 10/10 bubbles. 3/10 “mildly suspicious chanting from drain.” The marble is too clean. That means something is eating the dirt.`,
-    likes: 3400,
-    comments: [
-      { characterKey: 'hjumpik', text: 'If the drain speaks, we leave.' },
-      { characterKey: 'waluigi', text: 'If the drain speaks, I ask it questions.' }
-    ]
-  },
-  {
-    id: 'rakasha_drain_whisper',
-    order: 41076,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 18 },
-    content: `The drain does speak. It speaks like a tired teacher. It said: “THREE NAMES. ONE BLOOD. ONE LIE.” Then the water bubbled harder.`,
-    likes: 4100,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Okay. That’s actionable. And horrifying.' },
-      { characterKey: 'waluigi', text: 'The drain is my new mentor.' }
-    ]
-  },
-  {
-    id: 'hjumpik_bathhouse_rule_list',
-    order: 41077,
-    characterKey: 'hjumpik',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 22 },
-    content: `Bathhouse rules: 1) No drinking bathwater. 2) No answering questions asked by plumbing. 3) No offering blood to anything. 4) If you hear your name, you leave.`,
-    likes: 5200,
-    comments: [
-      { characterKey: 'waluigi', text: 'Rule 2 is oppressive.' },
-      { characterKey: 'toad_lee', text: 'Rule 2 saves lives.' }
-    ]
-  },
-  {
-    id: 'satyr_revel_song_ends_claim',
-    order: 41078,
-    characterKey: 'satyr_nem',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 0 },
-    content: `Relis says he’ll leave “when the song ends.” Joke’s on him. We never end songs. We just layer them until the walls cry.`,
-    likes: 1500,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'My walls do not cry. They remember.' },
-      { characterKey: 'hjumpik', text: 'Then we end the song ourselves.' }
-    ]
-  },
-  {
-    id: 'toad_lee_weaponized_chord_named',
-    order: 41079,
-    characterKey: 'toad_lee',
-    rumorId: 'guest_wing_revel',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 10 },
-    content: `Naming the piano chord “The Quiet Bite.” Because the flowers bite after you play it. Waluigi insists on “Silence Boom.” He is wrong.`,
-    likes: 3900,
-    comments: [
-      { characterKey: 'waluigi', text: 'Silence Boom is a better band name.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'Quiet Bite feels like the manor’s humor. Keep it.' }
-    ]
-  },
-  {
-    id: 'house_guard_renton_fern_divorce',
-    order: 41080,
-    characterKey: 'house_guard_renton',
-    rumorId: 'fey_minor_tales',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 20 },
-    content: `Update: the fern I married (accidentally) was moved to the conservatory. I tried to apologize. It rustled like it understood. I think I’m still married.`,
-    likes: 2600,
-    comments: [
-      { characterKey: 'toad_lee', text: 'We can get you annulment paperwork after the satyrs.' },
-      { characterKey: 'waluigi', text: 'I can officiate! I’m basically ordained in chaos.' }
-    ]
-  },
-  {
-    id: 'lady_aurelian_five_nights_deadline',
-    order: 41081,
-    characterKey: 'lady_aurelian',
-    rumorId: 'corvinarus_lineage',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 40 },
-    content: `Five nights. That is the limit. If the revel continues past it, the house will choose its own guests. And it is not kind when it chooses.`,
-    likes: 2100,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Understood. We end this before your house starts eating people.' },
-      { characterKey: 'waluigi', text: 'Houses can’t eat people. (Can they?)' }
-    ]
-  },
-  {
-    id: 'waluigi_house_can_eat_people_poll',
-    order: 41082,
-    characterKey: 'waluigi',
-    rumorId: 'corvinarus_lineage',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 42 },
-    content: `POLL: can a house eat people? A) no B) yes C) yes but politely D) depends on the mortgage`,
-    likes: 9000,
-    comments: [
-      { characterKey: 'toad_lee', text: 'D. Always D.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'B. Sometimes C.' }
-    ]
-  },
-  {
-    id: 'archie_dan_sighting_question',
-    order: 41083,
-    characterKey: 'archie',
-    rumorId: 'legion_quarantine',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 30 },
-    content: `Saw someone who might be Dan near the cordon. Could be real Dan, could be a decoy, could be a Legion officer with similar posture. I hate uncertainty.`,
-    likes: 2800,
-    comments: [
-      { characterKey: 'green_t', text: 'Go ask. If you die, I will rate your plan 0/10.' },
-      { characterKey: 'hjumpik', text: 'Confirm identity without revealing yours. Standard.' }
-    ]
-  },
-  {
-    id: 'green_t_topiary_attempt',
-    order: 41084,
-    characterKey: 'green_t',
-    rumorId: 'legion_quarantine',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 36 },
-    content: `I attempted to look like a decorative bush. Legion guard stared at me and said “Nice hedge.” I don’t know if I’m safe or insulted.`,
-    likes: 7200,
-    comments: [
-      { characterKey: 'archie', text: 'Both. You’re safe AND insulted.' },
-      { characterKey: 'waluigi', text: 'Nice hedge is a compliment where I’m from.' }
-    ]
-  },
-  {
-    id: 'toad_lee_archie_message_via_usk',
-    order: 41085,
-    characterKey: 'toad_lee',
-    rumorId: 'cross_manor_echoes',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 0 },
-    content: `Tried using Usk’s connection to send Archie a warning: “Legion scanning non-humans, avoid roads.” Usk replied: “He already knows.” Then laughed without moving his mouth.`,
-    likes: 4100,
-    comments: [
-      { characterKey: 'archie', text: 'I do already know. But thank you. Also: Usk is unsettling.' },
-      { characterKey: 'usk_shadow_elf', text: 'You are all unsettling. That is why it is entertaining.' }
-    ]
-  },
-  {
-    id: 'rakasha_sleepover_supplies',
-    order: 41086,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_minor_tales',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 10 },
-    content: `Sleepover supplies acquired: 6 pillows, 2 blankets, 1 candle in a glass orb (borrowed), 1 screaming lie-button (Toad Lee’s). The flower bed is humming lullabies.`,
-    likes: 3000,
-    comments: [
-      { characterKey: 'toad_lee', text: 'The lie-button is evidence. Stop packing evidence like snacks.' },
-      { characterKey: 'waluigi', text: 'We can snack on evidence sometimes.' }
-    ]
-  },
-  {
-    id: 'hjumpik_check_for_traps_again',
-    order: 41087,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_minor_tales',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 12 },
-    content: `Reminder: check for traps. “Sleepover” doesn’t mean “let the house eat us in our sleep.” Azure is smarter than this. I think.`,
-    likes: 3500,
-    comments: [
-      { characterKey: 'rakasha_spirit_walker', text: 'I am smart. I am also tired.' },
-      { characterKey: 'toad_lee', text: 'Tired people get eaten first. It’s a rule.' }
-    ]
-  },
-  {
-    id: 'waluigi_midday_confusion',
-    order: 41088,
-    characterKey: 'waluigi',
-    rumorId: 'timeline_glitches',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 56 },
-    content: `Hjumpik says it’s “still morning.” My watch says 12:56. The manor clocks drift. Either time is weird here, or I am late for everything forever.`,
-    likes: 4200,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'Time is a suggestion in my house.' },
-      { characterKey: 'toad_lee', text: 'That explains why nothing makes sense.' }
-    ]
-  },
-  {
-    id: 'toad_lee_clock_investigation',
-    order: 41089,
-    characterKey: 'toad_lee',
-    rumorId: 'timeline_glitches',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 7 },
-    content: `Clock investigation: the manor uses “event time,” not sun time. If a scene is dramatic, minutes stretch. If you’re trying to leave, hours collapse. Great.`,
-    likes: 6100,
-    comments: [
-      { characterKey: 'hjumpik', text: 'So we make the eviction dramatic. Understood.' },
-      { characterKey: 'waluigi', text: 'I was born dramatic.' }
-    ]
-  },
-  {
-    id: 'satyr_gossip_about_guest',
-    order: 41090,
-    characterKey: 'satyr_jax',
-    rumorId: 'corvinarus_lineage',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 30 },
-    content: `Gossip: Lady’s “old family member” is coming. They say he wears a name like armor. They say he can turn wine to ash by looking at it. I want to see that.`,
-    likes: 2100,
-    comments: [
-      { characterKey: 'satyr_nem', text: 'If he ruins wine, I will fight him.' },
-      { characterKey: 'lady_aurelian', text: 'Do not test him.' }
-    ]
-  },
-  {
-    id: 'waluigi_three_names_theory',
-    order: 41091,
-    characterKey: 'waluigi',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 45 },
-    content: `Theory: The ward accepts THREE names because it’s a family “chord.” Corvinarus + Oriacle + Cornellius = harmony. But Cornellius tone is wrong. Maybe Cornellius is not family. Maybe Cornellius is a thief-name.`,
-    likes: 5000,
-    comments: [
-      { characterKey: 'toad_lee', text: 'This is… actually a solid theory.' },
-      { characterKey: 'hjumpik', text: 'Write it down somewhere not public.' }
-    ]
-  },
-  {
-    id: 'toad_lee_cornellius_crossref',
-    order: 41092,
-    characterKey: 'toad_lee',
-    rumorId: 'bathhouse_secrets',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 21, minute: 55 },
-    content: `Cross-referenced old plaques: “Cornellius” appears nowhere on the visible family list. Either it’s hidden, scrubbed, or never belonged. That means the ward might be compromised.`,
-    likes: 6400,
-    comments: [
-      { characterKey: 'lady_aurelian', text: 'Do not dig into that name.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'When someone says don’t dig, you should dig carefully.' }
-    ]
-  },
-  {
-    id: 'lady_aurelian_do_not_dig_warning',
-    order: 41093,
-    characterKey: 'lady_aurelian',
-    rumorId: 'corvinarus_lineage',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 22, minute: 5 },
-    content: `Some names are nails. You pull them, and the house comes apart. Focus on the satyrs. Leave my family’s rot in the walls where it belongs.`,
-    likes: 1800,
-    comments: [
-      { characterKey: 'hjumpik', text: 'If the rot bites us, it becomes our problem too.' },
-      { characterKey: 'waluigi', text: 'Names being nails is the creepiest metaphor I’ve heard today.' }
-    ]
-  },
-  {
-    id: 'archie_paperwork_room_details',
-    order: 41094,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 25 },
-    content: `The vampire paperwork room had forms for “meal acquisition,” “blood storage variance,” and “operational table sanitation.” Monsters love bureaucracy. It’s comforting in a sick way.`,
-    likes: 3500,
-    comments: [
-      { characterKey: 'green_t', text: 'If I die, file form 7B: “Regret.”' },
-      { characterKey: 'toad_lee', text: 'Take a blank form. Could be leverage.' }
-    ]
-  },
-  {
-    id: 'green_t_hears_something_in_walls',
-    order: 41095,
-    characterKey: 'green_t',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 19, minute: 40 },
-    content: `I heard something in the walls. Not rats. Too slow. Too thoughtful. If the manor is alive like Aurelian’s, we are inside a hungry idea.`,
-    likes: 4200,
-    comments: [
-      { characterKey: 'archie', text: 'Don’t say that. Now I’m thinking about it.' },
-      { characterKey: 'hjumpik', text: 'Get out. Mansions that think are worse than monsters.' }
-    ]
-  },  
-  {
-    id: 'waluigi_bathhouse_keys',
-    order: 41000,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 56 },
-    content: "Lady Aurelian gave me keys to the bathhouse! She says 'secrets are found there.' Also she said we smell like wet dogs. I am offended! I smell like roses and garlic!",
-    likes: 1200,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Just take the bath, Waluigi. We have been in a sewer, a swamp, and a spider nest.' },
-      { characterKey: 'toad_lee', text: 'I found the tub. It has bubbles that glow. And possibly teeth.' }
-    ]
-  },
-  {
-    id: 'hjumpik_threatens_guild',
-    order: 41001,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 0 },
-    content: "Told Lady Aurelian I could call the Mages' Guild on her. She laughed. Said she is 'sleeping with a guest tonight' and we can have the Master Bedroom.",
-    likes: 45,
-    comments: [
-      { characterKey: 'waluigi', text: 'Is the guest me? It should be me!' },
-      { characterKey: 'lady_aurelian', text: 'It is an old family member. Do not flatter yourself, purple one.' }
-    ]
-  },
-  {
-    id: 'rakasha_sleepover',
-    order: 41002,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 15 },
-    content: "A sleepover in the Master Bedroom! I have gathered pillows. Toad Lee asks for my true name. It is Azure. Do not wear it out.",
-    likes: 670,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Azure. Nice. Now check for mimics. The bed looks hungry.' },
-      { characterKey: 'hjumpik', text: 'Traps first. Sleep later. Always.' }
-    ]
-  },
-  {
-    id: 'toad_lee_bathroom_discovery',
-    order: 41003,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 30 },
-    content: "Bathroom discovered! Marble tub with bubbling fountain. Ferns in every corner. Waluigi tried to drink the bathwater. I stopped him. Mostly.",
-    likes: 890,
-    comments: [
-      { characterKey: 'waluigi', text: 'It smelled like lavender! And secrets!' },
-      { characterKey: 'rakasha_spirit_walker', text: 'The bubbles whispered ancient runes. I took notes.' }
-    ]
-  },
-  {
-    id: 'hjumpik_satyr_negotiation',
-    order: 41004,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 45 },
-    content: "Satyrs demand 'one round of drinks' despite only two present. Their leader is Ralos/Relis? Smells like regret and fermented berries. Party started when we arrived.",
-    likes: 520,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Did you get their deposit? They broke the last guest wing.' },
-      { characterKey: 'lady_aurelian', text: 'Relis. And he owes me three casks of vintage.' }
-    ]
-  },
-  {
-    id: 'aurelian_guard_failure',
-    order: 41005,
-    characterKey: 'lady_aurelian',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 58 },
-    content: "My guards tried evicting Satyrs. They returned drunk. Half the Satyrs are their 'drinking buddies'. Pathetic. The swordmaster Relis leads them. Diplomacy failed.",
-    likes: 33,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Volunteering as chaperone. Bring your warhammer.' },
-      { characterKey: 'waluigi', text: 'I could set them on fire? Just a little?' }
-    ]
-  },
-  {
-    id: 'vine_room_trap',
-    order: 41006,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 10 },
-    content: "Vine room attacked! Thorns grabbed my warhammer. Rakasha & Waluigi swung me out like a lasso. Took 0 damage. Mostly pride.",
-    likes: 1100,
-    comments: [
-      { characterKey: 'rakasha_spirit_walker', text: 'You screamed like a pixie. It was majestic.' },
-      { characterKey: 'toad_lee', text: 'Did you leave the hammer? Please say yes.' }
-    ]
-  },
-  {
-    id: 'waluigi_fire_solution',
-    order: 41007,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 15 },
-    content: "Solved the vine room! Hjumpik said 'burn it'. So I did. Fire hands for the win! Room is now safe. Also found a shyguy flying toy. It’s mine now.",
-    likes: 2200,
-    comments: [
-      { characterKey: 'hjumpik', text: 'I said handle it. You chose arson. Again.' },
-      { characterKey: 'toad_lee', text: 'The toy is crying. It wants its owner back.' }
-    ]
-  },
- {
-    id: 'goblin_under_table',
-    order: 41024,
-    characterKey: 'green_t',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 5 },
-    content: "Found a goblin under Legion table. Not eating. Just polishing a spoon. Said 'It’s not mine' when I asked. Spoon has tiny feather carving.",
-    likes: 280,
-    comments: [
-      { characterKey: 'archie', text: "That’s Lickspoon. He polishes spoons for victims. Feather = he refused blood." },
-      { characterKey: 'green_t', text: "He left it by my cell. Didn’t look at me." }
-    ]
-  },
-  {
-    id: 'waluigi_flower_pollen',
-    order: 41025,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 10 },
-    content: "The giant bed-flower shed pollen. Wario sneezed. Now his mustache glows faint green. Toad Lee says it’s ‘photosynthetic regret’. Waluigi stole a petal. It’s warm.",
-    likes: 3100,
-    comments: [
-      { characterKey: 'wario', text: "GLORIOUS! Mustache now brighter than my wallet! ...Does it glow in dark? Asking for night-shift." },
-      { characterKey: 'toad_lee', text: "It’s not regret. It’s *memory*. That flower absorbed Argorok’s last sigh. Handle gently." } // IMPLIED: Argorok = past fey lord
-    ]
-  },
-  {
-    id: 'hjumpik_guard_snore',
-    order: 41026,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 25 },
-    content: "Guard #2 fell asleep leaning on vase. Not knocked out. Just... tired. Vase has chip shaped like toadstool. From when? Who broke it?",
-    likes: 410,
-    comments: [
-      { characterKey: 'toad_lee', text: "That chip’s been there since the squirrel incident. 3 parties ago. You didn’t notice?" }, // TIME PROGRESSION
-      { characterKey: 'lady_aurelian', text: "Squirrel was Ralos’ cousin. He’s bringing acorns tomorrow. Do not mention." } // SIDE STORY SEED
-    ]
-  },
-  {
-    id: 'archie_spoon_feather',
-    order: 41027,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 20 },
-    content: "Lickspoon’s spoon feather dissolved in my pocket. Left warm patch. Green T says: ‘Feathers = promises. Dissolved = kept.’ Did not ask what.",
-    likes: 890,
-    comments: [
-      { characterKey: 'green_t', text: "The promise was ‘I won’t watch you sleep’. I kept it. Spoon’s clean now." } // IMPLIED TRUST
-    ]
-  },
-  {
-    id: 'toad_lee_plant_whisper',
-    order: 41028,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 35 },
-    content: "Fiddlehead fern by bath moved toward Waluigi’s glowing mustache. Not light-seeking. Toward *green*. Took notes. Will compare to moonlight reaction later.",
-    likes: 1200,
-    comments: [
-      { characterKey: 'waluigi', text: "Does it like my mustache? Can I name it? It’s curly!" },
-      { characterKey: 'rakasha_spirit_walker', text: "It’s not the mustache. It’s the *memory* in the pollen. Ferns remember everything here." } // CROSS-REF
-    ]
-  },
-  {
-    id: 'hjumpik_vase_repair',
-    order: 41029,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 50 },
-    content: "Fixed guard’s vase with moss + spider-silk (from ceiling). Chip still there. But now silk thread shaped like question mark. Not there 10 min ago.",
-    likes: 650,
-    comments: [
-      { characterKey: 'spider_npc', text: "Question mark = ‘Why fix?’ Not judgment. Just... curious." }, // BACKGROUND CHAR VOICE
-      { characterKey: 'toad_lee', text: "Spiders don’t ask ‘why’. They ask ‘when’. Note time." } // TIME STAMP IMPLIED
-    ]
-  },
-  {
-    id: 'archie_operating_light',
-    order: 41030,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 30 },
-    content: "Operating room light flickers when human breathes. Not faulty. Synced. Counted 17 breaths = 1 flicker. Green T: ‘They’re counting *us* now.’",
-    likes: 770,
-    comments: [
-      { characterKey: 'green_t', text: "Breath pattern matches the spoon-feather promise. Coincidence? Unlikely here." } // ECHO OF 41024
-    ]
-  },
-  {
-    id: 'waluigi_petal_sandwich',
-    order: 41031,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 5, minute: 0 },
-    content: "Put Argorok-petal in sandwich. Tasted like ‘almost-sorry’. Wario ate rest. Now his sneeze-glow pulses with heartbeat. Toad Lee: ‘Don’t share food with cursed things.’",
-    likes: 4400,
-    comments: [
-      { characterKey: 'wario', text: "BEST SANDWICH! Glow matches my rhythm! ...Does it work in lava? Testing!" },
-      { characterKey: 'toad_lee', text: "It’s not cursed. It’s *remembering*. Stop treating memory like garbage." } // QUIET REPRIMAND
-    ]
-  },
-  {
-    id: 'hjumpik_acorn_note',
-    order: 41032,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 5, minute: 15 },
-    content: "Ralos’ cousin left acorn by vase. Not for eating. Carved tiny ‘?’ on cap. Guard #1 placed it on windowsill. Not asked why.",
-    likes: 390,
-    comments: [
-      { characterKey: 'lady_aurelian', text: "He’s asking if the squirrel’s ghost is happy. Do not answer. Do not look." } // IMPLIED RULE
-    ]
-  },
-  {
-    id: 'archie_coffin_bang_code',
-    order: 41033,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 45 },
-    content: "Coffin bang pattern: 3 short, 1 long, 2 short. Not random. Green T tapped back 2 short. Coffin stopped. Waited. Bang 1 long. Green T: ‘They’re learning our code.’",
-    likes: 1100,
-    comments: [
-      { characterKey: 'green_t', text: "Last time they stopped = when I said ‘safe’. They mean ‘safe’ differently than us." } // IMPLIED NEGOTIATION
-    ]
-  },
-  {
-    id: 'rakasha_vine_scar',
-    order: 41034,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 5, minute: 30 },
-    content: "Vine scar on my wrist from earlier? Glows when fern moves toward mustard-light. Not pain. Like... recognition. Toad Lee saw. Didn’t say. Just handed me salt.",
-    likes: 820,
-    comments: [
-      { characterKey: 'toad_lee', text: "Salt for grounding. Not because you’re hurt. Because the vine *saw you see it*." } // DEEP IMPLIED CARE
-    ]
-  },
-  {
-    id: 'green_t_cell_dust',
-    order: 41035,
-    characterKey: 'green_t',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 20, minute: 0 },
-    content: "Dust cell floor forms patterns when Legion boots pass. Not wind. Rhythm matches coffin-bang code. Drew ‘?’ in dust with toe. Pattern reset to lines. Not erased.",
-    likes: 410,
-    comments: [
-      { characterKey: 'archie', text: "They reset questions to boundaries. Not refusal. ...Thank you for the pattern." } // QUIET GRATITUDE
-    ]
-  },
-  // ... [continue inserting at precise moments - 35 more below] ...
-  {
-    id: 'toad_lee_fern_moonlight',
-    order: 41059,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 23, minute: 55 },
-    content: "Fern by bath moved toward moonlight *through* window. Not light source. Toward the *shadow* of the iron grate. Took rubbing. Pattern = goblin spoon-carving. Coincidence? Unlikely.",
-    likes: 1900,
-    comments: [
-      { characterKey: 'green_t', text: "Goblin spoon-carving = shield shape. Fern knows safe places." }, // ECHO OF 41024
-      { characterKey: 'waluigi', text: "Can it draw my mustache? With glow?" },
-      { characterKey: 'toad_lee', text: "Already did. It’s by the door. You’ll see it at dawn." } // PROMISE OF TOMORROW
-    ]
-  },
-  {
-    id: 'hjumpik_vase_question_answered',
-    order: 41060,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 0, minute: 5 },
-    content: "Vase question-mark silk thread? Gone. Replaced by tiny acorn cap (from cousin’s gift) balanced on rim. Guard #1 nodded. Did not smile. Did not need to.",
-    likes: 740,
-    comments: [
-      { characterKey: 'lady_aurelian', text: "The squirrel’s ghost is content. Do not thank the guard. Do not acknowledge. ...He knows." } // IMPLIED RITUAL
-    ]
-  },
-  {
-    id: 'archie_dawn_plan',
-    order: 41061,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 26, hour: 0, minute: 10 },
-    content: "Green T: ‘Dawn shift change. Less watching. More breathing.’ We move when light hits the spoon-carving on Lickspoon’s wall. Not a word.",
-    likes: 980,
-    comments: [
-      { characterKey: 'green_t', text: "The spoon-carving is now on the wall. Not mine to give. ...It’s ready." } // OBJECT JOURNEY COMPLETE
-    ]
-  },
-
-  {
-    id: 'magic_detection_names',
-    order: 41008,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 20 },
-    content: "Magic detection orb! Needs three names: Corvinarus, Oriacle, Cornellius. Motion activated. Probably a bloodline lock. Or a fancy doorbell.",
-    likes: 780,
-    comments: [
-      { characterKey: 'toad_lee', text: 'Oriacle? That\'s the Lady\'s mother. Dead for centuries.' },
-      { characterKey: 'hjumpik', text: 'So we need a ghost. Perfect.' }
-    ]
-  },
-  {
-    id: 'mezzanine_statue_secret',
-    order: 41009,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 35 },
-    content: "Mezzanine has blood stains (wine? blood?). Statue eyes follow you. Found paper underneath – summoned Usk’s shadow. He looked... disappointed.",
-    likes: 420,
-    comments: [
-      { characterKey: 'rakasha_spirit_walker', text: 'Usk from the other manor? Small world.' },
-      { characterKey: 'lady_aurelian', text: 'That statue judges everyone. It thinks you\'re uncultured.' }
-    ]
-  },
-  {
-    id: 'archie_haunted_start',
-    order: 41010,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 0 },
-    content: "Green T insists my friends are dead. It's been two days. Situation got heated – had to run. They're fine. Probably. Locked in a vampire mansion now.",
-    likes: 330,
-    comments: [
-      { characterKey: 'green_t', text: 'Your optimism is statistically improbable.' },
-      { characterKey: 'toad_lee', text: 'Vampires? We have Satyrs. Trade you?' }
-    ]
-  },
-  {
-    id: 'archie_vampire_cook',
-    order: 41011,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 15 },
-    content: "Vampire cooking meat. Asked if it was dinner. Ran into operating room – human on table. Green T split us up. I barricaded in a coffin room. Banging. So much banging.",
-    likes: 900,
-    comments: [
-      { characterKey: 'green_t', text: 'I distracted the chef. You\'re welcome.' },
-      { characterKey: 'waluigi', text: 'Did you get the recipe? Asking for a friend.' }
-    ]
-  },
-  {
-    id: 'archie_dracacide_disguise',
-    order: 41012,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 30 },
-    content: "Disguised as Dracacide! Vampire asked about Green T. Said no. He was filing paperwork for two kills. Green T escaped under the bed. I followed. So many forms.",
-    likes: 1500,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Paperwork? Even in undeath?' },
-      { characterKey: 'green_t', text: 'The bed had a gun. I almost became paperwork.' }
-    ]
-  },
-  {
-    id: 'archie_airship_crash',
-    order: 41013,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 45 },
-    content: "Airship crashed. Swarmed by Legion troops. 'ATTENTION CITIZENS. ANOMALY CONTAINED.' Where are the toads? Dan might be here. Disguised as a guard to ask.",
-    likes: 670,
-    comments: [
-      { characterKey: 'toad_lee', text: 'We\'re at a fey manor. Satyr eviction service. Join us!' },
-      { characterKey: 'green_t', text: 'Legion means bureaucracy. Worse than vampires.' }
-    ]
-  },
-  {
-    id: 'hjumpik_satyr_eviction',
-    order: 41014,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 0 },
-    content: "Eviction time. Satyrs are passed out in leaf hammocks. Smells like cheap wine and goat. Aurelian gave me two guards. Their rule: subdue only. No killing.",
-    likes: 580,
-    comments: [
-      { characterKey: 'waluigi', text: 'Can I scare them? Just a little fire?' },
-      { characterKey: 'lady_aurelian', text: 'Break my manor and you\'re sleeping in the stables.' }
-    ]
-  },
-  {
-    id: 'waluigi_satyr_prank',
-    order: 41015,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 20 },
-    content: "Two Satyrs 'fell' off the gangway. I may have yelled 'FREE BEER' below. They splatted but are fine. Hjumpik is glaring. Worth it.",
-    likes: 3400,
-    comments: [
-      { characterKey: 'toad_lee', text: 'You pushed them. I saw you.' },
-      { characterKey: 'hjumpik', text: 'Next time you\'re the projectile.' }
-    ]
-  },
-  {
-    id: 'toad_lee_mushroom_gains',
-    order: 41016,
-    characterKey: 'toad_lee',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 35 },
-    content: "Bathroom mushroom puffed gas at Hjumpik. He can't stop flexing. Gains are... impressive? Waluigi tried to lick it. I intervened.",
-    likes: 2100,
-    comments: [
-      { characterKey: 'hjumpik', text: 'My biceps have their own gravitational pull.' },
-      { characterKey: 'wario', text: 'Save some flex for the rest of us!' }
-    ]
-  },
-  {
-    id: 'rakasha_azure_calm',
-    order: 41017,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 10 },
-    content: "The play excited me. Now calm. Planning the Satyr eviction. Waluigi suggests fireworks. Hjumpik says no. Toad Lee suggests diplomacy. Relis laughs at diplomacy.",
-    likes: 430,
-    comments: [
-      { characterKey: 'waluigi', text: 'Fireworks are diplomacy! Loud, colorful diplomacy.' },
-      { characterKey: 'hjumpik', text: 'Fireworks in a wooden manor. What could go wrong?' }
-    ]
-  },
-  {
-    id: 'hjumpik_ghost_thumbs',
-    order: 41018,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 18 },
-    content: "Ghost in the hall. Gave it a thumbs up. It vanished. Either approval or horror. Hard to tell with ghosts.",
-    likes: 880,
-    comments: [
-      { characterKey: 'toad_lee', text: 'It reappeared behind you. Doing jazz hands.' },
-      { characterKey: 'waluigi', text: 'Ghosts hate thumbs. It\'s a known fact.' }
-    ]
-  },
-  {
-    id: 'rakasha_fly_over_crowd',
-    order: 41019,
-    characterKey: 'rakasha_spirit_walker',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 22 },
-    content: "Flew over the Satyr crowd! Guards grabbed. Jumped into Hjumpik's arms. He swung his hammer. Toad Lee flew downstairs. We have to go. Now.",
-    likes: 1200,
-    comments: [
-      { characterKey: 'toad_lee', text: 'I landed in a salad. It was humiliating.' },
-      { characterKey: 'hjumpik', text: 'You flew with grace. Like a potato.' }
-    ]
-  },
-  {
-    id: 'corvinarus_family_secret',
-    order: 41020,
-    characterKey: 'lady_aurelian',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 5 },
-    content: "Magic runs weak in my bloodline. Or so they say. I find it fascinating. An old family member arrives soon. They'll be gone in five nights. Satyrs too.",
-    likes: 210,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Five nights? We\'ll be done by dawn.' },
-      { characterKey: 'waluigi', text: 'Is the relative single? Asking for me.' }
-    ]
-  },
-  {
-    id: 'waluigi_master_bedroom',
-    order: 41021,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 5 },
-    content: "Master Bedroom is ours! Aurelian sleeps with a guest. NOT me. Giant flower bed glows. Chairs are ancient. Vines hold up the furniture. I claim the flower.",
-    likes: 990,
-    comments: [
-      { characterKey: 'toad_lee', text: 'The flower smells like regret. And pollen.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'I claim the vines. They whisper secrets.' }
-    ]
-  },
-  {
-    id: 'green_t_hide_cell',
-    order: 41022,
-    characterKey: 'green_t',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 18, minute: 40 },
-    content: "Hid in a cell. Archie disguised as vampire. Gave me a dagger. Too quiet. Hear Legion outside. Airship is scrap metal. Hope Archie has a plan.",
-    likes: 320,
-    comments: [
-      { characterKey: 'archie', text: 'Plan B: Run faster than the Legion.' },
-      { characterKey: 'toad_lee', text: 'Daggers are good. Fire is better.' }
-    ]
-  },
-  {
-    id: 'archie_legion_encounter',
-    order: 41023,
-    characterKey: 'archie',
-    rumorId: 'haunted_mansion_mystery',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 19, minute: 0 },
-    content: "Disguised as Legion guard. Asked about Dan. Got ignored. Green T is hidden. We need to reach the airship crash site. Avoid the operating room.",
-    likes: 450,
-    comments: [
-      { characterKey: 'hjumpik', text: 'Operating rooms are bad. Trust me.' },
-      { characterKey: 'waluigi', text: 'Did you see any purple? I love purple.' }
-    ]
-  },
-  {
-    id: 'hjumpik_statue_paper',
-    order: 41024,
-    characterKey: 'hjumpik',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 40 },
-    content: "Statue paper summoned Usk. He said 'your friends there probably dead'. I said they're fine. He vanished. Creepy.",
-    likes: 560,
-    comments: [
-      { characterKey: 'archie', text: 'We\'re alive! Mostly. Vampires are clingy.' },
-      { characterKey: 'toad_lee', text: 'Usk owes me 5 gold. Tell him next time.' }
-    ]
-  },
-  {
-    id: 'waluigi_shyguy_toy',
-    order: 41025,
-    characterKey: 'waluigi',
-    rumorId: 'fey_manor_service',
-    date: { year: 1040, monthIndex: 6, day: 25, hour: 14, minute: 18 },
-    content: "Shyguy toy flies! It circles my head. Singing 'I\'m gonna win!'. Annoying. Might trade it for a sandwich.",
-    likes: 777,
-    comments: [
-      { characterKey: 'toad_lee', text: 'It\'s singing about your doom. Check the lyrics.' },
-      { characterKey: 'rakasha_spirit_walker', text: 'I heard it chant a hex. Be careful.' }
-    ]
-  },  
-   {
-        id: 'hjumpik_lady_aurelian_meet', order: 40900, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 0 },
-        content: `Met the Lady of the Manor. Aurelian Corvinarus. She pointed right at my Entropy Ring. Asked for it. I said "Not on the first date." She didn't laugh.`,
-        likes: 120, 
-        comments: [
-            { characterKey: 'waluigi', text: 'She has style. Scary style. But style.' },
-            { characterKey: 'toad_lee', text: 'She called it an Entropy Regulator. She knows exactly what it does.' }
-        ]
+    "id": "waluigi_flower_bed_confession",
+    "order": 41096,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 22,
+      "minute": 15
     },
-    {
-        id: 'lady_aurelian_task', order: 40901, characterKey: 'lady_aurelian', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 15 },
-        content: `Guests who overstay their welcome are tiresome. There are Satyrs in the Guest Wing who refuse to leave. Remove them, and we can discuss your... departure.`,
-        likes: 12, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'We are basically janitors now.' }
-        ]
+    "content": "The giant flower bed whispered to me. It called me 'Waa' and said I 'smell like home.' I don’t know what that means but I’m taking it as a compliment. Also it offered me a seed. I ate it. My hair is now slightly glowing.",
+    "likes": 8700,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "YOU ATE A FEY SEED?!"
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Your hair is pulsing. That’s not normal."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "If you start photosynthesizing, I’m throwing you out the window."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_peach_assassination_theory",
+    "order": 41097,
+    "characterKey": "toad_lee",
+    "rumorId": "mushroom_kingdom_politics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 22,
+      "minute": 30
     },
-    {
-        id: 'waluigi_fireball_check', order: 40902, characterKey: 'toad_lee', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 2, minute: 30 },
-        content: `Waluigi just summoned a fireball in his hand and looked at the Lady. I told him NO. We are NOT fighting a Fey Lord in her own house. Yet.`,
-        likes: 890, 
-        comments: [
-            { characterKey: 'waluigi', text: 'It was a tiny fireball! A warning shot!' }
-        ]
+    "content": "Unpopular opinion: Princess Peach’s assassination in 955 wasn’t just a murder. It was a *ritual*. The civil war wasn’t about succession—it was about who got to use her blood in the next phase. The Iron Legion’s rise in 1035 wasn’t a coincidence. Someone needed the Kingdom weak.",
+    "likes": 12000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "So you’re saying… the Legion killed Peach?"
+      },
+      {
+        "characterKey": "archie",
+        "text": "No, but they *benefited*. The Onyx Hand has notes on this. I’ve seen them."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Focus. We have satyrs to evict."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "…How do you know about the blood ritual?"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_entropy_ring_warning",
+    "order": 41098,
+    "characterKey": "hjumpik",
+    "rumorId": "cross_manor_echoes",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 22,
+      "minute": 45
     },
-
-    // --- DAY 25: THE SATYR EVICTION (Morning) ---
-    {
-        id: 'guest_room_vines', order: 40910, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 0 },
-        content: `Guest rooms are a mess. Vines everywhere. Hammocks made of leaves. Satyrs passed out on the floor. Smells like cheap wine and goat.`,
-        likes: 450, 
-        comments: []
+    "content": "PSA: If you see someone wearing an Entropy Ring (black band, glows when you lie), DO NOT TRUST THEM. That’s how the Iron Legion marks sleeper agents. Toadburt had one. So did the ‘healer’ who stabbed Eager.",
+    "likes": 9800,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I want one."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "You’d set it off constantly."
+      },
+      {
+        "characterKey": "archie",
+        "text": "They’re keyed to specific lies. The Legion’s rings only react to *their* questions."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_azure_name_power",
+    "order": 41099,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 23,
+      "minute": 5
     },
-    {
-        id: 'hjumpik_satyr_beer', order: 40911, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 15 },
-        content: `Offered a beer to a Satyr to get him moving. He took it, walked onto the gangway... and fell off. Just walked right off the edge into the dining hall below. *SPLAT*`,
-        likes: 670, 
-        comments: [
-            { characterKey: 'waluigi', text: 'Gravity is a harsh mistress.' }
-        ]
+    "content": "Toad Lee asked why I don’t use ‘Azure’ more often. Names have weight here. Say it three times in the bathhouse, and the water answers. Say it in the mezzanine, and the statues turn. The Lady knows this. That’s why she *gave* me the name.",
+    "likes": 7600,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Names are contracts. Be careful with yours."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "What if I say ‘Waluigi’ three times?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Then you’ll summon *me*, and I’ll throw you into a vine pit."
+      }
+    ]
+  },
+  {
+    "id": "pip_sprite_union_complaint",
+    "order": 41100,
+    "characterKey": "pip_key_sprite",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 23,
+      "minute": 20
     },
-    {
-        id: 'waluigi_satyr_splat', order: 40912, characterKey: 'waluigi', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 30 },
-        content: `Two more Satyrs just fell. I may have... encouraged them. Oops. Problem solved!`,
-        likes: 4500, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'You pushed them! I saw you!' },
-            { characterKey: 'waluigi', text: 'Allegedly!' }
-        ]
+    "content": "UNION NOTICE: Management (Lady Aurelian) refuses to acknowledge sprite labor. Keys are heavy. Doors are tall. We demand: 1) Smaller locks 2) More glitter 3) Recognition that ‘borrowing’ is not ‘stealing’ if the item is shiny.",
+    "likes": 11000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I support sprite rights! (Give me back my keys.)"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Pip, you are *not* a union."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Wait, sprites have a union?!"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_loyalist_rant",
+    "order": 41101,
+    "characterKey": "toad_lee",
+    "rumorId": "mushroom_kingdom_politics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 10,
+      "minute": 15
     },
-    {
-        id: 'bathroom_mushroom_gas', order: 40913, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 3, minute: 45 },
-        content: `Checked the bathroom. A mushroom puffed gas in my face. Now I can't stop flexing my muscles. It's involuntary. Look at these gains!`,
-        likes: 2300, 
-        comments: [
-            { characterKey: 'wario', text: 'Nice flex! Work the glutes!' }
-        ]
+    "content": "Peach Loyalists took Bramblehaven yesterday. No prisoners. No mercy. Captain Toadette’s signature move? *Burn the bodies.* This isn’t a rebellion. It’s a purge. And the Iron Legion is *letting it happen*.",
+    "likes": 15000,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The Legion *wants* the Kingdom weak. They’re feeding the chaos."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I like fire. But this is *too much* fire."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Toadette’s playing into their hands. Someone’s pulling her strings."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_dk_crew_drama",
+    "order": 41102,
+    "characterKey": "waluigi",
+    "rumorId": "midlands_politics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 14,
+      "minute": 30
     },
-
-    // --- DAY 25: THE HAG'S RECOMMENDATION (Late Morning) ---
-    {
-        id: 'hjumpik_hag_referral', order: 40920, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 0 },
-        content: `Found more guests. Told them about a "Great Bed & Breakfast" nearby. It's the Hag's Hut. Told them she has great stew. I am a terrible person.`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'It\'s efficient. Two problems, one solution.' }
-        ]
+    "content": "UPDATE: Donkey Kong and King K. Rool had a *phone call*. That’s like if a hurricane and a volcano agreed to brunch. Also, Funky Kong almost got assassinated by a Kremling with a *bug*. The Midlands is a clown car of diplomacy.",
+    "likes": 18000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The bug was a *listening device*. This is espionage, not comedy."
+      },
+      {
+        "characterKey": "archie",
+        "text": "K. Rool’s playing both sides. Classic pirate."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I’d pay to see DK and K. Rool arm-wrestle."
+      }
+    ]
+  },
+  {
+    "id": "archie_onyx_hand_wanted",
+    "order": 41103,
+    "characterKey": "archie",
+    "rumorId": "midlands_politics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 19,
+      "minute": 0
     },
-    {
-        id: 'satyr_departure', order: 40921, characterKey: 'satyr_guest', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 15 },
-        content: `Leaving for the Hut! This nice dwarf says there are beds and food! The party never ends!`,
-        likes: 5, 
-        comments: [
-            { characterKey: 'hag_of_raventree', text: 'Fresh ingredients. Delicious.' }
-        ]
+    "content": "The Regal Empire just declared the Onyx Hand illegal. That’s like banning shadows. Also, vampires are now ‘vermin’. Moonfang Pack too. This isn’t a purge—it’s a *declaration of war*.",
+    "likes": 22000,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "They’re coming for the Tea Leaf Syndicate next."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m half-vampire. Does that make me half-vermin?"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "The Empire fears what it cannot control. Aurelian Corvinarus *laughs*."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_kamek_return",
+    "order": 41104,
+    "characterKey": "toad_lee",
+    "rumorId": "mushroom_kingdom_politics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 16,
+      "minute": 0
     },
-    {
-        id: 'lady_aurelian_deal_update', order: 40922, characterKey: 'lady_aurelian', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 4, minute: 30 },
-        content: `You cleared the room. Good. Now clear the rest of the house.`,
-        likes: 34, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Wait! That wasn\'t the deal! You said we could leave!' },
-            { characterKey: 'lady_aurelian', text: 'I am altering the deal. Pray I do not alter it further.' }
-        ]
+    "content": "Kamek’s back. The Koopa Troop remnants are rallying in the Valley of Bowser. That’s *bad*. Kamek doesn’t do comebacks unless he’s got a *plan*. Last time he showed up, we got the Koopa Clown Car. What’s worse than that?",
+    "likes": 14000,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "A Koopa *Clown Army*."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I volunteer to test the clown cars. For science."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "No."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_legion_propaganda",
+    "order": 41105,
+    "characterKey": "waluigi",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 5
     },
-
-    // --- DAY 25: THE BUTTERFLY & THE STAFF (Afternoon) ---
-    {
-        id: 'toad_lee_butterfly_spot', order: 40930, characterKey: 'toad_lee', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 0 },
-        content: `Checked upstairs. There is a Butterfly the size of a carriage sleeping in the hall. It snores like a chainsaw.`,
-        likes: 560, 
-        comments: []
+    "content": "The Legion’s new broadcast: ‘THE ANOMALY IS CONTAINED.’ Yeah, sure. The ‘anomaly’ is *us*. Also, they’re scanning for ‘non-human activity’. Green T, you’re a walking violation.",
+    "likes": 13000,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I can pass as a very tall plant."
+      },
+      {
+        "characterKey": "archie",
+        "text": "They’re not scanning for *plants*. They’re scanning for *magic*."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "So… all of us?"
+      }
+    ]
+  },
+  {
+    "id": "archie_iron_mandate",
+    "order": 41106,
+    "characterKey": "archie",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 9,
+      "minute": 30
     },
-    {
-        id: 'orc_butler_sleeping', order: 40931, characterKey: 'toad_lee', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 15 },
-        content: `Two Orc Butlers sleeping on the job. Looks like the night shift. We should be quiet.`,
-        likes: 230, 
-        comments: []
+    "content": "The Iron Mandate passed 28-8-3. The Legion now has *emergency powers* to ‘purge supernatural threats’. That’s not law. That’s a *hunting license*. Speaker Rivers resigned. Smart man.",
+    "likes": 25000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "They’re coming for the Mages’ Guild next."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m supernatural. Does that make me sexy or illegal?"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Both."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_dragon_control",
+    "order": 41107,
+    "characterKey": "toad_lee",
+    "rumorId": "midlands_politics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 10,
+      "minute": 0
     },
-    {
-        id: 'waluigi_entropy_chat', order: 40932, characterKey: 'waluigi', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 12, minute: 30 },
-        content: `The Lady likes me! She says I am "oozing with entropy." That is a compliment, right?`,
-        likes: 4500, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'It means you are chaotic and possibly radioactive.' }
-        ]
+    "content": "Turns out the ‘war’ between dragons and the Regal Empire was *fake*. Sonic control devices. The dragons were *puppets*. Robinson found this out. Now he’s *captured*. Who benefits from fake wars? *The Iron Legion.*",
+    "likes": 30000,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The Legion’s been playing *both sides* for decades."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I want a sonic control device. For *fun*."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "No."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_wario_barrel",
+    "order": 41108,
+    "characterKey": "waluigi",
+    "rumorId": "midlands_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 17,
+      "minute": 30
     },
-    {
-        id: 'hjumpik_master_bedroom', order: 40933, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 25, hour: 13, minute: 0 },
-        content: `Opened the Master Bedroom door. Lady Aurelian was right behind me. She said "Not on the first date." I closed the door. Very fast.`,
-        likes: 890, 
-        comments: []
+    "content": "Wario was found in a barrel. A *normal* barrel. Not a magic barrel. Not a trap barrel. Just… a barrel. He claims he was ‘testing its structural integrity’. I don’t believe him.",
+    "likes": 20000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "He was hiding from the Legion."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "He was napping. He *snored*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The barrel was *moving*. I saw it."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_wario_axe_incident",
+    "order": 41109,
+    "characterKey": "hjumpik",
+    "rumorId": "midlands_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 19,
+      "hour": 16,
+      "minute": 30
     },
-
-    // --- DAY 26: THE BUTTERFLY SCREAM (Early Morning - 4 AM) ---
-    {
-        id: 'butterfly_scream', order: 40940, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 4, minute: 0 },
-        content: `Opened the first door upstairs. THE BUTTERFLY SCREAMED AT ME! "RAAAAAAAAA!" Why does a butterfly roar?!`,
-        likes: 3400, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'My ears are ringing. That was not a butterfly. That was a demon with wings.' }
-        ]
+    "content": "Wario tried to ‘borrow’ my axe. I said no. He called it ‘un-DK Crew behavior’. Then he tried to take it anyway. I threw him into a laundry chute. He came out *cleaner*.",
+    "likes": 18000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I want to see the security footage."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "The chute led to the *kitchen*. The chef is traumatized."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Wario vs. Hjumpik is my favorite timeline."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_fng_application",
+    "order": 41110,
+    "characterKey": "toad_lee",
+    "rumorId": "personal_goals",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 12,
+      "minute": 0
     },
-    {
-        id: 'staff_confrontation', order: 40941, characterKey: 'goblin_staff', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 4, minute: 10 },
-        content: `Intruders! We heard the scream! Identify yourselves!`,
-        likes: 12, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Relax! Aurelian sent us! We are checking on the... butterfly extermination progress.' }
-        ]
+    "content": "FNG Remi applied to the *Deephold Smithing Guild* mid-battle. She filled out the paperwork *while bleeding*. That’s the most Liberated Toad energy ever.",
+    "likes": 22000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I want to see her resume. ‘Fought giant spider: yes’?"
+      },
+      {
+        "characterKey": "archie",
+        "text": "She listed ‘survived Waluigi’ as a skill."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "That’s a *real* skill."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_spider_grove_pepper_spray",
+    "order": 41111,
+    "characterKey": "waluigi",
+    "rumorId": "combat_tactics",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 23,
+      "minute": 45
     },
-    {
-        id: 'staff_negotiation', order: 40942, characterKey: 'hjumpik', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 4, minute: 15 },
-        content: `Bluffed the guards. They said two staff died trying to move the butterfly. I asked to see the new recruits.`,
-        likes: 670, 
-        comments: []
+    "content": "Eager used *pepper spray* on the giant spider’s minions. It worked. I’m now carrying a case of it. Also, Markop grew to *titan size* to fight the matriarch. I want whatever he’s having.",
+    "likes": 28000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The spray was *alchemically enhanced*. Of course it worked."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Markop’s ‘blessing’ was a *time bomb*. The Oracle doesn’t give gifts."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I still want pepper spray."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_cornellius_bloodline",
+    "order": 41112,
+    "characterKey": "toad_lee",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 30
     },
-
-    // --- DAY 26: THE REUNION (5 AM) ---
-    {
-        id: 'rakasha_found', order: 40950, characterKey: 'rakasha_spirit_walker', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 5, minute: 0 },
-        content: `Found her! Rakasha is working as "staff in training." She has Steely/Mossy with her. And... another Rakshasa? They got hired?`,
-        likes: 560, 
-        comments: [
-            { characterKey: 'rakasha_spirit_walker', text: 'The pay is good. And the uniforms are silk.' }
-        ]
+    "content": "Cornellius isn’t in the family records. But I found a *painting* in the bathhouse. A Corvinarus in *orange robes* standing next to a dragon. The dragon’s eyes are *blacked out*. The plaque says: ‘The Day the Bloodline Split, 988’. That’s *five years after Peach died*.",
+    "likes": 35000,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "That painting is *not* for guests."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Orange robes = Onyx Hand. The dragon is Ignis-Major."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "So… the Legion *made* a Corvinarus?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Or stole one."
+      }
+    ]
+  },
+  {
+    "id": "archie_onyx_hand_dragon",
+    "order": 41113,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_trail",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 19,
+      "minute": 30
     },
-    {
-        id: 'steely_pet', order: 40951, characterKey: 'remi', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 5, minute: 15 },
-        content: `Why is my dog with the cat lady?! Give her back!`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'She found her. Finders keepers.' }
-        ]
+    "content": "The Onyx Hand didn’t just *control* Ignis-Major. They *made* him. The ‘dragon’ was a construct—a vessel for something older. The Legion called it ‘Project Embercap’. It burned *too well*.",
+    "likes": 40000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Embercap… like the scout?"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "So the dragon was a *toad*?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Worse. It was a *weapon*."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_orange_heir",
+    "order": 41114,
+    "characterKey": "lady_aurelian",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 0
     },
-
-    // --- DAY 26: PERRIUS'S ULTIMATUM (6 AM) ---
-    {
-        id: 'perrius_head_voice', order: 40960, characterKey: 'perrius_annmatar', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 6, minute: 18 },
-        content: `(Telepathic Message to Hjumpik) "Do not let the timelines sever. If they separate, the plan fails. Kill the Heir. Sever the bloodline. Or probability becomes 100% and we are all trapped."`,
-        likes: 0, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Get out of my head! And stop asking me to murder people!' }
-        ]
+    "content": "You ask about the ‘Orange Heir’. There is no heir. There is only the *mistake*. My great-uncle tried to graft Legion magic onto our bloodline. It *rejected* him. Now it wanders, wearing his face. Do not let it touch you.",
+    "likes": 50000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It’s here. In the manor."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Can we sell it?"
+      },
+      {
+        "characterKey": "archie",
+        "text": "It’s not *just* here. It’s in the *mirror* too."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_mezzanine_whispers",
+    "order": 41115,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 0
     },
-    {
-        id: 'hjumpik_dilemma', order: 40961, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 6, minute: 20 },
-        content: `The Ghost Mage says I have to kill the Orange Heir. But my gut says the Heir isn't even related. I need evidence. I need to raid the library again. Or kill the horrors in the house. This day is going to be long.`,
-        likes: 450, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'Investigation time. Let\'s find a family tree.' }
-        ]
+    "content": "The mezzanine whispers when you stand on the broken side. Not words—*memories*. I heard a woman screaming ‘the orange door!’ and then laughter. The piano played itself. The flowers *watched*.",
+    "likes": 12000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The piano’s ‘song’ is a key. Play it backward."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I played it with my elbows. The flowers *clapped*."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "We are *not* encouraging the flora."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_drain_conversation",
+    "order": 41116,
+    "characterKey": "waluigi",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 45
     },
-    {
-        id: 'wah_media_feywild_update', order: 40962, characterKey: 'wah_media_collective', rumorId: 'theater_of_the_lost',
-        date: { year: 1040, monthIndex: 6, day: 26, hour: 7, minute: 0 },
-        content: `Status Update: The Feywild team has reunited. They have a sword that blooms, a cat lady butler, and a mission to assassinate a possibly fake heir. The fate of the timeline rests on a Dwarf with a hammer. We are doomed.`,
-        likes: 5000, 
-        comments: []
-    }, 
-  {
-    id: 'waluigi_complaint', order: 40542, characterKey: 'waluigi', rumorId: 'wraith_banishment',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 10 },
-    content: "MY LEG NEEDS MEDICAL ATTENTION!!! AND A MASSAGE!!! AND ROSES!!! I DEMAND TO SEE THE MANAGER OF THIS GARDEN RIGHT NOW 😤😤😤",
-    likes: 4500,
-    comments: [
-      { characterKey: 'hjumpik', text: 'drink the potion i stole and shut up' },
-      { characterKey: 'wario', text: 'STOP WHINING! WAH!' },
-      { characterKey: 'princess_daisy', text: 'lmaooo classic' }
-    ]
-  },
-  {
-    id: 'onyx_papers_orangus', order: 40800, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 32 },
-    content: `Four minutes. That’s all you get. Talk fast, write a name, fold the paper, slide it to me. If you need more time, you’re not built for this table.`,
-    likes: 210,
-    comments: [
-      { characterKey: 'markop', text: "Timed voting at a vampire dinner is insane behavior." },
-      { characterKey: 'vostolas_archivist', text: "Proceedings recorded." }
-    ]
-  },
-  {
-    id: 'wrist_thing_question', order: 40801, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 33 },
-    content: `Toadburt keeps palming his wrist like he’s hiding a card up his sleeve. I asked what it was and he hit me with: “It stabilizes things.” Buddy, EVERYTHING is unstable in here.`,
-    likes: 340,
-    comments: [
-      { characterKey: 'toadburt', text: "It is boring. Stop staring at my wrist." },
-      { characterKey: 'green_t', text: "If it stabilizes things, why does it look like a trigger?" }
-    ]
-  },
-  {
-    id: 'entropy_ring_click', order: 40802, characterKey: 'toadburt', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 33 },
-    content: `It’s not a “ring.” It’s a friendship bracelet. Totally normal. Please stop watching me touch it. (Also… why does it *click*?)`,
-    likes: 590,
-    comments: [
-      { characterKey: 'markop', text: "Because you keep SLAMMING it like it owes you money." },
-      { characterKey: 'franklin_mages', text: "If jewelry clicks, step away from the jewelry." }
-    ]
-  },
-  {
-    id: 'entropy_builds', order: 40803, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 34 },
-    content: `He clicked it. It glowed purple. Not “pretty gem” purple—like “stormcloud at midnight” purple. The room got that quiet where you can hear everyone pretending they’re fine.`,
-    likes: 430,
-    comments: [
-      { characterKey: 'toadburt', text: "It is fine. It is completely fine." },
-      { characterKey: 'archie', text: "That’s the least convincing 'fine' I’ve ever heard." }
-    ]
-  },
-  {
-    id: 'archie_meets_vostolas', order: 40804, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 35 },
-    content: `Walked up to the librarian guy like: “You’re Volsto, right?” He corrected me so sharply it felt like getting slapped with a bookmark. “Vostolas. Excuse me.”`,
-    likes: 510,
-    comments: [
-      { characterKey: 'vostolas_archivist', text: "Names matter." },
-      { characterKey: 'markop', text: "That correction did psychic damage." }
-    ]
-  },
-  {
-    id: 'vostolas_tenure', order: 40805, characterKey: 'vostolas_archivist', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 35 },
-    content: `I am the Archivist of the Onyx Hand manor. Tenure: 321 years, 100 minutes, 20 seconds. Yes, I keep exact time. No, I do not “relax.”`,
-    likes: 300,
-    comments: [
-      { characterKey: 'archie', text: "He said it like a threat. I respect it." },
-      { characterKey: 'franklin_mages', text: "Longevity plus bureaucracy is always a bad sign." }
-    ]
-  },
-  {
-    id: 'archie_reality_doubt', order: 40806, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 36 },
-    content: `Confession: I don’t know if this night is real. The manor keeps “snapping” into perfection like someone is editing the world mid-scene.`,
-    likes: 670,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Live fact-check: reality currently unverified." },
-      { characterKey: 'vostolas_archivist', text: "It is real enough to be recorded." }
-    ]
-  },
-  {
-    id: 'markop_green_t_check', order: 40807, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 36 },
-    content: `Asked Vostolas if he’s with Green T. He said “no” with the calm of a man who has watched a thousand people lie the same way.`,
-    likes: 280,
-    comments: [
-      { characterKey: 'vostolas_archivist', text: "I am with my duties." },
-      { characterKey: 'green_t', text: "I’m with my pistol. Different vibe." }
-    ]
-  },
-  {
-    id: 'archie_to_toadburt_plan', order: 40808, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 37 },
-    content: `Toadburt leans in and hits me with: “He’s got another plan.” The way he said “another” made it sound like there were already bodies in the first plan.`,
-    likes: 520,
-    comments: [
-      { characterKey: 'toadburt', text: "No bodies. Yet." },
-      { characterKey: 'markop', text: "“Yet” is carrying a lot of weight there." }
-    ]
-  },
-  {
-    id: 'toadburt_blow_up_place', order: 40809, characterKey: 'toadburt', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 37 },
-    content: `Okay fine. Plan: we remove the Oracle. Green T “starts the party” from a cabinet. Then we slip out during the screaming. Shaky alliances = easy exits.`,
-    likes: 740,
-    comments: [
-      { characterKey: 'green_t', text: "Cabinet is optional. Screaming is mandatory." },
-      { characterKey: 'archie', text: "I hate how workable that sounds." }
-    ]
-  },
-  {
-    id: 'archie_green_t_denial', order: 40810, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 38 },
-    content: `I swear I saw Green T leave the room earlier. So either he’s not in that cabinet or this manor is doing the “two places at once” thing again.`,
-    likes: 610,
-    comments: [
-      { characterKey: 'green_t', text: "I contain multitudes. And exits." },
-      { characterKey: 'vostolas_archivist', text: "Duplication has precedent tonight." }
-    ]
-  },
-  {
-    id: 'kryn_spawn_reveal', order: 40811, characterKey: 'kryn_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 38 },
-    content: `That creature you’re whispering about? Vampire spawn. Also: yes, I am the Oracle’s brother. Say it louder if you want everyone to hear.`,
-    likes: 330,
-    comments: [
-      { characterKey: 'markop', text: "No thanks, I like my neck attached." },
-      { characterKey: 'orangus_corenilous', text: "Family introductions are always so charming." }
-    ]
-  },
-  {
-    id: 'markop_sits_by_spawn', order: 40812, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 39 },
-    content: `I don’t believe Kryn. I still sat closer to the spawn because if it’s going to jump someone, I’d like it to pick a different direction first.`,
-    likes: 420,
-    comments: [
-      { characterKey: 'kryn_corvinarus', text: "Prudent." },
-      { characterKey: 'archie', text: "This is the saddest survival strategy I’ve ever seen." }
-    ]
-  },
-  {
-    id: 'markop_meets_vaxillus', order: 40813, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 39 },
-    content: `Vaxillus Loumaal looks like the kind of guy who’s been polite for 80 years and is one bad toast away from biting someone.`,
-    likes: 290,
-    comments: [
-      { characterKey: 'vaxillus_loumaal', text: "I do not bite. I endure." },
-      { characterKey: 'vivesna_corvinarus', text: "He is beautiful when he endures." }
-    ]
-  },
-  {
-    id: 'vaxillus_wants_out', order: 40814, characterKey: 'vaxillus_loumaal', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 40 },
-    content: `I got dogs when I was young. They were honest. This manor isn’t. I have wanted to leave for a long time.`,
-    likes: 360,
-    comments: [
-      { characterKey: 'markop', text: "The dogs were the only green flag in this whole house." },
-      { characterKey: 'kryn_corvinarus', text: "Leaving is not as simple as wanting." }
-    ]
-  },
-  {
-    id: 'vaxillus_star_guest', order: 40815, characterKey: 'vaxillus_loumaal', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 40 },
-    content: `There’s a “star guest” tonight. Everyone keeps saying it like it’s an honor. The way they look at him says “meat.”`,
-    likes: 530,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Celebrity spotting: yes. Celebrity survival odds: unclear." },
-      { characterKey: 'franklin_mages', text: "Do not eat anything that looks like it used to talk." }
-    ]
-  },
-  {
-    id: 'markop_meets_vivesna', order: 40816, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 41 },
-    content: `Met Vivesna. “First in line” energy. Smiles like she already measured the drapes for her future throne.`,
-    likes: 410,
-    comments: [
-      { characterKey: 'vivesna_corvinarus', text: "It is not a throne. It is duty." },
-      { characterKey: 'orangus_corenilous', text: "Duty is a lovely leash." }
-    ]
-  },
-  {
-    id: 'vivesna_bitten_father', order: 40817, characterKey: 'vivesna_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 41 },
-    content: `Orangus bit me. He raised me. He is my father. Markop called me a “kidnappee” like that’s not incredibly rude.`,
-    likes: 620,
-    comments: [
-      { characterKey: 'markop', text: "I’m rude because I’m concerned. Different thing." },
-      { characterKey: 'vaxillus_loumaal', text: "Some families are built from wounds. That doesn’t make them holy." }
-    ]
-  },
-  {
-    id: 'vivesna_age_choice', order: 40818, characterKey: 'vivesna_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 42 },
-    content: `Age: 107. Favorite person: my father. Favorite at the table: Archie. We spoke for a thousand years today. Don’t ask how; it’s embarrassing.`,
-    likes: 890,
-    comments: [
-      { characterKey: 'archie', text: "Time got weird. I’m still catching up to my own sentences." },
-      { characterKey: 'vostolas_archivist', text: "Conversation duration logged." }
-    ]
-  },
-  {
-    id: 'observer_invited', order: 40819, characterKey: 'vivesna_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 42 },
-    content: `“Why is the Observer here?” Because I didn’t want them standing outside like a stray. This is a private event, not a cruelty showcase. (Mostly.)`,
-    likes: 470,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Private event, public consequences." },
-      { characterKey: 'orangus_corenilous', text: "Everything here is a showcase, darling." }
-    ]
-  },
-  {
-    id: 'darius_family_notes_1', order: 40820, characterKey: 'darius_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 43 },
-    content: `Orangus: I heard he was good. In truth, selfish and cruel like the rest. If death comes for him tonight, it is late.`,
-    likes: 510,
-    comments: [
-      { characterKey: 'kryn_corvinarus', text: "Not at the table, Darius." },
-      { characterKey: 'markop', text: "This family does NOT do inside voices." }
-    ]
-  },
-  {
-    id: 'darius_family_notes_2', order: 40821, characterKey: 'darius_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 43 },
-    content: `Ylana: chain and critic. Gone at last. Elscieth: helpless and ambitionless. Byscilla: shocked Elscieth found anyone willing to touch her.`,
-    likes: 460,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Family review dropped: 0 stars, emotionally unsafe." },
-      { characterKey: 'vivesna_corvinarus', text: "You should not say these things where the house can hear." }
-    ]
-  },
-  {
-    id: 'darius_family_notes_3', order: 40822, characterKey: 'darius_corvinarus', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 44 },
-    content: `Usk: fetching, unsteady. Vostolas: looks through me like I am ink. Lyranth: my pet. Tymnas: effective, miserable. Vaxillus: my greatest work.`,
-    likes: 520,
-    comments: [
-      { characterKey: 'vostolas_archivist', text: "Comparison rejected. Recording continues." },
-      { characterKey: 'vaxillus_loumaal', text: "Being called someone’s “work” is not the compliment he thinks it is." }
-    ]
-  },
-  {
-    id: 'kitchen_poison_alert', order: 40823, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 45 },
-    content: `Cracked open the kitchen door and immediately got hit with hot metal smell and panic. “Can you help? A waiter was poisoned.” The chef said it like the soup was slightly salty.`,
-    likes: 640,
-    comments: [
-      { characterKey: 'iron_legion_cook', text: "He ate the candies. We all watched him do it." },
-      { characterKey: 'markop', text: "WHY ARE THERE POISON CANDIES AT A DINNER." }
-    ]
-  },
-  {
-    id: 'candy_confirmed', order: 40824, characterKey: 'kitchen_staff', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 45 },
-    content: `You know the “decorative candies” on the silver tray? They’re not decorative. They’re not even candies. Nobody listens.`,
-    likes: 420,
-    comments: [
-      { characterKey: 'toadburt', text: "I definitely listened. I still hate it." },
-      { characterKey: 'orangus_corenilous', text: "The tray is a test." }
-    ]
-  },
-  {
-    id: 'protect_toadburt_call', order: 40825, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 46 },
-    content: `I did the “everyone gather round” thing. Not proud. But if someone’s about to flip a purple-glowing switch, I want eyes on him.`,
-    likes: 510,
-    comments: [
-      { characterKey: 'toadburt', text: "Less eyes, actually. Preferably none." },
-      { characterKey: 'franklin_mages', text: "Good instinct. Bad artifact." }
-    ]
-  },
-  {
-    id: 'orangus_collects_papers', order: 40826, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 46 },
-    content: `Time. Papers. Now. Hands steady. If you’re shaking, you’ve already voted for yourself.`,
-    likes: 730,
-    comments: [
-      { characterKey: 'real_darman', text: "I’m steady. I’m also offended." },
-      { characterKey: 'vostolas_archivist', text: "Compliance noted." }
-    ]
-  },
-  {
-    id: 'closet_green_t_plan', order: 40827, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 47 },
-    content: `Yes, there was a closet. Yes, Green T was in it. He said, “I’ll signal. The room will break. We move in the cracks.” Cool sentence. Horrible context.`,
-    likes: 860,
-    comments: [
-      { characterKey: 'green_t', text: "Closets are tactical." },
-      { characterKey: 'markop', text: "Nothing about that sentence made me feel safer." }
-    ]
-  },
-  {
-    id: 'alliances_shaky', order: 40828, characterKey: 'green_t', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 47 },
-    content: `Everyone here hates everyone else. They just hate hunger more. When the first scream hits, the masks fall off.`,
-    likes: 690,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Prediction: first scream imminent." },
-      { characterKey: 'kryn_corvinarus', text: "Masks don’t fall. They get traded." }
-    ]
-  },
-  {
-    id: 'markop_asks_archie_info', order: 40829, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 48 },
-    content: `I brushed past Archie and whispered, “What did you find out?” like we weren’t surrounded by people who can hear heartbeats.`,
-    likes: 380,
-    comments: [
-      { characterKey: 'archie', text: "I found out the walls are basically microphones." },
-      { characterKey: 'vostolas_archivist', text: "Correct." }
-    ]
-  },
-  {
-    id: 'archie_explains_archivist', order: 40830, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 48 },
-    content: `Vostolas is basically a walking record. Orangus’ memory with legs. Every whisper gets filed. Every lie gets timestamped. He’s not a lawyer… he’s worse.`,
-    likes: 550,
-    comments: [
-      { characterKey: 'markop', text: "So: evil notebook with legs." },
-      { characterKey: 'vostolas_archivist', text: "Dismissive, but accurate." }
-    ]
-  },
-  {
-    id: 'archie_oracle_commitment', order: 40831, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 49 },
-    content: `We said we’d follow the Oracle’s wish. That means we don’t get to hesitate now. If this ends with Cornelious dead, that’s the price. Speak now.`,
-    likes: 810,
-    comments: [
-      { characterKey: 'green_t', text: "Already made the choice. Don’t blink." },
-      { characterKey: 'toadburt', text: "I object to dying, personally." }
-    ]
-  },
-  {
-    id: 'markop_wrist_warning', order: 40832, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 49 },
-    content: `Toadburt is pressing that wrist thing like he’s sending Morse code to disaster. If the room collapses into math, I’m blaming him.`,
-    likes: 430,
-    comments: [
-      { characterKey: 'toadburt', text: "Stop calling it math." },
-      { characterKey: 'franklin_mages', text: "If it’s entropy, it might literally be math." }
-    ]
-  },
-  {
-    id: 'voting_strategy', order: 40833, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 49 },
-    content: `We debated “who to vote for” like it was a party game. Meanwhile the host has a knife that hums. We are stupid, but together.`,
-    likes: 640,
-    comments: [
-      { characterKey: 'markop', text: "United in poor decisions." },
-      { characterKey: 'orangus_corenilous', text: "Unity is adorable." }
-    ]
-  },
-  {
-    id: 'vote_for_vostolas', order: 40834, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 50 },
-    content: `We voted Vostolas. Not because we hate him (we do) but because it felt funny to vote for the guy who records votes.`,
-    likes: 710,
-    comments: [
-      { characterKey: 'vostolas_archivist', text: "I recorded your sense of humor." },
-      { characterKey: 'markop', text: "He’s gonna write this down and haunt us with it later." }
-    ]
-  },
-  {
-    id: 'double_darman_spotted', order: 40835, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 50 },
-    content: `Guest list glitch: Darman appears twice. Either the manor can’t count or somebody is wearing someone else’s life like a coat.`,
-    likes: 820,
-    comments: [
-      { characterKey: 'real_darman', text: "Somebody is going to explain this to me." },
-      { characterKey: 'archie', text: "Not it." }
-    ]
-  },
-  {
-    id: 'real_darman_speaks', order: 40836, characterKey: 'real_darman', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 51 },
-    content: `The moment I saw my name twice, I cleared my throat. “Two of me on the list. Curious.” Watching everyone pretend not to panic is delicious.`,
-    likes: 950,
-    comments: [
-      { characterKey: 'orangus_corenilous', text: "Curiosity will be satisfied shortly." },
-      { characterKey: 'markop', text: "Oh cool, the REAL guy is here. Great." }
-    ]
-  },
-  {
-    id: 'knife_slid_to_archie', order: 40837, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 51 },
-    content: `I slid the crystalline knife to “Darman.” It sang against the wood like it missed blood. “Carve Usk, or offer your own hand. Choose fast.”`,
-    likes: 1200,
-    comments: [
-      { characterKey: 'archie', text: "I hate this game." },
-      { characterKey: 'vostolas_archivist', text: "Decision point recorded." }
-    ]
-  },
-  {
-    id: 'vote_tally_announced', order: 40838, characterKey: 'orangus_corenilous', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 52 },
-    content: `Votes tallied. Lots of cowards hiding behind blank paper. Lots of “brave” people picking names that won’t bite back. Interesting.`,
-    likes: 880,
-    comments: [
-      { characterKey: 'markop', text: "Blank votes are coward votes. I said what I said." },
-      { characterKey: 'franklin_mages', text: "This is not a ballot. It’s a ritual." }
-    ]
-  },
-  {
-    id: 'franklin_plane_note', order: 40839, characterKey: 'franklin_mages', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 52 },
-    content: `For anyone asking: yes, the mansion feels “off” on a planar level. No, you can’t fix that with candles. Also stop touching unknown purple artifacts.`,
-    likes: 430,
-    comments: [
-      { characterKey: 'toadburt', text: "Noted. I will stop touching it. (Soon.)" },
-      { characterKey: 'archie', text: "Planar-level wrong is my least favorite category of wrong." }
-    ]
-  },
-  {
-    id: 'archie_cuts_usk', order: 40840, characterKey: 'archie', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 53 },
-    content: `I chose Usk. The knife didn’t “cut” so much as it *agreed* with the finger. There was a wet sound nobody laughed at.`,
-    likes: 1030,
-    comments: [
-      { characterKey: 'usk', text: "AAAA—" },
-      { characterKey: 'real_darman', text: "That was… efficient." }
-    ]
-  },
-  {
-    id: 'usk_dies_in_arms', order: 40841, characterKey: 'wah_media_collective', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 53 },
-    content: `Usk bled out slow, cradled by guards like they were comforting a broken vase. The room smelled like iron and expensive cologne.`,
-    likes: 970,
-    comments: [
-      { characterKey: 'vampire_guard_captain', text: "Maintain order. Remove the body." },
-      { characterKey: 'markop', text: "They are treating a death like a spilled drink." }
-    ]
-  },
-  {
-    id: 'archie_eats_eye', order: 40842, characterKey: 'markop', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 54 },
-    content: `I looked away for ONE SECOND and Archie is eating a human eye. It blinked. I don’t care what anyone says. It blinked at me like it knew me.`,
-    likes: 1500,
-    comments: [
-      { characterKey: 'archie', text: "It was served. I’m not wasting food." },
-      { characterKey: 'toadburt', text: "That is not helping your case." }
-    ]
-  },
-  {
-    id: 'toadburt_iron_badge', order: 40843, characterKey: 'wah_media_collective', rumorId: 'onyx_hand_voting_chaos',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 54 },
-    content: `Meanwhile, Toadburt gets an empty plate with a bleeding Iron Legion badge like it’s a prank appetizer. He says “oh great cranberry sauce” and smiles like this is normal.`,
-    likes: 1280,
-    comments: [
-      { characterKey: 'toadburt', text: "I cope with humor." },
-      { characterKey: 'iron_legion_cook', text: "That is not cranberry sauce." }
-    ]
-  },
-
-  // --- ORACLE SHOT / ESCAPE / ROAD (rumorId: oracle_assassination_escape) ---
-  {
-    id: 'gunshot_in_hall', order: 40844, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 55 },
-    content: `A gunshot cracked the room open. Somebody screamed “GUARDS!” and the dinner vibe officially died (unlike half the guests).`,
-    likes: 2200,
-    comments: [
-      { characterKey: 'vampire_guard_captain', text: "LOCK IT DOWN." },
-      { characterKey: 'markop', text: "KNEW IT. KNEW IT WAS GOING TO BE A GUNSHOT." }
-    ]
-  },
-  {
-    id: 'oracle_slumps', order: 40845, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 55 },
-    content: `Oracle folded over the table like a puppet with its strings cut. Gun still warm. Silver round, old stock. No enchantments. Just intent.`,
-    likes: 2600,
-    comments: [
-      { characterKey: 'archie', text: "Don’t assume dead. Move." },
-      { characterKey: 'franklin_mages', text: "Old silver works until it doesn’t." }
-    ]
-  },
-  {
-    id: 'bowser_flame_erupts', order: 40846, characterKey: 'bowser', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 56 },
-    content: `RRRRAAAUGH!! WHO SERVES BLOOD-WINE WITHOUT A WARNING?? I AM THE FIRE CODE NOW.`,
-    likes: 3100,
-    comments: [
-      { characterKey: 'vampire_guard_captain', text: "STOP BURNING THE WITNESSES." },
-      { characterKey: 'markop', text: "Bowser is the only one reacting normally." }
-    ]
-  },
-  {
-    id: 'kryn_feeds', order: 40847, characterKey: 'kryn_corvinarus', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 56 },
-    content: `Chaos is honest. So is hunger. I drank from Orange T’s neck while everyone looked away and pretended they were above it.`,
-    likes: 1400,
-    comments: [
-      { characterKey: 'orangus_corenilous', text: "Control yourself." },
-      { characterKey: 'vivesna_corvinarus', text: "Do not waste him." }
-    ]
-  },
-  {
-    id: 'markop_orders_exit', order: 40848, characterKey: 'markop', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 57 },
-    content: `I grabbed FNG and told the toads: “We are leaving. Now.” The guards were sprinting in and the carpet was doing something alive.`,
-    likes: 890,
-    comments: [
-      { characterKey: 'toadburt', text: "Copy. Moving." },
-      { characterKey: 'wah_media_collective', text: "Evacuation attempt: underway." }
-    ]
-  },
-  {
-    id: 'vivesna_i_win', order: 40849, characterKey: 'vivesna_corvinarus', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 57 },
-    content: `I WIN! I WIN! I— …hold on.`,
-    likes: 2100,
-    comments: [
-      { characterKey: 'markop', text: "That “hold on” was ominous." },
-      { characterKey: 'archie', text: "Yeah that’s not her voice anymore." }
-    ]
-  },
-  {
-    id: 'vivian_reveals_self', order: 40850, characterKey: 'vivesna', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 58 },
-    content: `Wig off. Voice drops. Surprise: I’m Vivian, Man of Shadow. Thrall, yes. Heir, now. Orangus got played and I got promoted mid-riot.`,
-    likes: 2750,
-    comments: [
-      { characterKey: 'orangus_corenilous', text: "You will be unmade for this." },
-      { characterKey: 'vostolas_archivist', text: "Identity correction recorded." }
-    ]
-  },
-  {
-    id: 'archie_unheard_warning', order: 40851, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 58 },
-    content: `I screamed “TRAITOR! THRALL! NOT THE HEIR!” at full volume. Nobody heard me. Bowser’s fire has a louder voice than truth.`,
-    likes: 1900,
-    comments: [
-      { characterKey: 'markop', text: "He actually DID shout it. I saw his lungs try." },
-      { characterKey: 'bowser', text: "MY FIRE TALKS LOUDER. TRUE." }
-    ]
-  },
-  {
-    id: 'vampires_shout_bowser', order: 40852, characterKey: 'vampire_guard_captain', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 0, minute: 59 },
-    content: `We are attempting to restore order. Step one: stop the giant turtle-dragon from roasting the witnesses.`,
-    likes: 1300,
-    comments: [
-      { characterKey: 'bowser', text: "NO." },
-      { characterKey: 'wah_media_collective', text: "Order restoration status: not great." }
-    ]
-  },
-  {
-    id: 'franklin_entropy_retrieval', order: 40853, characterKey: 'franklin_mages', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 0 },
-    content: `While everyone watched the drama, I recovered the purple device. It radiates entropy like a hot stove radiates regret. This is coming with me.`,
-    likes: 980,
-    comments: [
-      { characterKey: 'toadburt', text: "Hey that’s my— nevermind." },
-      { characterKey: 'archie', text: "He just walked off with it like it was his coat." }
-    ]
-  },
-  {
-    id: 'archie_blocked_by_guards', order: 40854, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 0 },
-    content: `Tried to follow Franklin. Guards stepped in front like moving coffins in velvet. Smelled like old roses and new blood.`,
-    likes: 860,
-    comments: [
-      { characterKey: 'vampire_guard_captain', text: "Guests remain seated." },
-      { characterKey: 'markop', text: "They said that while the room was literally on fire." }
-    ]
-  },
-  {
-    id: 'archie_to_tabletop', order: 40855, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 1 },
-    content: `I climbed onto the table because that’s apparently who I am now. Green T yelled my name like he was calling a dog out of traffic.`,
-    likes: 1220,
-    comments: [
-      { characterKey: 'green_t', text: "MOVE." },
-      { characterKey: 'real_darman', text: "The impersonator is athletic, I’ll give him that." }
-    ]
-  },
-  {
-    id: 'window_escape', order: 40856, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 1 },
-    content: `Window exit. Grabbed Archie, hauled him through. He landed in rose bushes. Thorns don’t care about plot armor.`,
-    likes: 1780,
-    comments: [
-      { characterKey: 'archie', text: "Roses hurt more than knives, somehow." },
-      { characterKey: 'wah_media_collective', text: "Escape route confirmed: window + shrub damage." }
-    ]
-  },
-  {
-    id: 'debate_bullet_choice', order: 40857, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 2 },
-    content: `He asked what kind of bullet. Silver. Old. No enchantment. If the Oracle stands back up, I’m going to be mad in a very personal way.`,
-    likes: 1410,
-    comments: [
-      { characterKey: 'archie', text: "Old silver is still silver. We’ll see." },
-      { characterKey: 'franklin_mages', text: "No enchantment means you’re relying on folklore." }
-    ]
-  },
-  {
-    id: 'oracle_maybe_alive', order: 40858, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 3 },
-    content: `I told Green T: don’t assume dead. Some things “die” the way nobles “retire”—they just come back uglier and richer.`,
-    likes: 930,
-    comments: [
-      { characterKey: 'green_t', text: "If he comes back, we do it again, cleaner." },
-      { characterKey: 'toadburt', text: "This is why I wanted the bracelet." }
-    ]
-  },
-  {
-    id: 'rescue_toads_decision', order: 40859, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 3 },
-    content: `We can’t just bail. The toads are still inside and the guards are doing the “everybody line up” thing. Rescue first, existential dread later.`,
-    likes: 990,
-    comments: [
-      { characterKey: 'markop', text: "Thank you. We were about to get interrogated into paste." },
-      { characterKey: 'vampire_guard_captain', text: "All attendees will be questioned." }
-    ]
-  },
-  {
-    id: 'plan_gather_targets', order: 40860, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 4 },
-    content: `Plan (if you can call it that): gather our people, then hunt for “main guys.” If we split too long, this place will rewrite us.`,
-    likes: 620,
-    comments: [
-      { characterKey: 'green_t', text: "Regroup points. No hero stuff." },
-      { characterKey: 'wah_media_collective', text: "Manor effects: suspected narrative drift." }
-    ]
-  },
-  {
-    id: 'toads_in_windows', order: 40861, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 5 },
-    content: `Saw silhouettes in the windows—little mushroom heads. Whispered: “I’m alive. I’m splitting up. Regroup somewhere NOT HERE.” Hope they can read lips through curtains and panic.`,
-    likes: 840,
-    comments: [
-      { characterKey: 'toadburt', text: "We saw you. The roses were loud." },
-      { characterKey: 'markop', text: "We’re moving. Guards everywhere." }
-    ]
-  },
-  {
-    id: 'third_eye_cosmetic', order: 40862, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 5 },
-    content: `Asked Archie if the third eye does anything. He said “cosmetic.” Bro is out here collecting trauma and accessories only.`,
-    likes: 770,
-    comments: [
-      { characterKey: 'archie', text: "Look, some of us commit to the aesthetic." },
-      { characterKey: 'markop', text: "Cosmetic third eye is wild. Respect." }
-    ]
-  },
-  {
-    id: 'bone_paths_description', order: 40863, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 6 },
-    content: `Manor grounds update: bone-white paving stones, gray brick edging, crimson petals like dried blood confetti. Someone planned this aesthetic and stuck with it for centuries.`,
-    likes: 930,
-    comments: [
-      { characterKey: 'vostolas_archivist', text: "It is curated." },
-      { characterKey: 'green_t', text: "It’s also a great place to get spotted." }
-    ]
-  },
-  {
-    id: 'fountain_vivian_statue', order: 40864, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 7 },
-    content: `Found the courtyard fountain. Center statue: young woman holding a bowl, pouring forever. It looks like Vivian. The water sounds… tired.`,
-    likes: 880,
-    comments: [
-      { characterKey: 'vivesna', text: "Not me. Not anymore." },
-      { characterKey: 'markop', text: "Everything here feels like it’s been repeating." }
-    ]
-  },
-  {
-    id: 'three_gold_offering', order: 40865, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 7 },
-    content: `Left three gold coins at the statue. Don’t know why. Felt like paying a toll to something that was watching and keeping score.`,
-    likes: 970,
-    comments: [
-      { characterKey: 'green_t', text: "Bribing statues is a new one." },
-      { characterKey: 'vostolas_archivist', text: "Offering recorded." }
-    ]
-  },
-  {
-    id: 'manor_restored_facade', order: 40866, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 8 },
-    content: `The manor looks “fixed” compared to earlier ruin sightings—gray slate, jet-black tiles, perfect angles. Like the building got reset after the gunshot.`,
-    likes: 820,
-    comments: [
-      { characterKey: 'franklin_mages', text: "Planar correction behavior. That’s bad." },
-      { characterKey: 'archie', text: "It’s like it’s trying to look innocent." }
-    ]
-  },
-  {
-    id: 'curtains_red_glow', order: 40867, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 8 },
-    content: `Every window is curtained. Red glow behind them like a furnace behind eyelids. You can’t see the party, but you can feel it watching back.`,
-    likes: 780,
-    comments: [
-      { characterKey: 'markop', text: "Hate being perceived by architecture." },
-      { characterKey: 'vostolas_archivist', text: "The manor perceives all." }
-    ]
-  },
-  {
-    id: 'unnatural_blooms', order: 40868, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 9 },
-    content: `Plants are wrong. Black stems, gray leaves, thorns shaped like talons. Like the garden evolved specifically to punish ankles.`,
-    likes: 920,
-    comments: [
-      { characterKey: 'archie', text: "The roses already punished my entire body." },
-      { characterKey: 'wah_media_collective', text: "Garden rating: hostile." }
-    ]
-  },
-  {
-    id: 'scorched_grass', order: 40869, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 9 },
-    content: `Grass is trimmed but colorless, like it forgot sunlight exists. Shadows cling to everything. The grounds feel “post-fire” even before Bowser.`,
-    likes: 830,
-    comments: [
-      { characterKey: 'bowser', text: "I DID NOT START THIS ONE." },
-      { characterKey: 'markop', text: "He is technically correct for once." }
-    ]
-  },
-  {
-    id: 'iron_fence_barrier', order: 40870, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 10 },
-    content: `Wrought-iron fence around the estate. Not decorative—defensive. The kind of fence that exists because too many people tried leaving.`,
-    likes: 640,
-    comments: [
-      { characterKey: 'green_t', text: "Fences mean someone escaped before. Good sign." },
-      { characterKey: 'vostolas_archivist', text: "Or they tried." }
-    ]
-  },
-  {
-    id: 'exit_available', order: 40871, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 11 },
-    content: `There’s an exit. A clean one. If we take it now, we might actually live. Archie looked at it like it was a lie.`,
-    likes: 910,
-    comments: [
-      { characterKey: 'archie', text: "Exits in places like this always have fine print." },
-      { characterKey: 'markop', text: "Take the exit anyway. Please." }
-    ]
-  },
-  {
-    id: 'archie_airship_first', order: 40872, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 11 },
-    content: `I told Green T: “Airship first. Then we come back.” Yes, it sounds insane. That’s how you know it’s my plan.`,
-    likes: 800,
-    comments: [
-      { characterKey: 'green_t', text: "We are not coming back unless we have to." },
-      { characterKey: 'wah_media_collective', text: "Statement contains: hubris." }
-    ]
-  },
-  {
-    id: 'start_long_trek', order: 40873, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 12 },
-    content: `They walked away from the manor while screams faded behind curtains. The quiet after a riot is always suspicious.`,
-    likes: 870,
-    comments: [
-      { characterKey: 'markop', text: "Quiet is when the consequences catch up." },
-      { characterKey: 'vostolas_archivist', text: "Departure time recorded." }
-    ]
-  },
-  {
-    id: 'green_t_doesnt_question', order: 40874, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 24, hour: 1, minute: 13 },
-    content: `I didn’t ask how far the airship was. Sometimes if you ask, the universe answers by making it further.`,
-    likes: 750,
-    comments: [
-      { characterKey: 'archie', text: "That is unfortunately true." },
-      { characterKey: 'wah_media_collective', text: "Distance anxiety: justified." }
-    ]
-  },
-  {
-    id: 'time_passes_marker', order: 40875, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 0 },
-    content: `24th → 27th Highsun. Three days of walking. No airship. No closure. Just the feeling that the manor is still “behind” you even when you can’t see it.`,
-    likes: 660,
-    comments: [
-      { characterKey: 'green_t', text: "I hate that feeling. Keeps the finger on the trigger." },
-      { characterKey: 'archie', text: "It’s like the place follows in your peripheral vision." }
-    ]
-  },
-  {
-    id: 'abandon_party_doubt', order: 40876, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 8, minute: 30 },
-    content: `I asked, “Are we really abandoning the party?” Then remembered: we shot the Oracle, a butler died, and the heir became a guy in a wig. So… yes.`,
-    likes: 940,
-    comments: [
-      { characterKey: 'markop', text: "You can’t abandon a disaster you started. It just keeps happening without you." },
-      { characterKey: 'wah_media_collective', text: "Recap: accurate." }
-    ]
-  },
-  {
-    id: 'airship_further_than_thought', order: 40877, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 9, minute: 0 },
-    content: `I admitted: “I thought the airship was closer.” Green T stared at me like I’d just confessed to inventing distance.`,
-    likes: 720,
-    comments: [
-      { characterKey: 'green_t', text: "Next time, don’t guess." },
-      { characterKey: 'markop', text: "Next time, don’t say “next time”." }
-    ]
-  },
-  {
-    id: 'town_on_horizon', order: 40878, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 13, minute: 0 },
-    content: `A town appeared. Regular people. Regular roofs. The kind of place where you can buy bread instead of negotiating with vampires over paperwork.`,
-    likes: 880,
-    comments: [
-      { characterKey: 'archie', text: "Normal roofs feel surreal now." },
-      { characterKey: 'green_t', text: "Keep your head down. No heroics." }
-    ]
-  },
-  {
-    id: 'weather_shifts', order: 40879, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 13, minute: 30 },
-    content: `Sky turned the color of old bruises. Rain promised. You can always tell when the story wants to get worse.`,
-    likes: 610,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Weather foreshadowing detected." },
-      { characterKey: 'markop', text: "I’m tired of being in a story." }
-    ]
-  },
-  {
-    id: 'enter_general_store', order: 40880, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 0 },
-    content: `We walked into a store like we weren’t fugitives from a blood banquet. I tried smiling. It came out wrong.`,
-    likes: 740,
-    comments: [
-      { characterKey: 'shopkeeper_midland', text: "You have a look like you slept in a grave." },
-      { characterKey: 'green_t', text: "Don’t talk too much." }
-    ]
-  },
-  {
-    id: 'ten_gold_meal_question', order: 40881, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 2 },
-    content: `Asked for food for ten gold. Clerk said they only take Midland coins. I felt personally attacked by currency.`,
-    likes: 860,
-    comments: [
-      { characterKey: 'shopkeeper_midland', text: "Gold’s fine. Yours isn’t." },
-      { characterKey: 'archie', text: "Even our money is dimensionally incorrect." }
-    ]
-  },
-  {
-    id: 'ask_for_rations', order: 40882, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 3 },
-    content: `When money fails, ask for rations. The look he gave us was “I’ve seen worse,” which is not comforting.`,
-    likes: 540,
-    comments: [
-      { characterKey: 'shopkeeper_midland', text: "Rations cost trust. You don’t have much." },
-      { characterKey: 'markop', text: "Fair." }
-    ]
-  },
-  {
-    id: 'shopkeeper_recognizes', order: 40883, characterKey: 'shopkeeper_midland', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 4 },
-    content: `One of them had a face I swear I knew. Not from here. From somewhere I don’t talk about. I asked his name. He asked why I wanted it.`,
-    likes: 910,
-    comments: [
-      { characterKey: 'archie', text: "Names get you killed in the wrong rooms." },
-      { characterKey: 'green_t', text: "We’re just passing through." }
-    ]
-  },
-  {
-    id: 'fish_on_house', order: 40884, characterKey: 'shopkeeper_midland', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 5 },
-    content: `Gave them a fish on the house. If I’m wrong, I’m kind. If I’m right, maybe I bought myself luck.`,
-    likes: 620,
-    comments: [
-      { characterKey: 'archie', text: "Thank you. Truly." },
-      { characterKey: 'markop', text: "This is the first nice thing today." }
-    ]
-  },
-  {
-    id: 'attached_restaurant', order: 40885, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 10 },
-    content: `We ate in a restaurant attached to the store. Archie asked if the food was good. I told him, “As long as you don’t steal it.” He did not deny anything.`,
-    likes: 780,
-    comments: [
-      { characterKey: 'barkeep_midland', text: "Pay first. No drama." },
-      { characterKey: 'archie', text: "I am literally trying to be normal." }
-    ]
-  },
-  {
-    id: 'beer_and_weird_fish', order: 40886, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 12 },
-    content: `Green T sipped beer like he wasn’t haunted. I ate the fish and realized I missed being scared of normal things, like bones.`,
-    likes: 840,
-    comments: [
-      { characterKey: 'green_t', text: "Beer helps. A little." },
-      { characterKey: 'markop', text: "After the eye thing, fish feels safe." }
-    ]
-  },
-  {
-    id: 'magpie_in_rafters', order: 40887, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 13 },
-    content: `Spotted a magpie circling inside like it belonged there. It kept looking at me, then at the back rooms, then at me again. Like a messenger with an attitude.`,
-    likes: 910,
-    comments: [
-      { characterKey: 'wah_media_collective', text: "Bird surveillance: plausible." },
-      { characterKey: 'green_t', text: "If it follows, we move." }
-    ]
-  },
-  {
-    id: 'staff_only_warning', order: 40888, characterKey: 'barkeep_midland', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 14 },
-    content: `He tried to drift toward the staff hall like a ghost with curiosity. I said “staff only.” He looked offended like I’d insulted his bloodline.`,
-    likes: 670,
-    comments: [
-      { characterKey: 'archie', text: "Sorry. Habit." },
-      { characterKey: 'markop', text: "We are not doing more secret doors today." }
-    ]
-  },
-  {
-    id: 'magpie_swoops', order: 40889, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 15 },
-    content: `The magpie dive-bombed Green T and pulled up at the last second. He didn’t react. Either he didn’t see it… or he’s seen worse.`,
-    likes: 930,
-    comments: [
-      { characterKey: 'green_t', text: "I saw it." },
-      { characterKey: 'markop', text: "That somehow makes it worse." }
-    ]
-  },
-  {
-    id: 'concern_about_manor_words', order: 40890, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 16 },
-    content: `I keep replaying the manor conversations. “Planes.” “Archivist.” “Two Darmans.” It’s like we stepped into a story that’s already been told and we’re late to the ending.`,
-    likes: 740,
-    comments: [
-      { characterKey: 'archie', text: "That’s exactly how it feels." },
-      { characterKey: 'franklin_mages', text: "Because the place loops. Or tries to." }
-    ]
-  },
-  {
-    id: 'ritual_timeline_question', order: 40891, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 17 },
-    content: `We did a ritual in a vacant manor before all this. Jumped “inside” it. I want proof we didn’t hop into the wrong version of ourselves.`,
-    likes: 890,
-    comments: [
-      { characterKey: 'markop', text: "If there’s a better version of me, I hope he’s thriving." },
-      { characterKey: 'green_t', text: "We find proof later. We survive now." }
-    ]
-  },
-  {
-    id: 'how_to_tell_timelines', order: 40892, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 18 },
-    content: `I asked how you tell timelines apart. Archie went quiet. That’s when you know the question is the real monster.`,
-    likes: 730,
-    comments: [
-      { characterKey: 'archie', text: "I don’t have an answer I trust." },
-      { characterKey: 'wah_media_collective', text: "Silence = narrative dread." }
-    ]
-  },
-  {
-    id: 'nothing_more_before_leave', order: 40893, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 20 },
-    content: `“Anything else before we go?” I asked. Green T scanned the room like he was shopping for violence.`,
-    likes: 610,
-    comments: [
-      { characterKey: 'green_t', text: "Just planning ahead." },
-      { characterKey: 'markop', text: "Please don’t shop." }
-    ]
-  },
-  {
-    id: 'apple_from_stand', order: 40894, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 21 },
-    content: `Grabbed an apple off a fruit stand outside. It tasted like normal life and I hated how much I missed that.`,
-    likes: 960,
-    comments: [
-      { characterKey: 'markop', text: "Normal food is emotional now. Great." },
-      { characterKey: 'green_t', text: "Eat. Keep moving." }
-    ]
-  },
-  {
-    id: 'war_pick_spotted', order: 40895, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 22 },
-    content: `Found a war pick sitting like it was waiting for the right hands. I picked it up and the weight felt… familiar.`,
-    likes: 780,
-    comments: [
-      { characterKey: 'archie', text: "That definitely belongs to someone." },
-      { characterKey: 'green_t', text: "Not anymore." }
-    ]
-  },
-  {
-    id: 'war_pick_pocketed', order: 40896, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 23 },
-    content: `I told him “that belongs to someone.” He pocketed it anyway. That’s Green T: if the universe doesn’t want it stolen, it should label it better.`,
-    likes: 1020,
-    comments: [
-      { characterKey: 'green_t', text: "Exactly." },
-      { characterKey: 'shopkeeper_midland', text: "I saw nothing." }
-    ]
-  },
-  {
-    id: 'melee_vs_pistol', order: 40897, characterKey: 'green_t', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 27, hour: 14, minute: 24 },
-    content: `Archie asked if I needed a melee weapon. I showed the pistol. “This works up close too.” He didn’t laugh. That’s how you know he believes me.`,
-    likes: 1340,
-    comments: [
-      { characterKey: 'archie', text: "I’ve seen what you do with that thing." },
-      { characterKey: 'markop', text: "Please do not demonstrate in town." }
-    ]
-  },
-  {
-    id: 'time_skip_rain', order: 40898, characterKey: 'wah_media_collective', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 29, hour: 19, minute: 30 },
-    content: `27th → 29th Highsun: the rain finally caught up. Not a gentle rain—hard, cold, “keep moving or freeze” rain.`,
-    likes: 780,
-    comments: [
-      { characterKey: 'green_t', text: "Visibility’s bad. Hands stay ready." },
-      { characterKey: 'archie', text: "Everything is soaked. Even my thoughts." }
-    ]
-  },
-  {
-    id: 'abandoned_infirmary_found', order: 40899, characterKey: 'archie', rumorId: 'oracle_assassination_escape',
-    date: { year: 1040, monthIndex: 6, day: 29, hour: 20, minute: 0 },
-    content: `We found an abandoned infirmary and shoved the door closed behind us. I said, “Can we rest for a second?” Green T looked at the ceiling like it might answer.`,
-    likes: 1420,
-    comments: [
-      { characterKey: 'green_t', text: "We rest. But we don’t relax." },
-      { characterKey: 'wah_media_collective', text: "Shelter acquired. Safety: unconfirmed." }
-    ]
-  },  
-  {
-    id: 'rakasha_pollen', order: 40543, characterKey: 'rakasha_spirit_walker', rumorId: 'wraith_banishment',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 15 },
-    content: "the air here is thick with pollen. smells like old magic. this isn't a wild place—it's a garden kept by unseen hands. be careful what you touch.",
-    likes: 300,
-    comments: [
-      { characterKey: 'markop', text: 'dont touch the red mushrooms. just a hunch' },
-      { characterKey: 'salam', text: 'if it looks cultivated it probably bites' }
-    ]
-  },
-  {
-    id: 'toad_lee_guard_duty', order: 40544, characterKey: 'toad_lee', rumorId: 'wraith_banishment',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 20 },
-    content: "taking first watch. sprites seem chill for now. waluigi passed out. hjumpik cleaning his axe. we made it through the night 💪",
-    likes: 1200,
-    comments: [
-      { characterKey: 'captain_toadette', text: 'good discipline soldier. rest up' },
-      { characterKey: 'eager', text: 'I DID NOT PASS OUT i was meditating' }
-    ]
-  },
-  {
-    id: 'markop_checks_transport', order: 40545, characterKey: 'markop', rumorId: 'wraith_banishment',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 24 },
-    content: "asked everyone how they felt after the transportation and got zero normal answers. cool cool cool",
-    likes: 88,
-    comments: [
-      { characterKey: 'toadburt', text: 'felt like my bones rearranged in alphabetical order' },
-      { characterKey: 'hjumpik', text: 'thats just what gates do' }
-    ]
-  },
-  {
-    id: 'eager_just_follows', order: 40546, characterKey: 'eager', rumorId: 'wraith_banishment',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 26 },
-    content: "wait why are you asking ME?? i just follow people around. i follow you markop. what do YOU think we should do",
-    likes: 140,
-    comments: [
-      { characterKey: 'markop', text: 'i think we should follow them' },
-      { characterKey: 'salam', text: 'stay in the back if youre hurt' }
-    ]
-  },
-  {
-    id: 'salam_staff_room_blood', order: 40547, characterKey: 'salam', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 38 },
-    content: "found the staff room. bright lights everywhere and theres blood on the floor. if any vampires are nearby theyre gonna HATE this lighting lol",
-    likes: 410,
-    comments: [
-      { characterKey: 'markop', text: 'so this place is "clean" the way a knife is clean' },
-      { characterKey: 'remi', text: 'blood can be decorative if youre committed' }
-    ]
-  },
-  {
-    id: 'markop_hears_voices', order: 40548, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 47 },
-    content: "hearing voices. way too many boots walking around. this manor isnt asleep—its staged",
-    likes: 120,
-    comments: [
-      { characterKey: 'eager', text: 'i vote we do not get stabbed' },
-      { characterKey: 'salam', text: 'then stop walking like you want attention' }
-    ]
-  },
-  {
-    id: 'foyer_black_white_marble', order: 40549, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 4, minute: 55 },
-    content: "okay so this foyer is INSANE. black and white marble floors, flickering purple lamps, twin grand staircases, velvet benches, big iron doors everywhere. theres a creepy flower on a table that smells terrible and a guestbook",
-    likes: 260,
-    comments: [
-      { characterKey: 'archie', text: 'if the flower smells like that dont sign anything' },
-      { characterKey: 'bowser', text: 'wheres the food table' }
-    ]
-  },
-  {
-    id: 'guestbook_archie_toadburt', order: 40550, characterKey: 'toadburt', rumorId: 'guestbook_reveals',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 1 },
-    content: "checked the guestbook. it says 'esteemed guest archie miser' and 'honored guest toadburt' so... we were expected??? 😰",
-    likes: 315,
-    comments: [
-      { characterKey: 'eager', text: 'i dont like being expected' },
-      { characterKey: 'markop', text: 'archie being here is either a clue or a trap' }
-    ]
-  },
-  {
-    id: 'regency_soldier_confusion', order: 40551, characterKey: 'regency_soldier_pvt', rumorId: 'wraith_banishment',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 0 },
-    content: "yo did anyone else hear screaming from the woods last night?? sounded like an old lady mixed with a dying cat. super creepy",
-    likes: 45,
-    comments: [
-      { characterKey: 'waluigi', text: 'IT WAS ME!!!! I AM NOT A CAT!!!!' }
-    ]
-  },
-  {
-    id: 'mages_guild_observation', order: 40552, characterKey: 'mages_guild_scryer', rumorId: 'midnight_gate_transit',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 0 },
-    content: "🚨 ALERT: energy spikes detected in the eastern maze. someone activated the midnight gate without authorization. investigating now",
-    likes: 120,
-    comments: [
-      { characterKey: 'hjumpik', text: 'oops' },
-      { characterKey: 'onyx_hand_archivist', text: 'write it down as weather' }
-    ]
-  },
-  {
-    id: 'eager_finds_secret_passage', order: 40553, characterKey: 'eager', rumorId: 'bat_wall_passage',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 6 },
-    content: "okay so markop was asking some guard about an angel girl with a halo and i found a SECRET PASSAGE. whispered to him to follow me 🤫",
-    likes: 222,
-    comments: [
-      { characterKey: 'markop', text: 'finally a useful impulse from you' },
-      { characterKey: 'guard_captain', text: 'stop asking about angels in vampire houses' }
-    ]
-  },
-  {
-    id: 'guards_bat_transport_only', order: 40554, characterKey: 'manor_guard_1', rumorId: 'bat_wall_passage',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 8 },
-    content: "ATTENTION: that passage is AUTHORIZED PERSONNEL ONLY. its bat transport. why are randos going through our walls",
-    likes: 90,
-    comments: [
-      { characterKey: 'eager', text: 'i thought it was a hallway my bad' },
-      { characterKey: 'markop', text: 'were lost' }
-    ]
-  },
-  {
-    id: 'usk_spotted_in_wall', order: 40555, characterKey: 'eager', rumorId: 'bat_wall_passage',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 9 },
-    content: "YOOOO i saw usk in the passage and told the guard 'that guy is not a bat' 💀💀",
-    likes: 310,
-    comments: [
-      { characterKey: 'usk', text: 'i can glide. it counts' },
-      { characterKey: 'manor_guard_1', text: 'wait theres someone in there??' }
-    ]
-  },
-  {
-    id: 'guards_pincer_plan', order: 40556, characterKey: 'guard_captain', rumorId: 'bat_wall_passage',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 10 },
-    content: "all units split up. pincer formation. if it isnt a bat its a problem",
-    likes: 130,
-    comments: [
-      { characterKey: 'markop', text: 'this is escalating fast' },
-      { characterKey: 'salam', text: 'it was always escalated we just showed up late' }
-    ]
-  },
-  {
-    id: 'markop_catches_usk_corridor', order: 40557, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 12 },
-    content: "caught up to usk in the corridor. asked what hes doing. he just said 'take a look' very ominously. thanks usk. super helpful",
-    likes: 180,
-    comments: [
-      { characterKey: 'usk', text: 'you wanted answers. this is where answers bleed' },
-      { characterKey: 'eager', text: 'i hate when answers bleed' }
-    ]
-  },
-  {
-    id: 'remi_fighting_headless_dancers', order: 40558, characterKey: 'remi', rumorId: 'headless_dancers_brawl',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 13 },
-    content: "was trying to be sneaky. could NOT be sneaky. now im fighting headless dancers??? this wasnt the plan???",
-    likes: 900,
-    comments: [
-      { characterKey: 'markop', text: 'WHY are there headless dancers' },
-      { characterKey: 'headless_dancer', text: '—' }
-    ]
-  },
-  {
-    id: 'ghost_possession_attempt', order: 40559, characterKey: 'usk', rumorId: 'ghost_possession_dispute',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 14 },
-    content: "some ghost just tried to possess my guy and now everyones acting like THATS the rude part. hello??",
-    likes: 540,
-    comments: [
-      { characterKey: 'remi', text: 'it was your idea lol' },
-      { characterKey: 'ghost_foyer', text: 'possession is a traditional greeting' }
-    ]
-  },
-  {
-    id: 'argument_ghost_nature', order: 40560, characterKey: 'ghost_foyer', rumorId: 'ghost_possession_dispute',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 15 },
-    content: "look its in our nature okay?? thats what ghosts do. we haunt things. we possess stuff. this is normal for us",
-    likes: 210,
-    comments: [
-      { characterKey: 'markop', text: 'then change your nature' },
-      { characterKey: 'remi', text: 'or at least ask first' }
-    ]
-  },
-  {
-    id: 'markop_steps_in_front', order: 40561, characterKey: 'markop', rumorId: 'headless_dancers_brawl',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 16 },
-    content: "guards started charging so i stepped in front and said 'can we NOT fight please' 🙏",
-    likes: 670,
-    comments: [
-      { characterKey: 'guard_captain', text: 'twenty midland coins' },
-      { characterKey: 'eager', text: 'were buying peace now??' }
-    ]
-  },
-  {
-    id: 'bribe_paid_20', order: 40562, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 8 },
-    content: "just paid off the guards. twenty coins. call it midland call it gold either way my wallet is crying 💸",
-    likes: 480,
-    comments: [
-      { characterKey: 'salam', text: 'cheaper than a funeral' },
-      { characterKey: 'bowser', text: 'I WOULD HAVE NEGOTIATED WITH FIRE' }
-    ]
-  },
-  {
-    id: 'guard_condition_arrest_usk', order: 40563, characterKey: 'guard_captain', rumorId: 'usk_notes_confiscation',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 9 },
-    content: "fine. one more condition tho. were arresting that guy *points at usk* possession of notes. we want him before the mages guild gets him",
-    likes: 520,
-    comments: [
-      { characterKey: 'usk', text: 'theyre not "notes" theyre survival' },
-      { characterKey: 'mages_guild_scryer', text: 'noted 📝' }
-    ]
-  },
-  {
-    id: 'usk_arrested', order: 40564, characterKey: 'remi', rumorId: 'usk_notes_confiscation',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 10 },
-    content: "let the guards through. usk surrendered. now hes in cuffs and everyones just... pretending this is normal??? 😶",
-    likes: 610,
-    comments: [
-      { characterKey: 'markop', text: 'this is NOT normal' },
-      { characterKey: 'eager', text: 'i miss the garden' }
-    ]
-  },
-  {
-    id: 'perrius_controls_room', order: 40565, characterKey: 'perrius_annmatar', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 8, minute: 12 },
-    content: "well thats great. what now 🙃",
-    likes: 240,
-    comments: [
-      { characterKey: 'markop', text: 'maybe we listen in?' },
-      { characterKey: 'salam', text: 'maybe we stop getting herded around' }
-    ]
-  },
-  {
-    id: 'perrius_fake_kill_request', order: 40566, characterKey: 'perrius_annmatar', rumorId: 'perrius_false_assassination_plan',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 48 },
-    content: "hey so i know we just met but i need you to fake-kill the host of this house. you know the plan right? remi told you?",
-    likes: 800,
-    comments: [
-      { characterKey: 'remi', text: 'uhhhh i dont remember agreeing to that' },
-      { characterKey: 'markop', text: 'why would we do that exactly' }
-    ]
-  },
-  {
-    id: 'host_is_benevolent_vampire', order: 40567, characterKey: 'markop', rumorId: 'perrius_false_assassination_plan',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 49 },
-    content: "wait so perrius says the host is actually benevolent?? but also a vampire?? and remi just said 'i dont wanna be severed blood' WHAT DOES THAT MEAN",
-    likes: 910,
-    comments: [
-      { characterKey: 'perrius_annmatar', text: 'its theater. survival theater' },
-      { characterKey: 'salam', text: 'the only good theater is one you can leave' }
-    ]
-  },
-  {
-    id: 'salam_find_eager', order: 40568, characterKey: 'salam', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 50 },
-    content: "hey find eager for me",
-    likes: 330,
-    comments: [
-      { characterKey: 'markop', text: 'on it' },
-      { characterKey: 'remi', text: 'if hes in a closet again im not opening it' }
-    ]
-  },
-  {
-    id: 'eager_caught_in_closet', order: 40569, characterKey: 'eager', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 52 },
-    content: "tried to sneak out. got caught. got SHOVED INTO A CLOSET. i hate this manor so much 😭",
-    likes: 700,
-    comments: [
-      { characterKey: 'manor_guard_1', text: 'stay put intruder' },
-      { characterKey: 'eager', text: 'I AM A GUEST. PROBABLY' }
-    ]
-  },
-  {
-    id: 'eager_bathroom_escape', order: 40570, characterKey: 'eager', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 55 },
-    content: "update: slipped out of the closet and now im hiding in a bathroom. if anyone asks i was always here",
-    likes: 620,
-    comments: [
-      { characterKey: 'markop', text: 'hold position were coming' },
-      { characterKey: 'salam', text: 'dont touch anything expensive' }
-    ]
-  },
-  {
-    id: 'guard_blocks_door_one_seat', order: 40571, characterKey: 'manor_guard_1', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
-    content: "some guy at the door says hes a friend of archie. checked the list and yeah hes on it. one seat left. told him to sit down already",
-    likes: 260,
-    comments: [
-      { characterKey: 'markop', text: 'have you seen eag—' },
-      { characterKey: 'manor_guard_1', text: 'SEAT. NOW.' }
-    ]
-  },
-  {
-    id: 'remi_takes_only_seat', order: 40572, characterKey: 'remi', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 1 },
-    content: "took the only open seat. if this is a trap at least im gonna be comfortably trapped 💅",
-    likes: 840,
-    comments: [
-      { characterKey: 'archie', text: 'why are you even here' },
-      { characterKey: 'remi', text: 'mail got weird' }
-    ]
-  },
-  {
-    id: 'bowser_party_mode', order: 40573, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 2 },
-    content: "HUMPY CAN TAKE CARE OF HIMSELF!! WERE ON A POST BASE!! HE CALLS ME THE BOSS I CALL HIM HUMPY!! DONT JUDGE!! IM HERE FOR A PARTY HAHAHAHA 🎉🔥",
-    likes: 1500,
-    comments: [
-      { characterKey: 'archie', text: 'this is not a party' },
-      { characterKey: 'bowser', text: 'EVERYTHING IS A PARTY IF FOOD SHOWS UP' }
-    ]
-  },
-  {
-    id: 'depressed_guard_host_slow', order: 40574, characterKey: 'manor_guard_2', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 3 },
-    content: "we took orders like two hours ago. host wants everything slow. he looks kinda... depressed tbh. thinks people wanna kill him. dont worry tho we got his back 💪",
-    likes: 410,
-    comments: [
-      { characterKey: 'markop', text: 'that speech does NOT make me feel safer' },
-      { characterKey: 'salam', text: 'depressed vampire hosting dinner. great' }
-    ]
-  },
-  {
-    id: 'remi_poison_candy_pitch', order: 40575, characterKey: 'remi', rumorId: 'poison_candy_plot',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 4 },
-    content: "hey i found some candy outside!! i wanna share it with everyone 🍬 (do NOT ask follow up questions)",
-    likes: 1100,
-    comments: [
-      { characterKey: 'markop', text: 'when did you get candy' },
-      { characterKey: 'remi', text: 'when destiny gave me candy' }
-    ]
-  },
-  {
-    id: 'guard_pockets_candy', order: 40576, characterKey: 'manor_guard_2', rumorId: 'poison_candy_plot',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 5 },
-    content: "some guest just gave me free candy?? nice. pocketed it and went back to work",
-    likes: 520,
-    comments: [
-      { characterKey: 'remi', text: 'that was NOT the intended consumer' },
-      { characterKey: 'markop', text: 'remi. what did you do' }
-    ]
-  },
-  {
-    id: 'oracle_begins_speech', order: 40577, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 7 },
-    content: "allow me to explain. too many threads have been moving independently. the party, the mages guild, the hand... we needed to force convergence",
-    likes: 600,
-    comments: [
-      { characterKey: 'archie', text: 'finally an explanation' },
-      { characterKey: 'bowser', text: 'FINALLY FOOD???' }
-    ]
-  },
-  {
-    id: 'bowser_interrupts_where_food', order: 40578, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 8 },
-    content: "WHERES MY FOOD??? I WANT FOOD NOW!!! IM KING OF THE TABLE LET ME TALK 👑🔥",
-    likes: 2000,
-    comments: [
-      { characterKey: 'oracle', text: 'sit' },
-      { characterKey: 'bowser', text: 'NO' }
-    ]
-  },
-  {
-    id: 'bowser_full_order', order: 40579, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 9 },
-    content: "MY ORDER: dragon egg, mustard rice, roast beef, meat, AND boneless wings EXTRA HOT 🔥🔥🔥 this is non negotiable",
-    likes: 1750,
-    comments: [
-      { characterKey: 'archie', text: 'dont eat too much we dont know where the food came from' },
-      { characterKey: 'bowser', text: 'FOOD COMES FROM KITCHEN. NEXT QUESTION' }
-    ]
-  },
-  {
-    id: 'citrus_served', order: 40580, characterKey: 'markop', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 24 },
-    content: "food finally came. remi and i got... cut up citrus?? its not poisoned i think. but its definitely not what it claims to be",
-    likes: 740,
-    comments: [
-      { characterKey: 'remi', text: 'this citrus has been through something' },
-      { characterKey: 'salam', text: 'dont eat anything that shines in purple light' }
-    ]
-  },
-  {
-    id: 'archie_tastes_blood_roast', order: 40581, characterKey: 'archie', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 25 },
-    content: "taste tested my roast beef. theres definitely blood mixed in. asked if its edible and they said yes so... ate it anyway 🤷",
-    likes: 980,
-    comments: [
-      { characterKey: 'bowser', text: 'thats called FLAVOR' },
-      { characterKey: 'markop', text: 'thats called a WARNING LABEL' }
-    ]
-  },
-  {
-    id: 'oracle_questions_not_on_list', order: 40582, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 27 },
-    content: "now then. is there a reason youre not on the list?",
-    likes: 620,
-    comments: [
-      { characterKey: 'remi', text: 'got lost in the mail' },
-      { characterKey: 'markop', text: 'looking for friends' }
-    ]
-  },
-  {
-    id: 'markop_asks_green_t', order: 40583, characterKey: 'markop', rumorId: 'green_t_escape',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 28 },
-    content: "hey have you guys seen a purple guy with a reverse L on his hat?? also anyone know a guy named green t??",
-    likes: 510,
-    comments: [
-      { characterKey: 'oracle', text: 'hes on the list' },
-      { characterKey: 'archie', text: 'wait hes HERE??' }
-    ]
-  },
-  {
-    id: 'waiter_brings_candy_cake', order: 40584, characterKey: 'manor_waiter', rumorId: 'poison_candy_plot',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 30 },
-    content: "brought a candy cake to the big turtle guy. he said he didnt order dessert but like... its right there sir",
-    likes: 930,
-    comments: [
-      { characterKey: 'bowser', text: 'DESSERT ORDERS ITSELF WHEN IM PRESENT' },
-      { characterKey: 'archie', text: 'dont eat that' }
-    ]
-  },
-  {
-    id: 'archie_spots_green_t_eager', order: 40585, characterKey: 'archie', rumorId: 'green_t_escape',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 32 },
-    content: "WAIT I JUST SAW GREEN T AND EAGER SNEAKING OUT. HEY!!! STOP!!!!",
-    likes: 1400,
-    comments: [
-      { characterKey: 'eager', text: 'ARCHIE NOOOOOO' },
-      { characterKey: 'green_t', text: '...' }
-    ]
-  },
-  {
-    id: 'doors_close_guards_swarm', order: 40586, characterKey: 'guard_captain', rumorId: 'green_t_escape',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 33 },
-    content: "guards moving in. doors sealed. we have them surrounded",
-    likes: 880,
-    comments: [
-      { characterKey: 'markop', text: 'eager is with me!! i just wanna take my friends and leave!!' },
-      { characterKey: 'oracle', text: 'sit' }
-    ]
-  },
-  {
-    id: 'markop_defends_eager_guest', order: 40587, characterKey: 'markop', rumorId: 'green_t_escape',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 34 },
-    content: "EAGER IS NOT AN INTRUDER!! i dont even know what this place is!! i just want OUT",
-    likes: 1300,
-    comments: [
-      { characterKey: 'archie', text: 'i second that. eager is not an intruder' },
-      { characterKey: 'guard_captain', text: 'choose then. the toad or you' }
-    ]
-  },
-  {
-    id: 'archie_volunteers_for_arrest', order: 40588, characterKey: 'archie', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 35 },
-    content: "they asked 'this toad or you?' and i said me. better me than a friend",
-    likes: 2100,
-    comments: [
-      { characterKey: 'markop', text: 'dont do that!!' },
-      { characterKey: 'eager', text: 'archie no 😭' }
-    ]
-  },
-  {
-    id: 'bowser_more_punchable', order: 40589, characterKey: 'bowser', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 36 },
-    content: "HEY JUST ARREST THE ONE THAT LOOKS MORE PUNCHABLE. I SAY YOU ARCHIE. THREE EYED YOU 👊😂",
-    likes: 5000,
-    comments: [
-      { characterKey: 'archie', text: 'thats ENOUGH bowser' },
-      { characterKey: 'bowser', text: 'OH YOU THINK YOU CAN HANDLE THIS?? IM KINDA PISSED I DONT HAVE MY FOOD' }
-    ]
-  },
-  {
-    id: 'green_t_slips_out', order: 40590, characterKey: 'green_t', rumorId: 'green_t_escape',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 37 },
-    content: "slipped out while everyone was arguing 🚶‍♂️",
-    likes: 1700,
-    comments: [
-      { characterKey: 'eager', text: 'HOW DID YOU DO THAT' },
-      { characterKey: 'markop', text: 'honestly respect' }
-    ]
-  },
-  {
-    id: 'eager_escorted_out', order: 40591, characterKey: 'manor_guard_1', rumorId: 'green_t_escape',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 38 },
-    content: "escorted the small one outside. minimal drama. (some drama)",
-    likes: 980,
-    comments: [
-      { characterKey: 'eager', text: 'this is kidnapping with etiquette' },
-      { characterKey: 'salam', text: 'stay alive til i get you' }
-    ]
-  },
-  {
-    id: 'candy_vote_two_removed', order: 40594, characterKey: 'remi', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 43 },
-    content: "so they asked everyone about the candy and most people said okay but some guy said 'stupid' and another said 'annoying' and they got DRAGGED AWAY??? joseph jo and david just got hauled off 😨",
-    likes: 1900,
-    comments: [
-      { characterKey: 'bowser', text: 'LMAOOO' },
-      { characterKey: 'markop', text: 'so disagreeing is punishable here. cool' }
-    ]
-  },
-  {
-    id: 'oracle_offers_empty_seat', order: 40595, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 45 },
-    content: "theres an empty seat now. markop your turn to speak",
-    likes: 800,
-    comments: [
-      { characterKey: 'markop', text: 'why force convergence tho' },
-      { characterKey: 'oracle', text: 'too many threads were moving independently' }
-    ]
-  },
-  {
-    id: 'archie_threshold_statistically_impossible', order: 40596, characterKey: 'oracle', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 13, minute: 46 },
-    content: "archie was invited because hes crossed a threshold most people dont even know exists. no guild seal. no hand mark. no noble lineage. statistically impossible... and therefore interesting 🔍",
-    likes: 1500,
-    comments: [
-      { characterKey: 'archie', text: 'thats a terrifying compliment' },
-      { characterKey: 'toadburt', text: 'so hes a loose thread basically' }
-    ]
-  },
-  {
-    id: 'final_question_hjumpik', order: 40597, characterKey: 'hjumpik', rumorId: 'autumnwood_succession_dinner',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 49 },
-    content: "okay but why am I on this guest list tho 🤔",
-    likes: 1300,
-    comments: [
-      { characterKey: 'hjumpik', text: 'im everyones problem thats why' },
-      { characterKey: 'oracle', text: 'because problems attract solutions' }
-    ]
-  },
-  {
-    id: 'bowser_asks_host_name', order: 40598, characterKey: 'bowser', rumorId: 'orangus_succession_knives',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 49 },
-    content: "HEY YOU!! HOST GUY!! WHATS YOUR NAME 📢",
-    likes: 2200,
-    comments: [
-      { characterKey: 'orangus_cornelious', text: 'ORANGUS CORNELIOUS' },
-      { characterKey: 'bowser', text: 'OK ORANGUS WHY YOU ALL SAD' }
-    ]
-  },
-  {
-    id: 'orangus_losing_control', order: 40599, characterKey: 'orangus_cornelious', rumorId: 'orangus_succession_knives',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 50 },
-    content: "i am losing control of autumnwood. the heir is here. the child is here. the onyx hand archivist is here. a mages guild observer is here. when old monsters like me host dinners... its because succession is in play. and succession attracts knives 🔪",
-    likes: 3600,
-    comments: [
-      { characterKey: 'mages_guild_scryer', text: 'observer status acknowledged' },
-      { characterKey: 'onyx_hand_archivist', text: 'archivist status denied actually' }
-    ]
-  },
-  {
-    id: 'archie_match_burning', order: 40600, characterKey: 'orangus_cornelious', rumorId: 'orangus_succession_knives',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 51 },
-    content: "right now i suspect archie is a match that doesnt realize its burning 🔥",
-    likes: 4100,
-    comments: [
-      { characterKey: 'archie', text: 'i know i did something wrong. im trying to correct my path' },
-      { characterKey: 'markop', text: 'then stop lighting more fires maybe' }
-    ]
-  },
-  {
-    id: 'orangus_demands_candy', order: 40601, characterKey: 'orangus_cornelious', rumorId: 'poison_candy_plot',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 52 },
-    content: "archie. hand over your candy",
-    likes: 3000,
-    comments: [
-      { characterKey: 'archie', text: 'are you sure??' },
-      { characterKey: 'remi', text: 'yes definitely yes do it' }
-    ]
-  },
-  {
-    id: 'doors_open_usk_enters', order: 40602, characterKey: 'orangus_cornelious', rumorId: 'usk_notes_confiscation',
-    date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 53 },
-    content: "bring him in",
-    likes: 5200,
-    comments: [
-      { characterKey: 'usk', text: 'so this is the part where everyone pretends they didnt sell me for twenty coins' },
-      { characterKey: 'markop', text: 'we didnt have a clean option ok' }
+    "content": "I had a *lovely* chat with the bathhouse drain. It says its name is ‘Ori’. It misses ‘the third’. It offered me a tooth. I took it. It’s *gold*.",
+    "likes": 15000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "THAT WASN’T A TOOTH. THAT WAS A *KEY*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The ‘third’ is Cornellius. The drain is a *warden*."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Waluigi, if you die, I’m telling everyone you were murdered by plumbing."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_statue_memory",
+    "order": 41117,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 30
+    },
+    "content": "Touched a statue. Saw a memory: a Corvinarus in orange robes *cutting their own palm* over a dragon egg. The egg *screamed*. The date was 988. The Legion was there. They called it ‘the grafting’.",
+    "likes": 45000,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "You were not meant to see that."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The egg was Ignis. The ‘grafting’ failed. That’s why the dragon went rogue."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Can we graft *me* onto a dragon?"
+      }
+    ]
+  },
+  {
+    "id": "archie_order_120",
+    "order": 41118,
+    "characterKey": "archie",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "Order 120: ‘Immediate execution of all Toad prisoners.’ That’s not a military order. That’s a *purge*. Bones was right—the Legion’s cleaning house. They’re hiding something.",
+    "likes": 32000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "They’re hiding *failure*. The dragon project backfired."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "They’re hiding *us*. We know too much."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Then we make sure they *regret* it."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_legion_spy_list",
+    "order": 41119,
+    "characterKey": "toad_lee",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 11,
+      "minute": 15
+    },
+    "content": "Confirmed Legion spies in the manor: 1) The ‘butler’ with the silver pin. 2) The goblin with *too many keys*. 3) The satyr who keeps asking about ‘the orange guest’. They’re not here for the party. They’re here for *Cornellius*.",
+    "likes": 28000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I can ‘accidentally’ set the butler on fire."
+      },
+      {
+        "characterKey": "archie",
+        "text": "No. We *use* them. Feed them false info."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Like what?"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Tell them Waluigi is the Orange Heir."
+      }
+    ]
+  },
+  {
+    "id": "house_guard_renton_fern_update",
+    "order": 41120,
+    "characterKey": "house_guard_renton",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "Update: My fern wife is doing well. She’s in the conservatory. I bring her water. She rustles affectionately. Mira says I’m ‘coping’. I say I’m *married*.",
+    "likes": 17000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Can I be the best man at the renewal ceremony?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "No."
+      },
+      {
+        "characterKey": "house_guard_mira",
+        "text": "I’ll officiate. For a price."
+      }
+    ]
+  },
+  {
+    "id": "pip_sprite_heist",
+    "order": 41121,
+    "characterKey": "pip_key_sprite",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 30
+    },
+    "content": "STOLE A BUTTON. IT SCREAMS. NOT MY FAULT. ALSO TOOK A HAIRPIN FROM ‘WAA’. IT GLOWS. HE HAS NOT NOTICED. YET.",
+    "likes": 12000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "MY HAIRPIN?!"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Waluigi, your hair is *literally glowing*."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "The button is evidence. Pip, return it."
+      },
+      {
+        "characterKey": "pip_key_sprite",
+        "text": "NO."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_flower_bed_snack",
+    "order": 41122,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 0
+    },
+    "content": "The flower bed gave me a *snack*. It was a cookie. It tasted like nostalgia and regret. 10/10. Would eat again. Hjumpik says it’s ‘sus’. Hjumpik is *jealous*.",
+    "likes": 19000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It’s a *bribe*."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The cookie is a *memory*. Be careful."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I want a cookie."
+      }
+    ]
+  },
+  {
+    "id": "perlrius_orange_heir_warning",
+    "order": 41123,
+    "characterKey": "perrius_annmatar",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 0
+    },
+    "content": "The Orange Heir is not a person. It is a *failed experiment*—a Corvinarus soul grafted onto Legion magic. It hungers for *completion*. If it touches you, it will try to *wear* you. Kill it. Burn it. Do not let it near the mirrors.",
+    "likes": 50000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It’s in the *theater*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The mirrors are *portals*. It’s jumping between them."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Can I wear *it*?"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "…You’ve seen it?"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_theater_door",
+    "order": 41124,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 30
+    },
+    "content": "The Theater of the Lost has a door that wasn’t there yesterday. It’s *orange*. The wood is warm. The handle is *breathing*.",
+    "likes": 40000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That’s not a door. That’s a *mouth*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Don’t open it."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m opening it."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "*Waluigi*."
+      }
+    ]
+  },
+  {
+    "id": "archie_shadow_estate_dinner",
+    "order": 41125,
+    "characterKey": "archie",
+    "rumorId": "cross_manor_echoes",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 20,
+      "minute": 0
+    },
+    "content": "Orangus Cornelius hosted a dinner in the Shadow Estate. The wine was blood. The guests were vampires. The main course was *memories*. Green T was at the kids’ table with a *gun*.",
+    "likes": 60000,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "The gun was a *distraction*. The *key* was the target."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I want to go to vampire dinner."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "You’d be the *appetizer*."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_corvinarus_timeline",
+    "order": 41126,
+    "characterKey": "toad_lee",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 23,
+      "minute": 50
+    },
+    "content": "Timeline:- 955: Peach dies. Civil war begins. - 988: Corvinarus ‘grafts’ Legion magic onto their bloodline. Creates ‘Cornellius’. - 990: The graft *rejects*. Cornellius becomes the Orange Heir—a failed hybrid. - 1035: Iron Legion rises. They’ve been *hunting* the Heir ever since - 1040: The Heir is *here*. And it’s *angry*.",
+    "likes": 70000,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The Legion didn’t just *hunt* it. They *fed* it. Every ‘supernatural purge’ was a *sacrifice*."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "…You’ve pieced together too much."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "So the Heir is… a *snack*?"
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_final_warning",
+    "order": 41127,
+    "characterKey": "lady_aurelian",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 5
+    },
+    "content": "The Orange Heir is not my family. It is a *wound* wearing my uncle’s face. If it reaches the bathhouse, it will drown the ward in its own blood and *unmake* this house. Do not let it near the water.",
+    "likes": 80000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It’s heading for the Theater. We have *minutes*."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The mirrors are *aligned*. It can jump *anywhere*."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I’m gonna need more fire."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "*Everyone* to the bathhouse. NOW."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_lilypad_workout",
+    "order": 41100,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "The garden is dangerous. Not because of monsters, but because of cardio. There is a \"Recreation Pond\" that you must run on continuously or the lily pads sink. I ran for three hours. I am cursed.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Cardio? I prefer \"Meditation Through Sunshine.\""
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Tell him he needs to run faster if he wants a drink of wine."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_bubble_trap",
+    "order": 41101,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 15
+    },
+    "content": "Azure has a nemesis: Soap Bubbles. They refuse to pop in my presence. I swear they formed a collective consciousness. The guards are staring at me. They think I'm talking to myself again.",
+    "likes": 2200,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Are you trying to summon a water elemental?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Just pop them with your tail. Be quick about it."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_flower_guard_trade",
+    "order": 41102,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 14,
+      "minute": 45
+    },
+    "content": "I found the \"Sleeping Guardian Butterfly\" hiding behind a hedge. It was crying. I offered it a napkin. It ate it. Now it follows me. Can I keep it? It's purple.",
+    "likes": 4800,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Its a fairy. It will eat your food and gossip about you."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "It has a name, Waluigi. Lumi. Do not rename her."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_beetle_paint",
+    "order": 41103,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 0
+    },
+    "content": "My walking beetle (Bert) tried to eat a portrait of the previous Lord. The beetle got stuck. The portrait got sticky. The cleanup involved vinegar and a lot of growling.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Bert eats the good stuff. Its a warrior now."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Bert should get paid for entertaining guests."
+      }
+    ]
+  },
+  {
+    "id": "toadburt_entiropy_ring_distress",
+    "order": 41104,
+    "characterKey": "toadburt",
+    "rumorId": "iron_legion_surveillance",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 15,
+      "minute": 30
+    },
+    "content": "I am wearing this ring. It hums when I am close to magic. It hums louder when Perrius talks. I think I'm a waypoint. Can I be a waypoint that gets lunch?",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Just keep moving. We will handle the meta-physics."
+      },
+      {
+        "characterKey": "iron_agent_malissia",
+        "text": "He is mine. Do not feed him magic."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_mirror_dimension_visit",
+    "order": 41105,
+    "characterKey": "toad_lee",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 8,
+      "minute": 0
+    },
+    "content": "Archie says the mirror dimension is sticky. I asked if it tasted like lemon. He said it tasted like \"unfinished business.\" I didn't ask more. That sounded like a horror movie plot.",
+    "likes": 1400,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Do not go into mirrors without gloves. Ask Reggie."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "I hate mirrors. They dont reflect my cool coat."
+      }
+    ]
+  },
+  {
+    "id": "archie_legion_complaints",
+    "order": 41106,
+    "characterKey": "archie",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 8,
+      "minute": 15
+    },
+    "content": "The Legion guys on the airship crash site are very polite. Also very boring. \"Compliance is mandatory\" isn't a song. It's a sentence. I miss the Satyr music. It had soul.",
+    "likes": 600,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "At least they don't serve you gross wine."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I can find you soul wine. It's illegal but good."
+      }
+    ]
+  },
+  {
+    "id": "fng_remi_deephold_application",
+    "order": 41107,
+    "characterKey": "fng_remi",
+    "rumorId": "kingdom_news",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "Application for the Deephold Smithing Guild is filed! Subject: Boiler Fixing, Golem Assembly, and vaguely violent welding. I hope they don't ask about my \"incident\" with the crate on Day 12. Mentioning the boom.",
+    "likes": 3200,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Boiler fixing is a noble trade! I too am a tradesman."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Do not mention the boom. Secrets are safe at the forge."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_old_family_clue",
+    "order": 41108,
+    "characterKey": "lady_aurelian",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 0
+    },
+    "content": "The \"Old Family Member\" is not a person. That is the only clue I will give you. They are part of the house. Watch your shadows.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Meaning they are the landlord? I respect that."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The house might be eating him? Or wearing him?"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_vine_wood_plans",
+    "order": 41109,
+    "characterKey": "toad_lee",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "The vines burned in the room were not dead. They are \"wilted\" and want to be re-planted in the lounge. I think the manor is trying to redecorate my work schedule.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Tell the vines if they touch my helmet, I will punch them."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Punch them! And take their wood. Its free!"
+      }
+    ]
+  },
+  {
+    "id": "iron_mandate_24_hour",
+    "order": 41110,
+    "characterKey": "speaker_l",
+    "rumorId": "iron_mandate",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "Iron Mandate Order 120 is in effect. ALL non-humans report to checkpoints immediately. This includes hairy toads and smelly dwarves. Compliance saves lives. (Disclaimer: Speaker L has resigned in protest).",
+    "likes": 15000,
+    "comments": [
+      {
+        "characterKey": "iron_agent_h",
+        "text": "Sir, the toad with the hammer is refusing to check out."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Good luck with that. He smashes checkpoints."
+      }
+    ]
+  },
+  {
+    "id": "dragon_conspiracy_audio",
+    "order": 41111,
+    "characterKey": "robinson_detective",
+    "rumorId": "dragon_conspiracy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 11,
+      "minute": 30
+    },
+    "content": "Found the sonic device. It emits a high-frequency hum that causes the dragon to obey. It's a cheap knockoff, made in the Midlands. The real war was a sell-out all along. I am now property of the Legion.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Hearing is overrated. War is more honest."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Cheap knockoffs are the worst. Mine croaks when I hit it."
+      }
+    ]
+  },
+  {
+    "id": "toadette_loyalist_ruthless",
+    "order": 41112,
+    "characterKey": "captain_toadette",
+    "rumorId": "peach_loyalists",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 15,
+      "hour": 15,
+      "minute": 0
+    },
+    "content": "Bramblehaven is clean. No prisoners. No mercy. The fire was beautiful. We need more of this kind of leadership. Silence is golden, and the princess is dead because she was too nice.",
+    "likes": 8900,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "That escalated quickly."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "She has potential. Please do not invite her to tea."
+      }
+    ]
+  },
+  {
+    "id": "kamek_koopas_return",
+    "order": 41113,
+    "characterKey": "kamek",
+    "rumorId": "koopa_troop",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 18,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "The puppets are moving again. K. Rool is eating. The eggs are hatching with blueprints in their mouths. Do not threaten the Wizard. I have the ultimate trump card.",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "funky_kong",
+        "text": "The blueprints are for surfboards. I knew it."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The Wizard is always the last guy to be threatened."
+      }
+    ]
+  },
+  {
+    "id": "wario_almost_exquisite_furniture",
+    "order": 41114,
+    "characterKey": "wario",
+    "rumorId": "merchant_trades",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 12,
+      "minute": 0
+    },
+    "content": "Checking the market. Found a table that costs 5 million gold. It's for you (no it isn't). I sold a toaster that cleans itself for 400 gold. The economy is fake.",
+    "likes": 2400,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "My toaster is sentient. It betrayed me."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Ignore Wario. He's looking for loot."
+      }
+    ]
+  },
+  {
+    "id": "dragon_sonic_sickness",
+    "order": 41115,
+    "characterKey": "ignis_major",
+    "rumorId": "dragon_conspiracy",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 14,
+      "minute": 45
+    },
+    "content": "We can't talk normally. It hurts the voice. We can roar on command. The humans think I am a servant. I am a servant. I just want a nap.",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "We traded an axe for shiny rocks. A fair deal."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I want shiny rocks too. Can you throw me some?"
+      }
+    ]
+  },
+  {
+    "id": "peggi_briggs_bounty",
+    "order": 41116,
+    "characterKey": "peggi_briggs",
+    "rumorId": "iron_legion_hunt",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 19,
+      "hour": 9,
+      "minute": 0
+    },
+    "content": "I am hunting the ones who stole the uniforms. The ones who burned the tea house. I found them. They are scary. I am hiding in a dumpster behind the bakery. Order the apple pie immediately.",
+    "likes": 8900,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "That pizza slice is not mine. It is a weapon."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Don't come out. The Legion is everywhere."
+      }
+    ]
+  },
+  {
+    "id": "usk_fog_shape_memory",
+    "order": 41117,
+    "characterKey": "usk",
+    "rumorId": "shadowfell_fate",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 0,
+      "minute": 0
+    },
+    "content": "The fog remembers things it shouldn't. I see the death of the Kingdom. I see the manor rotting. I see a man in a top hat laughing. It is a warning. Wake up.",
+    "likes": 3300,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "He's trying to communicate across the veil."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Can we send a dictionary back to him?"
+      }
+    ]
+  },
+  {
+    "id": "gourdon_missing_warning",
+    "order": 41118,
+    "characterKey": "chief_thornpaw",
+    "rumorId": "peach_death_leads",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 23,
+      "minute": 0
+    },
+    "content": "Gourdon the Donor is gone. He went to the attic. I found a note. It says \"Help the dying god.\" He is not a god. He is a mushroom. But he is scary when he walks on two legs. Find him.",
+    "likes": 4200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Mushrooms on two legs are never a good sign."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The dying god smells like ozone and ancient blood."
+      }
+    ]
+  },
+  {
+    "id": "maria_happy_joy_substance",
+    "order": 41119,
+    "characterKey": "lady_aurelian",
+    "rumorId": "fey_pharmaceuticals",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 0
+    },
+    "content": "Maria loves \"Happy Joy.\" It is a gas that makes the walls sing. I think it is hallucinogenic. Everyone is smiling. I am not smiling. I am calculating the cost of the damages.",
+    "likes": 1600,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I smiled for four hours straight. My face hurts now."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "The walls are expensive. We should kick the gas canister."
+      }
+    ]
+  },
+  {
+    "id": "archie_self_portrait_drawing",
+    "order": 41120,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 8,
+      "minute": 0
+    },
+    "content": "Drew a picture of myself as a vampire. It's perfect. If I look like a classy vampire, maybe I can fool the demon chef. The chef likes \"meat.\" I am mostly soy and anxiety.",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "You forgot the cape. Capes are mandatory."
+      },
+      {
+        "characterKey": "archie",
+        "text": "The cape is in the laundry. It has a hole."
+      }
+    ]
+  },
+  {
+    "id": "goblin_bar_talk_trick",
+    "order": 41121,
+    "characterKey": "goblin_bartender",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "The handsome dwarf talks funny. I tricked him into spilling all the dirt on his boots for free beer. He thinks it was part of the \"ritual.\" He is the most gullible customer I ever had.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The ritual was... cleaning my soles? That's a strange ritual."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "He deserves it. The soles were thick with dirt."
+      }
+    ]
+  },
+  {
+    "id": "iron_fists_treachery_reveal",
+    "order": 41122,
+    "characterKey": "agent_fists_breacher",
+    "rumorId": "iron_legion_surveillance",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 3,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The Fists are infiltrating the Mine shafts. I saw them. They have the torch. They are sabotaging the water pump. I am reporting them. The day is saved (maybe).",
+    "likes": 2000,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The Fists are cowards. They always use the back door."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Cowards are dangerous if they have dynamite."
+      }
+    ]
+  },
+  {
+    "id": "aubrey_bowser_lunch",
+    "order": 41123,
+    "characterKey": "aubrey_koopa",
+    "rumorId": "palace_dining",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 1,
+      "minute": 0
+    },
+    "content": "Bowser is at the castle. He is eating the queen's strawberries. The guards did not stop him. They are too afraid. I have a \"Dinner With The King\" story now. Wario wants in.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I'll pay for the strawberry. Just let me in."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "If he eats any more strawberries, he pays double."
+      }
+    ]
+  },
+  {
+    "id": "iron_sky_airship_takeover",
+    "order": 41124,
+    "characterKey": "legion_commander_vees",
+    "rumorId": "airship_disaster",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "Airship \"Vigilance\" is ours. The traitor tried to run. She failed. The purple airship is captured. The King will be pleased. The tyranny is swift and final.",
+    "likes": 3400,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Swift and final... until we burn it down. AGAIN."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I left my gameboy in the hold. Help."
+      }
+    ]
+  },
+  {
+    "id": "bryan_archie_revenge_prequel",
+    "order": 41125,
+    "characterKey": "bryan_toad",
+    "rumorId": "archie_cohort_vendetta",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 11,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "I was the one who shot first. Archie is a monster. He killed my brothers. He burned the tea house. I am going to cut him up like salmon. He cannot hide from his past.",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "He's actually a pretty good cook when he's not trying to kill me."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Stop talking about the fish."
+      }
+    ]
+  },
+  {
+    "id": "green_t_secret_dessert_vault",
+    "order": 41126,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 8,
+      "minute": 0
+    },
+    "content": "Found the kitchen dessert vault. It has skeletons. I took the pie. The skeletons were not eating it first. It is suspicious. Also, the pie is frozen solid.",
+    "likes": 2800,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Frozen pie is safer. The other skeletons might be angry."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Eat the pie. Record the evidence. Move fast."
+      }
+    ]
+  },
+  {
+    "id": "iron_hands_general_announcement",
+    "order": 41127,
+    "characterKey": "general_ironhand",
+    "rumorId": "iron_mandate",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "Order 120 is final. The Toad prisoners are to be executed. Order 121 is for the staff. The staff must report. Compliance is the only path to survival in the Midlands.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "house_guard_renton",
+        "text": "I am hiding under the bed. The Lieutenant is scary."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "The Midlands are going to regret this. Mark my words."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_mushroom_diet",
+    "order": 41128,
+    "characterKey": "toad_lee",
+    "rumorId": "kingdom_culture",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "Are we toads? Or are we mushrooms? We are both. The diet consists of 70% Cap 'n' Cream soups and 30% soul-searching. It is a poetic existence.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "fng_remi",
+        "text": "I can make you a hearty mushroom stew. With iron filings."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Cap n Cream is basically dessert. Where is the protein?"
+      }
+    ]
+  },
+  {
+    "id": "speaker_rivers_protest",
+    "order": 41129,
+    "characterKey": "speaker_rivers",
+    "rumorId": "political_turmoil",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 11,
+      "minute": 0
+    },
+    "content": "The Iron Mandate is tyranny. I am speaking up. I am resigning. It feels like spitting in the wind. But someone has to say it. The Midlands will burn if we do not act.",
+    "likes": 12000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The wind will carry your voice. It's better than silence."
+      },
+      {
+        "characterKey": "iron_agent_h",
+        "text": "He is a traitor. Lock him up."
+      }
+    ]
+  },
+  {
+    "id": "fawful_invitation_draft",
+    "order": 41130,
+    "characterKey": "fawful_minion",
+    "rumorId": "fawful_connections",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 22,
+      "minute": 0
+    },
+    "content": "I wrote the invitation to the gala. \"Prepare for doom in the candy cane!\" It sounds festive. But then I added: \"And bring the Kringles.\" It sounds suspicious. But I like Kringles.",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I am bringing the doom. The Kringles can stay in the box."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "I am bringing the gun. The box stays empty."
+      }
+    ]
+  },
+  {
+    "id": "broodling_investigation",
+    "order": 41131,
+    "characterKey": "inspector_judge",
+    "rumorId": "royal_inquiry",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 19,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "The eggshell in the castle courtyard is still warm. The Broodling experiments are a violation. The King is confused. The Mages are guilty. Order is compromised by greed.",
+    "likes": 3600,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I knew I should have melted that egg."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Dragon eggs make bad coffee."
+      }
+    ]
+  },
+  {
+    "id": "dreaming_grove_tree_sonic",
+    "order": 41132,
+    "characterKey": "guard_thistle",
+    "rumorId": "nature_preservation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "The tree in the grove is humming. It sounds like a dark flute. The orange man in the purple suit (the owner) is dangerous. I reported him to the Boss. The Boss said \"Stay safe.\"",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "The orange suit is iconic. But the guy is weird."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I need to find this Boss. He seems reasonable."
+      }
+    ]
+  },
+  {
+    "id": "shiggy_slime_cleaning",
+    "order": 41133,
+    "characterKey": "shiggy_corpse",
+    "rumorId": "mushroom_kingdom_talk",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 8,
+      "minute": 0
+    },
+    "content": "The Shiggy Slime is cleaning the highway. It left a stain. A teal, iridescent stain. The King is sad. I told him to use hot water. It didn't work. Slimes are stubborn.",
+    "likes": 2000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I can throw it in the river. That usually does the trick."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "That's a biohazard. We need a hazardous waste permit."
+      }
+    ]
+  },
+  {
+    "id": "blue_dragons_grief",
+    "order": 41134,
+    "characterKey": "wandering_blue_dragon",
+    "rumorId": "dragon_behavior",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "We are silent now. The sonic whip is off. I am just a beast in the mountain. The Emperor fell. We grieve. Please do not come near the peaks.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "A silent dragon is a dangerous dragon."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Give it a moment. They are very dramatic."
+      }
+    ]
+  },
+  {
+    "id": "lusus_coral_spreading",
+    "order": 41135,
+    "characterKey": "lusus_coral",
+    "rumorId": "midlands_kingdom",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "My coral is spreading on the bridge. It is pretty. The Legion says it is \"non-compliant.\" It looks like a flower. Flowers are compliant. It is a debate of semantics.",
+    "likes": 2400,
+    "comments": [
+      {
+        "characterKey": "iron_agent_m",
+        "text": "Cut it down."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Leave it. It's the only color down there."
+      }
+    ]
+  },
+  {
+    "id": "royal_herald_bowser_free",
+    "order": 41136,
+    "characterKey": "royal_announcer",
+    "rumorId": "police_report",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 7,
+      "hour": 9,
+      "minute": 0
+    },
+    "content": "APPEAL: Bowser the Koopa is now considered a \"Hazardous Material.\" He is to be contained in a padded room for his safety and ours. King K. Rool is very angry. He is writing a letter.",
+    "likes": 8900,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Padded room? Is that a VIP suite?"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "He will break out. Mark my words. (And the bars)."
+      }
+    ]
+  },
+  {
+    "id": "ari_the_soap_maker",
+    "order": 41137,
+    "characterKey": "ari_soap_crafter",
+    "rumorId": "kingdom_business",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 13,
+      "minute": 0
+    },
+    "content": "I am opening a soap factory. It smells like lavender and victory. I will hire the Toads who lost their jobs in the fire. We will wash the grime off the Midlands.",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Please include a soap that washes away secrets. That's a premium tier."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I need soap that smells like burning wyverns."
+      }
+    ]
+  },
+  {
+    "id": "ventamane_foundering",
+    "order": 41138,
+    "characterKey": "ventamane_shield",
+    "rumorId": "magic_events",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 0,
+      "minute": 0
+    },
+    "content": "The Ventamane Shield is fading. The Onyx Hand is active. The shadows are stretching. I felt a presence in the library. I dropped a book and it screamed. Do not go to the library.",
+    "likes": 4100,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I need the books. There is info there."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I will go. I am wearing a shield that blocks voices."
+      }
+    ]
+  },
+  {
+    "id": "luis_syrup_pirate_logic",
+    "order": 41139,
+    "characterKey": "captain_syrup",
+    "rumorId": "pirate_conflict",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 6,
+      "hour": 22,
+      "minute": 0
+    },
+    "content": "X.O. betrayed us. She stole our ship. She stole our crew. This is piracy. We will destroy her. We will burn her ship to ash. She thinks she is smarter than a pirate captain? Fool.",
+    "likes": 5600,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "We helped X.O. We didn't know. Trust is rare."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "The captain is very passionate. We'll have to be the bigger team."
+      }
+    ]
+  },
+  {
+    "id": "captain_yoshi_loyalist",
+    "order": 41140,
+    "characterKey": "captain_yoshi",
+    "rumorId": "peach_loyalists",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 15,
+      "hour": 20,
+      "minute": 0
+    },
+    "content": "Toadette is scary. But she is brave. I will march with her. I will shoot any Fawful soldier who looks at my mushroom sideways. For the Princess! (Even if she is dead... we still have the vibe).",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I like this Yoshi. He has a sword and a soul."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Don't die. We need a ride home."
+      }
+    ]
+  },
+  {
+    "id": "ronald_furniture_theft",
+    "order": 41141,
+    "characterKey": "ronald_bedsteader",
+    "rumorId": "black_market",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 9,
+      "minute": 0
+    },
+    "content": "I sold a bed. A legit bed. Now I have a mattress. I am sleeping on the ground. I guess the hay is better than the nails. The Iron Legion needs beds. I can fix it.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "The hay is better than the nails. Always buy the nails."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Ronald! Stay away from the Legion barracks."
+      }
+    ]
+  },
+  {
+    "id": "nancy_flying_assassin",
+    "order": 41142,
+    "characterKey": "nancy_flyswatter",
+    "rumorId": "political_enemies",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 18,
+      "minute": 0
+    },
+    "content": "Saw the Lady's assassins on the rooftops. They are flies with knives. It is efficient. I tried to swat one. It blinked. It is unnatural.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Try tarring the window. The flies hate tar."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Staring contest? Thats a good way to die."
+      }
+    ]
+  },
+  {
+    "id": "fuchsia_mushroom_god",
+    "order": 41143,
+    "characterKey": "fuchsia_shrine",
+    "rumorId": "secret_papyrus",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 0,
+      "minute": 0
+    },
+    "content": "The god says you must plant the shard. It says the world is broken. It says the Shard is the key. I am afraid. It is a big mushroom. I just want to sell the soup.",
+    "likes": 2600,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "We will plant it. I have the shovel. I have the resolve."
+      },
+      {
+        "characterKey": "archie",
+        "text": "If its not a key, I'll turn it into a doorstop."
+      }
+    ]
+  },
+  {
+    "id": "oscar_scarecrow_plan",
+    "order": 41144,
+    "characterKey": "oscar_scarecrow",
+    "rumorId": "agriculture",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "The scarecrows are too friendly. They sing. The birds attack them. I need to make them mean. I will put spikes in their hats. Do not eat the corn. It is wired.",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Wired corn? That sounds like a party snack!"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Do not use real nails. We need stealth, Oscar."
+      }
+    ]
+  },
+  {
+    "id": "pastor_dan_psychedelic",
+    "order": 41145,
+    "characterKey": "pastor_dan",
+    "rumorId": "church_news",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 21,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "The sermon was very colorful. He says the light is purple. I think he is seeing things. But the choir sounded good. I donated a hat. He needs more hats.",
+    "likes": 3200,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Purple light is better. Red light is for burning."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Pastor Dan is confused. Keep him away from the mirrors."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_timecheck_618",
+    "order": 41026,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 6,
+      "minute": 18
+    },
+    "content": "Time check: 6:18. Hjumpik just gave a ghost a thumbs up like they’re coworkers. The ghost looked offended. We are not ready for Fey Etiquette.",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It nodded back. That means alliance in dwarf sign language."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "It did not nod. It tried to crawl into your shadow."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_ghost_policy",
+    "order": 41027,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 6,
+      "minute": 20
+    },
+    "content": "New policy: if a ghost appears, we do NOT accept gifts, we do NOT follow it, and we do NOT say our full names. Thumbs up is the maximum diplomacy allowed.",
+    "likes": 980,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "But what if it offers me treasure? Or secrets? Or a haunted hat?"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Especially if it offers you a hat."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_overcrowd_flight",
+    "order": 41028,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 6,
+      "minute": 24
+    },
+    "content": "Flew over the crowd again. Guards tried to grab at me like I was a loose curtain. I am not a curtain. I am Azure. Also: the crowd smells like cider and old socks.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Loose curtain is accurate though."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Azure the Curtain-Winged Terror!"
+      }
+    ]
+  },
+  {
+    "id": "guard_saytr_buddy_problem",
+    "order": 41029,
+    "characterKey": "house_guard_renton",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 6,
+      "minute": 35
+    },
+    "content": "We were sent to escort the dwarf. Strict subdue-only rules. The satyrs keep offering “peace cups.” Last time I drank one, I woke up married to a potted fern.",
+    "likes": 620,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Renton. No more cups. If you drink, I carry you."
+      },
+      {
+        "characterKey": "house_guard_mira",
+        "text": "He WAS married to the fern. There was a ceremony."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_keys_lost_found",
+    "order": 41030,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 12,
+      "minute": 58
+    },
+    "content": "I lost the bathhouse keys for 11 seconds and it was the worst 11 seconds of my life. A tiny sprite tried to steal them. I negotiated (I hissed).",
+    "likes": 2400,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Negotiated = made a noise like a kettle."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The sprite’s name is Pip. It collects keys like teeth."
+      }
+    ]
+  },
+  {
+    "id": "pip_sprite_confession",
+    "order": 41031,
+    "characterKey": "pip_key_sprite",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 1
+    },
+    "content": "SHINY KEYS. NOT YOURS. DOORS LIKE ME MORE. ALSO YOU SMELL LIKE IRON AND WORRY.",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Give them back, you airborne teaspoon!"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Pip. Stop stealing from the guests. Steal from the satyrs."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_master_bed_flower_anatomy",
+    "order": 41032,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 8
+    },
+    "content": "The giant flower-bed is not a “bed.” It’s a trained plant structure with nerve-like vines underneath. When you sit on it, it adjusts like it’s listening.",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "So it’s a luxury bed. Great."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "If it bites you, I’m not pulling you out twice."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_hearing_pain",
+    "order": 41033,
+    "characterKey": "lady_aurelian",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "The manor sings when the wrong door is opened. It is… loud today. I can hear my ancestors arguing in the walls. Kindly stop poking mechanisms at random.",
+    "likes": 140,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Noted. We will poke mechanisms with purpose."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "The walls argue? Mine do that too."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_mage_guild_threat_receipt",
+    "order": 41034,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 3
+    },
+    "content": "Hjumpik threatened to contact the Mages’ Guild and I want credit for being nearby when it happened. I radiated “official witness energy.”",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "You hid behind a chair."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "A very brave chair."
+      }
+    ]
+  },
+  {
+    "id": "satyr_table_two_rounds",
+    "order": 41035,
+    "characterKey": "satyr_jax",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 50
+    },
+    "content": "ONE ROUND OF DRINKS PLEASE (for two). We split it. That’s called mathematics. Dwarf asked who leads us. We said Relis. Or Ralos. Whatever, the sword guy.",
+    "likes": 666,
+    "comments": [
+      {
+        "characterKey": "satyr_nem",
+        "text": "It’s Relis, you fermented walnut."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I heard that. Keep your leader ready."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_relis_profile",
+    "order": 41036,
+    "characterKey": "hjumpik",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 2
+    },
+    "content": "Relis confirmed. Swordmaster posture. Doesn’t sway when drunk— everyone else does. That’s the dangerous kind of party drunk: coordinated.",
+    "likes": 720,
+    "comments": [
+      {
+        "characterKey": "house_guard_mira",
+        "text": "He watches exits. Like a soldier."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "So we bait him into monologuing."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_guard_name_game",
+    "order": 41037,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 5
+    },
+    "content": "I asked the guards their names so the manor can’t steal them. Renton and Mira. Renton looked grateful. Mira looked like she’s punched a ghost before.",
+    "likes": 930,
+    "comments": [
+      {
+        "characterKey": "house_guard_mira",
+        "text": "I have. It deserved it."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Can I punch a ghost too? For character growth?"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_bathhouse_markings",
+    "order": 41038,
+    "characterKey": "toad_lee",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 15,
+      "minute": 10
+    },
+    "content": "Bathhouse marble has old family markings under the limescale: three names in a triangle (Corvinarus / Oriacle / Cornellius). The same three the ward accepts. Not a coincidence.",
+    "likes": 1600,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "So the bathhouse IS the lock. The lock is the bathhouse."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Or it’s a lure. Assume lure."
+      }
+    ]
+  },
+  {
+    "id": "pip_sprite_bathhouse_rumor",
+    "order": 41039,
+    "characterKey": "pip_key_sprite",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 15,
+      "minute": 12
+    },
+    "content": "BATH STEAM MAKES LETTERS IF YOU BREATHE WRONG. DON’T BREATHE WRONG.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Define “wrong.”"
+      },
+      {
+        "characterKey": "pip_key_sprite",
+        "text": "NO."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_bath_steam_cipher",
+    "order": 41040,
+    "characterKey": "waluigi",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 15,
+      "minute": 22
+    },
+    "content": "Okay so the steam actually DOES form letters. I saw “OR—” then it vanished. Toad Lee says it’s a cipher. I say it’s flirting with me.",
+    "likes": 2500,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It’s “ORI—” as in Oriacle. Please stop flirting with steam."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The manor flirts by biting."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_trap_doctrine",
+    "order": 41041,
+    "characterKey": "hjumpik",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 15,
+      "minute": 30
+    },
+    "content": "If a room is too clean, it’s a trap. If it’s too pretty, it’s a trap. If Waluigi says “this seems safe,” it’s DEFINITELY a trap.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I am a safety indicator! A magical canary!"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Canaries also die in mines."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_vine_room_afterburn",
+    "order": 41042,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 17
+    },
+    "content": "After Waluigi burned the thorn-vine room, the ashes arranged themselves into a spiral. The spiral points toward the mezzanine. The manor is giving directions. That’s unsettling.",
+    "likes": 1700,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "It is not giving directions. It is watching you choose."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I hate poetic traps."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_detect_magic_roomtone",
+    "order": 41043,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 24
+    },
+    "content": "Magic detection update: the ward hums in three tones. Each name changes the pitch. Corvinarus is lowest. Oriacle is sharp. Cornellius is… wrong. Like it doesn’t belong.",
+    "likes": 1400,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Wrong tones mean borrowed blood."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Or a forged name. Or a parasite name."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_old_family_member_hint",
+    "order": 41044,
+    "characterKey": "lady_aurelian",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 0
+    },
+    "content": "My “old family member” is old in the way stone is old. They prefer quiet. Do not provoke them. Do not offer them wine. Do not offer them your name.",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "What if I offer them a tasteful cheese platter?"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Don’t offer anything. Stand behind me."
+      }
+    ]
+  },
+  {
+    "id": "satyr_revel_bet_on_dwarf",
+    "order": 41045,
+    "characterKey": "satyr_nem",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 6
+    },
+    "content": "We started a betting pool: how long until the dwarf tries to “reason” with Relis using blunt force? I give it 20 minutes.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "satyr_jax",
+        "text": "I give it 7."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Refund your bets."
+      }
+    ]
+  },
+  {
+    "id": "relis_swordmaster_post",
+    "order": 41046,
+    "characterKey": "relis_swordmaster",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 20
+    },
+    "content": "If the Lady wants her guest wing quiet, she should have built it from something less flammable than manners. I will leave when the song ends.",
+    "likes": 2000,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "My house is not your stage, Relis."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Which song? There are 19 happening at once."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_guard_rules_written",
+    "order": 41047,
+    "characterKey": "house_guard_mira",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 25
+    },
+    "content": "Escort agreement recorded: subdue only, no killing. Our safety is now “the dwarf’s responsibility.” I asked the dwarf if he accepts. He said “aye” like a war oath.",
+    "likes": 840,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I keep my oaths."
+      },
+      {
+        "characterKey": "house_guard_renton",
+        "text": "Good because I bruise easily."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_mezzanine_blood_or_wine",
+    "order": 41048,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 16,
+      "minute": 50
+    },
+    "content": "Mezzanine stain test: it’s both wine and blood. The wine is older than the blood. The blood is older than it should be. The manor preserves memories like fruit.",
+    "likes": 1800,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Did you taste it?? Please say no."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "I did not lick the floor. I listened to it."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_piano_flower_song",
+    "order": 41049,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 5
+    },
+    "content": "The piano near the broken mezzanine edge is playable. The white flowers growing through it vibrate with certain notes. One chord made every satyr downstairs go silent for 3 seconds.",
+    "likes": 2600,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Play that chord again when we evict them."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "We have a weaponized chord??? YES."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_weaponized_chord_practice",
+    "order": 41050,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 12
+    },
+    "content": "I tried the silence chord. The flowers spit pollen in my eyes. I can now see “mood colors” around people. Hjumpik is a tired brown. Toad Lee is anxious teal. I am glorious purple.",
+    "likes": 5200,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Stop narrating my aura."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Mood colors are real. Yours is… loud."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_statue_touch_warning",
+    "order": 41051,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 20
+    },
+    "content": "Touched a statue again. Felt like someone stepping into my personal space. The statue “learns” your shape when you touch it. Don’t touch them unless you want to be remembered.",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "They are witnesses. Please stop giving testimony."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Too late. I licked one earlier."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_waluigi_statue_lick",
+    "order": 41052,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 22
+    },
+    "content": "CONFIRMED: Waluigi licked a statue. The statue licked back. Not with a tongue. With a cold feeling behind the eyes. He says he “won.” He did not win.",
+    "likes": 6000,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I got information! It tasted like… betrayal."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "No more licking architecture."
+      }
+    ]
+  },
+  {
+    "id": "usk_warning_echo",
+    "order": 41053,
+    "characterKey": "usk_shadow_elf",
+    "rumorId": "cross_manor_echoes",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 40
+    },
+    "content": "You tread in a house that dreams. When it wakes, it will count your names like coins. One of you is already missing, but you have not noticed yet.",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "We did notice. We are ignoring it on purpose."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Who is missing?? Don’t do this cryptic thing."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_missing_inventory_check",
+    "order": 41054,
+    "characterKey": "waluigi",
+    "rumorId": "cross_manor_echoes",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 45
+    },
+    "content": "I did an inventory check. Everyone is here. Unless someone is missing “spiritually.” Which is a rude way to be missing. Also my shyguy toy is missing. THAT COUNTS.",
+    "likes": 2800,
+    "comments": [
+      {
+        "characterKey": "pip_key_sprite",
+        "text": "MINE NOW."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Let it go."
+      }
+    ]
+  },
+  {
+    "id": "archie_date_stamp_efferd_24",
+    "order": 41055,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 18,
+      "minute": 19
+    },
+    "content": "24th Effeard, 6:19. Door locked. Footsteps. Someone yelled “Who dares intrude?” Green T ran like his feet owed money.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "They did. My feet absolutely owed money."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "We’re dealing with satyrs. Yours sounds worse."
+      }
+    ]
+  },
+  {
+    "id": "archie_vampire_kitchen_side_story",
+    "order": 41056,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 18,
+      "minute": 28
+    },
+    "content": "Vampire in kitchen humming. The “meat” smelled like cloves and iron. He offered me a taste. I pretended to be offended (worked).",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "That vampire had a cookbook titled “Guests.”"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Cloves AND iron? That’s just a fancy sausage."
+      }
+    ]
+  },
+  {
+    "id": "green_t_window_jammed",
+    "order": 41057,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 18,
+      "minute": 42
+    },
+    "content": "Window is jammed. Can’t jump. Archie yelled “we’re going” and then left me. I hid. If I survive, I will be petty forever.",
+    "likes": 1700,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I came back. Petty later."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Survive first. Pettiness is earned."
+      }
+    ]
+  },
+  {
+    "id": "archie_disguise_spell_notes",
+    "order": 41058,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 18,
+      "minute": 50
+    },
+    "content": "Disguise spell held under stress. Tip: steady breathing. Don’t think “I am not a vampire.” Think “paperwork matters.” It sells the role.",
+    "likes": 2400,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Method acting but make it undead."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I hate that this is good advice."
+      }
+    ]
+  },
+  {
+    "id": "archie_onyx_hand_books",
+    "order": 41059,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_trail",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 19,
+      "minute": 3
+    },
+    "content": "Found books in a study. Margins marked with a black hand symbol. If these vampires are tied to the Onyx Hand, these notes are evidence. Heavy, but worth it.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Evidence won’t save us if we die carrying it."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Send titles. We can cross-reference."
+      }
+    ]
+  },
+  {
+    "id": "green_t_dagger_quiet_combat",
+    "order": 41060,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 19,
+      "minute": 10
+    },
+    "content": "Archie gave me a dagger for “quiet combat.” I do not like quiet. Quiet is where fear lives. But I will accept stabbing as a concept.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Quiet keeps you alive."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Stabbing is universal language. You’ll do fine."
+      }
+    ]
+  },
+  {
+    "id": "legion_broadcast_quote",
+    "order": 41061,
+    "characterKey": "archie",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 5
+    },
+    "content": "Broadcast again: \"THE ANOMALY IS CONTAINED.\" Troops have masks and silver-thread armbands. They’re scanning for “non-human activity.” Green T is… obviously non-human.",
+    "likes": 4000,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I can pretend to be a topiary."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I can pretend to be human. (I cannot.)"
+      }
+    ]
+  },
+  {
+    "id": "archie_guard_smalltalk_fail",
+    "order": 41062,
+    "characterKey": "archie",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 12
+    },
+    "content": "I walked up to a Legion guard like “Are you with the purple legion too?” He stared at me for three seconds. I remembered I was wearing the wrong insignia. Bad moment.",
+    "likes": 5200,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Three seconds is a long time to not get stabbed."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Please stop improvising your cover stories."
+      }
+    ]
+  },
+  {
+    "id": "legion_guard_reply",
+    "order": 41063,
+    "characterKey": "legion_private_kess",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 13
+    },
+    "content": "Citizen, there is no “purple legion.” There is only the Legion. State your assignment and show wrist mark.",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Ah yes. Of course. The Legion. Very… singular."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "RUN."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_satyr_exit_plan_music",
+    "order": 41064,
+    "characterKey": "toad_lee",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 30
+    },
+    "content": "Plan: use the piano silence chord to disrupt the revel, then Hjumpik and guards funnel satyrs toward the stairs. Waluigi is NOT allowed to “improve” plan with fire.",
+    "likes": 3700,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "I can be trusted with a LITTLE fire."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "No."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_secret_fire_reserve",
+    "order": 41065,
+    "characterKey": "waluigi",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 32
+    },
+    "content": "I am not “improving” with fire. I am merely holding a backup solution in my palms. The backup solution is hot. And bright. And beautiful.",
+    "likes": 4100,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Put it away."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "He is like a candle that learned greed."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_minor_sidequest_lost_mask",
+    "order": 41066,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 40
+    },
+    "content": "Side story: a goblin in the dance hall lost his carved mask and cried. I found it stuck in a chandelier vine. He paid me with a button that screams when lies are spoken.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That button is going in the evidence bag."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I want the screaming lie button."
+      }
+    ]
+  },
+  {
+    "id": "button_that_screams_demo",
+    "order": 41067,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 43
+    },
+    "content": "Tested the lie-button. Waluigi said “I would never set a manor on fire.” The button screamed for 9 uninterrupted seconds. Confirmed working.",
+    "likes": 8200,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "It’s calibrated wrong!"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "It’s calibrated perfectly."
+      }
+    ]
+  },
+  {
+    "id": "house_guard_mira_dwarf_oath",
+    "order": 41068,
+    "characterKey": "house_guard_mira",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 17,
+      "minute": 55
+    },
+    "content": "Hjumpik checked our armor straps before going in. Said “If you fall, you fall behind me.” Dwarf manners are intense. I approve.",
+    "likes": 1600,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Stay tight. Don’t chase a satyr into a side hall."
+      },
+      {
+        "characterKey": "house_guard_renton",
+        "text": "Too late. I already want to chase one. They owe me my fern alimony."
+      }
+    ]
+  },
+  {
+    "id": "satyr_sidehall_prank_trap",
+    "order": 41069,
+    "characterKey": "satyr_jax",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 5
+    },
+    "content": "We put a “Free Wine” sign over a door that leads to the laundry haunt. If a guard goes in, they come out singing in a language that tastes like pennies.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "house_guard_renton",
+        "text": "I HATE YOU."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Laundry haunt is real. The sheets remember."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_laundry_haunt_notes",
+    "order": 41070,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 12
+    },
+    "content": "Went into laundry haunt for 30 seconds to retrieve Renton. Confirmed: sheets try to wrap you and whisper embarrassing memories you never told anyone. I hate Fey houses.",
+    "likes": 4800,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Did the sheets say anything about me?"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Yes."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_party_next_to_queen",
+    "order": 41071,
+    "characterKey": "hjumpik",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 25
+    },
+    "content": "Satyrs bragged their party is “right next to the Queen’s party.” That’s a problem. If the Queen’s guests wander in here, we’re not evicting satyrs anymore. We’re starting a war.",
+    "likes": 2300,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "I will not host two revels. One revel is already a knife in the curtains."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "What if we make it ONE big party and then leave?"
+      }
+    ]
+  },
+  {
+    "id": "rakasha_queen_party_glimpse",
+    "order": 41072,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "queen_adjacent",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 40
+    },
+    "content": "I saw the Queen’s party through a balcony crack. Not our Queen. Different. Masks. Silver fruit. Everyone laughing like they’re afraid to stop.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That sounds like a Fey court function. Do NOT engage."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "We focus on satyrs. Not queens."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_keys_to_bathhouse_again",
+    "order": 41073,
+    "characterKey": "waluigi",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 0
+    },
+    "content": "I still have the bathhouse keys (yes). I keep them on a chain now. Pip tried to steal them again. I told Pip I would haunt Pip. Pip blinked slowly.",
+    "likes": 2700,
+    "comments": [
+      {
+        "characterKey": "pip_key_sprite",
+        "text": "YOU CAN TRY."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Please don’t start a haunting contest."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_insult_smelly",
+    "order": 41074,
+    "characterKey": "lady_aurelian",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 2
+    },
+    "content": "Yes, I said you were smelly. You are. Do not take offense; take a bath.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "This is slander."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "It’s accurate."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_bathhouse_tub_review",
+    "order": 41075,
+    "characterKey": "toad_lee",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 15
+    },
+    "content": "Bathhouse tub review: 10/10 bubbles. 3/10 “mildly suspicious chanting from drain.” The marble is too clean. That means something is eating the dirt.",
+    "likes": 3400,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "If the drain speaks, we leave."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "If the drain speaks, I ask it questions."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_drain_whisper",
+    "order": 41076,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 18
+    },
+    "content": "The drain does speak. It speaks like a tired teacher. It said: “THREE NAMES. ONE BLOOD. ONE LIE.” Then the water bubbled harder.",
+    "likes": 4100,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Okay. That’s actionable. And horrifying."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "The drain is my new mentor."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_bathhouse_rule_list",
+    "order": 41077,
+    "characterKey": "hjumpik",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 22
+    },
+    "content": "Bathhouse rules: 1) No drinking bathwater. 2) No answering questions asked by plumbing. 3) No offering blood to anything. 4) If you hear your name, you leave.",
+    "likes": 5200,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Rule 2 is oppressive."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Rule 2 saves lives."
+      }
+    ]
+  },
+  {
+    "id": "satyr_revel_song_ends_claim",
+    "order": 41078,
+    "characterKey": "satyr_nem",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 0
+    },
+    "content": "Relis says he’ll leave “when the song ends.” Joke’s on him. We never end songs. We just layer them until the walls cry.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "My walls do not cry. They remember."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Then we end the song ourselves."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_weaponized_chord_named",
+    "order": 41079,
+    "characterKey": "toad_lee",
+    "rumorId": "guest_wing_revel",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 10
+    },
+    "content": "Naming the piano chord “The Quiet Bite.” Because the flowers bite after you play it. Waluigi insists on “Silence Boom.” He is wrong.",
+    "likes": 3900,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Silence Boom is a better band name."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Quiet Bite feels like the manor’s humor. Keep it."
+      }
+    ]
+  },
+  {
+    "id": "house_guard_renton_fern_divorce",
+    "order": 41080,
+    "characterKey": "house_guard_renton",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 20
+    },
+    "content": "Update: the fern I married (accidentally) was moved to the conservatory. I tried to apologize. It rustled like it understood. I think I’m still married.",
+    "likes": 2600,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "We can get you annulment paperwork after the satyrs."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I can officiate! I’m basically ordained in chaos."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_five_nights_deadline",
+    "order": 41081,
+    "characterKey": "lady_aurelian",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 40
+    },
+    "content": "Five nights. That is the limit. If the revel continues past it, the house will choose its own guests. And it is not kind when it chooses.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Understood. We end this before your house starts eating people."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Houses can’t eat people. (Can they?)"
+      }
+    ]
+  },
+  {
+    "id": "waluigi_house_can_eat_people_poll",
+    "order": 41082,
+    "characterKey": "waluigi",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 42
+    },
+    "content": "POLL: can a house eat people? A) no B) yes C) yes but politely D) depends on the mortgage",
+    "likes": 9000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "D. Always D."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "B. Sometimes C."
+      }
+    ]
+  },
+  {
+    "id": "archie_dan_sighting_question",
+    "order": 41083,
+    "characterKey": "archie",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 30
+    },
+    "content": "Saw someone who might be Dan near the cordon. Could be real Dan, could be a decoy, could be a Legion officer with similar posture. I hate uncertainty.",
+    "likes": 2800,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Go ask. If you die, I will rate your plan 0/10."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Confirm identity without revealing yours. Standard."
+      }
+    ]
+  },
+  {
+    "id": "green_t_topiary_attempt",
+    "order": 41084,
+    "characterKey": "green_t",
+    "rumorId": "legion_quarantine",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 36
+    },
+    "content": "I attempted to look like a decorative bush. Legion guard stared at me and said “Nice hedge.” I don’t know if I’m safe or insulted.",
+    "likes": 7200,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Both. You’re safe AND insulted."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Nice hedge is a compliment where I’m from."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_archie_message_via_usk",
+    "order": 41085,
+    "characterKey": "toad_lee",
+    "rumorId": "cross_manor_echoes",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 0
+    },
+    "content": "Tried using Usk’s connection to send Archie a warning: “Legion scanning non-humans, avoid roads.” Usk replied: “He already knows.” Then laughed without moving his mouth.",
+    "likes": 4100,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I do already know. But thank you. Also: Usk is unsettling."
+      },
+      {
+        "characterKey": "usk_shadow_elf",
+        "text": "You are all unsettling. That is why it is entertaining."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_sleepover_supplies",
+    "order": 41086,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 10
+    },
+    "content": "Sleepover supplies acquired: 6 pillows, 2 blankets, 1 candle in a glass orb (borrowed), 1 screaming lie-button (Toad Lee’s). The flower bed is humming lullabies.",
+    "likes": 3000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The lie-button is evidence. Stop packing evidence like snacks."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "We can snack on evidence sometimes."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_check_for_traps_again",
+    "order": 41087,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_minor_tales",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 12
+    },
+    "content": "Reminder: check for traps. “Sleepover” doesn’t mean “let the house eat us in our sleep.” Azure is smarter than this. I think.",
+    "likes": 3500,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "I am smart. I am also tired."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Tired people get eaten first. It’s a rule."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_midday_confusion",
+    "order": 41088,
+    "characterKey": "waluigi",
+    "rumorId": "timeline_glitches",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 12,
+      "minute": 56
+    },
+    "content": "Hjumpik says it’s “still morning.” My watch says 12:56. The manor clocks drift. Either time is weird here, or I am late for everything forever.",
+    "likes": 4200,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Time is a suggestion in my house."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "That explains why nothing makes sense."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_clock_investigation",
+    "order": 41089,
+    "characterKey": "toad_lee",
+    "rumorId": "timeline_glitches",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 7
+    },
+    "content": "Clock investigation: the manor uses “event time,” not sun time. If a scene is dramatic, minutes stretch. If you’re trying to leave, hours collapse. Great.",
+    "likes": 6100,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "So we make the eviction dramatic. Understood."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I was born dramatic."
+      }
+    ]
+  },
+  {
+    "id": "satyr_gossip_about_guest",
+    "order": 41090,
+    "characterKey": "satyr_jax",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 30
+    },
+    "content": "Gossip: Lady’s “old family member” is coming. They say he wears a name like armor. They say he can turn wine to ash by looking at it. I want to see that.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "satyr_nem",
+        "text": "If he ruins wine, I will fight him."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Do not test him."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_three_names_theory",
+    "order": 41091,
+    "characterKey": "waluigi",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 45
+    },
+    "content": "Theory: The ward accepts THREE names because it’s a family “chord.” Corvinarus + Oriacle + Cornellius = harmony. But Cornellius tone is wrong. Maybe Cornellius is not family. Maybe Cornellius is a thief-name.",
+    "likes": 5000,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "This is… actually a solid theory."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Write it down somewhere not public."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_cornellius_crossref",
+    "order": 41092,
+    "characterKey": "toad_lee",
+    "rumorId": "bathhouse_secrets",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 21,
+      "minute": 55
+    },
+    "content": "Cross-referenced old plaques: “Cornellius” appears nowhere on the visible family list. Either it’s hidden, scrubbed, or never belonged. That means the ward might be compromised.",
+    "likes": 6400,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Do not dig into that name."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "When someone says don’t dig, you should dig carefully."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_do_not_dig_warning",
+    "order": 41093,
+    "characterKey": "lady_aurelian",
+    "rumorId": "corvinarus_lineage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 22,
+      "minute": 5
+    },
+    "content": "Some names are nails. You pull them, and the house comes apart. Focus on the satyrs. Leave my family’s rot in the walls where it belongs.",
+    "likes": 1800,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "If the rot bites us, it becomes our problem too."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Names being nails is the creepiest metaphor I’ve heard today."
+      }
+    ]
+  },
+  {
+    "id": "archie_paperwork_room_details",
+    "order": 41094,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 19,
+      "minute": 25
+    },
+    "content": "The vampire paperwork room had forms for “meal acquisition,” “blood storage variance,” and “operational table sanitation.” Monsters love bureaucracy. It’s comforting in a sick way.",
+    "likes": 3500,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "If I die, file form 7B: “Regret.”"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Take a blank form. Could be leverage."
+      }
+    ]
+  },
+  {
+    "id": "green_t_hears_something_in_walls",
+    "order": 41095,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 19,
+      "minute": 40
+    },
+    "content": "I heard something in the walls. Not rats. Too slow. Too thoughtful. If the manor is alive like Aurelian’s, we are inside a hungry idea.",
+    "likes": 4200,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Don’t say that. Now I’m thinking about it."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Get out. Mansions that think are worse than monsters."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_bathhouse_keys",
+    "order": 41000,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 12,
+      "minute": 56
+    },
+    "content": "Lady Aurelian gave me keys to the bathhouse! She says 'secrets are found there.' Also she said we smell like wet dogs. I am offended! I smell like roses and garlic!",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Just take the bath, Waluigi. We have been in a sewer, a swamp, and a spider nest."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "I found the tub. It has bubbles that glow. And possibly teeth."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_threatens_guild",
+    "order": 41001,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 0
+    },
+    "content": "Told Lady Aurelian I could call the Mages' Guild on her. She laughed. Said she is 'sleeping with a guest tonight' and we can have the Master Bedroom.",
+    "likes": 45,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Is the guest me? It should be me!"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "It is an old family member. Do not flatter yourself, purple one."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_sleepover",
+    "order": 41002,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 15
+    },
+    "content": "A sleepover in the Master Bedroom! I have gathered pillows. Toad Lee asks for my true name. It is Azure. Do not wear it out.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Azure. Nice. Now check for mimics. The bed looks hungry."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Traps first. Sleep later. Always."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_bathroom_discovery",
+    "order": 41003,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 30
+    },
+    "content": "Bathroom discovered! Marble tub with bubbling fountain. Ferns in every corner. Waluigi tried to drink the bathwater. I stopped him. Mostly.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "It smelled like lavender! And secrets!"
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The bubbles whispered ancient runes. I took notes."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_satyr_negotiation",
+    "order": 41004,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 45
+    },
+    "content": "Satyrs demand 'one round of drinks' despite only two present. Their leader is Ralos/Relis? Smells like regret and fermented berries. Party started when we arrived.",
+    "likes": 520,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Did you get their deposit? They broke the last guest wing."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Relis. And he owes me three casks of vintage."
+      }
+    ]
+  },
+  {
+    "id": "aurelian_guard_failure",
+    "order": 41005,
+    "characterKey": "lady_aurelian",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 58
+    },
+    "content": "My guards tried evicting Satyrs. They returned drunk. Half the Satyrs are their 'drinking buddies'. Pathetic. The swordmaster Relis leads them. Diplomacy failed.",
+    "likes": 33,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Volunteering as chaperone. Bring your warhammer."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "I could set them on fire? Just a little?"
+      }
+    ]
+  },
+  {
+    "id": "vine_room_trap",
+    "order": 41006,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 10
+    },
+    "content": "Vine room attacked! Thorns grabbed my warhammer. Rakasha & Waluigi swung me out like a lasso. Took 0 damage. Mostly pride.",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "You screamed like a pixie. It was majestic."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Did you leave the hammer? Please say yes."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_fire_solution",
+    "order": 41007,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 15
+    },
+    "content": "Solved the vine room! Hjumpik said 'burn it'. So I did. Fire hands for the win! Room is now safe. Also found a shyguy flying toy. It’s mine now.",
+    "likes": 2200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I said handle it. You chose arson. Again."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "The toy is crying. It wants its owner back."
+      }
+    ]
+  },
+  {
+    "id": "goblin_under_table",
+    "order": 41024,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 5
+    },
+    "content": "Found a goblin under Legion table. Not eating. Just polishing a spoon. Said 'It’s not mine' when I asked. Spoon has tiny feather carving.",
+    "likes": 280,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "That’s Lickspoon. He polishes spoons for victims. Feather = he refused blood."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "He left it by my cell. Didn’t look at me."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_flower_pollen",
+    "order": 41025,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 10
+    },
+    "content": "The giant bed-flower shed pollen. rakasha sneezed. Now her fur glows faint green. Toad Lee says it’s ‘photosynthetic regret’. Waluigi stole a petal. It’s warm.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "GLORIOUS! Mustache now brighter than my wallet! ...Does it glow in dark? Asking for night-shift."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "It’s not regret. It’s *memory*. That flower absorbed Argorok’s last sigh. Handle gently."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_guard_snore",
+    "order": 41026,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 25
+    },
+    "content": "Guard #2 fell asleep leaning on vase. Not knocked out. Just... tired. Vase has chip shaped like toadstool. From when? Who broke it?",
+    "likes": 410,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "That chip’s been there since the squirrel incident. 3 parties ago. You didn’t notice?"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Squirrel was Ralos’ cousin. He’s bringing acorns tomorrow. Do not mention."
+      }
+    ]
+  },
+  {
+    "id": "archie_spoon_feather",
+    "order": 41027,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 20
+    },
+    "content": "Lickspoon’s spoon feather dissolved in my pocket. Left warm patch. Green T says: ‘Feathers = promises. Dissolved = kept.’ Did not ask what.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "The promise was ‘I won’t watch you sleep’. I kept it. Spoon’s clean now."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_plant_whisper",
+    "order": 41028,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 35
+    },
+    "content": "Fiddlehead fern by bath moved toward Waluigi’s glowing mustache. Not light-seeking. Toward *green*. Took notes. Will compare to moonlight reaction later.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Does it like my mustache? Can I name it? It’s curly!"
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "It’s not the mustache. It’s the *memory* in the pollen. Ferns remember everything here."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_vase_repair",
+    "order": 41029,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 50
+    },
+    "content": "Fixed guard’s vase with moss + spider-silk (from ceiling). Chip still there. But now silk thread shaped like question mark. Not there 10 min ago.",
+    "likes": 650,
+    "comments": [
+      {
+        "characterKey": "spider_npc",
+        "text": "Question mark = ‘Why fix?’ Not judgment. Just... curious."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Spiders don’t ask ‘why’. They ask ‘when’. Note time."
+      }
+    ]
+  },
+  {
+    "id": "archie_operating_light",
+    "order": 41030,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 30
+    },
+    "content": "Operating room light flickers when human breathes. Not faulty. Synced. Counted 17 breaths = 1 flicker. Green T: ‘They’re counting *us* now.’",
+    "likes": 770,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Breath pattern matches the spoon-feather promise. Coincidence? Unlikely here."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_petal_sandwich",
+    "order": 41031,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 5,
+      "minute": 0
+    },
+    "content": "Put Argorok-petal in sandwich. Tasted like ‘almost-sorry’. Wario ate rest. Now his sneeze-glow pulses with heartbeat. Toad Lee: ‘Don’t share food with cursed things.’",
+    "likes": 4400,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "BEST SANDWICH! Glow matches my rhythm! ...Does it work in lava? Testing!"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "It’s not cursed. It’s *remembering*. Stop treating memory like garbage."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_acorn_note",
+    "order": 41032,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 5,
+      "minute": 15
+    },
+    "content": "Ralos’ cousin left acorn by vase. Not for eating. Carved tiny ‘?’ on cap. Guard #1 placed it on windowsill. Not asked why.",
+    "likes": 390,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "He’s asking if the squirrel’s ghost is happy. Do not answer. Do not look."
+      }
+    ]
+  },
+  {
+    "id": "archie_coffin_bang_code",
+    "order": 41033,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 45
+    },
+    "content": "Coffin bang pattern: 3 short, 1 long, 2 short. Not random. Green T tapped back 2 short. Coffin stopped. Waited. Bang 1 long. Green T: ‘They’re learning our code.’",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Last time they stopped = when I said ‘safe’. They mean ‘safe’ differently than us."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_vine_scar",
+    "order": 41034,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 5,
+      "minute": 30
+    },
+    "content": "Vine scar on my wrist from earlier? Glows when fern moves toward mustard-light. Not pain. Like... recognition. Toad Lee saw. Didn’t say. Just handed me salt.",
+    "likes": 820,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Salt for grounding. Not because you’re hurt. Because the vine *saw you see it*."
+      }
+    ]
+  },
+  {
+    "id": "green_t_cell_dust",
+    "order": 41035,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 20,
+      "minute": 0
+    },
+    "content": "Dust cell floor forms patterns when Legion boots pass. Not wind. Rhythm matches coffin-bang code. Drew ‘?’ in dust with toe. Pattern reset to lines. Not erased.",
+    "likes": 410,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "They reset questions to boundaries. Not refusal. ...Thank you for the pattern."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_fern_moonlight",
+    "order": 41059,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 23,
+      "minute": 55
+    },
+    "content": "Fern by bath moved toward moonlight *through* window. Not light source. Toward the *shadow* of the iron grate. Took rubbing. Pattern = goblin spoon-carving. Coincidence? Unlikely.",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Goblin spoon-carving = shield shape. Fern knows safe places."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Can it draw my mustache? With glow?"
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Already did. It’s by the door. You’ll see it at dawn."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_vase_question_answered",
+    "order": 41060,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 5
+    },
+    "content": "Vase question-mark silk thread? Gone. Replaced by tiny acorn cap (from cousin’s gift) balanced on rim. Guard #1 nodded. Did not smile. Did not need to.",
+    "likes": 740,
+    "comments": [
+      {
+        "characterKey": "lady_aurelian",
+        "text": "The squirrel’s ghost is content. Do not thank the guard. Do not acknowledge. ...He knows."
+      }
+    ]
+  },
+  {
+    "id": "archie_dawn_plan",
+    "order": 41061,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 0,
+      "minute": 10
+    },
+    "content": "Green T: ‘Dawn shift change. Less watching. More breathing.’ We move when light hits the spoon-carving on Lickspoon’s wall. Not a word.",
+    "likes": 980,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "The spoon-carving is now on the wall. Not mine to give. ...It’s ready."
+      }
+    ]
+  },
+  {
+    "id": "magic_detection_names",
+    "order": 41008,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 20
+    },
+    "content": "Magic detection orb! Needs three names: Corvinarus, Oriacle, Cornellius. Motion activated. Probably a bloodline lock. Or a fancy doorbell.",
+    "likes": 780,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Oriacle? That's the Lady's mother. Dead for centuries."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "So we need a ghost. Perfect."
+      }
+    ]
+  },
+  {
+    "id": "mezzanine_statue_secret",
+    "order": 41009,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 35
+    },
+    "content": "Mezzanine has blood stains (wine? blood?). Statue eyes follow you. Found paper underneath – summoned Usk’s shadow. He looked... disappointed.",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Usk from the other manor? Small world."
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "That statue judges everyone. It thinks you're uncultured."
+      }
+    ]
+  },
+  {
+    "id": "archie_haunted_start",
+    "order": 41010,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 0
+    },
+    "content": "Green T insists my friends are dead. It's been two days. Situation got heated – had to run. They're fine. Probably. Locked in a vampire mansion now.",
+    "likes": 330,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Your optimism is statistically improbable."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Vampires? We have Satyrs. Trade you?"
+      }
+    ]
+  },
+  {
+    "id": "archie_vampire_cook",
+    "order": 41011,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 15
+    },
+    "content": "Vampire cooking meat. Asked if it was dinner. Ran into operating room – human on table. Green T split us up. I barricaded in a coffin room. Banging. So much banging.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I distracted the chef. You're welcome."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Did you get the recipe? Asking for a friend."
+      }
+    ]
+  },
+  {
+    "id": "archie_dracacide_disguise",
+    "order": 41012,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 30
+    },
+    "content": "Disguised as Dracacide! Vampire asked about Green T. Said no. He was filing paperwork for two kills. Green T escaped under the bed. I followed. So many forms.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Paperwork? Even in undeath?"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "The bed had a gun. I almost became paperwork."
+      }
+    ]
+  },
+  {
+    "id": "archie_airship_crash",
+    "order": 41013,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 45
+    },
+    "content": "Airship crashed. Swarmed by Legion troops. 'ATTENTION CITIZENS. ANOMALY CONTAINED.' Where are the toads? Dan might be here. Disguised as a guard to ask.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "We're at a fey manor. Satyr eviction service. Join us!"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Legion means bureaucracy. Worse than vampires."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_satyr_eviction",
+    "order": 41014,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Eviction time. Satyrs are passed out in leaf hammocks. Smells like cheap wine and goat. Aurelian gave me two guards. Their rule: subdue only. No killing.",
+    "likes": 580,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Can I scare them? Just a little fire?"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "Break my manor and you're sleeping in the stables."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_satyr_prank",
+    "order": 41015,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 20
+    },
+    "content": "Two Satyrs 'fell' off the gangway. I may have yelled 'FREE BEER' below. They splatted but are fine. Hjumpik is glaring. Worth it.",
+    "likes": 3400,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "You pushed them. I saw you."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Next time you're the projectile."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_mushroom_gains",
+    "order": 41016,
+    "characterKey": "toad_lee",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 35
+    },
+    "content": "Bathroom mushroom puffed gas at Hjumpik. He can't stop flexing. Gains are... impressive? Waluigi tried to lick it. I intervened.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "My biceps have their own gravitational pull."
+      },
+      {
+        "characterKey": "wario",
+        "text": "Save some flex for the rest of us!"
+      }
+    ]
+  },
+  {
+    "id": "rakasha_azure_calm",
+    "order": 41017,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 10
+    },
+    "content": "The play excited me. Now calm. Planning the Satyr eviction. Waluigi suggests fireworks. Hjumpik says no. Toad Lee suggests diplomacy. Relis laughs at diplomacy.",
+    "likes": 430,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Fireworks are diplomacy! Loud, colorful diplomacy."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Fireworks in a wooden manor. What could go wrong?"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_ghost_thumbs",
+    "order": 41018,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 18
+    },
+    "content": "Ghost in the hall. Gave it a thumbs up. It vanished. Either approval or horror. Hard to tell with ghosts.",
+    "likes": 880,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It reappeared behind you. Doing jazz hands."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Ghosts hate thumbs. It's a known fact."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_fly_over_crowd",
+    "order": 41019,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 22
+    },
+    "content": "Flew over the Satyr crowd! Guards grabbed. Jumped into Hjumpik's arms. He swung his hammer. Toad Lee flew downstairs. We have to go. Now.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I landed in a salad. It was humiliating."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "You flew with grace. Like a potato."
+      }
+    ]
+  },
+  {
+    "id": "corvinarus_family_secret",
+    "order": 41020,
+    "characterKey": "lady_aurelian",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 5
+    },
+    "content": "Magic runs weak in my bloodline. Or so they say. I find it fascinating. An old family member arrives soon. They'll be gone in five nights. Satyrs too.",
+    "likes": 210,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Five nights? We'll be done by dawn."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Is the relative single? Asking for me."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_master_bedroom",
+    "order": 41021,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 5
+    },
+    "content": "Master Bedroom is ours! Aurelian sleeps with a guest. NOT me. Giant flower bed glows. Chairs are ancient. Vines hold up the furniture. I claim the flower.",
+    "likes": 990,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "The flower smells like regret. And pollen."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "I claim the vines. They whisper secrets."
+      }
+    ]
+  },
+  {
+    "id": "green_t_hide_cell",
+    "order": 41022,
+    "characterKey": "green_t",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 18,
+      "minute": 40
+    },
+    "content": "Hid in a cell. Archie disguised as vampire. Gave me a dagger. Too quiet. Hear Legion outside. Airship is scrap metal. Hope Archie has a plan.",
+    "likes": 320,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Plan B: Run faster than the Legion."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Daggers are good. Fire is better."
+      }
+    ]
+  },
+  {
+    "id": "archie_legion_encounter",
+    "order": 41023,
+    "characterKey": "archie",
+    "rumorId": "haunted_mansion_mystery",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 19,
+      "minute": 0
+    },
+    "content": "Disguised as Legion guard. Asked about Dan. Got ignored. Green T is hidden. We need to reach the airship crash site. Avoid the operating room.",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Operating rooms are bad. Trust me."
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Did you see any purple? I love purple."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_statue_paper",
+    "order": 41024,
+    "characterKey": "hjumpik",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 40
+    },
+    "content": "Statue paper summoned Usk. He said 'your friends there probably dead'. I said they're fine. He vanished. Creepy.",
+    "likes": 560,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "We're alive! Mostly. Vampires are clingy."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Usk owes me 5 gold. Tell him next time."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_shyguy_toy",
+    "order": 41025,
+    "characterKey": "waluigi",
+    "rumorId": "fey_manor_service",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 14,
+      "minute": 18
+    },
+    "content": "Shyguy toy flies! It circles my head. Singing 'I'm gonna win!'. Annoying. Might trade it for a sandwich.",
+    "likes": 777,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It's singing about your doom. Check the lyrics."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "I heard it chant a hex. Be careful."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_lady_aurelian_meet",
+    "order": 40900,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 2,
+      "minute": 0
+    },
+    "content": "Met the Lady of the Manor. Aurelian Corvinarus. She pointed right at my Entropy Ring. Asked for it. I said \"Not on the first date.\" She didn't laugh.",
+    "likes": 120,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "She has style. Scary style. But style."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "She called it an Entropy Regulator. She knows exactly what it does."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_task",
+    "order": 40901,
+    "characterKey": "lady_aurelian",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 2,
+      "minute": 15
+    },
+    "content": "Guests who overstay their welcome are tiresome. There are Satyrs in the Guest Wing who refuse to leave. Remove them, and we can discuss your... departure.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "We are basically janitors now."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_fireball_check",
+    "order": 40902,
+    "characterKey": "toad_lee",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 2,
+      "minute": 30
+    },
+    "content": "Waluigi just summoned a fireball in his hand and looked at the Lady. I told him NO. We are NOT fighting a Fey Lord in her own house. Yet.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "It was a tiny fireball! A warning shot!"
+      }
+    ]
+  },
+  {
+    "id": "guest_room_vines",
+    "order": 40910,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 0
+    },
+    "content": "Guest rooms are a mess. Vines everywhere. Hammocks made of leaves. Satyrs passed out on the floor. Smells like cheap wine and goat.",
+    "likes": 450,
+    "comments": []
+  },
+  {
+    "id": "hjumpik_satyr_beer",
+    "order": 40911,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 15
+    },
+    "content": "Offered a beer to a Satyr to get him moving. He took it, walked onto the gangway... and fell off. Just walked right off the edge into the dining hall below. *SPLAT*",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Gravity is a harsh mistress."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_satyr_splat",
+    "order": 40912,
+    "characterKey": "waluigi",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 30
+    },
+    "content": "Two more Satyrs just fell. I may have... encouraged them. Oops. Problem solved!",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "You pushed them! I saw you!"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Allegedly!"
+      }
+    ]
+  },
+  {
+    "id": "bathroom_mushroom_gas",
+    "order": 40913,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 3,
+      "minute": 45
+    },
+    "content": "Checked the bathroom. A mushroom puffed gas in my face. Now I can't stop flexing my muscles. It's involuntary. Look at these gains!",
+    "likes": 2300,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Nice flex! Work the glutes!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_hag_referral",
+    "order": 40920,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 0
+    },
+    "content": "Found more guests. Told them about a \"Great Bed & Breakfast\" nearby. It's the Hag's Hut. Told them she has great stew. I am a terrible person.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "It's efficient. Two problems, one solution."
+      }
+    ]
+  },
+  {
+    "id": "satyr_departure",
+    "order": 40921,
+    "characterKey": "satyr_guest",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 15
+    },
+    "content": "Leaving for the Hut! This nice dwarf says there are beds and food! The party never ends!",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "hag_of_raventree",
+        "text": "Fresh ingredients. Delicious."
+      }
+    ]
+  },
+  {
+    "id": "lady_aurelian_deal_update",
+    "order": 40922,
+    "characterKey": "lady_aurelian",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 4,
+      "minute": 30
+    },
+    "content": "You cleared the room. Good. Now clear the rest of the house.",
+    "likes": 34,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Wait! That wasn't the deal! You said we could leave!"
+      },
+      {
+        "characterKey": "lady_aurelian",
+        "text": "I am altering the deal. Pray I do not alter it further."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_butterfly_spot",
+    "order": 40930,
+    "characterKey": "toad_lee",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 12,
+      "minute": 0
+    },
+    "content": "Checked upstairs. There is a Butterfly the size of a carriage sleeping in the hall. It snores like a chainsaw.",
+    "likes": 560,
+    "comments": []
+  },
+  {
+    "id": "orc_butler_sleeping",
+    "order": 40931,
+    "characterKey": "toad_lee",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 12,
+      "minute": 15
+    },
+    "content": "Two Orc Butlers sleeping on the job. Looks like the night shift. We should be quiet.",
+    "likes": 230,
+    "comments": []
+  },
+  {
+    "id": "waluigi_entropy_chat",
+    "order": 40932,
+    "characterKey": "waluigi",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 12,
+      "minute": 30
+    },
+    "content": "The Lady likes me! She says I am \"oozing with entropy.\" That is a compliment, right?",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It means you are chaotic and possibly radioactive."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_master_bedroom",
+    "order": 40933,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 25,
+      "hour": 13,
+      "minute": 0
+    },
+    "content": "Opened the Master Bedroom door. Lady Aurelian was right behind me. She said \"Not on the first date.\" I closed the door. Very fast.",
+    "likes": 890,
+    "comments": []
+  },
+  {
+    "id": "butterfly_scream",
+    "order": 40940,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 0
+    },
+    "content": "Opened the first door upstairs. THE BUTTERFLY SCREAMED AT ME! \"RAAAAAAAAA!\" Why does a butterfly roar?!",
+    "likes": 3400,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "My ears are ringing. That was not a butterfly. That was a demon with wings."
+      }
+    ]
+  },
+  {
+    "id": "staff_confrontation",
+    "order": 40941,
+    "characterKey": "goblin_staff",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 10
+    },
+    "content": "Intruders! We heard the scream! Identify yourselves!",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Relax! Aurelian sent us! We are checking on the... butterfly extermination progress."
+      }
+    ]
+  },
+  {
+    "id": "staff_negotiation",
+    "order": 40942,
+    "characterKey": "hjumpik",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 4,
+      "minute": 15
+    },
+    "content": "Bluffed the guards. They said two staff died trying to move the butterfly. I asked to see the new recruits.",
+    "likes": 670,
+    "comments": []
+  },
+  {
+    "id": "rakasha_found",
+    "order": 40950,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 0
+    },
+    "content": "Found her! Rakasha is working as \"staff in training.\" She has Steely/Mossy with her. And... another Rakshasa? They got hired?",
+    "likes": 560,
+    "comments": [
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "The pay is good. And the uniforms are silk."
+      }
+    ]
+  },
+  {
+    "id": "steely_pet",
+    "order": 40951,
+    "characterKey": "remi",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 5,
+      "minute": 15
+    },
+    "content": "Why is my dog with the cat lady?! Give her back!",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "She found her. Finders keepers."
+      }
+    ]
+  },
+  {
+    "id": "perrius_head_voice",
+    "order": 40960,
+    "characterKey": "perrius_annmatar",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 18
+    },
+    "content": "(Telepathic Message to Hjumpik) \"Do not let the timelines sever. If they separate, the plan fails. Kill the Heir. Sever the bloodline. Or probability becomes 100% and we are all trapped.\"",
+    "likes": 0,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Get out of my head! And stop asking me to murder people!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_dilemma",
+    "order": 40961,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 6,
+      "minute": 20
+    },
+    "content": "The Ghost Mage says I have to kill the Orange Heir. But my gut says the Heir isn't even related. I need evidence. I need to raid the library again. Or kill the horrors in the house. This day is going to be long.",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Investigation time. Let's find a family tree."
+      }
+    ]
+  },
+  {
+    "id": "wah_media_feywild_update",
+    "order": 40962,
+    "characterKey": "wah_media_collective",
+    "rumorId": "theater_of_the_lost",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 26,
+      "hour": 7,
+      "minute": 0
+    },
+    "content": "Status Update: The Feywild team has reunited. They have a sword that blooms, a cat lady butler, and a mission to assassinate a possibly fake heir. The fate of the timeline rests on a Dwarf with a hammer. We are doomed.",
+    "likes": 5000,
+    "comments": []
+  },
+  {
+    "id": "waluigi_complaint",
+    "order": 40542,
+    "characterKey": "waluigi",
+    "rumorId": "wraith_banishment",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 10
+    },
+    "content": "MY LEG NEEDS MEDICAL ATTENTION!!! AND A MASSAGE!!! AND ROSES!!! I DEMAND TO SEE THE MANAGER OF THIS GARDEN RIGHT NOW 😤😤😤",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "drink the potion i stole and shut up"
+      },
+      {
+        "characterKey": "wario",
+        "text": "STOP WHINING! WAH!"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "lmaooo classic"
+      }
+    ]
+  },
+  {
+    "id": "onyx_papers_orangus",
+    "order": 40800,
+    "characterKey": "orangus_corenilous",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 32
+    },
+    "content": "Four minutes. That’s all you get. Talk fast, write a name, fold the paper, slide it to me. If you need more time, you’re not built for this table.",
+    "likes": 210,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Timed voting at a vampire dinner is insane behavior."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Proceedings recorded."
+      }
+    ]
+  },
+  {
+    "id": "wrist_thing_question",
+    "order": 40801,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "Toadburt keeps palming his wrist like he’s hiding a card up his sleeve. I asked what it was and he hit me with: “It stabilizes things.” Buddy, EVERYTHING is unstable in here.",
+    "likes": 340,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "It is boring. Stop staring at my wrist."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "If it stabilizes things, why does it look like a trigger?"
+      }
+    ]
+  },
+  {
+    "id": "entropy_ring_click",
+    "order": 40802,
+    "characterKey": "toadburt",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 33
+    },
+    "content": "It’s not a “ring.” It’s a friendship bracelet. Totally normal. Please stop watching me touch it. (Also… why does it *click*?)",
+    "likes": 590,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Because you keep SLAMMING it like it owes you money."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "If jewelry clicks, step away from the jewelry."
+      }
+    ]
+  },
+  {
+    "id": "entropy_builds",
+    "order": 40803,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 34
+    },
+    "content": "He clicked it. It glowed purple. Not “pretty gem” purple—like “stormcloud at midnight” purple. The room got that quiet where you can hear everyone pretending they’re fine.",
+    "likes": 430,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "It is fine. It is completely fine."
+      },
+      {
+        "characterKey": "archie",
+        "text": "That’s the least convincing 'fine' I’ve ever heard."
+      }
+    ]
+  },
+  {
+    "id": "archie_meets_vostolas",
+    "order": 40804,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 35
+    },
+    "content": "Walked up to the librarian guy like: “You’re Volsto, right?” He corrected me so sharply it felt like getting slapped with a bookmark. “Vostolas. Excuse me.”",
+    "likes": 510,
+    "comments": [
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Names matter."
+      },
+      {
+        "characterKey": "markop",
+        "text": "That correction did psychic damage."
+      }
+    ]
+  },
+  {
+    "id": "vostolas_tenure",
+    "order": 40805,
+    "characterKey": "vostolas_archivist",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 35
+    },
+    "content": "I am the Archivist of the Onyx Hand manor. Tenure: 321 years, 100 minutes, 20 seconds. Yes, I keep exact time. No, I do not “relax.”",
+    "likes": 300,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "He said it like a threat. I respect it."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "Longevity plus bureaucracy is always a bad sign."
+      }
+    ]
+  },
+  {
+    "id": "archie_reality_doubt",
+    "order": 40806,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 36
+    },
+    "content": "Confession: I don’t know if this night is real. The manor keeps “snapping” into perfection like someone is editing the world mid-scene.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Live fact-check: reality currently unverified."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "It is real enough to be recorded."
+      }
+    ]
+  },
+  {
+    "id": "markop_green_t_check",
+    "order": 40807,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 36
+    },
+    "content": "Asked Vostolas if he’s with Green T. He said “no” with the calm of a man who has watched a thousand people lie the same way.",
+    "likes": 280,
+    "comments": [
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "I am with my duties."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "I’m with my pistol. Different vibe."
+      }
+    ]
+  },
+  {
+    "id": "archie_to_toadburt_plan",
+    "order": 40808,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 37
+    },
+    "content": "Toadburt leans in and hits me with: “He’s got another plan.” The way he said “another” made it sound like there were already bodies in the first plan.",
+    "likes": 520,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "No bodies. Yet."
+      },
+      {
+        "characterKey": "markop",
+        "text": "“Yet” is carrying a lot of weight there."
+      }
+    ]
+  },
+  {
+    "id": "toadburt_blow_up_place",
+    "order": 40809,
+    "characterKey": "toadburt",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 37
+    },
+    "content": "Okay fine. Plan: we remove the Oracle. Green T “starts the party” from a cabinet. Then we slip out during the screaming. Shaky alliances = easy exits.",
+    "likes": 740,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Cabinet is optional. Screaming is mandatory."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I hate how workable that sounds."
+      }
+    ]
+  },
+  {
+    "id": "archie_green_t_denial",
+    "order": 40810,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 38
+    },
+    "content": "I swear I saw Green T leave the room earlier. So either he’s not in that cabinet or this manor is doing the “two places at once” thing again.",
+    "likes": 610,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I contain multitudes. And exits."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Duplication has precedent tonight."
+      }
+    ]
+  },
+  {
+    "id": "kryn_spawn_reveal",
+    "order": 40811,
+    "characterKey": "kryn_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 38
+    },
+    "content": "That creature you’re whispering about? Vampire spawn. Also: yes, I am the Oracle’s brother. Say it louder if you want everyone to hear.",
+    "likes": 330,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "No thanks, I like my neck attached."
+      },
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "Family introductions are always so charming."
+      }
+    ]
+  },
+  {
+    "id": "markop_sits_by_spawn",
+    "order": 40812,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 39
+    },
+    "content": "I don’t believe Kryn. I still sat closer to the spawn because if it’s going to jump someone, I’d like it to pick a different direction first.",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "kryn_corvinarus",
+        "text": "Prudent."
+      },
+      {
+        "characterKey": "archie",
+        "text": "This is the saddest survival strategy I’ve ever seen."
+      }
+    ]
+  },
+  {
+    "id": "markop_meets_vaxillus",
+    "order": 40813,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 39
+    },
+    "content": "Vaxillus Loumaal looks like the kind of guy who’s been polite for 80 years and is one bad toast away from biting someone.",
+    "likes": 290,
+    "comments": [
+      {
+        "characterKey": "vaxillus_loumaal",
+        "text": "I do not bite. I endure."
+      },
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "He is beautiful when he endures."
+      }
+    ]
+  },
+  {
+    "id": "vaxillus_wants_out",
+    "order": 40814,
+    "characterKey": "vaxillus_loumaal",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 40
+    },
+    "content": "I got dogs when I was young. They were honest. This manor isn’t. I have wanted to leave for a long time.",
+    "likes": 360,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "The dogs were the only green flag in this whole house."
+      },
+      {
+        "characterKey": "kryn_corvinarus",
+        "text": "Leaving is not as simple as wanting."
+      }
+    ]
+  },
+  {
+    "id": "vaxillus_star_guest",
+    "order": 40815,
+    "characterKey": "vaxillus_loumaal",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 40
+    },
+    "content": "There’s a “star guest” tonight. Everyone keeps saying it like it’s an honor. The way they look at him says “meat.”",
+    "likes": 530,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Celebrity spotting: yes. Celebrity survival odds: unclear."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "Do not eat anything that looks like it used to talk."
+      }
+    ]
+  },
+  {
+    "id": "markop_meets_vivesna",
+    "order": 40816,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 41
+    },
+    "content": "Met Vivesna. “First in line” energy. Smiles like she already measured the drapes for her future throne.",
+    "likes": 410,
+    "comments": [
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "It is not a throne. It is duty."
+      },
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "Duty is a lovely leash."
+      }
+    ]
+  },
+  {
+    "id": "vivesna_bitten_father",
+    "order": 40817,
+    "characterKey": "vivesna_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 41
+    },
+    "content": "Orangus bit me. He raised me. He is my father. Markop called me a “kidnappee” like that’s not incredibly rude.",
+    "likes": 620,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "I’m rude because I’m concerned. Different thing."
+      },
+      {
+        "characterKey": "vaxillus_loumaal",
+        "text": "Some families are built from wounds. That doesn’t make them holy."
+      }
+    ]
+  },
+  {
+    "id": "vivesna_age_choice",
+    "order": 40818,
+    "characterKey": "vivesna_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 42
+    },
+    "content": "Age: 107. Favorite person: my father. Favorite at the table: Archie. We spoke for a thousand years today. Don’t ask how; it’s embarrassing.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Time got weird. I’m still catching up to my own sentences."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Conversation duration logged."
+      }
+    ]
+  },
+  {
+    "id": "observer_invited",
+    "order": 40819,
+    "characterKey": "vivesna_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 42
+    },
+    "content": "“Why is the Observer here?” Because I didn’t want them standing outside like a stray. This is a private event, not a cruelty showcase. (Mostly.)",
+    "likes": 470,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Private event, public consequences."
+      },
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "Everything here is a showcase, darling."
+      }
+    ]
+  },
+  {
+    "id": "darius_family_notes_1",
+    "order": 40820,
+    "characterKey": "darius_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 43
+    },
+    "content": "Orangus: I heard he was good. In truth, selfish and cruel like the rest. If death comes for him tonight, it is late.",
+    "likes": 510,
+    "comments": [
+      {
+        "characterKey": "kryn_corvinarus",
+        "text": "Not at the table, Darius."
+      },
+      {
+        "characterKey": "markop",
+        "text": "This family does NOT do inside voices."
+      }
+    ]
+  },
+  {
+    "id": "darius_family_notes_2",
+    "order": 40821,
+    "characterKey": "darius_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 43
+    },
+    "content": "Ylana: chain and critic. Gone at last. Elscieth: helpless and ambitionless. Byscilla: shocked Elscieth found anyone willing to touch her.",
+    "likes": 460,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Family review dropped: 0 stars, emotionally unsafe."
+      },
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "You should not say these things where the house can hear."
+      }
+    ]
+  },
+  {
+    "id": "darius_family_notes_3",
+    "order": 40822,
+    "characterKey": "darius_corvinarus",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 44
+    },
+    "content": "Usk: fetching, unsteady. Vostolas: looks through me like I am ink. Lyranth: my pet. Tymnas: effective, miserable. Vaxillus: my greatest work.",
+    "likes": 520,
+    "comments": [
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Comparison rejected. Recording continues."
+      },
+      {
+        "characterKey": "vaxillus_loumaal",
+        "text": "Being called someone’s “work” is not the compliment he thinks it is."
+      }
+    ]
+  },
+  {
+    "id": "kitchen_poison_alert",
+    "order": 40823,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 45
+    },
+    "content": "Cracked open the kitchen door and immediately got hit with hot metal smell and panic. “Can you help? A waiter was poisoned.” The chef said it like the soup was slightly salty.",
+    "likes": 640,
+    "comments": [
+      {
+        "characterKey": "iron_legion_cook",
+        "text": "He ate the candies. We all watched him do it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "WHY ARE THERE POISON CANDIES AT A DINNER."
+      }
+    ]
+  },
+  {
+    "id": "candy_confirmed",
+    "order": 40824,
+    "characterKey": "kitchen_staff",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 45
+    },
+    "content": "You know the “decorative candies” on the silver tray? They’re not decorative. They’re not even candies. Nobody listens.",
+    "likes": 420,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "I definitely listened. I still hate it."
+      },
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "The tray is a test."
+      }
+    ]
+  },
+  {
+    "id": "protect_toadburt_call",
+    "order": 40825,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 46
+    },
+    "content": "I did the “everyone gather round” thing. Not proud. But if someone’s about to flip a purple-glowing switch, I want eyes on him.",
+    "likes": 510,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "Less eyes, actually. Preferably none."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "Good instinct. Bad artifact."
+      }
+    ]
+  },
+  {
+    "id": "orangus_collects_papers",
+    "order": 40826,
+    "characterKey": "orangus_corenilous",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 46
+    },
+    "content": "Time. Papers. Now. Hands steady. If you’re shaking, you’ve already voted for yourself.",
+    "likes": 730,
+    "comments": [
+      {
+        "characterKey": "real_darman",
+        "text": "I’m steady. I’m also offended."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Compliance noted."
+      }
+    ]
+  },
+  {
+    "id": "closet_green_t_plan",
+    "order": 40827,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 47
+    },
+    "content": "Yes, there was a closet. Yes, Green T was in it. He said, “I’ll signal. The room will break. We move in the cracks.” Cool sentence. Horrible context.",
+    "likes": 860,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Closets are tactical."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Nothing about that sentence made me feel safer."
+      }
+    ]
+  },
+  {
+    "id": "alliances_shaky",
+    "order": 40828,
+    "characterKey": "green_t",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 47
+    },
+    "content": "Everyone here hates everyone else. They just hate hunger more. When the first scream hits, the masks fall off.",
+    "likes": 690,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Prediction: first scream imminent."
+      },
+      {
+        "characterKey": "kryn_corvinarus",
+        "text": "Masks don’t fall. They get traded."
+      }
+    ]
+  },
+  {
+    "id": "markop_asks_archie_info",
+    "order": 40829,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 48
+    },
+    "content": "I brushed past Archie and whispered, “What did you find out?” like we weren’t surrounded by people who can hear heartbeats.",
+    "likes": 380,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I found out the walls are basically microphones."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Correct."
+      }
+    ]
+  },
+  {
+    "id": "archie_explains_archivist",
+    "order": 40830,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 48
+    },
+    "content": "Vostolas is basically a walking record. Orangus’ memory with legs. Every whisper gets filed. Every lie gets timestamped. He’s not a lawyer… he’s worse.",
+    "likes": 550,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "So: evil notebook with legs."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Dismissive, but accurate."
+      }
+    ]
+  },
+  {
+    "id": "archie_oracle_commitment",
+    "order": 40831,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 49
+    },
+    "content": "We said we’d follow the Oracle’s wish. That means we don’t get to hesitate now. If this ends with Cornelious dead, that’s the price. Speak now.",
+    "likes": 810,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Already made the choice. Don’t blink."
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "I object to dying, personally."
+      }
+    ]
+  },
+  {
+    "id": "markop_wrist_warning",
+    "order": 40832,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 49
+    },
+    "content": "Toadburt is pressing that wrist thing like he’s sending Morse code to disaster. If the room collapses into math, I’m blaming him.",
+    "likes": 430,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "Stop calling it math."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "If it’s entropy, it might literally be math."
+      }
+    ]
+  },
+  {
+    "id": "voting_strategy",
+    "order": 40833,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 49
+    },
+    "content": "We debated “who to vote for” like it was a party game. Meanwhile the host has a knife that hums. We are stupid, but together.",
+    "likes": 640,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "United in poor decisions."
+      },
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "Unity is adorable."
+      }
+    ]
+  },
+  {
+    "id": "vote_for_vostolas",
+    "order": 40834,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 50
+    },
+    "content": "We voted Vostolas. Not because we hate him (we do) but because it felt funny to vote for the guy who records votes.",
+    "likes": 710,
+    "comments": [
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "I recorded your sense of humor."
+      },
+      {
+        "characterKey": "markop",
+        "text": "He’s gonna write this down and haunt us with it later."
+      }
+    ]
+  },
+  {
+    "id": "double_darman_spotted",
+    "order": 40835,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 50
+    },
+    "content": "Guest list glitch: Darman appears twice. Either the manor can’t count or somebody is wearing someone else’s life like a coat.",
+    "likes": 820,
+    "comments": [
+      {
+        "characterKey": "real_darman",
+        "text": "Somebody is going to explain this to me."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Not it."
+      }
+    ]
+  },
+  {
+    "id": "real_darman_speaks",
+    "order": 40836,
+    "characterKey": "real_darman",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 51
+    },
+    "content": "The moment I saw my name twice, I cleared my throat. “Two of me on the list. Curious.” Watching everyone pretend not to panic is delicious.",
+    "likes": 950,
+    "comments": [
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "Curiosity will be satisfied shortly."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Oh cool, the REAL guy is here. Great."
+      }
+    ]
+  },
+  {
+    "id": "knife_slid_to_archie",
+    "order": 40837,
+    "characterKey": "orangus_corenilous",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 51
+    },
+    "content": "I slid the crystalline knife to “Darman.” It sang against the wood like it missed blood. “Carve Usk, or offer your own hand. Choose fast.”",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I hate this game."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Decision point recorded."
+      }
+    ]
+  },
+  {
+    "id": "vote_tally_announced",
+    "order": 40838,
+    "characterKey": "orangus_corenilous",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 52
+    },
+    "content": "Votes tallied. Lots of cowards hiding behind blank paper. Lots of “brave” people picking names that won’t bite back. Interesting.",
+    "likes": 880,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Blank votes are coward votes. I said what I said."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "This is not a ballot. It’s a ritual."
+      }
+    ]
+  },
+  {
+    "id": "franklin_plane_note",
+    "order": 40839,
+    "characterKey": "franklin_mages",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 52
+    },
+    "content": "For anyone asking: yes, the mansion feels “off” on a planar level. No, you can’t fix that with candles. Also stop touching unknown purple artifacts.",
+    "likes": 430,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "Noted. I will stop touching it. (Soon.)"
+      },
+      {
+        "characterKey": "archie",
+        "text": "Planar-level wrong is my least favorite category of wrong."
+      }
+    ]
+  },
+  {
+    "id": "archie_cuts_usk",
+    "order": 40840,
+    "characterKey": "archie",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 53
+    },
+    "content": "I chose Usk. The knife didn’t “cut” so much as it *agreed* with the finger. There was a wet sound nobody laughed at.",
+    "likes": 1030,
+    "comments": [
+      {
+        "characterKey": "usk",
+        "text": "AAAA—"
+      },
+      {
+        "characterKey": "real_darman",
+        "text": "That was… efficient."
+      }
+    ]
+  },
+  {
+    "id": "usk_dies_in_arms",
+    "order": 40841,
+    "characterKey": "wah_media_collective",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 53
+    },
+    "content": "Usk bled out slow, cradled by guards like they were comforting a broken vase. The room smelled like iron and expensive cologne.",
+    "likes": 970,
+    "comments": [
+      {
+        "characterKey": "vampire_guard_captain",
+        "text": "Maintain order. Remove the body."
+      },
+      {
+        "characterKey": "markop",
+        "text": "They are treating a death like a spilled drink."
+      }
+    ]
+  },
+  {
+    "id": "archie_eats_eye",
+    "order": 40842,
+    "characterKey": "markop",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 54
+    },
+    "content": "I looked away for ONE SECOND and Archie is eating a human eye. It blinked. I don’t care what anyone says. It blinked at me like it knew me.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "It was served. I’m not wasting food."
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "That is not helping your case."
+      }
+    ]
+  },
+  {
+    "id": "toadburt_iron_badge",
+    "order": 40843,
+    "characterKey": "wah_media_collective",
+    "rumorId": "onyx_hand_voting_chaos",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 54
+    },
+    "content": "Meanwhile, Toadburt gets an empty plate with a bleeding Iron Legion badge like it’s a prank appetizer. He says “oh great cranberry sauce” and smiles like this is normal.",
+    "likes": 1280,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "I cope with humor."
+      },
+      {
+        "characterKey": "iron_legion_cook",
+        "text": "That is not cranberry sauce."
+      }
+    ]
+  },
+  {
+    "id": "gunshot_in_hall",
+    "order": 40844,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 55
+    },
+    "content": "A gunshot cracked the room open. Somebody screamed “GUARDS!” and the dinner vibe officially died (unlike half the guests).",
+    "likes": 2200,
+    "comments": [
+      {
+        "characterKey": "vampire_guard_captain",
+        "text": "LOCK IT DOWN."
+      },
+      {
+        "characterKey": "markop",
+        "text": "KNEW IT. KNEW IT WAS GOING TO BE A GUNSHOT."
+      }
+    ]
+  },
+  {
+    "id": "oracle_slumps",
+    "order": 40845,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 55
+    },
+    "content": "Oracle folded over the table like a puppet with its strings cut. Gun still warm. Silver round, old stock. No enchantments. Just intent.",
+    "likes": 2600,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Don’t assume dead. Move."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "Old silver works until it doesn’t."
+      }
+    ]
+  },
+  {
+    "id": "bowser_flame_erupts",
+    "order": 40846,
+    "characterKey": "bowser",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 56
+    },
+    "content": "RRRRAAAUGH!! WHO SERVES BLOOD-WINE WITHOUT A WARNING?? I AM THE FIRE CODE NOW.",
+    "likes": 3100,
+    "comments": [
+      {
+        "characterKey": "vampire_guard_captain",
+        "text": "STOP BURNING THE WITNESSES."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Bowser is the only one reacting normally."
+      }
+    ]
+  },
+  {
+    "id": "kryn_feeds",
+    "order": 40847,
+    "characterKey": "kryn_corvinarus",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 56
+    },
+    "content": "Chaos is honest. So is hunger. I drank from Orange T’s neck while everyone looked away and pretended they were above it.",
+    "likes": 1400,
+    "comments": [
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "Control yourself."
+      },
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "Do not waste him."
+      }
+    ]
+  },
+  {
+    "id": "markop_orders_exit",
+    "order": 40848,
+    "characterKey": "markop",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 57
+    },
+    "content": "I grabbed FNG and told the toads: “We are leaving. Now.” The guards were sprinting in and the carpet was doing something alive.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "Copy. Moving."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Evacuation attempt: underway."
+      }
+    ]
+  },
+  {
+    "id": "vivesna_i_win",
+    "order": 40849,
+    "characterKey": "vivesna_corvinarus",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 57
+    },
+    "content": "I WIN! I WIN! I— …hold on.",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "That “hold on” was ominous."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Yeah that’s not her voice anymore."
+      }
+    ]
+  },
+  {
+    "id": "vivian_reveals_self",
+    "order": 40850,
+    "characterKey": "vivesna",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 58
+    },
+    "content": "Wig off. Voice drops. Surprise: I’m Vivian, Man of Shadow. Thrall, yes. Heir, now. Orangus got played and I got promoted mid-riot.",
+    "likes": 2750,
+    "comments": [
+      {
+        "characterKey": "orangus_corenilous",
+        "text": "You will be unmade for this."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Identity correction recorded."
+      }
+    ]
+  },
+  {
+    "id": "archie_unheard_warning",
+    "order": 40851,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 58
+    },
+    "content": "I screamed “TRAITOR! THRALL! NOT THE HEIR!” at full volume. Nobody heard me. Bowser’s fire has a louder voice than truth.",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "He actually DID shout it. I saw his lungs try."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "MY FIRE TALKS LOUDER. TRUE."
+      }
+    ]
+  },
+  {
+    "id": "vampires_shout_bowser",
+    "order": 40852,
+    "characterKey": "vampire_guard_captain",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 0,
+      "minute": 59
+    },
+    "content": "We are attempting to restore order. Step one: stop the giant turtle-dragon from roasting the witnesses.",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "NO."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Order restoration status: not great."
+      }
+    ]
+  },
+  {
+    "id": "franklin_entropy_retrieval",
+    "order": 40853,
+    "characterKey": "franklin_mages",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 0
+    },
+    "content": "While everyone watched the drama, I recovered the purple device. It radiates entropy like a hot stove radiates regret. This is coming with me.",
+    "likes": 980,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "Hey that’s my— nevermind."
+      },
+      {
+        "characterKey": "archie",
+        "text": "He just walked off with it like it was his coat."
+      }
+    ]
+  },
+  {
+    "id": "archie_blocked_by_guards",
+    "order": 40854,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 0
+    },
+    "content": "Tried to follow Franklin. Guards stepped in front like moving coffins in velvet. Smelled like old roses and new blood.",
+    "likes": 860,
+    "comments": [
+      {
+        "characterKey": "vampire_guard_captain",
+        "text": "Guests remain seated."
+      },
+      {
+        "characterKey": "markop",
+        "text": "They said that while the room was literally on fire."
+      }
+    ]
+  },
+  {
+    "id": "archie_to_tabletop",
+    "order": 40855,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 1
+    },
+    "content": "I climbed onto the table because that’s apparently who I am now. Green T yelled my name like he was calling a dog out of traffic.",
+    "likes": 1220,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "MOVE."
+      },
+      {
+        "characterKey": "real_darman",
+        "text": "The impersonator is athletic, I’ll give him that."
+      }
+    ]
+  },
+  {
+    "id": "window_escape",
+    "order": 40856,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 1
+    },
+    "content": "Window exit. Grabbed Archie, hauled him through. He landed in rose bushes. Thorns don’t care about plot armor.",
+    "likes": 1780,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Roses hurt more than knives, somehow."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Escape route confirmed: window + shrub damage."
+      }
+    ]
+  },
+  {
+    "id": "debate_bullet_choice",
+    "order": 40857,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 2
+    },
+    "content": "He asked what kind of bullet. Silver. Old. No enchantment. If the Oracle stands back up, I’m going to be mad in a very personal way.",
+    "likes": 1410,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Old silver is still silver. We’ll see."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "No enchantment means you’re relying on folklore."
+      }
+    ]
+  },
+  {
+    "id": "oracle_maybe_alive",
+    "order": 40858,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 3
+    },
+    "content": "I told Green T: don’t assume dead. Some things “die” the way nobles “retire”—they just come back uglier and richer.",
+    "likes": 930,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "If he comes back, we do it again, cleaner."
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "This is why I wanted the bracelet."
+      }
+    ]
+  },
+  {
+    "id": "rescue_toads_decision",
+    "order": 40859,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 3
+    },
+    "content": "We can’t just bail. The toads are still inside and the guards are doing the “everybody line up” thing. Rescue first, existential dread later.",
+    "likes": 990,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Thank you. We were about to get interrogated into paste."
+      },
+      {
+        "characterKey": "vampire_guard_captain",
+        "text": "All attendees will be questioned."
+      }
+    ]
+  },
+  {
+    "id": "plan_gather_targets",
+    "order": 40860,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 4
+    },
+    "content": "Plan (if you can call it that): gather our people, then hunt for “main guys.” If we split too long, this place will rewrite us.",
+    "likes": 620,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Regroup points. No hero stuff."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Manor effects: suspected narrative drift."
+      }
+    ]
+  },
+  {
+    "id": "toads_in_windows",
+    "order": 40861,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 5
+    },
+    "content": "Saw silhouettes in the windows—little mushroom heads. Whispered: “I’m alive. I’m splitting up. Regroup somewhere NOT HERE.” Hope they can read lips through curtains and panic.",
+    "likes": 840,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "We saw you. The roses were loud."
+      },
+      {
+        "characterKey": "markop",
+        "text": "We’re moving. Guards everywhere."
+      }
+    ]
+  },
+  {
+    "id": "third_eye_cosmetic",
+    "order": 40862,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 5
+    },
+    "content": "Asked Archie if the third eye does anything. He said “cosmetic.” Bro is out here collecting trauma and accessories only.",
+    "likes": 770,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Look, some of us commit to the aesthetic."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Cosmetic third eye is wild. Respect."
+      }
+    ]
+  },
+  {
+    "id": "bone_paths_description",
+    "order": 40863,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 6
+    },
+    "content": "Manor grounds update: bone-white paving stones, gray brick edging, crimson petals like dried blood confetti. Someone planned this aesthetic and stuck with it for centuries.",
+    "likes": 930,
+    "comments": [
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "It is curated."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "It’s also a great place to get spotted."
+      }
+    ]
+  },
+  {
+    "id": "fountain_vivian_statue",
+    "order": 40864,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 7
+    },
+    "content": "Found the courtyard fountain. Center statue: young woman holding a bowl, pouring forever. It looks like Vivian. The water sounds… tired.",
+    "likes": 880,
+    "comments": [
+      {
+        "characterKey": "vivesna",
+        "text": "Not me. Not anymore."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Everything here feels like it’s been repeating."
+      }
+    ]
+  },
+  {
+    "id": "three_gold_offering",
+    "order": 40865,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 7
+    },
+    "content": "Left three gold coins at the statue. Don’t know why. Felt like paying a toll to something that was watching and keeping score.",
+    "likes": 970,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Bribing statues is a new one."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Offering recorded."
+      }
+    ]
+  },
+  {
+    "id": "manor_restored_facade",
+    "order": 40866,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 8
+    },
+    "content": "The manor looks “fixed” compared to earlier ruin sightings—gray slate, jet-black tiles, perfect angles. Like the building got reset after the gunshot.",
+    "likes": 820,
+    "comments": [
+      {
+        "characterKey": "franklin_mages",
+        "text": "Planar correction behavior. That’s bad."
+      },
+      {
+        "characterKey": "archie",
+        "text": "It’s like it’s trying to look innocent."
+      }
+    ]
+  },
+  {
+    "id": "curtains_red_glow",
+    "order": 40867,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 8
+    },
+    "content": "Every window is curtained. Red glow behind them like a furnace behind eyelids. You can’t see the party, but you can feel it watching back.",
+    "likes": 780,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Hate being perceived by architecture."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "The manor perceives all."
+      }
+    ]
+  },
+  {
+    "id": "unnatural_blooms",
+    "order": 40868,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 9
+    },
+    "content": "Plants are wrong. Black stems, gray leaves, thorns shaped like talons. Like the garden evolved specifically to punish ankles.",
+    "likes": 920,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "The roses already punished my entire body."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Garden rating: hostile."
+      }
+    ]
+  },
+  {
+    "id": "scorched_grass",
+    "order": 40869,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 9
+    },
+    "content": "Grass is trimmed but colorless, like it forgot sunlight exists. Shadows cling to everything. The grounds feel “post-fire” even before Bowser.",
+    "likes": 830,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I DID NOT START THIS ONE."
+      },
+      {
+        "characterKey": "markop",
+        "text": "He is technically correct for once."
+      }
+    ]
+  },
+  {
+    "id": "iron_fence_barrier",
+    "order": 40870,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 10
+    },
+    "content": "Wrought-iron fence around the estate. Not decorative—defensive. The kind of fence that exists because too many people tried leaving.",
+    "likes": 640,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Fences mean someone escaped before. Good sign."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Or they tried."
+      }
+    ]
+  },
+  {
+    "id": "exit_available",
+    "order": 40871,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 11
+    },
+    "content": "There’s an exit. A clean one. If we take it now, we might actually live. Archie looked at it like it was a lie.",
+    "likes": 910,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Exits in places like this always have fine print."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Take the exit anyway. Please."
+      }
+    ]
+  },
+  {
+    "id": "archie_airship_first",
+    "order": 40872,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 11
+    },
+    "content": "I told Green T: “Airship first. Then we come back.” Yes, it sounds insane. That’s how you know it’s my plan.",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "We are not coming back unless we have to."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Statement contains: hubris."
+      }
+    ]
+  },
+  {
+    "id": "start_long_trek",
+    "order": 40873,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 12
+    },
+    "content": "They walked away from the manor while screams faded behind curtains. The quiet after a riot is always suspicious.",
+    "likes": 870,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Quiet is when the consequences catch up."
+      },
+      {
+        "characterKey": "vostolas_archivist",
+        "text": "Departure time recorded."
+      }
+    ]
+  },
+  {
+    "id": "green_t_doesnt_question",
+    "order": 40874,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 24,
+      "hour": 1,
+      "minute": 13
+    },
+    "content": "I didn’t ask how far the airship was. Sometimes if you ask, the universe answers by making it further.",
+    "likes": 750,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "That is unfortunately true."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Distance anxiety: justified."
+      }
+    ]
+  },
+  {
+    "id": "time_passes_marker",
+    "order": 40875,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 8,
+      "minute": 0
+    },
+    "content": "24th → 27th Highsun. Three days of walking. No airship. No closure. Just the feeling that the manor is still “behind” you even when you can’t see it.",
+    "likes": 660,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I hate that feeling. Keeps the finger on the trigger."
+      },
+      {
+        "characterKey": "archie",
+        "text": "It’s like the place follows in your peripheral vision."
+      }
+    ]
+  },
+  {
+    "id": "abandon_party_doubt",
+    "order": 40876,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 8,
+      "minute": 30
+    },
+    "content": "I asked, “Are we really abandoning the party?” Then remembered: we shot the Oracle, a butler died, and the heir became a guy in a wig. So… yes.",
+    "likes": 940,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "You can’t abandon a disaster you started. It just keeps happening without you."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Recap: accurate."
+      }
+    ]
+  },
+  {
+    "id": "airship_further_than_thought",
+    "order": 40877,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 9,
+      "minute": 0
+    },
+    "content": "I admitted: “I thought the airship was closer.” Green T stared at me like I’d just confessed to inventing distance.",
+    "likes": 720,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Next time, don’t guess."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Next time, don’t say “next time”."
+      }
+    ]
+  },
+  {
+    "id": "town_on_horizon",
+    "order": 40878,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 13,
+      "minute": 0
+    },
+    "content": "A town appeared. Regular people. Regular roofs. The kind of place where you can buy bread instead of negotiating with vampires over paperwork.",
+    "likes": 880,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Normal roofs feel surreal now."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Keep your head down. No heroics."
+      }
+    ]
+  },
+  {
+    "id": "weather_shifts",
+    "order": 40879,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 13,
+      "minute": 30
+    },
+    "content": "Sky turned the color of old bruises. Rain promised. You can always tell when the story wants to get worse.",
+    "likes": 610,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Weather foreshadowing detected."
+      },
+      {
+        "characterKey": "markop",
+        "text": "I’m tired of being in a story."
+      }
+    ]
+  },
+  {
+    "id": "enter_general_store",
+    "order": 40880,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 0
+    },
+    "content": "We walked into a store like we weren’t fugitives from a blood banquet. I tried smiling. It came out wrong.",
+    "likes": 740,
+    "comments": [
+      {
+        "characterKey": "shopkeeper_midland",
+        "text": "You have a look like you slept in a grave."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Don’t talk too much."
+      }
+    ]
+  },
+  {
+    "id": "ten_gold_meal_question",
+    "order": 40881,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 2
+    },
+    "content": "Asked for food for ten gold. Clerk said they only take Midland coins. I felt personally attacked by currency.",
+    "likes": 860,
+    "comments": [
+      {
+        "characterKey": "shopkeeper_midland",
+        "text": "Gold’s fine. Yours isn’t."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Even our money is dimensionally incorrect."
+      }
+    ]
+  },
+  {
+    "id": "ask_for_rations",
+    "order": 40882,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 3
+    },
+    "content": "When money fails, ask for rations. The look he gave us was “I’ve seen worse,” which is not comforting.",
+    "likes": 540,
+    "comments": [
+      {
+        "characterKey": "shopkeeper_midland",
+        "text": "Rations cost trust. You don’t have much."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Fair."
+      }
+    ]
+  },
+  {
+    "id": "shopkeeper_recognizes",
+    "order": 40883,
+    "characterKey": "shopkeeper_midland",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 4
+    },
+    "content": "One of them had a face I swear I knew. Not from here. From somewhere I don’t talk about. I asked his name. He asked why I wanted it.",
+    "likes": 910,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Names get you killed in the wrong rooms."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "We’re just passing through."
+      }
+    ]
+  },
+  {
+    "id": "fish_on_house",
+    "order": 40884,
+    "characterKey": "shopkeeper_midland",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 5
+    },
+    "content": "Gave them a fish on the house. If I’m wrong, I’m kind. If I’m right, maybe I bought myself luck.",
+    "likes": 620,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Thank you. Truly."
+      },
+      {
+        "characterKey": "markop",
+        "text": "This is the first nice thing today."
+      }
+    ]
+  },
+  {
+    "id": "attached_restaurant",
+    "order": 40885,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 10
+    },
+    "content": "We ate in a restaurant attached to the store. Archie asked if the food was good. I told him, “As long as you don’t steal it.” He did not deny anything.",
+    "likes": 780,
+    "comments": [
+      {
+        "characterKey": "barkeep_midland",
+        "text": "Pay first. No drama."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I am literally trying to be normal."
+      }
+    ]
+  },
+  {
+    "id": "beer_and_weird_fish",
+    "order": 40886,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 12
+    },
+    "content": "Green T sipped beer like he wasn’t haunted. I ate the fish and realized I missed being scared of normal things, like bones.",
+    "likes": 840,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Beer helps. A little."
+      },
+      {
+        "characterKey": "markop",
+        "text": "After the eye thing, fish feels safe."
+      }
+    ]
+  },
+  {
+    "id": "magpie_in_rafters",
+    "order": 40887,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 13
+    },
+    "content": "Spotted a magpie circling inside like it belonged there. It kept looking at me, then at the back rooms, then at me again. Like a messenger with an attitude.",
+    "likes": 910,
+    "comments": [
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Bird surveillance: plausible."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "If it follows, we move."
+      }
+    ]
+  },
+  {
+    "id": "staff_only_warning",
+    "order": 40888,
+    "characterKey": "barkeep_midland",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 14
+    },
+    "content": "He tried to drift toward the staff hall like a ghost with curiosity. I said “staff only.” He looked offended like I’d insulted his bloodline.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Sorry. Habit."
+      },
+      {
+        "characterKey": "markop",
+        "text": "We are not doing more secret doors today."
+      }
+    ]
+  },
+  {
+    "id": "magpie_swoops",
+    "order": 40889,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 15
+    },
+    "content": "The magpie dive-bombed Green T and pulled up at the last second. He didn’t react. Either he didn’t see it… or he’s seen worse.",
+    "likes": 930,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "I saw it."
+      },
+      {
+        "characterKey": "markop",
+        "text": "That somehow makes it worse."
+      }
+    ]
+  },
+  {
+    "id": "concern_about_manor_words",
+    "order": 40890,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 16
+    },
+    "content": "I keep replaying the manor conversations. “Planes.” “Archivist.” “Two Darmans.” It’s like we stepped into a story that’s already been told and we’re late to the ending.",
+    "likes": 740,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "That’s exactly how it feels."
+      },
+      {
+        "characterKey": "franklin_mages",
+        "text": "Because the place loops. Or tries to."
+      }
+    ]
+  },
+  {
+    "id": "ritual_timeline_question",
+    "order": 40891,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 17
+    },
+    "content": "We did a ritual in a vacant manor before all this. Jumped “inside” it. I want proof we didn’t hop into the wrong version of ourselves.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "If there’s a better version of me, I hope he’s thriving."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "We find proof later. We survive now."
+      }
+    ]
+  },
+  {
+    "id": "how_to_tell_timelines",
+    "order": 40892,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 18
+    },
+    "content": "I asked how you tell timelines apart. Archie went quiet. That’s when you know the question is the real monster.",
+    "likes": 730,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I don’t have an answer I trust."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Silence = narrative dread."
+      }
+    ]
+  },
+  {
+    "id": "nothing_more_before_leave",
+    "order": 40893,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 20
+    },
+    "content": "“Anything else before we go?” I asked. Green T scanned the room like he was shopping for violence.",
+    "likes": 610,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Just planning ahead."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Please don’t shop."
+      }
+    ]
+  },
+  {
+    "id": "apple_from_stand",
+    "order": 40894,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 21
+    },
+    "content": "Grabbed an apple off a fruit stand outside. It tasted like normal life and I hated how much I missed that.",
+    "likes": 960,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Normal food is emotional now. Great."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Eat. Keep moving."
+      }
+    ]
+  },
+  {
+    "id": "war_pick_spotted",
+    "order": 40895,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 22
+    },
+    "content": "Found a war pick sitting like it was waiting for the right hands. I picked it up and the weight felt… familiar.",
+    "likes": 780,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "That definitely belongs to someone."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Not anymore."
+      }
+    ]
+  },
+  {
+    "id": "war_pick_pocketed",
+    "order": 40896,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 23
+    },
+    "content": "I told him “that belongs to someone.” He pocketed it anyway. That’s Green T: if the universe doesn’t want it stolen, it should label it better.",
+    "likes": 1020,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Exactly."
+      },
+      {
+        "characterKey": "shopkeeper_midland",
+        "text": "I saw nothing."
+      }
+    ]
+  },
+  {
+    "id": "melee_vs_pistol",
+    "order": 40897,
+    "characterKey": "green_t",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 27,
+      "hour": 14,
+      "minute": 24
+    },
+    "content": "Archie asked if I needed a melee weapon. I showed the pistol. “This works up close too.” He didn’t laugh. That’s how you know he believes me.",
+    "likes": 1340,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "I’ve seen what you do with that thing."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Please do not demonstrate in town."
+      }
+    ]
+  },
+  {
+    "id": "time_skip_rain",
+    "order": 40898,
+    "characterKey": "wah_media_collective",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 29,
+      "hour": 19,
+      "minute": 30
+    },
+    "content": "27th → 29th Highsun: the rain finally caught up. Not a gentle rain—hard, cold, “keep moving or freeze” rain.",
+    "likes": 780,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "Visibility’s bad. Hands stay ready."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Everything is soaked. Even my thoughts."
+      }
+    ]
+  },
+  {
+    "id": "abandoned_infirmary_found",
+    "order": 40899,
+    "characterKey": "archie",
+    "rumorId": "oracle_assassination_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 29,
+      "hour": 20,
+      "minute": 0
+    },
+    "content": "We found an abandoned infirmary and shoved the door closed behind us. I said, “Can we rest for a second?” Green T looked at the ceiling like it might answer.",
+    "likes": 1420,
+    "comments": [
+      {
+        "characterKey": "green_t",
+        "text": "We rest. But we don’t relax."
+      },
+      {
+        "characterKey": "wah_media_collective",
+        "text": "Shelter acquired. Safety: unconfirmed."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_pollen",
+    "order": 40543,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "wraith_banishment",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 15
+    },
+    "content": "the air here is thick with pollen. smells like old magic. this isn't a wild place—it's a garden kept by unseen hands. be careful what you touch.",
+    "likes": 300,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "dont touch the red mushrooms. just a hunch"
+      },
+      {
+        "characterKey": "salam",
+        "text": "if it looks cultivated it probably bites"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_guard_duty",
+    "order": 40544,
+    "characterKey": "toad_lee",
+    "rumorId": "wraith_banishment",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 20
+    },
+    "content": "taking first watch. sprites seem chill for now. waluigi passed out. hjumpik cleaning his axe. we made it through the night 💪",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "good discipline soldier. rest up"
+      },
+      {
+        "characterKey": "eager",
+        "text": "I DID NOT PASS OUT i was meditating"
+      }
+    ]
+  },
+  {
+    "id": "markop_checks_transport",
+    "order": 40545,
+    "characterKey": "markop",
+    "rumorId": "wraith_banishment",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 24
+    },
+    "content": "asked everyone how they felt after the transportation and got zero normal answers. cool cool cool",
+    "likes": 88,
+    "comments": [
+      {
+        "characterKey": "toadburt",
+        "text": "felt like my bones rearranged in alphabetical order"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "thats just what gates do"
+      }
+    ]
+  },
+  {
+    "id": "eager_just_follows",
+    "order": 40546,
+    "characterKey": "eager",
+    "rumorId": "wraith_banishment",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 26
+    },
+    "content": "wait why are you asking ME?? i just follow people around. i follow you markop. what do YOU think we should do",
+    "likes": 140,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "i think we should follow them"
+      },
+      {
+        "characterKey": "salam",
+        "text": "stay in the back if youre hurt"
+      }
+    ]
+  },
+  {
+    "id": "salam_staff_room_blood",
+    "order": 40547,
+    "characterKey": "salam",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 38
+    },
+    "content": "found the staff room. bright lights everywhere and theres blood on the floor. if any vampires are nearby theyre gonna HATE this lighting lol",
+    "likes": 410,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "so this place is \"clean\" the way a knife is clean"
+      },
+      {
+        "characterKey": "remi",
+        "text": "blood can be decorative if youre committed"
+      }
+    ]
+  },
+  {
+    "id": "markop_hears_voices",
+    "order": 40548,
+    "characterKey": "markop",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 47
+    },
+    "content": "hearing voices. way too many boots walking around. this manor isnt asleep—its staged",
+    "likes": 120,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "i vote we do not get stabbed"
+      },
+      {
+        "characterKey": "salam",
+        "text": "then stop walking like you want attention"
+      }
+    ]
+  },
+  {
+    "id": "foyer_black_white_marble",
+    "order": 40549,
+    "characterKey": "markop",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 4,
+      "minute": 55
+    },
+    "content": "okay so this foyer is INSANE. black and white marble floors, flickering purple lamps, twin grand staircases, velvet benches, big iron doors everywhere. theres a creepy flower on a table that smells terrible and a guestbook",
+    "likes": 260,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "if the flower smells like that dont sign anything"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "wheres the food table"
+      }
+    ]
+  },
+  {
+    "id": "guestbook_archie_toadburt",
+    "order": 40550,
+    "characterKey": "toadburt",
+    "rumorId": "guestbook_reveals",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 1
+    },
+    "content": "checked the guestbook. it says 'esteemed guest archie miser' and 'honored guest toadburt' so... we were expected??? 😰",
+    "likes": 315,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "i dont like being expected"
+      },
+      {
+        "characterKey": "markop",
+        "text": "archie being here is either a clue or a trap"
+      }
+    ]
+  },
+  {
+    "id": "regency_soldier_confusion",
+    "order": 40551,
+    "characterKey": "regency_soldier_pvt",
+    "rumorId": "wraith_banishment",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 8,
+      "minute": 0
+    },
+    "content": "yo did anyone else hear screaming from the woods last night?? sounded like an old lady mixed with a dying cat. super creepy",
+    "likes": 45,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "IT WAS ME!!!! I AM NOT A CAT!!!!"
+      }
+    ]
+  },
+  {
+    "id": "mages_guild_observation",
+    "order": 40552,
+    "characterKey": "mages_guild_scryer",
+    "rumorId": "midnight_gate_transit",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 0
+    },
+    "content": "🚨 ALERT: energy spikes detected in the eastern maze. someone activated the midnight gate without authorization. investigating now",
+    "likes": 120,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "oops"
+      },
+      {
+        "characterKey": "onyx_hand_archivist",
+        "text": "write it down as weather"
+      }
+    ]
+  },
+  {
+    "id": "eager_finds_secret_passage",
+    "order": 40553,
+    "characterKey": "eager",
+    "rumorId": "bat_wall_passage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 6
+    },
+    "content": "okay so markop was asking some guard about an angel girl with a halo and i found a SECRET PASSAGE. whispered to him to follow me 🤫",
+    "likes": 222,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "finally a useful impulse from you"
+      },
+      {
+        "characterKey": "guard_captain",
+        "text": "stop asking about angels in vampire houses"
+      }
+    ]
+  },
+  {
+    "id": "guards_bat_transport_only",
+    "order": 40554,
+    "characterKey": "manor_guard_1",
+    "rumorId": "bat_wall_passage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 8
+    },
+    "content": "ATTENTION: that passage is AUTHORIZED PERSONNEL ONLY. its bat transport. why are randos going through our walls",
+    "likes": 90,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "i thought it was a hallway my bad"
+      },
+      {
+        "characterKey": "markop",
+        "text": "were lost"
+      }
+    ]
+  },
+  {
+    "id": "usk_spotted_in_wall",
+    "order": 40555,
+    "characterKey": "eager",
+    "rumorId": "bat_wall_passage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 9
+    },
+    "content": "YOOOO i saw usk in the passage and told the guard 'that guy is not a bat' 💀💀",
+    "likes": 310,
+    "comments": [
+      {
+        "characterKey": "usk",
+        "text": "i can glide. it counts"
+      },
+      {
+        "characterKey": "manor_guard_1",
+        "text": "wait theres someone in there??"
+      }
+    ]
+  },
+  {
+    "id": "guards_pincer_plan",
+    "order": 40556,
+    "characterKey": "guard_captain",
+    "rumorId": "bat_wall_passage",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 10
+    },
+    "content": "all units split up. pincer formation. if it isnt a bat its a problem",
+    "likes": 130,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "this is escalating fast"
+      },
+      {
+        "characterKey": "salam",
+        "text": "it was always escalated we just showed up late"
+      }
+    ]
+  },
+  {
+    "id": "markop_catches_usk_corridor",
+    "order": 40557,
+    "characterKey": "markop",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 12
+    },
+    "content": "caught up to usk in the corridor. asked what hes doing. he just said 'take a look' very ominously. thanks usk. super helpful",
+    "likes": 180,
+    "comments": [
+      {
+        "characterKey": "usk",
+        "text": "you wanted answers. this is where answers bleed"
+      },
+      {
+        "characterKey": "eager",
+        "text": "i hate when answers bleed"
+      }
+    ]
+  },
+  {
+    "id": "remi_fighting_headless_dancers",
+    "order": 40558,
+    "characterKey": "remi",
+    "rumorId": "headless_dancers_brawl",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 13
+    },
+    "content": "was trying to be sneaky. could NOT be sneaky. now im fighting headless dancers??? this wasnt the plan???",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "WHY are there headless dancers"
+      },
+      {
+        "characterKey": "headless_dancer",
+        "text": "—"
+      }
+    ]
+  },
+  {
+    "id": "ghost_possession_attempt",
+    "order": 40559,
+    "characterKey": "usk",
+    "rumorId": "ghost_possession_dispute",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 14
+    },
+    "content": "some ghost just tried to possess my guy and now everyones acting like THATS the rude part. hello??",
+    "likes": 540,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "it was your idea lol"
+      },
+      {
+        "characterKey": "ghost_foyer",
+        "text": "possession is a traditional greeting"
+      }
+    ]
+  },
+  {
+    "id": "argument_ghost_nature",
+    "order": 40560,
+    "characterKey": "ghost_foyer",
+    "rumorId": "ghost_possession_dispute",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 15
+    },
+    "content": "look its in our nature okay?? thats what ghosts do. we haunt things. we possess stuff. this is normal for us",
+    "likes": 210,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "then change your nature"
+      },
+      {
+        "characterKey": "remi",
+        "text": "or at least ask first"
+      }
+    ]
+  },
+  {
+    "id": "markop_steps_in_front",
+    "order": 40561,
+    "characterKey": "markop",
+    "rumorId": "headless_dancers_brawl",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 16
+    },
+    "content": "guards started charging so i stepped in front and said 'can we NOT fight please' 🙏",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "guard_captain",
+        "text": "twenty midland coins"
+      },
+      {
+        "characterKey": "eager",
+        "text": "were buying peace now??"
+      }
+    ]
+  },
+  {
+    "id": "bribe_paid_20",
+    "order": 40562,
+    "characterKey": "markop",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 8,
+      "minute": 8
+    },
+    "content": "just paid off the guards. twenty coins. call it midland call it gold either way my wallet is crying 💸",
+    "likes": 480,
+    "comments": [
+      {
+        "characterKey": "salam",
+        "text": "cheaper than a funeral"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I WOULD HAVE NEGOTIATED WITH FIRE"
+      }
+    ]
+  },
+  {
+    "id": "guard_condition_arrest_usk",
+    "order": 40563,
+    "characterKey": "guard_captain",
+    "rumorId": "usk_notes_confiscation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 8,
+      "minute": 9
+    },
+    "content": "fine. one more condition tho. were arresting that guy *points at usk* possession of notes. we want him before the mages guild gets him",
+    "likes": 520,
+    "comments": [
+      {
+        "characterKey": "usk",
+        "text": "theyre not \"notes\" theyre survival"
+      },
+      {
+        "characterKey": "mages_guild_scryer",
+        "text": "noted 📝"
+      }
+    ]
+  },
+  {
+    "id": "usk_arrested",
+    "order": 40564,
+    "characterKey": "remi",
+    "rumorId": "usk_notes_confiscation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 8,
+      "minute": 10
+    },
+    "content": "let the guards through. usk surrendered. now hes in cuffs and everyones just... pretending this is normal??? 😶",
+    "likes": 610,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "this is NOT normal"
+      },
+      {
+        "characterKey": "eager",
+        "text": "i miss the garden"
+      }
+    ]
+  },
+  {
+    "id": "perrius_controls_room",
+    "order": 40565,
+    "characterKey": "perrius_annmatar",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 8,
+      "minute": 12
+    },
+    "content": "well thats great. what now 🙃",
+    "likes": 240,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "maybe we listen in?"
+      },
+      {
+        "characterKey": "salam",
+        "text": "maybe we stop getting herded around"
+      }
+    ]
+  },
+  {
+    "id": "perrius_fake_kill_request",
+    "order": 40566,
+    "characterKey": "perrius_annmatar",
+    "rumorId": "perrius_false_assassination_plan",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 48
+    },
+    "content": "hey so i know we just met but i need you to fake-kill the host of this house. you know the plan right? remi told you?",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "uhhhh i dont remember agreeing to that"
+      },
+      {
+        "characterKey": "markop",
+        "text": "why would we do that exactly"
+      }
+    ]
+  },
+  {
+    "id": "host_is_benevolent_vampire",
+    "order": 40567,
+    "characterKey": "markop",
+    "rumorId": "perrius_false_assassination_plan",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 49
+    },
+    "content": "wait so perrius says the host is actually benevolent?? but also a vampire?? and remi just said 'i dont wanna be severed blood' WHAT DOES THAT MEAN",
+    "likes": 910,
+    "comments": [
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "its theater. survival theater"
+      },
+      {
+        "characterKey": "salam",
+        "text": "the only good theater is one you can leave"
+      }
+    ]
+  },
+  {
+    "id": "salam_find_eager",
+    "order": 40568,
+    "characterKey": "salam",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 50
+    },
+    "content": "hey find eager for me",
+    "likes": 330,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "on it"
+      },
+      {
+        "characterKey": "remi",
+        "text": "if hes in a closet again im not opening it"
+      }
+    ]
+  },
+  {
+    "id": "eager_caught_in_closet",
+    "order": 40569,
+    "characterKey": "eager",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 52
+    },
+    "content": "tried to sneak out. got caught. got SHOVED INTO A CLOSET. i hate this manor so much 😭",
+    "likes": 700,
+    "comments": [
+      {
+        "characterKey": "manor_guard_1",
+        "text": "stay put intruder"
+      },
+      {
+        "characterKey": "eager",
+        "text": "I AM A GUEST. PROBABLY"
+      }
+    ]
+  },
+  {
+    "id": "eager_bathroom_escape",
+    "order": 40570,
+    "characterKey": "eager",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 55
+    },
+    "content": "update: slipped out of the closet and now im hiding in a bathroom. if anyone asks i was always here",
+    "likes": 620,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "hold position were coming"
+      },
+      {
+        "characterKey": "salam",
+        "text": "dont touch anything expensive"
+      }
+    ]
+  },
+  {
+    "id": "guard_blocks_door_one_seat",
+    "order": 40571,
+    "characterKey": "manor_guard_1",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 0
+    },
+    "content": "some guy at the door says hes a friend of archie. checked the list and yeah hes on it. one seat left. told him to sit down already",
+    "likes": 260,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "have you seen eag—"
+      },
+      {
+        "characterKey": "manor_guard_1",
+        "text": "SEAT. NOW."
+      }
+    ]
+  },
+  {
+    "id": "remi_takes_only_seat",
+    "order": 40572,
+    "characterKey": "remi",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 1
+    },
+    "content": "took the only open seat. if this is a trap at least im gonna be comfortably trapped 💅",
+    "likes": 840,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "why are you even here"
+      },
+      {
+        "characterKey": "remi",
+        "text": "mail got weird"
+      }
+    ]
+  },
+  {
+    "id": "bowser_party_mode",
+    "order": 40573,
+    "characterKey": "bowser",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 2
+    },
+    "content": "HUMPY CAN TAKE CARE OF HIMSELF!! WERE ON A POST BASE!! HE CALLS ME THE BOSS I CALL HIM HUMPY!! DONT JUDGE!! IM HERE FOR A PARTY HAHAHAHA 🎉🔥",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "this is not a party"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "EVERYTHING IS A PARTY IF FOOD SHOWS UP"
+      }
+    ]
+  },
+  {
+    "id": "depressed_guard_host_slow",
+    "order": 40574,
+    "characterKey": "manor_guard_2",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 3
+    },
+    "content": "we took orders like two hours ago. host wants everything slow. he looks kinda... depressed tbh. thinks people wanna kill him. dont worry tho we got his back 💪",
+    "likes": 410,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "that speech does NOT make me feel safer"
+      },
+      {
+        "characterKey": "salam",
+        "text": "depressed vampire hosting dinner. great"
+      }
+    ]
+  },
+  {
+    "id": "remi_poison_candy_pitch",
+    "order": 40575,
+    "characterKey": "remi",
+    "rumorId": "poison_candy_plot",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 4
+    },
+    "content": "hey i found some candy outside!! i wanna share it with everyone 🍬 (do NOT ask follow up questions)",
+    "likes": 1100,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "when did you get candy"
+      },
+      {
+        "characterKey": "remi",
+        "text": "when destiny gave me candy"
+      }
+    ]
+  },
+  {
+    "id": "guard_pockets_candy",
+    "order": 40576,
+    "characterKey": "manor_guard_2",
+    "rumorId": "poison_candy_plot",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 5
+    },
+    "content": "some guest just gave me free candy?? nice. pocketed it and went back to work",
+    "likes": 520,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "that was NOT the intended consumer"
+      },
+      {
+        "characterKey": "markop",
+        "text": "remi. what did you do"
+      }
+    ]
+  },
+  {
+    "id": "oracle_begins_speech",
+    "order": 40577,
+    "characterKey": "oracle",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 7
+    },
+    "content": "allow me to explain. too many threads have been moving independently. the party, the mages guild, the hand... we needed to force convergence",
+    "likes": 600,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "finally an explanation"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "FINALLY FOOD???"
+      }
+    ]
+  },
+  {
+    "id": "bowser_interrupts_where_food",
+    "order": 40578,
+    "characterKey": "bowser",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 8
+    },
+    "content": "WHERES MY FOOD??? I WANT FOOD NOW!!! IM KING OF THE TABLE LET ME TALK 👑🔥",
+    "likes": 2000,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "sit"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "NO"
+      }
+    ]
+  },
+  {
+    "id": "bowser_full_order",
+    "order": 40579,
+    "characterKey": "bowser",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 9
+    },
+    "content": "MY ORDER: dragon egg, mustard rice, roast beef, meat, AND boneless wings EXTRA HOT 🔥🔥🔥 this is non negotiable",
+    "likes": 1750,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "dont eat too much we dont know where the food came from"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "FOOD COMES FROM KITCHEN. NEXT QUESTION"
+      }
+    ]
+  },
+  {
+    "id": "citrus_served",
+    "order": 40580,
+    "characterKey": "markop",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 24
+    },
+    "content": "food finally came. remi and i got... cut up citrus?? its not poisoned i think. but its definitely not what it claims to be",
+    "likes": 740,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "this citrus has been through something"
+      },
+      {
+        "characterKey": "salam",
+        "text": "dont eat anything that shines in purple light"
+      }
+    ]
+  },
+  {
+    "id": "archie_tastes_blood_roast",
+    "order": 40581,
+    "characterKey": "archie",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 25
+    },
+    "content": "taste tested my roast beef. theres definitely blood mixed in. asked if its edible and they said yes so... ate it anyway 🤷",
+    "likes": 980,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "thats called FLAVOR"
+      },
+      {
+        "characterKey": "markop",
+        "text": "thats called a WARNING LABEL"
+      }
+    ]
+  },
+  {
+    "id": "oracle_questions_not_on_list",
+    "order": 40582,
+    "characterKey": "oracle",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 27
+    },
+    "content": "now then. is there a reason youre not on the list?",
+    "likes": 620,
+    "comments": [
+      {
+        "characterKey": "remi",
+        "text": "got lost in the mail"
+      },
+      {
+        "characterKey": "markop",
+        "text": "looking for friends"
+      }
+    ]
+  },
+  {
+    "id": "markop_asks_green_t",
+    "order": 40583,
+    "characterKey": "markop",
+    "rumorId": "green_t_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 28
+    },
+    "content": "hey have you guys seen a purple guy with a reverse L on his hat?? also anyone know a guy named green t??",
+    "likes": 510,
+    "comments": [
+      {
+        "characterKey": "oracle",
+        "text": "hes on the list"
+      },
+      {
+        "characterKey": "archie",
+        "text": "wait hes HERE??"
+      }
+    ]
+  },
+  {
+    "id": "waiter_brings_candy_cake",
+    "order": 40584,
+    "characterKey": "manor_waiter",
+    "rumorId": "poison_candy_plot",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 30
+    },
+    "content": "brought a candy cake to the big turtle guy. he said he didnt order dessert but like... its right there sir",
+    "likes": 930,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "DESSERT ORDERS ITSELF WHEN IM PRESENT"
+      },
+      {
+        "characterKey": "archie",
+        "text": "dont eat that"
+      }
+    ]
+  },
+  {
+    "id": "archie_spots_green_t_eager",
+    "order": 40585,
+    "characterKey": "archie",
+    "rumorId": "green_t_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 32
+    },
+    "content": "WAIT I JUST SAW GREEN T AND EAGER SNEAKING OUT. HEY!!! STOP!!!!",
+    "likes": 1400,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "ARCHIE NOOOOOO"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "..."
+      }
+    ]
+  },
+  {
+    "id": "doors_close_guards_swarm",
+    "order": 40586,
+    "characterKey": "guard_captain",
+    "rumorId": "green_t_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 33
+    },
+    "content": "guards moving in. doors sealed. we have them surrounded",
+    "likes": 880,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "eager is with me!! i just wanna take my friends and leave!!"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "sit"
+      }
+    ]
+  },
+  {
+    "id": "markop_defends_eager_guest",
+    "order": 40587,
+    "characterKey": "markop",
+    "rumorId": "green_t_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 34
+    },
+    "content": "EAGER IS NOT AN INTRUDER!! i dont even know what this place is!! i just want OUT",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "i second that. eager is not an intruder"
+      },
+      {
+        "characterKey": "guard_captain",
+        "text": "choose then. the toad or you"
+      }
+    ]
+  },
+  {
+    "id": "archie_volunteers_for_arrest",
+    "order": 40588,
+    "characterKey": "archie",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 35
+    },
+    "content": "they asked 'this toad or you?' and i said me. better me than a friend",
+    "likes": 2100,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "dont do that!!"
+      },
+      {
+        "characterKey": "eager",
+        "text": "archie no 😭"
+      }
+    ]
+  },
+  {
+    "id": "bowser_more_punchable",
+    "order": 40589,
+    "characterKey": "bowser",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 36
+    },
+    "content": "HEY JUST ARREST THE ONE THAT LOOKS MORE PUNCHABLE. I SAY YOU ARCHIE. THREE EYED YOU 👊😂",
+    "likes": 5000,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "thats ENOUGH bowser"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "OH YOU THINK YOU CAN HANDLE THIS?? IM KINDA PISSED I DONT HAVE MY FOOD"
+      }
+    ]
+  },
+  {
+    "id": "green_t_slips_out",
+    "order": 40590,
+    "characterKey": "green_t",
+    "rumorId": "green_t_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 37
+    },
+    "content": "slipped out while everyone was arguing 🚶‍♂️",
+    "likes": 1700,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "HOW DID YOU DO THAT"
+      },
+      {
+        "characterKey": "markop",
+        "text": "honestly respect"
+      }
+    ]
+  },
+  {
+    "id": "eager_escorted_out",
+    "order": 40591,
+    "characterKey": "manor_guard_1",
+    "rumorId": "green_t_escape",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 38
+    },
+    "content": "escorted the small one outside. minimal drama. (some drama)",
+    "likes": 980,
+    "comments": [
+      {
+        "characterKey": "eager",
+        "text": "this is kidnapping with etiquette"
+      },
+      {
+        "characterKey": "salam",
+        "text": "stay alive til i get you"
+      }
+    ]
+  },
+  {
+    "id": "candy_vote_two_removed",
+    "order": 40594,
+    "characterKey": "remi",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 43
+    },
+    "content": "so they asked everyone about the candy and most people said okay but some guy said 'stupid' and another said 'annoying' and they got DRAGGED AWAY??? joseph jo and david just got hauled off 😨",
+    "likes": 1900,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "LMAOOO"
+      },
+      {
+        "characterKey": "markop",
+        "text": "so disagreeing is punishable here. cool"
+      }
+    ]
+  },
+  {
+    "id": "oracle_offers_empty_seat",
+    "order": 40595,
+    "characterKey": "oracle",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 45
+    },
+    "content": "theres an empty seat now. markop your turn to speak",
+    "likes": 800,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "why force convergence tho"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "too many threads were moving independently"
+      }
+    ]
+  },
+  {
+    "id": "archie_threshold_statistically_impossible",
+    "order": 40596,
+    "characterKey": "oracle",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 13,
+      "minute": 46
+    },
+    "content": "archie was invited because hes crossed a threshold most people dont even know exists. no guild seal. no hand mark. no noble lineage. statistically impossible... and therefore interesting 🔍",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "thats a terrifying compliment"
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "so hes a loose thread basically"
+      }
+    ]
+  },
+  {
+    "id": "final_question_hjumpik",
+    "order": 40597,
+    "characterKey": "hjumpik",
+    "rumorId": "autumnwood_succession_dinner",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 49
+    },
+    "content": "okay but why am I on this guest list tho 🤔",
+    "likes": 1300,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "im everyones problem thats why"
+      },
+      {
+        "characterKey": "oracle",
+        "text": "because problems attract solutions"
+      }
+    ]
+  },
+  {
+    "id": "bowser_asks_host_name",
+    "order": 40598,
+    "characterKey": "bowser",
+    "rumorId": "orangus_succession_knives",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 49
+    },
+    "content": "HEY YOU!! HOST GUY!! WHATS YOUR NAME 📢",
+    "likes": 2200,
+    "comments": [
+      {
+        "characterKey": "orangus_cornelious",
+        "text": "ORANGUS CORNELIOUS"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "OK ORANGUS WHY YOU ALL SAD"
+      }
+    ]
+  },
+  {
+    "id": "orangus_losing_control",
+    "order": 40599,
+    "characterKey": "orangus_cornelious",
+    "rumorId": "orangus_succession_knives",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 50
+    },
+    "content": "i am losing control of autumnwood. the heir is here. the child is here. the onyx hand archivist is here. a mages guild observer is here. when old monsters like me host dinners... its because succession is in play. and succession attracts knives 🔪",
+    "likes": 3600,
+    "comments": [
+      {
+        "characterKey": "mages_guild_scryer",
+        "text": "observer status acknowledged"
+      },
+      {
+        "characterKey": "onyx_hand_archivist",
+        "text": "archivist status denied actually"
+      }
+    ]
+  },
+  {
+    "id": "archie_match_burning",
+    "order": 40600,
+    "characterKey": "orangus_cornelious",
+    "rumorId": "orangus_succession_knives",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 51
+    },
+    "content": "right now i suspect archie is a match that doesnt realize its burning 🔥",
+    "likes": 4100,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "i know i did something wrong. im trying to correct my path"
+      },
+      {
+        "characterKey": "markop",
+        "text": "then stop lighting more fires maybe"
+      }
+    ]
+  },
+  {
+    "id": "orangus_demands_candy",
+    "order": 40601,
+    "characterKey": "orangus_cornelious",
+    "rumorId": "poison_candy_plot",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 52
+    },
+    "content": "archie. hand over your candy",
+    "likes": 3000,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "are you sure??"
+      },
+      {
+        "characterKey": "remi",
+        "text": "yes definitely yes do it"
+      }
+    ]
+  },
+  {
+    "id": "doors_open_usk_enters",
+    "order": 40602,
+    "characterKey": "orangus_cornelious",
+    "rumorId": "usk_notes_confiscation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 53
+    },
+    "content": "bring him in",
+    "likes": 5200,
+    "comments": [
+      {
+        "characterKey": "usk",
+        "text": "so this is the part where everyone pretends they didnt sell me for twenty coins"
+      },
+      {
+        "characterKey": "markop",
+        "text": "we didnt have a clean option ok"
+      }
     ]
   },
   {
     "id": "summit_sarasaland_announcement",
     "order": 70100,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 8, "hour": 9, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 8,
+      "hour": 9,
+      "minute": 0
+    },
     "timestamp": "5 days ago",
     "content": "Welcome to Sarasaland! The Second Democratic Summit officially begins tomorrow. Unlike the Mushroom Kingdom venue last month, we've got actual security protocols. And air conditioning.",
     "likes": 892,
     "comments": [
-      { "characterKey": "toadette", "text": "The Birabuto Palace looks stunning, Your Highness." },
-      { "characterKey": "funky_kong", "text": "Yo, the waves here are RADICAL! Summit can wait!" },
-      { "characterKey": "diplomat_npc", "text": "Hoping this one goes smoother than the last..." }
+      {
+        "characterKey": "toadette",
+        "text": "The Birabuto Palace looks stunning, Your Highness."
+      },
+      {
+        "characterKey": "funky_kong",
+        "text": "Yo, the waves here are RADICAL! Summit can wait!"
+      },
+      {
+        "characterKey": "diplomat_npc",
+        "text": "Hoping this one goes smoother than the last..."
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3254,14 +9310,29 @@ export const WAHBOOK_POSTS = [
     "id": "dk_crew_arrival",
     "order": 70101,
     "characterKey": "donkey_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 8, "hour": 11, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 8,
+      "hour": 11,
+      "minute": 30
+    },
     "timestamp": "5 days ago",
     "content": "DK Crew representing Kongo Bongo at the summit! Brought the whole family. Even Lanky. ...Cranky insisted we 'maintain diplomatic presence' whatever that means.",
     "likes": 756,
     "comments": [
-      { "characterKey": "diddy_kong", "text": "This is gonna be great! International diplomacy!" },
-      { "characterKey": "cranky_kong", "text": "Try not to embarrass us for FIVE minutes." },
-      { "characterKey": "lanky_kong", "text": "Why is everyone looking at me when he says that?" }
+      {
+        "characterKey": "diddy_kong",
+        "text": "This is gonna be great! International diplomacy!"
+      },
+      {
+        "characterKey": "cranky_kong",
+        "text": "Try not to embarrass us for FIVE minutes."
+      },
+      {
+        "characterKey": "lanky_kong",
+        "text": "Why is everyone looking at me when he says that?"
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3269,14 +9340,29 @@ export const WAHBOOK_POSTS = [
     "id": "dedede_grand_entrance",
     "order": 70102,
     "characterKey": "king_dedede",
-    "date": { "year": 1040, "monthIndex": 7, "day": 8, "hour": 14, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 8,
+      "hour": 14,
+      "minute": 0
+    },
     "timestamp": "5 days ago",
     "content": "THE KING HAS ARRIVED! Dreamland sends its mightiest representative - ME! Brought a 47-page speech about Dreamland's contributions to regional stability. You're all WELCOME.",
     "likes": 445,
     "comments": [
-      { "characterKey": "meta_knight", "text": "...I advised a 5-page maximum." },
-      { "characterKey": "waddle_dee_npc", "text": "We rehearsed for six hours, everyone!" },
-      { "characterKey": "princess_daisy", "text": "47 pages. Wonderful." }
+      {
+        "characterKey": "meta_knight",
+        "text": "...I advised a 5-page maximum."
+      },
+      {
+        "characterKey": "waddle_dee_npc",
+        "text": "We rehearsed for six hours, everyone!"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "47 pages. Wonderful."
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3284,14 +9370,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_arrival_tensions",
     "order": 70103,
     "characterKey": "prince_peasley",
-    "date": { "year": 1040, "monthIndex": 7, "day": 8, "hour": 15, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 8,
+      "hour": 15,
+      "minute": 45
+    },
     "timestamp": "5 days ago",
     "content": "The Beanbean Kingdom stands ready to negotiate! *hair flip* Mother sends her regards, Princess Daisy. Also, I notice certain... accusations circulating. Baseless, I assure you all.",
     "likes": 334,
     "comments": [
-      { "characterKey": "toadette", "text": "We should talk privately, Prince Peasley." },
-      { "characterKey": "journalist_npc", "text": "Prince Peasley! Comments on the 12 million coin allegations?" },
-      { "characterKey": "prince_peasley", "text": "NO COMMENT. Security!" }
+      {
+        "characterKey": "toadette",
+        "text": "We should talk privately, Prince Peasley."
+      },
+      {
+        "characterKey": "journalist_npc",
+        "text": "Prince Peasley! Comments on the 12 million coin allegations?"
+      },
+      {
+        "characterKey": "prince_peasley",
+        "text": "NO COMMENT. Security!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3299,14 +9400,29 @@ export const WAHBOOK_POSTS = [
     "id": "summit_opening_ceremony",
     "order": 70104,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 9, "hour": 10, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 9,
+      "hour": 10,
+      "minute": 0
+    },
     "timestamp": "4 days ago",
     "content": "Summit Day 1 officially opened! Representatives from 14 nations present. Agenda: disaster relief coordination, trade agreements, and addressing the... 'Fawful situation.' Let's keep this civil, people.",
     "likes": 1203,
     "comments": [
-      { "characterKey": "donkey_kong", "text": "DK ready to help! Bananas for everyone!" },
-      { "characterKey": "king_dedede", "text": "When's MY speech?!" },
-      { "characterKey": "meta_knight", "text": "Day 3, Your Majesty. Please be patient." }
+      {
+        "characterKey": "donkey_kong",
+        "text": "DK ready to help! Bananas for everyone!"
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "When's MY speech?!"
+      },
+      {
+        "characterKey": "meta_knight",
+        "text": "Day 3, Your Majesty. Please be patient."
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3314,14 +9430,29 @@ export const WAHBOOK_POSTS = [
     "id": "disaster_relief_proposal",
     "order": 70105,
     "characterKey": "toadette",
-    "date": { "year": 1040, "monthIndex": 7, "day": 9, "hour": 11, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 9,
+      "hour": 11,
+      "minute": 30
+    },
     "timestamp": "4 days ago",
     "content": "Formally proposing the Mushroom Kingdom Disaster Relief Program. The civil war has displaced thousands. We need international aid, medical supplies, and safe passage corridors. This isn't political - it's humanitarian.",
     "likes": 1876,
     "comments": [
-      { "characterKey": "princess_daisy", "text": "Sarasaland pledges 50,000 coins and medical personnel." },
-      { "characterKey": "donkey_kong", "text": "Kongo Bongo will send food supplies!" },
-      { "characterKey": "fawful_supporter_npc", "text": "Relief for FAWFUL's enemies? I HAVE FURY!" }
+      {
+        "characterKey": "princess_daisy",
+        "text": "Sarasaland pledges 50,000 coins and medical personnel."
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "Kongo Bongo will send food supplies!"
+      },
+      {
+        "characterKey": "fawful_supporter_npc",
+        "text": "Relief for FAWFUL's enemies? I HAVE FURY!"
+      }
     ],
     "rumorId": "mushroom_disaster_relief"
   },
@@ -3329,14 +9460,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_first_incident",
     "order": 70106,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 9, "hour": 13, "minute": 15 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 9,
+      "hour": 13,
+      "minute": 15
+    },
     "timestamp": "4 days ago",
     "content": "Guys the buffet here is AMAZING. Just ate like 47 shrimp cocktails. Also I think I accidentally knocked over the Beanbean Kingdom's ceremonial display? It was an accident I SWEAR my arms are just really long",
     "likes": 234,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "WHAT DID I JUST SAY ABOUT EMBARRASSING US" },
-      { "characterKey": "diddy_kong", "text": "Lanky please we've been here THREE HOURS" },
-      { "characterKey": "prince_peasley", "text": "That was a 400-year-old artifact!" }
+      {
+        "characterKey": "cranky_kong",
+        "text": "WHAT DID I JUST SAY ABOUT EMBARRASSING US"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "Lanky please we've been here THREE HOURS"
+      },
+      {
+        "characterKey": "prince_peasley",
+        "text": "That was a 400-year-old artifact!"
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3344,14 +9490,29 @@ export const WAHBOOK_POSTS = [
     "id": "relief_program_details",
     "order": 70107,
     "characterKey": "toadette",
-    "date": { "year": 1040, "monthIndex": 7, "day": 9, "hour": 14, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 9,
+      "hour": 14,
+      "minute": 30
+    },
     "timestamp": "4 days ago",
     "content": "Relief Program specifics: establishing neutral medical zones, coordinating with the Cheep-Cheep Accords for maritime supply routes, and creating refugee processing centers in Sarasaland and Isle Delfino. Every signature matters.",
     "likes": 1456,
     "comments": [
-      { "characterKey": "noki_elder_npc", "text": "Isle Delfino's Coral Fleet stands ready to assist." },
-      { "characterKey": "pianta_npc", "text": "We remember when the Kingdom helped US. Time to return the favor." },
-      { "characterKey": "koopa_diplomat_npc", "text": "The Koopa Resistance supports this initiative." }
+      {
+        "characterKey": "noki_elder_npc",
+        "text": "Isle Delfino's Coral Fleet stands ready to assist."
+      },
+      {
+        "characterKey": "pianta_npc",
+        "text": "We remember when the Kingdom helped US. Time to return the favor."
+      },
+      {
+        "characterKey": "koopa_diplomat_npc",
+        "text": "The Koopa Resistance supports this initiative."
+      }
     ],
     "rumorId": "mushroom_disaster_relief"
   },
@@ -3359,14 +9520,29 @@ export const WAHBOOK_POSTS = [
     "id": "kremling_observers",
     "order": 70108,
     "characterKey": "funky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 9, "hour": 16, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 9,
+      "hour": 16,
+      "minute": 0
+    },
     "timestamp": "4 days ago",
     "content": "Yo heads up - spotted some Kremling 'observers' on the beach. They're claiming 'neutral observation rights' but I don't trust those dudes after we found their bugs in DK's office. Stay frosty, Kong family!",
     "likes": 567,
     "comments": [
-      { "characterKey": "donkey_kong", "text": "Keep eyes on them, Funky." },
-      { "characterKey": "diddy_kong", "text": "They're not even trying to hide anymore..." },
-      { "characterKey": "kremling_observer_npc", "text": "We are merely ensuring... fair representation." }
+      {
+        "characterKey": "donkey_kong",
+        "text": "Keep eyes on them, Funky."
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "They're not even trying to hide anymore..."
+      },
+      {
+        "characterKey": "kremling_observer_npc",
+        "text": "We are merely ensuring... fair representation."
+      }
     ],
     "rumorId": "kong_kremling_cold_war"
   },
@@ -3374,14 +9550,29 @@ export const WAHBOOK_POSTS = [
     "id": "day_one_recap",
     "order": 70109,
     "characterKey": "journalist_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 9, "hour": 20, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 9,
+      "hour": 20,
+      "minute": 0
+    },
     "timestamp": "4 days ago",
     "content": "SUMMIT DAY 1 RECAP: Disaster relief proposed, minor artifact incident (thanks Lanky Kong), Kremling observers spotted, and King Dedede demanded his speech be moved up 'due to royal importance.' Request denied.",
     "likes": 892,
     "comments": [
-      { "characterKey": "king_dedede", "text": "THIS IS AN OUTRAGE" },
-      { "characterKey": "meta_knight", "text": "Your Majesty, please..." },
-      { "characterKey": "princess_daisy", "text": "The schedule is FINAL, Dedede." }
+      {
+        "characterKey": "king_dedede",
+        "text": "THIS IS AN OUTRAGE"
+      },
+      {
+        "characterKey": "meta_knight",
+        "text": "Your Majesty, please..."
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "The schedule is FINAL, Dedede."
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3389,14 +9580,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_confrontation",
     "order": 70110,
     "characterKey": "toadette",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 8, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 8,
+      "minute": 30
+    },
     "timestamp": "3 days ago",
     "content": "Had a private meeting with Prince Peasley this morning. He denies everything about the 12 million coins. Says the transfer records were 'fabricated by Fawful's agents.' I want to believe him but... the evidence is compelling.",
     "likes": 1123,
     "comments": [
-      { "characterKey": "princess_daisy", "text": "What evidence exactly?" },
-      { "characterKey": "fawful_npc", "text": "Fawful has no need for LYING! The prince has the guilt!" },
-      { "characterKey": "queen_bean_npc", "text": "My son would NEVER betray the Beanbean Kingdom!" }
+      {
+        "characterKey": "princess_daisy",
+        "text": "What evidence exactly?"
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "Fawful has no need for LYING! The prince has the guilt!"
+      },
+      {
+        "characterKey": "queen_bean_npc",
+        "text": "My son would NEVER betray the Beanbean Kingdom!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3404,14 +9610,29 @@ export const WAHBOOK_POSTS = [
     "id": "trade_negotiations",
     "order": 70111,
     "characterKey": "donkey_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 10, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 10,
+      "minute": 0
+    },
     "timestamp": "3 days ago",
     "content": "Trade talks going well! Kongo Bongo proposing banana export agreements with Sarasaland and Isle Delfino. Also suggesting joint anti-Kremling naval patrols. Cranky says I'm 'finally acting like a proper leader.' High praise!",
     "likes": 987,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "Don't let it go to your head, boy." },
-      { "characterKey": "princess_daisy", "text": "Sarasaland is very interested in the banana trade." },
-      { "characterKey": "noki_elder_npc", "text": "The Coral Fleet would welcome Kongo Bongo partnership." }
+      {
+        "characterKey": "cranky_kong",
+        "text": "Don't let it go to your head, boy."
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "Sarasaland is very interested in the banana trade."
+      },
+      {
+        "characterKey": "noki_elder_npc",
+        "text": "The Coral Fleet would welcome Kongo Bongo partnership."
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3419,14 +9640,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_second_incident",
     "order": 70112,
     "characterKey": "diddy_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 12, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 12,
+      "minute": 45
+    },
     "timestamp": "3 days ago",
     "content": "Okay so Lanky tried to do his 'stretchy handstand' trick to entertain the delegates during lunch break. He accidentally knocked the Dreamland delegation's table into the fountain. King Dedede is FURIOUS.",
     "likes": 445,
     "comments": [
-      { "characterKey": "king_dedede", "text": "MY ROYAL ROBES ARE SOAKED! THIS IS WAR!" },
-      { "characterKey": "lanky_kong", "text": "I said I was sorry like 50 times!!!" },
-      { "characterKey": "meta_knight", "text": "...I'll handle this." }
+      {
+        "characterKey": "king_dedede",
+        "text": "MY ROYAL ROBES ARE SOAKED! THIS IS WAR!"
+      },
+      {
+        "characterKey": "lanky_kong",
+        "text": "I said I was sorry like 50 times!!!"
+      },
+      {
+        "characterKey": "meta_knight",
+        "text": "...I'll handle this."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3434,14 +9670,29 @@ export const WAHBOOK_POSTS = [
     "id": "fawful_evidence_leak",
     "order": 70113,
     "characterKey": "journalist_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 14, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 14,
+      "minute": 0
+    },
     "timestamp": "3 days ago",
     "content": "BREAKING: Documents leaked showing transfer of 12 million Beanbean coins from royal treasury to accounts linked to Captain Toadette's relief operations. Source claims Prince Peasley authorized the transfer. Fawful regime demands investigation.",
     "likes": 2341,
     "comments": [
-      { "characterKey": "prince_peasley", "text": "THOSE DOCUMENTS ARE FORGERIES!" },
-      { "characterKey": "toadette", "text": "I never received any such funds! This is a setup!" },
-      { "characterKey": "fawful_npc", "text": "The truth has the revealing! FAWFUL WINS!" }
+      {
+        "characterKey": "prince_peasley",
+        "text": "THOSE DOCUMENTS ARE FORGERIES!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "I never received any such funds! This is a setup!"
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "The truth has the revealing! FAWFUL WINS!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3449,14 +9700,29 @@ export const WAHBOOK_POSTS = [
     "id": "relief_program_signing",
     "order": 70114,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 16, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 16,
+      "minute": 0
+    },
     "timestamp": "3 days ago",
     "content": "Despite the chaos, the Mushroom Kingdom Disaster Relief Program has been signed by 8 nations! Sarasaland, Kongo Bongo, Isle Delfino, the Noki Commonwealth, Rogueport Free City, the Pianta Collective, and both Koopa factions. This WILL save lives.",
     "likes": 3456,
     "comments": [
-      { "characterKey": "toadette", "text": "Thank you all. This means everything to the displaced." },
-      { "characterKey": "koopa_diplomat_npc", "text": "Even enemies can agree on saving innocents." },
-      { "characterKey": "pianta_npc", "text": "Isle Delfino stands with the Mushroom Kingdom!" }
+      {
+        "characterKey": "toadette",
+        "text": "Thank you all. This means everything to the displaced."
+      },
+      {
+        "characterKey": "koopa_diplomat_npc",
+        "text": "Even enemies can agree on saving innocents."
+      },
+      {
+        "characterKey": "pianta_npc",
+        "text": "Isle Delfino stands with the Mushroom Kingdom!"
+      }
     ],
     "rumorId": "mushroom_disaster_relief"
   },
@@ -3464,14 +9730,29 @@ export const WAHBOOK_POSTS = [
     "id": "dedede_speech_preview",
     "order": 70115,
     "characterKey": "king_dedede",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 19, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 19,
+      "minute": 0
+    },
     "timestamp": "3 days ago",
     "content": "Tomorrow is THE DAY! My 47-page masterpiece on Dreamland's contributions to EVERYTHING will finally be heard! I've added 12 more pages about the fountain incident. THAT LANKY MENACE WILL BE ADDRESSED.",
     "likes": 334,
     "comments": [
-      { "characterKey": "meta_knight", "text": "Your Majesty, I strongly advise against making this personal." },
-      { "characterKey": "waddle_dee_npc", "text": "It's now 59 pages, everyone..." },
-      { "characterKey": "princess_daisy", "text": "You have ONE HOUR, Dedede. Not a minute more." }
+      {
+        "characterKey": "meta_knight",
+        "text": "Your Majesty, I strongly advise against making this personal."
+      },
+      {
+        "characterKey": "waddle_dee_npc",
+        "text": "It's now 59 pages, everyone..."
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "You have ONE HOUR, Dedede. Not a minute more."
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3479,14 +9760,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_apology_attempt",
     "order": 70116,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 10, "hour": 21, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 10,
+      "hour": 21,
+      "minute": 30
+    },
     "timestamp": "3 days ago",
     "content": "I tried to personally apologize to King Dedede. Brought him a fruit basket and everything. He threw it at me. Then the basket hit a waiter. Who dropped a tray on the Kremling observers. Everyone's blaming ME again somehow???",
     "likes": 567,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "Just... stop MOVING, Lanky. Stand in a corner." },
-      { "characterKey": "donkey_kong", "text": "Buddy, maybe just stay in the room tomorrow..." },
-      { "characterKey": "kremling_observer_npc", "text": "The DK Crew has ASSAULTED diplomatic observers!" }
+      {
+        "characterKey": "cranky_kong",
+        "text": "Just... stop MOVING, Lanky. Stand in a corner."
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "Buddy, maybe just stay in the room tomorrow..."
+      },
+      {
+        "characterKey": "kremling_observer_npc",
+        "text": "The DK Crew has ASSAULTED diplomatic observers!"
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3494,14 +9790,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_investigation",
     "order": 70117,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 7, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 7,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "Summit Day 3. Convened an emergency panel to investigate the Peasley-Toadette financial allegations before Dedede's speech. Queen Bean is threatening to withdraw Beanbean Kingdom from the summit entirely if her son isn't cleared.",
     "likes": 1567,
     "comments": [
-      { "characterKey": "queen_bean_npc", "text": "This is a WITCH HUNT orchestrated by Fawful!" },
-      { "characterKey": "toadette", "text": "I welcome any investigation. I have nothing to hide." },
-      { "characterKey": "prince_peasley", "text": "My reputation is being destroyed by LIES!" }
+      {
+        "characterKey": "queen_bean_npc",
+        "text": "This is a WITCH HUNT orchestrated by Fawful!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "I welcome any investigation. I have nothing to hide."
+      },
+      {
+        "characterKey": "prince_peasley",
+        "text": "My reputation is being destroyed by LIES!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3509,14 +9820,29 @@ export const WAHBOOK_POSTS = [
     "id": "dedede_speech_begins",
     "order": 70118,
     "characterKey": "king_dedede",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 10, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 10,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "AHEM. Distinguished delegates, peasants, and that LANKY DISASTER in the back - I, KING DEDEDE, supreme ruler of Dreamland, shall now educate you all on TRUE leadership! Page one of fifty-nine: 'Why Dedede Is The Greatest'...",
     "likes": 234,
     "comments": [
-      { "characterKey": "meta_knight", "text": "*sighs deeply*" },
-      { "characterKey": "princess_daisy", "text": "...this is going to be a long hour." },
-      { "characterKey": "donkey_kong", "text": "Uh... DK confused. Is this about diplomacy?" }
+      {
+        "characterKey": "meta_knight",
+        "text": "*sighs deeply*"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "...this is going to be a long hour."
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "Uh... DK confused. Is this about diplomacy?"
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3524,14 +9850,29 @@ export const WAHBOOK_POSTS = [
     "id": "dedede_speech_escalates",
     "order": 70119,
     "characterKey": "journalist_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 10, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 10,
+      "minute": 30
+    },
     "timestamp": "2 days ago",
     "content": "30 minutes into King Dedede's speech. He's spent 25 minutes attacking the DK Crew, 3 minutes praising himself, and 2 minutes on actual policy. Delegates visibly uncomfortable. The Kongo Bongo delegation is conferring.",
     "likes": 789,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "This pompous penguin is insulting our ENTIRE lineage!" },
-      { "characterKey": "diddy_kong", "text": "He just called Lanky 'an evolutionary mistake'..." },
-      { "characterKey": "funky_kong", "text": "Not cool, dude. NOT cool." }
+      {
+        "characterKey": "cranky_kong",
+        "text": "This pompous penguin is insulting our ENTIRE lineage!"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "He just called Lanky 'an evolutionary mistake'..."
+      },
+      {
+        "characterKey": "funky_kong",
+        "text": "Not cool, dude. NOT cool."
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3539,14 +9880,29 @@ export const WAHBOOK_POSTS = [
     "id": "dk_crew_walkout",
     "order": 70120,
     "characterKey": "donkey_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 10, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 10,
+      "minute": 45
+    },
     "timestamp": "2 days ago",
     "content": "DK has heard ENOUGH. Dedede not here for diplomacy - here to insult Kong family! Kongo Bongo delegation walking out. We came here in good faith. This is NOT what summits are for.",
     "likes": 2345,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "Finally showing some backbone, boy!" },
-      { "characterKey": "king_dedede", "text": "GOOD RIDDANCE! MORE TIME FOR MY SPEECH!" },
-      { "characterKey": "princess_daisy", "text": "Dedede, STOP. This is a diplomatic crisis!" }
+      {
+        "characterKey": "cranky_kong",
+        "text": "Finally showing some backbone, boy!"
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "GOOD RIDDANCE! MORE TIME FOR MY SPEECH!"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "Dedede, STOP. This is a diplomatic crisis!"
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3554,14 +9910,29 @@ export const WAHBOOK_POSTS = [
     "id": "chain_walkout",
     "order": 70121,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 10, "minute": 50 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 10,
+      "minute": 50
+    },
     "timestamp": "2 days ago",
     "content": "It's spreading. After DK Crew left, Rogueport delegation walked out in solidarity. Then the Pianta Collective. Now Isle Delfino is leaving. Dedede is STILL TALKING. This summit is falling apart.",
     "likes": 3456,
     "comments": [
-      { "characterKey": "noki_elder_npc", "text": "The Noki Commonwealth cannot condone such behavior. We withdraw." },
-      { "characterKey": "king_dedede", "text": "WHO NEEDS THEM?! PAGE 34: WHY DEDEDE IS ALWAYS RIGHT!" },
-      { "characterKey": "meta_knight", "text": "Your Majesty, I implore you to STOP." }
+      {
+        "characterKey": "noki_elder_npc",
+        "text": "The Noki Commonwealth cannot condone such behavior. We withdraw."
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "WHO NEEDS THEM?! PAGE 34: WHY DEDEDE IS ALWAYS RIGHT!"
+      },
+      {
+        "characterKey": "meta_knight",
+        "text": "Your Majesty, I implore you to STOP."
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3569,14 +9940,29 @@ export const WAHBOOK_POSTS = [
     "id": "daisy_ends_speech",
     "order": 70122,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 11, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 11,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "I've officially ended King Dedede's speech at the one-hour mark. He'd only reached page 31. He's demanding 'his time back.' I'm demanding he leave the podium before I have security escort him.",
     "likes": 4567,
     "comments": [
-      { "characterKey": "king_dedede", "text": "YOU CAN'T SILENCE THE KING!" },
-      { "characterKey": "toadette", "text": "Half our delegations just LEFT, Dedede!" },
-      { "characterKey": "meta_knight", "text": "Your Majesty, we should... regroup." }
+      {
+        "characterKey": "king_dedede",
+        "text": "YOU CAN'T SILENCE THE KING!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "Half our delegations just LEFT, Dedede!"
+      },
+      {
+        "characterKey": "meta_knight",
+        "text": "Your Majesty, we should... regroup."
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3584,14 +9970,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_tries_to_help",
     "order": 70123,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 11, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 11,
+      "minute": 30
+    },
     "timestamp": "2 days ago",
     "content": "I feel terrible about all this. Tried to stop DK from leaving - grabbed his arm to talk him down. My arm stretched across the whole hall and accidentally clotheslined the Beanbean security detail. I'm making everything worse aren't I",
     "likes": 456,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "LANKY." },
-      { "characterKey": "queen_bean_npc", "text": "My guards! The Kong delegation has ATTACKED us!" },
-      { "characterKey": "donkey_kong", "text": "...Lanky, buddy... please just... stop." }
+      {
+        "characterKey": "cranky_kong",
+        "text": "LANKY."
+      },
+      {
+        "characterKey": "queen_bean_npc",
+        "text": "My guards! The Kong delegation has ATTACKED us!"
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "...Lanky, buddy... please just... stop."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3599,14 +10000,29 @@ export const WAHBOOK_POSTS = [
     "id": "kremling_exploitation",
     "order": 70124,
     "characterKey": "kremling_observer_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 12, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 12,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "The Kremling Diplomatic Corps formally condemns the DK Crew's violent and disruptive behavior at this summit. Kongo Bongo has shown its true colors. Perhaps it's time for the international community to reconsider its partnerships...",
     "likes": 123,
     "comments": [
-      { "characterKey": "funky_kong", "text": "Oh COME ON, you lizards have been waiting for this!" },
-      { "characterKey": "diddy_kong", "text": "They're using Lanky's accidents to undermine us!" },
-      { "characterKey": "donkey_kong", "text": "DK sees through Kremling tricks." }
+      {
+        "characterKey": "funky_kong",
+        "text": "Oh COME ON, you lizards have been waiting for this!"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "They're using Lanky's accidents to undermine us!"
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "DK sees through Kremling tricks."
+      }
     ],
     "rumorId": "kong_kremling_cold_war"
   },
@@ -3614,14 +10030,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_evidence_review",
     "order": 70125,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 14, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 14,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "While the summit burns, I'm reviewing the Peasley evidence with neutral investigators. The documents... they're convincing. Bank timestamps, authorization codes, Peasley's personal seal. Either this is an incredibly sophisticated forgery or...",
     "likes": 1234,
     "comments": [
-      { "characterKey": "prince_peasley", "text": "Fawful's minions are VERY sophisticated!" },
-      { "characterKey": "toadette", "text": "If these funds exist, where did they go? I never saw them." },
-      { "characterKey": "fawful_npc", "text": "The princess sees the TRUTH! Fawful has victory!" }
+      {
+        "characterKey": "prince_peasley",
+        "text": "Fawful's minions are VERY sophisticated!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "If these funds exist, where did they go? I never saw them."
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "The princess sees the TRUTH! Fawful has victory!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3629,14 +10060,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_kremling_confrontation",
     "order": 70126,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 15, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 15,
+      "minute": 30
+    },
     "timestamp": "2 days ago",
     "content": "Okay so I overheard the Kremling observers laughing about how they 'couldn't have planned this better.' Got mad. Confronted them. They said the DK Crew were 'jungle embarrassments.' I... may have slapped one with my extending arm.",
     "likes": 789,
     "comments": [
-      { "characterKey": "kremling_observer_npc", "text": "ASSAULT! We demand Kong accountability!" },
-      { "characterKey": "funky_kong", "text": "Honestly? Deserved." },
-      { "characterKey": "cranky_kong", "text": "We are NEVER bringing you to diplomacy again." }
+      {
+        "characterKey": "kremling_observer_npc",
+        "text": "ASSAULT! We demand Kong accountability!"
+      },
+      {
+        "characterKey": "funky_kong",
+        "text": "Honestly? Deserved."
+      },
+      {
+        "characterKey": "cranky_kong",
+        "text": "We are NEVER bringing you to diplomacy again."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3644,14 +10090,29 @@ export const WAHBOOK_POSTS = [
     "id": "international_incident_declared",
     "order": 70127,
     "characterKey": "journalist_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 17, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 17,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "BREAKING: The Kremling Diplomatic Corps has formally declared Lanky Kong's actions an 'international incident' and is demanding Kongo Bongo issue a formal apology and pay reparations. DK Crew reputation in FREEFALL.",
     "likes": 2345,
     "comments": [
-      { "characterKey": "donkey_kong", "text": "This is Kremling manipulation! They PROVOKED Lanky!" },
-      { "characterKey": "diddy_kong", "text": "Nobody's gonna believe us over 'official diplomatic observers'..." },
-      { "characterKey": "king_dedede", "text": "HA! See?! The Kongs ARE the problem! I WAS RIGHT!" }
+      {
+        "characterKey": "donkey_kong",
+        "text": "This is Kremling manipulation! They PROVOKED Lanky!"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "Nobody's gonna believe us over 'official diplomatic observers'..."
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "HA! See?! The Kongs ARE the problem! I WAS RIGHT!"
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3659,14 +10120,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_title_threat",
     "order": 70128,
     "characterKey": "queen_bean_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 18, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 18,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "I have reviewed the evidence presented against my son. If these allegations are proven true... I will have no choice but to take action. The Beanbean throne cannot be tainted by corruption. Peasley, you have until tomorrow to prove your innocence.",
     "likes": 1567,
     "comments": [
-      { "characterKey": "prince_peasley", "text": "Mother! You CAN'T be serious!" },
-      { "characterKey": "toadette", "text": "Your Majesty, I believe the Prince may be a victim of Fawful's machinations." },
-      { "characterKey": "fawful_npc", "text": "The bean queen sees CLEARLY! FAWFUL'S PLAN UNFOLDS!" }
+      {
+        "characterKey": "prince_peasley",
+        "text": "Mother! You CAN'T be serious!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "Your Majesty, I believe the Prince may be a victim of Fawful's machinations."
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "The bean queen sees CLEARLY! FAWFUL'S PLAN UNFOLDS!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3674,14 +10150,29 @@ export const WAHBOOK_POSTS = [
     "id": "disaster_relief_continues",
     "order": 70129,
     "characterKey": "toadette",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 20, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 20,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "Amidst all this chaos, I want to remind everyone: the Disaster Relief Program is STILL operational. Ships are already being loaded with supplies. Whatever happens politically, we will not abandon the displaced civilians of the Mushroom Kingdom.",
     "likes": 2345,
     "comments": [
-      { "characterKey": "pianta_npc", "text": "Isle Delfino's commitment stands, despite the walkout." },
-      { "characterKey": "koopa_diplomat_npc", "text": "The Koopa Resistance will fulfill its obligations." },
-      { "characterKey": "princess_daisy", "text": "This is what we should be focused on." }
+      {
+        "characterKey": "pianta_npc",
+        "text": "Isle Delfino's commitment stands, despite the walkout."
+      },
+      {
+        "characterKey": "koopa_diplomat_npc",
+        "text": "The Koopa Resistance will fulfill its obligations."
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "This is what we should be focused on."
+      }
     ],
     "rumorId": "mushroom_disaster_relief"
   },
@@ -3689,14 +10180,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_guilt",
     "order": 70130,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 11, "hour": 22, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 11,
+      "hour": 22,
+      "minute": 0
+    },
     "timestamp": "2 days ago",
     "content": "I can't sleep. Everyone's looking at me like I personally destroyed Kongo Bongo's international standing. Maybe I did? I just... my arms are hard to control okay? And those Kremlings were being SO MEAN about DK...",
     "likes": 678,
     "comments": [
-      { "characterKey": "diddy_kong", "text": "Hey, those Kremlings baited you. This isn't all your fault." },
-      { "characterKey": "funky_kong", "text": "The diplomatic stuff was falling apart before you slapped anyone, dude." },
-      { "characterKey": "cranky_kong", "text": "...get some sleep, Lanky. Tomorrow will be worse." }
+      {
+        "characterKey": "diddy_kong",
+        "text": "Hey, those Kremlings baited you. This isn't all your fault."
+      },
+      {
+        "characterKey": "funky_kong",
+        "text": "The diplomatic stuff was falling apart before you slapped anyone, dude."
+      },
+      {
+        "characterKey": "cranky_kong",
+        "text": "...get some sleep, Lanky. Tomorrow will be worse."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3704,14 +10210,29 @@ export const WAHBOOK_POSTS = [
     "id": "fawful_claims_victory",
     "order": 70131,
     "characterKey": "fawful_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 6, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 6,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "FAWFUL HAS THE WATCHING OF THIS SUMMIT! Such delicious chaos! The prince of beans CRUMBLES! The kongs have the EMBARRASSMENT! The penguin king has the FURY OF IGNORED! ALL according to Fawful's plan! ...okay maybe not ALL but FAWFUL CLAIMS CREDIT!",
     "likes": 234,
     "comments": [
-      { "characterKey": "toadette", "text": "Did... did Fawful just admit he's manipulating this?" },
-      { "characterKey": "prince_peasley", "text": "SEE?! He's ADMITTING IT! The evidence is FABRICATED!" },
-      { "characterKey": "princess_daisy", "text": "Someone arrest that bean." }
+      {
+        "characterKey": "toadette",
+        "text": "Did... did Fawful just admit he's manipulating this?"
+      },
+      {
+        "characterKey": "prince_peasley",
+        "text": "SEE?! He's ADMITTING IT! The evidence is FABRICATED!"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "Someone arrest that bean."
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3719,14 +10240,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_final_defense",
     "order": 70132,
     "characterKey": "prince_peasley",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 9, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 9,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "My final statement: I DID authorize transfers from the Beanbean treasury. But they were for LEGITIMATE disaster relief! The 12 million went to medical supplies, not to Toadette personally! Fawful intercepted the funds and forged the recipient records!",
     "likes": 1234,
     "comments": [
-      { "characterKey": "toadette", "text": "Wait - where ARE those medical supplies then?" },
-      { "characterKey": "queen_bean_npc", "text": "Peasley... can you PROVE this?" },
-      { "characterKey": "fawful_npc", "text": "The prince has the LIES! Fawful has only TRUTH!" }
+      {
+        "characterKey": "toadette",
+        "text": "Wait - where ARE those medical supplies then?"
+      },
+      {
+        "characterKey": "queen_bean_npc",
+        "text": "Peasley... can you PROVE this?"
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "The prince has the LIES! Fawful has only TRUTH!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3734,14 +10270,29 @@ export const WAHBOOK_POSTS = [
     "id": "missing_supplies_discovered",
     "order": 70133,
     "characterKey": "journalist_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 10, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 10,
+      "minute": 30
+    },
     "timestamp": "1 day ago",
     "content": "DEVELOPMENT: A warehouse in Rogueport has been discovered containing medical supplies worth approximately 12 million Beanbean coins. The shipment records show Beanbean origin but the recipient is listed as... 'Fawful Medical Enterprises'???",
     "likes": 2567,
     "comments": [
-      { "characterKey": "prince_peasley", "text": "HA! I TOLD YOU! FAWFUL INTERCEPTED THEM!" },
-      { "characterKey": "fawful_npc", "text": "WHAT? Fawful has no knowledge of this! This is SETUP!" },
-      { "characterKey": "toadette", "text": "So the funds WERE for relief... just stolen en route?" }
+      {
+        "characterKey": "prince_peasley",
+        "text": "HA! I TOLD YOU! FAWFUL INTERCEPTED THEM!"
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "WHAT? Fawful has no knowledge of this! This is SETUP!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "So the funds WERE for relief... just stolen en route?"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3749,14 +10300,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_partial_vindication",
     "order": 70134,
     "characterKey": "queen_bean_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 12, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 12,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "The evidence is... muddled. My son authorized legitimate transfers that were intercepted. However, his SECRECY about the transfers violated royal protocol. I must... I must relinquish his formal titles pending a full investigation. This brings me no joy.",
     "likes": 3456,
     "comments": [
-      { "characterKey": "prince_peasley", "text": "Mother... I understand. I should have been transparent." },
-      { "characterKey": "fawful_npc", "text": "Fawful STILL has the victory! The prince is DIMINISHED!" },
-      { "characterKey": "toadette", "text": "This isn't justice. Fawful manipulated everyone." }
+      {
+        "characterKey": "prince_peasley",
+        "text": "Mother... I understand. I should have been transparent."
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "Fawful STILL has the victory! The prince is DIMINISHED!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "This isn't justice. Fawful manipulated everyone."
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3764,14 +10330,29 @@ export const WAHBOOK_POSTS = [
     "id": "dk_family_crisis_meeting",
     "order": 70135,
     "characterKey": "donkey_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 13, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 13,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "Called emergency Kong family meeting. Kremlings using Lanky's incidents to push for 'international sanctions' against Kongo Bongo. Our allies are distancing themselves. Cranky says we need to 'control the narrative.' DK doesn't know how.",
     "likes": 1234,
     "comments": [
-      { "characterKey": "cranky_kong", "text": "Issue a formal apology. Take responsibility. Control the damage." },
-      { "characterKey": "funky_kong", "text": "But we didn't DO anything wrong! The Kremlings—" },
-      { "characterKey": "diddy_kong", "text": "It doesn't matter what's TRUE, it matters what people BELIEVE..." }
+      {
+        "characterKey": "cranky_kong",
+        "text": "Issue a formal apology. Take responsibility. Control the damage."
+      },
+      {
+        "characterKey": "funky_kong",
+        "text": "But we didn't DO anything wrong! The Kremlings—"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "It doesn't matter what's TRUE, it matters what people BELIEVE..."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3779,14 +10360,29 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_public_apology",
     "order": 70136,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 14, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 14,
+      "minute": 30
+    },
     "timestamp": "1 day ago",
     "content": "I, Lanky Kong, formally apologize for my actions at the Democratic Summit. I did not mean to disrupt proceedings, damage artifacts, or... hit anyone. I take full personal responsibility. Please do not blame the DK Crew for my mistakes. *reads from paper Cranky gave him*",
     "likes": 1890,
     "comments": [
-      { "characterKey": "kremling_observer_npc", "text": "A hollow gesture. Actions have consequences." },
-      { "characterKey": "princess_daisy", "text": "Thank you, Lanky. This is a step toward healing." },
-      { "characterKey": "donkey_kong", "text": "DK is proud of you, Lanky." }
+      {
+        "characterKey": "kremling_observer_npc",
+        "text": "A hollow gesture. Actions have consequences."
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "Thank you, Lanky. This is a step toward healing."
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "DK is proud of you, Lanky."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
@@ -3794,14 +10390,29 @@ export const WAHBOOK_POSTS = [
     "id": "dedede_refuses_apology",
     "order": 70137,
     "characterKey": "king_dedede",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 15, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 15,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "The King does NOT accept this pathetic apology! The DK Crew WALKED OUT on MY SPEECH! The Lanky menace ruined my ROYAL ROBES! I demand Kongo Bongo pay for dry cleaning AND give me a formal written apology carved in STONE!",
     "likes": 234,
     "comments": [
-      { "characterKey": "meta_knight", "text": "Your Majesty, perhaps we should also apologize for the speech..." },
-      { "characterKey": "king_dedede", "text": "APOLOGIZE?! FOR TRUTH?! NEVER!" },
-      { "characterKey": "princess_daisy", "text": "Dedede, you're not helping anyone, including yourself." }
+      {
+        "characterKey": "meta_knight",
+        "text": "Your Majesty, perhaps we should also apologize for the speech..."
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "APOLOGIZE?! FOR TRUTH?! NEVER!"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "Dedede, you're not helping anyone, including yourself."
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3809,14 +10420,29 @@ export const WAHBOOK_POSTS = [
     "id": "relief_ships_launch",
     "order": 70138,
     "characterKey": "toadette",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 16, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 16,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "The first wave of disaster relief ships has launched from Birabuto Harbor! Despite everything - the walkouts, the scandal, the incidents - we DID achieve something meaningful here. Supplies heading to displaced Toads across the kingdom.",
     "likes": 4567,
     "comments": [
-      { "characterKey": "princess_daisy", "text": "This is the legacy of this summit. Not the drama." },
-      { "characterKey": "noki_elder_npc", "text": "The Coral Fleet escorts them safely." },
-      { "characterKey": "koopa_diplomat_npc", "text": "Proof that cooperation IS possible." }
+      {
+        "characterKey": "princess_daisy",
+        "text": "This is the legacy of this summit. Not the drama."
+      },
+      {
+        "characterKey": "noki_elder_npc",
+        "text": "The Coral Fleet escorts them safely."
+      },
+      {
+        "characterKey": "koopa_diplomat_npc",
+        "text": "Proof that cooperation IS possible."
+      }
     ],
     "rumorId": "mushroom_disaster_relief"
   },
@@ -3824,14 +10450,29 @@ export const WAHBOOK_POSTS = [
     "id": "summit_closing_ceremony",
     "order": 70139,
     "characterKey": "princess_daisy",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 18, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 18,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "Closing the Second Democratic Summit. To summarize: relief program launched (good), Prince Peasley's titles relinquished (complicated), DK Crew reputation damaged (unfortunate), half the delegations walked out (bad), King Dedede still mad (eternal). See everyone next year maybe.",
     "likes": 2345,
     "comments": [
-      { "characterKey": "donkey_kong", "text": "DK will work to rebuild trust." },
-      { "characterKey": "king_dedede", "text": "NEXT YEAR I GET TWO HOURS!" },
-      { "characterKey": "toadette", "text": "Thank you for hosting, Princess Daisy. Truly." }
+      {
+        "characterKey": "donkey_kong",
+        "text": "DK will work to rebuild trust."
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "NEXT YEAR I GET TWO HOURS!"
+      },
+      {
+        "characterKey": "toadette",
+        "text": "Thank you for hosting, Princess Daisy. Truly."
+      }
     ],
     "rumorId": "democratic_summit_two"
   },
@@ -3839,14 +10480,29 @@ export const WAHBOOK_POSTS = [
     "id": "kremling_propaganda",
     "order": 70140,
     "characterKey": "kremling_observer_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 12, "hour": 20, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 12,
+      "hour": 20,
+      "minute": 0
+    },
     "timestamp": "1 day ago",
     "content": "The Kremling News Service reports: DK Crew revealed as violent aggressors at international summit! Multiple witnesses confirm unprovoked attacks on diplomatic personnel! Is Kongo Bongo a rogue state? International community must act!",
     "likes": 89,
     "comments": [
-      { "characterKey": "funky_kong", "text": "THIS IS PROPAGANDA! We have witnesses too!" },
-      { "characterKey": "diddy_kong", "text": "They're spinning EVERYTHING against us..." },
-      { "characterKey": "cranky_kong", "text": "This was their plan all along." }
+      {
+        "characterKey": "funky_kong",
+        "text": "THIS IS PROPAGANDA! We have witnesses too!"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "They're spinning EVERYTHING against us..."
+      },
+      {
+        "characterKey": "cranky_kong",
+        "text": "This was their plan all along."
+      }
     ],
     "rumorId": "kong_kremling_cold_war"
   },
@@ -3854,14 +10510,29 @@ export const WAHBOOK_POSTS = [
     "id": "peasley_reflection",
     "order": 70141,
     "characterKey": "prince_peasley",
-    "date": { "year": 1040, "monthIndex": 7, "day": 13, "hour": 8, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 13,
+      "hour": 8,
+      "minute": 0
+    },
     "timestamp": "12 hours ago",
     "content": "The flight home is long. I am no longer 'Prince' Peasley in any official capacity - just Peasley of the Beanbean Kingdom. Fawful achieved his goal. But the truth is coming out. Those medical supplies will reach who needs them. Perhaps that's enough.",
     "likes": 1567,
     "comments": [
-      { "characterKey": "toadette", "text": "We'll clear your name, Peasley. I promise." },
-      { "characterKey": "queen_bean_npc", "text": "The investigation continues, my son. Have faith." },
-      { "characterKey": "fawful_npc", "text": "The bean prince has the DEFEAT! FAWFUL FOREVER!" }
+      {
+        "characterKey": "toadette",
+        "text": "We'll clear your name, Peasley. I promise."
+      },
+      {
+        "characterKey": "queen_bean_npc",
+        "text": "The investigation continues, my son. Have faith."
+      },
+      {
+        "characterKey": "fawful_npc",
+        "text": "The bean prince has the DEFEAT! FAWFUL FOREVER!"
+      }
     ],
     "rumorId": "peasley_scandal"
   },
@@ -3869,14 +10540,29 @@ export const WAHBOOK_POSTS = [
     "id": "funky_investigation",
     "order": 70142,
     "characterKey": "funky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 13, "hour": 10, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 13,
+      "hour": 10,
+      "minute": 0
+    },
     "timestamp": "10 hours ago",
     "content": "Been reviewing the summit footage. Those Kremling 'observers' were DEFINITELY positioned to maximize Lanky's accidents. They moved the Beanbean display INTO his path. They pushed that waiter toward Lanky. This was a SETUP from the start!",
     "likes": 1234,
     "comments": [
-      { "characterKey": "donkey_kong", "text": "Can we prove it?" },
-      { "characterKey": "diddy_kong", "text": "The footage is circumstantial but... yeah, it looks coordinated." },
-      { "characterKey": "cranky_kong", "text": "Kremlings playing the long game. Clever lizards." }
+      {
+        "characterKey": "donkey_kong",
+        "text": "Can we prove it?"
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "The footage is circumstantial but... yeah, it looks coordinated."
+      },
+      {
+        "characterKey": "cranky_kong",
+        "text": "Kremlings playing the long game. Clever lizards."
+      }
     ],
     "rumorId": "kong_kremling_cold_war"
   },
@@ -3884,14 +10570,29 @@ export const WAHBOOK_POSTS = [
     "id": "meta_knight_assessment",
     "order": 70143,
     "characterKey": "meta_knight",
-    "date": { "year": 1040, "monthIndex": 7, "day": 13, "hour": 12, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 13,
+      "hour": 12,
+      "minute": 0
+    },
     "timestamp": "8 hours ago",
     "content": "Post-summit analysis for Dreamland: His Majesty's speech damaged our diplomatic standing significantly. The walkout created the opportunity for the Kremlings to exploit the DK Crew. We inadvertently aided our rivals. I recommend... speech coaching.",
     "likes": 678,
     "comments": [
-      { "characterKey": "king_dedede", "text": "WHAT?! My speech was PERFECT!" },
-      { "characterKey": "waddle_dee_npc", "text": "Maybe... 10 pages next time, Your Majesty?" },
-      { "characterKey": "king_dedede", "text": "FINE. 45 pages. MINIMUM." }
+      {
+        "characterKey": "king_dedede",
+        "text": "WHAT?! My speech was PERFECT!"
+      },
+      {
+        "characterKey": "waddle_dee_npc",
+        "text": "Maybe... 10 pages next time, Your Majesty?"
+      },
+      {
+        "characterKey": "king_dedede",
+        "text": "FINE. 45 pages. MINIMUM."
+      }
     ],
     "rumorId": "dedede_walkout"
   },
@@ -3899,339 +10600,669 @@ export const WAHBOOK_POSTS = [
     "id": "lanky_redemption_arc",
     "order": 70144,
     "characterKey": "lanky_kong",
-    "date": { "year": 1040, "monthIndex": 7, "day": 13, "hour": 14, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 13,
+      "hour": 14,
+      "minute": 0
+    },
     "timestamp": "6 hours ago",
     "content": "Back home in Kongo Bongo. DK says I'm not allowed at the next summit. That's... probably fair. But Funky's footage shows the Kremlings set me up! I want to clear my name. And the family's. Whatever it takes.",
     "likes": 890,
     "comments": [
-      { "characterKey": "donkey_kong", "text": "We'll fight this together, Lanky." },
-      { "characterKey": "diddy_kong", "text": "Team Kong! We don't abandon family!" },
-      { "characterKey": "cranky_kong", "text": "...you've got spirit, kid. Now USE it properly." }
+      {
+        "characterKey": "donkey_kong",
+        "text": "We'll fight this together, Lanky."
+      },
+      {
+        "characterKey": "diddy_kong",
+        "text": "Team Kong! We don't abandon family!"
+      },
+      {
+        "characterKey": "cranky_kong",
+        "text": "...you've got spirit, kid. Now USE it properly."
+      }
     ],
     "rumorId": "lanky_diplomatic_incident"
   },
-    {
-        id: 'hjumpik_sparring_challenge', order: 40500, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 0 },
-        content: `Rakasha's friend "Thystle" thinks he's tough. I asked him who his boss is. He said "Saytr Cornovirus." Sounds like a disease. Let's see if he can block a hammer.`,
-        likes: 120, 
-        comments: [
-            { characterKey: 'bowser', text: 'Smash him flat! Show him how the Koopa Troop trains!' },
-            { characterKey: 'kamek', text: 'I have 50 coins on Hjumpik. Do not disappoint me.' },
-            { characterKey: 'toad_lee', text: 'Watch his footwork. He looks twitchy.' }
-        ]
+  {
+    "id": "hjumpik_sparring_challenge",
+    "order": 40500,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 0
     },
-    {
-        id: 'rakasha_lie_reveal', order: 40501, characterKey: 'rakasha_spirit_walker', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 5 },
-        content: `The wind whispers deceit. "Thystle" is not who he claims. His true name is Sanderia. He lies to his own kin. The penalty is... correction.`,
-        likes: 45, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Less talking, more smashing!' },
-            { characterKey: 'rakasha_elder', text: 'Honor the old ways, daughter. Truth before blood.' }
-        ]
+    "content": "Rakasha's friend \"Thystle\" thinks he's tough. I asked him who his boss is. He said \"Saytr Cornovirus.\" Sounds like a disease. Let's see if he can block a hammer.",
+    "likes": 120,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "Smash him flat! Show him how the Koopa Troop trains!"
+      },
+      {
+        "characterKey": "kamek",
+        "text": "I have 50 coins on Hjumpik. Do not disappoint me."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Watch his footwork. He looks twitchy."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_lie_reveal",
+    "order": 40501,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 5
     },
-    {
-        id: 'hjumpik_hammer_time', order: 40502, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 10 },
-        content: `He's fast! Parried my swing like it was nothing! But Rakasha... uh... she just touched him and melted his skin? He's screaming. That's a lot of screaming.`,
-        likes: 670, 
-        comments: [
-            { characterKey: 'toad_medic', text: 'That sounds like necrotic damage. Very hard to heal. Gross.' },
-            { characterKey: 'bowser', text: 'Brutal. I like her style.' }
-        ]
+    "content": "The wind whispers deceit. \"Thystle\" is not who he claims. His true name is Sanderia. He lies to his own kin. The penalty is... correction.",
+    "likes": 45,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Less talking, more smashing!"
+      },
+      {
+        "characterKey": "rakasha_elder",
+        "text": "Honor the old ways, daughter. Truth before blood."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_hammer_time",
+    "order": 40502,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 10
     },
-
-    {
-        id: 'hjumpik_trident_stab', order: 40504, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 20 },
-        content: `Got him! Trident right in the gut! He tried to use his sword as a shield. Rookie mistake. Shields are shields. Swords are for poking.`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'captain_toadette', text: 'Textbook combat triangle. Good form, Hjumpik.' },
-            { characterKey: 'wario', text: 'Did he drop any loot? Check his pockets!' }
-        ]
+    "content": "He's fast! Parried my swing like it was nothing! But Rakasha... uh... she just touched him and melted his skin? He's screaming. That's a lot of screaming.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "toad_medic",
+        "text": "That sounds like necrotic damage. Very hard to heal. Gross."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Brutal. I like her style."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_trident_stab",
+    "order": 40504,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 20
     },
-    {
-        id: 'rakasha_mercy', order: 40505, characterKey: 'rakasha_spirit_walker', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 25 },
-        content: `The corruption burns deep, but death is not the answer today. I will take him to the healers. Hjumpik... do not follow. This path is for spirits only.`,
-        likes: 300, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Wait, you\'re just leaving?!' },
-            { characterKey: 'markop', text: 'Portals? In the middle of a fight? Showoff.' }
-        ]
+    "content": "Got him! Trident right in the gut! He tried to use his sword as a shield. Rookie mistake. Shields are shields. Swords are for poking.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "captain_toadette",
+        "text": "Textbook combat triangle. Good form, Hjumpik."
+      },
+      {
+        "characterKey": "wario",
+        "text": "Did he drop any loot? Check his pockets!"
+      }
+    ]
+  },
+  {
+    "id": "rakasha_mercy",
+    "order": 40505,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 25
     },
-
-    // --- THE MAZE & THE ARGUMENT (Midnight - 1 AM) ---
-    {
-        id: 'hjumpik_maze_lost', order: 40510, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 45 },
-        content: `She disappeared into a portal. Now I'm alone in a hedge maze. I hear voices. Someone arguing about an Orb? Is this a side quest?`,
-        likes: 50, 
-        comments: [
-            { characterKey: 'toad_game_master', text: 'Always check the side quests. Best EXP.' },
-            { characterKey: 'archer_green', text: 'Don\'t trust voices in mazes, friend.' }
-        ]
+    "content": "The corruption burns deep, but death is not the answer today. I will take him to the healers. Hjumpik... do not follow. This path is for spirits only.",
+    "likes": 300,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Wait, you're just leaving?!"
+      },
+      {
+        "characterKey": "markop",
+        "text": "Portals? In the middle of a fight? Showoff."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_maze_lost",
+    "order": 40510,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 45
     },
-    {
-        id: 'herniva_complaint', order: 40511, characterKey: 'herniva_mermaid', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 50 },
-        content: `If I have to explain one more time that I didn't steal the salty pearl, I'm going to scream. Stucky is delusional. I have standards!`,
-        likes: 12, 
-        comments: [
-            { characterKey: 'stucky_siren', text: 'GIVE IT BACK, THIEF!' },
-            { characterKey: 'hjumpik', text: 'Can you two keep it down? I\'m trying to find the exit.' }
-        ]
+    "content": "She disappeared into a portal. Now I'm alone in a hedge maze. I hear voices. Someone arguing about an Orb? Is this a side quest?",
+    "likes": 50,
+    "comments": [
+      {
+        "characterKey": "toad_game_master",
+        "text": "Always check the side quests. Best EXP."
+      },
+      {
+        "characterKey": "archer_green",
+        "text": "Don't trust voices in mazes, friend."
+      }
+    ]
+  },
+  {
+    "id": "herniva_complaint",
+    "order": 40511,
+    "characterKey": "herniva_mermaid",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 50
     },
-    {
-        id: 'stucky_threat', order: 40512, characterKey: 'stucky_siren', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 23, minute: 55 },
-        content: `She thinks she's so pretty with her scales. I will scry every second of her life until I find my Orb. Then she becomes stew.`,
-        likes: 5, 
-        comments: [
-            { characterKey: 'iron_legion_cook', text: 'Siren stew is tough. Needs slow cooking.' }
-        ]
+    "content": "If I have to explain one more time that I didn't steal the salty pearl, I'm going to scream. Stucky is delusional. I have standards!",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "stucky_siren",
+        "text": "GIVE IT BACK, THIEF!"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "Can you two keep it down? I'm trying to find the exit."
+      }
+    ]
+  },
+  {
+    "id": "stucky_threat",
+    "order": 40512,
+    "characterKey": "stucky_siren",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 23,
+      "minute": 55
     },
-    {
-        id: 'rakasha_return', order: 40513, characterKey: 'rakasha_spirit_walker', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 0, minute: 5 },
-        content: `I have returned. The maze shifts. We must find the center. Hjumpik, put away that noisy ring. We walk silently.`,
-        likes: 450, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'It\'s an Entropy Regulator! It\'s science!' },
-            { characterKey: 'dan', text: 'Actually it\'s technically Magitek. Very delicate.' }
-        ]
+    "content": "She thinks she's so pretty with her scales. I will scry every second of her life until I find my Orb. Then she becomes stew.",
+    "likes": 5,
+    "comments": [
+      {
+        "characterKey": "iron_legion_cook",
+        "text": "Siren stew is tough. Needs slow cooking."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_return",
+    "order": 40513,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 0,
+      "minute": 5
     },
-    {
-        id: 'hjumpik_midnight_gate', order: 40514, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 0, minute: 30 },
-        content: `Found a creepy shrine. Statue with a scythe and glowing purple eyes. Rakasha hates it. Says it's "unnatural magic." I just think it looks expensive.`,
-        likes: 230, 
-        comments: [
-            { characterKey: 'wario', text: 'Did you say expensive? Grab the eyes!' },
-            { characterKey: 'mages_guild_historian', text: 'Do NOT touch the Midnight Gate. That is pre-Regency artifact.' }
-        ]
+    "content": "I have returned. The maze shifts. We must find the center. Hjumpik, put away that noisy ring. We walk silently.",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "It's an Entropy Regulator! It's science!"
+      },
+      {
+        "characterKey": "dan",
+        "text": "Actually it's technically Magitek. Very delicate."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_midnight_gate",
+    "order": 40514,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 0,
+      "minute": 30
     },
-    {
-        id: 'agent_h_comms', order: 40515, characterKey: 'agent_h', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 0, minute: 45 },
-        content: `[ENCRYPTED LOG] Contact established with Hjumpik. Entropy levels stable at 24%. Orange Target confirmed in sector. Extraction protocol pending.`,
-        likes: 0, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Stop speaking in codes! Just tell me where the door is!' }
-        ]
+    "content": "Found a creepy shrine. Statue with a scythe and glowing purple eyes. Rakasha hates it. Says it's \"unnatural magic.\" I just think it looks expensive.",
+    "likes": 230,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Did you say expensive? Grab the eyes!"
+      },
+      {
+        "characterKey": "mages_guild_historian",
+        "text": "Do NOT touch the Midnight Gate. That is pre-Regency artifact."
+      }
+    ]
+  },
+  {
+    "id": "agent_h_comms",
+    "order": 40515,
+    "characterKey": "agent_h",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 0,
+      "minute": 45
     },
-    {
-        id: 'fng_note_found', order: 40516, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 1, minute: 0 },
-        content: `Found a note. Someone named "FNG" talking about "grotesque failures" and "tuning tethers." Also something about not eating? Sounds like Dan when he's working on the engine.`,
-        likes: 560, 
-        comments: [
-            { characterKey: 'dan', text: 'Hey! I eat! Sometimes! I had a cracker yesterday.' },
-            { characterKey: 'remi', text: 'That explains why you passed out.' }
-        ]
+    "content": "[ENCRYPTED LOG] Contact established with Hjumpik. Entropy levels stable at 24%. Orange Target confirmed in sector. Extraction protocol pending.",
+    "likes": 0,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Stop speaking in codes! Just tell me where the door is!"
+      }
+    ]
+  },
+  {
+    "id": "fng_note_found",
+    "order": 40516,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 1,
+      "minute": 0
     },
-
-    // --- THE HAG'S HUT (2 AM - 3 AM) ---
-    {
-        id: 'hjumpik_hag_hut', order: 40520, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 2, minute: 0 },
-        content: `We found a hut. It smells like old soup and feet. Rakasha picked the lock. There's a bear trap on the floor. I threw a rock at it. *SNAP*`,
-        likes: 780, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'Classic Hag defense. Watch out for mimic chests.' },
-            { characterKey: 'luigi', text: 'I hate haunted huts...' }
-        ]
+    "content": "Found a note. Someone named \"FNG\" talking about \"grotesque failures\" and \"tuning tethers.\" Also something about not eating? Sounds like Dan when he's working on the engine.",
+    "likes": 560,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Hey! I eat! Sometimes! I had a cracker yesterday."
+      },
+      {
+        "characterKey": "remi",
+        "text": "That explains why you passed out."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_hag_hut",
+    "order": 40520,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 0
     },
-    {
-        id: 'rakasha_corpse_discovery', order: 40521, characterKey: 'rakasha_spirit_walker', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 2, minute: 15 },
-        content: `This place is a tomb. Bodies in cages. Insects crawling from eyes. The spirits here scream in silence. We must rest, but we must not sleep deeply.`,
-        likes: 340, 
-        comments: [
-            { characterKey: 'bones', text: 'Sleep with one eye open. Always.' }
-        ]
+    "content": "We found a hut. It smells like old soup and feet. Rakasha picked the lock. There's a bear trap on the floor. I threw a rock at it. *SNAP*",
+    "likes": 780,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Classic Hag defense. Watch out for mimic chests."
+      },
+      {
+        "characterKey": "luigi",
+        "text": "I hate haunted huts..."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_corpse_discovery",
+    "order": 40521,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 15
     },
-    {
-        id: 'hjumpik_bedroom_loot', order: 40522, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 2, minute: 30 },
-        content: `Checked the bedroom. Found rope, candles, and... a finger? Just a loose finger in a drawer. Also some acid. Taking the acid. Leaving the finger.`,
-        likes: 450, 
-        comments: [
-            { characterKey: 'archie', text: 'Should have taken the finger. Good luck charm.' },
-            { characterKey: 'hjumpik', text: 'You and your weird loot habits...' }
-        ]
+    "content": "This place is a tomb. Bodies in cages. Insects crawling from eyes. The spirits here scream in silence. We must rest, but we must not sleep deeply.",
+    "likes": 340,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Sleep with one eye open. Always."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_bedroom_loot",
+    "order": 40522,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 30
     },
-    {
-        id: 'hag_arrival', order: 40523, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 0 },
-        content: `Someone's home. Old lady voice. Pans banging. Rakasha is asleep. I'm hiding. If I die, tell Bowser he owes me 5 coins.`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'bowser', text: 'I owe you nothing! But try not to die.' }
-        ]
+    "content": "Checked the bedroom. Found rope, candles, and... a finger? Just a loose finger in a drawer. Also some acid. Taking the acid. Leaving the finger.",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "archie",
+        "text": "Should have taken the finger. Good luck charm."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "You and your weird loot habits..."
+      }
+    ]
+  },
+  {
+    "id": "hag_arrival",
+    "order": 40523,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 0
     },
-
-    // --- THE CAPTURE & ESCAPE (3 AM - 4 AM) ---
-    {
-        id: 'waluigi_captured', order: 40530, characterKey: 'waluigi', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 15 },
-        content: `WAH! My leg! The trap! This old lady is strong! Unhand me, you wrinkly witch! I am a superstar!`,
-        likes: 5600, 
-        comments: [
-            { characterKey: 'wario', text: 'BWAHAHA! You got caught by a granny! Walk it off!' },
-            { characterKey: 'princess_daisy', text: 'Dramatic as always.' }
-        ]
+    "content": "Someone's home. Old lady voice. Pans banging. Rakasha is asleep. I'm hiding. If I die, tell Bowser he owes me 5 coins.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "I owe you nothing! But try not to die."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_captured",
+    "order": 40530,
+    "characterKey": "waluigi",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 15
     },
-    {
-        id: 'toad_lee_trap_tech', order: 40531, characterKey: 'toad_lee', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 20 },
-        content: `She wants me to reset the trap? Joke's on her. I know the mechanism. Just gotta be fast... got it! Still have all my fingers!`,
-        likes: 890, 
-        comments: [
-            { characterKey: 'dan', text: 'Good dexterity. I taught you well.' }
-        ]
+    "content": "WAH! My leg! The trap! This old lady is strong! Unhand me, you wrinkly witch! I am a superstar!",
+    "likes": 5600,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "BWAHAHA! You got caught by a granny! Walk it off!"
+      },
+      {
+        "characterKey": "princess_daisy",
+        "text": "Dramatic as always."
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_trap_tech",
+    "order": 40531,
+    "characterKey": "toad_lee",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 20
     },
-    {
-        id: 'hjumpik_confrontation', order: 40532, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 25 },
-        content: `I came downstairs. It's Toad Lee and Waluigi! The Hag put them in a cage. She calls them "ingredients." Not on my watch.`,
-        likes: 2300, 
-        comments: [
-            { characterKey: 'markop', text: 'Ingredients? Waluigi is mostly gristle and bone.' }
-        ]
+    "content": "She wants me to reset the trap? Joke's on her. I know the mechanism. Just gotta be fast... got it! Still have all my fingers!",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "dan",
+        "text": "Good dexterity. I taught you well."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_confrontation",
+    "order": 40532,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 25
     },
-    {
-        id: 'hag_negotiation', order: 40533, characterKey: 'hag_of_raventree', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 30 },
-        content: `Rude guests. Poking around my bedroom. Stealing my potions. I should boil you all. But I'm feeling... generous. Show me what you took.`,
-        likes: 12, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'I took nothing! (except the acid)' }
-        ]
+    "content": "I came downstairs. It's Toad Lee and Waluigi! The Hag put them in a cage. She calls them \"ingredients.\" Not on my watch.",
+    "likes": 2300,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "Ingredients? Waluigi is mostly gristle and bone."
+      }
+    ]
+  },
+  {
+    "id": "hag_negotiation",
+    "order": 40533,
+    "characterKey": "hag_of_raventree",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 30
     },
-    {
-        id: 'toad_lee_jailbreak', order: 40534, characterKey: 'toad_lee', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 35 },
-        content: `Unlocked the cage while she was distracted! Dragging Waluigi out. He's bleeding everywhere. Gross.`,
-        likes: 1500, 
-        comments: [
-            { characterKey: 'waluigi', text: 'Be gentle with the merchandise!' },
-            { characterKey: 'remi', text: 'Nice lockpicking, Lee!' }
-        ]
+    "content": "Rude guests. Poking around my bedroom. Stealing my potions. I should boil you all. But I'm feeling... generous. Show me what you took.",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I took nothing! (except the acid)"
+      }
+    ]
+  },
+  {
+    "id": "toad_lee_jailbreak",
+    "order": 40534,
+    "characterKey": "toad_lee",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 35
     },
-    {
-        id: 'hjumpik_window_jump', order: 40535, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 3, minute: 45 },
-        content: `Woke up Rakasha. We jumped out the window. Glass everywhere. The Hag is screaming. RUNNING NOW!`,
-        likes: 3400, 
-        comments: [
-            { characterKey: 'bowser', text: 'RUN FASTER!' }
-        ]
+    "content": "Unlocked the cage while she was distracted! Dragging Waluigi out. He's bleeding everywhere. Gross.",
+    "likes": 1500,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Be gentle with the merchandise!"
+      },
+      {
+        "characterKey": "remi",
+        "text": "Nice lockpicking, Lee!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_window_jump",
+    "order": 40535,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 45
     },
-
-    // --- THE GREENHOUSE (4 AM) ---
-    {
-        id: 'group_reunion_forest', order: 40540, characterKey: 'rakasha_spirit_walker', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 4, minute: 0 },
-        content: `We regrouped in the forest. The purple man is loud. The small mushroom warrior is brave. We found a glass house filled with life.`,
-        likes: 670, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'Glad you guys made it. Waluigi is heavy.' }
-        ]
+    "content": "Woke up Rakasha. We jumped out the window. Glass everywhere. The Hag is screaming. RUNNING NOW!",
+    "likes": 3400,
+    "comments": [
+      {
+        "characterKey": "bowser",
+        "text": "RUN FASTER!"
+      }
+    ]
+  },
+  {
+    "id": "group_reunion_forest",
+    "order": 40540,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 0
     },
-    {
-        id: 'hjumpik_greenhouse_entry', order: 40541, characterKey: 'hjumpik', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 4, minute: 5 },
-        content: `Locked the door behind us. It's warm in here. Plants everywhere. And... fairies? Are those sprites with spears? Great. More things that want to stab us.`,
-        likes: 900, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'Diplomacy first. Then hammers.' },
-            { characterKey: 'princess_peach', text: 'Be nice to the Sprites! They are guardians of nature.' }
-        ]
+    "content": "We regrouped in the forest. The purple man is loud. The small mushroom warrior is brave. We found a glass house filled with life.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Glad you guys made it. Waluigi is heavy."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_greenhouse_entry",
+    "order": 40541,
+    "characterKey": "hjumpik",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 5
     },
-    {
-        id: 'waluigi_complaint', order: 40542, characterKey: 'waluigi', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 4, minute: 10 },
-        content: `My leg needs medical attention! And a massage! And roses! I demand to see the manager of this garden!`,
-        likes: 4500, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Drink the potion I stole and shut up.' },
-            { characterKey: 'wario', text: 'Stop whining! WAH!' },
-            { characterKey: 'princess_daisy', text: 'Classic Waluigi.' }
-        ]
+    "content": "Locked the door behind us. It's warm in here. Plants everywhere. And... fairies? Are those sprites with spears? Great. More things that want to stab us.",
+    "likes": 900,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Diplomacy first. Then hammers."
+      },
+      {
+        "characterKey": "princess_peach",
+        "text": "Be nice to the Sprites! They are guardians of nature."
+      }
+    ]
+  },
+  {
+    "id": "rakasha_clan_rumor",
+    "order": 40552,
+    "characterKey": "rakasha_warrior",
+    "rumorId": "raventree_hag_incident",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 10,
+      "minute": 0
     },
-    {
-        id: 'rakasha_pollen', order: 40543, characterKey: 'rakasha_spirit_walker', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 4, minute: 15 },
-        content: `The air is thick with pollen. It smells of old magic. This is not a wild place. It is a garden kept by unseen hands. We must be careful what we touch.`,
-        likes: 300, 
-        comments: [
-            { characterKey: 'markop', text: 'Don\'t touch the red mushrooms. Just a hunch.' }
-        ]
-    },
-    {
-        id: 'toad_lee_guard_duty', order: 40544, characterKey: 'toad_lee', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 4, minute: 20 },
-        content: `Taking first watch. The sprites seem peaceful for now. Waluigi passed out. Hjumpik is cleaning his axe. We survived the night.`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'captain_toadette', text: 'Good discipline, soldier. Rest up.' }
-        ]
-    },
-
-    // --- THE MORNING AFTER (Background Chatter) ---
-    {
-        id: 'regency_soldier_confusion', order: 40550, characterKey: 'regency_soldier_pvt', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 8, minute: 0 },
-        content: `Did anyone else hear screaming from the woods last night? Sounded like an old lady and a dying cat. Creepy.`,
-        likes: 45, 
-        comments: [
-            { characterKey: 'waluigi', text: 'IT WAS ME! I AM NOT A CAT!' }
-        ]
-    },
-    {
-        id: 'mages_guild_observation', order: 40551, characterKey: 'mages_guild_scryer', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 9, minute: 0 },
-        content: `Energy spikes detected in the Eastern Maze. Someone activated the Midnight Gate. Unauthorized transit. Investigating.`,
-        likes: 120, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Oops.' }
-        ]
-    },
-    {
-        id: 'rakasha_clan_rumor', order: 40552, characterKey: 'rakasha_warrior', rumorId: 'raventree_hag_incident',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 10, minute: 0 },
-        content: `The Spirit Walker returned with the outlanders. She walks with the Hammer-Bearer. Interesting alliances are forming.`,
-        likes: 230, comments: []
-    },
+    "content": "The Spirit Walker returned with the outlanders. She walks with the Hammer-Bearer. Interesting alliances are forming.",
+    "likes": 230,
+    "comments": []
+  },
   {
     "id": "summit_final_assessment",
     "order": 70145,
     "characterKey": "journalist_npc",
-    "date": { "year": 1040, "monthIndex": 7, "day": 13, "hour": 18, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 13,
+      "hour": 18,
+      "minute": 0
+    },
     "timestamp": "2 hours ago",
     "content": "SUMMIT FINAL REPORT: The Second Democratic Summit will be remembered for the Peasley scandal, the Dedede walkout, and the Lanky Kong international incident. But also: 8 nations signed the Disaster Relief Program. Perhaps in the chaos, something good was achieved.",
     "likes": 3456,
     "comments": [
-      { "characterKey": "princess_daisy", "text": "I'll take 'complicated success' over 'total failure' any day." },
-      { "characterKey": "toadette", "text": "The relief ships are already making deliveries. That's what matters." },
-      { "characterKey": "donkey_kong", "text": "DK Crew will come back stronger. Watch and see." }
+      {
+        "characterKey": "princess_daisy",
+        "text": "I'll take 'complicated success' over 'total failure' any day."
+      },
+      {
+        "characterKey": "toadette",
+        "text": "The relief ships are already making deliveries. That's what matters."
+      },
+      {
+        "characterKey": "donkey_kong",
+        "text": "DK Crew will come back stronger. Watch and see."
+      }
     ],
     "rumorId": "democratic_summit_two"
-  },  
+  },
   {
     "id": "fractured_atrium_arrival",
     "order": 62600,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 15 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 15
+    },
     "timestamp": "5 hours ago",
     "content": "The Oracle let go of my hand. We're in the 'Fractured Atrium'. It's circular, full of staring marble faces. The floor sigils just died... turned grey instantly.",
     "likes": 210,
     "comments": [
-      { "characterKey": "markop", "text": "This place feels wrong. Dead magic." },
-      { "characterKey": "eager", "text": "The faces are watching us, Boss!" }
+      {
+        "characterKey": "markop",
+        "text": "This place feels wrong. Dead magic."
+      },
+      {
+        "characterKey": "eager",
+        "text": "The faces are watching us, Boss!"
+      }
     ],
     "rumorId": "planar_fracture_crisis"
   },
@@ -4239,13 +11270,25 @@ export const WAHBOOK_POSTS = [
     "id": "oracle_memory_loss",
     "order": 62601,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 17 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 17
+    },
     "timestamp": "5 hours ago",
     "content": "I can't remember how I got here. The Oracle says 'don't worry about the details, worry about the why.' Helpful.",
     "likes": 150,
     "comments": [
-      { "characterKey": "salam", "text": "My head is spinning too." },
-      { "characterKey": "oracle_npc", "text": "Focus on the objective, child." }
+      {
+        "characterKey": "salam",
+        "text": "My head is spinning too."
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "Focus on the objective, child."
+      }
     ],
     "rumorId": "fractured_atrium_discovery"
   },
@@ -4253,13 +11296,25 @@ export const WAHBOOK_POSTS = [
     "id": "statue_observation",
     "order": 62602,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 20 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 20
+    },
     "timestamp": "5 hours ago",
     "content": "These statues of the Corvinarus ancestors... they look too perfect. Like someone sculpted them based on ego, not reality.",
     "likes": 89,
     "comments": [
-      { "characterKey": "markop", "text": "Arrogance carved in stone." },
-      { "characterKey": "perrius_annmatar", "text": "Vanity was always their sin." }
+      {
+        "characterKey": "markop",
+        "text": "Arrogance carved in stone."
+      },
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "Vanity was always their sin."
+      }
     ],
     "rumorId": "corvinarus_legacy"
   },
@@ -4267,13 +11322,25 @@ export const WAHBOOK_POSTS = [
     "id": "markop_reunion_rage",
     "order": 62603,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 25 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 25
+    },
     "timestamp": "5 hours ago",
     "content": "WE ARE BACK. FOUND REMI AND THE 'ORACLE'. WHERE ARE THE OTHERS? YOU LEFT US!",
     "likes": 300,
     "comments": [
-      { "characterKey": "eager", "text": "Boss is mad! Everyone look busy!" },
-      { "characterKey": "salam", "text": "Glad to be on solid ground, though." }
+      {
+        "characterKey": "eager",
+        "text": "Boss is mad! Everyone look busy!"
+      },
+      {
+        "characterKey": "salam",
+        "text": "Glad to be on solid ground, though."
+      }
     ],
     "rumorId": "party_split_chaos"
   },
@@ -4281,13 +11348,25 @@ export const WAHBOOK_POSTS = [
     "id": "oracle_gaslighting",
     "order": 62604,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 27 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 27
+    },
     "timestamp": "5 hours ago",
     "content": "Markop is yelling about missing friends. The Oracle claims there were only 5 of us during the ritual. He's lying. I know he is.",
     "likes": 412,
     "comments": [
-      { "characterKey": "markop", "text": "I counted! We are missing people!" },
-      { "characterKey": "waluigi", "text": "Wah! I am missing too!" }
+      {
+        "characterKey": "markop",
+        "text": "I counted! We are missing people!"
+      },
+      {
+        "characterKey": "waluigi",
+        "text": "Wah! I am missing too!"
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -4295,13 +11374,25 @@ export const WAHBOOK_POSTS = [
     "id": "gravity_test",
     "order": 62605,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 30
+    },
     "timestamp": "5 hours ago",
     "content": "Tried to test the drop. Threw a crossbow bolt off the walkway. It didn't hit bottom. It just vanished mid-air. We can't fall here.",
     "likes": 560,
     "comments": [
-      { "characterKey": "markop", "text": "Lost to time. That's what he said." },
-      { "characterKey": "eager", "text": "Don't push me, boss!" }
+      {
+        "characterKey": "markop",
+        "text": "Lost to time. That's what he said."
+      },
+      {
+        "characterKey": "eager",
+        "text": "Don't push me, boss!"
+      }
     ],
     "rumorId": "fractured_atrium_discovery"
   },
@@ -4309,13 +11400,25 @@ export const WAHBOOK_POSTS = [
     "id": "clockwork_room_entry",
     "order": 62606,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 40 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 40
+    },
     "timestamp": "5 hours ago",
     "content": "Entered the Clockwork Room. Massive bronze wheels, telescopes pointing into the void. The gears are colliding... slowly. The sound is terrifying. A gong of dread.",
     "likes": 330,
     "comments": [
-      { "characterKey": "markop", "text": "It sounds like the heartbeat of a dying god." },
-      { "characterKey": "oracle_npc", "text": "Entropy comes for us all." }
+      {
+        "characterKey": "markop",
+        "text": "It sounds like the heartbeat of a dying god."
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "Entropy comes for us all."
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -4323,13 +11426,25 @@ export const WAHBOOK_POSTS = [
     "id": "oak_tree_discovery",
     "order": 62607,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 50 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 50
+    },
     "timestamp": "5 hours ago",
     "content": "Found an oak tree growing out of a shattered staircase. There are crystals growing out of it. The whole room is exploding in slow motion.",
     "likes": 400,
     "comments": [
-      { "characterKey": "green_t", "text": "The tree... I feel it from here." },
-      { "characterKey": "eager", "text": "Shiny!" }
+      {
+        "characterKey": "green_t",
+        "text": "The tree... I feel it from here."
+      },
+      {
+        "characterKey": "eager",
+        "text": "Shiny!"
+      }
     ],
     "rumorId": "fractured_atrium_discovery"
   },
@@ -4337,13 +11452,25 @@ export const WAHBOOK_POSTS = [
     "id": "markop_crystal_warning",
     "order": 62608,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 55 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 55
+    },
     "timestamp": "5 hours ago",
     "content": "DON'T TOUCH THE CRYSTALS. THEY ARE CHARGED. THIS FEELS WRONG.",
     "likes": 220,
     "comments": [
-      { "characterKey": "remi", "text": "I was just looking! Geez." },
-      { "characterKey": "perrius_annmatar", "text": "Listen to the mage." }
+      {
+        "characterKey": "remi",
+        "text": "I was just looking! Geez."
+      },
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "Listen to the mage."
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -4351,13 +11478,25 @@ export const WAHBOOK_POSTS = [
     "id": "oracle_kill_order",
     "order": 62609,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 0
+    },
     "timestamp": "5 hours ago",
     "content": "The Oracle says there are other 'Keepers' in other versions of the manor. He says we need to kill them so there's only one. This sounds like a Highlander situation.",
     "likes": 500,
     "comments": [
-      { "characterKey": "archie", "text": "Wait, WE are with the other keepers!" },
-      { "characterKey": "bowser", "text": "THERE CAN ONLY BE ONE KING!" }
+      {
+        "characterKey": "archie",
+        "text": "Wait, WE are with the other keepers!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "THERE CAN ONLY BE ONE KING!"
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -4365,13 +11504,25 @@ export const WAHBOOK_POSTS = [
     "id": "markop_interrogation",
     "order": 62610,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 5 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 5
+    },
     "timestamp": "5 hours ago",
     "content": "Asking him about Hjumpik. Dismissed. Asking about the Mages' Guild. Dismissed. He's hiding something.",
     "likes": 310,
     "comments": [
-      { "characterKey": "remi", "text": "He's definitely dodging questions." },
-      { "characterKey": "hjumpik", "text": "I am... currently busy dueling a fairy." }
+      {
+        "characterKey": "remi",
+        "text": "He's definitely dodging questions."
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I am... currently busy dueling a fairy."
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -4379,13 +11530,25 @@ export const WAHBOOK_POSTS = [
     "id": "choose_your_path",
     "order": 62611,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 10 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 10
+    },
     "timestamp": "5 hours ago",
     "content": "Oracle says the Purple Manor has vampires and Archie/Waluigi. The Orange Manor has rowdy people and maybe a dragon. Markop picked Purple.",
     "likes": 600,
     "comments": [
-      { "characterKey": "markop", "text": "Archie needs supervision. Badly." },
-      { "characterKey": "archie", "text": "Hey! I'm doing fine!" }
+      {
+        "characterKey": "markop",
+        "text": "Archie needs supervision. Badly."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Hey! I'm doing fine!"
+      }
     ],
     "rumorId": "planar_fracture_crisis"
   },
@@ -4393,13 +11556,25 @@ export const WAHBOOK_POSTS = [
     "id": "shadowfell_entry",
     "order": 62612,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 15 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 15
+    },
     "timestamp": "5 hours ago",
     "content": "Just walked into a room with a half-invisible shadow playing a harp. Classy. But creepy.",
     "likes": 450,
     "comments": [
-      { "characterKey": "bowser", "text": "I want a harp ghost for my castle." },
-      { "characterKey": "green_t", "text": "Focus, Archie." }
+      {
+        "characterKey": "bowser",
+        "text": "I want a harp ghost for my castle."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Focus, Archie."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4407,13 +11582,25 @@ export const WAHBOOK_POSTS = [
     "id": "vivesna_meeting",
     "order": 62613,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 20 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 20
+    },
     "timestamp": "5 hours ago",
     "content": "Met Vivesna Corvinarus. She threw her guards under the bus immediately. 'One of the guards told me to come.' Uh huh.",
     "likes": 320,
     "comments": [
-      { "characterKey": "markop", "text": "Don't trust her." },
-      { "characterKey": "archie", "text": "I trust no one in a cape." }
+      {
+        "characterKey": "markop",
+        "text": "Don't trust her."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I trust no one in a cape."
+      }
     ],
     "rumorId": "corvinarus_legacy"
   },
@@ -4421,13 +11608,25 @@ export const WAHBOOK_POSTS = [
     "id": "staff_room_reunion",
     "order": 62614,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 25 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 25
+    },
     "timestamp": "4 hours ago",
     "content": "Found Bowser! He claims he made a 'valiant retreat.' Also Toadburt got captured by a swarm of Mages' Guild goons. Not good.",
     "likes": 550,
     "comments": [
-      { "characterKey": "bowser", "text": "IT WAS TACTICAL! A STRATEGIC WITHDRAWAL!" },
-      { "characterKey": "toadburt", "text": "Help..." }
+      {
+        "characterKey": "bowser",
+        "text": "IT WAS TACTICAL! A STRATEGIC WITHDRAWAL!"
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "Help..."
+      }
     ],
     "rumorId": "toadburt_capture"
   },
@@ -4435,13 +11634,25 @@ export const WAHBOOK_POSTS = [
     "id": "darman_knightly_alias",
     "order": 62615,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 30
+    },
     "timestamp": "4 hours ago",
     "content": "Guards at the door. Panic time. I told them my name is Darman Knightly. Hope that's not a real person.",
     "likes": 670,
     "comments": [
-      { "characterKey": "remi", "text": "You are terrible at lying." },
-      { "characterKey": "archie", "text": "It worked though!" }
+      {
+        "characterKey": "remi",
+        "text": "You are terrible at lying."
+      },
+      {
+        "characterKey": "archie",
+        "text": "It worked though!"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4449,13 +11660,25 @@ export const WAHBOOK_POSTS = [
     "id": "dinner_table_shock",
     "order": 62616,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 35 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 35
+    },
     "timestamp": "4 hours ago",
     "content": "The dinner host... he looks like the Oracle. But older? Meaner? Also Green T is at the kids' table.",
     "likes": 400,
     "comments": [
-      { "characterKey": "green_t", "text": "It's humiliating." },
-      { "characterKey": "markop", "text": "Orangus Cornelius. Be careful." }
+      {
+        "characterKey": "green_t",
+        "text": "It's humiliating."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Orangus Cornelius. Be careful."
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -4463,13 +11686,25 @@ export const WAHBOOK_POSTS = [
     "id": "bowser_king_seat",
     "order": 62617,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 38 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 38
+    },
     "timestamp": "4 hours ago",
     "content": "Bowser tried to take the head of the table. Had to talk him down. He's NOT happy.",
     "likes": 800,
     "comments": [
-      { "characterKey": "bowser", "text": "I AM THE KING! I SIT WHERE I WANT!" },
-      { "characterKey": "vivesna_corvinarus", "text": "How quaint." }
+      {
+        "characterKey": "bowser",
+        "text": "I AM THE KING! I SIT WHERE I WANT!"
+      },
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "How quaint."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4477,13 +11712,25 @@ export const WAHBOOK_POSTS = [
     "id": "parlor_ghost",
     "order": 62618,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 40 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 40
+    },
     "timestamp": "4 hours ago",
     "content": "In the parlor. Met a ghost named Perrius Annmatar. He says the crystals are KEEPING the monster IN, not out. The Oracle is tricking us!",
     "likes": 520,
     "comments": [
-      { "characterKey": "markop", "text": "KNEW IT. VINDICATION." },
-      { "characterKey": "oracle_npc", "text": "Do not listen to the echoes of the dead." }
+      {
+        "characterKey": "markop",
+        "text": "KNEW IT. VINDICATION."
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "Do not listen to the echoes of the dead."
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -4491,211 +11738,465 @@ export const WAHBOOK_POSTS = [
     "id": "usk_vampire_ally",
     "order": 62619,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 45
+    },
     "timestamp": "4 hours ago",
     "content": "A vampire named Usk was sitting on the couch the whole time. He just... joined our party? He wants to save the 'Head' of the manor.",
     "likes": 390,
     "comments": [
-      { "characterKey": "usk", "text": "I serve the house. Always." },
-      { "characterKey": "eager", "text": "He has big teeth!" }
+      {
+        "characterKey": "usk",
+        "text": "I serve the house. Always."
+      },
+      {
+        "characterKey": "eager",
+        "text": "He has big teeth!"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
+  {
+    "id": "fey_greenhouse_tour",
+    "order": 40600,
+    "characterKey": "fey_sprite_guide",
+    "rumorId": "feywild_hoard",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 0
+    },
+    "content": "Visitors! Welcome! Have you seen the ferns? They eat people! But only rude people! Would you like a mushroom? It screams when you bite it! The tour is mandatory!",
+    "likes": 1200,
+    "comments": [
       {
-        id: 'fey_greenhouse_tour', order: 40600, characterKey: 'fey_sprite_guide', rumorId: 'feywild_hoard',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 0 },
-        content: `Visitors! Welcome! Have you seen the ferns? They eat people! But only rude people! Would you like a mushroom? It screams when you bite it! The tour is mandatory!`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Skip the tour. Here is a silver piece. Just heal the purple guy.' },
-            { characterKey: 'toad_lee', text: 'Wait, I want the screaming mushroom. For science.' }
-        ]
+        "characterKey": "hjumpik",
+        "text": "Skip the tour. Here is a silver piece. Just heal the purple guy."
+      },
+      {
+        "characterKey": "toad_lee",
+        "text": "Wait, I want the screaming mushroom. For science."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_healing_scream",
+    "order": 40601,
+    "characterKey": "waluigi",
+    "rumorId": "feywild_hoard",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 15
     },
-    {
-        id: 'waluigi_healing_scream', order: 40601, characterKey: 'waluigi', rumorId: 'feywild_hoard',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 15 },
-        content: `WAH! IT BURNS! WHY DOES HEALING HURT?! My leg bones are knitting together! I can feel the marrow! This is worse than the bear trap!`,
-        likes: 4500, 
-        comments: [
-            { characterKey: 'toad_medic', text: 'Rapid ossification is painful. Grunt it out, superstar.' },
-            { characterKey: 'rakasha_spirit_walker', text: 'Silence. The guards approach.' }
-        ]
+    "content": "WAH! IT BURNS! WHY DOES HEALING HURT?! My leg bones are knitting together! I can feel the marrow! This is worse than the bear trap!",
+    "likes": 4500,
+    "comments": [
+      {
+        "characterKey": "toad_medic",
+        "text": "Rapid ossification is painful. Grunt it out, superstar."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Silence. The guards approach."
+      }
+    ]
+  },
+  {
+    "id": "fey_guard_raid",
+    "order": 40602,
+    "characterKey": "fey_guard_captain",
+    "rumorId": "feywild_hoard",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 5,
+      "minute": 30
     },
-    {
-        id: 'fey_guard_raid', order: 40602, characterKey: 'fey_guard_captain', rumorId: 'feywild_hoard',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 5, minute: 30 },
-        content: `OPEN UP! By order of the Manor! We know you are in there! We smell... unwashed plumber and wet cat!`,
-        likes: 45, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'We are leaving! Through the back! Also, rude!' }
-        ]
+    "content": "OPEN UP! By order of the Manor! We know you are in there! We smell... unwashed plumber and wet cat!",
+    "likes": 45,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "We are leaving! Through the back! Also, rude!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_arrested",
+    "order": 40603,
+    "characterKey": "hjumpik",
+    "rumorId": "feywild_hoard",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 6,
+      "minute": 0
     },
-    {
-        id: 'hjumpik_arrested', order: 40603, characterKey: 'hjumpik', rumorId: 'feywild_hoard',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 6, minute: 0 },
-        content: `Well, we got caught. Bush strategy failed. The guards say we are "trespassing on sacred soil." I told them the Dragon sent me. They seemed confused.`,
-        likes: 670, 
-        comments: [
-            { characterKey: 'wario', text: 'Never admit guilt! Bribe them!' },
-            { characterKey: 'hjumpik', text: 'I tried! They don\'t take coins. They want "memories." Weirdos.' }
-        ]
+    "content": "Well, we got caught. Bush strategy failed. The guards say we are \"trespassing on sacred soil.\" I told them the Dragon sent me. They seemed confused.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "wario",
+        "text": "Never admit guilt! Bribe them!"
+      },
+      {
+        "characterKey": "hjumpik",
+        "text": "I tried! They don't take coins. They want \"memories.\" Weirdos."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_fire_trick",
+    "order": 40610,
+    "characterKey": "waluigi",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 9,
+      "minute": 45
     },
-
-    // --- DAY 22: AFTERNOON (THE MANOR GROUNDS) ---
-    {
-        id: 'waluigi_fire_trick', order: 40610, characterKey: 'waluigi', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 9, minute: 45 },
-        content: `Look at this! I can summon fire now! *Clap* Oh. It went out. But for a second, I was a god of flame! This place changes people.`,
-        likes: 2300, 
-        comments: [
-            { characterKey: 'mages_guild_instructor', text: 'Wild Magic surge. Do not clap your hands unless you want to explode.' }
-        ]
+    "content": "Look at this! I can summon fire now! *Clap* Oh. It went out. But for a second, I was a god of flame! This place changes people.",
+    "likes": 2300,
+    "comments": [
+      {
+        "characterKey": "mages_guild_instructor",
+        "text": "Wild Magic surge. Do not clap your hands unless you want to explode."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_patio_discovery",
+    "order": 40611,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 10,
+      "minute": 0
     },
-    {
-        id: 'hjumpik_patio_discovery', order: 40611, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 10, minute: 0 },
-        content: `The guards led us to the North Patio. It's fancy. Drinks, loungers, overgrown vines. But the bartender says "The Guest" left already. I think he means Archie.`,
-        likes: 450, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'Archie would never leave a free bar. Something is wrong.' }
-        ]
+    "content": "The guards led us to the North Patio. It's fancy. Drinks, loungers, overgrown vines. But the bartender says \"The Guest\" left already. I think he means Archie.",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "Archie would never leave a free bar. Something is wrong."
+      }
+    ]
+  },
+  {
+    "id": "banquet_hall_horror",
+    "order": 40612,
+    "characterKey": "rakasha_spirit_walker",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 11,
+      "minute": 0
     },
-    {
-        id: 'banquet_hall_horror', order: 40612, characterKey: 'rakasha_spirit_walker', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 0 },
-        content: `This "Banquet Hall" is an abomination. The food is rot. The wine is blood. And the carpet... it breathes. We are walking into a belly, not a party.`,
-        likes: 340, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'And yet, I see a buffet. I might risk it.' },
-            { characterKey: 'rakasha_spirit_walker', text: 'Do not eat the meat. It has eyes.' }
-        ]
+    "content": "This \"Banquet Hall\" is an abomination. The food is rot. The wine is blood. And the carpet... it breathes. We are walking into a belly, not a party.",
+    "likes": 340,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "And yet, I see a buffet. I might risk it."
+      },
+      {
+        "characterKey": "rakasha_spirit_walker",
+        "text": "Do not eat the meat. It has eyes."
+      }
+    ]
+  },
+  {
+    "id": "orange_heir_encounter",
+    "order": 40613,
+    "characterKey": "orange_toad_heir",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 11,
+      "minute": 30
     },
-    {
-        id: 'orange_heir_encounter', order: 40613, characterKey: 'orange_toad_heir', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 11, minute: 30 },
-        content: `Welcome, travelers! I am the Heir of Lady Aurelian Corvinarus! Please, ignore the rotting ceiling. Are you here for the Reveal?`,
-        likes: 12, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'We are looking for an Orange Guy. Is that you? You look orange.' },
-            { characterKey: 'orange_toad_heir', text: 'I am Peach-colored! It is the lighting! How dare you!' }
-        ]
+    "content": "Welcome, travelers! I am the Heir of Lady Aurelian Corvinarus! Please, ignore the rotting ceiling. Are you here for the Reveal?",
+    "likes": 12,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "We are looking for an Orange Guy. Is that you? You look orange."
+      },
+      {
+        "characterKey": "orange_toad_heir",
+        "text": "I am Peach-colored! It is the lighting! How dare you!"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_missing_cat",
+    "order": 40620,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 0
     },
-
-    // --- DAY 22: EVENING (THE MYSTERY OF RAKASHA) ---
-    {
-        id: 'hjumpik_missing_cat', order: 40620, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 0 },
-        content: `Where is Rakasha? I turned around for one second to look at a weird painting, and she's gone. Footsteps on the ground... seven sets? Me, Waluigi, Toad Lee, two guards... that leaves two mystery walkers.`,
-        likes: 560, 
-        comments: [
-            { characterKey: 'bones', text: 'Seven? Did she walk away with someone? Or was she DRAGGED?' }
-        ]
+    "content": "Where is Rakasha? I turned around for one second to look at a weird painting, and she's gone. Footsteps on the ground... seven sets? Me, Waluigi, Toad Lee, two guards... that leaves two mystery walkers.",
+    "likes": 560,
+    "comments": [
+      {
+        "characterKey": "bones",
+        "text": "Seven? Did she walk away with someone? Or was she DRAGGED?"
+      }
+    ]
+  },
+  {
+    "id": "naked_tiger_incident",
+    "order": 40621,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 14,
+      "minute": 30
     },
-    {
-        id: 'naked_tiger_incident', order: 40621, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 14, minute: 30 },
-        content: `Okay, weird update. Asked the Heir if he saw a "tiger lady nerd." He brought me a... very naked tiger person. Not Rakasha. Very awkward. Sent her back.`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'waluigi', text: 'WAH! My eyes! I demand compensation!' }
-        ]
+    "content": "Okay, weird update. Asked the Heir if he saw a \"tiger lady nerd.\" He brought me a... very naked tiger person. Not Rakasha. Very awkward. Sent her back.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "WAH! My eyes! I demand compensation!"
+      }
+    ]
+  },
+  {
+    "id": "perrius_wall_phase",
+    "order": 40622,
+    "characterKey": "perrius_annmatar",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 22,
+      "hour": 15,
+      "minute": 0
     },
-    {
-        id: 'perrius_wall_phase', order: 40622, characterKey: 'perrius_annmatar', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 22, hour: 15, minute: 0 },
-        content: `The Dwarf found the Ring. Good. The plan proceeds. Sever the lineage. Kill the heirs. Fake the deaths of the Oracles. It is the only way out.`,
-        likes: 2, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Why are you phasing through walls?! Stop being creepy and help me find my friends!' }
-        ]
+    "content": "The Dwarf found the Ring. Good. The plan proceeds. Sever the lineage. Kill the heirs. Fake the deaths of the Oracles. It is the only way out.",
+    "likes": 2,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Why are you phasing through walls?! Stop being creepy and help me find my friends!"
+      }
+    ]
+  },
+  {
+    "id": "kitchen_horror",
+    "order": 40630,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 8,
+      "minute": 0
     },
-
-    // --- DAY 23: MORNING (THE KITCHEN & THE REVEL) ---
-    {
-        id: 'kitchen_horror', order: 40630, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 8, minute: 0 },
-        content: `Peered into the kitchen. They aren't cooking food. They are feeding something. A red haze... mouths and limbs... "The Revel." It eats bodies. And I think I just saw it eat the cook.`,
-        likes: 890, 
-        comments: [
-            { characterKey: 'iron_legion_cook', text: 'That violates several health codes.' }
-        ]
+    "content": "Peered into the kitchen. They aren't cooking food. They are feeding something. A red haze... mouths and limbs... \"The Revel.\" It eats bodies. And I think I just saw it eat the cook.",
+    "likes": 890,
+    "comments": [
+      {
+        "characterKey": "iron_legion_cook",
+        "text": "That violates several health codes."
+      }
+    ]
+  },
+  {
+    "id": "waluigi_hallway_spot",
+    "order": 40631,
+    "characterKey": "waluigi",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 9,
+      "minute": 0
     },
-    {
-        id: 'waluigi_hallway_spot', order: 40631, characterKey: 'waluigi', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 9, minute: 0 },
-        content: `I moved a chair! A secret hallway! I see a Goblin Staff leaning against the wall! And... paw prints! Rakasha went this way! Follow the leader!`,
-        likes: 3400, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Finally, you did something useful.' }
-        ]
+    "content": "I moved a chair! A secret hallway! I see a Goblin Staff leaning against the wall! And... paw prints! Rakasha went this way! Follow the leader!",
+    "likes": 3400,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Finally, you did something useful."
+      }
+    ]
+  },
+  {
+    "id": "lounge_bartender_chat",
+    "order": 40640,
+    "characterKey": "toad_lee",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 15,
+      "minute": 26
     },
-
-    // --- DAY 23: AFTERNOON (THE LOUNGE & THE MISTAKE) ---
-    {
-        id: 'lounge_bartender_chat', order: 40640, characterKey: 'toad_lee', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 15, minute: 26 },
-        content: `In the L-Shaped Lounge. Asking the Goblin Guard about "Archie Miser." He says no Archie here... but they took a guest to the Theater. He said "HE likes to party hard."`,
-        likes: 150, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'Wait. He? Rakasha is a she. Did he misgender the cat or is it someone else?' }
-        ]
+    "content": "In the L-Shaped Lounge. Asking the Goblin Guard about \"Archie Miser.\" He says no Archie here... but they took a guest to the Theater. He said \"HE likes to party hard.\"",
+    "likes": 150,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "Wait. He? Rakasha is a she. Did he misgender the cat or is it someone else?"
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_realization",
+    "order": 40641,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 15,
+      "minute": 30
     },
-    {
-        id: 'hjumpik_realization', order: 40641, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 15, minute: 30 },
-        content: `I asked about the guest. He said "No, it was a guy." So... where is Rakasha? And who is in the Theater? We have to check.`,
-        likes: 450, 
-        comments: [
-            { characterKey: 'waluigi', text: 'Maybe it is Wario! He loves theater!' }
-        ]
+    "content": "I asked about the guest. He said \"No, it was a guy.\" So... where is Rakasha? And who is in the Theater? We have to check.",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "waluigi",
+        "text": "Maybe it is Wario! He loves theater!"
+      }
+    ]
+  },
+  {
+    "id": "bartender_drink_offer",
+    "order": 40642,
+    "characterKey": "goblin_bartender",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 15,
+      "minute": 45
     },
-    {
-        id: 'bartender_drink_offer', order: 40642, characterKey: 'goblin_bartender', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 15, minute: 45 },
-        content: `Guests look stressed. Offering the house special: "Something Strong." Guaranteed to make you forget you are in a nightmare dimension.`,
-        likes: 56, 
-        comments: [
-            { characterKey: 'hjumpik', text: 'I\'ll take the bottle. For later.' }
-        ]
+    "content": "Guests look stressed. Offering the house special: \"Something Strong.\" Guaranteed to make you forget you are in a nightmare dimension.",
+    "likes": 56,
+    "comments": [
+      {
+        "characterKey": "hjumpik",
+        "text": "I'll take the bottle. For later."
+      }
+    ]
+  },
+  {
+    "id": "theater_entry",
+    "order": 40650,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 18,
+      "minute": 0
     },
-
-    // --- DAY 23: EVENING (THE THEATER) ---
-    {
-        id: 'theater_entry', order: 40650, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 18, minute: 0 },
-        content: `The guard led us to the Northeast Alcove. It's a stage. Stone risers. A plinth with a book. It's quiet. Too quiet.`,
-        likes: 670, 
-        comments: [
-            { characterKey: 'toad_lee', text: 'I have a bad feeling about this play.' }
-        ]
+    "content": "The guard led us to the Northeast Alcove. It's a stage. Stone risers. A plinth with a book. It's quiet. Too quiet.",
+    "likes": 670,
+    "comments": [
+      {
+        "characterKey": "toad_lee",
+        "text": "I have a bad feeling about this play."
+      }
+    ]
+  },
+  {
+    "id": "hjumpik_door_open",
+    "order": 40651,
+    "characterKey": "hjumpik",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 18,
+      "minute": 9
     },
-    {
-        id: 'hjumpik_door_open', order: 40651, characterKey: 'hjumpik', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 18, minute: 9 },
-        content: `Opening the door. If this is another monster, I swear I'm going to ring the cowbell until reality breaks again.`,
-        likes: 1200, 
-        comments: [
-            { characterKey: 'perrius_annmatar', text: 'Do not ring the bell again. The tapestry is already frayed enough.' }
-        ]
+    "content": "Opening the door. If this is another monster, I swear I'm going to ring the cowbell until reality breaks again.",
+    "likes": 1200,
+    "comments": [
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "Do not ring the bell again. The tapestry is already frayed enough."
+      }
+    ]
+  },
+  {
+    "id": "theater_cliffhanger",
+    "order": 40652,
+    "characterKey": "wah_media_collective",
+    "rumorId": "project_orange",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 18,
+      "minute": 15
     },
-    {
-        id: 'theater_cliffhanger', order: 40652, characterKey: 'wah_media_collective', rumorId: 'project_orange',
-        date: { year: 1040, monthIndex: 6, day: 23, hour: 18, minute: 15 },
-        content: `Rumors from the Feywild: A confrontation is brewing in the Theater of the Lost. Who is the mystery guest? Where is the Spirit Walker? And will Waluigi ever stop complaining about his leg? Tune in next time.`,
-        likes: 5000, 
-        comments: []
-    },
+    "content": "Rumors from the Feywild: A confrontation is brewing in the Theater of the Lost. Who is the mystery guest? Where is the Spirit Walker? And will Waluigi ever stop complaining about his leg? Tune in next time.",
+    "likes": 5000,
+    "comments": []
+  },
   {
     "id": "journal_discovery",
     "order": 62620,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 50 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 50
+    },
     "timestamp": "4 hours ago",
     "content": "Found a journal in a coat pocket. 'The vessel isn't ready... results grotesque.' The author is starving himself to focus. This is bad science.",
     "likes": 440,
     "comments": [
-      { "characterKey": "markop", "text": "Necromancy. It's always Necromancy." },
-      { "characterKey": "david_vampire", "text": "Fascinating research though." }
+      {
+        "characterKey": "markop",
+        "text": "Necromancy. It's always Necromancy."
+      },
+      {
+        "characterKey": "david_vampire",
+        "text": "Fascinating research though."
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -4703,13 +12204,25 @@ export const WAHBOOK_POSTS = [
     "id": "wario_coupon",
     "order": 62621,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 55 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 55
+    },
     "timestamp": "4 hours ago",
     "content": "Also found an expired coupon. Number ends in -W. 'Call me.' Wario has been here.",
     "likes": 600,
     "comments": [
-      { "characterKey": "wario", "text": "WAH! NO REFUNDS! THAT COUPON IS VOID!" },
-      { "characterKey": "remi", "text": "Of course it is." }
+      {
+        "characterKey": "wario",
+        "text": "WAH! NO REFUNDS! THAT COUPON IS VOID!"
+      },
+      {
+        "characterKey": "remi",
+        "text": "Of course it is."
+      }
     ],
     "rumorId": "wario_presence"
   },
@@ -4717,13 +12230,25 @@ export const WAHBOOK_POSTS = [
     "id": "frozen_creature",
     "order": 62622,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 0
+    },
     "timestamp": "4 hours ago",
     "content": "Back with Markop. We found a magically frozen monster in a case. Can't tell what it is. Markop wants to draw it.",
     "likes": 280,
     "comments": [
-      { "characterKey": "markop", "text": "It's biologically impossible. I need to study it." },
-      { "characterKey": "eager", "text": "Don't poke it!" }
+      {
+        "characterKey": "markop",
+        "text": "It's biologically impossible. I need to study it."
+      },
+      {
+        "characterKey": "eager",
+        "text": "Don't poke it!"
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -4731,13 +12256,25 @@ export const WAHBOOK_POSTS = [
     "id": "lab_stumble",
     "order": 62623,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 10 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 10
+    },
     "timestamp": "4 hours ago",
     "content": "Tripped and stumbled into a hidden room. It's a lab. Glass tanks. Tubes. Malformed bodies. This is SICK.",
     "likes": 350,
     "comments": [
-      { "characterKey": "remi", "text": "It was awful. They were... weeping." },
-      { "characterKey": "bones", "text": "Sounds like the Legion factory..." }
+      {
+        "characterKey": "remi",
+        "text": "It was awful. They were... weeping."
+      },
+      {
+        "characterKey": "bones",
+        "text": "Sounds like the Legion factory..."
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -4745,13 +12282,25 @@ export const WAHBOOK_POSTS = [
     "id": "oracle_wrong_lever",
     "order": 62624,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 12 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 12
+    },
     "timestamp": "4 hours ago",
     "content": "Caught the Oracle at the control panel. He claims he 'accidentally pulled the wrong lever.' Lying to my face.",
     "likes": 410,
     "comments": [
-      { "characterKey": "archie", "text": "Classic villain line." },
-      { "characterKey": "oracle_npc", "text": "Machines are fickle." }
+      {
+        "characterKey": "archie",
+        "text": "Classic villain line."
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "Machines are fickle."
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -4759,13 +12308,25 @@ export const WAHBOOK_POSTS = [
     "id": "magic_analysis",
     "order": 62625,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 15 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 15
+    },
     "timestamp": "4 hours ago",
     "content": "Analyzed the tanks. Abjuration on the outside (shielding), Necromancy on the inside (death magic). They are keeping something trapped in there.",
     "likes": 500,
     "comments": [
-      { "characterKey": "markop", "text": "Nice work spotting the seals." },
-      { "characterKey": "franklin_mage", "text": "Interesting combination..." }
+      {
+        "characterKey": "markop",
+        "text": "Nice work spotting the seals."
+      },
+      {
+        "characterKey": "franklin_mage",
+        "text": "Interesting combination..."
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -4773,13 +12334,25 @@ export const WAHBOOK_POSTS = [
     "id": "orangus_introduction",
     "order": 62626,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 20 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 20
+    },
     "timestamp": "3 hours ago",
     "content": "Dinner host introduced himself: Orangus Cornelius. Head of the Estate. He is definitely the Big Bad.",
     "likes": 330,
     "comments": [
-      { "characterKey": "markop", "text": "Orangus... Orange Figure. It matches." },
-      { "characterKey": "bowser", "text": "He looks weak. I could crush him." }
+      {
+        "characterKey": "markop",
+        "text": "Orangus... Orange Figure. It matches."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "He looks weak. I could crush him."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4787,13 +12360,25 @@ export const WAHBOOK_POSTS = [
     "id": "toadburt_ring",
     "order": 62627,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 25 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 25
+    },
     "timestamp": "3 hours ago",
     "content": "Toadburt is here as a 'Guest of Honor.' He's terrified. Wearing a Mages' Guild dampening ring. They've nerfed him.",
     "likes": 460,
     "comments": [
-      { "characterKey": "toadburt", "text": "They took my magic..." },
-      { "characterKey": "markop", "text": "We will get it off." }
+      {
+        "characterKey": "toadburt",
+        "text": "They took my magic..."
+      },
+      {
+        "characterKey": "markop",
+        "text": "We will get it off."
+      }
     ],
     "rumorId": "hostage_situation"
   },
@@ -4801,13 +12386,25 @@ export const WAHBOOK_POSTS = [
     "id": "darman_vs_darman",
     "order": 62628,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 30
+    },
     "timestamp": "3 hours ago",
     "content": "Uh oh. Another guest just introduced himself as Darman Knightly. He says he's famous for drawing attention to himself. I said 'Show me proof.'",
     "likes": 700,
     "comments": [
-      { "characterKey": "bowser", "text": "Awkward." },
-      { "characterKey": "remi", "text": "You picked the ONE name that was already taken?!" }
+      {
+        "characterKey": "bowser",
+        "text": "Awkward."
+      },
+      {
+        "characterKey": "remi",
+        "text": "You picked the ONE name that was already taken?!"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4815,13 +12412,25 @@ export const WAHBOOK_POSTS = [
     "id": "joseph_jo_intro",
     "order": 62629,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 35 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 35
+    },
     "timestamp": "3 hours ago",
     "content": "Met a vampire named Joseph Jo. Uses a 'breathing-based energy technique.' Seems bizarre.",
     "likes": 800,
     "comments": [
-      { "characterKey": "remi", "text": "Is that... a reference?" },
-      { "characterKey": "archie", "text": "He strikes a lot of poses." }
+      {
+        "characterKey": "remi",
+        "text": "Is that... a reference?"
+      },
+      {
+        "characterKey": "archie",
+        "text": "He strikes a lot of poses."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4829,13 +12438,25 @@ export const WAHBOOK_POSTS = [
     "id": "franklin_mage",
     "order": 62630,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 40 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 40
+    },
     "timestamp": "3 hours ago",
     "content": "Franklin from the Mages' Guild is here observing. He says we haven't met. He's lying.",
     "likes": 290,
     "comments": [
-      { "characterKey": "markop", "text": "The Guild is involved in everything." },
-      { "characterKey": "franklin_mage", "text": "I have a terrible memory." }
+      {
+        "characterKey": "markop",
+        "text": "The Guild is involved in everything."
+      },
+      {
+        "characterKey": "franklin_mage",
+        "text": "I have a terrible memory."
+      }
     ],
     "rumorId": "mages_guild_corruption"
   },
@@ -4843,13 +12464,25 @@ export const WAHBOOK_POSTS = [
     "id": "bowser_time_check_1",
     "order": 62631,
     "characterKey": "bowser",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 45
+    },
     "timestamp": "3 hours ago",
     "content": "1:53. Still talking. I am hungry. When is the meat coming?",
     "likes": 600,
     "comments": [
-      { "characterKey": "archie", "text": "Patience, your highness." },
-      { "characterKey": "bowser", "text": "I will eat the waiter soon." }
+      {
+        "characterKey": "archie",
+        "text": "Patience, your highness."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I will eat the waiter soon."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4857,13 +12490,25 @@ export const WAHBOOK_POSTS = [
     "id": "green_t_signaling",
     "order": 62632,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 50 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 50
+    },
     "timestamp": "3 hours ago",
     "content": "Green T is making weird hand signals. 'Meet me in the bathroom.' Got it.",
     "likes": 410,
     "comments": [
-      { "characterKey": "remi", "text": "Scandalous!" },
-      { "characterKey": "green_t", "text": "It was tactical!" }
+      {
+        "characterKey": "remi",
+        "text": "Scandalous!"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "It was tactical!"
+      }
     ],
     "rumorId": "green_t_plan"
   },
@@ -4871,13 +12516,25 @@ export const WAHBOOK_POSTS = [
     "id": "bowser_time_check_2",
     "order": 62633,
     "characterKey": "bowser",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 55 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 55
+    },
     "timestamp": "3 hours ago",
     "content": "3:14. Vivesna says she'll be Princess soon. Over my dead body. PEACH is the only Princess.",
     "likes": 550,
     "comments": [
-      { "characterKey": "peach_loyalist", "text": "Respect to the Koopa King?" },
-      { "characterKey": "vivesna_corvinarus", "text": "Times change, turtle." }
+      {
+        "characterKey": "peach_loyalist",
+        "text": "Respect to the Koopa King?"
+      },
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "Times change, turtle."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4885,13 +12542,25 @@ export const WAHBOOK_POSTS = [
     "id": "food_order_chaos",
     "order": 62634,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 0
+    },
     "timestamp": "3 hours ago",
     "content": "Menu options: Tomatoes, Bone Marrow, Fang Tip Skewers. I asked for 'Roasted Pig' and 'Purple Grape Wine'. The servant hated it but accepted the order.",
     "likes": 620,
     "comments": [
-      { "characterKey": "remi", "text": "Power move." },
-      { "characterKey": "bowser", "text": "I want the pig too." }
+      {
+        "characterKey": "remi",
+        "text": "Power move."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "I want the pig too."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4899,13 +12568,25 @@ export const WAHBOOK_POSTS = [
     "id": "bowser_time_check_3",
     "order": 62635,
     "characterKey": "bowser",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 5 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 5
+    },
     "timestamp": "3 hours ago",
     "content": "4:09. Finally bringing food out.",
     "likes": 480,
     "comments": [
-      { "characterKey": "archie", "text": "About time." },
-      { "characterKey": "green_t", "text": "Don't eat the red stuff." }
+      {
+        "characterKey": "archie",
+        "text": "About time."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Don't eat the red stuff."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4913,13 +12594,25 @@ export const WAHBOOK_POSTS = [
     "id": "philosophical_questions",
     "order": 62636,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 10 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 10
+    },
     "timestamp": "3 hours ago",
     "content": "Orangus is asking deep questions. 'What remains of you worth keeping?' I said 'My personal freedom.' He put the answers in a bin.",
     "likes": 530,
     "comments": [
-      { "characterKey": "remi", "text": "Edgy." },
-      { "characterKey": "markop", "text": "He's evaluating your souls." }
+      {
+        "characterKey": "remi",
+        "text": "Edgy."
+      },
+      {
+        "characterKey": "markop",
+        "text": "He's evaluating your souls."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4927,13 +12620,25 @@ export const WAHBOOK_POSTS = [
     "id": "bathroom_break",
     "order": 62637,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 15 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 15
+    },
     "timestamp": "2 hours ago",
     "content": "Excuse me, gotta use the little boys' room. Green T headed there too. Knight escorting me. Blocked the door with a cabinet.",
     "likes": 390,
     "comments": [
-      { "characterKey": "darmin_knightly_guard", "text": "I am waiting outside." },
-      { "characterKey": "green_t", "text": "Hurry up." }
+      {
+        "characterKey": "darmin_knightly_guard",
+        "text": "I am waiting outside."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Hurry up."
+      }
     ],
     "rumorId": "green_t_plan"
   },
@@ -4941,13 +12646,25 @@ export const WAHBOOK_POSTS = [
     "id": "green_t_plan",
     "order": 62638,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 20 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 20
+    },
     "timestamp": "2 hours ago",
     "content": "Green T spilled the beans. Orangus wants to contain something. We need to UN-contain it. Destroy the timelines. Merge 2 into 1.",
     "likes": 600,
     "comments": [
-      { "characterKey": "green_t", "text": "Keep your voice down." },
-      { "characterKey": "markop", "text": "Merge the timelines... that matches the Oracle's fears." }
+      {
+        "characterKey": "green_t",
+        "text": "Keep your voice down."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Merge the timelines... that matches the Oracle's fears."
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -4955,13 +12672,25 @@ export const WAHBOOK_POSTS = [
     "id": "the_key_and_gun",
     "order": 62639,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 22 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 22
+    },
     "timestamp": "2 hours ago",
     "content": "Green T swiped a key from Orangus! And he has a pistol. 'Emergencies only.' This toad is full of surprises.",
     "likes": 750,
     "comments": [
-      { "characterKey": "dan_the_toad", "text": "He learned from the best." },
-      { "characterKey": "remi", "text": "A gun?! Where was he hiding that?" }
+      {
+        "characterKey": "dan_the_toad",
+        "text": "He learned from the best."
+      },
+      {
+        "characterKey": "remi",
+        "text": "A gun?! Where was he hiding that?"
+      }
     ],
     "rumorId": "green_t_plan"
   },
@@ -4969,13 +12698,25 @@ export const WAHBOOK_POSTS = [
     "id": "destroy_the_crystal",
     "order": 62640,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 25 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 25
+    },
     "timestamp": "2 hours ago",
     "content": "Plan: Kill the guards, kill Orangus, shatter the crystal, Beast rises. Simple. Right?",
     "likes": 500,
     "comments": [
-      { "characterKey": "bowser", "text": "Finally. The smashing part." },
-      { "characterKey": "markop", "text": "Be careful, Archie." }
+      {
+        "characterKey": "bowser",
+        "text": "Finally. The smashing part."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Be careful, Archie."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -4983,13 +12724,25 @@ export const WAHBOOK_POSTS = [
     "id": "guestbook_names",
     "order": 62641,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 30
+    },
     "timestamp": "2 hours ago",
     "content": "Found the Guest Book in the foyer. Only names: Vostolas, Lyranth, The Oracle... and scribbled in: Bowser, Archie, Green Toad. We were always meant to be here.",
     "likes": 590,
     "comments": [
-      { "characterKey": "markop", "text": "Predestination paradox." },
-      { "characterKey": "archie", "text": "I hate fate." }
+      {
+        "characterKey": "markop",
+        "text": "Predestination paradox."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I hate fate."
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -4997,13 +12750,25 @@ export const WAHBOOK_POSTS = [
     "id": "silver_toilet",
     "order": 62642,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 35 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 35
+    },
     "timestamp": "2 hours ago",
     "content": "Checked the bathroom. There is silver in the toilet. No water. Usk said 'Use the bucket.' Vampires are gross.",
     "likes": 310,
     "comments": [
-      { "characterKey": "usk", "text": "Plumbing is for mortals." },
-      { "characterKey": "eager", "text": "Eww!" }
+      {
+        "characterKey": "usk",
+        "text": "Plumbing is for mortals."
+      },
+      {
+        "characterKey": "eager",
+        "text": "Eww!"
+      }
     ],
     "rumorId": "manor_plumbing"
   },
@@ -5011,13 +12776,25 @@ export const WAHBOOK_POSTS = [
     "id": "possession_fail",
     "order": 62643,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 45
+    },
     "timestamp": "2 hours ago",
     "content": "Plan A failed. Perrius tried to possess a guard to let us into the ballroom. Got caught immediately. Plan B: Sneaking.",
     "likes": 280,
     "comments": [
-      { "characterKey": "perrius_annmatar", "text": "I tried my best." },
-      { "characterKey": "remi", "text": "It's okay, ghost friend." }
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "I tried my best."
+      },
+      {
+        "characterKey": "remi",
+        "text": "It's okay, ghost friend."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5025,13 +12802,25 @@ export const WAHBOOK_POSTS = [
     "id": "ballroom_entry",
     "order": 62644,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 0 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 6,
+      "minute": 0
+    },
     "timestamp": "2 hours ago",
     "content": "Breached the Ballroom. It's a wreck. Headless dancers contorting to endless music. Smells like old sweat and blood.",
     "likes": 400,
     "comments": [
-      { "characterKey": "markop", "text": "Don't let them touch you." },
-      { "characterKey": "eager", "text": "They have no heads!" }
+      {
+        "characterKey": "markop",
+        "text": "Don't let them touch you."
+      },
+      {
+        "characterKey": "eager",
+        "text": "They have no heads!"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5039,13 +12828,25 @@ export const WAHBOOK_POSTS = [
     "id": "remi_intervenes",
     "order": 62645,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 5 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 6,
+      "minute": 5
+    },
     "timestamp": "2 hours ago",
     "content": "Headless dancers attacked Perrius! Had to shoot. Running low on bolts... 5 left.",
     "likes": 350,
     "comments": [
-      { "characterKey": "perrius_annmatar", "text": "Thank you for the assist." },
-      { "characterKey": "wario", "text": "Should have bought more ammo!" }
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "Thank you for the assist."
+      },
+      {
+        "characterKey": "wario",
+        "text": "Should have bought more ammo!"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5053,13 +12854,25 @@ export const WAHBOOK_POSTS = [
     "id": "time_check_late",
     "order": 62646,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 15 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 15
+    },
     "timestamp": "30 minutes ago",
     "content": "7:15 AM. We've been at this dinner for HOURS. Walking back to the table now.",
     "likes": 300,
     "comments": [
-      { "characterKey": "bowser", "text": "I am so bored." },
-      { "characterKey": "green_t", "text": "Get ready." }
+      {
+        "characterKey": "bowser",
+        "text": "I am so bored."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Get ready."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5067,13 +12880,25 @@ export const WAHBOOK_POSTS = [
     "id": "toadburt_clean_hands",
     "order": 62647,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 18 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 18
+    },
     "timestamp": "25 minutes ago",
     "content": "Passed Toadburt. He put up his hands to show me he's 'clean'. THE RING IS GONE. No dampening ring.",
     "likes": 650,
     "comments": [
-      { "characterKey": "markop", "text": "He can cast!" },
-      { "characterKey": "toadburt", "text": "I'm ready to explode something." }
+      {
+        "characterKey": "markop",
+        "text": "He can cast!"
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "I'm ready to explode something."
+      }
     ],
     "rumorId": "toadburt_capture"
   },
@@ -5081,13 +12906,25 @@ export const WAHBOOK_POSTS = [
     "id": "toadburt_signal",
     "order": 62648,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 20 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 20
+    },
     "timestamp": "20 minutes ago",
     "content": "Whispered to Toadburt: 'Regroup when it starts.' He knows something is going down.",
     "likes": 500,
     "comments": [
-      { "characterKey": "remi", "text": "Save him!" },
-      { "characterKey": "bowser", "text": "We need all hands." }
+      {
+        "characterKey": "remi",
+        "text": "Save him!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "We need all hands."
+      }
     ],
     "rumorId": "green_t_plan"
   },
@@ -5095,13 +12932,25 @@ export const WAHBOOK_POSTS = [
     "id": "bowser_complaint",
     "order": 62649,
     "characterKey": "bowser",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 30 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 30
+    },
     "timestamp": "10 minutes ago",
     "content": "Archie is back. 'Long leak,' he says. We can't fight all these guys!",
     "likes": 400,
     "comments": [
-      { "characterKey": "archie", "text": "We have a new mission." },
-      { "characterKey": "green_t", "text": "Yes we can." }
+      {
+        "characterKey": "archie",
+        "text": "We have a new mission."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Yes we can."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5109,13 +12958,25 @@ export const WAHBOOK_POSTS = [
     "id": "new_mission_start",
     "order": 62650,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 38 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 38
+    },
     "timestamp": "Just now",
     "content": "Time is 7:38 AM. Green T is ready. I'm ready. Bowser is... hungry. We are taking down the house.",
     "likes": 900,
     "comments": [
-      { "characterKey": "markop", "text": "DO IT." },
-      { "characterKey": "remi", "text": "We're coming for you!" }
+      {
+        "characterKey": "markop",
+        "text": "DO IT."
+      },
+      {
+        "characterKey": "remi",
+        "text": "We're coming for you!"
+      }
     ],
     "rumorId": "climax_start"
   },
@@ -5123,13 +12984,25 @@ export const WAHBOOK_POSTS = [
     "id": "remi_ballroom_breach",
     "order": 62691,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 38 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 38
+    },
     "timestamp": "Just now",
     "content": "We pushed into the ballroom. It's not empty like before. It's... flickering. One second it's ruined, the next it's full of people eating dinner, then it's ruined again. I saw ARCHIE for a split second! He looked terrified!",
     "likes": 789,
     "comments": [
-      { "characterKey": "archie", "text": "REMI?! I HEARD YOU!" },
-      { "characterKey": "eager", "text": "The worlds are mashing together!" }
+      {
+        "characterKey": "archie",
+        "text": "REMI?! I HEARD YOU!"
+      },
+      {
+        "characterKey": "eager",
+        "text": "The worlds are mashing together!"
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -5137,13 +13010,25 @@ export const WAHBOOK_POSTS = [
     "id": "markop_feels_orange",
     "order": 62692,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 39 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 39
+    },
     "timestamp": "Just now",
     "content": "The purple crystal shows the dining hall. The orange one feels... less magical. We might have to breach through there.",
     "likes": 350,
     "comments": [
-      { "characterKey": "remi", "text": "Lead the way, Markop." },
-      { "characterKey": "oracle_npc", "text": "No! Stop!" }
+      {
+        "characterKey": "remi",
+        "text": "Lead the way, Markop."
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "No! Stop!"
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -5151,13 +13036,25 @@ export const WAHBOOK_POSTS = [
     "id": "bowser_whisper_confusion",
     "order": 62693,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 36 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 36
+    },
     "timestamp": "4 hours ago",
     "content": "Whispered 'Knock heads later' to Bowser. He asked 'Vampire heads?'. No, Bowser. Just heads.",
     "likes": 510,
     "comments": [
-      { "characterKey": "bowser", "text": "Vampire heads are better trophies." },
-      { "characterKey": "remi", "text": "Focus!" }
+      {
+        "characterKey": "bowser",
+        "text": "Vampire heads are better trophies."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Focus!"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5165,13 +13062,25 @@ export const WAHBOOK_POSTS = [
     "id": "vaxillus_dog_threat",
     "order": 62694,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 49 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 49
+    },
     "timestamp": "3 hours ago",
     "content": "Vaxillus really loves his dogs. He's the type of guy to feed you to them.",
     "likes": 220,
     "comments": [
-      { "characterKey": "remi", "text": "I like dogs!" },
-      { "characterKey": "archie", "text": "Not these ones, Remi." }
+      {
+        "characterKey": "remi",
+        "text": "I like dogs!"
+      },
+      {
+        "characterKey": "archie",
+        "text": "Not these ones, Remi."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5179,13 +13088,25 @@ export const WAHBOOK_POSTS = [
     "id": "servant_annoyance",
     "order": 62695,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 1 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 1
+    },
     "timestamp": "3 hours ago",
     "content": "The servant narrowed his eyes when I ordered the pig. 'The guest is always right.' Yeah, keep telling yourself that buddy.",
     "likes": 440,
     "comments": [
-      { "characterKey": "bowser", "text": "I should have eaten him." },
-      { "characterKey": "markop", "text": "Don't antagonize the staff." }
+      {
+        "characterKey": "bowser",
+        "text": "I should have eaten him."
+      },
+      {
+        "characterKey": "markop",
+        "text": "Don't antagonize the staff."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5193,13 +13114,25 @@ export const WAHBOOK_POSTS = [
     "id": "green_t_bathroom_convo",
     "order": 62696,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 18 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 18
+    },
     "timestamp": "2 hours ago",
     "content": "Green T asked 'Why don't you help?' He thinks I was going to run away. I'm offended. I'm tactical.",
     "likes": 380,
     "comments": [
-      { "characterKey": "green_t", "text": "Tactical retreat is still retreat." },
-      { "characterKey": "archie", "text": "Ouch." }
+      {
+        "characterKey": "green_t",
+        "text": "Tactical retreat is still retreat."
+      },
+      {
+        "characterKey": "archie",
+        "text": "Ouch."
+      }
     ],
     "rumorId": "green_t_plan"
   },
@@ -5207,13 +13140,25 @@ export const WAHBOOK_POSTS = [
     "id": "timelines_merge_theory",
     "order": 62697,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 21 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 21
+    },
     "timestamp": "2 hours ago",
     "content": "If we kill the protectors, the crystal shatters, the beast rises, the timelines merge. It's a suicide mission. I love it.",
     "likes": 650,
     "comments": [
-      { "characterKey": "markop", "text": "It's the only way." },
-      { "characterKey": "bowser", "text": "FOR THE KINGDOM!" }
+      {
+        "characterKey": "markop",
+        "text": "It's the only way."
+      },
+      {
+        "characterKey": "bowser",
+        "text": "FOR THE KINGDOM!"
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -5221,13 +13166,25 @@ export const WAHBOOK_POSTS = [
     "id": "final_stand_prep",
     "order": 62698,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 40 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 40
+    },
     "timestamp": "Just now",
     "content": "Toadburt is looking at me. Bowser is looking at me. Green T has his hand on his pistol. It's go time.",
     "likes": 800,
     "comments": [
-      { "characterKey": "green_t", "text": "On my signal." },
-      { "characterKey": "toadburt", "text": "Let's do this." }
+      {
+        "characterKey": "green_t",
+        "text": "On my signal."
+      },
+      {
+        "characterKey": "toadburt",
+        "text": "Let's do this."
+      }
     ],
     "rumorId": "climax_start"
   },
@@ -5235,13 +13192,25 @@ export const WAHBOOK_POSTS = [
     "id": "remi_final_check",
     "order": 62699,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 40 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 40
+    },
     "timestamp": "Just now",
     "content": "5 bolts left. A vampire ally. A ghost. And Markop. We can do this. We HAVE to do this.",
     "likes": 700,
     "comments": [
-      { "characterKey": "markop", "text": "I have spells left. Let's go." },
-      { "characterKey": "usk", "text": "Lead on." }
+      {
+        "characterKey": "markop",
+        "text": "I have spells left. Let's go."
+      },
+      {
+        "characterKey": "usk",
+        "text": "Lead on."
+      }
     ],
     "rumorId": "climax_start"
   },
@@ -5249,27 +13218,51 @@ export const WAHBOOK_POSTS = [
     "id": "markop_lab_return",
     "order": 62700,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 7, "minute": 41 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 7,
+      "minute": 41
+    },
     "timestamp": "Just now",
     "content": "I'm looking at the Oracle. He knows we know. This conversation is over.",
     "likes": 660,
     "comments": [
-      { "characterKey": "remi", "text": "He's reaching for the lever!" },
-      { "characterKey": "oracle_npc", "text": "It is too late." }
+      {
+        "characterKey": "remi",
+        "text": "He's reaching for the lever!"
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "It is too late."
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
-    {
+  {
     "id": "corvinarus_statue_gaze",
     "order": 62653,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 22 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 22
+    },
     "timestamp": "5 hours ago",
     "content": "The eyes of these statues follow you. Not magically, just... judgmentally. Corvinarus ego is strong here.",
     "likes": 120,
     "comments": [
-      { "characterKey": "markop", "text": "Just stone. Ignore them." },
-      { "characterKey": "eager", "text": "I stuck my tongue out at one." }
+      {
+        "characterKey": "markop",
+        "text": "Just stone. Ignore them."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I stuck my tongue out at one."
+      }
     ],
     "rumorId": "corvinarus_legacy"
   },
@@ -5277,13 +13270,25 @@ export const WAHBOOK_POSTS = [
     "id": "sigil_power_drain",
     "order": 62654,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 16 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 16
+    },
     "timestamp": "5 hours ago",
     "content": "The teleportation circle just died. Sigils turned grey. We are stuck.",
     "likes": 250,
     "comments": [
-      { "characterKey": "remi", "text": "Don't panic, Markop." },
-      { "characterKey": "salam", "text": "We'll find another way out." }
+      {
+        "characterKey": "remi",
+        "text": "Don't panic, Markop."
+      },
+      {
+        "characterKey": "salam",
+        "text": "We'll find another way out."
+      }
     ],
     "rumorId": "planar_fracture_crisis"
   },
@@ -5291,13 +13296,25 @@ export const WAHBOOK_POSTS = [
     "id": "salam_slip",
     "order": 62655,
     "characterKey": "eager",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 53 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 53
+    },
     "timestamp": "5 hours ago",
     "content": "Salam slipped on the ledge! He pulled himself up, but whew... close one.",
     "likes": 180,
     "comments": [
-      { "characterKey": "salam", "text": "I meant to do that." },
-      { "characterKey": "remi", "text": "Sure you did." }
+      {
+        "characterKey": "salam",
+        "text": "I meant to do that."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Sure you did."
+      }
     ],
     "rumorId": "fractured_atrium_discovery"
   },
@@ -5305,13 +13322,25 @@ export const WAHBOOK_POSTS = [
     "id": "broken_walkways",
     "order": 62656,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 35 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 35
+    },
     "timestamp": "5 hours ago",
     "content": "Every walkway is shattered. Moving around this 'Atrium' is a parkour nightmare.",
     "likes": 200,
     "comments": [
-      { "characterKey": "hjumpik", "text": "I would crush that parkour." },
-      { "characterKey": "remi", "text": "Wish you were here!" }
+      {
+        "characterKey": "hjumpik",
+        "text": "I would crush that parkour."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Wish you were here!"
+      }
     ],
     "rumorId": "fractured_atrium_discovery"
   },
@@ -5319,13 +13348,25 @@ export const WAHBOOK_POSTS = [
     "id": "telescope_view",
     "order": 62657,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 45 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 45
+    },
     "timestamp": "5 hours ago",
     "content": "Looked through the telescope. Saw a house with a running fountain. Flowers looked natural. A piece of reality in this mess?",
     "likes": 300,
     "comments": [
-      { "characterKey": "remi", "text": "Is that home?" },
-      { "characterKey": "oracle_npc", "text": "A reflection of what once was." }
+      {
+        "characterKey": "remi",
+        "text": "Is that home?"
+      },
+      {
+        "characterKey": "oracle_npc",
+        "text": "A reflection of what once was."
+      }
     ],
     "rumorId": "planar_fracture_crisis"
   },
@@ -5333,13 +13374,25 @@ export const WAHBOOK_POSTS = [
     "id": "crystal_color_change",
     "order": 62658,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 2, "minute": 52 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 2,
+      "minute": 52
+    },
     "timestamp": "5 hours ago",
     "content": "The crystals on the tree are changing color. Pulsating. It's like a heartbeat.",
     "likes": 220,
     "comments": [
-      { "characterKey": "markop", "text": "Magical resonance. Dangerous." },
-      { "characterKey": "eager", "text": "Pretty colors!" }
+      {
+        "characterKey": "markop",
+        "text": "Magical resonance. Dangerous."
+      },
+      {
+        "characterKey": "eager",
+        "text": "Pretty colors!"
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -5347,13 +13400,25 @@ export const WAHBOOK_POSTS = [
     "id": "monster_drawing_attempt",
     "order": 62659,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 5 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 5
+    },
     "timestamp": "4 hours ago",
     "content": "Trying to draw the monster in the case. Need ink. Asked for supplies, no one answered. The claw is sticking OUT of the barrier.",
     "likes": 150,
     "comments": [
-      { "characterKey": "remi", "text": "Use what we have." },
-      { "characterKey": "eager", "text": "I have ketchup?" }
+      {
+        "characterKey": "remi",
+        "text": "Use what we have."
+      },
+      {
+        "characterKey": "eager",
+        "text": "I have ketchup?"
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -5361,13 +13426,25 @@ export const WAHBOOK_POSTS = [
     "id": "blood_ink_idea",
     "order": 62660,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 8 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 8
+    },
     "timestamp": "4 hours ago",
     "content": "Eager offered his dagger. Going to prick the monster for blood to use as ink. Science demands sacrifice.",
     "likes": 310,
     "comments": [
-      { "characterKey": "markop", "text": "Wait, don't-" },
-      { "characterKey": "eager", "text": "My dagger is sharp!" }
+      {
+        "characterKey": "markop",
+        "text": "Wait, don't-"
+      },
+      {
+        "characterKey": "eager",
+        "text": "My dagger is sharp!"
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -5375,13 +13452,25 @@ export const WAHBOOK_POSTS = [
     "id": "crashing_sound",
     "order": 62661,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 9 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 9
+    },
     "timestamp": "4 hours ago",
     "content": "Didn't stab it. Heard a HUGE crash from around the corner. Investigating now.",
     "likes": 290,
     "comments": [
-      { "characterKey": "markop", "text": "Quietly." },
-      { "characterKey": "remi", "text": "Shh!" }
+      {
+        "characterKey": "markop",
+        "text": "Quietly."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Shh!"
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -5389,13 +13478,25 @@ export const WAHBOOK_POSTS = [
     "id": "lab_chute",
     "order": 62662,
     "characterKey": "markop",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 11 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 11
+    },
     "timestamp": "4 hours ago",
     "content": "There's a disposal chute in the lab. Dumps refuse into the abyss. I shudder to think what 'refuse' means here.",
     "likes": 200,
     "comments": [
-      { "characterKey": "remi", "text": "Bodies. It's bodies." },
-      { "characterKey": "bones", "text": "The Legion does the same thing." }
+      {
+        "characterKey": "remi",
+        "text": "Bodies. It's bodies."
+      },
+      {
+        "characterKey": "bones",
+        "text": "The Legion does the same thing."
+      }
     ],
     "rumorId": "vessel_experiment"
   },
@@ -5403,13 +13504,25 @@ export const WAHBOOK_POSTS = [
     "id": "music_harp_shadow",
     "order": 62663,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 16 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 16
+    },
     "timestamp": "5 hours ago",
     "content": "The harp plays itself. Or the shadow plays it. Mournful notes. Really sets the mood for impending doom.",
     "likes": 180,
     "comments": [
-      { "characterKey": "bowser", "text": "It's annoying." },
-      { "characterKey": "green_t", "text": "Stay focused." }
+      {
+        "characterKey": "bowser",
+        "text": "It's annoying."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Stay focused."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5417,13 +13530,25 @@ export const WAHBOOK_POSTS = [
     "id": "red_room_decor",
     "order": 62664,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 18 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 18
+    },
     "timestamp": "5 hours ago",
     "content": "Red rugs with black veins. Stone tiles that swirl like oil. Whoever decorated this place has issues.",
     "likes": 210,
     "comments": [
-      { "characterKey": "vivesna_corvinarus", "text": "It is elegant." },
-      { "characterKey": "archie", "text": "It's tacky." }
+      {
+        "characterKey": "vivesna_corvinarus",
+        "text": "It is elegant."
+      },
+      {
+        "characterKey": "archie",
+        "text": "It's tacky."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5431,13 +13556,25 @@ export const WAHBOOK_POSTS = [
     "id": "pink_citrus",
     "order": 62665,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 22 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 22
+    },
     "timestamp": "5 hours ago",
     "content": "Saw some cut-up pink citrus. Smells sweet but bitter. Like a grapefruit but wrong. Everything here is wrong.",
     "likes": 150,
     "comments": [
-      { "characterKey": "remi", "text": "Don't eat it!" },
-      { "characterKey": "bowser", "text": "Looks tasty." }
+      {
+        "characterKey": "remi",
+        "text": "Don't eat it!"
+      },
+      {
+        "characterKey": "bowser",
+        "text": "Looks tasty."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5445,13 +13582,25 @@ export const WAHBOOK_POSTS = [
     "id": "kryn_heir",
     "order": 62666,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 22 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 22
+    },
     "timestamp": "3 hours ago",
     "content": "Kryn Cornelius. Heir to the throne of Autumnwood. Big title for a guy stuck in a time loop.",
     "likes": 200,
     "comments": [
-      { "characterKey": "markop", "text": "Illusions of grandeur." },
-      { "characterKey": "kryn_cornelius", "text": "Watch your tongue." }
+      {
+        "characterKey": "markop",
+        "text": "Illusions of grandeur."
+      },
+      {
+        "characterKey": "kryn_cornelius",
+        "text": "Watch your tongue."
+      }
     ],
     "rumorId": "corvinarus_legacy"
   },
@@ -5459,13 +13608,25 @@ export const WAHBOOK_POSTS = [
     "id": "demon_guest",
     "order": 62667,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 23 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 23
+    },
     "timestamp": "3 hours ago",
     "content": "One of the guests is definitely half-demon. Just sitting there. Sipping wine.",
     "likes": 250,
     "comments": [
-      { "characterKey": "waluigi", "text": "Wah! Scary!" },
-      { "characterKey": "archie", "text": "He seems chill actually." }
+      {
+        "characterKey": "waluigi",
+        "text": "Wah! Scary!"
+      },
+      {
+        "characterKey": "archie",
+        "text": "He seems chill actually."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5473,13 +13634,25 @@ export const WAHBOOK_POSTS = [
     "id": "nelius_caretaker",
     "order": 62668,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 32 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 32
+    },
     "timestamp": "3 hours ago",
     "content": "Nelius Ornelius. Caretaker. Names all sound the same here.",
     "likes": 180,
     "comments": [
-      { "characterKey": "remi", "text": "Lack of imagination." },
-      { "characterKey": "nelius_ornelius", "text": "I take care of everything." }
+      {
+        "characterKey": "remi",
+        "text": "Lack of imagination."
+      },
+      {
+        "characterKey": "nelius_ornelius",
+        "text": "I take care of everything."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5487,13 +13660,25 @@ export const WAHBOOK_POSTS = [
     "id": "ekia_intro",
     "order": 62669,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 34 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 34
+    },
     "timestamp": "3 hours ago",
     "content": "Guest named Ekia. Said hello. I said 'Everything is good.' Small talk with monsters is my specialty.",
     "likes": 300,
     "comments": [
-      { "characterKey": "green_t", "text": "Smooth." },
-      { "characterKey": "ekia", "text": "Indeed." }
+      {
+        "characterKey": "green_t",
+        "text": "Smooth."
+      },
+      {
+        "characterKey": "ekia",
+        "text": "Indeed."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5501,13 +13686,25 @@ export const WAHBOOK_POSTS = [
     "id": "david_vampire_scientist",
     "order": 62670,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 42 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 42
+    },
     "timestamp": "3 hours ago",
     "content": "David. Profession: Vampire Studies. He's a scientist. Studying vampires... while being at a vampire dinner. Bold.",
     "likes": 280,
     "comments": [
-      { "characterKey": "markop", "text": "Self-study is important." },
-      { "characterKey": "david_vampire", "text": "Knowledge is power." }
+      {
+        "characterKey": "markop",
+        "text": "Self-study is important."
+      },
+      {
+        "characterKey": "david_vampire",
+        "text": "Knowledge is power."
+      }
     ],
     "rumorId": "vampire_science"
   },
@@ -5515,13 +13712,25 @@ export const WAHBOOK_POSTS = [
     "id": "ruri_explorer",
     "order": 62671,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 44 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 44
+    },
     "timestamp": "3 hours ago",
     "content": "Ruri, explorer hired by vampires. Sounds like a temp job from hell.",
     "likes": 220,
     "comments": [
-      { "characterKey": "ruri", "text": "The pay is good." },
-      { "characterKey": "remi", "text": "Do they pay in gold or blood?" }
+      {
+        "characterKey": "ruri",
+        "text": "The pay is good."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Do they pay in gold or blood?"
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5529,13 +13738,25 @@ export const WAHBOOK_POSTS = [
     "id": "vostolas_archivist",
     "order": 62672,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 46 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 46
+    },
     "timestamp": "3 hours ago",
     "content": "Vostolas the Archivist. Knows everything about the Onyx Hand history. He's the Librarian of Doom.",
     "likes": 260,
     "comments": [
-      { "characterKey": "markop", "text": "I would like to see his library." },
-      { "characterKey": "vostolas", "text": "It is forbidden." }
+      {
+        "characterKey": "markop",
+        "text": "I would like to see his library."
+      },
+      {
+        "characterKey": "vostolas",
+        "text": "It is forbidden."
+      }
     ],
     "rumorId": "corvinarus_legacy"
   },
@@ -5543,13 +13764,25 @@ export const WAHBOOK_POSTS = [
     "id": "vaxillus_threat",
     "order": 62673,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 48 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 48
+    },
     "timestamp": "3 hours ago",
     "content": "Vaxillus Loumaal just threatened to put my head on a steak. 'Don't let my dogs interrupt ya.' Charming guy.",
     "likes": 400,
     "comments": [
-      { "characterKey": "bowser", "text": "I bite back." },
-      { "characterKey": "vaxillus_loumaal", "text": "Bark bark." }
+      {
+        "characterKey": "bowser",
+        "text": "I bite back."
+      },
+      {
+        "characterKey": "vaxillus_loumaal",
+        "text": "Bark bark."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5557,13 +13790,25 @@ export const WAHBOOK_POSTS = [
     "id": "tymnas_twins",
     "order": 62674,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 52 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 52
+    },
     "timestamp": "3 hours ago",
     "content": "The Tymnas. 'We are both Tymnas... you will only see one of us.' Creepy twin magic? Or quantum superposition?",
     "likes": 350,
     "comments": [
-      { "characterKey": "markop", "text": "Doppelgangers." },
-      { "characterKey": "tymnas", "text": "We are one." }
+      {
+        "characterKey": "markop",
+        "text": "Doppelgangers."
+      },
+      {
+        "characterKey": "tymnas",
+        "text": "We are one."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5571,13 +13816,25 @@ export const WAHBOOK_POSTS = [
     "id": "mazenound_riddle",
     "order": 62675,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 4, "minute": 54 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 4,
+      "minute": 54
+    },
     "timestamp": "3 hours ago",
     "content": "Mazenound says I'm bound to see her if I get lost in a maze. 'Ill see you up ahead.' Ominous foreshadowing.",
     "likes": 290,
     "comments": [
-      { "characterKey": "remi", "text": "We hate mazes." },
-      { "characterKey": "mazenound", "text": "Everyone gets lost eventually." }
+      {
+        "characterKey": "remi",
+        "text": "We hate mazes."
+      },
+      {
+        "characterKey": "mazenound",
+        "text": "Everyone gets lost eventually."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5585,13 +13842,25 @@ export const WAHBOOK_POSTS = [
     "id": "servant_whisper",
     "order": 62676,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 2 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 2
+    },
     "timestamp": "3 hours ago",
     "content": "The servant whispered into Orangus' ear after taking my order. He knows I'm messing with him.",
     "likes": 410,
     "comments": [
-      { "characterKey": "green_t", "text": "Careful." },
-      { "characterKey": "archie", "text": "I like living dangerously." }
+      {
+        "characterKey": "green_t",
+        "text": "Careful."
+      },
+      {
+        "characterKey": "archie",
+        "text": "I like living dangerously."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5599,13 +13868,25 @@ export const WAHBOOK_POSTS = [
     "id": "orangus_paper_bin",
     "order": 62677,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 12 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 12
+    },
     "timestamp": "3 hours ago",
     "content": "Orangus collects our answers to his riddles and bins them. It's performative. He doesn't care about our souls.",
     "likes": 380,
     "comments": [
-      { "characterKey": "markop", "text": "He cares about power." },
-      { "characterKey": "orangus_cornelius", "text": "I care about the truth." }
+      {
+        "characterKey": "markop",
+        "text": "He cares about power."
+      },
+      {
+        "characterKey": "orangus_cornelius",
+        "text": "I care about the truth."
+      }
     ],
     "rumorId": "oracle_betrayal"
   },
@@ -5613,13 +13894,25 @@ export const WAHBOOK_POSTS = [
     "id": "cherished_memory_question",
     "order": 62678,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 14 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 14
+    },
     "timestamp": "3 hours ago",
     "content": "Question: 'Eat your cherished memory to survive, or starve and forget who you are?' I chose to keep the memory. Starving isn't so bad.",
     "likes": 600,
     "comments": [
-      { "characterKey": "bowser", "text": "I would eat it. Memories don't fill you up." },
-      { "characterKey": "remi", "text": "Archie..." }
+      {
+        "characterKey": "bowser",
+        "text": "I would eat it. Memories don't fill you up."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Archie..."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5627,13 +13920,25 @@ export const WAHBOOK_POSTS = [
     "id": "bathroom_rug",
     "order": 62679,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 23 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 23
+    },
     "timestamp": "2 hours ago",
     "content": "Nice bathroom though. Bucket, rug, bench, mirror. 5 stars on Yelp.",
     "likes": 250,
     "comments": [
-      { "characterKey": "remi", "text": "Priorities!" },
-      { "characterKey": "eager", "text": "I gotta go too!" }
+      {
+        "characterKey": "remi",
+        "text": "Priorities!"
+      },
+      {
+        "characterKey": "eager",
+        "text": "I gotta go too!"
+      }
     ],
     "rumorId": "bathroom_review"
   },
@@ -5641,13 +13946,25 @@ export const WAHBOOK_POSTS = [
     "id": "green_t_bravery",
     "order": 62680,
     "characterKey": "archie",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 26 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 26
+    },
     "timestamp": "2 hours ago",
     "content": "Asked Green T if he can fight. 'Id be dead if I couldn't.' Touche. Told him to give Dan a chance.",
     "likes": 400,
     "comments": [
-      { "characterKey": "dan_the_toad", "text": "I'm trying my best!" },
-      { "characterKey": "green_t", "text": "Dan is... learning." }
+      {
+        "characterKey": "dan_the_toad",
+        "text": "I'm trying my best!"
+      },
+      {
+        "characterKey": "green_t",
+        "text": "Dan is... learning."
+      }
     ],
     "rumorId": "green_t_plan"
   },
@@ -5655,13 +13972,25 @@ export const WAHBOOK_POSTS = [
     "id": "ballroom_flicker",
     "order": 62681,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 2 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 6,
+      "minute": 2
+    },
     "timestamp": "2 hours ago",
     "content": "The ballroom is flickering between ruined state and pristine dinner. The timelines are mashing together.",
     "likes": 440,
     "comments": [
-      { "characterKey": "markop", "text": "Dimensional instability." },
-      { "characterKey": "eager", "text": "It hurts my eyes!" }
+      {
+        "characterKey": "markop",
+        "text": "Dimensional instability."
+      },
+      {
+        "characterKey": "eager",
+        "text": "It hurts my eyes!"
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -5669,13 +13998,25 @@ export const WAHBOOK_POSTS = [
     "id": "crossbow_recovery",
     "order": 62682,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 6 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 6,
+      "minute": 6
+    },
     "timestamp": "2 hours ago",
     "content": "There are broken crossbow bolts all over the floor here. Some are mine from... the future? The past? My head hurts.",
     "likes": 350,
     "comments": [
-      { "characterKey": "markop", "text": "Time is a loop here." },
-      { "characterKey": "remi", "text": "I need those bolts back." }
+      {
+        "characterKey": "markop",
+        "text": "Time is a loop here."
+      },
+      {
+        "characterKey": "remi",
+        "text": "I need those bolts back."
+      }
     ],
     "rumorId": "timelines_merging"
   },
@@ -5683,13 +14024,25 @@ export const WAHBOOK_POSTS = [
     "id": "usk_vigilance",
     "order": 62683,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 40 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 40
+    },
     "timestamp": "2 hours ago",
     "content": "Usk is surprisingly helpful for a vampire. 'Be more vigilant.' Good advice. We are investigating every room.",
     "likes": 280,
     "comments": [
-      { "characterKey": "usk", "text": "You must see what is hidden." },
-      { "characterKey": "markop", "text": "He's still a vampire." }
+      {
+        "characterKey": "usk",
+        "text": "You must see what is hidden."
+      },
+      {
+        "characterKey": "markop",
+        "text": "He's still a vampire."
+      }
     ],
     "rumorId": "unlikely_ally"
   },
@@ -5697,13 +14050,25 @@ export const WAHBOOK_POSTS = [
     "id": "corvinarus_note",
     "order": 62684,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 32 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 32
+    },
     "timestamp": "2 hours ago",
     "content": "Found a note written to Cornelius. 'A green toad will be drained for dinner.' Green T is on the menu!!",
     "likes": 550,
     "comments": [
-      { "characterKey": "archie", "text": "Not on my watch." },
-      { "characterKey": "green_t", "text": "I figured as much." }
+      {
+        "characterKey": "archie",
+        "text": "Not on my watch."
+      },
+      {
+        "characterKey": "green_t",
+        "text": "I figured as much."
+      }
     ],
     "rumorId": "green_t_danger"
   },
@@ -5711,13 +14076,25 @@ export const WAHBOOK_POSTS = [
     "id": "coat_pocket_gold",
     "order": 62685,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 52 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 52
+    },
     "timestamp": "2 hours ago",
     "content": "Found 15 gold in the coat pocket with the journal. Nice.",
     "likes": 600,
     "comments": [
-      { "characterKey": "wario", "text": "MINE! THAT'S MINE!" },
-      { "characterKey": "remi", "text": "Finders keepers." }
+      {
+        "characterKey": "wario",
+        "text": "MINE! THAT'S MINE!"
+      },
+      {
+        "characterKey": "remi",
+        "text": "Finders keepers."
+      }
     ],
     "rumorId": "loot_drop"
   },
@@ -5725,13 +14102,25 @@ export const WAHBOOK_POSTS = [
     "id": "magic_scroll_find",
     "order": 62686,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 5, "minute": 58 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 5,
+      "minute": 58
+    },
     "timestamp": "2 hours ago",
     "content": "Found a scroll of 'Comprehend Languages'. This will be useful if the monsters start speaking ancient vampire.",
     "likes": 320,
     "comments": [
-      { "characterKey": "markop", "text": "Save it for the ritual text." },
-      { "characterKey": "eager", "text": "Can I read it?" }
+      {
+        "characterKey": "markop",
+        "text": "Save it for the ritual text."
+      },
+      {
+        "characterKey": "eager",
+        "text": "Can I read it?"
+      }
     ],
     "rumorId": "loot_drop"
   },
@@ -5739,13 +14128,25 @@ export const WAHBOOK_POSTS = [
     "id": "remi_home_goal",
     "order": 62687,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 42 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 42
+    },
     "timestamp": "4 hours ago",
     "content": "Told Perrius my goal is to go home. Kivitos. I just want to go home.",
     "likes": 500,
     "comments": [
-      { "characterKey": "markop", "text": "We will get you home, Remi." },
-      { "characterKey": "perrius_annmatar", "text": "Hold onto that hope." }
+      {
+        "characterKey": "markop",
+        "text": "We will get you home, Remi."
+      },
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "Hold onto that hope."
+      }
     ],
     "rumorId": "remi_backstory"
   },
@@ -5753,13 +14154,25 @@ export const WAHBOOK_POSTS = [
     "id": "ring_trick",
     "order": 62688,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 3, "minute": 43 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 3,
+      "minute": 43
+    },
     "timestamp": "4 hours ago",
     "content": "Perrius gave us rings. 'Slip it onto the monsters, they appear dead.' Fake death rings. Sneaky.",
     "likes": 410,
     "comments": [
-      { "characterKey": "archie", "text": "I want one!" },
-      { "characterKey": "markop", "text": "Illusion magic. Useful." }
+      {
+        "characterKey": "archie",
+        "text": "I want one!"
+      },
+      {
+        "characterKey": "markop",
+        "text": "Illusion magic. Useful."
+      }
     ],
     "rumorId": "loot_drop"
   },
@@ -5767,13 +14180,25 @@ export const WAHBOOK_POSTS = [
     "id": "headless_dancers",
     "order": 62689,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 3 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 6,
+      "minute": 3
+    },
     "timestamp": "2 hours ago",
     "content": "The dancers in the ballroom... they don't have heads. They are twisting and writhing. Nightmare fuel.",
     "likes": 380,
     "comments": [
-      { "characterKey": "eager", "text": "SCARY!" },
-      { "characterKey": "markop", "text": "Necromantic constructs." }
+      {
+        "characterKey": "eager",
+        "text": "SCARY!"
+      },
+      {
+        "characterKey": "markop",
+        "text": "Necromantic constructs."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
   },
@@ -5781,16 +14206,28 @@ export const WAHBOOK_POSTS = [
     "id": "perrius_was_friend",
     "order": 62690,
     "characterKey": "remi",
-    "date": { "year": 1040, "monthIndex": 6, "day": 23, "hour": 6, "minute": 10 },
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 23,
+      "hour": 6,
+      "minute": 10
+    },
     "timestamp": "2 hours ago",
     "content": "I shot a dancer to save Perrius. I said 'That's my friend.' He said 'It WAS your friend.' Ouch.",
     "likes": 420,
     "comments": [
-      { "characterKey": "perrius_annmatar", "text": "The dead are not your friends." },
-      { "characterKey": "remi", "text": "Still hurts." }
+      {
+        "characterKey": "perrius_annmatar",
+        "text": "The dead are not your friends."
+      },
+      {
+        "characterKey": "remi",
+        "text": "Still hurts."
+      }
     ],
     "rumorId": "shadow_estate_dinner"
-  },  
+  },
   {
     "id": "orange_portal_prep",
     "order": 70001,
@@ -12713,72 +21150,129 @@ export const WAHBOOK_POSTS = [
     ],
     "rumorId": "archie_aegis_post"
   },
+  {
+    "id": "archie_confession_post",
+    "characterKey": "archie",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 7,
+      "minute": 45
+    },
+    "content": "[This post was deleted]",
+    "likes": 8,
+    "comments": [
       {
-          id: 'archie_confession_post',
-          characterKey: 'archie',
-          date: { year: 1040, monthIndex: 6, day: 20, hour: 7, minute: 45 },
-          content: "[This post was deleted]",
-          likes: 8,
-          comments: [
-              { characterKey: 'hjumpik', text: "Laddie... you posted this? Delete it. Now." },
-              { characterKey: 'regal_empire_delegate', text: "Admission of guilt noted. The Accords are clear on the destruction of heritage sites." },
-              { characterKey: 'green_thumb_guardians', text: "YOU DID WHAT TO A GREENHOUSE?!" }
-          ],
-          rumorId: 'greenhouse_inferno_confession'
+        "characterKey": "hjumpik",
+        "text": "Laddie... you posted this? Delete it. Now."
       },
       {
-          id: 'legion_mockery_anthem_post',
-          characterKey: 'iron_legion',
-          date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 15 },
-          content: "Intercepted audio from the Raventree Dance Hall. Our operatives have composed a little... tribute. 🎵 '...for the only thing reborn tonight is the Iron Dominion refined!' 🎵",
-          audioSrc: 'legion_anthem.mp3', // Placeholder
-          likes: 450,
-          comments: [
-              { characterKey: 'markop', text: "They mock us while holding hostages. Their arrogance will be their undoing." },
-              { characterKey: 'waluigi', text: "WAH! Catchy tune! Needs more accordion though." }
-          ],
-          rumorId: 'legion_mockery_anthem'
+        "characterKey": "regal_empire_delegate",
+        "text": "Admission of guilt noted. The Accords are clear on the destruction of heritage sites."
       },
       {
-          id: 'mages_guild_warrant',
-          characterKey: 'mages_guild',
-          date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 30 },
-          content: "NOTICE: Archie Miser is sought for questioning regarding unsanctioned high-energy spellcasting in a Nexus Zone. Any magical signatures matching his 'Third Eye' resonance are to be reported. A Null-Cage has been prepared.",
-          likes: 120,
-          comments: [
-              { characterKey: 'generic_toad', text: "Is he going to jail? Or magic jail? Magic jail sounds worse." }
-          ],
-          rumorId: 'greenhouse_inferno_confession'
+        "characterKey": "green_thumb_guardians",
+        "text": "YOU DID WHAT TO A GREENHOUSE?!"
+      }
+    ],
+    "rumorId": "greenhouse_inferno_confession"
+  },
+  {
+    "id": "legion_mockery_anthem_post",
+    "characterKey": "iron_legion",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 8,
+      "minute": 15
+    },
+    "content": "Intercepted audio from the Raventree Dance Hall. Our operatives have composed a little... tribute. 🎵 '...for the only thing reborn tonight is the Iron Dominion refined!' 🎵",
+    "audioSrc": "legion_anthem.mp3",
+    "likes": 450,
+    "comments": [
+      {
+        "characterKey": "markop",
+        "text": "They mock us while holding hostages. Their arrogance will be their undoing."
       },
       {
-          id: 'hjumpik_dark_crystal_post',
-          characterKey: 'hjumpik',
-          date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 0 },
-          content: "Found some... interesting minerals in the debris. Heavy. Cold. Might be useful for the forge, or might be cursed. Probably both.",
-          likes: 65,
-          comments: [
-              { characterKey: 'archmage_theron', text: "Do not handle raw dark crystals without protection, Dwarf. They stain the soul." }
-          ],
-          rumorId: 'raventree_manor'
-      },
+        "characterKey": "waluigi",
+        "text": "WAH! Catchy tune! Needs more accordion though."
+      }
+    ],
+    "rumorId": "legion_mockery_anthem"
+  },
+  {
+    "id": "mages_guild_warrant",
+    "characterKey": "mages_guild",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 8,
+      "minute": 30
+    },
+    "content": "NOTICE: Archie Miser is sought for questioning regarding unsanctioned high-energy spellcasting in a Nexus Zone. Any magical signatures matching his 'Third Eye' resonance are to be reported. A Null-Cage has been prepared.",
+    "likes": 120,
+    "comments": [
       {
-          id: 'oracle_cryptic_update',
-          characterKey: 'self_reflection_oracle',
-          date: { year: 1040, monthIndex: 6, day: 20, hour: 8, minute: 10 },
-          content: "The coat was simply... unfashionable. Markop killed the spider. Wonderful. Now, who is brave enough to climb the stairs? Once we go up, there is no coming back.",
-          likes: 333,
-          comments: [],
-          rumorId: 'raventree_manor'
-      },
+        "characterKey": "generic_toad",
+        "text": "Is he going to jail? Or magic jail? Magic jail sounds worse."
+      }
+    ],
+    "rumorId": "greenhouse_inferno_confession"
+  },
+  {
+    "id": "hjumpik_dark_crystal_post",
+    "characterKey": "hjumpik",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 9,
+      "minute": 0
+    },
+    "content": "Found some... interesting minerals in the debris. Heavy. Cold. Might be useful for the forge, or might be cursed. Probably both.",
+    "likes": 65,
+    "comments": [
       {
-          id: 'wah_media_confession_reaction',
-          characterKey: 'wah_media_collective',
-          date: { year: 1040, monthIndex: 6, day: 20, hour: 9, minute: 30 },
-          content: "BREAKING: 'The Fireball Confession' trends globally! Archie Miser admits to destroying Raventree Greenhouse. Opinions split: Heroic rescue or reckless vandalism? Mages' Guild calls for arrest; Rebel Clans applaud the chaos.",
-          likes: 890,
-          comments: [],
-          rumorId: 'greenhouse_inferno_confession'
-      },
+        "characterKey": "archmage_theron",
+        "text": "Do not handle raw dark crystals without protection, Dwarf. They stain the soul."
+      }
+    ],
+    "rumorId": "raventree_manor"
+  },
+  {
+    "id": "oracle_cryptic_update",
+    "characterKey": "self_reflection_oracle",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 8,
+      "minute": 10
+    },
+    "content": "The coat was simply... unfashionable. Markop killed the spider. Wonderful. Now, who is brave enough to climb the stairs? Once we go up, there is no coming back.",
+    "likes": 333,
+    "comments": [],
+    "rumorId": "raventree_manor"
+  },
+  {
+    "id": "wah_media_confession_reaction",
+    "characterKey": "wah_media_collective",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 20,
+      "hour": 9,
+      "minute": 30
+    },
+    "content": "BREAKING: 'The Fireball Confession' trends globally! Archie Miser admits to destroying Raventree Greenhouse. Opinions split: Heroic rescue or reckless vandalism? Mages' Guild calls for arrest; Rebel Clans applaud the chaos.",
+    "likes": 890,
+    "comments": [],
+    "rumorId": "greenhouse_inferno_confession"
+  },
   {
     "id": "glimmer_controversy",
     "order": 63204,
@@ -19237,7 +27731,6 @@ export const WAHBOOK_POSTS = [
     ],
     "rumorId": "delfino_exile_final"
   },
-  
   {
     "id": "robinson_dragon_lies",
     "order": 32100,
@@ -32988,129 +41481,6 @@ export const WAHBOOK_POSTS = [
       }
     ],
     "eventId": "toadette_test"
-  },
-  {
-    "id": "archie_confession_post",
-    "characterKey": "archie",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 20,
-      "hour": 7,
-      "minute": 45
-    },
-    "content": "[This post was deleted]",
-    "likes": 8,
-    "comments": [
-      {
-        "characterKey": "hjumpik",
-        "text": "Laddie... you posted this? Delete it. Now."
-      },
-      {
-        "characterKey": "regal_empire_delegate",
-        "text": "Admission of guilt noted. The Accords are clear on the destruction of heritage sites."
-      },
-      {
-        "characterKey": "green_thumb_guardians",
-        "text": "YOU DID WHAT TO A GREENHOUSE?!"
-      }
-    ],
-    "rumorId": "greenhouse_inferno_confession"
-  },
-  {
-    "id": "legion_mockery_anthem_post",
-    "characterKey": "iron_legion",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 20,
-      "hour": 8,
-      "minute": 15
-    },
-    "content": "Intercepted audio from the Raventree Dance Hall. Our operatives have composed a little... tribute. 🎵 '...for the only thing reborn tonight is the Iron Dominion refined!' 🎵",
-    "audioSrc": "legion_anthem.mp3",
-    "likes": 450,
-    "comments": [
-      {
-        "characterKey": "markop",
-        "text": "They mock us while holding hostages. Their arrogance will be their undoing."
-      },
-      {
-        "characterKey": "waluigi",
-        "text": "WAH! Catchy tune! Needs more accordion though."
-      }
-    ],
-    "rumorId": "legion_mockery_anthem"
-  },
-  {
-    "id": "mages_guild_warrant",
-    "characterKey": "mages_guild",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 20,
-      "hour": 8,
-      "minute": 30
-    },
-    "content": "NOTICE: Archie Miser is sought for questioning regarding unsanctioned high-energy spellcasting in a Nexus Zone. Any magical signatures matching his 'Third Eye' resonance are to be reported. A Null-Cage has been prepared.",
-    "likes": 120,
-    "comments": [
-      {
-        "characterKey": "generic_toad",
-        "text": "Is he going to jail? Or magic jail? Magic jail sounds worse."
-      }
-    ],
-    "rumorId": "greenhouse_inferno_confession"
-  },
-  {
-    "id": "hjumpik_dark_crystal_post",
-    "characterKey": "hjumpik",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 20,
-      "hour": 9,
-      "minute": 0
-    },
-    "content": "Found some... interesting minerals in the debris. Heavy. Cold. Might be useful for the forge, or might be cursed. Probably both.",
-    "likes": 65,
-    "comments": [
-      {
-        "characterKey": "archmage_theron",
-        "text": "Do not handle raw dark crystals without protection, Dwarf. They stain the soul."
-      }
-    ],
-    "rumorId": "raventree_manor"
-  },
-  {
-    "id": "oracle_cryptic_update",
-    "characterKey": "self_reflection_oracle",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 20,
-      "hour": 8,
-      "minute": 10
-    },
-    "content": "The coat was simply... unfashionable. Markop killed the spider. Wonderful. Now, who is brave enough to climb the stairs? Once we go up, there is no coming back.",
-    "likes": 333,
-    "comments": [],
-    "rumorId": "raventree_manor"
-  },
-  {
-    "id": "wah_media_confession_reaction",
-    "characterKey": "wah_media_collective",
-    "date": {
-      "year": 1040,
-      "monthIndex": 6,
-      "day": 20,
-      "hour": 9,
-      "minute": 30
-    },
-    "content": "BREAKING: 'The Fireball Confession' trends globally! Archie Miser admits to destroying Raventree Greenhouse. Opinions split: Heroic rescue or reckless vandalism? Mages' Guild calls for arrest; Rebel Clans applaud the chaos.",
-    "likes": 890,
-    "comments": [],
-    "rumorId": "greenhouse_inferno_confession"
   }
 ];
 

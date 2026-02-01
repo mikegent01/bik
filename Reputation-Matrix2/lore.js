@@ -124,72 +124,73 @@ combinedFactions.liberated_toads = modifiedMushroomKingdomFactions.liberated_toa
 // STORY ARCS
 // ============================================
 export const STORY_ARCS = {
+raventree_manor: {
+        id: 'raventree_manor',
+        name: 'The Raventree Manor Crisis',
+        description: 'The central conflict binding the fractured realities. The Oracle (a necromancer) seeks to merge the timelines to awaken his "Vessel." The party is now scattered across the shards, with teams trapped in the high-stakes political games of the Shadowfell, the chaotic revelry of the Feywild, and the void-touched laboratory of the Deep Mirror.',
+        icon: '🏚️',
+        status: 'active',
+        startDate: { day: 16, monthIndex: 6, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'discovery', name: 'Discovery', description: 'The party arrives and encounters the first supernatural threats.' },
+            { id: 'escalation', name: 'Escalation', description: 'The Manor responds with escalating force, from wraiths to rust monsters.' },
+            { id: 'containment', name: 'Containment', description: 'The party breaks the three anchors, preparing for the final ritual.' },
+            { id: 'fracture', name: 'Fracture', description: 'The ritual fails, shattering reality and scattering the party across the planes.' },
+            { id: 'reconvergence', name: 'Reconvergence', description: 'The party attempts to reunite the fractured timelines.' }
+        ],
+        currentPhase: 3, // Still in the 'Fracture' phase
+        themes: ['supernatural', 'survival', 'mystery', 'horror', 'planar-travel', 'cosmic-horror'],
+        keyFactions: ['mages_guild', 'cosmic_jesters', 'iron_legion', 'onyx_hand', 'liberated_toads'],
+        consequences: {
+            positive: ['Unprecedented knowledge of planar physics', 'Powerful artifacts from other dimensions', 'Potential for new, strange allies'],
+            negative: ['Permanent separation of the party', 'Unleashing of the "Vessel"', 'Loss of key witnesses and allies (Eager captured)']
+        }
+    },
 shadowfell_estate: {
         id: 'shadowfell_estate',
         name: 'The Shadowfell Dinner Party',
-        description: 'Trapped in the dark reflection of Raventree, Archie and Bowser must navigate a high-stakes dinner with Vampire Lords. Physical combat is limited; social etiquette is the weapon of choice.',
+        description: 'Archie and Bowser navigated a high-stakes dinner with the Vampire Lords of the Onyx Hand. After Archie lost his magic, he adopted the "Dracacide" disguise to bluff his way through the social intrigue, ultimately aiding Green T in a desperate escape that involved shattering the Shadowfell anchor crystal.',
         icon: '🍷',
-        status: 'active',
+        status: 'resolved',
         startDate: { day: 21, monthIndex: 6, year: 1040 },
-        endDate: null,
+        endDate: { day: 26, monthIndex: 6, year: 1040 },
         phases: [
-            { id: 'arrival', name: 'Arrival', description: 'Entering the Shadow Plane' },
-            { id: 'dinner', name: 'The Feast', description: 'Surviving the courses' },
-            { id: 'betrayal', name: 'The Turn', description: 'Green T and Toadburt make their moves' },
-            { id: 'escape', name: 'The Exit', description: 'Breaking the anchor to return' }
+            { id: 'arrival', name: 'Arrival', description: 'Entering the Shadow Plane and losing magic.' },
+            { id: 'dinner', name: 'The Feast', description: 'Surviving the courses and social combat.' },
+            { id: 'betrayal', name: 'The Turn', description: 'Green T revealed his escape plan and firearm.' },
+            { id: 'escape', name: 'The Exit', description: 'Shattering the anchor and fleeing the manor.' }
         ],
-        currentPhase: 1,
-        themes: ['social-combat', 'horror', 'diplomacy'],
+        currentPhase: 3,
+        themes: ['social-combat', 'horror', 'diplomacy', 'escape'],
         keyFactions: ['onyx_hand', 'silver_flame', 'mages_guild'],
         consequences: {
-            positive: ['Alliance with Onyx Hand', 'Rescue of Green T'],
-            negative: ['Permanent soul damage', 'Enraging the Vampire Lords']
+            positive: ['Rescued Green T', 'Destroyed the Shadowfell anchor crystal', 'Gained intel on the Convergence Protocol'],
+            negative: ['Enraged the Vampire Lords of the Onyx Hand', 'Left Bowser behind during the escape']
         }
     },    
-    feywild_attic: {
+feywild_attic: {
         id: 'feywild_attic',
         name: 'The Feywild Fracture',
-        description: 'Hjumpik, Waluigi, and Toad Lee are lost in the chaotic, overgrown reflection of the manor. They must navigate wild magic, fey trickery, and the hunt for the "Orange" anchor.',
+        description: 'Hjumpik, Waluigi, and Toad Lee are trapped in the chaotic Feywild reflection of Raventree. After escaping a hag, they have become unwilling agents of the manor\'s ruler, Lady Aurelian, tasked with evicting her unwanted Satyr guests while secretly investigating the manor\'s connection to the "Orange Heir" and a greater conspiracy.',
         icon: '🦋',
         status: 'active',
         startDate: { day: 21, monthIndex: 6, year: 1040 },
         endDate: null,
         phases: [
-            { id: 'entry', name: 'The Fall', description: 'Dropping into the Feywild' },
-            { id: 'exploration', name: 'The Jungle Attic', description: 'Navigating the overgrown manor' },
-            { id: 'encounter', name: 'The Orange Guide', description: 'Meeting the False Oracle' },
-            { id: 'convergence', name: 'The Bell', description: 'Ringing the bell to merge realities' }
+            { id: 'entry', name: 'The Hag & The Greenhouse', description: 'Escaping the Hag and finding sanctuary.' },
+            { id: 'infiltration', name: 'The Feywild Party', description: 'Navigating the grotesque banquet and meeting the manor\'s staff.' },
+            { id: 'service', name: 'Service to the Lady', description: 'Evicting Satyrs and clearing trapped rooms.' },
+            { id: 'investigation', name: 'The Theater Reveal', description: 'Searching for Rakasha and the true "Guest of Honor".' }
         ],
-        currentPhase: 1,
-        themes: ['chaos', 'wild-magic', 'survival'],
-        keyFactions: ['cosmic_jesters', 'ratchet_raiders', 'iron_legion'],
+        currentPhase: 2,
+        themes: ['chaos', 'wild-magic', 'survival', 'social-stealth'],
+        keyFactions: ['cosmic_jesters', 'ratchet_raiders', 'iron_legion', 'mages_guild'],
         consequences: {
-            positive: ['Powerful fey artifacts', 'Taming the chaos'],
-            negative: ['Time dilation issues', 'Mutations from wild magic']
+            positive: ['Powerful fey artifacts (Morning Glory)', 'Gained insight into the Corvinarus lineage', 'Tentative trust from Lady Aurelian'],
+            negative: ['Time dilation issues', 'Conflicting missions from the Legion and Perrius', 'Rakasha is missing in action']
         }
     },    
-raventree_manor: {
-        id: 'raventree_manor',
-        name: 'The Raventree Manor Crisis',
-        description: 'The central conflict binding the fractured realities. The Oracle (Necromancer) seeks to merge the timelines to awaken his Vessel.',        icon: '🏚️',
-        status: 'active',
-        startDate: { day: 16, monthIndex: 6, year: 1040 },
-        endDate: null,
-        phases: [
-            { id: 'discovery', name: 'Discovery', description: 'The party arrives at the cursed mansion, ignoring warnings about mirrors and encountering its first supernatural threats.' },
-            { id: 'escalation', name: 'Escalation', description: 'The Manor responds to the party\'s presence with escalating force: rust monsters, wraiths, and the siege by the Pond Patrol.' },
-            { id: 'containment', name: 'Containment', description: 'The party breaks the three anchors binding the curse (Star Fragment, Mirror Terror, Arcane Wraith) and clears the Silent Grove, preparing for the final ritual.' },
-            { id: 'fracture', name: 'Fracture', description: 'The separation ritual fails, shattering reality. The party is scattered across the planes and must survive their respective shards to find a way back.' },
-            { id: 'reconvergence', name: 'Reconvergence', description: 'The party attempts to reunite the fractured timelines and decide the ultimate fate of the Manor, the Oracle, and the Star Shard.' }
-        ],
-        currentPhase: 3, // Now in the 'Fracture' phase (0-indexed)
-        themes: ['supernatural', 'survival', 'mystery', 'horror', 'planar-travel', 'cosmic-horror'],
-        keyFactions: ['mages_guild', 'cosmic_jesters', 'iron_legion', 'onyx_hand', 'liberated_toads'],
-        consequences: {
-            positive: ['Unprecedented knowledge of planar physics', 'Powerful artifacts from other dimensions', 'Potential for new, strange allies'],
-            negative: ['Permanent separation of the party', 'Erasure from history', 'Unleashing of the "Something Older" from the Void', 'Loss of key witnesses and allies']
-        }
-    },
     capital_intrigue: {
         id: 'capital_intrigue',
         name: 'Capital Intrigue',

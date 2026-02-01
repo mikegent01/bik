@@ -3,368 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vigilance Terminal - Tactical Mission Control Dashboard">
-    <meta name="theme-color" content="#0a1520">
     <title>Vigilance Terminal | Mission Control</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="quests.css">
+    <link rel="stylesheet" href="quests-arcs.css">
 </head>
 <body>
-    <!-- SVG Definitions (Hidden) -->
-    <svg width="0" height="0" aria-hidden="true" style="position: absolute;">
+    <svg width="0" height="0" style="position: absolute;">
         <defs>
-            <!-- Progress Ring Gradient -->
             <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#7c5bf5;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#00ffc8;stop-opacity:1" />
-            </linearGradient>
-            
-            <!-- Gold Gradient for Rewards -->
-            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#ffd23f;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#ffb347;stop-opacity:1" />
-            </linearGradient>
-            
-            <!-- Danger Gradient -->
-            <linearGradient id="dangerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#ff3a5e;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#ff6b8a;stop-opacity:1" />
+                <stop offset="0%" style="stop-color:#00d4ff" />
+                <stop offset="50%" style="stop-color:#7c5bf5" />
+                <stop offset="100%" style="stop-color:#00ffc8" />
             </linearGradient>
         </defs>
     </svg>
 
     <div class="tablet-frame">
-        <div class="scanline-overlay" aria-hidden="true"></div>
+        <div class="scanline-overlay"></div>
         
         <div id="app">
-            <!-- Skip Link for Accessibility -->
-            <a href="#quest-container" class="visually-hidden" id="skip-link">Skip to quest list</a>
-            
-            <main id="main-content" class="quest-page" role="main">
-                
-                <!-- ==================== HERO DASHBOARD ==================== -->
-                <header class="mission-control-header" role="banner">
-                    <div class="header-left">
-                        <div class="header-icon" aria-hidden="true">
-                            <div class="icon-ring"></div>
-                            <span class="icon-glyph">◎</span>
-                        </div>
-                        <div class="header-title-group">
-                            <h1 class="page-title">MISSION CONTROL</h1>
-                            <p class="page-subtitle">Tactical Operations Dashboard v2.1</p>
-                        </div>
-                    </div>
-                    
-                    <div class="header-stats" role="group" aria-label="Mission Statistics">
-                        <div class="mini-stat urgent" id="stat-urgent" aria-label="Urgent missions">
-                            <span class="mini-stat-icon" aria-hidden="true">⚠</span>
-                            <span class="mini-stat-value">0</span>
-                            <span class="mini-stat-label">Urgent</span>
-                        </div>
-                        <div class="mini-stat active" id="stat-active" aria-label="Active missions">
-                            <span class="mini-stat-icon" aria-hidden="true">◉</span>
-                            <span class="mini-stat-value">0</span>
-                            <span class="mini-stat-label">Active</span>
-                        </div>
-                        <div class="mini-stat complete" id="stat-complete" aria-label="Completed missions">
-                            <span class="mini-stat-icon" aria-hidden="true">✓</span>
-                            <span class="mini-stat-value">0</span>
-                            <span class="mini-stat-label">Complete</span>
+            <!-- ==================== ARC SELECTION SCREEN ==================== -->
+            <section class="arc-selection-screen" id="arc-selection-screen">
+                <header class="arc-selection-header">
+                    <div class="header-content">
+                        <h1 class="arc-selection-title">THE FRACTURED MANOR</h1>
+                        <p class="arc-selection-subtitle">Choose Your Path Through the Shattered Realms</p>
+                        <div class="header-divider">
+                            <span class="divider-glyph">◆</span>
+                            <span class="divider-line"></span>
+                            <span class="divider-glyph">◆</span>
                         </div>
                     </div>
                 </header>
 
-                <!-- ==================== VISUAL DASHBOARD ==================== -->
-                <section class="dashboard-grid" id="quest-dashboard" aria-label="Mission Dashboard">
-                    
-                    <!-- Progress Ring Card -->
+                <div class="arc-panels-container" id="arc-panels-container">
+                    <!-- Shadowfell Panel -->
+                    <article class="arc-panel shadowfell" data-arc="shadowfell_estate" tabindex="0">
+                        <div class="arc-panel-bg"></div>
+                        <div class="arc-panel-overlay"></div>
+                        <div class="arc-panel-content">
+                            <div class="arc-icon-container">
+                                <span class="arc-icon">🍷</span>
+                            </div>
+                            <h2 class="arc-name">SHADOWFELL ESTATE</h2>
+                            <p class="arc-tagline">The Vampire's Banquet</p>
+                            <div class="arc-divider"></div>
+                            <div class="arc-characters">
+                                <span class="arc-character">Archie</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Bowser</span>
+                            </div>
+                            <p class="arc-description">Navigate a deadly dinner party where etiquette is the weapon.</p>
+                            <div class="arc-stats">
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="shadowfell-quest-count">0</span>
+                                    <span class="stat-label">Missions</span>
+                                </div>
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="shadowfell-phase">1/4</span>
+                                    <span class="stat-label">Phase</span>
+                                </div>
+                            </div>
+                            <div class="arc-themes">
+                                <span class="theme-tag">Social Combat</span>
+                                <span class="theme-tag">Horror</span>
+                            </div>
+                            <button class="arc-enter-btn">
+                                <span>ENTER THE SHADOW</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Feywild Panel -->
+                    <article class="arc-panel feywild" data-arc="feywild_attic" tabindex="0">
+                        <div class="arc-panel-bg"></div>
+                        <div class="arc-panel-overlay"></div>
+                        <div class="arc-panel-content">
+                            <div class="arc-icon-container">
+                                <span class="arc-icon">🦋</span>
+                            </div>
+                            <h2 class="arc-name">FEYWILD ATTIC</h2>
+                            <p class="arc-tagline">The Chaos Garden</p>
+                            <div class="arc-divider"></div>
+                            <div class="arc-characters">
+                                <span class="arc-character">Hjumpik</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Waluigi</span>
+                                <span class="arc-separator">•</span>
+                                <span class="arc-character">Toad Lee</span>
+                            </div>
+                            <p class="arc-description">Navigate wild magic and fey trickery in the overgrown manor.</p>
+                            <div class="arc-stats">
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="feywild-quest-count">0</span>
+                                    <span class="stat-label">Missions</span>
+                                </div>
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="feywild-phase">1/4</span>
+                                    <span class="stat-label">Phase</span>
+                                </div>
+                            </div>
+                            <div class="arc-themes">
+                                <span class="theme-tag">Chaos</span>
+                                <span class="theme-tag">Wild Magic</span>
+                            </div>
+                            <button class="arc-enter-btn">
+                                <span>EMBRACE THE WILD</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Raventree Panel -->
+                    <article class="arc-panel raventree" data-arc="raventree_manor" tabindex="0">
+                        <div class="arc-panel-bg"></div>
+                        <div class="arc-panel-overlay"></div>
+                        <div class="arc-panel-content">
+                            <div class="arc-icon-container">
+                                <span class="arc-icon">🏚️</span>
+                            </div>
+                            <h2 class="arc-name">RAVENTREE MANOR</h2>
+                            <p class="arc-tagline">The Nexus of Ruin</p>
+                            <div class="arc-divider"></div>
+                            <div class="arc-characters">
+                                <span class="arc-character">Mages Guild</span>
+                            </div>
+                            <p class="arc-description">The central conflict binding the fractured realities.</p>
+                            <div class="arc-stats">
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="raventree-quest-count">0</span>
+                                    <span class="stat-label">Missions</span>
+                                </div>
+                                <div class="arc-stat">
+                                    <span class="stat-value" id="raventree-phase">4/5</span>
+                                    <span class="stat-label">Phase</span>
+                                </div>
+                            </div>
+                            <div class="arc-themes">
+                                <span class="theme-tag">Cosmic Horror</span>
+                                <span class="theme-tag">Mystery</span>
+                            </div>
+                            <button class="arc-enter-btn">
+                                <span>FACE THE NEXUS</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+
+                <footer class="arc-selection-footer">
+                    <button class="footer-nav-btn" id="view-all-quests">
+                        <span class="btn-icon">☰</span>
+                        <span class="btn-label">View All Missions</span>
+                    </button>
+                </footer>
+            </section>
+
+            <!-- ==================== ARC DETAIL VIEW ==================== -->
+            <section class="arc-detail-view" id="arc-detail-view" hidden>
+                <header class="arc-detail-header" id="arc-detail-header">
+                    <button class="back-btn" id="back-to-selection">
+                        <span class="back-arrow">←</span>
+                        <span class="back-text">Back</span>
+                    </button>
+                    <div class="arc-detail-title-group">
+                        <span class="arc-detail-icon" id="arc-detail-icon">🍷</span>
+                        <div class="arc-detail-titles">
+                            <h1 class="arc-detail-name" id="arc-detail-name">SHADOWFELL ESTATE</h1>
+                            <p class="arc-detail-tagline" id="arc-detail-tagline">The Vampire's Banquet</p>
+                        </div>
+                    </div>
+                    <div class="arc-detail-stats">
+                        <div class="detail-stat">
+                            <span class="stat-icon">📋</span>
+                            <span class="stat-value" id="detail-quest-count">0</span>
+                            <span class="stat-label">Missions</span>
+                        </div>
+                        <div class="detail-stat">
+                            <span class="stat-icon">📊</span>
+                            <span class="stat-value" id="detail-progress">0%</span>
+                            <span class="stat-label">Progress</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="arc-info-panel" id="arc-info-panel">
+                    <div class="arc-description-full" id="arc-description-full"></div>
+                    <div class="phase-timeline" id="phase-timeline"></div>
+                    <div class="consequences-preview" id="consequences-preview">
+                        <div class="consequence-group positive">
+                            <h4>✓ Positive Outcomes</h4>
+                            <ul id="positive-consequences"></ul>
+                        </div>
+                        <div class="consequence-group negative">
+                            <h4>✗ Negative Outcomes</h4>
+                            <ul id="negative-consequences"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arc-quest-filters" id="arc-quest-filters">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="active">Active</button>
+                        <button class="filter-tab" data-filter="available">Available</button>
+                        <button class="filter-tab" data-filter="completed">Completed</button>
+                        <button class="filter-tab" data-filter="all">All</button>
+                    </div>
+                    <div class="filter-search">
+                        <span class="search-icon">🔍</span>
+                        <input type="search" id="arc-quest-search" placeholder="Search missions...">
+                    </div>
+                </div>
+
+                <div class="arc-quest-list" id="arc-quest-list"></div>
+            </section>
+
+            <!-- ==================== ALL QUESTS VIEW ==================== -->
+            <section class="all-quests-view" id="all-quests-view" hidden>
+                <header class="all-quests-header">
+                    <button class="back-btn" id="back-to-selection-from-all">
+                        <span class="back-arrow">←</span>
+                        <span class="back-text">Back</span>
+                    </button>
+                    <div class="header-title-group">
+                        <h1 class="page-title">ALL MISSIONS</h1>
+                        <p class="page-subtitle">Complete Mission Database</p>
+                    </div>
+                    <div class="header-stats">
+                        <div class="mini-stat urgent" id="all-stat-urgent">
+                            <span class="mini-stat-icon">⚠</span>
+                            <span class="mini-stat-value">0</span>
+                            <span class="mini-stat-label">Urgent</span>
+                        </div>
+                        <div class="mini-stat active" id="all-stat-active">
+                            <span class="mini-stat-icon">◉</span>
+                            <span class="mini-stat-value">0</span>
+                            <span class="mini-stat-label">Active</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="dashboard-grid" id="all-dashboard">
                     <article class="dashboard-card progress-card">
-                        <h2 class="visually-hidden">Overall Progress</h2>
                         <div class="progress-ring-container">
-                            <svg class="progress-ring" viewBox="0 0 120 120" role="img" aria-label="Overall completion progress">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
                                 <circle class="progress-ring-bg" cx="60" cy="60" r="52"/>
-                                <circle 
-                                    class="progress-ring-fill" 
-                                    cx="60" 
-                                    cy="60" 
-                                    r="52" 
-                                    id="overall-progress-ring"
-                                    stroke="url(#progressGradient)"
-                                />
+                                <circle class="progress-ring-fill" cx="60" cy="60" r="52" id="overall-progress-ring" stroke="url(#progressGradient)"/>
                             </svg>
                             <div class="progress-ring-center">
-                                <span class="progress-value" id="overall-progress-value" aria-live="polite">0%</span>
+                                <span class="progress-value" id="overall-progress-value">0%</span>
                                 <span class="progress-label">Overall</span>
                             </div>
                         </div>
-                        <div class="progress-breakdown">
-                            <div class="breakdown-item">
-                                <span class="breakdown-label">Main Story</span>
-                                <div class="breakdown-bar">
-                                    <div class="breakdown-fill main-story" id="main-story-progress" style="width: 0%"></div>
-                                </div>
-                            </div>
-                            <div class="breakdown-item">
-                                <span class="breakdown-label">Side Quests</span>
-                                <div class="breakdown-bar">
-                                    <div class="breakdown-fill side-quests" id="side-quest-progress" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
                     </article>
-
-                    <!-- Party Workload Card -->
                     <article class="dashboard-card workload-card">
                         <h2 class="card-title">
-                            <span class="title-icon" aria-hidden="true">👥</span>
-                            Party Assignments
-                        </h2>
-                        <div class="party-workload-grid" id="party-workload" role="list" aria-label="Party member quest assignments">
-                            <!-- Populated by JS -->
-                            <div class="skeleton-loader" aria-hidden="true">
-                                <div class="skeleton skeleton-avatar"></div>
-                                <div class="skeleton skeleton-text"></div>
-                            </div>
-                        </div>
+<!-- Continuing from workload-card -->
+                        <h2 class="card-title">👥 Party Assignments</h2>
+                        <div class="party-workload-grid" id="party-workload"></div>
                     </article>
+                </div>
 
-                    <!-- Urgent Alert Card -->
-                    <article class="dashboard-card alert-card" id="urgent-alert-card" role="alert" aria-live="assertive">
-                        <div class="alert-pulse" aria-hidden="true"></div>
-                        <div class="alert-content">
-                            <span class="alert-icon" aria-hidden="true">✦</span>
-                            <div class="alert-text">
-                                <span class="alert-title" id="urgent-alert-title">No Critical Missions</span>
-                                <span class="alert-subtitle" id="urgent-alert-subtitle">All operations nominal</span>
-                            </div>
-                        </div>
-                    </article>
-                    
-                </section>
-
-                <!-- ==================== QUEST NAVIGATION TABS ==================== -->
-                <nav class="quest-tabs" id="quest-tabs" role="tablist" aria-label="Quest categories">
-                    <button 
-                        class="quest-tab active" 
-                        data-tab="active" 
-                        role="tab" 
-                        aria-selected="true" 
-                        aria-controls="quest-container"
-                        id="tab-active"
-                    >
-                        <span class="tab-icon" aria-hidden="true">◉</span>
+                <nav class="quest-tabs" id="all-quest-tabs">
+                    <button class="quest-tab active" data-tab="active">
+                        <span class="tab-icon">◉</span>
                         <span class="tab-label">Active</span>
-                        <span class="tab-count" aria-label="count">0</span>
+                        <span class="tab-count">0</span>
                     </button>
-                    <button 
-                        class="quest-tab" 
-                        data-tab="available" 
-                        role="tab" 
-                        aria-selected="false" 
-                        aria-controls="quest-container"
-                        id="tab-available"
-                    >
-                        <span class="tab-icon" aria-hidden="true">📋</span>
+                    <button class="quest-tab" data-tab="available">
+                        <span class="tab-icon">📋</span>
                         <span class="tab-label">Available</span>
-                        <span class="tab-count" aria-label="count">0</span>
+                        <span class="tab-count">0</span>
                     </button>
-                    <button 
-                        class="quest-tab" 
-                        data-tab="completed" 
-                        role="tab" 
-                        aria-selected="false" 
-                        aria-controls="quest-container"
-                        id="tab-completed"
-                    >
-                        <span class="tab-icon" aria-hidden="true">✓</span>
+                    <button class="quest-tab" data-tab="completed">
+                        <span class="tab-icon">✓</span>
                         <span class="tab-label">Completed</span>
-                        <span class="tab-count" aria-label="count">0</span>
+                        <span class="tab-count">0</span>
                     </button>
-                    <button 
-                        class="quest-tab" 
-                        data-tab="failed" 
-                        role="tab" 
-                        aria-selected="false" 
-                        aria-controls="quest-container"
-                        id="tab-failed"
-                    >
-                        <span class="tab-icon" aria-hidden="true">✗</span>
-                        <span class="tab-label">Failed</span>
-                        <span class="tab-count" aria-label="count">0</span>
-                    </button>
-                    <button 
-                        class="quest-tab" 
-                        data-tab="all" 
-                        role="tab" 
-                        aria-selected="false" 
-                        aria-controls="quest-container"
-                        id="tab-all"
-                    >
-                        <span class="tab-icon" aria-hidden="true">☰</span>
+                    <button class="quest-tab" data-tab="all">
+                        <span class="tab-icon">☰</span>
                         <span class="tab-label">All</span>
-                        <span class="tab-count" aria-label="count">0</span>
+                        <span class="tab-count">0</span>
                     </button>
                 </nav>
 
-                <!-- ==================== FILTER BAR ==================== -->
-                <div class="filter-bar" id="filter-bar" role="search" aria-label="Quest filters">
-                    <div class="filter-group-inline">
-                        <label for="sort-select">Sort:</label>
-                        <select id="sort-select" class="filter-select" aria-label="Sort quests by">
-                            <option value="priority">Priority</option>
-                            <option value="progress">Progress</option>
-                            <option value="deadline">Deadline</option>
-                            <option value="date">Date Added</option>
-                            <option value="name">Name (A-Z)</option>
-                        </select>
-                    </div>
-                    <div class="filter-group-inline">
-                        <label for="type-filter">Type:</label>
-                        <select id="type-filter" class="filter-select" aria-label="Filter by quest type">
-                            <option value="all">All Types</option>
-                            <option value="main">Main Story</option>
-                            <option value="side">Side Quest</option>
-                            <option value="personal">Personal</option>
-                            <option value="faction">Faction</option>
-                            <option value="bounty">Bounty</option>
-                            <option value="exploration">Exploration</option>
-                        </select>
-                    </div>
-                    <div class="filter-group-inline">
-                        <label for="assignee-filter">Assignee:</label>
-                        <select id="assignee-filter" class="filter-select" aria-label="Filter by assignee">
-                            <option value="all">Everyone</option>
-                            <!-- Populated by JS -->
-                        </select>
-                    </div>
+                <div class="filter-bar" id="all-filter-bar">
+                    <select id="all-sort-select" class="filter-select">
+                        <option value="priority">Sort: Priority</option>
+                        <option value="progress">Sort: Progress</option>
+                        <option value="deadline">Sort: Deadline</option>
+                    </select>
+                    <select id="all-arc-filter" class="filter-select">
+                        <option value="all">All Arcs</option>
+                        <option value="shadowfell_estate">Shadowfell</option>
+                        <option value="feywild_attic">Feywild</option>
+                        <option value="raventree_manor">Raventree</option>
+                    </select>
                     <div class="filter-search">
-                        <label for="quest-search" class="visually-hidden">Search missions</label>
-                        <span class="search-icon" aria-hidden="true">🔍</span>
-                        <input 
-                            type="search" 
-                            id="quest-search" 
-                            placeholder="Search missions..." 
-                            class="search-input"
-                            autocomplete="off"
-                            spellcheck="false"
-                        >
+                        <span class="search-icon">🔍</span>
+                        <input type="search" id="all-quest-search" placeholder="Search...">
                     </div>
                 </div>
 
-                <!-- ==================== QUEST GRID ==================== -->
-                <section 
-                    class="quest-grid" 
-                    id="quest-container" 
-                    role="tabpanel" 
-                    aria-labelledby="tab-active"
-                    aria-live="polite"
-                >
-                    <!-- Quest cards injected by JS -->
-                    
-                    <!-- Loading Skeleton (shown while loading) -->
-                    <div class="quest-card-skeleton loading-skeleton" aria-hidden="true">
-                        <div class="skeleton skeleton-title"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width: 60%;"></div>
-                    </div>
-                    <div class="quest-card-skeleton loading-skeleton" aria-hidden="true">
-                        <div class="skeleton skeleton-title"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width: 75%;"></div>
-                    </div>
-                    <div class="quest-card-skeleton loading-skeleton" aria-hidden="true">
-                        <div class="skeleton skeleton-title"></div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width: 50%;"></div>
-                    </div>
-                </section>
-
-                <!-- Empty State -->
-                <div class="empty-state" id="empty-state" role="status" aria-live="polite" hidden>
-                    <div class="empty-icon" aria-hidden="true">📭</div>
+                <div class="quest-grid" id="all-quest-container"></div>
+                
+                <div class="empty-state" id="all-empty-state" hidden>
+                    <div class="empty-icon">📭</div>
                     <h3>No Missions Found</h3>
-                    <p>Adjust your filters or check back later for new assignments.</p>
-                    <button class="btn-reset-filters" id="reset-filters" type="button">
-                        Reset Filters
-                    </button>
+                    <p>Adjust your filters or check back later.</p>
                 </div>
-
-            </main>
+            </section>
         </div>
     </div>
 
     <!-- ==================== QUEST DETAIL MODAL ==================== -->
-    <div 
-        class="modal-overlay" 
-        id="quest-modal" 
-        role="dialog" 
-        aria-modal="true" 
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        hidden
-    >
+    <div class="modal-overlay" id="quest-modal" hidden>
         <div class="modal-container">
-            <button 
-                class="modal-close" 
-                id="modal-close" 
-                type="button"
-                aria-label="Close quest details"
-            >
-                <span aria-hidden="true">×</span>
-            </button>
-            <div class="modal-content" id="modal-content" tabindex="-1">
-                <!-- Quest details injected by JS -->
-                
-                <!-- Modal Loading State -->
-                <div class="modal-loading" id="modal-loading">
-                    <div class="modal-loading-spinner"></div>
-                    <span>Loading mission data...</span>
-                </div>
-            </div>
+            <!-- Content injected by JS -->
         </div>
     </div>
 
-    <!-- ==================== TOAST NOTIFICATIONS ==================== -->
-    <div class="toast-container" id="toast-container" role="region" aria-label="Notifications" aria-live="polite">
-        <!-- Toasts injected by JS -->
-    </div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
 
-    <!-- ==================== SCRIPTS ==================== -->
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
-    <script type="module" src="quests.js"></script>
-    
-    <!-- Inline script for critical initialization -->
-    <script>
-        // Remove loading skeletons once JS loads
-        document.addEventListener('DOMContentLoaded', () => {
-            const skeletons = document.querySelectorAll('.loading-skeleton');
-            setTimeout(() => {
-                skeletons.forEach(s => s.remove());
-            }, 100);
-        });
-        
-        // Handle modal visibility with hidden attribute
-        const modal = document.getElementById('quest-modal');
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'class') {
-                    const isActive = modal.classList.contains('active');
-                    modal.hidden = !isActive;
-                }
-            });
-        });
-        observer.observe(modal, { attributes: true });
-    </script>
+    <script type="module" src="quests-arcs.js"></script>
 </body>
-</html>
+</html>                            
